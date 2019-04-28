@@ -1,0 +1,33 @@
+@import './src/theme.scss';
+
+mat-toolbar {
+  position: fixed;
+  z-index: 1000;
+  background-color: $toolbar-color !important;
+  .app-logo {
+    height: 64px;
+    text-decoration: none;
+    color: #fff;
+    img {
+      height: 24px;
+      margin-top: 20px;
+    }
+    span {
+      font-weight: 400;
+      font-size: 30px;
+      margin-left: 12px;
+      line-height: 64px;
+    }
+  }
+  .fill-remaining-space {
+    flex: 1 1 auto;
+  }
+  .mat-button {
+    line-height: 60px;
+    border-radius: 0;
+    &.active {
+      margin-top: 1px;
+      border-bottom: 2px solid $primary-color;
+    }
+  }
+}
