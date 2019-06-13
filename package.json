@@ -24,7 +24,8 @@
     "@angular/router": "^7.2.13",
     "core-js": "^2.5.4",
     "rxjs": "^6.0.0",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.26",
+    "timers": "^0.1.1"
   },
   "devDependencies": {
     "@angular/compiler-cli": "^7.2.13",
