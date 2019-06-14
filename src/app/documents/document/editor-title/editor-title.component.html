@@ -23,7 +23,7 @@
 
     <div class="app-card-content">
 
-      <mat-form-field class="full-width">
+      <mat-form-field class="app-full-width">
         <span *ngIf='item.nonSort["_"]' matPrefix class="title-prefix" color="primary">{{ item.nonSort["_"] }}</span>
         <input autocomplete="off" style="width: calc(100% - 60px)" spellcheck="false" matInput [(ngModel)]='item.title["_"]' placeholder="{{ 'editor.title.title' | translate }}">
             <mat-slide-toggle color="primary" class="non-sort-toggle"
@@ -34,7 +34,7 @@
             </mat-slide-toggle>
       </mat-form-field>
 
-      <mat-form-field class="full-width">
+      <mat-form-field class="app-full-width">
         <input autocomplete="off" matInput [(ngModel)]='item.subTitle["_"]' placeholder="{{ 'editor.title.subtitle' | translate }}">
       </mat-form-field>
 

@@ -247,18 +247,31 @@ body {
   .mat-form-field-infix {
     border-top: 7px solid transparent;
   }
-  mat-form-field.full-width {
-    width: 100%;
+  mat-form-field {
+    &.app-full-width {
+      width: 100%;
+    }
+    &.app-half-left {
+      width: calc(50% - 8px);
+    }
+    &.app-half-right {
+      width: calc(50% - 8px);
+      margin-left: 16px;
+    }
   }
   .mat-form-field-underline {
     background-color: rgba(255, 255, 255, 0.2) !important;
   }
-  .mat-select {
+  .mat-select.app-no-placeholder {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     .mat-select-value {
       height: 30px;
       line-height: 30px;
     }
+  }
+  .app-label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
   }
 }
 
@@ -269,6 +282,7 @@ body {
     &.mat-selected {
       // background: rgba(255, 255, 255, 0.12);
       background: rgba(255, 255, 255, 0.3);
+      color: #ffffff !important;
     }
   }
 }

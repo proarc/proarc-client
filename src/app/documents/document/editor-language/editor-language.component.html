@@ -15,14 +15,14 @@
         <mat-icon>keyboard_arrow_up</mat-icon>
       </button>
 
-      <button matTooltip="{{ 'editor.title.add_btn' | translate }}" color="primary" (click)="field.addAfter(index)" mat-icon-button>
+      <button matTooltip="{{ 'editor.language.add_btn' | translate }}" color="primary" (click)="field.addAfter(index)" mat-icon-button>
         <mat-icon>add</mat-icon>
       </button>
 
     </div>
 
-    <div class="app-card-content no-floating-placeholder full-width">
-      <mat-select [(ngModel)]='item.language["_"]' placeholder="{{ 'editor.language.language' | translate }}" class="no-floating-placeholder">
+    <div class="app-card-content app-full-width">
+      <mat-select [(ngModel)]='item.language["_"]' placeholder="{{ 'editor.language.language' | translate }}" class="app-no-placeholder">
         <mat-option *ngFor="let lang of langs" [value]="lang.code">
           {{ lang.name }}
         </mat-option>

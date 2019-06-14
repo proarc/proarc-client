@@ -1,3 +1,4 @@
+import { EditorAuthorComponent } from './documents/document/editor-author/editor-author.component';
 import { EditorLanguageComponent } from './documents/document/editor-language/editor-language.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from './services/api.service';
@@ -33,7 +34,8 @@ export function hljsLanguages() {
     DocumentComponent,
     XmlViewComponent,
     EditorTitleComponent,
-    EditorLanguageComponent
+    EditorLanguageComponent,
+    EditorAuthorComponent
   ],
   imports: [
     BrowserModule,

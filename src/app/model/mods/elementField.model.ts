@@ -1,3 +1,5 @@
+import { ModsAuthor } from './author.model';
+import { ModsRole } from './role.model';
 import { ModsLanguage } from './language.model';
 import { ModsElement } from './element.model';
 import { ModsTitle } from './title.model';
@@ -32,6 +34,10 @@ export class ElementField {
                 return new ModsTitle(el);
             case ModsLanguage.getSelector():
                 return new ModsLanguage(el);
+            case ModsRole.getSelector():
+                return new ModsRole(el);
+            case ModsAuthor.getSelector():
+                return new ModsAuthor(el);
         }
     }
 

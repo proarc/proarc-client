@@ -2,6 +2,7 @@ import { ModsLanguage } from './mods/language.model';
 import { parseString, processors, Builder } from 'xml2js';
 import { ModsTitle } from './mods/title.model';
 import { ElementField } from './mods/elementField.model';
+import { ModsAuthor } from './mods/author.model';
 declare var $: any;
 
 
@@ -13,6 +14,7 @@ export class DigitalDocument {
   private mods;
 
   public titles: ElementField;
+  public authors: ElementField;
   public languages: ElementField;
 
   constructor(uuid: string, mods: string) {
@@ -43,6 +45,7 @@ export class DigitalDocument {
     const root = modsCollection['mods'][0];
 
     this.titles = new ElementField(root, ModsTitle.getSelector());
+    this.authors = new ElementField(root, ModsAuthor.getSelector());
     this.languages = new ElementField(root, ModsLanguage.getSelector());
 
   }
@@ -58,6 +61,7 @@ export class DigitalDocument {
            + 'xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ '
            + 'http://www.openarchives.org/OAI/2.0/oai_dc.xsd">\n';
     dc += this.titles.toDC();
+    dc += this.authors.toDC();
     dc += this.languages.toDC();
     dc += '</oai_dc:dc>';
     return dc;
@@ -80,6 +84,9 @@ export class DigitalDocument {
     const root = mods['modsCollection']['mods'][0];
 
     this.normalizeField(root, ModsTitle.getSelector());
+    this.normalizeField(root, ModsAuthor.getSelector());
+    this.normalizeField(root, ModsLanguage.getSelector());
+
 
     return mods;
   }
@@ -139,17 +146,6 @@ export class DigitalDocument {
       }
     }
     return false;
-  }
-
-  private extend() {
-    for (let i = 1 ; i < arguments.length; i++) {
-      for (const key in arguments[i]) {
-        if (arguments[i].hasOwnProperty(key)) {
-          arguments[0][key] = arguments[i][key];
-        }
-      }
-    }
-    return arguments[0];
   }
 
 

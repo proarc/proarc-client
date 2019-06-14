@@ -1,0 +1,19 @@
+
+
+.name-wrapper {
+  height: 57px;
+  .full-name {
+    width: calc(100% - 40px);
+    display: block;
+  }
+  .btn-split-name {
+    float: right;
+    width: 40px;
+  }
+}
+.app-author-roles {
+  .mat-select {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+}
