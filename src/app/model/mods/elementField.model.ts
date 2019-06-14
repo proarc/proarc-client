@@ -1,3 +1,4 @@
+import { ModsLanguage } from './language.model';
 import { ModsElement } from './element.model';
 import { ModsTitle } from './title.model';
 import ModsUtils from './utils';
@@ -29,6 +30,8 @@ export class ElementField {
         switch (this.selector) {
             case ModsTitle.getSelector():
                 return new ModsTitle(el);
+            case ModsLanguage.getSelector():
+                return new ModsLanguage(el);
         }
     }
 
@@ -57,6 +60,13 @@ export class ElementField {
         const item: ModsElement = this.newInstance({});
         this.items.push(item);
         this.root.push(item.getEl());
+        return item;
+    }
+
+    public addAfter(index: number): ModsElement {
+        const item: ModsElement = this.newInstance({});
+        this.items.splice(index + 1, 0, item);
+        this.root.splice(index + 1, 0, item.getEl());
         return item;
     }
 

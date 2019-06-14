@@ -1,57 +1,52 @@
-<div class="app-card editor" *ngFor="let item of field.items; index as index; last as last; first as first;">
-  <div class="app-card-header">
-    <span class="app-card-title">{{ 'editor.title.title' | translate }}</span>
+<div class="editor">
 
-    <button matTooltip="{{ 'common.remove' | translate }}" color="primary" (click)="field.remove(index)" mat-icon-button>
-      <mat-icon>delete</mat-icon>
-    </button>
+  <div class="app-card" *ngFor="let item of field.items; index as index; last as last; first as first;">
+    <div class="app-card-header">
+      <span class="app-card-title">{{ 'editor.title.title' | translate }}</span>
 
-    <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" color="primary" (click)="field.moveDown(index)" mat-icon-button>
-      <mat-icon>keyboard_arrow_down</mat-icon>
-    </button>
-    <button [disabled]="first" matTooltip="{{ 'common.move_up' | translate }}" color="primary" (click)="field.moveUp(index)" mat-icon-button>
-      <mat-icon>keyboard_arrow_up</mat-icon>
-    </button>
-  </div>
+      <button matTooltip="{{ 'common.remove' | translate }}" color="primary" (click)="field.remove(index)" mat-icon-button>
+        <mat-icon>delete</mat-icon>
+      </button>
 
+      <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" color="primary" (click)="field.moveDown(index)" mat-icon-button>
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+      <button [disabled]="first" matTooltip="{{ 'common.move_up' | translate }}" color="primary" (click)="field.moveUp(index)" mat-icon-button>
+        <mat-icon>keyboard_arrow_up</mat-icon>
+      </button>
 
-  <div class="app-card-content">
+      <button matTooltip="{{ 'editor.title.add_btn' | translate }}" color="primary" (click)="field.addAfter(index)" mat-icon-button>
+        <mat-icon>add</mat-icon>
+      </button>
 
-    <mat-form-field class="full-width">
-      <span *ngIf='item.nonSort["_"]' matPrefix class="title-prefix" color="primary">{{ item.nonSort["_"] }}</span>
-      <input autocomplete="off" style="width: calc(100% - 60px)" spellcheck="false" matInput [(ngModel)]='item.title["_"]' placeholder="{{ 'editor.title.title' | translate }}">
-          <mat-slide-toggle color="primary" class="non-sort-toggle"
-                          matTooltip="{{ 'editor.title.non_sort_toggle' | translate }}"
-                          [disabled]="item.nonSortToggleDisabled()"
-                          (change)="item.onNonSotToggleChanged($event)"
-                          [checked]='item.nonSort["_"].length > 0' >
-          </mat-slide-toggle>
-    </mat-form-field>
+    </div>
 
+    <div class="app-card-content">
 
-    <!-- <mat-form-field class="full-width">
-      <mat-select [(ngModel)]='item.attrs["type"]' placeholder="{{ 'editor.title.type' | translate }}">
-        <mat-option *ngFor="let type of types" [value]="type">
-          {{ type }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field> -->
+      <mat-form-field class="full-width">
+        <span *ngIf='item.nonSort["_"]' matPrefix class="title-prefix" color="primary">{{ item.nonSort["_"] }}</span>
+        <input autocomplete="off" style="width: calc(100% - 60px)" spellcheck="false" matInput [(ngModel)]='item.title["_"]' placeholder="{{ 'editor.title.title' | translate }}">
+            <mat-slide-toggle color="primary" class="non-sort-toggle"
+                            matTooltip="{{ 'editor.title.non_sort_toggle' | translate }}"
+                            [disabled]="item.nonSortToggleDisabled()"
+                            (change)="item.onNonSotToggleChanged($event)"
+                            [checked]='item.nonSort["_"].length > 0' >
+            </mat-slide-toggle>
+      </mat-form-field>
 
+      <mat-form-field class="full-width">
+        <input autocomplete="off" matInput [(ngModel)]='item.subTitle["_"]' placeholder="{{ 'editor.title.subtitle' | translate }}">
+      </mat-form-field>
 
-    <mat-form-field class="full-width">
-      <input autocomplete="off" matInput [(ngModel)]='item.subTitle["_"]' placeholder="{{ 'editor.title.subtitle' | translate }}">
-    </mat-form-field>
-
-    <div style="display:flex;">
-    <mat-form-field class="input-partname">
-      <input autocomplete="off" matInput [(ngModel)]='item.partName["_"]' placeholder="{{ 'editor.title.partname' | translate }}">
-    </mat-form-field>
-    <mat-form-field class="input-partnumber">
-      <input autocomplete="off" matInput [(ngModel)]='item.partNumber["_"]' placeholder="{{ 'editor.title.partnumber' | translate }}">
-    </mat-form-field>
+      <div style="display:flex;">
+      <mat-form-field class="input-partname">
+        <input autocomplete="off" matInput [(ngModel)]='item.partName["_"]' placeholder="{{ 'editor.title.partname' | translate }}">
+      </mat-form-field>
+      <mat-form-field class="input-partnumber">
+        <input autocomplete="off" matInput [(ngModel)]='item.partNumber["_"]' placeholder="{{ 'editor.title.partnumber' | translate }}">
+      </mat-form-field>
+      </div>
     </div>
   </div>
+
 </div>
-
-
-<button color="primary" (click)="field.add()" mat-raised-button>{{ 'editor.title.add_btn' | translate }}</button>

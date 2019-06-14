@@ -1,0 +1,34 @@
+<div class="editor">
+
+  <div class="app-card" *ngFor="let item of field.items; index as index; last as last; first as first;">
+    <div class="app-card-header">
+      <span class="app-card-title">{{ 'editor.language.language' | translate }}</span>
+
+      <button matTooltip="{{ 'common.remove' | translate }}" color="primary" (click)="field.remove(index)" mat-icon-button>
+        <mat-icon>delete</mat-icon>
+      </button>
+
+      <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" color="primary" (click)="field.moveDown(index)" mat-icon-button>
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+      <button [disabled]="first" matTooltip="{{ 'common.move_up' | translate }}" color="primary" (click)="field.moveUp(index)" mat-icon-button>
+        <mat-icon>keyboard_arrow_up</mat-icon>
+      </button>
+
+      <button matTooltip="{{ 'editor.title.add_btn' | translate }}" color="primary" (click)="field.addAfter(index)" mat-icon-button>
+        <mat-icon>add</mat-icon>
+      </button>
+
+    </div>
+
+    <div class="app-card-content no-floating-placeholder full-width">
+      <mat-select [(ngModel)]='item.language["_"]' placeholder="{{ 'editor.language.language' | translate }}" class="no-floating-placeholder">
+        <mat-option *ngFor="let lang of langs" [value]="lang.code">
+          {{ lang.name }}
+        </mat-option>
+      </mat-select>
+    </div>
+
+  </div>
+
+</div>

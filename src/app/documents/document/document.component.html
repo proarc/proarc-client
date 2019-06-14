@@ -1,7 +1,12 @@
 
 
 
-<app-editor-title *ngIf="document" [field]="document.titles" style="width: 50%; display: block; float: left;"></app-editor-title>
+<div *ngIf="document" style="width: 50%; display: block; float: left; height: 100%; overflow: auto;">
+
+    <app-editor-title [field]="document.titles"></app-editor-title>
+    <app-editor-language [field]="document.languages"></app-editor-language>
+
+</div>
 
 <app-xml-view *ngIf="document" [xml]="document.toMods()" style="width: 50%; float: left; display: block; height: 100%; overflow: scroll; background:  #272b33;">
 

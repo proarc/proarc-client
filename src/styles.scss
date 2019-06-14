@@ -208,11 +208,36 @@ body {
   overflow: auto;
 }
 
-.editor mat-form-field.full-width {
-  width: 100%;
-}
 
 .editor {
+  overflow: hidden;
+  .app-card {
+    // border: 1px solid rgba(0,0,0,.03);
+    // box-shadow: 0 1px 1px rgba(0,0,0,.14);
+    // margin-bottom: 20px;
+    // background: #363d48;
+    .app-card-header {
+      background: rgba(0,0,0,.16);
+      height: 47px;
+      .app-card-title {
+        color: #5997bb;
+        padding: 8px 20px;
+        line-height: 47px;
+      }
+      button {
+        float: right;
+        margin-top: 3px;
+      }
+    }
+    .app-card-content {
+      padding: 15px 20px 5px;
+    }
+  }
+  .app-btn-add {
+    float: right;
+    margin-bottom: 20px;
+    margin-right: 20px;
+  }
   .mat-form-field-appearance-legacy .mat-form-field-label {
     color: rgba(255, 255, 255, 0.6);
   }
@@ -222,39 +247,32 @@ body {
   .mat-form-field-infix {
     border-top: 7px solid transparent;
   }
-}
-
-
-.app-card {
-  // border: 1px solid rgba(0,0,0,.03);
-  // box-shadow: 0 1px 1px rgba(0,0,0,.14);
-  // margin-bottom: 20px;
-  // background: #363d48;
-  .app-card-header {
-  background: rgba(0,0,0,.16);
-  height: 47px;
-    .app-card-title {
-      color: #eee;
-      padding: 8px 20px;
-      line-height: 47px;
+  mat-form-field.full-width {
+    width: 100%;
+  }
+  .mat-form-field-underline {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+  }
+  .mat-select {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    .mat-select-value {
+      height: 30px;
+      line-height: 30px;
     }
   }
-  .app-card-content {
-    padding: 15px 20px 5px;
+}
+
+
+.mat-select-panel {
+  background: $dropdown-bg;
+  .mat-option {
+    &.mat-selected {
+      // background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.3);
+    }
   }
-  button {
-    float: right;
-    margin-top: 3px;
-  }
 }
 
-
-
-
-.mat-select-underline {
-  background-color: rgba(0, 0, 0, 0.15) !important;
-}
-
-.mat-form-field-underline {
-  background-color: rgba(255, 255, 255, 0.2) !important;
-}
+// .mat-select-underline {
+//   background-color: rgba(255, 255, 255, 0.2) !important;
+// }

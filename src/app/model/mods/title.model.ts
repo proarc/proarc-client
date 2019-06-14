@@ -3,11 +3,11 @@ import { ModsElement } from './element.model';
 
 export class ModsTitle extends ModsElement {
 
-    nonSort: string;
-    title: string;
-    subTitle: string;
-    partNumber: string;
-    partName: string;
+    nonSort;
+    title;
+    subTitle;
+    partNumber;
+    partName;
 
     static getSelector() {
         return 'titleInfo';
