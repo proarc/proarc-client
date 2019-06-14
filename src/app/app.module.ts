@@ -1,3 +1,4 @@
+import { ModsEditorComponent } from './documents/document/mods-editor/mods-editor.component';
 import { EditorAuthorComponent } from './documents/document/editor-author/editor-author.component';
 import { EditorLanguageComponent } from './documents/document/editor-language/editor-language.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -20,6 +21,7 @@ import { EditorTitleComponent } from './documents/document/editor-title/editor-t
 import { TranslatorModule } from 'angular-translator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditorPublisherComponent } from './documents/document/editor-publisher/editor-publisher.component';
+import { PanelComponent } from './documents/document/panel/panel.component';
 
 
 export function hljsLanguages() {
@@ -37,7 +39,9 @@ export function hljsLanguages() {
     EditorTitleComponent,
     EditorLanguageComponent,
     EditorAuthorComponent,
-    EditorPublisherComponent
+    EditorPublisherComponent,
+    ModsEditorComponent,
+    PanelComponent
   ],
   imports: [
     BrowserModule,

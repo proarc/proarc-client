@@ -30,8 +30,5 @@ export class DocumentComponent implements OnInit {
     });
   }
 
-  test() {
-    this.document.toMods();
-  }
 
 }

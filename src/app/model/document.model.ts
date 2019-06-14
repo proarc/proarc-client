@@ -10,7 +10,7 @@ declare var $: any;
 export class DigitalDocument {
 
   public readonly uuid: string;
-  public readonly original: string;
+  public readonly originalMods: string;
 
   private mods;
 
@@ -21,7 +21,7 @@ export class DigitalDocument {
 
   constructor(uuid: string, mods: string) {
     this.uuid = uuid;
-    this.original = mods.trim();
+    this.originalMods = mods.trim();
     this.parseMods(mods);
   }
 
