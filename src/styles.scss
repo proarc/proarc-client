@@ -29,9 +29,9 @@ body {
 }
 
 
-.mat-form-field input {
-  color: #ddd;
-}
+// .mat-form-field input {
+//   color: #ddd;
+// }
 
 
 .breadcrumb-nav {
@@ -71,19 +71,19 @@ body {
   left: calc(50% - 30px);
 }
 
-.app-card {
-  margin: 0;
-  background: $card-color;
-  padding: 0;
-  -webkit-box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);
-  box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);
-  .app-card-content {
-    padding: 20px 16px;
-  }
-  .app-actions {
-    padding: 16px;
-  }
-}
+// .app-card {
+//   margin: 0;
+//   background: $card-color;
+//   padding: 0;
+//   -webkit-box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);
+//   box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);
+//   .app-card-content {
+//     padding: 20px 16px;
+//   }
+//   .app-actions {
+//     padding: 16px;
+//   }
+// }
 
 
 .app-table {
@@ -193,4 +193,68 @@ body {
   .mat-checkbox-disabled .mat-checkbox-label {
     color: rgba(255, 255, 255, 0.5);
   }
+}
+
+
+
+
+
+.editor mat-tab-group {
+  height: 100%;
+  overflow: hidden;
+}
+.editor mat-tab-group mat-tab-body-wrapper {
+  height: 100%;
+  overflow: auto;
+}
+
+.editor mat-form-field.full-width {
+  width: 100%;
+}
+
+.editor {
+  .mat-form-field-appearance-legacy .mat-form-field-label {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .mat-form-field input {
+    color: #eee;
+  }
+  .mat-form-field-infix {
+    border-top: 7px solid transparent;
+  }
+}
+
+
+.app-card {
+  // border: 1px solid rgba(0,0,0,.03);
+  // box-shadow: 0 1px 1px rgba(0,0,0,.14);
+  // margin-bottom: 20px;
+  // background: #363d48;
+  .app-card-header {
+  background: rgba(0,0,0,.16);
+  height: 47px;
+    .app-card-title {
+      color: #eee;
+      padding: 8px 20px;
+      line-height: 47px;
+    }
+  }
+  .app-card-content {
+    padding: 15px 20px 5px;
+  }
+  button {
+    float: right;
+    margin-top: 3px;
+  }
+}
+
+
+
+
+.mat-select-underline {
+  background-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+.mat-form-field-underline {
+  background-color: rgba(255, 255, 255, 0.2) !important;
 }

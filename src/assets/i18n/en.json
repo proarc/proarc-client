@@ -1,0 +1,31 @@
+{
+  "common": {
+    "remove": "Remove",
+    "cancel": "Cancel",    
+    "edit": "Edit",    
+    "open": "Open",        
+    "ok": "OK",
+    "yes": "Yes",
+    "no": "No",
+    "close": "Close",
+    "move_up": "Move Up",
+    "move_down": "Move Down",
+    "nothing_to_save": "No changes made",
+    "save": "Save",
+    "publish": "Save & Publish",
+    "unpublish": "Unpublish",
+    "warning": "Warning"
+  },
+  "editor": {
+    "title": {
+      "tab": "Title",
+      "title": "Title",
+      "type": "Type",
+      "subtitle": "Subtitle",
+      "partnumber": "Part Number",
+      "partname": "Part Name",
+      "non_sort_toggle": "The first word is an article.",      
+      "add_btn": "Add Title"
+    }
+  }
+}

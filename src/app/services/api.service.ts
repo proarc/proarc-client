@@ -9,7 +9,6 @@ export class ApiService {
   constructor(private http: HttpClient) {
   }
 
-
   getMods(uuid: string): Observable<Object> {
     const url = 'https://kramerius.mzk.cz/search/api/v5.0/item/' + uuid + '/streams/BIBLIO_MODS';
     return this.get(url, {

@@ -22,11 +22,16 @@ export class DocumentComponent implements OnInit {
         this.apiService.getMods(uuid).subscribe((response: Object) => {
           console.log('mods', response);
           this.document = new DigitalDocument(uuid, response.toString());
+          this.document.toMods();
       },
       error => {
           console.log('error', error);
       });
     });
+  }
+
+  test() {
+    this.document.toMods();
   }
 
 }

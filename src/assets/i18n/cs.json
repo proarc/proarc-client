@@ -1,0 +1,31 @@
+{
+  "common": {
+    "remove": "Odstranit",
+    "cancel": "Zrušit",
+    "edit": "Upravit",
+    "open": "Otevřít",    
+    "ok": "OK",
+    "yes": "Ano",
+    "no": "Ne",
+    "close": "Zavřít",
+    "move_up": "Přesunout nahoru",
+    "move_down": "Přesunout dolů",
+    "nothing_to_save": " Nebyly provedeny žádné změny",
+    "save": "Uložit",
+    "publish": "Uložit a zveřejnit",
+    "unpublish": "Zrušit zveřejnění",
+    "warning": "Varování"
+  },
+  "editor": {
+    "title": {
+      "tab": "Název",
+      "title": "Název",
+      "type": "Typ",
+      "subtitle": "Vedlejší název",
+      "partnumber": "Číslo části",
+      "partname": "Název částí",
+      "non_sort_toggle": "První slovo je člen.",
+      "add_btn": "Přidat název"
+    }
+  }
+}
