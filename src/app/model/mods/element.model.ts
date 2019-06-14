@@ -2,6 +2,7 @@
 export abstract class ModsElement {
     public attrs;
     public modsElement;
+    public collapsed = false;
 
     constructor(modsElement, attributes: string[] = []) {
         this.modsElement = modsElement;
@@ -33,6 +34,10 @@ export abstract class ModsElement {
 
     public update() {
 
+    }
+
+    public switchCollapsed() {
+        this.collapsed = !this.collapsed;
     }
 
 }

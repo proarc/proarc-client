@@ -217,20 +217,27 @@ body {
     // margin-bottom: 20px;
     // background: #363d48;
     .app-card-header {
-      background: rgba(0,0,0,.16);
+      background: rgba(0,0,0,.26);
       height: 47px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
       .app-card-title {
         color: #5997bb;
-        padding: 8px 20px;
+        // padding: 8px 20px;
         line-height: 47px;
       }
       button {
         float: right;
         margin-top: 3px;
+        &.app-collapse {
+          float: left;
+        }
       }
     }
     .app-card-content {
       padding: 15px 20px 5px;
+      &.app-collapsed {
+        display: none;
+      }
     }
   }
   .app-btn-add {

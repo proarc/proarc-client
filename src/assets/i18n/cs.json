@@ -10,6 +10,8 @@
     "close": "Zavřít",
     "move_up": "Přesunout nahoru",
     "move_down": "Přesunout dolů",
+    "expand": "Rozbalit",
+    "collapse": "Sbalit",
     "nothing_to_save": " Nebyly provedeny žádné změny",
     "save": "Uložit",
     "publish": "Uložit a zveřejnit",
@@ -41,6 +43,38 @@
       },
       "add_btn": "Přidat autora",
       "split_btn": "Rozdělit jméno"
+    },
+    "publisher": {
+      "tab": "Nakladatel",
+      "publisher": "Nakladatel",
+      "event_type": "Typ",
+      "issuance": "Vydávání",
+      "place": "Místo",
+      "edition": "Edice",
+      "date": "Rok",
+      "add_btn": "Přidat nakladatele",
+      "date_qualifier": "Upřesnění data",
+      "date_qualifier_code": {
+        "approximate": "Datum je přibližné",
+        "inferred": "Datum je odvozené",
+        "questionable": "Datum je sporné"
+      },
+      "event_type_code": {
+        "production": "Produkce",
+        "publication": "Publikace",
+        "distribution": "Distribuce",
+        "manufacture": "Výroba",
+        "copyright": "Copyright",
+        "digitization": "Digitalizace"
+      },
+      "issuance_code": {
+        "monographic": "Monografické",
+        "single unit": "Jednotkové",
+        "multipart monograph": "Vícedilné",
+        "continuing": "Na pokračování",
+        "serial": "Sériové",
+        "integrating resource": "Začlěňovací"
+      }
     },
     "language": {
       "tab": "Jazyk",

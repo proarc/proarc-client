@@ -1,3 +1,4 @@
+import { ModsPublisher } from './publisher.model';
 import { ModsAuthor } from './author.model';
 import { ModsRole } from './role.model';
 import { ModsLanguage } from './language.model';
@@ -24,7 +25,8 @@ export class ElementField {
             }
         }
         if (this.items.length < 1) {
-            this.add();
+            const item = this.add();
+            item.collapsed = true;
         }
     }
 
@@ -38,6 +40,8 @@ export class ElementField {
                 return new ModsRole(el);
             case ModsAuthor.getSelector():
                 return new ModsAuthor(el);
+            case ModsPublisher.getSelector():
+                return new ModsPublisher(el);
         }
     }
 
@@ -46,20 +50,21 @@ export class ElementField {
             this.items.splice(index, 1);
             this.root.splice(index, 1);
         }
-    }
-
-    public removeAll() {
-        while (this.items.length > 0) {
-            this.remove(0);
+        if (this.items.length === 0) {
+            const item = this.add();
+            item.collapsed = true;
         }
     }
+
+    // public removeAll() {
+    //     while (this.items.length > 0) {
+    //         this.remove(0);
+    //     }
+    // }
 
     public removeObject(obj) {
         const index = this.items.indexOf(obj);
-        if (index > -1) {
-           this.items.splice(index, 1);
-           this.root.splice(index, 1);
-        }
+        this.remove(index);
     }
 
     public add(): ModsElement {

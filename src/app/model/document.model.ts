@@ -1,3 +1,4 @@
+import { ModsPublisher } from './mods/publisher.model';
 import { ModsLanguage } from './mods/language.model';
 import { parseString, processors, Builder } from 'xml2js';
 import { ModsTitle } from './mods/title.model';
@@ -15,6 +16,7 @@ export class DigitalDocument {
 
   public titles: ElementField;
   public authors: ElementField;
+  public publishers: ElementField;
   public languages: ElementField;
 
   constructor(uuid: string, mods: string) {
@@ -46,6 +48,7 @@ export class DigitalDocument {
 
     this.titles = new ElementField(root, ModsTitle.getSelector());
     this.authors = new ElementField(root, ModsAuthor.getSelector());
+    this.publishers = new ElementField(root, ModsPublisher.getSelector());
     this.languages = new ElementField(root, ModsLanguage.getSelector());
 
   }
@@ -62,6 +65,7 @@ export class DigitalDocument {
            + 'http://www.openarchives.org/OAI/2.0/oai_dc.xsd">\n';
     dc += this.titles.toDC();
     dc += this.authors.toDC();
+    dc += this.publishers.toDC();
     dc += this.languages.toDC();
     dc += '</oai_dc:dc>';
     return dc;
@@ -85,6 +89,7 @@ export class DigitalDocument {
 
     this.normalizeField(root, ModsTitle.getSelector());
     this.normalizeField(root, ModsAuthor.getSelector());
+    this.normalizeField(root, ModsPublisher.getSelector());
     this.normalizeField(root, ModsLanguage.getSelector());
 
 

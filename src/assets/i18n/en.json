@@ -42,6 +42,38 @@
       "add_btn": "Add Author",
       "split_btn": "Split name"
     },
+    "publisher": {
+      "tab": "Publisher",
+      "publisher": "Publisher",
+      "event_type": "Type of Event",
+      "issuance": "Issuance",
+      "place": "Place",
+      "edition": "Edition",
+      "date": "Year",
+      "add_btn": "Add Publisher",
+      "date_qualifier": "Date Specification",
+      "date_qualifier_code": {
+        "approximate": "Date is approximate",
+        "inferred": "Date is inferred",
+        "questionable": "Date is questionable"
+      },
+      "event_type_code": {
+        "production": "Production",
+        "publication": "Publication",
+        "distribution": "Distribution",
+        "manufacture": "Manufacture",
+        "copyright": "Copyright",
+        "digitization": "Digitization"
+      },
+      "issuance_code": {
+        "monographic": "monographic",
+        "single unit": "Single Unit",
+        "multipart monograph": "Multipart Monograph",
+        "continuing": "Continuing",
+        "serial": "Serial",
+        "integrating resource": "Integrating resource"
+      }
+    },
     "language": {
       "tab": "Language",
       "language": "Language",

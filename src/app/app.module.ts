@@ -19,6 +19,7 @@ import xml from 'highlight.js/lib/languages/xml';
 import { EditorTitleComponent } from './documents/document/editor-title/editor-title.component';
 import { TranslatorModule } from 'angular-translator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditorPublisherComponent } from './documents/document/editor-publisher/editor-publisher.component';
 
 
 export function hljsLanguages() {
@@ -35,7 +36,8 @@ export function hljsLanguages() {
     XmlViewComponent,
     EditorTitleComponent,
     EditorLanguageComponent,
-    EditorAuthorComponent
+    EditorAuthorComponent,
+    EditorPublisherComponent
   ],
   imports: [
     BrowserModule,
