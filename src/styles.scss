@@ -29,6 +29,21 @@ body {
 }
 
 
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+ 
+::-webkit-scrollbar-track {
+  background: $scroll-track-color;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: $scroll-thumb-color; 
+}
+
+
+
 // .mat-form-field input {
 //   color: #ddd;
 // }

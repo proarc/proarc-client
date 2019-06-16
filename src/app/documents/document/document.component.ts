@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { DigitalDocument } from 'src/app/model/document.model';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-document',
@@ -18,11 +19,13 @@ export class DocumentComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       const uuid = params['id'];
-      console.log('uuid ', uuid);
-        this.apiService.getMods(uuid).subscribe((response: Object) => {
-          console.log('mods', response);
-          this.document = new DigitalDocument(uuid, response.toString());
-          this.document.toMods();
+      const modsRequest = this.apiService.getMods(uuid);
+      const dcRequest = this.apiService.getDc(uuid);
+      forkJoin([modsRequest, dcRequest]).subscribe(
+        results => {
+          const mods = results[0].toString();
+          const dc = results[1].toString();
+          this.document = new DigitalDocument(uuid, mods, dc);
       },
       error => {
           console.log('error', error);

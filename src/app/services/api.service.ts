@@ -16,6 +16,13 @@ export class ApiService {
    });
   }
 
+  getDc(uuid: string): Observable<Object> {
+    const url = 'https://kramerius.mzk.cz/search/api/v5.0/item/' + uuid + '/streams/DC';
+    return this.get(url, {
+      responseType: 'text'
+   });
+  }
+
   private get(url: string, params = {}): Observable<Object> {
     return this.http.get(encodeURI(url), params);
   }

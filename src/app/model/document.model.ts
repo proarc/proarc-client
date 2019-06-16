@@ -12,6 +12,7 @@ export class DigitalDocument {
 
   public readonly uuid: string;
   public readonly originalMods: string;
+  public readonly originalDc: string;
 
   private mods;
 
@@ -21,9 +22,10 @@ export class DigitalDocument {
   public locations: ElementField;
   public languages: ElementField;
 
-  constructor(uuid: string, mods: string) {
+  constructor(uuid: string, mods: string, dc: string) {
     this.uuid = uuid;
     this.originalMods = mods.trim();
+    this.originalDc = dc.trim();
     this.parseMods(mods);
   }
 

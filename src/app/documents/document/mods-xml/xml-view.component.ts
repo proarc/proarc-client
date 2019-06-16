@@ -7,7 +7,11 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class XmlViewComponent implements OnInit {
 
+
   @Input() xml: string;
+  @Input() xmlOriginal: string;
+
+  showOriginal = false;
 
   constructor() { }
 

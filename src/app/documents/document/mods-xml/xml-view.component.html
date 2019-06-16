@@ -1,3 +1,15 @@
 <pre>
-  <code [highlight]=xml></code>
+  <code [highlight]="showOriginal ? xmlOriginal : xml"></code>
 </pre>
+<!-- <mat-slide-toggle *ngIf="xmlOriginal" color="primary" class="app-toggle-original"
+(change)="showOriginal = !showOriginal">Původní
+</mat-slide-toggle> -->
+
+
+<button [matTooltip]="showOriginal ? 'Zobrazit aktuální' : 'Zobrazit originál'" 
+        [color]="showOriginal ? 'primary' : 'default'" 
+        class="app-toggle-original" 
+        (click)="showOriginal = !showOriginal"
+        mat-icon-button>
+  <mat-icon>history</mat-icon>
+</button>

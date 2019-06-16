@@ -4,19 +4,15 @@
         <mat-option value="biblio">Bibliografická metadata</mat-option>
     </mat-select>
 
-    <mat-select [(ngModel)]='subcontent' style="width: 130px; display: inline-block; line-height: 45px; margin-left: 20px;">
+    <mat-select [(ngModel)]='subcontent' style="width: 70px; display: inline-block; line-height: 45px; margin-left: 20px;">
         <mat-option *ngIf="content == 'biblio'" value="biblioEditor">Editor</mat-option>
         <mat-option *ngIf="content == 'biblio'" value="biblioMods">MODS</mat-option>
         <mat-option *ngIf="content == 'biblio'" value="biblioDc">DC</mat-option>
-        <mat-option *ngIf="content == 'biblio'" value="biblioModsOriginal">MODS původní</mat-option>
-        <mat-option *ngIf="content == 'biblio'" value="biblioDcOriginal">DC původní</mat-option>
     </mat-select>
 
 </div>
 <div class="" style="height: calc(100% - 45px); overflow: auto;">
-<app-mods-editor *ngIf="content == 'biblio' && subcontent == 'biblioEditor'" [document]="document"></app-mods-editor>
-<app-xml-view  *ngIf="content == 'biblio' && subcontent == 'biblioMods'" [xml]="document.toMods()"></app-xml-view>
-<app-xml-view  *ngIf="content == 'biblio' && subcontent == 'biblioDc'" [xml]="document.toDc()"></app-xml-view>
-<app-xml-view  *ngIf="content == 'biblio' && subcontent == 'biblioModsOriginal'" [xml]="document.originalMods"></app-xml-view>
-
+    <app-mods-editor *ngIf="content == 'biblio' && subcontent == 'biblioEditor'" [document]="document"></app-mods-editor>
+    <app-xml-view *ngIf="content == 'biblio' && subcontent == 'biblioMods'" [xml]="document.toMods()" [xmlOriginal]="document.originalMods"></app-xml-view>
+    <app-xml-view *ngIf="content == 'biblio' && subcontent == 'biblioDc'" [xml]="document.toDc()" [xmlOriginal]="document.originalDc"></app-xml-view>
 </div>
