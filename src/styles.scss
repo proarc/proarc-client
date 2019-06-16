@@ -230,7 +230,7 @@ body {
       }
     }
     .app-card-content {
-      padding: 15px 20px 5px;
+      padding: 15px 20px 0px;
       &.app-collapsed {
         display: none;
       }
@@ -267,6 +267,7 @@ body {
   }
   .mat-select.app-no-placeholder {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 15px;
     .mat-select-value {
       height: 30px;
       line-height: 30px;

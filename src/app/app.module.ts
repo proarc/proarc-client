@@ -1,3 +1,4 @@
+import { EditorLocationComponent } from './documents/document/editor-location/editor-location.component';
 import { ModsEditorComponent } from './documents/document/mods-editor/mods-editor.component';
 import { EditorAuthorComponent } from './documents/document/editor-author/editor-author.component';
 import { EditorLanguageComponent } from './documents/document/editor-language/editor-language.component';
@@ -41,6 +42,7 @@ export function hljsLanguages() {
     EditorAuthorComponent,
     EditorPublisherComponent,
     ModsEditorComponent,
+    EditorLocationComponent,
     PanelComponent
   ],
   imports: [

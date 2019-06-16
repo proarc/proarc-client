@@ -4,6 +4,7 @@ import { parseString, processors, Builder } from 'xml2js';
 import { ModsTitle } from './mods/title.model';
 import { ElementField } from './mods/elementField.model';
 import { ModsAuthor } from './mods/author.model';
+import { ModsLocation } from './mods/location.model';
 declare var $: any;
 
 
@@ -17,6 +18,7 @@ export class DigitalDocument {
   public titles: ElementField;
   public authors: ElementField;
   public publishers: ElementField;
+  public locations: ElementField;
   public languages: ElementField;
 
   constructor(uuid: string, mods: string) {
@@ -49,6 +51,7 @@ export class DigitalDocument {
     this.titles = new ElementField(root, ModsTitle.getSelector());
     this.authors = new ElementField(root, ModsAuthor.getSelector());
     this.publishers = new ElementField(root, ModsPublisher.getSelector());
+    this.locations = new ElementField(root, ModsLocation.getSelector());
     this.languages = new ElementField(root, ModsLanguage.getSelector());
 
   }
@@ -66,6 +69,7 @@ export class DigitalDocument {
     dc += this.titles.toDC();
     dc += this.authors.toDC();
     dc += this.publishers.toDC();
+    dc += this.locations.toDC();
     dc += this.languages.toDC();
     dc += '</oai_dc:dc>';
     return dc;
@@ -90,8 +94,8 @@ export class DigitalDocument {
     this.normalizeField(root, ModsTitle.getSelector());
     this.normalizeField(root, ModsAuthor.getSelector());
     this.normalizeField(root, ModsPublisher.getSelector());
+    this.normalizeField(root, ModsLocation.getSelector());
     this.normalizeField(root, ModsLanguage.getSelector());
-
 
     return mods;
   }

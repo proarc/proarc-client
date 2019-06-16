@@ -1,3 +1,4 @@
+import { ModsLocation } from './location.model';
 import { ModsPublisher } from './publisher.model';
 import { ModsAuthor } from './author.model';
 import { ModsRole } from './role.model';
@@ -42,6 +43,8 @@ export class ElementField {
                 return new ModsAuthor(el);
             case ModsPublisher.getSelector():
                 return new ModsPublisher(el);
+            case ModsLocation.getSelector():
+                return new ModsLocation(el);
         }
     }
 
