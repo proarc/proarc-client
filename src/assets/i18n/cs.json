@@ -42,7 +42,9 @@
         "add_btn": "Přidat roli"
       },
       "add_btn": "Přidat autora",
-      "split_btn": "Rozdělit jméno"
+      "split_btn": "Rozdělit jméno",
+      "set_primary": "Označit jako hlavního autora",
+      "unset_primary": "Zrušit označní hlavního autora"
     },
     "publisher": {
       "tab": "Nakladatel",

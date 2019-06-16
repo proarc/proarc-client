@@ -16,7 +16,7 @@ export class ModsAuthor extends ModsElement {
     }
 
     constructor(modsElement) {
-        super(modsElement, ['type']);
+        super(modsElement, ['type', 'usage']);
         this.init();
     }
 
@@ -70,6 +70,18 @@ export class ModsAuthor extends ModsElement {
     public canSplitName(): boolean {
         const nameParts = this.name['_'].split(',');
         return nameParts.length === 2;
+    }
+
+    public isPrimary(): boolean {
+        return this.attrs['usage'] === 'primary';
+    }
+
+    public switchPrimary() {
+        if (this.isPrimary()) {
+            this.attrs['usage'] = '';
+        } else {
+            this.attrs['usage'] = 'primary';
+        }
     }
 
     public toDC() {

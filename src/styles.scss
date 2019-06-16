@@ -239,9 +239,25 @@ body {
       button {
         float: right;
         margin-top: 3px;
+        color: #818f9a;
         &.app-collapse {
           float: left;
         }
+        &.mat-primary {
+          color: $primary-color;
+        }
+        &[disabled] {
+          color: #455261;
+        }
+      }
+      .app-header-divider {
+        height: calc(100% - 10px);
+        float: right;
+        margin: 5px;
+        margin-bottom: 5px;
+        margin-left: 5px;
+        width: 2px;
+        background: #6a7076;
       }
     }
     .app-card-content {

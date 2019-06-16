@@ -25,10 +25,17 @@
      <button matTooltip="{{ 'editor.author.add_btn' | translate }}" color="primary" (click)="field.addAfter(index)" mat-icon-button>
         <mat-icon>add</mat-icon>
       </button>
+      
+      <div class="app-header-divider"></div>
 
       <button [disabled]="!item.canSplitName()" matTooltip="{{ 'editor.author.split_btn' | translate }}" color="primary" (click)="item.splitName()" mat-icon-button>
         <mat-icon>play_for_work</mat-icon>
       </button>
+
+      <button matTooltip="{{ 'editor.author.' + (item.isPrimary() ? 'unset_primary' : 'set_primary') | translate }}" [color]="item.isPrimary() ? 'primary' : ''" (click)="item.switchPrimary()" mat-icon-button>
+        <mat-icon>star</mat-icon>
+      </button>
+
 
 
     </div>
