@@ -31,4 +31,25 @@ mat-toolbar {
       border-bottom: 2px solid $primary-color;
     }
   }
+  .btn-lang {
+    margin-right: 5px;
+    margin-left: 5px;
+    img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+}
+
+
+
+.lang-item {
+  img {
+    height: 40px;
+    width: 40px;
+    margin-top: 4px;
+    margin-right: 16px;
+    float: left;
+  }
 }

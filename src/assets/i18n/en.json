@@ -17,6 +17,9 @@
     "warning": "Warning"
   },
   "editor": {
+    "type": {
+      "biblio": "Bibliographical metadata"
+    },
     "title": {
       "tab": "Title",
       "title": "Title",
@@ -40,7 +43,9 @@
         "add_btn": "Add Role"
       },
       "add_btn": "Add Author",
-      "split_btn": "Split name"
+      "split_btn": "Split name",
+      "set_primary": "Set as a primary author",
+      "unset_primary": "Unset as a primary author"
     },
     "publisher": {
       "tab": "Publisher",
@@ -86,6 +91,16 @@
       "language": "Language",
       "add_btn": "Add Language"
     }
+  },
+  "xml-view": {
+    "show_original": "Show original",
+    "show_current": "Show current"
+  },
+  "name": {
+    "personal": "Personal",
+    "corporate": "Corporate",
+    "conference": "Conference",
+    "family": "Family"
   },
   "lang": {
     "aar" : "Afar",

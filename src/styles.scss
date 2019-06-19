@@ -257,7 +257,7 @@ body {
         margin-bottom: 5px;
         margin-left: 5px;
         width: 2px;
-        background: #6a7076;
+        background: #414a54;
       }
     }
     .app-card-content {
@@ -320,6 +320,10 @@ body {
       color: #ffffff !important;
     }
   }
+}
+
+.mat-menu-panel {
+  background: $dropdown-bg;
 }
 
 // .mat-select-underline {

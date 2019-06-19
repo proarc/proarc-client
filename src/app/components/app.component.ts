@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Translator } from 'angular-translator';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
+
+  constructor(private translator: Translator) {
+    const lang = localStorage.getItem('lang');
+    if (lang) {
+      this.translator.language = lang;
+    }
+  }
+
 }

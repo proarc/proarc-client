@@ -19,6 +19,9 @@
     "warning": "Varování"
   },
   "editor": {
+    "type": {
+      "biblio": "Bibliografická metadata"
+    },
     "title": {
       "tab": "Název",
       "title": "Název",
@@ -90,6 +93,10 @@
       "language": "Jazyk",
       "add_btn": "Přidat jazyk"
     }
+  },
+  "xml-view": {
+    "show_original": "Zobrazit originál",
+    "show_current": "Zobrazit aktuální"
   },
   "name": {
     "personal": "Osoba",
