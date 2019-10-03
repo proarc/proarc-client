@@ -25,7 +25,7 @@ html, body {
 body {
   margin: 0;
   background: $main-bg;
-  color: #eee;
+  color: $main-text;
 }
 
 
@@ -49,36 +49,36 @@ body {
 // }
 
 
-.breadcrumb-nav {
-  background: $breadcrumb-color;
-  height: 50px;
-  color: #eeeeee;
-  padding-left: 20px;
-  -webkit-box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
-  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
-  .mat-icon {
-    margin: 13px;
-    opacity: 0.5;
-    display: block;
-    float: left;
-  }
-  span {
-    line-height: 50px;
-    display: block;
-    float: left;
-  }
-  a {
-    line-height: 50px;
-    display: block;
-    float: left;
-    text-decoration: none;
-    opacity: 0.75;
-    color: #fff;
-    &:hover {
-      opacity: 1;
-    }
-  }
-}
+// .breadcrumb-nav {
+//   background: $breadcrumb-color;
+//   height: 50px;
+//   color: #eeeeee;
+//   padding-left: 20px;
+//   -webkit-box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+//   box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+//   .mat-icon {
+//     margin: 13px;
+//     opacity: 0.5;
+//     display: block;
+//     float: left;
+//   }
+//   span {
+//     line-height: 50px;
+//     display: block;
+//     float: left;
+//   }
+//   a {
+//     line-height: 50px;
+//     display: block;
+//     float: left;
+//     text-decoration: none;
+//     opacity: 0.75;
+//     color: #fff;
+//     &:hover {
+//       opacity: 1;
+//     }
+//   }
+// }
 
 .center-spinner {
   position: absolute !important;
@@ -199,7 +199,7 @@ body {
   }
   .mat-dialog-container {
     background: $dialog-color;
-    color: #ececec;
+    color: $main-text;
   }
   .mat-checkbox-disabled .mat-checkbox-label {
     color: rgba(255, 255, 255, 0.5);
@@ -222,17 +222,18 @@ body {
 
 .editor {
   overflow: hidden;
+  background: #fff;
   .app-card {
     // border: 1px solid rgba(0,0,0,.03);
     // box-shadow: 0 1px 1px rgba(0,0,0,.14);
     // margin-bottom: 20px;
     // background: #363d48;
     .app-card-header {
-      background: rgba(0,0,0,.26);
+      background: #e4e4e4;
       height: 47px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      // border-top: 1px solid rgba(255, 255, 255, 0.1);
       .app-card-title {
-        color: #5997bb;
+        color: #333;
         // padding: 8px 20px;
         line-height: 47px;
       }
@@ -273,10 +274,11 @@ body {
     margin-right: 20px;
   }
   .mat-form-field-appearance-legacy .mat-form-field-label {
-    color: rgba(255, 255, 255, 0.6);
+    color: #999;
   }
   .mat-form-field input {
-    color: #eee;
+    // color: #eee;
+    color: #000
   }
   .mat-form-field-infix {
     border-top: 7px solid transparent;
@@ -294,7 +296,7 @@ body {
     }
   }
   .mat-form-field-underline {
-    background-color: rgba(255, 255, 255, 0.2) !important;
+    background-color: rgba(0, 0, 0, 0.1) !important;
   }
   .mat-select.app-no-placeholder {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
@@ -315,9 +317,9 @@ body {
   background: $dropdown-bg;
   .mat-option {
     &.mat-selected {
-      // background: rgba(255, 255, 255, 0.12);
-      background: rgba(255, 255, 255, 0.3);
-      color: #ffffff !important;
+      // // background: rgba(255, 255, 255, 0.12);
+      // background: rgba(0, 0, 0, 0.3);
+      // color: #ffffff !important;
     }
   }
 }

@@ -1,3 +1,36 @@
+@import './src/theme.scss';
+
+.app-panel-header {
+  height: 45px;
+  background: $primary-color;
+  color: #fff;
+  .app-panel-select1 {
+    width: 200px;
+    margin-right: 20px;
+  }
+  .app-panel-select2 {
+    width: 70px; 
+  }
+
+  .app-panel-select {
+    display: inline-block;
+    line-height: 45px; 
+    margin-left: 20px;
+    ::ng-deep .mat-select-value {
+      color: #eee !important;
+      
+    }
+    ::ng-deep .mat-select-arrow {
+      color: #eee !important;
+    }
+  }
+
+}
+.app-panel-content {
+  height: calc(100% - 45px);
+  overflow: auto;
+}
+
 app-xml-view {
   display: block;
   position: relative;
