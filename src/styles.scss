@@ -19,7 +19,7 @@ html, body {
 
 .app-content-wrapper {
   height: 100%;
-  padding-top: 50px;
+  padding-top: $navbar-height;
 }
 
 body {
@@ -44,41 +44,6 @@ body {
 
 
 
-// .mat-form-field input {
-//   color: #ddd;
-// }
-
-
-// .breadcrumb-nav {
-//   background: $breadcrumb-color;
-//   height: 50px;
-//   color: #eeeeee;
-//   padding-left: 20px;
-//   -webkit-box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
-//   box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
-//   .mat-icon {
-//     margin: 13px;
-//     opacity: 0.5;
-//     display: block;
-//     float: left;
-//   }
-//   span {
-//     line-height: 50px;
-//     display: block;
-//     float: left;
-//   }
-//   a {
-//     line-height: 50px;
-//     display: block;
-//     float: left;
-//     text-decoration: none;
-//     opacity: 0.75;
-//     color: #fff;
-//     &:hover {
-//       opacity: 1;
-//     }
-//   }
-// }
 
 .center-spinner {
   position: absolute !important;
@@ -86,20 +51,37 @@ body {
   left: calc(50% - 30px);
 }
 
-// .app-card {
-//   margin: 0;
-//   background: $card-color;
-//   padding: 0;
-//   -webkit-box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);
-//   box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);
-//   .app-card-content {
-//     padding: 20px 16px;
-//   }
-//   .app-actions {
-//     padding: 16px;
-//   }
-// }
+.app-card {
+  -webkit-box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);
+  box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);
+  background: #fff;
+  padding: 16px;
+  .app-card-title {
+    color: #61718c;
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+  .app-card-content {
+    .warn-message {
+      color: $warn-color;
+      margin: 5px 0 10px 0;
 
+    }
+    mat-form-field {
+      width: 100%;
+    }
+    mat-checkbox {
+      display: block;
+    }
+  }
+  .app-card-actions {
+    mat-spinner {
+      float: right;
+      margin-top: 5px;
+    }
+
+  }
+}
 
 .app-table {
   margin: 0;

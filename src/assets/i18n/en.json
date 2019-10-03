@@ -16,6 +16,10 @@
     "unpublish": "Unpublish",
     "warning": "Warning"
   },
+  "navbar": {
+    "login": "Log in",
+    "logout": "Log out"
+  },
   "editor": {
     "type": {
       "biblio": "Bibliographical metadata"

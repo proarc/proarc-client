@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Translator } from 'angular-translator';
+import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +10,7 @@ import { Translator } from 'angular-translator';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(public translator: Translator) { }
+  constructor(public translator: Translator, public auth: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -16,6 +18,13 @@ export class NavbarComponent implements OnInit {
   onLanguageChanged(lang: string) {
     localStorage.setItem('lang', lang);
     this.translator.language = lang;
+  }
+
+  logout() {
+    this.auth.logout((result: boolean) => {
+      console.log('logged out ...');
+      this.router.navigate(['/']);
+    });
   }
 
 }

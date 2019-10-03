@@ -23,6 +23,8 @@ import { TranslatorModule } from 'angular-translator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditorPublisherComponent } from './documents/document/editor-publisher/editor-publisher.component';
 import { PanelComponent } from './documents/document/panel/panel.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthService } from './services/auth.service';
 
 
 export function hljsLanguages() {
@@ -43,7 +45,8 @@ export function hljsLanguages() {
     EditorPublisherComponent,
     ModsEditorComponent,
     EditorLocationComponent,
-    PanelComponent
+    PanelComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,8 @@ export function hljsLanguages() {
     })
   ],
   providers: [
-    ApiService
+    ApiService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

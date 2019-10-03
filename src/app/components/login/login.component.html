@@ -1,0 +1,35 @@
+<div class="app-card">
+  <div class="app-card-title">Přihlášení</div>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <div class="app-card-content">
+      <mat-form-field>
+        <input 
+          type="email" 
+          matInput 
+          placeholder="E-mail" 
+          ngModel 
+          name="email"
+          required>
+      </mat-form-field>
+      <mat-form-field>
+        <input 
+          type="password" 
+          matInput 
+          placeholder="Heslo" 
+          ngModel 
+          name="password"
+          required>
+      </mat-form-field>
+      <div class="warn-message" *ngIf="state=='error'">
+        Přihlášení se nezdařilo
+      </div>
+    </div>
+    <div class="app-card-actions">
+      <button type="submit" [disabled]="!f.valid" mat-raised-button color="primary">Přihlásit</button>
+      <mat-spinner *ngIf="state=='loading'"
+          [strokeWidth]="3" 
+          [diameter]="30">
+      </mat-spinner>
+    </div>
+  </form>
+</div>

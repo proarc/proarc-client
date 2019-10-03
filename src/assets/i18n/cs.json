@@ -18,6 +18,10 @@
     "unpublish": "Zrušit zveřejnění",
     "warning": "Varování"
   },
+  "navbar": {
+    "login": "Přihlásit",
+    "logout": "Odhlásit"
+  },
   "editor": {
     "type": {
       "biblio": "Bibliografická metadata"
