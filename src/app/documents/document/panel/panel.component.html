@@ -2,9 +2,10 @@
     
     <mat-select [(ngModel)]='content' class="app-panel-select app-panel-select1">
         <mat-option value="biblio">{{ 'editor.type.biblio' | translate }}</mat-option>
+        <mat-option value="relations">{{ 'editor.type.relations' | translate }}</mat-option>
     </mat-select>
 
-    <mat-select [(ngModel)]='subcontent' class="app-panel-select app-panel-select2">
+    <mat-select *ngIf="content == 'biblio'" [(ngModel)]='subcontent' class="app-panel-select app-panel-select2">
         <mat-option *ngIf="content == 'biblio'" value="biblioEditor">Editor</mat-option>
         <mat-option *ngIf="content == 'biblio'" value="biblioMods">MODS</mat-option>
         <mat-option *ngIf="content == 'biblio'" value="biblioDc">DC</mat-option>
@@ -15,4 +16,5 @@
     <app-mods-editor *ngIf="content == 'biblio' && subcontent == 'biblioEditor'" [document]="document"></app-mods-editor>
     <app-xml-view *ngIf="content == 'biblio' && subcontent == 'biblioMods'" [xml]="document.toMods()" [xmlOriginal]="document.originalMods"></app-xml-view>
     <app-xml-view *ngIf="content == 'biblio' && subcontent == 'biblioDc'" [xml]="document.toDc()" [xmlOriginal]="document.originalDc"></app-xml-view>
+    <app-relations *ngIf="content == 'relations'" [relations]="document.relations"></app-relations>
 </div>

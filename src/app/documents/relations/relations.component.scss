@@ -1,0 +1,16 @@
+.app-relations {
+    padding: 2px;
+  
+    .app-table {
+    //   &.scrollable {
+    //     // max-height: calc(100% - 56px);
+    //     // overflow: auto;
+    //   }
+      .app-col-model{
+        width: 150px;
+      }
+      .app-col-title {
+        flex: 1;
+      }
+    }
+}

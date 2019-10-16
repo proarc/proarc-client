@@ -7,6 +7,7 @@ import { ModsAuthor } from './mods/author.model';
 import { ModsLocation } from './mods/location.model';
 import { ModsIdentifier } from './mods/identifier.model';
 import { ModsNote } from './mods/note.mode';
+import { Relation } from './mods/relation.model';
 declare var $: any;
 
 
@@ -15,6 +16,10 @@ export class DigitalDocument {
   public readonly uuid: string;
   public readonly originalMods: string;
   public readonly originalDc: string;
+
+
+  public readonly relations: Relation[];
+
 
   private mods;
 
@@ -37,10 +42,11 @@ export class DigitalDocument {
 
   private fields: Map<String, ElementField>; //{string: ElementField ;
 
-  constructor(uuid: string, mods: string, dc: string) {
+  constructor(uuid: string, mods: string, dc: string, relations: Relation[]) {
     this.uuid = uuid;
     this.originalMods = mods.trim();
     this.originalDc = dc.trim();
+    this.relations = relations;
     this.parseMods(mods);
   }
 

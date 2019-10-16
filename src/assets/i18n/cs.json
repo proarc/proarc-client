@@ -24,7 +24,8 @@
   },
   "editor": {
     "type": {
-      "biblio": "Bibliografická metadata"
+      "biblio": "Bibliografická metadata",
+      "relations": "Vazby"
     },
     "title": {
       "tab": "Název",

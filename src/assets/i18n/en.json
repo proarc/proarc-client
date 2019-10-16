@@ -22,7 +22,8 @@
   },
   "editor": {
     "type": {
-      "biblio": "Bibliographical metadata"
+      "biblio": "Bibliographical metadata",
+      "relations": "Relations"
     },
     "title": {
       "tab": "Title",
@@ -97,7 +98,7 @@
     },
     "identifier": {
       "tab": "Identifier",
-      "language": "Identifier",
+      "identifier": "Identifier",
       "type": "Type",
       "add_btn": "Add Identifier"
     },

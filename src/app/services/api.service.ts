@@ -23,6 +23,12 @@ export class ApiService {
    });
   }
 
+
+  getChildren(uuid: string): Observable<Object> {
+    const url = 'https://kramerius.mzk.cz/search/api/v5.0/item/' + uuid + '/children';
+    return this.http.get(url)
+  }
+
   private get(url: string, params = {}): Observable<Object> {
     return this.http.get(encodeURI(url), params);
   }
