@@ -7,6 +7,7 @@ import { ModsElement } from './element.model';
 import { ModsTitle } from './title.model';
 import ModsUtils from './utils';
 import { ModsIdentifier } from './identifier.model';
+import { ModsNote } from './note.mode';
 
 export class ElementField {
 
@@ -48,6 +49,8 @@ export class ElementField {
                 return new ModsLocation(el);
             case ModsIdentifier.getSelector():
                 return new ModsIdentifier(el);
+            case ModsNote.getSelector():
+                return new ModsNote(el);
             }
     }
 

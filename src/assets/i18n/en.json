@@ -100,6 +100,12 @@
       "language": "Identifier",
       "type": "Type",
       "add_btn": "Add Identifier"
+    },
+    "note": {
+      "tab": "Note",
+      "note": "Note",
+      "type": "Type",
+      "add_btn": "Add note"
     }
   },
   "xml-view": {

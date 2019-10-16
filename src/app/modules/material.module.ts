@@ -11,10 +11,10 @@ import { MatButtonModule,
   MatTooltipModule,
   MatSlideToggleModule,
   MatSelectModule,
-  MatMenuModule} from '@angular/material';
+  MatMenuModule,
+  MatAutocompleteModule} from '@angular/material';
 
-@NgModule({
-  imports: [
+  const modules = [
     MatButtonModule,
     MatToolbarModule,
     MatFormFieldModule,
@@ -27,22 +27,12 @@ import { MatButtonModule,
     MatCheckboxModule,
     MatSlideToggleModule,
     MatSelectModule,
-    MatMenuModule
-  ],
-  exports: [
-    MatButtonModule,
-    MatToolbarModule,
-    MatFormFieldModule,
-    MatProgressSpinnerModule,
-    MatInputModule,
-    MatDialogModule,
-    MatTooltipModule,
-    MatIconModule,
-    MatSnackBarModule,
-    MatCheckboxModule,
-    MatSlideToggleModule,
-    MatSelectModule,
-    MatMenuModule
+    MatMenuModule,
+    MatAutocompleteModule
   ]
+
+  @NgModule({
+  imports: modules,
+  exports: modules
 })
 export class MaterialModule {}

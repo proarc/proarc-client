@@ -15,8 +15,8 @@ export class ModsIdentifier extends ModsElement {
     }   
 
     public toDC() {
-        if (this['_'] && this.attrs['type']) {
-            return ModsUtils.dcEl('identifier', this.attrs['type'] + ':' + this['_']);
+        if (this.modsElement['_'] && this.attrs['type']) {
+            return ModsUtils.dcEl('identifier', this.attrs['type'] + ':' + this.modsElement['_']);
         } else {
             return '';
         }

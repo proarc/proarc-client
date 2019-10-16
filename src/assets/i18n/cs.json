@@ -102,6 +102,12 @@
       "identifier": "Identifikátor",
       "type": "Typ",
       "add_btn": "Přidat identifikátor"
+    },
+    "note": {
+      "tab": "Poznámka",
+      "note": "Poznámka",
+      "type": "Typ",
+      "add_btn": "Přidat poznámku"
     }
   },
   "xml-view": {

@@ -1,6 +1,9 @@
-<app-editor-title [field]="document.titles"></app-editor-title>
-<app-editor-author [field]="document.authors"></app-editor-author>
-<app-editor-publisher [field]="document.publishers"></app-editor-publisher>
-<app-editor-location [field]="document.locations"></app-editor-location>
-<app-editor-language [field]="document.languages"></app-editor-language>
-<app-editor-identifier [field]="document.identifiers"></app-editor-identifier>
+<ng-container *ngIf="document.fields">
+<app-editor-title [field]="document.getField('titleInfo')"></app-editor-title>
+<app-editor-author [field]="document.getField('name')"></app-editor-author>
+<app-editor-publisher [field]="document.getField('originInfo')"></app-editor-publisher>
+<app-editor-location [field]="document.getField('location')"></app-editor-location>
+<app-editor-language [field]="document.getField('language')"></app-editor-language>
+<app-editor-identifier [field]="document.getField('identifier')"></app-editor-identifier>
+<app-editor-note [field]="document.getField('note')"></app-editor-note>
+</ng-container>

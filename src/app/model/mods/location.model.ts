@@ -30,10 +30,10 @@ export class ModsLocation extends ModsElement {
     public toDC() {
         let dc = '';
         if (this.physicalLocation['_']) {
-            dc += ModsUtils.dcEl('cource', this.physicalLocation['_']);
+            dc += ModsUtils.dcEl('source', this.physicalLocation['_']);
         }
         if (this.shelfLocator['_']) {
-            dc += ModsUtils.dcEl('cource', this.shelfLocator['_']);
+            dc += ModsUtils.dcEl('source', this.shelfLocator['_']);
         }
         return dc;
     }
