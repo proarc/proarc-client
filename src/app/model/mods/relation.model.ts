@@ -15,8 +15,12 @@ export class Relation {
         relation.model = json['model'];
         if (json['details']) {
             if (relation.model === 'page') {
-                relation.title = json['details']['pagenumber'].trim();
-            } 
+                relation.title = json['details']['pagenumber'].trim() + ', ' + json['details']['type'];
+            } else if (relation.model === 'periodicalvolume') {
+                relation.title = json['details']['year'] + ', ' + json['details']['volumeNumber'];
+            } else if (relation.model === 'periodicalitem') {
+                relation.title = json['details']['date'] + ', ' + json['details']['partNumber'];
+            }
         }
         return relation;
     }
