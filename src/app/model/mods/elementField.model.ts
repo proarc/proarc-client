@@ -6,6 +6,7 @@ import { ModsLanguage } from './language.model';
 import { ModsElement } from './element.model';
 import { ModsTitle } from './title.model';
 import ModsUtils from './utils';
+import { ModsIdentifier } from './identifier.model';
 
 export class ElementField {
 
@@ -45,7 +46,9 @@ export class ElementField {
                 return new ModsPublisher(el);
             case ModsLocation.getSelector():
                 return new ModsLocation(el);
-        }
+            case ModsIdentifier.getSelector():
+                return new ModsIdentifier(el);
+            }
     }
 
     public remove(index) {

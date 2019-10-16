@@ -94,6 +94,12 @@
       "tab": "Language",
       "language": "Language",
       "add_btn": "Add Language"
+    },
+    "identifier": {
+      "tab": "Identifier",
+      "language": "Identifier",
+      "type": "Type",
+      "add_btn": "Add Identifier"
     }
   },
   "xml-view": {
@@ -105,6 +111,19 @@
     "corporate": "Corporate",
     "conference": "Conference",
     "family": "Family"
+  },
+  "identifier": {
+    "barcode": "Barcode",
+    "issn": "ISSN",
+    "isbn": "ISBN",
+    "ismn": "ISMN",
+    "ccnb": "čČNB",
+    "uuid": "UUID",
+    "urnnbn": "URN:NBN",
+    "oclc": "OCLC",
+    "sysno": "System number",
+    "permalink": "Permalink",
+    "sici": "SICI"
   },
   "lang": {
     "aar" : "Afar",

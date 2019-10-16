@@ -96,6 +96,12 @@
       "tab": "Jazyk",
       "language": "Jazyk",
       "add_btn": "Přidat jazyk"
+    },
+    "identifier": {
+      "tab": "Identifikátor",
+      "identifier": "Identifikátor",
+      "type": "Typ",
+      "add_btn": "Přidat identifikátor"
     }
   },
   "xml-view": {
@@ -107,6 +113,19 @@
     "corporate": "Organizace",
     "conference": "Konference",
     "family": "Rodina"
+  },
+  "identifier": {
+    "barcode": "Čárový kód",
+    "issn": "ISSN",
+    "isbn": "ISBN",
+    "ismn": "ISMN",
+    "ccnb": "čČNB",
+    "uuid": "UUID",
+    "urnnbn": "URN:NBN",
+    "oclc": "OCLC",
+    "sysno": "Systémové číslo",
+    "permalink": "Permalink",
+    "sici": "SICI"
   },
   "lang": {
     "aar" : "afarština",

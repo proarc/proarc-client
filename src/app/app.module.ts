@@ -25,6 +25,7 @@ import { EditorPublisherComponent } from './documents/document/editor-publisher/
 import { PanelComponent } from './documents/document/panel/panel.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthService } from './services/auth.service';
+import { EditorIdentifierComponent } from './documents/document/editor-identifier/editor-identifier.component';
 
 
 export function hljsLanguages() {
@@ -43,6 +44,7 @@ export function hljsLanguages() {
     EditorLanguageComponent,
     EditorAuthorComponent,
     EditorPublisherComponent,
+    EditorIdentifierComponent,
     ModsEditorComponent,
     EditorLocationComponent,
     PanelComponent,

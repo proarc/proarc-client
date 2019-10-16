@@ -204,14 +204,20 @@ body {
 
 .editor {
   overflow: hidden;
-  background: #fff;
+  background: #f0f0f0;
+  padding: 2px;
   .app-card {
+    box-shadow: none;
+    background: #ffffff;
+    margin: 3px;
+    border: 1px solid #dddddd;
+    padding: 0;
     // border: 1px solid rgba(0,0,0,.03);
     // box-shadow: 0 1px 1px rgba(0,0,0,.14);
     // margin-bottom: 20px;
     // background: #363d48;
     .app-card-header {
-      background: #e4e4e4;
+      background: #dddddd;
       height: 47px;
       // border-top: 1px solid rgba(255, 255, 255, 0.1);
       .app-card-title {

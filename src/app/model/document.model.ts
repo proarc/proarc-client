@@ -5,6 +5,7 @@ import { ModsTitle } from './mods/title.model';
 import { ElementField } from './mods/elementField.model';
 import { ModsAuthor } from './mods/author.model';
 import { ModsLocation } from './mods/location.model';
+import { ModsIdentifier } from './mods/identifier.model';
 declare var $: any;
 
 
@@ -21,6 +22,7 @@ export class DigitalDocument {
   public publishers: ElementField;
   public locations: ElementField;
   public languages: ElementField;
+  public identifiers: ElementField;
 
   constructor(uuid: string, mods: string, dc: string) {
     this.uuid = uuid;
@@ -55,6 +57,9 @@ export class DigitalDocument {
     this.publishers = new ElementField(root, ModsPublisher.getSelector());
     this.locations = new ElementField(root, ModsLocation.getSelector());
     this.languages = new ElementField(root, ModsLanguage.getSelector());
+    this.identifiers = new ElementField(root, ModsIdentifier.getSelector());
+
+    console.log('identifiers', this.identifiers);
 
   }
 
@@ -73,6 +78,7 @@ export class DigitalDocument {
     dc += this.publishers.toDC();
     dc += this.locations.toDC();
     dc += this.languages.toDC();
+    dc += this.identifiers.toDC();
     dc += '</oai_dc:dc>';
     return dc;
 }
@@ -98,7 +104,7 @@ export class DigitalDocument {
     this.normalizeField(root, ModsPublisher.getSelector());
     this.normalizeField(root, ModsLocation.getSelector());
     this.normalizeField(root, ModsLanguage.getSelector());
-
+    this.normalizeField(root, ModsIdentifier.getSelector());
     return mods;
   }
 
