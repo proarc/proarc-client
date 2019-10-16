@@ -5,6 +5,7 @@ export class ModsLocation extends ModsElement {
 
     public physicalLocation;
     public shelfLocator;
+    public url;
 
     static getSelector() {
         return 'location';
@@ -23,8 +24,13 @@ export class ModsLocation extends ModsElement {
         if (!this.modsElement['shelfLocator']) {
             this.modsElement['shelfLocator'] = ModsUtils.createEmptyField();
         }
+        if (!this.modsElement['url']) {
+            this.modsElement['url'] = ModsUtils.createEmptyField();
+        }
         this.physicalLocation = this.modsElement['physicalLocation'][0];
         this.shelfLocator = this.modsElement['shelfLocator'][0];
+        this.url = this.modsElement['url'][0];
+
     }
 
     public toDC() {
@@ -34,6 +40,9 @@ export class ModsLocation extends ModsElement {
         }
         if (this.shelfLocator['_']) {
             dc += ModsUtils.dcEl('source', this.shelfLocator['_']);
+        }
+        if (this.url['_']) {
+            dc += ModsUtils.dcEl('source', this.url['_']);
         }
         return dc;
     }

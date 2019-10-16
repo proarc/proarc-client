@@ -89,6 +89,7 @@
       "location": "Location",
       "physical_location": "Physical Location",
       "shelf_locator": "Shelf Locator",
+      "url": "URL",
       "add_btn": "Add Location"
     },
     "language": {

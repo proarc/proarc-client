@@ -39,8 +39,13 @@
       </mat-form-field>
 
       <mat-form-field class="app-full-width">
-          <input autocomplete="off" matInput [(ngModel)]='item.shelfLocator["_"]' placeholder="{{ 'editor.location.shelf_locator' | translate }}">
-        </mat-form-field>
+        <input autocomplete="off" matInput [(ngModel)]='item.shelfLocator["_"]' placeholder="{{ 'editor.location.shelf_locator' | translate }}">
+      </mat-form-field>
+
+      <mat-form-field class="app-full-width">
+        <input autocomplete="off" matInput [(ngModel)]='item.url["_"]' placeholder="{{ 'editor.location.url' | translate }}">
+      </mat-form-field>
+
 
     </div>
 
