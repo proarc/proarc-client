@@ -5,7 +5,7 @@
 
   <span class="fill-remaining-space"></span>
   
-
+  <a *ngIf="auth.isLoggedIn()" [routerLink]="['/devices']" routerLinkActive="active" mat-button>Zařízení</a>
   <a *ngIf="auth.isLoggedIn()" [routerLink]="['/documents', 'uuid:9ebcb206-24b7-4dc7-b367-3d9ad7179c23']" routerLinkActive="active" mat-button>Monografie</a>
   <a *ngIf="auth.isLoggedIn()" [routerLink]="['/documents', 'uuid:f1c7c08d-8f64-4b66-be28-5f209c2c7021']" routerLinkActive="active" mat-button>Periodikum</a>
   <a *ngIf="!auth.isLoggedIn()"  [routerLink]="['/login']" routerLinkActive="active" mat-button>{{ "navbar.login" | translate }}</a>

@@ -1,0 +1,13 @@
+.devices {
+    height: calc(100% - 50px);
+    padding: 20px;
+    .actions {
+      height: 55px;
+    }
+    .device-list {
+      height: calc(100% - 55px);
+      .app-header {
+        flex: 1;
+      }
+    }
+  }

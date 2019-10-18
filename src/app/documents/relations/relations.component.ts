@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Translator } from 'angular-translator';
-import { Relation } from 'src/app/model/mods/relation.model';
+import { Relation } from 'src/app/model/relation.model';
 
 
 

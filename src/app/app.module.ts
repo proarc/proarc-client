@@ -28,6 +28,8 @@ import { AuthService } from './services/auth.service';
 import { EditorIdentifierComponent } from './documents/document/editor-identifier/editor-identifier.component';
 import { EditorNoteComponent } from './documents/document/editor-note/editor-note.component';
 import { RelationsComponent } from './documents/relations/relations.component';
+import { DevicesComponent } from './components/devices/devices.component';
+import { DeviceComponent } from './components/devices/device/device.component';
 
 
 export function hljsLanguages() {
@@ -52,7 +54,9 @@ export function hljsLanguages() {
     EditorLocationComponent,
     RelationsComponent,
     PanelComponent,
-    LoginComponent
+    LoginComponent,
+    DevicesComponent,
+    DeviceComponent
   ],
   imports: [
     BrowserModule,
