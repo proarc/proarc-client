@@ -39,12 +39,6 @@ export class ApiService {
   }
 
   editDevice(device: Device): Observable<Device> {
-    const body = {
-      id: device.id,
-      label: device.name
-    }
-
-
     const httpOptions = {
         headers: new HttpHeaders({
             'Accept': 'application/json',
@@ -55,18 +49,9 @@ export class ApiService {
 
 
 
-    var data: any = new FormData();
-    data.append("id", 'device:d4a07247-5f17-4269-b868-34f43655b090');
-    data.append("label", 'test');
+    const data = `id=${device.id}&label=${device.name}&timestamp=${device.timestamp}&description=${device.description()}`;
 
-
-    const data2 = `id=device:d4a07247-5f17-4269-b868-34f43655b090&label=test`;
-
-    const data3 = `id=device%3Ad4a07247-5f17-4269-b868-34f43655b090&label=dgdfg2&description=%7B%22ImageCaptureMetadata%22%3A%7B%22GeneralCaptureInformation%22%3A%7B%22imageProducer%22%3A%7B%22value%22%3A%22producer%22%7D%7D%7D%7D&timestamp=1571647849609&_operationType=update&_textMatchStyle=exact&_dataSource=DeviceDataSource&isc_metaDataPrefix=_&isc_dataFormat=json`;
-    
-    const data4 = `label=tessst`;
-
-    return this.post('device', data3, httpOptions).pipe(map(response => Device.fromJson(response['response']['data'][0])));
+    return this.put('device', data, httpOptions).pipe(map(response => Device.fromJson(response['response']['data'][0])));
   }
 
   getMods(uuid: string): Observable<Object> {

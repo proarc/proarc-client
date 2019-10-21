@@ -26,86 +26,81 @@ export class Device {
 
     public timestamp: number;
 
-    x = {"data": [
-        {
-          "id": "device:97803196-b065-4309-a825-a395894300ad",
-          "label": "Scan2Page",
-          "description": {
+    public description(): string {
+        return JSON.stringify({
             "ImageCaptureMetadata": {
               "GeneralCaptureInformation": {
                 "imageProducer": [
                   {
-                    "value": "NUPSESO, a.s."
+                    "value": this.imageProducer
                   }
                 ],
                 "captureDevice": {
-                  "value": "digital still camera"
+                  "value": this.captureDevice
                 }
               },
               "ScannerCapture": {
                 "scannerManufacturer": {
-                  "value": "4DigitalBooks"
+                  "value": this.scannerManufacturer
                 },
                 "ScannerModel": {
                   "scannerModelName": {
-                    "value": "Scan2Page"
+                    "value": this.scannerModelName
                   },
                   "scannerModelNumber": {
-                    "value": "Scan2Page"
+                    "value": this.scannerModelNumber
                   },
                   "scannerModelSerialNo": {
-                    "value": "NA"
+                    "value": this.scannerModelSerialNo
                   }
                 },
                 "MaximumOpticalResolution": {
                   "xOpticalResolution": {
-                    "value": 5968
+                    "value": this.xOpticalResolution
                   },
                   "yOpticalResolution": {
-                    "value": 8923
+                    "value": this.yOpticalResolution
                   },
                   "opticalResolutionUnit": {
-                    "value": "no absolute unit"
+                    "value": this.opticalResolutionUnit
                   }
                 },
                 "scannerSensor": {
-                  "value": "ColorTriLinear"
+                  "value": this.scannerSensor
                 },
                 "ScanningSystemSoftware": {
                   "scanningSoftwareName": {
-                    "value": "CopiNet"
+                    "value": this.scanningSoftwareName
                   },
                   "scanningSoftwareVersionNo": {
-                    "value": "1214831"
+                    "value": this.scanningSoftwareVersionNo
                   }
                 }
               },
               "DigitalCameraCapture": {
                 "digitalCameraManufacturer": {
-                  "value": "I2S"
+                  "value": this.digitalCameraManufacturer
                 },
                 "DigitalCameraModel": {
                   "digitalCameraModelName": {
-                    "value": "2 x CopiBook (56 Mega Pixels)"
+                    "value": this.digitalCameraModelName
                   },
                   "digitalCameraModelNumber": {
-                    "value": "HD600"
+                    "value": this.digitalCameraModelNumber
                   },
                   "digitalCameraModelSerialNo": {
-                    "value": "264508, 264506"
+                    "value": this.digitalCameraModelSerialNo
                   }
                 },
                 "cameraSensor": {
-                  "value": "ColorTriLinear"
+                  "value": this.cameraSensor
                 }
               }
             }
-          },
-          "timestamp": 1422633790944
-        }
-      ]};
+        });
+    }
 
-
+    
     public static fromJsonArray(jsonArray): Device[] {
         const array: Device[] = [];
         for (const json of jsonArray) {
@@ -119,6 +114,7 @@ export class Device {
         const device = new Device();
         device.id = json['id'];
         device.name = json['label'];
+        device.timestamp = json['timestamp'];
         if (json['description'] && json['description']['ImageCaptureMetadata']) {
             const icm = json['description']['ImageCaptureMetadata'];
             if (icm['GeneralCaptureInformation']) {
