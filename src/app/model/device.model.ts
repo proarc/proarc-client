@@ -117,72 +117,72 @@ export class Device {
 
     public description(): string {
         return JSON.stringify({
-            "ImageCaptureMetadata": {
-              "GeneralCaptureInformation": {
-                "imageProducer": [
+            'ImageCaptureMetadata': {
+              'GeneralCaptureInformation': {
+                'imageProducer': [
                   {
-                    "value": this.imageProducer
+                    'value': this.imageProducer
                   }
                 ],
-                "captureDevice": {
-                  "value": this.captureDevice
+                'captureDevice': {
+                  'value': this.captureDevice
                 }
               },
-              "ScannerCapture": {
-                "scannerManufacturer": {
-                  "value": this.scannerManufacturer
+              'ScannerCapture': {
+                'scannerManufacturer': {
+                  'value': this.scannerManufacturer
                 },
-                "ScannerModel": {
-                  "scannerModelName": {
-                    "value": this.scannerModelName
+                'ScannerModel': {
+                  'scannerModelName': {
+                    'value': this.scannerModelName
                   },
-                  "scannerModelNumber": {
-                    "value": this.scannerModelNumber
+                  'scannerModelNumber': {
+                    'value': this.scannerModelNumber
                   },
-                  "scannerModelSerialNo": {
-                    "value": this.scannerModelSerialNo
+                  'scannerModelSerialNo': {
+                    'value': this.scannerModelSerialNo
                   }
                 },
-                "MaximumOpticalResolution": {
-                  "xOpticalResolution": {
-                    "value": this.xOpticalResolution
+                'MaximumOpticalResolution': {
+                  'xOpticalResolution': {
+                    'value': this.xOpticalResolution
                   },
-                  "yOpticalResolution": {
-                    "value": this.yOpticalResolution
+                  'yOpticalResolution': {
+                    'value': this.yOpticalResolution
                   },
-                  "opticalResolutionUnit": {
-                    "value": this.opticalResolutionUnit
+                  'opticalResolutionUnit': {
+                    'value': this.opticalResolutionUnit
                   }
                 },
-                "scannerSensor": {
-                  "value": this.scannerSensor
+                'scannerSensor': {
+                  'value': this.scannerSensor
                 },
-                "ScanningSystemSoftware": {
-                  "scanningSoftwareName": {
-                    "value": this.scanningSoftwareName
+                'ScanningSystemSoftware': {
+                  'scanningSoftwareName': {
+                    'value': this.scanningSoftwareName
                   },
-                  "scanningSoftwareVersionNo": {
-                    "value": this.scanningSoftwareVersionNo
+                  'scanningSoftwareVersionNo': {
+                    'value': this.scanningSoftwareVersionNo
                   }
                 }
               },
-              "DigitalCameraCapture": {
-                "digitalCameraManufacturer": {
-                  "value": this.digitalCameraManufacturer
+              'DigitalCameraCapture': {
+                'digitalCameraManufacturer': {
+                  'value': this.digitalCameraManufacturer
                 },
-                "DigitalCameraModel": {
-                  "digitalCameraModelName": {
-                    "value": this.digitalCameraModelName
+                'DigitalCameraModel': {
+                  'digitalCameraModelName': {
+                    'value': this.digitalCameraModelName
                   },
-                  "digitalCameraModelNumber": {
-                    "value": this.digitalCameraModelNumber
+                  'digitalCameraModelNumber': {
+                    'value': this.digitalCameraModelNumber
                   },
-                  "digitalCameraModelSerialNo": {
-                    "value": this.digitalCameraModelSerialNo
+                  'digitalCameraModelSerialNo': {
+                    'value': this.digitalCameraModelSerialNo
                   }
                 },
-                "cameraSensor": {
-                  "value": this.cameraSensor
+                'cameraSensor': {
+                  'value': this.cameraSensor
                 }
               }
             }
