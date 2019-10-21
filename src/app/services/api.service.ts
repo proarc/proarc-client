@@ -37,7 +37,6 @@ export class ApiService {
     return this.get('device').pipe(map(response => Device.fromJsonArray(response['response']['data'])));
   }
 
-
   getDevice(deviceId: string): Observable<Device> {
     return this.get('device', { id: deviceId }).pipe(map(response => Device.fromJson(response['response']['data'][0])));
   }
@@ -49,17 +48,21 @@ export class ApiService {
   editDevice(device: Device): Observable<Device> {
     const httpOptions = {
         headers: new HttpHeaders({
-            'Accept': 'application/json',
-'Accept-Language': 'cs',
-'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         })
     };
-
-
-
     const data = `id=${device.id}&label=${device.name}&timestamp=${device.timestamp}&description=${device.description()}`;
-
     return this.put('device', data, httpOptions).pipe(map(response => Device.fromJson(response['response']['data'][0])));
+  }
+
+  createDevice(): Observable<Device> {
+    const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        })
+    };
+    const data = '';
+    return this.post('device', data, httpOptions).pipe(map(response => Device.fromJson(response['response']['data'][0])));
   }
 
   getMods(uuid: string): Observable<Object> {

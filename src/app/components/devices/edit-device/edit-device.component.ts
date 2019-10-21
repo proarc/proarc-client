@@ -17,9 +17,10 @@ export class EditDeviceComponent implements OnInit {
   deviceName: string;
 
   captureDevices = ['transmission scanner', 'reflection print scanner', 'digital still camera', 'still from video'];
-  scannerManufacturers = ['Zeutschel', 'Treventus', '4DigitalBooks']
+  scannerManufacturers = ['Zeutschel', 'Treventus', '4DigitalBooks'];
   resolutionUnits = ['cm', 'in.', 'no absolute unit'];
-  sensors = ['MonochromeLinear', 'ColorTriLinear', 'ColorSequentialLinear', 'MonochromeArea', 'OneChipColorArea', 'TwoChipColorArea', 'ThreeChipColorArea', 'ColorSequentialArea'];
+  sensors = ['MonochromeLinear', 'ColorTriLinear', 'ColorSequentialLinear', 'MonochromeArea', 'OneChipColorArea',
+            'TwoChipColorArea', 'ThreeChipColorArea', 'ColorSequentialArea'];
 
   constructor(private api: ApiService,
               private route: ActivatedRoute,
@@ -50,10 +51,13 @@ export class EditDeviceComponent implements OnInit {
   onSubmit() {
     this.state = 'saving';
     if (this.mode === 'new') {
-      // this.apiService.createFlexira(this.flexira).subscribe((flexira: Flexira) => {
-      //   this.uiService.showInfoSnackBar('Instalace byla vytvořena');
-      //   this.router.navigate(['/admin/flexiras']);
-      // });
+      this.api.createDevice().subscribe((device: Device) => {
+        this.device.id = device.id;
+        this.api.editDevice(this.device).subscribe(() => {
+          this.ui.showInfoSnackBar('Zařízení bylo vytvořeno');
+          this.router.navigate(['/devices', device.id]);
+        });
+      });
     } else if (this.mode === 'edit') {
       this.api.editDevice(this.device).subscribe((device: Device) => {
         this.ui.showInfoSnackBar('Zařízení bylo upraveno');
@@ -61,7 +65,6 @@ export class EditDeviceComponent implements OnInit {
       });
     }
   }
-
 
 
 }
