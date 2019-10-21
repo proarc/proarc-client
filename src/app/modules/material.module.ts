@@ -29,7 +29,7 @@ import { MatButtonModule,
     MatSelectModule,
     MatMenuModule,
     MatAutocompleteModule
-  ]
+  ];
 
   @NgModule({
   imports: modules,

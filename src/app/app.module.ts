@@ -32,6 +32,7 @@ import { DevicesComponent } from './components/devices/devices.component';
 import { DeviceComponent } from './components/devices/device/device.component';
 import { EditDeviceComponent } from './components/devices/edit-device/edit-device.component';
 import { UIService } from './services/ui.service';
+import { SimpleDialogComponent } from './dialogs/simple-dialog/simple-dialog.component';
 
 
 export function hljsLanguages() {
@@ -59,7 +60,8 @@ export function hljsLanguages() {
     LoginComponent,
     DevicesComponent,
     DeviceComponent,
-    EditDeviceComponent
+    EditDeviceComponent,
+    SimpleDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +83,9 @@ export function hljsLanguages() {
     ApiService,
     AuthService,
     UIService
+  ],
+  entryComponents: [
+    SimpleDialogComponent
   ],
   bootstrap: [AppComponent]
 })

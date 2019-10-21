@@ -29,6 +29,10 @@ export class ApiService {
     return this.http.post(encodeURI(`${ApiService.apiUrl}${path}`), body, options);
   }
 
+  private delete(path: string, params = {}): Observable<Object> {
+    return this.http.delete(encodeURI(`${ApiService.apiUrl}${path}`), { params: params });
+  }
+
   getDevices(): Observable<Device[]> {
     return this.get('device').pipe(map(response => Device.fromJsonArray(response['response']['data'])));
   }
@@ -36,6 +40,10 @@ export class ApiService {
 
   getDevice(deviceId: string): Observable<Device> {
     return this.get('device', { id: deviceId }).pipe(map(response => Device.fromJson(response['response']['data'][0])));
+  }
+
+  removeDevice(deviceId: string): Observable<Device> {
+    return this.delete('device', { id: deviceId }).pipe(map(response => Device.fromJson(response['response']['data'][0])));
   }
 
   editDevice(device: Device): Observable<Device> {
@@ -71,7 +79,7 @@ export class ApiService {
 
   getChildren(uuid: string): Observable<Object> {
     const url = 'https://kramerius.mzk.cz/search/api/v5.0/item/' + uuid + '/children';
-    return this.http.get(url)
+    return this.http.get(url);
   }
 
   private get2(url: string, params = {}): Observable<Object> {
