@@ -1,3 +1,55 @@
-<p>
-  device works!
-</p>
+<div class="breadcrumb-nav">
+  <div *ngIf="device">
+      <a [routerLink]="['/devices']">Zařízení</a>
+      <mat-icon>chevron_right</mat-icon>
+      <span>{{device.name}}</span>
+  </div>
+</div>
+<div class="app-device" *ngIf="state === 'success'">
+
+  <div class="app-device-name">{{ device.name }}</div>
+
+
+  <div class="app-detail-key-value">Image Producer: <strong>{{ device.imageProducer }}</strong></div>
+  <div class="app-detail-key-value">Capture Device: <strong>{{ device.captureDevice }}</strong></div>
+
+  <div class="app-detail-label">Scanner</div>
+
+  <div class="app-detail-key-value">Manufacturer: <strong>{{ device.scannerManufacturer }}</strong></div>
+  <div class="app-detail-key-value">Scanner Sensor: <strong>{{ device.scannerSensor }}</strong></div>
+  <div class="app-detail-key-value">Model Name: <strong>{{ device.scannerModelName }}</strong></div>
+  <div class="app-detail-key-value">Model Number: <strong>{{ device.scannerModelNumber }}</strong></div>
+  <div class="app-detail-key-value">Model Serial No.: <strong>{{ device.scannerModelSerialNo }}</strong></div>
+
+  <div class="app-detail-key-value">X Optical Resolution: <strong>{{ device.xOpticalResolution }}</strong></div>
+  <div class="app-detail-key-value">Y Optical Resolution: <strong>{{ device.yOpticalResolution }}</strong></div>
+  <div class="app-detail-key-value">Optical Resolution Unit: <strong>{{ device.opticalResolutionUnit }}</strong></div>
+
+  <div class="app-detail-key-value">Scanning Software Name: <strong>{{ device.scanningSoftwareName }}</strong></div>
+  <div class="app-detail-key-value">Scanning Software Version No.: <strong>{{ device.scanningSoftwareVersionNo }}</strong></div>
+
+
+  <div class="app-detail-label">Digital Camera</div>
+  <div class="app-detail-key-value">Manufacturer: <strong>{{ device.digitalCameraManufacturer }}</strong></div>
+  <div class="app-detail-key-value">Camera Sensor: <strong>{{ device.cameraSensor }}</strong></div>
+
+  <div class="app-detail-key-value">Model Name: <strong>{{ device.digitalCameraModelName }}</strong></div>
+  <div class="app-detail-key-value">Model Number: <strong>{{ device.digitalCameraModelNumber }}</strong></div>
+  <div class="app-detail-key-value">Model Serial No.: <strong>{{ device.digitalCameraModelSerialNo }}</strong></div>
+
+
+  <div class="actions">
+      <a color="primary"
+          [routerLink]="['/devices', device.id, 'edit']" 
+          mat-raised-button>
+              <mat-icon style="margin-right:8px;">edit</mat-icon>
+              Upravit zařízení
+      </a>
+  </div>
+</div>
+
+<mat-spinner *ngIf="state === 'loading'"
+          [strokeWidth]="5" 
+          [diameter]="60" 
+          class="center-spinner">
+</mat-spinner>

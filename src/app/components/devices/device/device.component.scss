@@ -1,0 +1,40 @@
+@import './src/theme.scss';
+
+.app-device {
+
+    // height: calc(100% - 50px);
+    // overflow: scroll;
+    padding: 20px;
+    .app-device-name {
+      font-size: 22px;
+      color: #333;
+      margin-bottom: 16px;
+    }
+    .app-detail-key-value {
+      color: #888;
+      margin-bottom: 4px;
+      strong {
+        padding-left: 3px;
+        color: #555;
+        a {
+          color: #3f4fb5;
+          text-decoration: none;
+        }
+      }
+    }
+    .app-detail-label {
+      color: $primary-color;
+      margin-bottom: 8px;
+      margin-top: 16px;
+    }
+  
+    .actions {
+      margin-top: 20px;
+      a, button {
+        // margin: 16px auto 8px;
+        // display: block;
+        // width: 240px;
+        margin-right: 8px;
+      }
+    }
+  }

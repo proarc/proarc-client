@@ -7,7 +7,7 @@ import { ModsAuthor } from './mods/author.model';
 import { ModsLocation } from './mods/location.model';
 import { ModsIdentifier } from './mods/identifier.model';
 import { ModsNote } from './mods/note.mode';
-import { Relation } from './mods/relation.model';
+import { Relation } from './relation.model';
 declare var $: any;
 
 

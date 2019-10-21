@@ -30,6 +30,8 @@ import { EditorNoteComponent } from './documents/document/editor-note/editor-not
 import { RelationsComponent } from './documents/relations/relations.component';
 import { DevicesComponent } from './components/devices/devices.component';
 import { DeviceComponent } from './components/devices/device/device.component';
+import { EditDeviceComponent } from './components/devices/edit-device/edit-device.component';
+import { UIService } from './services/ui.service';
 
 
 export function hljsLanguages() {
@@ -56,7 +58,8 @@ export function hljsLanguages() {
     PanelComponent,
     LoginComponent,
     DevicesComponent,
-    DeviceComponent
+    DeviceComponent,
+    EditDeviceComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +79,8 @@ export function hljsLanguages() {
   ],
   providers: [
     ApiService,
-    AuthService
+    AuthService,
+    UIService
   ],
   bootstrap: [AppComponent]
 })

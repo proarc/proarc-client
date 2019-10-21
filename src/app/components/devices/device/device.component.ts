@@ -21,6 +21,7 @@ export class DeviceComponent implements OnInit {
       this.state = 'loading';
       this.api.getDevice(params['id']).subscribe((device: Device) => {
         this.device = device;
+        console.log('device', device);
         this.state = 'success';
       });
     });
