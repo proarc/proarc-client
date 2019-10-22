@@ -1,3 +1,4 @@
+import { Atm } from './../model/atm.model';
 import { DocumentItem } from './../model/documentItem.model';
 import { DigitalDocument } from 'src/app/model/document.model';
 import { Injectable } from '@angular/core';
@@ -33,6 +34,10 @@ export class ApiService {
 
   private delete(path: string, params = {}): Observable<Object> {
     return this.http.delete(encodeURI(`${ApiService.apiUrl}${path}`), { params: params });
+  }
+
+  getAtm(id: string): Observable<Atm> {
+    return this.get('object/atm', { pid: id }).pipe(map(response => Atm.fromJson(response['response']['data'][0])));
   }
 
   getMods(id: string): Observable<DigitalDocument> {

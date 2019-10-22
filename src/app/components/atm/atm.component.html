@@ -1,0 +1,16 @@
+<div class="app-atm" *ngIf="state === 'success'">
+
+  <div class="app-detail-key-value">PID: <strong>{{ atm.pid }}</strong></div>
+  <div class="app-detail-key-value">Model: <strong>{{ "model." + atm.model | translate }}</strong></div>
+  <div class="app-detail-key-value">Vlastník: <strong>{{ atm.owner }}</strong></div>
+  <div class="app-detail-key-value">Vytvořeno: <strong>{{ atm.created | appDatetime }}</strong></div>
+  <div class="app-detail-key-value">Změněno: <strong>{{ atm.modified | appDatetime }}</strong></div>
+  <div class="app-detail-key-value">Exxport: <strong>{{ atm.exportResult }}</strong></div>
+
+
+
+<mat-spinner *ngIf="state === 'loading'"
+          [strokeWidth]="5" 
+          [diameter]="60"
+          class="center-spinner">
+</mat-spinner>

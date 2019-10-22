@@ -5,8 +5,8 @@ export class Atm {
     public model: string;
     public state: string;
     public owner: string;
-    public modified: string;
-    public created: string;
+    public modified: Date;
+    public created: Date;
     public exportResult: string;
 
   public static fromJson(json): Atm {
@@ -16,8 +16,12 @@ export class Atm {
       atm.model = json['model'];
       atm.state = json['state'];
       atm.owner = json['owner'];
-      atm.modified = json['modified'];
-      atm.created = json['created'];
+      if (json['modified']) {
+        atm.modified = new Date(json['modified']);
+      }
+      if (json['created']) {
+        atm.created = new Date(json['created']);
+      }
       atm.exportResult = json['exportResult'];
       return atm;
   }

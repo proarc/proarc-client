@@ -36,6 +36,7 @@ import { EditDeviceComponent } from './components/devices/edit-device/edit-devic
 import { UIService } from './services/ui.service';
 import { SimpleDialogComponent } from './dialogs/simple-dialog/simple-dialog.component';
 import { SearchComponent } from './components/search/search.component';
+import { AtmComponent } from './components/atm/atm.component';
 
 
 export function hljsLanguages() {
@@ -67,7 +68,8 @@ export function hljsLanguages() {
     SimpleDialogComponent,
     SearchComponent,
     DatePipe,
-    DatetimePipe
+    DatetimePipe,
+    AtmComponent
   ],
   imports: [
     BrowserModule,
