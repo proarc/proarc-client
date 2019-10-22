@@ -141,7 +141,8 @@
     "model:ndkperiodicalissue": "NDK číslo",
     "model:ndkperiodicalsupplement": "NDK příloha periodika",
     "model:ndkarticle": "NDK článek",
-    "model:ndkmonographvolume": "NDK monografie"
+    "model:ndkmonographvolume": "NDK monografie",
+    "model:page": "Stránka"
   },
   "lang": {
     "aar" : "afarština",

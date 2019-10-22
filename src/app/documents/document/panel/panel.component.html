@@ -16,5 +16,5 @@
     <app-mods-editor *ngIf="content == 'biblio' && subcontent == 'biblioEditor'" [document]="document"></app-mods-editor>
     <app-xml-view *ngIf="content == 'biblio' && subcontent == 'biblioMods'" [xml]="document.toMods()" [xmlOriginal]="document.originalMods"></app-xml-view>
     <app-xml-view *ngIf="content == 'biblio' && subcontent == 'biblioDc'" [xml]="document.toDc()" [xmlOriginal]="document.originalDc"></app-xml-view>
-    <app-relations *ngIf="content == 'relations'" [relations]="document.relations"></app-relations>
+    <app-relations *ngIf="content == 'relations'"></app-relations>
 </div>

@@ -43,13 +43,13 @@
         <div class="result-export">Export</div>
       </div>
     <div class="scrollable">
-      <a *ngFor="let result of results" [routerLink]="['/documents', result.pid]" class="app-row">
-        <div class="result-label">{{ result.label }}</div>
-        <div class="result-model">{{ "model." + result.model | translate }}</div>
-        <div class="result-owner">{{ result.owner }}</div>
-        <div class="result-created">{{ result.created | appDatetime }}</div>
-        <div class="result-modified">{{ result.modified | appDatetime }}</div>
-        <div class="result-export">{{ result.export == 1 ? "Ano" : "Ne" }}</div>
+      <a *ngFor="let item of items" [routerLink]="['/documents', item.pid]" class="app-row">
+        <div class="result-label">{{ item.label }}</div>
+        <div class="result-model">{{ "model." + item.model | translate }}</div>
+        <div class="result-owner">{{ item.owner }}</div>
+        <div class="result-created">{{ item.created | appDatetime }}</div>
+        <div class="result-modified">{{ item.modified | appDatetime }}</div>
+        <div class="result-export">{{ item.export == 1 ? "Ano" : "Ne" }}</div>
       </a>
     </div>
   </div>

@@ -1,8 +1,8 @@
 <div class="app-relations">
   <div class="scrollable app-table">
-    <a *ngFor="let relation of relations" [routerLink]="['/documents', relation.pid]"  class="app-row">
-      <div class="app-col-model">{{ relation.model }}</div>
-      <div class="app-col-title">{{ relation.title }}</div>
+    <a *ngFor="let item of items" [routerLink]="['/documents', item.pid]"  class="app-row">
+      <div class="app-col-label">{{ item.label }}</div>
+      <div class="app-col-model">{{ "model." + item.model | translate }}</div>
     </a>
   </div>
 </div>

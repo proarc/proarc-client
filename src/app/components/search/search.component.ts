@@ -1,4 +1,4 @@
-import { SearchResult } from './../../model/searchResult.model';
+import { DocumentItem } from '../../model/documentItem.model';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -10,7 +10,7 @@ import { ApiService } from 'src/app/services/api.service';
 export class SearchComponent implements OnInit {
 
   state = 'none';
-  results: SearchResult[];
+  items: DocumentItem[];
 
   models = [
     'model:ndkperiodical',
@@ -19,6 +19,7 @@ export class SearchComponent implements OnInit {
     'model:ndkperiodicalsupplement',
     'model:ndkarticle',
     'model:ndkmonographvolume',
+    'model:page',
   ];
 
   model = 'model:ndkperiodical';
@@ -36,10 +37,9 @@ export class SearchComponent implements OnInit {
 
   reload() {
     this.state = 'loading';
-    this.api.getSearchResults(this.model, this.query, this.pageIndex).subscribe((results: SearchResult[]) => {
-      this.results = results;
+    this.api.getSearchResults(this.model, this.query, this.pageIndex).subscribe((items: DocumentItem[]) => {
+      this.items = items;
       this.state = 'success';
-      console.log('result', results);
     });
   }
 
