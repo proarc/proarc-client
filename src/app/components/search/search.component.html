@@ -1,0 +1,71 @@
+<div class="breadcrumb-nav">
+  <span>Hledání</span>
+</div>
+
+<div class="app-search-results" *ngIf="state=='success'">
+
+  <div class="actions">
+
+
+    <mat-form-field class="state-filter">
+      <mat-select placeholder="Model" name="model" [(ngModel)]="model">
+        <mat-option value="all">Vše</mat-option>
+        <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <a mat-raised-button color="primary" (click)="reload()">
+        <mat-icon style="margin-right:8px;">search</mat-icon>
+      Vyhledat
+    </a>
+  
+    <mat-form-field class="document-search">
+      <input matInput placeholder="Hledat dokument" (keyup.enter)="reload()" [(ngModel)]="query">
+    </mat-form-field>
+
+
+
+
+
+  </div>
+
+
+
+  <div class="app-table">
+
+  <div class="search-result-list">
+      <div class="app-row app-header">
+        <div class="result-label">Název</div>
+        <div class="result-model">Model</div>
+        <div class="result-owner">Vlastník</div>
+        <div class="result-created">Vytvořeno</div>
+        <div class="result-modified">Změněno</div>
+        <div class="result-export">Export</div>
+      </div>
+    <div class="scrollable">
+      <a *ngFor="let result of results" [routerLink]="['/documents', result.pid]" class="app-row">
+        <div class="result-label">{{ result.label }}</div>
+        <div class="result-model">{{ "model." + result.model | translate }}</div>
+        <div class="result-owner">{{ result.owner }}</div>
+        <div class="result-created">{{ result.created | appDatetime }}</div>
+        <div class="result-modified">{{ result.modified | appDatetime }}</div>
+        <div class="result-export">{{ result.export == 1 ? "Ano" : "Ne" }}</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="paginator-wrapper">
+    <mat-paginator [length]="resultCount"
+                  hidePageSize="true"
+                  [pageIndex]="pageIndex"
+                  [pageSize]="pageSize"
+                  (page)="onPageChanged($event)">
+    </mat-paginator>
+    </div>
+</div>
+
+
+</div>
+
+<mat-spinner *ngIf="state=='loading'" [strokeWidth]="5" [diameter]="60" class="center-spinner">
+</mat-spinner>

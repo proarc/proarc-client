@@ -1,3 +1,5 @@
+import { DatetimePipe } from './pipes/datetime.pipe';
+import { DatePipe } from './pipes/date.pipe';
 import { EditorLocationComponent } from './documents/document/editor-location/editor-location.component';
 import { ModsEditorComponent } from './documents/document/mods-editor/mods-editor.component';
 import { EditorAuthorComponent } from './documents/document/editor-author/editor-author.component';
@@ -33,6 +35,7 @@ import { DeviceComponent } from './components/devices/device/device.component';
 import { EditDeviceComponent } from './components/devices/edit-device/edit-device.component';
 import { UIService } from './services/ui.service';
 import { SimpleDialogComponent } from './dialogs/simple-dialog/simple-dialog.component';
+import { SearchComponent } from './components/search/search.component';
 
 
 export function hljsLanguages() {
@@ -61,7 +64,10 @@ export function hljsLanguages() {
     DevicesComponent,
     DeviceComponent,
     EditDeviceComponent,
-    SimpleDialogComponent
+    SimpleDialogComponent,
+    SearchComponent,
+    DatePipe,
+    DatetimePipe
   ],
   imports: [
     BrowserModule,

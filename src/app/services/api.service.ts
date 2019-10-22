@@ -1,3 +1,4 @@
+import { SearchResult } from './../model/searchResult.model';
 import { DigitalDocument } from 'src/app/model/document.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -37,6 +38,24 @@ export class ApiService {
   getMods(id: string): Observable<DigitalDocument> {
     return this.get('object/mods/plain', { pid: id }).pipe(map(response =>
       new DigitalDocument(id, response['record']['content'], response['record']['timestamp'])));
+  }
+
+  getSearchResults(model: string, query: string, page: number): Observable<SearchResult[]> {
+    const params = {
+      _startRow: page * 100,
+      _endRow: 75
+    };
+    if (model !== 'all') {
+      params['queryModel'] = model;
+    }
+    if (query) {
+      params['type'] = 'query';
+      params['queryTitle'] = query;
+      // type=query&phrase=pr%C3%A1ce&queryTitle=pr%C3%A1ce
+    } else {
+      params['type'] = 'lastCreated';
+    }
+    return this.get('object/search', params).pipe(map(response => SearchResult.fromJsonArray(response['response']['data'])));
   }
 
   getDevices(): Observable<Device[]> {

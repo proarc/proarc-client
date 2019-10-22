@@ -1,3 +1,4 @@
+import { SearchComponent } from './../components/search/search.component';
 import { DocumentComponent } from './../documents/document/document.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'devices', component: DevicesComponent },
   { path: 'devices/new', component: EditDeviceComponent },
   { path: 'devices/:id', component: DeviceComponent },
-  { path: 'devices/:id/edit', component: EditDeviceComponent }
+  { path: 'devices/:id/edit', component: EditDeviceComponent },
+  { path: 'search', component: SearchComponent },
 ];
 
 @NgModule({

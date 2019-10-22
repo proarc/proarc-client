@@ -12,7 +12,8 @@ import { MatButtonModule,
   MatSlideToggleModule,
   MatSelectModule,
   MatMenuModule,
-  MatAutocompleteModule} from '@angular/material';
+  MatAutocompleteModule,
+  MatPaginatorModule} from '@angular/material';
 
   const modules = [
     MatButtonModule,
@@ -28,6 +29,7 @@ import { MatButtonModule,
     MatSlideToggleModule,
     MatSelectModule,
     MatMenuModule,
+    MatPaginatorModule,
     MatAutocompleteModule
   ];
 
