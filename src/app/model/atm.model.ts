@@ -3,6 +3,7 @@ export class Atm {
 
     public pid: string;
     public model: string;
+    public device: string;
     public state: string;
     public owner: string;
     public modified: Date;
@@ -16,6 +17,7 @@ export class Atm {
       atm.model = json['model'];
       atm.state = json['state'];
       atm.owner = json['owner'];
+      atm.device = json['device'];
       if (json['modified']) {
         atm.modified = new Date(json['modified']);
       }

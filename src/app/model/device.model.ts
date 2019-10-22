@@ -2,7 +2,7 @@
 export class Device {
 
     public id: string;
-    public name: string;
+    public label: string;
 
     public imageProducer: string;
     public captureDevice: string;
@@ -39,7 +39,7 @@ export class Device {
       console.log(json);
       const device = new Device();
       device.id = json['id'];
-      device.name = json['label'];
+      device.label = json['label'];
       device.timestamp = json['timestamp'];
       if (json['description'] && json['description']['ImageCaptureMetadata']) {
           const icm = json['description']['ImageCaptureMetadata'];

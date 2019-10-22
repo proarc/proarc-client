@@ -38,7 +38,7 @@ export class DeviceComponent implements OnInit {
   removeDevice() {
     const data: SimpleDialogData = {
       title: 'Odstranění zařízení',
-      message: `Opravdu chcete odstranit zařízení ${this.device.name || ''}?`,
+      message: `Opravdu chcete odstranit zařízení ${this.device.label || ''}?`,
       btn2: {
         label: 'Ne',
         value: 'no',

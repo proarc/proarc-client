@@ -2,12 +2,12 @@
   <div *ngIf="device">
       <a [routerLink]="['/devices']">Zařízení</a>
       <mat-icon>chevron_right</mat-icon>
-      <span>{{device.name}}</span>
+      <span>{{device.label}}</span>
   </div>
 </div>
 <div class="app-device" *ngIf="state === 'success'">
 
-  <div class="app-device-name">{{ device.name }}</div>
+  <div class="app-device-label">{{ device.label }}</div>
 
 
   <div class="app-detail-key-value">Image Producer: <strong>{{ device.imageProducer }}</strong></div>
