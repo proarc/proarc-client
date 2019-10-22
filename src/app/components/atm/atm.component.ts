@@ -16,6 +16,8 @@ export class AtmComponent implements OnInit {
   atm: Atm;
   devices: Device[];
 
+  deviceId: string;
+
   constructor(private api: ApiService, private route: ActivatedRoute) {
   }
 
@@ -24,14 +26,10 @@ export class AtmComponent implements OnInit {
       const id = params['id'];
       const rAtm = this.api.getAtm(id);
       const rDevice = this.api.getDevices();
-      // this.api.getAtm(id).subscribe((atm: Atm) => {
-      //   this.atm = atm;
-      //   this.state = 'success';
-      //   console.log('atm', atm);
-      // });
      forkJoin(rAtm, rDevice).subscribe(([atm, devices]: [Atm, Device[]]) => {
         this.atm = atm;
         this.devices = devices;
+        this.deviceId = this.atm.device;
         this.state = 'success';
       }, () => {
         this.state = 'failure';
@@ -39,4 +37,17 @@ export class AtmComponent implements OnInit {
     });
   }
 
+  deviceChanged(): boolean {
+    return this.deviceId !== this.atm.device;
+  }
+
+
+  updateDevice() {
+    this.state = 'saving';
+    this.api.editAtmDevice(this.atm, this.deviceId).subscribe((atm: Atm) => {
+      console.log('new atm', atm);
+      this.state = 'success';
+      this.atm = atm;
+    });
+  }
 }

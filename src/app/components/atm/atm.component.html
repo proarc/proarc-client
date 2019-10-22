@@ -5,15 +5,19 @@
   <div class="app-detail-key-value">Vlastník: <strong>{{ atm.owner }}</strong></div>
   <div class="app-detail-key-value">Vytvořeno: <strong>{{ atm.created | appDatetime }}</strong></div>
   <div class="app-detail-key-value">Změněno: <strong>{{ atm.modified | appDatetime }}</strong></div>
+  <div class="app-detail-key-value">Soubor: <strong>{{ atm.filename }}</strong></div>
   <div class="app-detail-key-value">Export: <strong>{{ atm.exportResult }}</strong></div>
 
   <mat-form-field>
-    <mat-select placeholder="Zařízení" name="device" [(value)]="atm.device">
-        <mat-option [value]="">Žádné zařízení</mat-option>
+    <mat-select placeholder="Zařízení" name="device" [(value)]="deviceId">
+        <mat-option [value]="'null'">Žádné zařízení</mat-option>
         <mat-option *ngFor="let device of devices" [value]="device.id">{{ device.label }}</mat-option>
     </mat-select>
-</mat-form-field>
+  </mat-form-field>
 
+  <button *ngIf="deviceChanged()" class="btn-update-device" (click)="updateDevice()" mat-raised-button [disabled]="state=='saving'" color="primary">
+      <span>Uložit</span>
+  </button>
 
 <mat-spinner *ngIf="state === 'loading'"
           [strokeWidth]="5" 

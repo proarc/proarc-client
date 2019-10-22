@@ -40,6 +40,16 @@ export class ApiService {
     return this.get('object/atm', { pid: id }).pipe(map(response => Atm.fromJson(response['response']['data'][0])));
   }
 
+  editAtmDevice(atm: Atm, device: string): Observable<Atm> {
+    const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        })
+    };
+    const data = `pid=${atm.pid}&device=${device}`;
+    return this.put('object/atm', data, httpOptions).pipe(map(response => Atm.fromJson(response['response']['data'][0])));
+  }
+
   getMods(id: string): Observable<DigitalDocument> {
     return this.get('object/mods/plain', { pid: id }).pipe(map(response =>
       new DigitalDocument(id, response['record']['content'], response['record']['timestamp'])));

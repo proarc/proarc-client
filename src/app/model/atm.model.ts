@@ -9,6 +9,7 @@ export class Atm {
     public modified: Date;
     public created: Date;
     public exportResult: string;
+    public filename: string;
 
   public static fromJson(json): Atm {
       console.log(json);
@@ -17,7 +18,8 @@ export class Atm {
       atm.model = json['model'];
       atm.state = json['state'];
       atm.owner = json['owner'];
-      atm.device = json['device'];
+      atm.device = json['device'] || 'null';
+      atm.filename = json['filename'];
       if (json['modified']) {
         atm.modified = new Date(json['modified']);
       }
