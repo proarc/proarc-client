@@ -16,24 +16,27 @@ export class DocumentComponent implements OnInit {
   document: DigitalDocument;
 
   constructor(private route: ActivatedRoute,
-              private apiService: ApiService) { }
+              private api: ApiService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      const uuid = params['id'];
-      const modsRequest = this.apiService.getMods(uuid);
-      const dcRequest = this.apiService.getDc(uuid);
-      const relationsRequest = this.apiService.getChildren(uuid);
-      forkJoin([modsRequest, dcRequest, relationsRequest]).subscribe(
-        results => {
-          const mods = results[0].toString();
-          const dc = results[1].toString();
-          const relations = Relation.fromJsonArray(results[2]);
-          this.document = new DigitalDocument(uuid, mods, dc, relations);
-      },
-      error => {
-          console.log('error', error);
+      const id = params['id'];
+      this.api.getMods(id).subscribe((document: DigitalDocument) => {
+        this.document = document;
       });
+      // const modsRequest = this.apiService.getMods(uuid);
+      // const dcRequest = this.apiService.getDc(uuid);
+      // const relationsRequest = this.apiService.getChildren(uuid);
+      // forkJoin([modsRequest, dcRequest, relationsRequest]).subscribe(
+      //   results => {
+      //     const mods = results[0].toString();
+      //     const dc = results[1].toString();
+      //     const relations = Relation.fromJsonArray(results[2]);
+      //     this.document = new DigitalDocument(uuid, mods, dc, relations);
+      // },
+      // error => {
+      //     console.log('error', error);
+      // });
     });
   }
 

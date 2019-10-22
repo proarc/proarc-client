@@ -14,22 +14,15 @@ declare var $: any;
 export class DigitalDocument {
 
   public readonly uuid: string;
+  public readonly timestamp: number = -1;
   public readonly originalMods: string;
   public readonly originalDc: string;
-
 
   public readonly relations: Relation[];
 
 
   private mods;
 
-  // public titles: ElementField;
-  // public authors: ElementField;
-  // public publishers: ElementField;
-  // public locations: ElementField;
-  // public languages: ElementField;
-  // public identifiers: ElementField;
-  // public notes: ElementField;
   private selectors = [
     ModsTitle.getSelector(),
     ModsAuthor.getSelector(),
@@ -38,19 +31,21 @@ export class DigitalDocument {
     ModsLanguage.getSelector(),
     ModsIdentifier.getSelector(),
     ModsNote.getSelector()
-  ]
+  ];
 
-  private fields: Map<String, ElementField>; //{string: ElementField ;
+  private fields: Map<String, ElementField>;
 
-  constructor(uuid: string, mods: string, dc: string, relations: Relation[]) {
+  constructor(uuid: string, mods: string, timestamp: number) {
     this.uuid = uuid;
+    this.timestamp = timestamp;
     this.originalMods = mods.trim();
-    this.originalDc = dc.trim();
-    this.relations = relations;
+    // this.originalDc = dc.trim();
+    // this.relations = relations;
     this.parseMods(mods);
   }
 
   private parseMods(mods: string) {
+    console.log('mods', mods);
     const xml = mods.replace(/xmlns.*=".*"/g, '');
     const data = {tagNameProcessors: [processors.stripPrefix], explicitCharkey: true};
     const ctx = this;
@@ -63,14 +58,25 @@ export class DigitalDocument {
   private processMods(data) {
     this.fields = new Map<String, ElementField>();
     this.mods = data;
+    console.log(data);
+    // return;
+    let root = null;
     const modsCollection = data['modsCollection'];
-    modsCollection['$'] = {
-      'xmlns': 'http://www.loc.gov/mods/v3'
-    };
-    if (!modsCollection['mods'][0]) {
-      modsCollection['mods'][0] = {};
+    if (modsCollection) {
+      modsCollection['$'] = {
+        'xmlns': 'http://www.loc.gov/mods/v3'
+      };
+      if (!modsCollection['mods'][0]) {
+        modsCollection['mods'][0] = {};
+      }
+      root = modsCollection['mods'][0];
+    } else {
+      data['mods']['$'] = {
+        'xmlns': 'http://www.loc.gov/mods/v3'
+      };
+      root = data['mods'];
+      console.log('root', root);
     }
-    const root = modsCollection['mods'][0];
     for (const selector of this.selectors) {
       this.fields.set(selector, new ElementField(root, selector));
     }
@@ -108,7 +114,7 @@ export class DigitalDocument {
   private normalizedCopy(final: boolean = false) {
     // const mods = Object.assign({}, this.mods);
     const mods = $.extend(true, {}, this.mods);
-    const root = mods['modsCollection']['mods'][0];
+    const root = mods['modsCollection'] ? mods['modsCollection']['mods'][0] : mods['mods'];
     for (const selector of this.selectors) {
       this.normalizeField(root, selector);
     }

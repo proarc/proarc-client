@@ -1,3 +1,4 @@
+import { DigitalDocument } from 'src/app/model/document.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -33,6 +34,11 @@ export class ApiService {
     return this.http.delete(encodeURI(`${ApiService.apiUrl}${path}`), { params: params });
   }
 
+  getMods(id: string): Observable<DigitalDocument> {
+    return this.get('object/mods/plain', { pid: id }).pipe(map(response =>
+      new DigitalDocument(id, response['record']['content'], response['record']['timestamp'])));
+  }
+
   getDevices(): Observable<Device[]> {
     return this.get('device').pipe(map(response => Device.fromJsonArray(response['response']['data'])));
   }
@@ -65,7 +71,7 @@ export class ApiService {
     return this.post('device', data, httpOptions).pipe(map(response => Device.fromJson(response['response']['data'][0])));
   }
 
-  getMods(uuid: string): Observable<Object> {
+  getMods2(uuid: string): Observable<Object> {
     const url = 'https://kramerius.mzk.cz/search/api/v5.0/item/' + uuid + '/streams/BIBLIO_MODS';
     return this.get2(url, {
       responseType: 'text'
