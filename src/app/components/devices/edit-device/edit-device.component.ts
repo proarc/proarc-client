@@ -33,7 +33,7 @@ export class EditDeviceComponent implements OnInit {
       if (params['id']) {
         this.api.getDevice(params['id']).subscribe((device: Device) => {
           this.device = device;
-          this.deviceName = device.name;
+          this.deviceName = device.label;
           this.init('edit');
         });
       } else {
