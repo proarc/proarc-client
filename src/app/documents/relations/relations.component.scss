@@ -1,6 +1,10 @@
 .app-relations {
     padding: 2px;
   
+    .app-relations-toolbar {
+
+    }
+
     .app-table {
     //   &.scrollable {
     //     // max-height: calc(100% - 56px);
@@ -13,4 +17,98 @@
         flex: 1;
       }
     }
+
+    .app-grid {
+      display: table;
+      width: 100%;
+      .app-grid-item {
+        width: auto;
+        display:table-cell;
+        padding: 8px;
+        background: #fff;
+        background-color: #A53030;
+      }
+    }
+
+
+    .app-icons-layout {
+     width: 100%;
+      .app-item {
+        float: left;
+        width: 9.09%;
+        @media (max-width: 1860px) {
+          width:10%;
+        }
+        @media (max-width: 1760px) {
+          width:11.11110%;
+        }
+        @media (max-width: 1690px) {
+          width:12.5%;
+        }
+        @media (max-width: 1580px) {
+          width:14.2857%;
+        }
+        @media (max-width: 1430px) {
+          width:16.66666%;
+        }
+        @media (max-width: 1320px) {
+          width:20%;
+        }
+        @media (max-width: 1210px) {
+          width:25%;
+        }
+        @media (max-width: 1100px) {
+          width:33.33333%;
+        }
+        @media (max-width: 992px) {
+          width:25%;
+        }
+        @media (max-width: 780px) {
+          width:33.33333%;
+        }
+        @media (max-width: 690px) {
+          width:50%;
+        }
+        @media (max-width: 600px) {
+          width:33.33333%;
+        }
+        @media (max-width: 400px) {
+          width:50%;
+        }
+        cursor: pointer;
+        // margin: 0.5rem;
+        .app-item-content {    
+          padding: 2px;
+          margin: 2px;
+          box-shadow: 0 2px 2px 0 transparent, 0 1px 5px 0 rgba(0,0,0,.1), 0 3px 1px -20px rgba(0,0,0,.1);
+          border: 1px solid #e0e0e0;
+          position: relative;
+          .app-item-thumb {
+            background-repeat: no-repeat;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            // width: 100%;
+            width: 95px;
+            height: 140px;
+            background-position-y: top;
+            background-position-x: center;
+            margin-left: auto;
+            margin-right: auto;
+          }
+          .app-item-label {
+            position: absolute;
+            bottom: 0;
+            background: rgba(255,255,255,.6);
+            color: #111;
+            font-size: 13px;
+            text-align: center;
+            width: 100%;
+          }
+        }
+      }
+    }
+
+
 }

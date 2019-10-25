@@ -99,7 +99,7 @@ export class ApiService {
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         })
     };
-    const data = `id=${device.id}&label=${device.name}&timestamp=${device.timestamp}&description=${device.description()}`;
+    const data = `id=${device.id}&label=${device.label}&timestamp=${device.timestamp}&description=${device.description()}`;
     return this.put('device', data, httpOptions).pipe(map(response => Device.fromJson(response['response']['data'][0])));
   }
 
@@ -112,6 +112,17 @@ export class ApiService {
     const data = '';
     return this.post('device', data, httpOptions).pipe(map(response => Device.fromJson(response['response']['data'][0])));
   }
+
+  
+  getThumbUrl(pid: string) {
+    return this.getStreamUrl(pid, 'THUMBNAIL');
+  }
+
+
+  getStreamUrl(pid: string, stream: string) {
+    return `${ApiService.apiUrl}object/dissemination?pid=${pid}&datastream=${stream}`
+  }
+
 
   getMods2(uuid: string): Observable<Object> {
     const url = 'https://kramerius.mzk.cz/search/api/v5.0/item/' + uuid + '/streams/BIBLIO_MODS';

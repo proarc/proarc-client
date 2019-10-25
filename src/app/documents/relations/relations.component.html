@@ -1,8 +1,36 @@
 <div class="app-relations">
-  <div class="scrollable app-table">
+ <div class="app-relations-toolbar">
+ 
+
+    <mat-select placeholder="Zobrazení" [(ngModel)]="layout">
+        <mat-option value="table">Tabulka</mat-option>
+        <mat-option value="grid">Mřížka</mat-option>
+        <mat-option value="icons">Ikony</mat-option>
+    </mat-select>
+
+ </div>
+  <div class="scrollable app-table" *ngIf="layout == 'table'">
     <a *ngFor="let item of items" [routerLink]="['/documents', item.pid]"  class="app-row">
       <div class="app-col-label">{{ item.label }}</div>
       <div class="app-col-model">{{ "model." + item.model | translate }}</div>
     </a>
   </div>
+
+
+  <!-- <div class="app-grid">
+    <a *ngFor="let item of items" [routerLink]="['/documents', item.pid]"  class="app-grid-item">
+
+      <div class="app-grid-item-label">{{ item.label }}</div>
+    </a>
+  </div> -->
+
+  <div class="app-icons-layout" *ngIf="layout == 'icons'">
+    <a *ngFor="let item of items" [routerLink]="['/documents', item.pid]"  class="app-item">
+      <div class="app-item-content">
+        <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"></div>
+        <div class="app-item-label">{{ item.label }}</div>
+      </div>
+    </a>
+  </div>
+
 </div>

@@ -7,7 +7,6 @@ import { ModsAuthor } from './mods/author.model';
 import { ModsLocation } from './mods/location.model';
 import { ModsIdentifier } from './mods/identifier.model';
 import { ModsNote } from './mods/note.mode';
-import { Relation } from './relation.model';
 declare var $: any;
 
 
@@ -17,10 +16,6 @@ export class DigitalDocument {
   public readonly timestamp: number = -1;
   public readonly originalMods: string;
   public readonly originalDc: string;
-
-  public readonly relations: Relation[];
-
-
   private mods;
 
   private selectors = [

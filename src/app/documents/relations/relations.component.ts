@@ -3,7 +3,6 @@ import { DocumentItem } from './../../model/documentItem.model';
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Translator } from 'angular-translator';
-import { Relation } from 'src/app/model/relation.model';
 import { ActivatedRoute } from '@angular/router';
 
 
@@ -18,6 +17,8 @@ export class RelationsComponent implements OnInit {
   state = 'none';
   items: DocumentItem[];
 
+  layout = 'table';
+
   constructor(private api: ApiService, private route: ActivatedRoute) {
   }
 
@@ -29,6 +30,10 @@ export class RelationsComponent implements OnInit {
         this.state = 'success';
       });
     });
+  }
+
+  thumb(pid: string) {
+    return this.api.getThumbUrl(pid);
   }
 
 }
