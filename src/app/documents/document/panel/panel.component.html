@@ -4,6 +4,7 @@
         <mat-option value="biblio">{{ 'editor.type.biblio' | translate }}</mat-option>
         <mat-option value="relations">{{ 'editor.type.relations' | translate }}</mat-option>
         <mat-option value="atm">ATM</mat-option>
+        <mat-option value="ocr">OCR</mat-option>
     </mat-select>
 
     <mat-select *ngIf="content == 'biblio'" [(ngModel)]='subcontent' class="app-panel-select app-panel-select2">
@@ -19,4 +20,5 @@
     <app-xml-view *ngIf="content == 'biblio' && subcontent == 'biblioDc'" [xml]="document.toDc()" [xmlOriginal]="document.originalDc"></app-xml-view>
     <app-relations *ngIf="content == 'relations'"></app-relations>
     <app-atm *ngIf="content == 'atm'"></app-atm>
+    <app-ocr *ngIf="content == 'ocr'"></app-ocr>
 </div>

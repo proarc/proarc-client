@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { Device } from '../model/device.model';
 
 import { map } from 'rxjs/operators';
+import { Ocr } from '../model/ocr.model';
 
 
 @Injectable()
@@ -53,6 +54,21 @@ export class ApiService {
   getMods(id: string): Observable<DigitalDocument> {
     return this.get('object/mods/plain', { pid: id }).pipe(map(response =>
       new DigitalDocument(id, response['record']['content'], response['record']['timestamp'])));
+  }
+
+  getOcr(id: string): Observable<Ocr> {
+    return this.get('object/ocr', { pid: id }).pipe(map(response =>
+      Ocr.fromJson(response['record'])));
+  }
+
+  editOcr(ocr: Ocr): Observable<Ocr> {
+    const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        })
+    };
+    const data = `pid=${ocr.pid}&content=${ocr.content}&timestamp=${ocr.timestamp}`;
+    return this.put('object/ocr', data, httpOptions).pipe(map(response => Ocr.fromJson(response['record'])));
   }
 
   getSearchResults(model: string, query: string, page: number): Observable<DocumentItem[]> {
@@ -122,6 +138,13 @@ export class ApiService {
   getStreamUrl(pid: string, stream: string) {
     return `${ApiService.apiUrl}object/dissemination?pid=${pid}&datastream=${stream}`
   }
+
+
+
+
+
+
+
 
 
   getMods2(uuid: string): Observable<Object> {
