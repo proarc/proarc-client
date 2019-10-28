@@ -8,6 +8,7 @@ import { Device } from '../model/device.model';
 
 import { map } from 'rxjs/operators';
 import { Ocr } from '../model/ocr.model';
+import { Note } from '../model/note.model';
 
 
 @Injectable()
@@ -69,6 +70,22 @@ export class ApiService {
     };
     const data = `pid=${ocr.pid}&content=${ocr.content}&timestamp=${ocr.timestamp}`;
     return this.put('object/ocr', data, httpOptions).pipe(map(response => Ocr.fromJson(response['record'])));
+  }
+
+
+  getNote(id: string): Observable<Note> {
+    return this.get('object/privatenote', { pid: id }).pipe(map(response =>
+      Note.fromJson(response['record'])));
+  }
+
+  editNote(note: Note): Observable<Note> {
+    const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        })
+    };
+    const data = `pid=${note.pid}&content=${note.content}&timestamp=${note.timestamp}`;
+    return this.put('object/privatenote', data, httpOptions).pipe(map(response => Note.fromJson(response['record'])));
   }
 
   getSearchResults(model: string, query: string, page: number): Observable<DocumentItem[]> {

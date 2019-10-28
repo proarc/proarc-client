@@ -38,6 +38,7 @@ import { SimpleDialogComponent } from './dialogs/simple-dialog/simple-dialog.com
 import { SearchComponent } from './components/search/search.component';
 import { AtmComponent } from './components/atm/atm.component';
 import { OcrComponent } from './components/ocr/ocr.component';
+import { NoteComponent } from './components/note/note.component';
 
 
 export function hljsLanguages() {
@@ -71,7 +72,8 @@ export function hljsLanguages() {
     DatePipe,
     DatetimePipe,
     AtmComponent,
-    OcrComponent
+    OcrComponent,
+    NoteComponent
   ],
   imports: [
     BrowserModule,
