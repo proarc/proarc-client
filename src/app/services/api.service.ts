@@ -136,6 +136,19 @@ export class ApiService {
     return this.put('device', data, httpOptions).pipe(map(response => Device.fromJson(response['response']['data'][0])));
   }
 
+  editRelations(parentPid: string, pidArray: string[]): Observable<any> {
+    const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        })
+    };
+    const payload = {
+      'parent': parentPid,
+      'pid': pidArray
+    };
+    return this.put('object/member', payload, httpOptions);
+  }
+
   createDevice(): Observable<Device> {
     const httpOptions = {
         headers: new HttpHeaders({
@@ -146,14 +159,14 @@ export class ApiService {
     return this.post('device', data, httpOptions).pipe(map(response => Device.fromJson(response['response']['data'][0])));
   }
 
-  
+
   getThumbUrl(pid: string) {
     return this.getStreamUrl(pid, 'THUMBNAIL');
   }
 
 
   getStreamUrl(pid: string, stream: string) {
-    return `${ApiService.apiUrl}object/dissemination?pid=${pid}&datastream=${stream}`
+    return `${ApiService.apiUrl}object/dissemination?pid=${pid}&datastream=${stream}`;
   }
 
 

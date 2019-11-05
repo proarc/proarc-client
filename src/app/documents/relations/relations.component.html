@@ -25,7 +25,10 @@
   </div> -->
 
   <div class="app-icons-layout" *ngIf="layout == 'icons'">
-    <a *ngFor="let item of items" [routerLink]="['/documents', item.pid]"  class="app-item">
+    <a *ngFor="let item of items" [routerLink]="['/documents', item.pid]"  class="app-item" 
+    draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
+    (mousedown)="mousedown($event)"  
+    >
       <div class="app-item-content">
         <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"></div>
         <div class="app-item-label">{{ item.label }}</div>
