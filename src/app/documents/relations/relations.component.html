@@ -10,7 +10,9 @@
 
  </div>
   <div class="scrollable app-table" *ngIf="layout == 'table'">
-    <a *ngFor="let item of items" [routerLink]="['/documents', item.pid]"  class="app-row">
+    <a *ngFor="let item of items" [routerLink]="['/documents', item.pid]"  class="app-row"
+    draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
+    (mousedown)="mousedown($event)">
       <div class="app-col-label">{{ item.label }}</div>
       <div class="app-col-model">{{ "model." + item.model | translate }}</div>
     </a>

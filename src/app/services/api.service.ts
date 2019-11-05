@@ -106,6 +106,17 @@ export class ApiService {
     return this.get('object/search', params).pipe(map(response => DocumentItem.fromJsonArray(response['response']['data'])));
   }
 
+
+  getParent(pid: string): Observable<DocumentItem> {
+    const params = {
+      type: 'parent',
+      pid: pid
+    };
+    return this.get('object/search', params).pipe(map(response => DocumentItem.fromJson(response['response']['data'][0])));
+  }
+
+
+
   getRelations(root: string, parent: string): Observable<DocumentItem[]> {
     const params = {
       root: root,
