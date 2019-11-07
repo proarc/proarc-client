@@ -16,6 +16,25 @@
     "unpublish": "Unpublish",
     "warning": "Warning"
   },
+  "catalog": {
+    "field": {
+      "bar": "Barcode",
+      "cnb": "čČNB",
+      "ssn": "ISSN",
+      "sbn": "ISBN",
+      "sg": "Shorten Signature",
+      "sig": "Signatura",
+      "issn": "ISSN",
+      "isbn": "ISBN",
+      "barcode": "Barcode",
+      "signature": "Signature",
+      "ccnb": "čČNB",
+      "sys": "SYS",
+      "author": "Author",
+      "title": "Name"
+    },
+    "no-results": "No records found"
+  },
   "navbar": {
     "login": "Log in",
     "logout": "Log out"

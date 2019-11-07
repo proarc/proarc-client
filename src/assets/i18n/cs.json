@@ -18,6 +18,25 @@
     "unpublish": "Zrušit zveřejnění",
     "warning": "Varování"
   },
+  "catalog": {
+    "field": {
+      "bar": "Čárový kód",
+      "cnb": "čČNB",
+      "ssn": "ISSN",
+      "sbn": "ISBN",
+      "sg": "Zkrácená signatura",
+      "sig": "Signatura",
+      "issn": "ISSN",
+      "isbn": "ISBN",
+      "barcode": "Čárový kód",
+      "signature": "Signatura",
+      "ccnb": "čČNB",
+      "sys": "SYS",
+      "author": "Autor",
+      "title": "Název"
+    },
+    "no-results": "Nebyly nalezeny žádné záznamy"
+  },
   "navbar": {
     "login": "Přihlásit",
     "logout": "Odhlásit"

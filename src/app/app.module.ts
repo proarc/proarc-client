@@ -39,6 +39,7 @@ import { SearchComponent } from './components/search/search.component';
 import { AtmComponent } from './components/atm/atm.component';
 import { OcrComponent } from './components/ocr/ocr.component';
 import { NoteComponent } from './components/note/note.component';
+import { CatalogComponent } from './components/catalog/catalog.component';
 
 
 export function hljsLanguages() {
@@ -73,7 +74,8 @@ export function hljsLanguages() {
     DatetimePipe,
     AtmComponent,
     OcrComponent,
-    NoteComponent
+    NoteComponent,
+    CatalogComponent
   ],
   imports: [
     BrowserModule,

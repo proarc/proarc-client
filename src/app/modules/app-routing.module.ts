@@ -6,6 +6,7 @@ import { LoginComponent } from '../components/login/login.component';
 import { DevicesComponent } from '../components/devices/devices.component';
 import { DeviceComponent } from '../components/devices/device/device.component';
 import { EditDeviceComponent } from '../components/devices/edit-device/edit-device.component';
+import { CatalogComponent } from '../components/catalog/catalog.component';
 
 const routes: Routes = [
   { path: 'documents/:id', component: DocumentComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'devices/:id', component: DeviceComponent },
   { path: 'devices/:id/edit', component: EditDeviceComponent },
   { path: 'search', component: SearchComponent },
+  { path: 'catalog', component: CatalogComponent },
 ];
 
 @NgModule({

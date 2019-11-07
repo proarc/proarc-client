@@ -1,3 +1,5 @@
+import { CatalogueEntry } from './../model/catalogueEntry.model';
+import { Catalogue } from '../model/catalogue.model';
 import { Atm } from './../model/atm.model';
 import { DocumentItem } from './../model/documentItem.model';
 import { DigitalDocument } from 'src/app/model/document.model';
@@ -106,6 +108,15 @@ export class ApiService {
     return this.get('object/search', params).pipe(map(response => DocumentItem.fromJsonArray(response['response']['data'])));
   }
 
+  getCatalogSearchResults(catalog: string, field: string, query: string): Observable<CatalogueEntry[]> {
+    const params = {
+      catalog: catalog,
+      fieldName: field,
+      value: query
+    };
+    return this.get('bibliographies/query', params).pipe(map(response =>
+      CatalogueEntry.fromJsonArray(response['metadataCatalogEntries']['entry'])));
+  }
 
   getParent(pid: string): Observable<DocumentItem> {
     const params = {
@@ -115,14 +126,16 @@ export class ApiService {
     return this.get('object/search', params).pipe(map(response => DocumentItem.fromJson(response['response']['data'][0])));
   }
 
-
-
   getRelations(root: string, parent: string): Observable<DocumentItem[]> {
     const params = {
       root: root,
       parent: parent
     };
     return this.get('object/member', params).pipe(map(response => DocumentItem.fromJsonArray(response['response']['data'])));
+  }
+
+  getCatalogs(): Observable<Catalogue[]> {
+    return this.get('bibliographies').pipe(map(response => Catalogue.fromJsonArray(response['response']['data'])));
   }
 
   getDevices(): Observable<Device[]> {

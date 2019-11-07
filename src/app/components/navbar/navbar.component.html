@@ -7,6 +7,7 @@
   
 
   <a *ngIf="auth.isLoggedIn()" [routerLink]="['/search']" routerLinkActive="active" mat-button>Hledat</a>
+  <a *ngIf="auth.isLoggedIn()" [routerLink]="['/catalog']" routerLinkActive="active" mat-button>Katalog</a>
   <a *ngIf="auth.isLoggedIn()" [routerLink]="['/devices']" routerLinkActive="active" mat-button>Zařízení</a>
   <a *ngIf="!auth.isLoggedIn()"  [routerLink]="['/login']" routerLinkActive="active" mat-button>{{ "navbar.login" | translate }}</a>
   <a *ngIf="auth.isLoggedIn()" (click)="logout()" mat-button>{{ "navbar.logout" | translate }}</a>
