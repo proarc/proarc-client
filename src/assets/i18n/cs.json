@@ -163,6 +163,16 @@
     "model:ndkmonographvolume": "NDK monografie",
     "model:page": "Stránka"
   },
+  "viewer": {
+    "tooltip": {
+      "zoomIn": "Přiblížit",
+      "zoomOut": "Oddáálit",
+      "fitToScreen": "Přizpůsobit obrazovce",
+      "rotateRight": "Otočit",
+      "enterFullscreen": "Režim celé obrazkovy",
+      "exitFullscreen": "Opustit režem celé obrazovky"
+    }
+  },
   "lang": {
     "aar" : "afarština",
     "abk" : "abcházština",

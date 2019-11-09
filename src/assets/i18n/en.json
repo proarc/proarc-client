@@ -152,6 +152,16 @@
     "permalink": "Permalink",
     "sici": "SICI"
   },
+  "viewer": {
+    "tooltip": {
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out",
+      "fitToScreen": "Fit to Screen",
+      "rotateRight": "Rotate",
+      "enterFullscreen": "Enter Full Screen",
+      "exitFullscreen": "Exit Full Screen"
+    }
+  },
   "lang": {
     "aar" : "Afar",
     "abk" : "Abkhazian",
