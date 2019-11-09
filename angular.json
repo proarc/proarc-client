@@ -30,7 +30,10 @@
               "src/styles.scss",
               "node_modules/highlight.js/styles/atom-one-light.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/ol-custom.js",
+              "src/assets/js/jquery.min.js"
+            ]
           },
           "configurations": {
             "production": {

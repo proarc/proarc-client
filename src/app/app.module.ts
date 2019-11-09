@@ -1,3 +1,4 @@
+import { ViewerComponent } from './components/viewer/viewer.component';
 import { DatetimePipe } from './pipes/datetime.pipe';
 import { DatePipe } from './pipes/date.pipe';
 import { EditorLocationComponent } from './documents/document/editor-location/editor-location.component';
@@ -75,7 +76,8 @@ export function hljsLanguages() {
     AtmComponent,
     OcrComponent,
     NoteComponent,
-    CatalogComponent
+    CatalogComponent,
+    ViewerComponent
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,4 @@
+import { ViewerComponent } from './../components/viewer/viewer.component';
 import { SearchComponent } from './../components/search/search.component';
 import { DocumentComponent } from './../documents/document/document.component';
 import { NgModule } from '@angular/core';
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'devices/:id/edit', component: EditDeviceComponent },
   { path: 'search', component: SearchComponent },
   { path: 'catalog', component: CatalogComponent },
+  { path: 'viewer', component: ViewerComponent }
 ];
 
 @NgModule({
