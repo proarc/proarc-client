@@ -2,12 +2,12 @@
 
     <div class="app-view-controls-wrapper" [class.hide-on-inactivity]="hideOnInactivity">
         <div class="app-view-controls">
-            <mat-icon (click)="zoomIn()" [matTooltip]="'viewer.tooltip.zoomIn' | translate">1</mat-icon>
-            <mat-icon (click)="zoomOut()" [matTooltip]="'viewer.tooltip.zoomOut' | translate">2</mat-icon>
-            <mat-icon (click)="fitToScreen()" [matTooltip]="'viewer.tooltip.fitToScreen' | translate">3</mat-icon>
-            <mat-icon (click)="rotateRight()"[matTooltip]="'viewer.tooltip.rotateRight' | translate">4</mat-icon>
-            <mat-icon *ngIf="fullscreenAvailable && !fullscreenEnabled()" (click)="enterFullscreen()" [matTooltip]="'viewer.tooltip.enterFullscreen' | translate">5</mat-icon>
-            <mat-icon *ngIf="fullscreenAvailable && fullscreenEnabled()" (click)="exitFullscreen()" [matTooltip]="'viewer.tooltip.exitFullscreen' | translate">6</mat-icon>
+            <mat-icon (click)="zoomIn()" [matTooltip]="'viewer.tooltip.zoomIn' | translate">zoom_in</mat-icon>
+            <mat-icon (click)="zoomOut()" [matTooltip]="'viewer.tooltip.zoomOut' | translate">zoom_out</mat-icon>
+            <mat-icon (click)="fitToScreen()" [matTooltip]="'viewer.tooltip.fitToScreen' | translate">crop_square</mat-icon>
+            <mat-icon (click)="rotateRight()"[matTooltip]="'viewer.tooltip.rotateRight' | translate">rotate_right</mat-icon>
+            <mat-icon *ngIf="fullscreenAvailable && !fullscreenEnabled()" (click)="enterFullscreen()" [matTooltip]="'viewer.tooltip.enterFullscreen' | translate">fullscreen</mat-icon>
+            <mat-icon *ngIf="fullscreenAvailable && fullscreenEnabled()" (click)="exitFullscreen()" [matTooltip]="'viewer.tooltip.exitFullscreen' | translate">fullscreen_exit</mat-icon>
         </div>
       </div>
 </div>

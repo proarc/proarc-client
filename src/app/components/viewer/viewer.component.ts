@@ -51,42 +51,20 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   state = 'none';
 
+
+  constructor(private api: ApiService, private route: ActivatedRoute) {
+    this.initFullscreenCapabilities();
+  }
+
   ngOnInit() {
     this.state = 'loading';
-    this.init();
-    const url = 'http://localhost:8080/img.jpg';
-    const image = new Image();
-    image.onload = (() => {
-        this.onLoad(url, image.width, image.height);
+    this.route.params.subscribe(params => {
+      const id = params['id'];
+      const url = this.api.getStreamUrl(id, 'FULL');
+      this.init(url);
     });
-    image.onerror = (() => {
-        image.onerror = null;
-        console.log('image load failure');
-    });
-    image.src = url;
-
-    this.intervalSubscription = interval(4000).subscribe( () => {
-      const lastMouseDist = new Date().getTime() - this.lastMouseMove;
-      if (lastMouseDist >= 4000) {
-        this.hideOnInactivity = true;
-      }
-    });
-
   }
 
-  constructor() {
-    this.fullscreenAvailable = document.fullscreenEnabled
-    || document['webkitFullscreenEnable']
-    || document['mozFullScreenEnabled']
-    || document['msFullscreenEnabled'];
-
-    // document.addEventListener('fullscreenchange', this.onFullscreenChanged);
-    const ctx = this;
-    document.addEventListener('fullscreenchange', () => ctx.onFullscreenChanged());
-    document.addEventListener('webkitfullscreenchange', () => ctx.onFullscreenChanged());
-    document.addEventListener('mozfullscreenchange', () => ctx.onFullscreenChanged());
-    document.addEventListener('MSFullscreenChange', () => ctx.onFullscreenChanged());
-  }
 
   onLoad(url: string, width: number, height: number) {
     this.state = 'success';
@@ -123,7 +101,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
     this.fitToScreen();
   }
 
-  init() {
+  init(url: string) {
     const interactions = ol.interaction.defaults({ keyboardPan: false, pinchRotate: false });
     this.view = new ol.Map({
       target: 'app-viewer',
@@ -132,6 +110,26 @@ export class ViewerComponent implements OnInit, OnDestroy {
       loadTilesWhileAnimating: true,
       layers: []
     });
+
+
+    const image = new Image();
+    image.onload = (() => {
+        this.onLoad(url, image.width, image.height);
+    });
+    image.onerror = (() => {
+        image.onerror = null;
+        console.log('image load failure');
+    });
+    image.src = url;
+
+    this.intervalSubscription = interval(4000).subscribe( () => {
+      const lastMouseDist = new Date().getTime() - this.lastMouseMove;
+      if (lastMouseDist >= 4000) {
+        this.hideOnInactivity = true;
+      }
+    });
+
+
   }
 
   fitToScreen() {
@@ -247,6 +245,23 @@ onFullscreenChanged() {
     setTimeout(() => {
         this.fitToScreen();
     }, 200);
+}
+
+
+
+
+private initFullscreenCapabilities() {
+  this.fullscreenAvailable = document.fullscreenEnabled
+  || document['webkitFullscreenEnable']
+  || document['mozFullScreenEnabled']
+  || document['msFullscreenEnabled'];
+
+  // document.addEventListener('fullscreenchange', this.onFullscreenChanged);
+  const ctx = this;
+  document.addEventListener('fullscreenchange', () => ctx.onFullscreenChanged());
+  document.addEventListener('webkitfullscreenchange', () => ctx.onFullscreenChanged());
+  document.addEventListener('mozfullscreenchange', () => ctx.onFullscreenChanged());
+  document.addEventListener('MSFullscreenChange', () => ctx.onFullscreenChanged());
 }
 
 

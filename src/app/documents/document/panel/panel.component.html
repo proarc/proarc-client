@@ -5,6 +5,7 @@
         <mat-option value="relations">{{ 'editor.type.relations' | translate }}</mat-option>
         <mat-option value="atm">ATM</mat-option>
         <mat-option value="ocr">OCR</mat-option>
+        <mat-option value="image">Obrázek</mat-option>
         <mat-option value="note">Poznámka</mat-option>
     </mat-select>
 
@@ -22,5 +23,6 @@
     <app-relations *ngIf="content == 'relations'"></app-relations>
     <app-atm *ngIf="content == 'atm'"></app-atm>
     <app-ocr *ngIf="content == 'ocr'"></app-ocr>
+    <app-viewer *ngIf="content == 'image'"></app-viewer>
     <app-note *ngIf="content == 'note'"></app-note>
 </div>
