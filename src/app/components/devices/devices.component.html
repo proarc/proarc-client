@@ -16,11 +16,13 @@
   <div class="device-list">
     <div class="app-table">
       <div class="app-row app-header">
-        <div class="flexira-name">Název</div>
+        <div class="device-model">Model</div>
+        <div class="device-name">Název</div>
       </div>
     </div>
     <div class="scrollable app-table">
       <a *ngFor="let device of devices" [routerLink]="['/devices', device.id]" class="app-row">
+        <div class="device-model">{{ 'device.model.' + device.model | translate }}</div>
         <div class="device-name">{{ device.label }}</div>
       </a>
     </div>

@@ -18,6 +18,12 @@
     "unpublish": "Zrušit zveřejnění",
     "warning": "Varování"
   },
+  "device": {
+    "model": {
+      "proarc:audiodevice": "Audio zařízení",
+      "proarc:device": "Obrazové zařízení"
+    }
+  },
   "catalog": {
     "field": {
       "bar": "Čárový kód",

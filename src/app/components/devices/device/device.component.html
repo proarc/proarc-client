@@ -9,7 +9,7 @@
 
   <div class="app-device-label">{{ device.label }}</div>
 
-
+  <div class="app-detail-key-value">Typ: <strong>{{ 'device.model.' + device.model | translate }}</strong></div>
   <div class="app-detail-key-value">Image Producer: <strong>{{ device.imageProducer }}</strong></div>
   <div class="app-detail-key-value">Capture Device: <strong>{{ device.captureDevice }}</strong></div>
 
@@ -37,6 +37,48 @@
   <div class="app-detail-key-value">Model Number: <strong>{{ device.digitalCameraModelNumber }}</strong></div>
   <div class="app-detail-key-value">Model Serial No.: <strong>{{ device.digitalCameraModelSerialNo }}</strong></div>
 
+  <div *ngIf="device.isAudio()">
+    <div class="app-detail-label">Informace ke zvukovým souborům</div>
+    <div class="audio-device-list">
+      <div class="app-table">
+        <div class="app-row app-header">
+          <div class="device-name">Agent Name</div>
+          <div class="device-type">Agent Type</div>
+          <div class="device-manufacturer">Manufacturer</div>
+          <div class="device-serial-number">Serial Number</div>
+          <div class="device-settings">Agent Type</div>
+          <div class="device-id-type">Id. Type</div>
+          <div class="device-id-value">Id. Value</div>
+          <div class="device-id-role">Id. Role</div>
+          <div class="device-actions"></div>
+          
+
+
+        </div>
+        <div *ngFor="let audio of device.audioDevices; let i = index;" class="app-row">
+          <div class="device-name">{{ audio.name }}</div>
+          <div class="device-type">{{ audio.type }}</div>
+          <div class="device-manufacturer">{{ audio.manufacturer }}</div>
+          <div class="device-serial-number">{{ audio.serialNumber }}</div>
+          <div class="device-settings">{{ audio.settings }}</div>
+          <div class="device-id-type">{{ audio.identifierType }}</div>
+          <div class="device-id-value">{{ audio.identifierValue }}</div>
+          <div class="device-id-role">{{ audio.identifierRole }}</div>
+
+          <div class="device-actions">
+            <button (click)="removeAudioDevice(i)" mat-icon-button color="warn" matTooltip="Smazat info ke zvukovém souborům" matTooltipPosition="below">
+                <mat-icon>delete</mat-icon>
+            </button>
+            <a [routerLink]="['/devices', device.id, 'audio', i + 1, 'edit']"  mat-icon-button color="primary" matTooltip="Upravit info ke zvukovém souborům" matTooltipPosition="below">
+              <mat-icon>edit</mat-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+
+
 
   <div class="actions">
       <a color="primary"
@@ -52,6 +94,12 @@
         <mat-icon style="margin-right:8px;">delete</mat-icon>
         Odstranit zařízení
       </button>
+      <a color="primary" *ngIf="device.isAudio()"
+          [routerLink]="['/devices', device.id, 'audio', 'new']" 
+          mat-raised-button>
+              <mat-icon style="margin-right:8px;">add</mat-icon>
+              Přidat info ke zvukovém souborům
+      </a>
   </div>
 </div>
 

@@ -28,6 +28,38 @@
       margin-top: 16px;
     }
   
+    .audio-device-list {
+      margin-top: 12px;
+      .device-name {
+        width: 200px;
+      }
+      .device-type {
+        width: 150px;
+      }
+      .device-manufacturer {
+        width: 250px;
+      }
+      .device-serial-number {
+        width: 200px;
+      }
+      .device-settings {
+        width: 250px;
+      }
+      .device-id-type {
+        width: 200px;
+      }
+      .device-id-value {
+        width: 200px;
+      }
+      .device-id-role {
+        flex: 1;
+      }
+      .device-actions {
+        min-width: 100px;
+        width: 100px;
+        text-align: right;
+      }
+    }
     .actions {
       margin-top: 20px;
       a, button {

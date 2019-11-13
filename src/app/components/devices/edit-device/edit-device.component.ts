@@ -22,6 +22,8 @@ export class EditDeviceComponent implements OnInit {
   sensors = ['MonochromeLinear', 'ColorTriLinear', 'ColorSequentialLinear', 'MonochromeArea', 'OneChipColorArea',
             'TwoChipColorArea', 'ThreeChipColorArea', 'ColorSequentialArea'];
 
+  models = [ 'proarc:audiodevice', 'proarc:device' ];
+
   constructor(private api: ApiService,
               private route: ActivatedRoute,
               private ui: UIService,
@@ -37,7 +39,7 @@ export class EditDeviceComponent implements OnInit {
           this.init('edit');
         });
       } else {
-        this.device = new Device();
+        this.device = new Device(this.models[0]);
         this.init('new');
       }
     });
@@ -51,7 +53,7 @@ export class EditDeviceComponent implements OnInit {
   onSubmit() {
     this.state = 'saving';
     if (this.mode === 'new') {
-      this.api.createDevice().subscribe((device: Device) => {
+      this.api.createDevice(this.device.model).subscribe((device: Device) => {
         this.device.id = device.id;
         this.api.editDevice(this.device).subscribe(() => {
           this.ui.showInfoSnackBar('Zařízení bylo vytvořeno');

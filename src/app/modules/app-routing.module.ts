@@ -8,6 +8,7 @@ import { DevicesComponent } from '../components/devices/devices.component';
 import { DeviceComponent } from '../components/devices/device/device.component';
 import { EditDeviceComponent } from '../components/devices/edit-device/edit-device.component';
 import { CatalogComponent } from '../components/catalog/catalog.component';
+import { EditAudioDeviceComponent } from '../components/devices/edit-audio-device/edit-audio-device.component';
 
 const routes: Routes = [
   { path: 'documents/:id', component: DocumentComponent },
@@ -16,6 +17,8 @@ const routes: Routes = [
   { path: 'devices/new', component: EditDeviceComponent },
   { path: 'devices/:id', component: DeviceComponent },
   { path: 'devices/:id/edit', component: EditDeviceComponent },
+  { path: 'devices/:device_id/audio/new', component: EditAudioDeviceComponent },
+  { path: 'devices/:device_id/audio/:id/edit', component: EditAudioDeviceComponent },
   { path: 'search', component: SearchComponent },
   { path: 'catalog', component: CatalogComponent },
   { path: 'viewer', component: ViewerComponent }

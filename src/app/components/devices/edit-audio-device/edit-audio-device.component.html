@@ -1,0 +1,84 @@
+<div class="breadcrumb-nav">
+  <div *ngIf="mode == 'new'">
+      <a [routerLink]="['/devices']">Zařízení</a>
+      <mat-icon>chevron_right</mat-icon>
+      <a [routerLink]="['/devices', device.id]">{{ device.label }}</a>
+      <mat-icon>chevron_right</mat-icon>
+      <span>Nová audio linka</span>
+
+  </div>
+  <div *ngIf="mode == 'edit' && device">
+      <a [routerLink]="['/devices']">Zařízení</a>
+      <mat-icon>chevron_right</mat-icon>
+      <a [routerLink]="['/devices', device.id]">{{ device.label }}</a>
+      <mat-icon>chevron_right</mat-icon>
+      <span>Úprava audio linky {{ id }}</span>
+  </div>
+</div>
+
+
+<div class="app-edit-device" *ngIf="state=='success' || state=='saving'">
+  <div class="app-card">
+          <div class="app-card-content">
+              <mat-form-field class="form-left">
+                  <input type="text" matInput autocomplete="off" placeholder="Agent Name" [disabled]="state=='saving'"
+                      [(ngModel)]='audioDevice.name' name="name" required>
+              </mat-form-field>
+              <mat-form-field class="form-right">
+                <input type="text" matInput autocomplete="off" placeholder="Agent Type" [disabled]="state=='saving'"
+                    [(ngModel)]='audioDevice.type' name="type" required>
+            </mat-form-field>
+
+            <div class="app-card-label">Linking Agent Identifier</div>
+
+            <mat-form-field class="form-col1">
+                <input type="text" matInput autocomplete="off" placeholder="identifier Type" [disabled]="state=='saving'"
+                    [(ngModel)]='audioDevice.identifierType' name="identifierType" required>
+            </mat-form-field>
+
+            <mat-form-field class="form-col2">
+                <input type="text" matInput autocomplete="off" placeholder="identifier Value" [disabled]="state=='saving'"
+                    [(ngModel)]='audioDevice.identifierValue' name="identifierValue" required>
+            </mat-form-field>
+
+            <mat-form-field class="form-col3">
+                <input type="text" matInput autocomplete="off" placeholder="identifier Role" [disabled]="state=='saving'"
+                    [(ngModel)]='audioDevice.identifierRole' name="identifierRole" required>
+            </mat-form-field>
+
+            <div class="app-card-label">Agent Extension</div>
+
+            <mat-form-field class="form-left">
+                <input type="text" matInput autocomplete="off" placeholder="Manufacturer" [disabled]="state=='saving'"
+                    [(ngModel)]='audioDevice.manufacturer' name="manufacturer" required>
+            </mat-form-field>
+
+            <mat-form-field class="form-right">
+                <input type="text" matInput autocomplete="off" placeholder="Serial Number" [disabled]="state=='saving'"
+                    [(ngModel)]='audioDevice.serialNumber' name="serialNumber" required>
+            </mat-form-field>
+
+
+            <mat-form-field>
+                <textarea  matInput autocomplete="off" placeholder="settings" [disabled]="state=='saving'"
+                    [(ngModel)]='audioDevice.settings' name="settings" required></textarea>
+            </mat-form-field>
+    
+
+
+          </div>
+          <div class="app-actions">
+              <button (click)="onSubmit()" mat-raised-button [disabled]="state=='saving'" color="primary">
+                  <span *ngIf="mode=='new'">Vytvořit audio linku</span>
+                  <span *ngIf="mode=='edit'">Upravit audio linku</span>
+              </button>
+
+              <mat-spinner *ngIf="state=='saving'" [strokeWidth]="3" [diameter]="30">
+              </mat-spinner>
+          </div>
+  </div>
+</div>
+
+
+<mat-spinner *ngIf="state === 'loading'" [strokeWidth]="5" [diameter]="60" class="center-spinner">
+</mat-spinner>

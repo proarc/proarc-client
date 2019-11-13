@@ -156,7 +156,10 @@ export class ApiService {
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         })
     };
-    const data = `id=${device.id}&label=${device.label}&timestamp=${device.timestamp}&description=${device.description()}`;
+    let data = `id=${device.id}&label=${device.label}&model=${device.model}&timestamp=${device.timestamp}&description=${device.description()}`;
+    if (device.isAudio()) {
+      data += `&audiotimestamp=${device.audiotimestamp}&audiodescription=${device.audioDescription()}`;
+    }
     return this.put('device', data, httpOptions).pipe(map(response => Device.fromJson(response['response']['data'][0])));
   }
 
@@ -173,13 +176,13 @@ export class ApiService {
     return this.put('object/member', payload, httpOptions);
   }
 
-  createDevice(): Observable<Device> {
+  createDevice(model: string): Observable<Device> {
     const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         })
     };
-    const data = '';
+    const data = `model=${model}`;
     return this.post('device', data, httpOptions).pipe(map(response => Device.fromJson(response['response']['data'][0])));
   }
 

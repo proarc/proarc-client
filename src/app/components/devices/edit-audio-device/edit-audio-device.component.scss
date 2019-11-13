@@ -1,0 +1,52 @@
+@import './src/theme.scss';
+
+.app-edit-device {
+    // height: calc(100% - 50px);
+    // overflow: scroll;
+    .app-card {
+      width: 900px;
+      margin: 0 auto;
+      margin-top: 40px;
+
+      mat-form-field {
+        width: 100%;
+        &.form-left {
+          width: calc(50% - 10px);
+        }
+        &.form-right {
+          width: calc(50% - 10px);
+          float: right;
+        }
+        &.form-col1 {
+          width: calc(33% - 10px);
+          margin-right: 10px;
+        }
+        &.form-col2 {
+          width: calc(33% - 10px);
+        }
+        &.form-col12 {
+          width: calc(66% - 10px);
+        }
+        &.form-col3 {
+          width: calc(33% - 10px);
+          float: right;
+        }
+      }
+
+      .app-card-label {
+        color: $primary-color;
+        margin-bottom: 8px;
+        margin-top: 16px;
+      }
+
+  
+      mat-spinner {
+        float: right;
+        margin-top: 5px;
+      }
+      .app-actions {
+        padding-top: 10px;
+      }
+  
+    }
+  }

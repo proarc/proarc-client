@@ -1,8 +1,11 @@
+import { AudioDevice } from "./audioDevice.model";
 
 export class Device {
 
     public id: string;
     public label: string;
+
+    public model: string;
 
     public imageProducer: string;
     public captureDevice: string;
@@ -25,6 +28,9 @@ export class Device {
     public cameraSensor: string;
 
     public timestamp = -1;
+    public audiotimestamp = -1;
+
+    public audioDevices: AudioDevice[];
 
 
     public static fromJsonArray(jsonArray): Device[] {
@@ -35,12 +41,24 @@ export class Device {
       return array;
   }
 
+  constructor(model: string) {
+    this.model = model;
+    this.audioDevices = [];
+  }
+
   public static fromJson(json): Device {
-      console.log(json);
-      const device = new Device();
+      let model = json['model'];
+      if (model === 'Audio linka') {
+        model = 'proarc:audiodevice';
+      }
+      if (model === 'Skener') {
+        model = 'proarc:device';
+      }
+      const device = new Device(model);
       device.id = json['id'];
       device.label = json['label'];
       device.timestamp = json['timestamp'];
+      device.audiotimestamp = json['audiotimestamp'];
       if (json['description'] && json['description']['ImageCaptureMetadata']) {
           const icm = json['description']['ImageCaptureMetadata'];
           if (icm['GeneralCaptureInformation']) {
@@ -112,8 +130,30 @@ export class Device {
               }
           }
       }
+      if (device.isAudio() && json['audiodescription'] && json['audiodescription']['amdSec']) {
+        device.audioDevices = AudioDevice.fromJsonArray(json['audiodescription']['amdSec']);
+      }
+      console.log('device', device);
       return device;
-  }
+    }
+
+    public isAudio(): boolean {
+      return this.model === 'proarc:audiodevice';
+    }
+    
+    public audioDescription(): string {
+      let desc = {};
+      if (this.isAudio() && this.audioDevices.length > 0) {
+        let audios = [];
+        for (const audioDevice of this.audioDevices) {
+          audios.push(audioDevice.description());
+        }
+        desc = {
+          'amdSec': audios
+        }
+      }
+      return JSON.stringify(desc);
+    }
 
     public description(): string {
         return JSON.stringify({

@@ -41,6 +41,7 @@ import { AtmComponent } from './components/atm/atm.component';
 import { OcrComponent } from './components/ocr/ocr.component';
 import { NoteComponent } from './components/note/note.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
+import { EditAudioDeviceComponent } from './components/devices/edit-audio-device/edit-audio-device.component';
 
 
 export function hljsLanguages() {
@@ -77,7 +78,8 @@ export function hljsLanguages() {
     OcrComponent,
     NoteComponent,
     CatalogComponent,
-    ViewerComponent
+    ViewerComponent,
+    EditAudioDeviceComponent
   ],
   imports: [
     BrowserModule,
