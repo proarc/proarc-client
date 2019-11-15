@@ -59,6 +59,18 @@ export class ApiService {
       new DigitalDocument(id, response['record']['content'], response['record']['timestamp'])));
   }
 
+
+  editMods(document: DigitalDocument): Observable<any> {
+    const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        })
+    };
+    const data = `pid=${document.uuid}&ignoreValidation=true&xmlData=${document.toMods()}&timestamp=${document.timestamp}`;
+    return this.put('object/mods/custom', data, httpOptions);
+  }
+
+
   getOcr(id: string): Observable<Ocr> {
     return this.get('object/ocr', { pid: id }).pipe(map(response =>
       Ocr.fromJson(response['record'])));

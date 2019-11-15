@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DigitalDocument } from 'src/app/model/document.model';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-mods-editor',
@@ -9,10 +10,20 @@ import { DigitalDocument } from 'src/app/model/document.model';
 export class ModsEditorComponent implements OnInit {
 
   @Input() document: DigitalDocument;
+  
 
-  constructor() { }
+  constructor(private api: ApiService) { }
 
   ngOnInit() {
   }
+
+
+  save() {
+    this.api.editMods(this.document).subscribe(result => {
+      console.log('mods saved', result);
+    }, () => {
+    });
+  }
+
 
 }

@@ -6,4 +6,12 @@
 <app-editor-language [field]="document.getField('language')"></app-editor-language>
 <app-editor-identifier [field]="document.getField('identifier')"></app-editor-identifier>
 <app-editor-note [field]="document.getField('note')"></app-editor-note>
+
+
+<button class="btn-update" (click)="save()" mat-raised-button color="primary">
+    <span>Uložit</span>
+</button>
+
+
+
 </ng-container>
