@@ -1,0 +1,9 @@
+<ng-container *ngIf="document.fields">
+<app-editor-geo [field]="document.getField('subject')"></app-editor-geo>
+<button class="btn-update" (click)="save()" mat-raised-button color="primary">
+    <span>Uložit</span>
+</button>
+
+
+
+</ng-container>

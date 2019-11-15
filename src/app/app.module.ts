@@ -42,6 +42,7 @@ import { OcrComponent } from './components/ocr/ocr.component';
 import { NoteComponent } from './components/note/note.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { EditAudioDeviceComponent } from './components/devices/edit-audio-device/edit-audio-device.component';
+import { GeoComponent } from './components/geo/geo.component';
 
 
 export function hljsLanguages() {
@@ -79,7 +80,8 @@ export function hljsLanguages() {
     NoteComponent,
     CatalogComponent,
     ViewerComponent,
-    EditAudioDeviceComponent
+    EditAudioDeviceComponent,
+    GeoComponent
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@
         <mat-option value="ocr">OCR</mat-option>
         <mat-option value="image">Obrázek</mat-option>
         <mat-option value="note">Poznámka</mat-option>
+        <mat-option value="geo">Geo</mat-option>
     </mat-select>
 
     <mat-select *ngIf="content == 'biblio'" [(ngModel)]='subcontent' class="app-panel-select app-panel-select2">
@@ -25,4 +26,6 @@
     <app-ocr *ngIf="content == 'ocr'"></app-ocr>
     <app-viewer *ngIf="content == 'image'"></app-viewer>
     <app-note *ngIf="content == 'note'"></app-note>
+    <app-geo *ngIf="content == 'geo'"></app-geo>
+
 </div>
