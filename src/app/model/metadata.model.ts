@@ -10,9 +10,9 @@ import { ModsNote } from './mods/note.mode';
 declare var $: any;
 
 
-export class DigitalDocument {
+export class Metadata {
 
-  public readonly uuid: string;
+  public readonly pid: string;
   public readonly timestamp: number = -1;
   public readonly originalMods: string;
   public readonly originalDc: string;
@@ -30,8 +30,8 @@ export class DigitalDocument {
 
   private fields: Map<String, ElementField>;
 
-  constructor(uuid: string, mods: string, timestamp: number) {
-    this.uuid = uuid;
+  constructor(pid: string, mods: string, timestamp: number) {
+    this.pid = pid;
     this.timestamp = timestamp;
     this.originalMods = mods.trim();
     // this.originalDc = dc.trim();

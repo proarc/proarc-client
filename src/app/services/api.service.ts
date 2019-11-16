@@ -2,9 +2,9 @@ import { CatalogueEntry } from './../model/catalogueEntry.model';
 import { Catalogue } from '../model/catalogue.model';
 import { Atm } from './../model/atm.model';
 import { DocumentItem } from './../model/documentItem.model';
-import { DigitalDocument } from 'src/app/model/document.model';
+import { Metadata } from 'src/app/model/metadata.model';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Device } from '../model/device.model';
 
@@ -54,19 +54,19 @@ export class ApiService {
     return this.put('object/atm', data, httpOptions).pipe(map(response => Atm.fromJson(response['response']['data'][0])));
   }
 
-  getMods(id: string): Observable<DigitalDocument> {
-    return this.get('object/mods/plain', { pid: id }).pipe(map(response =>
-      new DigitalDocument(id, response['record']['content'], response['record']['timestamp'])));
+  getMods(pid: string): Observable<Metadata> {
+    return this.get('object/mods/plain', { pid: pid }).pipe(map(response =>
+      new Metadata(pid, response['record']['content'], response['record']['timestamp'])));
   }
 
 
-  editMods(document: DigitalDocument): Observable<any> {
+  editMods(document: Metadata): Observable<any> {
     const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         })
     };
-    const data = `pid=${document.uuid}&ignoreValidation=true&xmlData=${document.toMods()}&timestamp=${document.timestamp}`;
+    const data = `pid=${document.pid}&ignoreValidation=true&xmlData=${document.toMods()}&timestamp=${document.timestamp}`;
     return this.put('object/mods/custom', data, httpOptions);
   }
 
@@ -104,7 +104,7 @@ export class ApiService {
 
   getSearchResults(model: string, query: string, page: number): Observable<DocumentItem[]> {
     const params = {
-      _startRow: page * 100,
+    _startRow: page * 100,
       _endRow: 75
     };
     if (model !== 'all') {
@@ -128,6 +128,13 @@ export class ApiService {
     };
     return this.get('bibliographies/query', params).pipe(map(response =>
       CatalogueEntry.fromJsonArray(response['metadataCatalogEntries']['entry'])));
+  }
+
+  getDocument(pid: string): Observable<DocumentItem> {
+    const params = {
+      root: pid
+    };
+    return this.get('object/member', params).pipe(map(response => DocumentItem.fromJson(response['response']['data'][0])));
   }
 
   getParent(pid: string): Observable<DocumentItem> {

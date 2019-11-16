@@ -43,6 +43,8 @@ import { NoteComponent } from './components/note/note.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { EditAudioDeviceComponent } from './components/devices/edit-audio-device/edit-audio-device.component';
 import { GeoComponent } from './components/geo/geo.component';
+import { EditorService } from './services/editor.service';
+import { EditorComponent } from './components/editor/editor.component';
 
 
 export function hljsLanguages() {
@@ -81,7 +83,8 @@ export function hljsLanguages() {
     CatalogComponent,
     ViewerComponent,
     EditAudioDeviceComponent,
-    GeoComponent
+    GeoComponent,
+    EditorComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +105,8 @@ export function hljsLanguages() {
   providers: [
     ApiService,
     AuthService,
-    UIService
+    UIService,
+    EditorService
   ],
   entryComponents: [
     SimpleDialogComponent

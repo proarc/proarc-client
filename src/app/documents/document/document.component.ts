@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
-import { DigitalDocument } from 'src/app/model/document.model';
+import { Metadata } from 'src/app/model/metadata.model';
 
 @Component({
   selector: 'app-document',
@@ -10,7 +10,7 @@ import { DigitalDocument } from 'src/app/model/document.model';
 })
 export class DocumentComponent implements OnInit {
 
-  document: DigitalDocument;
+  document: Metadata;
 
   constructor(private route: ActivatedRoute,
               private api: ApiService) { }
@@ -18,7 +18,7 @@ export class DocumentComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       const id = params['id'];
-      this.api.getMods(id).subscribe((document: DigitalDocument) => {
+      this.api.getMods(id).subscribe((document: Metadata) => {
         this.document = document;
       });
       // const modsRequest = this.apiService.getMods(uuid);

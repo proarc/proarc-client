@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Metadata } from 'src/app/model/metadata.model';
-import { ApiService } from 'src/app/services/api.service';
+import { DigitalDocument } from './node_modules/src/app/model/document.model';
+import { ApiService } from './node_modules/src/app/services/api.service';
 
 @Component({
   selector: 'app-mods-editor',
@@ -9,7 +9,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class ModsEditorComponent implements OnInit {
 
-  @Input() document: Metadata;
+  @Input() document: DigitalDocument;
   
 
   constructor(private api: ApiService) { }

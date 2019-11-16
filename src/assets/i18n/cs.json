@@ -48,6 +48,11 @@
     "logout": "Odhlásit"
   },
   "editor": {
+    "toolbar": {
+      "nav_up": "Přejít na nadřazený objekt",
+      "nav_prev": "Přejít na předchozí objekt",
+      "nav_next": "Přejít na následující objekt"
+    },
     "type": {
       "biblio": "Bibliografická metadata",
       "relations": "Vazby"

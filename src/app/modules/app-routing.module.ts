@@ -9,9 +9,13 @@ import { DeviceComponent } from '../components/devices/device/device.component';
 import { EditDeviceComponent } from '../components/devices/edit-device/edit-device.component';
 import { CatalogComponent } from '../components/catalog/catalog.component';
 import { EditAudioDeviceComponent } from '../components/devices/edit-audio-device/edit-audio-device.component';
+import { EditorComponent } from '../components/editor/editor.component';
 
 const routes: Routes = [
   { path: 'documents/:id', component: DocumentComponent },
+
+  { path: 'document/:pid', component: EditorComponent },
+
   { path: 'login', component: LoginComponent },
   { path: 'devices', component: DevicesComponent },
   { path: 'devices/new', component: EditDeviceComponent },

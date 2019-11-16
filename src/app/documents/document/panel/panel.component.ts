@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DigitalDocument } from 'src/app/model/document.model';
+import { Metadata } from 'src/app/model/metadata.model';
 
 @Component({
   selector: 'app-panel',
@@ -8,7 +8,7 @@ import { DigitalDocument } from 'src/app/model/document.model';
 })
 export class PanelComponent implements OnInit {
 
-  @Input() document: DigitalDocument;
+  @Input() document: Metadata;
   @Input() content: String;
   @Input() subcontent: String;
 

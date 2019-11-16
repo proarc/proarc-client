@@ -1,0 +1,32 @@
+<div class="app-editor-wrapper" *ngIf="editor.state == 'success'">
+
+<div class="app-panel app-panel-left">
+  <div class="app-toolbar">
+    <div class="app-label">{{ editor.document.label }}</div>
+    <div class="app-arrows">
+        <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="editor.goToPreviousObject()" mat-icon-button>
+          <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="editor.goToParentObject()" mat-icon-button>
+          <mat-icon>keyboard_arrow_up</mat-icon>
+        </button>
+        <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="editor.goToNextObject()" mat-icon-button>
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+    </div>
+  </div>
+  <div class="app-content"></div>
+</div>
+
+<div class="app-panel app-panel-right">
+
+</div>
+
+</div>
+
+<mat-spinner *ngIf="editor.state === 'loading'"
+          [strokeWidth]="5" 
+          [diameter]="60"
+          class="center-spinner">
+</mat-spinner>
+
