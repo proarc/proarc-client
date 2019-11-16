@@ -28,6 +28,10 @@ export class EditorService {
 
     public goToParentObject() {
         console.log('goToParentObject');
+        this.state = 'loading';
+        this.api.getParent(this.document.pid).subscribe((item: DocumentItem) => {
+            console.log('paretnt', item);
+        });
     }
 
     public goToPreviousObject() {
