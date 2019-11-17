@@ -221,6 +221,56 @@ body {
 
 
 
+.app-editor-wrapper {
+  .app-content {
+    .app-editor-content-wrapper {
+      height: 100%;
+      .app-editor-toolbar {
+        background: $primary-color;
+        height: 34px;
+        padding: 0 6px;
+        .app-action {
+          color: #fff;
+          display: block;
+          float: left;
+          line-height: 30px;
+          height: 30px;
+          width: 30px;
+          margin: 1px 3px;
+          &.app-inactive {
+            color: #ffffff57;
+          }
+          &.app-disabled {
+            color: #fff3;
+            cursor: default;
+          }
+          .mat-icon {
+            font-size: 20px;
+            line-height: 20px;
+            height: 20px;
+            width: 20px;
+          }
+          &.app-right {
+            float: right;
+          }
+        }
+        .app-divider {
+          display: block;
+          float: left;
+          height: 30px;
+          background: #385585;
+          width: 1px;
+          margin: 2px;
+        }
+      }
+      .app-editor-content {
+        height: calc(100% - 34px);
+      }
+    }
+  }
+}
+
+
 
 
 .editor mat-tab-group {

@@ -11,8 +11,13 @@ export class DocumentItem {
   public created: Date;
   public export: number;
 
+  public shortLabel: string;
+
   public static fromJson(json): DocumentItem {
     console.log(json);
+    if (!json) {
+      return null;
+    }
     const item = new DocumentItem();
     item.pid = json['pid'];
     item.parent = json['pid'];
@@ -26,6 +31,11 @@ export class DocumentItem {
     if (json['created']) {
       item.created = new Date(json['created']);
     }
+    if (item.label.indexOf(',') > -1) {
+      item.shortLabel = item.label.split(',')[0];
+    } else {
+      item.shortLabel = item.label;
+    }
     item.export = json['export'];
     return item;
   }
@@ -37,7 +47,11 @@ export class DocumentItem {
         array.push(DocumentItem.fromJson(json));
     }
     return array;
-}
+  }
+
+  public isPage(): boolean {
+    return this.model === 'model:page';
+  }
 
 
 }

@@ -1,0 +1,176 @@
+
+    // .app-table {
+    // //   &.scrollable {
+    // //     // max-height: calc(100% - 56px);
+    // //     // overflow: auto;
+    // //   }
+    //   .app-col-model{
+    //     width: 150px;
+    //   }
+    //   .app-col-label {
+    //     flex: 1;
+    //   }
+    // }
+
+
+
+
+
+    .app-view-list {
+      overflow: auto;
+      height: 100%;
+      &.app-table {
+        box-shadow: none;
+        .app-row {
+          padding: 0px 12px;
+          height: 40px;
+          line-height: 40px;
+          .app-col-model{
+            width: 150px;
+            text-align: right;
+          }
+          .app-col-label {
+            flex: 1;
+          }
+          .app-col-actions {
+            text-align: right;
+            width: 50px;
+            .app-drag-handle {
+              margin-top: 8px;
+              cursor: webkit-grab;
+              cursor: grab;
+            }
+          }
+        }
+      }
+    }
+
+
+    .app-view-grid {
+      width: 100%;
+      .app-grid-item-wrapper {
+        padding: 3px;
+        float: left;
+        width: 9.09%;
+        @media (max-width: 3100px) {
+          width:10%;
+        }
+        @media (max-width: 2800px) {
+          width:11.11110%;
+        }
+        @media (max-width: 2500px) {
+          width:12.5%;
+        }
+        @media (max-width: 2200px) {
+          width:14.2857%;
+        }
+        @media (max-width: 1900px) {
+          width:16.66666%;
+        }
+        @media (max-width: 1650px) {
+          width:20%;
+        }
+        @media (max-width: 1400px) {
+          width:25%;
+        }
+        @media (max-width: 1200px) {
+          width:33.33333%;
+        }
+        @media (max-width: 1000px) {
+          width:50%;
+        }
+        .app-grid-item {
+          padding: 0px 6px;
+          word-break: break-all;
+          overflow: hidden;
+          line-height: 30px;
+          font-size: 15px;
+          color: #444;
+          height: 30px;
+          background: #fff;
+          border: 1px solid #0000002e;
+        }
+      }
+    }
+
+
+    .app-view-icons {
+     width: 100%;
+      .app-item {
+        float: left;
+        width: 9.09%;
+        @media (max-width: 1860px) {
+          width:10%;
+        }
+        @media (max-width: 1760px) {
+          width:11.11110%;
+        }
+        @media (max-width: 1690px) {
+          width:12.5%;
+        }
+        @media (max-width: 1580px) {
+          width:14.2857%;
+        }
+        @media (max-width: 1430px) {
+          width:16.66666%;
+        }
+        @media (max-width: 1320px) {
+          width:20%;
+        }
+        @media (max-width: 1210px) {
+          width:25%;
+        }
+        @media (max-width: 1100px) {
+          width:33.33333%;
+        }
+        @media (max-width: 992px) {
+          width:25%;
+        }
+        @media (max-width: 780px) {
+          width:33.33333%;
+        }
+        @media (max-width: 690px) {
+          width:50%;
+        }
+        @media (max-width: 600px) {
+          width:33.33333%;
+        }
+        @media (max-width: 400px) {
+          width:50%;
+        }
+        cursor: pointer;
+        // margin: 0.5rem;
+        .app-item-content {    
+          padding: 2px;
+          margin: 2px;
+          box-shadow: 0 2px 2px 0 transparent, 0 1px 5px 0 rgba(0,0,0,.1), 0 3px 1px -20px rgba(0,0,0,.1);
+          border: 1px solid #e0e0e0;
+          position: relative;
+          .app-item-thumb {
+            background-repeat: no-repeat;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            // width: 100%;
+            width: 95px;
+            height: 140px;
+            background-position-y: top;
+            background-position-x: center;
+            margin-left: auto;
+            margin-right: auto;
+          }
+          .app-item-label {
+            position: absolute;
+            bottom: 0;
+            background: rgba(255,255,255,.6);
+            color: #111;
+            font-size: 13px;
+            text-align: center;
+            width: 100%;
+          }
+        }
+      }
+    }
+
+

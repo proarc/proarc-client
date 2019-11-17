@@ -1,41 +1,44 @@
 import { ApiService } from 'src/app/services/api.service';
-import { DocumentItem } from './../../model/documentItem.model';
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Translator } from 'angular-translator';
 import { ActivatedRoute } from '@angular/router';
+import { DocumentItem } from 'src/app/model/documentItem.model';
+import { EditorService } from 'src/app/services/editor.service';
 
 
 
 @Component({
-  selector: 'app-relations',
-  templateUrl: './relations.component.html',
-  styleUrls: ['./relations.component.scss']
+  selector: 'app-editor-children',
+  templateUrl: './editor-children.component.html',
+  styleUrls: ['./editor-children.component.scss']
 })
-export class RelationsComponent implements OnInit {
+export class EditorChildrenComponent implements OnInit {
 
-  state = 'none';
-  items: DocumentItem[];
+  @Input() items: DocumentItem[];
 
-  parentPid: string;
-
-  layout = 'table';
+  viewMode = 'none'; // 'list' | 'grid' | 'icons'
+  useShortLabel = false;
 
   source: any;
   dragEnabled = false;
   sourceIndex: number;
 
-  constructor(private api: ApiService, private route: ActivatedRoute) {
+  anyChange: boolean;
+
+  pageChildren = false;
+
+  constructor(public editor: EditorService, private api: ApiService) {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.parentPid = params['id'];
-      this.api.getRelations(this.parentPid).subscribe((items: DocumentItem[]) => {
-        this.items = items;
-        this.state = 'success';
-      });
-    });
+    this.anyChange = false;
+    this.pageChildren = this.editor.document.onlyPageChildren();
+    if (this.pageChildren) {
+      this.viewMode = this.editor.lastPageChildrenViewMode;
+    } else {
+      this.viewMode = this.editor.lastChildrenViewMode;
+    }
   }
 
   thumb(pid: string) {
@@ -57,6 +60,24 @@ export class RelationsComponent implements OnInit {
     return false;
   }
 
+
+  switchUseShortLabel() {
+    this.useShortLabel = !this.useShortLabel;
+  }
+
+  changeViewMode(mode: string) {
+    this.viewMode = mode;
+    if (this.pageChildren) {
+      this.editor.lastPageChildrenViewMode = this.viewMode;
+    } else {
+      this.editor.lastChildrenViewMode = this.viewMode;
+    }
+  }
+
+  onItemClicked(item: DocumentItem) {
+    this.editor.goToObject(item);
+  }
+
   dragenter($event) {
     if (this.source.parentNode !== $event.currentTarget.parentNode) {
       return;
@@ -76,23 +97,27 @@ export class RelationsComponent implements OnInit {
     if (from !== to) {
       console.log('reoredr ' + from + ' and ' + to);
       this.reorder(from, to);
-      this.save();
     }
   }
 
 
   reorder(from: number, to: number) {
+    this.anyChange = true;
     const item = this.items[from];
     this.items.splice(from, 1);
     this.items.splice(to, 0, item);
     console.log(this.items);
   }
 
-  save() {
-    const pidArray = this.items.map( item => item.pid);
-    this.api.editRelations(this.parentPid, pidArray).subscribe(result => {
-      console.log('result', result);
+  onSave() {
+    console.log('on save');
+    this.editor.saveChildren(() => {
+      this.anyChange = false;
     });
+    // const pidArray = this.items.map( item => item.pid);
+    // this.api.editRelations(this.parentPid, pidArray).subscribe(result => {
+    //   console.log('result', result);
+    // });
   }
 
   dragstart($event) {
@@ -105,12 +130,12 @@ export class RelationsComponent implements OnInit {
   }
 
   mousedown($event) {
-    // if ($event.target.classList.contains('page-drag-handle') > 0) {
+    if ($event.target.classList.contains('app-drag-handle') > 0) {
       this.dragEnabled = true;
-    // } else {
-      // $event.preventDefault();
-      // this.dragEnabled = false;
-    // }
+    } else {
+      $event.preventDefault();
+      this.dragEnabled = false;
+    }
   }
 
 

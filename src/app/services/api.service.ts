@@ -145,9 +145,9 @@ export class ApiService {
     return this.get('object/search', params).pipe(map(response => DocumentItem.fromJson(response['response']['data'][0])));
   }
 
-  getRelations(root: string, parent: string): Observable<DocumentItem[]> {
+  getRelations(parent: string): Observable<DocumentItem[]> {
     const params = {
-      root: root,
+      root: parent,
       parent: parent
     };
     return this.get('object/member', params).pipe(map(response => DocumentItem.fromJsonArray(response['response']['data'])));

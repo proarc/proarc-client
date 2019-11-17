@@ -11,8 +11,11 @@ public label: string;
 public modified: Date;
 public created: Date;
 
+public children: DocumentItem[];
+
 constructor(pid: string) {
   this.pid = pid;
+  this.children = [];
 }
 
 public static fromDocumentItem(item: DocumentItem): DocumentWrapper {
@@ -25,5 +28,14 @@ public static fromDocumentItem(item: DocumentItem): DocumentWrapper {
   return document;
 }
 
+
+public onlyPageChildren(): boolean {
+  for (const child of this.children) {
+    if (!child.isPage()) {
+      return false;
+    }
+  }
+  return true;
+}
 
 }

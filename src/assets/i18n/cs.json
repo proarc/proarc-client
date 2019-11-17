@@ -53,6 +53,11 @@
       "nav_prev": "Přejít na předchozí objekt",
       "nav_next": "Přejít na následující objekt"
     },
+    "children": {
+      "view_list": "Tabulka",
+      "view_grid": "Mřížka",
+      "view_icons": "Náhledy"
+    },
     "type": {
       "biblio": "Bibliografická metadata",
       "relations": "Vazby"

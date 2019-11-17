@@ -1,0 +1,67 @@
+<div class="app-editor-content-wrapper">
+ <div class="app-editor-toolbar">
+ 
+    <button class="app-action" [class.app-inactive]="viewMode != 'list'" matTooltip="{{ 'editor.children.view_list' | translate }}" (click)="changeViewMode('list')" mat-icon-button>
+      <mat-icon>format_align_justify</mat-icon>
+    </button>
+
+    <button class="app-action" [class.app-inactive]="viewMode != 'grid'" matTooltip="{{ 'editor.children.view_grid' | translate }}" (click)="changeViewMode('grid')" mat-icon-button>
+      <mat-icon>apps</mat-icon>
+    </button>
+
+    <button *ngIf="pageChildren" class="app-action" [class.app-inactive]="viewMode != 'icons'" matTooltip="{{ 'editor.children.view_icons' | translate }}" (click)="changeViewMode('icons')" mat-icon-button>
+      <mat-icon>image</mat-icon>
+    </button>
+
+    <div class="app-divider"></div>
+
+    <button class="app-action" [class.app-inactive]="useShortenText" matTooltip="{{ 'editor.children.view_grid' | translate }}" (click)="switchUseShortLabel()" mat-icon-button>
+      <mat-icon>short_text</mat-icon>
+    </button>
+
+    <button class="app-action app-right" [class.app-disabled]="!anyChange" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
+        <mat-icon>save</mat-icon>
+    </button>
+
+
+ </div>
+ 
+
+ <div class="app-editor-content">
+
+  <div class="app-view-list app-table" *ngIf="viewMode == 'list'">
+    <div *ngFor="let item of items" (click)="onItemClicked(item)" class="app-row"
+    draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
+    (mousedown)="mousedown($event)">
+      <div class="app-col-label">{{ useShortLabel ? item.shortLabel : item.label }}</div>
+      <div class="app-col-model">{{ "model." + item.model | translate }}</div>
+      <div class="app-col-actions">
+          <mat-icon class="app-drag-handle">reorder</mat-icon>
+      </div>
+  </div>
+  </div>
+
+
+  <div class="app-view-grid" *ngIf="viewMode == 'grid'">
+    <div *ngFor="let item of items" (click)="onItemClicked(item)" class="app-grid-item-wrapper">
+        <div class="app-grid-item">
+          <div class="app-grid-item-label">{{ useShortLabel ? item.shortLabel : item.label }}</div>
+        </div>
+    </div>
+  </div>
+
+  <div class="app-view-icons" *ngIf="viewMode == 'icons'">
+    <div *ngFor="let item of items" (click)="onItemClicked(item)" class="app-item" 
+    draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
+    (mousedown)="mousedown($event)"  
+    >
+      <div class="app-item-content">
+        <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"></div>
+        <div class="app-item-label">{{ useShortLabel ? item.shortLabel : item.label }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+

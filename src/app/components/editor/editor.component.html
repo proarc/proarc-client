@@ -1,9 +1,21 @@
-<div class="app-editor-wrapper" *ngIf="editor.state == 'success'">
+<div class="app-editor-wrapper" *ngIf="editor.ready">
+
+    <div class="app-editor-saving" *ngIf="editor.state === 'loading' || editor.state === 'saving'"></div>
+
 
 <div class="app-panel app-panel-left">
   <div class="app-toolbar">
-    <div class="app-label">{{ editor.document.label }}</div>
-    <div class="app-arrows">
+    <div class="app-label">
+      <div class="app-label-title">{{ editor.document.label }}</div>
+      <div class="app-label-model">{{ 'model.' + editor.document.model | translate }}</div>
+    </div>
+
+    <div class="app-actions">
+<!-- 
+        <button matTooltip="{{ 'common.save' | translate }}" (click)="editor.save()" mat-icon-button>
+          <mat-icon>save</mat-icon>
+        </button> -->
+
         <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="editor.goToPreviousObject()" mat-icon-button>
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
@@ -15,7 +27,11 @@
         </button>
     </div>
   </div>
-  <div class="app-content"></div>
+  <div class="app-content">
+
+    <app-editor-children [items]="editor.document.children"></app-editor-children>
+
+  </div>
 </div>
 
 <div class="app-panel app-panel-right">
@@ -24,7 +40,7 @@
 
 </div>
 
-<mat-spinner *ngIf="editor.state === 'loading'"
+<mat-spinner *ngIf="editor.state === 'loading' || editor.state === 'saving'"
           [strokeWidth]="5" 
           [diameter]="60"
           class="center-spinner">

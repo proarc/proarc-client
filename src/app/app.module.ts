@@ -45,6 +45,7 @@ import { EditAudioDeviceComponent } from './components/devices/edit-audio-device
 import { GeoComponent } from './components/geo/geo.component';
 import { EditorService } from './services/editor.service';
 import { EditorComponent } from './components/editor/editor.component';
+import { EditorChildrenComponent } from './components/editor/editor-children/editor-children.component';
 
 
 export function hljsLanguages() {
@@ -84,7 +85,8 @@ export function hljsLanguages() {
     ViewerComponent,
     EditAudioDeviceComponent,
     GeoComponent,
-    EditorComponent
+    EditorComponent,
+    EditorChildrenComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
 .app-editor-wrapper {
     height: 100%;
+    position: relative;
     .app-panel {
         width: 50%; 
         display: block; 
@@ -16,21 +17,34 @@
             padding-left: 8px;
             padding-right: 4px;
             background: #456aa5;
+            border-bottom: 1px solid #385585;
             color: #fff;
             .app-label {
                 float: left;
                 max-width: 150px;
-                line-height: 46px;
-                font-size: 18px;
                 overflow: hidden;
-                color: #fff;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 1;
-                display: block;
-                display: -webkit-box;
-                text-overflow: ellipsis;
+                margin-top: 6px;
+                .app-label-title {
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 1;
+                    display: block;
+                    display: -webkit-box;
+                    text-overflow: ellipsis;
+                    font-size: 16px;
+                    color: #fff;
+                    line-height: 20px;
+                    overflow: hidden;
+                    height: 20px;
+                }
+                .app-label-model {
+                    font-size: 13px;
+                    color: #ccc;
+                    overflow: hidden;
+                    line-height: 16px;
+                    height: 16px;
+                }
             }
-            .app-arrows {
+            .app-actions {
                 margin-top: 3px;
                 float: right;
             }
@@ -39,4 +53,16 @@
             height: calc(100% - 46px);
         }
     }
+
+    .app-editor-saving {
+        width: 100%;
+        height: 100%;
+        background: #000000a1;
+        position: absolute;
+        z-index: 10;
+    }
+}
+
+mat-spinner {
+    z-index: 100;
 }
