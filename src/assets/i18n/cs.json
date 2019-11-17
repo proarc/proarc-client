@@ -58,7 +58,10 @@
       "view_grid": "Mřížka",
       "view_icons": "Náhledy",
       "short_labels_on": "Zobrazovat úplné popisky",
-      "short_labels_off": "Zobrazovat zkrácené popisky"
+      "short_labels_off": "Zobrazovat zkrácené popisky",
+      "open_object": "Přejít na objekt",
+      "select_object": "Načíst objekt vpravo",
+      "reorder": "Přeuspořádat objekty"
     },
     "type": {
       "biblio": "Bibliografická metadata",

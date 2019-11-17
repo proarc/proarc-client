@@ -22,24 +22,34 @@
       &.app-table {
         box-shadow: none;
         .app-row {
-          padding: 0px 12px;
+          padding: 0px 10px;
           height: 40px;
           line-height: 40px;
+          .app-col-open {
+            // width: 40px;
+            button {
+              margin-left: -10px;
+            }
+          }
           .app-col-model{
             width: 150px;
             text-align: right;
           }
           .app-col-label {
+            padding-left: 10px;
             flex: 1;
           }
           .app-col-actions {
             text-align: right;
-            width: 50px;
-            .app-drag-handle {
-              margin-top: 8px;
-              cursor: webkit-grab;
-              cursor: grab;
-            }
+            width: 75px;
+          }
+          .app-drag-handle {
+            cursor: webkit-grab;
+            cursor: grab;
+            margin-top: 8px;
+          }
+          &.app-selected {
+            background: #e6e6e6;
           }
         }
       }

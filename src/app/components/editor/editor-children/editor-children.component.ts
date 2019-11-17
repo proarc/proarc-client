@@ -77,8 +77,12 @@ export class EditorChildrenComponent implements OnInit {
     }
   }
 
-  onItemClicked(item: DocumentItem) {
+  open(item: DocumentItem) {
     this.editor.goToObject(item);
+  }
+
+  select(item: DocumentItem) {
+    this.editor.selectChild(item);
   }
 
   dragenter($event) {

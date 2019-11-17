@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { interval } from 'rxjs';
+import { EditorService } from 'src/app/services/editor.service';
 
 declare var ol: any;
 
@@ -28,6 +29,11 @@ declare global {
 })
 export class ViewerComponent implements OnInit, OnDestroy {
 
+  @Input() 
+  set pid(pid: string) {
+    this.onPidChanged(pid);
+  }
+
   private view;
   private imageLayer;
 
@@ -39,10 +45,6 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   private zoomFactor = 1.5;
 
-  public hideOnInactivity = false;
-  private intervalSubscription: Subscription;
-  public lastMouseMove = 0;
-
   private lastRotateTime = 0;
 
   fullscreenAvailable = false;
@@ -52,19 +54,34 @@ export class ViewerComponent implements OnInit, OnDestroy {
   state = 'none';
 
 
-  constructor(private api: ApiService, private route: ActivatedRoute) {
+
+  constructor(private api: ApiService, private route: ActivatedRoute, private editor: EditorService) {
     this.initFullscreenCapabilities();
   }
 
   ngOnInit() {
-    this.state = 'loading';
-    this.route.params.subscribe(params => {
-      const id = params['id'];
-      const url = this.api.getStreamUrl(id, 'FULL');
-      this.init(url);
-    });
+    this.init();
+    // this.state = 'loading';
+    // this.route.params.subscribe(params => {
+    //   const id = params['id'];
+    //   const url = this.api.getStreamUrl(id, 'FULL');
+    //   this.init(url);
+    // });
   }
 
+  onPidChanged(pid: string) {
+    this.state = 'loading';
+    const url = this.api.getStreamUrl(pid, 'FULL');
+    const image = new Image();
+    image.onload = (() => {
+        this.onLoad(url, image.width, image.height);
+    });
+    image.onerror = (() => {
+        image.onerror = null;
+        console.log('image load failure');
+    });
+    image.src = url;
+}
 
   onLoad(url: string, width: number, height: number) {
     this.state = 'success';
@@ -101,7 +118,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
     this.fitToScreen();
   }
 
-  init(url: string) {
+  init() {
     const interactions = ol.interaction.defaults({ keyboardPan: false, pinchRotate: false });
     this.view = new ol.Map({
       target: 'app-viewer',
@@ -110,26 +127,6 @@ export class ViewerComponent implements OnInit, OnDestroy {
       loadTilesWhileAnimating: true,
       layers: []
     });
-
-
-    const image = new Image();
-    image.onload = (() => {
-        this.onLoad(url, image.width, image.height);
-    });
-    image.onerror = (() => {
-        image.onerror = null;
-        console.log('image load failure');
-    });
-    image.src = url;
-
-    this.intervalSubscription = interval(4000).subscribe( () => {
-      const lastMouseDist = new Date().getTime() - this.lastMouseMove;
-      if (lastMouseDist >= 4000) {
-        this.hideOnInactivity = true;
-      }
-    });
-
-
   }
 
   fitToScreen() {
@@ -170,12 +167,6 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   }
 
-
-  onMouseMove() {
-    this.lastMouseMove = new Date().getTime();
-    this.hideOnInactivity = false;
-  }
-
   getBestFitResolution() {
     const rx = this.imageWidth / (this.view.getSize()[0] - 10);
     const ry = this.imageHeight / (this.view.getSize()[1] - 10);
@@ -189,9 +180,6 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.view.removeLayer(this.imageLayer);
-    if (this.intervalSubscription) {
-      this.intervalSubscription.unsubscribe();
-    }
   }
 
   private rotate(angle: number) {

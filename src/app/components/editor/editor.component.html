@@ -34,7 +34,24 @@
   </div>
 </div>
 
-<div class="app-panel app-panel-right">
+<div class="app-panel app-panel-right" *ngIf="editor.child">
+
+
+
+    <div class="app-toolbar">
+        <div class="app-label">
+          <div class="app-label-title">{{ editor.child.label }}</div>
+          <div class="app-label-model">{{ 'model.' + editor.child.model | translate }}</div>
+        </div>
+    </div>
+
+
+    <div class="app-content">
+
+        <app-viewer [pid]="editor.child.pid"></app-viewer>
+    
+      </div>
+
 
 </div>
 

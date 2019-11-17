@@ -12,12 +12,16 @@ export class EditorService {
     public ready = false;
     public document: DocumentWrapper;
 
+
+    public child: DocumentItem;
+
     constructor(
         private router: Router,
         private api: ApiService) {
     }
 
     init(params: EditorParams) {
+        this.child = null;
         this.ready = false;
         console.log('------- Editor Service init', params);
         this.state = 'loading';
@@ -54,6 +58,10 @@ export class EditorService {
         if (item) {
             this.router.navigate(['/document', item.pid]);
         }
+    }
+
+    public selectChild(item: DocumentItem) {
+        this.child = item;
     }
 
     public goToPreviousObject() {
