@@ -46,6 +46,7 @@ import { GeoComponent } from './components/geo/geo.component';
 import { EditorService } from './services/editor.service';
 import { EditorComponent } from './components/editor/editor.component';
 import { EditorChildrenComponent } from './components/editor/editor-children/editor-children.component';
+import { LocalStorageService } from './services/local-storage.service';
 
 
 export function hljsLanguages() {
@@ -108,7 +109,8 @@ export function hljsLanguages() {
     ApiService,
     AuthService,
     UIService,
-    EditorService
+    EditorService,
+    LocalStorageService
   ],
   entryComponents: [
     SimpleDialogComponent

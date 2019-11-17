@@ -5,6 +5,7 @@ import { Translator } from 'angular-translator';
 import { ActivatedRoute } from '@angular/router';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { EditorService } from 'src/app/services/editor.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 
 
@@ -18,7 +19,7 @@ export class EditorChildrenComponent implements OnInit {
   @Input() items: DocumentItem[];
 
   viewMode = 'none'; // 'list' | 'grid' | 'icons'
-  useShortLabel = false;
+  shortLabels = false;
 
   source: any;
   dragEnabled = false;
@@ -28,17 +29,18 @@ export class EditorChildrenComponent implements OnInit {
 
   pageChildren = false;
 
-  constructor(public editor: EditorService, private api: ApiService) {
+  constructor(public editor: EditorService, private api: ApiService, private properties: LocalStorageService) {
   }
 
   ngOnInit() {
     this.anyChange = false;
     this.pageChildren = this.editor.document.onlyPageChildren();
     if (this.pageChildren) {
-      this.viewMode = this.editor.lastPageChildrenViewMode;
+      this.viewMode = this.properties.getStringProperty('children.page_view_mode', 'icons');
     } else {
-      this.viewMode = this.editor.lastChildrenViewMode;
+      this.viewMode = this.properties.getStringProperty('children.view_mode', 'list');
     }
+    this.shortLabels = this.properties.getBoolProperty('children.short_labels', false);
   }
 
   thumb(pid: string) {
@@ -60,17 +62,18 @@ export class EditorChildrenComponent implements OnInit {
     return false;
   }
 
-
   switchUseShortLabel() {
-    this.useShortLabel = !this.useShortLabel;
+    this.shortLabels = !this.shortLabels;
+    this.properties.setBoolProperty('children.short_labels', this.shortLabels);
+
   }
 
   changeViewMode(mode: string) {
     this.viewMode = mode;
     if (this.pageChildren) {
-      this.editor.lastPageChildrenViewMode = this.viewMode;
+      this.properties.setStringProperty('children.page_view_mode', this.viewMode);
     } else {
-      this.editor.lastChildrenViewMode = this.viewMode;
+      this.properties.setStringProperty('children.view_mode', this.viewMode);
     }
   }
 

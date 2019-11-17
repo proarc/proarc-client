@@ -15,7 +15,7 @@
 
     <div class="app-divider"></div>
 
-    <button class="app-action" [class.app-inactive]="useShortenText" matTooltip="{{ 'editor.children.view_grid' | translate }}" (click)="switchUseShortLabel()" mat-icon-button>
+    <button class="app-action" [class.app-inactive]="!shortLabels" matTooltip="{{ 'editor.children.short_labels_' + (shortLabels ? 'on' : 'off') | translate }}" (click)="switchUseShortLabel()" mat-icon-button>
       <mat-icon>short_text</mat-icon>
     </button>
 
@@ -33,7 +33,7 @@
     <div *ngFor="let item of items" (click)="onItemClicked(item)" class="app-row"
     draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
     (mousedown)="mousedown($event)">
-      <div class="app-col-label">{{ useShortLabel ? item.shortLabel : item.label }}</div>
+      <div class="app-col-label">{{ shortLabels ? item.shortLabel : item.label }}</div>
       <div class="app-col-model">{{ "model." + item.model | translate }}</div>
       <div class="app-col-actions">
           <mat-icon class="app-drag-handle">reorder</mat-icon>
@@ -45,7 +45,7 @@
   <div class="app-view-grid" *ngIf="viewMode == 'grid'">
     <div *ngFor="let item of items" (click)="onItemClicked(item)" class="app-grid-item-wrapper">
         <div class="app-grid-item">
-          <div class="app-grid-item-label">{{ useShortLabel ? item.shortLabel : item.label }}</div>
+          <div class="app-grid-item-label">{{ shortLabels ? item.shortLabel : item.label }}</div>
         </div>
     </div>
   </div>

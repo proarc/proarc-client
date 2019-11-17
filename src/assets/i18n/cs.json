@@ -56,7 +56,9 @@
     "children": {
       "view_list": "Tabulka",
       "view_grid": "Mřížka",
-      "view_icons": "Náhledy"
+      "view_icons": "Náhledy",
+      "short_labels_on": "Zobrazovat úplné popisky",
+      "short_labels_off": "Zobrazovat zkrácené popisky"
     },
     "type": {
       "biblio": "Bibliografická metadata",

@@ -8,10 +8,6 @@ import { forkJoin } from 'rxjs';
 @Injectable()
 export class EditorService {
 
-    public lastChildrenViewMode = 'list';
-    public lastPageChildrenViewMode = 'icons';
-
-
     public state = 'none';
     public ready = false;
     public document: DocumentWrapper;
