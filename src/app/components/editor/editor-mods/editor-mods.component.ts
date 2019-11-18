@@ -10,12 +10,14 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class EditorModsComponent implements OnInit {
 
+  realtime = false;
   state = 'none';
   editting = false;
   mods: Mods;
   anyChange: boolean;
+  lastPid: string;
 
-  @Input() 
+  @Input()
   set pid(pid: string) {
     this.onPidChanged(pid);
   }
@@ -26,18 +28,33 @@ export class EditorModsComponent implements OnInit {
   ngOnInit() {
   }
 
+  public setRealtime(enable: boolean) {
+    if (enable) {
+      this.onClear();
+    } else {
+      this.loadMods();
+    }
+    this.realtime = enable;
+  }
+
   onEdit() {
+    if (this.realtime) {
+      return;
+    }
     this.editting = true;
   }
 
   onClear() {
+    if (this.realtime) {
+      return;
+    }
     this.editting = false;
     this.anyChange = false;
     this.mods.restore();
   }
 
   onSave() {
-    if (!this.anyChange) {
+    if (!this.anyChange || this.realtime) {
       return;
     }
     this.editor.saveMods(this.mods, (mods: Mods) => {
@@ -54,10 +71,15 @@ export class EditorModsComponent implements OnInit {
 
 
   private onPidChanged(pid: string) {
+    this.lastPid = pid;
+    this.setRealtime(false);
+  }
+
+  private loadMods() {
     this.anyChange = false;
     this.editting = false;
     this.state = 'loading';
-    this.api.getMods(pid).subscribe((mods: Mods) => {
+    this.api.getMods(this.lastPid).subscribe((mods: Mods) => {
       this.mods = mods;
       this.state = 'success';
     }, () => {

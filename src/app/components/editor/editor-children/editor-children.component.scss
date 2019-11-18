@@ -18,7 +18,8 @@
 
     .app-view-list {
       overflow: auto;
-      height: 100%;
+      height: calc(100% - 2px);
+      margin-top:2px;
       &.app-table {
         box-shadow: none;
         .app-row {

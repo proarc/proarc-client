@@ -3,17 +3,28 @@
   <div class="app-editor-toolbar">
       <div class="app-label">MODS XML</div>
       <div class="app-actions-right">
-        <button class="app-action" [class.app-disabled]="editting" (click)="onEdit()" [matTooltip]="'common.edit' | translate" mat-icon-button>
+
+        <ng-container *ngIf="editor.metadata && editor.leftEditorType == 'metadata' && editor.mode == 'detail'">
+            <button class="app-action" [class.app-inactive]="!realtime" (click)="setRealtime(true)" [matTooltip]="'common.edit' | translate" mat-icon-button>
+                <mat-icon>timer</mat-icon>
+            </button>
+            <button class="app-action" [class.app-inactive]="realtime" (click)="setRealtime(false)" [matTooltip]="'common.edit' | translate" mat-icon-button>
+                <mat-icon>timer_off</mat-icon>
+            </button>
+            <div class="app-divider"></div>
+        </ng-container>
+
+        <button class="app-action" [class.app-disabled]="editting || realtime" (click)="onEdit()" [matTooltip]="'common.edit' | translate" mat-icon-button>
             <mat-icon>edit</mat-icon>
         </button>
 
-        <button class="app-action" [class.app-disabled]="!editting" (click)="onClear()" [matTooltip]="'common.cancel' | translate" mat-icon-button>
+        <button class="app-action" [class.app-disabled]="!editting || realtime" (click)="onClear()" [matTooltip]="'common.cancel' | translate" mat-icon-button>
             <mat-icon>clear</mat-icon>
         </button>
 
         <div class="app-divider"></div>
 
-        <button class="app-action" [class.app-disabled]="!anyChange" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
+        <button class="app-action" [class.app-disabled]="!anyChange || realtime" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
             <mat-icon>save</mat-icon>
         </button>
     </div>
@@ -22,7 +33,8 @@
     
   <div class="app-editor-content" *ngIf="state === 'success'">
         <textarea *ngIf="editting" [(ngModel)]="mods.content" (input)="onChange($event)"></textarea>
-        <pre *ngIf="!editting" class="app-xml-content"><code [highlight]="mods.original"></code></pre> 
+        <pre *ngIf="!editting && !realtime" class="app-xml-content"><code [highlight]="mods.original"></code></pre> 
+        <pre *ngIf="!editting && realtime" class="app-xml-content"><code [highlight]="editor.metadata.toMods()"></code></pre> 
   </div>
 
   <mat-spinner *ngIf="state === 'loading'"
