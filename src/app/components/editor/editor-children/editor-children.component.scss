@@ -25,6 +25,7 @@
           padding: 0px 10px;
           height: 40px;
           line-height: 40px;
+          cursor: pointer;
           .app-col-open {
             // width: 40px;
             button {
@@ -41,7 +42,8 @@
           }
           .app-col-actions {
             text-align: right;
-            width: 75px;
+            margin-right: 8px;
+            width: 55px;
           }
           .app-drag-handle {
             cursor: webkit-grab;
@@ -99,6 +101,15 @@
           height: 30px;
           background: #fff;
           border: 1px solid #0000002e;
+          cursor: pointer;
+          &.app-selected {
+            background: #456aa5;
+            color: #fff;
+          }
+          &:hover {
+            background: #6794dc21;
+            color: #000;
+          }
         }
       }
     }
@@ -151,6 +162,9 @@
         cursor: pointer;
         &.app-selected {
           background: #456aa5;
+        }
+        &:hover {
+          background: #666;
         }
 
         // margin: 0.5rem;

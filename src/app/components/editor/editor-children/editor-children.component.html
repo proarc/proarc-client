@@ -29,20 +29,20 @@
  <div class="app-editor-content">
 
   <div class="app-view-list app-table" *ngIf="viewMode == 'list'">
-    <div *ngFor="let item of items" class="app-row" [class.app-selected]="editor.child === item"
+    <div *ngFor="let item of items" (click)="select(item)" class="app-row" [class.app-selected]="editor.child === item"
     draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
     (mousedown)="mousedown($event)">
-    <div class="app-col-open" *ngIf="!item.isPage()">
+    <!-- <div class="app-col-open" *ngIf="!item.isPage()">
         <button matTooltip="{{ 'editor.children.open_object' | translate }}" (click)="open(item)" mat-icon-button>
             <mat-icon>keyboard_arrow_down</mat-icon>
         </button>
-    </div>    
+    </div>     -->
 
       <div class="app-col-label">{{ shortLabels ? item.shortLabel : item.label }}</div>
       <div class="app-col-model">{{ "model." + item.model | translate }}</div>
       <div class="app-col-actions">
-          <button matTooltip="{{ 'editor.children.select_object' | translate }}" (click)="select(item)" mat-icon-button>
-              <mat-icon>arrow_forward</mat-icon>
+          <button matTooltip="{{ 'editor.children.open_object' | translate }}" (click)="open(item); $event.stopPropagation();" mat-icon-button>
+              <mat-icon>folder_open</mat-icon>
           </button>
       </div>
       <mat-icon matTooltip="{{ 'editor.children.reorder' | translate }}" class="app-drag-handle">reorder</mat-icon>
@@ -52,8 +52,9 @@
 
 
   <div class="app-view-grid" *ngIf="viewMode == 'grid'">
-    <div *ngFor="let item of items" (click)="open(item)" class="app-grid-item-wrapper">
-        <div class="app-grid-item">
+    <div *ngFor="let item of items" (click)="select(item)" class="app-grid-item-wrapper">
+        <div class="app-grid-item" [class.app-selected]="editor.child === item" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
+        (mousedown)="mousedown($event)" >
           <div class="app-grid-item-label">{{ shortLabels ? item.shortLabel : item.label }}</div>
         </div>
     </div>
@@ -73,4 +74,3 @@
 </div>
 
 </div>
-

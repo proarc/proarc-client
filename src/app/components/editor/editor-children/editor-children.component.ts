@@ -139,7 +139,7 @@ export class EditorChildrenComponent implements OnInit {
   }
 
   mousedown($event) {
-    if ($event.target.classList.contains('app-drag-handle') > 0) {
+    if (this.viewMode !== 'list' || $event.target.classList.contains('app-drag-handle') > 0) {
       this.dragEnabled = true;
     } else {
       $event.preventDefault();
