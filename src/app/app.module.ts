@@ -50,6 +50,7 @@ import { LocalStorageService } from './services/local-storage.service';
 import { EditorOcrComponent } from './components/editor/editor-ocr/editor-ocr.component';
 import { EditorModsComponent } from './components/editor/editor-mods/editor-mods.component';
 import { EditorCommentComponent } from './components/editor/editor-comment/editor-comment.component';
+import { EditorAtmComponent } from './components/editor/editor-atm/editor-atm.component';
 
 
 export function hljsLanguages() {
@@ -93,7 +94,8 @@ export function hljsLanguages() {
     EditorChildrenComponent,
     EditorOcrComponent,
     EditorModsComponent,
-    EditorCommentComponent
+    EditorCommentComponent,
+    EditorAtmComponent
   ],
   imports: [
     BrowserModule,

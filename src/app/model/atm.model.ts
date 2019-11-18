@@ -4,6 +4,7 @@ export class Atm {
     public pid: string;
     public model: string;
     public device: string;
+    public originalDevice: string;
     public state: string;
     public owner: string;
     public modified: Date;
@@ -18,6 +19,7 @@ export class Atm {
       atm.model = json['model'];
       atm.state = json['state'];
       atm.owner = json['owner'];
+      atm.originalDevice = json['device'] || 'null';
       atm.device = json['device'] || 'null';
       atm.filename = json['filename'];
       if (json['modified']) {
@@ -28,6 +30,14 @@ export class Atm {
       }
       atm.exportResult = json['exportResult'];
       return atm;
+  }
+
+  public restore() {
+    this.device = this.originalDevice;
+  }
+
+  public hasChanged(): boolean {
+    return this.originalDevice !== this.device;
   }
 
 

@@ -47,8 +47,11 @@
               <button matTooltip="{{ 'editor.toolbar.editor_mods' | translate }}" [class.app-inactive]="editor.rightEditorType != 'mods'" (click)="editor.switchRightEditor('mods')" mat-icon-button>
                 <mat-icon>code</mat-icon>
               </button>
+              <button matTooltip="{{ 'editor.toolbar.editor_atm' | translate }}" [class.app-inactive]="editor.rightEditorType != 'atm'" (click)="editor.switchRightEditor('atm')" mat-icon-button>
+                <mat-icon>scanner</mat-icon>
+              </button>
               <button matTooltip="{{ 'editor.toolbar.editor_comment' | translate }}" [class.app-inactive]="editor.rightEditorType != 'comment'" (click)="editor.switchRightEditor('comment')" mat-icon-button>
-                <mat-icon>comment</mat-icon>
+                <mat-icon>format_quote</mat-icon>
               </button>
               <button matTooltip="{{ 'editor.toolbar.editor_ocr' | translate }}" [class.app-inactive]="editor.rightEditorType != 'ocr'" (click)="editor.switchRightEditor('ocr')" mat-icon-button>
                 <mat-icon>title</mat-icon>
@@ -67,6 +70,8 @@
         <app-editor-ocr *ngIf="editor.rightEditorType == 'ocr'" [pid]="editor.child.pid"></app-editor-ocr>
         <app-editor-mods *ngIf="editor.rightEditorType == 'mods'" [pid]="editor.child.pid"></app-editor-mods>
         <app-editor-comment *ngIf="editor.rightEditorType == 'comment'" [pid]="editor.child.pid"></app-editor-comment>
+        <app-editor-atm *ngIf="editor.rightEditorType == 'atm'" [pid]="editor.child.pid"></app-editor-atm>
+
       </div>
 
 

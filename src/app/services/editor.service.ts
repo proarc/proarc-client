@@ -8,6 +8,7 @@ import { Ocr } from "../model/ocr.model";
 import { LocalStorageService } from "./local-storage.service";
 import { Mods } from "../model/mods.model";
 import { Note } from "../model/note.model";
+import { Atm } from "../model/atm.model";
 
 @Injectable()
 export class EditorService {
@@ -29,7 +30,6 @@ export class EditorService {
     init(params: EditorParams) {
         this.child = null;
         this.ready = false;
-        console.log('------- Editor Service init', params);
         this.state = 'loading';
         const pid = params.pid;
         this.document = null;
@@ -42,7 +42,6 @@ export class EditorService {
             if (this.document.children.length > 0) {
                 this.selectChild(this.document.children[0]);
             }
-            console.log('doc', this.document);
             this.state = 'success';
             this.ready = true;
         }, error => {
@@ -143,17 +142,10 @@ export class EditorService {
         });
     }
 
-    public save() {
-        console.log('save');
-        this.state = 'saving';
-    }
-
-
     saveChildren(callback: () => void) {
         this.state = 'saving';
         const pidArray = this.document.children.map( item => item.pid);
         this.api.editRelations(this.document.pid, pidArray).subscribe(result => {
-          console.log('result', result);
           if (callback) {
             callback();
           }
@@ -188,6 +180,16 @@ export class EditorService {
         this.api.editNote(note).subscribe((newNote: Note) => {
             if (callback) {
               callback(newNote);
+            }
+            this.state = 'success';
+          });
+      }
+
+      saveAtm(atm: Atm, callback: (Atm) => void) {
+        this.state = 'saving';
+        this.api.editAtm(atm, ).subscribe((newAtm: Atm) => {
+            if (callback) {
+              callback(newAtm);
             }
             this.state = 'success';
           });

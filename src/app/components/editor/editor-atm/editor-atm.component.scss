@@ -1,0 +1,21 @@
+.app-editor-content {
+  padding: 20px;
+  .app-detail-key-value {
+    color: #666;
+    font-size: 13px;
+    margin-bottom: 10px;
+    strong {
+      display: block;
+      margin-top:4px;
+      // padding-left: 3px;
+      font-weight: 500;
+      font-size: 15px;
+      color: #111;
+      a {
+        color: #3f4fb5;
+        text-decoration: none;
+      }
+    }
+  }
+
+}

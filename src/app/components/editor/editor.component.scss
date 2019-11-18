@@ -8,6 +8,7 @@
         height: 100%; 
         overflow: hidden;
         &.app-panel-left {
+            border-right: 1px solid #385585;
         }
 
         &.app-panel-right {

@@ -1,11 +1,11 @@
 <div class="app-editor-content-wrapper">
 
   <div class="app-editor-toolbar">
-      <button class="app-action" [class.app-disabled]="editting" (click)="onEdit()" [matTooltip]="'viewer.tooltip.zoomIn' | translate" mat-icon-button>
+      <button class="app-action" [class.app-disabled]="editting" (click)="onEdit()" [matTooltip]="'common.edit' | translate" mat-icon-button>
           <mat-icon>edit</mat-icon>
       </button>
 
-      <button class="app-action" [class.app-disabled]="!editting" (click)="onClear()" [matTooltip]="'viewer.tooltip.zoomIn' | translate" mat-icon-button>
+      <button class="app-action" [class.app-disabled]="!editting" (click)="onClear()" [matTooltip]="'common.cancel' | translate" mat-icon-button>
           <mat-icon>clear</mat-icon>
       </button>
 

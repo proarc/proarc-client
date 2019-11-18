@@ -3,7 +3,8 @@
     "remove": "Odstranit",
     "cancel": "Zrušit",
     "edit": "Upravit",
-    "open": "Otevřít",    
+    "open": "Otevřít", 
+    "revert": "Vrátit původní",   
     "ok": "OK",
     "yes": "Ano",
     "no": "Ne",
@@ -55,7 +56,9 @@
       "editor_image": "Obrázek",
       "editor_comment": "Komentář",
       "editor_ocr": "OCR",
-      "editor_mods": "MODS XML"
+      "editor_mods": "MODS XML",
+      "editor_atm": "Administrativní a technická metadata"
+
     },
     "children": {
       "view_list": "Tabulka",

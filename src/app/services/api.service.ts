@@ -45,13 +45,13 @@ export class ApiService {
     return this.get('object/atm', { pid: id }).pipe(map(response => Atm.fromJson(response['response']['data'][0])));
   }
 
-  editAtmDevice(atm: Atm, device: string): Observable<Atm> {
+  editAtm(atm: Atm): Observable<Atm> {
     const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         })
     };
-    const data = `pid=${atm.pid}&device=${device}`;
+    const data = `pid=${atm.pid}&device=${atm.device}`;
     return this.put('object/atm', data, httpOptions).pipe(map(response => Atm.fromJson(response['response']['data'][0])));
   }
 
