@@ -53,13 +53,13 @@
               <button matTooltip="{{ 'editor.toolbar.editor_comment' | translate }}" [class.app-inactive]="editor.rightEditorType != 'comment'" (click)="editor.switchRightEditor('comment')" mat-icon-button>
                 <mat-icon>format_quote</mat-icon>
               </button>
-              <button matTooltip="{{ 'editor.toolbar.editor_ocr' | translate }}" [class.app-inactive]="editor.rightEditorType != 'ocr'" (click)="editor.switchRightEditor('ocr')" mat-icon-button>
+              <button *ngIf="editor.child.isPage()" matTooltip="{{ 'editor.toolbar.editor_ocr' | translate }}" [class.app-inactive]="editor.rightEditorType != 'ocr'" (click)="editor.switchRightEditor('ocr')" mat-icon-button>
                 <mat-icon>title</mat-icon>
               </button>
-              <button matTooltip="{{ 'editor.toolbar.editor_image' | translate }}" [class.app-inactive]="editor.rightEditorType != 'image'" (click)="editor.switchRightEditor('image')" mat-icon-button>
+              <button *ngIf="editor.child.isPage()" matTooltip="{{ 'editor.toolbar.editor_image' | translate }}" [class.app-inactive]="editor.rightEditorType != 'image'" (click)="editor.switchRightEditor('image')" mat-icon-button>
                 <mat-icon>image</mat-icon>
               </button>
-              <button matTooltip="{{ 'editor.toolbar.editor_metadata' | translate }}" [class.app-inactive]="editor.rightEditorType != 'page'" (click)="editor.switchRightEditor('page')" mat-icon-button>
+              <button *ngIf="editor.child.isPage()" matTooltip="{{ 'editor.toolbar.editor_metadata' | translate }}" [class.app-inactive]="editor.rightEditorType != 'page'" (click)="editor.switchRightEditor('page')" mat-icon-button>
                 <mat-icon>edit</mat-icon>
               </button>
         </div>

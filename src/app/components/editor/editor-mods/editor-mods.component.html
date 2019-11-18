@@ -1,18 +1,22 @@
 <div class="app-editor-content-wrapper">
 
   <div class="app-editor-toolbar">
-      <button class="app-action" [class.app-disabled]="editting" (click)="onEdit()" [matTooltip]="'common.edit' | translate" mat-icon-button>
-          <mat-icon>edit</mat-icon>
-      </button>
+      <div class="app-label">MODS XML</div>
+      <div class="app-actions-right">
+        <button class="app-action" [class.app-disabled]="editting" (click)="onEdit()" [matTooltip]="'common.edit' | translate" mat-icon-button>
+            <mat-icon>edit</mat-icon>
+        </button>
 
-      <button class="app-action" [class.app-disabled]="!editting" (click)="onClear()" [matTooltip]="'common.cancel' | translate" mat-icon-button>
-          <mat-icon>clear</mat-icon>
-      </button>
+        <button class="app-action" [class.app-disabled]="!editting" (click)="onClear()" [matTooltip]="'common.cancel' | translate" mat-icon-button>
+            <mat-icon>clear</mat-icon>
+        </button>
 
-      <button class="app-action app-right" [class.app-disabled]="!anyChange" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
-          <mat-icon>save</mat-icon>
-      </button>
-  
+        <div class="app-divider"></div>
+
+        <button class="app-action" [class.app-disabled]="!anyChange" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
+            <mat-icon>save</mat-icon>
+        </button>
+    </div>
   
   </div>  
     

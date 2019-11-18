@@ -2,13 +2,18 @@
 <div class="app-editor-content-wrapper">
 
   <div class="app-editor-toolbar">
+      <div class="app-label">Administrativní a technická metadata</div>
+      <div class="app-actions-right">
       <button class="app-action" [class.app-disabled]="!atm || !atm.hasChanged()" (click)="onRevert()" [matTooltip]="'common.revert' | translate" mat-icon-button>
           <mat-icon>replay</mat-icon>
       </button>
+      <div class="app-divider"></div>
 
-      <button class="app-action app-right" [class.app-disabled]="!atm || !atm.hasChanged()" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
+      <button class="app-action" [class.app-disabled]="!atm || !atm.hasChanged()" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
           <mat-icon>save</mat-icon>
       </button>
+    </div>
+
   
     </div>  
       

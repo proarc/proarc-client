@@ -230,12 +230,22 @@ body {
         background: $primary-color;
         height: 34px;
         padding: 0 6px;
+        .app-label {
+          line-height: 34px;
+          margin-left: 8px;
+          color: #ddd;
+          float: left;
+          font-size: 15px;
+        }
+        .app-actions-right {
+          float: right;
+        }
         .app-action {
           color: #fff;
           display: block;
-          float: left;
           line-height: 30px;
           height: 30px;
+          float: left;
           width: 30px;
           margin: 1px 3px;
           &.app-inactive {
@@ -250,9 +260,6 @@ body {
             line-height: 20px;
             height: 20px;
             width: 20px;
-          }
-          &.app-right {
-            float: right;
           }
         }
         .app-divider {
