@@ -149,6 +149,10 @@
           width:50%;
         }
         cursor: pointer;
+        &.app-selected {
+          background: #456aa5;
+        }
+
         // margin: 0.5rem;
         .app-item-content {    
           padding: 2px;

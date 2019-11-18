@@ -364,6 +364,17 @@ body {
       width: calc(50% - 8px);
       margin-left: 16px;
     }
+    &.app-third-1 {
+      width: calc(33.3333333% - 11px);
+    }
+    &.app-third-2 {
+      width: calc(33.3333333% - 11px);
+      margin-left: 16px;
+    }
+    &.app-third-3 {
+      width: calc(33.3333333% - 11px);
+      margin-left: 16px;
+    }
   }
   .mat-form-field-underline {
     background-color: rgba(0, 0, 0, 0.1) !important;

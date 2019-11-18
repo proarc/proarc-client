@@ -12,6 +12,7 @@ import { map } from 'rxjs/operators';
 import { Ocr } from '../model/ocr.model';
 import { Note } from '../model/note.model';
 import { Mods } from '../model/mods.model';
+import { Page } from '../model/page.model';
 
 
 @Injectable()
@@ -39,6 +40,21 @@ export class ApiService {
 
   private delete(path: string, params = {}): Observable<Object> {
     return this.http.delete(encodeURI(`${ApiService.apiUrl}${path}`), { params: params });
+  }
+
+
+  getPage(pid: string): Observable<Page> {
+    return this.get('object/mods/custom', { pid: pid, editorId: 'proarc.mods.PageForm' }).pipe(map(response => Page.fromJson(response['response']['data'][0])));
+  }
+
+  editPage(page: Page): Observable<Page> {
+    const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        })
+    };
+    const data = `pid=${page.pid}&editorId=proarc.mods.PageForm&jsonData=${JSON.stringify(page.toJson())}&timestamp=${page.timestamp}`;
+    return this.put('object/mods/custom', data, httpOptions).pipe(map(response => Page.fromJson(response['response']['data'][0])));
   }
 
   getAtm(id: string): Observable<Atm> {

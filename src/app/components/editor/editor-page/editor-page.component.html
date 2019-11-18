@@ -1,0 +1,132 @@
+
+<div class="app-editor-content-wrapper">
+
+  <div class="app-editor-toolbar">
+      <button class="app-action" [class.app-disabled]="!page || !page.hasChanged()" (click)="onRevert()" [matTooltip]="'common.revert' | translate" mat-icon-button>
+          <mat-icon>replay</mat-icon>
+      </button>
+
+      <button class="app-action app-right" [class.app-disabled]="!page || !page.hasChanged()" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
+          <mat-icon>save</mat-icon>
+      </button>
+  
+    </div>  
+      
+    <div class="app-editor-content" *ngIf="state === 'success'">
+
+
+      <div class="editor">
+        <div class="app-card">
+          <div class="app-card-header">
+            <span class="app-card-title">{{ 'editor.page.title' | translate }}</span>
+          </div>
+          <div class="app-card-content">
+      
+            <mat-form-field class="app-full-width">
+              <input autocomplete="off" matInput [placeholder]="'editor.page.number' | translate" [(ngModel)]="page.number">
+            </mat-form-field>
+            <mat-form-field class="app-half-left">
+              <input autocomplete="off" matInput [placeholder]="'editor.page.index' | translate" [(ngModel)]="page.index">
+            </mat-form-field>
+            <mat-form-field class="app-half-right">
+              <mat-select [placeholder]="'editor.page.type' | translate" name="type" [(value)]="page.type">
+                <mat-option *ngFor="let type of pageTypes" [value]="type">{{ "page_type." + type.toLowerCase() | translate }}</mat-option>
+            </mat-select>
+            </mat-form-field>      
+
+
+            <mat-form-field class="app-full-width">
+              <textarea autocomplete="off" matInput [(ngModel)]='page.note' placeholder="{{ 'editor.page.note' | translate }}"></textarea>
+            </mat-form-field>
+      
+
+
+
+
+
+            <div class="app-card app-identifier" *ngFor="let identifier of page.identifiers; index as index; last as last; first as first;">
+              <div class="app-card-header">
+                <span class="app-card-title">{{ 'editor.page.identifier' | translate }}</span>
+          
+                <button matTooltip="{{ 'common.remove' | translate }}" color="primary" (click)="page.removeIdentifier(index)" mat-icon-button>
+                  <mat-icon>delete</mat-icon>
+                </button>
+
+                <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" color="primary" (click)="page.moveIdentifierDown(index)" mat-icon-button>
+                  <mat-icon>arrow_drop_down</mat-icon>
+                </button>
+                <button [disabled]="first" matTooltip="{{ 'common.move_up' | translate }}" color="primary" (click)="page.moveIdentifierUp(index)" mat-icon-button>
+                  <mat-icon>arrow_drop_up</mat-icon>
+                </button>
+            
+                <button matTooltip="{{ 'editor.page.add_identifier' | translate }}" color="primary" (click)="page.addIdentifierAfter(index)" mat-icon-button>
+                  <mat-icon>add</mat-icon>
+                </button>
+
+  
+          
+              </div>
+              <div class="app-card-content">
+
+
+                <mat-form-field class="app-identifier-type">
+                  <mat-select [(ngModel)]='identifier.type' placeholder="{{ 'editor.identifier.type' | translate }}">
+                    <mat-option *ngFor="let type of identifierTypes" [value]="type.code">
+                      {{ type.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="app-identifier-value">
+                  <input autocomplete="off" matInput [(ngModel)]='identifier.value' placeholder="{{ 'editor.identifier.identifier' | translate }}">
+                </mat-form-field>
+
+
+
+
+
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    
+    <mat-spinner *ngIf="state === 'loading'"
+              [strokeWidth]="5" 
+              [diameter]="60"
+              class="center-spinner">
+    </mat-spinner>
+
+
+  
+  </div>  
+    
+
+

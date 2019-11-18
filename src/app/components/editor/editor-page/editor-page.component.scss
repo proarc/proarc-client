@@ -1,0 +1,14 @@
+.app-editor-content {
+  .app-card-header {
+    .app-card-title {
+      margin-left: 16px;
+    }
+  }
+  .app-identifier-type {
+    width: 200px;
+    margin-right: 16px;
+  }
+  .app-identifier-value {
+    width: calc(100% - 216px);
+  }
+}

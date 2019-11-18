@@ -60,13 +60,13 @@
   </div>
 
   <div class="app-view-icons" *ngIf="viewMode == 'icons'">
-    <div *ngFor="let item of items" (click)="open(item)" class="app-item" 
+    <div *ngFor="let item of items" (click)="select(item)" class="app-item" [class.app-selected]="editor.child === item"
     draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
     (mousedown)="mousedown($event)"  
     >
       <div class="app-item-content">
         <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"></div>
-        <div class="app-item-label">{{ useShortLabel ? item.shortLabel : item.label }}</div>
+        <div class="app-item-label">{{ shortLabels ? item.shortLabel : item.label }}</div>
       </div>
     </div>
   </div>

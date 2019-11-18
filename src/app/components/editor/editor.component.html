@@ -59,6 +59,9 @@
               <button matTooltip="{{ 'editor.toolbar.editor_image' | translate }}" [class.app-inactive]="editor.rightEditorType != 'image'" (click)="editor.switchRightEditor('image')" mat-icon-button>
                 <mat-icon>image</mat-icon>
               </button>
+              <button matTooltip="{{ 'editor.toolbar.editor_metadata' | translate }}" [class.app-inactive]="editor.rightEditorType != 'page'" (click)="editor.switchRightEditor('page')" mat-icon-button>
+                <mat-icon>edit</mat-icon>
+              </button>
         </div>
 
     </div>
@@ -71,7 +74,7 @@
         <app-editor-mods *ngIf="editor.rightEditorType == 'mods'" [pid]="editor.child.pid"></app-editor-mods>
         <app-editor-comment *ngIf="editor.rightEditorType == 'comment'" [pid]="editor.child.pid"></app-editor-comment>
         <app-editor-atm *ngIf="editor.rightEditorType == 'atm'" [pid]="editor.child.pid"></app-editor-atm>
-
+        <app-editor-page *ngIf="editor.rightEditorType == 'page'" [pid]="editor.child.pid"></app-editor-page>
       </div>
 
 

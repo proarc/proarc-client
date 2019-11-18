@@ -51,6 +51,7 @@ import { EditorOcrComponent } from './components/editor/editor-ocr/editor-ocr.co
 import { EditorModsComponent } from './components/editor/editor-mods/editor-mods.component';
 import { EditorCommentComponent } from './components/editor/editor-comment/editor-comment.component';
 import { EditorAtmComponent } from './components/editor/editor-atm/editor-atm.component';
+import { EditorPageComponent } from './components/editor/editor-page/editor-page.component';
 
 
 export function hljsLanguages() {
@@ -95,7 +96,8 @@ export function hljsLanguages() {
     EditorOcrComponent,
     EditorModsComponent,
     EditorCommentComponent,
-    EditorAtmComponent
+    EditorAtmComponent,
+    EditorPageComponent
   ],
   imports: [
     BrowserModule,

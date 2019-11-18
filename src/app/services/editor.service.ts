@@ -9,6 +9,7 @@ import { LocalStorageService } from "./local-storage.service";
 import { Mods } from "../model/mods.model";
 import { Note } from "../model/note.model";
 import { Atm } from "../model/atm.model";
+import { Page } from "../model/page.model";
 
 @Injectable()
 export class EditorService {
@@ -17,7 +18,7 @@ export class EditorService {
     public ready = false;
     public document: DocumentWrapper;
 
-    public rightEditorType = 'none'; // 'image' | 'comment' | 'ocr' | 'mods'
+    public rightEditorType = 'none'; // 'image' | 'comment' | 'ocr' | 'mods' | 'atm' | 'page'
 
     public child: DocumentItem;
 
@@ -190,6 +191,16 @@ export class EditorService {
         this.api.editAtm(atm, ).subscribe((newAtm: Atm) => {
             if (callback) {
               callback(newAtm);
+            }
+            this.state = 'success';
+          });
+      }
+
+      savePage(page: Page, callback: (Page) => void) {
+        this.state = 'saving';
+        this.api.editPage(page).subscribe((newPage: Page) => {
+            if (callback) {
+              callback(newPage);
             }
             this.state = 'success';
           });
