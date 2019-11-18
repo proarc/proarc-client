@@ -7,6 +7,7 @@ import { forkJoin } from 'rxjs';
 import { Ocr } from "../model/ocr.model";
 import { LocalStorageService } from "./local-storage.service";
 import { Mods } from "../model/mods.model";
+import { Note } from "../model/note.model";
 
 @Injectable()
 export class EditorService {
@@ -180,6 +181,16 @@ export class EditorService {
                  this.state = 'success';
             });
         });
+      }
+
+      saveNote(note: Note, callback: (Note) => void) {
+        this.state = 'saving';
+        this.api.editNote(note).subscribe((newNote: Note) => {
+            if (callback) {
+              callback(newNote);
+            }
+            this.state = 'success';
+          });
       }
 
 }

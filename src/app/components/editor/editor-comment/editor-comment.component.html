@@ -19,9 +19,9 @@
       
     <div class="app-editor-content" *ngIf="state === 'success'">
 
-          <textarea *ngIf="editting" [(ngModel)]="ocr.content" (input)="onChange($event)"></textarea>
+          <textarea *ngIf="editting" [(ngModel)]="note.content" (input)="onChange($event)"></textarea>
 
-          <pre *ngIf="!editting" class="app-text-content">{{ ocr.original }}</pre>
+          <pre *ngIf="!editting" class="app-text-content">{{ note.original }}</pre>
         
     </div>
 

@@ -7,7 +7,6 @@ export class Ocr {
   public timestamp: number;
 
   public static fromJson(json): Ocr {
-      console.log(json);
       const ocr = new Ocr();
       ocr.pid = json['pid'];
       ocr.original = json['content'];
@@ -22,6 +21,10 @@ export class Ocr {
 
   public restore() {
     this.content = this.original;
+  }
+
+  public hasChanged(): boolean {
+    return this.original !== this.content;
   }
 
 }

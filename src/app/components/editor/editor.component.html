@@ -66,7 +66,7 @@
         <app-viewer *ngIf="editor.rightEditorType == 'image'" [pid]="editor.child.pid"></app-viewer>
         <app-editor-ocr *ngIf="editor.rightEditorType == 'ocr'" [pid]="editor.child.pid"></app-editor-ocr>
         <app-editor-mods *ngIf="editor.rightEditorType == 'mods'" [pid]="editor.child.pid"></app-editor-mods>
-    
+        <app-editor-comment *ngIf="editor.rightEditorType == 'comment'" [pid]="editor.child.pid"></app-editor-comment>
       </div>
 
 

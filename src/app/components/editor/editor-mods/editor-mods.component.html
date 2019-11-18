@@ -18,9 +18,7 @@
     
   <div class="app-editor-content" *ngIf="state === 'success'">
         <textarea *ngIf="editting" [(ngModel)]="mods.content" (input)="onChange($event)"></textarea>
-        <pre *ngIf="!editting" class="app-xml-content">
-          <code [highlight]="mods.original"></code>
-        </pre> 
+        <pre *ngIf="!editting" class="app-xml-content"><code [highlight]="mods.original"></code></pre> 
   </div>
 
   <mat-spinner *ngIf="state === 'loading'"
