@@ -32,7 +32,7 @@
  <div class="app-editor-content">
 
   <div class="app-view-list app-table" *ngIf="viewMode == 'list'">
-    <div *ngFor="let item of items" (click)="select(item)" class="app-row" [class.app-selected]="editor.child === item"
+    <div *ngFor="let item of items" (click)="select(item)" class="app-row" [class.app-selected]="editor.right === item"
     draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
     (mousedown)="mousedown($event)">
     <!-- <div class="app-col-open" *ngIf="!item.isPage()">
@@ -56,7 +56,7 @@
 
   <div class="app-view-grid" *ngIf="viewMode == 'grid'">
     <div *ngFor="let item of items" (click)="select(item)" class="app-grid-item-wrapper">
-        <div class="app-grid-item" [class.app-selected]="editor.child === item" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
+        <div class="app-grid-item" [class.app-selected]="editor.right === item" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
         (mousedown)="mousedown($event)" >
           <div class="app-grid-item-label">{{ shortLabels ? item.shortLabel : item.label }}</div>
         </div>
@@ -64,11 +64,11 @@
   </div>
 
   <div class="app-view-icons" *ngIf="viewMode == 'icons'">
-    <div *ngFor="let item of items" (click)="select(item)" class="app-item" [class.app-selected]="editor.child === item"
+    <div *ngFor="let item of items" (click)="select(item)" class="app-item"
     draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
     (mousedown)="mousedown($event)"  
     >
-      <div class="app-item-content">
+      <div class="app-item-content" [class.app-selected]="editor.right === item">
         <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"></div>
         <div class="app-item-label">{{ shortLabels ? item.shortLabel : item.label }}</div>
       </div>
