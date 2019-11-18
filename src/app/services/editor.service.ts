@@ -1,3 +1,4 @@
+import { Metadata } from './../model/metadata.model';
 import { Injectable } from "@angular/core";
 import { ApiService } from "./api.service";
 import { DocumentItem } from "../model/documentItem.model";
@@ -27,6 +28,8 @@ export class EditorService {
     public right: DocumentItem;
     public children: DocumentItem[];
 
+    public metadata: Metadata;
+
     constructor(
         private router: Router,
         private api: ApiService,
@@ -37,6 +40,7 @@ export class EditorService {
         this.left = null;
         this.right = null;
         this.ready = false;
+        this.metadata = null;
         this.state = 'loading';
         const pid = params.pid;
 
@@ -57,6 +61,8 @@ export class EditorService {
             // TODO
         });
     }
+
+
 
     public onlyPageChildren(): boolean {
         for (const child of this.children) {
@@ -97,9 +103,9 @@ export class EditorService {
         } else {
             this.selectRight(this.left);
             if (this.left.isPage()) {
-                this.leftEditorType = this.properties.getStringProperty('editor.page_left_editor_type', 'image');
+                this.leftEditorType = this.properties.getStringProperty('editor.page_left_editor_type', 'page');
             } else {
-                this.leftEditorType = this.properties.getStringProperty('editor.left_editor_type', 'mods');
+                this.leftEditorType = this.properties.getStringProperty('editor.left_editor_type', 'metadata');
             }
         }
     }
@@ -247,6 +253,32 @@ export class EditorService {
             }
             this.state = 'success';
           });
+      }
+
+      saveMetadata(callback: () => void) {
+        this.state = 'saving';
+        this.api.editMetadata(this.metadata).subscribe(() => {
+            this.api.getMods(this.metadata.pid).subscribe((mods: Mods) => {
+                this.metadata = Metadata.fromMods(mods);
+                if (callback) {
+                    callback();
+                }
+                this.state = 'success';
+            });
+        });
+      }
+
+      loadMetadata(callback: () => void) {
+        if (this.metadata) {
+            callback();
+            return;
+        }
+        this.api.getMetadata(this.right.pid).subscribe((metadata: Metadata) => {
+            this.metadata = metadata;
+            if (callback) {
+                callback();
+            }
+        });
       }
 
 }

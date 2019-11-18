@@ -15,7 +15,7 @@ export class EditorAtmComponent implements OnInit {
   atm: Atm;
   devices: Device[];
 
-  @Input() 
+  @Input()
   set pid(pid: string) {
     this.onPidChanged(pid);
   }

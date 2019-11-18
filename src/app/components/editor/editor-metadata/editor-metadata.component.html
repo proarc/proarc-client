@@ -1,0 +1,32 @@
+
+<div class="app-editor-content-wrapper">
+    <div class="app-editor-toolbar">
+        <div class="app-label">Popisná metadata</div>
+        <div class="app-actions-right">
+            <button class="app-action" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
+                <mat-icon>save</mat-icon>
+            </button>
+        </div>
+    </div>  
+
+<div class="app-editor-content" *ngIf="editor.metadata">
+
+    <app-editor-title [field]="editor.metadata.getField('titleInfo')"></app-editor-title>
+    <app-editor-author [field]="editor.metadata.getField('name')"></app-editor-author>
+    <app-editor-publisher [field]="editor.metadata.getField('originInfo')"></app-editor-publisher>
+    <app-editor-location [field]="editor.metadata.getField('location')"></app-editor-location>
+    <app-editor-language [field]="editor.metadata.getField('language')"></app-editor-language>
+    <app-editor-identifier [field]="editor.metadata.getField('identifier')"></app-editor-identifier>
+    <app-editor-note [field]="editor.metadata.getField('note')"></app-editor-note>
+
+</div>
+    
+<mat-spinner *ngIf="state === 'loading'"
+          [strokeWidth]="5" 
+          [diameter]="60"
+          class="center-spinner">
+</mat-spinner>
+
+
+
+</div>  

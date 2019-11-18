@@ -1,3 +1,4 @@
+import { EditorMetadataComponent } from './components/editor/editor-metadata/editor-metadata.component';
 import { ViewerComponent } from './components/viewer/viewer.component';
 import { DatetimePipe } from './pipes/datetime.pipe';
 import { DatePipe } from './pipes/date.pipe';
@@ -97,7 +98,8 @@ export function hljsLanguages() {
     EditorModsComponent,
     EditorCommentComponent,
     EditorAtmComponent,
-    EditorPageComponent
+    EditorPageComponent,
+    EditorMetadataComponent
   ],
   imports: [
     BrowserModule,

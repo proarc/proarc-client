@@ -44,7 +44,8 @@ export class ApiService {
 
 
   getPage(pid: string): Observable<Page> {
-    return this.get('object/mods/custom', { pid: pid, editorId: 'proarc.mods.PageForm' }).pipe(map(response => Page.fromJson(response['response']['data'][0])));
+    return this.get('object/mods/custom', { pid: pid, editorId: 'proarc.mods.PageForm' })
+            .pipe(map(response => Page.fromJson(response['response']['data'][0])));
   }
 
   editPage(page: Page): Observable<Page> {
@@ -90,7 +91,7 @@ export class ApiService {
     const data = `pid=${document.pid}&ignoreValidation=true&xmlData=${document.toMods()}&timestamp=${document.timestamp}`;
     return this.put('object/mods/custom', data, httpOptions);
   }
-  
+
   editMods(mods: Mods): Observable<Mods> {
     const httpOptions = {
         headers: new HttpHeaders({

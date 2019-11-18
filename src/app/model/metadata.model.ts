@@ -7,6 +7,7 @@ import { ModsAuthor } from './mods/author.model';
 import { ModsLocation } from './mods/location.model';
 import { ModsIdentifier } from './mods/identifier.model';
 import { ModsNote } from './mods/note.mode';
+import { Mods } from './mods.model';
 declare var $: any;
 
 
@@ -36,6 +37,11 @@ export class Metadata {
     // this.originalDc = dc.trim();
     // this.relations = relations;
     this.parseMods(mods);
+  }
+
+
+  public static fromMods(mods: Mods) {
+    return new Metadata(mods.pid, mods.content, mods.timestamp);
   }
 
   private parseMods(mods: string) {

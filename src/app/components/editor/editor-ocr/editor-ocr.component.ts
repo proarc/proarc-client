@@ -15,7 +15,7 @@ export class EditorOcrComponent implements OnInit {
   ocr: Ocr;
   anyChange: boolean;
 
-  @Input() 
+  @Input()
   set pid(pid: string) {
     this.onPidChanged(pid);
   }
