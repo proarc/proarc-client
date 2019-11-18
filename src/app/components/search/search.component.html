@@ -43,7 +43,7 @@
         <div class="result-export">Export</div>
       </div>
     <div class="scrollable">
-      <a *ngFor="let item of items" [routerLink]="['/documents', item.pid]" class="app-row">
+      <a *ngFor="let item of items" [routerLink]="['/document', item.pid]" class="app-row">
         <div class="result-label">{{ item.label }}</div>
         <div class="result-model">{{ "model." + item.model | translate }}</div>
         <div class="result-owner">{{ item.owner }}</div>

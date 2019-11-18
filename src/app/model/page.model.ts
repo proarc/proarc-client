@@ -32,11 +32,14 @@ export class Page {
         page.number = data['pageNumber'];
         page.type = data['pageType'];
         page.note = data['note'];
+        if (page.type && page.type.length > 0) {
+          page.type = page.type.substr(0, 1).toLowerCase() + page.type.substr(1);
+        }
         page.identifiers = PageIdentifier.fromJsonArray(data['identifiers']);
-        page.originalIndex = data['pageIndex'];
-        page.originalNumber = data['pageNumber'];
-        page.originalType = data['pageType'];
-        page.originalNote = data['note'];
+        page.originalIndex = page.index;
+        page.originalNumber = page.number;
+        page.originalType = page.type;
+        page.originalNote = page.note;
         page.originalIdentifiers = PageIdentifier.fromJsonArray(data['identifiers']);
       }
       return page;
