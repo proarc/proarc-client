@@ -47,6 +47,7 @@ import { EditorService } from './services/editor.service';
 import { EditorComponent } from './components/editor/editor.component';
 import { EditorChildrenComponent } from './components/editor/editor-children/editor-children.component';
 import { LocalStorageService } from './services/local-storage.service';
+import { EditorOcrComponent } from './components/editor/editor-ocr/editor-ocr.component';
 
 
 export function hljsLanguages() {
@@ -87,7 +88,8 @@ export function hljsLanguages() {
     EditAudioDeviceComponent,
     GeoComponent,
     EditorComponent,
-    EditorChildrenComponent
+    EditorChildrenComponent,
+    EditorOcrComponent
   ],
   imports: [
     BrowserModule,

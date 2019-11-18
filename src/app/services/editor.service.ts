@@ -4,6 +4,8 @@ import { DocumentItem } from "../model/documentItem.model";
 import { DocumentWrapper } from "../model/documentWrapper.model";
 import { Router } from "@angular/router";
 import { forkJoin } from 'rxjs';
+import { Ocr } from "../model/ocr.model";
+import { LocalStorageService } from "./local-storage.service";
 
 @Injectable()
 export class EditorService {
@@ -12,12 +14,14 @@ export class EditorService {
     public ready = false;
     public document: DocumentWrapper;
 
+    public rightEditorType = 'none'; // 'image' | 'comment' | 'ocr' | 'mods_xml'
 
     public child: DocumentItem;
 
     constructor(
         private router: Router,
-        private api: ApiService) {
+        private api: ApiService,
+        private properties: LocalStorageService) {
     }
 
     init(params: EditorParams) {
@@ -33,12 +37,24 @@ export class EditorService {
         forkJoin(rDoc, rChildren).subscribe( ([item, children]: [DocumentItem, DocumentItem[]]) => {
             this.document = DocumentWrapper.fromDocumentItem(item);
             this.document.children = children;
+            if (this.document.children.length > 0) {
+                this.selectChild(this.document.children[0]);
+            }
             console.log('doc', this.document);
             this.state = 'success';
             this.ready = true;
         }, error => {
             // TODO
         });
+    }
+
+    public switchRightEditor(type: string) {
+        this.rightEditorType = type;
+        if (this.child.isPage()) {
+            this.properties.setStringProperty('editor.page_right_editor_type', this.rightEditorType);
+        } else {
+            this.properties.setStringProperty('editor.right_editor_type', this.rightEditorType);
+        }
     }
 
     public goToParentObject() {
@@ -61,6 +77,11 @@ export class EditorService {
     }
 
     public selectChild(item: DocumentItem) {
+        if (item.isPage()) {
+            this.rightEditorType = this.properties.getStringProperty('editor.page_right_editor_type', 'image');
+        } else {
+            this.rightEditorType = this.properties.getStringProperty('editor.right_editor_type', 'mods_xml');
+        }
         this.child = item;
     }
 
@@ -138,7 +159,15 @@ export class EditorService {
         });
       }
 
-
+      saveOcr(ocr: Ocr, callback: (Ocr) => void) {
+        this.state = 'saving';
+        this.api.editOcr(ocr).subscribe((newOcr: Ocr) => {
+          if (callback) {
+            callback(newOcr);
+          }
+          this.state = 'success';
+        });
+      }
 
 }
 

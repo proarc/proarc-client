@@ -225,6 +225,7 @@ body {
   .app-content {
     .app-editor-content-wrapper {
       height: 100%;
+      position: relative;
       .app-editor-toolbar {
         background: $primary-color;
         height: 34px;
@@ -401,15 +402,3 @@ body {
 //   background-color: rgba(255, 255, 255, 0.2) !important;
 // }
 
-
-.app-ocr, .app-note {
-  padding: 20px;
-  height: 100%;
-  .mat-form-field {
-    height: calc(100% - 100px);
-    width: 100%;
-    .mat-form-field-wrapper, .mat-form-field-flex, .mat-form-field-infix, textarea {
-      height: 100%;
-    }
-  }
-}

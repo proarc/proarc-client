@@ -25,5 +25,12 @@
         <div id="app-viewer" class="app-viewer-wrapper"></div>
     </div>
 
+    <mat-spinner *ngIf="state === 'loading'"
+        [strokeWidth]="5" 
+        [diameter]="60"
+        class="center-spinner">
+    </mat-spinner>
+
+
 </div>
 

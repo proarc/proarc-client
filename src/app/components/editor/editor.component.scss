@@ -24,6 +24,7 @@
                 max-width: 150px;
                 overflow: hidden;
                 margin-top: 6px;
+                margin-left: 6px;
                 .app-label-title {
                     -webkit-box-orient: vertical;
                     -webkit-line-clamp: 1;
@@ -47,6 +48,18 @@
             .app-actions {
                 margin-top: 3px;
                 float: right;
+                &.app-inactive {
+                    color: #ffffff57;
+                }
+            }
+            .app-context {
+                margin-top: 3px;
+                float: right;
+                button {
+                    &.app-inactive {
+                        color: #ffffff57;
+                    }
+                }
             }
         }
         .app-content {

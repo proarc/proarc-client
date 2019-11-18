@@ -43,12 +43,25 @@
           <div class="app-label-title">{{ editor.child.label }}</div>
           <div class="app-label-model">{{ 'model.' + editor.child.model | translate }}</div>
         </div>
+        <div class="app-context">
+            <button matTooltip="{{ 'editor.toolbar.editor_image' | translate }}" [class.app-inactive]="editor.rightEditorType != 'image'" (click)="editor.switchRightEditor('image')" mat-icon-button>
+                <mat-icon>image</mat-icon>
+              </button>
+              <button matTooltip="{{ 'editor.toolbar.editor_comment' | translate }}" [class.app-inactive]="editor.rightEditorType != 'comment'" (click)="editor.switchRightEditor('comment')" mat-icon-button>
+                <mat-icon>comment</mat-icon>
+              </button>
+              <button matTooltip="{{ 'editor.toolbar.editor_ocr' | translate }}" [class.app-inactive]="editor.rightEditorType != 'ocr'" (click)="editor.switchRightEditor('ocr')" mat-icon-button>
+                <mat-icon>title</mat-icon>
+              </button>
+        </div>
+
     </div>
 
 
     <div class="app-content">
 
-        <app-viewer [pid]="editor.child.pid"></app-viewer>
+        <app-viewer *ngIf="editor.rightEditorType == 'image'" [pid]="editor.child.pid"></app-viewer>
+        <app-editor-ocr *ngIf="editor.rightEditorType == 'ocr'" [pid]="editor.child.pid"></app-editor-ocr>
     
       </div>
 

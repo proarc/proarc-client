@@ -1,0 +1,43 @@
+
+<div class="app-editor-content-wrapper">
+
+    <div class="app-editor-toolbar">
+        <button class="app-action" [class.app-disabled]="editting" (click)="onEdit()" [matTooltip]="'viewer.tooltip.zoomIn' | translate" mat-icon-button>
+            <mat-icon>edit</mat-icon>
+        </button>
+
+        <button class="app-action" [class.app-disabled]="!editting" (click)="onClear()" [matTooltip]="'viewer.tooltip.zoomIn' | translate" mat-icon-button>
+            <mat-icon>clear</mat-icon>
+        </button>
+
+        <button class="app-action app-right" [class.app-disabled]="!anyChange" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
+            <mat-icon>save</mat-icon>
+        </button>
+    
+    
+    </div>  
+      
+    <div class="app-editor-content" *ngIf="state === 'success'">
+
+
+          <textarea *ngIf="editting" [(ngModel)]="ocr.content" (input)="onChange($event)"></textarea>
+
+          <pre *ngIf="!editting" class="app-text-content">
+            {{ ocr.original }}
+          </pre>
+        
+    </div>
+
+    <mat-spinner *ngIf="state === 'loading'"
+        [strokeWidth]="5" 
+        [diameter]="60"
+        class="center-spinner">
+    </mat-spinner>
+
+
+</div>
+
+
+
+
+
