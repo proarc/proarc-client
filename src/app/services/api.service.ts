@@ -11,6 +11,7 @@ import { Device } from '../model/device.model';
 import { map } from 'rxjs/operators';
 import { Ocr } from '../model/ocr.model';
 import { Note } from '../model/note.model';
+import { Mods } from '../model/mods.model';
 
 
 @Injectable()
@@ -54,13 +55,17 @@ export class ApiService {
     return this.put('object/atm', data, httpOptions).pipe(map(response => Atm.fromJson(response['response']['data'][0])));
   }
 
-  getMods(pid: string): Observable<Metadata> {
+  getMetadata(pid: string): Observable<Metadata> {
     return this.get('object/mods/plain', { pid: pid }).pipe(map(response =>
       new Metadata(pid, response['record']['content'], response['record']['timestamp'])));
   }
 
+  getMods(pid: string): Observable<Mods> {
+    return this.get('object/mods/plain', { pid: pid }).pipe(map(response =>
+      Mods.fromJson(response['record'])));
+  }
 
-  editMods(document: Metadata): Observable<any> {
+  editMetadata(document: Metadata): Observable<any> {
     const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
@@ -68,6 +73,16 @@ export class ApiService {
     };
     const data = `pid=${document.pid}&ignoreValidation=true&xmlData=${document.toMods()}&timestamp=${document.timestamp}`;
     return this.put('object/mods/custom', data, httpOptions);
+  }
+  
+  editMods(mods: Mods): Observable<Mods> {
+    const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        })
+    };
+    const data = `pid=${mods.pid}&ignoreValidation=true&xmlData=${mods.content}&timestamp=${mods.timestamp}`;
+    return this.put('object/mods/custom', data, httpOptions).pipe(map(response => Mods.fromJson(response['response']['data'][0])));
   }
 
 

@@ -1,14 +1,13 @@
 
-export class Ocr {
+export class Mods {
 
   public pid: string;
   public original: string;
   public content: string;
   public timestamp: number;
 
-  public static fromJson(json): Ocr {
-      console.log(json);
-      const ocr = new Ocr();
+  public static fromJson(json): Mods {
+      const ocr = new Mods();
       ocr.pid = json['pid'];
       ocr.original = json['content'];
       ocr.content = json['content'];
@@ -22,6 +21,10 @@ export class Ocr {
 
   public restore() {
     this.content = this.original;
+  }
+
+  public hasChanged(): boolean {
+    return this.original !== this.content;
   }
 
 }

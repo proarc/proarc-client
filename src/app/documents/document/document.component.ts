@@ -18,7 +18,7 @@ export class DocumentComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       const id = params['id'];
-      this.api.getMods(id).subscribe((document: Metadata) => {
+      this.api.getMetadata(id).subscribe((document: Metadata) => {
         this.document = document;
       });
       // const modsRequest = this.apiService.getMods(uuid);

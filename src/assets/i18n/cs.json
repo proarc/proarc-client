@@ -54,7 +54,8 @@
       "nav_next": "Přejít na následující objekt",
       "editor_image": "Obrázek",
       "editor_comment": "Komentář",
-      "editor_ocr": "OCR"
+      "editor_ocr": "OCR",
+      "editor_mods": "MODS XML"
     },
     "children": {
       "view_list": "Tabulka",

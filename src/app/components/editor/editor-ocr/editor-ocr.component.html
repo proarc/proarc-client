@@ -19,7 +19,6 @@
       
     <div class="app-editor-content" *ngIf="state === 'success'">
 
-
           <textarea *ngIf="editting" [(ngModel)]="ocr.content" (input)="onChange($event)"></textarea>
 
           <pre *ngIf="!editting" class="app-text-content">

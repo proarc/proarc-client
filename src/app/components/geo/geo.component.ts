@@ -17,7 +17,7 @@ export class GeoComponent implements OnInit {
   }
 
   save() {
-    this.api.editMods(this.document).subscribe(result => {
+    this.api.editMetadata(this.document).subscribe(result => {
       console.log('mods saved', result);
     }, () => {
     });

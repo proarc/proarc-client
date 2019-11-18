@@ -1,18 +1,18 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ApiService } from 'src/app/services/api.service';
-import { Ocr } from 'src/app/model/ocr.model';
+import { Mods } from 'src/app/model/mods.model';
 import { EditorService } from 'src/app/services/editor.service';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
-  selector: 'app-editor-ocr',
-  templateUrl: './editor-ocr.component.html',
-  styleUrls: ['./editor-ocr.component.scss']
+  selector: 'app-editor-mods',
+  templateUrl: './editor-mods.component.html',
+  styleUrls: ['./editor-mods.component.scss']
 })
-export class EditorOcrComponent implements OnInit {
+export class EditorModsComponent implements OnInit {
 
   state = 'none';
   editting = false;
-  ocr: Ocr;
+  mods: Mods;
   anyChange: boolean;
 
   @Input() 
@@ -33,15 +33,16 @@ export class EditorOcrComponent implements OnInit {
   onClear() {
     this.editting = false;
     this.anyChange = false;
-    this.ocr.restore();
+    this.mods.restore();
   }
 
   onSave() {
     if (!this.anyChange) {
       return;
     }
-    this.editor.saveOcr(this.ocr, (ocr: Ocr) => {
-      this.ocr = ocr;
+    this.editor.saveMods(this.mods, (mods: Mods) => {
+      console.log('returned mods', mods);
+      this.mods = mods;
       this.editting = false;
       this.anyChange = false;
     });
@@ -56,8 +57,8 @@ export class EditorOcrComponent implements OnInit {
     this.anyChange = false;
     this.editting = false;
     this.state = 'loading';
-    this.api.getOcr(pid).subscribe((ocr: Ocr) => {
-      this.ocr = ocr;
+    this.api.getMods(pid).subscribe((mods: Mods) => {
+      this.mods = mods;
       this.state = 'success';
     }, () => {
       this.state = 'failure';

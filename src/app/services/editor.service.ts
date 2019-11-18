@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { forkJoin } from 'rxjs';
 import { Ocr } from "../model/ocr.model";
 import { LocalStorageService } from "./local-storage.service";
+import { Mods } from "../model/mods.model";
 
 @Injectable()
 export class EditorService {
@@ -14,7 +15,7 @@ export class EditorService {
     public ready = false;
     public document: DocumentWrapper;
 
-    public rightEditorType = 'none'; // 'image' | 'comment' | 'ocr' | 'mods_xml'
+    public rightEditorType = 'none'; // 'image' | 'comment' | 'ocr' | 'mods'
 
     public child: DocumentItem;
 
@@ -80,7 +81,7 @@ export class EditorService {
         if (item.isPage()) {
             this.rightEditorType = this.properties.getStringProperty('editor.page_right_editor_type', 'image');
         } else {
-            this.rightEditorType = this.properties.getStringProperty('editor.right_editor_type', 'mods_xml');
+            this.rightEditorType = this.properties.getStringProperty('editor.right_editor_type', 'mods');
         }
         this.child = item;
     }
@@ -166,6 +167,18 @@ export class EditorService {
             callback(newOcr);
           }
           this.state = 'success';
+        });
+      }
+
+      saveMods(mods: Mods, callback: (Mods) => void) {
+        this.state = 'saving';
+        this.api.editMods(mods).subscribe(() => {
+            this.api.getMods(mods.pid).subscribe((newMods: Mods) => {
+                if (callback) {
+                    callback(newMods);
+                } 
+                 this.state = 'success';
+            });
         });
       }
 

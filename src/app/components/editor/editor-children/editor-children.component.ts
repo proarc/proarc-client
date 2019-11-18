@@ -117,7 +117,9 @@ export class EditorChildrenComponent implements OnInit {
   }
 
   onSave() {
-    console.log('on save');
+    if (!this.anyChange) {
+      return;
+    }
     this.editor.saveChildren(() => {
       this.anyChange = false;
     });
