@@ -20,6 +20,7 @@
             background: #456aa5;
             border-bottom: 1px solid #385585;
             color: #fff;
+            overflow: hidden;
             .app-label {
                 float: left;
                 max-width: 150px;
@@ -49,7 +50,7 @@
             .app-actions {
                 margin-top: 3px;
                 float: right;
-                &.app-inactive {
+                button.app-inactive {
                     color: #ffffff57;
                 }
             }
@@ -62,6 +63,14 @@
                     }
                 }
             }
+            .app-divider {
+                display: block;
+                float: right;
+                height: 40px;
+                background: #385585;
+                width: 1px;
+                margin: 3px;
+              }
         }
         .app-content {
             height: calc(100% - 46px);

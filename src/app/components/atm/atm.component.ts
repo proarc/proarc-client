@@ -44,10 +44,10 @@ export class AtmComponent implements OnInit {
 
   updateDevice() {
     this.state = 'saving';
-    this.api.editAtmDevice(this.atm, this.deviceId).subscribe((atm: Atm) => {
-      console.log('new atm', atm);
-      this.state = 'success';
-      this.atm = atm;
-    });
+    // this.api.editAtmDevice(this.atm, this.deviceId).subscribe((atm: Atm) => {
+    //   console.log('new atm', atm);
+    //   this.state = 'success';
+    //   this.atm = atm;
+    // });
   }
 }

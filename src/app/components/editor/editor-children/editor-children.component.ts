@@ -34,7 +34,7 @@ export class EditorChildrenComponent implements OnInit {
 
   ngOnInit() {
     this.anyChange = false;
-    this.pageChildren = this.editor.document.onlyPageChildren();
+    this.pageChildren = this.editor.onlyPageChildren();
     if (this.pageChildren) {
       this.viewMode = this.properties.getStringProperty('children.page_view_mode', 'icons');
     } else {
@@ -82,7 +82,7 @@ export class EditorChildrenComponent implements OnInit {
   }
 
   select(item: DocumentItem) {
-    this.editor.selectChild(item);
+    this.editor.selectRight(item);
   }
 
   dragenter($event) {

@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ApiService } from "./api.service";
 import { DocumentItem } from "../model/documentItem.model";
-import { DocumentWrapper } from "../model/documentWrapper.model";
 import { Router } from "@angular/router";
 import { forkJoin } from 'rxjs';
 import { Ocr } from "../model/ocr.model";
@@ -16,11 +15,17 @@ export class EditorService {
 
     public state = 'none';
     public ready = false;
-    public document: DocumentWrapper;
+    // public document: DocumentWrapper;
 
     public rightEditorType = 'none'; // 'image' | 'comment' | 'ocr' | 'mods' | 'atm' | 'page'
 
-    public child: DocumentItem;
+    public leftEditorType = 'none'; // 'children' | 'image' | 'comment' | 'ocr' | 'mods' | 'atm' | 'page'
+
+    public mode = 'chldren'; // 'detal' | 'children'
+
+    public left: DocumentItem;
+    public right: DocumentItem;
+    public children: DocumentItem[];
 
     constructor(
         private router: Router,
@@ -29,19 +34,22 @@ export class EditorService {
     }
 
     init(params: EditorParams) {
-        this.child = null;
+        this.left = null;
+        this.right = null;
         this.ready = false;
         this.state = 'loading';
         const pid = params.pid;
-        this.document = null;
 
         const rDoc = this.api.getDocument(pid);
         const rChildren = this.api.getRelations(pid);
         forkJoin(rDoc, rChildren).subscribe( ([item, children]: [DocumentItem, DocumentItem[]]) => {
-            this.document = DocumentWrapper.fromDocumentItem(item);
-            this.document.children = children;
-            if (this.document.children.length > 0) {
-                this.selectChild(this.document.children[0]);
+            this.left = item;
+            this.children = children;
+            if (item.isPage()) {
+                this.switchMode('detail');
+            } else {
+                const mode = this.properties.getStringProperty('editor.mode', 'detail');
+                this.switchMode(mode);
             }
             this.state = 'success';
             this.ready = true;
@@ -50,20 +58,55 @@ export class EditorService {
         });
     }
 
+    public onlyPageChildren(): boolean {
+        for (const child of this.children) {
+          if (!child.isPage()) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+    public switchLeftEditor(type: string) {
+        this.leftEditorType = type;
+        if (this.left.isPage()) {
+            this.properties.setStringProperty('editor.page_left_editor_type', this.leftEditorType);
+        } else {
+            this.properties.setStringProperty('editor.left_editor_type', this.leftEditorType);
+        }
+    }
+
     public switchRightEditor(type: string) {
         this.rightEditorType = type;
-        if (this.child.isPage()) {
+        if (this.right.isPage()) {
             this.properties.setStringProperty('editor.page_right_editor_type', this.rightEditorType);
         } else {
             this.properties.setStringProperty('editor.right_editor_type', this.rightEditorType);
         }
     }
 
+    public switchMode(mode: string) {
+        this.mode = mode;
+        if (!this.left.isPage()) {
+            this.properties.setStringProperty('editor.mode', this.mode);
+        }
+        if (this.mode === 'children') {
+            if (this.children.length > 0) {
+                this.selectRight(this.children[0]);
+            }
+        } else {
+            this.selectRight(this.left);
+            if (this.left.isPage()) {
+                this.leftEditorType = this.properties.getStringProperty('editor.page_left_editor_type', 'image');
+            } else {
+                this.leftEditorType = this.properties.getStringProperty('editor.left_editor_type', 'mods');
+            }
+        }
+    }
+
     public goToParentObject() {
-        console.log('goToParentObject');
         this.state = 'loading';
-        this.api.getParent(this.document.pid).subscribe((item: DocumentItem) => {
-            console.log('paretnt', item);
+        this.api.getParent(this.left.pid).subscribe((item: DocumentItem) => {
             if (item) {
                 this.goToObject(item);
             } else {
@@ -78,19 +121,19 @@ export class EditorService {
         }
     }
 
-    public selectChild(item: DocumentItem) {
+    public selectRight(item: DocumentItem) {
         if (item.isPage()) {
             this.rightEditorType = this.properties.getStringProperty('editor.page_right_editor_type', 'image');
         } else {
             this.rightEditorType = this.properties.getStringProperty('editor.right_editor_type', 'mods');
         }
-        this.child = item;
+        this.right = item;
     }
 
     public goToPreviousObject() {
         console.log('goToPreviousObject');
         this.state = 'loading';
-        this.api.getParent(this.document.pid).subscribe((item: DocumentItem) => {
+        this.api.getParent(this.left.pid).subscribe((item: DocumentItem) => {
             console.log('paretnt', item);
             if (item) {
                 this.api.getRelations(item.pid).subscribe((siblings: DocumentItem[]) => {
@@ -98,7 +141,7 @@ export class EditorService {
                     let i = -1;
                     for (const sibling of siblings) {
                         i += 1;
-                        if (sibling.pid === this.document.pid) {
+                        if (sibling.pid === this.left.pid) {
                             index = i;
                             break;
                         }
@@ -118,7 +161,7 @@ export class EditorService {
     public goToNextObject() {
         console.log('goToNextObject');
         this.state = 'loading';
-        this.api.getParent(this.document.pid).subscribe((item: DocumentItem) => {
+        this.api.getParent(this.left.pid).subscribe((item: DocumentItem) => {
             console.log('paretnt', item);
             if (item) {
                 this.api.getRelations(item.pid).subscribe((siblings: DocumentItem[]) => {
@@ -126,7 +169,7 @@ export class EditorService {
                     let i = -1;
                     for (const sibling of siblings) {
                         i += 1;
-                        if (sibling.pid === this.document.pid) {
+                        if (sibling.pid === this.left.pid) {
                             index = i;
                             break;
                         }
@@ -145,8 +188,8 @@ export class EditorService {
 
     saveChildren(callback: () => void) {
         this.state = 'saving';
-        const pidArray = this.document.children.map( item => item.pid);
-        this.api.editRelations(this.document.pid, pidArray).subscribe(result => {
+        const pidArray = this.children.map( item => item.pid);
+        this.api.editRelations(this.left.pid, pidArray).subscribe(result => {
           if (callback) {
             callback();
           }
@@ -170,8 +213,8 @@ export class EditorService {
             this.api.getMods(mods.pid).subscribe((newMods: Mods) => {
                 if (callback) {
                     callback(newMods);
-                } 
-                 this.state = 'success';
+                }
+                this.state = 'success';
             });
         });
       }

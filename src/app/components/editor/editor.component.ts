@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest } from 'rxjs'
+import { combineLatest } from 'rxjs';
 import { EditorService } from 'src/app/services/editor.service';
 
 @Component({
