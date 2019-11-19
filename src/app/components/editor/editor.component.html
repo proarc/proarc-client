@@ -29,9 +29,6 @@
 
     <div class="app-context" *ngIf="editor.mode == 'detail'">
       <div class="app-divider"></div>
-      <button matTooltip="{{ 'editor.toolbar.editor_mods' | translate }}" [class.app-inactive]="editor.leftEditorType != 'mods'" (click)="editor.switchLeftEditor('mods')" mat-icon-button>
-        <mat-icon>code</mat-icon>
-      </button>
       <button matTooltip="{{ 'editor.toolbar.editor_atm' | translate }}" [class.app-inactive]="editor.leftEditorType != 'atm'" (click)="editor.switchLeftEditor('atm')" mat-icon-button>
         <mat-icon>scanner</mat-icon>
       </button>
@@ -41,14 +38,14 @@
       <button *ngIf="editor.left.isPage()" matTooltip="{{ 'editor.toolbar.editor_ocr' | translate }}" [class.app-inactive]="editor.leftEditorType != 'ocr'" (click)="editor.switchLeftEditor('ocr')" mat-icon-button>
         <mat-icon>title</mat-icon>
       </button>
-      <button *ngIf="editor.left.isPage()" matTooltip="{{ 'editor.toolbar.editor_image' | translate }}" [class.app-inactive]="editor.leftEditorType != 'image'" (click)="editor.switchLeftEditor('image')" mat-icon-button>
-        <mat-icon>image</mat-icon>
-      </button>
       <button *ngIf="!editor.left.isPage()" matTooltip="{{ 'editor.toolbar.editor_metadata' | translate }}" [class.app-inactive]="editor.leftEditorType != 'metadata'" (click)="editor.switchLeftEditor('metadata')" mat-icon-button>
         <mat-icon>edit</mat-icon>
       </button>
       <button *ngIf="editor.right.isPage()" matTooltip="{{ 'editor.toolbar.editor_metadata' | translate }}" [class.app-inactive]="editor.leftEditorType != 'page'" (click)="editor.switchLeftEditor('page')" mat-icon-button>
         <mat-icon>edit</mat-icon>
+      </button>
+      <button matTooltip="{{ 'editor.toolbar.editor_geo' | translate }}" [class.app-inactive]="editor.leftEditorType != 'geo'" (click)="editor.switchLeftEditor('geo')" mat-icon-button>
+        <mat-icon>map</mat-icon>
       </button>
   </div>
 
@@ -80,6 +77,7 @@
     <app-editor-atm *ngIf="editor.leftEditorType == 'atm'" [pid]="editor.left.pid"></app-editor-atm>
     <app-editor-page *ngIf="editor.leftEditorType == 'page'" [pid]="editor.left.pid"></app-editor-page>
     <app-editor-metadata *ngIf="editor.leftEditorType == 'metadata'" [pid]="editor.left.pid"></app-editor-metadata>
+    <app-editor-geo *ngIf="editor.leftEditorType == 'geo'" [pid]="editor.left.pid"></app-editor-geo>
   </div>
 
 

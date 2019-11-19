@@ -1,3 +1,4 @@
+import { ModsGeo } from './geo.model';
 import { ModsLocation } from './location.model';
 import { ModsPublisher } from './publisher.model';
 import { ModsAuthor } from './author.model';
@@ -15,7 +16,7 @@ export class ElementField {
     public root;
     public items: ModsElement[];
 
-    constructor(mods, selector) {
+    constructor(mods, selector, attr = null, values = []) {
         this.selector = selector;
         if (mods[selector] === undefined) {
             mods[selector] = [];
@@ -24,7 +25,13 @@ export class ElementField {
         this.items = [];
         for (const el of this.root) {
             if (el) {
-                this.items.push(this.newInstance(el));
+                if (attr) {
+                    if (el['$'] && el['$'][attr] && values.indexOf(el['$'][attr]) > -1) {
+                        this.items.push(this.newInstance(el));
+                    }
+                } else {
+                    this.items.push(this.newInstance(el));
+                }
             }
         }
         if (this.items.length < 1) {
@@ -51,6 +58,8 @@ export class ElementField {
                 return new ModsIdentifier(el);
             case ModsNote.getSelector():
                 return new ModsNote(el);
+            case ModsGeo.getSelector():
+                return new ModsGeo(el);
             }
     }
 

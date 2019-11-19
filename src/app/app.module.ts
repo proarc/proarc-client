@@ -43,7 +43,6 @@ import { OcrComponent } from './components/ocr/ocr.component';
 import { NoteComponent } from './components/note/note.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { EditAudioDeviceComponent } from './components/devices/edit-audio-device/edit-audio-device.component';
-import { GeoComponent } from './components/geo/geo.component';
 import { EditorService } from './services/editor.service';
 import { EditorComponent } from './components/editor/editor.component';
 import { EditorChildrenComponent } from './components/editor/editor-children/editor-children.component';
@@ -53,6 +52,8 @@ import { EditorModsComponent } from './components/editor/editor-mods/editor-mods
 import { EditorCommentComponent } from './components/editor/editor-comment/editor-comment.component';
 import { EditorAtmComponent } from './components/editor/editor-atm/editor-atm.component';
 import { EditorPageComponent } from './components/editor/editor-page/editor-page.component';
+import { EditorGeoComponent } from './components/editor/editor-geo/editor-geo.component';
+import { EditorSubjectGeoComponent } from './documents/document/editor-subject-geo/editor-subject-geo.component';
 
 
 export function hljsLanguages() {
@@ -91,7 +92,6 @@ export function hljsLanguages() {
     CatalogComponent,
     ViewerComponent,
     EditAudioDeviceComponent,
-    GeoComponent,
     EditorComponent,
     EditorChildrenComponent,
     EditorOcrComponent,
@@ -99,7 +99,9 @@ export function hljsLanguages() {
     EditorCommentComponent,
     EditorAtmComponent,
     EditorPageComponent,
-    EditorMetadataComponent
+    EditorMetadataComponent,
+    EditorGeoComponent,
+    EditorSubjectGeoComponent
   ],
   imports: [
     BrowserModule,

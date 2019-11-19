@@ -12,7 +12,7 @@ export class ModsIdentifier extends ModsElement {
     }
 
     private init() {
-    }   
+    }
 
     public toDC() {
         if (this.modsElement['_'] && this.attrs['type']) {

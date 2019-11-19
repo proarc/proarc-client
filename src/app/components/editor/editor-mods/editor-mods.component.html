@@ -4,7 +4,7 @@
       <div class="app-label">MODS XML</div>
       <div class="app-actions-right">
 
-        <ng-container *ngIf="editor.metadata && editor.leftEditorType == 'metadata' && editor.mode == 'detail'">
+        <ng-container *ngIf="editor.metadata && (editor.leftEditorType == 'metadata' || editor.leftEditorType == 'geo') && editor.mode == 'detail'">
             <button class="app-action" [class.app-inactive]="!realtime" (click)="setRealtime(true)" [matTooltip]="'common.edit' | translate" mat-icon-button>
                 <mat-icon>timer</mat-icon>
             </button>

@@ -59,6 +59,7 @@
       "editor_mods": "MODS XML",
       "editor_atm": "Administrativní a technická metadata",
       "editor_metadata": "Metadata",
+      "editor_geo": "Geografická lokace",
       "editor_mode_detail": "Režim detailu",
       "editor_mode_children": "Režim procházení"
     },
@@ -94,6 +95,27 @@
       "partname": "Název částí",
       "non_sort_toggle": "První slovo je člen.",
       "add_btn": "Přidat název"
+    },
+    "geo": {
+      "tab": "Lokace",
+      "type": "Typ",
+      "stat": "Území státu",
+      "kraj_1960": "Území kraje dle zákona č.36/1960 Sb.",
+      "region_soudrznosti": "Území regionu soudržnosti",
+      "okres": "Území okresu",
+      "vusc": "Území vyššího územně samosprávného celku",
+      "orp": "Správní obvod obce s rozšířenou působností",
+      "pou": "Správní obvod obce s pověřeným obecním úřadem",
+      "obec": "Území obce",
+      "zsj": "Prvek základní sídelní jednotky",
+      "katastralni_uzemi": "Katastrální území",
+      "cast_obce": "Část obce",
+      "ulice": "Ulice nebo jiné veřejné prostranství",
+      "adresni_misto": "Adresní místo",
+      "add_btn": "Přidat lokaci",
+      "geo:origin": "Místo původu",
+      "geo:storage": "Místo uložení",
+      "geo:area": "Vztah k území"
     },
     "author": {
       "tab": "Autor",

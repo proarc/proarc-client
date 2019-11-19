@@ -1,3 +1,4 @@
+import { ModsGeo } from './mods/geo.model';
 import { ModsPublisher } from './mods/publisher.model';
 import { ModsLanguage } from './mods/language.model';
 import { parseString, processors, Builder } from 'xml2js';
@@ -25,7 +26,8 @@ export class Metadata {
     ModsLocation.getSelector(),
     ModsLanguage.getSelector(),
     ModsIdentifier.getSelector(),
-    ModsNote.getSelector()
+    ModsNote.getSelector(),
+    ModsGeo.getSelector()
   ];
 
   private fields: Map<String, ElementField>;
@@ -78,8 +80,13 @@ export class Metadata {
       console.log('root', root);
     }
     for (const selector of this.selectors) {
-      this.fields.set(selector, new ElementField(root, selector));
+      if (selector === ModsGeo.getSelector()) {
+        this.fields.set(selector, new ElementField(root, selector, 'authority', ['geo:origin', 'geo:storage', 'geo:area']));
+      } else {
+        this.fields.set(selector, new ElementField(root, selector));
+      }
     }
+
     console.log('this.fields', this.fields);
   }
 

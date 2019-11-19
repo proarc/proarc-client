@@ -1,0 +1,98 @@
+<div class="editor">
+
+<div class="app-card" *ngFor="let item of field.items; index as index; last as last; first as first;">
+    <div class="app-card-header">
+      <span class="app-card-title">{{ 'editor.geo.tab' | translate }}</span>
+  
+     <button matTooltip="{{ 'common.remove' | translate }}" color="primary" (click)="field.remove(index)" mat-icon-button>
+       <mat-icon>delete</mat-icon>
+     </button>
+  
+     <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" color="primary" (click)="field.moveDown(index)" mat-icon-button>
+       <mat-icon>arrow_drop_down</mat-icon>
+     </button>
+     <button [disabled]="first" matTooltip="{{ 'common.move_up' | translate }}" color="primary" (click)="field.moveUp(index)" mat-icon-button>
+       <mat-icon>arrow_drop_up</mat-icon>
+     </button>
+
+     <button matTooltip="{{ 'editor.geo.add_btn' | translate }}" color="primary" (click)="field.addAfter(index)" mat-icon-button>
+        <mat-icon>add</mat-icon>
+      </button>
+    
+
+    </div>
+
+    <div class="app-card-content">
+
+        <mat-form-field class="app-half-left">
+            <mat-select [(ngModel)]='item.attrs["authority"]' placeholder="{{ 'editor.geo.type' | translate }}">
+              <mat-option *ngFor="let type of types" [value]="type">
+                {{ 'editor.geo.' + type | translate}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+        <mat-form-field class="app-half-right">
+          <input autocomplete="off" matInput [(ngModel)]='item.stat["_"]' placeholder="{{ 'editor.geo.stat' | translate }}">
+        </mat-form-field>
+    
+        <mat-form-field class="app-half-left">
+          <input autocomplete="off" matInput [(ngModel)]='item.kraj_1960["_"]' placeholder="{{ 'editor.geo.kraj_1960' | translate }}">
+        </mat-form-field>
+      
+        <mat-form-field class="app-half-right">
+          <input autocomplete="off" matInput [(ngModel)]='item.region_soudrznosti["_"]' placeholder="{{ 'editor.geo.region_soudrznosti' | translate }}">
+        </mat-form-field>
+
+        <mat-form-field class="app-half-left">
+          <input autocomplete="off" matInput [(ngModel)]='item.okres["_"]' placeholder="{{ 'editor.geo.okres' | translate }}">
+        </mat-form-field>
+    
+        <mat-form-field class="app-half-right">
+          <input autocomplete="off" matInput [(ngModel)]='item.vusc["_"]' placeholder="{{ 'editor.geo.vusc' | translate }}">
+        </mat-form-field>
+      
+        <mat-form-field class="app-half-left">
+          <input autocomplete="off" matInput [(ngModel)]='item.orp["_"]' placeholder="{{ 'editor.geo.orp' | translate }}">
+        </mat-form-field>
+
+        <mat-form-field class="app-half-right">
+          <input autocomplete="off" matInput [(ngModel)]='item.pou["_"]' placeholder="{{ 'editor.geo.pou' | translate }}">
+        </mat-form-field>
+    
+        <mat-form-field class="app-half-left">
+          <input autocomplete="off" matInput [(ngModel)]='item.obec["_"]' placeholder="{{ 'editor.geo.obec' | translate }}">
+        </mat-form-field>
+      
+        <mat-form-field class="app-half-right">
+          <input autocomplete="off" matInput [(ngModel)]='item.zsj["_"]' placeholder="{{ 'editor.geo.zsj' | translate }}">
+        </mat-form-field>
+
+        <mat-form-field class="app-half-left">
+          <input autocomplete="off" matInput [(ngModel)]='item.katastralni_uzemi["_"]' placeholder="{{ 'editor.geo.katastralni_uzemi' | translate }}">
+        </mat-form-field>
+    
+        <mat-form-field class="app-half-right">
+          <input autocomplete="off" matInput [(ngModel)]='item.cast_obce["_"]' placeholder="{{ 'editor.geo.cast_obce' | translate }}">
+        </mat-form-field>
+
+        <mat-form-field class="app-half-left">
+          <input autocomplete="off" matInput [(ngModel)]='item.ulice["_"]' placeholder="{{ 'editor.geo.ulice' | translate }}">
+        </mat-form-field>
+
+        <mat-form-field class="app-half-right">
+          <input autocomplete="off" matInput [(ngModel)]='item.adresni_misto["_"]' placeholder="{{ 'editor.geo.adresni_misto' | translate }}">
+        </mat-form-field> 
+
+  </div>
+
+
+
+
+    </div>
+
+  </div>
+  
+  
+    

@@ -1,0 +1,24 @@
+
+<div class="app-editor-content-wrapper">
+    <div class="app-editor-toolbar">
+        <div class="app-label">Geografická lokace</div>
+        <div class="app-actions-right">
+            <button class="app-action" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
+                <mat-icon>save</mat-icon>
+            </button>
+        </div>
+    </div>  
+
+<div class="app-editor-content" *ngIf="editor.metadata">
+    <app-editor-subject-geo [field]="editor.metadata.getField('subject')"></app-editor-subject-geo>
+</div>
+    
+<mat-spinner *ngIf="state === 'loading'"
+          [strokeWidth]="5" 
+          [diameter]="60"
+          class="center-spinner">
+</mat-spinner>
+
+
+
+</div>  

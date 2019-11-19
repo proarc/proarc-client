@@ -2,11 +2,11 @@ import { EditorService } from 'src/app/services/editor.service';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-editor-metadata',
-  templateUrl: './editor-metadata.component.html',
-  styleUrls: ['./editor-metadata.component.scss']
+  selector: 'app-editor-geo',
+  templateUrl: './editor-geo.component.html',
+  styleUrls: ['./editor-geo.component.scss']
 })
-export class EditorMetadataComponent implements OnInit {
+export class EditorGeoComponent implements OnInit {
 
   state = 'none';
 
