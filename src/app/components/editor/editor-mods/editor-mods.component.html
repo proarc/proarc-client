@@ -5,14 +5,19 @@
       <div class="app-actions-right">
 
         <ng-container *ngIf="editor.metadata && (editor.leftEditorType == 'metadata' || editor.leftEditorType == 'geo') && editor.mode == 'detail'">
-            <button class="app-action" [class.app-inactive]="!realtime" (click)="setRealtime(true)" [matTooltip]="'common.edit' | translate" mat-icon-button>
+            <button class="app-action" [class.app-inactive]="!realtime" (click)="setRealtime(true)" [matTooltip]="'editor.mods.realtime_on' | translate" mat-icon-button>
                 <mat-icon>timer</mat-icon>
             </button>
-            <button class="app-action" [class.app-inactive]="realtime" (click)="setRealtime(false)" [matTooltip]="'common.edit' | translate" mat-icon-button>
+            <button class="app-action" [class.app-inactive]="realtime" (click)="setRealtime(false)" [matTooltip]="'editor.mods.realtime_off' | translate" mat-icon-button>
                 <mat-icon>timer_off</mat-icon>
             </button>
             <div class="app-divider"></div>
         </ng-container>
+
+
+        <button class="app-action" [class.app-disabled]="editting || realtime" (click)="onRefresh()" [matTooltip]="'editor.mods.refresh' | translate" mat-icon-button>
+            <mat-icon>refresh</mat-icon>
+        </button>
 
         <button class="app-action" [class.app-disabled]="editting || realtime" (click)="onEdit()" [matTooltip]="'common.edit' | translate" mat-icon-button>
             <mat-icon>edit</mat-icon>

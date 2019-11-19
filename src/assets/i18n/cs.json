@@ -73,6 +73,11 @@
       "select_object": "Načíst objekt vpravo",
       "reorder": "Přeuspořádat objekty"
     },
+    "mods": {
+      "realtime_on": "V reálném čase",
+      "realtime_off": "Poslední uložená verze",
+      "refresh": "Načíst aktuální"
+    },
     "page": {
       "title": "Popis stránky",
       "index": "Index",

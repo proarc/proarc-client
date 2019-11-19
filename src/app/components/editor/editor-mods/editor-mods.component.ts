@@ -22,7 +22,7 @@ export class EditorModsComponent implements OnInit {
     this.onPidChanged(pid);
   }
 
-  constructor(private editor: EditorService, private api: ApiService) {
+  constructor(public editor: EditorService, private api: ApiService) {
   }
 
   ngOnInit() {
@@ -51,6 +51,13 @@ export class EditorModsComponent implements OnInit {
     this.editting = false;
     this.anyChange = false;
     this.mods.restore();
+  }
+
+  onRefresh() {
+    if (this.editting || this.realtime) {
+      return;
+    }
+    this.loadMods();
   }
 
   onSave() {

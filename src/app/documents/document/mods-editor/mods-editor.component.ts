@@ -10,7 +10,7 @@ import { ApiService } from 'src/app/services/api.service';
 export class ModsEditorComponent implements OnInit {
 
   @Input() document: Metadata;
-  
+
 
   constructor(private api: ApiService) { }
 
