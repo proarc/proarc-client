@@ -19,10 +19,11 @@ export class SearchComponent implements OnInit {
     'model:ndkperiodicalsupplement',
     'model:ndkarticle',
     'model:ndkmonographvolume',
+    'model:chroniclevolume',
     'model:page',
   ];
 
-  model = 'model:ndkperiodical';
+  model = 'model:chroniclevolume';
   query = '';
 
   pageIndex = 0;

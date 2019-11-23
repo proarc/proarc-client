@@ -19,6 +19,7 @@ import { Page } from '../model/page.model';
 export class ApiService {
 
   private static baseUrl = 'http://krameriustest.inovatika.cz/proarc-silvarium';
+  // private static baseUrl = 'http://localhost:8000/proarc';
 
   private static apiUrl = `${ApiService.baseUrl}/rest/v1/`;
 

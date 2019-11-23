@@ -14,7 +14,7 @@ export class EditorIdentifierComponent implements OnInit {
 
   types: any[] = [];
 
-  codes = [ 'barcode', 'issn','isbn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici'
+  codes = [ 'barcode', 'issn', 'isbn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'
                ];
 
 

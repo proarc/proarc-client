@@ -218,7 +218,9 @@
     "oclc": "OCLC",
     "sysno": "Systémové číslo",
     "permalink": "Permalink",
-    "sici": "SICI"
+    "sici": "SICI",
+    "id": "ID",
+    "localId": "LocalID"
   },
   "model": {
     "model:ndkperiodical": "NDK Peioridkum",
@@ -227,6 +229,7 @@
     "model:ndkperiodicalsupplement": "NDK příloha periodika",
     "model:ndkarticle": "NDK článek",
     "model:ndkmonographvolume": "NDK monografie",
+    "model:chroniclevolume": "Kronika",
     "model:page": "Stránka"
   },
   "viewer": {
