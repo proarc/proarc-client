@@ -93,12 +93,18 @@ export class EditorChildrenComponent implements OnInit {
     this.editor.goToObject(item);
   }
 
+  isSelected(item: DocumentItem) {
+    if (this.editor.isMultipleChildrenMode()) {
+      return item.selected;
+    } else {
+      return this.editor.right === item;
+    }
+  }
+
   select(item: DocumentItem, event = null) {
     if (this.editor.isMultipleChildrenMode()) {
       const itemIndex = this.items.indexOf(item);
-      console.log('------1', event);
       if (event && event.shiftKey && this.lastIndex > -1) {
-        console.log('------2');
         let index = Math.min(this.lastIndex, itemIndex);
         const i2 = Math.max(this.lastIndex, itemIndex);
         while (index <= i2) {

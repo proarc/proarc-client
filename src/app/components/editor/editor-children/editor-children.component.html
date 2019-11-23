@@ -49,7 +49,7 @@
  <div class="app-editor-content">
 
   <div class="app-view-list app-table" *ngIf="viewMode == 'list'">
-    <div *ngFor="let item of items" (click)="select(item, $event)" class="app-row" [class.app-selected]="editor.right === item"
+    <div *ngFor="let item of items" (click)="select(item, $event)" class="app-row" [class.app-selected]="isSelected(item)"
     draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
     (mousedown)="mousedown($event)">
     <!-- <div class="app-col-open" *ngIf="!item.isPage()">
