@@ -1,6 +1,9 @@
 <h1 mat-dialog-title>{{ data.title }}</h1>
 <div mat-dialog-content>
   <p class="app-message">{{ data.message }}</p>
+
+  <mat-checkbox *ngIf="data.checkbox" [(ngModel)]="data.checkbox.checked">{{ data.checkbox.label }}</mat-checkbox>
+
 </div>
 <div mat-dialog-actions cdk-focus-start>
   <button mat-raised-button [color]="data.btn1.color" [mat-dialog-close]="data.btn1.value" >{{ data.btn1.label }}</button>

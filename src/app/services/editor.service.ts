@@ -1,15 +1,15 @@
 import { Metadata } from './../model/metadata.model';
-import { Injectable } from "@angular/core";
-import { ApiService } from "./api.service";
-import { DocumentItem } from "../model/documentItem.model";
-import { Router } from "@angular/router";
+import { Injectable } from '@angular/core';
+import { ApiService } from './api.service';
+import { DocumentItem } from '../model/documentItem.model';
+import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
-import { Ocr } from "../model/ocr.model";
-import { LocalStorageService } from "./local-storage.service";
-import { Mods } from "../model/mods.model";
-import { Note } from "../model/note.model";
-import { Atm } from "../model/atm.model";
-import { Page } from "../model/page.model";
+import { Ocr } from '../model/ocr.model';
+import { LocalStorageService } from './local-storage.service';
+import { Mods } from '../model/mods.model';
+import { Note } from '../model/note.model';
+import { Atm } from '../model/atm.model';
+import { Page } from '../model/page.model';
 
 @Injectable()
 export class EditorService {
@@ -278,6 +278,26 @@ export class EditorService {
             if (callback) {
                 callback();
             }
+        });
+      }
+
+      deleteSelectedChildren(pernamently: boolean, callback: (boolean) => void) {
+        this.state = 'saving';
+        this.api.deleteObjects(this.right.pid, pernamently).subscribe((pids: string[]) => {
+            let nextSelection = 0;
+            for (let i = this.children.length - 1; i >= 0; i--) {
+                if (pids.indexOf(this.children[i].pid) > -1) {
+                    this.children.splice(i, 1);
+                    nextSelection = i - 1;
+                }
+            }
+            if (callback) {
+                callback(true);
+            }
+            if (this.children.length > 0) {
+                this.selectRight(this.children[nextSelection]);
+            }
+            this.state = 'success';
         });
       }
 

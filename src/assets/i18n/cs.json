@@ -71,7 +71,8 @@
       "short_labels_off": "Zobrazovat zkrácené popisky",
       "open_object": "Přejít na objekt",
       "select_object": "Načíst objekt vpravo",
-      "reorder": "Přeuspořádat objekty"
+      "reorder": "Přeuspořádat objekty",
+      "delete": "Smazat vybrané objekty"
     },
     "mods": {
       "realtime_on": "V reálném čase",

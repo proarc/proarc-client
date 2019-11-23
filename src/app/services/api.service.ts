@@ -43,6 +43,11 @@ export class ApiService {
     return this.http.delete(encodeURI(`${ApiService.apiUrl}${path}`), { params: params });
   }
 
+  deleteObjects(pid: string, purge: boolean): Observable<string[]> {
+    return this.delete('object', { purge: purge, hierarchy: true, 'pid': pid })
+            .pipe(map(response => response['response']['data'].map(x => x.pid)));
+  }
+
 
   getPage(pid: string): Observable<Page> {
     return this.get('object/mods/custom', { pid: pid, editorId: 'proarc.mods.PageForm' })
@@ -208,6 +213,7 @@ export class ApiService {
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         })
     };
+    // tslint:disable-next-line:max-line-length
     let data = `id=${device.id}&label=${device.label}&model=${device.model}&timestamp=${device.timestamp}&description=${device.description()}`;
     if (device.isAudio()) {
       data += `&audiotimestamp=${device.audiotimestamp}&audiodescription=${device.audioDescription()}`;

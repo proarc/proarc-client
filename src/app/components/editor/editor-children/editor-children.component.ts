@@ -6,6 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { EditorService } from 'src/app/services/editor.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { MatDialog } from '@angular/material';
+import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
+import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 
 
 
@@ -29,7 +32,10 @@ export class EditorChildrenComponent implements OnInit {
 
   pageChildren = false;
 
-  constructor(public editor: EditorService, private api: ApiService, private properties: LocalStorageService) {
+  constructor(public editor: EditorService,
+              private dialog: MatDialog,
+              private api: ApiService,
+              private properties: LocalStorageService) {
   }
 
   ngOnInit() {
@@ -127,6 +133,35 @@ export class EditorChildrenComponent implements OnInit {
     // this.api.editRelations(this.parentPid, pidArray).subscribe(result => {
     //   console.log('result', result);
     // });
+  }
+
+  onDelete() {
+    const checkbox = {
+      label: 'Smazat trvale z uložiště',
+      checked: false
+    };
+    const data: SimpleDialogData = {
+      title: 'Smazání objektů',
+      message: 'Opravdu chcete vybrané objekty smazat?',
+      btn1: {
+        label: 'Ano',
+        value: 'yes',
+        color: 'warn'
+      },
+      btn2: {
+        label: 'Ne',
+        value: 'no',
+        color: 'default'
+      },
+      checkbox: checkbox
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        console.log('delete, pernamently: ', checkbox.checked);
+        this.editor.deleteSelectedChildren(checkbox.checked, null);
+      }
+    });
   }
 
   dragstart($event) {

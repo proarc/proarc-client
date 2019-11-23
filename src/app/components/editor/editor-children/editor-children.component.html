@@ -20,8 +20,11 @@
     </button>
 
     <div class="app-actions-right">
+      <button class="app-action"  matTooltip="{{ 'editor.children.delete' | translate }}" (click)="onDelete()" mat-icon-button>
+          <mat-icon>delete</mat-icon>
+      </button>
       <div class="app-divider"></div>
-      <button class="app-action app-right" [class.app-disabled]="!anyChange" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
+      <button class="app-action" [class.app-disabled]="!anyChange" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
           <mat-icon>save</mat-icon>
       </button>
     </div>
