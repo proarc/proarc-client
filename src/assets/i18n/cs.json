@@ -72,7 +72,11 @@
       "open_object": "Přejít na objekt",
       "select_object": "Načíst objekt vpravo",
       "reorder": "Přeuspořádat objekty",
-      "delete": "Smazat vybrané objekty"
+      "delete": "Smazat vybrané objekty",
+      "select_all": "Vybrat všechny objekty",
+      "deselect_all": "Odebrat všechny objekty",
+      "multiple_selection": "Násobný výběr",
+      "single_selection": "Jednoduchý výběr"
     },
     "mods": {
       "realtime_on": "V reálném čase",
