@@ -30,6 +30,8 @@ export class EditorService {
 
     public metadata: Metadata;
 
+    private multipleChildrenMode: boolean;
+
     constructor(
         private router: Router,
         private api: ApiService,
@@ -41,6 +43,7 @@ export class EditorService {
         this.right = null;
         this.ready = false;
         this.metadata = null;
+        this.multipleChildrenMode = false;
         this.state = 'loading';
         const pid = params.pid;
 
@@ -283,23 +286,74 @@ export class EditorService {
 
       deleteSelectedChildren(pernamently: boolean, callback: (boolean) => void) {
         this.state = 'saving';
-        this.api.deleteObjects(this.right.pid, pernamently).subscribe((pids: string[]) => {
+        let pids: string[];
+        if (this.isMultipleChildrenMode()) {
+            pids = this.children.filter(c => c.selected).map(c => c.pid);
+        } else {
+            pids = [this.right.pid];
+        }
+        this.api.deleteObjects(pids, pernamently).subscribe((removedPid: string[]) => {
             let nextSelection = 0;
             for (let i = this.children.length - 1; i >= 0; i--) {
-                if (pids.indexOf(this.children[i].pid) > -1) {
+                if (removedPid.indexOf(this.children[i].pid) > -1) {
                     this.children.splice(i, 1);
                     nextSelection = i - 1;
                 }
             }
+            if (this.children.length > 0 && !this.isMultipleChildrenMode()) {
+                this.selectRight(this.children[nextSelection]);
+            }
             if (callback) {
                 callback(true);
-            }
-            if (this.children.length > 0) {
-                this.selectRight(this.children[nextSelection]);
             }
             this.state = 'success';
         });
       }
+
+
+      switchMultipleSelectionMode() {
+          this.setMultipleChildrenMode(!this.multipleChildrenMode);
+      }
+
+      setMultipleChildrenMode(enabled: boolean) {
+        const firtsSelectionIndex = this.deselectChildren();
+        if (enabled) {
+            this.multipleChildrenMode = true;
+            this.right.selected = true;
+            this.right = null;
+        } else {
+            this.multipleChildrenMode = false;
+            if (this.children.length > firtsSelectionIndex) {
+                this.selectRight(this.children[firtsSelectionIndex]);
+            }
+        }
+      }
+
+      // Returns the first selected index
+      deselectChildren(): number {
+        let firtsSelectionIndex = 0;
+        let index = -1;
+        for (const child of this.children) {
+            index += 1;
+            if (child.selected && firtsSelectionIndex === 0) {
+                firtsSelectionIndex = index;
+            }
+            child.selected = false;
+        }
+        return firtsSelectionIndex;
+      }
+
+      selectChildren() {
+        for (const child of this.children) {
+            child.selected = true;
+        }
+      }
+
+      isMultipleChildrenMode(): boolean {
+          return this.multipleChildrenMode;
+      }
+
+
 
 }
 

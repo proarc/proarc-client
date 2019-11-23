@@ -18,6 +18,19 @@
     <button class="app-action" [class.app-inactive]="!shortLabels" matTooltip="{{ 'editor.children.short_labels_' + (shortLabels ? 'on' : 'off') | translate }}" (click)="switchUseShortLabel()" mat-icon-button>
       <mat-icon>short_text</mat-icon>
     </button>
+    <div class="app-divider"></div>
+
+    <button class="app-action" [class.app-inactive]="!editor.isMultipleChildrenMode()" matTooltip="{{ 'editor.children.short_labels_' + (shortLabels ? 'on' : 'off') | translate }}" (click)="editor.switchMultipleSelectionMode()" mat-icon-button>
+      <mat-icon>check</mat-icon>
+    </button>
+    <ng-container *ngIf=editor.isMultipleChildrenMode()>
+      <button class="app-action"  matTooltip="{{ 'editor.children.short_labels_' + (shortLabels ? 'on' : 'off') | translate }}" (click)="editor.selectChildren()" mat-icon-button>
+        <mat-icon>check_box</mat-icon>
+      </button>
+      <button class="app-action"  matTooltip="{{ 'editor.children.short_labels_' + (shortLabels ? 'on' : 'off') | translate }}" (click)="editor.deselectChildren()" mat-icon-button>
+        <mat-icon>check_box_outline_blank</mat-icon>
+      </button>
+    </ng-container>
 
     <div class="app-actions-right">
       <button class="app-action"  matTooltip="{{ 'editor.children.delete' | translate }}" (click)="onDelete()" mat-icon-button>
@@ -35,7 +48,7 @@
  <div class="app-editor-content">
 
   <div class="app-view-list app-table" *ngIf="viewMode == 'list'">
-    <div *ngFor="let item of items" (click)="select(item)" class="app-row" [class.app-selected]="editor.right === item"
+    <div *ngFor="let item of items" (click)="select(item, $event)" class="app-row" [class.app-selected]="editor.right === item"
     draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
     (mousedown)="mousedown($event)">
     <!-- <div class="app-col-open" *ngIf="!item.isPage()">
@@ -44,14 +57,16 @@
         </button>
     </div>     -->
 
+      <mat-icon *ngIf="editor.isMultipleChildrenMode()" class="app-icon-check app-icon-top">{{ item.selected ? 'check_box' : 'check_box_outline_blank' }}</mat-icon>
+
       <div class="app-col-label">{{ shortLabels ? item.shortLabel : item.label }}</div>
       <div class="app-col-model">{{ "model." + item.model | translate }}</div>
-      <div class="app-col-actions">
+      <div *ngIf="!editor.isMultipleChildrenMode()" class="app-col-actions">
           <button matTooltip="{{ 'editor.children.open_object' | translate }}" (click)="open(item); $event.stopPropagation();" mat-icon-button>
               <mat-icon>folder_open</mat-icon>
           </button>
       </div>
-      <mat-icon matTooltip="{{ 'editor.children.reorder' | translate }}" class="app-drag-handle">reorder</mat-icon>
+      <mat-icon *ngIf="!editor.isMultipleChildrenMode()" matTooltip="{{ 'editor.children.reorder' | translate }}" class="app-drag-handle app-icon-top">reorder</mat-icon>
 
   </div>
   </div>

@@ -32,6 +32,8 @@ export class EditorChildrenComponent implements OnInit {
   anyChange: boolean;
 
   pageChildren = false;
+  lastIndex: number;
+  lastState: boolean;
 
   constructor(public editor: EditorService,
               private dialog: MatDialog,
@@ -41,6 +43,8 @@ export class EditorChildrenComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.lastIndex = -1;
+    this.lastState = false;
     this.anyChange = false;
     this.pageChildren = this.editor.onlyPageChildren();
     if (this.pageChildren) {
@@ -89,8 +93,26 @@ export class EditorChildrenComponent implements OnInit {
     this.editor.goToObject(item);
   }
 
-  select(item: DocumentItem) {
-    this.editor.selectRight(item);
+  select(item: DocumentItem, event = null) {
+    if (this.editor.isMultipleChildrenMode()) {
+      const itemIndex = this.items.indexOf(item);
+      console.log('------1', event);
+      if (event && event.shiftKey && this.lastIndex > -1) {
+        console.log('------2');
+        let index = Math.min(this.lastIndex, itemIndex);
+        const i2 = Math.max(this.lastIndex, itemIndex);
+        while (index <= i2) {
+          this.editor.children[index].selected = this.lastState;
+          index += 1;
+        }
+      } else {
+        this.lastState = !item.selected;
+        this.lastIndex = itemIndex;
+        item.selected = this.lastState;
+      }
+    } else {
+      this.editor.selectRight(item);
+    }
   }
 
   dragenter($event) {

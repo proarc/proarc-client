@@ -43,8 +43,13 @@ export class ApiService {
     return this.http.delete(encodeURI(`${ApiService.apiUrl}${path}`), { params: params });
   }
 
-  deleteObjects(pid: string, purge: boolean): Observable<string[]> {
-    return this.delete('object', { purge: purge, hierarchy: true, 'pid': pid })
+  deleteObjects(pids: string[], purge: boolean): Observable<string[]> | null {
+    console.log('pids', pids);
+    const pidsQuery = pids.map(pid => `pid=${pid}`).join('&');
+    const query = `purge=${purge}&hierarchy=trye&${pidsQuery}`;
+    console.log('query', query);
+    // return null;
+    return this.delete(`object?${query}`)
             .pipe(map(response => response['response']['data'].map(x => x.pid)));
   }
 

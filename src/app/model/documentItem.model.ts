@@ -13,6 +13,8 @@ export class DocumentItem {
 
   public shortLabel: string;
 
+  public selected = false;
+
   public static fromJson(json): DocumentItem {
     console.log(json);
     if (!json) {
