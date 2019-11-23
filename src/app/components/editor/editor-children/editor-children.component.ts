@@ -1,3 +1,4 @@
+import { UIService } from 'src/app/services/ui.service';
 import { ApiService } from 'src/app/services/api.service';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -34,6 +35,7 @@ export class EditorChildrenComponent implements OnInit {
 
   constructor(public editor: EditorService,
               private dialog: MatDialog,
+              private ui: UIService,
               private api: ApiService,
               private properties: LocalStorageService) {
   }
@@ -159,7 +161,11 @@ export class EditorChildrenComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         console.log('delete, pernamently: ', checkbox.checked);
-        this.editor.deleteSelectedChildren(checkbox.checked, null);
+        this.editor.deleteSelectedChildren(checkbox.checked, (success: boolean) => {
+          if (success) {
+            this.ui.showInfoSnackBar('Objekty byly smazány');
+          }
+        });
       }
     });
   }
