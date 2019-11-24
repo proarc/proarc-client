@@ -137,7 +137,7 @@
         <app-editor-page *ngIf="editor.rightEditorType == 'page'" [pid]="editor.right.pid"></app-editor-page>
       </div>
 
-      <div class="app-content" *ngIf="editor.isMultipleChildrenMode() && editor.onlyPageChildren()">
+      <div class="app-content" *ngIf="editor.showPagesEditor()">
           <app-editor-pages></app-editor-pages>
       </div>
 

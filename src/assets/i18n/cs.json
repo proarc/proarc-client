@@ -78,7 +78,7 @@
       "multiple_selection": "Hromadný výběr",
       "single_selection": "Jednoduchý výběr",
       "multiple_selection_label": "Hromadný výběr",
-      "multiple_selection_count": "{{count}} {{ count == 1 ? 'objekt' : count < 5 ? 'objekty' : 'objektů' }}"
+      "multiple_selection_count": "{{count == 0 ? 'Není vybrán žádný objekt' : (count == 1 ? '1 objekt' : count < 5 ? count + ' objekty' : count + ' objektů') }}"
     },
     "mods": {
       "realtime_on": "V reálném čase",

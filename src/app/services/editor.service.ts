@@ -77,6 +77,20 @@ export class EditorService {
         return true;
       }
 
+
+      public showPagesEditor(): boolean {
+        let count = 0;
+        for (const child of this.children) {
+            if (child.selected) {
+                count += 1;
+                if (!child.isPage()) {
+                    return false;
+                }
+            }
+        }
+        return count > 0;
+      }
+
     public switchLeftEditor(type: string) {
         this.leftEditorType = type;
         if (this.left.isPage()) {
