@@ -43,6 +43,20 @@ export class ApiService {
     return this.http.delete(encodeURI(`${ApiService.apiUrl}${path}`), { params: params });
   }
 
+  relocateObjects(srcParent: string, dstParent: string, pids: string[]): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    const payload = {
+      'srcPid': srcParent,
+      'dstPid': dstParent,
+      'pid': pids
+    };
+    return this.put('object/member/move', payload, httpOptions);
+  }
+
   deleteObjects(pids: string[], purge: boolean): Observable<string[]> | null {
     console.log('pids', pids);
     const pidsQuery = pids.map(pid => `pid=${pid}`).join('&');
@@ -225,6 +239,7 @@ export class ApiService {
     }
     return this.put('device', data, httpOptions).pipe(map(response => Device.fromJson(response['response']['data'][0])));
   }
+
 
   editRelations(parentPid: string, pidArray: string[]): Observable<any> {
     const httpOptions = {

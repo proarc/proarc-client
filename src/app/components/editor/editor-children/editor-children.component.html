@@ -34,6 +34,10 @@
     </ng-container>
 
     <div class="app-actions-right">
+      <button class="app-action"  matTooltip="{{ 'editor.children.relocate' | translate }}" (click)="onRelocate()" mat-icon-button>
+          <mat-icon>forward</mat-icon>
+      </button>
+      <div class="app-divider"></div>
       <button class="app-action"  matTooltip="{{ 'editor.children.delete' | translate }}" (click)="onDelete()" mat-icon-button>
           <mat-icon>delete</mat-icon>
       </button>

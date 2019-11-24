@@ -2,8 +2,6 @@ import { UIService } from 'src/app/services/ui.service';
 import { ApiService } from 'src/app/services/api.service';
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Translator } from 'angular-translator';
-import { ActivatedRoute } from '@angular/router';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { EditorService } from 'src/app/services/editor.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -196,10 +194,10 @@ export class EditorChildrenComponent implements OnInit {
     this.editor.saveChildren(() => {
       this.anyChange = false;
     });
-    // const pidArray = this.items.map( item => item.pid);
-    // this.api.editRelations(this.parentPid, pidArray).subscribe(result => {
-    //   console.log('result', result);
-    // });
+  }
+
+  onRelocate() {
+    this.editor.switchRelocationMode();
   }
 
   onDelete() {

@@ -73,6 +73,7 @@
       "select_object": "Načíst objekt vpravo",
       "reorder": "Přeuspořádat objekty",
       "delete": "Smazat vybrané objekty",
+      "relocate": "Přesunout vybrané objekty",
       "select_all": "Vybrat všechny objekty",
       "deselect_all": "Odebrat všechny objekty",
       "multiple_selection": "Hromadný výběr",

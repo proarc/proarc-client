@@ -92,7 +92,7 @@
           <div class="app-label-title">{{ editor.right.label }}</div>
           <div class="app-label-model">{{ 'model.' + editor.right.model | translate }}</div>
         </div>
-        <div class="app-context">
+        <div class="app-context" *ngIf="!editor.showRelocationEditor()">
               <button matTooltip="{{ 'editor.toolbar.editor_mods' | translate }}" [class.app-inactive]="editor.rightEditorType != 'mods'" (click)="editor.switchRightEditor('mods')" mat-icon-button>
                 <mat-icon>code</mat-icon>
               </button>
@@ -124,22 +124,25 @@
 
 
 
-    
 
 
-    <div class="app-content" *ngIf="!editor.isMultipleChildrenMode()">
 
+    <div class="app-content" *ngIf="editor.showRightObjectEditor()">
         <app-viewer *ngIf="editor.rightEditorType == 'image'" [pid]="editor.right.pid"></app-viewer>
         <app-editor-ocr *ngIf="editor.rightEditorType == 'ocr'" [pid]="editor.right.pid"></app-editor-ocr>
         <app-editor-mods *ngIf="editor.rightEditorType == 'mods'" [pid]="editor.right.pid"></app-editor-mods>
         <app-editor-comment *ngIf="editor.rightEditorType == 'comment'" [pid]="editor.right.pid"></app-editor-comment>
         <app-editor-atm *ngIf="editor.rightEditorType == 'atm'" [pid]="editor.right.pid"></app-editor-atm>
         <app-editor-page *ngIf="editor.rightEditorType == 'page'" [pid]="editor.right.pid"></app-editor-page>
-      </div>
+    </div>
 
-      <div class="app-content" *ngIf="editor.showPagesEditor()">
-          <app-editor-pages></app-editor-pages>
-      </div>
+    <div class="app-content" *ngIf="editor.showPagesEditor()">
+        <app-editor-pages></app-editor-pages>
+    </div>
+
+    <div class="app-content" *ngIf="editor.showRelocationEditor()">
+        <app-editor-relocation [pid]="editor.left.pid"></app-editor-relocation>
+    </div>
 
 
 

@@ -1,0 +1,51 @@
+<div class="app-editor-content-wrapper">
+ <div class="app-editor-toolbar">
+ 
+    <button class="app-action"  matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goUp()" mat-icon-button>
+        <mat-icon>keyboard_arrow_up</mat-icon>
+    </button>
+
+    <div class="app-actions-right">
+
+        <button class="app-action" (click)="onCancel()" [matTooltip]="'common.cancel' | translate" mat-icon-button>
+            <mat-icon>clear</mat-icon>
+        </button>
+        <div class="app-divider"></div>
+  
+        <button class="app-action" [class.app-disabled]="!canSave()" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
+            <mat-icon>save</mat-icon>
+        </button>
+
+    </div>
+
+ </div>
+
+ <div class="app-editor-content">
+
+  <div class="app-view-list app-table" *ngIf="items">
+    <div *ngFor="let item of items" (click)="select(item)" (dblclick)="open(item)" class="app-row" [class.app-selected]="isSelected(item)">
+
+      <mat-icon class="app-icon-top app-icon-star" [class.app-active]="item.pid == parent">{{ item.pid == parent ? 'star' : 'star_border' }}</mat-icon>
+
+      <div class="app-col-label">{{ shortLabels ? item.shortLabel : item.label }}</div>
+      <div class="app-col-model">{{ "model." + item.model | translate }}</div>
+      <div class="app-col-actions">
+          <button matTooltip="{{ 'editor.children.open_object' | translate }}" (click)="open(item); $event.stopPropagation();" mat-icon-button>
+              <mat-icon>folder_open</mat-icon>
+          </button>
+      </div>
+  </div>
+  </div>
+
+
+
+
+</div>
+
+<mat-spinner *ngIf="state === 'loading'"
+          [strokeWidth]="5" 
+          [diameter]="60"
+          class="center-spinner">
+</mat-spinner>
+
+</div>

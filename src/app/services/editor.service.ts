@@ -11,6 +11,7 @@ import { Note } from '../model/note.model';
 import { Atm } from '../model/atm.model';
 import { Page } from '../model/page.model';
 import { PageUpdateHolder } from '../components/editor/editor-pages/editor-pages.component';
+import { nextContext } from '@angular/core/src/render3';
 
 @Injectable()
 export class EditorService {
@@ -32,6 +33,7 @@ export class EditorService {
     public metadata: Metadata;
 
     private multipleChildrenMode: boolean;
+    public relocationMode: boolean;
 
     constructor(
         private router: Router,
@@ -45,6 +47,7 @@ export class EditorService {
         this.ready = false;
         this.metadata = null;
         this.multipleChildrenMode = false;
+        this.relocationMode = false;
         this.state = 'loading';
         const pid = params.pid;
 
@@ -78,7 +81,28 @@ export class EditorService {
       }
 
 
+
+      public showRightObjectEditor(): boolean {
+        return this.right && !this.relocationMode && !this.multipleChildrenMode;
+     }
+
+      public showRelocationEditor(): boolean {
+        if (this.mode !== 'children') {
+            return false;
+        }
+        return this.relocationMode;
+      }
+
       public showPagesEditor(): boolean {
+        if (this.mode !== 'children') {
+            return false;
+        }
+        if (this.relocationMode) {
+            return false;
+        }
+        if (!this.isMultipleChildrenMode()) {
+            return false;
+        }
         let count = 0;
         for (const child of this.children) {
             if (child.selected) {
@@ -110,6 +134,8 @@ export class EditorService {
     }
 
     public switchMode(mode: string) {
+        this.multipleChildrenMode = false;
+        this.relocationMode = false;
         this.mode = mode;
         if (!this.left.isPage()) {
             this.properties.setStringProperty('editor.mode', this.mode);
@@ -315,6 +341,9 @@ export class EditorService {
                     nextSelection = i - 1;
                 }
             }
+            if (nextSelection < 0) {
+                nextSelection = 0;
+            }
             if (this.children.length > 0 && !this.isMultipleChildrenMode()) {
                 this.selectRight(this.children[nextSelection]);
             }
@@ -325,6 +354,46 @@ export class EditorService {
         });
       }
 
+
+      relocateObjects(destination: DocumentItem, openDestination: boolean) {
+        this.state = 'saving';
+        let pids: string[];
+        if (this.isMultipleChildrenMode()) {
+            pids = this.children.filter(c => c.selected).map(c => c.pid);
+        } else {
+            pids = [this.right.pid];
+        }
+        this.api.relocateObjects(this.left.pid, destination.pid, pids).subscribe(() => {
+            if (!openDestination) {
+                this.setRelocationMode(false);
+                let nextSelection = 0;
+                for (let i = this.children.length - 1; i >= 0; i--) {
+                    if (pids.indexOf(this.children[i].pid) > -1) {
+                        this.children.splice(i, 1);
+                        nextSelection = i - 1;
+                    }
+                }
+                if (nextSelection < 0) {
+                    nextSelection = 0;
+                }
+                if (this.children.length > 0 && !this.isMultipleChildrenMode()) {
+                    this.selectRight(this.children[nextSelection]);
+                }
+                this.state = 'success';
+            } else {
+                this.goToObject(destination);
+            }
+        });
+      }
+
+
+      setRelocationMode(enabled: boolean) {
+        this.relocationMode = enabled;
+      }
+
+      switchRelocationMode() {
+          this.setRelocationMode(!this.relocationMode);
+      }
 
       switchMultipleSelectionMode() {
           this.setMultipleChildrenMode(!this.multipleChildrenMode);
