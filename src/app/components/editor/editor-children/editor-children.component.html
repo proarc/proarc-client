@@ -24,7 +24,7 @@
       <mat-icon>check</mat-icon>
     </button>
 
-    <ng-container *ngIf=editor.isMultipleChildrenMode()>
+    <ng-container *ngIf="editor.isMultipleChildrenMode()">
       <button class="app-action"  matTooltip="{{ 'editor.children.select_all' | translate }}" (click)="editor.selectChildren()" mat-icon-button>
         <mat-icon>check_box</mat-icon>
       </button>
@@ -34,8 +34,11 @@
     </ng-container>
 
     <div class="app-actions-right">
+      <button *ngIf="!editor.isMultipleChildrenMode()" class="app-action"  matTooltip="{{ 'editor.children.move' | translate }}" (click)="onMove()" mat-icon-button>
+          <mat-icon>reply</mat-icon>
+      </button>
       <button class="app-action"  matTooltip="{{ 'editor.children.relocate' | translate }}" (click)="onRelocate()" mat-icon-button>
-          <mat-icon>forward</mat-icon>
+          <mat-icon>reply_all</mat-icon>
       </button>
       <div class="app-divider"></div>
       <button class="app-action"  matTooltip="{{ 'editor.children.delete' | translate }}" (click)="onDelete()" mat-icon-button>
@@ -78,9 +81,9 @@
 
 
   <div class="app-view-grid" *ngIf="viewMode == 'grid'">
-    <div *ngFor="let item of items" (click)="select(item)" class="app-grid-item-wrapper">
-        <div class="app-grid-item" [class.app-selected]="editor.right === item" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
-        (mousedown)="mousedown($event)" >
+    <div *ngFor="let item of items" (click)="select(item)" class="app-grid-item-wrapper" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
+    (mousedown)="mousedown($event)">
+        <div class="app-grid-item" [class.app-selected]="editor.right === item"  >
           <div class="app-grid-item-label">{{ shortLabels ? item.shortLabel : item.label }}</div>
         </div>
     </div>

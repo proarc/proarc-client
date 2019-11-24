@@ -200,6 +200,41 @@ export class EditorChildrenComponent implements OnInit {
     this.editor.switchRelocationMode();
   }
 
+  onMove() {
+    const fromIndex = this.editor.children.indexOf(this.editor.right);
+    const input = {
+      label: 'Pozice',
+      value: fromIndex + 1,
+      min: 1,
+      max: this.editor.children.length
+    };
+    const data: SimpleDialogData = {
+      title: 'Změna pozice',
+      message: 'Zvolte novou pozici, na kterou chcete vybraný objekt v rámci nadřazeného objektu přesunout.',
+      width: 400,
+      btn1: {
+        label: 'Přesunout',
+        value: 'yes',
+        color: 'primary'
+      },
+      btn2: {
+        label: 'Ne',
+        value: 'no',
+        color: 'default'
+      },
+      numberInput: input
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        const toIndex = input.value - 1;
+        if (toIndex >= 0 && toIndex < this.editor.children.length) {
+          this.reorder(fromIndex, input.value - 1);
+        }
+      }
+    });
+  }
+
   onDelete() {
     const checkbox = {
       label: 'Smazat trvale z uložiště',

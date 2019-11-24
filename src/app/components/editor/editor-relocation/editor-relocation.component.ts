@@ -62,7 +62,7 @@ export class EditorRelocationComponent implements OnInit {
       btn1: {
         label: 'Ano',
         value: 'yes',
-        color: 'warn'
+        color: 'primary'
       },
       btn2: {
         label: 'Ne',
