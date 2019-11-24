@@ -25,7 +25,7 @@ export class LocalStorageService {
     }
 
     setBoolProperty(property: string, value: boolean) {
-        this.setStringProperty(property, value ? '1' : '0')
+        this.setStringProperty(property, value ? '1' : '0');
     }
 
 }

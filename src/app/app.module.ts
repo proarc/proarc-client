@@ -1,3 +1,5 @@
+import { CodebookService } from './services/codebook.service';
+import { EditorPagesComponent } from './components/editor/editor-pages/editor-pages.component';
 import { EditorMetadataComponent } from './components/editor/editor-metadata/editor-metadata.component';
 import { ViewerComponent } from './components/viewer/viewer.component';
 import { DatetimePipe } from './pipes/datetime.pipe';
@@ -101,7 +103,8 @@ export function hljsLanguages() {
     EditorPageComponent,
     EditorMetadataComponent,
     EditorGeoComponent,
-    EditorSubjectGeoComponent
+    EditorSubjectGeoComponent,
+    EditorPagesComponent
   ],
   imports: [
     BrowserModule,
@@ -124,7 +127,8 @@ export function hljsLanguages() {
     AuthService,
     UIService,
     EditorService,
-    LocalStorageService
+    LocalStorageService,
+    CodebookService
   ],
   entryComponents: [
     SimpleDialogComponent

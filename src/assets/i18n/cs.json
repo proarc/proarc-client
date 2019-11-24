@@ -75,8 +75,10 @@
       "delete": "Smazat vybrané objekty",
       "select_all": "Vybrat všechny objekty",
       "deselect_all": "Odebrat všechny objekty",
-      "multiple_selection": "Násobný výběr",
-      "single_selection": "Jednoduchý výběr"
+      "multiple_selection": "Hromadný výběr",
+      "single_selection": "Jednoduchý výběr",
+      "multiple_selection_label": "Hromadný výběr",
+      "multiple_selection_count": "{{count}} {{ count == 1 ? 'objekt' : count < 5 ? 'objekty' : 'objektů' }}"
     },
     "mods": {
       "realtime_on": "V reálném čase",
@@ -91,6 +93,21 @@
       "identifier": "Indentifikátor",
       "note": "Poznámka",
       "add_identifier": "Přidat identifikátor"
+    },
+    "pages": {
+      "title": "Hromadná úprava stránek",
+      "edit_page_type": "Editovat typy stran",
+      "edit_page_index": "Editovat indexy stran",
+      "edit_page_number": "Editovat čísla stran",
+      "page_type": "Typ strany",
+      "index_from": "Indexovat od čisla",
+      "number_from": "Číslo od",
+      "number_increment": "Přírustek",
+      "number_prefix": "Prefix",
+      "number_suffix": "Suffix",
+      "number_numbering": "Čiselná řada",
+      "number_example": "Ukázka"
+
     },
     "type": {
       "biblio": "Bibliografická metadata",

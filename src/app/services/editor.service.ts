@@ -10,6 +10,7 @@ import { Mods } from '../model/mods.model';
 import { Note } from '../model/note.model';
 import { Atm } from '../model/atm.model';
 import { Page } from '../model/page.model';
+import { PageUpdateHolder } from '../components/editor/editor-pages/editor-pages.component';
 
 @Injectable()
 export class EditorService {
@@ -353,6 +354,78 @@ export class EditorService {
           return this.multipleChildrenMode;
       }
 
+      numberOfSelectedChildren(): number {
+        let count = 0;
+        for (const item of this.children) {
+            if (item.selected) {
+                count++;
+            }
+        }
+        return count;
+      }
+
+
+      editSelectedPages(holder: PageUpdateHolder, callback: () => void) {
+        this.state = 'saving';
+        const pages = [];
+        let index = -1;
+        for (const item of this.children) {
+            if (item.isPage() && item.selected) {
+                index += 1;
+                const page = new Page();
+                page.pid = item.pid;
+                if (holder.editType) {
+                    page.type = holder.pageType;
+                }
+                if (holder.editIndex) {
+                    page.index = String(holder.pageIndex + index);
+                }
+                if (holder.editNumber) {
+                    page.number = String(holder.getNumberForIndex(index));
+                }
+                pages.push(page);
+
+            }
+        }
+        this.updatePages(pages, callback);
+      }
+
+      private updatePages(pages: Page[], callback: () => void) {
+          if (pages.length === 0) {
+              this.api.getRelations(this.left.pid).subscribe((children: DocumentItem[]) => {
+                  for (const oldChild of this.children) {
+                    if (oldChild.selected) {
+                        for (const newChild of children) {
+                            if (oldChild.pid === newChild.pid) {
+                                newChild.selected = true;
+                            }
+                        }
+                    }
+                  }
+                this.children = children;
+                this.state = 'success';
+                if (callback) {
+                    callback();
+                }
+              });
+              return;
+          }
+          const pageDef = pages.pop();
+          this.api.getPage(pageDef.pid).subscribe((page: Page) => {
+            if (pageDef.type) {
+                page.type = pageDef.type;
+            }
+            if (pageDef.index) {
+                page.index = pageDef.index;
+            }
+            if (pageDef.number) {
+                page.number = pageDef.number;
+            }
+            this.api.editPage(page).subscribe((newPage: Page) => {
+                this.updatePages(pages, callback);
+              });
+          });
+      }
 
 
 }

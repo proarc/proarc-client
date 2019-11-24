@@ -56,7 +56,7 @@ export class Page {
       'pageIndex': this.index,
       'pageType': this.type,
       'note': this.note,
-    }
+    };
   }
 
   public removeIdentifier(index: number) {
@@ -66,11 +66,11 @@ export class Page {
   }
 
   public addIdentifier() {
-    this.identifiers.push(new PageIdentifier("", ""));
+    this.identifiers.push(new PageIdentifier('', ''));
   }
 
   public addIdentifierAfter(index: number) {
-    this.identifiers.splice(index + 1, 0, new PageIdentifier("", ""));
+    this.identifiers.splice(index + 1, 0, new PageIdentifier('', ''));
   }
 
   public moveIdentifierDown(index: number) {
@@ -117,7 +117,8 @@ export class Page {
         return true;
       }
     }
-    return this.index !== this.originalIndex || this.number !== this.originalNumber || this.type !== this.originalType || this.note !== this.originalNote;
+    return this.index !== this.originalIndex || this.number !== this.originalNumber
+    || this.type !== this.originalType || this.note !== this.originalNote;
   }
 }
 
@@ -144,7 +145,7 @@ export class PageIdentifier {
   public equalTo(page: PageIdentifier): boolean {
     return this.type === page.type && this.value === page.value;
   }
-  
+
   public isEmpty(): boolean {
     return !this.type && !this.value;
   }
@@ -153,6 +154,6 @@ export class PageIdentifier {
     return {
       'type': this.type,
       'value': this.value
-    }
+    };
   }
 }

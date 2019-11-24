@@ -23,7 +23,7 @@ export class SearchComponent implements OnInit {
     'model:page',
   ];
 
-  model = 'model:chroniclevolume';
+  model = 'model:ndkperiodical';
   query = '';
 
   pageIndex = 0;

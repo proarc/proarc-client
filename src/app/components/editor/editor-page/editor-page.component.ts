@@ -1,3 +1,4 @@
+import { CodebookService } from './../../../services/codebook.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { EditorService } from 'src/app/services/editor.service';
@@ -14,69 +15,17 @@ export class EditorPageComponent implements OnInit {
   state = 'none';
   page: Page;
 
-  pageTypes = [
-    "NormalPage", 
-    "abstract",
-    "anotation",
-    "bibliography",
-    "bibliographicalPortrait",
-    "booklet",
-    "colophon",
-    "dedication", 
-    "cover",
-    "appendix",
-    "editorial",
-    "errata",
-    "frontispiece",
-    "mainArticle",
-    "spine",
-    "illustration",
-    "imgDisc",
-    "impressum",
-    "interview",
-    "calibrationTable",
-    "map",
-    "normalPage",
-    "sheetmusic",
-    "obituary",
-    "tableOfContents",
-    "edge",
-    "case",
-    "imprimatur",
-    "blank",
-    "jacket",
-    "preface",
-    "frontCover",
-    "frontEndPaper",
-    "frontEndSheet",
-    "frontJacket",
-    "index",
-    "advertisement",
-    "review",
-    "listOfIllustrations",
-    "listOfMaps",
-    "listOfSupplements",
-    "listOfTables",
-    "table",
-    "titlePage",
-    "introduction",
-    "flyLeaf",
-    "backCover",
-    "backEndPaper",
-    "backEndSheet"
-  ];
-
-
   identifierTypes: any[] = [];
-  identifierTypeCodes = [ 'barcode', 'issn','isbn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici'];
 
-
-  @Input() 
+  @Input()
   set pid(pid: string) {
     this.onPidChanged(pid);
   }
 
-  constructor(private editor: EditorService, private api: ApiService, public translator: Translator) {
+  constructor(private editor: EditorService,
+              private api: ApiService,
+              public codebook: CodebookService,
+              public translator: Translator) {
     this.translate();
     translator.languageChanged.subscribe(() => this.translate());
   }
@@ -85,7 +34,7 @@ export class EditorPageComponent implements OnInit {
   translate() {
     this.translator.waitForTranslation().then(() => {
       this.identifierTypes = [];
-      for (const code of this.identifierTypeCodes) {
+      for (const code of this.codebook.identifierTypeCodes) {
         this.identifierTypes.push({code: code, name: this.translator.instant('identifier.' + code)});
       }
       this.identifierTypes.sort((a: any, b: any): number => {

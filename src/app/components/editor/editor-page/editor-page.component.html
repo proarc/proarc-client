@@ -31,7 +31,7 @@
             </mat-form-field>
             <mat-form-field class="app-half-right">
               <mat-select [placeholder]="'editor.page.type' | translate" name="type" [(value)]="page.type">
-                <mat-option *ngFor="let type of pageTypes" [value]="type">{{ "page_type." + type.toLowerCase() | translate }}</mat-option>
+                <mat-option *ngFor="let type of codebook.pageTypes" [value]="type">{{ "page_type." + type.toLowerCase() | translate }}</mat-option>
             </mat-select>
             </mat-form-field>      
 
