@@ -1,3 +1,5 @@
+import { EditorIssueComponent } from './components/editor/editor-issue/editor-issue.component';
+import { EditorVolumeComponent } from './components/editor/editor-volume/editor-volume.component';
 import { EditorRelocationComponent } from './components/editor/editor-relocation/editor-relocation.component';
 import { CodebookService } from './services/codebook.service';
 import { EditorPagesComponent } from './components/editor/editor-pages/editor-pages.component';
@@ -106,7 +108,9 @@ export function hljsLanguages() {
     EditorGeoComponent,
     EditorSubjectGeoComponent,
     EditorPagesComponent,
-    EditorRelocationComponent
+    EditorRelocationComponent,
+    EditorVolumeComponent,
+    EditorIssueComponent
   ],
   imports: [
     BrowserModule,

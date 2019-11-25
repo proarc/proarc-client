@@ -38,10 +38,7 @@
       <button *ngIf="editor.left.isPage()" matTooltip="{{ 'editor.toolbar.editor_ocr' | translate }}" [class.app-inactive]="editor.leftEditorType != 'ocr'" (click)="editor.switchLeftEditor('ocr')" mat-icon-button>
         <mat-icon>title</mat-icon>
       </button>
-      <button *ngIf="!editor.left.isPage()" matTooltip="{{ 'editor.toolbar.editor_metadata' | translate }}" [class.app-inactive]="editor.leftEditorType != 'metadata'" (click)="editor.switchLeftEditor('metadata')" mat-icon-button>
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button *ngIf="editor.right.isPage()" matTooltip="{{ 'editor.toolbar.editor_metadata' | translate }}" [class.app-inactive]="editor.leftEditorType != 'page'" (click)="editor.switchLeftEditor('page')" mat-icon-button>
+      <button matTooltip="{{ 'editor.toolbar.editor_metadata' | translate }}" [class.app-inactive]="editor.leftEditorType != 'metadata'" (click)="editor.switchLeftEditor('metadata')" mat-icon-button>
         <mat-icon>edit</mat-icon>
       </button>
       <button matTooltip="{{ 'editor.toolbar.editor_geo' | translate }}" [class.app-inactive]="editor.leftEditorType != 'geo'" (click)="editor.switchLeftEditor('geo')" mat-icon-button>
@@ -75,8 +72,14 @@
     <app-editor-mods *ngIf="editor.leftEditorType == 'mods'" [pid]="editor.left.pid"></app-editor-mods>
     <app-editor-comment *ngIf="editor.leftEditorType == 'comment'" [pid]="editor.left.pid"></app-editor-comment>
     <app-editor-atm *ngIf="editor.leftEditorType == 'atm'" [pid]="editor.left.pid"></app-editor-atm>
-    <app-editor-page *ngIf="editor.leftEditorType == 'page'" [pid]="editor.left.pid"></app-editor-page>
-    <app-editor-metadata *ngIf="editor.leftEditorType == 'metadata'" [pid]="editor.left.pid"></app-editor-metadata>
+    
+    <ng-container *ngIf="editor.leftEditorType == 'metadata'">
+      <app-editor-page *ngIf="editor.left.isPage()" [pid]="editor.left.pid"></app-editor-page>
+      <app-editor-issue *ngIf="editor.left.isIssue()" [pid]="editor.left.pid"></app-editor-issue>
+      <app-editor-volume *ngIf="editor.left.isVolume()" [pid]="editor.left.pid"></app-editor-volume>
+      <app-editor-metadata *ngIf="editor.left.isTopLevel()"  [pid]="editor.left.pid"></app-editor-metadata>
+    </ng-container>
+    
     <app-editor-geo *ngIf="editor.leftEditorType == 'geo'" [pid]="editor.left.pid"></app-editor-geo>
   </div>
 
@@ -108,7 +111,7 @@
               <button *ngIf="editor.right.isPage()" matTooltip="{{ 'editor.toolbar.editor_image' | translate }}" [class.app-inactive]="editor.rightEditorType != 'image'" (click)="editor.switchRightEditor('image')" mat-icon-button>
                 <mat-icon>image</mat-icon>
               </button>
-              <button *ngIf="editor.right.isPage()" matTooltip="{{ 'editor.toolbar.editor_metadata' | translate }}" [class.app-inactive]="editor.rightEditorType != 'page'" (click)="editor.switchRightEditor('page')" mat-icon-button>
+              <button matTooltip="{{ 'editor.toolbar.editor_metadata' | translate }}" [class.app-inactive]="editor.rightEditorType != 'metadata'" (click)="editor.switchRightEditor('metadata')" mat-icon-button>
                 <mat-icon>edit</mat-icon>
               </button>
         </div>
@@ -133,7 +136,11 @@
         <app-editor-mods *ngIf="editor.rightEditorType == 'mods'" [pid]="editor.right.pid"></app-editor-mods>
         <app-editor-comment *ngIf="editor.rightEditorType == 'comment'" [pid]="editor.right.pid"></app-editor-comment>
         <app-editor-atm *ngIf="editor.rightEditorType == 'atm'" [pid]="editor.right.pid"></app-editor-atm>
-        <app-editor-page *ngIf="editor.rightEditorType == 'page'" [pid]="editor.right.pid"></app-editor-page>
+        <ng-container *ngIf="editor.rightEditorType == 'metadata'">
+          <app-editor-page *ngIf="editor.right.isPage()" [pid]="editor.right.pid"></app-editor-page>
+          <app-editor-issue *ngIf="editor.right.isIssue()" [pid]="editor.right.pid"></app-editor-issue>
+          <app-editor-volume *ngIf="editor.right.isVolume()" [pid]="editor.right.pid"></app-editor-volume>
+        </ng-container>
     </div>
 
     <div class="app-content" *ngIf="editor.showPagesEditor()">

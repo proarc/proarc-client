@@ -23,9 +23,6 @@ export class EditorComponent implements OnInit {
         console.log('pid', pid);
         if (pid) {
           // const page = q.get('page');
-          const article = q.get('article');
-          const chapter = q.get('chapter');
-          const fulltext = q.get('fulltext');
           this.editor.init({
             pid: pid
           });

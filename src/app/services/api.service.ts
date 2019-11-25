@@ -97,9 +97,9 @@ export class ApiService {
     return this.put('object/atm', data, httpOptions).pipe(map(response => Atm.fromJson(response['response']['data'][0])));
   }
 
-  getMetadata(pid: string): Observable<Metadata> {
+  getMetadata(pid: string, model: string): Observable<Metadata> {
     return this.get('object/mods/plain', { pid: pid }).pipe(map(response =>
-      new Metadata(pid, response['record']['content'], response['record']['timestamp'])));
+      new Metadata(pid, model, response['record']['content'], response['record']['timestamp'])));
   }
 
   getMods(pid: string): Observable<Mods> {

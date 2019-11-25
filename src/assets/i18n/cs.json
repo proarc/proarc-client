@@ -87,6 +87,16 @@
       "realtime_off": "Poslední uložená verze",
       "refresh": "Načíst aktuální"
     },
+    "volume": {
+      "title": "Popis rořníku",
+      "number": "Ročník",
+      "year": "Rok"
+    },
+    "issue": {
+      "title": "Popis čísla",
+      "number": "Číslo",
+      "date": "Datum"
+    },
     "page": {
       "title": "Popis stránky",
       "index": "Index",

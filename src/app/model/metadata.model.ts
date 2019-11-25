@@ -1,3 +1,4 @@
+import { ModsVolume } from './mods/volume.model';
 import { ModsGeo } from './mods/geo.model';
 import { ModsPublisher } from './mods/publisher.model';
 import { ModsLanguage } from './mods/language.model';
@@ -18,6 +19,9 @@ export class Metadata {
   public readonly timestamp: number = -1;
   public readonly originalMods: string;
   private mods;
+  public readonly model: string;
+
+  public volume: ModsVolume;
 
   private selectors = [
     ModsTitle.getSelector(),
@@ -32,20 +36,27 @@ export class Metadata {
 
   private fields: Map<String, ElementField>;
 
-  constructor(pid: string, mods: string, timestamp: number) {
+  constructor(pid: string, model: string, mods: string, timestamp: number) {
     this.pid = pid;
     this.timestamp = timestamp;
+    this.model = model;
     this.originalMods = mods.trim();
     // this.originalDc = dc.trim();
     // this.relations = relations;
     this.parseMods(mods);
   }
 
-
-  public static fromMods(mods: Mods) {
-    return new Metadata(mods.pid, mods.content, mods.timestamp);
+  public static fromMods(mods: Mods, model: string) {
+    return new Metadata(mods.pid, model, mods.content, mods.timestamp);
   }
 
+  public isVolume(): boolean {
+    return this.model === 'model:ndkperiodicalvolume';
+  }
+
+  public isIssue(): boolean {
+    return this.model === 'model:ndkperiodicalissue';
+  }
   private parseMods(mods: string) {
     console.log('mods', mods);
     const xml = mods.replace(/xmlns.*=".*"/g, '');
@@ -77,17 +88,18 @@ export class Metadata {
         'xmlns': 'http://www.loc.gov/mods/v3'
       };
       root = data['mods'];
-      console.log('root', root);
     }
-    for (const selector of this.selectors) {
-      if (selector === ModsGeo.getSelector()) {
-        this.fields.set(selector, new ElementField(root, selector, 'authority', ['geo:origin', 'geo:storage', 'geo:area']));
-      } else {
-        this.fields.set(selector, new ElementField(root, selector));
+    if (this.isVolume() || this.isIssue()) {
+      this.volume = new ModsVolume(root);
+    } else {
+      for (const selector of this.selectors) {
+        if (selector === ModsGeo.getSelector()) {
+          this.fields.set(selector, new ElementField(root, selector, 'authority', ['geo:origin', 'geo:storage', 'geo:area']));
+        } else {
+          this.fields.set(selector, new ElementField(root, selector));
+        }
       }
     }
-
-    console.log('this.fields', this.fields);
   }
 
   toJson() {
@@ -122,8 +134,12 @@ export class Metadata {
     // const mods = Object.assign({}, this.mods);
     const mods = $.extend(true, {}, this.mods);
     const root = mods['modsCollection'] ? mods['modsCollection']['mods'][0] : mods['mods'];
-    for (const selector of this.selectors) {
-      this.normalizeField(root, selector);
+    if (this.isVolume() || this.isIssue()) {
+
+    } else {
+      for (const selector of this.selectors) {
+        this.normalizeField(root, selector);
+      }
     }
     return mods;
   }

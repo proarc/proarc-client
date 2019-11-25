@@ -2,7 +2,7 @@
 <div class="app-editor-content-wrapper">
 
   <div class="app-editor-toolbar">
-      <div class="app-label">Popisná metadata</div>
+      <div class="app-label">{{ 'editor.page.title' | translate }}</div>
       <div class="app-actions-right">
       <button class="app-action" [class.app-disabled]="!page || !page.hasChanged()" (click)="onRevert()" [matTooltip]="'common.revert' | translate" mat-icon-button>
           <mat-icon>replay</mat-icon>

@@ -55,5 +55,17 @@ export class DocumentItem {
     return this.model === 'model:page';
   }
 
+  public isVolume(): boolean {
+    return this.model === 'model:ndkperiodicalvolume';
+  }
+
+  public isIssue(): boolean {
+    return this.model === 'model:ndkperiodicalissue';
+  }
+
+  public isTopLevel(): boolean {
+    return !this.isPage() && !this.isVolume() && !this.isIssue();
+  }
+
 
 }

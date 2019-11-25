@@ -20,9 +20,9 @@ export class EditorService {
     public ready = false;
     // public document: DocumentWrapper;
 
-    public rightEditorType = 'none'; // 'image' | 'comment' | 'ocr' | 'mods' | 'atm' | 'page'
+    public rightEditorType = 'none'; // 'image' | 'comment' | 'ocr' | 'mods' | 'atm' | 'metadata'
 
-    public leftEditorType = 'none'; // 'children' | 'image' | 'comment' | 'ocr' | 'mods' | 'atm' | 'page'
+    public leftEditorType = 'none'; // 'children' | 'image' | 'comment' | 'ocr' | 'mods' | 'atm' | 'metadata'
 
     public mode = 'chldren'; // 'detal' | 'children'
 
@@ -147,7 +147,7 @@ export class EditorService {
         } else {
             this.selectRight(this.left);
             if (this.left.isPage()) {
-                this.leftEditorType = this.properties.getStringProperty('editor.page_left_editor_type', 'page');
+                this.leftEditorType = this.properties.getStringProperty('editor.page_left_editor_type', 'metadata');
             } else {
                 this.leftEditorType = this.properties.getStringProperty('editor.left_editor_type', 'metadata');
             }
@@ -303,9 +303,13 @@ export class EditorService {
         this.state = 'saving';
         this.api.editMetadata(this.metadata).subscribe(() => {
             this.api.getMods(this.metadata.pid).subscribe((mods: Mods) => {
-                this.metadata = Metadata.fromMods(mods);
-                if (callback) {
-                    callback();
+                this.metadata = Metadata.fromMods(mods, this.metadata.model);
+                if (this.mode === 'children') {
+                    this.reloadChildren(() => {
+                        if (callback) {
+                            callback();
+                        }
+                    });
                 }
                 this.state = 'success';
             });
@@ -313,11 +317,11 @@ export class EditorService {
       }
 
       loadMetadata(callback: () => void) {
-        if (this.metadata) {
+        if (this.metadata && this.metadata.pid === this.right.pid) {
             callback();
             return;
         }
-        this.api.getMetadata(this.right.pid).subscribe((metadata: Metadata) => {
+        this.api.getMetadata(this.right.pid, this.right.model).subscribe((metadata: Metadata) => {
             this.metadata = metadata;
             if (callback) {
                 callback();
@@ -473,10 +477,11 @@ export class EditorService {
         this.updatePages(pages, callback);
       }
 
-      private updatePages(pages: Page[], callback: () => void) {
-          if (pages.length === 0) {
-              this.api.getRelations(this.left.pid).subscribe((children: DocumentItem[]) => {
-                  for (const oldChild of this.children) {
+
+      private reloadChildren(callback: () => void) {
+        this.api.getRelations(this.left.pid).subscribe((children: DocumentItem[]) => {
+            if (this.isMultipleChildrenMode()) {
+                for (const oldChild of this.children) {
                     if (oldChild.selected) {
                         for (const newChild of children) {
                             if (oldChild.pid === newChild.pid) {
@@ -484,13 +489,32 @@ export class EditorService {
                             }
                         }
                     }
-                  }
-                this.children = children;
-                this.state = 'success';
-                if (callback) {
-                    callback();
                 }
-              });
+            } else {
+                if (this.right) {
+                    for (const newChild of children) {
+                        if (this.right.pid === newChild.pid) {
+                            this.right = newChild;
+                            break;
+                        }
+                    }
+                }
+            }
+            this.children = children;
+            if (callback) {
+                callback();
+            }
+        });
+      }
+
+      private updatePages(pages: Page[], callback: () => void) {
+          if (pages.length === 0) {
+                this.reloadChildren(() => {
+                    this.state = 'success';
+                    if (callback) {
+                        callback();
+                    }
+                });
               return;
           }
           const pageDef = pages.pop();
