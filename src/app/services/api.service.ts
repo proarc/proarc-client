@@ -13,6 +13,7 @@ import { Ocr } from '../model/ocr.model';
 import { Note } from '../model/note.model';
 import { Mods } from '../model/mods.model';
 import { Page } from '../model/page.model';
+import { Profile } from '../model/profile.model';
 
 
 @Injectable()
@@ -41,6 +42,10 @@ export class ApiService {
 
   private delete(path: string, params = {}): Observable<Object> {
     return this.http.delete(encodeURI(`${ApiService.apiUrl}${path}`), { params: params });
+  }
+
+  getImportProfiles(): Observable<Profile[]> {
+    return this.get('profile', { profileGroup: 'import.profiles' }).pipe(map(response => Profile.fromJsonArray(response['response']['data'])));
   }
 
   relocateObjects(srcParent: string, dstParent: string, pids: string[]): Observable<any> {

@@ -1,0 +1,48 @@
+.app-import {
+  height: calc(100% - 50px);
+  padding: 10px 20px;
+  .actions {
+    height: 60px;
+    overflow: hidden;
+    .state-filter {
+      float: right;
+      width: 20 0px;
+    }
+    .document-search {
+      margin-left: 20px;
+      width: calc(100% - 350px);
+    }
+  }
+  .app-table {
+    height: calc(100% - 60px);
+  }
+  .search-result-list {
+    height: calc(100% - 60px);
+    .app-header {
+      flex: 1;
+    }
+    .result-label {
+      flex: 1;
+    }
+    .result-model {
+      width: 200px;
+    }
+    .result-owner {
+      width: 200px;
+    }
+    .result-created {
+      width: 180px;
+    }
+    .result-modified {
+      width: 180px;
+    }
+    .result-export {
+      width: 90px;
+    }
+    .scrollable {
+      height: calc(100% - 54px);
+      overflow: auto;
+    }
+
+  }
+}

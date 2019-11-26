@@ -10,6 +10,7 @@ import { EditDeviceComponent } from '../components/devices/edit-device/edit-devi
 import { CatalogComponent } from '../components/catalog/catalog.component';
 import { EditAudioDeviceComponent } from '../components/devices/edit-audio-device/edit-audio-device.component';
 import { EditorComponent } from '../components/editor/editor.component';
+import { ImportComponent } from '../components/import/import.component';
 
 const routes: Routes = [
   { path: 'documents/:id', component: DocumentComponent },
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'devices/:device_id/audio/:id/edit', component: EditAudioDeviceComponent },
   { path: 'search', component: SearchComponent },
   { path: 'catalog', component: CatalogComponent },
-  { path: 'viewer', component: ViewerComponent }
+  { path: 'viewer', component: ViewerComponent },
+  { path: 'import', component: ImportComponent }
 ];
 
 @NgModule({
