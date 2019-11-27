@@ -4,27 +4,26 @@
 
 <div class="app-import" *ngIf="state=='success'">
 
-  <!-- <div class="actions">
+  <div class="actions">
 
+    <a mat-raised-button color="primary" (click)="load()">
+      <mat-icon style="margin-right:8px;">cloud_download</mat-icon>
+      {{ 'import.load' | translate }}
+    </a>
 
-    <mat-form-field class="state-filter">
-      <mat-select placeholder="Model" name="model" [(ngModel)]="model">
-        <mat-option value="all">Vše</mat-option>
-        <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
+    <mat-form-field class="app-import-profiles">
+      <mat-select [placeholder]="'import.profile' | translate" [(ngModel)]="selectedProfile" (selectionChange)="onProfileChanged()">
+        <mat-option *ngFor="let profile of profiles" [value]="profile">{{ profile.label }}</mat-option>
       </mat-select>
     </mat-form-field>
-  
-    <a mat-raised-button color="primary" (click)="reload()">
-        <mat-icon style="margin-right:8px;">search</mat-icon>
-      Vyhledat
-    </a>
-  
-    <mat-form-field class="document-search">
-      <input matInput placeholder="Hledat dokument" (keyup.enter)="reload()" [(ngModel)]="query">
+
+    <mat-form-field class="app-import-devices">
+      <mat-select [placeholder]="'import.device' | translate" [(ngModel)]="selectedDevice">
+        <mat-option *ngFor="let device of devices" [value]="device">{{ device.label }}</mat-option>
+      </mat-select>
     </mat-form-field>
 
-
-
+    <mat-checkbox color="primary" class="app-import-index" [(ngModel)]="generateIndex">{{ 'import.generate_index' | translate }}</mat-checkbox>
 
 
   </div>
@@ -32,25 +31,28 @@
 
 
   <div class="app-table">
+  <div class="folder-list">
+      <!-- <div class="app-row app-header">
+        <div class="folder-name">Název</div>
+        <div class="folder-state">Stav</div>
+      </div> -->
 
-  <div class="search-result-list">
-      <div class="app-row app-header">
-        <div class="result-label">Název</div>
-        <div class="result-model">Model</div>
-        <div class="result-owner">Vlastník</div>
-        <div class="result-created">Vytvořeno</div>
-        <div class="result-modified">Změněno</div>
-        <div class="result-export">Export</div>
+      <div *ngIf="path" class="app-row app-path">
+        <span class="app-path-segment" (click)="openPath('/')">Kořenový adresář</span>
+        <ng-container *ngFor="let segment of path.split('/'); let index = index;">
+          <ng-container *ngIf="segment">
+            <mat-icon>chevron_right</mat-icon>
+            <span class="app-path-segment" (click)="openFolderAtPathIndex(index + 1)">{{ segment }}</span>
+          </ng-container>
+        </ng-container>
       </div>
+
+
     <div class="scrollable">
-      <a *ngFor="let item of items" [routerLink]="['/document', item.pid]" class="app-row">
-        <div class="result-label">{{ item.label }}</div>
-        <div class="result-model">{{ "model." + item.model | translate }}</div>
-        <div class="result-owner">{{ item.owner }}</div>
-        <div class="result-created">{{ item.created | appDatetime }}</div>
-        <div class="result-modified">{{ item.modified | appDatetime }}</div>
-        <div class="result-export">{{ item.export == 1 ? "Ano" : "Ne" }}</div>
-      </a>
+      <div *ngFor="let folder of folders" [class.app-selected]="folder == selectedFolder" class="app-row app-pointer" (click)="selectFolder(folder)" (dblclick)="openFolder(folder)">
+        <div class="folder-name">{{ folder.name }}</div>
+        <div class="folder-state">{{ "import.state." + folder.state | translate }}</div>
+      </div>
     </div>
   </div>
 
@@ -62,7 +64,7 @@
                   (page)="onPageChanged($event)">
     </mat-paginator>
     </div>
-</div> -->
+</div>
 
 
 </div>

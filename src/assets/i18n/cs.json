@@ -44,6 +44,17 @@
     },
     "no-results": "Nebyly nalezeny žádné záznamy"
   },
+  "import": {
+    "profile": "Profil",
+    "device": "Zařízení",
+    "generate_index": "Generovat index stránek",
+    "load": "Načíst",
+    "state": {
+      "new": "Nové",
+      "imported": "Načteno",
+      "unknown": "?"
+    }
+  },
   "navbar": {
     "login": "Přihlásit",
     "logout": "Odhlásit"

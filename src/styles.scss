@@ -131,6 +131,9 @@ body {
     color: $table-color-fg;
     text-decoration: none;
     overflow: hidden;
+    &.app-pointer {
+      cursor: pointer;
+    }
     &:hover {
       background: $table-color-bg-hover;
     }
@@ -143,6 +146,12 @@ body {
         background: $table-color-bg;
       }
     }
+    &.app-selected {
+      background: $primary-color;
+      color: #ffffff;
+      border-bottom-color: #ffffff2e;
+    }
+
     &.active {
       background: $table-color-bg-active;
       &:hover {

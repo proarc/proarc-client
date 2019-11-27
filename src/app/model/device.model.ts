@@ -1,4 +1,4 @@
-import { AudioDevice } from "./audioDevice.model";
+import { AudioDevice } from './audioDevice.model';
 
 export class Device {
 
@@ -140,17 +140,17 @@ export class Device {
     public isAudio(): boolean {
       return this.model === 'proarc:audiodevice';
     }
-    
+
     public audioDescription(): string {
       let desc = {};
       if (this.isAudio() && this.audioDevices.length > 0) {
-        let audios = [];
+        const audios = [];
         for (const audioDevice of this.audioDevices) {
           audios.push(audioDevice.description());
         }
         desc = {
           'amdSec': audios
-        }
+        };
       }
       return JSON.stringify(desc);
     }

@@ -4,45 +4,42 @@
   .actions {
     height: 60px;
     overflow: hidden;
-    .state-filter {
-      float: right;
-      width: 20 0px;
+    .app-import-profiles {
+      margin-left: 16px;
+      margin-right: 16px;
     }
-    .document-search {
-      margin-left: 20px;
-      width: calc(100% - 350px);
+    .app-import-devices {
+      margin-right: 16px;
     }
   }
   .app-table {
     height: calc(100% - 60px);
   }
-  .search-result-list {
+  .folder-list {
     height: calc(100% - 60px);
     .app-header {
       flex: 1;
     }
-    .result-label {
+    .folder-name {
       flex: 1;
     }
-    .result-model {
-      width: 200px;
-    }
-    .result-owner {
-      width: 200px;
-    }
-    .result-created {
-      width: 180px;
-    }
-    .result-modified {
-      width: 180px;
-    }
-    .result-export {
-      width: 90px;
+    .folder-state {
+      width: 150px;
     }
     .scrollable {
       height: calc(100% - 54px);
       overflow: auto;
     }
-
+  }
+  .app-path {
+    &:hover {
+      background: transparent;
+    }
+    .app-path-segment {
+      cursor: pointer;
+    }
+    mat-icon {
+      margin: 11px;
+    }
   }
 }

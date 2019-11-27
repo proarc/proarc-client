@@ -1,3 +1,4 @@
+import { Folder } from './../model/folder.model';
 import { CatalogueEntry } from './../model/catalogueEntry.model';
 import { Catalogue } from '../model/catalogue.model';
 import { Atm } from './../model/atm.model';
@@ -44,8 +45,14 @@ export class ApiService {
     return this.http.delete(encodeURI(`${ApiService.apiUrl}${path}`), { params: params });
   }
 
+  getImportFolders(profile: Profile, folder: string = null): Observable<Folder[]> {
+    return this.get('import/folder', { profile: profile.id, folder: folder})
+        .pipe(map(response => Folder.fromJsonArray(response['response']['data'])));
+  }
+
   getImportProfiles(): Observable<Profile[]> {
-    return this.get('profile', { profileGroup: 'import.profiles' }).pipe(map(response => Profile.fromJsonArray(response['response']['data'])));
+    return this.get('profile', { profileGroup: 'import.profiles' })
+        .pipe(map(response => Profile.fromJsonArray(response['response']['data'])));
   }
 
   relocateObjects(srcParent: string, dstParent: string, pids: string[]): Observable<any> {
