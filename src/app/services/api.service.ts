@@ -15,6 +15,7 @@ import { Note } from '../model/note.model';
 import { Mods } from '../model/mods.model';
 import { Page } from '../model/page.model';
 import { Profile } from '../model/profile.model';
+import { Batch } from '../model/batch.model';
 
 
 @Injectable()
@@ -277,6 +278,22 @@ export class ApiService {
   }
 
 
+  createImportBatch(path: string, profile: string, indices: boolean, device: string): Observable<Batch> {
+    const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        })
+    };
+    const data = `folderPath=${path}&profile=${profile}&indices=${indices}&device=${device}`;
+    return this.post('import/batch', data, httpOptions).pipe(map(response => Batch.fromJson(response['response']['data'][0])));
+  }
+
+
+  getImportBatch(id: number): Observable<Batch> {
+    return this.get('import/batch', { id: id })
+            .pipe(map(response => Batch.fromJson(response['response']['data'][0])));
+  }
+
   getThumbUrl(pid: string) {
     return this.getStreamUrl(pid, 'THUMBNAIL');
   }
@@ -314,3 +331,9 @@ export class ApiService {
 
 
 }
+
+
+
+
+//http://krameriustest.inovatika.cz/proarc-silvarium/rest/v1/import/batch/item?batchId=1302&_operationType=fetch&_startRow=3&_endRow=5&_textMatchStyle=exact&_dataSource=ImportBatchItemDataSource&isc_metaDataPrefix=_&isc_dataFormat=json
+// {"response":{"status":0,"startRow":3,"endRow":3,"totalRows":5,"data":[]}}

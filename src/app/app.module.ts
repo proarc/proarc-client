@@ -60,6 +60,7 @@ import { EditorPageComponent } from './components/editor/editor-page/editor-page
 import { EditorGeoComponent } from './components/editor/editor-geo/editor-geo.component';
 import { EditorSubjectGeoComponent } from './documents/document/editor-subject-geo/editor-subject-geo.component';
 import { ImportComponent } from './components/import/import.component';
+import { ImportDialogComponent } from './dialogs/import-dialog/import-dialog.component';
 
 
 export function hljsLanguages() {
@@ -89,6 +90,7 @@ export function hljsLanguages() {
     DeviceComponent,
     EditDeviceComponent,
     SimpleDialogComponent,
+    ImportDialogComponent,
     SearchComponent,
     DatePipe,
     DatetimePipe,
@@ -139,7 +141,8 @@ export function hljsLanguages() {
     CodebookService
   ],
   entryComponents: [
-    SimpleDialogComponent
+    SimpleDialogComponent,
+    ImportDialogComponent
   ],
   bootstrap: [AppComponent]
 })

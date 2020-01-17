@@ -4,6 +4,9 @@ import { ApiService } from 'src/app/services/api.service';
 import { Profile } from 'src/app/model/profile.model';
 import { forkJoin } from 'rxjs';
 import { Folder } from 'src/app/model/folder.model';
+import { Batch } from 'src/app/model/batch.model';
+import { MatDialog } from '@angular/material';
+import { ImportDialogComponent } from 'src/app/dialogs/import-dialog/import-dialog.component';
 
 @Component({
   selector: 'app-import',
@@ -31,12 +34,15 @@ export class ImportComponent implements OnInit {
 
   path: string;
 
-  constructor(private api: ApiService) { }
+  constructor(
+    private api: ApiService,
+    private dialog: MatDialog) { }
 
   ngOnInit() {
     // this.reload();
     this.path = '/';
-    this.state = 'loading';
+    // this.state = 'loading';
+    this.state = 'success';
 
     const rDevice = this.api.getDevices();
     const rProfiles = this.api.getImportProfiles();
@@ -81,11 +87,26 @@ export class ImportComponent implements OnInit {
   }
 
   canBeLoaded(): boolean {
-    return this.selectedDevice && this.selectedProfile && this.selectedFolder && this.selectedFolder.isNew();
+    return true || this.selectedDevice && this.selectedProfile && this.selectedFolder && this.selectedFolder.isNew();
   }
 
   load() {
-    console.log('load')
+    // console.log('load');
+    // console.log('folderPath', this.selectedFolder.path);
+    // console.log('profile', this.selectedProfile.id);
+    // console.log('indices', this.generateIndex ? 'true' : 'false');
+    // console.log('device', this.selectedDevice.id);
+
+    const batch = new Batch();
+    batch.id = 1234;
+    // this.api.getImportBatch(1302).subscribe((batch: Batch) => {
+      console.log('batch', batch);
+      const dialogRef = this.dialog.open(ImportDialogComponent, { data: batch.id });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('dialog res', result);
+      });
+    // });
+
   }
 
   reload() {

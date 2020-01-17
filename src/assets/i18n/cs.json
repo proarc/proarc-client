@@ -53,6 +53,10 @@
       "new": "Nové",
       "imported": "Načteno",
       "unknown": "?"
+    },
+    "dialog": {
+      "title": "Import",
+      "message": "Probíhá import objektů do uložiště {{ done }}/{{ count }}"
     }
   },
   "navbar": {

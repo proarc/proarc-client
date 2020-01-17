@@ -12,6 +12,7 @@ import { MatButtonModule,
   MatSlideToggleModule,
   MatSelectModule,
   MatMenuModule,
+  MatProgressBarModule,
   MatAutocompleteModule,
   MatPaginatorModule} from '@angular/material';
 
@@ -29,6 +30,7 @@ import { MatButtonModule,
     MatSlideToggleModule,
     MatSelectModule,
     MatMenuModule,
+    MatProgressBarModule,
     MatPaginatorModule,
     MatAutocompleteModule
   ];
