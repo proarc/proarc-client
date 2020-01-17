@@ -84,6 +84,10 @@ export class ImportComponent implements OnInit {
     return this.selectedDevice && this.selectedProfile && this.selectedFolder && this.selectedFolder.isNew();
   }
 
+  load() {
+    console.log('load')
+  }
+
   reload() {
     this.state = 'loading';
     this.api.getImportFolders(this.selectedProfile, this.path).subscribe((folders: Folder[]) => {

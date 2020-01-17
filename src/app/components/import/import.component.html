@@ -6,10 +6,10 @@
 
   <div class="actions">
 
-    <a mat-raised-button color="primary" (click)="load()">
+    <button mat-raised-button color="primary" (click)="load()" [disabled]="!canBeLoaded()">
       <mat-icon style="margin-right:8px;">cloud_download</mat-icon>
       {{ 'import.load' | translate }}
-    </a>
+    </button>
 
     <mat-form-field class="app-import-profiles">
       <mat-select [placeholder]="'import.profile' | translate" [(ngModel)]="selectedProfile" (selectionChange)="onProfileChanged()">
