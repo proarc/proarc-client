@@ -97,14 +97,21 @@ export class ImportComponent implements OnInit {
     // console.log('indices', this.generateIndex ? 'true' : 'false');
     // console.log('device', this.selectedDevice.id);
 
-    const batch = new Batch();
-    batch.id = 1234;
-    // this.api.getImportBatch(1302).subscribe((batch: Batch) => {
+    // const batch = new Batch();
+    // batch.id = 1302;
+    this.api.createImportBatch(this.selectedFolder.path, this.selectedProfile.id, this.generateIndex, this.selectedDevice.id).subscribe((batch: Batch) => {
       console.log('batch', batch);
       const dialogRef = this.dialog.open(ImportDialogComponent, { data: batch.id });
       dialogRef.afterClosed().subscribe(result => {
         console.log('dialog res', result);
       });
+    })
+    // this.api.getImportBatch(1302).subscribe((batch: Batch) => {
+    //   console.log('batch', batch);
+    //   const dialogRef = this.dialog.open(ImportDialogComponent, { data: batch.id });
+    //   dialogRef.afterClosed().subscribe(result => {
+    //     console.log('dialog res', result);
+    //   });
     // });
 
   }

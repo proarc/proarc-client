@@ -23,4 +23,11 @@ export class Batch {
       return batch;
   }
   
+  public static statusFromJson(json): [number, number] {
+    if (!json) {
+      return null;
+    }
+    return [json['endRow'], json['totalRows']];
+  }
+  
 }
