@@ -1,5 +1,5 @@
 <div class="breadcrumb-nav">
-  <span>Zařízení</span>
+  <span>{{ 'device.devices' | translate }}</span>
 </div>
 
 <div class="devices" *ngIf="state=='success'">
@@ -8,7 +8,7 @@
     <a mat-raised-button 
         color="primary"
         [routerLink]="['/devices', 'new']">
-        Přidat zařízení
+        {{ 'device.add_device' | translate }}
     </a>
   </div>
 
@@ -16,13 +16,13 @@
   <div class="device-list">
     <div class="app-table">
       <div class="app-row app-header">
-        <div class="device-model">Model</div>
-        <div class="device-name">Název</div>
+        <div class="device-model">{{ 'device.model' | translate }}</div>
+        <div class="device-name">{{ 'device.name' | translate }}</div>
       </div>
     </div>
     <div class="scrollable app-table">
       <a *ngFor="let device of devices" [routerLink]="['/devices', device.id]" class="app-row">
-        <div class="device-model">{{ 'device.model.' + device.model | translate }}</div>
+        <div class="device-model">{{ 'device.models.' + device.model | translate }}</div>
         <div class="device-name">{{ device.label }}</div>
       </a>
     </div>

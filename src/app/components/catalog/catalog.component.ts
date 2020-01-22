@@ -5,6 +5,7 @@ import { Catalogue } from 'src/app/model/catalogue.model';
 import { MatDialog } from '@angular/material';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
+import { Translator } from 'angular-translator';
 
 @Component({
   selector: 'app-catalog',
@@ -24,7 +25,9 @@ export class CatalogComponent implements OnInit {
   results: CatalogueEntry[];
   message: string;
 
-  constructor(private api: ApiService, private dialog: MatDialog) { }
+  constructor(private api: ApiService, 
+              private translator: Translator,
+              private dialog: MatDialog) { }
 
   ngOnInit() {
     this.state = 'loading';
@@ -80,10 +83,10 @@ export class CatalogComponent implements OnInit {
 
   onCatalogSearchError() {
     const data: SimpleDialogData = {
-      title: 'Vyhledání selhalo',
-      message: 'Vyhledání ve vybraném katalogu se nezdařilo',
+      title: String(this.translator.instant('catalog.dialog_search_failed.title')),
+      message: String(this.translator.instant('catalog.dialog_search_failed.message')),
       btn1: {
-        label: 'Ok',
+        label: String(this.translator.instant('common.ok')),
         value: 'ok',
         color: 'default'
       }

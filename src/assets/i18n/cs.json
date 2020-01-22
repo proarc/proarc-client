@@ -20,9 +20,29 @@
     "warning": "Varování"
   },
   "device": {
-    "model": {
+    "devices": "Zařízení",
+    "device": "Zařízení",
+    "add_device": "Přidat zařízení",
+    "name": "Název",
+    "model": "Typ",
+    "edit": "Upravit zařízení",
+    "delete": "Odstranit zařízení",
+    "new": "Nové zařízení",
+    "create": "Vytvořit zařízení",
+    "editing": "Úprava zařízení",
+    "models": {
       "proarc:audiodevice": "Audio zařízení",
       "proarc:device": "Obrazové zařízení"
+    },
+    "delete_dialog": {
+      "title": "Odstranění zařízení",
+      "message": "Opravdu chcete odstranit zařízení {{ name }}?",
+      "success": "Zařízení bylo odstraněno"
+    },
+    "delete_audio_dialog": {
+      "title": "Odstranění audio linky",
+      "message": "Opravdu chcete audio linku odstranit?",
+      "success": "Audio linka byla odstraněna"
     }
   },
   "catalog": {
@@ -41,6 +61,10 @@
       "sys": "SYS",
       "author": "Autor",
       "title": "Název"
+    },
+    "dialog_search_failed": {
+      "title": "Vyhledání selhalo",
+      "message": "Vyhledání ve vybraném katalogu se nezdařilo"
     },
     "no-results": "Nebyly nalezeny žádné záznamy"
   },
@@ -78,9 +102,17 @@
     "refresh": "Obnovit",
     "reload": "Načíst znovu",
     "edit": "Přejít na objekt",
-    "continue": "Pokračovat"
+    "continue": "Pokračovat",
+    "reload_dialog": {
+      "title": "Opětovné načtení dávky",
+      "message": "Opravdu chcete importovaný adresář načíst znovu? Vytvořena metadata budou odstraněna."
+    }
   },
   "navbar": {
+    "search": "Hledat",
+    "import": "Import",
+    "catalog": "Katalog",
+    "devices": "Zařízení",
     "login": "Přihlásit",
     "logout": "Odhlásit"
   },
@@ -116,7 +148,24 @@
       "multiple_selection": "Hromadný výběr",
       "single_selection": "Jednoduchý výběr",
       "multiple_selection_label": "Hromadný výběr",
-      "multiple_selection_count": "{{count == 0 ? 'Není vybrán žádný objekt' : (count == 1 ? '1 objekt' : count < 5 ? count + ' objekty' : count + ' objektů') }}"
+      "multiple_selection_count": "{{count == 0 ? 'Není vybrán žádný objekt' : (count == 1 ? '1 objekt' : count < 5 ? count + ' objekty' : count + ' objektů') }}",
+      "move_dialog": {
+        "title": "Změna pozice",
+        "message": "Zvolte novou pozici, na kterou chcete vybraný objekt v rámci nadřazeného objektu přesunout.",
+        "position": "Pozice",
+        "move": "Přesunout"
+      },
+      "relocate_dialog": {
+        "title": "Přesun objektů",
+        "message": "Opravdu chcete přesunou vybrané objekty do nově zvoleného objektu?",
+        "go": "Přejít na nově zvolený objekt"
+      },
+      "delete_dialog": {
+        "title": "Smazání objektů",
+        "message": "Opravdu chcete vybrané objekty smazat?",
+        "permanently": "Smazat trvale z uložiště",
+        "success": "Objekty byly smazány"
+      }
     },
     "mods": {
       "realtime_on": "V reálném čase",

@@ -5,6 +5,7 @@ import { User } from 'src/app/model/user.model';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { MatDialog } from '@angular/material';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
+import { Translator } from 'angular-translator';
 
 @Component({
   selector: 'app-history',
@@ -37,7 +38,7 @@ export class HistoryComponent implements OnInit {
   ];
 
   constructor(
-    private api: ApiService, private dialog: MatDialog) { }
+    private api: ApiService, private dialog: MatDialog, private translator: Translator) { }
 
   ngOnInit() {
     this.reload();
@@ -62,25 +63,27 @@ export class HistoryComponent implements OnInit {
   }
 
   onReloadBatch() {
-    const data: SimpleDialogData = {
-      title: 'Opětovné načtení dávky',
-      message: `Opravdu chcete importovaný adresář načíst znovu? Vytvořena metadata budou odstraněna.`,
-      btn2: {
-        label: 'Ne',
-        value: 'no',
-        color: 'default'
-      },
-      btn1: { 
-        label: 'Ano',
-        value: 'yes',
-        color: 'warn'
-      }
-    };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'yes') {
-        this.reloadBatch();
-      }
+    this.translator.waitForTranslation().then(() => {
+      const data: SimpleDialogData = {
+        title: String(this.translator.instant('history.reload_dialog.title')),
+        message: String(this.translator.instant('history.reload_dialog.message')),
+        btn2: {
+          label: String(this.translator.instant('common.no')),
+          value: 'no',
+          color: 'default'
+        },
+        btn1: { 
+          label: String(this.translator.instant('common.yes')),
+          value: 'yes',
+          color: 'warn'
+        }
+      };
+      const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === 'yes') {
+          this.reloadBatch();
+        }
+      });
     });
   }
 

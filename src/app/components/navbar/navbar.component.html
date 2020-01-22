@@ -5,14 +5,14 @@
 
   <span class="fill-remaining-space"></span>
   
-
-  <a *ngIf="auth.isLoggedIn()" [routerLink]="['/search']" routerLinkActive="active" mat-button>Hledat</a>
-  <a *ngIf="auth.isLoggedIn()" [routerLink]="['/import']" routerLinkActive="active" mat-button>Import</a>
-  <a *ngIf="auth.isLoggedIn()" [routerLink]="['/catalog']" routerLinkActive="active" mat-button>Katalog</a>
-  <a *ngIf="auth.isLoggedIn()" [routerLink]="['/devices']" routerLinkActive="active" mat-button>Zařízení</a>
+  <ng-container *ngIf="auth.isLoggedIn()">
+    <a [routerLink]="['/search']" routerLinkActive="active" mat-button>{{ "navbar.search" | translate }}</a>
+    <a [routerLink]="['/catalog']" routerLinkActive="active" mat-button>{{ "navbar.catalog" | translate }}</a>
+    <a [routerLink]="['/import']" routerLinkActive="active" mat-button>{{ "navbar.import" | translate }}</a>
+    <a [routerLink]="['/devices']" routerLinkActive="active" mat-button>{{ "navbar.devices" | translate }}</a>
+    <a (click)="logout()" mat-button>{{ "navbar.logout" | translate }}</a>
+  </ng-container>
   <a *ngIf="!auth.isLoggedIn()"  [routerLink]="['/login']" routerLinkActive="active" mat-button>{{ "navbar.login" | translate }}</a>
-  <a *ngIf="auth.isLoggedIn()" (click)="logout()" mat-button>{{ "navbar.logout" | translate }}</a>
-
 
   <button class="btn-lang" mat-icon-button [matMenuTriggerFor]="lang">
     <img src="/assets/img/flag_{{translator.language}}.png">

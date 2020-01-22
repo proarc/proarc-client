@@ -3,18 +3,47 @@
     "remove": "Remove",
     "cancel": "Cancel",    
     "edit": "Edit",    
-    "open": "Open",        
+    "open": "Open",    
+    "revert": "Revert",       
     "ok": "OK",
     "yes": "Yes",
     "no": "No",
     "close": "Close",
     "move_up": "Move Up",
     "move_down": "Move Down",
+    "expand": "Expand",
+    "collapse": "Collapse",
     "nothing_to_save": "No changes made",
     "save": "Save",
     "publish": "Save & Publish",
     "unpublish": "Unpublish",
     "warning": "Warning"
+  },
+  "device": {
+    "devices": "Devices",
+    "device": "Device",
+    "add_device": "Add device",
+    "name": "Name",
+    "model": "Type",
+    "edit": "Edit device",
+    "delete": "Remove device",
+    "new": "New device",
+    "create": "Create device",
+    "editing": "Edit device",
+    "models": {
+      "proarc:audiodevice": "Audio device",
+      "proarc:device": "Image device"
+    },
+    "delete_dialog": {
+      "title": "Remove device",
+      "message": "Are you sure you want to remove device {{ name }}?",
+      "success": "Device has been removed"
+    },
+    "delete_audio_dialog": {
+      "title": "Remove audio device",
+      "message": "Are you sure you want to remove the audio device?",
+      "success": "Audio device has been removed"
+    }
   },
   "catalog": {
     "field": {
@@ -33,13 +62,111 @@
       "author": "Author",
       "title": "Name"
     },
+    "dialog_search_failed": {
+      "title": "Search failed",
+      "message": "Failed to search the selected catalog"
+    },
     "no-results": "No records found"
   },
+  "import": {
+    "profile": "Profile",
+    "device": "Device",
+    "generate_index": "Generate page indices",
+    "load": "Load folder",
+    "state": {
+      "new": "New",
+      "imported": "Loaded",
+      "unknown": "?"
+    },
+    "dialog": {
+      "title": "Import",
+      "message": "Importing objects to the repository {{ done }}/{{ count }}"
+    }
+  },
+  "history": {
+    "title": "Batch import management",
+    "state": "State",
+    "folder": "Folder",
+    "user": "User",
+    "created": "Created",
+    "modified": "Modified",
+    "states": {
+      "ALL": "All",
+      "LOADING": "Loading",
+      "LOADING_FAILED": "Loading failed",
+      "LOADED": "Loaded",
+      "INGESTING": "Saving",
+      "INGESTING_FAILED": "Saving failed",
+      "INGESTED": "Saved"
+    },
+    "refresh": "Refresh",
+    "reload": "Reload batch",
+    "edit": "Go to the object",
+    "continue": "Resume",
+    "reload_dialog": {
+      "title": "Batch reloading",
+      "message": "Are you sure you want to reload the imported directory? The metadata will be deleted."
+    }
+  },
   "navbar": {
+    "search": "Search",
+    "import": "Import",
+    "catalog": "Catalog",
+    "devices": "Devices",
     "login": "Log in",
     "logout": "Log out"
   },
   "editor": {
+    "toolbar": {
+      "nav_up": "Go to parent object",
+      "nav_prev": "Go to previous object",
+      "nav_next": "Go to next object",
+      "editor_image": "Image",
+      "editor_comment": "Comment",
+      "editor_ocr": "OCR",
+      "editor_mods": "MODS XML",
+      "editor_atm": "Administrative and technical metadata",
+      "editor_metadata": "Metadata",
+      "editor_geo": "Geographic location",
+      "editor_mode_detail": "Detail mode",
+      "editor_mode_children": "Structure mode"
+    },
+    "children": {
+      "view_list": "Table",
+      "view_grid": "Grid",
+      "view_icons": "Thumbnails",
+      "short_labels_on": "Display uncut labels",
+      "short_labels_off": "Display shorten labels",
+      "open_object": "Go to the object",
+      "select_object": "Load the object on right",
+      "reorder": "Reorder objects",
+      "delete": "Remove selected objects",
+      "move": "Move to position",
+      "relocate": "Relocate selected objects",
+      "select_all": "Select all objects",
+      "deselect_all": "Deselect all objects",
+      "multiple_selection": "Multiple selection",
+      "single_selection": "Single selection",
+      "multiple_selection_label": "Multiple selection",
+      "multiple_selection_count": "{{count == 0 ? 'No object selected' : (count == 1 ? '1 object' : count + ' objects') }}",
+      "move_dialog": {
+        "title": "Move to position",
+        "message": "Choose a new position to move the selected object within the parent object.",
+        "position": "Position",
+        "move": "Move"
+      },
+      "relocate_dialog": {
+        "title": "Relocate objects",
+        "message": "Are you sure you want to move selected objects to the chosen object?",
+        "go": "Go to the selected object"
+      },
+      "delete_dialog": {
+        "title": "Remove objects",
+        "message": "Are you sure you want to remove selected objects",
+        "permanently": "Remove permanently",
+        "success": "Objects have been removed"
+      }
+    },
     "type": {
       "biblio": "Bibliographical metadata",
       "relations": "Relations"
@@ -151,6 +278,16 @@
     "sysno": "System number",
     "permalink": "Permalink",
     "sici": "SICI"
+  },
+  "model": {
+    "model:ndkperiodical": "NDK Periodical",
+    "model:ndkperiodicalvolume": "NDK Volume",
+    "model:ndkperiodicalissue": "NDK Isssue",
+    "model:ndkperiodicalsupplement": "NDK Supplement",
+    "model:ndkarticle": "NDK Article",
+    "model:ndkmonographvolume": "NDK Monograph",
+    "model:chroniclevolume": "Chronicle",
+    "model:page": "Page"
   },
   "viewer": {
     "tooltip": {

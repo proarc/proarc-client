@@ -8,6 +8,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { MatDialog } from '@angular/material';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
+import { Translator } from 'angular-translator';
 
 
 
@@ -35,6 +36,7 @@ export class EditorChildrenComponent implements OnInit {
 
   constructor(public editor: EditorService,
               private dialog: MatDialog,
+              private translator: Translator,
               private ui: UIService,
               private api: ApiService,
               private properties: LocalStorageService) {
@@ -173,7 +175,6 @@ export class EditorChildrenComponent implements OnInit {
     const from = this.sourceIndex - 1;
     const to = targetIndex - 1;
     if (from !== to) {
-      console.log('reoredr ' + from + ' and ' + to);
       this.reorder(from, to);
     }
   }
@@ -201,48 +202,50 @@ export class EditorChildrenComponent implements OnInit {
   }
 
   onMove() {
-    const fromIndex = this.editor.children.indexOf(this.editor.right);
-    const input = {
-      label: 'Pozice',
-      value: fromIndex + 1,
-      min: 1,
-      max: this.editor.children.length
-    };
-    const data: SimpleDialogData = {
-      title: 'Změna pozice',
-      message: 'Zvolte novou pozici, na kterou chcete vybraný objekt v rámci nadřazeného objektu přesunout.',
-      width: 400,
-      btn1: {
-        label: 'Přesunout',
-        value: 'yes',
-        color: 'primary'
-      },
-      btn2: {
-        label: 'Ne',
-        value: 'no',
-        color: 'default'
-      },
-      numberInput: input
-    };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'yes') {
-        const toIndex = input.value - 1;
-        if (toIndex >= 0 && toIndex < this.editor.children.length) {
-          this.reorder(fromIndex, input.value - 1);
+    this.translator.waitForTranslation().then(() => {
+      const fromIndex = this.editor.children.indexOf(this.editor.right);
+      const input = {
+        label: String(this.translator.instant('editor.children.move_dialog.position')),
+        value: fromIndex + 1,
+        min: 1,
+        max: this.editor.children.length
+      };
+      const data: SimpleDialogData = {
+        title: String(this.translator.instant('editor.children.move_dialog.title')),
+        message: String(this.translator.instant('editor.children.move_dialog.message')),
+        width: 400,
+        btn1: {
+          label: String(this.translator.instant('editor.children.move_dialog.move')),
+          value: 'yes',
+          color: 'primary'
+        },
+        btn2: {
+          label: String(this.translator.instant('common.cancel')),
+          value: 'no',
+          color: 'default'
+        },
+        numberInput: input
+      };
+      const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === 'yes') {
+          const toIndex = input.value - 1;
+          if (toIndex >= 0 && toIndex < this.editor.children.length) {
+            this.reorder(fromIndex, input.value - 1);
+          }
         }
-      }
+      });
     });
   }
 
   onDelete() {
     const checkbox = {
-      label: 'Smazat trvale z uložiště',
+      label: String(this.translator.instant('editor.children.delete_dialog.permanently')),
       checked: false
     };
     const data: SimpleDialogData = {
-      title: 'Smazání objektů',
-      message: 'Opravdu chcete vybrané objekty smazat?',
+      title: String(this.translator.instant('editor.children.delete_dialog.title')),
+      message: String(this.translator.instant('editor.children.delete_dialog.message')),
       btn1: {
         label: 'Ano',
         value: 'yes',
@@ -261,7 +264,7 @@ export class EditorChildrenComponent implements OnInit {
         console.log('delete, pernamently: ', checkbox.checked);
         this.editor.deleteSelectedChildren(checkbox.checked, (success: boolean) => {
           if (success) {
-            this.ui.showInfoSnackBar('Objekty byly smazány');
+            this.ui.showInfoSnackBar(String(this.translator.instant('editor.children.delete_dialog.success')));
           }
         });
       }

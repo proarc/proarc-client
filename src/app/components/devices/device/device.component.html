@@ -1,6 +1,6 @@
 <div class="breadcrumb-nav">
   <div *ngIf="device">
-      <a [routerLink]="['/devices']">Zařízení</a>
+      <a [routerLink]="['/devices']">{{ 'device.devices' | translate }}</a>
       <mat-icon>chevron_right</mat-icon>
       <span>{{device.label}}</span>
   </div>
@@ -9,7 +9,7 @@
 
   <div class="app-device-label">{{ device.label }}</div>
 
-  <div class="app-detail-key-value">Typ: <strong>{{ 'device.model.' + device.model | translate }}</strong></div>
+  <div class="app-detail-key-value">Typ: <strong>{{ 'device.models.' + device.model | translate }}</strong></div>
   <div class="app-detail-key-value">Image Producer: <strong>{{ device.imageProducer }}</strong></div>
   <div class="app-detail-key-value">Capture Device: <strong>{{ device.captureDevice }}</strong></div>
 
@@ -85,14 +85,14 @@
           [routerLink]="['/devices', device.id, 'edit']" 
           mat-raised-button>
               <mat-icon style="margin-right:8px;">edit</mat-icon>
-              Upravit zařízení
+              {{ 'device.edit' | translate }}
       </a>
       <button mat-raised-button
         color="warn"
         class="action-button"
         (click)="removeDevice()">
         <mat-icon style="margin-right:8px;">delete</mat-icon>
-        Odstranit zařízení
+          {{ 'device.delete' | translate }}
       </button>
       <a color="primary" *ngIf="device.isAudio()"
           [routerLink]="['/devices', device.id, 'audio', 'new']" 

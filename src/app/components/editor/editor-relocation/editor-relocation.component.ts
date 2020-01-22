@@ -5,6 +5,7 @@ import { EditorService } from 'src/app/services/editor.service';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { MatDialog } from '@angular/material';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
+import { Translator } from 'angular-translator';
 
 @Component({
   selector: 'app-editor-relocation',
@@ -28,6 +29,7 @@ export class EditorRelocationComponent implements OnInit {
 
   constructor(public editor: EditorService,
               private dialog: MatDialog,
+              private translator: Translator,
               private api: ApiService) {
   }
 
@@ -53,19 +55,19 @@ export class EditorRelocationComponent implements OnInit {
 
 
     const checkbox = {
-      label: 'Přejít na nově zvolený objekt',
+      label: String(this.translator.instant('editor.children.relocate_dialog.go')),
       checked: false
     };
     const data: SimpleDialogData = {
-      title: 'Přesun objektů',
-      message: 'Opravdu chcete přesunou vybrané objekty do nově zvoleného objektu?',
+      title: String(this.translator.instant('editor.children.relocate_dialog.title')),
+      message: String(this.translator.instant('editor.children.relocate_dialog.message')),
       btn1: {
-        label: 'Ano',
+        label: String(this.translator.instant('common.yes')),
         value: 'yes',
         color: 'primary'
       },
       btn2: {
-        label: 'Ne',
+        label: String(this.translator.instant('common.no')),
         value: 'no',
         color: 'default'
       },

@@ -1,15 +1,15 @@
 <div class="breadcrumb-nav">
   <div *ngIf="mode == 'new'">
-      <a [routerLink]="['/devices']">Zařízení</a>
+      <a [routerLink]="['/devices']">{{ 'device.devices' | translate }}</a>
       <mat-icon>chevron_right</mat-icon>
-      <span>Nové zařízení</span>
+      <span>{{ 'device.new' | translate }}</span>
   </div>
   <div *ngIf="mode == 'edit' && device">
-      <a [routerLink]="['/devices']">Zařízení</a>
+      <a [routerLink]="['/devices']">{{ 'device.device' | translate }}</a>
       <mat-icon>chevron_right</mat-icon>
       <a [routerLink]="['/devices', device.id]">{{ deviceName }}</a>
       <mat-icon>chevron_right</mat-icon>
-      <span>Úprava zařízení</span>
+      <span>{{ 'device.editing' | translate }}</span>
   </div>
 </div>
 
@@ -22,10 +22,9 @@
 
             <mat-form-field *ngIf="mode == 'new'">
                 <mat-select required placeholder="Typ zařízení" name="model" [(value)]="device.model">
-                    <mat-option *ngFor="let model of models" [value]="model">{{ 'device.model.' + model | translate }}</mat-option>
+                    <mat-option *ngFor="let model of models" [value]="model">{{ 'device.models.' + model | translate }}</mat-option>
                 </mat-select>
             </mat-form-field>
-
 
               <mat-form-field >
                   <input type="text" matInput autocomplete="off" placeholder="Název" [disabled]="state=='saving'"
@@ -145,8 +144,8 @@
           </div>
           <div class="app-actions">
               <button (click)="onSubmit()" mat-raised-button [disabled]="state=='saving'" color="primary">
-                  <span *ngIf="mode=='new'">Vytvořit zařízení</span>
-                  <span *ngIf="mode=='edit'">Upravit zařízení</span>
+                  <span *ngIf="mode=='new'">{{ 'device.create' | translate }}</span>
+                  <span *ngIf="mode=='edit'">{{ 'device.edit' | translate }}</span>
               </button>
 
               <mat-spinner *ngIf="state=='saving'" [strokeWidth]="3" [diameter]="30">

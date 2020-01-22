@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { MatDialog } from '@angular/material';
+import { Translator } from 'angular-translator';
 
 @Component({
   selector: 'app-device',
@@ -21,6 +22,7 @@ export class DeviceComponent implements OnInit {
   constructor(private api: ApiService,
               private dialog: MatDialog,
               private router: Router,
+              private translator: Translator,
               private ui: UIService,
               private route: ActivatedRoute) { }
 
@@ -40,43 +42,45 @@ export class DeviceComponent implements OnInit {
   }
 
   removeDevice() {
-    const data: SimpleDialogData = {
-      title: 'Odstranění zařízení',
-      message: `Opravdu chcete odstranit zařízení ${this.device.label || ''}?`,
-      btn2: {
-        label: 'Ne',
-        value: 'no',
-        color: 'default'
-      },
-      btn1: {
-        label: 'Ano',
-        value: 'yes',
-        color: 'warn'
-      }
-    };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'yes') {
-        this.state = 'loading';
-        this.api.removeDevice(this.device.id).subscribe(() => {
-          this.ui.showInfoSnackBar('Zařízení bylo odstraněno');
-          this.router.navigate(['/devices']);
-        });
-      }
+    this.translator.waitForTranslation().then(() => {
+      const data: SimpleDialogData = {
+        title: String(this.translator.instant('device.delete_dialog.title')),
+        message: String(this.translator.instant('device.delete_dialog.message', { name: this.device.label })),
+        btn2: {
+          label: String(this.translator.instant('common.no')),
+          value: 'no',
+          color: 'default'
+        },
+        btn1: {
+          label: String(this.translator.instant('common.yes')),
+          value: 'yes',
+          color: 'warn'
+        }
+      };
+      const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === 'yes') {
+          this.state = 'loading';
+          this.api.removeDevice(this.device.id).subscribe(() => {
+            this.ui.showInfoSnackBar(String(this.translator.instant('device.delete_dialog.success')));
+            this.router.navigate(['/devices']);
+          });
+        }
+      });
     });
   }
 
   removeAudioDevice(position: number) {
     const data: SimpleDialogData = {
-      title: 'Odstranění audio linky',
-      message: 'Opravdu chcete audio linku odstranit?',
+      title: String(this.translator.instant('device.delete_audio_dialog.title')),
+      message: String(this.translator.instant('device.delete_audio_dialog.message')),
       btn2: {
-        label: 'Ne',
+        label: String(this.translator.instant('common.no')),
         value: 'no',
         color: 'default'
       },
       btn1: {
-        label: 'Ano',
+        label: String(this.translator.instant('common.yes')),
         value: 'yes',
         color: 'warn'
       }
@@ -87,7 +91,7 @@ export class DeviceComponent implements OnInit {
         this.state = 'loading';
         this.device.audioDevices.splice(position, 1);
         this.api.editDevice(this.device).subscribe((device: Device) => {
-          this.ui.showInfoSnackBar('Audio linka byla odstraněna');
+          this.ui.showInfoSnackBar(String(this.translator.instant('device.delete_dialog.success')));
           this.reload();
         });
       }
