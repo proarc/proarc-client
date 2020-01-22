@@ -16,6 +16,7 @@ import { Mods } from '../model/mods.model';
 import { Page } from '../model/page.model';
 import { Profile } from '../model/profile.model';
 import { Batch } from '../model/batch.model';
+import { User } from '../model/user.model';
 
 
 @Injectable()
@@ -293,10 +294,27 @@ export class ApiService {
             .pipe(map(response => Batch.statusFromJson(response['response'])));
   }
 
+  getImportBatches(state: string): Observable<Batch[]> {
+    let params = {
+      'sortBy': 'timestamp'
+    };
+    if (state && state !== 'ALL') {
+      params['state'] = state;
+    }
+
+    return this.get('import/batch', params)
+            .pipe(map(response => Batch.fromJsonArray(response['response']['data'])));
+  }
+
 
   getImportBatch(id: number): Observable<Batch> {
     return this.get('import/batch', { id: id })
             .pipe(map(response => Batch.fromJson(response['response']['data'][0])));
+  }
+
+  getUsers(): Observable<User[]> {
+    return this.get('user')
+            .pipe(map(response => User.fromJsonArray(response['response']['data'])));
   }
 
   getThumbUrl(pid: string) {
@@ -307,8 +325,6 @@ export class ApiService {
   getStreamUrl(pid: string, stream: string) {
     return `${ApiService.apiUrl}object/dissemination?pid=${pid}&datastream=${stream}`;
   }
-
-
 
   getMods2(uuid: string): Observable<Object> {
     const url = 'https://kramerius.mzk.cz/search/api/v5.0/item/' + uuid + '/streams/BIBLIO_MODS';

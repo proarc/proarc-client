@@ -39,11 +39,8 @@ export class ImportComponent implements OnInit {
     private dialog: MatDialog) { }
 
   ngOnInit() {
-    // this.reload();
     this.path = '/';
-    // this.state = 'loading';
-    this.state = 'success';
-
+    this.state = 'loading';
     const rDevice = this.api.getDevices();
     const rProfiles = this.api.getImportProfiles();
     forkJoin(rDevice, rProfiles).subscribe(([devices, profiles]: [Device[], Profile[]]) => {

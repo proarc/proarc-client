@@ -59,6 +59,27 @@
       "message": "Probíhá import objektů do uložiště {{ done }}/{{ count }}"
     }
   },
+  "history": {
+    "title": "Správa importních dávek",
+    "state": "Stav",
+    "folder": "Složka",
+    "user": "Uživatel",
+    "created": "Vytvořeno",
+    "modified": "Upraveno",
+    "states": {
+      "ALL": "Vše",
+      "LOADING": "Načítání",
+      "LOADING_FAILED": "Chyba načítání",
+      "LOADED": "Načteno",
+      "INGESTING": "Ukládání",
+      "INGESTING_FAILED": "Chyba ukládání",
+      "INGESTED": "Uloženo"
+    },
+    "refresh": "Obnovit",
+    "reload": "Načíst znovu",
+    "edit": "Přejít na objekt",
+    "continue": "Pokračovat"
+  },
   "navbar": {
     "login": "Přihlásit",
     "logout": "Odhlásit"

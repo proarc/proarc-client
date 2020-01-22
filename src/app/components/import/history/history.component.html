@@ -1,0 +1,78 @@
+<div class="breadcrumb-nav">
+  <a [routerLink]="['/import']">Import</a>
+  <mat-icon>chevron_right</mat-icon>
+  <span>{{ 'history.title' | translate }}</span>
+</div>
+
+<div class="app-history" *ngIf="state=='success'">
+
+  <div class="actions">
+
+    <mat-form-field class="app-history-states">
+      <mat-select [placeholder]="'history.state' | translate" [(ngModel)]="selectedState" (selectionChange)="onStateChanged()">
+        <mat-option *ngFor="let state of batchStates" [value]="state">{{ 'history.states.' + state | translate }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <button mat-raised-button color="primary" (click)="reload()">
+      <mat-icon style="margin-right:8px;">sync</mat-icon>
+      {{ 'history.refresh' | translate }}
+    </button>
+
+    <button mat-raised-button color="warn" (click)="onReloadBatch()" 
+      *ngIf="selectedBatch && (selectedBatch.state === 'LOADED' || selectedBatch.state === 'LOADING_FAILED')">
+      <mat-icon style="margin-right:8px;">arrow_back</mat-icon>
+      {{ 'history.reload' | translate }}
+    </button>
+
+    <button mat-raised-button color="primary" (click)="onEditBatchObject()" 
+      *ngIf="selectedBatch && selectedBatch.state === 'INGESTED'">
+      <mat-icon style="margin-right:8px;">edit</mat-icon>
+      {{ 'history.edit' | translate }}
+    </button>
+
+    <button mat-raised-button color="primary" (click)="onContinueWithBatch()" 
+      *ngIf="selectedBatch && selectedBatch.state === 'LOADED'">
+      <mat-icon style="margin-right:8px;">arrow_forward</mat-icon>
+      {{ 'history.continue' | translate }}
+    </button>
+  </div>
+
+
+  <div class="app-table">
+  <div class="batch-list">
+    <div class="app-row app-header">
+      <div class="batch-folder">{{ 'history.folder' | translate }}</div>
+      <div class="batch-created">{{ 'history.created' | translate }}</div>
+      <div class="batch-modified">{{ 'history.modified' | translate }}</div>
+      <div class="batch-state">{{ 'history.state' | translate }}</div>
+      <div class="batch-user">{{ 'history.user' | translate }}</div>
+
+    </div>
+    <div class="scrollable">
+      <div *ngFor="let batch of batches" [class.app-selected]="batch == selectedBatch" class="app-row app-pointer" (click)="selectBatch(batch)">
+        <div class="batch-folder">{{ batch.description }}</div>
+        <div class="batch-created">{{ batch.create | appDatetime }}</div>
+        <div class="batch-modified">{{ batch.timestamp | appDatetime }}</div>
+        <div class="batch-state">{{ 'history.states.' + batch.state | translate }}</div>
+        <div class="batch-user">{{ batch.user }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="paginator-wrapper">
+    <mat-paginator [length]="resultCount"
+                  hidePageSize="true"
+                  [pageIndex]="pageIndex"
+                  [pageSize]="pageSize"
+                  (page)="onPageChanged($event)">
+    </mat-paginator>
+    </div>
+</div>
+
+
+</div>
+
+<mat-spinner *ngIf="state=='loading'" [strokeWidth]="5" [diameter]="60" class="center-spinner">
+</mat-spinner>

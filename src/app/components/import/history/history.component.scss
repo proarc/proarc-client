@@ -1,0 +1,43 @@
+.app-history {
+  height: calc(100% - 50px);
+  padding: 10px 20px;
+  .actions {
+    height: 60px;
+    overflow: hidden;
+    .app-batch-state {
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+    button {
+      margin-left: 16px;
+    }
+  }
+  .app-table {
+    height: calc(100% - 60px);
+  }
+  .batch-list {
+    height: calc(100% - 60px);
+    .app-header {
+      flex: 1;
+    }
+    .batch-folder {
+      flex: 1;
+    }
+    .batch-created {
+      width: 240px;
+    }
+    .batch-modified {
+      width: 240px;
+    }    
+    .batch-state {
+      width: 200px;
+    }
+    .batch-user {
+      width: 200px;
+    }
+    .scrollable {
+      height: calc(100% - 54px);
+      overflow: auto;
+    }
+  }
+}

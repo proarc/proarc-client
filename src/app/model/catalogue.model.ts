@@ -28,6 +28,6 @@ export class Catalogue {
         array.push(Catalogue.fromJson(json));
     }
     return array;
-}
+  }
 
 }

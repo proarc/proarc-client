@@ -11,6 +11,7 @@ import { CatalogComponent } from '../components/catalog/catalog.component';
 import { EditAudioDeviceComponent } from '../components/devices/edit-audio-device/edit-audio-device.component';
 import { EditorComponent } from '../components/editor/editor.component';
 import { ImportComponent } from '../components/import/import.component';
+import { HistoryComponent } from '../components/import/history/history.component';
 
 const routes: Routes = [
   { path: 'documents/:id', component: DocumentComponent },
@@ -27,7 +28,9 @@ const routes: Routes = [
   { path: 'search', component: SearchComponent },
   { path: 'catalog', component: CatalogComponent },
   { path: 'viewer', component: ViewerComponent },
-  { path: 'import', component: ImportComponent }
+  { path: 'import', component: ImportComponent },
+  { path: 'import/history', component: HistoryComponent }
+
 ];
 
 @NgModule({

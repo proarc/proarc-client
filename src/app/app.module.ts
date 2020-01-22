@@ -61,6 +61,7 @@ import { EditorGeoComponent } from './components/editor/editor-geo/editor-geo.co
 import { EditorSubjectGeoComponent } from './documents/document/editor-subject-geo/editor-subject-geo.component';
 import { ImportComponent } from './components/import/import.component';
 import { ImportDialogComponent } from './dialogs/import-dialog/import-dialog.component';
+import { HistoryComponent } from './components/import/history/history.component';
 
 
 export function hljsLanguages() {
@@ -114,7 +115,8 @@ export function hljsLanguages() {
     EditorRelocationComponent,
     EditorVolumeComponent,
     EditorIssueComponent,
-    ImportComponent
+    ImportComponent,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,

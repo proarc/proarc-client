@@ -6,6 +6,12 @@
 
   <div class="actions">
 
+
+    <a mat-raised-button color="default" [routerLink]="['/import', 'history']" class="app-import-history">
+      {{ 'history.title' | translate }}
+    </a>
+
+
     <button mat-raised-button color="primary" (click)="load()" [disabled]="!canBeLoaded()">
       <mat-icon style="margin-right:8px;">cloud_download</mat-icon>
       {{ 'import.load' | translate }}
