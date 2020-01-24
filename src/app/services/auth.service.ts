@@ -1,15 +1,60 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ApiService } from './api.service';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
 
+    public loggedIn = false;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private router: Router) {
     }
 
-    login(email: string, password: string, callback: (result: boolean) => void) {
+    login(username: string, password: string, callback: (result: boolean) => void) {
+        const httpOptions = {
+            responseType: 'text',
+            headers: new HttpHeaders({
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            }),
+        } as any;
+        const data = `j_username=${username}&j_password=${password}`;
+        return this.http.post(`${ApiService.baseUrl}/proarclogin`, data, httpOptions)
+        .subscribe((result) => {
+            console.log('login success', result);
+            this.loggedIn = true;
+            callback(true);
+        }, (error) => {
+            console.log('login error', error);
+            callback(false);
+        })
+    }
+
+    logout() {
+        return this.http.delete(`${ApiService.baseUrl}/proarclogin`).subscribe((result) => {
+            this.loggedIn = false;
+            this.router.navigate(['/login']);
+        });
+    }
+
+
+    checkOnStart() {
+        return this.http.get(`${ApiService.apiUrl}user?whoAmI=true`).subscribe((result) => {
+            this.loggedIn = true;
+        },
+        (error) => {
+            this.loggedIn = false;
+            this.router.navigate(['/login']);
+        });
+    }
+
+
+
+
+
+    login2(email: string, password: string, callback: (result: boolean) => void) {
         // const httpOptions = {
         //     headers: new HttpHeaders({
         //         'Content-Type':  'application/x-www-form-urlencoded; charset=utf-8'
@@ -34,9 +79,9 @@ export class AuthService {
         // this.http.post(`${this.baseUrl}/proarclogin`, credentials, httpOptions).subscribe((result) => {
         //     console.log('result', result);
 
-            // this.http.get(`${this.baseUrl}/rest/v1/object/search?type=lastCreated&queryModel=model%3Andkperiodical`).subscribe((result) => {
-            //     console.log('result', result);
-            // });
+        // this.http.get(`${this.baseUrl}/rest/v1/object/search?type=lastCreated&queryModel=model%3Andkperiodical`).subscribe((result) => {
+        //     console.log('result', result);
+        // });
 
 
         // });
@@ -47,19 +92,19 @@ export class AuthService {
 
         // http://krameriustest.inovatika.cz/proarc-silvarium/rest/v1/object/search?type=lastCreated&queryModel=model%3Andkperiodical
 
-0
+        0
 
         localStorage.setItem('loggedIn', 'yes');
         callback(true);
     }
 
-    logout(callback: (result: boolean) => void) {
+    logout2(callback: (result: boolean) => void) {
         localStorage.removeItem('loggedIn');
         callback(true);
     }
 
     isLoggedIn(): boolean {
-        return localStorage.getItem('loggedIn') === 'yes';
+        return this.loggedIn; //localStorage.getItem('loggedIn') === 'yes';
     }
 
 }

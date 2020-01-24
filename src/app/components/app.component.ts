@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Translator } from 'angular-translator';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -8,11 +9,12 @@ import { Translator } from 'angular-translator';
 })
 export class AppComponent {
 
-  constructor(private translator: Translator) {
+  constructor(private translator: Translator, private auth: AuthService) {
     const lang = localStorage.getItem('lang');
     if (lang) {
       this.translator.language = lang;
     }
+    auth.checkOnStart();
   }
 
 }

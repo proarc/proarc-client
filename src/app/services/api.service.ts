@@ -22,10 +22,10 @@ import { User } from '../model/user.model';
 @Injectable()
 export class ApiService {
 
-  private static baseUrl = 'http://krameriustest.inovatika.cz/proarc-silvarium';
+  static readonly baseUrl = 'http://krameriustest.inovatika.cz/proarc-silvarium';
   // private static baseUrl = 'http://localhost:8000/proarc';
 
-  private static apiUrl = `${ApiService.baseUrl}/rest/v1/`;
+  static readonly  apiUrl = `${ApiService.baseUrl}/rest/v1/`;
 
   constructor(private http: HttpClient) {
   }
@@ -39,6 +39,7 @@ export class ApiService {
   private put(path: string, body: any, options: any = {}): Observable<Object> {
     return this.http.put(encodeURI(`${ApiService.apiUrl}${path}`), body, options);
   }
+
   private post(path: string, body: any, options: any = {}): Observable<Object> {
     return this.http.post(encodeURI(`${ApiService.apiUrl}${path}`), body, options);
   }

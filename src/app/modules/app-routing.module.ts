@@ -14,6 +14,7 @@ import { ImportComponent } from '../components/import/import.component';
 import { HistoryComponent } from '../components/import/history/history.component';
 
 const routes: Routes = [
+
   { path: 'documents/:id', component: DocumentComponent },
 
   { path: 'document/:pid', component: EditorComponent },
@@ -29,7 +30,9 @@ const routes: Routes = [
   { path: 'catalog', component: CatalogComponent },
   { path: 'viewer', component: ViewerComponent },
   { path: 'import', component: ImportComponent },
-  { path: 'import/history', component: HistoryComponent }
+  { path: 'import/history', component: HistoryComponent },
+
+  { path: '', redirectTo: 'search', pathMatch: 'full' },
 
 ];
 
