@@ -71,10 +71,9 @@ export class ImportComponent implements OnInit {
     let path = '';
     const segments = this.path.split('/');
     for (let i = 0; i < index; i++) {
-      path += segments[0] + '/';
+      path += segments[i] + '/';
     }
     console.log('openFolderAtPathIndex', path);
-
     this.openPath(path);
   }
 
@@ -84,7 +83,7 @@ export class ImportComponent implements OnInit {
   }
 
   canBeLoaded(): boolean {
-    return true || this.selectedDevice && this.selectedProfile && this.selectedFolder && this.selectedFolder.isNew();
+    return this.selectedDevice && this.selectedProfile && this.selectedFolder && this.selectedFolder.isNew();
   }
 
   load() {
@@ -114,6 +113,7 @@ export class ImportComponent implements OnInit {
   }
 
   reload() {
+    this.selectedFolder = null;
     this.state = 'loading';
     this.api.getImportFolders(this.selectedProfile, this.path).subscribe((folders: Folder[]) => {
       this.folders = folders;

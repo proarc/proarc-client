@@ -76,6 +76,7 @@
     "state": {
       "new": "New",
       "imported": "Loaded",
+      "empty": "-",
       "unknown": "?"
     },
     "dialog": {

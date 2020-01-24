@@ -4,8 +4,10 @@
   .actions {
     height: 60px;
     overflow: hidden;
+    button {
+      margin-right: 16px;
+    }
     .app-import-profiles {
-      margin-left: 16px;
       margin-right: 16px;
     }
     .app-import-devices {
