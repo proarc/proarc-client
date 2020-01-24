@@ -6,6 +6,7 @@ import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { MatDialog } from '@angular/material';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { Translator } from 'angular-translator';
+import { LogDialogComponent } from 'src/app/dialogs/log-dialog/log-dialog.component';
 
 @Component({
   selector: 'app-history',
@@ -37,8 +38,9 @@ export class HistoryComponent implements OnInit {
     'INGESTED'
   ];
 
-  constructor(
-    private api: ApiService, private dialog: MatDialog, private translator: Translator) { }
+  constructor(private api: ApiService, 
+              private dialog: MatDialog, 
+              private translator: Translator) { }
 
   ngOnInit() {
     this.reload();
@@ -86,6 +88,12 @@ export class HistoryComponent implements OnInit {
       });
     });
   }
+
+  onShowLog(batch: Batch) {
+    console.log('show log', batch.failure);
+    this.dialog.open(LogDialogComponent, { data: batch.failure });
+  }
+
 
   onEditBatchObject() {
 

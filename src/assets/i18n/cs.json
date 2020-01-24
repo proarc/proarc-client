@@ -96,6 +96,10 @@
     "user": "Uživatel",
     "created": "Vytvořeno",
     "modified": "Upraveno",
+    "show_log": "Zobrazit detail chyby",
+    "log_dialog": {
+      "title": "Detail chyby"
+    },
     "states": {
       "ALL": "Vše",
       "LOADING": "Načítání",

@@ -48,6 +48,7 @@
       <div class="batch-modified">{{ 'history.modified' | translate }}</div>
       <div class="batch-state">{{ 'history.state' | translate }}</div>
       <div class="batch-user">{{ 'history.user' | translate }}</div>
+      <div class="batch-actions"></div>
 
     </div>
     <div class="scrollable">
@@ -57,6 +58,11 @@
         <div class="batch-modified">{{ batch.timestamp | appDatetime }}</div>
         <div class="batch-state">{{ 'history.states.' + batch.state | translate }}</div>
         <div class="batch-user">{{ batch.user }}</div>
+        <div class="batch-actions">
+          <button (click)="onShowLog(batch);$event.preventDefault();$event.stopPropagation()" *ngIf="batch.failure" mat-icon-button color="default" [matTooltip]="'history.show_log' | translate" matTooltipPosition="below">
+            <mat-icon>error_outline</mat-icon>
+          </button>
+        </div>
       </div>
     </div>
   </div>

@@ -62,6 +62,7 @@ import { EditorSubjectGeoComponent } from './documents/document/editor-subject-g
 import { ImportComponent } from './components/import/import.component';
 import { ImportDialogComponent } from './dialogs/import-dialog/import-dialog.component';
 import { HistoryComponent } from './components/import/history/history.component';
+import { LogDialogComponent } from './dialogs/log-dialog/log-dialog.component';
 
 
 export function hljsLanguages() {
@@ -92,6 +93,7 @@ export function hljsLanguages() {
     EditDeviceComponent,
     SimpleDialogComponent,
     ImportDialogComponent,
+    LogDialogComponent,
     SearchComponent,
     DatePipe,
     DatetimePipe,
@@ -144,7 +146,8 @@ export function hljsLanguages() {
   ],
   entryComponents: [
     SimpleDialogComponent,
-    ImportDialogComponent
+    ImportDialogComponent,
+    LogDialogComponent
   ],
   bootstrap: [AppComponent]
 })
