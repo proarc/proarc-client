@@ -63,6 +63,7 @@ import { ImportComponent } from './components/import/import.component';
 import { ImportDialogComponent } from './dialogs/import-dialog/import-dialog.component';
 import { HistoryComponent } from './components/import/history/history.component';
 import { LogDialogComponent } from './dialogs/log-dialog/log-dialog.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 export function hljsLanguages() {
@@ -118,7 +119,8 @@ export function hljsLanguages() {
     EditorVolumeComponent,
     EditorIssueComponent,
     ImportComponent,
-    HistoryComponent
+    HistoryComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

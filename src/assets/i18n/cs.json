@@ -19,6 +19,9 @@
     "unpublish": "Zrušit zveřejnění",
     "warning": "Varování"
   },
+  "login": {
+    "login_failed": "Přihlášení se nezdařilo"
+  },
   "device": {
     "devices": "Zařízení",
     "device": "Zařízení",

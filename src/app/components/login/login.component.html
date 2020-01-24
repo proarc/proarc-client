@@ -21,7 +21,7 @@
           required>
       </mat-form-field>
       <div class="warn-message" *ngIf="state=='error'">
-        Přihlášení se nezdařilo
+        {{ 'login.login_failed' | translate }}
       </div>
     </div>
     <div class="app-card-actions">

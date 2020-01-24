@@ -15,16 +15,16 @@
   <a *ngIf="!auth.isLoggedIn()"  [routerLink]="['/login']" routerLinkActive="active" mat-button>{{ "navbar.login" | translate }}</a>
 
   <button class="btn-lang" mat-icon-button [matMenuTriggerFor]="lang">
-    <img src="/assets/img/flag_{{translator.language}}.png">
+    <img src="./assets/img/flag_{{translator.language}}.png">
   </button>
 
   <mat-menu #lang="matMenu">
     <button class="lang-item" mat-menu-item (click)='onLanguageChanged("en")'>
-      <img src="/assets/img/flag_en.png">
+      <img src="./assets/img/flag_en.png">
       <span>English</span>
     </button>
     <button class="lang-item" mat-menu-item (click)='onLanguageChanged("cs")'>
-      <img src="/assets/img/flag_cs.png">
+      <img src="./assets/img/flag_cs.png">
       <span>Čeština</span>
     </button>
   </mat-menu>

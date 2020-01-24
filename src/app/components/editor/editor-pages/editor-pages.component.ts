@@ -11,7 +11,7 @@ export class EditorPagesComponent implements OnInit {
 
   holder: PageUpdateHolder;
 
-  constructor(private editor: EditorService, public codebook: CodebookService) {
+  constructor(public editor: EditorService, public codebook: CodebookService) {
   }
 
   ngOnInit() {

@@ -12,6 +12,7 @@ import { EditAudioDeviceComponent } from '../components/devices/edit-audio-devic
 import { EditorComponent } from '../components/editor/editor.component';
 import { ImportComponent } from '../components/import/import.component';
 import { HistoryComponent } from '../components/import/history/history.component';
+import { HomeComponent } from '../components/home/home.component';
 
 const routes: Routes = [
 
@@ -32,7 +33,7 @@ const routes: Routes = [
   { path: 'import', component: ImportComponent },
   { path: 'import/history', component: HistoryComponent },
 
-  { path: '', redirectTo: 'search', pathMatch: 'full' },
+  { path: '', component: HomeComponent },
 
 ];
 

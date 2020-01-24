@@ -19,6 +19,9 @@
     "unpublish": "Unpublish",
     "warning": "Warning"
   },
+  "login": {
+    "login_failed": "Login failed"
+  },
   "device": {
     "devices": "Devices",
     "device": "Device",
