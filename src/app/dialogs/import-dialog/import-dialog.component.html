@@ -1,15 +1,16 @@
 <h1 mat-dialog-title>{{ "import.dialog.title" | translate }}</h1>
 <div mat-dialog-content [style.width]="'600px'">
-  <ng-container *ngIf="count > 0">
-    <p class="app-message">{{ "import.dialog.message" | translate: { done: done, count: count  } }}</p>
+    <p *ngIf="count === 0" class="app-message">{{ "import.dialog.preparing" | translate: { done: done, count: count  } }}</p>
 
+    <p *ngIf="count > 0" class="app-message">{{ "import.dialog.loading" | translate: { done: done, count: count  } }}</p>
 
     <mat-progress-bar
+            *ngIf="count > 0"
             class="example-margin"
             color="primary"
             mode="buffer"
             [value]="(done/count) * 100"
             bufferValue="0">
     </mat-progress-bar>
-  </ng-container>
+
 </div>

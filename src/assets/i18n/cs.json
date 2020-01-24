@@ -81,7 +81,12 @@
     },
     "dialog": {
       "title": "Import",
-      "message": "Probíhá import objektů do uložiště {{ done }}/{{ count }}"
+      "preparing": "Probíhá příprava importu",
+      "loading": "Probíhá načítání objektů {{ done }}/{{ count }}"
+    },
+    "error_dialog": {
+      "title": "Chyba importu",
+      "message": "Načtení adresáře se nezdařílo"
     }
   },
   "history": {

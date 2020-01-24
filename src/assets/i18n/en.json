@@ -82,6 +82,10 @@
     "dialog": {
       "title": "Import",
       "message": "Importing objects to the repository {{ done }}/{{ count }}"
+    },
+    "error_dialog": {
+      "title": "Import Failure",
+      "message": "Failed to load the folder"
     }
   },
   "history": {

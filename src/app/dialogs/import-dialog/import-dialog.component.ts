@@ -15,6 +15,7 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
 
   private timer;
   private batchId;
+  private error = false;
 
   constructor(
     private api: ApiService,
@@ -32,9 +33,17 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
 
 
   onTick() {
-    this.api.getImportBatchStatus(this.batchId).subscribe((status: [number, number]) => {
+    this.api.getImportBatchStatus(this.batchId).subscribe(
+      (status: [number, number]) => {
       this.done = status[0];
       this.count = status[1];
+      if (this.done === this.count) {
+        this.onDone();
+      }
+    },
+    (error) => {
+        clearInterval(this.timer);
+        this.dialogRef.close('failure');
     });
   }
 
@@ -46,7 +55,7 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
 
   onDone() {
     clearInterval(this.timer);
-    this.dialogRef.close('hotovo');
+    this.dialogRef.close('success');
   }
 
 

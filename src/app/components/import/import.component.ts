@@ -7,6 +7,9 @@ import { Folder } from 'src/app/model/folder.model';
 import { Batch } from 'src/app/model/batch.model';
 import { MatDialog } from '@angular/material';
 import { ImportDialogComponent } from 'src/app/dialogs/import-dialog/import-dialog.component';
+import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
+import { Translator } from 'angular-translator';
+import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 
 @Component({
   selector: 'app-import',
@@ -36,6 +39,7 @@ export class ImportComponent implements OnInit {
 
   constructor(
     private api: ApiService,
+    private translator: Translator,
     private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -100,6 +104,11 @@ export class ImportComponent implements OnInit {
       const dialogRef = this.dialog.open(ImportDialogComponent, { data: batch.id });
       dialogRef.afterClosed().subscribe(result => {
         console.log('dialog res', result);
+        if (result === 'success') {
+          // TODO: Go to the editor
+        } else if (result === 'failure') {
+          this.onImportFailure();
+        }
       });
     })
     // this.api.getImportBatch(1302).subscribe((batch: Batch) => {
@@ -110,6 +119,21 @@ export class ImportComponent implements OnInit {
     //   });
     // });
 
+  }
+
+  private onImportFailure() {
+    this.reload();
+    const data: SimpleDialogData = {
+      title: String(this.translator.instant('import.error_dialog.title')),
+      message: String(this.translator.instant('import.error_dialog.message')),
+      btn1: {
+        label: String(this.translator.instant('common.ok')),
+        value: 'ok',
+        color: 'default'
+      }
+    };
+    this.dialog.open(SimpleDialogComponent, { data: data });
+    this.state = 'success';
   }
 
   reload() {
