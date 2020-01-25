@@ -61,6 +61,9 @@ export class ApiService {
     return this.post('object', data, httpOptions).pipe(map(response => response['response']['data'][0]['pid']));
   }
 
+
+
+
   getImportFolders(profile: Profile, folder: string = null): Observable<Folder[]> {
     return this.get('import/folder', { profile: profile.id, folder: folder})
         .pipe(map(response => Folder.fromJsonArray(response['response']['data'])));
@@ -293,6 +296,28 @@ export class ApiService {
     return this.post('device', data, httpOptions).pipe(map(response => Device.fromJson(response['response']['data'][0])));
   }
 
+
+
+  setParentForBatch(id: number, parent: string): Observable<Batch> {
+    const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        })
+    };
+    const data = `id=${id}&parentPid=${parent}`;
+    return this.put('import/batch', data, httpOptions).pipe(map(response => Batch.fromJson(response['response']['data'][0])));
+  }
+
+
+  ingestBatch(id: number, parent: string): Observable<Batch> {
+    const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        })
+    };
+    const data = `id=${id}&parentPid=${parent}&state=INGESTING`;
+    return this.put('import/batch', data, httpOptions).pipe(map(response => Batch.fromJson(response['response']['data'][0])));
+  }
 
   createImportBatch(path: string, profile: string, indices: boolean, device: string): Observable<Batch> {
     const httpOptions = {

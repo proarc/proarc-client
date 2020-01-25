@@ -2,6 +2,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ApiService } from 'src/app/services/api.service';
+import { Batch } from 'src/app/model/batch.model';
 
 @Component({
   selector: 'app-import-dialog',
@@ -38,7 +39,7 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
       this.done = status[0];
       this.count = status[1];
       if (this.done === this.count) {
-        this.onDone();
+        this.onLoaded();
       }
     },
     (error) => {
@@ -53,9 +54,22 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
     }
   }
 
-  onDone() {
+  onLoaded() {
     clearInterval(this.timer);
-    this.dialogRef.close('success');
+    this.api.setParentForBatch(this.batchId, 'uuid:9ebcb206-24b7-4dc7-b367-3d9ad7179c23').subscribe((batch: Batch) => {
+      console.log('setting parent done', batch);
+      this.api.ingestBatch(this.batchId, 'uuid:9ebcb206-24b7-4dc7-b367-3d9ad7179c23').subscribe((batch: Batch) => {
+        console.log('ingest batch done', batch);
+      },
+      (error) => {
+        console.log('ingest batch error', error);
+      });
+    },
+    (error) => {
+      console.log('sitting parent error', error);
+    });
+
+    // this.dialogRef.close('success');
   }
 
 
