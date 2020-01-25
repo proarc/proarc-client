@@ -48,6 +48,16 @@ export class ApiService {
     return this.http.delete(encodeURI(`${ApiService.apiUrl}${path}`), { params: params });
   }
 
+  createObject(model: string): Observable<string> {
+    const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        })
+    };
+    const data = `model=${model}`;
+    return this.post('object', data, httpOptions).pipe(map(response => response['response']['data'][0]['pid']));
+  }
+
   getImportFolders(profile: Profile, folder: string = null): Observable<Folder[]> {
     return this.get('import/folder', { profile: profile.id, folder: folder})
         .pipe(map(response => Folder.fromJsonArray(response['response']['data'])));

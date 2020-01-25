@@ -1,6 +1,7 @@
 import { DocumentItem } from '../../model/documentItem.model';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
+import { ProArc } from 'src/app/utils/proarc';
 
 @Component({
   selector: 'app-search',
@@ -12,16 +13,7 @@ export class SearchComponent implements OnInit {
   state = 'none';
   items: DocumentItem[];
 
-  models = [
-    'model:ndkperiodical',
-    'model:ndkperiodicalvolume',
-    'model:ndkperiodicalissue',
-    'model:ndkperiodicalsupplement',
-    'model:ndkarticle',
-    'model:ndkmonographvolume',
-    'model:chroniclevolume',
-    'model:page',
-  ];
+  models = ProArc.models;
 
   model = 'model:ndkperiodical';
   query = '';
