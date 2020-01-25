@@ -22,6 +22,16 @@
   "login": {
     "login_failed": "Přihlášení se nezdařilo"
   },
+  "new_object": {
+    "title": "Nový objekt",
+    "model": "Model",
+    "custom_pid": "Vlastní pid",
+    "invalid_pid": "PID neodpovídá tvaru uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "custom_pid_description": "V případě potřeby je možné zvolit vlastní PID objektu ve tvaru uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.\nPID nesmí nýt již přidělen jinému objektu.",
+    "pid": "PID",
+    "failure": "Objekt se nepodařilo vytvořit",
+    "create": "Vytvořit nový objekt"
+  },
   "device": {
     "devices": "Zařízení",
     "device": "Zařízení",
@@ -122,6 +132,7 @@
     }
   },
   "navbar": {
+    "new_object": "Nový objekt",
     "search": "Hledat",
     "import": "Import",
     "catalog": "Katalog",

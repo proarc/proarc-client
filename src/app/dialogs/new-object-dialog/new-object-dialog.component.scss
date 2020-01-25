@@ -1,0 +1,27 @@
+.app-model-selection {
+  display: block;
+}
+
+.app-pid {
+  display: block;
+}
+
+.app-message {
+  margin: 8px 0 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+.app-invalid-pid {
+  color: #b74f47;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
+
+.app-create-failure {
+  color: #b74f47;
+  font-size: 14px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}

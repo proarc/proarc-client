@@ -48,13 +48,16 @@ export class ApiService {
     return this.http.delete(encodeURI(`${ApiService.apiUrl}${path}`), { params: params });
   }
 
-  createObject(model: string): Observable<string> {
+  createObject(model: string, pid: string): Observable<string> {
     const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         })
     };
-    const data = `model=${model}`;
+    let data = `model=${model}`;
+    if (pid) {
+      data = `${data}&pid=${pid}`;
+    }
     return this.post('object', data, httpOptions).pipe(map(response => response['response']['data'][0]['pid']));
   }
 
@@ -139,6 +142,7 @@ export class ApiService {
         })
     };
     const data = `pid=${document.pid}&ignoreValidation=true&xmlData=${document.toMods()}&timestamp=${document.timestamp}`;
+    // const data = `pid=${document.pid}&ignoreValidation=true&editorId=proarc.mods.MonographForm&xmlData=${document.toMods()}&timestamp=${document.timestamp}`;
     return this.put('object/mods/custom', data, httpOptions);
   }
 

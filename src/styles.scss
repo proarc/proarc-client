@@ -216,20 +216,21 @@ body {
   color: $warn-color;
 }
 
-
-
-.app {
-  .mat-raised-button {
-    background: $btn-default-color;
-  }
-  .mat-dialog-container {
-    background: $dialog-color;
-    color: $main-text;
-  }
-  .mat-checkbox-disabled .mat-checkbox-label {
-    color: rgba(255, 255, 255, 0.5);
-  }
-}
+// .app {
+//   .mat-raised-button {
+//     background: $btn-default-color;
+//   }
+//   .mat-dialog-container {
+//     background: $dialog-color;
+//     color: $main-text;
+//   }
+//   .mat-dialog-actions {
+//     margin-bottom: -16px;
+//   }
+//   .mat-checkbox-disabled .mat-checkbox-label {
+//     color: rgba(255, 255, 255, 0.5);
+//   }
+// }
 
 
 
@@ -428,7 +429,14 @@ body {
   background: $dropdown-bg;
 }
 
+
+.mat-dialog-actions {
+  margin-bottom: -16px !important;
+}
+
 // .mat-select-underline {
 //   background-color: rgba(255, 255, 255, 0.2) !important;
 // }
+
+
 

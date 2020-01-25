@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>{{ 'new_object.title' | translate }}</h1>
+
+<div mat-dialog-content style="max-width:600px;">
+
+  <mat-form-field class="app-model-selection">
+    <mat-select [placeholder]="'new_object.model' | translate" [(ngModel)]="data.model">
+      <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <mat-form-field class="app-pid" *ngIf="data.customPid">
+    <input type="text" autocomplete="off" matInput [placeholder]="'new_object.pid' | translate" [(ngModel)]="data.pid">
+  </mat-form-field>
+
+  <div class="app-invalid-pid" *ngIf="data.customPid && !validate()">{{ 'new_object.invalid_pid' | translate }}</div>
+
+
+  <mat-checkbox color="primary" [(ngModel)]="data.customPid">{{ 'new_object.custom_pid' | translate }}</mat-checkbox>
+  <div class="app-message">{{ 'new_object.custom_pid_description' | translate }}</div>
+
+  <div class="app-create-failure" *ngIf="state=='error'">{{ 'new_object.failure' | translate }}</div>
+
+</div>
+
+<div mat-dialog-actions cdk-focus-start>
+  
+  <button mat-raised-button color="primary" (click)="onCreate()" [disabled]="!validate()" >{{ 'new_object.create' | translate }}</button>
+  <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.cancel' | translate }}</button>
+  <mat-spinner *ngIf="state=='saving'"
+    style="margin-left: auto"
+    [strokeWidth]="3" 
+    [diameter]="30">
+  </mat-spinner>
+</div>

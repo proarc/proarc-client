@@ -117,6 +117,7 @@
     }
   },
   "navbar": {
+    "new_object": "New object",
     "search": "Search",
     "import": "Import",
     "catalog": "Catalog",
