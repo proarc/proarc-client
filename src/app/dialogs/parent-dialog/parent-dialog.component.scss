@@ -1,0 +1,59 @@
+@import './src/theme.scss';
+
+.app-search-results {
+  padding: 20px;
+  width: 80vw;
+  height: calc(100vh - 200px);
+  max-height: calc(100vh - 200px) !important;
+  .actions {
+    height: 60px;
+    overflow: hidden;
+    .state-filter {
+      float: right;
+      width: 20 0px;
+    }
+    .document-search {
+      margin-left: 20px;
+      width: calc(100% - 350px);
+    }
+  }
+  .app-table {
+    height: calc(100% - 60px);
+    .app-row {
+      cursor: pointer;
+      &.app-active {
+        background: $primary-color;
+        color: #fff;
+      }
+    }
+  }
+  .search-result-list {
+    height: calc(100% - 60px);
+    .app-header {
+      flex: 1;
+    }
+    .result-label {
+      flex: 1;
+    }
+    .result-model {
+      width: 200px;
+    }
+    .result-owner {
+      width: 200px;
+    }
+    .result-created {
+      width: 180px;
+    }
+    .result-modified {
+      width: 180px;
+    }
+    .result-export {
+      width: 90px;
+    }
+    .scrollable {
+      height: calc(100% - 54px);
+      overflow: auto;
+    }
+
+  }
+}
