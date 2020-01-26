@@ -1,5 +1,7 @@
 import { EditorService } from 'src/app/services/editor.service';
 import { Component, OnInit, Input } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { LocationDialogComponent } from 'src/app/dialogs/location-dialog/location-dialog.component';
 
 @Component({
   selector: 'app-editor-geo',
@@ -30,6 +32,5 @@ export class EditorGeoComponent implements OnInit {
     this.editor.saveMetadata(() => {
     });
   }
-
 
 }

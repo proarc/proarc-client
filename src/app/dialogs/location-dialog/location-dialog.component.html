@@ -1,0 +1,53 @@
+
+<div class="app-location-search">
+
+
+
+  <div class="actions">
+
+    <mat-form-field class="app-search-input">
+      <input matInput [placeholder]="'editor.geo.search_placeholder' | translate" (keyup.enter)="onEnter()" (ngModelChange)="onChange($event)" [(ngModel)]="query">
+    </mat-form-field>
+
+
+    <mat-checkbox color="primary" class="app-search-check" [(ngModel)]="address">{{ 'editor.geo.only_addresses' | translate }}</mat-checkbox>
+
+  </div>
+
+
+
+  <div class="app-table" *ngIf="state=='success'">
+
+  <div class="search-result-list">
+      <div class="app-row app-header">
+        <div class="result-label">Název</div>
+        <div class="result-layer">Vrstva</div>
+      </div>
+    <div class="scrollable">
+      <div *ngFor="let location of locations" (click)="selectedLocation = location" [class.app-selected]="location == selectedLocation" class="app-row">
+        <div class="result-label">{{ location.label }}</div>
+        <div class="result-layer">{{ 'editor.geo.ruian_layer_' + location.layerId | translate }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+<mat-spinner *ngIf="state=='loading'" [strokeWidth]="5" [diameter]="60" class="center-spinner">
+</mat-spinner>
+
+<div mat-dialog-actions cdk-focus-start>
+  <button  mat-raised-button color="primary" (click)="onSave()" [disabled]="state=='loading' || state == 'saving' || !selectedLocation" >{{ 'editor.geo.use' | translate }}</button>
+  <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.cancel' | translate }}</button>
+
+  <mat-spinner *ngIf="state=='saving'"
+    style="margin-left: auto"
+    [strokeWidth]="3" 
+    [diameter]="30">
+  </mat-spinner>
+
+
+</div>

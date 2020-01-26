@@ -1,0 +1,58 @@
+@import './src/theme.scss';
+
+.app-location-search {
+  width: calc(80vw - 50px);
+  height: calc(100vh - 200px);
+  max-height: calc(100vh - 200px) !important;
+  .actions {
+    height: 60px;
+    overflow: hidden;
+    .app-search-input {
+      width: calc(100% - 150px);
+    }
+    .app-search-check {
+      margin-left: 16px;
+    }
+  }
+  .app-table {
+    height: calc(100% - 70px);
+    box-shadow: none;
+    border: 1px solid #cecece;
+    .app-row {
+      cursor: pointer;
+      &.app-active {
+        background: $primary-color;
+        color: #fff;
+      }
+    }
+  }
+  .search-result-list {
+    height: calc(100% - 0px);
+    .app-header {
+      flex: 1;
+    }
+    .result-label {
+      flex: 1;
+    }
+    .result-layer {
+      width: 400px;
+    }
+    .result-owner {
+      width: 200px;
+    }
+    .result-created {
+      width: 180px;
+    }
+    .result-modified {
+      width: 180px;
+    }
+    .result-export {
+      width: 90px;
+    }
+    .scrollable {
+      height: calc(100% - 54px);
+      overflow: auto;
+    }
+
+  }
+}
