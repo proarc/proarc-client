@@ -81,7 +81,7 @@
 
 
   <div class="app-view-grid" *ngIf="viewMode == 'grid'">
-    <div *ngFor="let item of items" (click)="select(item, $event)" class="app-grid-item-wrapper" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
+    <div *ngFor="let item of items" (click)="select(item, $event)" (dblclick)="open(item)" class="app-grid-item-wrapper" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
     (mousedown)="mousedown($event)">
         <div class="app-grid-item" [class.app-selected]="editor.right === item"  >
           <div class="app-grid-item-label">{{ shortLabels ? item.shortLabel : item.label }}</div>
@@ -90,7 +90,7 @@
   </div>
 
   <div class="app-view-icons" *ngIf="viewMode == 'icons'">
-    <div *ngFor="let item of items" (click)="select(item, $event)" class="app-item"
+    <div *ngFor="let item of items" (click)="select(item, $event)" (dblclick)="open(item)" class="app-item"
     draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
     (mousedown)="mousedown($event)"  
     >

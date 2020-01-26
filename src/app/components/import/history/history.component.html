@@ -20,23 +20,23 @@
       {{ 'history.refresh' | translate }}
     </button>
 
-    <button mat-raised-button color="warn" (click)="onReloadBatch()" 
+    <!-- <button mat-raised-button color="warn" (click)="onReloadBatch()" 
       *ngIf="selectedBatch && (selectedBatch.state === 'LOADED' || selectedBatch.state === 'LOADING_FAILED')">
       <mat-icon style="margin-right:8px;">arrow_back</mat-icon>
       {{ 'history.reload' | translate }}
-    </button>
+    </button> -->
 
     <button mat-raised-button color="primary" (click)="onEditBatchObject()" 
-      *ngIf="selectedBatch && selectedBatch.state === 'INGESTED'">
-      <mat-icon style="margin-right:8px;">edit</mat-icon>
+      *ngIf="selectedBatch && selectedBatch.state === 'INGESTED' && selectedBatch.parentPid">
+      <mat-icon style="margin-right:8px;">arrow_forward</mat-icon>
       {{ 'history.edit' | translate }}
     </button>
 
-    <button mat-raised-button color="primary" (click)="onContinueWithBatch()" 
+    <!-- <button mat-raised-button color="primary" (click)="onContinueWithBatch()" 
       *ngIf="selectedBatch && selectedBatch.state === 'LOADED'">
       <mat-icon style="margin-right:8px;">arrow_forward</mat-icon>
       {{ 'history.continue' | translate }}
-    </button>
+    </button> -->
   </div>
 
 

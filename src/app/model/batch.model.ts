@@ -10,6 +10,7 @@ export class Batch {
   public user: string;
   public profile: string;
   public failure: string;
+  public parentPid: string;
 
   public static fromJson(json): Batch {
       const batch = new Batch();
@@ -21,6 +22,7 @@ export class Batch {
       batch.userId = json['userId'];
       batch.user = json['user'];
       batch.profile = json['profile'];
+      batch.parentPid = json['parentPid'];
       batch.failure = json['failure'];
       return batch;
   }

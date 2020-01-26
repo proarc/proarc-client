@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { Translator } from 'angular-translator';
 import { LogDialogComponent } from 'src/app/dialogs/log-dialog/log-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-history',
@@ -40,6 +41,7 @@ export class HistoryComponent implements OnInit {
 
   constructor(private api: ApiService, 
               private dialog: MatDialog, 
+              private router: Router,
               private translator: Translator) { }
 
   ngOnInit() {
@@ -94,9 +96,8 @@ export class HistoryComponent implements OnInit {
     this.dialog.open(LogDialogComponent, { data: batch.failure });
   }
 
-
   onEditBatchObject() {
-
+    this.router.navigate(['/document', this.selectedBatch.parentPid]);
   }
 
   onContinueWithBatch() {

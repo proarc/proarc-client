@@ -56,9 +56,9 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
 
   onLoaded() {
     clearInterval(this.timer);
-    this.api.setParentForBatch(this.batchId, 'uuid:9ebcb206-24b7-4dc7-b367-3d9ad7179c23').subscribe((batch: Batch) => {
+    this.api.setParentForBatch(this.batchId, 'uuid:d8a03515-1d54-4740-a399-50bf41e9f6a1').subscribe((batch: Batch) => {
       console.log('setting parent done', batch);
-      this.api.ingestBatch(this.batchId, 'uuid:9ebcb206-24b7-4dc7-b367-3d9ad7179c23').subscribe((batch: Batch) => {
+      this.api.ingestBatch(this.batchId, 'uuid:d8a03515-1d54-4740-a399-50bf41e9f6a1').subscribe((batch: Batch) => {
         console.log('ingest batch done', batch);
       },
       (error) => {
