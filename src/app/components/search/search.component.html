@@ -9,14 +9,14 @@
 
     <mat-form-field class="state-filter">
       <mat-select placeholder="Model" name="model" [(ngModel)]="model">
-        <mat-option value="all">Vše</mat-option>
+        <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
         <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
       </mat-select>
     </mat-form-field>
   
     <a mat-raised-button color="primary" (click)="reload()">
         <mat-icon style="margin-right:8px;">search</mat-icon>
-      Vyhledat
+        {{ 'search.search' | translate }}
     </a>
   
     <mat-form-field class="document-search">
@@ -34,14 +34,14 @@
   <div class="app-table">
 
   <div class="search-result-list">
-      <div class="app-row app-header">
-        <div class="result-label">Název</div>
-        <div class="result-model">Model</div>
-        <div class="result-owner">Vlastník</div>
-        <div class="result-created">Vytvořeno</div>
-        <div class="result-modified">Změněno</div>
-        <div class="result-export">Export</div>
-      </div>
+    <div class="app-row app-header">
+      <div class="result-label">{{ 'search.name' | translate }}</div>
+      <div class="result-model">{{ 'search.model' | translate }}</div>
+      <div class="result-owner">{{ 'search.owner' | translate }}</div>
+      <div class="result-created">{{ 'search.created' | translate }}</div>
+      <div class="result-modified">{{ 'search.modified' | translate }}</div>
+      <div class="result-export">{{ 'search.export' | translate }}</div>
+    </div>
     <div class="scrollable">
       <a *ngFor="let item of items" [routerLink]="['/document', item.pid]" class="app-row">
         <div class="result-label">{{ item.label }}</div>

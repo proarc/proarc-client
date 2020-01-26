@@ -48,6 +48,16 @@
       "success": "Audio device has been removed"
     }
   },
+  "search": {
+    "name": "Name",
+    "model": "Model",
+    "owner": "Owner",
+    "created": "Created",
+    "modified": "Updated",
+    "export": "Export",
+    "search": "Search",
+    "all_models": "All"
+  },
   "catalog": {
     "field": {
       "bar": "Barcode",
@@ -79,6 +89,8 @@
     "device": "Device",
     "generate_index": "Generate page indices",
     "load": "Load folder",
+    "continue": "Continue",
+    "select_parent": "Choose a parent object",
     "state": {
       "new": "New",
       "imported": "Loaded",

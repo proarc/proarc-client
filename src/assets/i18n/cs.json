@@ -58,6 +58,16 @@
       "success": "Audio linka byla odstraněna"
     }
   },
+  "search": {
+    "name": "Název",
+    "model": "Model",
+    "owner": "Vlastník",
+    "created": "Vytvořeno",
+    "modified": "Změněno",
+    "export": "Export",
+    "search": "Vyhledat",
+    "all_models": "Vše"
+  },
   "catalog": {
     "field": {
       "bar": "Čárový kód",
@@ -89,6 +99,8 @@
     "device": "Zařízení",
     "generate_index": "Generovat index stránek",
     "load": "Načíst",
+    "continue": "Pokračovat",
+    "select_parent": "Vyberte nadřzený objekt",
     "state": {
       "new": "Nové",
       "imported": "Načteno",

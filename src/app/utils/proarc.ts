@@ -2,6 +2,8 @@
 
 export class ProArc {
 
+    public static defaultModel = 'model:ndkperiodical';
+
     public static models = [
       'model:ndkperiodical',
       'model:ndkperiodicalvolume',

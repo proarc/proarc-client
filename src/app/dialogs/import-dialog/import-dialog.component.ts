@@ -16,14 +16,15 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
 
   private timer;
   private batchId;
+  private parentPid;
   private error = false;
 
   constructor(
     private api: ApiService,
     public dialogRef: MatDialogRef<ImportDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: number) {
-      this.batchId = data;
-      console.log('batchId', this.batchId);
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.batchId = data.batch;
+      this.parentPid = data.parent;
   }
 
   ngOnInit() {
@@ -31,7 +32,6 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
       this.onTick();
     }, 1000);
   }
-
 
   onTick() {
     this.api.getImportBatchStatus(this.batchId).subscribe(
@@ -56,10 +56,11 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
 
   onLoaded() {
     clearInterval(this.timer);
-    this.api.setParentForBatch(this.batchId, 'uuid:d8a03515-1d54-4740-a399-50bf41e9f6a1').subscribe((batch: Batch) => {
+    this.api.setParentForBatch(this.batchId, this.parentPid).subscribe((batch: Batch) => {
       console.log('setting parent done', batch);
-      this.api.ingestBatch(this.batchId, 'uuid:d8a03515-1d54-4740-a399-50bf41e9f6a1').subscribe((batch: Batch) => {
+      this.api.ingestBatch(this.batchId, this.parentPid).subscribe((batch: Batch) => {
         console.log('ingest batch done', batch);
+        this.dialogRef.close('success');
       },
       (error) => {
         console.log('ingest batch error', error);

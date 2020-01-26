@@ -2,16 +2,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ApiService } from 'src/app/services/api.service';
-import { Catalogue } from 'src/app/model/catalogue.model';
-import { CatalogueEntry } from 'src/app/model/catalogueEntry.model';
-import { EditorService } from 'src/app/services/editor.service';
 import { ProArc } from 'src/app/utils/proarc';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 
 @Component({
-  selector: 'app-catalog-dialog',
-  templateUrl: './catalog-dialog.component.html',
-  styleUrls: ['./catalog-dialog.component.scss']
+  selector: 'app-parent-dialog',
+  templateUrl: './parent-dialog.component.html',
+  styleUrls: ['./parent-dialog.component.scss']
 })
 export class ParentDialogComponent implements OnInit {
 
@@ -19,8 +16,7 @@ export class ParentDialogComponent implements OnInit {
   items: DocumentItem[];
   selectedItem: DocumentItem;
   models = ProArc.models;
-
-  model = 'model:ndkperiodical';
+  model = ProArc.defaultModel;
   query = '';
 
   pageIndex = 0;
@@ -51,7 +47,7 @@ export class ParentDialogComponent implements OnInit {
   }
 
   onSave() {
-    if (this.selectedItem) {
+    if (!this.selectedItem) {
       return;
     }
     this.dialogRef.close({pid: this.selectedItem.pid});

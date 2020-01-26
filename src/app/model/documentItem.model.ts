@@ -16,7 +16,6 @@ export class DocumentItem {
   public selected = false;
 
   public static fromJson(json): DocumentItem {
-    console.log(json);
     if (!json) {
       return null;
     }

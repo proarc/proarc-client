@@ -10,6 +10,8 @@ import { ImportDialogComponent } from 'src/app/dialogs/import-dialog/import-dial
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { Translator } from 'angular-translator';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
+import { ParentDialogComponent } from 'src/app/dialogs/parent-dialog/parent-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-import',
@@ -40,6 +42,7 @@ export class ImportComponent implements OnInit {
   constructor(
     private api: ApiService,
     private translator: Translator,
+    private router: Router,
     private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -90,22 +93,23 @@ export class ImportComponent implements OnInit {
     return this.selectedDevice && this.selectedProfile && this.selectedFolder && this.selectedFolder.isNew();
   }
 
-  load() {
-    // console.log('load');
-    // console.log('folderPath', this.selectedFolder.path);
-    // console.log('profile', this.selectedProfile.id);
-    // console.log('indices', this.generateIndex ? 'true' : 'false');
-    // console.log('device', this.selectedDevice.id);
+  onContinue() {
+    const dialogRef = this.dialog.open(ParentDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result['pid']) {
+        this.loadAndSave(result['pid']);
+      }
+    });
+  }
 
-    // const batch = new Batch();
-    // batch.id = 1302;
+
+  loadAndSave(parentPid: string) {
     this.api.createImportBatch(this.selectedFolder.path, this.selectedProfile.id, this.generateIndex, this.selectedDevice.id).subscribe((batch: Batch) => {
-      console.log('batch', batch);
-      const dialogRef = this.dialog.open(ImportDialogComponent, { data: batch.id });
+      const dialogRef = this.dialog.open(ImportDialogComponent, { data: {batch: batch.id, parent: parentPid }});
       dialogRef.afterClosed().subscribe(result => {
         console.log('dialog res', result);
         if (result === 'success') {
-          // TODO: Go to the editor
+          this.router.navigate(['/document', parentPid]);
         } else if (result === 'failure') {
           this.onImportFailure();
         }
@@ -118,8 +122,10 @@ export class ImportComponent implements OnInit {
     //     console.log('dialog res', result);
     //   });
     // });
-
   }
+
+
+
 
   private onImportFailure() {
     this.reload();

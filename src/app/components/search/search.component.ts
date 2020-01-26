@@ -15,7 +15,7 @@ export class SearchComponent implements OnInit {
 
   models = ProArc.models;
 
-  model = 'model:ndkperiodical';
+  model = ProArc.defaultModel;
   query = '';
 
   pageIndex = 0;

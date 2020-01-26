@@ -12,9 +12,9 @@
     </a>
 
 
-    <button mat-raised-button color="primary" (click)="load()" [disabled]="!canBeLoaded()">
-      <mat-icon style="margin-right:8px;">cloud_download</mat-icon>
-      {{ 'import.load' | translate }}
+    <button mat-raised-button color="primary" (click)="onContinue()" [disabled]="!canBeLoaded()">
+      <mat-icon style="margin-right:8px;">arrow_right_alt</mat-icon>
+      {{ 'import.continue' | translate }}
     </button>
 
     <button mat-raised-button color="primary" (click)="reload()">

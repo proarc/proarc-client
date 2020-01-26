@@ -1,8 +1,7 @@
 @import './src/theme.scss';
 
 .app-search-results {
-  padding: 20px;
-  width: 80vw;
+  width: calc(80vw - 50px);
   height: calc(100vh - 200px);
   max-height: calc(100vh - 200px) !important;
   .actions {
@@ -18,7 +17,9 @@
     }
   }
   .app-table {
-    height: calc(100% - 60px);
+    height: calc(100% - 70px);
+    box-shadow: none;
+    border: 1px solid #cecece;
     .app-row {
       cursor: pointer;
       &.app-active {
