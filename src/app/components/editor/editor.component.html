@@ -111,7 +111,7 @@
               <button *ngIf="editor.right.isPage()" matTooltip="{{ 'editor.toolbar.editor_image' | translate }}" [class.app-inactive]="editor.rightEditorType != 'image'" (click)="editor.switchRightEditor('image')" mat-icon-button>
                 <mat-icon>image</mat-icon>
               </button>
-              <button matTooltip="{{ 'editor.toolbar.editor_metadata' | translate }}" [class.app-inactive]="editor.rightEditorType != 'metadata'" (click)="editor.switchRightEditor('metadata')" mat-icon-button>
+              <button *ngIf="!editor.right.isTopLevel()" matTooltip="{{ 'editor.toolbar.editor_metadata' | translate }}" [class.app-inactive]="editor.rightEditorType != 'metadata'" (click)="editor.switchRightEditor('metadata')" mat-icon-button>
                 <mat-icon>edit</mat-icon>
               </button>
         </div>

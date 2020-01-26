@@ -128,6 +128,8 @@ export class EditorService {
         this.rightEditorType = type;
         if (this.right.isPage()) {
             this.properties.setStringProperty('editor.page_right_editor_type', this.rightEditorType);
+        } else if (this.right.isTopLevel()) {
+            this.properties.setStringProperty('editor.top_right_editor_type', this.rightEditorType);
         } else {
             this.properties.setStringProperty('editor.right_editor_type', this.rightEditorType);
         }
@@ -174,6 +176,8 @@ export class EditorService {
     public selectRight(item: DocumentItem) {
         if (item.isPage()) {
             this.rightEditorType = this.properties.getStringProperty('editor.page_right_editor_type', 'image');
+        } else if(item.isTopLevel()) {
+            this.rightEditorType = this.properties.getStringProperty('editor.top_right_editor_type', 'mods');
         } else {
             this.rightEditorType = this.properties.getStringProperty('editor.right_editor_type', 'mods');
         }
