@@ -65,6 +65,7 @@ import { HistoryComponent } from './components/import/history/history.component'
 import { LogDialogComponent } from './dialogs/log-dialog/log-dialog.component';
 import { HomeComponent } from './components/home/home.component';
 import { NewObjectDialogComponent } from './dialogs/new-object-dialog/new-object-dialog.component';
+import { CatalogDialogComponent } from './dialogs/catalog-dialog/catalog-dialog.component';
 
 
 export function hljsLanguages() {
@@ -122,7 +123,8 @@ export function hljsLanguages() {
     ImportComponent,
     HistoryComponent,
     HomeComponent,
-    NewObjectDialogComponent
+    NewObjectDialogComponent,
+    CatalogDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -152,7 +154,8 @@ export function hljsLanguages() {
     SimpleDialogComponent,
     ImportDialogComponent,
     LogDialogComponent,
-    NewObjectDialogComponent
+    NewObjectDialogComponent,
+    CatalogDialogComponent
   ],
   bootstrap: [AppComponent]
 })

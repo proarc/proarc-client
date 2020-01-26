@@ -139,23 +139,36 @@ export class ApiService {
   }
 
   editMetadata(document: Metadata): Observable<any> {
-    const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        })
-    };
-    const data = `pid=${document.pid}&ignoreValidation=true&xmlData=${document.toMods()}&timestamp=${document.timestamp}`;
-    // const data = `pid=${document.pid}&ignoreValidation=true&editorId=proarc.mods.MonographForm&xmlData=${document.toMods()}&timestamp=${document.timestamp}`;
-    return this.put('object/mods/custom', data, httpOptions);
+    // const httpOptions = {
+    //     headers: new HttpHeaders({
+    //       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    //     })
+    // };
+    // const data = `pid=${document.pid}&ignoreValidation=true&xmlData=${document.toMods()}&timestamp=${document.timestamp}`;
+    // // const data = `pid=${document.pid}&ignoreValidation=true&editorId=proarc.mods.MonographForm&xmlData=${document.toMods()}&timestamp=${document.timestamp}`;
+    // return this.put('object/mods/custom', data, httpOptions);
+    return this.editModsXml(document.pid, document.toMods(), document.timestamp);
   }
 
   editMods(mods: Mods): Observable<Mods> {
+    // const httpOptions = {
+    //     headers: new HttpHeaders({
+    //       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    //     })
+    // };
+    // const data = `pid=${mods.pid}&ignoreValidation=true&xmlData=${mods.content}&timestamp=${mods.timestamp}`;
+    // return this.put('object/mods/custom', data, httpOptions).pipe(map(response => Mods.fromJson(response['response']['data'][0])));
+    return this.editModsXml(mods.pid, mods.content, mods.timestamp);
+
+  }
+
+  editModsXml(pid: string, xml: string, timestamp: number): Observable<Mods> {
     const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         })
     };
-    const data = `pid=${mods.pid}&ignoreValidation=true&xmlData=${mods.content}&timestamp=${mods.timestamp}`;
+    const data = `pid=${pid}&ignoreValidation=true&xmlData=${xml}&timestamp=${timestamp}`;
     return this.put('object/mods/custom', data, httpOptions).pipe(map(response => Mods.fromJson(response['response']['data'][0])));
   }
 

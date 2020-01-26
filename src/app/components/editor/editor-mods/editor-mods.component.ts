@@ -1,14 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Mods } from 'src/app/model/mods.model';
 import { EditorService } from 'src/app/services/editor.service';
 import { ApiService } from 'src/app/services/api.service';
+import { DocumentItem } from 'src/app/model/documentItem.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-editor-mods',
   templateUrl: './editor-mods.component.html',
   styleUrls: ['./editor-mods.component.scss']
 })
-export class EditorModsComponent implements OnInit {
+export class EditorModsComponent implements OnInit, OnDestroy {
 
   realtime = false;
   state = 'none';
@@ -17,15 +19,28 @@ export class EditorModsComponent implements OnInit {
   anyChange: boolean;
   lastPid: string;
 
-  @Input()
-  set pid(pid: string) {
-    this.onPidChanged(pid);
-  }
+
+  private rightDocumentSubscription: Subscription;
+
+
+  // @Input()
+  // set pid(pid: string) {
+  //   this.onPidChanged(pid);
+  // }
 
   constructor(public editor: EditorService, private api: ApiService) {
   }
 
   ngOnInit() {
+    this.rightDocumentSubscription = this.editor.watchRightDocument().subscribe(
+      (item: DocumentItem) => {
+        if (item) {
+          console.log('item selected', item);
+          this.reload(item);
+        }
+      }
+    );
+    this.reload(this.editor.right);
   }
 
   public setRealtime(enable: boolean) {
@@ -77,9 +92,12 @@ export class EditorModsComponent implements OnInit {
   }
 
 
-  private onPidChanged(pid: string) {
-    this.lastPid = pid;
-    this.setRealtime(false);
+  private reload(item: DocumentItem) {
+    console.log('on pid changed');
+    if (item) {
+      this.lastPid = item.pid;
+      this.setRealtime(false);
+    }
   }
 
   private loadMods() {
@@ -92,6 +110,12 @@ export class EditorModsComponent implements OnInit {
     }, () => {
       this.state = 'failure';
     });
+  }
+
+  ngOnDestroy() {
+    if (this.rightDocumentSubscription) {
+      this.rightDocumentSubscription.unsubscribe();
+    }
   }
 
 }

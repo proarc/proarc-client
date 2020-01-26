@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { DocumentItem } from '../model/documentItem.model';
 import { Router } from '@angular/router';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subject, Observable } from 'rxjs';
 import { Ocr } from '../model/ocr.model';
 import { LocalStorageService } from './local-storage.service';
 import { Mods } from '../model/mods.model';
@@ -11,7 +11,6 @@ import { Note } from '../model/note.model';
 import { Atm } from '../model/atm.model';
 import { Page } from '../model/page.model';
 import { PageUpdateHolder } from '../components/editor/editor-pages/editor-pages.component';
-import { nextContext } from '@angular/core/src/render3';
 
 @Injectable()
 export class EditorService {
@@ -35,15 +34,22 @@ export class EditorService {
     private multipleChildrenMode: boolean;
     public relocationMode: boolean;
 
+    private rightDocumentsubject = new Subject<DocumentItem>();
+
+
     constructor(
         private router: Router,
         private api: ApiService,
         private properties: LocalStorageService) {
     }
 
+    watchRightDocument(): Observable<DocumentItem> {
+        return this.rightDocumentsubject.asObservable();
+    }
+
     init(params: EditorParams) {
         this.left = null;
-        this.right = null;
+        this.selectRight(null);
         this.ready = false;
         this.metadata = null;
         this.multipleChildrenMode = false;
@@ -174,14 +180,17 @@ export class EditorService {
     }
 
     public selectRight(item: DocumentItem) {
-        if (item.isPage()) {
-            this.rightEditorType = this.properties.getStringProperty('editor.page_right_editor_type', 'image');
-        } else if(item.isTopLevel()) {
-            this.rightEditorType = this.properties.getStringProperty('editor.top_right_editor_type', 'mods');
-        } else {
-            this.rightEditorType = this.properties.getStringProperty('editor.right_editor_type', 'mods');
+        if (item) {
+            if (item.isPage()) {
+                this.rightEditorType = this.properties.getStringProperty('editor.page_right_editor_type', 'image');
+            } else if(item.isTopLevel()) {
+                this.rightEditorType = this.properties.getStringProperty('editor.top_right_editor_type', 'mods');
+            } else {
+                this.rightEditorType = this.properties.getStringProperty('editor.right_editor_type', 'mods');
+            }
         }
         this.right = item;
+        this.rightDocumentsubject.next(item);
     }
 
     public goToPreviousObject() {
@@ -265,6 +274,9 @@ export class EditorService {
         this.state = 'saving';
         this.api.editMods(mods).subscribe(() => {
             this.api.getMods(mods.pid).subscribe((newMods: Mods) => {
+                if (this.mode === 'detail') {
+                    this.metadata = Metadata.fromMods(mods, this.metadata.model);
+                }
                 if (callback) {
                     callback(newMods);
                 }
@@ -272,6 +284,25 @@ export class EditorService {
             });
         });
       }
+
+      updateModsFromCatalog(xml: string, callback: () => void) {  
+        this.state = 'saving';
+        this.api.editModsXml(this.metadata.pid, xml, this.metadata.timestamp).subscribe(() => {
+          this.api.getMods(this.metadata.pid).subscribe((mods: Mods) => {
+              this.metadata = Metadata.fromMods(mods, this.metadata.model);
+              if (this.mode === 'children') {
+                  this.reloadChildren(() => {
+                      if (callback) {
+                          callback();
+                      }
+                  });
+              } else if (this.mode === 'detail') {
+                this.selectRight(this.right);
+              }
+              this.state = 'success';
+             });
+        });
+    }
 
       saveNote(note: Note, callback: (Note) => void) {
         this.state = 'saving';
@@ -314,7 +345,9 @@ export class EditorService {
                             callback();
                         }
                     });
-                }
+                } else if (this.mode === 'detail') {
+                    this.selectRight(this.right);
+                  }
                 this.state = 'success';
             });
         });
@@ -412,7 +445,7 @@ export class EditorService {
         if (enabled) {
             this.multipleChildrenMode = true;
             this.right.selected = true;
-            this.right = null;
+            this.selectRight(null);
         } else {
             this.multipleChildrenMode = false;
             if (this.children.length > firtsSelectionIndex) {
@@ -498,7 +531,7 @@ export class EditorService {
                 if (this.right) {
                     for (const newChild of children) {
                         if (this.right.pid === newChild.pid) {
-                            this.right = newChild;
+                            this.selectRight(newChild);
                             break;
                         }
                     }

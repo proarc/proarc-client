@@ -75,11 +75,14 @@
       "author": "Autor",
       "title": "Název"
     },
+    "search": "Vyhledat",
+    "save": "Nahrát metadata k objektu",
     "dialog_search_failed": {
       "title": "Vyhledání selhalo",
       "message": "Vyhledání ve vybraném katalogu se nezdařilo"
     },
-    "no-results": "Nebyly nalezeny žádné záznamy"
+    "no-results": "Nebyly nalezeny žádné záznamy",
+    "search-error": "Vyhledání ve vybraném katalogu se nezdařilo"
   },
   "import": {
     "profile": "Profil",
@@ -233,6 +236,9 @@
     "type": {
       "biblio": "Bibliografická metadata",
       "relations": "Vazby"
+    },
+    "metadata": {
+      "catalog": "Načíst metadata z katalogu"
     },
     "title": {
       "tab": "Název",

@@ -58,7 +58,7 @@ export class Metadata {
     return this.model === 'model:ndkperiodicalissue';
   }
   private parseMods(mods: string) {
-    console.log('mods', mods);
+    // console.log('mods', mods);
     const xml = mods.replace(/xmlns.*=".*"/g, '');
     const data = {tagNameProcessors: [processors.stripPrefix], explicitCharkey: true};
     const ctx = this;
@@ -71,7 +71,7 @@ export class Metadata {
   private processMods(data) {
     this.fields = new Map<String, ElementField>();
     this.mods = data;
-    console.log(data);
+    // console.log(data);
     // return;
     let root = null;
     const modsCollection = data['modsCollection'];

@@ -1,0 +1,58 @@
+@import './src/theme.scss';
+
+.app-catalog-wrapper {
+    padding: 20px;
+    width: 80vw;
+    height: calc(100vh - 200px);
+    max-height: calc(100vh - 200px) !important;
+
+    .app-actions {
+      height: 55px;
+      .app-catalog {
+        width: 240px;
+        margin-right: 16px;
+      }
+      .app-field {
+        width: 240px;
+        margin-right: 16px;
+      }
+      .app-query {
+        width: calc(100% - 655px);
+        margin-right: 16px;
+      }
+      .app-search {
+        width: 125px;
+      }
+    }
+    .app-results {
+      height: calc(100% - 55px);
+      overflow: hidden;
+      .app-table {
+        height: 100%;
+        overflow: auto;
+        float: left;
+        width: 50%;
+        .app-row {
+          cursor: pointer;
+          &.app-active {
+            background: $primary-color;
+            color: #fff;
+          }
+        }
+      }
+      .app-detail {
+        height: 100%;
+        overflow: auto;
+        float: left;
+        width: 50%;
+        background: #fff;
+        padding: 6px;
+      }
+    }
+    .app-no-results {
+      top: calc(50% - 20px);
+      width: 100%;
+      position: relative;
+      text-align: center;
+    }
+  }

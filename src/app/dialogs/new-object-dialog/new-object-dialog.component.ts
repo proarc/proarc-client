@@ -18,7 +18,7 @@ export class NewObjectDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<NewObjectDialogComponent>,
     private api: ApiService,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: NewObjectData) { }
 
   ngOnInit() {
   }

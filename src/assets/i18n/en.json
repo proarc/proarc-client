@@ -65,11 +65,14 @@
       "author": "Author",
       "title": "Name"
     },
+    "search": "Search",
+    "save": "Attach metadata to the selected object",
     "dialog_search_failed": {
       "title": "Search failed",
       "message": "Failed to search the selected catalog"
     },
-    "no-results": "No records found"
+    "no-results": "No records found",
+    "search-error": "Failed to search the selected catalog"
   },
   "import": {
     "profile": "Profile",
@@ -179,6 +182,9 @@
     "type": {
       "biblio": "Bibliographical metadata",
       "relations": "Relations"
+    },
+    "metadata": {
+      "catalog": "Set metadata from a catalog"
     },
     "title": {
       "tab": "Title",
