@@ -20,7 +20,7 @@ export class SearchComponent implements OnInit {
 
   pageIndex = 0;
   pageSize = 100;
-  resultCount = 200;
+  resultCount = 0;
 
   constructor(private api: ApiService) { }
 
@@ -28,17 +28,18 @@ export class SearchComponent implements OnInit {
     this.reload();
   }
 
-  reload() {
+  reload(page: number = 0) {
+    this.pageIndex = page;
     this.state = 'loading';
-    this.api.getSearchResults(this.model, this.query, this.pageIndex).subscribe((items: DocumentItem[]) => {
+    this.api.getSearchResults(this.model, this.query, this.pageIndex).subscribe(([items, total]: [DocumentItem[], number]) => {
+      this.resultCount = total;
       this.items = items;
       this.state = 'success';
     });
   }
 
   onPageChanged(page) {
-    this.pageIndex = page.pageIndex;
-    this.reload();
+    this.reload(page.pageIndex);
   }
 
 

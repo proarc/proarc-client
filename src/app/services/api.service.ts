@@ -191,10 +191,9 @@ export class ApiService {
     return this.put('object/privatenote', data, httpOptions).pipe(map(response => Note.fromJson(response['record'])));
   }
 
-  getSearchResults(model: string, query: string, page: number): Observable<DocumentItem[]> {
+  getSearchResults(model: string, query: string, page: number): Observable<[DocumentItem[], number]> {
     const params = {
     _startRow: page * 100,
-      _endRow: 75
     };
     if (model !== 'all') {
       params['queryModel'] = model;
@@ -206,7 +205,7 @@ export class ApiService {
     } else {
       params['type'] = 'lastCreated';
     }
-    return this.get('object/search', params).pipe(map(response => DocumentItem.fromJsonArray(response['response']['data'])));
+    return this.get('object/search', params).pipe(map(response => [DocumentItem.fromJsonArray(response['response']['data']), response['response']['totalRows']]));
   }
 
   getCatalogSearchResults(catalog: string, field: string, query: string): Observable<CatalogueEntry[]> {
