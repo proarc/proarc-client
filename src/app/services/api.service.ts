@@ -218,7 +218,7 @@ export class ApiService {
     } else {
       params['type'] = 'lastCreated';
     }
-    return this.get('object/search', params).pipe(map(response => [DocumentItem.fromJsonArray(response['response']['data']), response['response']['totalRows']]));
+    return this.get('object/search', params).pipe(map(response => [DocumentItem.fromJsonArray(response['response']['data']), response['response']['totalRows']] as [DocumentItem[], number]));
   }
 
   getCatalogSearchResults(catalog: string, field: string, query: string): Observable<CatalogueEntry[]> {
