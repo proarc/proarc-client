@@ -41,6 +41,7 @@
       <div class="result-created">{{ 'search.created' | translate }}</div>
       <div class="result-modified">{{ 'search.modified' | translate }}</div>
       <div class="result-export">{{ 'search.export' | translate }}</div>
+      <div class="result-actions"></div>
     </div>
     <div class="scrollable">
       <a *ngFor="let item of items" [routerLink]="['/document', item.pid]" class="app-row">
@@ -50,6 +51,14 @@
         <div class="result-created">{{ item.created | appDatetime }}</div>
         <div class="result-modified">{{ item.modified | appDatetime }}</div>
         <div class="result-export">{{ item.export == 1 ? "Ano" : "Ne" }}</div>
+
+        <div class="result-actions">
+          <button class="app-action-remove" (click)="onDelete(item); $event.preventDefault(); $event.stopPropagation()" mat-icon-button matTooltip="Smazat objekt" matTooltipPosition="below">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+
+
       </a>
     </div>
   </div>

@@ -2,7 +2,7 @@
 <div mat-dialog-content [style.max-width]="(data.width || 800) + 'px'">
   <p class="app-message">{{ data.message }}</p>
 
-  <mat-checkbox *ngIf="data.checkbox" [(ngModel)]="data.checkbox.checked">{{ data.checkbox.label }}</mat-checkbox>
+  <mat-checkbox *ngIf="data.checkbox" color="primary" [(ngModel)]="data.checkbox.checked">{{ data.checkbox.label }}</mat-checkbox>
 
   <mat-form-field *ngIf="data.numberInput">
     <input  type="number" step="1" [min]="data.numberInput.min" [max]="data.numberInput.max" autocomplete="off" matInput [placeholder]="data.numberInput.label" [(ngModel)]="data.numberInput.value">

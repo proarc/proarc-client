@@ -3,6 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { ProArc } from 'src/app/utils/proarc';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { Translator } from 'angular-translator';
+import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
+import { MatDialog } from '@angular/material';
+import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 
 @Component({
   selector: 'app-search',
@@ -23,7 +27,10 @@ export class SearchComponent implements OnInit {
   pageSize = 100;
   resultCount = 0;
 
-  constructor(private api: ApiService, private properties: LocalStorageService) { 
+  constructor(private api: ApiService, 
+              private properties: LocalStorageService, 
+              private dialog: MatDialog,
+              private translator: Translator) { 
   }
 
   ngOnInit() {
@@ -50,6 +57,46 @@ export class SearchComponent implements OnInit {
     this.reload(page.pageIndex);
   }
 
+
+  onDelete(item: DocumentItem) {
+    const checkbox = {
+      label: String(this.translator.instant('editor.children.delete_dialog.permanently')),
+      checked: false
+    };
+    const data: SimpleDialogData = {
+      title: String(this.translator.instant('editor.children.delete_dialog.title')),
+      message: String(this.translator.instant('editor.children.delete_dialog.message')),
+      btn1: {
+        label: 'Ano',
+        value: 'yes',
+        color: 'warn'
+      },
+      btn2: {
+        label: 'Ne',
+        value: 'no',
+        color: 'default'
+      },
+      checkbox: checkbox
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.deleteObject(item, checkbox.checked);
+      }
+    });
+  }
+
+  private deleteObject(item: DocumentItem, pernamently: boolean) {
+    this.state = 'loading';
+    this.api.deleteObjects([item.pid], pernamently).subscribe((removedPid: string[]) => {
+        for (let i = this.items.length - 1; i >= 0; i--) {
+            if (removedPid.indexOf(this.items[i].pid) > -1) {
+                this.items.splice(i, 1);
+            }
+        }
+        this.state = 'success';
+    });
+  }
 
 
 }
