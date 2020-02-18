@@ -1,5 +1,5 @@
 <div class="breadcrumb-nav">
-  <span>Hledání</span>
+  <span>{{ 'search.title' | translate }}</span>
 </div>
 
 <div class="app-search-results" *ngIf="state=='success'">
@@ -53,7 +53,10 @@
         <div class="result-export">{{ item.export == 1 ? "Ano" : "Ne" }}</div>
 
         <div class="result-actions">
-          <button class="app-action-remove" (click)="onDelete(item); $event.preventDefault(); $event.stopPropagation()" mat-icon-button matTooltip="Smazat objekt" matTooltipPosition="below">
+          <button class="app-action" (click)="onExport(item); $event.preventDefault(); $event.stopPropagation()" mat-icon-button matTooltip="Exportovat" matTooltipPosition="below">
+            <mat-icon>import_export</mat-icon>
+          </button>
+          <button class="app-action" (click)="onDelete(item); $event.preventDefault(); $event.stopPropagation()" mat-icon-button matTooltip="Smazat" matTooltipPosition="below">
             <mat-icon>delete</mat-icon>
           </button>
         </div>

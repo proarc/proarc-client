@@ -40,9 +40,9 @@
       width: 90px;
     }
     .result-actions {
-      width: 50px;
-      text-align: right;
-      .app-action-remove {
+      width: 85px;
+      float: right;
+      .app-action {
         color: #999;
         &:hover {
           color: #333;

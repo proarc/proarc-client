@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>{{ 'export.title' | translate }}</h1>
+
+<div mat-dialog-content>
+
+  <mat-form-field class="app-export-selection">
+    <mat-select [placeholder]="'export.type' | translate" [(ngModel)]="selectedType" [disabled]="formDisabled()">
+      <mat-option *ngFor="let type of types" [value]="type">{{ "export.type_" + type | translate }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-checkbox [disabled]="formDisabled()" *ngIf="selectedType=='kramerius'" color="primary" [(ngModel)]="policyPublic">{{ 'export.policy_public' | translate }}</mat-checkbox>
+  <div *ngIf="state=='saving'" class="app-export-message">{{ 'export.exporting' | translate }}</div>
+  <div *ngIf="state=='error'" class="app-export-error">
+    <button *ngFor="let error of errors" (click)="showErrorDetail(error)" mat-icon-button color="default" [matTooltip]="'export.show_error_detail' | translate" matTooltipPosition="below">
+      <mat-icon>error_outline</mat-icon>
+    </button>
+    {{ 'export.error' | translate }}
+  </div>
+  <div *ngIf="state=='done'" class="app-export-message">{{ 'export.done' | translate }}</div>
+  <div *ngIf="state=='done'" class="app-export-message">{{ target }}</div>
+
+</div>
+
+<div mat-dialog-actions cdk-focus-start>
+  
+  <button mat-raised-button color="primary" [disabled]="formDisabled()" (click)="onExport()">{{ 'export.export' | translate }}</button>
+  <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.cancel' | translate }}</button>
+  <mat-spinner *ngIf="state=='saving'"
+    style="margin-left: auto"
+    [strokeWidth]="3" 
+    [diameter]="30">
+  </mat-spinner>
+</div>
+
+

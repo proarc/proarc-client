@@ -50,6 +50,7 @@
     }
   },
   "search": {
+    "title": "Search",
     "name": "Name",
     "model": "Model",
     "owner": "Owner",

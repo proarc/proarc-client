@@ -33,6 +33,23 @@
     "failure": "Objekt se nepodařilo vytvořit",
     "create": "Vytvořit nový objekt"
   },
+  "export": {
+    "title": "Export",
+    "type": "Typ exportu",
+    "type_datastream_full": "Skeny", 
+    "type_datastream_raw": "Původní sken", 
+    "type_kramerius": "Kramerius",
+    "type_archive": "Archivace",
+    "type_ndk_psp": "NDK PSP",
+    "type_cejsh": "CEJSH",
+    "type_crossref": "Crossref",
+    "policy_public": "Veřejně dostupné",
+    "done": "Export byl dokončen a najdete jej v uživatelském adresáři",
+    "exporting": "Export byl zadán a bude probíhat na pozadí. Dialog můžete zavřít.",
+    "error": "Export se nezdařil",
+    "show_error_detail": "Zobrazit detail chyby",
+    "export": "Zahájit export"
+  },
   "device": {
     "devices": "Zařízení",
     "device": "Zařízení",
@@ -60,6 +77,7 @@
     }
   },
   "search": {
+    "title": "Hledání",
     "name": "Název",
     "model": "Model",
     "owner": "Vlastník",

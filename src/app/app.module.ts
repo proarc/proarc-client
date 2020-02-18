@@ -69,6 +69,7 @@ import { CatalogDialogComponent } from './dialogs/catalog-dialog/catalog-dialog.
 import { ParentDialogComponent } from './dialogs/parent-dialog/parent-dialog.component';
 import { CuzkService } from './services/cuzk.service';
 import { LocationDialogComponent } from './dialogs/location-dialog/location-dialog.component';
+import { ExportDialogComponent } from './dialogs/export-dialog/export-dialog.component';
 
 
 export function hljsLanguages() {
@@ -129,7 +130,8 @@ export function hljsLanguages() {
     NewObjectDialogComponent,
     CatalogDialogComponent,
     ParentDialogComponent,
-    LocationDialogComponent
+    LocationDialogComponent,
+    ExportDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -163,7 +165,8 @@ export function hljsLanguages() {
     NewObjectDialogComponent,
     CatalogDialogComponent,
     ParentDialogComponent,
-    LocationDialogComponent
+    LocationDialogComponent,
+    ExportDialogComponent
   ],
   bootstrap: [AppComponent]
 })

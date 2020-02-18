@@ -17,6 +17,7 @@ import { Page } from '../model/page.model';
 import { Profile } from '../model/profile.model';
 import { Batch } from '../model/batch.model';
 import { User } from '../model/user.model';
+import { ProArc } from '../utils/proarc';
 
 
 @Injectable()
@@ -62,6 +63,51 @@ export class ApiService {
   }
 
 
+
+  export(type: string, pid: string, policy: string): Observable<any> {
+    const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        })
+    };
+    let data = `pid=${pid}`;;
+    let path = '';
+    switch (type) {
+      case ProArc.EXPORT_DATASTREAM_FULL: {
+        data = `${data}&dsid=FULL`;
+        path = 'export/datastream'
+        break;
+      }
+      case ProArc.EXPORT_DATASTREAM_RAW: {
+        data = `${data}&dsid=RAW`;
+        path = 'export/datastream'
+        break;
+      }
+      case ProArc.EXPORT_KRAMERIUS: {
+        data = `${data}&policy=policy:${policy}`;
+        path = 'export/kramerius4'
+        break;
+      }
+      case ProArc.EXPORT_ARCHIVE: {
+        path = 'export/archive'
+        break;
+      }
+      case ProArc.EXPORT_NDK_PSP: {
+        path = 'export/ndk'
+        break;
+      }
+      case ProArc.EXPORT_CEJSH: {
+        path = 'export/cejsh'
+        break;
+      }
+      case ProArc.EXPORT_CROSSREF: {
+        path = 'export/crossref'
+        break;
+      }
+      default: return;
+    }
+    return this.post(path, data, httpOptions).pipe(map(response => response['response']['data']));
+  }
 
 
   getImportFolders(profile: Profile, folder: string = null): Observable<Folder[]> {

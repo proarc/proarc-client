@@ -92,8 +92,10 @@ export class HistoryComponent implements OnInit {
   }
 
   onShowLog(batch: Batch) {
-    console.log('show log', batch.failure);
-    this.dialog.open(LogDialogComponent, { data: batch.failure });
+    const data = {
+      content: batch.failure
+    }
+    this.dialog.open(LogDialogComponent, { data: data });
   }
 
   onEditBatchObject() {
