@@ -18,6 +18,7 @@ import { Profile } from '../model/profile.model';
 import { Batch } from '../model/batch.model';
 import { User } from '../model/user.model';
 import { ProArc } from '../utils/proarc';
+import { Registrar } from '../model/registrar.model';
 
 
 @Injectable()
@@ -109,6 +110,9 @@ export class ApiService {
     return this.post(path, data, httpOptions).pipe(map(response => response['response']['data']));
   }
 
+  getRegistrars(): Observable<Registrar[]> {
+    return this.get('urnnbn').pipe(map(response => Registrar.fromJsonArray(response['response']['data'])));
+  }
 
   getImportFolders(profile: Profile, folder: string = null): Observable<Folder[]> {
     return this.get('import/folder', { profile: profile.id, folder: folder})

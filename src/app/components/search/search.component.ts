@@ -8,6 +8,7 @@ import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { MatDialog } from '@angular/material';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { ExportDialogComponent } from 'src/app/dialogs/export-dialog/export-dialog.component';
+import { Registrar } from 'src/app/model/registrar.model';
 
 @Component({
   selector: 'app-search',
@@ -60,6 +61,9 @@ export class SearchComponent implements OnInit {
 
 
   onExport(item: DocumentItem) {
+    // this.api.getRegistrars().subscribe((registrars: Registrar[]) => {
+    //   console.log('registrars', registrars);
+    // });
     const dialogRef = this.dialog.open(ExportDialogComponent, { data: item.pid });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
