@@ -42,7 +42,14 @@ export class ApiService {
     return this.http.put(encodeURI(`${ApiService.apiUrl}${path}`), body, options);
   }
 
-  private post(path: string, body: any, options: any = {}): Observable<Object> {
+  private post(path: string, body: any, options = null): Observable<Object> {
+    if (!options) {
+      options = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        })
+      };
+    }
     return this.http.post(encodeURI(`${ApiService.apiUrl}${path}`), body, options);
   }
 
@@ -50,27 +57,21 @@ export class ApiService {
     return this.http.delete(encodeURI(`${ApiService.apiUrl}${path}`), { params: params });
   }
 
+
+  registerUrnnbn(resolver: string, pid: string): Observable<any> {
+    let data = `resolverID=${resolver}&pid=${pid}`;
+    return this.post('object/urnnbn', data); //.pipe(map(response => response['response']['data'][0]['pid']));
+  }
+
   createObject(model: string, pid: string): Observable<string> {
-    const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        })
-    };
     let data = `model=${model}`;
     if (pid) {
       data = `${data}&pid=${pid}`;
     }
-    return this.post('object', data, httpOptions).pipe(map(response => response['response']['data'][0]['pid']));
+    return this.post('object', data).pipe(map(response => response['response']['data'][0]['pid']));
   }
 
-
-
   export(type: string, pid: string, policy: string): Observable<any> {
-    const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        })
-    };
     let data = `pid=${pid}`;;
     let path = '';
     switch (type) {
@@ -107,7 +108,7 @@ export class ApiService {
       }
       default: return;
     }
-    return this.post(path, data, httpOptions).pipe(map(response => response['response']['data']));
+    return this.post(path, data).pipe(map(response => response['response']['data']));
   }
 
   getRegistrars(): Observable<Registrar[]> {
@@ -349,13 +350,8 @@ export class ApiService {
   }
 
   createDevice(model: string): Observable<Device> {
-    const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        })
-    };
     const data = `model=${model}`;
-    return this.post('device', data, httpOptions).pipe(map(response => Device.fromJson(response['response']['data'][0])));
+    return this.post('device', data).pipe(map(response => Device.fromJson(response['response']['data'][0])));
   }
 
 
@@ -382,13 +378,8 @@ export class ApiService {
   }
 
   createImportBatch(path: string, profile: string, indices: boolean, device: string): Observable<Batch> {
-    const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        })
-    };
     const data = `folderPath=${path}&profile=${profile}&indices=${indices}&device=${device}`;
-    return this.post('import/batch', data, httpOptions).pipe(map(response => Batch.fromJson(response['response']['data'][0])));
+    return this.post('import/batch', data).pipe(map(response => Batch.fromJson(response['response']['data'][0])));
   }
 
   getImportBatchStatus(id: number): Observable<[number, number]> {

@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { ExportDialogComponent } from 'src/app/dialogs/export-dialog/export-dialog.component';
 import { Registrar } from 'src/app/model/registrar.model';
+import { UrnbnbDialogComponent } from 'src/app/dialogs/urnnbn-dialog/urnnbn-dialog.component';
 
 @Component({
   selector: 'app-search',
@@ -57,6 +58,16 @@ export class SearchComponent implements OnInit {
 
   onPageChanged(page) {
     this.reload(page.pageIndex);
+  }
+
+
+  onUrnnbn(item: DocumentItem) {
+    const dialogRef = this.dialog.open(UrnbnbDialogComponent, { data: item.pid });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+    
+      }
+    });
   }
 
 

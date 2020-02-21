@@ -33,6 +33,14 @@
     "failure": "Objekt se nepodařilo vytvořit",
     "create": "Vytvořit nový objekt"
   },
+  "urnnbn": {
+    "title": "Registrace URN:NBN",
+    "message": "Akce registruje vybrané digitální objekty v resolveru a přidělí objektům identifikátor URN:NNB, pokud dosud nebyl přidělen.",
+    "note1": "Akce prochází i napojené objekty.",
+    "note2": "Vojejte pouzev případě plně popsaných objektů.",
+    "resolver": "Resolver",
+    "register": "Registrovat"
+  },
   "export": {
     "title": "Export",
     "type": "Typ exportu",
