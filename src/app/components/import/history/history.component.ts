@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { Batch } from 'src/app/model/batch.model';
 import { User } from 'src/app/model/user.model';
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.scss']
 })
-export class HistoryComponent implements OnInit {
+export class HistoryComponent implements OnInit, OnDestroy {
 
   state = 'none';
 
@@ -28,6 +28,11 @@ export class HistoryComponent implements OnInit {
   batches: Batch[];
   selectedBatch: Batch;
   
+
+  private timer;
+
+
+  private progressMap = {};
 
   batchStates = [
     'ALL',
@@ -46,6 +51,15 @@ export class HistoryComponent implements OnInit {
 
   ngOnInit() {
     this.reload();
+    // this.timer= setInterval(() => {
+    //   this.updateLoadingBatchesProgress();
+    // }, 5000);
+  }
+
+  ngOnDestroy() {
+    // if (this.timer) {
+    //   clearInterval(this.timer);
+    // }
   }
 
   selectBatch(batch: Batch) {
@@ -56,11 +70,36 @@ export class HistoryComponent implements OnInit {
     this.selectedBatch = null;
     this.state = 'loading';
     this.api.getImportBatches(this.selectedState).subscribe((batches: Batch[]) => {
-      console.log('batches', batches);
       this.batches = batches;
       this.state = 'success';
-    })
+      this.updateLoadingBatchesProgress();
+    });
   }
+
+
+  updateLoadingBatchesProgress() {
+    if (!this.batches) {
+      return;
+    }
+    for (const batch of this.batches) {
+      if (batch.isLoading()) {
+        this.api.getImportBatchStatus(batch.id).subscribe(
+          (status: [number, number]) => {
+            const done = status[0];
+            const count = status[1];
+            if (count === 0) {
+              this.progressMap[batch.id] = '?';
+            } else {
+              this.progressMap[batch.id] = Math.round(( done * 1.0 / count) * 100) + '%';
+            }
+        },
+        (error) => {
+            this.progressMap[batch.id] = '!';
+        });
+      }
+    }
+  }
+
 
   reloadBatch() {
     
@@ -117,6 +156,9 @@ export class HistoryComponent implements OnInit {
     // this.reload();
   }
 
+  batchProgress(batch: Batch): string {
+    return this.progressMap[batch.id];
+  }
 
 
 }

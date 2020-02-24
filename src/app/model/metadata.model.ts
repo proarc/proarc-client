@@ -136,6 +136,9 @@ export class Metadata {
   }
 
   private normalize(el) {
+    if (el === null || el === undefined) {
+      return true;
+    }
     if (el.hasOwnProperty('$')) {
       const attrs = el['$'];
       Object.keys(attrs).forEach(function(key) {
