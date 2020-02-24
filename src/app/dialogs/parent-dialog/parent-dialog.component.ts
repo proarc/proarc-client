@@ -24,6 +24,9 @@ export class ParentDialogComponent implements OnInit {
   pageSize = 100;
   resultCount = 0;
 
+  hierarchy: DocumentItem[];
+
+
   constructor(
     public dialogRef: MatDialogRef<ParentDialogComponent>,
     private properties: LocalStorageService, 
@@ -35,6 +38,7 @@ export class ParentDialogComponent implements OnInit {
   }
 
   reload(page: number = 0) {
+    this.hierarchy = [];
     this.selectedItem = null;
     this.pageIndex = page;
     this.state = 'loading';
@@ -55,6 +59,34 @@ export class ParentDialogComponent implements OnInit {
     }
     this.dialogRef.close({pid: this.selectedItem.pid});
   }
+
+  open(item: DocumentItem, index: number = -1) {
+    if (item.isPage()) {
+      return;
+    }
+    if (index > -1) {
+      this.hierarchy.splice(index);
+    }
+    this.selectedItem = null;
+    this.hierarchy.push(item);
+    this.loadChildrenForPid(item.pid);
+  }
+
+
+  private loadChildrenForPid(pid: string) {
+    this.state = 'loading';
+    this.api.getRelations(pid).subscribe((children: DocumentItem[]) => {
+      this.items = [];
+      for (const child of children) {
+        if (!child.isPage()) {
+          this.items.push(child);
+        }
+      }
+      this.state = 'success';
+    });
+  }
+
+
 
 }
 

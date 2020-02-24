@@ -32,6 +32,20 @@
   <div class="app-table" *ngIf="state=='success'">
 
   <div class="search-result-list">
+
+
+
+
+  <div *ngIf="hierarchy.length > 0" class="app-row app-path">
+    <ng-container *ngFor="let item of hierarchy; let index = index;">
+      <mat-icon *ngIf="index > 0">chevron_right</mat-icon>
+      <span class="app-path-segment" (click)="open(item, index)">{{ item.label | appShorten:38 }}</span>
+    </ng-container>
+  </div>
+
+
+
+
       <div class="app-row app-header">
         <div class="result-label">{{ 'search.name' | translate }}</div>
         <div class="result-model">{{ 'search.model' | translate }}</div>
@@ -41,7 +55,7 @@
         <div class="result-export">{{ 'search.export' | translate }}</div>
       </div>
     <div class="scrollable">
-      <div *ngFor="let item of items" (click)="selectedItem = item" [class.app-selected]="item == selectedItem" class="app-row">
+      <div *ngFor="let item of items" (click)="selectedItem = item" (dblclick)="open(item)"  [class.app-selected]="item == selectedItem" class="app-row app-data">
         <div class="result-label">{{ item.label }}</div>
         <div class="result-model">{{ "model." + item.model | translate }}</div>
         <div class="result-owner">{{ item.owner }}</div>
@@ -52,14 +66,21 @@
     </div>
   </div>
 
-  <div class="paginator-wrapper">
+  <div class="paginator-wrapper" *ngIf="hierarchy.length == 0">
     <mat-paginator [length]="resultCount"
                   hidePageSize="true"
                   [pageIndex]="pageIndex"
                   [pageSize]="pageSize"
                   (page)="onPageChanged($event)">
     </mat-paginator>
-    </div>
+  </div>
+
+
+
+
+
+
+
 </div>
 
 

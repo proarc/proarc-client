@@ -25,10 +25,24 @@
     box-shadow: none;
     border: 1px solid #cecece;
     .app-row {
-      cursor: pointer;
       &.app-active {
         background: $primary-color;
         color: #fff;
+      }
+      &.app-data {
+        cursor: pointer;
+      }
+      &.app-path {
+        &:hover {
+          background: transparent;
+        }
+        .app-path-segment {
+          cursor: pointer;
+        }
+        mat-icon {
+          margin: 11px;
+          color: #cccccc;
+        }
       }
     }
   }

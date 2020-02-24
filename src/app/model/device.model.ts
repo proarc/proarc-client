@@ -133,7 +133,6 @@ export class Device {
       if (device.isAudio() && json['audiodescription'] && json['audiodescription']['amdSec']) {
         device.audioDevices = AudioDevice.fromJsonArray(json['audiodescription']['amdSec']);
       }
-      console.log('device', device);
       return device;
     }
 
