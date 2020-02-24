@@ -1,5 +1,9 @@
 @import './src/theme.scss';
 
+.mat-dialog-title {
+  margin-bottom: 8px;
+}
+
 .app-search-results {
   width: calc(80vw - 50px);
   height: calc(100vh - 200px);
@@ -9,11 +13,11 @@
     overflow: hidden;
     .state-filter {
       float: right;
-      width: 20 0px;
+      width: 250px;
     }
     .document-search {
       margin-left: 20px;
-      width: calc(100% - 350px);
+      width: calc(100% - 410px);
     }
   }
   .app-table {
