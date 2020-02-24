@@ -23,6 +23,41 @@
   "login": {
     "login_failed": "Login failed"
   },
+  "new_object": {
+    "title": "New object",
+    "model": "Model",
+    "custom_pid": "Custom pid",
+    "invalid_pid": "PID does'n match the form uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "custom_pid_description": "If necessary, you can choose a custom PID of the form uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.\nThe PID must not be assigned to another object.",
+    "pid": "PID",
+    "failure": "Failed to create the objec",
+    "create": "Create new object"
+  },
+  "urnnbn": {
+    "title": "URN:NBN Registration",
+    "message": "The action registers selected digital objects in the resolver and assigns the URN:NNB identifier to the objects.",
+    "note1": "The action goes through connected objects too.",
+    "note2": "Use only for fully described objects.",
+    "resolver": "Resolver",
+    "register": "Register"
+  },
+  "export": {
+    "title": "Export",
+    "type": "Export Type",
+    "type_datastream_full": "Scans", 
+    "type_datastream_raw": "Original Scans", 
+    "type_kramerius": "Kramerius",
+    "type_archive": "Archivation",
+    "type_ndk_psp": "NDK PSP",
+    "type_cejsh": "CEJSH",
+    "type_crossref": "Crossref",
+    "policy_public": "Publicly available",
+    "done": "The export has been completed and can be found in the user directory",
+    "exporting": "The export has been specified and will continue in the background. You can close the dialog.",
+    "error": "Export failed",
+    "show_error_detail": "Show error detail",
+    "export": "Launch export"
+  },
   "device": {
     "devices": "Devices",
     "device": "Device",
