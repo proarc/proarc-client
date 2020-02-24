@@ -41,17 +41,29 @@
             </mat-slide-toggle>
       </mat-form-field>
 
-      <mat-form-field class="app-full-width">
+      <mat-form-field class="app-half-left">
         <input autocomplete="off" matInput [(ngModel)]='item.subTitle["_"]' placeholder="{{ 'editor.title.subtitle' | translate }}">
       </mat-form-field>
 
+
+      <mat-form-field class="app-half-right">
+        <mat-select [(ngModel)]='item.attrs["type"]' placeholder="{{ 'editor.title.type' | translate }}">
+          <mat-option value="">-</mat-option>
+          <mat-option *ngFor="let type of titleTypes" [value]="type">
+            {{ 'editor.title.types.' + type | translate }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+
       <div style="display:flex;">
-      <mat-form-field class="input-partname">
-        <input autocomplete="off" matInput [(ngModel)]='item.partName["_"]' placeholder="{{ 'editor.title.partname' | translate }}">
-      </mat-form-field>
-      <mat-form-field class="input-partnumber">
-        <input autocomplete="off" matInput [(ngModel)]='item.partNumber["_"]' placeholder="{{ 'editor.title.partnumber' | translate }}">
-      </mat-form-field>
+        <mat-form-field class="input-partname">
+          <input autocomplete="off" matInput [(ngModel)]='item.partName["_"]' placeholder="{{ 'editor.title.partname' | translate }}">
+        </mat-form-field>
+        <mat-form-field class="input-partnumber">
+          <input autocomplete="off" matInput [(ngModel)]='item.partNumber["_"]' placeholder="{{ 'editor.title.partnumber' | translate }}">
+        </mat-form-field>
       </div>
     </div>
   </div>

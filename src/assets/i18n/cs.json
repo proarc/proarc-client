@@ -283,6 +283,12 @@
       "tab": "Název",
       "title": "Název",
       "type": "Typ",
+      "types": {
+        "abbreviated": "Zkrácený název",
+        "alternative": "Alternativní název",
+        "translated": "Přeložený název",
+        "uniform": "Jednotná název"
+      },
       "subtitle": "Vedlejší název",
       "partnumber": "Číslo části",
       "partname": "Název částí",

@@ -306,7 +306,7 @@ body {
 
 .editor {
   overflow: hidden;
-  background: #f0f0f0;
+  background: #e5e5e5;
   padding: 2px;
   .app-card {
     box-shadow: none;
@@ -319,8 +319,10 @@ body {
     // margin-bottom: 20px;
     // background: #363d48;
     .app-card-header {
-      background: #eeeeee;
+      background: #fff;
       height: 47px;
+      border-bottom: 1px solid #ebebeb;
+
       // border-top: 1px solid rgba(255, 255, 255, 0.1);
       .app-card-title {
         color: #333;

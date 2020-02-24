@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ElementField } from 'src/app/model/mods/elementField.model';
+import { Translator } from 'angular-translator';
 
 @Component({
   selector: 'app-editor-title',
@@ -10,11 +11,13 @@ export class EditorTitleComponent implements OnInit {
 
   @Input() field: ElementField;
 
-  // types: string[] = ['', 'abbreviated', 'translated', 'alternative', 'uniform'];
+  titleTypes: string[] = ['abbreviated', 'translated', 'alternative', 'uniform'];
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
+
 
 }

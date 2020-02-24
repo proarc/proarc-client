@@ -204,6 +204,12 @@
       "tab": "Title",
       "title": "Title",
       "type": "Type",
+      "types": {
+        "abbreviated": "Abbreviated title",
+        "alternative": "Alternative title",
+        "translated": "Translated title",
+        "uniform": "Uniform title"
+      },
       "subtitle": "Subtitle",
       "partnumber": "Part Number",
       "partname": "Part Name",
