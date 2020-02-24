@@ -45,7 +45,6 @@ export class EditorIdentifierComponent implements OnInit {
 
 
   ngOnInit() {
-    console.log('field', this.field);
   }
 
 

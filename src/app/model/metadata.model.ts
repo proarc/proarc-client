@@ -71,10 +71,9 @@ export class Metadata {
   private processMods(data) {
     this.fields = new Map<String, ElementField>();
     this.mods = data;
-    // console.log(data);
-    // return;
+    this.mods = this.normalizedCopy();
     let root = null;
-    const modsCollection = data['modsCollection'];
+    const modsCollection = this.mods['modsCollection'];
     if (modsCollection) {
       modsCollection['$'] = {
         'xmlns': 'http://www.loc.gov/mods/v3'
@@ -84,10 +83,10 @@ export class Metadata {
       }
       root = modsCollection['mods'][0];
     } else {
-      data['mods']['$'] = {
+      this.mods['mods']['$'] = {
         'xmlns': 'http://www.loc.gov/mods/v3'
       };
-      root = data['mods'];
+      root = this.mods['mods'];
     }
     if (this.isVolume() || this.isIssue()) {
       this.volume = new ModsVolume(root);
@@ -106,19 +105,6 @@ export class Metadata {
     return JSON.stringify(this.mods, null, 2);
   }
 
-//   toDc(): string {
-//     let dc = '<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" '
-//            + 'xmlns:dc="http://purl.org/dc/elements/1.1/" '
-//            + 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
-//            + 'xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ '
-//            + 'http://www.openarchives.org/OAI/2.0/oai_dc.xsd">\n';
-//     for (const selector of this.selectors) {
-//       dc += this.fields.get(selector).toDC();
-//     }
-//     dc += '</oai_dc:dc>';
-//     return dc;
-// }
-
   toMods(save: boolean = false) {
     const builder = new Builder({ 'headless': true });
     const xml = builder.buildObject(this.normalizedCopy(save));
@@ -131,7 +117,6 @@ export class Metadata {
 
 
   private normalizedCopy(final: boolean = false) {
-    // const mods = Object.assign({}, this.mods);
     const mods = $.extend(true, {}, this.mods);
     const root = mods['modsCollection'] ? mods['modsCollection']['mods'][0] : mods['mods'];
     if (this.isVolume() || this.isIssue()) {
@@ -166,8 +151,12 @@ export class Metadata {
         return false;
       }
     }
-    if (el instanceof String) {
-      return false;
+    if (typeof el === 'string') {
+      if (el === "") {
+        return true;
+      } else {
+        return false;
+      }
     }
     if (el instanceof Array) {
       for (let index = el.length - 1; index >= 0; index--) {
@@ -184,9 +173,6 @@ export class Metadata {
     }
     if (typeof el === 'object') {
       const ctx = this;
-      // if (Object.keys(el).length === 1 && el['$']) {
-      //   return true;
-      // }
       Object.keys(el).forEach(function(key) {
         if (ctx.normalize(el[key])) {
           delete el[key];
