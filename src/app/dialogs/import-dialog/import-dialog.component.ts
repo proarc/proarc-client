@@ -11,6 +11,9 @@ import { Batch } from 'src/app/model/batch.model';
 })
 export class ImportDialogComponent implements OnInit, OnDestroy {
 
+  state = 'loading';
+
+
   public count = 0;
   public done = 0;
 
@@ -28,6 +31,7 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.state = 'loading';
     this.timer= setInterval(() => {
       this.onTick();
     }, 1000);
@@ -44,7 +48,7 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
     },
     (error) => {
         clearInterval(this.timer);
-        this.dialogRef.close('failure');
+        this.state = 'failure';
     });
   }
 
@@ -54,24 +58,36 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
     }
   }
 
-  onLoaded() {
+
+  private onLoaded() {
     clearInterval(this.timer);
+    if (this.parentPid) {
+      this.ingest();
+    } else {
+      this.state = 'loaded';
+    }
+  }
+
+  private ingest() {
     this.api.setParentForBatch(this.batchId, this.parentPid).subscribe((batch: Batch) => {
       console.log('setting parent done', batch);
       this.api.ingestBatch(this.batchId, this.parentPid).subscribe((batch: Batch) => {
         console.log('ingest batch done', batch);
-        this.dialogRef.close('success');
+        this.onIngested();
       },
       (error) => {
         console.log('ingest batch error', error);
+        this.state = 'failure';
       });
     },
     (error) => {
       console.log('sitting parent error', error);
+      this.state = 'failure';
     });
-
-    // this.dialogRef.close('success');
   }
 
+  private onIngested() {
+    this.state = 'ingested';
+  }
 
 }

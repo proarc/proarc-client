@@ -126,7 +126,7 @@
     "device": "Zařízení",
     "generate_index": "Generovat index stránek",
     "load": "Načíst",
-    "continue": "Pokračovat",
+    "save": "Načíst a uložit",
     "select_parent": "Vyberte nadřzený objekt",
     "state": {
       "new": "Nové",
@@ -137,7 +137,10 @@
     "dialog": {
       "title": "Import",
       "preparing": "Probíhá příprava importu",
-      "loading": "Probíhá načítání objektů {{ done }}/{{ count }}"
+      "loading": "Probíhá načítání objektů {{ done }}/{{ count }}",
+      "open": "Přejít na nadřazený objekt",
+      "success": "Import proběhl v pořádku",
+      "failure": "Import se nezdařil"
     },
     "error_dialog": {
       "title": "Chyba importu",

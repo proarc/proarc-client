@@ -12,12 +12,15 @@
     </a>
 
 
-    <button mat-raised-button color="primary" (click)="onContinue()" [disabled]="!canBeLoaded()">
-      <mat-icon style="margin-right:8px;">arrow_right_alt</mat-icon>
-      {{ 'import.continue' | translate }}
+    <button mat-raised-button color="primary" (click)="onLoad()" [disabled]="!canBeLoaded()">
+      {{ 'import.load' | translate }}
     </button>
 
-    <button mat-raised-button color="primary" (click)="reload()">
+    <button mat-raised-button color="primary" (click)="onLoadAndSave()" [disabled]="!canBeLoaded()">
+      {{ 'import.save' | translate }}
+    </button>
+
+    <button mat-raised-button color="default" (click)="reload()">
       <mat-icon style="margin-right:8px;">sync</mat-icon>
       {{ 'history.refresh' | translate }}
     </button>

@@ -1,16 +1,26 @@
 <h1 mat-dialog-title>{{ "import.dialog.title" | translate }}</h1>
 <div mat-dialog-content [style.width]="'600px'">
-    <p *ngIf="count === 0" class="app-message">{{ "import.dialog.preparing" | translate: { done: done, count: count  } }}</p>
+    <ng-container *ngIf="state == 'loading'">
+        <p *ngIf="count === 0" class="app-message">{{ "import.dialog.preparing" | translate: { done: done, count: count  } }}</p>
 
-    <p *ngIf="count > 0" class="app-message">{{ "import.dialog.loading" | translate: { done: done, count: count  } }}</p>
+        <p *ngIf="count > 0" class="app-message">{{ "import.dialog.loading" | translate: { done: done, count: count  } }}</p>
 
-    <mat-progress-bar
-            *ngIf="count > 0"
-            class="example-margin"
-            color="primary"
-            mode="buffer"
-            [value]="(done/count) * 100"
-            bufferValue="0">
-    </mat-progress-bar>
+        <mat-progress-bar
+                *ngIf="count > 0"
+                class="example-margin"
+                color="primary"
+                mode="buffer"
+                [value]="(done/count) * 100"
+                bufferValue="0">
+        </mat-progress-bar>
+    </ng-container>
+
+    <div class="app-message" *ngIf="state=='loaded' || state=='ingested'">{{ "import.dialog.success" | translate }}</div>
+    <div class="app-message app-error-message" *ngIf="state=='failure'">{{ "import.dialog.failure" | translate }}</div>
 
 </div>
+
+<div mat-dialog-actions cdk-focus-start>
+    <button *ngIf="state == 'ingested'" mat-raised-button color="primary" mat-dialog-close="open">{{ 'import.dialog.open' | translate }}</button>
+    <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.close' | translate }}</button>
+  </div>

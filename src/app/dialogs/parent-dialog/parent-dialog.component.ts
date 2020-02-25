@@ -38,6 +38,7 @@ export class ParentDialogComponent implements OnInit {
   }
 
   reload(page: number = 0) {
+    this.properties.setStringProperty('search.model', this.model);
     this.hierarchy = [];
     this.selectedItem = null;
     this.pageIndex = page;

@@ -93,35 +93,32 @@ export class ImportComponent implements OnInit {
     return this.selectedDevice && this.selectedProfile && this.selectedFolder && this.selectedFolder.isNew();
   }
 
-  onContinue() {
+  onLoadAndSave() {
     const dialogRef = this.dialog.open(ParentDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['pid']) {
-        this.loadAndSave(result['pid']);
+        this.load(result['pid']);
       }
     });
   }
 
+  onLoad() {
+    this.load();
+  }
 
-  loadAndSave(parentPid: string) {
+
+  private load(parentPid: string = null) {
     this.api.createImportBatch(this.selectedFolder.path, this.selectedProfile.id, this.generateIndex, this.selectedDevice.id).subscribe((batch: Batch) => {
       const dialogRef = this.dialog.open(ImportDialogComponent, { data: {batch: batch.id, parent: parentPid }});
       dialogRef.afterClosed().subscribe(result => {
-        console.log('dialog res', result);
-        if (result === 'success') {
+        if (result === 'open') {
           this.router.navigate(['/document', parentPid]);
-        } else if (result === 'failure') {
-          this.onImportFailure();
+        } else {
+          this.reload();
         }
       });
-    })
-    // this.api.getImportBatch(1302).subscribe((batch: Batch) => {
-    //   console.log('batch', batch);
-    //   const dialogRef = this.dialog.open(ImportDialogComponent, { data: batch.id });
-    //   dialogRef.afterClosed().subscribe(result => {
-    //     console.log('dialog res', result);
-    //   });
-    // });
+    });
+
   }
 
 
