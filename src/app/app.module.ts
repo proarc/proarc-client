@@ -72,6 +72,8 @@ import { LocationDialogComponent } from './dialogs/location-dialog/location-dial
 import { ExportDialogComponent } from './dialogs/export-dialog/export-dialog.component';
 import { UrnbnbDialogComponent } from './dialogs/urnnbn-dialog/urnnbn-dialog.component';
 import { ShortenPipe } from './pipes/shorten.pipe';
+import { HelpDialogComponent } from './dialogs/help-dialog/help-dialog.component';
+import { HelpService } from './services/help.service';
 
 
 export function hljsLanguages() {
@@ -135,7 +137,8 @@ export function hljsLanguages() {
     ParentDialogComponent,
     LocationDialogComponent,
     ExportDialogComponent,
-    UrnbnbDialogComponent
+    UrnbnbDialogComponent,
+    HelpDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -160,7 +163,8 @@ export function hljsLanguages() {
     EditorService,
     LocalStorageService,
     CodebookService,
-    CuzkService
+    CuzkService,
+    HelpService
   ],
   entryComponents: [
     SimpleDialogComponent,
@@ -171,7 +175,8 @@ export function hljsLanguages() {
     ParentDialogComponent,
     LocationDialogComponent,
     ExportDialogComponent,
-    UrnbnbDialogComponent
+    UrnbnbDialogComponent,
+    HelpDialogComponent
   ],
   bootstrap: [AppComponent]
 })

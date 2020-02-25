@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ElementField } from 'src/app/model/mods/elementField.model';
-import { Translator } from 'angular-translator';
+import { CodebookService } from 'src/app/services/codebook.service';
+import { HelpService } from 'src/app/services/help.service';
 
 @Component({
   selector: 'app-editor-title',
@@ -11,9 +12,8 @@ export class EditorTitleComponent implements OnInit {
 
   @Input() field: ElementField;
 
-  titleTypes: string[] = ['abbreviated', 'translated', 'alternative', 'uniform'];
 
-  constructor() {
+  constructor(public codebook: CodebookService, public help: HelpService) {
   }
 
   ngOnInit() {

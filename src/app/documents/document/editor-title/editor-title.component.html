@@ -8,6 +8,13 @@
         <mat-icon>delete</mat-icon>
       </button>
 
+
+
+      <button matTooltip="{{ 'editor.info' | translate }}" color="primary" (click)="help.showForField(field.selector)" mat-icon-button>
+        <mat-icon>help_outline</mat-icon>
+      </button>
+
+
       <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" color="primary" (click)="field.moveDown(index)" mat-icon-button>
           <mat-icon>arrow_drop_down</mat-icon>
         </button>
@@ -49,7 +56,7 @@
       <mat-form-field class="app-half-right">
         <mat-select [(ngModel)]='item.attrs["type"]' placeholder="{{ 'editor.title.type' | translate }}">
           <mat-option value="">-</mat-option>
-          <mat-option *ngFor="let type of titleTypes" [value]="type">
+          <mat-option *ngFor="let type of codebook.titleTypeCodes" [value]="type">
             {{ 'editor.title.types.' + type | translate }}
           </mat-option>
         </mat-select>

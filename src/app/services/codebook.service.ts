@@ -73,5 +73,11 @@ export class CodebookService {
           'localId'
         ];
 
+      titleTypeCodes = [
+        'abbreviated',
+        'translated',
+        'alternative',
+        'uniform'
+      ];
 
 }

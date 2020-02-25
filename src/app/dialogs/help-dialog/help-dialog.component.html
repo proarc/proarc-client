@@ -1,0 +1,7 @@
+<div mat-dialog-content class="app-help-wrapper">
+  <div [innerHTML]="data | translate" class="app-help-content"></div>
+</div>
+
+<div mat-dialog-actions cdk-focus-start>
+  <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.cancel' | translate }}</button>
+</div>
