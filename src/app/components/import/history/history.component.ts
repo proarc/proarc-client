@@ -2,15 +2,14 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { Batch } from 'src/app/model/batch.model';
 import { User } from 'src/app/model/user.model';
-import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { MatDialog } from '@angular/material';
-import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { Translator } from 'angular-translator';
 import { LogDialogComponent } from 'src/app/dialogs/log-dialog/log-dialog.component';
 import { Router } from '@angular/router';
 import { ReloadBatchDialogComponent } from 'src/app/dialogs/reload-batch-dialog/reload-batch-dialog.component';
 import { Profile } from 'src/app/model/profile.model';
 import { ImportDialogComponent } from 'src/app/dialogs/import-dialog/import-dialog.component';
+import { ParentDialogComponent } from 'src/app/dialogs/parent-dialog/parent-dialog.component';
 
 @Component({
   selector: 'app-history',
@@ -112,6 +111,29 @@ export class HistoryComponent implements OnInit, OnDestroy {
     });   
   }
 
+  onIngestBatch() {
+    const dialogRef = this.dialog.open(ParentDialogComponent, { data: { ingestOnly: true }});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.pid) {
+        this.ingestBatch(result.pid);
+      }
+    });
+  }
+
+
+  private ingestBatch(parentPid: string) {
+    if (!this.selectBatch) {
+      return;
+    }
+    const dialogRef = this.dialog.open(ImportDialogComponent, { data: {batch: this.selectedBatch.id, parent: parentPid, ingestOnly: true }});
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === 'open') {
+          this.router.navigate(['/document', parentPid]);
+        } else {
+          this.reload();
+        }
+      });
+  }
 
   private reloadBatch(profile: Profile) {
     if (!this.selectedBatch || !profile) {
@@ -135,11 +157,6 @@ export class HistoryComponent implements OnInit, OnDestroy {
   onEditBatchObject() {
     this.router.navigate(['/document', this.selectedBatch.parentPid]);
   }
-
-  onContinueWithBatch() {
-
-  }
-
 
   onStateChanged() {
     this.reload();

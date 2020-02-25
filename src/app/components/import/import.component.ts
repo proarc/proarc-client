@@ -7,9 +7,7 @@ import { Folder } from 'src/app/model/folder.model';
 import { Batch } from 'src/app/model/batch.model';
 import { MatDialog } from '@angular/material';
 import { ImportDialogComponent } from 'src/app/dialogs/import-dialog/import-dialog.component';
-import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { Translator } from 'angular-translator';
-import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { ParentDialogComponent } from 'src/app/dialogs/parent-dialog/parent-dialog.component';
 import { Router } from '@angular/router';
 

@@ -14,10 +14,14 @@
       </mat-select>
     </mat-form-field>
 
-
     <button mat-raised-button color="default" (click)="reload()">
       <mat-icon style="margin-right:8px;">sync</mat-icon>
       {{ 'history.refresh' | translate }}
+    </button>
+
+    <button mat-raised-button color="primary" (click)="onIngestBatch()" 
+      *ngIf="selectedBatch && selectedBatch.state === 'LOADED'">
+      {{ 'history.ingest' | translate }}
     </button>
 
     <button mat-raised-button color="primary" (click)="onReloadBatch()" 
@@ -30,11 +34,6 @@
       {{ 'history.edit' | translate }}
     </button>
 
-    <!-- <button mat-raised-button color="primary" (click)="onContinueWithBatch()" 
-      *ngIf="selectedBatch && selectedBatch.state === 'LOADED'">
-      <mat-icon style="margin-right:8px;">arrow_forward</mat-icon>
-      {{ 'history.continue' | translate }}
-    </button> -->
   </div>
 
 

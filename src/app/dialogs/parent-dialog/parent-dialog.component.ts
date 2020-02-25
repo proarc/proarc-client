@@ -24,13 +24,18 @@ export class ParentDialogComponent implements OnInit {
   pageSize = 100;
   resultCount = 0;
 
+  ingestOnly: boolean;
+
   hierarchy: DocumentItem[];
 
 
   constructor(
     public dialogRef: MatDialogRef<ParentDialogComponent>,
     private properties: LocalStorageService, 
-    private api: ApiService) { }
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private api: ApiService) { 
+      this.ingestOnly = data && !!data.ingestOnly;
+    }
 
   ngOnInit() {
     this.model = this.properties.getStringProperty('search.model', ProArc.defaultModel);

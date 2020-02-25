@@ -20,6 +20,7 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
   private timer;
   private batchId;
   private parentPid;
+  private ingestOnly: boolean;
   private error = false;
 
   constructor(
@@ -28,13 +29,18 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.batchId = data.batch;
       this.parentPid = data.parent;
-  }
+      this.ingestOnly = !!data.ingestOnly;
+}
 
   ngOnInit() {
     this.state = 'loading';
-    this.timer= setInterval(() => {
-      this.onTick();
-    }, 1000);
+    if (this.ingestOnly) {
+      this.ingest();
+    } else {
+      this.timer= setInterval(() => {
+        this.onTick();
+      }, 1000);
+    }
   }
 
   onTick() {
@@ -60,7 +66,9 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
 
 
   private onLoaded() {
-    clearInterval(this.timer);
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
     if (this.parentPid) {
       this.ingest();
     } else {

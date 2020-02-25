@@ -127,7 +127,8 @@
     "device": "Zařízení",
     "generate_index": "Generovat index stránek",
     "load": "Načíst",
-    "save": "Načíst a uložit",
+    "load_and_save": "Načíst a uložit",
+    "save": "Uložit",
     "select_parent": "Vyberte nadřzený objekt",
     "state": {
       "new": "Nové",
@@ -171,7 +172,7 @@
     "refresh": "Obnovit",
     "reload": "Načíst znovu",
     "edit": "Přejít na objekt",
-    "continue": "Pokračovat",
+    "ingest": "Uložit",
     "reload_dialog": {
       "title": "Opětovné načtení dávky",
       "message": "Opravdu chcete importovaný adresář načíst znovu? Vytvořena metadata budou odstraněna."
