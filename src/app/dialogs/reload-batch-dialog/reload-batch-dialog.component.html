@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>{{ 'reoad_batch.title' | translate }}</h1>
+
+<div mat-dialog-content>
+
+  <mat-form-field class="app-profile">
+    <mat-select [placeholder]="'reoad_batch.profile' | translate" [(ngModel)]="selectedProfile" [disabled]="formDisabled()">
+      <mat-option *ngFor="let profile of profiles" [value]="profile">{{ profile.label }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</div>
+
+<div mat-dialog-actions cdk-focus-start>
+  <button mat-raised-button color="primary" [disabled]="formDisabled()" (click)="onContinue()">{{ 'common.continue' | translate }}</button>
+  <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.cancel' | translate }}</button>
+</div>
+
+

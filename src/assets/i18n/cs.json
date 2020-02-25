@@ -4,6 +4,7 @@
     "cancel": "Zrušit",
     "edit": "Upravit",
     "open": "Otevřít", 
+    "continue": "Pokračovat",
     "revert": "Vrátit původní",   
     "ok": "OK",
     "yes": "Ano",
@@ -141,11 +142,11 @@
       "open": "Přejít na nadřazený objekt",
       "success": "Import proběhl v pořádku",
       "failure": "Import se nezdařil"
-    },
-    "error_dialog": {
-      "title": "Chyba importu",
-      "message": "Načtení adresáře se nezdařílo"
     }
+  },
+  "reoad_batch": {
+    "title": "Znovu načíst dávku",
+    "profile": "Profil"
   },
   "history": {
     "title": "Správa importních dávek",

@@ -124,21 +124,6 @@ export class ImportComponent implements OnInit {
 
 
 
-  private onImportFailure() {
-    this.reload();
-    const data: SimpleDialogData = {
-      title: String(this.translator.instant('import.error_dialog.title')),
-      message: String(this.translator.instant('import.error_dialog.message')),
-      btn1: {
-        label: String(this.translator.instant('common.ok')),
-        value: 'ok',
-        color: 'default'
-      }
-    };
-    this.dialog.open(SimpleDialogComponent, { data: data });
-    this.state = 'success';
-  }
-
   reload() {
     this.selectedFolder = null;
     this.state = 'loading';

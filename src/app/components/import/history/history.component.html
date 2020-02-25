@@ -15,20 +15,18 @@
     </mat-form-field>
 
 
-    <button mat-raised-button color="primary" (click)="reload()">
+    <button mat-raised-button color="default" (click)="reload()">
       <mat-icon style="margin-right:8px;">sync</mat-icon>
       {{ 'history.refresh' | translate }}
     </button>
 
-    <!-- <button mat-raised-button color="warn" (click)="onReloadBatch()" 
-      *ngIf="selectedBatch && (selectedBatch.state === 'LOADED' || selectedBatch.state === 'LOADING_FAILED')">
-      <mat-icon style="margin-right:8px;">arrow_back</mat-icon>
+    <button mat-raised-button color="primary" (click)="onReloadBatch()" 
+      *ngIf="selectedBatch && selectedBatch.state === 'LOADING_FAILED'">
       {{ 'history.reload' | translate }}
-    </button> -->
+    </button>
 
     <button mat-raised-button color="primary" (click)="onEditBatchObject()" 
       *ngIf="selectedBatch && selectedBatch.state === 'INGESTED' && selectedBatch.parentPid">
-      <mat-icon style="margin-right:8px;">arrow_forward</mat-icon>
       {{ 'history.edit' | translate }}
     </button>
 

@@ -74,6 +74,7 @@ import { UrnbnbDialogComponent } from './dialogs/urnnbn-dialog/urnnbn-dialog.com
 import { ShortenPipe } from './pipes/shorten.pipe';
 import { HelpDialogComponent } from './dialogs/help-dialog/help-dialog.component';
 import { HelpService } from './services/help.service';
+import { ReloadBatchDialogComponent } from './dialogs/reload-batch-dialog/reload-batch-dialog.component';
 
 
 export function hljsLanguages() {
@@ -138,7 +139,8 @@ export function hljsLanguages() {
     LocationDialogComponent,
     ExportDialogComponent,
     UrnbnbDialogComponent,
-    HelpDialogComponent
+    HelpDialogComponent,
+    ReloadBatchDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -176,7 +178,8 @@ export function hljsLanguages() {
     LocationDialogComponent,
     ExportDialogComponent,
     UrnbnbDialogComponent,
-    HelpDialogComponent
+    HelpDialogComponent,
+    ReloadBatchDialogComponent
   ],
   bootstrap: [AppComponent]
 })

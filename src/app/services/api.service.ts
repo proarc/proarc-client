@@ -38,7 +38,14 @@ export class ApiService {
   }
 
 
-  private put(path: string, body: any, options: any = {}): Observable<Object> {
+  private put(path: string, body: any, options = null): Observable<Object> {
+    if (!options) {
+      options = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        })
+      };
+    }
     return this.http.put(encodeURI(`${ApiService.apiUrl}${path}`), body, options);
   }
 
@@ -131,7 +138,8 @@ export class ApiService {
         'Content-Type': 'application/json'
       })
     };
-    const payload = {
+    const payload =
+     {
       'srcPid': srcParent,
       'dstPid': dstParent,
       'pid': pids
@@ -156,13 +164,8 @@ export class ApiService {
   }
 
   editPage(page: Page): Observable<Page> {
-    const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        })
-    };
     const data = `pid=${page.pid}&editorId=proarc.mods.PageForm&jsonData=${JSON.stringify(page.toJson())}&timestamp=${page.timestamp}`;
-    return this.put('object/mods/custom', data, httpOptions).pipe(map(response => Page.fromJson(response['response']['data'][0])));
+    return this.put('object/mods/custom', data).pipe(map(response => Page.fromJson(response['response']['data'][0])));
   }
 
   getAtm(id: string): Observable<Atm> {
@@ -170,13 +173,8 @@ export class ApiService {
   }
 
   editAtm(atm: Atm): Observable<Atm> {
-    const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        })
-    };
     const data = `pid=${atm.pid}&device=${atm.device}`;
-    return this.put('object/atm', data, httpOptions).pipe(map(response => Atm.fromJson(response['response']['data'][0])));
+    return this.put('object/atm', data).pipe(map(response => Atm.fromJson(response['response']['data'][0])));
   }
 
   getMetadata(pid: string, model: string): Observable<Metadata> {
@@ -190,37 +188,17 @@ export class ApiService {
   }
 
   editMetadata(document: Metadata): Observable<any> {
-    // const httpOptions = {
-    //     headers: new HttpHeaders({
-    //       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-    //     })
-    // };
-    // const data = `pid=${document.pid}&ignoreValidation=true&xmlData=${document.toMods()}&timestamp=${document.timestamp}`;
-    // // const data = `pid=${document.pid}&ignoreValidation=true&editorId=proarc.mods.MonographForm&xmlData=${document.toMods()}&timestamp=${document.timestamp}`;
-    // return this.put('object/mods/custom', data, httpOptions);
     return this.editModsXml(document.pid, document.toMods(), document.timestamp);
   }
 
   editMods(mods: Mods): Observable<Mods> {
-    // const httpOptions = {
-    //     headers: new HttpHeaders({
-    //       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-    //     })
-    // };
-    // const data = `pid=${mods.pid}&ignoreValidation=true&xmlData=${mods.content}&timestamp=${mods.timestamp}`;
-    // return this.put('object/mods/custom', data, httpOptions).pipe(map(response => Mods.fromJson(response['response']['data'][0])));
     return this.editModsXml(mods.pid, mods.content, mods.timestamp);
 
   }
 
   editModsXml(pid: string, xml: string, timestamp: number): Observable<Mods> {
-    const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        })
-    };
     const data = `pid=${pid}&ignoreValidation=true&xmlData=${xml}&timestamp=${timestamp}`;
-    return this.put('object/mods/custom', data, httpOptions).pipe(map(response => Mods.fromJson(response['response']['data'][0])));
+    return this.put('object/mods/custom', data).pipe(map(response => Mods.fromJson(response['response']['data'][0])));
   }
 
 
@@ -230,13 +208,8 @@ export class ApiService {
   }
 
   editOcr(ocr: Ocr): Observable<Ocr> {
-    const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        })
-    };
     const data = `pid=${ocr.pid}&content=${ocr.content}&timestamp=${ocr.timestamp}`;
-    return this.put('object/ocr', data, httpOptions).pipe(map(response => Ocr.fromJson(response['record'])));
+    return this.put('object/ocr', data).pipe(map(response => Ocr.fromJson(response['record'])));
   }
 
 
@@ -246,13 +219,8 @@ export class ApiService {
   }
 
   editNote(note: Note): Observable<Note> {
-    const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        })
-    };
     const data = `pid=${note.pid}&content=${note.content}&timestamp=${note.timestamp}`;
-    return this.put('object/privatenote', data, httpOptions).pipe(map(response => Note.fromJson(response['record'])));
+    return this.put('object/privatenote', data).pipe(map(response => Note.fromJson(response['record'])));
   }
 
   getSearchResults(model: string, query: string, page: number): Observable<[DocumentItem[], number]> {
@@ -322,31 +290,20 @@ export class ApiService {
   }
 
   editDevice(device: Device): Observable<Device> {
-    const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        })
-    };
-    // tslint:disable-next-line:max-line-length
     let data = `id=${device.id}&label=${device.label}&model=${device.model}&timestamp=${device.timestamp}&description=${device.description()}`;
     if (device.isAudio()) {
       data += `&audiotimestamp=${device.audiotimestamp}&audiodescription=${device.audioDescription()}`;
     }
-    return this.put('device', data, httpOptions).pipe(map(response => Device.fromJson(response['response']['data'][0])));
+    return this.put('device', data).pipe(map(response => Device.fromJson(response['response']['data'][0])));
   }
 
 
   editRelations(parentPid: string, pidArray: string[]): Observable<any> {
-    const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json'
-        })
-    };
     const payload = {
       'parent': parentPid,
       'pid': pidArray
     };
-    return this.put('object/member', payload, httpOptions);
+    return this.put('object/member', payload);
   }
 
   createDevice(model: string): Observable<Device> {
@@ -357,24 +314,19 @@ export class ApiService {
 
 
   setParentForBatch(id: number, parent: string): Observable<Batch> {
-    const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        })
-    };
     const data = `id=${id}&parentPid=${parent}`;
-    return this.put('import/batch', data, httpOptions).pipe(map(response => Batch.fromJson(response['response']['data'][0])));
+    return this.put('import/batch', data).pipe(map(response => Batch.fromJson(response['response']['data'][0])));
   }
 
 
   ingestBatch(id: number, parent: string): Observable<Batch> {
-    const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        })
-    };
     const data = `id=${id}&parentPid=${parent}&state=INGESTING`;
-    return this.put('import/batch', data, httpOptions).pipe(map(response => Batch.fromJson(response['response']['data'][0])));
+    return this.put('import/batch', data).pipe(map(response => Batch.fromJson(response['response']['data'][0])));
+  }
+
+  reloadBatch(id: number, profile: string): Observable<Batch> {
+    const data = `id=${id}&profile=${profile}&state=LOADING_FAILED`;
+    return this.put('import/batch', data).pipe(map(response => Batch.fromJson(response['response']['data'][0])));
   }
 
   createImportBatch(path: string, profile: string, indices: boolean, device: string): Observable<Batch> {

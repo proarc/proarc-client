@@ -8,6 +8,9 @@ import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dial
 import { Translator } from 'angular-translator';
 import { LogDialogComponent } from 'src/app/dialogs/log-dialog/log-dialog.component';
 import { Router } from '@angular/router';
+import { ReloadBatchDialogComponent } from 'src/app/dialogs/reload-batch-dialog/reload-batch-dialog.component';
+import { Profile } from 'src/app/model/profile.model';
+import { ImportDialogComponent } from 'src/app/dialogs/import-dialog/import-dialog.component';
 
 @Component({
   selector: 'app-history',
@@ -100,32 +103,24 @@ export class HistoryComponent implements OnInit, OnDestroy {
     }
   }
 
-
-  reloadBatch() {
-    
+  onReloadBatch() {
+    const dialogRef = this.dialog.open(ReloadBatchDialogComponent, { data: null });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.profile) {
+        this.reloadBatch(result.profile);
+      }
+    });   
   }
 
-  onReloadBatch() {
-    this.translator.waitForTranslation().then(() => {
-      const data: SimpleDialogData = {
-        title: String(this.translator.instant('history.reload_dialog.title')),
-        message: String(this.translator.instant('history.reload_dialog.message')),
-        btn2: {
-          label: String(this.translator.instant('common.no')),
-          value: 'no',
-          color: 'default'
-        },
-        btn1: { 
-          label: String(this.translator.instant('common.yes')),
-          value: 'yes',
-          color: 'warn'
-        }
-      };
-      const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+
+  private reloadBatch(profile: Profile) {
+    if (!this.selectedBatch || !profile) {
+      return;
+    }
+    this.api.reloadBatch(this.selectedBatch.id, profile.id).subscribe((batch: Batch) => {
+      const dialogRef = this.dialog.open(ImportDialogComponent, { data: {batch: batch.id, parent: null }});
       dialogRef.afterClosed().subscribe(result => {
-        if (result === 'yes') {
-          this.reloadBatch();
-        }
+          this.reload();
       });
     });
   }

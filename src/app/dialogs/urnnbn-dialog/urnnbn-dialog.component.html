@@ -2,25 +2,13 @@
 
 <div mat-dialog-content>
 
-
   <div class="app-urnnbn-message">{{ 'urnnbn.message' | translate }}</div>
-
 
   <mat-form-field class="app-urnnbn-registrar">
     <mat-select [placeholder]="'urnnbn.resolver' | translate" [(ngModel)]="selectedRegistrar" [disabled]="formDisabled()">
       <mat-option *ngFor="let registrar of registrars" [value]="registrar">{{ registrar.name }}</mat-option>
     </mat-select>
   </mat-form-field>
-
-  <!-- <div *ngIf="state=='saving'" class="app-export-message">{{ 'export.exporting' | translate }}</div>
-  <div *ngIf="state=='error'" class="app-export-error">
-    <button *ngFor="let error of errors" (click)="showErrorDetail(error)" mat-icon-button color="default" [matTooltip]="'export.show_error_detail' | translate" matTooltipPosition="below">
-      <mat-icon>error_outline</mat-icon>
-    </button>
-    {{ 'export.error' | translate }}
-  </div> -->
-  <!-- <div *ngIf="state=='done'" class="app-export-message">{{ 'export.done' | translate }}</div>
-  <div *ngIf="state=='done'" class="app-export-message">{{ target }}</div> -->
 
 </div>
 
