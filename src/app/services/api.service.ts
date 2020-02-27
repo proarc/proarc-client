@@ -19,22 +19,24 @@ import { Batch } from '../model/batch.model';
 import { User } from '../model/user.model';
 import { ProArc } from '../utils/proarc';
 import { Registrar } from '../model/registrar.model';
-
+import { ConfigService } from './config.service';
 
 @Injectable()
 export class ApiService {
 
-  static readonly baseUrl = 'http://krameriustest.inovatika.cz/proarc-silvarium';
-  // private static baseUrl = 'http://localhost:8000/proarc';
-
-  static readonly  apiUrl = `${ApiService.baseUrl}/rest/v1/`;
-
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private config: ConfigService) {
   }
 
+  public getBaseUrl(): string {
+    return this.config.proarcBackendUrl;
+  }
+
+  public getApiUrl(): string {
+    return `${this.getBaseUrl()}/rest/v1/`
+  }
 
   private get(path: string, params = {}): Observable<Object> {
-    return this.http.get(encodeURI(`${ApiService.apiUrl}${path}`), { params: params });
+    return this.http.get(encodeURI(`${this.getApiUrl()}${path}`), { params: params });
   }
 
 
@@ -46,7 +48,7 @@ export class ApiService {
         })
       };
     }
-    return this.http.put(encodeURI(`${ApiService.apiUrl}${path}`), body, options);
+    return this.http.put(encodeURI(`${this.getApiUrl()}${path}`), body, options);
   }
 
   private post(path: string, body: any, options = null): Observable<Object> {
@@ -57,11 +59,11 @@ export class ApiService {
         })
       };
     }
-    return this.http.post(encodeURI(`${ApiService.apiUrl}${path}`), body, options);
+    return this.http.post(encodeURI(`${this.getApiUrl()}${path}`), body, options);
   }
 
   private delete(path: string, params = {}): Observable<Object> {
-    return this.http.delete(encodeURI(`${ApiService.apiUrl}${path}`), { params: params });
+    return this.http.delete(encodeURI(`${this.getApiUrl()}${path}`), { params: params });
   }
 
 
@@ -351,7 +353,6 @@ export class ApiService {
             .pipe(map(response => Batch.fromJsonArray(response['response']['data'])));
   }
 
-
   getImportBatch(id: number): Observable<Batch> {
     return this.get('import/batch', { id: id })
             .pipe(map(response => Batch.fromJson(response['response']['data'][0])));
@@ -368,38 +369,8 @@ export class ApiService {
 
 
   getStreamUrl(pid: string, stream: string) {
-    return `${ApiService.apiUrl}object/dissemination?pid=${pid}&datastream=${stream}`;
+    return `${this.getApiUrl()}object/dissemination?pid=${pid}&datastream=${stream}`;
   }
-
-  getMods2(uuid: string): Observable<Object> {
-    const url = 'https://kramerius.mzk.cz/search/api/v5.0/item/' + uuid + '/streams/BIBLIO_MODS';
-    return this.get2(url, {
-      responseType: 'text'
-   });
-  }
-
-  getDc(uuid: string): Observable<Object> {
-    const url = 'https://kramerius.mzk.cz/search/api/v5.0/item/' + uuid + '/streams/DC';
-    return this.get2(url, {
-      responseType: 'text'
-   });
-  }
-
-
-  getChildren(uuid: string): Observable<Object> {
-    const url = 'https://kramerius.mzk.cz/search/api/v5.0/item/' + uuid + '/children';
-    return this.http.get(url);
-  }
-
-  private get2(url: string, params = {}): Observable<Object> {
-    return this.http.get(encodeURI(url), params);
-  }
-
 
 }
 
-
-
-
-//http://krameriustest.inovatika.cz/proarc-silvarium/rest/v1/import/batch/item?batchId=1302&_operationType=fetch&_startRow=3&_endRow=5&_textMatchStyle=exact&_dataSource=ImportBatchItemDataSource&isc_metaDataPrefix=_&isc_dataFormat=json
-// {"response":{"status":0,"startRow":3,"endRow":3,"totalRows":5,"data":[]}}

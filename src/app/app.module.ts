@@ -75,6 +75,7 @@ import { ShortenPipe } from './pipes/shorten.pipe';
 import { HelpDialogComponent } from './dialogs/help-dialog/help-dialog.component';
 import { HelpService } from './services/help.service';
 import { ReloadBatchDialogComponent } from './dialogs/reload-batch-dialog/reload-batch-dialog.component';
+import { ConfigService } from './services/config.service';
 
 
 export function hljsLanguages() {
@@ -166,7 +167,8 @@ export function hljsLanguages() {
     LocalStorageService,
     CodebookService,
     CuzkService,
-    HelpService
+    HelpService,
+    ConfigService
   ],
   entryComponents: [
     SimpleDialogComponent,
