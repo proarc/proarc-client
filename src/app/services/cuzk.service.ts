@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class CuzkService {
 
-  private static baseUrl = 'http://ags.cuzk.cz/arcgis/rest/services/RUIAN/Vyhledavaci_sluzba_nad_daty_RUIAN/MapServer/find';
+  private static baseUrl = 'https://ags.cuzk.cz/arcgis/rest/services/RUIAN/Vyhledavaci_sluzba_nad_daty_RUIAN/MapServer/find';
 
   constructor(private http: HttpClient) {
   }
