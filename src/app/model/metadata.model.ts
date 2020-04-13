@@ -22,7 +22,7 @@ export class Metadata {
     ModsTitle.getSelector(),
     ModsAuthor.getSelector(),
     ModsPublisher.getSelector(),
-    ModsLocation.getSelector()
+    ModsLocation.getSelector(),
     ModsLanguage.getSelector(),
     ModsIdentifier.getSelector(),
     ModsNote.getSelector(),
