@@ -15,6 +15,10 @@ export class ModsPublisher extends ModsElement {
         return 'originInfo';
     }
 
+    static getId() {
+        return 'originInfo';
+    }
+
     constructor(modsElement) {
         super(modsElement, ['eventType']);
         this.init();

@@ -11,6 +11,10 @@ export class ModsLocation extends ModsElement {
         return 'location';
     }
 
+    static getId() {
+        return 'location';
+    }
+
     constructor(modsElement) {
         super(modsElement);
         this.init();

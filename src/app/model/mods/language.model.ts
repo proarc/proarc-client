@@ -9,6 +9,10 @@ export class ModsLanguage extends ModsElement {
         return 'language';
     }
 
+    static getId() {
+        return 'language';
+    }
+
     constructor(modsElement) {
         super(modsElement);
         this.init();

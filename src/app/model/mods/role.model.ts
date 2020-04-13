@@ -9,6 +9,10 @@ export class ModsRole extends ModsElement {
         return 'role';
     }
 
+    static getId() {
+        return 'role';
+    }
+
     constructor(modsElement) {
         super(modsElement);
         this.init();

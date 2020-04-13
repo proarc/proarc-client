@@ -76,6 +76,15 @@ import { HelpDialogComponent } from './dialogs/help-dialog/help-dialog.component
 import { HelpService } from './services/help.service';
 import { ReloadBatchDialogComponent } from './dialogs/reload-batch-dialog/reload-batch-dialog.component';
 import { ConfigService } from './services/config.service';
+import { EditorChronicleComponent } from './components/editor/editor-chronicle/editor-chronicle.component';
+import { EditorChronicleAuthorComponent } from './documents/document/editor-chronicle-author/editor-chronicle-author.component';
+import { EditorChronicleNoteComponent } from './documents/document/editor-chronicle-note/editor-chronicle-note.component';
+import { EditorChronicleAbstractComponent } from './documents/document/editor-chronicle-abstract/editor-chronicle-abstract.component';
+import { EditorChronicleTitleComponent } from './documents/document/editor-chronicle-title/editor-chronicle-title.component';
+import { EditorChroniclePublisherComponent } from './documents/document/editor-chronicle-publisher/editor-chronicle-publisher.component';
+import { EditorChronicleGenreComponent } from './documents/document/editor-chronicle-genre/editor-chronicle-genre.component';
+import { EditorChronicleIdentifierComponent } from './documents/document/editor-chronicle-identifier/editor-chronicle-identifier.component';
+import { EditorChronicleLocationComponent } from './documents/document/editor-chronicle-location/editor-chronicle-location.component';
 
 
 export function hljsLanguages() {
@@ -141,7 +150,16 @@ export function hljsLanguages() {
     ExportDialogComponent,
     UrnbnbDialogComponent,
     HelpDialogComponent,
-    ReloadBatchDialogComponent
+    ReloadBatchDialogComponent,
+    EditorChronicleComponent,
+    EditorChronicleAuthorComponent,
+    EditorChronicleNoteComponent,
+    EditorChronicleAbstractComponent,
+    EditorChronicleTitleComponent,
+    EditorChroniclePublisherComponent,
+    EditorChronicleGenreComponent,
+    EditorChronicleIdentifierComponent,
+    EditorChronicleLocationComponent
   ],
   imports: [
     BrowserModule,

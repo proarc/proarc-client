@@ -76,10 +76,13 @@
       <app-editor-page *ngIf="editor.left.isPage()" [pid]="editor.left.pid"></app-editor-page>
       <app-editor-issue *ngIf="editor.left.isIssue()" [pid]="editor.left.pid"></app-editor-issue>
       <app-editor-volume *ngIf="editor.left.isVolume()" [pid]="editor.left.pid"></app-editor-volume>
-      <app-editor-metadata *ngIf="editor.left.isTopLevel()"  [pid]="editor.left.pid"></app-editor-metadata>
+      <app-editor-chronicle *ngIf="editor.left.isChronicle()" [pid]="editor.left.pid"></app-editor-chronicle>
+      <app-editor-metadata *ngIf="editor.left.isTopLevel() && !editor.left.isChronicle()"  [pid]="editor.left.pid"></app-editor-metadata>
     </ng-container>
     
-    <app-editor-geo *ngIf="editor.leftEditorType == 'geo'" [pid]="editor.left.pid"></app-editor-geo>
+    <!-- <app-editor-geo *ngIf="editor.leftEditorType == 'geo'" [pid]="editor.left.pid"></app-editor-geo> -->
+    <app-editor-metadata *ngIf="editor.leftEditorType == 'geo'" [pid]="editor.left.pid"></app-editor-metadata>
+
   </div>
 
 

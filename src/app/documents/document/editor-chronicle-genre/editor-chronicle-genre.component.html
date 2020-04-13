@@ -1,0 +1,57 @@
+<div class="editor">
+
+  <div class="app-card" *ngFor="let item of field.items; index as index; last as last; first as first;">
+    <div class="app-card-header">
+      <span class="app-card-title">{{ 'editor.chronicle.genre.label' | translate }}</span>
+
+      <button matTooltip="{{ 'common.remove' | translate }}" color="primary" (click)="field.remove(index)" mat-icon-button>
+        <mat-icon>delete</mat-icon>
+      </button>
+
+      <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" color="primary" (click)="field.moveDown(index)" mat-icon-button>
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <button [disabled]="first" matTooltip="{{ 'common.move_up' | translate }}" color="primary" (click)="field.moveUp(index)" mat-icon-button>
+          <mat-icon>arrow_drop_up</mat-icon>
+        </button>
+   
+        <button class="app-collapse" *ngIf="item.collapsed" matTooltip="{{ 'common.expand' | translate }}" color="primary" (click)="item.switchCollapsed()" mat-icon-button>
+           <mat-icon>expand_more</mat-icon>
+         </button>
+         <button class="app-collapse" *ngIf="!item.collapsed" matTooltip="{{ 'common.collapse' | translate }}" color="primary" (click)="item.switchCollapsed()" mat-icon-button>
+           <mat-icon>expand_less</mat-icon>
+         </button>
+
+      <button matTooltip="{{ 'common.add' | translate }}" color="primary" (click)="field.addAfter(index)" mat-icon-button>
+        <mat-icon>add</mat-icon>
+      </button>
+
+    </div>
+
+    <div class="app-card-content" [class.app-collapsed]="item.collapsed">
+
+      <mat-form-field class="app-half-left">
+        <mat-select [(ngModel)]='item.modsElement["_"]' placeholder="{{ 'editor.chronicle.genre.genre' | translate }}">
+          <mat-option *ngFor="let genre of genres" [value]="genre.code">
+            {{ genre.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="app-half-right">
+        <input autocomplete="off" matInput [(ngModel)]='item.attrs["lang"]' placeholder="{{ 'editor.chronicle.genre.number' | translate }}">
+      </mat-form-field>
+
+      <mat-form-field class="app-full-width">
+        <mat-select [(ngModel)]='item.attrs["type"]' placeholder="{{ 'editor.chronicle.genre.content_type' | translate }}">
+          <mat-option *ngFor="let type of contentTypes" [value]="type.code">
+            {{ type.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+
+  </div>
+
+</div>

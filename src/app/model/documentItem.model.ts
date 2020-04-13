@@ -62,9 +62,12 @@ export class DocumentItem {
     return this.model === 'model:ndkperiodicalissue';
   }
 
+  public isChronicle(): boolean {
+    return this.model === 'model:chroniclevolume';
+  }
+
   public isTopLevel(): boolean {
     return !this.isPage() && !this.isVolume() && !this.isIssue();
   }
-
 
 }

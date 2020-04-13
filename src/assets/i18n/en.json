@@ -288,6 +288,9 @@
       "geo:storage": "Místo uložení",
       "geo:area": "Vztah k území"
     },
+    "chronicle": {
+      "title": "Chronicle Metadata"
+    },
     "author": {
       "tab": "Author",
       "author": "Author",

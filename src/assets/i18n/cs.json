@@ -1,6 +1,7 @@
 {
   "common": {
     "remove": "Odstranit",
+    "add": "Přidat",
     "cancel": "Zrušit",
     "edit": "Upravit",
     "open": "Otevřít", 
@@ -340,6 +341,81 @@
       "geo:origin": "Místo původu",
       "geo:storage": "Místo uložení",
       "geo:area": "Vztah k území"
+    },
+    "chronicle": {
+      "label": "Popisná metadata kroniky",
+      "author": {
+        "label": "Osoba, které se podílela na vzniku",
+        "date": "Datum činnosti",
+        "name": "Celé jméno",
+        "family": "Příjmení",
+        "given": "Jméno / křestní jméno"
+      },
+      "note": {
+        "types": {
+          "private": "Nepublikovatelná",
+          "public": "Veřejná"
+        }
+      },
+      "abstract": {
+        "label": "Obsah, regest"
+      },
+      "title": {
+        "label": "Informace o názvu",
+        "title": "Název",
+        "subtitle": "Podnázev",
+        "partnumber": "Díl",
+        "partname": "Část"
+      },
+      "publisher": {
+        "label": "Informace o místě a datu vzniku",
+        "place": "Místo vzniku",
+        "date": "Datum vzniku",
+        "date_qualifier": "Odhad data"
+      },
+      "identifier": {
+        "types": {
+          "uuid": "UUID",
+          "signature1": "Signatura přidělená původcem",
+          "signature2": "Signatura přidělená při zpracování archiválie",
+          "officialNumber": "Číslo vložky úřední desky",
+          "inventaryNumber": "Inventární číslo",
+          "OtherNumber": "Přírůstkové číslo"
+        },
+        "invalid": {
+          "yes": "Neplatný",
+          "no": "Platný"
+        },
+        "validity": "Platnost",
+        "type": "typ",
+        "value": "Hodnota"
+      },
+      "location": {
+        "label": "Umístění",
+        "archive": "Název archivu",
+        "fund": "Název fondu"
+      },
+      "genre": {
+        "label": "Charakter kroniky",
+        "genre": "Žánr",
+        "genres": {
+          "ukn": "Úřední kniha",
+          "rkp": "Rukopis"
+        },
+        "number": "Číslo",
+        "content_type": "Typ obsahu",
+        "content_types": {
+          "skolniKronika": "Školní kronika",
+          "obecniKronika": "Obecní kronika",
+          "spolecenskaKronika": "Společenská kronika (spolková)",
+          "obcanske": "Občanské",
+          "osadni": "Osadní (kronika místních částí)",
+          "podnikova": "Podnikové (firemní)",
+          "vojenske": "Vojenské a jiné (ZV, odborové, …)",
+          "cirkevni": "Církevní",
+          "unspecified": "Nespecifikováno"
+        }
+      }
     },
     "author": {
       "tab": "Autor",
@@ -709,7 +785,7 @@
     "act" : "Herec",
     "adp" : "Autor adaptace, upravovatel",
     "aft" : "Autor doslovu, tiráže atd.",
-    "ann" : "Anotátor, autor rukopisných poznámek",
+    "ann" : "Kronikář",
     "ant" : "Bibliografický předchůdce",
     "app" : "Žadatel, uchazeč",
     "aqt" : "Autor citací nebo úryvků textu",
@@ -783,7 +859,7 @@
     "dst" : "Distributor",
     "dte" : "Dedikant",
     "dto" : "Dedikátor",
-    "dub" : "Domnělý (pochybný) autor",
+    "dub" : "Domnělý autor",
     "edt" : "Editor",
     "egr" : "Rytec",
     "elt" : "Galvanotypér",
@@ -866,7 +942,7 @@
     "rtm" : "Člen výzkumného týmu",
     "sad" : "Vědecký poradce",
     "sce" : "Scénárista",
-    "scr" : "Písař, opisovač",
+    "scr" : "Písař",
     "scl" : "Sochař",
     "sec" : "Sekretář, tajemník, jednatel",
     "sgn" : "Signatář",

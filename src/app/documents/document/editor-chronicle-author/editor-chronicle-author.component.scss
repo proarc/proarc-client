@@ -1,0 +1,13 @@
+
+
+.name-wrapper {
+  height: 57px;
+  .full-name {
+    width: calc(100% - 40px);
+    display: block;
+  }
+  .btn-split-name {
+    float: right;
+    width: 40px;
+  }
+}

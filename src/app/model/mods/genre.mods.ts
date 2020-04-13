@@ -1,17 +1,17 @@
 import { ModsElement } from './element.model';
 
-export class ModsNote extends ModsElement {
+export class ModsGenre extends ModsElement {
 
     static getSelector() {
-        return 'note';
+        return 'genre';
     }
 
     static getId() {
-        return 'note';
+        return 'genre';
     }
 
     constructor(modsElement) {
-        super(modsElement, ['type']);
+        super(modsElement, ['type', 'lang']);
         this.init();
     }
 

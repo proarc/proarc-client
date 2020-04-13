@@ -37,6 +37,10 @@ export class ModsGeo extends ModsElement {
         return 'subject';
     }
 
+    static getId() {
+        return 'subject';
+    }
+
     constructor(modsElement) {
         super(modsElement, ['authority']);
         this.init();

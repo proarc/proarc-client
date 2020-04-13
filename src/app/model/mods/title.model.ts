@@ -13,6 +13,10 @@ export class ModsTitle extends ModsElement {
         return 'titleInfo';
     }
 
+    static getId() {
+        return 'titleInfo';
+    }
+
     constructor(modsElement) {
         super(modsElement, ['type']);
         this.init();

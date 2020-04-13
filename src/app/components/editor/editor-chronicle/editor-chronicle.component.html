@@ -1,0 +1,35 @@
+
+<div class="app-editor-content-wrapper">
+    <div class="app-editor-toolbar">
+        <div class="app-label">{{ 'editor.chronicle.label' | translate }}</div>
+        <div class="app-actions-right">
+            <button class="app-action" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
+                <mat-icon>save</mat-icon>
+            </button>
+        </div>
+    </div>  
+
+<div class="app-editor-content" *ngIf="editor.metadata">
+
+    <app-editor-chronicle-location [field]="editor.metadata.getField('location_chronicle')"></app-editor-chronicle-location>
+    <app-editor-chronicle-identifier [field]="editor.metadata.getField('identifier')"></app-editor-chronicle-identifier>
+    <app-editor-chronicle-genre [field]="editor.metadata.getField('genre')"></app-editor-chronicle-genre>
+
+    <app-editor-chronicle-title [field]="editor.metadata.getField('titleInfo')"></app-editor-chronicle-title>
+    <app-editor-chronicle-abstract [field]="editor.metadata.getField('abstract')"></app-editor-chronicle-abstract>
+    <app-editor-language [field]="editor.metadata.getField('language')" [languages]="languages"></app-editor-language>
+
+    <app-editor-chronicle-publisher [field]="editor.metadata.getField('originInfo')"></app-editor-chronicle-publisher>
+    <app-editor-chronicle-author [field]="editor.metadata.getField('name')"></app-editor-chronicle-author>
+    <app-editor-chronicle-note [field]="editor.metadata.getField('note')"></app-editor-chronicle-note>
+</div>
+    
+<mat-spinner *ngIf="state === 'loading'"
+          [strokeWidth]="5" 
+          [diameter]="60"
+          class="center-spinner">
+</mat-spinner>
+
+
+
+</div>  

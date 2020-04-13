@@ -6,8 +6,13 @@ export class ModsIdentifier extends ModsElement {
     static getSelector() {
         return 'identifier';
     }
+
+    static getId() {
+        return 'identifier';
+    }
+
     constructor(modsElement) {
-        super(modsElement, ['type']);
+        super(modsElement, ['type', 'invalid']);
         this.init();
     }
 

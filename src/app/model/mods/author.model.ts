@@ -15,6 +15,10 @@ export class ModsAuthor extends ModsElement {
         return 'name';
     }
 
+    static getId() {
+        return 'name';
+    }
+
     constructor(modsElement) {
         super(modsElement, ['type', 'usage']);
         this.init();

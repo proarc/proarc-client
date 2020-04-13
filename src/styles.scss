@@ -328,6 +328,9 @@ body {
         color: #333;
         // padding: 8px 20px;
         line-height: 47px;
+        &.app-no-collapse {
+          margin-left: 16px;
+        }
       }
       button {
         float: right;
@@ -340,7 +343,7 @@ body {
           color: $primary-color;
         }
         &[disabled] {
-          color: #455261;
+          color: #c5c5c5;
         }
       }
       .app-header-divider {
@@ -349,8 +352,8 @@ body {
         margin: 5px;
         margin-bottom: 5px;
         margin-left: 5px;
-        width: 2px;
-        background: #414a54;
+        width: 1px;
+        background: #dddddd;
       }
     }
     .app-card-content {

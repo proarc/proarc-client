@@ -1,23 +1,27 @@
-import { ModsGeo } from './geo.model';
-import { ModsLocation } from './location.model';
-import { ModsPublisher } from './publisher.model';
-import { ModsAuthor } from './author.model';
-import { ModsRole } from './role.model';
-import { ModsLanguage } from './language.model';
 import { ModsElement } from './element.model';
-import { ModsTitle } from './title.model';
 import ModsUtils from './utils';
+import { ModsTitle } from './title.model';
+import { ModsLanguage } from './language.model';
+import { ModsRole } from './role.model';
+import { ModsAuthor } from './author.model';
+import { ModsPublisher } from './publisher.model';
+import { ModsLocation } from './location.model';
+import { ModsChronicleLocation } from './chronicle_location.model';
 import { ModsIdentifier } from './identifier.model';
 import { ModsNote } from './note.mode';
+import { ModsAbstract } from './abstract.model';
+import { ModsGenre } from './genre.mods';
+import { ModsGeo } from './geo.model';
 
 export class ElementField {
 
-    private selector;
+    private id;
     public root;
     public items: ModsElement[];
 
-    constructor(mods, selector, attr = null, values = []) {
-        this.selector = selector;
+    constructor(mods, id, attr = null, values = []) {
+        this.id = id;
+        const selector = this.selectorById(id)
         if (mods[selector] === undefined) {
             mods[selector] = [];
         }
@@ -27,10 +31,10 @@ export class ElementField {
             if (el) {
                 if (attr) {
                     if (el['$'] && el['$'][attr] && values.indexOf(el['$'][attr]) > -1) {
-                        this.items.push(this.newInstance(el));
+                        this.items.push(this.newElement(id, el));
                     }
                 } else {
-                    this.items.push(this.newInstance(el));
+                    this.items.push(this.newElement(id, el));
                 }
             }
         }
@@ -40,28 +44,7 @@ export class ElementField {
         }
     }
 
-    private newInstance(el) {
-        switch (this.selector) {
-            case ModsTitle.getSelector():
-                return new ModsTitle(el);
-            case ModsLanguage.getSelector():
-                return new ModsLanguage(el);
-            case ModsRole.getSelector():
-                return new ModsRole(el);
-            case ModsAuthor.getSelector():
-                return new ModsAuthor(el);
-            case ModsPublisher.getSelector():
-                return new ModsPublisher(el);
-            case ModsLocation.getSelector():
-                return new ModsLocation(el);
-            case ModsIdentifier.getSelector():
-                return new ModsIdentifier(el);
-            case ModsNote.getSelector():
-                return new ModsNote(el);
-            case ModsGeo.getSelector():
-                return new ModsGeo(el);
-            }
-    }
+
 
     public remove(index) {
         if (index >= 0 && index < this.items.length) {
@@ -86,14 +69,14 @@ export class ElementField {
     }
 
     public add(): ModsElement {
-        const item: ModsElement = this.newInstance({});
+        const item: ModsElement = this.newElement(this.id, {});
         this.items.push(item);
         this.root.push(item.getEl());
         return item;
     }
 
     public addAfter(index: number): ModsElement {
-        const item: ModsElement = this.newInstance({});
+        const item: ModsElement = this.newElement(this.id, {});
         this.items.splice(index + 1, 0, item);
         this.root.splice(index + 1, 0, item.getEl());
         return item;
@@ -134,4 +117,76 @@ export class ElementField {
     public count(): number {
         return this.items.length;
     }
+
+
+
+
+
+
+    private newElement(id, el): ModsElement {
+        switch (id) {
+            case ModsTitle.getId():
+                return new ModsTitle(el);
+            case ModsLanguage.getId():
+                return new ModsLanguage(el);
+            case ModsRole.getId():
+                return new ModsRole(el);
+            case ModsAuthor.getId():
+                return new ModsAuthor(el);
+            case ModsPublisher.getId():
+                return new ModsPublisher(el);
+            case ModsLocation.getId():
+                return new ModsLocation(el);
+            case ModsChronicleLocation.getId():
+                return new ModsChronicleLocation(el);
+            case ModsIdentifier.getId():
+                return new ModsIdentifier(el);
+            case ModsNote.getId():
+                return new ModsNote(el);
+            case ModsAbstract.getId():
+                return new ModsAbstract(el);
+            case ModsGenre.getId():
+                return new ModsGenre(el);
+            case ModsGeo.getId():
+                return new ModsGeo(el);
+            }
+    }
+
+
+    private selectorById(id: string): string {
+        switch (id) {
+            case ModsTitle.getId():
+                return ModsTitle.getSelector();
+            case ModsLanguage.getId():
+                return ModsLanguage.getSelector();
+            case ModsRole.getId():
+                return ModsRole.getSelector();
+            case ModsAuthor.getId():
+                return ModsAuthor.getSelector();
+            case ModsPublisher.getId():
+                return ModsPublisher.getSelector();
+            case ModsLocation.getId():
+                return ModsLocation.getSelector();
+            case ModsChronicleLocation.getId():
+                return ModsChronicleLocation.getSelector();
+            case ModsIdentifier.getId():
+                return ModsIdentifier.getSelector();
+            case ModsNote.getId():
+                return ModsNote.getSelector();
+            case ModsAbstract.getId():
+                return ModsAbstract.getSelector();
+            case ModsGenre.getId():
+                return ModsGenre.getSelector();
+            case ModsGeo.getId():
+                return ModsGeo.getSelector();
+            }
+    }
+
+
+
+
+
+
+
+
 }

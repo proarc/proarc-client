@@ -10,10 +10,27 @@ import { ModsLocation } from './mods/location.model';
 import { ModsIdentifier } from './mods/identifier.model';
 import { ModsNote } from './mods/note.mode';
 import { Mods } from './mods.model';
+import { ModsAbstract } from './mods/abstract.model';
+import { ModsGenre } from './mods/genre.mods';
+import { ModsChronicleLocation } from './mods/chronicle_location.model';
 declare var $: any;
 
 
 export class Metadata {
+
+  private static selectors = [
+    ModsTitle.getSelector(),
+    ModsAuthor.getSelector(),
+    ModsPublisher.getSelector(),
+    ModsLocation.getSelector()
+    ModsLanguage.getSelector(),
+    ModsIdentifier.getSelector(),
+    ModsNote.getSelector(),
+    ModsAbstract.getSelector(),
+    ModsGenre.getSelector(),
+    ModsGeo.getSelector()
+  ];
+
 
   public readonly pid: string;
   public readonly timestamp: number = -1;
@@ -23,16 +40,7 @@ export class Metadata {
 
   public volume: ModsVolume;
 
-  private selectors = [
-    ModsTitle.getSelector(),
-    ModsAuthor.getSelector(),
-    ModsPublisher.getSelector(),
-    ModsLocation.getSelector(),
-    ModsLanguage.getSelector(),
-    ModsIdentifier.getSelector(),
-    ModsNote.getSelector(),
-    ModsGeo.getSelector()
-  ];
+  private fieldsIds: string[];
 
   private fields: Map<String, ElementField>;
 
@@ -43,6 +51,35 @@ export class Metadata {
     this.originalMods = mods.trim();
     // this.originalDc = dc.trim();
     // this.relations = relations;
+
+
+    if (model === "model:chroniclevolume") {
+      this.fieldsIds = [
+        ModsTitle.getId(),
+        ModsAuthor.getId(),
+        ModsPublisher.getId(),
+        ModsChronicleLocation.getId(),
+        ModsLanguage.getId(),
+        ModsIdentifier.getId(),
+        ModsNote.getId(),
+        ModsAbstract.getId(),
+        ModsGenre.getId(),
+        ModsGeo.getId()
+      ];
+    } else {
+      this.fieldsIds = [
+        ModsTitle.getId(),
+        ModsAuthor.getId(),
+        ModsPublisher.getId(),
+        ModsLocation.getId(),
+        ModsLanguage.getId(),
+        ModsIdentifier.getId(),
+        ModsNote.getId(),
+        ModsAbstract.getId(),
+        ModsGenre.getId(),
+        ModsGeo.getId()
+      ];
+    }
     this.parseMods(mods);
   }
 
@@ -91,11 +128,11 @@ export class Metadata {
     if (this.isVolume() || this.isIssue()) {
       this.volume = new ModsVolume(root);
     } else {
-      for (const selector of this.selectors) {
-        if (selector === ModsGeo.getSelector()) {
-          this.fields.set(selector, new ElementField(root, selector, 'authority', ['geo:origin', 'geo:storage', 'geo:area']));
+      for (const id of this.fieldsIds) {
+        if (id === ModsGeo.getId()) {
+          this.fields.set(id, new ElementField(root, id, 'authority', ['geo:origin', 'geo:storage', 'geo:area']));
         } else {
-          this.fields.set(selector, new ElementField(root, selector));
+          this.fields.set(id, new ElementField(root, id));
         }
       }
     }
@@ -122,7 +159,7 @@ export class Metadata {
     if (this.isVolume() || this.isIssue()) {
 
     } else {
-      for (const selector of this.selectors) {
+      for (const selector of Metadata.selectors) {
         this.normalizeField(root, selector);
       }
     }
