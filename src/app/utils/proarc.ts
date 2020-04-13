@@ -2,28 +2,25 @@
 
 export class ProArc {
 
-    public static defaultModel = 'model:ndkperiodical';
+    public static defaultModel = 'model:chroniclevolume';
 
     public static models = [
+      'model:chroniclevolume',
+      'model:chronicletitle',
+      'model:chroniclesupplement',
+      'model:ndkmonographvolume',
+      'model:ndkmonographtitle',
+      'model:ndkmonographsupplement',
       'model:ndkperiodical',
       'model:ndkperiodicalvolume',
       'model:ndkperiodicalissue',
       'model:ndkperiodicalsupplement',
       'model:ndkarticle',
       'model:ndkpicture',
-      'model:ndkmonographtitle',
-      'model:ndkmonographvolume',
-      'model:ndkmonographsupplement',
       'model:ndkchapter',
       'model:ndkmap',
       'model:ndksheetmusic',
       'model:ndkpage',
-      'model:periodical',
-      'model:periodicalvolume',
-      'model:periodicalitem',
-      'model:chroniclevolume',
-      'model:monograph',
-      'model:monographunit',
       'model:page',
     ];
 

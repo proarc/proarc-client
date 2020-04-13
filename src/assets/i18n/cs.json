@@ -520,24 +520,21 @@
   "model": {
     "model:ndkperiodical": "NDK Peioridkum",
     "model:ndkperiodicalvolume": "NDK Ročník",
-    "model:ndkperiodicalissue": "NDK číslo",
-    "model:ndkperiodicalsupplement": "NDK příloha periodika",
-    "model:ndkarticle": "NDK článek",
+    "model:ndkperiodicalissue": "NDK Číslo",
+    "model:ndkperiodicalsupplement": "NDK Příloha periodika",
+    "model:ndkarticle": "NDK Článek",
     "model:ndkpicture": "NDK Obrázek/Mapa - vnitřní část",
     "model:ndkmonographtitle": "NDK Vícedílná monografie",
-    "model:ndkmonographvolume": "NDK Svazek monografie",
+    "model:ndkmonographvolume": "NDK Monografie",
     "model:ndkmonographsupplement": "NDK Příloha monografie",
     "model:ndkchapter": "NDK Kapitola",
     "model:ndkmap": "NDK Kartografický dokument",
     "model:ndksheetmusic": "NDK Hudebnina",
     "model:ndkpage": "NDK Strana",
-    "model:periodical": "K4 Periodikumv",
-    "model:periodicalvolume": "K4 Ročník",
-    "model:periodicalitem": "K4 Výtisk",
+    "model:page": "Strana",
     "model:chroniclevolume": "Kronika",
-    "model:monograph": "K4 Monografie",
-    "model:monographunit": "K4 Monografie - volná část",
-    "model:page": "Strana"
+    "model:chronicletitle": "Vícedílná kronika",
+    "model:chroniclesupplement": "Příloha kroniky"
   },
   "viewer": {
     "tooltip": {

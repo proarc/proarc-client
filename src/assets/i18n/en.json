@@ -397,19 +397,16 @@
     "model:ndkarticle": "NDK Monograph Volume",
     "model:ndkpicture": "NDK Picture/Map - internal part",
     "model:ndkmonographtitle": "NDK Multipart Monograph",
-    "model:ndkmonographvolume": "NDK Monograph Supplement",
-    "model:ndkmonographsupplement": "NDK Příloha monografie",
+    "model:ndkmonographvolume": "NDK Monograph",
+    "model:ndkmonographsupplement": "NDK Monograph Supplement",
     "model:ndkchapter": "NDK Chapter",
     "model:ndkmap": "NDK Cartographic Document",
     "model:ndksheetmusic": "NDK Sheet Music",
     "model:ndkpage": "NDK Page",
-    "model:periodical": "K4 Periodical",
-    "model:periodicalvolume": "K4 Periodical volume",
-    "model:periodicalitem": "K4 Periodical issue",
+    "model:page": "Page",
     "model:chroniclevolume": "Chronicle",
-    "model:monograph": "K4 Monograph",
-    "model:monographunit": "K4 Monograph Unit",
-    "model:page": "Page"
+    "model:chronicletitle": "Multipart Chronicle",
+    "model:chroniclesupplement": "Chronicle Supplement"
   },
   "viewer": {
     "tooltip": {

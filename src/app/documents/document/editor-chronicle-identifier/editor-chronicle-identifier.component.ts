@@ -53,7 +53,7 @@ export class EditorChronicleIdentifierComponent implements OnInit {
       }
     }
     if (items.length < 1) {
-      this.field.add();
+      this.field.add().switchCollapsed();
     }
   }
 
