@@ -51,7 +51,7 @@ export class DocumentItem {
   }
 
   public isPage(): boolean {
-    return this.model === 'model:page';
+    return this.model === 'model:page' || this.model === 'model:ndkpage';
   }
 
   public isVolume(): boolean {
@@ -63,7 +63,7 @@ export class DocumentItem {
   }
 
   public isChronicle(): boolean {
-    return this.model === 'model:chroniclevolume';
+    return this.model === 'model:chroniclevolume' || this.model === 'model:chronicletitle';
   }
 
   public isTopLevel(): boolean {

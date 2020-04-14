@@ -53,7 +53,7 @@ export class Metadata {
     // this.relations = relations;
 
 
-    if (model === "model:chroniclevolume") {
+    if (model === "model:chroniclevolume" || this.model === 'model:chronicletitle') {
       this.fieldsIds = [
         ModsTitle.getId(),
         ModsAuthor.getId(),
