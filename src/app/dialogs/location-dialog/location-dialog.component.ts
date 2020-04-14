@@ -40,7 +40,20 @@ export class LocationDialogComponent implements OnInit {
     }
     this.state = 'loading';
     if (this.address) {
-      this.cuzk.searchAddresses(query).subscribe((results: Ruian[]) => {
+      const parts = query.split(" ");
+      this.cuzk.searchAddresses(parts[0]).subscribe((results: Ruian[]) => {
+        if (parts.length > 1) {
+          for (let i = results.length - 1; i >= 0; i--) {
+            const label = results[i].label.toLowerCase();
+            for (let j = 1; j < parts.length; j++) {
+              const p = parts[j].toLowerCase();
+              if (label.indexOf(p) < 0) {
+                results.splice(i, 1);
+                break;
+              }
+            }
+          }
+        }
         this.handleResults(results);
       })
     } else {
@@ -56,16 +69,28 @@ export class LocationDialogComponent implements OnInit {
   }
 
   onChange(value: string) {
-    console.log('on change', value);
     if (!this.address && value && value.length > 3) {
       this.search(value);
     }
   }
 
   handleResults(results: Ruian[]) {
-    console.log('result', results);
     this.locations = results;
-    this.locations.reverse();
+    this.locations.sort((a: any, b: any): number => {
+      if (a.layerId > b.layerId) {
+        return -1;
+      }
+      if (a.layerId < b.layerId) {
+        return 1;
+      }
+      if (a.label < b.label) {
+        return -1;
+      }
+      if (a.label > b.label) {
+        return 1;
+      }
+      return 0;
+    });
     this.state = 'success';
   }
 
