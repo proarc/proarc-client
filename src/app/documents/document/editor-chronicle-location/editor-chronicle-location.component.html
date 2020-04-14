@@ -39,7 +39,10 @@
       </mat-form-field>
 
       <mat-form-field class="app-full-width">
-        <input autocomplete="off" matInput [(ngModel)]='item.physicalLocation["$"]["displayLabel"]' placeholder="{{ 'editor.chronicle.location.fund' | translate }}">
+        <button class="app-lookup-fund" (click)='lookupFund(item.physicalLocation)' [matTooltip]="'editor.chronicle.location.lookup_fund' | translate" mat-icon-button>
+          <mat-icon>search</mat-icon>
+        </button>
+        <input disabled="true" autocomplete="off" matInput [value]='fund.getName(item.physicalLocation["_"])' placeholder="{{ 'editor.chronicle.location.fund' | translate }}">
       </mat-form-field>
 
 

@@ -85,6 +85,8 @@ import { EditorChroniclePublisherComponent } from './documents/document/editor-c
 import { EditorChronicleGenreComponent } from './documents/document/editor-chronicle-genre/editor-chronicle-genre.component';
 import { EditorChronicleIdentifierComponent } from './documents/document/editor-chronicle-identifier/editor-chronicle-identifier.component';
 import { EditorChronicleLocationComponent } from './documents/document/editor-chronicle-location/editor-chronicle-location.component';
+import { FundService } from './services/fund.service';
+import { FundDialogComponent } from './dialogs/fund-dialog/fund-dialog.component';
 
 
 export function hljsLanguages() {
@@ -159,7 +161,8 @@ export function hljsLanguages() {
     EditorChroniclePublisherComponent,
     EditorChronicleGenreComponent,
     EditorChronicleIdentifierComponent,
-    EditorChronicleLocationComponent
+    EditorChronicleLocationComponent,
+    FundDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -186,7 +189,8 @@ export function hljsLanguages() {
     CodebookService,
     CuzkService,
     HelpService,
-    ConfigService
+    ConfigService,
+    FundService
   ],
   entryComponents: [
     SimpleDialogComponent,
@@ -199,7 +203,8 @@ export function hljsLanguages() {
     ExportDialogComponent,
     UrnbnbDialogComponent,
     HelpDialogComponent,
-    ReloadBatchDialogComponent
+    ReloadBatchDialogComponent,
+    FundDialogComponent
   ],
   bootstrap: [AppComponent]
 })

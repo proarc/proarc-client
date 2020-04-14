@@ -2,8 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { Translator } from 'angular-translator';
 import { ElementField } from 'src/app/model/mods/elementField.model';
-
-
+import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
+import { MatDialog } from '@angular/material';
+import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
+import { FundService } from 'src/app/services/fund.service';
+import { FundDialogComponent } from 'src/app/dialogs/fund-dialog/fund-dialog.component';
 
 @Component({
   selector: 'app-editor-chronicle-location',
@@ -22,32 +25,35 @@ export class EditorChronicleLocationComponent implements OnInit {
     { code: "226105010", name: "SOkA Žďár nad Sázavou" }
   ];
 
-  constructor(public translator: Translator) {
-    // this.translateCodes();
-    // translator.languageChanged.subscribe(() => this.translateCodes());
-  }
-
-  translateCodes() {
-    this.translator.waitForTranslation().then(() => {
-      // this.locations = [];
-      // for (const code of this.locationCodes) {
-      //   this.locations.push({code: code, name: this.translator.instant('sigla.' + code)});
-      // }
-      // this.locations.sort((a: any, b: any): number => {
-      //   if (a.name < b.name) {
-      //     return -1;
-      //   }
-      //   if (a.name > b.name) {
-      //     return 1;
-      //   }
-      //   return 0;
-      // });
-    });
+  constructor(private translator: Translator, private dialog: MatDialog, public fund: FundService) {
   }
 
   ngOnInit() {
   }
 
-
+  lookupFund(loacation) {
+    const archive = loacation["$"]["type"];
+    if (!archive) {
+      this.translator.waitForTranslation().then(() => {
+        const data: SimpleDialogData = {
+          title: String(this.translator.instant('editor.chronicle.location.archive_not_selected_title')),
+          message: String(this.translator.instant('editor.chronicle.location.archive_not_selected_message')),
+          btn1: {
+            label: String(this.translator.instant('common.ok')),
+            value: 'no',
+            color: 'primary'
+          }
+        };
+        this.dialog.open(SimpleDialogComponent, { data: data });
+      });
+      return;
+    }
+    const dialogRef = this.dialog.open(FundDialogComponent, { data: archive });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result['id']) {
+        loacation['_'] = result['id'];
+      }
+    });
+  }
 
 }

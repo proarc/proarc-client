@@ -20,13 +20,10 @@ export class ModsChronicleLocation extends ModsElement {
 
     private init() {
         if (!this.modsElement['physicalLocation']) {
-            const attrs = { 'displayLabel': '', 'type': ''};
-            this.modsElement['physicalLocation'] = [ModsUtils.createTextElement('-', attrs)];
+            const attrs = { 'type': ''};
+            this.modsElement['physicalLocation'] = [ModsUtils.createTextElement('', attrs)];
         }
         this.physicalLocation = this.modsElement['physicalLocation'][0];
-        if (!this.physicalLocation['$']['displayLabel']) {
-            this.physicalLocation['$']['displayLabel'] = '';
-        }
         if (!this.physicalLocation['$']['type']) {
             this.physicalLocation['$']['type'] = '';
         }

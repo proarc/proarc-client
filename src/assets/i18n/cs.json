@@ -393,7 +393,15 @@
       "location": {
         "label": "Umístění",
         "archive": "Název archivu",
-        "fund": "Název fondu"
+        "fund": "Název fondu",
+        "archive_not_selected_title": "Není vybrán archiv",
+        "archive_not_selected_message": "Nejdříve vyberte archiv.",
+        "lookup_fund": "Vybrat fond",
+        "fund_dialog": {
+          "search": "Hledat podle názvu fondu",
+          "no_results": "Vašemu dotazu neodpovídá žádný název fondu",
+          "short_query": "Zadejte dotaz s alespoň dvěmi znaky"
+        }
       },
       "genre": {
         "label": "Charakter kroniky",
