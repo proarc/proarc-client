@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { EditorService } from 'src/app/services/editor.service';
 import { Page } from 'src/app/model/page.model';
 import { Translator } from 'angular-translator';
+import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
   selector: 'app-editor-page',
@@ -24,10 +25,14 @@ export class EditorPageComponent implements OnInit {
 
   constructor(private editor: EditorService,
               private api: ApiService,
+              public config: ConfigService,
               public codebook: CodebookService,
               public translator: Translator) {
-    this.translate();
-    translator.languageChanged.subscribe(() => this.translate());
+    
+    if (this.config.showPageIdentifiers) {
+      this.translate();
+      translator.languageChanged.subscribe(() => this.translate());
+    }
   }
 
 
@@ -48,7 +53,6 @@ export class EditorPageComponent implements OnInit {
       });
     });
   }
-
 
   ngOnInit() {
   }

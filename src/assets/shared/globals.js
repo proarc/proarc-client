@@ -21,5 +21,18 @@ var APP_GLOBAL = {
         'model:ndkpage',
         'model:page',
     ],
-    defaultModel: 'model:chroniclevolume'
+    defaultModel: 'model:chroniclevolume',
+    showPageIdentifiers: false,
+    pageTypes: [
+        'backCover',
+        'backEndPaper',
+        'backEndSheet',
+        'blank',
+        'frontCover',
+        'frontEndPaper',
+        'frontEndSheet',
+        'normalPage',
+        'tableOfContents',
+        'titlePage'
+    ]
 };
