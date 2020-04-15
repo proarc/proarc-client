@@ -49,7 +49,7 @@
            <div class="app-card app-author-roles" *ngFor="let role of item.roles.items; index as indexRole; last as lastRole; first as firstRole;">
               <div class="app-card-header">
                 <span class="app-card-title app-no-collapse">{{ 'editor.author.role.role' | translate }}</span>
-                <button matTooltip="{{ 'common.remove' | translate }}" color="primary" (click)="item.roles.removeObject(role)" mat-icon-button>
+                <button matTooltip="{{ 'common.remove' | translate }}" color="primary" (click)="item.roles.removeItem(role)" mat-icon-button>
                   <mat-icon>delete</mat-icon>
                 </button>
                 <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" color="primary" (click)="item.roles.moveDown(index)" mat-icon-button>

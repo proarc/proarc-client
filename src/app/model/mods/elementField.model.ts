@@ -27,31 +27,42 @@ export class ElementField {
         }
         this.root = mods[selector];
         this.items = [];
+        let hiddenItems = 0;
         for (const el of this.root) {
             if (el) {
+                const newEl = this.newElement(id, el);
                 if (attr) {
-                    if (el['$'] && el['$'][attr] && values.indexOf(el['$'][attr]) > -1) {
-                        this.items.push(this.newElement(id, el));
+                    if (!(el['$'] && el['$'][attr] && values.indexOf(el['$'][attr]) > -1)) {
+                        newEl.hidden = true;
+                        hiddenItems += 1;
                     }
-                } else {
-                    this.items.push(this.newElement(id, el));
-                }
+                } 
+                this.items.push(newEl);
             }
         }
-        if (this.items.length < 1) {
+        if (this.items.length - hiddenItems < 1) {
             const item = this.add();
             item.collapsed = true;
         }
     }
 
 
+    public visibleItemsCount(): number {
+        let c = 0;
+        for (const item of this.items) {
+            if (!item.hidden) {
+                c += 1;
+            }
+        }
+        return c;
+    }
 
     public remove(index) {
         if (index >= 0 && index < this.items.length) {
             this.items.splice(index, 1);
             this.root.splice(index, 1);
         }
-        if (this.items.length === 0) {
+        if (this.visibleItemsCount() === 0) {
             const item = this.add();
             item.collapsed = true;
         }
@@ -63,9 +74,14 @@ export class ElementField {
     //     }
     // }
 
-    public removeObject(obj) {
-        const index = this.items.indexOf(obj);
+    public removeItem(item: ModsElement) {
+        const index = this.items.indexOf(item);
         this.remove(index);
+    }
+
+    public addAfterItem(item: ModsElement): ModsElement {
+        const index = this.items.indexOf(item);
+        return this.addAfter(index);
     }
 
     public add(): ModsElement {

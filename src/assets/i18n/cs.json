@@ -382,10 +382,8 @@
           "inventaryNumber": "Inventární číslo",
           "OtherNumber": "Přírůstkové číslo"
         },
-        "invalid": {
-          "yes": "Neplatný",
-          "no": "Platný"
-        },
+        "invalid": "Neplatný",
+        "valid": "Platný",
         "validity": "Platnost",
         "type": "typ",
         "value": "Hodnota"

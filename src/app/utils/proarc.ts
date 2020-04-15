@@ -42,4 +42,12 @@ export class ProArc {
       ProArc.EXPORT_CROSSREF
     ];
 
+
+    public static chronicleIdentifierTypes = [ 'signature1', 'signature2', 'officialNumber', 'inventaryNumber', 'OtherNumber' ];
+
+
+    public static isChronicle(model: string): boolean {
+      return model === 'model:chroniclevolume' || model === 'model:chronicletitle';
+    }
+
 }

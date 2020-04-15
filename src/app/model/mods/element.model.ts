@@ -3,6 +3,7 @@ export abstract class ModsElement {
     public attrs;
     public modsElement;
     public collapsed = false;
+    public hidden = false;
 
     constructor(modsElement, attributes: string[] = []) {
         this.modsElement = modsElement;

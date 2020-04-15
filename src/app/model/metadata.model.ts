@@ -13,6 +13,7 @@ import { Mods } from './mods.model';
 import { ModsAbstract } from './mods/abstract.model';
 import { ModsGenre } from './mods/genre.mods';
 import { ModsChronicleLocation } from './mods/chronicle_location.model';
+import { ProArc } from '../utils/proarc';
 declare var $: any;
 
 
@@ -53,7 +54,7 @@ export class Metadata {
     // this.relations = relations;
 
 
-    if (model === "model:chroniclevolume" || this.model === 'model:chronicletitle') {
+    if (ProArc.isChronicle(model)) {
       this.fieldsIds = [
         ModsTitle.getId(),
         ModsAuthor.getId(),
@@ -131,6 +132,8 @@ export class Metadata {
       for (const id of this.fieldsIds) {
         if (id === ModsGeo.getId()) {
           this.fields.set(id, new ElementField(root, id, 'authority', ['geo:origin', 'geo:storage', 'geo:area']));
+        } else if (id === ModsIdentifier.getId() && ProArc.isChronicle(this.model)) {
+          this.fields.set(id, new ElementField(root, id, 'type', ProArc.chronicleIdentifierTypes));
         } else {
           this.fields.set(id, new ElementField(root, id));
         }
