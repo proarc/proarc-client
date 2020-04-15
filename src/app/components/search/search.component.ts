@@ -1,15 +1,14 @@
 import { DocumentItem } from '../../model/documentItem.model';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
-import { ProArc } from 'src/app/utils/proarc';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { Translator } from 'angular-translator';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { MatDialog } from '@angular/material';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { ExportDialogComponent } from 'src/app/dialogs/export-dialog/export-dialog.component';
-import { Registrar } from 'src/app/model/registrar.model';
 import { UrnbnbDialogComponent } from 'src/app/dialogs/urnnbn-dialog/urnnbn-dialog.component';
+import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
   selector: 'app-search',
@@ -21,7 +20,7 @@ export class SearchComponent implements OnInit {
   state = 'none';
   items: DocumentItem[];
 
-  models = ProArc.models;
+  models: string[]
 
   model: string;
   query = '';
@@ -33,11 +32,13 @@ export class SearchComponent implements OnInit {
   constructor(private api: ApiService, 
               private properties: LocalStorageService, 
               private dialog: MatDialog,
+              private config: ConfigService,
               private translator: Translator) { 
+                this.models = this.config.allModels;
   }
 
   ngOnInit() {
-    this.model = this.properties.getStringProperty('search.model', ProArc.defaultModel);
+    this.model = this.properties.getStringProperty('search.model', this.config.defaultModel);
     if (this.model !== 'all' && this.model !== 'model:page' && this.model !== 'model:ndkpage') {
       this.reload();
     } else {

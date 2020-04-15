@@ -2,9 +2,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ApiService } from 'src/app/services/api.service';
-import { ProArc } from 'src/app/utils/proarc';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
   selector: 'app-parent-dialog',
@@ -16,7 +16,7 @@ export class ParentDialogComponent implements OnInit {
   state = 'none';
   items: DocumentItem[];
   selectedItem: DocumentItem;
-  models = ProArc.models;
+  models: string[];
   model: string;
   query = '';
 
@@ -31,14 +31,16 @@ export class ParentDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ParentDialogComponent>,
-    private properties: LocalStorageService, 
+    private properties: LocalStorageService,
+    private config: ConfigService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private api: ApiService) { 
       this.ingestOnly = data && !!data.ingestOnly;
+      this.models = this.config.allModels;
     }
 
   ngOnInit() {
-    this.model = this.properties.getStringProperty('search.model', ProArc.defaultModel);
+    this.model = this.properties.getStringProperty('search.model', this.config.defaultModel);
     this.reload();
   }
 

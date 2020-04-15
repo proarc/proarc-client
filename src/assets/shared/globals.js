@@ -1,5 +1,25 @@
 var APP_GLOBAL = {
-    proarc_backend_url: "http://147.231.63.181/proarc-silvarium",
-    // proarc_backend_url: "https://proarc.kr-vysocina.cz/proarc-backend",    
-    ga: "UA-159265713-1"
+    proarcUrl: "http://147.231.63.181/proarc-silvarium",
+    // proarcUrl: "https://proarc.kr-vysocina.cz/proarc-backend",    
+    ga: "UA-159265713-1",
+    models: [
+        'model:chroniclevolume',
+        'model:chronicletitle',
+        'model:chroniclesupplement',
+        'model:ndkmonographvolume',
+        'model:ndkmonographtitle',
+        'model:ndkmonographsupplement',
+        'model:ndkperiodical',
+        'model:ndkperiodicalvolume',
+        'model:ndkperiodicalissue',
+        'model:ndkperiodicalsupplement',
+        'model:ndkarticle',
+        'model:ndkpicture',
+        'model:ndkchapter',
+        'model:ndkmap',
+        'model:ndksheetmusic',
+        'model:ndkpage',
+        'model:page',
+    ],
+    defaultModel: 'model:chroniclevolume'
 };
