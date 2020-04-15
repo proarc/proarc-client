@@ -112,6 +112,13 @@ export class HistoryComponent implements OnInit, OnDestroy {
   }
 
   onIngestBatch() {
+    if (!this.selectedBatch) {
+      return;
+    }
+    if (this.selectedBatch.profile === 'profile.chronicle' && this.selectedBatch.parentPid)  {
+      this.ingestBatch(this.selectedBatch.parentPid);
+      return;
+    }
     const dialogRef = this.dialog.open(ParentDialogComponent, { data: { ingestOnly: true }});
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.pid) {
@@ -122,7 +129,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
 
   private ingestBatch(parentPid: string) {
-    if (!this.selectBatch) {
+    if (!this.selectedBatch) {
       return;
     }
     const dialogRef = this.dialog.open(ImportDialogComponent, { data: {batch: this.selectedBatch.id, parent: parentPid, ingestOnly: true }});

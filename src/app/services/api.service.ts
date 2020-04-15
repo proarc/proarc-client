@@ -313,16 +313,16 @@ export class ApiService {
     return this.post('device', data).pipe(map(response => Device.fromJson(response['response']['data'][0])));
   }
 
-
-
   setParentForBatch(id: number, parent: string): Observable<Batch> {
     const data = `id=${id}&parentPid=${parent}`;
     return this.put('import/batch', data).pipe(map(response => Batch.fromJson(response['response']['data'][0])));
   }
 
-
   ingestBatch(id: number, parent: string): Observable<Batch> {
-    const data = `id=${id}&parentPid=${parent}&state=INGESTING`;
+    let data = `id=${id}&state=INGESTING`;
+    if (parent) {
+      data += `&parentPid=${parent}`;
+    }
     return this.put('import/batch', data).pipe(map(response => Batch.fromJson(response['response']['data'][0])));
   }
 
