@@ -26,21 +26,9 @@
         <mat-icon>add</mat-icon>
       </button>
       
-      <div class="app-header-divider"></div>
-
-      <button [disabled]="!item.canSplitName()" matTooltip="{{ 'editor.author.split_btn' | translate }}" color="primary" (click)="item.splitName()" mat-icon-button>
-        <mat-icon>play_for_work</mat-icon>
-      </button>
-
     </div>
 
     <div class="app-card-content" [class.app-collapsed]="item.collapsed">
-
-
-        <mat-form-field class="app-full-width">
-          <input autocomplete="off" matInput [(ngModel)]='item.name["_"]' placeholder="{{ 'editor.chronicle.author.name' | translate }}">
-        </mat-form-field>
-    
 
       <div>
         <mat-form-field class="app-half-left">
