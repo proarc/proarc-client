@@ -10,8 +10,6 @@ export class EditorChronicleComponent implements OnInit {
 
   state = 'none';
 
-  languages = ['eng', 'cze',  'fre',  'heb',  'ita',  'lat',  'ger',  'pol',  'por', 'rus',  'gre',  'slo',  'grc',  'spa',  'mul',  'zxx'];
-
   @Input()
   set pid(pid: string) {
     this.onPidChanged(pid);
