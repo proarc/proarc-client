@@ -1,61 +1,13 @@
 
 import { Injectable } from '@angular/core';
+import { Translator } from 'angular-translator';
+import { ConfigService } from './config.service';
 
 @Injectable()
 export class CodebookService {
 
-    pageTypes = [
-        'normalPage',
-        'abstract',
-        'anotation',
-        'bibliography',
-        'bibliographicalPortrait',
-        'booklet',
-        'colophon',
-        'dedication',
-        'cover',
-        'appendix',
-        'editorial',
-        'errata',
-        'frontispiece',
-        'mainArticle',
-        'spine',
-        'illustration',
-        'imgDisc',
-        'impressum',
-        'interview',
-        'calibrationTable',
-        'map',
-        'normalPage',
-        'sheetmusic',
-        'obituary',
-        'tableOfContents',
-        'edge',
-        'case',
-        'imprimatur',
-        'blank',
-        'jacket',
-        'preface',
-        'frontCover',
-        'frontEndPaper',
-        'frontEndSheet',
-        'frontJacket',
-        'index',
-        'advertisement',
-        'review',
-        'listOfIllustrations',
-        'listOfMaps',
-        'listOfSupplements',
-        'listOfTables',
-        'table',
-        'titlePage',
-        'introduction',
-        'flyLeaf',
-        'backCover',
-        'backEndPaper',
-        'backEndSheet'
-      ];
 
+  pageTypes: any[] = []
 
       identifierTypeCodes = [
           'barcode',
@@ -79,5 +31,39 @@ export class CodebookService {
         'alternative',
         'uniform'
       ];
+
+
+
+      constructor(private translator: Translator, private config: ConfigService) {
+        this.refreshAll();
+        translator.languageChanged.subscribe(() => this.refreshAll());
+      }
+
+
+
+      refreshAll() {
+        this.translator.waitForTranslation().then(() => {
+          this.pageTypes = [];
+          const otherPageTypes = [];
+          for (const code of this.config.topPageTypes) {
+            this.pageTypes.push({code: code, name: this.translator.instant("page_type." + code.toLowerCase())});
+          }
+          for (const code of this.config.pageTypes) {
+            otherPageTypes.push({code: code, name: this.translator.instant("page_type." + code.toLowerCase())});
+          }
+          otherPageTypes.sort((a: any, b: any): number => {
+            if (a.name < b.name) {
+              return -1;
+            }
+            if (a.name > b.name) {
+              return 1;
+            }
+            return 0;
+          });
+          this.pageTypes = this.pageTypes.concat(otherPageTypes);
+        });
+      }
+
+
 
 }

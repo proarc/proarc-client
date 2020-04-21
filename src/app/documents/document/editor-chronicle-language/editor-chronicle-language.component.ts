@@ -12,7 +12,7 @@ export class EditorChronicleLanguageComponent implements OnInit {
 
   langs: any[] = [];
 
-  basicLanguages = ['cze', 'ger', 'lat'];
+  topLanguages = ['cze', 'ger', 'lat'];
   otherLanguages = ['eng', 'fre',  'heb',  'ita', 'pol',  'por', 'rus',  'gre',  'slo',  'grc',  'spa',  'mul',  'zxx'];
 
   @Input() field: ElementField;
@@ -26,7 +26,7 @@ export class EditorChronicleLanguageComponent implements OnInit {
     this.translator.waitForTranslation().then(() => {
       this.langs = [];
       const otherLangs = [];
-      for (const code of this.basicLanguages) {
+      for (const code of this.topLanguages) {
         this.langs.push({code: code, name: this.translator.instant('lang.' + code)});
       }
       for (const code of this.otherLanguages) {

@@ -1,5 +1,5 @@
 var APP_GLOBAL = {
-    proarcUrl: "http://krameriustest.inovatika.cz/proarc-silvarium",
+    proarcUrl: "http://147.231.63.181/proarc-silvarium",
     ga: "UA-159265713-1",
     models: [
         'model:chroniclevolume',
@@ -20,6 +20,20 @@ var APP_GLOBAL = {
         'model:ndkpage',
         'model:page',
     ],
-    defaultModel: 'model:chroniclevolume'
-
+    defaultModel: 'model:chroniclevolume',
+    showPageIdentifiers: false,
+    topPageTypes: [
+        'normalPage',
+        'blank'
+    ],
+    pageTypes: [
+        'backCover',
+        'backEndPaper',
+        'backEndSheet',
+        'frontCover',
+        'frontEndPaper',
+        'frontEndSheet',
+        'tableOfContents',
+        'titlePage'
+    ]
 };

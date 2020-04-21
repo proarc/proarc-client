@@ -63,8 +63,8 @@ export class ConfigService {
     public defaultModel = APP_GLOBAL.defaultModel;
 
     public showPageIdentifiers = APP_GLOBAL.showPageIdentifiers == undefined ? true : !!APP_GLOBAL.showPageIdentifiers;
+    public topPageTypes = APP_GLOBAL.topPageTypes || [];
     public pageTypes = APP_GLOBAL.pageTypes || ConfigService.defaultPageTypes;
-
 
     constructor() {
     }

@@ -11,6 +11,8 @@ export class EditorPagesComponent implements OnInit {
 
   holder: PageUpdateHolder;
 
+  
+
   constructor(public editor: EditorService, public codebook: CodebookService) {
   }
 
