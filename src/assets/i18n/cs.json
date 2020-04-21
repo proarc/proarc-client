@@ -403,7 +403,7 @@
       },
       "genre": {
         "label": "Charakter kroniky",
-        "genre": "Žánr",
+        "genre": "Evidenční jednotka",
         "genres": {
           "ukn": "Úřední kniha",
           "rkp": "Rukopis"
