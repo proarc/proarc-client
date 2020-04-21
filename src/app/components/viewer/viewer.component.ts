@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { interval } from 'rxjs';
 import { EditorService } from 'src/app/services/editor.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 declare var ol: any;
 
@@ -43,30 +42,21 @@ export class ViewerComponent implements OnInit, OnDestroy {
   private maxResolution = 0;
   private minResolution = 0;
 
-  private zoomFactor = 1.5;
-
   private lastRotateTime = 0;
 
   fullscreenAvailable = false;
+  positionLock: boolean;
 
-
+  private extent;
 
   state = 'none';
 
-
-
-  constructor(private api: ApiService, private route: ActivatedRoute, private editor: EditorService) {
+  constructor(private api: ApiService, private properties: LocalStorageService) {
     this.initFullscreenCapabilities();
   }
 
   ngOnInit() {
     this.init();
-    // this.state = 'loading';
-    // this.route.params.subscribe(params => {
-    //   const id = params['id'];
-    //   const url = this.api.getStreamUrl(id, 'FULL');
-    //   this.init(url);
-    // });
   }
 
   onPidChanged(pid: string) {
@@ -84,38 +74,63 @@ export class ViewerComponent implements OnInit, OnDestroy {
 }
 
   onLoad(url: string, width: number, height: number) {
+    console.log('onLoad');
+    this.positionLock = this.properties.getBoolProperty('viewer.positionLock', false);
+    if (this.extent) {
+      this.saveCurrentPosition();
+    }
     this.state = 'success';
     this.view.removeLayer(this.imageLayer);
     this.imageWidth = width;
     this.imageHeight = height;
-    const extent = [0, -this.imageHeight, this.imageWidth, 0];
-    const projection = new ol.proj.Projection({
-      units: 'pixels',
-      extent: extent
-    });
-    this.maxResolution = this.getBestFitResolution() * this.zoomFactor;
-    this.minResolution = 0.5;
+    this.extent = [0, -this.imageHeight, this.imageWidth, 0];
+    const maxResolution = this.getBestFitResolution() * 1.5;
+    const minResolution = 0.5;
     const viewOpts: any = {
-      projection: projection,
-      center: ol.extent.getCenter(extent),
-      extent: extent
+      extent: this.extent,
+      minResolution: minResolution,
+      maxResolution: maxResolution,
+      constrainOnlyCenter: true,
+      smoothExtentConstraint: false
     };
-    if (this.maxResolution < 100) {
-      viewOpts.minResolution = this.minResolution;
-      viewOpts.maxResolution = this.maxResolution;
-    }
+
     const view = new ol.View(viewOpts);
     this.view.setView(view);
     const iLayer = new ol.layer.Image({
       source: new ol.source.ImageStatic({
         url: url,
         imageSize: [width, height],
-        imageExtent: extent
+        imageExtent: this.extent
       })
     });
     this.view.addLayer(iLayer);
     this.imageLayer = iLayer;
-    this.fitToScreen();
+    console.log('center', this.properties.getStringProperty('viewer.center'));
+    if (this.positionLock) {
+      this.view.updateSize();
+      this.view.getView().setRotation(this.properties.getStringProperty('viewer.roration'));
+      this.view.getView().setCenter(this.properties.getStringProperty('viewer.center').split(','));
+      this.view.getView().setResolution(this.properties.getStringProperty('viewer.resolution'));
+    } else {
+      this.fitToScreen();
+    }
+  }
+
+  onSwitchLock() {
+    this.positionLock = !this.positionLock;
+    this.properties.setBoolProperty('viewer.positionLock', this.positionLock);
+    this.saveCurrentPosition();
+  }
+
+  saveCurrentPosition() {
+    if (!this.positionLock) {
+      return;
+    }
+    if (this.view.getView()) {
+      this.properties.setStringProperty('viewer.rotation', this.view.getView().getRotation());
+      this.properties.setStringProperty('viewer.center', this.view.getView().getCenter().join(','));
+      this.properties.setStringProperty('viewer.resolution', this.view.getView().getResolution());
+    }
   }
 
   init() {
@@ -130,12 +145,10 @@ export class ViewerComponent implements OnInit, OnDestroy {
   }
 
   fitToScreen() {
+    console.log('fit to screen');
     this.view.updateSize();
     this.view.getView().setRotation(0);
-    this.bestFit();
-    const extent = this.view.getView().getProjection().getExtent();
-    const center = ol.extent.getCenter(extent);
-    this.view.getView().setCenter(center);
+    this.view.getView().fit(this.extent);
   }
 
   zoomIn() {
@@ -173,12 +186,12 @@ export class ViewerComponent implements OnInit, OnDestroy {
     return Math.max(rx, ry);
   }
 
-  bestFit() {
-    this.view.getView().setResolution(this.getBestFitResolution());
-  }
-
+  // bestFit() {
+  //   this.view.getView().setResolution(this.getBestFitResolution());
+  // }
 
   ngOnDestroy() {
+    this.saveCurrentPosition();
     this.view.removeLayer(this.imageLayer);
   }
 

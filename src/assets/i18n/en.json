@@ -410,6 +410,8 @@
   },
   "viewer": {
     "tooltip": {
+      "lock": "Lock Position",
+      "unlock": "Unlock Position",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out",
       "fitToScreen": "Fit to Screen",

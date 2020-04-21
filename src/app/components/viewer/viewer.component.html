@@ -3,6 +3,13 @@
     <div class="app-editor-toolbar">
         <div class="app-label">Obrázek</div>
         <div class="app-actions-right">
+
+            <button class="app-action" [class.app-inactive]="!positionLock" matTooltip="{{ 'viewer.tooltip.' + (positionLock ? 'unlock' : 'lock') | translate }}" (click)="onSwitchLock()" mat-icon-button>
+                <mat-icon>lock</mat-icon>
+            </button>
+
+            <div class="app-divider"></div>
+
             <button class="app-action" (click)="zoomIn()" [matTooltip]="'viewer.tooltip.zoomIn' | translate" mat-icon-button>
                 <mat-icon>zoom_in</mat-icon>
             </button>

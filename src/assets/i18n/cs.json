@@ -544,6 +544,8 @@
   },
   "viewer": {
     "tooltip": {
+      "lock": "Uzamknout pozici",
+      "unlock": "Odemknout pozici",
       "zoomIn": "Přiblížit",
       "zoomOut": "Oddáálit",
       "fitToScreen": "Přizpůsobit obrazovce",
