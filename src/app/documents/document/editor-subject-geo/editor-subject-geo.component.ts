@@ -23,25 +23,16 @@ export class EditorSubjectGeoComponent implements OnInit {
   }
 
   onSearch(location: ModsGeo) {
-    console.log('loc', location);
     const dialogRef = this.dialog.open(LocationDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      console.log('result', result);
       if (result && result['locations']) {
         location.clear();
         for (const ruian of result['locations'] as Ruian[]) {
-          console.log('update');
           this.update(location, ruian);
         }
       }
-      // const ruian = result.location as Ruian;
-      // if (ruian.layerId === 4) {
-      //   location.ulice["_"] = ruian.value;
-      //   location.ulice_code["_"] = ruian.code;
-      // }
     });
   }
-
 
   update(location: ModsGeo, ruian: Ruian) {
     switch (ruian.layerId) {
@@ -57,16 +48,10 @@ export class EditorSubjectGeoComponent implements OnInit {
       case 17: this.updateFiled(location, 'region_soudrznosti', ruian); break;
       case 18: this.updateFiled(location, 'kraj_1960', ruian); break;
       case 19: this.updateFiled(location, 'stat', ruian); break;
-      //   location.ulice_code["_"] = ruian.code;
     }
   }
 
   updateFiled(location: ModsGeo, field: string, ruian: Ruian) {
-    console.log('updateFiled?', field);
-    console.log('updateFiled?', ruian.value);
-
-    // location.stat = 'hehe';// ruian.value;
-
     location[field]['_'] = ruian.value;
     location[field + '_code']['_'] = ruian.code;
   }

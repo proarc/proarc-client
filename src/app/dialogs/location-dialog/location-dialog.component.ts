@@ -11,7 +11,6 @@ import { Ruian } from 'src/app/model/ruian.model';
 })
 export class LocationDialogComponent implements OnInit {
 
-  step = 1;
   state = 'none';
   locations: Ruian[];
   selectedLocation: Ruian;
@@ -24,6 +23,7 @@ export class LocationDialogComponent implements OnInit {
   layers: number[];
 
   counter = 0;
+  lock = false;
 
   constructor(
     public dialogRef: MatDialogRef<LocationDialogComponent>,
@@ -63,7 +63,6 @@ export class LocationDialogComponent implements OnInit {
     }
   }
 
-
   onEnter() {
     this.search(this.query);
   }
@@ -96,15 +95,26 @@ export class LocationDialogComponent implements OnInit {
 
   onSave() {
     this.state = 'saving';
-    this.hierarchy = [];
-    this.stack = [];
-    this.layers = [];
-    this.step = 2;
-    this.addToHierarchy(this.selectedLocation);
+    this.fetchHierarchy(this.selectedLocation, true);
   }
 
 
-  addToHierarchy(location: Ruian) {
+  showInfo(location: Ruian) {
+    if (this.lock) {
+      return;
+    }
+    this.lock = true;
+    this.fetchHierarchy(location, false);
+  }
+
+  fetchHierarchy(from: Ruian, finish: boolean) {
+    this.hierarchy = [];
+    this.stack = [];
+    this.layers = [];
+    this.addToHierarchy(from, finish);
+  }
+
+  addToHierarchy(location: Ruian, finish: boolean) {
     for (const p of location.parents) {
       if (this.layers.indexOf(p.layer) < 0) {
         this.layers.push(p.layer);
@@ -116,16 +126,34 @@ export class LocationDialogComponent implements OnInit {
       const p = this.stack.shift();
       this.cuzk.searchByCode(p.code, p.layer).subscribe((results: Ruian[]) => {
         if (results && results[0]) {
-          this.addToHierarchy(results[0]);
+          this.addToHierarchy(results[0], finish);
         }
       });
     } else {
-      this.dialogRef.close({locations: this.hierarchy});
+      if (finish) {
+        this.dialogRef.close({locations: this.hierarchy});
+      } else {
+        this.buildExtendedLabelFromHierarchy();
+      }
     }
   }
 
 
 
+  buildExtendedLabelFromHierarchy() {
+    const location = this.hierarchy[0];
+    this.hierarchy.sort((a: any, b: any): number => {
+      if (a.layerId < b.layerId) {
+        return -1;
+      }
+      if (a.layerId > b.layerId) {
+        return 1;
+      }
+      return 0;
+    });
+    location.extendedLabel = this.hierarchy.map(a => a.label).join(', ');
+    this.lock = false;
+  }
 
 
 

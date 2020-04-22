@@ -7,6 +7,8 @@ export class Ruian {
   public code: string;
   public value: string;
 
+  public extendedLabel: string;
+
   // public parentCode: string;
   // public parentLayerId: number;
 

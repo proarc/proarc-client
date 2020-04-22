@@ -20,12 +20,18 @@
 
   <div class="search-result-list">
       <div class="app-row app-header">
+        <div class="result-info"></div>
         <div class="result-label">Název</div>
         <div class="result-layer">Vrstva</div>
       </div>
     <div class="scrollable">
       <div *ngFor="let location of locations" (click)="selectedLocation = location" [class.app-selected]="location == selectedLocation" class="app-row">
-        <div class="result-label">{{ location.label }}</div>
+        <div class="result-info">
+          <button (click)="showInfo(location);$event.preventDefault();$event.stopPropagation()" mat-icon-button color="default" [matTooltip]="'editor.geo.show_info' | translate" matTooltipPosition="below">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+        <div class="result-label">{{ location.extendedLabel || location.label }}</div>
         <div class="result-layer">{{ 'editor.geo.ruian_layer_' + location.layerId | translate }}</div>
       </div>
     </div>
