@@ -179,7 +179,10 @@ export function hljsLanguages() {
     }),
     TranslatorModule.forRoot({
       providedLanguages: ['en', 'cs'],
-      defaultLanguage: 'cs'
+      defaultLanguage: 'cs',
+      loaderOptions: {
+        path: 'assets/i18n/{{language}}.json?v0.1.5'
+      }
     })
   ],
   providers: [
