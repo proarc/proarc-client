@@ -10,25 +10,19 @@
       <div class="app-label-model">{{ 'model.' + editor.left.model | translate }}</div>
     </div>
 
-
     <div class="app-actions">
-        <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="editor.goToPreviousObject()" mat-icon-button>
-          <mat-icon>keyboard_arrow_left</mat-icon>
-        </button>
-        <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="editor.goToParentObject()" mat-icon-button>
-          <mat-icon>keyboard_arrow_up</mat-icon>
-        </button>
-        <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="editor.goToNextObject()" mat-icon-button>
-          <mat-icon>keyboard_arrow_right</mat-icon>
-        </button>
-    </div>
+      <button matTooltip="{{ 'editor.toolbar.editor_mode_detail' | translate }}" [class.app-inactive]="editor.mode != 'detail'" (click)="editor.switchMode('detail')" mat-icon-button>
+        <mat-icon>details</mat-icon>
+      </button>
+      <button *ngIf="!editor.left.isPage()" matTooltip="{{ 'editor.toolbar.editor_mode_children' | translate }}" [class.app-inactive]="editor.mode != 'children'" (click)="editor.switchMode('children')" mat-icon-button>
+        <mat-icon>dehaze</mat-icon>
+      </button>
+   </div>
 
+   <div class="app-divider"></div>
 
-
-
-
-    <div class="app-context" *ngIf="editor.mode == 'detail'">
-      <div class="app-divider"></div>
+   <ng-container *ngIf="editor.mode == 'detail'">
+    <div class="app-context">
       <button matTooltip="{{ 'editor.toolbar.editor_atm' | translate }}" [class.app-inactive]="editor.leftEditorType != 'atm'" (click)="editor.switchLeftEditor('atm')" mat-icon-button>
         <mat-icon>scanner</mat-icon>
       </button>
@@ -44,18 +38,24 @@
       <button matTooltip="{{ 'editor.toolbar.editor_geo' | translate }}" [class.app-inactive]="editor.leftEditorType != 'geo'" (click)="editor.switchLeftEditor('geo')" mat-icon-button>
         <mat-icon>map</mat-icon>
       </button>
-  </div>
+    </div>
+    <div class="app-divider"></div>
+  </ng-container>
+
+    <div class="app-actions">
+        <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="editor.goToPreviousObject()" mat-icon-button>
+          <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="editor.goToParentObject()" mat-icon-button>
+          <mat-icon>keyboard_arrow_up</mat-icon>
+        </button>
+        <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="editor.goToNextObject()" mat-icon-button>
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+    </div>
 
 
-  <div class="app-actions">
-      <button matTooltip="{{ 'editor.toolbar.editor_mode_detail' | translate }}" [class.app-inactive]="editor.mode != 'detail'" (click)="editor.switchMode('detail')" mat-icon-button>
-        <mat-icon>details</mat-icon>
-      </button>
-      <button *ngIf="!editor.left.isPage()" matTooltip="{{ 'editor.toolbar.editor_mode_children' | translate }}" [class.app-inactive]="editor.mode != 'children'" (click)="editor.switchMode('children')" mat-icon-button>
-        <mat-icon>dehaze</mat-icon>
-      </button>
-      <div class="app-divider"></div>
-  </div>
+
 
 
 
