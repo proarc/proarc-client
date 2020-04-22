@@ -225,7 +225,7 @@ export class ApiService {
     return this.put('object/privatenote', data).pipe(map(response => Note.fromJson(response['record'])));
   }
 
-  getSearchResults(model: string, query: string, page: number): Observable<[DocumentItem[], number]> {
+  getSearchResults(model: string, query: string, page: number, sortField = 'lastCreated', sortAsc = false): Observable<[DocumentItem[], number]> {
     const params = {
     _startRow: page * 100,
     };
@@ -237,8 +237,14 @@ export class ApiService {
       params['queryTitle'] = query;
       // type=query&phrase=pr%C3%A1ce&queryTitle=pr%C3%A1ce
     } else {
-      params['type'] = 'lastCreated';
+      params['type'] = sortField;
+      if (sortAsc) {
+        params['_sort'] = 'asc';
+      } else {
+        params['_sort'] = 'desc';
+      }
     }
+
     return this.get('object/search', params).pipe(map(response => [DocumentItem.fromJsonArray(response['response']['data']), response['response']['totalRows']] as [DocumentItem[], number]));
   }
 

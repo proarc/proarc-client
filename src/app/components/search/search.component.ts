@@ -29,6 +29,9 @@ export class SearchComponent implements OnInit {
   pageSize = 100;
   resultCount = 0;
 
+  sortField: string;
+  sortAsc: boolean;
+
   constructor(private api: ApiService, 
               private properties: LocalStorageService, 
               private dialog: MatDialog,
@@ -38,6 +41,8 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.sortField = this.properties.getStringProperty('search.sortfield', 'lastCreated');
+    this.sortAsc = this.properties.getBoolProperty('search.sortfield', false);
     this.model = this.properties.getStringProperty('search.model', this.config.defaultModel);
     if (this.model !== 'all' && this.model !== 'model:page' && this.model !== 'model:ndkpage') {
       this.reload();
@@ -50,7 +55,7 @@ export class SearchComponent implements OnInit {
     this.properties.setStringProperty('search.model', this.model);
     this.pageIndex = page;
     this.state = 'loading';
-    this.api.getSearchResults(this.model, this.query, this.pageIndex).subscribe(([items, total]: [DocumentItem[], number]) => {
+    this.api.getSearchResults(this.model, this.query, this.pageIndex, this.sortField, this.sortAsc).subscribe(([items, total]: [DocumentItem[], number]) => {
       this.resultCount = total;
       this.items = items;
       this.state = 'success';
@@ -61,7 +66,6 @@ export class SearchComponent implements OnInit {
     this.reload(page.pageIndex);
   }
 
-
   onUrnnbn(item: DocumentItem) {
     const dialogRef = this.dialog.open(UrnbnbDialogComponent, { data: item.pid });
     dialogRef.afterClosed().subscribe(result => {
@@ -70,7 +74,6 @@ export class SearchComponent implements OnInit {
       }
     });
   }
-
 
   onExport(item: DocumentItem) {
     // this.api.getRegistrars().subscribe((registrars: Registrar[]) => {
@@ -122,6 +125,38 @@ export class SearchComponent implements OnInit {
         }
         this.state = 'success';
     });
+  }
+
+
+
+
+
+  getSortIcon(field: string) {
+    if (this.query) {
+      return;
+    }
+    if (this.sortField === field) {
+      if (this.sortAsc) {
+        return 'arrow_drop_up';
+      } else {
+        return 'arrow_drop_down';
+      }
+    }
+  }
+
+  sortBy(field: string) {
+    if (this.query) {
+      return;
+    }
+    if (this.sortField === field) {
+      this.sortAsc = !this.sortAsc;
+    } else {
+      this.sortAsc = false;
+    }
+    this.sortField = field;
+    this.properties.setStringProperty('search.sortfield', this.sortField);
+    this.properties.setBoolProperty('search.sortasc', this.sortAsc);
+    this.reload();
   }
 
 
