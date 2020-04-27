@@ -381,7 +381,6 @@
           "uuid": "UUID",
           "signature1": "Signatura přidělená původcem",
           "signature2": "Signatura přidělená při zpracování archiválie",
-          "officialNumber": "Číslo vložky úřední desky",
           "inventaryNumber": "Inventární číslo",
           "OtherNumber": "Přírůstkové číslo"
         },

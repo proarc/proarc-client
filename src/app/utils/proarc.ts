@@ -43,7 +43,7 @@ export class ProArc {
     ];
 
 
-    public static chronicleIdentifierTypes = [ 'signature1', 'signature2', 'officialNumber', 'inventaryNumber', 'OtherNumber' ];
+    public static chronicleIdentifierTypes = [ 'signature1', 'signature2', 'inventaryNumber', 'OtherNumber' ];
 
 
     public static isChronicle(model: string): boolean {
