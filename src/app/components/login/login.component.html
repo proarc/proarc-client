@@ -4,18 +4,18 @@
     <div class="app-card-content">
       <mat-form-field>
         <input 
-          type="email" 
+          type="text" 
           matInput 
-          placeholder="E-mail" 
+          [placeholder]="'login.username' | translate" 
           ngModel 
-          name="email"
+          name="username"
           required>
       </mat-form-field>
       <mat-form-field>
         <input 
           type="password" 
           matInput 
-          placeholder="Heslo" 
+          [placeholder]="'login.password' | translate" 
           ngModel 
           name="password"
           required>

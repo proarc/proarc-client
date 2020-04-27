@@ -23,6 +23,8 @@
     "warning": "Varování"
   },
   "login": {
+    "username": "Uživatelské jméno",
+    "password": "Heslo",
     "login_failed": "Přihlášení se nezdařilo"
   },
   "new_object": {

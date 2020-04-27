@@ -21,6 +21,8 @@
     "warning": "Warning"
   },
   "login": {
+    "username": "User Name",
+    "password": "Password",
     "login_failed": "Login failed"
   },
   "new_object": {
