@@ -25,7 +25,7 @@
 
           <textarea *ngIf="editting" [(ngModel)]="ocr.content" (input)="onChange($event)"></textarea>
 
-          <pre *ngIf="!editting" class="app-text-content">{{ ocr.original }}</pre>
+          <div *ngIf="!editting" class="app-text-content">{{ ocr.original }}</div>
         
     </div>
 
