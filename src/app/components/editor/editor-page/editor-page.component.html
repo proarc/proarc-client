@@ -26,24 +26,21 @@
             <mat-form-field class="app-full-width">
               <input autocomplete="off" matInput [placeholder]="'editor.page.number' | translate" [(ngModel)]="page.number">
             </mat-form-field>
-            <mat-form-field class="app-half-left">
+            <mat-form-field class="app-half-left" *ngIf="config.showPageIndex">
               <input autocomplete="off" matInput [placeholder]="'editor.page.index' | translate" [(ngModel)]="page.index">
             </mat-form-field>
-            <mat-form-field class="app-half-right">
+            <mat-form-field [ngClass]="config.showPageIndex ? 'app-half-right' : 'app-full-width'">
               <mat-select [placeholder]="'editor.page.type' | translate" name="type" [(value)]="page.type">
                 <mat-option *ngFor="let pageType of codebook.pageTypes" [value]="pageType.code">{{ pageType.name }}</mat-option>
             </mat-select>
             </mat-form-field>      
-
 
             <mat-form-field class="app-full-width">
               <textarea 
               cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="15"
               autocomplete="off" matInput [(ngModel)]='page.note' placeholder="{{ 'editor.page.note' | translate }}"></textarea>
             </mat-form-field>
-      
-
-
+    
 
 
           <ng-container *ngIf="config.showPageIdentifiers">
