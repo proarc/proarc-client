@@ -7,10 +7,19 @@
   <div class="actions">
 
 
-    <mat-form-field class="state-filter">
-      <mat-select placeholder="Model" name="model" [(ngModel)]="model">
+    <mat-form-field class="model-filter">
+      <mat-select [placeholder]="'search.model' | translate" name="model" [(ngModel)]="model">
         <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
         <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="query-field-filter">
+      <mat-select [placeholder]="'search.field' | translate" [(ngModel)]="queryFiled">
+        <mat-option value="queryTitle">{{ "search.fields.title" | translate }}</mat-option>
+        <mat-option value="queryIdentifier">{{ "search.fields.identifier" | translate }}</mat-option>
+        <mat-option value="queryCreator">{{ "search.fields.creator" | translate }}</mat-option>
+        <mat-option value="owner">{{ "search.fields.owner" | translate }}</mat-option>
       </mat-select>
     </mat-form-field>
   

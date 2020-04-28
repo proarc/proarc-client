@@ -11,13 +11,18 @@
   .actions {
     height: 60px;
     overflow: hidden;
-    .state-filter {
+    .model-filter {
       float: right;
       width: 250px;
     }
+    .query-field-filter {
+      float: right;
+      margin-right: 10px;
+      width: 200px;
+    }
     .document-search {
       margin-left: 20px;
-      width: calc(100% - 410px);
+      width: calc(100% - 620px);
     }
   }
   .app-table {

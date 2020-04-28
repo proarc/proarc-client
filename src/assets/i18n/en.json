@@ -95,7 +95,15 @@
     "modified": "Updated",
     "export": "Export",
     "search": "Search",
-    "all_models": "All"
+    "all_models": "All",
+    "field": "Field",
+    "fields": {
+      "title": "Title",
+      "identifier": "Identifier",
+      "creator": "Creater",
+      "owner": "Owner",
+      "description": "Description"
+    }
   },
   "catalog": {
     "field": {

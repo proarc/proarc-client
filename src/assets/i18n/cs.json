@@ -97,7 +97,15 @@
     "modified": "Změněno",
     "export": "Export",
     "search": "Vyhledat",
-    "all_models": "Vše"
+    "all_models": "Vše",
+    "field": "Pole",
+    "fields": {
+      "title": "Název",
+      "identifier": "Identifikátor",
+      "creator": "Tvůrce",
+      "owner": "Vlastník",
+      "description": "Popis"
+    }
   },
   "catalog": {
     "field": {

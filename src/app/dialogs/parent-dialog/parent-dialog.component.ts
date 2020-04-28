@@ -19,6 +19,7 @@ export class ParentDialogComponent implements OnInit {
   models: string[];
   model: string;
   query = '';
+  queryFiled: string;
 
   pageIndex = 0;
   pageSize = 100;
@@ -27,6 +28,8 @@ export class ParentDialogComponent implements OnInit {
   ingestOnly: boolean;
 
   hierarchy: DocumentItem[];
+
+
 
 
   constructor(
@@ -41,16 +44,18 @@ export class ParentDialogComponent implements OnInit {
 
   ngOnInit() {
     this.model = this.properties.getStringProperty('search.model', this.config.defaultModel);
+    this.queryFiled = this.properties.getStringProperty('search.qyeryfiled', 'queryTitle');
     this.reload();
   }
 
   reload(page: number = 0) {
     this.properties.setStringProperty('search.model', this.model);
+    this.properties.setStringProperty('search.qyeryfiled', this.queryFiled);
     this.hierarchy = [];
     this.selectedItem = null;
     this.pageIndex = page;
     this.state = 'loading';
-    this.api.getSearchResults(this.model, this.query, this.pageIndex).subscribe(([items, total]: [DocumentItem[], number]) => {
+    this.api.getSearchResults(this.model, this.query, this.queryFiled, this.pageIndex).subscribe(([items, total]: [DocumentItem[], number]) => {
       this.resultCount = total;
       this.items = items;
       this.state = 'success';

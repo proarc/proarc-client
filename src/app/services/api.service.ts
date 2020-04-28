@@ -225,7 +225,7 @@ export class ApiService {
     return this.put('object/privatenote', data).pipe(map(response => Note.fromJson(response['record'])));
   }
 
-  getSearchResults(model: string, query: string, page: number, sortField = 'lastCreated', sortAsc = false): Observable<[DocumentItem[], number]> {
+  getSearchResults(model: string, query: string, queryFiled: string, page: number, sortField = 'lastCreated', sortAsc = false): Observable<[DocumentItem[], number]> {
     const params = {
     _startRow: page * 100,
     };
@@ -234,7 +234,7 @@ export class ApiService {
     }
     if (query) {
       params['type'] = 'query';
-      params['queryTitle'] = query;
+      params[queryFiled] = query;
       // type=query&phrase=pr%C3%A1ce&queryTitle=pr%C3%A1ce
     } else {
       params['type'] = sortField;

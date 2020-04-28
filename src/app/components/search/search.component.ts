@@ -24,6 +24,7 @@ export class SearchComponent implements OnInit {
 
   model: string;
   query = '';
+  queryFiled: string;
 
   pageIndex = 0;
   pageSize = 100;
@@ -31,6 +32,8 @@ export class SearchComponent implements OnInit {
 
   sortField: string;
   sortAsc: boolean;
+
+
 
   constructor(private api: ApiService, 
               private properties: LocalStorageService, 
@@ -42,8 +45,9 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     this.sortField = this.properties.getStringProperty('search.sortfield', 'lastCreated');
-    this.sortAsc = this.properties.getBoolProperty('search.sortfield', false);
+    this.sortAsc = this.properties.getBoolProperty('search.sortasc', false);
     this.model = this.properties.getStringProperty('search.model', this.config.defaultModel);
+    this.queryFiled = this.properties.getStringProperty('search.qyeryfiled', 'queryTitle');
     if (this.model !== 'all' && this.model !== 'model:page' && this.model !== 'model:ndkpage') {
       this.reload();
     } else {
@@ -53,9 +57,10 @@ export class SearchComponent implements OnInit {
 
   reload(page: number = 0) {
     this.properties.setStringProperty('search.model', this.model);
+    this.properties.setStringProperty('search.qyeryfiled', this.queryFiled);
     this.pageIndex = page;
     this.state = 'loading';
-    this.api.getSearchResults(this.model, this.query, this.pageIndex, this.sortField, this.sortAsc).subscribe(([items, total]: [DocumentItem[], number]) => {
+    this.api.getSearchResults(this.model, this.query, this.queryFiled, this.pageIndex, this.sortField, this.sortAsc).subscribe(([items, total]: [DocumentItem[], number]) => {
       this.resultCount = total;
       this.items = items;
       this.state = 'success';
