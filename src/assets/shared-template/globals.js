@@ -22,6 +22,7 @@ var APP_GLOBAL = {
     ],
     defaultModel: 'model:chroniclevolume',
     showPageIdentifiers: false,
+    showPageIndex: false,
     topPageTypes: [
         'normalPage',
         'blank'

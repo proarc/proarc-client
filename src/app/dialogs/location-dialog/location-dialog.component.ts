@@ -100,7 +100,7 @@ export class LocationDialogComponent implements OnInit {
 
 
   showInfo(location: Ruian) {
-    if (this.lock) {
+    if (this.lock || location.extendedLabel) {
       return;
     }
     this.lock = true;
@@ -152,7 +152,17 @@ export class LocationDialogComponent implements OnInit {
       return 0;
     });
     location.extendedLabel = this.hierarchy.map(a => a.label).join(', ');
+    let sameLocation: Ruian;
+    for (const l of this.locations) {
+      if (!l.extendedLabel && l.label == location.label) {
+        sameLocation = l;
+        break;
+      }
+    }
     this.lock = false;
+    if (sameLocation) {
+      this.showInfo(sameLocation);
+    } 
   }
 
 
