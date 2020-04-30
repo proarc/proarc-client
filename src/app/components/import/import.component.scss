@@ -23,21 +23,37 @@
   }
   .app-table {
     height: calc(100% - 60px);
-  }
-  .folder-list {
-    height: calc(100% - 60px);
-    .app-header {
-      flex: 1;
+    width: calc(50% - 5px);
+    float: left;
+    .folder-list {
+      height: calc(100% - 60px);
+      &.app-disabled {
+        opacity: 0.4;
+        pointer-events: none;
+        user-select: none; 
+      }
+      .app-header {
+        flex: 1;
+      }
+      .folder-name {
+        flex: 1;
+      }
+      .folder-state {
+        width: 150px;
+      }
+      .scrollable {
+        height: calc(100% - 0px);
+        overflow: auto;
+      }
     }
-    .folder-name {
-      flex: 1;
+    &.app-table-left {
+      margin-right: 10px;
     }
-    .folder-state {
-      width: 150px;
-    }
-    .scrollable {
-      height: calc(100% - 54px);
-      overflow: auto;
+    &.app-table-right {
+      .folder-list {
+        height: calc(100% - 0px);
+      }
+
     }
   }
   .app-path {

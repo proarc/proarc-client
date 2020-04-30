@@ -20,9 +20,9 @@ export class ImportComponent implements OnInit {
 
   state = 'none';
 
-  pageIndex = 0;
-  pageSize = 100;
-  resultCount = 200;
+  // pageIndex = 0;
+  // pageSize = 100;
+  // resultCount = 200;
 
   generateIndex = true;
 
@@ -34,16 +34,19 @@ export class ImportComponent implements OnInit {
 
   folders: Folder[];
   selectedFolder: Folder;
-
   path: string;
+  folderReloading: boolean;
+
+  foldersRight: Folder[];
+  selectedFolderRight: Folder;
 
   constructor(
     private api: ApiService,
-    private translator: Translator,
     private router: Router,
     private dialog: MatDialog) { }
 
   ngOnInit() {
+    this.folderReloading = false;
     this.path = '/';
     this.state = 'loading';
     const rDevice = this.api.getDevices();
@@ -62,7 +65,6 @@ export class ImportComponent implements OnInit {
   }
 
   openPath(path: string) {
-    console.log('path', path);
     this.path = path;
     this.reload();
   }
@@ -84,11 +86,19 @@ export class ImportComponent implements OnInit {
 
 
   selectFolder(folder: Folder) {
+    if (folder == this.selectedFolder) {
+      return;
+    }
     this.selectedFolder = folder;
+    this.reloadRight(folder.path);
+  }
+
+  selectFolderRight(folder: Folder) {
+    this.selectedFolderRight = folder;
   }
 
   canBeLoaded(): boolean {
-    return this.selectedDevice && this.selectedProfile && this.selectedFolder && this.selectedFolder.isNew();
+    return this.selectedDevice && this.selectedProfile && this.selectedFolderRight && this.selectedFolderRight.isNew();
   }
 
   onLoadAndSave() {
@@ -106,7 +116,7 @@ export class ImportComponent implements OnInit {
 
 
   private load(parentPid: string = null) {
-    this.api.createImportBatch(this.selectedFolder.path, this.selectedProfile.id, this.generateIndex, this.selectedDevice.id).subscribe((batch: Batch) => {
+    this.api.createImportBatch(this.selectedFolderRight.path, this.selectedProfile.id, this.generateIndex, this.selectedDevice.id).subscribe((batch: Batch) => {
       const dialogRef = this.dialog.open(ImportDialogComponent, { data: {batch: batch.id, parent: parentPid }});
       dialogRef.afterClosed().subscribe(result => {
         if (result === 'open') {
@@ -124,9 +134,26 @@ export class ImportComponent implements OnInit {
 
   reload() {
     this.selectedFolder = null;
-    this.state = 'loading';
+    this.selectedFolderRight = null;
+    this.folderReloading = true;
     this.api.getImportFolders(this.selectedProfile, this.path).subscribe((folders: Folder[]) => {
       this.folders = folders;
+      if (folders.length > 0) {
+        this.selectFolder(folders[0]);
+      } else {
+        this.folderReloading = false;
+        this.state = 'success';
+      }
+    });
+  }
+
+
+  reloadRight(path: string) {
+    this.selectedFolderRight = null;
+    this.folderReloading = true;
+    this.api.getImportFolders(this.selectedProfile, path).subscribe((folders: Folder[]) => {
+      this.foldersRight = folders;
+      this.folderReloading = false;
       this.state = 'success';
     });
   }

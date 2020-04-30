@@ -44,14 +44,9 @@
 
 
 
-  <div class="app-table">
-  <div class="folder-list">
-      <!-- <div class="app-row app-header">
-        <div class="folder-name">Název</div>
-        <div class="folder-state">Stav</div>
-      </div> -->
-
-      <div *ngIf="path" class="app-row app-path">
+<div class="app-table app-table-left">
+  <div class="folder-list" [class.app-disabled]="folderReloading">
+    <div *ngIf="path" class="app-row app-path">
         <span class="app-path-segment" (click)="openPath('/')">Kořenový adresář</span>
         <ng-container *ngFor="let segment of path.split('/'); let index = index;">
           <ng-container *ngIf="segment">
@@ -60,25 +55,29 @@
           </ng-container>
         </ng-container>
       </div>
-
-
     <div class="scrollable">
       <div *ngFor="let folder of folders" [class.app-selected]="folder == selectedFolder" class="app-row app-pointer" (click)="selectFolder(folder)" (dblclick)="openFolder(folder)">
+        <div class="folder-name">{{ folder.name }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="app-table app-table-right" *ngIf="selectedFolder">
+  <div class="folder-list" [class.app-disabled]="folderReloading">
+    <div class="scrollable">
+      <div *ngFor="let folder of foldersRight" [class.app-selected]="folder == selectedFolderRight" class="app-row app-pointer" (click)="selectFolderRight(folder)">
         <div class="folder-name">{{ folder.name }}</div>
         <div class="folder-state">{{ "import.state." + folder.state | translate }}</div>
       </div>
     </div>
   </div>
-
-  <div class="paginator-wrapper">
-    <mat-paginator [length]="resultCount"
-                  hidePageSize="true"
-                  [pageIndex]="pageIndex"
-                  [pageSize]="pageSize"
-                  (page)="onPageChanged($event)">
-    </mat-paginator>
-    </div>
 </div>
+
+
+
+
+
 
 
 </div>
