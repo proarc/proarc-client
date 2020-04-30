@@ -35,6 +35,7 @@ var APP_GLOBAL = {
         'frontEndPaper',
         'frontEndSheet',
         'tableOfContents',
-        'titlePage'
+        'titlePage',
+        'index'
     ]
 };
