@@ -3,7 +3,7 @@
     <div class="app-editor-saving" *ngIf="editor.state === 'loading' || editor.state === 'saving'"></div>
 
 
-<div class="app-panel app-panel-left">
+<div class="app-panel app-panel-left app-panel-{{editor.layoutMode}}">
   <div class="app-toolbar">
     <div class="app-label">
       <div class="app-label-title">{{ editor.left.label }}</div>
@@ -54,6 +54,12 @@
         </button>
     </div>
 
+    <div class="app-divider"></div>
+    <button matTooltip="{{ 'editor.toolbar.layout_mode' | translate }}" (click)="editor.changeLayoutMode()" mat-icon-button>
+      <mat-icon>swap_horiz</mat-icon>
+    </button>
+    
+
 
 
 
@@ -88,7 +94,7 @@
 
 </div>
 
-<div class="app-panel app-panel-right">
+<div class="app-panel app-panel-right app-panel-{{editor.layoutMode}}">
 
 
 
