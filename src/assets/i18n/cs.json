@@ -275,7 +275,7 @@
       "number": "Číslo stránky",
       "type": "Typ stránky",
       "identifier": "Indentifikátor",
-      "note": "Poznámka",
+      "note": "Popis obsahu strany",
       "add_identifier": "Přidat identifikátor"
     },
     "pages": {
