@@ -81,18 +81,20 @@ export class ViewerComponent implements OnInit, OnDestroy {
     }
     this.state = 'success';
     this.view.removeLayer(this.imageLayer);
+    this.view.updateSize();
     this.imageWidth = width;
     this.imageHeight = height;
     this.extent = [0, -this.imageHeight, this.imageWidth, 0];
-    const maxResolution = this.getBestFitResolution() * 1.5;
-    const minResolution = 0.5;
+    this.maxResolution = this.getBestFitResolution() * 1.5;
+    this.minResolution = 0.5;
     const viewOpts: any = {
       extent: this.extent,
-      minResolution: minResolution,
-      maxResolution: maxResolution,
+      minResolution: this.minResolution,
+      maxResolution: this.maxResolution,
       constrainOnlyCenter: true,
       smoothExtentConstraint: false
     };
+    console.log(viewOpts);
 
     const view = new ol.View(viewOpts);
     this.view.setView(view);
@@ -165,6 +167,9 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   zoomOut() {
     const currentZoom = this.view.getView().getResolution();
+    console.log('zoom out', currentZoom);
+    console.log('zoom out', this.maxResolution);
+
     let newZoom = currentZoom * 1.5;
     if (newZoom > this.maxResolution) {
       newZoom = this.maxResolution;
@@ -181,6 +186,9 @@ export class ViewerComponent implements OnInit, OnDestroy {
   }
 
   getBestFitResolution() {
+    console.log('iw', this.imageWidth);
+    console.log('is', this.view.getSize());
+
     const rx = this.imageWidth / (this.view.getSize()[0] - 10);
     const ry = this.imageHeight / (this.view.getSize()[1] - 10);
     return Math.max(rx, ry);
