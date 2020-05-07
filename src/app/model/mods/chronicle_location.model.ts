@@ -20,7 +20,7 @@ export class ModsChronicleLocation extends ModsElement {
 
     private init() {
         if (!this.modsElement['physicalLocation']) {
-            const attrs = { 'type': ''};
+            const attrs = { 'displayLabel': '', 'type': ''};
             this.modsElement['physicalLocation'] = [ModsUtils.createTextElement('', attrs)];
         }
         this.physicalLocation = this.modsElement['physicalLocation'][0];

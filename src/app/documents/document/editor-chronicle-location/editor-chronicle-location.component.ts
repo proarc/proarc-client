@@ -52,6 +52,7 @@ export class EditorChronicleLocationComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['id']) {
         loacation['_'] = result['id'];
+        loacation["$"]["displayLabel"] = result['name'];
       }
     });
   }

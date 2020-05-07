@@ -61,7 +61,7 @@ export class FundDialogComponent implements OnInit {
   }
 
   onApprove() {
-    this.dialogRef.close({ id: this.fund.buildFullId(this.archive, this.selectedFund['id'])});
+    this.dialogRef.close({ id: this.fund.buildFullId(this.archive, this.selectedFund['id']), name: this.selectedFund['name']});
   }
 
 }
