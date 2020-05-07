@@ -1,6 +1,6 @@
 import { UIService } from 'src/app/services/ui.service';
 import { ApiService } from 'src/app/services/api.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { EditorService } from 'src/app/services/editor.service';
@@ -21,6 +21,9 @@ export class EditorChildrenComponent implements OnInit {
 
   @Input() items: DocumentItem[];
 
+  @ViewChild('childrenList') childrenListEl: ElementRef;
+  @ViewChild('childrenIconList') childrenIconListEl: ElementRef;
+
   viewMode = 'none'; // 'list' | 'grid' | 'icons'
   shortLabels = false;
 
@@ -34,6 +37,8 @@ export class EditorChildrenComponent implements OnInit {
   lastIndex: number;
   lastState: boolean;
 
+  movedToIndex: boolean;
+
   constructor(public editor: EditorService,
               private dialog: MatDialog,
               private translator: Translator,
@@ -43,6 +48,7 @@ export class EditorChildrenComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.movedToIndex = false;
     this.lastIndex = -1;
     this.lastState = false;
     this.anyChange = false;
@@ -95,18 +101,28 @@ export class EditorChildrenComponent implements OnInit {
     }
   }
 
-  isSelected(item: DocumentItem) {
+  isSelected(item: DocumentItem, index: number, type: string) {
     if (this.editor.isMultipleChildrenMode()) {
       return item.selected;
     } else {
-      return this.editor.right === item;
+      const selected = this.editor.right === item;
+      if (!this.movedToIndex && selected) {
+        const container = type == 'list' ? this.childrenListEl : this.childrenIconListEl ;
+        if (container) {
+          this.movedToIndex = true;
+          if (index > 0) {
+            const el = container.nativeElement.children[index];
+            el.scrollIntoView(true);
+          }
+        }
+      }
+      return selected;
     }
   }
 
 
 
   select(item: DocumentItem, event = null) {
-    console.log('event', event);
     const itemIndex = this.items.indexOf(item);
     if (event && event.shiftKey && this.lastIndex > -1) {
       if (!this.editor.isMultipleChildrenMode()) {
@@ -115,7 +131,6 @@ export class EditorChildrenComponent implements OnInit {
       let index = Math.min(this.lastIndex, itemIndex);
       const i2 = Math.max(this.lastIndex, itemIndex);
       while (index <= i2) {
-        console.log('index', index);
         this.editor.children[index].selected = this.lastState;
         index += 1;
       }
@@ -185,7 +200,6 @@ export class EditorChildrenComponent implements OnInit {
     const item = this.items[from];
     this.items.splice(from, 1);
     this.items.splice(to, 0, item);
-    console.log(this.items);
   }
 
   onSave() {

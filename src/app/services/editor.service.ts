@@ -38,6 +38,9 @@ export class EditorService {
 
     public layoutMode: string;
 
+
+    private toParentFrom: string;
+
     constructor(
         private router: Router,
         private api: ApiService,
@@ -161,9 +164,11 @@ export class EditorService {
             this.properties.setStringProperty('editor.mode', this.mode);
         }
         if (this.mode === 'children') {
-            if (this.children.length > 0) {
-                this.selectRight(this.children[0]);
+            const index = this.findChildIndex();
+            if (index >= 0) {
+                this.selectRight(this.children[index]);
             }
+            this.toParentFrom = null;
         } else {
             this.selectRight(this.left);
             if (this.left.isPage()) {
@@ -174,10 +179,32 @@ export class EditorService {
         }
     }
 
+
+
+    private findChildIndex() {
+        if (this.children.length == 0) {
+            return -1;
+        }
+        if (!this.toParentFrom) {
+            return 0;
+        }
+        let idx = 0;
+        for (const item of this.children) {
+            if (item.pid == this.toParentFrom) {
+                return idx;
+            }
+            idx += 1;
+        }
+        return 0;
+    }
+
+
+
     public goToParentObject() {
         this.state = 'loading';
         this.api.getParent(this.left.pid).subscribe((item: DocumentItem) => {
             if (item) {
+                this.toParentFrom = this.left.pid;
                 this.goToObject(item);
             } else {
                 this.state = 'success';
@@ -206,10 +233,8 @@ export class EditorService {
     }
 
     public goToPreviousObject() {
-        console.log('goToPreviousObject');
         this.state = 'loading';
         this.api.getParent(this.left.pid).subscribe((item: DocumentItem) => {
-            console.log('paretnt', item);
             if (item) {
                 this.api.getRelations(item.pid).subscribe((siblings: DocumentItem[]) => {
                     let index = -1;
@@ -234,10 +259,8 @@ export class EditorService {
     }
 
     public goToNextObject() {
-        console.log('goToNextObject');
         this.state = 'loading';
         this.api.getParent(this.left.pid).subscribe((item: DocumentItem) => {
-            console.log('paretnt', item);
             if (item) {
                 this.api.getRelations(item.pid).subscribe((siblings: DocumentItem[]) => {
                     let index = -1;

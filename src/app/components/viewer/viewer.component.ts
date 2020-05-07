@@ -74,7 +74,6 @@ export class ViewerComponent implements OnInit, OnDestroy {
 }
 
   onLoad(url: string, width: number, height: number) {
-    console.log('onLoad');
     this.positionLock = this.properties.getBoolProperty('viewer.positionLock', false);
     if (this.extent) {
       this.saveCurrentPosition();
@@ -94,8 +93,6 @@ export class ViewerComponent implements OnInit, OnDestroy {
       constrainOnlyCenter: true,
       smoothExtentConstraint: false
     };
-    console.log(viewOpts);
-
     const view = new ol.View(viewOpts);
     this.view.setView(view);
     const iLayer = new ol.layer.Image({
@@ -107,7 +104,6 @@ export class ViewerComponent implements OnInit, OnDestroy {
     });
     this.view.addLayer(iLayer);
     this.imageLayer = iLayer;
-    console.log('center', this.properties.getStringProperty('viewer.center'));
     if (this.positionLock) {
       this.view.updateSize();
       this.view.getView().setRotation(this.properties.getStringProperty('viewer.roration'));
@@ -147,7 +143,6 @@ export class ViewerComponent implements OnInit, OnDestroy {
   }
 
   fitToScreen() {
-    console.log('fit to screen');
     this.view.updateSize();
     this.view.getView().setRotation(0);
     this.view.getView().fit(this.extent);
@@ -167,9 +162,6 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   zoomOut() {
     const currentZoom = this.view.getView().getResolution();
-    console.log('zoom out', currentZoom);
-    console.log('zoom out', this.maxResolution);
-
     let newZoom = currentZoom * 1.5;
     if (newZoom > this.maxResolution) {
       newZoom = this.maxResolution;
@@ -186,9 +178,6 @@ export class ViewerComponent implements OnInit, OnDestroy {
   }
 
   getBestFitResolution() {
-    console.log('iw', this.imageWidth);
-    console.log('is', this.view.getSize());
-
     const rx = this.imageWidth / (this.view.getSize()[0] - 10);
     const ry = this.imageHeight / (this.view.getSize()[1] - 10);
     return Math.max(rx, ry);
