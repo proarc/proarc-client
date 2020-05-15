@@ -22,8 +22,8 @@ export class EditorSubjectGeoComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSearch(location: ModsGeo) {
-    const dialogRef = this.dialog.open(LocationDialogComponent);
+  onSearch(location: ModsGeo, map = false) {
+    const dialogRef = this.dialog.open(LocationDialogComponent, { data: { map: map }});
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['locations']) {
         location.clear();

@@ -16,6 +16,25 @@
 
 
 
+  <div class="map-container" *ngIf="mapSelectionMode">
+    <div class="map-frame">
+      <div class="map-location">
+        <mat-spinner *ngIf="lookup"
+          [strokeWidth]="3" 
+          [diameter]="30">
+        </mat-spinner>
+        <button [disabled]="!osmLocation || lookup" mat-raised-button (click)="useMapLocation()" color="primary">{{ 'editor.geo.map.use' | translate }}</button>
+        <button [disabled]="lookup" (click)="cancleMapLocation()" mat-raised-button color="default">{{ 'common.cancel' | translate }}</button>
+        {{ osmLocation ? osmLocation.display_name : ( 'editor.geo.map.placeholder' | translate ) }}
+      </div>
+      <div id="map" [class.app-disabled]="lookup"></div>
+    </div>
+
+
+
+  </div>
+
+
   <div class="app-table" *ngIf="state=='success'">
 
   <div class="search-result-list">
@@ -49,7 +68,7 @@
   <button  mat-raised-button color="primary" (click)="onSave()" [disabled]="state=='loading' || state == 'saving' || !selectedLocation" >{{ 'editor.geo.use' | translate }}</button>
   <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.cancel' | translate }}</button>
 
-  <mat-spinner *ngIf="state=='saving'"
+  <mat-spinner *ngIf="state=='saving' && !mapSelectionMode"
     style="margin-left: auto"
     [strokeWidth]="3" 
     [diameter]="30">

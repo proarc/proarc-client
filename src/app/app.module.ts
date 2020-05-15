@@ -88,6 +88,7 @@ import { EditorChronicleLocationComponent } from './documents/document/editor-ch
 import { FundService } from './services/fund.service';
 import { FundDialogComponent } from './dialogs/fund-dialog/fund-dialog.component';
 import { EditorChronicleLanguageComponent } from './documents/document/editor-chronicle-language/editor-chronicle-language.component';
+import { OsmService } from './services/osm.service';
 
 
 export function hljsLanguages() {
@@ -195,7 +196,8 @@ export function hljsLanguages() {
     CuzkService,
     HelpService,
     ConfigService,
-    FundService
+    FundService,
+    OsmService
   ],
   entryComponents: [
     SimpleDialogComponent,

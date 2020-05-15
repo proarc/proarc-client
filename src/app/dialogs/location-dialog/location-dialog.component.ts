@@ -1,15 +1,25 @@
 
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, OnInit, AfterViewInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { CuzkService } from 'src/app/services/cuzk.service';
 import { Ruian } from 'src/app/model/ruian.model';
+import * as L from 'leaflet';
+import { OsmService } from 'src/app/services/osm.service';
+import { Translator } from 'angular-translator';
+import { SimpleDialogData } from '../simple-dialog/simple-dialog';
+import { SimpleDialogComponent } from '../simple-dialog/simple-dialog.component';
+
 
 @Component({
   selector: 'app-location-dialog',
   templateUrl: './location-dialog.component.html',
   styleUrls: ['./location-dialog.component.scss']
 })
-export class LocationDialogComponent implements OnInit {
+export class LocationDialogComponent implements OnInit, AfterViewInit {
+
+  private map;
+
+  osmLocation;
 
   state = 'none';
   locations: Ruian[];
@@ -25,13 +35,117 @@ export class LocationDialogComponent implements OnInit {
   counter = 0;
   lock = false;
 
+  lookup = false;
+  mapSelectionMode = false;
+
+
   constructor(
     public dialogRef: MatDialogRef<LocationDialogComponent>,
-    private cuzk: CuzkService) { }
+    private osm: OsmService,
+    private dialog: MatDialog,
+    private translator: Translator,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private cuzk: CuzkService) { 
+      this.mapSelectionMode = data && data.map;
+    }
 
   ngOnInit() {
   }
 
+  ngAfterViewInit() {
+    this.initMap();
+  }
+
+  private initMap() {
+    this.map = L.map('map', {
+      center: [ 49.396589, 15.588859 ],
+      zoom: 14
+    });
+
+    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    });
+    
+
+    this.map.on('click', e => {
+      if (this.lookup) {
+        return;
+      }
+      const lat = e.latlng.lat;
+      const lng = e.latlng.lng
+      this.osm.findAddress(lat, lng).subscribe((result) => {
+        this.onOsmLocationSelected(result);
+      });
+    });
+    tiles.addTo(this.map);
+  }
+
+  onOsmLocationSelected(location) {
+    const address = location.address;
+    if (address && address.house_number && (address.road || address.pedestrian)) {
+      this.osmLocation = location;
+    } else {
+      this.osmLocation = null;
+    }
+  } 
+
+  cancleMapLocation() {
+    this.dialogRef.close();
+  }
+
+  useMapLocation() {
+    this.lookup = true;
+    const address = this.osmLocation.address;
+    let postcode = address.postcode || '';
+    postcode = postcode.replace(/ /, '');
+    const road = address.road;
+    const houseNumber = address.house_number;
+    const pedestrian = address.pedestrian;
+      let name = '';
+      if (road) {
+        name = road;
+      } else if (pedestrian) {
+        name = pedestrian;
+      }
+      this.cuzk.searchAddresses(`${name} ${houseNumber}`).subscribe((results: Ruian[]) => {
+      if (results.length == 0) {
+        this.osmLocationNotFound();
+        return;
+      }
+      if (results.length == 1) {
+        this.useLocationFromOsm(results[0]);
+        return;
+      }
+      for (const location of results) {
+        if (location.value.toLowerCase().indexOf(postcode) >= 0) {
+          this.useLocationFromOsm(location);
+        }
+      }
+      this.osmLocationNotFound();
+    });
+  }
+
+  private osmLocationNotFound() {
+    this.lookup = false;
+    this.translator.waitForTranslation().then(() => {
+      const data: SimpleDialogData = {
+        title: String(this.translator.instant('editor.geo.map.not_found')),
+        message: String(this.translator.instant('editor.geo.map.not_found_message')),
+        btn1: {
+          label: String(this.translator.instant('common.ok')),
+          value: 'yes',
+          color: 'primary'
+        }
+      };
+      const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    });
+  }
+
+  private useLocationFromOsm(location: Ruian) {
+    this.state = 'saving';
+    this.fetchHierarchy(location, true);
+  }
 
 
   search(query: string) {

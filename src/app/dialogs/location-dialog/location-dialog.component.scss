@@ -60,3 +60,39 @@
     }
   }
 }
+
+
+.map-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 30px;
+  background: #fff;
+  .map-frame {
+    border: 0px solid black;
+    height: calc(100% - 55px);
+    .map-location {
+      height: 55px;
+      overflow: hidden;
+      padding: 10px;
+      line-height: 35px;
+      button {
+        float: right;
+        margin-left: 8px;
+      }
+      mat-spinner {
+        float: right;
+        margin-left: 16px;
+      }
+    }
+    #map {
+      height: 100%;
+      &.app-disabled {
+        user-select: none;
+        opacity: 0.6;
+      }
+    }
+  }
+}

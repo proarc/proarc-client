@@ -26,6 +26,7 @@
     "core-js": "^2.5.4",
     "highlight.js": "^9.15.8",
     "jquery": "^3.4.1",
+    "leaflet": "1.5.1",
     "ngx-highlightjs": "^3.0.3",
     "node-sass": "^4.13.0",
     "rxjs": "^6.0.0",

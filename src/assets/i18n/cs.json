@@ -320,6 +320,7 @@
       "tab": "Lokace",
       "type": "Typ",
       "search": "Vyhledat",
+      "map_search": "Vybrat na mapě",
       "use": "Použít",
       "only_addresses": "Adresní místa",
       "search_placeholder": "Hledat lokaci",
@@ -352,7 +353,13 @@
       "add_btn": "Přidat lokaci",
       "geo:origin": "Místo původu",
       "geo:storage": "Místo uložení",
-      "geo:area": "Vztah k území"
+      "geo:area": "Vztah k území",
+      "map": {
+        "placeholder": "Vyberte místo kliknutím na mapě",
+        "use": "Použít",
+        "not_found": "Lokace nenalezena",
+        "not_found_message": "Vybraná lokace nebyla nalezena ve vyhledávací službě ČÚZK nad daty RUIAN"
+      }
     },
     "chronicle": {
       "label": "Popisná metadata kroniky",

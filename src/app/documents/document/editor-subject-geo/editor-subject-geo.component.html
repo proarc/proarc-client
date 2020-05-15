@@ -19,10 +19,13 @@
         <mat-icon>add</mat-icon>
       </button>
 
-      <button class="app-action" (click)="onSearch(item)" [matTooltip]="'editor.geo.search' | translate" mat-icon-button>
+      <button color="primary" class="app-action" (click)="onSearch(item)" [matTooltip]="'editor.geo.search' | translate" mat-icon-button>
         <mat-icon>search</mat-icon>
       </button>
     
+      <button color="primary" class="app-action" (click)="onSearch(item, true)" [matTooltip]="'editor.geo.map_search' | translate" mat-icon-button>
+        <mat-icon>place</mat-icon>
+      </button>
 
     </div>
 
