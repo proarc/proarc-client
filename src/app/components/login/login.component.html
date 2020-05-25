@@ -20,12 +20,12 @@
           name="password"
           required>
       </mat-form-field>
-      <div class="warn-message" *ngIf="state=='error'">
-        {{ 'login.login_failed' | translate }}
+      <div class="warn-message" *ngIf="error">
+        {{ 'login.error.' + error | translate }}
       </div>
     </div>
     <div class="app-card-actions">
-      <button type="submit" [disabled]="!f.valid" mat-raised-button color="primary">Přihlásit</button>
+      <button type="submit" mat-raised-button color="primary">Přihlásit</button>
       <mat-spinner *ngIf="state=='loading'"
           [strokeWidth]="3" 
           [diameter]="30">

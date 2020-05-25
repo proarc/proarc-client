@@ -25,7 +25,10 @@
   "login": {
     "username": "Uživatelské jméno",
     "password": "Heslo",
-    "login_failed": "Přihlášení se nezdařilo"
+    "error": {
+      "login_failed": "Přihlášení se nezdařilo",
+      "missing_credentials": "Nejdříve zadejte přihlašovací údaje"
+    }
   },
   "new_object": {
     "title": "Nový objekt",

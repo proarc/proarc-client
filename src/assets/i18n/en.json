@@ -23,7 +23,10 @@
   "login": {
     "username": "User Name",
     "password": "Password",
-    "login_failed": "Login failed"
+    "error": {
+      "login_failed": "Login failed",
+      "missing_credentials": "Fill in User Name and Password"
+    }
   },
   "new_object": {
     "title": "New object",
