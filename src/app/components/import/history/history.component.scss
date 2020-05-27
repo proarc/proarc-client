@@ -20,27 +20,34 @@
     .app-header {
       flex: 1;
     }
+    .app-row {
+      padding-right: 10px;
+    }
     .batch-folder {
       flex: 1;
     }
     .batch-created {
-      width: 240px;
+      width: 125px;
     }
     .batch-modified {
-      width: 240px;
+      width: 125px;
     }    
     .batch-state {
-      width: 200px;
+      width: 120px;
     }
     .batch-user {
-      width: 200px;
+      width: 90px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .batch-actions {
-      width: 60px;
+      width: 40px;
     }
     .scrollable {
       height: calc(100% - 54px);
       overflow: auto;
+      font-size: 14px;
     }
   }
 }
