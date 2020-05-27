@@ -33,8 +33,6 @@ export class SearchComponent implements OnInit {
   sortField: string;
   sortAsc: boolean;
 
-
-
   constructor(private api: ApiService, 
               private properties: LocalStorageService, 
               private dialog: MatDialog,

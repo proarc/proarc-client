@@ -2,7 +2,7 @@
   <span>{{ 'search.title' | translate }}</span>
 </div>
 
-<div class="app-search-results" *ngIf="state=='success'">
+<div class="app-search-results">
 
   <div class="actions">
 
@@ -40,7 +40,7 @@
 
 
 
-  <div class="app-table">
+  <div class="app-table"  *ngIf="items">
 
   <div class="search-result-list">
     <div class="app-row app-header">
@@ -100,5 +100,8 @@
 
 </div>
 
-<mat-spinner *ngIf="state=='loading'" [strokeWidth]="5" [diameter]="60" class="center-spinner">
+
+<div class="app-loader" *ngIf="state=='loading'">
+<mat-spinner [strokeWidth]="5" [diameter]="60" class="center-spinner">
 </mat-spinner>
+</div>
