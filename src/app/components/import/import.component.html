@@ -66,7 +66,7 @@
 <div class="app-table app-table-right" *ngIf="selectedFolder">
   <div class="folder-list" [class.app-disabled]="folderReloading">
     <div class="scrollable">
-      <div *ngFor="let folder of foldersRight" [class.app-selected]="folder == selectedFolderRight" class="app-row app-pointer" (click)="selectFolderRight(folder)">
+      <div *ngFor="let folder of foldersRight" [class.app-selected]="folder == selectedFolderRight" class="app-row app-pointer" (click)="selectFolderRight(folder)" (dblclick)="openFolderRight(folder)">
         <div class="folder-name">{{ folder.name }}</div>
         <div class="folder-state">{{ "import.state." + folder.state | translate }}</div>
       </div>

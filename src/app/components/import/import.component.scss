@@ -25,8 +25,13 @@
     height: calc(100% - 60px);
     width: calc(50% - 5px);
     float: left;
+    font-size: 14px;
     .folder-list {
       height: calc(100% - 60px);
+      .app-row {
+        height: 40px;
+        line-height: 40px;;
+      }
       &.app-disabled {
         opacity: 0.4;
         pointer-events: none;

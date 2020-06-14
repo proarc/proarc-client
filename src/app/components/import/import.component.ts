@@ -69,6 +69,14 @@ export class ImportComponent implements OnInit {
     this.reload();
   }
 
+
+  openFolderRight(folder: Folder) {
+    this.path = this.selectedFolder.path;
+    this.reload(folder);
+  }
+
+
+
   openFolder(folder: Folder) {
    this.openPath(folder.path);
   }
@@ -132,18 +140,26 @@ export class ImportComponent implements OnInit {
 
 
 
-  reload() {
+  reload(preselectFolder: Folder = null) {
     this.selectedFolder = null;
     this.selectedFolderRight = null;
     this.folderReloading = true;
     this.api.getImportFolders(this.selectedProfile, this.path).subscribe((folders: Folder[]) => {
       this.folders = folders;
-      if (folders.length > 0) {
+      if (preselectFolder) {
+        for (const folder of folders) {
+          if (folder.path == preselectFolder.path) {
+            this.selectFolder(folder);
+            return;
+          }
+        }
+
+      } else if (folders.length > 0) {
         this.selectFolder(folders[0]);
-      } else {
-        this.folderReloading = false;
-        this.state = 'success';
+        return;
       }
+      this.folderReloading = false;
+      this.state = 'success';
     });
   }
 
