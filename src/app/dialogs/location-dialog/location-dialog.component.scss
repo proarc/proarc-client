@@ -7,11 +7,19 @@
   .actions {
     height: 60px;
     overflow: hidden;
+    display: flex;
     .app-search-input {
-      width: calc(100% - 150px);
+      flex: 1;
+    }
+    .app-search-button {
+      margin-left: 16px;
+      height: 36px;
+      margin-top: 12px;
     }
     .app-search-check {
       margin-left: 16px;
+      height: 24px;
+      margin-top: 18px;
     }
   }
   .app-table {

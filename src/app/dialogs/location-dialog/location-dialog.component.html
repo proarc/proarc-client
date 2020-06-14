@@ -4,14 +4,11 @@
 
 
   <div class="actions">
-
     <mat-form-field class="app-search-input">
       <input matInput [placeholder]="'editor.geo.search_placeholder' | translate" (keyup.enter)="onEnter()" (ngModelChange)="onChange($event)" [(ngModel)]="query">
     </mat-form-field>
-
-
+    <button class="app-search-button" mat-raised-button *ngIf="address" color="primary" (click)="onEnter()" [disabled]="state=='loading' || state == 'saving'">{{ 'editor.geo.search_button' | translate }}</button>
     <mat-checkbox color="primary" class="app-search-check" [(ngModel)]="address">{{ 'editor.geo.only_addresses' | translate }}</mat-checkbox>
-
   </div>
 
 
