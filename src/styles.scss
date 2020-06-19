@@ -146,6 +146,9 @@ body {
       &:hover {
         background: $table-color-bg;
       }
+      .app-header-sortable {
+        cursor: pointer;
+      }
     }
     &.app-selected {
       background: $primary-color;

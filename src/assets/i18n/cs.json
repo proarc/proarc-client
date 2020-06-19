@@ -301,6 +301,7 @@
       "relations": "Vazby"
     },
     "metadata": {
+      "editor_title": "Popisná metadata",
       "catalog": "Načíst metadata z katalogu"
     },
     "title": {
@@ -320,6 +321,7 @@
       "add_btn": "Přidat název"
     },
     "geo": {
+      "editor_title": "Geografická lokace",
       "tab": "Lokace",
       "type": "Typ",
       "search": "Vyhledat",
@@ -366,7 +368,7 @@
       }
     },
     "chronicle": {
-      "label": "Popisná metadata kroniky",
+      "editor_title": "Popisná metadata kroniky",
       "author": {
         "label": "Osoba, které se podílela na vzniku",
         "date": "Datum činnosti",

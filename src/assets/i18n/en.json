@@ -242,11 +242,8 @@
         "success": "Objects have been removed"
       }
     },
-    "type": {
-      "biblio": "Bibliographical metadata",
-      "relations": "Relations"
-    },
     "metadata": {
+      "editor_title": "Metadata",
       "catalog": "Set metadata from a catalog"
     },
     "title": {
@@ -266,6 +263,7 @@
       "add_btn": "Add Title"
     },
     "geo": {
+      "editor_title": "Geographical Location",
       "tab": "Location",
       "type": "Type",
       "search": "Search",
@@ -304,7 +302,7 @@
       "geo:area": "Vztah k území"
     },
     "chronicle": {
-      "title": "Chronicle Metadata"
+      "editor_title": "Chronicle Metadata"
     },
     "author": {
       "tab": "Author",
