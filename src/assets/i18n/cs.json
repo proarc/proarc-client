@@ -202,7 +202,7 @@
     "logout": "Odhlásit"
   },
   "editor": {
-    "info": "Zobrazit informace k pipisu",
+    "info": "Zobrazit informace k popisu",
     "help": {
       "dialog_title": "Informace k popisu",
       "titleInfo": "<h2>Název <i>M</i></h2>Název svazku monografie<br/>Pro plnění použít katalogizační záznam<br/>pokud má monografie více typů názvů, element se opakuje podle potřeby<br/><h3>Typ <i>MA</i></h3>Hlavní název bez typu. Možné hodnoty <ul><li>Zkrácený název (abbreviated)</li><li>Alternativní název (alternative)</li><li>Přeložený název (translated)</li><li>Jednotný název (uniform)</li></ul><h3>Název <i>M</i></h3>Názvová informace – název svazku monografie</br>hodnoty převzít z katalogu,<h3>Vedlejší název <i>MA</i></h3>Podnázev svazku monografie.<h3>Číslo části <i>MA</i></h3>V případě, že se jedná o vícesvazkovou monografii, je zde uvedeno číslo svazku<h3>Název částí <i>MA</i></h3>V případě, že se jedná o vícesvazkovou monografii, je zde uveden název svazku" 
