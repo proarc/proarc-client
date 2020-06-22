@@ -83,6 +83,9 @@ export class EditorService {
 
 
     changeLayoutMode() {
+        if (this.isDoubleRight()) {
+            return;
+        }
         if (this.layoutMode === 'two-panels') {
             this.layoutMode = 'two-panels-large-left'
         } else if (this.layoutMode === 'two-panels-large-left') {

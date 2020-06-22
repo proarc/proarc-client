@@ -62,19 +62,9 @@
             }
             .app-actions {
                 margin-top: 3px;
-                // float: right;
-                button.app-inactive {
-                    color: #ffffff57;
-                }
             }
             .app-context {
                 margin-top: 3px;
-                // float: right;
-                button {
-                    &.app-inactive {
-                        color: #ffffff57;
-                    }
-                }
             }
             .app-divider {
                 display: block;
@@ -83,7 +73,10 @@
                 background: #385585;
                 width: 1px;
                 margin: 3px;
-              }
+            }
+            button.app-inactive {
+                color: #ffffff57;
+            }
         }
         .app-content {
             height: calc(100% - 46px);

@@ -55,7 +55,7 @@
     </div>
 
     <div class="app-divider"></div>
-    <button matTooltip="{{ 'editor.toolbar.layout_mode' | translate }}" (click)="editor.changeLayoutMode()" mat-icon-button>
+    <button [class.app-inactive]="editor.isDoubleRight()" matTooltip="{{ 'editor.toolbar.layout_mode' | translate }}" (click)="editor.changeLayoutMode()" mat-icon-button>
       <mat-icon>swap_horiz</mat-icon>
     </button>
     
@@ -132,7 +132,7 @@
               <button *ngIf="editor.right.isPage() && !editor.doubleRight" matTooltip="{{ 'editor.toolbar.editor_image' | translate }}" [class.app-inactive]="editor.rightEditorType != 'image'" (click)="editor.switchRightEditor('image')" mat-icon-button>
                 <mat-icon>image</mat-icon>
               </button>
-              <button *ngIf="editor.right.isPage() && !editor.doubleRight"  (click)="editor.enterDoubleRight()" mat-icon-button>
+              <button *ngIf="editor.right.isPage() && !editor.doubleRight" (click)="editor.enterDoubleRight()" mat-icon-button matTooltip="{{ 'editor.toolbar.editor_enter_double_right' | translate }}">
                 <mat-icon>keyboard_arrow_right</mat-icon>
               </button>
 
@@ -196,7 +196,7 @@
         <div class="app-label-model">{{ 'model.' + editor.right.model | translate }}</div>
       </div>
       <div class="app-context" *ngIf="!editor.showRelocationEditor()">
-        <button (click)="editor.leaveDoubleRight()" mat-icon-button>
+        <button (click)="editor.leaveDoubleRight()" mat-icon-button matTooltip="{{ 'editor.toolbar.editor_leave_double_right' | translate }}">
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
       </div>

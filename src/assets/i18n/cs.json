@@ -220,7 +220,9 @@
       "editor_metadata": "Metadata",
       "editor_geo": "Geografická lokace",
       "editor_mode_detail": "Režim detailu",
-      "editor_mode_children": "Režim procházení"
+      "editor_mode_children": "Režim procházení",
+      "editor_enter_double_right": "Otevřít obrázek v novém panelu",
+      "editor_leave_double_right": "Zavřít panel s obrázkem"
     },
     "children": {
       "view_list": "Tabulka",
