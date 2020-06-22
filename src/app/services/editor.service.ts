@@ -25,6 +25,8 @@ export class EditorService {
 
     public mode = 'chldren'; // 'detal' | 'children'
 
+    public doubleRight = false;
+
     public left: DocumentItem;
     public right: DocumentItem;
     public children: DocumentItem[];
@@ -101,6 +103,24 @@ export class EditorService {
         return true;
       }
 
+
+      public enterDoubleRight() {
+          if (this.rightEditorType === 'image') {
+            this.switchRightEditor('metadata')
+          }
+          setTimeout(() => {
+            this.doubleRight = true;              
+          }, 100);
+    }
+
+
+    public isDoubleRight(): boolean {
+        return this.doubleRight && this.right && this.right.isPage() && !this.showRelocationEditor();
+    }
+
+      public leaveDoubleRight() {
+        this.doubleRight = false;
+    }
 
 
       public showRightObjectEditor(): boolean {

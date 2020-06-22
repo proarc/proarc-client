@@ -8,7 +8,6 @@
         height: 100%; 
         overflow: hidden;
         &.app-panel-left {
-            border-right: 1px solid #385585;
             &.app-panel-two-panels-large-left {
                 width: 66.6666%; 
             }
@@ -17,12 +16,16 @@
             } 
         }      
         &.app-panel-right {
+            border-left: 1px solid #385585;
             &.app-panel-two-panels-large-left {
                 width: 33.3333%; 
             }
             &.app-panel-two-panels-large-right {
                 width: 66.6666%; 
             } 
+        }
+        &.app-panel-double-right {
+            width: 33.3333% !important;
         }
         .app-toolbar {
             height: 46px;
