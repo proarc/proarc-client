@@ -5,6 +5,7 @@ import { LocationDialogComponent } from 'src/app/dialogs/location-dialog/locatio
 import { ModsElement } from 'src/app/model/mods/element.model';
 import { Ruian } from 'src/app/model/ruian.model';
 import { ModsGeo } from 'src/app/model/mods/geo.model';
+import { Coordinates } from 'src/app/utils/coordinates';
 
 @Component({
   selector: 'app-editor-subject-geo',
@@ -25,8 +26,13 @@ export class EditorSubjectGeoComponent implements OnInit {
   onSearch(location: ModsGeo, map = false) {
     const dialogRef = this.dialog.open(LocationDialogComponent, { data: { map: map }});
     dialogRef.afterClosed().subscribe(result => {
-      if (result && result['locations']) {
+      if (result && ((result['lat'] && result['lng']) || result['locations'])) {
         location.clear();
+      }
+      if (result && result['lat'] && result['lng']) {
+        this.updateCoordinated(location, result['lat'], result['lng']);
+      }
+      if (result && result['locations']) {
         for (const ruian of result['locations'] as Ruian[]) {
           this.update(location, ruian);
         }
@@ -34,6 +40,13 @@ export class EditorSubjectGeoComponent implements OnInit {
     });
   }
 
+  updateCoordinated(location: ModsGeo, lat, lng) {
+    if (!lat || !lng) {
+      return;
+    }
+    location.coordinates['_'] = Coordinates.latLngToDegrees(lat, lng);
+  }
+ 
   update(location: ModsGeo, ruian: Ruian) {
     switch (ruian.layerId) {
       case 1: this.updateFiled(location, 'adresni_misto', ruian); break;
@@ -55,6 +68,9 @@ export class EditorSubjectGeoComponent implements OnInit {
     location[field]['_'] = ruian.value;
     location[field + '_code']['_'] = ruian.code;
   }
+
+
+
 
 
 

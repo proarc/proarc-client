@@ -32,6 +32,7 @@ export class ModsGeo extends ModsElement {
     public adresni_misto_code;
 
 
+    public coordinates;
 
     static getSelector() {
         return 'subject';
@@ -52,6 +53,25 @@ export class ModsGeo extends ModsElement {
         }
         if (!this.modsElement['geographic']) {
             this.modsElement['geographic'] = [];
+        }
+        if (!this.modsElement['cartographics']) {
+            this.modsElement['cartographics'] = ModsUtils.createEmptyField()
+        }
+
+        if (!this.modsElement['cartographics']) {
+            this.modsElement['cartographics'] = [];
+        }
+        const ctx = this;
+        this.modsElement['cartographics'].forEach(function(cartographics) {
+            if (cartographics['coordinates'] &&
+                cartographics['coordinates'][0]) {
+                    ctx.coordinates = cartographics['coordinates'][0];
+                }
+        });
+        if (!this.coordinates) {
+            const coor = ModsUtils.createObjWithTextElement('coordinates', '', null);
+            this.coordinates = coor['coordinates'][0];
+            this.modsElement['cartographics'].push(coor);
         }
         const geographics = this.modsElement['geographic'];
         for (const geographic of geographics) {
@@ -243,6 +263,7 @@ export class ModsGeo extends ModsElement {
         this.cast_obce_code['_'] = ''; 
         this.ulice_code['_'] = ''; 
         this.adresni_misto_code['_'] = ''; 
+        this.coordinates['_'] = '';
     }
 
     public toDC() {

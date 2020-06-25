@@ -301,7 +301,8 @@
       "add_btn": "Přidat lokaci",
       "geo:origin": "Místo původu",
       "geo:storage": "Místo uložení",
-      "geo:area": "Vztah k území"
+      "geo:area": "Vztah k území",
+      "coordinates": "Coordinates"
     },
     "chronicle": {
       "editor_title": "Chronicle Metadata"

@@ -97,6 +97,7 @@
     }
     #map {
       height: 100%;
+      cursor: crosshair;
       &.app-disabled {
         user-select: none;
         opacity: 0.6;

@@ -362,11 +362,13 @@
       "geo:origin": "Místo původu",
       "geo:storage": "Místo uložení",
       "geo:area": "Vztah k území",
+      "coordinates": "Zeměpisné souřadnice",
       "map": {
         "placeholder": "Vyberte místo kliknutím na mapě",
         "use": "Použít",
         "not_found": "Lokace nenalezena",
-        "not_found_message": "Vybraná lokace nebyla nalezena ve vyhledávací službě ČÚZK nad daty RUIAN"
+        "not_found_message": "Vybraná lokace nebyla nalezena ve vyhledávací službě ČÚZK nad daty RUIAN",
+        "use_coordinates": "Použít alespoň souřadnice"
       }
     },
     "chronicle": {

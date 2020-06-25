@@ -14,12 +14,17 @@ export class CuzkService {
   }
 
 
-  public search(query: string): Observable<Ruian[]> {
+  public searchRoad(query: string): Observable<Ruian[]> {
+    return this.search(query, '4');
+  }
+
+
+  public search(query: string, layers = '1,4,7,11,12,15,16,17,19'): Observable<Ruian[]> {
     const params = {
       'searchText': query,
       'contains': true,
       'searchFields': 'nazev',
-      'layers': '1,4,7,11,12,15,16,17,19',
+      'layers': layers,
       'returnGeometry' : false,
       'returnZ' : false,
       'returnM' :false,
@@ -29,6 +34,7 @@ export class CuzkService {
     } as any;
     return this.http.get(CuzkService.baseUrl, { params: params }).pipe(map(response => Ruian.fromJsonArray(response['results'])));
   }
+
 
   public searchAddresses(query: string): Observable<Ruian[]> {
     const params = {

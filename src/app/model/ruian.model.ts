@@ -6,6 +6,7 @@ export class Ruian {
   public label: string;
   public code: string;
   public value: string;
+  public attributes: any;
 
   public extendedLabel: string;
 
@@ -69,6 +70,7 @@ export class Ruian {
           ruian.label = attrs['nazev'];
         }
       }
+      ruian.attributes = attrs || {};
       if (!ruian.label) {
         ruian.label = json['value'];
       }

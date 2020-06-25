@@ -38,6 +38,8 @@ export class LocationDialogComponent implements OnInit, AfterViewInit {
   lookup = false;
   mapSelectionMode = false;
 
+  lat: number;
+  lng: number;
 
   constructor(
     public dialogRef: MatDialogRef<LocationDialogComponent>,
@@ -73,21 +75,25 @@ export class LocationDialogComponent implements OnInit, AfterViewInit {
         return;
       }
       const lat = e.latlng.lat;
-      const lng = e.latlng.lng
+      const lng = e.latlng.lng;
+      // console.log('lat: ' + lat + ', lng: ' + lng);
       this.osm.findAddress(lat, lng).subscribe((result) => {
-        this.onOsmLocationSelected(result);
+        // console.log('result', result);
+        this.onOsmLocationSelected(result, lat, lng);
       });
     });
     tiles.addTo(this.map);
   }
 
-  onOsmLocationSelected(location) {
-    const address = location.address;
-    if (address && address.house_number && (address.road || address.pedestrian)) {
+  onOsmLocationSelected(location, lat, lng) {
+    // const address = location.address;
+    // if (address && address.house_number && (address.road || address.pedestrian)) {
       this.osmLocation = location;
-    } else {
-      this.osmLocation = null;
-    }
+      this.lat = lat;
+      this.lng = lng;
+    // } else {
+      // this.osmLocation = null;
+    // }
   } 
 
   cancleMapLocation() {
@@ -98,6 +104,7 @@ export class LocationDialogComponent implements OnInit, AfterViewInit {
     this.lookup = true;
     const address = this.osmLocation.address;
     let postcode = address.postcode || '';
+    let city = address.city || '';
     postcode = postcode.replace(/ /, '');
     const road = address.road;
     const houseNumber = address.house_number;
@@ -108,7 +115,18 @@ export class LocationDialogComponent implements OnInit, AfterViewInit {
       } else if (pedestrian) {
         name = pedestrian;
       }
-      this.cuzk.searchAddresses(`${name} ${houseNumber}`).subscribe((results: Ruian[]) => {
+      let rq;
+      let type = 0;
+      if (houseNumber) {
+        type = 1;
+        rq = this.cuzk.searchAddresses(`${name} ${houseNumber}`);
+      } else if (road) {
+        type = 2;
+        rq = this.cuzk.searchRoad(road);
+      } else {
+        this.osmLocationNotFound();
+      }
+      rq.subscribe((results: Ruian[]) => {
       if (results.length == 0) {
         this.osmLocationNotFound();
         return;
@@ -118,8 +136,16 @@ export class LocationDialogComponent implements OnInit, AfterViewInit {
         return;
       }
       for (const location of results) {
-        if (location.value.toLowerCase().indexOf(postcode) >= 0) {
-          this.useLocationFromOsm(location);
+        if (type == 1) {
+          if (location.value.toLowerCase().indexOf(postcode) >= 0) {
+            this.useLocationFromOsm(location);
+            return;
+          }
+        } else if (type == 2) {
+          if (location.attributes.ulice.toLowerCase().indexOf(city.toLowerCase()) >= 0) {
+            this.useLocationFromOsm(location);
+            return;
+          }
         }
       }
       this.osmLocationNotFound();
@@ -133,12 +159,24 @@ export class LocationDialogComponent implements OnInit, AfterViewInit {
         title: String(this.translator.instant('editor.geo.map.not_found')),
         message: String(this.translator.instant('editor.geo.map.not_found_message')),
         btn1: {
-          label: String(this.translator.instant('common.ok')),
+          label: String(this.translator.instant('common.close')),
+          value: 'no',
+          color: 'default'
+        },
+        btn2: {
+          label: String(this.translator.instant('editor.geo.map.use_coordinates')),
           value: 'yes',
           color: 'primary'
         }
       };
       const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result == 'yes') {
+          this.dialogRef.close({locations: null, lat: this.lat, lng: this.lng});
+        }
+      });
+
+
     });
   }
 
@@ -245,7 +283,7 @@ export class LocationDialogComponent implements OnInit, AfterViewInit {
       });
     } else {
       if (finish) {
-        this.dialogRef.close({locations: this.hierarchy});
+        this.dialogRef.close({locations: this.hierarchy, lat: this.lat, lng: this.lng});
       } else {
         this.buildExtendedLabelFromHierarchy();
       }
