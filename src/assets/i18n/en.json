@@ -188,7 +188,9 @@
     "catalog": "Catalog",
     "devices": "Devices",
     "login": "Log in",
-    "logout": "Log out"
+    "logout": "Log out",
+    "profile": "Profile",
+    "settings": "Settings"
   },
   "editor": {
     "toolbar": {

@@ -202,7 +202,22 @@
     "catalog": "Katalog",
     "devices": "Zařízení",
     "login": "Přihlásit",
-    "logout": "Odhlásit"
+    "logout": "Odhlásit",
+    "profile": "Profil",
+    "settings": "Nastavení"
+  },
+  "settings": {
+    "settings": "Nastvení",
+    "profile": {
+      "label": "Profil",
+      "username": "Uživatel",
+      "forename": "Jméno",
+      "surname": "Příjmení",
+      "organization": "Organizace",
+      "home": "Adresář",
+      "change_password": "Změnit heslo",
+      "new_password": "Zadejte nové heslo"
+    }
   },
   "editor": {
     "info": "Zobrazit informace k popisu",

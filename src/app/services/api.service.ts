@@ -369,6 +369,17 @@ export class ApiService {
             .pipe(map(response => User.fromJsonArray(response['response']['data'])));
   }
 
+  getUser(): Observable<User> {
+    return this.get('user?whoAmI=true')
+            .pipe(map(response => User.fromJson(response['response']['data'][0])));
+  }
+
+
+  editUser(id: number, forename: string, surname: string): Observable<User> {
+    const data = `userId=${id}&forename=${forename}&surname=${surname}`;
+    return this.put('user', data).pipe(map(response => User.fromJson(response['response']['data'][0])));
+  }
+
   getThumbUrl(pid: string) {
     return this.getStreamUrl(pid, 'THUMBNAIL');
   }

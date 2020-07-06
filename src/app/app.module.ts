@@ -63,7 +63,6 @@ import { ImportComponent } from './components/import/import.component';
 import { ImportDialogComponent } from './dialogs/import-dialog/import-dialog.component';
 import { HistoryComponent } from './components/import/history/history.component';
 import { LogDialogComponent } from './dialogs/log-dialog/log-dialog.component';
-import { HomeComponent } from './components/home/home.component';
 import { NewObjectDialogComponent } from './dialogs/new-object-dialog/new-object-dialog.component';
 import { CatalogDialogComponent } from './dialogs/catalog-dialog/catalog-dialog.component';
 import { ParentDialogComponent } from './dialogs/parent-dialog/parent-dialog.component';
@@ -89,6 +88,7 @@ import { FundService } from './services/fund.service';
 import { FundDialogComponent } from './dialogs/fund-dialog/fund-dialog.component';
 import { EditorChronicleLanguageComponent } from './documents/document/editor-chronicle-language/editor-chronicle-language.component';
 import { OsmService } from './services/osm.service';
+import { SettingsComponent } from './components/settings/settings.component';
 
 
 export function hljsLanguages() {
@@ -146,7 +146,6 @@ export function hljsLanguages() {
     EditorIssueComponent,
     ImportComponent,
     HistoryComponent,
-    HomeComponent,
     NewObjectDialogComponent,
     CatalogDialogComponent,
     ParentDialogComponent,
@@ -165,7 +164,8 @@ export function hljsLanguages() {
     EditorChronicleIdentifierComponent,
     EditorChronicleLocationComponent,
     EditorChronicleLanguageComponent,
-    FundDialogComponent
+    FundDialogComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -182,7 +182,7 @@ export function hljsLanguages() {
       providedLanguages: ['en', 'cs'],
       defaultLanguage: 'cs',
       loaderOptions: {
-        path: 'assets/i18n/{{language}}.json?v0.1.12'
+        path: 'assets/i18n/{{language}}.json?v0.1.13'
       }
     })
   ],

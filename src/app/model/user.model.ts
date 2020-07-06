@@ -19,8 +19,8 @@ export class User {
       user.userId = json['userId'];
       user.userGroup = json['userGroup'];
       user.name = json['name'];
-      user.forename = json['forename'];
-      user.surname = json['surname'];
+      user.forename = json['forename'] || "";
+      user.surname = json['surname'] || "";
       user.home = json['home'];
       user.timestamp = new Date(json['timestamp']);
       user.created = new Date(json['created']);

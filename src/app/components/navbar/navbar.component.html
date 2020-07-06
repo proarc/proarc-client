@@ -12,7 +12,19 @@
     <!-- <a [routerLink]="['/catalog']" routerLinkActive="active" mat-button>{{ "navbar.catalog" | translate }}</a> -->
     <a [routerLink]="['/import']" routerLinkActive="active" mat-button>{{ "navbar.import" | translate }}</a>
     <a [routerLink]="['/devices']" routerLinkActive="active" mat-button>{{ "navbar.devices" | translate }}</a>
-    <a (click)="logout()" mat-button>{{ "navbar.logout" | translate }}</a>
+
+    <a [matMenuTriggerFor]="profile_menu" mat-button>{{ "navbar.profile" | translate }}</a>
+    <mat-menu #profile_menu="matMenu">
+      <button mat-menu-item disabled>
+        <span>{{ auth.user.name }}</span>
+      </button>
+      <a [routerLink]="['/settings']" routerLinkActive="active" mat-button>{{ "navbar.settings" | translate }}</a>
+      <button mat-menu-item (click)="logout()">
+        <span>{{ "navbar.logout" | translate }}</span>
+      </button>
+    </mat-menu>
+
+
   </ng-container>
   <a *ngIf="!auth.isLoggedIn()"  [routerLink]="['/login']" routerLinkActive="active" mat-button>{{ "navbar.login" | translate }}</a>
 

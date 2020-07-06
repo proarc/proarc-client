@@ -1,0 +1,28 @@
+.app-settings {
+  height: calc(100% - 50px);
+  padding: 20px;
+  .app-settings-panel {
+    background: #fff;
+    .app-settings-panel-header {
+      line-height: 30px;
+      padding-top: 12px;
+      padding-left: 16px;
+    }
+    .app-settings-panel-content {
+      padding: 16px;
+      mat-form-field {
+        max-width: 90%;
+        width: 500px;
+        margin-right: 16px;
+      }
+      button {
+        margin-right: 16px;
+      }
+    }
+  }
+  &.app-disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    user-select: none; 
+  }
+}

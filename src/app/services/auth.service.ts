@@ -25,10 +25,10 @@ export class AuthService {
         return this.http.post(`${this.api.getBaseUrl()}/proarclogin`, data, httpOptions)
         .subscribe((result) => {
             console.log('login success', result);
-            this.http.get(`${this.api.getApiUrl()}user?whoAmI=true`).subscribe((result) => {
-                this.user = User.fromJson(result['response']['data'][0]);
+            this.api.getUser().subscribe((user: User) => {
+                this.user = user;
                 callback(true);
-            },
+            }, 
             (error) => {
                 this.user = null;
                 callback(false);
@@ -48,10 +48,9 @@ export class AuthService {
 
 
     checkOnStart() {
-        this.http.get(`${this.api.getApiUrl()}user?whoAmI=true`).subscribe((result) => {
-            console.log('result');
-            this.user = User.fromJson(result['response']['data'][0]);
-        },
+        this.api.getUser().subscribe((user: User) => {
+            this.user = user;
+        }, 
         (error) => {
             this.user = null;
             this.router.navigate(['/login']);
@@ -65,5 +64,9 @@ export class AuthService {
     isSuperAdmin(): boolean {
         return this.user && this.user.role == "superAdmin";
     }
+
+    updateUser(user: User) {
+        this.user = user;
+    } 
 
 }

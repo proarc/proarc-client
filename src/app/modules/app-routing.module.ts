@@ -12,7 +12,7 @@ import { EditAudioDeviceComponent } from '../components/devices/edit-audio-devic
 import { EditorComponent } from '../components/editor/editor.component';
 import { ImportComponent } from '../components/import/import.component';
 import { HistoryComponent } from '../components/import/history/history.component';
-import { HomeComponent } from '../components/home/home.component';
+import { SettingsComponent } from '../components/settings/settings.component';
 
 const routes: Routes = [
 
@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: 'document/:pid', component: EditorComponent },
 
   { path: 'login', component: LoginComponent },
+  { path: 'settings', component: SettingsComponent },
   { path: 'devices', component: DevicesComponent },
   { path: 'devices/new', component: EditDeviceComponent },
   { path: 'devices/:id', component: DeviceComponent },
@@ -32,8 +33,7 @@ const routes: Routes = [
   { path: 'viewer', component: ViewerComponent },
   { path: 'import', component: ImportComponent },
   { path: 'import/history', component: HistoryComponent },
-
-  { path: '', component: HomeComponent },
+  { path: '', redirectTo: '/search', pathMatch: 'full' }
 
 ];
 

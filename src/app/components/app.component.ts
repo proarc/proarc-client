@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     if (lang) {
       this.translator.language = lang;
     }
-    auth.checkOnStart();
+    this.auth.checkOnStart();
   }
 
   ngOnInit() {
