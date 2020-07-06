@@ -36,7 +36,11 @@
           <input [disabled]="true" matInput [value]='user.home' placeholder="{{ 'settings.profile.home' | translate }}">
         </mat-form-field>
       </div>
-
+      <div>  
+        <mat-form-field>
+          <input [disabled]="true" matInput [value]='user.role' placeholder="{{ 'settings.profile.role' | translate }}">
+        </mat-form-field>
+      </div>
 
       <button mat-raised-button
         color="primary"
