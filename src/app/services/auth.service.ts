@@ -1,13 +1,15 @@
 
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { Router } from '@angular/router';
+import { User } from '../model/user.model';
 
 @Injectable()
 export class AuthService {
 
-    private loggedIn = false;
+    private user: User;
 
     constructor(private http: HttpClient, private api: ApiService, private router: Router) {
     }
@@ -23,8 +25,14 @@ export class AuthService {
         return this.http.post(`${this.api.getBaseUrl()}/proarclogin`, data, httpOptions)
         .subscribe((result) => {
             console.log('login success', result);
-            this.loggedIn = true;
-            callback(true);
+            this.http.get(`${this.api.getApiUrl()}user?whoAmI=true`).subscribe((result) => {
+                this.user = User.fromJson(result['response']['data'][0]);
+                callback(true);
+            },
+            (error) => {
+                this.user = null;
+                callback(false);
+            });
         }, (error) => {
             console.log('login error', error);
             callback(false);
@@ -33,24 +41,29 @@ export class AuthService {
 
     logout() {
         return this.http.delete(`${this.api.getBaseUrl()}/proarclogin`).subscribe((result) => {
-            this.loggedIn = false;
+            this.user = null;
             this.router.navigate(['/login']);
         });
     }
 
 
     checkOnStart() {
-        return this.http.get(`${this.api.getApiUrl()}user?whoAmI=true`).subscribe((result) => {
-            this.loggedIn = true;
+        this.http.get(`${this.api.getApiUrl()}user?whoAmI=true`).subscribe((result) => {
+            console.log('result');
+            this.user = User.fromJson(result['response']['data'][0]);
         },
         (error) => {
-            this.loggedIn = false;
+            this.user = null;
             this.router.navigate(['/login']);
         });
     }
 
     isLoggedIn(): boolean {
-        return this.loggedIn;
+        return !!this.user;
+    }
+
+    isSuperAdmin(): boolean {
+        return this.user && this.user.role == "superAdmin";
     }
 
 }

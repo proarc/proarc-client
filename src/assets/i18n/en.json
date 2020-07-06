@@ -436,6 +436,24 @@
       "exitFullscreen": "Exit Full Screen"
     }
   },
+  "organization": {
+    "ABA007": "Knihovna Akademie věd ČR",
+    "BOA001": "Moravská zemská knihovna",
+    "ABA010": "Knihovna Národního muzea",
+    "ABA012": "Národní pedagogická knihovna Komenského Praha",
+    "HKA001": "Studijní a vědecká knihovna v Hradci Králové",
+    "ABE301": "Český rozhlas - knihovna",
+    "ABG001": "Městská knihovna v Praze",
+    "ABD068": "Univerzita Karlova v Praze - 1.LF a VFN",
+    "ABD103": "Univerzita Karlova v Praze - Fakulta sociálních věd",
+    "PAG001": "Krajská knihovna v Pardubicích",
+    "JIG001": "Městská knihovna Jihlava",
+    "226102010": "SOkA Jihlava",
+    "226103010": "SOkA Pelhřimov",
+    "226101010": "SOkA Havlíčkův Brod",
+    "226104010": "SOkA Třebíč",
+    "226105010": "SOkA Žďár nad Sázavou"
+  },
   "lang": {
     "aar" : "Afar",
     "abk" : "Abkhazian",

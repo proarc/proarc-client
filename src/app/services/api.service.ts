@@ -175,7 +175,7 @@ export class ApiService {
   }
 
   editAtm(atm: Atm): Observable<Atm> {
-    const data = `pid=${atm.pid}&device=${atm.device}`;
+    const data = `pid=${atm.pid}&device=${atm.device}&status=${atm.status}&userProcessor=${atm.userProcessor}&organization=${atm.organization}`;
     return this.put('object/atm', data).pipe(map(response => Atm.fromJson(response['response']['data'][0])));
   }
 

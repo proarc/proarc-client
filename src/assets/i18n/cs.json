@@ -224,6 +224,29 @@
       "editor_enter_double_right": "Otevřít obrázek v novém panelu",
       "editor_leave_double_right": "Zavřít panel s obrázkem"
     },
+    "atm": {
+      "title": "Administrativní a technická metadata",
+      "pid": "PID",
+      "model": "Model",
+      "owner": "Vlastník",
+      "created": "Vytvořeno",
+      "modified": "Změněno",
+      "filename": "Soubor",
+      "export": "Export",
+      "device": "Zařízení",
+      "no_device": "Žádné zařízení",
+      "organization": "Organizace",
+      "userProcessor": "Zpracovatel",
+      "status": "Status objektu",
+      "statuses": {
+        "new": "Nově vytvořeno",
+        "assign": "Přiřazeno",
+        "connected": "Připojeno",
+        "processing": "Probíhá popisování",
+        "described": "Popisování ukončeno",
+        "exported": "Exportováno"
+      }
+    },
     "children": {
       "view_list": "Tabulka",
       "view_grid": "Mřížka",
@@ -581,6 +604,24 @@
       "enterFullscreen": "Režim celé obrazkovy",
       "exitFullscreen": "Opustit režem celé obrazovky"
     }
+  },
+  "organization": {
+    "ABA007": "Knihovna Akademie věd ČR",
+    "BOA001": "Moravská zemská knihovna",
+    "ABA010": "Knihovna Národního muzea",
+    "ABA012": "Národní pedagogická knihovna Komenského Praha",
+    "HKA001": "Studijní a vědecká knihovna v Hradci Králové",
+    "ABE301": "Český rozhlas - knihovna",
+    "ABG001": "Městská knihovna v Praze",
+    "ABD068": "Univerzita Karlova v Praze - 1.LF a VFN",
+    "ABD103": "Univerzita Karlova v Praze - Fakulta sociálních věd",
+    "PAG001": "Krajská knihovna v Pardubicích",
+    "JIG001": "Městská knihovna Jihlava",
+    "226102010": "SOkA Jihlava",
+    "226103010": "SOkA Pelhřimov",
+    "226101010": "SOkA Havlíčkův Brod",
+    "226104010": "SOkA Třebíč",
+    "226105010": "SOkA Žďár nad Sázavou"
   },
   "lang": {
     "aar" : "afarština",

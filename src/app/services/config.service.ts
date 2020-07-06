@@ -68,6 +68,10 @@ export class ConfigService {
     public topPageTypes = APP_GLOBAL.topPageTypes || [];
     public pageTypes = APP_GLOBAL.pageTypes || ConfigService.defaultPageTypes;
 
+    public organizations = APP_GLOBAL.organizations || [];
+
+
+
     constructor() {
     }
 

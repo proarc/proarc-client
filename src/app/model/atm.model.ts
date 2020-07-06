@@ -4,13 +4,21 @@ export class Atm {
     public pid: string;
     public model: string;
     public device: string;
-    public originalDevice: string;
     public state: string;
     public owner: string;
     public modified: Date;
     public created: Date;
     public exportResult: string;
     public filename: string;
+    public organization: string;
+    public userProcessor: string;
+    public status: string;
+
+
+    public originalDevice: string;
+    public originalOrganization: string;
+    public originalUserProcessor: string;
+    public originalStatus: string;
 
   public static fromJson(json): Atm {
       console.log(json);
@@ -22,6 +30,12 @@ export class Atm {
       atm.originalDevice = json['device'] || 'null';
       atm.device = json['device'] || 'null';
       atm.filename = json['filename'];
+      atm.organization = json['organization'];
+      atm.userProcessor = json['userProcessor'];
+      atm.status = json['status'];
+      atm.originalOrganization = json['organization'];
+      atm.originalUserProcessor = json['userProcessor'];
+      atm.originalStatus = json['status'];
       if (json['modified']) {
         atm.modified = new Date(json['modified']);
       }
@@ -34,10 +48,13 @@ export class Atm {
 
   public restore() {
     this.device = this.originalDevice;
+    this.organization = this.originalOrganization;
+    this.userProcessor = this.originalUserProcessor;
+    this.status = this.originalStatus;
   }
 
   public hasChanged(): boolean {
-    return this.originalDevice !== this.device;
+    return this.originalDevice !== this.device || this.originalOrganization !== this.organization || this.originalUserProcessor !== this.userProcessor || this.originalStatus !== this.status;
   }
 
 

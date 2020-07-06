@@ -2,27 +2,30 @@
 export class User {
 
 
-  public id: number;
-  public group: number;
+  public userId: number;
+  public userGroup: number;
+
   public name: string;
+  public forename: string;
   public surname: string;
   public home: string;
   public timestamp: Date;
-  public create: Date;
-  public state: string;
-  public userId: number;
-  public user: string;
-  public profile: string;
+  public created: Date;
+  public organization: string;
+  public role: string;
 
   public static fromJson(json): User {
       const user = new User();
-      user.id = json['id'];
-      user.group = json['group'];
+      user.userId = json['userId'];
+      user.userGroup = json['userGroup'];
       user.name = json['name'];
+      user.forename = json['forename'];
       user.surname = json['surname'];
       user.home = json['home'];
       user.timestamp = new Date(json['timestamp']);
-      user.create = new Date(json['create']);
+      user.created = new Date(json['created']);
+      user.organization = json['organization'];
+      user.role = json['role'];
       return user;
   }
 
