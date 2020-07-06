@@ -89,6 +89,7 @@ import { FundDialogComponent } from './dialogs/fund-dialog/fund-dialog.component
 import { EditorChronicleLanguageComponent } from './documents/document/editor-chronicle-language/editor-chronicle-language.component';
 import { OsmService } from './services/osm.service';
 import { SettingsComponent } from './components/settings/settings.component';
+import { NewPasswordDialogComponent } from './dialogs/new-password-dialog/new-password-dialog.component';
 
 
 export function hljsLanguages() {
@@ -165,7 +166,8 @@ export function hljsLanguages() {
     EditorChronicleLocationComponent,
     EditorChronicleLanguageComponent,
     FundDialogComponent,
-    SettingsComponent
+    SettingsComponent,
+    NewPasswordDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -211,7 +213,8 @@ export function hljsLanguages() {
     UrnbnbDialogComponent,
     HelpDialogComponent,
     ReloadBatchDialogComponent,
-    FundDialogComponent
+    FundDialogComponent,
+    NewPasswordDialogComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { User } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { MatDialog } from '@angular/material';
+import { NewPasswordDialogComponent } from 'src/app/dialogs/new-password-dialog/new-password-dialog.component';
 
 @Component({
   selector: 'app-settings',
@@ -17,7 +19,10 @@ export class SettingsComponent implements OnInit {
   forename: string;
   surname: string;
 
-  constructor(private api: ApiService, private auth: AuthService) { }
+  constructor(
+    private api: ApiService,
+    private dialog: MatDialog,
+    private auth: AuthService) { }
 
   ngOnInit() {
     this.api.getUser().subscribe((user: User) => {
@@ -31,12 +36,12 @@ export class SettingsComponent implements OnInit {
     if (!this.user) {
       return false;
     }
-    return this.user.forename != this.forename || this.user.surname != this.surname;
+    return this.surname && (this.user.forename != this.forename || this.user.surname != this.surname);
   }
 
   seveProfile() {
     this.state = 'loading';
-    this.api.editUser(this.user.userId, this.forename, this.surname).subscribe((user: User) => {
+    this.api.editUser(this.user, this.forename, this.surname).subscribe((user: User) => {
       this.user = user;
       this.forename = this.user.forename;
       this.surname = this.user.surname;
@@ -44,5 +49,12 @@ export class SettingsComponent implements OnInit {
       this.state = 'none';
     });
   }
+
+
+  changePassword() {
+    this.dialog.open(NewPasswordDialogComponent);
+  }
+
+
 
 }

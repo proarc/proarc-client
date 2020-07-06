@@ -216,7 +216,15 @@
       "organization": "Organizace",
       "home": "Adresář",
       "change_password": "Změnit heslo",
-      "new_password": "Zadejte nové heslo"
+      "new_password_btn": "Zadejte nové heslo",
+      "new_password": {
+        "title": "Nové heslo",
+        "password": "Nové heslo",
+        "password_confirmation": "Potvrzení hesla",
+        "error_mismatch": "Zadané heslo se neshoduje s potvrzením hesla",
+        "error_short": "Heslo musí mít alespoň 6 znaků",
+        "updated": "Nové heslo bylo uloženo"
+      }
     }
   },
   "editor": {

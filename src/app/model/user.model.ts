@@ -9,6 +9,7 @@ export class User {
   public forename: string;
   public surname: string;
   public home: string;
+  public email: string;
   public timestamp: Date;
   public created: Date;
   public organization: string;
@@ -22,6 +23,7 @@ export class User {
       user.forename = json['forename'] || "";
       user.surname = json['surname'] || "";
       user.home = json['home'];
+      user.email = json['email'];
       user.timestamp = new Date(json['timestamp']);
       user.created = new Date(json['created']);
       user.organization = json['organization'];

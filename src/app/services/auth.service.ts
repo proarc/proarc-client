@@ -69,4 +69,15 @@ export class AuthService {
         this.user = user;
     } 
 
+    getUser(): User {
+        return this.user;
+    }
+
+    getUserId(): number {
+        if (!this.user) {
+            return null;
+        }
+        return this.user.userId;
+    }
+
 }

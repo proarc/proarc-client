@@ -374,10 +374,14 @@ export class ApiService {
             .pipe(map(response => User.fromJson(response['response']['data'][0])));
   }
 
-
-  editUser(id: number, forename: string, surname: string): Observable<User> {
-    const data = `userId=${id}&forename=${forename}&surname=${surname}`;
+  editUser(user: User, forename: string, surname: string): Observable<User> {
+    const data = `userId=${user.userId}&forename=${forename}&surname=${surname}&email=${user.email}&organization=${user.organization}&role=${user.role}`;
     return this.put('user', data).pipe(map(response => User.fromJson(response['response']['data'][0])));
+  }
+
+  editUserPassword(user: User, password: string): Observable<any> {
+    const data = `userId=${user.userId}&forename=${user.forename}&surname=${user.surname}&email=${user.email}&organization=${user.organization}&role=${user.role}&password=${password}`;
+    return this.put('user', data)
   }
 
   getThumbUrl(pid: string) {
