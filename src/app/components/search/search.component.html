@@ -50,6 +50,15 @@
       </div>
       <div class="result-model">{{ 'search.model' | translate }}</div>
       <div class="result-owner">{{ 'search.owner' | translate }}</div>
+
+
+
+      <div class="result-processor">{{ 'search.processor' | translate }}</div>
+      <div class="result-organization">{{ 'search.organization' | translate }}</div>
+      <div class="result-status">{{ 'search.status' | translate }}</div>
+
+
+
       <div class="result-created app-header-sortable" (click)="sortBy('lastCreated')">
         {{ 'search.created' | translate }}
         <mat-icon *ngIf="getSortIcon('lastCreated')" class="sort-arrow">{{ getSortIcon('lastCreated') }}</mat-icon>
@@ -66,6 +75,11 @@
         <div class="result-label">{{ item.label }}</div>
         <div class="result-model">{{ "model." + item.model | translate }}</div>
         <div class="result-owner">{{ item.owner }}</div>
+
+        <div class="result-processor">{{ item.processor }}</div>
+        <div class="result-organization">{{ 'organization.' + item.organization | translate }}</div>
+        <div class="result-status">{{ 'editor.atm.statuses.' + item.status | translate }}</div>
+
         <div class="result-created">{{ item.created | appDatetime }}</div>
         <div class="result-modified">{{ item.modified | appDatetime }}</div>
         <div class="result-export">{{ item.export == 1 ? "Ano" : "Ne" }}</div>

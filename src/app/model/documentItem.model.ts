@@ -11,6 +11,10 @@ export class DocumentItem {
   public created: Date;
   public export: number;
 
+  public status: string;
+  public processor: string;
+  public organization: string;
+
   public shortLabel: string;
 
   public selected = false;
@@ -26,6 +30,10 @@ export class DocumentItem {
     item.state = json['state'];
     item.owner = json['owner'];
     item.label = json['label'];
+    item.status = json['status'];
+    item.processor = json['processor'];
+    item.organization = json['organization'];
+
     if (json['modified']) {
       item.modified = new Date(json['modified']);
     }

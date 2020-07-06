@@ -27,7 +27,7 @@
       flex: 1;
     }
     .sort-arrow {
-      line-height: 54px;
+      line-height: 44px;
       display: block;
       float: left;
       margin-right: 5px;
@@ -36,19 +36,28 @@
       flex: 1;
     }
     .result-model {
-      width: 200px;
+      width: 145px;
     }
     .result-owner {
+      width: 125px;
+    }
+    .result-processor {
+      width: 125px;
+    }
+    .result-organization {
       width: 200px;
     }
+    .result-status {
+      width: 145px;
+    }
     .result-created {
-      width: 180px;
+      width: 145px;
     }
     .result-modified {
-      width: 180px;
+      width: 145px;
     }
     .result-export {
-      width: 90px;
+      width: 60px;
     }
     .result-actions {
       width: 125px;
@@ -61,7 +70,7 @@
       }
     }
     .scrollable {
-      height: calc(100% - 54px);
+      height: calc(100% - 44px);
       overflow: auto;
     }
 
