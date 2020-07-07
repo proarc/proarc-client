@@ -544,7 +544,7 @@
       "issuance_code": {
         "monographic": "Monografické",
         "single unit": "Jednotkové",
-        "multipart monograph": "Vícedilné",
+        "multipart monograph": "Vícedílné",
         "continuing": "Na pokračování",
         "serial": "Sériové",
         "integrating resource": "Začlěňovací"
@@ -602,7 +602,7 @@
     "localId": "LocalID"
   },
   "model": {
-    "model:ndkperiodical": "NDK Peioridkum",
+    "model:ndkperiodical": "NDK Periodikum",
     "model:ndkperiodicalvolume": "NDK Ročník",
     "model:ndkperiodicalissue": "NDK Číslo",
     "model:ndkperiodicalsupplement": "NDK Příloha periodika",
@@ -998,7 +998,7 @@
     "lyr" : "Textař",
     "mdc" : "Technik v oblasti metadat",
     "mod" : "Moderátor",
-    "mon" : "Dozorčí, kontrolor)",
+    "mon" : "Dozorčí, kontrolor",
     "mrk" : "Editor programovacích jazyků",
     "mte" : "Kovorytec",
     "mus" : "Hudebník",
