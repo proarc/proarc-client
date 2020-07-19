@@ -44,45 +44,45 @@
 
   <div class="search-result-list">
     <div class="app-row app-header">
-      <div class="result-label app-header-sortable" (click)="sortBy('alphabetical')">
+      <div class="result-label app-header-sortable" *ngIf="properties.isSearchColEnabled('name')" (click)="sortBy('alphabetical')">
         {{ 'search.name' | translate }}
         <mat-icon *ngIf="getSortIcon('alphabetical')" class="sort-arrow">{{ getSortIcon('alphabetical') }}</mat-icon>
       </div>
-      <div class="result-model">{{ 'search.model' | translate }}</div>
-      <div class="result-owner">{{ 'search.owner' | translate }}</div>
+      <div class="result-model" *ngIf="properties.isSearchColEnabled('model')">{{ 'search.model' | translate }}</div>
+      <div class="result-owner" *ngIf="properties.isSearchColEnabled('owner')">{{ 'search.owner' | translate }}</div>
 
 
 
-      <div class="result-processor">{{ 'search.processor' | translate }}</div>
-      <div class="result-organization">{{ 'search.organization' | translate }}</div>
-      <div class="result-status">{{ 'search.status' | translate }}</div>
+      <div class="result-processor" *ngIf="properties.isSearchColEnabled('processor')">{{ 'search.processor' | translate }}</div>
+      <div class="result-organization" *ngIf="properties.isSearchColEnabled('organization')">{{ 'search.organization' | translate }}</div>
+      <div class="result-status" *ngIf="properties.isSearchColEnabled('status')">{{ 'search.status' | translate }}</div>
 
 
 
-      <div class="result-created app-header-sortable" (click)="sortBy('lastCreated')">
+      <div class="result-created app-header-sortable" *ngIf="properties.isSearchColEnabled('created')" (click)="sortBy('lastCreated')">
         {{ 'search.created' | translate }}
         <mat-icon *ngIf="getSortIcon('lastCreated')" class="sort-arrow">{{ getSortIcon('lastCreated') }}</mat-icon>
       </div>
-      <div class="result-modified app-header-sortable" (click)="sortBy('lastModified')">
+      <div class="result-modified app-header-sortable" *ngIf="properties.isSearchColEnabled('modified')" (click)="sortBy('lastModified')">
         {{ 'search.modified' | translate }}
         <mat-icon *ngIf="getSortIcon('lastModified')" class="sort-arrow">{{ getSortIcon('lastModified') }}</mat-icon>
       </div>
-      <div class="result-export">{{ 'search.export' | translate }}</div>
+      <div class="result-export" *ngIf="properties.isSearchColEnabled('export')">{{ 'search.export' | translate }}</div>
       <div class="result-actions"></div>
     </div>
     <div class="scrollable">
       <a *ngFor="let item of items" [routerLink]="['/document', item.pid]" class="app-row">
-        <div class="result-label">{{ item.label }}</div>
-        <div class="result-model">{{ "model." + item.model | translate }}</div>
-        <div class="result-owner">{{ item.owner }}</div>
+        <div class="result-label" *ngIf="properties.isSearchColEnabled('name')">{{ item.label }}</div>
+        <div class="result-model" *ngIf="properties.isSearchColEnabled('model')">{{ "model." + item.model | translate }}</div>
+        <div class="result-owner" *ngIf="properties.isSearchColEnabled('owner')">{{ item.owner }}</div>
 
-        <div class="result-processor">{{ item.processor }}</div>
-        <div class="result-organization">{{ 'organization.' + item.organization | translate }}</div>
-        <div class="result-status">{{ 'editor.atm.statuses.' + item.status | translate }}</div>
+        <div class="result-processor" *ngIf="properties.isSearchColEnabled('processor')">{{ item.processor }}</div>
+        <div class="result-organization" *ngIf="properties.isSearchColEnabled('organization')">{{ 'organization.' + item.organization | translate }}</div>
+        <div class="result-status" *ngIf="properties.isSearchColEnabled('status')">{{ 'editor.atm.statuses.' + item.status | translate }}</div>
 
-        <div class="result-created">{{ item.created | appDatetime }}</div>
-        <div class="result-modified">{{ item.modified | appDatetime }}</div>
-        <div class="result-export">{{ item.export == 1 ? "Ano" : "Ne" }}</div>
+        <div class="result-created" *ngIf="properties.isSearchColEnabled('created')">{{ item.created | appDatetime }}</div>
+        <div class="result-modified" *ngIf="properties.isSearchColEnabled('modified')">{{ item.modified | appDatetime }}</div>
+        <div class="result-export" *ngIf="properties.isSearchColEnabled('export')">{{ item.export == 1 ? "Ano" : "Ne" }}</div>
 
         <div class="result-actions">
           <button class="app-action" (click)="onUrnnbn(item); $event.preventDefault(); $event.stopPropagation()" mat-icon-button matTooltip="URN:NBN" matTooltipPosition="below">

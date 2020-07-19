@@ -60,6 +60,31 @@
   </div>
 
 
+
+  <div class="app-settings-panel app-settings-search" *ngIf="user">
+
+    <div class="app-settings-panel-header">{{ 'settings.search.label' | translate }}</div>
+    <div class="app-settings-panel-content">
+
+      <div class="app-settings-label">{{ 'settings.search.cols' | translate }}</div>
+
+      <div class="app-settings-toggle" *ngFor="let col of properties.availableSearchColumns">
+        <mat-slide-toggle [(ngModel)]="searchCols[col]" color="primary">
+          {{ 'search.' + col | translate }}
+        </mat-slide-toggle>
+      </div>
+
+      <button mat-raised-button
+      color="primary"
+      (click)="seveSearchCols()">
+        {{ 'common.save' | translate }}
+    </button>
+
+    </div>
+  
+  </div>
+
+
 </div>
 
 <mat-spinner *ngIf="state=='loading'" [strokeWidth]="5" [diameter]="60" class="center-spinner">

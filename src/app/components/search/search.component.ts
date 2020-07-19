@@ -34,7 +34,7 @@ export class SearchComponent implements OnInit {
   sortAsc: boolean;
 
   constructor(private api: ApiService, 
-              private properties: LocalStorageService, 
+              public properties: LocalStorageService, 
               private dialog: MatDialog,
               private config: ConfigService,
               private translator: Translator) { 

@@ -216,6 +216,7 @@
       "organization": "Organizace",
       "home": "Adresář",
       "role": "Role",
+      "updated": "Uživatelský profil upraven",
       "change_password": "Změnit heslo",
       "new_password_btn": "Zadejte nové heslo",
       "new_password": {
@@ -226,6 +227,11 @@
         "error_short": "Heslo musí mít alespoň 6 znaků",
         "updated": "Nové heslo bylo uloženo"
       }
+    },
+    "search": {
+      "label": "Hledání",
+      "cols": "Zobrazená pole ve výsledích hledání",
+      "updated": "Nastavení upraveno"
     }
   },
   "editor": {

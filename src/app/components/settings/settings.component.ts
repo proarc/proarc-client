@@ -4,6 +4,8 @@ import { User } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog } from '@angular/material';
 import { NewPasswordDialogComponent } from 'src/app/dialogs/new-password-dialog/new-password-dialog.component';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { UIService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-settings',
@@ -15,13 +17,16 @@ export class SettingsComponent implements OnInit {
   state = 'none';
   user: User;
 
-
   forename: string;
   surname: string;
+
+  searchCols: any;
 
   constructor(
     private api: ApiService,
     private dialog: MatDialog,
+    private ui: UIService,
+    private properties: LocalStorageService, 
     private auth: AuthService) { }
 
   ngOnInit() {
@@ -30,6 +35,10 @@ export class SettingsComponent implements OnInit {
       this.forename = this.user.forename;
       this.surname = this.user.surname;
     });
+    this.searchCols = {};
+    for (const col of this.properties.availableSearchColumns) {
+      this.searchCols[col] = this.properties.isSearchColEnabled(col);
+    }
   }
 
   profileChanged(): boolean {
@@ -47,7 +56,16 @@ export class SettingsComponent implements OnInit {
       this.surname = this.user.surname;
       this.auth.updateUser(user);
       this.state = 'none';
+      this.ui.showInfo('settings.profile.updated');
     });
+  }
+
+
+  seveSearchCols() {
+    for (const col of this.properties.availableSearchColumns) {
+      this.properties.setBoolProperty('search.cols.' + col, this.searchCols[col]);
+    }
+    this.ui.showInfo('settings.search.updated');
   }
 
 
