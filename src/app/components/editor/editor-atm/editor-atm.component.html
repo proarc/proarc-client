@@ -44,7 +44,7 @@
 
       <div>
         <mat-form-field>
-          <mat-select [disabled]="!auth.isSuperAdmin()" [placeholder]="'editor.atm.userProcessor' | translate" name="userProcessor" [(value)]="atm.userProcessor">
+          <mat-select [disabled]="!auth.isSuperAdmin() && !auth.isAdmin()" [placeholder]="'editor.atm.userProcessor' | translate" name="userProcessor" [(value)]="atm.userProcessor">
               <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
           </mat-select>
         </mat-form-field>

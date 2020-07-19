@@ -65,6 +65,10 @@ export class AuthService {
         return this.user && this.user.role == "superAdmin";
     }
 
+    isAdmin(): boolean {
+        return this.user && this.user.role == "admin";
+    }
+
     updateUser(user: User) {
         this.user = user;
     } 

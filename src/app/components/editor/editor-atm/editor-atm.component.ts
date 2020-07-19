@@ -5,7 +5,6 @@ import { Atm } from 'src/app/model/atm.model';
 import { EditorService } from 'src/app/services/editor.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { User } from 'src/app/model/user.model';
-import { forkJoin } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
