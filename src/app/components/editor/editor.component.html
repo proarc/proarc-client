@@ -23,20 +23,20 @@
 
    <ng-container *ngIf="editor.mode == 'detail'">
     <div class="app-context">
-      <button matTooltip="{{ 'editor.toolbar.editor_atm' | translate }}" [class.app-inactive]="editor.leftEditorType != 'atm'" (click)="editor.switchLeftEditor('atm')" mat-icon-button>
-        <mat-icon>scanner</mat-icon>
-      </button>
-      <button matTooltip="{{ 'editor.toolbar.editor_comment' | translate }}" [class.app-inactive]="editor.leftEditorType != 'comment'" (click)="editor.switchLeftEditor('comment')" mat-icon-button>
-        <mat-icon>format_quote</mat-icon>
-      </button>
-      <button *ngIf="editor.left.isPage()" matTooltip="{{ 'editor.toolbar.editor_ocr' | translate }}" [class.app-inactive]="editor.leftEditorType != 'ocr'" (click)="editor.switchLeftEditor('ocr')" mat-icon-button>
-        <mat-icon>title</mat-icon>
-      </button>
       <button matTooltip="{{ 'editor.toolbar.editor_metadata' | translate }}" [class.app-inactive]="editor.leftEditorType != 'metadata'" (click)="editor.switchLeftEditor('metadata')" mat-icon-button>
         <mat-icon>edit</mat-icon>
       </button>
       <button matTooltip="{{ 'editor.toolbar.editor_geo' | translate }}" [class.app-inactive]="editor.leftEditorType != 'geo'" (click)="editor.switchLeftEditor('geo')" mat-icon-button>
         <mat-icon>map</mat-icon>
+      </button>
+      <button *ngIf="editor.left.isPage()" matTooltip="{{ 'editor.toolbar.editor_ocr' | translate }}" [class.app-inactive]="editor.leftEditorType != 'ocr'" (click)="editor.switchLeftEditor('ocr')" mat-icon-button>
+        <mat-icon>title</mat-icon>
+      </button>
+      <button matTooltip="{{ 'editor.toolbar.editor_atm' | translate }}" [class.app-inactive]="editor.leftEditorType != 'atm'" (click)="editor.switchLeftEditor('atm')" mat-icon-button>
+        <mat-icon>scanner</mat-icon>
+      </button>
+      <button matTooltip="{{ 'editor.toolbar.editor_comment' | translate }}" [class.app-inactive]="editor.leftEditorType != 'comment'" (click)="editor.switchLeftEditor('comment')" mat-icon-button>
+        <mat-icon>format_quote</mat-icon>
       </button>
     </div>
     <div class="app-divider"></div>
@@ -114,8 +114,17 @@
           <div class="app-label-model">{{ 'model.' + editor.right.model | translate }}</div>
         </div>
         <div class="app-context" *ngIf="!editor.showRelocationEditor()">
+              <button *ngIf="!editor.right.isTopLevel()" matTooltip="{{ 'editor.toolbar.editor_metadata' | translate }}" [class.app-inactive]="editor.rightEditorType != 'metadata'" (click)="editor.switchRightEditor('metadata')" mat-icon-button>
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button *ngIf="editor.right.isPage() && !editor.doubleRight" matTooltip="{{ 'editor.toolbar.editor_image' | translate }}" [class.app-inactive]="editor.rightEditorType != 'image'" (click)="editor.switchRightEditor('image')" mat-icon-button>
+                <mat-icon>image</mat-icon>
+              </button>
               <button matTooltip="{{ 'editor.toolbar.editor_mods' | translate }}" [class.app-inactive]="editor.rightEditorType != 'mods'" (click)="editor.switchRightEditor('mods')" mat-icon-button>
                 <mat-icon>code</mat-icon>
+              </button>
+              <button *ngIf="editor.right.isPage()" matTooltip="{{ 'editor.toolbar.editor_ocr' | translate }}" [class.app-inactive]="editor.rightEditorType != 'ocr'" (click)="editor.switchRightEditor('ocr')" mat-icon-button>
+                <mat-icon>title</mat-icon>
               </button>
               <button matTooltip="{{ 'editor.toolbar.editor_atm' | translate }}" [class.app-inactive]="editor.rightEditorType != 'atm'" (click)="editor.switchRightEditor('atm')" mat-icon-button>
                 <mat-icon>scanner</mat-icon>
@@ -123,15 +132,7 @@
               <button matTooltip="{{ 'editor.toolbar.editor_comment' | translate }}" [class.app-inactive]="editor.rightEditorType != 'comment'" (click)="editor.switchRightEditor('comment')" mat-icon-button>
                 <mat-icon>format_quote</mat-icon>
               </button>
-              <button *ngIf="editor.right.isPage()" matTooltip="{{ 'editor.toolbar.editor_ocr' | translate }}" [class.app-inactive]="editor.rightEditorType != 'ocr'" (click)="editor.switchRightEditor('ocr')" mat-icon-button>
-                <mat-icon>title</mat-icon>
-              </button>
-              <button *ngIf="!editor.right.isTopLevel()" matTooltip="{{ 'editor.toolbar.editor_metadata' | translate }}" [class.app-inactive]="editor.rightEditorType != 'metadata'" (click)="editor.switchRightEditor('metadata')" mat-icon-button>
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button *ngIf="editor.right.isPage() && !editor.doubleRight" matTooltip="{{ 'editor.toolbar.editor_image' | translate }}" [class.app-inactive]="editor.rightEditorType != 'image'" (click)="editor.switchRightEditor('image')" mat-icon-button>
-                <mat-icon>image</mat-icon>
-              </button>
+
               <button *ngIf="editor.right.isPage() && !editor.doubleRight" (click)="editor.enterDoubleRight()" mat-icon-button matTooltip="{{ 'editor.toolbar.editor_enter_double_right' | translate }}">
                 <mat-icon>keyboard_arrow_right</mat-icon>
               </button>
