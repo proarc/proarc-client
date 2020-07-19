@@ -94,6 +94,7 @@
   "search": {
     "title": "Hledání",
     "name": "Název",
+    "pid": "PID",
     "model": "Model",
     "owner": "Vlastník",
     "processor": "Zpracovatel",

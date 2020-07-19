@@ -36,7 +36,13 @@
       flex: 1;
     }
     .result-model {
-      width: 145px;
+      width: 140px;
+    }
+    .result-pid {
+      width: 275px;
+      // .result-value {
+        font-size: 12px;
+      // }
     }
     .result-owner {
       width: 125px;
@@ -48,13 +54,13 @@
       width: 200px;
     }
     .result-status {
-      width: 145px;
+      width: 140px;
     }
     .result-created {
-      width: 145px;
+      width: 140px;
     }
     .result-modified {
-      width: 145px;
+      width: 140px;
     }
     .result-export {
       width: 60px;

@@ -48,17 +48,23 @@
         {{ 'search.name' | translate }}
         <mat-icon *ngIf="getSortIcon('alphabetical')" class="sort-arrow">{{ getSortIcon('alphabetical') }}</mat-icon>
       </div>
-      <div class="result-model" *ngIf="properties.isSearchColEnabled('model')">{{ 'search.model' | translate }}</div>
-      <div class="result-owner" *ngIf="properties.isSearchColEnabled('owner')">{{ 'search.owner' | translate }}</div>
-
-
-
-      <div class="result-processor" *ngIf="properties.isSearchColEnabled('processor')">{{ 'search.processor' | translate }}</div>
-      <div class="result-organization" *ngIf="properties.isSearchColEnabled('organization')">{{ 'search.organization' | translate }}</div>
+      <div class="result-model app-header-sortable" *ngIf="properties.isSearchColEnabled('model')" (click)="sortBy('model')">
+        {{ 'search.model' | translate }}
+        <mat-icon *ngIf="getSortIcon('model')" class="sort-arrow">{{ getSortIcon('model') }}</mat-icon>
+      </div>
+      <div class="result-pid app-header-sortable" *ngIf="properties.isSearchColEnabled('pid')" (click)="sortBy('pid')">
+        {{ 'search.pid' | translate }}
+        <mat-icon *ngIf="getSortIcon('pid')" class="sort-arrow">{{ getSortIcon('pid') }}</mat-icon>
+      </div>
+      <div class="result-processor app-header-sortable" *ngIf="properties.isSearchColEnabled('processor')" (click)="sortBy('processor')">
+        {{ 'search.processor' | translate }}
+        <mat-icon *ngIf="getSortIcon('processor')" class="sort-arrow">{{ getSortIcon('processor') }}</mat-icon>
+      </div>
+      <div class="result-organization app-header-sortable" *ngIf="properties.isSearchColEnabled('organization')" (click)="sortBy('organization')">
+        {{ 'search.organization' | translate }}
+        <mat-icon *ngIf="getSortIcon('organization')" class="sort-arrow">{{ getSortIcon('organization') }}</mat-icon>
+      </div>
       <div class="result-status" *ngIf="properties.isSearchColEnabled('status')">{{ 'search.status' | translate }}</div>
-
-
-
       <div class="result-created app-header-sortable" *ngIf="properties.isSearchColEnabled('created')" (click)="sortBy('lastCreated')">
         {{ 'search.created' | translate }}
         <mat-icon *ngIf="getSortIcon('lastCreated')" class="sort-arrow">{{ getSortIcon('lastCreated') }}</mat-icon>
@@ -67,6 +73,10 @@
         {{ 'search.modified' | translate }}
         <mat-icon *ngIf="getSortIcon('lastModified')" class="sort-arrow">{{ getSortIcon('lastModified') }}</mat-icon>
       </div>
+      <div class="result-owner app-header-sortable" *ngIf="properties.isSearchColEnabled('owner')" (click)="sortBy('owner')">
+        {{ 'search.owner' | translate }}
+        <mat-icon *ngIf="getSortIcon('owner')" class="sort-arrow">{{ getSortIcon('owner') }}</mat-icon>
+      </div>
       <div class="result-export" *ngIf="properties.isSearchColEnabled('export')">{{ 'search.export' | translate }}</div>
       <div class="result-actions"></div>
     </div>
@@ -74,7 +84,7 @@
       <a *ngFor="let item of items" [routerLink]="['/document', item.pid]" class="app-row">
         <div class="result-label" *ngIf="properties.isSearchColEnabled('name')">{{ item.label }}</div>
         <div class="result-model" *ngIf="properties.isSearchColEnabled('model')">{{ "model." + item.model | translate }}</div>
-        <div class="result-owner" *ngIf="properties.isSearchColEnabled('owner')">{{ item.owner }}</div>
+        <div class="result-pid" *ngIf="properties.isSearchColEnabled('pid')">{{ item.pid }}</div>
 
         <div class="result-processor" *ngIf="properties.isSearchColEnabled('processor')">{{ item.processor }}</div>
         <div class="result-organization" *ngIf="properties.isSearchColEnabled('organization')">{{ 'organization.' + item.organization | translate }}</div>
@@ -82,6 +92,7 @@
 
         <div class="result-created" *ngIf="properties.isSearchColEnabled('created')">{{ item.created | appDatetime }}</div>
         <div class="result-modified" *ngIf="properties.isSearchColEnabled('modified')">{{ item.modified | appDatetime }}</div>
+        <div class="result-owner" *ngIf="properties.isSearchColEnabled('owner')">{{ item.owner }}</div>
         <div class="result-export" *ngIf="properties.isSearchColEnabled('export')">{{ item.export == 1 ? "Ano" : "Ne" }}</div>
 
         <div class="result-actions">

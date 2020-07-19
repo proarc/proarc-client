@@ -92,6 +92,7 @@
   "search": {
     "title": "Search",
     "name": "Name",
+    "pid": "PID",
     "model": "Model",
     "owner": "Owner",
     "created": "Created",

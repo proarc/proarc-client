@@ -10,6 +10,10 @@ export class DocumentItem {
   public modified: Date;
   public created: Date;
   public export: number;
+  public archiveExport: number;
+  public crossrefExport: number;
+  public krameriusExport: number;
+  public ndkExport: number;
 
   public status: string;
   public processor: string;
@@ -46,6 +50,10 @@ export class DocumentItem {
       item.shortLabel = item.label;
     }
     item.export = json['export'];
+    item.archiveExport = json['archiveExport'];
+    item.crossrefExport = json['crossrefExport'];
+    item.krameriusExport = json['krameriusExport'];
+    item.ndkExport = json['ndkExport'];
     return item;
   }
 
