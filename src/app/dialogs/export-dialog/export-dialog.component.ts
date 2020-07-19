@@ -2,8 +2,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { ApiService } from 'src/app/services/api.service';
-import { ProArc } from 'src/app/utils/proarc';
 import { LogDialogComponent } from '../log-dialog/log-dialog.component';
+import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
   selector: 'app-export-dialog',
@@ -13,7 +13,8 @@ import { LogDialogComponent } from '../log-dialog/log-dialog.component';
 export class ExportDialogComponent implements OnInit {
 
   state = 'none';
-  types = ProArc.exports;
+  types =  this.config.exports;
+
   selectedType: string;
   policyPublic: boolean;
   target: string;
@@ -22,6 +23,7 @@ export class ExportDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ExportDialogComponent>,
     private api: ApiService,
+    private config: ConfigService,
     private dialog: MatDialog, 
     @Inject(MAT_DIALOG_DATA) public data: string) { }
 
@@ -37,9 +39,7 @@ export class ExportDialogComponent implements OnInit {
     this.errors = [];
     this.target = null;
     this.api.export(this.selectedType, pid, policy).subscribe((data: any) => {
-      console.log('data', data);
       for (const d of data) {
-        console.log('data d', d);
         if (d.errors) {
           this.errors.push(d.errors[0]);
         } else if (d.target) {
@@ -53,10 +53,6 @@ export class ExportDialogComponent implements OnInit {
       }
     },
     (error) => {
-      console.log('error', error);
-      console.log('error name', error.name);
-      console.log('error error', error.error);
-
       this.state = 'error';
       this.errors.push({
         message: error.message,

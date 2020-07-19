@@ -32,19 +32,7 @@ export class ProArc {
     public static EXPORT_CEJSH = 'cejsh';
     public static EXPORT_CROSSREF = 'crossref';
 
-    public static exports = [
-      ProArc.EXPORT_DATASTREAM_FULL, 
-      ProArc.EXPORT_DATASTREAM_RAW, 
-      ProArc.EXPORT_KRAMERIUS,
-      ProArc.EXPORT_ARCHIVE,
-      ProArc.EXPORT_NDK_PSP,
-      ProArc.EXPORT_CEJSH,
-      ProArc.EXPORT_CROSSREF
-    ];
-
-
     public static chronicleIdentifierTypes = [ 'signature1', 'signature2', 'inventaryNumber', 'OtherNumber' ];
-
 
     public static isChronicle(model: string): boolean {
       return model === 'model:chroniclevolume' || model === 'model:chronicletitle';

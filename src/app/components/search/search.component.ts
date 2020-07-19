@@ -79,9 +79,6 @@ export class SearchComponent implements OnInit {
   }
 
   onExport(item: DocumentItem) {
-    // this.api.getRegistrars().subscribe((registrars: Registrar[]) => {
-    //   console.log('registrars', registrars);
-    // });
     const dialogRef = this.dialog.open(ExportDialogComponent, { data: item.pid });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
