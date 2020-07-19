@@ -51,9 +51,8 @@
 
 
             <mat-form-field class="form-left">
-                <mat-select required placeholder="Manufacturer" name="scannerManufacturer" [(value)]="device.scannerManufacturer">
-                    <mat-option *ngFor="let scannerManufacturer of scannerManufacturers" [value]="scannerManufacturer">{{ scannerManufacturer }}</mat-option>
-                </mat-select>
+                <input type="text" matInput autocomplete="off" placeholder="Manufacturer" [disabled]="state=='saving'"
+                    [(ngModel)]='device.scannerManufacturer' name="scannerManufacturer" required>
             </mat-form-field>
 
 

@@ -17,7 +17,6 @@ export class EditDeviceComponent implements OnInit {
   deviceName: string;
 
   captureDevices = ['transmission scanner', 'reflection print scanner', 'digital still camera', 'still from video'];
-  scannerManufacturers = ['Zeutschel', 'Treventus', '4DigitalBooks'];
   resolutionUnits = ['cm', 'in.', 'no absolute unit'];
   sensors = ['MonochromeLinear', 'ColorTriLinear', 'ColorSequentialLinear', 'MonochromeArea', 'OneChipColorArea',
             'TwoChipColorArea', 'ThreeChipColorArea', 'ColorSequentialArea'];
