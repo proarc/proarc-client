@@ -65,6 +65,8 @@ export class ConfigService {
     public showPageIdentifiers = APP_GLOBAL.showPageIdentifiers == undefined ? true : !!APP_GLOBAL.showPageIdentifiers;
     public showPageIndex = APP_GLOBAL.showPageIndex == undefined ? true : !!APP_GLOBAL.showPageIndex;
 
+    public showCommentEditor = APP_GLOBAL.showCommentEditor == undefined ? true : !!APP_GLOBAL.showCommentEditor;
+
     public topPageTypes = APP_GLOBAL.topPageTypes || [];
     public pageTypes = APP_GLOBAL.pageTypes || ConfigService.defaultPageTypes;
 

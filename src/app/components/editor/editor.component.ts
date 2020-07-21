@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { EditorService } from 'src/app/services/editor.service';
+import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
   selector: 'app-editor',
@@ -11,7 +12,11 @@ import { EditorService } from 'src/app/services/editor.service';
 export class EditorComponent implements OnInit {
 
 
-  constructor(private route: ActivatedRoute, public editor: EditorService) { }
+  constructor(
+    private route: ActivatedRoute,
+    public editor: EditorService,
+    private config: ConfigService
+    ) { }
 
   ngOnInit() {
 

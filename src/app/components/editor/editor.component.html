@@ -35,7 +35,7 @@
       <button matTooltip="{{ 'editor.toolbar.editor_atm' | translate }}" [class.app-inactive]="editor.leftEditorType != 'atm'" (click)="editor.switchLeftEditor('atm')" mat-icon-button>
         <mat-icon>scanner</mat-icon>
       </button>
-      <button matTooltip="{{ 'editor.toolbar.editor_comment' | translate }}" [class.app-inactive]="editor.leftEditorType != 'comment'" (click)="editor.switchLeftEditor('comment')" mat-icon-button>
+      <button *ngIf="config.showCommentEditor" matTooltip="{{ 'editor.toolbar.editor_comment' | translate }}" [class.app-inactive]="editor.leftEditorType != 'comment'" (click)="editor.switchLeftEditor('comment')" mat-icon-button>
         <mat-icon>format_quote</mat-icon>
       </button>
     </div>
@@ -129,7 +129,7 @@
               <button matTooltip="{{ 'editor.toolbar.editor_atm' | translate }}" [class.app-inactive]="editor.rightEditorType != 'atm'" (click)="editor.switchRightEditor('atm')" mat-icon-button>
                 <mat-icon>scanner</mat-icon>
               </button>
-              <button matTooltip="{{ 'editor.toolbar.editor_comment' | translate }}" [class.app-inactive]="editor.rightEditorType != 'comment'" (click)="editor.switchRightEditor('comment')" mat-icon-button>
+              <button *ngIf="config.showCommentEditor" matTooltip="{{ 'editor.toolbar.editor_comment' | translate }}" [class.app-inactive]="editor.rightEditorType != 'comment'" (click)="editor.switchRightEditor('comment')" mat-icon-button>
                 <mat-icon>format_quote</mat-icon>
               </button>
 
