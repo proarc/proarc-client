@@ -571,16 +571,18 @@
       "add_btn": "Přidat jazyk"
     },
     "identifier": {
-      "tab": "Identifikátor",
       "identifier": "Identifikátor",
       "type": "Typ",
       "add_btn": "Přidat identifikátor"
     },
     "note": {
-      "tab": "Poznámka",
       "note": "Poznámka",
       "type": "Typ",
       "add_btn": "Přidat poznámku"
+    },
+    "abstract": {
+      "abstract": "Abstrakt",
+      "add_btn": "Přidat abstrakt"
     }
   },
   "xml-view": {

@@ -90,6 +90,7 @@ import { EditorChronicleLanguageComponent } from './documents/document/editor-ch
 import { OsmService } from './services/osm.service';
 import { SettingsComponent } from './components/settings/settings.component';
 import { NewPasswordDialogComponent } from './dialogs/new-password-dialog/new-password-dialog.component';
+import { EditorAbstractComponent } from './documents/document/editor-abstract/editor-abstract.component';
 
 
 export function hljsLanguages() {
@@ -167,7 +168,8 @@ export function hljsLanguages() {
     EditorChronicleLanguageComponent,
     FundDialogComponent,
     SettingsComponent,
-    NewPasswordDialogComponent
+    NewPasswordDialogComponent,
+    EditorAbstractComponent
   ],
   imports: [
     BrowserModule,
