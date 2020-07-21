@@ -32,7 +32,7 @@
     </div>  
       
     <div class="app-editor-content">
-        <div id="app-viewer" class="app-viewer-wrapper"></div>
+        <div id="app-viewer" class="app-viewer-wrapper" (resized)="onResized($event)"></div>
     </div>
 
     <mat-spinner *ngIf="state === 'loading'"

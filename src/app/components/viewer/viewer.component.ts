@@ -20,6 +20,9 @@ declare global {
 }
 
 
+import { ResizedEvent } from 'angular-resize-event';
+
+
 @Component({
   selector: 'app-viewer',
   templateUrl: './viewer.component.html',
@@ -56,6 +59,10 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.init();
+  }
+
+  onResized(event: ResizedEvent) {
+    this.view.updateSize();
   }
 
   onPidChanged(pid: string) {

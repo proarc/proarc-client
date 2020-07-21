@@ -61,7 +61,7 @@ export class EditorPageComponent implements OnInit {
     this.state = 'loading';
    this.api.getPage(pid).subscribe((page: Page) => {
       this.page = page;
-      console.log('page', page);
+      // console.log('page', page);
       this.state = 'success';
     }, () => {
       this.state = 'failure';

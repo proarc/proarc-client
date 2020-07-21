@@ -22,7 +22,7 @@ export class Page {
   }
 
   public static fromJson(json): Page {
-    console.log('json', json);
+    // console.log('json', json);
       const page = new Page();
       page.pid = json['pid'];
       page.timestamp = json['timestamp'];

@@ -38,8 +38,6 @@ export class EditorService {
 
     private rightDocumentsubject = new Subject<DocumentItem>();
 
-    public layoutMode: string;
-
 
     private toParentFrom: string;
 
@@ -62,7 +60,6 @@ export class EditorService {
         this.relocationMode = false;
         this.state = 'loading';
         const pid = params.pid;
-        this.layoutMode = this.properties.getStringProperty('editor.layoutmode', 'two-panels');
         const rDoc = this.api.getDocument(pid);
         const rChildren = this.api.getRelations(pid);
         forkJoin(rDoc, rChildren).subscribe( ([item, children]: [DocumentItem, DocumentItem[]]) => {
@@ -80,22 +77,6 @@ export class EditorService {
             // TODO
         });
     }
-
-
-    changeLayoutMode() {
-        if (this.isDoubleRight()) {
-            return;
-        }
-        if (this.layoutMode === 'two-panels') {
-            this.layoutMode = 'two-panels-large-left'
-        } else if (this.layoutMode === 'two-panels-large-left') {
-            this.layoutMode = 'two-panels-large-right'
-        }  else {
-            this.layoutMode = 'two-panels'
-        }
-        this.properties.setStringProperty('editor.layoutmode', this.layoutMode);
-    }
-
 
     public onlyPageChildren(): boolean {
         for (const child of this.children) {

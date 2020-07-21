@@ -92,6 +92,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { NewPasswordDialogComponent } from './dialogs/new-password-dialog/new-password-dialog.component';
 import { EditorAbstractComponent } from './documents/document/editor-abstract/editor-abstract.component';
 import { AngularSplitModule } from 'angular-split';
+import { AngularResizedEventModule } from 'angular-resize-event';
 
 
 export function hljsLanguages() {
@@ -180,6 +181,7 @@ export function hljsLanguages() {
     ReactiveFormsModule,
     MaterialModule,
     HttpClientModule,
+    AngularResizedEventModule,
     AngularSplitModule.forRoot(),
     HighlightModule.forRoot({
       languages: hljsLanguages
