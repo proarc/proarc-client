@@ -91,6 +91,7 @@ import { OsmService } from './services/osm.service';
 import { SettingsComponent } from './components/settings/settings.component';
 import { NewPasswordDialogComponent } from './dialogs/new-password-dialog/new-password-dialog.component';
 import { EditorAbstractComponent } from './documents/document/editor-abstract/editor-abstract.component';
+import { AngularSplitModule } from 'angular-split';
 
 
 export function hljsLanguages() {
@@ -179,6 +180,7 @@ export function hljsLanguages() {
     ReactiveFormsModule,
     MaterialModule,
     HttpClientModule,
+    AngularSplitModule.forRoot(),
     HighlightModule.forRoot({
       languages: hljsLanguages
     }),

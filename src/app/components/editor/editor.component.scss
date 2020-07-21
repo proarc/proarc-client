@@ -2,31 +2,10 @@
     height: 100%;
     position: relative;
     .app-panel {
-        width: 50%; 
+        width: 100%; 
         display: block; 
-        float: left;
         height: 100%; 
         overflow: hidden;
-        &.app-panel-left {
-            &.app-panel-two-panels-large-left {
-                width: 66.6666%; 
-            }
-            &.app-panel-two-panels-large-right {
-                width: 33.3333%;
-            } 
-        }      
-        &.app-panel-right {
-            border-left: 1px solid #385585;
-            &.app-panel-two-panels-large-left {
-                width: 33.3333%; 
-            }
-            &.app-panel-two-panels-large-right {
-                width: 66.6666%; 
-            } 
-        }
-        &.app-panel-double-right {
-            width: 33.3333% !important;
-        }
         .app-toolbar {
             height: 46px;
             padding-left: 8px;

@@ -3,7 +3,11 @@
     <div class="app-editor-saving" *ngIf="editor.state === 'loading' || editor.state === 'saving'"></div>
 
 
-<div class="app-panel app-panel-left app-panel-{{editor.layoutMode}}" [class.app-panel-double-right]="editor.isDoubleRight()">
+    <as-split unit="percent" gutterSize="4" direction="horizontal" (dragEnd)="dragEnd($event)" (gutterDblClick)="dblClick($event)" #split="asSplit">
+
+      <as-split-area #area1="asSplitArea" minSize="20" [size]="getSplitSize(0)">
+
+<div class="app-panel">
   <div class="app-toolbar">
     <div class="app-label">
       <div class="app-label-title">{{ editor.left.label }}</div>
@@ -54,19 +58,6 @@
         </button>
     </div>
 
-    <div class="app-divider"></div>
-    <button [class.app-inactive]="editor.isDoubleRight()" matTooltip="{{ 'editor.toolbar.layout_mode' | translate }}" (click)="editor.changeLayoutMode()" mat-icon-button>
-      <mat-icon>swap_horiz</mat-icon>
-    </button>
-    
-
-
-
-
-
-
-
-
 
   </div>
   <div class="app-content" *ngIf="editor.mode == 'children'">
@@ -96,15 +87,13 @@
 
 
 
+</as-split-area>
 
 
+<as-split-area #area2="asSplitArea" minSize="20" [size]="getSplitSize(1)">
 
 
-
-
-
-
-<div class="app-panel app-panel-right app-panel-{{editor.layoutMode}}" [class.app-panel-double-right]="editor.isDoubleRight()">
+  <div class="app-panel">
 
 
 
@@ -182,15 +171,15 @@
 </div>
 
 
+</as-split-area>
 
 
 
 
+<as-split-area *ngIf="editor.doubleRight"  #area3="asSplitArea" minSize="20" [size]="getSplitSize(2)">
 
 
-
-
-<div *ngIf="editor.doubleRight" class="app-panel app-panel-right app-panel-{{editor.layoutMode}}" [class.app-panel-double-right]="editor.isDoubleRight()">
+<div class="app-panel">
   <div class="app-toolbar" *ngIf="editor.right">
       <div class="app-label">
         <div class="app-label-title">{{ editor.right.label }}</div>
@@ -208,6 +197,7 @@
 </div>
 
 
+</as-split-area>
 
 
 
@@ -216,7 +206,7 @@
 
 
 
-
+</as-split>
 
 
 
