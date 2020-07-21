@@ -480,12 +480,13 @@ export class EditorService {
       }
 
       setMultipleChildrenMode(enabled: boolean) {
-        const firtsSelectionIndex = this.deselectChildren();
         if (enabled) {
             this.multipleChildrenMode = true;
             this.right.selected = true;
             this.selectRight(null);
         } else {
+            const firtsSelectionIndex = this.firstSelectedIndex();
+            this.deselectChildren();
             this.multipleChildrenMode = false;
             if (this.children.length > firtsSelectionIndex) {
                 this.selectRight(this.children[firtsSelectionIndex]);
@@ -494,22 +495,33 @@ export class EditorService {
       }
 
       // Returns the first selected index
-      deselectChildren(): number {
-        let firtsSelectionIndex = 0;
+      private firstSelectedIndex(): number {
         let index = -1;
         for (const child of this.children) {
             index += 1;
-            if (child.selected && firtsSelectionIndex === 0) {
-                firtsSelectionIndex = index;
+            if (child.selected) {
+                return index;;
             }
-            child.selected = false;
         }
-        return firtsSelectionIndex;
+        return 0;
       }
 
+
       selectChildren() {
+        if (!this.multipleChildrenMode) {
+            this.setMultipleChildrenMode(true);
+        }
         for (const child of this.children) {
             child.selected = true;
+        }
+      }
+
+      deselectChildren() {
+        if (!this.multipleChildrenMode) {
+            this.setMultipleChildrenMode(true);
+        }
+        for (const child of this.children) {
+            child.selected = false;
         }
       }
 
