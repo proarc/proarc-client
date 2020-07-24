@@ -53,7 +53,7 @@
  </div>
  
 
- <div class="app-editor-content" #childrenWrapper tabindex="0" (keyup)="keyup($event)">
+ <div class="app-editor-content app-children-editor-content" #childrenWrapper tabindex="0" (keyup)="keyup($event)" (resized)="onResized($event)">
   <div class="app-view-list app-table" *ngIf="viewMode == 'list'" #childrenList 
   (mousedown)="mousedown($event)">
     <div *ngFor="let item of items; let i = index" (click)="select(item, $event)" (dblclick)="open(item)" class="app-row" [class.app-selected]="isSelected(item, i, 'list')"
@@ -74,14 +74,15 @@
           </button>
       </div>
       <mat-icon *ngIf="!editor.isMultipleChildrenMode()" matTooltip="{{ 'editor.children.reorder' | translate }}" class="app-drag-handle app-icon-top">reorder</mat-icon>
-
   </div>
   </div>
 
 
   <div class="app-view-grid" *ngIf="viewMode == 'grid'" #childrenGridList>
     <div *ngFor="let item of items; let i = index" (click)="select(item, $event)" (dblclick)="open(item)" class="app-grid-item-wrapper" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
-    (mousedown)="mousedown($event)" [class.app-selected]="isSelected(item, i, 'grid')">
+    (mousedown)="mousedown($event)" [class.app-selected]="isSelected(item, i, 'grid')"
+    [style.width]="iconWidth + '%'"
+    >
         <div class="app-grid-item">
           <div class="app-grid-item-label">{{ shortLabels ? item.shortLabel : item.label }}</div>
         </div>
@@ -92,6 +93,7 @@
     <div *ngFor="let item of items; let i = index" (click)="select(item, $event)" (dblclick)="open(item)" class="app-item"
     draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
     (mousedown)="mousedown($event)" [class.app-selected]="isSelected(item, i, 'icons')"
+    [style.width]="iconWidth + '%'" [style.height]="iconHeight + 'px'"
     >
       <div class="app-item-content">
         <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"></div>

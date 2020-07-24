@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { Translator } from 'angular-translator';
+import { ResizedEvent } from 'angular-resize-event';
 
 
 
@@ -42,6 +43,10 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   movedToIndex: boolean;
   arrowIndex: number;
 
+  iconColumns: number;
+  iconWidth: number;
+  iconHeight: number;
+
   constructor(public editor: EditorService,
               private dialog: MatDialog,
               private translator: Translator,
@@ -54,6 +59,16 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     this.childrenWrapperEl.nativeElement.focus();
   }
 
+  onResized(event: ResizedEvent) {
+    const d = event.newWidth / 101;
+    this.iconColumns = Math.floor(d);
+    // const c = 1 + d - this.iconColumns; 
+
+    this.iconHeight = ((event.newWidth - 4.0) / this.iconColumns) * 1.47;
+    this.iconWidth = 100.0 / this.iconColumns;
+    // this.iconColumnHeight = 
+  }
+
   keyup(event) {
     if (!event) {
       return;
@@ -61,19 +76,28 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     if (event.keyCode === 37 || event.keyCode === 38) {
       event.stopPropagation();
       event.preventDefault();
-      if (this.arrowIndex > 0) {
-        this.select(this.items[this.arrowIndex - 1], event);
+      let step = 1;
+      if (event.keyCode === 38 && (this.viewMode === 'icons' || this.viewMode === 'grid')) {
+        step = this.iconColumns;
+      }
+      if (this.arrowIndex - step >= 0) {
+        this.select(this.items[this.arrowIndex - step], event);
       }
     } else if (event.keyCode === 39 || event.keyCode === 40) {
       event.stopPropagation();
       event.preventDefault();
-      if (this.arrowIndex + 1 < this.items.length) {
-        this.select(this.items[this.arrowIndex + 1], event);
+      let step = 1;
+      if (event.keyCode === 40 && (this.viewMode === 'icons' || this.viewMode === 'grid')) {
+        step = this.iconColumns;
+      }
+      if (this.arrowIndex + step < this.items.length) {
+        this.select(this.items[this.arrowIndex + step], event);
       }
     }
   }
 
   ngOnInit() {
+    this.iconColumns = 1;
     this.movedToIndex = false;
     this.lastIndex = -1;
     this.arrowIndex = 0;
@@ -88,7 +112,6 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     this.shortLabels = this.properties.getBoolProperty('children.short_labels', false);
   }
   
-
   thumb(pid: string) {
     return this.api.getThumbUrl(pid);
   }
