@@ -336,12 +336,13 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   }
 
   mousedown($event) {
-    if (this.viewMode !== 'list' || $event.target.classList.contains('app-drag-handle') > 0) {
-      this.dragEnabled = true;
-    } else {
-      $event.preventDefault();
-      this.dragEnabled = false;
-    }
+    // if (this.viewMode !== 'list' || $event.target.classList.contains('app-drag-handle') > 0) {
+    //   this.dragEnabled = true;
+    // } else {
+    //   $event.preventDefault();
+    //   this.dragEnabled = false;
+    // }
+    this.dragEnabled = true;
   }
 
 
