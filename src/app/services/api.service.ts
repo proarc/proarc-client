@@ -307,11 +307,16 @@ export class ApiService {
 
 
   editRelations(parentPid: string, pidArray: string[]): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
     const payload = {
       'parent': parentPid,
       'pid': pidArray
     };
-    return this.put('object/member', payload);
+    return this.put('object/member', payload, httpOptions);
   }
 
   createDevice(model: string): Observable<Device> {
