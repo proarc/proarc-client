@@ -2,7 +2,7 @@
 
   <div class="app-card" *ngFor="let item of field.items; index as index; last as last; first as first;">
     <div class="app-card-header">
-      <span class="app-card-title">{{ 'editor.abstract.abstract' | translate }}</span>
+      <span class="app-card-title">{{ title | translate }}</span>
 
       <button matTooltip="{{ 'common.remove' | translate }}" color="primary" (click)="field.remove(index)" mat-icon-button>
         <mat-icon>delete</mat-icon>
@@ -32,7 +32,7 @@
       <mat-form-field class="app-full-width">
         <textarea 
         cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="15"
-        autocomplete="off" matInput [(ngModel)]='item.modsElement["_"]' placeholder="{{ 'editor.abstract.abstract' | translate }}"></textarea>
+        autocomplete="off" matInput [(ngModel)]='item.modsElement["_"]' placeholder="{{ title | translate }}"></textarea>
       </mat-form-field>
     </div>
 
