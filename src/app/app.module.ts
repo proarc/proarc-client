@@ -86,7 +86,6 @@ import { EditorChronicleIdentifierComponent } from './documents/document/editor-
 import { EditorChronicleLocationComponent } from './documents/document/editor-chronicle-location/editor-chronicle-location.component';
 import { FundService } from './services/fund.service';
 import { FundDialogComponent } from './dialogs/fund-dialog/fund-dialog.component';
-import { EditorChronicleLanguageComponent } from './documents/document/editor-chronicle-language/editor-chronicle-language.component';
 import { OsmService } from './services/osm.service';
 import { SettingsComponent } from './components/settings/settings.component';
 import { NewPasswordDialogComponent } from './dialogs/new-password-dialog/new-password-dialog.component';
@@ -167,7 +166,6 @@ export function hljsLanguages() {
     EditorChronicleGenreComponent,
     EditorChronicleIdentifierComponent,
     EditorChronicleLocationComponent,
-    EditorChronicleLanguageComponent,
     FundDialogComponent,
     SettingsComponent,
     NewPasswordDialogComponent,
