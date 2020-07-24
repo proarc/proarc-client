@@ -1,6 +1,6 @@
 import { UIService } from 'src/app/services/ui.service';
 import { ApiService } from 'src/app/services/api.service';
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { EditorService } from 'src/app/services/editor.service';
@@ -17,13 +17,14 @@ import { Translator } from 'angular-translator';
   templateUrl: './editor-children.component.html',
   styleUrls: ['./editor-children.component.scss']
 })
-export class EditorChildrenComponent implements OnInit {
+export class EditorChildrenComponent implements OnInit, AfterViewInit {
 
   @Input() items: DocumentItem[];
 
   @ViewChild('childrenList') childrenListEl: ElementRef;
   @ViewChild('childrenIconList') childrenIconListEl: ElementRef;
   @ViewChild('childrenGridList') childrenGridListEl: ElementRef;
+  @ViewChild('childrenWrapper') childrenWrapperEl: ElementRef;
 
   viewMode = 'none'; // 'list' | 'grid' | 'icons'
   shortLabels = false;
@@ -39,6 +40,7 @@ export class EditorChildrenComponent implements OnInit {
   lastState: boolean;
 
   movedToIndex: boolean;
+  arrowIndex: number;
 
   constructor(public editor: EditorService,
               private dialog: MatDialog,
@@ -48,9 +50,33 @@ export class EditorChildrenComponent implements OnInit {
               private properties: LocalStorageService) {
   }
 
+  ngAfterViewInit() {
+    this.childrenWrapperEl.nativeElement.focus();
+  }
+
+  keyup(event) {
+    if (!event) {
+      return;
+    }
+    if (event.keyCode === 37 || event.keyCode === 38) {
+      event.stopPropagation();
+      event.preventDefault();
+      if (this.arrowIndex > 0) {
+        this.select(this.items[this.arrowIndex - 1], event);
+      }
+    } else if (event.keyCode === 39 || event.keyCode === 40) {
+      event.stopPropagation();
+      event.preventDefault();
+      if (this.arrowIndex + 1 < this.items.length) {
+        this.select(this.items[this.arrowIndex + 1], event);
+      }
+    }
+  }
+
   ngOnInit() {
     this.movedToIndex = false;
     this.lastIndex = -1;
+    this.arrowIndex = 0;
     this.lastState = false;
     this.anyChange = false;
     this.pageChildren = this.editor.onlyPageChildren();
@@ -61,6 +87,7 @@ export class EditorChildrenComponent implements OnInit {
     }
     this.shortLabels = this.properties.getBoolProperty('children.short_labels', false);
   }
+  
 
   thumb(pid: string) {
     return this.api.getThumbUrl(pid);
@@ -94,6 +121,7 @@ export class EditorChildrenComponent implements OnInit {
     } else {
       this.properties.setStringProperty('children.view_mode', this.viewMode);
     }
+    this.childrenWrapperEl.nativeElement.focus();
   }
 
   open(item: DocumentItem) {
@@ -119,6 +147,7 @@ export class EditorChildrenComponent implements OnInit {
         if (container) {
           this.movedToIndex = true;
           if (index > 0) {
+            this.arrowIndex = index;
             const el = container.nativeElement.children[index];
             el.scrollIntoView(true);
           }
@@ -132,6 +161,7 @@ export class EditorChildrenComponent implements OnInit {
 
   select(item: DocumentItem, event = null) {
     const itemIndex = this.items.indexOf(item);
+    this.childrenWrapperEl.nativeElement.focus();
     if (event && event.shiftKey && this.lastIndex > -1) {
       if (!this.editor.isMultipleChildrenMode()) {
         this.editor.setMultipleChildrenMode(true);
@@ -156,30 +186,10 @@ export class EditorChildrenComponent implements OnInit {
         this.lastState = true;
       }
     }
+    this.arrowIndex = itemIndex;
     this.lastIndex = itemIndex;
   }
 
-
-  // select(item: DocumentItem, event = null) {
-  //   console.log('event', event);
-  //   if (this.editor.isMultipleChildrenMode()) {
-  //     const itemIndex = this.items.indexOf(item);
-  //     if (event && event.shiftKey && this.lastIndex > -1) {
-  //       let index = Math.min(this.lastIndex, itemIndex);
-  //       const i2 = Math.max(this.lastIndex, itemIndex);
-  //       while (index <= i2) {
-  //         this.editor.children[index].selected = this.lastState;
-  //         index += 1;
-  //       }
-  //     } else {
-  //       this.lastState = !item.selected;
-  //       this.lastIndex = itemIndex;
-  //       item.selected = this.lastState;
-  //     }
-  //   } else {
-  //     this.editor.selectRight(item);
-  //   }
-  // }
 
   dragenter($event) {
     if (this.source.parentNode !== $event.currentTarget.parentNode) {
