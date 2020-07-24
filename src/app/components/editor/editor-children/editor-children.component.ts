@@ -23,6 +23,7 @@ export class EditorChildrenComponent implements OnInit {
 
   @ViewChild('childrenList') childrenListEl: ElementRef;
   @ViewChild('childrenIconList') childrenIconListEl: ElementRef;
+  @ViewChild('childrenGridList') childrenGridListEl: ElementRef;
 
   viewMode = 'none'; // 'list' | 'grid' | 'icons'
   shortLabels = false;
@@ -107,7 +108,14 @@ export class EditorChildrenComponent implements OnInit {
     } else {
       const selected = this.editor.right === item;
       if (!this.movedToIndex && selected) {
-        const container = type == 'list' ? this.childrenListEl : this.childrenIconListEl ;
+        let container;
+        if (type == 'grid') {
+          container = this.childrenGridListEl;
+        } else if (type == 'icons') {
+          container = this.childrenIconListEl;
+        } else {
+          container = this.childrenListEl;
+        }
         if (container) {
           this.movedToIndex = true;
           if (index > 0) {

@@ -80,10 +80,10 @@
   </div>
 
 
-  <div class="app-view-grid" *ngIf="viewMode == 'grid'">
-    <div *ngFor="let item of items" (click)="select(item, $event)" (dblclick)="open(item)" class="app-grid-item-wrapper" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
-    (mousedown)="mousedown($event)">
-        <div class="app-grid-item" [class.app-selected]="editor.right === item"  >
+  <div class="app-view-grid" *ngIf="viewMode == 'grid'" #childrenGridList>
+    <div *ngFor="let item of items; let i = index" (click)="select(item, $event)" (dblclick)="open(item)" class="app-grid-item-wrapper" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
+    (mousedown)="mousedown($event)" [class.app-selected]="isSelected(item, i, 'grid')">
+        <div class="app-grid-item">
           <div class="app-grid-item-label">{{ shortLabels ? item.shortLabel : item.label }}</div>
         </div>
     </div>
