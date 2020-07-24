@@ -89,7 +89,7 @@
     </div>
   </div>
 
-  <div class="app-view-icons" *ngIf="viewMode == 'icons'" #childrenIconList>
+  <div class="app-view-icons" *ngIf="viewMode == 'icons'" #childrenIconList [class.app-multiple-selection]="editor.isMultipleChildrenMode()">
     <div *ngFor="let item of items; let i = index" (click)="select(item, $event)" (dblclick)="open(item)" class="app-item"
     draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
     (mousedown)="mousedown($event)" [class.app-selected]="isSelected(item, i, 'icons')"
