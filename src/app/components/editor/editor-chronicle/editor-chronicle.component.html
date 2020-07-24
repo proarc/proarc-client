@@ -12,7 +12,7 @@
 <div class="app-editor-content" *ngIf="editor.metadata">
 
     <app-editor-chronicle-location [field]="editor.metadata.getField('location_chronicle')"></app-editor-chronicle-location>
-    <app-editor-chronicle-identifier [field]="editor.metadata.getField('identifier')"></app-editor-chronicle-identifier>
+    <app-editor-identifier [field]="editor.metadata.getField('identifier')"></app-editor-identifier>
     <app-editor-chronicle-genre [field]="editor.metadata.getField('genre')"></app-editor-chronicle-genre>
     <app-editor-chronicle-title [field]="editor.metadata.getField('titleInfo')"></app-editor-chronicle-title>
     <app-editor-abstract [field]="editor.metadata.getField('abstract')" [title]="'editor.chronicle.abstract.label'"></app-editor-abstract>

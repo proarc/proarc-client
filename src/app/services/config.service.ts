@@ -76,6 +76,7 @@ export class ConfigService {
         'cop', 'mis', 'ine', 'dum', 'hit', 'ira', 'haw'
     ];
 
+    private static defaultIdentifiers: [ 'barcode', 'issn', 'isbn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'];
 
     public proarcBackendUrl = APP_GLOBAL.proarcUrl;
     public allModels = APP_GLOBAL.models;
@@ -87,10 +88,13 @@ export class ConfigService {
     public showCommentEditor = APP_GLOBAL.showCommentEditor == undefined ? true : !!APP_GLOBAL.showCommentEditor;
 
     public topPageTypes = APP_GLOBAL.topPageTypes || [];
-    public pageTypes = APP_GLOBAL.pageTypes || ConfigService.defaultPageTypes;
+    public otherPageTypes = APP_GLOBAL.pageTypes || ConfigService.defaultPageTypes;
 
     public topLanguages = APP_GLOBAL.topLanguages || [];
-    public languages = APP_GLOBAL.languages || ConfigService.defaultLanguages;
+    public otherLanguages = APP_GLOBAL.languages || ConfigService.defaultLanguages;
+
+    public topIdentifiers = APP_GLOBAL.topIdentifiers || [];
+    public otherIdentifiers = APP_GLOBAL.identifiers || ConfigService.defaultIdentifiers;
 
     public organizations = APP_GLOBAL.organizations || [];
     public exports = APP_GLOBAL.exports || [];

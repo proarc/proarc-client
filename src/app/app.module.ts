@@ -81,7 +81,6 @@ import { EditorChronicleNoteComponent } from './documents/document/editor-chroni
 import { EditorChronicleTitleComponent } from './documents/document/editor-chronicle-title/editor-chronicle-title.component';
 import { EditorChroniclePublisherComponent } from './documents/document/editor-chronicle-publisher/editor-chronicle-publisher.component';
 import { EditorChronicleGenreComponent } from './documents/document/editor-chronicle-genre/editor-chronicle-genre.component';
-import { EditorChronicleIdentifierComponent } from './documents/document/editor-chronicle-identifier/editor-chronicle-identifier.component';
 import { EditorChronicleLocationComponent } from './documents/document/editor-chronicle-location/editor-chronicle-location.component';
 import { FundService } from './services/fund.service';
 import { FundDialogComponent } from './dialogs/fund-dialog/fund-dialog.component';
@@ -162,7 +161,6 @@ export function hljsLanguages() {
     EditorChronicleTitleComponent,
     EditorChroniclePublisherComponent,
     EditorChronicleGenreComponent,
-    EditorChronicleIdentifierComponent,
     EditorChronicleLocationComponent,
     FundDialogComponent,
     SettingsComponent,

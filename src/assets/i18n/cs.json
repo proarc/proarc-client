@@ -458,20 +458,6 @@
         "date": "Datum vzniku",
         "date_qualifier": "Odhad data"
       },
-      "identifier": {
-        "types": {
-          "uuid": "UUID",
-          "signature1": "Signatura přidělená původcem",
-          "signature2": "Signatura přidělená při zpracování archiválie",
-          "inventaryNumber": "Inventární číslo",
-          "OtherNumber": "Přírůstkové číslo"
-        },
-        "invalid": "Neplatný",
-        "valid": "Platný",
-        "validity": "Platnost",
-        "type": "typ",
-        "value": "Hodnota"
-      },
       "location": {
         "label": "Umístění",
         "archive": "Název archivu",
@@ -572,7 +558,11 @@
     "identifier": {
       "identifier": "Identifikátor",
       "type": "Typ",
-      "add_btn": "Přidat identifikátor"
+      "value": "Hodnota",
+      "add_btn": "Přidat identifikátor",
+      "invalid": "Neplatný",
+      "valid": "Platný",
+      "validity": "Platnost"
     },
     "note": {
       "note": "Poznámka",
@@ -607,7 +597,11 @@
     "permalink": "Permalink",
     "sici": "SICI",
     "id": "ID",
-    "localId": "LocalID"
+    "localId": "LocalID",
+    "signature1": "Signatura přidělená původcem",
+    "signature2": "Signatura přidělená při zpracování archiválie",
+    "inventaryNumber": "Inventární číslo",
+    "OtherNumber": "Přírůstkové číslo"
   },
   "model": {
     "model:ndkperiodical": "NDK Periodikum",

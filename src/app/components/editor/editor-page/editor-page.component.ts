@@ -16,8 +16,6 @@ export class EditorPageComponent implements OnInit {
   state = 'none';
   page: Page;
 
-  identifierTypes: any[] = [];
-
   @Input()
   set pid(pid: string) {
     this.onPidChanged(pid);
@@ -28,30 +26,6 @@ export class EditorPageComponent implements OnInit {
               public config: ConfigService,
               public codebook: CodebookService,
               public translator: Translator) {
-    
-    if (this.config.showPageIdentifiers) {
-      this.translate();
-      translator.languageChanged.subscribe(() => this.translate());
-    }
-  }
-
-
-  translate() {
-    this.translator.waitForTranslation().then(() => {
-      this.identifierTypes = [];
-      for (const code of this.codebook.identifierTypeCodes) {
-        this.identifierTypes.push({code: code, name: this.translator.instant('identifier.' + code)});
-      }
-      this.identifierTypes.sort((a: any, b: any): number => {
-        if (a.name < b.name) {
-          return -1;
-        }
-        if (a.name > b.name) {
-          return 1;
-        }
-        return 0;
-      });
-    });
   }
 
   ngOnInit() {
