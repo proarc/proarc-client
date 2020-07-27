@@ -230,8 +230,10 @@ export class EditorService {
             if (item.isPage()) {
                 this.rightEditorType = this.properties.getStringProperty('editor.page_right_editor_type', 'image');
             } else if(item.isTopLevel()) {
+                this.doubleRight = false;
                 this.rightEditorType = this.properties.getStringProperty('editor.top_right_editor_type', 'mods');
             } else {
+                this.doubleRight = false;
                 this.rightEditorType = this.properties.getStringProperty('editor.right_editor_type', 'mods');
             }
         }
