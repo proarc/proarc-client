@@ -18,10 +18,10 @@
             
                 <div class="app-card-content">
                   <mat-form-field class="app-full-width">
-                    <input matInput [(ngModel)]='editor.metadata.volume.number["_"]' placeholder="{{ 'editor.volume.number' | translate }}">
+                    <input (keyup.enter)="onSave()" matInput [(ngModel)]='editor.metadata.volume.number["_"]' placeholder="{{ 'editor.volume.number' | translate }}">
                   </mat-form-field>
                   <mat-form-field class="app-full-width">
-                      <input matInput [(ngModel)]='editor.metadata.volume.date["_"]' placeholder="{{ 'editor.volume.year' | translate }}">
+                      <input (keyup.enter)="onSave()" matInput [(ngModel)]='editor.metadata.volume.date["_"]' placeholder="{{ 'editor.volume.year' | translate }}">
                     </mat-form-field>
                 </div>
             

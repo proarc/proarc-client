@@ -576,6 +576,7 @@ export class EditorService {
         if (enabled) {
             this.multipleChildrenMode = true;
             this.right.selected = true;
+            this.doubleRight = false;
             this.selectRight(null);
         } else {
             const firtsSelectionIndex = this.firstSelectedIndex();
@@ -700,7 +701,7 @@ export class EditorService {
               return;
           }
           const pageDef = pages.pop();
-          this.api.getPage(pageDef.pid).subscribe((page: Page) => {
+          this.api.getPage(pageDef.pid, pageDef.ndk).subscribe((page: Page) => {
             if (pageDef.type) {
                 page.type = pageDef.type;
             }
