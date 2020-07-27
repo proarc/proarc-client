@@ -162,15 +162,21 @@ export class ApiService {
             .pipe(map(response => response['response']['data'].map(x => x.pid)));
   }
 
+  getPage(pid: string, ndk: boolean): Observable<Page> {
+    const editorId = ndk ? 'model:ndkpage' : 'proarc.mods.PageForm'; 
+    return this.get('object/mods/custom', { pid: pid, editorId: editorId })
+            .pipe(map(response => Page.fromJson(response['response']['data'][0], ndk)));
+  }
 
-  getPage(pid: string): Observable<Page> {
-    return this.get('object/mods/custom', { pid: pid, editorId: 'proarc.mods.PageForm' })
-            .pipe(map(response => Page.fromJson(response['response']['data'][0])));
+  getNdkPage(pid: string): Observable<Page> {
+    return this.get('object/mods/custom', { pid: pid, editorId: 'model:ndkpage' })
+            .pipe(map(response => Page.fromJson(response['response']['data'][0], true)));
   }
 
   editPage(page: Page): Observable<Page> {
-    const data = `pid=${page.pid}&editorId=proarc.mods.PageForm&jsonData=${JSON.stringify(page.toJson())}&timestamp=${page.timestamp}`;
-    return this.put('object/mods/custom', data).pipe(map(response => Page.fromJson(response['response']['data'][0])));
+    const editorId = page.ndk ? 'model:ndkpage' : 'proarc.mods.PageForm'; 
+    const data = `pid=${page.pid}&editorId=${editorId}&jsonData=${JSON.stringify(page.toJson())}&timestamp=${page.timestamp}`;
+    return this.put('object/mods/custom', data).pipe(map(response => Page.fromJson(response['response']['data'][0], page.ndk)));
   }
 
   getAtm(id: string): Observable<Atm> {

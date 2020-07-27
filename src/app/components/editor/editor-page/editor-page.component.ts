@@ -16,6 +16,10 @@ export class EditorPageComponent implements OnInit {
   state = 'none';
   page: Page;
 
+  positions = ['left', 'right', 'singlePage'];
+
+  @Input() ndk: boolean = false;
+
   @Input()
   set pid(pid: string) {
     this.onPidChanged(pid);
@@ -33,7 +37,8 @@ export class EditorPageComponent implements OnInit {
 
   private onPidChanged(pid: string) {
     this.state = 'loading';
-   this.api.getPage(pid).subscribe((page: Page) => {
+    console.log('')
+    this.api.getPage(pid, this.ndk).subscribe((page: Page) => {
       this.page = page;
       // console.log('page', page);
       this.state = 'success';

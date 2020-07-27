@@ -439,17 +439,29 @@ export class EditorService {
       savePage(page: Page, callback: (Page) => void) {
         this.state = 'saving';
         this.api.editPage(page).subscribe((newPage: Page) => {
-            if (callback) {
-              callback(newPage);
-            }
-            this.state = 'success';
+            this.api.getDocument(page.pid).subscribe((doc: DocumentItem) => {
+                this.selectRight(doc);
+                if (this.mode === 'children') {
+                    this.reloadChildren(() => {
+                        this.state = 'success';
+                        if (callback) {
+                            callback(newPage);
+                        }
+                    });
+                } else {
+                    this.left = doc;
+                    this.state = 'success';
+                    if (callback) {
+                        callback(newPage);
+                    }
+                }
+            });
           });
       }
 
       saveMetadata(callback: () => void) {
         this.state = 'saving';
         this.api.editMetadata(this.metadata).subscribe(() => {
-
         const rDoc = this.api.getDocument(this.metadata.pid);
         const rMods = this.api.getMods(this.metadata.pid);
         forkJoin(rDoc, rMods).subscribe(([doc, mods]: [DocumentItem, Mods]) => {
@@ -457,14 +469,18 @@ export class EditorService {
                 this.selectRight(doc);
                 if (this.mode === 'children') {
                     this.reloadChildren(() => {
+                        this.state = 'success';
                         if (callback) {
                             callback();
                         }
                     });
                 } else if (this.mode === 'detail') {
                     this.left = doc;
+                    this.state = 'success';
+                    if (callback) {
+                        callback();
+                    }
                 }
-                this.state = 'success';
             });
         });
       }
@@ -625,6 +641,7 @@ export class EditorService {
             if (item.isPage() && item.selected) {
                 index += 1;
                 const page = new Page();
+                page.ndk = item.isNdkPage();
                 page.pid = item.pid;
                 if (holder.editType) {
                     page.type = holder.pageType;

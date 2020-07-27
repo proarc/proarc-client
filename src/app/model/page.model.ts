@@ -9,21 +9,28 @@ export class Page {
   public type: string;
   public note: string;
   public identifiers: PageIdentifier[];
+  public position: string;
 
   public originalIndex: string;
   public originalNumber: string;
   public originalType: string;
   public originalNote: string;
+  public originalPosition: string;
   public originalIdentifiers: PageIdentifier[];
+
+
+  public ndk: boolean;
 
   constructor() {
     this.identifiers = [];
     this.originalIdentifiers = [];
   }
 
-  public static fromJson(json): Page {
+
+  public static pageFromJson(json): Page {
     // console.log('json', json);
       const page = new Page();
+      page.ndk = false;
       page.pid = json['pid'];
       page.timestamp = json['timestamp'];
       if (json['jsonData']) {
@@ -45,7 +52,51 @@ export class Page {
       return page;
   }
 
+  public static ndkPageFromJson(json): Page {
+    const page = new Page();
+    page.ndk = true;
+    page.pid = json['pid'];
+    page.timestamp = json['timestamp'];
+    if (json['jsonData']) {
+      const data = json['jsonData'];
+      page.index = data['pageIndex'];
+      page.number = data['pageNumber'];
+      page.type = data['pageType'];
+      if (page.type && page.type.length > 0) {
+        page.type = page.type.substr(0, 1).toLowerCase() + page.type.substr(1);
+      }
+      const mods = data['mods']
+      if (mods) {
+        if (mods['note'] && mods['note'][0] && mods['note'][0]['value']) {
+          page.position = mods['note'][0]['value'];
+        }
+        if (mods['v'] && mods['physicalDescription'][0] && mods['physicalDescription'][0]['note'] && mods['physicalDescription'][0]['note'][0] && mods['physicalDescription'][0]['note'][0]['value']) {
+          page.note = mods['physicalDescription'][0]['note'][0]['value'];
+        }
+        page.identifiers = PageIdentifier.fromJsonArray(mods['identifier']);
+        page.originalIdentifiers = PageIdentifier.fromJsonArray(mods['identifier']);
+      }
+      page.originalPosition = page.position;
+      page.originalIndex = page.index;
+      page.originalNumber = page.number;
+      page.originalType = page.type;
+      page.originalNote = page.note;
+    }
+    return page;
+  }
+
+
+  public static fromJson(json, ndk: boolean): Page {
+    return ndk ? Page.ndkPageFromJson(json) : Page.pageFromJson(json);
+  }
+
+
   public toJson() {
+    return this.ndk ? this.ndkPageToJson() : this.pageToJson();
+  }
+
+
+  private pageToJson() {
     const ids = [];
     for (const i of this.identifiers) {
       ids.push(i.toJson());
@@ -56,6 +107,28 @@ export class Page {
       'pageIndex': this.index,
       'pageType': this.type,
       'note': this.note,
+    };
+  }
+
+  private ndkPageToJson() {
+    const ids = [];
+    for (const i of this.identifiers) {
+      ids.push(i.toJson());
+    }
+    const mods = { 
+      'identifier': ids
+    };
+    if (this.position) {
+      mods['note'] = [ { 'value': this.position } ];
+    }
+    if (this.note) {
+      mods['physicalDescription'] = [ { 'note': [ { 'value': this.note  }] } ];
+    }
+    return {
+      'mods': mods,
+      'pageNumber': this.number,
+      'pageIndex': this.index,
+      'pageType': this.type
     };
   }
 
@@ -94,6 +167,7 @@ export class Page {
     this.number = this.originalNumber;
     this.type = this.originalType;
     this.note = this.originalNote;
+    this.position = this.originalPosition;
     this.identifiers = [];
     for (const id of this.originalIdentifiers) {
       this.identifiers.push(new PageIdentifier(id.type, id.value));
@@ -118,7 +192,7 @@ export class Page {
       }
     }
     return this.index !== this.originalIndex || this.number !== this.originalNumber
-    || this.type !== this.originalType || this.note !== this.originalNote;
+    || this.type !== this.originalType || this.note !== this.originalNote || this.position !== this.originalPosition;
   }
 }
 

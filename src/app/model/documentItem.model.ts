@@ -70,6 +70,10 @@ export class DocumentItem {
     return this.model === 'model:page' || this.model === 'model:ndkpage';
   }
 
+  public isNdkPage(): boolean {
+    return this.model === 'model:ndkpage';
+  }
+
   public isVolume(): boolean {
     return this.model === 'model:ndkperiodicalvolume';
   }

@@ -336,10 +336,16 @@
       "title": "Popis stránky",
       "index": "Index",
       "number": "Číslo stránky",
+      "position": "Pozice stránky",
       "type": "Typ stránky",
       "identifier": "Indentifikátor",
       "note": "Popis obsahu strany",
-      "add_identifier": "Přidat identifikátor"
+      "add_identifier": "Přidat identifikátor",
+      "positions": {
+        "left": "Vlevo",
+        "right": "Vpravo",
+        "singlePage": "Samostatně"
+      }
     },
     "pages": {
       "title": "Hromadná úprava stránek",
@@ -647,6 +653,7 @@
     "ABD103": "Univerzita Karlova v Praze - Fakulta sociálních věd",
     "PAG001": "Krajská knihovna v Pardubicích",
     "JIG001": "Městská knihovna Jihlava",
+    "HBG001": "Krajská knihovna Vysočiny",
     "226102010": "SOkA Jihlava",
     "226103010": "SOkA Pelhřimov",
     "226101010": "SOkA Havlíčkův Brod",
