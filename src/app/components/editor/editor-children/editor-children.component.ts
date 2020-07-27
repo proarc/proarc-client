@@ -252,6 +252,10 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     });
   }
 
+  onCreateNewObject() {
+    this.editor.onCreateNewObject();
+  }
+
   onRelocate() {
     this.editor.switchRelocationMode();
   }

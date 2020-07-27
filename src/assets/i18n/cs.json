@@ -290,6 +290,7 @@
       "select_object": "Načíst objekt vpravo",
       "reorder": "Přeuspořádat objekty",
       "delete": "Smazat vybrané objekty",
+      "add_new": "Vytvořit nový objekt",
       "move": "Změna pozice",
       "relocate": "Přesunout vybrané objekty",
       "select_all": "Vybrat všechny objekty",

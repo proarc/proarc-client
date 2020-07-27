@@ -4,7 +4,7 @@
 
   <mat-form-field class="app-model-selection">
     <mat-select [placeholder]="'new_object.model' | translate" [(ngModel)]="data.model">
-      <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
+      <mat-option *ngFor="let model of data.models" [value]="model">{{ "model." + model | translate }}</mat-option>
     </mat-select>
   </mat-form-field>
 

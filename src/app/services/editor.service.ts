@@ -11,6 +11,8 @@ import { Note } from '../model/note.model';
 import { Atm } from '../model/atm.model';
 import { Page } from '../model/page.model';
 import { PageUpdateHolder } from '../components/editor/editor-pages/editor-pages.component';
+import { NewObjectData, NewObjectDialogComponent } from '../dialogs/new-object-dialog/new-object-dialog.component';
+import { MatDialog } from '@angular/material';
 
 @Injectable()
 export class EditorService {
@@ -44,6 +46,7 @@ export class EditorService {
     constructor(
         private router: Router,
         private api: ApiService,
+        private dialog: MatDialog,
         private properties: LocalStorageService) {
     }
 
@@ -288,6 +291,76 @@ export class EditorService {
         });
     }
 
+
+    onCreateNewObject() {
+        if (this.mode !== 'children') {
+            return;
+        }
+        let models;
+        let model;
+        switch (this.left.model) {
+            case 'model:ndkperiodical': {
+                models = ['model:ndkperiodicalvolume', 'model:ndkperiodicalissue', 'model:ndkperiodicalsupplement', 'model:ndkarticle', 'model:ndkchapter', 'model:ndkpage'];
+                model = 'model:ndkperiodicalvolume';
+                break;
+            }
+            case 'model:ndkperiodicalvolume': {
+                models = ['model:ndkperiodicalissue', 'model:ndkperiodicalsupplement', 'model:ndkarticle', 'model:ndkchapter', 'model:ndkpage'];
+                model = 'model:ndkperiodicalissue';
+                break;
+            }
+            case 'model:ndkperiodicalissue': {
+                models = ['model:ndkperiodicalsupplement', 'model:ndkarticle', 'model:ndkchapter', 'model:ndkpage'];
+                model = 'model:ndkpage';
+                break;
+            }
+            case 'model:chronicletitle': {
+                models = ['model:chroniclevolume', 'model:chroniclesupplement', 'model:page'];
+                model = 'model:chroniclevolume';
+                break;
+            }
+            case 'model:chroniclevolume': {
+                models = ['model:chroniclesupplement', 'model:page'];
+                model = 'model:model';
+                break;
+            }
+            case 'model:ndkmonographtitle': {
+                models = ['model:ndkmonographvolume', 'model:ndkmonographsupplement', 'model:ndkpage'];
+                model = 'model:ndkmonographvolume';
+                break;
+            }
+            case 'model:ndkmonographvolume': {
+                models = ['model:ndkmonographsupplement', 'model:ndkpage'];
+                model = 'model:ndkpage';
+                break;
+            }
+        }
+        const data: NewObjectData = {
+            
+            models: models,
+            model: model,
+            customPid: false,
+            parentPid: this.left.pid
+          }
+          const dialogRef = this.dialog.open(NewObjectDialogComponent, { data: data });
+          dialogRef.afterClosed().subscribe(result => {
+            if (result && result['pid']) {
+                this.state = 'saving';
+                const pid = result['pid'];
+                this.reloadChildren(() => {
+                    for (const item of this.children) {
+                        if (item.pid == pid) {
+                            this.selectRight(item);
+                            break;
+                        }
+                    }
+                    this.state = 'success';
+                });
+            }
+        });
+
+    }
+
     saveChildren(callback: () => void) {
         this.state = 'saving';
         const pidArray = this.children.map( item => item.pid);
@@ -381,7 +454,7 @@ export class EditorService {
         const rMods = this.api.getMods(this.metadata.pid);
         forkJoin(rDoc, rMods).subscribe(([doc, mods]: [DocumentItem, Mods]) => {
                 this.metadata = Metadata.fromMods(mods, this.metadata.model);
-                this.left = doc;
+                this.selectRight(doc);
                 if (this.mode === 'children') {
                     this.reloadChildren(() => {
                         if (callback) {
@@ -389,8 +462,8 @@ export class EditorService {
                         }
                     });
                 } else if (this.mode === 'detail') {
-                    this.selectRight(doc);
-                  }
+                    this.left = doc;
+                }
                 this.state = 'success';
             });
         });

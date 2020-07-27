@@ -34,6 +34,10 @@
     <!-- </ng-container> -->
 
     <div class="app-actions-right">
+      <button class="app-action" matTooltip="{{ 'editor.children.add_new' | translate }}" (click)="onCreateNewObject()" mat-icon-button>
+        <mat-icon>add</mat-icon>
+      </button>
+      <div class="app-divider"></div>
       <button *ngIf="!editor.isMultipleChildrenMode()" class="app-action"  matTooltip="{{ 'editor.children.move' | translate }}" (click)="onMove()" mat-icon-button>
           <mat-icon>reply</mat-icon>
       </button>

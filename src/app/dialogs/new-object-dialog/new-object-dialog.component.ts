@@ -1,7 +1,6 @@
 
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ProArc } from 'src/app/utils/proarc';
 import { Uuid } from 'src/app/utils/uuid';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -12,7 +11,6 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class NewObjectDialogComponent implements OnInit {
 
-  models = ProArc.models;
   state = 'none';
 
   constructor(
@@ -30,8 +28,8 @@ export class NewObjectDialogComponent implements OnInit {
 
   onCreate() {
     this.state = 'saving';
-    const pid = this.data.customPid ? this.data.pid : null;      
-    this.api.createObject(this.data.model, pid).subscribe((pid: string) => {
+    const customPid = this.data.customPid ? this.data.pid : null;      
+    this.api.createObject(this.data.model, customPid, this.data.parentPid).subscribe((pid: string) => {
       this.dialogRef.close({pid: pid})
     },
     (error) => {
@@ -44,6 +42,8 @@ export class NewObjectDialogComponent implements OnInit {
 
 export interface NewObjectData {
   model: string;
+  models: string[];
   customPid: boolean;
+  parentPid?: string;
   pid?: string;
 }
