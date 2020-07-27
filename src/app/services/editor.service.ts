@@ -376,8 +376,12 @@ export class EditorService {
       saveMetadata(callback: () => void) {
         this.state = 'saving';
         this.api.editMetadata(this.metadata).subscribe(() => {
-            this.api.getMods(this.metadata.pid).subscribe((mods: Mods) => {
+
+        const rDoc = this.api.getDocument(this.metadata.pid);
+        const rMods = this.api.getMods(this.metadata.pid);
+        forkJoin(rDoc, rMods).subscribe(([doc, mods]: [DocumentItem, Mods]) => {
                 this.metadata = Metadata.fromMods(mods, this.metadata.model);
+                this.left = doc;
                 if (this.mode === 'children') {
                     this.reloadChildren(() => {
                         if (callback) {
@@ -385,7 +389,7 @@ export class EditorService {
                         }
                     });
                 } else if (this.mode === 'detail') {
-                    this.selectRight(this.right);
+                    this.selectRight(doc);
                   }
                 this.state = 'success';
             });
