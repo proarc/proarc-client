@@ -131,7 +131,7 @@
         <div class="result-created" *ngIf="properties.isSearchColEnabled('created')">{{ item.created | appDatetime }}</div>
         <div class="result-modified" *ngIf="properties.isSearchColEnabled('modified')">{{ item.modified | appDatetime }}</div>
         <div class="result-owner" *ngIf="properties.isSearchColEnabled('owner')">{{ item.owner }}</div>
-        <div class="result-export" *ngIf="properties.isSearchColEnabled('export')">{{ item.export == 1 ? "Ano" : "Ne" }}</div>
+        <div class="result-export" *ngIf="properties.isSearchColEnabled('export')">{{ item.writeExports() }}</div>
 
         <div class="result-actions">
           <button class="app-action" (click)="onUrnnbn(item); $event.preventDefault(); $event.stopPropagation()" mat-icon-button matTooltip="URN:NBN" matTooltipPosition="below">

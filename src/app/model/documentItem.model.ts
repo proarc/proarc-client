@@ -90,4 +90,24 @@ export class DocumentItem {
     return !this.isPage() && !this.isVolume() && !this.isIssue();
   }
 
+  writeExports(): string {
+    let exports = "";
+    if (this.archiveExport == 1) {
+      exports += '/A';
+    }
+    if (this.crossrefExport == 1) {
+      exports += '/C';
+    }
+    if (this.krameriusExport == 1) {
+      exports += '/K';
+    }
+    if (this.ndkExport == 1) {
+      exports += '/N';
+    }
+    if (exports.length > 0) {
+      exports = exports.substring(1);
+    }
+    return exports;
+  }
+
 }
