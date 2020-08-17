@@ -49,7 +49,7 @@
 
     </div>
     <div class="scrollable">
-      <div *ngFor="let batch of batches" [class.app-selected]="batch == selectedBatch" class="app-row app-pointer" (click)="selectBatch(batch)">
+      <div *ngFor="let batch of batches" [class.app-selected]="batch == selectedBatch" class="app-row app-pointer" (click)="selectBatch(batch)" (dblclick)="openBatch(batch)">
         <div class="batch-folder" [matTooltip]="batch.description">{{ batch.description }}</div>
         <div class="batch-created">{{ batch.create | appDatetime }}</div>
         <div class="batch-modified">{{ batch.timestamp | appDatetime }}</div>

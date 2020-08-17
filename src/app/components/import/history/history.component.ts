@@ -68,6 +68,12 @@ export class HistoryComponent implements OnInit, OnDestroy {
     this.selectedBatch = batch;
   }
 
+  openBatch(batch: Batch) {
+    if (batch.state === 'INGESTED' && batch.parentPid) {
+      this.router.navigate(['/document', batch.parentPid]);
+    }
+  }
+
   reload() {
     this.selectedBatch = null;
     this.state = 'loading';
