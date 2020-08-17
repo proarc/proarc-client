@@ -109,6 +109,8 @@
     "fields": {
       "title": "Název",
       "identifier": "Identifikátor",
+      "organization": "Organizace",
+      "processor": "Zpracovatel",
       "creator": "Tvůrce",
       "owner": "Vlastník",
       "description": "Popis"

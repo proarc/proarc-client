@@ -2,27 +2,41 @@
   height: calc(100% - 50px);
   padding: 10px 20px;
   .actions {
-    height: 60px;
+    height: 50px;
     overflow: hidden;
+    display: flex;
+    .app-search {
+      height: 32px;
+      line-height: 32px;
+      margin-top: 4px;
+    }
     .model-filter {
-      float: right;
-      width: 250px;
+      width: 160px;
+    }
+    .app-filter {
+      font-size: 13px;
+      margin-left: 10px;
     }
     .query-field-filter {
-      float: right;
-      margin-right: 10px;
+      width: 100px;
+    }
+    .owner-filter {
+      width: 140px;
+    }
+    .organization-filter {
       width: 200px;
     }
     .document-search {
-      margin-left: 20px;
-      width: calc(100% - 620px);
+      margin-left: 10px;
+      font-size: 13px;
+      flex: 1;
     }
   }
   .app-table {
-    height: calc(100% - 60px);
+    height: calc(100% - 50px);
   }
   .search-result-list {
-    height: calc(100% - 60px);
+    height: calc(100% - 40px);
     .app-header {
       flex: 1;
     }

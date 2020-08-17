@@ -234,20 +234,31 @@ export class ApiService {
     return this.put('object/privatenote', data).pipe(map(response => Note.fromJson(response['record'])));
   }
 
-  getSearchResults(model: string, query: string, queryFiled: string, page: number, sortField = 'lastCreated', sortAsc = false): Observable<[DocumentItem[], number]> {
+  getSearchResults(options = {}) { //model: string, query: string, queryFiled: string, page: number, sortField = 'lastCreated', sortAsc = false): Observable<[DocumentItem[], number]> {
     const params = {
-    _startRow: page * 100,
+      type: 'advanced',
+      _startRow: options['page'] * 100,
     };
-    if (model !== 'all') {
-      params['queryModel'] = model;
+    if (options['model'] !== 'all') {
+      params['queryModel'] = options['model'];
     }
-    params['type'] = 'advanced';
-    params['sortField'] = sortField;
-    console.log('queryField', queryFiled);
-    if (query) {
-      params[queryFiled] = query;
+    if (options['organization'] && options['organization'] != '-') {
+      params['organization'] = options['organization'];
+    }
+    if (options['organization'] && options['organization'] != '-') {
+      params['organization'] = options['organization'];
+    }
+    if (options['owner'] && options['owner'] != '-') {
+      params['queryCreator'] = options['owner'];
+    }
+    if (options['processor'] && options['processor'] != '-') {
+      params['processor'] = options['processor'];
+    }
+    params['sortField'] = options['sortField'] || '';
+    if (options['query']) {
+      params[options['queryField']] = options['query'];
     } 
-    if (sortAsc) {
+    if (options['sortAsc']) {
       params['_sort'] = 'asc';
     } else {
       params['_sort'] = 'desc';

@@ -50,12 +50,18 @@ export class ParentDialogComponent implements OnInit {
 
   reload(page: number = 0) {
     this.properties.setStringProperty('search.model', this.model);
-    this.properties.setStringProperty('search.qyeryfiled', this.queryFiled);
+    this.properties.setStringProperty('search.qyery_filed', this.queryFiled);
     this.hierarchy = [];
     this.selectedItem = null;
     this.pageIndex = page;
     this.state = 'loading';
-    this.api.getSearchResults(this.model, this.query, this.queryFiled, this.pageIndex).subscribe(([items, total]: [DocumentItem[], number]) => {
+    const options = {
+      model: this.model,
+      query: this.query,
+      queryField: this.queryFiled,
+      page: this.pageIndex
+    }
+    this.api.getSearchResults(options).subscribe(([items, total]: [DocumentItem[], number]) => {
       this.resultCount = total;
       this.items = items;
       this.state = 'success';

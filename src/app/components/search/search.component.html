@@ -7,30 +7,65 @@
   <div class="actions">
 
 
-    <mat-form-field class="model-filter">
+    <a mat-raised-button color="primary" class="app-search" (click)="reload()">
+      {{ 'search.search' | translate }}
+    </a>
+
+  <mat-form-field class="document-search">
+    <input matInput placeholder="Hledat dokument" (keyup.enter)="reload()" [(ngModel)]="query">
+  </mat-form-field>
+
+  <mat-form-field class="query-field-filter app-filter">
+    <mat-select [placeholder]="'search.field' | translate" [(ngModel)]="queryFiled">
+      <mat-option value="queryLabel">{{ "search.fields.title" | translate }}</mat-option>
+      <mat-option value="queryIdentifier">{{ "search.fields.identifier" | translate }}</mat-option>
+      <!-- <mat-option value="queryCreator">{{ "search.fields.creator" | translate }}</mat-option> -->
+      <!-- <mat-option value="queryCreator">{{ "search.fields.owner" | translate }}</mat-option> -->
+    </mat-select>
+  </mat-form-field>
+
+
+    <mat-form-field class="model-filter app-filter">
       <mat-select [placeholder]="'search.model' | translate" name="model" [(ngModel)]="model">
         <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
         <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field class="query-field-filter">
-      <mat-select [placeholder]="'search.field' | translate" [(ngModel)]="queryFiled">
-        <mat-option value="queryLabel">{{ "search.fields.title" | translate }}</mat-option>
-        <mat-option value="queryIdentifier">{{ "search.fields.identifier" | translate }}</mat-option>
-        <!-- <mat-option value="queryCreator">{{ "search.fields.creator" | translate }}</mat-option> -->
-        <mat-option value="queryCreator">{{ "search.fields.owner" | translate }}</mat-option>
+    <mat-form-field class="organization-filter app-filter">
+      <mat-select  [placeholder]="'search.fields.organization' | translate" name="organization" [(value)]="organization">
+        <mat-option value="-">Vše</mat-option>
+        <mat-option *ngFor="let org of organizations" [value]="org">{{ 'organization.' + org | translate }}</mat-option>
       </mat-select>
     </mat-form-field>
-  
-    <a mat-raised-button color="primary" (click)="reload()">
-        <mat-icon style="margin-right:8px;">search</mat-icon>
-        {{ 'search.search' | translate }}
-    </a>
-  
-    <mat-form-field class="document-search">
-      <input matInput placeholder="Hledat dokument" (keyup.enter)="reload()" [(ngModel)]="query">
+
+    <mat-form-field class="owner-filter app-filter">
+      <mat-select [placeholder]="'search.fields.owner' | translate" name="owner" [(value)]="owner">
+        <mat-option value="-">Vše</mat-option>
+        <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
+      </mat-select>
     </mat-form-field>
+    <mat-form-field class="owner-filter app-filter">
+      <mat-select [placeholder]="'search.fields.processor' | translate" name="processor" [(value)]="processor">
+        <mat-option value="-">Vše</mat-option>
+        <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- <div>
+      <mat-form-field>
+        <mat-select [disabled]="!auth.isSuperAdmin() && !auth.isAdmin()" [placeholder]="'editor.atm.userProcessor' | translate" name="userProcessor" [(value)]="atm.userProcessor">
+            <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
+            <mat-option value="all">Všichni</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div> -->
+
+
+
+
+
+
+
 
 
 
@@ -44,9 +79,9 @@
 
   <div class="search-result-list">
     <div class="app-row app-header">
-      <div class="result-label app-header-sortable" *ngIf="properties.isSearchColEnabled('name')" (click)="sortBy('alphabetical')">
+      <div class="result-label app-header-sortable" *ngIf="properties.isSearchColEnabled('name')" (click)="sortBy('label')">
         {{ 'search.name' | translate }}
-        <mat-icon *ngIf="getSortIcon('alphabetical')" class="sort-arrow">{{ getSortIcon('alphabetical') }}</mat-icon>
+        <mat-icon *ngIf="getSortIcon('label')" class="sort-arrow">{{ getSortIcon('label') }}</mat-icon>
       </div>
       <div class="result-model app-header-sortable" *ngIf="properties.isSearchColEnabled('model')" (click)="sortBy('model')">
         {{ 'search.model' | translate }}

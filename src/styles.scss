@@ -209,6 +209,10 @@ body {
   }
 }
 
+.mat-paginator-container {
+  min-height: 40px !important;
+}
+
 .app-warn-message {
   color: white;
   line-height: 36px;

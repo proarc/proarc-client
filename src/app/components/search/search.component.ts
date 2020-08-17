@@ -9,6 +9,8 @@ import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dial
 import { ExportDialogComponent } from 'src/app/dialogs/export-dialog/export-dialog.component';
 import { UrnbnbDialogComponent } from 'src/app/dialogs/urnnbn-dialog/urnnbn-dialog.component';
 import { ConfigService } from 'src/app/services/config.service';
+import { User } from 'src/app/model/user.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-search',
@@ -26,6 +28,11 @@ export class SearchComponent implements OnInit {
   query = '';
   queryFiled: string;
 
+  organization: string;
+  owner: string;
+  processor: string;
+
+
   pageIndex = 0;
   pageSize = 100;
   resultCount = 0;
@@ -33,8 +40,12 @@ export class SearchComponent implements OnInit {
   sortField: string;
   sortAsc: boolean;
 
+  organizations: string[];
+  users: User[];
+
   constructor(private api: ApiService, 
               public properties: LocalStorageService, 
+              public auth: AuthService,
               private dialog: MatDialog,
               private config: ConfigService,
               private translator: Translator) { 
@@ -42,6 +53,10 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.organizations = this.config.organizations;
+    this.organization = this.properties.getStringProperty('search.organization', '-');
+    this.owner = this.properties.getStringProperty('search.owner', '-');
+    this.processor = this.properties.getStringProperty('search.processor', '-');
     this.sortField = this.properties.getStringProperty('search.sort_field', 'created');
     this.sortAsc = this.properties.getBoolProperty('search.sort_asc', false);
     this.model = this.properties.getStringProperty('search.model', this.config.defaultModel);
@@ -51,14 +66,33 @@ export class SearchComponent implements OnInit {
     } else {
       this.state = 'success';
     }
+    this.api.getUsers().subscribe((users: User[]) => {
+      this.users = users;
+    });
   }
 
   reload(page: number = 0) {
     this.properties.setStringProperty('search.model', this.model);
     this.properties.setStringProperty('search.qyery_filed', this.queryFiled);
+    this.properties.setStringProperty('search.organization', this.organization);
+    this.properties.setStringProperty('search.owner', this.owner);
+    this.properties.setStringProperty('search.processor', this.processor);
     this.pageIndex = page;
     this.state = 'loading';
-    this.api.getSearchResults(this.model, this.query, this.queryFiled, this.pageIndex, this.sortField, this.sortAsc).subscribe(([items, total]: [DocumentItem[], number]) => {
+
+    const options = {
+      model: this.model,
+      organization: this.organization,
+      query: this.query,
+      queryField: this.queryFiled,
+      page: this.pageIndex,
+      owner: this.owner,
+      processor: this.processor,
+      sortField: this.sortField,
+      sortAsc: this.sortAsc
+    }
+
+    this.api.getSearchResults(options).subscribe(([items, total]: [DocumentItem[], number]) => {
       this.resultCount = total;
       this.items = items;
       this.state = 'success';
