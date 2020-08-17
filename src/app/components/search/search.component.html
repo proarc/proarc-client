@@ -16,10 +16,10 @@
 
     <mat-form-field class="query-field-filter">
       <mat-select [placeholder]="'search.field' | translate" [(ngModel)]="queryFiled">
-        <mat-option value="queryTitle">{{ "search.fields.title" | translate }}</mat-option>
+        <mat-option value="queryLabel">{{ "search.fields.title" | translate }}</mat-option>
         <mat-option value="queryIdentifier">{{ "search.fields.identifier" | translate }}</mat-option>
-        <mat-option value="queryCreator">{{ "search.fields.creator" | translate }}</mat-option>
-        <mat-option value="owner">{{ "search.fields.owner" | translate }}</mat-option>
+        <!-- <mat-option value="queryCreator">{{ "search.fields.creator" | translate }}</mat-option> -->
+        <mat-option value="queryCreator">{{ "search.fields.owner" | translate }}</mat-option>
       </mat-select>
     </mat-form-field>
   
@@ -56,22 +56,25 @@
         {{ 'search.pid' | translate }}
         <mat-icon *ngIf="getSortIcon('pid')" class="sort-arrow">{{ getSortIcon('pid') }}</mat-icon>
       </div>
-      <div class="result-processor app-header-sortable" *ngIf="properties.isSearchColEnabled('processor')" (click)="sortBy('processor')">
+      <div class="result-processor app-header-sortable" *ngIf="properties.isSearchColEnabled('processor')" (click)="sortBy('user')">
         {{ 'search.processor' | translate }}
-        <mat-icon *ngIf="getSortIcon('processor')" class="sort-arrow">{{ getSortIcon('processor') }}</mat-icon>
+        <mat-icon *ngIf="getSortIcon('user')" class="sort-arrow">{{ getSortIcon('user') }}</mat-icon>
       </div>
       <div class="result-organization app-header-sortable" *ngIf="properties.isSearchColEnabled('organization')" (click)="sortBy('organization')">
         {{ 'search.organization' | translate }}
         <mat-icon *ngIf="getSortIcon('organization')" class="sort-arrow">{{ getSortIcon('organization') }}</mat-icon>
       </div>
-      <div class="result-status" *ngIf="properties.isSearchColEnabled('status')">{{ 'search.status' | translate }}</div>
-      <div class="result-created app-header-sortable" *ngIf="properties.isSearchColEnabled('created')" (click)="sortBy('lastCreated')">
-        {{ 'search.created' | translate }}
-        <mat-icon *ngIf="getSortIcon('lastCreated')" class="sort-arrow">{{ getSortIcon('lastCreated') }}</mat-icon>
+      <div class="result-status app-header-sortable" *ngIf="properties.isSearchColEnabled('status')" (click)="sortBy('status')">
+        {{ 'search.status' | translate }}
+        <mat-icon *ngIf="getSortIcon('status')" class="sort-arrow">{{ getSortIcon('status') }}</mat-icon>
       </div>
-      <div class="result-modified app-header-sortable" *ngIf="properties.isSearchColEnabled('modified')" (click)="sortBy('lastModified')">
+      <div class="result-created app-header-sortable" *ngIf="properties.isSearchColEnabled('created')" (click)="sortBy('created')">
+        {{ 'search.created' | translate }}
+        <mat-icon *ngIf="getSortIcon('created')" class="sort-arrow">{{ getSortIcon('created') }}</mat-icon>
+      </div>
+      <div class="result-modified app-header-sortable" *ngIf="properties.isSearchColEnabled('modified')" (click)="sortBy('modified')">
         {{ 'search.modified' | translate }}
-        <mat-icon *ngIf="getSortIcon('lastModified')" class="sort-arrow">{{ getSortIcon('lastModified') }}</mat-icon>
+        <mat-icon *ngIf="getSortIcon('modified')" class="sort-arrow">{{ getSortIcon('modified') }}</mat-icon>
       </div>
       <div class="result-owner app-header-sortable" *ngIf="properties.isSearchColEnabled('owner')" (click)="sortBy('owner')">
         {{ 'search.owner' | translate }}

@@ -44,7 +44,7 @@ export class ParentDialogComponent implements OnInit {
 
   ngOnInit() {
     this.model = this.properties.getStringProperty('search.model', this.config.defaultModel);
-    this.queryFiled = this.properties.getStringProperty('search.qyeryfiled', 'queryTitle');
+    this.queryFiled = this.properties.getStringProperty('search.qyery_filed', 'queryLabel');
     this.reload();
   }
 

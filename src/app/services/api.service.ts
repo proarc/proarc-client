@@ -241,19 +241,17 @@ export class ApiService {
     if (model !== 'all') {
       params['queryModel'] = model;
     }
+    params['type'] = 'advanced';
+    params['sortField'] = sortField;
+    console.log('queryField', queryFiled);
     if (query) {
-      params['type'] = 'query';
       params[queryFiled] = query;
-      // type=query&phrase=pr%C3%A1ce&queryTitle=pr%C3%A1ce
+    } 
+    if (sortAsc) {
+      params['_sort'] = 'asc';
     } else {
-      params['type'] = sortField;
-      if (sortAsc) {
-        params['_sort'] = 'asc';
-      } else {
-        params['_sort'] = 'desc';
-      }
+      params['_sort'] = 'desc';
     }
-
     return this.get('object/search', params).pipe(map(response => [DocumentItem.fromJsonArray(response['response']['data']), response['response']['totalRows']] as [DocumentItem[], number]));
   }
 

@@ -42,10 +42,10 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sortField = this.properties.getStringProperty('search.sortfield', 'lastCreated');
-    this.sortAsc = this.properties.getBoolProperty('search.sortasc', false);
+    this.sortField = this.properties.getStringProperty('search.sort_field', 'created');
+    this.sortAsc = this.properties.getBoolProperty('search.sort_asc', false);
     this.model = this.properties.getStringProperty('search.model', this.config.defaultModel);
-    this.queryFiled = this.properties.getStringProperty('search.qyeryfiled', 'queryTitle');
+    this.queryFiled = this.properties.getStringProperty('search.qyery_filed', 'queryLabel');
     if (this.model !== 'all' && this.model !== 'model:page' && this.model !== 'model:ndkpage') {
       this.reload();
     } else {
@@ -55,7 +55,7 @@ export class SearchComponent implements OnInit {
 
   reload(page: number = 0) {
     this.properties.setStringProperty('search.model', this.model);
-    this.properties.setStringProperty('search.qyeryfiled', this.queryFiled);
+    this.properties.setStringProperty('search.qyery_filed', this.queryFiled);
     this.pageIndex = page;
     this.state = 'loading';
     this.api.getSearchResults(this.model, this.query, this.queryFiled, this.pageIndex, this.sortField, this.sortAsc).subscribe(([items, total]: [DocumentItem[], number]) => {
