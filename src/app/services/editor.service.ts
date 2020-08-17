@@ -90,6 +90,18 @@ export class EditorService {
         return true;
       }
 
+      public anyPageChildren(): boolean {
+        if (this.children.length == 0) {
+            return true;
+        }
+        for (const child of this.children) {
+          if (child.isPage()) {
+            return true;
+          }
+        }
+        return false;
+      }
+
 
       public enterDoubleRight() {
           if (this.rightEditorType === 'image') {
@@ -636,30 +648,47 @@ export class EditorService {
       }
 
 
-      editSelectedPages(holder: PageUpdateHolder, callback: () => void) {
-        this.state = 'saving';
-        const pages = [];
-        let index = -1;
-        for (const item of this.children) {
-            if (item.isPage() && item.selected) {
-                index += 1;
-                const page = new Page();
-                page.ndk = item.isNdkPage();
-                page.pid = item.pid;
-                if (holder.editType) {
-                    page.type = holder.pageType;
-                }
-                if (holder.editIndex) {
-                    page.index = String(holder.pageIndex + index);
-                }
-                if (holder.editNumber) {
-                    page.number = String(holder.getNumberForIndex(index));
-                }
-                pages.push(page);
+    //   editSelectedPages(holder: PageUpdateHolder, callback: () => void) {
+    //     this.state = 'saving';
+    //     const pages = [];
+    //     let index = -1;
+    //     for (const item of this.children) {
+    //         if (item.isPage() && item.selected) {
+    //             index += 1;
+    //             const page = new Page();
+    //             page.ndk = item.isNdkPage();
+    //             page.pid = item.pid;
+    //             if (holder.editType) {
+    //                 page.type = holder.pageType;
+    //             }
+    //             if (holder.editIndex) {
+    //                 page.index = String(holder.pageIndex + index);
+    //             }
+    //             if (holder.editNumber) {
+    //                 page.number = String(holder.getNumberForIndex(index));
+    //             }
+    //             pages.push(page);
 
+    //         }
+    //     }
+    //     this.updatePages(pages, callback);
+    //   }
+
+
+      updateSelectedPages(holder: PageUpdateHolder, callback: () => void) {
+        this.state = 'saving';  
+        const pages = [];
+          for (const item of this.children) {
+            if (item.isPage() && item.selected) {
+                pages.push(item.pid);
             }
         }
-        this.updatePages(pages, callback);
+        this.api.editPages(pages, holder).subscribe(result => {
+            console.log('result', result);
+            this.reloadChildren(() => {
+                this.state = 'success';  
+            });
+        })
       }
 
 
@@ -692,32 +721,32 @@ export class EditorService {
         });
       }
 
-      private updatePages(pages: Page[], callback: () => void) {
-          if (pages.length === 0) {
-                this.reloadChildren(() => {
-                    this.state = 'success';
-                    if (callback) {
-                        callback();
-                    }
-                });
-              return;
-          }
-          const pageDef = pages.pop();
-          this.api.getPage(pageDef.pid, pageDef.ndk).subscribe((page: Page) => {
-            if (pageDef.type) {
-                page.type = pageDef.type;
-            }
-            if (pageDef.index) {
-                page.index = pageDef.index;
-            }
-            if (pageDef.number) {
-                page.number = pageDef.number;
-            }
-            this.api.editPage(page).subscribe((newPage: Page) => {
-                this.updatePages(pages, callback);
-              });
-          });
-      }
+    //   private updatePages(pages: Page[], callback: () => void) {
+    //       if (pages.length === 0) {
+    //             this.reloadChildren(() => {
+    //                 this.state = 'success';
+    //                 if (callback) {
+    //                     callback();
+    //                 }
+    //             });
+    //           return;
+    //       }
+    //       const pageDef = pages.pop();
+    //       this.api.getPage(pageDef.pid, pageDef.ndk).subscribe((page: Page) => {
+    //         if (pageDef.type) {
+    //             page.type = pageDef.type;
+    //         }
+    //         if (pageDef.index) {
+    //             page.index = pageDef.index;
+    //         }
+    //         if (pageDef.number) {
+    //             page.number = pageDef.number;
+    //         }
+    //         this.api.editPage(page).subscribe((newPage: Page) => {
+    //             this.updatePages(pages, callback);
+    //           });
+    //       });
+    //   }
 
 
 }

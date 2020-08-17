@@ -11,8 +11,6 @@ export class EditorPagesComponent implements OnInit {
 
   holder: PageUpdateHolder;
 
-  
-
   constructor(public editor: EditorService, public codebook: CodebookService) {
   }
 
@@ -29,7 +27,8 @@ export class EditorPagesComponent implements OnInit {
     if (!this.canSave()) {
       return;
     }
-    this.editor.editSelectedPages(this.holder, null);
+    // this.editor.editSelectedPages(this.holder, null);
+    this.editor.updateSelectedPages(this.holder, null);
   }
 
 
@@ -38,7 +37,32 @@ export class EditorPagesComponent implements OnInit {
 
 export class PageUpdateHolder {
 
-  numberingTypes = ['1, 2, 3, 4', 'I, II, III, IV', 'i, ii, iii, iv'];
+  alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
+  numberingTypes = [
+    {
+      id: 'ARABIC_SERIES',
+      label: '1, 2, 3, 4',
+    },
+    {
+      id: 'ROMAN_UPPER_SERIES',
+      label: 'I, II, III, IV',
+    },
+    {
+      id: 'ROMAN_LOWER_SERIES',
+      label: 'i, ii, iii, iv',
+    },
+    {
+      id: 'ALPHABET_UPPER_SERIES',
+      label: 'A - Z, AA - AZ',
+    },
+    {
+      id: 'ALPHABET_LOWER_SERIES',
+      label: 'a - z, aa - az',
+    }
+  ];
+
+  applyOptions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
 
   editType: boolean;
   editIndex: boolean;
@@ -51,9 +75,10 @@ export class PageUpdateHolder {
   pageNumberIncrement: number;
   pageNumberPrefix: string;
   pageNumberSuffix: string;
-  pageNumberNumbering: string;
+  pageNumberNumbering: any;
 
-
+  applyTo: number;
+  applyToFirst: boolean;
 
   constructor() {
     this.editType = false;
@@ -67,6 +92,9 @@ export class PageUpdateHolder {
     this.pageNumberPrefix = '';
     this.pageNumberSuffix = '';
     this.pageNumberNumbering = this.numberingTypes[0];
+
+    this.applyTo = 1;
+    this.applyToFirst = true;
   }
 
   editAny(): boolean {
@@ -89,6 +117,36 @@ export class PageUpdateHolder {
     return Array(+digits.join('') + 1).join('M') + roman;
   }
 
+  // toLetters(num: number): string {
+  //   if (isNaN(num)) {
+  //       return '';
+  //   }
+  //   const a = 
+
+  //   const digits = String(+num).split('');
+  //   const  key = ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM',
+  //              '', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC',
+  //              '', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
+  //   let roman = '',
+  //   i = 3;
+  //   while (i--) {
+  //     roman = (key[+digits.pop() + (i * 10)] || '') + roman;
+  //   }
+  //   return Array(+digits.join('') + 1).join('M') + roman;
+  // }
+
+  getAlphabetFromNumber(num) {
+
+    let str = '';
+    let t = 0;
+    while (num > 0) {
+      t = (num - 1) % 26;
+      str = String.fromCharCode(65 + t) + str;
+      num = (num - t)/26 | 0;
+    }
+    return str;
+}
+
 
   getNumberForIndex(index: number) {
     let result = this.pageNumberPrefix;
@@ -99,6 +157,10 @@ export class PageUpdateHolder {
       result += this.romanize(num);
     } else if (this.pageNumberNumbering === this.numberingTypes[2]) {
       result += this.romanize(num).toLowerCase();
+    } else if (this.pageNumberNumbering === this.numberingTypes[3]) {
+      result += this.getAlphabetFromNumber(num);
+    } else if (this.pageNumberNumbering === this.numberingTypes[4]) {
+      result += this.getAlphabetFromNumber(num).toLocaleLowerCase();
     }
     return result + this.pageNumberSuffix;
   }

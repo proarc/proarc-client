@@ -361,7 +361,10 @@
       "number_prefix": "Prefix",
       "number_suffix": "Suffix",
       "number_numbering": "Čiselná řada",
-      "number_example": "Ukázka"
+      "number_example": "Ukázka",
+      "apply": "Aplikovat na",
+      "apply_to": "Každou {{ num > 1 ? num + '.' : ''}} stranu",
+      "apply_to_first": "Včetně první strany"
     },
     "type": {
       "biblio": "Bibliografická metadata",

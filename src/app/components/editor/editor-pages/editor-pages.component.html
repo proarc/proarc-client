@@ -24,7 +24,7 @@
         <div class="app-card">
           <div class="app-card-content">
       
-            <mat-checkbox [(ngModel)]="holder.editType">{{ 'editor.pages.edit_page_type' | translate }}</mat-checkbox>
+            <mat-checkbox color="primary" [(ngModel)]="holder.editType">{{ 'editor.pages.edit_page_type' | translate }}</mat-checkbox>
 
             <mat-form-field>
               <mat-select [disabled]="!holder.editType" [placeholder]="'editor.pages.page_type' | translate" name="type" [(value)]="holder.pageType">
@@ -39,7 +39,7 @@
         <div class="app-card">
             <div class="app-card-content">
         
-              <mat-checkbox [(ngModel)]="holder.editIndex">{{ 'editor.pages.edit_page_index' | translate }}</mat-checkbox>
+              <mat-checkbox color="primary" [(ngModel)]="holder.editIndex">{{ 'editor.pages.edit_page_index' | translate }}</mat-checkbox>
   
               <mat-form-field class="app-full-width">
                 <input [disabled]="!holder.editIndex" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.pages.index_from' | translate" [(ngModel)]="holder.pageIndex">
@@ -60,7 +60,7 @@
       <div class="app-card">
           <div class="app-card-content">
       
-            <mat-checkbox [(ngModel)]="holder.editNumber">{{ 'editor.pages.edit_page_number' | translate }}</mat-checkbox>
+            <mat-checkbox color="primary" [(ngModel)]="holder.editNumber">{{ 'editor.pages.edit_page_number' | translate }}</mat-checkbox>
 
             <mat-form-field class="app-full-width">
               <input [disabled]="!holder.editNumber" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_prefix' | translate" [(ngModel)]="holder.pageNumberPrefix">
@@ -76,7 +76,7 @@
             </mat-form-field>
             <mat-form-field>
               <mat-select [disabled]="!holder.editNumber" [placeholder]="'editor.pages.number_numbering' | translate" name="type" [(value)]="holder.pageNumberNumbering">
-                <mat-option *ngFor="let type of holder.numberingTypes;" [value]="type">{{ type }}</mat-option>
+                <mat-option *ngFor="let type of holder.numberingTypes;" [value]="type">{{ type.label }}</mat-option>
               </mat-select>
             </mat-form-field>
 
@@ -95,6 +95,33 @@
 
       </div>
     </div>
+
+
+
+
+    <div class="app-card">
+      <div class="app-card-content">
+        <div class="app-apply-to">
+          <mat-form-field>
+            <mat-select [placeholder]="'editor.pages.apply' | translate" name="apply" [(value)]="holder.applyTo">
+              <mat-option *ngFor="let num of holder.applyOptions;" [value]="num">{{'editor.pages.apply_to' | translate: { num: num } }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+
+        <mat-checkbox [disabled]="holder.applyTo == 1"  color="primary" [(ngModel)]="holder.applyToFirst">{{ 'editor.pages.apply_to_first' | translate }}</mat-checkbox>
+
+
+
+      </div>
+    </div>
+
+
+
+
+
+
 
 
 

@@ -103,7 +103,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     this.arrowIndex = 0;
     this.lastState = false;
     this.anyChange = false;
-    this.pageChildren = this.editor.onlyPageChildren();
+    this.pageChildren = this.editor.anyPageChildren();
     if (this.pageChildren) {
       this.viewMode = this.properties.getStringProperty('children.page_view_mode', 'icons');
     } else {

@@ -20,6 +20,7 @@ import { User } from '../model/user.model';
 import { ProArc } from '../utils/proarc';
 import { Registrar } from '../model/registrar.model';
 import { ConfigService } from './config.service';
+import { PageUpdateHolder } from '../components/editor/editor-pages/editor-pages.component';
 
 @Injectable()
 export class ApiService {
@@ -321,6 +322,27 @@ export class ApiService {
       data += `&audiotimestamp=${device.audiotimestamp}&audiodescription=${device.audioDescription()}`;
     }
     return this.put('device', data).pipe(map(response => Device.fromJson(response['response']['data'][0])));
+  }
+
+
+
+
+  editPages(pages: string[], holder: PageUpdateHolder) {
+    let data = `pids=${pages}`;
+    if (holder.editType) {
+      data += `&pageType=${holder.pageType}`;
+    }
+    if (holder.editIndex) {
+      data += `&startIndex=${holder.pageIndex}`;
+    }
+    if (holder.editNumber) {
+      data += `&sequence=${holder.pageNumberNumbering.id}&prefix=${holder.pageNumberPrefix}&suffix=${holder.pageNumberSuffix}&startNumber=${holder.pageNumberFrom}&incrementNumber=${holder.pageNumberIncrement}`;
+    }
+    if (holder.applyTo > 1) {
+      data += `&applyToFirstPage=${holder.applyToFirst}`;
+    }
+    data += `&applyTo=${holder.applyTo}`;
+    return this.put('object/mods/editorPages', data);
   }
 
 
