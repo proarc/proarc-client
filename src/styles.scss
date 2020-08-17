@@ -326,21 +326,18 @@ body {
     // background: #363d48;
     .app-card-header {
       background: #fff;
-      height: 47px;
+      height: 40px;
       border-bottom: 1px solid #ebebeb;
-
-      // border-top: 1px solid rgba(255, 255, 255, 0.1);
       .app-card-title {
         color: #333;
-        // padding: 8px 20px;
-        line-height: 47px;
+        line-height: 40px;
+        font-size: 16px;
         &.app-no-collapse {
           margin-left: 16px;
         }
       }
       button {
         float: right;
-        margin-top: 3px;
         color: #818f9a;
         &.app-collapse {
           float: left;
@@ -350,6 +347,12 @@ body {
         }
         &[disabled] {
           color: #c5c5c5;
+        }
+        mat-icon {
+          font-size: 22px;
+          width: 22px;
+          height: 22px;
+          line-height: 22px;
         }
       }
       .app-header-divider {
@@ -366,6 +369,9 @@ body {
       padding: 15px 20px 0px;
       &.app-collapsed {
         display: none;
+      }
+      mat-form-field {
+        font-size: 15px;
       }
     }
   }

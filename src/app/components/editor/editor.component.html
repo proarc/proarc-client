@@ -28,9 +28,9 @@
    <ng-container *ngIf="editor.mode == 'detail'">
     <div class="app-context">
       <button matTooltip="{{ 'editor.toolbar.editor_metadata' | translate }}" [class.app-inactive]="editor.leftEditorType != 'metadata'" (click)="editor.switchLeftEditor('metadata')" mat-icon-button>
-        <mat-icon>edit</mat-icon>
+        <span class="app-text-icon">M</span>
       </button>
-      <button matTooltip="{{ 'editor.toolbar.editor_geo' | translate }}" [class.app-inactive]="editor.leftEditorType != 'geo'" (click)="editor.switchLeftEditor('geo')" mat-icon-button>
+      <button *ngIf="config.showGeoEditor" matTooltip="{{ 'editor.toolbar.editor_geo' | translate }}" [class.app-inactive]="editor.leftEditorType != 'geo'" (click)="editor.switchLeftEditor('geo')" mat-icon-button>
         <mat-icon>map</mat-icon>
       </button>
       <button *ngIf="editor.left.isPage()" matTooltip="{{ 'editor.toolbar.editor_ocr' | translate }}" [class.app-inactive]="editor.leftEditorType != 'ocr'" (click)="editor.switchLeftEditor('ocr')" mat-icon-button>
@@ -104,7 +104,7 @@
         </div>
         <div class="app-context" *ngIf="!editor.showRelocationEditor()">
               <button *ngIf="!editor.right.isTopLevel()" matTooltip="{{ 'editor.toolbar.editor_metadata' | translate }}" [class.app-inactive]="editor.rightEditorType != 'metadata'" (click)="editor.switchRightEditor('metadata')" mat-icon-button>
-                <mat-icon>edit</mat-icon>
+                <span class="app-text-icon">M</span>
               </button>
               <button *ngIf="editor.right.isPage() && !editor.doubleRight" matTooltip="{{ 'editor.toolbar.editor_image' | translate }}" [class.app-inactive]="editor.rightEditorType != 'image'" (click)="editor.switchRightEditor('image')" mat-icon-button>
                 <mat-icon>image</mat-icon>
