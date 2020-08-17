@@ -42,7 +42,7 @@
               <mat-checkbox color="primary" [(ngModel)]="holder.editIndex">{{ 'editor.pages.edit_page_index' | translate }}</mat-checkbox>
   
               <mat-form-field class="app-full-width">
-                <input [disabled]="!holder.editIndex" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.pages.index_from' | translate" [(ngModel)]="holder.pageIndex">
+                <input (keyup.enter)="onSave()" [disabled]="!holder.editIndex" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.pages.index_from' | translate" [(ngModel)]="holder.pageIndex">
               </mat-form-field>
 
 <!-- 
@@ -63,16 +63,16 @@
             <mat-checkbox color="primary" [(ngModel)]="holder.editNumber">{{ 'editor.pages.edit_page_number' | translate }}</mat-checkbox>
 
             <mat-form-field class="app-full-width">
-              <input [disabled]="!holder.editNumber" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_prefix' | translate" [(ngModel)]="holder.pageNumberPrefix">
+              <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_prefix' | translate" [(ngModel)]="holder.pageNumberPrefix">
             </mat-form-field>
             <mat-form-field class="app-full-width">
-              <input [disabled]="!holder.editNumber" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.pages.number_from' | translate" [(ngModel)]="holder.pageNumberFrom">
+              <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.pages.number_from' | translate" [(ngModel)]="holder.pageNumberFrom">
             </mat-form-field>
             <mat-form-field class="app-full-width">
-              <input [disabled]="!holder.editNumber" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.pages.number_increment' | translate" [(ngModel)]="holder.pageNumberIncrement">
+              <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.pages.number_increment' | translate" [(ngModel)]="holder.pageNumberIncrement">
             </mat-form-field>
             <mat-form-field class="app-full-width">
-              <input [disabled]="!holder.editNumber" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_suffix' | translate" [(ngModel)]="holder.pageNumberSuffix">
+              <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_suffix' | translate" [(ngModel)]="holder.pageNumberSuffix">
             </mat-form-field>
             <mat-form-field>
               <mat-select [disabled]="!holder.editNumber" [placeholder]="'editor.pages.number_numbering' | translate" name="type" [(value)]="holder.pageNumberNumbering">
