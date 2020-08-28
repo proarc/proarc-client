@@ -249,8 +249,11 @@ export class ApiService {
     if (options['organization'] && options['organization'] != '-') {
       params['organization'] = options['organization'];
     }
+    if (options['queryCreator'] && options['queryCreator'] != '-') {
+      params['queryCreator'] = options['queryCreator'];
+    }
     if (options['owner'] && options['owner'] != '-') {
-      params['queryCreator'] = options['owner'];
+      params['owner'] = options['owner'];
     }
     if (options['processor'] && options['processor'] != '-') {
       params['processor'] = options['processor'];
