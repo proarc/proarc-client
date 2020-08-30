@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Translator } from 'angular-translator';
 import { ElementField } from 'src/app/model/mods/elementField.model';
 import { CodebookService } from 'src/app/services/codebook.service';
 
@@ -12,11 +11,16 @@ import { CodebookService } from 'src/app/services/codebook.service';
 export class EditorIdentifierComponent implements OnInit {
 
   @Input() field: ElementField;
+  @Input() type: string;
 
   constructor(public codebook: CodebookService) {
   }
 
   ngOnInit() {
+  }
+
+  getIdentifiers(): any[] {
+    return this.type == 'chronicle' ? this.codebook.chronicleIdentifiers : this.codebook.identifiers;
   }
 
 }

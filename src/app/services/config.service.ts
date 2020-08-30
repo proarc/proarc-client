@@ -76,7 +76,9 @@ export class ConfigService {
         'cop', 'mis', 'ine', 'dum', 'hit', 'ira', 'haw'
     ];
 
-    private static defaultIdentifiers: [ 'barcode', 'issn', 'isbn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'];
+    private static defaultIdentifiers = [ 'barcode', 'issn', 'isbn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'];
+    private static defaultChronicleIdentifiers = [ 'signature1', 'signature2', 'inventaryNumber', 'OtherNumber'];
+
 
     public proarcBackendUrl = APP_GLOBAL.proarcUrl;
     public allModels = APP_GLOBAL.models;
@@ -96,6 +98,9 @@ export class ConfigService {
 
     public topIdentifiers = APP_GLOBAL.topIdentifiers || [];
     public otherIdentifiers = APP_GLOBAL.identifiers || ConfigService.defaultIdentifiers;
+
+    public topChronicleIdentifiers = [];
+    public otherChronicleIdentifiers = APP_GLOBAL.chronicleIdentifiers || ConfigService.defaultChronicleIdentifiers;
 
     public organizations = APP_GLOBAL.organizations || [];
     public exports = APP_GLOBAL.exports || [];

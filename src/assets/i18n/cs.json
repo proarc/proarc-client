@@ -609,11 +609,11 @@
     "permalink": "Permalink",
     "sici": "SICI",
     "id": "ID",
-    "localId": "LocalID",
+    "localid": "LocalID",
     "signature1": "Signatura přidělená původcem",
     "signature2": "Signatura přidělená při zpracování archiválie",
-    "inventaryNumber": "Inventární číslo",
-    "OtherNumber": "Přírůstkové číslo"
+    "inventarynumber": "Inventární číslo",
+    "othernumber": "Přírůstkové číslo"
   },
   "model": {
     "model:ndkperiodical": "NDK Periodikum",

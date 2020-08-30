@@ -27,7 +27,7 @@
 
       <mat-form-field class="app-half-left">
         <mat-select [(ngModel)]='item.attrs["type"]' placeholder="{{ 'editor.identifier.type' | translate }}">
-          <mat-option *ngFor="let identifier of codebook.identifiers" [value]="identifier.code">{{ identifier.name }}</mat-option>
+          <mat-option *ngFor="let identifier of getIdentifiers()" [value]="identifier.code">{{ identifier.name }}</mat-option>
         </mat-select>
       </mat-form-field>
 

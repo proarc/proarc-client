@@ -9,6 +9,7 @@ export class CodebookService {
   pageTypes: any[] = []
   languages: any[] = []
   identifiers: any[] = []
+  chronicleIdentifiers: any[] = []
 
   titleTypeCodes = [
     'abbreviated',
@@ -27,6 +28,7 @@ export class CodebookService {
       this.pageTypes = this.buildCollection('PageTypes', 'page_type');
       this.languages = this.buildCollection('Languages', 'lang');
       this.identifiers = this.buildCollection('Identifiers', 'identifier');
+      this.chronicleIdentifiers = this.buildCollection('ChronicleIdentifiers', 'identifier');
     });
   }
 
