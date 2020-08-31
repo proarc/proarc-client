@@ -3,6 +3,19 @@
 }
 
 
+.app-editor-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  .app-editor-toolbar {
+    height: auto;
+    min-height: auto;
+  }
+  .app-editor-content {
+    flex: 1;
+  }
+
+}
+
 
     .app-view-list {
       overflow: auto;

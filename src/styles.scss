@@ -18,9 +18,15 @@ html, body {
   height: 100%;
 }
 
-.app-content-wrapper {
+.app-wrapper {
   height: 100%;
-  padding-top: $navbar-height;
+  app-navbar {
+    display: block;
+    height: $navbar-height;
+  }
+  .app-content-wrapper {
+    height: calc(100% - 64px);
+  }
 }
 
 body {
@@ -250,9 +256,10 @@ body {
       position: relative;
       .app-editor-toolbar {
         background: $primary-color;
-        height: 34px;
+        min-height: 34px;
         padding: 0 6px;
-        overflow: hidden;
+        // overflow: hidden;
+        // overflow: overlay;
         .app-label {
           line-height: 34px;
           margin-left: 8px;
