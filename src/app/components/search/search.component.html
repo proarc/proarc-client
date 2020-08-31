@@ -11,6 +11,15 @@
       {{ 'search.search' | translate }}
     </a>
 
+
+    <mat-form-field class="model-filter app-filter">
+      <mat-select [placeholder]="'search.model' | translate" name="model" [(ngModel)]="model">
+        <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
+        <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    
   <mat-form-field class="document-search">
     <input matInput placeholder="Hledat dokument" (keyup.enter)="reload()" [(ngModel)]="query">
   </mat-form-field>
@@ -24,13 +33,6 @@
     </mat-select>
   </mat-form-field>
 
-
-    <mat-form-field class="model-filter app-filter">
-      <mat-select [placeholder]="'search.model' | translate" name="model" [(ngModel)]="model">
-        <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
-        <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
-      </mat-select>
-    </mat-form-field>
 
     <mat-form-field class="organization-filter app-filter">
       <mat-select  [placeholder]="'search.fields.organization' | translate" name="organization" [(value)]="organization">
