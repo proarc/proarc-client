@@ -375,6 +375,14 @@ body {
         width: 1px;
         background: #dddddd;
       }
+      .app-header-text {
+        float: right;
+        line-height: 40px;
+        color: #656565;
+        font-size: 13px;
+        display: block;
+        margin-right: 6px;
+      }
     }
     .app-card-content {
       padding: 15px 20px 0px;

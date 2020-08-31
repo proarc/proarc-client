@@ -36,12 +36,16 @@
         <mat-icon>star</mat-icon>
       </button>
 
+      <ng-container *ngIf="item.nameIdentifier">
+        <div class="app-header-divider"></div>
+        <div class="app-header-text">{{ item.nameIdentifier }}</div>
+      </ng-container>
+
 
 
     </div>
 
     <div class="app-card-content" [class.app-collapsed]="item.collapsed">
-
 
         <mat-form-field class="app-full-width">
           <input autocomplete="off" matInput [(ngModel)]='item.name["_"]' placeholder="{{ 'editor.author.name' | translate }}">

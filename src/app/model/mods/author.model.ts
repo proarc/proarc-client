@@ -10,6 +10,7 @@ export class ModsAuthor extends ModsElement {
     public family;
     public date;
     public roles: ElementField;
+    public nameIdentifier: string;
 
     static getSelector() {
         return 'name';
@@ -58,6 +59,9 @@ export class ModsAuthor extends ModsElement {
             nameParts.push(this.given);
         }
         this.roles = new ElementField(this.modsElement, ModsRole.getSelector());
+        if (this.modsElement['nameIdentifier']) {
+            this.nameIdentifier = this.modsElement['nameIdentifier'][0]['_'];
+        }
         // this.splitName();
     }
 
