@@ -30,8 +30,6 @@ export class EditorPagesComponent implements OnInit {
     // this.editor.editSelectedPages(this.holder, null);
     this.editor.updateSelectedPages(this.holder, null);
   }
-
-
 }
 
 
@@ -71,7 +69,7 @@ export class PageUpdateHolder {
   pageType: string;
   pageIndex: number;
 
-  pageNumberFrom: number;
+  pageNumberFrom: string;
   pageNumberIncrement: number;
   pageNumberPrefix: string;
   pageNumberSuffix: string;
@@ -87,7 +85,7 @@ export class PageUpdateHolder {
     this.pageType = 'normalPage';
     this.pageIndex = 1;
 
-    this.pageNumberFrom = 1;
+    this.pageNumberFrom = "";
     this.pageNumberIncrement = 1;
     this.pageNumberPrefix = '';
     this.pageNumberSuffix = '';
@@ -97,8 +95,12 @@ export class PageUpdateHolder {
     this.applyToFirst = true;
   }
 
+  getPageIndexFrom(): number {
+    return this.findIndexInNumbering(this.pageNumberFrom);
+  }
+
   editAny(): boolean {
-    return this.editIndex || this.editNumber || this.editType;
+    return this.editIndex || this.editType || (this.editNumber && this.numberFromValid());
   }
 
   romanize(num: number): string {
@@ -117,26 +119,56 @@ export class PageUpdateHolder {
     return Array(+digits.join('') + 1).join('M') + roman;
   }
 
-  // toLetters(num: number): string {
-  //   if (isNaN(num)) {
-  //       return '';
-  //   }
-  //   const a = 
 
-  //   const digits = String(+num).split('');
-  //   const  key = ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM',
-  //              '', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC',
-  //              '', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
-  //   let roman = '',
-  //   i = 3;
-  //   while (i--) {
-  //     roman = (key[+digits.pop() + (i * 10)] || '') + roman;
-  //   }
-  //   return Array(+digits.join('') + 1).join('M') + roman;
-  // }
+
+  private romanCharToInt(c) {
+    switch (c) {
+      case 'I': return 1;
+      case 'V': return 5;
+      case 'X': return 10;
+      case 'L': return 50;
+      case 'C': return 100;
+      case 'D': return 500;
+      case 'M': return 1000;
+      default: return -1;
+    }
+  }
+
+  alphabetIndex(text: string) {
+    if(text == null) { 
+      return 0;
+    }
+    let result = 0;
+    for(let i = 0; i < text.length; i++){
+      const letter = text.substring(i, i + 1);
+      const power = text.length - (i + 1);
+      const index = this.alphabet.indexOf(letter) + 1;
+      result = result + index * Math.pow(26, power);
+    }
+    return result;
+  }
+
+  deromanize(roman: string) {
+    if(roman == null) {
+      return 0;
+    }
+    let num = this.romanCharToInt(roman.charAt(0));
+    let pre, curr;
+  
+    for(let i = 1; i < roman.length; i++){
+      curr = this.romanCharToInt(roman.charAt(i));
+      pre = this.romanCharToInt(roman.charAt(i-1));
+      if(curr <= pre) {
+        num += curr;
+      } else {
+        num = num - pre*2 + curr;
+      }
+    }
+    return num;
+  }
+  
 
   getAlphabetFromNumber(num) {
-
     let str = '';
     let t = 0;
     while (num > 0) {
@@ -145,12 +177,27 @@ export class PageUpdateHolder {
       num = (num - t)/26 | 0;
     }
     return str;
-}
+  }
+
+  findIndexInNumbering(number: string): number {
+    if (this.pageNumberNumbering == this.numberingTypes[0]) {
+      return parseInt(number);
+    } else if (this.pageNumberNumbering == this.numberingTypes[1]) {
+      return this.deromanize(number.toUpperCase());
+    } else if (this.pageNumberNumbering == this.numberingTypes[2]) {
+      return this.deromanize(number.toUpperCase());
+    } else if (this.pageNumberNumbering == this.numberingTypes[3]) {
+      return this.alphabetIndex(number.toLocaleLowerCase());
+    } else if (this.pageNumberNumbering == this.numberingTypes[4]) {
+      return this.alphabetIndex(number.toLocaleLowerCase());
+    }
+  }
 
 
   getNumberForIndex(index: number) {
     let result = this.pageNumberPrefix;
-    const num = this.pageNumberFrom + this.pageNumberIncrement * index;
+    let num = this.findIndexInNumbering(this.pageNumberFrom);
+    num += this.pageNumberIncrement * index;
     if (this.pageNumberNumbering === this.numberingTypes[0]) {
       result += String(num);
     } else if (this.pageNumberNumbering === this.numberingTypes[1]) {
@@ -165,8 +212,27 @@ export class PageUpdateHolder {
     return result + this.pageNumberSuffix;
   }
 
+  numberFromValid(): boolean {
+    if (!this.pageNumberFrom) {
+      return false;
+    }
+    if (this.pageNumberNumbering === this.numberingTypes[0]) {
+      return new RegExp(/^\d+$/).test(this.pageNumberFrom);
+    } else if (this.pageNumberNumbering === this.numberingTypes[1]) {
+      return new RegExp(/^[IVXCLMD]+$/).test(this.pageNumberFrom.toLocaleUpperCase());
+    } else if (this.pageNumberNumbering === this.numberingTypes[2]) {
+      return new RegExp(/^[IVXCLMD]+$/).test(this.pageNumberFrom.toLocaleUpperCase());
+    } else if (this.pageNumberNumbering === this.numberingTypes[3]) {
+      return new RegExp(/^[A-Za-z]+$/).test(this.pageNumberFrom);
+    } else if (this.pageNumberNumbering === this.numberingTypes[4]) {
+      return new RegExp(/^[A-Za-z]+$/).test(this.pageNumberFrom);
+    }
+  }
+
   getNumberingExample(): string {
-    return `${this.getNumberForIndex(0)}, ${this.getNumberForIndex(1)}, ${this.getNumberForIndex(2)}, ${this.getNumberForIndex(3)}`;
+    if (this.pageNumberFrom && this.numberFromValid()) {
+      return `${this.getNumberForIndex(0)}, ${this.getNumberForIndex(1)}, ${this.getNumberForIndex(2)}, ${this.getNumberForIndex(3)}`;
+    }
   }
 
 }

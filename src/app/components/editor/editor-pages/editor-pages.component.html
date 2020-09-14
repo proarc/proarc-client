@@ -66,7 +66,7 @@
               <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_prefix' | translate" [(ngModel)]="holder.pageNumberPrefix">
             </mat-form-field>
             <mat-form-field class="app-full-width">
-              <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.pages.number_from' | translate" [(ngModel)]="holder.pageNumberFrom">
+              <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_from' | translate" [(ngModel)]="holder.pageNumberFrom" [class.app-input-invalid]="!holder.numberFromValid()">
             </mat-form-field>
             <mat-form-field class="app-full-width">
               <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.pages.number_increment' | translate" [(ngModel)]="holder.pageNumberIncrement">

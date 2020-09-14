@@ -339,7 +339,7 @@ export class ApiService {
       data += `&startIndex=${holder.pageIndex}`;
     }
     if (holder.editNumber) {
-      data += `&sequence=${holder.pageNumberNumbering.id}&prefix=${holder.pageNumberPrefix}&suffix=${holder.pageNumberSuffix}&startNumber=${holder.pageNumberFrom}&incrementNumber=${holder.pageNumberIncrement}`;
+      data += `&sequence=${holder.pageNumberNumbering.id}&prefix=${holder.pageNumberPrefix}&suffix=${holder.pageNumberSuffix}&startNumber=${holder.getPageIndexFrom()}&incrementNumber=${holder.pageNumberIncrement}`;
     }
     if (holder.applyTo > 1) {
       data += `&applyToFirstPage=${holder.applyToFirst}`;
