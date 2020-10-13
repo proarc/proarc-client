@@ -12,6 +12,7 @@ import { ModsNote } from './note.mode';
 import { ModsAbstract } from './abstract.model';
 import { ModsGenre } from './genre.mods';
 import { ModsGeo } from './geo.model';
+import { ModsPhysical } from './physical.model';
 
 export class ElementField {
 
@@ -165,7 +166,10 @@ export class ElementField {
                 return new ModsGenre(el);
             case ModsGeo.getId():
                 return new ModsGeo(el);
+            case ModsPhysical.getId():
+                return new ModsPhysical(el);
             }
+
     }
 
 
@@ -195,6 +199,8 @@ export class ElementField {
                 return ModsGenre.getSelector();
             case ModsGeo.getId():
                 return ModsGeo.getSelector();
+            case ModsPhysical.getId():
+                return ModsPhysical.getSelector();
             }
     }
 

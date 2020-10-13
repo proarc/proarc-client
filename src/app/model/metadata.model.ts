@@ -14,6 +14,7 @@ import { ModsAbstract } from './mods/abstract.model';
 import { ModsGenre } from './mods/genre.mods';
 import { ModsChronicleLocation } from './mods/chronicle_location.model';
 import { ProArc } from '../utils/proarc';
+import { ModsPhysical } from './mods/physical.model';
 declare var $: any;
 
 
@@ -29,7 +30,8 @@ export class Metadata {
     ModsNote.getSelector(),
     ModsAbstract.getSelector(),
     ModsGenre.getSelector(),
-    ModsGeo.getSelector()
+    ModsGeo.getSelector(),
+    ModsPhysical.getSelector()
   ];
 
 
@@ -78,7 +80,8 @@ export class Metadata {
         ModsNote.getId(),
         ModsAbstract.getId(),
         ModsGenre.getId(),
-        ModsGeo.getId()
+        ModsGeo.getId(),
+        ModsPhysical.getId()
       ];
     }
     this.parseMods(mods);

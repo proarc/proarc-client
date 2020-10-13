@@ -90,6 +90,7 @@ import { NewPasswordDialogComponent } from './dialogs/new-password-dialog/new-pa
 import { EditorAbstractComponent } from './documents/document/editor-abstract/editor-abstract.component';
 import { AngularSplitModule } from 'angular-split';
 import { AngularResizedEventModule } from 'angular-resize-event';
+import { EditorPhysicalComponent } from './documents/document/editor-physical/editor-physical.component';
 
 
 export function hljsLanguages() {
@@ -165,7 +166,8 @@ export function hljsLanguages() {
     FundDialogComponent,
     SettingsComponent,
     NewPasswordDialogComponent,
-    EditorAbstractComponent
+    EditorAbstractComponent,
+    EditorPhysicalComponent
   ],
   imports: [
     BrowserModule,

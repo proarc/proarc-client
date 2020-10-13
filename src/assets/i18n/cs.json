@@ -581,6 +581,12 @@
       "type": "Typ",
       "add_btn": "Přidat poznámku"
     },
+    "physical": {
+      "physical": "Fyzický popis",
+      "extent": "Rozsah",
+      "note": "Poznámka",
+      "add_btn": "Přidat fyzický popis"
+    },
     "abstract": {
       "abstract": "Abstrakt",
       "add_btn": "Přidat abstrakt"
