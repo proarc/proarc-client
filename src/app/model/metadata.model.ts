@@ -15,6 +15,7 @@ import { ModsGenre } from './mods/genre.mods';
 import { ModsChronicleLocation } from './mods/chronicle_location.model';
 import { ProArc } from '../utils/proarc';
 import { ModsPhysical } from './mods/physical.model';
+import { Note } from './note.model';
 declare var $: any;
 
 
@@ -131,6 +132,7 @@ export class Metadata {
     }
     if (this.isVolume() || this.isIssue()) {
       this.volume = new ModsVolume(root);
+      this.fields.set("physicalDescription", new ElementField(root, "physicalDescription"));
     } else {
       for (const id of this.fieldsIds) {
         if (id === ModsGeo.getId()) {
@@ -163,7 +165,7 @@ export class Metadata {
     const mods = $.extend(true, {}, this.mods);
     const root = mods['modsCollection'] ? mods['modsCollection']['mods'][0] : mods['mods'];
     if (this.isVolume() || this.isIssue()) {
-
+      this.normalizeField(root, ModsPhysical.getSelector());
     } else {
       for (const selector of Metadata.selectors) {
         this.normalizeField(root, selector);

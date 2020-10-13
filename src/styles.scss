@@ -474,6 +474,13 @@ body {
 //   background-color: rgba(255, 255, 255, 0.2) !important;
 // }
 
+mat-form-field textarea.mat-input-element {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 
 
 

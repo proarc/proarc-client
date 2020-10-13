@@ -30,6 +30,9 @@
 
 </div>
 
+<app-editor-physical [field]="editor.metadata.getField('physicalDescription')"></app-editor-physical>
+
+
 </div>
     
 <mat-spinner *ngIf="state === 'loading'"
