@@ -339,6 +339,7 @@
       "index": "Index",
       "number": "Číslo stránky",
       "position": "Pozice stránky",
+      "genre": "Reprezentativní strana",
       "type": "Typ stránky",
       "identifier": "Indentifikátor",
       "note": "Popis obsahu strany",
@@ -347,6 +348,10 @@
         "left": "Vlevo",
         "right": "Vpravo",
         "singlePage": "Samostatně"
+      },
+      "genres": {
+        "page": "Ne",
+        "reprePage": "Ano"
       }
     },
     "pages": {

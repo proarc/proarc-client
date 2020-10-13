@@ -17,6 +17,7 @@ export class EditorPageComponent implements OnInit {
   page: Page;
 
   positions = ['left', 'right', 'singlePage'];
+  genres = ['page', 'reprePage'];
 
   @Input() ndk: boolean = false;
 

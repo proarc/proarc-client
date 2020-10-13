@@ -23,25 +23,39 @@
         <div class="app-card">
           <div class="app-card-content">
       
-            <mat-form-field [ngClass]="page.ndk ? 'app-half-left' : 'app-full-width'">
+
+
+            <mat-form-field class="app-full-width">
               <input (keyup.enter)="onSave()" autocomplete="off" matInput [placeholder]="'editor.page.number' | translate" [(ngModel)]="page.number">
             </mat-form-field>
 
-            <mat-form-field class="app-half-right" *ngIf="page.ndk">
+            <mat-form-field class="app-half-left" *ngIf="config.showPageIndex">
+              <input (keyup.enter)="onSave()" autocomplete="off" matInput [placeholder]="'editor.page.index' | translate" [(ngModel)]="page.index">
+            </mat-form-field>
+
+            <mat-form-field [ngClass]="config.showPageIndex ? 'app-half-right' : 'app-full-width'">
+              <mat-select [placeholder]="'editor.page.type' | translate" name="type" [(value)]="page.type">
+                <mat-option *ngFor="let pageType of codebook.pageTypes" [value]="pageType.code">{{ pageType.name }}</mat-option>
+              </mat-select>
+            </mat-form-field> 
+
+ 
+
+            <mat-form-field class="app-half-left" *ngIf="page.ndk">
               <mat-select [(ngModel)]='page.position' placeholder="{{ 'editor.page.position' | translate }}">
                 <mat-option *ngFor="let position of positions" [value]="position">{{ 'editor.page.positions.' + position | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
 
-
-            <mat-form-field class="app-half-left" *ngIf="config.showPageIndex">
-              <input (keyup.enter)="onSave()" autocomplete="off" matInput [placeholder]="'editor.page.index' | translate" [(ngModel)]="page.index">
+            <mat-form-field class="app-half-right" *ngIf="page.ndk">
+              <mat-select [(ngModel)]='page.genre' placeholder="{{ 'editor.page.genre' | translate }}">
+                <mat-option *ngFor="let genre of genres" [value]="genre">{{ 'editor.page.genres.' + genre | translate }}</mat-option>
+              </mat-select>
             </mat-form-field>
-            <mat-form-field [ngClass]="config.showPageIndex ? 'app-half-right' : 'app-full-width'">
-              <mat-select [placeholder]="'editor.page.type' | translate" name="type" [(value)]="page.type">
-                <mat-option *ngFor="let pageType of codebook.pageTypes" [value]="pageType.code">{{ pageType.name }}</mat-option>
-            </mat-select>
-            </mat-form-field>      
+
+
+
+
 
             <mat-form-field class="app-full-width">
               <textarea 

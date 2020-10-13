@@ -10,12 +10,14 @@ export class Page {
   public note: string;
   public identifiers: PageIdentifier[];
   public position: string;
+  public genre: string;
 
   public originalIndex: string;
   public originalNumber: string;
   public originalType: string;
   public originalNote: string;
   public originalPosition: string;
+  public originalGenre: string;
   public originalIdentifiers: PageIdentifier[];
 
 
@@ -70,6 +72,9 @@ export class Page {
         if (mods['note'] && mods['note'][0] && mods['note'][0]['value']) {
           page.position = mods['note'][0]['value'];
         }
+        if (mods['genre'] && mods['genre'][0] && mods['genre'][0]['value']) {
+          page.genre = mods['genre'][0]['value'];
+        }
         if (mods['v'] && mods['physicalDescription'][0] && mods['physicalDescription'][0]['note'] && mods['physicalDescription'][0]['note'][0] && mods['physicalDescription'][0]['note'][0]['value']) {
           page.note = mods['physicalDescription'][0]['note'][0]['value'];
         }
@@ -77,6 +82,7 @@ export class Page {
         page.originalIdentifiers = PageIdentifier.fromJsonArray(mods['identifier']);
       }
       page.originalPosition = page.position;
+      page.originalGenre = page.genre;
       page.originalIndex = page.index;
       page.originalNumber = page.number;
       page.originalType = page.type;
@@ -120,6 +126,9 @@ export class Page {
     };
     if (this.position) {
       mods['note'] = [ { 'value': this.position } ];
+    }
+    if (this.genre) {
+      mods['genre'] = [ { 'value': this.genre } ];
     }
     if (this.note) {
       mods['physicalDescription'] = [ { 'note': [ { 'value': this.note  }] } ];
@@ -168,6 +177,7 @@ export class Page {
     this.type = this.originalType;
     this.note = this.originalNote;
     this.position = this.originalPosition;
+    this.genre = this.originalGenre;
     this.identifiers = [];
     for (const id of this.originalIdentifiers) {
       this.identifiers.push(new PageIdentifier(id.type, id.value));
@@ -192,7 +202,8 @@ export class Page {
       }
     }
     return this.index !== this.originalIndex || this.number !== this.originalNumber
-    || this.type !== this.originalType || this.note !== this.originalNote || this.position !== this.originalPosition;
+    || this.type !== this.originalType || this.note !== this.originalNote 
+    || this.position !== this.originalPosition || this.genre !== this.originalGenre;
   }
 }
 
