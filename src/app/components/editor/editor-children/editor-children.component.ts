@@ -99,9 +99,9 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.iconColumns = 1;
     this.movedToIndex = false;
-    this.lastIndex = -1;
+    this.lastIndex = 0;
     this.arrowIndex = 0;
-    this.lastState = false;
+    this.lastState = true;
     this.anyChange = false;
     this.pageChildren = this.editor.anyPageChildren();
     if (this.pageChildren) {
@@ -189,6 +189,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
       if (!this.editor.isMultipleChildrenMode()) {
         this.editor.setMultipleChildrenMode(true);
       }
+      console.log("---??");
       let index = Math.min(this.lastIndex, itemIndex);
       const i2 = Math.max(this.lastIndex, itemIndex);
       while (index <= i2) {
@@ -204,11 +205,12 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
           this.editor.setMultipleChildrenMode(true);
           item.selected = true;
         } else {
-          this.editor.selectRight(item);
+          // this.editor.selectRight(item);
         }
         this.lastState = true;
       }
     }
+    this.editor.selectRight(item);
     this.arrowIndex = itemIndex;
     this.lastIndex = itemIndex;
   }

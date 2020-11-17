@@ -590,8 +590,8 @@ export class EditorService {
         if (enabled) {
             this.multipleChildrenMode = true;
             this.right.selected = true;
-            this.doubleRight = false;
-            this.selectRight(null);
+            // this.doubleRight = false;
+            // this.selectRight(null);
         } else {
             const firtsSelectionIndex = this.firstSelectedIndex();
             this.deselectChildren();
@@ -607,7 +607,8 @@ export class EditorService {
         let index = -1;
         for (const child of this.children) {
             index += 1;
-            if (child.selected) {
+            if (this.right == child) {
+            // if (child.selected) {
                 return index;;
             }
         }

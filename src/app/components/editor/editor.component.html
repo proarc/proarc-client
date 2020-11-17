@@ -97,7 +97,7 @@
 
 
 
-    <div class="app-toolbar" *ngIf="editor.right">
+    <div class="app-toolbar" *ngIf="editor.right && !editor.isMultipleChildrenMode()">
         <div class="app-label">
           <div class="app-label-title">{{ editor.right.label }}</div>
           <div class="app-label-model">{{ 'model.' + editor.right.model | translate }}</div>
@@ -136,6 +136,11 @@
       <div class="app-label">
         <div class="app-label-title">{{ 'editor.children.multiple_selection_label' | translate }}</div>
         <div class="app-label-model">{{ 'editor.children.multiple_selection_count' | translate: { count: editor.numberOfSelectedChildren() } }}</div>
+      </div>
+      <div class="app-context">
+        <button *ngIf="editor.right.isPage() && !editor.doubleRight" (click)="editor.enterDoubleRight()" mat-icon-button matTooltip="{{ 'editor.toolbar.editor_enter_double_right' | translate }}">
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
       </div>
     </div>
 
@@ -176,22 +181,22 @@
 
 
 
-<as-split-area *ngIf="editor.doubleRight"  #area3="asSplitArea" minSize="20" [size]="getSplitSize(2)">
+<as-split-area *ngIf="editor.right && editor.doubleRight" #area3="asSplitArea" minSize="20" [size]="getSplitSize(2)">
 
 
 <div class="app-panel">
-  <div class="app-toolbar" *ngIf="editor.right">
+  <div class="app-toolbar">
       <div class="app-label">
         <div class="app-label-title">{{ editor.right.label }}</div>
         <div class="app-label-model">{{ 'model.' + editor.right.model | translate }}</div>
       </div>
-      <div class="app-context" *ngIf="!editor.showRelocationEditor()">
+      <div class="app-context">
         <button (click)="editor.leaveDoubleRight()" mat-icon-button matTooltip="{{ 'editor.toolbar.editor_leave_double_right' | translate }}">
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
       </div>
   </div>
-  <div class="app-content" *ngIf="editor.showRightObjectEditor()">
+  <div class="app-content">
       <app-viewer [pid]="editor.right.pid"></app-viewer>
   </div>
 </div>
