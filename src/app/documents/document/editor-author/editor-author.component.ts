@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ElementField } from 'src/app/model/mods/elementField.model';
 import { Translator } from 'angular-translator';
+import { HelpService } from 'src/app/services/help.service';
 
 @Component({
   selector: 'app-editor-author',
@@ -26,7 +27,7 @@ export class EditorAuthorComponent implements OnInit {
   public roles = [];
   public nameTypes = [];
 
-  constructor(public translator: Translator) {
+  constructor(public translator: Translator, public help: HelpService) {
     this.translateCodes();
     translator.languageChanged.subscribe(() => this.translateCodes());
   }

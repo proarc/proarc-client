@@ -8,6 +8,11 @@
       <mat-icon>delete</mat-icon>
     </button>
 
+    <button matTooltip="{{ 'editor.info' | translate }}" color="primary" (click)="help.showForField(field.id)" mat-icon-button>
+      <mat-icon>help_outline</mat-icon>
+    </button>
+
+
     <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" color="primary" (click)="field.moveDown(index)" mat-icon-button>
         <mat-icon>arrow_drop_down</mat-icon>
       </button>
