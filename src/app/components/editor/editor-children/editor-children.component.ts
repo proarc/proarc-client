@@ -31,6 +31,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   shortLabels = false;
 
   source: any;
+  sourceNext: any;
   dragEnabled = false;
   sourceIndex: number;
 
@@ -46,6 +47,8 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   iconColumns: number;
   iconWidth: number;
   iconHeight: number;
+
+  isDragging = false;
 
   constructor(public editor: EditorService,
               private dialog: MatDialog,
@@ -189,7 +192,6 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
       if (!this.editor.isMultipleChildrenMode()) {
         this.editor.setMultipleChildrenMode(true);
       }
-      console.log("---??");
       let index = Math.min(this.lastIndex, itemIndex);
       const i2 = Math.max(this.lastIndex, itemIndex);
       while (index <= i2) {
@@ -201,7 +203,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
         this.lastState = !item.selected;
         item.selected = this.lastState;
       } else {
-        if (event.metaKey || event.ctrlKey) {
+        if (event && (event.metaKey || event.ctrlKey)) {
           this.editor.setMultipleChildrenMode(true);
           item.selected = true;
         } else {
@@ -216,11 +218,40 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   }
 
 
-  dragenter($event) {
-    if (this.source.parentNode !== $event.currentTarget.parentNode) {
+  dragstart(event) {
+    if (!this.dragEnabled) {
       return;
     }
-    const target = $event.currentTarget;
+    this.source = event.currentTarget;
+    this.sourceNext = event.currentTarget.nextSibling;
+    this.sourceIndex = this.getIndex(this.source);
+    if (this.editor.isMultipleChildrenMode() && !this.editor.children[this.sourceIndex - 1].selected) {
+      this.dragEnabled = false;
+      event.preventDefault();
+      return;
+   }
+   if (!this.editor.isMultipleChildrenMode()) {
+     this.select(this.items[this.sourceIndex - 1]);
+   }
+   this.isDragging = true;
+   event.dataTransfer.effectAllowed = 'move';
+  }
+
+  mousedown(event) {
+    // if (this.viewMode !== 'list' || $event.target.classList.contains('app-drag-handle') > 0) {
+    //   this.dragEnabled = true;
+    // } else {
+    //   $event.preventDefault();
+    //   this.dragEnabled = false;
+    // }
+    this.dragEnabled = true;
+  }
+
+  dragenter(event) {
+    if (!this.dragEnabled || this.source.parentNode !== event.currentTarget.parentNode) {
+      return;
+    }
+    const target = event.currentTarget;
     if (this.isbefore(this.source, target)) {
       target.parentNode.insertBefore(this.source, target); // insert before
     } else {
@@ -228,15 +259,56 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     }
   }
 
-  dragend($event) {
+  dragover(event) {
+    event.preventDefault();
+  }
+
+
+  dragend(event) {
+    this.isDragging = false;
+    if (!this.dragEnabled) {
+      return;
+    }
     const targetIndex = this.getIndex(this.source);
-    const from = this.sourceIndex - 1;
-    const to = targetIndex - 1;
-    if (from !== to) {
-      this.reorder(from, to);
+    let to = targetIndex - 1;
+    this.source.parentNode.insertBefore(this.source, this.sourceNext);
+    if (this.editor.isMultipleChildrenMode()) {
+      const movedItems = [];
+      let shift = 0;
+      for (let i = this.items.length - 1; i >= 0; i--) {
+        if (this.items[i].selected) {
+          const item = this.items.splice(i, 1);
+          movedItems.push(item[0]);
+          if (i < to) {
+            shift += 1;
+          }
+        }
+      }
+      if (shift > 1) {
+        to = to - shift + 1;
+      }
+      const rest = this.items.splice(to, this.items.length - to);
+      for (let i = movedItems.length - 1; i >= 0; i--) {
+        this.items.push(movedItems[i]);
+      }
+      for (let i = 0; i < rest.length; i++) {
+        const item = rest[i];
+        this.items.push(item);
+      }
+      this.anyChange = true;
+    } else {
+      const from = this.sourceIndex - 1;
+      if (from !== to) {
+        this.reorder(from, to);
+      }
     }
   }
 
+  drop(event) {
+    if (!this.dragEnabled) {
+      return;
+    }
+  }
 
   reorder(from: number, to: number) {
     this.anyChange = true;
@@ -322,7 +394,6 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        console.log('delete, pernamently: ', checkbox.checked);
         this.editor.deleteSelectedChildren(checkbox.checked, (success: boolean) => {
           if (success) {
             this.ui.showInfoSnackBar(String(this.translator.instant('editor.children.delete_dialog.success')));
@@ -330,25 +401,6 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
         });
       }
     });
-  }
-
-  dragstart($event) {
-    if (!this.dragEnabled) {
-      return;
-    }
-    this.source = $event.currentTarget;
-    this.sourceIndex = this.getIndex(this.source);
-    $event.dataTransfer.effectAllowed = 'move';
-  }
-
-  mousedown($event) {
-    // if (this.viewMode !== 'list' || $event.target.classList.contains('app-drag-handle') > 0) {
-    //   this.dragEnabled = true;
-    // } else {
-    //   $event.preventDefault();
-    //   this.dragEnabled = false;
-    // }
-    this.dragEnabled = true;
   }
 
 

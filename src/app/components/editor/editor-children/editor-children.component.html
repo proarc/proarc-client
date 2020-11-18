@@ -61,7 +61,11 @@
   <div class="app-view-list app-table" *ngIf="viewMode == 'list'" #childrenList 
   (mousedown)="mousedown($event)">
     <div *ngFor="let item of items; let i = index" (click)="select(item, $event)" (dblclick)="open(item)" class="app-row" [class.app-selected]="isSelected(item, i, 'list')"
-    draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)">
+    draggable="true" 
+      (dragenter)="dragenter($event)" 
+      (dragstart)="dragstart($event)" 
+      (dragover)="dragover($event)"
+      (dragend)="dragend($event)">
     <!-- <div class="app-col-open" *ngIf="!item.isPage()">
         <button matTooltip="{{ 'editor.children.open_object' | translate }}" (click)="open(item)" mat-icon-button>
             <mat-icon>keyboard_arrow_down</mat-icon>
@@ -83,8 +87,13 @@
 
 
   <div class="app-view-grid" *ngIf="viewMode == 'grid'" #childrenGridList>
-    <div *ngFor="let item of items; let i = index" (click)="select(item, $event)" (dblclick)="open(item)" class="app-grid-item-wrapper" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
-    (mousedown)="mousedown($event)" [class.app-selected]="isSelected(item, i, 'grid')"
+    <div *ngFor="let item of items; let i = index" (click)="select(item, $event)" (dblclick)="open(item)" class="app-grid-item-wrapper" 
+        draggable="true"
+        (dragenter)="dragenter($event)"
+        (dragstart)="dragstart($event)"
+        (dragover)="dragover($event)"
+        (dragend)="dragend($event)"
+        (mousedown)="mousedown($event)" [class.app-selected]="isSelected(item, i, 'grid')"
     [style.width]="iconWidth + '%'"
     >
         <div class="app-grid-item">
@@ -95,7 +104,9 @@
 
   <div class="app-view-icons" *ngIf="viewMode == 'icons'" #childrenIconList [class.app-multiple-selection]="editor.isMultipleChildrenMode()">
     <div *ngFor="let item of items; let i = index" (click)="select(item, $event)" (dblclick)="open(item)" class="app-item"
-    draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragend)="dragend($event)"
+    draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" 
+    (dragend)="dragend($event)"
+    (dragover)="dragover($event)"
     (mousedown)="mousedown($event)" [class.app-selected]="isSelected(item, i, 'icons')"
     [style.width]="iconWidth + '%'" [style.height]="iconHeight + 'px'"
     >
