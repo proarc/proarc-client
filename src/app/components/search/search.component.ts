@@ -11,6 +11,7 @@ import { UrnbnbDialogComponent } from 'src/app/dialogs/urnnbn-dialog/urnnbn-dial
 import { ConfigService } from 'src/app/services/config.service';
 import { User } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -21,6 +22,10 @@ export class SearchComponent implements OnInit {
 
   state = 'none';
   items: DocumentItem[];
+  children: DocumentItem[];
+  selectedItem: DocumentItem;
+  selectedChild: DocumentItem;
+  childrenHierarchy: string[];
 
   models: string[]
 
@@ -47,6 +52,7 @@ export class SearchComponent implements OnInit {
               public properties: LocalStorageService, 
               public auth: AuthService,
               private dialog: MatDialog,
+              private router: Router,
               private config: ConfigService,
               private translator: Translator) { 
                 this.models = this.config.allModels;
@@ -95,8 +101,56 @@ export class SearchComponent implements OnInit {
     this.api.getSearchResults(options).subscribe(([items, total]: [DocumentItem[], number]) => {
       this.resultCount = total;
       this.items = items;
+      this.children = null;
       this.state = 'success';
     });
+  }
+
+  onItemDblClick(item: DocumentItem) {
+    this.router.navigate(['/document', item.pid]);
+  }
+
+  onChildDblClick(item: DocumentItem) {
+    this.childrenHierarchy.push(item.pid);
+    this.reloadChildrenFor(item);
+  }
+
+  onItemClick(item: DocumentItem) {
+    this.childrenHierarchy = [];
+    this.childrenHierarchy.push(item.pid);
+    this.selectedItem = item;
+    this.selectedChild = null;
+    this.reloadChildrenFor(item);
+  }
+
+  openChildrenParent() {
+    if (this.childrenHierarchy.length > 1) {
+      this.childrenHierarchy.pop();
+      this.reloadChildrenByPid(this.childrenHierarchy[this.childrenHierarchy.length - 1]);
+    }
+  }
+
+  reloadChildrenFor(item: DocumentItem) {
+    if (item.isPage()) {
+      return;
+    }
+    this.reloadChildrenByPid(item.pid);
+  }
+
+  reloadChildrenByPid(pid: string) {
+    this.api.getRelations(pid).subscribe((children: DocumentItem[]) => {
+      this.children = children;
+      this.childrenParentPid = null;
+      if (this.children.length == 0) {
+        this.childrenParentPid =  this.children[0].parent;
+      } else if (this.lastChild) {
+        this.childrenParentPid = this.lastChild.pid;
+      }
+    });
+  }
+
+  onChildClick(item: DocumentItem) {
+    this.selectedChild = item;
   }
 
   onPageChanged(page) {

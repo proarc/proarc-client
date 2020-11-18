@@ -29,7 +29,7 @@ export class DocumentItem {
     }
     const item = new DocumentItem();
     item.pid = json['pid'];
-    item.parent = json['pid'];
+    item.parent = json['parent'];
     item.model = json['model'];
     item.state = json['state'];
     item.owner = json['owner'];

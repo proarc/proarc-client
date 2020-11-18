@@ -1,7 +1,7 @@
 .app-search-results {
   height: calc(100% - 50px);
   padding: 10px 20px;
-  .actions {
+  .app-search-filteres {
     height: 50px;
     overflow: hidden;
     display: flex;
@@ -32,11 +32,44 @@
       flex: 1;
     }
   }
-  .app-table {
-    height: calc(100% - 50px);
+  .app-search-actions {
+    height: 42px;
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+    .app-paginator {
+      float: right;
+      width: 250px;
+    }
+    .app-selected-obect-actions {
+      padding-left: 10px;
+    }
+
   }
+  .app-items-wrapper {
+    height: calc(100% - 350px);
+    flex-direction: column;
+    display: flex;
+    overflow: hidden;
+    .app-items {
+      flex: 1;
+      overflow: auto;
+    }
+  }
+  .app-children-wrapper {
+    display: flex;
+    height: 300px;
+    flex-direction: column;
+    padding-top: 5px;
+    overflow: hidden;
+    .app-children {
+      flex: 1;
+      overflow: auto;
+    }
+  }
+
   .search-result-list {
-    height: calc(100% - 40px);
+    // height: 100%;
+    // height: calc(100% - 40px);
     .app-header {
       flex: 1;
     }
@@ -92,6 +125,16 @@
     .scrollable {
       height: calc(100% - 44px);
       overflow: auto;
+    }
+    .app-row {
+      height: 36px;
+      line-height: 36px;
+      cursor: pointer;
+      &.app-selected {
+        background: #4469a5;
+        color: #ffffff;
+        border-bottom-color: #ffffff2e;
+      }
     }
 
   }
