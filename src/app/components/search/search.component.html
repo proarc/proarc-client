@@ -11,7 +11,6 @@
       {{ 'search.search' | translate }}
     </a>
 
-
     <mat-form-field class="model-filter app-filter">
       <mat-select [placeholder]="'search.model' | translate" name="model" [(ngModel)]="model">
         <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
@@ -69,9 +68,19 @@
   </div>
 
 
+  <as-split style="height: calc(100% - 50px);" unit="percent" gutterSize="4" direction="vertical" (dragEnd)="dragEnd($event)" #split="asSplit">
+
+    <as-split-area #area1="asSplitArea" minSize="20" [size]="getSplitSize(0)">
+
+
   <div class="app-items-wrapper" *ngIf="items">
 
   <div class="app-search-actions">
+    <div class="app-obect-actions" *ngIf="selectedItem">
+      <button (click)="onExport(selectedItem)" mat-button>Exportovat</button>
+      <button (click)="onUrnnbn(selectedItem)" mat-button>URN:NBN</button>
+      <button (click)="onDelete(selectedItem)" mat-button>Smazat</button>
+    </div>
     <div class="app-paginator">
       <mat-paginator [length]="resultCount"
         hidePageSize="true"
@@ -79,17 +88,6 @@
         [pageSize]="pageSize"
         (page)="onPageChanged($event)">
       </mat-paginator>
-    </div>
-    <div class="app-selected-obect-actions" *ngIf="selectedItem">
-      <button class="app-action" (click)="onUrnnbn(item); $event.preventDefault(); $event.stopPropagation()" mat-icon-button matTooltip="URN:NBN" matTooltipPosition="below">
-        <mat-icon>code</mat-icon>
-      </button>
-      <button class="app-action" (click)="onExport(item); $event.preventDefault(); $event.stopPropagation()" mat-icon-button matTooltip="Exportovat" matTooltipPosition="below">
-        <mat-icon>import_export</mat-icon>
-      </button>
-      <button class="app-action" (click)="onDelete(item); $event.preventDefault(); $event.stopPropagation()" mat-icon-button matTooltip="Smazat" matTooltipPosition="below">
-        <mat-icon>delete</mat-icon>
-      </button>
     </div>
   </div>
 
@@ -138,7 +136,7 @@
       <div class="result-export" *ngIf="properties.isSearchColEnabled('export')">{{ 'search.export' | translate }}</div>
     </div>
     <div class="scrollable">
-      <div *ngFor="let item of items" (click)="onItemClick(item)" (dblclick)="onItemDblClick(item)" class="app-row" [class.app-selected]="item == selectedItem">
+      <div *ngFor="let item of items" (click)="selectItem(item)" (dblclick)="openItem(item)" class="app-row" [class.app-selected]="item == selectedItem">
         <div class="result-label" *ngIf="properties.isSearchColEnabled('name')">{{ item.label }}</div>
         <div class="result-model" *ngIf="properties.isSearchColEnabled('model')">{{ "model." + item.model | translate }}</div>
         <div class="result-pid" *ngIf="properties.isSearchColEnabled('pid')">{{ item.pid }}</div>
@@ -161,77 +159,57 @@
 
 
 
+</as-split-area>
 
 
-<div class="app-children-wrapper" *ngIf="children">
+<as-split-area #area2="asSplitArea" minSize="20" [size]="getSplitSize(1)">
+
+<div class="app-items-wrapper" *ngIf="children">
 
 <div class="app-search-actions">
-  <div class="app-paginator">
-    <mat-paginator [length]="resultCount"
-      hidePageSize="true"
-      [pageIndex]="pageIndex"
-      [pageSize]="pageSize"
-      (page)="onPageChanged($event)">
-    </mat-paginator>
-  </div>
-  <div class="app-selected-obect-actions" *ngIf="selectedItem">
-
-    <button *ngIf="childrenHierarchy.length > 1" class="app-action" (click)="openChildrenParent()" mat-icon-button matTooltip="Zpět" matTooltipPosition="below">
-      <mat-icon>keyboard_arrow_left</mat-icon>
-    </button>
-    <button class="app-action" (click)="onUrnnbn(item)" mat-icon-button matTooltip="URN:NBN" matTooltipPosition="below">
-      <mat-icon>code</mat-icon>
-    </button>
-    <button class="app-action" (click)="onExport(item)" mat-icon-button matTooltip="Exportovat" matTooltipPosition="below">
-      <mat-icon>import_export</mat-icon>
-    </button>
-    <button class="app-action" (click)="onDelete(item)" mat-icon-button matTooltip="Smazat" matTooltipPosition="below">
-      <mat-icon>delete</mat-icon>
-    </button>
+  <button *ngIf="childrenHierarchy.length > 1" class="app-action" (click)="openChildrenParent()" mat-icon-button matTooltip="Zpět" matTooltipPosition="below">
+    <mat-icon>keyboard_arrow_left</mat-icon>
+  </button>
+  <div class="app-obect-actions" *ngIf="selectedChild">
+    <button (click)="openItem(selectedChild)" mat-button>Otevřít</button>
+    <button (click)="onExport(selectedChild)" mat-button>Exportovat</button>
+    <button (click)="onUrnnbn(selectedChild)" mat-button>URN:NBN</button>
+    <button (click)="onDelete(selectedChild)" mat-button>Smazat</button>
   </div>
 </div>
 
 
 
-<div class="app-table app-children">
+<div class="app-table app-items">
 
 <div class="search-result-list">
   <div class="app-row app-header">
-    <div class="result-label app-header-sortable" *ngIf="properties.isSearchColEnabled('name')" (click)="sortBy('label')">
+    <div class="result-label" *ngIf="properties.isSearchColEnabled('name')">
       {{ 'search.name' | translate }}
-      <mat-icon *ngIf="getSortIcon('label')" class="sort-arrow">{{ getSortIcon('label') }}</mat-icon>
     </div>
-    <div class="result-model app-header-sortable" *ngIf="properties.isSearchColEnabled('model')" (click)="sortBy('model')">
+    <div class="result-model" *ngIf="properties.isSearchColEnabled('model')">
       {{ 'search.model' | translate }}
-      <mat-icon *ngIf="getSortIcon('model')" class="sort-arrow">{{ getSortIcon('model') }}</mat-icon>
     </div>
-    <div class="result-pid app-header-sortable" *ngIf="properties.isSearchColEnabled('pid')" (click)="sortBy('pid')">
+    <div class="result-pid" *ngIf="properties.isSearchColEnabled('pid')">
       {{ 'search.pid' | translate }}
-      <mat-icon *ngIf="getSortIcon('pid')" class="sort-arrow">{{ getSortIcon('pid') }}</mat-icon>
     </div>
-    <div class="result-processor app-header-sortable" *ngIf="properties.isSearchColEnabled('processor')" (click)="sortBy('user')">
+    <div class="result-processor" *ngIf="properties.isSearchColEnabled('processor')">
       {{ 'search.processor' | translate }}
-      <mat-icon *ngIf="getSortIcon('user')" class="sort-arrow">{{ getSortIcon('user') }}</mat-icon>
     </div>
-    <div class="result-organization app-header-sortable" *ngIf="properties.isSearchColEnabled('organization')" (click)="sortBy('organization')">
+    <div class="result-organization" *ngIf="properties.isSearchColEnabled('organization')">
       {{ 'search.organization' | translate }}
-      <mat-icon *ngIf="getSortIcon('organization')" class="sort-arrow">{{ getSortIcon('organization') }}</mat-icon>
     </div>
-    <div class="result-status app-header-sortable" *ngIf="properties.isSearchColEnabled('status')" (click)="sortBy('status')">
+    <div class="result-status" *ngIf="properties.isSearchColEnabled('status')">
       {{ 'search.status' | translate }}
-      <mat-icon *ngIf="getSortIcon('status')" class="sort-arrow">{{ getSortIcon('status') }}</mat-icon>
     </div>
-    <div class="result-created app-header-sortable" *ngIf="properties.isSearchColEnabled('created')" (click)="sortBy('created')">
+    <div class="result-created" *ngIf="properties.isSearchColEnabled('created')">
       {{ 'search.created' | translate }}
-      <mat-icon *ngIf="getSortIcon('created')" class="sort-arrow">{{ getSortIcon('created') }}</mat-icon>
     </div>
-    <div class="result-modified app-header-sortable" *ngIf="properties.isSearchColEnabled('modified')" (click)="sortBy('modified')">
+    <div class="result-modified" *ngIf="properties.isSearchColEnabled('modified')">
       {{ 'search.modified' | translate }}
-      <mat-icon *ngIf="getSortIcon('modified')" class="sort-arrow">{{ getSortIcon('modified') }}</mat-icon>
     </div>
-    <div class="result-owner app-header-sortable" *ngIf="properties.isSearchColEnabled('owner')" (click)="sortBy('owner')">
+    <div class="result-owner" *ngIf="properties.isSearchColEnabled('owner')">
       {{ 'search.owner' | translate }}
-      <mat-icon *ngIf="getSortIcon('owner')" class="sort-arrow">{{ getSortIcon('owner') }}</mat-icon>
     </div>
     <div class="result-export" *ngIf="properties.isSearchColEnabled('export')">{{ 'search.export' | translate }}</div>
   </div>
@@ -258,8 +236,9 @@
 
 
 
+</as-split-area>
 
-
+</as-split>
 
 
 

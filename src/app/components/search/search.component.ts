@@ -1,5 +1,5 @@
 import { DocumentItem } from '../../model/documentItem.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { Translator } from 'angular-translator';
@@ -12,6 +12,7 @@ import { ConfigService } from 'src/app/services/config.service';
 import { User } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { SplitAreaDirective, SplitComponent } from 'angular-split';
 
 @Component({
   selector: 'app-search',
@@ -19,6 +20,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
+
+
+  @ViewChild('split') split: SplitComponent;
+  @ViewChild('area1') area1: SplitAreaDirective;
+  @ViewChild('area2') area2: SplitAreaDirective;
+
+
+  splitArea1Width: string;
+  splitArea2Width: string;
 
   state = 'none';
   items: DocumentItem[];
@@ -59,6 +69,8 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.splitArea1Width = this.properties.getStringProperty('search.split.0', "60"),
+    this.splitArea2Width = this.properties.getStringProperty('search.split.1', "40"),
     this.organizations = this.config.organizations;
     this.organization = this.properties.getStringProperty('search.organization', '-');
     this.owner = this.properties.getStringProperty('search.owner', '-');
@@ -75,6 +87,21 @@ export class SearchComponent implements OnInit {
     this.api.getUsers().subscribe((users: User[]) => {
       this.users = users;
     });
+  }
+
+
+  dragEnd({sizes}) {
+      this.splitArea1Width = sizes[0];
+      this.splitArea2Width = sizes[1];
+      this.properties.setStringProperty('search.split.0', String(sizes[0]));
+      this.properties.setStringProperty('search.split.1', String(sizes[1]));
+  }
+
+  getSplitSize(split: number) {
+    if (split == 0) {
+      return this.splitArea1Width;
+    }
+    return this.splitArea2Width;
   }
 
   reload(page: number = 0) {
@@ -102,11 +129,14 @@ export class SearchComponent implements OnInit {
       this.resultCount = total;
       this.items = items;
       this.children = null;
+      if (this.items.length > 0) {
+        this.selectItem(this.items[0]);
+      }
       this.state = 'success';
     });
   }
 
-  onItemDblClick(item: DocumentItem) {
+  openItem(item: DocumentItem) {
     this.router.navigate(['/document', item.pid]);
   }
 
@@ -115,7 +145,7 @@ export class SearchComponent implements OnInit {
     this.reloadChildrenFor(item);
   }
 
-  onItemClick(item: DocumentItem) {
+  selectItem(item: DocumentItem) {
     this.childrenHierarchy = [];
     this.childrenHierarchy.push(item.pid);
     this.selectedItem = item;
@@ -140,12 +170,6 @@ export class SearchComponent implements OnInit {
   reloadChildrenByPid(pid: string) {
     this.api.getRelations(pid).subscribe((children: DocumentItem[]) => {
       this.children = children;
-      this.childrenParentPid = null;
-      if (this.children.length == 0) {
-        this.childrenParentPid =  this.children[0].parent;
-      } else if (this.lastChild) {
-        this.childrenParentPid = this.lastChild.pid;
-      }
     });
   }
 
