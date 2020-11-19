@@ -119,7 +119,8 @@ export class EditorService {
             this.switchRightEditor('metadata')
           }
           setTimeout(() => {
-            this.doubleRight = true;              
+            this.doubleRight = true;      
+            this.properties.setBoolProperty('editor.double_right', true);        
           }, 100);
     }
 
@@ -130,6 +131,7 @@ export class EditorService {
 
       public leaveDoubleRight() {
         this.doubleRight = false;
+        this.properties.setBoolProperty('editor.double_right', false);
     }
 
 
@@ -249,6 +251,7 @@ export class EditorService {
         if (item) {
             if (item.isPage()) {
                 this.rightEditorType = this.properties.getStringProperty('editor.page_right_editor_type', 'image');
+                this.doubleRight = this.properties.getBoolProperty('editor.double_right', false);
             } else if(item.isTopLevel()) {
                 this.doubleRight = false;
                 this.rightEditorType = this.properties.getStringProperty('editor.top_right_editor_type', 'mods');
