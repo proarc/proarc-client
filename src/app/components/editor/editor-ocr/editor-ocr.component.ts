@@ -56,7 +56,7 @@ export class EditorOcrComponent implements OnInit {
     this.anyChange = false;
     this.editting = false;
     this.state = 'loading';
-    this.api.getOcr(pid).subscribe((ocr: Ocr) => {
+    this.api.getOcr(pid, this.editor.getBatchId()).subscribe((ocr: Ocr) => {
       this.ocr = ocr;
       this.state = 'success';
     }, () => {

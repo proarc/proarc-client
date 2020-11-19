@@ -56,7 +56,7 @@ export class EditorCommentComponent implements OnInit {
     this.anyChange = false;
     this.editting = false;
     this.state = 'loading';
-    this.api.getNote(pid).subscribe((note: Note) => {
+    this.api.getNote(pid, this.editor.getBatchId()).subscribe((note: Note) => {
       this.note = note;
       this.state = 'success';
     }, () => {

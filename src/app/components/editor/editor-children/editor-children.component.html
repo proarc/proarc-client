@@ -34,14 +34,14 @@
     <!-- </ng-container> -->
 
     <div class="app-actions-right">
-      <button class="app-action" matTooltip="{{ 'editor.children.add_new' | translate }}" (click)="onCreateNewObject()" mat-icon-button>
+      <button *ngIf="!editor.preparation" class="app-action" matTooltip="{{ 'editor.children.add_new' | translate }}" (click)="onCreateNewObject()" mat-icon-button>
         <mat-icon>add</mat-icon>
       </button>
       <div class="app-divider"></div>
       <button *ngIf="!editor.isMultipleChildrenMode()" class="app-action"  matTooltip="{{ 'editor.children.move' | translate }}" (click)="onMove()" mat-icon-button>
           <mat-icon>reply</mat-icon>
       </button>
-      <button class="app-action"  matTooltip="{{ 'editor.children.relocate' | translate }}" (click)="onRelocate()" mat-icon-button>
+      <button *ngIf="!editor.preparation" class="app-action"  matTooltip="{{ 'editor.children.relocate' | translate }}" (click)="onRelocate()" mat-icon-button>
           <mat-icon>reply_all</mat-icon>
       </button>
       <div class="app-divider"></div>
@@ -75,8 +75,8 @@
       <mat-icon *ngIf="editor.isMultipleChildrenMode()" class="app-icon-check app-icon-top">{{ item.selected ? 'check_box' : 'check_box_outline_blank' }}</mat-icon>
 
       <div class="app-col-label">{{ shortLabels ? item.shortLabel : item.label }}</div>
-      <div class="app-col-model">{{ "model." + item.model | translate }}</div>
-      <div *ngIf="!editor.isMultipleChildrenMode()" class="app-col-actions">
+      <div class="app-col-model">{{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }}</div>
+      <div *ngIf="!editor.isMultipleChildrenMode() && !editor.preparation" class="app-col-actions">
           <button matTooltip="{{ 'editor.children.open_object' | translate }}" (click)="open(item); $event.stopPropagation();" mat-icon-button>
               <mat-icon>folder_open</mat-icon>
           </button>
@@ -112,7 +112,9 @@
     >
       <div class="app-item-content">
         <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"></div>
-        <div class="app-item-label">{{ shortLabels ? item.shortLabel : item.label }}</div>
+        <div class="app-item-label" *ngIf="!editor.preparation">{{ shortLabels ? item.shortLabel : item.label }}</div>
+        <div class="app-item-label" *ngIf="editor.preparation">{{ item.label + (shortLabels ? "" : (", " + ("page_type." + item.pageType | translate))) }}</div>
+
       </div>
     </div>
   </div>

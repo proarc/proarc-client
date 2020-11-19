@@ -149,7 +149,6 @@ export class SearchComponent implements OnInit {
     this.childrenHierarchy = [];
     this.childrenHierarchy.push(item.pid);
     this.selectedItem = item;
-    this.selectedChild = null;
     this.reloadChildrenFor(item);
   }
 
@@ -164,6 +163,7 @@ export class SearchComponent implements OnInit {
     if (item.isPage()) {
       return;
     }
+    this.selectedChild = null;
     this.reloadChildrenByPid(item.pid);
   }
 

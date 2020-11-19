@@ -1,3 +1,4 @@
+import { DocumentItem } from "./documentItem.model";
 
 export class Batch {
 
@@ -41,6 +42,7 @@ export class Batch {
     }
     return [json['endRow'], json['totalRows']];
   }
+
 
   isLoading() {
     return this.state === 'LOADING';

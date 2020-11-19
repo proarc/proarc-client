@@ -46,11 +46,16 @@ export class EditorComponent implements OnInit {
         const p = results[0];
         const q = results[1];
         const pid = p.get('pid');
-        console.log('pid', pid);
+        const batchId = p.get('batch_id');
         if (pid) {
-          // const page = q.get('page');
           this.editor.init({
-            pid: pid
+            pid: pid,
+            preparation: false
+          });
+        } else if (batchId) {
+          this.editor.init({
+            pid: batchId,
+            preparation: true
           });
         }
     });

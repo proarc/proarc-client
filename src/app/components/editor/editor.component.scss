@@ -78,6 +78,22 @@
         position: absolute;
         z-index: 10;
     }
+    &.app-preparation {
+        height: calc(100% - 40px);
+        .app-preparation-toolbar {
+            height: 40px;
+            background: #456aa5;
+            border-bottom: 1px solid #385585;
+            .app-label {
+                line-height: 40px;
+                color: #ddd;
+                padding-left: 16px;
+            }
+        }
+        .app-content {
+            height: 100% !important;
+        }
+    }
 }
 
 mat-spinner {

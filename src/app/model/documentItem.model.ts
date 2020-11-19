@@ -23,6 +23,11 @@ export class DocumentItem {
 
   public selected = false;
 
+  public filename: string;
+  public pageIndex: string;
+  public pageNumber: string;
+  public pageType: string;
+
   public static fromJson(json): DocumentItem {
     if (!json) {
       return null;
@@ -34,6 +39,7 @@ export class DocumentItem {
     item.state = json['state'];
     item.owner = json['owner'];
     item.label = json['label'];
+
     item.status = json['status'];
     item.processor = json['processor'];
     item.organization = json['organization'];
@@ -62,6 +68,27 @@ export class DocumentItem {
     const array: DocumentItem[] = [];
     for (const json of jsonArray) {
         array.push(DocumentItem.fromJson(json));
+    }
+    return array;
+  }
+
+  public static pagesFromJsonArray(jsonArray): DocumentItem[] {
+    const array: DocumentItem[] = [];
+    for (const json of jsonArray) {
+      const page = DocumentItem.fromJson(json);
+      page.filename = json['filename'] || "";
+      page.pageIndex = json['pageIndex'] || "";
+      page.pageNumber = json['pageNumber'] || "";
+      page.pageType = json['pageType'] || "";
+      page.pageType = page.pageType.toLowerCase();
+      let l = page.pageNumber;
+      if (l) {
+        l += " "
+      }
+      l += "(" + page.pageIndex + ')';
+      page.label = l;
+      page.shortLabel = l;
+      array.push(page);
     }
     return array;
   }

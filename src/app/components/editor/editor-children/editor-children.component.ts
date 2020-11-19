@@ -116,7 +116,8 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   }
   
   thumb(pid: string) {
-    return this.api.getThumbUrl(pid);
+    // return this.api.getThumbUrl(pid);
+    return this.api.getStreamUrl(pid, 'THUMBNAIL', this.editor.getBatchId());
   }
 
   private getIndex(el) {
@@ -151,7 +152,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   }
 
   open(item: DocumentItem) {
-    if (!this.editor.isMultipleChildrenMode()) {
+    if (!this.editor.preparation && !this.editor.isMultipleChildrenMode()) {
       this.editor.goToObject(item);
     }
   }
@@ -388,9 +389,11 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
         label: 'Ne',
         value: 'no',
         color: 'default'
-      },
-      checkbox: checkbox
+      }
     };
+    if (!this.editor.preparation) {
+      data.checkbox = checkbox;
+    }
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {

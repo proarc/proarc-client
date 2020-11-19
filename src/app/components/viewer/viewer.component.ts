@@ -20,6 +20,7 @@ declare global {
 
 
 import { ResizedEvent } from 'angular-resize-event';
+import { EditorService } from 'src/app/services/editor.service';
 
 
 @Component({
@@ -52,7 +53,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   state = 'none';
 
-  constructor(private api: ApiService, private properties: LocalStorageService) {
+  constructor(private api: ApiService, private editor: EditorService, private properties: LocalStorageService) {
     this.initFullscreenCapabilities();
   }
 
@@ -66,7 +67,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   onPidChanged(pid: string) {
     this.state = 'loading';
-    const url = this.api.getStreamUrl(pid, 'FULL');
+    const url = this.api.getStreamUrl(pid, 'FULL', this.editor.getBatchId());
     const image = new Image();
     image.onload = (() => {
         this.onLoad(url, image.width, image.height);

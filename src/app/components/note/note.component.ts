@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { Note } from 'src/app/model/note.model';
+import { EditorService } from 'src/app/services/editor.service';
 
 @Component({
   selector: 'app-note',
@@ -13,7 +14,7 @@ export class NoteComponent implements OnInit {
   state = 'none';
   note: Note;
 
-  constructor(private api: ApiService, private route: ActivatedRoute) {
+  constructor(private api: ApiService, private editor: EditorService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -31,7 +32,7 @@ export class NoteComponent implements OnInit {
 
   updateNote() {
     this.state = 'loading';
-    this.api.editNote(this.note).subscribe((note: Note) => {
+    this.api.editNote(this.note, this.editor.getBatchId()).subscribe((note: Note) => {
       this.note = note;
       this.state = 'success';
     }, () => {

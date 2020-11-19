@@ -18,6 +18,8 @@ import { UIService } from './ui.service';
 @Injectable()
 export class EditorService {
 
+    public preparation = false;
+
     public state = 'none';
     public ready = false;
     // public document: DocumentWrapper;
@@ -61,13 +63,63 @@ export class EditorService {
     init(params: EditorParams) {
         this.parent = null;
         this.left = null;
+        this.right = null;
         this.selectRight(null);
         this.ready = false;
         this.metadata = null;
         this.multipleChildrenMode = false;
         this.relocationMode = false;
         this.state = 'loading';
-        const pid = params.pid;
+        this.preparation = params.preparation;
+        if (params.preparation) {
+            this.initBatchEditor(params.pid);
+        } else {
+            this.initDocumentEditor(params.pid);
+        }
+    }
+
+    initBatchEditor(id: string) {
+        this.api.getBatchPages(id).subscribe((pages: DocumentItem[]) => {
+            const obj = new DocumentItem();
+            obj.pid = id;
+            this.left = obj;
+            this.children = pages;
+            this.mode = 'children'
+            this.rightEditorType = 'mods';
+            if (this.children.length > 0) {
+                this.selectRight(this.children[0]);
+            }
+            this.state = 'success';
+            this.ready = true;
+        });
+    }
+
+    reloadBatch(callback: () => void, moveToNext = false) {
+        this.api.getBatchPages(this.left.pid).subscribe((pages: DocumentItem[]) => {
+            this.children = pages;
+            if (this.children.length > 0) {
+                let index = 0;
+                if (this.right) {
+                    for (let i = 0; i < this.children.length; i++) {
+                        if (this.right.pid == this.children[i].pid) {
+                            index = i;
+                            break;
+                        }
+                    }
+                }
+                if (moveToNext && this.children.length > index + 1) {
+                    index += 1;
+                }
+                this.selectRight(this.children[index]);
+                if (callback) {
+                    callback();
+                }
+            }
+            this.state = 'success';
+        });
+    }
+
+    initDocumentEditor(pid: string) {
         const rDoc = this.api.getDocument(pid);
         const rChildren = this.api.getRelations(pid);
         forkJoin(rDoc, rChildren).subscribe( ([item, children]: [DocumentItem, DocumentItem[]]) => {
@@ -90,6 +142,13 @@ export class EditorService {
         }, error => {
             // TODO
         });
+    }
+
+
+    public getBatchId(): string {
+        if (this.preparation && this.left) {
+            return this.left.pid;
+        }
     }
 
     public onlyPageChildren(): boolean {
@@ -383,7 +442,8 @@ export class EditorService {
     saveChildren(callback: () => void) {
         this.state = 'saving';
         const pidArray = this.children.map( item => item.pid);
-        this.api.editRelations(this.left.pid, pidArray).subscribe(result => {
+        const request = this.preparation ? this.api.editBatchRelations(this.left.pid, pidArray) : this.api.editRelations(this.left.pid, pidArray);
+        request.subscribe(result => {
           if (callback) {
             callback();
           }
@@ -393,7 +453,7 @@ export class EditorService {
 
       saveOcr(ocr: Ocr, callback: (Ocr) => void) {
         this.state = 'saving';
-        this.api.editOcr(ocr).subscribe((newOcr: Ocr) => {
+        this.api.editOcr(ocr, this.getBatchId()).subscribe((newOcr: Ocr) => {
           if (callback) {
             callback(newOcr);
           }
@@ -403,8 +463,8 @@ export class EditorService {
 
       saveMods(mods: Mods, callback: (Mods) => void) {
         this.state = 'saving';
-        this.api.editMods(mods).subscribe(() => {
-            this.api.getMods(mods.pid).subscribe((newMods: Mods) => {
+        this.api.editMods(mods, this.getBatchId()).subscribe(() => {
+            this.api.getMods(mods.pid, this.getBatchId()).subscribe((newMods: Mods) => {
                 if (this.mode === 'detail') {
                     this.metadata = Metadata.fromMods(mods, this.metadata.model);
                 }
@@ -437,7 +497,7 @@ export class EditorService {
 
       saveNote(note: Note, callback: (Note) => void) {
         this.state = 'saving';
-        this.api.editNote(note).subscribe((newNote: Note) => {
+        this.api.editNote(note, this.getBatchId()).subscribe((newNote: Note) => {
             if (callback) {
               callback(newNote);
             }
@@ -447,7 +507,7 @@ export class EditorService {
 
       saveAtm(atm: Atm, callback: (Atm) => void) {
         this.state = 'saving';
-        this.api.editAtm(atm, ).subscribe((newAtm: Atm) => {
+        this.api.editAtm(atm, this.getBatchId()).subscribe((newAtm: Atm) => {
             if (callback) {
               callback(newAtm);
             }
@@ -455,26 +515,34 @@ export class EditorService {
           });
       }
 
-      savePage(page: Page, callback: (Page) => void) {
+      savePage(page: Page, callback: (Page) => void, moveToNext = false) {
         this.state = 'saving';
-        this.api.editPage(page).subscribe((newPage: Page) => {
-            this.api.getDocument(page.pid).subscribe((doc: DocumentItem) => {
-                this.selectRight(doc);
-                if (this.mode === 'children') {
-                    this.reloadChildren(() => {
+        this.api.editPage(page, this.getBatchId()).subscribe((newPage: Page) => {
+            if (this.preparation) {
+                this.reloadBatch(() => {
+                    if (callback && newPage.pid == this.right.pid) {
+                        callback(newPage);
+                    }
+                }, moveToNext);
+            } else {
+                this.api.getDocument(page.pid).subscribe((doc: DocumentItem) => {
+                    if (this.mode === 'children') {
+                        this.reloadChildren(() => {
+                            this.state = 'success';
+                            if (callback && newPage.pid == this.right.pid) {
+                                callback(newPage);
+                            }
+                        }, moveToNext);
+                    } else {
+                        this.selectRight(doc);
+                        this.left = doc;
                         this.state = 'success';
                         if (callback) {
                             callback(newPage);
                         }
-                    });
-                } else {
-                    this.left = doc;
-                    this.state = 'success';
-                    if (callback) {
-                        callback(newPage);
                     }
-                }
-            });
+                });
+            }
           });
       }
 
@@ -525,7 +593,7 @@ export class EditorService {
         } else {
             pids = [this.right.pid];
         }
-        this.api.deleteObjects(pids, pernamently).subscribe((removedPid: string[]) => {
+        this.api.deleteObjects(pids, pernamently, this.getBatchId()).subscribe((removedPid: string[]) => {
             let nextSelection = 0;
             for (let i = this.children.length - 1; i >= 0; i--) {
                 if (removedPid.indexOf(this.children[i].pid) > -1) {
@@ -698,7 +766,7 @@ export class EditorService {
       }
 
 
-      private reloadChildren(callback: () => void) {
+      private reloadChildren(callback: () => void, moveToNext = false) {
         this.api.getRelations(this.left.pid).subscribe((children: DocumentItem[]) => {
             if (this.isMultipleChildrenMode()) {
                 for (const oldChild of this.children) {
@@ -712,12 +780,21 @@ export class EditorService {
                 }
             } else {
                 if (this.right) {
-                    for (const newChild of children) {
-                        if (this.right.pid === newChild.pid) {
-                            this.selectRight(newChild);
+                    let index = 0;
+                    for (let i = 0; i < children.length; i++) {
+                        if (this.right.pid == children[i].pid) {
+                            index = i;
                             break;
                         }
                     }
+                    console.log('--moveToNext', moveToNext);
+                    console.log('--children.length', children.length);
+                    console.log('--index', index);
+                    if (moveToNext && children.length > index + 1) {
+                        index += 1;
+                    }
+                    console.log('--index after', index);
+                    this.selectRight(children[index]);
                 }
             }
             this.children = children;
@@ -727,6 +804,23 @@ export class EditorService {
         });
       }
 
+
+      formatPagesCount(): string {
+          if (!this.children) {
+            return "";
+          }
+          const c = this.children.length;
+          if (c == 0) {
+            return 'žádná strana';
+          } 
+          if (c == 1) {
+            return '1 strana';
+          } 
+          if (c < 5) {
+            return `${c} strany`;
+          } 
+        return `${c} stran`;
+      } 
     //   private updatePages(pages: Page[], callback: () => void) {
     //       if (pages.length === 0) {
     //             this.reloadChildren(() => {
@@ -759,4 +853,5 @@ export class EditorService {
 
 export interface EditorParams {
     pid: string;
+    preparation: boolean;
 }

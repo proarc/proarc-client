@@ -1,5 +1,5 @@
 import { CodebookService } from './../../../services/codebook.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { EditorService } from 'src/app/services/editor.service';
 import { Page } from 'src/app/model/page.model';
@@ -19,7 +19,13 @@ export class EditorPageComponent implements OnInit {
   positions = ['left', 'right', 'singlePage'];
   genres = ['page', 'reprePage'];
 
+  movedToNextFrom: string;
+
   @Input() ndk: boolean = false;
+
+  @ViewChild("pageNumber") pageNumberFiled: ElementRef;
+  @ViewChild("pageIndex") pageIndexFiled: ElementRef;
+
 
   @Input()
   set pid(pid: string) {
@@ -38,11 +44,19 @@ export class EditorPageComponent implements OnInit {
 
   private onPidChanged(pid: string) {
     this.state = 'loading';
-    console.log('')
-    this.api.getPage(pid, this.ndk).subscribe((page: Page) => {
+    this.api.getPage(pid, this.ndk, this.editor.getBatchId()).subscribe((page: Page) => {
       this.page = page;
-      // console.log('page', page);
       this.state = 'success';
+      if (this.movedToNextFrom == 'pageNumber') {
+        setTimeout(() => { 
+          this.pageNumberFiled.nativeElement.focus();
+        },10);
+      } else if (this.movedToNextFrom == 'pageIndex') {
+        setTimeout(() => { 
+          this.pageIndexFiled.nativeElement.focus();
+        },10);
+      }
+
     }, () => {
       this.state = 'failure';
     });
@@ -52,14 +66,21 @@ export class EditorPageComponent implements OnInit {
     this.page.restore();
   }
 
-  onSave() {
+  onSaveFrom(from: string) {
+    this.onSave(from);
+  }
+
+  onSave(from: string = null) {
     if (!this.page.hasChanged()) {
       return;
     }
+    this.movedToNextFrom = from;
     this.page.removeEmptyIdentifiers();
     this.editor.savePage(this.page, (page: Page) => {
-      this.page = page;
-    });
+      if (page) {
+        this.page = page;
+      }
+    }, !!from);
   }
 
 }

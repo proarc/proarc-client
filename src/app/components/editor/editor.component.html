@@ -8,7 +8,7 @@
       <as-split-area #area1="asSplitArea" minSize="20" [size]="getSplitSize(0)">
 
 <div class="app-panel">
-  <div class="app-toolbar">
+  <div class="app-toolbar" *ngIf="!editor.preparation">
     <div class="app-label">
       <div class="app-label-title">{{ editor.left.label }}</div>
       <div class="app-label-model">{{ 'model.' + editor.left.model | translate }}</div>
@@ -57,6 +57,17 @@
         </button>
     </div>
   </div>
+
+  <div class="app-toolbar" *ngIf="editor.preparation">
+    <div class="app-label">
+      <div class="app-label-title">Import</div>
+      <div class="app-label-model">{{editor.formatPagesCount() }}</div>
+    </div>
+    <button mat-button style="float: right;">Pokačovat</button>
+  </div>
+
+
+
   <div class="app-content" *ngIf="editor.mode == 'children'">
     <app-editor-children [items]="editor.children"></app-editor-children>
   </div>

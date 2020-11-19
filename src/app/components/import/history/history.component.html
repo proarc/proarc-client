@@ -25,7 +25,7 @@
     </button>
 
     <button mat-raised-button color="primary" (click)="onReloadBatch()" 
-      *ngIf="selectedBatch && selectedBatch.state === 'LOADING_FAILED'">
+      *ngIf="selectedBatch && (selectedBatch.state === 'LOADING_FAILED' || selectedBatch.state === 'LOADED')">
       {{ 'history.reload' | translate }}
     </button>
 

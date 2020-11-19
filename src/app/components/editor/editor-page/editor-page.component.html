@@ -26,11 +26,11 @@
 
 
             <mat-form-field class="app-full-width">
-              <input (keyup.enter)="onSave()" autocomplete="off" matInput [placeholder]="'editor.page.number' | translate" [(ngModel)]="page.number">
+              <input (keyup.enter)="onSaveFrom('pageNumber')" autocomplete="off" matInput [placeholder]="'editor.page.number' | translate" [(ngModel)]="page.number" #pageNumber>
             </mat-form-field>
 
             <mat-form-field class="app-half-left" *ngIf="config.showPageIndex">
-              <input (keyup.enter)="onSave()" autocomplete="off" matInput [placeholder]="'editor.page.index' | translate" [(ngModel)]="page.index">
+              <input (keyup.enter)="onSaveFrom('pageIndex')" autocomplete="off" matInput [placeholder]="'editor.page.index' | translate" [(ngModel)]="page.index" #pageIndex>
             </mat-form-field>
 
             <mat-form-field [ngClass]="config.showPageIndex ? 'app-half-right' : 'app-full-width'">

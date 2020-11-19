@@ -7,7 +7,6 @@ import { Folder } from 'src/app/model/folder.model';
 import { Batch } from 'src/app/model/batch.model';
 import { MatDialog } from '@angular/material';
 import { ImportDialogComponent } from 'src/app/dialogs/import-dialog/import-dialog.component';
-import { Translator } from 'angular-translator';
 import { ParentDialogComponent } from 'src/app/dialogs/parent-dialog/parent-dialog.component';
 import { Router } from '@angular/router';
 
@@ -175,7 +174,7 @@ export class ImportComponent implements OnInit {
   }
 
   onProfileChanged() {
-    this.reload();
+    // this.reload();
   }
 
 

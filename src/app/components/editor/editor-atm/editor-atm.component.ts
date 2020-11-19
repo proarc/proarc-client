@@ -43,7 +43,7 @@ export class EditorAtmComponent implements OnInit {
 
   private onPidChanged(pid: string) {
     this.state = 'loading';
-   this.api.getAtm(pid).subscribe((atm: Atm) => {
+   this.api.getAtm(pid, this.editor.getBatchId()).subscribe((atm: Atm) => {
       this.atm = atm;
       if (this.devices) {
         this.state = 'success';
