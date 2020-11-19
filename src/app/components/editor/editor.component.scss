@@ -59,6 +59,12 @@
             button.app-inactive {
                 color: #ffffff57;
             }
+            button.app-disabled {
+                color: #fff3;
+                cursor: default;
+                pointer-events: none;
+                user-select: none; 
+            }
         }
         .app-content {
             height: calc(100% - 46px);

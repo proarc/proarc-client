@@ -13,6 +13,7 @@ import { Page } from '../model/page.model';
 import { PageUpdateHolder } from '../components/editor/editor-pages/editor-pages.component';
 import { NewObjectData, NewObjectDialogComponent } from '../dialogs/new-object-dialog/new-object-dialog.component';
 import { MatDialog } from '@angular/material';
+import { UIService } from './ui.service';
 
 @Injectable()
 export class EditorService {
@@ -33,6 +34,8 @@ export class EditorService {
     public right: DocumentItem;
     public children: DocumentItem[];
 
+    parent: DocumentItem;
+
     public metadata: Metadata;
 
     private multipleChildrenMode: boolean;
@@ -46,6 +49,7 @@ export class EditorService {
     constructor(
         private router: Router,
         private api: ApiService,
+        private ui: UIService,
         private dialog: MatDialog,
         private properties: LocalStorageService) {
     }
@@ -55,6 +59,7 @@ export class EditorService {
     }
 
     init(params: EditorParams) {
+        this.parent = null;
         this.left = null;
         this.selectRight(null);
         this.ready = false;
@@ -74,6 +79,12 @@ export class EditorService {
                 const mode = this.properties.getStringProperty('editor.mode', 'detail');
                 this.switchMode(mode);
             }
+            const pid = item.pid;
+            this.api.getParent(pid).subscribe((item: DocumentItem) => {
+                if (this.left && this.left.pid == pid) {
+                    this.parent = item;
+                }
+            });
             this.state = 'success';
             this.ready = true;
         }, error => {
@@ -220,15 +231,12 @@ export class EditorService {
 
 
     public goToParentObject() {
-        this.state = 'loading';
-        this.api.getParent(this.left.pid).subscribe((item: DocumentItem) => {
-            if (item) {
-                this.toParentFrom = this.left.pid;
-                this.goToObject(item);
-            } else {
-                this.state = 'success';
-            }
-        });
+        if (this.parent) {
+            this.toParentFrom = this.left.pid;
+            this.goToObject(this.parent);
+        } else {
+            this.state = 'success';
+        }
     }
 
     public goToObject(item: DocumentItem) {
@@ -254,55 +262,49 @@ export class EditorService {
     }
 
     public goToPreviousObject() {
-        this.state = 'loading';
-        this.api.getParent(this.left.pid).subscribe((item: DocumentItem) => {
-            if (item) {
-                this.api.getRelations(item.pid).subscribe((siblings: DocumentItem[]) => {
-                    let index = -1;
-                    let i = -1;
-                    for (const sibling of siblings) {
-                        i += 1;
-                        if (sibling.pid === this.left.pid) {
-                            index = i;
-                            break;
-                        }
+        if (this.parent) {
+            this.state = 'loading';
+            this.api.getRelations(this.parent.pid).subscribe((siblings: DocumentItem[]) => {
+                let index = -1;
+                let i = -1;
+                for (const sibling of siblings) {
+                    i += 1;
+                    if (sibling.pid === this.left.pid) {
+                        index = i;
+                        break;
                     }
-                    if (index >= 1) {
-                        this.goToObject(siblings[index - 1]);
-                    } else {
-                        this.state = 'success';
-                    }
-                });
-            } else {
-                this.state = 'success';
-            }
-        });
+                }
+                if (index >= 1) {
+                    this.goToObject(siblings[index - 1]);
+                } else {
+                    this.state = 'success';
+                    this.ui.showInfoSnackBar("Dál už nic není");
+                }
+            });
+        } 
     }
 
     public goToNextObject() {
-        this.state = 'loading';
-        this.api.getParent(this.left.pid).subscribe((item: DocumentItem) => {
-            if (item) {
-                this.api.getRelations(item.pid).subscribe((siblings: DocumentItem[]) => {
-                    let index = -1;
-                    let i = -1;
-                    for (const sibling of siblings) {
-                        i += 1;
-                        if (sibling.pid === this.left.pid) {
-                            index = i;
-                            break;
-                        }
+        if (this.parent) {
+            this.state = 'loading';
+            this.api.getRelations(this.parent.pid).subscribe((siblings: DocumentItem[]) => {
+                let index = -1;
+                let i = -1;
+                for (const sibling of siblings) {
+                    i += 1;
+                    if (sibling.pid === this.left.pid) {
+                        index = i;
+                        break;
                     }
-                    if (index >= 0 && index < siblings.length - 1) {
-                        this.goToObject(siblings[index + 1]);
-                    } else {
-                        this.state = 'success';
-                    }
-                });
-            } else {
-                this.state = 'success';
-            }
-        });
+                }
+                if (index >= 0 && index < siblings.length - 1) {
+                    this.goToObject(siblings[index + 1]);
+                } else {
+                    this.state = 'success';
+                    this.ui.showInfoSnackBar("Dál už nic není");
+                }
+            });
+        } 
     }
 
 
