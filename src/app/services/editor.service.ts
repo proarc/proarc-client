@@ -14,6 +14,8 @@ import { PageUpdateHolder } from '../components/editor/editor-pages/editor-pages
 import { NewObjectData, NewObjectDialogComponent } from '../dialogs/new-object-dialog/new-object-dialog.component';
 import { MatDialog } from '@angular/material';
 import { UIService } from './ui.service';
+import { ParentDialogComponent } from '../dialogs/parent-dialog/parent-dialog.component';
+import { Batch } from '../model/batch.model';
 
 @Injectable()
 export class EditorService {
@@ -96,26 +98,38 @@ export class EditorService {
 
     reloadBatch(callback: () => void, moveToNext = false) {
         this.api.getBatchPages(this.left.pid).subscribe((pages: DocumentItem[]) => {
-            this.children = pages;
-            if (this.children.length > 0) {
-                let index = 0;
-                if (this.right) {
-                    for (let i = 0; i < this.children.length; i++) {
-                        if (this.right.pid == this.children[i].pid) {
-                            index = i;
-                            break;
+            if (this.isMultipleChildrenMode()) {
+                for (const oldChild of this.children) {
+                    if (oldChild.selected) {
+                        for (const newChild of pages) {
+                            if (oldChild.pid === newChild.pid) {
+                                newChild.selected = true;
+                            }
                         }
                     }
                 }
-                if (moveToNext && this.children.length > index + 1) {
-                    index += 1;
-                }
-                this.selectRight(this.children[index]);
-                if (callback) {
-                    callback();
+                this.children = pages;
+            } else {
+                this.children = pages;
+                if (this.children.length > 0) {
+                    let index = 0;
+                    if (this.right) {
+                        for (let i = 0; i < this.children.length; i++) {
+                            if (this.right.pid == this.children[i].pid) {
+                                index = i;
+                                break;
+                            }
+                        }
+                    }
+                    if (moveToNext && this.children.length > index + 1) {
+                        index += 1;
+                    }
+                    this.selectRight(this.children[index]);
                 }
             }
-            this.state = 'success';
+            if (callback) {
+                callback();
+            }
         });
     }
 
@@ -520,6 +534,7 @@ export class EditorService {
         this.api.editPage(page, this.getBatchId()).subscribe((newPage: Page) => {
             if (this.preparation) {
                 this.reloadBatch(() => {
+                    this.state = 'success';
                     if (callback && newPage.pid == this.right.pid) {
                         callback(newPage);
                     }
@@ -722,34 +737,72 @@ export class EditorService {
       }
 
 
-    //   editSelectedPages(holder: PageUpdateHolder, callback: () => void) {
-    //     this.state = 'saving';
-    //     const pages = [];
-    //     let index = -1;
-    //     for (const item of this.children) {
-    //         if (item.isPage() && item.selected) {
-    //             index += 1;
-    //             const page = new Page();
-    //             page.ndk = item.isNdkPage();
-    //             page.pid = item.pid;
-    //             if (holder.editType) {
-    //                 page.type = holder.pageType;
-    //             }
-    //             if (holder.editIndex) {
-    //                 page.index = String(holder.pageIndex + index);
-    //             }
-    //             if (holder.editNumber) {
-    //                 page.number = String(holder.getNumberForIndex(index));
-    //             }
-    //             pages.push(page);
+      editSelectedBatchPages(holder: PageUpdateHolder, callback: () => void) {
+        this.state = 'saving';
+        const pages = [];
+        let index = -1;
+        let all = 0;
+        if (holder.applyToFirst) {
+            all = -1;
+        }
+        for (const item of this.children) {
+            if (item.selected) {
+                all += 1;
+                if (all % holder.applyTo > 0) {
+                    continue;
+                } 
+                index += 1;
+                const page = new Page();
+                page.ndk = item.isNdkPage();
+                page.pid = item.pid;
+                if (holder.editType) {
+                    page.type = holder.pageType;
+                }
+                if (holder.editIndex) {
+                    page.index = String(holder.pageIndex + index);
+                }
+                if (holder.editNumber) {
+                    page.number = String(holder.getNumberForIndex(index));
+                }
+                pages.push(page);
+            }
+        }
+        this.updateBatchPages(pages, callback);
+      }
 
-    //         }
-    //     }
-    //     this.updatePages(pages, callback);
-    //   }
+    private updateBatchPages(pages: Page[], callback: () => void) {
+          if (pages.length === 0) {
+                this.reloadBatch(() => {
+                    this.state = 'success';
+                    if (callback) {
+                        callback();
+                    }
+                });
+              return;
+          }
+          const pageDef = pages.pop();
+          this.api.getPage(pageDef.pid, pageDef.ndk, this.getBatchId()).subscribe((page: Page) => {
+            if (pageDef.type) {
+                page.type = pageDef.type;
+            }
+            if (pageDef.index) {
+                page.index = pageDef.index;
+            }
+            if (pageDef.number) {
+                page.number = pageDef.number;
+            }
+            this.api.editPage(page, this.getBatchId()).subscribe((newPage: Page) => {
+                this.updateBatchPages(pages, callback);
+              });
+          });
+      }
 
 
       updateSelectedPages(holder: PageUpdateHolder, callback: () => void) {
+        if (this.preparation) {
+            this.editSelectedBatchPages(holder, callback);
+            return;
+        }
         this.state = 'saving';  
         const pages = [];
           for (const item of this.children) {
@@ -757,13 +810,17 @@ export class EditorService {
                 pages.push(item.pid);
             }
         }
-        this.api.editPages(pages, holder).subscribe(result => {
+        this.api.editPages(pages, holder, this.getBatchId()).subscribe(result => {
             console.log('result', result);
             this.reloadChildren(() => {
                 this.state = 'success';  
             });
         })
       }
+
+
+
+
 
 
       private reloadChildren(callback: () => void, moveToNext = false) {
@@ -787,13 +844,9 @@ export class EditorService {
                             break;
                         }
                     }
-                    console.log('--moveToNext', moveToNext);
-                    console.log('--children.length', children.length);
-                    console.log('--index', index);
                     if (moveToNext && children.length > index + 1) {
                         index += 1;
                     }
-                    console.log('--index after', index);
                     this.selectRight(children[index]);
                 }
             }
@@ -803,6 +856,55 @@ export class EditorService {
             }
         });
       }
+
+
+
+
+
+
+
+
+      ingest() {
+        const dialogRef = this.dialog.open(ParentDialogComponent, { data: { ingestOnly: true }});
+        dialogRef.afterClosed().subscribe(result => {
+          if (result && result.pid) {
+            this.ingestBatch(result.pid);
+          }
+        });
+      }
+    
+    
+      private ingestBatch(parentPid: string) {
+        this.state = 'loading';
+        const bathId = parseInt(this.getBatchId());
+        this.api.setParentForBatch(bathId, parentPid).subscribe((batch: Batch) => {
+          this.api.ingestBatch(bathId, parentPid).subscribe((batch: Batch) => {
+            this.ui.showInfoSnackBar("Uloženo do uložiště");
+            this.state = 'success';
+            this.router.navigate(['/document', parentPid]);
+          },
+          (error) => {
+            console.log('ingest batch error', error);
+            this.state = 'success';
+            this.ui.showErrorSnackBar("Uložení do uložiště se nezdařilo");
+          });
+        },
+        (error) => {
+          console.log('sitting parent error', error);
+          this.state = 'success';
+          this.ui.showErrorSnackBar("Uložení do uložiště se nezdařilo");
+        });
+      }
+
+
+
+
+
+
+
+
+
+
 
 
       formatPagesCount(): string {
@@ -821,32 +923,7 @@ export class EditorService {
           } 
         return `${c} stran`;
       } 
-    //   private updatePages(pages: Page[], callback: () => void) {
-    //       if (pages.length === 0) {
-    //             this.reloadChildren(() => {
-    //                 this.state = 'success';
-    //                 if (callback) {
-    //                     callback();
-    //                 }
-    //             });
-    //           return;
-    //       }
-    //       const pageDef = pages.pop();
-    //       this.api.getPage(pageDef.pid, pageDef.ndk).subscribe((page: Page) => {
-    //         if (pageDef.type) {
-    //             page.type = pageDef.type;
-    //         }
-    //         if (pageDef.index) {
-    //             page.index = pageDef.index;
-    //         }
-    //         if (pageDef.number) {
-    //             page.number = pageDef.number;
-    //         }
-    //         this.api.editPage(page).subscribe((newPage: Page) => {
-    //             this.updatePages(pages, callback);
-    //           });
-    //       });
-    //   }
+
 
 
 }

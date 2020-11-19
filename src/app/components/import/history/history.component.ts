@@ -125,12 +125,13 @@ export class HistoryComponent implements OnInit, OnDestroy {
       this.ingestBatch(this.selectedBatch.parentPid);
       return;
     }
-    const dialogRef = this.dialog.open(ParentDialogComponent, { data: { ingestOnly: true }});
-    dialogRef.afterClosed().subscribe(result => {
-      if (result && result.pid) {
-        this.ingestBatch(result.pid);
-      }
-    });
+    this.router.navigate(['/import', 'edit', this.selectedBatch.id]);
+    // const dialogRef = this.dialog.open(ParentDialogComponent, { data: { ingestOnly: true }});
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result && result.pid) {
+    //     this.ingestBatch(result.pid);
+    //   }
+    // });
   }
 
 

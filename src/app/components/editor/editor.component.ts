@@ -1,10 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { EditorService } from 'src/app/services/editor.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { SplitComponent, SplitAreaDirective } from 'angular-split';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { MatDialog } from '@angular/material';
+import { ApiService } from 'src/app/services/api.service';
+import { UIService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-editor',
@@ -90,5 +93,6 @@ export class EditorComponent implements OnInit {
   dblClick() {
     this.twoSplitWidths = ["50", "50", '0'];
   }
+  
 
 }

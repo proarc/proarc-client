@@ -192,7 +192,7 @@
     "refresh": "Obnovit",
     "reload": "Načíst znovu",
     "edit": "Přejít na objekt",
-    "ingest": "Uložit",
+    "ingest": "Pokračovat",
     "reload_dialog": {
       "title": "Opětovné načtení dávky",
       "message": "Opravdu chcete importovaný adresář načíst znovu? Vytvořena metadata budou odstraněna."

@@ -19,14 +19,14 @@
       {{ 'history.refresh' | translate }}
     </button>
 
-    <button mat-raised-button color="primary" (click)="onIngestBatch()" 
-      *ngIf="selectedBatch && selectedBatch.state === 'LOADED'">
-      {{ 'history.ingest' | translate }}
-    </button>
-
     <button mat-raised-button color="primary" (click)="onReloadBatch()" 
       *ngIf="selectedBatch && (selectedBatch.state === 'LOADING_FAILED' || selectedBatch.state === 'LOADED')">
       {{ 'history.reload' | translate }}
+    </button>
+
+    <button mat-raised-button color="primary" (click)="onIngestBatch()" 
+      *ngIf="selectedBatch && selectedBatch.state === 'LOADED'">
+      {{ 'history.ingest' | translate }}
     </button>
 
     <button mat-raised-button color="primary" (click)="onEditBatchObject()" 

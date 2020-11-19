@@ -365,8 +365,11 @@ export class ApiService {
 
 
 
-  editPages(pages: string[], holder: PageUpdateHolder) {
+  editPages(pages: string[], holder: PageUpdateHolder, batchId = null) {
     let data = `pids=${pages}`;
+    if (batchId) {
+      data = `${data}&batchId=${batchId}`;
+    }
     if (holder.editType) {
       data += `&pageType=${holder.pageType}`;
     }
