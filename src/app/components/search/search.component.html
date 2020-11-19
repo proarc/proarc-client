@@ -79,7 +79,7 @@
     <div class="app-obect-actions" *ngIf="selectedItem">
       <button (click)="onExport(selectedItem)" mat-button>Exportovat</button>
       <button (click)="onUrnnbn(selectedItem)" mat-button>URN:NBN</button>
-      <button (click)="onDelete(selectedItem)" mat-button>Smazat</button>
+      <button (click)="onDeleteItem()" mat-button>Smazat</button>
     </div>
     <div class="app-paginator">
       <mat-paginator [length]="resultCount"
@@ -174,7 +174,7 @@
     <button (click)="openItem(selectedChild)" mat-button>Otevřít</button>
     <button (click)="onExport(selectedChild)" mat-button>Exportovat</button>
     <button (click)="onUrnnbn(selectedChild)" mat-button>URN:NBN</button>
-    <button (click)="onDelete(selectedChild)" mat-button>Smazat</button>
+    <button (click)="onDeleteChild()" mat-button>Smazat</button>
   </div>
 </div>
 

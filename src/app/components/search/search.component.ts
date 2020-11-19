@@ -199,7 +199,15 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  onDelete(item: DocumentItem) {
+  onDeleteItem() {
+    this.onDelete(this.selectedItem, this.items);
+  }
+
+  onDeleteChild() {
+    this.onDelete(this.selectedChild, this.children);
+  }
+
+  private onDelete(item: DocumentItem, collection: DocumentItem[]) {
     const checkbox = {
       label: String(this.translator.instant('editor.children.delete_dialog.permanently')),
       checked: false
@@ -222,25 +230,22 @@ export class SearchComponent implements OnInit {
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.deleteObject(item, checkbox.checked);
+        this.deleteObject(item, checkbox.checked, collection);
       }
     });
   }
 
-  private deleteObject(item: DocumentItem, pernamently: boolean) {
+  private deleteObject(item: DocumentItem, pernamently: boolean, collection: DocumentItem[]) {
     this.state = 'loading';
     this.api.deleteObjects([item.pid], pernamently).subscribe((removedPid: string[]) => {
-        for (let i = this.items.length - 1; i >= 0; i--) {
-            if (removedPid.indexOf(this.items[i].pid) > -1) {
-                this.items.splice(i, 1);
+        for (let i = collection.length - 1; i >= 0; i--) {
+            if (removedPid.indexOf(collection[i].pid) > -1) {
+                collection.splice(i, 1);
             }
         }
         this.state = 'success';
     });
   }
-
-
-
 
 
   getSortIcon(field: string) {
