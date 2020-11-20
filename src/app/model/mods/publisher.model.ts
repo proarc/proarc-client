@@ -92,9 +92,6 @@ export class ModsPublisher extends ModsElement {
             dates.splice(dindex, 1);
             dates.unshift(this.dateIssued);
         }
-
-        // console.log('pic', dates.indexOf(this.dateIssued));
-
         for (const date of dates) {
             if (ModsUtils.hasAttributeWithValue(date, 'point', 'start')) {
                 this.dateFrom = date;

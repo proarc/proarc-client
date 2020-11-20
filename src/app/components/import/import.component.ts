@@ -81,13 +81,11 @@ export class ImportComponent implements OnInit {
   }
 
   openFolderAtPathIndex(index: number) {
-    console.log('openFolderAtPathIndex', index);
     let path = '';
     const segments = this.path.split('/');
     for (let i = 0; i < index; i++) {
       path += segments[i] + '/';
     }
-    console.log('openFolderAtPathIndex', path);
     this.openPath(path);
   }
 

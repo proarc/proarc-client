@@ -50,10 +50,6 @@ export class EditorRelocationComponent implements OnInit {
   }
 
   onSave() {
-    console.log('selection', this.selection);
-
-
-
     const checkbox = {
       label: String(this.translator.instant('editor.children.relocate_dialog.go')),
       checked: false
@@ -87,10 +83,7 @@ export class EditorRelocationComponent implements OnInit {
 
  goUp() {
     this.state = 'loading';
-    console.log('go up for', this.pid);
-
     this.api.getParent(this.rootPid).subscribe((item: DocumentItem) => {
-      console.log('parent', item);
         if (item) {
             this.loadChildrenForPid(item.pid);
         } else {

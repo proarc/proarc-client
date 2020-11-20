@@ -811,7 +811,6 @@ export class EditorService {
             }
         }
         this.api.editPages(pages, holder, this.getBatchId()).subscribe(result => {
-            console.log('result', result);
             this.reloadChildren(() => {
                 this.state = 'success';  
             });

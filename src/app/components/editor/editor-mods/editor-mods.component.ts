@@ -35,7 +35,6 @@ export class EditorModsComponent implements OnInit, OnDestroy {
     this.rightDocumentSubscription = this.editor.watchRightDocument().subscribe(
       (item: DocumentItem) => {
         if (item) {
-          console.log('item selected', item);
           this.reload(item);
         }
       }
@@ -80,7 +79,6 @@ export class EditorModsComponent implements OnInit, OnDestroy {
       return;
     }
     this.editor.saveMods(this.mods, (mods: Mods) => {
-      console.log('returned mods', mods);
       this.mods = mods;
       this.editting = false;
       this.anyChange = false;
@@ -93,7 +91,6 @@ export class EditorModsComponent implements OnInit, OnDestroy {
 
 
   private reload(item: DocumentItem) {
-    console.log('on pid changed');
     if (item) {
       this.lastPid = item.pid;
       this.setRealtime(false);

@@ -43,7 +43,6 @@ export class NavbarComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['pid']) {
         const pid = result['pid'];
-        console.log('object created, new pid: ', pid);
         this.router.navigate(['/document', pid]);
       }
     });

@@ -22,7 +22,6 @@ export class AudioDevice {
   }
 
   public static fromJson(json): AudioDevice {
-      console.log(json);
       const device = new AudioDevice();
       const data = json['digiprovMD'][0]['mdWrap']['xmlData']['any'][0]['value'];
       if (!data) {

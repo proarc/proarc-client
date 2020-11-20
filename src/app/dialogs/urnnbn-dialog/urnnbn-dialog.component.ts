@@ -40,7 +40,6 @@ export class UrnbnbDialogComponent implements OnInit {
     const pid = this.data;
     this.errors = [];
     this.api.registerUrnnbn(this.selectedRegistrar.id, pid).subscribe((data: any) => {
-      console.log('onRegister ok', data);
       this.state = 'done';
     },
     (error) => {

@@ -21,7 +21,6 @@ export class Atm {
     public originalStatus: string;
 
   public static fromJson(json): Atm {
-      console.log(json);
       const atm = new Atm();
       atm.pid = json['pid'];
       atm.model = json['model'];

@@ -29,7 +29,6 @@ export class EditAudioDeviceComponent implements OnInit {
       const deviceId = params['device_id'];
       this.id = params['id'];
       this.api.getDevice(deviceId).subscribe((device: Device) => {
-        console.log('ddd', device);
         this.device = device;
         if (this.id) {
           this.audioDevice = device.audioDevices[this.id - 1];

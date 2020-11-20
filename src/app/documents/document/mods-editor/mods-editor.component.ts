@@ -20,7 +20,6 @@ export class ModsEditorComponent implements OnInit {
 
   save() {
     this.api.editMetadata(this.document).subscribe(result => {
-      console.log('mods saved', result);
     }, () => {
     });
   }

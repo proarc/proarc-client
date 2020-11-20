@@ -78,9 +78,7 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
 
   private ingest() {
     this.api.setParentForBatch(this.batchId, this.parentPid).subscribe((batch: Batch) => {
-      console.log('setting parent done', batch);
       this.api.ingestBatch(this.batchId, this.parentPid).subscribe((batch: Batch) => {
-        console.log('ingest batch done', batch);
         this.onIngested();
       },
       (error) => {

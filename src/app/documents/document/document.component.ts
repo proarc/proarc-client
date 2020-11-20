@@ -17,23 +17,6 @@ export class DocumentComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      // const id = params['id'];
-      // this.api.getMetadata(id).subscribe((document: Metadata) => {
-      //   this.document = document;
-      // });
-      // const modsRequest = this.apiService.getMods(uuid);
-      // const dcRequest = this.apiService.getDc(uuid);
-      // const relationsRequest = this.apiService.getChildren(uuid);
-      // forkJoin([modsRequest, dcRequest, relationsRequest]).subscribe(
-      //   results => {
-      //     const mods = results[0].toString();
-      //     const dc = results[1].toString();
-      //     const relations = Relation.fromJsonArray(results[2]);
-      //     this.document = new DigitalDocument(uuid, mods, dc, relations);
-      // },
-      // error => {
-      //     console.log('error', error);
-      // });
     });
   }
 

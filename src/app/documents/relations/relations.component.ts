@@ -74,7 +74,6 @@ export class RelationsComponent implements OnInit {
     const from = this.sourceIndex - 1;
     const to = targetIndex - 1;
     if (from !== to) {
-      console.log('reoredr ' + from + ' and ' + to);
       this.reorder(from, to);
       this.save();
     }
@@ -85,13 +84,11 @@ export class RelationsComponent implements OnInit {
     const item = this.items[from];
     this.items.splice(from, 1);
     this.items.splice(to, 0, item);
-    console.log(this.items);
   }
 
   save() {
     const pidArray = this.items.map( item => item.pid);
     this.api.editRelations(this.parentPid, pidArray).subscribe(result => {
-      console.log('result', result);
     });
   }
 

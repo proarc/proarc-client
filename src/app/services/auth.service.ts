@@ -24,7 +24,6 @@ export class AuthService {
         const data = `j_username=${username}&j_password=${password}`;
         return this.http.post(`${this.api.getBaseUrl()}/proarclogin`, data, httpOptions)
         .subscribe((result) => {
-            console.log('login success', result);
             this.api.getUser().subscribe((user: User) => {
                 this.user = user;
                 callback(true);

@@ -6,7 +6,6 @@ export class Catalogue {
   public fileds: string[];
 
   public static fromJson(json): Catalogue {
-      console.log(json);
       const catalog = new Catalogue();
       catalog.id = json['id'];
       catalog.name = json['name'];

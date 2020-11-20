@@ -61,7 +61,6 @@ export class CatalogComponent implements OnInit {
     this.activeIndex = -1;
     this.state = 'loading';
     this.results = [];
-    console.log(this.activeCatalog.id + ', ' + this.activeField + ', ' + this.activeQuery);
     const catalog = this.activeCatalog.id;
     const field = this.activeField;
     const query = this.activeQuery;

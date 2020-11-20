@@ -30,7 +30,6 @@ export class Page {
 
 
   public static pageFromJson(json): Page {
-    // console.log('json', json);
       const page = new Page();
       page.ndk = false;
       page.pid = json['pid'];

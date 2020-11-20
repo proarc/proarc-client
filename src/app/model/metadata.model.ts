@@ -100,7 +100,6 @@ export class Metadata {
     return this.model === 'model:ndkperiodicalissue';
   }
   private parseMods(mods: string) {
-    // console.log('mods', mods);
     const xml = mods.replace(/xmlns.*=".*"/g, '');
     const data = {tagNameProcessors: [processors.stripPrefix], explicitCharkey: true};
     const ctx = this;
