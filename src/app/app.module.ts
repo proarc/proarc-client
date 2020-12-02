@@ -91,6 +91,8 @@ import { EditorAbstractComponent } from './documents/document/editor-abstract/ed
 import { AngularSplitModule } from 'angular-split';
 import { AngularResizedEventModule } from 'angular-resize-event';
 import { EditorPhysicalComponent } from './documents/document/editor-physical/editor-physical.component';
+import { TreeComponent } from './components/search/tree/tree.component';
+import { SearchService } from './services/search.service';
 
 
 export function hljsLanguages() {
@@ -167,7 +169,8 @@ export function hljsLanguages() {
     SettingsComponent,
     NewPasswordDialogComponent,
     EditorAbstractComponent,
-    EditorPhysicalComponent
+    EditorPhysicalComponent,
+    TreeComponent
   ],
   imports: [
     BrowserModule,
@@ -201,7 +204,8 @@ export function hljsLanguages() {
     HelpService,
     ConfigService,
     FundService,
-    OsmService
+    OsmService,
+    SearchService
   ],
   entryComponents: [
     SimpleDialogComponent,

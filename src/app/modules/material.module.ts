@@ -14,7 +14,8 @@ import { MatButtonModule,
   MatMenuModule,
   MatProgressBarModule,
   MatAutocompleteModule,
-  MatPaginatorModule} from '@angular/material';
+  MatPaginatorModule,
+  MatTreeModule} from '@angular/material';
 
   const modules = [
     MatButtonModule,
@@ -32,7 +33,8 @@ import { MatButtonModule,
     MatMenuModule,
     MatProgressBarModule,
     MatPaginatorModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatTreeModule
   ];
 
   @NgModule({

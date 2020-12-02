@@ -1,0 +1,59 @@
+.app-row {
+  height: 36px;
+  padding-left: 6px;
+  cursor: pointer;
+  font-size: 14px;
+.app-tree-left {
+  float: left; 
+  text-align: right; 
+  min-height: 1px;
+  mat-spinner {
+    margin-top: 8px;
+    float: right;
+    margin-right: 8px;
+  }
+  .app-tree-expand {
+    width: 36px;
+    text-align: center;
+    line-height: 36px;
+    height: 36px;
+    margin-right: 2px;
+    cursor: pointer;
+  }
+}
+
+.result-label {
+  .app-tree-gap {
+    float: left;
+  }
+  flex: 1;
+}
+.result-model {
+  width: 140px;
+}
+.result-pid {
+  width: 275px;
+  font-size: 12px;
+}
+.result-owner {
+  width: 125px;
+}
+.result-processor {
+  width: 125px;
+}
+.result-organization {
+  width: 200px;
+}
+.result-status {
+  width: 140px;
+}
+.result-created {
+  width: 140px;
+}
+.result-modified {
+  width: 140px;
+}
+.result-export {
+  width: 60px;
+}
+}

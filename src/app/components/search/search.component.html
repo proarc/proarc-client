@@ -164,17 +164,17 @@
 
 <as-split-area #area2="asSplitArea" minSize="20" [size]="getSplitSize(1)">
 
-<div class="app-items-wrapper" *ngIf="children">
+<div class="app-items-wrapper" *ngIf="tree">
 
 <div class="app-search-actions">
-  <button *ngIf="childrenHierarchy.length > 1" class="app-action" (click)="openChildrenParent()" mat-icon-button matTooltip="Zpět" matTooltipPosition="below">
-    <mat-icon>keyboard_arrow_left</mat-icon>
-  </button>
-  <div class="app-obect-actions" *ngIf="selectedChild">
-    <button (click)="openItem(selectedChild)" mat-button>Otevřít</button>
-    <button (click)="onExport(selectedChild)" mat-button>Exportovat</button>
-    <button (click)="onUrnnbn(selectedChild)" mat-button>URN:NBN</button>
-    <button (click)="onDeleteChild()" mat-button>Smazat</button>
+  <div class="app-obect-actions">
+    <ng-container *ngIf="search.selectedTree">
+      <button (click)="onExport(search.selectedTree.item)" mat-button>Exportovat</button>
+      <button (click)="onUrnnbn(search.selectedTree.item)" mat-button>URN:NBN</button>
+      <button *ngIf="search.selectedTree.removable()" (click)="onDeleteFromTree()" mat-button>Smazat</button>
+      <button (click)="onExpandAll()" mat-button>Rozbalit</button>
+      <button (click)="openItem(search.selectedTree.item)" mat-button>Otevřít</button>
+    </ng-container>
   </div>
 </div>
 
@@ -214,18 +214,7 @@
     <div class="result-export" *ngIf="properties.isSearchColEnabled('export')">{{ 'search.export' | translate }}</div>
   </div>
   <div class="scrollable">
-    <div *ngFor="let item of children" (click)="onChildClick(item)" (dblclick)="onChildDblClick(item)" class="app-row" [class.app-selected]="item == selectedChild">
-      <div class="result-label" *ngIf="properties.isSearchColEnabled('name')">{{ item.label }}</div>
-      <div class="result-model" *ngIf="properties.isSearchColEnabled('model')">{{ "model." + item.model | translate }}</div>
-      <div class="result-pid" *ngIf="properties.isSearchColEnabled('pid')">{{ item.pid }}</div>
-      <div class="result-processor" *ngIf="properties.isSearchColEnabled('processor')">{{ item.processor }}</div>
-      <div class="result-organization" *ngIf="properties.isSearchColEnabled('organization')">{{ 'organization.' + item.organization | translate }}</div>
-      <div class="result-status" *ngIf="properties.isSearchColEnabled('status')">{{ 'editor.atm.statuses.' + item.status | translate }}</div>
-      <div class="result-created" *ngIf="properties.isSearchColEnabled('created')">{{ item.created | appDatetime }}</div>
-      <div class="result-modified" *ngIf="properties.isSearchColEnabled('modified')">{{ item.modified | appDatetime }}</div>
-      <div class="result-owner" *ngIf="properties.isSearchColEnabled('owner')">{{ item.owner }}</div>
-      <div class="result-export" *ngIf="properties.isSearchColEnabled('export')">{{ item.writeExports() }}</div>
-    </div>
+    <app-tree [tree]="tree"></app-tree>
   </div>
 </div>
 </div>

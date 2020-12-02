@@ -13,6 +13,8 @@ import { User } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { SplitAreaDirective, SplitComponent } from 'angular-split';
+import { Tree } from 'src/app/model/mods/tree.model';
+import { SearchService } from 'src/app/services/search.service';
 
 @Component({
   selector: 'app-search',
@@ -32,10 +34,10 @@ export class SearchComponent implements OnInit {
 
   state = 'none';
   items: DocumentItem[];
-  children: DocumentItem[];
+
   selectedItem: DocumentItem;
-  selectedChild: DocumentItem;
-  childrenHierarchy: string[];
+
+  tree: Tree;
 
   models: string[]
 
@@ -63,12 +65,13 @@ export class SearchComponent implements OnInit {
               public auth: AuthService,
               private dialog: MatDialog,
               private router: Router,
+              public search: SearchService,
               private config: ConfigService,
               private translator: Translator) { 
                 this.models = this.config.allModels;
   }
 
-  ngOnInit() {
+  ngOnInit() {this.search.selectedTree
     this.splitArea1Width = this.properties.getStringProperty('search.split.0', "60"),
     this.splitArea2Width = this.properties.getStringProperty('search.split.1', "40"),
     this.organizations = this.config.organizations;
@@ -128,7 +131,6 @@ export class SearchComponent implements OnInit {
     this.api.getSearchResults(options).subscribe(([items, total]: [DocumentItem[], number]) => {
       this.resultCount = total;
       this.items = items;
-      this.children = null;
       if (this.items.length > 0) {
         this.selectItem(this.items[0]);
       }
@@ -140,41 +142,38 @@ export class SearchComponent implements OnInit {
     this.router.navigate(['/document', item.pid]);
   }
 
-  onChildDblClick(item: DocumentItem) {
-    this.childrenHierarchy.push(item.pid);
-    this.reloadChildrenFor(item);
-  }
-
   selectItem(item: DocumentItem) {
-    this.childrenHierarchy = [];
-    this.childrenHierarchy.push(item.pid);
     this.selectedItem = item;
-    this.reloadChildrenFor(item);
+    this.tree = new Tree(item);
+    this.search.selectedTree = this.tree;
+    this.tree.expand(this.api);
   }
 
-  openChildrenParent() {
-    if (this.childrenHierarchy.length > 1) {
-      this.childrenHierarchy.pop();
-      this.reloadChildrenByPid(this.childrenHierarchy[this.childrenHierarchy.length - 1]);
-    }
-  }
-
-  reloadChildrenFor(item: DocumentItem) {
-    if (item.isPage()) {
-      return;
-    }
-    this.selectedChild = null;
-    this.reloadChildrenByPid(item.pid);
-  }
-
-  reloadChildrenByPid(pid: string) {
-    this.api.getRelations(pid).subscribe((children: DocumentItem[]) => {
-      this.children = children;
+  onExpandAll() {
+    const data: SimpleDialogData = {
+      title: "Rozbalit strom",
+      message: "Opravdu chcete rozbalit zvolený objekt? Rozbalení může způsobit nadměrnou zátěž systému.",
+      btn1: {
+        label: 'Ano',
+        value: 'yes',
+        color: 'primary'
+      },
+      btn2: {
+        label: 'Ne',
+        value: 'no',
+        color: 'default'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.expandAll();
+      }
     });
   }
 
-  onChildClick(item: DocumentItem) {
-    this.selectedChild = item;
+  private expandAll() {
+    this.search.selectedTree.expandAll(this.api);
   }
 
   onPageChanged(page) {
@@ -200,14 +199,22 @@ export class SearchComponent implements OnInit {
   }
 
   onDeleteItem() {
-    this.onDelete(this.selectedItem, this.items);
+    this.onDelete(this.selectedItem, (pids: string[]) => {
+      for (let i = this.items.length - 1; i >= 0; i--) {
+        if (pids.indexOf(this.items[i].pid) > -1) {
+          this.items.splice(i, 1);
+        }
+      }
+    });
   }
 
-  onDeleteChild() {
-    this.onDelete(this.selectedChild, this.children);
+  onDeleteFromTree() {
+    this.onDelete(this.search.selectedTree.item, (pids: string[]) => {
+      this.search.selectedTree.remove();
+    });
   }
 
-  private onDelete(item: DocumentItem, collection: DocumentItem[]) {
+  private onDelete(item: DocumentItem, callback: (pids: string[]) => any = null) {
     const checkbox = {
       label: String(this.translator.instant('editor.children.delete_dialog.permanently')),
       checked: false
@@ -230,20 +237,18 @@ export class SearchComponent implements OnInit {
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.deleteObject(item, checkbox.checked, collection);
+        this.deleteObject(item, checkbox.checked, callback);
       }
     });
   }
 
-  private deleteObject(item: DocumentItem, pernamently: boolean, collection: DocumentItem[]) {
+  private deleteObject(item: DocumentItem, pernamently: boolean, callback: (pids: string[]) => any = null) {
     this.state = 'loading';
     this.api.deleteObjects([item.pid], pernamently).subscribe((removedPid: string[]) => {
-        for (let i = collection.length - 1; i >= 0; i--) {
-            if (removedPid.indexOf(collection[i].pid) > -1) {
-                collection.splice(i, 1);
-            }
-        }
-        this.state = 'success';
+      if (callback) {
+        callback(removedPid);
+      }
+      this.state = 'success';
     });
   }
 

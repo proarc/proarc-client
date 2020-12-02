@@ -1,0 +1,27 @@
+      
+      <ng-container *ngIf="tree">
+      <div (click)="select()" (dblclick)="open()" class="app-row" [class.app-selected]="tree == search.selectedTree">
+        <div class="result-label">
+          <div class="app-tree-left" [style.width]="(tree.level * 20 + 40) + 'px'">
+            <mat-spinner *ngIf="tree.loading" [strokeWidth]="3" [diameter]="20">
+            </mat-spinner>
+            <mat-icon class="app-tree-expand" *ngIf="tree.expandable() && !tree.loading" (click)="toggle($event)">{{ tree.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
+          </div>
+          {{ tree.item.label }}
+        </div>
+        <div class="result-model" *ngIf="properties.isSearchColEnabled('model')">{{ "model." + tree.item.model | translate }}</div>
+        <div class="result-pid" *ngIf="properties.isSearchColEnabled('pid')">{{ tree.item.pid }}</div>
+        <div class="result-processor" *ngIf="properties.isSearchColEnabled('processor')">{{ tree.item.processor }}</div>
+        <div class="result-organization" *ngIf="properties.isSearchColEnabled('organization')">{{ 'organization.' + tree.item.organization | translate }}</div>
+        <div class="result-status" *ngIf="properties.isSearchColEnabled('status')">{{ 'editor.atm.statuses.' + tree.item.status | translate }}</div>
+        <div class="result-created" *ngIf="properties.isSearchColEnabled('created')">{{ tree.item.created | appDatetime }}</div>
+        <div class="result-modified" *ngIf="properties.isSearchColEnabled('modified')">{{ tree.item.modified | appDatetime }}</div>
+        <div class="result-owner" *ngIf="properties.isSearchColEnabled('owner')">{{ tree.item.owner }}</div>
+        <div class="result-export" *ngIf="properties.isSearchColEnabled('export')">{{ tree.item.writeExports() }}</div>
+      </div>
+      <ng-container *ngIf="tree.expanded && tree.children">
+        <app-tree *ngFor="let child of tree.children" [tree]="child"></app-tree>
+      </ng-container>
+
+
+    </ng-container>
