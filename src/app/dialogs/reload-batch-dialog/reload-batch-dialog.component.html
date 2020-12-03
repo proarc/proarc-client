@@ -1,9 +1,13 @@
-<h1 mat-dialog-title>{{ 'reoad_batch.title' | translate }}</h1>
+<h1 mat-dialog-title>{{ 'history.reload_dialog.title' | translate }}</h1>
 
 <div mat-dialog-content>
 
+  <div class="app-warning">
+    {{ 'history.reload_dialog.message' | translate }}
+  </div>  
+
   <mat-form-field class="app-profile">
-    <mat-select [placeholder]="'reoad_batch.profile' | translate" [(ngModel)]="selectedProfile" [disabled]="formDisabled()">
+    <mat-select [placeholder]="'history.reload_dialog.profile' | translate" [(ngModel)]="selectedProfile" [disabled]="formDisabled()">
       <mat-option *ngFor="let profile of profiles" [value]="profile">{{ profile.label }}</mat-option>
     </mat-select>
   </mat-form-field>

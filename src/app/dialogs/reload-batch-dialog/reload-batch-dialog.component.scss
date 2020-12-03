@@ -4,6 +4,9 @@
 .mat-dialog-content {
   width:470px;
   min-height:70px;
+  .app-warning {
+    margin-bottom: 16px;
+  }
   .app-profiles {
     display: block;
   }

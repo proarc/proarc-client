@@ -179,7 +179,8 @@
     "continue": "Resume",
     "reload_dialog": {
       "title": "Batch reloading",
-      "message": "Are you sure you want to reload the imported directory? The metadata will be deleted."
+      "message": "Are you sure you want to reload the imported directory? The metadata will be deleted.",
+      "profile": "Profile"
     }
   },
   "navbar": {

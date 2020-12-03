@@ -165,10 +165,6 @@
       "failure": "Import se nezdařil"
     }
   },
-  "reoad_batch": {
-    "title": "Znovu načíst dávku",
-    "profile": "Profil"
-  },
   "history": {
     "title": "Správa importních dávek",
     "state": "Stav",
@@ -195,7 +191,8 @@
     "ingest": "Pokračovat",
     "reload_dialog": {
       "title": "Opětovné načtení dávky",
-      "message": "Opravdu chcete importovaný adresář načíst znovu? Vytvořena metadata budou odstraněna."
+      "message": "Vytvořená metadata budou odstraněna. Opravdu chcete pokračovat?",
+      "profile": "Profil"
     }
   },
   "navbar": {
