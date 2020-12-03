@@ -38,12 +38,22 @@
         <mat-icon>add</mat-icon>
       </button>
       <div class="app-divider"></div>
-      <button *ngIf="!editor.isMultipleChildrenMode()" class="app-action"  matTooltip="{{ 'editor.children.move' | translate }}" (click)="onMove()" mat-icon-button>
+      <div class="app-multibuttons">
+        <button [disabled]="editor.isMultipleChildrenMode()" matTooltipPosition="right" class="app-action"  matTooltip="{{ 'editor.children.move' | translate }}" (click)="onMove()" mat-icon-button>
           <mat-icon>reply</mat-icon>
-      </button>
-      <button *ngIf="!editor.preparation" class="app-action"  matTooltip="{{ 'editor.children.relocate' | translate }}" (click)="onRelocate()" mat-icon-button>
-          <mat-icon>reply_all</mat-icon>
-      </button>
+        </button>
+        <div class="app-floating-menu" *ngIf="!editor.preparation">
+          <div class="app-divider"></div>
+          <button class="app-action" matTooltipPosition="right" matTooltip="{{ 'editor.children.relocate' | translate }}" (click)="onRelocate()" mat-icon-button>
+            <mat-icon>reply_all</mat-icon>
+          </button>
+          <div class="app-divider"></div>
+          <button  class="app-action" matTooltipPosition="right" matTooltip="{{ 'editor.children.relocate_outside' | translate }}" (click)="onRelocateOutside()" mat-icon-button>
+            <mat-icon>forward</mat-icon>
+          </button>
+        </div>
+        
+      </div>
       <div class="app-divider"></div>
       <button class="app-action"  matTooltip="{{ 'editor.children.delete' | translate }}" (click)="onDelete()" mat-icon-button>
           <mat-icon>delete</mat-icon>
@@ -52,6 +62,7 @@
       <button class="app-action" [class.app-disabled]="!anyChange" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
           <mat-icon>save</mat-icon>
       </button>
+
     </div>
 
  </div>

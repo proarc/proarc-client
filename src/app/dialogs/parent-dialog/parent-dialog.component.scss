@@ -30,6 +30,7 @@
     box-shadow: none;
     border: 1px solid #cecece;
     .app-row {
+      font-size: 14px;
       &.app-active {
         background: $primary-color;
         color: #fff;
@@ -63,16 +64,16 @@
       width: 200px;
     }
     .result-owner {
-      width: 200px;
+      width: 160px;
     }
     .result-created {
-      width: 180px;
+      width: 150px;
     }
     .result-modified {
-      width: 180px;
+      width: 150px;
     }
     .result-export {
-      width: 90px;
+      width: 70px;
     }
     .scrollable {
       height: calc(100% - 54px);

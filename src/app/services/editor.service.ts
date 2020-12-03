@@ -320,6 +320,12 @@ export class EditorService {
         }
     }
 
+    private goToObjectByPid(pid: string) {
+        if (pid) {
+            this.router.navigate(['/document', pid]);
+        }
+    }
+
     public selectRight(item: DocumentItem) {
         if (item) {
             if (item.isPage()) {
@@ -630,7 +636,7 @@ export class EditorService {
       }
 
 
-      relocateObjects(destination: DocumentItem, openDestination: boolean) {
+      relocateObjects(destinationPid: string, openDestination: boolean) {
         this.state = 'saving';
         let pids: string[];
         if (this.isMultipleChildrenMode()) {
@@ -638,7 +644,7 @@ export class EditorService {
         } else {
             pids = [this.right.pid];
         }
-        this.api.relocateObjects(this.left.pid, destination.pid, pids).subscribe(() => {
+        this.api.relocateObjects(this.left.pid, destinationPid, pids).subscribe(() => {
             if (!openDestination) {
                 this.setRelocationMode(false);
                 let nextSelection = 0;
@@ -656,11 +662,10 @@ export class EditorService {
                 }
                 this.state = 'success';
             } else {
-                this.goToObject(destination);
+                this.goToObjectByPid(destinationPid);
             }
         });
       }
-
 
       setRelocationMode(enabled: boolean) {
         this.relocationMode = enabled;
@@ -864,7 +869,7 @@ export class EditorService {
 
 
       ingest() {
-        const dialogRef = this.dialog.open(ParentDialogComponent, { data: { ingestOnly: true }});
+        const dialogRef = this.dialog.open(ParentDialogComponent, { data: { btnLabel: 'import.save' }});
         dialogRef.afterClosed().subscribe(result => {
           if (result && result.pid) {
             this.ingestBatch(result.pid);

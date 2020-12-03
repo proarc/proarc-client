@@ -10,6 +10,7 @@ import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { Translator } from 'angular-translator';
 import { ResizedEvent } from 'angular-resize-event';
+import { ParentDialogComponent } from 'src/app/dialogs/parent-dialog/parent-dialog.component';
 
 
 
@@ -334,6 +335,45 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   onRelocate() {
     this.editor.switchRelocationMode();
   }
+
+  onRelocateOutside() {
+    const dialogRef = this.dialog.open(ParentDialogComponent, { data: { btnLabel: 'editor.children.relocate_label' }});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.pid) {
+        this.relocateOutside(result.pid);
+      }
+    });
+  }
+
+
+  private relocateOutside(destinationPid: string) {
+    const checkbox = {
+      label: String(this.translator.instant('editor.children.relocate_dialog.go')),
+      checked: false
+    };
+    const data: SimpleDialogData = {
+      title: String(this.translator.instant('editor.children.relocate_dialog.title')),
+      message: String(this.translator.instant('editor.children.relocate_dialog.message')),
+      btn1: {
+        label: String(this.translator.instant('common.yes')),
+        value: 'yes',
+        color: 'primary'
+      },
+      btn2: {
+        label: String(this.translator.instant('common.no')),
+        value: 'no',
+        color: 'default'
+      },
+      checkbox: checkbox
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.editor.relocateObjects(destinationPid, checkbox.checked);
+      }
+    });
+  }
+
 
   onMove() {
     this.translator.waitForTranslation().then(() => {

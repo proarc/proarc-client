@@ -25,8 +25,6 @@ export class ParentDialogComponent implements OnInit {
   pageSize = 100;
   resultCount = 0;
 
-  ingestOnly: boolean;
-
   hierarchy: DocumentItem[];
 
 
@@ -38,7 +36,6 @@ export class ParentDialogComponent implements OnInit {
     private config: ConfigService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private api: ApiService) { 
-      this.ingestOnly = data && !!data.ingestOnly;
       this.models = this.config.allModels;
     }
 

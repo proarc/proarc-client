@@ -269,6 +269,41 @@ body {
         }
         .app-actions-right {
           float: right;
+          .app-multibuttons {
+            float: left;
+            position: relative;
+            .app-floating-menu {
+              display: none;
+              &:hover {
+                display: block
+              }
+              background-color: #466aa5;
+              width: 42px;
+              height: 72px;
+              position: absolute;
+              left: -3px;
+              top: 32px;
+              z-index: 99;
+              border-right: 1px solid #385585;
+              border-left: 1px solid #385585;
+              border-bottom: 1px solid #385585;
+              .app-action {
+                float: none;
+                margin: 0px 5px;
+              }
+              .app-divider {
+                background: #385585;
+                width: 40px;
+                margin: 2px 0px;
+                height: 1px;
+              }
+            }
+            &:hover {
+              .app-floating-menu {
+                display: block
+              }
+            }
+          }
         }
         .app-action {
           color: #fff;

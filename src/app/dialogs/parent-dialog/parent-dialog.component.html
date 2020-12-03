@@ -100,7 +100,7 @@
 
 <div mat-dialog-actions cdk-focus-start>
   
-  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="!selectedItem || state=='loading'" >{{ (ingestOnly ? 'import.save' : 'import.load_and_save') | translate }}</button>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="!selectedItem || state=='loading'" >{{ data.btnLabel | translate }}</button>
   <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.cancel' | translate }}</button>
 
 </div>

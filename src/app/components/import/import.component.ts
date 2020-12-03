@@ -107,7 +107,7 @@ export class ImportComponent implements OnInit {
   }
 
   onLoadAndSave() {
-    const dialogRef = this.dialog.open(ParentDialogComponent);
+    const dialogRef = this.dialog.open(ParentDialogComponent, { data: { btnLabel: 'import.load_and_save' }});
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['pid']) {
         this.load(result['pid']);

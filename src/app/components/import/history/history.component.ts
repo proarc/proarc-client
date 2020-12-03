@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 import { ReloadBatchDialogComponent } from 'src/app/dialogs/reload-batch-dialog/reload-batch-dialog.component';
 import { Profile } from 'src/app/model/profile.model';
 import { ImportDialogComponent } from 'src/app/dialogs/import-dialog/import-dialog.component';
-import { ParentDialogComponent } from 'src/app/dialogs/parent-dialog/parent-dialog.component';
 
 @Component({
   selector: 'app-history',
@@ -134,12 +133,6 @@ export class HistoryComponent implements OnInit, OnDestroy {
       return;
     }
     this.router.navigate(['/import', 'edit', this.selectedBatch.id]);
-    // const dialogRef = this.dialog.open(ParentDialogComponent, { data: { ingestOnly: true }});
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result && result.pid) {
-    //     this.ingestBatch(result.pid);
-    //   }
-    // });
   }
 
 
