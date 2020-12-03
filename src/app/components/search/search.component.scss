@@ -59,6 +59,7 @@
   .app-items-wrapper {
     height: 100%;
     overflow: hidden;
+    border-bottom: 1px solid #cecece;
     .app-items {
       height: calc(100% - 42px);
       overflow: hidden;
