@@ -26,11 +26,13 @@ export class EditorService {
     public ready = false;
     // public document: DocumentWrapper;
 
+    public thirdEditorType = 'none'; // 'image' | 'mods'
+
     public rightEditorType = 'none'; // 'image' | 'comment' | 'ocr' | 'mods' | 'atm' | 'metadata'
 
     public leftEditorType = 'none'; // 'children' | 'image' | 'comment' | 'ocr' | 'mods' | 'atm' | 'metadata'
 
-    public mode = 'chldren'; // 'detal' | 'children'
+    public mode = 'chldren'; // 'detail' | 'children'
 
     public doubleRight = false;
 
@@ -188,12 +190,16 @@ export class EditorService {
 
 
       public enterDoubleRight() {
-          if (this.rightEditorType === 'image') {
+          if (this.rightEditorType === 'image' || this.rightEditorType == 'mods') {
             this.switchRightEditor('metadata')
           }
           setTimeout(() => {
-            this.doubleRight = true;      
-            this.properties.setBoolProperty('editor.double_right', true);        
+            this.doubleRight = true;
+            if (this.right.isPage()) {
+                this.properties.setBoolProperty('editor.double_right', true);       
+            } else {
+                this.properties.setBoolProperty('editor.double_right_not_page', true);        
+            }
           }, 100);
     }
 
@@ -204,7 +210,11 @@ export class EditorService {
 
       public leaveDoubleRight() {
         this.doubleRight = false;
-        this.properties.setBoolProperty('editor.double_right', false);
+        if (this.right.isPage()) {
+            this.properties.setBoolProperty('editor.double_right', false);
+        } else {
+            this.properties.setBoolProperty('editor.double_right_not_page', false);
+        }
     }
 
 
@@ -258,6 +268,13 @@ export class EditorService {
             this.properties.setStringProperty('editor.top_right_editor_type', this.rightEditorType);
         } else {
             this.properties.setStringProperty('editor.right_editor_type', this.rightEditorType);
+        }
+    }
+
+    public switchThirdEditor(type: string) {
+        this.thirdEditorType = type;
+        if (this.right.isPage()) {
+            this.properties.setStringProperty('editor.page_third_editor_type', this.thirdEditorType);
         }
     }
 
@@ -330,18 +347,29 @@ export class EditorService {
         if (item) {
             if (item.isPage()) {
                 this.rightEditorType = this.properties.getStringProperty('editor.page_right_editor_type', 'image');
-                this.doubleRight = this.properties.getBoolProperty('editor.double_right', false);
             } else if(item.isTopLevel()) {
-                this.doubleRight = false;
                 this.rightEditorType = this.properties.getStringProperty('editor.top_right_editor_type', 'mods');
             } else {
-                this.doubleRight = false;
                 this.rightEditorType = this.properties.getStringProperty('editor.right_editor_type', 'mods');
+            }
+            if (this.mode == 'children') {
+                if (item.isPage()) {
+                    this.doubleRight = this.properties.getBoolProperty('editor.double_right', false);
+                    this.thirdEditorType = this.properties.getStringProperty('editor.page_third_editor_type', 'image');
+                } else {
+                    this.doubleRight = this.properties.getBoolProperty('editor.double_right_not_page', false);
+                    this.thirdEditorType = 'mods';
+                }
+            } else {
+                this.doubleRight = false;
             }
         }
         this.right = item;
         this.rightDocumentsubject.next(item);
     }
+
+
+
 
     public goToPreviousObject() {
         if (this.parent) {

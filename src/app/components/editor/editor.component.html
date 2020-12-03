@@ -117,7 +117,7 @@
               <button *ngIf="editor.right.isPage() && !editor.doubleRight" matTooltip="{{ 'editor.toolbar.editor_image' | translate }}" [class.app-inactive]="editor.rightEditorType != 'image'" (click)="editor.switchRightEditor('image')" mat-icon-button>
                 <mat-icon>image</mat-icon>
               </button>
-              <button matTooltip="{{ 'editor.toolbar.editor_mods' | translate }}" [class.app-inactive]="editor.rightEditorType != 'mods'" (click)="editor.switchRightEditor('mods')" mat-icon-button>
+              <button *ngIf="!editor.doubleRight" matTooltip="{{ 'editor.toolbar.editor_mods' | translate }}" [class.app-inactive]="editor.rightEditorType != 'mods'" (click)="editor.switchRightEditor('mods')" mat-icon-button>
                 <mat-icon>code</mat-icon>
               </button>
               <button *ngIf="editor.right.isPage()" matTooltip="{{ 'editor.toolbar.editor_ocr' | translate }}" [class.app-inactive]="editor.rightEditorType != 'ocr'" (click)="editor.switchRightEditor('ocr')" mat-icon-button>
@@ -130,7 +130,7 @@
                 <mat-icon>format_quote</mat-icon>
               </button>
 
-              <button *ngIf="editor.right.isPage() && !editor.doubleRight" (click)="editor.enterDoubleRight()" mat-icon-button matTooltip="{{ 'editor.toolbar.editor_enter_double_right' | translate }}">
+              <button *ngIf="!editor.doubleRight && editor.mode == 'children'" (click)="editor.enterDoubleRight()" mat-icon-button matTooltip="{{ 'editor.toolbar.editor_enter_double_right' | translate }}">
                 <mat-icon>keyboard_arrow_right</mat-icon>
               </button>
 
@@ -199,14 +199,21 @@
         <div class="app-label-model">{{ 'model.' + editor.right.model | translate }}</div>
       </div>
       <div class="app-context">
+        <button *ngIf="editor.right.isPage()" matTooltip="{{ 'editor.toolbar.editor_image' | translate }}" [class.app-inactive]="editor.thirdEditorType != 'image'" (click)="editor.switchThirdEditor('image')" mat-icon-button>
+          <mat-icon>image</mat-icon>
+        </button>
+        <button matTooltip="{{ 'editor.toolbar.editor_mods' | translate }}" [class.app-inactive]="editor.thirdEditorType != 'mods'" (click)="editor.switchThirdEditor('mods')" mat-icon-button>
+          <mat-icon>code</mat-icon>
+        </button>
         <button (click)="editor.leaveDoubleRight()" mat-icon-button matTooltip="{{ 'editor.toolbar.editor_leave_double_right' | translate }}">
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
       </div>
   </div>
   <div class="app-content">
-      <app-viewer [pid]="editor.right.pid"></app-viewer>
-  </div>
+      <app-viewer *ngIf="editor.thirdEditorType == 'image'" [pid]="editor.right.pid"></app-viewer>
+      <app-editor-mods *ngIf="editor.thirdEditorType == 'mods'"></app-editor-mods>
+    </div>
 </div>
 
 
