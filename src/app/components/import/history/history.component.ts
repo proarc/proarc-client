@@ -71,6 +71,8 @@ export class HistoryComponent implements OnInit, OnDestroy {
   openBatch(batch: Batch) {
     if (batch.state === 'INGESTED' && batch.parentPid) {
       this.router.navigate(['/document', batch.parentPid]);
+    } else if (batch.state === 'LOADED') {
+      this.router.navigate(['/import', 'edit', this.selectedBatch.id]);
     }
   }
 
@@ -108,6 +110,8 @@ export class HistoryComponent implements OnInit, OnDestroy {
     }
   }
 
+
+  
   onReloadBatch() {
     const dialogRef = this.dialog.open(ReloadBatchDialogComponent, { data: null });
     dialogRef.afterClosed().subscribe(result => {
@@ -116,6 +120,10 @@ export class HistoryComponent implements OnInit, OnDestroy {
       }
     });   
   }
+
+
+
+
 
   onIngestBatch() {
     if (!this.selectedBatch) {
