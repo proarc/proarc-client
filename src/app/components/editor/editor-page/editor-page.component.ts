@@ -71,10 +71,13 @@ export class EditorPageComponent implements OnInit {
   }
 
   onSave(from: string = null) {
+    this.movedToNextFrom = from;
     if (!this.page.hasChanged()) {
+      if (!!from) {
+        this.editor.moveToNext();
+      }
       return;
     }
-    this.movedToNextFrom = from;
     this.page.removeEmptyIdentifiers();
     this.editor.savePage(this.page, (page: Page) => {
       if (page) {

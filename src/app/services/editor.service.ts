@@ -135,6 +135,22 @@ export class EditorService {
         });
     }
 
+
+
+    moveToNext() {
+        let index = -1;
+        for (let i = 0; i < this.children.length; i++) {
+            if (this.right == this.children[i]) {
+                index = i;
+                break;
+            }
+        }
+        index += 1;
+        if (index < this.children.length) {
+            this.selectRight(this.children[index]);
+        }
+    }
+
     initDocumentEditor(pid: string) {
         const rDoc = this.api.getDocument(pid);
         const rChildren = this.api.getRelations(pid);
