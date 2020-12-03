@@ -17,4 +17,15 @@ export class SimpleDialogComponent implements OnInit {
   ngOnInit() {
   }
 
+
+
+  btnEnabled() {
+    const num = this.data.numberInput;
+    if (num) {
+      return num.value >= num.min && num.value <= num.max;
+    }
+    return true;
+  }
+
+
 }
