@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Tree } from 'src/app/model/mods/tree.model';
 import { ApiService } from 'src/app/services/api.service';
-import { ConfigService } from 'src/app/services/config.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { SearchService } from 'src/app/services/search.service';
 
@@ -16,7 +16,9 @@ export class TreeComponent implements OnInit {
   @Input('tree') tree: Tree;
 
   constructor(public properties: LocalStorageService, 
-    private api: ApiService, public search: SearchService) { 
+    private router: Router,
+    private api: ApiService, 
+    public search: SearchService) { 
   }
 
   ngOnInit() {
@@ -39,7 +41,7 @@ export class TreeComponent implements OnInit {
   }
 
   open() {
-
+    this.router.navigate(['/document', this.tree.item.pid]);
   }
 
 }
