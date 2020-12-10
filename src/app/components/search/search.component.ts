@@ -276,8 +276,8 @@ export class SearchComponent implements OnInit {
       this.sortAsc = false;
     }
     this.sortField = field;
-    this.properties.setStringProperty('search.sortfield', this.sortField);
-    this.properties.setBoolProperty('search.sortasc', this.sortAsc);
+    this.properties.setStringProperty('search.sort_field', this.sortField);
+    this.properties.setBoolProperty('search.sort_asc', this.sortAsc);
     this.reload();
   }
 
