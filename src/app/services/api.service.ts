@@ -128,8 +128,13 @@ export class ApiService {
     return this.get('urnnbn').pipe(map(response => Registrar.fromJsonArray(response['response']['data'])));
   }
 
-  getImportFolders(profile: Profile, folder: string = null): Observable<Folder[]> {
-    return this.get('import/folder', { profile: profile.id, folder: folder})
+  // getImportFolders(profile: Profile, folder: string = null): Observable<Folder[]> {
+  //   return this.get('import/folder', { profile: profile.id, folder: folder})
+  //       .pipe(map(response => Folder.fromJsonArray(response['response']['data'])));
+  // }
+
+  getImportFolders(folder: string = null): Observable<Folder[]> {
+    return this.get('import/folder', { folder: folder})
         .pipe(map(response => Folder.fromJsonArray(response['response']['data'])));
   }
 
@@ -439,6 +444,11 @@ export class ApiService {
   createImportBatch(path: string, profile: string, indices: boolean, device: string): Observable<Batch> {
     const data = `folderPath=${path}&profile=${profile}&indices=${indices}&device=${device}`;
     return this.post('import/batch', data).pipe(map(response => Batch.fromJson(response['response']['data'][0])));
+  }
+
+  createImportBatches(paths: string[], profile: string, indices: boolean, device: string) {
+    const data = `folderPath=[${paths}]&profile=${profile}&indices=${indices}&device=${device}`;
+    return this.post('import/batches', data);//.pipe(map(response => Batch.fromJson(response['response']['data'][0])));
   }
 
   getImportBatchStatus(id: number): Observable<[number, number]> {

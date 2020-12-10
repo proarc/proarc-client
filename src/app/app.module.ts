@@ -93,6 +93,10 @@ import { AngularResizedEventModule } from 'angular-resize-event';
 import { EditorPhysicalComponent } from './documents/document/editor-physical/editor-physical.component';
 import { TreeComponent } from './components/search/tree/tree.component';
 import { SearchService } from './services/search.service';
+import { ImportService } from './services/import.service';
+import { ImportTree } from './components/import/tree/tree.model';
+import { ImportTreeComponent } from './components/import/tree/tree.component';
+import { IngestDialogComponent } from './dialogs/ingest-dialog/ingest-dialog.component';
 
 
 export function hljsLanguages() {
@@ -170,7 +174,9 @@ export function hljsLanguages() {
     NewPasswordDialogComponent,
     EditorAbstractComponent,
     EditorPhysicalComponent,
-    TreeComponent
+    TreeComponent,
+    ImportTreeComponent,
+    IngestDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -205,7 +211,8 @@ export function hljsLanguages() {
     ConfigService,
     FundService,
     OsmService,
-    SearchService
+    SearchService,
+    ImportService
   ],
   entryComponents: [
     SimpleDialogComponent,
@@ -220,7 +227,8 @@ export function hljsLanguages() {
     HelpDialogComponent,
     ReloadBatchDialogComponent,
     FundDialogComponent,
-    NewPasswordDialogComponent
+    NewPasswordDialogComponent,
+    IngestDialogComponent
   ],
   bootstrap: [AppComponent]
 })

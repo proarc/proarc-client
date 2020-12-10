@@ -1,28 +1,20 @@
 <div class="breadcrumb-nav">
   <span>Import</span>
+  <!-- <mat-select [placeholder]="'import.profile' | translate" [(ngModel)]="selectedProfile" (selectionChange)="onProfileChanged()">
+    <mat-option *ngFor="let profile of profiles" [value]="profile">{{ profile.label }}</mat-option>
+  </mat-select>
+  <div class="app-actions-right">
+
+  </div> -->
+
 </div>
 
-<div class="app-import" *ngIf="state=='success'">
+<div class="app-import">
 
-  <div class="actions">
+  <div class="app-actions">
 
-
-    <a mat-raised-button color="default" [routerLink]="['/import', 'history']" class="app-import-history">
-      {{ 'history.title' | translate }}
-    </a>
-
-
-    <button mat-raised-button color="primary" (click)="onLoad()" [disabled]="!canBeLoaded()">
+    <button mat-raised-button color="primary" (click)="onLoad()" [disabled]="!importService.anyFolderSelected()">
       {{ 'import.load' | translate }}
-    </button>
-
-    <!-- <button mat-raised-button color="primary" (click)="onLoadAndSave()" [disabled]="!canBeLoaded()">
-      {{ 'import.load_and_save' | translate }}
-    </button> -->
-
-    <button mat-raised-button color="default" (click)="reload()">
-      <mat-icon style="margin-right:8px;">sync</mat-icon>
-      {{ 'history.refresh' | translate }}
     </button>
 
     <mat-form-field class="app-import-profiles">
@@ -39,12 +31,24 @@
 
     <mat-checkbox color="primary" class="app-import-index" [(ngModel)]="generateIndex">{{ 'import.generate_index' | translate }}</mat-checkbox>
 
-
   </div>
 
+  <div class="app-table app-items">
+    <div class="app-scrollable">
+      <app-import-tree [tree]="tree"></app-import-tree>
+    </div>
+  </div>
+
+  
+</div>
 
 
-<div class="app-table app-table-left">
+
+
+
+
+
+<!-- <div class="app-table app-table-left">
   <div class="folder-list" [class.app-disabled]="folderReloading">
     <div *ngIf="path" class="app-row app-path">
         <span class="app-path-segment" (click)="openPath('/')">Kořenový adresář</span>
@@ -72,7 +76,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 
 
@@ -80,7 +84,35 @@
 
 
 
-</div>
 
+<!-- 
+  <div class="app-import-actions">
+    <div class="app-actions-right">
+      <button mat-button color="default" (click)="reload()">
+        {{ 'history.refresh' | translate }}
+      </button>
+      <button mat-button color="primary" (click)="onLoad()" [disabled]="!canBeLoaded()">
+        {{ 'import.load' | translate }}
+      </button>
+      <button mat-button color="primary" (click)="onLoadAndSave()" [disabled]="!canBeLoaded()">
+        {{ 'import.load_and_save' | translate }}
+      </button>
+    </div>
+      <ng-container *ngIf="search.selectedTree">
+        <button (click)="onExport(search.selectedTree.item)" mat-button>Exportovat</button>
+        <button (click)="onUrnnbn(search.selectedTree.item)" mat-button>URN:NBN</button>
+        <button *ngIf="search.selectedTree.removable()" (click)="onDeleteFromTree()" mat-button>Smazat</button>
+        <button (click)="onExpandAll()" mat-button>Rozbalit</button>
+        <button (click)="openItem(search.selectedTree.item)" mat-button>Otevřít</button>
+      </ng-container> 
+  </div> -->
+  
+  
+  
+
+
+  
+
+<!-- 
 <mat-spinner *ngIf="state=='loading' || folderReloading" [strokeWidth]="5" [diameter]="60" class="center-spinner">
-</mat-spinner>
+</mat-spinner> -->

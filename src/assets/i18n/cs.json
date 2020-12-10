@@ -156,13 +156,20 @@
       "empty": "-",
       "unknown": "?"
     },
-    "dialog": {
-      "title": "Import",
+    "load_dialog": {
+      "title": "Načítání",
       "preparing": "Probíhá příprava importu",
       "loading": "Probíhá načítání objektů {{ done }}/{{ count }}",
-      "open": "Přejít na nadřazený objekt",
+      "open": "Pokračovat k přípravě metadat",
       "success": "Import proběhl v pořádku",
       "failure": "Import se nezdařil"
+    },
+    "ingest_dialog": {
+      "title": "Ukládání",
+      "message": "Probíhá ukládání do úložiště",
+      "open": "Otevřít objekt v editoru",
+      "success": "Uloženo do úložiště",
+      "failure": "Uložení do úložiště se nezdařilo"
     }
   },
   "history": {
@@ -199,6 +206,7 @@
     "new_object": "Nový objekt",
     "search": "Hledat",
     "import": "Import",
+    "history": "Správa dávek",
     "catalog": "Katalog",
     "devices": "Zařízení",
     "login": "Přihlásit",

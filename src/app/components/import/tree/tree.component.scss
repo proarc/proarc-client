@@ -1,0 +1,50 @@
+.app-tree-row {
+  height: 32px;
+  line-height: 32px;
+  padding-left: 6px;
+  font-size: 14px;
+  overflow: hidden;
+  .app-folder-item {
+    display: inline-block;
+    cursor: pointer;
+    user-select: none;
+    color: #666;
+    .app-folder-action {
+      float: left; 
+      text-align: right; 
+      min-height: 1px;
+      mat-spinner {
+        margin-top: 8px;
+        float: right;
+        margin-right: 8px;
+      }
+      .app-tree-expand {
+        width: 36px;
+        text-align: center;
+        line-height: 34px;
+        height: 34px;
+        margin-right: -3px;
+      }
+      .app-tree-checkbox {
+        width: 30px;
+        text-align: center;
+        line-height: 32px;
+        height: 30px;
+        margin-right: 0px;
+        font-size: 18px;
+      }
+    }
+    .app-folder-label {
+      float: right;
+    }
+    &:hover {
+      color: #000;
+    }
+    &.app-disabled {
+      color: #666;
+      cursor: default;
+      opacity: 0.3;
+    }
+  }
+
+}

@@ -1,8 +1,12 @@
+
+
 .app-import {
   height: calc(100% - 50px);
-  padding: 10px 20px;
-  .actions {
-    height: 60px;
+  // padding: 15px 20px;
+  .app-actions {
+    height: 70px;
+    padding-left: 20px;
+    padding-top: 10px;
     overflow: hidden;
     button {
       margin-right: 16px;
@@ -22,55 +26,25 @@
     }
   }
   .app-table {
-    height: calc(100% - 60px);
-    width: calc(50% - 5px);
+    height: calc(100% - 70px);
+    padding: 8px 0;
+    width: 100%;
     float: left;
     font-size: 14px;
-    .folder-list {
-      height: calc(100% - 60px);
-      .app-row {
-        height: 40px;
-        line-height: 40px;;
-      }
-      &.app-disabled {
-        opacity: 0.4;
-        pointer-events: none;
-        user-select: none; 
-      }
-      .app-header {
-        flex: 1;
-      }
-      .folder-name {
-        flex: 1;
-      }
-      .folder-state {
-        width: 150px;
-      }
-      .scrollable {
-        height: calc(100% - 0px);
-        overflow: auto;
-      }
-    }
-    &.app-table-left {
-      margin-right: 10px;
-    }
-    &.app-table-right {
-      .folder-list {
-        height: calc(100% - 0px);
-      }
-
+    .app-scrollable {
+      height: 100%;
+      overflow-y: auto;
     }
   }
-  .app-path {
-    &:hover {
-      background: transparent;
-    }
-    .app-path-segment {
-      cursor: pointer;
-    }
-    mat-icon {
-      margin: 11px;
-      color: #cccccc;
+}
+
+.breadcrumb-nav {
+  overflow: hidden;
+  .app-actions-right {
+    float: right;
+    padding-right: 10px;
+    button {
+      margin-top: 2px;
     }
   }
 }

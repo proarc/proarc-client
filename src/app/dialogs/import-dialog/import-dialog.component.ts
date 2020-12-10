@@ -13,34 +13,24 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
 
   state = 'loading';
 
-
   public count = 0;
   public done = 0;
 
   private timer;
   private batchId;
-  private parentPid;
-  private ingestOnly: boolean;
-  private error = false;
 
   constructor(
     private api: ApiService,
     public dialogRef: MatDialogRef<ImportDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.batchId = data.batch;
-      this.parentPid = data.parent;
-      this.ingestOnly = !!data.ingestOnly;
 }
 
   ngOnInit() {
     this.state = 'loading';
-    if (this.ingestOnly) {
-      this.ingest();
-    } else {
-      this.timer= setInterval(() => {
-        this.onTick();
-      }, 1000);
-    }
+    this.timer= setInterval(() => {
+      this.onTick();
+    }, 1000);
   }
 
   onTick() {
@@ -64,36 +54,12 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
     }
   }
 
-
   private onLoaded() {
     if (this.timer) {
       clearInterval(this.timer);
     }
-    if (this.parentPid) {
-      this.ingest();
-    } else {
-      this.state = 'loaded';
-    }
+    this.state = 'success';
   }
 
-  private ingest() {
-    this.api.setParentForBatch(this.batchId, this.parentPid).subscribe((batch: Batch) => {
-      this.api.ingestBatch(this.batchId, this.parentPid).subscribe((batch: Batch) => {
-        this.onIngested();
-      },
-      (error) => {
-        console.log('ingest batch error', error);
-        this.state = 'failure';
-      });
-    },
-    (error) => {
-      console.log('sitting parent error', error);
-      this.state = 'failure';
-    });
-  }
-
-  private onIngested() {
-    this.state = 'ingested';
-  }
 
 }

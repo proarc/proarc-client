@@ -31,4 +31,13 @@ export class Folder {
     return this.state === 'new';
   }
 
+  static root(): Folder {
+    const folder = new Folder();
+    folder.path = '/';
+    folder.name = '/';
+    folder.state = 'empty';
+    return folder;
+  }
+
+
 }

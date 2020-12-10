@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>{{ "import.ingest_dialog.title" | translate }}</h1>
+<div mat-dialog-content [style.width]="'600px'">
+    <ng-container *ngIf="state == 'loading'">
+        <p class="app-message">{{ "import.ingest_dialog.message" | translate }}</p>
+    </ng-container>
+    <div class="app-message" *ngIf="state=='success'">{{ "import.ingest_dialog.success" | translate }}</div>
+    <div class="app-message app-error-message" *ngIf="state=='failure'">{{ "import.ingest_dialog.failure" | translate }}</div>
+</div>
+
+<div mat-dialog-actions cdk-focus-start>
+    <button *ngIf="state == 'success'" mat-raised-button color="primary" mat-dialog-close="open">{{ 'import.ingest_dialog.open' | translate }}</button>
+    <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.close' | translate }}</button>
+</div>

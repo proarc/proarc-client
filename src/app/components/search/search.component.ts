@@ -71,7 +71,7 @@ export class SearchComponent implements OnInit {
                 this.models = this.config.allModels;
   }
 
-  ngOnInit() {this.search.selectedTree
+  ngOnInit() {
     this.splitArea1Width = this.properties.getStringProperty('search.split.0', "60"),
     this.splitArea2Width = this.properties.getStringProperty('search.split.1', "40"),
     this.organizations = this.config.organizations;

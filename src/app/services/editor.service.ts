@@ -16,6 +16,7 @@ import { MatDialog } from '@angular/material';
 import { UIService } from './ui.service';
 import { ParentDialogComponent } from '../dialogs/parent-dialog/parent-dialog.component';
 import { Batch } from '../model/batch.model';
+import { IngestDialogComponent } from '../dialogs/ingest-dialog/ingest-dialog.component';
 
 @Injectable()
 export class EditorService {
@@ -83,18 +84,21 @@ export class EditorService {
     }
 
     initBatchEditor(id: string) {
-        this.api.getBatchPages(id).subscribe((pages: DocumentItem[]) => {
-            const obj = new DocumentItem();
-            obj.pid = id;
-            this.left = obj;
-            this.children = pages;
-            this.mode = 'children'
-            this.rightEditorType = 'mods';
-            if (this.children.length > 0) {
-                this.selectRight(this.children[0]);
-            }
-            this.state = 'success';
-            this.ready = true;
+        const obj = new DocumentItem();
+        obj.pid = id;
+        this.api.getImportBatch(parseInt(id)).subscribe((batch: Batch) => {
+            obj.parent = batch.parentPid;
+            this.api.getBatchPages(id).subscribe((pages: DocumentItem[]) => {
+                this.left = obj;
+                this.children = pages;
+                this.mode = 'children'
+                this.rightEditorType = 'mods';
+                if (this.children.length > 0) {
+                    this.selectRight(this.children[0]);
+                }
+                this.state = 'success';
+                this.ready = true;
+            });
         });
     }
 
@@ -180,6 +184,12 @@ export class EditorService {
     public getBatchId(): string {
         if (this.preparation && this.left) {
             return this.left.pid;
+        }
+    }
+
+    public getBatchParent(): string {
+        if (this.preparation && this.left) {
+            return this.left.parent;
         }
     }
 
@@ -905,44 +915,53 @@ export class EditorService {
         });
       }
 
-
-
-
-
-
-
-
       ingest() {
-        const dialogRef = this.dialog.open(ParentDialogComponent, { data: { btnLabel: 'import.save' }});
-        dialogRef.afterClosed().subscribe(result => {
-          if (result && result.pid) {
-            this.ingestBatch(result.pid);
-          }
-        });
+        const batchParent = this.getBatchParent();
+        if (batchParent) {
+          this.ingestBatch(batchParent);
+        } else {
+          const dialogRef = this.dialog.open(ParentDialogComponent, { data: { btnLabel: 'import.save' }});
+          dialogRef.afterClosed().subscribe(result => {
+            if (result && result.pid) {
+              this.ingestBatch(result.pid);
+            }
+          });
+        }
       }
-    
     
       private ingestBatch(parentPid: string) {
         this.state = 'loading';
         const bathId = parseInt(this.getBatchId());
-        this.api.setParentForBatch(bathId, parentPid).subscribe((batch: Batch) => {
-          this.api.ingestBatch(bathId, parentPid).subscribe((batch: Batch) => {
-            this.ui.showInfoSnackBar("Uloženo do uložiště");
-            this.state = 'success';
+        const dialogRef = this.dialog.open(IngestDialogComponent, { data: { batch: bathId, parent: parentPid }});
+        dialogRef.afterClosed().subscribe(result => {
+        this.state = 'success';
+          if (result == 'open') {
             this.router.navigate(['/document', parentPid]);
-          },
-          (error) => {
-            console.log('ingest batch error', error);
-            this.state = 'success';
-            this.ui.showErrorSnackBar("Uložení do uložiště se nezdařilo");
-          });
-        },
-        (error) => {
-          console.log('sitting parent error', error);
-          this.state = 'success';
-          this.ui.showErrorSnackBar("Uložení do uložiště se nezdařilo");
+          } else {
+            this.router.navigate(['/']);
+          }
         });
+
+        // this.api.setParentForBatch(bathId, parentPid).subscribe((batch: Batch) => {
+        //   this.api.ingestBatch(bathId, parentPid).subscribe((batch: Batch) => {
+        //     this.ui.showInfoSnackBar("Uloženo do úložiště");
+        //     this.state = 'success';
+        //     this.router.navigate(['/document', parentPid]);
+        //   },
+        //   (error) => {
+        //     console.log('ingest batch error', error);
+        //     this.state = 'success';
+        //     this.ui.showErrorSnackBar("Uložení do úložiště se nezdařilo");
+        //   });
+        // },
+        // (error) => {
+        //   console.log('sitting parent error', error);
+        //   this.state = 'success';
+        //   this.ui.showErrorSnackBar("Uložení do úložiště se nezdařilo");
+        // });
       }
+
+
 
 
 

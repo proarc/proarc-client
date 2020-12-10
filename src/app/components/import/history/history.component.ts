@@ -122,8 +122,6 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
 
 
-
-
   onIngestBatch() {
     if (!this.selectedBatch) {
       return;
@@ -155,7 +153,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
       return;
     }
     this.api.reloadBatch(this.selectedBatch.id, profile.id).subscribe((batch: Batch) => {
-      const dialogRef = this.dialog.open(ImportDialogComponent, { data: {batch: batch.id, parent: null }});
+      const dialogRef = this.dialog.open(ImportDialogComponent, { data: {batch: batch.id }});
       dialogRef.afterClosed().subscribe(result => {
           this.reload();
       });

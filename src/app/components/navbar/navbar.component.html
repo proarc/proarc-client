@@ -10,7 +10,9 @@
 
     <a [routerLink]="['/search']" routerLinkActive="active" mat-button>{{ "navbar.search" | translate }}</a>
     <!-- <a [routerLink]="['/catalog']" routerLinkActive="active" mat-button>{{ "navbar.catalog" | translate }}</a> -->
+    <a [routerLink]="['/import', 'history']" routerLinkActive="active" mat-button>{{ "navbar.history" | translate }}</a>
     <a [routerLink]="['/import']" routerLinkActive="active" mat-button>{{ "navbar.import" | translate }}</a>
+
     <a [routerLink]="['/devices']" routerLinkActive="active" mat-button>{{ "navbar.devices" | translate }}</a>
 
     <a [matMenuTriggerFor]="profile_menu" mat-button>{{ "navbar.profile" | translate }}</a>
