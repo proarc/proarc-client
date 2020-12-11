@@ -48,7 +48,7 @@ export class ImportComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private importService: ImportService,
+    public importService: ImportService,
     private router: Router,
     private dialog: MatDialog) { }
 

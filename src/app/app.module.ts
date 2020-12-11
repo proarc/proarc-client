@@ -94,7 +94,6 @@ import { EditorPhysicalComponent } from './documents/document/editor-physical/ed
 import { TreeComponent } from './components/search/tree/tree.component';
 import { SearchService } from './services/search.service';
 import { ImportService } from './services/import.service';
-import { ImportTree } from './components/import/tree/tree.model';
 import { ImportTreeComponent } from './components/import/tree/tree.component';
 import { IngestDialogComponent } from './dialogs/ingest-dialog/ingest-dialog.component';
 
@@ -195,7 +194,7 @@ export function hljsLanguages() {
       providedLanguages: ['en', 'cs'],
       defaultLanguage: 'cs',
       loaderOptions: {
-        path: 'assets/i18n/{{language}}.json?v0.3.1'
+        path: 'assets/i18n/{{language}}.json?v1.0.0'
       }
     })
   ],
