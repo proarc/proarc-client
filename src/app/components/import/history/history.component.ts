@@ -27,11 +27,13 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
   users: User[];
   batches: Batch[];
+  queue: Batch[];
+
   selectedBatch: Batch;
   
+  view: string;
 
   private timer;
-
 
   private progressMap = {};
 
@@ -51,7 +53,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
               private translator: Translator) { }
 
   ngOnInit() {
-    this.reload();
+    this.changeView('overview');
     // this.timer= setInterval(() => {
     //   this.updateLoadingBatchesProgress();
     // }, 5000);
@@ -75,22 +77,55 @@ export class HistoryComponent implements OnInit, OnDestroy {
     }
   }
 
+  changeView(view: string) {
+    if (view == 'overview') {
+      this.view = 'overview';
+      this.reloadBatches();
+    } else if (view == 'queue') {
+      this.view = 'queue';
+      this.reloadQueue();
+    }
+  }
+
   reload() {
+    if (this.view == 'overview') {
+      this.reloadBatches();
+    } else if (this.view == 'queue') {
+      this.reloadQueue()
+    }
+  }
+
+  reloadBatches() {
     this.selectedBatch = null;
     this.state = 'loading';
     this.api.getImportBatches(this.selectedState).subscribe((batches: Batch[]) => {
       this.batches = batches;
       this.state = 'success';
-      this.updateLoadingBatchesProgress();
+      this.updateLoadingBatchesProgress(this.batches);
     });
   }
 
+  reloadQueue() {
+    this.selectedBatch = null;
+    this.state = 'loading';
+    this.api.getBatchQueue().subscribe((batches: Batch[]) => {
+      this.queue = batches;
+      this.state = 'success';
+      this.updateLoadingBatchesProgress(this.queue);
+    }, error => {
+      this.api.getImportBatches('LOADING').subscribe((batches: Batch[]) => {
+        this.queue = batches;
+        this.state = 'success';
+        this.updateLoadingBatchesProgress(this.queue);
+      });
+    });
+  }
 
-  updateLoadingBatchesProgress() {
-    if (!this.batches) {
+  updateLoadingBatchesProgress(batches: Batch[]) {
+    if (batches) {
       return;
     }
-    for (const batch of this.batches) {
+    for (const batch of batches) {
       if (batch.isLoading()) {
         this.api.getImportBatchStatus(batch.id).subscribe(
           (status: [number, number]) => {
@@ -143,7 +178,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
         if (result === 'open') {
           this.router.navigate(['/document', parentPid]);
         } else {
-          this.reload();
+          this.reloadBatches();
         }
       });
   }
@@ -155,7 +190,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
     this.api.reloadBatch(this.selectedBatch.id, profile.id).subscribe((batch: Batch) => {
       const dialogRef = this.dialog.open(ImportDialogComponent, { data: {batch: batch.id }});
       dialogRef.afterClosed().subscribe(result => {
-          this.reload();
+          this.reloadBatches();
       });
     });
   }
@@ -172,9 +207,8 @@ export class HistoryComponent implements OnInit, OnDestroy {
   }
 
   onStateChanged() {
-    this.reload();
+    this.reloadBatches();
   }
-
 
   onPageChanged(page) {
     // this.pageIndex = page.pageIndex;
@@ -184,6 +218,5 @@ export class HistoryComponent implements OnInit, OnDestroy {
   batchProgress(batch: Batch): string {
     return this.progressMap[batch.id];
   }
-
 
 }

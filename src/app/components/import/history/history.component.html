@@ -1,6 +1,4 @@
 <div class="breadcrumb-nav">
-  <a [routerLink]="['/import']">Import</a>
-  <mat-icon>chevron_right</mat-icon>
   <span>{{ 'history.title' | translate }}</span>
 </div>
 
@@ -8,36 +6,47 @@
 
   <div class="actions">
 
-    <mat-form-field class="app-history-states">
-      <mat-select [placeholder]="'history.state' | translate" [(ngModel)]="selectedState" (selectionChange)="onStateChanged()">
-        <mat-option *ngFor="let state of batchStates" [value]="state">{{ 'history.states.' + state | translate }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <ng-container *ngIf="view == 'overview'">
+      <mat-form-field class="app-history-states">
+        <mat-select [placeholder]="'history.state' | translate" [(ngModel)]="selectedState" (selectionChange)="onStateChanged()">
+          <mat-option *ngFor="let state of batchStates" [value]="state">{{ 'history.states.' + state | translate }}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <button mat-raised-button color="default" (click)="reload()">
-      <mat-icon style="margin-right:8px;">sync</mat-icon>
-      {{ 'history.refresh' | translate }}
-    </button>
+      <button mat-raised-button color="default" (click)="reload()">
+        <mat-icon style="margin-right:8px;">sync</mat-icon>
+        {{ 'history.refresh' | translate }}
+      </button>
 
-    <button mat-raised-button color="primary" (click)="onReloadBatch()" 
-      *ngIf="selectedBatch && (selectedBatch.state === 'LOADING_FAILED' || selectedBatch.state === 'LOADED')">
-      {{ 'history.reload' | translate }}
-    </button>
+      <button mat-raised-button color="default" (click)="changeView('queue')">
+        Zobrazit frontu načítání
+      </button>
 
-    <button mat-raised-button color="primary" (click)="onIngestBatch()" 
-      *ngIf="selectedBatch && selectedBatch.state === 'LOADED'">
-      {{ 'history.ingest' | translate }}
-    </button>
+      <button mat-raised-button color="primary" (click)="onReloadBatch()" 
+        *ngIf="selectedBatch && (selectedBatch.state === 'LOADING_FAILED' || selectedBatch.state === 'LOADED')">
+        {{ 'history.reload' | translate }}
+      </button>
 
-    <button mat-raised-button color="primary" (click)="onEditBatchObject()" 
-      *ngIf="selectedBatch && selectedBatch.state === 'INGESTED' && selectedBatch.parentPid">
-      {{ 'history.edit' | translate }}
+      <button mat-raised-button color="primary" (click)="onIngestBatch()" 
+        *ngIf="selectedBatch && selectedBatch.state === 'LOADED'">
+        {{ 'history.ingest' | translate }}
+      </button>
+
+      <button mat-raised-button color="primary" (click)="onEditBatchObject()" 
+        *ngIf="selectedBatch && selectedBatch.state === 'INGESTED' && selectedBatch.parentPid">
+        {{ 'history.edit' | translate }}
+      </button>
+
+    </ng-container>
+
+    <button mat-raised-button color="default" *ngIf="view == 'queue'" (click)="changeView('overview')">
+      Zpět na seznam všech procesů
     </button>
 
   </div>
 
 
-  <div class="app-table">
+  <div class="app-table" *ngIf="view == 'overview'">
   <div class="batch-list">
     <div class="app-row app-header">
       <div class="batch-folder">{{ 'history.folder' | translate }}</div>
@@ -74,6 +83,36 @@
     </mat-paginator>
     </div>
 </div>
+
+
+<div class="app-table" *ngIf="view == 'queue'">
+  <div class="batch-list">
+    <div class="app-row app-header">
+      <div class="batch-folder">{{ 'history.folder' | translate }}</div>
+      <div class="batch-created">{{ 'history.created' | translate }}</div>
+      <div class="batch-modified">{{ 'history.modified' | translate }}</div>
+      <div class="batch-user">{{ 'history.user' | translate }}</div>
+      <div class="batch-pages">Počet stran</div>
+    </div>
+    <div class="scrollable" style="height: calc(100% - 5px);">
+      <div *ngFor="let batch of queue" class="app-row">
+        <div class="batch-folder" [matTooltip]="batch.description">{{ batch.description }}</div>
+        <div class="batch-created">{{ batch.create | appDatetime }}</div>
+        <div class="batch-modified">{{ batch.timestamp | appDatetime }}</div>
+        <div class="batch-user">{{ batch.user }}</div>
+        <div class="batch-pages">{{ batch.pageCount }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
 
 
 </div>

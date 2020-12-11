@@ -4,19 +4,19 @@
   .actions {
     height: 60px;
     overflow: hidden;
-    .app-batch-state {
-      margin-left: 16px;
+    .app-history-states {
       margin-right: 16px;
     }
     button {
-      margin-left: 16px;
+      margin-right: 16px;
+      margin-top: 10px;
     }
   }
   .app-table {
     height: calc(100% - 60px);
   }
   .batch-list {
-    height: calc(100% - 60px);
+    height: calc(100% - 40px);
     .app-header {
       flex: 1;
     }
@@ -41,11 +41,14 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    .batch-pages {
+      width: 75px;
+    }
     .batch-actions {
       width: 40px;
     }
     .scrollable {
-      height: calc(100% - 54px);
+      height: calc(100% - 43px);
       overflow: auto;
       font-size: 14px;
     }

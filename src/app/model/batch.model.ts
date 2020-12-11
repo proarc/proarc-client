@@ -12,6 +12,7 @@ export class Batch {
   public profile: string;
   public failure: string;
   public parentPid: string;
+  public pageCount: number;
 
   public static fromJson(json): Batch {
       const batch = new Batch();
@@ -25,6 +26,7 @@ export class Batch {
       batch.profile = json['profile'];
       batch.parentPid = json['parentPid'];
       batch.failure = json['failure'];
+      batch.pageCount = json['pageCount'] ? parseInt(json['pageCount']) : 0;
       return batch;
   }
 
