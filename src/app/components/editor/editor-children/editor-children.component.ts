@@ -200,19 +200,20 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
         this.editor.children[index].selected = this.lastState;
         index += 1;
       }
-    } else {
+    } else if (event && (event.metaKey || event.ctrlKey)) {
       if (this.editor.isMultipleChildrenMode()) {
         this.lastState = !item.selected;
         item.selected = this.lastState;
       } else {
-        if (event && (event.metaKey || event.ctrlKey)) {
-          this.editor.setMultipleChildrenMode(true);
-          item.selected = true;
-        } else {
-          // this.editor.selectRight(item);
-        }
-        this.lastState = true;
+        this.editor.setMultipleChildrenMode(true);
+        item.selected = true;
       }
+    } else {
+      if (this.editor.isMultipleChildrenMode()) {
+        console.log('setSingleChildMode');
+        this.editor.setSingleChildMode(item);
+      }
+      this.lastState = true;
     }
     this.editor.selectRight(item);
     this.arrowIndex = itemIndex;

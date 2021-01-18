@@ -749,6 +749,11 @@ export class EditorService {
         }
       }
 
+      setSingleChildMode(item: DocumentItem) {
+        this.deselectChildren();
+        this.multipleChildrenMode = false;
+      }
+
       // Returns the first selected index
       private firstSelectedIndex(): number {
         let index = -1;
