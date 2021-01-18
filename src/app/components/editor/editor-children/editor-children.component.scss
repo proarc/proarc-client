@@ -1,5 +1,7 @@
 .app-children-editor-content {
   outline: none;
+  height: auto;
+  overflow: auto;
 }
 
 
@@ -18,8 +20,9 @@
 
 
     .app-view-list {
-      overflow: auto;
-      height: calc(100% - 2px);
+      // overflow: auto;
+      // height: calc(100% - 2px);
+      overflow: hidden;
       margin-top:2px;
       &.app-table {
         box-shadow: none;
@@ -66,8 +69,9 @@
 
     .app-view-grid {
       width: 100%;
-      overflow: auto;
-      height: 100%;
+      overflow: hidden;
+      // overflow: auto;
+      // height: 100%;
       .app-grid-item-wrapper {
         padding: 3px;
         float: left;
@@ -99,10 +103,11 @@
 
     .app-view-icons {
       width: 100%;
-      height: 100%;
+      // height: 100%;
+      overflow: hidden;
       padding:2px;
-      background: #fff;
-      overflow: auto;
+      // background: #fff;
+      // overflow: auto;
       .app-item {
         float: left;
         .app-item-content {    
@@ -137,7 +142,7 @@
             padding: 3px 3px;
           }
         }
-        opacity: 0.65;
+        opacity: 0.75;
         &.app-selected {
           opacity: 1;
           .app-item-content {    
