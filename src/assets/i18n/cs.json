@@ -262,8 +262,8 @@
       "editor_geo": "Geografická lokace",
       "editor_mode_detail": "Režim detailu",
       "editor_mode_children": "Režim procházení",
-      "editor_enter_double_right": "Otevřít obrázek v novém panelu",
-      "editor_leave_double_right": "Zavřít panel s obrázkem"
+      "editor_enter_double_right": "Otevřít třetí panel",
+      "editor_leave_double_right": "Zavřít třetí panel"
     },
     "atm": {
       "title": "Administrativní a technická metadata",
