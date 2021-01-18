@@ -124,7 +124,7 @@ export class ImportComponent implements OnInit {
             color: 'default'
           },
           btn2: {
-            label: "Otevří správu importních procesů",
+            label: "Otevřít správu importních procesů",
             value: 'open',
             color: 'primary'
           }

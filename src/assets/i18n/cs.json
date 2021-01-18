@@ -149,7 +149,7 @@
     "load": "Načíst",
     "load_and_save": "Načíst a uložit",
     "save": "Uložit",
-    "select_parent": "Vyberte nadřzený objekt",
+    "select_parent": "Vyberte nadřazený objekt",
     "state": {
       "new": "Nové",
       "imported": "Načteno",
@@ -317,7 +317,7 @@
       },
       "relocate_dialog": {
         "title": "Přesun objektů",
-        "message": "Opravdu chcete přesunou vybrané objekty do nově zvoleného objektu?",
+        "message": "Opravdu chcete přesunout vybrané objekty do nově zvoleného objektu?",
         "go": "Přejít na nově zvolený objekt"
       },
       "delete_dialog": {
