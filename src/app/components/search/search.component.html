@@ -76,7 +76,8 @@
   <div class="app-items-wrapper" *ngIf="items">
 
   <div class="app-search-actions">
-    <div class="app-obect-actions" *ngIf="selectedItem">
+    <div class="app-object-actions" *ngIf="selectedItem">
+      <button (click)="openItem(selectedItem)" mat-button>Otevřít</button>
       <button (click)="onExport(selectedItem)" mat-button>Exportovat</button>
       <button (click)="onUrnnbn(selectedItem)" mat-button>URN:NBN</button>
       <button (click)="onDeleteItem()" mat-button>Smazat</button>
@@ -167,13 +168,13 @@
 <div class="app-items-wrapper" *ngIf="tree">
 
 <div class="app-search-actions">
-  <div class="app-obect-actions">
+  <div class="app-object-actions">
     <ng-container *ngIf="search.selectedTree">
+      <button (click)="openItem(search.selectedTree.item)" mat-button>Otevřít</button>
       <button (click)="onExport(search.selectedTree.item)" mat-button>Exportovat</button>
       <button (click)="onUrnnbn(search.selectedTree.item)" mat-button>URN:NBN</button>
       <button *ngIf="search.selectedTree.removable()" (click)="onDeleteFromTree()" mat-button>Smazat</button>
       <button (click)="onExpandAll()" mat-button>Rozbalit</button>
-      <button (click)="openItem(search.selectedTree.item)" mat-button>Otevřít</button>
     </ng-container>
   </div>
 </div>
