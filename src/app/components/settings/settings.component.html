@@ -85,6 +85,58 @@
   </div>
 
 
+
+
+  <div class="app-settings-panel app-settings-preferred" *ngIf="user">
+    <div class="app-settings-panel-header">Preferované hodnoty</div>
+    <div class="app-settings-panel-content">
+      <div>
+        <div class="app-settings-label">Typy stran</div>
+        <div>
+        <strong>{{ codebook.getTopNames('PageTypes').join(", ") }}</strong>
+        </div>
+        <button mat-stroked-button
+          style="margin-top: 8px;"
+          color="primary"
+          (click)="changeCodebookTops('PageTypes')">Upravit
+        </button>
+      </div>
+      <div style="margin-top: 20px;">
+        <div class="app-settings-label">Jazyky</div>
+        <div>
+        <strong>{{ codebook.getTopNames('Languages').join(", ") }}</strong>
+        </div>
+        <button mat-stroked-button
+          style="margin-top: 8px;"
+          color="primary"
+          (click)="changeCodebookTops('Languages')">Upravit
+        </button>
+      </div>
+      <div style="margin-top: 20px;">
+        <div class="app-settings-label">Identifikátory</div>
+        <div>
+        <strong>{{ codebook.getTopNames('Identifiers').join(", ") }}</strong>
+        </div>
+        <button mat-stroked-button
+          style="margin-top: 8px;"
+          color="primary"
+          (click)="changeCodebookTops('Identifiers')">Upravit
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 
 <mat-spinner *ngIf="state=='loading'" [strokeWidth]="5" [diameter]="60" class="center-spinner">

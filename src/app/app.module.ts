@@ -97,6 +97,7 @@ import { ImportService } from './services/import.service';
 import { ImportTreeComponent } from './components/import/tree/tree.component';
 import { IngestDialogComponent } from './dialogs/ingest-dialog/ingest-dialog.component';
 import { AboutDialogComponent } from './dialogs/about-dialog/about-dialog.component';
+import { PreferredTopsDialogComponent } from './dialogs/preferred-tops-dialog/preferred-tops-dialog.component';
 
 
 export function hljsLanguages() {
@@ -177,7 +178,8 @@ export function hljsLanguages() {
     TreeComponent,
     ImportTreeComponent,
     IngestDialogComponent,
-    AboutDialogComponent
+    AboutDialogComponent,
+    PreferredTopsDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -230,7 +232,8 @@ export function hljsLanguages() {
     FundDialogComponent,
     NewPasswordDialogComponent,
     IngestDialogComponent,
-    AboutDialogComponent
+    AboutDialogComponent,
+    PreferredTopsDialogComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>{{ 'settings.preferred.title.' + data | lowercase | translate }}</h1>
+<div mat-dialog-content style="max-width:80vw; overflow: auto; margin: 0;">
+  <div *ngFor="let item of items">
+    <mat-checkbox
+          color="primary"
+          [(ngModel)]="checked[item.code]">
+          {{ item.name }}
+      </mat-checkbox>
+  </div>
+</div>
+<div mat-dialog-actions cdk-focus-start>
+  <button mat-raised-button color="primary" (click)="onSave()" >{{ 'common.save' | translate }}</button>
+  <button mat-raised-button color="default" [mat-dialog-close]="'close'" >{{ 'common.close' | translate }}</button>
+</div>

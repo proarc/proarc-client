@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material';
 import { NewPasswordDialogComponent } from 'src/app/dialogs/new-password-dialog/new-password-dialog.component';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UIService } from 'src/app/services/ui.service';
+import { CodebookService } from 'src/app/services/codebook.service';
+import { PreferredTopsDialogComponent } from 'src/app/dialogs/preferred-tops-dialog/preferred-tops-dialog.component';
 
 @Component({
   selector: 'app-settings',
@@ -26,6 +28,7 @@ export class SettingsComponent implements OnInit {
     private api: ApiService,
     private dialog: MatDialog,
     private ui: UIService,
+    public codebook: CodebookService,
     private properties: LocalStorageService, 
     private auth: AuthService) { }
 
@@ -40,6 +43,11 @@ export class SettingsComponent implements OnInit {
       this.searchCols[col] = this.properties.isSearchColEnabled(col);
     }
   }
+
+  changeCodebookTops(type) {
+    this.dialog.open(PreferredTopsDialogComponent, { data: type });
+  }
+
 
   profileChanged(): boolean {
     if (!this.user) {

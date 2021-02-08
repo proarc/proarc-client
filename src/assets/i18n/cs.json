@@ -246,6 +246,12 @@
       "label": "Hledání",
       "cols": "Zobrazená pole ve výsledích hledání",
       "updated": "Nastavení upraveno"
+    },
+    "preferred": {
+      "title": {
+        "pagetypes": "Preferované typy stran",
+        "languages": "Preferované jazyy"
+      }
     }
   },
   "editor": {

@@ -28,7 +28,6 @@ export class ConfigService {
         'interview',
         'calibrationTable',
         'map',
-        'normalPage',
         'sheetmusic',
         'obituary',
         'tableOfContents',
