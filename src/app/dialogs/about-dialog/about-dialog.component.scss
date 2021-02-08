@@ -1,0 +1,19 @@
+.mat-dialog-title {
+  margin: 0 0 5px;
+}
+.mat-dialog-content {
+  width:470px;
+  min-height:70px;
+  .app-version {
+    margin-top: 6px;
+    color: #555;
+    font-size: 14px;
+  }
+  .app-message {
+    ::ng-deep {
+      a {
+        color: #456aa5 !important;
+      }
+    }
+  }
+}

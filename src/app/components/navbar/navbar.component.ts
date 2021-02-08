@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material';
 import { NewObjectDialogComponent, NewObjectData } from 'src/app/dialogs/new-object-dialog/new-object-dialog.component';
 import { ConfigService } from 'src/app/services/config.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { AboutDialogComponent } from 'src/app/dialogs/about-dialog/about-dialog.component';
 
 @Component({
   selector: 'app-navbar',
@@ -46,6 +47,10 @@ export class NavbarComponent implements OnInit {
         this.router.navigate(['/document', pid]);
       }
     });
+  }
+
+  showAboutDialog() {
+    this.dialog.open(AboutDialogComponent);
   }
 
 }

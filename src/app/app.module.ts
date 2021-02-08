@@ -96,6 +96,7 @@ import { SearchService } from './services/search.service';
 import { ImportService } from './services/import.service';
 import { ImportTreeComponent } from './components/import/tree/tree.component';
 import { IngestDialogComponent } from './dialogs/ingest-dialog/ingest-dialog.component';
+import { AboutDialogComponent } from './dialogs/about-dialog/about-dialog.component';
 
 
 export function hljsLanguages() {
@@ -175,7 +176,8 @@ export function hljsLanguages() {
     EditorPhysicalComponent,
     TreeComponent,
     ImportTreeComponent,
-    IngestDialogComponent
+    IngestDialogComponent,
+    AboutDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -194,7 +196,7 @@ export function hljsLanguages() {
       providedLanguages: ['en', 'cs'],
       defaultLanguage: 'cs',
       loaderOptions: {
-        path: 'assets/i18n/{{language}}.json?v1.0.0'
+        path: 'assets/i18n/{{language}}.json?v1.0.1'
       }
     })
   ],
@@ -227,7 +229,8 @@ export function hljsLanguages() {
     ReloadBatchDialogComponent,
     FundDialogComponent,
     NewPasswordDialogComponent,
-    IngestDialogComponent
+    IngestDialogComponent,
+    AboutDialogComponent
   ],
   bootstrap: [AppComponent]
 })

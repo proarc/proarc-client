@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>{{ 'about.title' | translate }}</h1>
+
+<div mat-dialog-content>
+  <div class="app-version"><span>{{ 'about.version' | translate }} <strong>v1.0.1</strong></span></div>
+  <div class="app-message" [innerHTML]="'about.message' | translate"></div>
+</div>
+
+<div mat-dialog-actions cdk-focus-start>
+  <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.close' | translate }}</button>
+</div>
+
+
