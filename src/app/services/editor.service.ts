@@ -41,8 +41,6 @@ export class EditorService {
     public right: DocumentItem;
     public children: DocumentItem[];
 
-    parent: DocumentItem;
-
     public metadata: Metadata;
 
     private multipleChildrenMode: boolean;
@@ -50,8 +48,11 @@ export class EditorService {
 
     private rightDocumentsubject = new Subject<DocumentItem>();
 
-
     private toParentFrom: string;
+
+    parent: DocumentItem;
+    previousItem: DocumentItem;
+    nextItem: DocumentItem;
 
     constructor(
         private router: Router,
@@ -66,6 +67,8 @@ export class EditorService {
     }
 
     init(params: EditorParams) {
+        this.previousItem = null;
+        this.nextItem = null;
         this.parent = null;
         this.left = null;
         this.right = null;
@@ -171,6 +174,7 @@ export class EditorService {
             this.api.getParent(pid).subscribe((item: DocumentItem) => {
                 if (this.left && this.left.pid == pid) {
                     this.parent = item;
+                    this.setupNavigation();
                 }
             });
             this.state = 'success';
@@ -398,51 +402,42 @@ export class EditorService {
 
 
     public goToPreviousObject() {
-        if (this.parent) {
-            this.state = 'loading';
-            this.api.getRelations(this.parent.pid).subscribe((siblings: DocumentItem[]) => {
-                let index = -1;
-                let i = -1;
-                for (const sibling of siblings) {
-                    i += 1;
-                    if (sibling.pid === this.left.pid) {
-                        index = i;
-                        break;
-                    }
-                }
-                if (index >= 1) {
-                    this.goToObject(siblings[index - 1]);
-                } else {
-                    this.state = 'success';
-                    this.ui.showInfoSnackBar("Dál už nic není");
-                }
-            });
-        } 
+        if (this.previousItem) {
+            this.goToObject(this.previousItem);
+        }
     }
 
     public goToNextObject() {
-        if (this.parent) {
-            this.state = 'loading';
-            this.api.getRelations(this.parent.pid).subscribe((siblings: DocumentItem[]) => {
-                let index = -1;
-                let i = -1;
-                for (const sibling of siblings) {
-                    i += 1;
-                    if (sibling.pid === this.left.pid) {
-                        index = i;
-                        break;
-                    }
-                }
-                if (index >= 0 && index < siblings.length - 1) {
-                    this.goToObject(siblings[index + 1]);
-                } else {
-                    this.state = 'success';
-                    this.ui.showInfoSnackBar("Dál už nic není");
-                }
-            });
-        } 
+        if (this.nextItem) {
+            this.goToObject(this.nextItem);
+        }
     }
 
+    private setupNavigation() {
+        this.previousItem = null;
+        this.nextItem = null;
+        if (!this.parent) {
+            return;
+        }
+        const parentId = this.parent.pid;
+        this.api.getRelations(this.parent.pid).subscribe((siblings: DocumentItem[]) => {
+            let index = -1;
+            let i = -1;
+            for (const sibling of siblings) {
+                i += 1;
+                if (sibling.pid === this.left.pid) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index >= 1 && this.parent.pid == parentId) {
+                this.previousItem = siblings[index - 1];
+            } 
+            if (index >= 0 && index < siblings.length - 1) {
+                this.nextItem = siblings[index + 1];
+            }
+        });
+    }
 
     onCreateNewObject() {
         if (this.mode !== 'children') {

@@ -46,13 +46,13 @@
     <div class="app-divider"></div>
   </ng-container>
     <div class="app-actions">
-        <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="editor.goToPreviousObject()" [class.app-disabled]="!editor.parent" mat-icon-button>
+        <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="editor.goToPreviousObject()" [class.app-disabled]="!editor.previousItem" mat-icon-button>
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
         <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="editor.goToParentObject()" [class.app-disabled]="!editor.parent" mat-icon-button>
           <mat-icon>keyboard_arrow_up</mat-icon>
         </button>
-        <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="editor.goToNextObject()" [class.app-disabled]="!editor.parent" mat-icon-button>
+        <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="editor.goToNextObject()" [class.app-disabled]="!editor.nextItem" mat-icon-button>
           <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
     </div>
