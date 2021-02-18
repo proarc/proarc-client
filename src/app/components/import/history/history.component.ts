@@ -122,7 +122,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
   }
 
   updateLoadingBatchesProgress(batches: Batch[]) {
-    if (batches) {
+    if (!batches) {
       return;
     }
     for (const batch of batches) {

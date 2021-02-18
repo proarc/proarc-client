@@ -39,9 +39,19 @@
 
     </ng-container>
 
-    <button mat-raised-button color="default" *ngIf="view == 'queue'" (click)="changeView('overview')">
-      Zpět na seznam všech procesů
-    </button>
+    <ng-container *ngIf="view == 'queue'">
+
+      <button mat-raised-button color="default" (click)="reload()">
+        <mat-icon style="margin-right:8px;">sync</mat-icon>
+        {{ 'history.refresh' | translate }}
+      </button>
+
+      <button mat-raised-button color="default" (click)="changeView('overview')">
+        Zpět na seznam všech procesů
+      </button>
+
+    </ng-container>
+
 
   </div>
 
@@ -93,6 +103,8 @@
       <div class="batch-modified">{{ 'history.modified' | translate }}</div>
       <div class="batch-user">{{ 'history.user' | translate }}</div>
       <div class="batch-pages">Počet stran</div>
+      <div class="batch-pages">Stav</div>
+
     </div>
     <div class="scrollable" style="height: calc(100% - 5px);">
       <div *ngFor="let batch of queue" class="app-row">
@@ -101,6 +113,8 @@
         <div class="batch-modified">{{ batch.timestamp | appDatetime }}</div>
         <div class="batch-user">{{ batch.user }}</div>
         <div class="batch-pages">{{ batch.pageCount }}</div>
+        <div class="batch-pages">{{ batchProgress(batch) || "Čeká" }}</div>
+
       </div>
     </div>
   </div>
