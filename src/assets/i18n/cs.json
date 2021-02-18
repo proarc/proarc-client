@@ -51,6 +51,10 @@
   "about": {
     "title": "ProArc",
     "version": "Verze",
+    "backend": "Jádro",
+    "client": "Klient",
+    "build": "Build",
+    "revision": "Revize",
     "message": "<p>Produkční a archivační systém je nástroj pro výrobu a úpravu popisných, administrativních a technických metadat. Vývoj probíhá pod licencí <a href=\"http://www.gnu.org/licenses/gpl.html\" target=\"_blank\">GNU GPL v3.</a></p>"
   },
   "export": {

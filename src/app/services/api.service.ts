@@ -468,6 +468,13 @@ export class ApiService {
             .pipe(map(response => Batch.fromJsonArray(response['response']['data'])));
   }
 
+
+  getInfo(): Observable<any> {
+    return this.get('info', {})
+            .pipe(map(response => response['response']['data'][0]));
+  }
+
+
   getBatchQueue(): Observable<Batch[]> {
     return this.get('import/processingBatches', {})
             .pipe(map(response => Batch.fromJsonArray(response['response']['data'])));

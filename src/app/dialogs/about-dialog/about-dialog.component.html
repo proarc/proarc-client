@@ -1,8 +1,19 @@
 <h1 mat-dialog-title>{{ 'about.title' | translate }}</h1>
 
 <div mat-dialog-content>
-  <div class="app-version"><span>{{ 'about.version' | translate }} <strong>v1.0.1</strong></span></div>
   <div class="app-message" [innerHTML]="'about.message' | translate"></div>
+
+
+  <div class="app-header">{{ 'about.client' | translate }}</div>
+  <div class="app-version"><span>{{ 'about.version' | translate }} <strong>v1.0.1</strong></span></div>
+
+
+  <ng-container *ngIf="backendInfo">
+    <div class="app-header">{{ 'about.backend' | translate }}</div>
+    <div class="app-version"><span>{{ 'about.version' | translate }} <strong>{{ backendInfo.version }}</strong></span></div>
+    <div class="app-version"><span>{{ 'about.build' | translate }} <strong>{{ backendInfo.timestamp }}</strong></span></div>
+    <div class="app-version" style="margin-bottom: 10px;"><span>{{ 'about.revision' | translate }} <strong>{{ backendInfo.revision }}</strong></span></div>
+  </ng-container>
 </div>
 
 <div mat-dialog-actions cdk-focus-start>

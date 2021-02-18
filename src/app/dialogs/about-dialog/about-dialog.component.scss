@@ -9,10 +9,19 @@
     color: #555;
     font-size: 14px;
   }
+  .app-header {
+    margin: 20px 0 10px;
+    font-size: 16px;
+    font-weight: 600;
+  }
   .app-message {
+    margin-bottom: 3px;
     ::ng-deep {
       a {
         color: #456aa5 !important;
+      }
+      p {
+        margin: 6px 0;
       }
     }
   }
