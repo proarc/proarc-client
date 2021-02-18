@@ -24,8 +24,12 @@
           <div class="app-card-content">
       
 
+            
 
-            <mat-form-field class="app-full-width">
+            <button class="app-brackets" [class.app-disabled]="!page.number" [matTooltip]="isInBrackets() ? 'Odebrat závorky' : 'Vložit do závorek'" (click)="switchBrackets()" mat-icon-button>
+              <span class="app-text-icon">[ ]</span>
+            </button>
+            <mat-form-field class="app-page-number">
               <input (keyup.enter)="onSaveFrom('pageNumber')" autocomplete="off" matInput [placeholder]="'editor.page.number' | translate" [(ngModel)]="page.number" #pageNumber>
             </mat-form-field>
 

@@ -70,6 +70,31 @@ export class EditorPageComponent implements OnInit {
     this.onSave(from);
   }
 
+  isInBrackets(): boolean {
+    if (!this.page.number) {
+      return false;
+    }
+    return this.page.number.startsWith('[') && this.page.number.endsWith(']');
+  }
+
+  switchBrackets() {
+    if (!this.page.number) {
+      return
+    }
+    if (this.isInBrackets()) {
+      this.page.number = this.page.number.substring(1, this.page.number.length - 1);
+    } else {
+      let number = this.page.number;
+      if (!number.startsWith('[')) {
+        number = '[' + number;
+      }
+      if (!number.endsWith(']')) {
+        number = number + ']';
+      }
+      this.page.number = number;
+    }
+  }
+
   onSave(from: string = null) {
     this.movedToNextFrom = from;
     if (!this.page.hasChanged()) {
