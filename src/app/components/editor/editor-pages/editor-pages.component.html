@@ -62,7 +62,12 @@
       
             <mat-checkbox color="primary" [(ngModel)]="holder.editNumber">{{ 'editor.pages.edit_page_number' | translate }}</mat-checkbox>
 
-            <mat-form-field class="app-full-width">
+
+            <button *ngIf="editor.preparation" class="app-brackets" [disabled]="!holder.editNumber" [class.app-active]="holder.useBrackets" [matTooltip]="holder.useBrackets ? 'Nevkládat do závorek' : 'Vkládat do závorek'" (click)="holder.useBrackets = !holder.useBrackets" mat-icon-button>
+              <span class="app-text-icon">[ ]</span>
+            </button>
+
+            <mat-form-field class="app-page-prefix">
               <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_prefix' | translate" [(ngModel)]="holder.pageNumberPrefix">
             </mat-form-field>
             <mat-form-field class="app-full-width">

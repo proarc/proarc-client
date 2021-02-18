@@ -66,6 +66,8 @@ export class PageUpdateHolder {
   editIndex: boolean;
   editNumber: boolean;
 
+  useBrackets: boolean;
+
   pageType: string;
   pageIndex: number;
 
@@ -209,7 +211,11 @@ export class PageUpdateHolder {
     } else if (this.pageNumberNumbering === this.numberingTypes[4]) {
       result += this.getAlphabetFromNumber(num).toLocaleLowerCase();
     }
-    return result + this.pageNumberSuffix;
+    result = result + this.pageNumberSuffix;;
+    if (this.useBrackets) {
+      return '[' + result + ']';
+    }
+    return result
   }
 
   numberFromValid(): boolean {

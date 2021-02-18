@@ -3,6 +3,18 @@ mat-checkbox  {
 }
 .app-editor-content {
   overflow: auto;
+  .app-brackets {
+    float: right;
+    margin-right: -10px;
+    color: #777;
+    &.app-active {
+     color: #456aa5;
+     font-weight: 600;
+    }
+  }
+  .app-page-prefix {
+    width: calc(100% - 35px);
+  }
 }
 .app-numbering-example {
   padding-bottom: 12px;
