@@ -5,7 +5,7 @@
 
     <as-split unit="percent" gutterSize="4" direction="horizontal" (dragEnd)="dragEnd($event)" (gutterDblClick)="dblClick($event)" #split="asSplit">
 
-      <as-split-area #area1="asSplitArea" minSize="20" [size]="getSplitSize(0)">
+      <as-split-area #area1="asSplitArea" minSize="1" [size]="getSplitSize(0)">
 
 <div class="app-panel">
   <div class="app-toolbar" *ngIf="!editor.preparation">
