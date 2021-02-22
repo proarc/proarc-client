@@ -75,7 +75,7 @@ export class ConfigService {
         'cop', 'mis', 'ine', 'dum', 'hit', 'ira', 'haw'
     ];
 
-    private static defaultIdentifiers = [ 'barcode', 'issn', 'isbn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'];
+    private static defaultIdentifiers = [ 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'];
     private static defaultChronicleIdentifiers = [ 'signature1', 'signature2', 'inventaryNumber', 'OtherNumber'];
 
 
