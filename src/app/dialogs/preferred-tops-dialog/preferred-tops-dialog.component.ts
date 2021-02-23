@@ -23,6 +23,8 @@ export class PreferredTopsDialogComponent implements OnInit {
       this.items = this.codebook.pageTypes;
     } else if (this.data == 'Languages') {
       this.items = this.codebook.languages;
+    } else if (this.data == 'Locations') {
+      this.items = this.codebook.locations;
     } else if (this.data == 'Identifiers') {
       this.items = this.codebook.identifiers;
     } else {

@@ -11,13 +11,15 @@ export class CodebookService {
     "PageTypes": "page_type",
     "Languages": "lang",
     "Identifiers": "identifier",
+    "Locations": "sigla",
     "ChronicleIdentifiers": "identifier"
   }
 
-  pageTypes: any[] = []
-  languages: any[] = []
-  identifiers: any[] = []
-  chronicleIdentifiers: any[] = []
+  pageTypes: any[] = [];
+  languages: any[] = [];
+  locations: any[] = [];
+  identifiers: any[] = [];
+  chronicleIdentifiers: any[] = [];
 
   titleTypeCodes = [
     'abbreviated',
@@ -35,6 +37,7 @@ export class CodebookService {
     this.translator.waitForTranslation().then(() => {
       this.pageTypes = this.buildCollection('PageTypes');
       this.languages = this.buildCollection('Languages');
+      this.locations = this.buildCollection('Locations');
       this.identifiers = this.buildCollection('Identifiers');
       this.chronicleIdentifiers = this.buildCollection('ChronicleIdentifiers');
     });
@@ -56,8 +59,7 @@ export class CodebookService {
   }
 
   getTopNames(collection: string): string[] {
-    const prefix = this.collPrefix[collection];
-    const names = this.getTopCodes(collection).map(code => this.translator.instant(`${prefix}.${code.toLowerCase()}`)) as string[];
+    const names = this.getTopCodes(collection).map(code => this.tName(code, collection));
     names.sort((a: any, b: any): number => {
       return  a.localeCompare(b);
     });
@@ -65,25 +67,34 @@ export class CodebookService {
   }
 
   private buildCollection(collection: string): any[] {
-    const prefix = this.collPrefix[collection];
     const top = [];
     const others = [];
     const topCodes = this.getTopCodes(collection)
     for (const code of topCodes) {
-      top.push({ code: code, name: this.translator.instant(`${prefix}.${code.toLowerCase()}`) });
+      top.push({ code: code, name: this.tName(code, collection) });
     }
     top.sort((a: any, b: any): number => {
       return  a.name.localeCompare(b.name);
     });
     for (const code of this.config['other' + collection]) {
       if (topCodes.indexOf(code) < 0) {
-        others.push({ code: code, name: this.translator.instant(`${prefix}.${code.toLowerCase()}`) });
+        others.push({ code: code, name: this.tName(code, collection) });
       }
     }
     others.sort((a: any, b: any): number => {
       return  a.name.localeCompare(b.name);
     });
     return top.concat(others);
+  }
+
+  tName(code: string, collection: string): string {
+    let key = this.collPrefix[collection];;
+    if (collection == "Locations") {
+      key += '.' + code.toUpperCase();
+    } else {
+      key += '.' + code.toLocaleLowerCase();
+    }
+    return this.translator.instant(key) as string;
   }
 
   setNewTopsInCollection(collection, tops: string[]) {

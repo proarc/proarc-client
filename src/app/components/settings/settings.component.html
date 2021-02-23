@@ -112,6 +112,8 @@
           (click)="changeCodebookTops('Languages')">Upravit
         </button>
       </div>
+
+
       <div style="margin-top: 20px;">
         <div class="app-settings-label">Identifikátory</div>
         <div>
@@ -123,6 +125,21 @@
           (click)="changeCodebookTops('Identifiers')">Upravit
         </button>
       </div>
+
+      <div style="margin-top: 20px;">
+        <div class="app-settings-label">Místa uložení</div>
+        <div>
+        <strong>{{ codebook.getTopNames('Locations').join(", ") }}</strong>
+        </div>
+        <button mat-stroked-button
+          style="margin-top: 8px;"
+          color="primary"
+          (click)="changeCodebookTops('Locations')">Upravit
+        </button>
+      </div>
+
+
+
     </div>
   </div>
 

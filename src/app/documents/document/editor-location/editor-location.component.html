@@ -32,7 +32,7 @@
     <div class="app-card-content" [class.app-collapsed]="item.collapsed">
       <mat-form-field class="app-full-width">
         <mat-select [(ngModel)]='item.physicalLocation["_"]' placeholder="{{ 'editor.location.physical_location' | translate }}">
-          <mat-option *ngFor="let location of locations" [value]="location.code">
+          <mat-option *ngFor="let location of codebook.locations" [value]="location.code">
             {{ location.name }}
           </mat-option>
         </mat-select>
