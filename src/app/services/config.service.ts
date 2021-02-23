@@ -84,13 +84,44 @@ export class ConfigService {
         'ABD020', 'ABE135', 'ABE345', 'ABE370', 'ABE336', 'ABD024', 'ABD134', 'PNE303', 'OPD001', 'JHE301'
     ];
 
+    private static defaultModels = [
+        'model:ndkmonographvolume',
+        'model:ndkmonographtitle',
+        'model:ndkmonographsupplement',
+        'model:ndkperiodical',
+        'model:ndkperiodicalvolume',
+        'model:ndkperiodicalissue',
+        'model:ndkperiodicalsupplement',
+        'model:ndkarticle',
+        'model:ndkpicture',
+        'model:ndkchapter',
+        'model:ndkmap',
+        'model:ndksheetmusic',
+        'model:ndkpage',
+        'model:page',
+        'model:chroniclevolume',
+        'model:chronicletitle',
+        'model:chroniclesupplement'
+    ];
+
+    private static defaultDefaultModel = 'model:ndkmonographvolume';
+
+    private static defaultDefaultExports = [
+        'datastream_full',
+        'datastream_raw',
+        'kramerius',
+        'archive',
+        'ndk_psp',
+        'cejsh',
+        'crossref'
+    ];
+
     private static defaultIdentifiers = [ 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'];
     private static defaultChronicleIdentifiers = [ 'signature1', 'signature2', 'inventaryNumber', 'OtherNumber'];
 
-
     public proarcBackendUrl = APP_GLOBAL.proarcUrl;
-    public allModels = APP_GLOBAL.models;
-    public defaultModel = APP_GLOBAL.defaultModel;
+    public allModels = APP_GLOBAL.models || ConfigService.defaultModels;
+    public defaultModel = APP_GLOBAL.defaultModel || ConfigService.defaultDefaultModel;
 
     public showPageIdentifiers = APP_GLOBAL.showPageIdentifiers == undefined ? true : !!APP_GLOBAL.showPageIdentifiers;
     public showPageIndex = APP_GLOBAL.showPageIndex == undefined ? true : !!APP_GLOBAL.showPageIndex;
@@ -114,7 +145,7 @@ export class ConfigService {
     public otherChronicleIdentifiers = APP_GLOBAL.chronicleIdentifiers || ConfigService.defaultChronicleIdentifiers;
 
     public organizations = APP_GLOBAL.organizations || [];
-    public exports = APP_GLOBAL.exports || [];
+    public exports = APP_GLOBAL.exports || ConfigService.defaultDefaultExports;
 
     constructor() {
     }
