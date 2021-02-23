@@ -31,7 +31,7 @@
 
   </ng-container>
   <a *ngIf="!auth.isLoggedIn()"  [routerLink]="['/login']" routerLinkActive="active" mat-button>{{ "navbar.login" | translate }}</a>
-
+<!-- 
   <button class="btn-lang" mat-icon-button [matMenuTriggerFor]="lang">
     <img src="./assets/img/flag_{{translator.language}}.png">
   </button>
@@ -45,7 +45,7 @@
       <img src="./assets/img/flag_cs.png">
       <span>Čeština</span>
     </button>
-  </mat-menu>
+  </mat-menu> -->
 
 
 </mat-toolbar>
