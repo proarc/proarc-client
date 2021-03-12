@@ -261,6 +261,7 @@
     }
   },
   "editor": {
+    "add_field": "Přidat",
     "info": "Zobrazit informace k popisu",
     "help": {
       "dialog_title": "Informace k popisu",
@@ -405,22 +406,6 @@
       "editor_title": "Popisná metadata",
       "catalog": "Načíst metadata z katalogu"
     },
-    "title": {
-      "tab": "Název",
-      "title": "Název",
-      "type": "Typ",
-      "types": {
-        "abbreviated": "Zkrácený název",
-        "alternative": "Alternativní název",
-        "translated": "Přeložený název",
-        "uniform": "Jednotný název"
-      },
-      "subtitle": "Vedlejší název",
-      "partnumber": "Číslo části",
-      "partname": "Název části",
-      "non_sort_toggle": "První slovo je člen.",
-      "add_btn": "Přidat název"
-    },
     "geo": {
       "editor_title": "Geografická lokace",
       "tab": "Lokace",
@@ -457,7 +442,6 @@
       "ruian_layer_11": "Část obce",
       "ruian_layer_4": "Ulice nebo jiné veřejné prostranství",
       "ruian_layer_1": "Adresní místo",
-      "add_btn": "Přidat lokaci",
       "geo:origin": "Místo původu",
       "geo:storage": "Místo uložení",
       "geo:area": "Vztah k území",
@@ -536,32 +520,41 @@
         }
       }
     },
+    "title": {
+      "title": "Název",
+      "type": "Typ",
+      "types": {
+        "abbreviated": "Zkrácený název",
+        "alternative": "Alternativní název",
+        "translated": "Přeložený název",
+        "uniform": "Jednotný název"
+      },
+      "subtitle": "Vedlejší název",
+      "partnumber": "Číslo části",
+      "partname": "Název části",
+      "non_sort_toggle": "První slovo je člen."
+    },
     "author": {
-      "tab": "Autor",
-      "author": "Autor",
+      "title": "Autor",
       "name": "Celé jméno", 
       "family": "Příjmení",    
       "given": "Křestní",       
       "type": "Typ",  
       "date": "Datum",
       "role": {
-        "role": "Role", 
-        "add_btn": "Přidat roli"
+        "role": "Role"
       },
-      "add_btn": "Přidat autora",
       "split_btn": "Rozdělit jméno",
       "set_primary": "Označit jako hlavního autora",
       "unset_primary": "Zrušit označní hlavního autora"
     },
     "publisher": {
-      "tab": "Nakladatel",
-      "publisher": "Nakladatel",
+      "title": "Nakladatel",
       "event_type": "Typ",
       "issuance": "Vydávání",
       "place": "Místo",
       "edition": "Edice",
       "date": "Rok",
-      "add_btn": "Přidat nakladatele",
       "date_qualifier": "Upřesnění data",
       "date_qualifier_code": {
         "approximate": "Datum je přibližné",
@@ -586,41 +579,33 @@
       }
     },
     "location": {
-      "tab": "Uložení",
-      "location": "Uložení",
+      "title": "Uložení",
       "physical_location": "Místo uložení",
       "shelf_locator": "Signatura",
-      "url": "URL",
-      "add_btn": "Přidat uložení"
+      "url": "URL"
     },
     "language": {
-      "tab": "Jazyk",
-      "language": "Jazyk",
-      "add_btn": "Přidat jazyk"
+      "title": "Jazyk"
     },
     "identifier": {
-      "identifier": "Identifikátor",
+      "title": "Identifikátor",
       "type": "Typ",
       "value": "Hodnota",
-      "add_btn": "Přidat identifikátor",
       "invalid": "Neplatný",
       "valid": "Platný",
       "validity": "Platnost"
     },
     "note": {
-      "note": "Poznámka",
-      "type": "Typ",
-      "add_btn": "Přidat poznámku"
+      "title": "Poznámka",
+      "type": "Typ"
     },
     "physical": {
-      "physical": "Fyzický popis",
+      "title": "Fyzický popis",
       "extent": "Rozsah",
-      "note": "Poznámka",
-      "add_btn": "Přidat fyzický popis"
+      "note": "Poznámka"
     },
     "abstract": {
-      "abstract": "Abstrakt",
-      "add_btn": "Přidat abstrakt"
+      "title": "Abstrakt"
     }
   },
   "xml-view": {

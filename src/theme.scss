@@ -44,30 +44,3 @@ $app-warn: mat-palette($mat-red);
 $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 
 @include angular-material-theme($app-theme);
-
-$primary-color: #456aa5;
-$accent-color: mat-color($app-accent);
-$warn-color: mat-color($app-warn);
-
-$main-bg: #e4e4e4;
-$main-text: #555555;
-$toolbar-color: $primary-color;
-$dropdown-bg: #fff; 
-$breadcrumb-color: $toolbar-color;
-$dialog-color: $toolbar-color;
-$card-color: #222222;
-
-$scroll-track-color: #eee;
-$scroll-thumb-color: $primary-color;
-
-$table-color-bg: #ffffff;
-$table-color-bg-hover: #6794dc21;
-$table-color-bg-active: #597484;
-$table-color-fg: #666666;
-
-$btn-default-color: #4c4c4c;
-
-
-
-
-$navbar-height: 64px;

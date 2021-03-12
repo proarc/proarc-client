@@ -11,3 +11,9 @@
     width: 40px;
   }
 }
+::ng-deep.app-card .app-roles {
+  .app-card-content {
+    padding: 5px 5px 0 10px!important;
+    margin-bottom: -10px !important;
+  }
+}

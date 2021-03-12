@@ -1,11 +1,15 @@
-<div class="editor">
+<div class="app-editor-field" [class.app-nested]="nested">
 
   <div class="app-card" *ngFor="let item of field.items; index as index; last as last; first as first;">
     <div class="app-card-header">
-      <span class="app-card-title">{{ 'editor.title.title' | translate }}</span>
+      <span class="app-card-title">{{ title | translate }}</span>
 
       <button matTooltip="{{ 'common.remove' | translate }}" color="primary" (click)="field.remove(index)" mat-icon-button>
         <mat-icon>delete</mat-icon>
+      </button>
+
+      <button matTooltip="{{ 'editor.info' | translate }}" color="primary" (click)="help.showForField(field.id)" mat-icon-button>
+        <mat-icon>help_outline</mat-icon>
       </button>
 
       <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" color="primary" (click)="field.moveDown(index)" mat-icon-button>
@@ -26,25 +30,17 @@
         <mat-icon>add</mat-icon>
       </button>
 
+      <!-- <ng-template *ngTemplateOutlet="templateMenu; context : { item : item }"></ng-template> -->
+      <ng-template [ngTemplateOutlet]="templateMenu" [ngTemplateOutletContext]="{ item: item  }"></ng-template>
+
     </div>
 
     <div class="app-card-content" [class.app-collapsed]="item.collapsed">
-
-      <mat-form-field class="app-full-width">
-        <input autocomplete="off" matInput [(ngModel)]='item.title["_"]' placeholder="{{ 'editor.chronicle.title.title' | translate }}">
-      </mat-form-field>
-
-      <mat-form-field class="app-full-width">
-        <input autocomplete="off" matInput [(ngModel)]='item.subTitle["_"]' placeholder="{{ 'editor.chronicle.title.subtitle' | translate }}">
-      </mat-form-field>
-
-
-      <mat-form-field class="app-full-width">
-        <input autocomplete="off" matInput [(ngModel)]='item.partNumber["_"]' placeholder="{{ 'editor.chronicle.title.partnumber' | translate }}">
-      </mat-form-field>
-
+      <!-- <ng-template *ngTemplateOutlet="templateContent; context : { item : item }"></ng-template> -->
+      <ng-template [ngTemplateOutlet]="templateContent" [ngTemplateOutletContext]="{ item: item  }"></ng-template>
 
     </div>
+
   </div>
 
 </div>

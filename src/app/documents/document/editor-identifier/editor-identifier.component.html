@@ -1,53 +1,23 @@
-<div class="editor">
+<app-editor-field [field]="field" [title]="'editor.identifier.title'">
+  <ng-template let-item="item" #templateContent>
 
-  <ng-container *ngFor="let item of field.items; index as index; last as last; first as first;">
-  <div class="app-card" *ngIf="!item.hidden">
-    <div class="app-card-header">
-      <span class="app-card-title">{{ 'editor.identifier.identifier' | translate }}</span>
+    <mat-form-field class="app-half-left">
+      <mat-select [(ngModel)]='item.attrs["type"]' placeholder="{{ 'editor.identifier.type' | translate }}">
+        <mat-option *ngFor="let identifier of getIdentifiers()" [value]="identifier.code">{{ identifier.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-      <button matTooltip="{{ 'common.remove' | translate }}" color="primary" (click)="field.removeItem(item)" mat-icon-button>
-        <mat-icon>delete</mat-icon>
-      </button>
+    <mat-form-field class="app-half-right">
+      <mat-select [(ngModel)]='item.attrs["invalid"]' placeholder="{{ 'editor.identifier.validity' | translate }}">
+        <mat-option value="">{{ 'editor.identifier.valid' | translate }}</mat-option>
+        <mat-option value="yes">{{ 'editor.identifier.invalid' | translate }}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-   
-      <button class="app-collapse" *ngIf="item.collapsed" matTooltip="{{ 'common.expand' | translate }}" color="primary" (click)="item.switchCollapsed()" mat-icon-button>
-          <mat-icon>expand_more</mat-icon>
-        </button>
-        <button class="app-collapse" *ngIf="!item.collapsed" matTooltip="{{ 'common.collapse' | translate }}" color="primary" (click)="item.switchCollapsed()" mat-icon-button>
-          <mat-icon>expand_less</mat-icon>
-        </button>
+    <mat-form-field class="app-full-width">
+      <input autocomplete="off" matInput [(ngModel)]='item.modsElement["_"]' placeholder="{{ 'editor.identifier.value' | translate }}">
+    </mat-form-field>
 
-      <button matTooltip="{{ 'editor.identifier.add_btn' | translate }}" color="primary" (click)="field.addAfterItem(item)" mat-icon-button>
-        <mat-icon>add</mat-icon>
-      </button>
-
-    </div>
-
-    <div class="app-card-content" [class.app-collapsed]="item.collapsed">
-
-      <mat-form-field class="app-half-left">
-        <mat-select [(ngModel)]='item.attrs["type"]' placeholder="{{ 'editor.identifier.type' | translate }}">
-          <mat-option *ngFor="let identifier of getIdentifiers()" [value]="identifier.code">{{ identifier.name }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field class="app-half-right">
-        <mat-select [(ngModel)]='item.attrs["invalid"]' placeholder="{{ 'editor.identifier.validity' | translate }}">
-          <mat-option value="">{{ 'editor.identifier.valid' | translate }}</mat-option>
-          <mat-option value="yes">{{ 'editor.identifier.invalid' | translate }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field class="app-full-width">
-        <input autocomplete="off" matInput [(ngModel)]='item.modsElement["_"]' placeholder="{{ 'editor.identifier.value' | translate }}">
-      </mat-form-field>
-
-
-    </div>
-
-  </div>
-
-</ng-container>
-
-
-</div>
+  </ng-template>
+</app-editor-field>
+  

@@ -1,36 +1,6 @@
-<div class="editor">
-
-<div class="app-card" *ngFor="let item of field.items; index as index; last as last; first as first;">
-    <div class="app-card-header">
-      <span class="app-card-title">{{ 'editor.author.author' | translate }}</span>
+<app-editor-field [field]="field" [title]="'editor.author.title'">
   
-     <button matTooltip="{{ 'common.remove' | translate }}" color="primary" (click)="field.remove(index)" mat-icon-button>
-       <mat-icon>delete</mat-icon>
-     </button>
-  
-     <button matTooltip="{{ 'editor.info' | translate }}" color="primary" (click)="help.showForField(field.id)" mat-icon-button>
-      <mat-icon>help_outline</mat-icon>
-    </button>
-
-
-     <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" color="primary" (click)="field.moveDown(index)" mat-icon-button>
-       <mat-icon>arrow_drop_down</mat-icon>
-     </button>
-     <button [disabled]="first" matTooltip="{{ 'common.move_up' | translate }}" color="primary" (click)="field.moveUp(index)" mat-icon-button>
-       <mat-icon>arrow_drop_up</mat-icon>
-     </button>
-
-     <button class="app-collapse" *ngIf="item.collapsed" matTooltip="{{ 'common.expand' | translate }}" color="primary" (click)="item.switchCollapsed()" mat-icon-button>
-        <mat-icon>expand_more</mat-icon>
-      </button>
-      <button class="app-collapse" *ngIf="!item.collapsed" matTooltip="{{ 'common.collapse' | translate }}" color="primary" (click)="item.switchCollapsed()" mat-icon-button>
-        <mat-icon>expand_less</mat-icon>
-      </button>
-  
-     <button matTooltip="{{ 'editor.author.add_btn' | translate }}" color="primary" (click)="field.addAfter(index)" mat-icon-button>
-        <mat-icon>add</mat-icon>
-      </button>
-      
+  <ng-template let-item="item" #templateMenu>
       <div class="app-header-divider"></div>
 
       <button [disabled]="!item.canSplitName()" matTooltip="{{ 'editor.author.split_btn' | translate }}" color="primary" (click)="item.splitName()" mat-icon-button>
@@ -45,105 +15,49 @@
         <div class="app-header-divider"></div>
         <div class="app-header-text">{{ item.nameIdentifier }}</div>
       </ng-container>
+  </ng-template>
 
+  <ng-template let-item="item" #templateContent>
 
+    <mat-form-field class="app-full-width">
+      <input autocomplete="off" matInput [(ngModel)]='item.name["_"]' placeholder="{{ 'editor.author.name' | translate }}">
+    </mat-form-field>
 
+    <div>
+      <mat-form-field class="app-half-left">
+        <input autocomplete="off" matInput [(ngModel)]='item.given["_"]' placeholder="{{ 'editor.author.given' | translate }}">
+      </mat-form-field>
+
+      <mat-form-field class="app-half-right">
+        <input autocomplete="off" matInput [(ngModel)]='item.family["_"]' placeholder="{{ 'editor.author.family' | translate }}">
+      </mat-form-field>
     </div>
 
-    <div class="app-card-content" [class.app-collapsed]="item.collapsed">
+    <div>
+      <mat-form-field class="app-half-left">
+        <input autocomplete="off" matInput [(ngModel)]='item.date["_"]' placeholder="{{ 'editor.author.date' | translate }}">
+      </mat-form-field>
+      <mat-form-field class="app-half-right">
+        <mat-select [(ngModel)]='item.attrs["type"]' placeholder="{{ 'editor.author.type' | translate }}">
+          <mat-option *ngFor="let type of nameTypes" [value]="type.code">
+            {{ type.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-        <mat-form-field class="app-full-width">
-          <input autocomplete="off" matInput [(ngModel)]='item.name["_"]' placeholder="{{ 'editor.author.name' | translate }}">
-        </mat-form-field>
+    <app-editor-field [field]="item.roles" [title]="'editor.author.role.role'" class="app-roles" [nested]='true'>
+      <ng-template let-role="item" #templateContent>
+        <mat-select class="app-no-placeholder" [(ngModel)]='role.role["_"]' placeholder="{{ 'editor.author.role.role' | translate }}">
+          <mat-option *ngFor="let role of roles" [value]="role.code">
+            {{ role.name }}
+          </mat-option>
+        </mat-select>
+      </ng-template>
+    </app-editor-field>
+
+  </ng-template>
+</app-editor-field>
+
     
 
-      <div>
-        <mat-form-field class="app-half-left">
-          <input autocomplete="off" matInput [(ngModel)]='item.given["_"]' placeholder="{{ 'editor.author.given' | translate }}">
-        </mat-form-field>
-
-        <mat-form-field class="app-half-right">
-          <input autocomplete="off" matInput [(ngModel)]='item.family["_"]' placeholder="{{ 'editor.author.family' | translate }}">
-        </mat-form-field>
-      </div>
-
-      <div>
-        <mat-form-field class="app-half-left">
-          <input autocomplete="off" matInput [(ngModel)]='item.date["_"]' placeholder="{{ 'editor.author.date' | translate }}">
-        </mat-form-field>
-        <mat-form-field class="app-half-right">
-          <mat-select [(ngModel)]='item.attrs["type"]' placeholder="{{ 'editor.author.type' | translate }}">
-            <mat-option *ngFor="let type of nameTypes" [value]="type.code">
-              {{ type.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-    </div>
-
-
-
-           <div class="app-card app-author-roles" *ngFor="let role of item.roles.items; index as indexRole; last as lastRole; first as firstRole;">
-              <div class="app-card-header">
-                <span class="app-card-title">{{ 'editor.author.role.role' | translate }}</span>
-          
-                <button matTooltip="{{ 'common.remove' | translate }}" color="primary" (click)="item.roles.removeItem(role)" mat-icon-button>
-                  <mat-icon>delete</mat-icon>
-                </button>
-
-                <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" color="primary" (click)="item.roles.moveDown(index)" mat-icon-button>
-                  <mat-icon>arrow_drop_down</mat-icon>
-                </button>
-                <button [disabled]="first" matTooltip="{{ 'common.move_up' | translate }}" color="primary" (click)="item.roles.moveUp(index)" mat-icon-button>
-                  <mat-icon>arrow_drop_up</mat-icon>
-                </button>
-            
-                <button class="app-collapse" *ngIf="role.collapsed" matTooltip="{{ 'common.expand' | translate }}" color="primary" (click)="role.switchCollapsed()" mat-icon-button>
-                    <mat-icon>expand_more</mat-icon>
-                  </button>
-                  <button class="app-collapse" *ngIf="!role.collapsed" matTooltip="{{ 'common.collapse' | translate }}" color="primary" (click)="role.switchCollapsed()" mat-icon-button>
-                    <mat-icon>expand_less</mat-icon>
-                  </button>
-
-                <button matTooltip="{{ 'common.add' | translate }}" color="primary" (click)="item.roles.addAfter(indexRole)" mat-icon-button>
-                  <mat-icon>add</mat-icon>
-                </button>
-          
-              </div>
-              <div class="app-card-content" [class.app-collapsed]="role.collapsed">
-
-
-              <mat-select class="app-no-placeholder" [(ngModel)]='role.role["_"]' placeholder="{{ 'editor.author.role.role' | translate }}">
-                  <mat-option *ngFor="let role of roles" [value]="role.code">
-                    {{ role.name }}
-                  </mat-option>
-                </mat-select>
-                </div>
-              </div>
-
-
-
-
-          
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </div>
-
-  </div>
-  
-  
-    

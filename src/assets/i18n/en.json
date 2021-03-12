@@ -267,8 +267,7 @@
       "subtitle": "Subtitle",
       "partnumber": "Part Number",
       "partname": "Part Name",
-      "non_sort_toggle": "The first word is an article.",      
-      "add_btn": "Add Title"
+      "non_sort_toggle": "The first word is an article." 
     },
     "geo": {
       "editor_title": "Geographical Location",
@@ -304,7 +303,6 @@
       "ruian_layer_11": "Část obce",
       "ruian_layer_4": "Ulice nebo jiné veřejné prostranství",
       "ruian_layer_1": "Adresní místo",
-      "add_btn": "Přidat lokaci",
       "geo:origin": "Místo původu",
       "geo:storage": "Místo uložení",
       "geo:area": "Vztah k území",
@@ -322,10 +320,8 @@
       "type": "Type", 
       "date": "Date", 
       "role": {
-        "role": "Role", 
-        "add_btn": "Add Role"
+        "role": "Role"
       },
-      "add_btn": "Add Author",
       "split_btn": "Split name",
       "set_primary": "Set as a primary author",
       "unset_primary": "Unset as a primary author"
@@ -338,7 +334,6 @@
       "place": "Place",
       "edition": "Edition",
       "date": "Year",
-      "add_btn": "Add Publisher",
       "date_qualifier": "Date Specification",
       "date_qualifier_code": {
         "approximate": "Date is approximate",
@@ -367,25 +362,21 @@
       "location": "Location",
       "physical_location": "Physical Location",
       "shelf_locator": "Shelf Locator",
-      "url": "URL",
-      "add_btn": "Add Location"
+      "url": "URL"
     },
     "language": {
       "tab": "Language",
-      "language": "Language",
-      "add_btn": "Add Language"
+      "language": "Language"
     },
     "identifier": {
       "tab": "Identifier",
       "identifier": "Identifier",
-      "type": "Type",
-      "add_btn": "Add Identifier"
+      "type": "Type"
     },
     "note": {
       "tab": "Note",
       "note": "Note",
-      "type": "Type",
-      "add_btn": "Add note"
+      "type": "Type"
     }
   },
   "xml-view": {

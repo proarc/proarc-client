@@ -43,7 +43,9 @@ export class ElementField {
         }
         if (this.items.length - hiddenItems < 1) {
             const item = this.add();
-            item.collapsed = true;
+            if (this.id != 'role') {
+                item.collapsed = true;
+            }
         }
     }
 

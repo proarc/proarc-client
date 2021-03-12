@@ -114,6 +114,7 @@ export class Metadata {
     this.mods = data;
     this.mods = this.normalizedCopy();
     let root = null;
+    console.log(data);
     const modsCollection = this.mods['modsCollection'];
     if (modsCollection) {
       modsCollection['$'] = {
