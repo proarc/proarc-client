@@ -11,7 +11,7 @@
   
       <mat-form-field class="app-field" *ngIf="activeCatalog" >
         <mat-select placeholder="Pole" name="field" [(ngModel)]="activeField" [disabled]="state=='loading'  || state=='saving'">
-          <mat-option *ngFor="let field of activeCatalog?.fileds" [value]="field">{{ "catalog.field." + field | translate }}</mat-option>
+          <mat-option *ngFor="let field of activeCatalog?.fileds" [value]="field">{{ field.name }}</mat-option>
         </mat-select>
       </mat-form-field>
   

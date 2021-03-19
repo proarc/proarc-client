@@ -2,9 +2,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ApiService } from 'src/app/services/api.service';
-import { Catalogue } from 'src/app/model/catalogue.model';
+import { Catalogue, CatalogueField } from 'src/app/model/catalogue.model';
 import { CatalogueEntry } from 'src/app/model/catalogueEntry.model';
-import { EditorService } from 'src/app/services/editor.service';
 
 @Component({
   selector: 'app-catalog-dialog',
@@ -17,25 +16,33 @@ export class CatalogDialogComponent implements OnInit {
   catalogs: Catalogue[];
 
   activeCatalog: Catalogue;
-  activeField: string;
+  activeField: CatalogueField;
   activeQuery: string;
 
   activeIndex = -1;
   results: CatalogueEntry[];
   message: string;
 
+  private type: string;
+
   constructor(
     public dialogRef: MatDialogRef<CatalogDialogComponent>,
     private api: ApiService,
-    private editor: EditorService,
     @Inject(MAT_DIALOG_DATA) public data: string) { }
 
 
     ngOnInit() {
       this.state = 'loading';
-      this.api.getCatalogs().subscribe((catalogs: Catalogue[]) => {
-        this.onCatalogsLoaded(catalogs);
-      });
+      this.type = this.data['type'];
+      if (this.type == 'authors') {
+        this.api.getAuthorityCatalogs().subscribe((catalogs: Catalogue[]) => {
+          this.onCatalogsLoaded(catalogs);
+        });
+      } else {
+        this.api.getCatalogs().subscribe((catalogs: Catalogue[]) => {
+          this.onCatalogsLoaded(catalogs);
+        });
+      }
     }
   
     onCatalogsLoaded(catalogs: Catalogue[]) {
@@ -73,7 +80,7 @@ export class CatalogDialogComponent implements OnInit {
       const catalog = this.activeCatalog.id;
       const field = this.activeField;
       const query = this.activeQuery;
-      this.api.getCatalogSearchResults(catalog, field, query).subscribe((result: CatalogueEntry[]) => {
+      this.api.getCatalogSearchResults(this.type, catalog, field.id, query).subscribe((result: CatalogueEntry[]) => {
         this.results = result;
         if (this.results.length > 0) {
           this.activeIndex = 0;

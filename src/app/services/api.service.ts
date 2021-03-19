@@ -305,16 +305,6 @@ export class ApiService {
     return this.get('object/search', params).pipe(map(response => [DocumentItem.fromJsonArray(response['response']['data']), response['response']['totalRows']] as [DocumentItem[], number]));
   }
 
-  getCatalogSearchResults(catalog: string, field: string, query: string): Observable<CatalogueEntry[]> {
-    const params = {
-      catalog: catalog,
-      fieldName: field,
-      value: query
-    };
-    return this.get('bibliographies/query', params).pipe(map(response =>
-      CatalogueEntry.fromJsonArray(response['metadataCatalogEntries']['entry'])));
-  }
-
   getDocument(pid: string): Observable<DocumentItem> {
     const params = {
       root: pid
@@ -346,6 +336,26 @@ export class ApiService {
   getCatalogs(): Observable<Catalogue[]> {
     return this.get('bibliographies').pipe(map(response => Catalogue.fromJsonArray(response['response']['data'])));
   }
+
+  getAuthorityCatalogs(): Observable<Catalogue[]> {
+    return this.get('authorities').pipe(map(response => Catalogue.fromJsonArray(response['response']['data'])));
+  }
+
+  getCatalogSearchResults(type: string, catalog: string, field: string, query: string): Observable<CatalogueEntry[]> {
+    const params = {
+      catalog: catalog,
+      fieldName: field,
+      value: query
+    };
+    let resource = 'bibliographies';
+    if (type == 'authors') {
+      resource = 'authorities';
+      params['type'] = 'ALL';
+    }
+    return this.get(`${resource}/query`, params).pipe(map(response =>
+      CatalogueEntry.fromJsonArray(response['metadataCatalogEntries']['entry'])));
+  }
+
 
   getDevices(): Observable<Device[]> {
     return this.get('device').pipe(map(response => Device.fromJsonArray(response['response']['data'])));

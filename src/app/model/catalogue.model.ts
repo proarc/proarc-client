@@ -3,7 +3,7 @@ export class Catalogue {
 
   public id: string;
   public name: string;
-  public fileds: string[];
+  public fileds: CatalogueField[];
 
   public static fromJson(json): Catalogue {
       const catalog = new Catalogue();
@@ -13,7 +13,10 @@ export class Catalogue {
       if (json['fields']) {
         for (const filed of json['fields']) {
           if (filed['fieldId']) {
-            catalog.fileds.push(filed['fieldId']);
+            catalog.fileds.push({
+              id: filed['fieldId'],
+              name: filed['fieldTitle']
+            });
           }
         }
       }
@@ -29,4 +32,9 @@ export class Catalogue {
     return array;
   }
 
+}
+
+export interface CatalogueField {
+  id: string;
+  name: string;
 }

@@ -3,6 +3,10 @@
   <ng-template let-item="item" #templateMenu>
       <div class="app-header-divider"></div>
 
+      <button (click)="onLoadFromCatalog(item)" [matTooltip]="'editor.metadata.catalog' | translate" color="primary" mat-icon-button>
+        <mat-icon>local_library</mat-icon>
+      </button>
+
       <button [disabled]="!item.canSplitName()" matTooltip="{{ 'editor.author.split_btn' | translate }}" color="primary" (click)="item.splitName()" mat-icon-button>
         <mat-icon>play_for_work</mat-icon>
       </button>

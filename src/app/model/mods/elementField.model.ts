@@ -82,20 +82,21 @@ export class ElementField {
         this.remove(index);
     }
 
-    public addAfterItem(item: ModsElement): ModsElement {
+    public addAfterItem(item: ModsElement, el: ModsElement = null): ModsElement {
         const index = this.items.indexOf(item);
-        return this.addAfter(index);
+        console.log('idx', index);
+        return this.addAfter(index, el);
     }
 
-    public add(): ModsElement {
-        const item: ModsElement = this.newElement(this.id, {});
+    public add(el: ModsElement = null): ModsElement {
+        const item: ModsElement = el || this.newElement(this.id, {});
         this.items.push(item);
         this.root.push(item.getEl());
         return item;
     }
 
-    public addAfter(index: number): ModsElement {
-        const item: ModsElement = this.newElement(this.id, {});
+    public addAfter(index: number, el: ModsElement = null): ModsElement {
+        const item: ModsElement = el || this.newElement(this.id, {});
         this.items.splice(index + 1, 0, item);
         this.root.splice(index + 1, 0, item.getEl());
         return item;

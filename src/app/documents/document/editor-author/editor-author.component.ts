@@ -2,6 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ElementField } from 'src/app/model/mods/elementField.model';
 import { Translator } from 'angular-translator';
 import { HelpService } from 'src/app/services/help.service';
+import { MatDialog } from '@angular/material';
+import { CatalogDialogComponent } from 'src/app/dialogs/catalog-dialog/catalog-dialog.component';
+import { Metadata } from 'src/app/model/metadata.model';
+import { ModsAuthor } from 'src/app/model/mods/author.model';
 
 @Component({
   selector: 'app-editor-author',
@@ -27,12 +31,31 @@ export class EditorAuthorComponent implements OnInit {
   public roles = [];
   public nameTypes = [];
 
-  constructor(public translator: Translator, public help: HelpService) {
+  constructor(public translator: Translator, private dialog: MatDialog, public help: HelpService) {
     this.translateCodes();
     translator.languageChanged.subscribe(() => this.translateCodes());
   }
 
   ngOnInit() {
+  }
+
+
+  onLoadFromCatalog(item) {
+    const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'authors' } });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result['mods']) {
+        const mods = result['mods'];
+        console.log('mods', mods);
+        const metadata = new Metadata('', '', mods, 0);
+        const nameField = metadata.getField(ModsAuthor.getSelector());
+        if (nameField && nameField.items.length > 0) {
+          this.field.addAfterItem(item, nameField.items[0]);
+          this.field.removeItem(item);
+        }
+      }
+    });
+
+
   }
 
   translateCodes() {

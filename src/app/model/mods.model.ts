@@ -7,12 +7,12 @@ export class Mods {
   public timestamp: number;
 
   public static fromJson(json): Mods {
-      const ocr = new Mods();
-      ocr.pid = json['pid'];
-      ocr.original = json['content'];
-      ocr.content = json['content'];
-      ocr.timestamp = json['timestamp'];
-      return ocr;
+      const mods = new Mods();
+      mods.pid = json['pid'];
+      mods.original = json['content'];
+      mods.content = json['content'];
+      mods.timestamp = json['timestamp'];
+      return mods;
   }
 
   public isEmpty(): boolean {

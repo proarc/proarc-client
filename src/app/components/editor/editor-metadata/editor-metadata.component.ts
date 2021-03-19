@@ -34,7 +34,7 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   onLoadFromCatalog() {
-    const dialogRef = this.dialog.open(CatalogDialogComponent, { data: this.editor.metadata.pid });
+    const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'full' } });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
         this.editor.updateModsFromCatalog(result['mods'], () => {
