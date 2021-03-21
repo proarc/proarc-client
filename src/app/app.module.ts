@@ -46,7 +46,6 @@ import { SearchComponent } from './components/search/search.component';
 import { AtmComponent } from './components/atm/atm.component';
 import { OcrComponent } from './components/ocr/ocr.component';
 import { NoteComponent } from './components/note/note.component';
-import { CatalogComponent } from './components/catalog/catalog.component';
 import { EditAudioDeviceComponent } from './components/devices/edit-audio-device/edit-audio-device.component';
 import { EditorService } from './services/editor.service';
 import { EditorComponent } from './components/editor/editor.component';
@@ -137,7 +136,6 @@ export function hljsLanguages() {
     AtmComponent,
     OcrComponent,
     NoteComponent,
-    CatalogComponent,
     ViewerComponent,
     EditAudioDeviceComponent,
     EditorComponent,
