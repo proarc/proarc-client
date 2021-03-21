@@ -97,6 +97,10 @@ export class DocumentItem {
     return this.model === 'model:page' || this.model === 'model:ndkpage';
   }
 
+  public isSong(): boolean {
+    return this.model == 'model:ndkaudiopage';
+  }
+
   public isNdkPage(): boolean {
     return this.model === 'model:ndkpage';
   }

@@ -164,7 +164,7 @@ export class EditorService {
         forkJoin(rDoc, rChildren).subscribe( ([item, children]: [DocumentItem, DocumentItem[]]) => {
             this.left = item;
             this.children = children;
-            if (item.isPage()) {
+            if (item.isPage() || item.isSong()) {
                 this.switchMode('detail');
             } else {
                 const mode = this.properties.getStringProperty('editor.mode', 'detail');
@@ -226,9 +226,11 @@ export class EditorService {
           setTimeout(() => {
             this.doubleRight = true;
             if (this.right.isPage()) {
-                this.properties.setBoolProperty('editor.double_right', true);       
+                this.properties.setBoolProperty('editor.double_right_page', true);       
+            } else if (this.right.isSong()) {
+                this.properties.setBoolProperty('editor.double_right_song', true);       
             } else {
-                this.properties.setBoolProperty('editor.double_right_not_page', true);        
+                this.properties.setBoolProperty('editor.double_right', true);        
             }
           }, 100);
     }
@@ -241,9 +243,11 @@ export class EditorService {
       public leaveDoubleRight() {
         this.doubleRight = false;
         if (this.right.isPage()) {
-            this.properties.setBoolProperty('editor.double_right', false);
+            this.properties.setBoolProperty('editor.double_right_page', false);
+        } else if (this.right.isSong()) {
+            this.properties.setBoolProperty('editor.double_right_song', false);
         } else {
-            this.properties.setBoolProperty('editor.double_right_not_page', false);
+            this.properties.setBoolProperty('editor.double_right', false);
         }
     }
 
@@ -294,6 +298,8 @@ export class EditorService {
         this.rightEditorType = type;
         if (this.right.isPage()) {
             this.properties.setStringProperty('editor.page_right_editor_type', this.rightEditorType);
+        } else if (this.right.isSong()) {
+            this.properties.setStringProperty('editor.song_right_editor_type', this.rightEditorType);
         } else if (this.right.isTopLevel()) {
             this.properties.setStringProperty('editor.top_right_editor_type', this.rightEditorType);
         } else {
@@ -305,6 +311,8 @@ export class EditorService {
         this.thirdEditorType = type;
         if (this.right.isPage()) {
             this.properties.setStringProperty('editor.page_third_editor_type', this.thirdEditorType);
+        } else if (this.right.isSong()) {
+            this.properties.setStringProperty('editor.song_third_editor_type', this.thirdEditorType);
         }
     }
 
@@ -377,6 +385,8 @@ export class EditorService {
         if (item) {
             if (item.isPage()) {
                 this.rightEditorType = this.properties.getStringProperty('editor.page_right_editor_type', 'image');
+            } else if (item.isSong()) {
+                this.rightEditorType = this.properties.getStringProperty('editor.song_right_editor_type', 'image');
             } else if(item.isTopLevel()) {
                 this.rightEditorType = this.properties.getStringProperty('editor.top_right_editor_type', 'mods');
             } else {
@@ -384,10 +394,13 @@ export class EditorService {
             }
             if (this.mode == 'children') {
                 if (item.isPage()) {
-                    this.doubleRight = this.properties.getBoolProperty('editor.double_right', false);
+                    this.doubleRight = this.properties.getBoolProperty('editor.double_right_page', false);
                     this.thirdEditorType = this.properties.getStringProperty('editor.page_third_editor_type', 'image');
+                } else if (item.isSong()) {
+                    this.doubleRight = this.properties.getBoolProperty('editor.double_right_song', false);
+                    this.thirdEditorType = this.properties.getStringProperty('editor.song_third_editor_type', 'song');
                 } else {
-                    this.doubleRight = this.properties.getBoolProperty('editor.double_right_not_page', false);
+                    this.doubleRight = this.properties.getBoolProperty('editor.double_right', false);
                     this.thirdEditorType = 'mods';
                 }
             } else {

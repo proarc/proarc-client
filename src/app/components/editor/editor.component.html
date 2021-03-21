@@ -18,7 +18,7 @@
       <button matTooltip="{{ 'editor.toolbar.editor_mode_detail' | translate }}" [class.app-inactive]="editor.mode != 'detail'" (click)="editor.switchMode('detail')" mat-icon-button>
         <mat-icon>details</mat-icon>
       </button>
-      <button *ngIf="!editor.left.isPage()" matTooltip="{{ 'editor.toolbar.editor_mode_children' | translate }}" [class.app-inactive]="editor.mode != 'children'" (click)="editor.switchMode('children')" mat-icon-button>
+      <button *ngIf="!editor.left.isPage() && !editor.left.isSong()" matTooltip="{{ 'editor.toolbar.editor_mode_children' | translate }}" [class.app-inactive]="editor.mode != 'children'" (click)="editor.switchMode('children')" mat-icon-button>
         <mat-icon>dehaze</mat-icon>
       </button>
    </div>
@@ -117,6 +117,9 @@
               <button *ngIf="editor.right.isPage() && !editor.doubleRight" matTooltip="{{ 'editor.toolbar.editor_image' | translate }}" [class.app-inactive]="editor.rightEditorType != 'image'" (click)="editor.switchRightEditor('image')" mat-icon-button>
                 <mat-icon>image</mat-icon>
               </button>
+              <button *ngIf="editor.right.isSong() && !editor.doubleRight" matTooltip="{{ 'editor.toolbar.editor_song' | translate }}" [class.app-inactive]="editor.thirdEditorType != 'song'" (click)="editor.switchRightEditor('song')" mat-icon-button>
+                <mat-icon>audiotrack</mat-icon>
+              </button>
               <button *ngIf="!editor.doubleRight" matTooltip="{{ 'editor.toolbar.editor_mods' | translate }}" [class.app-inactive]="editor.rightEditorType != 'mods'" (click)="editor.switchRightEditor('mods')" mat-icon-button>
                 <mat-icon>code</mat-icon>
               </button>
@@ -159,6 +162,7 @@
 
     <div class="app-content" *ngIf="editor.showRightObjectEditor()">
         <app-viewer *ngIf="editor.rightEditorType == 'image'" [pid]="editor.right.pid"></app-viewer>
+        <app-song *ngIf="editor.rightEditorType == 'song'" [pid]="editor.right.pid"></app-song>
         <app-editor-ocr *ngIf="editor.rightEditorType == 'ocr'" [pid]="editor.right.pid"></app-editor-ocr>
         <app-editor-mods *ngIf="editor.rightEditorType == 'mods'"></app-editor-mods>
         <app-editor-comment *ngIf="editor.rightEditorType == 'comment'" [pid]="editor.right.pid"></app-editor-comment>
@@ -202,6 +206,9 @@
         <button *ngIf="editor.right.isPage()" matTooltip="{{ 'editor.toolbar.editor_image' | translate }}" [class.app-inactive]="editor.thirdEditorType != 'image'" (click)="editor.switchThirdEditor('image')" mat-icon-button>
           <mat-icon>image</mat-icon>
         </button>
+        <button *ngIf="editor.right.isSong()" matTooltip="{{ 'editor.toolbar.editor_song' | translate }}" [class.app-inactive]="editor.thirdEditorType != 'song'" (click)="editor.switchThirdEditor('song')" mat-icon-button>
+          <mat-icon>audiotrack</mat-icon>
+        </button>
         <button matTooltip="{{ 'editor.toolbar.editor_mods' | translate }}" [class.app-inactive]="editor.thirdEditorType != 'mods'" (click)="editor.switchThirdEditor('mods')" mat-icon-button>
           <mat-icon>code</mat-icon>
         </button>
@@ -211,6 +218,7 @@
       </div>
   </div>
   <div class="app-content">
+      <app-song *ngIf="editor.thirdEditorType == 'song'" [pid]="editor.right.pid"></app-song>
       <app-viewer *ngIf="editor.thirdEditorType == 'image'" [pid]="editor.right.pid"></app-viewer>
       <app-editor-mods *ngIf="editor.thirdEditorType == 'mods'"></app-editor-mods>
     </div>
