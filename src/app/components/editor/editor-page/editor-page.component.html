@@ -19,7 +19,7 @@
     <div class="app-editor-content" *ngIf="state === 'success'">
 
 
-      <div class="editor">
+      <div class="app-editor-field">
         <div class="app-card">
           <div class="app-card-content">
       
@@ -101,7 +101,7 @@
                   </mat-select>
                 </mat-form-field>
                 <mat-form-field class="app-identifier-value">
-                  <input autocomplete="off" matInput [(ngModel)]='identifier.value' placeholder="{{ 'editor.identifier.identifier' | translate }}">
+                  <input autocomplete="off" matInput [(ngModel)]='identifier.value' placeholder="{{ 'editor.identifier.title' | translate }}">
                 </mat-form-field>
 
 
