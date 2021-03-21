@@ -13,6 +13,11 @@
     <a [routerLink]="['/import', 'history']" routerLinkActive="active" mat-button>{{ "navbar.history" | translate }}</a>
     <a [routerLink]="['/import']" routerLinkActive="active" mat-button>{{ "navbar.import" | translate }}</a>
 
+
+    <a href="https://proarc.inovatika.dev/api/#workflow:%7B%22type%22:%22JOBS%22%7D" target="_empty" mat-button>{{ "navbar.workflow" | translate }}</a>
+
+    
+
     <a [routerLink]="['/devices']" routerLinkActive="active" mat-button>{{ "navbar.devices" | translate }}</a>
 
     <button (click)="showAboutDialog()" mat-button>{{ "navbar.about" | translate }}</button>
