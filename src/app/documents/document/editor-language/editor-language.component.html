@@ -1,7 +1,7 @@
 <app-editor-field [field]="field" [title]="'editor.language.title'">
   <ng-template let-item="item" #templateContent>
     
-    <mat-select [(ngModel)]='item.language["_"]' placeholder="{{ 'editor.language.language' | translate }}" class="app-no-placeholder app-full-width">
+    <mat-select [(ngModel)]='item.language["_"]' placeholder="{{ 'editor.language.title' | translate }}" class="app-no-placeholder app-full-width">
       <mat-option *ngFor="let lang of codebook.languages" [value]="lang.code">{{ lang.name }}</mat-option>
     </mat-select>
 

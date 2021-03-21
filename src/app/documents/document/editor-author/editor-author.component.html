@@ -50,9 +50,9 @@
       </mat-form-field>
     </div>
 
-    <app-editor-field [field]="item.roles" [title]="'editor.author.role.role'" class="app-roles" [nested]='true'>
+    <app-editor-field [field]="item.roles" [title]="'editor.author.role.title'" class="app-roles" [nested]='true'>
       <ng-template let-role="item" #templateContent>
-        <mat-select class="app-no-placeholder" [(ngModel)]='role.role["_"]' placeholder="{{ 'editor.author.role.role' | translate }}">
+        <mat-select class="app-no-placeholder" [(ngModel)]='role.role["_"]' placeholder="{{ 'editor.author.role.title' | translate }}">
           <mat-option *ngFor="let role of roles" [value]="role.code">
             {{ role.name }}
           </mat-option>

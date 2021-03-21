@@ -18,7 +18,6 @@ import { ModsPhysical } from './mods/physical.model';
 import { ModsSubject } from './mods/subject.model';
 declare var $: any;
 
-
 export class Metadata {
 
   private static selectors = [
@@ -115,7 +114,6 @@ export class Metadata {
     this.mods = data;
     this.mods = this.normalizedCopy();
     let root = null;
-    console.log(data);
     const modsCollection = this.mods['modsCollection'];
     if (modsCollection) {
       modsCollection['$'] = {
@@ -229,7 +227,7 @@ export class Metadata {
           delete el[key];
         }
       });
-      if (Object.keys(el).length < 1) {
+      if (Object.keys(el).length < 1 || (Object.keys(el).length == 1 && el.hasOwnProperty('$'))) {
         return true;
       } else {
         return false;

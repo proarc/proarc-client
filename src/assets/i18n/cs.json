@@ -409,7 +409,7 @@
     },
     "geo": {
       "editor_title": "Geografická lokace",
-      "tab": "Lokace",
+      "title": "Lokace",
       "type": "Typ",
       "search": "Vyhledat",
       "map_search": "Vybrat na mapě",
@@ -458,36 +458,36 @@
     "chronicle": {
       "editor_title": "Popisná metadata kroniky",
       "author": {
-        "label": "Osoba, které se podílela na vzniku",
+        "title": "Osoba, které se podílela na vzniku",
         "date": "Datum činnosti",
         "name": "Celé jméno",
         "family": "Příjmení",
         "given": "Jméno / křestní jméno"
       },
       "note": {
+        "title": "Poznámka",
         "types": {
           "private": "Nepublikovatelná",
           "public": "Veřejná"
         }
       },
       "abstract": {
-        "label": "Obsah, regest"
+        "title": "Obsah, regest"
       },
       "title": {
-        "label": "Informace o názvu",
         "title": "Název",
         "subtitle": "Podnázev",
         "partnumber": "Díl",
         "partname": "Část"
       },
       "publisher": {
-        "label": "Informace o místě a datu vzniku",
+        "title": "Informace o místě a datu vzniku",
         "place": "Místo vzniku",
         "date": "Datum vzniku",
         "date_qualifier": "Odhad data"
       },
       "location": {
-        "label": "Umístění",
+        "title": "Umístění",
         "archive": "Název archivu",
         "fund": "Název fondu",
         "archive_not_selected_title": "Není vybrán archiv",
@@ -500,7 +500,7 @@
         }
       },
       "genre": {
-        "label": "Charakter kroniky",
+        "title": "Charakter kroniky",
         "genre": "Evidenční jednotka",
         "genres": {
           "ukn": "Úřední kniha",
@@ -543,7 +543,7 @@
       "type": "Typ",  
       "date": "Datum",
       "role": {
-        "role": "Role"
+        "title": "Role"
       },
       "split_btn": "Rozdělit jméno",
       "set_primary": "Označit jako hlavního autora",
