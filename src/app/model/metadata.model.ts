@@ -15,7 +15,7 @@ import { ModsGenre } from './mods/genre.mods';
 import { ModsChronicleLocation } from './mods/chronicle_location.model';
 import { ProArc } from '../utils/proarc';
 import { ModsPhysical } from './mods/physical.model';
-import { Note } from './note.model';
+import { ModsSubject } from './mods/subject.model';
 declare var $: any;
 
 
@@ -31,7 +31,7 @@ export class Metadata {
     ModsNote.getSelector(),
     ModsAbstract.getSelector(),
     ModsGenre.getSelector(),
-    ModsGeo.getSelector(),
+    ModsSubject.getSelector(),
     ModsPhysical.getSelector()
   ];
 
@@ -77,6 +77,7 @@ export class Metadata {
         ModsPublisher.getId(),
         ModsLocation.getId(),
         ModsLanguage.getId(),
+        ModsSubject.getId(),
         ModsIdentifier.getId(),
         ModsNote.getId(),
         ModsAbstract.getId(),
@@ -139,6 +140,8 @@ export class Metadata {
           this.fields.set(id, new ElementField(root, id, 'authority', ['geo:origin', 'geo:storage', 'geo:area']));
         } else if (id === ModsIdentifier.getId() && ProArc.isChronicle(this.model)) {
           this.fields.set(id, new ElementField(root, id, 'type', ProArc.chronicleIdentifierTypes));
+        } else if (id === ModsSubject.getId()) {
+          this.fields.set(id, new ElementField(root, id, 'authority', [], ['geo:origin', 'geo:storage', 'geo:area']));
         } else {
           this.fields.set(id, new ElementField(root, id));
         }

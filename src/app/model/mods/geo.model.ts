@@ -39,7 +39,7 @@ export class ModsGeo extends ModsElement {
     }
 
     static getId() {
-        return 'subject';
+        return 'subject_geo';
     }
 
     constructor(modsElement) {

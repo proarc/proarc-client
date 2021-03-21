@@ -1,0 +1,21 @@
+<app-editor-field [field]="field" [title]="'editor.subject.title'">
+  <ng-template let-item="item" #templateContent>
+    
+    <mat-form-field class="app-full-width">
+      <input matInput [(ngModel)]='item.attrs["authority"]' placeholder="{{ 'editor.subject.authority' | translate }}" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let authority of authorities" [value]="authority">
+          {{ authority }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="app-full-width">
+      <input autocomplete="off" matInput [(ngModel)]='item.topic["_"]' placeholder="{{ 'editor.subject.topic' | translate }}">
+    </mat-form-field>
+    <mat-form-field class="app-full-width">
+      <input autocomplete="off" matInput [(ngModel)]='item.geographic["_"]' placeholder="{{ 'editor.subject.geographic' | translate }}">
+    </mat-form-field>
+
+  </ng-template>
+</app-editor-field>

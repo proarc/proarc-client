@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ElementField } from 'src/app/model/mods/elementField.model';
 import { MatDialog } from '@angular/material';
 import { LocationDialogComponent } from 'src/app/dialogs/location-dialog/location-dialog.component';
-import { ModsElement } from 'src/app/model/mods/element.model';
 import { Ruian } from 'src/app/model/ruian.model';
 import { ModsGeo } from 'src/app/model/mods/geo.model';
 import { Coordinates } from 'src/app/utils/coordinates';
@@ -15,7 +14,7 @@ import { Coordinates } from 'src/app/utils/coordinates';
 export class EditorSubjectGeoComponent implements OnInit {
   @Input() field: ElementField;
 
-  private types: string[] = ['geo:origin', 'geo:storage', 'geo:area'];
+  public types: string[] = ['geo:origin', 'geo:storage', 'geo:area'];
 
   constructor(private dialog: MatDialog) {
   }

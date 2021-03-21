@@ -48,8 +48,9 @@ export class EditorAuthorComponent implements OnInit {
         console.log('mods', mods);
         const metadata = new Metadata('', '', mods, 0);
         const nameField = metadata.getField(ModsAuthor.getSelector());
-        if (nameField && nameField.items.length > 0) {
-          this.field.addAfterItem(item, nameField.items[0]);
+        const items = nameField.getItems();
+        if (nameField && items.length > 0) {
+          this.field.addAfterItem(item, items[0]);
           this.field.removeItem(item);
         }
       }

@@ -579,6 +579,12 @@
         "integrating resource": "Začlěňovací"
       }
     },
+    "subject": {
+      "title": "Předmětové heslo",
+      "topic": "Klíčové slovo",
+      "geographic": "Geografické určení",
+      "authority": "Autorita"
+    },
     "location": {
       "title": "Uložení",
       "physical_location": "Místo uložení",

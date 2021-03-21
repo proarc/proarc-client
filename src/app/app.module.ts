@@ -98,6 +98,7 @@ import { IngestDialogComponent } from './dialogs/ingest-dialog/ingest-dialog.com
 import { AboutDialogComponent } from './dialogs/about-dialog/about-dialog.component';
 import { PreferredTopsDialogComponent } from './dialogs/preferred-tops-dialog/preferred-tops-dialog.component';
 import { EditorFieldComponent } from './documents/document/editor-field/editor-field.component';
+import { EditorSubjectComponent } from './documents/document/editor-subject/editor-subject.component';
 
 
 export function hljsLanguages() {
@@ -179,7 +180,8 @@ export function hljsLanguages() {
     IngestDialogComponent,
     AboutDialogComponent,
     PreferredTopsDialogComponent,
-    EditorFieldComponent
+    EditorFieldComponent,
+    EditorSubjectComponent
   ],
   imports: [
     BrowserModule,

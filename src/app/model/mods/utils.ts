@@ -48,21 +48,4 @@ export default class ModsUtils {
               + '</dc:' + element + '>\n';
     }
 
-
-    static moveDown(array, index: number) {
-        if (index < array.length - 1) {
-            const x = array[index];
-            array[index] = array[index + 1];
-            array[index + 1] = x;
-        }
-    }
-
-    static moveUp(array, index: number) {
-        if (index > 0) {
-            const x = array[index];
-            array[index] = array[index - 1];
-            array[index - 1] = x;
-        }
-    }
-
 }

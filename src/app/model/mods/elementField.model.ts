@@ -1,5 +1,4 @@
 import { ModsElement } from './element.model';
-import ModsUtils from './utils';
 import { ModsTitle } from './title.model';
 import { ModsLanguage } from './language.model';
 import { ModsRole } from './role.model';
@@ -13,14 +12,15 @@ import { ModsAbstract } from './abstract.model';
 import { ModsGenre } from './genre.mods';
 import { ModsGeo } from './geo.model';
 import { ModsPhysical } from './physical.model';
+import { ModsSubject } from './subject.model';
 
 export class ElementField {
 
     private id;
     public root;
-    public items: ModsElement[];
+    private items: ModsElement[];
 
-    constructor(mods, id, attr = null, values = []) {
+    constructor(mods, id, attr = null, requiredValues = [], forbiddenValues = []) {
         this.id = id;
         const selector = this.selectorById(id)
         if (mods[selector] === undefined) {
@@ -33,7 +33,10 @@ export class ElementField {
             if (el) {
                 const newEl = this.newElement(id, el);
                 if (attr) {
-                    if (!(el['$'] && el['$'][attr] && values.indexOf(el['$'][attr]) > -1)) {
+                    if (requiredValues.length > 0 && !(el['$'] && el['$'][attr] && requiredValues.indexOf(el['$'][attr]) > -1)) {
+                        newEl.hidden = true;
+                        hiddenItems += 1;
+                    } else if (forbiddenValues.length > 0 && el['$'] && el['$'][attr] && forbiddenValues.indexOf(el['$'][attr]) > -1) {
                         newEl.hidden = true;
                         hiddenItems += 1;
                     }
@@ -49,33 +52,15 @@ export class ElementField {
         }
     }
 
-
-    public visibleItemsCount(): number {
-        let c = 0;
+    public getItems(): ModsElement[] {
+        const result = [];
         for (const item of this.items) {
             if (!item.hidden) {
-                c += 1;
+                result.push(item);
             }
         }
-        return c;
+        return result;
     }
-
-    public remove(index) {
-        if (index >= 0 && index < this.items.length) {
-            this.items.splice(index, 1);
-            this.root.splice(index, 1);
-        }
-        if (this.visibleItemsCount() === 0) {
-            const item = this.add();
-            item.collapsed = true;
-        }
-    }
-
-    // public removeAll() {
-    //     while (this.items.length > 0) {
-    //         this.remove(0);
-    //     }
-    // }
 
     public removeItem(item: ModsElement) {
         const index = this.items.indexOf(item);
@@ -84,7 +69,6 @@ export class ElementField {
 
     public addAfterItem(item: ModsElement, el: ModsElement = null): ModsElement {
         const index = this.items.indexOf(item);
-        console.log('idx', index);
         return this.addAfter(index, el);
     }
 
@@ -95,22 +79,25 @@ export class ElementField {
         return item;
     }
 
-    public addAfter(index: number, el: ModsElement = null): ModsElement {
-        const item: ModsElement = el || this.newElement(this.id, {});
-        this.items.splice(index + 1, 0, item);
-        this.root.splice(index + 1, 0, item.getEl());
-        return item;
+    public moveDown(item: ModsElement) {
+        const index = this.items.indexOf(item);
+        let newIndex = index + 1;
+        while (this.items.length > newIndex - 1 && this.items[newIndex].hidden) {
+            newIndex += 1;
+        }
+        this.move(this.root, index, newIndex);
+        this.move(this.items, index, newIndex);
     }
 
-    public moveDown(index: number) {
-        ModsUtils.moveDown(this.root, index);
-        ModsUtils.moveDown(this.items, index);
+    public moveUp(item: ModsElement) {
+        const index = this.items.indexOf(item);
+        let newIndex = index - 1;
+        while (newIndex > 0 && this.items[newIndex].hidden) {
+            newIndex -= 1;
+        }
+        this.move(this.root, index, newIndex);
+        this.move(this.items, index, newIndex);
     }
-
-      public moveUp(index: number) {
-        ModsUtils.moveUp(this.root, index);
-        ModsUtils.moveUp(this.items, index);
-      }
 
     public toDC() {
         let dc = '';
@@ -143,6 +130,44 @@ export class ElementField {
 
 
 
+
+    private addAfter(index: number, el: ModsElement = null): ModsElement {
+        const item: ModsElement = el || this.newElement(this.id, {});
+        this.items.splice(index + 1, 0, item);
+        this.root.splice(index + 1, 0, item.getEl());
+        return item;
+    }
+
+    private visibleItemsCount(): number {
+        let c = 0;
+        for (const item of this.items) {
+            if (!item.hidden) {
+                c += 1;
+            }
+        }
+        return c;
+    }
+
+    private remove(index) {
+        if (index >= 0 && index < this.items.length) {
+            this.items.splice(index, 1);
+            this.root.splice(index, 1);
+        }
+        if (this.visibleItemsCount() === 0) {
+            const item = this.add();
+            item.collapsed = true;
+        }
+    }
+
+    private move(array, from: number, to: number) {
+        if (to >= 0 && to < array.length) {
+            const x = array[from];
+            array[from] = array[to];
+            array[to] = x;
+        }
+    }
+
+
     private newElement(id, el): ModsElement {
         switch (id) {
             case ModsTitle.getId():
@@ -171,6 +196,8 @@ export class ElementField {
                 return new ModsGeo(el);
             case ModsPhysical.getId():
                 return new ModsPhysical(el);
+            case ModsSubject.getId():
+                return new ModsSubject(el);
             }
 
     }
@@ -204,6 +231,8 @@ export class ElementField {
                 return ModsGeo.getSelector();
             case ModsPhysical.getId():
                 return ModsPhysical.getSelector();
+            case ModsSubject.getId():
+                return ModsSubject.getSelector();
             }
     }
 
