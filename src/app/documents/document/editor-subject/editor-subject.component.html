@@ -1,4 +1,14 @@
 <app-editor-field [field]="field" [title]="'editor.subject.title'">
+  
+  
+  <ng-template let-item="item" #templateMenu>
+    <div class="app-header-divider"></div>
+    <button (click)="onLoadFromCatalog(item)" [matTooltip]="'editor.metadata.catalog' | translate" color="primary" mat-icon-button>
+      <mat-icon>local_library</mat-icon>
+    </button>
+  </ng-template>
+  
+  
   <ng-template let-item="item" #templateContent>
     
     <mat-form-field class="app-full-width">
