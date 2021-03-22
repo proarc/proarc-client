@@ -101,7 +101,21 @@ export class ConfigService {
         'model:page',
         'model:chroniclevolume',
         'model:chronicletitle',
-        'model:chroniclesupplement'
+        'model:chroniclesupplement',
+        'model:oldprintomnibusvolume',
+        'model:oldprintmonographtitle',
+        'model:oldprintvolume',
+        'model:oldprintsupplement',
+        'model:oldprintchapter',
+        'model:oldprintgraphics',
+        'model:oldprintmap',
+        'model:oldprintsheetmusic',
+        'model:oldprintpage',
+        'model:ndkphonographcylinder',
+        'model:ndkmusicdocument',
+        'model:ndksong',
+        'model:ndktrack',
+        'model:ndkaudiopage'
     ];
 
     private static defaultDefaultModel = 'model:ndkmonographvolume';

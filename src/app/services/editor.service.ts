@@ -460,40 +460,129 @@ export class EditorService {
         let model;
         switch (this.left.model) {
             case 'model:ndkperiodical': {
-                models = ['model:ndkperiodicalvolume', 'model:ndkperiodicalissue', 'model:ndkperiodicalsupplement', 'model:ndkarticle', 'model:ndkchapter', 'model:ndkpage'];
+                models = ['model:ndkperiodicalvolume', 
+                          'model:ndkperiodicalissue',
+                          'model:ndkperiodicalsupplement',
+                          'model:ndkarticle',
+                          'model:ndkchapter',
+                          'model:ndkpage'];
                 model = 'model:ndkperiodicalvolume';
                 break;
             }
             case 'model:ndkperiodicalvolume': {
-                models = ['model:ndkperiodicalissue', 'model:ndkperiodicalsupplement', 'model:ndkarticle', 'model:ndkchapter', 'model:ndkpage'];
+                models = ['model:ndkperiodicalissue',
+                          'model:ndkperiodicalsupplement',
+                          'model:ndkarticle',
+                          'model:ndkchapter', 
+                          'model:ndkpage'];
                 model = 'model:ndkperiodicalissue';
                 break;
             }
             case 'model:ndkperiodicalissue': {
-                models = ['model:ndkperiodicalsupplement', 'model:ndkarticle', 'model:ndkchapter', 'model:ndkpage'];
+                models = ['model:ndkperiodicalsupplement', 
+                          'model:ndkarticle', 
+                          'model:ndkchapter', 
+                          'model:ndkpage'];
                 model = 'model:ndkpage';
                 break;
             }
-            case 'model:chronicletitle': {
-                models = ['model:chroniclevolume', 'model:chroniclesupplement', 'model:page'];
-                model = 'model:chroniclevolume';
-                break;
-            }
-            case 'model:chroniclevolume': {
-                models = ['model:chroniclesupplement', 'model:page'];
-                model = 'model:model';
-                break;
-            }
             case 'model:ndkmonographtitle': {
-                models = ['model:ndkmonographvolume', 'model:ndkmonographsupplement', 'model:ndkpage'];
+                models = ['model:ndkmonographvolume',
+                          'model:ndkmonographsupplement',
+                          'model:ndkpage'];
                 model = 'model:ndkmonographvolume';
                 break;
             }
             case 'model:ndkmonographvolume': {
-                models = ['model:ndkmonographsupplement', 'model:ndkpage'];
+                models = ['model:ndkmonographsupplement',
+                          'model:ndkpage'];
                 model = 'model:ndkpage';
                 break;
             }
+            case 'model:ndkmonographsupplement':
+            case 'model:ndkperiodicalsupplement':
+            case 'model:ndkarticle':
+            case 'model:ndkpicture':
+            case 'model:ndkchapter':
+            case 'model:ndkmap':
+            case 'model:ndksheetmusic': {
+                models = ['model:ndkpage'];
+                model = 'model:ndkpage';
+                break;
+            }
+            case 'model:chronicletitle': {
+                models = ['model:chroniclevolume',
+                          'model:chroniclesupplement',
+                          'model:page'];
+                model = 'model:chroniclevolume';
+                break;
+            }
+            case 'model:chroniclevolume': {
+                models = ['model:chroniclesupplement',
+                          'model:page'];
+                model = 'model:model';
+                break;
+            }
+            case 'model:chroniclesupplement': {
+                models = ['model:page'];
+                model = 'model:model';
+                break;
+            }
+            case 'model:oldprintomnibusvolume': {
+                models = ['model:oldprintmonographtitle',
+                          'model:oldprintvolume',
+                          'model:oldprintsupplement',
+                          'model:oldprintchapter',
+                          'model:oldprintgraphics',
+                          'model:oldprintmap',
+                          'model:oldprintsheetmusic',
+                          'model:oldprintpage'];
+                model = 'model:oldprintvolume';
+                break;
+            }
+            case 'model:oldprintmonographtitle': {
+                models = ['model:oldprintvolume',
+                          'model:oldprintsupplement',
+                          'model:oldprintpage'];
+                model = 'model:oldprintvolume';
+                break;
+            }
+            case 'model:oldprintvolume': {
+                models = ['model:oldprintsupplement',
+                          'model:oldprintpage'];
+                model = 'model:oldprintpage';
+                break;
+            }
+            case 'model:oldprintsupplement':
+            case 'model:oldprintchapter':
+            case 'model:oldprintgraphics':
+            case 'model:oldprintmap':
+            case 'model:oldprintsheetmusic': {
+                models = ['model:oldprintpage'];
+                model = 'model:oldprintpage';
+                break;
+            }
+            case 'model:ndkphonographcylinder': {
+                models = ['model:ndksong',
+                          'model:ndktrack',
+                          'model:ndkaudiopage'];
+                model = 'model:ndksong';
+                break;
+            }
+            case 'model:ndkmusicdocument': {
+                models = ['model:ndksong',
+                          'model:ndktrack',
+                          'model:ndkaudiopage'];
+                model = 'model:ndksong';
+                break;
+            }
+            case 'model:ndksong':
+            case 'model:ndktrack': {
+                models = ['model:ndkaudiopage'];
+                model = 'model:ndkaudiopage';
+                break;
+            }
+
         }
         const data: NewObjectData = {
             

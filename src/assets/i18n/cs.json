@@ -667,7 +667,16 @@
     "model:ndkmusicdocument": "NDK Zvukový dokument",
     "model:ndksong": "NDK Skladba",
     "model:ndktrack": "NDK Část skladby",
-    "model:ndkaudiopage": "Zvukova nahravka"
+    "model:ndkaudiopage": "Zvukova nahravka",
+    "model:oldprintomnibusvolume": "STT Konvolut",
+    "model:oldprintmonographtitle": "STT Vícedílná monografie",
+    "model:oldprintvolume": "STT Svazek monografie",
+    "model:oldprintsupplement": "STT Příloha monografie",
+    "model:oldprintchapter": "STT  Kapitola",
+    "model:oldprintgraphics": "STT  Grafika",
+    "model:oldprintmap": "STT Kartografický dokument",
+    "model:oldprintsheetmusic": "STT  Hudebnina",
+    "model:oldprintpage": "STT Strana"
   },
   "viewer": {
     "tooltip": {

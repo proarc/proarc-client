@@ -55,8 +55,6 @@ export class EditorAuthorComponent implements OnInit {
         }
       }
     });
-
-
   }
 
   translateCodes() {

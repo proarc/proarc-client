@@ -93,8 +93,12 @@ export class DocumentItem {
     return array;
   }
 
+  public getModel(): string {
+    return this.model;
+  }
+
   public isPage(): boolean {
-    return this.model === 'model:page' || this.model === 'model:ndkpage';
+    return this.model === 'model:page' || this.model === 'model:ndkpage' || this.model === 'model:oldprintpage';
   }
 
   public isSong(): boolean {
@@ -102,7 +106,7 @@ export class DocumentItem {
   }
 
   public isNdkPage(): boolean {
-    return this.model === 'model:ndkpage';
+    return this.model === 'model:ndkpage' || this.model === 'model:oldprintpage';
   }
 
   public isVolume(): boolean {
