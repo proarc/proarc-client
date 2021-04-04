@@ -85,23 +85,20 @@ export class ConfigService {
     ];
 
     private static defaultModels = [
-        'model:ndkmonographvolume',
-        'model:ndkmonographtitle',
-        'model:ndkmonographsupplement',
         'model:ndkperiodical',
         'model:ndkperiodicalvolume',
         'model:ndkperiodicalissue',
         'model:ndkperiodicalsupplement',
         'model:ndkarticle',
         'model:ndkpicture',
+        'model:ndkmonographvolume',
+        'model:ndkmonographtitle',
+        'model:ndkmonographsupplement',
         'model:ndkchapter',
         'model:ndkmap',
         'model:ndksheetmusic',
         'model:ndkpage',
         'model:page',
-        'model:chroniclevolume',
-        'model:chronicletitle',
-        'model:chroniclesupplement',
         'model:oldprintomnibusvolume',
         'model:oldprintmonographtitle',
         'model:oldprintvolume',
@@ -111,11 +108,21 @@ export class ConfigService {
         'model:oldprintmap',
         'model:oldprintsheetmusic',
         'model:oldprintpage',
+        // 'model:ndkeperiodical',
+        // 'model:ndkeperiodicalvolume',
+        // 'model:ndkeperiodicalissue',
+        // 'model:ndkearticle',
+        // 'model:ndkemonographtitle',
+        // 'model:ndkemonographvolume',
+        // 'model:ndkechapter',
         'model:ndkphonographcylinder',
         'model:ndkmusicdocument',
         'model:ndksong',
         'model:ndktrack',
-        'model:ndkaudiopage'
+        'model:ndkaudiopage',
+        'model:chroniclevolume',
+        'model:chronicletitle',
+        'model:chroniclesupplement'
     ];
 
     private static defaultDefaultModel = 'model:ndkmonographvolume';

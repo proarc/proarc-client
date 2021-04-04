@@ -49,7 +49,7 @@ export class ModsGeo extends ModsElement {
 
     private init() {
         if (!this.attrs['authority']) {
-            this.attrs['authority'] = 'geo:origin';
+            // this.attrs['authority'] = 'geo:origin';
         }
         if (!this.modsElement['geographic']) {
             this.modsElement['geographic'] = [];

@@ -460,12 +460,7 @@ export class EditorService {
         let model;
         switch (this.left.model) {
             case 'model:ndkperiodical': {
-                models = ['model:ndkperiodicalvolume', 
-                          'model:ndkperiodicalissue',
-                          'model:ndkperiodicalsupplement',
-                          'model:ndkarticle',
-                          'model:ndkchapter',
-                          'model:ndkpage'];
+                models = ['model:ndkperiodicalvolume'];
                 model = 'model:ndkperiodicalvolume';
                 break;
             }
@@ -473,7 +468,8 @@ export class EditorService {
                 models = ['model:ndkperiodicalissue',
                           'model:ndkperiodicalsupplement',
                           'model:ndkarticle',
-                          'model:ndkchapter', 
+                          'model:ndkchapter',
+                          'model:ndkpicture', 
                           'model:ndkpage'];
                 model = 'model:ndkperiodicalissue';
                 break;
@@ -482,19 +478,20 @@ export class EditorService {
                 models = ['model:ndkperiodicalsupplement', 
                           'model:ndkarticle', 
                           'model:ndkchapter', 
+                          'model:ndkpicture',
                           'model:ndkpage'];
                 model = 'model:ndkpage';
                 break;
             }
             case 'model:ndkmonographtitle': {
-                models = ['model:ndkmonographvolume',
-                          'model:ndkmonographsupplement',
-                          'model:ndkpage'];
+                models = ['model:ndkmonographvolume'];
                 model = 'model:ndkmonographvolume';
                 break;
             }
             case 'model:ndkmonographvolume': {
                 models = ['model:ndkmonographsupplement',
+                          'model:ndkchapter', 
+                          'model:ndkpicture',
                           'model:ndkpage'];
                 model = 'model:ndkpage';
                 break;
@@ -510,29 +507,9 @@ export class EditorService {
                 model = 'model:ndkpage';
                 break;
             }
-            case 'model:chronicletitle': {
-                models = ['model:chroniclevolume',
-                          'model:chroniclesupplement',
-                          'model:page'];
-                model = 'model:chroniclevolume';
-                break;
-            }
-            case 'model:chroniclevolume': {
-                models = ['model:chroniclesupplement',
-                          'model:page'];
-                model = 'model:model';
-                break;
-            }
-            case 'model:chroniclesupplement': {
-                models = ['model:page'];
-                model = 'model:model';
-                break;
-            }
             case 'model:oldprintomnibusvolume': {
                 models = ['model:oldprintmonographtitle',
                           'model:oldprintvolume',
-                          'model:oldprintsupplement',
-                          'model:oldprintchapter',
                           'model:oldprintgraphics',
                           'model:oldprintmap',
                           'model:oldprintsheetmusic',
@@ -541,14 +518,13 @@ export class EditorService {
                 break;
             }
             case 'model:oldprintmonographtitle': {
-                models = ['model:oldprintvolume',
-                          'model:oldprintsupplement',
-                          'model:oldprintpage'];
+                models = ['model:oldprintvolume'];
                 model = 'model:oldprintvolume';
                 break;
             }
             case 'model:oldprintvolume': {
                 models = ['model:oldprintsupplement',
+                          'model:oldprintchapter',
                           'model:oldprintpage'];
                 model = 'model:oldprintpage';
                 break;
@@ -564,28 +540,47 @@ export class EditorService {
             }
             case 'model:ndkphonographcylinder': {
                 models = ['model:ndksong',
-                          'model:ndktrack',
                           'model:ndkaudiopage'];
-                model = 'model:ndksong';
+                model = 'model:ndkaudiopage';
                 break;
             }
             case 'model:ndkmusicdocument': {
                 models = ['model:ndksong',
-                          'model:ndktrack',
+                          'model:page',
                           'model:ndkaudiopage'];
                 model = 'model:ndksong';
                 break;
             }
-            case 'model:ndksong':
+            case 'model:ndksong': {
+                models = ['model:ndkaudiopage',
+                          'model:ndktrack'];
+                model = 'model:ndkaudiopage';
+                break;
+            }
             case 'model:ndktrack': {
                 models = ['model:ndkaudiopage'];
                 model = 'model:ndkaudiopage';
                 break;
             }
-
+            case 'model:chronicletitle': {
+                models = ['model:chroniclevolume'];
+                model = 'model:chroniclevolume';
+                break;
+            }
+            case 'model:chroniclevolume': {
+                models = ['model:chroniclesupplement',
+                          'model:page'];
+                model = 'model:page';
+                break;
+            }
+            case 'model:chroniclesupplement': {
+                models = ['model:page'];
+                model = 'model:page';
+                break;
+            }
+            default: []
         }
         const data: NewObjectData = {
-            
             models: models,
             model: model,
             customPid: false,
