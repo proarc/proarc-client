@@ -10,9 +10,10 @@
     </mat-form-field>
 
     <mat-form-field class="app-half-right">
-      <mat-select [(ngModel)]='item.dateIssued["$"]["qualifier"]' placeholder="{{ 'editor.publisher.date_qualifier' | translate }}">
-        <mat-option *ngFor="let qualifier of qualifiers" [value]="qualifier.code">
-          {{ qualifier.name }}
+      <mat-select [disabled]='!item.dateIssued["_"]' [(ngModel)]='item.dateIssued["$"]["qualifier"]' placeholder="{{ 'editor.publisher.date_qualifier' | translate }}">
+        <mat-option value="">-</mat-option>
+        <mat-option *ngFor="let qualifier of qualifiers" [value]="qualifier">
+          {{ ('editor.publisher.date_qualifier_code.' + qualifier) | translate }}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -23,8 +24,9 @@
 
     <mat-form-field class="app-half-right">
       <mat-select [(ngModel)]='item.issuance["_"]' placeholder="{{ 'editor.publisher.issuance' | translate }}">
-        <mat-option *ngFor="let issuance of issuances" [value]="issuance.code">
-          {{ issuance.name }}
+        <mat-option value="">-</mat-option>
+        <mat-option *ngFor="let issuance of issuances" [value]="issuance">
+          {{ ('editor.publisher.issuance_code.' + issuance) | translate }}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -35,8 +37,9 @@
 
     <mat-form-field class="app-half-right">
       <mat-select [(ngModel)]='item.attrs["eventType"]' placeholder="{{ 'editor.publisher.event_type' | translate }}">
-        <mat-option *ngFor="let type of eventTypes" [value]="type.code">
-          {{ type.name }}
+        <mat-option value="">-</mat-option>
+        <mat-option *ngFor="let type of eventTypes" [value]="type">
+          {{ ('editor.publisher.event_type_code.' + type )| translate }}
         </mat-option>
       </mat-select>
     </mat-form-field>
