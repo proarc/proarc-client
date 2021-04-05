@@ -4,7 +4,7 @@
   padding: 0 20px 20px;
   .app-help-content ::ng-deep {
     font-size: 14px;
-    color: #888;
+    color: #666;
     h2 {
       font-weight: 500;
       font-size: 22px;
@@ -27,5 +27,17 @@
       color: $primary-color;
       font-size: 10px;
     }
+    h3, h2 {
+      code {
+        background-color: #eeeeee;
+        color: #666;
+        padding: 4px;
+        border-radius: 2px;
+        font-size: 13px;
+        line-height: 17px;
+        margin-left: 2px;
+      }
+    }
+
   }
 }

@@ -1,18 +1,18 @@
-<app-editor-field [field]="field" [title]="'editor.publisher.title'" usage="M">
+<app-editor-field [field]="field" [title]="'editor.publisher.title'" [usage]="data.usage" [help]="data.help">
   <ng-template let-item="item" #templateContent>
    
     <mat-form-field class="app-full-width">
-      <span class="app-usage">MA</span>
+      <span class="app-usage">{{ data.publisher.usage }}</span>
       <input autocomplete="off" matInput [(ngModel)]="item.publisher['_']" placeholder="{{ 'editor.publisher.title' | translate }}">
     </mat-form-field>
 
     <mat-form-field class="app-half-left">
-      <span class="app-usage">M</span>
+      <span class="app-usage">{{ data.dateIssued.usage }}</span>
       <input matInput [(ngModel)]='item.dateIssued["_"]' placeholder="{{ 'editor.publisher.date' | translate }}">
     </mat-form-field>
 
     <mat-form-field class="app-half-right">
-      <span class="app-usage">R</span>
+      <span class="app-usage">{{ data.qualifier.usage }}</span>
       <mat-select [disabled]='!item.dateIssued["_"]' [(ngModel)]='item.dateIssued["$"]["qualifier"]' placeholder="{{ 'editor.publisher.date_qualifier' | translate }}">
         <mat-option value="">-</mat-option>
         <mat-option *ngFor="let qualifier of qualifiers" [value]="qualifier">
@@ -22,27 +22,27 @@
     </mat-form-field>
 
     <mat-form-field class="app-half-left">
-      <span class="app-usage">R</span>
+      <span class="app-usage">{{ data.edition.usage }}</span>
       <input matInput [(ngModel)]='item.edition["_"]' placeholder="{{ 'editor.publisher.edition' | translate }}">
     </mat-form-field>
 
     <mat-form-field class="app-half-right">
-      <span class="app-usage">M</span>
+      <span class="app-usage">{{ data.issuance.usage }}</span>
       <mat-select [(ngModel)]='item.issuance["_"]' placeholder="{{ 'editor.publisher.issuance' | translate }}">
         <mat-option value="">-</mat-option>
-        <mat-option *ngFor="let issuance of issuances" [value]="issuance">
+        <mat-option *ngFor="let issuance of data.issuance.options" [value]="issuance">
           {{ ('editor.publisher.issuance_code.' + issuance) | translate }}
         </mat-option>
       </mat-select>
     </mat-form-field>
   
     <mat-form-field class="app-half-left">
-      <span class="app-usage">MA</span>
+      <span class="app-usage">{{ data.place.usage }}</span>
       <input matInput [(ngModel)]='item.place["_"]' placeholder="{{ 'editor.publisher.place' | translate }}">
     </mat-form-field>
 
     <mat-form-field class="app-half-right">
-      <span class="app-usage">M</span>
+      <span class="app-usage">{{ data.eventType.usage }}</span>
       <mat-select [(ngModel)]='item.attrs["eventType"]' placeholder="{{ 'editor.publisher.event_type' | translate }}">
         <mat-option value="">-</mat-option>
         <mat-option *ngFor="let type of eventTypes" [value]="type">

@@ -10,11 +10,9 @@ import { ElementField } from 'src/app/model/mods/elementField.model';
 export class EditorPublisherComponent implements OnInit {
 
   @Input() field: ElementField;
+  @Input() data: any;
 
   eventTypes: string[] = ['production', 'publication', 'distribution', 'manufacture', 'copyright'];
-
-  issuances: string[] = ['monographic', 'single unit', 'multipart monograph',
-                                         'continuing', 'serial', 'integrating resource'];
 
   qualifiers: string[] = ['approximate', 'inferred', 'questionable'];
 
