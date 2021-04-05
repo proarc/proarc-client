@@ -5,6 +5,7 @@ export class ModsSubject extends ModsElement {
 
     topic;
     geographic;
+    temporal;
 
     static getSelector() {
         return 'subject';
@@ -26,8 +27,13 @@ export class ModsSubject extends ModsElement {
         if (!this.modsElement['geographic']) {
             this.modsElement['geographic'] = ModsUtils.createEmptyField();
         }
+        if (!this.modsElement['temporal']) {
+            this.modsElement['temporal'] = ModsUtils.createEmptyField();
+        }
         this.topic = this.modsElement['topic'][0];
         this.geographic = this.modsElement['geographic'][0];
+        this.temporal = this.modsElement['temporal'][0];
+
     }
 
     toDC() {
@@ -37,6 +43,9 @@ export class ModsSubject extends ModsElement {
         }
         if (this.geographic['_']) {
             dc += ModsUtils.dcEl('subject', this.geographic['_']);
+        }
+        if (this.temporal['_']) {
+            dc += ModsUtils.dcEl('subject', this.temporal['_']);
         }
         return dc;
     }

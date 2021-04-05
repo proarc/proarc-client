@@ -1,4 +1,4 @@
-<app-editor-field [field]="field" [title]="'editor.subject.title'">
+<app-editor-field [field]="field" [title]="'editor.subject.title'" usage="R">
   
   
   <ng-template let-item="item" #templateMenu>
@@ -12,6 +12,7 @@
   <ng-template let-item="item" #templateContent>
     
     <mat-form-field class="app-full-width">
+      <span class="app-usage">R</span>
       <input matInput [(ngModel)]='item.attrs["authority"]' placeholder="{{ 'editor.subject.authority' | translate }}" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let authority of authorities" [value]="authority">
@@ -21,11 +22,16 @@
     </mat-form-field>
 
     <mat-form-field class="app-full-width">
+      <span class="app-usage">R</span>
       <input autocomplete="off" matInput [(ngModel)]='item.topic["_"]' placeholder="{{ 'editor.subject.topic' | translate }}">
     </mat-form-field>
     <mat-form-field class="app-full-width">
+      <span class="app-usage">R</span>
       <input autocomplete="off" matInput [(ngModel)]='item.geographic["_"]' placeholder="{{ 'editor.subject.geographic' | translate }}">
     </mat-form-field>
-
+    <mat-form-field class="app-full-width">
+      <span class="app-usage">R</span>
+      <input autocomplete="off" matInput [(ngModel)]='item.temporal["_"]' placeholder="{{ 'editor.subject.temporal' | translate }}">
+    </mat-form-field>
   </ng-template>
 </app-editor-field>

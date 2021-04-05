@@ -1,13 +1,15 @@
-<app-editor-field [field]="field" [title]="'editor.identifier.title'">
+<app-editor-field [field]="field" [title]="'editor.identifier.title'" usage="M">
   <ng-template let-item="item" #templateContent>
 
     <mat-form-field class="app-half-left">
+      <span class="app-usage">M</span>
       <mat-select [(ngModel)]='item.attrs["type"]' placeholder="{{ 'editor.identifier.type' | translate }}">
         <mat-option *ngFor="let identifier of getIdentifiers()" [value]="identifier.code">{{ identifier.name }}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field class="app-half-right">
+      <span class="app-usage">MA</span>
       <mat-select [(ngModel)]='item.attrs["invalid"]' placeholder="{{ 'editor.identifier.validity' | translate }}">
         <mat-option value="">{{ 'editor.identifier.valid' | translate }}</mat-option>
         <mat-option value="yes">{{ 'editor.identifier.invalid' | translate }}</mat-option>
@@ -15,6 +17,7 @@
     </mat-form-field>
 
     <mat-form-field class="app-full-width">
+      <span class="app-usage">M</span>
       <input autocomplete="off" matInput [(ngModel)]='item.modsElement["_"]' placeholder="{{ 'editor.identifier.value' | translate }}">
     </mat-form-field>
 

@@ -581,9 +581,10 @@
       }
     },
     "subject": {
-      "title": "Předmětové heslo",
+      "title": "Věcné třídění",
       "topic": "Klíčové slovo",
-      "geographic": "Geografické určení",
+      "geographic": "Geografické třídění",
+      "temporal": "Chronologické třídění",
       "authority": "Autorita"
     },
     "location": {

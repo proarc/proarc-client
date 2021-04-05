@@ -420,7 +420,7 @@ mat-form-field textarea.mat-input-element {
   // }
 
   &.app-usages {
-    // mat-form-field {
+    mat-form-field {
       .app-usage {
         position: absolute;
         top: -13px;
@@ -433,7 +433,7 @@ mat-form-field textarea.mat-input-element {
       //     margin-left: 20px;
       //   }
       // }
-    // }
+    }
   }
 
   overflow: hidden;
@@ -565,5 +565,13 @@ mat-form-field textarea.mat-input-element {
   .app-label {
     color: rgba(255, 255, 255, 0.6);
     font-size: 12px;
+  }
+}
+
+a, button {
+  &.cdk-program-focused {
+    .mat-button-focus-overlay {
+      opacity: 0 !important;
+    }
   }
 }

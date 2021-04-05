@@ -1,7 +1,8 @@
-<app-editor-field [field]="field" [title]="'editor.note.title'">
+<app-editor-field [field]="field" [title]="'editor.note.title'" usage="RA">
   <ng-template let-item="item" #templateContent>
 
     <mat-form-field class="app-full-width">
+      <span class="app-usage">O</span>
       <input matInput [(ngModel)]='item.attrs["type"]' placeholder="{{ 'editor.note.type' | translate }}" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let type of types" [value]="type">
@@ -11,6 +12,7 @@
     </mat-form-field>
 
     <mat-form-field class="app-full-width">
+      <span class="app-usage">RA</span>
       <textarea 
       cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="15"
       autocomplete="off" matInput [(ngModel)]='item.modsElement["_"]' placeholder="{{ 'editor.note.title' | translate }}"></textarea>
