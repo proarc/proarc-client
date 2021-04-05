@@ -1,7 +1,8 @@
-<app-editor-field [field]="field" [title]="'editor.title.title'">
+<app-editor-field [field]="field" [title]="'editor.title.title'" usage="M">
   <ng-template let-item="item" #templateContent>
     
     <mat-form-field class="app-full-width" >
+      <span class="app-usage">M</span>
       <span *ngIf='item.nonSort["_"]' matPrefix class="title-prefix" color="primary">{{ item.nonSort["_"] }}</span>
       <input autocomplete="off" style="width: calc(100% - 60px)" spellcheck="false" matInput [(ngModel)]='item.title["_"]' placeholder="{{ 'editor.title.title' | translate }}">
           <mat-slide-toggle color="primary" class="non-sort-toggle"
@@ -13,10 +14,12 @@
     </mat-form-field>
 
     <mat-form-field class="app-half-left">
+      <span class="app-usage">MA</span>
       <input autocomplete="off" matInput [(ngModel)]='item.subTitle["_"]' placeholder="{{ 'editor.title.subtitle' | translate }}">
     </mat-form-field>
 
     <mat-form-field class="app-half-right">
+      <span class="app-usage">MA</span>
       <mat-select [(ngModel)]='item.attrs["type"]' placeholder="{{ 'editor.title.type' | translate }}">
         <mat-option value="">-</mat-option>
         <mat-option *ngFor="let type of codebook.titleTypeCodes" [value]="type">
@@ -26,9 +29,11 @@
     </mat-form-field>
 
     <mat-form-field class="app-half-left">
+      <span class="app-usage">MA</span>
       <input autocomplete="off" matInput [(ngModel)]='item.partName["_"]' placeholder="{{ 'editor.title.partname' | translate }}">
     </mat-form-field>
     <mat-form-field class="app-half-right">
+      <span class="app-usage">MA</span>
       <input autocomplete="off" matInput [(ngModel)]='item.partNumber["_"]' placeholder="{{ 'editor.title.partnumber' | translate }}">
     </mat-form-field>
 

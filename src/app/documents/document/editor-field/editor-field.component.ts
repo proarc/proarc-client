@@ -13,6 +13,7 @@ export class EditorFieldComponent implements OnInit {
 
   @Input() field: ElementField;
   @Input() title: string;
+  @Input() usage: string;
   @Input() nested: boolean;
 
   @ContentChild("templateContent") templateContent : TemplateRef<any>;

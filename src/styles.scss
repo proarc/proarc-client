@@ -418,6 +418,24 @@ mat-form-field textarea.mat-input-element {
   //     overflow: hidden;
   //   }
   // }
+
+  &.app-usages {
+    // mat-form-field {
+      .app-usage {
+        position: absolute;
+        top: -13px;
+        right: 0;
+        color: #456aa5;
+        font-size: 10px;
+      }
+      // &.mat-form-field-should-float {
+      //   .mat-form-field-label-wrapper {
+      //     margin-left: 20px;
+      //   }
+      // }
+    // }
+  }
+
   overflow: hidden;
   padding: 2px;
   .app-card {

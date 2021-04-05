@@ -1,4 +1,4 @@
-<app-editor-field [field]="field" [title]="'editor.author.title'">
+<app-editor-field [field]="field" [title]="'editor.author.title'" usage="MA">
   
   <ng-template let-item="item" #templateMenu>
       <div class="app-header-divider"></div>
@@ -24,24 +24,29 @@
   <ng-template let-item="item" #templateContent>
 
     <mat-form-field class="app-full-width">
+      <span class="app-usage">MA</span>
       <input autocomplete="off" matInput [(ngModel)]='item.name["_"]' placeholder="{{ 'editor.author.name' | translate }}">
     </mat-form-field>
 
     <div>
       <mat-form-field class="app-half-left">
+        <span class="app-usage">MA</span>
         <input autocomplete="off" matInput [(ngModel)]='item.given["_"]' placeholder="{{ 'editor.author.given' | translate }}">
       </mat-form-field>
 
       <mat-form-field class="app-half-right">
+        <span class="app-usage">MA</span>
         <input autocomplete="off" matInput [(ngModel)]='item.family["_"]' placeholder="{{ 'editor.author.family' | translate }}">
       </mat-form-field>
     </div>
 
     <div>
       <mat-form-field class="app-half-left">
+        <span class="app-usage">MA</span>
         <input autocomplete="off" matInput [(ngModel)]='item.date["_"]' placeholder="{{ 'editor.author.date' | translate }}">
       </mat-form-field>
       <mat-form-field class="app-half-right">
+        <span class="app-usage">MA</span>
         <mat-select [(ngModel)]='item.attrs["type"]' placeholder="{{ 'editor.author.type' | translate }}">
           <mat-option *ngFor="let type of nameTypes" [value]="type.code">
             {{ type.name }}
@@ -50,7 +55,7 @@
       </mat-form-field>
     </div>
 
-    <app-editor-field [field]="item.roles" [title]="'editor.author.role.title'" class="app-roles" [nested]='true'>
+    <app-editor-field [field]="item.roles" [title]="'editor.author.role.title'" class="app-roles" [nested]='true' usage="M">
       <ng-template let-role="item" #templateContent>
         <mat-select class="app-no-placeholder" [(ngModel)]='role.role["_"]' placeholder="{{ 'editor.author.role.title' | translate }}">
           <mat-option *ngFor="let role of roles" [value]="role.code">

@@ -1,9 +1,9 @@
-<div class="app-editor-field" [class.app-nested]="nested">
+<div class="app-editor-field" [class.app-nested]="nested" [class.app-usages]="true">
 
   <ng-container></ng-container>
   <div class="app-card" *ngFor="let item of field.getItems(); last as last; first as first;">
     <div class="app-card-header">
-      <span class="app-card-title">{{ title | translate }}</span>
+      <span class="app-card-title">{{ title | translate }} <i>{{usage}}</i></span>
       <button matTooltip="{{ 'common.remove' | translate }}" color="primary" (click)="field.removeItem(item)" mat-icon-button>
         <mat-icon>delete</mat-icon>
       </button>
