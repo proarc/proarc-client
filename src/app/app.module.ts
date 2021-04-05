@@ -100,6 +100,7 @@ import { PreferredTopsDialogComponent } from './dialogs/preferred-tops-dialog/pr
 import { EditorFieldComponent } from './documents/document/editor-field/editor-field.component';
 import { EditorSubjectComponent } from './documents/document/editor-subject/editor-subject.component';
 import { SongComponent } from './components/song/song.component';
+import { EditorGenreComponent } from './documents/document/editor-genre/editor-genre.component';
 
 
 export function hljsLanguages() {
@@ -183,7 +184,8 @@ export function hljsLanguages() {
     PreferredTopsDialogComponent,
     EditorFieldComponent,
     EditorSubjectComponent,
-    SongComponent
+    SongComponent,
+    EditorGenreComponent
   ],
   imports: [
     BrowserModule,

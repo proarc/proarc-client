@@ -11,11 +11,12 @@ import { ModsIdentifier } from './mods/identifier.model';
 import { ModsNote } from './mods/note.mode';
 import { Mods } from './mods.model';
 import { ModsAbstract } from './mods/abstract.model';
-import { ModsGenre } from './mods/genre.mods';
 import { ModsChronicleLocation } from './mods/chronicle_location.model';
 import { ProArc } from '../utils/proarc';
 import { ModsPhysical } from './mods/physical.model';
 import { ModsSubject } from './mods/subject.model';
+import { ModsGenre } from './mods/genre.model';
+import { ModsGenreChronical } from './mods/genre_chronical.model';
 declare var $: any;
 
 export class Metadata {
@@ -66,7 +67,7 @@ export class Metadata {
         ModsIdentifier.getId(),
         ModsNote.getId(),
         ModsAbstract.getId(),
-        ModsGenre.getId(),
+        ModsGenreChronical.getId(),
         ModsGeo.getId()
       ];
     } else {
@@ -157,8 +158,8 @@ export class Metadata {
     return xml;
   }
 
-  getField(selector: string): ElementField {
-    return this.fields.get(selector);
+  getField(id: string): ElementField {
+    return this.fields.get(id);
   }
 
 

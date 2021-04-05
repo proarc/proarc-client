@@ -603,6 +603,10 @@
       "valid": "Platný",
       "validity": "Platnost"
     },
+    "genre": {
+      "title": "Žánr",
+      "authority": "Autorita"
+    },
     "note": {
       "title": "Poznámka",
       "type": "Typ"

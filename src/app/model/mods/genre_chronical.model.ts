@@ -1,13 +1,13 @@
 import { ModsElement } from './element.model';
 
-export class ModsGenre extends ModsElement {
+export class ModsGenreChronical extends ModsElement {
 
     static getSelector() {
         return 'genre';
     }
 
     static getId() {
-        return 'genre';
+        return 'genre_chronical';
     }
 
     constructor(modsElement) {

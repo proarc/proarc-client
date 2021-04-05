@@ -9,10 +9,11 @@ import { ModsChronicleLocation } from './chronicle_location.model';
 import { ModsIdentifier } from './identifier.model';
 import { ModsNote } from './note.mode';
 import { ModsAbstract } from './abstract.model';
-import { ModsGenre } from './genre.mods';
+import { ModsGenreChronical } from './genre_chronical.model';
 import { ModsGeo } from './geo.model';
 import { ModsPhysical } from './physical.model';
 import { ModsSubject } from './subject.model';
+import { ModsGenre } from './genre.model';
 
 export class ElementField {
 
@@ -192,6 +193,8 @@ export class ElementField {
                 return new ModsAbstract(el);
             case ModsGenre.getId():
                 return new ModsGenre(el);
+            case ModsGenreChronical.getId():
+                return new ModsGenreChronical(el);
             case ModsGeo.getId():
                 return new ModsGeo(el);
             case ModsPhysical.getId():
@@ -227,6 +230,8 @@ export class ElementField {
                 return ModsAbstract.getSelector();
             case ModsGenre.getId():
                 return ModsGenre.getSelector();
+            case ModsGenreChronical.getId():
+                return ModsGenreChronical.getSelector();
             case ModsGeo.getId():
                 return ModsGeo.getSelector();
             case ModsPhysical.getId():
