@@ -11,6 +11,10 @@ export class ModsPublisher extends ModsElement {
     public dateFrom;
     public dateTo;
 
+    public dateOther;
+    public dateCreated;
+    public copyrightDate;
+
     static getSelector() {
         return 'originInfo';
     }
@@ -36,6 +40,15 @@ export class ModsPublisher extends ModsElement {
         }
         if (!this.modsElement['dateIssued']) {
             this.modsElement['dateIssued'] = [];
+        }
+        if (!this.modsElement['dateOther']) {
+            this.modsElement['dateOther'] = ModsUtils.createEmptyField();
+        }
+        if (!this.modsElement['copyrightDate']) {
+            this.modsElement['copyrightDate'] = ModsUtils.createEmptyField();
+        }
+        if (!this.modsElement['dateCreated']) {
+            this.modsElement['dateCreated'] = ModsUtils.createEmptyField();
         }
         const dates = this.modsElement['dateIssued'];
         for (const date of dates) {
@@ -110,6 +123,10 @@ export class ModsPublisher extends ModsElement {
         this.publisher = this.modsElement['publisher'][0];
         this.edition = this.modsElement['edition'][0];
         this.issuance = this.modsElement['issuance'][0];
+        this.dateCreated = this.modsElement['dateCreated'][0];
+        this.dateOther = this.modsElement['dateOther'][0];
+        this.copyrightDate = this.modsElement['copyrightDate'][0];
+
         const ctx = this;
         this.modsElement['place'].forEach(function(place) {
             if (place['placeTerm'] &&

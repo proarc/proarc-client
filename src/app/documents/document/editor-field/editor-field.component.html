@@ -7,7 +7,7 @@
       <button matTooltip="{{ 'common.remove' | translate }}" color="primary" (click)="field.removeItem(item)" mat-icon-button>
         <mat-icon>delete</mat-icon>
       </button>
-      <button matTooltip="{{ 'editor.info' | translate }}" color="primary" (click)="openHelpDialog()" mat-icon-button>
+      <button *ngIf="help" matTooltip="{{ 'editor.info' | translate }}" color="primary" (click)="openHelpDialog()" mat-icon-button>
         <mat-icon>help_outline</mat-icon>
       </button>
       <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" color="primary" (click)="field.moveDown(item)" mat-icon-button>

@@ -8,7 +8,7 @@
 
     <mat-form-field class="app-half-left">
       <span class="app-usage">{{ data.dateIssued.usage }}</span>
-      <input matInput [(ngModel)]='item.dateIssued["_"]' placeholder="{{ 'editor.publisher.date' | translate }}">
+      <input matInput [(ngModel)]='item.dateIssued["_"]' placeholder="{{ 'editor.publisher.date_issued' | translate }}">
     </mat-form-field>
 
     <mat-form-field class="app-half-right">
@@ -50,6 +50,21 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+
+
+    <mat-form-field class="app-third-1">
+      <span class="app-usage">{{ data.dateCreated.usage }}</span>
+      <input autocomplete="off" matInput [(ngModel)]="item.dateCreated['_']" placeholder="{{ 'editor.publisher.date_created' | translate }}">
+    </mat-form-field>
+    <mat-form-field class="app-third-2">
+      <span class="app-usage">{{ data.dateOther.usage }}</span>
+      <input autocomplete="off" matInput [(ngModel)]="item.dateOther['_']" placeholder="{{ 'editor.publisher.date_other' | translate }}">
+    </mat-form-field>
+    <mat-form-field class="app-third-3">
+      <span class="app-usage">{{ data.copyrightDate.usage }}</span>
+      <input autocomplete="off" matInput [(ngModel)]="item.copyrightDate['_']" placeholder="{{ 'editor.publisher.copyright_date' | translate }}">
+    </mat-form-field>
+
 
   </ng-template>
 </app-editor-field>

@@ -2,19 +2,24 @@
 
 .app-help-wrapper {
   padding: 0 20px 20px;
+  max-width: 780px;
   .app-help-content ::ng-deep {
     font-size: 14px;
     color: #666;
+    line-height: 18px;
     h2 {
       font-weight: 500;
       font-size: 22px;
       margin: 0 0 10px;
-      color: #555;
+      color: #333;
     }
     h3 { 
       margin: 15px 0 10px;
       color: #555;
       font-weight: 500;
+    }
+    p {
+      margin: 7px 0px;
     }
     ul {
       margin: 5px 0;
@@ -27,17 +32,17 @@
       color: $primary-color;
       font-size: 10px;
     }
-    h3, h2 {
-      code {
-        background-color: #eeeeee;
-        color: #666;
-        padding: 4px;
-        border-radius: 2px;
-        font-size: 13px;
-        line-height: 17px;
-        margin-left: 2px;
-      }
+    code {
+      background-color: #eeeeee;
+      color: #666;
+      padding: 4px;
+      border-radius: 2px;
+      font-size: 13px;
+      line-height: 17px;
+      margin-left: 2px;
     }
-
+    a {
+      color: $primary-color;
+    }
   }
 }

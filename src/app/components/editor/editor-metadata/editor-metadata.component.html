@@ -16,7 +16,7 @@
 <div class="app-editor-content" *ngIf="editor.metadata">
 
     <app-editor-title *ngIf="editor.template.titleInfo" [data]="editor.template.titleInfo" [field]="editor.metadata.getField('titleInfo')"></app-editor-title>
-    <app-editor-author [field]="editor.metadata.getField('name')"></app-editor-author>
+    <app-editor-author *ngIf="editor.template.name" [data]="editor.template.name" [field]="editor.metadata.getField('name')"></app-editor-author>
     <app-editor-publisher *ngIf="editor.template.originInfo" [data]="editor.template.originInfo" [field]="editor.metadata.getField('originInfo')"></app-editor-publisher>
     <app-editor-location [field]="editor.metadata.getField('location')"></app-editor-location>
     <app-editor-subject [field]="editor.metadata.getField('subject')"></app-editor-subject>

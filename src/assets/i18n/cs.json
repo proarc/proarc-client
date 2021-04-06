@@ -556,7 +556,10 @@
       "issuance": "Vydávání",
       "place": "Místo",
       "edition": "Edice",
-      "date": "Rok",
+      "date_issued": "Datum vydání",
+      "date_created": "Datum vytvoření",
+      "date_other": "Datum - jiné",
+      "copyright_date": "Datum - copyright",
       "date_qualifier": "Upřesnění data",
       "date_qualifier_code": {
         "approximate": "Datum je přibližné",

@@ -14,8 +14,9 @@ import { ModsAuthor } from 'src/app/model/mods/author.model';
 })
 export class EditorAuthorComponent implements OnInit {
   @Input() field: ElementField;
+  @Input() data: any;
 
-  private nameTypeCodes: string[] = ['', 'personal', 'corporate', 'conference', 'family'];
+  nameTypes: string[] = ['personal', 'corporate', 'conference', 'family'];
   private roleCodes = ['act', 'adp', 'aft', 'ann', 'ant', 'app', 'aqt', 'arc', 'arr', 'art', 'asg', 'asn', 'att', 'auc', 'aud',
         'aui', 'aus', 'aut', 'bdd', 'bjd', 'bkd', 'bkp', 'bnd', 'bpd', 'bsl', 'ccp', 'chr', 'cli', 'cll', 'clt', 'cmm', 'cmp', 'cmt',
         'cnd', 'cns', 'coe', 'col', 'com', 'cos', 'cot', 'cov', 'cpc', 'cpe', 'cph', 'cpl', 'cpt', 'cre', 'crp', 'crr', 'csl',
@@ -29,7 +30,6 @@ export class EditorAuthorComponent implements OnInit {
         'str', 'ths', 'trc', 'trl', 'tyd', 'tyg', 'voc', 'wam', 'wdc', 'wde', 'wit'];
 
   public roles = [];
-  public nameTypes = [];
 
   constructor(public translator: Translator, private dialog: MatDialog, public help: HelpService) {
     this.translateCodes();
@@ -38,7 +38,6 @@ export class EditorAuthorComponent implements OnInit {
 
   ngOnInit() {
   }
-
 
   onLoadFromCatalog(item) {
     const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'authors' } });
@@ -59,14 +58,6 @@ export class EditorAuthorComponent implements OnInit {
 
   translateCodes() {
     this.translator.waitForTranslation().then(() => {
-      this.nameTypes = [];
-      for (const code of this.nameTypeCodes) {
-        if (code === '') {
-          this.nameTypes.push({ code: '', name: '-' });
-        } else {
-        this.nameTypes.push({ code: code, name: this.translator.instant('name.' + code)});
-        }
-      }
       this.roles = [];
       for (const code of this.roleCodes) {
         this.roles.push({code: code, name: this.translator.instant('role.' + code)});
