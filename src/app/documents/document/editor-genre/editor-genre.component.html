@@ -1,15 +1,7 @@
 <app-editor-field [field]="field" [title]="'editor.genre.title'" usage="M">
   <ng-template let-item="item" #templateContent>
 
-    <mat-form-field class="app-full-width">
-      <span class="app-usage">MA</span>
-      <input matInput [(ngModel)]='item.attrs["authority"]' placeholder="{{ 'editor.genre.authority' | translate }}" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let authority of authorities" [value]="authority">
-          {{ authority }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+    <app-autocomplete innerClass="app-full-width" [usage]="'MA'" [(value)]='item.attrs["authority"]' [label]="'editor.genre.authority' | translate" [options]="authorities"></app-autocomplete>
 
     <mat-form-field class="app-full-width">
       <span class="app-usage">M</span>

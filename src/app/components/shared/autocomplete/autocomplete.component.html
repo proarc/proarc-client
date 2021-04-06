@@ -1,0 +1,10 @@
+
+<mat-form-field [class]="innerClass">
+  <span class="app-usage">{{ usage }}</span>
+  <input matInput [formControl]="control" [(ngModel)]='value' (ngModelChange)="valueChange.emit(value)" [placeholder]="label" [matAutocomplete]="auto">
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+      {{option}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

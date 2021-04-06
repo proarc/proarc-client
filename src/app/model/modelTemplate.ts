@@ -169,6 +169,18 @@ export class ModelTemplate {
                 <h3>Místo <i>MA</i> <code>originInfo/place/placeTerm</code></h3>
                 Údaje o místě spojeném s vydáním, výrobou nebo původem popisovaného dokumentu.<br/>
                 Odpovídá hodnotám z katalogizačního záznamu, pole 260, $a resp. pole 008/15-17
+                <h3>Datum - jiné <i>R</i> <code>originInfo/dateOther</code></h3>
+                Ddatum vytvoření, distribuce, výroby předlohy<br/>
+                Tento elemet se využije v případě výskytu $c v:
+                <ul>
+                  <li>264_0 <strong>Produkce</strong> (production)</li>
+                  <li>264_2 <strong>Distribuce</strong> (distribution)</li>
+                  <li>264_3 <strong>Výroba</strong> (manufacture)</li>
+                </ul>
+                <h3>Datum vytvoření <i>R</i> <code>originInfo/dateCreated</code></h3>
+                Ddatum vytvoření předlohy
+                <h3>Datum - copyright <i>R</i> <code>originInfo/copyrightDate</code></h3>
+                Využije se pouze v případě výskytu pole 264 s ruhým indikátorem 4 a podpolem $c 264_4
                 `,
                 usage: "M",
                 publisher: {

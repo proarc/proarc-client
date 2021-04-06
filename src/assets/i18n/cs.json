@@ -611,6 +611,12 @@
       "title": "Žánr",
       "authority": "Autorita"
     },
+    "classification": {
+      "title": "Klasifikace",
+      "authority": "Autorita",
+      "edition": "Edice",
+      "value": "Hodnota"
+    },
     "note": {
       "title": "Poznámka",
       "type": "Typ"

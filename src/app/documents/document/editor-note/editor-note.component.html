@@ -1,15 +1,7 @@
 <app-editor-field [field]="field" [title]="'editor.note.title'" usage="RA">
   <ng-template let-item="item" #templateContent>
 
-    <mat-form-field class="app-full-width">
-      <span class="app-usage">O</span>
-      <input matInput [(ngModel)]='item.attrs["type"]' placeholder="{{ 'editor.note.type' | translate }}" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let type of types" [value]="type">
-          {{ type }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+    <app-autocomplete innerClass="app-full-width" [usage]="'O'" [(value)]='item.attrs["type"]' [label]="'editor.note.type' | translate" [options]="types"></app-autocomplete>
 
     <mat-form-field class="app-full-width">
       <span class="app-usage">RA</span>
