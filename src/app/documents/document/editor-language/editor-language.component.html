@@ -1,9 +1,20 @@
-<app-editor-field [field]="field" [title]="'editor.language.title'" usage="M">
+<app-editor-field [field]="field" [title]="'editor.language.title'" [usage]="data.usage" [help]="data.help">
   <ng-template let-item="item" #templateContent>
-    
-    <mat-select [(ngModel)]='item.language["_"]' placeholder="{{ 'editor.language.title' | translate }}" class="app-no-placeholder app-full-width">
-      <mat-option *ngFor="let lang of codebook.languages" [value]="lang.code">{{ lang.name }}</mat-option>
-    </mat-select>
+  
+    <mat-form-field class="app-full-width">
+      <span class="app-usage">{{ data.objectPart.usage }}</span>
+      <mat-select [(ngModel)]='item.attrs["objectPart"]' placeholder="{{ 'editor.language.part' | translate }}">
+        <mat-option *ngFor="let value of data.objectPart.options" [value]="value">{{ value }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="app-full-width">
+      <span class="app-usage">{{ data.language.usage }}</span>
+      <mat-select [(ngModel)]='item.language["_"]' placeholder="{{ 'editor.language.title' | translate }}">
+        <mat-option *ngFor="let lang of codebook.languages" [value]="lang.code">{{ lang.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
 
   </ng-template>
 </app-editor-field>

@@ -215,6 +215,31 @@ export class ModelTemplate {
                   usage: "R"
                 }
             },
+            language: {
+              help: `
+              <h2>Jazyk <i>M</i> <code>language</code></h2>
+              Údaje o jazyce dokumentu
+              <h3>Část <i>RA</i> <code>language/@objectPart</code></h3>
+              Možnost vyjádřit jazyk konkrétní části svazku <br/>
+              možné hodnoty<br/>
+              <ul>
+                <li><strong>summary</strong> – odpovídá poli 041 $b</li>
+                <li><strong>table of contents</strong> - odpovídá poli 041 $f</li>
+                <li><strong>accompanying material</strong> - odpovídá poli 041 $g</li>
+                <li><strong>translation</strong> - odpovídá poli 041 $h</li>
+              </ul>
+              <h3>Jazyk <i>M</i> <code>language/languageTerm</code></h3>
+              Přesné určení jazyka
+              `,
+              usage: "M",
+              objectPart: {
+                usage: "RA",
+                options: ['', 'summary', 'table of contents', 'accompanying material', 'translation']
+              },
+              language: {
+                usage: "M",
+              }
+            },
             physicalDescription: {
               help: `
               <h2>Fyzický popis <i>M</i> <code>physicalDescription</code></h2>

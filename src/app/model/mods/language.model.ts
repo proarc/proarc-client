@@ -14,7 +14,7 @@ export class ModsLanguage extends ModsElement {
     }
 
     constructor(modsElement) {
-        super(modsElement);
+        super(modsElement, ['objectPart']);
         this.init();
     }
 

@@ -597,7 +597,8 @@
       "url": "URL"
     },
     "language": {
-      "title": "Jazyk"
+      "title": "Jazyk",
+      "part": "Část"
     },
     "identifier": {
       "title": "Identifikátor",
