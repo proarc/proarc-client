@@ -12,6 +12,7 @@ export class EditorAbstractComponent implements OnInit {
 
   @Input() field: ElementField;
   @Input() title: string;
+  @Input() data: any;
 
   constructor() {
   }

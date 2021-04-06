@@ -1,10 +1,10 @@
-<app-editor-field [field]="field" [title]="'editor.note.title'" usage="RA">
+<app-editor-field [field]="field" [title]="'editor.note.title'" [usage]="data.usage" [help]="data.help">
   <ng-template let-item="item" #templateContent>
 
-    <app-autocomplete innerClass="app-full-width" [usage]="'O'" [(value)]='item.attrs["type"]' [label]="'editor.note.type' | translate" [options]="types"></app-autocomplete>
+    <app-autocomplete innerClass="app-full-width" [usage]="data.type.usage" [(value)]='item.attrs["type"]' [label]="'editor.note.type' | translate" [options]="types"></app-autocomplete>
 
     <mat-form-field class="app-full-width">
-      <span class="app-usage">RA</span>
+      <span class="app-usage">{{ data.note.usage }}</span>
       <textarea 
       cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="15"
       autocomplete="off" matInput [(ngModel)]='item.modsElement["_"]' placeholder="{{ 'editor.note.title' | translate }}"></textarea>

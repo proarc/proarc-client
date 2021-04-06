@@ -12,6 +12,7 @@ export class EditorIdentifierComponent implements OnInit {
 
   @Input() field: ElementField;
   @Input() type: string;
+  @Input() data: any;
 
   constructor(public codebook: CodebookService) {
   }

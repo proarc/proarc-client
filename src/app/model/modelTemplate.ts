@@ -240,6 +240,13 @@ export class ModelTemplate {
                 usage: "M",
               }
             },
+            abstract: {
+              help: `
+              <h2>Abstrakt <i>R</i> <code>abstract</code></h2>
+              Shrnutí obsahu jako celku odpovídá poli 520 MARC21
+              `,
+              usage: "RA",
+            },
             physicalDescription: {
               help: `
               <h2>Fyzický popis <i>M</i> <code>physicalDescription</code></h2>
@@ -259,6 +266,23 @@ export class ModelTemplate {
                 usage: "RA",
               }
             },
+            note: {
+              help: `
+              <h2>Poznámka <i>RA</i> <code>note</code></h2>
+              Obecná poznámka ke svazku monografie jako celku<br/>
+              Odpovídá hodnotám v poli 245, $c (statement of responsibility) 
+              a v polích 5XX (poznámky) katalogizačního záznamu
+              <h3>Typ <i>O</i> <code>note/@type</code></h3>
+              Typ poznámky
+              `,
+              usage: "RA",
+              type: {
+                usage: "O",
+              },
+              note: {
+                usage: "RA",
+              }
+            },
             genre: {
               help: `
               <h2>Žánr <i>M</i> <code>genre</code></h2>
@@ -271,6 +295,57 @@ export class ModelTemplate {
               },
               value: {
                 usage: "M",
+              }
+            },
+            identifier: {
+              help: `
+              <h2>Identifikátor <i>M</i> <code>identifier</code></h2>
+              Údaje o identifikátorech, obsahuje unikátní
+              identifikátory mezinárodní nebo lokální, které
+              svazek monografie má.
+              <h3>Typ <i>M</i> <code>identifier/@type</code></h3>
+              Budou se povinně vyplňovat následující
+              hodnoty, pokud existují:
+                <ul>
+                  <li>
+                    <strong>UUID</strong> (uuid) <i>M</i><br/>
+                    vygeneruje dodavatel
+                  </li>
+                  <li>
+                    <strong>URN:NBN</strong> (urnnbn) <i>M</i><br/>
+                    pro URN:NBN, např. zápis ve tvaru urn:nbn:cz:nk-123456 pro projekt NDK
+                  </li>
+                  <li>
+                    <strong>čČNB</strong> (ccnb) <i>MA</i><br/>
+                    převzít z katalogizačního záznamu z pole 015, $a, $z
+                  </li>
+                  <li>
+                    <strong>ISBN</strong> (isbn) <i>M</i><br/>
+                    převzít z katalogizačního záznamu z pole 020, $a, $z
+                  </li>
+                  <li>
+                    <strong>ISMN</strong> (ismn) <i>M</i><br/>
+                    převzít z katalogizačního záznamu z pole 024 (1. ind.="2"), $a, $z
+                  </li>
+                </ul>
+                Jiný interní identifikátor - type = barcode, oclc, sysno, permalink apod.
+                <h3>Platnost <i>M</i> <code>identifier/@invalid</code></h3>
+                Uvádějí se i neplatné resp. zrušené identifikátory 
+                <ul>
+                  <li>
+                    <strong>Platný</strong> <code>identifier/[not(@invalid)]</code>
+                  </li>
+                  <li>
+                    <strong>Neplatný</strong> <code>identifier/[@invalid='yes']</code>
+                  </li>
+                </ul>
+              `,
+              usage: "M",
+              type: {
+                usage: "M"
+              },
+              validity: {
+                usage: "M"
               }
             },
             typeOfResource: {
