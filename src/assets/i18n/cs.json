@@ -611,6 +611,9 @@
       "title": "Žánr",
       "authority": "Autorita"
     },
+    "resource": {
+      "title": "Typ zdroje"
+    },
     "classification": {
       "title": "Klasifikace",
       "authority": "Autorita",

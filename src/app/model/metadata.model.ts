@@ -18,6 +18,7 @@ import { ModsSubject } from './mods/subject.model';
 import { ModsGenre } from './mods/genre.model';
 import { ModsGenreChronical } from './mods/genre_chronical.model';
 import { ModsClassification } from './mods/classification.model';
+import { ModsResource } from './mods/resource.model';
 declare var $: any;
 
 export class Metadata {
@@ -34,7 +35,8 @@ export class Metadata {
     ModsGenre.getSelector(),
     ModsClassification.getSelector(),
     ModsSubject.getSelector(),
-    ModsPhysical.getSelector()
+    ModsPhysical.getSelector(),
+    ModsResource.getSelector()
   ];
 
 
@@ -86,7 +88,8 @@ export class Metadata {
         ModsGenre.getId(),
         ModsClassification.getId(),
         ModsGeo.getId(),
-        ModsPhysical.getId()
+        ModsPhysical.getId(),
+        ModsResource.getId()
       ];
     }
     this.parseMods(mods);

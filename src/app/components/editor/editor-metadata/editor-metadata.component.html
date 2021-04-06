@@ -14,7 +14,6 @@
     </div>  
 
 <div class="app-editor-content" *ngIf="editor.metadata">
-
     <app-editor-title *ngIf="editor.template.titleInfo" [data]="editor.template.titleInfo" [field]="editor.metadata.getField('titleInfo')"></app-editor-title>
     <app-editor-author *ngIf="editor.template.name" [data]="editor.template.name" [field]="editor.metadata.getField('name')"></app-editor-author>
     <app-editor-publisher *ngIf="editor.template.originInfo" [data]="editor.template.originInfo" [field]="editor.metadata.getField('originInfo')"></app-editor-publisher>
@@ -27,8 +26,7 @@
     <app-editor-genre [field]="editor.metadata.getField('genre')"></app-editor-genre>
     <app-editor-identifier [field]="editor.metadata.getField('identifier')"></app-editor-identifier>
     <app-editor-classification [field]="editor.metadata.getField('classification')"></app-editor-classification>
-
-
+    <app-editor-resource *ngIf="editor.template.typeOfResource" [data]="editor.template.typeOfResource" [field]="editor.metadata.getField('typeOfResource')"></app-editor-resource>
 </div>
     
 <mat-spinner *ngIf="state === 'loading'"

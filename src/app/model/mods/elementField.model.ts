@@ -15,6 +15,7 @@ import { ModsPhysical } from './physical.model';
 import { ModsSubject } from './subject.model';
 import { ModsGenre } from './genre.model';
 import { ModsClassification } from './classification.model';
+import { ModsResource } from './resource.model';
 
 export class ElementField {
 
@@ -204,6 +205,8 @@ export class ElementField {
                 return new ModsSubject(el);
             case ModsClassification.getId():
                 return new ModsClassification(el);
+            case ModsResource.getId():
+                return new ModsResource(el);
             }
     }
 
@@ -242,6 +245,8 @@ export class ElementField {
                 return ModsSubject.getSelector();
             case ModsClassification.getId():
                 return ModsClassification.getSelector();
+            case ModsResource.getId():
+                return ModsResource.getSelector();
             }
     }
 

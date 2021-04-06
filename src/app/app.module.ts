@@ -103,6 +103,7 @@ import { SongComponent } from './components/song/song.component';
 import { EditorGenreComponent } from './documents/document/editor-genre/editor-genre.component';
 import { EditorClassificationComponent } from './documents/document/editor-classification/editor-classification.component';
 import { AutocompleteComponent } from './components/shared/autocomplete/autocomplete.component';
+import { EditorResourceComponent } from './documents/document/editor-resource/editor-resource.component';
 
 
 export function hljsLanguages() {
@@ -189,7 +190,8 @@ export function hljsLanguages() {
     SongComponent,
     EditorGenreComponent,
     EditorClassificationComponent,
-    AutocompleteComponent
+    AutocompleteComponent,
+    EditorResourceComponent
   ],
   imports: [
     BrowserModule,

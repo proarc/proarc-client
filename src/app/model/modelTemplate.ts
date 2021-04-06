@@ -214,6 +214,16 @@ export class ModelTemplate {
                 copyrightDate: {
                   usage: "R"
                 }
+            },
+            typeOfResource: {
+              help: `
+              <h2>Informace o původu předlohy <i>M</i> <code>typeOfResource</code></h2>
+              pro monografie hodnota <strong>text</strong><br/>
+              mělo by se vyčítat z MARC21 katalogizačního
+              záznamu, z pozice 06 návěští
+              `,
+              usage: "R",
+              options: ['', 'text']
             }
         },
         "model:ndkperiodical": {
