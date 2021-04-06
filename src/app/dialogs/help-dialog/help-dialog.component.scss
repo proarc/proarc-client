@@ -3,6 +3,7 @@
 .app-help-wrapper {
   padding: 0 20px 20px;
   max-width: 780px;
+  min-width: 500px;
   .app-help-content ::ng-deep {
     font-size: 14px;
     color: #666;

@@ -215,6 +215,39 @@ export class ModelTemplate {
                   usage: "R"
                 }
             },
+            physicalDescription: {
+              help: `
+              <h2>Fyzický popis <i>M</i> <code>physicalDescription</code></h2>
+              Obsahuje údaje o fyzickém popisu zdroje/předlohy
+              <h3>Rozsah <i>RA</i> <code>physicalDescription/extent</code></h3>
+              Údaje o rozsahu (stran, svazků nebo rozměrů)<br/>
+              odpovídá hodnotě v poli 300, $a, $b a $c<br/>
+              počet stránek bude vyjádřen ve fyzické strukturální mapě
+              <h3>Poznámka <i>RA</i> <code>physicalDescription/note</code></h3>
+              Poznámka o fyzickém stavu dokumentu
+              `,
+              usage: "M",
+              extent: {
+                usage: "RA",
+              },
+              note: {
+                usage: "RA",
+              }
+            },
+            genre: {
+              help: `
+              <h2>Žánr <i>M</i> <code>genre</code></h2>
+              Bližší údaje o typu dokumentu<br/>
+              Pro monografie hodnota <strong>volume</strong><br/>
+              `,
+              usage: "M",
+              authority: {
+                usage: "MA",
+              },
+              value: {
+                usage: "M",
+              }
+            },
             typeOfResource: {
               help: `
               <h2>Informace o původu předlohy <i>M</i> <code>typeOfResource</code></h2>
@@ -225,6 +258,7 @@ export class ModelTemplate {
               usage: "R",
               options: ['', 'text']
             }
+
         },
         "model:ndkperiodical": {
           allowedChildren: ['model:ndkperiodicalvolume'],

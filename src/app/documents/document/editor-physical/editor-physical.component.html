@@ -1,13 +1,13 @@
-<app-editor-field [field]="field" [title]="'editor.physical.title'" usage="M">
+<app-editor-field [field]="field" [title]="'editor.physical.title'" [usage]="data.usage" [help]="data.help">
   <ng-template let-item="item" #templateContent>
 
     <mat-form-field class="app-full-width">
-      <span class="app-usage">RA</span>
+      <span class="app-usage">{{ data.extent.usage }}</span>
       <input autocomplete="off" matInput [(ngModel)]='item.extent["_"]' placeholder="{{ 'editor.physical.extent' | translate }}">
     </mat-form-field>
 
     <mat-form-field class="app-full-width">
-      <span class="app-usage">RA</span>
+      <span class="app-usage">{{ data.extent.usage }}</span>
       <textarea 
       cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="15"
       autocomplete="off" matInput [(ngModel)]='item.note["_"]' placeholder="{{ 'editor.physical.note' | translate }}"></textarea>
