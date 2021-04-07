@@ -1,11 +1,6 @@
 export class NdkMonographVolumeTemplate {
 
   static data = {
-    allowedChildren: ['model:ndkmonographsupplement',
-    'model:ndkchapter', 
-    'model:ndkpicture',
-    'model:ndkpage'],
-    preferredChild: 'model:ndkpage',
     titleInfo: {
       help:`
         <h2>Název <i>M</i> <code>originInfo</code></h2>

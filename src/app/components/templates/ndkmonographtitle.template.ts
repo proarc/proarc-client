@@ -1,12 +1,12 @@
-export class NdkPeriodicalTemplate {
+export class NdkMonographTitleTemplate {
 
   static data = {
     titleInfo: {
       help:`
         <h2>Název <i>M</i> <code>originInfo</code></h2>
-        Název titulu periodika<br/>
+        Název svazku monografie<br/>
         Pro plnění použít katalogizační záznam<br/>
-        Pokud má periodikum více typů názvů, element se opakuje podle potřeby
+        pokud má monografie více typů názvů, element se opakuje podle potřeby<br/>
         <h3>Typ <i>MA</i> <code>originInfo/@type</code></h3>
         Hlavní název bez typu - pole 245 a $a<br/>
         Možné hodnoty 
@@ -17,17 +17,14 @@ export class NdkPeriodicalTemplate {
           <li>Jednotný název (uniform) – pole 130 resp. 240</li>
         </ul>
         <h3>Název <i>M</i> <code>originInfo/title</code></h3>
-        Názvová informace – název titulu periodika</br>
-        Hodnoty převzít z katalogu<br/>
-        Odpovídající pole a podpole podle typu viz <strong>typ</strong>
+        Názvová informace – název svazku monografie</br>
+        hodnoty převzít z katalogu
         <h3>Vedlejší název <i>MA</i> <code>originInfo/subTitle</code></h3>
-        Podnázev titulu periodika.<br/>
-        Odpovídající pole a podpole podle typu viz <strong>typ</strong>
+        Podnázev svazku monografie.
         <h3>Číslo části <i>MA</i> <code>originInfo/partNumber</code></h3>
-        Např. určité části/edice, k použití u ročenek a specializovaných periodik
-        <h3>Název části <i>R</i> <code>originInfo/partName</code></h3>
-        Např. určité části/edice, k použití u ročenek a specializovaných periodik<br/>
-        Odpovídající pole a podpole podle typu viz <strong>typ</strong>
+        V případě, že se jedná o vícesvazkovou monografii, je zde uvedeno číslo svazku
+        <h3>Název části <i>MA</i> <code>originInfo/partName</code></h3>
+        V případě, že se jedná o vícesvazkovou monografii, je zde uveden název svazku
         `,
       usage: 'M',
       type: {
@@ -43,13 +40,15 @@ export class NdkPeriodicalTemplate {
         usage: "MA"
       },
       partName: {
-        usage: "R"
+        usage: "MA"
       }
     },
     name: {
       help: `
-        <h2>Údaje o odpovědnosti za titul periodika <i>R</i> <code>name</code></h2>
-        <h3>Celé jméno <i>R</i> <code>name/namePart[not(@type)]</code></h3>
+        <h2>Údaje o odpovědnosti za svazek <i>MA</i> <code>name</code></h2>
+        POZOR – údaje o odpovědnosti nutno přebírat z polí 1XX a 7XX MARCu21<br/>
+        Pro plnění použít katalogizační záznam<br/>
+        <h3>Celé jméno <i>MA</i> <code>name/namePart[not(@type)]</code></h3>
         Vyplnit pokud nelze rozlišit křestní jméno a příjmení.
         <h3>Křestní <i>MA</i> <code>name/namePart[@type='given']</code></h3>
         Údaje o křestním jméně.<br/>
@@ -57,7 +56,7 @@ export class NdkPeriodicalTemplate {
         uvést je společně ve stejném elementu , např. hodnota "Jan Amos"
         <h3>Příjmení <i>MA</i> <code>name/namePart[@type='family']</code></h3>
         Údaje o příjmení.
-        <h3>Datum <i>MA</i> <code>name/namePart[@type='date']</code></h3>
+        <h3>Datum <i>RA</i> <code>name/namePart[@type='date']</code></h3>
         Životopisná data autora<br/>
         Pokud známe datum narození a úmrtí autora, vyplnit ve tvaru RRRR-RRRR.
         <h3>Typ <i>M</i> <code>name/@type</code></h3>
@@ -68,14 +67,15 @@ export class NdkPeriodicalTemplate {
           <li><strong>Konference</strong> (conference)</li>
           <li><strong>Rodina</strong> (family)</li>
         </ul>
+        <br/>
         <h2>Role <i>MA</i></h2>
         Specifikace role osoby nebo organizace<br/>
         Kód role z kontrolovaného slovníku rolí 
         (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)
       `,
-      usage: "R",
+      usage: "MA",
       name: {
-        usage: "R"
+        usage: "MA"
       },
       given: {
         usage: "MA"
@@ -87,7 +87,7 @@ export class NdkPeriodicalTemplate {
         usage: "RA"
       },
       type: {
-        usage: "R"
+        usage: "MA"
       },
       role: {
         usage: "MA"
@@ -140,8 +140,9 @@ export class NdkPeriodicalTemplate {
         základě katalogizačního záznamu.
         </p>
         <h3>Datum vydání <i>M</i> <code>originInfo/dateIssued</code></h3>
-        Datum vydání předlohy, nutno zaznamenat rok/roky, v nichž časopis vycházel - formu zápisu přebírat z katalogu (např. 1900-1939)
-        Odpovídá hodnotě z katalogizačního záznamu, pole 260 $c a polí 008/07-10 a 008/11-14
+        Datum vydání předlohy.<br/>
+        Přebírat z katalogu.<br/>
+        Odpovídá hodnotě z katalogizačního záznamu, pole 260, $c a pole 008/07-10
         <h3>Upřesnění data <i>R</i> <code>originInfo/dateIssued@qualifier</code></h3>
         Možnost dalšího upřesnění. Možné hodnoty 
         <ul>
@@ -155,9 +156,9 @@ export class NdkPeriodicalTemplate {
         Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>
         Možné hodnoty 
         <ul>
-          <li>Na pokračování (continuing)</li>
-          <li>Sériové (serial)</li>
-          <li>Začlěňovací (integrating resource)</li>
+          <li>Monografické (monographic)</li>
+          <li>Vícedílné (multipart monograph)</li>
+          <li>Jednotkové (single unit)</li>
         </ul>
         <h3>Místo <i>MA</i> <code>originInfo/place/placeTerm</code></h3>
         Údaje o místě spojeném s vydáním, výrobou nebo původem popisovaného dokumentu.<br/>
@@ -171,35 +172,29 @@ export class NdkPeriodicalTemplate {
           <li>264_3 <strong>Výroba</strong> (manufacture)</li>
         </ul>
         <h3>Datum vytvoření <i>R</i> <code>originInfo/dateCreated</code></h3>
-        Datum vydání předlohy pro rukopisy<br/>
-        Přebírat z katalogu<br/>
-        Odpovídá hodnotě z katalogizačního záznamu, pole 260, $c pokud je LDR/06="d", "f", "t"
+        Ddatum vytvoření předlohy
         <h3>Datum - copyright <i>R</i> <code>originInfo/copyrightDate</code></h3>
         Využije se pouze v případě výskytu pole 264 s ruhým indikátorem 4 a podpolem $c 264_4
-        <h2>Frekvence <i>R</i> <code>originInfo/frequency</code></h3>
-        Údaje o pravidelnosti vydávání odpovídá údaji MARC21 v poli 310 nebo pozici 18 v poli 008
-        <h3>Autorita <i>R</i> <code>originInfo/frequency/@authority</code></h3>
-        Hodnota <strong>marcfrequency</strong> u údajů z pole 008
         `,
         usage: "M",
         publisher: {
-          usage: "M"
+            usage: "M"
         },
         dateIssued: {
-          usage: "M"
+            usage: "M"
         },
         qualifier: {
-          usage: "R"
+            usage: "R"
         },
         edition: {
-          usage: "R"
+            usage: "R"
         },
         issuance: {
-          usage: "M",
-          options: ['continuing', 'serial', 'integrating resource']
+            usage: "M",
+            options: ['monographic', 'single unit', 'multipart monograph']
         },
         place: {
-          usage: "MA"
+            usage: "MA"
         },
         eventType: {
             usage: "M"
@@ -212,16 +207,6 @@ export class NdkPeriodicalTemplate {
         },
         copyrightDate: {
           usage: "R"
-        },
-        frequency: {
-          usage: "R",
-          authority: {
-            usage: "R",
-            options: ["marcfrequency"]
-          },
-          value: {
-            usage: "R"
-          }
         }
     },
     location: {
@@ -318,8 +303,7 @@ export class NdkPeriodicalTemplate {
       odpovídá hodnotě v poli 300, $a, $b a $c<br/>
       počet stránek bude vyjádřen ve fyzické strukturální mapě
       <h3>Poznámka <i>RA</i> <code>physicalDescription/note</code></h3>
-      Poznámka o fyzickém stavu dokumentu<br/>
-      Zde se zapíší defekty zjištěné při digitalizaci pro úroveň titulu periodika (např. chybějící ročník)
+      Poznámka o fyzickém stavu dokumentu
       `,
       usage: "M",
       extent: {
@@ -332,7 +316,7 @@ export class NdkPeriodicalTemplate {
     note: {
       help: `
       <h2>Poznámka <i>RA</i> <code>note</code></h2>
-      Obecná poznámka k titulu periodika jako celku<br/>
+      Obecná poznámka ke svazku monografie jako celku<br/>
       Odpovídá hodnotám v poli 245, $c (statement of responsibility) 
       a v polích 5XX (poznámky) katalogizačního záznamu
       <h3>Typ <i>O</i> <code>note/@type</code></h3>
@@ -350,7 +334,7 @@ export class NdkPeriodicalTemplate {
       help: `
       <h2>Žánr <i>M</i> <code>genre</code></h2>
       Bližší údaje o typu dokumentu<br/>
-      Pro periodika hodnota <strong>title</strong><br/>
+      Pro monografie hodnota <strong>volume</strong><br/>
       `,
       usage: "M",
       authority: {
@@ -365,7 +349,7 @@ export class NdkPeriodicalTemplate {
       <h2>Identifikátor <i>M</i> <code>identifier</code></h2>
       Údaje o identifikátorech, obsahuje unikátní
       identifikátory mezinárodní nebo lokální, které
-      periodikum má.
+      svazek monografie má.
       <h3>Typ <i>M</i> <code>identifier/@type</code></h3>
       Budou se povinně vyplňovat následující
       hodnoty, pokud existují:
@@ -373,6 +357,10 @@ export class NdkPeriodicalTemplate {
           <li>
             <strong>UUID</strong> (uuid) <i>M</i><br/>
             vygeneruje dodavatel
+          </li>
+          <li>
+            <strong>URN:NBN</strong> (urnnbn) <i>M</i><br/>
+            pro URN:NBN, např. zápis ve tvaru urn:nbn:cz:nk-123456 pro projekt NDK
           </li>
           <li>
             <strong>čČNB</strong> (ccnb) <i>MA</i><br/>
@@ -383,11 +371,11 @@ export class NdkPeriodicalTemplate {
             převzít z katalogizačního záznamu z pole 020, $a, $z
           </li>
           <li>
-            <strong>ISSN</strong> (issn) <i>MA</i><br/>
+            <strong>ISMN</strong> (ismn) <i>MA</i><br/>
             převzít z katalogizačního záznamu z pole 024 (1. ind.="2"), $a, $z
           </li>
         </ul>
-        Jiný interní identifikátor <i>R</i>, např. barcode, oclc, sysno, permalink
+        Jiný interní identifikátor <i>R</i>, např. barcode, oclc, sysno, permalink        
         <h3>Platnost <i>M</i> <code>identifier/@invalid</code></h3>
         Uvádějí se i neplatné resp. zrušené identifikátory 
         <ul>
@@ -444,7 +432,7 @@ export class NdkPeriodicalTemplate {
     typeOfResource: {
       help: `
       <h2>Typ zdroje <i>M</i> <code>typeOfResource</code></h2>
-      pro titul periodika hodnota <strong>text</strong><br/>
+      pro monografie hodnota <strong>text</strong><br/>
       mělo by se vyčítat z MARC21 katalogizačního
       záznamu, z pozice 06 návěští
       `,

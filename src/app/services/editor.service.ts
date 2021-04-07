@@ -56,6 +56,7 @@ export class EditorService {
     nextItem: DocumentItem;
 
     template: any;
+    allowedChildrenModels: string[];
 
     constructor(
         private router: Router,
@@ -166,8 +167,9 @@ export class EditorService {
         const rChildren = this.api.getRelations(pid);
         forkJoin(rDoc, rChildren).subscribe( ([item, children]: [DocumentItem, DocumentItem[]]) => {
             this.left = item;
-            console.log('this.left.model', this.left.model);
-            this.template = ModelTemplate.data[this.left.model];
+            const model = this.left.model;
+            this.template = ModelTemplate.data[model];
+            this.allowedChildrenModels = ModelTemplate.allowedChildrenForModel(model);
             this.children = children;
             if (item.isPage() || item.isSong()) {
                 this.switchMode('detail');
@@ -457,137 +459,17 @@ export class EditorService {
         });
     }
 
+    canAddChildren(): boolean {
+        return this.mode == 'children' && this.allowedChildrenModels && this.allowedChildrenModels.length > 0;
+    }
+
     onCreateNewObject() {
-        if (this.mode !== 'children') {
+        if (!this.canAddChildren()) {
             return;
         }
-        let models = this.template.allowedChildren;
-        let model = this.template.preferredChild;
-        // switch (this.left.model) {
-        //     case 'model:ndkperiodical': {
-        //         models = ['model:ndkperiodicalvolume'];
-        //         model = 'model:ndkperiodicalvolume';
-        //         break;
-        //     }
-        //     case 'model:ndkperiodicalvolume': {
-        //         models = ['model:ndkperiodicalissue',
-        //                   'model:ndkperiodicalsupplement',
-        //                   'model:ndkarticle',
-        //                   'model:ndkchapter',
-        //                   'model:ndkpicture', 
-        //                   'model:ndkpage'];
-        //         model = 'model:ndkperiodicalissue';
-        //         break;
-        //     }
-        //     case 'model:ndkperiodicalissue': {
-        //         models = ['model:ndkperiodicalsupplement', 
-        //                   'model:ndkarticle', 
-        //                   'model:ndkchapter', 
-        //                   'model:ndkpicture',
-        //                   'model:ndkpage'];
-        //         model = 'model:ndkpage';
-        //         break;
-        //     }
-        //     case 'model:ndkmonographtitle': {
-        //         models = ['model:ndkmonographvolume'];
-        //         model = 'model:ndkmonographvolume';
-        //         break;
-        //     }
-        //     case 'model:ndkmonographvolume': {
-        //         models = ['model:ndkmonographsupplement',
-        //                   'model:ndkchapter', 
-        //                   'model:ndkpicture',
-        //                   'model:ndkpage'];
-        //         model = 'model:ndkpage';
-        //         break;
-        //     }
-        //     case 'model:ndkmonographsupplement':
-        //     case 'model:ndkperiodicalsupplement':
-        //     case 'model:ndkarticle':
-        //     case 'model:ndkpicture':
-        //     case 'model:ndkchapter':
-        //     case 'model:ndkmap':
-        //     case 'model:ndksheetmusic': {
-        //         models = ['model:ndkpage'];
-        //         model = 'model:ndkpage';
-        //         break;
-        //     }
-        //     case 'model:oldprintomnibusvolume': {
-        //         models = ['model:oldprintmonographtitle',
-        //                   'model:oldprintvolume',
-        //                   'model:oldprintgraphics',
-        //                   'model:oldprintmap',
-        //                   'model:oldprintsheetmusic',
-        //                   'model:oldprintpage'];
-        //         model = 'model:oldprintvolume';
-        //         break;
-        //     }
-        //     case 'model:oldprintmonographtitle': {
-        //         models = ['model:oldprintvolume'];
-        //         model = 'model:oldprintvolume';
-        //         break;
-        //     }
-        //     case 'model:oldprintvolume': {
-        //         models = ['model:oldprintsupplement',
-        //                   'model:oldprintchapter',
-        //                   'model:oldprintpage'];
-        //         model = 'model:oldprintpage';
-        //         break;
-        //     }
-        //     case 'model:oldprintsupplement':
-        //     case 'model:oldprintchapter':
-        //     case 'model:oldprintgraphics':
-        //     case 'model:oldprintmap':
-        //     case 'model:oldprintsheetmusic': {
-        //         models = ['model:oldprintpage'];
-        //         model = 'model:oldprintpage';
-        //         break;
-        //     }
-        //     case 'model:ndkphonographcylinder': {
-        //         models = ['model:ndksong',
-        //                   'model:ndkaudiopage'];
-        //         model = 'model:ndkaudiopage';
-        //         break;
-        //     }
-        //     case 'model:ndkmusicdocument': {
-        //         models = ['model:ndksong',
-        //                   'model:page',
-        //                   'model:ndkaudiopage'];
-        //         model = 'model:ndksong';
-        //         break;
-        //     }
-        //     case 'model:ndksong': {
-        //         models = ['model:ndkaudiopage',
-        //                   'model:ndktrack'];
-        //         model = 'model:ndkaudiopage';
-        //         break;
-        //     }
-        //     case 'model:ndktrack': {
-        //         models = ['model:ndkaudiopage'];
-        //         model = 'model:ndkaudiopage';
-        //         break;
-        //     }
-        //     case 'model:chronicletitle': {
-        //         models = ['model:chroniclevolume'];
-        //         model = 'model:chroniclevolume';
-        //         break;
-        //     }
-        //     case 'model:chroniclevolume': {
-        //         models = ['model:chroniclesupplement',
-        //                   'model:page'];
-        //         model = 'model:page';
-        //         break;
-        //     }
-        //     case 'model:chroniclesupplement': {
-        //         models = ['model:page'];
-        //         model = 'model:page';
-        //         break;
-        //     }
-        //     default: []
-        // }
         const data: NewObjectData = {
-            models: models,
-            model: model,
+            models: this.allowedChildrenModels,
+            model: this.allowedChildrenModels[0],
             customPid: false,
             parentPid: this.left.pid
           }
