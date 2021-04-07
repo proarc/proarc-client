@@ -1,13 +1,31 @@
-import { NdkMonographTitleTemplate } from "./ndkmonographtitle.template";
 import { NdkMonographVolumeTemplate } from "./ndkmonographvolume.template";
 import { NdkPeriodicalTemplate } from "./ndkperiodical.template";
 
 export class ModelTemplate {
 
   static data = {
+    "model:ndkperiodical": NdkPeriodicalTemplate.data,
     "model:ndkmonographvolume": NdkMonographVolumeTemplate.data,
-    "model:ndkmonographtitle": NdkMonographTitleTemplate.data,
-    "model:ndkperiodical": NdkPeriodicalTemplate.data
+    "model:ndkmonographtitle": NdkMonographVolumeTemplate.data,
+    "model:ndkperiodicalsupplement": NdkMonographVolumeTemplate.data,
+    "model:ndkmonographsupplement": NdkMonographVolumeTemplate.data,
+    "model:ndkarticle": NdkMonographVolumeTemplate.data,
+    "model:ndkpicture": NdkMonographVolumeTemplate.data,
+    "model:ndkchapter": NdkMonographVolumeTemplate.data,
+    "model:ndkmap": NdkMonographVolumeTemplate.data,
+    "model:ndksheetmusic": NdkMonographVolumeTemplate.data,
+    "model:oldprintomnibusvolume": NdkMonographVolumeTemplate.data,
+    "model:oldprintmonographtitle": NdkMonographVolumeTemplate.data,
+    "model:oldprintvolume": NdkMonographVolumeTemplate.data,
+    "model:oldprintsupplement": NdkMonographVolumeTemplate.data,
+    "model:oldprintchapter": NdkMonographVolumeTemplate.data,
+    "model:oldprintgraphics": NdkMonographVolumeTemplate.data,
+    "model:oldprintmap": NdkMonographVolumeTemplate.data,
+    "model:oldprintsheetmusic": NdkMonographVolumeTemplate.data,
+    "model:ndkphonographcylinder": NdkMonographVolumeTemplate.data,
+    "model:ndkmusicdocument": NdkMonographVolumeTemplate.data,
+    "model:ndksong": NdkMonographVolumeTemplate.data,
+    "model:ndktrack": NdkMonographVolumeTemplate.data
   }
 
   private static relations = {
@@ -38,8 +56,7 @@ export class ModelTemplate {
     'chronicletitle': ['chroniclevolume'],
     'chroniclevolume': ['page', 'chroniclesupplement'],
     'chroniclesupplement': ['page'],
-  }
-       
+  }    
 
   static allowedChildrenForModel(model: string) {
     if (model.startsWith('model:')) {

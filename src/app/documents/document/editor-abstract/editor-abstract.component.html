@@ -1,7 +1,7 @@
-<app-editor-field [field]="field" [title]="title" [usage]="data.usage" [help]="data.help">
+<app-editor-field [field]="field" [title]="title" [usage]="data?.usage" [help]="data?.help">
   <ng-template let-item="item" #templateContent>
     <mat-form-field class="app-full-width">
-      <span class="app-usage">{{ data.usage }}</span>
+      <span class="app-usage">{{ data?.usage }}</span>
       <textarea 
       cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="15"
       autocomplete="off" matInput [(ngModel)]='item.modsElement["_"]' placeholder="{{ title | translate }}"></textarea>

@@ -175,6 +175,10 @@ export class Metadata {
     if (this.isVolume() || this.isIssue()) {
       this.normalizeField(root, ModsPhysical.getSelector());
     } else {
+      if (this.fieldsIds.indexOf(ModsPublisher.getId()) >= 0) {
+        const publishers = new ElementField(root, ModsPublisher.getSelector());
+        publishers.update();
+      }
       for (const selector of Metadata.selectors) {
         this.normalizeField(root, selector);
       }
