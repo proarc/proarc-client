@@ -1,11 +1,11 @@
-<app-editor-field [field]="field" [title]="'editor.classification.title'" usage="R">
+<app-editor-field [field]="field" [title]="'editor.classification.title'" [usage]="data.usage" [help]="data.help">
   <ng-template let-item="item" #templateContent>
 
-    <app-autocomplete innerClass="app-half-left" [usage]="'M'" [(value)]='item.attrs["authority"]' [label]="'editor.classification.authority' | translate" [options]="authorities"></app-autocomplete>
-    <app-autocomplete innerClass="app-half-right" [usage]="'M'" [(value)]='item.attrs["edition"]' [label]="'editor.classification.edition' | translate" [options]="editions"></app-autocomplete>
+    <app-autocomplete innerClass="app-half-left" [usage]="data.authority.usage" [(value)]='item.attrs["authority"]' [label]="'editor.classification.authority' | translate" [options]="authorities"></app-autocomplete>
+    <app-autocomplete innerClass="app-half-right" [usage]="data.edition.usage" [(value)]='item.attrs["edition"]' [label]="'editor.classification.edition' | translate" [options]="editions"></app-autocomplete>
 
     <mat-form-field class="app-full-width">
-      <span class="app-usage">M</span>
+      <span class="app-usage">{{ data.value.usage }}</span>
       <input autocomplete="off" matInput [(ngModel)]='item.modsElement["_"]' placeholder="{{ 'editor.classification.value' | translate }}">
     </mat-form-field>
 

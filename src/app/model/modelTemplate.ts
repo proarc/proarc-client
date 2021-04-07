@@ -348,6 +348,40 @@ export class ModelTemplate {
                 usage: "M"
               }
             },
+            classification: {
+              help: `
+              <h2>Klasifikace <i>R</i> <code>classification</code></h2>
+              1. Klasifikační údaje věcného třídění podle Mezinárodního desetinného třídění<br/>
+              odpovídá poli 080 MARC21<br/>
+              2. Klasifikační údaje věcného třídění podle Konspektu.<br/>
+              Odpovídá poli 072 $a MARC21
+              <h3>Autorita <i>M</i> <code>classification/@authority</code></h3>
+              <ul>
+                <li>
+                  vyplnit hodnotu <strong>udc</strong> (v případě 072 $a nebo MDT)
+                </li>
+                <li>
+                  vyplnit hodnotu <strong>Konspekt</strong>  (v případě 072 $9)
+                </li>
+              </ul>
+              <h3>Editce <i>M</i> <code>classification/@edition</code></h3>
+              <ul>
+                <li>
+                  vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)
+                </li>
+              </ul>
+              `,
+              usage: "R",
+              authority: {
+                usage: "M",
+              },
+              edition: {
+                usage: "M",
+              },
+              value: {
+                usage: "M",
+              }
+            },
             typeOfResource: {
               help: `
               <h2>Informace o původu předlohy <i>M</i> <code>typeOfResource</code></h2>

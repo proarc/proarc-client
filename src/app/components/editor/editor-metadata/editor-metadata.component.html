@@ -25,7 +25,7 @@
     <app-editor-note *ngIf="editor.template.note" [data]="editor.template.note" [field]="editor.metadata.getField('note')"></app-editor-note>
     <app-editor-genre *ngIf="editor.template.genre" [data]="editor.template.genre" [field]="editor.metadata.getField('genre')"></app-editor-genre>
     <app-editor-identifier *ngIf="editor.template.identifier" [data]="editor.template.identifier" [field]="editor.metadata.getField('identifier')"></app-editor-identifier>
-    <app-editor-classification [field]="editor.metadata.getField('classification')"></app-editor-classification>
+    <app-editor-classification *ngIf="editor.template.classification" [data]="editor.template.classification" [field]="editor.metadata.getField('classification')"></app-editor-classification>
     <app-editor-resource *ngIf="editor.template.typeOfResource" [data]="editor.template.typeOfResource" [field]="editor.metadata.getField('typeOfResource')"></app-editor-resource>
 </div>
     

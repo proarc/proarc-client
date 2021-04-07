@@ -11,6 +11,7 @@ export class EditorClassificationComponent implements OnInit {
 
   @Input() field: ElementField;
   @Input() type: string;
+  @Input() data: any;
 
   authorities = ['udc', 'Konspekt'];
   editions = ['Konspekt'];
