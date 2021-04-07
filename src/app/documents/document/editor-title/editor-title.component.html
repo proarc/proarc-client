@@ -28,13 +28,14 @@
       </mat-select>
     </mat-form-field>
 
+
     <mat-form-field class="app-half-left">
-      <span class="app-usage">{{ data.partName.usage }}</span>
-      <input autocomplete="off" matInput [(ngModel)]='item.partName["_"]' placeholder="{{ 'editor.title.partname' | translate }}">
-    </mat-form-field>
-    <mat-form-field class="app-half-right">
       <span class="app-usage">{{ data.partNumber.usage }}</span>
       <input autocomplete="off" matInput [(ngModel)]='item.partNumber["_"]' placeholder="{{ 'editor.title.partnumber' | translate }}">
+    </mat-form-field>
+    <mat-form-field class="app-half-right">
+      <span class="app-usage">{{ data.partName.usage }}</span>
+      <input autocomplete="off" matInput [(ngModel)]='item.partName["_"]' placeholder="{{ 'editor.title.partname' | translate }}">
     </mat-form-field>
 
   </ng-template>

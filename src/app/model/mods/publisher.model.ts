@@ -1,5 +1,7 @@
 import ModsUtils from './utils';
 import { ModsElement } from './element.model';
+import { ElementField } from './elementField.model';
+import { ModsFrequency } from './frequency.model';
 
 export class ModsPublisher extends ModsElement {
 
@@ -14,6 +16,8 @@ export class ModsPublisher extends ModsElement {
     public dateOther;
     public dateCreated;
     public copyrightDate;
+    
+    public frequencies: ElementField;
 
     static getSelector() {
         return 'originInfo';
@@ -142,6 +146,7 @@ export class ModsPublisher extends ModsElement {
             this.place = place['placeTerm'][0];
             this.modsElement['place'].push(place);
         }
+        this.frequencies = new ElementField(this.modsElement, ModsFrequency.getSelector());
     }
 
     public update() {

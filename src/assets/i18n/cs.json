@@ -554,6 +554,10 @@
       "title": "Nakladatel",
       "event_type": "Typ",
       "issuance": "Vydávání",
+      "frequency": {
+        "title": "Frekvence",
+        "authority": "Autorita"
+      },
       "place": "Místo",
       "edition": "Edice",
       "date_issued": "Datum vydání",

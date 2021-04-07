@@ -17,7 +17,7 @@ import { UIService } from './ui.service';
 import { ParentDialogComponent } from '../dialogs/parent-dialog/parent-dialog.component';
 import { Batch } from '../model/batch.model';
 import { IngestDialogComponent } from '../dialogs/ingest-dialog/ingest-dialog.component';
-import { ModelTemplate } from '../model/modelTemplate';
+import { ModelTemplate } from '../components/templates/modelTemplate';
 
 @Injectable()
 export class EditorService {

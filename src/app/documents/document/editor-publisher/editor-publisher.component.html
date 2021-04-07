@@ -66,6 +66,19 @@
     </mat-form-field>
 
 
+    <app-editor-field *ngIf="data.frequency" [field]="item.frequencies" [title]="'editor.publisher.frequency.title'" class="app-frequencies" [nested]='true' [usage]="data.frequency.usage">
+      <ng-template let-frequency="item" #templateContent>
+
+        <mat-form-field class="app-half-left">
+          <span class="app-usage">{{ data.frequency.value.usage }}</span>
+          <input autocomplete="off" matInput [(ngModel)]='frequency.modsElement["_"]' placeholder="{{ 'editor.publisher.frequency.title' | translate }}">
+        </mat-form-field>
+        <app-autocomplete innerClass="app-half-right" [usage]="data.frequency.authority.usage" [(value)]='frequency.attrs["authority"]' [label]="'editor.publisher.frequency.authority' | translate" [options]="data.frequency.authority.options"></app-autocomplete>
+    
+      </ng-template>
+    </app-editor-field>
+
+
   </ng-template>
 </app-editor-field>
 

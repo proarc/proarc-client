@@ -16,6 +16,7 @@ import { ModsSubject } from './subject.model';
 import { ModsGenre } from './genre.model';
 import { ModsClassification } from './classification.model';
 import { ModsResource } from './resource.model';
+import { ModsFrequency } from './frequency.model';
 
 export class ElementField {
 
@@ -207,6 +208,8 @@ export class ElementField {
                 return new ModsClassification(el);
             case ModsResource.getId():
                 return new ModsResource(el);
+            case ModsFrequency.getId():
+                return new ModsFrequency(el);
             }
     }
 
@@ -247,6 +250,8 @@ export class ElementField {
                 return ModsClassification.getSelector();
             case ModsResource.getId():
                 return ModsResource.getSelector();
+            case ModsFrequency.getId():
+                return ModsFrequency.getSelector();
             }
     }
 
