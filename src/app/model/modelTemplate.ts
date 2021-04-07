@@ -238,6 +238,36 @@ export class ModelTemplate {
                 usage: "O",
               }
             },
+            subject: {
+              help: `
+              <h2>Věcné třídění <i>R</i> <code>subject</code></h2>
+              Údaje o věcném třídění<br/>
+              Předpokládá se přebírání z katalogizačního záznamu
+              <h3>Autorita <i>R</i> <code>subject/@authority</code></h3>
+              Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>Konspekt</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
+              Odpovídá hodnotě v $2
+              <h3>Klíčové slovo <i>R</i> <code>subject/topic</code></h3>
+              Libovolný výraz specifikující nebo charakterizující obsah svazku monografie<br/>
+              Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x
+              <h3>Geografické třídění<i>R</i> <code>subject/geographic</code></h3>
+              Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21
+              <h3>Chronologické třídění<i>R</i> <code>subject/temporal</code></h3>
+              Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21
+              `,
+              usage: "R",
+              authority: {
+                usage: "R",
+              },
+              topic: {
+                usage: "R",
+              },
+              geographic: {
+                usage: "R",
+              },
+              temporal: {
+                usage: "R",
+              }
+            },
             language: {
               help: `
               <h2>Jazyk <i>M</i> <code>language</code></h2>

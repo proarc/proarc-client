@@ -16,7 +16,7 @@ export class EditorSubjectComponent implements OnInit {
   authorities = [ 'czenas', 'eczenas', 'mednas', 'czmesh', 'msvkth', 'agrovoc', 'Konspekt'];
 
   @Input() field: ElementField;
-
+  @Input() data: any;
 
   constructor(public codebook: CodebookService, private dialog: MatDialog) {
   }
