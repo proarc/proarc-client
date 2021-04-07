@@ -458,7 +458,10 @@ mat-form-field textarea.mat-input-element {
       }
       button {
         float: right;
-        color: #818f9a;
+        color: #666;
+        &:hover {
+          color: #222;
+        }
         &.app-collapse {
           float: left;
         }
@@ -466,7 +469,7 @@ mat-form-field textarea.mat-input-element {
           color: $primary-color;
         }
         &[disabled] {
-          color: #c5c5c5;
+          color: #c5c5c5 !important;
         }
         mat-icon {
           font-size: 22px;

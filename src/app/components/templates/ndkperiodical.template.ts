@@ -70,7 +70,6 @@ export class NdkPeriodicalTemplate {
           <li><strong>Konference</strong> (conference)</li>
           <li><strong>Rodina</strong> (family)</li>
         </ul>
-        <br/>
         <h2>Role <i>MA</i></h2>
         Specifikace role osoby nebo organizace<br/>
         Kód role z kontrolovaného slovníku rolí 
