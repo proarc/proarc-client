@@ -1,8 +1,8 @@
-<app-editor-field [field]="field" [title]="'editor.location.title'" usage="MA">
+<app-editor-field [field]="field" [title]="'editor.location.title'" [usage]="data.usage" [help]="data.help">
   <ng-template let-item="item" #templateContent>
     
     <mat-form-field class="app-full-width">
-      <span class="app-usage">M</span>
+      <span class="app-usage">{{ data.physicalLocation.usage }}</span>
       <mat-select [(ngModel)]='item.physicalLocation["_"]' placeholder="{{ 'editor.location.physical_location' | translate }}">
         <mat-option *ngFor="let location of codebook.locations" [value]="location.code">
           {{ location.name }}
@@ -11,12 +11,12 @@
     </mat-form-field>
 
     <mat-form-field class="app-full-width">
-      <span class="app-usage">M</span>
+      <span class="app-usage">{{ data.shelfLocator.usage }}</span>
       <input autocomplete="off" matInput [(ngModel)]='item.shelfLocator["_"]' placeholder="{{ 'editor.location.shelf_locator' | translate }}">
     </mat-form-field>
 
     <mat-form-field class="app-full-width">
-      <span class="app-usage">O</span>
+      <span class="app-usage">{{ data.url.usage }}</span>
       <input autocomplete="off" matInput [(ngModel)]='item.url["_"]' placeholder="{{ 'editor.location.url' | translate }}">
     </mat-form-field>
 

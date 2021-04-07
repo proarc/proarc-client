@@ -215,6 +215,29 @@ export class ModelTemplate {
                   usage: "R"
                 }
             },
+            location: {
+              help: `
+              <h2>Uložení <i>MA</i> <code>location</code></h2>
+              Údaje o uložení popisovaného dokumentu, např. signatura, místo uložení apod.
+              <h3>Místo uložení <i>M</i> <code>location/physicalLocation</code></h3>
+              Údaje o instituci, kde je fyzicky uložen daný konkrétní popisovaný dokument, např. NK ČR nutno použít kontrolovaný slovník – sigly knihovnen (ABA001 atd.) odpovídá poli 910 $a v MARC21<br\>
+              Pozn. u dokumentů v digitální podobě není možné vyplnit
+              <h3>Signatura <i>M</i> <code>location/shelfLocator</code></h3>
+              Signatura nebo lokační údaje o daném konkrétním dokumentu, který slouží jako předloha.
+              <h3>URL <i>O</i> <code>location/url</code></h3>
+              Pro uvedení lokace elektronického dokumentu
+              `,
+              usage: "MA",
+              physicalLocation: {
+                usage: "M",
+              },
+              shelfLocator: {
+                usage: "M",
+              },
+              url: {
+                usage: "O",
+              }
+            },
             language: {
               help: `
               <h2>Jazyk <i>M</i> <code>language</code></h2>

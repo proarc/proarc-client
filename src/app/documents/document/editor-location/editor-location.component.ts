@@ -10,6 +10,7 @@ import { CodebookService } from 'src/app/services/codebook.service';
 export class EditorLocationComponent implements OnInit {
 
   @Input() field: ElementField;
+  @Input() data: any;
 
   constructor(public codebook: CodebookService) {
   }
