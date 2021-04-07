@@ -458,7 +458,7 @@ mat-form-field textarea.mat-input-element {
       }
       button {
         float: right;
-        color: #666;
+        color: #888;
         &:hover {
           color: #222;
         }
@@ -469,7 +469,7 @@ mat-form-field textarea.mat-input-element {
           color: $primary-color;
         }
         &[disabled] {
-          color: #c5c5c5 !important;
+          color: #cecece !important;
         }
         mat-icon {
           font-size: 22px;

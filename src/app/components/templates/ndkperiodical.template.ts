@@ -185,23 +185,23 @@ export class NdkPeriodicalTemplate {
         `,
         usage: "M",
         publisher: {
-            usage: "M"
+          usage: "M"
         },
         dateIssued: {
-            usage: "M"
+          usage: "M"
         },
         qualifier: {
-            usage: "R"
+          usage: "R"
         },
         edition: {
-            usage: "R"
+          usage: "R"
         },
         issuance: {
-            usage: "M",
-            options: ['continuing', 'serial', 'integrating resource']
+          usage: "M",
+          options: ['continuing', 'serial', 'integrating resource']
         },
         place: {
-            usage: "MA"
+          usage: "MA"
         },
         eventType: {
             usage: "M"
@@ -320,7 +320,8 @@ export class NdkPeriodicalTemplate {
       odpovídá hodnotě v poli 300, $a, $b a $c<br/>
       počet stránek bude vyjádřen ve fyzické strukturální mapě
       <h3>Poznámka <i>RA</i> <code>physicalDescription/note</code></h3>
-      Poznámka o fyzickém stavu dokumentu
+      Poznámka o fyzickém stavu dokumentu<br/>
+      Zde se zapíší defekty zjištěné při digitalizaci pro úroveň titulu periodika (např. chybějící ročník)
       `,
       usage: "M",
       extent: {
@@ -333,11 +334,11 @@ export class NdkPeriodicalTemplate {
     note: {
       help: `
       <h2>Poznámka <i>RA</i> <code>note</code></h2>
-      Obecná poznámka ke svazku monografie jako celku<br/>
+      Obecná poznámka k titulu periodika jako celku<br/>
       Odpovídá hodnotám v poli 245, $c (statement of responsibility) 
       a v polích 5XX (poznámky) katalogizačního záznamu
       <h3>Typ <i>O</i> <code>note/@type</code></h3>
-      Typ poznámky
+      Upřesnění obsahu poznámky
       `,
       usage: "RA",
       type: {
@@ -351,7 +352,7 @@ export class NdkPeriodicalTemplate {
       help: `
       <h2>Žánr <i>M</i> <code>genre</code></h2>
       Bližší údaje o typu dokumentu<br/>
-      Pro monografie hodnota <strong>volume</strong><br/>
+      Pro periodika hodnota <strong>title</strong><br/>
       `,
       usage: "M",
       authority: {
@@ -366,7 +367,7 @@ export class NdkPeriodicalTemplate {
       <h2>Identifikátor <i>M</i> <code>identifier</code></h2>
       Údaje o identifikátorech, obsahuje unikátní
       identifikátory mezinárodní nebo lokální, které
-      svazek monografie má.
+      periodikum má.
       <h3>Typ <i>M</i> <code>identifier/@type</code></h3>
       Budou se povinně vyplňovat následující
       hodnoty, pokud existují:
@@ -376,23 +377,19 @@ export class NdkPeriodicalTemplate {
             vygeneruje dodavatel
           </li>
           <li>
-            <strong>URN:NBN</strong> (urnnbn) <i>M</i><br/>
-            pro URN:NBN, např. zápis ve tvaru urn:nbn:cz:nk-123456 pro projekt NDK
-          </li>
-          <li>
             <strong>čČNB</strong> (ccnb) <i>MA</i><br/>
             převzít z katalogizačního záznamu z pole 015, $a, $z
           </li>
           <li>
-            <strong>ISBN</strong> (isbn) <i>M</i><br/>
+            <strong>ISBN</strong> (isbn) <i>MA</i><br/>
             převzít z katalogizačního záznamu z pole 020, $a, $z
           </li>
           <li>
-            <strong>ISMN</strong> (ismn) <i>M</i><br/>
+            <strong>ISSN</strong> (issn) <i>MA</i><br/>
             převzít z katalogizačního záznamu z pole 024 (1. ind.="2"), $a, $z
           </li>
         </ul>
-        Jiný interní identifikátor - type = barcode, oclc, sysno, permalink apod.
+        Jiný interní identifikátor <i>R</i>, např. barcode, oclc, sysno, permalink
         <h3>Platnost <i>M</i> <code>identifier/@invalid</code></h3>
         Uvádějí se i neplatné resp. zrušené identifikátory 
         <ul>
@@ -448,8 +445,8 @@ export class NdkPeriodicalTemplate {
     },
     typeOfResource: {
       help: `
-      <h2>Informace o původu předlohy <i>M</i> <code>typeOfResource</code></h2>
-      pro monografie hodnota <strong>text</strong><br/>
+      <h2>Typ zdroje <i>M</i> <code>typeOfResource</code></h2>
+      pro titul periodika hodnota <strong>text</strong><br/>
       mělo by se vyčítat z MARC21 katalogizačního
       záznamu, z pozice 06 návěští
       `,

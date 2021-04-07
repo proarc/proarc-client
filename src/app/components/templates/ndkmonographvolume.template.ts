@@ -325,7 +325,7 @@ export class NdkMonographVolumeTemplate {
       Odpovídá hodnotám v poli 245, $c (statement of responsibility) 
       a v polích 5XX (poznámky) katalogizačního záznamu
       <h3>Typ <i>O</i> <code>note/@type</code></h3>
-      Typ poznámky
+      Upřesnění obsahu poznámky
       `,
       usage: "RA",
       type: {
@@ -372,15 +372,15 @@ export class NdkMonographVolumeTemplate {
             převzít z katalogizačního záznamu z pole 015, $a, $z
           </li>
           <li>
-            <strong>ISBN</strong> (isbn) <i>M</i><br/>
+            <strong>ISBN</strong> (isbn) <i>MA</i><br/>
             převzít z katalogizačního záznamu z pole 020, $a, $z
           </li>
           <li>
-            <strong>ISMN</strong> (ismn) <i>M</i><br/>
+            <strong>ISMN</strong> (ismn) <i>MA</i><br/>
             převzít z katalogizačního záznamu z pole 024 (1. ind.="2"), $a, $z
           </li>
         </ul>
-        Jiný interní identifikátor - type = barcode, oclc, sysno, permalink apod.
+        Jiný interní identifikátor <i>R</i>, např. barcode, oclc, sysno, permalink        
         <h3>Platnost <i>M</i> <code>identifier/@invalid</code></h3>
         Uvádějí se i neplatné resp. zrušené identifikátory 
         <ul>
@@ -436,7 +436,7 @@ export class NdkMonographVolumeTemplate {
     },
     typeOfResource: {
       help: `
-      <h2>Informace o původu předlohy <i>M</i> <code>typeOfResource</code></h2>
+      <h2>Typ zdroje <i>M</i> <code>typeOfResource</code></h2>
       pro monografie hodnota <strong>text</strong><br/>
       mělo by se vyčítat z MARC21 katalogizačního
       záznamu, z pozice 06 návěští
