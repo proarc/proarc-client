@@ -14,7 +14,7 @@
     <a [routerLink]="['/import']" routerLinkActive="active" mat-button>{{ "navbar.import" | translate }}</a>
 
 
-    <a href="https://proarc.inovatika.dev/api/#workflow:%7B%22type%22:%22JOBS%22%7D" target="_empty" mat-button>{{ "navbar.workflow" | translate }}</a>
+    <a *ngIf="config.showWorkflow" [href]="config.workflowUrl" target="_empty" mat-button>{{ "navbar.workflow" | translate }}</a>
 
     
 
