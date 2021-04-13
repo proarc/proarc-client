@@ -3,6 +3,9 @@
     <div class="app-editor-toolbar">
         <div class="app-label">{{ 'editor.chronicle.editor_title' | translate }}</div>
         <div class="app-actions-right">
+            <button class="app-action" (click)="onLoadFromCatalog()" [matTooltip]="'editor.metadata.catalog' | translate" mat-icon-button>
+                <mat-icon>local_library</mat-icon>
+            </button>
             <button class="app-action" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
                 <mat-icon>save</mat-icon>
             </button>
@@ -10,7 +13,6 @@
     </div>  
 
 <div class="app-editor-content" *ngIf="editor.metadata">
-
     <app-editor-chronicle-location [field]="editor.metadata.getField('location_chronicle')"></app-editor-chronicle-location>
     <app-editor-identifier [type]="'chronicle'" [field]="editor.metadata.getField('identifier')"></app-editor-identifier>
     <app-editor-chronicle-genre [field]="editor.metadata.getField('genre_chronical')"></app-editor-chronicle-genre>

@@ -1,5 +1,7 @@
 import { EditorService } from 'src/app/services/editor.service';
 import { Component, OnInit, Input } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { CatalogDialogComponent } from 'src/app/dialogs/catalog-dialog/catalog-dialog.component';
 
 @Component({
   selector: 'app-editor-chronicle',
@@ -14,7 +16,7 @@ export class EditorChronicleComponent implements OnInit {
   set pid(pid: string) {
     this.onPidChanged(pid);
   }
-  constructor(public editor: EditorService) { }
+  constructor(public editor: EditorService, private dialog: MatDialog) { }
 
   ngOnInit() {
   }
@@ -28,6 +30,18 @@ export class EditorChronicleComponent implements OnInit {
 
   onSave() {
     this.editor.saveMetadata(() => {
+    });
+  }
+
+
+  onLoadFromCatalog() {
+    const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'full' } });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result['mods']) {
+        this.editor.updateModsFromCatalog(result['mods'], () => {
+
+        });
+      }
     });
   }
 
