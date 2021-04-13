@@ -36,6 +36,9 @@ export class EditorSubjectGeoComponent implements OnInit {
           this.update(location, ruian);
         }
       }
+      if (!location.attrs['authority']) {
+        location.attrs['authority'] = this.types[0];
+      }
     });
   }
 

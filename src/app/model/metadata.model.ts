@@ -76,6 +76,7 @@ export class Metadata {
       ];
     } else {
       this.fieldsIds = [
+        ModsGeo.getId(),
         ModsTitle.getId(),
         ModsAuthor.getId(),
         ModsPublisher.getId(),
@@ -87,7 +88,6 @@ export class Metadata {
         ModsAbstract.getId(),
         ModsGenre.getId(),
         ModsClassification.getId(),
-        ModsGeo.getId(),
         ModsPhysical.getId(),
         ModsResource.getId()
       ];
