@@ -210,7 +210,7 @@ export function hljsLanguages() {
       providedLanguages: ['cs'],
       defaultLanguage: 'cs',
       loaderOptions: {
-        path: 'assets/i18n/{{language}}.json?v1.0.4'
+        path: 'assets/i18n/{{language}}.json?v1.0.5'
       }
     })
   ],

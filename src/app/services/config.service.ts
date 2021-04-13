@@ -151,7 +151,7 @@ export class ConfigService {
     public showGeoEditor = APP_GLOBAL.showGeoEditor == undefined ? false : !!APP_GLOBAL.showGeoEditor;
     public showWorkflow = APP_GLOBAL.showWorkflow == undefined ? false : !!APP_GLOBAL.showWorkflow;
 
-    public workflowUrl = this.proarcBackendUrl + "/#workflow:%7B%22type%22:%22JOBS%22%7D"l
+    public workflowUrl = this.proarcBackendUrl + "/#workflow:%7B%22type%22:%22JOBS%22%7D";
 
     public topPageTypes = APP_GLOBAL.topPageTypes || [];
     public otherPageTypes = APP_GLOBAL.pageTypes || ConfigService.defaultPageTypes;
