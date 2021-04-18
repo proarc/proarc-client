@@ -578,3 +578,10 @@ a, button {
     }
   }
 }
+
+.mat-tooltip-panel {
+  .mat-tooltip {
+    margin: 10px !important;
+    font-size: 12px !important;
+  }
+}
