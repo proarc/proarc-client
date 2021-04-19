@@ -125,6 +125,18 @@ export class DocumentItem {
     return !this.isPage() && !this.isVolume() && !this.isIssue();
   }
 
+  public canContainPdf(): boolean {
+    return [
+      'model:ndkeperiodical',
+      'model:ndkeperiodicalvolume',
+      'model:ndkeperiodicalissue',
+      'model:ndkearticle',
+      'model:ndkemonographtitle',
+      'model:ndkemonographvolume',
+      'model:ndkechapter'
+    ].indexOf(this.model) >= 0;
+  }
+
   writeExports(): string {
     let exports = "";
     if (this.archiveExport == 1) {

@@ -104,6 +104,8 @@ import { EditorGenreComponent } from './documents/document/editor-genre/editor-g
 import { EditorClassificationComponent } from './documents/document/editor-classification/editor-classification.component';
 import { AutocompleteComponent } from './components/shared/autocomplete/autocomplete.component';
 import { EditorResourceComponent } from './documents/document/editor-resource/editor-resource.component';
+import { PdfComponent } from './components/pdf/pdf.component';
+import { SafePipe } from './pipes/safe.pipe';
 
 
 export function hljsLanguages() {
@@ -191,7 +193,9 @@ export function hljsLanguages() {
     EditorGenreComponent,
     EditorClassificationComponent,
     AutocompleteComponent,
-    EditorResourceComponent
+    EditorResourceComponent,
+    PdfComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,

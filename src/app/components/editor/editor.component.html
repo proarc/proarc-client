@@ -117,8 +117,11 @@
               <button *ngIf="editor.right.isPage() && !editor.doubleRight" matTooltip="{{ 'editor.toolbar.editor_image' | translate }}" [class.app-inactive]="editor.rightEditorType != 'image'" (click)="editor.switchRightEditor('image')" mat-icon-button>
                 <mat-icon>image</mat-icon>
               </button>
-              <button *ngIf="editor.right.isSong() && !editor.doubleRight" matTooltip="{{ 'editor.toolbar.editor_song' | translate }}" [class.app-inactive]="editor.thirdEditorType != 'song'" (click)="editor.switchRightEditor('song')" mat-icon-button>
+              <button *ngIf="editor.right.isSong() && !editor.doubleRight" matTooltip="{{ 'editor.toolbar.editor_song' | translate }}" [class.app-inactive]="editor.rightEditorType != 'song'" (click)="editor.switchRightEditor('song')" mat-icon-button>
                 <mat-icon>audiotrack</mat-icon>
+              </button>
+              <button *ngIf="editor.right.canContainPdf() && !editor.doubleRight" matTooltip="{{ 'editor.toolbar.editor_pdf' | translate }}" [class.app-inactive]="editor.rightEditorType != 'pdf'" (click)="editor.switchRightEditor('pdf')" mat-icon-button>
+                <mat-icon>picture_as_pdf</mat-icon>
               </button>
               <button *ngIf="!editor.doubleRight" matTooltip="{{ 'editor.toolbar.editor_mods' | translate }}" [class.app-inactive]="editor.rightEditorType != 'mods'" (click)="editor.switchRightEditor('mods')" mat-icon-button>
                 <mat-icon>code</mat-icon>
@@ -162,6 +165,7 @@
 
     <div class="app-content" *ngIf="editor.showRightObjectEditor()">
         <app-viewer *ngIf="editor.rightEditorType == 'image'" [pid]="editor.right.pid"></app-viewer>
+        <app-pdf *ngIf="editor.rightEditorType == 'pdf'" [pid]="editor.right.pid"></app-pdf>
         <app-song *ngIf="editor.rightEditorType == 'song'" [pid]="editor.right.pid"></app-song>
         <app-editor-ocr *ngIf="editor.rightEditorType == 'ocr'" [pid]="editor.right.pid"></app-editor-ocr>
         <app-editor-mods *ngIf="editor.rightEditorType == 'mods'"></app-editor-mods>
@@ -218,6 +222,7 @@
       </div>
   </div>
   <div class="app-content">
+      <app-pdf *ngIf="editor.thirdEditorType == 'pdf'" [pid]="editor.right.pid"></app-pdf>
       <app-song *ngIf="editor.thirdEditorType == 'song'" [pid]="editor.right.pid"></app-song>
       <app-viewer *ngIf="editor.thirdEditorType == 'image'" [pid]="editor.right.pid"></app-viewer>
       <app-editor-mods *ngIf="editor.thirdEditorType == 'mods'"></app-editor-mods>

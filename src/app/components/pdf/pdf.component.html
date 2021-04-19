@@ -1,0 +1,29 @@
+<div class="app-editor-content-wrapper">
+
+    <div class="app-editor-toolbar">
+        <div class="app-label">PDF</div>
+        <div class="app-actions-right">
+            <button class="app-action" (click)="onRemove()" matTooltip="Odstranit digitální obsah" mat-icon-button>
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+    </div>  
+      
+    <div class="app-editor-content">
+        <div class="app-pdf-wrapper">
+        
+<iframe *ngIf="state == 'ok'" [src]="pdfUrl | appSafe" width="100%" height="100%" frameborder="0"></iframe>
+            <div *ngIf="state == 'empty'">nic</div>
+
+        </div>
+    </div>
+
+    <mat-spinner *ngIf="state === 'loading'"
+        [strokeWidth]="5" 
+        [diameter]="60"
+        class="center-spinner">
+    </mat-spinner>
+
+
+</div>
+

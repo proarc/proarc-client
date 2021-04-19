@@ -40,6 +40,11 @@ export class ApiService {
     return this.http.get(encodeURI(`${this.getApiUrl()}${path}`), { params: params });
   }
 
+  private head(path: string, params = {}): Observable<Object> {
+    return this.http.head(encodeURI(`${this.getApiUrl()}${path}`), { params: params });
+  }
+
+
 
   private put(path: string, body: any, options = null): Observable<Object> {
     if (!options) {
@@ -270,6 +275,12 @@ export class ApiService {
     return this.put('object/privatenote', data).pipe(map(response => Note.fromJson(response['record'])));
   }
 
+
+  deletePdf(pid: string): Observable<any> {
+    let query = `object/dissemination?pid=${pid}&datastream=RAW`;
+    return this.delete(query);
+  }
+
   getSearchResults(options = {}) { //model: string, query: string, queryFiled: string, page: number, sortField = 'lastCreated', sortAsc = false): Observable<[DocumentItem[], number]> {
     const params = {
       type: 'advanced',
@@ -355,7 +366,6 @@ export class ApiService {
     return this.get(`${resource}/query`, params).pipe(map(response =>
       CatalogueEntry.fromJsonArray(response['metadataCatalogEntries']['entry'])));
   }
-
 
   getDevices(): Observable<Device[]> {
     return this.get('device').pipe(map(response => Device.fromJsonArray(response['response']['data'])));
@@ -525,6 +535,11 @@ export class ApiService {
       url = `${url}&batchId=${batchId}`;
     }
     return url;
+  }
+
+  headStream(pid: string, stream: string) {
+    let path = `object/dissemination?pid=${pid}&datastream=${stream}`
+    return this.head(path);
   }
 
 }
