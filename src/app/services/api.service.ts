@@ -281,6 +281,14 @@ export class ApiService {
     return this.delete(query);
   }
 
+  uploadPdf(file: File, pid: string) {
+    const formData: any = new FormData();
+    formData.append('file', file);
+    formData.append('mime', 'application/pdf');
+    formData.append('pid', pid);
+    return this.post('object/dissemination', formData, {});
+  }
+
   getSearchResults(options = {}) { //model: string, query: string, queryFiled: string, page: number, sortField = 'lastCreated', sortAsc = false): Observable<[DocumentItem[], number]> {
     const params = {
       type: 'advanced',
@@ -541,6 +549,8 @@ export class ApiService {
     let path = `object/dissemination?pid=${pid}&datastream=${stream}`
     return this.head(path);
   }
+
+
 
 }
 

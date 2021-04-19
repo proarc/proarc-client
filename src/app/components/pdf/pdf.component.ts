@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
@@ -11,6 +11,8 @@ import { UIService } from 'src/app/services/ui.service';
   styleUrls: ['./pdf.component.scss']
 })
 export class PdfComponent implements OnInit {
+
+  @ViewChild('pdfInput') pdfInput: ElementRef;
 
   private currentPid: string;
 
@@ -40,6 +42,26 @@ export class PdfComponent implements OnInit {
       this.state = 'empty';
     })
   }
+
+  onAdd() {
+    let event = new MouseEvent('click', {bubbles: true});
+    this.pdfInput.nativeElement.dispatchEvent(event);
+
+  }
+
+  uploadPdf(event) {
+    console.log('uploadPdf', event);
+    const files = <Array<File>>event.target.files;
+    if (files.length != 1) {
+      return;
+    }
+    this.state = 'loading';
+    this.api.uploadPdf(files[0], this.currentPid).subscribe(response => {
+      this.state = 'ok';
+    });
+  }
+
+
 
 onRemove() {
     const data: SimpleDialogData = {
