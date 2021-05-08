@@ -3,10 +3,10 @@
     <div class="app-editor-toolbar">
         <div class="app-label">PDF</div>
         <div class="app-actions-right">
-            <button class="app-action" (click)="onAdd()" matTooltip="Načíst nový digitální obsah" mat-icon-button>
+            <button *ngIf="state == 'ok' || state == 'empty'" class="app-action" (click)="onAdd()" matTooltip="Načíst nový digitální obsah" mat-icon-button>
                 <mat-icon>add</mat-icon>
             </button>
-            <button class="app-action" (click)="onRemove()" matTooltip="Odstranit digitální obsah" mat-icon-button>
+            <button *ngIf="state == 'ok'" class="app-action" (click)="onRemove()" matTooltip="Odstranit digitální obsah" mat-icon-button>
                 <mat-icon>delete</mat-icon>
             </button>
 
@@ -21,8 +21,8 @@
     <div class="app-editor-content">
         <div class="app-pdf-wrapper">
         
-<iframe *ngIf="state == 'ok'" [src]="pdfUrl | appSafe" width="100%" height="100%" frameborder="0"></iframe>
-            <div *ngIf="state == 'empty'" class="app-empty">Žádný digitální obsah</div>
+        <iframe *ngIf="state == 'ok'" [src]="pdfUrl | appSafe" width="100%" height="100%" frameborder="0"></iframe>
+        <div *ngIf="state == 'empty'" class="app-empty">Žádný digitální obsah</div>
 
         </div>
     </div>
