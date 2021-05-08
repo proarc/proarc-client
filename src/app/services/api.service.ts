@@ -174,23 +174,23 @@ export class ApiService {
             .pipe(map(response => response['response']['data'].map(x => x.pid)));
   }
 
-  getPage(pid: string, ndk: boolean, batchId = null): Observable<Page> {
-    const editorId = ndk ? 'model:ndkpage' : 'proarc.mods.PageForm'; 
+  getPage(pid: string, model: string, batchId = null): Observable<Page> {    
+    const editorId = model == 'model:page' ? 'proarc.mods.PageForm' : model;
     const params = { pid: pid, editorId: editorId };
     if (batchId) {
       params['batchId'] = batchId;
     }
     return this.get('object/mods/custom', params)
-            .pipe(map(response => Page.fromJson(response['response']['data'][0], ndk)));
+            .pipe(map(response => Page.fromJson(response['response']['data'][0], model)));
   }
 
   editPage(page: Page, batchId = null): Observable<Page> {
-    const editorId = page.ndk ? 'model:ndkpage' : 'proarc.mods.PageForm'; 
+    const editorId = page.model == 'model:page' ? 'proarc.mods.PageForm' : page.model;
     let data = `pid=${page.pid}&editorId=${editorId}&jsonData=${JSON.stringify(page.toJson())}&timestamp=${page.timestamp}`;
     if (batchId) {
       data = `${data}&batchId=${batchId}`;
     }
-    return this.put('object/mods/custom', data).pipe(map(response => Page.fromJson(response['response']['data'][0], page.ndk)));
+    return this.put('object/mods/custom', data).pipe(map(response => Page.fromJson(response['response']['data'][0], page.model)));
   }
 
   getAtm(pid: string, batchId = null): Observable<Atm> {

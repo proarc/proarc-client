@@ -20,18 +20,16 @@ export class Page {
   public originalGenre: string;
   public originalIdentifiers: PageIdentifier[];
 
-
-  public ndk: boolean;
+  public model: string;
 
   constructor() {
     this.identifiers = [];
     this.originalIdentifiers = [];
   }
 
-
-  public static pageFromJson(json): Page {
+  public static pageFromJson(json, model): Page {
       const page = new Page();
-      page.ndk = false;
+      page.model = model;
       page.pid = json['pid'];
       page.timestamp = json['timestamp'];
       if (json['jsonData']) {
@@ -53,9 +51,9 @@ export class Page {
       return page;
   }
 
-  public static ndkPageFromJson(json): Page {
+  public static ndkPageFromJson(json, model): Page {
     const page = new Page();
-    page.ndk = true;
+    page.model = model;
     page.pid = json['pid'];
     page.timestamp = json['timestamp'];
     if (json['jsonData']) {
@@ -90,16 +88,17 @@ export class Page {
     return page;
   }
 
-
-  public static fromJson(json, ndk: boolean): Page {
-    return ndk ? Page.ndkPageFromJson(json) : Page.pageFromJson(json);
+  public static fromJson(json, model: string): Page {
+    if (model == 'model:ndkpage') {
+      return Page.ndkPageFromJson(json, model)
+    } else {
+      return Page.pageFromJson(json, model);
+    }
   }
-
 
   public toJson() {
-    return this.ndk ? this.ndkPageToJson() : this.pageToJson();
+    return this.isNdkPage() ? this.ndkPageToJson() : this.pageToJson();
   }
-
 
   private pageToJson() {
     const ids = [];
@@ -138,6 +137,10 @@ export class Page {
       'pageIndex': this.index,
       'pageType': this.type
     };
+  }
+
+  public isNdkPage(): boolean {
+    return this.model === 'model:ndkpage';
   }
 
   public removeIdentifier(index: number) {

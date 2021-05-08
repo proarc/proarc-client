@@ -21,7 +21,7 @@ export class EditorPageComponent implements OnInit {
 
   movedToNextFrom: string;
 
-  @Input() ndk: boolean = false;
+  @Input() model: string;
 
   @ViewChild("pageNumber") pageNumberFiled: ElementRef;
   @ViewChild("pageIndex") pageIndexFiled: ElementRef;
@@ -44,7 +44,7 @@ export class EditorPageComponent implements OnInit {
 
   private onPidChanged(pid: string) {
     this.state = 'loading';
-    this.api.getPage(pid, this.ndk, this.editor.getBatchId()).subscribe((page: Page) => {
+    this.api.getPage(pid, this.model, this.editor.getBatchId()).subscribe((page: Page) => {
       this.page = page;
       this.state = 'success';
       if (this.movedToNextFrom == 'pageNumber') {

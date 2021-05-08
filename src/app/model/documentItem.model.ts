@@ -105,10 +105,6 @@ export class DocumentItem {
     return this.model == 'model:ndkaudiopage';
   }
 
-  public isNdkPage(): boolean {
-    return this.model === 'model:ndkpage' || this.model === 'model:oldprintpage';
-  }
-
   public isVolume(): boolean {
     return this.model === 'model:ndkperiodicalvolume';
   }

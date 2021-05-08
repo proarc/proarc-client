@@ -45,13 +45,13 @@
 
  
 
-            <mat-form-field class="app-half-left" *ngIf="page.ndk">
+            <mat-form-field class="app-half-left" *ngIf="page.isNdkPage()">
               <mat-select [(ngModel)]='page.position' placeholder="{{ 'editor.page.position' | translate }}">
                 <mat-option *ngFor="let position of positions" [value]="position">{{ 'editor.page.positions.' + position | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
 
-            <mat-form-field class="app-half-right" *ngIf="page.ndk">
+            <mat-form-field class="app-half-right" *ngIf="page.isNdkPage()">
               <mat-select [(ngModel)]='page.genre' placeholder="{{ 'editor.page.genre' | translate }}">
                 <mat-option *ngFor="let genre of genres" [value]="genre">{{ 'editor.page.genres.' + genre | translate }}</mat-option>
               </mat-select>

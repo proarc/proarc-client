@@ -787,7 +787,7 @@ export class EditorService {
                 } 
                 index += 1;
                 const page = new Page();
-                page.ndk = item.isNdkPage();
+                page.model = item.model;
                 page.pid = item.pid;
                 if (holder.editType) {
                     page.type = holder.pageType;
@@ -815,7 +815,7 @@ export class EditorService {
               return;
           }
           const pageDef = pages.pop();
-          this.api.getPage(pageDef.pid, pageDef.ndk, this.getBatchId()).subscribe((page: Page) => {
+          this.api.getPage(pageDef.pid, pageDef.model, this.getBatchId()).subscribe((page: Page) => {
             if (pageDef.type) {
                 page.type = pageDef.type;
             }
