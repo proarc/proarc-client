@@ -58,7 +58,7 @@ export class UrnbnbDialogComponent implements OnInit {
           this.log = data['message'];
         }
       }
-      console.log('data', data);
+      // console.log('data', data);
     },
     (error) => {
       console.log('onRegister error', error);

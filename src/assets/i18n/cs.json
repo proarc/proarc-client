@@ -706,7 +706,8 @@
     "model:ndkaudiopage": "Zvukova nahravka",
     "model:chronicletitle": "Vícedílná kronika",
     "model:chroniclevolume": "Kronika",
-    "model:chroniclesupplement": "Příloha kroniky"
+    "model:chroniclesupplement": "Příloha kroniky",
+    "model:bdmarticle": "eČlánek"
   },
   "viewer": {
     "tooltip": {

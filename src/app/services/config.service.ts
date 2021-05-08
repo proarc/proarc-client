@@ -91,8 +91,8 @@ export class ConfigService {
         'model:ndkperiodicalsupplement',
         'model:ndkarticle',
         'model:ndkpicture',
-        'model:ndkmonographvolume',
         'model:ndkmonographtitle',
+        'model:ndkmonographvolume',
         'model:ndkmonographsupplement',
         'model:ndkchapter',
         'model:ndkmap',
@@ -120,9 +120,10 @@ export class ConfigService {
         'model:ndksong',
         'model:ndktrack',
         'model:ndkaudiopage',
-        'model:chroniclevolume',
         'model:chronicletitle',
-        'model:chroniclesupplement'
+        'model:chroniclevolume',
+        'model:chroniclesupplement',
+        'model:bdmarticle'
     ];
 
     private static defaultDefaultModel = 'model:ndkmonographvolume';
