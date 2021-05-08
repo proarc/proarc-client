@@ -239,7 +239,7 @@ export class NdkMonographVolumeTemplate {
       <h3>Autorita <i>R</i> <code>subject/@authority</code></h3>
       Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>Konspekt</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
       Odpovídá hodnotě v $2
-      <h3>Klíčové slovo <i>R</i> <code>subject/topic</code></h3>
+      <h3>Klíčové slovo/Předmětové heslo <i>R</i> <code>subject/topic</code></h3>
       Libovolný výraz specifikující nebo charakterizující obsah svazku monografie<br/>
       Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x
       <h3>Geografické třídění<i>R</i> <code>subject/geographic</code></h3>
