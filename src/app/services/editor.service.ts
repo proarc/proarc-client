@@ -232,13 +232,7 @@ export class EditorService {
           }
           setTimeout(() => {
             this.doubleRight = true;
-            if (this.right.isPage()) {
-                this.properties.setBoolProperty('editor.double_right_page', true);       
-            } else if (this.right.isSong()) {
-                this.properties.setBoolProperty('editor.double_right_song', true);       
-            } else {
-                this.properties.setBoolProperty('editor.double_right', true);        
-            }
+            this.properties.setBoolProperty('editor.double_right_' + this.right.model, true);
           }, 100);
     }
 
@@ -249,13 +243,7 @@ export class EditorService {
 
       public leaveDoubleRight() {
         this.doubleRight = false;
-        if (this.right.isPage()) {
-            this.properties.setBoolProperty('editor.double_right_page', false);
-        } else if (this.right.isSong()) {
-            this.properties.setBoolProperty('editor.double_right_song', false);
-        } else {
-            this.properties.setBoolProperty('editor.double_right', false);
-        }
+        this.properties.setBoolProperty('editor.double_right_' + this.right.model, false);       
     }
 
 
@@ -303,24 +291,12 @@ export class EditorService {
 
     public switchRightEditor(type: string) {
         this.rightEditorType = type;
-        if (this.right.isPage()) {
-            this.properties.setStringProperty('editor.page_right_editor_type', this.rightEditorType);
-        } else if (this.right.isSong()) {
-            this.properties.setStringProperty('editor.song_right_editor_type', this.rightEditorType);
-        } else if (this.right.isTopLevel()) {
-            this.properties.setStringProperty('editor.top_right_editor_type', this.rightEditorType);
-        } else {
-            this.properties.setStringProperty('editor.right_editor_type', this.rightEditorType);
-        }
+        this.properties.setStringProperty('editor.right_editor_' + this.right.model, type);
     }
 
     public switchThirdEditor(type: string) {
         this.thirdEditorType = type;
-        if (this.right.isPage()) {
-            this.properties.setStringProperty('editor.page_third_editor_type', this.thirdEditorType);
-        } else if (this.right.isSong()) {
-            this.properties.setStringProperty('editor.song_third_editor_type', this.thirdEditorType);
-        }
+        this.properties.setStringProperty('editor.third_editor_' + this.right.model, type);
     }
 
     public switchMode(mode: string) {
@@ -399,16 +375,31 @@ export class EditorService {
             } else {
                 this.rightEditorType = this.properties.getStringProperty('editor.right_editor_type', 'mods');
             }
-            if (this.mode == 'children') {
+            this.rightEditorType = this.properties.getStringProperty('editor.right_editor_' + item.model, '');
+            if (!this.rightEditorType) {
                 if (item.isPage()) {
-                    this.doubleRight = this.properties.getBoolProperty('editor.double_right_page', false);
-                    this.thirdEditorType = this.properties.getStringProperty('editor.page_third_editor_type', 'image');
+                    this.rightEditorType = 'image';
                 } else if (item.isSong()) {
-                    this.doubleRight = this.properties.getBoolProperty('editor.double_right_song', false);
-                    this.thirdEditorType = this.properties.getStringProperty('editor.song_third_editor_type', 'song');
+                    this.rightEditorType = 'song';
+                } else if (item.canContainPdf()) {
+                    this.rightEditorType = 'pdf';
                 } else {
-                    this.doubleRight = this.properties.getBoolProperty('editor.double_right', false);
-                    this.thirdEditorType = 'mods';
+                    this.rightEditorType = 'mods';
+                }
+            }
+            if (this.mode == 'children') {
+                this.doubleRight = this.properties.getBoolProperty('editor.double_right_' + item.model, false);
+                this.thirdEditorType = this.properties.getStringProperty('editor.third_editor_' + item.model, '');
+                if (!this.thirdEditorType) {
+                    if (item.isPage()) {
+                        this.thirdEditorType = 'image';
+                    } else if (item.isSong()) {
+                        this.thirdEditorType = 'song';
+                    } else if (item.canContainPdf()) {
+                        this.thirdEditorType = 'pdf';
+                    } else {
+                        this.thirdEditorType = 'mods';
+                    }
                 }
             } else {
                 this.doubleRight = false;

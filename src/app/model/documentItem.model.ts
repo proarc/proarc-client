@@ -133,7 +133,8 @@ export class DocumentItem {
       'model:ndkearticle',
       'model:ndkemonographtitle',
       'model:ndkemonographvolume',
-      'model:ndkechapter'
+      'model:ndkechapter',
+      'model:bdmarticle'
     ].indexOf(this.model) >= 0;
   }
 
