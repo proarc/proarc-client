@@ -1,5 +1,5 @@
 .mat-dialog-title {
-  margin: 0 0 5px;
+  margin: 0 0 15px;
 }
 .mat-dialog-content {
   width:470px;
@@ -8,8 +8,14 @@
     display: block;
   }
   .app-urnnbn-message {
-    margin: 8px 0 10px;
+    margin: 0px 0 15px;
     font-size: 14px;
     color: #666;
+    &.app-error {
+      color: #d83e3e;
+    }
+  }
+  .app-log-btn {
+    margin: 2px 0 15px;
   }
 }

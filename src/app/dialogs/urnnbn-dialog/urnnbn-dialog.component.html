@@ -2,7 +2,9 @@
 
 <div mat-dialog-content>
 
-  <div class="app-urnnbn-message">{{ 'urnnbn.message' | translate }}</div>
+  <div *ngIf="message" class="app-urnnbn-message" [class.app-error]="state == 'error'">{{ message}}</div>
+
+  <button *ngIf="log" class="app-log-btn" mat-stroked-button color="primary" (click)="showErrorDetail(log)">Zobrazit chybový výstup</button>
 
   <mat-form-field class="app-urnnbn-registrar">
     <mat-select [placeholder]="'urnnbn.resolver' | translate" [(ngModel)]="selectedRegistrar" [disabled]="formDisabled()">
@@ -15,7 +17,7 @@
 <div mat-dialog-actions cdk-focus-start>
   
   <button mat-raised-button color="primary" [disabled]="formDisabled()" (click)="onRegister()">{{ 'urnnbn.register' | translate }}</button>
-  <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.cancel' | translate }}</button>
+  <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.close' | translate }}</button>
   <mat-spinner *ngIf="state=='saving'"
     style="margin-left: auto"
     [strokeWidth]="3" 

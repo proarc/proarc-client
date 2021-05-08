@@ -13,6 +13,8 @@ import { Registrar } from 'src/app/model/registrar.model';
 export class UrnbnbDialogComponent implements OnInit {
 
   state = 'none';
+  message = '';
+  log = '';
   selectedRegistrar: Registrar;
   registrars: Registrar[] = [];
   errors: any[];
@@ -40,23 +42,40 @@ export class UrnbnbDialogComponent implements OnInit {
     const pid = this.data;
     this.errors = [];
     this.api.registerUrnnbn(this.selectedRegistrar.id, pid).subscribe((data: any) => {
-      this.state = 'done';
+      if (data['statusType'] == "URNNBN_EXISTS") {
+        this.state = 'error';
+        this.message = `Dokument má již přiděleno URN:NBN ${data['urnnbn']}`;
+      } else if (data['statusType'] == "NO_PAGE_FOUND") {
+        this.state = 'error';
+        this.message = 'Dokumant neobsahuje žádné strany';
+      } else if (!data['statusType'] && data['urnnbn']) {
+        this.state = 'success';
+        this.message = `Dokumentu bylo úspěšně přiděleno URN:NBN ${data['urnnbn']}`;
+      } else {
+        this.state = 'error';
+        this.message = 'Při registraci URN:NBN se vyskytla chyba';
+        if (data['message']) {
+          this.log = data['message'];
+        }
+      }
+      console.log('data', data);
     },
     (error) => {
       console.log('onRegister error', error);
       this.state = 'error';
+      this.message = 'Při registraci URN:NBN se vyskytla chyba';
     });
   }
 
   formDisabled(): boolean {
-    return this.state === 'saving' || this.state === 'done' || !this.selectedRegistrar; 
+    return this.state != 'none' || !this.selectedRegistrar; 
   }
 
 
   showErrorDetail(error: any) {
     const data = {
-      title: error.message,
-      content: error.log
+      title: '',
+      content: error
     }
     this.dialog.open(LogDialogComponent, { data: data });
   }
