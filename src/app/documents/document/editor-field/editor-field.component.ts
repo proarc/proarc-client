@@ -13,9 +13,9 @@ export class EditorFieldComponent implements OnInit {
 
 
   @Input() field: ElementField;
-  @Input() title: string;
-  @Input() usage: string;
-  @Input() help: string;
+  // @Input() title: string;
+  // @Input() usage: string;
+  // @Input() help: string;
   @Input() nested: boolean;
   @Input() collapsable: boolean = true;
 
@@ -29,7 +29,7 @@ export class EditorFieldComponent implements OnInit {
   }
 
   openHelpDialog() {
-    this.dialog.open(HelpDialogComponent, { data: this.help });
+    this.dialog.open(HelpDialogComponent, { data: this.field.help() });
   }
 
 

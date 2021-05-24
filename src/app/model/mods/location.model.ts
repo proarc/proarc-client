@@ -15,8 +15,8 @@ export class ModsLocation extends ModsElement {
         return 'location';
     }
 
-    constructor(modsElement) {
-        super(modsElement);
+    constructor(modsElement, template) {
+        super(modsElement, template);
         this.init();
     }
 

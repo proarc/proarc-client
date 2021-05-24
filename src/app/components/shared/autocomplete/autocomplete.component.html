@@ -1,7 +1,7 @@
 
-<mat-form-field [class]="innerClass">
-  <span class="app-usage">{{ usage }}</span>
-  <input matInput [formControl]="control" [(ngModel)]='value' (ngModelChange)="valueChange.emit(value)" [placeholder]="label" [matAutocomplete]="auto">
+<mat-form-field *ngIf="item.available(field)" [class.app-invalid]="item.invalid(field)">
+  <span class="app-usage">{{ item.usage(field) }}</span>
+  <input matInput [required]="item.isMandatory(field)" [formControl]="item.getControl(field)" [(ngModel)]='value' (ngModelChange)="valueChange.emit(value)" [placeholder]="item.label(field)" [matAutocomplete]="auto">
   <mat-autocomplete #auto="matAutocomplete">
     <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
       {{option}}

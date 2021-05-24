@@ -10,7 +10,6 @@ import { CodebookService } from 'src/app/services/codebook.service';
 export class EditorTitleComponent implements OnInit {
 
   @Input() field: ElementField;
-  @Input() data: any;
 
   constructor(public codebook: CodebookService) {
   }

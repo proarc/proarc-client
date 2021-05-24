@@ -6,7 +6,7 @@ export class ModsVolume extends ModsElement {
     public number;
 
     constructor(modsElement) {
-        super(modsElement);
+        super(modsElement, null);
         this.init();
     }
 

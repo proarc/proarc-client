@@ -9,10 +9,7 @@ import { ElementField } from 'src/app/model/mods/elementField.model';
 })
 export class EditorNoteComponent implements OnInit {
 
-  types = [ 'performers', 'statement of responsibility', 'historical'];
-
   @Input() field: ElementField;
-  @Input() data: any;
 
   constructor() {
   }

@@ -10,10 +10,6 @@ import { ElementField } from 'src/app/model/mods/elementField.model';
 export class EditorGenreComponent implements OnInit {
 
   @Input() field: ElementField;
-  @Input() type: string;
-  @Input() data: any;
-
-  authorities = [ 'czenas', 'eczenas', 'rdacontent'];
 
   constructor() {
   }

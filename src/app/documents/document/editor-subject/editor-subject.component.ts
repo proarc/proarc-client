@@ -13,10 +13,7 @@ import { CodebookService } from 'src/app/services/codebook.service';
 })
 export class EditorSubjectComponent implements OnInit {
 
-  authorities = [ 'czenas', 'eczenas', 'mednas', 'czmesh', 'msvkth', 'agrovoc', 'Konspekt'];
-
   @Input() field: ElementField;
-  @Input() data: any;
 
   constructor(public codebook: CodebookService, private dialog: MatDialog) {
   }
@@ -29,7 +26,6 @@ export class EditorSubjectComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
         const mods = result['mods'];
-        console.log('mods', mods);
         const metadata = new Metadata('', '', mods, 0);
         const nameField = metadata.getField(ModsSubject.getSelector());
         const items = nameField.getItems();

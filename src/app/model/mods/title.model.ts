@@ -17,8 +17,8 @@ export class ModsTitle extends ModsElement {
         return 'titleInfo';
     }
 
-    constructor(modsElement) {
-        super(modsElement, ['type']);
+    constructor(modsElement, template) {
+        super(modsElement, template, ['type']);
         this.init();
     }
 

@@ -20,8 +20,8 @@ export class ModsAuthor extends ModsElement {
         return 'name';
     }
 
-    constructor(modsElement) {
-        super(modsElement, ['type', 'usage']);
+    constructor(modsElement, template) {
+        super(modsElement, template, ['type', 'usage']);
         this.init();
     }
 
@@ -58,7 +58,7 @@ export class ModsAuthor extends ModsElement {
             this.given = ModsUtils.createTextElement('', {'type': 'given'});
             nameParts.push(this.given);
         }
-        this.roles = new ElementField(this.modsElement, ModsRole.getSelector());
+        this.roles = new ElementField(this.modsElement, ModsRole.getSelector(), this.getTemplate());
         if (this.modsElement['nameIdentifier']) {
             this.nameIdentifier = this.modsElement['nameIdentifier'][0]['_'];
         }

@@ -27,8 +27,8 @@ export class ModsPublisher extends ModsElement {
         return 'originInfo';
     }
 
-    constructor(modsElement) {
-        super(modsElement, ['eventType']);
+    constructor(modsElement, template) {
+        super(modsElement, template, ['eventType']);
         this.init();
     }
 
@@ -146,7 +146,8 @@ export class ModsPublisher extends ModsElement {
             this.place = place['placeTerm'][0];
             this.modsElement['place'].push(place);
         }
-        this.frequencies = new ElementField(this.modsElement, ModsFrequency.getSelector());
+        this.frequencies = new ElementField(this.modsElement, ModsFrequency.getSelector(), this.getTemplate());
+        this.addSubfield(this.frequencies);
     }
 
     public update() {

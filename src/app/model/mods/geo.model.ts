@@ -42,8 +42,8 @@ export class ModsGeo extends ModsElement {
         return 'subject_geo';
     }
 
-    constructor(modsElement) {
-        super(modsElement, ['authority']);
+    constructor(modsElement, template) {
+        super(modsElement, template, ['authority']);
         this.init();
     }
 

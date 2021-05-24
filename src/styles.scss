@@ -101,6 +101,7 @@ body {
     margin-bottom: 16px;
   }
   .app-card-content {
+    overflow: hidden;
     .warn-message {
       color: $warn-color;
       margin: 5px 0 10px 0;
@@ -428,6 +429,14 @@ mat-form-field textarea.mat-input-element {
         color: #456aa5;
         font-size: 10px;
       }
+      &.app-invalid {
+        .app-usage {
+          color: #f44336;
+        }
+        .mat-form-field-label {
+          color: #f44336 !important;
+        }
+      }
       // &.mat-form-field-should-float {
       //   .mat-form-field-label-wrapper {
       //     margin-left: 20px;
@@ -505,13 +514,21 @@ mat-form-field textarea.mat-input-element {
         font-size: 15px;
       }
     }
+    &.app-warning {
+      border-color: #f65144;
+      &> .app-card-header > .app-card-title {
+        color: #f65144;
+      }
+    }
   }
   .app-btn-add {
     float: right;
     margin-bottom: 20px;
     margin-right: 20px;
   }
-  mat-form-field {
+  mat-form-field, app-field-text, app-field-codebook, app-field-dropdown, app-autocomplete {
+    display: block;
+    float: left;
     &.app-full-width {
       width: 100%;
       // margin-top: -5px;

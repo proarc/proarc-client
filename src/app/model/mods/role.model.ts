@@ -13,8 +13,8 @@ export class ModsRole extends ModsElement {
         return 'role';
     }
 
-    constructor(modsElement) {
-        super(modsElement);
+    constructor(modsElement, template) {
+        super(modsElement, template);
         this.init();
     }
 

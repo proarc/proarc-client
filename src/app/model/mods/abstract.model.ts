@@ -10,8 +10,8 @@ export class ModsAbstract extends ModsElement {
         return 'abstract';
     }
 
-    constructor(modsElement) {
-        super(modsElement);
+    constructor(modsElement, template) {
+        super(modsElement, template);
         this.init();
     }
 

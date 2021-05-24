@@ -13,8 +13,8 @@ export class ModsChronicleLocation extends ModsElement {
         return 'location_chronicle';
     }
 
-    constructor(modsElement) {
-        super(modsElement);
+    constructor(modsElement, template) {
+        super(modsElement, template);
         this.init();
     }
 

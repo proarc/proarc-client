@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { ModsElement } from 'src/app/model/mods/element.model';
 
 @Component({
   selector: 'app-autocomplete',
@@ -10,21 +10,21 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class AutocompleteComponent implements OnInit {
 
-  @Input() innerClass: string;
-  @Input() label: string;
+  @Input() item: ModsElement;
+  @Input() field: string;
   @Input() value: string;
-  @Input() usage: string;
-  @Input() options: string[];
-
-  control = new FormControl();
+  
   filteredOptions: Observable<string[]>;
   @Output() valueChange = new EventEmitter<string>();
+
+  options: string[];
 
   constructor() {
   }
 
   ngOnInit() {
-    this.filteredOptions = this.control.valueChanges.pipe(
+    this.options = this.item.options(this.field);
+    this.filteredOptions = this.item.getControl(this.field).valueChanges.pipe(
       startWith(''),
       map(v => this._filter(v))
     );

@@ -1,4 +1,4 @@
-<app-editor-field [field]="field" [title]="'editor.chronicle.author.title'">
+<app-editor-field [field]="field">
 
   <ng-template let-item="item" #templateContent>
 
@@ -17,7 +17,7 @@
       </mat-form-field>
     </div>
 
-    <app-editor-field [field]="item.roles" [title]="'editor.author.role.title'" class="app-roles" [nested]='true'>
+    <app-editor-field [field]="item.roles" class="app-roles" [nested]='true'>
       <ng-template let-role="item" #templateContent>
         <mat-select class="app-no-placeholder" [(ngModel)]='role.role["_"]' placeholder="{{ 'editor.author.role.title' | translate }}">
           <mat-option *ngFor="let role of roles" [value]="role.code">

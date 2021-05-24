@@ -13,8 +13,8 @@ export class ModsLanguage extends ModsElement {
         return 'language';
     }
 
-    constructor(modsElement) {
-        super(modsElement, ['objectPart']);
+    constructor(modsElement, template) {
+        super(modsElement, template, ['objectPart']);
         this.init();
     }
 

@@ -1,15 +1,35 @@
+import { FormControl } from "@angular/forms";
+import { ElementField } from "./elementField.model";
 
 export abstract class ModsElement {
     public attrs;
     public modsElement;
     public collapsed = false;
     public hidden = false;
+    private template;
 
-    constructor(modsElement, attributes: string[] = []) {
+    public validationWarning = false;
+    private controls: Map<String, FormControl>;
+
+    private subFields: ElementField[];
+
+    constructor(modsElement, template, attributes: string[] = []) {
+        this.validationWarning = false;
+        this.subFields = [];
+        this.controls = new Map<String, FormControl>();
+        this.template = template;
         this.modsElement = modsElement;
         if (attributes.length > 0) {
             this.initAttributes(attributes);
         }
+    }
+
+    public addSubfield(field: ElementField) {
+        this.subFields.push(field);
+    }
+
+    public getSubfields(): ElementField[] {
+        return this.subFields;
     }
 
     public getEl() {
@@ -41,4 +61,103 @@ export abstract class ModsElement {
         this.collapsed = !this.collapsed;
     }
 
+    public isMandatory(field): boolean {
+        return this.usage(field) == 'M';
+    }
+
+    public usage(field: string): string {
+        if (field) {
+            return this.template[field].usage;
+        } else {
+            return this.template.usage;
+        }
+    }
+
+    public label(field: string): string {
+        if (field) {
+            return this.template[field].label;
+        } else {
+            return this.template.label;
+        }
+    }
+
+    public options(field: string): string[] {
+        if (field) {
+            return this.template[field].options;
+        } else {
+            return this.template.options;
+        }
+    }
+
+    public lockey(field: string): string[] {
+        if (field) {
+            return this.template[field].lockey;
+        } else {
+            return this.template.lockey;
+        }
+    }
+
+    public available(field: string): boolean {
+        return !!this.template[field];
+    }
+
+    public getTemplate() {
+        return this.template;
+    }
+
+
+    public getControl(filed: string): FormControl {
+        if (!this.controls.has(filed)) {
+            this.controls.set(filed, new FormControl());
+        }
+        return this.controls.get(filed);
+    }
+
+    public invalid(field: string): boolean {
+        const c = this.getControl(field);
+        if (c.touched && c.errors && c.errors.required) {
+            return true;
+        }
+        return false;
+    }
+
+    public validate(): boolean {
+        let error = false;
+        let anyValue = false;
+        const isRequired = this.template ? this.template.usage == 'M' : false
+        this.controls.forEach((value, key) => {
+            value.markAsTouched();
+            if (value.errors) {
+                error = true;
+            }
+            if (value.value) {
+                anyValue = true;
+            }
+        });
+        if (!anyValue && !isRequired) {
+            this.controls.forEach((value, key) => {
+                value.markAsUntouched();
+            });
+        }
+        if (error && (isRequired || anyValue)) {
+            this.validationWarning = true;
+        } else {
+            this.validationWarning = false;
+        }
+        return !this.validationWarning;
+    }
+
+    public isValid(): boolean {
+        let error = false;
+        let anyValue = false;
+        this.controls.forEach((value, key) => {
+            if (value.errors) {
+                error = true;
+            }
+            if (value.value) {
+                anyValue = true;
+            }
+        });
+        return !(error && (this.template.usage == 'M' || anyValue));
+    }
 }

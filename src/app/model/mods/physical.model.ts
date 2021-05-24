@@ -14,8 +14,8 @@ export class ModsPhysical extends ModsElement {
         return 'physicalDescription';
     }
 
-    constructor(modsElement) {
-        super(modsElement);
+    constructor(modsElement, template) {
+        super(modsElement, template);
         this.init();
     }
 

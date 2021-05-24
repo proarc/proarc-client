@@ -6,7 +6,7 @@ export class ModsIssue extends ModsElement {
     public number;
 
     constructor(modsElement) {
-        super(modsElement);
+        super(modsElement, null);
         this.init();
     }
 

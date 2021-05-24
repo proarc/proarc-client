@@ -14,9 +14,7 @@ import { ModsAuthor } from 'src/app/model/mods/author.model';
 })
 export class EditorAuthorComponent implements OnInit {
   @Input() field: ElementField;
-  @Input() data: any;
 
-  nameTypes: string[] = ['personal', 'corporate', 'conference', 'family'];
   private roleCodes = ['act', 'adp', 'aft', 'ann', 'ant', 'app', 'aqt', 'arc', 'arr', 'art', 'asg', 'asn', 'att', 'auc', 'aud',
         'aui', 'aus', 'aut', 'bdd', 'bjd', 'bkd', 'bkp', 'bnd', 'bpd', 'bsl', 'ccp', 'chr', 'cli', 'cll', 'clt', 'cmm', 'cmp', 'cmt',
         'cnd', 'cns', 'coe', 'col', 'com', 'cos', 'cot', 'cov', 'cpc', 'cpe', 'cph', 'cpl', 'cpt', 'cre', 'crp', 'crr', 'csl',
@@ -44,7 +42,6 @@ export class EditorAuthorComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
         const mods = result['mods'];
-        console.log('mods', mods);
         const metadata = new Metadata('', '', mods, 0);
         const nameField = metadata.getField(ModsAuthor.getSelector());
         const items = nameField.getItems();

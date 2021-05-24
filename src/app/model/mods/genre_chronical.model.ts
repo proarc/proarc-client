@@ -10,8 +10,8 @@ export class ModsGenreChronical extends ModsElement {
         return 'genre_chronical';
     }
 
-    constructor(modsElement) {
-        super(modsElement, ['type', 'lang']);
+    constructor(modsElement, template) {
+        super(modsElement, template, ['type', 'lang']);
         this.init();
     }
 

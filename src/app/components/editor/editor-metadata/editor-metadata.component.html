@@ -14,19 +14,19 @@
     </div>  
 
 <div class="app-editor-content" *ngIf="editor.metadata">
-    <app-editor-title *ngIf="editor.template.titleInfo" [data]="editor.template.titleInfo" [field]="editor.metadata.getField('titleInfo')"></app-editor-title>
-    <app-editor-author *ngIf="editor.template.name" [data]="editor.template.name" [field]="editor.metadata.getField('name')"></app-editor-author>
-    <app-editor-publisher *ngIf="editor.template.originInfo" [data]="editor.template.originInfo" [field]="editor.metadata.getField('originInfo')"></app-editor-publisher>
-    <app-editor-location *ngIf="editor.template.location" [data]="editor.template.location" [field]="editor.metadata.getField('location')"></app-editor-location>
-    <app-editor-subject *ngIf="editor.template.subject" [data]="editor.template.subject" [field]="editor.metadata.getField('subject')"></app-editor-subject>
-    <app-editor-language *ngIf="editor.template.language" [data]="editor.template.language" [field]="editor.metadata.getField('language')"></app-editor-language>
-    <app-editor-abstract *ngIf="editor.template.abstract" [data]="editor.template.abstract" [field]="editor.metadata.getField('abstract')" [title]="'editor.abstract.title'"></app-editor-abstract>
-    <app-editor-physical *ngIf="editor.template.physicalDescription" [data]="editor.template.physicalDescription" [field]="editor.metadata.getField('physicalDescription')"></app-editor-physical>
-    <app-editor-note *ngIf="editor.template.note" [data]="editor.template.note" [field]="editor.metadata.getField('note')"></app-editor-note>
-    <app-editor-genre *ngIf="editor.template.genre" [data]="editor.template.genre" [field]="editor.metadata.getField('genre')"></app-editor-genre>
-    <app-editor-identifier *ngIf="editor.template.identifier" [data]="editor.template.identifier" [field]="editor.metadata.getField('identifier')"></app-editor-identifier>
-    <app-editor-classification *ngIf="editor.template.classification" [data]="editor.template.classification" [field]="editor.metadata.getField('classification')"></app-editor-classification>
-    <app-editor-resource *ngIf="editor.template.typeOfResource" [data]="editor.template.typeOfResource" [field]="editor.metadata.getField('typeOfResource')"></app-editor-resource>
+    <app-editor-title *ngIf="editor.template.titleInfo" [field]="editor.metadata.getField('titleInfo')"></app-editor-title>
+    <app-editor-author *ngIf="editor.template.name" [field]="editor.metadata.getField('name')"></app-editor-author>
+    <app-editor-publisher *ngIf="editor.template.originInfo" [field]="editor.metadata.getField('originInfo')"></app-editor-publisher>
+    <app-editor-location *ngIf="editor.template.location" [field]="editor.metadata.getField('location')"></app-editor-location>
+    <app-editor-subject *ngIf="editor.template.subject" [field]="editor.metadata.getField('subject')"></app-editor-subject>
+    <app-editor-language *ngIf="editor.template.language" [field]="editor.metadata.getField('language')"></app-editor-language>
+    <app-editor-abstract *ngIf="editor.template.abstract" [field]="editor.metadata.getField('abstract')"></app-editor-abstract>
+    <app-editor-physical *ngIf="editor.template.physicalDescription" [field]="editor.metadata.getField('physicalDescription')"></app-editor-physical>
+    <app-editor-note *ngIf="editor.template.note" [field]="editor.metadata.getField('note')"></app-editor-note>
+    <app-editor-genre *ngIf="editor.template.genre" [field]="editor.metadata.getField('genre')"></app-editor-genre>
+    <app-editor-identifier *ngIf="editor.template.identifier" [field]="editor.metadata.getField('identifier')"></app-editor-identifier>
+    <app-editor-classification *ngIf="editor.template.classification" [field]="editor.metadata.getField('classification')"></app-editor-classification>
+    <app-editor-resource *ngIf="editor.template.typeOfResource" [field]="editor.metadata.getField('typeOfResource')"></app-editor-resource>
 </div>
     
 <mat-spinner *ngIf="state === 'loading'"

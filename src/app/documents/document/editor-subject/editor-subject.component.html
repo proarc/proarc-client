@@ -1,5 +1,4 @@
-<app-editor-field [field]="field" [title]="'editor.subject.title'" [usage]="data.usage" [help]="data.help">
-  
+<app-editor-field [field]="field">
   
   <ng-template let-item="item" #templateMenu>
     <div class="app-header-divider"></div>
@@ -8,30 +7,11 @@
     </button>
   </ng-template>
   
-  
   <ng-template let-item="item" #templateContent>
-    
-    <mat-form-field class="app-full-width">
-      <span class="app-usage">{{ data.authority.usage }}</span>
-      <input matInput [(ngModel)]='item.attrs["authority"]' placeholder="{{ 'editor.subject.authority' | translate }}" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let authority of authorities" [value]="authority">
-          {{ authority }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-
-    <mat-form-field class="app-full-width">
-      <span class="app-usage">{{ data.topic.usage }}</span>
-      <input autocomplete="off" matInput [(ngModel)]='item.topic["_"]' placeholder="{{ 'editor.subject.topic' | translate }}">
-    </mat-form-field>
-    <mat-form-field class="app-full-width">
-      <span class="app-usage">{{ data.geographic.usage }}</span>
-      <input autocomplete="off" matInput [(ngModel)]='item.geographic["_"]' placeholder="{{ 'editor.subject.geographic' | translate }}">
-    </mat-form-field>
-    <mat-form-field class="app-full-width">
-      <span class="app-usage">{{ data.temporal.usage }}</span>
-      <input autocomplete="off" matInput [(ngModel)]='item.temporal["_"]' placeholder="{{ 'editor.subject.temporal' | translate }}">
-    </mat-form-field>
+    <app-field-dropdown class="app-full-width" field="authority" [item]="item" [(value)]='item.attrs["authority"]'></app-field-dropdown>
+    <app-field-text class="app-full-width" field="topic" [item]="item" [(value)]='item.topic["_"]'></app-field-text>
+    <app-field-text class="app-full-width" field="geographic" [item]="item" [(value)]='item.geographic["_"]'></app-field-text>
+    <app-field-text class="app-full-width" field="temporal" [item]="item" [(value)]='item.temporal["_"]'></app-field-text>
   </ng-template>
+  
 </app-editor-field>

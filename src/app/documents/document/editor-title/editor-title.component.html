@@ -1,26 +1,23 @@
-<app-editor-field [field]="field" [title]="'editor.title.title'" [usage]="data.usage" [help]="data.help">
+<app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
     
-    <mat-form-field class="app-full-width" >
-      <span class="app-usage">{{ data.title.usage }}</span>
+    <mat-form-field class="app-full-width" *ngIf="item.available('title')">
+      <span class="app-usage" [class.app-invalid]="item.invalid('title')">{{ item.usage('title') }}</span>
       <span *ngIf='item.nonSort["_"]' matPrefix class="title-prefix" color="primary">{{ item.nonSort["_"] }}</span>
-      <input autocomplete="off" style="width: calc(100% - 60px)" spellcheck="false" matInput [(ngModel)]='item.title["_"]' placeholder="{{ 'editor.title.title' | translate }}">
-          <mat-slide-toggle color="primary" class="non-sort-toggle"
-                          matTooltip="{{ 'editor.title.non_sort_toggle' | translate }}"
-                          [disabled]="item.nonSortToggleDisabled()"
-                          (change)="item.onNonSotToggleChanged($event)"
-                          [checked]='item.nonSort["_"].length > 0' >
-          </mat-slide-toggle>
+      <input [required]="item.isMandatory('title')" [formControl]="item.getControl('title')" autocomplete="off" style="width: calc(100% - 60px)" spellcheck="false" matInput [(ngModel)]='item.title["_"]' placeholder="{{ 'editor.title.title' | translate }}">
+      <mat-slide-toggle color="primary" class="non-sort-toggle"
+                      matTooltip="{{ 'editor.title.non_sort_toggle' | translate }}"
+                      [disabled]="item.nonSortToggleDisabled()"
+                      (change)="item.onNonSotToggleChanged($event)"
+                      [checked]='item.nonSort["_"].length > 0' >
+      </mat-slide-toggle>
     </mat-form-field>
 
-    <mat-form-field class="app-half-left">
-      <span class="app-usage">{{ data.subTitle.usage }}</span>
-      <input autocomplete="off" matInput [(ngModel)]='item.subTitle["_"]' placeholder="{{ 'editor.title.subtitle' | translate }}">
-    </mat-form-field>
+    <app-field-text class="app-half-left" field="subTitle" [item]="item" [(value)]="item.subTitle['_']"></app-field-text>
 
-    <mat-form-field class="app-half-right">
-      <span class="app-usage">{{ data.type.usage }}</span>
-      <mat-select [(ngModel)]='item.attrs["type"]' placeholder="{{ 'editor.title.type' | translate }}">
+    <mat-form-field class="app-half-right" *ngIf="item.available('type')">
+      <span class="app-usage"  [class.app-invalid]="item.invalid('type')">{{ item.usage('type') }}</span>
+      <mat-select [required]="item.isMandatory('type')" [formControl]="item.getControl('type')" [(ngModel)]='item.attrs["type"]' placeholder="{{ 'editor.title.type' | translate }}">
         <mat-option value="">-</mat-option>
         <mat-option *ngFor="let type of codebook.titleTypeCodes" [value]="type">
           {{ 'editor.title.types.' + type | translate }}
@@ -28,15 +25,10 @@
       </mat-select>
     </mat-form-field>
 
+    <app-field-text class="app-half-left" field="partNumber" [item]="item" [(value)]="item.partNumber['_']"></app-field-text>
+    <app-field-text class="app-half-right" field="partName" [item]="item" [(value)]="item.partName['_']"></app-field-text>
 
-    <mat-form-field class="app-half-left">
-      <span class="app-usage">{{ data.partNumber.usage }}</span>
-      <input autocomplete="off" matInput [(ngModel)]='item.partNumber["_"]' placeholder="{{ 'editor.title.partnumber' | translate }}">
-    </mat-form-field>
-    <mat-form-field class="app-half-right">
-      <span class="app-usage">{{ data.partName.usage }}</span>
-      <input autocomplete="off" matInput [(ngModel)]='item.partName["_"]' placeholder="{{ 'editor.title.partname' | translate }}">
-    </mat-form-field>
+
 
   </ng-template>
 </app-editor-field>

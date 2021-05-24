@@ -1,17 +1,8 @@
-<app-editor-field [field]="field" [title]="'editor.physical.title'" [usage]="data.usage" [help]="data.help">
+<app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
 
-    <mat-form-field class="app-full-width">
-      <span class="app-usage">{{ data.extent.usage }}</span>
-      <input autocomplete="off" matInput [(ngModel)]='item.extent["_"]' placeholder="{{ 'editor.physical.extent' | translate }}">
-    </mat-form-field>
-
-    <mat-form-field class="app-full-width">
-      <span class="app-usage">{{ data.extent.usage }}</span>
-      <textarea 
-      cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="15"
-      autocomplete="off" matInput [(ngModel)]='item.note["_"]' placeholder="{{ 'editor.physical.note' | translate }}"></textarea>
-    </mat-form-field>
+    <app-field-text class="app-full-width" field="extent" [item]="item" [(value)]="item.extent['_']" ></app-field-text>
+    <app-field-textarea class="app-full-width" field="note" [item]="item" [(value)]="item.note['_']" ></app-field-textarea>
 
   </ng-template>
 </app-editor-field>

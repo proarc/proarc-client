@@ -27,20 +27,26 @@ export class NdkMonographVolumeTemplate {
         V případě, že se jedná o vícesvazkovou monografii, je zde uveden název svazku
         `,
       usage: 'M',
+      label: 'Název',
       type: {
-        usage: "MA"
+        usage: "MA",
+        label: 'Typ'
       },
       title: {
-        usage: "M"
+        usage: "M",
+        label: 'Název'
       },
       subTitle: {
-        usage: "MA"
+        usage: "MA",
+        label: 'Vedlejší název'
       },
       partNumber: {
-        usage: "MA"
+        usage: "MA",
+        label: 'Číslo části'
       },
       partName: {
-        usage: "MA"
+        usage: "MA",
+        label: 'Název části'
       }
     },
     name: {
@@ -73,23 +79,32 @@ export class NdkMonographVolumeTemplate {
         (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)
       `,
       usage: "MA",
+      label: "Autor",
       name: {
-        usage: "MA"
+        usage: "MA",
+        label: "Celé jméno"
       },
       given: {
-        usage: "MA"
+        usage: "MA",
+        label: "Křestní"
       },
       family: {
-        usage: "MA"
+        usage: "MA",
+        label: "Příjmení"
       },
       date: {
-        usage: "RA"
+        usage: "RA",
+        label: "Datum"
       },
       type: {
-        usage: "MA"
+        usage: "R",
+        label: "Typ",
+        options: ['', 'personal', 'corporate', 'conference', 'family'],
+        lockey: 'name'
       },
       role: {
-        usage: "MA"
+        usage: "M",
+        label: "Role"
       }
     },
     originInfo: {
@@ -176,36 +191,65 @@ export class NdkMonographVolumeTemplate {
         Využije se pouze v případě výskytu pole 264 s ruhým indikátorem 4 a podpolem $c 264_4
         `,
         usage: "M",
+        label: "Nakladatel",
         publisher: {
-            usage: "M"
+            usage: "M",
+            label: "Nakladatel"
         },
         dateIssued: {
-            usage: "M"
+            usage: "M",
+            label: "Datum vydání"
         },
         qualifier: {
-            usage: "R"
+            usage: "R",
+            label: "Upřesnění data",
+            options: ['', 'approximate', 'inferred', 'questionable'],
+            lockey: 'editor.publisher.date_qualifier_code'
         },
         edition: {
-            usage: "R"
+            usage: "R",
+            label: "Edice"
         },
         issuance: {
             usage: "M",
-            options: ['monographic', 'single unit', 'multipart monograph']
+            label: "Vydání",
+            options: ['', 'monographic', 'single unit', 'multipart monograph'],
+            lockey: 'editor.publisher.issuance_code'
         },
         place: {
-            usage: "MA"
+            usage: "MA",
+            label: "Místo"
         },
         eventType: {
-            usage: "M"
+            usage: "M",
+            label: "Typ",
+            options: ['', 'production', 'publication', 'distribution', 'manufacture', 'copyright'],
+            lockey: 'editor.publisher.event_type_code'
         },
         dateCreated: {
-          usage: "R"
+          usage: "R",
+          label: "Datum vytvoření"
         },
         dateOther: {
-          usage: "R"
+          usage: "R",
+          label: "Datum - jiné"
         },
         copyrightDate: {
-          usage: "R"
+          usage: "R",
+          label: "Datum - copyright"
+        },
+        frequency: {
+          usage: "R",
+          label: "Frekvence",
+          authority: {
+            usage: "R",
+            label: "Autorita",
+            options: ["marcfrequency"]
+          },
+          value: {
+            label: "Frekvence",
+            usage: "R d   "
+          }
         }
     },
     location: {
@@ -221,14 +265,18 @@ export class NdkMonographVolumeTemplate {
       Pro uvedení lokace elektronického dokumentu
       `,
       usage: "MA",
+      label: "Uložení",
       physicalLocation: {
         usage: "M",
+        label: "Místo uložení"
       },
       shelfLocator: {
         usage: "M",
+        label: "Signatura"
       },
       url: {
         usage: "O",
+        label: "URL"
       }
     },
     subject: {
@@ -248,17 +296,23 @@ export class NdkMonographVolumeTemplate {
       Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21
       `,
       usage: "R",
+      label: "Věcné třídění",
       authority: {
         usage: "R",
+        label: "Autorita",
+        options: ['czenas', 'eczenas', 'mednas', 'czmesh', 'msvkth', 'agrovoc', 'Konspekt']
       },
       topic: {
         usage: "R",
+        label: "Klíčové slovo/Předmětové heslo"
       },
       geographic: {
         usage: "R",
+        label: "Geografické věcné třídění"
       },
       temporal: {
         usage: "R",
+        label: "Chronologické věcné třídění"
       }
     },
     language: {
@@ -278,12 +332,15 @@ export class NdkMonographVolumeTemplate {
       Přesné určení jazyka
       `,
       usage: "M",
+      label: "Jazyk",
       objectPart: {
         usage: "RA",
+        label: "Část",
         options: ['', 'summary', 'table of contents', 'accompanying material', 'translation']
       },
       language: {
         usage: "M",
+        label: "Jazyk"
       }
     },
     abstract: {
@@ -292,6 +349,11 @@ export class NdkMonographVolumeTemplate {
       Shrnutí obsahu jako celku odpovídá poli 520 MARC21
       `,
       usage: "RA",
+      label: "Abstrakt",
+      abstract: {
+        usage: "RA",
+        label: "Abstrakt"
+      }
     },
     physicalDescription: {
       help: `
@@ -305,11 +367,14 @@ export class NdkMonographVolumeTemplate {
       Poznámka o fyzickém stavu dokumentu
       `,
       usage: "M",
+      label: "Fyzický popis",
       extent: {
         usage: "RA",
+        label: "Rozsah"
       },
       note: {
         usage: "RA",
+        label: "Poznámka"
       }
     },
     note: {
@@ -322,11 +387,15 @@ export class NdkMonographVolumeTemplate {
       Upřesnění obsahu poznámky
       `,
       usage: "RA",
+      label: "Poznámka",
       type: {
         usage: "O",
+        label: "Typ",
+        options: [ 'performers', 'statement of responsibility', 'historical']
       },
       note: {
         usage: "RA",
+        label: "Poznámka"
       }
     },
     genre: {
@@ -336,11 +405,15 @@ export class NdkMonographVolumeTemplate {
       Pro monografie hodnota <strong>volume</strong><br/>
       `,
       usage: "M",
+      label: "Žánr",
       authority: {
         usage: "MA",
+        label: "Autorita",
+        options: ['czenas', 'eczenas', 'rdacontent']
       },
       value: {
         usage: "M",
+        label: "Autorita"
       }
     },
     identifier: {
@@ -387,11 +460,18 @@ export class NdkMonographVolumeTemplate {
         </ul>
       `,
       usage: "M",
+      label: "Identifikátor",
       type: {
-        usage: "M"
+        usage: "M",
+        label: "Type",
       },
       validity: {
-        usage: "M"
+        usage: "MA",
+        label: "Platnost",
+      },
+      value: {
+        usage: "M",
+        label: "Hodnota",
       }
     },
     classification: {
@@ -417,15 +497,21 @@ export class NdkMonographVolumeTemplate {
         </li>
       </ul>
       `,
-      usage: "R",
+      usage: "R",     
+      label: "Klasifikace",
       authority: {
         usage: "M",
+        label: "Autorita",
+        options: ['udc', 'Konspekt']
       },
       edition: {
         usage: "M",
+        label: "Edice",
+        options: ['Konspekt']
       },
       value: {
         usage: "M",
+        label: "Hodnota",
       }
     },
     typeOfResource: {
@@ -436,7 +522,12 @@ export class NdkMonographVolumeTemplate {
       záznamu, z pozice 06 návěští
       `,
       usage: "R",
-      options: ['', 'text']
+      label: "Typ zdroje",
+      value: {
+        usage: "R",
+        label: "Typ zdroje",
+        options: ['', 'text']
+      }
     }
   }
 }

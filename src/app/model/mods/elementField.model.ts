@@ -23,8 +23,10 @@ export class ElementField {
     private id;
     public root;
     private items: ModsElement[];
+    private template;
 
-    constructor(mods, id, attr = null, requiredValues = [], forbiddenValues = []) {
+    constructor(mods, id, template, attr = null, requiredValues = [], forbiddenValues = []) {
+        this.template = template[id];
         this.id = id;
         const selector = this.selectorById(id)
         if (mods[selector] === undefined) {
@@ -130,11 +132,6 @@ export class ElementField {
     }
 
 
-
-
-
-
-
     private addAfter(index: number, el: ModsElement = null): ModsElement {
         const item: ModsElement = el || this.newElement(this.id, {});
         this.items.splice(index + 1, 0, item);
@@ -175,44 +172,56 @@ export class ElementField {
     private newElement(id, el): ModsElement {
         switch (id) {
             case ModsTitle.getId():
-                return new ModsTitle(el);
+                return new ModsTitle(el, this.template);
             case ModsLanguage.getId():
-                return new ModsLanguage(el);
+                return new ModsLanguage(el, this.template);
             case ModsRole.getId():
-                return new ModsRole(el);
+                return new ModsRole(el, this.template);
             case ModsAuthor.getId():
-                return new ModsAuthor(el);
+                return new ModsAuthor(el, this.template);
             case ModsPublisher.getId():
-                return new ModsPublisher(el);
+                return new ModsPublisher(el, this.template);
             case ModsLocation.getId():
-                return new ModsLocation(el);
+                return new ModsLocation(el, this.template);
             case ModsChronicleLocation.getId():
-                return new ModsChronicleLocation(el);
+                return new ModsChronicleLocation(el, this.template);
             case ModsIdentifier.getId():
-                return new ModsIdentifier(el);
+                return new ModsIdentifier(el, this.template);
             case ModsNote.getId():
-                return new ModsNote(el);
+                return new ModsNote(el, this.template);
             case ModsAbstract.getId():
-                return new ModsAbstract(el);
+                return new ModsAbstract(el, this.template);
             case ModsGenre.getId():
-                return new ModsGenre(el);
+                return new ModsGenre(el, this.template);
             case ModsGenreChronical.getId():
-                return new ModsGenreChronical(el);
+                return new ModsGenreChronical(el, this.template);
             case ModsGeo.getId():
-                return new ModsGeo(el);
+                return new ModsGeo(el, this.template);
             case ModsPhysical.getId():
-                return new ModsPhysical(el);
+                return new ModsPhysical(el, this.template);
             case ModsSubject.getId():
-                return new ModsSubject(el);
+                return new ModsSubject(el, this.template);
             case ModsClassification.getId():
-                return new ModsClassification(el);
+                return new ModsClassification(el, this.template);
             case ModsResource.getId():
-                return new ModsResource(el);
+                return new ModsResource(el, this.template);
             case ModsFrequency.getId():
-                return new ModsFrequency(el);
+                return new ModsFrequency(el, this.template);
             }
     }
 
+
+    public help() {
+        return this.template.help;
+    }
+
+    public usage() {
+        return this.template.usage;
+    }
+
+    public label() {
+        return this.template.label;
+    }
 
     private selectorById(id: string): string {
         switch (id) {

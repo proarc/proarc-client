@@ -1,14 +1,11 @@
-<app-editor-field [field]="field" [title]="'editor.classification.title'" [usage]="data.usage" [help]="data.help">
+<app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
 
-    <app-autocomplete innerClass="app-half-left" [usage]="data.authority.usage" [(value)]='item.attrs["authority"]' [label]="'editor.classification.authority' | translate" [options]="authorities"></app-autocomplete>
-    <app-autocomplete innerClass="app-half-right" [usage]="data.edition.usage" [(value)]='item.attrs["edition"]' [label]="'editor.classification.edition' | translate" [options]="editions"></app-autocomplete>
+    <app-autocomplete class="app-half-left" [(value)]='item.attrs["authority"]' field="authority" [item]="item"></app-autocomplete>
+    <app-autocomplete class="app-half-right" [(value)]='item.attrs["edition"]' field="edition" [item]="item"></app-autocomplete>
 
-    <mat-form-field class="app-full-width">
-      <span class="app-usage">{{ data.value.usage }}</span>
-      <input autocomplete="off" matInput [(ngModel)]='item.modsElement["_"]' placeholder="{{ 'editor.classification.value' | translate }}">
-    </mat-form-field>
-
+    <app-field-text class="app-full-width" field="value" [item]="item" [(value)]="item.modsElement['_']" ></app-field-text>
+    
   </ng-template>
 </app-editor-field>
   

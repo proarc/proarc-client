@@ -106,6 +106,10 @@ import { AutocompleteComponent } from './components/shared/autocomplete/autocomp
 import { EditorResourceComponent } from './documents/document/editor-resource/editor-resource.component';
 import { PdfComponent } from './components/pdf/pdf.component';
 import { SafePipe } from './pipes/safe.pipe';
+import { FieldTextareaComponent } from './documents/document/field-textarea/field-textarea.component';
+import { FieldDropdownComponent } from './documents/document/field-dropdown/field-dropdown.component';
+import { FieldTextComponent } from './documents/document/field-text/field-text.component';
+import { FieldCodebookComponent } from './documents/document/field-codebook/field-codebook.component';
 
 
 export function hljsLanguages() {
@@ -195,7 +199,11 @@ export function hljsLanguages() {
     AutocompleteComponent,
     EditorResourceComponent,
     PdfComponent,
-    SafePipe
+    SafePipe,
+    FieldTextComponent,
+    FieldTextareaComponent,
+    FieldDropdownComponent,
+    FieldCodebookComponent
   ],
   imports: [
     BrowserModule,

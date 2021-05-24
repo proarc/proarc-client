@@ -10,8 +10,8 @@ export class ModsFrequency extends ModsElement {
         return 'frequency';
     }
 
-    constructor(modsElement) {
-        super(modsElement, ['authority']);
+    constructor(modsElement, template) {
+        super(modsElement, template, ['authority']);
         this.init();
     }
 

@@ -12,8 +12,8 @@ export class ModsResource extends ModsElement {
         return 'typeOfResource';
     }
 
-    constructor(modsElement) {
-        super(modsElement);
+    constructor(modsElement, template) {
+        super(modsElement, template);
         this.init();
     }
 

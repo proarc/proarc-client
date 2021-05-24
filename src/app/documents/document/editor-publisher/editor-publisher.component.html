@@ -1,83 +1,30 @@
-<app-editor-field [field]="field" [title]="'editor.publisher.title'" [usage]="data.usage" [help]="data.help">
+<app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
    
-    <mat-form-field class="app-full-width">
-      <span class="app-usage">{{ data.publisher.usage }}</span>
-      <input autocomplete="off" matInput [(ngModel)]="item.publisher['_']" placeholder="{{ 'editor.publisher.title' | translate }}">
-    </mat-form-field>
+   <app-field-text class="app-full-width" field="publisher" [item]="item" [(value)]="item.publisher['_']"></app-field-text>
+   
+    <app-field-text class="app-half-left" field="dateIssued" [item]="item" [(value)]="item.dateIssued['_']" ></app-field-text>
 
-    <mat-form-field class="app-half-left">
-      <span class="app-usage">{{ data.dateIssued.usage }}</span>
-      <input matInput [(ngModel)]='item.dateIssued["_"]' placeholder="{{ 'editor.publisher.date_issued' | translate }}">
-    </mat-form-field>
+    <app-field-dropdown class="app-half-right" field="qualifier" [item]="item" [(value)]='item.dateIssued["$"]["qualifier"]'></app-field-dropdown>
 
-    <mat-form-field class="app-half-right">
-      <span class="app-usage">{{ data.qualifier.usage }}</span>
-      <mat-select [disabled]='!item.dateIssued["_"]' [(ngModel)]='item.dateIssued["$"]["qualifier"]' placeholder="{{ 'editor.publisher.date_qualifier' | translate }}">
-        <mat-option value="">-</mat-option>
-        <mat-option *ngFor="let qualifier of qualifiers" [value]="qualifier">
-          {{ ('editor.publisher.date_qualifier_code.' + qualifier) | translate }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <app-field-text class="app-half-left" field="edition" [item]="item" [(value)]="item.edition['_']" ></app-field-text>
 
-    <mat-form-field class="app-half-left">
-      <span class="app-usage">{{ data.edition.usage }}</span>
-      <input matInput [(ngModel)]='item.edition["_"]' placeholder="{{ 'editor.publisher.edition' | translate }}">
-    </mat-form-field>
+    <app-field-dropdown class="app-half-right" field="issuance" [item]="item" [(value)]='item.issuance["_"]'></app-field-dropdown>
 
-    <mat-form-field class="app-half-right">
-      <span class="app-usage">{{ data.issuance.usage }}</span>
-      <mat-select [(ngModel)]='item.issuance["_"]' placeholder="{{ 'editor.publisher.issuance' | translate }}">
-        <mat-option value="">-</mat-option>
-        <mat-option *ngFor="let issuance of data.issuance.options" [value]="issuance">
-          {{ ('editor.publisher.issuance_code.' + issuance) | translate }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  
-    <mat-form-field class="app-half-left">
-      <span class="app-usage">{{ data.place.usage }}</span>
-      <input matInput [(ngModel)]='item.place["_"]' placeholder="{{ 'editor.publisher.place' | translate }}">
-    </mat-form-field>
+    <app-field-text class="app-half-left" field="place" [item]="item" [(value)]="item.place['_']" ></app-field-text>
 
-    <mat-form-field class="app-half-right">
-      <span class="app-usage">{{ data.eventType.usage }}</span>
-      <mat-select [(ngModel)]='item.attrs["eventType"]' placeholder="{{ 'editor.publisher.event_type' | translate }}">
-        <mat-option value="">-</mat-option>
-        <mat-option *ngFor="let type of eventTypes" [value]="type">
-          {{ ('editor.publisher.event_type_code.' + type )| translate }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <app-field-dropdown class="app-half-right" field="eventType" [item]="item" [(value)]='item.attrs["eventType"]'></app-field-dropdown>
 
+    <app-field-text class="app-third-1" field="dateCreated" [item]="item" [(value)]="item.dateCreated['_']" ></app-field-text>
+    <app-field-text class="app-third-2" field="dateOther" [item]="item" [(value)]="item.dateOther['_']" ></app-field-text>
+    <app-field-text class="app-third-3" field="copyrightDate" [item]="item" [(value)]="item.copyrightDate['_']" ></app-field-text>
 
-    <mat-form-field class="app-third-1">
-      <span class="app-usage">{{ data.dateCreated.usage }}</span>
-      <input autocomplete="off" matInput [(ngModel)]="item.dateCreated['_']" placeholder="{{ 'editor.publisher.date_created' | translate }}">
-    </mat-form-field>
-    <mat-form-field class="app-third-2">
-      <span class="app-usage">{{ data.dateOther.usage }}</span>
-      <input autocomplete="off" matInput [(ngModel)]="item.dateOther['_']" placeholder="{{ 'editor.publisher.date_other' | translate }}">
-    </mat-form-field>
-    <mat-form-field class="app-third-3">
-      <span class="app-usage">{{ data.copyrightDate.usage }}</span>
-      <input autocomplete="off" matInput [(ngModel)]="item.copyrightDate['_']" placeholder="{{ 'editor.publisher.copyright_date' | translate }}">
-    </mat-form-field>
-
-
-    <app-editor-field *ngIf="data.frequency" [field]="item.frequencies" [title]="'editor.publisher.frequency.title'" class="app-frequencies" [nested]='true' [usage]="data.frequency.usage">
+    <app-editor-field *ngIf="item.available('frequency')" [field]="item.frequencies" class="app-frequencies" [nested]='true'>
       <ng-template let-frequency="item" #templateContent>
-
-        <mat-form-field class="app-half-left">
-          <span class="app-usage">{{ data.frequency.value.usage }}</span>
-          <input autocomplete="off" matInput [(ngModel)]='frequency.modsElement["_"]' placeholder="{{ 'editor.publisher.frequency.title' | translate }}">
-        </mat-form-field>
-        <app-autocomplete innerClass="app-half-right" [usage]="data.frequency.authority.usage" [(value)]='frequency.attrs["authority"]' [label]="'editor.publisher.frequency.authority' | translate" [options]="data.frequency.authority.options"></app-autocomplete>
-    
+        <app-field-text class="app-half-left" field="value" [item]="frequency" [(value)]="frequency.modsElement['_']"></app-field-text>
+        <app-autocomplete class="app-half-right" field="authority" [item]="frequency" [(value)]='frequency.attrs["authority"]'></app-autocomplete>
       </ng-template>
     </app-editor-field>
-
 
   </ng-template>
 </app-editor-field>

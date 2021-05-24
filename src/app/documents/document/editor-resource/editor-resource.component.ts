@@ -10,7 +10,6 @@ import { ElementField } from 'src/app/model/mods/elementField.model';
 export class EditorResourceComponent implements OnInit {
 
   @Input() field: ElementField;
-  @Input() data: any;
 
   constructor() {
   }

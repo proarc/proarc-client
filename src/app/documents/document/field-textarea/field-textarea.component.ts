@@ -1,0 +1,23 @@
+
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ModsElement } from 'src/app/model/mods/element.model';
+
+@Component({
+  selector: 'app-field-textarea',
+  templateUrl: './field-textarea.component.html',
+  styleUrls: ['./field-textarea.component.scss']
+})
+export class FieldTextareaComponent implements OnInit {
+
+  @Input() item: ModsElement;
+  @Input() field: string;
+  @Input() value: string;
+  @Output() valueChange = new EventEmitter<string>();
+
+  constructor() {
+  }
+
+  ngOnInit() {
+  }
+
+}
