@@ -248,7 +248,7 @@ export class NdkMonographVolumeTemplate {
           },
           value: {
             label: "Frekvence",
-            usage: "R d   "
+            usage: "R"
           }
         }
     },
@@ -300,7 +300,7 @@ export class NdkMonographVolumeTemplate {
       authority: {
         usage: "R",
         label: "Autorita",
-        options: ['czenas', 'eczenas', 'mednas', 'czmesh', 'msvkth', 'agrovoc', 'Konspekt']
+        options: ['','czenas', 'eczenas', 'mednas', 'czmesh', 'msvkth', 'agrovoc', 'Konspekt']
       },
       topic: {
         usage: "R",
@@ -463,7 +463,7 @@ export class NdkMonographVolumeTemplate {
       label: "Identifikátor",
       type: {
         usage: "M",
-        label: "Type",
+        label: "Typ",
       },
       validity: {
         usage: "MA",
