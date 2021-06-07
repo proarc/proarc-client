@@ -146,7 +146,9 @@ export class ModsPublisher extends ModsElement {
             this.place = place['placeTerm'][0];
             this.modsElement['place'].push(place);
         }
-        this.frequencies = new ElementField(this.modsElement, ModsFrequency.getSelector(), this.getTemplate());
+        if(this.available('frequency')) {
+            this.frequencies = new ElementField(this.modsElement, ModsFrequency.getSelector(), this.getField('frequency'));
+        }
         this.addSubfield(this.frequencies);
     }
 

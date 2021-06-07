@@ -11,7 +11,7 @@ export class EditorTitleComponent implements OnInit {
 
   @Input() field: ElementField;
 
-  constructor(public codebook: CodebookService) {
+  constructor() {
   }
 
   ngOnInit() {

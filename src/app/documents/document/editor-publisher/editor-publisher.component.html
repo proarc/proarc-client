@@ -21,8 +21,8 @@
 
     <app-editor-field *ngIf="item.available('frequency')" [field]="item.frequencies" class="app-frequencies" [nested]='true'>
       <ng-template let-frequency="item" #templateContent>
-        <app-field-text class="app-half-left" field="value" [item]="frequency" [(value)]="frequency.modsElement['_']"></app-field-text>
-        <app-autocomplete class="app-half-right" field="authority" [item]="frequency" [(value)]='frequency.attrs["authority"]'></app-autocomplete>
+        <app-autocomplete class="app-half-left" field="authority" [item]="frequency" [(value)]='frequency.attrs["authority"]'></app-autocomplete>
+        <app-field-text class="app-half-right" field="value" [item]="frequency" [(value)]="frequency.modsElement['_']"></app-field-text>
       </ng-template>
     </app-editor-field>
 

@@ -32,6 +32,10 @@ export class EditorMetadataComponent implements OnInit {
     });
   }
 
+  available(element: string): boolean {
+    return this.editor.metadata.template[element];
+  }
+
   onSave() {
     if (this.editor.metadata.validate()) {
       this.editor.saveMetadata(() => {

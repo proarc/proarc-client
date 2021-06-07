@@ -383,12 +383,6 @@
     "show_original": "Show original",
     "show_current": "Show current"
   },
-  "name": {
-    "personal": "Personal",
-    "corporate": "Corporate",
-    "conference": "Conference",
-    "family": "Family"
-  },
   "identifier": {
     "barcode": "Barcode",
     "issn": "ISSN",

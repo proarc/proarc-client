@@ -55,7 +55,7 @@ export class EditorService {
     previousItem: DocumentItem;
     nextItem: DocumentItem;
 
-    template: any;
+    // template: any;
     allowedChildrenModels: string[];
 
     constructor(
@@ -168,7 +168,7 @@ export class EditorService {
         forkJoin(rDoc, rChildren).subscribe( ([item, children]: [DocumentItem, DocumentItem[]]) => {
             this.left = item;
             const model = this.left.model;
-            this.template = ModelTemplate.data[model];
+            // this.template = ModelTemplate.data[model];
             this.allowedChildrenModels = ModelTemplate.allowedChildrenForModel(model);
             this.children = children;
             if (item.isPage() || item.isSong()) {

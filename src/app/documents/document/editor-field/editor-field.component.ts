@@ -13,9 +13,6 @@ export class EditorFieldComponent implements OnInit {
 
 
   @Input() field: ElementField;
-  // @Input() title: string;
-  // @Input() usage: string;
-  // @Input() help: string;
   @Input() nested: boolean;
   @Input() collapsable: boolean = true;
 

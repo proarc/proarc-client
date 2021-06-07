@@ -20,14 +20,7 @@ export class CodebookService {
   locations: any[] = [];
   identifiers: any[] = [];
   chronicleIdentifiers: any[] = [];
-
-  titleTypeCodes = [
-    'abbreviated',
-    'translated',
-    'alternative',
-    'uniform'
-  ];
-
+  
   constructor(private translator: Translator, private config: ConfigService, private locals: LocalStorageService) {
     this.refreshAll();
     translator.languageChanged.subscribe(() => this.refreshAll());

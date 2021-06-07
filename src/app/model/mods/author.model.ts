@@ -58,7 +58,9 @@ export class ModsAuthor extends ModsElement {
             this.given = ModsUtils.createTextElement('', {'type': 'given'});
             nameParts.push(this.given);
         }
-        this.roles = new ElementField(this.modsElement, ModsRole.getSelector(), this.getTemplate());
+        if(this.available('role')) {
+            this.roles = new ElementField(this.modsElement, ModsRole.getSelector(), this.getField('role'));
+        }
         if (this.modsElement['nameIdentifier']) {
             this.nameIdentifier = this.modsElement['nameIdentifier'][0]['_'];
         }

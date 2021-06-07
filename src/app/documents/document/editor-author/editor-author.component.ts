@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ElementField } from 'src/app/model/mods/elementField.model';
 import { Translator } from 'angular-translator';
-import { HelpService } from 'src/app/services/help.service';
 import { MatDialog } from '@angular/material';
 import { CatalogDialogComponent } from 'src/app/dialogs/catalog-dialog/catalog-dialog.component';
 import { Metadata } from 'src/app/model/metadata.model';
@@ -29,7 +28,7 @@ export class EditorAuthorComponent implements OnInit {
 
   public roles = [];
 
-  constructor(public translator: Translator, private dialog: MatDialog, public help: HelpService) {
+  constructor(public translator: Translator, private dialog: MatDialog) {
     this.translateCodes();
     translator.languageChanged.subscribe(() => this.translateCodes());
   }

@@ -1,4 +1,5 @@
 import { NdkMonographVolumeTemplate } from "./ndkmonographvolume.template";
+import { NdkMonographVolumeRdaTemplate } from "./ndkmonographvolumeRda.template";
 import { NdkPeriodicalTemplate } from "./ndkperiodical.template";
 
 export class ModelTemplate {
@@ -11,7 +12,10 @@ export class ModelTemplate {
     "model:ndkarticle": NdkMonographVolumeTemplate.data,
     "model:ndkpicture": NdkMonographVolumeTemplate.data,
     "model:ndkmonographtitle": NdkMonographVolumeTemplate.data,
-    "model:ndkmonographvolume": NdkMonographVolumeTemplate.data,
+    "model:ndkmonographvolume": {
+      "aacr": NdkMonographVolumeTemplate.data,
+      "rda": NdkMonographVolumeRdaTemplate.data 
+    },
     "model:ndkmonographsupplement": NdkMonographVolumeTemplate.data,
     "model:ndkchapter": NdkMonographVolumeTemplate.data,
     "model:ndkmap": NdkMonographVolumeTemplate.data,

@@ -66,44 +66,37 @@ export abstract class ModsElement {
     }
 
     public usage(field: string): string {
-        if (field) {
-            return this.template[field].usage;
-        } else {
-            return this.template.usage;
-        }
+        return this.fieldValue(field, 'usage');
     }
 
     public label(field: string): string {
-        if (field) {
-            return this.template[field].label;
-        } else {
-            return this.template.label;
-        }
+        return this.fieldValue(field, 'label');
     }
 
     public options(field: string): string[] {
-        if (field) {
-            return this.template[field].options;
-        } else {
-            return this.template.options;
-        }
+        return this.fieldValue(field, 'options');
     }
 
-    public lockey(field: string): string[] {
+    private fieldValue(field: string, key: string): any {
         if (field) {
-            return this.template[field].lockey;
+            return this.template['fields'][field][key];
         } else {
-            return this.template.lockey;
+            return this.template[key];
         }
     }
 
     public available(field: string): boolean {
-        return !!this.template[field];
+        return !!(this.template['fields'] && this.template['fields'][field]);
     }
 
     public getTemplate() {
         return this.template;
     }
+
+    public getField(field: string) {
+        return this.template['fields'][field];
+    }
+
 
 
     public getControl(filed: string): FormControl {

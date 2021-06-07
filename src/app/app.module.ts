@@ -71,7 +71,6 @@ import { ExportDialogComponent } from './dialogs/export-dialog/export-dialog.com
 import { UrnbnbDialogComponent } from './dialogs/urnnbn-dialog/urnnbn-dialog.component';
 import { ShortenPipe } from './pipes/shorten.pipe';
 import { HelpDialogComponent } from './dialogs/help-dialog/help-dialog.component';
-import { HelpService } from './services/help.service';
 import { ReloadBatchDialogComponent } from './dialogs/reload-batch-dialog/reload-batch-dialog.component';
 import { ConfigService } from './services/config.service';
 import { EditorChronicleComponent } from './components/editor/editor-chronicle/editor-chronicle.component';
@@ -234,7 +233,6 @@ export function hljsLanguages() {
     LocalStorageService,
     CodebookService,
     CuzkService,
-    HelpService,
     ConfigService,
     FundService,
     OsmService,

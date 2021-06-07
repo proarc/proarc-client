@@ -32,7 +32,7 @@ export class AutocompleteComponent implements OnInit {
 
   private _filter(v: string): string[] {
     const filterValue = v.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+    return this.options.filter(option => option[1].toLowerCase().indexOf(filterValue) === 0);
   }
 
 }

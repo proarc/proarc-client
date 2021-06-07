@@ -26,7 +26,7 @@ export class ElementField {
     private template;
 
     constructor(mods, id, template, attr = null, requiredValues = [], forbiddenValues = []) {
-        this.template = template[id];
+        this.template = template;
         this.id = id;
         const selector = this.selectorById(id)
         if (mods[selector] === undefined) {
@@ -212,8 +212,22 @@ export class ElementField {
 
 
     public help() {
-        return this.template.help;
+        let help = `
+            <h2>${this.template.label } <i>${this.template.usage || ''}</i> <code>${this.template.selector || ''}</code></h2>
+            ${this.template.description || '' }<br/>
+        `;
+        for (const field of Object.keys(this.template.fields)) {
+            const f = this.template.fields[field];
+            if (f.help != 'off') {
+                help += `
+                    <h3>${f.label } <i>${f.usage || ''}</i> <code>${f.selector || ''}</code></h3>
+                    ${f.description || '' }`;
+            }  
+
+        }
+        return help;
     }
+
 
     public usage() {
         return this.template.usage;
