@@ -105,26 +105,10 @@ export class ElementField {
         this.move(this.items, index, newIndex);
     }
 
-    public toDC() {
-        let dc = '';
-        for (const item of this.items) {
-            dc += item.toDC();
-        }
-        return dc;
-    }
-
     public update() {
         for (const item of this.items) {
             item.update();
         }
-    }
-
-    public firstToDC() {
-        let dc = '';
-        if (this.items.length > 0) {
-            dc = this.items[0].toDC();
-        }
-        return dc;
     }
 
     public count(): number {

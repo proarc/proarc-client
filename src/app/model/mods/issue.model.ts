@@ -76,8 +76,4 @@ export class ModsIssue extends ModsElement {
 
     }
 
-    public toDC() {
-       return '';
-    }
-
 }

@@ -25,13 +25,5 @@ export class ModsLanguage extends ModsElement {
         }
         this.language = this.modsElement['languageTerm'][0];
     }
-
-    public toDC() {
-        if (this.language['_']) {
-            return ModsUtils.dcEl('language', this.language['_']);
-        } else {
-            return '';
-        }
-    }
-
+    
 }

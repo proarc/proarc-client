@@ -76,8 +76,5 @@ export class ModsVolume extends ModsElement {
 
     }
 
-    public toDC() {
-       return '';
-    }
 
 }

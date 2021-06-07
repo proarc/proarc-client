@@ -36,18 +36,4 @@ export class ModsSubject extends ModsElement {
 
     }
 
-    toDC() {
-        let dc = '';
-        if (this.topic['_']) {
-            dc += ModsUtils.dcEl('subject', this.topic['_']);
-        }
-        if (this.geographic['_']) {
-            dc += ModsUtils.dcEl('subject', this.geographic['_']);
-        }
-        if (this.temporal['_']) {
-            dc += ModsUtils.dcEl('subject', this.temporal['_']);
-        }
-        return dc;
-    }
-
 }

@@ -18,8 +18,4 @@ export class ModsAbstract extends ModsElement {
     private init() {
     }
 
-    public toDC() {
-        return '';
-    }
-
 }

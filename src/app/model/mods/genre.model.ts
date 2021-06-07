@@ -18,8 +18,4 @@ export class ModsGenre extends ModsElement {
     private init() {
     }
 
-    public toDC() {
-        return '';
-    }
-
 }

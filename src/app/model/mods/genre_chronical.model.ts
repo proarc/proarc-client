@@ -17,9 +17,4 @@ export class ModsGenreChronical extends ModsElement {
 
     private init() {
     }
-
-    public toDC() {
-        return '';
-    }
-
 }

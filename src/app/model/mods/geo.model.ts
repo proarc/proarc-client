@@ -266,8 +266,4 @@ export class ModsGeo extends ModsElement {
         this.coordinates['_'] = '';
     }
 
-    public toDC() {
-        return '';
-    }
-
 }

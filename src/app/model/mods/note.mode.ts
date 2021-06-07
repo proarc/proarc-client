@@ -18,8 +18,4 @@ export class ModsNote extends ModsElement {
     private init() {
     }
 
-    public toDC() {
-        return '';
-    }
-
 }

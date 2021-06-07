@@ -51,55 +51,31 @@ export class ModsTitle extends ModsElement {
 
     onNonSotToggleChanged(event) {
         if (event.checked) {
-            const str = this.title['_'];
-            const wordArray = str.split(' ');
-            this.nonSort['_'] = wordArray[0];
-            wordArray.splice(0, 1);
-            this.title['_'] = wordArray.join(' ').trim();
+            const str = this.title['_'] as String;
+            const si = str.indexOf(' ');
+            const ai = str.indexOf("'");
+            let i = -1;
+            let ch = '';
+            if (si > -1 && (ai == -1 || si < ai)) {
+                i = si;
+                ch = ' ';
+            } else if (ai > -1 && (si == -1 || ai < si)) {
+                i = ai;
+                ch = "'";
+            }
+            console.log('i', i);
+            if (i > -1) {
+                this.nonSort['_'] = str.substr(0, i + 1);
+                this.title['_'] = str.substr(i + 1);
+            } 
+            // const wordArray = str.split(' ');
+            // this.nonSort['_'] = wordArray[0];
+            // wordArray.splice(0, 1);
+            // this.title['_'] = wordArray.join(' ').trim();
         } else {
-            this.title['_'] = this.nonSort['_'] + ' ' + this.title['_'];
+            this.title['_'] = this.nonSort['_'] + this.title['_'];
             this.nonSort['_'] = '';
         }
-    }
-
-    getFullTitle() {
-        let text = '';
-        if (this.nonSort['_']) {
-            text += this.nonSort['_'];
-        }
-        if (this.title['_']) {
-            if (text !== '') {
-                text += ' ';
-            }
-            text += this.title['_'];
-        }
-        if (this.subTitle['_']) {
-            if (text !== '') {
-              text += ': ';
-            }
-            text += this.subTitle['_'];
-        }
-        if (this.partNumber['_']) {
-            if (text !== '') {
-              text += ': ';
-            }
-            text += this.partNumber['_'];
-        }
-        if (this.partName['_']) {
-            if (text !== '') {
-              text += ': ';
-            }
-            text += this.partName['_'];
-        }
-        return text;
-    }
-
-    toDC() {
-        const fullTitle = this.getFullTitle();
-        if (fullTitle === '') {
-            return '';
-        }
-        return ModsUtils.dcEl('title', fullTitle);
     }
 
 }

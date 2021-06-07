@@ -17,7 +17,7 @@ import { UIService } from './ui.service';
 import { ParentDialogComponent } from '../dialogs/parent-dialog/parent-dialog.component';
 import { Batch } from '../model/batch.model';
 import { IngestDialogComponent } from '../dialogs/ingest-dialog/ingest-dialog.component';
-import { ModelTemplate } from '../components/templates/modelTemplate';
+import { ModelTemplate } from '../templates/modelTemplate';
 
 @Injectable()
 export class EditorService {
@@ -168,7 +168,6 @@ export class EditorService {
         forkJoin(rDoc, rChildren).subscribe( ([item, children]: [DocumentItem, DocumentItem[]]) => {
             this.left = item;
             const model = this.left.model;
-            // this.template = ModelTemplate.data[model];
             this.allowedChildrenModels = ModelTemplate.allowedChildrenForModel(model);
             this.children = children;
             if (item.isPage() || item.isSong()) {

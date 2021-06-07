@@ -19,8 +19,4 @@ export class ModsResource extends ModsElement {
 
     private init() {
     }
-
-    public toDC() {
-        return '';
-    }
 }

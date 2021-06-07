@@ -32,12 +32,4 @@ export class ModsChronicleLocation extends ModsElement {
         }
     }
 
-    public toDC() {
-        let dc = '';
-        if (this.physicalLocation['_']) {
-            dc += ModsUtils.dcEl('source', this.physicalLocation['_']);
-        }
-        return dc;
-    }
-
 }

@@ -1,4 +1,4 @@
-export class NdkMonographVolumeTemplate {
+export class NdkMonographVolumeAacrTemplate {
 
   static data = {
     titleInfo: {
@@ -23,7 +23,6 @@ export class NdkMonographVolumeTemplate {
           </ul>`,
           options: [ 
             ['', '-'],
-            ['abbreviated', 'Zkrácený název'], 
             ['translated', 'Přeložený název'],
             ['alternative', 'Alternativní název'],
             ['uniform', 'Jednotný název']
@@ -34,7 +33,8 @@ export class NdkMonographVolumeTemplate {
           label: 'Název',
           selector: 'titleInfo/title',
           description: `Názvová informace – název svazku monografie</br>
-          hodnoty převzít z katalogu`
+          hodnoty převzít z katalogu<br/>
+          odpovídající pole a podpole podle typu, viz typ`
         },
         subTitle: {
           usage: "MA",

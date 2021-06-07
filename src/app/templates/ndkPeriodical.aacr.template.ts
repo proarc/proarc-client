@@ -1,9 +1,9 @@
-export class NdkMonographVolumeRdaTemplate {
+export class NdkPeriodicalAacrTemplate {
 
   static data = {
     titleInfo: {
       usage: 'M',
-      label: 'Název RDA :)',
+      label: 'Název',
       selector: 'titleInfo',
       description: `Název svazku monografie<br/>
       Pro plnění použít katalogizační záznam<br/>

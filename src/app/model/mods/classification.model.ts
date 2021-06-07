@@ -18,8 +18,5 @@ export class ModsClassification extends ModsElement {
     private init() {
     }
 
-    public toDC() {
-        return '';
-    }
 
 }

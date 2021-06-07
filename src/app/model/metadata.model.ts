@@ -19,7 +19,7 @@ import { ModsGenre } from './mods/genre.model';
 import { ModsGenreChronical } from './mods/genre_chronical.model';
 import { ModsClassification } from './mods/classification.model';
 import { ModsResource } from './mods/resource.model';
-import { ModelTemplate } from '../components/templates/modelTemplate';
+import { ModelTemplate } from '../templates/modelTemplate';
 declare var $: any;
 
 export class Metadata {
@@ -113,7 +113,6 @@ export class Metadata {
     return valid;
   }
 
-
   private resolveStandard(mods): string {
     let standard = '';
     if (mods['modsCollection']) {
@@ -132,10 +131,9 @@ export class Metadata {
     return standard;
   }
 
-
   private processMods(data) {
     this.standard = this.resolveStandard(data);
-    this.template = ModelTemplate.data[this.model][this.standard];
+    this.template = ModelTemplate.data[this.standard][this.model];
     console.log('this.template', this.template);
     if (ProArc.isChronicle(this.model)) {
       this.fieldsIds = [

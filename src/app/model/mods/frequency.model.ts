@@ -18,8 +18,5 @@ export class ModsFrequency extends ModsElement {
     private init() {
     }
 
-    public toDC() {
-        return '';
-    }
 
 }

@@ -51,8 +51,6 @@ export abstract class ModsElement {
         this.attrs = this.modsElement['$'];
     }
 
-    public abstract toDC(): string;
-
     public update() {
 
     }

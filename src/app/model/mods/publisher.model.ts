@@ -167,15 +167,4 @@ export class ModsPublisher extends ModsElement {
         }
     }
 
-    public toDC() {
-        let dc = '';
-        if (this.publisher['_']) {
-            dc += ModsUtils.dcEl('publisher', this.publisher['_']);
-        }
-        if (this.dateIssued['_']) {
-            dc += ModsUtils.dcEl('date', this.dateIssued['_']);
-        }
-        return dc;
-    }
-
 }

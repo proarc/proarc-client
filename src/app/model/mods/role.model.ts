@@ -26,8 +26,4 @@ export class ModsRole extends ModsElement {
         this.role = this.modsElement['roleTerm'][0];
     }
 
-    public toDC() {
-        return '';
-    }
-
 }

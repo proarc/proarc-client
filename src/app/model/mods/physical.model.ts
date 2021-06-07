@@ -30,8 +30,5 @@ export class ModsPhysical extends ModsElement {
         this.note = this.modsElement['note'][0];
     }
 
-    toDC() {
-        return '';
-    }
 
 }

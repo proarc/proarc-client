@@ -94,18 +94,4 @@ export class ModsAuthor extends ModsElement {
         }
     }
 
-    public toDC() {
-        if ((this.family && this.family['_']) && (this.given && this.given['_'])) {
-            return ModsUtils.dcEl('creator', this.family['_'] + ', ' + this.given['_']);
-        } else if (this.family && this.family['_']) {
-            return ModsUtils.dcEl('creator', this.family['_']);
-        } else if (this.given && this.given['_']) {
-            return ModsUtils.dcEl('creator', this.given['_']);
-        } else if (this.name && this.name['_']) {
-            return ModsUtils.dcEl('creator', this.name['_']);
-        } else {
-            return '';
-        }
-    }
-
 }
