@@ -1,3 +1,5 @@
+import { NdkMonographTitleAacrTemplate } from "./ndkMonographtitle.aacr.template";
+import { NdkMonographTitleRdaTemplate } from "./ndkMonographtitle.rda.template";
 import { NdkMonographVolumeAacrTemplate } from "./ndkMonographvolume.aacr.template";
 import { NdkMonographVolumeRdaTemplate } from "./ndkMonographvolume.rda.template";
 import { NdkPeriodicalAacrTemplate } from "./ndkPeriodical.aacr.template";
@@ -6,10 +8,12 @@ export class ModelTemplate {
 
   static data = {
     "aacr": {
+      "model:ndkmonographtitle": NdkMonographTitleAacrTemplate.data,
       "model:ndkmonographvolume": NdkMonographVolumeAacrTemplate.data,
       "model:ndkperiodical": NdkPeriodicalAacrTemplate
     },
     "rda": {
+      "model:ndkmonographtitle": NdkMonographTitleRdaTemplate.data,
       "model:ndkmonographvolume": NdkMonographVolumeRdaTemplate.data,
       "model:ndkperiodical": NdkPeriodicalAacrTemplate
     },

@@ -46,9 +46,9 @@ export class EditorMetadataComponent implements OnInit {
         title: "Nevalidní data",
         message: "Nevalidní data, přejete si dokument přesto uložit.",
         btn1: {
-          label: "Ano",
+          label: "Uložit nevalidní dokument",
           value: 'yes',
-          color: 'primary'
+          color: 'warn'
         },
         btn2: {
           label: "Neukládat",

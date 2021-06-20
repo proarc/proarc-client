@@ -129,10 +129,14 @@ export abstract class ModsElement {
                 anyValue = true;
             }
         });
-        if (!anyValue && !isRequired) {
-            this.controls.forEach((value, key) => {
-                value.markAsUntouched();
-            });
+        if (!anyValue) {
+            if(isRequired) {
+                error = true;
+            } else {
+                this.controls.forEach((value, key) => {
+                    value.markAsUntouched();
+                });
+            }
         }
         if (error && (isRequired || anyValue)) {
             this.validationWarning = true;
@@ -145,6 +149,7 @@ export abstract class ModsElement {
     public isValid(): boolean {
         let error = false;
         let anyValue = false;
+        const isRequired = this.template ? this.template.usage == 'M' : false
         this.controls.forEach((value, key) => {
             if (value.errors) {
                 error = true;
@@ -153,6 +158,9 @@ export abstract class ModsElement {
                 anyValue = true;
             }
         });
-        return !(error && (this.template.usage == 'M' || anyValue));
+        if (!anyValue && isRequired) {
+            error = true;
+        }
+        return !(error && (isRequired|| anyValue));
     }
 }

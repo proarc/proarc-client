@@ -82,7 +82,11 @@
       flex: 1;
     }
     .result-model {
-      width: 140px;
+      width: 150px;
+      white-space: pre-line;
+      word-break: break-all;
+      padding-right: 6px;
+      font-size: 13px;
     }
     .result-pid {
       width: 275px;
