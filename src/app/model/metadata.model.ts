@@ -99,6 +99,8 @@ export class Metadata {
           }
         }
         for (const subfield of item.getSubfields()) {
+          console.log('item', item);
+          console.log('subfield', subfield);
           for (const item of subfield.getItems()) {
             if (!item.validate()) {
               valid = false;

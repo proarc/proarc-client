@@ -407,7 +407,7 @@ mat-form-field textarea.mat-input-element {
 
 .app-editor-field {
   &.app-nested {
-    margin: -4px -10px 4px;
+    margin: -4px 8px 4px;
   }
   // :host ::ng-deep {
   //   mat-tab-group mat-tab-body-wrapper {
@@ -506,7 +506,8 @@ mat-form-field textarea.mat-input-element {
       }
     }
     .app-card-content {
-      padding: 15px 15px 0px;
+      padding-top: 15px;
+      padding-left: 8px;
       &.app-collapsed {
         display: none;
       }
@@ -526,32 +527,51 @@ mat-form-field textarea.mat-input-element {
     margin-bottom: 20px;
     margin-right: 20px;
   }
-  mat-form-field, app-field-text, app-field-codebook, app-field-dropdown, app-autocomplete {
-    display: block;
-    float: left;
-    &.app-full-width {
+  // mat-form-field, app-field-text, app-field-codebook, app-field-dropdown, app-autocomplete {
+    .app-field-col {
+      display: block;
+      float: left;
+      padding-right: 8px;
+      padding-left: 8px;
       width: 100%;
-      // margin-top: -5px;
+      &.app-field-col-1 {
+        width: 100%;
+      }
+      &.app-field-col-2 {
+        width: 50%;
+      }
+      &.app-field-col-3 {
+        width: 33.33%;
+      }
+      &.app-field-col-4 {
+        width: 25%;
+      }
     }
-    &.app-half-left {
-      width: calc(50% - 8px);
-    }
-    &.app-half-right {
-      width: calc(50% - 8px);
-      margin-left: 16px;
-    }
-    &.app-third-1 {
-      width: calc(33.3333333% - 11px);
-    }
-    &.app-third-2 {
-      width: calc(33.3333333% - 11px);
-      margin-left: 16px;
-    }
-    &.app-third-3 {
-      width: calc(33.3333333% - 11px);
-      margin-left: 16px;
-    }
-  }
+
+
+    // &.app-full-width {
+    //   width: 100%;
+    //   // margin-top: -5px;
+    // }
+    // &.app-half-left {
+    //   width: calc(50% - 8px);
+    // }
+    // &.app-half-right {
+    //   width: calc(50% - 8px);
+    //   margin-left: 16px;
+    // }
+    // &.app-third-1 {
+    //   width: calc(33.3333333% - 11px);
+    // }
+    // &.app-third-2 {
+    //   width: calc(33.3333333% - 11px);
+    //   margin-left: 16px;
+    // }
+    // &.app-third-3 {
+    //   width: calc(33.3333333% - 11px);
+    //   margin-left: 16px;
+    // }
+  // }
 
 
     .mat-form-field-appearance-legacy .mat-form-field-label {

@@ -1,11 +1,9 @@
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
 
-    <app-field-codebook class="app-half-left" field="type" [item]="item" [options]="getIdentifiers()" [(value)]='item.attrs["type"]'></app-field-codebook>
-
-    <app-field-codebook class="app-half-right" field="validity" [item]="item" [options]="validityOptions" [(value)]='item.attrs["invalid"]'></app-field-codebook>
-
-    <app-field-text class="app-full-width" field="value" [item]="item" [(value)]="item.modsElement['_']" ></app-field-text>
+    <app-field-codebook field="type" [item]="item" [options]="getIdentifiers()" [(value)]='item.attrs["type"]'></app-field-codebook>
+    <app-field-codebook field="validity" [item]="item" [options]="validityOptions" [(value)]='item.attrs["invalid"]'></app-field-codebook>
+    <app-field-text field="value" [item]="item" [(value)]="item.modsElement['_']" ></app-field-text>
 
   </ng-template>
 </app-editor-field>

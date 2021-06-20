@@ -19,7 +19,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './modules/app-routing.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DocumentComponent } from './documents/document/document.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppComponent } from './components/app.component';
 import { MaterialModule } from './modules/material.module';
@@ -31,7 +30,6 @@ import { EditorTitleComponent } from './documents/document/editor-title/editor-t
 import { TranslatorModule } from 'angular-translator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditorPublisherComponent } from './documents/document/editor-publisher/editor-publisher.component';
-import { PanelComponent } from './documents/document/panel/panel.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthService } from './services/auth.service';
 import { EditorIdentifierComponent } from './documents/document/editor-identifier/editor-identifier.component';
@@ -121,7 +119,6 @@ export function hljsLanguages() {
   declarations: [
     AppComponent,
     NavbarComponent,
-    DocumentComponent,
     XmlViewComponent,
     EditorTitleComponent,
     EditorLanguageComponent,
@@ -132,7 +129,6 @@ export function hljsLanguages() {
     ModsEditorComponent,
     EditorLocationComponent,
     RelationsComponent,
-    PanelComponent,
     LoginComponent,
     DevicesComponent,
     DeviceComponent,

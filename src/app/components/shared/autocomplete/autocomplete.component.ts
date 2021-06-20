@@ -23,6 +23,9 @@ export class AutocompleteComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!this.item.available(this.field)) {
+      return;
+    }
     this.options = this.item.options(this.field);
     this.filteredOptions = this.item.getControl(this.field).valueChanges.pipe(
       startWith(''),

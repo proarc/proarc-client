@@ -1,8 +1,8 @@
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
   
-    <app-field-dropdown class="app-full-width" field="objectPart" [item]="item" [(value)]='item.attrs["objectPart"]'></app-field-dropdown>
-    <app-field-codebook class="app-full-width" field="language" [item]="item" [options]="codebook.languages" [(value)]='item.language["_"]'></app-field-codebook>
+    <app-field-dropdown field="objectPart" [item]="item" [(value)]='item.attrs["objectPart"]'></app-field-dropdown>
+    <app-field-codebook field="language" [item]="item" [options]="codebook.languages" [(value)]='item.language["_"]'></app-field-codebook>
 
   </ng-template>
 </app-editor-field>

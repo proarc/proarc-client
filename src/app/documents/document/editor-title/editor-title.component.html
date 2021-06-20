@@ -1,7 +1,7 @@
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
     
-    <mat-form-field class="app-full-width" *ngIf="item.available('title')">
+    <mat-form-field class="app-field-col" *ngIf="item.available('title')">
       <span class="app-usage" [class.app-invalid]="item.invalid('title')">{{ item.usage('title') }}</span>
       <span *ngIf='item.nonSort["_"]' matPrefix class="title-prefix" color="primary">{{ item.nonSort["_"] }}</span>
       <input [required]="item.isMandatory('title')" [formControl]="item.getControl('title')" autocomplete="off" style="width: calc(100% - 60px)" spellcheck="false" matInput [(ngModel)]='item.title["_"]' [placeholder]="item.label('title')">
@@ -13,12 +13,12 @@
       </mat-slide-toggle>
     </mat-form-field>
 
-    <app-field-text class="app-half-left" field="subTitle" [item]="item" [(value)]="item.subTitle['_']"></app-field-text>
+    <app-field-text field="subTitle" [item]="item" [(value)]="item.subTitle['_']"></app-field-text>
 
-    <app-field-dropdown class="app-half-right" field="type" [item]="item" [(value)]='item.attrs["type"]'></app-field-dropdown>
+    <app-field-dropdown field="type" [item]="item" [(value)]='item.attrs["type"]'></app-field-dropdown>
 
-    <app-field-text class="app-half-left" field="partNumber" [item]="item" [(value)]="item.partNumber['_']"></app-field-text>
-    <app-field-text class="app-half-right" field="partName" [item]="item" [(value)]="item.partName['_']"></app-field-text>
+    <app-field-text field="partNumber" [item]="item" [(value)]="item.partNumber['_']"></app-field-text>
+    <app-field-text field="partName" [item]="item" [(value)]="item.partName['_']"></app-field-text>
 
 
 

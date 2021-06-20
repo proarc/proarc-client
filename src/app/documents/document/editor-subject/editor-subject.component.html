@@ -8,10 +8,10 @@
   </ng-template>
   
   <ng-template let-item="item" #templateContent>
-    <app-field-dropdown class="app-full-width" field="authority" [item]="item" [(value)]='item.attrs["authority"]'></app-field-dropdown>
-    <app-field-text class="app-full-width" field="topic" [item]="item" [(value)]='item.topic["_"]'></app-field-text>
-    <app-field-text class="app-full-width" field="geographic" [item]="item" [(value)]='item.geographic["_"]'></app-field-text>
-    <app-field-text class="app-full-width" field="temporal" [item]="item" [(value)]='item.temporal["_"]'></app-field-text>
+    <app-field-dropdown field="authority" [item]="item" [(value)]='item.attrs["authority"]'></app-field-dropdown>
+    <app-field-text field="topic" [item]="item" [(value)]='item.topic["_"]'></app-field-text>
+    <app-field-text field="geographic" [item]="item" [(value)]='item.geographic["_"]'></app-field-text>
+    <app-field-text field="temporal" [item]="item" [(value)]='item.temporal["_"]'></app-field-text>
   </ng-template>
   
 </app-editor-field>

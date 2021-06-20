@@ -1,8 +1,8 @@
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
 
-    <app-autocomplete class="app-full-width" [(value)]='item.attrs["authority"]' field="authority" [item]="item"></app-autocomplete>
-    <app-field-text class="app-full-width" field="value" [item]="item" [(value)]="item.modsElement['_']" ></app-field-text>
+    <app-autocomplete [(value)]='item.attrs["authority"]' field="authority" [item]="item"></app-autocomplete>
+    <app-field-text field="value" [item]="item" [(value)]="item.modsElement['_']" ></app-field-text>
 
   </ng-template>
 </app-editor-field>

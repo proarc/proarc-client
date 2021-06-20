@@ -1,8 +1,8 @@
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
 
-    <app-field-text class="app-full-width" field="extent" [item]="item" [(value)]="item.extent['_']" ></app-field-text>
-    <app-field-textarea class="app-full-width" field="note" [item]="item" [(value)]="item.note['_']" ></app-field-textarea>
+    <app-field-text field="extent" [item]="item" [(value)]="item.extent['_']" ></app-field-text>
+    <app-field-textarea field="note" [item]="item" [(value)]="item.note['_']" ></app-field-textarea>
 
   </ng-template>
 </app-editor-field>

@@ -75,6 +75,10 @@ export abstract class ModsElement {
         return this.fieldValue(field, 'options');
     }
 
+    public class(field: string): string {
+        return "app-field-col app-field-col-" + (this.fieldValue(field, 'cols') || 1);
+    }
+
     private fieldValue(field: string, key: string): any {
         if (field) {
             return this.template['fields'][field][key];

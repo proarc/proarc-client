@@ -1,6 +1,5 @@
 import { ViewerComponent } from './../components/viewer/viewer.component';
 import { SearchComponent } from './../components/search/search.component';
-import { DocumentComponent } from './../documents/document/document.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from '../components/login/login.component';
@@ -14,11 +13,7 @@ import { HistoryComponent } from '../components/import/history/history.component
 import { SettingsComponent } from '../components/settings/settings.component';
 
 const routes: Routes = [
-
-  { path: 'documents/:id', component: DocumentComponent },
-
   { path: 'document/:pid', component: EditorComponent },
-
   { path: 'login', component: LoginComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'devices', component: DevicesComponent },

@@ -1,11 +1,11 @@
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
     
-    <app-field-codebook class="app-full-width" field="physicalLocation" [item]="item" [options]="codebook.locations" [(value)]='item.physicalLocation["_"]'></app-field-codebook>
+    <app-field-codebook field="physicalLocation" [item]="item" [options]="codebook.locations" [(value)]='item.physicalLocation["_"]'></app-field-codebook>
 
-    <app-field-text class="app-full-width" field="shelfLocator" [item]="item" [(value)]="item.shelfLocator['_']"></app-field-text>
+    <app-field-text field="shelfLocator" [item]="item" [(value)]="item.shelfLocator['_']"></app-field-text>
 
-    <app-field-text class="app-full-width" field="url" [item]="item" [(value)]="item.url['_']"></app-field-text>
+    <app-field-text field="url" [item]="item" [(value)]="item.url['_']"></app-field-text>
 
   </ng-template>
 </app-editor-field>

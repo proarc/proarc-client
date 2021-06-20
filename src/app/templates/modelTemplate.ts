@@ -1,4 +1,4 @@
-import { NdkMonographVolumeAacrTemplate } from "./ndkmonographvolume.aacr.template";
+import { NdkMonographVolumeAacrTemplate } from "./ndkMonographvolume.aacr.template";
 import { NdkMonographVolumeRdaTemplate } from "./ndkMonographvolume.rda.template";
 import { NdkPeriodicalAacrTemplate } from "./ndkPeriodical.aacr.template";
 
