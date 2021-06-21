@@ -343,7 +343,7 @@ export class NdkMapAacrTemplate {
       }
     },
     physicalDescription: {
-      usage: "MA",
+      usage: "M",
       label: "Fyzický popis",
       selector: "physicalDescription",
       description: `Obsahuje údaje o fyzickém popisu zdroje/předlohy`,
@@ -361,6 +361,38 @@ export class NdkMapAacrTemplate {
           label: "Poznámka",
           selector: "physicalDescription/note",
           description: `Poznámka o fyzickém stavu dokumentu`,
+        },
+        form: {
+          usage: "M",
+          label: "Forma",
+          selector: "physicalDescription/form",
+          description: `Údaje o fyzické podobě dokumentu, např. kartografický dokument, mapa apod.<br/>
+          odpovídá hodnotě v poli 008/23
+          `,
+          fields: {
+            authority: {
+              usage: "M",
+              label: "Autorita",
+              selector: "physicalDescription/form/@authority",
+              description: `Možné hodnoty 
+              <ul>
+                <li><strong>marcform</strong></li>
+                <li><strong>marccategory</strong></li>
+                <li><strong>marcsmd</strong></li>
+                <li><strong>gmd</strong></li>
+              </ul>`,
+              options: [
+                ['marcform', 'marcform'],
+                ['marccategory', 'marccategory'],
+                ['marcsmd', 'marcsmd'],
+                ['gmd', 'gmd']]
+            },
+            value: {
+              usage: "M",
+              label: "Hodnota",
+              help: "off"
+            }
+          }
         }
       }
     },

@@ -422,7 +422,7 @@ export class NdkMonographVolumeRdaTemplate {
       }
     },
     physicalDescription: {
-      usage: "MA",
+      usage: "M",
       label: "Fyzický popis",
       selector: "physicalDescription",
       description: `Obsahuje údaje o fyzickém popisu zdroje/předlohy`,
@@ -440,6 +440,62 @@ export class NdkMonographVolumeRdaTemplate {
           label: "Poznámka",
           selector: "physicalDescription/note",
           description: `Poznámka o fyzickém stavu dokumentu`,
+        },
+        form: {
+          usage: "M",
+          label: "Forma",
+          selector: "physicalDescription/form",
+          description: `Údaje o fyzické podobě dokumentu, např. print, electronic, microfilm apod.<br/>
+          odpovídá hodnotě v poli 008/23<br/>
+          Údaje o typu média a typu nosiče zdroje/předlohy odpovídá hodnotám z pole:
+          <ul>
+            <li>337 NEPOVINNÉ (hodnota např. "bez média" – viz <a href="https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/katalogizacni-politika/typ-media_pole-337" target="_blank">kontrolovaný slovník</a> pole 337)</li>
+            <li>338 POVINNÉ (hodnota např. "svazek" – viz <a href="https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/katalogizacni-politika/typ-nosice-pole338-1" target="_blank">kontrolovaný slovník</a> pole 338)</li>
+          </ul>
+          `,
+          fields: {
+            authority: {
+              usage: "M",
+              label: "Autorita",
+              selector: "physicalDescription/form/@authority",
+              cols: 2,
+              description: `Možné hodnoty 
+              <ul>
+                <li><strong>marcform</strong></li>
+                <li><strong>marccategory</strong></li>
+                <li><strong>marcsmd</strong></li>
+                <li><strong>gmd</strong></li>
+                <li><strong>rdamedia</strong> (pro pole 337)</li>
+                <li><strong>rdacarrier</strong> (pro pole 338)</li>
+              </ul>`,
+              options: [
+                ['marcform', 'marcform'],
+                ['marccategory', 'marccategory'],
+                ['marcsmd', 'marcsmd'],
+                ['gmd', 'gmd'],
+                ['rdamedia', 'rdamedia'],
+                ['rdacarrier', 'rdacarrier']]
+            },
+            type: {
+              usage: "MA",
+              label: "Typ",
+              selector: "physicalDescription/form/@type",
+              cols: 2,
+              description: `Možné hodnoty 
+              <ul>
+                <li><strong>media</strong> pro pole 337</li>
+                <li><strong>carrier</strong> pro pole 338</li>
+              </ul>`,
+              options: [
+                ['media', 'media'],
+                ['carrier', 'carrier']]
+            },
+            value: {
+              usage: "M",
+              label: "Hodnota",
+              help: "off"
+            }
+          }
         }
       }
     },
