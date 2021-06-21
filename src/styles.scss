@@ -408,6 +408,7 @@ mat-form-field textarea.mat-input-element {
 .app-editor-field {
   &.app-nested {
     margin: -4px 4px 4px 0;
+    clear: both;
   }
   // :host ::ng-deep {
   //   mat-tab-group mat-tab-body-wrapper {

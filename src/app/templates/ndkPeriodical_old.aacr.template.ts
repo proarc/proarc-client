@@ -5,15 +5,14 @@ export class NdkPeriodicalAacrTemplate {
       usage: 'M',
       label: 'Název',
       selector: 'titleInfo',
-      description: `Název titulu periodika<br/>
+      description: `Název svazku monografie<br/>
       Pro plnění použít katalogizační záznam<br/>
-      pokud má periodikum více typů názvů, element se opakuje podle potřeby`,
+      pokud má monografie více typů názvů, element se opakuje podle potřeby`,
       fields: {
         type: {
           usage: "MA",
           label: 'Typ',
           selector: 'titleInfo/@type',
-          cols: 2,
           description: `Hlavní název bez typu - pole 245 a $a<br/>
           Možné hodnoty 
           <ul>
@@ -34,46 +33,67 @@ export class NdkPeriodicalAacrTemplate {
           usage: "M",
           label: 'Název',
           selector: 'titleInfo/title',
-          description: `Názvová informace – název titulu periodika</br>
-          hodnoty převzít z katalogu<br/>
-          odpovídající pole a podpole podle typu, viz typ`
+          description: `Názvová informace – název svazku monografie</br>
+          hodnoty převzít z katalogu`
         },
         subTitle: {
           usage: "MA",
-          label: 'Podnázev',
+          label: 'Vedlejší název',
           selector: 'titleInfo/subTitle',
-          cols: 2,
-          description: `Podnázev titulu periodika<br/>
-          odpovídající pole a podpole podle typu, viz typ`
+          description: `Podnázev svazku monografie.`
         },
         partNumber: {
           usage: "MA",
           label: 'Číslo části',
           selector: 'titleInfo/partNumber',
-          cols: 2,
-          description: `Např. určité části/edice, k použití u ročenek a specializovaných periodik`
+          description: `V případě, že se jedná o vícesvazkovou monografii, je zde uvedeno číslo svazku`
         },
         partName: {
-          usage: "R",
+          usage: "MA",
           label: 'Název části',
           selector: 'titleInfo/partName',
-          cols: 2,
-          description: `Např. určité části/edice, k použití u ročenek a specializovaných periodik<br/>
-          odpovídající pole a podpole podle typu, viz typ`
+          description: `V případě, že se jedná o vícesvazkovou monografii, je zde uveden název svazku`
         }
       }
     },
     name: {
-      usage: "R",
+      usage: "MA",
       label: "Autor",
       selector: 'name',
-      description: `Údaje o odpovědnosti za titul periodika`,
+      description: `POZOR – údaje o odpovědnosti nutno přebírat z polí 1XX a 7XX MARCu21<br/>
+      Pro plnění použít katalogizační záznam`,
       fields: {
+        name: {
+          usage: "MA",
+          label: "Celé jméno",
+          selector: 'name/namePart[not(@type)]',
+          description: `Vyplnit pokud nelze rozlišit křestní jméno a příjmení.`
+        },
+        given: {
+          usage: "MA",
+          label: "Křestní",
+          selector: "name/namePart[@type='given']",
+          description: `Údaje o křestním jméně.<br/>
+          V případě více křestních jmen se doporučuje
+          uvést je společně ve stejném elementu , např. hodnota "Jan Amos"`
+        },
+        family: {
+          usage: "MA",
+          label: "Příjmení",
+          selector: "name/namePart[@type='family']",
+          description: `Údaje o příjmení.`
+        },
+        date: {
+          usage: "RA",
+          label: "Datum",
+          selector: "name/namePart[@type='date']",
+          description: `Životopisná data autora<br/>
+          Pokud známe datum narození a úmrtí autora, vyplnit ve tvaru RRRR-RRRR.`
+        },
         type: {
           usage: "R",
           label: "Typ",
           selector: 'name/@type',
-          cols: 2,
           description: `Použít jednu z hodnot: 
           <ul>
             <li><strong>Osoba</strong> (personal)</li>
@@ -89,38 +109,8 @@ export class NdkPeriodicalAacrTemplate {
             ['family','Rodina']
           ]
         },
-        name: {
-          usage: "R",
-          label: "Celé jméno",
-          selector: 'name/namePart[not(@type)]',
-          description: `Vyplnit pokud nelze rozlišit křestní jméno a příjmení.`
-        },
-        given: {
-          usage: "MA",
-          label: "Křestní",
-          selector: "name/namePart[@type='given']",
-          cols: 2,
-          description: `Údaje o křestním jméně.<br/>
-          V případě více křestních jmen se doporučuje
-          uvést je společně ve stejném elementu , např. hodnota "Jan Amos"`
-        },
-        family: {
-          usage: "MA",
-          label: "Příjmení",
-          selector: "name/namePart[@type='family']",
-          cols: 2,
-          description: `Údaje o příjmení.`
-        },
-        date: {
-          usage: "RA",
-          label: "Datum",
-          selector: "name/namePart[@type='date']",
-          cols: 2,
-          description: `Životopisná data autora<br/>
-          Pokud známe datum narození a úmrtí autora, vyplnit ve tvaru RRRR-RRRR.`
-        },
         role: {
-          usage: "MA",
+          usage: "M",
           label: "Role",
           selector: 'name/role/roleTerm',
           description: `Specifikace role osoby nebo organizace<br/>
@@ -137,26 +127,77 @@ export class NdkPeriodicalAacrTemplate {
       description: `Informace o původu předlohy`,
       fields: {
         publisher: {
-            usage: "MA",
+            usage: "M",
             label: "Nakladatel",
             selector: 'originInfo/publisher',
             description: `Jméno entity, která dokument vydala, vytiskla nebo jinak vyprodukovala<br/>
             Odpovídá poli 260 $b katalogizačního záznamu v MARC21.<br/>
-            Pokud má periodikum více vydavatelů, přebírají se za záznamu všichni (jsou v jednom poli 260).`,
+            Pokud má monografie více vydavatelů, přebírají se za záznamu všichni (jsou v jednom poli 260).`,
+        },
+        eventType: {
+          usage: "M",
+          label: "Typ",
+          selector: 'originInfo/@eventType',
+          description:`Hodnoty dle druhého indikátoru pole 264:
+          <ul>
+            <li>
+              264_0 <strong>Produkce</strong> (production) <i>R</i><br/>
+              Hodnota 0 se uvádí, jestliže pole obsahuje <strong>údaje o vytvoření</strong> zdroje v nezveřejněné podobě.
+            </li>
+            <li>
+            264_1 <strong>Publikace</strong> (publication) <i>R</i><br/>
+            Hodnota 1 se uvádí, jestliže pole obsahuje <strong>údaje o nakladateli</strong> zdroje
+            </li>
+            <li>
+              264_2 <strong>Distribuce</strong> (distribution) <i>R</i><br/>
+              Hodnota 2 se uvádí, jestliže pole obsahuje <strong>údaje o distribuci</strong> zdroje
+            </li>
+            <li>
+              264_3 <strong>Výroba</strong> (manufacture) <i>R</i><br/>
+              Hodnota 3 se uvádí, jestliže pole obsahuje <strong>údaje o tisku</strong>, výrobě zdroje ve zveřejněné podobě.
+            </li>
+            <li>
+              264_4 <strong>Copyright</strong> (copyright) <i>R</i><br/>
+              Hodnota 4 se uvádí, jestliže pole obsahuje <strong>údaje o ochraně podle autorského práva</strong>
+            </li>
+          </ul>
+          <p>Element <originInfo> je opakovatelný. Alespoň v
+          jednom případě musí být vyplněna hodnota
+          eventType="production" nebo
+          eventType="publication".
+          </p>
+          <p>Údaje o distribuci, výrobě a copyrightu jsou u
+          tištěných monografií přesunuty z minimálního
+          záznamu do doporučeného.<br/>
+          </p>
+          <p>Hodnota eventType musí být vyplněna na
+          základě katalogizačního záznamu. Pravidlo pro
+          převod je závazné, povinnost R značí, že musí
+          být vybrána jedna z doporučených hodnot na
+          základě katalogizačního záznamu.
+          </p>`,
+          options: [
+            ['','-'],
+            ['production', 'Produkce'],
+            ['publication', 'Publikace'],
+            ['distribution', 'Distribuce'],
+            ['manufacture', 'Výroba'],
+            ['copyright', 'Copyright'],
+            ['digitization', 'Digitalizace']
+          ]
         },
         dateIssued: {
             usage: "M",
             label: "Datum vydání",
             selector: 'originInfo/dateIssued',
-            cols: 2,
-            description:`Datum vydání předlohy, nutno zaznamenat rok/roky, v nichž časopis vycházel - formu zápisu přebírat z katalogu (např. 1900-1939)<br/>
-            dpovídá hodnotě z katalogizačního záznamu, pole 260 $c a polí 008/07-10 a 008/11-14`
+            description:`Datum vydání předlohy.<br/>
+            Přebírat z katalogu.<br/>
+            Odpovídá hodnotě z katalogizačního záznamu, pole 260, $c a pole 008/07-10`
         },
         qualifier: {
             usage: "R",
             label: "Upřesnění data",
             selector: 'originInfo/dateIssued/@qualifier',
-            cols: 2,
             description:`Možnost dalšího upřesnění. Možné hodnoty 
             <ul>
               <li>Přibližné (approximate)</li>
@@ -170,30 +211,34 @@ export class NdkPeriodicalAacrTemplate {
               ['questionable','Datum je sporné']
             ]
         },
+        edition: {
+            usage: "R",
+            label: "Edice",
+            selector: 'originInfo/edition',
+            description:`Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu.`
+        },
         issuance: {
             usage: "M",
             label: "Vydání",
             selector: 'originInfo/issuance',
-            cols: 2,
             description:`Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>
             Možné hodnoty 
             <ul>
-              <li>Na pokračování (continuing)</li>
-              <li>Sériové (serial)</li>
-              <li>Začlěňovací (integrating resource)</li>
+              <li>Monografické (monographic)</li>
+              <li>Vícedílné (multipart monograph)</li>
+              <li>Jednotkové (single unit)</li>
             </ul>`,
             options: [
               ['', '-'],
-              ['continuing','Na pokračování'],
-              ['serial','Sériové'],
-              ['integrating resource','Začlěňovací']
+              ['monographic','Monografické'],
+              ['single unit','Jednotkové'],
+              ['multipart monograph','Vícedílné']
             ]            
         },
         place: {
             usage: "MA",
             label: "Místo",
             selector: 'originInfo/place/placeTerm',
-            cols: 1,
             description:`Údaje o místě spojeném s vydáním, výrobou nebo původem popisovaného dokumentu.<br/>
             Odpovídá hodnotám z katalogizačního záznamu, pole 260, $a resp. pole 008/15-17`
         },
@@ -201,9 +246,25 @@ export class NdkPeriodicalAacrTemplate {
           usage: "R",
           label: "Datum vytvoření",
           selector: 'originInfo/dateCreated',
-          cols: 2,
-          description:`Datum vydání předlohy pro rukopisy.<br/>
-          přebírat z katalogu; odpovídá hodnotě z katalogizačního záznamu, pole 264_0 $c pokud je LDR/06="d", "f", "t"`
+          description:`Datum vytvoření předlohy`
+        },
+        dateOther: {
+          usage: "R",
+          label: "Datum - jiné",
+          selector: 'originInfo/dateOther',
+          description:`Ddatum vytvoření, distribuce, výroby předlohy<br/>
+          Tento elemet se využije v případě výskytu $c v:
+          <ul>
+            <li>264_0 <strong>Produkce</strong> (production)</li>
+            <li>264_2 <strong>Distribuce</strong> (distribution)</li>
+            <li>264_3 <strong>Výroba</strong> (manufacture)</li>
+          </ul>`
+        },
+        copyrightDate: {
+          usage: "R",
+          label: "Datum - copyright",
+          selector: 'originInfo/copyrightDate',
+          description:`Využije se pouze v případě výskytu pole 264 s ruhým indikátorem 4 a podpolem $c 264_4`
         },
         frequency: {
           usage: "R",
@@ -216,11 +277,11 @@ export class NdkPeriodicalAacrTemplate {
               usage: "R",
               label: "Autorita",
               selector: 'originInfo/frequency/@authority',
-              options: [["marcfrequency", "marcfrequency"]]
+              options: ["marcfrequency"]
             },
             value: {
               label: "Hodnota",
-              usage: "M",
+              usage: "R",
               selector: 'originInfo/frequency',
               help: 'off'
             }
@@ -266,7 +327,7 @@ export class NdkPeriodicalAacrTemplate {
           usage: "R",
           label: "Autorita",
           selector: 'subject/@authority',
-          description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
+          description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>Konspekt</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
           Odpovídá hodnotě v $2`,
           options: [
             ['', '-'],
@@ -276,14 +337,15 @@ export class NdkPeriodicalAacrTemplate {
             ['czmesh','czmesh'],
             ['msvkth','msvkth'],
             ['agrovoc','agrovoc'],
+            ['Konspekt','Konspekt']
           ]          
         },
         topic: {
           usage: "R",
           label: "Klíčové slovo/Předmětové heslo",
           selector: 'subject/topic',
-          description: `Libovolný výraz specifikující nebo charakterizující obsah periodika<br/>
-          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21`
+          description: `Libovolný výraz specifikující nebo charakterizující obsah svazku monografie<br/>
+          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x`
         },
         geographic: {
           usage: "R",
@@ -306,7 +368,7 @@ export class NdkPeriodicalAacrTemplate {
       description: `Údaje o jazyce dokumentu`,
       fields: {
         objectPart: {
-          usage: "MA",
+          usage: "RA",
           label: "Část",
           selector: 'language/@objectPart',
           description: `Možnost vyjádřit jazyk konkrétní části svazku <br/>
@@ -334,7 +396,7 @@ export class NdkPeriodicalAacrTemplate {
       }
     },
     abstract: {
-      usage: "R",
+      usage: "RA",
       label: "Abstrakt",
       selector: "abstract",
       description: `Shrnutí obsahu jako celku odpovídá poli 520 MARC21`,
@@ -365,40 +427,7 @@ export class NdkPeriodicalAacrTemplate {
           usage: "RA",
           label: "Poznámka",
           selector: "physicalDescription/note",
-          description: `Poznámka o fyzickém stavu dokumentu<br/>
-          zde se zapíší defekty zjištěné při digitalizaci pro úroveň titulu periodika (např. chybějící ročník)`
-        },
-        form: {
-          usage: "M",
-          label: "Forma",
-          selector: "physicalDescription/form",
-          description: `Údaje o fyzické podobě dokumentu, např. print, electronic, microfilm apod.<br/>
-          odpovídá hodnotě v poli 008/23
-          `,
-          fields: {
-            authority: {
-              usage: "M",
-              label: "Autorita",
-              selector: "physicalDescription/form/@authority",
-              description: `Možné hodnoty 
-              <ul>
-                <li><strong>marcform</strong></li>
-                <li><strong>marccategory</strong></li>
-                <li><strong>marcsmd</strong></li>
-                <li><strong>gmd</strong></li>
-              </ul>`,
-              options: [
-                ['marcform', 'marcform'],
-                ['marccategory', 'marccategory'],
-                ['marcsmd', 'marcsmd'],
-                ['gmd', 'gmd']]
-            },
-            value: {
-              usage: "M",
-              label: "Hodnota",
-              help: "off"
-            }
-          }
+          description: `Poznámka o fyzickém stavu dokumentu`,
         }
       }
     },
@@ -406,10 +435,21 @@ export class NdkPeriodicalAacrTemplate {
       usage: "RA",
       label: "Poznámka",
       selector: "note",
-      description: `Obecná poznámka k titulu periodika jako celku<br/>
+      description: `Obecná poznámka ke svazku monografie jako celku<br/>
       Odpovídá hodnotám v poli 245, $c (statement of responsibility) 
       a v polích 5XX (poznámky) katalogizačního záznamu`,
       fields: {
+        type: {
+          usage: "O",
+          label: "Typ",
+          selector: "note/@type",
+          description: `Upřesnění obsahu poznámky`,
+          options: [ 
+            ['performers','performers'],
+            ['statement of responsibility','statement of responsibility'],
+            ['historical','historical']
+          ]
+        },
         note: {
           usage: "RA",
           label: "Poznámka",
@@ -422,7 +462,7 @@ export class NdkPeriodicalAacrTemplate {
       label: "Žánr",
       selector: "genre",
       description: `Bližší údaje o typu dokumentu<br/>
-      Hodnota <strong>title</strong>`,
+      Pro monografie hodnota <strong>volume</strong>`,
       fields: {
         authority: {
           usage: "MA",
@@ -435,7 +475,7 @@ export class NdkPeriodicalAacrTemplate {
         },
         value: {
           usage: "M",
-          label: "Hodnota",
+          label: "Autorita",
           help: "off"
         }
       }
@@ -445,19 +485,22 @@ export class NdkPeriodicalAacrTemplate {
       label: "Identifikátor",
       selector: "identifier",
       description: `Údaje o identifikátorech, obsahuje unikátní
-      identifikátory mezinárodní nebo lokální, které periodikum má.`,
+      identifikátory mezinárodní nebo lokální, které svazek monografie má.`,
       fields: {
         type: {
           usage: "M",
           label: "Typ",
           selector: "identifier/@type",
-          cols: 2,
           description: `Budou se povinně vyplňovat následující
           hodnoty, pokud existují:
             <ul>
               <li>
                 <strong>UUID</strong> (uuid) <i>M</i><br/>
                 vygeneruje dodavatel
+              </li>
+              <li>
+                <strong>URN:NBN</strong> (urnnbn) <i>M</i><br/>
+                pro URN:NBN, např. zápis ve tvaru urn:nbn:cz:nk-123456 pro projekt NDK
               </li>
               <li>
                 <strong>čČNB</strong> (ccnb) <i>MA</i><br/>
@@ -468,7 +511,7 @@ export class NdkPeriodicalAacrTemplate {
                 převzít z katalogizačního záznamu z pole 020, $a, $z
               </li>
               <li>
-                <strong>ISSN</strong> (issn) <i>MA</i><br/>
+                <strong>ISMN</strong> (ismn) <i>MA</i><br/>
                 převzít z katalogizačního záznamu z pole 024 (1. ind.="2"), $a, $z
               </li>
             </ul>
@@ -478,7 +521,6 @@ export class NdkPeriodicalAacrTemplate {
           usage: "MA",
           label: "Platnost",
           selector: "dentifier/@invalid",
-          cols: 2,
           description: `Uvádějí se i neplatné resp. zrušené identifikátory 
           <ul>
             <li>
@@ -500,17 +542,42 @@ export class NdkPeriodicalAacrTemplate {
       usage: "R",     
       label: "Klasifikace",
       selector: "identifier",
-      description: `Klasifikační údaje věcného třídění podle Mezinárodního desetinného třídění<br/>
-      odpovídá poli 080 MARC21
-      `,
+      description: `
+      1. Klasifikační údaje věcného třídění podle Mezinárodního desetinného třídění<br/>
+      odpovídá poli 080 MARC21<br/>
+      2. Klasifikační údaje věcného třídění podle Konspektu.<br/>
+      Odpovídá poli 072 $a MARC21`,
       fields: {
         authority: {
           usage: "M",
           label: "Autorita",
           selector: "classification/@authority",
-          description: `Vyplnit hodnotu <strong>udc</strong>`,
+          description: `
+          <ul>
+            <li>
+              vyplnit hodnotu <strong>udc</strong> (v případě 072 $a nebo MDT)
+            </li>
+            <li>
+              vyplnit hodnotu <strong>Konspekt</strong>  (v případě 072 $9)
+            </li>
+          </ul>`,
           options: [
             ['udc','udc'], 
+            ['Konspekt','Konspekt']
+          ]
+        },
+        edition: {
+          usage: "M",
+          label: "Edice",
+          selector: "classification/@edition",
+          description: `
+          <ul>
+            <li>
+              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)
+            </li>
+          </ul>`,
+          options: [
+            ['Konspekt','Konspekt']
           ]
         },
         value: {
@@ -524,8 +591,9 @@ export class NdkPeriodicalAacrTemplate {
       usage: "R",
       label: "Typ zdroje",
       selector: "typeOfResource",
-      description: `Pro titul periodika hodnota <strong>text</strong><br/>
-      mělo by se vyčítat z MARC21 katalogizačního záznamu, z pozice 06 návěští`,
+      description: `pro monografie hodnota <strong>text</strong><br/>
+      mělo by se vyčítat z MARC21 katalogizačního
+      záznamu, z pozice 06 návěští`,
       fields: {
         value: {
           usage: "R",
