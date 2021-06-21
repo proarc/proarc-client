@@ -21,6 +21,4 @@ export class FieldTextComponent implements OnInit {
   ngOnInit() {
   }
 
-  
-
 }

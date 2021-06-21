@@ -1,13 +1,13 @@
-export class NdkMonographVolumeRdaTemplate {
+export class NdkMapAacrTemplate {
 
   static data = {
     titleInfo: {
       usage: 'M',
       label: 'Název',
       selector: 'titleInfo',
-      description: `Název svazku monografie<br/>
+      description: `Název kartografického dokumentu<br/>
       Pro plnění použít katalogizační záznam<br/>
-      pokud má monografie více typů názvů, element se opakuje podle potřeby`,
+      pokud má kartografický dokument více typů názvů, element se opakuje podle potřeby s příslušným atributem`,
       fields: {
         type: {
           usage: "MA",
@@ -34,7 +34,7 @@ export class NdkMonographVolumeRdaTemplate {
           usage: "M",
           label: 'Název',
           selector: 'titleInfo/title',
-          description: `Názvová informace – název svazku monografie</br>
+          description: `Názvová informace – název kartografického dokumentu</br>
           hodnoty převzít z katalogu<br/>
           odpovídající pole a podpole podle typu, viz typ`
         },
@@ -43,7 +43,7 @@ export class NdkMonographVolumeRdaTemplate {
           label: 'Podnázev',
           selector: 'titleInfo/subTitle',
           cols: 2,
-          description: `Podnázev svazku monografie<br/>
+          description: `Podnázev kartografického dokumentu<br/>
           odpovídající pole a podpole podle typu, viz typ`
         },
         partNumber: {
@@ -51,14 +51,14 @@ export class NdkMonographVolumeRdaTemplate {
           label: 'Číslo části',
           selector: 'titleInfo/partNumber',
           cols: 2,
-          description: `V případě, že se jedná o vícesvazkovou monografii, je zde uvedeno číslo svazku`
+          description: `Číslo části`
         },
         partName: {
           usage: "MA",
           label: 'Název části',
           selector: 'titleInfo/partName',
           cols: 2,
-          description: `V případě, že se jedná o vícesvazkovou monografii, je zde uveden název svazku<br/>
+          description: `Název části<br/>
           odpovídající pole a podpole podle typu, viz typ`
         }
       }
@@ -69,7 +69,7 @@ export class NdkMonographVolumeRdaTemplate {
       selector: 'name',
       description: `Údaje o odpovědnosti za svazek<br/>
       POZOR – údaje o odpovědnosti nutno přebírat z polí 1XX a 7XX MARCu21<br/>
-      pokud má monografie autora a ilustrátora, element <name> se opakuje s různými rolemi`,
+      pokud má kartografický dokument iné původce než je autor, element <name> se opakuje s různými rolemi (kartograf, litograf apod.)`,
       fields: {
         type: {
           usage: "MA",
@@ -136,67 +136,15 @@ export class NdkMonographVolumeRdaTemplate {
       usage: "M",
       label: "Nakladatel",
       selector: 'originInfo',
-      description: `Informace o původu předlohy: odpovídá poli 264`,
+      description: `Informace o původu předlohy`,
       fields: {
         publisher: {
             usage: "MA",
             label: "Nakladatel",
             selector: 'originInfo/publisher',
-            description: `Jméno entity, která dokument vytvořila, vydala, distribuovala nebo vyrobila<br/>
-            odpovídá poli 264 $b katalogizačního záznamu v MARC21<br/>
-            pokud má monografie více vydavatelů/distributorů/výrobců, přebírají se ze záznamu všichni (v jednom poli 264)`,
-        },
-        eventType: {
-          usage: "M",
-          label: "Typ",
-          selector: 'originInfo/@eventType',
-          cols: 2,
-          description:`Hodnoty dle druhého indikátoru pole 264:
-          <ul>
-            <li>
-              264_0 <strong>Produkce</strong> (production) <i>R</i><br/>
-              Hodnota 0 se uvádí, jestliže pole obsahuje <strong>údaje o vytvoření</strong> zdroje v nezveřejněné podobě.
-            </li>
-            <li>
-              264_1 <strong>Publikace</strong> (publication) <i>R</i><br/>
-              Hodnota 1 se uvádí, jestliže pole obsahuje <strong>údaje o nakladateli</strong> zdroje
-            </li>
-            <li>
-              264_2 <strong>Distribuce</strong> (distribution) <i>R</i><br/>
-              Hodnota 2 se uvádí, jestliže pole obsahuje <strong>údaje o distribuci</strong> zdroje
-            </li>
-            <li>
-              264_3 <strong>Výroba</strong> (manufacture) <i>R</i><br/>
-              Hodnota 3 se uvádí, jestliže pole obsahuje <strong>údaje o tisku</strong>, výrobě zdroje ve zveřejněné podobě.
-            </li>
-            <li>
-              264_4 <strong>Copyright</strong> (copyright) <i>R</i><br/>
-              Hodnota 4 se uvádí, jestliže pole obsahuje <strong>údaje o ochraně podle autorského práva</strong>
-            </li>
-          </ul>
-          <p>Element <originInfo> je opakovatelný. Alespoň v
-          jednom případě musí být vyplněna hodnota
-          eventType="production" nebo
-          eventType="publication".
-          </p>
-          <p>Údaje o distribuci, výrobě a copyrightu jsou u
-          tištěných monografií přesunuty z minimálního
-          záznamu do doporučeného.<br/>
-          </p>
-          <p>Hodnota eventType musí být vyplněna na
-          základě katalogizačního záznamu. Pravidlo pro
-          převod je závazné, povinnost R značí, že musí
-          být vybrána jedna z doporučených hodnot na
-          základě katalogizačního záznamu.
-          </p>`,
-          options: [
-            ['','-'],
-            ['production', 'Produkce'],
-            ['publication', 'Publikace'],
-            ['distribution', 'Distribuce'],
-            ['manufacture', 'Výroba'],
-            ['copyright', 'Copyright']
-          ]
+            description: `Jméno entity, která dokument vydala, vytiskla nebo jinak vyprodukovala<br/>
+            Odpovídá poli 260 $b katalogizačního záznamu v MARC21.<br/>
+            Pokud má monografie více vydavatelů, přebírají se za záznamu všichni (jsou v jednom poli 260).`,
         },
         dateIssued: {
             usage: "M",
@@ -205,15 +153,7 @@ export class NdkMonographVolumeRdaTemplate {
             cols: 2,
             description:`Datum vydání předlohy.<br/>
             Přebírat z katalogu.<br/>
-            Odpovídá hodnotě z katalogizačního záznamu, pole 264_1 $c a pole 008/07-10<br/>
-            Pro všechny ostatní výskyty v poli 264 $c: 
-            <ul>
-              <li>264_0 <strong>Produkce</strong> (production)</li>
-              <li>264_2 <strong>Distribuce</strong> (distribution)</li>
-              <li>264_3 <strong>Výroba</strong> (manufacture)</li>
-              <li>264_4 <strong>Copyright</strong> (copyright)</li>
-            </ul>
-            využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>`
+            Odpovídá hodnotě z katalogizačního záznamu, pole 260, $c a pole 008/07-10`
         },
         qualifier: {
             usage: "R",
@@ -232,13 +172,6 @@ export class NdkMonographVolumeRdaTemplate {
               ['inferred','Datum je odvozené'],
               ['questionable','Datum je sporné']
             ]
-        },
-        edition: {
-            usage: "R",
-            label: "Edice",
-            selector: 'originInfo/edition',
-            cols: 2,
-            description:`Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu.`
         },
         issuance: {
             usage: "M",
@@ -264,40 +197,8 @@ export class NdkMonographVolumeRdaTemplate {
             label: "Místo",
             selector: 'originInfo/place/placeTerm',
             cols: 2,
-            description:`Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisovaného dokumentu<br/>
-            odpovídá hodnotě 264 $a`
-        },
-        dateCreated: {
-          usage: "R",
-          label: "Datum vytvoření",
-          selector: 'originInfo/dateCreated',
-          cols: 3,
-          description:`Datum vydání předlohy pro rukopisy
-          přebírat z katalogu<br/>
-          odpovídá hodnotě z katalogizačního záznamu, pole 264_0 $c pokud je LDR/06="d", "f", "t"`
-        },
-        dateOther: {
-          usage: "R",
-          label: "Datum - jiné",
-          selector: 'originInfo/dateOther',
-          cols: 3,
-          description:`Datum vytvoření, distribuce, výroby předlohy<br/>
-          Tento elemet se využije v případě výskytu $c v:
-          <ul>
-            <li>264_0 <strong>Produkce</strong> (production)</li>
-            <li>264_2 <strong>Distribuce</strong> (distribution)</li>
-            <li>264_3 <strong>Výroba</strong> (manufacture)</li>
-          </ul>`
-        },
-        copyrightDate: {
-          usage: "R",
-          label: "Datum - copyright",
-          selector: 'originInfo/copyrightDate',
-          cols: 3,
-          description:`Využije se pouze v případě výskytu pole 264 s druhým indikátorem 4 a podpolem $c<br/>
-          <ul>
-            <li>264_4 <strong>Copyright</strong> (copyright)</li>
-          </ul>`
+            description:`Údaje o místě spojeném s vydáním, výrobou nebo původem popisovaného dokumentu.<br/>
+            Odpovídá hodnotám z katalogizačního záznamu, pole 260, $a resp. pole 008/15-17`
         }
       }
     },
@@ -339,7 +240,7 @@ export class NdkMonographVolumeRdaTemplate {
           usage: "R",
           label: "Autorita",
           selector: 'subject/@authority',
-          description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>Konspekt</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
+          description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
           Odpovídá hodnotě v $2`,
           options: [
             ['', '-'],
@@ -349,7 +250,6 @@ export class NdkMonographVolumeRdaTemplate {
             ['czmesh','czmesh'],
             ['msvkth','msvkth'],
             ['agrovoc','agrovoc'],
-            ['Konspekt','Konspekt']
           ]          
         },
         topic: {
@@ -357,7 +257,7 @@ export class NdkMonographVolumeRdaTemplate {
           label: "Klíčové slovo/Předmětové heslo",
           selector: 'subject/topic',
           description: `Libovolný výraz specifikující nebo charakterizující obsah svazku monografie<br/>
-          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x`
+          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21`
         },
         geographic: {
           usage: "R",
@@ -370,6 +270,27 @@ export class NdkMonographVolumeRdaTemplate {
           label: "Chronologické věcné třídění",
           selector: 'subject/temporal',
           description: `Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21`
+        },
+        cartographics: {
+          usage: "MA",
+          label: "Kartografické údaje",
+          selector: 'subject/cartographics',
+          description: `přebírá se ze záznamu MARC 21 pole 034
+          je žádoucí je vyplnit v případě, pokud se jedná o samostatnou mapu, pokud jde např. o atlas, vyplňuje se v nižší úrovni`,
+          fields: {
+            coordinates: {
+              usage: "MA",
+              label: "Souřadnice",
+              selector: 'subject/cartographics/coordinates',
+              description: `Obsah pole 034 $d, $e, $f, $g`
+            },
+            scale: {
+              usage: "MA",
+              label: "Měřítko",
+              selector: 'subject/cartographics/scale',
+              description: `Obsah pole 255 podpole a MARC21 záznamu`
+            }
+          }
         }
       }
     },
@@ -463,7 +384,7 @@ export class NdkMonographVolumeRdaTemplate {
       label: "Žánr",
       selector: "genre",
       description: `Bližší údaje o typu dokumentu<br/>
-      Pro monografie hodnota <strong>volume</strong>`,
+      Hodnota <strong>cartographic</strong>`,
       fields: {
         authority: {
           usage: "MA",
@@ -485,8 +406,7 @@ export class NdkMonographVolumeRdaTemplate {
       usage: "M",
       label: "Identifikátor",
       selector: "identifier",
-      description: `Údaje o identifikátorech, obsahuje unikátní
-      identifikátory mezinárodní nebo lokální, které svazek monografie má.`,
+      description: `Údaje o identifikátorech, obsahuje unikátní identifikátory mezinárodní nebo lokální, které kartografický dokument obsahuje.`,
       fields: {
         type: {
           usage: "M",
@@ -511,10 +431,6 @@ export class NdkMonographVolumeRdaTemplate {
               <li>
                 <strong>ISBN</strong> (isbn) <i>MA</i><br/>
                 převzít z katalogizačního záznamu z pole 020, $a, $z
-              </li>
-              <li>
-                <strong>ISMN</strong> (ismn) <i>MA</i><br/>
-                převzít z katalogizačního záznamu z pole 024 (1. ind.="2"), $a, $z
               </li>
             </ul>
             Jiný interní identifikátor <i>R</i>, např. barcode, oclc, sysno, permalink`
@@ -545,41 +461,17 @@ export class NdkMonographVolumeRdaTemplate {
       usage: "R",     
       label: "Klasifikace",
       selector: "identifier",
-      description: `Klasifikační údaje věcného třídění podle Konspektu.<br/>
-      Odpovídá poli 072 $a MARC21`,
+      description: `Klasifikační údaje věcného třídění podle Mezinárodního desetinného třídění<br/>
+      odpovídá poli 080 MARC21
+      `,
       fields: {
         authority: {
           usage: "M",
           label: "Autorita",
           selector: "classification/@authority",
-          cols: 2,
-          description: `
-          <ul>
-            <li>
-              vyplnit hodnotu <strong>udc</strong> (v případě 072 $a)
-            </li>
-            <li>
-              vyplnit hodnotu <strong>Konspekt</strong>  (v případě 072 $9)
-            </li>
-          </ul>`,
+          description: `Vyplnit hodnotu <strong>udc</strong>`,
           options: [
             ['udc','udc'], 
-            ['Konspekt','Konspekt']
-          ]
-        },
-        edition: {
-          usage: "M",
-          label: "Edice",
-          selector: "classification/@edition",
-          cols: 2,
-          description: `
-          <ul>
-            <li>
-              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)
-            </li>
-          </ul>`,
-          options: [
-            ['Konspekt','Konspekt']
           ]
         },
         value: {
@@ -593,9 +485,8 @@ export class NdkMonographVolumeRdaTemplate {
       usage: "R",
       label: "Typ zdroje",
       selector: "typeOfResource",
-      description: `Pro monografie hodnota <strong>text</strong><br/>
-      mělo by se vyčítat z MARC21 katalogizačního
-      záznamu, z pozice 06 návěští`,
+      description: `Pro kartografické dokumenty hodnota <strong>cartographic</strong><br/>
+      mělo by se vyčítat z MARC21 katalogizačního záznamu z pozice 06 návěští (pro cartographic hodnoty e a f)`,
       fields: {
         value: {
           usage: "R",
@@ -603,7 +494,7 @@ export class NdkMonographVolumeRdaTemplate {
           help: "off",
           options: [
             ['','-'],
-            ['text','text']
+            ['cartographic','cartographic']
           ]
         }
       }

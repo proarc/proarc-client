@@ -100,8 +100,7 @@ export class NdkMonographTitleRdaTemplate {
             ['publication', 'Publikace'],
             ['distribution', 'Distribuce'],
             ['manufacture', 'Výroba'],
-            ['copyright', 'Copyright'],
-            ['digitization', 'Digitalizace']
+            ['copyright', 'Copyright']
           ]
         },
         edition: {
@@ -158,7 +157,7 @@ export class NdkMonographTitleRdaTemplate {
         },
         value: {
           usage: "M",
-          label: "Autorita",
+          label: "Hodnota",
           help: "off"
         }
       }

@@ -7,11 +7,11 @@
 
     <app-field-dropdown field="qualifier" [item]="item" [(value)]='item.dateIssued["$"]["qualifier"]'></app-field-dropdown>
 
+    <app-field-text field="place" [item]="item" [(value)]="item.place['_']" ></app-field-text>
+
     <app-field-text field="edition" [item]="item" [(value)]="item.edition['_']" ></app-field-text>
 
     <app-field-dropdown field="issuance" [item]="item" [(value)]='item.issuance["_"]'></app-field-dropdown>
-
-    <app-field-text field="place" [item]="item" [(value)]="item.place['_']" ></app-field-text>
 
     <app-field-dropdown field="eventType" [item]="item" [(value)]='item.attrs["eventType"]'></app-field-dropdown>
 
@@ -19,7 +19,7 @@
     <app-field-text field="dateOther" [item]="item" [(value)]="item.dateOther['_']" ></app-field-text>
     <app-field-text field="copyrightDate" [item]="item" [(value)]="item.copyrightDate['_']" ></app-field-text>
 
-    <app-editor-field *ngIf="item.available('frequency')" [field]="item.frequencies" class="app-frequencies" [nested]='true'>
+    <app-editor-field *ngIf="item.available('frequency')" [field]="item.frequencies" [nested]='true'>
       <ng-template let-frequency="item" #templateContent>
         <app-autocomplete field="authority" [item]="frequency" [(value)]='frequency.attrs["authority"]'></app-autocomplete>
         <app-field-text field="value" [item]="frequency" [(value)]="frequency.modsElement['_']"></app-field-text>

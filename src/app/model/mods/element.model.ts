@@ -75,6 +75,17 @@ export abstract class ModsElement {
         return this.fieldValue(field, 'options');
     }
 
+    public help(field: string): string {
+        const description = this.fieldValue(field, 'description');
+        const selector = this.fieldValue(field, 'selector');
+        return `<h3>${this.label(field) } <i>${this.usage(field) || ''}</i> <code>${selector || ''}</code></h3>
+        ${description || '' }`;
+    }
+
+    public showHelp(field: string): boolean {
+        return this.fieldValue(field, 'help') != 'off';
+    }
+
     public class(field: string): string {
         return "app-field-col app-field-col-" + (this.fieldValue(field, 'cols') || 1);
     }
@@ -98,8 +109,6 @@ export abstract class ModsElement {
     public getField(field: string) {
         return this.template['fields'][field];
     }
-
-
 
     public getControl(filed: string): FormControl {
         if (!this.controls.has(filed)) {

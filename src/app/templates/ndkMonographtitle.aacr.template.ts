@@ -104,7 +104,7 @@ export class NdkMonographTitleAacrTemplate {
         },
         value: {
           usage: "M",
-          label: "Autorita",
+          label: "Hodnota",
           help: "off"
         }
       }

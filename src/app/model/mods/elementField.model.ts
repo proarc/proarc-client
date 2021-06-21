@@ -17,6 +17,7 @@ import { ModsGenre } from './genre.model';
 import { ModsClassification } from './classification.model';
 import { ModsResource } from './resource.model';
 import { ModsFrequency } from './frequency.model';
+import { ModsCartographics } from './cartographics.model';
 
 export class ElementField {
 
@@ -191,6 +192,8 @@ export class ElementField {
                 return new ModsResource(el, this.template);
             case ModsFrequency.getId():
                 return new ModsFrequency(el, this.template);
+            case ModsCartographics.getId():
+                return new ModsCartographics(el, this.template);
             }
     }
 
@@ -259,6 +262,8 @@ export class ElementField {
                 return ModsResource.getSelector();
             case ModsFrequency.getId():
                 return ModsFrequency.getSelector();
+            case ModsCartographics.getId():
+                return ModsCartographics.getSelector();
             }
     }
 

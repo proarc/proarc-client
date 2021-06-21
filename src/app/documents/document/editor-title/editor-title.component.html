@@ -1,8 +1,9 @@
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
     
-    <mat-form-field class="app-field-col" *ngIf="item.available('title')">
-      <span class="app-usage" [class.app-invalid]="item.invalid('title')">{{ item.usage('title') }}</span>
+    <mat-form-field class="app-field-col" *ngIf="item.available('title')" [class.app-invalid]="item.invalid('title')">
+      <app-usage [item]="item" field="title"></app-usage>
+
       <span *ngIf='item.nonSort["_"]' matPrefix class="title-prefix" color="primary">{{ item.nonSort["_"] }}</span>
       <input [required]="item.isMandatory('title')" [formControl]="item.getControl('title')" autocomplete="off" style="width: calc(100% - 60px)" spellcheck="false" matInput [(ngModel)]='item.title["_"]' [placeholder]="item.label('title')">
       <mat-slide-toggle color="primary" class="non-sort-toggle"

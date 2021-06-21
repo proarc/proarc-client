@@ -391,7 +391,7 @@ export class NdkMonographVolumeAacrTemplate {
         },
         value: {
           usage: "M",
-          label: "Autorita",
+          label: "Hodnota",
           help: "off"
         }
       }

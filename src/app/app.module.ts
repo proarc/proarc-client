@@ -107,6 +107,7 @@ import { FieldTextareaComponent } from './documents/document/field-textarea/fiel
 import { FieldDropdownComponent } from './documents/document/field-dropdown/field-dropdown.component';
 import { FieldTextComponent } from './documents/document/field-text/field-text.component';
 import { FieldCodebookComponent } from './documents/document/field-codebook/field-codebook.component';
+import { UsageComponent } from './components/shared/usage/usage.component';
 
 
 export function hljsLanguages() {
@@ -198,7 +199,8 @@ export function hljsLanguages() {
     FieldTextComponent,
     FieldTextareaComponent,
     FieldDropdownComponent,
-    FieldCodebookComponent
+    FieldCodebookComponent,
+    UsageComponent
   ],
   imports: [
     BrowserModule,

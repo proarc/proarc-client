@@ -1,11 +1,16 @@
 import ModsUtils from './utils';
 import { ModsElement } from './element.model';
+import { ElementField } from './elementField.model';
+import { ModsCartographics } from './cartographics.model';
 
 export class ModsSubject extends ModsElement {
 
     topic;
     geographic;
     temporal;
+
+    public cartographics: ElementField;
+
 
     static getSelector() {
         return 'subject';
@@ -33,6 +38,11 @@ export class ModsSubject extends ModsElement {
         this.topic = this.modsElement['topic'][0];
         this.geographic = this.modsElement['geographic'][0];
         this.temporal = this.modsElement['temporal'][0];
+
+        if(this.available('cartographics')) {
+            this.cartographics = new ElementField(this.modsElement, ModsCartographics.getSelector(), this.getField('cartographics'));
+            this.addSubfield(this.cartographics);
+        }
 
     }
 
