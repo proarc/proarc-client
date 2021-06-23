@@ -1,4 +1,4 @@
-import { ModsVolume } from './mods/volume.model';
+// import { ModsVolume } from './mods/volume.model';
 import { ModsGeo } from './mods/geo.model';
 import { ModsPublisher } from './mods/publisher.model';
 import { ModsLanguage } from './mods/language.model';
@@ -47,7 +47,7 @@ export class Metadata {
   private mods;
   public readonly model: string;
 
-  public volume: ModsVolume;
+  // public volume: ModsVolume;
 
   private fieldsIds: string[];
 
@@ -71,13 +71,14 @@ export class Metadata {
     return new Metadata(mods.pid, model, mods.content, mods.timestamp);
   }
 
-  public isVolume(): boolean {
-    return this.model === 'model:ndkperiodicalvolume';
-  }
+  // public isVolume(): boolean {
+  //   return this.model === 'model:ndkperiodicalvolume';
+  // }
 
-  public isIssue(): boolean {
-    return this.model === 'model:ndkperiodicalissue';
-  }
+  // public isIssue(): boolean {
+  //   return this.model === 'model:ndkperiodicalissue';
+  // }
+
   private parseMods(mods: string) {
     const xml = mods.replace(/xmlns.*=".*"/g, '');
     const data = {tagNameProcessors: [processors.stripPrefix], explicitCharkey: true};
@@ -194,11 +195,11 @@ export class Metadata {
       };
       root = this.mods['mods'];
     }
-    if (this.isVolume() || this.isIssue()) {
-      this.volume = new ModsVolume(root);
-      const id = "physicalDescription";
-      this.fields.set(id, new ElementField(root, id, this.template[id]));
-    } else {
+    // if (this.isVolume() || this.isIssue()) {
+    //   this.volume = new ModsVolume(root);
+    //   const id = "physicalDescription";
+    //   this.fields.set(id, new ElementField(root, id, this.template[id]));
+    // } else {
       for (const id of this.fieldsIds) {
         if (id === ModsGeo.getId()) {
           this.fields.set(id, new ElementField(root, id, this.template[id], 'authority', ['geo:origin', 'geo:storage', 'geo:area']));
@@ -210,7 +211,7 @@ export class Metadata {
           this.fields.set(id, new ElementField(root, id, this.template[id]));
         }
       }
-    }
+    // }
   }
 
   toJson() {
@@ -231,9 +232,9 @@ export class Metadata {
   private normalizedCopy(final: boolean = false) {
     const mods = $.extend(true, {}, this.mods);
     const root = mods['modsCollection'] ? mods['modsCollection']['mods'][0] : mods['mods'];
-    if (this.isVolume() || this.isIssue()) {
-      this.normalizeField(root, ModsPhysical.getSelector());
-    } else {
+    // if (this.isVolume() || this.isIssue()) {
+    //   this.normalizeField(root, ModsPhysical.getSelector());
+    // } else {
       if (this.fieldsIds.indexOf(ModsPublisher.getId()) >= 0) {
         const publishers = new ElementField(root, ModsPublisher.getSelector(), this.template[ModsPublisher.getSelector()]);
         publishers.update();
@@ -241,7 +242,7 @@ export class Metadata {
       for (const selector of Metadata.selectors) {
         this.normalizeField(root, selector);
       }
-    }
+    // }
     return mods;
   }
 

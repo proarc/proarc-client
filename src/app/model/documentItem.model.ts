@@ -105,21 +105,21 @@ export class DocumentItem {
     return this.model == 'model:ndkaudiopage';
   }
 
-  public isVolume(): boolean {
-    return this.model === 'model:ndkperiodicalvolume';
-  }
+  // public isVolume(): boolean {
+  //   return this.model === 'model:ndkperiodicalvolume';
+  // }
 
-  public isIssue(): boolean {
-    return this.model === 'model:ndkperiodicalissue';
-  }
+  // public isIssue(): boolean {
+  //   return this.model === 'model:ndkperiodicalissue';
+  // }
 
   public isChronicle(): boolean {
     return this.model === 'model:chroniclevolume' || this.model === 'model:chronicletitle';
   }
 
-  public isTopLevel(): boolean {
-    return !this.isPage() && !this.isVolume() && !this.isIssue();
-  }
+  // public isTopLevel(): boolean {
+  //   return !this.isPage() && !this.isVolume() && !this.isIssue();
+  // }
 
   public canContainPdf(): boolean {
     return [

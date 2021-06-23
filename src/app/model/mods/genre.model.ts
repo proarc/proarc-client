@@ -11,7 +11,7 @@ export class ModsGenre extends ModsElement {
     }
 
     constructor(modsElement, template) {
-        super(modsElement, template, ['authority']);
+        super(modsElement, template, ['authority', 'type']);
         this.init();
     }
 

@@ -79,10 +79,10 @@
     
     <ng-container *ngIf="editor.leftEditorType == 'metadata'">
       <app-editor-page *ngIf="editor.left.isPage()" [model]="editor.left.model" [pid]="editor.left.pid"></app-editor-page>
-      <app-editor-issue *ngIf="editor.left.isIssue()" [pid]="editor.left.pid"></app-editor-issue>
-      <app-editor-volume *ngIf="editor.left.isVolume()" [pid]="editor.left.pid"></app-editor-volume>
+      <!-- <app-editor-issue *ngIf="editor.left.isIssue()" [pid]="editor.left.pid"></app-editor-issue> -->
+      <!-- <app-editor-volume *ngIf="editor.left.isVolume()" [pid]="editor.left.pid"></app-editor-volume> -->
       <app-editor-chronicle *ngIf="editor.left.isChronicle()" [pid]="editor.left.pid"></app-editor-chronicle>
-      <app-editor-metadata *ngIf="editor.left.isTopLevel() && !editor.left.isChronicle()"  [pid]="editor.left.pid"></app-editor-metadata>
+      <app-editor-metadata *ngIf="!editor.left.isPage() && !editor.left.isChronicle()" [pid]="editor.left.pid"></app-editor-metadata>
     </ng-container>
     
     <app-editor-geo *ngIf="editor.leftEditorType == 'geo'" [pid]="editor.left.pid"></app-editor-geo>
@@ -111,7 +111,7 @@
           <div class="app-label-model">{{ 'model.' + editor.right.model | translate }}</div>
         </div>
         <div class="app-context" *ngIf="!editor.showRelocationEditor()">
-              <button *ngIf="!editor.right.isTopLevel()" matTooltip="{{ 'editor.toolbar.editor_metadata' | translate }}" [class.app-inactive]="editor.rightEditorType != 'metadata'" (click)="editor.switchRightEditor('metadata')" mat-icon-button>
+              <button *ngIf="editor.mode != 'detail'" matTooltip="{{ 'editor.toolbar.editor_metadata' | translate }}" [class.app-inactive]="editor.rightEditorType != 'metadata'" (click)="editor.switchRightEditor('metadata')" mat-icon-button>
                 <span class="app-text-icon">M</span>
               </button>
               <button *ngIf="editor.right.isPage() && !editor.doubleRight" matTooltip="{{ 'editor.toolbar.editor_image' | translate }}" [class.app-inactive]="editor.rightEditorType != 'image'" (click)="editor.switchRightEditor('image')" mat-icon-button>
@@ -173,8 +173,10 @@
         <app-editor-atm *ngIf="editor.rightEditorType == 'atm'" [pid]="editor.right.pid"></app-editor-atm>
         <ng-container *ngIf="editor.rightEditorType == 'metadata'">
           <app-editor-page *ngIf="editor.right.isPage()" [model]="editor.right.model" [pid]="editor.right.pid"></app-editor-page>
+          <app-editor-metadata *ngIf="!editor.right.isPage()" [pid]="editor.right.pid"></app-editor-metadata>
+<!-- 
           <app-editor-issue *ngIf="editor.right.isIssue()" [pid]="editor.right.pid"></app-editor-issue>
-          <app-editor-volume *ngIf="editor.right.isVolume()" [pid]="editor.right.pid"></app-editor-volume>
+          <app-editor-volume *ngIf="editor.right.isVolume()" [pid]="editor.right.pid"></app-editor-volume> -->
         </ng-container>
     </div>
 

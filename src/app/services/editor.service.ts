@@ -369,8 +369,8 @@ export class EditorService {
                 this.rightEditorType = this.properties.getStringProperty('editor.page_right_editor_type', 'image');
             } else if (item.isSong()) {
                 this.rightEditorType = this.properties.getStringProperty('editor.song_right_editor_type', 'image');
-            } else if(item.isTopLevel()) {
-                this.rightEditorType = this.properties.getStringProperty('editor.top_right_editor_type', 'mods');
+            // } else if(item.isTopLevel()) {
+            //     this.rightEditorType = this.properties.getStringProperty('editor.top_right_editor_type', 'mods');
             } else {
                 this.rightEditorType = this.properties.getStringProperty('editor.right_editor_type', 'mods');
             }

@@ -20,8 +20,8 @@
 
 <div class="app-editor-content" *ngIf="editor.metadata">
     <app-editor-title *ngIf="available('titleInfo')" [field]="editor.metadata.getField('titleInfo')"></app-editor-title>
-    <app-editor-author *ngIf="available('name')" [field]="editor.metadata.getField('name')"></app-editor-author>
     <app-editor-publisher *ngIf="available('originInfo')" [field]="editor.metadata.getField('originInfo')"></app-editor-publisher>
+    <app-editor-author *ngIf="available('name')" [field]="editor.metadata.getField('name')"></app-editor-author>
     <app-editor-location *ngIf="available('location')" [field]="editor.metadata.getField('location')"></app-editor-location>
     <app-editor-subject *ngIf="available('subject')" [field]="editor.metadata.getField('subject')"></app-editor-subject>
     <app-editor-language *ngIf="available('language')" [field]="editor.metadata.getField('language')"></app-editor-language>

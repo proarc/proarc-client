@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ElementField } from 'src/app/model/mods/elementField.model';
-import { CodebookService } from 'src/app/services/codebook.service';
 
 @Component({
   selector: 'app-editor-title',
