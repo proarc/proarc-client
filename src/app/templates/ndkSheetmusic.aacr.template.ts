@@ -125,6 +125,7 @@ export class NdkSheetMusicAacrTemplate {
           usage: "MA",
           label: "Role",
           selector: 'name/role/roleTerm',
+          expanded: true,
           description: `Specifikace role osoby nebo organizace<br/>
           Kód role z kontrolovaného slovníku rolí 
           (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)`,

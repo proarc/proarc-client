@@ -5,6 +5,7 @@ export class NdkPeriodicalIssueAacrTemplate {
       usage: 'M',
       label: 'Název',
       selector: 'titleInfo',
+      expanded: true,
       description: `Název titulu periodika, kterého je číslo součástí pro plnění použít katalogizační záznam nebo názvové autority`,
       fields: {
         title: {
@@ -99,6 +100,7 @@ export class NdkPeriodicalIssueAacrTemplate {
           usage: "MA",
           label: "Role",
           selector: 'name/role/roleTerm',
+          expanded: true,
           description: `Specifikace role osoby nebo organizace<br/>
           Kód role z kontrolovaného slovníku rolí 
           (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)`,
@@ -110,6 +112,7 @@ export class NdkPeriodicalIssueAacrTemplate {
       usage: "MA",
       label: "Nakladatel",
       selector: 'originInfo',
+      expanded: true,
       description: `informace o původu předlohy – vyplňuje se ručně doporučené tam, kde lze vyplnit`,
       fields: {
         publisher: {
@@ -323,7 +326,7 @@ export class NdkPeriodicalIssueAacrTemplate {
             <li>Odpolední vydání (afternoon)</li>
             <li>Večerní vydání (evening)</li>
             <li>Opravné vydání (corrected)</li>
-            <li>Speciální vydání (special)</li>
+            <li>Zvláštní vydání (special)</li>
             <li>Příloha (supplement) - v případě, že se příloha periodického typu popisuje jako číslo</li>
             <li>Pořadní vydání (sequence_1 = první vydání toho dne, sequence_2 = druhé vydání atd.)</li>
           </ul>`,
@@ -333,7 +336,7 @@ export class NdkPeriodicalIssueAacrTemplate {
             ['afternoon', 'Odpolední vydání'],
             ['evening', 'Večerní vydání'],
             ['corrected', 'Opravné vydání'],
-            ['special', 'Speciální vydání'],
+            ['special', 'Zvláštní vydání'],
             ['supplement', 'Příloha'],
             ['sequence_1', 'První vydání'],
             ['sequence_2', 'Druhé vydání'],

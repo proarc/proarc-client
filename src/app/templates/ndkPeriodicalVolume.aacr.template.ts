@@ -5,6 +5,7 @@ export class NdkPeriodicalVolumeAacrTemplate {
       usage: 'M',
       label: 'Číslo ročníku',
       selector: 'titleInfo',
+      expanded: true,
       description: `informace o čísle ročníku`,
       fields: {
         partNumber: {
@@ -75,6 +76,7 @@ export class NdkPeriodicalVolumeAacrTemplate {
           usage: "MA",
           label: "Role",
           selector: 'name/role/roleTerm',
+          expanded: true,
           description: `Specifikace role osoby nebo organizace<br/>
           Kód role z kontrolovaného slovníku rolí 
           (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)`,
@@ -86,6 +88,7 @@ export class NdkPeriodicalVolumeAacrTemplate {
       usage: "M",
       label: "Rok vydání",
       selector: 'originInfo',
+      expanded: true,
       description: `Informace o původu předlohy; vyplňuje se ručně`,
       fields: {
         dateIssued: {
