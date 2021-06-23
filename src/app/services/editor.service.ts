@@ -365,15 +365,15 @@ export class EditorService {
 
     public selectRight(item: DocumentItem) {
         if (item) {
-            if (item.isPage()) {
-                this.rightEditorType = this.properties.getStringProperty('editor.page_right_editor_type', 'image');
-            } else if (item.isSong()) {
-                this.rightEditorType = this.properties.getStringProperty('editor.song_right_editor_type', 'image');
-            // } else if(item.isTopLevel()) {
-            //     this.rightEditorType = this.properties.getStringProperty('editor.top_right_editor_type', 'mods');
-            } else {
-                this.rightEditorType = this.properties.getStringProperty('editor.right_editor_type', 'mods');
-            }
+            // if (item.isPage()) {
+            //     this.rightEditorType = this.properties.getStringProperty('editor.page_right_editor_type', 'image');
+            // } else if (item.isSong()) {
+            //     this.rightEditorType = this.properties.getStringProperty('editor.song_right_editor_type', 'image');
+            // // } else if(item.isTopLevel()) {
+            // //     this.rightEditorType = this.properties.getStringProperty('editor.top_right_editor_type', 'mods');
+            // } else {
+            //     this.rightEditorType = this.properties.getStringProperty('editor.right_editor_type', 'mods');
+            // }
             this.rightEditorType = this.properties.getStringProperty('editor.right_editor_' + item.model, '');
             if (!this.rightEditorType) {
                 if (item.isPage()) {

@@ -55,7 +55,12 @@ export class ModsPublisher extends ModsElement {
             this.modsElement['dateCreated'] = ModsUtils.createEmptyField();
         }
         const dates = this.modsElement['dateIssued'];
-        for (const date of dates) {
+        for (let index = dates.length - 1; index >= 0; index--) {
+            if (dates[index] == "") {
+                dates.splice(index, 1);
+            }
+        }
+        for (let date of dates) {
             if (ModsUtils.hasAttributeWithValue(date, 'point', 'start')) {
                 this.dateFrom = date;
             }  else if (ModsUtils.hasAttributeWithValue(date, 'point', 'end')) {
