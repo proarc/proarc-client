@@ -5,6 +5,7 @@ import ModsUtils from './utils';
 
 export class ModsAuthor extends ModsElement {
 
+    public affiliation;
     public name;
     public given;
     public family;
@@ -27,9 +28,13 @@ export class ModsAuthor extends ModsElement {
 
 
     private init() {
+        if (!this.modsElement['affiliation']) {
+            this.modsElement['affiliation'] = ModsUtils.createEmptyField();
+        }
         if (!this.modsElement['namePart']) {
             this.modsElement['namePart'] = [];
         }
+        this.affiliation = this.modsElement['affiliation'][0];
         const nameParts = this.modsElement['namePart'];
         for (const namePart of nameParts) {
             if (!ModsUtils.hasAnyAttribute(namePart)) {

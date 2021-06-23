@@ -6,8 +6,10 @@ import { NdkMonographVolumeAacrTemplate } from "./ndkMonographvolume.aacr.templa
 import { NdkMonographVolumeRdaTemplate } from "./ndkMonographvolume.rda.template";
 import { NdkPeriodicalAacrTemplate } from "./ndkPeriodical.aacr.template";
 import { NdkPeriodicalRdaTemplate } from "./ndkPeriodical.rda.template";
-import { NdkPeriodicalIssueAacrTemplate } from "./ndkPeriodicalIssue.aacr.template";
-import { NdkPeriodicalVolumeAacrTemplate } from "./ndkPeriodicalVolume.aacr.template";
+import { NdkPeriodicalIssueAacrTemplate } from "./ndkPeriodicalissue.aacr.template";
+import { NdkPeriodicalSupplementAacrTemplate } from "./ndkPeriodicalsupplement.aacr.template";
+import { NdkPeriodicalSupplementRdaTemplate } from "./ndkPeriodicalsupplement.rda.template";
+import { NdkPeriodicalVolumeAacrTemplate } from "./ndkPeriodicalvolume.aacr.template";
 import { NdkSheetMusicAacrTemplate } from "./ndkSheetmusic.aacr.template";
 import { NdkSheetMusicRdaTemplate } from "./ndkSheetmusic.rda.template";
 
@@ -21,7 +23,8 @@ export class ModelTemplate {
       "model:ndksheetmusic": NdkSheetMusicAacrTemplate.data,
       "model:ndkperiodical": NdkPeriodicalAacrTemplate.data,
       "model:ndkperiodicalvolume": NdkPeriodicalVolumeAacrTemplate.data,
-      "model:ndkperiodicalissue": NdkPeriodicalIssueAacrTemplate.data
+      "model:ndkperiodicalissue": NdkPeriodicalIssueAacrTemplate.data,
+      "model:ndkperiodicalsupplement": NdkPeriodicalSupplementAacrTemplate.data
     },
     "rda": {
       "model:ndkmonographtitle": NdkMonographTitleRdaTemplate.data,
@@ -30,9 +33,9 @@ export class ModelTemplate {
       "model:ndksheetmusic": NdkSheetMusicRdaTemplate.data,
       "model:ndkperiodical": NdkPeriodicalRdaTemplate.data,
       "model:ndkperiodicalvolume": NdkPeriodicalVolumeAacrTemplate.data,
-      "model:ndkperiodicalissue": NdkPeriodicalIssueAacrTemplate.data
+      "model:ndkperiodicalissue": NdkPeriodicalIssueAacrTemplate.data,
+      "model:ndkperiodicalsupplement": NdkPeriodicalSupplementRdaTemplate.data
     },
-    "model:ndkperiodicalsupplement": NdkMonographVolumeAacrTemplate.data,
     "model:ndkarticle": NdkMonographVolumeAacrTemplate.data,
     "model:ndkpicture": NdkMonographVolumeAacrTemplate.data,
     "model:ndkchapter": NdkMonographVolumeAacrTemplate.data,
