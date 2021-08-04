@@ -28,6 +28,12 @@ export class DocumentItem {
   public pageNumber: string;
   public pageType: string;
 
+  public invalid: boolean;
+
+  constructor() {
+    this.invalid = false;
+  }
+
   public static fromJson(json): DocumentItem {
     if (!json) {
       return null;

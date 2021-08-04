@@ -139,6 +139,10 @@ export class Page {
     };
   }
 
+  public isValid(): boolean {
+    return !!this.index && !!this.number && !!this.type;
+  }
+
   public isNdkPage(): boolean {
     return this.model === 'model:ndkpage';
   }

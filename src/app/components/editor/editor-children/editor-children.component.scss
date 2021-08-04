@@ -44,6 +44,17 @@
           .app-col-label {
             padding-left: 10px;
             flex: 1;
+            .app-invalid {
+              font-size: 15px;
+              width: 15px;
+              height: 15px;
+              color: red;
+              display: block;
+              float: left;
+              line-height: 15px;
+              margin-left: -17px;
+              margin-top: 12px;
+            }
           }
           .app-col-actions {
             text-align: right;
