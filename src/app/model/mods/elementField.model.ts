@@ -54,7 +54,6 @@ export class ElementField {
         }
         if (this.items.length - hiddenItems < 1) {
             const item = this.add();
-            console.log(":)", this);
             if (!this.template.expanded) {
                 item.collapsed = true;
             }

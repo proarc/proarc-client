@@ -18,6 +18,7 @@ import { ParentDialogComponent } from '../dialogs/parent-dialog/parent-dialog.co
 import { Batch } from '../model/batch.model';
 import { IngestDialogComponent } from '../dialogs/ingest-dialog/ingest-dialog.component';
 import { ModelTemplate } from '../templates/modelTemplate';
+import { ChildrenValidationDialogComponent } from '../dialogs/children-validation-dialog/children-validation-dialog.component';
 
 @Injectable()
 export class EditorService {
@@ -736,6 +737,12 @@ export class EditorService {
         return 0;
       }
 
+
+      validateChildren() {
+        const dialogRef = this.dialog.open(ChildrenValidationDialogComponent, { data: { children: this.children} });
+        dialogRef.afterClosed().subscribe(result => {
+        });
+      }
 
       selectChildren() {
         if (!this.multipleChildrenMode) {

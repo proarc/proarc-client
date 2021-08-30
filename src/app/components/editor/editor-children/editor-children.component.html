@@ -27,6 +27,9 @@
     <button class="app-action"  matTooltip="{{ 'editor.children.select_all' | translate }}" (click)="editor.selectChildren()" mat-icon-button>
       <mat-icon>check_box</mat-icon>
     </button>
+    <button class="app-action" *ngIf="editor.children.length > 0" matTooltip="Validovat" (click)="editor.validateChildren()" mat-icon-button>
+      <mat-icon>fact_check</mat-icon>
+    </button>
     <!-- <button class="app-action"  matTooltip="{{ 'editor.children.deselect_all' | translate }}" (click)="editor.deselectChildren()" mat-icon-button>
       <mat-icon>check_box_outline_blank</mat-icon>
     </button> -->
@@ -83,7 +86,11 @@
 
       <!-- <mat-icon *ngIf="editor.isMultipleChildrenMode()" class="app-icon-check app-icon-top">{{ item.selected ? 'check_box' : 'check_box_outline_blank' }}</mat-icon> -->
 
-      <div class="app-col-label">{{ shortLabels ? item.shortLabel : item.label }}</div>
+      <div class="app-col-label">
+        <mat-icon *ngIf="item.invalid" class="app-invalid">warning</mat-icon>
+
+        {{ shortLabels ? item.shortLabel : item.label }}
+      </div>
       <div class="app-col-model">{{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }}</div>
       <div *ngIf="!editor.isMultipleChildrenMode() && !editor.preparation" class="app-col-actions">
           <button matTooltip="{{ 'editor.children.open_object' | translate }}" (click)="open(item); $event.stopPropagation();" mat-icon-button>
