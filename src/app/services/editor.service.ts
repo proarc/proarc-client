@@ -858,8 +858,23 @@ export class EditorService {
       }
 
 
-
-
+      reindexChildren() {
+        let pagePid = null;
+        for (const page of this.children) {
+            if (page.isPage()) {
+                pagePid = page.pid;
+                break;
+            }
+        }
+        if (!pagePid) {
+            return;
+        }
+        this.state = 'saving';  
+        this.api.reindexPages(this.left.pid, pagePid, this.getBatchId()).subscribe(result => {
+            this.state = 'success';
+            this.ui.showInfoSnackBar("Objekty byly reindexovány");
+        });
+      }
 
 
       private reloadChildren(callback: () => void, moveToNext = false) {

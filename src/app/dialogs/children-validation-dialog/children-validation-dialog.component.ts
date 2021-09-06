@@ -24,6 +24,7 @@ export class ChildrenValidationDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.children = data.children;
       this.count = this.children.length;
+      dialogRef.disableClose = true;
   }
 
   ngOnInit() {

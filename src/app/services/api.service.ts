@@ -174,6 +174,15 @@ export class ApiService {
             .pipe(map(response => response['response']['data'].map(x => x.pid)));
   }
 
+
+  reindexPages(parentPid: string, pagePid: string, batchId = null): Observable<any> {
+    let data = `parent=${parentPid}&pid=${pagePid}`;
+    if (batchId) {
+      data = `${data}&batchId=${batchId}`;
+    }
+    return this.put('object/reindexObjects', data);
+  }
+
   getPage(pid: string, model: string, batchId = null): Observable<Page> {    
     const editorId = model == 'model:page' ? 'proarc.mods.PageForm' : model;
     const params = { pid: pid, editorId: editorId };

@@ -27,9 +27,16 @@
     <button class="app-action"  matTooltip="{{ 'editor.children.select_all' | translate }}" (click)="editor.selectChildren()" mat-icon-button>
       <mat-icon>check_box</mat-icon>
     </button>
+    <div class="app-divider"></div>
     <button class="app-action" *ngIf="editor.children.length > 0" matTooltip="Validovat" (click)="editor.validateChildren()" mat-icon-button>
       <mat-icon>fact_check</mat-icon>
     </button>
+    <button class="app-action" *ngIf="pageChildren && editor.children.length > 0" matTooltip="Reindexovat" (click)="editor.reindexChildren()" mat-icon-button>
+      <mat-icon>format_list_numbered</mat-icon>
+    </button>
+
+    
+
     <!-- <button class="app-action"  matTooltip="{{ 'editor.children.deselect_all' | translate }}" (click)="editor.deselectChildren()" mat-icon-button>
       <mat-icon>check_box_outline_blank</mat-icon>
     </button> -->
