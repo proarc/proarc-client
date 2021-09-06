@@ -30,7 +30,7 @@
     "jquery": "^3.4.1",
     "leaflet": "1.5.1",
     "ngx-highlightjs": "^3.0.3",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.14.1",
     "rxjs": "^6.0.0",
     "timers": "^0.1.1",
     "xml-beautifier": "^0.4.1",

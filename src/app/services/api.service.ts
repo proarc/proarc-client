@@ -241,7 +241,8 @@ export class ApiService {
   }
 
   editModsXml(pid: string, xml: string, timestamp: number, batchId = null): Observable<Mods> {
-    let data = `pid=${pid}&ignoreValidation=true&xmlData=${xml}&timestamp=${timestamp}`;
+    const xmlText = xml.replace(/&/g, '%26');
+    let data = `pid=${pid}&ignoreValidation=true&xmlData=${xmlText}&timestamp=${timestamp}`;
     if (batchId) {
       data = `${data}&batchId=${batchId}`;
     }
