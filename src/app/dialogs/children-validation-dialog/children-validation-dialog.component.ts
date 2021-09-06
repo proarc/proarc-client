@@ -42,13 +42,8 @@ export class ChildrenValidationDialogComponent implements OnInit {
       return;
     }
     const item = this.children[this.index];
-    console.log('aaaaa - 1');
     if (item.isPage()) {
-      console.log('aaaaa - 2');
-
       this.api.getPage(item.pid, item.model).subscribe((page: Page) => {
-        console.log('aaaaa - 3');
-
         item.invalid = !page.isValid();
         if (item.invalid) {
           this.numberOfInvalid += 1;
