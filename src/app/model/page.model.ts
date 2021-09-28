@@ -72,7 +72,7 @@ export class Page {
         if (mods['genre'] && mods['genre'][0] && mods['genre'][0]['value']) {
           page.genre = mods['genre'][0]['value'];
         }
-        if (mods['v'] && mods['physicalDescription'][0] && mods['physicalDescription'][0]['note'] && mods['physicalDescription'][0]['note'][0] && mods['physicalDescription'][0]['note'][0]['value']) {
+        if (mods['physicalDescription'] && mods['physicalDescription'][0] && mods['physicalDescription'][0]['note'] && mods['physicalDescription'][0]['note'][0] && mods['physicalDescription'][0]['note'][0]['value']) {
           page.note = mods['physicalDescription'][0]['note'][0]['value'];
         }
         page.identifiers = PageIdentifier.fromJsonArray(mods['identifier']);
