@@ -11,6 +11,7 @@ import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dial
 import { Translator } from 'angular-translator';
 import { ResizedEvent } from 'angular-resize-event';
 import { ParentDialogComponent } from 'src/app/dialogs/parent-dialog/parent-dialog.component';
+import { ConvertDialogComponent } from 'src/app/dialogs/convert-dialog/convert-dialog.component';
 
 
 
@@ -331,6 +332,23 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
 
   onCreateNewObject() {
     this.editor.onCreateNewObject();
+  }
+
+  showConvertDialog() {
+    const dialogRef = this.dialog.open(ConvertDialogComponent, { data: { pid: this.editor.left.pid, model: this.editor.left.model } });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        if (result.status == 'ok') {
+          this.editor.reloadChildren(()=>{
+            this.ui.showInfoSnackBar("Strany byly převedeny");
+          });
+        } else if (result.status == 'failure') {
+          this.editor.reloadChildren(()=>{
+            this.ui.showInfoSnackBar("Strany byly převedeny s chybou");
+          });
+        }
+      }
+    });
   }
 
   onRelocate() {

@@ -1,0 +1,20 @@
+<div mat-dialog-content>
+
+  <button mat-raised-button color="primary" (click)="convert('changePageToNdkPage')">Převést stranu na NDK stranu</button>
+  <button mat-raised-button color="primary" (click)="convert('changeNdkPageToPage')">Převést NDK stranu na stranu</button>
+  <button mat-raised-button color="primary" (click)="convert('changeSttPageToNdkPage')">Převést STT stranu na NDK stranu</button>
+  <button mat-raised-button color="primary" (click)="convert('changeNdkPageToSttPage')">Převést NDK stranu na STT stranu</button>
+
+  <button mat-raised-button color="default" class="app-close" mat-dialog-close="close" >{{ 'common.close' | translate }}</button>
+
+
+  <div *ngIf="inProgress" class="app-progress">
+    <mat-spinner
+      [strokeWidth]="5" 
+      [diameter]="60">
+    </mat-spinner>
+  </div>
+
+</div>
+
+

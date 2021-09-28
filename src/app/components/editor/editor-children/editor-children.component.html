@@ -42,10 +42,16 @@
     </button> -->
 
     <div class="app-actions-right">
-      <button *ngIf="!editor.preparation" class="app-action" matTooltip="{{ 'editor.children.add_new' | translate }}" (click)="onCreateNewObject()" mat-icon-button>
-        <mat-icon>add</mat-icon>
-      </button>
-      <div class="app-divider"></div>
+      <ng-container *ngIf="!editor.preparation">
+        <button class="app-action" matTooltip="{{ 'editor.children.add_new' | translate }}" (click)="onCreateNewObject()" mat-icon-button>
+          <mat-icon>add</mat-icon>
+        </button>
+        <div class="app-divider"></div>
+        <button  class="app-action" matTooltip="Akce" (click)="showConvertDialog()" mat-icon-button>
+          <mat-icon>swap_horiz</mat-icon>
+        </button>
+        <div class="app-divider"></div>
+      </ng-container>
       <div class="app-multibuttons">
         <button [disabled]="editor.isMultipleChildrenMode()" matTooltipPosition="right" class="app-action"  matTooltip="{{ 'editor.children.move' | translate }}" (click)="onMove()" mat-icon-button>
           <mat-icon>reply</mat-icon>

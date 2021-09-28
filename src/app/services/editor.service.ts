@@ -876,8 +876,7 @@ export class EditorService {
         });
       }
 
-
-      private reloadChildren(callback: () => void, moveToNext = false) {
+    reloadChildren(callback: () => void, moveToNext = false) {
         this.api.getRelations(this.left.pid).subscribe((children: DocumentItem[]) => {
             if (this.isMultipleChildrenMode()) {
                 for (const oldChild of this.children) {

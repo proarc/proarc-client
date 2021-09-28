@@ -175,6 +175,13 @@ export class ApiService {
   }
 
 
+  convertPages(pid: string, model: string, type: string) {
+    const data = `pid=${pid}&model=${model}`;
+    const path = `object/${type}`;
+    return this.post(path, data);
+  }
+
+
   reindexPages(parentPid: string, pagePid: string, batchId = null): Observable<any> {
     let data = `parent=${parentPid}&pid=${pagePid}`;
     if (batchId) {

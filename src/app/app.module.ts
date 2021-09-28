@@ -107,6 +107,7 @@ import { FieldTextComponent } from './documents/document/field-text/field-text.c
 import { FieldCodebookComponent } from './documents/document/field-codebook/field-codebook.component';
 import { UsageComponent } from './components/shared/usage/usage.component';
 import { ChildrenValidationDialogComponent } from './dialogs/children-validation-dialog/children-validation-dialog.component';
+import { ConvertDialogComponent } from './dialogs/convert-dialog/convert-dialog.component';
 
 
 export function hljsLanguages() {
@@ -198,7 +199,8 @@ export function hljsLanguages() {
     FieldDropdownComponent,
     FieldCodebookComponent,
     UsageComponent,
-    ChildrenValidationDialogComponent
+    ChildrenValidationDialogComponent,
+    ConvertDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -252,7 +254,8 @@ export function hljsLanguages() {
     IngestDialogComponent,
     AboutDialogComponent,
     PreferredTopsDialogComponent,
-    ChildrenValidationDialogComponent
+    ChildrenValidationDialogComponent,
+    ConvertDialogComponent
   ],
   bootstrap: [AppComponent]
 })
