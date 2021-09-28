@@ -24,7 +24,7 @@
 <div mat-dialog-actions cdk-focus-start>
   
   <button mat-raised-button color="primary" [disabled]="formDisabled()" (click)="onExport()">{{ 'export.export' | translate }}</button>
-  <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.cancel' | translate }}</button>
+  <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.close' | translate }}</button>
   <mat-spinner *ngIf="state=='saving'"
     style="margin-left: auto"
     [strokeWidth]="3" 
