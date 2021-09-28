@@ -34,7 +34,9 @@
     <button class="app-action" *ngIf="pageChildren" matTooltip="Reindexovat" (click)="editor.reindexChildren()" mat-icon-button>
       <mat-icon>format_list_numbered</mat-icon>
     </button>
-
+    <button  class="app-action" matTooltip="Převést strany" (click)="showConvertDialog()" mat-icon-button>
+      <mat-icon>swap_horiz</mat-icon>
+    </button>
     
 
     <!-- <button class="app-action"  matTooltip="{{ 'editor.children.deselect_all' | translate }}" (click)="editor.deselectChildren()" mat-icon-button>
@@ -45,10 +47,6 @@
       <ng-container *ngIf="!editor.preparation">
         <button class="app-action" matTooltip="{{ 'editor.children.add_new' | translate }}" (click)="onCreateNewObject()" mat-icon-button>
           <mat-icon>add</mat-icon>
-        </button>
-        <div class="app-divider"></div>
-        <button  class="app-action" matTooltip="Akce" (click)="showConvertDialog()" mat-icon-button>
-          <mat-icon>swap_horiz</mat-icon>
         </button>
         <div class="app-divider"></div>
       </ng-container>

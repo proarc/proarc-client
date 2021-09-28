@@ -2,8 +2,6 @@ import { EditorService } from 'src/app/services/editor.service';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { CatalogDialogComponent } from 'src/app/dialogs/catalog-dialog/catalog-dialog.component';
-import { EditorTitleComponent } from 'src/app/documents/document/editor-title/editor-title.component';
-import { EditorPublisherComponent } from 'src/app/documents/document/editor-publisher/editor-publisher.component';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 

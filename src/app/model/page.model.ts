@@ -140,7 +140,7 @@ export class Page {
   }
 
   public isValid(): boolean {
-    return !!this.index && !!this.number && !!this.type;
+    return !!this.index && !!this.number && !!this.type && (!this.isNdkPage() || !!this.genre);
   }
 
   public isNdkPage(): boolean {

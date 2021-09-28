@@ -5,6 +5,9 @@ import { EditorService } from 'src/app/services/editor.service';
 import { Page } from 'src/app/model/page.model';
 import { Translator } from 'angular-translator';
 import { ConfigService } from 'src/app/services/config.service';
+import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
+import { MatDialog } from '@angular/material';
+import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 
 @Component({
   selector: 'app-editor-page',
@@ -34,6 +37,7 @@ export class EditorPageComponent implements OnInit {
 
   constructor(private editor: EditorService,
               private api: ApiService,
+              private dialog: MatDialog,
               public config: ConfigService,
               public codebook: CodebookService,
               public translator: Translator) {
@@ -95,7 +99,50 @@ export class EditorPageComponent implements OnInit {
     }
   }
 
+  private validate(): boolean {
+    if (!this.page.number) {
+      return false;
+    }
+    if (this.config.showPageIndex && !this.page.index) {
+      return false;
+    }
+    if (!this.page.type) {
+      return false;
+    }
+    if (this.page.isNdkPage() && !this.page.genre) {
+      return false;
+    }
+    return true;
+  }
+
   onSave(from: string = null) {
+    if (this.validate()) {
+      this.save(from);
+    } else {
+      const data: SimpleDialogData = {
+        title: "Nevalidní data",
+        message: "Nevalidní data, přejete si dokument přesto uložit.",
+        btn1: {
+          label: "Uložit nevalidní dokument",
+          value: 'yes',
+          color: 'warn'
+        },
+        btn2: {
+          label: "Neukládat",
+          value: 'no',
+          color: 'default'
+        },
+      };
+      const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === 'yes') {
+          this.save(from);
+        }
+      });
+    }
+  }
+
+  private save(from) {
     this.movedToNextFrom = from;
     if (!this.page.hasChanged()) {
       if (!!from) {

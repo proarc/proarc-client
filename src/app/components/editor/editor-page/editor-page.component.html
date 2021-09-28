@@ -19,25 +19,29 @@
     <div class="app-editor-content" *ngIf="state === 'success'">
 
 
-      <div class="app-editor-field">
-        <div class="app-card">
+      <div class="app-editor-field app-usages">
+        <div class="app-card" style="padding: 8px;">
           <div class="app-card-content">
       
 
-            
-
-            <button class="app-brackets" [class.app-disabled]="!page.number" [matTooltip]="isInBrackets() ? 'Odebrat závorky' : 'Vložit do závorek'" (click)="switchBrackets()" mat-icon-button>
-              <span class="app-text-icon">[ ]</span>
-            </button>
-            <mat-form-field class="app-page-number">
+          
+            <mat-form-field class="app-page-number" [class.app-invalid]="!page.number">
+              <span class="app-usage" [class.app-help-off]="true">M</span>
               <input (keyup.enter)="onSaveFrom('pageNumber')" autocomplete="off" matInput [placeholder]="'editor.page.number' | translate" [(ngModel)]="page.number" #pageNumber>
+
+              <button class="app-brackets" [class.app-disabled]="!page.number" [matTooltip]="isInBrackets() ? 'Odebrat závorky' : 'Vložit do závorek'" (click)="switchBrackets()" mat-icon-button>
+                <span class="app-text-icon">[ ]</span>
+              </button>
+
             </mat-form-field>
 
-            <mat-form-field class="app-half-left" *ngIf="config.showPageIndex">
+            <mat-form-field class="app-half-left" *ngIf="config.showPageIndex" [class.app-invalid]="!page.index">
+              <span class="app-usage" [class.app-help-off]="true">M</span>
               <input (keyup.enter)="onSaveFrom('pageIndex')" autocomplete="off" matInput [placeholder]="'editor.page.index' | translate" [(ngModel)]="page.index" #pageIndex>
             </mat-form-field>
 
-            <mat-form-field [ngClass]="config.showPageIndex ? 'app-half-right' : 'app-full-width'">
+            <mat-form-field [ngClass]="config.showPageIndex ? 'app-half-right' : 'app-full-width'" [class.app-invalid]="!page.type">
+              <span class="app-usage" [class.app-help-off]="true">M</span>
               <mat-select [placeholder]="'editor.page.type' | translate" name="type" [(value)]="page.type">
                 <mat-option *ngFor="let pageType of codebook.pageTypes" [value]="pageType.code">{{ pageType.name }}</mat-option>
               </mat-select>
@@ -46,12 +50,14 @@
  
 
             <mat-form-field class="app-half-left" *ngIf="page.isNdkPage()">
+              <span class="app-usage" [class.app-help-off]="true">O</span>
               <mat-select [(ngModel)]='page.position' placeholder="{{ 'editor.page.position' | translate }}">
                 <mat-option *ngFor="let position of positions" [value]="position">{{ 'editor.page.positions.' + position | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
 
-            <mat-form-field class="app-half-right" *ngIf="page.isNdkPage()">
+            <mat-form-field class="app-half-right" *ngIf="page.isNdkPage()" [class.app-invalid]="!page.genre">
+              <span class="app-usage" [class.app-help-off]="true">M</span>
               <mat-select [(ngModel)]='page.genre' placeholder="{{ 'editor.page.genre' | translate }}">
                 <mat-option *ngFor="let genre of genres" [value]="genre">{{ 'editor.page.genres.' + genre | translate }}</mat-option>
               </mat-select>
@@ -62,6 +68,7 @@
 
 
             <mat-form-field class="app-full-width">
+              <span class="app-usage" [class.app-help-off]="true">O</span>
               <textarea 
               cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="15"
               autocomplete="off" matInput [(ngModel)]='page.note' placeholder="{{ 'editor.page.note' | translate }}"></textarea>
