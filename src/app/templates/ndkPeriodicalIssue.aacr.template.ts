@@ -347,7 +347,14 @@ export class NdkPeriodicalIssueAacrTemplate {
             ['supplement', 'Příloha'],
             ['sequence_1', 'První vydání'],
             ['sequence_2', 'Druhé vydání'],
-            ['sequence_3', 'Třetí vydání']]
+            ['sequence_3', 'Třetí vydání'],
+            ['sequence_4', 'Čtvrté vydání'],
+            ['sequence_5', 'Páté vydání'],
+            ['sequence_6', 'Šesté vydání'],
+            ['sequence_7', 'Sedmé vydání'],
+            ['sequence_8', 'Osmé vydání'],
+            ['sequence_9', 'Deváté vydání']
+          ]
         },
         value: {
           usage: "M",
