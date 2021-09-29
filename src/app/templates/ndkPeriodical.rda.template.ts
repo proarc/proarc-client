@@ -241,13 +241,13 @@ export class NdkPeriodicalRdaTemplate {
           <ul>
             <li>Na pokračování (continuing)</li>
             <li>Sériové (serial)</li>
-            <li>Začlěňovací (integrating resource)</li>
+            <li>Integrační zdroj (integrating resource)</li>
           </ul>`,
           options: [
             ['', '-'],
             ['continuing','Na pokračování'],
             ['serial','Sériové'],
-            ['integrating resource','Začlěňovací']
+            ['integrating resource','Integrační zdroj']
           ]            
         },
         place: {
