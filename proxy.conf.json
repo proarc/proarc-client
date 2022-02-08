@@ -1,0 +1,8 @@
+{
+    "/api/*": {
+      "target": "https://proarc.inovatika.dev",
+      "secure": false,
+      "logLevel": "debug",
+      "changeOrigin": true
+    }
+  }
