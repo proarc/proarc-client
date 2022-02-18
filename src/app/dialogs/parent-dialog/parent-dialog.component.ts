@@ -21,6 +21,9 @@ export class ParentDialogComponent implements OnInit {
   query = '';
   queryFiled: string;
 
+  sortField: string = '';
+  sortAsc: boolean;
+
   pageIndex = 0;
   pageSize = 100;
   resultCount = 0;
@@ -45,6 +48,34 @@ export class ParentDialogComponent implements OnInit {
     this.reload();
   }
 
+  getSortIcon(field: string) {
+    if (this.query) {
+      return;
+    }
+    if (this.sortField === field) {
+      if (this.sortAsc) {
+        return 'arrow_drop_up';
+      } else {
+        return 'arrow_drop_down';
+      }
+    }
+  }
+
+  sortBy(field: string) {
+    if (this.query) {
+      return;
+    }
+    if (this.sortField === field) {
+      this.sortAsc = !this.sortAsc;
+    } else {
+      this.sortAsc = false;
+    }
+    this.sortField = field;
+    this.properties.setStringProperty('search.sort_field', this.sortField);
+    this.properties.setBoolProperty('search.sort_asc', this.sortAsc);
+    this.reload();
+  }
+
   reload(page: number = 0) {
     this.properties.setStringProperty('search.model', this.model);
     this.properties.setStringProperty('search.qyery_filed', this.queryFiled);
@@ -56,7 +87,9 @@ export class ParentDialogComponent implements OnInit {
       model: this.model,
       query: this.query,
       queryField: this.queryFiled,
-      page: this.pageIndex
+      page: this.pageIndex,
+      sortField: this.sortField,
+      sortAsc: this.sortAsc
     }
     this.api.getSearchResults(options).subscribe(([items, total]: [DocumentItem[], number]) => {
       this.resultCount = total;

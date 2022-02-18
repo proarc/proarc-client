@@ -38,12 +38,9 @@
 
 
 
-  <div class="app-table" *ngIf="state=='success'">
+  <div class="app-table  app-items" *ngIf="state=='success'">
 
   <div class="search-result-list">
-
-
-
 
   <div *ngIf="hierarchy.length > 0" class="app-row app-path">
     <ng-container *ngFor="let item of hierarchy; let index = index;">
@@ -52,16 +49,31 @@
     </ng-container>
   </div>
 
-
-
-
       <div class="app-row app-header">
-        <div class="result-label">{{ 'search.name' | translate }}</div>
-        <div class="result-model">{{ 'search.model' | translate }}</div>
-        <div class="result-owner">{{ 'search.owner' | translate }}</div>
-        <div class="result-created">{{ 'search.created' | translate }}</div>
-        <div class="result-modified">{{ 'search.modified' | translate }}</div>
-        <div class="result-export">{{ 'search.export' | translate }}</div>
+        <div class="result-label app-header-sortable" (click)="sortBy('label')">
+          {{ 'search.name' | translate }}
+          <mat-icon *ngIf="getSortIcon('label')" class="sort-arrow">{{ getSortIcon('label') }}</mat-icon>
+        </div>
+        <div class="result-model app-header-sortable" (click)="sortBy('model')">
+          {{ 'search.model' | translate }}
+          <mat-icon *ngIf="getSortIcon('model')" class="sort-arrow">{{ getSortIcon('model') }}</mat-icon>
+        </div>
+        <div class="result-owner app-header-sortable" (click)="sortBy('owner')">
+          {{ 'search.owner' | translate }}
+          <mat-icon *ngIf="getSortIcon('owner')" class="sort-arrow">{{ getSortIcon('owner') }}</mat-icon>
+        </div>
+        <div class="result-created app-header-sortable" (click)="sortBy('created')">
+          {{ 'search.created' | translate }}
+          <mat-icon *ngIf="getSortIcon('created')" class="sort-arrow">{{ getSortIcon('created') }}</mat-icon>
+        </div>
+        <div class="result-modified app-header-sortable" (click)="sortBy('modified')">
+          {{ 'search.modified' | translate }}
+          <mat-icon *ngIf="getSortIcon('modified')" class="sort-arrow">{{ getSortIcon('modified') }}</mat-icon>
+        </div>
+        <div class="result-export app-header-sortable" (click)="sortBy('export')">
+          {{ 'search.export' | translate }}
+          <mat-icon *ngIf="getSortIcon('export')" class="sort-arrow">{{ getSortIcon('export') }}</mat-icon>
+        </div>
       </div>
     <div class="scrollable">
       <div *ngFor="let item of items" (click)="selectedItem = item" (dblclick)="open(item)"  [class.app-selected]="item == selectedItem" class="app-row app-data">
