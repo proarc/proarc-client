@@ -89,11 +89,12 @@
         .app-grid-item {
           padding: 0px 6px;
           word-break: break-all;
+          white-space: nowrap;
           overflow: hidden;
-          line-height: 30px;
+          line-height: 20px;
           font-size: 15px;
           color: #444;
-          height: 30px;
+          height: 40px;
           background: #fff;
           border: 1px solid #0000002e;
           cursor: pointer;
