@@ -74,7 +74,7 @@ export class ApiService {
 
 
   registerUrnnbn(resolver: string, pid: string): Observable<any> {
-    let data = `resolverID=${resolver}&pid=${pid}`;
+    let data = `resolverId=${resolver}&pid=${pid}`;
     return this.post('object/urnnbn', data).pipe(map(response => response['response']['data'][0]));
   }
 
