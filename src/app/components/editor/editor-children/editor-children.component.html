@@ -1,4 +1,4 @@
-<div class="app-editor-content-wrapper">
+<div class="app-editor-content-wrapper" (click)="obtainFocus()">
  <div class="app-editor-toolbar">
  
     <button class="app-action" [class.app-inactive]="viewMode != 'list'" matTooltip="{{ 'editor.children.view_list' | translate }}" (click)="changeViewMode('list')" mat-icon-button>

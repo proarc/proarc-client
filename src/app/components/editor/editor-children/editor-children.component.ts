@@ -64,6 +64,10 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     this.childrenWrapperEl.nativeElement.focus();
   }
 
+  obtainFocus() {
+    this.childrenWrapperEl.nativeElement.focus();
+  }
+
   onResized(event: ResizedEvent) {
     const d = event.newWidth / 101;
     this.iconColumns = Math.floor(d);
@@ -99,6 +103,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
         this.select(this.items[this.arrowIndex + step], event);
       }
     }
+    
   }
 
   ngOnInit() {

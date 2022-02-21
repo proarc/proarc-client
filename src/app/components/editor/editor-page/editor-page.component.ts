@@ -46,6 +46,10 @@ export class EditorPageComponent implements OnInit {
   ngOnInit() {
   }
 
+  removeFocus() {
+    this.movedToNextFrom = '';
+  }
+
   private onPidChanged(pid: string) {
     this.state = 'loading';
     this.api.getPage(pid, this.model, this.editor.getBatchId()).subscribe((page: Page) => {
