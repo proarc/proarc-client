@@ -234,9 +234,10 @@
       "multiple_selection_count": "{{count == 0 ? 'No object selected' : (count == 1 ? '1 object' : count + ' objects') }}",
       "move_dialog": {
         "title": "Move to position",
-        "message": "Choose a new position to move the selected object within the parent object.",
+        "message": "Choose a new position to move the selected object within the parent object",
         "position": "Position",
-        "move": "Move"
+        "move": "Move",
+        "between": "between"
       },
       "relocate_dialog": {
         "title": "Relocate objects",

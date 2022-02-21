@@ -328,9 +328,10 @@
       "multiple_selection_count": "{{count == 0 ? 'Není vybrán žádný objekt' : (count == 1 ? '1 objekt' : count < 5 ? count + ' objekty' : count + ' objektů') }}",
       "move_dialog": {
         "title": "Změna pozice",
-        "message": "Zvolte novou pozici, na kterou chcete vybraný objekt v rámci nadřazeného objektu přesunout.",
+        "message": "Zvolte novou pozici, na kterou chcete vybraný objekt v rámci nadřazeného objektu přesunout",
         "position": "Pozice",
-        "move": "Přesunout"
+        "move": "Přesunout",
+        "between": "v rozmezí"
       },
       "relocate_dialog": {
         "title": "Přesun objektů",

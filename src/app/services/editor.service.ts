@@ -802,6 +802,7 @@ export class EditorService {
                     page.index = String(holder.pageIndex + index);
                 }
                 if (holder.editNumber) {
+                    console.log(holder)
                     page.number = String(holder.getNumberForIndex(index));
                 }
                 pages.push(page);
@@ -839,6 +840,7 @@ export class EditorService {
 
 
       updateSelectedPages(holder: PageUpdateHolder, callback: () => void) {
+          console.log(holder, this)
         if (this.preparation) {
             this.editSelectedBatchPages(holder, callback);
             return;

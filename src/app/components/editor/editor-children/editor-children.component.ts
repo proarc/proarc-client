@@ -403,9 +403,12 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
         min: 1,
         max: this.editor.children.length
       };
+      const message = String(this.translator.instant('editor.children.move_dialog.message')) + ' (' +
+                      String(this.translator.instant('editor.children.move_dialog.between')) + 
+                      ' ' + input.min + ' - ' + input.max + ')';
       const data: SimpleDialogData = {
         title: String(this.translator.instant('editor.children.move_dialog.title')),
-        message: String(this.translator.instant('editor.children.move_dialog.message')),
+        message,
         width: 400,
         btn1: {
           label: String(this.translator.instant('editor.children.move_dialog.move')),
