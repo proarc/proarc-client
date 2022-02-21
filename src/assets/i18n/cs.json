@@ -67,6 +67,7 @@
     "type_ndk_psp": "NDK PSP",
     "type_cejsh": "CEJSH",
     "type_crossref": "Crossref",
+    "type_kwis": "KWIS",
     "policy_public": "Veřejně dostupné",
     "done": "Export byl dokončen a najdete jej v uživatelském adresáři",
     "exporting": "Export byl zadán a bude probíhat na pozadí. Dialog můžete zavřít.",

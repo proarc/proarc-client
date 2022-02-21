@@ -9,6 +9,7 @@ export class ProArc {
     public static EXPORT_NDK_PSP = 'ndk_psp';
     public static EXPORT_CEJSH = 'cejsh';
     public static EXPORT_CROSSREF = 'crossref';
+    public static EXPORT_KWIS = 'kwis';
 
     public static chronicleIdentifierTypes = [ 'signature1', 'signature2', 'inventaryNumber', 'OtherNumber' ];
 

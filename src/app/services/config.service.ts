@@ -135,7 +135,8 @@ export class ConfigService {
         'archive',
         'ndk_psp',
         'cejsh',
-        'crossref'
+        'crossref',
+        'kwis'
     ];
 
     private static defaultIdentifiers = [ 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'];

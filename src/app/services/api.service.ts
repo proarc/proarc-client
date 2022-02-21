@@ -124,6 +124,11 @@ export class ApiService {
         path = 'export/crossref'
         break;
       }
+      case ProArc.EXPORT_KWIS: {
+        data = `${data}&policy=policy:${policy}`;
+        path = 'export/kwis'
+        break;
+      }
       default: return;
     }
     return this.post(path, data).pipe(map(response => response['response']['data']));
