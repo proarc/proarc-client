@@ -200,10 +200,21 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
       if (!this.editor.isMultipleChildrenMode()) {
         this.editor.setMultipleChildrenMode(true);
       }
-      let index = Math.min(this.lastIndex, itemIndex);
-      const i2 = Math.max(this.lastIndex, itemIndex);
+      let firstIndex = this.editor.children.findIndex(i => i.selected === true);
+      this.editor.children.map(i => i.selected = false);
+      // let index = Math.min(this.lastIndex, itemIndex);
+      let index = Math.max(firstIndex, 0);
+      // let i2 = Math.max(this.lastIndex, itemIndex);
+      let i2 = itemIndex;
+      if (index > i2) {
+        const temp = index;
+        index = i2;
+        i2 = temp;
+      }
+      console.log(index, i2, this.lastState)
       while (index <= i2) {
-        this.editor.children[index].selected = this.lastState;
+        // this.editor.children[index].selected = this.lastState;
+        this.editor.children[index].selected = true;
         index += 1;
       }
     } else if (event && (event.metaKey || event.ctrlKey)) {
