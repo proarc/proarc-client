@@ -37,8 +37,9 @@
   </div>  
     
   <div class="app-editor-content" *ngIf="state === 'success'">
-        <textarea *ngIf="editting" [(ngModel)]="mods.content" (input)="onChange($event)"></textarea>
-        <pre *ngIf="!editting && !realtime" class="app-xml-content"><code [highlight]="mods.original"></code></pre> 
+    <textarea *ngIf="editting" [(ngModel)]="mods.content" (input)="onChange($event)"></textarea>
+        <!-- <pre *ngIf="editting && !realtime" class="app-xml-content" #editingPre><code (input)="checkChanged()" contenteditable="true" [highlight]="mods.original"></code></pre>  -->
+        <pre *ngIf="!editting && !realtime" class="app-xml-content" #originalPre><code [highlight]="mods.original"></code></pre> 
         <pre *ngIf="!editting && realtime" class="app-xml-content"><code [highlight]="editor.metadata.toMods()"></code></pre> 
   </div>
 

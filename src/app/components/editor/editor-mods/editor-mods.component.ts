@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Mods } from 'src/app/model/mods.model';
 import { EditorService } from 'src/app/services/editor.service';
 import { ApiService } from 'src/app/services/api.service';
@@ -12,12 +12,16 @@ import { Subscription } from 'rxjs';
 })
 export class EditorModsComponent implements OnInit, OnDestroy {
 
+  @ViewChild('editingPre') editingPre : ElementRef;
+  @ViewChild('originalPre') originalPre : ElementRef;
   realtime = false;
   state = 'none';
   editting = false;
   mods: Mods;
   anyChange: boolean;
   lastPid: string;
+
+  originalText = '';
 
 
   private rightDocumentSubscription: Subscription;
@@ -42,6 +46,10 @@ export class EditorModsComponent implements OnInit, OnDestroy {
     this.reload(this.editor.right);
   }
 
+  ngAfterViewInit() {
+    
+  }
+
   public setRealtime(enable: boolean) {
     if (enable) {
       this.onClear();
@@ -55,6 +63,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
     if (this.realtime) {
       return;
     }
+    this.originalText = this.originalPre.nativeElement.innerText;
     this.editting = true;
   }
 
@@ -75,6 +84,8 @@ export class EditorModsComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
+    // console.log(this.editingPre);
+    // return;
     if (!this.anyChange || this.realtime) {
       return;
     }
@@ -83,6 +94,11 @@ export class EditorModsComponent implements OnInit, OnDestroy {
       this.editting = false;
       this.anyChange = false;
     });
+  }
+
+  checkChanged() {
+    console.log(this.editingPre.nativeElement.innerText, this.originalText)
+    this.anyChange = this.editingPre.nativeElement.innerText !== this.originalText;
   }
 
   onChange() {

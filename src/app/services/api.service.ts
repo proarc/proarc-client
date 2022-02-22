@@ -89,6 +89,14 @@ export class ApiService {
     return this.post('object', data).pipe(map(response => response['response']['data'][0]['pid']));
   }
 
+  copyObject(pid: string, model: string): Observable<string> {
+    let data = `model=${model}`;
+    if (pid) {
+      data = `${data}&pid=${pid}`;
+    }
+    return this.post('object/copyObject', data).pipe(map(response => response['response']['data'][0]['validation']));
+  }
+
   export(type: string, pid: string, policy: string): Observable<any> {
     let data = `pid=${pid}`;;
     let path = '';
@@ -322,12 +330,6 @@ export class ApiService {
     if (options['organization'] && options['organization'] != '-') {
       params['organization'] = options['organization'];
     }
-    if (options['organization'] && options['organization'] != '-') {
-      params['organization'] = options['organization'];
-    }
-    if (options['queryCreator'] && options['queryCreator'] != '-') {
-      params['queryCreator'] = options['queryCreator'];
-    }
     if (options['owner'] && options['owner'] != '-') {
       params['owner'] = options['owner'];
     }
@@ -335,9 +337,21 @@ export class ApiService {
       params['processor'] = options['processor'];
     }
     params['sortField'] = options['sortField'] || '';
-    if (options['query']) {
-      params[options['queryField']] = options['query'];
-    } 
+    // if (options['query']) {
+    //   params[options['queryField']] = options['query'];
+    // } 
+    
+    if (options['queryLabel'] && options['queryLabel'] != '') {
+      params['queryLabel'] = options['queryLabel'];
+    }
+    
+    if (options['queryIdentifier'] && options['queryIdentifier'] != '') {
+      params['queryIdentifier'] = options['queryIdentifier'];
+    }
+    
+    if (options['queryCreator'] && options['queryCreator'] != '-') {
+      params['queryCreator'] = options['queryCreator'];
+    }
     if (options['sortAsc']) {
       params['_sort'] = 'asc';
     } else {
