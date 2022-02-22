@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { SplitAreaDirective, SplitComponent } from 'angular-split';
 import { Tree } from 'src/app/model/mods/tree.model';
 import { SearchService } from 'src/app/services/search.service';
+import { UIService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-search',
@@ -45,6 +46,10 @@ export class SearchComponent implements OnInit {
   query = '';
   queryFiled: string;
 
+  queryLabel: string;
+  queryIdentifier: string;
+  queryCreator: string
+
   organization: string;
   owner: string;
   processor: string;
@@ -67,6 +72,7 @@ export class SearchComponent implements OnInit {
               private router: Router,
               public search: SearchService,
               private config: ConfigService,
+              private ui: UIService,
               private translator: Translator) { 
                 this.models = this.config.allModels;
   }
@@ -121,6 +127,9 @@ export class SearchComponent implements OnInit {
       organization: this.organization,
       query: this.query,
       queryField: this.queryFiled,
+      queryLabel: this.queryLabel,
+      queryIdentifier: this.queryIdentifier,
+      queryCreator: this.queryCreator,
       page: this.pageIndex,
       owner: this.owner,
       processor: this.processor,
@@ -205,6 +214,18 @@ export class SearchComponent implements OnInit {
           this.items.splice(i, 1);
         }
       }
+    });
+  }
+
+  onCopyItem() {
+    this.api.copyObject(this.selectedItem.pid, this.selectedItem.model).subscribe((validation: string) => {
+      this.ui.showInfoSnackBar(validation);
+      this.state = 'success';
+      this.reload();
+    }, error => {
+      console.log(error);
+        this.ui.showInfoSnackBar(error.statusText);
+        this.state = 'error';
     });
   }
 

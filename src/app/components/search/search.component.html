@@ -19,7 +19,7 @@
     </mat-form-field>
 
     
-  <mat-form-field class="document-search">
+  <!-- <mat-form-field class="document-search">
     <input matInput placeholder="Hledat dokument" (keyup.enter)="reload()" [(ngModel)]="query">
   </mat-form-field>
 
@@ -28,8 +28,17 @@
       <mat-option value="queryLabel">{{ "search.fields.title" | translate }}</mat-option>
       <mat-option value="queryIdentifier">{{ "search.fields.identifier" | translate }}</mat-option>
       <mat-option value="queryCreator">{{ "search.fields.creator" | translate }}</mat-option>
-      <!-- <mat-option value="queryCreator">{{ "search.fields.owner" | translate }}</mat-option> -->
     </mat-select>
+  </mat-form-field> -->
+
+  <mat-form-field class="document-search">
+    <input matInput [placeholder]="'search.fields.title' | translate" (keyup.enter)="reload()" [(ngModel)]="queryLabel">
+  </mat-form-field>
+  <mat-form-field class="document-search">
+    <input matInput [placeholder]="'search.fields.identifier' | translate" (keyup.enter)="reload()" [(ngModel)]="queryIdentifier">
+  </mat-form-field>
+  <mat-form-field class="document-search">
+    <input matInput [placeholder]="'search.fields.creator' | translate" (keyup.enter)="reload()" [(ngModel)]="queryCreator">
   </mat-form-field>
 
 
@@ -174,6 +183,7 @@
       <button (click)="onUrnnbn(search.selectedTree.item)" mat-button>URN:NBN</button>
       <button *ngIf="search.selectedTree.removable()" (click)="onDeleteFromTree()" mat-button>Smazat</button>
       <button (click)="onExpandAll()" mat-button>Rozbalit</button>
+      <button (click)="onCopyItem()" mat-button>Zkopírovat</button>
     </ng-container>
   </div>
 </div>
