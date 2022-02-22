@@ -260,13 +260,14 @@ export class ApiService {
     return this.editModsXml(mods.pid, mods.content, mods.timestamp, batchId);
   }
 
-  editModsXml(pid: string, xml: string, timestamp: number, batchId = null): Observable<Mods> {
+  editModsXml(pid: string, xml: string, timestamp: number, batchId = null): Observable<any> {
     const xmlText = xml.replace(/&/g, '%26');
     let data = `pid=${pid}&ignoreValidation=true&xmlData=${xmlText}&timestamp=${timestamp}`;
     if (batchId) {
       data = `${data}&batchId=${batchId}`;
     }
-    return this.put('object/mods/custom', data).pipe(map(response => Mods.fromJson(response['response']['data'][0])));
+    // return this.put('object/mods/custom', data).pipe(map(response => Mods.fromJson(response['response']['data'][0])));
+    return this.put('object/mods/custom', data).pipe(map(response => response['response']));
   }
 
 
@@ -520,7 +521,7 @@ export class ApiService {
             .pipe(map(response => Batch.statusFromJson(response['response'])));
   }
 
-  getImportBatches(state: string): Observable<Batch[]> {
+  getImportBatches(state: string): Observable<any> {
     let params = {
       'sortBy': 'timestamp'
     };
@@ -529,7 +530,8 @@ export class ApiService {
     }
 
     return this.get('import/batch', params)
-            .pipe(map(response => Batch.fromJsonArray(response['response']['data'])));
+    // .pipe(map(response => Batch.fromJsonArray(response['response']['data'])));
+    .pipe(map(response => response['response']));
   }
 
 
@@ -544,9 +546,9 @@ export class ApiService {
             .pipe(map(response => Batch.fromJsonArray(response['response']['data'])));
   }
 
-  getImportBatch(id: number): Observable<Batch> {
+  getImportBatch(id: number): Observable<any> {
     return this.get('import/batch', { id: id })
-            .pipe(map(response => Batch.fromJson(response['response']['data'][0])));
+     .pipe(map(response => Batch.fromJson(response['response']['data'][0])));
   }
 
   getUsers(): Observable<User[]> {

@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { ReloadBatchDialogComponent } from 'src/app/dialogs/reload-batch-dialog/reload-batch-dialog.component';
 import { Profile } from 'src/app/model/profile.model';
 import { ImportDialogComponent } from 'src/app/dialogs/import-dialog/import-dialog.component';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-history',
@@ -34,6 +35,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
   view: string;
 
   private timer;
+  autoRefresh = false;
 
   private progressMap = {};
 
@@ -60,9 +62,20 @@ export class HistoryComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // if (this.timer) {
-    //   clearInterval(this.timer);
-    // }
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
+  }
+
+  setRefresh() {
+    if (this.autoRefresh) {
+      this.timer= setInterval(() => {
+        this.reload();
+      }, 10000);
+      this.reload();
+    } else {
+      clearInterval(this.timer);
+    }
   }
 
   selectBatch(batch: Batch) {
@@ -98,8 +111,10 @@ export class HistoryComponent implements OnInit, OnDestroy {
   reloadBatches() {
     this.selectedBatch = null;
     this.state = 'loading';
-    this.api.getImportBatches(this.selectedState).subscribe((batches: Batch[]) => {
-      this.batches = batches;
+    this.api.getImportBatches(this.selectedState).subscribe((resp: any) => {
+      console.log(resp);
+      this.batches = resp.data.map(d => Batch.fromJson(d));
+      this.resultCount = resp.totalRows;
       this.state = 'success';
       this.updateLoadingBatchesProgress(this.batches);
     });
@@ -143,7 +158,6 @@ export class HistoryComponent implements OnInit, OnDestroy {
       }
     }
   }
-
 
   
   onReloadBatch() {
@@ -217,8 +231,8 @@ export class HistoryComponent implements OnInit, OnDestroy {
   }
 
   onPageChanged(page) {
-    // this.pageIndex = page.pageIndex;
-    // this.reload();
+    this.pageIndex = page.pageIndex;
+    this.reload();
   }
 
   batchProgress(batch: Batch): string {

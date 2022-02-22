@@ -507,16 +507,22 @@ export class EditorService {
 
       saveMods(mods: Mods, callback: (Mods) => void) {
         this.state = 'saving';
-        this.api.editMods(mods, this.getBatchId()).subscribe(() => {
-            this.api.getMods(mods.pid, this.getBatchId()).subscribe((newMods: Mods) => {
-                if (this.mode === 'detail') {
-                    this.metadata = Metadata.fromMods(mods, this.metadata.model);
-                }
-                if (callback) {
-                    callback(newMods);
-                }
-                this.state = 'success';
-            });
+        this.api.editModsXml(mods.pid, mods.content, mods.timestamp, this.getBatchId()).subscribe((resp: any) => {
+            if (resp.errors) {
+                this.state = 'error';
+                this.ui.showErrorSnackBar(resp.errors.mods[0].errorMessage)
+            } else {
+                this.api.getMods(mods.pid, this.getBatchId()).subscribe((newMods: Mods) => {
+                    if (this.mode === 'detail') {
+                        this.metadata = Metadata.fromMods(mods, this.metadata.model);
+                    }
+                    if (callback) {
+                        callback(newMods);
+                    }
+                    this.state = 'success';
+                });
+            }
+            
         });
       }
 

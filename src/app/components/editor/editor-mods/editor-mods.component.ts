@@ -89,6 +89,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
     if (!this.anyChange || this.realtime) {
       return;
     }
+    this.mods.content = this.editingPre.nativeElement.innerText;
     this.editor.saveMods(this.mods, (mods: Mods) => {
       this.mods = mods;
       this.editting = false;
@@ -97,7 +98,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
   }
 
   checkChanged() {
-    console.log(this.editingPre.nativeElement.innerText, this.originalText)
+    //console.log(this.editingPre.nativeElement.innerText, this.originalText)
     this.anyChange = this.editingPre.nativeElement.innerText !== this.originalText;
   }
 

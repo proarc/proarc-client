@@ -17,6 +17,7 @@
         <mat-icon style="margin-right:8px;">sync</mat-icon>
         {{ 'history.refresh' | translate }}
       </button>
+      <mat-checkbox style="margin-right:8px;" [(ngModel)]="autoRefresh" (change)="setRefresh()">Automaticky obnovit</mat-checkbox>
 
       <button mat-raised-button color="default" (click)="changeView('queue')">
         Zobrazit frontu načítání
@@ -119,15 +120,6 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
 
 </div>
 
