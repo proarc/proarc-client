@@ -30,6 +30,18 @@
                     overflow: hidden;
                     padding-right: 12px;
                     text-overflow: ellipsis;
+                    a {
+                        cursor: pointer;
+                        max-width: 100px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    };
+                    .icon-half {
+                        font-size: 16px;
+                        vertical-align: text-top;
+                        width:16px;
+                        height: 16px;;
+                    }
                 }
                 .app-label-model {
                     font-size: 13px;

@@ -10,7 +10,11 @@
 <div class="app-panel">
   <div class="app-toolbar" *ngIf="!editor.preparation">
     <div class="app-label">
-      <div class="app-label-title">{{ editor.left.label }}</div>
+      <div class="app-label-title">
+        <ng-container *ngFor="let p of editor.path">
+        <a (click)="editor.goToObjectByPid(p.pid)" [title]="'model.' + p.model | translate">{{ p.label }}</a><mat-icon class="icon-half">chevron_right</mat-icon></ng-container>
+        {{ editor.left.label }}
+      </div>
       <div class="app-label-model">{{ 'model.' + editor.left.model | translate }}</div>
     </div>
 

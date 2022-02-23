@@ -253,11 +253,11 @@ export class ApiService {
   }
 
   editMetadata(document: Metadata): Observable<any> {
-    return this.editModsXml(document.pid, document.toMods(), document.timestamp);
+    return this.editModsXml(document.pid, document.toMods(), document.timestamp).pipe(map(response => Mods.fromJson(response['response']['data'][0])));
   }
 
   editMods(mods: Mods, batchId = null): Observable<Mods> {
-    return this.editModsXml(mods.pid, mods.content, mods.timestamp, batchId);
+    return this.editModsXml(mods.pid, mods.content, mods.timestamp, batchId).pipe(map(response => Mods.fromJson(response['response']['data'][0])));
   }
 
   editModsXml(pid: string, xml: string, timestamp: number, batchId = null): Observable<any> {

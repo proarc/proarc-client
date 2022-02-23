@@ -55,6 +55,7 @@ export class EditorService {
     parent: DocumentItem;
     previousItem: DocumentItem;
     nextItem: DocumentItem;
+    path: {pid: string, label: string, model: string}[] = [];
 
     // template: any;
     allowedChildrenModels: string[];
@@ -166,7 +167,7 @@ export class EditorService {
     initDocumentEditor(pid: string) {
         const rDoc = this.api.getDocument(pid);
         const rChildren = this.api.getRelations(pid);
-        forkJoin(rDoc, rChildren).subscribe( ([item, children]: [DocumentItem, DocumentItem[]]) => {
+        forkJoin(rDoc, rChildren).subscribe(([item, children]: [DocumentItem, DocumentItem[]]) => {
             this.left = item;
             const model = this.left.model;
             this.allowedChildrenModels = ModelTemplate.allowedChildrenForModel(model);
@@ -178,9 +179,15 @@ export class EditorService {
                 this.switchMode(mode);
             }
             const pid = item.pid;
+            //this.path = [{pid: item.pid, label: item.label}];
+            this.path = [];
             this.api.getParent(pid).subscribe((item: DocumentItem) => {
                 if (this.left && this.left.pid == pid) {
                     this.parent = item;
+                    if (item) {
+                        this.path.unshift({pid: item.pid, label: item.label, model: item.model});
+                        this.setPath(item.pid);
+                    }
                     this.setupNavigation();
                 }
             });
@@ -189,6 +196,16 @@ export class EditorService {
         }, error => {
             // TODO
         });
+    }
+
+    setPath(pid: string) {
+        this.api.getParent(pid).subscribe((item: DocumentItem) => {
+            if (item) {
+                this.path.unshift({pid: item.pid, label: item.label, model: item.model});
+                this.setPath(item.pid);
+            }
+        });
+
     }
 
 
@@ -206,34 +223,34 @@ export class EditorService {
 
     public onlyPageChildren(): boolean {
         for (const child of this.children) {
-          if (!child.isPage()) {
-            return false;
-          }
+            if (!child.isPage()) {
+                return false;
+            }
         }
         return true;
-      }
+    }
 
-      public anyPageChildren(): boolean {
+    public anyPageChildren(): boolean {
         if (this.children.length == 0) {
             return true;
         }
         for (const child of this.children) {
-          if (child.isPage()) {
-            return true;
-          }
+            if (child.isPage()) {
+                return true;
+            }
         }
         return false;
-      }
+    }
 
 
-      public enterDoubleRight() {
-          if (this.rightEditorType === 'image' || this.rightEditorType == 'mods') {
+    public enterDoubleRight() {
+        if (this.rightEditorType === 'image' || this.rightEditorType == 'mods') {
             this.switchRightEditor('metadata')
-          }
-          setTimeout(() => {
+        }
+        setTimeout(() => {
             this.doubleRight = true;
             this.properties.setBoolProperty('editor.double_right_' + this.right.model, true);
-          }, 100);
+        }, 100);
     }
 
 
@@ -241,24 +258,24 @@ export class EditorService {
         return this.doubleRight && this.right && this.right.isPage() && !this.showRelocationEditor();
     }
 
-      public leaveDoubleRight() {
+    public leaveDoubleRight() {
         this.doubleRight = false;
-        this.properties.setBoolProperty('editor.double_right_' + this.right.model, false);       
+        this.properties.setBoolProperty('editor.double_right_' + this.right.model, false);
     }
 
 
-      public showRightObjectEditor(): boolean {
+    public showRightObjectEditor(): boolean {
         return this.right && !this.relocationMode && !this.multipleChildrenMode;
-     }
+    }
 
-      public showRelocationEditor(): boolean {
+    public showRelocationEditor(): boolean {
         if (this.mode !== 'children') {
             return false;
         }
         return this.relocationMode;
-      }
+    }
 
-      public showPagesEditor(): boolean {
+    public showPagesEditor(): boolean {
         if (this.mode !== 'children') {
             return false;
         }
@@ -278,7 +295,7 @@ export class EditorService {
             }
         }
         return count > 0;
-      }
+    }
 
     public switchLeftEditor(type: string) {
         this.leftEditorType = type;
@@ -353,12 +370,13 @@ export class EditorService {
     }
 
     public goToObject(item: DocumentItem) {
+        console.log(this)
         if (item) {
             this.router.navigate(['/document', item.pid]);
         }
     }
 
-    private goToObjectByPid(pid: string) {
+    public goToObjectByPid(pid: string) {
         if (pid) {
             this.router.navigate(['/document', pid]);
         }
@@ -443,7 +461,7 @@ export class EditorService {
             }
             if (index >= 1 && this.parent.pid == parentId) {
                 this.previousItem = siblings[index - 1];
-            } 
+            }
             if (index >= 0 && index < siblings.length - 1) {
                 this.nextItem = siblings[index + 1];
             }
@@ -463,9 +481,9 @@ export class EditorService {
             model: this.allowedChildrenModels[0],
             customPid: false,
             parentPid: this.left.pid
-          }
-          const dialogRef = this.dialog.open(NewObjectDialogComponent, { data: data });
-          dialogRef.afterClosed().subscribe(result => {
+        }
+        const dialogRef = this.dialog.open(NewObjectDialogComponent, { data: data });
+        dialogRef.afterClosed().subscribe(result => {
             if (result && result['pid']) {
                 this.state = 'saving';
                 const pid = result['pid'];
@@ -485,27 +503,27 @@ export class EditorService {
 
     saveChildren(callback: () => void) {
         this.state = 'saving';
-        const pidArray = this.children.map( item => item.pid);
+        const pidArray = this.children.map(item => item.pid);
         const request = this.preparation ? this.api.editBatchRelations(this.left.pid, pidArray) : this.api.editRelations(this.left.pid, pidArray);
         request.subscribe(result => {
-          if (callback) {
-            callback();
-          }
-          this.state = 'success';
+            if (callback) {
+                callback();
+            }
+            this.state = 'success';
         });
-      }
+    }
 
-      saveOcr(ocr: Ocr, callback: (Ocr) => void) {
+    saveOcr(ocr: Ocr, callback: (Ocr) => void) {
         this.state = 'saving';
         this.api.editOcr(ocr, this.getBatchId()).subscribe((newOcr: Ocr) => {
-          if (callback) {
-            callback(newOcr);
-          }
-          this.state = 'success';
+            if (callback) {
+                callback(newOcr);
+            }
+            this.state = 'success';
         });
-      }
+    }
 
-      saveMods(mods: Mods, callback: (Mods) => void) {
+    saveMods(mods: Mods, callback: (Mods) => void) {
         this.state = 'saving';
         this.api.editModsXml(mods.pid, mods.content, mods.timestamp, this.getBatchId()).subscribe((resp: any) => {
             if (resp.errors) {
@@ -522,50 +540,50 @@ export class EditorService {
                     this.state = 'success';
                 });
             }
-            
-        });
-      }
 
-      updateModsFromCatalog(xml: string, callback: () => void) {  
-        this.state = 'saving';
-        this.api.editModsXml(this.metadata.pid, xml, this.metadata.timestamp).subscribe(() => {
-          this.api.getMods(this.metadata.pid).subscribe((mods: Mods) => {
-              this.metadata = Metadata.fromMods(mods, this.metadata.model);
-              if (this.mode === 'children') {
-                  this.reloadChildren(() => {
-                      if (callback) {
-                          callback();
-                      }
-                  });
-              } else if (this.mode === 'detail') {
-                this.selectRight(this.right);
-              }
-              this.state = 'success';
-             });
         });
     }
 
-      saveNote(note: Note, callback: (Note) => void) {
+    updateModsFromCatalog(xml: string, callback: () => void) {
+        this.state = 'saving';
+        this.api.editModsXml(this.metadata.pid, xml, this.metadata.timestamp).subscribe(() => {
+            this.api.getMods(this.metadata.pid).subscribe((mods: Mods) => {
+                this.metadata = Metadata.fromMods(mods, this.metadata.model);
+                if (this.mode === 'children') {
+                    this.reloadChildren(() => {
+                        if (callback) {
+                            callback();
+                        }
+                    });
+                } else if (this.mode === 'detail') {
+                    this.selectRight(this.right);
+                }
+                this.state = 'success';
+            });
+        });
+    }
+
+    saveNote(note: Note, callback: (Note) => void) {
         this.state = 'saving';
         this.api.editNote(note, this.getBatchId()).subscribe((newNote: Note) => {
             if (callback) {
-              callback(newNote);
+                callback(newNote);
             }
             this.state = 'success';
-          });
-      }
+        });
+    }
 
-      saveAtm(atm: Atm, callback: (Atm) => void) {
+    saveAtm(atm: Atm, callback: (Atm) => void) {
         this.state = 'saving';
         this.api.editAtm(atm, this.getBatchId()).subscribe((newAtm: Atm) => {
             if (callback) {
-              callback(newAtm);
+                callback(newAtm);
             }
             this.state = 'success';
-          });
-      }
+        });
+    }
 
-      savePage(page: Page, callback: (Page) => void, moveToNext = false) {
+    savePage(page: Page, callback: (Page) => void, moveToNext = false) {
         this.state = 'saving';
         this.api.editPage(page, this.getBatchId()).subscribe((newPage: Page) => {
             if (this.preparation) {
@@ -594,15 +612,15 @@ export class EditorService {
                     }
                 });
             }
-          });
-      }
+        });
+    }
 
-      saveMetadata(callback: () => void) {
+    saveMetadata(callback: () => void) {
         this.state = 'saving';
         this.api.editMetadata(this.metadata).subscribe(() => {
-        const rDoc = this.api.getDocument(this.metadata.pid);
-        const rMods = this.api.getMods(this.metadata.pid);
-        forkJoin(rDoc, rMods).subscribe(([doc, mods]: [DocumentItem, Mods]) => {
+            const rDoc = this.api.getDocument(this.metadata.pid);
+            const rMods = this.api.getMods(this.metadata.pid);
+            forkJoin(rDoc, rMods).subscribe(([doc, mods]: [DocumentItem, Mods]) => {
                 this.metadata = Metadata.fromMods(mods, this.metadata.model);
                 this.selectRight(doc);
                 if (this.mode === 'children') {
@@ -621,9 +639,9 @@ export class EditorService {
                 }
             });
         });
-      }
+    }
 
-      loadMetadata(callback: () => void) {
+    loadMetadata(callback: () => void) {
         if (this.metadata && this.metadata.pid === this.right.pid) {
             callback();
             return;
@@ -634,9 +652,9 @@ export class EditorService {
                 callback();
             }
         });
-      }
+    }
 
-      deleteSelectedChildren(pernamently: boolean, callback: (boolean) => void) {
+    deleteSelectedChildren(pernamently: boolean, callback: (boolean) => void) {
         this.state = 'saving';
         let pids: string[];
         if (this.isMultipleChildrenMode()) {
@@ -663,10 +681,10 @@ export class EditorService {
             }
             this.state = 'success';
         });
-      }
+    }
 
 
-      relocateObjects(destinationPid: string, openDestination: boolean) {
+    relocateObjects(destinationPid: string, openDestination: boolean) {
         this.state = 'saving';
         let pids: string[];
         if (this.isMultipleChildrenMode()) {
@@ -695,21 +713,21 @@ export class EditorService {
                 this.goToObjectByPid(destinationPid);
             }
         });
-      }
+    }
 
-      setRelocationMode(enabled: boolean) {
+    setRelocationMode(enabled: boolean) {
         this.relocationMode = enabled;
-      }
+    }
 
-      switchRelocationMode() {
-          this.setRelocationMode(!this.relocationMode);
-      }
+    switchRelocationMode() {
+        this.setRelocationMode(!this.relocationMode);
+    }
 
-      switchMultipleSelectionMode() {
-          this.setMultipleChildrenMode(!this.multipleChildrenMode);
-      }
+    switchMultipleSelectionMode() {
+        this.setMultipleChildrenMode(!this.multipleChildrenMode);
+    }
 
-      setMultipleChildrenMode(enabled: boolean) {
+    setMultipleChildrenMode(enabled: boolean) {
         if (enabled) {
             this.multipleChildrenMode = true;
             this.right.selected = true;
@@ -723,56 +741,56 @@ export class EditorService {
                 this.selectRight(this.children[firtsSelectionIndex]);
             }
         }
-      }
+    }
 
-      setSingleChildMode(item: DocumentItem) {
+    setSingleChildMode(item: DocumentItem) {
         this.deselectChildren();
         this.multipleChildrenMode = false;
-      }
+    }
 
-      // Returns the first selected index
-      private firstSelectedIndex(): number {
+    // Returns the first selected index
+    private firstSelectedIndex(): number {
         let index = -1;
         for (const child of this.children) {
             index += 1;
             if (this.right == child) {
-            // if (child.selected) {
+                // if (child.selected) {
                 return index;;
             }
         }
         return 0;
-      }
+    }
 
 
-      validateChildren() {
-        const dialogRef = this.dialog.open(ChildrenValidationDialogComponent, { data: { children: this.children} });
+    validateChildren() {
+        const dialogRef = this.dialog.open(ChildrenValidationDialogComponent, { data: { children: this.children } });
         dialogRef.afterClosed().subscribe(result => {
         });
-      }
+    }
 
-      selectChildren() {
+    selectChildren() {
         if (!this.multipleChildrenMode) {
             this.setMultipleChildrenMode(true);
         }
         for (const child of this.children) {
             child.selected = true;
         }
-      }
+    }
 
-      deselectChildren() {
+    deselectChildren() {
         if (!this.multipleChildrenMode) {
             this.setMultipleChildrenMode(true);
         }
         for (const child of this.children) {
             child.selected = false;
         }
-      }
+    }
 
-      isMultipleChildrenMode(): boolean {
-          return this.multipleChildrenMode;
-      }
+    isMultipleChildrenMode(): boolean {
+        return this.multipleChildrenMode;
+    }
 
-      numberOfSelectedChildren(): number {
+    numberOfSelectedChildren(): number {
         let count = 0;
         for (const item of this.children) {
             if (item.selected) {
@@ -780,10 +798,10 @@ export class EditorService {
             }
         }
         return count;
-      }
+    }
 
 
-      editSelectedBatchPages(holder: PageUpdateHolder, callback: () => void) {
+    editSelectedBatchPages(holder: PageUpdateHolder, callback: () => void) {
         this.state = 'saving';
         const pages = [];
         let index = -1;
@@ -796,7 +814,7 @@ export class EditorService {
                 all += 1;
                 if (all % holder.applyTo > 0) {
                     continue;
-                } 
+                }
                 index += 1;
                 const page = new Page();
                 page.model = item.model;
@@ -815,20 +833,20 @@ export class EditorService {
             }
         }
         this.updateBatchPages(pages, callback);
-      }
+    }
 
     private updateBatchPages(pages: Page[], callback: () => void) {
-          if (pages.length === 0) {
-                this.reloadBatch(() => {
-                    this.state = 'success';
-                    if (callback) {
-                        callback();
-                    }
-                });
-              return;
-          }
-          const pageDef = pages.pop();
-          this.api.getPage(pageDef.pid, pageDef.model, this.getBatchId()).subscribe((page: Page) => {
+        if (pages.length === 0) {
+            this.reloadBatch(() => {
+                this.state = 'success';
+                if (callback) {
+                    callback();
+                }
+            });
+            return;
+        }
+        const pageDef = pages.pop();
+        this.api.getPage(pageDef.pid, pageDef.model, this.getBatchId()).subscribe((page: Page) => {
             if (pageDef.type) {
                 page.type = pageDef.type;
             }
@@ -840,33 +858,33 @@ export class EditorService {
             }
             this.api.editPage(page, this.getBatchId()).subscribe((newPage: Page) => {
                 this.updateBatchPages(pages, callback);
-              });
-          });
-      }
+            });
+        });
+    }
 
 
-      updateSelectedPages(holder: PageUpdateHolder, callback: () => void) {
-          console.log(holder, this)
+    updateSelectedPages(holder: PageUpdateHolder, callback: () => void) {
+        console.log(holder, this)
         if (this.preparation) {
             this.editSelectedBatchPages(holder, callback);
             return;
         }
-        this.state = 'saving';  
+        this.state = 'saving';
         const pages = [];
-          for (const item of this.children) {
+        for (const item of this.children) {
             if (item.isPage() && item.selected) {
                 pages.push(item.pid);
             }
         }
         this.api.editPages(pages, holder, this.getBatchId()).subscribe(result => {
             this.reloadChildren(() => {
-                this.state = 'success';  
+                this.state = 'success';
             });
         })
-      }
+    }
 
 
-      reindexChildren() {
+    reindexChildren() {
         let pagePid = null;
         for (const page of this.children) {
             if (page.isPage()) {
@@ -877,12 +895,12 @@ export class EditorService {
         if (!pagePid) {
             return;
         }
-        this.state = 'saving';  
+        this.state = 'saving';
         this.api.reindexPages(this.left.pid, pagePid, this.getBatchId()).subscribe(result => {
             this.state = 'success';
             this.ui.showInfoSnackBar("Objekty byly reindexovány");
         });
-      }
+    }
 
     reloadChildren(callback: () => void, moveToNext = false) {
         this.api.getRelations(this.left.pid).subscribe((children: DocumentItem[]) => {
@@ -916,33 +934,33 @@ export class EditorService {
                 callback();
             }
         });
-      }
+    }
 
-      ingest() {
+    ingest() {
         const batchParent = this.getBatchParent();
         if (batchParent) {
-          this.ingestBatch(batchParent);
+            this.ingestBatch(batchParent);
         } else {
-          const dialogRef = this.dialog.open(ParentDialogComponent, { data: { btnLabel: 'import.save' }});
-          dialogRef.afterClosed().subscribe(result => {
-            if (result && result.pid) {
-              this.ingestBatch(result.pid);
-            }
-          });
+            const dialogRef = this.dialog.open(ParentDialogComponent, { data: { btnLabel: 'import.save' } });
+            dialogRef.afterClosed().subscribe(result => {
+                if (result && result.pid) {
+                    this.ingestBatch(result.pid);
+                }
+            });
         }
-      }
-    
-      private ingestBatch(parentPid: string) {
+    }
+
+    private ingestBatch(parentPid: string) {
         this.state = 'loading';
         const bathId = parseInt(this.getBatchId());
-        const dialogRef = this.dialog.open(IngestDialogComponent, { data: { batch: bathId, parent: parentPid }});
+        const dialogRef = this.dialog.open(IngestDialogComponent, { data: { batch: bathId, parent: parentPid } });
         dialogRef.afterClosed().subscribe(result => {
-        this.state = 'success';
-          if (result == 'open') {
-            this.router.navigate(['/document', parentPid]);
-          } else {
-            this.router.navigate(['/']);
-          }
+            this.state = 'success';
+            if (result == 'open') {
+                this.router.navigate(['/document', parentPid]);
+            } else {
+                this.router.navigate(['/']);
+            }
         });
 
         // this.api.setParentForBatch(bathId, parentPid).subscribe((batch: Batch) => {
@@ -962,7 +980,7 @@ export class EditorService {
         //   this.state = 'success';
         //   this.ui.showErrorSnackBar("Uložení do úložiště se nezdařilo");
         // });
-      }
+    }
 
 
 
@@ -974,27 +992,27 @@ export class EditorService {
 
 
 
-      getEditorDate() {
+    getEditorDate() {
 
-      }
+    }
 
 
-      formatPagesCount(): string {
-          if (!this.children) {
+    formatPagesCount(): string {
+        if (!this.children) {
             return "";
-          }
-          const c = this.children.length;
-          if (c == 0) {
+        }
+        const c = this.children.length;
+        if (c == 0) {
             return 'žádná strana';
-          } 
-          if (c == 1) {
+        }
+        if (c == 1) {
             return '1 strana';
-          } 
-          if (c < 5) {
+        }
+        if (c < 5) {
             return `${c} strany`;
-          } 
+        }
         return `${c} stran`;
-      } 
+    }
 
 
 
