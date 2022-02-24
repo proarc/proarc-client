@@ -864,7 +864,6 @@ export class EditorService {
 
 
     updateSelectedPages(holder: PageUpdateHolder, callback: () => void) {
-        console.log(holder, this)
         if (this.preparation) {
             this.editSelectedBatchPages(holder, callback);
             return;
@@ -882,6 +881,27 @@ export class EditorService {
             });
         })
     }
+
+    changeBrackets(holder: PageUpdateHolder, useBrackets: boolean, callback: () => void) {
+        if (this.preparation) {
+            this.editSelectedBatchPages(holder, callback);
+            return;
+        }
+        this.state = 'saving';
+        const pages = [];
+        for (const item of this.children) {
+            if (item.isPage() && item.selected) {
+                pages.push(item.pid);
+            }
+        }
+        this.api.editBrackets(pages, holder, useBrackets, this.getBatchId()).subscribe(result => {
+            this.reloadChildren(() => {
+                this.state = 'success';
+            });
+        })
+    }
+
+
 
 
     reindexChildren() {

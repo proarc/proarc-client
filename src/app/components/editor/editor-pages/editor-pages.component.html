@@ -5,10 +5,18 @@
       <div class="app-label">{{ 'editor.pages.title' | translate }}</div>
       <div class="app-actions-right">
 
-      <button class="app-action" (click)="editor.switchMultipleSelectionMode()" [matTooltip]="'common.cancel' | translate" mat-icon-button>
-          <mat-icon>clear</mat-icon>
-      </button>
-      <div class="app-divider"></div>
+        <button class="app-action" (click)="editor.switchMultipleSelectionMode()" [matTooltip]="'common.cancel' | translate" mat-icon-button>
+            <mat-icon>clear</mat-icon>
+        </button>
+        <div class="app-divider"></div>
+
+        <button class="app-action" (click)="addBrackets()" [matTooltip]="'common.add_brackets' | translate" mat-icon-button>
+          <span class="app-text-icon">[ + ]</span>
+        </button>
+        <button class="app-action" (click)="removeBrackets()" [matTooltip]="'common.remove_brackets' | translate" mat-icon-button>
+          <span class="app-text-icon">[ - ]</span>
+        </button>
+        <div class="app-divider"></div>
 
       <button class="app-action" [class.app-disabled]="!canSave()" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
           <mat-icon>save</mat-icon>
@@ -63,7 +71,7 @@
             <mat-checkbox color="primary" [(ngModel)]="holder.editNumber">{{ 'editor.pages.edit_page_number' | translate }}</mat-checkbox>
 
 
-            <button *ngIf="editor.preparation" class="app-brackets" [disabled]="!holder.editNumber" [class.app-active]="holder.useBrackets" [matTooltip]="holder.useBrackets ? 'Nevkládat do závorek' : 'Vkládat do závorek'" (click)="holder.useBrackets = !holder.useBrackets" mat-icon-button>
+            <button class="app-brackets" [disabled]="!holder.editNumber" [class.app-active]="holder.useBrackets" [matTooltip]="holder.useBrackets ? 'Nevkládat do závorek' : 'Vkládat do závorek'" (click)="holder.useBrackets = !holder.useBrackets" mat-icon-button>
               <span class="app-text-icon">[ ]</span>
             </button>
 

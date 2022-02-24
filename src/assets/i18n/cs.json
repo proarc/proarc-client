@@ -20,7 +20,9 @@
     "save": "Uložit",
     "publish": "Uložit a zveřejnit",
     "unpublish": "Zrušit zveřejnění",
-    "warning": "Varování"
+    "warning": "Varování",
+    "add_brackets": "ozávorkovat",
+    "remove_brackets": "odzávorkovat"
   },
   "login": {
     "username": "Uživatelské jméno",

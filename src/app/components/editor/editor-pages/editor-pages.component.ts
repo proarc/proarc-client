@@ -30,6 +30,14 @@ export class EditorPagesComponent implements OnInit {
     // this.editor.editSelectedPages(this.holder, null);
     this.editor.updateSelectedPages(this.holder, null);
   }
+
+  addBrackets() {
+    this.editor.changeBrackets(this.holder, true, null);
+  }
+
+  removeBrackets() {
+    this.editor.changeBrackets(this.holder, false, null);
+  }
 }
 
 

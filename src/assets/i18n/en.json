@@ -18,7 +18,9 @@
     "save": "Save",
     "publish": "Save & Publish",
     "unpublish": "Unpublish",
-    "warning": "Warning"
+    "warning": "Warning",
+    "add_brackets": "add brackets",
+    "remove_brackets": "remove brackets"
   },
   "login": {
     "username": "User Name",

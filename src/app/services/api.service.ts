@@ -432,9 +432,6 @@ export class ApiService {
     return this.put('device', data).pipe(map(response => Device.fromJson(response['response']['data'][0])));
   }
 
-
-
-
   editPages(pages: string[], holder: PageUpdateHolder, batchId = null) {
     let data = `pids=${pages}`;
     if (batchId) {
@@ -446,6 +443,9 @@ export class ApiService {
     if (holder.editIndex) {
       data += `&startIndex=${holder.pageIndex}`;
     }
+    if (holder.useBrackets) {
+      data += `&useBrackets=${holder.useBrackets}`;
+    }
     if (holder.editNumber) {
       data += `&sequence=${holder.pageNumberNumbering.id}&prefix=${holder.pageNumberPrefix}&suffix=${holder.pageNumberSuffix}&startNumber=${holder.getPageIndexFrom()}&incrementNumber=${holder.pageNumberIncrement}`;
     }
@@ -454,6 +454,16 @@ export class ApiService {
     }
     data += `&applyTo=${holder.applyTo}`;
     return this.put('object/mods/editorPages', data);
+  }
+
+  editBrackets(pages: string[], holder: PageUpdateHolder, useBrackets: boolean, batchId = null) {
+    const action = useBrackets ? 'addBrackets' : 'removeBrackets';
+    let data = `pids=${pages}`;
+    if (batchId) {
+      data = `${data}&batchId=${batchId}`;
+    }
+    data += `&applyTo=${holder.applyTo}`;
+    return this.post('object/mods/' + action, data);
   }
 
 
