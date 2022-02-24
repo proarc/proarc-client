@@ -65,6 +65,8 @@ export class SearchComponent implements OnInit {
   organizations: string[];
   users: User[];
 
+  searchMode: string = 'phrase';
+
   constructor(private api: ApiService, 
               public properties: LocalStorageService, 
               public auth: AuthService,
@@ -123,6 +125,7 @@ export class SearchComponent implements OnInit {
     this.state = 'loading';
 
     const options = {
+      type: this.searchMode,
       model: this.model,
       organization: this.organization,
       query: this.query,

@@ -1,12 +1,33 @@
 <div class="breadcrumb-nav">
-  <span>{{ 'search.title' | translate }}</span>
+  <span>{{ 'search.title' | translate }}</span><div class="app-divider"></div>
+  <!-- <mat-button-toggle-group name="mode" aria-label="Search mode" [(ngModel)]="searchMode">
+    <mat-button-toggle value="queryMode">dotaz</mat-button-toggle>
+    <mat-button-toggle value="advancedMode">pokročilé hledání</mat-button-toggle>
+  </mat-button-toggle-group> -->
+  <button mat-button value="phrase"  [class.app-inactive]="searchMode !== 'phrase'" (click)="searchMode = 'phrase'">Dotaz</button>
+  <button mat-button value="advanced" [class.app-inactive]="searchMode !== 'advanced'" (click)="searchMode = 'advanced'">Pokročilé hledání</button>
+
 </div>
 
 <div class="app-search-results">
 
-  <div class="app-search-filteres">
+  <div *ngIf="searchMode === 'phrase'" class="app-search-filteres">
+    <a mat-raised-button color="primary" class="app-search" (click)="reload()">
+      {{ 'search.search' | translate }}
+    </a>
+    <mat-form-field class="model-filter app-filter">
+      <mat-select [placeholder]="'search.model' | translate" name="model" [(ngModel)]="model">
+        <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
+        <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
+    <mat-form-field class="document-search">
+      <input matInput [placeholder]="'search.search' | translate" (keyup.enter)="reload()" [(ngModel)]="query">
+    </mat-form-field>
+  </div>
 
+  <div *ngIf="searchMode === 'advanced'" class="app-search-filteres">
     <a mat-raised-button color="primary" class="app-search" (click)="reload()">
       {{ 'search.search' | translate }}
     </a>

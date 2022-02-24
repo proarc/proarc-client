@@ -322,7 +322,7 @@ export class ApiService {
 
   getSearchResults(options = {}) { //model: string, query: string, queryFiled: string, page: number, sortField = 'lastCreated', sortAsc = false): Observable<[DocumentItem[], number]> {
     const params = {
-      type: 'advanced',
+      type: options['type'],
       _startRow: options['page'] * 100,
     };
     if (options['model'] !== 'all') {
@@ -338,9 +338,13 @@ export class ApiService {
       params['processor'] = options['processor'];
     }
     params['sortField'] = options['sortField'] || '';
-    // if (options['query']) {
-    //   params[options['queryField']] = options['query'];
-    // } 
+
+    if (options['type'] === 'phrase' && options['query']) {
+      params['type'] = options['type'];
+      params['phrase'] = options['query'];
+    } else {
+      params['type'] = 'advanced';
+    }
     
     if (options['queryLabel'] && options['queryLabel'] != '') {
       params['queryLabel'] = options['queryLabel'];
