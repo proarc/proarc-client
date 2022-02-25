@@ -4,6 +4,10 @@ pre {
   width: 100%;
   overflow-x: auto;
   background: #f0f0f0;
+  .app-mods-editing {
+    border: 2px solid #000;
+    background-color: #f0e68c;
+  }
 }
 
 code {

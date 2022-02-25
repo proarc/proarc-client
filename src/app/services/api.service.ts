@@ -328,16 +328,6 @@ export class ApiService {
     if (options['model'] !== 'all') {
       params['queryModel'] = options['model'];
     }
-    if (options['organization'] && options['organization'] != '-') {
-      params['organization'] = options['organization'];
-    }
-    if (options['owner'] && options['owner'] != '-') {
-      params['owner'] = options['owner'];
-    }
-    if (options['processor'] && options['processor'] != '-') {
-      params['processor'] = options['processor'];
-    }
-    params['sortField'] = options['sortField'] || '';
 
     if (options['type'] === 'phrase' && options['query']) {
       params['type'] = options['type'];
@@ -345,18 +335,32 @@ export class ApiService {
     } else {
       params['type'] = 'advanced';
     }
-    
-    if (options['queryLabel'] && options['queryLabel'] != '') {
-      params['queryLabel'] = options['queryLabel'];
+
+    if (options['type'] === 'advanced') {
+
+      if (options['organization'] && options['organization'] != '-') {
+        params['organization'] = options['organization'];
+      }
+      if (options['owner'] && options['owner'] != '-') {
+        params['owner'] = options['owner'];
+      }
+      if (options['processor'] && options['processor'] != '-') {
+        params['processor'] = options['processor'];
+      }
+      if (options['queryLabel'] && options['queryLabel'] != '') {
+        params['queryLabel'] = options['queryLabel'];
+      }
+      
+      if (options['queryIdentifier'] && options['queryIdentifier'] != '') {
+        params['queryIdentifier'] = options['queryIdentifier'];
+      }
+      
+      if (options['queryCreator'] && options['queryCreator'] != '-') {
+        params['queryCreator'] = options['queryCreator'];
+      }
     }
     
-    if (options['queryIdentifier'] && options['queryIdentifier'] != '') {
-      params['queryIdentifier'] = options['queryIdentifier'];
-    }
-    
-    if (options['queryCreator'] && options['queryCreator'] != '-') {
-      params['queryCreator'] = options['queryCreator'];
-    }
+    params['sortField'] = options['sortField'] || '';
     if (options['sortAsc']) {
       params['_sort'] = 'asc';
     } else {
