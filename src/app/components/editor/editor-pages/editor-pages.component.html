@@ -110,8 +110,6 @@
     </div>
 
 
-
-
     <div class="app-card">
       <div class="app-card-content">
         <div class="app-apply-to">
@@ -120,22 +118,12 @@
               <mat-option *ngFor="let num of holder.applyOptions;" [value]="num">{{'editor.pages.apply_to' | translate: { num: num } }}</mat-option>
             </mat-select>
           </mat-form-field>
-
         </div>
 
         <mat-checkbox [disabled]="holder.applyTo == 1"  color="primary" [(ngModel)]="holder.applyToFirst">{{ 'editor.pages.apply_to_first' | translate }}</mat-checkbox>
 
-
-
       </div>
     </div>
-
-
-
-
-
-
-
 
 
 

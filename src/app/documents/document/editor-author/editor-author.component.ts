@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material';
 import { CatalogDialogComponent } from 'src/app/dialogs/catalog-dialog/catalog-dialog.component';
 import { Metadata } from 'src/app/model/metadata.model';
 import { ModsAuthor } from 'src/app/model/mods/author.model';
+import { EditorService } from 'src/app/services/editor.service';
 
 @Component({
   selector: 'app-editor-author',
@@ -28,7 +29,7 @@ export class EditorAuthorComponent implements OnInit {
 
   public roles = [];
 
-  constructor(public translator: Translator, private dialog: MatDialog) {
+  constructor(public translator: Translator, private dialog: MatDialog, public editor: EditorService) {
     this.translateCodes();
     translator.languageChanged.subscribe(() => this.translateCodes());
   }
@@ -41,7 +42,7 @@ export class EditorAuthorComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
         const mods = result['mods'];
-        const metadata = new Metadata('', '', mods, 0);
+        const metadata = new Metadata('', this.editor.metadata.model, mods, 0);
         const nameField = metadata.getField(ModsAuthor.getSelector());
         const items = nameField.getItems();
         if (nameField && items.length > 0) {

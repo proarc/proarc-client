@@ -114,12 +114,22 @@ export class Metadata {
     return valid;
   }
 
-  private resolveStandard(mods): string {
+  private resolveStandard(data): string {
     let standard = '';
-    if (mods['modsCollection']) {
-      mods = mods['modsCollection'][0];
+    let mods = data;
+    if (data['modsCollection']) {
+      if (data['modsCollection']['mods']) {
+        mods = data['modsCollection']['mods'];
+      } else {
+        mods = data['modsCollection'][0]['mods'];
+      }
+    } else if(data['mods']) {
+       mods = data['mods'];
     }
-    for (const ri of mods["mods"]['recordInfo']) {
+    if (mods.length) {
+      mods = mods[0];
+    }
+    for (const ri of mods['recordInfo']) {
       if (ri['descriptionStandard'] && ri['descriptionStandard'][0]) {
         standard = ri['descriptionStandard'][0]['_'] || '';
         break;
@@ -135,6 +145,7 @@ export class Metadata {
   private processMods(data) {
     this.standard = this.resolveStandard(data);
     this.template = ModelTemplate.data[this.standard][this.model];
+    console.log(this.template, this.model, this.standard)
     if (ProArc.isChronicle(this.model)) {
       this.fieldsIds = [
         ModsTitle.getId(),

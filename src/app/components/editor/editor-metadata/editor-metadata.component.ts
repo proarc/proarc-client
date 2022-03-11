@@ -42,7 +42,7 @@ export class EditorMetadataComponent implements OnInit {
 
       const data: SimpleDialogData = {
         title: "Nevalidní data",
-        message: "Nevalidní data, přejete si dokument přesto uložit.",
+        message: "Nevalidní data, přejete si dokument přesto uložit?",
         btn1: {
           label: "Uložit nevalidní dokument",
           value: 'yes',

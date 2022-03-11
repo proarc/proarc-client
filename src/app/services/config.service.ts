@@ -129,11 +129,11 @@ export class ConfigService {
     private static defaultDefaultModel = 'model:ndkmonographvolume';
 
     private static defaultDefaultExports = [
+        'archive',
+        'kramerius',
+        'ndk_psp',
         'datastream_full',
         'datastream_raw',
-        'kramerius',
-        'archive',
-        'ndk_psp',
         'cejsh',
         'crossref',
         'kwis'
