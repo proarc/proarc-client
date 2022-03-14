@@ -22,6 +22,7 @@ export abstract class ModsElement {
         if (attributes.length > 0) {
             this.initAttributes(attributes);
         }
+        console.log(this.controls, this.template)
     }
 
     public addSubfield(field: ElementField) {
@@ -138,9 +139,15 @@ export abstract class ModsElement {
                 anyValue = true;
             }
         });
+
         if (!anyValue) {
             if(isRequired) {
-                error = true;
+                this.controls.forEach((value, key) => {
+                    if (this.template.fields[key+''].usage === 'M') {
+                        error = true;
+                    }
+                });
+                // error = true;
             } else {
                 this.controls.forEach((value, key) => {
                     value.markAsUntouched();
