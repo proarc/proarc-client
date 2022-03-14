@@ -763,7 +763,7 @@ export class EditorService {
 
 
     validateChildren() {
-        const dialogRef = this.dialog.open(ChildrenValidationDialogComponent, { data: { children: this.children } });
+        const dialogRef = this.dialog.open(ChildrenValidationDialogComponent, { data: { children: this.children, batchId: this.getBatchId() } });
         dialogRef.afterClosed().subscribe(result => {
         });
     }
