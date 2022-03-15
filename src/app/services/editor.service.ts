@@ -265,7 +265,7 @@ export class EditorService {
 
 
     public showRightObjectEditor(): boolean {
-        return this.right && !this.relocationMode && !this.multipleChildrenMode;
+        return this.right && !this.relocationMode && (!this.multipleChildrenMode || this.numberOfSelectedChildren() === 0);
     }
 
     public showRelocationEditor(): boolean {
@@ -787,7 +787,7 @@ export class EditorService {
     }
 
     isMultipleChildrenMode(): boolean {
-        return this.multipleChildrenMode;
+        return this.multipleChildrenMode || this.children.filter(ch => ch.selected).length > 0;
     }
 
     numberOfSelectedChildren(): number {

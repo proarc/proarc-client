@@ -232,7 +232,12 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
       }
       this.lastState = true;
     }
-    this.editor.selectRight(item);
+    if (this.editor.isMultipleChildrenMode() && this.editor.numberOfSelectedChildren() === 0) {
+      this.editor.selectRight(this.editor.left);
+    } else {
+      this.editor.selectRight(item);
+    }
+    
     this.arrowIndex = itemIndex;
     this.lastIndex = itemIndex;
   }
@@ -351,7 +356,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   }
 
   showConvertDialog() {
-    const dialogRef = this.dialog.open(ConvertDialogComponent, { data: { pid: this.editor.left.pid, model: this.editor.left.model } });
+    const dialogRef = this.dialog.open(ConvertDialogComponent, { data: { pid: this.editor.left.pid, model: this.editor.left.model, children: this.editor.children } });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result.status == 'ok') {

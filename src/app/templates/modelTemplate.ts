@@ -1,5 +1,6 @@
 import { NdkMapAacrTemplate } from "./ndkMap.aacr.template";
 import { NdkMapRdaTemplate } from "./ndkMap.rda.template";
+import { NdkMonographSupplementAacrTemplate } from "./ndkMonographsupplement.aacr.template";
 import { NdkMonographSupplementRdaTemplate } from "./ndkMonographsupplement.rda.template";
 import { NdkMonographTitleAacrTemplate } from "./ndkMonographtitle.aacr.template";
 import { NdkMonographTitleRdaTemplate } from "./ndkMonographtitle.rda.template";
@@ -20,6 +21,7 @@ export class ModelTemplate {
     "aacr": {
       "model:ndkmonographtitle": NdkMonographTitleAacrTemplate.data,
       "model:ndkmonographvolume": NdkMonographVolumeAacrTemplate.data,
+      "model:ndkmonographsupplement": NdkMonographSupplementAacrTemplate.data,
       "model:ndkmap": NdkMapAacrTemplate.data,
       "model:ndksheetmusic": NdkSheetMusicAacrTemplate.data,
       "model:ndkperiodical": NdkPeriodicalAacrTemplate.data,

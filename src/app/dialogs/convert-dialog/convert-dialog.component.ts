@@ -20,7 +20,13 @@ export class ConvertDialogComponent implements OnInit {
 
   ngOnInit() {
     this.inProgress = false;
-    console.log('pid', this.data.pid);
+    const selected = this.data.children.filter(ch => ch.selected)
+    if (selected.length > 0) {
+      console.log(selected)
+    } else {
+      console.log('pid', this.data.pid);
+    }
+    
   }
 
   convert(type: string) {

@@ -22,7 +22,6 @@ export abstract class ModsElement {
         if (attributes.length > 0) {
             this.initAttributes(attributes);
         }
-        console.log(this.controls, this.template)
     }
 
     public addSubfield(field: ElementField) {
