@@ -3,6 +3,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { ImportService } from 'src/app/services/import.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { SearchService } from 'src/app/services/search.service';
+import { UIService } from 'src/app/services/ui.service';
 import { ImportTree } from './tree.model';
 
 @Component({
@@ -15,13 +16,27 @@ export class ImportTreeComponent implements OnInit {
   @Input('tree') tree: ImportTree;
 
   constructor(public properties: LocalStorageService, 
+    private ui: UIService,
     private api: ApiService,
-    private importService: ImportService,
+    public importService: ImportService,
     public search: SearchService) { 
   }
 
   ngOnInit() {
 
+  }
+
+  reRead() {
+    this.importService.toggleFoder(this.tree.folder);
+    this.api.reReadFolder(this.tree.folder.path).subscribe((resp: any) => {
+      console.log(resp);
+      if (resp.response.error) {
+        this.ui.showErrorSnackBar(resp.error);
+      } else {
+        this.tree.folder.state = "new";
+      }
+      
+    });
   }
 
   toggle() {

@@ -1,14 +1,15 @@
       
       <ng-container *ngIf="tree">
       <div class="app-tree-row">
-        <div class="app-folder-item" [class.app-disabled]="!tree.selectable() && !tree.expandable()" (click)="onClick()">
+        <div class="app-folder-item" (click)="onClick()">
           <div class="app-folder-action" [style.width]="(tree.level * 30 + 40) + 'px'">
             <mat-spinner *ngIf="tree.loading" [strokeWidth]="3" [diameter]="20">
             </mat-spinner>
-            <mat-icon class="app-tree-expand" *ngIf="tree.expandable() && !tree.loading">{{ tree.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
-            <mat-icon class="app-tree-checkbox" *ngIf="!tree.expandable()">{{ importService.isFolderSelected(tree.folder) ? "check_box" : "check_box_outline_blank" }}</mat-icon>
+            <mat-icon [class.app-disabled]="!tree.selectable() && !tree.expandable()" class="app-tree-expand" *ngIf="tree.expandable() && !tree.loading">{{ tree.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
+            <mat-icon [class.app-disabled]="!tree.selectable() && !tree.expandable()" class="app-tree-checkbox" >{{ importService.isFolderSelected(tree.folder) ? "check_box" : "check_box_outline_blank" }}</mat-icon>
+            <mat-icon class="app-tree-checkbox" title="Připravit ke znovunačtení" *ngIf="!tree.expandable()" (click)="reRead()">refresh</mat-icon>
           </div>
-          <div class="app-folder-label">
+          <div [class.app-disabled]="!tree.selectable() && !tree.expandable()" class="app-folder-label">
             {{ tree.folder.name }}
           </div>
         </div>

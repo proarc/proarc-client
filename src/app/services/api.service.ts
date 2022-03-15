@@ -529,6 +529,11 @@ export class ApiService {
     return this.post('import/batch', data).pipe(map(response => Batch.fromJson(response['response']['data'][0])));
   }
 
+  reReadFolder(path: string): Observable<any> {
+    const data = `folderPath=${path}&_textMatchStyle=exact&isc_dataFormat=json`;
+    return this.post('import/batch/unlockFolder', data);
+  }
+
   createImportBatches(paths: string[], profile: string, indices: boolean, device: string) {
     const data = `folderPath=[${paths}]&profile=${profile}&indices=${indices}&device=${device}`;
     return this.post('import/batches', data);//.pipe(map(response => Batch.fromJson(response['response']['data'][0])));
