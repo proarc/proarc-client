@@ -91,6 +91,7 @@ export class ModelTemplate {
       "model:ndkeperiodicalvolume": NdkMonographVolumeRdaTemplate.data,
       "model:ndkeperiodicalissue": NdkMonographVolumeRdaTemplate.data,
       "model:ndkearticle": NdkMonographVolumeRdaTemplate.data,
+      "model:bdmarticle": NdkMonographVolumeRdaTemplate.data,
       "model:ndkemonographtitle": NdkMonographVolumeRdaTemplate.data,
       "model:ndkemonographvolume": NdkMonographVolumeRdaTemplate.data,
       "model:ndkechapter": NdkMonographVolumeRdaTemplate.data,
