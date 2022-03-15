@@ -211,7 +211,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
         index = i2;
         i2 = temp;
       }
-      console.log(index, i2, this.lastState)
+      // console.log(index, i2, this.lastState)
       while (index <= i2) {
         // this.editor.children[index].selected = this.lastState;
         this.editor.children[index].selected = true;
@@ -230,12 +230,13 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
         console.log('setSingleChildMode');
         this.editor.setSingleChildMode(item);
       }
+      item.selected = true;
       this.lastState = true;
     }
-    if (this.editor.isMultipleChildrenMode() && this.editor.numberOfSelectedChildren() === 0) {
+    if (this.editor.numberOfSelectedChildren() === 0) {
       this.editor.selectRight(this.editor.left);
-    } else {
-      this.editor.selectRight(item);
+    } else if (this.editor.numberOfSelectedChildren() === 1) {
+      this.editor.selectRight(this.editor.children.find(ch => ch.selected));
     }
     
     this.arrowIndex = itemIndex;

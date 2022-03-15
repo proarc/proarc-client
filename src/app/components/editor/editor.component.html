@@ -127,7 +127,7 @@
 
       <div class="app-panel">
 
-        <div class="app-toolbar" *ngIf="editor.right && !editor.isMultipleChildrenMode()">
+        <div class="app-toolbar" *ngIf="editor.right && editor.numberOfSelectedChildren() < 2">
           <div class="app-label">
             <div class="app-label-title">{{ editor.right.label }}</div>
             <div class="app-label-model">{{ 'model.' + editor.right.model | translate }}</div>
@@ -188,7 +188,7 @@
 
         </div>
 
-        <div class="app-toolbar" *ngIf="editor.isMultipleChildrenMode()">
+        <div class="app-toolbar" *ngIf="editor.numberOfSelectedChildren() > 1">
           <div class="app-label">
             <div class="app-label-title">{{ 'editor.children.multiple_selection_label' | translate }}</div>
             <div class="app-label-model">{{ 'editor.children.multiple_selection_count' | translate: { count:
@@ -228,11 +228,7 @@
           <app-editor-relocation [pid]="editor.left.pid"></app-editor-relocation>
         </div>
 
-
-
-
       </div>
-
 
     </as-split-area>
 

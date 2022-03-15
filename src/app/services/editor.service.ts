@@ -265,7 +265,7 @@ export class EditorService {
 
 
     public showRightObjectEditor(): boolean {
-        return this.right && !this.relocationMode && (!this.multipleChildrenMode || this.numberOfSelectedChildren() === 0);
+        return this.right && !this.relocationMode && (this.numberOfSelectedChildren() < 2);
     }
 
     public showRelocationEditor(): boolean {
@@ -282,7 +282,7 @@ export class EditorService {
         if (this.relocationMode) {
             return false;
         }
-        if (!this.isMultipleChildrenMode()) {
+        if (this.numberOfSelectedChildren() < 2) {
             return false;
         }
         let count = 0;
@@ -324,10 +324,11 @@ export class EditorService {
             this.properties.setStringProperty('editor.mode', this.mode);
         }
         if (this.mode === 'children') {
-            const index = this.findChildIndex();
-            if (index >= 0) {
-                this.selectRight(this.children[index]);
-            }
+            // const index = this.findChildIndex();
+            // if (index >= 0) {
+            //     this.selectRight(this.children[index]);
+            // }
+            this.selectRight(this.left);
             this.toParentFrom = null;
         } else {
             this.selectRight(this.left);
