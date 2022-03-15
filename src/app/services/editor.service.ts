@@ -371,7 +371,6 @@ export class EditorService {
     }
 
     public goToObject(item: DocumentItem) {
-        console.log(this)
         if (item) {
             this.router.navigate(['/document', item.pid]);
         }
