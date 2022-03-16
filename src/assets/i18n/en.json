@@ -20,7 +20,16 @@
     "unpublish": "Unpublish",
     "warning": "Warning",
     "add_brackets": "add brackets",
-    "remove_brackets": "remove brackets"
+    "remove_brackets": "remove brackets",
+    "day": {
+      "1": "Monday",
+      "2": "Tuesday",
+      "3": "Wednesday",
+      "4": "Thursday",
+      "5": "Friday",
+      "6": "Saturday",
+      "7": "Sunday"
+    }
   },
   "login": {
     "username": "User Name",
@@ -38,7 +47,10 @@
     "custom_pid_description": "If necessary, you can choose a custom PID of the form uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.\nThe PID must not be assigned to another object.",
     "pid": "PID",
     "failure": "Failed to create the objec",
-    "create": "Create new object"
+    "create": "Create new object",
+    "seriesPartNumberFrom": "Number from",
+    "seriesDateFrom": "Date from",
+    "seriesDateTo": "Date to"
   },
   "urnnbn": {
     "title": "URN:NBN Registration",

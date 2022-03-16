@@ -22,7 +22,16 @@
     "unpublish": "Zrušit zveřejnění",
     "warning": "Varování",
     "add_brackets": "ozávorkovat",
-    "remove_brackets": "odzávorkovat"
+    "remove_brackets": "odzávorkovat",
+    "day": {
+      "1": "Pondělí",
+      "2": "Úterý",
+      "3": "Středa",
+      "4": "Čtvrtek",
+      "5": "Pátek",
+      "6": "Sobota",
+      "7": "Neděle"
+    }
   },
   "login": {
     "username": "Uživatelské jméno",
@@ -40,7 +49,10 @@
     "custom_pid_description": "V případě potřeby je možné zvolit vlastní PID objektu ve tvaru uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.\nPID nesmí nýt již přidělen jinému objektu.",
     "pid": "PID",
     "failure": "Objekt se nepodařilo vytvořit",
-    "create": "Vytvořit nový objekt"
+    "create": "Vytvořit nový objekt",
+    "seriesPartNumberFrom": "Číslo od",
+    "seriesDateFrom": "Datum od",
+    "seriesDateTo": "Datum do"
   },
   "urnnbn": {
     "title": "Registrace URN:NBN",
