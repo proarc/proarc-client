@@ -49,8 +49,6 @@ export class NewObjectDialogComponent implements OnInit {
       data = `${data}&parent=${this.data.parentPid}`;
     }
 
-    console.log(this.seriesDaysIncluded);
-
     if (this.isMultiple) {
       data += '&seriesPartNumberFrom='+this.seriesPartNumberFrom;
       data += '&seriesDateFrom='+ this.datePipe.transform(this.seriesDateFrom, 'yyyy-MM-dd');
@@ -59,9 +57,6 @@ export class NewObjectDialogComponent implements OnInit {
         data += '&seriesDaysIncluded='+d;
       });
     }
-
-    console.log(data);
-    return;
 
     this.api.createObject(data).subscribe((pid: string) => {
       this.dialogRef.close({pid: pid})
