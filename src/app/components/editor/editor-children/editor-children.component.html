@@ -64,8 +64,29 @@
             <mat-icon>forward</mat-icon>
           </button>
         </div>
-        
       </div>
+        
+      
+      <ng-container *ngIf="viewMode === 'list'">
+        <div class="app-divider"></div>
+        <button [matMenuTriggerFor]="columns_menu" class="app-action" matTooltip="{{ 'editor.children.select_columns' | translate }}" (click)="onSelectColumns()" mat-icon-button>
+          <mat-icon>rule</mat-icon>
+        </button>
+
+        <mat-menu #columns_menu="matMenu">
+          <button mat-menu-item disabled>
+            <span>aaa</span>
+          </button>
+          <button mat-menu-item >
+            <span>bbb</span>
+          </button>
+        </mat-menu>
+
+
+      </ng-container>
+
+
+
       <div class="app-divider"></div>
       <button class="app-action"  matTooltip="{{ 'editor.children.delete' | translate }}" (click)="onDelete()" mat-icon-button>
           <mat-icon>delete</mat-icon>

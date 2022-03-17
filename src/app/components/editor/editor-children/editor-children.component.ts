@@ -352,6 +352,10 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     });
   }
 
+  onSelectColumns() {
+    
+  }
+
   onCreateNewObject() {
     this.editor.onCreateNewObject();
   }

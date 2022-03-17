@@ -23,6 +23,7 @@
     "warning": "Varování",
     "add_brackets": "ozávorkovat",
     "remove_brackets": "odzávorkovat",
+    "multiple": "Více",
     "day": {
       "1": "Pondělí",
       "2": "Úterý",
@@ -341,6 +342,7 @@
       "single_selection": "Jednoduchý výběr",
       "multiple_selection_label": "Hromadný výběr",
       "multiple_selection_count": "{{count == 0 ? 'Není vybrán žádný objekt' : (count == 1 ? '1 objekt' : count < 5 ? count + ' objekty' : count + ' objektů') }}",
+      "select_columns": "Výběr sloupců",
       "move_dialog": {
         "title": "Změna pozice",
         "message": "Zvolte novou pozici, na kterou chcete vybraný objekt v rámci nadřazeného objektu přesunout",
