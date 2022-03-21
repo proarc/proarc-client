@@ -4,8 +4,8 @@ import { NdkMonographSupplementAacrTemplate } from "./ndkMonographsupplement.aac
 import { NdkMonographSupplementRdaTemplate } from "./ndkMonographsupplement.rda.template";
 import { NdkMonographTitleAacrTemplate } from "./ndkMonographtitle.aacr.template";
 import { NdkMonographTitleRdaTemplate } from "./ndkMonographtitle.rda.template";
-import { NdkMonographVolumeAacrTemplate } from "./ndkMonographvolume.aacr.template";
-import { NdkMonographVolumeRdaTemplate } from "./ndkMonographvolume.rda.template";
+import { NdkMonographVolumeAacrTemplate } from "./aacr/ndkMonographvolume.aacr.template";
+import { NdkMonographVolumeRdaTemplate } from "./rda/ndkMonographvolume.rda.template";
 import { NdkPeriodicalAacrTemplate } from "./ndkPeriodical.aacr.template";
 import { NdkPeriodicalRdaTemplate } from "./ndkPeriodical.rda.template";
 import { NdkPeriodicalIssueAacrTemplate } from "./ndkPeriodicalIssue.aacr.template";
@@ -16,6 +16,7 @@ import { NdkPeriodicalVolumeAacrTemplate } from "./ndkPeriodicalVolume.aacr.temp
 import { NdkPeriodicalVolumeRdaTemplate } from "./ndkPeriodicalVolume.rda.template";
 import { NdkSheetMusicAacrTemplate } from "./ndkSheetmusic.aacr.template";
 import { NdkSheetMusicRdaTemplate } from "./ndkSheetmusic.rda.template";
+import {BdmArticleRdaTemplate} from './bdmArticle.rda.template';
 
 export class ModelTemplate {
 
@@ -91,7 +92,7 @@ export class ModelTemplate {
       "model:ndkeperiodicalvolume": NdkMonographVolumeRdaTemplate.data,
       "model:ndkeperiodicalissue": NdkMonographVolumeRdaTemplate.data,
       "model:ndkearticle": NdkMonographVolumeRdaTemplate.data,
-      "model:bdmarticle": NdkMonographVolumeRdaTemplate.data,
+      "model:bdmarticle": BdmArticleRdaTemplate.data,
       "model:ndkemonographtitle": NdkMonographVolumeRdaTemplate.data,
       "model:ndkemonographvolume": NdkMonographVolumeRdaTemplate.data,
       "model:ndkechapter": NdkMonographVolumeRdaTemplate.data,
@@ -139,7 +140,7 @@ export class ModelTemplate {
     'chroniclevolume': ['chroniclesupplement', 'page'],
     'chroniclesupplement': ['page'],
     'bdmarticle': []
-  }    
+  }
 
   static allowedChildrenForModel(model: string) {
     if (model.startsWith('model:')) {
