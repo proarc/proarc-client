@@ -35,6 +35,7 @@ export class EditorAuthorComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.field)
   }
 
   onLoadFromCatalog(item) {

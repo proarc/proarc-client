@@ -26,6 +26,9 @@
       margin-top:2px;
       &.app-table {
         box-shadow: none;
+        .app-row-header {
+          font-weight: bold;
+        }
         .app-row {
           padding: 0px 10px;
           height: 40px;
@@ -37,9 +40,14 @@
               margin-left: -10px;
             }
           }
+          .app-col{
+            width: 120px;
+            margin-left: 5px;
+            // text-align: right;
+          }
           .app-col-model{
             width: 150px;
-            text-align: right;
+            // text-align: right;
           }
           .app-col-label {
             padding-left: 10px;

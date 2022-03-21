@@ -15,9 +15,9 @@
         <mat-icon>{{ item.isPrimary() ? 'star' : 'star_outline' }}</mat-icon>
       </button>
 
-      <ng-container *ngIf="item.nameIdentifier">
+      <ng-container *ngIf="item.nameIdentifier['_']">
         <div class="app-header-divider"></div>
-        <div class="app-header-text">{{ item.nameIdentifier }}</div>
+        <div class="app-header-text">{{ item.nameIdentifier['_'] }}</div>
       </ng-container>
   </ng-template>
 
@@ -26,8 +26,8 @@
     <app-field-text field="name" [item]="item" [(value)]="item.name['_']" ></app-field-text>
     <app-field-text field="given" [item]="item" [(value)]="item.given['_']" ></app-field-text>
     <app-field-text field="family" [item]="item" [(value)]="item.family['_']" ></app-field-text>
-    <app-field-text field="nameIdentifier" [item]="item" [(value)]="item.nameIdentifier"></app-field-text>
-    <app-field-text field="etal" [item]="item" [(value)]="item.etal"></app-field-text>
+    <app-field-text field="nameIdentifier" [item]="item" [(value)]="item.nameIdentifier['_']"></app-field-text>
+    <app-field-text field="etal" [item]="item" [(value)]="item.etal['_']"></app-field-text>
     <app-field-text field="date" [item]="item" [(value)]="item.date['_']" ></app-field-text>
     <app-field-dropdown field="type" [item]="item" [(value)]='item.attrs["type"]'></app-field-dropdown>
 

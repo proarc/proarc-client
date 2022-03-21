@@ -12,6 +12,7 @@ export class ModsAuthor extends ModsElement {
     public date;
     public roles: ElementField;
     public nameIdentifier: string;
+    public etal: string;
 
     static getSelector() {
         return 'name';
@@ -66,9 +67,22 @@ export class ModsAuthor extends ModsElement {
         if(this.available('role')) {
             this.roles = new ElementField(this.modsElement, ModsRole.getSelector(), this.getField('role'));
         }
-        if (this.modsElement['nameIdentifier']) {
-            this.nameIdentifier = this.modsElement['nameIdentifier'][0]['_'];
+
+        if (!this.modsElement['nameIdentifier']) {
+            this.modsElement['nameIdentifier'] = ModsUtils.createEmptyField();
         }
+        this.nameIdentifier = this.modsElement['nameIdentifier'][0];
+
+        if (!this.modsElement['etal']) {
+            this.modsElement['etal'] = ModsUtils.createEmptyField();
+        }
+        this.etal = this.modsElement['etal'][0];
+
+
+        // if (this.modsElement['nameIdentifier']) {
+        //     this.nameIdentifier = this.modsElement['nameIdentifier'][0]['_'];
+        // }
+
         // this.splitName();
     }
 
