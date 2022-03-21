@@ -19,6 +19,7 @@ import { ModsResource } from './resource.model';
 import { ModsFrequency } from './frequency.model';
 import { ModsCartographics } from './cartographics.model';
 import { ModsForm } from './form.model';
+import { ModsPart } from './part.model';
 
 export class ElementField {
 
@@ -48,7 +49,7 @@ export class ElementField {
                         newEl.hidden = true;
                         hiddenItems += 1;
                     }
-                } 
+                }
                 this.items.push(newEl);
             }
         }
@@ -165,6 +166,9 @@ export class ElementField {
                 return new ModsRole(el, this.template);
             case ModsAuthor.getId():
                 return new ModsAuthor(el, this.template);
+                
+            case ModsPart.getId():
+                return new ModsPart(el, this.template);
             case ModsPublisher.getId():
                 return new ModsPublisher(el, this.template);
             case ModsLocation.getId():
@@ -197,22 +201,22 @@ export class ElementField {
                 return new ModsCartographics(el, this.template);
             case ModsForm.getId():
                 return new ModsForm(el, this.template);
-            }
+        }
     }
 
 
     public help() {
         let help = `
-            <h2>${this.template.label } <i>${this.template.usage || ''}</i> <code>${this.template.selector || ''}</code></h2>
-            ${this.template.description || '' }<br/>
+            <h2>${this.template.label} <i>${this.template.usage || ''}</i> <code>${this.template.selector || ''}</code></h2>
+            ${this.template.description || ''}<br/>
         `;
         for (const field of Object.keys(this.template.fields)) {
             const f = this.template.fields[field];
             if (f.help != 'off') {
                 help += `
-                    <h3>${f.label } <i>${f.usage || ''}</i> <code>${f.selector || ''}</code></h3>
-                    ${f.description || '' }`;
-            }  
+                    <h3>${f.label} <i>${f.usage || ''}</i> <code>${f.selector || ''}</code></h3>
+                    ${f.description || ''}`;
+            }
 
         }
         return help;
@@ -237,6 +241,8 @@ export class ElementField {
                 return ModsRole.getSelector();
             case ModsAuthor.getId():
                 return ModsAuthor.getSelector();
+            case ModsPart.getId():
+                return ModsPart.getSelector();
             case ModsPublisher.getId():
                 return ModsPublisher.getSelector();
             case ModsLocation.getId():
@@ -269,7 +275,7 @@ export class ElementField {
                 return ModsCartographics.getSelector();
             case ModsForm.getId():
                 return ModsForm.getSelector();
-            }
+        }
     }
 
 }

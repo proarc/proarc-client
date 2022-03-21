@@ -20,6 +20,7 @@ import { ModsGenreChronical } from './mods/genre_chronical.model';
 import { ModsClassification } from './mods/classification.model';
 import { ModsResource } from './mods/resource.model';
 import { ModelTemplate } from '../templates/modelTemplate';
+import { ModsPart } from './mods/part.model';
 declare var $: any;
 
 export class Metadata {
@@ -37,7 +38,8 @@ export class Metadata {
     ModsClassification.getSelector(),
     ModsSubject.getSelector(),
     ModsPhysical.getSelector(),
-    ModsResource.getSelector()
+    ModsResource.getSelector(),
+    ModsPart.getSelector()
   ];
 
 
@@ -157,7 +159,8 @@ export class Metadata {
         ModsNote.getId(),
         ModsAbstract.getId(),
         ModsGenreChronical.getId(),
-        ModsGeo.getId()
+        ModsGeo.getId(),
+        ModsPart.getId()
       ];
     } else {
       this.fieldsIds = [];
@@ -175,7 +178,8 @@ export class Metadata {
         ModsGenre.getId(),
         ModsClassification.getId(),
         ModsPhysical.getId(),
-        ModsResource.getId()
+        ModsResource.getId(),
+        ModsPart.getId()
       ];
       for (const id of allIds) {
         if (this.template[id]) {
