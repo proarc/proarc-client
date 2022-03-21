@@ -22,7 +22,17 @@
     "unpublish": "Zrušit zveřejnění",
     "warning": "Varování",
     "add_brackets": "ozávorkovat",
-    "remove_brackets": "odzávorkovat"
+    "remove_brackets": "odzávorkovat",
+    "multiple": "Více",
+    "day": {
+      "1": "Pondělí",
+      "2": "Úterý",
+      "3": "Středa",
+      "4": "Čtvrtek",
+      "5": "Pátek",
+      "6": "Sobota",
+      "7": "Neděle"
+    }
   },
   "login": {
     "username": "Uživatelské jméno",
@@ -40,7 +50,10 @@
     "custom_pid_description": "V případě potřeby je možné zvolit vlastní PID objektu ve tvaru uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.\nPID nesmí nýt již přidělen jinému objektu.",
     "pid": "PID",
     "failure": "Objekt se nepodařilo vytvořit",
-    "create": "Vytvořit nový objekt"
+    "create": "Vytvořit nový objekt",
+    "seriesPartNumberFrom": "Číslo od",
+    "seriesDateFrom": "Datum od",
+    "seriesDateTo": "Datum do"
   },
   "urnnbn": {
     "title": "Registrace URN:NBN",
@@ -329,6 +342,7 @@
       "single_selection": "Jednoduchý výběr",
       "multiple_selection_label": "Hromadný výběr",
       "multiple_selection_count": "{{count == 0 ? 'Není vybrán žádný objekt' : (count == 1 ? '1 objekt' : count < 5 ? count + ' objekty' : count + ' objektů') }}",
+      "select_columns": "Výběr sloupců",
       "move_dialog": {
         "title": "Změna pozice",
         "message": "Zvolte novou pozici, na kterou chcete vybraný objekt v rámci nadřazeného objektu přesunout",
@@ -1188,7 +1202,8 @@
     "imgdisc": "obraz desky",
     "impressum": "impressum",
     "sheetmusic": "notový zápis",
-    "case": "pouzdro"
+    "case": "pouzdro",
+    "fragmentsofbookbinding": "část vazby"
   },
   "sigla": {
     "BOA001" : "Moravská zemská knihovna v Brně",

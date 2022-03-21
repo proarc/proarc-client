@@ -25,3 +25,10 @@
   margin-top: 20px;
   margin-bottom: 10px;
 }
+
+.app-disabled  {
+  color: #666;
+  cursor: default;
+  opacity: 0.3;
+  pointer-events: none;  
+}

@@ -159,7 +159,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   }
 
   open(item: DocumentItem) {
-    if (!this.editor.preparation && !this.editor.isMultipleChildrenMode()) {
+    if (!this.editor.preparation) {
       this.editor.goToObject(item);
     }
   }
@@ -350,6 +350,10 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     this.editor.saveChildren(() => {
       this.anyChange = false;
     });
+  }
+
+  onSelectColumns() {
+    
   }
 
   onCreateNewObject() {

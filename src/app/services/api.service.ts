@@ -78,14 +78,8 @@ export class ApiService {
     return this.post('object/urnnbn', data).pipe(map(response => response['response']['data'][0]));
   }
 
-  createObject(model: string, pid: string, parentPid: string): Observable<string> {
-    let data = `model=${model}`;
-    if (pid) {
-      data = `${data}&pid=${pid}`;
-    }
-    if (parentPid) {
-      data = `${data}&parent=${parentPid}`;
-    }
+  createObject(data: string): Observable<string> {
+    
     return this.post('object', data).pipe(map(response => response['response']['data'][0]['pid']));
   }
 

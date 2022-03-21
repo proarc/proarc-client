@@ -8,15 +8,40 @@
     </mat-select>
   </mat-form-field>
 
-
   <mat-form-field class="app-pid" *ngIf="data.customPid">
     <input type="text" autocomplete="off" matInput [placeholder]="'new_object.pid' | translate" [(ngModel)]="data.pid">
   </mat-form-field>
 
   <div class="app-invalid-pid" *ngIf="data.customPid && !validate()">{{ 'new_object.invalid_pid' | translate }}</div>
 
+  <mat-checkbox color="primary" [(ngModel)]="data.customPid">{{ 'new_object.custom_pid' | translate }}</mat-checkbox>&#160;
+  <mat-checkbox color="primary" [(ngModel)]="isMultiple">{{ 'common.multiple' | translate }}</mat-checkbox>
 
-  <mat-checkbox color="primary" [(ngModel)]="data.customPid">{{ 'new_object.custom_pid' | translate }}</mat-checkbox>
+  <div *ngIf="data.model === 'model:ndkperiodicalissue'" [class.app-disabled]="!isMultiple">
+    <mat-form-field class="app-pid">
+      <input type="number" autocomplete="off" matInput [placeholder]="'new_object.seriesPartNumberFrom' | translate" [(ngModel)]="seriesPartNumberFrom">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="dp1" [placeholder]="'new_object.seriesDateFrom' | translate" [(ngModel)]="seriesDateFrom">
+      <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+      <mat-datepicker #dp1></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="dp2" [placeholder]="'new_object.seriesDateTo' | translate" [(ngModel)]="seriesDateTo">
+      <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+      <mat-datepicker #dp2></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Vydáváno v</mat-label>
+      <mat-select [(value)]="seriesDaysIncluded" multiple>
+        <mat-option *ngFor="let weekDay of weekDays" [value]="weekDay">{{'common.day.'+weekDay | translate}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
   <div class="app-message">{{ 'new_object.custom_pid_description' | translate }}</div>
 
   <div class="app-create-failure" *ngIf="state=='error'">{{ 'new_object.failure' | translate }}</div>

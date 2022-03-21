@@ -15,7 +15,9 @@ import { MatButtonModule,
   MatProgressBarModule,
   MatAutocompleteModule,
   MatPaginatorModule,
-  MatTreeModule} from '@angular/material';
+  MatTreeModule,
+  MatDatepickerModule,
+  MatNativeDateModule} from '@angular/material';
 
   const modules = [
     MatButtonModule,
@@ -34,7 +36,9 @@ import { MatButtonModule,
     MatProgressBarModule,
     MatPaginatorModule,
     MatAutocompleteModule,
-    MatTreeModule
+    MatTreeModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ];
 
   @NgModule({

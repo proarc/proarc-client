@@ -1,8 +1,9 @@
 
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { DateAdapter, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Uuid } from 'src/app/utils/uuid';
 import { ApiService } from 'src/app/services/api.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-new-object-dialog',
@@ -12,8 +13,16 @@ import { ApiService } from 'src/app/services/api.service';
 export class NewObjectDialogComponent implements OnInit {
 
   state = 'none';
+  isMultiple: boolean;
+  seriesPartNumberFrom: number;
+  seriesDateFrom: Date;
+  seriesDateTo: Date;
+  seriesDaysIncluded: number[] = [];
+  weekDays = [1,2,3,4,5,6,7];
 
   constructor(
+    public adapter: DateAdapter<any>,
+    private datePipe: DatePipe,
     public dialogRef: MatDialogRef<NewObjectDialogComponent>,
     private api: ApiService,
     @Inject(MAT_DIALOG_DATA) public data: NewObjectData) { }
@@ -27,9 +36,29 @@ export class NewObjectDialogComponent implements OnInit {
   }
 
   onCreate() {
+
+
     this.state = 'saving';
-    const customPid = this.data.customPid ? this.data.pid : null;      
-    this.api.createObject(this.data.model, customPid, this.data.parentPid).subscribe((pid: string) => {
+    const customPid = this.data.customPid ? this.data.pid : null;
+
+    let data = `model=${this.data.model}`;
+    if (customPid) {
+      data = `${data}&pid=${customPid}`;
+    }
+    if (this.data.parentPid) {
+      data = `${data}&parent=${this.data.parentPid}`;
+    }
+
+    if (this.isMultiple) {
+      data += '&seriesPartNumberFrom='+this.seriesPartNumberFrom;
+      data += '&seriesDateFrom='+ this.datePipe.transform(this.seriesDateFrom, 'yyyy-MM-dd');
+      data += '&seriesDateTo='+this.datePipe.transform(this.seriesDateTo, 'yyyy-MM-dd');
+      this.seriesDaysIncluded.forEach(d => {
+        data += '&seriesDaysIncluded='+d;
+      });
+    }
+
+    this.api.createObject(data).subscribe((pid: string) => {
       this.dialogRef.close({pid: pid})
     },
     (error) => {
@@ -46,4 +75,5 @@ export interface NewObjectData {
   customPid: boolean;
   parentPid?: string;
   pid?: string;
+  cislood?: string;
 }

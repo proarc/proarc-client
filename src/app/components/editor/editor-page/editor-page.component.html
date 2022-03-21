@@ -47,8 +47,6 @@
               </mat-select>
             </mat-form-field> 
 
- 
-
             <mat-form-field class="app-half-left" *ngIf="page.isNdkPage()">
               <span class="app-usage" [class.app-help-off]="true">O</span>
               <mat-select [(ngModel)]='page.position' placeholder="{{ 'editor.page.position' | translate }}">
@@ -62,9 +60,6 @@
                 <mat-option *ngFor="let genre of genres" [value]="genre">{{ 'editor.page.genres.' + genre | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
-
-
-
 
 
             <mat-form-field class="app-full-width">

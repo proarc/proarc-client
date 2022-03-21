@@ -13,6 +13,7 @@ export class ConfigService {
         'bibliography',
         'bibliographicalPortrait',
         'booklet',
+        'fragmentsOfBookbinding',
         'colophon',
         'dedication',
         'cover',
