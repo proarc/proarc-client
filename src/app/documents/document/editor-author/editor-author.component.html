@@ -1,5 +1,5 @@
 <app-editor-field [field]="field">
-  
+
   <ng-template let-item="item" #templateMenu>
       <div class="app-header-divider"></div>
 
@@ -26,9 +26,11 @@
     <app-field-text field="name" [item]="item" [(value)]="item.name['_']" ></app-field-text>
     <app-field-text field="given" [item]="item" [(value)]="item.given['_']" ></app-field-text>
     <app-field-text field="family" [item]="item" [(value)]="item.family['_']" ></app-field-text>
+    <app-field-text field="nameIdentifier" [item]="item" [(value)]="item.nameIdentifier"></app-field-text>
+    <app-field-text field="etal" [item]="item" [(value)]="item.etal"></app-field-text>
     <app-field-text field="date" [item]="item" [(value)]="item.date['_']" ></app-field-text>
     <app-field-dropdown field="type" [item]="item" [(value)]='item.attrs["type"]'></app-field-dropdown>
-  
+
     <app-field-text field="affiliation" [item]="item" [(value)]='item.affiliation["_"]'></app-field-text>
 
     <app-editor-field *ngIf="item.roles" [field]="item.roles" class="app-roles" [nested]='true'>
@@ -44,5 +46,5 @@
   </ng-template>
 </app-editor-field>
 
-    
+
 

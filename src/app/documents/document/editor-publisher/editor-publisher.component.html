@@ -1,11 +1,13 @@
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
-   
+
    <app-field-text field="publisher" [item]="item" [(value)]="item.publisher['_']"></app-field-text>
-   
+
     <app-field-text field="dateIssued" [item]="item" [(value)]="item.dateIssued['_']" ></app-field-text>
 
     <app-field-dropdown field="qualifier" [item]="item" [(value)]='item.dateIssued["$"]["qualifier"]'></app-field-dropdown>
+    <app-field-dropdown field="encoding" [item]="item" [(value)]='item.dateIssued["$"]["encoding"]'></app-field-dropdown>
+    <app-field-dropdown field="point" [item]="item" [(value)]='item.dateIssued["$"]["point"]'></app-field-dropdown>
 
     <app-field-text field="place" [item]="item" [(value)]="item.place['_']" ></app-field-text>
 
