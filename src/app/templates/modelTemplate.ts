@@ -17,6 +17,9 @@ import { NdkPeriodicalVolumeRdaTemplate } from "./ndkPeriodicalVolume.rda.templa
 import { NdkSheetMusicAacrTemplate } from "./ndkSheetmusic.aacr.template";
 import { NdkSheetMusicRdaTemplate } from "./ndkSheetmusic.rda.template";
 import {BdmArticleRdaTemplate} from './bdmArticle.rda.template';
+import {NdkMusicDocumentAacrTemplate} from './aacr/ndkMusicDocument.aacr.template';
+import {NdkMusicSongAacrTemplate} from './aacr/ndkMusicSong.aacr.template';
+import {NdkMusicTrackAacrTemplate} from './aacr/ndkMusicTrack.aacr.template';
 
 export class ModelTemplate {
 
@@ -53,15 +56,20 @@ export class ModelTemplate {
       "model:ndkemonographvolume": NdkMonographVolumeAacrTemplate.data,
       "model:ndkechapter": NdkMonographVolumeAacrTemplate.data,
 
-      "model:ndkphonographcylinder": NdkMonographVolumeAacrTemplate.data,
-      "model:ndkmusicdocument": NdkMonographVolumeAacrTemplate.data,
-      "model:ndksong": NdkMonographVolumeAacrTemplate.data,
-      "model:ndktrack": NdkMonographVolumeAacrTemplate.data,
-      "model:ndkaudiopage": NdkMonographVolumeAacrTemplate.data,
+      // eClanek
+      "model:bdmarticle": NdkMonographVolumeAacrTemplate.data,
+
+      // chronicle
       "model:chronicletitle": NdkMonographVolumeAacrTemplate.data,
       "model:chroniclevolume": NdkMonographVolumeAacrTemplate.data,
       "model:chroniclesupplement": NdkMonographVolumeAacrTemplate.data,
-      "model:bdmarticle": NdkMonographVolumeAacrTemplate.data
+
+      // ndk music documents
+      "model:ndkphonographcylinder": NdkMusicDocumentAacrTemplate.data,
+      "model:ndkmusicdocument": NdkMusicDocumentAacrTemplate.data,
+      "model:ndksong": NdkMusicSongAacrTemplate.data,
+      "model:ndktrack": NdkMusicTrackAacrTemplate.data,
+      "model:ndkaudiopage": NdkMonographVolumeAacrTemplate.data,
 
     },
     "rda": {
@@ -92,10 +100,24 @@ export class ModelTemplate {
       "model:ndkeperiodicalvolume": NdkMonographVolumeRdaTemplate.data,
       "model:ndkeperiodicalissue": NdkMonographVolumeRdaTemplate.data,
       "model:ndkearticle": NdkMonographVolumeRdaTemplate.data,
-      "model:bdmarticle": BdmArticleRdaTemplate.data,
       "model:ndkemonographtitle": NdkMonographVolumeRdaTemplate.data,
       "model:ndkemonographvolume": NdkMonographVolumeRdaTemplate.data,
       "model:ndkechapter": NdkMonographVolumeRdaTemplate.data,
+
+      // eClanek
+      "model:bdmarticle": BdmArticleRdaTemplate.data,
+
+      // chronicle
+      "model:chronicletitle": NdkMonographVolumeAacrTemplate.data,
+      "model:chroniclevolume": NdkMonographVolumeAacrTemplate.data,
+      "model:chroniclesupplement": NdkMonographVolumeAacrTemplate.data,
+
+      // ndk music documents
+      "model:ndkphonographcylinder": NdkMusicDocumentAacrTemplate.data,
+      "model:ndkmusicdocument": NdkMusicDocumentAacrTemplate.data,
+      "model:ndksong": NdkMusicSongAacrTemplate.data,
+      "model:ndktrack": NdkMusicTrackAacrTemplate.data,
+      "model:ndkaudiopage": NdkMonographVolumeAacrTemplate.data,
 
     }
   }
