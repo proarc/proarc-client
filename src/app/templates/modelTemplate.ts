@@ -20,6 +20,7 @@ import {BdmArticleRdaTemplate} from './bdmArticle.rda.template';
 import {NdkMusicDocumentAacrTemplate} from './aacr/ndkMusicDocument.aacr.template';
 import {NdkMusicSongAacrTemplate} from './aacr/ndkMusicSong.aacr.template';
 import {NdkMusicTrackAacrTemplate} from './aacr/ndkMusicTrack.aacr.template';
+import {NdkMusicAudioPageAacrTemplate} from './aacr/ndkMusicAudioPage.aacr.template';
 
 export class ModelTemplate {
 
@@ -69,7 +70,7 @@ export class ModelTemplate {
       "model:ndkmusicdocument": NdkMusicDocumentAacrTemplate.data,
       "model:ndksong": NdkMusicSongAacrTemplate.data,
       "model:ndktrack": NdkMusicTrackAacrTemplate.data,
-      "model:ndkaudiopage": NdkMonographVolumeAacrTemplate.data,
+      "model:ndkaudiopage": NdkMusicAudioPageAacrTemplate.data,
 
     },
     "rda": {
@@ -117,7 +118,7 @@ export class ModelTemplate {
       "model:ndkmusicdocument": NdkMusicDocumentAacrTemplate.data,
       "model:ndksong": NdkMusicSongAacrTemplate.data,
       "model:ndktrack": NdkMusicTrackAacrTemplate.data,
-      "model:ndkaudiopage": NdkMonographVolumeAacrTemplate.data,
+      "model:ndkaudiopage": NdkMusicAudioPageAacrTemplate.data,
 
     }
   }
