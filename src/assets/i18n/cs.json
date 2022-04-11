@@ -1161,6 +1161,7 @@
   "page_type": {
     "unknown" : "strana",
     "advertisement" : "reklama",
+    "audio": "zvuková nahrávka",
     "backcover" : "zadní desky",
     "backendsheet" : "zadní přídeští",
     "blank" : "prázdná strana",

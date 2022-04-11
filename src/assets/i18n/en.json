@@ -1,10 +1,10 @@
 {
   "common": {
     "remove": "Remove",
-    "cancel": "Cancel",    
-    "edit": "Edit",    
-    "open": "Open",    
-    "revert": "Revert",       
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "open": "Open",
+    "revert": "Revert",
     "ok": "OK",
     "yes": "Yes",
     "no": "No",
@@ -63,8 +63,8 @@
   "export": {
     "title": "Export",
     "type": "Export Type",
-    "type_datastream_full": "Scans", 
-    "type_datastream_raw": "Original Scans", 
+    "type_datastream_full": "Scans",
+    "type_datastream_raw": "Original Scans",
     "type_kramerius": "Kramerius",
     "type_archive": "Archivation",
     "type_ndk_psp": "NDK PSP",
@@ -283,7 +283,7 @@
       "subtitle": "Subtitle",
       "partnumber": "Part Number",
       "partname": "Part Name",
-      "non_sort_toggle": "The first word is an article." 
+      "non_sort_toggle": "The first word is an article."
     },
     "geo": {
       "editor_title": "Geographical Location",
@@ -330,11 +330,11 @@
     "author": {
       "tab": "Author",
       "author": "Author",
-      "name": "Full Name",   
-      "family": "Family Name",    
-      "given": "Given Name",   
-      "type": "Type", 
-      "date": "Date", 
+      "name": "Full Name",
+      "family": "Family Name",
+      "given": "Given Name",
+      "type": "Type",
+      "date": "Date",
       "role": {
         "role": "Role"
       },
@@ -1243,6 +1243,7 @@
   "page_type" : {
     "unknown" : "page",
     "advertisement" : "advertisement",
+    "audio": "audio",
     "backcover" : "back cover",
     "backendsheet" : "back end sheet",
     "blank" : "blank",
@@ -1362,5 +1363,5 @@
     "OPD001" : "Silesian university in Opava",
     "JHE301" : "Museum of Jindrichuv Hradec Region"
   }
-  
+
 }
