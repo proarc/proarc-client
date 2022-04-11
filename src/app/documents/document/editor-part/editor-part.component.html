@@ -1,13 +1,6 @@
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
-
-    <app-field-text field="part" [item]="item" [(value)]="item.modsElement['_']"></app-field-text>
-
     <app-field-dropdown field="type" [item]="item" [(value)]='item.attrs["type"]'></app-field-dropdown>
-
-    <app-field-text field="detail" [item]="item" [(value)]="item.detail['_']"></app-field-text>
-
     <app-field-text field="caption" [item]="item" [(value)]="item.caption['_']"></app-field-text>
-
   </ng-template>
 </app-editor-field>

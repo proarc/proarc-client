@@ -4,9 +4,9 @@
     "add": "Přidat",
     "cancel": "Zrušit",
     "edit": "Upravit",
-    "open": "Otevřít", 
+    "open": "Otevřít",
     "continue": "Pokračovat",
-    "revert": "Vrátit původní",   
+    "revert": "Vrátit původní",
     "ok": "OK",
     "yes": "Ano",
     "no": "Ne",
@@ -75,8 +75,8 @@
   "export": {
     "title": "Export",
     "type": "Typ exportu",
-    "type_datastream_full": "Skeny", 
-    "type_datastream_raw": "Původní sken", 
+    "type_datastream_full": "Skeny",
+    "type_datastream_raw": "Původní sken",
     "type_kramerius": "Kramerius",
     "type_archive": "Archivace",
     "type_ndk_psp": "NDK PSP",
@@ -397,6 +397,14 @@
         "reprePage": "Ano"
       }
     },
+    "song": {
+      "title": "Popis zvuku",
+      "index": "Index",
+      "number": "Číslo",
+      "identifier": "Indentifikátor",
+      "note": "Popis obsahu",
+      "add_identifier": "Přidat identifikátor"
+    },
     "pages": {
       "title": "Hromadná úprava stránek",
       "edit_page_type": "Editovat typy stran",
@@ -552,10 +560,10 @@
     },
     "author": {
       "title": "Autor",
-      "name": "Celé jméno", 
-      "family": "Příjmení",    
-      "given": "Křestní",       
-      "type": "Typ",  
+      "name": "Celé jméno",
+      "family": "Příjmení",
+      "given": "Křestní",
+      "type": "Typ",
       "date": "Datum",
       "role": {
         "title": "Role"

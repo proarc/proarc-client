@@ -52,6 +52,7 @@ import { EditorModsComponent } from './components/editor/editor-mods/editor-mods
 import { EditorCommentComponent } from './components/editor/editor-comment/editor-comment.component';
 import { EditorAtmComponent } from './components/editor/editor-atm/editor-atm.component';
 import { EditorPageComponent } from './components/editor/editor-page/editor-page.component';
+import { EditorSongComponent} from './components/editor/editor-song/editor-song.component';
 import { EditorGeoComponent } from './components/editor/editor-geo/editor-geo.component';
 import { EditorSubjectGeoComponent } from './documents/document/editor-subject-geo/editor-subject-geo.component';
 import { ImportComponent } from './components/import/import.component';
@@ -154,6 +155,7 @@ export function hljsLanguages() {
     EditorCommentComponent,
     EditorAtmComponent,
     EditorPageComponent,
+    EditorSongComponent,
     EditorMetadataComponent,
     EditorGeoComponent,
     EditorSubjectGeoComponent,

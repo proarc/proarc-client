@@ -103,6 +103,8 @@
           <ng-container *ngIf="editor.leftEditorType == 'metadata'">
             <app-editor-page *ngIf="editor.left.isPage()" [model]="editor.left.model" [pid]="editor.left.pid">
             </app-editor-page>
+            <app-editor-song *ngIf="editor.left.isSong()" [model]="editor.left.model" [pid]="editor.left.pid">
+            </app-editor-song>
             <!-- <app-editor-issue *ngIf="editor.left.isIssue()" [pid]="editor.left.pid"></app-editor-issue> -->
             <!-- <app-editor-volume *ngIf="editor.left.isVolume()" [pid]="editor.left.pid"></app-editor-volume> -->
             <app-editor-chronicle *ngIf="editor.left.isChronicle()" [pid]="editor.left.pid"></app-editor-chronicle>
@@ -213,8 +215,10 @@
           <ng-container *ngIf="editor.rightEditorType == 'metadata'">
             <app-editor-page *ngIf="editor.right.isPage()" [model]="editor.right.model" [pid]="editor.right.pid">
             </app-editor-page>
+            <app-editor-song *ngIf="editor.right.isSong()" [model]="editor.right.model" [pid]="editor.right.pid">
+            </app-editor-song>
             <app-editor-metadata *ngIf="!editor.right.isPage()" [pid]="editor.right.pid"></app-editor-metadata>
-            <!-- 
+            <!--
           <app-editor-issue *ngIf="editor.right.isIssue()" [pid]="editor.right.pid"></app-editor-issue>
           <app-editor-volume *ngIf="editor.right.isVolume()" [pid]="editor.right.pid"></app-editor-volume> -->
           </ng-container>

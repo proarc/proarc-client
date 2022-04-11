@@ -620,33 +620,23 @@ export class NdkMonographVolumeAacrTemplate {
       usage: "O",
       label: "Popis části",
       selector: 'part',
-      description: `popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.`,
+      description: `Popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.`,
       fields: {
         type: {
           usage: "O",
           label: "Typ",
-          selector: 'part/@type',
+          selector: "part/@type",
           description: `Hodnota bude vždy "volume" `,
           options: [
             ['volume', 'volume']
           ]
         },
-        detail: {
-          usage: "0",
-          label: "Detail",
-          selector: 'part/detail'
-        },
         caption: {
           usage: "RA",
           label: "Caption",
-          selector: 'part/detail/caption',
+          selector: "part/detail/caption",
           description: `text před označením čísla, např. "č.", „část“, "No." apod.`
         },
-        part: {
-          usage: "O",
-          label: "Část",
-          help: "off"
-        }
       }
     },
     recordInfo: {
