@@ -1,5 +1,5 @@
-import { NdkMapAacrTemplate } from "./ndkMap.aacr.template";
-import { NdkMapRdaTemplate } from "./ndkMap.rda.template";
+import { NdkMapAacrTemplate } from "./aacr/ndkMap.aacr.template";
+import { NdkMapRdaTemplate } from "./rda/ndkMap.rda.template";
 import { NdkMonographSupplementAacrTemplate } from "./ndkMonographsupplement.aacr.template";
 import { NdkMonographSupplementRdaTemplate } from "./ndkMonographsupplement.rda.template";
 import { NdkMonographTitleAacrTemplate } from "./aacr/ndkMonographtitle.aacr.template";
