@@ -1,5 +1,7 @@
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
+    <app-field-dropdown field="type" [item]="item" [(value)]='item.attrs["type"]'></app-field-dropdown>
+    <app-field-text field="nonSort" [item]="item" [(value)]="item.nonSort['_']"></app-field-text>
 
     <mat-form-field class="app-field-col" *ngIf="item.available('title')" [class.app-invalid]="item.invalid('title')">
       <app-usage [item]="item" field="title"></app-usage>
@@ -14,11 +16,7 @@
       </mat-slide-toggle>
     </mat-form-field>
 
-    <app-field-text field="nonSort" [item]="item" [(value)]="item.nonSort['_']"></app-field-text>
-
     <app-field-text field="subTitle" [item]="item" [(value)]="item.subTitle['_']"></app-field-text>
-
-    <app-field-dropdown field="type" [item]="item" [(value)]='item.attrs["type"]'></app-field-dropdown>
 
     <app-field-text field="partName" [item]="item" [(value)]="item.partName['_']"></app-field-text>
 
