@@ -2,8 +2,8 @@ import { NdkMapAacrTemplate } from "./ndkMap.aacr.template";
 import { NdkMapRdaTemplate } from "./ndkMap.rda.template";
 import { NdkMonographSupplementAacrTemplate } from "./ndkMonographsupplement.aacr.template";
 import { NdkMonographSupplementRdaTemplate } from "./ndkMonographsupplement.rda.template";
-import { NdkMonographTitleAacrTemplate } from "./ndkMonographtitle.aacr.template";
-import { NdkMonographTitleRdaTemplate } from "./ndkMonographtitle.rda.template";
+import { NdkMonographTitleAacrTemplate } from "./aacr/ndkMonographtitle.aacr.template";
+import { NdkMonographTitleRdaTemplate } from "./rda/ndkMonographtitle.rda.template";
 import { NdkMonographVolumeAacrTemplate } from "./aacr/ndkMonographvolume.aacr.template";
 import { NdkMonographVolumeRdaTemplate } from "./rda/ndkMonographvolume.rda.template";
 import { NdkPeriodicalAacrTemplate } from "./ndkPeriodical.aacr.template";
@@ -21,6 +21,8 @@ import {NdkMusicDocumentAacrTemplate} from './aacr/ndkMusicDocument.aacr.templat
 import {NdkMusicSongAacrTemplate} from './aacr/ndkMusicSong.aacr.template';
 import {NdkMusicTrackAacrTemplate} from './aacr/ndkMusicTrack.aacr.template';
 import {NdkMusicAudioPageAacrTemplate} from './aacr/ndkMusicAudioPage.aacr.template';
+import {AacrTemplate} from './aacr/aacr.template';
+import {RdaTemplate} from './rda/rda.template';
 
 export class ModelTemplate {
 
@@ -36,34 +38,34 @@ export class ModelTemplate {
       "model:ndkperiodicalissue": NdkPeriodicalIssueAacrTemplate.data,
       "model:ndkperiodicalsupplement": NdkPeriodicalSupplementAacrTemplate.data,
 
-      "model:ndkarticle": NdkMonographVolumeAacrTemplate.data,
-      "model:ndkpicture": NdkMonographVolumeAacrTemplate.data,
-      "model:ndkchapter": NdkMonographVolumeAacrTemplate.data,
+      "model:ndkarticle": AacrTemplate.data,
+      "model:ndkpicture": AacrTemplate.data,
+      "model:ndkchapter": AacrTemplate.data,
 
-      "model:oldprintomnibusvolume": NdkMonographVolumeAacrTemplate.data,
+      "model:oldprintomnibusvolume": AacrTemplate.data,
       "model:oldprintmonographtitle": NdkMonographTitleAacrTemplate.data,
-      "model:oldprintvolume": NdkMonographVolumeAacrTemplate.data,
-      "model:oldprintsupplement": NdkMonographVolumeAacrTemplate.data,
-      "model:oldprintchapter": NdkMonographVolumeAacrTemplate.data,
-      "model:oldprintgraphics": NdkMonographVolumeAacrTemplate.data,
-      "model:oldprintmap": NdkMonographVolumeAacrTemplate.data,
-      "model:oldprintsheetmusic": NdkMonographVolumeAacrTemplate.data,
+      "model:oldprintvolume": AacrTemplate.data,
+      "model:oldprintsupplement": AacrTemplate.data,
+      "model:oldprintchapter": AacrTemplate.data,
+      "model:oldprintgraphics": AacrTemplate.data,
+      "model:oldprintmap": AacrTemplate.data,
+      "model:oldprintsheetmusic": AacrTemplate.data,
 
       "model:ndkeperiodical": NdkPeriodicalAacrTemplate.data,
       "model:ndkeperiodicalvolume": NdkPeriodicalVolumeAacrTemplate.data,
       "model:ndkeperiodicalissue": NdkPeriodicalIssueAacrTemplate.data,
-      "model:ndkearticle": NdkMonographVolumeAacrTemplate.data,
+      "model:ndkearticle": AacrTemplate.data,
       "model:ndkemonographtitle": NdkMonographTitleAacrTemplate.data,
-      "model:ndkemonographvolume": NdkMonographVolumeAacrTemplate.data,
-      "model:ndkechapter": NdkMonographVolumeAacrTemplate.data,
+      "model:ndkemonographvolume": AacrTemplate.data,
+      "model:ndkechapter": AacrTemplate.data,
 
       // eClanek
-      "model:bdmarticle": NdkMonographVolumeAacrTemplate.data,
+      "model:bdmarticle": AacrTemplate.data,
 
       // chronicle
-      "model:chronicletitle": NdkMonographVolumeAacrTemplate.data,
-      "model:chroniclevolume": NdkMonographVolumeAacrTemplate.data,
-      "model:chroniclesupplement": NdkMonographVolumeAacrTemplate.data,
+      "model:chronicletitle": AacrTemplate.data,
+      "model:chroniclevolume": AacrTemplate.data,
+      "model:chroniclesupplement": AacrTemplate.data,
 
       // ndk music documents
       "model:ndkphonographcylinder": NdkMusicDocumentAacrTemplate.data,
@@ -84,34 +86,34 @@ export class ModelTemplate {
       "model:ndkperiodicalissue": NdkPeriodicalIssueRdaTemplate.data,
       "model:ndkperiodicalsupplement": NdkPeriodicalSupplementRdaTemplate.data,
 
-      "model:ndkarticle": NdkMonographVolumeRdaTemplate.data,
-      "model:ndkpicture": NdkMonographVolumeRdaTemplate.data,
-      "model:ndkchapter": NdkMonographVolumeRdaTemplate.data,
+      "model:ndkarticle": RdaTemplate.data,
+      "model:ndkpicture": RdaTemplate.data,
+      "model:ndkchapter": RdaTemplate.data,
 
-      "model:oldprintomnibusvolume": NdkMonographVolumeRdaTemplate.data,
+      "model:oldprintomnibusvolume": RdaTemplate.data,
       "model:oldprintmonographtitle": NdkMonographTitleRdaTemplate.data,
-      "model:oldprintvolume": NdkMonographVolumeRdaTemplate.data,
-      "model:oldprintsupplement": NdkMonographVolumeRdaTemplate.data,
-      "model:oldprintchapter": NdkMonographVolumeRdaTemplate.data,
-      "model:oldprintgraphics": NdkMonographVolumeRdaTemplate.data,
-      "model:oldprintmap": NdkMonographVolumeRdaTemplate.data,
-      "model:oldprintsheetmusic": NdkMonographVolumeRdaTemplate.data,
+      "model:oldprintvolume": RdaTemplate.data,
+      "model:oldprintsupplement": RdaTemplate.data,
+      "model:oldprintchapter": RdaTemplate.data,
+      "model:oldprintgraphics": RdaTemplate.data,
+      "model:oldprintmap": RdaTemplate.data,
+      "model:oldprintsheetmusic": RdaTemplate.data,
 
-      "model:ndkeperiodical": NdkMonographVolumeRdaTemplate.data,
-      "model:ndkeperiodicalvolume": NdkMonographVolumeRdaTemplate.data,
-      "model:ndkeperiodicalissue": NdkMonographVolumeRdaTemplate.data,
-      "model:ndkearticle": NdkMonographVolumeRdaTemplate.data,
-      "model:ndkemonographtitle": NdkMonographVolumeRdaTemplate.data,
-      "model:ndkemonographvolume": NdkMonographVolumeRdaTemplate.data,
-      "model:ndkechapter": NdkMonographVolumeRdaTemplate.data,
+      "model:ndkeperiodical": RdaTemplate.data,
+      "model:ndkeperiodicalvolume": RdaTemplate.data,
+      "model:ndkeperiodicalissue": RdaTemplate.data,
+      "model:ndkearticle": RdaTemplate.data,
+      "model:ndkemonographtitle": RdaTemplate.data,
+      "model:ndkemonographvolume": RdaTemplate.data,
+      "model:ndkechapter": RdaTemplate.data,
 
       // eClanek
       "model:bdmarticle": BdmArticleRdaTemplate.data,
 
       // chronicle
-      "model:chronicletitle": NdkMonographVolumeAacrTemplate.data,
-      "model:chroniclevolume": NdkMonographVolumeAacrTemplate.data,
-      "model:chroniclesupplement": NdkMonographVolumeAacrTemplate.data,
+      "model:chronicletitle": AacrTemplate.data,
+      "model:chroniclevolume": AacrTemplate.data,
+      "model:chroniclesupplement": AacrTemplate.data,
 
       // ndk music documents
       "model:ndkphonographcylinder": NdkMusicDocumentAacrTemplate.data,

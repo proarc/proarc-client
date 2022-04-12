@@ -163,7 +163,7 @@ export class NdkMonographVolumeRdaTemplate {
     },
     originInfo: {
       usage: "M",
-      label: "Nakladatel",
+      label: "Původ předlohy",
       selector: 'originInfo',
       description: `Informace o původu předlohy: odpovídá poli 264`,
       fields: {

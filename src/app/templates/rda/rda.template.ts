@@ -1,4 +1,4 @@
-export class NdkMonographVolumeAacrTemplate {
+export class RdaTemplate {
 
   static data = {
     titleInfo: {
@@ -17,6 +17,7 @@ export class NdkMonographVolumeAacrTemplate {
           description: `Hlavní název bez typu - pole 245 a $a<br/>
           Možné hodnoty
           <ul>
+            <li>Zkrácený název (abbreviated) - pole 210</li>
             <li>Alternativní název (alternative) – pole 246</li>
             <li>Přeložený název (translated) – pole 242</li>
             <li>Jednotný název (uniform) – pole 130 resp. 240</li>
@@ -96,10 +97,10 @@ export class NdkMonographVolumeAacrTemplate {
           </ul>`,
           options: [
             ['', '-'],
-            ['personal', 'Osoba'],
-            ['corporate', 'Organizace'],
-            ['conference', 'Konference'],
-            ['family', 'Rodina']
+            ['personal','Osoba'],
+            ['corporate','Organizace'],
+            ['conference','Konference'],
+            ['family','Rodina']
           ]
         },
         name: {
@@ -164,42 +165,102 @@ export class NdkMonographVolumeAacrTemplate {
       usage: "M",
       label: "Původ předlohy",
       selector: 'originInfo',
-      description: `Informace o původu předlohy`,
+      description: `Informace o původu předlohy: odpovídá poli 264`,
       fields: {
         publisher: {
-          usage: "MA",
-          label: "Nakladatel",
-          selector: 'originInfo/publisher',
-          description: `Jméno entity, která dokument vydala, vytiskla nebo jinak vyprodukovala<br/>
-            Odpovídá poli 260 $b katalogizačního záznamu v MARC21.<br/>
-            Pokud má monografie více vydavatelů, přebírají se za záznamu všichni (jsou v jednom poli 260).`,
+            usage: "MA",
+            label: "Nakladatel",
+            selector: 'originInfo/publisher',
+            description: `Jméno entity, která dokument vytvořila, vydala, distribuovala nebo vyrobila<br/>
+            odpovídá poli 264 $b katalogizačního záznamu v MARC21<br/>
+            pokud má monografie více vydavatelů/distributorů/výrobců, přebírají se ze záznamu všichni (v jednom poli 264)`,
+        },
+        eventType: {
+          usage: "M",
+          label: "Typ",
+          selector: 'originInfo/@eventType',
+          cols: 2,
+          description:`Hodnoty dle druhého indikátoru pole 264:
+          <ul>
+            <li>
+              264_0 <strong>Produkce</strong> (production) <i>R</i><br/>
+              Hodnota 0 se uvádí, jestliže pole obsahuje <strong>údaje o vytvoření</strong> zdroje v nezveřejněné podobě.
+            </li>
+            <li>
+              264_1 <strong>Publikace</strong> (publication) <i>R</i><br/>
+              Hodnota 1 se uvádí, jestliže pole obsahuje <strong>údaje o nakladateli</strong> zdroje
+            </li>
+            <li>
+              264_2 <strong>Distribuce</strong> (distribution) <i>R</i><br/>
+              Hodnota 2 se uvádí, jestliže pole obsahuje <strong>údaje o distribuci</strong> zdroje
+            </li>
+            <li>
+              264_3 <strong>Výroba</strong> (manufacture) <i>R</i><br/>
+              Hodnota 3 se uvádí, jestliže pole obsahuje <strong>údaje o tisku</strong>, výrobě zdroje ve zveřejněné podobě.
+            </li>
+            <li>
+              264_4 <strong>Copyright</strong> (copyright) <i>R</i><br/>
+              Hodnota 4 se uvádí, jestliže pole obsahuje <strong>údaje o ochraně podle autorského práva</strong>
+            </li>
+          </ul>
+          <p>Element <originInfo> je opakovatelný. Alespoň v
+          jednom případě musí být vyplněna hodnota
+          eventType="production" nebo
+          eventType="publication".
+          </p>
+          <p>Údaje o distribuci, výrobě a copyrightu jsou u
+          tištěných monografií přesunuty z minimálního
+          záznamu do doporučeného.<br/>
+          </p>
+          <p>Hodnota eventType musí být vyplněna na
+          základě katalogizačního záznamu. Pravidlo pro
+          převod je závazné, povinnost R značí, že musí
+          být vybrána jedna z doporučených hodnot na
+          základě katalogizačního záznamu.
+          </p>`,
+          options: [
+            ['','-'],
+            ['production', 'Produkce'],
+            ['publication', 'Publikace'],
+            ['distribution', 'Distribuce'],
+            ['manufacture', 'Výroba'],
+            ['copyright', 'Copyright']
+          ]
         },
         dateIssued: {
-          usage: "M",
-          label: "Datum vydání",
-          selector: 'originInfo/dateIssued',
-          cols: 2,
-          description: `Datum vydání předlohy.<br/>
+            usage: "M",
+            label: "Datum vydání",
+            selector: 'originInfo/dateIssued',
+            cols: 2,
+            description:`Datum vydání předlohy.<br/>
             Přebírat z katalogu.<br/>
-            Odpovídá hodnotě z katalogizačního záznamu, pole 260, $c a pole 008/07-10`,
+            Odpovídá hodnotě z katalogizačního záznamu, pole 264_1 $c a pole 008/07-10<br/>
+            Pro všechny ostatní výskyty v poli 264 $c:
+            <ul>
+              <li>264_0 <strong>Produkce</strong> (production)</li>
+              <li>264_2 <strong>Distribuce</strong> (distribution)</li>
+              <li>264_3 <strong>Výroba</strong> (manufacture)</li>
+              <li>264_4 <strong>Copyright</strong> (copyright)</li>
+            </ul>
+            využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>`
         },
         qualifier: {
-          usage: "R",
-          label: "Upřesnění data",
-          selector: 'originInfo/dateIssued/@qualifier',
-          cols: 2,
-          description: `Možnost dalšího upřesnění. Možné hodnoty
+            usage: "R",
+            label: "Upřesnění data",
+            selector: 'originInfo/dateIssued/@qualifier',
+            cols: 2,
+            description:`Možnost dalšího upřesnění. Možné hodnoty
             <ul>
               <li>Přibližné (approximate)</li>
               <li>Odvozené (inferred)</li>
               <li>Sporné (questionable)</li>
             </ul>`,
-          options: [
-            ['', '-'],
-            ['approximate', 'Datum je přibližné'],
-            ['inferred', 'Datum je odvozené'],
-            ['questionable', 'Datum je sporné']
-          ]
+            options: [
+              ['','-'],
+              ['approximate','Datum je přibližné'],
+              ['inferred','Datum je odvozené'],
+              ['questionable','Datum je sporné']
+            ]
         },
         encoding: {
           usage: "R",
@@ -225,69 +286,71 @@ export class NdkMonographVolumeAacrTemplate {
           ]
         },
         edition: {
-          usage: "R",
-          label: "Edice",
-          selector: 'originInfo/edition',
-          cols: 2,
-          description: `Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu.`
+            usage: "R",
+            label: "Edice",
+            selector: 'originInfo/edition',
+            cols: 2,
+            description:`Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu.`
         },
         issuance: {
-          usage: "M",
-          label: "Vydání",
-          selector: 'originInfo/issuance',
-          cols: 2,
-          description: `Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>
+            usage: "M",
+            label: "Vydání",
+            selector: 'originInfo/issuance',
+            cols: 2,
+            description:`Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>
             Možné hodnoty
             <ul>
               <li>Monografické (monographic)</li>
               <li>Vícedílné (multipart monograph)</li>
               <li>Jednotkové (single unit)</li>
             </ul>`,
-          options: [
-            ['', '-'],
-            ['monographic', 'Monografické'],
-            ['single unit', 'Jednotkové'],
-            ['multipart monograph', 'Vícedílné']
-          ]
+            options: [
+              ['', '-'],
+              ['monographic','Monografické'],
+              ['single unit','Jednotkové'],
+              ['multipart monograph','Vícedílné']
+            ]
         },
         place: {
-          usage: "MA",
-          label: "Místo",
-          selector: 'originInfo/place/placeTerm',
-          cols: 2,
-          description: `Údaje o místě spojeném s vydáním, výrobou nebo původem popisovaného dokumentu.<br/>
-            Odpovídá hodnotám z katalogizačního záznamu, pole 260, $a resp. pole 008/15-17`,
-          fields: {
-            authority: {
-              usage: "MA",
-              label: "Autorita",
-              selector: "originInfo/place/placeTerm/@authority",
-              options: [
-                ['marccountry', 'marccountry']]
-            },
-            type: {
-              usage: "M",
-              label: "Typ",
-              selector: "originInfo/place/placeTerm/@type",
-              options: [
-                ['code', 'code'],
-                ['text', 'text']]
-            },
-            value: {
-              usage: "M",
-              label: "Hodnota",
-              help: "off"
-            }
-          }
+            usage: "MA",
+            label: "Místo",
+            selector: 'originInfo/place/placeTerm',
+            cols: 2,
+            description:`Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisovaného dokumentu<br/>
+            odpovídá hodnotě 264 $a`
         },
         dateCreated: {
           usage: "R",
           label: "Datum vytvoření",
           selector: 'originInfo/dateCreated',
-          cols: 2,
-          description: `Datum vydání předlohy pro rukopisy.<br/>
-          přebírat z katalogu; odpovídá hodnotě z katalogizačního záznamu, pole 264_0 $c pokud je LDR/06="d", "f", "t"`
+          cols: 3,
+          description:`Datum vydání předlohy pro rukopisy
+          přebírat z katalogu<br/>
+          odpovídá hodnotě z katalogizačního záznamu, pole 264_0 $c pokud je LDR/06="d", "f", "t"`
         },
+        dateOther: {
+          usage: "R",
+          label: "Datum - jiné",
+          selector: 'originInfo/dateOther',
+          cols: 3,
+          description:`Datum vytvoření, distribuce, výroby předlohy<br/>
+          Tento elemet se využije v případě výskytu $c v:
+          <ul>
+            <li>264_0 <strong>Produkce</strong> (production)</li>
+            <li>264_2 <strong>Distribuce</strong> (distribution)</li>
+            <li>264_3 <strong>Výroba</strong> (manufacture)</li>
+          </ul>`
+        },
+        copyrightDate: {
+          usage: "R",
+          label: "Datum - copyright",
+          selector: 'originInfo/copyrightDate',
+          cols: 3,
+          description:`Využije se pouze v případě výskytu pole 264 s druhým indikátorem 4 a podpolem $c<br/>
+          <ul>
+            <li>264_4 <strong>Copyright</strong> (copyright)</li>
+          </ul>`
+        }
       }
     },
     location: {
@@ -314,12 +377,6 @@ export class NdkMonographVolumeAacrTemplate {
           label: "URL",
           selector: 'location/url',
           description: `Pro uvedení lokace elektronického dokumentu`
-        },
-        note: {
-          usage: "O",
-          label: "Poznámka",
-          selector: 'location/url/@note',
-          description: `Pro poznámku o typu URL (na plný text, abstrakt apod.)`,
         }
       }
     },
@@ -334,16 +391,17 @@ export class NdkMonographVolumeAacrTemplate {
           usage: "R",
           label: "Autorita",
           selector: 'subject/@authority',
-          description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
+          description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>Konspekt</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
           Odpovídá hodnotě v $2`,
           options: [
             ['', '-'],
-            ['czenas', 'czenas'],
-            ['eczenas', 'eczenas'],
-            ['mednas', 'mednas'],
-            ['czmesh', 'czmesh'],
-            ['msvkth', 'msvkth'],
-            ['agrovoc', 'agrovoc'],
+            ['czenas','czenas'],
+            ['eczenas','eczenas'],
+            ['mednas','mednas'],
+            ['czmesh','czmesh'],
+            ['msvkth','msvkth'],
+            ['agrovoc','agrovoc'],
+            ['Konspekt','Konspekt']
           ]
         },
         topic: {
@@ -351,7 +409,7 @@ export class NdkMonographVolumeAacrTemplate {
           label: "Klíčové slovo/Předmětové heslo",
           selector: 'subject/topic',
           description: `Libovolný výraz specifikující nebo charakterizující obsah svazku monografie<br/>
-          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21`
+          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x`
         },
         geographic: {
           usage: "R",
@@ -364,13 +422,6 @@ export class NdkMonographVolumeAacrTemplate {
           label: "Chronologické věcné třídění",
           selector: 'subject/temporal',
           description: `Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21`
-        },
-        name: {
-          usage: "R",
-          label: "Jméno použité jako všcné záhlaví",
-          selector: 'subject/name',
-          description: `Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21<br/>
-          Struktura a atributy stejné jako pro údaje o původcích – viz element <name>`
         }
       }
     },
@@ -447,25 +498,49 @@ export class NdkMonographVolumeAacrTemplate {
           label: "Forma",
           selector: "physicalDescription/form",
           description: `Údaje o fyzické podobě dokumentu, např. print, electronic, microfilm apod.<br/>
-          odpovídá hodnotě v poli 008/23
+          odpovídá hodnotě v poli 008/23<br/>
+          Údaje o typu média a typu nosiče zdroje/předlohy odpovídá hodnotám z pole:
+          <ul>
+            <li>337 NEPOVINNÉ (hodnota např. "bez média" – viz <a href="https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/katalogizacni-politika/typ-media_pole-337" target="_blank">kontrolovaný slovník</a> pole 337)</li>
+            <li>338 POVINNÉ (hodnota např. "svazek" – viz <a href="https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/katalogizacni-politika/typ-nosice-pole338-1" target="_blank">kontrolovaný slovník</a> pole 338)</li>
+          </ul>
           `,
           fields: {
             authority: {
               usage: "M",
               label: "Autorita",
               selector: "physicalDescription/form/@authority",
+              cols: 2,
               description: `Možné hodnoty
               <ul>
                 <li><strong>marcform</strong></li>
                 <li><strong>marccategory</strong></li>
                 <li><strong>marcsmd</strong></li>
                 <li><strong>gmd</strong></li>
+                <li><strong>rdamedia</strong> (pro pole 337)</li>
+                <li><strong>rdacarrier</strong> (pro pole 338)</li>
               </ul>`,
               options: [
                 ['marcform', 'marcform'],
                 ['marccategory', 'marccategory'],
                 ['marcsmd', 'marcsmd'],
-                ['gmd', 'gmd']]
+                ['gmd', 'gmd'],
+                ['rdamedia', 'rdamedia'],
+                ['rdacarrier', 'rdacarrier']]
+            },
+            type: {
+              usage: "MA",
+              label: "Typ",
+              selector: "physicalDescription/form/@type",
+              cols: 2,
+              description: `Možné hodnoty
+              <ul>
+                <li><strong>media</strong> pro pole 337</li>
+                <li><strong>carrier</strong> pro pole 338</li>
+              </ul>`,
+              options: [
+                ['media', 'media'],
+                ['carrier', 'carrier']]
             },
             value: {
               usage: "M",
@@ -578,17 +653,41 @@ export class NdkMonographVolumeAacrTemplate {
       usage: "R",
       label: "Klasifikace",
       selector: "identifier",
-      description: `Klasifikační údaje věcného třídění podle Mezinárodního desetinného třídění<br/>
-      odpovídá poli 080 MARC21
-      `,
+      description: `Klasifikační údaje věcného třídění podle Konspektu.<br/>
+      Odpovídá poli 072 $a MARC21`,
       fields: {
         authority: {
           usage: "M",
           label: "Autorita",
           selector: "classification/@authority",
-          description: `Vyplnit hodnotu <strong>udc</strong>`,
+          cols: 2,
+          description: `
+          <ul>
+            <li>
+              vyplnit hodnotu <strong>udc</strong> (v případě 072 $a)
+            </li>
+            <li>
+              vyplnit hodnotu <strong>Konspekt</strong>  (v případě 072 $9)
+            </li>
+          </ul>`,
           options: [
-            ['udc', 'udc'],
+            ['udc','udc'],
+            ['Konspekt','Konspekt']
+          ]
+        },
+        edition: {
+          usage: "M",
+          label: "Edice",
+          selector: "classification/@edition",
+          cols: 2,
+          description: `
+          <ul>
+            <li>
+              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)
+            </li>
+          </ul>`,
+          options: [
+            ['Konspekt','Konspekt']
           ]
         },
         value: {
@@ -603,15 +702,16 @@ export class NdkMonographVolumeAacrTemplate {
       label: "Typ zdroje",
       selector: "typeOfResource",
       description: `Pro monografie hodnota <strong>text</strong><br/>
-      mělo by se vyčítat z MARC21 katalogizačního záznamu, z pozice 06 návěští`,
+      mělo by se vyčítat z MARC21 katalogizačního
+      záznamu, z pozice 06 návěští`,
       fields: {
         value: {
           usage: "R",
           label: "Typ zdroje",
           help: "off",
           options: [
-            ['', '-'],
-            ['text', 'text']
+            ['','-'],
+            ['text','text']
           ]
         }
       }
@@ -620,23 +720,40 @@ export class NdkMonographVolumeAacrTemplate {
       usage: "O",
       label: "Popis části",
       selector: 'part',
-      description: `Popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.`,
+      description: `popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.`,
       fields: {
         type: {
           usage: "O",
           label: "Typ",
-          selector: "part/@type",
+          selector: 'part/@type',
           description: `Hodnota bude vždy "volume" `,
           options: [
             ['volume', 'volume']
           ]
         },
+        detail: {
+          usage: "0",
+          label: "Detail",
+          selector: 'part/detail'
+        },
         caption: {
           usage: "RA",
           label: "Caption",
-          selector: "part/detail/caption",
+          selector: 'part/detail/caption',
           description: `text před označením čísla, např. "č.", „část“, "No." apod.`
         },
+        note: {
+          usage: "O",
+          label: "Poznámka",
+          selector: 'location/url/@note',
+          description: `Pro poznámku o typu URL (na plný text, abstrakt apod.)`,
+        },
+        part: {
+          usage: "O",
+          label: "Část",
+          selector: "part",
+          help: "off"
+        }
       }
     },
     recordInfo: {
@@ -782,7 +899,7 @@ export class NdkMonographVolumeAacrTemplate {
               ]
             }
           }
-        },
+        }
       }
     }
   }

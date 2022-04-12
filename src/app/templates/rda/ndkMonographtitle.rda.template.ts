@@ -8,18 +8,31 @@ export class NdkMonographTitleRdaTemplate {
       description: `Název titulu, souborný název<br/>
       Pro plnění použít katalogizační záznam<br/>`,
       fields: {
+        nonSort: {
+          usage: "O",
+          label: 'Část vynechaná při hledání',
+          selector: 'titleInfo/nonSort',
+          cols: 2,
+          description: `Část názvu, která má být vynechána při vyhledávána<br/>
+          např.:
+          <ul>
+            <li><nonSort>The</nonSort></li>
+            <li><title>Beatles</title></li>
+          </ul>`,
+        },
         title: {
           usage: "M",
           label: 'Název',
           selector: 'titleInfo/title',
-          description: `názvová informace – název monografického dokumentu</br>
+          description: `Názvová informace – název monografického dokumentu</br>
           hodnoty převzít z katalogu<br/>`
         },
         subTitle: {
           usage: "MA",
           label: 'Podnázev',
           selector: 'titleInfo/subTitle',
-          description: `Podnázev svazku monografie`
+          cols: 2,
+          description: `Podnázev monografie`
         },
         partNumber: {
           usage: "R",
@@ -39,18 +52,10 @@ export class NdkMonographTitleRdaTemplate {
     },
     originInfo: {
       usage: "M",
-      label: "Nakladatel",
+      label: "Původ předlohy",
       selector: 'originInfo',
       description: `Informace o původu předlohy: odpovídá poli 264`,
       fields: {
-        publisher: {
-            usage: "MA",
-            label: "Nakladatel",
-            selector: 'originInfo/publisher',
-            description: `Jméno entity, která dokument vytvořila, vydala, distribuovala nebo vyrobila<br/>
-            odpovídá poli 264 $b katalogizačního záznamu v MARC21<br/>
-            pokud má monografie více vydavatelů/distributorů/výrobců, přebírají se ze záznamu všichni (v jednom poli 264)`,
-        },
         eventType: {
           usage: "M",
           label: "Typ",
@@ -103,13 +108,15 @@ export class NdkMonographTitleRdaTemplate {
             ['copyright', 'Copyright']
           ]
         },
-        edition: {
-            usage: "MA",
-            label: "Edice",
-            selector: 'originInfo/edition',
-            cols: 2,
-            description:`Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu v MARC 21.`
-        }
+        publisher: {
+          usage: "MA",
+          label: "Nakladatel",
+          cols: 2,
+          selector: 'originInfo/publisher',
+          description: `Jméno entity, která dokument vytvořila, vydala, distribuovala nebo vyrobila<br/>
+            odpovídá poli 264 $b katalogizačního záznamu v MARC21<br/>
+            pokud má monografie více vydavatelů/distributorů/výrobců, přebírají se ze záznamu všichni (v jednom poli 264)`,
+        },
       }
     },
     language: {
@@ -146,15 +153,6 @@ export class NdkMonographTitleRdaTemplate {
       description: `Bližší údaje o typu dokumentu<br/>
       Hodnota <strong>title</strong>`,
       fields: {
-        authority: {
-          usage: "MA",
-          label: "Autorita",
-          selector: "genre/@authority",
-          options: [
-            ['czenas', 'czenas'],
-            ['eczenas', 'eczenas'],
-            ['rdacontent', 'rdacontent']]
-        },
         value: {
           usage: "M",
           label: "Hodnota",
@@ -200,7 +198,7 @@ export class NdkMonographTitleRdaTemplate {
           label: "Platnost",
           selector: "dentifier/@invalid",
           cols: 2,
-          description: `Uvádějí se i neplatné resp. zrušené identifikátory 
+          description: `Uvádějí se i neplatné resp. zrušené identifikátory
           <ul>
             <li>
               <strong>Platný</strong> <code>identifier/[not(@invalid)]</code>

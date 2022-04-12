@@ -1,4 +1,4 @@
-export class NdkMonographVolumeAacrTemplate {
+export class AacrTemplate {
 
   static data = {
     titleInfo: {

@@ -8,18 +8,31 @@ export class NdkMonographTitleAacrTemplate {
       description: `Název titulu, souborný název<br/>
       Pro plnění použít katalogizační záznam<br/>`,
       fields: {
+        nonSort: {
+          usage: "O",
+          label: 'Část vynechaná při hledání',
+          selector: 'titleInfo/nonSort',
+          cols: 2,
+          description: `Část názvu, která má být vynechána při vyhledávána<br/>
+          např.:
+          <ul>
+            <li><nonSort>The</nonSort></li>
+            <li><title>Beatles</title></li>
+          </ul>`,
+        },
         title: {
           usage: "M",
           label: 'Název',
           selector: 'titleInfo/title',
-          description: `názvová informace – název monografického dokumentu</br>
+          description: `Názvová informace – název monografického dokumentu</br>
           hodnoty převzít z katalogu<br/>`
         },
         subTitle: {
           usage: "MA",
           label: 'Podnázev',
           selector: 'titleInfo/subTitle',
-          description: `Podnázev svazku monografie`
+          cols: 2,
+          description: `Podnázev monografie`
         },
         partNumber: {
           usage: "R",
@@ -39,7 +52,7 @@ export class NdkMonographTitleAacrTemplate {
     },
     originInfo: {
       usage: "M",
-      label: "Nakladatel",
+      label: "Původ předlohy",
       selector: 'originInfo',
       description: `Informace o původu předlohy`,
       fields: {
@@ -93,15 +106,6 @@ export class NdkMonographTitleAacrTemplate {
       description: `Bližší údaje o typu dokumentu<br/>
       Hodnota <strong>title</strong>`,
       fields: {
-        authority: {
-          usage: "MA",
-          label: "Autorita",
-          selector: "genre/@authority",
-          options: [
-            ['czenas', 'czenas'],
-            ['eczenas', 'eczenas'],
-            ['rdacontent', 'rdacontent']]
-        },
         value: {
           usage: "M",
           label: "Hodnota",
@@ -147,7 +151,7 @@ export class NdkMonographTitleAacrTemplate {
           label: "Platnost",
           selector: "dentifier/@invalid",
           cols: 2,
-          description: `Uvádějí se i neplatné resp. zrušené identifikátory 
+          description: `Uvádějí se i neplatné resp. zrušené identifikátory
           <ul>
             <li>
               <strong>Platný</strong> <code>identifier/[not(@invalid)]</code>
