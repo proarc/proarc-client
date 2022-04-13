@@ -75,12 +75,12 @@ export class ApiService {
 
   registerUrnnbn(resolver: string, pid: string): Observable<any> {
     let data = `resolverId=${resolver}&pid=${pid}`;
-    return this.post('object/urnnbn', data).pipe(map(response => response['response']['data'][0]));
+    return this.post('object/urnnbn', data);
   }
 
-  createObject(data: string): Observable<string> {
+  createObject(data: string): Observable<any> {
     
-    return this.post('object', data).pipe(map(response => response['response']['data'][0]['pid']));
+    return this.post('object', data);
   }
 
   copyObject(pid: string, model: string): Observable<string> {

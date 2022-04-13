@@ -41,7 +41,14 @@ export class UrnbnbDialogComponent implements OnInit {
     this.state = 'saving';
     const pid = this.data;
     this.errors = [];
-    this.api.registerUrnnbn(this.selectedRegistrar.id, pid).subscribe((data: any) => {
+    this.api.registerUrnnbn(this.selectedRegistrar.id, pid).subscribe((response: any) => {
+      if (response.errors) {
+        console.log('onRegister error', response.errors);
+        this.state = 'error';
+        this.message = 'Při registraci URN:NBN se vyskytla chyba';
+        return;
+      }
+      const data = response['response']['data'][0];
       if (data['statusType'] == "URNNBN_EXISTS") {
         this.state = 'error';
         this.message = `Dokument má již přiděleno URN:NBN ${data['urnnbn']}`;

@@ -4,6 +4,7 @@ import { DateAdapter, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Uuid } from 'src/app/utils/uuid';
 import { ApiService } from 'src/app/services/api.service';
 import { DatePipe } from '@angular/common';
+import { UIService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-new-object-dialog',
@@ -24,6 +25,7 @@ export class NewObjectDialogComponent implements OnInit {
     public adapter: DateAdapter<any>,
     private datePipe: DatePipe,
     public dialogRef: MatDialogRef<NewObjectDialogComponent>,
+    private ui: UIService,
     private api: ApiService,
     @Inject(MAT_DIALOG_DATA) public data: NewObjectData) { }
 
@@ -58,7 +60,14 @@ export class NewObjectDialogComponent implements OnInit {
       });
     }
 
-    this.api.createObject(data).subscribe((pid: string) => {
+    this.api.createObject(data).subscribe((response: any) => {
+      if (response.errors) {
+        console.log('error', response.errors);
+        this.ui.showErrorSnackBar(response.errors.mods[0].errorMessage)
+        this.state = 'error';
+        return;
+      }
+      const pid =  response['response']['data'][0]['pid'];
       this.dialogRef.close({pid: pid})
     },
     (error) => {
