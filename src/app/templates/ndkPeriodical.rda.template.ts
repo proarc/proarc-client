@@ -15,16 +15,16 @@ export class NdkPeriodicalRdaTemplate {
           selector: 'titleInfo/@type',
           cols: 2,
           description: `Hlavní název bez typu - pole 245 a $a<br/>
-          Možné hodnoty 
+          Možné hodnoty
           <ul>
             <li>Zkrácený název (abbreviated) - pole 210</li>
             <li>Alternativní název (alternative) – pole 246</li>
             <li>Přeložený název (translated) – pole 242</li>
             <li>Jednotný název (uniform) – pole 130 resp. 240</li>
           </ul>`,
-          options: [ 
+          options: [
             ['', '-'],
-            ['abbreviated', 'Zkrácený název'], 
+            ['abbreviated', 'Zkrácený název'],
             ['translated', 'Přeložený název'],
             ['alternative', 'Alternativní název'],
             ['uniform', 'Jednotný název']
@@ -74,7 +74,7 @@ export class NdkPeriodicalRdaTemplate {
           label: "Typ",
           selector: 'name/@type',
           cols: 2,
-          description: `Použít jednu z hodnot: 
+          description: `Použít jednu z hodnot:
           <ul>
             <li><strong>Osoba</strong> (personal)</li>
             <li><strong>Organizace</strong> (corporate)</li>
@@ -82,7 +82,7 @@ export class NdkPeriodicalRdaTemplate {
             <li><strong>Rodina</strong> (family)</li>
           </ul>`,
           options: [
-            ['', '-'], 
+            ['', '-'],
             ['personal','Osoba'],
             ['corporate','Organizace'],
             ['conference','Konference'],
@@ -125,7 +125,7 @@ export class NdkPeriodicalRdaTemplate {
           selector: 'name/role/roleTerm',
           expanded: true,
           description: `Specifikace role osoby nebo organizace<br/>
-          Kód role z kontrolovaného slovníku rolí 
+          Kód role z kontrolovaného slovníku rolí
           (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)`,
           fields: {},
         }
@@ -133,7 +133,7 @@ export class NdkPeriodicalRdaTemplate {
     },
     originInfo: {
       usage: "M",
-      label: "Nakladatel",
+      label: "Původ předlohy",
       selector: 'originInfo',
       description: `Informace o původu předlohy: odpovídá poli 264`,
       fields: {
@@ -204,7 +204,7 @@ export class NdkPeriodicalRdaTemplate {
             cols: 2,
             description:`Datum vydání předlohy, nutno zaznamenat rok/roky, v nichž časopis vycházel - formu zápisu přebírat z katalogu (např. 1900-1939)<br/>
             Odpovídá hodnotě z katalogizačního záznamu, pole 264_1 $c a pole 008/07-10<br/>
-            Pro všechny ostatní výskyty v poli 264 $c: 
+            Pro všechny ostatní výskyty v poli 264 $c:
             <ul>
               <li>264_0 <strong>Produkce</strong> (production)</li>
               <li>264_2 <strong>Distribuce</strong> (distribution)</li>
@@ -218,7 +218,7 @@ export class NdkPeriodicalRdaTemplate {
             label: "Upřesnění data",
             selector: 'originInfo/dateIssued/@qualifier',
             cols: 2,
-            description:`Možnost dalšího upřesnění. Možné hodnoty 
+            description:`Možnost dalšího upřesnění. Možné hodnoty
             <ul>
               <li>Přibližné (approximate)</li>
               <li>Odvozené (inferred)</li>
@@ -237,7 +237,7 @@ export class NdkPeriodicalRdaTemplate {
           selector: 'originInfo/issuance',
           cols: 2,
           description:`Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>
-          Možné hodnoty 
+          Možné hodnoty
           <ul>
             <li>Na pokračování (continuing)</li>
             <li>Sériové (serial)</li>
@@ -248,7 +248,7 @@ export class NdkPeriodicalRdaTemplate {
             ['continuing','Na pokračování'],
             ['serial','Sériové'],
             ['integrating resource','Integrační zdroj']
-          ]            
+          ]
         },
         place: {
             usage: "MA",
@@ -362,7 +362,7 @@ export class NdkPeriodicalRdaTemplate {
             ['msvkth','msvkth'],
             ['agrovoc','agrovoc'],
             ['Konspekt','Konspekt']
-          ]          
+          ]
         },
         topic: {
           usage: "R",
@@ -472,7 +472,7 @@ export class NdkPeriodicalRdaTemplate {
               label: "Autorita",
               selector: "physicalDescription/form/@authority",
               cols: 2,
-              description: `Možné hodnoty 
+              description: `Možné hodnoty
               <ul>
                 <li><strong>marcform</strong></li>
                 <li><strong>marccategory</strong></li>
@@ -494,7 +494,7 @@ export class NdkPeriodicalRdaTemplate {
               label: "Typ",
               selector: "physicalDescription/form/@type",
               cols: 2,
-              description: `Možné hodnoty 
+              description: `Možné hodnoty
               <ul>
                 <li><strong>media</strong> pro pole 337</li>
                 <li><strong>carrier</strong> pro pole 338</li>
@@ -517,7 +517,7 @@ export class NdkPeriodicalRdaTemplate {
       label: "Poznámka",
       selector: "note",
       description: `Obecná poznámka k titulu periodika jako celku<br/>
-      Odpovídá hodnotám v poli 245, $c (statement of responsibility) 
+      Odpovídá hodnotám v poli 245, $c (statement of responsibility)
       a v polích 5XX (poznámky) katalogizačního záznamu`,
       fields: {
         note: {
@@ -589,7 +589,7 @@ export class NdkPeriodicalRdaTemplate {
           label: "Platnost",
           selector: "dentifier/@invalid",
           cols: 2,
-          description: `Uvádějí se i neplatné resp. zrušené identifikátory 
+          description: `Uvádějí se i neplatné resp. zrušené identifikátory
           <ul>
             <li>
               <strong>Platný</strong> <code>identifier/[not(@invalid)]</code>
@@ -607,7 +607,7 @@ export class NdkPeriodicalRdaTemplate {
       }
     },
     classification: {
-      usage: "R",     
+      usage: "R",
       label: "Klasifikace",
       selector: "identifier",
       description: `Klasifikační údaje věcného třídění podle Konspektu.<br/>
@@ -628,7 +628,7 @@ export class NdkPeriodicalRdaTemplate {
             </li>
           </ul>`,
           options: [
-            ['udc','udc'], 
+            ['udc','udc'],
             ['Konspekt','Konspekt']
           ]
         },

@@ -15,16 +15,16 @@ export class NdkPeriodicalAacrTemplate {
           selector: 'titleInfo/@type',
           cols: 2,
           description: `Hlavní název bez typu - pole 245 a $a<br/>
-          Možné hodnoty 
+          Možné hodnoty
           <ul>
             <li>Zkrácený název (abbreviated) - pole 210</li>
             <li>Alternativní název (alternative) – pole 246</li>
             <li>Přeložený název (translated) – pole 242</li>
             <li>Jednotný název (uniform) – pole 130 resp. 240</li>
           </ul>`,
-          options: [ 
+          options: [
             ['', '-'],
-            ['abbreviated', 'Zkrácený název'], 
+            ['abbreviated', 'Zkrácený název'],
             ['translated', 'Přeložený název'],
             ['alternative', 'Alternativní název'],
             ['uniform', 'Jednotný název']
@@ -74,7 +74,7 @@ export class NdkPeriodicalAacrTemplate {
           label: "Typ",
           selector: 'name/@type',
           cols: 2,
-          description: `Použít jednu z hodnot: 
+          description: `Použít jednu z hodnot:
           <ul>
             <li><strong>Osoba</strong> (personal)</li>
             <li><strong>Organizace</strong> (corporate)</li>
@@ -82,7 +82,7 @@ export class NdkPeriodicalAacrTemplate {
             <li><strong>Rodina</strong> (family)</li>
           </ul>`,
           options: [
-            ['', '-'], 
+            ['', '-'],
             ['personal','Osoba'],
             ['corporate','Organizace'],
             ['conference','Konference'],
@@ -125,7 +125,7 @@ export class NdkPeriodicalAacrTemplate {
           selector: 'name/role/roleTerm',
           expanded: true,
           description: `Specifikace role osoby nebo organizace<br/>
-          Kód role z kontrolovaného slovníku rolí 
+          Kód role z kontrolovaného slovníku rolí
           (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)`,
           fields: {},
         }
@@ -133,7 +133,7 @@ export class NdkPeriodicalAacrTemplate {
     },
     originInfo: {
       usage: "M",
-      label: "Nakladatel",
+      label: "Původ předlohy",
       selector: 'originInfo',
       description: `Informace o původu předlohy`,
       fields: {
@@ -158,7 +158,7 @@ export class NdkPeriodicalAacrTemplate {
             label: "Upřesnění data",
             selector: 'originInfo/dateIssued/@qualifier',
             cols: 2,
-            description:`Možnost dalšího upřesnění. Možné hodnoty 
+            description:`Možnost dalšího upřesnění. Možné hodnoty
             <ul>
               <li>Přibližné (approximate)</li>
               <li>Odvozené (inferred)</li>
@@ -177,7 +177,7 @@ export class NdkPeriodicalAacrTemplate {
             selector: 'originInfo/issuance',
             cols: 2,
             description:`Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>
-            Možné hodnoty 
+            Možné hodnoty
             <ul>
               <li>Na pokračování (continuing)</li>
               <li>Sériové (serial)</li>
@@ -188,7 +188,7 @@ export class NdkPeriodicalAacrTemplate {
               ['continuing','Na pokračování'],
               ['serial','Sériové'],
               ['integrating resource','Integrační zdroj']
-            ]            
+            ]
         },
         place: {
             usage: "MA",
@@ -277,7 +277,7 @@ export class NdkPeriodicalAacrTemplate {
             ['czmesh','czmesh'],
             ['msvkth','msvkth'],
             ['agrovoc','agrovoc'],
-          ]          
+          ]
         },
         topic: {
           usage: "R",
@@ -381,7 +381,7 @@ export class NdkPeriodicalAacrTemplate {
               usage: "M",
               label: "Autorita",
               selector: "physicalDescription/form/@authority",
-              description: `Možné hodnoty 
+              description: `Možné hodnoty
               <ul>
                 <li><strong>marcform</strong></li>
                 <li><strong>marccategory</strong></li>
@@ -408,7 +408,7 @@ export class NdkPeriodicalAacrTemplate {
       label: "Poznámka",
       selector: "note",
       description: `Obecná poznámka k titulu periodika jako celku<br/>
-      Odpovídá hodnotám v poli 245, $c (statement of responsibility) 
+      Odpovídá hodnotám v poli 245, $c (statement of responsibility)
       a v polích 5XX (poznámky) katalogizačního záznamu`,
       fields: {
         note: {
@@ -480,7 +480,7 @@ export class NdkPeriodicalAacrTemplate {
           label: "Platnost",
           selector: "dentifier/@invalid",
           cols: 2,
-          description: `Uvádějí se i neplatné resp. zrušené identifikátory 
+          description: `Uvádějí se i neplatné resp. zrušené identifikátory
           <ul>
             <li>
               <strong>Platný</strong> <code>identifier/[not(@invalid)]</code>
@@ -498,7 +498,7 @@ export class NdkPeriodicalAacrTemplate {
       }
     },
     classification: {
-      usage: "R",     
+      usage: "R",
       label: "Klasifikace",
       selector: "identifier",
       description: `Klasifikační údaje věcného třídění podle Mezinárodního desetinného třídění<br/>
@@ -511,7 +511,7 @@ export class NdkPeriodicalAacrTemplate {
           selector: "classification/@authority",
           description: `Vyplnit hodnotu <strong>udc</strong>`,
           options: [
-            ['udc','udc'], 
+            ['udc','udc'],
           ]
         },
         value: {

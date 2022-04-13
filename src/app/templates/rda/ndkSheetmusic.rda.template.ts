@@ -1,4 +1,4 @@
-export class NdkSheetMusicAacrTemplate {
+export class NdkSheetMusicRdaTemplate {
 
   static data = {
     titleInfo: {
@@ -15,20 +15,32 @@ export class NdkSheetMusicAacrTemplate {
           selector: 'titleInfo/@type',
           cols: 2,
           description: `Hlavní název bez typu - pole 245 a $a<br/>
-          Možné hodnoty 
+          Možné hodnoty
           <ul>
             <li>Zkrácený název (abbreviated) - pole 210</li>
             <li>Alternativní název (alternative) – pole 246</li>
             <li>Přeložený název (translated) – pole 242</li>
             <li>Jednotný název (uniform) – pole 130 resp. 240</li>
           </ul>`,
-          options: [ 
+          options: [
             ['', '-'],
-            ['abbreviated', 'Zkrácený název'], 
+            ['abbreviated', 'Zkrácený název'],
             ['translated', 'Přeložený název'],
             ['alternative', 'Alternativní název'],
             ['uniform', 'Jednotný název']
           ]
+        },
+        nonSort: {
+          usage: "O",
+          label: 'Část vynechaná při hledání',
+          selector: 'titleInfo/nonSort',
+          cols: 2,
+          description: `Část názvu, která má být vynechána při vyhledávána<br/>
+          např.:
+          <ul>
+            <li><nonSort>The</nonSort></li>
+            <li><title>Beatles</title></li>
+          </ul>`,
         },
         title: {
           usage: "M",
@@ -42,7 +54,6 @@ export class NdkSheetMusicAacrTemplate {
           usage: "MA",
           label: 'Podnázev',
           selector: 'titleInfo/subTitle',
-          cols: 2,
           description: `Podnázev hudebniny<br/>
           odpovídající pole a podpole podle typu, viz typ`
         },
@@ -67,7 +78,7 @@ export class NdkSheetMusicAacrTemplate {
       usage: "MA",
       label: "Autor",
       selector: 'name',
-      description: `Údaje o odpovědnosti za svazek<br/>
+      description: `Údaje o odpovědnosti<br/>
       POZOR – údaje o odpovědnosti nutno přebírat z polí 1XX a 7XX MARCu21<br/>
       pokud má hudebnina jiné původce než je autor, element <name> se opakuje s různými rolemi (skladatel, autor textu apod.)`,
       fields: {
@@ -76,7 +87,7 @@ export class NdkSheetMusicAacrTemplate {
           label: "Typ",
           selector: 'name/@type',
           cols: 2,
-          description: `Použít jednu z hodnot: 
+          description: `Použít jednu z hodnot:
           <ul>
             <li><strong>Osoba</strong> (personal)</li>
             <li><strong>Organizace</strong> (corporate)</li>
@@ -84,7 +95,7 @@ export class NdkSheetMusicAacrTemplate {
             <li><strong>Rodina</strong> (family)</li>
           </ul>`,
           options: [
-            ['', '-'], 
+            ['', '-'],
             ['personal','Osoba'],
             ['corporate','Organizace'],
             ['conference','Konference'],
@@ -127,25 +138,93 @@ export class NdkSheetMusicAacrTemplate {
           selector: 'name/role/roleTerm',
           expanded: true,
           description: `Specifikace role osoby nebo organizace<br/>
-          Kód role z kontrolovaného slovníku rolí 
+          Kód role z kontrolovaného slovníku rolí
           (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)`,
           fields: {},
+        },
+        nameIdentifier: {
+          usage: "MA",
+          label: "Identifikátor autora",
+          selector: "name/nameIdentifier",
+          cols: 2,
+          description: `Číslo národní autority`,
+        },
+        etal: {
+          usage: "MA",
+          label: "Etal",
+          selector: "name/etal",
+          cols: 2,
+          description: `Element indikující, že existuje více autorů, než pouze ti, kteří byli uvedeni v <name> elementu.</br>
+          V případě užití tohoto elementu je dále top element <name> neopakovatelný.</br>
+          <etal> je nutné umístit do samostatného top elementu <name>, ve kterém se nesmí objevit subelementy <namePart> a <nameIdentifier>.`
         }
       }
     },
     originInfo: {
       usage: "M",
-      label: "Nakladatel",
+      label: "Původ předlohy",
       selector: 'originInfo',
-      description: `Informace o původu předlohy`,
+      description: `Informace o původu předlohy: odpovídá poli 264`,
       fields: {
         publisher: {
             usage: "MA",
             label: "Nakladatel",
             selector: 'originInfo/publisher',
-            description: `Jméno entity, která dokument vydala, vytiskla nebo jinak vyprodukovala<br/>
-            Odpovídá poli 260 $b katalogizačního záznamu v MARC21.<br/>
-            Pokud má monografie více vydavatelů, přebírají se za záznamu všichni (jsou v jednom poli 260).`,
+            description: `Jméno entity, která dokument vytvořila, vydala, distribuovala nebo vyrobila<br/>
+            odpovídá poli 264 $b katalogizačního záznamu v MARC21<br/>
+            pokud má monografie více vydavatelů/distributorů/výrobců, přebírají se ze záznamu všichni (v jednom poli 264)`,
+        },
+        eventType: {
+          usage: "M",
+          label: "Typ",
+          selector: 'originInfo/@eventType',
+          cols: 2,
+          description:`Hodnoty dle druhého indikátoru pole 264:
+          <ul>
+            <li>
+              264_0 <strong>Produkce</strong> (production) <i>R</i><br/>
+              Hodnota 0 se uvádí, jestliže pole obsahuje <strong>údaje o vytvoření</strong> zdroje v nezveřejněné podobě.
+            </li>
+            <li>
+              264_1 <strong>Publikace</strong> (publication) <i>R</i><br/>
+              Hodnota 1 se uvádí, jestliže pole obsahuje <strong>údaje o nakladateli</strong> zdroje
+            </li>
+            <li>
+              264_2 <strong>Distribuce</strong> (distribution) <i>R</i><br/>
+              Hodnota 2 se uvádí, jestliže pole obsahuje <strong>údaje o distribuci</strong> zdroje
+            </li>
+            <li>
+              264_3 <strong>Výroba</strong> (manufacture) <i>R</i><br/>
+              Hodnota 3 se uvádí, jestliže pole obsahuje <strong>údaje o tisku</strong>, výrobě zdroje ve zveřejněné podobě.
+            </li>
+            <li>
+              264_4 <strong>Copyright</strong> (copyright) <i>R</i><br/>
+              Hodnota 4 se uvádí, jestliže pole obsahuje <strong>údaje o ochraně podle autorského práva</strong>
+            </li>
+          </ul>
+          <p>Element <originInfo> je opakovatelný. Alespoň v
+          jednom případě musí být vyplněna hodnota
+          eventType="production" nebo
+          eventType="publication".
+          </p>
+          <p>Údaje o distribuci, výrobě a copyrightu jsou u
+          tištěných monografií přesunuty z minimálního
+          záznamu do doporučeného.<br/>
+          </p>
+          <p>Hodnota eventType musí být vyplněna na
+          základě katalogizačního záznamu. Pravidlo pro
+          převod je závazné, povinnost R značí, že musí
+          být vybrána jedna z doporučených hodnot na
+          základě katalogizačního záznamu.
+          </p>`,
+          options: [
+            ['','-'],
+            ['production', 'Produkce'],
+            ['publication', 'Publikace'],
+            ['distribution', 'Distribuce'],
+            ['manufacture', 'Výroba'],
+            ['copyright', 'Copyright']
+          ]
         },
         dateIssued: {
             usage: "M",
@@ -154,14 +233,22 @@ export class NdkSheetMusicAacrTemplate {
             cols: 2,
             description:`Datum vydání předlohy.<br/>
             Přebírat z katalogu.<br/>
-            Odpovídá hodnotě z katalogizačního záznamu, pole 260, $c a pole 008/07-10`
+            Odpovídá hodnotě z katalogizačního záznamu, pole 264_1 $c a pole 008/07-10<br/>
+            Pro všechny ostatní výskyty v poli 264 $c:
+            <ul>
+              <li>264_0 <strong>Produkce</strong> (production)</li>
+              <li>264_2 <strong>Distribuce</strong> (distribution)</li>
+              <li>264_3 <strong>Výroba</strong> (manufacture)</li>
+              <li>264_4 <strong>Copyright</strong> (copyright)</li>
+            </ul>
+            využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>`
         },
         qualifier: {
             usage: "R",
             label: "Upřesnění data",
             selector: 'originInfo/dateIssued/@qualifier',
             cols: 2,
-            description:`Možnost dalšího upřesnění. Možné hodnoty 
+            description:`Možnost dalšího upřesnění. Možné hodnoty
             <ul>
               <li>Přibližné (approximate)</li>
               <li>Odvozené (inferred)</li>
@@ -180,7 +267,7 @@ export class NdkSheetMusicAacrTemplate {
             selector: 'originInfo/issuance',
             cols: 2,
             description:`Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>
-            Možné hodnoty 
+            Možné hodnoty
             <ul>
               <li>Monografické (monographic)</li>
               <li>Vícedílné (multipart monograph)</li>
@@ -191,15 +278,60 @@ export class NdkSheetMusicAacrTemplate {
               ['monographic','Monografické'],
               ['single unit','Jednotkové'],
               ['multipart monograph','Vícedílné']
-            ]            
+            ]
+        },
+        encoding: {
+          usage: "R",
+          label: "Kódování",
+          selector: 'originInfo/dateIssued/@encoding',
+          cols: 2,
+          description: `Hodnota "marc" jen u údaje z pole 008`,
+          options: [
+            ['', '-'],
+            ['marc', 'marc']
+          ]
+        },
+        point: {
+          usage: "MA",
+          label: "Point",
+          selector: 'originInfo/dateIssued/@point',
+          cols: 2,
+          description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
+          options: [
+            ['', '-'],
+            ['start', 'start'],
+            ['end', 'end']
+          ]
         },
         place: {
             usage: "MA",
             label: "Místo",
             selector: 'originInfo/place/placeTerm',
-            cols: 2,
-            description:`Údaje o místě spojeném s vydáním, výrobou nebo původem popisovaného dokumentu.<br/>
-            Odpovídá hodnotám z katalogizačního záznamu, pole 260, $a resp. pole 008/15-17`
+            description:`Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisovaného dokumentu<br/>
+            odpovídá hodnotě 264 $a`
+        },
+        dateOther: {
+          usage: "R",
+          label: "Datum - jiné",
+          selector: 'originInfo/dateOther',
+          cols: 2,
+          description:`Datum vytvoření, distribuce, výroby předlohy<br/>
+          Tento elemet se využije v případě výskytu $c v:
+          <ul>
+            <li>264_0 <strong>Produkce</strong> (production)</li>
+            <li>264_2 <strong>Distribuce</strong> (distribution)</li>
+            <li>264_3 <strong>Výroba</strong> (manufacture)</li>
+          </ul>`
+        },
+        copyrightDate: {
+          usage: "R",
+          label: "Datum - copyright",
+          selector: 'originInfo/copyrightDate',
+          cols: 2,
+          description:`Využije se pouze v případě výskytu pole 264 s druhým indikátorem 4 a podpolem $c<br/>
+          <ul>
+            <li>264_4 <strong>Copyright</strong> (copyright)</li>
+          </ul>`
         }
       }
     },
@@ -241,7 +373,7 @@ export class NdkSheetMusicAacrTemplate {
           usage: "R",
           label: "Autorita",
           selector: 'subject/@authority',
-          description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
+          description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>Konspekt</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
           Odpovídá hodnotě v $2`,
           options: [
             ['', '-'],
@@ -251,14 +383,15 @@ export class NdkSheetMusicAacrTemplate {
             ['czmesh','czmesh'],
             ['msvkth','msvkth'],
             ['agrovoc','agrovoc'],
-          ]          
+            ['Konspekt','Konspekt']
+          ]
         },
         topic: {
           usage: "R",
           label: "Klíčové slovo/Předmětové heslo",
           selector: 'subject/topic',
           description: `Libovolný výraz specifikující nebo charakterizující obsah hudebniny<br/>
-          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21`
+          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x`
         },
         temporal: {
           usage: "R",
@@ -309,7 +442,7 @@ export class NdkSheetMusicAacrTemplate {
       description: `Shrnutí obsahu jako celku odpovídá poli 520 MARC21`,
       fields: {
         abstract: {
-          usage: "RA",
+          usage: "R",
           label: "Abstrakt",
           selector: "abstract",
           help: "off"
@@ -341,25 +474,49 @@ export class NdkSheetMusicAacrTemplate {
           label: "Forma",
           selector: "physicalDescription/form",
           description: `Údaje o fyzické podobě dokumentu, např. print, electronic, microfilm apod.<br/>
-          odpovídá hodnotě v poli 008/23
+          odpovídá hodnotě v poli 008/23<br/>
+          Údaje o typu média a typu nosiče zdroje/předlohy odpovídá hodnotám z pole:
+          <ul>
+            <li>337 NEPOVINNÉ (hodnota např. "bez média" – viz <a href="https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/katalogizacni-politika/typ-media_pole-337" target="_blank">kontrolovaný slovník</a> pole 337)</li>
+            <li>338 POVINNÉ (hodnota např. "svazek" – viz <a href="https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/katalogizacni-politika/typ-nosice-pole338-1" target="_blank">kontrolovaný slovník</a> pole 338)</li>
+          </ul>
           `,
           fields: {
             authority: {
               usage: "M",
               label: "Autorita",
               selector: "physicalDescription/form/@authority",
-              description: `Možné hodnoty 
+              cols: 2,
+              description: `Možné hodnoty
               <ul>
                 <li><strong>marcform</strong></li>
                 <li><strong>marccategory</strong></li>
                 <li><strong>marcsmd</strong></li>
                 <li><strong>gmd</strong></li>
+                <li><strong>rdamedia</strong> (pro pole 337)</li>
+                <li><strong>rdacarrier</strong> (pro pole 338)</li>
               </ul>`,
               options: [
                 ['marcform', 'marcform'],
                 ['marccategory', 'marccategory'],
                 ['marcsmd', 'marcsmd'],
-                ['gmd', 'gmd']]
+                ['gmd', 'gmd'],
+                ['rdamedia', 'rdamedia'],
+                ['rdacarrier', 'rdacarrier']]
+            },
+            type: {
+              usage: "MA",
+              label: "Typ",
+              selector: "physicalDescription/form/@type",
+              cols: 2,
+              description: `Možné hodnoty
+              <ul>
+                <li><strong>media</strong> pro pole 337</li>
+                <li><strong>carrier</strong> pro pole 338</li>
+              </ul>`,
+              options: [
+                ['media', 'media'],
+                ['carrier', 'carrier']]
             },
             value: {
               usage: "M",
@@ -375,7 +532,7 @@ export class NdkSheetMusicAacrTemplate {
       label: "Poznámka",
       selector: "note",
       description: `Obecná poznámka k hudebnině jako celku<br/>
-      Odpovídá hodnotám v poli 245, $c (statement of responsibility) 
+      Odpovídá hodnotám v poli 245, $c (statement of responsibility)
       a v polích 5XX (poznámky) katalogizačního záznamu`,
       fields: {
         note: {
@@ -392,15 +549,6 @@ export class NdkSheetMusicAacrTemplate {
       description: `Bližší údaje o typu dokumentu<br/>
       Hodnota <strong>sheetmusic</strong>`,
       fields: {
-        authority: {
-          usage: "MA",
-          label: "Autorita",
-          selector: "genre/@authority",
-          options: [
-            ['czenas', 'czenas'],
-            ['eczenas', 'eczenas'],
-            ['rdacontent', 'rdacontent']]
-        },
         value: {
           usage: "M",
           label: "Hodnota",
@@ -451,7 +599,7 @@ export class NdkSheetMusicAacrTemplate {
           label: "Platnost",
           selector: "dentifier/@invalid",
           cols: 2,
-          description: `Uvádějí se i neplatné resp. zrušené identifikátory 
+          description: `Uvádějí se i neplatné resp. zrušené identifikátory
           <ul>
             <li>
               <strong>Platný</strong> <code>identifier/[not(@invalid)]</code>
@@ -469,20 +617,44 @@ export class NdkSheetMusicAacrTemplate {
       }
     },
     classification: {
-      usage: "R",     
+      usage: "R",
       label: "Klasifikace",
       selector: "identifier",
-      description: `Klasifikační údaje věcného třídění podle Mezinárodního desetinného třídění<br/>
-      odpovídá poli 080 MARC21
-      `,
+      description: `Klasifikační údaje věcného třídění podle Konspektu.<br/>
+      Odpovídá poli 072 $a MARC21`,
       fields: {
         authority: {
           usage: "M",
           label: "Autorita",
           selector: "classification/@authority",
-          description: `Vyplnit hodnotu <strong>udc</strong>`,
+          cols: 2,
+          description: `
+          <ul>
+            <li>
+              vyplnit hodnotu <strong>udc</strong> (v případě 072 $a)
+            </li>
+            <li>
+              vyplnit hodnotu <strong>Konspekt</strong>  (v případě 072 $9)
+            </li>
+          </ul>`,
           options: [
-            ['udc','udc'], 
+            ['udc','udc'],
+            ['Konspekt','Konspekt']
+          ]
+        },
+        edition: {
+          usage: "M",
+          label: "Edice",
+          selector: "classification/@edition",
+          cols: 2,
+          description: `
+          <ul>
+            <li>
+              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)
+            </li>
+          </ul>`,
+          options: [
+            ['Konspekt','Konspekt']
           ]
         },
         value: {
@@ -507,6 +679,172 @@ export class NdkSheetMusicAacrTemplate {
             ['','-'],
             ['notated music','notated music']
           ]
+        }
+      }
+    },
+    part: {
+      usage: "O",
+      label: "Popis části",
+      selector: 'part',
+      description: `popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.`,
+      fields: {
+        type: {
+          usage: "O",
+          label: "Typ",
+          selector: 'part/@type',
+          description: `Hodnota bude vždy "volume" `,
+          options: [
+            ['volume', 'volume']
+          ]
+        },
+        caption: {
+          usage: "RA",
+          label: "Caption",
+          selector: 'part/detail/caption',
+          description: `text před označením čísla, např. "č.", „část“, "No." apod.`
+        }
+      }
+    },
+    recordInfo: {
+      usage: "M",
+      label: "Údaje o metadatovém záznamu",
+      selector: 'recordInfo',
+      description: `údaje o metadatovém záznamu – jeho vzniku, změnách apod.`,
+      fields: {
+        descriptionStandard: {
+          usage: "MA",
+          label: "Standard metadat",
+          selector: 'recordInfo/descriptionStandard',
+          description: `Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>
+            Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"`,
+          options: [
+            ['aacr', 'aacr'],
+            ['rda', 'rda']
+          ]
+        },
+        recordContectSource: {
+          usage: "R",
+          label: "Contect source",
+          selector: 'recordInfo/recordContectSource',
+          description: `Kód nebo jméno instituce, která záznam vytvořila nebo změnila`,
+          fields: {
+            value: {
+              usage: "R",
+              label: "Hodnota",
+              help: "off"
+            },
+            authority: {
+              usage: "R",
+              label: "Autorita",
+              selector: "recordInfo/recordContectSource/@authority",
+              description: `authority – hodnota "marcorg"`,
+              options: [
+                ['marcorg', 'marcorg']
+              ]
+            }
+          }
+        },
+        recordCreationDate: {
+          usage: "M",
+          label: "Datum vytvoření",
+          selector: 'recordInfo/recordCreationDate',
+          description: `datum prvního vytvoření záznamu, na úroveň minut`,
+          fields: {
+            value: {
+              usage: "M",
+              label: "Hodnota",
+              help: "off"
+            },
+            encoding: {
+              usage: "M",
+              label: "Kódování",
+              selector: "recordInfo/recordCreationDate/@encoding",
+              description: `Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"`,
+              options: [
+                ['iso8601', 'iso8601']
+              ]
+            }
+          }
+        },
+        recordChangeDate: {
+          usage: "MA",
+          label: "Datum změny",
+          selector: 'recordInfo/recordChangeDate',
+          description: `datum změny záznamu `,
+          fields: {
+            value: {
+              usage: "MA",
+              label: "Hodnota",
+              help: "off"
+            },
+            encoding: {
+              usage: "M",
+              label: "Kódování",
+              selector: "recordInfo/recordChangeDate/@encoding",
+              description: `Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"`,
+              options: [
+                ['iso8601', 'iso8601']
+              ]
+            }
+          }
+        },
+        recordIdentifier: {
+          usage: "R",
+          label: "Identifikátor záznamu",
+          selector: 'recordInfo/recordIdentifier',
+          description: `identifikátor záznamu v katalogu, přebírá se z pole 001`,
+          fields: {
+            value: {
+              usage: "MA",
+              label: "Hodnota",
+              help: "off"
+            },
+            source: {
+              usage: "R",
+              label: "Zdroj",
+              selector: "recordInfo/recordIdentifier/@source",
+              description: `hodnota se přebírá z katalogu pole 003 `
+            }
+          }
+        },
+        recordOrigin: {
+          usage: "R",
+          label: "Údaje o vzniku záznamu",
+          selector: 'recordInfo/recordOrigin',
+          description: `údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"`,
+          options: [
+            ['machine generated', 'machine generated'],
+            ['human prepared', 'human prepared']
+          ]
+        },
+        languageOfCataloging: {
+          usage: "R",
+          label: "Jazyk záznamu",
+          selector: 'recordInfo/languageOfCataloging',
+          description: `jazyk katalogového záznamu`,
+          fields: {
+            languageOfCataloging: {
+              usage: "R",
+              label: "Jazyk záznamu",
+              selector: "recordInfo/languageOfCataloging",
+              help: "off"
+            },
+            languageTerm: {
+              usage: "R",
+              label: "Zdroj",
+              selector: "recordInfo/languageOfCataloging/languageTerm",
+              description: `přebírá se z katalogu - pole 40 $b`
+            },
+            authority: {
+              usage: "R",
+              label: "Autorita",
+              selector: "recordInfo/languageOfCataloging/languageTerm/@authority",
+              description: `authority – hodnota "iso639-2b"`,
+              options: [
+                ['iso639-2b', 'iso639-2b']
+              ]
+            }
+          }
         }
       }
     }

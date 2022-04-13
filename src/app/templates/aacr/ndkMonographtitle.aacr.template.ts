@@ -58,7 +58,7 @@ export class NdkMonographTitleAacrTemplate {
       fields: {
         publisher: {
             usage: "MA",
-            label: "Nakladatel",
+            label: "Původ předlohy",
             selector: 'originInfo/publisher',
             description: `Jméno entity, která dokument vydala, vytiskla nebo jinak vyprodukovala<br/>
             Odpovídá poli 260 $b katalogizačního záznamu.<br/>

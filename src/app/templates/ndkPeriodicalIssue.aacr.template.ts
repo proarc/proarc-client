@@ -51,7 +51,7 @@ export class NdkPeriodicalIssueAacrTemplate {
           label: "Typ",
           selector: 'name/@type',
           cols: 2,
-          description: `Použít jednu z hodnot: 
+          description: `Použít jednu z hodnot:
           <ul>
             <li><strong>Osoba</strong> (personal)</li>
             <li><strong>Organizace</strong> (corporate)</li>
@@ -59,7 +59,7 @@ export class NdkPeriodicalIssueAacrTemplate {
             <li><strong>Rodina</strong> (family)</li>
           </ul>`,
           options: [
-            ['', '-'], 
+            ['', '-'],
             ['personal','Osoba'],
             ['corporate','Organizace'],
             ['conference','Konference'],
@@ -109,7 +109,7 @@ export class NdkPeriodicalIssueAacrTemplate {
           selector: 'name/role/roleTerm',
           expanded: true,
           description: `Specifikace role osoby nebo organizace<br/>
-          Kód role z kontrolovaného slovníku rolí 
+          Kód role z kontrolovaného slovníku rolí
           (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)`,
           fields: {},
         }
@@ -117,7 +117,7 @@ export class NdkPeriodicalIssueAacrTemplate {
     },
     originInfo: {
       usage: "MA",
-      label: "Nakladatel",
+      label: "Původ předlohy",
       selector: 'originInfo',
       expanded: true,
       description: `informace o původu předlohy – vyplňuje se ručně doporučené tam, kde lze vyplnit`,
@@ -142,7 +142,7 @@ export class NdkPeriodicalIssueAacrTemplate {
             label: "Upřesnění data",
             selector: 'originInfo/dateIssued/@qualifier',
             cols: 2,
-            description:`Možnost dalšího upřesnění. Možné hodnoty 
+            description:`Možnost dalšího upřesnění. Možné hodnoty
             <ul>
               <li>Přibližné (approximate)</li>
               <li>Odvozené (inferred)</li>
@@ -213,7 +213,7 @@ export class NdkPeriodicalIssueAacrTemplate {
             ['czmesh','czmesh'],
             ['msvkth','msvkth'],
             ['agrovoc','agrovoc'],
-          ]          
+          ]
         },
         topic: {
           usage: "R",
@@ -398,7 +398,7 @@ export class NdkPeriodicalIssueAacrTemplate {
           label: "Platnost",
           selector: "dentifier/@invalid",
           cols: 2,
-          description: `Uvádějí se i neplatné resp. zrušené identifikátory 
+          description: `Uvádějí se i neplatné resp. zrušené identifikátory
           <ul>
             <li>
               <strong>Platný</strong> <code>identifier/[not(@invalid)]</code>
