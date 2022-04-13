@@ -1,13 +1,13 @@
-export class NdkMapAacrTemplate {
+export class NdkSheetMusicAacrTemplate {
 
   static data = {
     titleInfo: {
       usage: 'M',
       label: 'Název',
       selector: 'titleInfo',
-      description: `Název kartografického dokumentu<br/>
+      description: `Název hudebniny<br/>
       Pro plnění použít katalogizační záznam<br/>
-      pokud má kartografický dokument více typů názvů, element se opakuje podle potřeby s příslušným atributem`,
+      pokud má hudebnina více typů názvů, element se opakuje podle potřeby s příslušným atributem`,
       fields: {
         type: {
           usage: "MA",
@@ -15,26 +15,38 @@ export class NdkMapAacrTemplate {
           selector: 'titleInfo/@type',
           cols: 2,
           description: `Hlavní název bez typu - pole 245 a $a<br/>
-          Možné hodnoty 
+          Možné hodnoty
           <ul>
             <li>Zkrácený název (abbreviated) - pole 210</li>
             <li>Alternativní název (alternative) – pole 246</li>
             <li>Přeložený název (translated) – pole 242</li>
             <li>Jednotný název (uniform) – pole 130 resp. 240</li>
           </ul>`,
-          options: [ 
+          options: [
             ['', '-'],
-            ['abbreviated', 'Zkrácený název'], 
+            ['abbreviated', 'Zkrácený název'],
             ['translated', 'Přeložený název'],
             ['alternative', 'Alternativní název'],
             ['uniform', 'Jednotný název']
           ]
         },
+        nonSort: {
+          usage: "O",
+          label: 'Část vynechaná při hledání',
+          selector: 'titleInfo/nonSort',
+          cols: 2,
+          description: `Část názvu, která má být vynechána při vyhledávána<br/>
+          např.:
+          <ul>
+            <li><nonSort>The</nonSort></li>
+            <li><title>Beatles</title></li>
+          </ul>`,
+        },
         title: {
           usage: "M",
           label: 'Název',
           selector: 'titleInfo/title',
-          description: `Názvová informace – název kartografického dokumentu</br>
+          description: `Názvová informace – název hudebniny</br>
           hodnoty převzít z katalogu<br/>
           odpovídající pole a podpole podle typu, viz typ`
         },
@@ -42,8 +54,7 @@ export class NdkMapAacrTemplate {
           usage: "MA",
           label: 'Podnázev',
           selector: 'titleInfo/subTitle',
-          cols: 2,
-          description: `Podnázev kartografického dokumentu<br/>
+          description: `Podnázev hudebniny<br/>
           odpovídající pole a podpole podle typu, viz typ`
         },
         partNumber: {
@@ -67,16 +78,16 @@ export class NdkMapAacrTemplate {
       usage: "MA",
       label: "Autor",
       selector: 'name',
-      description: `Údaje o odpovědnosti za svazek<br/>
+      description: `Údaje o odpovědnosti<br/>
       POZOR – údaje o odpovědnosti nutno přebírat z polí 1XX a 7XX MARCu21<br/>
-      pokud má kartografický dokument iné původce než je autor, element <name> se opakuje s různými rolemi (kartograf, litograf apod.)`,
+      pokud má hudebnina jiné původce než je autor, element <name> se opakuje s různými rolemi (skladatel, autor textu apod.)`,
       fields: {
         type: {
           usage: "MA",
           label: "Typ",
           selector: 'name/@type',
           cols: 2,
-          description: `Použít jednu z hodnot: 
+          description: `Použít jednu z hodnot:
           <ul>
             <li><strong>Osoba</strong> (personal)</li>
             <li><strong>Organizace</strong> (corporate)</li>
@@ -84,7 +95,7 @@ export class NdkMapAacrTemplate {
             <li><strong>Rodina</strong> (family)</li>
           </ul>`,
           options: [
-            ['', '-'], 
+            ['', '-'],
             ['personal','Osoba'],
             ['corporate','Organizace'],
             ['conference','Konference'],
@@ -127,15 +138,31 @@ export class NdkMapAacrTemplate {
           selector: 'name/role/roleTerm',
           expanded: true,
           description: `Specifikace role osoby nebo organizace<br/>
-          Kód role z kontrolovaného slovníku rolí 
+          Kód role z kontrolovaného slovníku rolí
           (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)`,
           fields: {},
+        },
+        nameIdentifier: {
+          usage: "MA",
+          label: "Identifikátor autora",
+          selector: "name/nameIdentifier",
+          cols: 2,
+          description: `Číslo národní autority`,
+        },
+        etal: {
+          usage: "MA",
+          label: "Etal",
+          selector: "name/etal",
+          cols: 2,
+          description: `Element indikující, že existuje více autorů, než pouze ti, kteří byli uvedeni v <name> elementu.</br>
+          V případě užití tohoto elementu je dále top element <name> neopakovatelný.</br>
+          <etal> je nutné umístit do samostatného top elementu <name>, ve kterém se nesmí objevit subelementy <namePart> a <nameIdentifier>.`
         }
       }
     },
     originInfo: {
       usage: "M",
-      label: "Nakladatel",
+      label: "Původ předlohy",
       selector: 'originInfo',
       description: `Informace o původu předlohy`,
       fields: {
@@ -148,50 +175,73 @@ export class NdkMapAacrTemplate {
             Pokud má monografie více vydavatelů, přebírají se za záznamu všichni (jsou v jednom poli 260).`,
         },
         dateIssued: {
-            usage: "M",
-            label: "Datum vydání",
-            selector: 'originInfo/dateIssued',
-            cols: 2,
-            description:`Datum vydání předlohy.<br/>
+          usage: "M",
+          label: "Datum vydání",
+          selector: 'originInfo/dateIssued',
+          cols: 2,
+          description:`Datum vydání předlohy.<br/>
             Přebírat z katalogu.<br/>
             Odpovídá hodnotě z katalogizačního záznamu, pole 260, $c a pole 008/07-10`
         },
         qualifier: {
-            usage: "R",
-            label: "Upřesnění data",
-            selector: 'originInfo/dateIssued/@qualifier',
-            cols: 2,
-            description:`Možnost dalšího upřesnění. Možné hodnoty 
+          usage: "R",
+          label: "Upřesnění data",
+          selector: 'originInfo/dateIssued/@qualifier',
+          cols: 2,
+          description:`Možnost dalšího upřesnění. Možné hodnoty
             <ul>
               <li>Přibližné (approximate)</li>
               <li>Odvozené (inferred)</li>
               <li>Sporné (questionable)</li>
             </ul>`,
-            options: [
-              ['','-'],
-              ['approximate','Datum je přibližné'],
-              ['inferred','Datum je odvozené'],
-              ['questionable','Datum je sporné']
-            ]
+          options: [
+            ['','-'],
+            ['approximate','Datum je přibližné'],
+            ['inferred','Datum je odvozené'],
+            ['questionable','Datum je sporné']
+          ]
         },
         issuance: {
-            usage: "M",
-            label: "Vydání",
-            selector: 'originInfo/issuance',
-            cols: 2,
-            description:`Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>
-            Možné hodnoty 
+          usage: "M",
+          label: "Vydání",
+          selector: 'originInfo/issuance',
+          cols: 2,
+          description:`Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>
+            Možné hodnoty
             <ul>
               <li>Monografické (monographic)</li>
               <li>Vícedílné (multipart monograph)</li>
               <li>Jednotkové (single unit)</li>
             </ul>`,
-            options: [
-              ['', '-'],
-              ['monographic','Monografické'],
-              ['single unit','Jednotkové'],
-              ['multipart monograph','Vícedílné']
-            ]            
+          options: [
+            ['', '-'],
+            ['monographic','Monografické'],
+            ['single unit','Jednotkové'],
+            ['multipart monograph','Vícedílné']
+          ]
+        },
+        encoding: {
+          usage: "R",
+          label: "Kódování",
+          selector: 'originInfo/dateIssued/@encoding',
+          cols: 2,
+          description: `Hodnota "marc" jen u údaje z pole 008`,
+          options: [
+            ['', '-'],
+            ['marc', 'marc']
+          ]
+        },
+        point: {
+          usage: "MA",
+          label: "Point",
+          selector: 'originInfo/dateIssued/@point',
+          cols: 2,
+          description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
+          options: [
+            ['', '-'],
+            ['start', 'start'],
+            ['end', 'end']
+          ]
         },
         place: {
             usage: "MA",
@@ -251,47 +301,20 @@ export class NdkMapAacrTemplate {
             ['czmesh','czmesh'],
             ['msvkth','msvkth'],
             ['agrovoc','agrovoc'],
-          ]          
+          ]
         },
         topic: {
           usage: "R",
           label: "Klíčové slovo/Předmětové heslo",
           selector: 'subject/topic',
-          description: `Libovolný výraz specifikující nebo charakterizující obsah svazku monografie<br/>
+          description: `Libovolný výraz specifikující nebo charakterizující obsah hudebniny<br/>
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21`
-        },
-        geographic: {
-          usage: "R",
-          label: "Geografické věcné třídění",
-          selector: 'subject/geographic',
-          description: `Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21`
         },
         temporal: {
           usage: "R",
           label: "Chronologické věcné třídění",
           selector: 'subject/temporal',
           description: `Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21`
-        },
-        cartographics: {
-          usage: "MA",
-          label: "Kartografické údaje",
-          selector: 'subject/cartographics',
-          description: `přebírá se ze záznamu MARC 21 pole 034
-          je žádoucí je vyplnit v případě, pokud se jedná o samostatnou mapu, pokud jde např. o atlas, vyplňuje se v nižší úrovni`,
-          fields: {
-            coordinates: {
-              usage: "MA",
-              label: "Souřadnice",
-              selector: 'subject/cartographics/coordinates',
-              description: `Obsah pole 034 $d, $e, $f, $g`
-            },
-            scale: {
-              usage: "MA",
-              label: "Měřítko",
-              selector: 'subject/cartographics/scale',
-              description: `Obsah pole 255 podpole a MARC21 záznamu`
-            }
-          }
         }
       }
     },
@@ -336,7 +359,7 @@ export class NdkMapAacrTemplate {
       description: `Shrnutí obsahu jako celku odpovídá poli 520 MARC21`,
       fields: {
         abstract: {
-          usage: "RA",
+          usage: "R",
           label: "Abstrakt",
           selector: "abstract",
           help: "off"
@@ -367,7 +390,7 @@ export class NdkMapAacrTemplate {
           usage: "M",
           label: "Forma",
           selector: "physicalDescription/form",
-          description: `Údaje o fyzické podobě dokumentu, např. kartografický dokument, mapa apod.<br/>
+          description: `Údaje o fyzické podobě dokumentu, např. print, electronic, microfilm apod.<br/>
           odpovídá hodnotě v poli 008/23
           `,
           fields: {
@@ -375,7 +398,8 @@ export class NdkMapAacrTemplate {
               usage: "M",
               label: "Autorita",
               selector: "physicalDescription/form/@authority",
-              description: `Možné hodnoty 
+              cols: 2,
+              description: `Možné hodnoty
               <ul>
                 <li><strong>marcform</strong></li>
                 <li><strong>marccategory</strong></li>
@@ -401,8 +425,8 @@ export class NdkMapAacrTemplate {
       usage: "RA",
       label: "Poznámka",
       selector: "note",
-      description: `Obecná poznámka ke svazku monografie jako celku<br/>
-      Odpovídá hodnotám v poli 245, $c (statement of responsibility) 
+      description: `Obecná poznámka k hudebnině jako celku<br/>
+      Odpovídá hodnotám v poli 245, $c (statement of responsibility)
       a v polích 5XX (poznámky) katalogizačního záznamu`,
       fields: {
         note: {
@@ -417,17 +441,8 @@ export class NdkMapAacrTemplate {
       label: "Žánr",
       selector: "genre",
       description: `Bližší údaje o typu dokumentu<br/>
-      Hodnota <strong>cartographic</strong>`,
+      Hodnota <strong>sheetmusic</strong>`,
       fields: {
-        authority: {
-          usage: "MA",
-          label: "Autorita",
-          selector: "genre/@authority",
-          options: [
-            ['czenas', 'czenas'],
-            ['eczenas', 'eczenas'],
-            ['rdacontent', 'rdacontent']]
-        },
         value: {
           usage: "M",
           label: "Hodnota",
@@ -439,7 +454,8 @@ export class NdkMapAacrTemplate {
       usage: "M",
       label: "Identifikátor",
       selector: "identifier",
-      description: `Údaje o identifikátorech, obsahuje unikátní identifikátory mezinárodní nebo lokální, které kartografický dokument obsahuje.`,
+      description: `Údaje o identifikátorech, obsahuje unikátní
+      identifikátory mezinárodní nebo lokální, které svazek monografie má.`,
       fields: {
         type: {
           usage: "M",
@@ -465,6 +481,10 @@ export class NdkMapAacrTemplate {
                 <strong>ISBN</strong> (isbn) <i>MA</i><br/>
                 převzít z katalogizačního záznamu z pole 020, $a, $z
               </li>
+              <li>
+                <strong>ISMN</strong> (ismn) <i>MA</i><br/>
+                převzít z katalogizačního záznamu z pole 024 (1. ind.="2"), $a, $z
+              </li>
             </ul>
             Jiný interní identifikátor <i>R</i>, např. barcode, oclc, sysno, permalink`
         },
@@ -473,7 +493,7 @@ export class NdkMapAacrTemplate {
           label: "Platnost",
           selector: "dentifier/@invalid",
           cols: 2,
-          description: `Uvádějí se i neplatné resp. zrušené identifikátory 
+          description: `Uvádějí se i neplatné resp. zrušené identifikátory
           <ul>
             <li>
               <strong>Platný</strong> <code>identifier/[not(@invalid)]</code>
@@ -491,7 +511,7 @@ export class NdkMapAacrTemplate {
       }
     },
     classification: {
-      usage: "R",     
+      usage: "R",
       label: "Klasifikace",
       selector: "identifier",
       description: `Klasifikační údaje věcného třídění podle Mezinárodního desetinného třídění<br/>
@@ -504,7 +524,7 @@ export class NdkMapAacrTemplate {
           selector: "classification/@authority",
           description: `Vyplnit hodnotu <strong>udc</strong>`,
           options: [
-            ['udc','udc'], 
+            ['udc','udc'],
           ]
         },
         value: {
@@ -518,8 +538,8 @@ export class NdkMapAacrTemplate {
       usage: "R",
       label: "Typ zdroje",
       selector: "typeOfResource",
-      description: `Pro kartografické dokumenty hodnota <strong>cartographic</strong><br/>
-      mělo by se vyčítat z MARC21 katalogizačního záznamu z pozice 06 návěští (pro cartographic hodnoty e a f)`,
+      description: `Pro hudebniny hodnota <strong>notated music</strong><br/>
+      mělo by se vyčítat z MARC21 katalogizačního záznamu z pozice 06 návěští (pro notated music hodnoty c a d)`,
       fields: {
         value: {
           usage: "R",
@@ -527,8 +547,174 @@ export class NdkMapAacrTemplate {
           help: "off",
           options: [
             ['','-'],
-            ['cartographic','cartographic']
+            ['notated music','notated music']
           ]
+        }
+      }
+    },
+    part: {
+      usage: "O",
+      label: "Popis části",
+      selector: 'part',
+      description: `popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.`,
+      fields: {
+        type: {
+          usage: "O",
+          label: "Typ",
+          selector: 'part/@type',
+          description: `Hodnota bude vždy "volume" `,
+          options: [
+            ['volume', 'volume']
+          ]
+        },
+        caption: {
+          usage: "RA",
+          label: "Caption",
+          selector: 'part/detail/caption',
+          description: `text před označením čísla, např. "č.", „část“, "No." apod.`
+        }
+      }
+    },
+    recordInfo: {
+      usage: "M",
+      label: "Údaje o metadatovém záznamu",
+      selector: 'recordInfo',
+      description: `údaje o metadatovém záznamu – jeho vzniku, změnách apod.`,
+      fields: {
+        descriptionStandard: {
+          usage: "MA",
+          label: "Standard metadat",
+          selector: 'recordInfo/descriptionStandard',
+          description: `Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>
+            Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"`,
+          options: [
+            ['aacr', 'aacr'],
+            ['rda', 'rda']
+          ]
+        },
+        recordContectSource: {
+          usage: "R",
+          label: "Contect source",
+          selector: 'recordInfo/recordContectSource',
+          description: `Kód nebo jméno instituce, která záznam vytvořila nebo změnila`,
+          fields: {
+            value: {
+              usage: "R",
+              label: "Hodnota",
+              help: "off"
+            },
+            authority: {
+              usage: "R",
+              label: "Autorita",
+              selector: "recordInfo/recordContectSource/@authority",
+              description: `authority – hodnota "marcorg"`,
+              options: [
+                ['marcorg', 'marcorg']
+              ]
+            }
+          }
+        },
+        recordCreationDate: {
+          usage: "M",
+          label: "Datum vytvoření",
+          selector: 'recordInfo/recordCreationDate',
+          description: `datum prvního vytvoření záznamu, na úroveň minut`,
+          fields: {
+            value: {
+              usage: "M",
+              label: "Hodnota",
+              help: "off"
+            },
+            encoding: {
+              usage: "M",
+              label: "Kódování",
+              selector: "recordInfo/recordCreationDate/@encoding",
+              description: `Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"`,
+              options: [
+                ['iso8601', 'iso8601']
+              ]
+            }
+          }
+        },
+        recordChangeDate: {
+          usage: "MA",
+          label: "Datum změny",
+          selector: 'recordInfo/recordChangeDate',
+          description: `datum změny záznamu `,
+          fields: {
+            value: {
+              usage: "MA",
+              label: "Hodnota",
+              help: "off"
+            },
+            encoding: {
+              usage: "M",
+              label: "Kódování",
+              selector: "recordInfo/recordChangeDate/@encoding",
+              description: `Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"`,
+              options: [
+                ['iso8601', 'iso8601']
+              ]
+            }
+          }
+        },
+        recordIdentifier: {
+          usage: "R",
+          label: "Identifikátor záznamu",
+          selector: 'recordInfo/recordIdentifier',
+          description: `identifikátor záznamu v katalogu, přebírá se z pole 001`,
+          fields: {
+            value: {
+              usage: "MA",
+              label: "Hodnota",
+              help: "off"
+            },
+            source: {
+              usage: "R",
+              label: "Zdroj",
+              selector: "recordInfo/recordIdentifier/@source",
+              description: `hodnota se přebírá z katalogu pole 003 `
+            }
+          }
+        },
+        recordOrigin: {
+          usage: "R",
+          label: "Údaje o vzniku záznamu",
+          selector: 'recordInfo/recordOrigin',
+          description: `údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"`,
+          options: [
+            ['machine generated', 'machine generated'],
+            ['human prepared', 'human prepared']
+          ]
+        },
+        languageOfCataloging: {
+          usage: "R",
+          label: "Jazyk záznamu",
+          selector: 'recordInfo/languageOfCataloging',
+          description: `jazyk katalogového záznamu`,
+          fields: {
+            languageOfCataloging: {
+              usage: "R",
+              label: "Jazyk záznamu",
+              selector: "recordInfo/languageOfCataloging",
+              help: "off"
+            },
+            languageTerm: {
+              usage: "R",
+              label: "Zdroj",
+              selector: "recordInfo/languageOfCataloging/languageTerm",
+              description: `přebírá se z katalogu - pole 40 $b`
+            },
+            authority: {
+              usage: "R",
+              label: "Autorita",
+              selector: "recordInfo/languageOfCataloging/languageTerm/@authority",
+              description: `authority – hodnota "iso639-2b"`,
+              options: [
+                ['iso639-2b', 'iso639-2b']
+              ]
+            }
+          }
         }
       }
     }

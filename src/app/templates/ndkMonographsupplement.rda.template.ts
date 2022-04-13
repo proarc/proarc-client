@@ -43,7 +43,7 @@ export class NdkMonographSupplementRdaTemplate {
           label: "Typ",
           selector: 'name/@type',
           cols: 2,
-          description: `Použít jednu z hodnot: 
+          description: `Použít jednu z hodnot:
           <ul>
             <li><strong>Osoba</strong> (personal)</li>
             <li><strong>Organizace</strong> (corporate)</li>
@@ -51,7 +51,7 @@ export class NdkMonographSupplementRdaTemplate {
             <li><strong>Rodina</strong> (family)</li>
           </ul>`,
           options: [
-            ['', '-'], 
+            ['', '-'],
             ['personal','Osoba'],
             ['corporate','Organizace'],
             ['conference','Konference'],
@@ -101,7 +101,7 @@ export class NdkMonographSupplementRdaTemplate {
           selector: 'name/role/roleTerm',
           expanded: true,
           description: `Specifikace role osoby nebo organizace<br/>
-          Kód role z kontrolovaného slovníku rolí 
+          Kód role z kontrolovaného slovníku rolí
           (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)`,
           fields: {},
         }
@@ -109,7 +109,7 @@ export class NdkMonographSupplementRdaTemplate {
     },
     originInfo: {
       usage: "MA",
-      label: "Nakladatel",
+      label: "Původ předlohy",
       selector: 'originInfo',
       description: `Informace o původu předlohy: odpovídá poli 264<br/>
       plnit, pokud se liší od údajů v popisu čísla periodika (platí i pro jednotlivé subelementy)<br/>
@@ -189,7 +189,7 @@ export class NdkMonographSupplementRdaTemplate {
             description:`Datum vydání přílohy, podle údajů, které jsou k dispozici<br/>
             možno použít hodnotu z katalogizačního záznamu<br/>
             Odpovídá hodnotě z katalogizačního záznamu, pole 264_1 $c a pole 008/07-10<br/>
-            Pro všechny ostatní výskyty v poli 264 $c: 
+            Pro všechny ostatní výskyty v poli 264 $c:
             <ul>
               <li>264_0 <strong>Produkce</strong> (production)</li>
               <li>264_2 <strong>Distribuce</strong> (distribution)</li>
@@ -203,7 +203,7 @@ export class NdkMonographSupplementRdaTemplate {
             label: "Upřesnění data",
             selector: 'originInfo/dateIssued/@qualifier',
             cols: 2,
-            description:`Možnost dalšího upřesnění. Možné hodnoty 
+            description:`Možnost dalšího upřesnění. Možné hodnoty
             <ul>
               <li>Přibližné (approximate)</li>
               <li>Odvozené (inferred)</li>
@@ -300,7 +300,7 @@ export class NdkMonographSupplementRdaTemplate {
             ['msvkth','msvkth'],
             ['agrovoc','agrovoc'],
             ['Konspekt','Konspekt']
-          ]          
+          ]
         },
         topic: {
           usage: "MA",
@@ -389,7 +389,7 @@ export class NdkMonographSupplementRdaTemplate {
               label: "Autorita",
               selector: "physicalDescription/form/@authority",
               cols: 2,
-              description: `Možné hodnoty 
+              description: `Možné hodnoty
               <ul>
                 <li><strong>marcform</strong></li>
                 <li><strong>marccategory</strong></li>
@@ -411,7 +411,7 @@ export class NdkMonographSupplementRdaTemplate {
               label: "Typ",
               selector: "physicalDescription/form/@type",
               cols: 2,
-              description: `Možné hodnoty 
+              description: `Možné hodnoty
               <ul>
                 <li><strong>media</strong> pro pole 337</li>
                 <li><strong>carrier</strong> pro pole 338</li>
@@ -494,7 +494,7 @@ export class NdkMonographSupplementRdaTemplate {
               </li>
               <li>
                 <strong>ISSN</strong> (issn) <i>MA</i><br/>
-                převzít z katalogizačního záznam NK ČR 
+                převzít z katalogizačního záznam NK ČR
               </li>
             </ul>
             Jiný interní identifikátor <i>R</i>, např. barcode, oclc, sysno, permalink`
@@ -504,7 +504,7 @@ export class NdkMonographSupplementRdaTemplate {
           label: "Platnost",
           selector: "dentifier/@invalid",
           cols: 2,
-          description: `Uvádějí se i neplatné resp. zrušené identifikátory 
+          description: `Uvádějí se i neplatné resp. zrušené identifikátory
           <ul>
             <li>
               <strong>Platný</strong> <code>identifier/[not(@invalid)]</code>
@@ -522,7 +522,7 @@ export class NdkMonographSupplementRdaTemplate {
       }
     },
     classification: {
-      usage: "R",     
+      usage: "R",
       label: "Klasifikace",
       selector: "identifier",
       description: `Klasifikační údaje věcného třídění podle Konspektu.<br/>
@@ -543,7 +543,7 @@ export class NdkMonographSupplementRdaTemplate {
             </li>
           </ul>`,
           options: [
-            ['udc','udc'], 
+            ['udc','udc'],
             ['Konspekt','Konspekt']
           ]
         },

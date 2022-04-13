@@ -162,7 +162,7 @@ export class NdkMonographVolumeAacrTemplate {
     },
     originInfo: {
       usage: "M",
-      label: "Nakladatel",
+      label: "Původ předlohy",
       selector: 'originInfo',
       description: `Informace o původu předlohy`,
       fields: {

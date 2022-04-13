@@ -135,7 +135,7 @@ export class BdmArticleRdaTemplate {
     },
     originInfo: {
       usage: "M",
-      label: "Nakladatel",
+      label: "Původ předlohy",
       selector: 'originInfo',
       description: `Informace o původu předlohy`,
       fields: {
