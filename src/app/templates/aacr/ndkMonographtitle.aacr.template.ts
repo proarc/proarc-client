@@ -69,6 +69,91 @@ export class NdkMonographTitleAacrTemplate {
             label: "Edice",
             selector: 'originInfo/edition',
             description:`Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu v MARC 21.`
+        },
+        dateIssued: {
+          usage: "O",
+          label: "Datum vydání",
+          selector: 'originInfo/dateIssued',
+          cols: 2,
+          description:`Datum vydání předlohy.<br/>
+            Přebírat z katalogu.<br/>
+            Odpovídá hodnotě z katalogizačního záznamu, pole 264_1 $c a pole 008/07-10<br/>
+            Pro všechny ostatní výskyty v poli 264 $c:
+            <ul>
+              <li>264_0 <strong>Produkce</strong> (production)</li>
+              <li>264_2 <strong>Distribuce</strong> (distribution)</li>
+              <li>264_3 <strong>Výroba</strong> (manufacture)</li>
+              <li>264_4 <strong>Copyright</strong> (copyright)</li>
+            </ul>
+            využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>`
+        },
+        qualifier: {
+          usage: "O",
+          label: "Upřesnění data",
+          selector: 'originInfo/dateIssued/@qualifier',
+          cols: 2,
+          description:`Možnost dalšího upřesnění. Možné hodnoty
+            <ul>
+              <li>Přibližné (approximate)</li>
+              <li>Odvozené (inferred)</li>
+              <li>Sporné (questionable)</li>
+            </ul>`,
+          options: [
+            ['','-'],
+            ['approximate','Datum je přibližné'],
+            ['inferred','Datum je odvozené'],
+            ['questionable','Datum je sporné']
+          ]
+        },
+        encoding: {
+          usage: "O",
+          label: "Kódování",
+          selector: 'originInfo/dateIssued/@encoding',
+          cols: 2,
+          description: `Hodnota "marc" jen u údaje z pole 008`,
+          options: [
+            ['', '-'],
+            ['marc', 'marc']
+          ]
+        },
+        point: {
+          usage: "O",
+          label: "Point",
+          selector: 'originInfo/dateIssued/@point',
+          cols: 2,
+          description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
+          options: [
+            ['', '-'],
+            ['start', 'start'],
+            ['end', 'end']
+          ]
+        },
+        issuance: {
+          usage: "O",
+          label: "Vydání",
+          selector: 'originInfo/issuance',
+          cols: 2,
+          description:`Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>
+            Možné hodnoty
+            <ul>
+              <li>Monografické (monographic)</li>
+              <li>Vícedílné (multipart monograph)</li>
+              <li>Jednotkové (single unit)</li>
+            </ul>`,
+          options: [
+            ['', '-'],
+            ['monographic','Monografické'],
+            ['single unit','Jednotkové'],
+            ['multipart monograph','Vícedílné']
+          ]
+        },
+        place: {
+          usage: "O",
+          label: "Místo",
+          selector: 'originInfo/place/placeTerm',
+          cols: 2,
+          description:`Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisovaného dokumentu<br/>
+            odpovídá hodnotě 264 $a`
         }
       }
     },

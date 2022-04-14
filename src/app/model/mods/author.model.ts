@@ -9,6 +9,7 @@ export class ModsAuthor extends ModsElement {
     public name;
     public given;
     public family;
+    public termsOfAddress;
     public date;
     public roles: ElementField;
     public nameIdentifier: string;
@@ -46,6 +47,8 @@ export class ModsAuthor extends ModsElement {
                 this.family = namePart;
             }  else if (ModsUtils.hasAttributeWithValue(namePart, 'type', 'given')) {
                 this.given = namePart;
+            } else if (ModsUtils.hasAttributeWithValue(namePart, 'type', 'termsOfAddress')) {
+                this.termsOfAddress = namePart;
             }
         }
         if (this.name == null) {
@@ -64,7 +67,11 @@ export class ModsAuthor extends ModsElement {
             this.given = ModsUtils.createTextElement('', {'type': 'given'});
             nameParts.push(this.given);
         }
-        if(this.available('role')) {
+        if (this.termsOfAddress == null) {
+            this.termsOfAddress = ModsUtils.createTextElement('', {'type': 'termsOfAddress'});
+            nameParts.push(this.termsOfAddress);
+        }
+        if (this.available('role')) {
             this.roles = new ElementField(this.modsElement, ModsRole.getSelector(), this.getField('role'));
         }
 

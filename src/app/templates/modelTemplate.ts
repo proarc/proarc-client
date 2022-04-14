@@ -1,7 +1,7 @@
 import { NdkMapAacrTemplate } from "./aacr/ndkMap.aacr.template";
 import { NdkMapRdaTemplate } from "./rda/ndkMap.rda.template";
-import { NdkMonographSupplementAacrTemplate } from "./ndkMonographsupplement.aacr.template";
-import { NdkMonographSupplementRdaTemplate } from "./ndkMonographsupplement.rda.template";
+import { NdkMonographSupplementAacrTemplate } from "./aacr/ndkMonographsupplement.aacr.template";
+import { NdkMonographSupplementRdaTemplate } from "./rda/ndkMonographsupplement.rda.template";
 import { NdkMonographTitleAacrTemplate } from "./aacr/ndkMonographtitle.aacr.template";
 import { NdkMonographTitleRdaTemplate } from "./rda/ndkMonographtitle.rda.template";
 import { NdkMonographVolumeAacrTemplate } from "./aacr/ndkMonographvolume.aacr.template";
@@ -23,6 +23,8 @@ import {NdkMusicTrackAacrTemplate} from './aacr/ndkMusicTrack.aacr.template';
 import {NdkMusicAudioPageAacrTemplate} from './aacr/ndkMusicAudioPage.aacr.template';
 import {AacrTemplate} from './aacr/aacr.template';
 import {RdaTemplate} from './rda/rda.template';
+import {NdkPictureAacrTemplate} from './aacr/NdkPicture.aacr.template';
+import {NdkChapterAacrTemplate} from './aacr/NdkChapter.aacr.template';
 
 export class ModelTemplate {
 
@@ -39,25 +41,25 @@ export class ModelTemplate {
       "model:ndkperiodicalsupplement": NdkPeriodicalSupplementAacrTemplate.data,
 
       "model:ndkarticle": AacrTemplate.data,
-      "model:ndkpicture": AacrTemplate.data,
-      "model:ndkchapter": AacrTemplate.data,
+      "model:ndkpicture": NdkPictureAacrTemplate.data,
+      "model:ndkchapter": NdkChapterAacrTemplate.data,
 
-      "model:oldprintomnibusvolume": AacrTemplate.data,
+      "model:oldprintomnibusvolume": NdkMonographTitleAacrTemplate.data,
       "model:oldprintmonographtitle": NdkMonographTitleAacrTemplate.data,
-      "model:oldprintvolume": AacrTemplate.data,
+      "model:oldprintvolume": NdkMonographVolumeAacrTemplate.data,
       "model:oldprintsupplement": AacrTemplate.data,
-      "model:oldprintchapter": AacrTemplate.data,
-      "model:oldprintgraphics": AacrTemplate.data,
-      "model:oldprintmap": AacrTemplate.data,
-      "model:oldprintsheetmusic": AacrTemplate.data,
+      "model:oldprintchapter": NdkChapterAacrTemplate.data,
+      "model:oldprintgraphics": NdkPictureAacrTemplate.data,
+      "model:oldprintmap": NdkMapAacrTemplate.data,
+      "model:oldprintsheetmusic": NdkSheetMusicAacrTemplate.data,
 
       "model:ndkeperiodical": NdkPeriodicalAacrTemplate.data,
       "model:ndkeperiodicalvolume": NdkPeriodicalVolumeAacrTemplate.data,
       "model:ndkeperiodicalissue": NdkPeriodicalIssueAacrTemplate.data,
       "model:ndkearticle": AacrTemplate.data,
       "model:ndkemonographtitle": NdkMonographTitleAacrTemplate.data,
-      "model:ndkemonographvolume": AacrTemplate.data,
-      "model:ndkechapter": AacrTemplate.data,
+      "model:ndkemonographvolume": NdkMonographVolumeAacrTemplate.data,
+      "model:ndkechapter": NdkChapterAacrTemplate.data,
 
       // eClanek
       "model:bdmarticle": AacrTemplate.data,
@@ -93,11 +95,11 @@ export class ModelTemplate {
       "model:oldprintomnibusvolume": RdaTemplate.data,
       "model:oldprintmonographtitle": NdkMonographTitleRdaTemplate.data,
       "model:oldprintvolume": RdaTemplate.data,
-      "model:oldprintsupplement": RdaTemplate.data,
+      "model:oldprintsupplement": NdkMonographSupplementRdaTemplate.data,
       "model:oldprintchapter": RdaTemplate.data,
-      "model:oldprintgraphics": RdaTemplate.data,
-      "model:oldprintmap": RdaTemplate.data,
-      "model:oldprintsheetmusic": RdaTemplate.data,
+      "model:oldprintgraphics": NdkMapRdaTemplate.data,
+      "model:oldprintmap": NdkMapRdaTemplate.data,
+      "model:oldprintsheetmusic": NdkSheetMusicRdaTemplate.data,
 
       "model:ndkeperiodical": RdaTemplate.data,
       "model:ndkeperiodicalvolume": RdaTemplate.data,
@@ -115,7 +117,7 @@ export class ModelTemplate {
       "model:chroniclevolume": AacrTemplate.data,
       "model:chroniclesupplement": AacrTemplate.data,
 
-      // ndk music documents
+      // ndk music documents -- ndkMusic ma pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
       "model:ndkphonographcylinder": NdkMusicDocumentAacrTemplate.data,
       "model:ndkmusicdocument": NdkMusicDocumentAacrTemplate.data,
       "model:ndksong": NdkMusicSongAacrTemplate.data,
