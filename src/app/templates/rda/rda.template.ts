@@ -165,7 +165,14 @@ export class RdaTemplate {
           Kód role z kontrolovaného slovníku rolí
           (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)`,
           fields: {},
-        }
+        },
+        affiliation: {
+          usage: "O",
+          label: "Napojená instituce",
+          selector: "name/affiliation",
+          description: `Umožňuje vepsat název instituce, se kterou je autor spojen<br/>
+          např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.`
+        },
       }
     },
     originInfo: {
@@ -608,14 +615,20 @@ export class RdaTemplate {
       description: `Bližší údaje o typu dokumentu<br/>
       Pro monografie hodnota <strong>volume</strong>`,
       fields: {
-        authority: {
-          usage: "MA",
-          label: "Autorita",
-          selector: "genre/@authority",
+        type: {
+          usage: "M",
+          label: "Typ",
+          selector: "genre/@type",
+          description:`Bližší údaje o typu přílohy</br>
+          hodnoty:
+          <ul>
+            <li>Příloha k ročníku, např. obsah celého ročníku (volume_supplement)</li>
+            <li>příloha k číslu (issue_supplement)</li>
+          </ul>`,
           options: [
-            ['czenas', 'czenas'],
-            ['eczenas', 'eczenas'],
-            ['rdacontent', 'rdacontent']]
+            ['volume_supplement', 'příloha k ročníku'],
+            ['issue_supplement', 'příloha k číslu']
+          ]
         },
         value: {
           usage: "M",

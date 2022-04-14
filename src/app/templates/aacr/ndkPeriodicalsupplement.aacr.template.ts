@@ -8,6 +8,17 @@ export class NdkPeriodicalSupplementAacrTemplate {
       description: `Názvová informace přílohy<br/>
       Pro plnění použít katalogizační záznam`,
       fields: {
+        nonSort: {
+          usage: "O",
+          label: 'Část vynechaná při hledání',
+          selector: 'titleInfo/nonSort',
+          description: `Část názvu, která má být vynechána při vyhledávána<br/>
+          např.:
+          <ul>
+            <li><nonSort>The</nonSort></li>
+            <li><title>Beatles</title></li>
+          </ul>`,
+        },
         title: {
           usage: "M",
           label: 'Název',
@@ -88,12 +99,35 @@ export class NdkPeriodicalSupplementAacrTemplate {
           description: `Životopisná data autora<br/>
           Pokud známe datum narození a úmrtí autora, vyplnit ve tvaru RRRR-RRRR.`
         },
+        termsOfAddress: {
+          usage: "RA",
+          label: "Adresa",
+          selector: "name/namePart[@type='termsOfAddress']",
+          cols: 2,
+          description: `Adresa.`
+        },
         affiliation: {
           usage: "O",
           label: "Napojená instituce",
           selector: "name/affiliation",
           description: `Umožňuje vepsat název instituce, se kterou je autor spojen<br/>
           např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.`
+        },
+        nameIdentifier: {
+          usage: "MA",
+          label: "Identifikátor autora",
+          selector: "name/nameIdentifier",
+          cols: 2,
+          description: `Číslo národní autority`,
+        },
+        etal: {
+          usage: "O",
+          label: "Etal",
+          selector: "name/etal",
+          cols: 2,
+          description: `Element indikující, že existuje více autorů, než pouze ti, kteří byli uvedeni v <name> elementu.</br>
+          V případě užití tohoto elementu je dále top element <name> neopakovatelný.</br>
+          <etal> je nutné umístit do samostatného top elementu <name>, ve kterém se nesmí objevit subelementy <namePart> a <nameIdentifier>.`
         },
         role: {
           usage: "MA",
@@ -238,6 +272,13 @@ export class NdkPeriodicalSupplementAacrTemplate {
           label: "Chronologické věcné třídění",
           selector: 'subject/temporal',
           description: `Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21`
+        },
+        name: {
+          usage: "R",
+          label: "Jméno použité jako věcné záhlaví",
+          selector: 'subject/name',
+          description: `Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21<br/>
+          Struktura a atributy stejné jako pro údaje o původcích – viz element <name>`
         }
       }
     },
@@ -348,6 +389,7 @@ export class NdkPeriodicalSupplementAacrTemplate {
           usage: "M",
           label: "Typ",
           selector: "genre/@type",
+          cols: 2,
           description:`Bližší údaje o typu přílohy</br>
           hodnoty:
           <ul>
@@ -362,6 +404,7 @@ export class NdkPeriodicalSupplementAacrTemplate {
         value: {
           usage: "M",
           label: "Hodnota",
+          cols: 2,
           help: "off"
         }
       }

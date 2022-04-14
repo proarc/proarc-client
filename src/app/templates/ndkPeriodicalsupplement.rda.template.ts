@@ -8,6 +8,17 @@ export class NdkPeriodicalSupplementRdaTemplate {
       description: `Názvová informace přílohy<br/>
       Pro plnění použít katalogizační záznam`,
       fields: {
+        nonSort: {
+          usage: "O",
+          label: 'Část vynechaná při hledání',
+          selector: 'titleInfo/nonSort',
+          description: `Část názvu, která má být vynechána při vyhledávána<br/>
+          např.:
+          <ul>
+            <li><nonSort>The</nonSort></li>
+            <li><title>Beatles</title></li>
+          </ul>`,
+        },
         title: {
           usage: "M",
           label: 'Název',
@@ -88,12 +99,35 @@ export class NdkPeriodicalSupplementRdaTemplate {
           description: `Životopisná data autora<br/>
           Pokud známe datum narození a úmrtí autora, vyplnit ve tvaru RRRR-RRRR.`
         },
+        termsOfAddress: {
+          usage: "RA",
+          label: "Adresa",
+          selector: "name/namePart[@type='termsOfAddress']",
+          cols: 2,
+          description: `Adresa.`
+        },
         affiliation: {
           usage: "O",
           label: "Napojená instituce",
           selector: "name/affiliation",
           description: `Umožňuje vepsat název instituce, se kterou je autor spojen<br/>
           např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.`
+        },
+        nameIdentifier: {
+          usage: "MA",
+          label: "Identifikátor autora",
+          selector: "name/nameIdentifier",
+          cols: 2,
+          description: `Číslo národní autority`,
+        },
+        etal: {
+          usage: "O",
+          label: "Etal",
+          selector: "name/etal",
+          cols: 2,
+          description: `Element indikující, že existuje více autorů, než pouze ti, kteří byli uvedeni v <name> elementu.</br>
+          V případě užití tohoto elementu je dále top element <name> neopakovatelný.</br>
+          <etal> je nutné umístit do samostatného top elementu <name>, ve kterém se nesmí objevit subelementy <namePart> a <nameIdentifier>.`
         },
         role: {
           usage: "MA",
@@ -199,29 +233,29 @@ export class NdkPeriodicalSupplementRdaTemplate {
             využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>`
         },
         qualifier: {
-            usage: "O",
-            label: "Upřesnění data",
-            selector: 'originInfo/dateIssued/@qualifier',
-            cols: 2,
-            description:`Možnost dalšího upřesnění. Možné hodnoty
+          usage: "O",
+          label: "Upřesnění data",
+          selector: 'originInfo/dateIssued/@qualifier',
+          cols: 2,
+          description:`Možnost dalšího upřesnění. Možné hodnoty
             <ul>
               <li>Přibližné (approximate)</li>
               <li>Odvozené (inferred)</li>
               <li>Sporné (questionable)</li>
             </ul>`,
-            options: [
-              ['','-'],
-              ['approximate','Datum je přibližné'],
-              ['inferred','Datum je odvozené'],
-              ['questionable','Datum je sporné']
-            ]
+          options: [
+            ['','-'],
+            ['approximate','Datum je přibližné'],
+            ['inferred','Datum je odvozené'],
+            ['questionable','Datum je sporné']
+          ]
         },
         place: {
-            usage: "MA",
-            label: "Místo",
-            selector: 'originInfo/place/placeTerm',
-            cols: 2,
-            description:`Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisované přílohy odpovídá hodnotě 264 $a`
+          usage: "MA",
+          label: "Místo",
+          selector: 'originInfo/place/placeTerm',
+          cols: 2,
+          description:`Údaje o místě spojeném s vydáním, výrobou nebo původem přílohy`
         },
         dateCreated: {
           usage: "R",
@@ -237,9 +271,8 @@ export class NdkPeriodicalSupplementRdaTemplate {
           label: "Datum - jiné",
           selector: 'originInfo/dateOther',
           cols: 3,
-          description:`Datum vytvoření, distribuce, výroby přílohy (bude použito i při popisu tiskaře, viz poznámka u elementu
-            <strong>Nakladatel</strong> nebo např. u popisu CD/DVD apod.)<br/>
-            tento elemet se využije v případě výskytu $c v::
+          description:`Datum vytvoření, distribuce, výroby předlohy<br/>
+          Tento elemet se využije v případě výskytu $c v:
           <ul>
             <li>264_0 <strong>Produkce</strong> (production)</li>
             <li>264_2 <strong>Distribuce</strong> (distribution)</li>
@@ -257,7 +290,7 @@ export class NdkPeriodicalSupplementRdaTemplate {
           </ul>`
         },
         frequency: {
-          usage: "R",
+          usage: "RA",
           label: "Frekvence",
           selector: 'originInfo/frequency',
           description: `údaje o pravidelnosti vydávání
@@ -276,7 +309,19 @@ export class NdkPeriodicalSupplementRdaTemplate {
               help: 'off'
             }
           }
-        }
+        },
+        point: {
+          usage: "MA",
+          label: "Point",
+          selector: 'originInfo/dateIssued/@point',
+          cols: 2,
+          description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
+          options: [
+            ['', '-'],
+            ['start', 'start'],
+            ['end', 'end']
+          ]
+        },
       }
     },
     subject: {
@@ -289,7 +334,7 @@ export class NdkPeriodicalSupplementRdaTemplate {
           usage: "R",
           label: "Autorita",
           selector: 'subject/@authority',
-          description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>Konspekt</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
+          description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
           Odpovídá hodnotě v $2`,
           options: [
             ['', '-'],
@@ -320,6 +365,13 @@ export class NdkPeriodicalSupplementRdaTemplate {
           label: "Chronologické věcné třídění",
           selector: 'subject/temporal',
           description: `Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21`
+        },
+        name: {
+          usage: "R",
+          label: "Jméno použité jako věcné záhlaví",
+          selector: 'subject/name',
+          description: `Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21<br/>
+          Struktura a atributy stejné jako pro údaje o původcích – viz element <name>`
         }
       }
     },
@@ -387,8 +439,8 @@ export class NdkPeriodicalSupplementRdaTemplate {
             authority: {
               usage: "MA",
               label: "Autorita",
-              selector: "physicalDescription/form/@authority",
               cols: 2,
+              selector: "physicalDescription/form/@authority",
               description: `Možné hodnoty
               <ul>
                 <li><strong>marcform</strong></li>
@@ -454,6 +506,7 @@ export class NdkPeriodicalSupplementRdaTemplate {
           usage: "M",
           label: "Typ",
           selector: "genre/@type",
+          cols: 2,
           description:`Bližší údaje o typu přílohy</br>
           hodnoty:
           <ul>
@@ -468,6 +521,7 @@ export class NdkPeriodicalSupplementRdaTemplate {
         value: {
           usage: "M",
           label: "Hodnota",
+          cols: 2,
           help: "off"
         }
       }
