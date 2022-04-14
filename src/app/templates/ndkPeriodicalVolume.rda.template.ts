@@ -27,7 +27,7 @@ export class NdkPeriodicalVolumeRdaTemplate {
           label: "Typ",
           selector: 'name/@type',
           cols: 2,
-          description: `Použít jednu z hodnot: 
+          description: `Použít jednu z hodnot:
           <ul>
             <li><strong>Osoba</strong> (personal)</li>
             <li><strong>Organizace</strong> (corporate)</li>
@@ -35,7 +35,7 @@ export class NdkPeriodicalVolumeRdaTemplate {
             <li><strong>Rodina</strong> (family)</li>
           </ul>`,
           options: [
-            ['', '-'], 
+            ['', '-'],
             ['personal','Osoba'],
             ['corporate','Organizace'],
             ['conference','Konference'],
@@ -72,13 +72,27 @@ export class NdkPeriodicalVolumeRdaTemplate {
           description: `Životopisná data autora<br/>
           Pokud známe datum narození a úmrtí autora, vyplnit ve tvaru RRRR-RRRR.`
         },
+        termsOfAddress: {
+          usage: "RA",
+          label: "Adresa",
+          selector: "name/namePart[@type='termsOfAddress']",
+          cols: 2,
+          description: `Adresa.`
+        },
+        nameIdentifier: {
+          usage: "MA",
+          label: "Identifikátor autora",
+          selector: "name/nameIdentifier",
+          cols: 2,
+          description: `Číslo národní autority`,
+        },
         role: {
           usage: "MA",
           label: "Role",
           selector: 'name/role/roleTerm',
           expanded: true,
           description: `Specifikace role osoby nebo organizace<br/>
-          Kód role z kontrolovaného slovníku rolí 
+          Kód role z kontrolovaného slovníku rolí
           (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)`,
           fields: {},
         }
@@ -103,7 +117,7 @@ export class NdkPeriodicalVolumeRdaTemplate {
           label: "Upřesnění data",
           selector: 'originInfo/dateIssued/@qualifier',
           cols: 2,
-          description:`Možnost dalšího upřesnění. Možné hodnoty 
+          description:`Možnost dalšího upřesnění. Možné hodnoty
           <ul>
             <li>Přibližné (approximate)</li>
             <li>Odvozené (inferred)</li>
@@ -115,7 +129,19 @@ export class NdkPeriodicalVolumeRdaTemplate {
             ['inferred','Datum je odvozené'],
             ['questionable','Datum je sporné']
           ]
-        }
+        },
+        point: {
+          usage: "MA",
+          label: "Point",
+          selector: 'originInfo/dateIssued/@point',
+          cols: 2,
+          description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
+          options: [
+            ['', '-'],
+            ['start', 'start'],
+            ['end', 'end']
+          ]
+        },
       }
     },
     physicalDescription: {
@@ -177,7 +203,7 @@ export class NdkPeriodicalVolumeRdaTemplate {
           label: "Platnost",
           selector: "dentifier/@invalid",
           cols: 2,
-          description: `Uvádějí se i neplatné resp. zrušené identifikátory 
+          description: `Uvádějí se i neplatné resp. zrušené identifikátory
           <ul>
             <li>
               <strong>Platný</strong> <code>identifier/[not(@invalid)]</code>

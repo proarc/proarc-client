@@ -6,8 +6,8 @@ import { NdkMonographTitleAacrTemplate } from "./aacr/ndkMonographtitle.aacr.tem
 import { NdkMonographTitleRdaTemplate } from "./rda/ndkMonographtitle.rda.template";
 import { NdkMonographVolumeAacrTemplate } from "./aacr/ndkMonographvolume.aacr.template";
 import { NdkMonographVolumeRdaTemplate } from "./rda/ndkMonographvolume.rda.template";
-import { NdkPeriodicalAacrTemplate } from "./ndkPeriodical.aacr.template";
-import { NdkPeriodicalRdaTemplate } from "./ndkPeriodical.rda.template";
+import { NdkPeriodicalAacrTemplate } from "./aacr/ndkPeriodical.aacr.template";
+import { NdkPeriodicalRdaTemplate } from "./rda/ndkPeriodical.rda.template";
 import { NdkPeriodicalIssueAacrTemplate } from "./ndkPeriodicalIssue.aacr.template";
 import { NdkPeriodicalIssueRdaTemplate } from "./ndkPeriodicalIssue.rda.template";
 import { NdkPeriodicalSupplementAacrTemplate } from "./ndkPeriodicalsupplement.aacr.template";
