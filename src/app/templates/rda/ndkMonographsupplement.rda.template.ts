@@ -12,7 +12,18 @@ export class NdkMonographSupplementRdaTemplate {
           usage: "M",
           label: 'Název',
           selector: 'titleInfo/title',
-          description: `Názvová informace – název titulu periodika, nebo název přílohy, pokud je známý`
+          description: `Názvová informace – název přílohy, pokud je známý`
+        },
+        nonSort: {
+          usage: "O",
+          label: 'Část vynechaná při hledání',
+          selector: 'titleInfo/nonSort',
+          description: `Část názvu, která má být vynechána při vyhledávána<br/>
+          např.:
+          <ul>
+            <li><nonSort>The</nonSort></li>
+            <li><title>Beatles</title></li>
+          </ul>`,
         },
         partNumber: {
           usage: "MA",
@@ -88,6 +99,13 @@ export class NdkMonographSupplementRdaTemplate {
           description: `Životopisná data autora<br/>
           Pokud známe datum narození a úmrtí autora, vyplnit ve tvaru RRRR-RRRR.`
         },
+        termsOfAddress: {
+          usage: "RA",
+          label: "Adresa",
+          selector: "name/namePart[@type='termsOfAddress']",
+          cols: 2,
+          description: `Adresa.`
+        },
         // affiliation: {
         //   usage: "O",
         //   label: "Napojená instituce",
@@ -95,6 +113,21 @@ export class NdkMonographSupplementRdaTemplate {
         //   description: `Umožňuje vepsat název instituce, se kterou je autor spojen<br/>
         //   např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.`
         // },
+        nameIdentifier: {
+          usage: "MA",
+          label: "Identifikátor autora",
+          selector: "name/nameIdentifier",
+          description: `Číslo národní autority`,
+        },
+        etal: {
+          usage: "MA",
+          label: "Etal",
+          selector: "name/etal",
+          cols: 2,
+          description: `Element indikující, že existuje více autorů, než pouze ti, kteří byli uvedeni v <name> elementu.</br>
+          V případě užití tohoto elementu je dále top element <name> neopakovatelný.</br>
+          <etal> je nutné umístit do samostatného top elementu <name>, ve kterém se nesmí objevit subelementy <namePart> a <nameIdentifier>.`
+        },
         role: {
           usage: "MA",
           label: "Role",
@@ -122,10 +155,10 @@ export class NdkMonographSupplementRdaTemplate {
       <dateOther> s atributem type="manufacture"`,
       fields: {
         publisher: {
-            usage: "MA",
-            label: "Nakladatel",
-            selector: 'originInfo/publisher',
-            description: `Jméno entity, která přílohu vytvořila, vydala, distribuovala nebo vyrobila, odpovídá poli 264 $b
+          usage: "MA",
+          label: "Nakladatel",
+          selector: 'originInfo/publisher',
+          description: `Jméno entity, která přílohu vytvořila, vydala, distribuovala nebo vyrobila, odpovídá poli 264 $b
             katalogizačního záznamu v MARC21<br/>
             pokud má příloha více vydavatelů/distributorů/výrobců, přebírají se za záznamu všichni (z jednoho pole 264)`
         },
@@ -182,11 +215,11 @@ export class NdkMonographSupplementRdaTemplate {
           ]
         },
         dateIssued: {
-            usage: "MA",
-            label: "Datum vydání",
-            selector: 'originInfo/dateIssued',
-            cols: 2,
-            description:`Datum vydání přílohy, podle údajů, které jsou k dispozici<br/>
+          usage: "MA",
+          label: "Datum vydání",
+          selector: 'originInfo/dateIssued',
+          cols: 2,
+          description:`Datum vydání přílohy, podle údajů, které jsou k dispozici<br/>
             možno použít hodnotu z katalogizačního záznamu<br/>
             Odpovídá hodnotě z katalogizačního záznamu, pole 264_1 $c a pole 008/07-10<br/>
             Pro všechny ostatní výskyty v poli 264 $c:
@@ -199,35 +232,35 @@ export class NdkMonographSupplementRdaTemplate {
             využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>`
         },
         qualifier: {
-            usage: "O",
-            label: "Upřesnění data",
-            selector: 'originInfo/dateIssued/@qualifier',
-            cols: 2,
-            description:`Možnost dalšího upřesnění. Možné hodnoty
+          usage: "O",
+          label: "Upřesnění data",
+          selector: 'originInfo/dateIssued/@qualifier',
+          cols: 2,
+          description:`Možnost dalšího upřesnění. Možné hodnoty
             <ul>
               <li>Přibližné (approximate)</li>
               <li>Odvozené (inferred)</li>
               <li>Sporné (questionable)</li>
             </ul>`,
-            options: [
-              ['','-'],
-              ['approximate','Datum je přibližné'],
-              ['inferred','Datum je odvozené'],
-              ['questionable','Datum je sporné']
-            ]
+          options: [
+            ['','-'],
+            ['approximate','Datum je přibližné'],
+            ['inferred','Datum je odvozené'],
+            ['questionable','Datum je sporné']
+          ]
         },
         place: {
-            usage: "MA",
-            label: "Místo",
-            selector: 'originInfo/place/placeTerm',
-            cols: 2,
-            description:`Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisované přílohy odpovídá hodnotě 264 $a`
+          usage: "MA",
+          label: "Místo",
+          selector: 'originInfo/place/placeTerm',
+          cols: 2,
+          description:`Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisované přílohy odpovídá hodnotě 264 $a`
         },
         dateCreated: {
           usage: "R",
           label: "Datum vytvoření",
           selector: 'originInfo/dateCreated',
-          cols: 3,
+          cols: 2,
           description:`Datum vytvoření přílohy<br/>
           bude použito pouze při popisu tiskaře, viz poznámka u <strong>Nakladatel</strong> nebo např. u popisu CD/DVD apod.<br/>
           odpovídá hodnotě z katalogizačního záznamu, pole 260 $g`
@@ -236,7 +269,7 @@ export class NdkMonographSupplementRdaTemplate {
           usage: "R",
           label: "Datum - jiné",
           selector: 'originInfo/dateOther',
-          cols: 3,
+          cols: 2,
           description:`Datum vytvoření, distribuce, výroby přílohy (bude použito i při popisu tiskaře, viz poznámka u elementu
             <strong>Nakladatel</strong> nebo např. u popisu CD/DVD apod.)<br/>
             tento elemet se využije v případě výskytu $c v::
@@ -250,7 +283,7 @@ export class NdkMonographSupplementRdaTemplate {
           usage: "R",
           label: "Datum - copyright",
           selector: 'originInfo/copyrightDate',
-          cols: 3,
+          cols: 2,
           description:`Využije se pouze v případě výskytu pole 264 s druhým indikátorem 4 a podpolem $c<br/>
           <ul>
             <li>264_4 <strong>Copyright</strong> (copyright)</li>
@@ -320,7 +353,14 @@ export class NdkMonographSupplementRdaTemplate {
           label: "Chronologické věcné třídění",
           selector: 'subject/temporal',
           description: `Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21`
-        }
+        },
+        name: {
+          usage: "R",
+          label: "Jméno použité jako věcné záhlaví",
+          selector: 'subject/name',
+          description: `Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21<br/>
+          Struktura a atributy stejné jako pro údaje o původcích – viz element <name>`
+        },
       }
     },
     language: {

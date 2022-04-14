@@ -1,17 +1,18 @@
 <app-editor-field [field]="field">
-  
+
   <ng-template let-item="item" #templateMenu>
     <div class="app-header-divider"></div>
     <button (click)="onLoadFromCatalog(item)" [matTooltip]="'editor.metadata.catalog' | translate" mat-icon-button>
       <mat-icon>local_library</mat-icon>
     </button>
   </ng-template>
-  
+
   <ng-template let-item="item" #templateContent>
     <app-field-dropdown field="authority" [item]="item" [(value)]='item.attrs["authority"]'></app-field-dropdown>
     <app-field-text field="topic" [item]="item" [(value)]='item.topic["_"]'></app-field-text>
     <app-field-text field="geographic" [item]="item" [(value)]='item.geographic["_"]'></app-field-text>
     <app-field-text field="temporal" [item]="item" [(value)]='item.temporal["_"]'></app-field-text>
+    <app-field-text field="name" [item]="item" [(value)]='item.name["_"]'></app-field-text>
 
     <app-editor-field *ngIf="item.available('cartographics')" [field]="item.cartographics" [nested]='true'>
       <ng-template let-cartographics="item" #templateContent>
@@ -22,5 +23,5 @@
 
 
   </ng-template>
-  
+
 </app-editor-field>

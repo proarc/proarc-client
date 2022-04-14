@@ -8,6 +8,7 @@ export class ModsSubject extends ModsElement {
     topic;
     geographic;
     temporal;
+    name;
 
     public cartographics: ElementField;
 
@@ -35,9 +36,13 @@ export class ModsSubject extends ModsElement {
         if (!this.modsElement['temporal']) {
             this.modsElement['temporal'] = ModsUtils.createEmptyField();
         }
+        if (!this.modsElement['name']) {
+            this.modsElement['name'] = ModsUtils.createEmptyField();
+        }
         this.topic = this.modsElement['topic'][0];
         this.geographic = this.modsElement['geographic'][0];
         this.temporal = this.modsElement['temporal'][0];
+        this.name = this.modsElement['name'][0];
 
         if(this.available('cartographics')) {
             this.cartographics = new ElementField(this.modsElement, ModsCartographics.getSelector(), this.getField('cartographics'));
