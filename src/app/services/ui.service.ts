@@ -9,7 +9,7 @@ export class UIService {
   constructor(
     private snackBar: MatSnackBar,
     private translator: Translator
-    ) {
+  ) {
   }
 
   showInfo(code: string, duration: number = 2000) {
@@ -22,6 +22,22 @@ export class UIService {
 
   showErrorSnackBar(message: string, duration: number = 3000) {
     this.snackBar.open(message, 'Chyba', { duration: duration, verticalPosition: 'top' });
+  }
+
+  showErrorSnackBarFromObject(errors: any) {
+    // response.errors.mods[0].errorMessage
+    const keys = Object.keys(errors);
+    let message = '';
+    keys.forEach(k => {
+      if (Array.isArray(errors[k])) {
+        errors[k].forEach(e => {
+          message += e.errorMessage + ' \n';
+        });
+      } else if (typeof errors[k] === 'string') {
+        message += errors[k] + ' \n';
+      }
+    });
+    this.showErrorSnackBar(message);
   }
 
 }

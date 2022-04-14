@@ -63,7 +63,7 @@ export class NewObjectDialogComponent implements OnInit {
     this.api.createObject(data).subscribe((response: any) => {
       if (response.errors) {
         console.log('error', response.errors);
-        this.ui.showErrorSnackBar(response.errors.mods[0].errorMessage)
+        this.ui.showErrorSnackBarFromObject(response.errors);
         this.state = 'error';
         return;
       }

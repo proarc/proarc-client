@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { ApiService } from 'src/app/services/api.service';
 import { LogDialogComponent } from '../log-dialog/log-dialog.component';
 import { ConfigService } from 'src/app/services/config.service';
+import { UIService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-export-dialog',
@@ -24,6 +25,7 @@ export class ExportDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<ExportDialogComponent>,
     private api: ApiService,
     private config: ConfigService,
+    private ui: UIService,
     private dialog: MatDialog, 
     @Inject(MAT_DIALOG_DATA) public data: string) { }
 
@@ -38,7 +40,14 @@ export class ExportDialogComponent implements OnInit {
     const policy = this.policyPublic ? 'public' : 'private';
     this.errors = [];
     this.target = null;
-    this.api.export(this.selectedType, pid, policy).subscribe((data: any) => {
+    this.api.export(this.selectedType, pid, policy).subscribe((response: any) => {
+      if (response.errors) {
+        console.log('error', response.errors);
+        this.ui.showErrorSnackBarFromObject(response.errors);
+        this.state = 'error';
+        return;
+      }
+      const data =  response['response']['data'];
       for (const d of data) {
         if (d.errors) {
           this.errors.push(d.errors[0]);

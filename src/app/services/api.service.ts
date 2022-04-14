@@ -79,16 +79,15 @@ export class ApiService {
   }
 
   createObject(data: string): Observable<any> {
-    
     return this.post('object', data);
   }
 
-  copyObject(pid: string, model: string): Observable<string> {
+  copyObject(pid: string, model: string): Observable<any> {
     let data = `model=${model}`;
     if (pid) {
       data = `${data}&pid=${pid}`;
     }
-    return this.post('object/copyObject', data).pipe(map(response => response['response']['data'][0]['validation']));
+    return this.post('object/copyObject', data);
   }
 
   export(type: string, pid: string, policy: string): Observable<any> {
@@ -133,7 +132,7 @@ export class ApiService {
       }
       default: return;
     }
-    return this.post(path, data).pipe(map(response => response['response']['data']));
+    return this.post(path, data);
   }
 
   getRegistrars(): Observable<Registrar[]> {
