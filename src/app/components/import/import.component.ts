@@ -12,6 +12,7 @@ import { ImportTree } from './tree/tree.model';
 import { ImportService } from 'src/app/services/import.service';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
+import { UIService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-import',
@@ -48,6 +49,7 @@ export class ImportComponent implements OnInit {
 
   constructor(
     private api: ApiService,
+    private ui: UIService,
     public importService: ImportService,
     private router: Router,
     private dialog: MatDialog) { }
@@ -94,7 +96,7 @@ export class ImportComponent implements OnInit {
 
   reload() {
     this.tree = new ImportTree(Folder.root());
-    this.tree.expand(this.api);
+    this.tree.expand(this.api, this.ui);
   }
 
   onLoad() {

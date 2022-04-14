@@ -144,9 +144,9 @@ export class ApiService {
   //       .pipe(map(response => Folder.fromJsonArray(response['response']['data'])));
   // }
 
-  getImportFolders(folder: string = null): Observable<Folder[]> {
-    return this.get('import/folder', { folder: folder})
-        .pipe(map(response => Folder.fromJsonArray(response['response']['data'])));
+  getImportFolders(folder: string = null): Observable<any> {
+    return this.get('import/folder', { folder: folder});
+        
   }
 
   getImportProfiles(): Observable<Profile[]> {
