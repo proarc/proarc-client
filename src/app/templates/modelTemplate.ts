@@ -8,8 +8,8 @@ import { NdkMonographVolumeAacrTemplate } from "./aacr/ndkMonographvolume.aacr.t
 import { NdkMonographVolumeRdaTemplate } from "./rda/ndkMonographvolume.rda.template";
 import { NdkPeriodicalAacrTemplate } from "./aacr/ndkPeriodical.aacr.template";
 import { NdkPeriodicalRdaTemplate } from "./rda/ndkPeriodical.rda.template";
-import { NdkPeriodicalIssueAacrTemplate } from "./ndkPeriodicalIssue.aacr.template";
-import { NdkPeriodicalIssueRdaTemplate } from "./ndkPeriodicalIssue.rda.template";
+import { NdkPeriodicalIssueAacrTemplate } from "./aacr/ndkPeriodicalIssue.aacr.template";
+import { NdkPeriodicalIssueRdaTemplate } from "./rda/ndkPeriodicalIssue.rda.template";
 import { NdkPeriodicalSupplementAacrTemplate } from "./ndkPeriodicalsupplement.aacr.template";
 import { NdkPeriodicalSupplementRdaTemplate } from "./ndkPeriodicalsupplement.rda.template";
 import { NdkPeriodicalVolumeAacrTemplate } from "./aacr/ndkPeriodicalVolume.aacr.template";
@@ -23,8 +23,8 @@ import {NdkMusicTrackAacrTemplate} from './aacr/ndkMusicTrack.aacr.template';
 import {NdkMusicAudioPageAacrTemplate} from './aacr/ndkMusicAudioPage.aacr.template';
 import {AacrTemplate} from './aacr/aacr.template';
 import {RdaTemplate} from './rda/rda.template';
-import {NdkPictureAacrTemplate} from './aacr/NdkPicture.aacr.template';
-import {NdkChapterAacrTemplate} from './aacr/NdkChapter.aacr.template';
+import {NdkPictureAacrTemplate} from './aacr/ndkPicture.aacr.template';
+import {NdkChapterAacrTemplate} from './aacr/ndkChapter.aacr.template';
 
 export class ModelTemplate {
 

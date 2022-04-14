@@ -777,12 +777,6 @@ export class RdaTemplate {
           selector: 'part/detail/caption',
           description: `text před označením čísla, např. "č.", „část“, "No." apod.`
         },
-        note: {
-          usage: "O",
-          label: "Poznámka",
-          selector: 'location/url/@note',
-          description: `Pro poznámku o typu URL (na plný text, abstrakt apod.)`,
-        },
         part: {
           usage: "O",
           label: "Část",

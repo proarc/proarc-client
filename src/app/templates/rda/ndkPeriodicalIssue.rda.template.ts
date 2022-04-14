@@ -15,11 +15,22 @@ export class NdkPeriodicalIssueRdaTemplate {
           description: `Názvová informace – název titulu periodika<br/>
           hodnoty převzít z katalogu, katalogizačního záznamu titulu periodika nebo názvových autorit`
         },
+        nonSort: {
+          usage: "O",
+          label: 'Část vynechaná při hledání',
+          selector: 'titleInfo/nonSort',
+          cols: 2,
+          description: `Část názvu, která má být vynechána při vyhledávána<br/>
+          např.:
+          <ul>
+            <li><nonSort>The</nonSort></li>
+            <li><title>Beatles</title></li>
+          </ul>`,
+        },
         subTitle: {
           usage: "RA",
           label: 'Podnázev výtisku',
           selector: 'titleInfo/subTitle',
-          cols: 2,
           description: `Podnázev čísla periodika`
         },
         partName: {
@@ -103,6 +114,20 @@ export class NdkPeriodicalIssueRdaTemplate {
           description: `Umožňuje vepsat název instituce, se kterou je autor spojen<br/>
           např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.`
         },
+        termsOfAddress: {
+          usage: "RA",
+          label: "Adresa",
+          selector: "name/namePart[@type='termsOfAddress']",
+          cols: 2,
+          description: `Adresa.`
+        },
+        nameIdentifier: {
+          usage: "MA",
+          label: "Identifikátor autora",
+          selector: "name/nameIdentifier",
+          cols: 2,
+          description: `Číslo národní autority`,
+        },
         role: {
           usage: "MA",
           label: "Role",
@@ -123,44 +148,56 @@ export class NdkPeriodicalIssueRdaTemplate {
       description: `informace o původu předlohy – vyplňuje se ručně doporučené tam, kde lze vyplnit`,
       fields: {
         publisher: {
-            usage: "MA",
-            label: "Nakladatel",
-            selector: 'originInfo/publisher',
-            description: `Jméno entity, která dokument vydala, vytiskla nebo jinak vyprodukovala<br/>
+          usage: "MA",
+          label: "Nakladatel",
+          selector: 'originInfo/publisher',
+          description: `Jméno entity, která dokument vydala, vytiskla nebo jinak vyprodukovala<br/>
             vyplňuje se ručně podle předlohy`,
         },
         dateIssued: {
-            usage: "MA",
-            label: "Datum vydání",
-            selector: 'originInfo/dateIssued',
-            cols: 2,
-            description:`Datum vydání předlohy<br/>
+          usage: "MA",
+          label: "Datum vydání",
+          selector: 'originInfo/dateIssued',
+          cols: 2,
+          description:`Datum vydání předlohy<br/>
             vyplňuje se ručně, dle předlohy`
         },
         qualifier: {
-            usage: "O",
-            label: "Upřesnění data",
-            selector: 'originInfo/dateIssued/@qualifier',
-            cols: 2,
-            description:`Možnost dalšího upřesnění. Možné hodnoty
+          usage: "O",
+          label: "Upřesnění data",
+          selector: 'originInfo/dateIssued/@qualifier',
+          cols: 2,
+          description:`Možnost dalšího upřesnění. Možné hodnoty
             <ul>
               <li>Přibližné (approximate)</li>
               <li>Odvozené (inferred)</li>
               <li>Sporné (questionable)</li>
             </ul>`,
-            options: [
-              ['','-'],
-              ['approximate','Datum je přibližné'],
-              ['inferred','Datum je odvozené'],
-              ['questionable','Datum je sporné']
-            ]
+          options: [
+            ['','-'],
+            ['approximate','Datum je přibližné'],
+            ['inferred','Datum je odvozené'],
+            ['questionable','Datum je sporné']
+          ]
+        },
+        point: {
+          usage: "MA",
+          label: "Point",
+          selector: 'originInfo/dateIssued/@point',
+          cols: 2,
+          description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
+          options: [
+            ['', '-'],
+            ['start', 'start'],
+            ['end', 'end']
+          ]
         },
         place: {
-            usage: "MA",
-            label: "Místo",
-            selector: 'originInfo/place/placeTerm',
-            cols: 1,
-            description:`Údaje o místě spojeném s vydáním, výrobou nebo původem popisovaného dokumentu.`
+          usage: "MA",
+          label: "Místo",
+          selector: 'originInfo/place/placeTerm',
+          cols: 1,
+          description:`Údaje o místě spojeném s vydáním, výrobou nebo původem popisovaného dokumentu.`
         }
       }
     },
@@ -227,7 +264,14 @@ export class NdkPeriodicalIssueRdaTemplate {
           label: "Chronologické věcné třídění",
           selector: 'subject/temporal',
           description: `Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21`
-        }
+        },
+        name: {
+          usage: "R",
+          label: "Jméno použité jako věcné záhlaví",
+          selector: 'subject/name',
+          description: `Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21<br/>
+          Struktura a atributy stejné jako pro údaje o původcích – viz element <name>`
+        },
       }
     },
     language: {
@@ -412,6 +456,29 @@ export class NdkPeriodicalIssueRdaTemplate {
           usage: "M",
           label: "Hodnota",
           help: "off"
+        }
+      }
+    },
+    part: {
+      usage: "O",
+      label: "Popis části",
+      selector: 'part',
+      description: `popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.`,
+      fields: {
+        type: {
+          usage: "O",
+          label: "Typ",
+          selector: 'part/@type',
+          description: `Hodnota bude vždy "volume" `,
+          options: [
+            ['volume', 'volume']
+          ]
+        },
+        caption: {
+          usage: "RA",
+          label: "Caption",
+          selector: 'part/detail/caption',
+          description: `text před označením čísla, např. "č.", „část“, "No." apod.`
         }
       }
     }
