@@ -47,7 +47,7 @@ export class ModelTemplate {
       "model:oldprintomnibusvolume": NdkMonographTitleAacrTemplate.data,
       "model:oldprintmonographtitle": NdkMonographTitleAacrTemplate.data,
       "model:oldprintvolume": NdkMonographVolumeAacrTemplate.data,
-      "model:oldprintsupplement": AacrTemplate.data,
+      "model:oldprintsupplement": NdkMonographSupplementAacrTemplate.data,
       "model:oldprintchapter": NdkChapterAacrTemplate.data,
       "model:oldprintgraphics": NdkPictureAacrTemplate.data,
       "model:oldprintmap": NdkMapAacrTemplate.data,
@@ -89,25 +89,25 @@ export class ModelTemplate {
       "model:ndkperiodicalsupplement": NdkPeriodicalSupplementRdaTemplate.data,
 
       "model:ndkarticle": RdaTemplate.data,
-      "model:ndkpicture": RdaTemplate.data,
-      "model:ndkchapter": RdaTemplate.data,
+      "model:ndkpicture": NdkPictureAacrTemplate.data, // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
+      "model:ndkchapter": NdkChapterAacrTemplate.data, // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
 
-      "model:oldprintomnibusvolume": RdaTemplate.data,
+      "model:oldprintomnibusvolume": NdkMonographTitleRdaTemplate.data,
       "model:oldprintmonographtitle": NdkMonographTitleRdaTemplate.data,
-      "model:oldprintvolume": RdaTemplate.data,
+      "model:oldprintvolume": NdkMonographVolumeRdaTemplate.data,
       "model:oldprintsupplement": NdkMonographSupplementRdaTemplate.data,
-      "model:oldprintchapter": RdaTemplate.data,
+      "model:oldprintchapter": NdkChapterAacrTemplate.data, // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
       "model:oldprintgraphics": NdkMapRdaTemplate.data,
       "model:oldprintmap": NdkMapRdaTemplate.data,
       "model:oldprintsheetmusic": NdkSheetMusicRdaTemplate.data,
 
-      "model:ndkeperiodical": RdaTemplate.data,
-      "model:ndkeperiodicalvolume": RdaTemplate.data,
-      "model:ndkeperiodicalissue": RdaTemplate.data,
+      "model:ndkeperiodical": NdkPeriodicalRdaTemplate.data,
+      "model:ndkeperiodicalvolume": NdkPeriodicalVolumeRdaTemplate.data,
+      "model:ndkeperiodicalissue": NdkPeriodicalIssueRdaTemplate.data,
       "model:ndkearticle": RdaTemplate.data,
       "model:ndkemonographtitle": NdkMonographTitleRdaTemplate.data,
-      "model:ndkemonographvolume": RdaTemplate.data,
-      "model:ndkechapter": RdaTemplate.data,
+      "model:ndkemonographvolume": NdkMonographVolumeRdaTemplate.data,
+      "model:ndkechapter": NdkChapterAacrTemplate.data, // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
 
       // eClanek
       "model:bdmarticle": BdmArticleRdaTemplate.data,
