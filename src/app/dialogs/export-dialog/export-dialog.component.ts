@@ -41,9 +41,9 @@ export class ExportDialogComponent implements OnInit {
     this.errors = [];
     this.target = null;
     this.api.export(this.selectedType, pid, policy).subscribe((response: any) => {
-      if (response.errors) {
-        console.log('error', response.errors);
-        this.ui.showErrorSnackBarFromObject(response.errors);
+      if (response['response'].errors) {
+        console.log('error', response['response'].errors);
+        this.ui.showErrorSnackBarFromObject(response['response'].errors);
         this.state = 'error';
         return;
       }

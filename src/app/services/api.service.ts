@@ -135,8 +135,8 @@ export class ApiService {
     return this.post(path, data);
   }
 
-  getRegistrars(): Observable<Registrar[]> {
-    return this.get('urnnbn').pipe(map(response => Registrar.fromJsonArray(response['response']['data'])));
+  getRegistrars(): Observable<any> {
+    return this.get('urnnbn');
   }
 
   // getImportFolders(profile: Profile, folder: string = null): Observable<Folder[]> {
