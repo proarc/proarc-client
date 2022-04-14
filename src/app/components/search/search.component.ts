@@ -221,7 +221,14 @@ export class SearchComponent implements OnInit {
   }
 
   onCopyItem() {
-    this.api.copyObject(this.selectedItem.pid, this.selectedItem.model).subscribe((validation: string) => {
+    this.api.copyObject(this.selectedItem.pid, this.selectedItem.model).subscribe((response: any) => {
+      if (response.errors) {
+        console.log('error', response.errors);
+        this.ui.showErrorSnackBarFromObject(response.errors);
+        this.state = 'error';
+        return;
+      }
+      const validation: string = response['response']['data'][0]['validation'];
       this.ui.showInfoSnackBar(validation);
       this.state = 'success';
       this.reload();

@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { ApiService } from 'src/app/services/api.service';
 import { LogDialogComponent } from '../log-dialog/log-dialog.component';
 import { Registrar } from 'src/app/model/registrar.model';
+import { UIService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-urnnbn-dialog',
@@ -22,6 +23,7 @@ export class UrnbnbDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<UrnbnbDialogComponent>,
     private api: ApiService,
+    private ui: UIService,
     private dialog: MatDialog, 
     @Inject(MAT_DIALOG_DATA) public data: string) { }
 
@@ -41,7 +43,15 @@ export class UrnbnbDialogComponent implements OnInit {
     this.state = 'saving';
     const pid = this.data;
     this.errors = [];
-    this.api.registerUrnnbn(this.selectedRegistrar.id, pid).subscribe((data: any) => {
+    this.api.registerUrnnbn(this.selectedRegistrar.id, pid).subscribe((response: any) => {
+      if (response.errors) {
+        console.log('onRegister error', response.errors);
+        this.ui.showErrorSnackBarFromObject(response.errors);
+        this.state = 'error';
+        this.message = 'Při registraci URN:NBN se vyskytla chyba';
+        return;
+      }
+      const data = response['response']['data'][0];
       if (data['statusType'] == "URNNBN_EXISTS") {
         this.state = 'error';
         this.message = `Dokument má již přiděleno URN:NBN ${data['urnnbn']}`;
