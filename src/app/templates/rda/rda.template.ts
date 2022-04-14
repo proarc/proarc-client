@@ -133,6 +133,13 @@ export class RdaTemplate {
           description: `Životopisná data autora<br/>
           Pokud známe datum narození a úmrtí autora, vyplnit ve tvaru RRRR-RRRR.`
         },
+        termsOfAddress: {
+          usage: "RA",
+          label: "Adresa",
+          selector: "name/namePart[@type='termsOfAddress']",
+          cols: 2,
+          description: `Adresa.`
+        },
         nameIdentifier: {
           usage: "MA",
           label: "Identifikátor autora",
@@ -422,6 +429,34 @@ export class RdaTemplate {
           label: "Chronologické věcné třídění",
           selector: 'subject/temporal',
           description: `Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21`
+        },
+        name: {
+          usage: "R",
+          label: "Jméno použité jako věcné záhlaví",
+          selector: 'subject/name',
+          description: `Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21<br/>
+          Struktura a atributy stejné jako pro údaje o původcích – viz element <name>`
+        },
+        cartographics: {
+          usage: "MA",
+          label: "Kartografické údaje",
+          selector: 'subject/cartographics',
+          description: `přebírá se ze záznamu MARC 21 pole 034
+          je žádoucí je vyplnit v případě, pokud se jedná o samostatnou mapu, pokud jde např. o atlas, vyplňuje se v nižší úrovni`,
+          fields: {
+            coordinates: {
+              usage: "MA",
+              label: "Souřadnice",
+              selector: 'subject/cartographics/coordinates',
+              description: `Obsah pole 034 $d, $e, $f, $g`
+            },
+            scale: {
+              usage: "MA",
+              label: "Měřítko",
+              selector: 'subject/cartographics/scale',
+              description: `Obsah pole 255 podpole a MARC21 záznamu`
+            }
+          }
         }
       }
     },

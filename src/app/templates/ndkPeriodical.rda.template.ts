@@ -30,6 +30,18 @@ export class NdkPeriodicalRdaTemplate {
             ['uniform', 'Jednotný název']
           ]
         },
+        nonSort: {
+          usage: "O",
+          label: 'Část vynechaná při hledání',
+          selector: 'titleInfo/nonSort',
+          cols: 2,
+          description: `Část názvu, která má být vynechána při vyhledávána<br/>
+          např.:
+          <ul>
+            <li><nonSort>The</nonSort></li>
+            <li><title>Beatles</title></li>
+          </ul>`,
+        },
         title: {
           usage: "M",
           label: 'Název',
@@ -42,7 +54,6 @@ export class NdkPeriodicalRdaTemplate {
           usage: "MA",
           label: 'Podnázev',
           selector: 'titleInfo/subTitle',
-          cols: 2,
           description: `Podnázev titulu periodika<br/>
           odpovídající pole a podpole podle typu, viz typ`
         },
@@ -118,6 +129,20 @@ export class NdkPeriodicalRdaTemplate {
           cols: 2,
           description: `Životopisná data autora<br/>
           Pokud známe datum narození a úmrtí autora, vyplnit ve tvaru RRRR-RRRR.`
+        },
+        termsOfAddress: {
+          usage: "RA",
+          label: "Adresa",
+          selector: "name/namePart[@type='termsOfAddress']",
+          cols: 2,
+          description: `Adresa.`
+        },
+        nameIdentifier: {
+          usage: "MA",
+          label: "Identifikátor autora",
+          selector: "name/nameIdentifier",
+          cols: 2,
+          description: `Číslo národní autority`,
         },
         role: {
           usage: "MA",
@@ -214,22 +239,45 @@ export class NdkPeriodicalRdaTemplate {
             využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>`
         },
         qualifier: {
-            usage: "R",
-            label: "Upřesnění data",
-            selector: 'originInfo/dateIssued/@qualifier',
-            cols: 2,
-            description:`Možnost dalšího upřesnění. Možné hodnoty
+          usage: "R",
+          label: "Upřesnění data",
+          selector: 'originInfo/dateIssued/@qualifier',
+          cols: 2,
+          description:`Možnost dalšího upřesnění. Možné hodnoty
             <ul>
               <li>Přibližné (approximate)</li>
               <li>Odvozené (inferred)</li>
               <li>Sporné (questionable)</li>
             </ul>`,
-            options: [
-              ['','-'],
-              ['approximate','Datum je přibližné'],
-              ['inferred','Datum je odvozené'],
-              ['questionable','Datum je sporné']
-            ]
+          options: [
+            ['','-'],
+            ['approximate','Datum je přibližné'],
+            ['inferred','Datum je odvozené'],
+            ['questionable','Datum je sporné']
+          ]
+        },
+        encoding: {
+          usage: "R",
+          label: "Kódování",
+          selector: 'originInfo/dateIssued/@encoding',
+          cols: 2,
+          description: `Hodnota "marc" jen u údaje z pole 008`,
+          options: [
+            ['', '-'],
+            ['marc', 'marc']
+          ]
+        },
+        point: {
+          usage: "MA",
+          label: "Point",
+          selector: 'originInfo/dateIssued/@point',
+          cols: 2,
+          description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
+          options: [
+            ['', '-'],
+            ['start', 'start'],
+            ['end', 'end']
+          ]
         },
         issuance: {
           usage: "M",
@@ -351,7 +399,7 @@ export class NdkPeriodicalRdaTemplate {
           usage: "R",
           label: "Autorita",
           selector: 'subject/@authority',
-          description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>Konspekt</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
+          description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>Konspekt</strong>, <strong>czmesh</strong>, <strong>mednas</strong><br/>
           Odpovídá hodnotě v $2`,
           options: [
             ['', '-'],
@@ -359,8 +407,6 @@ export class NdkPeriodicalRdaTemplate {
             ['eczenas','eczenas'],
             ['mednas','mednas'],
             ['czmesh','czmesh'],
-            ['msvkth','msvkth'],
-            ['agrovoc','agrovoc'],
             ['Konspekt','Konspekt']
           ]
         },
@@ -382,7 +428,14 @@ export class NdkPeriodicalRdaTemplate {
           label: "Chronologické věcné třídění",
           selector: 'subject/temporal',
           description: `Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21`
-        }
+        },
+        name: {
+          usage: "R",
+          label: "Jméno použité jako věcné záhlaví",
+          selector: 'subject/name',
+          description: `Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21<br/>
+          Struktura a atributy stejné jako pro údaje o původcích – viz element <name>`
+        },
       }
     },
     language: {
@@ -394,6 +447,7 @@ export class NdkPeriodicalRdaTemplate {
         objectPart: {
           usage: "MA",
           label: "Část",
+          cols: 2,
           selector: 'language/@objectPart',
           description: `Možnost vyjádřit jazyk konkrétní části svazku <br/>
           možné hodnoty<br/>
@@ -415,6 +469,7 @@ export class NdkPeriodicalRdaTemplate {
           usage: "M",
           label: "Jazyk",
           selector: 'language/languageTerm',
+          cols: 2,
           description: `Přesné určení jazyka`
         }
       }
@@ -426,7 +481,7 @@ export class NdkPeriodicalRdaTemplate {
       description: `Shrnutí obsahu jako celku odpovídá poli 520 MARC21`,
       fields: {
         abstract: {
-          usage: "RA",
+          usage: "R",
           label: "Abstrakt",
           selector: "abstract",
           help: "off"
@@ -534,15 +589,6 @@ export class NdkPeriodicalRdaTemplate {
       description: `Bližší údaje o typu dokumentu<br/>
       Hodnota <strong>title</strong>`,
       fields: {
-        authority: {
-          usage: "MA",
-          label: "Autorita",
-          selector: "genre/@authority",
-          options: [
-            ['czenas', 'czenas'],
-            ['eczenas', 'eczenas'],
-            ['rdacontent', 'rdacontent']]
-        },
         value: {
           usage: "M",
           label: "Hodnota",
