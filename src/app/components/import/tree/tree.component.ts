@@ -41,7 +41,7 @@ export class ImportTreeComponent implements OnInit {
 
   toggle() {
     if (!this.tree.expanded) {
-      this.tree.expand(this.api);
+      this.tree.expand(this.api, this.ui);
     } else {
       this.tree.expanded = false;
     }
@@ -50,7 +50,7 @@ export class ImportTreeComponent implements OnInit {
   onClick() {
     if (this.tree.expandable()) {
       if (!this.tree.expanded) {
-        this.tree.expand(this.api);
+        this.tree.expand(this.api, this.ui);
       } else {
         this.tree.expanded = false;
       }

@@ -1,5 +1,6 @@
 import { Folder } from "src/app/model/folder.model";
 import { ApiService } from "src/app/services/api.service";
+import { UIService } from "src/app/services/ui.service";
 
 export class ImportTree {
 
@@ -10,7 +11,9 @@ export class ImportTree {
     level: number;
     parent: ImportTree;
 
-    constructor(folder: Folder, parent: ImportTree = null, level: number = 0) {
+    constructor(
+        folder: Folder, 
+        parent: ImportTree = null, level: number = 0) {
         this.folder = folder;
         this.parent = parent;
         this.expanded = false;
@@ -18,7 +21,7 @@ export class ImportTree {
         this.level = level;
     }
 
-    expand(api: ApiService, all: boolean = false) {
+    expand(api: ApiService, ui: UIService, all: boolean = false) {
         if (!this.expandable()) {
             return;
         }
@@ -28,13 +31,20 @@ export class ImportTree {
         if (this.children) {
             this.expanded = true;
             if (all) {
-                this.expandChildren(api);
+                this.expandChildren(api, ui);
             }
             return;
         }
         this.loading = true;
         this.children = [];
-        api.getImportFolders(this.folder.path).subscribe((folders: Folder[]) => {
+        api.getImportFolders(this.folder.path).subscribe((response: any) => {
+            // .pipe(map(response => Folder.fromJsonArray(response['response']['data'])));
+            if (response['response'].errors) {
+                console.log('getImportFolders error', response['response'].errors);
+                ui.showErrorSnackBarFromObject(response['response'].errors);
+                return;
+            }
+            const folders: Folder[] = Folder.fromJsonArray(response['response']['data']);
             for (const folder of folders) {
                 const tree = new ImportTree(folder, this, this.level + 1);
                 this.children.push(tree);
@@ -42,19 +52,19 @@ export class ImportTree {
             this.expanded = true;
             this.loading = false;
             if (all) {
-                this.expandChildren(api);
+                this.expandChildren(api, ui);
             }
         });
     }
 
-    expandChildren(api: ApiService) {
+    expandChildren(api: ApiService, ui: UIService) {
         for (const child of this.children) {
-            child.expand(api, true);
+            child.expand(api, ui, true);
         }
     }
 
-    expandAll(api: ApiService) {
-        this.expand(api, true);
+    expandAll(api: ApiService, ui: UIService) {
+        this.expand(api, ui, true);
     }
 
     expandable(): boolean {

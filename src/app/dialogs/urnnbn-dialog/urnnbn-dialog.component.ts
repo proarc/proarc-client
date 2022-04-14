@@ -29,7 +29,16 @@ export class UrnbnbDialogComponent implements OnInit {
 
   ngOnInit() {
     this.state = 'saving';
-    this.api.getRegistrars().subscribe((registrars: Registrar[]) => {
+    this.api.getRegistrars().subscribe((response: any) => {
+      //.pipe(map(response => Registrar.fromJsonArray(response['response']['data'])));
+      if (response['response'].errors) {
+        console.log('onRegister error', response['response'].errors);
+        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.state = 'error';
+        this.message = 'Při registraci URN:NBN se vyskytla chyba';
+        return;
+      }
+      const registrars: Registrar[] = Registrar.fromJsonArray(response['response']['data']);
       this.registrars = registrars;
       this.selectedRegistrar = this.registrars[0];
       this.state = 'none';
@@ -44,9 +53,9 @@ export class UrnbnbDialogComponent implements OnInit {
     const pid = this.data;
     this.errors = [];
     this.api.registerUrnnbn(this.selectedRegistrar.id, pid).subscribe((response: any) => {
-      if (response.errors) {
-        console.log('onRegister error', response.errors);
-        this.ui.showErrorSnackBarFromObject(response.errors);
+      if (response['response'].errors) {
+        console.log('onRegister error', response['response'].errors);
+        this.ui.showErrorSnackBarFromObject(response['response'].errors);
         this.state = 'error';
         this.message = 'Při registraci URN:NBN se vyskytla chyba';
         return;

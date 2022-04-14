@@ -222,9 +222,9 @@ export class SearchComponent implements OnInit {
 
   onCopyItem() {
     this.api.copyObject(this.selectedItem.pid, this.selectedItem.model).subscribe((response: any) => {
-      if (response.errors) {
-        console.log('error', response.errors);
-        this.ui.showErrorSnackBarFromObject(response.errors);
+      if (response['response'].errors) {
+        console.log('error', response['response'].errors);
+        this.ui.showErrorSnackBarFromObject(response['response'].errors);
         this.state = 'error';
         return;
       }
