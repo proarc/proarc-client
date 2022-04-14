@@ -45,7 +45,7 @@ export class NdkPeriodicalIssueRdaTemplate {
           usage: "MA",
           label: 'Číslo výtisku',
           selector: 'titleInfo/partNumber',
-          cols: 1,
+          cols: 2,
           description: `Např. určité části/edice, k použití u ročenek a specializovaných periodik`
         }
       }

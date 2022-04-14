@@ -25,6 +25,8 @@ import {AacrTemplate} from './aacr/aacr.template';
 import {RdaTemplate} from './rda/rda.template';
 import {NdkPictureAacrTemplate} from './aacr/ndkPicture.aacr.template';
 import {NdkChapterAacrTemplate} from './aacr/ndkChapter.aacr.template';
+import {NdkArticleAacrTemplate} from './aacr/ndkArticle.aacr.template';
+import {NdkArticleRdaTemplate} from './rda/ndkArticle.rda.template';
 
 export class ModelTemplate {
 
@@ -40,7 +42,7 @@ export class ModelTemplate {
       "model:ndkperiodicalissue": NdkPeriodicalIssueAacrTemplate.data,
       "model:ndkperiodicalsupplement": NdkPeriodicalSupplementAacrTemplate.data,
 
-      "model:ndkarticle": AacrTemplate.data,
+      "model:ndkarticle": NdkArticleAacrTemplate.data,
       "model:ndkpicture": NdkPictureAacrTemplate.data,
       "model:ndkchapter": NdkChapterAacrTemplate.data,
 
@@ -56,13 +58,13 @@ export class ModelTemplate {
       "model:ndkeperiodical": NdkPeriodicalAacrTemplate.data,
       "model:ndkeperiodicalvolume": NdkPeriodicalVolumeAacrTemplate.data,
       "model:ndkeperiodicalissue": NdkPeriodicalIssueAacrTemplate.data,
-      "model:ndkearticle": AacrTemplate.data,
+      "model:ndkearticle": NdkArticleAacrTemplate.data,
       "model:ndkemonographtitle": NdkMonographTitleAacrTemplate.data,
       "model:ndkemonographvolume": NdkMonographVolumeAacrTemplate.data,
       "model:ndkechapter": NdkChapterAacrTemplate.data,
 
       // eClanek
-      "model:bdmarticle": AacrTemplate.data,
+      "model:bdmarticle": BdmArticleRdaTemplate.data,  // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
 
       // chronicle
       "model:chronicletitle": AacrTemplate.data,
@@ -88,7 +90,7 @@ export class ModelTemplate {
       "model:ndkperiodicalissue": NdkPeriodicalIssueRdaTemplate.data,
       "model:ndkperiodicalsupplement": NdkPeriodicalSupplementRdaTemplate.data,
 
-      "model:ndkarticle": RdaTemplate.data,
+      "model:ndkarticle": NdkArticleRdaTemplate.data,
       "model:ndkpicture": NdkPictureAacrTemplate.data, // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
       "model:ndkchapter": NdkChapterAacrTemplate.data, // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
 
@@ -104,7 +106,7 @@ export class ModelTemplate {
       "model:ndkeperiodical": NdkPeriodicalRdaTemplate.data,
       "model:ndkeperiodicalvolume": NdkPeriodicalVolumeRdaTemplate.data,
       "model:ndkeperiodicalissue": NdkPeriodicalIssueRdaTemplate.data,
-      "model:ndkearticle": RdaTemplate.data,
+      "model:ndkearticle": NdkArticleRdaTemplate.data,
       "model:ndkemonographtitle": NdkMonographTitleRdaTemplate.data,
       "model:ndkemonographvolume": NdkMonographVolumeRdaTemplate.data,
       "model:ndkechapter": NdkChapterAacrTemplate.data, // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
