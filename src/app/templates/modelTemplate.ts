@@ -12,8 +12,8 @@ import { NdkPeriodicalIssueAacrTemplate } from "./ndkPeriodicalIssue.aacr.templa
 import { NdkPeriodicalIssueRdaTemplate } from "./ndkPeriodicalIssue.rda.template";
 import { NdkPeriodicalSupplementAacrTemplate } from "./ndkPeriodicalsupplement.aacr.template";
 import { NdkPeriodicalSupplementRdaTemplate } from "./ndkPeriodicalsupplement.rda.template";
-import { NdkPeriodicalVolumeAacrTemplate } from "./ndkPeriodicalVolume.aacr.template";
-import { NdkPeriodicalVolumeRdaTemplate } from "./ndkPeriodicalVolume.rda.template";
+import { NdkPeriodicalVolumeAacrTemplate } from "./aacr/ndkPeriodicalVolume.aacr.template";
+import { NdkPeriodicalVolumeRdaTemplate } from "./rda/ndkPeriodicalVolume.rda.template";
 import { NdkSheetMusicAacrTemplate } from "./aacr/ndkSheetmusic.aacr.template";
 import { NdkSheetMusicRdaTemplate } from "./rda/ndkSheetmusic.rda.template";
 import {BdmArticleRdaTemplate} from './bdmArticle.rda.template';
