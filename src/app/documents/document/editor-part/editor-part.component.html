@@ -2,5 +2,15 @@
   <ng-template let-item="item" #templateContent>
     <app-field-dropdown field="type" [item]="item" [(value)]='item.attrs["type"]'></app-field-dropdown>
     <app-field-text field="caption" [item]="item" [(value)]="item.caption['_']"></app-field-text>
+
+
+    <app-editor-field *ngIf="item.available('extent')" [field]="item.extents" [nested]='true'>
+      <ng-template let-extent="item" #templateContent>
+        <app-field-text field="start" [item]="extent" [(value)]="extent.start['_']"></app-field-text>
+        <app-field-text field="end" [item]="extent" [(value)]="extent.end['_']"></app-field-text>
+      </ng-template>
+    </app-editor-field>
+
+
   </ng-template>
 </app-editor-field>

@@ -16,7 +16,7 @@ export class ModsPublisher extends ModsElement {
     public dateOther;
     public dateCreated;
     public copyrightDate;
-    
+
     public frequencies: ElementField;
 
     static getSelector() {

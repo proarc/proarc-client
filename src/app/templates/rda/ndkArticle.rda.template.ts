@@ -436,21 +436,28 @@ export class NdkArticleRdaTemplate {
       selector: 'part',
       description: `Popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.`,
       fields: {
-        type: {
-          usage: "O",
-          label: "Typ",
-          selector: "part/@type",
-          description: `Hodnota bude vždy "volume" `,
-          options: [
-            ['volume', 'volume']
-          ]
-        },
-        caption: {
-          usage: "RA",
-          label: "Caption",
-          selector: "part/detail/caption",
-          description: `text před označením čísla, např. "č.", „část“, "No." apod.`
-        },
+        extent: {
+          usage: "R",
+          label: "Identifikátor záznamu",
+          selector: 'part/extent',
+          description: `identifikátor záznamu v katalogu, přebírá se z pole 001`,
+          fields: {
+            start: {
+              usage: "MA",
+              label: "Identifikátor záznamu",
+              cols: 2,
+              selector: 'part/extent/start',
+              help: "off"
+            },
+            end: {
+              usage: "R",
+              label: "Zdroj",
+              cols: 2,
+              selector: 'part/extent/end',
+              description: `hodnota se přebírá z katalogu pole 003 `
+            }
+          }
+        }
       }
     },
     recordInfo: {

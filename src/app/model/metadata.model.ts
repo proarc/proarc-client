@@ -21,7 +21,7 @@ import { ModsClassification } from './mods/classification.model';
 import { ModsResource } from './mods/resource.model';
 import { ModelTemplate } from '../templates/modelTemplate';
 import { ModsPart } from './mods/part.model';
-import {ModsRecordInfo} from './mods/recordInfo.model';
+import { ModsRecordInfo } from './mods/recordInfo.model';
 declare var $: any;
 
 export class Metadata {

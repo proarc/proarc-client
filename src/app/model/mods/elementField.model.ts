@@ -25,6 +25,7 @@ import {ModsRecordChangeDate} from './recordChangeDate.model';
 import {ModsRecordContentSource} from './recordContentSource.model';
 import {ModsRecordCreationDate} from './recordCreationDate.model';
 import {ModsRecordIdentifier} from './recordIdentifier.model';
+import {ModsExtent} from './extent.model';
 
 export class ElementField {
 
@@ -216,6 +217,8 @@ export class ElementField {
                 return new ModsRecordCreationDate(el, this.template);
             case ModsRecordIdentifier.getId():
                 return new ModsRecordIdentifier(el, this.template);
+            case ModsExtent.getId():
+                return new ModsExtent(el, this.template);
         }
     }
 
@@ -300,6 +303,8 @@ export class ElementField {
                 return ModsRecordCreationDate.getSelector();
             case ModsRecordIdentifier.getId():
                 return ModsRecordIdentifier.getSelector();
+            case ModsExtent.getId():
+                return ModsExtent.getSelector();
         }
     }
 
