@@ -43,9 +43,9 @@ export class ModsPart extends ModsElement {
           this.modsElement['detail'].push(caption);
         }
 
-        //if (this.available('extent')) {
-        //  this.extents = new ElementField(this.modsElement, ModsExtent.getSelector(), this.getField('extent'));
-        //  this.addSubfield(this.extents);
-      //}
+      if (this.available('extent')) {
+        this.extents = new ElementField(this.modsElement, ModsExtent.getSelector(), this.getField('extent'));
+        this.addSubfield(this.extents);
+      }
     }
 }

@@ -437,24 +437,24 @@ export class NdkArticleRdaTemplate {
       description: `Popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.`,
       fields: {
         extent: {
-          usage: "R",
-          label: "Identifikátor záznamu",
+          usage: "MA",
+          label: "Extent",
           selector: 'part/extent',
-          description: `identifikátor záznamu v katalogu, přebírá se z pole 001`,
+          description: `Tento kontejner <part> slouží k zaznamenání rozsahu stran v reprezentaci.`,
           fields: {
             start: {
               usage: "MA",
-              label: "Identifikátor záznamu",
+              label: "Od strany",
               cols: 2,
               selector: 'part/extent/start',
-              help: "off"
+              description: `První stránka, na které vnitřní část začíná.`
             },
             end: {
-              usage: "R",
-              label: "Zdroj",
+              usage: "MA",
+              label: "Do strany",
               cols: 2,
               selector: 'part/extent/end',
-              description: `hodnota se přebírá z katalogu pole 003 `
+              description: `Poslední stránka, na které vnitřní část končí.`
             }
           }
         }
