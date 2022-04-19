@@ -22,6 +22,7 @@ import { ModsResource } from './mods/resource.model';
 import { ModelTemplate } from '../templates/modelTemplate';
 import { ModsPart } from './mods/part.model';
 import { ModsRecordInfo } from './mods/recordInfo.model';
+import {ModsTableOfContents} from './mods/tableOfContents';
 declare var $: any;
 
 export class Metadata {
@@ -41,7 +42,8 @@ export class Metadata {
     ModsPhysical.getSelector(),
     ModsRecordInfo.getSelector(),
     ModsResource.getSelector(),
-    ModsPart.getSelector()
+    ModsPart.getSelector(),
+    ModsTableOfContents.getSelector()
   ];
 
 
@@ -164,6 +166,7 @@ export class Metadata {
         ModsGeo.getId(),
         ModsPart.getId(),
         ModsRecordInfo.getId(),
+        ModsTableOfContents.getId(),
       ];
     } else {
       this.fieldsIds = [];
@@ -184,6 +187,7 @@ export class Metadata {
         ModsResource.getId(),
         ModsPart.getId(),
         ModsRecordInfo.getId(),
+        ModsTableOfContents.getId(),
       ];
       for (const id of allIds) {
         if (this.template[id]) {

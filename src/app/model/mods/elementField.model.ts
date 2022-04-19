@@ -26,6 +26,7 @@ import {ModsRecordContentSource} from './recordContentSource.model';
 import {ModsRecordCreationDate} from './recordCreationDate.model';
 import {ModsRecordIdentifier} from './recordIdentifier.model';
 import {ModsExtent} from './extent.model';
+import {ModsTableOfContents} from './tableOfContents';
 
 export class ElementField {
 
@@ -197,6 +198,8 @@ export class ElementField {
                 return new ModsPhysical(el, this.template);
             case ModsRecordInfo.getId():
                 return new ModsRecordInfo(el, this.template);
+            case ModsTableOfContents.getId():
+                return new ModsTableOfContents(el, this.template);
             case ModsSubject.getId():
                 return new ModsSubject(el, this.template);
             case ModsClassification.getId():
@@ -281,7 +284,7 @@ export class ElementField {
                 return ModsGeo.getSelector();
             case ModsPhysical.getId():
                 return ModsPhysical.getSelector();
-          case ModsRecordInfo.getId():
+            case ModsRecordInfo.getId():
                 return ModsRecordInfo.getSelector();
             case ModsSubject.getId():
                 return ModsSubject.getSelector();
@@ -305,6 +308,8 @@ export class ElementField {
                 return ModsRecordIdentifier.getSelector();
             case ModsExtent.getId():
                 return ModsExtent.getSelector();
+            case ModsTableOfContents.getId():
+                return ModsTableOfContents.getSelector();
         }
     }
 

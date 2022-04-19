@@ -33,7 +33,9 @@
     <app-editor-classification *ngIf="available('classification')" [field]="editor.metadata.getField('classification')"></app-editor-classification>
     <app-editor-resource *ngIf="available('typeOfResource')" [field]="editor.metadata.getField('typeOfResource')"></app-editor-resource>
     <app-editor-part *ngIf="available('part')" [field]="editor.metadata.getField('part')"></app-editor-part>
+    <app-editor-tableOfContents *ngIf="available('tableOfContents')" [field]="editor.metadata.getField('tableOfContents')"></app-editor-tableOfContents>
     <app-editor-recordInfo *ngIf="available('recordInfo')" [field]="editor.metadata.getField('recordInfo')"></app-editor-recordInfo>
+
 </div>
 
 <mat-spinner *ngIf="state === 'loading'"

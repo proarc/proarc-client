@@ -315,7 +315,7 @@ export class NdkMusicSongAacrTemplate {
       selector: 'tableOfContents',
       description: `Slouží k vepsání názvů částí skladby, pokud je skladba obsahuje; obsah pole 505 $a`,
       fields: {
-        objectPart: {
+        displayLabel: {
           usage: "M",
           label: "Zobrazená část",
           selector: 'language/@displayLabel',
