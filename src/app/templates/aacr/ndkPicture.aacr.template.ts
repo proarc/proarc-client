@@ -447,18 +447,20 @@ export class NdkPictureAacrTemplate {
     },
     recordInfo: {
       usage: "M",
-      label: "Údaje o metadatovém záznamu",
+      label: 'Údaje o metadatovém záznamu',
       selector: 'recordInfo',
       description: `údaje o metadatovém záznamu – jeho vzniku, změnách apod.`,
       fields: {
         descriptionStandard: {
           usage: "MA",
+          cols: 2,
           label: "Standard metadat",
           selector: 'recordInfo/descriptionStandard',
           description: `Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>
             Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"`,
           options: [
-            ['aacr', 'aacr']
+            ['aacr', 'aacr'],
+            ['rda', 'rda']
           ]
         },
         recordContectSource: {
@@ -467,15 +469,17 @@ export class NdkPictureAacrTemplate {
           selector: 'recordInfo/recordContectSource',
           description: `Kód nebo jméno instituce, která záznam vytvořila nebo změnila`,
           fields: {
-            recordContectSource: {
+            value: {
               usage: "R",
               label: "Contect source",
+              cols: 2,
               selector: "recordInfo/recordContectSource",
               help: "off"
             },
             authority: {
               usage: "R",
               label: "Autorita",
+              cols: 2,
               selector: "recordInfo/recordContectSource/@authority",
               description: `authority – hodnota "marcorg"`,
               options: [
@@ -490,15 +494,17 @@ export class NdkPictureAacrTemplate {
           selector: 'recordInfo/recordCreationDate',
           description: `datum prvního vytvoření záznamu, na úroveň minut`,
           fields: {
-            recordCreationDate: {
+            value: {
               usage: "M",
               label: "Datum vytvoření",
+              cols: 2,
               selector: "recordInfo/recordCreationDate",
               help: "off"
             },
             encoding: {
               usage: "M",
               label: "Kódování",
+              cols: 2,
               selector: "recordInfo/recordCreationDate/@encoding",
               description: `Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"`,
               options: [
@@ -513,15 +519,17 @@ export class NdkPictureAacrTemplate {
           selector: 'recordInfo/recordChangeDate',
           description: `datum změny záznamu `,
           fields: {
-            recordChangeDate: {
+            value: {
               usage: "MA",
               label: "Datum změny",
+              cols: 2,
               selector: "recordInfo/recordChangeDate",
               help: "off"
             },
             encoding: {
               usage: "M",
               label: "Kódování",
+              cols: 2,
               selector: "recordInfo/recordChangeDate/@encoding",
               description: `Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"`,
               options: [
@@ -536,15 +544,17 @@ export class NdkPictureAacrTemplate {
           selector: 'recordInfo/recordIdentifier',
           description: `identifikátor záznamu v katalogu, přebírá se z pole 001`,
           fields: {
-            recordIdentifier: {
+            value: {
               usage: "MA",
               label: "Identifikátor záznamu",
+              cols: 2,
               selector: "recordInfo/recordIdentifier",
               help: "off"
             },
             source: {
               usage: "R",
               label: "Zdroj",
+              cols: 2,
               selector: "recordInfo/recordIdentifier/@source",
               description: `hodnota se přebírá z katalogu pole 003 `
             }
@@ -554,6 +564,7 @@ export class NdkPictureAacrTemplate {
           usage: "R",
           label: "Údaje o vzniku záznamu",
           selector: 'recordInfo/recordOrigin',
+          cols: 2,
           description: `údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"`,
           options: [
             ['machine generated', 'machine generated'],
@@ -569,18 +580,21 @@ export class NdkPictureAacrTemplate {
             languageOfCataloging: {
               usage: "R",
               label: "Jazyk záznamu",
+              cols: 2,
               selector: "recordInfo/languageOfCataloging",
               help: "off"
             },
             languageTerm: {
               usage: "R",
               label: "Zdroj",
+              cols: 2,
               selector: "recordInfo/languageOfCataloging/languageTerm",
               description: `přebírá se z katalogu - pole 40 $b`
             },
             authority: {
               usage: "R",
               label: "Autorita",
+              cols: 2,
               selector: "recordInfo/languageOfCataloging/languageTerm/@authority",
               description: `authority – hodnota "iso639-2b"`,
               options: [

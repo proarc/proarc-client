@@ -110,6 +110,7 @@ import { UsageComponent } from './components/shared/usage/usage.component';
 import { ChildrenValidationDialogComponent } from './dialogs/children-validation-dialog/children-validation-dialog.component';
 import { ConvertDialogComponent } from './dialogs/convert-dialog/convert-dialog.component';
 import { EditorPartComponent } from './documents/document/editor-part/editor-part.component';
+import {EditorRecordInfoComponent} from './documents/document/editor-recordInfo/editor-recordInfo';
 
 
 export function hljsLanguages() {
@@ -183,6 +184,7 @@ export function hljsLanguages() {
     NewPasswordDialogComponent,
     EditorAbstractComponent,
     EditorPhysicalComponent,
+    EditorRecordInfoComponent,
     TreeComponent,
     ImportTreeComponent,
     IngestDialogComponent,

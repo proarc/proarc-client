@@ -811,7 +811,8 @@ export class RdaTemplate {
           description: `Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>
             Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"`,
           options: [
-            ['aacr', 'aacr']
+            ['aacr', 'aacr'],
+            ['rda', 'rda']
           ]
         },
         recordContectSource: {
@@ -820,10 +821,9 @@ export class RdaTemplate {
           selector: 'recordInfo/recordContectSource',
           description: `Kód nebo jméno instituce, která záznam vytvořila nebo změnila`,
           fields: {
-            recordContectSource: {
+            value: {
               usage: "R",
               label: "Contect source",
-              selector: "recordInfo/recordContectSource",
               help: "off"
             },
             authority: {
@@ -843,10 +843,9 @@ export class RdaTemplate {
           selector: 'recordInfo/recordCreationDate',
           description: `datum prvního vytvoření záznamu, na úroveň minut`,
           fields: {
-            recordCreationDate: {
+            value: {
               usage: "M",
               label: "Datum vytvoření",
-              selector: "recordInfo/recordCreationDate",
               help: "off"
             },
             encoding: {
@@ -866,7 +865,7 @@ export class RdaTemplate {
           selector: 'recordInfo/recordChangeDate',
           description: `datum změny záznamu `,
           fields: {
-            recordChangeDate: {
+            value: {
               usage: "MA",
               label: "Datum změny",
               selector: "recordInfo/recordChangeDate",
@@ -889,7 +888,7 @@ export class RdaTemplate {
           selector: 'recordInfo/recordIdentifier',
           description: `identifikátor záznamu v katalogu, přebírá se z pole 001`,
           fields: {
-            recordIdentifier: {
+            value: {
               usage: "MA",
               label: "Identifikátor záznamu",
               selector: "recordInfo/recordIdentifier",
@@ -919,29 +918,14 @@ export class RdaTemplate {
           selector: 'recordInfo/languageOfCataloging',
           description: `jazyk katalogového záznamu`,
           fields: {
-            languageOfCataloging: {
-              usage: "R",
-              label: "Jazyk záznamu",
-              selector: "recordInfo/languageOfCataloging",
-              help: "off"
-            },
             languageTerm: {
               usage: "R",
               label: "Zdroj",
               selector: "recordInfo/languageOfCataloging/languageTerm",
               description: `přebírá se z katalogu - pole 40 $b`
             },
-            authority: {
-              usage: "R",
-              label: "Autorita",
-              selector: "recordInfo/languageOfCataloging/languageTerm/@authority",
-              description: `authority – hodnota "iso639-2b"`,
-              options: [
-                ['iso639-2b', 'iso639-2b']
-              ]
-            }
           }
-        }
+        },
       }
     }
   }

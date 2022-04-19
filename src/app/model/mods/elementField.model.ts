@@ -20,6 +20,11 @@ import { ModsFrequency } from './frequency.model';
 import { ModsCartographics } from './cartographics.model';
 import { ModsForm } from './form.model';
 import { ModsPart } from './part.model';
+import {ModsRecordInfo} from './recordInfo.model';
+import {ModsRecordChangeDate} from './recordChangeDate.model';
+import {ModsRecordContentSource} from './recordContentSource.model';
+import {ModsRecordCreationDate} from './recordCreationDate.model';
+import {ModsRecordIdentifier} from './recordIdentifier.model';
 
 export class ElementField {
 
@@ -166,7 +171,7 @@ export class ElementField {
                 return new ModsRole(el, this.template);
             case ModsAuthor.getId():
                 return new ModsAuthor(el, this.template);
-                
+
             case ModsPart.getId():
                 return new ModsPart(el, this.template);
             case ModsPublisher.getId():
@@ -189,6 +194,8 @@ export class ElementField {
                 return new ModsGeo(el, this.template);
             case ModsPhysical.getId():
                 return new ModsPhysical(el, this.template);
+            case ModsRecordInfo.getId():
+                return new ModsRecordInfo(el, this.template);
             case ModsSubject.getId():
                 return new ModsSubject(el, this.template);
             case ModsClassification.getId():
@@ -201,6 +208,14 @@ export class ElementField {
                 return new ModsCartographics(el, this.template);
             case ModsForm.getId():
                 return new ModsForm(el, this.template);
+            case ModsRecordChangeDate.getId():
+                return new ModsRecordChangeDate(el, this.template);
+            case ModsRecordContentSource.getId():
+                return new ModsRecordContentSource(el, this.template);
+            case ModsRecordCreationDate.getId():
+                return new ModsRecordCreationDate(el, this.template);
+            case ModsRecordIdentifier.getId():
+                return new ModsRecordIdentifier(el, this.template);
         }
     }
 
@@ -263,6 +278,8 @@ export class ElementField {
                 return ModsGeo.getSelector();
             case ModsPhysical.getId():
                 return ModsPhysical.getSelector();
+          case ModsRecordInfo.getId():
+                return ModsRecordInfo.getSelector();
             case ModsSubject.getId():
                 return ModsSubject.getSelector();
             case ModsClassification.getId():
@@ -275,6 +292,14 @@ export class ElementField {
                 return ModsCartographics.getSelector();
             case ModsForm.getId():
                 return ModsForm.getSelector();
+            case ModsRecordChangeDate.getId():
+                return ModsRecordChangeDate.getSelector();
+            case ModsRecordContentSource.getId():
+                return ModsRecordContentSource.getSelector();
+            case ModsRecordCreationDate.getId():
+                return ModsRecordCreationDate.getSelector();
+            case ModsRecordIdentifier.getId():
+                return ModsRecordIdentifier.getSelector();
         }
     }
 

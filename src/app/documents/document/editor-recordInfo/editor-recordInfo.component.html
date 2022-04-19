@@ -1,0 +1,36 @@
+<app-editor-field [field]="field">
+  <ng-template let-item="item" #templateContent>
+
+    <app-field-dropdown field="descriptionStandard" [item]="item" [(value)]="item.descriptionStandard['_']" ></app-field-dropdown>
+    <app-field-dropdown field="recordOrigin" [item]="item" [(value)]="item.recordOrigin['_']" ></app-field-dropdown>
+
+    <app-editor-field *ngIf="item.available('recordContectSource')" [field]="item.recordContectSources" [nested]='true'>
+      <ng-template let-recordContectSource="item" #templateContent>
+        <app-field-dropdown field="authority" [item]="recordContectSource" [(value)]='recordContectSource.attrs["authority"]'></app-field-dropdown>
+        <app-field-text field="value" [item]="recordContectSource" [(value)]="recordContectSource.modsElement['_']"></app-field-text>
+      </ng-template>
+    </app-editor-field>
+
+    <app-editor-field *ngIf="item.available('recordCreationDate')" [field]="item.recordCreationDates" [nested]='true'>
+      <ng-template let-recordCreationDate="item" #templateContent>
+        <app-field-dropdown field="encoding" [item]="recordCreationDate" [(value)]='recordCreationDate.attrs["encoding"]'></app-field-dropdown>
+        <app-field-text field="value" [item]="recordCreationDate" [(value)]="recordCreationDate.modsElement['_']"></app-field-text>
+      </ng-template>
+    </app-editor-field>
+
+    <app-editor-field *ngIf="item.available('recordChangeDate')" [field]="item.recordChangeDates" [nested]='true'>
+      <ng-template let-recordChangeDate="item" #templateContent>
+        <app-field-dropdown field="encoding" [item]="recordChangeDate" [(value)]='recordChangeDate.attrs["encoding"]'></app-field-dropdown>
+        <app-field-text field="value" [item]="recordChangeDate" [(value)]="recordChangeDate.modsElement['_']"></app-field-text>
+      </ng-template>
+    </app-editor-field>
+
+    <app-editor-field *ngIf="item.available('recordIdentifier')" [field]="item.recordIdentifiers" [nested]='true'>
+      <ng-template let-recordIdentifier="item" #templateContent>
+        <app-field-text field="source" [item]="recordIdentifier" [(value)]='recordIdentifier.attrs["source"]'></app-field-text>
+        <app-field-text field="value" [item]="recordIdentifier" [(value)]="recordIdentifier.modsElement['_']"></app-field-text>
+      </ng-template>
+    </app-editor-field>
+
+  </ng-template>
+</app-editor-field>
