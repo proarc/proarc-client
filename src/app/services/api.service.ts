@@ -537,9 +537,11 @@ export class ApiService {
             .pipe(map(response => Batch.statusFromJson(response['response'])));
   }
 
-  getImportBatches(state: string): Observable<any> {
+  getImportBatches(state: string, startRow: number, endRow: number): Observable<any> {
     let params = {
-      'sortBy': 'timestamp'
+      _sortBy: '-timestamp',
+      _startRow: startRow,
+      _endRow: endRow
     };
     if (state && state !== 'ALL') {
       params['state'] = state;
