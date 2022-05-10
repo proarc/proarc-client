@@ -51,7 +51,7 @@
         <div class="app-divider"></div>
       </ng-container>
       <div class="app-multibuttons">
-        <button [disabled]="editor.isMultipleChildrenMode()" matTooltipPosition="right" class="app-action"  matTooltip="{{ 'editor.children.move' | translate }}" (click)="onMove()" mat-icon-button>
+        <button  matTooltipPosition="right" class="app-action"  matTooltip="{{ 'editor.children.move' | translate }}" (click)="onMove()" mat-icon-button>
           <mat-icon>reply</mat-icon>
         </button>
         <div class="app-floating-menu" *ngIf="!editor.preparation">
