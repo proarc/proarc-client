@@ -105,6 +105,7 @@
   <div class="app-row app-row-header">
     <div *ngIf="isColumnSelected('label')" class="app-col-label"> {{'search.name' | translate}} </div>
     <div *ngIf="isColumnSelected('model')" class="app-col-model">{{'search.model' | translate}} </div>
+    <div *ngIf="isColumnSelected('pid')" class="app-col-pid">{{'search.pid' | translate}} </div>
     <div *ngIf="isColumnSelected('owner')" class="app-col">{{'search.owner' | translate}} </div>
     <div *ngIf="isColumnSelected('created')" class="app-col">{{'search.created' | translate}} </div>
     <div *ngIf="isColumnSelected('modified')" class="app-col">{{'search.modified' | translate}} </div>
@@ -133,6 +134,7 @@
         {{ shortLabels ? item.shortLabel : item.label }}
       </div>
       <div *ngIf="isColumnSelected('model')" class="app-col-model">{{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }}</div>
+      <div *ngIf="isColumnSelected('pid')" class="app-col-pid">{{ item.pid }}</div>
       <div *ngIf="isColumnSelected('owner')" class="app-col">{{ item.owner }}</div>
       <div *ngIf="isColumnSelected('created')" class="app-col">{{ item.created | date : 'dd.MM.yyyy' }}</div>
       <div *ngIf="isColumnSelected('modified')" class="app-col">{{ item.modified | date : 'dd.MM.yyyy' }}</div>
