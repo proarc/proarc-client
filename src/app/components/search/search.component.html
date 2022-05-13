@@ -181,7 +181,7 @@
         <div class="result-modified" *ngIf="properties.isSearchColEnabled('modified')">{{ item.modified | appDatetime }}</div>
         <div class="result-owner" *ngIf="properties.isSearchColEnabled('owner')">{{ item.owner }}</div>
         <div class="result-export" *ngIf="properties.isSearchColEnabled('export')">{{ item.writeExports() }}</div>
-        <div class="result-export" *ngIf="properties.isSearchColEnabled('isLocked')">{{ item.isLocked }}</div>
+        <div class="result-export" *ngIf="properties.isSearchColEnabled('isLocked')">{{ (item.isLocked ? 'common.yes' : 'common.no') | translate }}</div>
       </div>
     </div>
   </div>
