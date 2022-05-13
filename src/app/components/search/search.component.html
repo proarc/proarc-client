@@ -111,6 +111,8 @@
       <button (click)="onExport(selectedItem)" mat-button>Exportovat</button>
       <button (click)="onUrnnbn(selectedItem)" mat-button>URN:NBN</button>
       <button (click)="onDeleteItem()" mat-button>Smazat</button>
+      <button *ngIf="!selectedItem.isLocked" (click)="lockObject(selectedItem)" mat-button>Uzamknout objekt</button>
+      <button *ngIf="selectedItem.isLocked" (click)="unlockObject(selectedItem)" mat-button>Odemknout objekt</button>
     </div>
     <div class="app-paginator">
       <mat-paginator [length]="resultCount"
@@ -165,6 +167,7 @@
         <mat-icon *ngIf="getSortIcon('owner')" class="sort-arrow">{{ getSortIcon('owner') }}</mat-icon>
       </div>
       <div class="result-export" *ngIf="properties.isSearchColEnabled('export')">{{ 'search.export' | translate }}</div>
+      <div class="result-export" *ngIf="properties.isSearchColEnabled('isLocked')">{{ 'search.isLocked' | translate }}</div>
     </div>
     <div class="scrollable">
       <div *ngFor="let item of items" (click)="selectItem(item)" (dblclick)="openItem(item)" class="app-row" [class.app-selected]="item == selectedItem">
@@ -178,6 +181,7 @@
         <div class="result-modified" *ngIf="properties.isSearchColEnabled('modified')">{{ item.modified | appDatetime }}</div>
         <div class="result-owner" *ngIf="properties.isSearchColEnabled('owner')">{{ item.owner }}</div>
         <div class="result-export" *ngIf="properties.isSearchColEnabled('export')">{{ item.writeExports() }}</div>
+        <div class="result-export" *ngIf="properties.isSearchColEnabled('isLocked')">{{ item.isLocked }}</div>
       </div>
     </div>
   </div>

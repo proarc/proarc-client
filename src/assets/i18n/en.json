@@ -118,6 +118,7 @@
     "created": "Created",
     "modified": "Updated",
     "export": "Export",
+    "isLocked": "Locked",
     "search": "Search",
     "all_models": "All",
     "field": "Field",

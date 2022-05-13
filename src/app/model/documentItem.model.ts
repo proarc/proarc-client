@@ -30,6 +30,8 @@ export class DocumentItem {
 
   public invalid: boolean;
 
+  public isLocked: boolean;
+
   constructor() {
     this.invalid = false;
   }
@@ -66,6 +68,7 @@ export class DocumentItem {
     item.crossrefExport = json['crossrefExport'];
     item.krameriusExport = json['krameriusExport'];
     item.ndkExport = json['ndkExport'];
+    item.isLocked = json['isLocked'];
     return item;
   }
 

@@ -15,7 +15,8 @@ export class LocalStorageService {
         'created': true,
         'modified': true,
         'owner': true,
-        'export': true
+        'export': true,
+        'isLocked': true
     }
 
     constructor() {

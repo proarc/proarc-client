@@ -220,6 +220,35 @@ export class SearchComponent implements OnInit {
     });
   }
 
+  lockObject(item: DocumentItem) {
+    this.api.lockObjects([item.pid], item.model).subscribe((response: any) => {
+      if (response['response'].errors) {
+        console.log('error', response['response'].errors);
+        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.state = 'error';
+        return;
+      } else {
+        this.ui.showInfoSnackBar('Objekt byl úspěšně uzamčen');
+        this.reload();
+      }
+      
+    });
+  }
+
+  unlockObject(item: DocumentItem) {
+    this.api.unlockObjects([item.pid], item.model).subscribe((response: any) => {
+      if (response['response'].errors) {
+        console.log('error', response['response'].errors);
+        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.state = 'error';
+        return;
+      } else {
+        this.ui.showInfoSnackBar('Objekt byl úspěšně odemčen');
+        this.reload();
+      }
+    });
+  }
+
   onCopyItem() {
     this.api.copyObject(this.selectedItem.pid, this.selectedItem.model).subscribe((response: any) => {
       if (response['response'].errors) {

@@ -130,6 +130,7 @@
     "created": "Vytvořeno",
     "modified": "Změněno",
     "export": "Export",
+    "isLocked": "Zamčený",
     "search": "Vyhledat",
     "all_models": "Vše",
     "field": "Pole",
