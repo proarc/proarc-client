@@ -60,6 +60,18 @@ export class EditorService {
     // template: any;
     allowedChildrenModels: string[];
 
+    
+
+  public selectedColumns = [
+    { field: 'label', selected: true },
+    { field: 'model', selected: true },
+    { field: 'pid', selected: false },
+    { field: 'owner', selected: false },
+    { field: 'created', selected: false },
+    { field: 'modified', selected: true },
+    { field: 'status', selected: false }
+  ]
+
     constructor(
         private router: Router,
         private api: ApiService,
@@ -161,7 +173,13 @@ export class EditorService {
         index += 1;
         if (index < this.children.length) {
             this.selectRight(this.children[index]);
+            const item = this.children[index];
+            if (this.isMultipleChildrenMode()) {
+                this.setSingleChildMode(item);
+            }
+            item.selected = true;
         }
+
     }
 
     initDocumentEditor(pid: string) {

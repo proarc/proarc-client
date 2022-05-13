@@ -52,16 +52,6 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
 
   isDragging = false;
 
-  columns = [
-    { field: 'label', selected: true },
-    { field: 'model', selected: true },
-    { field: 'pid', selected: true },
-    { field: 'owner', selected: false },
-    { field: 'created', selected: false },
-    { field: 'modified', selected: false },
-    { field: 'state', selected: false }
-  ]
-
   constructor(public editor: EditorService,
     private dialog: MatDialog,
     private translator: Translator,
@@ -535,6 +525,6 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   }
 
   isColumnSelected(field: string) {
-    return this.columns.findIndex(c => c.field === field && c.selected) > -1;
+    return this.editor.selectedColumns.findIndex(c => c.field === field && c.selected) > -1;
   }
 }

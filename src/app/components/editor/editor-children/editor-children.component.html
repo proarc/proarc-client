@@ -74,8 +74,8 @@
         </button>
 
         <mat-menu #columns_menu="matMenu">
-          <div *ngFor="let column of columns" mat-menu-item>
-            <mat-checkbox name="column.field" [(ngModel)]="column.selected" >{{ column.field }}</mat-checkbox>
+          <div *ngFor="let column of editor.selectedColumns" mat-menu-item>
+            <mat-checkbox name="column.field" [(ngModel)]="column.selected" >{{ 'search.' + column.field | translate }}</mat-checkbox>
           </div>
         </mat-menu>
 
@@ -138,7 +138,7 @@
       <div *ngIf="isColumnSelected('owner')" class="app-col">{{ item.owner }}</div>
       <div *ngIf="isColumnSelected('created')" class="app-col">{{ item.created | date : 'dd.MM.yyyy' }}</div>
       <div *ngIf="isColumnSelected('modified')" class="app-col">{{ item.modified | date : 'dd.MM.yyyy' }}</div>
-      <div *ngIf="isColumnSelected('state')" class="app-col">{{ item.state }}</div>
+      <div *ngIf="isColumnSelected('status')" class="app-col">{{ item.status }}</div>
 
 
       <div *ngIf="!editor.isMultipleChildrenMode() && !editor.preparation" class="app-col-actions">
