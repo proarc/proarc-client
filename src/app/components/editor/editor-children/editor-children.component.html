@@ -51,7 +51,7 @@
         <div class="app-divider"></div>
       </ng-container>
       <div class="app-multibuttons">
-        <button [disabled]="editor.isMultipleChildrenMode()" matTooltipPosition="right" class="app-action"  matTooltip="{{ 'editor.children.move' | translate }}" (click)="onMove()" mat-icon-button>
+        <button  matTooltipPosition="right" class="app-action"  matTooltip="{{ 'editor.children.move' | translate }}" (click)="onMove()" mat-icon-button>
           <mat-icon>reply</mat-icon>
         </button>
         <div class="app-floating-menu" *ngIf="!editor.preparation">
@@ -74,8 +74,8 @@
         </button>
 
         <mat-menu #columns_menu="matMenu">
-          <div *ngFor="let column of columns" mat-menu-item>
-            <mat-checkbox name="column.field" [(ngModel)]="column.selected" >{{ column.field }}</mat-checkbox>
+          <div *ngFor="let column of editor.selectedColumns" mat-menu-item>
+            <mat-checkbox name="column.field" [(ngModel)]="column.selected" >{{ 'search.' + column.field | translate }}</mat-checkbox>
           </div>
         </mat-menu>
 
@@ -105,6 +105,7 @@
   <div class="app-row app-row-header">
     <div *ngIf="isColumnSelected('label')" class="app-col-label"> {{'search.name' | translate}} </div>
     <div *ngIf="isColumnSelected('model')" class="app-col-model">{{'search.model' | translate}} </div>
+    <div *ngIf="isColumnSelected('pid')" class="app-col-pid">{{'search.pid' | translate}} </div>
     <div *ngIf="isColumnSelected('owner')" class="app-col">{{'search.owner' | translate}} </div>
     <div *ngIf="isColumnSelected('created')" class="app-col">{{'search.created' | translate}} </div>
     <div *ngIf="isColumnSelected('modified')" class="app-col">{{'search.modified' | translate}} </div>
@@ -133,10 +134,11 @@
         {{ shortLabels ? item.shortLabel : item.label }}
       </div>
       <div *ngIf="isColumnSelected('model')" class="app-col-model">{{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }}</div>
+      <div *ngIf="isColumnSelected('pid')" class="app-col-pid">{{ item.pid }}</div>
       <div *ngIf="isColumnSelected('owner')" class="app-col">{{ item.owner }}</div>
       <div *ngIf="isColumnSelected('created')" class="app-col">{{ item.created | date : 'dd.MM.yyyy' }}</div>
       <div *ngIf="isColumnSelected('modified')" class="app-col">{{ item.modified | date : 'dd.MM.yyyy' }}</div>
-      <div *ngIf="isColumnSelected('state')" class="app-col">{{ item.state }}</div>
+      <div *ngIf="isColumnSelected('status')" class="app-col">{{ item.status }}</div>
 
 
       <div *ngIf="!editor.isMultipleChildrenMode() && !editor.preparation" class="app-col-actions">

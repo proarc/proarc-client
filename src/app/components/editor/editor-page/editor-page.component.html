@@ -22,23 +22,6 @@
       <div class="app-editor-field app-usages">
         <div class="app-card" style="padding: 8px;">
           <div class="app-card-content">
-      
-
-          
-            <mat-form-field class="app-page-number" [class.app-invalid]="!page.number">
-              <span class="app-usage" [class.app-help-off]="true">M</span>
-              <input (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageNumber')" autocomplete="off" matInput [placeholder]="'editor.page.number' | translate" [(ngModel)]="page.number" #pageNumber>
-
-              <button class="app-brackets" [class.app-disabled]="!page.number" [matTooltip]="isInBrackets() ? 'Odebrat závorky' : 'Vložit do závorek'" (click)="switchBrackets()" mat-icon-button>
-                <span class="app-text-icon">[ ]</span>
-              </button>
-
-            </mat-form-field>
-
-            <mat-form-field class="app-half-left" *ngIf="config.showPageIndex" [class.app-invalid]="!page.index">
-              <span class="app-usage" [class.app-help-off]="true">M</span>
-              <input (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageIndex')" autocomplete="off" matInput [placeholder]="'editor.page.index' | translate" [(ngModel)]="page.index" #pageIndex>
-            </mat-form-field>
 
             <mat-form-field [ngClass]="config.showPageIndex ? 'app-half-right' : 'app-full-width'" [class.app-invalid]="!page.type">
               <span class="app-usage" [class.app-help-off]="true">M</span>
@@ -46,6 +29,20 @@
                 <mat-option *ngFor="let pageType of codebook.pageTypes" [value]="pageType.code">{{ pageType.name }}</mat-option>
               </mat-select>
             </mat-form-field> 
+
+            <mat-form-field class="app-half-left" *ngIf="config.showPageIndex" [class.app-invalid]="!page.index">
+              <span class="app-usage" [class.app-help-off]="true">M</span>
+              <input (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageIndex')" autocomplete="off" matInput [placeholder]="'editor.page.index' | translate" [(ngModel)]="page.index" #pageIndex>
+            </mat-form-field>
+            
+            <mat-form-field class="app-page-number" [class.app-invalid]="!page.number">
+              <span class="app-usage" [class.app-help-off]="true">M</span>
+              <input (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageNumber')" autocomplete="off" matInput [placeholder]="'editor.page.number' | translate" [(ngModel)]="page.number" #pageNumber>
+
+              <button class="app-brackets" [class.app-disabled]="!page.number" [matTooltip]="isInBrackets() ? 'Odebrat závorky' : 'Vložit do závorek'" (click)="switchBrackets()" mat-icon-button>
+                <span class="app-text-icon">[ ]</span>
+              </button>
+            </mat-form-field>
 
             <mat-form-field class="app-half-left" *ngIf="page.isNdkPage()">
               <span class="app-usage" [class.app-help-off]="true">O</span>

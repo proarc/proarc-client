@@ -623,3 +623,11 @@ a, button {
     font-size: 12px !important;
   }
 }
+
+.app-snackbar-success .mat-simple-snackbar-action {
+  color: green;
+}
+
+.app-snackbar-error .mat-simple-snackbar-action {
+  color: $warn-color;
+}

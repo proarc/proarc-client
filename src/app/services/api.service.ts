@@ -180,6 +180,18 @@ export class ApiService {
             .pipe(map(response => response['response']['data'].map(x => x.pid)));
   }
 
+  lockObjects(pids: string[], model: string): Observable<any> {
+    const data = `pid=${pids}&model=${model}`;
+    const path = `object/lockObject`;
+    return this.post(path, data);
+  }
+
+  unlockObjects(pids: string[], model: string): Observable<any> {
+    const data = `pid=${pids}&model=${model}`;
+    const path = `object/unlockObject`;
+    return this.post(path, data);
+  }
+
 
   convertPages(pid: string, model: string, type: string) {
     const data = `pid=${pid}&model=${model}`;
@@ -537,9 +549,11 @@ export class ApiService {
             .pipe(map(response => Batch.statusFromJson(response['response'])));
   }
 
-  getImportBatches(state: string): Observable<any> {
+  getImportBatches(state: string, startRow: number, endRow: number): Observable<any> {
     let params = {
-      'sortBy': 'timestamp'
+      _sortBy: '-timestamp',
+      _startRow: startRow,
+      _endRow: endRow
     };
     if (state && state !== 'ALL') {
       params['state'] = state;

@@ -52,22 +52,12 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
 
   isDragging = false;
 
-  columns = [
-    {field: 'label', selected: true},
-    {field: 'model', selected: true},
-    {field: 'pid', selected: true},
-    {field: 'owner', selected: false},
-    {field: 'created', selected: false},
-    {field: 'modified', selected: false},
-    {field: 'state', selected: false}
-  ]
-
   constructor(public editor: EditorService,
-              private dialog: MatDialog,
-              private translator: Translator,
-              private ui: UIService,
-              private api: ApiService,
-              private properties: LocalStorageService) {
+    private dialog: MatDialog,
+    private translator: Translator,
+    private ui: UIService,
+    private api: ApiService,
+    private properties: LocalStorageService) {
   }
 
   ngAfterViewInit() {
@@ -113,7 +103,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
         this.select(this.items[this.arrowIndex + step], event);
       }
     }
-    
+
   }
 
   ngOnInit() {
@@ -131,7 +121,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     }
     this.shortLabels = this.properties.getBoolProperty('children.short_labels', false);
   }
-  
+
   thumb(pid: string) {
     // return this.api.getThumbUrl(pid);
     return this.api.getStreamUrl(pid, 'THUMBNAIL', this.editor.getBatchId());
@@ -248,7 +238,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     } else if (this.editor.numberOfSelectedChildren() === 1) {
       this.editor.selectRight(this.editor.children.find(ch => ch.selected));
     }
-    
+
     this.arrowIndex = itemIndex;
     this.lastIndex = itemIndex;
   }
@@ -265,12 +255,12 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
       this.dragEnabled = false;
       event.preventDefault();
       return;
-   }
-   if (!this.editor.isMultipleChildrenMode()) {
-     this.select(this.items[this.sourceIndex - 1]);
-   }
-   this.isDragging = true;
-   event.dataTransfer.effectAllowed = 'move';
+    }
+    if (!this.editor.isMultipleChildrenMode()) {
+      this.select(this.items[this.sourceIndex - 1]);
+    }
+    this.isDragging = true;
+    event.dataTransfer.effectAllowed = 'move';
   }
 
   mousedown(event) {
@@ -346,11 +336,41 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     }
   }
 
-  reorder(from: number, to: number) {
+  reorderMultiple(to: number) {
+    const movedItems = [];
+    let shift = 0;
+    for (let i = this.items.length - 1; i >= 0; i--) {
+      if (this.items[i].selected) {
+        const item = this.items.splice(i, 1);
+        movedItems.push(item[0]);
+        if (i < to) {
+          shift += 1;
+        }
+      }
+    }
+    if (shift > 1) {
+      to = to - shift + 1;
+    }
+    const rest = this.items.splice(to, this.items.length - to);
+    for (let i = movedItems.length - 1; i >= 0; i--) {
+      this.items.push(movedItems[i]);
+    }
+    for (let i = 0; i < rest.length; i++) {
+      const item = rest[i];
+      this.items.push(item);
+    }
     this.anyChange = true;
-    const item = this.items[from];
-    this.items.splice(from, 1);
-    this.items.splice(to, 0, item);
+  }
+
+  reorder(from: number, to: number) {
+    if (this.editor.isMultipleChildrenMode()) {
+      this.reorderMultiple(to+1);
+    } else {
+      this.anyChange = true;
+      const item = this.items[from];
+      this.items.splice(from, 1);
+      this.items.splice(to, 0, item);
+    }
   }
 
   onSave() {
@@ -375,11 +395,11 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result.status == 'ok') {
-          this.editor.reloadChildren(()=>{
+          this.editor.reloadChildren(() => {
             this.ui.showInfoSnackBar("Strany byly převedeny");
           });
         } else if (result.status == 'failure') {
-          this.editor.reloadChildren(()=>{
+          this.editor.reloadChildren(() => {
             this.ui.showInfoSnackBar("Strany byly převedeny s chybou");
           });
         }
@@ -392,7 +412,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   }
 
   onRelocateOutside() {
-    const dialogRef = this.dialog.open(ParentDialogComponent, { data: { btnLabel: 'editor.children.relocate_label' }});
+    const dialogRef = this.dialog.open(ParentDialogComponent, { data: { btnLabel: 'editor.children.relocate_label' } });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.pid) {
         this.relocateOutside(result.pid);
@@ -440,8 +460,8 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
         max: this.editor.children.length
       };
       const message = String(this.translator.instant('editor.children.move_dialog.message')) + ' (' +
-                      String(this.translator.instant('editor.children.move_dialog.between')) + 
-                      ' ' + input.min + ' - ' + input.max + ')';
+        String(this.translator.instant('editor.children.move_dialog.between')) +
+        ' ' + input.min + ' - ' + input.max + ')';
       const data: SimpleDialogData = {
         title: String(this.translator.instant('editor.children.move_dialog.title')),
         message,
@@ -505,6 +525,6 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   }
 
   isColumnSelected(field: string) {
-    return this.columns.findIndex(c => c.field === field && c.selected) > -1;
+    return this.editor.selectedColumns.findIndex(c => c.field === field && c.selected) > -1;
   }
 }

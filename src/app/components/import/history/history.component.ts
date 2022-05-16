@@ -111,7 +111,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
   reloadBatches() {
     this.selectedBatch = null;
     this.state = 'loading';
-    this.api.getImportBatches(this.selectedState).subscribe((resp: any) => {
+    this.api.getImportBatches(this.selectedState, this.pageIndex, this.pageIndex + this.pageSize).subscribe((resp: any) => {
       console.log(resp);
       this.batches = resp.data.map(d => Batch.fromJson(d));
       this.resultCount = resp.totalRows;
@@ -128,7 +128,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
       this.state = 'success';
       this.updateLoadingBatchesProgress(this.queue);
     }, error => {
-      this.api.getImportBatches('LOADING').subscribe((batches: Batch[]) => {
+      this.api.getImportBatches('LOADING', this.pageIndex, this.pageIndex + this.pageSize).subscribe((batches: Batch[]) => {
         this.queue = batches;
         this.state = 'success';
         this.updateLoadingBatchesProgress(this.queue);
