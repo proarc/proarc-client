@@ -22,7 +22,7 @@ export class ModsSubject extends ModsElement {
     }
 
     constructor(modsElement, template) {
-        super(modsElement, template, ['authority']);
+        super(modsElement, template, ['authority', 'lang']);
         this.init();
     }
 

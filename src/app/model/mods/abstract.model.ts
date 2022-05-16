@@ -2,6 +2,8 @@ import { ModsElement } from './element.model';
 
 export class ModsAbstract extends ModsElement {
 
+   public lang;
+
     static getSelector() {
         return 'abstract';
     }
@@ -11,7 +13,7 @@ export class ModsAbstract extends ModsElement {
     }
 
     constructor(modsElement, template) {
-        super(modsElement, template);
+        super(modsElement, template, ['lang']);
         this.init();
     }
 

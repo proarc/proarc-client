@@ -668,7 +668,8 @@
     "signature1": "Signatura přidělená původcem",
     "signature2": "Signatura přidělená při zpracování archiválie",
     "inventarynumber": "Inventární číslo",
-    "othernumber": "Přírůstkové číslo"
+    "othernumber": "Přírůstkové číslo",
+    "doi": "DOI"
   },
   "model": {
     "model:ndkperiodical": "NDK Periodikum",

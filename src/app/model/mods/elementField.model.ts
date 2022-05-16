@@ -27,6 +27,7 @@ import {ModsRecordCreationDate} from './recordCreationDate.model';
 import {ModsRecordIdentifier} from './recordIdentifier.model';
 import {ModsExtent} from './extent.model';
 import {ModsTableOfContents} from './tableOfContents';
+import {ModsRelatedItem} from './relatedItem.model';
 
 export class ElementField {
 
@@ -198,6 +199,8 @@ export class ElementField {
                 return new ModsPhysical(el, this.template);
             case ModsRecordInfo.getId():
                 return new ModsRecordInfo(el, this.template);
+            case ModsRelatedItem.getId():
+                return new ModsRelatedItem(el, this.template);
             case ModsTableOfContents.getId():
                 return new ModsTableOfContents(el, this.template);
             case ModsSubject.getId():
@@ -286,6 +289,8 @@ export class ElementField {
                 return ModsPhysical.getSelector();
             case ModsRecordInfo.getId():
                 return ModsRecordInfo.getSelector();
+            case ModsRelatedItem.getId():
+                return ModsRelatedItem.getSelector();
             case ModsSubject.getId():
                 return ModsSubject.getSelector();
             case ModsClassification.getId():

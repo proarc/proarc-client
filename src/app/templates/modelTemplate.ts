@@ -16,7 +16,6 @@ import { NdkPeriodicalVolumeAacrTemplate } from "./aacr/ndkPeriodicalVolume.aacr
 import { NdkPeriodicalVolumeRdaTemplate } from "./rda/ndkPeriodicalVolume.rda.template";
 import { NdkSheetMusicAacrTemplate } from "./aacr/ndkSheetmusic.aacr.template";
 import { NdkSheetMusicRdaTemplate } from "./rda/ndkSheetmusic.rda.template";
-import {BdmArticleRdaTemplate} from './bdmArticle.rda.template';
 import {NdkMusicDocumentAacrTemplate} from './aacr/ndkMusicDocument.aacr.template';
 import {NdkMusicSongAacrTemplate} from './aacr/ndkMusicSong.aacr.template';
 import {NdkMusicTrackAacrTemplate} from './aacr/ndkMusicTrack.aacr.template';
@@ -27,6 +26,7 @@ import {NdkPictureAacrTemplate} from './aacr/ndkPicture.aacr.template';
 import {NdkChapterAacrTemplate} from './aacr/ndkChapter.aacr.template';
 import {NdkArticleAacrTemplate} from './aacr/ndkArticle.aacr.template';
 import {NdkArticleRdaTemplate} from './rda/ndkArticle.rda.template';
+import {BdmArticleTemplate} from './none/bdmArticle.template';
 
 export class ModelTemplate {
 
@@ -64,7 +64,7 @@ export class ModelTemplate {
       "model:ndkechapter": NdkChapterAacrTemplate.data,
 
       // eClanek
-      "model:bdmarticle": BdmArticleRdaTemplate.data,  // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
+      "model:bdmarticle": BdmArticleTemplate.data,  // bez urceni pravidel
 
       // chronicle
       "model:chronicletitle": AacrTemplate.data,
@@ -112,7 +112,7 @@ export class ModelTemplate {
       "model:ndkechapter": NdkChapterAacrTemplate.data, // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
 
       // eClanek
-      "model:bdmarticle": BdmArticleRdaTemplate.data,
+      "model:bdmarticle": BdmArticleTemplate.data,  // bez urceni pravidel
 
       // chronicle
       "model:chronicletitle": AacrTemplate.data,
