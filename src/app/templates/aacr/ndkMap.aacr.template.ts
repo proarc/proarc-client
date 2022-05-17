@@ -132,6 +132,13 @@ export class NdkMapAacrTemplate {
           description: `Životopisná data autora<br/>
           Pokud známe datum narození a úmrtí autora, vyplnit ve tvaru RRRR-RRRR.`
         },
+        termsOfAddress: {
+          usage: "RA",
+          label: "Ostatní související se jménem",
+          selector: "name/namePart[@type='termsOfAddress']",
+          cols: 2,
+          description: `Tituly a jiná slova nebo čísla související se jménem.`
+        },
         role: {
           usage: "MA",
           label: "Role",
