@@ -297,7 +297,7 @@ export class NdkMonographVolumeAacrTemplate {
           selector: 'originInfo/dateCreated',
           cols: 2,
           description: `Datum vydání předlohy pro rukopisy.<br/>
-          přebírat z katalogu; odpovídá hodnotě z katalogizačního záznamu, pole 264_0 $c pokud je LDR/06="d", "f", "t"`
+          přebírat z katalogu; odpovídá hodnotě z katalogizačního záznamu, pole 260 $c pokud je LDR/06="d", "f", "t"`
         },
       }
     },
@@ -515,8 +515,7 @@ export class NdkMonographVolumeAacrTemplate {
           selector: "genre/@authority",
           options: [
             ['czenas', 'czenas'],
-            ['eczenas', 'eczenas'],
-            ['rdacontent', 'rdacontent']]
+            ['eczenas', 'eczenas']]
         },
         value: {
           usage: "M",

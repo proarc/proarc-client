@@ -166,7 +166,7 @@ export class OldprintGraphicsAacrTemplate {
       usage: "M",
       label: "Původ předlohy",
       selector: 'originInfo',
-      description: `Informace o původu předlohy: odpovídá poli 264`,
+      description: `Informace o původu předlohy: odpovídá poli 260`,
       fields: {
         publisher: {
             usage: "MA",

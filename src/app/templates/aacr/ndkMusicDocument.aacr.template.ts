@@ -174,8 +174,8 @@ export class NdkMusicDocumentAacrTemplate {
           label: "Nakladatel",
           selector: 'originInfo/publisher',
           description: `Jméno entity, která dokument vytvořila, vydala, distribuovala nebo vyrobila<br/>
-            odpovídá poli 264 $b katalogizačního záznamu v MARC21<br/>
-            pokud má titul více vydavatelů/ distributorů/ výrobců, přebírají se ze záznamu všichni (jsou v jednom poli 264)`,
+            odpovídá poli 260 $b katalogizačního záznamu v MARC21<br/>
+            pokud má titul více vydavatelů/ distributorů/ výrobců, přebírají se ze záznamu všichni (jsou v jednom poli 260)`,
         },
         eventType: {
           usage: "M",

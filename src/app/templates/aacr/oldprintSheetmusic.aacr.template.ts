@@ -274,7 +274,7 @@ export class OldprintSheetMusicAacrTemplate {
           usage: "R",
           label: "Autorita",
           selector: 'subject/@authority',
-          description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>Konspekt</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
+          description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
           Odpovídá hodnotě v $2`,
           options: [
             ['', '-'],
@@ -503,8 +503,8 @@ export class OldprintSheetMusicAacrTemplate {
       usage: "R",
       label: "Klasifikace",
       selector: "identifier",
-      description: `Klasifikační údaje věcného třídění podle Konspektu.<br/>
-      Odpovídá poli 072 $a MARC21`,
+      description: `Klasifikační údaje věcného třídění podle Mezinárodního desetinného třídění <br/>
+      odpovídá poli 080 MARC21.`,
       fields: {
         authority: {
           usage: "M",
@@ -515,9 +515,6 @@ export class OldprintSheetMusicAacrTemplate {
           <ul>
             <li>
               vyplnit hodnotu <strong>udc</strong> (v případě 072 $a)
-            </li>
-            <li>
-              vyplnit hodnotu <strong>Konspekt</strong>  (v případě 072 $9)
             </li>
           </ul>`,
           options: [

@@ -144,12 +144,12 @@ export class NdkMonographSupplementAacrTemplate {
       usage: "MA",
       label: "Původ předlohy",
       selector: 'originInfo',
-      description: `Informace o původu předlohy: odpovídá poli 264<br/>
+      description: `Informace o původu předlohy: odpovídá poli 260<br/>
       plnit, pokud se liší od údajů v popisu čísla periodika (platí i pro jednotlivé subelementy)<br/>
       Pozn.:<br/>
       Jeden nebo více výskytů elementů se předpokládá
       pro vydavatele, další výskyt v případě nutnosti
-      popsat tiskaře. Pokud je nutno vyjádřit tiskaře (pole 264 _3 $a, $b, $c), je nutno element <originInfo>
+      popsat tiskaře. Pokud je nutno vyjádřit tiskaře (pole 260 $a, $b, $c), je nutno element <originInfo>
       opakovat s atributem eventType="manufacture" a
       elementy <place>; <publisher>; a element
       <dateOther> s atributem type="manufacture"`,
@@ -158,9 +158,9 @@ export class NdkMonographSupplementAacrTemplate {
             usage: "MA",
             label: "Nakladatel",
             selector: 'originInfo/publisher',
-            description: `Jméno entity, která přílohu vytvořila, vydala, distribuovala nebo vyrobila, odpovídá poli 264 $b
+            description: `Jméno entity, která přílohu vytvořila, vydala, distribuovala nebo vyrobila, odpovídá poli 260 $b
             katalogizačního záznamu v MARC21<br/>
-            pokud má příloha více vydavatelů/distributorů/výrobců, přebírají se za záznamu všichni (z jednoho pole 264)`
+            pokud má příloha více vydavatelů/distributorů/výrobců, přebírají se za záznamu všichni (z jednoho pole 260)`
         },
         dateIssued: {
             usage: "MA",
@@ -168,16 +168,7 @@ export class NdkMonographSupplementAacrTemplate {
             selector: 'originInfo/dateIssued',
             cols: 2,
             description:`Datum vydání přílohy, podle údajů, které jsou k dispozici<br/>
-            možno použít hodnotu z katalogizačního záznamu<br/>
-            Odpovídá hodnotě z katalogizačního záznamu, pole 264_1 $c a pole 008/07-10<br/>
-            Pro všechny ostatní výskyty v poli 264 $c:
-            <ul>
-              <li>264_0 <strong>Produkce</strong> (production)</li>
-              <li>264_2 <strong>Distribuce</strong> (distribution)</li>
-              <li>264_3 <strong>Výroba</strong> (manufacture)</li>
-              <li>264_4 <strong>Copyright</strong> (copyright)</li>
-            </ul>
-            využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>`
+            možno použít hodnotu z katalogizačního záznamu>`
         },
         qualifier: {
             usage: "O",
@@ -202,7 +193,7 @@ export class NdkMonographSupplementAacrTemplate {
             label: "Místo",
             selector: 'originInfo/place/placeTerm',
             cols: 2,
-            description:`Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisované přílohy odpovídá hodnotě 264 $a`
+            description:`Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisované přílohy odpovídá hodnotě 260 $a`
         },
         dateCreated: {
           usage: "R",
@@ -246,7 +237,7 @@ export class NdkMonographSupplementAacrTemplate {
           usage: "R",
           label: "Autorita",
           selector: 'subject/@authority',
-          description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>Konspekt</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
+          description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
           Odpovídá hodnotě v $2`,
           options: [
             ['', '-'],
@@ -466,8 +457,8 @@ export class NdkMonographSupplementAacrTemplate {
       usage: "R",
       label: "Klasifikace",
       selector: "identifier",
-      description: `Klasifikační údaje věcného třídění podle Konspektu.<br/>
-      Odpovídá poli 072 $a MARC21`,
+      description: `Klasifikační údaje věcného třídění podle Mezinárodního desetinného třídění <br/>
+      odpovídá poli 080 MARC21.`,
       fields: {
         authority: {
           usage: "M",

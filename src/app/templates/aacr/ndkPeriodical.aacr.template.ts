@@ -167,7 +167,7 @@ export class NdkPeriodicalAacrTemplate {
           label: "Nakladatel",
           selector: 'originInfo/publisher',
           description: `Jméno entity, která dokument vytvořila, vydala, distribuovala nebo vyrobila<br/>
-            odpovídá poli 264 $b katalogizačního záznamu v MARC21<br/>
+            odpovídá poli 260 $b katalogizačního záznamu v MARC21<br/>
             pokud má periodikum více vydavatelů, přebírají se ze záznamu všichni (v jednom poli 260)`,
         },
         dateIssued: {
@@ -319,15 +319,14 @@ export class NdkPeriodicalAacrTemplate {
           usage: "R",
           label: "Autorita",
           selector: 'subject/@authority',
-          description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>Konspekt</strong>, <strong>czmesh</strong>, <strong>mednas</strong><br/>
+          description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>czmesh</strong>, <strong>mednas</strong><br/>
           Odpovídá hodnotě v $2`,
           options: [
             ['', '-'],
             ['czenas','czenas'],
             ['eczenas','eczenas'],
             ['mednas','mednas'],
-            ['czmesh','czmesh'],
-            ['Konspekt','Konspekt']
+            ['czmesh','czmesh']
           ]
         },
         topic: {
@@ -453,30 +452,12 @@ export class NdkPeriodicalAacrTemplate {
                 <li><strong>marccategory</strong></li>
                 <li><strong>marcsmd</strong></li>
                 <li><strong>gmd</strong></li>
-                <li><strong>rdamedia</strong> (pro pole 337)</li>
-                <li><strong>rdacarrier</strong> (pro pole 338)</li>
               </ul>`,
               options: [
                 ['marcform', 'marcform'],
                 ['marccategory', 'marccategory'],
                 ['marcsmd', 'marcsmd'],
-                ['gmd', 'gmd'],
-                ['rdamedia', 'rdamedia'],
-                ['rdacarrier', 'rdacarrier']]
-            },
-            type: {
-              usage: "MA",
-              label: "Typ",
-              selector: "physicalDescription/form/@type",
-              cols: 2,
-              description: `Možné hodnoty
-              <ul>
-                <li><strong>media</strong> pro pole 337</li>
-                <li><strong>carrier</strong> pro pole 338</li>
-              </ul>`,
-              options: [
-                ['media', 'media'],
-                ['carrier', 'carrier']]
+                ['gmd', 'gmd']]
             },
             value: {
               usage: "M",
@@ -576,8 +557,8 @@ export class NdkPeriodicalAacrTemplate {
       usage: "R",
       label: "Klasifikace",
       selector: "identifier",
-      description: `Klasifikační údaje věcného třídění podle Konspektu.<br/>
-      Odpovídá poli 072 $a MARC21`,
+      description: `Klasifikační údaje věcného třídění podle Mezinárodního desetinného třídění.<br/>
+      Odpovídá poli 080 MARC21.`,
       fields: {
         authority: {
           usage: "M",
@@ -589,28 +570,9 @@ export class NdkPeriodicalAacrTemplate {
             <li>
               vyplnit hodnotu <strong>udc</strong> (v případě 072 $a)
             </li>
-            <li>
-              vyplnit hodnotu <strong>Konspekt</strong>  (v případě 072 $9)
-            </li>
           </ul>`,
           options: [
-            ['udc','udc'],
-            ['Konspekt','Konspekt']
-          ]
-        },
-        edition: {
-          usage: "M",
-          label: "Edice",
-          selector: "classification/@edition",
-          cols: 2,
-          description: `
-          <ul>
-            <li>
-              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)
-            </li>
-          </ul>`,
-          options: [
-            ['Konspekt','Konspekt']
+            ['udc','udc']
           ]
         },
         value: {
