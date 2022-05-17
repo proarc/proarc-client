@@ -2,8 +2,6 @@ import { ModsElement } from './element.model';
 
 export class ModsResource extends ModsElement {
 
-    public language;
-
     static getSelector() {
         return 'typeOfResource';
     }
@@ -13,7 +11,7 @@ export class ModsResource extends ModsElement {
     }
 
     constructor(modsElement, template) {
-        super(modsElement, template);
+        super(modsElement, template, ['manuscript']);
         this.init();
     }
 

@@ -2,8 +2,6 @@ import { ModsElement } from './element.model';
 
 export class ModsAbstract extends ModsElement {
 
-   public lang;
-
     static getSelector() {
         return 'abstract';
     }

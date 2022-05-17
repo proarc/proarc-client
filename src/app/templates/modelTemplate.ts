@@ -27,6 +27,21 @@ import {NdkChapterAacrTemplate} from './aacr/ndkChapter.aacr.template';
 import {NdkArticleAacrTemplate} from './aacr/ndkArticle.aacr.template';
 import {NdkArticleRdaTemplate} from './rda/ndkArticle.rda.template';
 import {BdmArticleTemplate} from './none/bdmArticle.template';
+import {OldprintConvolutteAacrTemplate} from './aacr/oldprintConvolutte.aacr.template';
+import {OldprintMonographtitleAacrTemplate} from './aacr/oldprintMonographtitle.aacr.template';
+import {OldprintMonographtitleRdaTemplate} from './rda/oldprintMonographtitle.rda.template';
+import {OldprintMonographVolumeAacrTemplate} from './aacr/oldprintMonographvolume.aacr.template';
+import {OldprintMonographVolumeRdaTemplate} from './rda/oldprintMonographvolume.rda.template';
+import {OldprintMonographSupplementRdaTemplate} from './rda/oldprintMonographsupplement.rda.template';
+import {OldprintMonographSupplementAacrTemplate} from './aacr/oldprintMonographsupplement.aacr.template';
+import {OldprintChapterAacrTemplate} from './aacr/oldprintChapter.aacr.template';
+import {OldprintChapterRdaTemplate} from './rda/oldprintChapter.rda.template';
+import {OldprintGraphicsRdaTemplate} from './rda/oldprintGraphics.rda.template';
+import {OldprintGraphicsAacrTemplate} from './aacr/oldprintGraphics.aacr.template';
+import {OldprintMapRdaTemplate} from './rda/oldprintMap.rda.template';
+import {OldprintMapAacrTemplate} from './aacr/oldprintMap.aacr.template';
+import {OldprintSheetMusicRdaTemplate} from './rda/oldprintSheetmusic.rda.template';
+import {OldprintSheetMusicAacrTemplate} from './aacr/oldprintSheetmusic.aacr.template';
 
 export class ModelTemplate {
 
@@ -46,14 +61,14 @@ export class ModelTemplate {
       "model:ndkpicture": NdkPictureAacrTemplate.data,
       "model:ndkchapter": NdkChapterAacrTemplate.data,
 
-      "model:oldprintomnibusvolume": NdkMonographTitleAacrTemplate.data,
-      "model:oldprintmonographtitle": NdkMonographTitleAacrTemplate.data,
-      "model:oldprintvolume": NdkMonographVolumeAacrTemplate.data,
-      "model:oldprintsupplement": NdkMonographSupplementAacrTemplate.data,
-      "model:oldprintchapter": NdkChapterAacrTemplate.data,
-      "model:oldprintgraphics": NdkPictureAacrTemplate.data,
-      "model:oldprintmap": NdkMapAacrTemplate.data,
-      "model:oldprintsheetmusic": NdkSheetMusicAacrTemplate.data,
+      "model:oldprintomnibusvolume": OldprintConvolutteAacrTemplate.data,           // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
+      "model:oldprintmonographtitle": OldprintMonographtitleAacrTemplate.data,
+      "model:oldprintvolume": OldprintMonographVolumeAacrTemplate.data,
+      "model:oldprintsupplement": OldprintMonographSupplementAacrTemplate.data,
+      "model:oldprintchapter": OldprintChapterAacrTemplate.data,
+      "model:oldprintgraphics": OldprintGraphicsAacrTemplate.data,
+      "model:oldprintmap": OldprintMapAacrTemplate.data,
+      "model:oldprintsheetmusic": OldprintSheetMusicAacrTemplate.data,
 
       "model:ndkeperiodical": NdkPeriodicalAacrTemplate.data,
       "model:ndkeperiodicalvolume": NdkPeriodicalVolumeAacrTemplate.data,
@@ -94,14 +109,14 @@ export class ModelTemplate {
       "model:ndkpicture": NdkPictureAacrTemplate.data, // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
       "model:ndkchapter": NdkChapterAacrTemplate.data, // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
 
-      "model:oldprintomnibusvolume": NdkMonographTitleRdaTemplate.data,
-      "model:oldprintmonographtitle": NdkMonographTitleRdaTemplate.data,
-      "model:oldprintvolume": NdkMonographVolumeRdaTemplate.data,
-      "model:oldprintsupplement": NdkMonographSupplementRdaTemplate.data,
-      "model:oldprintchapter": NdkChapterAacrTemplate.data, // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
-      "model:oldprintgraphics": NdkMapRdaTemplate.data,
-      "model:oldprintmap": NdkMapRdaTemplate.data,
-      "model:oldprintsheetmusic": NdkSheetMusicRdaTemplate.data,
+      "model:oldprintomnibusvolume": OldprintConvolutteAacrTemplate.data,       // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
+      "model:oldprintmonographtitle": OldprintMonographtitleRdaTemplate.data,
+      "model:oldprintvolume": OldprintMonographVolumeRdaTemplate.data,
+      "model:oldprintsupplement": OldprintMonographSupplementRdaTemplate.data,
+      "model:oldprintchapter": OldprintChapterRdaTemplate.data,
+      "model:oldprintgraphics": OldprintGraphicsRdaTemplate.data,
+      "model:oldprintmap": OldprintMapRdaTemplate.data,
+      "model:oldprintsheetmusic": OldprintSheetMusicRdaTemplate.data,
 
       "model:ndkeperiodical": NdkPeriodicalRdaTemplate.data,
       "model:ndkeperiodicalvolume": NdkPeriodicalVolumeRdaTemplate.data,
