@@ -42,6 +42,14 @@ import {OldprintMapRdaTemplate} from './rda/oldprintMap.rda.template';
 import {OldprintMapAacrTemplate} from './aacr/oldprintMap.aacr.template';
 import {OldprintSheetMusicRdaTemplate} from './rda/oldprintSheetmusic.rda.template';
 import {OldprintSheetMusicAacrTemplate} from './aacr/oldprintSheetmusic.aacr.template';
+import {NdkePeriodicalRdaTemplate} from './rda/ndkePeriodical.rda.template';
+import {NdkePeriodicalAacrTemplate} from './aacr/ndkePeriodical.aacr.template';
+import {NdkePeriodicalVolumeRdaTemplate} from './rda/ndkePeriodicalVolume.rda.template';
+import {NdkePeriodicalVolumeAacrTemplate} from './aacr/ndkePeriodicalVolume.aacr.template';
+import {NdkePeriodicalIssueRdaTemplate} from './rda/ndkePeriodicalIssue.rda.template';
+import {NdkePeriodicalIssueAacrTemplate} from './aacr/ndkePeriodicalIssue.aacr.template';
+import {NdkeArticleRdaTemplate} from './rda/ndkeArticle.rda.template';
+import {NdkeArticleAacrTemplate} from './aacr/ndkeArticle.aacr.template';
 
 export class ModelTemplate {
 
@@ -70,10 +78,10 @@ export class ModelTemplate {
       "model:oldprintmap": OldprintMapAacrTemplate.data,
       "model:oldprintsheetmusic": OldprintSheetMusicAacrTemplate.data,
 
-      "model:ndkeperiodical": NdkPeriodicalAacrTemplate.data,
-      "model:ndkeperiodicalvolume": NdkPeriodicalVolumeAacrTemplate.data,
-      "model:ndkeperiodicalissue": NdkPeriodicalIssueAacrTemplate.data,
-      "model:ndkearticle": NdkArticleAacrTemplate.data,
+      "model:ndkeperiodical": NdkePeriodicalAacrTemplate.data,
+      "model:ndkeperiodicalvolume": NdkePeriodicalVolumeAacrTemplate.data,
+      "model:ndkeperiodicalissue": NdkePeriodicalIssueAacrTemplate.data,
+      "model:ndkearticle": NdkeArticleAacrTemplate.data,
       "model:ndkemonographtitle": NdkMonographTitleAacrTemplate.data,
       "model:ndkemonographvolume": NdkMonographVolumeAacrTemplate.data,
       "model:ndkechapter": NdkChapterAacrTemplate.data,
@@ -118,10 +126,10 @@ export class ModelTemplate {
       "model:oldprintmap": OldprintMapRdaTemplate.data,
       "model:oldprintsheetmusic": OldprintSheetMusicRdaTemplate.data,
 
-      "model:ndkeperiodical": NdkPeriodicalRdaTemplate.data,
-      "model:ndkeperiodicalvolume": NdkPeriodicalVolumeRdaTemplate.data,
-      "model:ndkeperiodicalissue": NdkPeriodicalIssueRdaTemplate.data,
-      "model:ndkearticle": NdkArticleRdaTemplate.data,
+      "model:ndkeperiodical": NdkePeriodicalRdaTemplate.data,
+      "model:ndkeperiodicalvolume": NdkePeriodicalVolumeRdaTemplate.data,
+      "model:ndkeperiodicalissue": NdkePeriodicalIssueRdaTemplate.data,
+      "model:ndkearticle": NdkeArticleRdaTemplate.data,
       "model:ndkemonographtitle": NdkMonographTitleRdaTemplate.data,
       "model:ndkemonographvolume": NdkMonographVolumeRdaTemplate.data,
       "model:ndkechapter": NdkChapterAacrTemplate.data, // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
