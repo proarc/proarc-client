@@ -264,7 +264,7 @@ export class NdkPeriodicalSupplementRdaTemplate {
           cols: 3,
           description:`Datum vytvoření přílohy<br/>
           bude použito pouze při popisu tiskaře, viz poznámka u <strong>Nakladatel</strong> nebo např. u popisu CD/DVD apod.<br/>
-          odpovídá hodnotě z katalogizačního záznamu, pole 260 $g`
+          odpovídá hodnotě z katalogizačního záznamu, pole 264 $g`
         },
         dateOther: {
           usage: "R",
