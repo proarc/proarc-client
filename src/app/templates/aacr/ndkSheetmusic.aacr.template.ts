@@ -235,7 +235,11 @@ export class NdkSheetMusicAacrTemplate {
           description: `Hodnota "marc" jen u údaje z pole 008`,
           options: [
             ['', '-'],
-            ['marc', 'marc']
+            ['marc', 'MARC'],
+            ['iso8601', 'ISO 8601'],
+            ['edtf', 'EDTF'],
+            ['temper', 'temper'],
+            ['w3cdtf', 'W3CDTF']
           ]
         },
         point: {
