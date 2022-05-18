@@ -123,7 +123,7 @@ export class DocumentItem {
   // }
 
   public isChronicle(): boolean {
-    return this.model === 'model:chroniclevolume' || this.model === 'model:chronicletitle';
+    return this.model === 'model:chroniclevolume' || this.model === 'model:chronicletitle' || this.model === 'model:chroniclesupplement';
   }
 
   // public isTopLevel(): boolean {

@@ -56,6 +56,9 @@ import {NdkeMonographVolumeRdaTemplate} from './rda/ndkeMonographvolume.rda.temp
 import {NdkeMonographVolumeAacrTemplate} from './aacr/ndkeMonographvolume.aacr.template';
 import {NdkeChapterRdaTemplate} from './rda/ndkeChapter.rda.template';
 import {NdkeChapterAacrTemplate} from './aacr/ndkeChapter.aacr.template';
+import {ChronicleMonographtitleAacrTemplate} from './aacr/chronicleMonographtitle.aacr.template';
+import {ChronicleMonographvolumeAacrTemplate} from './aacr/chronicleMonographvolume.aacr.template';
+import {ChronicleMonographsupplementAacrTemplate} from './aacr/chronicleMonographsupplement.aacr.template';
 
 export class ModelTemplate {
 
@@ -96,9 +99,9 @@ export class ModelTemplate {
       "model:bdmarticle": BdmArticleTemplate.data,  // bez urceni pravidel
 
       // chronicle
-      "model:chronicletitle": AacrTemplate.data,
-      "model:chroniclevolume": AacrTemplate.data,
-      "model:chroniclesupplement": AacrTemplate.data,
+      "model:chronicletitle": ChronicleMonographtitleAacrTemplate.data,
+      "model:chroniclevolume": ChronicleMonographvolumeAacrTemplate.data,
+      "model:chroniclesupplement": ChronicleMonographsupplementAacrTemplate.data,
 
       // ndk music documents
       "model:ndkphonographcylinder": NdkMusicDocumentAacrTemplate.data,
@@ -144,9 +147,9 @@ export class ModelTemplate {
       "model:bdmarticle": BdmArticleTemplate.data,  // bez urceni pravidel
 
       // chronicle
-      "model:chronicletitle": AacrTemplate.data,
-      "model:chroniclevolume": AacrTemplate.data,
-      "model:chroniclesupplement": AacrTemplate.data,
+      "model:chronicletitle": ChronicleMonographtitleAacrTemplate.data,
+      "model:chroniclevolume": ChronicleMonographvolumeAacrTemplate.data,
+      "model:chroniclesupplement": ChronicleMonographsupplementAacrTemplate.data,
 
       // ndk music documents -- ndkMusic ma pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
       "model:ndkphonographcylinder": NdkMusicDocumentAacrTemplate.data,

@@ -141,7 +141,7 @@ export class ConfigService {
     ];
 
     private static defaultIdentifiers = [ 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'];
-    private static defaultChronicleIdentifiers = [ 'signature1', 'signature2', 'inventaryNumber', 'OtherNumber'];
+    private static defaultChronicleIdentifiers = [ 'signature1', 'signature2', 'inventaryNumber', 'OtherNumber' , 'id', 'localId', 'officialNumber'];
 
     public proarcBackendUrl = APP_GLOBAL.proarcUrl;
     public allModels = APP_GLOBAL.models || ConfigService.defaultModels;
