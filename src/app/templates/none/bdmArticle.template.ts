@@ -267,9 +267,16 @@ export class BdmArticleTemplate {
       label: "Typ obsahu",
       selector: "genre",
       fields: {
+        value: {
+          usage: "M",
+          label: "Hodnota",
+          cols: 2,
+          help: "off"
+        },
         type: {
           usage: "R",
           label: "Typ obsahu",
+          cols: 2,
           selector: "genre/@type",
           options: [
             ['abstract', 'abstrakt'],
@@ -281,6 +288,7 @@ export class BdmArticleTemplate {
             ['obituary', 'nekrolog'],
             ['cover', 'obálka'],
             ['table of content', 'obsah'],
+            ['peer-reviewed', 'recenzováno'],
             ['preface', 'předmluva'],
             ['review', 'recenze'],
             ['index', 'rejstřík'],
