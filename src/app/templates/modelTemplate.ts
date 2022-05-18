@@ -50,6 +50,12 @@ import {NdkePeriodicalIssueRdaTemplate} from './rda/ndkePeriodicalIssue.rda.temp
 import {NdkePeriodicalIssueAacrTemplate} from './aacr/ndkePeriodicalIssue.aacr.template';
 import {NdkeArticleRdaTemplate} from './rda/ndkeArticle.rda.template';
 import {NdkeArticleAacrTemplate} from './aacr/ndkeArticle.aacr.template';
+import {NdkeMonographTitleRdaTemplate} from './rda/ndkeMonographtitle.rda.template';
+import {NdkeMonographTitleAacrTemplate} from './aacr/ndkeMonographtitle.aacr.template';
+import {NdkeMonographVolumeRdaTemplate} from './rda/ndkeMonographvolume.rda.template';
+import {NdkeMonographVolumeAacrTemplate} from './aacr/ndkeMonographvolume.aacr.template';
+import {NdkeChapterRdaTemplate} from './rda/ndkeChapter.rda.template';
+import {NdkeChapterAacrTemplate} from './aacr/ndkeChapter.aacr.template';
 
 export class ModelTemplate {
 
@@ -82,9 +88,9 @@ export class ModelTemplate {
       "model:ndkeperiodicalvolume": NdkePeriodicalVolumeAacrTemplate.data,
       "model:ndkeperiodicalissue": NdkePeriodicalIssueAacrTemplate.data,
       "model:ndkearticle": NdkeArticleAacrTemplate.data,
-      "model:ndkemonographtitle": NdkMonographTitleAacrTemplate.data,
-      "model:ndkemonographvolume": NdkMonographVolumeAacrTemplate.data,
-      "model:ndkechapter": NdkChapterAacrTemplate.data,
+      "model:ndkemonographtitle": NdkeMonographTitleAacrTemplate.data,
+      "model:ndkemonographvolume": NdkeMonographVolumeAacrTemplate.data,
+      "model:ndkechapter": NdkeChapterAacrTemplate.data,
 
       // eClanek
       "model:bdmarticle": BdmArticleTemplate.data,  // bez urceni pravidel
@@ -130,9 +136,9 @@ export class ModelTemplate {
       "model:ndkeperiodicalvolume": NdkePeriodicalVolumeRdaTemplate.data,
       "model:ndkeperiodicalissue": NdkePeriodicalIssueRdaTemplate.data,
       "model:ndkearticle": NdkeArticleRdaTemplate.data,
-      "model:ndkemonographtitle": NdkMonographTitleRdaTemplate.data,
-      "model:ndkemonographvolume": NdkMonographVolumeRdaTemplate.data,
-      "model:ndkechapter": NdkChapterAacrTemplate.data, // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
+      "model:ndkemonographtitle": NdkeMonographTitleRdaTemplate.data,
+      "model:ndkemonographvolume": NdkeMonographVolumeRdaTemplate.data,
+      "model:ndkechapter": NdkeChapterRdaTemplate.data, // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
 
       // eClanek
       "model:bdmarticle": BdmArticleTemplate.data,  // bez urceni pravidel
