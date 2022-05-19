@@ -220,6 +220,38 @@ export class SearchComponent implements OnInit {
     });
   }
 
+  onLock(item: DocumentItem, lock: boolean) {
+    const data: SimpleDialogData = {
+      title: lock ? 
+            String(this.translator.instant('Uzamknout objekt')) :
+            String(this.translator.instant('Odemknout objekt')),
+      message: lock ? 
+            String(this.translator.instant('Opravdu chcete vybrané objekty uzamknout?')) :
+            String(this.translator.instant('Opravdu chcete vybrané objekty odemknout?')),
+      btn1: {
+        label: 'Ano',
+        value: 'yes',
+        color: 'warn'
+      },
+      btn2: {
+        label: 'Ne',
+        value: 'no',
+        color: 'default'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        if (lock) {
+          this.lockObject(item);
+        } else {
+          this.unlockObject(item);
+        }
+        
+      }
+    });
+  }
+
   lockObject(item: DocumentItem) {
     this.api.lockObjects([item.pid], item.model).subscribe((response: any) => {
       if (response['response'].errors) {

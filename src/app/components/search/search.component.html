@@ -107,8 +107,8 @@
       <button (click)="onExport(selectedItem)" mat-button>Exportovat</button>
       <button (click)="onUrnnbn(selectedItem)" mat-button>URN:NBN</button>
       <button (click)="onDeleteItem()" mat-button>Smazat</button>
-      <button *ngIf="!selectedItem.isLocked" (click)="lockObject(selectedItem)" mat-button>Uzamknout</button>
-      <button *ngIf="selectedItem.isLocked" (click)="unlockObject(selectedItem)" mat-button>Odemknout</button>
+      <button *ngIf="!selectedItem.isLocked" (click)="onLock(selectedItem, true)" mat-button>Uzamknout</button>
+      <button *ngIf="selectedItem.isLocked" (click)="onLock(selectedItem, false)" mat-button>Odemknout</button>
     </div>
     <div class="app-paginator">
       <mat-paginator [length]="resultCount"
@@ -200,8 +200,8 @@
       <button *ngIf="search.selectedTree.removable()" (click)="onDeleteFromTree()" mat-button>Smazat</button>
       <button (click)="onExpandAll()" mat-button>Rozbalit</button>
       <button (click)="onCopyItem()" mat-button>Zkopírovat</button>
-      <button *ngIf="!search.selectedTree.item.isLocked" (click)="lockObject(search.selectedTree.item)" mat-button>Uzamknout</button>
-      <button *ngIf="search.selectedTree.item.isLocked" (click)="unlockObject(search.selectedTree.item)" mat-button>Odemknout</button>
+      <button *ngIf="!search.selectedTree.item.isLocked" (click)="onLock(search.selectedTree.item, true)" mat-button>Uzamknout</button>
+      <button *ngIf="search.selectedTree.item.isLocked" (click)="onLock(search.selectedTree.item, false)" mat-button>Odemknout</button>
     </ng-container>
   </div>
 </div>
