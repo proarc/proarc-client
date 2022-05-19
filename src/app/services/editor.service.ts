@@ -60,17 +60,16 @@ export class EditorService {
     // template: any;
     allowedChildrenModels: string[];
 
-    
 
-  public selectedColumns = [
-    { field: 'label', selected: true },
-    { field: 'model', selected: true },
-    { field: 'pid', selected: false },
-    { field: 'owner', selected: false },
-    { field: 'created', selected: false },
-    { field: 'modified', selected: true },
-    { field: 'status', selected: false }
-  ]
+    public selectedColumns = [
+        { field: 'label', selected: true },
+        { field: 'model', selected: true },
+        { field: 'pid', selected: false },
+        { field: 'owner', selected: false },
+        { field: 'created', selected: false },
+        { field: 'modified', selected: true },
+        { field: 'status', selected: false }
+    ]
 
     constructor(
         private router: Router,
@@ -102,6 +101,17 @@ export class EditorService {
         } else {
             this.initDocumentEditor(params.pid);
         }
+        this.initSelectedColumns();
+    }
+
+    initSelectedColumns() {
+        if (this.properties.getStringProperty('selectedColumns')) {
+            this.selectedColumns = JSON.parse(this.properties.getStringProperty('selectedColumns'));
+        }
+    }
+
+    setSelectedColumns() {
+        this.properties.setStringProperty('selectedColumns', JSON.stringify(this.selectedColumns));
     }
 
     initBatchEditor(id: string) {

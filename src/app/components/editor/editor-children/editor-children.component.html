@@ -75,7 +75,7 @@
 
         <mat-menu #columns_menu="matMenu">
           <div *ngFor="let column of editor.selectedColumns" mat-menu-item>
-            <mat-checkbox name="column.field" [(ngModel)]="column.selected" >{{ 'search.' + column.field | translate }}</mat-checkbox>
+            <mat-checkbox name="column.field" [(ngModel)]="column.selected" (change)="editor.setSelectedColumns()" >{{ 'search.' + column.field | translate }}</mat-checkbox>
           </div>
         </mat-menu>
 
