@@ -304,11 +304,20 @@ export class SearchComponent implements OnInit {
 
   private deleteObject(item: DocumentItem, pernamently: boolean, callback: (pids: string[]) => any = null) {
     this.state = 'loading';
-    this.api.deleteObjects([item.pid], pernamently).subscribe((removedPid: string[]) => {
-      if (callback) {
-        callback(removedPid);
+    this.api.deleteObjects([item.pid], pernamently).subscribe((response: any) => {
+      if (response['response'].errors) {
+        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.state = 'error';
+        return;
+      } else {
+        const removedPid: string[] = response['response']['data'].map(x => x.pid);
+        if (callback) {
+          callback(removedPid);
+        }
+        this.state = 'success';
+        this.ui.showInfoSnackBar('Objekt byl úspěšně smazan');
+        this.reload();
       }
-      this.state = 'success';
     });
   }
 

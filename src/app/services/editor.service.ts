@@ -548,14 +548,21 @@ export class EditorService {
                 this.state = 'error';
                 this.ui.showErrorSnackBar(resp.errors.mods[0].errorMessage)
             } else {
-                this.api.getMods(mods.pid, this.getBatchId()).subscribe((newMods: Mods) => {
-                    if (this.mode === 'detail') {
-                        this.metadata = Metadata.fromMods(mods, this.metadata.model);
+                this.api.getMods(mods.pid, this.getBatchId()).subscribe((response: any) => {
+
+                    if (response.errors) {
+                            this.state = 'error';
+                            this.ui.showErrorSnackBar(response.errors.mods[0].errorMessage)
+                    } else {
+                        const newMods: Mods = Mods.fromJson(response['record']);
+                        if (this.mode === 'detail') {
+                            this.metadata = Metadata.fromMods(mods, this.metadata.model);
+                        }
+                        if (callback) {
+                            callback(newMods);
+                        }
+                        this.state = 'success';
                     }
-                    if (callback) {
-                        callback(newMods);
-                    }
-                    this.state = 'success';
                 });
             }
 
@@ -565,7 +572,8 @@ export class EditorService {
     updateModsFromCatalog(xml: string, callback: () => void) {
         this.state = 'saving';
         this.api.editModsXml(this.metadata.pid, xml, this.metadata.timestamp).subscribe(() => {
-            this.api.getMods(this.metadata.pid).subscribe((mods: Mods) => {
+            this.api.getMods(this.metadata.pid).subscribe((response: any) => {
+                const mods: Mods = Mods.fromJson(response['record']);
                 this.metadata = Metadata.fromMods(mods, this.metadata.model);
                 if (this.mode === 'children') {
                     this.reloadChildren(() => {
@@ -635,10 +643,23 @@ export class EditorService {
 
     saveMetadata(callback: () => void) {
         this.state = 'saving';
-        this.api.editMetadata(this.metadata).subscribe(() => {
+        this.api.editMetadata(this.metadata).subscribe((response: any) => {
+            console.log(response)
+            if (response.errors) {
+                this.ui.showErrorSnackBarFromObject(response.errors);
+                this.state = 'error';
+                return;
+            } 
+
+            // .pipe(map(response => Mods.fromJson(response['data'][0])));
+
+
             const rDoc = this.api.getDocument(this.metadata.pid);
             const rMods = this.api.getMods(this.metadata.pid);
-            forkJoin(rDoc, rMods).subscribe(([doc, mods]: [DocumentItem, Mods]) => {
+            forkJoin(rDoc, rMods).subscribe(([doc, responseMods]: [DocumentItem, any]) => {
+
+                const mods: Mods = Mods.fromJson(responseMods['record']);
+
                 this.metadata = Metadata.fromMods(mods, this.metadata.model);
                 this.selectRight(doc);
                 if (this.mode === 'children') {
@@ -680,24 +701,35 @@ export class EditorService {
         } else {
             pids = [this.right.pid];
         }
-        this.api.deleteObjects(pids, pernamently, this.getBatchId()).subscribe((removedPid: string[]) => {
-            let nextSelection = 0;
-            for (let i = this.children.length - 1; i >= 0; i--) {
-                if (removedPid.indexOf(this.children[i].pid) > -1) {
-                    this.children.splice(i, 1);
-                    nextSelection = i - 1;
+        this.api.deleteObjects(pids, pernamently, this.getBatchId()).subscribe((response: any) => {
+
+            if (response['response'].errors) {
+                this.ui.showErrorSnackBarFromObject(response['response'].errors);
+                this.state = 'error';
+                return;
+              } else {
+                const removedPid: string[] = response['response']['data'].map(x => x.pid);
+                let nextSelection = 0;
+                for (let i = this.children.length - 1; i >= 0; i--) {
+                    if (removedPid.indexOf(this.children[i].pid) > -1) {
+                        this.children.splice(i, 1);
+                        nextSelection = i - 1;
+                    }
                 }
-            }
-            if (nextSelection < 0) {
-                nextSelection = 0;
-            }
-            if (this.children.length > 0 && !this.isMultipleChildrenMode()) {
-                this.selectRight(this.children[nextSelection]);
-            }
-            if (callback) {
-                callback(true);
-            }
-            this.state = 'success';
+                if (nextSelection < 0) {
+                    nextSelection = 0;
+                }
+                if (this.children.length > 0 && !this.isMultipleChildrenMode()) {
+                    this.selectRight(this.children[nextSelection]);
+                }
+                if (callback) {
+                    callback(true);
+                }
+                this.state = 'success';
+              }
+
+
+            
         });
     }
 

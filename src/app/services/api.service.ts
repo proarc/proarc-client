@@ -5,8 +5,9 @@ import { Atm } from './../model/atm.model';
 import { DocumentItem } from './../model/documentItem.model';
 import { Metadata } from 'src/app/model/metadata.model';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, finalize } from 'rxjs/operators';
 import { Device } from '../model/device.model';
 
 import { map } from 'rxjs/operators';
@@ -37,11 +38,15 @@ export class ApiService {
   }
 
   private get(path: string, params = {}): Observable<Object> {
-    return this.http.get(encodeURI(`${this.getApiUrl()}${path}`), { params: params });
+    return this.http.get(encodeURI(`${this.getApiUrl()}${path}`), { params: params }).pipe(
+      finalize(() => this.stopLoading())
+    ).pipe(catchError(this.handleError));;;
   }
 
   private head(path: string, params = {}): Observable<Object> {
-    return this.http.head(encodeURI(`${this.getApiUrl()}${path}`), { params: params });
+    return this.http.head(encodeURI(`${this.getApiUrl()}${path}`), { params: params }).pipe(
+      finalize(() => this.stopLoading())
+    ).pipe(catchError(this.handleError));;;
   }
 
 
@@ -54,7 +59,9 @@ export class ApiService {
         })
       };
     }
-    return this.http.put(encodeURI(`${this.getApiUrl()}${path}`), body, options);
+    return this.http.put(encodeURI(`${this.getApiUrl()}${path}`), body, options).pipe(
+      finalize(() => this.stopLoading())
+    ).pipe(catchError(this.handleError));;;
   }
 
   private post(path: string, body: any, options = null): Observable<Object> {
@@ -65,11 +72,53 @@ export class ApiService {
         })
       };
     }
-    return this.http.post(encodeURI(`${this.getApiUrl()}${path}`), body, options);
+    return this.http.post(encodeURI(`${this.getApiUrl()}${path}`), body, options).pipe(
+      finalize(() => this.stopLoading())
+    ).pipe(catchError(this.handleError));;;
   }
 
   private delete(path: string, params = {}): Observable<Object> {
-    return this.http.delete(encodeURI(`${this.getApiUrl()}${path}`), { params: params });
+    return this.http.delete(encodeURI(`${this.getApiUrl()}${path}`), { params: params }).pipe(
+      finalize(() => this.stopLoading())
+    ).pipe(catchError(this.handleError));;
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      console.error(
+        `Backend returned code ${error.status}, body was: `, error.error);
+    }
+    // Return an observable with a user-facing error message.
+    // return throwError({'status':error.status, 'message': error.message});
+    return of({response:{'status':error.status, 'message': error.message, 'errors': [error.error]}});
+  }
+
+  private cdkSpinnerCreate() {
+    // return this.overlay.create({
+    //   hasBackdrop: true,
+    //   // backdropClass: 'dark-backdrop',
+    //   positionStrategy: this.overlay.position()
+    //     .global()
+    //     .centerHorizontally()
+    //     .centerVertically()
+    // })
+  }
+
+  showLoading() {
+    // this.numLoading++;
+    // if (!this.spinnerTopRef.hasAttached()) {
+    //   this.spinnerTopRef.attach(new ComponentPortal(MatSpinner))
+    // }
+  }
+
+  stopLoading() {
+    // this.numLoading--;
+    // if (this.numLoading === 0 && this.spinnerTopRef.hasAttached()) {
+    //   this.spinnerTopRef.detach();
+    // }
   }
 
 
@@ -169,15 +218,15 @@ export class ApiService {
     return this.put('object/member/move', payload, httpOptions);
   }
 
-  deleteObjects(pids: string[], purge: boolean, batchId = null): Observable<string[]> | null {
+  deleteObjects(pids: string[], purge: boolean, batchId = null): Observable<any> | null {
     let query = pids.map(pid => `pid=${pid}`).join('&');
     if (batchId) {
       query = `import/batch/item?batchId=${batchId}&${query}`;
     } else {
       query = `object?purge=${purge}&hierarchy=true&${query}`;
     }
-    return this.delete(query)
-            .pipe(map(response => response['response']['data'].map(x => x.pid)));
+    return this.delete(query);
+            
   }
 
   lockObjects(pids: string[], model: string): Observable<any> {
@@ -248,17 +297,16 @@ export class ApiService {
       new Metadata(pid, model, response['record']['content'], response['record']['timestamp'])));
   }
 
-  getMods(pid: string, batchId = null): Observable<Mods> {
+  getMods(pid: string, batchId = null): Observable<any> {
     const params = { pid: pid };
     if (batchId) {
       params['batchId'] = batchId;
     }
-    return this.get('object/mods/plain', params).pipe(map(response =>
-      Mods.fromJson(response['record'])));
+    return this.get('object/mods/plain', params);
   }
 
   editMetadata(document: Metadata): Observable<any> {
-    return this.editModsXml(document.pid, document.toMods(), document.timestamp).pipe(map(response => Mods.fromJson(response['data'][0])));
+    return this.editModsXml(document.pid, document.toMods(), document.timestamp);
   }
 
   editMods(mods: Mods, batchId = null): Observable<Mods> {
