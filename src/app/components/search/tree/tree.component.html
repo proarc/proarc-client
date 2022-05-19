@@ -18,6 +18,7 @@
         <div class="result-modified" *ngIf="properties.isSearchColEnabled('modified')">{{ tree.item.modified | appDatetime }}</div>
         <div class="result-owner" *ngIf="properties.isSearchColEnabled('owner')">{{ tree.item.owner }}</div>
         <div class="result-export" *ngIf="properties.isSearchColEnabled('export')">{{ tree.item.writeExports() }}</div>
+        <div class="result-export" *ngIf="properties.isSearchColEnabled('isLocked')">{{ (tree.item.isLocked ? 'common.yes' : 'common.no') | translate }}</div>
       </div>
       <ng-container *ngIf="tree.expanded && tree.children">
         <app-tree *ngFor="let child of tree.children" [tree]="child"></app-tree>
