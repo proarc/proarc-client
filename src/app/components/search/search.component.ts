@@ -140,6 +140,8 @@ export class SearchComponent implements OnInit {
       sortAsc: this.sortAsc
     }
 
+    this.tree = undefined;
+
     this.api.getSearchResults(options).subscribe(([items, total]: [DocumentItem[], number]) => {
       this.resultCount = total;
       this.items = items;
