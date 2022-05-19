@@ -11,10 +11,10 @@ export class ProArc {
     public static EXPORT_CROSSREF = 'crossref';
     public static EXPORT_KWIS = 'kwis';
 
-    public static chronicleIdentifierTypes = [ 'signature1', 'signature2', 'inventaryNumber', 'OtherNumber' ];
+    public static chronicleIdentifierTypes = [ 'signature1', 'signature2', 'inventaryNumber', 'OtherNumber' , 'id', 'localId', 'officialNumber'];
 
     public static isChronicle(model: string): boolean {
-      return model === 'model:chroniclevolume' || model === 'model:chronicletitle';
+      return model === 'model:chroniclevolume' || model === 'model:chronicletitle' || model === 'model:chroniclesupplement';
     }
 
 }

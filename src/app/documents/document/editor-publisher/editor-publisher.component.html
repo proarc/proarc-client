@@ -2,6 +2,7 @@
   <ng-template let-item="item" #templateContent>
 
     <app-field-dropdown field="eventType" [item]="item" [(value)]='item.attrs["eventType"]'></app-field-dropdown>
+    <app-field-dropdown field="transliteration" [item]="item" [(value)]='item.attrs["transliteration"]'></app-field-dropdown>
     <app-field-dropdown field="issuance" [item]="item" [(value)]='item.issuance["_"]'></app-field-dropdown>
     <app-field-text field="publisher" [item]="item" [(value)]="item.publisher['_']"></app-field-text>
     <app-field-text field="place" [item]="item" [(value)]="item.place['_']" ></app-field-text>

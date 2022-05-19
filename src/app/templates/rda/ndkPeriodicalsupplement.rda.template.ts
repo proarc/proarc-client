@@ -101,10 +101,10 @@ export class NdkPeriodicalSupplementRdaTemplate {
         },
         termsOfAddress: {
           usage: "RA",
-          label: "Adresa",
+          label: "Ostatní související se jménem",
           selector: "name/namePart[@type='termsOfAddress']",
           cols: 2,
-          description: `Adresa.`
+          description: `Tituly a jiná slova nebo čísla související se jménem.`
         },
         affiliation: {
           usage: "O",
@@ -264,7 +264,7 @@ export class NdkPeriodicalSupplementRdaTemplate {
           cols: 3,
           description:`Datum vytvoření přílohy<br/>
           bude použito pouze při popisu tiskaře, viz poznámka u <strong>Nakladatel</strong> nebo např. u popisu CD/DVD apod.<br/>
-          odpovídá hodnotě z katalogizačního záznamu, pole 260 $g`
+          odpovídá hodnotě z katalogizačního záznamu, pole 264 $g`
         },
         dateOther: {
           usage: "R",

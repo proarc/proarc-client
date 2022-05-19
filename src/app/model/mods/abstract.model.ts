@@ -11,7 +11,7 @@ export class ModsAbstract extends ModsElement {
     }
 
     constructor(modsElement, template) {
-        super(modsElement, template);
+        super(modsElement, template, ['lang']);
         this.init();
     }
 

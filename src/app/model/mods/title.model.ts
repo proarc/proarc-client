@@ -18,7 +18,7 @@ export class ModsTitle extends ModsElement {
     }
 
     constructor(modsElement, template) {
-        super(modsElement, template, ['type']);
+        super(modsElement, template, ['type', 'lang']);
         this.init();
     }
 
@@ -67,7 +67,7 @@ export class ModsTitle extends ModsElement {
             if (i > -1) {
                 this.nonSort['_'] = str.substr(0, i + 1);
                 this.title['_'] = str.substr(i + 1);
-            } 
+            }
             // const wordArray = str.split(' ');
             // this.nonSort['_'] = wordArray[0];
             // wordArray.splice(0, 1);

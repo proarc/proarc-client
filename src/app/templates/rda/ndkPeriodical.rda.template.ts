@@ -132,10 +132,10 @@ export class NdkPeriodicalRdaTemplate {
         },
         termsOfAddress: {
           usage: "RA",
-          label: "Adresa",
+          label: "Ostatní související se jménem",
           selector: "name/namePart[@type='termsOfAddress']",
           cols: 2,
-          description: `Adresa.`
+          description: `Tituly a jiná slova nebo čísla související se jménem.`
         },
         nameIdentifier: {
           usage: "MA",
@@ -264,7 +264,11 @@ export class NdkPeriodicalRdaTemplate {
           description: `Hodnota "marc" jen u údaje z pole 008`,
           options: [
             ['', '-'],
-            ['marc', 'marc']
+            ['marc', 'MARC'],
+            ['iso8601', 'ISO 8601'],
+            ['edtf', 'EDTF'],
+            ['temper', 'temper'],
+            ['w3cdtf', 'W3CDTF']
           ]
         },
         point: {

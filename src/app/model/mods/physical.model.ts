@@ -7,6 +7,7 @@ export class ModsPhysical extends ModsElement {
 
     note;
     extent;
+    digitalOrigin;
     forms: ElementField;
 
     static getSelector() {
@@ -29,8 +30,13 @@ export class ModsPhysical extends ModsElement {
         if (!this.modsElement['note']) {
             this.modsElement['note'] = ModsUtils.createEmptyField();
         }
+        if (!this.modsElement['digitalOrigin']) {
+            this.modsElement['digitalOrigin'] = ModsUtils.createEmptyField();
+        }
         this.extent = this.modsElement['extent'][0];
         this.note = this.modsElement['note'][0];
+        this.digitalOrigin = this.modsElement['digitalOrigin'][0];
+
         if(this.available('form')) {
             this.forms = new ElementField(this.modsElement, ModsForm.getSelector(), this.getField('form'));
             this.addSubfield(this.forms);

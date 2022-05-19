@@ -23,6 +23,7 @@ import { ModelTemplate } from '../templates/modelTemplate';
 import { ModsPart } from './mods/part.model';
 import { ModsRecordInfo } from './mods/recordInfo.model';
 import {ModsTableOfContents} from './mods/tableOfContents';
+import {ModsRelatedItem} from './mods/relatedItem.model';
 declare var $: any;
 
 export class Metadata {
@@ -41,6 +42,7 @@ export class Metadata {
     ModsSubject.getSelector(),
     ModsPhysical.getSelector(),
     ModsRecordInfo.getSelector(),
+    ModsRelatedItem.getSelector(),
     ModsResource.getSelector(),
     ModsPart.getSelector(),
     ModsTableOfContents.getSelector()
@@ -151,24 +153,25 @@ export class Metadata {
   private processMods(data) {
     this.standard = this.resolveStandard(data);
     this.template = ModelTemplate.data[this.standard][this.model];
-    // console.log(this.template, this.model, this.standard)
-    if (ProArc.isChronicle(this.model)) {
-      this.fieldsIds = [
-        ModsTitle.getId(),
-        ModsAuthor.getId(),
-        ModsPublisher.getId(),
-        ModsChronicleLocation.getId(),
-        ModsLanguage.getId(),
-        ModsIdentifier.getId(),
-        ModsNote.getId(),
-        ModsAbstract.getId(),
-        ModsGenreChronical.getId(),
-        ModsGeo.getId(),
-        ModsPart.getId(),
-        ModsRecordInfo.getId(),
-        ModsTableOfContents.getId(),
-      ];
-    } else {
+    console.log(this.template, this.model, this.standard)
+    // if (ProArc.isChronicle(this.model)) {
+    //   this.fieldsIds = [
+    //     ModsTitle.getId(),
+    //     ModsAuthor.getId(),
+    //     ModsPublisher.getId(),
+    //     ModsChronicleLocation.getId(),
+    //     ModsLanguage.getId(),
+    //     ModsIdentifier.getId(),
+    //     ModsNote.getId(),
+    //     ModsAbstract.getId(),
+    //     ModsGenreChronical.getId(),
+    //     ModsGeo.getId(),
+    //     ModsPart.getId(),
+    //     ModsRecordInfo.getId(),
+    //     ModsRelatedItem.getId(),
+    //     ModsTableOfContents.getId(),
+    //   ];
+    // } else {
       this.fieldsIds = [];
       const allIds = [
         ModsGeo.getId(),
@@ -187,6 +190,7 @@ export class Metadata {
         ModsResource.getId(),
         ModsPart.getId(),
         ModsRecordInfo.getId(),
+        ModsRelatedItem.getId(),
         ModsTableOfContents.getId(),
       ];
       for (const id of allIds) {
@@ -194,7 +198,7 @@ export class Metadata {
           this.fieldsIds.push(id);
         }
       }
-    }
+    // }
 
 
 

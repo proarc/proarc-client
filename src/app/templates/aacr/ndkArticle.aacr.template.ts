@@ -112,10 +112,10 @@ export class NdkArticleAacrTemplate {
         },
         termsOfAddress: {
           usage: "RA",
-          label: "Adresa",
+          label: "Ostatní související se jménem",
           selector: "name/namePart[@type='termsOfAddress']",
           cols: 2,
-          description: `Adresa.`
+          description: `Tituly a jiná slova nebo čísla související se jménem.`
         },
         nameIdentifier: {
           usage: "MA",
@@ -387,8 +387,7 @@ export class NdkArticleAacrTemplate {
       label: "Klasifikace",
       selector: "identifier",
       description: `Klasifikační údaje věcného třídění podle Mezinárodního desetinného třídění<br/>
-      odpovídá poli 080 MARC21
-      `,
+      odpovídá poli 080 MARC21`,
       fields: {
         authority: {
           usage: "M",

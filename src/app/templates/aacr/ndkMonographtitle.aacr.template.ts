@@ -77,15 +77,7 @@ export class NdkMonographTitleAacrTemplate {
           cols: 2,
           description:`Datum vydání předlohy.<br/>
             Přebírat z katalogu.<br/>
-            Odpovídá hodnotě z katalogizačního záznamu, pole 264_1 $c a pole 008/07-10<br/>
-            Pro všechny ostatní výskyty v poli 264 $c:
-            <ul>
-              <li>264_0 <strong>Produkce</strong> (production)</li>
-              <li>264_2 <strong>Distribuce</strong> (distribution)</li>
-              <li>264_3 <strong>Výroba</strong> (manufacture)</li>
-              <li>264_4 <strong>Copyright</strong> (copyright)</li>
-            </ul>
-            využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>`
+            Odpovídá hodnotě z katalogizačního záznamu, pole 260 $c a pole 008/07-10`
         },
         qualifier: {
           usage: "O",
@@ -113,7 +105,11 @@ export class NdkMonographTitleAacrTemplate {
           description: `Hodnota "marc" jen u údaje z pole 008`,
           options: [
             ['', '-'],
-            ['marc', 'marc']
+            ['marc', 'MARC'],
+            ['iso8601', 'ISO 8601'],
+            ['edtf', 'EDTF'],
+            ['temper', 'temper'],
+            ['w3cdtf', 'W3CDTF']
           ]
         },
         point: {
@@ -153,7 +149,7 @@ export class NdkMonographTitleAacrTemplate {
           selector: 'originInfo/place/placeTerm',
           cols: 2,
           description:`Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisovaného dokumentu<br/>
-            odpovídá hodnotě 264 $a`
+            odpovídá hodnotě 260 $a`
         }
       }
     },

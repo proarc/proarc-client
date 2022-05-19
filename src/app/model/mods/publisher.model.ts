@@ -28,7 +28,7 @@ export class ModsPublisher extends ModsElement {
     }
 
     constructor(modsElement, template) {
-        super(modsElement, template, ['eventType']);
+        super(modsElement, template, ['eventType', 'transliteration']);
         this.init();
     }
 

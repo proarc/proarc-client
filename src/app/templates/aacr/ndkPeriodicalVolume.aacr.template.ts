@@ -74,10 +74,10 @@ export class NdkPeriodicalVolumeAacrTemplate {
         },
         termsOfAddress: {
           usage: "RA",
-          label: "Adresa",
+          label: "Ostatní související se jménem",
           selector: "name/namePart[@type='termsOfAddress']",
           cols: 2,
-          description: `Adresa.`
+          description: `Tituly a jiná slova nebo čísla související se jménem.`
         },
         nameIdentifier: {
           usage: "MA",

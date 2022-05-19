@@ -1,13 +1,11 @@
-export class BdmArticleRdaTemplate {
+export class OldprintGraphicsAacrTemplate {
 
   static data = {
     titleInfo: {
       usage: 'M',
       label: 'Název',
       selector: 'titleInfo',
-      description: `Název svazku monografie<br/>
-      Pro plnění použít katalogizační záznam<br/>
-      pokud má monografie více typů názvů, element se opakuje podle potřeby`,
+      description: `Název grafického dokumentu`,
       fields: {
         type: {
           usage: "MA",
@@ -30,20 +28,29 @@ export class BdmArticleRdaTemplate {
             ['uniform', 'Jednotný název']
           ]
         },
+        nonSort: {
+          usage: "O",
+          label: 'Část vynechaná při hledání',
+          selector: 'titleInfo/nonSort',
+          cols: 2,
+          description: `Část názvu, která má být vynechána při vyhledávána<br/>
+          např.:
+          <ul>
+            <li><nonSort>The</nonSort></li>
+            <li><title>Beatles</title></li>
+          </ul>`,
+        },
         title: {
           usage: "M",
           label: 'Název',
           selector: 'titleInfo/title',
-          description: `Názvová informace – název svazku monografie</br>
-          hodnoty převzít z katalogu<br/>
-          odpovídající pole a podpole podle typu, viz typ`
+          description: `Názvová informace – název grafického dokumentu`
         },
         subTitle: {
           usage: "MA",
           label: 'Podnázev',
           selector: 'titleInfo/subTitle',
-          cols: 2,
-          description: `Podnázev svazku monografie<br/>
+          description: `Podnázev grafického dokumentu<br/>
           odpovídající pole a podpole podle typu, viz typ`
         },
         partNumber: {
@@ -51,15 +58,14 @@ export class BdmArticleRdaTemplate {
           label: 'Číslo části',
           selector: 'titleInfo/partNumber',
           cols: 2,
-          description: `V případě, že se jedná o vícesvazkovou monografii, je zde uvedeno číslo svazku`
+          description: `Číslo části`
         },
         partName: {
           usage: "MA",
           label: 'Název části',
           selector: 'titleInfo/partName',
           cols: 2,
-          description: `V případě, že se jedná o vícesvazkovou monografii, je zde uveden název svazku<br/>
-          odpovídající pole a podpole podle typu, viz typ`
+          description: `Název části`
         }
       }
     },
@@ -67,9 +73,9 @@ export class BdmArticleRdaTemplate {
       usage: "MA",
       label: "Autor",
       selector: 'name',
-      description: `Údaje o odpovědnosti za svazek<br/>
+      description: `Údaje o odpovědnosti za grafický dokument<br/>
       POZOR – údaje o odpovědnosti nutno přebírat z polí 1XX a 7XX MARCu21<br/>
-      pokud má monografie autora a ilustrátora, element <name> se opakuje s různými rolemi`,
+      pokud má grafický dokument jiné původce než je autor, element <name> se opakuje s různými rolemi.`,
       fields: {
         type: {
           usage: "MA",
@@ -85,10 +91,10 @@ export class BdmArticleRdaTemplate {
           </ul>`,
           options: [
             ['', '-'],
-            ['personal','Osoba'],
-            ['corporate','Organizace'],
-            ['conference','Konference'],
-            ['family','Rodina']
+            ['personal', 'Osoba'],
+            ['corporate', 'Organizace'],
+            ['conference', 'Konference'],
+            ['family', 'Rodina']
           ]
         },
         name: {
@@ -121,8 +127,15 @@ export class BdmArticleRdaTemplate {
           description: `Životopisná data autora<br/>
           Pokud známe datum narození a úmrtí autora, vyplnit ve tvaru RRRR-RRRR.`
         },
+        termsOfAddress: {
+          usage: "RA",
+          label: "Ostatní související se jménem",
+          selector: "name/namePart[@type='termsOfAddress']",
+          cols: 2,
+          description: `Tituly a jiná slova nebo čísla související se jménem.`
+        },
         role: {
-          usage: "MA",
+          usage: "M",
           label: "Role",
           selector: 'name/role/roleTerm',
           expanded: true,
@@ -130,6 +143,22 @@ export class BdmArticleRdaTemplate {
           Kód role z kontrolovaného slovníku rolí
           (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)`,
           fields: {},
+        },
+        nameIdentifier: {
+          usage: "RA",
+          label: "Identifikátor autora",
+          selector: "name/nameIdentifier",
+          cols: 2,
+          description: `Číslo národní autority`,
+        },
+        etal: {
+          usage: "O",
+          label: "Etal",
+          selector: "name/etal",
+          cols: 2,
+          description: `Element indikující, že existuje více autorů, než pouze ti, kteří byli uvedeni v <name> elementu.</br>
+          V případě užití tohoto elementu je dále top element <name> neopakovatelný.</br>
+          <etal> je nutné umístit do samostatného top elementu <name>, ve kterém se nesmí objevit subelementy <namePart> a <nameIdentifier>.`
         }
       }
     },
@@ -137,196 +166,95 @@ export class BdmArticleRdaTemplate {
       usage: "M",
       label: "Původ předlohy",
       selector: 'originInfo',
-      description: `Informace o původu předlohy`,
+      description: `Informace o původu předlohy: odpovídá poli 260`,
       fields: {
         publisher: {
             usage: "MA",
             label: "Nakladatel",
             selector: 'originInfo/publisher',
             description: `Jméno entity, která dokument vytvořila, vydala, distribuovala nebo vyrobila<br/>
-            odpovídá poli 264 $b katalogizačního záznamu v MARC21<br/>
-            pokud má monografie více vydavatelů/distributorů/výrobců, přebírají se ze záznamu všichni (v jednom poli 264)`,
-        },
-        eventType: {
-          usage: "M",
-          label: "Typ",
-          selector: 'originInfo/@eventType',
-          cols: 2,
-          description:`Hodnoty dle druhého indikátoru pole 264:
-          <ul>
-            <li>
-              264_0 <strong>Produkce</strong> (production) <i>R</i><br/>
-              Hodnota 0 se uvádí, jestliže pole obsahuje <strong>údaje o vytvoření</strong> zdroje v nezveřejněné podobě.
-            </li>
-            <li>
-              264_1 <strong>Publikace</strong> (publication) <i>R</i><br/>
-              Hodnota 1 se uvádí, jestliže pole obsahuje <strong>údaje o nakladateli</strong> zdroje
-            </li>
-            <li>
-              264_2 <strong>Distribuce</strong> (distribution) <i>R</i><br/>
-              Hodnota 2 se uvádí, jestliže pole obsahuje <strong>údaje o distribuci</strong> zdroje
-            </li>
-            <li>
-              264_3 <strong>Výroba</strong> (manufacture) <i>R</i><br/>
-              Hodnota 3 se uvádí, jestliže pole obsahuje <strong>údaje o tisku</strong>, výrobě zdroje ve zveřejněné podobě.
-            </li>
-            <li>
-              264_4 <strong>Copyright</strong> (copyright) <i>R</i><br/>
-              Hodnota 4 se uvádí, jestliže pole obsahuje <strong>údaje o ochraně podle autorského práva</strong>
-            </li>
-          </ul>
-          <p>Element <originInfo> je opakovatelný. Alespoň v
-          jednom případě musí být vyplněna hodnota
-          eventType="production" nebo
-          eventType="publication".
-          </p>
-          <p>Údaje o distribuci, výrobě a copyrightu jsou u
-          tištěných monografií přesunuty z minimálního
-          záznamu do doporučeného.<br/>
-          </p>
-          <p>Hodnota eventType musí být vyplněna na
-          základě katalogizačního záznamu. Pravidlo pro
-          převod je závazné, povinnost R značí, že musí
-          být vybrána jedna z doporučených hodnot na
-          základě katalogizačního záznamu.
-          </p>`,
-          options: [
-            ['','-'],
-            ['production', 'Produkce'],
-            ['publication', 'Publikace'],
-            ['distribution', 'Distribuce'],
-            ['manufacture', 'Výroba'],
-            ['copyright', 'Copyright']
-          ]
+            odpovídá poli 260 katalogizačního záznamu v MARC21<br/>
+            pokud má dokument více vydavatelů/distributorů/výrobců, přebírají se ze záznamu všichni (v jednom poli 260)`,
         },
         dateIssued: {
-            usage: "M",
-            label: "Datum vydání",
-            selector: 'originInfo/dateIssued',
-            cols: 2,
-            description:`Datum vydání předlohy.<br/>
+          usage: "M",
+          label: "Datum vydání",
+          selector: 'originInfo/dateIssued',
+          cols: 2,
+          description: `Datum vydání předlohy.<br/>
             Přebírat z katalogu.<br/>
-            Odpovídá hodnotě z katalogizačního záznamu, pole 264_1 $c a pole 008/07-10<br/>
-            Pro všechny ostatní výskyty v poli 264 $c:
-            <ul>
-              <li>264_0 <strong>Produkce</strong> (production)</li>
-              <li>264_2 <strong>Distribuce</strong> (distribution)</li>
-              <li>264_3 <strong>Výroba</strong> (manufacture)</li>
-              <li>264_4 <strong>Copyright</strong> (copyright)</li>
-            </ul>
-            využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>`
+            Odpovídá hodnotě z katalogizačního záznamu, pole 260 $c a pole 008/07-10<br/>`
         },
         qualifier: {
-            usage: "R",
-            label: "Upřesnění data",
-            selector: 'originInfo/dateIssued/@qualifier',
-            cols: 2,
-            description:`Možnost dalšího upřesnění. Možné hodnoty
+          usage: "R",
+          label: "Upřesnění data",
+          selector: 'originInfo/dateIssued/@qualifier',
+          cols: 2,
+          description: `Možnost dalšího upřesnění. Možné hodnoty
             <ul>
               <li>Přibližné (approximate)</li>
               <li>Odvozené (inferred)</li>
               <li>Sporné (questionable)</li>
             </ul>`,
-            options: [
-              ['','-'],
-              ['approximate','Datum je přibližné'],
-              ['inferred','Datum je odvozené'],
-              ['questionable','Datum je sporné']
-            ]
+          options: [
+            ['', '-'],
+            ['approximate', 'Datum je přibližné'],
+            ['inferred', 'Datum je odvozené'],
+            ['questionable', 'Datum je sporné']
+          ]
         },
-        edition: {
-            usage: "R",
-            label: "Edice",
-            selector: 'originInfo/edition',
-            cols: 2,
-            description:`Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu.`
+        encoding: {
+          usage: "R",
+          label: "Kódování",
+          selector: 'originInfo/dateIssued/@encoding',
+          cols: 2,
+          description: `Hodnota "marc" jen u údaje z pole 008`,
+          options: [
+            ['', '-'],
+            ['marc', 'MARC'],
+            ['iso8601', 'ISO 8601'],
+            ['edtf', 'EDTF'],
+            ['temper', 'temper'],
+            ['w3cdtf', 'W3CDTF']
+          ]
+        },
+        point: {
+          usage: "MA",
+          label: "Point",
+          selector: 'originInfo/dateIssued/@point',
+          cols: 2,
+          description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
+          options: [
+            ['', '-'],
+            ['start', 'start'],
+            ['end', 'end']
+          ]
         },
         issuance: {
-            usage: "M",
-            label: "Vydání",
-            selector: 'originInfo/issuance',
-            cols: 2,
-            description:`Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>
+          usage: "M",
+          label: "Vydání",
+          selector: 'originInfo/issuance',
+          cols: 2,
+          description: `Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>
             Možné hodnoty
             <ul>
               <li>Monografické (monographic)</li>
               <li>Vícedílné (multipart monograph)</li>
               <li>Jednotkové (single unit)</li>
             </ul>`,
-            options: [
-              ['', '-'],
-              ['monographic','Monografické'],
-              ['single unit','Jednotkové'],
-              ['multipart monograph','Vícedílné']
-            ]
+          options: [
+            ['', '-'],
+            ['monographic', 'Monografické'],
+            ['single unit', 'Jednotkové'],
+            ['multipart monograph', 'Vícedílné']
+          ]
         },
         place: {
-            usage: "MA",
-            label: "Místo",
-            selector: 'originInfo/place/placeTerm',
-            cols: 2,
-            description:`Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisovaného dokumentu<br/>
-            odpovídá hodnotě 264 $a`
+          usage: "MA",
+          label: "Místo",
+          selector: 'originInfo/place/placeTerm',
+          description:`Datum vytvoření, distribuce, výroby předlohy`
         },
-        dateCreated: {
-          usage: "R",
-          label: "Datum vytvoření",
-          selector: 'originInfo/dateCreated',
-          cols: 3,
-          description:`Datum vydání předlohy pro rukopisy
-          přebírat z katalogu<br/>
-          odpovídá hodnotě z katalogizačního záznamu, pole 264_0 $c pokud je LDR/06="d", "f", "t"`
-        },
-        dateOther: {
-          usage: "R",
-          label: "Datum - jiné",
-          selector: 'originInfo/dateOther',
-          cols: 3,
-          description:`Datum vytvoření, distribuce, výroby předlohy<br/>
-          Tento elemet se využije v případě výskytu $c v:
-          <ul>
-            <li>264_0 <strong>Produkce</strong> (production)</li>
-            <li>264_2 <strong>Distribuce</strong> (distribution)</li>
-            <li>264_3 <strong>Výroba</strong> (manufacture)</li>
-          </ul>`
-        },
-        copyrightDate: {
-          usage: "R",
-          label: "Datum - copyright",
-          selector: 'originInfo/copyrightDate',
-          cols: 3,
-          description:`Využije se pouze v případě výskytu pole 264 s druhým indikátorem 4 a podpolem $c<br/>
-          <ul>
-            <li>264_4 <strong>Copyright</strong> (copyright)</li>
-          </ul>`
-        }
-      }
-    },
-    location: {
-      usage: "MA",
-      label: "Uložení",
-      selector: 'location',
-      description: `Údaje o uložení popisovaného dokumentu, např. signatura, místo uložení apod.`,
-      fields: {
-        physicalLocation: {
-          usage: "M",
-          label: "Místo uložení",
-          selector: 'location/physicalLocation',
-          description: `Údaje o instituci, kde je fyzicky uložen daný konkrétní popisovaný dokument, např. NK ČR nutno použít kontrolovaný slovník – sigly knihovnen (ABA001 atd.) odpovídá poli 910 $a v MARC21<br\>
-          Pozn. u dokumentů v digitální podobě není možné vyplnit`,
-        },
-        shelfLocator: {
-          usage: "M",
-          label: "Signatura",
-          selector: 'location/shelfLocator',
-          description: `Signatura nebo lokační údaje o daném konkrétním dokumentu, který slouží jako předloha.`
-        },
-        url: {
-          usage: "O",
-          label: "URL",
-          selector: 'location/url',
-          description: `Pro uvedení lokace elektronického dokumentu`
-        }
       }
     },
     subject: {
@@ -340,17 +268,16 @@ export class BdmArticleRdaTemplate {
           usage: "R",
           label: "Autorita",
           selector: 'subject/@authority',
-          description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>Konspekt</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
+          description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
           Odpovídá hodnotě v $2`,
           options: [
             ['', '-'],
-            ['czenas','czenas'],
-            ['eczenas','eczenas'],
-            ['mednas','mednas'],
-            ['czmesh','czmesh'],
-            ['msvkth','msvkth'],
-            ['agrovoc','agrovoc'],
-            ['Konspekt','Konspekt']
+            ['czenas', 'czenas'],
+            ['eczenas', 'eczenas'],
+            ['mednas', 'mednas'],
+            ['czmesh', 'czmesh'],
+            ['msvkth', 'msvkth'],
+            ['agrovoc', 'agrovoc']
           ]
         },
         topic: {
@@ -358,7 +285,7 @@ export class BdmArticleRdaTemplate {
           label: "Klíčové slovo/Předmětové heslo",
           selector: 'subject/topic',
           description: `Libovolný výraz specifikující nebo charakterizující obsah svazku monografie<br/>
-          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x`
+          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21`
         },
         geographic: {
           usage: "R",
@@ -371,6 +298,13 @@ export class BdmArticleRdaTemplate {
           label: "Chronologické věcné třídění",
           selector: 'subject/temporal',
           description: `Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21`
+        },
+        name: {
+          usage: "R",
+          label: "Jméno použité jako věcné záhlaví",
+          selector: 'subject/name',
+          description: `Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21<br/>
+          Struktura a atributy stejné jako pro údaje o původcích – viz element <name>`
         }
       }
     },
@@ -446,50 +380,24 @@ export class BdmArticleRdaTemplate {
           usage: "M",
           label: "Forma",
           selector: "physicalDescription/form",
-          description: `Údaje o fyzické podobě dokumentu, např. print, electronic, microfilm apod.<br/>
-          odpovídá hodnotě v poli 008/23<br/>
-          Údaje o typu média a typu nosiče zdroje/předlohy odpovídá hodnotám z pole:
-          <ul>
-            <li>337 NEPOVINNÉ (hodnota např. "bez média" – viz <a href="https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/katalogizacni-politika/typ-media_pole-337" target="_blank">kontrolovaný slovník</a> pole 337)</li>
-            <li>338 POVINNÉ (hodnota např. "svazek" – viz <a href="https://www.nkp.cz/o-knihovne/odborne-cinnosti/zpracovani-fondu/katalogizacni-politika/typ-nosice-pole338-1" target="_blank">kontrolovaný slovník</a> pole 338)</li>
-          </ul>
-          `,
+          description: `Údaje o fyzické podobě dokumentu odpovídá hodnotě v poli 008/23`,
           fields: {
             authority: {
               usage: "M",
               label: "Autorita",
               selector: "physicalDescription/form/@authority",
-              cols: 2,
               description: `Možné hodnoty
               <ul>
                 <li><strong>marcform</strong></li>
                 <li><strong>marccategory</strong></li>
                 <li><strong>marcsmd</strong></li>
                 <li><strong>gmd</strong></li>
-                <li><strong>rdamedia</strong> (pro pole 337)</li>
-                <li><strong>rdacarrier</strong> (pro pole 338)</li>
               </ul>`,
               options: [
                 ['marcform', 'marcform'],
                 ['marccategory', 'marccategory'],
                 ['marcsmd', 'marcsmd'],
-                ['gmd', 'gmd'],
-                ['rdamedia', 'rdamedia'],
-                ['rdacarrier', 'rdacarrier']]
-            },
-            type: {
-              usage: "MA",
-              label: "Typ",
-              selector: "physicalDescription/form/@type",
-              cols: 2,
-              description: `Možné hodnoty
-              <ul>
-                <li><strong>media</strong> pro pole 337</li>
-                <li><strong>carrier</strong> pro pole 338</li>
-              </ul>`,
-              options: [
-                ['media', 'media'],
-                ['carrier', 'carrier']]
+                ['gmd', 'gmd']]
             },
             value: {
               usage: "M",
@@ -504,7 +412,7 @@ export class BdmArticleRdaTemplate {
       usage: "RA",
       label: "Poznámka",
       selector: "note",
-      description: `Obecná poznámka ke svazku monografie jako celku<br/>
+      description: `Obecná poznámka ke grafickému dokumentu jako celku<br/>
       Odpovídá hodnotám v poli 245, $c (statement of responsibility)
       a v polích 5XX (poznámky) katalogizačního záznamu`,
       fields: {
@@ -519,18 +427,8 @@ export class BdmArticleRdaTemplate {
       usage: "M",
       label: "Žánr",
       selector: "genre",
-      description: `Bližší údaje o typu dokumentu<br/>
-      Pro monografie hodnota <strong>volume</strong>`,
+      description: `Bližší údaje o typu dokumentu`,
       fields: {
-        authority: {
-          usage: "MA",
-          label: "Autorita",
-          selector: "genre/@authority",
-          options: [
-            ['czenas', 'czenas'],
-            ['eczenas', 'eczenas'],
-            ['rdacontent', 'rdacontent']]
-        },
         value: {
           usage: "M",
           label: "Hodnota",
@@ -542,8 +440,7 @@ export class BdmArticleRdaTemplate {
       usage: "M",
       label: "Identifikátor",
       selector: "identifier",
-      description: `Údaje o identifikátorech, obsahuje unikátní
-      identifikátory mezinárodní nebo lokální, které svazek monografie má.`,
+      description: `Údaje o identifikátorech, obsahuje unikátní identifikátory mezinárodní nebo lokální, které dokument obsahuje.`,
       fields: {
         type: {
           usage: "M",
@@ -568,10 +465,6 @@ export class BdmArticleRdaTemplate {
               <li>
                 <strong>ISBN</strong> (isbn) <i>MA</i><br/>
                 převzít z katalogizačního záznamu z pole 020, $a, $z
-              </li>
-              <li>
-                <strong>ISMN</strong> (ismn) <i>MA</i><br/>
-                převzít z katalogizačního záznamu z pole 024 (1. ind.="2"), $a, $z
               </li>
             </ul>
             Jiný interní identifikátor <i>R</i>, např. barcode, oclc, sysno, permalink`
@@ -602,41 +495,18 @@ export class BdmArticleRdaTemplate {
       usage: "R",
       label: "Klasifikace",
       selector: "identifier",
-      description: `Klasifikační údaje věcného třídění podle Konspektu.<br/>
-      Odpovídá poli 072 $a MARC21`,
+      description: `Klasifikační údaje věcného třídění podle Mezinárodního desetinného třídění<br/>
+      odpovídá poli 080 MARC21
+      `,
       fields: {
         authority: {
           usage: "M",
           label: "Autorita",
+          cols: 2,
           selector: "classification/@authority",
-          cols: 2,
-          description: `
-          <ul>
-            <li>
-              vyplnit hodnotu <strong>udc</strong> (v případě 072 $a)
-            </li>
-            <li>
-              vyplnit hodnotu <strong>Konspekt</strong>  (v případě 072 $9)
-            </li>
-          </ul>`,
+          description: `Vyplnit hodnotu <strong>udc</strong>`,
           options: [
-            ['udc','udc'],
-            ['Konspekt','Konspekt']
-          ]
-        },
-        edition: {
-          usage: "M",
-          label: "Edice",
-          selector: "classification/@edition",
-          cols: 2,
-          description: `
-          <ul>
-            <li>
-              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)
-            </li>
-          </ul>`,
-          options: [
-            ['Konspekt','Konspekt']
+            ['udc', 'udc']
           ]
         },
         value: {
@@ -650,19 +520,42 @@ export class BdmArticleRdaTemplate {
       usage: "R",
       label: "Typ zdroje",
       selector: "typeOfResource",
-      description: `Pro monografie hodnota <strong>text</strong><br/>
-      mělo by se vyčítat z MARC21 katalogizačního
-      záznamu, z pozice 06 návěští`,
+      description: `Pro grafické dokumenty hodnota <strong>graphics</strong><br/>`,
       fields: {
         value: {
           usage: "R",
           label: "Typ zdroje",
           help: "off",
           options: [
-            ['','-'],
-            ['text','text']
+            ['', '-'],
+            ['graphics', 'graphics'],
+            ['photo', 'photo'],
+            ['notated music', 'notated music']
           ]
         }
+      }
+    },
+    part: {
+      usage: "O",
+      label: "Popis části",
+      selector: 'part',
+      description: `Popis části.`,
+      fields: {
+        type: {
+          usage: "O",
+          label: "Typ",
+          selector: "part/@type",
+          description: `Hodnota bude vždy "volume" `,
+          options: [
+            ['volume', 'volume']
+          ]
+        },
+        caption: {
+          usage: "RA",
+          label: "Caption",
+          selector: "part/detail/caption",
+          description: `text před označením čísla, např. "č.", „část“, "No." apod.`
+        },
       }
     },
     recordInfo: {
@@ -783,8 +676,8 @@ export class BdmArticleRdaTemplate {
         recordOrigin: {
           usage: "R",
           label: "Údaje o vzniku záznamu",
-          cols: 2,
           selector: 'recordInfo/recordOrigin',
+          cols: 2,
           description: `údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"`,
           options: [
             ['machine generated', 'machine generated'],

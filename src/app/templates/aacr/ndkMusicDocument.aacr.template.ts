@@ -128,6 +128,13 @@ export class NdkMusicDocumentAacrTemplate {
           description: `Životopisná data autora<br/>
           Pokud známe datum narození a úmrtí autora, vyplnit ve tvaru RRRR-RRRR.`
         },
+        termsOfAddress: {
+          usage: "RA",
+          label: "Ostatní související se jménem",
+          selector: "name/namePart[@type='termsOfAddress']",
+          cols: 2,
+          description: `Tituly a jiná slova nebo čísla související se jménem.`
+        },
         nameIdentifier: {
           usage: "RA",
           label: "Identifikátor autora",
@@ -167,8 +174,8 @@ export class NdkMusicDocumentAacrTemplate {
           label: "Nakladatel",
           selector: 'originInfo/publisher',
           description: `Jméno entity, která dokument vytvořila, vydala, distribuovala nebo vyrobila<br/>
-            odpovídá poli 264 $b katalogizačního záznamu v MARC21<br/>
-            pokud má titul více vydavatelů/ distributorů/ výrobců, přebírají se ze záznamu všichni (jsou v jednom poli 264)`,
+            odpovídá poli 260 $b katalogizačního záznamu v MARC21<br/>
+            pokud má titul více vydavatelů/ distributorů/ výrobců, přebírají se ze záznamu všichni (jsou v jednom poli 260)`,
         },
         eventType: {
           usage: "M",
@@ -265,7 +272,11 @@ export class NdkMusicDocumentAacrTemplate {
           description: `Hodnota "marc" jen u údaje z pole 008`,
           options: [
             ['', '-'],
-            ['marc', 'marc']
+            ['marc', 'MARC'],
+            ['iso8601', 'ISO 8601'],
+            ['edtf', 'EDTF'],
+            ['temper', 'temper'],
+            ['w3cdtf', 'W3CDTF']
           ]
         },
         point: {

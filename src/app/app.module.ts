@@ -112,6 +112,7 @@ import { ConvertDialogComponent } from './dialogs/convert-dialog/convert-dialog.
 import { EditorPartComponent } from './documents/document/editor-part/editor-part.component';
 import { EditorRecordInfoComponent } from './documents/document/editor-recordInfo/editor-recordInfo';
 import { EditorTableOfContentsComponent } from './documents/document/editor-tableOfContents/editor-tableOfContents';
+import {EditorRelatedItemComponent} from './documents/document/editor-relatedItem/editor-relatedItem.component';
 
 
 export function hljsLanguages() {
@@ -186,6 +187,7 @@ export function hljsLanguages() {
     EditorAbstractComponent,
     EditorPhysicalComponent,
     EditorRecordInfoComponent,
+    EditorRelatedItemComponent,
     TreeComponent,
     ImportTreeComponent,
     IngestDialogComponent,

@@ -3,8 +3,8 @@
 
     <app-autocomplete [(value)]='item.attrs["authority"]' field="authority" [item]="item"></app-autocomplete>
     <app-field-dropdown [(value)]='item.attrs["type"]' field="type" [item]="item"></app-field-dropdown>
+    <app-field-text [(value)]='item.attrs["lang"]' field="lang" [item]="item"></app-field-text>
     <app-field-text field="value" [item]="item" [(value)]="item.modsElement['_']" ></app-field-text>
 
   </ng-template>
 </app-editor-field>
-  
