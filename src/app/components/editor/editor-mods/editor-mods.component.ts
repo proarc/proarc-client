@@ -119,7 +119,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
     this.editting = false;
     this.state = 'loading';
     this.api.getMods(this.lastPid, this.editor.getBatchId()).subscribe((mods: Mods) => {
-      this.mods = mods;
+      this.mods =  Mods.fromJson(mods['record']);
       this.state = 'success';
     }, () => {
       this.state = 'failure';

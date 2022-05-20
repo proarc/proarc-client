@@ -227,7 +227,6 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
       }
     } else {
       if (this.editor.isMultipleChildrenMode()) {
-        console.log('setSingleChildMode');
         this.editor.setSingleChildMode(item);
       }
       item.selected = true;

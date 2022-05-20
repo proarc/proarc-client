@@ -566,7 +566,7 @@ export class EditorService {
                     } else {
                         const newMods: Mods = Mods.fromJson(response['record']);
                         if (this.mode === 'detail') {
-                            this.metadata = Metadata.fromMods(mods, this.metadata.model);
+                            this.metadata = Metadata.fromMods(newMods, this.metadata.model);
                         }
                         if (callback) {
                             callback(newMods);
@@ -692,6 +692,7 @@ export class EditorService {
 
     loadMetadata(callback: () => void) {
         if (this.metadata && this.metadata.pid === this.right.pid) {
+            console.log(this.metadata)
             callback();
             return;
         }
