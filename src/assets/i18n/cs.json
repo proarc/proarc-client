@@ -47,7 +47,7 @@
     "model": "Model",
     "custom_pid": "Vlastní pid",
     "invalid_pid": "PID neodpovídá tvaru uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-    "custom_pid_description": "V případě potřeby je možné zvolit vlastní PID objektu ve tvaru uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.\nPID nesmí nýt již přidělen jinému objektu.",
+    "custom_pid_description": "V případě potřeby je možné zvolit vlastní PID objektu ve tvaru uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.\nPID nesmí být již přidělen jinému objektu.",
     "pid": "PID",
     "failure": "Objekt se nepodařilo vytvořit",
     "create": "Vytvořit nový objekt",

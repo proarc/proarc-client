@@ -12,6 +12,7 @@ import { Translator } from 'angular-translator';
 import { ResizedEvent } from 'angular-resize-event';
 import { ParentDialogComponent } from 'src/app/dialogs/parent-dialog/parent-dialog.component';
 import { ConvertDialogComponent } from 'src/app/dialogs/convert-dialog/convert-dialog.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 
@@ -57,6 +58,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     private translator: Translator,
     private ui: UIService,
     private api: ApiService,
+    public auth: AuthService,
     private properties: LocalStorageService) {
   }
 
@@ -508,7 +510,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
         color: 'default'
       }
     };
-    if (!this.editor.preparation) {
+    if (!this.editor.preparation && this.auth.isSuperAdmin()) {
       data.checkbox = checkbox;
     }
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });

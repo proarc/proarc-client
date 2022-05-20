@@ -115,13 +115,13 @@ export class SearchComponent implements OnInit {
     return this.splitArea2Width;
   }
 
-  reload(page: number = 0) {
+  reload(selectedPid: string = null) {
     this.properties.setStringProperty('search.model', this.model);
     this.properties.setStringProperty('search.qyery_filed', this.queryFiled);
     this.properties.setStringProperty('search.organization', this.organization);
     this.properties.setStringProperty('search.owner', this.owner);
     this.properties.setStringProperty('search.processor', this.processor);
-    this.pageIndex = page;
+    // this.pageIndex = page;
     this.state = 'loading';
 
     const options = {
@@ -146,7 +146,12 @@ export class SearchComponent implements OnInit {
       this.resultCount = total;
       this.items = items;
       if (this.items.length > 0) {
-        this.selectItem(this.items[0]);
+        if (selectedPid) {
+          this.selectItem(this.findItem(selectedPid));
+        } else {
+          this.selectItem(this.items[0]);
+        }
+        
       }
       this.state = 'success';
     });
@@ -161,6 +166,10 @@ export class SearchComponent implements OnInit {
     this.tree = new Tree(item);
     this.search.selectedTree = this.tree;
     this.tree.expand(this.api);
+  }
+
+  findItem(pid: string) {
+    return this.items.find(item => item.pid === pid)
   }
 
   onExpandAll() {
@@ -191,7 +200,8 @@ export class SearchComponent implements OnInit {
   }
 
   onPageChanged(page) {
-    this.reload(page.pageIndex);
+    this.pageIndex = page.pageIndex;
+    this.reload();
   }
 
   onUrnnbn(item: DocumentItem) {
@@ -263,7 +273,8 @@ export class SearchComponent implements OnInit {
         return;
       } else {
         this.ui.showInfoSnackBar('Objekt byl úspěšně uzamčen');
-        this.reload();
+        item.isLocked = true;
+        //this.reload(item.pid);
       }
       
     });
@@ -278,7 +289,8 @@ export class SearchComponent implements OnInit {
         return;
       } else {
         this.ui.showInfoSnackBar('Objekt byl úspěšně odemčen');
-        this.reload();
+        item.isLocked = false;
+        // this.reload(item.pid);
       }
     });
   }
