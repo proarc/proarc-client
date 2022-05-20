@@ -49,7 +49,7 @@ export class ExportDialogComponent implements OnInit {
       }
       const data =  response['response']['data'];
       for (const d of data) {
-        if (d.errors) {
+        if (d.errors && d.errors.length > 0) {
           this.errors.push(d.errors[0]);
         } else if (d.target) {
           this.target = d.target;
@@ -78,7 +78,7 @@ export class ExportDialogComponent implements OnInit {
   showErrorDetail(error: any) {
     const data = {
       title: error.message,
-      content: error.log
+      content: error.pid + (error.log ? (': ' + error.log) : '')
     }
     this.dialog.open(LogDialogComponent, { data: data });
   }
