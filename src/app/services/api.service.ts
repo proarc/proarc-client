@@ -267,13 +267,13 @@ export class ApiService {
             .pipe(map(response => Page.fromJson(response['response']['data'][0], model)));
   }
 
-  editPage(page: Page, batchId = null): Observable<Page> {
+  editPage(page: Page, batchId = null): Observable<any> {
     const editorId = page.model == 'model:page' ? 'proarc.mods.PageForm' : page.model;
     let data = `pid=${page.pid}&editorId=${editorId}&jsonData=${JSON.stringify(page.toJson())}&timestamp=${page.timestamp}`;
     if (batchId) {
       data = `${data}&batchId=${batchId}`;
     }
-    return this.put('object/mods/custom', data).pipe(map(response => Page.fromJson(response['response']['data'][0], page.model)));
+    return this.put('object/mods/custom', data);
   }
 
   getAtm(pid: string, batchId = null): Observable<Atm> {

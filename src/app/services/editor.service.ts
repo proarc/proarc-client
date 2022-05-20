@@ -621,7 +621,13 @@ export class EditorService {
 
     savePage(page: Page, callback: (Page) => void, moveToNext = false) {
         this.state = 'saving';
-        this.api.editPage(page, this.getBatchId()).subscribe((newPage: Page) => {
+        this.api.editPage(page, this.getBatchId()).subscribe((resp: any) => {
+            if (resp.response.errors) {
+                this.ui.showErrorSnackBarFromObject(resp.response.errors);
+                this.state = 'error';
+                return;
+            }
+            const newPage: Page = Page.fromJson(resp['response']['data'][0], page.model);
             if (this.preparation) {
                 this.reloadBatch(() => {
                     this.state = 'success';
@@ -917,7 +923,14 @@ export class EditorService {
             if (pageDef.number) {
                 page.number = pageDef.number;
             }
-            this.api.editPage(page, this.getBatchId()).subscribe((newPage: Page) => {
+            this.api.editPage(page, this.getBatchId()).subscribe((resp: any) => {
+                
+                if (resp.response.errors) {
+                    this.ui.showErrorSnackBarFromObject(resp.response.errors);
+                    this.state = 'error';
+                    return;
+                }
+                const newPage: Page = Page.fromJson(resp['response']['data'][0], page.model);
                 this.updateBatchPages(pages, callback);
             });
         });
@@ -936,10 +949,15 @@ export class EditorService {
                 pages.push(item.pid);
             }
         }
-        this.api.editPages(pages, holder, this.getBatchId()).subscribe(result => {
-            this.reloadChildren(() => {
-                this.state = 'success';
-            });
+        this.api.editPages(pages, holder, this.getBatchId()).subscribe((result: any) => {
+            if (result.response.errors) {
+                this.ui.showErrorSnackBarFromObject(result.response.errors);
+                this.state = 'error';
+            } else {
+                this.reloadChildren(() => {
+                    this.state = 'success';
+                });
+            }
         })
     }
 

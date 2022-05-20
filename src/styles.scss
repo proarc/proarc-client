@@ -628,6 +628,23 @@ a, button {
   color: green;
 }
 
+.app-snackbar-error .mat-simple-snackbar {
+  font-weight: bolder;
+  padding: 24px;
+  font-size: 1.5em;
+}
+
+
 .app-snackbar-error .mat-simple-snackbar-action {
-  color: $warn-color;
+  color: black;
+}
+
+.app-snackbar-error.mat-snack-bar-container {
+  max-width: 90% !important;
+  margin-left: auto !important; // center align from left
+  margin-right: auto !important; // center align from right
+  margin-bottom: 1rem !important; 
+  padding: 10px !important; // spacing between the text and boundary
+  background-color: $warn-color;
+  color: white;
 }

@@ -20,8 +20,8 @@ export class UIService {
     this.snackBar.open(message, 'OK', { duration: duration, panelClass: 'app-snackbar-success' });
   }
 
-  showErrorSnackBar(message: string, duration: number = 3000) {
-    this.snackBar.open(message, 'Chyba', { duration: duration, verticalPosition: 'top' });
+  showErrorSnackBar(message: string, duration: number = 4000) {
+    this.snackBar.open(message, 'Chyba', { duration: duration, verticalPosition: 'top', panelClass: 'app-snackbar-error' });
   }
 
   showErrorSnackBarFromObject(errors: any) {
