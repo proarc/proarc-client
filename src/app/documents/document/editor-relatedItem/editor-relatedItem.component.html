@@ -130,7 +130,7 @@
           <ng-template let-form="physicalDescription" #templateContent>
             <app-autocomplete field="authority" [item]="form" [(value)]='form.attrs["authority"]'></app-autocomplete>
             <app-autocomplete field="type" [item]="form" [(value)]='form.attrs["type"]'></app-autocomplete>
-            <app-field-autocomplete field="value" [item]="form" [(value)]="form.modsElement['_']"></app-field-autocomplete>
+            <app-autocomplete field="value" [item]="form" [(value)]="form.modsElement['_']"></app-autocomplete>
           </ng-template>
         </app-editor-field>
         -->

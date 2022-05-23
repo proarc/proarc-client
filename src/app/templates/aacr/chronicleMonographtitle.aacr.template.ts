@@ -116,7 +116,12 @@ export class ChronicleMonographtitleAacrTemplate {
                 <li>Kronika (hodnota kronika)</li>
                 <li>Úřední kniha (hodnota ukn)</li>
                 <li>Rukopis (hodnota rkp)</li>
-                </ul>`
+                </ul>`,
+          options: [
+            ['kronika', 'Kronika'],
+            ['ukn', 'Úřední kniha'],
+            ['rkp', 'Rukopis']
+          ]
         },
         type: {
           usage: "R",
@@ -270,6 +275,7 @@ export class ChronicleMonographtitleAacrTemplate {
         type: {
           usage: "R",
           label: "Typ",
+          selector: 'note/@type',
           options: [
             ['private', 'Nepublikovatelná'],
             ['public', 'Veřejná']

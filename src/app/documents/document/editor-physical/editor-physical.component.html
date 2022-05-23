@@ -9,12 +9,7 @@
       <ng-template let-form="item" #templateContent>
         <app-autocomplete field="authority" [item]="form" [(value)]='form.attrs["authority"]'></app-autocomplete>
         <app-autocomplete field="type" [item]="form" [(value)]='form.attrs["type"]'></app-autocomplete>
-
-        <!-- TODO
-        pokud ma formular definovany options, umoznit dropdown. Pokud nema definovany options nechat zapsat hodnotu
-        viz bdmArticle.template.ts
-        -->
-        <app-field-text field="value" [item]="form" [(value)]="form.modsElement['_']"></app-field-text>
+        <app-autocomplete field="value" [item]="form" [(value)]="form.modsElement['_']"></app-autocomplete>
 
 
       </ng-template>
