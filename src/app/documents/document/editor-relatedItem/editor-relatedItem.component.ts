@@ -2,9 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { ElementField } from 'src/app/model/mods/elementField.model';
 import {CodebookService} from '../../../services/codebook.service';
-import {Translator} from 'angular-translator';
-import {MatDialog} from '@angular/material';
-import {EditorService} from '../../../services/editor.service';
 
 @Component({
   selector: 'app-editor-relatedItem',
