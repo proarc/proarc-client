@@ -34,38 +34,44 @@ export class EditorMetadataComponent implements OnInit {
     return this.editor.metadata.template[element];
   }
 
+
+  confirmSave(title: string, message: string, ignoreValidation: boolean) {
+    const data: SimpleDialogData = {
+      title,
+      message,
+      btn1: {
+        label: "Uložit",
+        value: 'yes',
+        color: 'warn'
+      },
+      btn2: {
+        label: "Neukládat",
+        value: 'no',
+        color: 'default'
+      },
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.editor.saveMetadata(ignoreValidation, (r: any) => {
+          if (r && r.errors && r.status === -4 && !ignoreValidation) {
+            this.confirmSave('Nevalidní data', r.errors.mods[0].errorMessage, true);
+          }
+          // this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', false);
+        });
+      }
+    });
+  }
+
   onSave() {
     if (this.editor.metadata.validate()) {
-      this.editor.saveMetadata(() => {
-      });
-    } else {
-
-      const data: SimpleDialogData = {
-        title: "Nevalidní data",
-        message: "Nevalidní data, přejete si dokument přesto uložit?",
-        btn1: {
-          label: "Uložit nevalidní dokument",
-          value: 'yes',
-          color: 'warn'
-        },
-        btn2: {
-          label: "Neukládat",
-          value: 'no',
-          color: 'default'
-        },
-      };
-      const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
-      dialogRef.afterClosed().subscribe(result => {
-        if (result === 'yes') {
-          this.editor.saveMetadata(() => {
-          });
+      this.editor.saveMetadata(false, (r: any) => {
+        if (r && r.errors && r.status === -4) {
+          this.confirmSave('Nevalidní data', r.errors.mods[0].errorMessage, true);
         }
       });
-
-
-      // TODO show warning dialog
-      // this.editor.saveMetadata(() => {
-      // });
+    } else {
+      this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', false);
     }
   }
 

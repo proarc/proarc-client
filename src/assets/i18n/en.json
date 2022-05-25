@@ -67,6 +67,7 @@
     "type_datastream_raw": "Original Scans",
     "type_kramerius": "Kramerius",
     "type_archive": "Archivation",
+    "type_archive_stt": "Archivation of old prints",
     "type_ndk_psp": "NDK PSP",
     "type_cejsh": "CEJSH",
     "type_crossref": "Crossref",

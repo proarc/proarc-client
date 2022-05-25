@@ -16,6 +16,7 @@ export class ExportDialogComponent implements OnInit {
   state = 'none';
   types =  this.config.exports;
 
+
   selectedType: string;
   policyPublic: boolean;
   target: string;
@@ -27,16 +28,24 @@ export class ExportDialogComponent implements OnInit {
     private config: ConfigService,
     private ui: UIService,
     private dialog: MatDialog, 
-    @Inject(MAT_DIALOG_DATA) public data: string) { }
+    @Inject(MAT_DIALOG_DATA) public data: {pid: string, model: string}) { }
 
   ngOnInit() {
+    console.log(this.data)
+    console.log(this.types)
+    if (this.data.model.indexOf('oldprint') > -1) {
+      this.types = this.config.exports.filter(t => t !== 'archive')
+    } else {
+      this.types = this.config.exports.filter(t => t !== 'archive_stt')
+    }
+    console.log(this.types)
     this.selectedType = this.types[0];
     this.policyPublic = true;
   }
 
   onExport() {
     this.state = 'saving';
-    const pid = this.data;
+    const pid = this.data.pid;
     const policy = this.policyPublic ? 'public' : 'private';
     this.errors = [];
     this.target = null;

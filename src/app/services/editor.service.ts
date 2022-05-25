@@ -551,9 +551,9 @@ export class EditorService {
         });
     }
 
-    saveMods(mods: Mods, callback: (Mods) => void) {
+    saveMods(mods: Mods, ignoreValidation: boolean, callback: (Mods) => void) {
         this.state = 'saving';
-        this.api.editModsXml(mods.pid, mods.content, mods.timestamp, this.getBatchId()).subscribe((resp: any) => {
+        this.api.editModsXml(mods.pid, mods.content, mods.timestamp, ignoreValidation, this.getBatchId()).subscribe((resp: any) => {
             if (resp.errors) {
                 this.state = 'error';
                 this.ui.showErrorSnackBar(resp.errors.mods[0].errorMessage)
@@ -581,7 +581,7 @@ export class EditorService {
 
     updateModsFromCatalog(xml: string, callback: () => void) {
         this.state = 'saving';
-        this.api.editModsXml(this.metadata.pid, xml, this.metadata.timestamp).subscribe(() => {
+        this.api.editModsXml(this.metadata.pid, xml, this.metadata.timestamp, false).subscribe(() => {
             this.api.getMods(this.metadata.pid).subscribe((response: any) => {
                 const mods: Mods = Mods.fromJson(response['record']);
                 this.metadata = Metadata.fromMods(mods, this.metadata.model);
@@ -657,14 +657,23 @@ export class EditorService {
         });
     }
 
-    saveMetadata(callback: () => void) {
+    saveMetadata(ignoreValidation: boolean, callback: (r: any) => void) {
         this.state = 'saving';
-        this.api.editMetadata(this.metadata).subscribe((response: any) => {
+        this.api.editMetadata(this.metadata, ignoreValidation).subscribe((response: any) => {
             console.log(response)
             if (response.errors) {
-                this.ui.showErrorSnackBarFromObject(response.errors);
-                this.state = 'error';
-                return;
+                if (response.status === -4) {
+                    // Ukazeme dialog a posleme s ignoreValidation=true
+                    this.state = 'error';
+                    if (callback) {
+                        callback(response);
+                    }
+                    return;
+                } else {
+                    this.ui.showErrorSnackBarFromObject(response.errors);
+                    this.state = 'error';
+                    return;
+                }
             } 
 
             // .pipe(map(response => Mods.fromJson(response['data'][0])));
@@ -682,14 +691,14 @@ export class EditorService {
                     this.reloadChildren(() => {
                         this.state = 'success';
                         if (callback) {
-                            callback();
+                            callback(null);
                         }
                     });
                 } else if (this.mode === 'detail') {
                     this.left = doc;
                     this.state = 'success';
                     if (callback) {
-                        callback();
+                        callback(null);
                     }
                 }
             });

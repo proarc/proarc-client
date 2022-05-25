@@ -29,7 +29,7 @@ export class EditorGeoComponent implements OnInit {
   }
 
   onSave() {
-    this.editor.saveMetadata(() => {
+    this.editor.saveMetadata(false, () => {
     });
   }
 

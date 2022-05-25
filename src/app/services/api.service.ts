@@ -55,7 +55,8 @@ export class ApiService {
     if (!options) {
       options = {
         headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+          'Accept-Language': 'cs'
         })
       };
     }
@@ -159,6 +160,11 @@ export class ApiService {
         break;
       }
       case ProArc.EXPORT_ARCHIVE: {
+        path = 'export/archive'
+        break;
+      }
+      case ProArc.EXPORT_ARCHIVE_OLDPRINT: {
+        data = `${data}&package=STT`;
         path = 'export/archive'
         break;
       }
@@ -305,17 +311,17 @@ export class ApiService {
     return this.get('object/mods/plain', params);
   }
 
-  editMetadata(document: Metadata): Observable<any> {
-    return this.editModsXml(document.pid, document.toMods(), document.timestamp);
+  editMetadata(document: Metadata, ignoreValidation: boolean): Observable<any> {
+    return this.editModsXml(document.pid, document.toMods(), document.timestamp, ignoreValidation);
   }
 
-  editMods(mods: Mods, batchId = null): Observable<Mods> {
-    return this.editModsXml(mods.pid, mods.content, mods.timestamp, batchId).pipe(map(response => Mods.fromJson(response['data'][0])));
+  editMods(mods: Mods, ignoreValidation: boolean, batchId = null): Observable<Mods> {
+    return this.editModsXml(mods.pid, mods.content, mods.timestamp, ignoreValidation, batchId).pipe(map(response => Mods.fromJson(response['data'][0])));
   }
 
-  editModsXml(pid: string, xml: string, timestamp: number, batchId = null): Observable<any> {
+  editModsXml(pid: string, xml: string, timestamp: number, ignoreValidation: boolean, batchId = null): Observable<any> {
     const xmlText = xml.replace(/&/g, '%26');
-    let data = `pid=${pid}&ignoreValidation=true&xmlData=${xmlText}&timestamp=${timestamp}`;
+    let data = `pid=${pid}&ignoreValidation=${ignoreValidation}&xmlData=${xmlText}&timestamp=${timestamp}`;
     if (batchId) {
       data = `${data}&batchId=${batchId}`;
     }

@@ -32,7 +32,7 @@ export class EditorChronicleComponent implements OnInit {
 
   onSave() {
     if (this.editor.metadata.validate()) {
-      this.editor.saveMetadata(() => {
+      this.editor.saveMetadata(false, () => {
       });
     } else {
 
@@ -53,7 +53,7 @@ export class EditorChronicleComponent implements OnInit {
       const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
       dialogRef.afterClosed().subscribe(result => {
         if (result === 'yes') {
-          this.editor.saveMetadata(() => {
+          this.editor.saveMetadata(false, () => {
           });
         }
       });

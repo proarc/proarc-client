@@ -20,7 +20,7 @@ export class ModsEditorComponent implements OnInit {
 
 
   save() {
-    this.api.editMetadata(this.document).subscribe((response: any) => {
+    this.api.editMetadata(this.document, false).subscribe((response: any) => {
       if (response.errors) {
         this.ui.showErrorSnackBarFromObject(response.errors);
         return;

@@ -131,6 +131,7 @@ export class ConfigService {
 
     private static defaultDefaultExports = [
         'archive',
+        'archive_stt',
         'kramerius',
         'ndk_psp',
         'datastream_full',

@@ -79,6 +79,7 @@
     "type_datastream_raw": "Původní sken",
     "type_kramerius": "Kramerius",
     "type_archive": "Archivace",
+    "type_archive_stt": "Archivace starých tisků",
     "type_ndk_psp": "NDK PSP",
     "type_cejsh": "CEJSH",
     "type_crossref": "Crossref",

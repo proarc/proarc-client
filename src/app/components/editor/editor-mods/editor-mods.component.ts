@@ -90,7 +90,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
       return;
     }
     this.mods.content = this.editingPre.nativeElement.innerText;
-    this.editor.saveMods(this.mods, (mods: Mods) => {
+    this.editor.saveMods(this.mods, false, (mods: Mods) => {
       this.mods = mods;
       this.editting = false;
       this.anyChange = false;
