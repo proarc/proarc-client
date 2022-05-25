@@ -3,11 +3,11 @@ import { ModsElement } from './element.model';
 export class ModsRecordContentSource extends ModsElement {
 
     static getSelector() {
-        return 'recordContectSource';
+        return 'recordContentSource';
     }
 
     static getId() {
-        return 'recordContectSource';
+        return 'recordContentSource';
     }
 
     constructor(modsElement, template) {

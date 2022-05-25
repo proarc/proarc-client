@@ -10,7 +10,7 @@ export class ModsRecordInfo extends ModsElement {
 
     descriptionStandard;
     recordOrigin;
-    recordContectSources: ElementField;
+    recordContentSources: ElementField;
     recordCreationDates: ElementField;
     recordChangeDates: ElementField;
     recordIdentifiers: ElementField;
@@ -37,9 +37,9 @@ export class ModsRecordInfo extends ModsElement {
         }
         this.descriptionStandard = this.modsElement['descriptionStandard'][0];
         this.recordOrigin = this.modsElement['recordOrigin'][0];
-        if (this.available('recordContectSource')) {
-            this.recordContectSources = new ElementField(this.modsElement, ModsRecordContentSource.getSelector(), this.getField('recordContectSource'));
-            this.addSubfield(this.recordContectSources);
+        if (this.available('recordContentSource')) {
+            this.recordContentSources = new ElementField(this.modsElement, ModsRecordContentSource.getSelector(), this.getField('recordContentSource'));
+            this.addSubfield(this.recordContentSources);
         }
         if (this.available('recordCreationDate')) {
             this.recordCreationDates = new ElementField(this.modsElement, ModsRecordCreationDate.getSelector(), this.getField('recordCreationDate'));

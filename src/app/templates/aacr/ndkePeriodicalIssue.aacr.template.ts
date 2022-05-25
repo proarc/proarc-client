@@ -483,24 +483,24 @@ export class NdkePeriodicalIssueAacrTemplate {
             ['rda', 'rda']
           ]
         },
-        recordContectSource: {
+        recordContentSource: {
           usage: "R",
-          label: "Contect source",
-          selector: 'recordInfo/recordContectSource',
+          label: "Content source",
+          selector: 'recordInfo/recordContentSource',
           description: `Kód nebo jméno instituce, která záznam vytvořila nebo změnila`,
           fields: {
             value: {
               usage: "R",
-              label: "Contect source",
+              label: "Content source",
               cols: 2,
-              selector: "recordInfo/recordContectSource",
+              selector: "recordInfo/recordContentSource",
               help: "off"
             },
             authority: {
               usage: "R",
               label: "Autorita",
               cols: 2,
-              selector: "recordInfo/recordContectSource/@authority",
+              selector: "recordInfo/recordContentSource/@authority",
               description: `authority – hodnota "marcorg"`,
               options: [
                 ['marcorg', 'marcorg']
