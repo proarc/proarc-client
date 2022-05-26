@@ -290,12 +290,12 @@ export class ApiService {
     return this.get('object/atm', params).pipe(map(response => Atm.fromJson(response['response']['data'][0])));
   }
 
-  editAtm(atm: Atm, batchId = null): Observable<Atm> {
+  editAtm(atm: Atm, batchId = null): Observable<any> {
     let data = `pid=${atm.pid}&device=${atm.device}&status=${atm.status}&model=${atm.model}&userProcessor=${atm.userProcessor}&organization=${atm.organization}`;
     if (batchId) {
       data = `${data}&batchId=${batchId}`;
     }
-    return this.put('object/atm', data).pipe(map(response => Atm.fromJson(response['response']['data'][0])));
+    return this.put('object/atm', data);
   }
 
   getMetadata(pid: string, model: string): Observable<Metadata> {

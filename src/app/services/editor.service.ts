@@ -611,7 +611,13 @@ export class EditorService {
 
     saveAtm(atm: Atm, callback: (Atm) => void) {
         this.state = 'saving';
-        this.api.editAtm(atm, this.getBatchId()).subscribe((newAtm: Atm) => {
+        this.api.editAtm(atm, this.getBatchId()).subscribe((response: any) => {
+            if (response.response.errors) {
+                this.ui.showErrorSnackBarFromObject(response.response.errors);
+                this.state = 'error';
+                return;
+            }
+            const newAtm: Atm = Atm.fromJson(response['response']['data'][0]);
             if (callback) {
                 callback(newAtm);
             }
