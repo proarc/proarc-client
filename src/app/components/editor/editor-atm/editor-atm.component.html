@@ -59,7 +59,11 @@
         </mat-form-field>
       </div>
 
-
+      <div *ngIf="atm.isLocked">
+        <div class="app-detail-key-value"><strong>{{ 'search.isLocked' | translate }}</strong></div>
+        <div class="app-detail-key-value">{{ 'editor.atm.lockedBy' | translate }}: <strong>{{ atm.lockedBy }}</strong></div>
+        <div class="app-detail-key-value">{{ 'editor.atm.lockedDate' | translate }}: <strong>{{ atm.lockedDate | date : 'dd.MM.yyyy' }}</strong></div>
+      </div>
 
     </div>
     

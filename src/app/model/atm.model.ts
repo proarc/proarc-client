@@ -13,6 +13,9 @@ export class Atm {
     public organization: string;
     public userProcessor: string;
     public status: string;
+    public isLocked: boolean;
+    public lockedBy: string;
+    public lockedDate: Date;
 
 
     public originalDevice: string;
@@ -42,6 +45,9 @@ export class Atm {
         atm.created = new Date(json['created']);
       }
       atm.exportResult = json['exportResult'];
+      atm.isLocked = json['locked'];
+      atm.lockedBy = json['lockedBy'];
+      atm.lockedDate = json['lockedDate'];
       return atm;
   }
 

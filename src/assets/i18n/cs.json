@@ -323,7 +323,9 @@
         "processing": "Probíhá popisování",
         "described": "Popisování ukončeno",
         "exported": "Exportováno"
-      }
+      },
+      "lockedBy": "Uzamkl(a)",
+      "lockedDate": "Datum uzamknutí"
     },
     "children": {
       "view_list": "Tabulka",

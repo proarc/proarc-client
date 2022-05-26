@@ -234,6 +234,31 @@
       "editor_enter_double_right": "Open the image in a new panel",
       "editor_leave_double_right": "Close the panel with the image"
     },
+    "atm": {
+      "title": "Administrative and technical metadata",
+      "pid": "PID",
+      "model": "Model",
+      "owner": "Owner",
+      "created": "Created",
+      "modified": "Modified",
+      "filename": "File",
+      "export": "Export",
+      "device": "Device",
+      "no_device": "No devide",
+      "organization": "Organization",
+      "userProcessor": "User processor",
+      "status": "State",
+      "statuses": {
+        "new": "New",
+        "assign": "Assigned",
+        "connected": "Connected",
+        "processing": "Processing",
+        "described": "Described",
+        "exported": "Exported"
+      },
+      "lockedBy": "Locked by",
+      "lockedDate": "Locked date"
+    },
     "children": {
       "view_list": "Table",
       "view_grid": "Grid",
