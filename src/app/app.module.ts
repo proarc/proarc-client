@@ -114,6 +114,7 @@ import { EditorRecordInfoComponent } from './documents/document/editor-recordInf
 import { EditorTableOfContentsComponent } from './documents/document/editor-tableOfContents/editor-tableOfContents';
 import {EditorRelatedItemComponent} from './documents/document/editor-relatedItem/editor-relatedItem.component';
 import { MAT_DATE_LOCALE } from '@angular/material';
+import { AlertDialogComponent } from './dialogs/alert-dialog/alert-dialog.component';
 
 
 export function hljsLanguages() {
@@ -212,6 +213,7 @@ export function hljsLanguages() {
     ConvertDialogComponent,
     EditorPartComponent,
     EditorTableOfContentsComponent,
+    AlertDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -250,6 +252,7 @@ export function hljsLanguages() {
     {provide: MAT_DATE_LOCALE, useValue: 'cs-CZ'},
   ],
   entryComponents: [
+    AlertDialogComponent,
     SimpleDialogComponent,
     ImportDialogComponent,
     LogDialogComponent,

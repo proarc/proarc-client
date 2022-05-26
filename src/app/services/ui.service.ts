@@ -1,16 +1,35 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { Translator } from 'angular-translator';
+import { Observable } from 'rxjs';
+import { take, map } from 'rxjs/operators';
+import { AlertDialogComponent } from '../dialogs/alert-dialog/alert-dialog.component';
 
 @Injectable()
 export class UIService {
 
-
+  dialogRef: MatDialogRef<AlertDialogComponent>;
   constructor(
+    private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private translator: Translator
   ) {
   }
+
+  public showErrorDialog(data) {
+    this.dialogRef = this.dialog.open(AlertDialogComponent, {    
+         data
+    });
+  }
+  
+  public confirmed(): Observable<any> {
+    
+    return this.dialogRef.afterClosed().pipe(take(1), map(res => {
+        return res;
+      }
+    ));
+  }
+
 
   showInfo(code: string, duration: number = 2000) {
     this.snackBar.open(String(this.translator.instant(code)), '', { duration: duration });
@@ -27,17 +46,27 @@ export class UIService {
   showErrorSnackBarFromObject(errors: any) {
     // response.errors.mods[0].errorMessage
     const keys = Object.keys(errors);
-    let message = '';
+    let message = [];
     keys.forEach(k => {
       if (Array.isArray(errors[k])) {
         errors[k].forEach(e => {
-          message += e.errorMessage + ' \n';
+          message.push(e.errorMessage);
         });
       } else if (typeof errors[k] === 'string') {
-        message += errors[k] + ' \n';
+        message.push(errors[k]);
       }
     });
-    this.showErrorSnackBar(message);
+
+    //this.showErrorSnackBar(message);
+
+    const data = {
+      type: 'error',
+      title: 'Chyba',
+      message
+    };
+    this.showErrorDialog(data);
+
+
   }
 
 }
