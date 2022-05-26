@@ -413,7 +413,13 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   }
 
   onRelocateOutside() {
-    const dialogRef = this.dialog.open(ParentDialogComponent, { data: { btnLabel: 'editor.children.relocate_label' } });
+    const dialogRef = this.dialog.open(ParentDialogComponent, { 
+      data: { 
+        btnLabel: 'editor.children.relocate_label', 
+        parent: this.editor.parent , 
+        item: this.editor.left 
+      } 
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.pid) {
         this.relocateOutside(result.pid);
@@ -440,12 +446,17 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
         value: 'no',
         color: 'default'
       },
-      checkbox: checkbox
+      //checkbox: checkbox
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.editor.relocateObjects(destinationPid, checkbox.checked);
+        if (this.editor.parent) {
+          this.editor.relocateObjects(destinationPid, checkbox.checked);
+        } else {
+          this.editor.setParent(destinationPid);
+        }
+        
       }
     });
   }

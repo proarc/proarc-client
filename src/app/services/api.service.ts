@@ -209,6 +209,12 @@ export class ApiService {
         .pipe(map(response => Profile.fromJsonArray(response['response']['data'])));
   }
 
+  setParent(srcParent: string, dstParent: string): Observable<any> {
+    const data = `pid=${srcParent}&parent=${dstParent}`;
+    return this.post('object/member', data);
+  }
+
+
   relocateObjects(srcParent: string, dstParent: string, pids: string[]): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({

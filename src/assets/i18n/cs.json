@@ -178,7 +178,8 @@
     "load": "Načíst",
     "load_and_save": "Načíst a uložit",
     "save": "Uložit",
-    "select_parent": "Vyberte nadřazený objekt",
+    "select_parent": "Vyberte nadřazený objekt pro",
+    "current_parent": "Aktualní nadřazený objekt",
     "state": {
       "new": "Nové",
       "imported": "Načteno",

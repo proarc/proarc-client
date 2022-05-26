@@ -765,6 +765,25 @@ export class EditorService {
         });
     }
 
+    setParent(destinationPid: string) {
+        this.state = 'saving';
+        let pids: string[];
+        if (this.isMultipleChildrenMode()) {
+            pids = this.children.filter(c => c.selected).map(c => c.pid);
+        } else {
+            pids = [this.right.pid];
+        }
+        this.api.setParent(this.left.pid, destinationPid).subscribe((response: any) => {
+            if (response['response'].errors) {
+                this.ui.showErrorSnackBarFromObject(response['response'].errors);
+                this.state = 'error';
+                return;
+            } else {
+                this.state = 'success';
+                this.goToObjectByPid(destinationPid);
+            }
+        });
+    }
 
     relocateObjects(destinationPid: string, openDestination: boolean) {
         this.state = 'saving';
@@ -774,7 +793,7 @@ export class EditorService {
         } else {
             pids = [this.right.pid];
         }
-        this.api.relocateObjects(this.left.pid, destinationPid, pids).subscribe(() => {
+        this.api.relocateObjects(this.parent.pid, destinationPid, pids).subscribe(() => {
             if (!openDestination) {
                 this.setRelocationMode(false);
                 let nextSelection = 0;
@@ -791,6 +810,7 @@ export class EditorService {
                     this.selectRight(this.children[nextSelection]);
                 }
                 this.state = 'success';
+                this.goToObjectByPid(destinationPid);
             } else {
                 this.goToObjectByPid(destinationPid);
             }
