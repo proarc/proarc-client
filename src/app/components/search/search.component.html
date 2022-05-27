@@ -186,7 +186,7 @@
       <button (click)="onUrnnbn(search.selectedTree.item)" mat-button>URN:NBN</button>
       <button (click)="onExpandAll()" mat-button>Rozbalit</button>
       <button *ngIf="search.selectedTree.removable()" (click)="onDeleteFromTree()" mat-button>Smazat</button>
-      <button *ngIf="canCopy(search.selectedTree.item)" (click)="onCopyItem()" mat-button>Zkopírovat</button>
+      <button *ngIf="canCopy(search.selectedTree.item)" (click)="onCopyItem(search.selectedTree.item)" mat-button>Zkopírovat</button>
       <button *ngIf="!search.selectedTree.item.isLocked" (click)="onLock(search.selectedTree.item, true)" mat-button>Uzamknout</button>
       <button *ngIf="search.selectedTree.item.isLocked" (click)="onLock(search.selectedTree.item, false)" mat-button>Odemknout</button>
     </ng-container>

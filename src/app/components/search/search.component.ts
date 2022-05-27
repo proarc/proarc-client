@@ -295,18 +295,24 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  onCopyItem() {
-    this.api.copyObject(this.selectedItem.pid, this.selectedItem.model).subscribe((response: any) => {
+  onCopyItem(item: DocumentItem) {
+    this.api.copyObject(item.pid, item.model).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
         this.ui.showErrorSnackBarFromObject(response['response'].errors);
         this.state = 'error';
         return;
+      } else if (response.response.data) {
+        this.ui.showErrorSnackBarFromObject(response.response.data.map(d => d.errorMessage = d.validation));
+        this.state = 'error';
+      } else {
+          this.state = 'success';
+          this.ui.showInfoSnackBar("Objekty byly zkopirovane");
+          this.selectItem(this.selectedItem);
       }
-      const validation: string = response['response']['data'][0]['validation'];
-      this.ui.showInfoSnackBar(validation);
-      this.state = 'success';
-      this.reload();
+    // const validation: string = response['response']['data'][0]['validation'];
+    // this.ui.showInfoSnackBar(validation);
+    // this.state = 'success';
     }, error => {
       console.log(error);
         this.ui.showInfoSnackBar(error.statusText);
