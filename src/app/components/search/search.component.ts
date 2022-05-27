@@ -44,7 +44,7 @@ export class SearchComponent implements OnInit {
 
   model: string;
   query = '';
-  queryFiled: string;
+  queryField: string;
 
   queryLabel: string;
   queryIdentifier: string;
@@ -89,7 +89,7 @@ export class SearchComponent implements OnInit {
     this.sortField = this.properties.getStringProperty('search.sort_field', 'created');
     this.sortAsc = this.properties.getBoolProperty('search.sort_asc', false);
     this.model = this.properties.getStringProperty('search.model', this.config.defaultModel);
-    this.queryFiled = this.properties.getStringProperty('search.qyery_filed', 'queryLabel');
+    this.queryField = this.properties.getStringProperty('search.query_field', 'queryLabel');
     if (this.model !== 'all' && this.model !== 'model:page' && this.model !== 'model:ndkpage') {
       this.reload();
     } else {
@@ -117,7 +117,7 @@ export class SearchComponent implements OnInit {
 
   reload(selectedPid: string = null) {
     this.properties.setStringProperty('search.model', this.model);
-    this.properties.setStringProperty('search.qyery_filed', this.queryFiled);
+    this.properties.setStringProperty('search.query_field', this.queryField);
     this.properties.setStringProperty('search.organization', this.organization);
     this.properties.setStringProperty('search.owner', this.owner);
     this.properties.setStringProperty('search.processor', this.processor);
@@ -129,7 +129,7 @@ export class SearchComponent implements OnInit {
       model: this.model,
       organization: this.organization,
       query: this.query,
-      queryField: this.queryFiled,
+      queryField: this.queryField,
       queryLabel: this.queryLabel,
       queryIdentifier: this.queryIdentifier,
       queryCreator: this.queryCreator,
@@ -377,9 +377,9 @@ export class SearchComponent implements OnInit {
 
 
   getSortIcon(field: string) {
-    if (this.query) {
-      return;
-    }
+    // if (this.query) {
+    //   return;
+    // }
     if (this.sortField === field) {
       if (this.sortAsc) {
         return 'arrow_drop_up';
@@ -390,13 +390,13 @@ export class SearchComponent implements OnInit {
   }
 
   sortBy(field: string) {
-    if (this.query) {
-      return;
-    }
+    // if (this.query) {
+    //   return;
+    // }
     if (this.sortField === field) {
       this.sortAsc = !this.sortAsc;
     } else {
-      this.sortAsc = false;
+      this.sortAsc = true;
     }
     this.sortField = field;
     this.properties.setStringProperty('search.sort_field', this.sortField);

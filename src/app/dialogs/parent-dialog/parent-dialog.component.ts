@@ -20,7 +20,7 @@ export class ParentDialogComponent implements OnInit {
   models: string[];
   model: string;
   query = '';
-  queryFiled: string;
+  queryField: string;
   searchMode: string = 'phrase';
 
   sortField: string = '';
@@ -54,7 +54,7 @@ export class ParentDialogComponent implements OnInit {
 
   ngOnInit() {
     this.model = this.properties.getStringProperty('search.model', this.config.defaultModel);
-    this.queryFiled = this.properties.getStringProperty('search.qyery_filed', 'queryLabel');
+    this.queryField = this.properties.getStringProperty('search.query_field', 'queryLabel');
 
     this.organizations = this.config.organizations;
     this.organization = this.properties.getStringProperty('search.organization', '-');
@@ -76,9 +76,9 @@ export class ParentDialogComponent implements OnInit {
   }
 
   getSortIcon(field: string) {
-    if (this.query) {
-      return;
-    }
+    // if (this.query) {
+    //   return;
+    // }
     if (this.sortField === field) {
       if (this.sortAsc) {
         return 'arrow_drop_up';
@@ -105,7 +105,7 @@ export class ParentDialogComponent implements OnInit {
 
   reload(page: number = 0) {
     this.properties.setStringProperty('search.model', this.model);
-    this.properties.setStringProperty('search.qyery_filed', this.queryFiled);
+    this.properties.setStringProperty('search.query_field', this.queryField);
     this.hierarchy = [];
     this.selectedItem = null;
     this.pageIndex = page;
@@ -114,7 +114,7 @@ export class ParentDialogComponent implements OnInit {
       type: this.searchMode,
       model: this.model,
       query: this.query,
-      queryField: this.queryFiled,
+      queryField: this.queryField,
       page: this.pageIndex,
       sortField: this.sortField,
       sortAsc: this.sortAsc,

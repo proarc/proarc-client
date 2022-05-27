@@ -389,7 +389,7 @@ export class ApiService {
     return this.post('object/dissemination', formData, {});
   }
 
-  getSearchResults(options = {}) { //model: string, query: string, queryFiled: string, page: number, sortField = 'lastCreated', sortAsc = false): Observable<[DocumentItem[], number]> {
+  getSearchResults(options = {}) { //model: string, query: string, queryField: string, page: number, sortField = 'lastCreated', sortAsc = false): Observable<[DocumentItem[], number]> {
     const params = {
       type: options['type'],
       _startRow: options['page'] * 100,
