@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class LocalStorageService {
 
-    availableSearchColumns = ['name', 'model', 'pid', 'owner', 'processor', 'organization', 'status', 'created', 'modified', 'export'];
+    availableSearchColumns = ['name', 'model', 'pid', 'owner', 'processor', 'organization', 'status', 'created', 'modified', 'export', 'isLocked'];
     private searchColumnsDefaults = {
         'name': true,
         'model': true,

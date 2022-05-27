@@ -318,6 +318,7 @@
       "userProcessor": "Zpracovatel",
       "status": "Status objektu",
       "statuses": {
+        "undefined": "Bez stavu",
         "new": "Nově vytvořeno",
         "assign": "Přiřazeno",
         "connected": "Připojeno",
