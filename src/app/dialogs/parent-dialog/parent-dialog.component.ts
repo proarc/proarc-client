@@ -5,6 +5,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ConfigService } from 'src/app/services/config.service';
+import { User } from 'src/app/model/user.model';
 
 @Component({
   selector: 'app-parent-dialog',
@@ -20,9 +21,21 @@ export class ParentDialogComponent implements OnInit {
   model: string;
   query = '';
   queryFiled: string;
+  searchMode: string = 'phrase';
 
   sortField: string = '';
   sortAsc: boolean;
+
+  queryLabel: string;
+  queryIdentifier: string;
+  queryCreator: string
+
+  organization: string;
+  owner: string;
+  processor: string;
+  organizations: string[];
+  users: User[];
+
 
   pageIndex = 0;
   pageSize = 100;
@@ -42,6 +55,23 @@ export class ParentDialogComponent implements OnInit {
   ngOnInit() {
     this.model = this.properties.getStringProperty('search.model', this.config.defaultModel);
     this.queryFiled = this.properties.getStringProperty('search.qyery_filed', 'queryLabel');
+
+    this.organizations = this.config.organizations;
+    this.organization = this.properties.getStringProperty('search.organization', '-');
+    this.owner = this.properties.getStringProperty('search.owner', '-');
+    this.processor = this.properties.getStringProperty('search.processor', '-');
+    this.sortField = this.properties.getStringProperty('search.sort_field', 'created');
+    this.sortAsc = this.properties.getBoolProperty('search.sort_asc', false);
+    if (this.model !== 'all' && this.model !== 'model:page' && this.model !== 'model:ndkpage') {
+      this.reload();
+    } else {
+      this.state = 'success';
+    }
+    this.api.getUsers().subscribe((users: User[]) => {
+      this.users = users;
+    });
+
+
     this.reload();
   }
 
@@ -81,12 +111,21 @@ export class ParentDialogComponent implements OnInit {
     this.pageIndex = page;
     this.state = 'loading';
     const options = {
+      type: this.searchMode,
       model: this.model,
       query: this.query,
       queryField: this.queryFiled,
       page: this.pageIndex,
       sortField: this.sortField,
-      sortAsc: this.sortAsc
+      sortAsc: this.sortAsc,
+      
+      organization: this.organization,
+      queryLabel: this.queryLabel,
+      queryIdentifier: this.queryIdentifier,
+      queryCreator: this.queryCreator,
+      owner: this.owner,
+      processor: this.processor,
+
     }
     this.api.getSearchResults(options).subscribe(([items, total]: [DocumentItem[], number]) => {
       this.resultCount = total;

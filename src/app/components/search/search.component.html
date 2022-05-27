@@ -39,28 +39,15 @@
       </mat-select>
     </mat-form-field>
 
-    
-  <!-- <mat-form-field class="document-search">
-    <input matInput placeholder="Hledat dokument" (keyup.enter)="reload()" [(ngModel)]="query">
-  </mat-form-field>
-
-  <mat-form-field class="query-field-filter app-filter">
-    <mat-select [placeholder]="'search.field' | translate" [(ngModel)]="queryFiled">
-      <mat-option value="queryLabel">{{ "search.fields.title" | translate }}</mat-option>
-      <mat-option value="queryIdentifier">{{ "search.fields.identifier" | translate }}</mat-option>
-      <mat-option value="queryCreator">{{ "search.fields.creator" | translate }}</mat-option>
-    </mat-select>
-  </mat-form-field> -->
-
-  <mat-form-field class="document-search">
-    <input matInput [placeholder]="'search.fields.title' | translate" (keyup.enter)="reload()" [(ngModel)]="queryLabel">
-  </mat-form-field>
-  <mat-form-field class="document-search">
-    <input matInput [placeholder]="'search.fields.identifier' | translate" (keyup.enter)="reload()" [(ngModel)]="queryIdentifier">
-  </mat-form-field>
-  <mat-form-field class="document-search">
-    <input matInput [placeholder]="'search.fields.creator' | translate" (keyup.enter)="reload()" [(ngModel)]="queryCreator">
-  </mat-form-field>
+    <mat-form-field class="document-search">
+      <input matInput [placeholder]="'search.fields.title' | translate" (keyup.enter)="reload()" [(ngModel)]="queryLabel">
+    </mat-form-field>
+    <mat-form-field class="document-search">
+      <input matInput [placeholder]="'search.fields.identifier' | translate" (keyup.enter)="reload()" [(ngModel)]="queryIdentifier">
+    </mat-form-field>
+    <mat-form-field class="document-search">
+      <input matInput [placeholder]="'search.fields.creator' | translate" (keyup.enter)="reload()" [(ngModel)]="queryCreator">
+    </mat-form-field>
 
 
     <mat-form-field class="organization-filter app-filter">

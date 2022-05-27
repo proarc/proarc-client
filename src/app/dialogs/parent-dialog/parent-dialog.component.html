@@ -5,47 +5,85 @@
 </div>
 
 <div class="app-search-results">
+  <div>
+    <button mat-button value="phrase"  [class.app-inactive]="searchMode !== 'phrase'" (click)="searchMode = 'phrase'">Dotaz</button>
+    <button mat-button value="advanced" [class.app-inactive]="searchMode !== 'advanced'" (click)="searchMode = 'advanced'">Pokročilé hledání</button>
+  </div>
 
   <div class="actions" *ngIf="state=='success'">
 
-    <mat-form-field class="model-filter">
-      <mat-select placeholder="Model" name="model" [(ngModel)]="model">
-        <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
-        <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field class="query-field-filter">
-      <mat-select [placeholder]="'search.field' | translate" [(ngModel)]="queryFiled">
-        <mat-option value="queryLabel">{{ "search.fields.title" | translate }}</mat-option>
-        <mat-option value="queryIdentifier">{{ "search.fields.identifier" | translate }}</mat-option>
-        <mat-option value="queryCreator">{{ "search.fields.creator" | translate }}</mat-option>
-        <mat-option value="owner">{{ "search.fields.owner" | translate }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  
-    <a mat-raised-button color="primary" (click)="reload()">
-        <mat-icon style="margin-right:8px;">search</mat-icon>
+    <div *ngIf="searchMode === 'phrase'" class="app-search-filteres">
+      <a mat-raised-button color="primary" class="app-search" (click)="reload()">
         {{ 'search.search' | translate }}
-    </a>
-  
-    <mat-form-field class="document-search">
-      <input matInput placeholder="Hledat dokument" (keyup.enter)="reload()" [(ngModel)]="query">
-    </mat-form-field>
+      </a>
+      <mat-form-field class="model-filter app-filter">
+        <mat-select [placeholder]="'search.model' | translate" name="model" [(ngModel)]="model">
+          <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
+          <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
+      <mat-form-field class="document-search">
+        <input matInput [placeholder]="'search.search' | translate" (keyup.enter)="reload()" [(ngModel)]="query">
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="searchMode === 'advanced'" class="app-search-filteres">
+      <a mat-raised-button color="primary" class="app-search" (click)="reload()">
+        {{ 'search.search' | translate }}
+      </a>
+  
+      <mat-form-field class="model-filter app-filter">
+        <mat-select [placeholder]="'search.model' | translate" name="model" [(ngModel)]="model">
+          <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
+          <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field class="document-search">
+        <input matInput [placeholder]="'search.fields.title' | translate" (keyup.enter)="reload()" [(ngModel)]="queryLabel">
+      </mat-form-field>
+      <mat-form-field class="document-search">
+        <input matInput [placeholder]="'search.fields.identifier' | translate" (keyup.enter)="reload()" [(ngModel)]="queryIdentifier">
+      </mat-form-field>
+      <!-- <mat-form-field class="document-search">
+        <input matInput [placeholder]="'search.fields.creator' | translate" (keyup.enter)="reload()" [(ngModel)]="queryCreator">
+      </mat-form-field> -->
+
+      <!-- <mat-form-field class="organization-filter app-filter">
+        <mat-select  [placeholder]="'search.fields.organization' | translate" name="organization" [(value)]="organization">
+          <mat-option value="-">Vše</mat-option>
+          <mat-option *ngFor="let org of organizations" [value]="org">{{ 'organization.' + org | translate }}</mat-option>
+        </mat-select>
+      </mat-form-field> -->
+  
+      <mat-form-field class="owner-filter app-filter">
+        <mat-select [placeholder]="'search.fields.owner' | translate" name="owner" [(value)]="owner">
+          <mat-option value="-">Vše</mat-option>
+          <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="owner-filter app-filter">
+        <mat-select [placeholder]="'search.fields.processor' | translate" name="processor" [(value)]="processor">
+          <mat-option value="-">Vše</mat-option>
+          <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+    </div>
 
   </div>
 
   <div class="app-table  app-items" *ngIf="state=='success'">
 
-  <div class="search-result-list">
+    <div class="search-result-list">
 
-  <div *ngIf="hierarchy.length > 0" class="app-row app-path">
-    <ng-container *ngFor="let item of hierarchy; let index = index;">
-      <mat-icon *ngIf="index > 0">chevron_right</mat-icon>
-      <span class="app-path-segment" (click)="open(item, index)">{{ item.label | appShorten:38 }}</span>
-    </ng-container>
-  </div>
+      <div *ngIf="hierarchy.length > 0" class="app-row app-path">
+        <ng-container *ngFor="let item of hierarchy; let index = index;">
+          <mat-icon *ngIf="index > 0">chevron_right</mat-icon>
+          <span class="app-path-segment" (click)="open(item, index)">{{ item.label | appShorten:38 }}</span>
+        </ng-container>
+      </div>
 
       <div class="app-row app-header">
         <div class="result-label app-header-sortable" (click)="sortBy('label')">
@@ -73,28 +111,26 @@
           <mat-icon *ngIf="getSortIcon('export')" class="sort-arrow">{{ getSortIcon('export') }}</mat-icon>
         </div>
       </div>
-    <div class="scrollable">
-      <div *ngFor="let item of items" (click)="selectedItem = item" (dblclick)="open(item)"  [class.app-selected]="item == selectedItem" class="app-row app-data">
-        <div class="result-label">{{ item.label }}</div>
-        <div class="result-model">{{ "model." + item.model | translate }}</div>
-        <div class="result-owner">{{ item.owner }}</div>
-        <div class="result-created">{{ item.created | appDatetime }}</div>
-        <div class="result-modified">{{ item.modified | appDatetime }}</div>
-        <div class="result-export">{{ item.export == 1 ? "Ano" : "Ne" }}</div>
+      <div class="scrollable">
+        <div *ngFor="let item of items" (click)="selectedItem = item" [class.app-selected]="item == selectedItem"
+          class="app-row app-data">
+          <div class="result-label">{{ item.label }}</div>
+          <div class="result-model">{{ "model." + item.model | translate }}</div>
+          <div class="result-owner">{{ item.owner }}</div>
+          <div class="result-created">{{ item.created | appDatetime }}</div>
+          <div class="result-modified">{{ item.modified | appDatetime }}</div>
+          <div class="result-export">{{ item.export == 1 ? "Ano" : "Ne" }}</div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="paginator-wrapper" *ngIf="hierarchy.length == 0">
-    <mat-paginator [length]="resultCount"
-                  hidePageSize="true"
-                  [pageIndex]="pageIndex"
-                  [pageSize]="pageSize"
-                  (page)="onPageChanged($event)">
-    </mat-paginator>
-  </div>
+    <div class="paginator-wrapper" *ngIf="hierarchy.length == 0">
+      <mat-paginator [length]="resultCount" hidePageSize="true" [pageIndex]="pageIndex" [pageSize]="pageSize"
+        (page)="onPageChanged($event)">
+      </mat-paginator>
+    </div>
 
-</div>
+  </div>
 
 </div>
 
@@ -102,11 +138,13 @@
 </mat-spinner>
 
 <div mat-dialog-actions cdk-focus-start>
-  
-  <button  *ngIf="data.parent" mat-raised-button color="primary" 
-    (click)="deleteParent()"
-    [matTooltip]="'editor.children.delete_parent_dialog.button_tooltip' | translate"><mat-icon >delete</mat-icon>{{ 'editor.children.delete_parent_dialog.button' | translate }}</button>
-  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="!selectedItem || state=='loading'" >{{ data.btnLabel | translate }}</button>
-  <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.cancel' | translate }}</button>
+
+  <button *ngIf="data.parent" mat-raised-button color="primary" (click)="deleteParent()"
+    [matTooltip]="'editor.children.delete_parent_dialog.button_tooltip' | translate">
+    <mat-icon>delete</mat-icon>{{ 'editor.children.delete_parent_dialog.button' | translate }}
+  </button>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="!selectedItem || state=='loading'">{{
+    data.btnLabel | translate }}</button>
+  <button mat-raised-button color="default" mat-dialog-close="close">{{ 'common.cancel' | translate }}</button>
 
 </div>
