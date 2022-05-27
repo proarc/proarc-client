@@ -89,7 +89,10 @@ export class ParentDialogComponent implements OnInit {
   }
 
   sortBy(field: string) {
-    if (this.query) {
+    // if (this.query) {
+    //   return;
+    // }
+    if (this.hierarchy.length > 0) {
       return;
     }
     if (this.sortField === field) {
@@ -104,8 +107,8 @@ export class ParentDialogComponent implements OnInit {
   }
 
   reload(page: number = 0) {
-    this.properties.setStringProperty('search.model', this.model);
-    this.properties.setStringProperty('search.query_field', this.queryField);
+    // this.properties.setStringProperty('search.model', this.model);
+    // this.properties.setStringProperty('search.query_field', this.queryField);
     this.hierarchy = [];
     this.selectedItem = null;
     this.pageIndex = page;
