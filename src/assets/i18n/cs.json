@@ -357,6 +357,10 @@
         "move": "Přesunout",
         "between": "v rozmezí"
       },
+      "reindex_dialog": {
+        "title": "Reindexovat všechny strany",
+        "message": "Opravdu chcete reindexovat všechny strany?"
+      },
       "relocate_dialog": {
         "title": "Přesun objektů",
         "message": "Opravdu chcete přesunout vybrané objekty do nově zvoleného objektu?",

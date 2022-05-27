@@ -1016,8 +1016,6 @@ export class EditorService {
     }
 
 
-
-
     reindexChildren() {
         let pagePid = null;
         for (const page of this.children) {
@@ -1031,8 +1029,14 @@ export class EditorService {
         }
         this.state = 'saving';
         this.api.reindexPages(this.left.pid, pagePid, this.getBatchId()).subscribe(result => {
-            this.state = 'success';
-            this.ui.showInfoSnackBar("Objekty byly reindexovány");
+
+            if (result.response.errors) {
+                this.ui.showErrorSnackBarFromObject(result.response.errors);
+                this.state = 'error';
+            } else {
+                this.state = 'success';
+                this.ui.showInfoSnackBar("Objekty byly reindexovány");
+            }
         });
     }
 

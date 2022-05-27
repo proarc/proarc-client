@@ -286,6 +286,10 @@
         "move": "Move",
         "between": "between"
       },
+      "reindex_dialog": {
+        "title": "Reindex pages",
+        "message": "Are you sure you want reindex all pages?"
+      },
       "relocate_dialog": {
         "title": "Relocate objects",
         "message": "Are you sure you want to move selected objects to the chosen object?",
