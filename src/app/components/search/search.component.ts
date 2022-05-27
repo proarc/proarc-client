@@ -396,5 +396,8 @@ export class SearchComponent implements OnInit {
     this.reload();
   }
 
+  canCopy(item: DocumentItem): boolean {
+    return item.model === 'model:ndkmonographvolume' || item.model === 'model:ndkperiodicalissue'
+  }
 
 }
