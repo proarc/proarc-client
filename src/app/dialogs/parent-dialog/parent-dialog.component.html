@@ -5,9 +5,9 @@
 </div>
 
 <div class="app-search-results">
-  <div>
-    <button mat-button value="phrase"  [class.app-inactive]="searchMode !== 'phrase'" (click)="searchMode = 'phrase'">Dotaz</button>
-    <button mat-button value="advanced" [class.app-inactive]="searchMode !== 'advanced'" (click)="searchMode = 'advanced'">Pokročilé hledání</button>
+  <div class="app-search-mode">
+    <button mat-button value="phrase"  [class.app-active]="searchMode === 'phrase'" (click)="searchMode = 'phrase'">Dotaz</button>
+    <button mat-button value="advanced" [class.app-active]="searchMode === 'advanced'" (click)="searchMode = 'advanced'">Pokročilé hledání</button>
   </div>
 
   <div class="actions" *ngIf="state=='success'">
