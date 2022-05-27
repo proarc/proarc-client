@@ -274,6 +274,7 @@ export class SearchComponent implements OnInit {
       } else {
         this.ui.showInfoSnackBar('Objekt byl úspěšně uzamčen');
         item.isLocked = true;
+        this.search.selectedTree.children.map(ch => ch.item.isLocked = true);
         //this.reload(item.pid);
       }
       
@@ -290,6 +291,7 @@ export class SearchComponent implements OnInit {
       } else {
         this.ui.showInfoSnackBar('Objekt byl úspěšně odemčen');
         item.isLocked = false;
+        this.search.selectedTree.children.map(ch => ch.item.isLocked = false);
         // this.reload(item.pid);
       }
     });
