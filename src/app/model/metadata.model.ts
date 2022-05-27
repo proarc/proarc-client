@@ -153,7 +153,6 @@ export class Metadata {
   private processMods(data) {
     this.standard = this.resolveStandard(data);
     this.template = ModelTemplate.data[this.standard][this.model];
-    console.log(this.template, this.model, this.standard)
     // if (ProArc.isChronicle(this.model)) {
     //   this.fieldsIds = [
     //     ModsTitle.getId(),

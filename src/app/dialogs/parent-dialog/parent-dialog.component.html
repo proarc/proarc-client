@@ -1,14 +1,12 @@
 <h1 mat-dialog-title>{{ 'import.select_parent' | translate }}</h1>
 <div><strong>{{ data.item.label }}</strong></div>
-<div *ngIf="data.parent">
-  {{ 'import.current_parent' | translate }}: <strong>{{ data.parent.label }}</strong> 
-  <button>Odstranit</button>
+<div *ngIf="data.parent" class="actions">
+  {{ 'import.current_parent' | translate }}: <strong>{{ data.parent.label }}</strong> &#160;
 </div>
 
 <div class="app-search-results">
 
   <div class="actions" *ngIf="state=='success'">
-
 
     <mat-form-field class="model-filter">
       <mat-select placeholder="Model" name="model" [(ngModel)]="model">
@@ -104,6 +102,8 @@
 </mat-spinner>
 
 <div mat-dialog-actions cdk-focus-start>
+  
+  <button  *ngIf="data.parent" mat-raised-button color="primary" (click)="deleteParent()"><mat-icon >delete</mat-icon>{{ 'editor.children.delete_parent_dialog.button' | translate }}</button>
   <button mat-raised-button color="primary" (click)="onSave()" [disabled]="!selectedItem || state=='loading'" >{{ data.btnLabel | translate }}</button>
   <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.cancel' | translate }}</button>
 

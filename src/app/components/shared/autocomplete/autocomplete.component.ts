@@ -27,6 +27,10 @@ export class AutocompleteComponent implements OnInit {
       return;
     }
     this.options = this.item.options(this.field);
+    if (!this.options) {
+      return
+    }
+    
     this.filteredOptions = this.item.getControl(this.field).valueChanges.pipe(
       startWith(''),
       map(v => this._filter(v))

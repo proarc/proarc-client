@@ -371,6 +371,11 @@
         "message": "Opravdu chcete vybrané objekty smazat?",
         "permanently": "Smazat trvale z úložiště",
         "success": "Objekty byly smazány"
+      },
+      "delete_parent_dialog": {
+        "button": "Zrušit vazbu",
+        "title": "Zrušení vazbu na nadřazený",
+        "message": "Opravdu chcete zrušit vazbu na nadřazený objekt?"
       }
     },
     "mods": {

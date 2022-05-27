@@ -446,6 +446,33 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.pid) {
         this.relocateOutside(result.pid);
+      } else if(result && result.delete) {
+        this.deleteParent(this.editor.parent.pid);
+      }
+    });
+  }
+
+  private deleteParent(parent: string) {
+    const data: SimpleDialogData = {
+      title: String(this.translator.instant('editor.children.delete_parent_dialog.title')),
+      message: String(this.translator.instant('editor.children.delete_parent_dialog.message')),
+      btn1: {
+        label: String(this.translator.instant('common.yes')),
+        value: 'yes',
+        color: 'primary'
+      },
+      btn2: {
+        label: String(this.translator.instant('common.no')),
+        value: 'no',
+        color: 'default'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        if (this.editor.parent) {
+          this.editor.deleteParent(parent);
+        }
       }
     });
   }

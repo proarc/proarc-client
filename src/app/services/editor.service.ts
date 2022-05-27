@@ -55,7 +55,7 @@ export class EditorService {
     parent: DocumentItem;
     previousItem: DocumentItem;
     nextItem: DocumentItem;
-    path: {pid: string, label: string, model: string}[] = [];
+    path: { pid: string, label: string, model: string }[] = [];
 
     // template: any;
     allowedChildrenModels: string[];
@@ -213,7 +213,7 @@ export class EditorService {
                 if (this.left && this.left.pid == pid) {
                     this.parent = item;
                     if (item) {
-                        this.path.unshift({pid: item.pid, label: item.label, model: item.model});
+                        this.path.unshift({ pid: item.pid, label: item.label, model: item.model });
                         this.setPath(item.pid);
                     }
                     this.setupNavigation();
@@ -229,7 +229,7 @@ export class EditorService {
     setPath(pid: string) {
         this.api.getParent(pid).subscribe((item: DocumentItem) => {
             if (item) {
-                this.path.unshift({pid: item.pid, label: item.label, model: item.model});
+                this.path.unshift({ pid: item.pid, label: item.label, model: item.model });
                 this.setPath(item.pid);
             }
         });
@@ -561,8 +561,8 @@ export class EditorService {
                 this.api.getMods(mods.pid, this.getBatchId()).subscribe((response: any) => {
 
                     if (response.errors) {
-                            this.state = 'error';
-                            this.ui.showErrorSnackBar(response.errors.mods[0].errorMessage)
+                        this.state = 'error';
+                        this.ui.showErrorSnackBar(response.errors.mods[0].errorMessage)
                     } else {
                         const newMods: Mods = Mods.fromJson(response['record']);
                         if (this.mode === 'detail') {
@@ -680,7 +680,7 @@ export class EditorService {
                     this.state = 'error';
                     return;
                 }
-            } 
+            }
 
             // .pipe(map(response => Mods.fromJson(response['data'][0])));
 
@@ -739,7 +739,7 @@ export class EditorService {
                 this.ui.showErrorSnackBarFromObject(response['response'].errors);
                 this.state = 'error';
                 return;
-              } else {
+            } else {
                 const removedPid: string[] = response['response']['data'].map(x => x.pid);
                 let nextSelection = 0;
                 for (let i = this.children.length - 1; i >= 0; i--) {
@@ -758,10 +758,29 @@ export class EditorService {
                     callback(true);
                 }
                 this.state = 'success';
-              }
+            }
 
 
-            
+
+        });
+    }
+
+    deleteParent(parent: string) {
+        this.state = 'saving';
+        this.api.deleteParent(this.left.pid, parent).subscribe((response: any) => {
+            if (response['response'].errors) {
+                this.ui.showErrorSnackBarFromObject(response['response'].errors);
+                this.state = 'error';
+                return;
+            } else {
+                this.state = 'success';
+                this.init(
+                    {
+                        pid: this.left.pid,
+                        preparation: false
+                    });
+
+            }
         });
     }
 
@@ -780,7 +799,11 @@ export class EditorService {
                 return;
             } else {
                 this.state = 'success';
-                this.goToObjectByPid(destinationPid);
+                this.init(
+                    {
+                        pid: this.left.pid,
+                        preparation: false
+                    });
             }
         });
     }
@@ -959,7 +982,7 @@ export class EditorService {
                 page.number = pageDef.number;
             }
             this.api.editPage(page, this.getBatchId()).subscribe((resp: any) => {
-                
+
                 if (resp.response.errors) {
                     this.ui.showErrorSnackBarFromObject(resp.response.errors);
                     this.state = 'error';

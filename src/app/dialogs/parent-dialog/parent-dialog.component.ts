@@ -30,9 +30,6 @@ export class ParentDialogComponent implements OnInit {
 
   hierarchy: DocumentItem[];
 
-
-
-
   constructor(
     public dialogRef: MatDialogRef<ParentDialogComponent>,
     private properties: LocalStorageService,
@@ -107,6 +104,10 @@ export class ParentDialogComponent implements OnInit {
       return;
     }
     this.dialogRef.close({pid: this.selectedItem.pid});
+  }
+
+  deleteParent() {
+    this.dialogRef.close({delete: true});
   }
 
   open(item: DocumentItem, index: number = -1) {

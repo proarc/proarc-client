@@ -214,6 +214,10 @@ export class ApiService {
     return this.post('object/member', data);
   }
 
+  deleteParent(pid: string, parent: string): Observable<any> {
+    const query = `object/member?pid=${pid}&parent=${parent}`;
+    return this.delete(query);
+  }
 
   relocateObjects(srcParent: string, dstParent: string, pids: string[]): Observable<any> {
     const httpOptions = {
