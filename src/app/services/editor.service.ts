@@ -1056,6 +1056,9 @@ export class EditorService {
             if (result.response.errors) {
                 this.ui.showErrorSnackBarFromObject(result.response.errors);
                 this.state = 'error';
+            } else if (result.response.data) {
+                this.ui.showErrorSnackBarFromObject(result.response.data.map(d => d.errorMessage = d.validation));
+                this.state = 'error';
             } else {
                 this.state = 'success';
                 this.ui.showInfoSnackBar("Objekty byly reindexovány");
