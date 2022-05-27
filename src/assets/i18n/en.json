@@ -249,6 +249,7 @@
       "userProcessor": "User processor",
       "status": "State",
       "statuses": {
+        "undefined": "Undefined",
         "new": "New",
         "assign": "Assigned",
         "connected": "Connected",
