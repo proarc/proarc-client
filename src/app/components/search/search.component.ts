@@ -264,6 +264,16 @@ export class SearchComponent implements OnInit {
     });
   }
 
+  changeLockInTree(tree: Tree, isLocked: boolean) {
+    //tree.children.map(ch => ch.item.isLocked = isLocked);
+    if (tree.children && tree.children.length > 0 ) {
+      tree.children.forEach(ch => {
+        ch.item.isLocked = isLocked;
+        this.changeLockInTree(ch, isLocked);
+      });
+    }
+  }
+
   lockObject(item: DocumentItem) {
     this.api.lockObjects([item.pid], item.model).subscribe((response: any) => {
       if (response['response'].errors) {
@@ -274,7 +284,8 @@ export class SearchComponent implements OnInit {
       } else {
         this.ui.showInfoSnackBar('Objekt byl úspěšně uzamčen');
         item.isLocked = true;
-        this.search.selectedTree.children.map(ch => ch.item.isLocked = true);
+        this.changeLockInTree(this.search.selectedTree, true);
+        // this.search.selectedTree.children.map(ch => ch.item.isLocked = true);
         //this.reload(item.pid);
       }
       
@@ -291,7 +302,8 @@ export class SearchComponent implements OnInit {
       } else {
         this.ui.showInfoSnackBar('Objekt byl úspěšně odemčen');
         item.isLocked = false;
-        this.search.selectedTree.children.map(ch => ch.item.isLocked = false);
+        this.changeLockInTree(this.search.selectedTree, false);
+        //this.search.selectedTree.children.map(ch => ch.item.isLocked = false);
         // this.reload(item.pid);
       }
     });
