@@ -245,6 +245,11 @@ export class ApiService {
             
   }
 
+  restoreObject(pid: string, hierarchy: boolean, purge: boolean): Observable<any> {
+    const query = `object?restore=true&hierarchy=${hierarchy}&purge=${purge}&pid=${pid}`;
+    return this.delete(query);
+  }
+
   lockObjects(pids: string[], model: string): Observable<any> {
     const data = `pid=${pids}&model=${model}`;
     const path = `object/lockObject`;
@@ -398,12 +403,11 @@ export class ApiService {
       params['queryModel'] = options['model'];
     }
 
+    
+    params['type'] = options['type'];
     if (options['type'] === 'phrase' && options['query']) {
-      params['type'] = options['type'];
       params['phrase'] = options['query'];
-    } else {
-      params['type'] = 'advanced';
-    }
+    } 
 
     if (options['type'] === 'advanced') {
 

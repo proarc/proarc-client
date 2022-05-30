@@ -125,7 +125,7 @@ export class SearchComponent implements OnInit {
     this.state = 'loading';
 
     const options = {
-      type: this.searchMode,
+      type: this.query ? this.searchMode : (this.searchMode === 'phrase' ? 'advanced' : this.searchMode),
       model: this.model,
       organization: this.organization,
       query: this.query,
@@ -228,6 +228,42 @@ export class SearchComponent implements OnInit {
         if (pids.indexOf(this.items[i].pid) > -1) {
           this.items.splice(i, 1);
         }
+      }
+    });
+  }
+
+  onRestore(item: DocumentItem) {
+
+    const data: SimpleDialogData = {
+      title: String(this.translator.instant('Obnovit objekt')),
+      message: String(this.translator.instant('Opravdu chcete vybrané objekty obnovit?')),
+      btn1: {
+        label: 'Ano',
+        value: 'yes',
+        color: 'warn'
+      },
+      btn2: {
+        label: 'Ne',
+        value: 'no',
+        color: 'default'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.api.restoreObject(item.pid, false, false).subscribe((response: any) => {
+          if (response['response'].errors) {
+            console.log('error', response['response'].errors);
+            this.ui.showErrorSnackBarFromObject(response['response'].errors);
+            this.state = 'error';
+            return;
+          } else {
+            this.ui.showInfoSnackBar('Objekt byl úspěšně obnoven');
+            this.reload();
+          }
+          
+        });
+        
       }
     });
   }

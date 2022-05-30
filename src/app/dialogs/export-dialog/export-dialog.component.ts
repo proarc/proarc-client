@@ -31,14 +31,11 @@ export class ExportDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: {pid: string, model: string}) { }
 
   ngOnInit() {
-    console.log(this.data)
-    console.log(this.types)
     if (this.data.model.indexOf('oldprint') > -1) {
       this.types = this.config.exports.filter(t => t !== 'archive')
     } else {
       this.types = this.config.exports.filter(t => t !== 'archive_stt')
     }
-    console.log(this.types)
     this.selectedType = this.types[0];
     this.policyPublic = true;
   }

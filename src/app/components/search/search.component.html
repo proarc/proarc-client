@@ -6,7 +6,7 @@
   </mat-button-toggle-group> -->
   <button mat-button value="phrase"  [class.app-inactive]="searchMode !== 'phrase'" (click)="searchMode = 'phrase'">Dotaz</button>
   <button mat-button value="advanced" [class.app-inactive]="searchMode !== 'advanced'" (click)="searchMode = 'advanced'">Pokročilé hledání</button>
-
+  <button mat-button value="deleted" [class.app-inactive]="searchMode !== 'deleted'" (click)="searchMode = 'deleted'">Hledat ve smazaných</button>
 </div>
 
 <div class="app-search-results">
@@ -27,7 +27,7 @@
     </mat-form-field>
   </div>
 
-  <div *ngIf="searchMode === 'advanced'" class="app-search-filteres">
+  <div *ngIf="searchMode !== 'phrase'" class="app-search-filteres">
     <a mat-raised-button color="primary" class="app-search" (click)="reload()">
       {{ 'search.search' | translate }}
     </a>
@@ -96,6 +96,7 @@
       <button (click)="onDeleteItem()" mat-button>Smazat</button>
       <button *ngIf="!selectedItem.isLocked" (click)="onLock(selectedItem, true)" mat-button>Uzamknout</button>
       <button *ngIf="selectedItem.isLocked" (click)="onLock(selectedItem, false)" mat-button>Odemknout</button>
+      <button *ngIf="selectedItem.state === 'fedora-system:def/model#Deleted'" (click)="onRestore(selectedItem)" mat-button>Obnovit objekt</button>
     </div>
     <div class="app-paginator">
       <mat-paginator [length]="resultCount"
