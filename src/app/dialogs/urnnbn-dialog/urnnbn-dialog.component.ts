@@ -66,7 +66,7 @@ export class UrnbnbDialogComponent implements OnInit {
         this.message = `Dokument má již přiděleno URN:NBN ${data['urnnbn']}`;
       } else if (data['statusType'] == "NO_PAGE_FOUND") {
         this.state = 'error';
-        this.message = 'Dokumant neobsahuje žádné strany';
+        this.message = 'Dokument neobsahuje žádné strany';
       } else if (!data['statusType'] && data['urnnbn']) {
         this.state = 'success';
         this.message = `Dokumentu bylo úspěšně přiděleno URN:NBN ${data['urnnbn']}`;
