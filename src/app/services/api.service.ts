@@ -409,7 +409,7 @@ export class ApiService {
       params['phrase'] = options['query'];
     } 
 
-    if (options['type'] === 'advanced') {
+    if (options['type'] !== 'phrase') {
 
       if (options['organization'] && options['organization'] != '-') {
         params['organization'] = options['organization'];

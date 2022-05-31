@@ -110,6 +110,9 @@
           {{ 'search.export' | translate }}
           <mat-icon *ngIf="getSortIcon('export')" class="sort-arrow">{{ getSortIcon('export') }}</mat-icon>
         </div>
+        <div class="result-export " >
+          {{ 'search.isLocked' | translate }}
+        </div>
       </div>
       <div class="scrollable">
         <div *ngFor="let item of items" (click)="selectedItem = item" (dblclick)="open(item)" [class.app-selected]="item == selectedItem"
@@ -120,6 +123,7 @@
           <div class="result-created">{{ item.created | appDatetime }}</div>
           <div class="result-modified">{{ item.modified | appDatetime }}</div>
           <div class="result-export">{{ item.export == 1 ? "Ano" : "Ne" }}</div>
+          <div class="result-export">{{ (item.isLocked ? 'common.yes' : 'common.no') | translate }}</div>
         </div>
       </div>
     </div>
