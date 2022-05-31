@@ -533,7 +533,13 @@ export class EditorService {
         this.state = 'saving';
         const pidArray = this.children.map(item => item.pid);
         const request = this.preparation ? this.api.editBatchRelations(this.left.pid, pidArray) : this.api.editRelations(this.left.pid, pidArray);
-        request.subscribe(result => {
+        request.subscribe((response: any) => {
+            
+            if (response['response'].errors) {
+                this.ui.showErrorSnackBarFromObject(response['response'].errors);
+                this.state = 'error';
+                return;
+            }
             if (callback) {
                 callback();
             }
@@ -816,7 +822,12 @@ export class EditorService {
         } else {
             pids = [this.right.pid];
         }
-        this.api.relocateObjects(this.parent.pid, destinationPid, pids).subscribe(() => {
+        this.api.relocateObjects(this.parent.pid, destinationPid, pids).subscribe((response: any) => {
+            if (response['response'].errors) {
+                this.ui.showErrorSnackBarFromObject(response['response'].errors);
+                this.state = 'error';
+                return;
+            }
             if (!openDestination) {
                 this.setRelocationMode(false);
                 let nextSelection = 0;
