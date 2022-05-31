@@ -125,12 +125,14 @@ export class HistoryComponent implements OnInit, OnDestroy {
   reloadQueue() {
     this.selectedBatch = null;
     this.state = 'loading';
+    const start = this.pageIndex * this.pageSize;
+    const end = start + this.pageSize;
     this.api.getBatchQueue().subscribe((batches: Batch[]) => {
       this.queue = batches;
       this.state = 'success';
       this.updateLoadingBatchesProgress(this.queue);
     }, error => {
-      this.api.getImportBatches('LOADING', this.pageIndex, this.pageIndex + this.pageSize).subscribe((batches: Batch[]) => {
+      this.api.getImportBatches('LOADING', start, end).subscribe((batches: Batch[]) => {
         this.queue = batches;
         this.state = 'success';
         this.updateLoadingBatchesProgress(this.queue);
