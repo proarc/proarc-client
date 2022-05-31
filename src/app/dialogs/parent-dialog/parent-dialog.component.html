@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>{{ 'import.select_parent' | translate }}</h1>
-<div><strong>{{ data.item.label }}</strong></div>
+<div *ngFor="let item of data.items"><strong>{{ item.label }}</strong></div>
 <div *ngIf="data.parent" class="actions">
   {{ 'import.current_parent' | translate }}: <strong>{{ data.parent.label }}</strong> &#160;
 </div>

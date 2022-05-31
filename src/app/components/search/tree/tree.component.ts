@@ -26,7 +26,6 @@ export class TreeComponent implements OnInit {
   }
 
   select() {
-    console.log('select', this.tree);
     this.search.selectedTree = this.tree;
   }
 

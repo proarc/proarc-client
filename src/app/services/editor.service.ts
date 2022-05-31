@@ -814,7 +814,7 @@ export class EditorService {
         });
     }
 
-    relocateObjects(destinationPid: string, openDestination: boolean) {
+    relocateObjects(parentPid: string, destinationPid: string, openDestination: boolean) {
         this.state = 'saving';
         let pids: string[];
         if (this.isMultipleChildrenMode()) {
@@ -822,7 +822,7 @@ export class EditorService {
         } else {
             pids = [this.right.pid];
         }
-        this.api.relocateObjects(this.parent.pid, destinationPid, pids).subscribe((response: any) => {
+        this.api.relocateObjects(parentPid, destinationPid, pids).subscribe((response: any) => {
             if (response['response'].errors) {
                 this.ui.showErrorSnackBarFromObject(response['response'].errors);
                 this.state = 'error';
@@ -936,6 +936,9 @@ export class EditorService {
         return count;
     }
 
+    getSelectedChildren() {
+        return this.children.filter(ch => ch.selected);
+    }
 
     editSelectedBatchPages(holder: PageUpdateHolder, callback: () => void) {
         this.state = 'saving';

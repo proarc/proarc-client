@@ -72,7 +72,7 @@ export class EditorRelocationComponent implements OnInit {
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.editor.relocateObjects(this.selection.pid, checkbox.checked);
+        this.editor.relocateObjects(this.selection.parent, this.selection.pid, checkbox.checked);
       }
     });
   }

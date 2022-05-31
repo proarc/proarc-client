@@ -436,16 +436,19 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   }
 
   onRelocateOutside() {
+    console.log(this.editor);
+    const selected = this.editor.getSelectedChildren();
+    const items = selected.length > 0 ? selected : [this.editor.left];
     const dialogRef = this.dialog.open(ParentDialogComponent, { 
       data: { 
         btnLabel: 'editor.children.relocate_label', 
         parent: this.editor.parent , 
-        item: this.editor.left 
+        items
       } 
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.pid) {
-        this.relocateOutside(result.pid);
+        this.relocateOutside(items, result.pid);
       } else if(result && result.delete) {
         this.deleteParent(this.editor.parent.pid);
       }
@@ -478,7 +481,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   }
 
 
-  private relocateOutside(destinationPid: string) {
+  private relocateOutside(items: DocumentItem[], destinationPid: string) {
     const checkbox = {
       label: String(this.translator.instant('editor.children.relocate_dialog.go')),
       checked: false
@@ -501,8 +504,8 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        if (this.editor.parent) {
-          this.editor.relocateObjects(destinationPid, checkbox.checked);
+        if (this.editor.numberOfSelectedChildren() > 0 || this.editor.parent) {
+          this.editor.relocateObjects(items[0].parent, destinationPid, checkbox.checked);
         } else {
           this.editor.setParent(destinationPid);
         }
