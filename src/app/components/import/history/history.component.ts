@@ -111,7 +111,9 @@ export class HistoryComponent implements OnInit, OnDestroy {
   reloadBatches() {
     this.selectedBatch = null;
     this.state = 'loading';
-    this.api.getImportBatches(this.selectedState, this.pageIndex, this.pageIndex + this.pageSize).subscribe((resp: any) => {
+    const start = this.pageIndex * this.pageSize;
+    const end = start + this.pageSize;
+    this.api.getImportBatches(this.selectedState, start, end).subscribe((resp: any) => {
       console.log(resp);
       this.batches = resp.data.map(d => Batch.fromJson(d));
       this.resultCount = resp.totalRows;
