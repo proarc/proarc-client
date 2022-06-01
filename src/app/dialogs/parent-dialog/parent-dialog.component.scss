@@ -5,9 +5,11 @@
 }
 
 .app-search-results {
+  margin-top: 8px;
   width: calc(80vw - 50px);
-  height: calc(100vh - 200px);
-  max-height: calc(100vh - 200px) !important;
+  height: calc(100vh - 280px);
+  max-height: calc(100vh - 280px) !important;
+  border: 1px #ccc solid;
 
   .app-search-mode {
     .app-active {
@@ -57,7 +59,7 @@
   }
 
   .app-table {
-    height: calc(100% - 70px);
+    height: calc(100% - 84px);
     box-shadow: none;
     border: 1px solid #cecece;
 
