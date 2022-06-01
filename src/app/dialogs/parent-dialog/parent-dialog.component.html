@@ -1,9 +1,11 @@
+
 <h1 mat-dialog-title>{{ 'import.select_parent' | translate }}</h1>
-<div *ngFor="let item of data.items"><strong>{{ item.label }}</strong></div>
+<ul>
+  <li *ngFor="let item of data.items"><strong>{{ item.label }}</strong></li>
+</ul>
 <div *ngIf="data.parent" class="actions">
   {{ 'import.current_parent' | translate }}: <strong>{{ data.parent.label }}</strong> &#160;
 </div>
-
 <div class="app-search-results">
   <div class="app-search-mode">
     <button mat-button value="phrase"  [class.app-active]="searchMode === 'phrase'" (click)="searchMode = 'phrase'">Dotaz</button>
