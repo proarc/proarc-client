@@ -16,7 +16,7 @@
       {{ 'search.search' | translate }}
     </a>
     <mat-form-field class="model-filter app-filter">
-      <mat-select [placeholder]="'search.model' | translate" name="model" [(ngModel)]="model">
+      <mat-select #modelSelect [placeholder]="'search.model' | translate" name="model" [(ngModel)]="model" (keyup.enter)="enterModel(modelSelect)">
         <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
         <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
       </mat-select>

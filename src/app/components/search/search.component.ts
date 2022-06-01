@@ -4,7 +4,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { Translator } from 'angular-translator';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSelect } from '@angular/material';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { ExportDialogComponent } from 'src/app/dialogs/export-dialog/export-dialog.component';
 import { UrnbnbDialogComponent } from 'src/app/dialogs/urnnbn-dialog/urnnbn-dialog.component';
@@ -28,6 +28,7 @@ export class SearchComponent implements OnInit {
   @ViewChild('split') split: SplitComponent;
   @ViewChild('area1') area1: SplitAreaDirective;
   @ViewChild('area2') area2: SplitAreaDirective;
+  @ViewChild('modelSelect') modelSelect: MatSelect;
 
 
   splitArea1Width: string;
@@ -454,6 +455,11 @@ export class SearchComponent implements OnInit {
 
   canCopy(item: DocumentItem): boolean {
     return item.model === 'model:ndkmonographvolume' || item.model === 'model:ndkperiodicalissue'
+  }
+
+  enterModel(e) {
+    this.modelSelect.close();
+    this.reload();
   }
 
 }

@@ -25,7 +25,7 @@
 
             <mat-form-field [ngClass]="config.showPageIndex ? 'app-half-right' : 'app-full-width'" [class.app-invalid]="!page.type">
               <span class="app-usage" [class.app-help-off]="true">M</span>
-              <mat-select [placeholder]="'editor.page.type' | translate" name="type" [(value)]="page.type">
+              <mat-select #typeSelect [placeholder]="'editor.page.type' | translate" name="type" [(value)]="page.type" (keyup.enter)="enterSelect(typeSelect)">
                 <mat-option *ngFor="let pageType of codebook.pageTypes" [value]="pageType.code">{{ pageType.name }}</mat-option>
               </mat-select>
             </mat-form-field> 

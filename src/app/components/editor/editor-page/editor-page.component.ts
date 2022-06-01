@@ -6,7 +6,7 @@ import { Page } from 'src/app/model/page.model';
 import { Translator } from 'angular-translator';
 import { ConfigService } from 'src/app/services/config.service';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSelect } from '@angular/material';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 
 @Component({
@@ -28,7 +28,8 @@ export class EditorPageComponent implements OnInit {
 
   @ViewChild("pageNumber") pageNumberFiled: ElementRef;
   @ViewChild("pageIndex") pageIndexFiled: ElementRef;
-
+  @ViewChild("typeSelect") typeSelect: MatSelect;
+  
 
   @Input()
   set pid(pid: string) {
@@ -62,6 +63,10 @@ export class EditorPageComponent implements OnInit {
       } else if (this.movedToNextFrom == 'pageIndex') {
         setTimeout(() => { 
           this.pageIndexFiled.nativeElement.focus();
+        },10);
+      }else if (this.movedToNextFrom == 'type') {
+        setTimeout(() => { 
+          this.typeSelect.focus();
         },10);
       }
 
@@ -160,6 +165,12 @@ export class EditorPageComponent implements OnInit {
         this.page = page;
       }
     }, !!from);
+  }
+
+  
+  enterSelect(s: MatSelect) {
+    s.close();
+    this.onSave('type');
   }
 
 }
