@@ -165,7 +165,7 @@ export class ModsPublisher extends ModsElement {
             const qualifier = this.dateIssued['$']['qualifier'];
             this.dateFrom['$']['qualifier'] = qualifier;
             this.dateTo['$']['qualifier'] = qualifier;
-            // this.dateIssued['_'] = '';
+            this.dateIssued['_'] = '';
         } else {
             this.dateFrom['_'] = '';
             this.dateTo['_'] = '';
