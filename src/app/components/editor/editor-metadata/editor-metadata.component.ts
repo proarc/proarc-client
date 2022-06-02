@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 import { CatalogDialogComponent } from 'src/app/dialogs/catalog-dialog/catalog-dialog.component';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
+import { Translator } from 'angular-translator';
 
 @Component({
   selector: 'app-editor-metadata',
@@ -18,7 +19,10 @@ export class EditorMetadataComponent implements OnInit {
   set pid(pid: string) {
     this.onPidChanged(pid);
   }
-  constructor(public editor: EditorService, private dialog: MatDialog) { }
+  constructor(
+    private translator: Translator,
+    public editor: EditorService, 
+    private dialog: MatDialog) { }
 
   ngOnInit() {
   }
@@ -55,7 +59,7 @@ export class EditorMetadataComponent implements OnInit {
       if (result === 'yes') {
         this.editor.saveMetadata(ignoreValidation, (r: any) => {
           if (r && r.errors && r.status === -4 && !ignoreValidation) {
-            this.confirmSave('Nevalidní data', r.errors.mods[0].errorMessage, true);
+            this.confirmSave(String(this.translator.instant('common.warning')), r.errors.mods[0].errorMessage, true);
           }
           // this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', false);
         });
@@ -67,7 +71,7 @@ export class EditorMetadataComponent implements OnInit {
     if (this.editor.metadata.validate()) {
       this.editor.saveMetadata(false, (r: any) => {
         if (r && r.errors && r.status === -4) {
-          this.confirmSave('Nevalidní data', r.errors.mods[0].errorMessage, true);
+          this.confirmSave(String(this.translator.instant('common.warning')), r.errors.mods[0].errorMessage, true);
         }
       });
     } else {
