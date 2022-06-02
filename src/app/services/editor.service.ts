@@ -719,7 +719,6 @@ export class EditorService {
 
     loadMetadata(callback: () => void) {
         if (this.metadata && this.metadata.pid === this.right.pid) {
-            console.log(this.metadata)
             callback();
             return;
         }

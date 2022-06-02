@@ -161,15 +161,15 @@ export class ParentDialogComponent implements OnInit {
   }
 
   open(item: DocumentItem, index: number = -1) {
-    if (item.isPage()) {
-      return;
-    }
-    if (index > -1) {
-      this.hierarchy.splice(index);
-    }
-    this.selectedItem = null;
-    this.hierarchy.push(item);
-    this.loadChildrenForPid(item.pid);
+    // if (item.isPage()) {
+    //   return;
+    // }
+    // if (index > -1) {
+    //   this.hierarchy.splice(index);
+    // }
+    // this.selectedItem = null;
+    // this.hierarchy.push(item);
+    // this.loadChildrenForPid(item.pid);
   }
 
 

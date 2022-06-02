@@ -436,7 +436,6 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   }
 
   onRelocateOutside() {
-    console.log(this.editor);
     const selected = this.editor.getSelectedChildren();
     const items = selected.length > 0 ? selected : [this.editor.left];
     const parent = selected.length > 0 ? this.editor.left : this.editor.parent;
