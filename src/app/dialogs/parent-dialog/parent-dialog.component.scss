@@ -4,6 +4,11 @@
   margin-bottom: 8px;
 }
 
+.app-pids {
+  max-height: 80px;
+  overflow: auto;
+}
+
 .app-search-results {
   margin-top: 8px;
   width: calc(80vw - 50px);
@@ -57,9 +62,14 @@
       }
     }
   }
+  
+  .app-tree {
+    max-height: calc(50% - 84px) !important;
+    overflow: auto;
+  }
 
   .app-table {
-    height: calc(100% - 84px);
+    height: 50%;
     box-shadow: none;
     border: 1px solid #cecece;
 

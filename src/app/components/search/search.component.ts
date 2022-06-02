@@ -462,4 +462,8 @@ export class SearchComponent implements OnInit {
     this.reload();
   }
 
+  openFromTree(item: DocumentItem) {
+    this.router.navigate(['/document', item.pid]);
+  }
+
 }

@@ -500,7 +500,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
         value: 'no',
         color: 'default'
       },
-      //checkbox: checkbox
+      checkbox: checkbox
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
@@ -508,7 +508,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
         if (this.editor.numberOfSelectedChildren() > 0 || this.editor.parent) {
           this.editor.relocateObjects(items[0].parent, destinationPid, checkbox.checked);
         } else {
-          this.editor.setParent(destinationPid);
+          this.editor.setParent(destinationPid, checkbox.checked);
         }
         
       }

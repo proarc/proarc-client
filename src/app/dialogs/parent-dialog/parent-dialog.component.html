@@ -1,6 +1,6 @@
 
 <h1 mat-dialog-title>{{ 'import.select_parent' | translate }}</h1>
-<ul>
+<ul class="app-pids">
   <li *ngFor="let item of data.items"><strong>{{ item.label }}</strong></li>
 </ul>
 <div *ngIf="data.parent" class="actions">
@@ -48,16 +48,6 @@
       <mat-form-field class="document-search">
         <input matInput [placeholder]="'search.fields.identifier' | translate" (keyup.enter)="reload()" [(ngModel)]="queryIdentifier">
       </mat-form-field>
-      <!-- <mat-form-field class="document-search">
-        <input matInput [placeholder]="'search.fields.creator' | translate" (keyup.enter)="reload()" [(ngModel)]="queryCreator">
-      </mat-form-field> -->
-
-      <!-- <mat-form-field class="organization-filter app-filter">
-        <mat-select  [placeholder]="'search.fields.organization' | translate" name="organization" [(value)]="organization">
-          <mat-option value="-">Vše</mat-option>
-          <mat-option *ngFor="let org of organizations" [value]="org">{{ 'organization.' + org | translate }}</mat-option>
-        </mat-select>
-      </mat-form-field> -->
   
       <mat-form-field class="owner-filter app-filter">
         <mat-select [placeholder]="'search.fields.owner' | translate" name="owner" [(value)]="owner">
@@ -76,7 +66,13 @@
 
   </div>
 
-  <div class="app-table  app-items" *ngIf="state=='success'">
+  <div class="app-table app-items" *ngIf="state=='success'">
+
+    <div class="paginator-wrapper" *ngIf="resultCount > pageSize">
+      <mat-paginator [length]="resultCount" hidePageSize="true" [pageIndex]="pageIndex" [pageSize]="pageSize"
+        (page)="onPageChanged($event)">
+      </mat-paginator>
+    </div>
 
     <div class="search-result-list">
 
@@ -117,7 +113,7 @@
         </div>
       </div>
       <div class="scrollable">
-        <div *ngFor="let item of items" (click)="selectedItem = item" (dblclick)="open(item)" [class.app-selected]="item == selectedItem"
+        <div *ngFor="let item of items" (click)="selectItem(item)" (dblclick)="open(item)" [class.app-selected]="item == selectedItem"
           class="app-row app-data">
           <div class="result-label">{{ item.label }}</div>
           <div class="result-model">{{ "model." + item.model | translate }}</div>
@@ -130,13 +126,11 @@
       </div>
     </div>
 
-    <div class="paginator-wrapper" *ngIf="hierarchy.length == 0">
-      <mat-paginator [length]="resultCount" hidePageSize="true" [pageIndex]="pageIndex" [pageSize]="pageSize"
-        (page)="onPageChanged($event)">
-      </mat-paginator>
-    </div>
-
   </div>
+  <div class="app-table app-tree">
+    <app-tree [tree]="tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)"></app-tree>
+  </div>
+  
 
 </div>
 

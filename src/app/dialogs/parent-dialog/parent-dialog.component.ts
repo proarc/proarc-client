@@ -6,6 +6,7 @@ import { DocumentItem } from 'src/app/model/documentItem.model';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { User } from 'src/app/model/user.model';
+import { Tree } from 'src/app/model/mods/tree.model';
 
 @Component({
   selector: 'app-parent-dialog',
@@ -42,6 +43,8 @@ export class ParentDialogComponent implements OnInit {
   resultCount = 0;
 
   hierarchy: DocumentItem[];
+  
+  tree: Tree;
 
   constructor(
     public dialogRef: MatDialogRef<ParentDialogComponent>,
@@ -152,6 +155,11 @@ export class ParentDialogComponent implements OnInit {
     this.dialogRef.close({delete: true});
   }
 
+  selectItem(item: DocumentItem) {
+    this.selectedItem = item;
+    this.tree = new Tree(item);
+  }
+
   open(item: DocumentItem, index: number = -1) {
     if (item.isPage()) {
       return;
@@ -178,7 +186,13 @@ export class ParentDialogComponent implements OnInit {
     });
   }
 
+  openFromTree(item: DocumentItem) {
+    this.selectedItem = item;
+  }
 
+  selectFromTree(item: DocumentItem) {
+    this.selectedItem = item;
+  }
 
 }
 

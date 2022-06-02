@@ -790,7 +790,7 @@ export class EditorService {
         });
     }
 
-    setParent(destinationPid: string) {
+    setParent(destinationPid: string, openDestination: boolean) {
         this.state = 'saving';
         let pids: string[];
         if (this.isMultipleChildrenMode()) {
@@ -844,7 +844,7 @@ export class EditorService {
                     this.selectRight(this.children[nextSelection]);
                 }
                 this.state = 'success';
-                this.goToObjectByPid(destinationPid);
+                // this.goToObjectByPid(destinationPid);
             } else {
                 this.goToObjectByPid(destinationPid);
             }
