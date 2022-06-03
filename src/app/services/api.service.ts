@@ -270,10 +270,13 @@ export class ApiService {
   }
 
 
-  reindexPages(parentPid: string, pagePid: string, batchId = null): Observable<any> {
+  reindexPages(parentPid: string, pagePid: string, batchId = null, model: string): Observable<any> {
     let data = `parent=${parentPid}&pid=${pagePid}`;
     if (batchId) {
       data = `${data}&batchId=${batchId}`;
+    }
+    if (model) {
+      data = `${data}&model=${model}`;
     }
     return this.put('object/reindexObjects', data);
   }

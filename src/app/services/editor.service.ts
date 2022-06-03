@@ -1054,9 +1054,11 @@ export class EditorService {
 
     reindexChildren() {
         let pagePid = null;
+        let model = null;
         for (const page of this.children) {
             if (page.isPage()) {
                 pagePid = page.pid;
+                model = page.model;
                 break;
             }
         }
@@ -1064,7 +1066,7 @@ export class EditorService {
             return;
         }
         this.state = 'saving';
-        this.api.reindexPages(this.left.pid, pagePid, this.getBatchId()).subscribe(result => {
+        this.api.reindexPages(this.left.pid, pagePid, this.getBatchId(), model).subscribe(result => {
 
             if (result.response.errors) {
                 this.ui.showErrorSnackBarFromObject(result.response.errors);
