@@ -10,6 +10,7 @@ import { ReloadBatchDialogComponent } from 'src/app/dialogs/reload-batch-dialog/
 import { Profile } from 'src/app/model/profile.model';
 import { ImportDialogComponent } from 'src/app/dialogs/import-dialog/import-dialog.component';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-history',
@@ -21,7 +22,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
   state = 'none';
 
   pageIndex = 0;
-  pageSize = 10;
+  pageSize = 20;
   resultCount = 200;
 
   selectedState = 'ALL';
@@ -39,6 +40,12 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
   private progressMap = {};
 
+  description: string;
+  createFrom: Date;
+  createTo: Date;
+  modifiedFrom: Date;
+  modifiedTo: Date;
+
   batchStates = [
     'ALL',
     'LOADING',
@@ -49,7 +56,9 @@ export class HistoryComponent implements OnInit, OnDestroy {
     'INGESTED'
   ];
 
-  constructor(private api: ApiService, 
+  constructor(
+    private datePipe: DatePipe,
+    private api: ApiService, 
               private dialog: MatDialog, 
               private router: Router,
               private translator: Translator) { }
@@ -112,7 +121,41 @@ export class HistoryComponent implements OnInit, OnDestroy {
     this.selectedBatch = null;
     this.state = 'loading';
     const start = this.pageIndex * this.pageSize;
-    this.api.getImportBatches(this.selectedState, start, this.pageSize).subscribe((resp: any) => {
+    let params = {
+      _sortBy: '-timestamp',
+      _startRow: start,
+      _endRow: start + this.pageSize,
+      _size: this.pageSize
+    };
+    if (this.selectedState && this.selectedState !== 'ALL') {
+      params['state'] = this.selectedState;
+    };
+
+    if (this.description) {
+      params['description'] = this.description;
+    }
+
+    if (this.createFrom) {
+      params['createFrom'] = this.datePipe.transform(this.createFrom, 'yyyy-MM-dd');
+    }
+
+    if (this.createTo) {
+      params['createTo'] =  this.datePipe.transform(this.createTo, 'yyyy-MM-dd');
+    }
+
+    if (this.modifiedFrom) {
+      params['modifiedFrom'] =  this.datePipe.transform(this.modifiedFrom, 'yyyy-MM-dd');
+    }
+
+    if (this.modifiedTo) {
+      params['modifiedTo'] =  this.datePipe.transform(this.modifiedTo, 'yyyy-MM-dd');
+    }
+    // createFrom: 2022-05-01T10:36:00.000
+    // createTo: 2022-06-03T10:36:00.000
+    // modifiedTo modifiedTo
+
+
+    this.api.getImportBatches(params).subscribe((resp: any) => {
       console.log(resp);
       this.batches = resp.data.map(d => Batch.fromJson(d));
       this.resultCount = resp.totalRows;
@@ -130,7 +173,19 @@ export class HistoryComponent implements OnInit, OnDestroy {
       this.state = 'success';
       this.updateLoadingBatchesProgress(this.queue);
     }, error => {
-      this.api.getImportBatches('LOADING', start, this.pageSize).subscribe((batches: Batch[]) => {
+      
+    let params = {
+      _sortBy: '-timestamp',
+      _startRow: start,
+      _endRow: start + this.pageSize,
+      _size: this.pageSize,
+      state: 'LOADING'
+    };
+    if (this.description) {
+      params['description'] = this.description;
+    }
+
+      this.api.getImportBatches(params).subscribe((batches: Batch[]) => {
         this.queue = batches;
         this.state = 'success';
         this.updateLoadingBatchesProgress(this.queue);
@@ -206,7 +261,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
     this.api.reloadBatch(this.selectedBatch.id, profile.id).subscribe((batch: Batch) => {
       const dialogRef = this.dialog.open(ImportDialogComponent, { data: {batch: batch.id }});
       dialogRef.afterClosed().subscribe(result => {
-        console.log(result)
+        
           if (result === 'open') {
             this.onIngestBatch();
           } else {

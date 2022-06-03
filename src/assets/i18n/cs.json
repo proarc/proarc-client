@@ -204,11 +204,17 @@
   },
   "history": {
     "title": "Správa importních dávek",
+    "desc": "Složka/název",
+    "desc_tooltip": "Omezí výsledek podle názvu adresáře nebo importovaného souboru.",
     "state": "Stav",
     "folder": "Složka",
     "user": "Uživatel",
     "created": "Vytvořeno",
     "modified": "Upraveno",
+    "createFrom": "Vytvořeno od",
+    "createTo": "Vytvořeno do",
+    "modifiedFrom": "Upraveno od",
+    "modifiedTo": "Upraveno do",
     "show_log": "Zobrazit detail chyby",
     "log_dialog": {
       "title": "Detail chyby"
