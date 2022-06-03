@@ -21,7 +21,7 @@
         <div class="result-export" *ngIf="properties.isSearchColEnabled('isLocked')">{{ (tree.item.isLocked ? 'common.yes' : 'common.no') | translate }}</div>
       </div>
       <ng-container *ngIf="tree.expanded && tree.children">
-        <app-tree *ngFor="let child of tree.children" [tree]="child"  (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)"></app-tree>
+        <app-tree *ngFor="let child of tree.children" [tree]="child" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)" [expandedPath]="expandedPath"></app-tree>
       </ng-container>
 
 

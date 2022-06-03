@@ -13,6 +13,7 @@ import { ResizedEvent } from 'angular-resize-event';
 import { ParentDialogComponent } from 'src/app/dialogs/parent-dialog/parent-dialog.component';
 import { ConvertDialogComponent } from 'src/app/dialogs/convert-dialog/convert-dialog.component';
 import { AuthService } from 'src/app/services/auth.service';
+import { Tree } from 'src/app/model/mods/tree.model';
 
 
 
@@ -52,6 +53,9 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   iconHeight: number;
 
   isDragging = false;
+
+  lastSelectedParent: DocumentItem;
+  lastSelectedTree: Tree;
 
   constructor(public editor: EditorService,
     private dialog: MatDialog,
@@ -443,11 +447,15 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
       data: { 
         btnLabel: 'editor.children.relocate_label', 
         parent, 
-        items
+        items,
+        selectedItem: this.lastSelectedParent,
+        selectedTree: this.lastSelectedTree
       } 
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.pid) {
+        this.lastSelectedParent = result.selectedItem;
+        this.lastSelectedTree = result.selectedTree;
         this.relocateOutside(items, result.pid);
       } else if(result && result.delete) {
         this.deleteParent(this.editor.parent.pid);

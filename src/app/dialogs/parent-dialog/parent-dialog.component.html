@@ -128,7 +128,7 @@
 
   </div>
   <div class="app-table app-tree">
-    <app-tree [tree]="tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)"></app-tree>
+    <app-tree [tree]="tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)" [expanded]="data.selectedTree !== undefined" [expandedPath]="expandedPath"></app-tree>
   </div>
   
 
@@ -144,7 +144,7 @@
     <mat-icon>delete</mat-icon>{{ 'editor.children.delete_parent_dialog.button' | translate }}
   </button>
   <button mat-raised-button color="primary" (click)="onSave()" [disabled]="!selectedItem || state=='loading'">{{
-    data.btnLabel | translate }}</button>
+    data.btnLabel | translate }} {{ selectedItem ? ( ' k "(' + selectedItem.label + '"")' ) : ''}} </button> 
   <button mat-raised-button color="default" mat-dialog-close="close">{{ 'common.cancel' | translate }}</button>
 
 </div>

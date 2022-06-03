@@ -76,4 +76,14 @@ export class Tree {
             }
         }
     }
+
+    getParentByLevel(level: number): Tree {
+      if (this.level === level) {
+          return this;
+      } else if (!this.parent) {
+          return undefined;
+      } else {
+          return this.parent.getParentByLevel(level);
+      }
+    }
 }

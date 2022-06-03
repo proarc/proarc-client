@@ -7,6 +7,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { User } from 'src/app/model/user.model';
 import { Tree } from 'src/app/model/mods/tree.model';
+import { rootRoute } from '@angular/router/src/router_module';
 
 @Component({
   selector: 'app-parent-dialog',
@@ -18,6 +19,7 @@ export class ParentDialogComponent implements OnInit {
   state = 'none';
   items: DocumentItem[];
   selectedItem: DocumentItem;
+  selectedTree: Tree;
   models: string[];
   model: string;
   query = '';
@@ -45,6 +47,7 @@ export class ParentDialogComponent implements OnInit {
   hierarchy: DocumentItem[];
   
   tree: Tree;
+  expandedPath: string[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<ParentDialogComponent>,
@@ -137,7 +140,25 @@ export class ParentDialogComponent implements OnInit {
       this.resultCount = total;
       this.items = items;
       this.state = 'success';
+      if (this.data.selectedTree) {
+        this.setExpandedPath(this.data.selectedTree);
+        const root = this.data.selectedTree.getParentByLevel(0);
+        if (root) {
+          const item = this.items.find(i => i.pid === root.item.pid);
+          if (item) {
+            this.selectItem(item);
+          }
+          
+        }
+      }
     });
+  }
+
+  setExpandedPath(tree: Tree) {
+    this.expandedPath.push(tree.item.pid);
+    if(tree.parent) {
+      this.setExpandedPath(tree.parent);
+    }
   }
 
   onPageChanged(page) {
@@ -148,7 +169,7 @@ export class ParentDialogComponent implements OnInit {
     if (!this.selectedItem) {
       return;
     }
-    this.dialogRef.close({pid: this.selectedItem.pid});
+    this.dialogRef.close({pid: this.selectedItem.pid, selectedItem: this.selectedItem, selectedTree: this.selectedTree});
   }
 
   deleteParent() {
@@ -158,6 +179,7 @@ export class ParentDialogComponent implements OnInit {
   selectItem(item: DocumentItem) {
     this.selectedItem = item;
     this.tree = new Tree(item);
+    
   }
 
   open(item: DocumentItem, index: number = -1) {
@@ -190,8 +212,9 @@ export class ParentDialogComponent implements OnInit {
     this.selectedItem = item;
   }
 
-  selectFromTree(item: DocumentItem) {
-    this.selectedItem = item;
+  selectFromTree(tree: Tree) {
+    this.selectedTree = tree;
+    this.selectedItem = tree.item;
   }
 
 }

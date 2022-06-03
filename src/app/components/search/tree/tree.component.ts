@@ -13,9 +13,10 @@ import { SearchService } from 'src/app/services/search.service';
 })
 export class TreeComponent implements OnInit {
 
-
   @Input('tree') tree: Tree;
-  @Output() onSelect = new EventEmitter<DocumentItem>();
+  @Input('expanded') expanded: boolean;
+  @Input('expandedPath') expandedPath: string[];
+  @Output() onSelect = new EventEmitter<Tree>();
   @Output() onOpen = new EventEmitter<DocumentItem>();
 
   constructor(public properties: LocalStorageService, 
@@ -25,12 +26,20 @@ export class TreeComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.tree && this.expanded) {
+      this.tree.expand(this.api);
+    }
+  }
 
+  ngOnChanges(c) {
+    if (this.tree && this.expandedPath && this.expandedPath.includes(this.tree.item.pid)) {
+      this.tree.expand(this.api);
+    }
   }
 
   select() {
     this.search.selectedTree = this.tree;
-    this.onSelect.emit(this.tree.item);
+    this.selectFromTree(this.tree);
   }
 
   toggle(event) {
@@ -51,8 +60,8 @@ export class TreeComponent implements OnInit {
     this.onOpen.emit(item);
   }
 
-  selectFromTree(item: DocumentItem) {
-    this.onSelect.emit(item);
+  selectFromTree(tree: Tree) {
+    this.onSelect.emit(tree);
   }
 
 }
