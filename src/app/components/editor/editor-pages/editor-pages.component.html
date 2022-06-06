@@ -90,6 +90,7 @@
                 <mat-option *ngFor="let type of holder.numberingTypes;" [value]="type">{{ type.label }}</mat-option>
               </mat-select>
             </mat-form-field>
+            <mat-checkbox color="primary" [(ngModel)]="holder.doubleColumns">{{ 'editor.pages.doubleColumns' | translate }}</mat-checkbox>
 
             <div class="app-numbering-example">
               <div class="app-numbering-label">{{ 'editor.pages.number_example' | translate }}</div>

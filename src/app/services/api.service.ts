@@ -530,6 +530,9 @@ export class ApiService {
     if (holder.useBrackets) {
       data += `&useBrackets=${holder.useBrackets}`;
     }
+    if (holder.doubleColumns) {
+      data += `&doubleColumns=${holder.doubleColumns}`;
+    }
     if (holder.editNumber) {
       data += `&sequence=${holder.pageNumberNumbering.id}&prefix=${holder.pageNumberPrefix}&suffix=${holder.pageNumberSuffix}&startNumber=${holder.getPageIndexFrom()}&incrementNumber=${holder.pageNumberIncrement}`;
     }

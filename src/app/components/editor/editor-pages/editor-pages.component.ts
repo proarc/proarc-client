@@ -75,6 +75,7 @@ export class PageUpdateHolder {
   editNumber: boolean;
 
   useBrackets: boolean;
+  doubleColumns: boolean;
 
   pageType: string;
   pageIndex: number;
@@ -203,11 +204,8 @@ export class PageUpdateHolder {
     }
   }
 
-
-  getNumberForIndex(index: number) {
+  getAsString(num: number) {
     let result = this.pageNumberPrefix;
-    let num = this.findIndexInNumbering(this.pageNumberFrom);
-    num += this.pageNumberIncrement * index;
     if (this.pageNumberNumbering === this.numberingTypes[0]) {
       result += String(num);
     } else if (this.pageNumberNumbering === this.numberingTypes[1]) {
@@ -219,9 +217,20 @@ export class PageUpdateHolder {
     } else if (this.pageNumberNumbering === this.numberingTypes[4]) {
       result += this.getAlphabetFromNumber(num).toLocaleLowerCase();
     }
-    result = result + this.pageNumberSuffix;;
+    result = result + this.pageNumberSuffix;
     if (this.useBrackets) {
-      return '[' + result + ']';
+      result = '[' + result + ']';
+    }
+    return result;
+  }
+
+  getNumberForIndex(index: number, checkDouble = true) {
+    let num = this.findIndexInNumbering(this.pageNumberFrom);
+    let idx = this.doubleColumns ? index*2 : index;
+    num += this.pageNumberIncrement * idx;
+    let result = this.getAsString(num);
+    if (checkDouble && this.doubleColumns) {
+      result += ',' + this.getAsString(num + this.pageNumberIncrement);
     }
     return result
   }
@@ -245,7 +254,7 @@ export class PageUpdateHolder {
 
   getNumberingExample(): string {
     if (this.pageNumberFrom && this.numberFromValid()) {
-      return `${this.getNumberForIndex(0)}, ${this.getNumberForIndex(1)}, ${this.getNumberForIndex(2)}, ${this.getNumberForIndex(3)}`;
+      return `${this.getNumberForIndex(0)}; ${this.getNumberForIndex(1)}; ${this.getNumberForIndex(2)}; ${this.getNumberForIndex(3)}`;
     }
   }
 

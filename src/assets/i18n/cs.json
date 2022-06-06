@@ -444,7 +444,8 @@
       "number_example": "Ukázka",
       "apply": "Aplikovat na",
       "apply_to": "Každou {{ num > 1 ? num + '.' : ''}} stranu",
-      "apply_to_first": "Včetně první strany"
+      "apply_to_first": "Včetně první strany",
+      "doubleColumns": "Číslování sloupců"
     },
     "type": {
       "biblio": "Bibliografická metadata",
