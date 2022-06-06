@@ -672,7 +672,6 @@ export class EditorService {
     saveMetadata(ignoreValidation: boolean, callback: (r: any) => void) {
         this.state = 'saving';
         this.api.editMetadata(this.metadata, ignoreValidation).subscribe((response: any) => {
-            console.log(response)
             if (response.errors) {
                 if (response.status === -4) {
                     // Ukazeme dialog a posleme s ignoreValidation=true
