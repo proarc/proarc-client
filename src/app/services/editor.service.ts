@@ -1083,7 +1083,7 @@ export class EditorService {
 
     reloadChildren(callback: () => void, moveToNext = false) {
         this.api.getRelations(this.left.pid).subscribe((children: DocumentItem[]) => {
-            if (this.isMultipleChildrenMode()) {
+            if (this.numberOfSelectedChildren() > 1) {
                 for (const oldChild of this.children) {
                     if (oldChild.selected) {
                         for (const newChild of children) {

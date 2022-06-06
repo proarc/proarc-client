@@ -141,8 +141,8 @@
       <div *ngIf="isColumnSelected('status')" class="app-col">{{ item.status }}</div>
 
 
-      <div *ngIf="!editor.isMultipleChildrenMode() && !editor.preparation" class="app-col-actions">
-          <button matTooltip="{{ 'editor.children.open_object' | translate }}" (click)="open(item); $event.stopPropagation();" mat-icon-button>
+      <div class="app-col-actions">
+          <button *ngIf="editor.numberOfSelectedChildren() < 2 && !editor.preparation" matTooltip="{{ 'editor.children.open_object' | translate }}" (click)="open(item); $event.stopPropagation();" mat-icon-button>
               <mat-icon>folder_open</mat-icon>
           </button>
       </div>
