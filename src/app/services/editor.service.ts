@@ -585,11 +585,10 @@ export class EditorService {
         });
     }
 
-    updateModsFromCatalog(mods: string) {
+    updateModsFromCatalog(xml: string) {
         // console.log(mods)
-        this.metadata =  new Metadata(this.metadata.pid, this.metadata.model, mods, this.metadata.timestamp);
-        // this.metadata = Metadata.fromMods(Metadata.parseMods(mods), this.metadata.model);
-        this.state = 'success';
+        this.metadata =  new Metadata(this.metadata.pid, this.metadata.model, xml, this.metadata.timestamp);
+        // this.state = 'success';
     }
 
     saveModsFromCatalog(xml: string, callback: () => void) {
@@ -598,6 +597,7 @@ export class EditorService {
             if (resp.errors) {
                 this.state = 'error';
                 this.ui.showErrorSnackBarFromObject(resp.errors);
+                this.metadata =  new Metadata(this.metadata.pid, this.metadata.model, xml, this.metadata.timestamp);
                 return;
             }
             this.api.getMods(this.metadata.pid).subscribe((response: any) => {

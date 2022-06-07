@@ -24,6 +24,7 @@ import { ModsPart } from './mods/part.model';
 import { ModsRecordInfo } from './mods/recordInfo.model';
 import {ModsTableOfContents} from './mods/tableOfContents';
 import {ModsRelatedItem} from './mods/relatedItem.model';
+import { Subject, Observable, ReplaySubject } from 'rxjs';
 declare var $: any;
 
 export class Metadata {
@@ -71,7 +72,6 @@ export class Metadata {
     this.originalMods = mods.trim();
     // this.originalDc = dc.trim();
     // this.relations = relations;
-
     this.parseMods(mods);
   }
 
@@ -238,6 +238,7 @@ export class Metadata {
         }
       }
     // }
+    console.log(this);
   }
 
   toJson() {

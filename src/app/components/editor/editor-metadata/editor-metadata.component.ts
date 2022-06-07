@@ -83,8 +83,14 @@ export class EditorMetadataComponent implements OnInit {
     const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'full' } });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
-
+        // this.editor.saveModsFromCatalog(result['mods'], () => {});
         this.editor.updateModsFromCatalog(result['mods']);
+        setTimeout(() => {
+          const a = this.editor.metadata.validate();
+          if (!a) {
+            this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', false);
+          }
+        }, 100);
       }
     });
   }
