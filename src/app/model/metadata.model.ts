@@ -238,7 +238,6 @@ export class Metadata {
         }
       }
     // }
-    console.log(this);
   }
 
   toJson() {

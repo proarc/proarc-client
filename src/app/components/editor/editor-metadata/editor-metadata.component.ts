@@ -5,6 +5,7 @@ import { CatalogDialogComponent } from 'src/app/dialogs/catalog-dialog/catalog-d
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { Translator } from 'angular-translator';
+import { UIService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-editor-metadata',
@@ -22,6 +23,7 @@ export class EditorMetadataComponent implements OnInit {
   constructor(
     private translator: Translator,
     public editor: EditorService, 
+    private ui: UIService,
     private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -86,9 +88,8 @@ export class EditorMetadataComponent implements OnInit {
         // this.editor.saveModsFromCatalog(result['mods'], () => {});
         this.editor.updateModsFromCatalog(result['mods']);
         setTimeout(() => {
-          const a = this.editor.metadata.validate();
-          if (!a) {
-            this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', false);
+          if (!this.editor.metadata.validate()) {
+            this.ui.showErrorSnackBar('Importovaná metadata z katalogu obsahuje nevalidní data');
           }
         }, 100);
       }
