@@ -85,13 +85,13 @@ export class EditorMetadataComponent implements OnInit {
     const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'full' } });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
-        // this.editor.saveModsFromCatalog(result['mods'], () => {});
-        this.editor.updateModsFromCatalog(result['mods']);
-        setTimeout(() => {
-          if (!this.editor.metadata.validate()) {
-            this.ui.showErrorSnackBar('Importovaná metadata z katalogu obsahuje nevalidní data');
-          }
-        }, 100);
+        this.editor.saveModsFromCatalog(result['mods'], () => {});
+        // this.editor.updateModsFromCatalog(result['mods']);
+        // setTimeout(() => {
+        //   if (!this.editor.metadata.validate()) {
+        //     this.ui.showErrorSnackBar('Importovaná metadata z katalogu obsahuje nevalidní data');
+        //   }
+        // }, 100);
       }
     });
   }

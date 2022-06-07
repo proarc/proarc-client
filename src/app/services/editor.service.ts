@@ -598,6 +598,9 @@ export class EditorService {
                 this.state = 'error';
                 this.ui.showErrorSnackBarFromObject(resp.errors);
                 this.metadata =  new Metadata(this.metadata.pid, this.metadata.model, xml, this.metadata.timestamp);
+                setTimeout(() => {
+                    this.metadata.validate();
+                }, 100);
                 return;
             }
             this.api.getMods(this.metadata.pid).subscribe((response: any) => {
