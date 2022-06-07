@@ -75,6 +75,7 @@ export class Metadata {
     this.parseMods(mods);
   }
 
+
   public static fromMods(mods: Mods, model: string) {
     return new Metadata(mods.pid, model, mods.content, mods.timestamp);
   }

@@ -83,9 +83,8 @@ export class EditorMetadataComponent implements OnInit {
     const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'full' } });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
-        this.editor.updateModsFromCatalog(result['mods'], () => {
 
-        });
+        this.editor.updateModsFromCatalog(result['mods']);
       }
     });
   }

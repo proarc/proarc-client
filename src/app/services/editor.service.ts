@@ -585,10 +585,27 @@ export class EditorService {
         });
     }
 
-    updateModsFromCatalog(xml: string, callback: () => void) {
+    updateModsFromCatalog(mods: string) {
+        // console.log(mods)
+        this.metadata =  new Metadata(this.metadata.pid, this.metadata.model, mods, this.metadata.timestamp);
+        // this.metadata = Metadata.fromMods(Metadata.parseMods(mods), this.metadata.model);
+        this.state = 'success';
+    }
+
+    saveModsFromCatalog(xml: string, callback: () => void) {
         this.state = 'saving';
-        this.api.editModsXml(this.metadata.pid, xml, this.metadata.timestamp, false).subscribe(() => {
+        this.api.editModsXml(this.metadata.pid, xml, this.metadata.timestamp, false).subscribe((resp: any) => {
+            if (resp.errors) {
+                this.state = 'error';
+                this.ui.showErrorSnackBarFromObject(resp.errors);
+                return;
+            }
             this.api.getMods(this.metadata.pid).subscribe((response: any) => {
+                if (response.errors) {
+                    this.state = 'error';
+                    this.ui.showErrorSnackBarFromObject(response.errors);
+                    return;
+                }
                 const mods: Mods = Mods.fromJson(response['record']);
                 this.metadata = Metadata.fromMods(mods, this.metadata.model);
                 if (this.mode === 'children') {
