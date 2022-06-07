@@ -6,6 +6,7 @@ import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { MatDialog } from '@angular/material';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { Translator } from 'angular-translator';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-editor-relocation',
@@ -19,6 +20,7 @@ export class EditorRelocationComponent implements OnInit {
   selection: DocumentItem;
   rootPid: string;
   parent: string;
+  shortLabels = false;
 
   @Input()
   set pid(pid: string) {
@@ -30,15 +32,17 @@ export class EditorRelocationComponent implements OnInit {
   constructor(public editor: EditorService,
               private dialog: MatDialog,
               private translator: Translator,
+              private properties: LocalStorageService,
               private api: ApiService) {
   }
 
   ngOnInit() {
-
+    this.shortLabels = this.properties.getBoolProperty('children.short_labels', false);
   }
 
   select(item: DocumentItem) {
     this.selection = item;
+    console.log(this.selection.parent, this.selection.pid);
   }
 
   isSelected(item: DocumentItem) {
@@ -72,7 +76,16 @@ export class EditorRelocationComponent implements OnInit {
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.editor.relocateObjects(this.selection.parent, this.selection.pid, checkbox.checked);
+
+        if (this.editor.numberOfSelectedChildren() > 0 || this.editor.parent) {
+          const items = this.editor.numberOfSelectedChildren() > 0 ? this.editor.getSelectedChildren() : [this.editor.left];
+          this.editor.relocateObjects(items[0].parent, this.selection.pid, checkbox.checked);
+        } else {
+          this.editor.setParent(this.selection.pid, checkbox.checked);
+        }
+        // const items = selected.length > 0 ? selected : [this.editor.left];
+        // const parent = selected.length > 0 ? this.editor.left : this.editor.parent;
+        // this.editor.relocateObjects(this.selection.parent, this.selection.pid, checkbox.checked);
       }
     });
   }
