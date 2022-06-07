@@ -41,7 +41,6 @@ export class EditorRelocationComponent implements OnInit {
   }
 
   select(item: DocumentItem) {
-    this.selection = item;
     console.log(this.selection.parent, this.selection.pid);
   }
 
