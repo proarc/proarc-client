@@ -66,72 +66,72 @@
 
   </div>
 
-  <div class="app-table app-items" *ngIf="state=='success'">
+  <div class="app-result-area">
+    <div class="app-table app-items" *ngIf="state=='success'">
 
-    <div class="paginator-wrapper" *ngIf="resultCount > pageSize">
-      <mat-paginator [length]="resultCount" hidePageSize="true" [pageIndex]="pageIndex" [pageSize]="pageSize"
-        (page)="onPageChanged($event)">
-      </mat-paginator>
+      <div class="paginator-wrapper" *ngIf="resultCount > pageSize">
+        <mat-paginator [length]="resultCount" hidePageSize="true" [pageIndex]="pageIndex" [pageSize]="pageSize"
+          (page)="onPageChanged($event)">
+        </mat-paginator>
+      </div>
+
+      <div class="search-result-list">
+
+        <div *ngIf="hierarchy.length > 0" class="app-row app-path">
+          <ng-container *ngFor="let item of hierarchy; let index = index;">
+            <mat-icon *ngIf="index > 0">chevron_right</mat-icon>
+            <span class="app-path-segment" (click)="open(item, index)">{{ item.label | appShorten:38 }}</span>
+          </ng-container>
+        </div>
+
+        <div class="app-row app-header">
+          <div class="result-label app-header-sortable" (click)="sortBy('label')">
+            {{ 'search.name' | translate }}
+            <mat-icon *ngIf="getSortIcon('label')" class="sort-arrow">{{ getSortIcon('label') }}</mat-icon>
+          </div>
+          <div class="result-model app-header-sortable" (click)="sortBy('model')">
+            {{ 'search.model' | translate }}
+            <mat-icon *ngIf="getSortIcon('model')" class="sort-arrow">{{ getSortIcon('model') }}</mat-icon>
+          </div>
+          <div class="result-owner app-header-sortable" (click)="sortBy('owner')">
+            {{ 'search.owner' | translate }}
+            <mat-icon *ngIf="getSortIcon('owner')" class="sort-arrow">{{ getSortIcon('owner') }}</mat-icon>
+          </div>
+          <div class="result-created app-header-sortable" (click)="sortBy('created')">
+            {{ 'search.created' | translate }}
+            <mat-icon *ngIf="getSortIcon('created')" class="sort-arrow">{{ getSortIcon('created') }}</mat-icon>
+          </div>
+          <div class="result-modified app-header-sortable" (click)="sortBy('modified')">
+            {{ 'search.modified' | translate }}
+            <mat-icon *ngIf="getSortIcon('modified')" class="sort-arrow">{{ getSortIcon('modified') }}</mat-icon>
+          </div>
+          <div class="result-export app-header-sortable" (click)="sortBy('export')">
+            {{ 'search.export' | translate }}
+            <mat-icon *ngIf="getSortIcon('export')" class="sort-arrow">{{ getSortIcon('export') }}</mat-icon>
+          </div>
+          <div class="result-export " >
+            {{ 'search.isLocked' | translate }}
+          </div>
+        </div>
+        <div class="scrollable">
+          <div *ngFor="let item of items" (click)="selectItem(item)" (dblclick)="open(item)" [class.app-selected]="item == selectedItem"
+            class="app-row app-data">
+            <div class="result-label">{{ item.label }}</div>
+            <div class="result-model">{{ "model." + item.model | translate }}</div>
+            <div class="result-owner">{{ item.owner }}</div>
+            <div class="result-created">{{ item.created | appDatetime }}</div>
+            <div class="result-modified">{{ item.modified | appDatetime }}</div>
+            <div class="result-export">{{ item.export == 1 ? "Ano" : "Ne" }}</div>
+            <div class="result-export">{{ (item.isLocked ? 'common.yes' : 'common.no') | translate }}</div>
+          </div>
+        </div>
+      </div>
+
     </div>
-
-    <div class="search-result-list">
-
-      <div *ngIf="hierarchy.length > 0" class="app-row app-path">
-        <ng-container *ngFor="let item of hierarchy; let index = index;">
-          <mat-icon *ngIf="index > 0">chevron_right</mat-icon>
-          <span class="app-path-segment" (click)="open(item, index)">{{ item.label | appShorten:38 }}</span>
-        </ng-container>
-      </div>
-
-      <div class="app-row app-header">
-        <div class="result-label app-header-sortable" (click)="sortBy('label')">
-          {{ 'search.name' | translate }}
-          <mat-icon *ngIf="getSortIcon('label')" class="sort-arrow">{{ getSortIcon('label') }}</mat-icon>
-        </div>
-        <div class="result-model app-header-sortable" (click)="sortBy('model')">
-          {{ 'search.model' | translate }}
-          <mat-icon *ngIf="getSortIcon('model')" class="sort-arrow">{{ getSortIcon('model') }}</mat-icon>
-        </div>
-        <div class="result-owner app-header-sortable" (click)="sortBy('owner')">
-          {{ 'search.owner' | translate }}
-          <mat-icon *ngIf="getSortIcon('owner')" class="sort-arrow">{{ getSortIcon('owner') }}</mat-icon>
-        </div>
-        <div class="result-created app-header-sortable" (click)="sortBy('created')">
-          {{ 'search.created' | translate }}
-          <mat-icon *ngIf="getSortIcon('created')" class="sort-arrow">{{ getSortIcon('created') }}</mat-icon>
-        </div>
-        <div class="result-modified app-header-sortable" (click)="sortBy('modified')">
-          {{ 'search.modified' | translate }}
-          <mat-icon *ngIf="getSortIcon('modified')" class="sort-arrow">{{ getSortIcon('modified') }}</mat-icon>
-        </div>
-        <div class="result-export app-header-sortable" (click)="sortBy('export')">
-          {{ 'search.export' | translate }}
-          <mat-icon *ngIf="getSortIcon('export')" class="sort-arrow">{{ getSortIcon('export') }}</mat-icon>
-        </div>
-        <div class="result-export " >
-          {{ 'search.isLocked' | translate }}
-        </div>
-      </div>
-      <div class="scrollable">
-        <div *ngFor="let item of items" (click)="selectItem(item)" (dblclick)="open(item)" [class.app-selected]="item == selectedItem"
-          class="app-row app-data">
-          <div class="result-label">{{ item.label }}</div>
-          <div class="result-model">{{ "model." + item.model | translate }}</div>
-          <div class="result-owner">{{ item.owner }}</div>
-          <div class="result-created">{{ item.created | appDatetime }}</div>
-          <div class="result-modified">{{ item.modified | appDatetime }}</div>
-          <div class="result-export">{{ item.export == 1 ? "Ano" : "Ne" }}</div>
-          <div class="result-export">{{ (item.isLocked ? 'common.yes' : 'common.no') | translate }}</div>
-        </div>
-      </div>
+    <div class="app-table app-tree" *ngIf="selectedItem">
+      <app-tree [tree]="tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)" [expanded]="data.selectedTree !== undefined" [expandedPath]="expandedPath"></app-tree>
     </div>
-
   </div>
-  <div class="app-table app-tree">
-    <app-tree [tree]="tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)" [expanded]="data.selectedTree !== undefined" [expandedPath]="expandedPath"></app-tree>
-  </div>
-  
-
 </div>
 
 <mat-spinner *ngIf="state=='loading'" [strokeWidth]="5" [diameter]="60" class="center-spinner">

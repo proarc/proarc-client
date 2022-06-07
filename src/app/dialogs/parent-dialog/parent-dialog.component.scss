@@ -62,15 +62,21 @@
       }
     }
   }
+
+  .app-result-area {
+    height: 100%;
+    background-color: #eee;
+  }
   
   .app-tree {
+    margin-top: 5px;
     max-height: calc(50% - 84px) !important;
     overflow: auto;
   }
 
   .app-table {
-    height: 50%;
-    box-shadow: none;
+    height: calc(50% - 5px);
+    // box-shadow: none;
     border: 1px solid #cecece;
 
     .app-row {
@@ -103,7 +109,7 @@
   }
 
   .search-result-list {
-    height: calc(100% - 60px);
+    height: 100%;
 
     .app-header {
       flex: 1;
@@ -141,7 +147,7 @@
     }
 
     .scrollable {
-      height: calc(100% - 54px);
+      height: calc(100% - 35px);
       overflow: auto;
     }
 
