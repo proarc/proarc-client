@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ApiService } from 'src/app/services/api.service';
 import { Catalogue, CatalogueField } from 'src/app/model/catalogue.model';
 import { CatalogueEntry } from 'src/app/model/catalogueEntry.model';
+import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
   selector: 'app-catalog-dialog',
@@ -24,15 +25,20 @@ export class CatalogDialogComponent implements OnInit {
   message: string;
 
   private type: string;
+  pid: string;
+  model: string;
+  models: string[];
 
   constructor(
     public dialogRef: MatDialogRef<CatalogDialogComponent>,
     private api: ApiService,
-    @Inject(MAT_DIALOG_DATA) public data: string) { }
+    private config: ConfigService,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
 
     ngOnInit() {
       this.state = 'loading';
+      this.models = this.config.allModels;
       this.type = this.data['type'];
       if (this.type == 'authors') {
         this.api.getAuthorityCatalogs().subscribe((catalogs: Catalogue[]) => {
@@ -105,6 +111,11 @@ export class CatalogDialogComponent implements OnInit {
     }
     const xml = this.results[this.activeIndex].mods;
     this.dialogRef.close({mods: xml});
+  }
+
+  onCreate() {
+    const xml = this.results[this.activeIndex].mods;
+    this.dialogRef.close({mods: xml, pid: this.pid, model: this.model});
   }
 
 }

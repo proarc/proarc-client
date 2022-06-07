@@ -1,10 +1,11 @@
 
 import { Component, OnInit, Inject } from '@angular/core';
-import { DateAdapter, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { DateAdapter, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Uuid } from 'src/app/utils/uuid';
 import { ApiService } from 'src/app/services/api.service';
 import { DatePipe } from '@angular/common';
 import { UIService } from 'src/app/services/ui.service';
+import { CatalogDialogComponent } from '../catalog-dialog/catalog-dialog.component';
 
 @Component({
   selector: 'app-new-object-dialog',
@@ -27,6 +28,7 @@ export class NewObjectDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<NewObjectDialogComponent>,
     private ui: UIService,
     private api: ApiService,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: NewObjectData) { }
 
   ngOnInit() {
@@ -38,7 +40,6 @@ export class NewObjectDialogComponent implements OnInit {
   }
 
   onCreate() {
-
 
     this.state = 'saving';
     const customPid = this.data.customPid ? this.data.pid : null;
@@ -73,6 +74,37 @@ export class NewObjectDialogComponent implements OnInit {
     (error) => {
       console.log('error', error);
       this.state = 'error';
+    });
+  }
+
+  onLoadFromCatalog() {
+    const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'full', create: true } });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result['mods']) {
+        this.state = 'saving';
+        const customPid = this.data.customPid ? this.data.pid : null;
+    
+        let data = `model=${this.data.model}`;
+        if (customPid) {
+          data = `${data}&pid=${customPid}`;
+        }
+        data = `${data}&xml=${result.mods}`;
+        this.api.createObject(data).subscribe((response: any) => {
+          if (response['response'].errors) {
+            console.log('error', response['response'].errors);
+            this.ui.showErrorSnackBarFromObject(response['response'].errors);
+            this.state = 'error';
+            return;
+          }
+          const pid =  response['response']['data'][0]['pid'];
+          this.state = 'success';
+          this.dialogRef.close({pid: pid});
+        },
+        (error) => {
+          console.log('error', error);
+          this.state = 'error';
+        });
+      }
     });
   }
 

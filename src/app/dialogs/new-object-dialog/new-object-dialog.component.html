@@ -49,8 +49,10 @@
 </div>
 
 <div mat-dialog-actions cdk-focus-start>
-  
-  <button mat-raised-button color="primary" (click)="onCreate()" [disabled]="!validate()" >{{ 'new_object.create' | translate }}</button>
+  <button mat-raised-button  color="primary" class="app-action" (click)="onLoadFromCatalog()" [matTooltip]="'editor.metadata.catalog' | translate" >
+    <mat-icon>local_library</mat-icon>
+  </button>
+  <button mat-raised-button  color="primary" (click)="onCreate()" [disabled]="!validate()" >{{ 'new_object.create' | translate }}</button>
   <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.cancel' | translate }}</button>
   <mat-spinner *ngIf="state=='saving'"
     style="margin-left: auto"
