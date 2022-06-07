@@ -407,10 +407,18 @@ export class ApiService {
     }
 
     
-    params['type'] = options['type'];
-    if (options['type'] === 'phrase' && options['query']) {
-      params['phrase'] = options['query'];
-    } 
+    
+    if (options['type'] === 'phrase') {
+      if (options['query']) {
+        params['phrase'] = options['query'];
+        params['type'] = 'phrase';
+      } else {
+        params['type'] = 'advanced';
+      }
+    } else {
+      params['type'] = options['type'];
+    }
+
 
     if (options['type'] !== 'phrase') {
 

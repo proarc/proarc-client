@@ -51,7 +51,7 @@ export class ParentDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ParentDialogComponent>,
-    private properties: LocalStorageService,
+    public properties: LocalStorageService,
     private config: ConfigService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private api: ApiService) { 

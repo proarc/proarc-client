@@ -50,7 +50,7 @@
     "custom_pid_description": "V případě potřeby je možné zvolit vlastní PID objektu ve tvaru uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.\nPID nesmí být již přidělen jinému objektu.",
     "pid": "PID",
     "failure": "Objekt se nepodařilo vytvořit",
-    "create": "Vytvořit nový objekt",
+    "create": "Vytvořit prázdný objekt",
     "seriesPartNumberFrom": "Číslo od",
     "seriesDateFrom": "Datum od",
     "seriesDateTo": "Datum do"
@@ -164,6 +164,7 @@
     },
     "search": "Vyhledat",
     "save": "Nahrát metadata k objektu",
+    "create": "Vytvořit objekt",
     "dialog_search_failed": {
       "title": "Vyhledání selhalo",
       "message": "Vyhledání ve vybraném katalogu se nezdařilo"

@@ -126,7 +126,7 @@ export class SearchComponent implements OnInit {
     this.state = 'loading';
 
     const options = {
-      type: this.query ? this.searchMode : (this.searchMode === 'phrase' ? 'advanced' : this.searchMode),
+      type: this.searchMode,
       model: this.model,
       organization: this.organization,
       query: this.query,
