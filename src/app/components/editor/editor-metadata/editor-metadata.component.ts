@@ -73,11 +73,11 @@ export class EditorMetadataComponent implements OnInit {
     if (this.editor.metadata.validate()) {
       this.editor.saveMetadata(false, (r: any) => {
         if (r && r.errors && r.status === -4) {
-          this.confirmSave(String(this.translator.instant('common.warning')), r.errors.mods[0].errorMessage, true);
+          this.confirmSave(String(this.translator.instant('common.warning')), r.errors.mods[0].errorMessage, false);
         }
       });
     } else {
-      this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', false);
+      this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', true);
     }
   }
 

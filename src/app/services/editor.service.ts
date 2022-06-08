@@ -705,9 +705,8 @@ export class EditorService {
                     this.state = 'error';
                     return;
                 }
+                return;
             }
-
-            // .pipe(map(response => Mods.fromJson(response['data'][0])));
 
 
             const rDoc = this.api.getDocument(this.metadata.pid);
@@ -718,7 +717,7 @@ export class EditorService {
 
                 this.metadata = Metadata.fromMods(mods, this.metadata.model);
                 this.selectRight(doc);
-                if (this.mode === 'children') {
+                if (this.mode === 'children' && this.numberOfSelectedChildren() > 0) {
                     this.reloadChildren(() => {
                         this.state = 'success';
                         if (callback) {
@@ -731,7 +730,8 @@ export class EditorService {
                     if (callback) {
                         callback(null);
                     }
-                }
+                } 
+                this.state = 'success';
             });
         });
     }
