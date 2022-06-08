@@ -40,7 +40,7 @@
 
           <mat-form-field>
             <mat-select [disabled]="!holder.editType" [placeholder]="'editor.pages.page_type' | translate" name="type"
-              [(value)]="holder.pageType">
+              [(value)]="holder.pageType" (keyup.enter)="enterSelect(typeSelect)" #typeSelect >
               <mat-option *ngFor="let pageType of codebook.pageTypes" [value]="pageType.code">{{ pageType.name }}
               </mat-option>
             </mat-select>
@@ -127,8 +127,8 @@
           </mat-checkbox>
 
           <mat-form-field class="app-full-width">
-            <mat-select [disabled]="!holder.editPosition" [placeholder]="'editor.pages.page_position' | translate" name="type"
-              [(value)]="holder.pagePosition">
+            <mat-select #posSelect [disabled]="!holder.editPosition" [placeholder]="'editor.pages.page_position' | translate" name="type"
+              [(value)]="holder.pagePosition" (keyup.enter)="enterSelect(posSelect)">
               <mat-option *ngFor="let pagePosition of config.pagePositions" [value]="pagePosition">{{ 'editor.pages.page_position_' + pagePosition | translate }}
               </mat-option>
             </mat-select>
@@ -142,7 +142,8 @@
         <div class="app-card-content">
           <div class="app-apply-to">
             <mat-form-field>
-              <mat-select [placeholder]="'editor.pages.apply' | translate" name="apply" [(value)]="holder.applyTo">
+              <mat-select [placeholder]="'editor.pages.apply' | translate" name="apply" [(value)]="holder.applyTo"
+              (keyup.enter)="enterSelect(applySelect)" #applySelect>
                 <mat-option *ngFor="let num of holder.applyOptions;" [value]="num">{{'editor.pages.apply_to' |
                   translate: { num: num } }}</mat-option>
               </mat-select>

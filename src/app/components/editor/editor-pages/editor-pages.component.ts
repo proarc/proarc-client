@@ -2,6 +2,7 @@ import { CodebookService } from './../../../services/codebook.service';
 import { Component, OnInit } from '@angular/core';
 import { EditorService } from 'src/app/services/editor.service';
 import { ConfigService } from 'src/app/services/config.service';
+import { MatSelect } from '@angular/material';
 
 @Component({
   selector: 'app-editor-pages',
@@ -41,6 +42,11 @@ export class EditorPagesComponent implements OnInit {
 
   removeBrackets() {
     this.editor.changeBrackets(this.holder, false, null);
+  }
+  
+  enterSelect(s: MatSelect) {
+    s.close();
+    this.onSave();
   }
 }
 

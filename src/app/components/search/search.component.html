@@ -153,7 +153,7 @@
       <div class="result-export" *ngIf="properties.isSearchColEnabled('export')">{{ 'search.export' | translate }}</div>
       <div class="result-export" *ngIf="properties.isSearchColEnabled('isLocked')">{{ 'search.isLocked' | translate }}</div>
     </div>
-    <div class="scrollable">
+    <div class="scrollable" #scroll>
       <div *ngFor="let item of items" (click)="selectItem(item)" (dblclick)="openItem(item)" class="app-row" [class.app-selected]="item == selectedItem">
         <div class="result-label" *ngIf="properties.isSearchColEnabled('name')">{{ item.label }}</div>
         <div class="result-model" *ngIf="properties.isSearchColEnabled('model')">{{ "model." + item.model | translate }}</div>

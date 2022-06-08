@@ -1,5 +1,5 @@
 import { DocumentItem } from '../../model/documentItem.model';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { Translator } from 'angular-translator';
@@ -29,7 +29,7 @@ export class SearchComponent implements OnInit {
   @ViewChild('area1') area1: SplitAreaDirective;
   @ViewChild('area2') area2: SplitAreaDirective;
   @ViewChild('modelSelect') modelSelect: MatSelect;
-
+  @ViewChild('scroll') scroll: ElementRef;
 
   splitArea1Width: string;
   splitArea2Width: string;
@@ -353,17 +353,20 @@ export class SearchComponent implements OnInit {
         this.ui.showErrorSnackBarFromObject(response['response'].errors);
         this.state = 'error';
         return;
-      } else if (response.response.data) {
+      } else if (response.response.data && response.response.data[0].validation) {
         this.ui.showErrorSnackBarFromObject(response.response.data.map(d => d.errorMessage = d.validation));
         this.state = 'error';
       } else {
           this.state = 'success';
           this.ui.showInfoSnackBar("Objekty byly zkopirovane");
-          this.selectItem(this.selectedItem);
+          // console.log(response);
+          const l = this.items.push(DocumentItem.fromJson(response.response.data[0]));
+          this.selectItem(this.items[l-1]);
+          setTimeout(()=>{
+            this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
+          }, 50);
+          
       }
-    // const validation: string = response['response']['data'][0]['validation'];
-    // this.ui.showInfoSnackBar(validation);
-    // this.state = 'success';
     }, error => {
       console.log(error);
         this.ui.showInfoSnackBar(error.statusText);
