@@ -143,6 +143,7 @@ export class ConfigService {
 
     private static defaultIdentifiers = [ 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'];
     private static defaultChronicleIdentifiers = [ 'signature1', 'signature2', 'inventaryNumber', 'OtherNumber' , 'id', 'localId', 'officialNumber'];
+    private static defaultPagePositions = [ 'left', 'right', 'singlePage', 'left_right' , 'right_left'];
 
     public proarcBackendUrl = APP_GLOBAL.proarcUrl;
     public allModels = APP_GLOBAL.models || ConfigService.defaultModels;
@@ -174,6 +175,7 @@ export class ConfigService {
 
     public organizations = APP_GLOBAL.organizations || [];
     public exports = APP_GLOBAL.exports || ConfigService.defaultDefaultExports;
+    public pagePositions = APP_GLOBAL.pagePositions || ConfigService.defaultPagePositions;
 
     constructor() {
     }

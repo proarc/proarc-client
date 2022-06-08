@@ -435,6 +435,7 @@
       "edit_page_type": "Editovat typy stran",
       "edit_page_index": "Editovat indexy stran",
       "edit_page_number": "Editovat čísla stran",
+      "edit_page_position": "Editovat pozice stran",
       "page_type": "Typ strany",
       "index_from": "Indexovat od čisla",
       "number_from": "Číslo od",
@@ -446,7 +447,13 @@
       "apply": "Aplikovat na",
       "apply_to": "Každou {{ num > 1 ? num + '.' : ''}} stranu",
       "apply_to_first": "Včetně první strany",
-      "doubleColumns": "Číslování sloupců"
+      "doubleColumns": "Číslování sloupců",
+      "page_position": "Pozice stránky",
+      "page_position_left": "vlevo",
+      "page_position_right": "vpravo",
+      "page_position_singlePage": "samostatně",
+      "page_position_right_left": "střídání pravá-levá-pravá..." , 
+      "page_position_left_right": "střídání levá-pravá-levá..."
     },
     "type": {
       "biblio": "Bibliografická metadata",

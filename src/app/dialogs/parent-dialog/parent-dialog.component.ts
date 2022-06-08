@@ -120,7 +120,7 @@ export class ParentDialogComponent implements OnInit {
     this.pageIndex = page;
     this.state = 'loading';
     const options = {
-      type: this.query ? this.searchMode : (this.searchMode === 'phrase' ? 'advanced' : this.searchMode),
+      type: this.searchMode,
       model: this.model,
       query: this.query,
       queryField: this.queryField,

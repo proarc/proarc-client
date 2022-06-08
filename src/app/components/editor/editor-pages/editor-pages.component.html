@@ -1,103 +1,115 @@
-
 <div class="app-editor-content-wrapper">
 
   <div class="app-editor-toolbar">
-      <div class="app-label">{{ 'editor.pages.title' | translate }}</div>
-      <div class="app-actions-right">
+    <div class="app-label">{{ 'editor.pages.title' | translate }}</div>
+    <div class="app-actions-right">
 
-        <button class="app-action" (click)="editor.switchMultipleSelectionMode()" [matTooltip]="'common.cancel' | translate" mat-icon-button>
-            <mat-icon>clear</mat-icon>
-        </button>
-        <div class="app-divider"></div>
+      <button class="app-action" (click)="editor.switchMultipleSelectionMode()"
+        [matTooltip]="'common.cancel' | translate" mat-icon-button>
+        <mat-icon>clear</mat-icon>
+      </button>
+      <div class="app-divider"></div>
 
-        <button class="app-action" (click)="addBrackets()" [matTooltip]="'common.add_brackets' | translate" mat-icon-button>
-          <span class="app-text-icon">[ + ]</span>
-        </button>
-        <button class="app-action" (click)="removeBrackets()" [matTooltip]="'common.remove_brackets' | translate" mat-icon-button>
-          <span class="app-text-icon">[ - ]</span>
-        </button>
-        <div class="app-divider"></div>
+      <button class="app-action" (click)="addBrackets()" [matTooltip]="'common.add_brackets' | translate"
+        mat-icon-button>
+        <span class="app-text-icon">[ + ]</span>
+      </button>
+      <button class="app-action" (click)="removeBrackets()" [matTooltip]="'common.remove_brackets' | translate"
+        mat-icon-button>
+        <span class="app-text-icon">[ - ]</span>
+      </button>
+      <div class="app-divider"></div>
 
-      <button class="app-action" [class.app-disabled]="!canSave()" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
-          <mat-icon>save</mat-icon>
+      <button class="app-action" [class.app-disabled]="!canSave()" matTooltip="{{ 'common.save' | translate }}"
+        (click)="onSave()" mat-icon-button>
+        <mat-icon>save</mat-icon>
       </button>
     </div>
 
-    </div>  
-      
-    <div class="app-editor-content">
+  </div>
+
+  <div class="app-editor-content">
 
 
-      <div class="app-editor-field">
-        <div class="app-card">
-          <div class="app-card-content">
-      
-            <mat-checkbox color="primary" [(ngModel)]="holder.editType">{{ 'editor.pages.edit_page_type' | translate }}</mat-checkbox>
+    <div class="app-editor-field">
+      <div class="app-card">
+        <div class="app-card-content">
 
-            <mat-form-field>
-              <mat-select [disabled]="!holder.editType" [placeholder]="'editor.pages.page_type' | translate" name="type" [(value)]="holder.pageType">
-                <mat-option *ngFor="let pageType of codebook.pageTypes" [value]="pageType.code">{{ pageType.name }}</mat-option>
-              </mat-select>
-            </mat-form-field>
+          <mat-checkbox color="primary" [(ngModel)]="holder.editType">{{ 'editor.pages.edit_page_type' | translate }}
+          </mat-checkbox>
+
+          <mat-form-field>
+            <mat-select [disabled]="!holder.editType" [placeholder]="'editor.pages.page_type' | translate" name="type"
+              [(value)]="holder.pageType">
+              <mat-option *ngFor="let pageType of codebook.pageTypes" [value]="pageType.code">{{ pageType.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
 
-          </div>
         </div>
+      </div>
 
-        <div class="app-card">
-            <div class="app-card-content">
-        
-              <mat-checkbox color="primary" [(ngModel)]="holder.editIndex">{{ 'editor.pages.edit_page_index' | translate }}</mat-checkbox>
-  
-              <mat-form-field class="app-full-width">
-                <input (keyup.enter)="onSave()" [disabled]="!holder.editIndex" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.pages.index_from' | translate" [(ngModel)]="holder.pageIndex">
-              </mat-form-field>
+      <div class="app-card">
+        <div class="app-card-content">
 
-<!-- 
-            <mat-form-field class="app-full-width">
-              <input autocomplete="off" matInput [placeholder]="'editor.page.number' | translate" [(ngModel)]="page.number">
-            </mat-form-field>
-            <mat-form-field class="app-half-left">
-              <input autocomplete="off" matInput [placeholder]="'editor.page.index' | translate" [(ngModel)]="page.index">
-            </mat-form-field> -->
+          <mat-checkbox color="primary" [(ngModel)]="holder.editIndex">{{ 'editor.pages.edit_page_index' | translate }}
+          </mat-checkbox>
+
+          <mat-form-field class="app-full-width">
+            <input (keyup.enter)="onSave()" [disabled]="!holder.editIndex" type="number" step="1" min="0"
+              autocomplete="off" matInput [placeholder]="'editor.pages.index_from' | translate"
+              [(ngModel)]="holder.pageIndex">
+          </mat-form-field>
 
         </div>
       </div>
 
 
       <div class="app-card">
-          <div class="app-card-content">
-      
-            <button class="app-brackets" [disabled]="!holder.editNumber" [class.app-active]="holder.useBrackets" [matTooltip]="holder.useBrackets ? 'Nevkládat do závorek' : 'Vkládat do závorek'" (click)="holder.useBrackets = !holder.useBrackets" mat-icon-button>
-              <span class="app-text-icon">[ ]</span>
-            </button>
-            <mat-checkbox color="primary" [(ngModel)]="holder.editNumber">{{ 'editor.pages.edit_page_number' | translate }}</mat-checkbox>
+        <div class="app-card-content">
 
-            <mat-form-field class="app-page-width">
-              <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_prefix' | translate" [(ngModel)]="holder.pageNumberPrefix">
-            </mat-form-field>
-            <mat-form-field class="app-full-width">
-              <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_from' | translate" [(ngModel)]="holder.pageNumberFrom" [class.app-input-invalid]="!holder.numberFromValid()">
-            </mat-form-field>
-            <mat-form-field class="app-full-width">
-              <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.pages.number_increment' | translate" [(ngModel)]="holder.pageNumberIncrement">
-            </mat-form-field>
-            <mat-form-field class="app-full-width">
-              <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_suffix' | translate" [(ngModel)]="holder.pageNumberSuffix">
-            </mat-form-field>
-            <mat-form-field>
-              <mat-select [disabled]="!holder.editNumber" [placeholder]="'editor.pages.number_numbering' | translate" name="type" [(value)]="holder.pageNumberNumbering">
-                <mat-option *ngFor="let type of holder.numberingTypes;" [value]="type">{{ type.label }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-checkbox color="primary" [(ngModel)]="holder.doubleColumns">{{ 'editor.pages.doubleColumns' | translate }}</mat-checkbox>
+          <button class="app-brackets" [disabled]="!holder.editNumber" [class.app-active]="holder.useBrackets"
+            [matTooltip]="holder.useBrackets ? 'Nevkládat do závorek' : 'Vkládat do závorek'"
+            (click)="holder.useBrackets = !holder.useBrackets" mat-icon-button>
+            <span class="app-text-icon">[ ]</span>
+          </button>
+          <mat-checkbox color="primary" [(ngModel)]="holder.editNumber">{{ 'editor.pages.edit_page_number' | translate
+            }}</mat-checkbox>
 
-            <div class="app-numbering-example">
-              <div class="app-numbering-label">{{ 'editor.pages.number_example' | translate }}</div>
-              <div class="app-numbering-value">{{ holder.getNumberingExample() }}</div>
-            </div>
+          <mat-form-field class="app-page-width">
+            <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="text" autocomplete="off" matInput
+              [placeholder]="'editor.pages.number_prefix' | translate" [(ngModel)]="holder.pageNumberPrefix">
+          </mat-form-field>
+          <mat-form-field class="app-full-width">
+            <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="text" autocomplete="off" matInput
+              [placeholder]="'editor.pages.number_from' | translate" [(ngModel)]="holder.pageNumberFrom"
+              [class.app-input-invalid]="!holder.numberFromValid()">
+          </mat-form-field>
+          <mat-form-field class="app-full-width">
+            <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="number" step="1" min="0"
+              autocomplete="off" matInput [placeholder]="'editor.pages.number_increment' | translate"
+              [(ngModel)]="holder.pageNumberIncrement">
+          </mat-form-field>
+          <mat-form-field class="app-full-width">
+            <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="text" autocomplete="off" matInput
+              [placeholder]="'editor.pages.number_suffix' | translate" [(ngModel)]="holder.pageNumberSuffix">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select [disabled]="!holder.editNumber" [placeholder]="'editor.pages.number_numbering' | translate"
+              name="type" [(value)]="holder.pageNumberNumbering">
+              <mat-option *ngFor="let type of holder.numberingTypes;" [value]="type">{{ type.label }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-checkbox color="primary" [(ngModel)]="holder.doubleColumns">{{ 'editor.pages.doubleColumns' | translate
+            }}</mat-checkbox>
 
-<!-- 
+          <div class="app-numbering-example">
+            <div class="app-numbering-label">{{ 'editor.pages.number_example' | translate }}</div>
+            <div class="app-numbering-value">{{ holder.getNumberingExample() }}</div>
+          </div>
+
+          <!-- 
           <mat-form-field class="app-full-width">
             <input autocomplete="off" matInput [placeholder]="'editor.page.number' | translate" [(ngModel)]="page.number">
           </mat-form-field>
@@ -105,31 +117,47 @@
             <input autocomplete="off" matInput [placeholder]="'editor.page.index' | translate" [(ngModel)]="page.index">
           </mat-form-field> -->
 
+        </div>
       </div>
-    </div>
 
+      <div class="app-card">
+        <div class="app-card-content">
 
-    <div class="app-card">
-      <div class="app-card-content">
-        <div class="app-apply-to">
-          <mat-form-field>
-            <mat-select [placeholder]="'editor.pages.apply' | translate" name="apply" [(value)]="holder.applyTo">
-              <mat-option *ngFor="let num of holder.applyOptions;" [value]="num">{{'editor.pages.apply_to' | translate: { num: num } }}</mat-option>
+          <mat-checkbox color="primary" [(ngModel)]="holder.editPosition">{{ 'editor.pages.edit_page_position' | translate }}
+          </mat-checkbox>
+
+          <mat-form-field class="app-full-width">
+            <mat-select [disabled]="!holder.editPosition" [placeholder]="'editor.pages.page_position' | translate" name="type"
+              [(value)]="holder.pagePosition">
+              <mat-option *ngFor="let pagePosition of config.pagePositions" [value]="pagePosition">{{ 'editor.pages.page_position_' + pagePosition | translate }}
+              </mat-option>
             </mat-select>
           </mat-form-field>
+
         </div>
-
-        <mat-checkbox [disabled]="holder.applyTo == 1"  color="primary" [(ngModel)]="holder.applyToFirst">{{ 'editor.pages.apply_to_first' | translate }}</mat-checkbox>
-
       </div>
-    </div>
+
+
+      <div class="app-card">
+        <div class="app-card-content">
+          <div class="app-apply-to">
+            <mat-form-field>
+              <mat-select [placeholder]="'editor.pages.apply' | translate" name="apply" [(value)]="holder.applyTo">
+                <mat-option *ngFor="let num of holder.applyOptions;" [value]="num">{{'editor.pages.apply_to' |
+                  translate: { num: num } }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <mat-checkbox [disabled]="holder.applyTo == 1" color="primary" [(ngModel)]="holder.applyToFirst">{{
+            'editor.pages.apply_to_first' | translate }}</mat-checkbox>
+
+        </div>
+      </div>
 
 
 
     </div>
   </div>
 
-  </div>  
-    
-
-
+</div>

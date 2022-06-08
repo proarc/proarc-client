@@ -1,6 +1,7 @@
 import { CodebookService } from './../../../services/codebook.service';
 import { Component, OnInit } from '@angular/core';
 import { EditorService } from 'src/app/services/editor.service';
+import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
   selector: 'app-editor-pages',
@@ -11,7 +12,10 @@ export class EditorPagesComponent implements OnInit {
 
   holder: PageUpdateHolder;
 
-  constructor(public editor: EditorService, public codebook: CodebookService) {
+  constructor(
+    public config: ConfigService,
+    public editor: EditorService, 
+    public codebook: CodebookService) {
   }
 
   ngOnInit() {
@@ -73,6 +77,7 @@ export class PageUpdateHolder {
   editType: boolean;
   editIndex: boolean;
   editNumber: boolean;
+  editPosition: boolean;
 
   useBrackets: boolean;
   doubleColumns: boolean;
@@ -85,6 +90,8 @@ export class PageUpdateHolder {
   pageNumberPrefix: string;
   pageNumberSuffix: string;
   pageNumberNumbering: any;
+
+  pagePosition: string;
 
   applyTo: number;
   applyToFirst: boolean;
@@ -102,6 +109,8 @@ export class PageUpdateHolder {
     this.pageNumberSuffix = '';
     this.pageNumberNumbering = this.numberingTypes[0];
 
+    this.pagePosition = '';
+
     this.applyTo = 1;
     this.applyToFirst = true;
   }
@@ -111,7 +120,7 @@ export class PageUpdateHolder {
   }
 
   editAny(): boolean {
-    return this.editIndex || this.editType || (this.editNumber && this.numberFromValid());
+    return this.editIndex || this.editType || (this.editNumber && this.numberFromValid()) || (this.editPosition && this.pagePosition !== '');
   }
 
   romanize(num: number): string {

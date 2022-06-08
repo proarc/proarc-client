@@ -547,6 +547,9 @@ export class ApiService {
     if (holder.applyTo > 1) {
       data += `&applyToFirstPage=${holder.applyToFirst}`;
     }
+    if (holder.editPosition) {
+      data += `&pagePosition=${holder.pagePosition}`;
+    }
     data += `&applyTo=${holder.applyTo}`;
     return this.put('object/mods/editorPages', data);
   }
