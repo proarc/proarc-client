@@ -51,7 +51,7 @@ export class ApiService {
 
 
 
-  private put(path: string, body: any, options = null): Observable<Object> {
+  private put(path: string, body: any, options: any = null): Observable<Object> {
     if (!options) {
       options = {
         headers: new HttpHeaders({
@@ -65,7 +65,7 @@ export class ApiService {
     ).pipe(catchError(this.handleError));;;
   }
 
-  private post(path: string, body: any, options = null): Observable<Object> {
+  private post(path: string, body: any, options: any = null): Observable<Object> {
     if (!options) {
       options = {
         headers: new HttpHeaders({
@@ -140,7 +140,7 @@ export class ApiService {
     return this.post('object/copyObject', data);
   }
 
-  export(type: string, pid: string, policy: string): Observable<any> {
+  export(type: string, pid: string, policy: string): Observable<any> | undefined {
     let data = `pid=${pid}`;;
     let path = '';
     switch (type) {
@@ -185,7 +185,7 @@ export class ApiService {
         path = 'export/kwis'
         break;
       }
-      default: return;
+      default: return undefined;
     }
     return this.post(path, data);
   }
@@ -199,14 +199,14 @@ export class ApiService {
   //       .pipe(map(response => Folder.fromJsonArray(response['response']['data'])));
   // }
 
-  getImportFolders(folder: string = null): Observable<any> {
+  getImportFolders(folder: string | null = null): Observable<any> {
     return this.get('import/folder', { folder: folder});
         
   }
 
   getImportProfiles(): Observable<Profile[]> {
     return this.get('profile', { profileGroup: 'import.profiles' })
-        .pipe(map(response => Profile.fromJsonArray(response['response']['data'])));
+        .pipe(map((response: any) => Profile.fromJsonArray(response['response']['data'])));
   }
 
   setParent(srcParent: string, dstParent: string): Observable<any> {
@@ -234,7 +234,7 @@ export class ApiService {
     return this.put('object/member/move', payload, httpOptions);
   }
 
-  deleteObjects(pids: string[], purge: boolean, batchId = null): Observable<any> | null {
+  deleteObjects(pids: string[], purge: boolean, batchId: any = null): Observable<any> | null {
     let query = pids.map(pid => `pid=${pid}`).join('&');
     if (batchId) {
       query = `import/batch/item?batchId=${batchId}&${query}`;
@@ -270,7 +270,7 @@ export class ApiService {
   }
 
 
-  reindexPages(parentPid: string, pagePid: string, batchId = null, model: string): Observable<any> {
+  reindexPages(parentPid: string, pagePid: string, batchId: any = null, model: string): Observable<any> {
     let data = `parent=${parentPid}&pid=${pagePid}`;
     if (batchId) {
       data = `${data}&batchId=${batchId}`;
@@ -281,17 +281,17 @@ export class ApiService {
     return this.put('object/reindexObjects', data);
   }
 
-  getPage(pid: string, model: string, batchId = null): Observable<Page> {    
+  getPage(pid: string, model: string, batchId: any = null): Observable<Page> {    
     const editorId = model == 'model:page' ? 'proarc.mods.PageForm' : model;
-    const params = { pid: pid, editorId: editorId };
+    const params: any = { pid: pid, editorId: editorId };
     if (batchId) {
       params['batchId'] = batchId;
     }
     return this.get('object/mods/custom', params)
-            .pipe(map(response => Page.fromJson(response['response']['data'][0], model)));
+            .pipe(map((response: any) => Page.fromJson(response['response']['data'][0], model)));
   }
 
-  editPage(page: Page, batchId = null): Observable<any> {
+  editPage(page: Page, batchId: any = null): Observable<any> {
     const editorId = page.model == 'model:page' ? 'proarc.mods.PageForm' : page.model;
     let data = `pid=${page.pid}&editorId=${editorId}&jsonData=${JSON.stringify(page.toJson())}&timestamp=${page.timestamp}`;
     if (batchId) {
@@ -300,15 +300,15 @@ export class ApiService {
     return this.put('object/mods/custom', data);
   }
 
-  getAtm(pid: string, batchId = null): Observable<Atm> {
-    const params = { pid: pid };
+  getAtm(pid: string, batchId: any = null): Observable<Atm> {
+    const params: any = { pid: pid };
     if (batchId) {
       params['batchId'] = batchId;
     }
-    return this.get('object/atm', params).pipe(map(response => Atm.fromJson(response['response']['data'][0])));
+    return this.get('object/atm', params).pipe(map((response: any) => Atm.fromJson(response['response']['data'][0])));
   }
 
-  editAtm(atm: Atm, batchId = null): Observable<any> {
+  editAtm(atm: Atm, batchId: any = null): Observable<any> {
     let data = `pid=${atm.pid}&device=${atm.device}&status=${atm.status}&model=${atm.model}&userProcessor=${atm.userProcessor}&organization=${atm.organization}`;
     if (batchId) {
       data = `${data}&batchId=${batchId}`;
@@ -317,12 +317,12 @@ export class ApiService {
   }
 
   getMetadata(pid: string, model: string): Observable<Metadata> {
-    return this.get('object/mods/plain', { pid: pid }).pipe(map(response =>
+    return this.get('object/mods/plain', { pid: pid }).pipe(map((response: any) =>
       new Metadata(pid, model, response['record']['content'], response['record']['timestamp'])));
   }
 
-  getMods(pid: string, batchId = null): Observable<any> {
-    const params = { pid: pid };
+  getMods(pid: string, batchId: any = null): Observable<any> {
+    const params: any = { pid: pid };
     if (batchId) {
       params['batchId'] = batchId;
     }
@@ -333,54 +333,54 @@ export class ApiService {
     return this.editModsXml(document.pid, document.toMods(), document.timestamp, ignoreValidation);
   }
 
-  editMods(mods: Mods, ignoreValidation: boolean, batchId = null): Observable<Mods> {
+  editMods(mods: Mods, ignoreValidation: boolean, batchId: any = null): Observable<Mods> {
     return this.editModsXml(mods.pid, mods.content, mods.timestamp, ignoreValidation, batchId).pipe(map(response => Mods.fromJson(response['data'][0])));
   }
 
-  editModsXml(pid: string, xml: string, timestamp: number, ignoreValidation: boolean, batchId = null): Observable<any> {
+  editModsXml(pid: string, xml: string, timestamp: number, ignoreValidation: boolean, batchId: any = null): Observable<any> {
     const xmlText = xml.replace(/&/g, '%26');
     let data = `pid=${pid}&ignoreValidation=${ignoreValidation}&xmlData=${xmlText}&timestamp=${timestamp}`;
     if (batchId) {
       data = `${data}&batchId=${batchId}`;
     }
     // return this.put('object/mods/custom', data).pipe(map(response => Mods.fromJson(response['response']['data'][0])));
-    return this.put('object/mods/custom', data).pipe(map(response => response['response']));
+    return this.put('object/mods/custom', data).pipe(map((response: any) => response['response']));
   }
 
 
-  getOcr(pid: string, batchId = null): Observable<Ocr> {
-    const params = { pid: pid };
+  getOcr(pid: string, batchId: any = null): Observable<Ocr> {
+    const params: any = { pid: pid };
     if (batchId) {
       params['batchId'] = batchId;
     }
-    return this.get('object/ocr', params).pipe(map(response =>
+    return this.get('object/ocr', params).pipe(map((response: any) =>
       Ocr.fromJson(response['record'])));
   }
 
-  editOcr(ocr: Ocr, batchId = null): Observable<Ocr> {
+  editOcr(ocr: Ocr, batchId: any = null): Observable<Ocr> {
     let data = `pid=${ocr.pid}&content=${ocr.content}&timestamp=${ocr.timestamp}`;
     if (batchId) {
       data = `${data}&batchId=${batchId}`;
     }
-    return this.put('object/ocr', data).pipe(map(response => Ocr.fromJson(response['record'])));
+    return this.put('object/ocr', data).pipe(map((response: any) => Ocr.fromJson(response['record'])));
   }
 
 
-  getNote(pid: string, batchId = null): Observable<Note> {
-    const params = { pid: pid };
+  getNote(pid: string, batchId: any = null): Observable<Note> {
+    const params: any = { pid: pid };
     if (batchId) {
       params['batchId'] = batchId;
     }
-    return this.get('object/privatenote', params).pipe(map(response =>
+    return this.get('object/privatenote', params).pipe(map((response: any) =>
       Note.fromJson(response['record'])));
   }
 
-  editNote(note: Note, batchId = null): Observable<Note> {
+  editNote(note: Note, batchId: any = null): Observable<Note> {
     let data = `pid=${note.pid}&content=${note.content}&timestamp=${note.timestamp}`;
     if (batchId) {
       data = `${data}&batchId=${batchId}`;
     }
-    return this.put('object/privatenote', data).pipe(map(response => Note.fromJson(response['record'])));
+    return this.put('object/privatenote', data).pipe(map((response: any) => Note.fromJson(response['record'])));
   }
 
 
@@ -397,8 +397,8 @@ export class ApiService {
     return this.post('object/dissemination', formData, {});
   }
 
-  getSearchResults(options = {}) { //model: string, query: string, queryField: string, page: number, sortField = 'lastCreated', sortAsc = false): Observable<[DocumentItem[], number]> {
-    const params = {
+  getSearchResults(options: any = {}) { //model: string, query: string, queryField: string, page: number, sortField = 'lastCreated', sortAsc = false): Observable<[DocumentItem[], number]> {
+    const params: any = {
       type: options['type'],
       _startRow: options['page'] * 100,
     };
@@ -450,14 +450,14 @@ export class ApiService {
     } else {
       params['_sort'] = 'desc';
     }
-    return this.get('object/search', params).pipe(map(response => [DocumentItem.fromJsonArray(response['response']['data']), response['response']['totalRows']] as [DocumentItem[], number]));
+    return this.get('object/search', params).pipe(map((response: any) => [DocumentItem.fromJsonArray(response['response']['data']), response['response']['totalRows']] as [DocumentItem[], number]));
   }
 
   getDocument(pid: string): Observable<DocumentItem> {
     const params = {
       root: pid
     };
-    return this.get('object/member', params).pipe(map(response => DocumentItem.fromJson(response['response']['data'][0])));
+    return this.get('object/member', params).pipe(map((response: any) => DocumentItem.fromJson(response['response']['data'][0])));
   }
 
   getParent(pid: string): Observable<DocumentItem> {
@@ -465,7 +465,7 @@ export class ApiService {
       type: 'parent',
       pid: pid
     };
-    return this.get('object/search', params).pipe(map(response => DocumentItem.fromJson(response['response']['data'][0])));
+    return this.get('object/search', params).pipe(map((response: any) => DocumentItem.fromJson(response['response']['data'][0])));
   }
 
   getRelations(parent: string): Observable<DocumentItem[]> {
@@ -473,24 +473,24 @@ export class ApiService {
       root: parent,
       parent: parent
     };
-    return this.get('object/member', params).pipe(map(response => DocumentItem.fromJsonArray(response['response']['data'])));
+    return this.get('object/member', params).pipe(map((response: any) => DocumentItem.fromJsonArray(response['response']['data'])));
   }
 
   getBatchPages(id: string): Observable<DocumentItem[]> {
     return this.get('import/batch/item', { batchId: id })
-            .pipe(map(response => DocumentItem.pagesFromJsonArray(response['response']['data'])));
+            .pipe(map((response: any) => DocumentItem.pagesFromJsonArray(response['response']['data'])));
   }
 
   getCatalogs(): Observable<Catalogue[]> {
-    return this.get('bibliographies').pipe(map(response => Catalogue.fromJsonArray(response['response']['data'])));
+    return this.get('bibliographies').pipe(map((response: any) => Catalogue.fromJsonArray(response['response']['data'])));
   }
 
   getAuthorityCatalogs(): Observable<Catalogue[]> {
-    return this.get('authorities').pipe(map(response => Catalogue.fromJsonArray(response['response']['data'])));
+    return this.get('authorities').pipe(map((response: any) => Catalogue.fromJsonArray(response['response']['data'])));
   }
 
   getCatalogSearchResults(type: string, catalog: string, field: string, query: string): Observable<CatalogueEntry[]> {
-    const params = {
+    const params: any = {
       catalog: catalog,
       fieldName: field,
       value: query
@@ -500,20 +500,20 @@ export class ApiService {
       resource = 'authorities';
       params['type'] = 'ALL';
     }
-    return this.get(`${resource}/query`, params).pipe(map(response =>
+    return this.get(`${resource}/query`, params).pipe(map((response: any) =>
       CatalogueEntry.fromJsonArray(response['metadataCatalogEntries']['entry'])));
   }
 
   getDevices(): Observable<Device[]> {
-    return this.get('device').pipe(map(response => Device.fromJsonArray(response['response']['data'])));
+    return this.get('device').pipe(map((response: any) => Device.fromJsonArray(response['response']['data'])));
   }
 
   getDevice(deviceId: string): Observable<Device> {
-    return this.get('device', { id: deviceId }).pipe(map(response => Device.fromJson(response['response']['data'][0])));
+    return this.get('device', { id: deviceId }).pipe(map((response: any) => Device.fromJson(response['response']['data'][0])));
   }
 
   removeDevice(deviceId: string): Observable<Device> {
-    return this.delete('device', { id: deviceId }).pipe(map(response => Device.fromJson(response['response']['data'][0])));
+    return this.delete('device', { id: deviceId }).pipe(map((response: any) => Device.fromJson(response['response']['data'][0])));
   }
 
   editDevice(device: Device): Observable<Device> {
@@ -521,10 +521,10 @@ export class ApiService {
     if (device.isAudio()) {
       data += `&audiotimestamp=${device.audiotimestamp}&audiodescription=${device.audioDescription()}`;
     }
-    return this.put('device', data).pipe(map(response => Device.fromJson(response['response']['data'][0])));
+    return this.put('device', data).pipe(map((response: any) => Device.fromJson(response['response']['data'][0])));
   }
 
-  editPages(pages: string[], holder: PageUpdateHolder, batchId = null) {
+  editPages(pages: string[], holder: PageUpdateHolder, batchId: any = null) {
     let data = `pids=${pages}`;
     if (batchId) {
       data = `${data}&batchId=${batchId}`;
@@ -554,7 +554,7 @@ export class ApiService {
     return this.put('object/mods/editorPages', data);
   }
 
-  editBrackets(pages: string[], holder: PageUpdateHolder, useBrackets: boolean, batchId = null) {
+  editBrackets(pages: string[], holder: PageUpdateHolder, useBrackets: boolean, batchId: any = null) {
     const action = useBrackets ? 'addBrackets' : 'removeBrackets';
     let data = `pids=${pages}`;
     if (batchId) {
@@ -593,12 +593,12 @@ export class ApiService {
 
   createDevice(model: string): Observable<Device> {
     const data = `model=${model}`;
-    return this.post('device', data).pipe(map(response => Device.fromJson(response['response']['data'][0])));
+    return this.post('device', data).pipe(map((response: any) => Device.fromJson(response['response']['data'][0])));
   }
 
   setParentForBatch(id: number, parent: string): Observable<Batch> {
     const data = `id=${id}&parentPid=${parent}`;
-    return this.put('import/batch', data).pipe(map(response => Batch.fromJson(response['response']['data'][0])));
+    return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
   ingestBatch(id: number, parent: string): Observable<Batch> {
@@ -606,17 +606,17 @@ export class ApiService {
     if (parent) {
       data += `&parentPid=${parent}`;
     }
-    return this.put('import/batch', data).pipe(map(response => Batch.fromJson(response['response']['data'][0])));
+    return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
   reloadBatch(id: number, profile: string): Observable<Batch> {
     const data = `id=${id}&profile=${profile}&state=LOADING_FAILED`;
-    return this.put('import/batch', data).pipe(map(response => Batch.fromJson(response['response']['data'][0])));
+    return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
   createImportBatch(path: string, profile: string, indices: boolean, device: string): Observable<Batch> {
     const data = `folderPath=${path}&profile=${profile}&indices=${indices}&device=${device}`;
-    return this.post('import/batch', data).pipe(map(response => Batch.fromJson(response['response']['data'][0])));
+    return this.post('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
   reReadFolder(path: string): Observable<any> {
@@ -631,45 +631,45 @@ export class ApiService {
 
   getImportBatchStatus(id: number): Observable<[number, number]> {
     return this.get('import/batch/item', { batchId: id })
-            .pipe(map(response => Batch.statusFromJson(response['response'])));
+            .pipe(map((response: any) => Batch.statusFromJson(response['response'])));
   }
 
-  getImportBatches(params): Observable<any> {
+  getImportBatches(params: any): Observable<any> {
     return this.get('import/batch', params)
-    // .pipe(map(response => Batch.fromJsonArray(response['response']['data'])));
-    .pipe(map(response => response['response']));
+    // .pipe(map((response: any) => Batch.fromJsonArray(response['response']['data'])));
+    .pipe(map((response: any) => response['response']));
   }
 
 
   getInfo(): Observable<any> {
     return this.get('info', {})
-            .pipe(map(response => response['response']['data'][0]));
+            .pipe(map((response: any) => response['response']['data'][0]));
   }
 
 
   getBatchQueue(): Observable<Batch[]> {
     return this.get('import/processingBatches', {})
-            .pipe(map(response => Batch.fromJsonArray(response['response']['data'])));
+            .pipe(map((response: any) => Batch.fromJsonArray(response['response']['data'])));
   }
 
   getImportBatch(id: number): Observable<any> {
     return this.get('import/batch', { id: id })
-     .pipe(map(response => Batch.fromJson(response['response']['data'][0])));
+     .pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
   getUsers(): Observable<User[]> {
     return this.get('user')
-            .pipe(map(response => User.fromJsonArray(response['response']['data'])));
+            .pipe(map((response: any) => User.fromJsonArray(response['response']['data'])));
   }
 
   getUser(): Observable<User> {
     return this.get('user?whoAmI=true')
-            .pipe(map(response => User.fromJson(response['response']['data'][0])));
+            .pipe(map((response: any) => User.fromJson(response['response']['data'][0])));
   }
 
   editUser(user: User, forename: string, surname: string): Observable<User> {
     const data = `userId=${user.userId}&forename=${forename}&surname=${surname}&email=${user.email}&organization=${user.organization}&role=${user.role}`;
-    return this.put('user', data).pipe(map(response => User.fromJson(response['response']['data'][0])));
+    return this.put('user', data).pipe(map((response: any) => User.fromJson(response['response']['data'][0])));
   }
 
   editUserPassword(user: User, password: string): Observable<any> {
@@ -681,7 +681,7 @@ export class ApiService {
     return this.getStreamUrl(pid, 'THUMBNAIL');
   }
 
-  getStreamUrl(pid: string, stream: string, batchId = null) {
+  getStreamUrl(pid: string, stream: string, batchId: any = null) {
     let url = `${this.getApiUrl()}object/dissemination?pid=${pid}&datastream=${stream}`
     if (batchId) {
       url = `${url}&batchId=${batchId}`;

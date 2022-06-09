@@ -2,7 +2,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { DocumentItem } from './../../model/documentItem.model';
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Translator } from 'angular-translator';
+import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
 
 
@@ -42,13 +42,13 @@ export class RelationsComponent implements OnInit {
     return this.api.getThumbUrl(pid);
   }
 
-  private getIndex(el) {
+  private getIndex(el: { parentNode: { childNodes: any; }; }) {
     return Array.prototype.indexOf.call(el.parentNode.childNodes, el);
   }
 
-  private isbefore(a, b) {
+  private isbefore(a: { parentNode: any; }, b: { parentNode: any; }) {
     if (a.parentNode === b.parentNode) {
-      for (let cur = a; cur; cur = cur.previousSibling) {
+      for (let cur: any = a; cur; cur = cur.previousSibling) {
         if (cur === b) {
           return true;
         }
@@ -57,11 +57,11 @@ export class RelationsComponent implements OnInit {
     return false;
   }
 
-  dragenter($event) {
+  dragenter($event: any) {
     if (this.source.parentNode !== $event.currentTarget.parentNode) {
       return;
     }
-    const target = $event.currentTarget;
+    const target: any = $event.currentTarget;
     if (this.isbefore(this.source, target)) {
       target.parentNode.insertBefore(this.source, target); // insert before
     } else {
@@ -69,7 +69,7 @@ export class RelationsComponent implements OnInit {
     }
   }
 
-  dragend($event) {
+  dragend($event: any) {
     const targetIndex = this.getIndex(this.source);
     const from = this.sourceIndex - 1;
     const to = targetIndex - 1;
@@ -92,7 +92,7 @@ export class RelationsComponent implements OnInit {
     });
   }
 
-  dragstart($event) {
+  dragstart($event: { currentTarget: any; dataTransfer: { effectAllowed: string; }; }) {
     if (!this.dragEnabled) {
       return;
     }
@@ -101,7 +101,7 @@ export class RelationsComponent implements OnInit {
     $event.dataTransfer.effectAllowed = 'move';
   }
 
-  mousedown($event) {
+  mousedown($event: any) {
     // if ($event.target.classList.contains('page-drag-handle') > 0) {
       this.dragEnabled = true;
     // } else {

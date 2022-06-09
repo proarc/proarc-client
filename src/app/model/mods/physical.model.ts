@@ -5,9 +5,9 @@ import { ModsForm } from './form.model';
 
 export class ModsPhysical extends ModsElement {
 
-    note;
-    extent;
-    digitalOrigin;
+    note: any;
+    extent: any;
+    digitalOrigin: any;
     forms: ElementField;
 
     static getSelector() {
@@ -18,7 +18,7 @@ export class ModsPhysical extends ModsElement {
         return 'physicalDescription';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template);
         this.init();
     }

@@ -12,7 +12,7 @@ import { Atm } from '../model/atm.model';
 import { Page } from '../model/page.model';
 import { PageUpdateHolder } from '../components/editor/editor-pages/editor-pages.component';
 import { NewObjectData, NewObjectDialogComponent } from '../dialogs/new-object-dialog/new-object-dialog.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { UIService } from './ui.service';
 import { ParentDialogComponent } from '../dialogs/parent-dialog/parent-dialog.component';
 import { Batch } from '../model/batch.model';
@@ -39,11 +39,11 @@ export class EditorService {
 
     public doubleRight = false;
 
-    public left: DocumentItem;
-    public right: DocumentItem;
+    public left: DocumentItem | null;
+    public right: DocumentItem | null;
     public children: DocumentItem[];
 
-    public metadata: Metadata;
+    public metadata: Metadata | null;
 
     private multipleChildrenMode: boolean;
     public relocationMode: boolean;
@@ -52,9 +52,9 @@ export class EditorService {
 
     private toParentFrom: string;
 
-    parent: DocumentItem;
-    previousItem: DocumentItem;
-    nextItem: DocumentItem;
+    parent: DocumentItem | null;
+    previousItem: DocumentItem | null;
+    nextItem: DocumentItem | null;
     path: { pid: string, label: string, model: string }[] = [];
 
     // template: any;
@@ -105,8 +105,9 @@ export class EditorService {
     }
 
     initSelectedColumns() {
-        if (this.properties.getStringProperty('selectedColumns')) {
-            this.selectedColumns = JSON.parse(this.properties.getStringProperty('selectedColumns'));
+        const prop = this.properties.getStringProperty('selectedColumns');
+        if (prop) {
+            this.selectedColumns = JSON.parse(prop);
         }
     }
 
@@ -134,7 +135,7 @@ export class EditorService {
     }
 
     reloadBatch(callback: () => void, moveToNext = false) {
-        this.api.getBatchPages(this.left.pid).subscribe((pages: DocumentItem[]) => {
+        this.api.getBatchPages(this.left!.pid).subscribe((pages: DocumentItem[]) => {
             if (this.isMultipleChildrenMode()) {
                 for (const oldChild of this.children) {
                     if (oldChild.selected) {
@@ -204,7 +205,7 @@ export class EditorService {
                 this.switchMode('detail');
             } else {
                 const mode = this.properties.getStringProperty('editor.mode', 'detail');
-                this.switchMode(mode);
+                this.switchMode(mode!);
             }
             const pid = item.pid;
             //this.path = [{pid: item.pid, label: item.label}];
@@ -237,16 +238,18 @@ export class EditorService {
     }
 
 
-    public getBatchId(): string {
+    public getBatchId(): string | undefined {
         if (this.preparation && this.left) {
             return this.left.pid;
         }
+        return undefined;
     }
 
-    public getBatchParent(): string {
+    public getBatchParent(): string | undefined {
         if (this.preparation && this.left) {
             return this.left.parent;
         }
+        return undefined;
     }
 
     public onlyPageChildren(): boolean {
@@ -277,7 +280,7 @@ export class EditorService {
         }
         setTimeout(() => {
             this.doubleRight = true;
-            this.properties.setBoolProperty('editor.double_right_' + this.right.model, true);
+            this.properties.setBoolProperty('editor.double_right_' + this.right!.model, true);
         }, 100);
     }
 
@@ -410,7 +413,7 @@ export class EditorService {
         }
     }
 
-    public selectRight(item: DocumentItem) {
+    public selectRight(item: DocumentItem | null) {
         if (item) {
             // if (item.isPage()) {
             //     this.rightEditorType = this.properties.getStringProperty('editor.page_right_editor_type', 'image');
@@ -547,7 +550,7 @@ export class EditorService {
         });
     }
 
-    saveOcr(ocr: Ocr, callback: (Ocr) => void) {
+    saveOcr(ocr: Ocr, callback: (ocr: Ocr) => void) {
         this.state = 'saving';
         this.api.editOcr(ocr, this.getBatchId()).subscribe((newOcr: Ocr) => {
             if (callback) {
@@ -557,7 +560,7 @@ export class EditorService {
         });
     }
 
-    saveMods(mods: Mods, ignoreValidation: boolean, callback: (Mods) => void) {
+    saveMods(mods: Mods, ignoreValidation: boolean, callback: (mods: Mods) => void) {
         this.state = 'saving';
         this.api.editModsXml(mods.pid, mods.content, mods.timestamp, ignoreValidation, this.getBatchId()).subscribe((resp: any) => {
             if (resp.errors) {
@@ -625,7 +628,7 @@ export class EditorService {
         });
     }
 
-    saveNote(note: Note, callback: (Note) => void) {
+    saveNote(note: Note, callback: (note: Note) => void) {
         this.state = 'saving';
         this.api.editNote(note, this.getBatchId()).subscribe((newNote: Note) => {
             if (callback) {
@@ -635,7 +638,7 @@ export class EditorService {
         });
     }
 
-    saveAtm(atm: Atm, callback: (Atm) => void) {
+    saveAtm(atm: Atm, callback: (atm: Atm) => void) {
         this.state = 'saving';
         this.api.editAtm(atm, this.getBatchId()).subscribe((response: any) => {
             if (response.response.errors) {
@@ -651,7 +654,7 @@ export class EditorService {
         });
     }
 
-    savePage(page: Page, callback: (Page) => void, moveToNext = false) {
+    savePage(page: Page, callback: (page: Page) => void, moveToNext = false) {
         this.state = 'saving';
         this.api.editPage(page, this.getBatchId()).subscribe((resp: any) => {
             if (resp.response.errors) {
@@ -749,7 +752,7 @@ export class EditorService {
         });
     }
 
-    deleteSelectedChildren(pernamently: boolean, callback: (boolean) => void) {
+    deleteSelectedChildren(pernamently: boolean, callback: (per: boolean) => void) {
         this.state = 'saving';
         let pids: string[];
         if (this.isMultipleChildrenMode()) {
@@ -764,7 +767,7 @@ export class EditorService {
                 this.state = 'error';
                 return;
             } else {
-                const removedPid: string[] = response['response']['data'].map(x => x.pid);
+                const removedPid: string[] = response['response']['data'].map((x: any) => x.pid);
                 let nextSelection = 0;
                 for (let i = this.children.length - 1; i >= 0; i--) {
                     if (removedPid.indexOf(this.children[i].pid) > -1) {
@@ -1090,7 +1093,7 @@ export class EditorService {
                 this.ui.showErrorSnackBarFromObject(result.response.errors);
                 this.state = 'error';
             } else if (result.response.data) {
-                this.ui.showErrorSnackBarFromObject(result.response.data.map(d => d.errorMessage = d.validation));
+                this.ui.showErrorSnackBarFromObject(result.response.data.map((d: any) => d.errorMessage = d.validation));
                 this.state = 'error';
             } else {
                 this.state = 'success';

@@ -5,8 +5,8 @@ import {ModsExtent} from './extent.model';
 
 export class ModsPart extends ModsElement {
 
-    type;
-    caption;
+    type: any;
+    caption: any;
     extents: ElementField;
     recordIdentifier: ElementField;
 
@@ -18,7 +18,7 @@ export class ModsPart extends ModsElement {
         return 'part';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template, ['type']);
         this.init();
     }
@@ -32,7 +32,7 @@ export class ModsPart extends ModsElement {
         }
         this.type = this.modsElement['type'][0];
         const ctx = this;
-        this.modsElement['detail'].forEach(function(caption) {
+        this.modsElement['detail'].forEach(function(caption: { [x: string]: any[]; }) {
           if (caption['caption'] && caption['caption'][0]) {
             ctx.caption = caption['caption'][0];
           }

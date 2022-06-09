@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Translator } from 'angular-translator';
+import { TranslateService } from '@ngx-translate/core';
 import { ElementField } from 'src/app/model/mods/elementField.model';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { FundService } from 'src/app/services/fund.service';
 import { FundDialogComponent } from 'src/app/dialogs/fund-dialog/fund-dialog.component';
@@ -25,16 +25,16 @@ export class EditorChronicleLocationComponent implements OnInit {
     { code: "226105010", name: "SOkA Žďár nad Sázavou" }
   ];
 
-  constructor(private translator: Translator, private dialog: MatDialog, public fund: FundService) {
+  constructor(private translator: TranslateService, private dialog: MatDialog, public fund: FundService) {
   }
 
   ngOnInit() {
   }
 
-  lookupFund(loacation) {
+  lookupFund(loacation: any) {
     const archive = loacation["$"]["type"];
     if (!archive) {
-      this.translator.waitForTranslation().then(() => {
+      // this.translator.waitForTranslation().then(() => {
         const data: SimpleDialogData = {
           title: String(this.translator.instant('editor.chronicle.location.archive_not_selected_title')),
           message: String(this.translator.instant('editor.chronicle.location.archive_not_selected_message')),
@@ -45,7 +45,7 @@ export class EditorChronicleLocationComponent implements OnInit {
           }
         };
         this.dialog.open(SimpleDialogComponent, { data: data });
-      });
+      // });
       return;
     }
     const dialogRef = this.dialog.open(FundDialogComponent, { data: archive });

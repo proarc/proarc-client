@@ -53,7 +53,7 @@ export class Metadata {
   public readonly pid: string;
   public readonly timestamp: number = -1;
   public readonly originalMods: string;
-  private mods;
+  private mods: { [x: string]: any; };
   public readonly model: string;
 
   // public volume: ModsVolume;
@@ -62,8 +62,8 @@ export class Metadata {
 
   private fields: Map<String, ElementField>;
 
-  public template;
-  public standard;
+  public template: { [x: string]: boolean; };
+  public standard: string;
 
   constructor(pid: string, model: string, mods: string, timestamp: number) {
     this.pid = pid;
@@ -92,7 +92,7 @@ export class Metadata {
     const xml = mods.replace(/xmlns.*=".*"/g, '');
     const data = {tagNameProcessors: [processors.stripPrefix], explicitCharkey: true};
     const ctx = this;
-    parseString(xml, data, function (err, result) {
+    parseString(xml, data, function (err: any, result: any) {
         ctx.processMods(result);
     });
   }
@@ -123,9 +123,9 @@ export class Metadata {
     return valid;
   }
 
-  private resolveStandard(data): string {
+  private resolveStandard(data: { [x: string]: any; }): string {
     let standard = '';
-    let mods = data;
+    let mods: any = data;
     if (data['modsCollection']) {
       if (data['modsCollection']['mods']) {
         mods = data['modsCollection']['mods'];
@@ -151,7 +151,7 @@ export class Metadata {
     return standard;
   }
 
-  private processMods(data) {
+  private processMods(data: any) {
     this.standard = this.resolveStandard(data);
     this.template = ModelTemplate.data[this.standard][this.model];
     // if (ProArc.isChronicle(this.model)) {
@@ -272,18 +272,18 @@ export class Metadata {
     return mods;
   }
 
-  private normalizeField(root, name) {
+  private normalizeField(root: { [x: string]: any; }, name: string) {
     if (this.normalize(root[name])) {
       delete root[name];
     }
   }
 
-  private normalize(el) {
+  private normalize(el: any) {
     if (el === null || el === undefined) {
       return true;
     }
     if (el.hasOwnProperty('$')) {
-      const attrs = el['$'];
+      const attrs: any = el['$'];
       Object.keys(attrs).forEach(function(key) {
         if (attrs[key] === '') {
           delete attrs[key];

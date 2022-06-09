@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Translator } from 'angular-translator';
+import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { NewObjectDialogComponent, NewObjectData } from 'src/app/dialogs/new-object-dialog/new-object-dialog.component';
 import { ConfigService } from 'src/app/services/config.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -15,9 +15,9 @@ import { AboutDialogComponent } from 'src/app/dialogs/about-dialog/about-dialog.
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(public translator: Translator,
+  constructor(public translator: TranslateService,
               public auth: AuthService,
-              private config: ConfigService,
+              public config: ConfigService,
               private dialog: MatDialog,
               private properties: LocalStorageService, 
               private router: Router) { }
@@ -27,7 +27,7 @@ export class NavbarComponent implements OnInit {
 
   onLanguageChanged(lang: string) {
     localStorage.setItem('lang', lang);
-    this.translator.language = lang;
+    this.translator.use(lang);
   }
 
   logout() {

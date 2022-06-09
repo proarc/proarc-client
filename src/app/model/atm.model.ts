@@ -23,7 +23,7 @@ export class Atm {
     public originalUserProcessor: string;
     public originalStatus: string;
 
-  public static fromJson(json): Atm {
+  public static fromJson(json: any): Atm {
       const atm = new Atm();
       atm.pid = json['pid'];
       atm.model = json['model'];

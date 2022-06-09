@@ -62,7 +62,7 @@ import {ChronicleMonographsupplementAacrTemplate} from './aacr/chronicleMonograp
 
 export class ModelTemplate {
 
-  static data = {
+  static data: any = {
     "aacr": {
       "model:ndkmonographtitle": NdkMonographTitleAacrTemplate.data,
       "model:ndkmonographvolume": NdkMonographVolumeAacrTemplate.data,
@@ -161,7 +161,7 @@ export class ModelTemplate {
     }
   }
 
-  private static relations = {
+  private static relations: any = {
     'ndkperiodical': ['ndkperiodicalvolume'],
     'ndkperiodicalvolume': ['ndkperiodicalissue', 'ndkperiodicalsupplement'],
     'ndkperiodicalissue': ['ndkperiodicalsupplement', 'ndkarticle', 'ndkpicture', 'ndkmap', 'ndksheetmusic', 'ndkpage', 'page', 'bdmarticle'],
@@ -207,7 +207,7 @@ export class ModelTemplate {
     if (model.startsWith('model:')) {
       model = model.substring(6);
     }
-    const models = ModelTemplate.relations[model];
+    const models: any = ModelTemplate.relations[model];
     if (!models) {
       return [];
     }

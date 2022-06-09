@@ -10,7 +10,7 @@ export class ModsResource extends ModsElement {
         return 'typeOfResource';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template, ['manuscript']);
         this.init();
     }

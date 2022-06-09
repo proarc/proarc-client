@@ -1,13 +1,12 @@
 
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/api.service';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { User } from 'src/app/model/user.model';
 import { Tree } from 'src/app/model/mods/tree.model';
-import { rootRoute } from '@angular/router/src/router_module';
 
 @Component({
   selector: 'app-parent-dialog',
@@ -92,6 +91,7 @@ export class ParentDialogComponent implements OnInit {
         return 'arrow_drop_down';
       }
     }
+    return '';
   }
 
   sortBy(field: string) {
@@ -161,7 +161,7 @@ export class ParentDialogComponent implements OnInit {
     }
   }
 
-  onPageChanged(page) {
+  onPageChanged(page: any) {
     this.reload(page.pageIndex);
   }
 

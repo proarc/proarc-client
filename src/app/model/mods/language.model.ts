@@ -3,7 +3,7 @@ import ModsUtils from './utils';
 
 export class ModsLanguage extends ModsElement {
 
-    public language;
+    public language: any;
 
     static getSelector() {
         return 'language';
@@ -13,7 +13,7 @@ export class ModsLanguage extends ModsElement {
         return 'language';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template, ['objectPart']);
         this.init();
     }

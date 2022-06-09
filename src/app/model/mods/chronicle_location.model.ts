@@ -3,7 +3,7 @@ import ModsUtils from './utils';
 
 export class ModsChronicleLocation extends ModsElement {
 
-    public physicalLocation;
+    public physicalLocation: any;
 
     static getSelector() {
         return 'location';
@@ -13,7 +13,7 @@ export class ModsChronicleLocation extends ModsElement {
         return 'location_chronicle';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template);
         this.init();
     }

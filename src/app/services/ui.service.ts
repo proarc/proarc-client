@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
-import { Translator } from 'angular-translator';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { AlertDialogComponent } from '../dialogs/alert-dialog/alert-dialog.component';
@@ -12,11 +13,11 @@ export class UIService {
   constructor(
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private translator: Translator
+    private translator: TranslateService
   ) {
   }
 
-  public showErrorDialog(data) {
+  public showErrorDialog(data: { type: string; title: string; message: any[] | string[]; }) {
     this.dialogRef = this.dialog.open(AlertDialogComponent, {    
          data
     });
@@ -54,10 +55,10 @@ export class UIService {
   showErrorSnackBarFromObject(errors: any) {
     // response.errors.mods[0].errorMessage
     const keys = Object.keys(errors);
-    let message = [];
+    let message: any[] = [];
     keys.forEach(k => {
       if (Array.isArray(errors[k])) {
-        errors[k].forEach(e => {
+        errors[k].forEach((e: { errorMessage: any; }) => {
           message.push(e.errorMessage);
         });
       } else if (typeof errors[k] === 'string') {

@@ -2,7 +2,7 @@ import { CodebookService } from './../../../services/codebook.service';
 import { Component, OnInit } from '@angular/core';
 import { EditorService } from 'src/app/services/editor.service';
 import { ConfigService } from 'src/app/services/config.service';
-import { MatSelect } from '@angular/material';
+import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'app-editor-pages',
@@ -147,7 +147,7 @@ export class PageUpdateHolder {
 
 
 
-  private romanCharToInt(c) {
+  private romanCharToInt(c: string) {
     switch (c) {
       case 'I': return 1;
       case 'V': return 5;
@@ -194,7 +194,7 @@ export class PageUpdateHolder {
   }
   
 
-  getAlphabetFromNumber(num) {
+  getAlphabetFromNumber(num: number) {
     let str = '';
     let t = 0;
     while (num > 0) {
@@ -216,6 +216,8 @@ export class PageUpdateHolder {
       return this.alphabetIndex(number.toLocaleLowerCase());
     } else if (this.pageNumberNumbering == this.numberingTypes[4]) {
       return this.alphabetIndex(number.toLocaleLowerCase());
+    } else {
+      return -1
     }
   }
 
@@ -265,12 +267,14 @@ export class PageUpdateHolder {
     } else if (this.pageNumberNumbering === this.numberingTypes[4]) {
       return new RegExp(/^[A-Za-z]+$/).test(this.pageNumberFrom);
     }
+    return false;
   }
 
   getNumberingExample(): string {
     if (this.pageNumberFrom && this.numberFromValid()) {
       return `${this.getNumberForIndex(0)}; ${this.getNumberForIndex(1)}; ${this.getNumberForIndex(2)}; ${this.getNumberForIndex(3)}`;
     }
+    return '';
   }
 
 }

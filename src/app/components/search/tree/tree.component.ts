@@ -31,7 +31,7 @@ export class TreeComponent implements OnInit {
     }
   }
 
-  ngOnChanges(c) {
+  ngOnChanges(c: any) {
     if (this.tree && this.expandedPath && this.expandedPath.includes(this.tree.item.pid)) {
       this.tree.expand(this.api);
     }
@@ -42,7 +42,7 @@ export class TreeComponent implements OnInit {
     this.selectFromTree(this.tree);
   }
 
-  toggle(event) {
+  toggle(event: any) {
     event.stopPropagation();
     event.preventDefault();
     if (!this.tree.expanded) {

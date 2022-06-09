@@ -1,6 +1,6 @@
 
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/api.service';
 import { Batch } from 'src/app/model/batch.model';
 
@@ -14,7 +14,6 @@ export class IngestDialogComponent implements OnInit {
 
   private batchId;
   private parentPid;
-  result 
 
   constructor(
     private api: ApiService,

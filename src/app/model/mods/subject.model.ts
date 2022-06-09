@@ -5,10 +5,10 @@ import { ModsCartographics } from './cartographics.model';
 
 export class ModsSubject extends ModsElement {
 
-    topic;
-    geographic;
-    temporal;
-    name;
+    topic: any;
+    geographic: any;
+    temporal: any;
+    name: any;
 
     public cartographics: ElementField;
 
@@ -21,7 +21,7 @@ export class ModsSubject extends ModsElement {
         return 'subject';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template, ['authority', 'lang']);
         this.init();
     }

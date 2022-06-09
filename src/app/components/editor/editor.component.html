@@ -3,10 +3,10 @@
   <div class="app-editor-saving" *ngIf="editor.state === 'loading' || editor.state === 'saving'"></div>
 
 
-  <as-split unit="percent" gutterSize="4" direction="horizontal" (dragEnd)="dragEnd($event)"
-    (gutterDblClick)="dblClick($event)" #split="asSplit">
+  <as-split unit="percent" [gutterSize]="4" direction="horizontal" (dragEnd)="dragEnd($event)"
+    (gutterDblClick)="dblClick()" #split="asSplit">
 
-    <as-split-area #area1="asSplitArea" minSize="1" [size]="getSplitSize(0)">
+    <as-split-area #area1="asSplitArea" [minSize]="1" [size]="getSplitSize(0)">
 
       <div class="app-panel">
         <div class="app-toolbar" *ngIf="!editor.preparation">
@@ -125,7 +125,7 @@
     </as-split-area>
 
 
-    <as-split-area #area2="asSplitArea" minSize="20" [size]="getSplitSize(1)">
+    <as-split-area #area2="asSplitArea" [minSize]="20" [size]="getSplitSize(1)">
 
       <div class="app-panel">
 
@@ -239,7 +239,7 @@
 
 
 
-    <as-split-area *ngIf="editor.right && editor.doubleRight" #area3="asSplitArea" minSize="20"
+    <as-split-area *ngIf="editor.right && editor.doubleRight" #area3="asSplitArea" [minSize]="20"
       [size]="getSplitSize(2)">
 
 

@@ -6,7 +6,7 @@ export class Note {
   public content: string;
   public timestamp: number;
 
-  public static fromJson(json): Note {
+  public static fromJson(json: any): Note {
       const note = new Note();
       note.pid = json['pid'];
       note.original = json['content'];

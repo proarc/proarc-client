@@ -39,7 +39,7 @@ export class ModsRelatedItem extends ModsElement {
     return 'relatedItem';
   }
 
-  constructor(modsElement, template) {
+  constructor(modsElement: any, template: any) {
     super(modsElement, template, ['type', 'otherType', 'otherTypeURI', 'otherTypeAuth', 'otherTypeAuthURI']);
     this.init();
   }

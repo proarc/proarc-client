@@ -1,7 +1,4 @@
 <div class="app-ocr" *ngIf="state === 'success'">
-
-
-  
   <mat-form-field>
     <mat-label>OCR</mat-label>
     <textarea matInput
@@ -9,9 +6,7 @@
               ></textarea>
   </mat-form-field>
 
-
-
-  <button class="btn-update" (click)="updateOcr()" mat-raised-button [disabled]="state=='saving'" color="primary">
+  <button class="btn-update" (click)="updateOcr()" mat-raised-button color="primary">
     <span>Uložit</span>
 </button>
 

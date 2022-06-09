@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Translator } from 'angular-translator';
+import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../services/auth.service';
 import { Router, NavigationEnd } from '@angular/router';
 
@@ -10,13 +10,15 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private translator: Translator,
+  constructor(private translator: TranslateService,
               private auth: AuthService,
               private router: Router
               ) {
     const lang = localStorage.getItem('lang');
     if (lang) {
-      this.translator.language = lang;
+      this.translator.use(lang);
+    } else {
+      this.translator.use('cs');
     }
     this.auth.checkOnStart();
   }

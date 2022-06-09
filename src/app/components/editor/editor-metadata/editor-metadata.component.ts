@@ -1,10 +1,10 @@
 import { EditorService } from 'src/app/services/editor.service';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { CatalogDialogComponent } from 'src/app/dialogs/catalog-dialog/catalog-dialog.component';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
-import { Translator } from 'angular-translator';
+import { TranslateService } from '@ngx-translate/core';
 import { UIService } from 'src/app/services/ui.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class EditorMetadataComponent implements OnInit {
     this.onPidChanged(pid);
   }
   constructor(
-    private translator: Translator,
+    private translator: TranslateService,
     public editor: EditorService, 
     private ui: UIService,
     private dialog: MatDialog) { }

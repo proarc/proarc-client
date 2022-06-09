@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { User } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/services/auth.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { NewPasswordDialogComponent } from 'src/app/dialogs/new-password-dialog/new-password-dialog.component';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UIService } from 'src/app/services/ui.service';
@@ -29,7 +29,7 @@ export class SettingsComponent implements OnInit {
     private dialog: MatDialog,
     private ui: UIService,
     public codebook: CodebookService,
-    private properties: LocalStorageService, 
+    public properties: LocalStorageService, 
     private auth: AuthService) { }
 
   ngOnInit() {
@@ -44,7 +44,7 @@ export class SettingsComponent implements OnInit {
     }
   }
 
-  changeCodebookTops(type) {
+  changeCodebookTops(type: any) {
     this.dialog.open(PreferredTopsDialogComponent, { data: type });
   }
 

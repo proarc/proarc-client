@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class FundService {
 
-  private data = { 
+  private data: any = { 
     "226101010": {
       "0001": "Místní národní výbor Babice",
       "0002": "Místní národní výbor Bartoušov",
@@ -10725,7 +10725,7 @@ export class FundService {
       return "";
     }
     const archive = id.split("_NAD")[0];
-    const fund = this.getFund(archive);
+    const fund: any = this.getFund(archive);
     if (!fund) {
       return "";
     }

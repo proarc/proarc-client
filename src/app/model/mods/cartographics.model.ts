@@ -3,8 +3,8 @@ import ModsUtils from './utils';
 
 export class ModsCartographics extends ModsElement {
 
-    coordinates;
-    scale;
+    coordinates: any;
+    scale: any;
 
     static getSelector() {
         return 'cartographics';
@@ -14,7 +14,7 @@ export class ModsCartographics extends ModsElement {
         return 'cartographics';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template);
         this.init();
     }

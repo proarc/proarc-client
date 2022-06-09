@@ -2,14 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { Batch } from 'src/app/model/batch.model';
 import { User } from 'src/app/model/user.model';
-import { MatDialog } from '@angular/material';
-import { Translator } from 'angular-translator';
+import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { LogDialogComponent } from 'src/app/dialogs/log-dialog/log-dialog.component';
 import { Router } from '@angular/router';
 import { ReloadBatchDialogComponent } from 'src/app/dialogs/reload-batch-dialog/reload-batch-dialog.component';
 import { Profile } from 'src/app/model/profile.model';
 import { ImportDialogComponent } from 'src/app/dialogs/import-dialog/import-dialog.component';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -35,10 +34,10 @@ export class HistoryComponent implements OnInit, OnDestroy {
   
   view: string;
 
-  private timer;
+  private timer: any;
   autoRefresh = false;
 
-  private progressMap = {};
+  private progressMap: any = {};
 
   description: string;
   createFrom: Date;
@@ -61,7 +60,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
     private api: ApiService, 
               private dialog: MatDialog, 
               private router: Router,
-              private translator: Translator) { }
+              private translator: TranslateService) { }
 
   ngOnInit() {
     this.changeView('overview');
@@ -121,7 +120,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
     this.selectedBatch = null;
     this.state = 'loading';
     const start = this.pageIndex * this.pageSize;
-    let params = {
+    let params: any = {
       _sortBy: '-timestamp',
       _startRow: start,
       _endRow: start + this.pageSize,
@@ -157,7 +156,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
     this.api.getImportBatches(params).subscribe((resp: any) => {
       console.log(resp);
-      this.batches = resp.data.map(d => Batch.fromJson(d));
+      this.batches = resp.data.map((d: any) => Batch.fromJson(d));
       this.resultCount = resp.totalRows;
       this.state = 'success';
       this.updateLoadingBatchesProgress(this.batches);
@@ -174,7 +173,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
       this.updateLoadingBatchesProgress(this.queue);
     }, error => {
       
-    let params = {
+    let params: any = {
       _sortBy: '-timestamp',
       _startRow: start,
       _endRow: start + this.pageSize,
@@ -287,7 +286,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
     this.reloadBatches();
   }
 
-  onPageChanged(page) {
+  onPageChanged(page: any) {
     this.pageIndex = page.pageIndex;
     this.reload();
   }

@@ -1,6 +1,6 @@
 
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/api.service';
 import { LogDialogComponent } from '../log-dialog/log-dialog.component';
 import { Registrar } from 'src/app/model/registrar.model';

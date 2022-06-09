@@ -32,7 +32,7 @@ export class CuzkService {
       'returnFieldName': true,
       'f': 'json'
     } as any;
-    return this.http.get(CuzkService.baseUrl, { params: params }).pipe(map(response => Ruian.fromJsonArray(response['results'])));
+    return this.http.get(CuzkService.baseUrl, { params: params }).pipe(map((response: any) => Ruian.fromJsonArray(response['results'])));
   }
 
 
@@ -49,7 +49,7 @@ export class CuzkService {
       'returnFieldName': true,
       'f': 'json'
     } as any;
-    return this.http.get(CuzkService.baseUrl, { params: params }).pipe(map(response => Ruian.fromJsonArray(response['results'])));
+    return this.http.get(CuzkService.baseUrl, { params: params }).pipe(map((response: any) => Ruian.fromJsonArray(response['results'])));
   }
 
   public searchByCode(code: string, layerId: number): Observable<Ruian[]> {
@@ -65,7 +65,7 @@ export class CuzkService {
       'returnFieldName': true,
       'f': 'json'
     } as any;
-    return this.http.get(CuzkService.baseUrl, { params: params }).pipe(map(response => Ruian.fromJsonArray(response['results'])));
+    return this.http.get(CuzkService.baseUrl, { params: params }).pipe(map((response: any) => Ruian.fromJsonArray(response['results'])));
   }
 
   // private get(path: string, params = {}): Observable<Object> {

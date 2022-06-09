@@ -10,7 +10,7 @@ export class ModsGenre extends ModsElement {
         return 'genre';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template, ['authority', 'type', 'lang']);
         this.init();
     }

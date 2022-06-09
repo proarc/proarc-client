@@ -5,12 +5,12 @@ import ModsUtils from './utils';
 
 export class ModsAuthor extends ModsElement {
 
-    public affiliation;
-    public name;
-    public given;
-    public family;
-    public termsOfAddress;
-    public date;
+    public affiliation: any;
+    public name: { [x: string]: string; };
+    public given: { [x: string]: any; };
+    public family: { [x: string]: any; };
+    public termsOfAddress: any;
+    public date: any;
     public roles: ElementField;
     public nameIdentifier: string;
     public etal: string;
@@ -23,7 +23,7 @@ export class ModsAuthor extends ModsElement {
         return 'name';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template, ['type', 'usage']);
         this.init();
     }

@@ -1,6 +1,6 @@
 
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CodebookService } from 'src/app/services/codebook.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { CodebookService } from 'src/app/services/codebook.service';
 })
 export class PreferredTopsDialogComponent implements OnInit {
 
-  checked = {};
+  checked: any = {};
   items: any[];
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, 

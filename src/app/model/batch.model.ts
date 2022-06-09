@@ -14,7 +14,7 @@ export class Batch {
   public parentPid: string;
   public pageCount: number;
 
-  public static fromJson(json): Batch {
+  public static fromJson(json: any): Batch {
       const batch = new Batch();
       batch.id = json['id'];
       batch.description = json['description'];
@@ -30,7 +30,7 @@ export class Batch {
       return batch;
   }
 
-  public static fromJsonArray(jsonArray): Batch[] {
+  public static fromJsonArray(jsonArray: any[]): Batch[] {
     const array: Batch[] = [];
     for (const json of jsonArray) {
         array.push(Batch.fromJson(json));
@@ -38,7 +38,7 @@ export class Batch {
     return array;
   }
 
-  public static statusFromJson(json): [number, number] {
+  public static statusFromJson(json: any): [number, number] {
     if (!json) {
       return null;
     }

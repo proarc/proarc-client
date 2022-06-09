@@ -15,7 +15,7 @@ export class User {
   public organization: string;
   public role: string;
 
-  public static fromJson(json): User {
+  public static fromJson(json: any): User {
       const user = new User();
       user.userId = json['userId'];
       user.userGroup = json['userGroup'];
@@ -31,7 +31,7 @@ export class User {
       return user;
   }
 
-  public static fromJsonArray(jsonArray): User[] {
+  public static fromJsonArray(jsonArray: any[]): User[] {
     const array: User[] = [];
     for (const json of jsonArray) {
         array.push(User.fromJson(json));

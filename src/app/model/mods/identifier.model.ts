@@ -11,7 +11,7 @@ export class ModsIdentifier extends ModsElement {
         return 'identifier';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template, ['type', 'invalid']);
         this.init();
     }

@@ -27,7 +27,7 @@ export class Page {
     this.originalIdentifiers = [];
   }
 
-  public static pageFromJson(json, model): Page {
+  public static pageFromJson(json: any, model: string): Page {
       const page = new Page();
       page.model = model;
       page.pid = json['pid'];
@@ -51,7 +51,7 @@ export class Page {
       return page;
   }
 
-  public static ndkPageFromJson(json, model): Page {
+  public static ndkPageFromJson(json: any, model: string): Page {
     const page = new Page();
     page.model = model;
     page.pid = json['pid'];
@@ -88,7 +88,7 @@ export class Page {
     return page;
   }
 
-  public static fromJson(json, model: string): Page {
+  public static fromJson(json: any, model: string): Page {
     if (model == 'model:ndkpage') {
       return Page.ndkPageFromJson(json, model)
     } else {
@@ -119,7 +119,7 @@ export class Page {
     for (const i of this.identifiers) {
       ids.push(i.toJson());
     }
-    const mods = { 
+    const mods: any = { 
       'identifier': ids
     };
     if (this.position) {
@@ -223,7 +223,7 @@ export class PageIdentifier {
     this.value = value;
   }
 
-  public static fromJsonArray(array): PageIdentifier[] {
+  public static fromJsonArray(array: any[]): PageIdentifier[] {
     const identifiers = [];
     for (const id of array) {
       if (id) {

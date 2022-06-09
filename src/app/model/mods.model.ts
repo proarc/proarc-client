@@ -6,7 +6,7 @@ export class Mods {
   public content: string;
   public timestamp: number;
 
-  public static fromJson(json): Mods {
+  public static fromJson(json: any): Mods {
       const mods = new Mods();
       mods.pid = json['pid'];
       mods.original = json['content'];

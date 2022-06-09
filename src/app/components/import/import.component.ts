@@ -5,7 +5,7 @@ import { Profile } from 'src/app/model/profile.model';
 import { forkJoin } from 'rxjs';
 import { Folder } from 'src/app/model/folder.model';
 import { Batch } from 'src/app/model/batch.model';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ImportDialogComponent } from 'src/app/dialogs/import-dialog/import-dialog.component';
 import { Router } from '@angular/router';
 import { ImportTree } from './tree/tree.model';
@@ -250,7 +250,7 @@ export class ImportComponent implements OnInit {
   }
 
 
-  onPageChanged(page) {
+  onPageChanged(page: any) {
     // this.pageIndex = page.pageIndex;
     // this.reload();
   }

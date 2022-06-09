@@ -4,12 +4,12 @@ import { EditorPagesComponent } from './components/editor/editor-pages/editor-pa
 import { EditorMetadataComponent } from './components/editor/editor-metadata/editor-metadata.component';
 import { ViewerComponent } from './components/viewer/viewer.component';
 import { DatetimePipe } from './pipes/datetime.pipe';
-import { DatePipe } from './pipes/date.pipe';
+// import { DatePipe } from './pipes/date.pipe';
 import { EditorLocationComponent } from './documents/document/editor-location/editor-location.component';
 import { ModsEditorComponent } from './documents/document/mods-editor/mods-editor.component';
 import { EditorAuthorComponent } from './documents/document/editor-author/editor-author.component';
 import { EditorLanguageComponent } from './documents/document/editor-language/editor-language.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ApiService } from './services/api.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -22,10 +22,9 @@ import { AppComponent } from './components/app.component';
 import { MaterialModule } from './modules/material.module';
 import { XmlViewComponent } from './documents/document/mods-xml/xml-view.component';
 
-import { HighlightModule } from 'ngx-highlightjs';
-import xml from 'highlight.js/lib/languages/xml';
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+// import xml from 'highlight.js/lib/languages/xml';
 import { EditorTitleComponent } from './documents/document/editor-title/editor-title.component';
-import { TranslatorModule } from 'angular-translator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditorPublisherComponent } from './documents/document/editor-publisher/editor-publisher.component';
 import { LoginComponent } from './components/login/login.component';
@@ -52,7 +51,7 @@ import { EditorModsComponent } from './components/editor/editor-mods/editor-mods
 import { EditorCommentComponent } from './components/editor/editor-comment/editor-comment.component';
 import { EditorAtmComponent } from './components/editor/editor-atm/editor-atm.component';
 import { EditorPageComponent } from './components/editor/editor-page/editor-page.component';
-import { EditorSongComponent} from './components/editor/editor-song/editor-song.component';
+import { EditorSongComponent } from './components/editor/editor-song/editor-song.component';
 import { EditorGeoComponent } from './components/editor/editor-geo/editor-geo.component';
 import { EditorSubjectGeoComponent } from './documents/document/editor-subject-geo/editor-subject-geo.component';
 import { ImportComponent } from './components/import/import.component';
@@ -84,7 +83,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { NewPasswordDialogComponent } from './dialogs/new-password-dialog/new-password-dialog.component';
 import { EditorAbstractComponent } from './documents/document/editor-abstract/editor-abstract.component';
 import { AngularSplitModule } from 'angular-split';
-import { AngularResizedEventModule } from 'angular-resize-event';
+import { AngularResizeEventModule } from 'angular-resize-event';
 import { EditorPhysicalComponent } from './documents/document/editor-physical/editor-physical.component';
 import { TreeComponent } from './components/search/tree/tree.component';
 import { SearchService } from './services/search.service';
@@ -112,15 +111,22 @@ import { ConvertDialogComponent } from './dialogs/convert-dialog/convert-dialog.
 import { EditorPartComponent } from './documents/document/editor-part/editor-part.component';
 import { EditorRecordInfoComponent } from './documents/document/editor-recordInfo/editor-recordInfo';
 import { EditorTableOfContentsComponent } from './documents/document/editor-tableOfContents/editor-tableOfContents';
-import {EditorRelatedItemComponent} from './documents/document/editor-relatedItem/editor-relatedItem.component';
-import { MAT_DATE_LOCALE } from '@angular/material';
+import { EditorRelatedItemComponent } from './documents/document/editor-relatedItem/editor-relatedItem.component';
 import { AlertDialogComponent } from './dialogs/alert-dialog/alert-dialog.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { DatePipe } from '@angular/common';
 
 
-export function hljsLanguages() {
-  return [
-    {name: 'xml', func: xml}
-  ];
+// export function hljsLanguages() {
+//   return [
+//     {name: 'xml', func: xml}
+//   ];
+// }
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
 }
 
 @NgModule({
@@ -145,7 +151,7 @@ export function hljsLanguages() {
     ImportDialogComponent,
     LogDialogComponent,
     SearchComponent,
-    DatePipe,
+    // DatePipe,
     DatetimePipe,
     ShortenPipe,
     AtmComponent,
@@ -223,16 +229,14 @@ export function hljsLanguages() {
     ReactiveFormsModule,
     MaterialModule,
     HttpClientModule,
-    AngularResizedEventModule,
+    AngularResizeEventModule,
     AngularSplitModule.forRoot(),
-    HighlightModule.forRoot({
-      languages: hljsLanguages
-    }),
-    TranslatorModule.forRoot({
-      providedLanguages: ['cs'],
-      defaultLanguage: 'cs',
-      loaderOptions: {
-        path: 'assets/i18n/{{language}}.json?v1.0.9'
+    HighlightModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
       }
     })
   ],
@@ -249,7 +253,21 @@ export function hljsLanguages() {
     OsmService,
     SearchService,
     ImportService,
-    {provide: MAT_DATE_LOCALE, useValue: 'cs-CZ'},
+    DatePipe,
+    { provide: MAT_DATE_LOCALE, useValue: 'cs-CZ' },
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: {
+        coreLibraryLoader: () => import('highlight.js/lib/core'),
+        // lineNumbersLoader: () => import('highlightjs-line-numbers.js'), // Optional, only if you want the line numbers
+        languages: {
+          typescript: () => import('highlight.js/lib/languages/typescript'),
+          css: () => import('highlight.js/lib/languages/css'),
+          xml: () => import('highlight.js/lib/languages/xml')
+        },
+        themePath: 'path-to-theme.css' // Optional, and useful if you want to change the theme dynamically
+      }
+    }
   ],
   entryComponents: [
     AlertDialogComponent,

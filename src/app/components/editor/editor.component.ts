@@ -62,14 +62,14 @@ export class EditorComponent implements OnInit {
 
   }
 
-  getSplitSize(split: number) {
+  getSplitSize(split: number): number {
     if (this.editor.doubleRight) {
-      return this.threeSplitWidths[split];
+      return parseInt(this.threeSplitWidths[split]);
     }
-    return this.twoSplitWidths[split];
+    return parseInt(this.twoSplitWidths[split]);
   }
 
-  dragEnd({sizes}) {
+  dragEnd(sizes: any) {
     if (this.editor.doubleRight) {
       this.threeSplitWidths[0] = sizes[0];
       this.threeSplitWidths[1] = sizes[1];

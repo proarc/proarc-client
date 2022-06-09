@@ -10,7 +10,7 @@ export class ModsForm extends ModsElement {
         return 'form';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template, ['authority', 'type']);
         this.init();
     }
