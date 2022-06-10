@@ -231,6 +231,7 @@
     },
     "refresh": "Obnovit",
     "reload": "Načíst znovu",
+    "filter": "Filtrovat",
     "edit": "Přejít na objekt",
     "ingest": "Pokračovat",
     "reload_dialog": {

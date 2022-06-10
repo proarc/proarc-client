@@ -65,6 +65,9 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.changeView('overview');
+    this.api.getUsers().subscribe((users: User[]) => {
+      this.users = users;
+    });
     // this.timer= setInterval(() => {
     //   this.updateLoadingBatchesProgress();
     // }, 5000);
@@ -136,7 +139,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
     }
 
     if (this.user) {
-      params['user'] = this.user;
+      params['userId'] = this.user;
     }
 
     if (this.createFrom) {
@@ -160,7 +163,6 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
 
     this.api.getImportBatches(params).subscribe((resp: any) => {
-      console.log(resp);
       this.batches = resp.data.map((d: any) => Batch.fromJson(d));
       this.resultCount = resp.totalRows;
       this.state = 'success';

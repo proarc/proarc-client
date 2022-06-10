@@ -84,11 +84,14 @@
     </mat-form-field>
 
     <mat-form-field class="app-filter">
-      <input matInput [matTooltip]="'history.user' | translate" [placeholder]="'history.user' | translate" (keyup.enter)="reload()" [(ngModel)]="user">
+      <mat-select [placeholder]="'history.user' | translate" name="user" [(value)]="user" (keyup.enter)="reload()">
+        <mat-option value="">Vše</mat-option>
+        <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
+      </mat-select>
     </mat-form-field>
 
 
-    <button mat-raised-button color="default" (click)="reload()" matTooltip="'history.filter' | translate">
+    <button mat-raised-button color="default" (click)="reload()" matTooltip="{{'history.filter' | translate}}">
       <mat-icon>filter_alt</mat-icon>
     </button>
   </div>
