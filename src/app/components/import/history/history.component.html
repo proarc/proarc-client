@@ -86,7 +86,7 @@
     <mat-form-field class="app-filter">
       <mat-select [placeholder]="'history.user' | translate" name="user" [(value)]="user" (keyup.enter)="reload()">
         <mat-option value="">Vše</mat-option>
-        <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
+        <mat-option *ngFor="let user of users" [value]="user.userId">{{ user.name }}</mat-option>
       </mat-select>
     </mat-form-field>
 
