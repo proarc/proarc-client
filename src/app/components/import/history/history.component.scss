@@ -15,6 +15,20 @@
       margin-left: 10px;
     }
   }
+  .filters {
+    height: 60px;
+    overflow: hidden;
+    .app-history-states {
+      margin-right: 16px;
+    }
+    button {
+      margin-right: 16px;
+      margin-top: 10px;
+    }
+    .app-filter {
+      margin-left: 10px;
+    }
+  }
   .app-table {
     height: calc(100% - 60px);
   }

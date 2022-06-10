@@ -38,33 +38,6 @@
         {{ 'history.edit' | translate }}
       </button>
 
-      <mat-form-field class="app-filter">
-        <input matInput [matTooltip]="'history.desc_tooltip' | translate" [placeholder]="'history.desc' | translate" (keyup.enter)="reload()" [(ngModel)]="description">
-      </mat-form-field>
-
-      <mat-form-field class="app-filter">
-        <input matInput [matDatepicker]="dp1" [placeholder]="'history.createFrom' | translate" [(ngModel)]="createFrom" (keyup.enter)="reload()">
-        <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
-        <mat-datepicker #dp1></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field class="app-filter">
-        <input matInput [matDatepicker]="dp2" [placeholder]="'history.createTo' | translate" [(ngModel)]="createTo" (keyup.enter)="reload()">
-        <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
-        <mat-datepicker #dp2></mat-datepicker>
-      </mat-form-field>
-
-      <mat-form-field class="app-filter">
-        <input matInput [matDatepicker]="dp3" [placeholder]="'history.modifiedFrom' | translate" [(ngModel)]="modifiedFrom" (keyup.enter)="reload()">
-        <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
-        <mat-datepicker #dp3></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field class="app-filter">
-        <input matInput [matDatepicker]="dp4" [placeholder]="'history.modifiedTo' | translate" [(ngModel)]="modifiedTo" (keyup.enter)="reload()">
-        <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
-        <mat-datepicker #dp4></mat-datepicker>
-      </mat-form-field>
-
-
     </ng-container>
 
     <ng-container *ngIf="view == 'queue'">
@@ -81,6 +54,43 @@
     </ng-container>
 
 
+  </div>
+
+  <div class="filters" *ngIf="view == 'overview'">
+    <mat-form-field class="app-filter">
+      <input matInput [matTooltip]="'history.desc_tooltip' | translate" [placeholder]="'history.desc' | translate" (keyup.enter)="reload()" [(ngModel)]="description">
+    </mat-form-field>
+
+    <mat-form-field class="app-filter">
+      <input matInput [matDatepicker]="dp1" [placeholder]="'history.createFrom' | translate" [(ngModel)]="createFrom" (keyup.enter)="reload()">
+      <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+      <mat-datepicker #dp1></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="app-filter">
+      <input matInput [matDatepicker]="dp2" [placeholder]="'history.createTo' | translate" [(ngModel)]="createTo" (keyup.enter)="reload()">
+      <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+      <mat-datepicker #dp2></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="app-filter">
+      <input matInput [matDatepicker]="dp3" [placeholder]="'history.modifiedFrom' | translate" [(ngModel)]="modifiedFrom" (keyup.enter)="reload()">
+      <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+      <mat-datepicker #dp3></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="app-filter">
+      <input matInput [matDatepicker]="dp4" [placeholder]="'history.modifiedTo' | translate" [(ngModel)]="modifiedTo" (keyup.enter)="reload()">
+      <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
+      <mat-datepicker #dp4></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="app-filter">
+      <input matInput [matTooltip]="'history.user' | translate" [placeholder]="'history.user' | translate" (keyup.enter)="reload()" [(ngModel)]="user">
+    </mat-form-field>
+
+
+    <button mat-raised-button color="default" (click)="reload()" matTooltip="'history.filter' | translate">
+      <mat-icon>filter_alt</mat-icon>
+    </button>
   </div>
 
 

@@ -40,6 +40,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
   private progressMap: any = {};
 
   description: string;
+  user: string;
   createFrom: Date;
   createTo: Date;
   modifiedFrom: Date;
@@ -132,6 +133,10 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
     if (this.description) {
       params['description'] = this.description;
+    }
+
+    if (this.user) {
+      params['user'] = this.user;
     }
 
     if (this.createFrom) {
