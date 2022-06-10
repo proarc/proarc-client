@@ -274,7 +274,7 @@
         <div class="app-content">
           <app-pdf *ngIf="editor.thirdEditorType == 'pdf'" [pid]="editor.right.pid"></app-pdf>
           <app-song *ngIf="editor.thirdEditorType == 'song'" [pid]="editor.right.pid"></app-song>
-          <app-viewer *ngIf="editor.thirdEditorType == 'image'" [pid]="editor.right.pid"></app-viewer>
+          <app-viewer *ngIf="editor.thirdEditorType == 'image'" [pid]="editor.lastSelected.pid"></app-viewer>
           <app-editor-mods *ngIf="editor.thirdEditorType == 'mods'"></app-editor-mods>
         </div>
       </div>

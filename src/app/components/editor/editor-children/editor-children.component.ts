@@ -246,6 +246,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
 
     this.arrowIndex = itemIndex;
     this.lastIndex = itemIndex;
+    this.editor.lastSelected = item;
   }
 
 

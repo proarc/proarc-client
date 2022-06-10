@@ -42,6 +42,8 @@ export class EditorService {
     public left: DocumentItem | null;
     public right: DocumentItem | null;
     public children: DocumentItem[];
+    public lastSelected: DocumentItem | null;
+    
 
     public metadata: Metadata | null;
 
@@ -932,6 +934,7 @@ export class EditorService {
         for (const child of this.children) {
             child.selected = true;
         }
+        this.lastSelected = this.children[this.children.length - 1];
     }
 
     deselectChildren() {
