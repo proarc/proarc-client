@@ -90,6 +90,17 @@ export class EditorComponent implements OnInit {
   dblClick() {
     this.twoSplitWidths = ["50", "50", '0'];
   }
+
+  countPlurals(): string {
+  let count = this.editor.numberOfSelectedChildren();
+    if (count > 4) {
+      return '5'
+    } else if (count > 1) {
+      return '4'
+    } else {
+      return count + '';
+    }
+  }
   
 
 }

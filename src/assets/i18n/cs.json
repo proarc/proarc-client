@@ -358,6 +358,10 @@
       "single_selection": "Jednoduchý výběr",
       "multiple_selection_label": "Hromadný výběr",
       "multiple_selection_count": "{{count == 0 ? 'Není vybrán žádný objekt' : (count == 1 ? '1 objekt' : count < 5 ? count + ' objekty' : count + ' objektů') }}",
+      "multiple_selection_count0": "Není vybrán žádný objekt",
+      "multiple_selection_count1": "1 objekt",
+      "multiple_selection_count4": "{{count}} objekty",
+      "multiple_selection_count5": "{{count}} objektů",
       "select_columns": "Výběr sloupců",
       "move_dialog": {
         "title": "Změna pozice",

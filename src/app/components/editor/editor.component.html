@@ -193,7 +193,7 @@
         <div class="app-toolbar" *ngIf="editor.numberOfSelectedChildren() > 1">
           <div class="app-label">
             <div class="app-label-title">{{ 'editor.children.multiple_selection_label' | translate }}</div>
-            <div class="app-label-model">{{ 'editor.children.multiple_selection_count' | translate: { count:
+            <div class="app-label-model">{{ ('editor.children.multiple_selection_count' + countPlurals() ) | translate: { count:
               editor.numberOfSelectedChildren() } }}</div>
           </div>
           <div class="app-context">
