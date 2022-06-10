@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "proarc-client": {
+    "proarc-frontend": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {

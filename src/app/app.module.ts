@@ -114,9 +114,10 @@ import { EditorTableOfContentsComponent } from './documents/document/editor-tabl
 import { EditorRelatedItemComponent } from './documents/document/editor-relatedItem/editor-relatedItem.component';
 import { AlertDialogComponent } from './dialogs/alert-dialog/alert-dialog.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { DatePipe } from '@angular/common';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 
 
 // export function hljsLanguages() {
@@ -255,6 +256,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     ImportService,
     DatePipe,
     { provide: MAT_DATE_LOCALE, useValue: 'cs-CZ' },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {
