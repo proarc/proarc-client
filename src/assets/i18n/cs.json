@@ -451,6 +451,8 @@
       "number_example": "Ukázka",
       "apply": "Aplikovat na",
       "apply_to": "Každou {{ num > 1 ? num + '.' : ''}} stranu",
+      "apply_to0": "Každou stranu",
+      "apply_to2": "Každou {{ num }}. stranu",
       "apply_to_first": "Včetně první strany",
       "doubleColumns": "Číslování sloupců",
       "page_position": "Pozice stránky",

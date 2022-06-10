@@ -144,7 +144,7 @@
             <mat-form-field>
               <mat-select [placeholder]="'editor.pages.apply' | translate" name="apply" [(value)]="holder.applyTo"
               (keyup.enter)="enterSelect(applySelect)" #applySelect>
-                <mat-option *ngFor="let num of holder.applyOptions;" [value]="num">{{'editor.pages.apply_to' |
+                <mat-option *ngFor="let num of holder.applyOptions;" [value]="num">{{'editor.pages.apply_to' + (num > 1 ? '2' : '0') |
                   translate: { num: num } }}</mat-option>
               </mat-select>
             </mat-form-field>
