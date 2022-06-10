@@ -60,8 +60,10 @@ export class EditorMetadataComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.editor.saveMetadata(ignoreValidation, (r: any) => {
+          console.log(r);
           if (r && r.errors && r.status === -4 && !ignoreValidation) {
-            this.confirmSave(String(this.translator.instant('common.warning')), r.errors.mods[0].errorMessage, true);
+            const messages = this.ui.extractErrorsAsString(r.errors);
+            this.confirmSave(String(this.translator.instant('common.warning')), messages, true);
           }
           // this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', false);
         });
@@ -72,8 +74,10 @@ export class EditorMetadataComponent implements OnInit {
   onSave() {
     if (this.editor.metadata.validate()) {
       this.editor.saveMetadata(false, (r: any) => {
+          console.log(r);
         if (r && r.errors && r.status === -4) {
-          this.confirmSave(String(this.translator.instant('common.warning')), r.errors.mods[0].errorMessage, false);
+          const messages = this.ui.extractErrorsAsString(r.errors);
+          this.confirmSave(String(this.translator.instant('common.warning')), messages, true);
         }
       });
     } else {

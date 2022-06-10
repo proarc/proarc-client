@@ -78,4 +78,34 @@ export class UIService {
 
   }
 
+  extractErrors(errors: any): {key: string, msg: string}[] {
+    const keys = Object.keys(errors);
+    const messages: {key: string, msg: string}[] = [];
+    keys.forEach(k => {
+      if (Array.isArray(errors[k])) {
+        errors[k].forEach((e: { errorMessage: any; }) => {
+          messages.push({key: k, msg: e.errorMessage});
+        });
+      } else if (typeof errors[k] === 'string') {
+        messages.push({key: k, msg: errors[k]});
+      }
+    });
+    return messages;
+  }
+
+  extractErrorsAsString(errors: any): string {
+    const keys = Object.keys(errors);
+    const messages: {key: string, msg: string}[] = [];
+    keys.forEach(k => {
+      if (Array.isArray(errors[k])) {
+        errors[k].forEach((e: { errorMessage: any; }) => {
+          messages.push({key: k, msg: e.errorMessage});
+        });
+      } else if (typeof errors[k] === 'string') {
+        messages.push({key: k, msg: errors[k]});
+      }
+    });
+    return messages.map(m => m.key + ': ' + m.msg).join('\n');
+  }
+
 }
