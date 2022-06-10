@@ -209,8 +209,9 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
       let firstIndex = this.editor.children.findIndex(i => i.selected === true);
       this.editor.children.map(i => i.selected = false);
       // let index = Math.min(this.lastIndex, itemIndex);
-      let index = Math.max(firstIndex, 0);
+      // let index = Math.max(firstIndex, 0);
       // let i2 = Math.max(this.lastIndex, itemIndex);
+      let index = this.lastIndex;
       let i2 = itemIndex;
       if (index > i2) {
         const temp = index;
@@ -231,12 +232,14 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
         this.editor.setMultipleChildrenMode(true);
         item.selected = true;
       }
+      this.lastIndex = itemIndex;
     } else {
       if (this.editor.isMultipleChildrenMode()) {
         this.editor.setSingleChildMode(item);
       }
       item.selected = true;
       this.lastState = true;
+      this.lastIndex = itemIndex;
     }
     if (this.editor.numberOfSelectedChildren() === 0) {
       this.editor.selectRight(this.editor.left);
@@ -245,7 +248,6 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     }
 
     this.arrowIndex = itemIndex;
-    this.lastIndex = itemIndex;
     this.editor.lastSelected = item;
   }
 
