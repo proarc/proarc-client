@@ -257,7 +257,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     this.source = event.currentTarget;
     this.sourceNext = event.currentTarget.nextSibling;
     this.sourceIndex = this.getIndex(this.source);
-    if (this.editor.isMultipleChildrenMode() && !this.editor.children[this.sourceIndex - 1].selected) {
+    if (this.editor.isMultipleChildrenMode() && !this.editor.children[this.sourceIndex].selected) {
       this.dragEnabled = false;
       event.preventDefault();
       return;
@@ -302,7 +302,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
       return;
     }
     const targetIndex = this.getIndex(this.source);
-    let to = targetIndex - 1;
+    let to = targetIndex;
     this.source.parentNode.insertBefore(this.source, this.sourceNext);
     if (this.editor.isMultipleChildrenMode()) {
       const movedItems = [];
