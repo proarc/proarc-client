@@ -1,5 +1,5 @@
 import { EditorService } from 'src/app/services/editor.service';
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CatalogDialogComponent } from 'src/app/dialogs/catalog-dialog/catalog-dialog.component';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
@@ -39,7 +39,6 @@ export class EditorMetadataComponent implements OnInit {
   available(element: string): boolean {
     return this.editor.metadata.template[element];
   }
-
 
   confirmSave(title: string, message: string, ignoreValidation: boolean) {
     const data: SimpleDialogData = {

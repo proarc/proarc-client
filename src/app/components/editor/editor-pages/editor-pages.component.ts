@@ -34,6 +34,8 @@ export class EditorPagesComponent implements OnInit {
     }
     // this.editor.editSelectedPages(this.holder, null);
     this.editor.updateSelectedPages(this.holder, null);
+    this.holder.reset();
+    this.setChanges();
   }
 
   addBrackets() {
@@ -47,6 +49,10 @@ export class EditorPagesComponent implements OnInit {
   enterSelect(s: MatSelect) {
     s.close();
     this.onSave();
+  }
+
+  setChanges() {
+    this.editor.hasPendingChanges = this.canSave();
   }
 }
 
@@ -127,6 +133,13 @@ export class PageUpdateHolder {
 
   editAny(): boolean {
     return this.editIndex || this.editType || (this.editNumber && this.numberFromValid()) || (this.editPosition && this.pagePosition !== '');
+  }
+
+  reset() {
+    this.editIndex = false;
+    this.editType = false;
+    this.editNumber = false;
+    this.editPosition = false;
   }
 
   romanize(num: number): string {

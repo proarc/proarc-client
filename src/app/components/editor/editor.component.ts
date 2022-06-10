@@ -5,6 +5,9 @@ import { EditorService } from 'src/app/services/editor.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { SplitComponent, SplitAreaDirective } from 'angular-split';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
+import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-editor',
@@ -20,13 +23,13 @@ export class EditorComponent implements OnInit {
   
   twoSplitWidths: string[];
   threeSplitWidths: string[];
-
   
   constructor(
     private route: ActivatedRoute,
     public editor: EditorService,
     public config: ConfigService,
-    private properties: LocalStorageService
+    private properties: LocalStorageService,
+    private dialog: MatDialog
     ) { }
 
 
@@ -100,6 +103,25 @@ export class EditorComponent implements OnInit {
     } else {
       return count + '';
     }
+  }
+
+  confirmLeaveDialog() {
+    const data: SimpleDialogData = {
+      title: 'Upozorneni',
+      message:'Opouštíte formulář bez uložení. Opravdu chcete pokracovat?',
+      btn1: {
+        label: "Ano",
+        value: 'true',
+        color: 'warn'
+      },
+      btn2: {
+        label: "Ne",
+        value: 'false',
+        color: 'default'
+      },
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    return dialogRef.afterClosed();
   }
   
 

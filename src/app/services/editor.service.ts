@@ -44,7 +44,6 @@ export class EditorService {
     public children: DocumentItem[];
     public lastSelected: DocumentItem | null;
     
-
     public metadata: Metadata | null;
 
     private multipleChildrenMode: boolean;
@@ -62,6 +61,7 @@ export class EditorService {
     // template: any;
     allowedChildrenModels: string[];
 
+    public hasPendingChanges: boolean;
 
     public selectedColumns = [
         { field: 'label', selected: true },

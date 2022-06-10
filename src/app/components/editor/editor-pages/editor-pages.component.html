@@ -34,7 +34,7 @@
       <div class="app-card">
         <div class="app-card-content">
 
-          <mat-checkbox color="primary" [(ngModel)]="holder.editType">{{ 'editor.pages.edit_page_type' | translate }}
+          <mat-checkbox color="primary" [(ngModel)]="holder.editType" (change)="setChanges()">{{ 'editor.pages.edit_page_type' | translate }}
           </mat-checkbox>
 
           <mat-form-field>
@@ -51,11 +51,11 @@
       <div class="app-card">
         <div class="app-card-content">
 
-          <mat-checkbox color="primary" [(ngModel)]="holder.editIndex">{{ 'editor.pages.edit_page_index' | translate }}
+          <mat-checkbox color="primary" [(ngModel)]="holder.editIndex" (change)="setChanges()">{{ 'editor.pages.edit_page_index' | translate }}
           </mat-checkbox>
 
           <mat-form-field class="app-full-width">
-            <input (keyup.enter)="onSave()" [disabled]="!holder.editIndex" type="number" step="1" min="0"
+            <input (keyup.enter)="onSave()" [disabled]="!holder.editIndex" type="number" step="1" min="0" (change)="setChanges()"
               autocomplete="off" matInput [placeholder]="'editor.pages.index_from' | translate"
               [(ngModel)]="holder.pageIndex">
           </mat-form-field>
@@ -72,7 +72,7 @@
             (click)="holder.useBrackets = !holder.useBrackets" mat-icon-button>
             <span class="app-text-icon">[ ]</span>
           </button>
-          <mat-checkbox color="primary" [(ngModel)]="holder.editNumber">{{ 'editor.pages.edit_page_number' | translate
+          <mat-checkbox color="primary" [(ngModel)]="holder.editNumber" (change)="setChanges()">{{ 'editor.pages.edit_page_number' | translate
             }}</mat-checkbox>
 
           <mat-form-field class="app-page-width">
@@ -80,7 +80,7 @@
               [placeholder]="'editor.pages.number_prefix' | translate" [(ngModel)]="holder.pageNumberPrefix">
           </mat-form-field>
           <mat-form-field class="app-full-width">
-            <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="text" autocomplete="off" matInput
+            <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="text" autocomplete="off" matInput (change)="setChanges()"
               [placeholder]="'editor.pages.number_from' | translate" [(ngModel)]="holder.pageNumberFrom"
               [class.app-input-invalid]="!holder.numberFromValid()">
           </mat-form-field>
@@ -121,7 +121,7 @@
       <div class="app-card">
         <div class="app-card-content">
 
-          <mat-checkbox color="primary" [(ngModel)]="holder.editPosition">{{ 'editor.pages.edit_page_position' | translate }}
+          <mat-checkbox color="primary" [(ngModel)]="holder.editPosition" (change)="setChanges()">{{ 'editor.pages.edit_page_position' | translate }}
           </mat-checkbox>
 
           <mat-form-field class="app-full-width">
