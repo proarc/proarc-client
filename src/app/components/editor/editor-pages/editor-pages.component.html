@@ -90,7 +90,7 @@
               [(ngModel)]="holder.pageNumberIncrement">
           </mat-form-field>
           <mat-form-field class="app-full-width">
-            <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="text" autocomplete="off" matInput
+            <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="text" autocomplete="off" matInput (change)="setChanges()"
               [placeholder]="'editor.pages.number_suffix' | translate" [(ngModel)]="holder.pageNumberSuffix">
           </mat-form-field>
           <mat-form-field>
