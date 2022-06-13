@@ -56,14 +56,14 @@
           <mat-icon>reply</mat-icon>
         </button>
         <div class="app-floating-menu" *ngIf="!editor.preparation">
-          <div class="app-divider"></div>
+          <!-- <div class="app-divider"></div>
           <button class="app-action" matTooltipPosition="right"
             matTooltip="{{ 'editor.children.relocate' | translate }}" (click)="onRelocate()" mat-icon-button>
             <mat-icon>reply_all</mat-icon>
-          </button>
+          </button> -->
           <div class="app-divider"></div>
           <button class="app-action" matTooltipPosition="right"
-            matTooltip="{{ 'editor.children.relocate_outside' | translate }}" (click)="onRelocateOutside()"
+            matTooltip="{{ 'editor.children.relocate_label' | translate }}" (click)="onRelocateOutside()"
             mat-icon-button>
             <mat-icon>forward</mat-icon>
           </button>
