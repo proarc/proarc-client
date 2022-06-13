@@ -448,12 +448,28 @@ export class NdkChapterAacrTemplate {
             ['volume', 'volume']
           ]
         },
-        caption: {
-          usage: "RA",
-          label: "Caption",
-          selector: "part/detail/caption",
-          description: `text před označením čísla, např. "č.", „část“, "No." apod.`
-        },
+        extent: {
+          usage: "MA",
+          label: "Extent",
+          selector: 'part/extent',
+          description: `Tento kontejner <part> slouží k zaznamenání rozsahu stran v reprezentaci.`,
+          fields: {
+            start: {
+              usage: "MA",
+              label: "Od strany",
+              cols: 2,
+              selector: 'part/extent/start',
+              description: `První stránka, na které vnitřní část začíná.`
+            },
+            end: {
+              usage: "MA",
+              label: "Do strany",
+              cols: 2,
+              selector: 'part/extent/end',
+              description: `Poslední stránka, na které vnitřní část končí.`
+            }
+          }
+        }
       }
     },
     recordInfo: {
