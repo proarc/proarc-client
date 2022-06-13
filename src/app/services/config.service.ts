@@ -143,6 +143,7 @@ export class ConfigService {
 
     private static defaultIdentifiers = [ 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'];
     private static defaultChronicleIdentifiers = [ 'signature1', 'signature2', 'inventaryNumber', 'OtherNumber' , 'id', 'localId', 'officialNumber'];
+    private static defaultEDocumentsIdentifiers = [ 'doi', 'handle', 'ismn', 'url', 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici'];
     private static defaultPagePositions = ['right_left', 'left_right', 'left', 'right', 'singlePage'];
 
     public proarcBackendUrl = APP_GLOBAL.proarcUrl;
@@ -172,6 +173,9 @@ export class ConfigService {
 
     public topChronicleIdentifiers: any = [];
     public otherChronicleIdentifiers = APP_GLOBAL.chronicleIdentifiers || ConfigService.defaultChronicleIdentifiers;
+
+    public topEDocumentsIdentifiers: any = [];
+    public otherEDocumentsIdentifiers = APP_GLOBAL.eDocumentIdentifiers || ConfigService.defaultEDocumentsIdentifiers;
 
     public organizations = APP_GLOBAL.organizations || [];
     public exports = APP_GLOBAL.exports || ConfigService.defaultDefaultExports;

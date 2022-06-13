@@ -448,7 +448,10 @@
     "oclc": "OCLC",
     "sysno": "System number",
     "permalink": "Permalink",
-    "sici": "SICI"
+    "sici": "SICI",
+    "doi": "DOI",
+    "handle": "Handle",
+    "url": "URL"
   },
   "model": {
     "model:ndkperiodical": "NDK Periodical",

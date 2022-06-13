@@ -684,7 +684,7 @@ export class NdkPeriodicalRdaTemplate {
         },
         edition: {
           usage: "M",
-          label: "Edice",
+          label: "Vydání",
           selector: "classification/@edition",
           cols: 2,
           description: `
@@ -1554,7 +1554,7 @@ export class NdkPeriodicalRdaTemplate {
             },
             edition: {
               usage: "MA",
-              label: "Edice",
+              label: "Vydání",
               selector: "relatedItem/classification/@edition",
               cols: 2,
               description: `

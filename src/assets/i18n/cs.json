@@ -459,7 +459,7 @@
       "page_position_left": "vlevo",
       "page_position_right": "vpravo",
       "page_position_singlePage": "samostatně",
-      "page_position_right_left": "střídání pravá-levá-pravá..." , 
+      "page_position_right_left": "střídání pravá-levá-pravá..." ,
       "page_position_left_right": "střídání levá-pravá-levá..."
     },
     "type": {
@@ -710,7 +710,9 @@
     "officialnumber": "Číslo vložky úřední desky",
     "inventarynumber": "Inventární číslo",
     "othernumber": "Přírůstkové číslo",
-    "doi": "DOI"
+    "doi": "DOI",
+    "handle": "Handle",
+    "url": "URL"
   },
   "model": {
     "model:ndkperiodical": "NDK Periodikum",

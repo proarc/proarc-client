@@ -1552,7 +1552,7 @@ export class NdkMapRdaTemplate {
             },
             edition: {
               usage: "MA",
-              label: "Edice",
+              label: "Vydání",
               selector: "relatedItem/classification/@edition",
               cols: 2,
               description: `

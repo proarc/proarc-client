@@ -297,7 +297,7 @@ export class OldprintMonographVolumeRdaTemplate {
         },
         edition: {
           usage: "R",
-          label: "Edice",
+          label: "Vydání",
           selector: 'originInfo/edition',
           cols: 2,
           description:`Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu.`

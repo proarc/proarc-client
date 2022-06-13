@@ -305,7 +305,7 @@ export class RdaTemplate {
         },
         edition: {
             usage: "R",
-            label: "Edice",
+            label: "Vydání",
             selector: 'originInfo/edition',
             cols: 2,
             description:`Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu.`
@@ -729,7 +729,7 @@ export class RdaTemplate {
         },
         edition: {
           usage: "M",
-          label: "Edice",
+          label: "Vydání",
           selector: "classification/@edition",
           cols: 2,
           description: `

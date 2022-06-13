@@ -85,7 +85,7 @@ export class OldprintMonographtitleAacrTemplate {
         },
         edition: {
             usage: "MA",
-            label: "Edice",
+            label: "Vydání",
             cols: 2,
             selector: 'originInfo/edition',
             description:`Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu v MARC 21.`

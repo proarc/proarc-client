@@ -10,7 +10,7 @@ export class NdkeMonographVolumeRdaTemplate {
       pokud má monografie více typů názvů, element se opakuje podle potřeby`,
       fields: {
         type: {
-          usage: "MA",
+          usage: "M",
           label: 'Typ',
           selector: 'titleInfo/@type',
           cols: 2,
@@ -109,7 +109,7 @@ export class NdkeMonographVolumeRdaTemplate {
           description: `Vyplnit pokud nelze rozlišit křestní jméno a příjmení.`
         },
         given: {
-          usage: "MA",
+          usage: "M",
           label: "Křestní",
           selector: "name/namePart[@type='given']",
           cols: 2,
@@ -118,7 +118,7 @@ export class NdkeMonographVolumeRdaTemplate {
           uvést je společně ve stejném elementu , např. hodnota "Jan Amos"`
         },
         family: {
-          usage: "MA",
+          usage: "M",
           label: "Příjmení",
           selector: "name/namePart[@type='family']",
           cols: 2,
@@ -165,7 +165,7 @@ export class NdkeMonographVolumeRdaTemplate {
       description: `Informace o původu předlohy: odpovídá poli 264`,
       fields: {
         publisher: {
-            usage: "M",
+            usage: "MA",
             label: "Nakladatel",
             selector: 'originInfo/publisher',
             description: `Jméno entity, která dokument vytvořila, vydala, distribuovala nebo vyrobila<br/>
@@ -288,7 +288,7 @@ export class NdkeMonographVolumeRdaTemplate {
         },
         edition: {
             usage: "R",
-            label: "Edice",
+            label: "Vydání",
             selector: 'originInfo/edition',
             cols: 2,
             description:`Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu.`
@@ -360,7 +360,7 @@ export class NdkeMonographVolumeRdaTemplate {
       description: `Údaje o uložení popisovaného dokumentu, např. signatura, místo uložení apod.`,
       fields: {
         shelfLocator: {
-          usage: "M",
+          usage: "RA",
           label: "Signatura",
           selector: 'location/shelfLocator',
           description: `Signatura nebo lokační údaje o daném konkrétním dokumentu, který slouží jako předloha.`
@@ -490,7 +490,7 @@ export class NdkeMonographVolumeRdaTemplate {
           ]
         },
         form: {
-          usage: "M",
+          usage: "MA",
           label: "Forma",
           selector: "physicalDescription/form",
           description: `Údaje o fyzické podobě dokumentu, např. print, electronic, microfilm apod.<br/>
@@ -503,7 +503,7 @@ export class NdkeMonographVolumeRdaTemplate {
           `,
           fields: {
             authority: {
-              usage: "M",
+              usage: "MA",
               label: "Autorita",
               selector: "physicalDescription/form/@authority",
               cols: 2,
@@ -539,16 +539,24 @@ export class NdkeMonographVolumeRdaTemplate {
                 ['carrier', 'carrier']]
             },
             value: {
-              usage: "M",
+              usage: "MA",
               label: "Hodnota",
               help: "off"
             }
           }
-        }
+        },
+        extent: {
+          usage: "RA",
+          label: "Rozsah",
+          selector: "physicalDescription/extent",
+          description: `Údaje o rozsahu (stran, svazků nebo rozměrů)<br/>
+          odpovídá hodnotě v poli 300, $a, $b a $c<br/>
+          počet stránek bude vyjádřen ve fyzické strukturální mapě`,
+        },
       }
     },
     note: {
-      usage: "RA",
+      usage: "O",
       label: "Poznámka",
       selector: "note",
       description: `Obecná poznámka ke svazku monografie jako celku<br/>
@@ -664,7 +672,7 @@ export class NdkeMonographVolumeRdaTemplate {
         },
         edition: {
           usage: "R",
-          label: "Edice",
+          label: "Vydání",
           selector: "classification/@edition",
           cols: 2,
           description: `

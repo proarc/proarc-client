@@ -66,7 +66,7 @@ export class NdkMonographTitleAacrTemplate {
         },
         edition: {
             usage: "MA",
-            label: "Edice",
+            label: "Vydání",
             selector: 'originInfo/edition',
             description:`Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu v MARC 21.`
         },

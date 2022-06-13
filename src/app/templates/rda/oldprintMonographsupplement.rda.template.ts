@@ -570,7 +570,7 @@ export class OldprintMonographSupplementRdaTemplate {
         },
         edition: {
           usage: "R",
-          label: "Edice",
+          label: "Vydání",
           selector: "classification/@edition",
           cols: 2,
           description: `

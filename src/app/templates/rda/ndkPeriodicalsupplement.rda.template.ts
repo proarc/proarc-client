@@ -618,7 +618,7 @@ export class NdkPeriodicalSupplementRdaTemplate {
         },
         edition: {
           usage: "M",
-          label: "Edice",
+          label: "Vydání",
           selector: "classification/@edition",
           cols: 2,
           description: `

@@ -12,7 +12,8 @@ export class CodebookService {
     "Languages": "lang",
     "Identifiers": "identifier",
     "Locations": "sigla",
-    "ChronicleIdentifiers": "identifier"
+    "ChronicleIdentifiers": "identifier",
+    "EDocumentsIdentifiers": "identifier"
   }
 
   pageTypes: any[] = [];
@@ -20,7 +21,8 @@ export class CodebookService {
   locations: any[] = [];
   identifiers: any[] = [];
   chronicleIdentifiers: any[] = [];
-  
+  eDocumentIdentifiers: any[] = [];
+
   constructor(private translator: TranslateService, private config: ConfigService, private locals: LocalStorageService) {
     this.refreshAll();
     translator.onLangChange.subscribe(() => this.refreshAll());
@@ -33,6 +35,7 @@ export class CodebookService {
       this.locations = this.buildCollection('Locations');
       this.identifiers = this.buildCollection('Identifiers');
       this.chronicleIdentifiers = this.buildCollection('ChronicleIdentifiers');
+      this.eDocumentIdentifiers = this.buildCollection('EDocumentsIdentifiers');
     //});
   }
 

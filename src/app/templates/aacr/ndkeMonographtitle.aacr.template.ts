@@ -64,14 +64,14 @@ export class NdkeMonographTitleAacrTemplate {
             pokud má monografie více vydavatelů/distributorů/výrobců, přebírají se ze záznamu všichni (v jednom poli 260)`,
         },
         edition: {
-          usage: "O",
-          label: "Edice",
+          usage: "R",
+          label: "Vydání",
           selector: 'originInfo/edition',
           cols: 2,
           description:`Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu.`
         },
         place: {
-          usage: "O",
+          usage: "MA",
           label: "Místo",
           selector: 'originInfo/place/placeTerm',
           description:`Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisovaného dokumentu<br/>

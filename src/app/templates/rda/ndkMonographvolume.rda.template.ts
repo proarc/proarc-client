@@ -298,7 +298,7 @@ export class NdkMonographVolumeRdaTemplate {
         },
         edition: {
             usage: "R",
-            label: "Edice",
+            label: "Vydání",
             selector: 'originInfo/edition',
             cols: 2,
             description:`Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu.`
@@ -688,7 +688,7 @@ export class NdkMonographVolumeRdaTemplate {
         },
         edition: {
           usage: "M",
-          label: "Edice",
+          label: "Vydání",
           selector: "classification/@edition",
           cols: 2,
           description: `
@@ -1269,7 +1269,7 @@ export class NdkMonographVolumeRdaTemplate {
             },
             edition: {
               usage: "R",
-              label: "Edice",
+              label: "Vydání",
               selector: 'relatedItem/originInfo/edition',
               cols: 2,
               description:`Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu.`
@@ -1599,7 +1599,7 @@ export class NdkMonographVolumeRdaTemplate {
             },
             edition: {
               usage: "MA",
-              label: "Edice",
+              label: "Vydání",
               selector: "relatedItem/classification/@edition",
               cols: 2,
               description: `
