@@ -170,7 +170,7 @@ export class ConfigService {
     public topIdentifiers = APP_GLOBAL.topIdentifiers || [];
     public otherIdentifiers = APP_GLOBAL.identifiers || ConfigService.defaultIdentifiers;
 
-    public topChronicleIdentifiers = [];
+    public topChronicleIdentifiers: any = [];
     public otherChronicleIdentifiers = APP_GLOBAL.chronicleIdentifiers || ConfigService.defaultChronicleIdentifiers;
 
     public organizations = APP_GLOBAL.organizations || [];

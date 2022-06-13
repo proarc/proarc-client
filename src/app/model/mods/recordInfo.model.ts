@@ -8,8 +8,8 @@ import {ModsRecordIdentifier} from './recordIdentifier.model';
 
 export class ModsRecordInfo extends ModsElement {
 
-    descriptionStandard;
-    recordOrigin;
+    descriptionStandard: any;
+    recordOrigin: any;
     recordContentSources: ElementField;
     recordCreationDates: ElementField;
     recordChangeDates: ElementField;
@@ -23,7 +23,7 @@ export class ModsRecordInfo extends ModsElement {
         return 'recordInfo';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template);
         this.init();
     }

@@ -5,15 +5,16 @@ import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit } from '
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { EditorService } from 'src/app/services/editor.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
-import { Translator } from 'angular-translator';
+import { TranslateService } from '@ngx-translate/core';
 import { ResizedEvent } from 'angular-resize-event';
 import { ParentDialogComponent } from 'src/app/dialogs/parent-dialog/parent-dialog.component';
 import { ConvertDialogComponent } from 'src/app/dialogs/convert-dialog/convert-dialog.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { Tree } from 'src/app/model/mods/tree.model';
+import { map } from 'rxjs';
 
 
 
@@ -59,7 +60,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
 
   constructor(public editor: EditorService,
     private dialog: MatDialog,
-    private translator: Translator,
+    private translator: TranslateService,
     private ui: UIService,
     private api: ApiService,
     public auth: AuthService,
@@ -75,16 +76,16 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   }
 
   onResized(event: ResizedEvent) {
-    const d = event.newWidth / 101;
+    const d = event.newRect.width / 101;
     this.iconColumns = Math.floor(d);
     // const c = 1 + d - this.iconColumns; 
 
-    this.iconHeight = ((event.newWidth - 4.0) / this.iconColumns) * 1.47;
+    this.iconHeight = ((event.newRect.width - 4.0) / this.iconColumns) * 1.47;
     this.iconWidth = 100.0 / this.iconColumns;
     // this.iconColumnHeight = 
   }
 
-  keyup(event) {
+  keyup(event: any) {
     if (!event) {
       return;
     }
@@ -133,11 +134,11 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     return this.api.getStreamUrl(pid, 'THUMBNAIL', this.editor.getBatchId());
   }
 
-  private getIndex(el) {
+  private getIndex(el: any) {
     return Array.prototype.indexOf.call(el.parentNode.childNodes, el);
   }
 
-  private isbefore(a, b) {
+  private isbefore(a: any, b: any) {
     if (a.parentNode === b.parentNode) {
       for (let cur = a; cur; cur = cur.previousSibling) {
         if (cur === b) {
@@ -199,7 +200,20 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
 
 
 
-  select(item: DocumentItem, event = null) {
+  onSelect(item: DocumentItem, event: any = null) {
+    let canSelect = true;
+    if (this.editor.hasPendingChanges()) {
+      const d = this.editor.confirmLeaveDialog().subscribe((result: any) => {
+        if (result === 'true') {
+          this.select(item, event);
+        }
+      });
+    } else {
+      this.select(item, event);
+    }
+  }
+
+  select(item: DocumentItem, event: any = null) {
     const itemIndex = this.items.indexOf(item);
     this.childrenWrapperEl.nativeElement.focus();
     if (event && event.shiftKey && this.lastIndex > -1) {
@@ -209,8 +223,9 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
       let firstIndex = this.editor.children.findIndex(i => i.selected === true);
       this.editor.children.map(i => i.selected = false);
       // let index = Math.min(this.lastIndex, itemIndex);
-      let index = Math.max(firstIndex, 0);
+      // let index = Math.max(firstIndex, 0);
       // let i2 = Math.max(this.lastIndex, itemIndex);
+      let index = this.lastIndex;
       let i2 = itemIndex;
       if (index > i2) {
         const temp = index;
@@ -231,12 +246,14 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
         this.editor.setMultipleChildrenMode(true);
         item.selected = true;
       }
+      this.lastIndex = itemIndex;
     } else {
       if (this.editor.isMultipleChildrenMode()) {
         this.editor.setSingleChildMode(item);
       }
       item.selected = true;
       this.lastState = true;
+      this.lastIndex = itemIndex;
     }
     if (this.editor.numberOfSelectedChildren() === 0) {
       this.editor.selectRight(this.editor.left);
@@ -245,18 +262,18 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     }
 
     this.arrowIndex = itemIndex;
-    this.lastIndex = itemIndex;
+    this.editor.lastSelected = item;
   }
 
 
-  dragstart(event) {
+  dragstart(event: any) {
     if (!this.dragEnabled) {
       return;
     }
     this.source = event.currentTarget;
     this.sourceNext = event.currentTarget.nextSibling;
     this.sourceIndex = this.getIndex(this.source);
-    if (this.editor.isMultipleChildrenMode() && !this.editor.children[this.sourceIndex - 1].selected) {
+    if (this.editor.isMultipleChildrenMode() && !this.editor.children[this.sourceIndex].selected) {
       this.dragEnabled = false;
       event.preventDefault();
       return;
@@ -268,7 +285,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     event.dataTransfer.effectAllowed = 'move';
   }
 
-  mousedown(event) {
+  mousedown(event: any) {
     // if (this.viewMode !== 'list' || $event.target.classList.contains('app-drag-handle') > 0) {
     //   this.dragEnabled = true;
     // } else {
@@ -278,7 +295,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     this.dragEnabled = true;
   }
 
-  dragenter(event) {
+  dragenter(event: any) {
     if (!this.dragEnabled || this.source.parentNode !== event.currentTarget.parentNode) {
       return;
     }
@@ -290,18 +307,18 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     }
   }
 
-  dragover(event) {
+  dragover(event: any) {
     event.preventDefault();
   }
 
 
-  dragend(event) {
+  dragend(event: any) {
     this.isDragging = false;
     if (!this.dragEnabled) {
       return;
     }
     const targetIndex = this.getIndex(this.source);
-    let to = targetIndex - 1;
+    let to = targetIndex;
     this.source.parentNode.insertBefore(this.source, this.sourceNext);
     if (this.editor.isMultipleChildrenMode()) {
       const movedItems = [];
@@ -335,7 +352,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     }
   }
 
-  drop(event) {
+  drop(event: any) {
     if (!this.dragEnabled) {
       return;
     }
@@ -524,7 +541,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
 
 
   onMove() {
-    this.translator.waitForTranslation().then(() => {
+    // this.translator.waitForTranslation().then(() => {
       const fromIndex = this.editor.children.indexOf(this.editor.right);
       const input = {
         label: String(this.translator.instant('editor.children.move_dialog.position')),
@@ -560,7 +577,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
           }
         }
       });
-    });
+    // });
   }
 
   onDelete() {

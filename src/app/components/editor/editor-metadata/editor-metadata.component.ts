@@ -1,10 +1,10 @@
 import { EditorService } from 'src/app/services/editor.service';
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { Component, OnInit, Input, ViewChild, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { CatalogDialogComponent } from 'src/app/dialogs/catalog-dialog/catalog-dialog.component';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
-import { Translator } from 'angular-translator';
+import { TranslateService } from '@ngx-translate/core';
 import { UIService } from 'src/app/services/ui.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class EditorMetadataComponent implements OnInit {
     this.onPidChanged(pid);
   }
   constructor(
-    private translator: Translator,
+    private translator: TranslateService,
     public editor: EditorService, 
     private ui: UIService,
     private dialog: MatDialog) { }
@@ -39,7 +39,6 @@ export class EditorMetadataComponent implements OnInit {
   available(element: string): boolean {
     return this.editor.metadata.template[element];
   }
-
 
   confirmSave(title: string, message: string, ignoreValidation: boolean) {
     const data: SimpleDialogData = {
@@ -60,8 +59,10 @@ export class EditorMetadataComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.editor.saveMetadata(ignoreValidation, (r: any) => {
+          console.log(r);
           if (r && r.errors && r.status === -4 && !ignoreValidation) {
-            this.confirmSave(String(this.translator.instant('common.warning')), r.errors.mods[0].errorMessage, true);
+            const messages = this.ui.extractErrorsAsString(r.errors);
+            this.confirmSave(String(this.translator.instant('common.warning')), messages, true);
           }
           // this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', false);
         });
@@ -72,8 +73,10 @@ export class EditorMetadataComponent implements OnInit {
   onSave() {
     if (this.editor.metadata.validate()) {
       this.editor.saveMetadata(false, (r: any) => {
+          console.log(r);
         if (r && r.errors && r.status === -4) {
-          this.confirmSave(String(this.translator.instant('common.warning')), r.errors.mods[0].errorMessage, false);
+          const messages = this.ui.extractErrorsAsString(r.errors);
+          this.confirmSave(String(this.translator.instant('common.warning')), messages, true);
         }
       });
     } else {

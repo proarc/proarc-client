@@ -18,7 +18,7 @@ export class UsageComponent implements OnInit {
   ngOnInit() {
   }
 
-  openHelpDialog(event) {
+  openHelpDialog(event: any) {
     event.stopPropagation();
     if (this.item.showHelp(this.field)) {
       this.dialog.open(HelpDialogComponent, { data: this.item.help(this.field) });

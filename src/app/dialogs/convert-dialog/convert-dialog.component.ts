@@ -1,6 +1,6 @@
 
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class ConvertDialogComponent implements OnInit {
 
   ngOnInit() {
     this.inProgress = false;
-    const selected = this.data.children.filter(ch => ch.selected)
+    const selected = this.data.children.filter((ch: any) => ch.selected)
     if (selected.length > 0) {
       console.log(selected)
     } else {

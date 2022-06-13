@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { ElementField } from 'src/app/model/mods/elementField.model';
 import {CodebookService} from '../../../services/codebook.service';
-import {Translator} from 'angular-translator';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-editor-relatedItem',
@@ -23,20 +23,20 @@ export class EditorRelatedItemComponent implements OnInit {
     'rse', 'rsp', 'rst', 'rth', 'rtm', 'sad', 'sce', 'scr', 'scl', 'sec', 'sgn', 'sng', 'spk', 'spn', 'srv', 'stn', 'stl',
     'str', 'ths', 'trc', 'trl', 'tyd', 'tyg', 'voc', 'wam', 'wdc', 'wde', 'wit'];
 
-  public roles = [];
+  public roles: { code: string; name: any; }[] = [];
 
   @Input() field: ElementField;
 
-  constructor(public translator: Translator, public codebook: CodebookService) {
+  constructor(public translator: TranslateService, public codebook: CodebookService) {
     this.translateCodes();
-    translator.languageChanged.subscribe(() => this.translateCodes());
+    translator.onLangChange.subscribe(() => this.translateCodes());
   }
 
   ngOnInit() {
   }
 
   translateCodes() {
-    this.translator.waitForTranslation().then(() => {
+    // this.translator.waitForTranslation().then(() => {
       this.roles = [];
       for (const code of this.roleCodes) {
         this.roles.push({code: code, name: this.translator.instant('role.' + code)});
@@ -50,6 +50,6 @@ export class EditorRelatedItemComponent implements OnInit {
         }
         return 0;
       });
-    });
+    // });
   }
 }

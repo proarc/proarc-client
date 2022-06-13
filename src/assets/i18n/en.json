@@ -197,6 +197,7 @@
     },
     "refresh": "Refresh",
     "reload": "Reload batch",
+    "filter": "Filter",
     "edit": "Go to the object",
     "continue": "Resume",
     "reload_dialog": {

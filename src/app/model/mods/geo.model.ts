@@ -3,36 +3,36 @@ import { ModsElement } from './element.model';
 
 export class ModsGeo extends ModsElement {
 
-    public stat;
-    public kraj_1960;
-    public region_soudrznosti;
-    public okres;
-    public vusc;
-    public orp;
-    public pou;
-    public obec;
-    public zsj;
-    public katastralni_uzemi;
-    public cast_obce;
-    public ulice;
-    public adresni_misto;
+    public stat: { [x: string]: string; };
+    public kraj_1960: { [x: string]: string; };
+    public region_soudrznosti: { [x: string]: string; };
+    public okres: { [x: string]: string; };
+    public vusc: { [x: string]: string; };
+    public orp: { [x: string]: string; };
+    public pou: { [x: string]: string; };
+    public obec: { [x: string]: string; };
+    public zsj: { [x: string]: string; };
+    public katastralni_uzemi: { [x: string]: string; };
+    public cast_obce: { [x: string]: string; };
+    public ulice: { [x: string]: string; };
+    public adresni_misto: { [x: string]: string; };
 
-    public stat_code;
-    public kraj_1960_code;
-    public region_soudrznosti_code;
-    public okres_code;
-    public vusc_code;
-    public orp_code;
-    public pou_code;
-    public obec_code;
-    public zsj_code;
-    public katastralni_uzemi_code;
-    public cast_obce_code;
-    public ulice_code;
-    public adresni_misto_code;
+    public stat_code: { [x: string]: string; };
+    public kraj_1960_code: { [x: string]: string; };
+    public region_soudrznosti_code: { [x: string]: string; };
+    public okres_code: { [x: string]: string; };
+    public vusc_code: { [x: string]: string; };
+    public orp_code: { [x: string]: string; };
+    public pou_code: { [x: string]: string; };
+    public obec_code: { [x: string]: string; };
+    public zsj_code: { [x: string]: string; };
+    public katastralni_uzemi_code: { [x: string]: string; };
+    public cast_obce_code: { [x: string]: string; };
+    public ulice_code: { [x: string]: string; };
+    public adresni_misto_code: { [x: string]: string; };
 
 
-    public coordinates;
+    public coordinates: { [x: string]: string; };
 
     static getSelector() {
         return 'subject';
@@ -42,7 +42,7 @@ export class ModsGeo extends ModsElement {
         return 'subject_geo';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template, ['authority']);
         this.init();
     }
@@ -62,7 +62,7 @@ export class ModsGeo extends ModsElement {
             this.modsElement['cartographics'] = [];
         }
         const ctx = this;
-        this.modsElement['cartographics'].forEach(function(cartographics) {
+        this.modsElement['cartographics'].forEach(function(cartographics: { [x: string]: any[]; }) {
             if (cartographics['coordinates'] &&
                 cartographics['coordinates'][0]) {
                     ctx.coordinates = cartographics['coordinates'][0];

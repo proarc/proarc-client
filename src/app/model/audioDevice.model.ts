@@ -13,7 +13,7 @@ export class AudioDevice {
     public settings: string;
 
 
-    public static fromJsonArray(jsonArray): AudioDevice[] {
+    public static fromJsonArray(jsonArray: any[]): AudioDevice[] {
       const array: AudioDevice[] = [];
       for (const json of jsonArray) {
           array.push(AudioDevice.fromJson(json));
@@ -21,7 +21,7 @@ export class AudioDevice {
       return array;
   }
 
-  public static fromJson(json): AudioDevice {
+  public static fromJson(json: any): AudioDevice {
       const device = new AudioDevice();
       const data = json['digiprovMD'][0]['mdWrap']['xmlData']['any'][0]['value'];
       if (!data) {

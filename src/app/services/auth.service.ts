@@ -9,7 +9,7 @@ import { User } from '../model/user.model';
 @Injectable()
 export class AuthService {
 
-    private user: User;
+    public user: User;
 
     constructor(private http: HttpClient, private api: ApiService, private router: Router) {
     }

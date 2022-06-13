@@ -1,6 +1,6 @@
 
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/api.service';
 import { LogDialogComponent } from '../log-dialog/log-dialog.component';
 import { ConfigService } from 'src/app/services/config.service';
@@ -32,9 +32,9 @@ export class ExportDialogComponent implements OnInit {
 
   ngOnInit() {
     if (this.data.model.indexOf('oldprint') > -1) {
-      this.types = this.config.exports.filter(t => t !== 'archive')
+      this.types = this.config.exports.filter((t: string) => t !== 'archive')
     } else {
-      this.types = this.config.exports.filter(t => t !== 'archive_stt')
+      this.types = this.config.exports.filter((t: string) => t !== 'archive_stt')
     }
     this.selectedType = this.types[0];
     this.policyPublic = true;

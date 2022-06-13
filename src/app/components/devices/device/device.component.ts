@@ -5,8 +5,8 @@ import { ApiService } from 'src/app/services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
-import { MatDialog } from '@angular/material';
-import { Translator } from 'angular-translator';
+import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-device',
@@ -22,7 +22,7 @@ export class DeviceComponent implements OnInit {
   constructor(private api: ApiService,
               private dialog: MatDialog,
               private router: Router,
-              private translator: Translator,
+              private translator: TranslateService,
               private ui: UIService,
               private route: ActivatedRoute) { }
 
@@ -42,7 +42,7 @@ export class DeviceComponent implements OnInit {
   }
 
   removeDevice() {
-    this.translator.waitForTranslation().then(() => {
+    // this.translator.waitForTranslation().then(() => {
       const data: SimpleDialogData = {
         title: String(this.translator.instant('device.delete_dialog.title')),
         message: String(this.translator.instant('device.delete_dialog.message', { name: this.device.label })),
@@ -67,7 +67,7 @@ export class DeviceComponent implements OnInit {
           });
         }
       });
-    });
+    // });
   }
 
   removeAudioDevice(position: number) {

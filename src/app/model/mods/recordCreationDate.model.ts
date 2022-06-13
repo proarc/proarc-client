@@ -10,7 +10,7 @@ export class ModsRecordCreationDate extends ModsElement {
         return 'recordCreationDate';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template, ['encoding']);
         this.init();
     }

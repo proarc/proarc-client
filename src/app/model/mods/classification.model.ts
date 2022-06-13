@@ -10,7 +10,7 @@ export class ModsClassification extends ModsElement {
         return 'classification';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template, ['authority', 'edition']);
         this.init();
     }

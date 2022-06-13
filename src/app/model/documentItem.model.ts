@@ -36,7 +36,7 @@ export class DocumentItem {
     this.invalid = false;
   }
 
-  public static fromJson(json): DocumentItem {
+  public static fromJson(json: any): DocumentItem {
     if (!json) {
       return null;
     }
@@ -73,7 +73,7 @@ export class DocumentItem {
   }
 
 
-  public static fromJsonArray(jsonArray): DocumentItem[] {
+  public static fromJsonArray(jsonArray: any[]): DocumentItem[] {
     const array: DocumentItem[] = [];
     for (const json of jsonArray) {
         array.push(DocumentItem.fromJson(json));
@@ -81,7 +81,7 @@ export class DocumentItem {
     return array;
   }
 
-  public static pagesFromJsonArray(jsonArray): DocumentItem[] {
+  public static pagesFromJsonArray(jsonArray: any[]): DocumentItem[] {
     const array: DocumentItem[] = [];
     for (const json of jsonArray) {
       const page = DocumentItem.fromJson(json);

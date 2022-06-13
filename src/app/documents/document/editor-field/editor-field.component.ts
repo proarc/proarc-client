@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ContentChild, TemplateRef } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { HelpDialogComponent } from 'src/app/dialogs/help-dialog/help-dialog.component';
 
 import { ElementField } from 'src/app/model/mods/elementField.model';

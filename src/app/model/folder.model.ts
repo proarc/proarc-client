@@ -5,7 +5,7 @@ export class Folder {
   public state: string;
   public path: string;
 
-  public static fromJson(json): Folder {
+  public static fromJson(json: any): Folder {
       const profile = new Folder();
       profile.name = json['name'];
       profile.state = json['state'];
@@ -18,7 +18,7 @@ export class Folder {
       return profile;
   }
 
-  public static fromJsonArray(jsonArray): Folder[] {
+  public static fromJsonArray(jsonArray: any[]): Folder[] {
     const array: Folder[] = [];
     for (const json of jsonArray) {
         array.push(Folder.fromJson(json));

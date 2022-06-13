@@ -22,7 +22,7 @@ export class SongComponent implements OnInit, OnDestroy {
   trackDurationText: string;
 
   state = 'none';
-  audio;
+  audio: any;
 
   constructor(private api: ApiService, private editor: EditorService) {
   }

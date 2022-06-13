@@ -1,6 +1,6 @@
 
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/api.service';
 import { Batch } from 'src/app/model/batch.model';
 
@@ -16,7 +16,7 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
   public count = 0;
   public done = 0;
 
-  private timer;
+  private timer: any;
   private batchId;
 
   constructor(

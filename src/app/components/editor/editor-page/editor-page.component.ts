@@ -3,10 +3,11 @@ import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { EditorService } from 'src/app/services/editor.service';
 import { Page } from 'src/app/model/page.model';
-import { Translator } from 'angular-translator';
+import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from 'src/app/services/config.service';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
-import { MatDialog, MatSelect } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSelect } from '@angular/material/select';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 
 @Component({
@@ -17,7 +18,7 @@ import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dial
 export class EditorPageComponent implements OnInit {
 
   state = 'none';
-  page: Page;
+  // page: Page;
 
   positions = ['left', 'right', 'singlePage'];
   genres = ['page', 'reprePage'];
@@ -36,12 +37,12 @@ export class EditorPageComponent implements OnInit {
     this.onPidChanged(pid);
   }
 
-  constructor(private editor: EditorService,
+  constructor(public editor: EditorService,
               private api: ApiService,
               private dialog: MatDialog,
               public config: ConfigService,
               public codebook: CodebookService,
-              public translator: Translator) {
+              public translator: TranslateService) {
   }
 
   ngOnInit() {
@@ -54,7 +55,7 @@ export class EditorPageComponent implements OnInit {
   private onPidChanged(pid: string) {
     this.state = 'loading';
     this.api.getPage(pid, this.model, this.editor.getBatchId()).subscribe((page: Page) => {
-      this.page = page;
+      this.editor.page = page;
       this.state = 'success';
       if (this.movedToNextFrom == 'pageNumber') {
         setTimeout(() => { 
@@ -76,7 +77,7 @@ export class EditorPageComponent implements OnInit {
   }
 
   onRevert() {
-    this.page.restore();
+    this.editor.page.restore();
   }
 
   onSaveFrom(from: string) {
@@ -84,41 +85,41 @@ export class EditorPageComponent implements OnInit {
   }
 
   isInBrackets(): boolean {
-    if (!this.page.number) {
+    if (!this.editor.page.number) {
       return false;
     }
-    return this.page.number.startsWith('[') && this.page.number.endsWith(']');
+    return this.editor.page.number.startsWith('[') && this.editor.page.number.endsWith(']');
   }
 
   switchBrackets() {
-    if (!this.page.number) {
+    if (!this.editor.page.number) {
       return
     }
     if (this.isInBrackets()) {
-      this.page.number = this.page.number.substring(1, this.page.number.length - 1);
+      this.editor.page.number = this.editor.page.number.substring(1, this.editor.page.number.length - 1);
     } else {
-      let number = this.page.number;
+      let number = this.editor.page.number;
       if (!number.startsWith('[')) {
         number = '[' + number;
       }
       if (!number.endsWith(']')) {
         number = number + ']';
       }
-      this.page.number = number;
+      this.editor.page.number = number;
     }
   }
 
   private validate(): boolean {
-    if (!this.page.number) {
+    if (!this.editor.page.number) {
       return false;
     }
-    if (this.config.showPageIndex && !this.page.index) {
+    if (this.config.showPageIndex && !this.editor.page.index) {
       return false;
     }
-    if (!this.page.type) {
+    if (!this.editor.page.type) {
       return false;
     }
-    if (this.page.isNdkPage() && !this.page.genre) {
+    if (this.editor.page.isNdkPage() && !this.editor.page.genre) {
       return false;
     }
     return true;
@@ -151,20 +152,24 @@ export class EditorPageComponent implements OnInit {
     }
   }
 
-  private save(from) {
+  private save(from: string) {
     this.movedToNextFrom = from;
-    if (!this.page.hasChanged()) {
+    if (!this.editor.page.hasChanged()) {
       if (!!from) {
         this.editor.moveToNext();
       }
       return;
     }
-    this.page.removeEmptyIdentifiers();
-    this.editor.savePage(this.page, (page: Page) => {
+    this.editor.page.removeEmptyIdentifiers();
+    this.editor.savePage(this.editor.page, (page: Page) => {
       if (page) {
-        this.page = page;
+        this.editor.page = page;
       }
     }, !!from);
+  }
+
+  public hasChanged() {
+    return this.editor.page.hasChanged();
   }
 
   

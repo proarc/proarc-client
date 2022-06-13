@@ -5,7 +5,7 @@ export class Profile {
   public label: string;
   public description: string;
 
-  public static fromJson(json): Profile {
+  public static fromJson(json: any): Profile {
       const profile = new Profile();
       profile.id = json['id'];
       profile.label = json['label'];
@@ -13,7 +13,7 @@ export class Profile {
       return profile;
   }
 
-  public static fromJsonArray(jsonArray): Profile[] {
+  public static fromJsonArray(jsonArray: any[]): Profile[] {
     const array: Profile[] = [];
     for (const json of jsonArray) {
         array.push(Profile.fromJson(json));

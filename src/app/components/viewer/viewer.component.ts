@@ -35,8 +35,8 @@ export class ViewerComponent implements OnInit, OnDestroy {
     this.onPidChanged(pid);
   }
 
-  private view;
-  private imageLayer;
+  private view: any;
+  private imageLayer: any;
 
   private imageWidth = 0;
   private imageHeight = 0;
@@ -49,7 +49,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
   fullscreenAvailable = false;
   positionLock: boolean;
 
-  private extent;
+  private extent: any;
 
   state = 'none';
 
@@ -212,7 +212,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
   }
 
   enterFullscreen() {
-    const el = document.getElementById('app-viewer');
+    const el: any = document.getElementById('app-viewer');
     // go full-screen
     if (el.requestFullscreen) {
         el.requestFullscreen();
@@ -228,8 +228,8 @@ export class ViewerComponent implements OnInit, OnDestroy {
 exitFullscreen() {
     if (document.exitFullscreen) {
         document.exitFullscreen();
-    } else if (document['webkitExitFullscreen']) {
-        document['webkitExitFullscreen']();
+    } else if (document['webkitExitFullscreen' as keyof Document]) {
+        document['webkitExitFullscreen' as keyof Document]();
     } else if (document.mozCancelFullScreen) {
         document.mozCancelFullScreen();
     } else if (document.msExitFullscreen) {
@@ -239,7 +239,7 @@ exitFullscreen() {
 
 fullscreenEnabled() {
     return document['fullscreenElement']
-    || document['webkitFullscreenElement']
+    || document['webkitFullscreenElement' as keyof Document]
     || document.mozFullScreenElement
     || document.msFullscreenElement;
 }
@@ -256,9 +256,9 @@ onFullscreenChanged() {
 
 private initFullscreenCapabilities() {
   this.fullscreenAvailable = document.fullscreenEnabled
-  || document['webkitFullscreenEnable']
-  || document['mozFullScreenEnabled']
-  || document['msFullscreenEnabled'];
+  || document['webkitFullscreenEnable' as keyof Document]
+  || document['mozFullScreenEnabled' as keyof Document]
+  || document['msFullscreenEnabled' as keyof Document];
 
   // document.addEventListener('fullscreenchange', this.onFullscreenChanged);
   const ctx = this;

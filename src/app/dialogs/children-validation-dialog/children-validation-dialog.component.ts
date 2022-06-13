@@ -1,6 +1,6 @@
 
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Page } from 'src/app/model/page.model';
 import { ApiService } from 'src/app/services/api.service';

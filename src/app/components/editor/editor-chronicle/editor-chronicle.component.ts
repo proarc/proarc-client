@@ -1,6 +1,6 @@
 import { EditorService } from 'src/app/services/editor.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { CatalogDialogComponent } from 'src/app/dialogs/catalog-dialog/catalog-dialog.component';
 import {SimpleDialogData} from '../../../dialogs/simple-dialog/simple-dialog';
 import {SimpleDialogComponent} from '../../../dialogs/simple-dialog/simple-dialog.component';

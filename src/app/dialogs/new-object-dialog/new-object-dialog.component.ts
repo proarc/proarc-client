@@ -1,6 +1,7 @@
 
 import { Component, OnInit, Inject } from '@angular/core';
-import { DateAdapter, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DateAdapter } from '@angular/material/core';
 import { Uuid } from 'src/app/utils/uuid';
 import { ApiService } from 'src/app/services/api.service';
 import { DatePipe } from '@angular/common';

@@ -10,7 +10,7 @@ export class ModsRecordIdentifier extends ModsElement {
         return 'recordIdentifier';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template, ['source']);
         this.init();
     }

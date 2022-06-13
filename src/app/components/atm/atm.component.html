@@ -15,10 +15,10 @@
     </mat-select>
   </mat-form-field>
 
-  <button *ngIf="deviceChanged()" class="btn-update-device" (click)="updateDevice()" mat-raised-button [disabled]="state=='saving'" color="primary">
+  <button *ngIf="deviceChanged()" class="btn-update-device" (click)="updateDevice()" mat-raised-button  color="primary">
       <span>Uložit</span>
   </button>
-
+</div>
 <mat-spinner *ngIf="state === 'loading'"
           [strokeWidth]="5" 
           [diameter]="60"

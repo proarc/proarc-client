@@ -3,10 +3,10 @@ import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { EditorService } from 'src/app/services/editor.service';
 import { Page } from 'src/app/model/page.model';
-import { Translator } from 'angular-translator';
+import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from 'src/app/services/config.service';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 
 @Component({
@@ -40,7 +40,7 @@ export class EditorSongComponent implements OnInit {
               private dialog: MatDialog,
               public config: ConfigService,
               public codebook: CodebookService,
-              public translator: Translator) {
+              public translator: TranslateService) {
   }
 
   ngOnInit() {
@@ -146,7 +146,7 @@ export class EditorSongComponent implements OnInit {
     }
   }
 
-  private save(from) {
+  private save(from: string) {
     this.movedToNextFrom = from;
     if (!this.page.hasChanged()) {
       if (!!from) {

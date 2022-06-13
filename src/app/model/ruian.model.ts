@@ -15,7 +15,7 @@ export class Ruian {
 
   public parents: any[];
 
-  public static fromJson(json): Ruian {
+  public static fromJson(json: any): Ruian {
       const ruian = new Ruian();
       ruian.parents = [];
       ruian.layerId = json['layerId'];
@@ -77,7 +77,7 @@ export class Ruian {
       return ruian;
   }
 
-  public static fromJsonArray(jsonArray): Ruian[] {
+  public static fromJsonArray(jsonArray: any[]): Ruian[] {
     const array: Ruian[] = [];
     for (const json of jsonArray) {
         array.push(Ruian.fromJson(json));

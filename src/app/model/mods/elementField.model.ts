@@ -36,7 +36,7 @@ export class ElementField {
     private items: ModsElement[];
     private template;
 
-    constructor(mods, id, template, attr = null, requiredValues = [], forbiddenValues = []) {
+    constructor(mods: { [x: string]: any; }, id: string, template: any, attr: any = null, requiredValues: any[] = [], forbiddenValues: any[] = []) {
         this.template = template;
         this.id = id;
         const selector = this.selectorById(id)
@@ -144,7 +144,7 @@ export class ElementField {
         return c;
     }
 
-    private remove(index) {
+    private remove(index: number) {
         if (index >= 0 && index < this.items.length) {
             this.items.splice(index, 1);
             this.root.splice(index, 1);
@@ -155,16 +155,16 @@ export class ElementField {
         }
     }
 
-    private move(array, from: number, to: number) {
+    private move(array: any[], from: number, to: number) {
         if (to >= 0 && to < array.length) {
-            const x = array[from];
+            const x: any = array[from];
             array[from] = array[to];
             array[to] = x;
         }
     }
 
 
-    private newElement(id, el): ModsElement {
+    private newElement(id: any, el: {}): ModsElement | undefined {
         switch (id) {
             case ModsTitle.getId():
                 return new ModsTitle(el, this.template);
@@ -226,6 +226,7 @@ export class ElementField {
             case ModsExtent.getId():
                 return new ModsExtent(el, this.template);
         }
+        return undefined;
     }
 
 
@@ -316,6 +317,7 @@ export class ElementField {
             case ModsTableOfContents.getId():
                 return ModsTableOfContents.getSelector();
         }
+        return '';
     }
 
 }

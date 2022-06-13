@@ -1,193 +1,188 @@
 <div class="app-editor-content-wrapper" (click)="obtainFocus()">
- <div class="app-editor-toolbar">
- 
-    <button class="app-action" [class.app-inactive]="viewMode != 'list'" matTooltip="{{ 'editor.children.view_list' | translate }}" (click)="changeViewMode('list')" mat-icon-button>
+  <div class="app-editor-toolbar">
+
+    <button class="app-action" [class.app-inactive]="viewMode != 'list'"
+      matTooltip="{{ 'editor.children.view_list' | translate }}" (click)="changeViewMode('list')" mat-icon-button>
       <mat-icon>format_align_justify</mat-icon>
     </button>
 
-    <button class="app-action" [class.app-inactive]="viewMode != 'grid'" matTooltip="{{ 'editor.children.view_grid' | translate }}" (click)="changeViewMode('grid')" mat-icon-button>
+    <button class="app-action" [class.app-inactive]="viewMode != 'grid'"
+      matTooltip="{{ 'editor.children.view_grid' | translate }}" (click)="changeViewMode('grid')" mat-icon-button>
       <mat-icon>apps</mat-icon>
     </button>
 
-    <button *ngIf="pageChildren" class="app-action" [class.app-inactive]="viewMode != 'icons'" matTooltip="{{ 'editor.children.view_icons' | translate }}" (click)="changeViewMode('icons')" mat-icon-button>
+    <button *ngIf="pageChildren" class="app-action" [class.app-inactive]="viewMode != 'icons'"
+      matTooltip="{{ 'editor.children.view_icons' | translate }}" (click)="changeViewMode('icons')" mat-icon-button>
       <mat-icon>image</mat-icon>
     </button>
 
     <div class="app-divider"></div>
 
-    <button class="app-action" [class.app-inactive]="!shortLabels" matTooltip="{{ 'editor.children.short_labels_' + (shortLabels ? 'on' : 'off') | translate }}" (click)="switchUseShortLabel()" mat-icon-button>
+    <button class="app-action" [class.app-inactive]="!shortLabels"
+      matTooltip="{{ 'editor.children.short_labels_' + (shortLabels ? 'on' : 'off') | translate }}"
+      (click)="switchUseShortLabel()" mat-icon-button>
       <mat-icon>short_text</mat-icon>
     </button>
     <div class="app-divider"></div>
 
-    <!-- <button class="app-action" [class.app-inactive]="!editor.isMultipleChildrenMode()" matTooltip="{{ 'editor.children.' + (editor.isMultipleChildrenMode() ? 'single_selection' : 'multiple_selection') | translate }}" (click)="editor.switchMultipleSelectionMode()" mat-icon-button>
-      <mat-icon>check</mat-icon>
-    </button> -->
-
-    <button class="app-action"  matTooltip="{{ 'editor.children.select_all' | translate }}" (click)="editor.selectChildren()" mat-icon-button>
+    <button class="app-action" matTooltip="{{ 'editor.children.select_all' | translate }}"
+      (click)="editor.selectChildren()" mat-icon-button>
       <mat-icon>check_box</mat-icon>
     </button>
     <div class="app-divider"></div>
-    <button class="app-action" *ngIf="pageChildren" matTooltip="Validovat" (click)="editor.validateChildren()" mat-icon-button>
+    <button class="app-action" *ngIf="pageChildren" matTooltip="Validovat" (click)="editor.validateChildren()"
+      mat-icon-button>
       <mat-icon>fact_check</mat-icon>
     </button>
-    <button class="app-action" *ngIf="pageChildren" matTooltip="Reindexovat" (click)="onReindexChildren()" mat-icon-button>
+    <button class="app-action" *ngIf="pageChildren" matTooltip="Reindexovat" (click)="onReindexChildren()"
+      mat-icon-button>
       <mat-icon>format_list_numbered</mat-icon>
     </button>
-    <button  class="app-action" matTooltip="Převést strany" (click)="showConvertDialog()" mat-icon-button>
+    <button class="app-action" matTooltip="Převést strany" (click)="showConvertDialog()" mat-icon-button>
       <mat-icon>swap_horiz</mat-icon>
     </button>
-    
-
-    <!-- <button class="app-action"  matTooltip="{{ 'editor.children.deselect_all' | translate }}" (click)="editor.deselectChildren()" mat-icon-button>
-      <mat-icon>check_box_outline_blank</mat-icon>
-    </button> -->
 
     <div class="app-actions-right">
       <ng-container *ngIf="!editor.preparation">
-        <button class="app-action" matTooltip="{{ 'editor.children.add_new' | translate }}" (click)="onCreateNewObject()" mat-icon-button>
+        <button class="app-action" matTooltip="{{ 'editor.children.add_new' | translate }}"
+          (click)="onCreateNewObject()" mat-icon-button>
           <mat-icon>add</mat-icon>
         </button>
         <div class="app-divider"></div>
       </ng-container>
       <div class="app-multibuttons">
-        <button  matTooltipPosition="right" class="app-action"  matTooltip="{{ 'editor.children.move' | translate }}" (click)="onMove()" mat-icon-button>
+        <button matTooltipPosition="right" class="app-action" matTooltip="{{ 'editor.children.move' | translate }}"
+          (click)="onMove()" mat-icon-button>
           <mat-icon>reply</mat-icon>
         </button>
         <div class="app-floating-menu" *ngIf="!editor.preparation">
-          <div class="app-divider"></div>
-          <button class="app-action" matTooltipPosition="right" matTooltip="{{ 'editor.children.relocate' | translate }}" (click)="onRelocate()" mat-icon-button>
+          <!-- <div class="app-divider"></div>
+          <button class="app-action" matTooltipPosition="right"
+            matTooltip="{{ 'editor.children.relocate' | translate }}" (click)="onRelocate()" mat-icon-button>
             <mat-icon>reply_all</mat-icon>
-          </button>
+          </button> -->
           <div class="app-divider"></div>
-          <button  class="app-action" matTooltipPosition="right" matTooltip="{{ 'editor.children.relocate_outside' | translate }}" (click)="onRelocateOutside()" mat-icon-button>
+          <button class="app-action" matTooltipPosition="right"
+            matTooltip="{{ 'editor.children.relocate_label' | translate }}" (click)="onRelocateOutside()"
+            mat-icon-button>
             <mat-icon>forward</mat-icon>
           </button>
         </div>
       </div>
-        
-      
+
+
       <ng-container *ngIf="viewMode === 'list'">
         <div class="app-divider"></div>
-        <button [matMenuTriggerFor]="columns_menu" class="app-action" matTooltip="{{ 'editor.children.select_columns' | translate }}" (click)="onSelectColumns()" mat-icon-button>
+        <button [matMenuTriggerFor]="columns_menu" class="app-action"
+          matTooltip="{{ 'editor.children.select_columns' | translate }}" (click)="onSelectColumns()" mat-icon-button>
           <mat-icon>rule</mat-icon>
         </button>
 
         <mat-menu #columns_menu="matMenu">
           <div *ngFor="let column of editor.selectedColumns" mat-menu-item>
-            <mat-checkbox name="column.field" [(ngModel)]="column.selected" (change)="editor.setSelectedColumns()" >{{ 'search.' + column.field | translate }}</mat-checkbox>
+            <mat-checkbox name="column.field" [(ngModel)]="column.selected" (change)="editor.setSelectedColumns()">{{
+              'search.' + column.field | translate }}</mat-checkbox>
           </div>
         </mat-menu>
-
-
       </ng-container>
 
-
-
       <div class="app-divider"></div>
-      <button class="app-action"  matTooltip="{{ 'editor.children.delete' | translate }}" (click)="onDelete()" mat-icon-button>
-          <mat-icon>delete</mat-icon>
+      <button class="app-action" matTooltip="{{ 'editor.children.delete' | translate }}" (click)="onDelete()"
+        mat-icon-button>
+        <mat-icon>delete</mat-icon>
       </button>
       <div class="app-divider"></div>
-      <button class="app-action" [class.app-disabled]="!anyChange" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
-          <mat-icon>save</mat-icon>
+      <button class="app-action" [class.app-disabled]="!anyChange" matTooltip="{{ 'common.save' | translate }}"
+        (click)="onSave()" mat-icon-button>
+        <mat-icon>save</mat-icon>
       </button>
 
     </div>
 
- </div>
- 
-
- <div class="app-editor-content app-children-editor-content" #childrenWrapper tabindex="0" (keyup)="keyup($event)" (resized)="onResized($event)">
-  <div class="app-view-list app-table" *ngIf="viewMode == 'list'" #childrenList 
-  (mousedown)="mousedown($event)">
-
-  <div class="app-row app-row-header">
-    <div *ngIf="isColumnSelected('label')" class="app-col-label"> {{'search.name' | translate}} </div>
-    <div *ngIf="isColumnSelected('model')" class="app-col-model">{{'search.model' | translate}} </div>
-    <div *ngIf="isColumnSelected('pid')" class="app-col-pid">{{'search.pid' | translate}} </div>
-    <div *ngIf="isColumnSelected('owner')" class="app-col">{{'search.owner' | translate}} </div>
-    <div *ngIf="isColumnSelected('created')" class="app-col">{{'search.created' | translate}} </div>
-    <div *ngIf="isColumnSelected('modified')" class="app-col">{{'search.modified' | translate}} </div>
-    <div *ngIf="isColumnSelected('status')" class="app-col">{{'search.status' | translate}} </div>
-  <div *ngIf="!editor.isMultipleChildrenMode() && !editor.preparation" class="app-col-actions">&#160;</div>
   </div>
 
 
+  <div class="app-editor-content app-children-editor-content" #childrenWrapper tabindex="0" (keyup)="keyup($event)"
+    (resized)="onResized($event)">
 
-    <div *ngFor="let item of items; let i = index" (click)="select(item, $event)" (dblclick)="open(item)" class="app-row" [class.app-selected]="isSelected(item, i, 'list')"
-    draggable="true" 
-      (dragenter)="dragenter($event)" 
-      (dragstart)="dragstart($event)" 
-      (dragover)="dragover($event)"
-      (dragend)="dragend($event)">
-    <!-- <div class="app-col-open" *ngIf="!item.isPage()">
-        <button matTooltip="{{ 'editor.children.open_object' | translate }}" (click)="open(item)" mat-icon-button>
-            <mat-icon>keyboard_arrow_down</mat-icon>
-        </button>
-    </div>     -->
+    <div class="app-view-list app-table" *ngIf="viewMode == 'list'" #childrenList (mousedown)="mousedown($event)">
 
-      <!-- <mat-icon *ngIf="editor.isMultipleChildrenMode()" class="app-icon-check app-icon-top">{{ item.selected ? 'check_box' : 'check_box_outline_blank' }}</mat-icon> -->
-
-      <div *ngIf="isColumnSelected('label')" class="app-col-label">
-        <mat-icon *ngIf="item.invalid" class="app-invalid">warning</mat-icon>
-        {{ shortLabels ? item.shortLabel : item.label }}
+      <div class="app-row app-row-header">
+        <div *ngIf="isColumnSelected('label')" class="app-col-label"> {{'search.name' | translate}} </div>
+        <div *ngIf="isColumnSelected('model')" class="app-col-model">{{'search.model' | translate}} </div>
+        <div *ngIf="isColumnSelected('pid')" class="app-col-pid">{{'search.pid' | translate}} </div>
+        <div *ngIf="isColumnSelected('owner')" class="app-col">{{'search.owner' | translate}} </div>
+        <div *ngIf="isColumnSelected('created')" class="app-col">{{'search.created' | translate}} </div>
+        <div *ngIf="isColumnSelected('modified')" class="app-col">{{'search.modified' | translate}} </div>
+        <div *ngIf="isColumnSelected('status')" class="app-col">{{'search.status' | translate}} </div>
+        <div *ngIf="!editor.isMultipleChildrenMode() && !editor.preparation" class="app-col-actions">&#160;</div>
       </div>
-      <div *ngIf="isColumnSelected('model')" class="app-col-model">{{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }}</div>
-      <div *ngIf="isColumnSelected('pid')" class="app-col-pid">{{ item.pid }}</div>
-      <div *ngIf="isColumnSelected('owner')" class="app-col">{{ item.owner }}</div>
-      <div *ngIf="isColumnSelected('created')" class="app-col">{{ item.created | date : 'dd.MM.yyyy' }}</div>
-      <div *ngIf="isColumnSelected('modified')" class="app-col">{{ item.modified | date : 'dd.MM.yyyy' }}</div>
-      <div *ngIf="isColumnSelected('status')" class="app-col">{{ item.status }}</div>
+
+      <div>
+        <div *ngFor="let item of items; let i = index" class="app-row"
+          [class.app-selected]="isSelected(item, i, 'list')" (click)="onSelect(item, $event)" (dblclick)="open(item)"
+          draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" (dragover)="dragover($event)"
+          (dragend)="dragend($event)">
+          <div *ngIf="isColumnSelected('label')" class="app-col-label">
+            <mat-icon *ngIf="item.invalid" class="app-invalid">warning</mat-icon>
+            {{ shortLabels ? item.shortLabel : item.label }}
+          </div>
+          <div *ngIf="isColumnSelected('model')" class="app-col-model">{{ (item.pageType ? "page_type." + item.pageType
+            : "model." + item.model) | translate }}</div>
+          <div *ngIf="isColumnSelected('pid')" class="app-col-pid">{{ item.pid }}</div>
+          <div *ngIf="isColumnSelected('owner')" class="app-col">{{ item.owner }}</div>
+          <div *ngIf="isColumnSelected('created')" class="app-col">{{ item.created | date : 'dd.MM.yyyy' }}</div>
+          <div *ngIf="isColumnSelected('modified')" class="app-col">{{ item.modified | date : 'dd.MM.yyyy' }}</div>
+          <div *ngIf="isColumnSelected('status')" class="app-col">{{ item.status }}</div>
 
 
-      <div class="app-col-actions">
-          <button *ngIf="editor.numberOfSelectedChildren() < 2 && !editor.preparation" matTooltip="{{ 'editor.children.open_object' | translate }}" (click)="open(item); $event.stopPropagation();" mat-icon-button>
+          <div class="app-col-actions">
+            <button *ngIf="editor.numberOfSelectedChildren() < 2 && !editor.preparation"
+              matTooltip="{{ 'editor.children.open_object' | translate }}"
+              (click)="open(item); $event.stopPropagation();" mat-icon-button>
               <mat-icon>folder_open</mat-icon>
-          </button>
+            </button>
+          </div>
+          <!-- <mat-icon *ngIf="!editor.isMultipleChildrenMode()" matTooltip="{{ 'editor.children.reorder' | translate }}" class="app-drag-handle app-icon-top">reorder</mat-icon> -->
+        </div>
       </div>
-      <!-- <mat-icon *ngIf="!editor.isMultipleChildrenMode()" matTooltip="{{ 'editor.children.reorder' | translate }}" class="app-drag-handle app-icon-top">reorder</mat-icon> -->
-  </div>
-  </div>
+
+    </div>
 
 
-  <div class="app-view-grid" *ngIf="viewMode == 'grid'" #childrenGridList>
-    <div *ngFor="let item of items; let i = index" (click)="select(item, $event)" (dblclick)="open(item)" class="app-grid-item-wrapper" 
-        draggable="true"
-        (dragenter)="dragenter($event)"
-        (dragstart)="dragstart($event)"
-        (dragover)="dragover($event)"
-        (dragend)="dragend($event)"
-        (mousedown)="mousedown($event)" [class.app-selected]="isSelected(item, i, 'grid')"
-        [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'"
-    [style.width]="iconWidth + '%'"
-    >
+    <div class="app-view-grid" *ngIf="viewMode == 'grid'" #childrenGridList (mousedown)="mousedown($event)">
+      <div *ngFor="let item of items; let i = index" (click)="onSelect(item, $event)" (dblclick)="open(item)"
+        class="app-grid-item-wrapper" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)"
+        (dragover)="dragover($event)" (dragend)="dragend($event)" (mousedown)="mousedown($event)"
+        [class.app-selected]="isSelected(item, i, 'grid')"
+        [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [style.width]="iconWidth + '%'">
         <div class="app-grid-item">
           <div class="app-grid-item-label">{{ shortLabels ? item.shortLabel : item.label }}
-            <br/>
-            ({{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }})</div>
+            <br />
+            ({{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }})
+          </div>
         </div>
+      </div>
     </div>
-  </div>
 
-  <div class="app-view-icons" *ngIf="viewMode == 'icons'" #childrenIconList [class.app-multiple-selection]="editor.isMultipleChildrenMode()">
-    <div *ngFor="let item of items; let i = index" (click)="select(item, $event)" (dblclick)="open(item)" class="app-item"
-    draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)" 
-    (dragend)="dragend($event)"
-    (dragover)="dragover($event)"
-    (mousedown)="mousedown($event)" [class.app-selected]="isSelected(item, i, 'icons')"
-    [style.width]="iconWidth + '%'" [style.height]="iconHeight + 'px'"
-    >
-      <div class="app-item-content">
-        <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"></div>
-        <div class="app-item-label" *ngIf="!editor.preparation">{{ shortLabels ? item.shortLabel : item.label }}
-          <br/>({{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }})
+    <div class="app-view-icons" *ngIf="viewMode == 'icons'" #childrenIconList
+      [class.app-multiple-selection]="editor.isMultipleChildrenMode()" (mousedown)="mousedown($event)">
+      <div *ngFor="let item of items; let i = index" class="app-item" (click)="onSelect(item, $event)"
+        (dblclick)="open(item)" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)"
+        (dragend)="dragend($event)" (dragover)="dragover($event)" (mousedown)="mousedown($event)"
+        [class.app-selected]="isSelected(item, i, 'icons')" [style.width]="iconWidth + '%'"
+        [style.height]="iconHeight + 'px'">
+        <div class="app-item-content">
+          <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"></div>
+          <div class="app-item-label" *ngIf="!editor.preparation">{{ shortLabels ? item.shortLabel : item.label }}
+            <br />({{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }})
+          </div>
+          <div class="app-item-label" *ngIf="editor.preparation">{{ item.label + (shortLabels ? "" : (", " +
+            ("page_type." + item.pageType | translate))) }}</div>
+
         </div>
-        <div class="app-item-label" *ngIf="editor.preparation">{{ item.label + (shortLabels ? "" : (", " + ("page_type." + item.pageType | translate))) }}</div>
-
       </div>
     </div>
   </div>
-</div>
 
 </div>

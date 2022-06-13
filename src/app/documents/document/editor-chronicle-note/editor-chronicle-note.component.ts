@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { ElementField } from 'src/app/model/mods/elementField.model';
-import { Translator } from 'angular-translator';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-editor-chronicle-note',
@@ -11,25 +11,25 @@ import { Translator } from 'angular-translator';
 export class EditorChronicleNoteComponent implements OnInit {
 
   typeCodes = [ 'public', 'private' ];
-  types = [];
+  types: { code: string; name: any; }[] = [];
 
   @Input() field: ElementField;
 
-  constructor(public translator: Translator) {
+  constructor(public translator: TranslateService) {
     this.translateCodes();
-    translator.languageChanged.subscribe(() => this.translateCodes());
+    translator.onLangChange.subscribe(() => this.translateCodes());
   }
 
   ngOnInit() {
   }
 
   translateCodes() {
-    this.translator.waitForTranslation().then(() => {
+    // this.translator.waitForTranslation().then(() => {
       this.types = [];
       for (const code of this.typeCodes) {
         this.types.push({code: code, name: this.translator.instant('editor.chronicle.note.types.' + code)});
       }
-    });
+    // });
   }
 
 

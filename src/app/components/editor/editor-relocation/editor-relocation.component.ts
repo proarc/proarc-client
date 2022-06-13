@@ -3,9 +3,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { EditorService } from 'src/app/services/editor.service';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
-import { Translator } from 'angular-translator';
+import { TranslateService } from '@ngx-translate/core';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
@@ -31,7 +31,7 @@ export class EditorRelocationComponent implements OnInit {
 
   constructor(public editor: EditorService,
               private dialog: MatDialog,
-              private translator: Translator,
+              private translator: TranslateService,
               private properties: LocalStorageService,
               private api: ApiService) {
   }

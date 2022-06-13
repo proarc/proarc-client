@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ElementField } from 'src/app/model/mods/elementField.model';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { LocationDialogComponent } from 'src/app/dialogs/location-dialog/location-dialog.component';
 import { Ruian } from 'src/app/model/ruian.model';
 import { ModsGeo } from 'src/app/model/mods/geo.model';
@@ -42,7 +42,7 @@ export class EditorSubjectGeoComponent implements OnInit {
     });
   }
 
-  updateCoordinated(location: ModsGeo, lat, lng) {
+  updateCoordinated(location: ModsGeo, lat: number, lng: number) {
     if (!lat || !lng) {
       return;
     }
@@ -67,8 +67,8 @@ export class EditorSubjectGeoComponent implements OnInit {
   }
 
   updateFiled(location: ModsGeo, field: string, ruian: Ruian) {
-    location[field]['_'] = ruian.value;
-    location[field + '_code']['_'] = ruian.code;
+    location[field as keyof ModsGeo]['_'] = ruian.value;
+    location[field + '_code' as keyof ModsGeo]['_'] = ruian.code;
   }
 
 

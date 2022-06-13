@@ -6,7 +6,7 @@ export class CatalogueEntry {
   public preview: string;
   public title: string;
 
-  public static fromJson(json): CatalogueEntry {
+  public static fromJson(json: any): CatalogueEntry {
     const entry = new CatalogueEntry();
     entry.id = json['id'];
     entry.mods = json['mods'];
@@ -15,7 +15,7 @@ export class CatalogueEntry {
     return entry;
   }
 
-  public static fromJsonArray(jsonArray): CatalogueEntry[] {
+  public static fromJsonArray(jsonArray: any[]): CatalogueEntry[] {
     const array: CatalogueEntry[] = [];
     for (const json of jsonArray) {
         array.push(CatalogueEntry.fromJson(json));

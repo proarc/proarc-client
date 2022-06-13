@@ -11,9 +11,10 @@ import { EditorComponent } from '../components/editor/editor.component';
 import { ImportComponent } from '../components/import/import.component';
 import { HistoryComponent } from '../components/import/history/history.component';
 import { SettingsComponent } from '../components/settings/settings.component';
+import { ConfirmLeaveEditorGuard } from '../confirm-leave-editor.guard';
 
 const routes: Routes = [
-  { path: 'document/:pid', component: EditorComponent },
+  { path: 'document/:pid', component: EditorComponent, canDeactivate:[ConfirmLeaveEditorGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'devices', component: DevicesComponent },

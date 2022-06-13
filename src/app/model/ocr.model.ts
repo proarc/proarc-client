@@ -6,7 +6,7 @@ export class Ocr {
   public content: string;
   public timestamp: number;
 
-  public static fromJson(json): Ocr {
+  public static fromJson(json: any): Ocr {
       const ocr = new Ocr();
       ocr.pid = json['pid'];
       ocr.original = json['content'];

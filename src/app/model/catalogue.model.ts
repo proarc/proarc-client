@@ -5,7 +5,7 @@ export class Catalogue {
   public name: string;
   public fileds: CatalogueField[];
 
-  public static fromJson(json): Catalogue {
+  public static fromJson(json: any): Catalogue {
       const catalog = new Catalogue();
       catalog.id = json['id'];
       catalog.name = json['name'];
@@ -24,7 +24,7 @@ export class Catalogue {
   }
 
 
-  public static fromJsonArray(jsonArray): Catalogue[] {
+  public static fromJsonArray(jsonArray: any[]): Catalogue[] {
     const array: Catalogue[] = [];
     for (const json of jsonArray) {
         array.push(Catalogue.fromJson(json));

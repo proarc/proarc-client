@@ -3,11 +3,11 @@ import { ModsElement } from './element.model';
 
 export class ModsTitle extends ModsElement {
 
-    nonSort;
-    title;
-    subTitle;
-    partNumber;
-    partName;
+    nonSort: any;
+    title: any;
+    subTitle: any;
+    partNumber: any;
+    partName: any;
 
     static getSelector() {
         return 'titleInfo';
@@ -17,7 +17,7 @@ export class ModsTitle extends ModsElement {
         return 'titleInfo';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template, ['type', 'lang']);
         this.init();
     }
@@ -49,7 +49,7 @@ export class ModsTitle extends ModsElement {
         return !this.nonSort['_'] && !this.title['_'];
     }
 
-    onNonSotToggleChanged(event) {
+    onNonSotToggleChanged(event: any) {
         if (event.checked) {
             const str = this.title['_'] as String;
             const si = str.indexOf(' ');

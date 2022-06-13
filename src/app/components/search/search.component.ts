@@ -2,9 +2,10 @@ import { DocumentItem } from '../../model/documentItem.model';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { Translator } from 'angular-translator';
+import { TranslateService } from '@ngx-translate/core';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
-import { MatDialog, MatSelect } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSelect } from '@angular/material/select';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { ExportDialogComponent } from 'src/app/dialogs/export-dialog/export-dialog.component';
 import { UrnbnbDialogComponent } from 'src/app/dialogs/urnnbn-dialog/urnnbn-dialog.component';
@@ -76,7 +77,7 @@ export class SearchComponent implements OnInit {
               public search: SearchService,
               private config: ConfigService,
               private ui: UIService,
-              private translator: Translator) { 
+              private translator: TranslateService) { 
                 this.models = this.config.allModels;
   }
 
@@ -102,18 +103,18 @@ export class SearchComponent implements OnInit {
   }
 
 
-  dragEnd({sizes}) {
+  dragEnd(sizes: any) {
       this.splitArea1Width = sizes[0];
       this.splitArea2Width = sizes[1];
       this.properties.setStringProperty('search.split.0', String(sizes[0]));
       this.properties.setStringProperty('search.split.1', String(sizes[1]));
   }
 
-  getSplitSize(split: number) {
+  getSplitSize(split: number): number {
     if (split == 0) {
-      return this.splitArea1Width;
+      return parseInt(this.splitArea1Width);
     }
-    return this.splitArea2Width;
+    return parseInt(this.splitArea2Width);
   }
 
   reload(selectedPid: string = null) {
@@ -200,7 +201,7 @@ export class SearchComponent implements OnInit {
     this.search.selectedTree.expandAll(this.api);
   }
 
-  onPageChanged(page) {
+  onPageChanged(page: any) {
     this.pageIndex = page.pageIndex;
     this.reload();
   }
@@ -354,7 +355,7 @@ export class SearchComponent implements OnInit {
         this.state = 'error';
         return;
       } else if (response.response.data && response.response.data[0].validation) {
-        this.ui.showErrorSnackBarFromObject(response.response.data.map(d => d.errorMessage = d.validation));
+        this.ui.showErrorSnackBarFromObject(response.response.data.map((d: any) => d.errorMessage = d.validation));
         this.state = 'error';
       } else {
           this.state = 'success';
@@ -416,7 +417,7 @@ export class SearchComponent implements OnInit {
         this.state = 'error';
         return;
       } else {
-        const removedPid: string[] = response['response']['data'].map(x => x.pid);
+        const removedPid: string[] = response['response']['data'].map((x: any) => x.pid);
         if (callback) {
           callback(removedPid);
         }
@@ -439,6 +440,7 @@ export class SearchComponent implements OnInit {
         return 'arrow_drop_down';
       }
     }
+    return '';
   }
 
   sortBy(field: string) {
@@ -460,7 +462,7 @@ export class SearchComponent implements OnInit {
     return item.model === 'model:ndkmonographvolume' || item.model === 'model:ndkperiodicalissue'
   }
 
-  enterModel(e) {
+  enterModel(e: any) {
     this.modelSelect.close();
     this.reload();
   }

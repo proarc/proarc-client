@@ -1,22 +1,22 @@
 
 export default class ModsUtils {
 
-    static getAttribute(el, attr) {
+    static getAttribute(el: any, attr: string) {
         if (!ModsUtils.hasAnyAttribute(el)) {
             return null;
         }
         return el['$'][attr];
     }
 
-    static hasAttribute(el, attr) {
+    static hasAttribute(el: any, attr: string) {
         return ModsUtils.getAttribute(el, attr) != null;
     }
 
-    static hasAttributeWithValue(el, attr, value) {
+    static hasAttributeWithValue(el: any, attr: string, value: any) {
         return ModsUtils.getAttribute(el, attr) === value;
     }
 
-    static hasAnyAttribute(el) {
+    static hasAnyAttribute(el: any) {
         return el['$'] && Object.keys(el['$']).length > 0;
     }
 
@@ -24,8 +24,8 @@ export default class ModsUtils {
         return [{ '_': ''}];
     }
 
-    static createTextElement(value, attrs) {
-        const obj = {
+    static createTextElement(value: any, attrs: any) {
+        const obj: any = {
             '_': value
         };
         if (attrs) {
@@ -34,8 +34,8 @@ export default class ModsUtils {
         return obj;
     }
 
-    static createObjWithTextElement(name, value, attrs) {
-        const obj = {};
+    static createObjWithTextElement(name: any, value: any, attrs: any) {
+        const obj: any = {};
         const o = ModsUtils.createTextElement(value, attrs);
         obj[name] = [o];
         return obj;

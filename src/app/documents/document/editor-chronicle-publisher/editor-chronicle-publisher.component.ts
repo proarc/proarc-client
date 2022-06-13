@@ -1,7 +1,7 @@
 
 import { Component, OnInit, Input } from '@angular/core';
 import { ElementField } from 'src/app/model/mods/elementField.model';
-import { Translator } from 'angular-translator';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-editor-chronicle-publisher',
@@ -13,18 +13,18 @@ export class EditorChroniclePublisherComponent implements OnInit {
   @Input() field: ElementField;
 
   public qualifierCodes: string[] = ['', 'approximate'];
-  public qualifiers = [];
+  public qualifiers: any[] = [];
 
-  constructor(public translator: Translator) {
+  constructor(public translator: TranslateService) {
     this.translateCodes();
-    translator.languageChanged.subscribe(() => this.translateCodes());
+    translator.onLangChange.subscribe(() => this.translateCodes());
   }
 
   ngOnInit() {
   }
 
   translateCodes() {
-    this.translator.waitForTranslation().then(() => {
+    // this.translator.waitForTranslation().then(() => {
       this.qualifiers = [];
       for (const code of this.qualifierCodes) {
         if (code === '') {
@@ -33,7 +33,7 @@ export class EditorChroniclePublisherComponent implements OnInit {
           this.qualifiers.push({ code: code, name: this.translator.instant('editor.publisher.date_qualifier_code.' + code)});
         }
       }
-    });
+    // });
   }
 
 

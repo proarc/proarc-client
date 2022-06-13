@@ -3,10 +3,10 @@
   <div class="app-editor-saving" *ngIf="editor.state === 'loading' || editor.state === 'saving'"></div>
 
 
-  <as-split unit="percent" gutterSize="4" direction="horizontal" (dragEnd)="dragEnd($event)"
-    (gutterDblClick)="dblClick($event)" #split="asSplit">
+  <as-split unit="percent" [gutterSize]="4" direction="horizontal" (dragEnd)="dragEnd($event)"
+    (gutterDblClick)="dblClick()" #split="asSplit">
 
-    <as-split-area #area1="asSplitArea" minSize="1" [size]="getSplitSize(0)">
+    <as-split-area #area1="asSplitArea" [minSize]="1" [size]="getSplitSize(0)">
 
       <div class="app-panel">
         <div class="app-toolbar" *ngIf="!editor.preparation">
@@ -125,7 +125,7 @@
     </as-split-area>
 
 
-    <as-split-area #area2="asSplitArea" minSize="20" [size]="getSplitSize(1)">
+    <as-split-area #area2="asSplitArea" [minSize]="20" [size]="getSplitSize(1)">
 
       <div class="app-panel">
 
@@ -193,7 +193,7 @@
         <div class="app-toolbar" *ngIf="editor.numberOfSelectedChildren() > 1">
           <div class="app-label">
             <div class="app-label-title">{{ 'editor.children.multiple_selection_label' | translate }}</div>
-            <div class="app-label-model">{{ 'editor.children.multiple_selection_count' | translate: { count:
+            <div class="app-label-model">{{ ('editor.children.multiple_selection_count' + countPlurals() ) | translate: { count:
               editor.numberOfSelectedChildren() } }}</div>
           </div>
           <div class="app-context">
@@ -237,9 +237,7 @@
     </as-split-area>
 
 
-
-
-    <as-split-area *ngIf="editor.right && editor.doubleRight" #area3="asSplitArea" minSize="20"
+    <as-split-area *ngIf="editor.right && editor.doubleRight" #area3="asSplitArea" [minSize]="20"
       [size]="getSplitSize(2)">
 
 
@@ -274,7 +272,7 @@
         <div class="app-content">
           <app-pdf *ngIf="editor.thirdEditorType == 'pdf'" [pid]="editor.right.pid"></app-pdf>
           <app-song *ngIf="editor.thirdEditorType == 'song'" [pid]="editor.right.pid"></app-song>
-          <app-viewer *ngIf="editor.thirdEditorType == 'image'" [pid]="editor.right.pid"></app-viewer>
+          <app-viewer *ngIf="editor.thirdEditorType == 'image'" [pid]="editor.lastSelected.pid"></app-viewer>
           <app-editor-mods *ngIf="editor.thirdEditorType == 'mods'"></app-editor-mods>
         </div>
       </div>

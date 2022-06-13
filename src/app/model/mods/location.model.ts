@@ -3,9 +3,9 @@ import ModsUtils from './utils';
 
 export class ModsLocation extends ModsElement {
 
-    public physicalLocation;
-    public shelfLocator;
-    public url;
+    public physicalLocation: any;
+    public shelfLocator: any;
+    public url: any;
 
     static getSelector() {
         return 'location';
@@ -15,7 +15,7 @@ export class ModsLocation extends ModsElement {
         return 'location';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template);
         this.init();
     }

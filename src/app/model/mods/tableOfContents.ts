@@ -10,7 +10,7 @@ export class ModsTableOfContents extends ModsElement {
         return 'tableOfContents';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template, ['displayLabel']);
         this.init();
     }

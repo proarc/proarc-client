@@ -81,9 +81,9 @@
   </div>
 
 
-  <as-split style="height: calc(100% - 50px);" unit="percent" gutterSize="10" direction="vertical" (dragEnd)="dragEnd($event)" #split="asSplit">
+  <as-split style="height: calc(100% - 50px);" unit="percent" [gutterSize]="10" direction="vertical" (dragEnd)="dragEnd($event)" #split="asSplit">
 
-    <as-split-area #area1="asSplitArea" minSize="20" [size]="getSplitSize(0)">
+    <as-split-area #area1="asSplitArea" [minSize]="20" [size]="getSplitSize(0)">
 
 
   <div class="app-items-wrapper" *ngIf="items">
@@ -175,7 +175,7 @@
 
 </as-split-area>
 
-<as-split-area #area2="asSplitArea" minSize="20" [size]="getSplitSize(1)">
+<as-split-area #area2="asSplitArea" [minSize]="20" [size]="getSplitSize(1)">
 
 <div class="app-items-wrapper" *ngIf="tree">
 

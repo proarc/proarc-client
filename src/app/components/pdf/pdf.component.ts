@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { ApiService } from 'src/app/services/api.service';
@@ -49,7 +49,7 @@ export class PdfComponent implements OnInit {
 
   }
 
-  uploadPdf(event) {
+  uploadPdf(event: any) {
     console.log('uploadPdf', event);
     const files = <Array<File>>event.target.files;
     if (files.length != 1) {

@@ -1,6 +1,6 @@
 
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/api.service';
 import { Catalogue, CatalogueField } from 'src/app/model/catalogue.model';
 import { CatalogueEntry } from 'src/app/model/catalogueEntry.model';

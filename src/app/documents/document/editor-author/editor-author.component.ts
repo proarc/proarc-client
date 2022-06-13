@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ElementField } from 'src/app/model/mods/elementField.model';
-import { Translator } from 'angular-translator';
-import { MatDialog } from '@angular/material';
+import { TranslateService } from '@ngx-translate/core';
+import { MatDialog } from '@angular/material/dialog';
 import { CatalogDialogComponent } from 'src/app/dialogs/catalog-dialog/catalog-dialog.component';
 import { Metadata } from 'src/app/model/metadata.model';
 import { ModsAuthor } from 'src/app/model/mods/author.model';
@@ -27,18 +27,18 @@ export class EditorAuthorComponent implements OnInit {
         'rse', 'rsp', 'rst', 'rth', 'rtm', 'sad', 'sce', 'scr', 'scl', 'sec', 'sgn', 'sng', 'spk', 'spn', 'srv', 'stn', 'stl',
         'str', 'ths', 'trc', 'trl', 'tyd', 'tyg', 'voc', 'wam', 'wdc', 'wde', 'wit'];
 
-  public roles = [];
+  public roles: { code: string; name: any; }[] = [];
 
-  constructor(public translator: Translator, private dialog: MatDialog, public editor: EditorService) {
+  constructor(public translator: TranslateService, private dialog: MatDialog, public editor: EditorService) {
     this.translateCodes();
-    translator.languageChanged.subscribe(() => this.translateCodes());
+    translator.onLangChange.subscribe(() => this.translateCodes());
   }
 
   ngOnInit() {
     
   }
 
-  onLoadFromCatalog(item) {
+  onLoadFromCatalog(item: any) {
     const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'authors' } });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
@@ -55,7 +55,7 @@ export class EditorAuthorComponent implements OnInit {
   }
 
   translateCodes() {
-    this.translator.waitForTranslation().then(() => {
+    // this.translator.waitForTranslation().then(() => {
       this.roles = [];
       for (const code of this.roleCodes) {
         this.roles.push({code: code, name: this.translator.instant('role.' + code)});
@@ -69,7 +69,7 @@ export class EditorAuthorComponent implements OnInit {
         }
         return 0;
       });
-    });
+    // });
   }
 
 }

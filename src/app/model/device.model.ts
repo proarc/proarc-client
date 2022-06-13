@@ -33,7 +33,7 @@ export class Device {
     public audioDevices: AudioDevice[];
 
 
-    public static fromJsonArray(jsonArray): Device[] {
+    public static fromJsonArray(jsonArray: any[]): Device[] {
       const array: Device[] = [];
       for (const json of jsonArray) {
           array.push(Device.fromJson(json));
@@ -46,7 +46,7 @@ export class Device {
     this.audioDevices = [];
   }
 
-  public static fromJson(json): Device {
+  public static fromJson(json: any): Device {
       let model = json['model'];
       if (model === 'Audio linka') {
         model = 'proarc:audiodevice';

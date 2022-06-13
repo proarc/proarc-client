@@ -3,7 +3,7 @@ import ModsUtils from './utils';
 
 export class ModsRole extends ModsElement {
 
-    public role;
+    public role: any;
 
     static getSelector() {
         return 'role';
@@ -13,7 +13,7 @@ export class ModsRole extends ModsElement {
         return 'role';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template);
         this.init();
     }

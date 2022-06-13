@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 export class LocalStorageService {
 
     availableSearchColumns = ['name', 'model', 'pid', 'owner', 'processor', 'organization', 'status', 'created', 'modified', 'export', 'isLocked'];
-    private searchColumnsDefaults = {
+    private searchColumnsDefaults: any = {
         'name': true,
         'model': true,
         'pid': true,
@@ -26,7 +26,7 @@ export class LocalStorageService {
         return  this.getBoolProperty('search.cols.' + col, !!this.searchColumnsDefaults[col]);
     }
 
-    getStringProperty(property: string, defaultValue: string = null): string {
+    getStringProperty(property: string, defaultValue: string|null = null): string|null {
         return localStorage.getItem(property) || defaultValue;
     }
 

@@ -2,8 +2,8 @@ import { FormControl } from "@angular/forms";
 import { ElementField } from "./elementField.model";
 
 export abstract class ModsElement {
-    public attrs;
-    public modsElement;
+    public attrs: any;
+    public modsElement: any;
     public collapsed = false;
     public hidden = false;
     private template;
@@ -13,7 +13,7 @@ export abstract class ModsElement {
 
     private subFields: ElementField[];
 
-    constructor(modsElement, template, attributes: string[] = []) {
+    constructor(modsElement: any, template: any, attributes: string[] = []) {
         this.validationWarning = false;
         this.subFields = [];
         this.controls = new Map<String, FormControl>();
@@ -59,7 +59,7 @@ export abstract class ModsElement {
         this.collapsed = !this.collapsed;
     }
 
-    public isMandatory(field): boolean {
+    public isMandatory(field: any): boolean {
         return this.usage(field) == 'M';
     }
 
@@ -118,7 +118,7 @@ export abstract class ModsElement {
     }
 
     public invalid(field: string): boolean {
-        const c = this.getControl(field);
+        const c: any = this.getControl(field);
         if (c.touched && c.errors && c.errors.required) {
             return true;
         }
@@ -177,5 +177,18 @@ export abstract class ModsElement {
             error = true;
         }
         return !(error && (isRequired|| anyValue));
+    }
+
+    public hasChanges(): boolean {
+        const keys = this.controls.keys();
+        for (let key of keys) {
+        // keys.forEach(( key: string) => {
+            if (this.controls.get(key).dirty) {
+                return true;
+            }
+        //});
+        }
+
+        return false;
     }
 }

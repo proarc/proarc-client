@@ -10,7 +10,7 @@ export class ModsRecordContentSource extends ModsElement {
         return 'recordContentSource';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template, ['authority']);
         this.init();
     }

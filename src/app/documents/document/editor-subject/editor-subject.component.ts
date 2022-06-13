@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { CatalogDialogComponent } from 'src/app/dialogs/catalog-dialog/catalog-dialog.component';
 import { Metadata } from 'src/app/model/metadata.model';
 import { ElementField } from 'src/app/model/mods/elementField.model';
@@ -22,9 +22,9 @@ export class EditorSubjectComponent implements OnInit {
   ngOnInit() {
   }
 
-  onLoadFromCatalog(item) {
+  onLoadFromCatalog(item: any) {
     const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'authors' } });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result: any) => {
       if (result && result['mods']) {
         const mods = result['mods'];
         const metadata = new Metadata('', this.editor.metadata.model, mods, 0);

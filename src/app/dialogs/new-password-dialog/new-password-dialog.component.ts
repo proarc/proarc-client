@@ -1,10 +1,10 @@
 
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UIService } from 'src/app/services/ui.service';
-import { Translator } from 'angular-translator';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-new-password-dialog',
@@ -23,7 +23,7 @@ export class NewPasswordDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<NewPasswordDialogComponent>,
     private auth: AuthService,
     private ui: UIService,
-    private translator: Translator,
+    private translator: TranslateService,
     private api: ApiService) { }
 
   ngOnInit() {

@@ -10,7 +10,7 @@ export class ModsNote extends ModsElement {
         return 'note';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template, ['type']);
         this.init();
     }

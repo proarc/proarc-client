@@ -5,17 +5,17 @@ import { ModsFrequency } from './frequency.model';
 
 export class ModsPublisher extends ModsElement {
 
-    public publisher;
-    public edition;
-    public issuance;
-    public place;
-    public dateIssued;
-    public dateFrom;
-    public dateTo;
+    public publisher: any;
+    public edition: any;
+    public issuance: any;
+    public place: any;
+    public dateIssued: any;
+    public dateFrom: any;
+    public dateTo: any;
 
-    public dateOther;
-    public dateCreated;
-    public copyrightDate;
+    public dateOther: any;
+    public dateCreated: any;
+    public copyrightDate: any;
 
     public frequencies: ElementField;
 
@@ -27,7 +27,7 @@ export class ModsPublisher extends ModsElement {
         return 'originInfo';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template, ['eventType', 'transliteration']);
         this.init();
     }
@@ -137,7 +137,7 @@ export class ModsPublisher extends ModsElement {
         this.copyrightDate = this.modsElement['copyrightDate'][0];
 
         const ctx = this;
-        this.modsElement['place'].forEach(function(place) {
+        this.modsElement['place'].forEach(function(place: { [x: string]: any[]; }) {
             if (place['placeTerm'] &&
                 place['placeTerm'][0] &&
                 place['placeTerm'][0]['$'] &&
@@ -157,7 +157,7 @@ export class ModsPublisher extends ModsElement {
         }
     }
 
-    public update() {
+    public override update() {
         const dateParts = this.dateIssued['_'].split('-');
         if (dateParts.length === 2 && dateParts[0] && dateParts[1]) {
             this.dateFrom['_'] = dateParts[0];

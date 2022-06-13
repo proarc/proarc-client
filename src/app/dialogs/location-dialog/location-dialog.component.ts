@@ -1,11 +1,11 @@
 
 import { Component, OnInit, AfterViewInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { CuzkService } from 'src/app/services/cuzk.service';
 import { Ruian } from 'src/app/model/ruian.model';
 import * as L from 'leaflet';
 import { OsmService } from 'src/app/services/osm.service';
-import { Translator } from 'angular-translator';
+import { TranslateService } from '@ngx-translate/core';
 import { SimpleDialogData } from '../simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from '../simple-dialog/simple-dialog.component';
 
@@ -17,9 +17,9 @@ import { SimpleDialogComponent } from '../simple-dialog/simple-dialog.component'
 })
 export class LocationDialogComponent implements OnInit, AfterViewInit {
 
-  private map;
+  private map: any;
 
-  osmLocation;
+  osmLocation: any;
 
   state = 'none';
   locations: Ruian[];
@@ -45,7 +45,7 @@ export class LocationDialogComponent implements OnInit, AfterViewInit {
     public dialogRef: MatDialogRef<LocationDialogComponent>,
     private osm: OsmService,
     private dialog: MatDialog,
-    private translator: Translator,
+    private translator: TranslateService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private cuzk: CuzkService) { 
       this.mapSelectionMode = data && data.map;
@@ -70,7 +70,7 @@ export class LocationDialogComponent implements OnInit, AfterViewInit {
     });
     
 
-    this.map.on('click', e => {
+    this.map.on('click', (e: { latlng: { lat: any; lng: any; }; }) => {
       if (this.lookup) {
         return;
       }
@@ -85,7 +85,7 @@ export class LocationDialogComponent implements OnInit, AfterViewInit {
     tiles.addTo(this.map);
   }
 
-  onOsmLocationSelected(location, lat, lng) {
+  onOsmLocationSelected(location: any, lat: number, lng: number) {
     // const address = location.address;
     // if (address && address.house_number && (address.road || address.pedestrian)) {
       this.osmLocation = location;
@@ -154,7 +154,7 @@ export class LocationDialogComponent implements OnInit, AfterViewInit {
 
   private osmLocationNotFound() {
     this.lookup = false;
-    this.translator.waitForTranslation().then(() => {
+    // this.translator.waitForTranslation().then(() => {
       const data: SimpleDialogData = {
         title: String(this.translator.instant('editor.geo.map.not_found')),
         message: String(this.translator.instant('editor.geo.map.not_found_message')),
@@ -177,7 +177,7 @@ export class LocationDialogComponent implements OnInit, AfterViewInit {
       });
 
 
-    });
+    // });
   }
 
   private useLocationFromOsm(location: Ruian) {

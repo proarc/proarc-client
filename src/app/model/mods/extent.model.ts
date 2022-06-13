@@ -3,8 +3,8 @@ import ModsUtils from './utils';
 
 export class ModsExtent extends ModsElement {
 
-    start;
-    end;
+    start: any;
+    end: any;
 
     static getSelector() {
         return 'extent';
@@ -14,7 +14,7 @@ export class ModsExtent extends ModsElement {
         return 'extent';
     }
 
-    constructor(modsElement, template) {
+    constructor(modsElement: any, template: any) {
         super(modsElement, template);
         this.init();
     }
