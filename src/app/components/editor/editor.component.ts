@@ -23,6 +23,8 @@ export class EditorComponent implements OnInit {
   
   twoSplitWidths: string[];
   threeSplitWidths: string[];
+
+
   
   constructor(
     private route: ActivatedRoute,
@@ -124,5 +126,12 @@ export class EditorComponent implements OnInit {
     return dialogRef.afterClosed();
   }
   
-
+  hasPendingChanges(): boolean {
+    if (this.editor.showPagesEditor()) {
+      return this.editor.isDirty;
+    } else if (this.editor.metadata && (!this.editor.left.isPage() && !this.editor.left.isChronicle()) || this.editor.rightEditorType === 'metadata') {
+      return this.editor.metadata.hasChanges();
+    }
+    return false;
+  }
 }

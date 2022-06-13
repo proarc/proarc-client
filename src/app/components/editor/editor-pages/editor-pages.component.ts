@@ -52,7 +52,7 @@ export class EditorPagesComponent implements OnInit {
   }
 
   setChanges() {
-    this.editor.hasPendingChanges = this.canSave();
+    this.editor.isDirty = this.canSave();
   }
 }
 

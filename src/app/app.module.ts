@@ -272,7 +272,7 @@ export function HttpLoaderFactory(http: HttpClient) {
           css: () => import('highlight.js/lib/languages/css'),
           xml: () => import('highlight.js/lib/languages/xml')
         },
-        themePath: 'path-to-theme.css' // Optional, and useful if you want to change the theme dynamically
+        // themePath: 'path-to-theme.css' // Optional, and useful if you want to change the theme dynamically
       }
     }
   ],

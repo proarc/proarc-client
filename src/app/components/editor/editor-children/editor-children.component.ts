@@ -14,6 +14,7 @@ import { ParentDialogComponent } from 'src/app/dialogs/parent-dialog/parent-dial
 import { ConvertDialogComponent } from 'src/app/dialogs/convert-dialog/convert-dialog.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { Tree } from 'src/app/model/mods/tree.model';
+import { map } from 'rxjs';
 
 
 
@@ -198,6 +199,19 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   }
 
 
+
+  onSelect(item: DocumentItem, event: any = null) {
+    let canSelect = true;
+    if (this.editor.hasPendingChanges()) {
+      const d = this.editor.confirmLeaveDialog().subscribe((result: any) => {
+        if (result === 'true') {
+          this.select(item, event);
+        }
+      });
+    } else {
+      this.select(item, event);
+    }
+  }
 
   select(item: DocumentItem, event: any = null) {
     const itemIndex = this.items.indexOf(item);

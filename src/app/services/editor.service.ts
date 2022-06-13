@@ -19,6 +19,8 @@ import { Batch } from '../model/batch.model';
 import { IngestDialogComponent } from '../dialogs/ingest-dialog/ingest-dialog.component';
 import { ModelTemplate } from '../templates/modelTemplate';
 import { ChildrenValidationDialogComponent } from '../dialogs/children-validation-dialog/children-validation-dialog.component';
+import { SimpleDialogData } from '../dialogs/simple-dialog/simple-dialog';
+import { SimpleDialogComponent } from '../dialogs/simple-dialog/simple-dialog.component';
 
 @Injectable()
 export class EditorService {
@@ -61,7 +63,9 @@ export class EditorService {
     // template: any;
     allowedChildrenModels: string[];
 
-    public hasPendingChanges: boolean;
+    public isDirty: boolean;
+
+    public page: Page;
 
     public selectedColumns = [
         { field: 'label', selected: true },
@@ -81,11 +85,42 @@ export class EditorService {
         private properties: LocalStorageService) {
     }
 
+    hasPendingChanges(): boolean {
+        if (this.showPagesEditor()) {
+          return this.isDirty;
+        } else if (this.left.isPage() || this.right.isPage()) {
+            return this.page.hasChanged();
+        } else if (this.metadata && (!this.left.isPage() && !this.left.isChronicle()) || this.rightEditorType === 'metadata') {
+            return this.metadata.hasChanges();
+        }
+        return false;
+      }
+
     watchRightDocument(): Observable<DocumentItem> {
         return this.rightDocumentsubject.asObservable();
     }
 
+    confirmLeaveDialog() {
+        const data: SimpleDialogData = {
+          title: 'Upozorneni',
+          message:'Opouštíte formulář bez uložení. Opravdu chcete pokracovat?',
+          btn1: {
+            label: "Ano",
+            value: 'true',
+            color: 'warn'
+          },
+          btn2: {
+            label: "Ne",
+            value: 'false',
+            color: 'default'
+          },
+        };
+        const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+        return dialogRef.afterClosed();
+      }
+
     init(params: EditorParams) {
+        this.isDirty = false;
         this.previousItem = null;
         this.nextItem = null;
         this.parent = null;

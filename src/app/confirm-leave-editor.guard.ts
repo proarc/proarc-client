@@ -17,8 +17,7 @@ export class ConfirmLeaveEditorGuard implements CanActivate, CanDeactivate<Edito
     currentRoute: ActivatedRouteSnapshot,
     currentState: RouterStateSnapshot,
     nextState?: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if (component.editor.hasPendingChanges) {
-
+      if (component.hasPendingChanges()) {
         return component.confirmLeaveDialog().pipe(map(c => c === 'true'));
         // return window.confirm('Do you really want to cancel?');
       }

@@ -333,6 +333,25 @@ export class Metadata {
     return false;
   }
 
-
+  hasChanges(): boolean {
+    for (const id of this.fieldsIds) {
+      const f = this.fields.get(id);
+      for (const item of f.getItems()) {
+          
+        if (item.hasChanges()) {
+          return true;
+        }
+        for (const subfield of item.getSubfields()) {
+          for (const item of subfield.getItems()) {
+            
+            if (item.hasChanges()) {
+              return true;
+            }
+          }
+        }
+      }
+    }
+    return false;
+  }
 
 }

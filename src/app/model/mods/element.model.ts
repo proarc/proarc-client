@@ -178,4 +178,17 @@ export abstract class ModsElement {
         }
         return !(error && (isRequired|| anyValue));
     }
+
+    public hasChanges(): boolean {
+        const keys = this.controls.keys();
+        for (let key of keys) {
+        // keys.forEach(( key: string) => {
+            if (this.controls.get(key).dirty) {
+                return true;
+            }
+        //});
+        }
+
+        return false;
+    }
 }
