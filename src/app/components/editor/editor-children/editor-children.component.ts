@@ -40,7 +40,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   dragEnabled = false;
   sourceIndex: number;
 
-  anyChange: boolean;
+  // anyChange: boolean;
 
   pageChildren = false;
   lastIndex: number;
@@ -119,7 +119,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     this.lastIndex = 0;
     this.arrowIndex = 0;
     this.lastState = true;
-    this.anyChange = false;
+    // this.anyChange = false;
     this.pageChildren = this.editor.anyPageChildren();
     if (this.pageChildren) {
       this.viewMode = this.properties.getStringProperty('children.page_view_mode', 'icons');
@@ -279,7 +279,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
       return;
     }
     if (!this.editor.isMultipleChildrenMode()) {
-      this.select(this.items[this.sourceIndex - 1]);
+      this.select(this.items[this.sourceIndex]);
     }
     this.isDragging = true;
     event.dataTransfer.effectAllowed = 'move';
@@ -343,7 +343,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
         const item = rest[i];
         this.items.push(item);
       }
-      this.anyChange = true;
+      this.editor.isLeftDirty = true;
     } else {
       const from = this.sourceIndex - 1;
       if (from !== to) {
@@ -381,14 +381,14 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
       const item = rest[i];
       this.items.push(item);
     }
-    this.anyChange = true;
+    this.editor.isLeftDirty = true;
   }
 
   reorder(from: number, to: number) {
     if (this.editor.isMultipleChildrenMode()) {
       this.reorderMultiple(to+1);
     } else {
-      this.anyChange = true;
+      this.editor.isLeftDirty = true;
       const item = this.items[from];
       this.items.splice(from, 1);
       this.items.splice(to, 0, item);
@@ -396,11 +396,11 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   }
 
   onSave() {
-    if (!this.anyChange) {
+    if (!this.editor.isLeftDirty) {
       return;
     }
     this.editor.saveChildren(() => {
-      this.anyChange = false;
+      this.editor.isLeftDirty = false;
     });
   }
 

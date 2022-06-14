@@ -1,6 +1,13 @@
 <div class="app-editor-content-wrapper" (click)="obtainFocus()">
   <div class="app-editor-toolbar">
 
+    <button class="app-action" 
+      matTooltip="{{ 'history.refresh' | translate }}" (click)="editor.reload()" mat-icon-button>
+      <mat-icon>sync</mat-icon>
+    </button>
+
+    <div class="app-divider"></div>
+
     <button class="app-action" [class.app-inactive]="viewMode != 'list'"
       matTooltip="{{ 'editor.children.view_list' | translate }}" (click)="changeViewMode('list')" mat-icon-button>
       <mat-icon>format_align_justify</mat-icon>
@@ -104,7 +111,7 @@
         <mat-icon>delete</mat-icon>
       </button>
       <div class="app-divider"></div>
-      <button class="app-action" [class.app-disabled]="!anyChange" matTooltip="{{ 'common.save' | translate }}"
+      <button class="app-action" [class.app-disabled]="!editor.isDirty" matTooltip="{{ 'common.save' | translate }}"
         (click)="onSave()" mat-icon-button>
         <mat-icon>save</mat-icon>
       </button>

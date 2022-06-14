@@ -86,7 +86,7 @@
             <div class="app-label-title">Import</div>
             <div class="app-label-model">{{editor.formatPagesCount() }}</div>
           </div>
-          <button mat-button style="float: right;" (click)="editor.ingest()">Pokračovat</button>
+          <button mat-button style="float: right;" (click)="editor.onIngest()">Pokračovat</button>
         </div>
 
 
@@ -127,7 +127,7 @@
 
     <as-split-area #area2="asSplitArea" [minSize]="20" [size]="getSplitSize(1)">
 
-      <div class="app-panel">
+      <div class="app-panel" [class.app-disabled]="editor.isLeftDirty">
 
         <div class="app-toolbar" *ngIf="editor.right && editor.numberOfSelectedChildren() < 2">
           <div class="app-label">
