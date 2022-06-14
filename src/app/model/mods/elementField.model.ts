@@ -256,6 +256,10 @@ export class ElementField {
         return this.template.label;
     }
 
+    public selector() {
+        return this.template.selector;
+    }
+
     private selectorById(id: string): string {
         switch (id) {
             case ModsTitle.getId():

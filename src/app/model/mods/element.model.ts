@@ -71,6 +71,11 @@ export abstract class ModsElement {
         return this.fieldValue(field, 'label');
     }
 
+
+    public selector(field: string): string {
+        return this.fieldValue(field, 'selector');
+    }
+
     public options(field: string): string[] {
         return this.fieldValue(field, 'options');
     }

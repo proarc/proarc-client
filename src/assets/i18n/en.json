@@ -1403,6 +1403,10 @@
     "PNE303" : "Museum of West Bohemia in Pilsen",
     "OPD001" : "Silesian university in Opava",
     "JHE301" : "Museum of Jindrichuv Hradec Region"
+  },
+  "mods" : {
+    "titleInfo": "Name"
   }
+  
 
 }

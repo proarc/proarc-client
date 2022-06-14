@@ -79,5 +79,6 @@ var APP_GLOBAL = {
   languages: ['cze', 'eng', 'fre', 'heb', 'ita', 'pol', 'por', 'rus', 'gre', 'slo', 'grc', 'spa', 'mul', 'zxx'],
   topLocations: ['BOA001', 'ABA000'],
   identifiers: [ 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'],
-  pagePositions: ['right_left', 'left_right', 'left', 'right', 'singlePage']
+  pagePositions: ['right_left', 'left_right', 'left', 'right', 'singlePage'],
+  lang: 'en'
 }

@@ -1384,5 +1384,8 @@
     "ZRG505" : "Městská knihovna Velká Bíteš",
     "ZRG507" : "Městská knihovna v Křižanově",
     "ZRG508" : "Městská knihovna Svratka"
+  },
+  "mods" : {
+    "titleInfo": "Název"
   }
 }
