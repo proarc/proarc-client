@@ -46,7 +46,7 @@
 
             <mat-form-field class="app-half-left" *ngIf="editor.page.isNdkPage()">
               <span class="app-usage" [class.app-help-off]="true">O</span>
-              <mat-select [(ngModel)]='editor.page.position' placeholder="{{ 'editor.page.position' | translate }}">
+              <mat-select [(ngModel)]='editor.page.position' placeholder="{{ 'editor.page.position' | translate }}" #posSelect (keyup.enter)="enterSelect(posSelect)">
                 <mat-option *ngFor="let position of positions" [value]="position">{{ 'editor.page.positions.' + position | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
@@ -87,9 +87,6 @@
                 <button matTooltip="{{ 'editor.page.add_identifier' | translate }}" color="primary" (click)="editor.page.addIdentifierAfter(index)" mat-icon-button>
                   <mat-icon>add</mat-icon>
                 </button>
-
-  
-          
               </div>
               <div class="app-card-content">
 
@@ -103,42 +100,12 @@
                   <input autocomplete="off" matInput [(ngModel)]='identifier.value' placeholder="{{ 'editor.identifier.title' | translate }}">
                 </mat-form-field>
 
-
-
-
-
                 </div>
               </div>
             </ng-container>
-
-
-
-
-
-
-
-
-
-
-
           </div>
         </div>
       </div>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     </div>
     
@@ -147,9 +114,6 @@
               [diameter]="60"
               class="center-spinner">
     </mat-spinner>
-
-
-  
   </div>  
     
 
