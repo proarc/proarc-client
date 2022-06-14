@@ -1068,10 +1068,10 @@ export class EditorService {
 
 
     updateSelectedPages(holder: PageUpdateHolder, callback: () => void) {
-        if (this.preparation) {
-            this.editSelectedBatchPages(holder, callback);
-            return;
-        }
+        // if (this.preparation) {
+        //     this.editSelectedBatchPages(holder, callback);
+        //     return;
+        // }
         this.state = 'saving';
         const pages = [];
         for (const item of this.children) {
@@ -1092,10 +1092,10 @@ export class EditorService {
     }
 
     changeBrackets(holder: PageUpdateHolder, useBrackets: boolean, callback: () => void) {
-        if (this.preparation) {
-            this.editSelectedBatchPages(holder, callback);
-            return;
-        }
+        // if (this.preparation) {
+        //     this.editSelectedBatchPages(holder, callback);
+        //     return;
+        // }
         this.state = 'saving';
         const pages = [];
         for (const item of this.children) {
@@ -1103,10 +1103,15 @@ export class EditorService {
                 pages.push(item.pid);
             }
         }
-        this.api.editBrackets(pages, holder, useBrackets, this.getBatchId()).subscribe(result => {
-            this.reloadChildren(() => {
-                this.state = 'success';
-            });
+        this.api.editBrackets(pages, holder, useBrackets, this.getBatchId()).subscribe((result: any) => {
+            if (result.response.errors) {
+                this.ui.showErrorSnackBarFromObject(result.response.errors);
+                this.state = 'error';
+            } else {
+                this.reloadChildren(() => {
+                    this.state = 'success';
+                });
+            }
         })
     }
 
