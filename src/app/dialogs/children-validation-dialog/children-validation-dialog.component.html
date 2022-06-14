@@ -12,7 +12,7 @@
 
     <ng-container *ngIf="state == 'done'">
         <div class="app-message" *ngIf="numberOfInvalid == 0">
-            Všechny objekty jsou validní
+            Všechny objekty jsou validní. Celkem: {{ numberOfValid }}
         </div>
         <div class="app-message app-error-message" *ngIf="numberOfInvalid > 0">
             Počet nevalidních objektů {{ numberOfInvalid }} z {{ count }}

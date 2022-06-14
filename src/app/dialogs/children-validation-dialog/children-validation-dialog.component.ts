@@ -16,6 +16,7 @@ export class ChildrenValidationDialogComponent implements OnInit {
   state: string;
   index = 0;
   numberOfInvalid = 0;
+  numberOfValid = 0;
   count: number;
 
   constructor(
@@ -47,6 +48,8 @@ export class ChildrenValidationDialogComponent implements OnInit {
         item.invalid = !page.isValid();
         if (item.invalid) {
           this.numberOfInvalid += 1;
+        } else {
+          this.numberOfValid += 1;
         }
         this.index += 1;
         this.validate();
