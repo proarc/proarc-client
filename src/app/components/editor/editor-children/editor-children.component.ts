@@ -460,6 +460,15 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     const selected = this.editor.getSelectedChildren();
     const items = selected.length > 0 ? selected : [this.editor.left];
     const parent = selected.length > 0 ? this.editor.left : this.editor.parent;
+    
+    if (this.properties.getStringProperty('parent.lastSelectedParent')) {
+      this.lastSelectedParent = JSON.parse(this.properties.getStringProperty('parent.lastSelectedParent'));
+    }
+    
+    if (this.properties.getStringProperty('parent.lastSelectedTree')) {
+      this.lastSelectedTree = JSON.parse(this.properties.getStringProperty('parent.lastSelectedTree'));
+    }
+
     const dialogRef = this.dialog.open(ParentDialogComponent, { 
       data: { 
         btnLabel: 'editor.children.relocate_label', 
@@ -473,6 +482,9 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
       if (result && result.pid) {
         this.lastSelectedParent = result.selectedItem;
         this.lastSelectedTree = result.selectedTree;
+        
+        this.properties.setStringProperty('parent.lastSelectedParent', JSON.stringify(this.lastSelectedParent));
+        this.properties.setStringProperty('parent.lastSelectedTree', JSON.stringify(this.lastSelectedTree));
         this.relocateOutside(items, result.pid);
       } else if(result && result.delete) {
         this.deleteParent(this.editor.parent.pid);

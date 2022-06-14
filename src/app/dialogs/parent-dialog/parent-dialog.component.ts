@@ -1,5 +1,5 @@
 
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/api.service';
 import { DocumentItem } from 'src/app/model/documentItem.model';
@@ -14,6 +14,8 @@ import { Tree } from 'src/app/model/mods/tree.model';
   styleUrls: ['./parent-dialog.component.scss']
 })
 export class ParentDialogComponent implements OnInit {
+  
+  @ViewChild('scroll') scroll: ElementRef;
 
   state = 'none';
   items: DocumentItem[];
@@ -142,16 +144,34 @@ export class ParentDialogComponent implements OnInit {
       this.state = 'success';
       if (this.data.selectedTree) {
         this.setExpandedPath(this.data.selectedTree);
-        const root = this.data.selectedTree.getParentByLevel(0);
+        // const root = this.data.selectedTree.getParentByLevel(0);
+        const root = this.getParentByLevel(this.data.selectedTree, 0);
         if (root) {
-          const item = this.items.find(i => i.pid === root.item.pid);
+          const item = this.items.find(i => i.pid === root);
           if (item) {
             this.selectItem(item);
+
+            setTimeout(()=>{
+              document.getElementById(root).scrollIntoView() 
+              //this.scroll.nativeElement.scrollIntoView = this.scroll.nativeElement.scrollHeight;
+            }, 50);
+
+
           }
           
         }
       }
     });
+  }
+
+  getParentByLevel(tree: Tree, level: number): string {
+    if (tree.level === level) {
+        return tree.item.pid;
+    } else if (!tree.parent) {
+        return undefined;
+    } else {
+        return this.getParentByLevel(tree.parent, level);
+    }
   }
 
   setExpandedPath(tree: Tree) {
