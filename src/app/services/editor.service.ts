@@ -88,7 +88,7 @@ export class EditorService {
     hasPendingChanges(): boolean {
         if (this.showPagesEditor()) {
           return this.isDirty;
-        } else if (this.left.isPage() || this.right.isPage()) {
+        } else if (this.page && (this.left.isPage() || this.right.isPage())) {
             return this.page.hasChanged();
         } else if (this.metadata && (!this.left.isPage() && !this.left.isChronicle()) || this.rightEditorType === 'metadata') {
             return this.metadata.hasChanges();
