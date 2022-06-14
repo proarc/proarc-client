@@ -111,7 +111,7 @@
         <mat-icon>delete</mat-icon>
       </button>
       <div class="app-divider"></div>
-      <button class="app-action" [class.app-disabled]="!editor.isDirty" matTooltip="{{ 'common.save' | translate }}"
+      <button class="app-action" [class.app-disabled]="!editor.isLeftDirty" matTooltip="{{ 'common.save' | translate }}"
         (click)="onSave()" mat-icon-button>
         <mat-icon>save</mat-icon>
       </button>
