@@ -30,6 +30,8 @@ export class EditorPageComponent implements OnInit {
   @ViewChild("pageNumber") pageNumberFiled: ElementRef;
   @ViewChild("pageIndex") pageIndexFiled: ElementRef;
   @ViewChild("typeSelect") typeSelect: MatSelect;
+  @ViewChild("posSelect") posSelect: MatSelect;
+  @ViewChild("genreSelect") genreSelect: MatSelect;
   
 
   @Input()
@@ -65,9 +67,17 @@ export class EditorPageComponent implements OnInit {
         setTimeout(() => { 
           this.pageIndexFiled.nativeElement.focus();
         },10);
-      }else if (this.movedToNextFrom == 'type') {
+      } else if (this.movedToNextFrom == 'type') {
         setTimeout(() => { 
           this.typeSelect.focus();
+        },10);
+      } else if (this.movedToNextFrom == 'position') {
+        setTimeout(() => { 
+          this.posSelect.focus();
+        },10);
+      } else if (this.movedToNextFrom == 'genre') {
+        setTimeout(() => { 
+          this.genreSelect.focus();
         },10);
       }
 
@@ -173,9 +183,9 @@ export class EditorPageComponent implements OnInit {
   }
 
   
-  enterSelect(s: MatSelect) {
+  enterSelect(s: MatSelect, from: string) {
     s.close();
-    this.onSave('type');
+    this.onSave(from);
   }
 
 }

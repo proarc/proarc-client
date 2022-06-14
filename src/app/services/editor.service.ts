@@ -717,12 +717,12 @@ export class EditorService {
             }
             const newPage: Page = Page.fromJson(resp['response']['data'][0], page.model);
             if (this.preparation) {
-                //this.reloadBatch(() => {
-                this.state = 'success';
-                if (callback && newPage.pid == this.right.pid) {
-                    callback(newPage);
-                }
-                //}, moveToNext);
+                this.reloadBatch(() => {
+                    this.state = 'success';
+                    if (callback && newPage.pid == this.right.pid) {
+                        callback(newPage);
+                    }
+                }, moveToNext);
             } else {
                 this.api.getDocument(page.pid).subscribe((doc: DocumentItem) => {
                     if (this.mode === 'children') {
