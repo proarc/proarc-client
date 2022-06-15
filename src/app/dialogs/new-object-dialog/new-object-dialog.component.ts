@@ -45,6 +45,7 @@ export class NewObjectDialogComponent implements OnInit {
     this.state = 'saving';
     const customPid = this.data.customPid ? this.data.pid : null;
 
+    //let data = `model=${this.data.model}&createObject=false`;
     let data = `model=${this.data.model}`;
     if (customPid) {
       data = `${data}&pid=${customPid}`;
@@ -69,12 +70,9 @@ export class NewObjectDialogComponent implements OnInit {
         this.state = 'error';
         return;
       }
+        this.state = 'success';
       const pid =  response['response']['data'][0]['pid'];
-      this.dialogRef.close({pid: pid})
-    },
-    (error) => {
-      console.log('error', error);
-      this.state = 'error';
+      this.dialogRef.close({pid: pid, data: response['response']['data'][0]})
     });
   }
 
@@ -85,6 +83,7 @@ export class NewObjectDialogComponent implements OnInit {
         this.state = 'saving';
         const customPid = this.data.customPid ? this.data.pid : null;
     
+        //let data = `model=${this.data.model}&createObject=false`;
         let data = `model=${this.data.model}`;
         if (customPid) {
           data = `${data}&pid=${customPid}`;
@@ -99,11 +98,7 @@ export class NewObjectDialogComponent implements OnInit {
           }
           const pid =  response['response']['data'][0]['pid'];
           this.state = 'success';
-          this.dialogRef.close({pid: pid});
-        },
-        (error) => {
-          console.log('error', error);
-          this.state = 'error';
+          this.dialogRef.close({pid: pid, data: response['response']['data'][0]});
         });
       }
     });

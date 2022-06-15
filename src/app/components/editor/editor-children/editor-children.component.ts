@@ -55,8 +55,9 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
 
   isDragging = false;
 
-  lastSelectedParent: DocumentItem;
-  lastSelectedTree: Tree;
+  expandedPath: string[];
+  // lastSelectedParent: DocumentItem;
+  // lastSelectedTree: Tree;
 
   constructor(public editor: EditorService,
     private dialog: MatDialog,
@@ -460,19 +461,35 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     const selected = this.editor.getSelectedChildren();
     const items = selected.length > 0 ? selected : [this.editor.left];
     const parent = selected.length > 0 ? this.editor.left : this.editor.parent;
+
+    
+    
+    if (this.properties.getStringProperty('parent.expandedPath')) {
+      this.expandedPath = JSON.parse(this.properties.getStringProperty('parent.expandedPath'));
+    }
+    
+    // if (this.properties.getStringProperty('parent.lastSelectedParent')) {
+    //   this.lastSelectedParent = JSON.parse(this.properties.getStringProperty('parent.lastSelectedParent'));
+    // }
+    
+    // if (this.properties.getStringProperty('parent.lastSelectedTree')) {
+    //   this.lastSelectedTree = JSON.parse(this.properties.getStringProperty('parent.lastSelectedTree'));
+    // }
+
     const dialogRef = this.dialog.open(ParentDialogComponent, { 
       data: { 
         btnLabel: 'editor.children.relocate_label', 
         parent, 
         items,
-        selectedItem: this.lastSelectedParent,
-        selectedTree: this.lastSelectedTree
+        expandedPath: this.expandedPath,
       } 
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.pid) {
-        this.lastSelectedParent = result.selectedItem;
-        this.lastSelectedTree = result.selectedTree;
+        this.expandedPath = result.expandedPath;
+
+        this.properties.setStringProperty('parent.expandedPath', JSON.stringify(this.expandedPath));
+        
         this.relocateOutside(items, result.pid);
       } else if(result && result.delete) {
         this.deleteParent(this.editor.parent.pid);

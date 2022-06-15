@@ -117,8 +117,9 @@
             {{ 'search.isLocked' | translate }}
           </div>
         </div>
-        <div class="scrollable">
+        <div class="scrollable" #scroll>
           <div *ngFor="let item of items" (click)="selectItem(item)" (dblclick)="open(item)" [class.app-selected]="item == selectedItem"
+            [id]="item.pid"
             class="app-row app-data">
             <div class="result-label">{{ item.label }}</div>
             <div class="result-model">{{ "model." + item.model | translate }}</div>

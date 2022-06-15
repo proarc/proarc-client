@@ -38,7 +38,7 @@ export class TreeComponent implements OnInit {
   }
 
   select() {
-    this.search.selectedTree = this.tree;
+    this.search.selectedTreePid = this.tree.item.pid;
     this.selectFromTree(this.tree);
   }
 

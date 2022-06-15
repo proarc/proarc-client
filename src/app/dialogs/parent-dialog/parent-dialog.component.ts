@@ -1,5 +1,5 @@
 
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/api.service';
 import { DocumentItem } from 'src/app/model/documentItem.model';
@@ -7,6 +7,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { User } from 'src/app/model/user.model';
 import { Tree } from 'src/app/model/mods/tree.model';
+import { SearchService } from 'src/app/services/search.service';
 
 @Component({
   selector: 'app-parent-dialog',
@@ -14,6 +15,8 @@ import { Tree } from 'src/app/model/mods/tree.model';
   styleUrls: ['./parent-dialog.component.scss']
 })
 export class ParentDialogComponent implements OnInit {
+  
+  @ViewChild('scroll') scroll: ElementRef;
 
   state = 'none';
   items: DocumentItem[];
@@ -51,6 +54,7 @@ export class ParentDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ParentDialogComponent>,
     public properties: LocalStorageService,
+    public search: SearchService,
     private config: ConfigService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private api: ApiService) { 
@@ -58,15 +62,15 @@ export class ParentDialogComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.model = this.properties.getStringProperty('search.model', this.config.defaultModel);
-    this.queryField = this.properties.getStringProperty('search.query_field', 'queryLabel');
+    this.model = this.properties.getStringProperty('parent.model', this.config.defaultModel);
+    this.queryField = this.properties.getStringProperty('parent.query_field', 'queryLabel');
 
     this.organizations = this.config.organizations;
-    this.organization = this.properties.getStringProperty('search.organization', '-');
-    this.owner = this.properties.getStringProperty('search.owner', '-');
-    this.processor = this.properties.getStringProperty('search.processor', '-');
-    this.sortField = this.properties.getStringProperty('search.sort_field', 'created');
-    this.sortAsc = this.properties.getBoolProperty('search.sort_asc', false);
+    this.organization = this.properties.getStringProperty('seaparentrch.organization', '-');
+    this.owner = this.properties.getStringProperty('parent.owner', '-');
+    this.processor = this.properties.getStringProperty('parent.processor', '-');
+    this.sortField = this.properties.getStringProperty('parent.sort_field', 'created');
+    this.sortAsc = this.properties.getBoolProperty('parent.sort_asc', false);
     if (this.model !== 'all' && this.model !== 'model:page' && this.model !== 'model:ndkpage') {
       this.reload();
     } else {
@@ -113,8 +117,14 @@ export class ParentDialogComponent implements OnInit {
   }
 
   reload(page: number = 0) {
-    // this.properties.setStringProperty('search.model', this.model);
-    // this.properties.setStringProperty('search.query_field', this.queryField);
+
+    this.properties.setStringProperty('parent.model', this.model);
+    this.properties.setStringProperty('parent.query_field', this.queryField);
+    this.properties.setStringProperty('parent.organization', this.organization);
+    this.properties.setStringProperty('parent.owner', this.owner);
+    this.properties.setStringProperty('parent.processor', this.processor);
+
+
     this.hierarchy = [];
     this.selectedItem = null;
     this.pageIndex = page;
@@ -140,19 +150,35 @@ export class ParentDialogComponent implements OnInit {
       this.resultCount = total;
       this.items = items;
       this.state = 'success';
-      if (this.data.selectedTree) {
-        this.setExpandedPath(this.data.selectedTree);
-        const root = this.data.selectedTree.getParentByLevel(0);
+      if (this.data.expandedPath) {
+        this.expandedPath = this.data.expandedPath;
+        const root = this.expandedPath[this.expandedPath.length - 1];
         if (root) {
-          const item = this.items.find(i => i.pid === root.item.pid);
+          const item = this.items.find(i => i.pid === root);
           if (item) {
+
             this.selectItem(item);
+            setTimeout(()=>{
+              document.getElementById(root).scrollIntoView(); 
+              // this.search.selectedTreePid = this.expandedPath[0];
+            }, 550);
+
           }
           
         }
       }
     });
   }
+
+  // getParentByLevel(tree: Tree, level: number): string {
+  //   if (tree.level === level) {
+  //       return tree.item.pid;
+  //   } else if (!tree.parent) {
+  //       return undefined;
+  //   } else {
+  //       return this.getParentByLevel(tree.parent, level);
+  //   }
+  // }
 
   setExpandedPath(tree: Tree) {
     this.expandedPath.push(tree.item.pid);
@@ -169,7 +195,13 @@ export class ParentDialogComponent implements OnInit {
     if (!this.selectedItem) {
       return;
     }
-    this.dialogRef.close({pid: this.selectedItem.pid, selectedItem: this.selectedItem, selectedTree: this.selectedTree});
+    if (this.selectedTree) {
+      this.setExpandedPath(this.selectedTree);
+    } else {
+      this.expandedPath = [this.selectedItem.pid]
+    }
+    
+    this.dialogRef.close({pid: this.selectedItem.pid, selectedItem: this.selectedItem, selectedTree: this.selectedTree, expandedPath: this.expandedPath});
   }
 
   deleteParent() {
@@ -178,20 +210,12 @@ export class ParentDialogComponent implements OnInit {
 
   selectItem(item: DocumentItem) {
     this.selectedItem = item;
+    this.search.selectedTreePid = item.pid;
     this.tree = new Tree(item);
     
   }
 
   open(item: DocumentItem, index: number = -1) {
-    // if (item.isPage()) {
-    //   return;
-    // }
-    // if (index > -1) {
-    //   this.hierarchy.splice(index);
-    // }
-    // this.selectedItem = null;
-    // this.hierarchy.push(item);
-    // this.loadChildrenForPid(item.pid);
   }
 
 

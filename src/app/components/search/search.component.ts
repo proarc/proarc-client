@@ -67,7 +67,7 @@ export class SearchComponent implements OnInit {
   organizations: string[];
   users: User[];
 
-  searchMode: string = 'phrase';
+  searchMode: string = 'advanced';
 
   constructor(private api: ApiService, 
               public properties: LocalStorageService, 
