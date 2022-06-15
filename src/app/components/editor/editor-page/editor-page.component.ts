@@ -54,32 +54,42 @@ export class EditorPageComponent implements OnInit {
     this.movedToNextFrom = '';
   }
 
+  private setPage(page: Page) {
+    this.editor.page = page;
+    this.state = 'success';
+    if (this.movedToNextFrom == 'pageNumber') {
+      setTimeout(() => { 
+        this.pageNumberFiled.nativeElement.focus();
+      },10);
+    } else if (this.movedToNextFrom == 'pageIndex') {
+      setTimeout(() => { 
+        this.pageIndexFiled.nativeElement.focus();
+      },10);
+    } else if (this.movedToNextFrom == 'type') {
+      setTimeout(() => { 
+        this.typeSelect.focus();
+      },10);
+    } else if (this.movedToNextFrom == 'position') {
+      setTimeout(() => { 
+        this.posSelect.focus();
+      },10);
+    } else if (this.movedToNextFrom == 'genre') {
+      setTimeout(() => { 
+        this.genreSelect.focus();
+      },10);
+    }
+  }
+
   private onPidChanged(pid: string) {
     this.state = 'loading';
-    this.api.getPage(pid, this.model, this.editor.getBatchId()).subscribe((page: Page) => {
-      this.editor.page = page;
+    if (this.editor.right.notSaved) {
+      const page = Page.fromJson(this.editor.right.content, this.editor.right.model);
+      this.setPage(page);
       this.state = 'success';
-      if (this.movedToNextFrom == 'pageNumber') {
-        setTimeout(() => { 
-          this.pageNumberFiled.nativeElement.focus();
-        },10);
-      } else if (this.movedToNextFrom == 'pageIndex') {
-        setTimeout(() => { 
-          this.pageIndexFiled.nativeElement.focus();
-        },10);
-      } else if (this.movedToNextFrom == 'type') {
-        setTimeout(() => { 
-          this.typeSelect.focus();
-        },10);
-      } else if (this.movedToNextFrom == 'position') {
-        setTimeout(() => { 
-          this.posSelect.focus();
-        },10);
-      } else if (this.movedToNextFrom == 'genre') {
-        setTimeout(() => { 
-          this.genreSelect.focus();
-        },10);
-      }
+      return;
+    }
+    this.api.getPage(pid, this.model, this.editor.getBatchId()).subscribe((page: Page) => {
+      this.setPage(page);
 
     }, () => {
       this.state = 'failure';

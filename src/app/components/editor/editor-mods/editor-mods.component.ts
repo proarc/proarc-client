@@ -38,9 +38,16 @@ export class EditorModsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.rightDocumentSubscription = this.editor.watchRightDocument().subscribe(
       (item: DocumentItem) => {
+        console.log(item);
         if (item) {
-          this.reload(item);
-        }
+          if (item.notSaved) {
+            this.mods =  Mods.fromJson(item.content);
+          } else {
+            this.reload(item);
+          }
+          
+          
+        } 
       }
     );
     this.reload(this.editor.right);

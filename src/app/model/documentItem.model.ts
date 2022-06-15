@@ -31,6 +31,8 @@ export class DocumentItem {
   public invalid: boolean;
 
   public isLocked: boolean;
+  public notSaved: boolean;
+  public content: string;
 
   constructor() {
     this.invalid = false;
@@ -69,6 +71,9 @@ export class DocumentItem {
     item.krameriusExport = json['krameriusExport'];
     item.ndkExport = json['ndkExport'];
     item.isLocked = json['isLocked'];
+    if (json['content']) {
+      item.content = json['content'];
+    }
     return item;
   }
 

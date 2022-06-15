@@ -567,19 +567,25 @@ export class EditorService {
             parentPid: this.left.pid
         }
         const dialogRef = this.dialog.open(NewObjectDialogComponent, { data: data });
-        dialogRef.afterClosed().subscribe(result => {
+        dialogRef.afterClosed().subscribe((result: any) => {
             if (result && result['pid']) {
                 this.state = 'saving';
-                const pid = result['pid'];
-                this.reloadChildren(() => {
-                    for (const item of this.children) {
-                        if (item.pid == pid) {
-                            this.selectRight(item);
-                            break;
-                        }
-                    }
-                    this.state = 'success';
-                });
+                const pid = result.pid;
+                const data = result.data;
+                const item = DocumentItem.fromJson(data);
+                item.notSaved = true;
+                this.children.push(item);
+                this.selectRight(item);
+                this.state = 'success'; 
+                // this.reloadChildren(() => {
+                //     for (const item of this.children) {
+                //         if (item.pid == pid) {
+                //             this.selectRight(item);
+                //             break;
+                //         }
+                //     }
+                //     this.state = 'success';
+                // });
             }
         });
 
@@ -794,6 +800,11 @@ export class EditorService {
 
     loadMetadata(callback: () => void) {
         if (this.metadata && this.metadata.pid === this.right.pid) {
+            callback();
+            return;
+        }
+        if (this.right.notSaved) {
+            this.metadata = new Metadata(this.right.pid, this.right.model, this.right.content, 0);
             callback();
             return;
         }
