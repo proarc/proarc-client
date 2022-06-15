@@ -2,5 +2,5 @@
   <app-usage [item]="item" [field]="field"></app-usage>
   <textarea  cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="15"
   autocomplete="off" matInput [required]="item.isMandatory(field)" [formControl]="item.getControl(field)"
-  [(ngModel)]='value' (ngModelChange)="valueChange.emit(value)" [placeholder]="'mods.' + item.selector(field) | translate"></textarea>
+  [(ngModel)]='value' (ngModelChange)="valueChange.emit(value)" [placeholder]="'mods.' + item.labelKey(field) | translate"></textarea>
 </mat-form-field>
