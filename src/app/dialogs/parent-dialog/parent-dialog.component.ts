@@ -7,6 +7,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { User } from 'src/app/model/user.model';
 import { Tree } from 'src/app/model/mods/tree.model';
+import { SearchService } from 'src/app/services/search.service';
 
 @Component({
   selector: 'app-parent-dialog',
@@ -53,6 +54,7 @@ export class ParentDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ParentDialogComponent>,
     public properties: LocalStorageService,
+    public search: SearchService,
     private config: ConfigService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private api: ApiService) { 
@@ -142,20 +144,18 @@ export class ParentDialogComponent implements OnInit {
       this.resultCount = total;
       this.items = items;
       this.state = 'success';
-      if (this.data.selectedTree) {
-        this.setExpandedPath(this.data.selectedTree);
-        // const root = this.data.selectedTree.getParentByLevel(0);
-        const root = this.getParentByLevel(this.data.selectedTree, 0);
+      if (this.data.expandedPath) {
+        this.expandedPath = this.data.expandedPath;
+        const root = this.expandedPath[this.expandedPath.length - 1];
         if (root) {
           const item = this.items.find(i => i.pid === root);
           if (item) {
             this.selectItem(item);
 
             setTimeout(()=>{
-              document.getElementById(root).scrollIntoView() 
-              //this.scroll.nativeElement.scrollIntoView = this.scroll.nativeElement.scrollHeight;
-            }, 50);
-
+              document.getElementById(root).scrollIntoView(); 
+              this.search.selectedTreePid = this.expandedPath[0];
+            }, 150);
 
           }
           
@@ -164,15 +164,15 @@ export class ParentDialogComponent implements OnInit {
     });
   }
 
-  getParentByLevel(tree: Tree, level: number): string {
-    if (tree.level === level) {
-        return tree.item.pid;
-    } else if (!tree.parent) {
-        return undefined;
-    } else {
-        return this.getParentByLevel(tree.parent, level);
-    }
-  }
+  // getParentByLevel(tree: Tree, level: number): string {
+  //   if (tree.level === level) {
+  //       return tree.item.pid;
+  //   } else if (!tree.parent) {
+  //       return undefined;
+  //   } else {
+  //       return this.getParentByLevel(tree.parent, level);
+  //   }
+  // }
 
   setExpandedPath(tree: Tree) {
     this.expandedPath.push(tree.item.pid);
@@ -189,7 +189,8 @@ export class ParentDialogComponent implements OnInit {
     if (!this.selectedItem) {
       return;
     }
-    this.dialogRef.close({pid: this.selectedItem.pid, selectedItem: this.selectedItem, selectedTree: this.selectedTree});
+    this.setExpandedPath(this.selectedTree);
+    this.dialogRef.close({pid: this.selectedItem.pid, selectedItem: this.selectedItem, selectedTree: this.selectedTree, expandedPath: this.expandedPath});
   }
 
   deleteParent() {

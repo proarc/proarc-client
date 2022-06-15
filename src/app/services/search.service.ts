@@ -5,6 +5,7 @@ import { Tree } from '../model/mods/tree.model';
 export class SearchService {
 
   selectedTree: Tree;
+  selectedTreePid: string;
 
   constructor(
    

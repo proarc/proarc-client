@@ -1,6 +1,6 @@
       
       <ng-container *ngIf="tree">
-      <div (click)="select()" (dblclick)="open()" class="app-row" [class.app-selected]="tree == search.selectedTree">
+      <div (click)="select()" (dblclick)="open()" class="app-row" [class.app-selected]="tree.item.pid == search.selectedTreePid">
         <div class="result-label">
           <div class="app-tree-left" [style.width]="(tree.level * 20 + 40) + 'px'">
             <mat-spinner *ngIf="tree.loading" [strokeWidth]="3" [diameter]="20">
