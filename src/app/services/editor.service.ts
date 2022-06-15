@@ -189,7 +189,7 @@ export class EditorService {
 
     reloadBatch(callback: () => void, moveToNext = false) {
         this.api.getBatchPages(this.left!.pid).subscribe((pages: DocumentItem[]) => {
-            if (this.isMultipleChildrenMode()) {
+            if (this.numberOfSelectedChildren() > 1) {
                 for (const oldChild of this.children) {
                     if (oldChild.selected) {
                         for (const newChild of pages) {
