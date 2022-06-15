@@ -4,25 +4,25 @@ export class ChronicleMonographtitleAacrTemplate {
     titleInfo: {
       usage: 'M',
       label: 'Informace o názvu',
-      selector: 'titleInfo',
+      selector: "titleInfo",
       description: `Název titulu, souborný název`,
       fields: {
         title: {
           usage: "M",
           label: 'Název',
-          selector: 'titleInfo/title',
+          selector: "titleInfo/title",
           description: `Název svazku kroniky.`
         },
         subTitle: {
           usage: "MA",
           label: 'Podnázev',
-          selector: 'titleInfo/subTitle',
+          selector: "titleInfo/subTitle",
           description: `Podnázev svazku kroniky.`
         },
         partNumber: {
           usage: "R",
           label: 'Díl',
-          selector: 'titleInfo/partNumber',
+          selector: "titleInfo/partNumber",
           cols: 2,
           description: `Číslo části<br/>
             V případě, že se jedná o vícesvazkovou kroniku je zde uvedeno číslo svazku.`
@@ -30,7 +30,7 @@ export class ChronicleMonographtitleAacrTemplate {
         partName: {
           usage: "R",
           label: 'Část',
-          selector: 'titleInfo/partName',
+          selector: "titleInfo/partName",
           cols: 2,
           description: `Název části<br/>
             V případě, že se jedná o vícesvazkovou kroniku je zde uveden název svazku.`
@@ -40,19 +40,19 @@ export class ChronicleMonographtitleAacrTemplate {
     originInfo: {
       usage: "M",
       label: "Informace o místě a data vzniku",
-      selector: 'originInfo',
+      selector: "originInfo",
       description: `Informace o místě a datu vzniku kroniky.`,
       fields: {
         dateIssued: {
           usage: "O",
           label: "Datum vzniku",
-          selector: 'originInfo/dateIssued',
+          selector: "originInfo/dateIssued",
           description:`Datum vydání kroniky.`
         },
         qualifier: {
           usage: "O",
           label: "Odhad",
-          selector: 'originInfo/dateIssued/@qualifier',
+          selector: "originInfo/dateIssued/@qualifier",
           cols: 2,
           description:`Možnost dalšího upřesnění. Možné hodnoty
             <ul>
@@ -70,7 +70,7 @@ export class ChronicleMonographtitleAacrTemplate {
         point: {
           usage: "O",
           label: "Rozmezí",
-          selector: 'originInfo/dateIssued/@point',
+          selector: "originInfo/dateIssued/@point",
           cols: 2,
           description: `Hodnoty „Od“ resp. „Do“ jen u údaje pro rozmezí dat.`,
           options: [
@@ -82,7 +82,7 @@ export class ChronicleMonographtitleAacrTemplate {
         place: {
           usage: "O",
           label: "Místo vzniku",
-          selector: 'originInfo/place/placeTerm',
+          selector: "originInfo/place/placeTerm",
           description:`Údaje o místě spojeném s vydáním, výrobou nebo původem popisovaného dokumentu.`
         },
       }
@@ -90,13 +90,13 @@ export class ChronicleMonographtitleAacrTemplate {
     language: {
       usage: "O",
       label: "Jazyk",
-      selector: 'language',
+      selector: "language",
       description: `Údaje o jazyce dokumentu. V případě vícenásobného výskytu nutno element &lt;language> opakovat`,
       fields: {
         language: {
           usage: "M",
           label: "Jazyk",
-          selector: 'language/languageTerm',
+          selector: "language/languageTerm",
           description: `Přesné určení jazyka kódem.<br/>Nutno použít kontrolovaný slovník ISO 639-2.`
         }
       }
@@ -109,6 +109,7 @@ export class ChronicleMonographtitleAacrTemplate {
       fields: {
         value: {
           usage: "M",
+          selector: "genre/value",
           cols: 3,
           label: "Evidenční jednotka",
           description: `Možnosti
@@ -179,6 +180,7 @@ export class ChronicleMonographtitleAacrTemplate {
         },
         value: {
           usage: "M",
+          selector: "identifier/value",
           label: "Hodnota",
           help: "off"
         }
@@ -187,13 +189,13 @@ export class ChronicleMonographtitleAacrTemplate {
     location: {
       usage: "MA",
       label: "Umístění",
-      selector: 'location',
+      selector: "location",
       description: `Údaje o uložení popisovaného dokumentu, např. signatura, místo uložení apod.`,
       fields: {
         physicalLocation: {
           usage: "MA",
           label: "Název archivu",
-          selector: 'location/physicalLocation',
+          selector: "location/physicalLocation",
         },
       }
     },
@@ -214,13 +216,13 @@ export class ChronicleMonographtitleAacrTemplate {
     name: {
       usage: "MA",
       label: "Osoba, které se podílela na vzniku",
-      selector: 'name',
+      selector: "name",
       description: `Údaje o odpovědnosti za kroniku`,
       fields: {
         name: {
           usage: "MA",
           label: "Celé jméno",
-          selector: 'name/namePart[not(@type)]',
+          selector: "name/namePart[not(@type)]",
           description: `Vyplnit pokud nelze rozlišit křestní jméno a příjmení.`
         },
         given: {
@@ -250,7 +252,7 @@ export class ChronicleMonographtitleAacrTemplate {
         role: {
           usage: "MA",
           label: "Role",
-          selector: 'name/role/roleTerm',
+          selector: "name/role/roleTerm",
           expanded: true,
           description: `Specifikace role osoby nebo organizace<br/>
           Kód role z kontrolovaného slovníku rolí
@@ -269,13 +271,14 @@ export class ChronicleMonographtitleAacrTemplate {
       fields: {
         note: {
           usage: "RA",
+          selector: "note/value",
           label: "Poznámka",
           help: "off"
         },
         type: {
           usage: "R",
           label: "Typ",
-          selector: 'note/@type',
+          selector: "note/@type",
           options: [
             ['private', 'Nepublikovatelná'],
             ['public', 'Veřejná']

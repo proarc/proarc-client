@@ -4,14 +4,14 @@ export class OldprintMonographtitleAacrTemplate {
     titleInfo: {
       usage: 'M',
       label: 'Název',
-      selector: 'titleInfo',
+      selector: "titleInfo",
       description: `Název titulu, souborný název<br/>
       Pro plnění použít katalogizační záznam<br/>`,
       fields: {
         type: {
           usage: "MA",
           label: 'Typ',
-          selector: 'titleInfo/@type',
+          selector: "titleInfo/@type",
           cols: 2,
           description: `Hlavní název bez typu<br/>
           Možné hodnoty
@@ -32,7 +32,7 @@ export class OldprintMonographtitleAacrTemplate {
         nonSort: {
           usage: "O",
           label: 'Část vynechaná při hledání',
-          selector: 'titleInfo/nonSort',
+          selector: "titleInfo/nonSort",
           cols: 2,
           description: `Část názvu, která má být vynechána při vyhledávána<br/>
           např.:
@@ -44,26 +44,26 @@ export class OldprintMonographtitleAacrTemplate {
         title: {
           usage: "M",
           label: 'Název',
-          selector: 'titleInfo/title',
+          selector: "titleInfo/title",
           description: `Názvová informace – název monografického dokumentu`
         },
         subTitle: {
           usage: "MA",
           label: 'Podnázev',
-          selector: 'titleInfo/subTitle',
+          selector: "titleInfo/subTitle",
           description: `Podnázev monografie`
         },
         partNumber: {
           usage: "R",
           label: 'Číslo části',
-          selector: 'titleInfo/partNumber',
+          selector: "titleInfo/partNumber",
           cols: 2,
           description: `Číslo souborného záznamu, pokud existuje`
         },
         partName: {
           usage: "R",
           label: 'Název části',
-          selector: 'titleInfo/partName',
+          selector: "titleInfo/partName",
           cols: 2,
           description: `Název souborného záznamu, pokud existuje`
         }
@@ -72,14 +72,14 @@ export class OldprintMonographtitleAacrTemplate {
     originInfo: {
       usage: "MA",
       label: "Původ předlohy",
-      selector: 'originInfo',
+      selector: "originInfo",
       description: `Informace o původu předlohy`,
       fields: {
         publisher: {
             usage: "MA",
             label: "Nakladatel",
             cols: 2,
-            selector: 'originInfo/publisher',
+            selector: "originInfo/publisher",
             description: `Jméno entity, která dokument vydala, vytiskla nebo jinak vyprodukovala<br/>
             Pokud existuje více vydavatelů, přebírají se ze záznamu všichni`,
         },
@@ -87,20 +87,20 @@ export class OldprintMonographtitleAacrTemplate {
             usage: "MA",
             label: "Vydání",
             cols: 2,
-            selector: 'originInfo/edition',
+            selector: "originInfo/edition",
             description:`Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu v MARC 21.`
         },
         dateIssued: {
           usage: "O",
           label: "Datum vydání",
-          selector: 'originInfo/dateIssued',
+          selector: "originInfo/dateIssued",
           cols: 2,
           description:`Odpovídá hodnotě z katalogizačního záznamu, pole 260, podpole „c“ a pole 008/07-10.`
         },
         qualifier: {
           usage: "O",
           label: "Upřesnění data",
-          selector: 'originInfo/dateIssued/@qualifier',
+          selector: "originInfo/dateIssued/@qualifier",
           cols: 2,
           description:`Možnost dalšího upřesnění. Možné hodnoty
             <ul>
@@ -118,7 +118,7 @@ export class OldprintMonographtitleAacrTemplate {
         encoding: {
           usage: "O",
           label: "Kódování",
-          selector: 'originInfo/dateIssued/@encoding',
+          selector: "originInfo/dateIssued/@encoding",
           cols: 2,
           description: `Hodnota "marc" jen u údaje z pole 008`,
           options: [
@@ -133,7 +133,7 @@ export class OldprintMonographtitleAacrTemplate {
         point: {
           usage: "O",
           label: "Point",
-          selector: 'originInfo/dateIssued/@point',
+          selector: "originInfo/dateIssued/@point",
           cols: 2,
           description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
           options: [
@@ -145,7 +145,7 @@ export class OldprintMonographtitleAacrTemplate {
         issuance: {
           usage: "O",
           label: "Vydání",
-          selector: 'originInfo/issuance',
+          selector: "originInfo/issuance",
           description:`Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>
             Možné hodnoty
             <ul>
@@ -163,7 +163,7 @@ export class OldprintMonographtitleAacrTemplate {
         place: {
           usage: "O",
           label: "Místo",
-          selector: 'originInfo/place/placeTerm',
+          selector: "originInfo/place/placeTerm",
           cols: 2,
           description:`Údaje o místě spojeném s vydáním, výrobou nebo původem popisovaného dokumentu.`
         }
@@ -178,6 +178,7 @@ export class OldprintMonographtitleAacrTemplate {
       fields: {
         value: {
           usage: "M",
+          selector: "genre/value",
           label: "Hodnota",
           help: "off"
         }
@@ -233,6 +234,7 @@ export class OldprintMonographtitleAacrTemplate {
         },
         value: {
           usage: "M",
+          selector: "identifier/value",
           label: "Hodnota",
           help: "off"
         }
@@ -241,14 +243,14 @@ export class OldprintMonographtitleAacrTemplate {
     recordInfo: {
       usage: "M",
       label: 'Údaje o metadatovém záznamu',
-      selector: 'recordInfo',
+      selector: "recordInfo",
       description: `údaje o metadatovém záznamu – jeho vzniku, změnách apod.`,
       fields: {
         descriptionStandard: {
           usage: "MA",
           label: "Standard metadat",
           cols: 2,
-          selector: 'recordInfo/descriptionStandard',
+          selector: "recordInfo/descriptionStandard",
           description: `Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>
             Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"`,
           options: [
@@ -259,7 +261,7 @@ export class OldprintMonographtitleAacrTemplate {
         recordContentSource: {
           usage: "R",
           label: "Content source",
-          selector: 'recordInfo/recordContentSource',
+          selector: "recordInfo/recordContentSource",
           description: `Kód nebo jméno instituce, která záznam vytvořila nebo změnila`,
           fields: {
             value: {
@@ -284,7 +286,7 @@ export class OldprintMonographtitleAacrTemplate {
         recordCreationDate: {
           usage: "M",
           label: "Datum vytvoření",
-          selector: 'recordInfo/recordCreationDate',
+          selector: "recordInfo/recordCreationDate",
           description: `datum prvního vytvoření záznamu, na úroveň minut`,
           fields: {
             value: {
@@ -309,7 +311,7 @@ export class OldprintMonographtitleAacrTemplate {
         recordChangeDate: {
           usage: "MA",
           label: "Datum změny",
-          selector: 'recordInfo/recordChangeDate',
+          selector: "recordInfo/recordChangeDate",
           description: `datum změny záznamu `,
           fields: {
             value: {
@@ -334,7 +336,7 @@ export class OldprintMonographtitleAacrTemplate {
         recordIdentifier: {
           usage: "R",
           label: "Identifikátor záznamu",
-          selector: 'recordInfo/recordIdentifier',
+          selector: "recordInfo/recordIdentifier",
           description: `identifikátor záznamu v katalogu, přebírá se z pole 001`,
           fields: {
             value: {
@@ -357,7 +359,7 @@ export class OldprintMonographtitleAacrTemplate {
           usage: "R",
           label: "Údaje o vzniku záznamu",
           cols: 2,
-          selector: 'recordInfo/recordOrigin',
+          selector: "recordInfo/recordOrigin",
           description: `údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"`,
           options: [
             ['machine generated', 'machine generated'],
@@ -367,7 +369,7 @@ export class OldprintMonographtitleAacrTemplate {
         languageOfCataloging: {
           usage: "R",
           label: "Jazyk záznamu",
-          selector: 'recordInfo/languageOfCataloging',
+          selector: "recordInfo/languageOfCataloging",
           description: `jazyk katalogového záznamu`,
           fields: {
             languageOfCataloging: {

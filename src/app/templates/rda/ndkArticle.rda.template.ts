@@ -4,7 +4,7 @@ export class NdkArticleRdaTemplate {
     titleInfo: {
       usage: 'M',
       label: 'Název',
-      selector: 'titleInfo',
+      selector: "titleInfo",
       description: `Název vnitřní části<br/>
       Pro plnění použít katalogizační záznam<br/>
       pokud má monografie více typů názvů, element se opakuje podle potřeby`,
@@ -12,7 +12,7 @@ export class NdkArticleRdaTemplate {
         nonSort: {
           usage: "O",
           label: 'Část vynechaná při hledání',
-          selector: 'titleInfo/nonSort',
+          selector: "titleInfo/nonSort",
           cols: 2,
           description: `Část názvu, která má být vynechána při vyhledávána<br/>
           např.:
@@ -24,7 +24,7 @@ export class NdkArticleRdaTemplate {
         title: {
           usage: "M",
           label: 'Název',
-          selector: 'titleInfo/title',
+          selector: "titleInfo/title",
           description: `Názvová informace – název vnitřní části</br>
           hodnoty převzít z katalogu<br/>
           pokud není titul, nutno vyplnit hodnotu <strong>untitled</strong>`
@@ -32,20 +32,20 @@ export class NdkArticleRdaTemplate {
         subTitle: {
           usage: "MA",
           label: 'Podnázev',
-          selector: 'titleInfo/subTitle',
+          selector: "titleInfo/subTitle",
           description: `Podnázev vnitřní části`
         },
         partNumber: {
           usage: "MA",
           label: 'Číslo části',
-          selector: 'titleInfo/partNumber',
+          selector: "titleInfo/partNumber",
           cols: 2,
           description: `V případě, že se jedná o vícesvazkovou monografii, je zde uvedeno číslo svazku`
         },
         partName: {
           usage: "MA",
           label: 'Název části',
-          selector: 'titleInfo/partName',
+          selector: "titleInfo/partName",
           cols: 2,
           description: `V případě, že se jedná o vícesvazkovou monografii, je zde uveden název svazku<br/>
           odpovídající pole a podpole podle typu, viz typ`
@@ -55,7 +55,7 @@ export class NdkArticleRdaTemplate {
     name: {
       usage: "MA",
       label: "Autor",
-      selector: 'name',
+      selector: "name",
       description: `Údaje o odpovědnosti za svazek<br/>
       POZOR – údaje o odpovědnosti nutno přebírat z polí 1XX a 7XX MARCu21<br/>
       pokud má monografie autora a ilustrátora, element <name> se opakuje s různými rolemi`,
@@ -63,7 +63,7 @@ export class NdkArticleRdaTemplate {
         type: {
           usage: "MA",
           label: "Typ",
-          selector: 'name/@type',
+          selector: "name/@type",
           cols: 2,
           description: `Použít jednu z hodnot:
           <ul>
@@ -83,7 +83,7 @@ export class NdkArticleRdaTemplate {
         name: {
           usage: "MA",
           label: "Celé jméno",
-          selector: 'name/namePart[not(@type)]',
+          selector: "name/namePart[not(@type)]",
           description: `Vyplnit pokud nelze rozlišit křestní jméno a příjmení.`
         },
         given: {
@@ -143,7 +143,7 @@ export class NdkArticleRdaTemplate {
         role: {
           usage: "MA",
           label: "Role",
-          selector: 'name/role/roleTerm',
+          selector: "name/role/roleTerm",
           expanded: true,
           description: `Specifikace role osoby nebo organizace<br/>
           Kód role z kontrolovaného slovníku rolí
@@ -155,14 +155,14 @@ export class NdkArticleRdaTemplate {
     subject: {
       usage: "R",
       label: "Věcné třídění",
-      selector: 'subject',
+      selector: "subject",
       description: `Údaje o věcném třídění<br/>
       Předpokládá se přebírání z katalogizačního záznamu`,
       fields: {
         authority: {
           usage: "R",
           label: "Autorita",
-          selector: 'subject/@authority',
+          selector: "subject/@authority",
           description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
           Odpovídá hodnotě v $2`,
           options: [
@@ -178,26 +178,26 @@ export class NdkArticleRdaTemplate {
         topic: {
           usage: "R",
           label: "Klíčové slovo/Předmětové heslo",
-          selector: 'subject/topic',
+          selector: "subject/topic",
           description: `Libovolný výraz specifikující nebo charakterizující obsah vnitřní části<br/>
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21`
         },
         geographic: {
           usage: "R",
           label: "Geografické věcné třídění",
-          selector: 'subject/geographic',
+          selector: "subject/geographic",
           description: `Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21`
         },
         temporal: {
           usage: "R",
           label: "Chronologické věcné třídění",
-          selector: 'subject/temporal',
+          selector: "subject/temporal",
           description: `Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21`
         },
         name: {
           usage: "R",
           label: "Jméno použité jako věcné záhlaví",
-          selector: 'subject/name',
+          selector: "subject/name",
           description: `Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21<br/>
           Struktura a atributy stejné jako pro údaje o původcích – viz element <name>`
         },
@@ -206,13 +206,13 @@ export class NdkArticleRdaTemplate {
     language: {
       usage: "MA",
       label: "Jazyk",
-      selector: 'language',
+      selector: "language",
       description: `Údaje o jazyce dokumentu`,
       fields: {
         language: {
           usage: "M",
           label: "Jazyk",
-          selector: 'language/languageTerm',
+          selector: "language/languageTerm",
           description: `Přesné určení jazyka`
         }
       }
@@ -250,6 +250,7 @@ export class NdkArticleRdaTemplate {
             },
             value: {
               usage: "M",
+              selector: "physicalDescription/form/value",
               label: "Hodnota",
               help: "off"
             }
@@ -267,6 +268,7 @@ export class NdkArticleRdaTemplate {
       fields: {
         note: {
           usage: "RA",
+          selector: "note/value",
           label: "Poznámka",
           help: "off"
         }
@@ -295,6 +297,7 @@ export class NdkArticleRdaTemplate {
       fields: {
         value: {
           usage: "M",
+          selector: "genre/value",
           label: "Hodnota",
           help: "off"
         },
@@ -377,6 +380,7 @@ export class NdkArticleRdaTemplate {
         },
         value: {
           usage: "M",
+          selector: "identifier/value",
           label: "Hodnota",
           help: "off"
         }
@@ -425,6 +429,7 @@ export class NdkArticleRdaTemplate {
         },
         value: {
           usage: "M",
+          selector: "classification/value",
           label: "Hodnota",
           help: "off"
         }
@@ -433,27 +438,27 @@ export class NdkArticleRdaTemplate {
     part: {
       usage: "O",
       label: "Popis části",
-      selector: 'part',
+      selector: "part",
       description: `Popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.`,
       fields: {
         extent: {
           usage: "MA",
           label: "Extent",
-          selector: 'part/extent',
+          selector: "part/extent",
           description: `Tento kontejner <part> slouží k zaznamenání rozsahu stran v reprezentaci.`,
           fields: {
             start: {
               usage: "MA",
               label: "Od strany",
               cols: 2,
-              selector: 'part/extent/start',
+              selector: "part/extent/start",
               description: `První stránka, na které vnitřní část začíná.`
             },
             end: {
               usage: "MA",
               label: "Do strany",
               cols: 2,
-              selector: 'part/extent/end',
+              selector: "part/extent/end",
               description: `Poslední stránka, na které vnitřní část končí.`
             }
           }
@@ -463,14 +468,14 @@ export class NdkArticleRdaTemplate {
     recordInfo: {
       usage: "M",
       label: 'Údaje o metadatovém záznamu',
-      selector: 'recordInfo',
+      selector: "recordInfo",
       description: `údaje o metadatovém záznamu – jeho vzniku, změnách apod.`,
       fields: {
         descriptionStandard: {
           usage: "MA",
           label: "Standard metadat",
           cols: 2,
-          selector: 'recordInfo/descriptionStandard',
+          selector: "recordInfo/descriptionStandard",
           description: `Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>
             Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"`,
           options: [
@@ -481,7 +486,7 @@ export class NdkArticleRdaTemplate {
         recordContentSource: {
           usage: "R",
           label: "Content source",
-          selector: 'recordInfo/recordContentSource',
+          selector: "recordInfo/recordContentSource",
           description: `Kód nebo jméno instituce, která záznam vytvořila nebo změnila`,
           fields: {
             value: {
@@ -506,7 +511,7 @@ export class NdkArticleRdaTemplate {
         recordCreationDate: {
           usage: "M",
           label: "Datum vytvoření",
-          selector: 'recordInfo/recordCreationDate',
+          selector: "recordInfo/recordCreationDate",
           description: `datum prvního vytvoření záznamu, na úroveň minut`,
           fields: {
             value: {
@@ -531,7 +536,7 @@ export class NdkArticleRdaTemplate {
         recordChangeDate: {
           usage: "MA",
           label: "Datum změny",
-          selector: 'recordInfo/recordChangeDate',
+          selector: "recordInfo/recordChangeDate",
           description: `datum změny záznamu `,
           fields: {
             value: {
@@ -556,7 +561,7 @@ export class NdkArticleRdaTemplate {
         recordIdentifier: {
           usage: "R",
           label: "Identifikátor záznamu",
-          selector: 'recordInfo/recordIdentifier',
+          selector: "recordInfo/recordIdentifier",
           description: `identifikátor záznamu v katalogu, přebírá se z pole 001`,
           fields: {
             value: {
@@ -579,7 +584,7 @@ export class NdkArticleRdaTemplate {
           usage: "R",
           label: "Údaje o vzniku záznamu",
           cols: 2,
-          selector: 'recordInfo/recordOrigin',
+          selector: "recordInfo/recordOrigin",
           description: `údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"`,
           options: [
             ['machine generated', 'machine generated'],
@@ -589,7 +594,7 @@ export class NdkArticleRdaTemplate {
         languageOfCataloging: {
           usage: "R",
           label: "Jazyk záznamu",
-          selector: 'recordInfo/languageOfCataloging',
+          selector: "recordInfo/languageOfCataloging",
           description: `jazyk katalogového záznamu`,
           fields: {
             languageOfCataloging: {
@@ -629,7 +634,7 @@ export class NdkArticleRdaTemplate {
         type: {
           usage: "R",
           label: 'Typ',
-          selector: 'relatedItem/@type',
+          selector: "relatedItem/@type",
           description: `Type spolu s otherType popisují vztah položky, popsané v <relatedItem> a dokumentu, který je předmětem MODS záznamu`,
           options: [
             ['', '-'],
@@ -641,34 +646,34 @@ export class NdkArticleRdaTemplate {
         otherType: {
           usage: "O",
           label: 'Other type',
-          selector: 'relatedItem/@otherType',
+          selector: "relatedItem/@otherType",
           cols: 2,
         },
         otherTypeURI: {
           usage: "O",
           label: 'Other Type URI',
-          selector: 'relatedItem/@otherTypeURI',
+          selector: "relatedItem/@otherTypeURI",
           description: 'Odkaz na zdroj položky v <relatedItem>, který se vztahuje k popisovanému',
           cols: 2,
         },
         otherTypeAuth: {
           usage: "O",
           label: 'Other Type Auth',
-          selector: 'relatedItem/@otherTypeAuth',
+          selector: "relatedItem/@otherTypeAuth",
           description: 'Autoritní záznam příbuzné položky',
           cols: 2,
         },
         otherTypeAuthURI: {
           usage: "O",
           label: 'Other Type Auth URI',
-          selector: 'relatedItem/@otherTypeAuthURI',
+          selector: "relatedItem/@otherTypeAuthURI",
           description: 'Odkaz na autoritní záznam příbuzné položky',
           cols: 2,
         },
         titleInfo: {
           usage: "MA",
           label: 'Název',
-          selector: 'relatedItem/titleInfo',
+          selector: "relatedItem/titleInfo",
           description: `Název titulu periodika<br/>
       Pro plnění použít katalogizační záznam<br/>
       pokud má periodikum více typů názvů, element se opakuje podle potřeby`,
@@ -676,7 +681,7 @@ export class NdkArticleRdaTemplate {
             type: {
               usage: "MA",
               label: 'Typ',
-              selector: 'relatedItem/titleInfo/@type',
+              selector: "relatedItem/titleInfo/@type",
               cols: 2,
               description: `Hlavní název bez typu - pole 245 a $a<br/>
           Možné hodnoty
@@ -697,7 +702,7 @@ export class NdkArticleRdaTemplate {
             nonSort: {
               usage: "O",
               label: 'Část vynechaná při hledání',
-              selector: 'relatedItem/titleInfo/nonSort',
+              selector: "relatedItem/titleInfo/nonSort",
               cols: 2,
               description: `Část názvu, která má být vynechána při vyhledávána<br/>
           např.:
@@ -709,7 +714,7 @@ export class NdkArticleRdaTemplate {
             title: {
               usage: "MA",
               label: 'Název',
-              selector: 'relatedItem/titleInfo/title',
+              selector: "relatedItem/titleInfo/title",
               description: `Názvová informace – název titulu periodika</br>
           hodnoty převzít z katalogu<br/>
           odpovídající pole a podpole podle typu, viz typ`
@@ -717,21 +722,21 @@ export class NdkArticleRdaTemplate {
             subTitle: {
               usage: "MA",
               label: 'Podnázev',
-              selector: 'relatedItem/titleInfo/subTitle',
+              selector: "relatedItem/titleInfo/subTitle",
               description: `Podnázev titulu periodika<br/>
           odpovídající pole a podpole podle typu, viz typ`
             },
             partNumber: {
               usage: "MA",
               label: 'Číslo části',
-              selector: 'relatedItem/titleInfo/partNumber',
+              selector: "relatedItem/titleInfo/partNumber",
               cols: 2,
               description: `Např. určité části/edice, k použití u ročenek a specializovaných periodik`
             },
             partName: {
               usage: "R",
               label: 'Název části',
-              selector: 'relatedItem/titleInfo/partName',
+              selector: "relatedItem/titleInfo/partName",
               cols: 2,
               description: `Např. určité části/edice, k použití u ročenek a specializovaných periodik<br/>
           odpovídající pole a podpole podle typu, viz typ`
@@ -741,13 +746,13 @@ export class NdkArticleRdaTemplate {
         name: {
           usage: "R",
           label: "Autor",
-          selector: 'relatedItem/name',
+          selector: "relatedItem/name",
           description: `Údaje o odpovědnosti za titul periodika`,
           fields: {
             type: {
               usage: "R",
               label: "Typ",
-              selector: 'relatedItem/name/@type',
+              selector: "relatedItem/name/@type",
               cols: 2,
               description: `Použít jednu z hodnot:
           <ul>
@@ -767,7 +772,7 @@ export class NdkArticleRdaTemplate {
             name: {
               usage: "R",
               label: "Celé jméno",
-              selector: 'relatedItem/name/namePart[not(@type)]',
+              selector: "relatedItem/name/namePart[not(@type)]",
               description: `Vyplnit pokud nelze rozlišit křestní jméno a příjmení.`
             },
             given: {
@@ -811,7 +816,7 @@ export class NdkArticleRdaTemplate {
             role: {
               usage: "MA",
               label: "Role",
-              selector: 'relatedItem/name/role/roleTerm',
+              selector: "relatedItem/name/role/roleTerm",
               expanded: true,
               description: `Specifikace role osoby nebo organizace<br/>
           Kód role z kontrolovaného slovníku rolí
@@ -823,13 +828,13 @@ export class NdkArticleRdaTemplate {
         originInfo: {
           usage: "MA",
           label: "Původ předlohy",
-          selector: 'relatedItem/originInfo',
+          selector: "relatedItem/originInfo",
           description: `Informace o původu předlohy: odpovídá poli 264`,
           fields: {
             publisher: {
               usage: "MA",
               label: "Nakladatel",
-              selector: 'relatedItem/originInfo/publisher',
+              selector: "relatedItem/originInfo/publisher",
               description: `Jméno entity, která dokument vytvořila, vydala, distribuovala nebo vyrobila<br/>
             odpovídá poli 264 $b katalogizačního záznamu v MARC21<br/>
             pokud má periodikum více vydavatelů, přebírají se ze záznamu všichni (v jednom poli 264)`,
@@ -837,7 +842,7 @@ export class NdkArticleRdaTemplate {
             eventType: {
               usage: "MA",
               label: "Typ",
-              selector: 'relatedItem/originInfo/@eventType',
+              selector: "relatedItem/originInfo/@eventType",
               cols: 2,
               description:`Hodnoty dle druhého indikátoru pole 264:
           <ul>
@@ -889,7 +894,7 @@ export class NdkArticleRdaTemplate {
             dateIssued: {
               usage: "MA",
               label: "Datum vydání",
-              selector: 'relatedItem/originInfo/dateIssued',
+              selector: "relatedItem/originInfo/dateIssued",
               cols: 2,
               description:`Datum vydání předlohy, nutno zaznamenat rok/roky, v nichž časopis vycházel - formu zápisu přebírat z katalogu (např. 1900-1939)<br/>
             Odpovídá hodnotě z katalogizačního záznamu, pole 264_1 $c a pole 008/07-10<br/>
@@ -905,7 +910,7 @@ export class NdkArticleRdaTemplate {
             qualifier: {
               usage: "R",
               label: "Upřesnění data",
-              selector: 'relatedItem/originInfo/dateIssued/@qualifier',
+              selector: "relatedItem/originInfo/dateIssued/@qualifier",
               cols: 2,
               description:`Možnost dalšího upřesnění. Možné hodnoty
             <ul>
@@ -923,7 +928,7 @@ export class NdkArticleRdaTemplate {
             encoding: {
               usage: "R",
               label: "Kódování",
-              selector: 'relatedItem/originInfo/dateIssued/@encoding',
+              selector: "relatedItem/originInfo/dateIssued/@encoding",
               cols: 2,
               description: `Hodnota "marc" jen u údaje z pole 008`,
               options: [
@@ -938,7 +943,7 @@ export class NdkArticleRdaTemplate {
             point: {
               usage: "MA",
               label: "Point",
-              selector: 'relatedItem/originInfo/dateIssued/@point',
+              selector: "relatedItem/originInfo/dateIssued/@point",
               cols: 2,
               description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
               options: [
@@ -950,7 +955,7 @@ export class NdkArticleRdaTemplate {
             issuance: {
               usage: "MA",
               label: "Vydání",
-              selector: 'relatedItem/originInfo/issuance',
+              selector: "relatedItem/originInfo/issuance",
               cols: 2,
               description:`Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>
           Možné hodnoty
@@ -969,7 +974,7 @@ export class NdkArticleRdaTemplate {
             place: {
               usage: "MA",
               label: "Místo",
-              selector: 'relatedItem/originInfo/place/placeTerm',
+              selector: "relatedItem/originInfo/place/placeTerm",
               cols: 1,
               description:`Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisovaného dokumentu<br/>
             odpovídá hodnotě 264 $a`
@@ -977,7 +982,7 @@ export class NdkArticleRdaTemplate {
             dateCreated: {
               usage: "R",
               label: "Datum vytvoření",
-              selector: 'relatedItem/originInfo/dateCreated',
+              selector: "relatedItem/originInfo/dateCreated",
               cols: 3,
               description:`Datum vydání předlohy pro rukopisy
           přebírat z katalogu<br/>
@@ -986,7 +991,7 @@ export class NdkArticleRdaTemplate {
             dateOther: {
               usage: "R",
               label: "Datum - jiné",
-              selector: 'relatedItem/originInfo/dateOther',
+              selector: "relatedItem/originInfo/dateOther",
               cols: 3,
               description:`Datum vytvoření, distribuce, výroby předlohy<br/>
           Tento elemet se využije v případě výskytu $c v:
@@ -999,7 +1004,7 @@ export class NdkArticleRdaTemplate {
             copyrightDate: {
               usage: "R",
               label: "Datum - copyright",
-              selector: 'relatedItem/originInfo/copyrightDate',
+              selector: "relatedItem/originInfo/copyrightDate",
               cols: 3,
               description:`Využije se pouze v případě výskytu pole 264 s druhým indikátorem 4 a podpolem $c<br/>
           <ul>
@@ -1009,20 +1014,20 @@ export class NdkArticleRdaTemplate {
             frequency: {
               usage: "R",
               label: "Frekvence",
-              selector: 'relatedItem/originInfo/frequency',
+              selector: "relatedItem/originInfo/frequency",
               description: `údaje o pravidelnosti vydávání
           odpovídá údaji MARC21 v poli 310 nebo pozici 18 v poli 008`,
               fields: {
                 authority: {
                   usage: "R",
                   label: "Autorita",
-                  selector: 'relatedItem/originInfo/frequency/@authority',
+                  selector: "relatedItem/originInfo/frequency/@authority",
                   options: [["marcfrequency", "marcfrequency"]]
                 },
                 value: {
                   label: "Hodnota",
                   usage: "MA",
-                  selector: 'relatedItem/originInfo/frequency',
+                  selector: "relatedItem/originInfo/frequency",
                   help: 'off'
                 }
               }
@@ -1032,26 +1037,26 @@ export class NdkArticleRdaTemplate {
         location: {
           usage: "MA",
           label: "Uložení",
-          selector: 'relatedItem/location',
+          selector: "relatedItem/location",
           description: `Údaje o uložení popisovaného dokumentu, např. signatura, místo uložení apod.`,
           fields: {
             physicalLocation: {
               usage: "MA",
               label: "Místo uložení",
-              selector: 'relatedItem/location/physicalLocation',
+              selector: "relatedItem/location/physicalLocation",
               description: `Údaje o instituci, kde je fyzicky uložen daný konkrétní popisovaný dokument, např. NK ČR nutno použít kontrolovaný slovník – sigly knihovnen (ABA001 atd.) odpovídá poli 910 $a v MARC21<br\>
           Pozn. u dokumentů v digitální podobě není možné vyplnit`,
             },
             shelfLocator: {
               usage: "MA",
               label: "Signatura",
-              selector: 'relatedItem/location/shelfLocator',
+              selector: "relatedItem/location/shelfLocator",
               description: `Signatura nebo lokační údaje o daném konkrétním dokumentu, který slouží jako předloha.`
             },
             url: {
               usage: "O",
               label: "URL",
-              selector: 'relatedItem/location/url',
+              selector: "relatedItem/location/url",
               description: `Pro uvedení lokace elektronického dokumentu`
             }
           }
@@ -1059,14 +1064,14 @@ export class NdkArticleRdaTemplate {
         subject: {
           usage: "R",
           label: "Věcné třídění",
-          selector: 'relatedItem/subject',
+          selector: "relatedItem/subject",
           description: `Údaje o věcném třídění<br/>
       Předpokládá se přebírání z katalogizačního záznamu`,
           fields: {
             authority: {
               usage: "R",
               label: "Autorita",
-              selector: 'relatedItem/subject/@authority',
+              selector: "relatedItem/subject/@authority",
               description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>Konspekt</strong>, <strong>czmesh</strong>, <strong>mednas</strong><br/>
           Odpovídá hodnotě v $2`,
               options: [
@@ -1081,26 +1086,26 @@ export class NdkArticleRdaTemplate {
             topic: {
               usage: "R",
               label: "Klíčové slovo/Předmětové heslo",
-              selector: 'relatedItem/subject/topic',
+              selector: "relatedItem/subject/topic",
               description: `Libovolný výraz specifikující nebo charakterizující obsah periodika<br/>
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x`
             },
             geographic: {
               usage: "R",
               label: "Geografické věcné třídění",
-              selector: 'relatedItem/subject/geographic',
+              selector: "relatedItem/subject/geographic",
               description: `Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21`
             },
             temporal: {
               usage: "R",
               label: "Chronologické věcné třídění",
-              selector: 'relatedItem/subject/temporal',
+              selector: "relatedItem/subject/temporal",
               description: `Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21`
             },
             name: {
               usage: "R",
               label: "Jméno použité jako věcné záhlaví",
-              selector: 'relatedItem/subject/name',
+              selector: "relatedItem/subject/name",
               description: `Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21<br/>
           Struktura a atributy stejné jako pro údaje o původcích – viz element <name>`
             },
@@ -1109,14 +1114,14 @@ export class NdkArticleRdaTemplate {
         language: {
           usage: "MA",
           label: "Jazyk",
-          selector: 'relatedItem/language',
+          selector: "relatedItem/language",
           description: `Údaje o jazyce dokumentu`,
           fields: {
             objectPart: {
               usage: "MA",
               label: "Část",
               cols: 2,
-              selector: 'relatedItem/language/@objectPart',
+              selector: "relatedItem/language/@objectPart",
               description: `Možnost vyjádřit jazyk konkrétní části svazku <br/>
           možné hodnoty<br/>
           <ul>
@@ -1136,7 +1141,7 @@ export class NdkArticleRdaTemplate {
             language: {
               usage: "MA",
               label: "Jazyk",
-              selector: 'relatedItem/language/languageTerm',
+              selector: "relatedItem/language/languageTerm",
               cols: 2,
               description: `Přesné určení jazyka`
             }
@@ -1245,6 +1250,7 @@ export class NdkArticleRdaTemplate {
           fields: {
             note: {
               usage: "RA",
+              selector: "relatedItem/note/value",
               label: "Poznámka",
               help: "off"
             }
@@ -1259,6 +1265,7 @@ export class NdkArticleRdaTemplate {
           fields: {
             value: {
               usage: "MA",
+              selector: "relatedItem/genre/value",
               label: "Hodnota",
               help: "off"
             }
@@ -1307,6 +1314,7 @@ export class NdkArticleRdaTemplate {
             },
             value: {
               usage: "MA",
+              selector: "relatedItem/classification/value",
               label: "Hodnota",
               help: "off"
             }
@@ -1321,6 +1329,7 @@ export class NdkArticleRdaTemplate {
           fields: {
             value: {
               usage: "R",
+              selector: "relatedItem/typeOfResource/value",
               label: "Typ zdroje",
               help: "off",
               options: [

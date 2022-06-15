@@ -1,8 +1,8 @@
 <mat-form-field *ngIf="item.available(field)" [class]="item.class(field)" [class.app-invalid]="item.invalid(field)">
   <app-usage [item]="item" [field]="field"></app-usage>
-  <mat-select [required]="item.isMandatory(field)" [formControl]="item.getControl(field)"  [(ngModel)]='value' (ngModelChange)="valueChange.emit(value)" [placeholder]="item.label(field)">
+  <mat-select [required]="item.isMandatory(field)" [formControl]="item.getControl(field)"  [(ngModel)]='value' (ngModelChange)="valueChange.emit(value)" [placeholder]="'mods.' + item.selector(field) | translate">
     <mat-option *ngFor="let option of options" [value]="option.code">
-      {{ option.name }}
+      {{ 'mods.option.' + option.code | translate }}
     </mat-option>
   </mat-select>
 </mat-form-field>

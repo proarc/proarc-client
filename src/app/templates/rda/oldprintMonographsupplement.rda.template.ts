@@ -4,27 +4,27 @@ export class OldprintMonographSupplementRdaTemplate {
     titleInfo: {
       usage: 'M',
       label: 'Název',
-      selector: 'titleInfo',
+      selector: "titleInfo",
       description: `Názvová informace přílohy<br/>
       Pro plnění použít katalogizační záznam`,
       fields: {
         title: {
           usage: "M",
           label: 'Název',
-          selector: 'titleInfo/title',
+          selector: "titleInfo/title",
           description: `Názvová informace – název přílohy, pokud je známý`
         },
         partNumber: {
           usage: "MA",
           label: 'Číslo přílohy',
-          selector: 'titleInfo/partNumber',
+          selector: "titleInfo/partNumber",
           cols: 2,
           description: `Číslo přílohy, pokud nějaké má doporučené pokud lze vyplnit`
         },
         partName: {
           usage: "MA",
           label: 'Název přílohy',
-          selector: 'titleInfo/partName',
+          selector: "titleInfo/partName",
           cols: 2,
           description: `Vyplnit pouze v případě, pokud dané číslo přílohy má ještě vlastní název`
         }
@@ -33,7 +33,7 @@ export class OldprintMonographSupplementRdaTemplate {
     name: {
       usage: "MA",
       label: "Autor",
-      selector: 'name',
+      selector: "name",
       description: `Údaje o odpovědnosti za přílohu<br/>
       POZOR – údaje o odpovědnosti nutno přebírat z polí 1XX a 7XX MARCu21<br/>
       pokud má monografie autora a ilustrátora, element <name> se opakuje s různými rolemi`,
@@ -41,7 +41,7 @@ export class OldprintMonographSupplementRdaTemplate {
         type: {
           usage: "MA",
           label: "Typ",
-          selector: 'name/@type',
+          selector: "name/@type",
           cols: 2,
           description: `Použít jednu z hodnot:
           <ul>
@@ -61,7 +61,7 @@ export class OldprintMonographSupplementRdaTemplate {
         name: {
           usage: "M",
           label: "Celé jméno",
-          selector: 'name/namePart[not(@type)]',
+          selector: "name/namePart[not(@type)]",
           description: `Vyplnit pokud nelze rozlišit křestní jméno a příjmení.`
         },
         given: {
@@ -113,7 +113,7 @@ export class OldprintMonographSupplementRdaTemplate {
         role: {
           usage: "MA",
           label: "Role",
-          selector: 'name/role/roleTerm',
+          selector: "name/role/roleTerm",
           expanded: true,
           description: `Specifikace role osoby nebo organizace<br/>
           Kód role z kontrolovaného slovníku rolí
@@ -125,7 +125,7 @@ export class OldprintMonographSupplementRdaTemplate {
     originInfo: {
       usage: "MA",
       label: "Původ předlohy",
-      selector: 'originInfo',
+      selector: "originInfo",
       description: `Informace o původu předlohy: odpovídá poli 264<br/>
       plnit, pokud se liší od údajů v popisu čísla periodika (platí i pro jednotlivé subelementy)<br/>
       Pozn.:<br/>
@@ -139,7 +139,7 @@ export class OldprintMonographSupplementRdaTemplate {
         publisher: {
           usage: "MA",
           label: "Nakladatel",
-          selector: 'originInfo/publisher',
+          selector: "originInfo/publisher",
           description: `Jméno entity, která přílohu vytvořila, vydala, distribuovala nebo vyrobila, odpovídá poli 264 $b
             katalogizačního záznamu v MARC21<br/>
             pokud má příloha více vydavatelů/distributorů/výrobců, přebírají se za záznamu všichni (z jednoho pole 264)`
@@ -147,7 +147,7 @@ export class OldprintMonographSupplementRdaTemplate {
         eventType: {
           usage: "M",
           label: "Typ",
-          selector: 'originInfo/@eventType',
+          selector: "originInfo/@eventType",
           cols: 2,
           description:`Hodnoty dle druhého indikátoru pole 264:
           <ul>
@@ -199,7 +199,7 @@ export class OldprintMonographSupplementRdaTemplate {
         dateIssued: {
           usage: "MA",
           label: "Datum vydání",
-          selector: 'originInfo/dateIssued',
+          selector: "originInfo/dateIssued",
           cols: 2,
           description:`Datum vydání přílohy, podle údajů, které jsou k dispozici<br/>
             možno použít hodnotu z katalogizačního záznamu<br/>
@@ -216,7 +216,7 @@ export class OldprintMonographSupplementRdaTemplate {
         qualifier: {
           usage: "O",
           label: "Upřesnění data",
-          selector: 'originInfo/dateIssued/@qualifier',
+          selector: "originInfo/dateIssued/@qualifier",
           cols: 2,
           description:`Možnost dalšího upřesnění. Možné hodnoty
             <ul>
@@ -234,14 +234,14 @@ export class OldprintMonographSupplementRdaTemplate {
         place: {
           usage: "MA",
           label: "Místo",
-          selector: 'originInfo/place/placeTerm',
+          selector: "originInfo/place/placeTerm",
           cols: 2,
           description:`Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisované přílohy odpovídá hodnotě 264 $a`
         },
         dateCreated: {
           usage: "R",
           label: "Datum vytvoření",
-          selector: 'originInfo/dateCreated',
+          selector: "originInfo/dateCreated",
           cols: 2,
           description:`Datum vytvoření přílohy<br/>
           bude použito pouze při popisu tiskaře, viz poznámka u <strong>Nakladatel</strong> nebo např. u popisu CD/DVD apod.<br/>
@@ -250,7 +250,7 @@ export class OldprintMonographSupplementRdaTemplate {
         dateOther: {
           usage: "R",
           label: "Datum - jiné",
-          selector: 'originInfo/dateOther',
+          selector: "originInfo/dateOther",
           cols: 2,
           description:`Datum vytvoření, distribuce, výroby přílohy (bude použito i při popisu tiskaře, viz poznámka u elementu
             <strong>Nakladatel</strong> nebo např. u popisu CD/DVD apod.)<br/>
@@ -264,7 +264,7 @@ export class OldprintMonographSupplementRdaTemplate {
         copyrightDate: {
           usage: "R",
           label: "Datum - copyright",
-          selector: 'originInfo/copyrightDate',
+          selector: "originInfo/copyrightDate",
           cols: 2,
           description:`Využije se pouze v případě výskytu pole 264 s druhým indikátorem 4 a podpolem $c<br/>
           <ul>
@@ -274,7 +274,7 @@ export class OldprintMonographSupplementRdaTemplate {
         transliteration: {
           usage: "M",
           label: "Transliteration",
-          selector: 'originInfo/@transliteration',
+          selector: "originInfo/@transliteration",
           cols: 2,
           description:`Atribut pro vyjádření tiskaře.`,
           options: [
@@ -285,20 +285,20 @@ export class OldprintMonographSupplementRdaTemplate {
         frequency: {
           usage: "R",
           label: "Frekvence",
-          selector: 'originInfo/frequency',
+          selector: "originInfo/frequency",
           description: `údaje o pravidelnosti vydávání
           odpovídá údaji MARC21 v poli 310 nebo pozici 18 v poli 008`,
           fields: {
             authority: {
               usage: "R",
               label: "Autorita",
-              selector: 'originInfo/frequency/@authority',
+              selector: "originInfo/frequency/@authority",
               options: [["marcfrequency", "marcfrequency"]]
             },
             value: {
               label: "Hodnota",
               usage: "M",
-              selector: 'originInfo/frequency',
+              selector: "originInfo/frequency",
               help: 'off'
             }
           }
@@ -308,13 +308,13 @@ export class OldprintMonographSupplementRdaTemplate {
     subject: {
       usage: "R",
       label: "Věcné třídění",
-      selector: 'subject',
+      selector: "subject",
       description: `Údaje o věcném třídění`,
       fields: {
         authority: {
           usage: "R",
           label: "Autorita",
-          selector: 'subject/@authority',
+          selector: "subject/@authority",
           description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>Konspekt</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
           Odpovídá hodnotě v $2`,
           options: [
@@ -326,20 +326,20 @@ export class OldprintMonographSupplementRdaTemplate {
         topic: {
           usage: "MA",
           label: "Klíčové slovo/Předmětové heslo",
-          selector: 'subject/topic',
+          selector: "subject/topic",
           description: `Libovolný výraz specifikující nebo charakterizující obsah svazku monografie<br/>
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x`
         },
         geographic: {
           usage: "R",
           label: "Geografické věcné třídění",
-          selector: 'subject/geographic',
+          selector: "subject/geographic",
           description: `Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21`
         },
         temporal: {
           usage: "R",
           label: "Chronologické věcné třídění",
-          selector: 'subject/temporal',
+          selector: "subject/temporal",
           description: `Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21`
         },
       }
@@ -347,13 +347,13 @@ export class OldprintMonographSupplementRdaTemplate {
     language: {
       usage: "M",
       label: "Jazyk",
-      selector: 'language',
+      selector: "language",
       description: `Údaje o jazyce dokumentu`,
       fields: {
         language: {
           usage: "M",
           label: "Jazyk",
-          selector: 'language/languageTerm',
+          selector: "language/languageTerm",
           description: `Přesné určení jazyka`
         }
       }
@@ -443,6 +443,7 @@ export class OldprintMonographSupplementRdaTemplate {
             },
             value: {
               usage: "M",
+              selector: "physicalDescription/form/value",
               label: "Hodnota",
               help: "off"
             }
@@ -459,6 +460,7 @@ export class OldprintMonographSupplementRdaTemplate {
       fields: {
         note: {
           usage: "RA",
+          selector: "note/value",
           label: "Poznámka",
           help: "off"
         }
@@ -473,6 +475,7 @@ export class OldprintMonographSupplementRdaTemplate {
       fields: {
         value: {
           usage: "M",
+          selector: "genre/value",
           label: "Hodnota",
           help: "off"
         }
@@ -537,6 +540,7 @@ export class OldprintMonographSupplementRdaTemplate {
         },
         value: {
           usage: "M",
+          selector: "identifier/value",
           label: "Hodnota",
           help: "off"
         }
@@ -585,6 +589,7 @@ export class OldprintMonographSupplementRdaTemplate {
         },
         value: {
           usage: "R",
+          selector: "classification/value",
           label: "Hodnota",
           help: "off"
         }
@@ -611,6 +616,7 @@ export class OldprintMonographSupplementRdaTemplate {
       fields: {
         value: {
           usage: "R",
+          selector: "typeOfResource/value",
           label: "Typ zdroje",
           help: "off",
           options: [
@@ -633,14 +639,14 @@ export class OldprintMonographSupplementRdaTemplate {
     recordInfo: {
       usage: "M",
       label: 'Údaje o metadatovém záznamu',
-      selector: 'recordInfo',
+      selector: "recordInfo",
       description: `údaje o metadatovém záznamu – jeho vzniku, změnách apod.`,
       fields: {
         descriptionStandard: {
           usage: "MA",
           label: "Standard metadat",
           cols: 2,
-          selector: 'recordInfo/descriptionStandard',
+          selector: "recordInfo/descriptionStandard",
           description: `Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>
             Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"`,
           options: [
@@ -651,7 +657,7 @@ export class OldprintMonographSupplementRdaTemplate {
         recordContentSource: {
           usage: "R",
           label: "Content source",
-          selector: 'recordInfo/recordContentSource',
+          selector: "recordInfo/recordContentSource",
           description: `Kód nebo jméno instituce, která záznam vytvořila nebo změnila`,
           fields: {
             value: {
@@ -676,7 +682,7 @@ export class OldprintMonographSupplementRdaTemplate {
         recordCreationDate: {
           usage: "M",
           label: "Datum vytvoření",
-          selector: 'recordInfo/recordCreationDate',
+          selector: "recordInfo/recordCreationDate",
           description: `datum prvního vytvoření záznamu, na úroveň minut`,
           fields: {
             value: {
@@ -701,7 +707,7 @@ export class OldprintMonographSupplementRdaTemplate {
         recordChangeDate: {
           usage: "MA",
           label: "Datum změny",
-          selector: 'recordInfo/recordChangeDate',
+          selector: "recordInfo/recordChangeDate",
           description: `datum změny záznamu `,
           fields: {
             value: {
@@ -726,7 +732,7 @@ export class OldprintMonographSupplementRdaTemplate {
         recordIdentifier: {
           usage: "R",
           label: "Identifikátor záznamu",
-          selector: 'recordInfo/recordIdentifier',
+          selector: "recordInfo/recordIdentifier",
           description: `identifikátor záznamu v katalogu, přebírá se z pole 001`,
           fields: {
             value: {
@@ -748,7 +754,7 @@ export class OldprintMonographSupplementRdaTemplate {
         recordOrigin: {
           usage: "R",
           label: "Údaje o vzniku záznamu",
-          selector: 'recordInfo/recordOrigin',
+          selector: "recordInfo/recordOrigin",
           cols: 2,
           description: `údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"`,
           options: [
@@ -759,7 +765,7 @@ export class OldprintMonographSupplementRdaTemplate {
         languageOfCataloging: {
           usage: "R",
           label: "Jazyk záznamu",
-          selector: 'recordInfo/languageOfCataloging',
+          selector: "recordInfo/languageOfCataloging",
           description: `jazyk katalogového záznamu`,
           fields: {
             languageOfCataloging: {

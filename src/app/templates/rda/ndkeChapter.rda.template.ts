@@ -4,7 +4,7 @@ export class NdkeChapterRdaTemplate {
     titleInfo: {
       usage: 'M',
       label: 'Název',
-      selector: 'titleInfo',
+      selector: "titleInfo",
       description: `Název vnitřní části<br/>
       Pro plnění použít katalogizační záznam<br/>
       pokud má monografie více typů názvů, element se opakuje podle potřeby`,
@@ -12,7 +12,7 @@ export class NdkeChapterRdaTemplate {
         type: {
           usage: "O",
           label: 'Typ',
-          selector: 'titleInfo/@type',
+          selector: "titleInfo/@type",
           cols: 2,
           description: `Hlavní název bez typu - pole 245 a $a<br/>
           Možné hodnoty
@@ -32,7 +32,7 @@ export class NdkeChapterRdaTemplate {
         nonSort: {
           usage: "O",
           label: 'Část vynechaná při hledání',
-          selector: 'titleInfo/nonSort',
+          selector: "titleInfo/nonSort",
           cols: 2,
           description: `Část názvu, která má být vynechána při vyhledávána<br/>
           např.:
@@ -44,7 +44,7 @@ export class NdkeChapterRdaTemplate {
         title: {
           usage: "M",
           label: 'Název',
-          selector: 'titleInfo/title',
+          selector: "titleInfo/title",
           description: `Názvová informace – název vnitřní části</br>
           hodnoty převzít z katalogu<br/>
           pokud není titul, nutno vyplnit hodnotu <strong>untitled</strong>`
@@ -52,20 +52,20 @@ export class NdkeChapterRdaTemplate {
         subTitle: {
           usage: "MA",
           label: 'Podnázev',
-          selector: 'titleInfo/subTitle',
+          selector: "titleInfo/subTitle",
           description: `Podnázev vnitřní části`
         },
         partNumber: {
           usage: "RA",
           label: 'Číslo části',
-          selector: 'titleInfo/partNumber',
+          selector: "titleInfo/partNumber",
           cols: 2,
           description: `V případě, že se jedná o vícesvazkovou monografii, je zde uvedeno číslo svazku`
         },
         partName: {
           usage: "RA",
           label: 'Název části',
-          selector: 'titleInfo/partName',
+          selector: "titleInfo/partName",
           cols: 2,
           description: `V případě, že se jedná o vícesvazkovou monografii, je zde uveden název svazku<br/>
           odpovídající pole a podpole podle typu, viz typ`
@@ -75,7 +75,7 @@ export class NdkeChapterRdaTemplate {
     name: {
       usage: "MA",
       label: "Autor",
-      selector: 'name',
+      selector: "name",
       description: `Údaje o odpovědnosti za svazek<br/>
       POZOR – údaje o odpovědnosti nutno přebírat z polí 1XX a 7XX MARCu21<br/>
       pokud má monografie autora a ilustrátora, element <name> se opakuje s různými rolemi`,
@@ -83,7 +83,7 @@ export class NdkeChapterRdaTemplate {
         type: {
           usage: "MA",
           label: "Typ",
-          selector: 'name/@type',
+          selector: "name/@type",
           cols: 2,
           description: `Použít jednu z hodnot:
           <ul>
@@ -103,7 +103,7 @@ export class NdkeChapterRdaTemplate {
         name: {
           usage: "MA",
           label: "Celé jméno",
-          selector: 'name/namePart[not(@type)]',
+          selector: "name/namePart[not(@type)]",
           description: `Vyplnit pokud nelze rozlišit křestní jméno a příjmení.`
         },
         given: {
@@ -147,7 +147,7 @@ export class NdkeChapterRdaTemplate {
         role: {
           usage: "MA",
           label: "Role",
-          selector: 'name/role/roleTerm',
+          selector: "name/role/roleTerm",
           expanded: true,
           description: `Specifikace role osoby nebo organizace<br/>
           Kód role z kontrolovaného slovníku rolí
@@ -159,14 +159,14 @@ export class NdkeChapterRdaTemplate {
     subject: {
       usage: "RA",
       label: "Věcné třídění",
-      selector: 'subject',
+      selector: "subject",
       description: `Údaje o věcném třídění<br/>
       Předpokládá se přebírání z katalogizačního záznamu`,
       fields: {
         authority: {
           usage: "MA",
           label: "Autorita",
-          selector: 'subject/@authority',
+          selector: "subject/@authority",
           description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong>, <strong>Konspekt</strong><br/>
           Odpovídá hodnotě v $2`,
           options: [
@@ -183,26 +183,26 @@ export class NdkeChapterRdaTemplate {
         topic: {
           usage: "M",
           label: "Klíčové slovo/Předmětové heslo",
-          selector: 'subject/topic',
+          selector: "subject/topic",
           description: `Libovolný výraz specifikující nebo charakterizující obsah vnitřní části<br/>
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21`
         },
         geographic: {
           usage: "O",
           label: "Geografické věcné třídění",
-          selector: 'subject/geographic',
+          selector: "subject/geographic",
           description: `Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21`
         },
         temporal: {
           usage: "R",
           label: "Chronologické věcné třídění",
-          selector: 'subject/temporal',
+          selector: "subject/temporal",
           description: `Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21`
         },
         name: {
           usage: "R",
           label: "Jméno použité jako věcné záhlaví",
-          selector: 'subject/name',
+          selector: "subject/name",
           description: `Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21<br/>
           Struktura a atributy stejné jako pro údaje o původcích – viz element <name>`
         }
@@ -211,13 +211,13 @@ export class NdkeChapterRdaTemplate {
     language: {
       usage: "MA",
       label: "Jazyk",
-      selector: 'language',
+      selector: "language",
       description: `Údaje o jazyce dokumentu`,
       fields: {
         language: {
           usage: "M",
           label: "Jazyk",
-          selector: 'language/languageTerm',
+          selector: "language/languageTerm",
           description: `Přesné určení jazyka`
         }
       }
@@ -265,6 +265,7 @@ export class NdkeChapterRdaTemplate {
             },
             value: {
               usage: "M",
+              selector: "physicalDescription/form/value",
               label: "Hodnota",
               help: "off"
             }
@@ -282,6 +283,7 @@ export class NdkeChapterRdaTemplate {
       fields: {
         note: {
           usage: "RA",
+          selector: "note/value",
           label: "Poznámka",
           help: "off"
         }
@@ -297,6 +299,7 @@ export class NdkeChapterRdaTemplate {
         value: {
           usage: "M",
           label: "Hodnota",
+          selector: "genre/value",
           cols: 2,
           help: "off"
         },
@@ -401,6 +404,7 @@ export class NdkeChapterRdaTemplate {
         },
         value: {
           usage: "M",
+          selector: "identifier/value",
           label: "Hodnota",
           help: "off"
         }
@@ -449,6 +453,7 @@ export class NdkeChapterRdaTemplate {
         },
         value: {
           usage: "M",
+          selector: "classification/value",
           label: "Hodnota",
           help: "off"
         }
@@ -457,27 +462,27 @@ export class NdkeChapterRdaTemplate {
     part: {
       usage: "RA",
       label: "Popis části",
-      selector: 'part',
+      selector: "part",
       description: `Popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.`,
       fields: {
         extent: {
           usage: "MA",
           label: "Rozsah",
-          selector: 'part/extent',
+          selector: "part/extent",
           description: `Tento kontejner <part> slouží k zaznamenání rozsahu stran v reprezentaci.`,
           fields: {
             start: {
               usage: "MA",
               label: "Od strany",
               cols: 2,
-              selector: 'part/extent/start',
+              selector: "part/extent/start",
               description: `První stránka článku.`
             },
             end: {
               usage: "MA",
               label: "Do strany",
               cols: 2,
-              selector: 'part/extent/end',
+              selector: "part/extent/end",
               description: `Poslední stránka článku.`
             }
           }
@@ -487,14 +492,14 @@ export class NdkeChapterRdaTemplate {
     recordInfo: {
       usage: "M",
       label: 'Údaje o metadatovém záznamu',
-      selector: 'recordInfo',
+      selector: "recordInfo",
       description: `údaje o metadatovém záznamu – jeho vzniku, změnách apod.`,
       fields: {
         descriptionStandard: {
           usage: "MA",
           label: "Standard metadat",
           cols: 2,
-          selector: 'recordInfo/descriptionStandard',
+          selector: "recordInfo/descriptionStandard",
           description: `Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>
             Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"`,
           options: [
@@ -505,7 +510,7 @@ export class NdkeChapterRdaTemplate {
         recordContentSource: {
           usage: "R",
           label: "Content source",
-          selector: 'recordInfo/recordContentSource',
+          selector: "recordInfo/recordContentSource",
           description: `Kód nebo jméno instituce, která záznam vytvořila nebo změnila`,
           fields: {
             value: {
@@ -530,7 +535,7 @@ export class NdkeChapterRdaTemplate {
         recordCreationDate: {
           usage: "M",
           label: "Datum vytvoření",
-          selector: 'recordInfo/recordCreationDate',
+          selector: "recordInfo/recordCreationDate",
           description: `datum prvního vytvoření záznamu, na úroveň minut`,
           fields: {
             value: {
@@ -555,7 +560,7 @@ export class NdkeChapterRdaTemplate {
         recordChangeDate: {
           usage: "MA",
           label: "Datum změny",
-          selector: 'recordInfo/recordChangeDate',
+          selector: "recordInfo/recordChangeDate",
           description: `datum změny záznamu `,
           fields: {
             value: {
@@ -580,7 +585,7 @@ export class NdkeChapterRdaTemplate {
         recordIdentifier: {
           usage: "R",
           label: "Identifikátor záznamu",
-          selector: 'recordInfo/recordIdentifier',
+          selector: "recordInfo/recordIdentifier",
           description: `identifikátor záznamu v katalogu, přebírá se z pole 001`,
           fields: {
             value: {
@@ -602,7 +607,7 @@ export class NdkeChapterRdaTemplate {
         recordOrigin: {
           usage: "R",
           label: "Údaje o vzniku záznamu",
-          selector: 'recordInfo/recordOrigin',
+          selector: "recordInfo/recordOrigin",
           cols: 2,
           description: `údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"`,
           options: [
@@ -613,7 +618,7 @@ export class NdkeChapterRdaTemplate {
         languageOfCataloging: {
           usage: "R",
           label: "Jazyk záznamu",
-          selector: 'recordInfo/languageOfCataloging',
+          selector: "recordInfo/languageOfCataloging",
           description: `jazyk katalogového záznamu`,
           fields: {
             languageOfCataloging: {

@@ -9,6 +9,7 @@ export class NdkMusicAudioPageAacrTemplate {
       fields: {
         note: {
           usage: "RA",
+          selector: "note/value",
           label: "Poznámka",
           help: "off"
         }
@@ -69,6 +70,7 @@ export class NdkMusicAudioPageAacrTemplate {
         },
         value: {
           usage: "M",
+          selector: "identifier/value",
           label: "Hodnota",
           help: "off"
         }
@@ -77,28 +79,28 @@ export class NdkMusicAudioPageAacrTemplate {
     part: {
       usage: "M",
       label: "Popis",
-      selector: 'part',
+      selector: "part",
       description: `Popis části`,
       fields: {
         type: {
           usage: "O",
           label: "Typ",
-          selector: 'part/@type',
+          selector: "part/@type",
         },
         detail: {
           usage: "M",
           label: "Detail",
-          selector: 'part/detail',
+          selector: "part/detail",
           fields: {
             type: {
               usage: "M",
               label: "Typ",
-              selector: 'part/detail/@type',
+              selector: "part/detail/@type",
             },
             number: {
               usage: "M",
               label: "Hodnota",
-              selector: 'part/detail/number',
+              selector: "part/detail/number",
             }
           }
         },
@@ -107,14 +109,14 @@ export class NdkMusicAudioPageAacrTemplate {
     recordInfo: {
       usage: "M",
       label: 'Údaje o metadatovém záznamu',
-      selector: 'recordInfo',
+      selector: "recordInfo",
       description: `údaje o metadatovém záznamu – jeho vzniku, změnách apod.`,
       fields: {
         descriptionStandard: {
           usage: "MA",
           label: "Standard metadat",
           cols: 2,
-          selector: 'recordInfo/descriptionStandard',
+          selector: "recordInfo/descriptionStandard",
           description: `Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>
             Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"`,
           options: [
@@ -125,7 +127,7 @@ export class NdkMusicAudioPageAacrTemplate {
         recordContentSource: {
           usage: "R",
           label: "Content source",
-          selector: 'recordInfo/recordContentSource',
+          selector: "recordInfo/recordContentSource",
           description: `Kód nebo jméno instituce, která záznam vytvořila nebo změnila`,
           fields: {
             value: {
@@ -150,7 +152,7 @@ export class NdkMusicAudioPageAacrTemplate {
         recordCreationDate: {
           usage: "M",
           label: "Datum vytvoření",
-          selector: 'recordInfo/recordCreationDate',
+          selector: "recordInfo/recordCreationDate",
           description: `datum prvního vytvoření záznamu, na úroveň minut`,
           fields: {
             value: {
@@ -175,7 +177,7 @@ export class NdkMusicAudioPageAacrTemplate {
         recordChangeDate: {
           usage: "MA",
           label: "Datum změny",
-          selector: 'recordInfo/recordChangeDate',
+          selector: "recordInfo/recordChangeDate",
           description: `datum změny záznamu `,
           fields: {
             value: {
@@ -200,7 +202,7 @@ export class NdkMusicAudioPageAacrTemplate {
         recordIdentifier: {
           usage: "R",
           label: "Identifikátor záznamu",
-          selector: 'recordInfo/recordIdentifier',
+          selector: "recordInfo/recordIdentifier",
           description: `identifikátor záznamu v katalogu, přebírá se z pole 001`,
           fields: {
             value: {
@@ -223,7 +225,7 @@ export class NdkMusicAudioPageAacrTemplate {
           usage: "R",
           label: "Údaje o vzniku záznamu",
           cols: 2,
-          selector: 'recordInfo/recordOrigin',
+          selector: "recordInfo/recordOrigin",
           description: `údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"`,
           options: [
             ['machine generated', 'machine generated'],
@@ -233,7 +235,7 @@ export class NdkMusicAudioPageAacrTemplate {
         languageOfCataloging: {
           usage: "R",
           label: "Jazyk záznamu",
-          selector: 'recordInfo/languageOfCataloging',
+          selector: "recordInfo/languageOfCataloging",
           description: `jazyk katalogového záznamu`,
           fields: {
             languageOfCataloging: {

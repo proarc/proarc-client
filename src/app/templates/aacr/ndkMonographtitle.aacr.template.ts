@@ -4,14 +4,14 @@ export class NdkMonographTitleAacrTemplate {
     titleInfo: {
       usage: 'M',
       label: 'Název',
-      selector: 'titleInfo',
+      selector: "titleInfo",
       description: `Název titulu, souborný název<br/>
       Pro plnění použít katalogizační záznam<br/>`,
       fields: {
         nonSort: {
           usage: "O",
           label: 'Část vynechaná při hledání',
-          selector: 'titleInfo/nonSort',
+          selector: "titleInfo/nonSort",
           cols: 2,
           description: `Část názvu, která má být vynechána při vyhledávána<br/>
           např.:
@@ -23,28 +23,28 @@ export class NdkMonographTitleAacrTemplate {
         title: {
           usage: "M",
           label: 'Název',
-          selector: 'titleInfo/title',
+          selector: "titleInfo/title",
           description: `Názvová informace – název monografického dokumentu</br>
           hodnoty převzít z katalogu<br/>`
         },
         subTitle: {
           usage: "MA",
           label: 'Podnázev',
-          selector: 'titleInfo/subTitle',
+          selector: "titleInfo/subTitle",
           cols: 2,
           description: `Podnázev monografie`
         },
         partNumber: {
           usage: "R",
           label: 'Číslo části',
-          selector: 'titleInfo/partNumber',
+          selector: "titleInfo/partNumber",
           cols: 2,
           description: `Číslo svazku souborného záznamu, pokud existuje`
         },
         partName: {
           usage: "R",
           label: 'Název části',
-          selector: 'titleInfo/partName',
+          selector: "titleInfo/partName",
           cols: 2,
           description: `Název svazku souborného záznamu, pokud existuje`
         }
@@ -53,13 +53,13 @@ export class NdkMonographTitleAacrTemplate {
     originInfo: {
       usage: "M",
       label: "Původ předlohy",
-      selector: 'originInfo',
+      selector: "originInfo",
       description: `Informace o původu předlohy`,
       fields: {
         publisher: {
             usage: "MA",
             label: "Původ předlohy",
-            selector: 'originInfo/publisher',
+            selector: "originInfo/publisher",
             description: `Jméno entity, která dokument vydala, vytiskla nebo jinak vyprodukovala<br/>
             Odpovídá poli 260 $b katalogizačního záznamu.<br/>
             Pokud existuje více vydavatelů, přebírají se ze záznamu všichni`,
@@ -67,13 +67,13 @@ export class NdkMonographTitleAacrTemplate {
         edition: {
             usage: "MA",
             label: "Vydání",
-            selector: 'originInfo/edition',
+            selector: "originInfo/edition",
             description:`Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu v MARC 21.`
         },
         dateIssued: {
           usage: "O",
           label: "Datum vydání",
-          selector: 'originInfo/dateIssued',
+          selector: "originInfo/dateIssued",
           cols: 2,
           description:`Datum vydání předlohy.<br/>
             Přebírat z katalogu.<br/>
@@ -82,7 +82,7 @@ export class NdkMonographTitleAacrTemplate {
         qualifier: {
           usage: "O",
           label: "Upřesnění data",
-          selector: 'originInfo/dateIssued/@qualifier',
+          selector: "originInfo/dateIssued/@qualifier",
           cols: 2,
           description:`Možnost dalšího upřesnění. Možné hodnoty
             <ul>
@@ -100,7 +100,7 @@ export class NdkMonographTitleAacrTemplate {
         encoding: {
           usage: "O",
           label: "Kódování",
-          selector: 'originInfo/dateIssued/@encoding',
+          selector: "originInfo/dateIssued/@encoding",
           cols: 2,
           description: `Hodnota "marc" jen u údaje z pole 008`,
           options: [
@@ -115,7 +115,7 @@ export class NdkMonographTitleAacrTemplate {
         point: {
           usage: "O",
           label: "Point",
-          selector: 'originInfo/dateIssued/@point',
+          selector: "originInfo/dateIssued/@point",
           cols: 2,
           description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
           options: [
@@ -127,7 +127,7 @@ export class NdkMonographTitleAacrTemplate {
         issuance: {
           usage: "O",
           label: "Vydání",
-          selector: 'originInfo/issuance',
+          selector: "originInfo/issuance",
           cols: 2,
           description:`Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>
             Možné hodnoty
@@ -146,7 +146,7 @@ export class NdkMonographTitleAacrTemplate {
         place: {
           usage: "O",
           label: "Místo",
-          selector: 'originInfo/place/placeTerm',
+          selector: "originInfo/place/placeTerm",
           cols: 2,
           description:`Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisovaného dokumentu<br/>
             odpovídá hodnotě 260 $a`
@@ -156,13 +156,13 @@ export class NdkMonographTitleAacrTemplate {
     language: {
       usage: "O",
       label: "Jazyk",
-      selector: 'language',
+      selector: "language",
       description: `Údaje o jazyce dokumentu`,
       fields: {
         objectPart: {
           usage: "O",
           label: "Část",
-          selector: 'language/@objectPart',
+          selector: "language/@objectPart",
           description: `Možné hodnoty<br/>
           <ul>
             <li><strong>Překlad</strong> (translation) - odpovídá poli 041 $h</li>
@@ -175,7 +175,7 @@ export class NdkMonographTitleAacrTemplate {
         language: {
           usage: "M",
           label: "Jazyk",
-          selector: 'language/languageTerm',
+          selector: "language/languageTerm",
           description: `Přesné určení jazyka`
         }
       }
@@ -189,6 +189,7 @@ export class NdkMonographTitleAacrTemplate {
       fields: {
         value: {
           usage: "M",
+          selector: "genre/value",
           label: "Hodnota",
           help: "off"
         }
@@ -244,6 +245,7 @@ export class NdkMonographTitleAacrTemplate {
         },
         value: {
           usage: "M",
+          selector: "identifier/value",
           label: "Hodnota",
           help: "off"
         }
@@ -252,14 +254,14 @@ export class NdkMonographTitleAacrTemplate {
     recordInfo: {
       usage: "M",
       label: 'Údaje o metadatovém záznamu',
-      selector: 'recordInfo',
+      selector: "recordInfo",
       description: `údaje o metadatovém záznamu – jeho vzniku, změnách apod.`,
       fields: {
         descriptionStandard: {
           usage: "MA",
           label: "Standard metadat",
           cols: 2,
-          selector: 'recordInfo/descriptionStandard',
+          selector: "recordInfo/descriptionStandard",
           description: `Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>
             Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"`,
           options: [
@@ -270,7 +272,7 @@ export class NdkMonographTitleAacrTemplate {
         recordContentSource: {
           usage: "R",
           label: "Content source",
-          selector: 'recordInfo/recordContentSource',
+          selector: "recordInfo/recordContentSource",
           description: `Kód nebo jméno instituce, která záznam vytvořila nebo změnila`,
           fields: {
             value: {
@@ -295,7 +297,7 @@ export class NdkMonographTitleAacrTemplate {
         recordCreationDate: {
           usage: "M",
           label: "Datum vytvoření",
-          selector: 'recordInfo/recordCreationDate',
+          selector: "recordInfo/recordCreationDate",
           description: `datum prvního vytvoření záznamu, na úroveň minut`,
           fields: {
             value: {
@@ -320,7 +322,7 @@ export class NdkMonographTitleAacrTemplate {
         recordChangeDate: {
           usage: "MA",
           label: "Datum změny",
-          selector: 'recordInfo/recordChangeDate',
+          selector: "recordInfo/recordChangeDate",
           description: `datum změny záznamu `,
           fields: {
             value: {
@@ -345,7 +347,7 @@ export class NdkMonographTitleAacrTemplate {
         recordIdentifier: {
           usage: "R",
           label: "Identifikátor záznamu",
-          selector: 'recordInfo/recordIdentifier',
+          selector: "recordInfo/recordIdentifier",
           description: `identifikátor záznamu v katalogu, přebírá se z pole 001`,
           fields: {
             value: {
@@ -368,7 +370,7 @@ export class NdkMonographTitleAacrTemplate {
           usage: "R",
           label: "Údaje o vzniku záznamu",
           cols: 2,
-          selector: 'recordInfo/recordOrigin',
+          selector: "recordInfo/recordOrigin",
           description: `údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"`,
           options: [
             ['machine generated', 'machine generated'],
@@ -378,7 +380,7 @@ export class NdkMonographTitleAacrTemplate {
         languageOfCataloging: {
           usage: "R",
           label: "Jazyk záznamu",
-          selector: 'recordInfo/languageOfCataloging',
+          selector: "recordInfo/languageOfCataloging",
           description: `jazyk katalogového záznamu`,
           fields: {
             languageOfCataloging: {

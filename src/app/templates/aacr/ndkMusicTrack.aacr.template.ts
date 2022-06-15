@@ -4,7 +4,7 @@ export class NdkMusicTrackAacrTemplate {
     titleInfo: {
       usage: 'M',
       label: 'Název',
-      selector: 'titleInfo',
+      selector: "titleInfo",
       description: `názvové informace o části skladby,<br/>
         pokud možno převzít z katalogizačního záznamu,<br/>
         ve většině případů bude zřejmě třeba doplnit při editaci`,
@@ -12,7 +12,7 @@ export class NdkMusicTrackAacrTemplate {
         type: {
           usage: "MA",
           label: 'Typ',
-          selector: 'titleInfo/@type',
+          selector: "titleInfo/@type",
           cols: 2,
           description: `Hlavní název bez typu - pole 245 a $a<br/>
           Možné hodnoty
@@ -32,7 +32,7 @@ export class NdkMusicTrackAacrTemplate {
         nonSort: {
           usage: "O",
           label: 'Část vynechaná při hledání',
-          selector: 'titleInfo/nonSort',
+          selector: "titleInfo/nonSort",
           cols: 2,
           description: `Část názvu, která má být vynechána při vyhledávána<br/>
           např.:
@@ -44,20 +44,20 @@ export class NdkMusicTrackAacrTemplate {
         title: {
           usage: "M",
           label: 'Název',
-          selector: 'titleInfo/title',
+          selector: "titleInfo/title",
           description: `Názvová informace`
         },
         partNumber: {
           usage: "MA",
           label: 'Číslo části',
-          selector: 'titleInfo/partNumber',
+          selector: "titleInfo/partNumber",
           cols: 2,
           description: `Číslo části`
         },
         partName: {
           usage: "MA",
           label: 'Název části',
-          selector: 'titleInfo/partName',
+          selector: "titleInfo/partName",
           cols: 2,
           description: `Název části`
         }
@@ -66,13 +66,13 @@ export class NdkMusicTrackAacrTemplate {
     name: {
       usage: "RA",
       label: "Autor",
-      selector: 'name',
+      selector: "name",
       description: `Autor části skladby`,
       fields: {
         type: {
           usage: "MA",
           label: "Typ",
-          selector: 'name/@type',
+          selector: "name/@type",
           cols: 2,
           description: `Použít jednu z hodnot:
           <ul>
@@ -92,7 +92,7 @@ export class NdkMusicTrackAacrTemplate {
         name: {
           usage: "MA",
           label: "Celé jméno",
-          selector: 'name/namePart[not(@type)]',
+          selector: "name/namePart[not(@type)]",
           description: `Vyplnit pokud nelze rozlišit křestní jméno a příjmení.`
         },
         given: {
@@ -136,7 +136,7 @@ export class NdkMusicTrackAacrTemplate {
         role: {
           usage: "MA",
           label: "Role",
-          selector: 'name/role/roleTerm',
+          selector: "name/role/roleTerm",
           expanded: true,
           description: `Specifikace role osoby nebo organizace<br/>
           Kód role z kontrolovaného slovníku rolí
@@ -168,6 +168,7 @@ export class NdkMusicTrackAacrTemplate {
       fields: {
         note: {
           usage: "RA",
+          selector: "note/value",
           label: "Poznámka",
           help: "off"
         }
@@ -182,6 +183,7 @@ export class NdkMusicTrackAacrTemplate {
         value: {
           usage: "M",
           label: "Hodnota",
+          selector: "genre/value",
           help: "off",
           options: [
             ['sound part', 'sound part']
@@ -244,6 +246,7 @@ export class NdkMusicTrackAacrTemplate {
         },
         value: {
           usage: "M",
+          selector: "identifier/value",
           label: "Hodnota",
           help: "off"
         }
@@ -257,6 +260,7 @@ export class NdkMusicTrackAacrTemplate {
       fields: {
         value: {
           usage: "R",
+          selector: "typeOfResource/value",
           label: "Typ zdroje",
           help: "off",
           options: [
@@ -268,14 +272,14 @@ export class NdkMusicTrackAacrTemplate {
     recordInfo: {
       usage: "M",
       label: 'Údaje o metadatovém záznamu',
-      selector: 'recordInfo',
+      selector: "recordInfo",
       description: `údaje o metadatovém záznamu – jeho vzniku, změnách apod.`,
       fields: {
         descriptionStandard: {
           usage: "MA",
           label: "Standard metadat",
           cols: 2,
-          selector: 'recordInfo/descriptionStandard',
+          selector: "recordInfo/descriptionStandard",
           description: `Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>
             Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"`,
           options: [
@@ -286,7 +290,7 @@ export class NdkMusicTrackAacrTemplate {
         recordContentSource: {
           usage: "R",
           label: "Content source",
-          selector: 'recordInfo/recordContentSource',
+          selector: "recordInfo/recordContentSource",
           description: `Kód nebo jméno instituce, která záznam vytvořila nebo změnila`,
           fields: {
             value: {
@@ -311,7 +315,7 @@ export class NdkMusicTrackAacrTemplate {
         recordCreationDate: {
           usage: "M",
           label: "Datum vytvoření",
-          selector: 'recordInfo/recordCreationDate',
+          selector: "recordInfo/recordCreationDate",
           description: `datum prvního vytvoření záznamu, na úroveň minut`,
           fields: {
             value: {
@@ -336,7 +340,7 @@ export class NdkMusicTrackAacrTemplate {
         recordChangeDate: {
           usage: "MA",
           label: "Datum změny",
-          selector: 'recordInfo/recordChangeDate',
+          selector: "recordInfo/recordChangeDate",
           description: `datum změny záznamu `,
           fields: {
             value: {
@@ -361,7 +365,7 @@ export class NdkMusicTrackAacrTemplate {
         recordIdentifier: {
           usage: "R",
           label: "Identifikátor záznamu",
-          selector: 'recordInfo/recordIdentifier',
+          selector: "recordInfo/recordIdentifier",
           description: `identifikátor záznamu v katalogu, přebírá se z pole 001`,
           fields: {
             value: {
@@ -384,7 +388,7 @@ export class NdkMusicTrackAacrTemplate {
           usage: "R",
           label: "Údaje o vzniku záznamu",
           cols: 2,
-          selector: 'recordInfo/recordOrigin',
+          selector: "recordInfo/recordOrigin",
           description: `údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"`,
           options: [
             ['machine generated', 'machine generated'],
@@ -394,7 +398,7 @@ export class NdkMusicTrackAacrTemplate {
         languageOfCataloging: {
           usage: "R",
           label: "Jazyk záznamu",
-          selector: 'recordInfo/languageOfCataloging',
+          selector: "recordInfo/languageOfCataloging",
           description: `jazyk katalogového záznamu`,
           fields: {
             languageOfCataloging: {

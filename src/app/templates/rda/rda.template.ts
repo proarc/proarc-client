@@ -4,7 +4,7 @@ export class RdaTemplate {
     titleInfo: {
       usage: 'M',
       label: 'Název',
-      selector: 'titleInfo',
+      selector: "titleInfo",
       description: `Název svazku monografie<br/>
       Pro plnění použít katalogizační záznam<br/>
       pokud má monografie více typů názvů, element se opakuje podle potřeby`,
@@ -12,7 +12,7 @@ export class RdaTemplate {
         type: {
           usage: "MA",
           label: 'Typ',
-          selector: 'titleInfo/@type',
+          selector: "titleInfo/@type",
           cols: 2,
           description: `Hlavní název bez typu - pole 245 a $a<br/>
           Možné hodnoty
@@ -33,7 +33,7 @@ export class RdaTemplate {
         nonSort: {
           usage: "O",
           label: 'Část vynechaná při hledání',
-          selector: 'titleInfo/nonSort',
+          selector: "titleInfo/nonSort",
           cols: 2,
           description: `Část názvu, která má být vynechána při vyhledávána<br/>
           např.:
@@ -45,7 +45,7 @@ export class RdaTemplate {
         title: {
           usage: "M",
           label: 'Název',
-          selector: 'titleInfo/title',
+          selector: "titleInfo/title",
           description: `Názvová informace – název svazku monografie</br>
           hodnoty převzít z katalogu<br/>
           odpovídající pole a podpole podle typu, viz typ`
@@ -53,7 +53,7 @@ export class RdaTemplate {
         subTitle: {
           usage: "MA",
           label: 'Podnázev',
-          selector: 'titleInfo/subTitle',
+          selector: "titleInfo/subTitle",
           cols: 2,
           description: `Podnázev svazku monografie<br/>
           odpovídající pole a podpole podle typu, viz typ`
@@ -61,14 +61,14 @@ export class RdaTemplate {
         partNumber: {
           usage: "MA",
           label: 'Číslo části',
-          selector: 'titleInfo/partNumber',
+          selector: "titleInfo/partNumber",
           cols: 2,
           description: `V případě, že se jedná o vícesvazkovou monografii, je zde uvedeno číslo svazku`
         },
         partName: {
           usage: "MA",
           label: 'Název části',
-          selector: 'titleInfo/partName',
+          selector: "titleInfo/partName",
           cols: 2,
           description: `V případě, že se jedná o vícesvazkovou monografii, je zde uveden název svazku<br/>
           odpovídající pole a podpole podle typu, viz typ`
@@ -78,7 +78,7 @@ export class RdaTemplate {
     name: {
       usage: "MA",
       label: "Autor",
-      selector: 'name',
+      selector: "name",
       description: `Údaje o odpovědnosti za svazek<br/>
       POZOR – údaje o odpovědnosti nutno přebírat z polí 1XX a 7XX MARCu21<br/>
       pokud má monografie autora a ilustrátora, element <name> se opakuje s různými rolemi`,
@@ -86,7 +86,7 @@ export class RdaTemplate {
         type: {
           usage: "MA",
           label: "Typ",
-          selector: 'name/@type',
+          selector: "name/@type",
           cols: 2,
           description: `Použít jednu z hodnot:
           <ul>
@@ -106,7 +106,7 @@ export class RdaTemplate {
         name: {
           usage: "MA",
           label: "Celé jméno",
-          selector: 'name/namePart[not(@type)]',
+          selector: "name/namePart[not(@type)]",
           description: `Vyplnit pokud nelze rozlišit křestní jméno a příjmení.`
         },
         given: {
@@ -159,7 +159,7 @@ export class RdaTemplate {
         role: {
           usage: "MA",
           label: "Role",
-          selector: 'name/role/roleTerm',
+          selector: "name/role/roleTerm",
           expanded: true,
           description: `Specifikace role osoby nebo organizace<br/>
           Kód role z kontrolovaného slovníku rolí
@@ -178,13 +178,13 @@ export class RdaTemplate {
     originInfo: {
       usage: "M",
       label: "Původ předlohy",
-      selector: 'originInfo',
+      selector: "originInfo",
       description: `Informace o původu předlohy: odpovídá poli 264`,
       fields: {
         publisher: {
             usage: "MA",
             label: "Nakladatel",
-            selector: 'originInfo/publisher',
+            selector: "originInfo/publisher",
             description: `Jméno entity, která dokument vytvořila, vydala, distribuovala nebo vyrobila<br/>
             odpovídá poli 264 $b katalogizačního záznamu v MARC21<br/>
             pokud má monografie více vydavatelů/distributorů/výrobců, přebírají se ze záznamu všichni (v jednom poli 264)`,
@@ -192,7 +192,7 @@ export class RdaTemplate {
         eventType: {
           usage: "M",
           label: "Typ",
-          selector: 'originInfo/@eventType',
+          selector: "originInfo/@eventType",
           cols: 2,
           description:`Hodnoty dle druhého indikátoru pole 264:
           <ul>
@@ -244,7 +244,7 @@ export class RdaTemplate {
         dateIssued: {
             usage: "M",
             label: "Datum vydání",
-            selector: 'originInfo/dateIssued',
+            selector: "originInfo/dateIssued",
             cols: 2,
             description:`Datum vydání předlohy.<br/>
             Přebírat z katalogu.<br/>
@@ -261,7 +261,7 @@ export class RdaTemplate {
         qualifier: {
             usage: "R",
             label: "Upřesnění data",
-            selector: 'originInfo/dateIssued/@qualifier',
+            selector: "originInfo/dateIssued/@qualifier",
             cols: 2,
             description:`Možnost dalšího upřesnění. Možné hodnoty
             <ul>
@@ -279,7 +279,7 @@ export class RdaTemplate {
         encoding: {
           usage: "R",
           label: "Kódování",
-          selector: 'originInfo/dateIssued/@encoding',
+          selector: "originInfo/dateIssued/@encoding",
           cols: 2,
           description: `Hodnota "marc" jen u údaje z pole 008`,
           options: [
@@ -294,7 +294,7 @@ export class RdaTemplate {
         point: {
           usage: "MA",
           label: "Point",
-          selector: 'originInfo/dateIssued/@point',
+          selector: "originInfo/dateIssued/@point",
           cols: 2,
           description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
           options: [
@@ -306,14 +306,14 @@ export class RdaTemplate {
         edition: {
             usage: "R",
             label: "Vydání",
-            selector: 'originInfo/edition',
+            selector: "originInfo/edition",
             cols: 2,
             description:`Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu.`
         },
         issuance: {
             usage: "M",
             label: "Vydání",
-            selector: 'originInfo/issuance',
+            selector: "originInfo/issuance",
             cols: 2,
             description:`Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>
             Možné hodnoty
@@ -332,7 +332,7 @@ export class RdaTemplate {
         place: {
             usage: "MA",
             label: "Místo",
-            selector: 'originInfo/place/placeTerm',
+            selector: "originInfo/place/placeTerm",
             cols: 2,
             description:`Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisovaného dokumentu<br/>
             odpovídá hodnotě 264 $a`
@@ -340,7 +340,7 @@ export class RdaTemplate {
         dateCreated: {
           usage: "R",
           label: "Datum vytvoření",
-          selector: 'originInfo/dateCreated',
+          selector: "originInfo/dateCreated",
           cols: 3,
           description:`Datum vydání předlohy pro rukopisy
           přebírat z katalogu<br/>
@@ -349,7 +349,7 @@ export class RdaTemplate {
         dateOther: {
           usage: "R",
           label: "Datum - jiné",
-          selector: 'originInfo/dateOther',
+          selector: "originInfo/dateOther",
           cols: 3,
           description:`Datum vytvoření, distribuce, výroby předlohy<br/>
           Tento elemet se využije v případě výskytu $c v:
@@ -362,7 +362,7 @@ export class RdaTemplate {
         copyrightDate: {
           usage: "R",
           label: "Datum - copyright",
-          selector: 'originInfo/copyrightDate',
+          selector: "originInfo/copyrightDate",
           cols: 3,
           description:`Využije se pouze v případě výskytu pole 264 s druhým indikátorem 4 a podpolem $c<br/>
           <ul>
@@ -374,26 +374,26 @@ export class RdaTemplate {
     location: {
       usage: "MA",
       label: "Uložení",
-      selector: 'location',
+      selector: "location",
       description: `Údaje o uložení popisovaného dokumentu, např. signatura, místo uložení apod.`,
       fields: {
         physicalLocation: {
           usage: "M",
           label: "Místo uložení",
-          selector: 'location/physicalLocation',
+          selector: "location/physicalLocation",
           description: `Údaje o instituci, kde je fyzicky uložen daný konkrétní popisovaný dokument, např. NK ČR nutno použít kontrolovaný slovník – sigly knihovnen (ABA001 atd.) odpovídá poli 910 $a v MARC21<br\>
           Pozn. u dokumentů v digitální podobě není možné vyplnit`,
         },
         shelfLocator: {
           usage: "M",
           label: "Signatura",
-          selector: 'location/shelfLocator',
+          selector: "location/shelfLocator",
           description: `Signatura nebo lokační údaje o daném konkrétním dokumentu, který slouží jako předloha.`
         },
         url: {
           usage: "O",
           label: "URL",
-          selector: 'location/url',
+          selector: "location/url",
           description: `Pro uvedení lokace elektronického dokumentu`
         }
       }
@@ -401,14 +401,14 @@ export class RdaTemplate {
     subject: {
       usage: "R",
       label: "Věcné třídění",
-      selector: 'subject',
+      selector: "subject",
       description: `Údaje o věcném třídění<br/>
       Předpokládá se přebírání z katalogizačního záznamu`,
       fields: {
         authority: {
           usage: "R",
           label: "Autorita",
-          selector: 'subject/@authority',
+          selector: "subject/@authority",
           description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>Konspekt</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
           Odpovídá hodnotě v $2`,
           options: [
@@ -425,46 +425,46 @@ export class RdaTemplate {
         topic: {
           usage: "R",
           label: "Klíčové slovo/Předmětové heslo",
-          selector: 'subject/topic',
+          selector: "subject/topic",
           description: `Libovolný výraz specifikující nebo charakterizující obsah svazku monografie<br/>
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x`
         },
         geographic: {
           usage: "R",
           label: "Geografické věcné třídění",
-          selector: 'subject/geographic',
+          selector: "subject/geographic",
           description: `Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21`
         },
         temporal: {
           usage: "R",
           label: "Chronologické věcné třídění",
-          selector: 'subject/temporal',
+          selector: "subject/temporal",
           description: `Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21`
         },
         name: {
           usage: "R",
           label: "Jméno použité jako věcné záhlaví",
-          selector: 'subject/name',
+          selector: "subject/name",
           description: `Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21<br/>
           Struktura a atributy stejné jako pro údaje o původcích – viz element <name>`
         },
         cartographics: {
           usage: "MA",
           label: "Kartografické údaje",
-          selector: 'subject/cartographics',
+          selector: "subject/cartographics",
           description: `přebírá se ze záznamu MARC 21 pole 034
           je žádoucí je vyplnit v případě, pokud se jedná o samostatnou mapu, pokud jde např. o atlas, vyplňuje se v nižší úrovni`,
           fields: {
             coordinates: {
               usage: "MA",
               label: "Souřadnice",
-              selector: 'subject/cartographics/coordinates',
+              selector: "subject/cartographics/coordinates",
               description: `Obsah pole 034 $d, $e, $f, $g`
             },
             scale: {
               usage: "MA",
               label: "Měřítko",
-              selector: 'subject/cartographics/scale',
+              selector: "subject/cartographics/scale",
               description: `Obsah pole 255 podpole a MARC21 záznamu`
             }
           }
@@ -474,13 +474,13 @@ export class RdaTemplate {
     language: {
       usage: "M",
       label: "Jazyk",
-      selector: 'language',
+      selector: "language",
       description: `Údaje o jazyce dokumentu`,
       fields: {
         objectPart: {
           usage: "MA",
           label: "Část",
-          selector: 'language/@objectPart',
+          selector: "language/@objectPart",
           description: `Možnost vyjádřit jazyk konkrétní části svazku <br/>
           možné hodnoty<br/>
           <ul>
@@ -500,7 +500,7 @@ export class RdaTemplate {
         language: {
           usage: "M",
           label: "Jazyk",
-          selector: 'language/languageTerm',
+          selector: "language/languageTerm",
           description: `Přesné určení jazyka`
         }
       }
@@ -590,6 +590,7 @@ export class RdaTemplate {
             },
             value: {
               usage: "M",
+              selector: "physicalDescription/form/value",
               label: "Hodnota",
               help: "off"
             }
@@ -607,6 +608,7 @@ export class RdaTemplate {
       fields: {
         note: {
           usage: "RA",
+          selector: "note/value",
           label: "Poznámka",
           help: "off"
         }
@@ -636,6 +638,7 @@ export class RdaTemplate {
         },
         value: {
           usage: "M",
+          selector: "genre/value",
           label: "Hodnota",
           help: "off"
         }
@@ -696,6 +699,7 @@ export class RdaTemplate {
         },
         value: {
           usage: "M",
+          selector: "identifier/value",
           label: "Hodnota",
           help: "off"
         }
@@ -744,6 +748,7 @@ export class RdaTemplate {
         },
         value: {
           usage: "M",
+          selector: "classification/value",
           label: "Hodnota",
           help: "off"
         }
@@ -759,6 +764,7 @@ export class RdaTemplate {
       fields: {
         value: {
           usage: "R",
+          selector: "typeOfResource/value",
           label: "Typ zdroje",
           help: "off",
           options: [
@@ -771,13 +777,13 @@ export class RdaTemplate {
     part: {
       usage: "O",
       label: "Popis části",
-      selector: 'part',
+      selector: "part",
       description: `popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.`,
       fields: {
         type: {
           usage: "O",
           label: "Typ",
-          selector: 'part/@type',
+          selector: "part/@type",
           description: `Hodnota bude vždy "volume" `,
           options: [
             ['volume', 'volume']
@@ -786,12 +792,12 @@ export class RdaTemplate {
         detail: {
           usage: "0",
           label: "Detail",
-          selector: 'part/detail'
+          selector: "part/detail"
         },
         caption: {
           usage: "RA",
           label: "Caption",
-          selector: 'part/detail/caption',
+          selector: "part/detail/caption",
           description: `text před označením čísla, např. "č.", „část“, "No." apod.`
         },
         part: {
@@ -805,13 +811,13 @@ export class RdaTemplate {
     recordInfo: {
       usage: "M",
       label: "Údaje o metadatovém záznamu",
-      selector: 'recordInfo',
+      selector: "recordInfo",
       description: `údaje o metadatovém záznamu – jeho vzniku, změnách apod.`,
       fields: {
         descriptionStandard: {
           usage: "MA",
           label: "Standard metadat",
-          selector: 'recordInfo/descriptionStandard',
+          selector: "recordInfo/descriptionStandard",
           description: `Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>
             Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"`,
           options: [
@@ -822,7 +828,7 @@ export class RdaTemplate {
         recordContentSource: {
           usage: "R",
           label: "Content source",
-          selector: 'recordInfo/recordContentSource',
+          selector: "recordInfo/recordContentSource",
           description: `Kód nebo jméno instituce, která záznam vytvořila nebo změnila`,
           fields: {
             value: {
@@ -844,7 +850,7 @@ export class RdaTemplate {
         recordCreationDate: {
           usage: "M",
           label: "Datum vytvoření",
-          selector: 'recordInfo/recordCreationDate',
+          selector: "recordInfo/recordCreationDate",
           description: `datum prvního vytvoření záznamu, na úroveň minut`,
           fields: {
             value: {
@@ -866,7 +872,7 @@ export class RdaTemplate {
         recordChangeDate: {
           usage: "MA",
           label: "Datum změny",
-          selector: 'recordInfo/recordChangeDate',
+          selector: "recordInfo/recordChangeDate",
           description: `datum změny záznamu `,
           fields: {
             value: {
@@ -889,7 +895,7 @@ export class RdaTemplate {
         recordIdentifier: {
           usage: "R",
           label: "Identifikátor záznamu",
-          selector: 'recordInfo/recordIdentifier',
+          selector: "recordInfo/recordIdentifier",
           description: `identifikátor záznamu v katalogu, přebírá se z pole 001`,
           fields: {
             value: {
@@ -909,7 +915,7 @@ export class RdaTemplate {
         recordOrigin: {
           usage: "R",
           label: "Údaje o vzniku záznamu",
-          selector: 'recordInfo/recordOrigin',
+          selector: "recordInfo/recordOrigin",
           description: `údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"`,
           options: [
             ['machine generated', 'machine generated'],
@@ -919,7 +925,7 @@ export class RdaTemplate {
         languageOfCataloging: {
           usage: "R",
           label: "Jazyk záznamu",
-          selector: 'recordInfo/languageOfCataloging',
+          selector: "recordInfo/languageOfCataloging",
           description: `jazyk katalogového záznamu`,
           fields: {
             languageTerm: {

@@ -4,14 +4,14 @@ export class NdkePeriodicalVolumeAacrTemplate {
     titleInfo: {
       usage: 'M',
       label: 'Číslo ročníku',
-      selector: 'titleInfo',
+      selector: "titleInfo",
       expanded: true,
       description: `informace o čísle ročníku`,
       fields: {
         partNumber: {
           usage: "MA",
           label: 'Číslo',
-          selector: 'titleInfo/partNumber',
+          selector: "titleInfo/partNumber",
           description: `Pořadové číslo vydání ročníku, např. 40`
         }
       }
@@ -19,13 +19,13 @@ export class NdkePeriodicalVolumeAacrTemplate {
     name: {
       usage: "R",
       label: "Autor",
-      selector: 'name',
+      selector: "name",
       description: `Údaje o odpovědnosti za ročník periodika`,
       fields: {
         type: {
           usage: "R",
           label: "Typ",
-          selector: 'name/@type',
+          selector: "name/@type",
           cols: 2,
           description: `Použít jednu z hodnot:
           <ul>
@@ -45,7 +45,7 @@ export class NdkePeriodicalVolumeAacrTemplate {
         name: {
           usage: "R",
           label: "Celé jméno",
-          selector: 'name/namePart[not(@type)]',
+          selector: "name/namePart[not(@type)]",
           description: `Vyplnit pokud nelze rozlišit křestní jméno a příjmení.`
         },
         given: {
@@ -89,7 +89,7 @@ export class NdkePeriodicalVolumeAacrTemplate {
         role: {
           usage: "MA",
           label: "Role",
-          selector: 'name/role/roleTerm',
+          selector: "name/role/roleTerm",
           expanded: true,
           description: `Specifikace role osoby nebo organizace<br/>
           Kód role z kontrolovaného slovníku rolí
@@ -101,20 +101,20 @@ export class NdkePeriodicalVolumeAacrTemplate {
     originInfo: {
       usage: "M",
       label: "Rok vydání",
-      selector: 'originInfo',
+      selector: "originInfo",
       expanded: true,
       description: `Informace o původu předlohy; vyplňuje se ručně`,
       fields: {
         dateIssued: {
           usage: "M",
           label: "Rok",
-          selector: 'originInfo/dateIssued',
+          selector: "originInfo/dateIssued",
           description:`Datum vydání předlohy, rok nebo rozsah let, kdy ročník vycházel`
         },
         qualifier: {
           usage: "R",
           label: "Upřesnění data",
-          selector: 'originInfo/dateIssued/@qualifier',
+          selector: "originInfo/dateIssued/@qualifier",
           cols: 2,
           description:`Možnost dalšího upřesnění. Možné hodnoty
           <ul>
@@ -132,7 +132,7 @@ export class NdkePeriodicalVolumeAacrTemplate {
         point: {
           usage: "M",
           label: "Point",
-          selector: 'originInfo/dateIssued/@point',
+          selector: "originInfo/dateIssued/@point",
           cols: 2,
           description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
           options: [
@@ -152,6 +152,7 @@ export class NdkePeriodicalVolumeAacrTemplate {
       fields: {
         value: {
           usage: "M",
+          selector: "genre/value",
           label: "Hodnota",
           help: "off"
         }
@@ -199,6 +200,7 @@ export class NdkePeriodicalVolumeAacrTemplate {
         },
         value: {
           usage: "M",
+          selector: "identifier/value",
           label: "Hodnota",
           help: "off"
         }
@@ -207,14 +209,14 @@ export class NdkePeriodicalVolumeAacrTemplate {
     recordInfo: {
       usage: "M",
       label: 'Údaje o metadatovém záznamu',
-      selector: 'recordInfo',
+      selector: "recordInfo",
       description: `údaje o metadatovém záznamu – jeho vzniku, změnách apod.`,
       fields: {
         descriptionStandard: {
           usage: "MA",
           label: "Standard metadat",
           cols: 2,
-          selector: 'recordInfo/descriptionStandard',
+          selector: "recordInfo/descriptionStandard",
           description: `Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>
             Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"`,
           options: [
@@ -225,7 +227,7 @@ export class NdkePeriodicalVolumeAacrTemplate {
         recordContentSource: {
           usage: "R",
           label: "Content source",
-          selector: 'recordInfo/recordContentSource',
+          selector: "recordInfo/recordContentSource",
           description: `Kód nebo jméno instituce, která záznam vytvořila nebo změnila`,
           fields: {
             value: {
@@ -250,7 +252,7 @@ export class NdkePeriodicalVolumeAacrTemplate {
         recordCreationDate: {
           usage: "M",
           label: "Datum vytvoření",
-          selector: 'recordInfo/recordCreationDate',
+          selector: "recordInfo/recordCreationDate",
           description: `datum prvního vytvoření záznamu, na úroveň minut`,
           fields: {
             value: {
@@ -275,7 +277,7 @@ export class NdkePeriodicalVolumeAacrTemplate {
         recordChangeDate: {
           usage: "MA",
           label: "Datum změny",
-          selector: 'recordInfo/recordChangeDate',
+          selector: "recordInfo/recordChangeDate",
           description: `datum změny záznamu `,
           fields: {
             value: {
@@ -300,7 +302,7 @@ export class NdkePeriodicalVolumeAacrTemplate {
         recordIdentifier: {
           usage: "R",
           label: "Identifikátor záznamu",
-          selector: 'recordInfo/recordIdentifier',
+          selector: "recordInfo/recordIdentifier",
           description: `identifikátor záznamu v katalogu, přebírá se z pole 001`,
           fields: {
             value: {
@@ -323,7 +325,7 @@ export class NdkePeriodicalVolumeAacrTemplate {
           usage: "R",
           label: "Údaje o vzniku záznamu",
           cols: 2,
-          selector: 'recordInfo/recordOrigin',
+          selector: "recordInfo/recordOrigin",
           description: `údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"`,
           options: [
             ['machine generated', 'machine generated'],
@@ -333,7 +335,7 @@ export class NdkePeriodicalVolumeAacrTemplate {
         languageOfCataloging: {
           usage: "R",
           label: "Jazyk záznamu",
-          selector: 'recordInfo/languageOfCataloging',
+          selector: "recordInfo/languageOfCataloging",
           description: `jazyk katalogového záznamu`,
           fields: {
             languageOfCataloging: {

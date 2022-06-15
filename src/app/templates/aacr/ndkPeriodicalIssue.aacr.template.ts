@@ -4,21 +4,21 @@ export class NdkPeriodicalIssueAacrTemplate {
     titleInfo: {
       usage: 'M',
       label: 'Název',
-      selector: 'titleInfo',
+      selector: "titleInfo",
       expanded: true,
       description: `Název titulu periodika, kterého je číslo součástí pro plnění použít katalogizační záznam nebo názvové autority`,
       fields: {
         title: {
           usage: "M",
           label: 'Název periodika',
-          selector: 'titleInfo/title',
+          selector: "titleInfo/title",
           description: `Názvová informace – název titulu periodika<br/>
           hodnoty převzít z katalogu, katalogizačního záznamu titulu periodika nebo názvových autorit`
         },
         nonSort: {
           usage: "O",
           label: 'Část vynechaná při hledání',
-          selector: 'titleInfo/nonSort',
+          selector: "titleInfo/nonSort",
           cols: 2,
           description: `Část názvu, která má být vynechána při vyhledávána<br/>
           např.:
@@ -30,13 +30,13 @@ export class NdkPeriodicalIssueAacrTemplate {
         subTitle: {
           usage: "RA",
           label: 'Podnázev výtisku',
-          selector: 'titleInfo/subTitle',
+          selector: "titleInfo/subTitle",
           description: `Podnázev čísla periodika`
         },
         partName: {
           usage: "R",
           label: 'Název výtisku',
-          selector: 'titleInfo/partName',
+          selector: "titleInfo/partName",
           cols: 2,
           description: `Např. určité části/edice, k použití u ročenek a specializovaných periodik<br/>
           odpovídající pole a podpole podle typu, viz typ`
@@ -44,7 +44,7 @@ export class NdkPeriodicalIssueAacrTemplate {
         partNumber: {
           usage: "MA",
           label: 'Číslo výtisku',
-          selector: 'titleInfo/partNumber',
+          selector: "titleInfo/partNumber",
           cols: 1,
           description: `Např. určité části/edice, k použití u ročenek a specializovaných periodik`
         }
@@ -53,14 +53,14 @@ export class NdkPeriodicalIssueAacrTemplate {
     name: {
       usage: "MA",
       label: "Autor",
-      selector: 'name',
+      selector: "name",
       description: `Údaje o odpovědnosti za číslo periodika<br/>
       použití u ročenek, specializovaných periodik, tematických čísel nebo zvláštních vydání`,
       fields: {
         type: {
           usage: "M",
           label: "Typ",
-          selector: 'name/@type',
+          selector: "name/@type",
           cols: 2,
           description: `Použít jednu z hodnot:
           <ul>
@@ -80,7 +80,7 @@ export class NdkPeriodicalIssueAacrTemplate {
         name: {
           usage: "R",
           label: "Celé jméno",
-          selector: 'name/namePart[not(@type)]',
+          selector: "name/namePart[not(@type)]",
           description: `Vyplnit pokud nelze rozlišit křestní jméno a příjmení.`
         },
         given: {
@@ -131,7 +131,7 @@ export class NdkPeriodicalIssueAacrTemplate {
         role: {
           usage: "MA",
           label: "Role",
-          selector: 'name/role/roleTerm',
+          selector: "name/role/roleTerm",
           expanded: true,
           description: `Specifikace role osoby nebo organizace<br/>
           Kód role z kontrolovaného slovníku rolí
@@ -143,21 +143,21 @@ export class NdkPeriodicalIssueAacrTemplate {
     originInfo: {
       usage: "MA",
       label: "Původ předlohy",
-      selector: 'originInfo',
+      selector: "originInfo",
       expanded: true,
       description: `informace o původu předlohy – vyplňuje se ručně doporučené tam, kde lze vyplnit`,
       fields: {
         publisher: {
             usage: "MA",
             label: "Nakladatel",
-            selector: 'originInfo/publisher',
+            selector: "originInfo/publisher",
             description: `Jméno entity, která dokument vydala, vytiskla nebo jinak vyprodukovala<br/>
             vyplňuje se ručně podle předlohy`,
         },
         dateIssued: {
             usage: "MA",
             label: "Datum vydání",
-            selector: 'originInfo/dateIssued',
+            selector: "originInfo/dateIssued",
             cols: 2,
             description:`Datum vydání předlohy<br/>
             vyplňuje se ručně, dle předlohy`
@@ -165,7 +165,7 @@ export class NdkPeriodicalIssueAacrTemplate {
         qualifier: {
             usage: "O",
             label: "Upřesnění data",
-            selector: 'originInfo/dateIssued/@qualifier',
+            selector: "originInfo/dateIssued/@qualifier",
             cols: 2,
             description:`Možnost dalšího upřesnění. Možné hodnoty
             <ul>
@@ -183,7 +183,7 @@ export class NdkPeriodicalIssueAacrTemplate {
         point: {
           usage: "MA",
           label: "Point",
-          selector: 'originInfo/dateIssued/@point',
+          selector: "originInfo/dateIssued/@point",
           cols: 2,
           description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
           options: [
@@ -195,7 +195,7 @@ export class NdkPeriodicalIssueAacrTemplate {
         place: {
             usage: "MA",
             label: "Místo",
-            selector: 'originInfo/place/placeTerm',
+            selector: "originInfo/place/placeTerm",
             cols: 1,
             description:`Údaje o místě spojeném s vydáním, výrobou nebo původem popisovaného dokumentu.`
         }
@@ -204,26 +204,26 @@ export class NdkPeriodicalIssueAacrTemplate {
     location: {
       usage: "R",
       label: "Uložení",
-      selector: 'location',
+      selector: "location",
       description: `Údaje o uložení popisovaného dokumentu, např. signatura, místo uložení apod.`,
       fields: {
         physicalLocation: {
           usage: "MA",
           label: "Místo uložení",
-          selector: 'location/physicalLocation',
+          selector: "location/physicalLocation",
           description: `Údaje o instituci, kde je fyzicky uložen daný konkrétní popisovaný dokument, např. NK ČR nutno použít kontrolovaný slovník – sigly knihovnen (ABA001 atd.) odpovídá poli 910 $a v MARC21<br\>
           Pozn. u dokumentů v digitální podobě není možné vyplnit`,
         },
         shelfLocator: {
           usage: "MA",
           label: "Signatura",
-          selector: 'location/shelfLocator',
+          selector: "location/shelfLocator",
           description: `Signatura nebo lokační údaje o daném konkrétním dokumentu, který slouží jako předloha.`
         },
         url: {
           usage: "O",
           label: "URL",
-          selector: 'location/url',
+          selector: "location/url",
           description: `Pro uvedení lokace elektronického dokumentu`
         }
       }
@@ -231,7 +231,7 @@ export class NdkPeriodicalIssueAacrTemplate {
     subject: {
       usage: "RA",
       label: "Věcné třídění",
-      selector: 'subject',
+      selector: "subject",
       description: `Údaje o věcném třídění<br/>
       Předpokládá se přebírání z katalogizačního záznamu<br/>
       použití u ročenek, specializovaných periodik, tematických čísel nebo zvláštních vydání`,
@@ -239,7 +239,7 @@ export class NdkPeriodicalIssueAacrTemplate {
         authority: {
           usage: "R",
           label: "Autorita",
-          selector: 'subject/@authority',
+          selector: "subject/@authority",
           description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
           Odpovídá hodnotě v $2`,
           options: [
@@ -255,20 +255,20 @@ export class NdkPeriodicalIssueAacrTemplate {
         topic: {
           usage: "R",
           label: "Klíčové slovo/Předmětové heslo",
-          selector: 'subject/topic',
+          selector: "subject/topic",
           description: `Libovolný výraz specifikující nebo charakterizující obsah periodika<br/>
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21`
         },
         temporal: {
           usage: "R",
           label: "Chronologické věcné třídění",
-          selector: 'subject/temporal',
+          selector: "subject/temporal",
           description: `Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21`
         },
         name: {
           usage: "R",
           label: "Jméno použité jako věcné záhlaví",
-          selector: 'subject/name',
+          selector: "subject/name",
           description: `Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21<br/>
           Struktura a atributy stejné jako pro údaje o původcích – viz element <name>`
         },
@@ -277,13 +277,13 @@ export class NdkPeriodicalIssueAacrTemplate {
     language: {
       usage: "M",
       label: "Jazyk",
-      selector: 'language',
+      selector: "language",
       description: `Údaje o jazyce dokumentu`,
       fields: {
         objectPart: {
           usage: "MA",
           label: "Část",
-          selector: 'language/@objectPart',
+          selector: "language/@objectPart",
           description: `Možnost vyjádřit jazyk konkrétní části svazku <br/>
           možné hodnoty<br/>
           <ul>
@@ -303,7 +303,7 @@ export class NdkPeriodicalIssueAacrTemplate {
         language: {
           usage: "M",
           label: "Jazyk",
-          selector: 'language/languageTerm',
+          selector: "language/languageTerm",
           description: `Přesné určení jazyka`
         }
       }
@@ -353,6 +353,7 @@ export class NdkPeriodicalIssueAacrTemplate {
       fields: {
         note: {
           usage: "RA",
+          selector: "note/value",
           label: "Poznámka",
           help: "off"
         }
@@ -402,6 +403,7 @@ export class NdkPeriodicalIssueAacrTemplate {
         },
         value: {
           usage: "M",
+          selector: "genre/value",
           label: "Hodnota",
           help: "off"
         }
@@ -454,6 +456,7 @@ export class NdkPeriodicalIssueAacrTemplate {
         },
         value: {
           usage: "M",
+          selector: "identifier/value",
           label: "Hodnota",
           help: "off"
         }
@@ -462,13 +465,13 @@ export class NdkPeriodicalIssueAacrTemplate {
     part: {
       usage: "O",
       label: "Popis části",
-      selector: 'part',
+      selector: "part",
       description: `popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.`,
       fields: {
         type: {
           usage: "O",
           label: "Typ",
-          selector: 'part/@type',
+          selector: "part/@type",
           description: `Hodnota bude vždy "volume" `,
           options: [
             ['volume', 'volume']
@@ -477,7 +480,7 @@ export class NdkPeriodicalIssueAacrTemplate {
         caption: {
           usage: "RA",
           label: "Caption",
-          selector: 'part/detail/caption',
+          selector: "part/detail/caption",
           description: `text před označením čísla, např. "č.", „část“, "No." apod.`
         }
       }
@@ -485,14 +488,14 @@ export class NdkPeriodicalIssueAacrTemplate {
     recordInfo: {
       usage: "M",
       label: 'Údaje o metadatovém záznamu',
-      selector: 'recordInfo',
+      selector: "recordInfo",
       description: `údaje o metadatovém záznamu – jeho vzniku, změnách apod.`,
       fields: {
         descriptionStandard: {
           usage: "MA",
           label: "Standard metadat",
           cols: 2,
-          selector: 'recordInfo/descriptionStandard',
+          selector: "recordInfo/descriptionStandard",
           description: `Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>
             Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"`,
           options: [
@@ -503,7 +506,7 @@ export class NdkPeriodicalIssueAacrTemplate {
         recordContentSource: {
           usage: "R",
           label: "Content source",
-          selector: 'recordInfo/recordContentSource',
+          selector: "recordInfo/recordContentSource",
           description: `Kód nebo jméno instituce, která záznam vytvořila nebo změnila`,
           fields: {
             value: {
@@ -528,7 +531,7 @@ export class NdkPeriodicalIssueAacrTemplate {
         recordCreationDate: {
           usage: "M",
           label: "Datum vytvoření",
-          selector: 'recordInfo/recordCreationDate',
+          selector: "recordInfo/recordCreationDate",
           description: `datum prvního vytvoření záznamu, na úroveň minut`,
           fields: {
             value: {
@@ -553,7 +556,7 @@ export class NdkPeriodicalIssueAacrTemplate {
         recordChangeDate: {
           usage: "MA",
           label: "Datum změny",
-          selector: 'recordInfo/recordChangeDate',
+          selector: "recordInfo/recordChangeDate",
           description: `datum změny záznamu `,
           fields: {
             value: {
@@ -578,7 +581,7 @@ export class NdkPeriodicalIssueAacrTemplate {
         recordIdentifier: {
           usage: "R",
           label: "Identifikátor záznamu",
-          selector: 'recordInfo/recordIdentifier',
+          selector: "recordInfo/recordIdentifier",
           description: `identifikátor záznamu v katalogu, přebírá se z pole 001`,
           fields: {
             value: {
@@ -601,7 +604,7 @@ export class NdkPeriodicalIssueAacrTemplate {
           usage: "R",
           label: "Údaje o vzniku záznamu",
           cols: 2,
-          selector: 'recordInfo/recordOrigin',
+          selector: "recordInfo/recordOrigin",
           description: `údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"`,
           options: [
             ['machine generated', 'machine generated'],
@@ -611,7 +614,7 @@ export class NdkPeriodicalIssueAacrTemplate {
         languageOfCataloging: {
           usage: "R",
           label: "Jazyk záznamu",
-          selector: 'recordInfo/languageOfCataloging',
+          selector: "recordInfo/languageOfCataloging",
           description: `jazyk katalogového záznamu`,
           fields: {
             languageOfCataloging: {
