@@ -9,6 +9,7 @@ import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-editor-page',
@@ -27,12 +28,13 @@ export class EditorPageComponent implements OnInit {
 
   @Input() model: string;
 
-  @ViewChild("pageNumber") pageNumberFiled: ElementRef;
-  @ViewChild("pageIndex") pageIndexFiled: ElementRef;
+  @ViewChild("pageNumber") pageNumberField: ElementRef;
+  @ViewChild("pageIndex") pageIndexField: ElementRef;
   @ViewChild("typeSelect") typeSelect: MatSelect;
   @ViewChild("posSelect") posSelect: MatSelect;
   @ViewChild("genreSelect") genreSelect: MatSelect;
   
+  pageIndexControl: FormControl = new FormControl();
 
   @Input()
   set pid(pid: string) {
@@ -48,6 +50,10 @@ export class EditorPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.pageIndexControl.valueChanges.subscribe((e: any) => {
+    console.log(this.pageIndexControl.dirty)
+      this.editor.isDirty = this.pageIndexControl.dirty;
+    })
   }
 
   removeFocus() {
@@ -56,14 +62,16 @@ export class EditorPageComponent implements OnInit {
 
   private setPage(page: Page) {
     this.editor.page = page;
+    this.pageIndexControl.markAsPristine();
+    this.editor.isDirty = false;
     this.state = 'success';
     if (this.movedToNextFrom == 'pageNumber') {
       setTimeout(() => { 
-        this.pageNumberFiled.nativeElement.focus();
+        this.pageNumberField.nativeElement.focus();
       },10);
     } else if (this.movedToNextFrom == 'pageIndex') {
       setTimeout(() => { 
-        this.pageIndexFiled.nativeElement.focus();
+        this.pageIndexField.nativeElement.focus();
       },10);
     } else if (this.movedToNextFrom == 'type') {
       setTimeout(() => { 

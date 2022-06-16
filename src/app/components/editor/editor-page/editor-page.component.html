@@ -32,7 +32,9 @@
 
             <mat-form-field class="app-half-left" *ngIf="config.showPageIndex" [class.app-invalid]="!editor.page.index">
               <span class="app-usage" [class.app-help-off]="true">M</span>
-              <input (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageIndex')" autocomplete="off" matInput [placeholder]="'editor.page.index' | translate" [(ngModel)]="editor.page.index" #pageIndex>
+              <input autocomplete="off" matInput #pageIndex 
+                (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageIndex')" 
+                [placeholder]="'editor.page.index' | translate" [(ngModel)]="editor.page.index" [formControl]="pageIndexControl">
             </mat-form-field>
             
             <mat-form-field class="app-page-number" [class.app-invalid]="!editor.page.number">

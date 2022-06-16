@@ -342,9 +342,9 @@ export class Metadata {
           return true;
         }
         for (const subfield of item.getSubfields()) {
-          for (const item of subfield.getItems()) {
+          for (const item2 of subfield.getItems()) {
             
-            if (item.hasChanges()) {
+            if (item2.hasChanges()) {
               return true;
             }
           }
@@ -352,6 +352,20 @@ export class Metadata {
       }
     }
     return false;
+  }
+
+  resetChanges() {
+    for (const id of this.fieldsIds) {
+      const f = this.fields.get(id);
+      for (const item of f.getItems()) {
+          item.resetChanges();
+        for (const subfield of item.getSubfields()) {
+          for (const item2 of subfield.getItems()) {
+            item2.resetChanges();
+          }
+        }
+      }
+    }
   }
 
 }
