@@ -37,15 +37,15 @@
       <mat-icon>check_box</mat-icon>
     </button>
     <div class="app-divider"></div>
-    <button class="app-action" *ngIf="pageChildren" matTooltip="Validovat" (click)="editor.validateChildren()"
+    <button class="app-action" *ngIf="pageChildren" matTooltip="{{ 'editor.children.validate' | translate }}" (click)="editor.validateChildren()"
       mat-icon-button>
       <mat-icon>fact_check</mat-icon>
     </button>
-    <button class="app-action" *ngIf="pageChildren" matTooltip="Reindexovat" (click)="onReindexChildren()"
+    <button class="app-action" *ngIf="pageChildren" matTooltip="{{ 'editor.children.reindex' | translate }}" (click)="onReindexChildren()"
       mat-icon-button>
       <mat-icon>format_list_numbered</mat-icon>
     </button>
-    <button class="app-action" matTooltip="Převést strany" (click)="showConvertDialog()" mat-icon-button>
+    <button class="app-action" matTooltip="{{ 'editor.children.convertPages' | translate }}" (click)="showConvertDialog()" mat-icon-button>
       <mat-icon>swap_horiz</mat-icon>
     </button>
 
@@ -68,26 +68,6 @@
           mat-icon-button>
           <mat-icon>forward</mat-icon>
         </button>
-
-      <!-- <div class="app-multibuttons">
-        <button matTooltipPosition="right" class="app-action" matTooltip="{{ 'editor.children.move' | translate }}"
-          (click)="onMove()" mat-icon-button>
-          <mat-icon>reply</mat-icon>
-        </button>
-        <div class="app-floating-menu" *ngIf="!editor.preparation">
-          <div class="app-divider"></div>
-          <button class="app-action" matTooltipPosition="right"
-            matTooltip="{{ 'editor.children.relocate' | translate }}" (click)="onRelocate()" mat-icon-button>
-            <mat-icon>reply_all</mat-icon>
-          </button>
-          <div class="app-divider"></div>
-          <button class="app-action" matTooltipPosition="right"
-            matTooltip="{{ 'editor.children.relocate_label' | translate }}" (click)="onRelocateOutside()"
-            mat-icon-button>
-            <mat-icon>forward</mat-icon>
-          </button>
-        </div>
-      </div> -->
 
 
       <ng-container *ngIf="viewMode === 'list'">
