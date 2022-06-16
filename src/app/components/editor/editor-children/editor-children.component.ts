@@ -222,18 +222,27 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
         this.editor.setMultipleChildrenMode(true);
       }
       let firstIndex = this.editor.children.findIndex(i => i.selected === true);
+      let lastIndex = this.editor.children.length - this.editor.children.slice().reverse().findIndex(i => i.selected === true) - 1;
       this.editor.children.map(i => i.selected = false);
       // let index = Math.min(this.lastIndex, itemIndex);
       // let index = Math.max(firstIndex, 0);
       // let i2 = Math.max(this.lastIndex, itemIndex);
       let index = this.lastIndex;
+      if (event.ctrlKey) {
+        if (itemIndex < index) {
+          // bereme nejvetsi z aktualniho vyberu
+          index = lastIndex;
+        } else {
+          // bereme nejmensi z aktualniho vyberu
+          index = firstIndex;
+        }
+      }
       let i2 = itemIndex;
       if (index > i2) {
         const temp = index;
         index = i2;
         i2 = temp;
       }
-      // console.log(index, i2, this.lastState)
       while (index <= i2) {
         // this.editor.children[index].selected = this.lastState;
         this.editor.children[index].selected = true;
