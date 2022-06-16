@@ -106,7 +106,8 @@
             <!-- <app-editor-issue *ngIf="editor.left.isIssue()" [pid]="editor.left.pid"></app-editor-issue> -->
             <!-- <app-editor-volume *ngIf="editor.left.isVolume()" [pid]="editor.left.pid"></app-editor-volume> -->
             <app-editor-chronicle *ngIf="editor.left.isChronicle()" [pid]="editor.left.pid"></app-editor-chronicle>
-            <app-editor-metadata *ngIf="!editor.left.isPage() && !editor.left.isChronicle()" [pid]="editor.left.pid">
+            <app-editor-bdm *ngIf="editor.left.isBdm()" [pid]="editor.left.pid"></app-editor-bdm>
+            <app-editor-metadata *ngIf="!editor.left.isPage() && !editor.left.isChronicle() && !editor.left.isBdm()" [pid]="editor.left.pid">
             </app-editor-metadata>
           </ng-container>
 

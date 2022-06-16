@@ -135,6 +135,10 @@ export class DocumentItem {
   //   return !this.isPage() && !this.isVolume() && !this.isIssue();
   // }
 
+  public isBdm(): boolean {
+    return this.model === 'model:bdmarticle';
+  }
+
   public canContainPdf(): boolean {
     return [
       'model:ndkeperiodical',

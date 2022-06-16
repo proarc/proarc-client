@@ -24,12 +24,13 @@ export class BdmArticleTemplate {
           usage: 'O',
           label: 'Jazyk',
           selector: 'titleInfo/lang',
+          labelKey: 'titleInfo/@lang',
           cols: 3
         },
         nonSort: {
           usage: 'O',
           label: 'Člen, jímž začíná název',
-          selector: 'titleInfo/nonSort',
+          selector: 'bdm/titleInfo/nonSort',
           labelKey: 'titleInfo/nonSort',
           cols: 3,
           description: `Člen, jímž začíná název`,
@@ -71,7 +72,7 @@ export class BdmArticleTemplate {
       usage: 'MA',
       label: 'Autoři',
       selector: 'name',
-      labelKey: 'name',
+      labelKey: 'bdm/name',
       description: `Údaje o odpovědnosti za článek.`,
       fields: {
         type: {
@@ -94,6 +95,13 @@ export class BdmArticleTemplate {
             ['conference', 'Konference'],
             ['family', 'Rodina']
           ]
+        },
+        nameIdentifier: {
+          usage: 'O',
+          label: 'Identifikátor autora (ORCID ID)',
+          selector: 'name/nameIdentifier',
+          labelKey: 'bdm/name/nameIdentifier',
+          description: `Číslo národní autority`,
         },
         name: {
           usage: 'MA',
@@ -154,7 +162,7 @@ export class BdmArticleTemplate {
       usage: 'R',
       label: 'Klíčová slova',
       selector: 'subject',
-      labelKey: 'subject',
+      labelKey: 'bdm/subject',
       description: `Údaje o věcném třídění`,
       fields: {
         topic: {
@@ -218,7 +226,7 @@ export class BdmArticleTemplate {
       usage: 'MA',
       label: 'Rozsah článku',
       selector: 'part',
-      labelKey: 'part',
+      labelKey: 'bdm/part',
       description: `Rozsah článku`,
       fields: {
         extent: {
@@ -233,7 +241,7 @@ export class BdmArticleTemplate {
               label: 'Od strany',
               cols: 2,
               selector: 'part/extent/start',
-              labelKey: 'part/extent/start',
+              labelKey: 'bdm/part/extent/start',
               description: `První stránka článku.`
             },
             end: {
@@ -241,7 +249,7 @@ export class BdmArticleTemplate {
               label: 'Do strany',
               cols: 2,
               selector: 'part/extent/end',
-              labelKey: 'part/extent/end',
+              labelKey: 'bdm/part/extent/end',
               description: `Poslední stránka článku.`
             }
           }
@@ -266,6 +274,7 @@ export class BdmArticleTemplate {
             value: {
               usage: 'M',
               label: 'Hodnota',
+              labelKey: 'physicalDescription/form/value',
               help: 'off',
               options: [
                 ['bez média', 'bez média'],
@@ -313,7 +322,7 @@ export class BdmArticleTemplate {
           label: 'Typ obsahu',
           cols: 2,
           selector: 'genre/@type',
-          labelKey: 'genre/@type',
+          labelKey: 'bdm/genre/@type',
           options: [
             ['abstract', 'abstrakt'],
             ['directory', 'adresář'],
@@ -372,21 +381,21 @@ export class BdmArticleTemplate {
       usage: 'MA',
       label: 'Recenze na',
       selector: 'relatedItem',
-      labelKey: 'relatedItem',
+      labelKey: 'bdm/relatedItem',
       description: 'Recenze na:',
       fields: {
         part: {
           usage: 'MA',
           label: 'Rozsah článku',
           selector: 'relatedItem/part',
-          labelKey: 'relatedItem/part',
+          labelKey: 'bdm/relatedItem/part',
           description: `Rozsah článku`,
           fields: {
             extent: {
               usage: 'MA',
               label: 'Rozsah',
               selector: 'relatedItem/part/extent',
-              labelKey: 'relatedItem/part/extent',
+              labelKey: 'bdm/relatedItem/part/extent',
               description: `Tento kontejner <part> slouží k zaznamenání rozsahu stran v reprezentaci.`,
               fields: {
                 start: {
@@ -394,7 +403,7 @@ export class BdmArticleTemplate {
                   label: 'Od strany',
                   cols: 2,
                   selector: 'relatedItem/part/extent/start',
-                  labelKey: 'relatedItem/part/extent/start',
+                  labelKey: 'bdm/relatedItem/part/extent/start',
                   description: `První stránka článku.`
                 },
                 end: {
@@ -402,7 +411,7 @@ export class BdmArticleTemplate {
                   label: 'Do strany',
                   cols: 2,
                   selector: 'relatedItem/part/extent/end',
-                  labelKey: 'relatedItem/part/extent/end',
+                  labelKey: 'bdm/relatedItem/part/extent/end',
                   description: `Poslední stránka článku.`
                 }
               }
@@ -413,14 +422,14 @@ export class BdmArticleTemplate {
           usage: 'M',
           label: 'Název recenzovaného díla',
           selector: 'relatedItem/titleInfo',
-          labelKey: 'relatedItem/titleInfo',
+          labelKey: 'bdm/relatedItem/titleInfo',
           description: `Názvová informace vnitřní části.`,
           fields: {
             title: {
               usage: 'M',
               label: 'Název recenzovaného díla',
               selector: 'relatedItem/titleInfo/title',
-              labelKey: 'relatedItem/titleInfo/title',
+              labelKey: 'bdm/relatedItem/titleInfo/title',
               description: `Název recenzovaného díla. Odpovídá poli 787$t.`
             }
           }
@@ -429,7 +438,7 @@ export class BdmArticleTemplate {
           usage: 'M',
           label: 'Autoři recenzovaného díla',
           selector: 'relatedItem/name',
-          labelKey: 'relatedItem/name',
+          labelKey: 'bdm/relatedItem/name',
           description: `Autoři recenzovaného díla ve tvaru: \"Příjmení, Jméno\". Odpovídá poli 787$a`,
           fields: {
             type: {
