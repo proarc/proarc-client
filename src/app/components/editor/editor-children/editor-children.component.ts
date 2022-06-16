@@ -203,7 +203,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
 
   onSelect(item: DocumentItem, event: any = null) {
     let canSelect = true;
-    if (this.editor.hasPendingChanges()) {
+    if (this.editor.hasPendingChanges() && !this.editor.isLeftDirty) {
       const d = this.editor.confirmLeaveDialog().subscribe((result: any) => {
         if (result === 'true') {
           this.select(item, event);
