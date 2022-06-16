@@ -119,8 +119,8 @@ export class NdkChapterAacrTemplate {
         given: {
           usage: 'MA',
           label: 'Křestní',
-          selector: 'name/namePart[@type=\'given\']',
-          labelKey: 'name/namePart[@type=\'given\']',
+          selector: "name/namePart[@type='given']",
+          labelKey: "name/namePart[@type='given']",
           cols: 2,
           description: `Údaje o křestním jméně.<br/>
           V případě více křestních jmen se doporučuje
@@ -129,16 +129,16 @@ export class NdkChapterAacrTemplate {
         family: {
           usage: 'MA',
           label: 'Příjmení',
-          selector: 'name/namePart[@type=\'family\']',
-          labelKey: 'name/namePart[@type=\'family\']',
+          selector: "name/namePart[@type='family']",
+          labelKey: "name/namePart[@type='family']",
           cols: 2,
           description: `Údaje o příjmení.`
         },
         date: {
           usage: 'RA',
           label: 'Datum',
-          selector: 'name/namePart[@type=\'date\']',
-          labelKey: 'name/namePart[@type=\'date\']',
+          selector: "name/namePart[@type='date']",
+          labelKey: "name/namePart[@type='date']",
           cols: 2,
           description: `Životopisná data autora<br/>
           Pokud známe datum narození a úmrtí autora, vyplnit ve tvaru RRRR-RRRR.`
@@ -146,8 +146,8 @@ export class NdkChapterAacrTemplate {
         termsOfAddress: {
           usage: 'RA',
           label: 'Ostatní související se jménem',
-          selector: 'name/namePart[@type=\'termsOfAddress\']',
-          labelKey: 'name/namePart[@type=\'termsOfAddress\']',
+          selector: "name/namePart[@type='termsOfAddress']",
+          labelKey: "name/namePart[@type='termsOfAddress']",
           cols: 2,
           description: `Tituly a jiná slova nebo čísla související se jménem.`
         },
@@ -873,8 +873,8 @@ export class NdkChapterAacrTemplate {
             given: {
               usage: 'MA',
               label: 'Křestní',
-              selector: 'relatedItem/name/namePart[@type=\'given\']',
-              labelKey: 'relatedItem/name/namePart[@type=\'given\']',
+              selector: "relatedItem/name/namePart[@type='given']",
+              labelKey: "relatedItem/name/namePart[@type='given']",
               cols: 2,
               description: `Údaje o křestním jméně.<br/>
           V případě více křestních jmen se doporučuje
@@ -883,16 +883,16 @@ export class NdkChapterAacrTemplate {
             family: {
               usage: 'MA',
               label: 'Příjmení',
-              selector: 'relatedItem/name/namePart[@type=\'family]',
-              labelKey: 'relatedItem/name/namePart[@type=\'family\']',
+              selector: "relatedItem/name/namePart[@type='family']",
+              labelKey: "relatedItem/name/namePart[@type='family']",
               cols: 2,
               description: `Údaje o příjmení.`
             },
             date: {
               usage: 'RA',
               label: 'Datum',
-              selector: 'relatedItem/name/namePart[@type=\'date\']',
-              labelKey: 'relatedItem/name/namePart[@type=\'date\']',
+              selector: "relatedItem/name/namePart[@type='date']",
+              labelKey: "relatedItem/name/namePart[@type='date']",
               cols: 2,
               description: `Životopisná data autora<br/>
           Pokud známe datum narození a úmrtí autora, vyplnit ve tvaru RRRR-RRRR.`
@@ -900,8 +900,8 @@ export class NdkChapterAacrTemplate {
             termsOfAddress: {
               usage: 'RA',
               label: 'Ostatní související se jménem',
-              selector: 'relatedItem/name/namePart[@type=\'termsOfAddress\']',
-              labelKey: 'relatedItem/name/namePart[@type=\'termsOfAddress\']',
+              selector: "relatedItem/name/namePart[@type='termsOfAddress']",
+              labelKey: "relatedItem/name/namePart[@type='termsOfAddress']",
               cols: 2,
               description: `Tituly a jiná slova nebo čísla související se jménem.`
             },
