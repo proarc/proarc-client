@@ -37,15 +37,15 @@
       <mat-icon>check_box</mat-icon>
     </button>
     <div class="app-divider"></div>
-    <button class="app-action" *ngIf="pageChildren" matTooltip="Validovat" (click)="editor.validateChildren()"
+    <button class="app-action" *ngIf="pageChildren" matTooltip="{{ 'editor.children.validate' | translate }}" (click)="editor.validateChildren()"
       mat-icon-button>
       <mat-icon>fact_check</mat-icon>
     </button>
-    <button class="app-action" *ngIf="pageChildren" matTooltip="Reindexovat" (click)="onReindexChildren()"
+    <button class="app-action" *ngIf="pageChildren" matTooltip="{{ 'editor.children.reindex' | translate }}" (click)="onReindexChildren()"
       mat-icon-button>
       <mat-icon>format_list_numbered</mat-icon>
     </button>
-    <button class="app-action" matTooltip="Převést strany" (click)="showConvertDialog()" mat-icon-button>
+    <button class="app-action" matTooltip="{{ 'editor.children.convertPages' | translate }}" (click)="showConvertDialog()" mat-icon-button>
       <mat-icon>swap_horiz</mat-icon>
     </button>
 

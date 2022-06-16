@@ -216,7 +216,9 @@
     "login": "Log in",
     "logout": "Log out",
     "profile": "Profile",
-    "settings": "Settings"
+    "settings": "Settings",
+    "about": "About",
+    "workflow": "Workflow"
   },
   "editor": {
     "toolbar": {
@@ -271,10 +273,14 @@
       "select_object": "Load the object on right",
       "reorder": "Reorder objects",
       "delete": "Remove selected objects",
+      "add_new": "Add new object",
       "move": "Move to position",
       "relocate": "Relocate within the document",
       "relocate_outside": "Relocate ouside the document",
       "relocate_label": "Relocate",
+      "validate": "Validate",
+      "reindex": "Reindex",
+      "convertPages": "Convert pages",
       "select_all": "Select all objects",
       "deselect_all": "Deselect all objects",
       "multiple_selection": "Multiple selection",
