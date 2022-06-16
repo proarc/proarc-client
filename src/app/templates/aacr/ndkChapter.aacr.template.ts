@@ -482,7 +482,7 @@ export class NdkChapterAacrTemplate {
       }
     },
     part: {
-      usage: 'O',
+      usage: 'RA',
       label: 'Popis části',
       selector: 'part',
       labelKey: 'part',
@@ -493,9 +493,10 @@ export class NdkChapterAacrTemplate {
           label: 'Typ',
           selector: 'part/@type',
           labelKey: 'part/@type',
-          description: `Hodnota bude vždy "volume" `,
+          description: `Hodnota bude "pageNumber" nebo "pageIndex`,
           options: [
-            ['volume', 'volume']
+            ['pageNumber', 'page number'],
+            ['pageIndex', 'page index']
           ]
         },
         extent: {
