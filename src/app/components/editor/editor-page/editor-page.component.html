@@ -25,7 +25,9 @@
 
             <mat-form-field [ngClass]="config.showPageIndex ? 'app-half-right' : 'app-full-width'" [class.app-invalid]="!editor.page.type">
               <span class="app-usage" [class.app-help-off]="true">M</span>
-              <mat-select #typeSelect [placeholder]="'editor.page.type' | translate" name="type" [(value)]="editor.page.type" (keyup.enter)="enterSelect(typeSelect, 'type')">
+              <mat-select #typeSelect [placeholder]="'editor.page.type' | translate" name="type" [(value)]="editor.page.type"
+              (focusout)="removeFocus()"
+               (keyup.enter)="enterSelect(typeSelect, 'type')">
                 <mat-option *ngFor="let pageType of codebook.pageTypes" [value]="pageType.code">{{ pageType.name }}</mat-option>
               </mat-select>
             </mat-form-field> 
@@ -48,14 +50,16 @@
 
             <mat-form-field class="app-half-left" *ngIf="editor.page.isNdkPage()">
               <span class="app-usage" [class.app-help-off]="true">O</span>
-              <mat-select [(ngModel)]='editor.page.position' placeholder="{{ 'editor.page.position' | translate }}" #posSelect (keyup.enter)="enterSelect(posSelect, 'position')">
+              <mat-select [(ngModel)]='editor.page.position' placeholder="{{ 'editor.page.position' | translate }}"
+               #posSelect (keyup.enter)="enterSelect(posSelect, 'position')" (focusout)="removeFocus()">
                 <mat-option *ngFor="let position of positions" [value]="position">{{ 'editor.page.positions.' + position | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
 
             <mat-form-field class="app-half-right" *ngIf="editor.page.isNdkPage()" [class.app-invalid]="!editor.page.genre">
               <span class="app-usage" [class.app-help-off]="true">M</span>
-              <mat-select [(ngModel)]='editor.page.genre' placeholder="{{ 'editor.page.genre' | translate }}" (keyup.enter)="enterSelect(genreSelect, 'genre')" #genreSelect>
+              <mat-select [(ngModel)]='editor.page.genre' placeholder="{{ 'editor.page.genre' | translate }}"
+               (keyup.enter)="enterSelect(genreSelect, 'genre')" (focusout)="removeFocus()" #genreSelect>
                 <mat-option *ngFor="let genre of genres" [value]="genre">{{ 'editor.page.genres.' + genre | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
