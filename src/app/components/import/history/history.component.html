@@ -119,6 +119,10 @@
           <button (click)="onShowLog(batch);$event.preventDefault();$event.stopPropagation()" *ngIf="batch.failure" mat-icon-button color="default" [matTooltip]="'history.show_log' | translate" matTooltipPosition="below">
             <mat-icon>error_outline</mat-icon>
           </button>
+          <button mat-icon-button color="default" [matTooltip]="'history.reingest' | translate" matTooltipPosition="below"
+          (click)="reIngest(batch);$event.preventDefault();$event.stopPropagation()" *ngIf="batch.state === 'INGESTING_FAILED'" >
+            <mat-icon>save_alt</mat-icon>
+          </button>
           <span *ngIf="batch.isLoading()">{{ batchProgress(batch) }}</span>
         </div>
       </div>
