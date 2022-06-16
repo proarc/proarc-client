@@ -64,13 +64,13 @@
   }
 
   .app-result-area {
-    height: 100%;
+    height: calc(100% - 86px);
     background-color: #eee;
   }
   
   .app-tree {
     margin-top: 5px;
-    max-height: calc(50% - 84px) !important;
+    // max-height: calc(50% - 84px) !important;
     overflow: auto;
   }
 

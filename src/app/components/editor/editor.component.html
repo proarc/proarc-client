@@ -89,8 +89,6 @@
           <button mat-button style="float: right;" (click)="editor.onIngest()">Pokračovat</button>
         </div>
 
-
-
         <div class="app-content" *ngIf="editor.mode == 'children'">
           <app-editor-children [items]="editor.children"></app-editor-children>
         </div>
@@ -116,19 +114,12 @@
           <!-- <app-editor-metadata *ngIf="editor.leftEditorType == 'geo'" [pid]="editor.left.pid"></app-editor-metadata> -->
 
         </div>
-
-
       </div>
-
-
-
     </as-split-area>
-
 
     <as-split-area #area2="asSplitArea" [minSize]="20" [size]="getSplitSize(1)">
 
       <div class="app-panel" [class.app-disabled]="editor.isLeftDirty">
-
         <div class="app-toolbar" *ngIf="editor.right && editor.numberOfSelectedChildren() < 2">
           <div class="app-label">
             <div class="app-label-title">{{ editor.right.label }}</div>
@@ -183,9 +174,6 @@
               mat-icon-button matTooltip="{{ 'editor.toolbar.editor_enter_double_right' | translate }}">
               <mat-icon>keyboard_arrow_right</mat-icon>
             </button>
-
-
-
           </div>
 
         </div>

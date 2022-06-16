@@ -28,6 +28,7 @@ import {ModsRecordIdentifier} from './recordIdentifier.model';
 import {ModsExtent} from './extent.model';
 import {ModsTableOfContents} from './tableOfContents';
 import {ModsRelatedItem} from './relatedItem.model';
+import { TranslateService } from '@ngx-translate/core';
 
 export class ElementField {
 
@@ -230,9 +231,10 @@ export class ElementField {
     }
 
 
-    public help() {
+    public help(translator: TranslateService) {
+        const label = translator.instant('mods.' + this.template.labelKey);
         let help = `
-            <h2>${"'mods.' + this.template.labelKey | translate"} <i>${this.template.usage || ''}</i> <code>${this.template.selector || ''}</code></h2>
+            <h2>${label} <i>${this.template.usage || ''}</i> <code>${this.template.selector || ''}</code></h2>
             ${this.template.description || ''}<br/>
         `;
         for (const field of Object.keys(this.template.fields)) {
