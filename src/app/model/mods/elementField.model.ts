@@ -232,14 +232,14 @@ export class ElementField {
 
     public help() {
         let help = `
-            <h2>${this.template.label} <i>${this.template.usage || ''}</i> <code>${this.template.selector || ''}</code></h2>
+            <h2>${"'mods.' + this.template.labelKey | translate"} <i>${this.template.usage || ''}</i> <code>${this.template.selector || ''}</code></h2>
             ${this.template.description || ''}<br/>
         `;
         for (const field of Object.keys(this.template.fields)) {
             const f = this.template.fields[field];
             if (f.help != 'off') {
                 help += `
-                    <h3>${f.label} <i>${f.usage || ''}</i> <code>${f.selector || ''}</code></h3>
+                    <h3>${f.labelKey} <i>${f.usage || ''}</i> <code>${f.selector || ''}</code></h3>
                     ${f.description || ''}`;
             }
 
@@ -254,6 +254,10 @@ export class ElementField {
 
     public label() {
         return this.template.label;
+    }
+
+    public labelKey() {
+        return this.template.labelKey;
     }
 
     public selector() {

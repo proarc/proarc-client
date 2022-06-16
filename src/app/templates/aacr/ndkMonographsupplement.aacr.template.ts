@@ -5,19 +5,22 @@ export class NdkMonographSupplementAacrTemplate {
       usage: 'M',
       label: 'Název',
       selector: 'titleInfo',
+      labelKey: 'titleInfo',
       description: `Názvová informace přílohy<br/>
       Pro plnění použít katalogizační záznam`,
       fields: {
         title: {
-          usage: "M",
+          usage: 'M',
           label: 'Název',
           selector: 'titleInfo/title',
+          labelKey: 'titleInfo/title',
           description: `Názvová informace – název přílohy, pokud je známý`
         },
         nonSort: {
-          usage: "O",
+          usage: 'O',
           label: 'Část vynechaná při hledání',
           selector: 'titleInfo/nonSort',
+          labelKey: 'titleInfo/nonSort',
           description: `Část názvu, která má být vynechána při vyhledávána<br/>
           např.:
           <ul>
@@ -26,33 +29,37 @@ export class NdkMonographSupplementAacrTemplate {
           </ul>`,
         },
         partNumber: {
-          usage: "MA",
+          usage: 'MA',
           label: 'Číslo přílohy',
           selector: 'titleInfo/partNumber',
+          labelKey: 'titleInfo/partNumber',
           cols: 2,
           description: `Číslo přílohy, pokud nějaké má doporučené pokud lze vyplnit`
         },
         partName: {
-          usage: "MA",
+          usage: 'MA',
           label: 'Název přílohy',
           selector: 'titleInfo/partName',
+          labelKey: 'titleInfo/partName',
           cols: 2,
           description: `Vyplnit pouze v případě, pokud dané číslo přílohy má ještě vlastní název`
         }
       }
     },
     name: {
-      usage: "MA",
-      label: "Autor",
+      usage: 'MA',
+      label: 'Autor',
       selector: 'name',
+      labelKey: 'name',
       description: `Údaje o odpovědnosti za přílohu<br/>
       POZOR – údaje o odpovědnosti nutno přebírat z polí 1XX a 7XX MARCu21<br/>
       pokud má monografie autora a ilustrátora, element <name> se opakuje s různými rolemi`,
       fields: {
         type: {
-          usage: "M",
-          label: "Typ",
+          usage: 'M',
+          label: 'Typ',
           selector: 'name/@type',
+          labelKey: 'name/@type',
           cols: 2,
           description: `Použít jednu z hodnot:
           <ul>
@@ -63,46 +70,51 @@ export class NdkMonographSupplementAacrTemplate {
           </ul>`,
           options: [
             ['', '-'],
-            ['personal','Osoba'],
-            ['corporate','Organizace'],
-            ['conference','Konference'],
-            ['family','Rodina']
+            ['personal', 'Osoba'],
+            ['corporate', 'Organizace'],
+            ['conference', 'Konference'],
+            ['family', 'Rodina']
           ]
         },
         name: {
-          usage: "M",
-          label: "Celé jméno",
+          usage: 'M',
+          label: 'Celé jméno',
           selector: 'name/namePart[not(@type)]',
+          labelKey: 'name/namePart[not(@type)]',
           description: `Vyplnit pokud nelze rozlišit křestní jméno a příjmení.`
         },
         given: {
-          usage: "MA",
-          label: "Křestní",
+          usage: 'MA',
+          label: 'Křestní',
           selector: "name/namePart[@type='given']",
+          labelKey: "name/namePart[@type='given']",
           cols: 2,
           description: `Údaje o křestním jméně.<br/>
           V případě více křestních jmen se doporučuje
           uvést je společně ve stejném elementu , např. hodnota "Jan Amos"`
         },
         family: {
-          usage: "MA",
-          label: "Příjmení",
+          usage: 'MA',
+          label: 'Příjmení',
           selector: "name/namePart[@type='family']",
+          labelKey: "name/namePart[@type='family']",
           cols: 2,
           description: `Údaje o příjmení.`
         },
         date: {
-          usage: "RA",
-          label: "Datum",
+          usage: 'RA',
+          label: 'Datum',
           selector: "name/namePart[@type='date']",
+          labelKey: "name/namePart[@type='date']",
           cols: 2,
           description: `Životopisná data autora<br/>
           Pokud známe datum narození a úmrtí autora, vyplnit ve tvaru RRRR-RRRR.`
         },
         termsOfAddress: {
-          usage: "RA",
-          label: "Ostatní související se jménem",
+          usage: 'RA',
+          label: 'Ostatní související se jménem',
           selector: "name/namePart[@type='termsOfAddress']",
+          labelKey: "name/namePart[@type='termsOfAddress']",
           cols: 2,
           description: `Tituly a jiná slova nebo čísla související se jménem.`
         },
@@ -110,28 +122,32 @@ export class NdkMonographSupplementAacrTemplate {
         //   usage: "O",
         //   label: "Napojená instituce",
         //   selector: "name/affiliation",
+        labelKey: 'name/affiliation',
         //   description: `Umožňuje vepsat název instituce, se kterou je autor spojen<br/>
         //   např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.`
         // },
         nameIdentifier: {
-          usage: "MA",
-          label: "Identifikátor autora",
-          selector: "name/nameIdentifier",
+          usage: 'MA',
+          label: 'Identifikátor autora',
+          selector: 'name/nameIdentifier',
+          labelKey: 'name/nameIdentifier',
           description: `Číslo národní autority`,
         },
         etal: {
-          usage: "MA",
-          label: "Etal",
-          selector: "name/etal",
+          usage: 'MA',
+          label: 'Etal',
+          selector: 'name/etal',
+          labelKey: 'name/etal',
           cols: 2,
           description: `Element indikující, že existuje více autorů, než pouze ti, kteří byli uvedeni v <name> elementu.</br>
           V případě užití tohoto elementu je dále top element <name> neopakovatelný.</br>
           <etal> je nutné umístit do samostatného top elementu <name>, ve kterém se nesmí objevit subelementy <namePart> a <nameIdentifier>.`
         },
         role: {
-          usage: "MA",
-          label: "Role",
+          usage: 'MA',
+          label: 'Role',
           selector: 'name/role/roleTerm',
+          labelKey: 'name/role/roleTerm',
           expanded: true,
           description: `Specifikace role osoby nebo organizace<br/>
           Kód role z kontrolovaného slovníku rolí
@@ -141,9 +157,10 @@ export class NdkMonographSupplementAacrTemplate {
       }
     },
     originInfo: {
-      usage: "MA",
-      label: "Původ předlohy",
+      usage: 'MA',
+      label: 'Původ předlohy',
       selector: 'originInfo',
+      labelKey: 'originInfo',
       description: `Informace o původu předlohy: odpovídá poli 260<br/>
       plnit, pokud se liší od údajů v popisu čísla periodika (platí i pro jednotlivé subelementy)<br/>
       Pozn.:<br/>
@@ -155,72 +172,80 @@ export class NdkMonographSupplementAacrTemplate {
       <dateOther> s atributem type="manufacture"`,
       fields: {
         publisher: {
-            usage: "MA",
-            label: "Nakladatel",
-            selector: 'originInfo/publisher',
-            description: `Jméno entity, která přílohu vytvořila, vydala, distribuovala nebo vyrobila, odpovídá poli 260 $b
+          usage: 'MA',
+          label: 'Nakladatel',
+          selector: 'originInfo/publisher',
+          labelKey: 'originInfo/publisher',
+          description: `Jméno entity, která přílohu vytvořila, vydala, distribuovala nebo vyrobila, odpovídá poli 260 $b
             katalogizačního záznamu v MARC21<br/>
             pokud má příloha více vydavatelů/distributorů/výrobců, přebírají se za záznamu všichni (z jednoho pole 260)`
         },
         dateIssued: {
-            usage: "MA",
-            label: "Datum vydání",
-            selector: 'originInfo/dateIssued',
-            cols: 2,
-            description:`Datum vydání přílohy, podle údajů, které jsou k dispozici<br/>
+          usage: 'MA',
+          label: 'Datum vydání',
+          selector: 'originInfo/dateIssued',
+          labelKey: 'originInfo/dateIssued',
+          cols: 2,
+          description: `Datum vydání přílohy, podle údajů, které jsou k dispozici<br/>
             možno použít hodnotu z katalogizačního záznamu>`
         },
         qualifier: {
-            usage: "O",
-            label: "Upřesnění data",
-            selector: 'originInfo/dateIssued/@qualifier',
-            cols: 2,
-            description:`Možnost dalšího upřesnění. Možné hodnoty
+          usage: 'O',
+          label: 'Upřesnění data',
+          selector: 'originInfo/dateIssued/@qualifier',
+          labelKey: 'originInfo/dateIssued/@qualifier',
+          cols: 2,
+          description: `Možnost dalšího upřesnění. Možné hodnoty
             <ul>
               <li>Přibližné (approximate)</li>
               <li>Odvozené (inferred)</li>
               <li>Sporné (questionable)</li>
             </ul>`,
-            options: [
-              ['','-'],
-              ['approximate','Datum je přibližné'],
-              ['inferred','Datum je odvozené'],
-              ['questionable','Datum je sporné']
-            ]
+          options: [
+            ['', '-'],
+            ['approximate', 'Datum je přibližné'],
+            ['inferred', 'Datum je odvozené'],
+            ['questionable', 'Datum je sporné']
+          ]
         },
         place: {
-            usage: "MA",
-            label: "Místo",
-            selector: 'originInfo/place/placeTerm',
-            cols: 2,
-            description:`Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisované přílohy odpovídá hodnotě 260 $a`
+          usage: 'MA',
+          label: 'Místo',
+          selector: 'originInfo/place/placeTerm',
+          labelKey: 'originInfo/place/placeTerm',
+          cols: 2,
+          description: `Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisované přílohy odpovídá hodnotě 260 $a`
         },
         dateCreated: {
-          usage: "R",
-          label: "Datum vytvoření",
+          usage: 'R',
+          label: 'Datum vytvoření',
           selector: 'originInfo/dateCreated',
+          labelKey: 'originInfo/dateCreated',
           cols: 2,
-          description:`Datum vytvoření přílohy<br/>
+          description: `Datum vytvoření přílohy<br/>
           bude použito pouze při popisu tiskaře, viz poznámka u <strong>Nakladatel</strong> nebo např. u popisu CD/DVD apod.<br/>
           odpovídá hodnotě z katalogizačního záznamu, pole 260 $g`
         },
         frequency: {
-          usage: "R",
-          label: "Frekvence",
+          usage: 'R',
+          label: 'Frekvence',
           selector: 'originInfo/frequency',
+          labelKey: 'originInfo/frequency',
           description: `údaje o pravidelnosti vydávání
           odpovídá údaji MARC21 v poli 310 nebo pozici 18 v poli 008`,
           fields: {
             authority: {
-              usage: "R",
-              label: "Autorita",
+              usage: 'R',
+              label: 'Autorita',
               selector: 'originInfo/frequency/@authority',
-              options: [["marcfrequency", "marcfrequency"]]
+              labelKey: 'originInfo/frequency/@authority',
+              options: [['marcfrequency', 'marcfrequency']]
             },
             value: {
-              label: "Hodnota",
-              usage: "M",
+              label: 'Hodnota',
+              usage: 'M',
               selector: 'originInfo/frequency',
+              labelKey: 'originInfo/frequency',
               help: 'off'
             }
           }
@@ -228,115 +253,130 @@ export class NdkMonographSupplementAacrTemplate {
       }
     },
     subject: {
-      usage: "R",
-      label: "Věcné třídění",
+      usage: 'R',
+      label: 'Věcné třídění',
       selector: 'subject',
+      labelKey: 'subject',
       description: `Údaje o věcném třídění`,
       fields: {
         authority: {
-          usage: "R",
-          label: "Autorita",
+          usage: 'R',
+          label: 'Autorita',
           selector: 'subject/@authority',
+          labelKey: 'subject/@authority',
           description: `Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>
           Odpovídá hodnotě v $2`,
           options: [
             ['', '-'],
-            ['czenas','czenas'],
-            ['eczenas','eczenas'],
-            ['mednas','mednas'],
-            ['czmesh','czmesh'],
-            ['msvkth','msvkth'],
-            ['agrovoc','agrovoc']
+            ['czenas', 'czenas'],
+            ['eczenas', 'eczenas'],
+            ['mednas', 'mednas'],
+            ['czmesh', 'czmesh'],
+            ['msvkth', 'msvkth'],
+            ['agrovoc', 'agrovoc']
           ]
         },
         topic: {
-          usage: "MA",
-          label: "Klíčové slovo/Předmětové heslo",
+          usage: 'MA',
+          label: 'Klíčové slovo/Předmětové heslo',
           selector: 'subject/topic',
+          labelKey: 'subject/topic',
           description: `Libovolný výraz specifikující nebo charakterizující obsah svazku monografie<br/>
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21`
         },
         geographic: {
-          usage: "R",
-          label: "Geografické věcné třídění",
+          usage: 'R',
+          label: 'Geografické věcné třídění',
           selector: 'subject/geographic',
+          labelKey: 'subject/geographic',
           description: `Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21`
         },
         temporal: {
-          usage: "R",
-          label: "Chronologické věcné třídění",
+          usage: 'R',
+          label: 'Chronologické věcné třídění',
           selector: 'subject/temporal',
+          labelKey: 'subject/temporal',
           description: `Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21`
         },
         name: {
-          usage: "R",
-          label: "Jméno použité jako věcné záhlaví",
+          usage: 'R',
+          label: 'Jméno použité jako věcné záhlaví',
           selector: 'subject/name',
+          labelKey: 'subject/name',
           description: `Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21<br/>
           Struktura a atributy stejné jako pro údaje o původcích – viz element <name>`
         },
       }
     },
     language: {
-      usage: "M",
-      label: "Jazyk",
+      usage: 'M',
+      label: 'Jazyk',
       selector: 'language',
+      labelKey: 'language',
       description: `Údaje o jazyce dokumentu`,
       fields: {
         language: {
-          usage: "M",
-          label: "Jazyk",
+          usage: 'M',
+          label: 'Jazyk',
           selector: 'language/languageTerm',
+          labelKey: 'language/languageTerm',
           description: `Přesné určení jazyka`
         }
       }
     },
     abstract: {
-      usage: "RA",
-      label: "Abstrakt",
-      selector: "abstract",
+      usage: 'RA',
+      label: 'Abstrakt',
+      selector: 'abstract',
+      labelKey: 'abstract',
       description: `Shrnutí obsahu jako celku odpovídá poli 520 MARC21`,
       fields: {
         abstract: {
-          usage: "RA",
-          label: "Abstrakt",
-          selector: "abstract",
-          help: "off"
+          usage: 'RA',
+          label: 'Abstrakt',
+          selector: 'abstract',
+          labelKey: 'abstract/value',
+          help: 'off'
         }
       }
     },
     physicalDescription: {
-      usage: "M",
-      label: "Fyzický popis",
-      selector: "physicalDescription",
+      usage: 'M',
+      label: 'Fyzický popis',
+      selector: 'physicalDescription',
+      labelKey: 'physicalDescription',
       description: `Obsahuje údaje o fyzickém popisu zdroje/předlohy`,
       fields: {
         extent: {
-          usage: "RA",
-          label: "Rozsah",
-          selector: "physicalDescription/extent",
+          usage: 'RA',
+          label: 'Rozsah',
+          selector: 'physicalDescription/extent',
+          labelKey: 'physicalDescription/extent',
           description: `Údaje o rozsahu (stran, svazků nebo rozměrů)<br/>
           odpovídá hodnotě v poli 300, $a, $b a $c<br/>
           počet stránek bude vyjádřen ve fyzické strukturální mapě`,
         },
         note: {
-          usage: "RA",
-          label: "Poznámka",
-          selector: "physicalDescription/note",
+          usage: 'RA',
+          label: 'Poznámka',
+          selector: 'physicalDescription/note',
+          labelKey: 'physicalDescription/note',
           description: `Poznámka o fyzickém stavu dokumentu`,
         },
         form: {
-          usage: "M",
-          label: "Forma",
-          selector: "physicalDescription/form",
+          usage: 'M',
+          label: 'Forma',
+          selector: 'physicalDescription/form',
+          labelKey: 'physicalDescription/form',
           description: `Údaje o fyzické podobě dokumentu, např. print, electronic, microfilm apod.<br/>
           odpovídá hodnotě v poli 008/23<br/>
           Údaje o typu média a typu nosiče zdroje/předlohy odpovídá hodnotám z pole 008 MARC 21`,
           fields: {
             authority: {
-              usage: "MA",
-              label: "Autorita",
-              selector: "physicalDescription/form/@authority",
+              usage: 'MA',
+              label: 'Autorita',
+              selector: 'physicalDescription/form/@authority',
+              labelKey: 'physicalDescription/form/@authority',
               cols: 2,
               description: `Možné hodnoty
               <ul>
@@ -350,56 +390,66 @@ export class NdkMonographSupplementAacrTemplate {
                 ['marccategory', 'marccategory'],
                 ['marcsmd', 'marcsmd'],
                 ['gmd', 'gmd']
-                ]
+              ]
             },
             value: {
-              usage: "M",
-              label: "Hodnota",
-              help: "off"
+              usage: 'M',
+              selector: 'physicalDescription/form/value',
+              labelKey: 'physicalDescription/form/value',
+              label: 'Hodnota',
+              help: 'off'
             }
           }
         }
       }
     },
     note: {
-      usage: "RA",
-      label: "Poznámka",
-      selector: "note",
+      usage: 'RA',
+      label: 'Poznámka',
+      selector: 'note',
+      labelKey: 'note',
       description: `Obecná poznámka k dokumentu<br/>
       odpovídá poli 500 v MARC21`,
       fields: {
         note: {
-          usage: "RA",
-          label: "Poznámka",
-          help: "off"
+          usage: 'RA',
+          selector: 'note/value',
+          labelKey: 'note/value',
+          label: 'Poznámka',
+          help: 'off'
         }
       }
     },
     genre: {
-      usage: "M",
-      label: "Žánr",
-      selector: "genre",
+      usage: 'M',
+      label: 'Žánr',
+      selector: 'genre',
+      labelKey: 'genre',
       description: `Bližší údaje o typu dokumentu<br/>
       hodnota <strong>supplement</strong>`,
       fields: {
         value: {
-          usage: "M",
-          label: "Hodnota",
-          help: "off"
+          usage: 'M',
+          selector: 'genre/value',
+          labelKey: 'genre/value',
+          label: 'Hodnota',
+          help: 'off'
         }
       }
     },
     identifier: {
-      usage: "M",
-      label: "Identifikátor",
-      selector: "identifier",
+      usage: 'M',
+      label: 'Identifikátor',
+      selector: 'identifier',
+      labelKey: 'identifier',
       description: `Údaje o identifikátorech, obsahuje unikátní
       identifikátory mezinárodní nebo lokální, které svazek monografie má.`,
       fields: {
         type: {
-          usage: "M",
-          label: "Typ",
-          selector: "identifier/@type",
+          usage: 'M',
+          label: 'Typ',
+          selector: 'identifier/@type',
+          labelKey: 'identifier/@type',
           cols: 2,
           description: `Budou se povinně vyplňovat následující
           hodnoty, pokud existují:
@@ -432,9 +482,10 @@ export class NdkMonographSupplementAacrTemplate {
             Jiný interní identifikátor <i>R</i>, např. barcode, oclc, sysno, permalink`
         },
         validity: {
-          usage: "MA",
-          label: "Platnost",
-          selector: "dentifier/@invalid",
+          usage: 'MA',
+          label: 'Platnost',
+          selector: 'identifier/@invalid',
+          labelKey: 'identifier/@invalid',
           cols: 2,
           description: `Uvádějí se i neplatné resp. zrušené identifikátory
           <ul>
@@ -447,23 +498,27 @@ export class NdkMonographSupplementAacrTemplate {
           </ul>`
         },
         value: {
-          usage: "M",
-          label: "Hodnota",
-          help: "off"
+          usage: 'M',
+          selector: 'identifier/value',
+          labelKey: 'identifier/value',
+          label: 'Hodnota',
+          help: 'off'
         }
       }
     },
     classification: {
-      usage: "R",
-      label: "Klasifikace",
-      selector: "identifier",
+      usage: 'R',
+      label: 'Klasifikace',
+      selector: 'identifier',
+      labelKey: 'identifier',
       description: `Klasifikační údaje věcného třídění podle Mezinárodního desetinného třídění <br/>
       odpovídá poli 080 MARC21.`,
       fields: {
         authority: {
-          usage: "M",
-          label: "Autorita",
-          selector: "classification/@authority",
+          usage: 'M',
+          label: 'Autorita',
+          selector: 'classification/@authority',
+          labelKey: 'classification/@authority',
           cols: 2,
           description: `
           <ul>
@@ -472,20 +527,23 @@ export class NdkMonographSupplementAacrTemplate {
             </li>
           </ul>`,
           options: [
-            ['udc','udc']
+            ['udc', 'udc']
           ]
         },
         value: {
-          usage: "M",
-          label: "Hodnota",
-          help: "off"
+          usage: 'M',
+          selector: 'classification/value',
+          labelKey: 'classification/value',
+          label: 'Hodnota',
+          help: 'off'
         }
       }
     },
     typeOfResource: {
-      usage: "R",
-      label: "Typ zdroje",
-      selector: "typeOfResource",
+      usage: 'R',
+      label: 'Typ zdroje',
+      selector: 'typeOfResource',
+      labelKey: 'typeOfResource',
       description: `Popis charakteristiky typu nebo obsahu přílohy jedna z hodnot:<br/>
       <ul>
         <li>text (např. pro přílohu typu časopis, kniha, brožura apod.)</li>
@@ -502,37 +560,41 @@ export class NdkMonographSupplementAacrTemplate {
       </ul>`,
       fields: {
         value: {
-          usage: "R",
-          label: "Typ zdroje",
-          help: "off",
+          usage: 'R',
+          selector: 'typeOfResource/value',
+          labelKey: 'typeOfResource/value',
+          label: 'Typ zdroje',
+          help: 'off',
           options: [
-            ['','-'],
-            ['text','text'],
-            ['cartographic','cartographic'],
-            ['notated music','notated music'],
-            ['sound recording-musical','sound recording-musical'],
-            ['sound recording-nonmusical','sound recording-nonmusical'],
-            ['sound recording','sound recording'],
-            ['still image','still image'],
-            ['moving image','moving image'],
-            ['three dimensional object','three dimensional object'],
-            ['software, multimedia','software, multimedia'],
-            ['mixed material','mixed material']
+            ['', '-'],
+            ['text', 'text'],
+            ['cartographic', 'cartographic'],
+            ['notated music', 'notated music'],
+            ['sound recording-musical', 'sound recording-musical'],
+            ['sound recording-nonmusical', 'sound recording-nonmusical'],
+            ['sound recording', 'sound recording'],
+            ['still image', 'still image'],
+            ['moving image', 'moving image'],
+            ['three dimensional object', 'three dimensional object'],
+            ['software, multimedia', 'software, multimedia'],
+            ['mixed material', 'mixed material']
           ]
         }
       }
     },
     recordInfo: {
-      usage: "M",
+      usage: 'M',
       label: 'Údaje o metadatovém záznamu',
       selector: 'recordInfo',
+      labelKey: 'recordInfo',
       description: `údaje o metadatovém záznamu – jeho vzniku, změnách apod.`,
       fields: {
         descriptionStandard: {
-          usage: "MA",
-          label: "Standard metadat",
+          usage: 'MA',
+          label: 'Standard metadat',
           cols: 2,
           selector: 'recordInfo/descriptionStandard',
+          labelKey: 'recordInfo/descriptionStandard',
           description: `Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>
             Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"`,
           options: [
@@ -541,23 +603,26 @@ export class NdkMonographSupplementAacrTemplate {
           ]
         },
         recordContentSource: {
-          usage: "R",
-          label: "Content source",
+          usage: 'R',
+          label: 'Content source',
           selector: 'recordInfo/recordContentSource',
+          labelKey: 'recordInfo/recordContentSource',
           description: `Kód nebo jméno instituce, která záznam vytvořila nebo změnila`,
           fields: {
             value: {
-              usage: "R",
-              label: "Content source",
+              usage: 'R',
+              label: 'Content source',
               cols: 2,
-              selector: "recordInfo/recordContentSource",
-              help: "off"
+              selector: 'recordInfo/recordContentSource',
+              labelKey: 'recordInfo/recordContentSource',
+              help: 'off'
             },
             authority: {
-              usage: "R",
-              label: "Autorita",
+              usage: 'R',
+              label: 'Autorita',
               cols: 2,
-              selector: "recordInfo/recordContentSource/@authority",
+              selector: 'recordInfo/recordContentSource/@authority',
+              labelKey: 'recordInfo/recordContentSource/@authority',
               description: `authority – hodnota "marcorg"`,
               options: [
                 ['marcorg', 'marcorg']
@@ -566,23 +631,26 @@ export class NdkMonographSupplementAacrTemplate {
           }
         },
         recordCreationDate: {
-          usage: "M",
-          label: "Datum vytvoření",
+          usage: 'M',
+          label: 'Datum vytvoření',
           selector: 'recordInfo/recordCreationDate',
+          labelKey: 'recordInfo/recordCreationDate',
           description: `datum prvního vytvoření záznamu, na úroveň minut`,
           fields: {
             value: {
-              usage: "M",
-              label: "Datum vytvoření",
+              usage: 'M',
+              label: 'Datum vytvoření',
               cols: 2,
-              selector: "recordInfo/recordCreationDate",
-              help: "off"
+              selector: 'recordInfo/recordCreationDate',
+              labelKey: 'recordInfo/recordCreationDate',
+              help: 'off'
             },
             encoding: {
-              usage: "M",
-              label: "Kódování",
+              usage: 'M',
+              label: 'Kódování',
               cols: 2,
-              selector: "recordInfo/recordCreationDate/@encoding",
+              selector: 'recordInfo/recordCreationDate/@encoding',
+              labelKey: 'recordInfo/recordCreationDate/@encoding',
               description: `Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"`,
               options: [
                 ['iso8601', 'iso8601']
@@ -591,23 +659,26 @@ export class NdkMonographSupplementAacrTemplate {
           }
         },
         recordChangeDate: {
-          usage: "MA",
-          label: "Datum změny",
+          usage: 'MA',
+          label: 'Datum změny',
           selector: 'recordInfo/recordChangeDate',
+          labelKey: 'recordInfo/recordChangeDate',
           description: `datum změny záznamu `,
           fields: {
             value: {
-              usage: "MA",
-              label: "Datum změny",
+              usage: 'MA',
+              label: 'Datum změny',
               cols: 2,
-              selector: "recordInfo/recordChangeDate",
-              help: "off"
+              selector: 'recordInfo/recordChangeDate',
+              labelKey: 'recordInfo/recordChangeDate',
+              help: 'off'
             },
             encoding: {
-              usage: "M",
-              label: "Kódování",
+              usage: 'M',
+              label: 'Kódování',
               cols: 2,
-              selector: "recordInfo/recordChangeDate/@encoding",
+              selector: 'recordInfo/recordChangeDate/@encoding',
+              labelKey: 'recordInfo/recordChangeDate/@encoding',
               description: `Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"`,
               options: [
                 ['iso8601', 'iso8601']
@@ -616,32 +687,36 @@ export class NdkMonographSupplementAacrTemplate {
           }
         },
         recordIdentifier: {
-          usage: "R",
-          label: "Identifikátor záznamu",
+          usage: 'R',
+          label: 'Identifikátor záznamu',
           selector: 'recordInfo/recordIdentifier',
+          labelKey: 'recordInfo/recordIdentifier',
           description: `identifikátor záznamu v katalogu, přebírá se z pole 001`,
           fields: {
             value: {
-              usage: "MA",
-              label: "Identifikátor záznamu",
+              usage: 'MA',
+              label: 'Identifikátor záznamu',
               cols: 2,
-              selector: "recordInfo/recordIdentifier",
-              help: "off"
+              selector: 'recordInfo/recordIdentifier',
+              labelKey: 'recordInfo/recordIdentifier',
+              help: 'off'
             },
             source: {
-              usage: "R",
-              label: "Zdroj",
+              usage: 'R',
+              label: 'Zdroj',
               cols: 2,
-              selector: "recordInfo/recordIdentifier/@source",
+              selector: 'recordInfo/recordIdentifier/@source',
+              labelKey: 'recordInfo/recordIdentifier/@source',
               description: `hodnota se přebírá z katalogu pole 003 `
             }
           }
         },
         recordOrigin: {
-          usage: "R",
-          label: "Údaje o vzniku záznamu",
+          usage: 'R',
+          label: 'Údaje o vzniku záznamu',
           cols: 2,
           selector: 'recordInfo/recordOrigin',
+          labelKey: 'recordInfo/recordOrigin',
           description: `údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"`,
           options: [
             ['machine generated', 'machine generated'],
@@ -649,30 +724,34 @@ export class NdkMonographSupplementAacrTemplate {
           ]
         },
         languageOfCataloging: {
-          usage: "R",
-          label: "Jazyk záznamu",
+          usage: 'R',
+          label: 'Jazyk záznamu',
           selector: 'recordInfo/languageOfCataloging',
+          labelKey: 'recordInfo/languageOfCataloging',
           description: `jazyk katalogového záznamu`,
           fields: {
             languageOfCataloging: {
-              usage: "R",
-              label: "Jazyk záznamu",
+              usage: 'R',
+              label: 'Jazyk záznamu',
               cols: 2,
-              selector: "recordInfo/languageOfCataloging",
-              help: "off"
+              selector: 'recordInfo/languageOfCataloging',
+              labelKey: 'recordInfo/languageOfCataloging',
+              help: 'off'
             },
             languageTerm: {
-              usage: "R",
-              label: "Zdroj",
+              usage: 'R',
+              label: 'Zdroj',
               cols: 2,
-              selector: "recordInfo/languageOfCataloging/languageTerm",
+              selector: 'recordInfo/languageOfCataloging/languageTerm',
+              labelKey: 'recordInfo/languageOfCataloging/languageTerm',
               description: `přebírá se z katalogu - pole 40 $b`
             },
             authority: {
-              usage: "R",
-              label: "Autorita",
+              usage: 'R',
+              label: 'Autorita',
               cols: 2,
-              selector: "recordInfo/languageOfCataloging/languageTerm/@authority",
+              selector: 'recordInfo/languageOfCataloging/languageTerm/@authority',
+              labelKey: 'recordInfo/languageOfCataloging/languageTerm/@authority',
               description: `authority – hodnota "iso639-2b"`,
               options: [
                 ['iso639-2b', 'iso639-2b']
@@ -682,5 +761,5 @@ export class NdkMonographSupplementAacrTemplate {
         },
       }
     }
-  }
+  };
 }

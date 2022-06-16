@@ -71,6 +71,9 @@ export abstract class ModsElement {
         return this.fieldValue(field, 'label');
     }
 
+    public labelKey(field: string): string {
+        return this.fieldValue(field, 'labelKey');
+    }
 
     public selector(field: string): string {
         return this.fieldValue(field, 'selector');
@@ -83,7 +86,7 @@ export abstract class ModsElement {
     public help(field: string): string {
         const description = this.fieldValue(field, 'description');
         const selector = this.fieldValue(field, 'selector');
-        return `<h3>${this.label(field) } <i>${this.usage(field) || ''}</i> <code>${selector || ''}</code></h3>
+        return `<h3>${"'mods.' + item.labelKey(field) | translate"} <i>${this.usage(field) || ''}</i> <code>${selector || ''}</code></h3>
         ${description || '' }`;
     }
 
