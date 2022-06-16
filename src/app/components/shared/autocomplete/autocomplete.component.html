@@ -4,7 +4,7 @@
   <input matInput [required]="item.isMandatory(field)" [formControl]="item.getControl(field)" [(ngModel)]='value' (ngModelChange)="valueChange.emit(value)" [placeholder]="'mods.' + item.labelKey(field) | translate" [matAutocomplete]="auto">
   <mat-autocomplete #auto="matAutocomplete">
     <mat-option *ngFor="let option of filteredOptions | async" [value]="option[0]">
-      {{ 'mods.option.' + option[0] | translate }}
+      {{ option[1]}}
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>
