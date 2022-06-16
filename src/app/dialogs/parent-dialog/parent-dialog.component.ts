@@ -15,7 +15,7 @@ import { SearchService } from 'src/app/services/search.service';
   styleUrls: ['./parent-dialog.component.scss']
 })
 export class ParentDialogComponent implements OnInit {
-  
+
   @ViewChild('scroll') scroll: ElementRef;
 
   state = 'none';
@@ -47,9 +47,12 @@ export class ParentDialogComponent implements OnInit {
   resultCount = 0;
 
   hierarchy: DocumentItem[];
-  
+
   tree: Tree;
   expandedPath: string[] = [];
+  
+  splitArea1Width: string;
+  splitArea2Width: string;
 
   constructor(
     public dialogRef: MatDialogRef<ParentDialogComponent>,
@@ -57,9 +60,9 @@ export class ParentDialogComponent implements OnInit {
     public search: SearchService,
     private config: ConfigService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private api: ApiService) { 
-      this.models = this.config.allModels;
-    }
+    private api: ApiService) {
+    this.models = this.config.allModels;
+  }
 
   ngOnInit() {
     this.model = this.properties.getStringProperty('parent.model', this.config.defaultModel);
@@ -137,7 +140,7 @@ export class ParentDialogComponent implements OnInit {
       page: this.pageIndex,
       sortField: this.sortField,
       sortAsc: this.sortAsc,
-      
+
       organization: this.organization,
       queryLabel: this.queryLabel,
       queryIdentifier: this.queryIdentifier,
@@ -158,13 +161,13 @@ export class ParentDialogComponent implements OnInit {
           if (item) {
 
             this.selectItem(item);
-            setTimeout(()=>{
-              document.getElementById(root).scrollIntoView(); 
+            setTimeout(() => {
+              document.getElementById(root).scrollIntoView();
               // this.search.selectedTreePid = this.expandedPath[0];
             }, 550);
 
           }
-          
+
         }
       }
     });
@@ -182,7 +185,7 @@ export class ParentDialogComponent implements OnInit {
 
   setExpandedPath(tree: Tree) {
     this.expandedPath.push(tree.item.pid);
-    if(tree.parent) {
+    if (tree.parent) {
       this.setExpandedPath(tree.parent);
     }
   }
@@ -200,19 +203,19 @@ export class ParentDialogComponent implements OnInit {
     } else {
       this.expandedPath = [this.selectedItem.pid]
     }
-    
-    this.dialogRef.close({pid: this.selectedItem.pid, selectedItem: this.selectedItem, selectedTree: this.selectedTree, expandedPath: this.expandedPath});
+
+    this.dialogRef.close({ pid: this.selectedItem.pid, selectedItem: this.selectedItem, selectedTree: this.selectedTree, expandedPath: this.expandedPath });
   }
 
   deleteParent() {
-    this.dialogRef.close({delete: true});
+    this.dialogRef.close({ delete: true });
   }
 
   selectItem(item: DocumentItem) {
     this.selectedItem = item;
     this.search.selectedTreePid = item.pid;
     this.tree = new Tree(item);
-    
+
   }
 
   open(item: DocumentItem, index: number = -1) {
@@ -239,6 +242,20 @@ export class ParentDialogComponent implements OnInit {
   selectFromTree(tree: Tree) {
     this.selectedTree = tree;
     this.selectedItem = tree.item;
+  }
+
+  dragEnd(sizes: any) {
+    this.splitArea1Width = sizes[0];
+    this.splitArea2Width = sizes[1];
+    this.properties.setStringProperty('search.split.0', String(sizes[0]));
+    this.properties.setStringProperty('search.split.1', String(sizes[1]));
+  }
+
+  getSplitSize(split: number): number {
+    if (split == 0) {
+      return parseInt(this.splitArea1Width);
+    }
+    return parseInt(this.splitArea2Width);
   }
 
 }
