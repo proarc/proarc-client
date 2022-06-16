@@ -314,6 +314,12 @@
         "message": "Are you sure you want to remove selected objects",
         "permanently": "Remove permanently",
         "success": "Objects have been removed"
+      },
+      "delete_parent_dialog": {
+        "button": "Remove relation",
+        "button_tooltip": "Remove relation to current parent",
+        "title": "Remove relation to parent",
+        "message": "Are you sure you want to remove relation to parent?"
       }
     },
     "mods": {

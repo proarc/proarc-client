@@ -473,14 +473,6 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     if (this.properties.getStringProperty('parent.expandedPath')) {
       this.expandedPath = JSON.parse(this.properties.getStringProperty('parent.expandedPath'));
     }
-    
-    // if (this.properties.getStringProperty('parent.lastSelectedParent')) {
-    //   this.lastSelectedParent = JSON.parse(this.properties.getStringProperty('parent.lastSelectedParent'));
-    // }
-    
-    // if (this.properties.getStringProperty('parent.lastSelectedTree')) {
-    //   this.lastSelectedTree = JSON.parse(this.properties.getStringProperty('parent.lastSelectedTree'));
-    // }
 
     const dialogRef = this.dialog.open(ParentDialogComponent, { 
       data: { 
@@ -498,7 +490,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
         
         this.relocateOutside(items, result.pid);
       } else if(result && result.delete) {
-        this.deleteParent(this.editor.parent.pid);
+        this.deleteParent(parent.pid);
       }
     });
   }

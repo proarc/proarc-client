@@ -8,6 +8,7 @@ import { ConfigService } from 'src/app/services/config.service';
 import { User } from 'src/app/model/user.model';
 import { Tree } from 'src/app/model/mods/tree.model';
 import { SearchService } from 'src/app/services/search.service';
+import { SplitComponent, SplitAreaDirective } from 'angular-split';
 
 @Component({
   selector: 'app-parent-dialog',
@@ -17,6 +18,12 @@ import { SearchService } from 'src/app/services/search.service';
 export class ParentDialogComponent implements OnInit {
 
   @ViewChild('scroll') scroll: ElementRef;
+
+  @ViewChild('split') split: SplitComponent;
+  @ViewChild('area1') area1: SplitAreaDirective;
+  @ViewChild('area2') area2: SplitAreaDirective;
+  splitArea1Width: string;
+  splitArea2Width: string;
 
   state = 'none';
   items: DocumentItem[];
@@ -50,9 +57,6 @@ export class ParentDialogComponent implements OnInit {
 
   tree: Tree;
   expandedPath: string[] = [];
-  
-  splitArea1Width: string;
-  splitArea2Width: string;
 
   constructor(
     public dialogRef: MatDialogRef<ParentDialogComponent>,
@@ -65,6 +69,8 @@ export class ParentDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.splitArea1Width = this.properties.getStringProperty('parent.split.0', "60"),
+    this.splitArea2Width = this.properties.getStringProperty('parent.split.1', "40"),
     this.model = this.properties.getStringProperty('parent.model', this.config.defaultModel);
     this.queryField = this.properties.getStringProperty('parent.query_field', 'queryLabel');
 
@@ -173,16 +179,6 @@ export class ParentDialogComponent implements OnInit {
     });
   }
 
-  // getParentByLevel(tree: Tree, level: number): string {
-  //   if (tree.level === level) {
-  //       return tree.item.pid;
-  //   } else if (!tree.parent) {
-  //       return undefined;
-  //   } else {
-  //       return this.getParentByLevel(tree.parent, level);
-  //   }
-  // }
-
   setExpandedPath(tree: Tree) {
     this.expandedPath.push(tree.item.pid);
     if (tree.parent) {
@@ -244,11 +240,11 @@ export class ParentDialogComponent implements OnInit {
     this.selectedItem = tree.item;
   }
 
-  dragEnd(sizes: any) {
-    this.splitArea1Width = sizes[0];
-    this.splitArea2Width = sizes[1];
-    this.properties.setStringProperty('search.split.0', String(sizes[0]));
-    this.properties.setStringProperty('search.split.1', String(sizes[1]));
+  dragEnd(e: any) {
+    this.splitArea1Width = e.sizes[0];
+    this.splitArea2Width = e.sizes[1];
+    this.properties.setStringProperty('parent.split.0', e.sizes[0]);
+    this.properties.setStringProperty('parent.split.1', e.sizes[1]);
   }
 
   getSplitSize(split: number): number {

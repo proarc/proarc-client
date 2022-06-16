@@ -103,11 +103,11 @@ export class SearchComponent implements OnInit {
   }
 
 
-  dragEnd(sizes: any) {
-      this.splitArea1Width = sizes[0];
-      this.splitArea2Width = sizes[1];
-      this.properties.setStringProperty('search.split.0', String(sizes[0]));
-      this.properties.setStringProperty('search.split.1', String(sizes[1]));
+  dragEnd(e: any) {
+      this.splitArea1Width = e.sizes[0];
+      this.splitArea2Width = e.sizes[1];
+      this.properties.setStringProperty('search.split.0', String(e.sizes[0]));
+      this.properties.setStringProperty('search.split.1', String(e.sizes[1]));
   }
 
   getSplitSize(split: number): number {
