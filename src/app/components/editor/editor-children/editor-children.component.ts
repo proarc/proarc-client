@@ -224,9 +224,6 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
       let firstIndex = this.editor.children.findIndex(i => i.selected === true);
       let lastIndex = this.editor.children.length - this.editor.children.slice().reverse().findIndex(i => i.selected === true) - 1;
       this.editor.children.map(i => i.selected = false);
-      // let index = Math.min(this.lastIndex, itemIndex);
-      // let index = Math.max(firstIndex, 0);
-      // let i2 = Math.max(this.lastIndex, itemIndex);
       let index = this.lastIndex;
       if (event.ctrlKey) {
         if (itemIndex < index) {

@@ -287,6 +287,12 @@
       "single_selection": "Single selection",
       "multiple_selection_label": "Multiple selection",
       "multiple_selection_count": "{{count == 0 ? 'No object selected' : (count == 1 ? '1 object' : count + ' objects') }}",
+      "multiple_selection_count0": "No object selected",
+      "multiple_selection_count1": "1 object",
+      "multiple_selection_count4": "{{count}} objects",
+      "multiple_selection_count5": "{{count}} objects",
+      "select_columns": "Columns selection",
+
       "move_dialog": {
         "title": "Move to position",
         "message": "Choose a new position to move the selected object within the parent object",
@@ -309,6 +315,66 @@
         "permanently": "Remove permanently",
         "success": "Objects have been removed"
       }
+    },
+    "mods": {
+      "realtime_on": "Realtime",
+      "realtime_off": "Last saved version",
+      "refresh": "Refresh"
+    },
+    "song": {
+      "title": "Song title",
+      "index": "Index",
+      "number": "Number",
+      "identifier": "Indentifier",
+      "note": "Note",
+      "add_identifier": "Add identifier"
+    },
+    "page": {
+      "title": "Page title",
+      "index": "Index",
+      "number": "Page number",
+      "position": "Position",
+      "genre": "Genre",
+      "type": "Type",
+      "identifier": "Indentifier",
+      "note": "Note",
+      "add_identifier": "Add identifier",
+      "positions": {
+        "left": "Left",
+        "right": "Right",
+        "singlePage": "Single page"
+      },
+      "genres": {
+        "page": "No",
+        "reprePage": "Yes"
+      }
+    },
+    "pages": {
+      "title": "Multiple pages edition",
+      "edit_page_type": "Edit page types",
+      "edit_page_index": "Edit page indexes",
+      "edit_page_number": "Edit page numbers",
+      "edit_page_position": "Edit page positions",
+      "page_type": "Page type",
+      "index_from": "Index from number",
+      "number_from": "Number from",
+      "number_increment": "Increment",
+      "number_prefix": "Prefix",
+      "number_suffix": "Suffix",
+      "number_numbering": "Numerical series",
+      "number_example": "Example",
+      "apply": "Apply to",
+      "apply_to": "Every {{ num > 1 ? num + '.' : ''}} page",
+      "apply_to0": "Each page",
+      "apply_to2": "Every {{ num }}. page",
+      "apply_to_first": "Include first",
+      "doubleColumns": "Columns numbering",
+      "page_position": "Page position",
+      "page_position_left": "left",
+      "page_position_right": "right",
+      "page_position_singlePage": "single page",
+      "page_position_right_left": "alternation right-left-right..." ,
+      "page_position_left_right": "alternation left-right-left..."
     },
     "metadata": {
       "editor_title": "Metadata",
@@ -429,9 +495,13 @@
       "language": "Language"
     },
     "identifier": {
-      "tab": "Identifier",
-      "identifier": "Identifier",
-      "type": "Type"
+      "title": "Identifier",
+      "type": "Type",
+      "value": "Value",
+      "invalid": "Invalid",
+      "valid": "Valid",
+      "validity": "Validity",
+      "tab": "Identifier"
     },
     "note": {
       "tab": "Note",
