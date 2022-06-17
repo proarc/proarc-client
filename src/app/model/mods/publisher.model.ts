@@ -88,26 +88,26 @@ export class ModsPublisher extends ModsElement {
                     qualifier = this.dateTo['$']['qualifier'];
                 }
             }
-            this.dateIssued = ModsUtils.createTextElement(dateText, {qualifier: qualifier, encoding: 'w3cdtf'});
+            this.dateIssued = ModsUtils.createTextElement(dateText, {qualifier: qualifier, encoding: ''});
             dates.push(this.dateIssued);
         }
         if (!this.dateIssued['$']) {
             this.dateIssued['$'] = {
                 qualifier: '',
-                encoding: 'w3cdtf'
+                encoding: ''
             };
         }
         if (!this.dateIssued['$']['qualifier']) {
             this.dateIssued['$']['qualifier'] = '';
         }
         if (!this.dateIssued['$']['encoding']) {
-            this.dateIssued['$']['encoding'] = 'w3cdtf';
+            this.dateIssued['$']['encoding'] = '';
         }
         if (this.dateFrom && !this.dateFrom['$']['encoding']) {
-            this.dateFrom['$']['encoding'] = 'w3cdtf';
+            this.dateFrom['$']['encoding'] = '';
         }
         if (this.dateTo && !this.dateTo['$']['encoding']) {
-            this.dateTo['$']['encoding'] = 'w3cdtf';
+            this.dateTo['$']['encoding'] = '';
         }
         const dindex = dates.indexOf(this.dateIssued);
         if (dindex > 0) {
