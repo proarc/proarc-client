@@ -10,17 +10,17 @@
       </button>
       <div class="app-divider"></div>
 
-      <button class="app-action" [class.app-disabled]="canSave()" (click)="addBrackets()" [matTooltip]="'common.add_brackets' | translate"
+      <button class="app-action" [class.app-disabled]="canSave()" [disabled]="canSave()" (click)="addBrackets()" [matTooltip]="'common.add_brackets' | translate"
         mat-icon-button>
         <span class="app-text-icon">[ + ]</span>
       </button>
-      <button class="app-action" [class.app-disabled]="canSave()" (click)="removeBrackets()" [matTooltip]="'common.remove_brackets' | translate"
+      <button class="app-action" [class.app-disabled]="canSave()" [disabled]="canSave()" (click)="removeBrackets()" [matTooltip]="'common.remove_brackets' | translate"
         mat-icon-button>
         <span class="app-text-icon">[ - ]</span>
       </button>
       <div class="app-divider"></div>
 
-      <button class="app-action" [class.app-disabled]="!canSave()" matTooltip="{{ 'common.save' | translate }}"
+      <button class="app-action" [class.app-disabled]="!canSave()" [disabled]="!canSave()" matTooltip="{{ 'common.save' | translate }}"
         (click)="onSave()" mat-icon-button>
         <mat-icon>save</mat-icon>
       </button>
