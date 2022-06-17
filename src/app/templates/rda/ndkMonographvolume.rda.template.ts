@@ -753,7 +753,7 @@ export class NdkMonographVolumeRdaTemplate {
           ]
         },
         edition: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Vydání',
           selector: 'classification/@edition',
           labelKey: 'classification/@edition',
