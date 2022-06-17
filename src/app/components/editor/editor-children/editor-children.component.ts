@@ -203,10 +203,11 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
 
   onSelect(item: DocumentItem, event: any = null) {
     let canSelect = true;
-    if (this.editor.hasPendingChanges()) {
+    if (this.editor.hasPendingChanges() && !this.editor.isLeftDirty) {
       const d = this.editor.confirmLeaveDialog().subscribe((result: any) => {
         if (result === 'true') {
           this.select(item, event);
+          this.editor.resetChanges();
         }
       });
     } else {
@@ -263,6 +264,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
       this.lastIndex = itemIndex;
     }
     if (this.editor.numberOfSelectedChildren() === 0) {
+      this.editor.metadata = null;
       this.editor.selectRight(this.editor.left);
     } else if (this.editor.numberOfSelectedChildren() === 1) {
       this.editor.selectRight(this.editor.children.find(ch => ch.selected));

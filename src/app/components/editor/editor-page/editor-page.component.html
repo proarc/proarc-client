@@ -25,19 +25,25 @@
 
             <mat-form-field [ngClass]="config.showPageIndex ? 'app-half-right' : 'app-full-width'" [class.app-invalid]="!editor.page.type">
               <span class="app-usage" [class.app-help-off]="true">M</span>
-              <mat-select #typeSelect [placeholder]="'editor.page.type' | translate" name="type" [(value)]="editor.page.type" (keyup.enter)="enterSelect(typeSelect, 'type')">
-                <mat-option *ngFor="let pageType of codebook.pageTypes" [value]="pageType.code">{{ pageType.name }}</mat-option>
+              <mat-select #typeSelect [placeholder]="'editor.page.type' | translate" name="type" [(value)]="editor.page.type" [formControl]="pageTypeControl"
+              (focusout)="removeFocus()"
+               (keyup.enter)="enterSelect(typeSelect, 'type')">
+               <mat-option [value]="null"></mat-option>
+               <mat-option *ngFor="let pageType of codebook.pageTypes" [value]="pageType.code">{{ pageType.name }}</mat-option>
               </mat-select>
             </mat-form-field> 
 
             <mat-form-field class="app-half-left" *ngIf="config.showPageIndex" [class.app-invalid]="!editor.page.index">
               <span class="app-usage" [class.app-help-off]="true">M</span>
-              <input (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageIndex')" autocomplete="off" matInput [placeholder]="'editor.page.index' | translate" [(ngModel)]="editor.page.index" #pageIndex>
+              <input autocomplete="off" matInput #pageIndex 
+                (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageIndex')" 
+                [placeholder]="'editor.page.index' | translate" [(ngModel)]="editor.page.index" [formControl]="pageIndexControl">
             </mat-form-field>
             
             <mat-form-field class="app-page-number" [class.app-invalid]="!editor.page.number">
               <span class="app-usage" [class.app-help-off]="true">M</span>
-              <input (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageNumber')" autocomplete="off" matInput [placeholder]="'editor.page.number' | translate" [(ngModel)]="editor.page.number" #pageNumber>
+              <input (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageNumber')" [formControl]="pageNumberControl"
+              autocomplete="off" matInput [placeholder]="'editor.page.number' | translate" [(ngModel)]="editor.page.number" #pageNumber>
 
               <button class="app-brackets" [class.app-disabled]="!editor.page.number" [matTooltip]="isInBrackets() ? 'Odebrat závorky' : 'Vložit do závorek'" (click)="switchBrackets()" mat-icon-button>
                 <span class="app-text-icon">[ ]</span>
@@ -46,14 +52,16 @@
 
             <mat-form-field class="app-half-left" *ngIf="editor.page.isNdkPage()">
               <span class="app-usage" [class.app-help-off]="true">O</span>
-              <mat-select [(ngModel)]='editor.page.position' placeholder="{{ 'editor.page.position' | translate }}" #posSelect (keyup.enter)="enterSelect(posSelect, 'position')">
+              <mat-select [(ngModel)]='editor.page.position' placeholder="{{ 'editor.page.position' | translate }}" [formControl]="posControl"
+               #posSelect (keyup.enter)="enterSelect(posSelect, 'position')" (focusout)="removeFocus()">
                 <mat-option *ngFor="let position of positions" [value]="position">{{ 'editor.page.positions.' + position | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
 
             <mat-form-field class="app-half-right" *ngIf="editor.page.isNdkPage()" [class.app-invalid]="!editor.page.genre">
               <span class="app-usage" [class.app-help-off]="true">M</span>
-              <mat-select [(ngModel)]='editor.page.genre' placeholder="{{ 'editor.page.genre' | translate }}" (keyup.enter)="enterSelect(genreSelect, 'genre')" #genreSelect>
+              <mat-select [(ngModel)]='editor.page.genre' placeholder="{{ 'editor.page.genre' | translate }}" [formControl]="genreControl"
+               (keyup.enter)="enterSelect(genreSelect, 'genre')" (focusout)="removeFocus()" #genreSelect>
                 <mat-option *ngFor="let genre of genres" [value]="genre">{{ 'editor.page.genres.' + genre | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
@@ -61,7 +69,7 @@
 
             <mat-form-field class="app-full-width">
               <span class="app-usage" [class.app-help-off]="true">O</span>
-              <textarea 
+              <textarea [formControl]="pageIndexControl"
               cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="15"
               autocomplete="off" matInput [(ngModel)]='editor.page.note' placeholder="{{ 'editor.page.note' | translate }}"></textarea>
             </mat-form-field>

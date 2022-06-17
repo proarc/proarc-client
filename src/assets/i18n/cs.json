@@ -217,6 +217,7 @@
     "modifiedFrom": "Upraveno od",
     "modifiedTo": "Upraveno do",
     "show_log": "Zobrazit detail chyby",
+    "reingest": "Uložit znovu",
     "log_dialog": {
       "title": "Detail chyby"
     },

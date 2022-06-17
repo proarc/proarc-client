@@ -601,12 +601,12 @@ export class ApiService {
     return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
-  ingestBatch(id: number, parent: string): Observable<Batch> {
+  ingestBatch(id: number, parent: string): Observable<any> {
     let data = `id=${id}&state=INGESTING`;
     if (parent) {
       data += `&parentPid=${parent}`;
     }
-    return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
+    return this.put('import/batch', data);
   }
 
   reloadBatch(id: number, profile: string): Observable<Batch> {
@@ -629,9 +629,8 @@ export class ApiService {
     return this.post('import/batches', data);//.pipe(map(response => Batch.fromJson(response['response']['data'][0])));
   }
 
-  getImportBatchStatus(id: number): Observable<[number, number]> {
-    return this.get('import/batch/item', { batchId: id })
-            .pipe(map((response: any) => Batch.statusFromJson(response['response'])));
+  getImportBatchStatus(id: number): Observable<any> {
+    return this.get('import/batch/item', { batchId: id });
   }
 
   getImportBatches(params: any): Observable<any> {

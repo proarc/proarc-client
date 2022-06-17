@@ -10,6 +10,7 @@ import { ReloadBatchDialogComponent } from 'src/app/dialogs/reload-batch-dialog/
 import { Profile } from 'src/app/model/profile.model';
 import { ImportDialogComponent } from 'src/app/dialogs/import-dialog/import-dialog.component';
 import { DatePipe } from '@angular/common';
+import { UIService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-history',
@@ -31,7 +32,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
   queue: Batch[];
 
   selectedBatch: Batch;
-  
+
   view: string;
 
   private timer: any;
@@ -58,10 +59,11 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
   constructor(
     private datePipe: DatePipe,
-    private api: ApiService, 
-              private dialog: MatDialog, 
-              private router: Router,
-              private translator: TranslateService) { }
+    private api: ApiService,
+    private ui: UIService,
+    private dialog: MatDialog,
+    private router: Router,
+    private translator: TranslateService) { }
 
   ngOnInit() {
     this.changeView('overview');
@@ -81,7 +83,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
   setRefresh() {
     if (this.autoRefresh) {
-      this.timer= setInterval(() => {
+      this.timer = setInterval(() => {
         this.reload();
       }, 10000);
       this.reload();
@@ -147,15 +149,15 @@ export class HistoryComponent implements OnInit, OnDestroy {
     }
 
     if (this.createTo) {
-      params['createTo'] =  this.datePipe.transform(this.createTo, 'yyyy-MM-dd');
+      params['createTo'] = this.datePipe.transform(this.createTo, 'yyyy-MM-dd');
     }
 
     if (this.modifiedFrom) {
-      params['modifiedFrom'] =  this.datePipe.transform(this.modifiedFrom, 'yyyy-MM-dd');
+      params['modifiedFrom'] = this.datePipe.transform(this.modifiedFrom, 'yyyy-MM-dd');
     }
 
     if (this.modifiedTo) {
-      params['modifiedTo'] =  this.datePipe.transform(this.modifiedTo, 'yyyy-MM-dd');
+      params['modifiedTo'] = this.datePipe.transform(this.modifiedTo, 'yyyy-MM-dd');
     }
     // createFrom: 2022-05-01T10:36:00.000
     // createTo: 2022-06-03T10:36:00.000
@@ -179,17 +181,17 @@ export class HistoryComponent implements OnInit, OnDestroy {
       this.state = 'success';
       this.updateLoadingBatchesProgress(this.queue);
     }, error => {
-      
-    let params: any = {
-      _sortBy: '-timestamp',
-      _startRow: start,
-      _endRow: start + this.pageSize,
-      _size: this.pageSize,
-      state: 'LOADING'
-    };
-    if (this.description) {
-      params['description'] = this.description;
-    }
+
+      let params: any = {
+        _sortBy: '-timestamp',
+        _startRow: start,
+        _endRow: start + this.pageSize,
+        _size: this.pageSize,
+        state: 'LOADING'
+      };
+      if (this.description) {
+        params['description'] = this.description;
+      }
 
       this.api.getImportBatches(params).subscribe((batches: Batch[]) => {
         this.queue = batches;
@@ -212,24 +214,24 @@ export class HistoryComponent implements OnInit, OnDestroy {
             if (count === 0) {
               this.progressMap[batch.id] = '?';
             } else {
-              this.progressMap[batch.id] = Math.round(( done * 1.0 / count) * 100) + '%';
+              this.progressMap[batch.id] = Math.round((done * 1.0 / count) * 100) + '%';
             }
-        },
-        (error) => {
+          },
+          (error) => {
             this.progressMap[batch.id] = '!';
-        });
+          });
       }
     }
   }
 
-  
+
   onReloadBatch() {
     const dialogRef = this.dialog.open(ReloadBatchDialogComponent, { data: null });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.profile) {
         this.reloadBatch(result.profile);
       }
-    });   
+    });
   }
 
 
@@ -238,7 +240,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
     if (!this.selectedBatch) {
       return;
     }
-    if (this.selectedBatch.profile === 'profile.chronicle' && this.selectedBatch.parentPid)  {
+    if (this.selectedBatch.profile === 'profile.chronicle' && this.selectedBatch.parentPid) {
       this.ingestBatch(this.selectedBatch.parentPid);
       return;
     }
@@ -250,14 +252,14 @@ export class HistoryComponent implements OnInit, OnDestroy {
     if (!this.selectedBatch) {
       return;
     }
-    const dialogRef = this.dialog.open(ImportDialogComponent, { data: {batch: this.selectedBatch.id, parent: parentPid, ingestOnly: true }});
-      dialogRef.afterClosed().subscribe(result => {
-        if (result === 'open') {
-          this.router.navigate(['/document', parentPid]);
-        } else {
-          this.reloadBatches();
-        }
-      });
+    const dialogRef = this.dialog.open(ImportDialogComponent, { data: { batch: this.selectedBatch.id, parent: parentPid, ingestOnly: true } });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'open') {
+        this.router.navigate(['/document', parentPid]);
+      } else {
+        this.reloadBatches();
+      }
+    });
   }
 
   private reloadBatch(profile: Profile) {
@@ -265,15 +267,15 @@ export class HistoryComponent implements OnInit, OnDestroy {
       return;
     }
     this.api.reloadBatch(this.selectedBatch.id, profile.id).subscribe((batch: Batch) => {
-      const dialogRef = this.dialog.open(ImportDialogComponent, { data: {batch: batch.id }});
+      const dialogRef = this.dialog.open(ImportDialogComponent, { data: { batch: batch.id } });
       dialogRef.afterClosed().subscribe(result => {
-        
-          if (result === 'open') {
-            this.onIngestBatch();
-          } else {
-            this.reloadBatches();
-          }
-          
+
+        if (result === 'open') {
+          this.onIngestBatch();
+        } else {
+          this.reloadBatches();
+        }
+
       });
     });
   }
@@ -300,6 +302,30 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
   batchProgress(batch: Batch): string {
     return this.progressMap[batch.id];
+  }
+
+  reIngest(b: Batch) {
+    this.api.ingestBatch(b.id, b.parentPid).subscribe((response: any) => {
+
+      if (response.response.errors) {
+        this.state = 'error';
+        this.ui.showErrorSnackBarFromObject(response.response.errors);
+        return;
+      }
+
+      const batch: Batch = Batch.fromJson(response['response']['data'][0]);
+
+      const dialogRef = this.dialog.open(ImportDialogComponent, { data: { batch: batch.id } });
+      dialogRef.afterClosed().subscribe(result => {
+
+        if (result === 'open') {
+          this.onIngestBatch();
+        } else {
+          this.reloadBatches();
+        }
+
+      });
+    });
   }
 
 }

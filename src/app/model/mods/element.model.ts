@@ -1,4 +1,5 @@
 import { FormControl } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
 import { ElementField } from "./elementField.model";
 
 export abstract class ModsElement {
@@ -83,10 +84,12 @@ export abstract class ModsElement {
         return this.fieldValue(field, 'options');
     }
 
-    public help(field: string): string {
+    public help(field: string, translator: TranslateService): string {
         const description = this.fieldValue(field, 'description');
         const selector = this.fieldValue(field, 'selector');
-        return `<h3>${"'mods.' + item.labelKey(field) | translate"} <i>${this.usage(field) || ''}</i> <code>${selector || ''}</code></h3>
+        const labelKey = this.fieldValue(field, 'labelKey');
+        const label = translator.instant('mods.' + labelKey);
+        return `<h3>${label} <i>${this.usage(field) || ''}</i> <code>${selector || ''}</code></h3>
         ${description || '' }`;
     }
 
@@ -118,11 +121,11 @@ export abstract class ModsElement {
         return this.template['fields'][field];
     }
 
-    public getControl(filed: string): FormControl {
-        if (!this.controls.has(filed)) {
-            this.controls.set(filed, new FormControl());
+    public getControl(field: string): FormControl {
+        if (!this.controls.has(field)) {
+            this.controls.set(field, new FormControl());
         }
-        return this.controls.get(filed);
+        return this.controls.get(field);
     }
 
     public invalid(field: string): boolean {
@@ -195,6 +198,15 @@ export abstract class ModsElement {
                 return true;
             }
         //});
+        }
+
+        return false;
+    }
+
+    public resetChanges() {
+        const keys = this.controls.keys();
+        for (let key of keys) {
+            this.controls.get(key).markAsPristine();
         }
 
         return false;

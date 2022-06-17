@@ -91,13 +91,20 @@ export class EditorService {
         if (this.showPagesEditor()) {
             return this.isDirty;
         } else if (this.mode == 'children') {
-            return this.isLeftDirty;
+            return this.isLeftDirty || this.isDirty || (this.metadata && this.metadata.hasChanges());
         } else if (this.page && (this.left.isPage() || this.right.isPage())) {
             return this.page.hasChanged();
         } else if (this.metadata && (!this.left.isPage() && !this.left.isChronicle()) || this.rightEditorType === 'metadata') {
             return this.metadata.hasChanges();
         }
         return false;
+    }
+
+    resetChanges() {
+        this.isDirty = false;
+        if (this.metadata) {
+            this.metadata.resetChanges();
+        }
     }
 
     watchRightDocument(): Observable<DocumentItem> {
