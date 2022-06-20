@@ -146,12 +146,18 @@ export class EditorService {
         this.relocationMode = false;
         this.state = 'loading';
         this.preparation = params.preparation;
-        if (params.preparation) {
-            this.initBatchEditor(params.pid);
+        if (params.isNew) {
+            // this.metadata = params.metadata;
+            this.metadata = new Metadata(params.metadata.pid, params.metadata.model, params.metadata.content, params.metadata.timestamp);
+            this.left = DocumentItem.fromJson(params.metadata);
         } else {
-            this.initDocumentEditor(params.pid);
+            if (params.preparation) {
+                this.initBatchEditor(params.pid);
+            } else {
+                this.initDocumentEditor(params.pid);
+            }
+            this.initSelectedColumns();
         }
-        this.initSelectedColumns();
     }
 
     reload() {
@@ -251,6 +257,10 @@ export class EditorService {
             item.selected = true;
         }
 
+    }
+
+    initNewMetadataEditor(data: any) {
+        this.left = DocumentItem.fromJson(data);
     }
 
     initDocumentEditor(pid: string) {
@@ -876,7 +886,9 @@ export class EditorService {
                 this.init(
                     {
                         pid: this.left.pid,
-                        preparation: false
+                        preparation: false,
+                        metadata: null,
+                        isNew: false
                     });
 
             }
@@ -901,7 +913,9 @@ export class EditorService {
                 this.init(
                     {
                         pid: this.left.pid,
-                        preparation: false
+                        preparation: false,
+                        metadata: null,
+                        isNew: false
                     });
             }
         });
@@ -1327,4 +1341,6 @@ export class EditorService {
 export interface EditorParams {
     pid: string;
     preparation: boolean;
+    metadata: any;
+    isNew: boolean;
 }

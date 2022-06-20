@@ -459,7 +459,6 @@ export class SearchComponent implements OnInit {
   }
 
   canCopy(item: DocumentItem): boolean {
-    console.log(this.config.allowedCopyModels, item.model)
     return this.config.allowedCopyModels.includes(item.model)
   }
 

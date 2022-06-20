@@ -55,12 +55,16 @@ export class EditorComponent implements OnInit {
         if (pid) {
           this.editor.init({
             pid: pid,
-            preparation: false
+            preparation: false,
+            metadata: null,
+            isNew: false
           });
         } else if (batchId) {
           this.editor.init({
             pid: batchId,
-            preparation: true
+            preparation: true,
+            metadata: null,
+            isNew: false
           });
         }
     });

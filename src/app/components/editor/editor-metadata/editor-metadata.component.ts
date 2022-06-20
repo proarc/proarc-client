@@ -6,6 +6,7 @@ import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 import { UIService } from 'src/app/services/ui.service';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-editor-metadata',
@@ -16,13 +17,16 @@ export class EditorMetadataComponent implements OnInit {
 
   state = 'none';
 
+  @Input() notSaved = false;
+
   @Input()
   set pid(pid: string) {
     this.onPidChanged(pid);
   }
   constructor(
     private translator: TranslateService,
-    public editor: EditorService, 
+    public editor: EditorService,
+    private api: ApiService,
     private ui: UIService,
     private dialog: MatDialog) { }
 
@@ -30,10 +34,15 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   private onPidChanged(pid: string) {
-    this.state = 'loading';
-    this.editor.loadMetadata(() => {
-      this.state = 'success';
-    });
+    if (this.notSaved) {
+      // nic, uz mame metadata v editoru
+      // this.editor.metadata = this.metadata;
+    } else {
+      this.state = 'loading';
+      this.editor.loadMetadata(() => {
+        this.state = 'success';
+      });
+    }
   }
 
   available(element: string): boolean {
@@ -58,14 +67,33 @@ export class EditorMetadataComponent implements OnInit {
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.editor.saveMetadata(ignoreValidation, (r: any) => {
-          console.log(r);
-          if (r && r.errors && r.status === -4 && !ignoreValidation) {
-            const messages = this.ui.extractErrorsAsString(r.errors);
-            this.confirmSave(String(this.translator.instant('common.warning')), messages, true);
-          }
-          // this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', false);
-        });
+        if (this.notSaved) {
+
+
+          let data = `model=${this.editor.metadata.model}`;
+          data = `${data}&pid=${this.editor.metadata.pid}`;
+          data = `${data}&xml=${this.editor.metadata.toMods()}`;
+          this.api.createObject(data).subscribe((response: any) => {
+            if (response['response'].errors) {
+              console.log('error', response['response'].errors);
+              this.ui.showErrorSnackBarFromObject(response['response'].errors);
+              this.state = 'error';
+              return;
+            }
+            const pid = response['response']['data'][0]['pid'];
+            this.state = 'success';
+          });
+
+        } else {
+          this.editor.saveMetadata(ignoreValidation, (r: any) => {
+            console.log(r);
+            if (r && r.errors && r.status === -4 && !ignoreValidation) {
+              const messages = this.ui.extractErrorsAsString(r.errors);
+              this.confirmSave(String(this.translator.instant('common.warning')), messages, true);
+            }
+            // this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', false);
+          });
+        }
       }
     });
   }
@@ -73,7 +101,7 @@ export class EditorMetadataComponent implements OnInit {
   onSave() {
     if (this.editor.metadata.validate()) {
       this.editor.saveMetadata(false, (r: any) => {
-          console.log(r);
+        console.log(r);
         if (r && r.errors && r.status === -4) {
           const messages = this.ui.extractErrorsAsString(r.errors);
           this.confirmSave(String(this.translator.instant('common.warning')), messages, true);
@@ -88,7 +116,7 @@ export class EditorMetadataComponent implements OnInit {
     const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'full' } });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
-        this.editor.saveModsFromCatalog(result['mods'], () => {});
+        this.editor.saveModsFromCatalog(result['mods'], () => { });
         // this.editor.updateModsFromCatalog(result['mods']);
         // setTimeout(() => {
         //   if (!this.editor.metadata.validate()) {
