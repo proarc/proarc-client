@@ -459,6 +459,7 @@ export class SearchComponent implements OnInit {
   }
 
   canCopy(item: DocumentItem): boolean {
+    console.log(this.config.allowedCopyModels, item.model)
     return this.config.allowedCopyModels.includes(item.model)
   }
 
@@ -469,6 +470,10 @@ export class SearchComponent implements OnInit {
 
   openFromTree(item: DocumentItem) {
     this.router.navigate(['/document', item.pid]);
+  }
+  
+  selectFromTree(tree: Tree) {
+    this.search.selectedTree = tree;
   }
 
 }
