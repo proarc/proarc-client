@@ -253,8 +253,8 @@
       "editor_atm": "Administrative and technical metadata",
       "editor_metadata": "Metadata",
       "editor_geo": "Geographic location",
-      "editor_mode_detail": "Detail mode",
-      "editor_mode_children": "Structure mode",
+      "editor_mode_detail": "Metadata",
+      "editor_mode_children": "Structure",
       "editor_enter_double_right": "Open the image in a new panel",
       "editor_leave_double_right": "Close the panel with the image"
     },

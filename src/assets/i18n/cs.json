@@ -305,10 +305,10 @@
       "editor_ocr": "OCR",
       "editor_mods": "MODS XML",
       "editor_atm": "Administrativní a technická metadata",
-      "editor_metadata": "Metadata",
+      "editor_metadata": "Popisná metadata",
       "editor_geo": "Geografická lokace",
-      "editor_mode_detail": "Režim detailu",
-      "editor_mode_children": "Režim procházení",
+      "editor_mode_detail": "Metadata",
+      "editor_mode_children": "Vazby",
       "editor_enter_double_right": "Otevřít třetí panel",
       "editor_leave_double_right": "Zavřít třetí panel"
     },
