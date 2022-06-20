@@ -31,4 +31,7 @@ mat-checkbox  {
 input.app-input-invalid {
   color: red;
 }
+input.app-disabled {
+  pointer-events: none;
+}
 

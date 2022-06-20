@@ -54,10 +54,10 @@
           <mat-checkbox color="primary" [(ngModel)]="holder.editIndex">{{ 'editor.pages.edit_page_index' | translate }}
           </mat-checkbox>
 
-          <mat-form-field class="app-full-width">
-            <input (keyup.enter)="onSave()" [disabled]="!holder.editIndex" type="number" step="1" min="0"
+          <mat-form-field class="app-full-width"[formGroup]="controls">
+            <input (keyup.enter)="onSave()" [readonly]="!holder.editIndex" type="number" step="1" min="0"
               autocomplete="off" matInput [placeholder]="'editor.pages.index_from' | translate"
-              [(ngModel)]="holder.pageIndex" [formControl]="pageIndexControl">
+              [(ngModel)]="holder.pageIndex" [formControlName]="'pageIndexControl'">
           </mat-form-field>
 
         </div>
@@ -76,21 +76,21 @@
             }}</mat-checkbox>
 
           <mat-form-field class="app-page-width">
-            <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="text" autocomplete="off" matInput
+            <input (keyup.enter)="onSave()" [readonly]="!holder.editNumber" type="text" autocomplete="off" matInput
               [placeholder]="'editor.pages.number_prefix' | translate" [(ngModel)]="holder.pageNumberPrefix"  [formControl]="pageNumberPrefixControl">
           </mat-form-field>
           <mat-form-field class="app-full-width">
-            <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="text" autocomplete="off" matInput
+            <input (keyup.enter)="onSave()" [readonly]="!holder.editNumber" type="text" autocomplete="off" matInput
               [placeholder]="'editor.pages.number_from' | translate" [(ngModel)]="holder.pageNumberFrom"  [formControl]="pageNumberControl"
               [class.app-input-invalid]="!holder.numberFromValid()">
           </mat-form-field>
           <mat-form-field class="app-full-width">
-            <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="number" step="1" min="0"
+            <input (keyup.enter)="onSave()" [readonly]="!holder.editNumber" type="number" step="1" min="0"
               autocomplete="off" matInput [placeholder]="'editor.pages.number_increment' | translate"  [formControl]="pageNumberIncrementControl"
               [(ngModel)]="holder.pageNumberIncrement">
           </mat-form-field>
           <mat-form-field class="app-full-width">
-            <input (keyup.enter)="onSave()" [disabled]="!holder.editNumber" type="text" autocomplete="off" matInput 
+            <input (keyup.enter)="onSave()" [readonly]="!holder.editNumber" type="text" autocomplete="off" matInput 
               [placeholder]="'editor.pages.number_suffix' | translate" [(ngModel)]="holder.pageNumberSuffix"  [formControl]="pageNumberSuffixControl">
           </mat-form-field>
           <mat-form-field>
