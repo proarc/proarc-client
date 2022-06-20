@@ -582,6 +582,7 @@ export class EditorService {
                 const item = DocumentItem.fromJson(data);
                 item.notSaved = true;
                 this.children.push(item);
+                this.rightEditorType == 'metadata';
                 this.selectRight(item);
                 this.state = 'success'; 
                 // this.reloadChildren(() => {
