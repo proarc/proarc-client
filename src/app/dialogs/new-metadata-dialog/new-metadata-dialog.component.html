@@ -1,6 +1,10 @@
 
-<ng-container *ngIf="inited">
-  
+  <h1 mat-dialog-title>{{ 'new_object.title_edit' | translate }}</h1>
+
+  <div mat-dialog-content style="max-width:600px;">
+    
+    <div class="app-content" *ngIf="inited">
+
   <app-editor-page *ngIf="isPage()" [model]="data.model" [pid]="data.pid">
   </app-editor-page>
   <app-editor-song *ngIf="isSong()" [model]="data.model" [pid]="data.pid">
@@ -9,4 +13,10 @@
   <app-editor-bdm *ngIf="isBdm()" [pid]="data.pid"></app-editor-bdm>
   <app-editor-metadata *ngIf="!isPage() && !isChronicle() && !isBdm()" [notSaved]="true" [pid]="data.pid" >
   </app-editor-metadata>
-</ng-container>
+  </div>
+</div>
+
+<div mat-dialog-actions cdk-focus-start>
+  <button mat-raised-button color="default" (click)="onSave()" >{{ 'common.save' | translate }}</button>
+  <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.cancel' | translate }}</button>
+</div>

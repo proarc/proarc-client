@@ -44,6 +44,7 @@
   },
   "new_object": {
     "title": "Nový objekt",
+    "title_edit": "Editace nového objektu",
     "model": "Model",
     "custom_pid": "Vlastní pid",
     "invalid_pid": "PID neodpovídá tvaru uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
