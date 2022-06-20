@@ -127,13 +127,14 @@ export class EditorComponent implements OnInit {
   }
   
   hasPendingChanges(): boolean {
-    if (this.editor.showPagesEditor()) {
-      return this.editor.isDirty;
-    } else if (this.editor.mode == 'children') {
-      return this.editor.isLeftDirty;
-    } else if (this.editor.metadata && ((!this.editor.left.isPage() && !this.editor.left.isChronicle()) || this.editor.rightEditorType === 'metadata')) {
-      return this.editor.metadata.hasChanges();
-    }
-    return false;
+    return this.editor.hasPendingChanges();
+    // if (this.editor.showPagesEditor()) {
+    //   return this.editor.isDirty;
+    // } else if (this.editor.mode == 'children') {
+    //   return this.editor.isLeftDirty || ;
+    // } else if (this.editor.metadata && ((!this.editor.left.isPage() && !this.editor.left.isChronicle()) || this.editor.rightEditorType === 'metadata')) {
+    //   return this.editor.metadata.hasChanges();
+    // }
+    // return false;
   }
 }

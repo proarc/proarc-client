@@ -104,8 +104,15 @@ export class EditorPageComponent implements OnInit {
   private onPidChanged(pid: string) {
     this.state = 'loading';
     if (this.editor.right.notSaved) {
-      const page = Page.fromJson(this.editor.right.content, this.editor.right.model);
+      const page = new Page();
+      page.pid = pid;
+      page.type = 'normalPage';
+      page.model = this.editor.right.model;
+      page.number = this.editor.right.label;
+      page.timestamp = new Date().getTime();
       this.setPage(page);
+      this.controls.markAsDirty();
+      this.editor.isDirty = true;
       this.state = 'success';
       return;
     }

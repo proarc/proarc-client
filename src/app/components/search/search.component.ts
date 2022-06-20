@@ -459,7 +459,7 @@ export class SearchComponent implements OnInit {
   }
 
   canCopy(item: DocumentItem): boolean {
-    return item.model === 'model:ndkmonographvolume' || item.model === 'model:ndkperiodicalissue'
+    return this.config.allowedCopyModels.includes(item.model)
   }
 
   enterModel(e: any) {
