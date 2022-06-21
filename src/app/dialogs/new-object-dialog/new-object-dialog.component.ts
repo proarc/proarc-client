@@ -23,6 +23,8 @@ export class NewObjectDialogComponent implements OnInit {
   seriesDaysIncluded: number[] = [];
   weekDays = [1,2,3,4,5,6,7];
 
+  filteredModels: string[];
+
   constructor(
     public adapter: DateAdapter<any>,
     private datePipe: DatePipe,
@@ -33,6 +35,7 @@ export class NewObjectDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: NewObjectData) { }
 
   ngOnInit() {
+    this.filteredModels = this.data.models.filter(f => f.indexOf('page') < 0);
   }
 
 

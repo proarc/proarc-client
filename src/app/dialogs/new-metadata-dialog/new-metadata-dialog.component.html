@@ -5,12 +5,12 @@
     
     <div class="app-content" *ngIf="inited">
 
-  <app-editor-page *ngIf="isPage()" [model]="data.model" [pid]="data.pid">
+  <app-editor-page *ngIf="isPage()" [model]="data.model" [notSaved]="true" [pid]="data.pid">
   </app-editor-page>
-  <app-editor-song *ngIf="isSong()" [model]="data.model" [pid]="data.pid">
+  <app-editor-song *ngIf="isSong()" [model]="data.model" [notSaved]="true" [pid]="data.pid">
   </app-editor-song>
-  <app-editor-chronicle *ngIf="isChronicle()" [pid]="data.pid"></app-editor-chronicle>
-  <app-editor-bdm *ngIf="isBdm()" [pid]="data.pid"></app-editor-bdm>
+  <app-editor-chronicle *ngIf="isChronicle()" [notSaved]="true" [pid]="data.pid"></app-editor-chronicle>
+  <app-editor-bdm *ngIf="isBdm()" [notSaved]="true" [pid]="data.pid"></app-editor-bdm>
   <app-editor-metadata *ngIf="!isPage() && !isChronicle() && !isBdm()" [notSaved]="true" [pid]="data.pid" >
   </app-editor-metadata>
   </div>

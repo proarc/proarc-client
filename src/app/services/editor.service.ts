@@ -149,8 +149,16 @@ export class EditorService {
         this.preparation = params.preparation;
         if (params.isNew) {
             // this.metadata = params.metadata;
-            this.metadata = new Metadata(params.metadata.pid, params.metadata.model, params.metadata.content, params.metadata.timestamp);
-            this.left = DocumentItem.fromJson(params.metadata);
+            const item: DocumentItem = DocumentItem.fromJson(params.metadata);
+            item.notSaved = true;
+            if (item.isPage()) {
+                this.right = item;
+
+            } else {
+                this.metadata = new Metadata(params.metadata.pid, params.metadata.model, params.metadata.content, params.metadata.timestamp);
+                //this.left = DocumentItem.fromJson(params.metadata);
+                this.left = item;
+            }
         } else {
             if (params.preparation) {
                 this.initBatchEditor(params.pid);

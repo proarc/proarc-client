@@ -19,6 +19,7 @@ import { UIService } from 'src/app/services/ui.service';
 })
 export class EditorPageComponent implements OnInit {
 
+  @Input() notSaved = false;
   state = 'none';
   // page: Page;
 
@@ -28,6 +29,7 @@ export class EditorPageComponent implements OnInit {
   movedToNextFrom: string;
 
   @Input() model: string;
+
 
   @ViewChild("pageNumber") pageNumberField: ElementRef;
   @ViewChild("pageIndex") pageIndexField: ElementRef;

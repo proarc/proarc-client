@@ -1,7 +1,7 @@
 
 <div class="app-editor-content-wrapper">
 
-  <div class="app-editor-toolbar">
+  <div class="app-editor-toolbar" *ngIf="!notSaved">
       <div class="app-label">{{ 'editor.page.title' | translate }}</div>
       <div class="app-actions-right">
       <button class="app-action" [class.app-disabled]="!editor.page || !editor.page.hasChanged()" (click)="onRevert()" [matTooltip]="'common.revert' | translate" mat-icon-button>

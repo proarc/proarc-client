@@ -16,7 +16,7 @@ import { SimpleDialogComponent } from '../simple-dialog/simple-dialog.component'
 })
 export class NewMetadataDialogComponent implements OnInit {
 
-  public inited  = false;
+  public inited = false;
   state = 'none';
 
   constructor(
@@ -64,28 +64,53 @@ export class NewMetadataDialogComponent implements OnInit {
     return this.data.model === 'model:bdmarticle';
   }
 
+  savePage() {
+    let data = `model=${this.editor.page.model}`;
+    data = `${data}&pid=${this.editor.page.pid}`;
+    data = `${data}&xml=${this.editor.page.toXml()}`;
+    if (this.data.parent) {
+      data = `${data}&parent=${this.data.parent}`;
+    }
+    this.api.createObject(data).subscribe((response: any) => {
+      if (response['response'].errors) {
+        console.log('error', response['response'].errors);
+        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.state = 'error';
+        return;
+      }
+      this.editor.right.notSaved = false;
+      this.state = 'success';
+      this.editor.resetChanges();
+      this.dialogRef.close(response['response']['data'][0]);
+    });
+  }
+
   onSave() {
+    if (this.isPage()) {
+      this.savePage();
+      return;
+    }
     if (this.editor.metadata.validate()) {
       let data = `model=${this.editor.metadata.model}`;
-          data = `${data}&pid=${this.editor.metadata.pid}`;
-          data = `${data}&xml=${this.editor.metadata.toMods()}`;
-          if (this.data.parent) {
-            data = `${data}&parent=${this.data.parent}`;
-          }
-          this.api.createObject(data).subscribe((response: any) => {
-            if (response['response'].errors) {
-              console.log('error', response['response'].errors);
-              this.ui.showErrorSnackBarFromObject(response['response'].errors);
-              this.state = 'error';
-              return;
-            }
-            const pid = response['response']['data'][0]['pid'];
-            this.state = 'success'; 
-            this.editor.resetChanges();
-            this.dialogRef.close(response['response']['data'][0]);
-            //this.router.navigate(['/document', pid]);
-            
-          });
+      data = `${data}&pid=${this.editor.metadata.pid}`;
+      data = `${data}&xml=${this.editor.metadata.toMods()}`;
+      if (this.data.parent) {
+        data = `${data}&parent=${this.data.parent}`;
+      }
+      this.api.createObject(data).subscribe((response: any) => {
+        if (response['response'].errors) {
+          console.log('error', response['response'].errors);
+          this.ui.showErrorSnackBarFromObject(response['response'].errors);
+          this.state = 'error';
+          return;
+        }
+        const pid = response['response']['data'][0]['pid'];
+        this.state = 'success';
+        this.editor.resetChanges();
+        this.dialogRef.close(response['response']['data'][0]);
+        //this.router.navigate(['/document', pid]);
+
+      });
     } else {
       this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', true);
     }
@@ -109,25 +134,25 @@ export class NewMetadataDialogComponent implements OnInit {
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-          let data = `model=${this.editor.metadata.model}`;
-          data = `${data}&pid=${this.editor.metadata.pid}`;
-          data = `${data}&xml=${this.editor.metadata.toMods()}`;
-          if (this.data.parent) {
-            data = `${data}&parent=${this.data.parent}`;
+        let data = `model=${this.editor.metadata.model}`;
+        data = `${data}&pid=${this.editor.metadata.pid}`;
+        data = `${data}&xml=${this.editor.metadata.toMods()}`;
+        if (this.data.parent) {
+          data = `${data}&parent=${this.data.parent}`;
+        }
+        this.api.createObject(data).subscribe((response: any) => {
+          if (response['response'].errors) {
+            console.log('error', response['response'].errors);
+            this.ui.showErrorSnackBarFromObject(response['response'].errors);
+            this.state = 'error';
+            return;
           }
-          this.api.createObject(data).subscribe((response: any) => {
-            if (response['response'].errors) {
-              console.log('error', response['response'].errors);
-              this.ui.showErrorSnackBarFromObject(response['response'].errors);
-              this.state = 'error';
-              return;
-            }
-            const pid = response['response']['data'][0]['pid'];
-            this.state = 'success'; 
-            this.editor.resetChanges();
-            this.dialogRef.close(response['response']['data'][0]);
-            
-          });
+          const pid = response['response']['data'][0]['pid'];
+          this.state = 'success';
+          this.editor.resetChanges();
+          this.dialogRef.close(response['response']['data'][0]);
+
+        });
       }
     });
   }
