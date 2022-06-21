@@ -51,7 +51,8 @@
     "custom_pid_description": "V případě potřeby je možné zvolit vlastní PID objektu ve tvaru uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.\nPID nesmí být již přidělen jinému objektu.",
     "pid": "PID",
     "failure": "Objekt se nepodařilo vytvořit",
-    "create": "Vytvořit prázdný objekt",
+    "create_new": "Připravit nový objekt",
+    "create": "Vytvořit",
     "seriesPartNumberFrom": "Číslo od",
     "seriesDateFrom": "Datum od",
     "seriesDateTo": "Datum do"
@@ -90,7 +91,8 @@
     "exporting": "Export byl zadán a bude probíhat na pozadí. Dialog můžete zavřít.",
     "error": "Export se nezdařil",
     "show_error_detail": "Zobrazit detail chyby",
-    "export": "Zahájit export"
+    "export": "Zahájit export",
+    "continue": "Přesto exportovat"
   },
   "device": {
     "devices": "Zařízení",
