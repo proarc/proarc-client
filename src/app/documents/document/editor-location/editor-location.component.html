@@ -1,12 +1,17 @@
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
-    
+
     <app-field-codebook field="physicalLocation" [item]="item" [options]="codebook.locations" [(value)]='item.physicalLocation["_"]'></app-field-codebook>
 
     <app-field-text field="shelfLocator" [item]="item" [(value)]="item.shelfLocator['_']"></app-field-text>
 
-    <app-field-text field="url" [item]="item" [(value)]="item.url['_']"></app-field-text>
+    <app-editor-field *ngIf="item.available('url')" [field]="item.urls" [nested]='true'>
+      <ng-template let-url="item" #templateContent>
+        <app-field-dropdown field="usage" [item]="url" [(value)]='url.attrs["usage"]'></app-field-dropdown>
+        <app-field-text field="note" [item]="url" [(value)]='url.attrs["note"]'></app-field-text>
+        <app-field-text field="value" [item]="url" [(value)]="url.modsElement['_']"></app-field-text>
+      </ng-template>
+    </app-editor-field>
 
   </ng-template>
 </app-editor-field>
-  

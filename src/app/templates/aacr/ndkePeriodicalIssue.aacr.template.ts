@@ -245,8 +245,37 @@ export class NdkePeriodicalIssueAacrTemplate {
           label: 'URL',
           selector: 'location/url',
           labelKey: 'location/url',
-          description: `Pro uvedení lokace elektronického dokumentu`
-        }
+          description: `Pro uvedení lokace elektronického dokumentu`,
+          fields: {
+            value: {
+              usage: 'MA',
+              selector: 'location/url/value',
+              labelKey: 'location/url/value',
+              label: 'Hodnota',
+              help: 'off'
+            },
+            note: {
+              usage: 'R',
+              selector: 'location/url/@note',
+              labelKey: 'location/url/@note',
+              cols: 2,
+              label: 'Note',
+              help: 'off'
+            },
+            usage: {
+              usage: 'R',
+              cols: 2,
+              selector: 'location/url/@usage',
+              labelKey: 'location/url/@usage',
+              label: 'Usage',
+              help: 'off',
+              options: [
+                ['', '-'],
+                ['primary', 'primary']
+              ]
+            },
+          }
+        },
       }
     },
     classification: {

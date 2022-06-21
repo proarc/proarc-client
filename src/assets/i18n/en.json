@@ -1715,6 +1715,8 @@
     "bdm/relatedItem/titleInfo/title": "Title",
     "bdm/relatedItem/name": "Name",
     "bdm/name/nameIdentifier": "Name identifier (ORCID iD)",
+    "location/url/@usage": "Usage",
+    "location/url/value": "Value",
     "option": {
       "": "-",
       "Contents": "Contents",
@@ -1874,7 +1876,8 @@
       "volume": "Volume",
       "volume_supplement": "Volume supplement",
       "w3cdtf": "W3CDTF",
-      "yes": "yes"
+      "yes": "yes",
+      "primary": "primary"
     }
   }
 

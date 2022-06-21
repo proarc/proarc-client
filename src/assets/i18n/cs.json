@@ -1598,6 +1598,8 @@
     "bdm/relatedItem/titleInfo/title": "Název",
     "bdm/relatedItem/name": "Nakladatelské údaje",
     "bdm/name/nameIdentifier": "Identifikátor autora (ORCID iD)",
+    "location/url/@usage": "Užití",
+    "location/url/value": "Hodnota",
     "option": {
       "": "-",
       "Contents": "Contents",
@@ -1757,7 +1759,8 @@
       "volume": "Volume",
       "volume_supplement": "Příloha k ročníku",
       "w3cdtf": "W3CDTF",
-      "yes": "Ano"
+      "yes": "Ano",
+      "primary": "Primární (hlavní)"
     }
   }
 }
