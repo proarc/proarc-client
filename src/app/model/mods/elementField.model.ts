@@ -64,10 +64,19 @@ export class ElementField {
         }
         if (this.items.length - hiddenItems < 1) {
             const item = this.add();
-            if (!this.template.expanded) {
+            if (!this.hasExpandedChildren() && !this.template.expanded) {
                 item.collapsed = true;
             }
         }
+    }
+
+    hasExpandedChildren(): boolean {
+        for (const item of this.items) {
+            if (item.getTemplate().expanded) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public getItems(): ModsElement[] {

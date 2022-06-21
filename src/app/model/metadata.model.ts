@@ -109,10 +109,11 @@ export class Metadata {
           }
         }
         for (const subfield of item.getSubfields()) {
-          for (const item of subfield.getItems()) {
-            if (!item.validate()) {
+          for (const item2 of subfield.getItems()) {
+            if (!item2.validate()) {
               valid = false;
-              if (item.collapsed) {
+              if (item2.collapsed) {
+                item2.collapsed = false;
                 item.collapsed = false;
               }
             }

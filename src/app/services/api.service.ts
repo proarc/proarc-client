@@ -140,8 +140,11 @@ export class ApiService {
     return this.post('object/copyObject', data);
   }
 
-  export(type: string, pid: string, policy: string): Observable<any> | undefined {
-    let data = `pid=${pid}`;;
+  export(type: string, pid: string, policy: string, ignoreMissingUrnNbn: boolean): Observable<any> | undefined {
+    let data = `pid=${pid}`;
+    if (ignoreMissingUrnNbn) {
+      data = `${data}&ignoreMissingUrnNbn=true`;
+    }
     let path = '';
     switch (type) {
       case ProArc.EXPORT_DATASTREAM_FULL: {

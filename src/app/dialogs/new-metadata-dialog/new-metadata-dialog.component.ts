@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiService } from 'src/app/services/api.service';
 import { EditorService } from 'src/app/services/editor.service';
@@ -19,6 +20,7 @@ export class NewMetadataDialogComponent implements OnInit {
   state = 'none';
 
   constructor(
+    private router: Router,
     public dialogRef: MatDialogRef<NewObjectDialogComponent>,
     private ui: UIService,
     private api: ApiService,
@@ -65,10 +67,12 @@ export class NewMetadataDialogComponent implements OnInit {
   onSave() {
     if (this.editor.metadata.validate()) {
       this.editor.saveMetadata(false, (r: any) => {
-        console.log(r);
         if (r && r.errors && r.status === -4) {
           const messages = this.ui.extractErrorsAsString(r.errors);
           this.confirmSave(String(this.translator.instant('common.warning')), messages, true);
+        } else {
+          this.dialogRef.close();
+          this.router.navigate(['/document', this.data.pid]);
         }
       });
     } else {
@@ -107,7 +111,10 @@ export class NewMetadataDialogComponent implements OnInit {
               return;
             }
             const pid = response['response']['data'][0]['pid'];
-            this.state = 'success';
+            this.state = 'success'; 
+            this.dialogRef.close();
+            this.router.navigate(['/document', pid]);
+            
           });
       }
     });
