@@ -274,7 +274,10 @@ export class NdkeChapterAacrTemplate {
               selector: 'physicalDescription/form/value',
               labelKey: 'physicalDescription/form/value',
               label: 'Hodnota',
-              help: 'off'
+              help: 'off',
+              options: [
+                ['electronic', 'electronic']
+              ]
             }
           }
         }

@@ -10,27 +10,6 @@ export class NdkeChapterRdaTemplate {
       Pro plnění použít katalogizační záznam<br/>
       pokud má monografie více typů názvů, element se opakuje podle potřeby`,
       fields: {
-        type: {
-          usage: 'O',
-          label: 'Typ',
-          selector: 'titleInfo/@type',
-          labelKey: 'titleInfo/@type',
-          cols: 2,
-          description: `Hlavní název bez typu - pole 245 a $a<br/>
-          Možné hodnoty
-          <ul>
-            <li>Alternativní název (alternative) – pole 246</li>
-            <li>Přeložený název (translated) – pole 242</li>
-            <li>Jednotný název (uniform) – pole 130 resp. 240</li>
-          </ul>`,
-          options: [
-            ['', '-'],
-            ['abbreviated', 'Zkrácený název'],
-            ['translated', 'Přeložený název'],
-            ['alternative', 'Alternativní název'],
-            ['uniform', 'Jednotný název']
-          ]
-        },
         nonSort: {
           usage: 'O',
           label: 'Část vynechaná při hledání',
@@ -152,7 +131,7 @@ export class NdkeChapterRdaTemplate {
           description: `Tituly a jiná slova nebo čísla související se jménem.`
         },
         nameIdentifier: {
-          usage: 'O',
+          usage: 'RA',
           label: 'Identifikátor autora',
           selector: 'name/nameIdentifier',
           labelKey: 'name/nameIdentifier',
@@ -199,7 +178,7 @@ export class NdkeChapterRdaTemplate {
           ]
         },
         topic: {
-          usage: 'M',
+          usage: 'O',
           label: 'Klíčové slovo/Předmětové heslo',
           selector: 'subject/topic',
           labelKey: 'subject/topic',
@@ -231,7 +210,7 @@ export class NdkeChapterRdaTemplate {
       }
     },
     language: {
-      usage: 'MA',
+      usage: 'R',
       label: 'Jazyk',
       selector: 'language',
       labelKey: 'language',
@@ -274,7 +253,7 @@ export class NdkeChapterRdaTemplate {
           `,
           fields: {
             authority: {
-              usage: 'M',
+              usage: 'MA',
               label: 'Autorita',
               selector: 'physicalDescription/form/@authority',
               labelKey: 'physicalDescription/form/@authority',
@@ -296,7 +275,10 @@ export class NdkeChapterRdaTemplate {
               selector: 'physicalDescription/form/value',
               labelKey: 'physicalDescription/form/value',
               label: 'Hodnota',
-              help: 'off'
+              help: 'off',
+              options: [
+                ['electronic', 'electronic']
+              ]
             }
           }
         }
