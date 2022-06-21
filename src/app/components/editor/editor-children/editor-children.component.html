@@ -51,7 +51,7 @@
 
     <div class="app-actions-right">
       <ng-container *ngIf="!editor.preparation">
-        <button class="app-action" matTooltip="{{ 'editor.children.add_new' | translate }}"
+        <button class="app-action" matTooltip="{{ 'editor.children.add_new' | translate }}" *ngIf="editor.canAddChildren()"
           (click)="onCreateNewObject()" mat-icon-button>
           <mat-icon>add</mat-icon>
         </button>

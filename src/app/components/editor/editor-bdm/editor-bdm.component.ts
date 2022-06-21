@@ -12,6 +12,7 @@ import {SimpleDialogComponent} from '../../../dialogs/simple-dialog/simple-dialo
 })
 export class EditorBdmComponent implements OnInit {
 
+  @Input() notSaved = false;
   state = 'none';
 
   @Input()
@@ -24,6 +25,9 @@ export class EditorBdmComponent implements OnInit {
   }
 
   private onPidChanged(pid: string) {
+    if (this.notSaved) {
+      return;
+    }
     this.state = 'loading';
     this.editor.loadMetadata(() => {
       this.state = 'success';

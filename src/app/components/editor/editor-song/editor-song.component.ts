@@ -16,6 +16,7 @@ import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dial
 })
 export class EditorSongComponent implements OnInit {
 
+  @Input() notSaved = false;
   state = 'none';
   page: Page;
 
@@ -51,6 +52,9 @@ export class EditorSongComponent implements OnInit {
   }
 
   private onPidChanged(pid: string) {
+    if (this.notSaved) {
+      return;
+    }
     this.state = 'loading';
     this.api.getPage(pid, this.model, this.editor.getBatchId()).subscribe((page: Page) => {
       this.page = page;
