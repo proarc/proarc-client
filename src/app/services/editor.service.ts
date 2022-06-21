@@ -21,6 +21,7 @@ import { ModelTemplate } from '../templates/modelTemplate';
 import { ChildrenValidationDialogComponent } from '../dialogs/children-validation-dialog/children-validation-dialog.component';
 import { SimpleDialogData } from '../dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from '../dialogs/simple-dialog/simple-dialog.component';
+import { NewMetadataDialogComponent } from '../dialogs/new-metadata-dialog/new-metadata-dialog.component';
 
 @Injectable()
 export class EditorService {
@@ -586,24 +587,39 @@ export class EditorService {
         const dialogRef = this.dialog.open(NewObjectDialogComponent, { data: data });
         dialogRef.afterClosed().subscribe((result: any) => {
             if (result && result['pid']) {
-                this.state = 'saving';
-                const pid = result.pid;
-                const data = result.data;
-                const item = DocumentItem.fromJson(data);
-                item.notSaved = true;
-                this.children.push(item);
-                this.rightEditorType == 'metadata';
-                this.selectRight(item);
-                this.state = 'success'; 
-                // this.reloadChildren(() => {
-                //     for (const item of this.children) {
-                //         if (item.pid == pid) {
-                //             this.selectRight(item);
-                //             break;
-                //         }
-                //     }
-                //     this.state = 'success';
-                // });
+                if (result && result['pid']) {
+                    const dialogRef = this.dialog.open(NewMetadataDialogComponent, { data: result.data });
+                    dialogRef.afterClosed().subscribe(res => {
+                    if (res && res['pid']) {
+                        const pid = result.pid;
+                        // this.state = 'saving';
+                        // const data = result.data;
+                        // const item = DocumentItem.fromJson(data);
+                        // item.notSaved = true;
+                        // this.children.push(item);
+                        // this.rightEditorType == 'metadata';
+                        // this.selectRight(item);
+                        // this.state = 'success'; 
+                        // this.reloadChildren(() => {
+                        //     for (const item of this.children) {
+                        //         if (item.pid == pid) {
+                        //             this.selectRight(item);
+                        //             break;
+                        //         }
+                        //     }
+                        //     this.state = 'success';
+                        // });
+                        this.router.navigate(['/document', pid]);
+                        this.init(
+                            {
+                                pid: data.parentPid,
+                                preparation: false,
+                                metadata: null,
+                                isNew: false
+                            });
+                    }
+                    });
+                  }
             }
         });
 

@@ -66,21 +66,30 @@ export class NewMetadataDialogComponent implements OnInit {
 
   onSave() {
     if (this.editor.metadata.validate()) {
-      this.editor.saveMetadata(false, (r: any) => {
-        if (r && r.errors && r.status === -4) {
-          const messages = this.ui.extractErrorsAsString(r.errors);
-          this.confirmSave(String(this.translator.instant('common.warning')), messages, true);
-        } else {
-          this.dialogRef.close();
-          this.router.navigate(['/document', this.data.pid]);
-        }
-      });
+      let data = `model=${this.editor.metadata.model}`;
+          data = `${data}&pid=${this.editor.metadata.pid}`;
+          data = `${data}&xml=${this.editor.metadata.toMods()}`;
+          if (this.data.parent) {
+            data = `${data}&parent=${this.data.parent}`;
+          }
+          this.api.createObject(data).subscribe((response: any) => {
+            if (response['response'].errors) {
+              console.log('error', response['response'].errors);
+              this.ui.showErrorSnackBarFromObject(response['response'].errors);
+              this.state = 'error';
+              return;
+            }
+            const pid = response['response']['data'][0]['pid'];
+            this.state = 'success'; 
+            this.editor.resetChanges();
+            this.dialogRef.close(response['response']['data'][0]);
+            //this.router.navigate(['/document', pid]);
+            
+          });
     } else {
       this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', true);
     }
   }
-
-  
 
   confirmSave(title: string, message: string, ignoreValidation: boolean) {
     const data: SimpleDialogData = {
@@ -103,6 +112,9 @@ export class NewMetadataDialogComponent implements OnInit {
           let data = `model=${this.editor.metadata.model}`;
           data = `${data}&pid=${this.editor.metadata.pid}`;
           data = `${data}&xml=${this.editor.metadata.toMods()}`;
+          if (this.data.parent) {
+            data = `${data}&parent=${this.data.parent}`;
+          }
           this.api.createObject(data).subscribe((response: any) => {
             if (response['response'].errors) {
               console.log('error', response['response'].errors);
@@ -112,8 +124,8 @@ export class NewMetadataDialogComponent implements OnInit {
             }
             const pid = response['response']['data'][0]['pid'];
             this.state = 'success'; 
-            this.dialogRef.close();
-            this.router.navigate(['/document', pid]);
+            this.editor.resetChanges();
+            this.dialogRef.close(response['response']['data'][0]);
             
           });
       }

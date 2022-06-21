@@ -35,7 +35,7 @@ export class NavbarComponent implements OnInit {
     this.auth.logout();
   }
 
-  onCreateNewObject() {
+  onCreateNewObject() { 
     const data: NewObjectData = {
       models: this.config.allModels,
       model: this.properties.getStringProperty('search.model', this.config.defaultModel),
@@ -52,7 +52,6 @@ export class NavbarComponent implements OnInit {
   }
 
   showMetadataDialog(data: any) {
-    console.log(data);
     const dialogRef = this.dialog.open(NewMetadataDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['pid']) {
