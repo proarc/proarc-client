@@ -194,8 +194,6 @@
   </div>
 </div>
 
-
-
 <div class="app-table app-items">
 
 <div class="search-result-list">
@@ -231,7 +229,7 @@
     <div class="result-export" *ngIf="properties.isSearchColEnabled('isLocked')">{{ 'search.isLocked' | translate }}</div>
   </div>
   <div class="scrollable">
-    <app-tree [tree]="tree" (onOpen)="openFromTree($event)"></app-tree>
+    <app-tree [tree]="tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)"></app-tree>
   </div>
 </div>
 </div>

@@ -34,7 +34,6 @@ export class EditorPagesComponent implements OnInit {
     applyControl: this.applyControl
   });
 
-
   constructor(
     public config: ConfigService,
     public editor: EditorService, 

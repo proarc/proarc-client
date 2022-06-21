@@ -360,12 +360,16 @@ export class SearchComponent implements OnInit {
       } else {
           this.state = 'success';
           this.ui.showInfoSnackBar("Objekty byly zkopirovane");
-          // console.log(response);
-          const l = this.items.push(DocumentItem.fromJson(response.response.data[0]));
-          this.selectItem(this.items[l-1]);
-          setTimeout(()=>{
-            this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
-          }, 50);
+          if (item.model === this.model) {
+            const l = this.items.push(DocumentItem.fromJson(response.response.data[0]));
+            this.selectItem(this.items[l-1]);
+            setTimeout(()=>{
+              this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
+            }, 50);
+          } else {
+            // Kopirujeme objekt podrazeni ve stromu
+            this.selectItem(this.selectedItem);
+          }
           
       }
     }, error => {
@@ -459,7 +463,7 @@ export class SearchComponent implements OnInit {
   }
 
   canCopy(item: DocumentItem): boolean {
-    return item.model === 'model:ndkmonographvolume' || item.model === 'model:ndkperiodicalissue'
+    return this.config.allowedCopyModels.includes(item.model)
   }
 
   enterModel(e: any) {
@@ -469,6 +473,10 @@ export class SearchComponent implements OnInit {
 
   openFromTree(item: DocumentItem) {
     this.router.navigate(['/document', item.pid]);
+  }
+  
+  selectFromTree(tree: Tree) {
+    this.search.selectedTree = tree;
   }
 
 }

@@ -44,13 +44,15 @@
   },
   "new_object": {
     "title": "Nový objekt",
+    "title_edit": "Editace nového objektu",
     "model": "Model",
     "custom_pid": "Vlastní pid",
     "invalid_pid": "PID neodpovídá tvaru uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
     "custom_pid_description": "V případě potřeby je možné zvolit vlastní PID objektu ve tvaru uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.\nPID nesmí být již přidělen jinému objektu.",
     "pid": "PID",
     "failure": "Objekt se nepodařilo vytvořit",
-    "create": "Vytvořit prázdný objekt",
+    "create_new": "Připravit nový objekt",
+    "create": "Vytvořit",
     "seriesPartNumberFrom": "Číslo od",
     "seriesDateFrom": "Datum od",
     "seriesDateTo": "Datum do"
@@ -89,7 +91,8 @@
     "exporting": "Export byl zadán a bude probíhat na pozadí. Dialog můžete zavřít.",
     "error": "Export se nezdařil",
     "show_error_detail": "Zobrazit detail chyby",
-    "export": "Zahájit export"
+    "export": "Zahájit export",
+    "continue": "Přesto exportovat"
   },
   "device": {
     "devices": "Zařízení",
@@ -305,10 +308,10 @@
       "editor_ocr": "OCR",
       "editor_mods": "MODS XML",
       "editor_atm": "Administrativní a technická metadata",
-      "editor_metadata": "Metadata",
+      "editor_metadata": "Popisná metadata",
       "editor_geo": "Geografická lokace",
-      "editor_mode_detail": "Režim detailu",
-      "editor_mode_children": "Režim procházení",
+      "editor_mode_detail": "Metadata",
+      "editor_mode_children": "Vazby",
       "editor_enter_double_right": "Otevřít třetí panel",
       "editor_leave_double_right": "Zavřít třetí panel"
     },

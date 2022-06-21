@@ -41,12 +41,13 @@
   },
   "new_object": {
     "title": "New object",
+    "title_edit": "Edit new object",
     "model": "Model",
     "custom_pid": "Custom pid",
     "invalid_pid": "PID does'n match the form uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
     "custom_pid_description": "If necessary, you can choose a custom PID of the form uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.\nThe PID must not be assigned to another object.",
     "pid": "PID",
-    "failure": "Failed to create the objec",
+    "failure": "Failed to create the object",
     "create": "Create new object",
     "seriesPartNumberFrom": "Number from",
     "seriesDateFrom": "Date from",
@@ -77,7 +78,8 @@
     "exporting": "The export has been specified and will continue in the background. You can close the dialog.",
     "error": "Export failed",
     "show_error_detail": "Show error detail",
-    "export": "Launch export"
+    "export": "Launch export",
+    "continue": "Continue"
   },
   "device": {
     "devices": "Devices",
@@ -253,8 +255,8 @@
       "editor_atm": "Administrative and technical metadata",
       "editor_metadata": "Metadata",
       "editor_geo": "Geographic location",
-      "editor_mode_detail": "Detail mode",
-      "editor_mode_children": "Structure mode",
+      "editor_mode_detail": "Metadata",
+      "editor_mode_children": "Structure",
       "editor_enter_double_right": "Open the image in a new panel",
       "editor_leave_double_right": "Close the panel with the image"
     },

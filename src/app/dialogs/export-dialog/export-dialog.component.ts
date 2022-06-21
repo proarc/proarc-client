@@ -21,6 +21,7 @@ export class ExportDialogComponent implements OnInit {
   policyPublic: boolean;
   target: string;
   errors: any[];
+  canContinue = false;
 
   constructor(
     public dialogRef: MatDialogRef<ExportDialogComponent>,
@@ -40,13 +41,13 @@ export class ExportDialogComponent implements OnInit {
     this.policyPublic = true;
   }
 
-  onExport() {
+  onExport(ignoreMissingUrnNbn: boolean) {
     this.state = 'saving';
     const pid = this.data.pid;
     const policy = this.policyPublic ? 'public' : 'private';
     this.errors = [];
     this.target = null;
-    this.api.export(this.selectedType, pid, policy).subscribe((response: any) => {
+    this.api.export(this.selectedType, pid, policy, ignoreMissingUrnNbn).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
         this.ui.showErrorSnackBarFromObject(response['response'].errors);
@@ -55,12 +56,19 @@ export class ExportDialogComponent implements OnInit {
       }
       const data =  response['response']['data'];
       for (const d of data) {
+        if(d.ignoreMissingUrnNbn) {
+          this.canContinue = true;
+        }
         if (d.errors && d.errors.length > 0) {
           this.errors.push(d.errors[0]);
+          if(d.errors[0].ignoreMissingUrnNbn) {
+            this.canContinue = true;
+          }
         } else if (d.target) {
           this.target = d.target;
         } 
       }
+
       if (this.errors.length === 0 && this.target) {
         this.state = 'done';
       } else {

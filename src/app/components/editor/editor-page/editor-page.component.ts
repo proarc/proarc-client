@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { FormControl, FormGroup } from '@angular/forms';
+import { UIService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-editor-page',
@@ -56,6 +57,7 @@ export class EditorPageComponent implements OnInit {
 
   constructor(public editor: EditorService,
               private api: ApiService,
+              private ui: UIService,
               private dialog: MatDialog,
               public config: ConfigService,
               public codebook: CodebookService,
@@ -104,8 +106,15 @@ export class EditorPageComponent implements OnInit {
   private onPidChanged(pid: string) {
     this.state = 'loading';
     if (this.editor.right.notSaved) {
-      const page = Page.fromJson(this.editor.right.content, this.editor.right.model);
+      const page = new Page();
+      page.pid = pid;
+      page.type = 'normalPage';
+      page.model = this.editor.right.model;
+      page.number = this.editor.right.label;
+      page.timestamp = new Date().getTime();
       this.setPage(page);
+      this.controls.markAsDirty();
+      this.editor.isDirty = true;
       this.state = 'success';
       return;
     }
@@ -204,11 +213,39 @@ export class EditorPageComponent implements OnInit {
       return;
     }
     this.editor.page.removeEmptyIdentifiers();
-    this.editor.savePage(this.editor.page, (page: Page) => {
-      if (page) {
-        this.editor.page = page;
-      }
-    }, !!from);
+    if (this.editor.right.notSaved) {
+      let data = `model=${this.editor.page.model}`;
+      data = `${data}&pid=${this.editor.page.pid}`;
+      data = `${data}&xml=${this.editor.page.toXml()}`;
+      data = `${data}&parent=${this.editor.right.parent}`;
+      this.api.createObject(data).subscribe((response: any) => {
+        if (response['response'].errors) {
+          console.log('error', response['response'].errors);
+          this.ui.showErrorSnackBarFromObject(response['response'].errors);
+          this.state = 'error';
+          return;
+        }
+        this.editor.right.notSaved = false;
+        const pid =  response['response']['data'][0]['pid'];
+        this.editor.reloadChildren(() => {
+            for (const item of this.editor.children) {
+                if (item.pid == pid) {
+                    this.editor.selectRight(item);
+                    break;
+                }
+            }
+            this.onPidChanged(pid);
+            this.state = 'success';
+        });
+        this.state = 'success';
+      });
+    } else {
+      this.editor.savePage(this.editor.page, (page: Page) => {
+        if (page) {
+          this.editor.page = page;
+        }
+      }, !!from);
+    }
   }
 
   public hasChanged() {
