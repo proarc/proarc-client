@@ -113,8 +113,8 @@ export class EditorComponent implements OnInit {
 
   confirmLeaveDialog() {
     const data: SimpleDialogData = {
-      title: 'Upozorneni',
-      message:'Opouštíte formulář bez uložení. Opravdu chcete pokracovat?',
+      title: 'Upozornění',
+      message:'Opouštíte formulář bez uložení. Opravdu chcete pokračovat?',
       btn1: {
         label: "Ano",
         value: 'true',
