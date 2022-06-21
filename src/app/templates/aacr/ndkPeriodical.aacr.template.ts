@@ -195,55 +195,64 @@ export class NdkPeriodicalAacrTemplate {
           labelKey: 'originInfo/dateIssued',
           cols: 2,
           description: `Datum vydání předlohy, nutno zaznamenat rok/roky, v nichž časopis vycházel - formu zápisu přebírat z katalogu (např. 1900-1939)<br/>
-            dpovídá hodnotě z katalogizačního záznamu, pole 260 $c a polí 008/07-10 a 008/11-14`
-        },
-        qualifier: {
-          usage: 'R',
-          label: 'Upřesnění data',
-          selector: 'originInfo/dateIssued/@qualifier',
-          labelKey: 'originInfo/dateIssued/@qualifier',
-          cols: 2,
-          description: `Možnost dalšího upřesnění. Možné hodnoty
+            dpovídá hodnotě z katalogizačního záznamu, pole 260 $c a polí 008/07-10 a 008/11-14`,
+          fields: {
+            value: {
+              usage: 'MA',
+              selector: 'originInfo/dateIssued/value',
+              labelKey: 'originInfo/dateIssued/value',
+              label: 'Hodnota',
+              help: 'off'
+            },
+            qualifier: {
+              usage: 'R',
+              label: 'Upřesnění data',
+              selector: 'originInfo/dateIssued/@qualifier',
+              labelKey: 'originInfo/dateIssued/@qualifier',
+              cols: 3,
+              description: `Možnost dalšího upřesnění. Možné hodnoty
             <ul>
               <li>Přibližné (approximate)</li>
               <li>Odvozené (inferred)</li>
               <li>Sporné (questionable)</li>
             </ul>`,
-          options: [
-            ['', '-'],
-            ['approximate', 'Datum je přibližné'],
-            ['inferred', 'Datum je odvozené'],
-            ['questionable', 'Datum je sporné']
-          ]
-        },
-        encoding: {
-          usage: 'R',
-          label: 'Kódování',
-          selector: 'originInfo/dateIssued/@encoding',
-          labelKey: 'originInfo/dateIssued/@encoding',
-          cols: 2,
-          description: `Hodnota "marc" jen u údaje z pole 008`,
-          options: [
-            ['', '-'],
-            ['marc', 'MARC'],
-            ['iso8601', 'ISO 8601'],
-            ['edtf', 'EDTF'],
-            ['temper', 'temper'],
-            ['w3cdtf', 'W3CDTF']
-          ]
-        },
-        point: {
-          usage: 'MA',
-          label: 'Point',
-          selector: 'originInfo/dateIssued/@point',
-          labelKey: 'originInfo/dateIssued/@point',
-          cols: 2,
-          description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
-          options: [
-            ['', '-'],
-            ['start', 'start'],
-            ['end', 'end']
-          ]
+              options: [
+                ['', '-'],
+                ['approximate', 'Datum je přibližné'],
+                ['inferred', 'Datum je odvozené'],
+                ['questionable', 'Datum je sporné']
+              ]
+            },
+            encoding: {
+              usage: 'R',
+              label: 'Kódování',
+              selector: 'originInfo/dateIssued/@encoding',
+              labelKey: 'originInfo/dateIssued/@encoding',
+              cols: 3,
+              description: `Hodnota "marc" jen u údaje z pole 008`,
+              options: [
+                ['', '-'],
+                ['marc', 'MARC'],
+                ['iso8601', 'ISO 8601'],
+                ['edtf', 'EDTF'],
+                ['temper', 'temper'],
+                ['w3cdtf', 'W3CDTF']
+              ]
+            },
+            point: {
+              usage: 'MA',
+              label: 'Point',
+              selector: 'originInfo/dateIssued/@point',
+              labelKey: 'originInfo/dateIssued/@point',
+              cols: 3,
+              description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
+              options: [
+                ['', '-'],
+                ['start', 'start'],
+                ['end', 'end']
+              ]
+            },
+          }
         },
         issuance: {
           usage: 'M',
@@ -617,8 +626,8 @@ export class NdkPeriodicalAacrTemplate {
     classification: {
       usage: 'R',
       label: 'Klasifikace',
-      selector: 'identifier',
-      labelKey: 'identifier',
+      selector: 'classification',
+      labelKey: 'classification',
       description: `Klasifikační údaje věcného třídění podle Mezinárodního desetinného třídění.<br/>
       Odpovídá poli 080 MARC21.`,
       fields: {
@@ -1153,55 +1162,64 @@ export class NdkPeriodicalAacrTemplate {
               <li>264_3 <strong>Výroba</strong> (manufacture)</li>
               <li>264_4 <strong>Copyright</strong> (copyright)</li>
             </ul>
-            využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>`
-            },
-            qualifier: {
-              usage: 'R',
-              label: 'Upřesnění data',
-              selector: 'relatedItem/originInfo/dateIssued/@qualifier',
-              labelKey: 'relatedItem/originInfo/dateIssued/@qualifier',
-              cols: 2,
-              description: `Možnost dalšího upřesnění. Možné hodnoty
+            využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>`,
+              fields: {
+                value: {
+                  usage: 'MA',
+                  selector: 'relatedItem/originInfo/dateIssued/value',
+                  labelKey: 'relatedItem/originInfo/dateIssued/value',
+                  label: 'Hodnota',
+                  help: 'off'
+                },
+                qualifier: {
+                  usage: 'R',
+                  label: 'Upřesnění data',
+                  selector: 'relatedItem/originInfo/dateIssued/@qualifier',
+                  labelKey: 'relatedItem/originInfo/dateIssued/@qualifier',
+                  cols: 3,
+                  description: `Možnost dalšího upřesnění. Možné hodnoty
             <ul>
               <li>Přibližné (approximate)</li>
               <li>Odvozené (inferred)</li>
               <li>Sporné (questionable)</li>
             </ul>`,
-              options: [
-                ['', '-'],
-                ['approximate', 'Datum je přibližné'],
-                ['inferred', 'Datum je odvozené'],
-                ['questionable', 'Datum je sporné']
-              ]
-            },
-            encoding: {
-              usage: 'R',
-              label: 'Kódování',
-              selector: 'relatedItem/originInfo/dateIssued/@encoding',
-              labelKey: 'relatedItem/originInfo/dateIssued/@encoding',
-              cols: 2,
-              description: `Hodnota "marc" jen u údaje z pole 008`,
-              options: [
-                ['', '-'],
-                ['marc', 'MARC'],
-                ['iso8601', 'ISO 8601'],
-                ['edtf', 'EDTF'],
-                ['temper', 'temper'],
-                ['w3cdtf', 'W3CDTF']
-              ]
-            },
-            point: {
-              usage: 'MA',
-              label: 'Point',
-              selector: 'relatedItem/originInfo/dateIssued/@point',
-              labelKey: 'relatedItem/originInfo/dateIssued/@point',
-              cols: 2,
-              description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
-              options: [
-                ['', '-'],
-                ['start', 'start'],
-                ['end', 'end']
-              ]
+                  options: [
+                    ['', '-'],
+                    ['approximate', 'Datum je přibližné'],
+                    ['inferred', 'Datum je odvozené'],
+                    ['questionable', 'Datum je sporné']
+                  ]
+                },
+                encoding: {
+                  usage: 'R',
+                  label: 'Kódování',
+                  selector: 'relatedItem/originInfo/dateIssued/@encoding',
+                  labelKey: 'relatedItem/originInfo/dateIssued/@encoding',
+                  cols: 3,
+                  description: `Hodnota "marc" jen u údaje z pole 008`,
+                  options: [
+                    ['', '-'],
+                    ['marc', 'MARC'],
+                    ['iso8601', 'ISO 8601'],
+                    ['edtf', 'EDTF'],
+                    ['temper', 'temper'],
+                    ['w3cdtf', 'W3CDTF']
+                  ]
+                },
+                point: {
+                  usage: 'MA',
+                  label: 'Point',
+                  selector: 'relatedItem/originInfo/dateIssued/@point',
+                  labelKey: 'relatedItem/originInfo/dateIssued/@point',
+                  cols: 3,
+                  description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
+                  options: [
+                    ['', '-'],
+                    ['start', 'start'],
+                    ['end', 'end']
+                  ]
+                },
+              }
             },
             issuance: {
               usage: 'MA',

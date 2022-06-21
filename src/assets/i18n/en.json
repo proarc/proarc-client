@@ -1698,6 +1698,7 @@
     "typeOfResource/@manuscript": "Manuscript",
     "typeOfResource/value": "Value",
     "titleInfo/@lang": "Language",
+    "originInfo/dateIssued/value" : "Value",
     "bdm/titleInfo/nonSort": "Non sort",
     "bdm/name": "Name",
     "bdm/subject": "Subject",

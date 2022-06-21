@@ -192,26 +192,36 @@ export class NdkPeriodicalSupplementAacrTemplate {
           labelKey: 'originInfo/dateIssued',
           cols: 2,
           description: `Satum vydání přílohy, dle toho jaké údaje jsou k dispozici<br/>
-            možno použít hodnotu z katalogizačního záznamu, pole 260, $c`
-        },
-        qualifier: {
-          usage: 'O',
-          label: 'Upřesnění data',
-          selector: 'originInfo/dateIssued/@qualifier',
-          labelKey: 'originInfo/dateIssued/@qualifier',
-          cols: 2,
-          description: `Možnost dalšího upřesnění. Možné hodnoty
+            možno použít hodnotu z katalogizačního záznamu, pole 260, $c`,
+          fields: {
+            value: {
+              usage: 'MA',
+              cols: 2,
+              selector: 'originInfo/dateIssued/value',
+              labelKey: 'originInfo/dateIssued/value',
+              label: 'Hodnota',
+              help: 'off'
+            },
+            qualifier: {
+              usage: 'O',
+              label: 'Upřesnění data',
+              selector: 'originInfo/dateIssued/@qualifier',
+              labelKey: 'originInfo/dateIssued/@qualifier',
+              cols: 2,
+              description: `Možnost dalšího upřesnění. Možné hodnoty
             <ul>
               <li>Přibližné (approximate)</li>
               <li>Odvozené (inferred)</li>
               <li>Sporné (questionable)</li>
             </ul>`,
-          options: [
-            ['', '-'],
-            ['approximate', 'Datum je přibližné'],
-            ['inferred', 'Datum je odvozené'],
-            ['questionable', 'Datum je sporné']
-          ]
+              options: [
+                ['', '-'],
+                ['approximate', 'Datum je přibližné'],
+                ['inferred', 'Datum je odvozené'],
+                ['questionable', 'Datum je sporné']
+              ]
+            },
+          }
         },
         place: {
           usage: 'MA',
@@ -530,8 +540,8 @@ export class NdkPeriodicalSupplementAacrTemplate {
     classification: {
       usage: 'R',
       label: 'Klasifikace',
-      selector: 'identifier',
-      labelKey: 'identifier',
+      selector: 'classification',
+      labelKey: 'classification',
       description: `Klasifikační údaje věcného třídění podle Mezinárodního desetinného třídění<br/>
       odpovídá poli 080 MARC21
       `,

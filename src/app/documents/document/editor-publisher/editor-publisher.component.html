@@ -6,10 +6,14 @@
     <app-field-dropdown field="issuance" [item]="item" [(value)]='item.issuance["_"]'></app-field-dropdown>
     <app-field-text field="publisher" [item]="item" [(value)]="item.publisher['_']"></app-field-text>
     <app-field-text field="place" [item]="item" [(value)]="item.place['_']" ></app-field-text>
-    <app-field-text field="dateIssued" [item]="item" [(value)]="item.dateIssued['_']" ></app-field-text>
-    <app-field-dropdown field="qualifier" [item]="item" [(value)]='item.dateIssued["$"]["qualifier"]'></app-field-dropdown>
-    <app-field-dropdown field="encoding" [item]="item" [(value)]='item.dateIssued["$"]["encoding"]'></app-field-dropdown>
-    <app-field-dropdown field="point" [item]="item" [(value)]='item.dateIssued["$"]["point"]'></app-field-dropdown>
+    <app-editor-field *ngIf="item.available('dateIssued')" [field]="item.dateIssueds" [nested]='true'>
+      <ng-template let-dateIssued="item" #templateContent>
+        <app-field-text field="value" [item]="dateIssued" [(value)]="dateIssued.modsElement['_']" ></app-field-text>
+        <app-field-dropdown field="qualifier" [item]="dateIssued" [(value)]='dateIssued.attrs["qualifier"]'></app-field-dropdown>
+        <app-field-dropdown field="encoding" [item]="dateIssued" [(value)]='dateIssued.attrs["encoding"]'></app-field-dropdown>
+        <app-field-dropdown field="point" [item]="dateIssued" [(value)]='dateIssued.attrs["point"]'></app-field-dropdown>
+      </ng-template>
+    </app-editor-field>
     <app-field-text field="dateCreated" [item]="item" [(value)]="item.dateCreated['_']" ></app-field-text>
     <app-field-text field="dateOther" [item]="item" [(value)]="item.dateOther['_']" ></app-field-text>
     <app-field-text field="copyrightDate" [item]="item" [(value)]="item.copyrightDate['_']" ></app-field-text>

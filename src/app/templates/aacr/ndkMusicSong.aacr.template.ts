@@ -500,8 +500,8 @@ export class NdkMusicSongAacrTemplate {
     classification: {
       usage: 'R',
       label: 'Klasifikace',
-      selector: 'identifier',
-      labelKey: 'identifier',
+      selector: 'classification',
+      labelKey: 'classification',
       description: `Klasifikační údaje věcného třídění podle Konspektu`,
       fields: {
         authority: {

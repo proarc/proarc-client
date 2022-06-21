@@ -54,39 +54,48 @@ export class ChronicleMonographvolumeAacrTemplate {
           label: 'Datum vzniku',
           selector: 'originInfo/dateIssued',
           labelKey: 'originInfo/dateIssued',
-          description: `Datum vydání kroniky.`
-        },
-        qualifier: {
-          usage: 'O',
-          label: 'Odhad',
-          selector: 'originInfo/dateIssued/@qualifier',
-          labelKey: 'originInfo/dateIssued/@qualifier',
-          cols: 2,
-          description: `Možnost dalšího upřesnění. Možné hodnoty
+          description: `Datum vydání kroniky.`,
+          fields: {
+            value: {
+              usage: 'MA',
+              selector: 'originInfo/dateIssued/value',
+              labelKey: 'originInfo/dateIssued/value',
+              label: 'Hodnota',
+              help: 'off'
+            },
+            qualifier: {
+              usage: 'O',
+              label: 'Odhad',
+              selector: 'originInfo/dateIssued/@qualifier',
+              labelKey: 'originInfo/dateIssued/@qualifier',
+              cols: 2,
+              description: `Možnost dalšího upřesnění. Možné hodnoty
             <ul>
               <li>Přibližné (approximate)</li>
               <li>Odvozené (inferred)</li>
               <li>Sporné (questionable)</li>
             </ul>`,
-          options: [
-            ['', '-'],
-            ['approximate', 'Datum je přibližné'],
-            ['inferred', 'Datum je odvozené'],
-            ['questionable', 'Datum je sporné']
-          ]
-        },
-        point: {
-          usage: 'O',
-          label: 'Rozmezí',
-          selector: 'originInfo/dateIssued/@point',
-          labelKey: 'originInfo/dateIssued/@point',
-          cols: 2,
-          description: `Hodnoty „Od“ resp. „Do“ jen u údaje pro rozmezí dat.`,
-          options: [
-            ['', '-'],
-            ['start', 'Od'],
-            ['end', 'Do']
-          ]
+              options: [
+                ['', '-'],
+                ['approximate', 'Datum je přibližné'],
+                ['inferred', 'Datum je odvozené'],
+                ['questionable', 'Datum je sporné']
+              ]
+            },
+            point: {
+              usage: 'O',
+              label: 'Rozmezí',
+              selector: 'originInfo/dateIssued/@point',
+              labelKey: 'originInfo/dateIssued/@point',
+              cols: 2,
+              description: `Hodnoty „Od“ resp. „Do“ jen u údaje pro rozmezí dat.`,
+              options: [
+                ['', '-'],
+                ['start', 'Od'],
+                ['end', 'Do']
+              ]
+            },
+          }
         },
         place: {
           usage: 'O',

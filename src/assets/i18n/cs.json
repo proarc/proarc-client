@@ -1581,6 +1581,7 @@
     "typeOfResource/@manuscript": "Manuscript",
     "typeOfResource/value": "Hodnota",
     "titleInfo/@lang": "Jazyk",
+    "originInfo/dateIssued/value" : "Hodnota",
     "bdm/titleInfo/nonSort": "Člen, jímž začíná název",
     "bdm/name": "Údaje o autorech",
     "bdm/subject": "Klíčová slova",
