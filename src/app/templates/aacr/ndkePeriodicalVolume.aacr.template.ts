@@ -122,39 +122,48 @@ export class NdkePeriodicalVolumeAacrTemplate {
           label: 'Rok',
           selector: 'originInfo/dateIssued',
           labelKey: 'originInfo/dateIssued',
-          description: `Datum vydání předlohy, rok nebo rozsah let, kdy ročník vycházel`
-        },
-        qualifier: {
-          usage: 'R',
-          label: 'Upřesnění data',
-          selector: 'originInfo/dateIssued/@qualifier',
-          labelKey: 'originInfo/dateIssued/@qualifier',
-          cols: 2,
-          description: `Možnost dalšího upřesnění. Možné hodnoty
+          description: `Datum vydání předlohy, rok nebo rozsah let, kdy ročník vycházel`,
+          fields: {
+            value: {
+              usage: 'MA',
+              selector: 'originInfo/dateIssued/value',
+              labelKey: 'originInfo/dateIssued/value',
+              label: 'Hodnota',
+              help: 'off'
+            },
+            qualifier: {
+              usage: 'R',
+              label: 'Upřesnění data',
+              selector: 'originInfo/dateIssued/@qualifier',
+              labelKey: 'originInfo/dateIssued/@qualifier',
+              cols: 2,
+              description: `Možnost dalšího upřesnění. Možné hodnoty
           <ul>
             <li>Přibližné (approximate)</li>
             <li>Odvozené (inferred)</li>
             <li>Sporné (questionable)</li>
           </ul>`,
-          options: [
-            ['', '-'],
-            ['approximate', 'Datum je přibližné'],
-            ['inferred', 'Datum je odvozené'],
-            ['questionable', 'Datum je sporné']
-          ]
-        },
-        point: {
-          usage: 'M',
-          label: 'Point',
-          selector: 'originInfo/dateIssued/@point',
-          labelKey: 'originInfo/dateIssued/@point',
-          cols: 2,
-          description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
-          options: [
-            ['', '-'],
-            ['start', 'start'],
-            ['end', 'end']
-          ]
+              options: [
+                ['', '-'],
+                ['approximate', 'Datum je přibližné'],
+                ['inferred', 'Datum je odvozené'],
+                ['questionable', 'Datum je sporné']
+              ]
+            },
+            point: {
+              usage: 'M',
+              label: 'Point',
+              selector: 'originInfo/dateIssued/@point',
+              labelKey: 'originInfo/dateIssued/@point',
+              cols: 2,
+              description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
+              options: [
+                ['', '-'],
+                ['start', 'start'],
+                ['end', 'end']
+              ]
+            },
+          }
         },
       }
     },

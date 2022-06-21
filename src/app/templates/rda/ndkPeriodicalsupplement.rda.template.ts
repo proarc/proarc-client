@@ -250,26 +250,48 @@ export class NdkPeriodicalSupplementRdaTemplate {
               <li>264_3 <strong>Výroba</strong> (manufacture)</li>
               <li>264_4 <strong>Copyright</strong> (copyright)</li>
             </ul>
-            využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>`
-        },
-        qualifier: {
-          usage: 'O',
-          label: 'Upřesnění data',
-          selector: 'originInfo/dateIssued/@qualifier',
-          labelKey: 'originInfo/dateIssued/@qualifier',
-          cols: 2,
-          description: `Možnost dalšího upřesnění. Možné hodnoty
+            využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>`,
+          fields: {
+            value: {
+              usage: 'MA',
+              selector: 'originInfo/dateIssued/value',
+              labelKey: 'originInfo/dateIssued/value',
+              label: 'Hodnota',
+              help: 'off'
+            },
+            qualifier: {
+              usage: 'O',
+              label: 'Upřesnění data',
+              selector: 'originInfo/dateIssued/@qualifier',
+              labelKey: 'originInfo/dateIssued/@qualifier',
+              cols: 2,
+              description: `Možnost dalšího upřesnění. Možné hodnoty
             <ul>
               <li>Přibližné (approximate)</li>
               <li>Odvozené (inferred)</li>
               <li>Sporné (questionable)</li>
             </ul>`,
-          options: [
-            ['', '-'],
-            ['approximate', 'Datum je přibližné'],
-            ['inferred', 'Datum je odvozené'],
-            ['questionable', 'Datum je sporné']
-          ]
+              options: [
+                ['', '-'],
+                ['approximate', 'Datum je přibližné'],
+                ['inferred', 'Datum je odvozené'],
+                ['questionable', 'Datum je sporné']
+              ]
+            },
+            point: {
+              usage: 'MA',
+              label: 'Point',
+              selector: 'originInfo/dateIssued/@point',
+              labelKey: 'originInfo/dateIssued/@point',
+              cols: 2,
+              description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
+              options: [
+                ['', '-'],
+                ['start', 'start'],
+                ['end', 'end']
+              ]
+            },
+          }
         },
         place: {
           usage: 'MA',
@@ -337,19 +359,6 @@ export class NdkPeriodicalSupplementRdaTemplate {
               help: 'off'
             }
           }
-        },
-        point: {
-          usage: 'MA',
-          label: 'Point',
-          selector: 'originInfo/dateIssued/@point',
-          labelKey: 'originInfo/dateIssued/@point',
-          cols: 2,
-          description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
-          options: [
-            ['', '-'],
-            ['start', 'start'],
-            ['end', 'end']
-          ]
         },
       }
     },

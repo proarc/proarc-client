@@ -208,55 +208,64 @@ export class OldprintMapAacrTemplate {
           cols: 2,
           description: `Datum vydání předlohy.<br/>
             Přebírat z katalogu.<br/>
-            Odpovídá hodnotě z katalogizačního záznamu, pole 260 $c a pole 008/07-10`
-        },
-        qualifier: {
-          usage: 'R',
-          label: 'Upřesnění data',
-          selector: 'originInfo/dateIssued/@qualifier',
-          labelKey: 'originInfo/dateIssued/@qualifier',
-          cols: 2,
-          description: `Možnost dalšího upřesnění. Možné hodnoty
+            Odpovídá hodnotě z katalogizačního záznamu, pole 260 $c a pole 008/07-10`,
+          fields: {
+            value: {
+              usage: 'MA',
+              selector: 'originInfo/dateIssued/value',
+              labelKey: 'originInfo/dateIssued/value',
+              label: 'Hodnota',
+              help: 'off'
+            },
+            qualifier: {
+              usage: 'R',
+              label: 'Upřesnění data',
+              selector: 'originInfo/dateIssued/@qualifier',
+              labelKey: 'originInfo/dateIssued/@qualifier',
+              cols: 3,
+              description: `Možnost dalšího upřesnění. Možné hodnoty
             <ul>
               <li>Přibližné (approximate)</li>
               <li>Odvozené (inferred)</li>
               <li>Sporné (questionable)</li>
             </ul>`,
-          options: [
-            ['', '-'],
-            ['approximate', 'Datum je přibližné'],
-            ['inferred', 'Datum je odvozené'],
-            ['questionable', 'Datum je sporné']
-          ]
-        },
-        encoding: {
-          usage: 'R',
-          label: 'Kódování',
-          selector: 'originInfo/dateIssued/@encoding',
-          labelKey: 'originInfo/dateIssued/@encoding',
-          cols: 2,
-          description: `Hodnota "marc" jen u údaje z pole 008`,
-          options: [
-            ['', '-'],
-            ['marc', 'MARC'],
-            ['iso8601', 'ISO 8601'],
-            ['edtf', 'EDTF'],
-            ['temper', 'temper'],
-            ['w3cdtf', 'W3CDTF']
-          ]
-        },
-        point: {
-          usage: 'MA',
-          label: 'Point',
-          selector: 'originInfo/dateIssued/@point',
-          labelKey: 'originInfo/dateIssued/@point',
-          cols: 2,
-          description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
-          options: [
-            ['', '-'],
-            ['start', 'start'],
-            ['end', 'end']
-          ]
+              options: [
+                ['', '-'],
+                ['approximate', 'Datum je přibližné'],
+                ['inferred', 'Datum je odvozené'],
+                ['questionable', 'Datum je sporné']
+              ]
+            },
+            encoding: {
+              usage: 'R',
+              label: 'Kódování',
+              selector: 'originInfo/dateIssued/@encoding',
+              labelKey: 'originInfo/dateIssued/@encoding',
+              cols: 3,
+              description: `Hodnota "marc" jen u údaje z pole 008`,
+              options: [
+                ['', '-'],
+                ['marc', 'MARC'],
+                ['iso8601', 'ISO 8601'],
+                ['edtf', 'EDTF'],
+                ['temper', 'temper'],
+                ['w3cdtf', 'W3CDTF']
+              ]
+            },
+            point: {
+              usage: 'MA',
+              label: 'Point',
+              selector: 'originInfo/dateIssued/@point',
+              labelKey: 'originInfo/dateIssued/@point',
+              cols: 3,
+              description: `Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat`,
+              options: [
+                ['', '-'],
+                ['start', 'start'],
+                ['end', 'end']
+              ]
+            },
+          }
         },
         issuance: {
           usage: 'M',
