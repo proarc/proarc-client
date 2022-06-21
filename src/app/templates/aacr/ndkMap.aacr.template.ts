@@ -613,8 +613,8 @@ export class NdkMapAacrTemplate {
     classification: {
       usage: 'R',
       label: 'Klasifikace',
-      selector: 'identifier',
-      labelKey: 'identifier',
+      selector: 'classification',
+      labelKey: 'classification',
       description: `Klasifikační údaje věcného třídění podle Mezinárodního desetinného třídění<br/>
       odpovídá poli 080 MARC21
       `,

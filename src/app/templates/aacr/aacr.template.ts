@@ -602,7 +602,7 @@ export class AacrTemplate {
     classification: {
       usage: 'R',
       label: 'Klasifikace',
-      selector: 'identifier',
+      selector: 'classification',
       description: `Klasifikační údaje věcného třídění podle Mezinárodního desetinného třídění<br/>
       odpovídá poli 080 MARC21
       `,

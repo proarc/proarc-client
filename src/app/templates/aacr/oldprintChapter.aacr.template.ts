@@ -433,8 +433,8 @@ export class OldprintChapterAacrTemplate {
     classification: {
       usage: 'RA',
       label: 'Klasifikace',
-      selector: 'identifier',
-      labelKey: 'identifier',
+      selector: 'classification',
+      labelKey: 'classification',
       description: `Klasifikační údaje věcného třídění podle Mezinárodního desetinného třídění<br/>
       odpovídá poli 080 MARC21
       `,
