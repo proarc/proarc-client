@@ -195,7 +195,13 @@ export class EditorService {
         obj.pid = id;
         this.api.getImportBatch(parseInt(id)).subscribe((batch: Batch) => {
             obj.parent = batch.parentPid;
-            this.api.getBatchPages(id).subscribe((pages: DocumentItem[]) => {
+            this.api.getBatchPages(id).subscribe((response: any) => {
+                if (response['response'].errors) {
+                    this.ui.showErrorSnackBarFromObject(response['response'].errors);
+                    this.state = 'error';
+                    return;
+                }
+                const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
                 this.left = obj;
                 this.children = pages;
                 this.mode = 'children'
@@ -210,7 +216,13 @@ export class EditorService {
     }
 
     reloadBatch(callback: () => void, moveToNext = false) {
-        this.api.getBatchPages(this.left!.pid).subscribe((pages: DocumentItem[]) => {
+        this.api.getBatchPages(this.left!.pid).subscribe((response: any) => {
+            if (response['response'].errors) {
+                this.ui.showErrorSnackBarFromObject(response['response'].errors);
+                this.state = 'error';
+                return;
+            }
+            const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
             if (this.numberOfSelectedChildren() > 1) {
                 for (const oldChild of this.children) {
                     if (oldChild.selected) {

@@ -201,7 +201,8 @@
     "ingest_dialog": {
       "title": "Ukládání",
       "message": "Probíhá ukládání do úložiště",
-      "open": "Otevřít objekt v editoru",
+      "open": "Otevřít v editoru",
+      "back_to_search": "Přejít do hledání",
       "success": "Uloženo do úložiště",
       "failure": "Uložení do úložiště se nezdařilo"
     }

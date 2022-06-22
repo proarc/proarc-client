@@ -479,9 +479,8 @@ export class ApiService {
     return this.get('object/member', params).pipe(map((response: any) => DocumentItem.fromJsonArray(response['response']['data'])));
   }
 
-  getBatchPages(id: string): Observable<DocumentItem[]> {
-    return this.get('import/batch/item', { batchId: id })
-            .pipe(map((response: any) => DocumentItem.pagesFromJsonArray(response['response']['data'])));
+  getBatchPages(id: string): Observable<any> {
+    return this.get('import/batch/item', { batchId: id });
   }
 
   getCatalogs(): Observable<Catalogue[]> {

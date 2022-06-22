@@ -187,7 +187,8 @@
     "ingest_dialog": {
       "title": "Ingesting",
       "message": "Ingesting into repository",
-      "open": "Open object in editor",
+      "open": "Open in editor",
+      "back_to_search": "Back to search",
       "success": "Save to repository",
       "failure": "Operation failed"
     },
