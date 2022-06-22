@@ -1546,15 +1546,15 @@ export class NdkMonographVolumeRdaTemplate {
               fields: {
                 value: {
                   usage: 'O',
-                  selector: 'location/url/value',
-                  labelKey: 'location/url/value',
+                  selector: 'relatedItem/location/url/value',
+                  labelKey: 'relatedItem/location/url/value',
                   label: 'Hodnota',
                   help: 'off'
                 },
                 note: {
                   usage: 'O',
-                  selector: 'location/url/@note',
-                  labelKey: 'location/url/@note',
+                  selector: 'relatedItem/location/url/@note',
+                  labelKey: 'relatedItem/location/url/@note',
                   cols: 2,
                   label: 'Note',
                   help: 'off'
@@ -1562,8 +1562,8 @@ export class NdkMonographVolumeRdaTemplate {
                 usage: {
                   usage: 'O',
                   cols: 2,
-                  selector: 'location/url/@usage',
-                  labelKey: 'location/url/@usage',
+                  selector: 'relatedItem/location/url/@usage',
+                  labelKey: 'relatedItem/location/url/@usage',
                   label: 'Usage',
                   help: 'off',
                   options: [

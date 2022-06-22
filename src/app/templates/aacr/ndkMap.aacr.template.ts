@@ -1375,7 +1375,36 @@ export class NdkMapAacrTemplate {
               label: 'URL',
               selector: 'relatedItem/location/url',
               labelKey: 'relatedItem/location/url',
-              description: `Pro uvedení lokace elektronického dokumentu`
+              description: `Pro uvedení lokace elektronického dokumentu`,
+              fields: {
+                value: {
+                  usage: 'O',
+                  selector: 'relatedItem/location/url/value',
+                  labelKey: 'relatedItem/location/url/value',
+                  label: 'Hodnota',
+                  help: 'off'
+                },
+                note: {
+                  usage: 'O',
+                  selector: 'relatedItem/location/url/@note',
+                  labelKey: 'relatedItem/location/url/@note',
+                  cols: 2,
+                  label: 'Note',
+                  help: 'off'
+                },
+                usage: {
+                  usage: 'O',
+                  cols: 2,
+                  selector: 'relatedItem/location/url/@usage',
+                  labelKey: 'relatedItem/location/url/@usage',
+                  label: 'Usage',
+                  help: 'off',
+                  options: [
+                    ['', '-'],
+                    ['primary', 'primary']
+                  ]
+                },
+              }
             }
           }
         },

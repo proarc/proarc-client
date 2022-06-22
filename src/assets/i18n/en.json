@@ -1700,6 +1700,7 @@
     "typeOfResource/value": "Value",
     "titleInfo/@lang": "Language",
     "originInfo/dateIssued/value" : "Value",
+    "relatedItem/originInfo/dateIssued/value" : "Value",
     "bdm/titleInfo/nonSort": "Non sort",
     "bdm/name": "Name",
     "bdm/subject": "Subject",
@@ -1718,6 +1719,8 @@
     "bdm/name/nameIdentifier": "Name identifier (ORCID iD)",
     "location/url/@usage": "Usage",
     "location/url/value": "Value",
+    "relatedItem/location/url/@usage": "Usage",
+    "relatedItem/location/url/value": "Value",
     "option": {
       "": "-",
       "Contents": "Contents",
