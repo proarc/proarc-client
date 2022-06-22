@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ElementField } from 'src/app/model/mods/elementField.model';
 import {CodebookService} from '../../../services/codebook.service';
 import { TranslateService } from '@ngx-translate/core';
+import {EditorService} from '../../../services/editor.service';
 
 @Component({
   selector: 'app-editor-relatedItem',
@@ -10,6 +11,8 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./editor-relatedItem.component.scss']
 })
 export class EditorRelatedItemComponent implements OnInit {
+
+  validityOptions = [{code: '', name: 'Platný' }, {code: 'yes', name: 'Neplatný'}];
 
   private roleCodes = ['act', 'adp', 'aft', 'ann', 'ant', 'app', 'aqt', 'arc', 'arr', 'art', 'asg', 'asn', 'att', 'auc', 'aud',
     'aui', 'aus', 'aut', 'bdd', 'bjd', 'bkd', 'bkp', 'bnd', 'bpd', 'bsl', 'ccp', 'chr', 'cli', 'cll', 'clt', 'cmm', 'cmp', 'cmt',
@@ -27,7 +30,7 @@ export class EditorRelatedItemComponent implements OnInit {
 
   @Input() field: ElementField;
 
-  constructor(public translator: TranslateService, public codebook: CodebookService) {
+  constructor(public translator: TranslateService, public codebook: CodebookService, private editor: EditorService) {
     this.translateCodes();
     translator.onLangChange.subscribe(() => this.translateCodes());
   }
@@ -51,5 +54,11 @@ export class EditorRelatedItemComponent implements OnInit {
         return 0;
       });
     // });
+  }
+
+  getIdentifiers(): any[] {
+    return this.editor.left.isChronicle() ? this.codebook.chronicleIdentifiers :
+      this.editor.left.canContainPdf() ? this.codebook.eDocumentIdentifiers :
+        this.codebook.identifiers;
   }
 }

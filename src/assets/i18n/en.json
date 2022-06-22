@@ -464,6 +464,9 @@
       "geo:area": "Vztah k území",
       "coordinates": "Coordinates"
     },
+    "bdm": {
+      "editor_title": "eBorn Article metadata"
+    },
     "chronicle": {
       "editor_title": "Chronicle Metadata"
     },
@@ -1721,6 +1724,16 @@
     "location/url/value": "Value",
     "relatedItem/location/url/@usage": "Usage",
     "relatedItem/location/url/value": "Value",
+    "relatedItem/location/shelfLocator/value": "Value",
+    "location/shelfLocator/value": "Value",
+    "bdm/relatedItem/physicalDescription": "Physical description",
+    "bdm/relatedItem/physicalDescription/extent": "Extent",
+    "bdm/relatedItem/note": "Note",
+    "bdm/relatedItem/note/value" : "Value",
+    "relatedItem/identifier": "Identifiers",
+    "relatedItem/identifier/@type": "Type",
+    "relatedItem/identifier/@invalid": "Invalid",
+    "relatedItem/identifier/value": "Value",
     "option": {
       "": "-",
       "Contents": "Contents",

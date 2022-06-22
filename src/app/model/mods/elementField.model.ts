@@ -31,6 +31,7 @@ import {ModsRelatedItem} from './relatedItem.model';
 import { TranslateService } from '@ngx-translate/core';
 import {ModsDateIssued} from './dateIssued.model';
 import {ModsUrl} from './url.model';
+import {ModsShelfLocator} from './shelfLocator.model';
 
 export class ElementField {
 
@@ -227,6 +228,8 @@ export class ElementField {
                 return new ModsDateIssued(el, this.template);
             case ModsUrl.getId():
                 return new ModsUrl(el, this.template);
+            case ModsShelfLocator.getId():
+                return new ModsShelfLocator(el, this.template);
             case ModsCartographics.getId():
                 return new ModsCartographics(el, this.template);
             case ModsForm.getId():
@@ -331,6 +334,8 @@ export class ElementField {
                 return ModsCartographics.getSelector();
             case ModsUrl.getId():
                 return ModsUrl.getSelector();
+            case ModsShelfLocator.getId():
+                return ModsShelfLocator.getSelector();
             case ModsForm.getId():
                 return ModsForm.getSelector();
             case ModsRecordChangeDate.getId():

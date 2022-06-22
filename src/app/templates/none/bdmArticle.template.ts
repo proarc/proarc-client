@@ -503,8 +503,84 @@ export class BdmArticleTemplate {
               labelKey: 'relatedItem/originInfo/publisher',
               description: `Vydavatel recenzovaného díla ve tvaru: \"město : nakladatelství, rok vydání\". Odpovídá poli 787$d.`,
             },
+            edition: {
+              usage: 'R',
+              label: 'Vydání',
+              selector: 'relatedItem/originInfo/edition',
+              labelKey: 'relatedItem/originInfo/edition',
+              description: `Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu.`
+            },
           }
-        }
+        },
+        physicalDescription: {
+          usage: 'MA',
+          label: 'Fyzický popis',
+          selector: 'relatedItem/physicalDescription',
+          labelKey: 'bdm/relatedItem/physicalDescription',
+          description: `Obsahuje údaje o popisu zdroje/předlohy`,
+          fields: {
+            extent: {
+              usage: 'RA',
+              label: 'Rozsah',
+              selector: 'relatedItem/physicalDescription/extent',
+              labelKey: 'bdm/relatedItem/physicalDescription/extent',
+              description: `Údaje o rozsahu (stran, svazků nebo rozměrů)`,
+            },
+          }
+        },
+        note: {
+          usage: 'RA',
+          label: 'Poznámka',
+          selector: 'relatedItem/note',
+          labelKey: 'bdm/relatedItem/note',
+          description: `Obecná poznámka`,
+          fields: {
+            note: {
+              usage: 'RA',
+              selector: 'relatedItem/note/value',
+              labelKey: 'bdm/relatedItem/note/value',
+              label: 'Poznámka',
+              help: 'off'
+            }
+          }
+        },
+        identifier: {
+          usage: 'M',
+          label: 'Identifikátory článku',
+          selector: 'relatedItem/identifier',
+          labelKey: 'relatedItem/identifier',
+          description: `Údaje o identifikátorech.`,
+          fields: {
+            type: {
+              usage: 'M',
+              label: 'Typ',
+              selector: 'relatedItem/identifier/@type',
+              labelKey: 'relatedItem/identifier/@type',
+              cols: 2,
+              description: `Výběr typu identifikátoru článku.`,
+              options: [
+                ['doi', 'doi'],
+                ['uuid', 'uuid'],
+                ['isbn', 'isbn']
+              ]
+            },
+            value: {
+              usage: 'M',
+              selector: 'relatedItem/identifier/value',
+              labelKey: 'relatedItem/identifier/value',
+              label: 'Hodnota',
+              help: 'off'
+            },
+            validity: {
+              usage: 'MA',
+              label: 'Platnost',
+              selector: 'relatedItem/identifier/@invalid',
+              labelKey: 'relatedItem/identifier/@invalid',
+              cols: 2,
+              description: `Uvádějí se i neplatné resp. zrušené identifikátory.`
+            },
+          }
+        },
       }
     }
   };
