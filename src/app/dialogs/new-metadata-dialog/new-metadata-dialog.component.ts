@@ -37,7 +37,10 @@ export class NewMetadataDialogComponent implements OnInit {
       isNew: true
     });
     this.inited = true;
-    console.log(this.editor)
+    setTimeout(() => {
+      this.editor.metadata.validate();
+    }, 100);
+    
   }
 
   public isPage(): boolean {
