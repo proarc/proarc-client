@@ -182,6 +182,7 @@
 <div class="app-search-actions">
   <div class="app-object-actions">
     <ng-container *ngIf="search.selectedTree">
+      <button (click)="selectItem(selectedItem)" mat-button>{{'common.refresh' | translate }}</button>
       <button (click)="openItem(search.selectedTree.item)" mat-button>Otevřít</button>
       <button (click)="onExport(search.selectedTree.item)" mat-button>Exportovat</button>
       <button (click)="onUrnnbn(search.selectedTree.item)" mat-button>URN:NBN</button>
