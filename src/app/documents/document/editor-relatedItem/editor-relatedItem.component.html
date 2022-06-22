@@ -26,9 +26,9 @@
         <app-field-dropdown field="issuance" [item]="originInfo" [(value)]='originInfo.issuance["_"]'></app-field-dropdown>
         <app-field-text field="publisher" [item]="originInfo" [(value)]="originInfo.publisher['_']"></app-field-text>
         <app-field-text field="place" [item]="originInfo" [(value)]="originInfo.place['_']" ></app-field-text>
-        <app-editor-field *ngIf="item.available('dateIssued')" [field]="item.dateIssueds" [nested]='true'>
-          <ng-template let-dateIssued="item" #templateContent>
-            <app-field-text field="value" [item]="dateIssued" [(value)]="dateIssued.modsElement['_']" ></app-field-text>
+        <app-editor-field *ngIf="originInfo.available('dateIssued')" [field]="originInfo.dateIssueds" [nested]='true'>
+          <ng-template let-dateIssued="originInfo" #templateContent>
+            <!--<app-field-text field="value" [item]="dateIssued" [(value)]="dateIssued.modsElement['_']" ></app-field-text>-->
             <app-field-dropdown field="qualifier" [item]="dateIssued" [(value)]='dateIssued.attrs["qualifier"]'></app-field-dropdown>
             <app-field-dropdown field="encoding" [item]="dateIssued" [(value)]='dateIssued.attrs["encoding"]'></app-field-dropdown>
             <app-field-dropdown field="point" [item]="dateIssued" [(value)]='dateIssued.attrs["point"]'></app-field-dropdown>
@@ -76,7 +76,13 @@
       <ng-template let-location="item" #templateContent>
         <app-field-codebook field="physicalLocation" [item]="location" [options]="codebook.locations" [(value)]='location.physicalLocation["_"]'></app-field-codebook>
         <app-field-text field="shelfLocator" [item]="location" [(value)]="location.shelfLocator['_']"></app-field-text>
-        <app-field-text field="url" [item]="location" [(value)]="location.url['_']"></app-field-text>
+        <app-editor-field *ngIf="location.available('url')" [field]="location.urls" [nested]='true'>
+          <ng-template let-url="location" #templateContent>
+            <app-field-dropdown field="usage" [item]="url" [(value)]='url.attrs["usage"]'></app-field-dropdown>
+            <app-field-text field="note" [item]="url" [(value)]='url.attrs["note"]'></app-field-text>
+            <app-field-text field="value" [item]="url" [(value)]="url.modsElement['_']"></app-field-text>
+          </ng-template>
+        </app-editor-field>
       </ng-template>
     </app-editor-field>
 
