@@ -28,10 +28,11 @@
         <app-field-text field="place" [item]="originInfo" [(value)]="originInfo.place['_']" ></app-field-text>
         <app-editor-field *ngIf="originInfo.available('dateIssued')" [field]="originInfo.dateIssueds" [nested]='true'>
           <ng-template let-dateIssued="originInfo" #templateContent>
-            <!--<app-field-text field="value" [item]="dateIssued" [(value)]="dateIssued.modsElement['_']" ></app-field-text>-->
+            <!--<app-field-text field="value" [item]="dateIssued" [(value)]="dateIssued.modsElement['_']" ></app-field-text>
             <app-field-dropdown field="qualifier" [item]="dateIssued" [(value)]='dateIssued.attrs["qualifier"]'></app-field-dropdown>
             <app-field-dropdown field="encoding" [item]="dateIssued" [(value)]='dateIssued.attrs["encoding"]'></app-field-dropdown>
             <app-field-dropdown field="point" [item]="dateIssued" [(value)]='dateIssued.attrs["point"]'></app-field-dropdown>
+            -->
           </ng-template>
         </app-editor-field>
         <app-field-text field="dateCreated" [item]="originInfo" [(value)]="originInfo.dateCreated['_']" ></app-field-text>
