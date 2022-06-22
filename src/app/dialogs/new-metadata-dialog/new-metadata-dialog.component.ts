@@ -40,7 +40,7 @@ export class NewMetadataDialogComponent implements OnInit {
     setTimeout(() => {
       this.editor.metadata.validate();
     }, 100);
-    
+
   }
 
   public isPage(): boolean {
@@ -86,6 +86,30 @@ export class NewMetadataDialogComponent implements OnInit {
       this.editor.resetChanges();
       this.dialogRef.close(response['response']['data'][0]);
     });
+  }
+
+  onClose() {
+    const data: SimpleDialogData = {
+      title: 'Upozornění',
+      message:'Opouštíte formulář bez uložení. Opravdu chcete pokračovat?',
+      btn1: {
+        label: "Ano",
+        value: 'true',
+        color: 'warn'
+      },
+      btn2: {
+        label: "Ne",
+        value: 'false',
+        color: 'default'
+      },
+    };
+    const d = this.dialog.open(SimpleDialogComponent, { data: data });
+    d.afterClosed().subscribe(result => {
+      if (result === 'true') {
+        this.dialogRef.close('close');
+      }
+    });
+
   }
 
   onSave() {

@@ -15,6 +15,7 @@ export class SimpleDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: SimpleDialogData) { }
 
   ngOnInit() {
+    console.log(this.data)
   }
 
 
