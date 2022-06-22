@@ -70,7 +70,7 @@ export class NewMetadataDialogComponent implements OnInit {
   savePage() {
     let data = `model=${this.editor.page.model}`;
     data = `${data}&pid=${this.editor.page.pid}`;
-    data = `${data}&xml=${this.editor.page.toXml()}`;
+    data = `${data}&xml=${encodeURIComponent(this.editor.page.toXml())}`;
     if (this.data.parent) {
       data = `${data}&parent=${this.data.parent}`;
     }
@@ -120,7 +120,7 @@ export class NewMetadataDialogComponent implements OnInit {
     if (this.editor.metadata.validate()) {
       let data = `model=${this.editor.metadata.model}`;
       data = `${data}&pid=${this.editor.metadata.pid}`;
-      data = `${data}&xml=${this.editor.metadata.toMods()}`;
+      data = `${data}&xml=${encodeURIComponent(this.editor.metadata.toMods())}`;
       if (this.data.parent) {
         data = `${data}&parent=${this.data.parent}`;
       }
@@ -163,7 +163,7 @@ export class NewMetadataDialogComponent implements OnInit {
       if (result === 'yes') {
         let data = `model=${this.editor.metadata.model}`;
         data = `${data}&pid=${this.editor.metadata.pid}`;
-        data = `${data}&xml=${this.editor.metadata.toMods()}`;
+        data = `${data}&xml=${encodeURIComponent(this.editor.metadata.toMods())}`;
         if (this.data.parent) {
           data = `${data}&parent=${this.data.parent}`;
         }

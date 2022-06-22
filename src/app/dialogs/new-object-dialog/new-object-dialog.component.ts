@@ -91,7 +91,7 @@ export class NewObjectDialogComponent implements OnInit {
         if (customPid) {
           data = `${data}&pid=${customPid}`;
         }
-        data = `${data}&xml=${result.mods}`;
+        data = `${data}&xml=${encodeURIComponent(result.mods)}`;
         this.api.createObject(data).subscribe((response: any) => {
           if (response['response'].errors) {
             console.log('error', response['response'].errors);
