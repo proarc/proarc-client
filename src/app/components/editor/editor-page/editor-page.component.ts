@@ -9,6 +9,8 @@ import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
+import { FormControl, FormGroup } from '@angular/forms';
+import { UIService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-editor-page',
@@ -17,6 +19,7 @@ import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dial
 })
 export class EditorPageComponent implements OnInit {
 
+  @Input() notSaved = false;
   state = 'none';
   // page: Page;
 
@@ -27,10 +30,27 @@ export class EditorPageComponent implements OnInit {
 
   @Input() model: string;
 
-  @ViewChild("pageNumber") pageNumberFiled: ElementRef;
-  @ViewChild("pageIndex") pageIndexFiled: ElementRef;
+
+  @ViewChild("pageNumber") pageNumberField: ElementRef;
+  @ViewChild("pageIndex") pageIndexField: ElementRef;
   @ViewChild("typeSelect") typeSelect: MatSelect;
-  
+  @ViewChild("posSelect") posSelect: MatSelect;
+  @ViewChild("genreSelect") genreSelect: MatSelect;
+
+  pageTypeControl: FormControl<{code: string, name: string} | null> = new FormControl<{code: string, name: string} | null>(null);
+  pageNumberControl= new FormControl();
+  pageIndexControl= new FormControl();
+  posControl= new FormControl();
+  genreControl= new FormControl();
+  noteControl= new FormControl();
+  controls: FormGroup = new FormGroup({
+    pageTypeControl: this.pageTypeControl,
+    pageNumberControl: this.pageNumberControl,
+    pageIndexControl: this.pageIndexControl,
+    posControl: this.posControl,
+    genreControl: this.genreControl,
+    noteControl: this.noteControl
+  });
 
   @Input()
   set pid(pid: string) {
@@ -39,6 +59,7 @@ export class EditorPageComponent implements OnInit {
 
   constructor(public editor: EditorService,
               private api: ApiService,
+              private ui: UIService,
               private dialog: MatDialog,
               public config: ConfigService,
               public codebook: CodebookService,
@@ -46,30 +67,61 @@ export class EditorPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.controls.valueChanges.subscribe((e: any) => {
+      this.editor.isDirty = this.controls.dirty;
+    })
   }
 
   removeFocus() {
     this.movedToNextFrom = '';
   }
 
+  private setPage(page: Page) {
+    this.editor.page = page;
+    this.controls.get('pageTypeControl').setValue(page.type);
+    this.controls.markAsPristine();
+    this.editor.isDirty = false;
+    this.state = 'success';
+    if (this.movedToNextFrom == 'pageNumber') {
+      setTimeout(() => { 
+        this.pageNumberField.nativeElement.focus();
+      },10);
+    } else if (this.movedToNextFrom == 'pageIndex') {
+      setTimeout(() => { 
+        this.pageIndexField.nativeElement.focus();
+      },10);
+    } else if (this.movedToNextFrom == 'type') {
+      setTimeout(() => { 
+        this.typeSelect.focus();
+      },10);
+    } else if (this.movedToNextFrom == 'position') {
+      setTimeout(() => { 
+        this.posSelect.focus();
+      },10);
+    } else if (this.movedToNextFrom == 'genre') {
+      setTimeout(() => { 
+        this.genreSelect.focus();
+      },10);
+    }
+  }
+
   private onPidChanged(pid: string) {
     this.state = 'loading';
-    this.api.getPage(pid, this.model, this.editor.getBatchId()).subscribe((page: Page) => {
-      this.editor.page = page;
+    if (this.editor.right.notSaved) {
+      const page = new Page();
+      page.pid = pid;
+      page.type = 'normalPage';
+      page.model = this.editor.right.model;
+      page.number = this.editor.right.label;
+      page.timestamp = new Date().getTime();
+      this.setPage(page);
+      this.controls.markAsDirty();
+      this.editor.isDirty = true;
       this.state = 'success';
-      if (this.movedToNextFrom == 'pageNumber') {
-        setTimeout(() => { 
-          this.pageNumberFiled.nativeElement.focus();
-        },10);
-      } else if (this.movedToNextFrom == 'pageIndex') {
-        setTimeout(() => { 
-          this.pageIndexFiled.nativeElement.focus();
-        },10);
-      }else if (this.movedToNextFrom == 'type') {
-        setTimeout(() => { 
-          this.typeSelect.focus();
-        },10);
-      }
+      return;
+    }
+    this.api.getPage(pid, this.model, this.editor.getBatchId()).subscribe((page: Page) => {
+      this.setPage(page);
 
     }, () => {
       this.state = 'failure';
@@ -154,6 +206,8 @@ export class EditorPageComponent implements OnInit {
 
   private save(from: string) {
     this.movedToNextFrom = from;
+    this.controls.markAsPristine();
+    this.editor.isDirty = false;
     if (!this.editor.page.hasChanged()) {
       if (!!from) {
         this.editor.moveToNext();
@@ -161,11 +215,39 @@ export class EditorPageComponent implements OnInit {
       return;
     }
     this.editor.page.removeEmptyIdentifiers();
-    this.editor.savePage(this.editor.page, (page: Page) => {
-      if (page) {
-        this.editor.page = page;
-      }
-    }, !!from);
+    if (this.editor.right.notSaved) {
+      let data = `model=${this.editor.page.model}`;
+      data = `${data}&pid=${this.editor.page.pid}`;
+      data = `${data}&xml=${this.editor.page.toXml()}`;
+      data = `${data}&parent=${this.editor.right.parent}`;
+      this.api.createObject(data).subscribe((response: any) => {
+        if (response['response'].errors) {
+          console.log('error', response['response'].errors);
+          this.ui.showErrorSnackBarFromObject(response['response'].errors);
+          this.state = 'error';
+          return;
+        }
+        this.editor.right.notSaved = false;
+        const pid =  response['response']['data'][0]['pid'];
+        this.editor.reloadChildren(() => {
+            for (const item of this.editor.children) {
+                if (item.pid == pid) {
+                    this.editor.selectRight(item);
+                    break;
+                }
+            }
+            this.onPidChanged(pid);
+            this.state = 'success';
+        });
+        this.state = 'success';
+      });
+    } else {
+      this.editor.savePage(this.editor.page, (page: Page) => {
+        if (page) {
+          this.editor.page = page;
+        }
+      }, !!from);
+    }
   }
 
   public hasChanged() {
@@ -173,9 +255,9 @@ export class EditorPageComponent implements OnInit {
   }
 
   
-  enterSelect(s: MatSelect) {
+  enterSelect(s: MatSelect, from: string) {
     s.close();
-    this.onSave('type');
+    this.onSave(from);
   }
 
 }

@@ -7,7 +7,7 @@
                 <span class="app-label-sub">{{ editor.metadata.standard }}</span>
             </ng-container>
         </div>
-        <div class="app-actions-right">
+        <div class="app-actions-right" *ngIf="!notSaved">
             <button class="app-action" (click)="onLoadFromCatalog()" [matTooltip]="'editor.metadata.catalog' | translate" mat-icon-button>
                 <mat-icon>local_library</mat-icon>
             </button>

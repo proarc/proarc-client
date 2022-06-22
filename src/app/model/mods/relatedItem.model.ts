@@ -13,6 +13,7 @@ import {ModsNote} from './note.mode';
 import {ModsGenre} from './genre.model';
 import {ModsClassification} from './classification.model';
 import {ModsResource} from './resource.model';
+import {ModsIdentifier} from './identifier.model';
 
 export class ModsRelatedItem extends ModsElement {
 
@@ -29,6 +30,7 @@ export class ModsRelatedItem extends ModsElement {
   genres: ElementField;
   classifications: ElementField;
   typeOfResources: ElementField;
+  identifiers: ElementField;
 
 
   static getSelector() {
@@ -96,6 +98,11 @@ export class ModsRelatedItem extends ModsElement {
     if (this.available('typeOfResource')) {
       this.typeOfResources = new ElementField(this.modsElement, ModsResource.getSelector(), this.getField('typeOfResource'));
       this.addSubfield(this.typeOfResources);
+    }
+
+    if (this.available('identifier')) {
+      this.identifiers = new ElementField(this.modsElement, ModsIdentifier.getSelector(), this.getField('identifier'));
+      this.addSubfield(this.identifiers);
     }
 
   }

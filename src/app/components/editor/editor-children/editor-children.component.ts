@@ -40,7 +40,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   dragEnabled = false;
   sourceIndex: number;
 
-  anyChange: boolean;
+  // anyChange: boolean;
 
   pageChildren = false;
   lastIndex: number;
@@ -55,8 +55,9 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
 
   isDragging = false;
 
-  lastSelectedParent: DocumentItem;
-  lastSelectedTree: Tree;
+  expandedPath: string[];
+  // lastSelectedParent: DocumentItem;
+  // lastSelectedTree: Tree;
 
   constructor(public editor: EditorService,
     private dialog: MatDialog,
@@ -119,7 +120,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     this.lastIndex = 0;
     this.arrowIndex = 0;
     this.lastState = true;
-    this.anyChange = false;
+    // this.anyChange = false;
     this.pageChildren = this.editor.anyPageChildren();
     if (this.pageChildren) {
       this.viewMode = this.properties.getStringProperty('children.page_view_mode', 'icons');
@@ -202,10 +203,11 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
 
   onSelect(item: DocumentItem, event: any = null) {
     let canSelect = true;
-    if (this.editor.hasPendingChanges()) {
+    if (this.editor.hasPendingChanges() && !this.editor.isLeftDirty) {
       const d = this.editor.confirmLeaveDialog().subscribe((result: any) => {
         if (result === 'true') {
           this.select(item, event);
+          this.editor.resetChanges();
         }
       });
     } else {
@@ -221,18 +223,24 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
         this.editor.setMultipleChildrenMode(true);
       }
       let firstIndex = this.editor.children.findIndex(i => i.selected === true);
+      let lastIndex = this.editor.children.length - this.editor.children.slice().reverse().findIndex(i => i.selected === true) - 1;
       this.editor.children.map(i => i.selected = false);
-      // let index = Math.min(this.lastIndex, itemIndex);
-      // let index = Math.max(firstIndex, 0);
-      // let i2 = Math.max(this.lastIndex, itemIndex);
       let index = this.lastIndex;
+      if (event.ctrlKey) {
+        if (itemIndex < index) {
+          // bereme nejvetsi z aktualniho vyberu
+          index = lastIndex;
+        } else {
+          // bereme nejmensi z aktualniho vyberu
+          index = firstIndex;
+        }
+      }
       let i2 = itemIndex;
       if (index > i2) {
         const temp = index;
         index = i2;
         i2 = temp;
       }
-      // console.log(index, i2, this.lastState)
       while (index <= i2) {
         // this.editor.children[index].selected = this.lastState;
         this.editor.children[index].selected = true;
@@ -256,6 +264,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
       this.lastIndex = itemIndex;
     }
     if (this.editor.numberOfSelectedChildren() === 0) {
+      this.editor.metadata = null;
       this.editor.selectRight(this.editor.left);
     } else if (this.editor.numberOfSelectedChildren() === 1) {
       this.editor.selectRight(this.editor.children.find(ch => ch.selected));
@@ -279,7 +288,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
       return;
     }
     if (!this.editor.isMultipleChildrenMode()) {
-      this.select(this.items[this.sourceIndex - 1]);
+      this.select(this.items[this.sourceIndex]);
     }
     this.isDragging = true;
     event.dataTransfer.effectAllowed = 'move';
@@ -343,7 +352,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
         const item = rest[i];
         this.items.push(item);
       }
-      this.anyChange = true;
+      this.editor.isLeftDirty = true;
     } else {
       const from = this.sourceIndex - 1;
       if (from !== to) {
@@ -381,14 +390,14 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
       const item = rest[i];
       this.items.push(item);
     }
-    this.anyChange = true;
+    this.editor.isLeftDirty = true;
   }
 
   reorder(from: number, to: number) {
     if (this.editor.isMultipleChildrenMode()) {
       this.reorderMultiple(to+1);
     } else {
-      this.anyChange = true;
+      this.editor.isLeftDirty = true;
       const item = this.items[from];
       this.items.splice(from, 1);
       this.items.splice(to, 0, item);
@@ -396,11 +405,11 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
   }
 
   onSave() {
-    if (!this.anyChange) {
+    if (!this.editor.isLeftDirty) {
       return;
     }
     this.editor.saveChildren(() => {
-      this.anyChange = false;
+      this.editor.isLeftDirty = false;
     });
   }
 
@@ -460,22 +469,30 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     const selected = this.editor.getSelectedChildren();
     const items = selected.length > 0 ? selected : [this.editor.left];
     const parent = selected.length > 0 ? this.editor.left : this.editor.parent;
+
+    
+    
+    if (this.properties.getStringProperty('parent.expandedPath')) {
+      this.expandedPath = JSON.parse(this.properties.getStringProperty('parent.expandedPath'));
+    }
+
     const dialogRef = this.dialog.open(ParentDialogComponent, { 
       data: { 
         btnLabel: 'editor.children.relocate_label', 
         parent, 
         items,
-        selectedItem: this.lastSelectedParent,
-        selectedTree: this.lastSelectedTree
+        expandedPath: this.expandedPath,
       } 
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.pid) {
-        this.lastSelectedParent = result.selectedItem;
-        this.lastSelectedTree = result.selectedTree;
+        this.expandedPath = result.expandedPath;
+
+        this.properties.setStringProperty('parent.expandedPath', JSON.stringify(this.expandedPath));
+        
         this.relocateOutside(items, result.pid);
       } else if(result && result.delete) {
-        this.deleteParent(this.editor.parent.pid);
+        this.deleteParent(parent.pid);
       }
     });
   }

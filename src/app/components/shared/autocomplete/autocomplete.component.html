@@ -1,10 +1,10 @@
 
 <mat-form-field *ngIf="item.available(field)" [class]="item.class(field)" [class.app-invalid]="item.invalid(field)">
   <app-usage [item]="item" [field]="field"></app-usage>
-  <input matInput [required]="item.isMandatory(field)" [formControl]="item.getControl(field)" [(ngModel)]='value' (ngModelChange)="valueChange.emit(value)" [placeholder]="item.label(field)" [matAutocomplete]="auto">
+  <input matInput [required]="item.isMandatory(field)" [formControl]="item.getControl(field)" [(ngModel)]='value' (ngModelChange)="valueChange.emit(value)" [placeholder]="'mods.' + item.labelKey(field) | translate" [matAutocomplete]="auto">
   <mat-autocomplete #auto="matAutocomplete">
     <mat-option *ngFor="let option of filteredOptions | async" [value]="option[0]">
-      {{option[1]}}
+      {{ option[1]}}
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>

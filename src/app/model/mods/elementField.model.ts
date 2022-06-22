@@ -28,6 +28,10 @@ import {ModsRecordIdentifier} from './recordIdentifier.model';
 import {ModsExtent} from './extent.model';
 import {ModsTableOfContents} from './tableOfContents';
 import {ModsRelatedItem} from './relatedItem.model';
+import { TranslateService } from '@ngx-translate/core';
+import {ModsDateIssued} from './dateIssued.model';
+import {ModsUrl} from './url.model';
+import {ModsShelfLocator} from './shelfLocator.model';
 
 export class ElementField {
 
@@ -63,10 +67,19 @@ export class ElementField {
         }
         if (this.items.length - hiddenItems < 1) {
             const item = this.add();
-            if (!this.template.expanded) {
+            if (!this.hasExpandedChildren() && !this.template.expanded) {
                 item.collapsed = true;
             }
         }
+    }
+
+    hasExpandedChildren(): boolean {
+        for (const item of this.items) {
+            if (item.getTemplate().expanded) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public getItems(): ModsElement[] {
@@ -211,6 +224,12 @@ export class ElementField {
                 return new ModsResource(el, this.template);
             case ModsFrequency.getId():
                 return new ModsFrequency(el, this.template);
+            case ModsDateIssued.getId():
+                return new ModsDateIssued(el, this.template);
+            case ModsUrl.getId():
+                return new ModsUrl(el, this.template);
+            case ModsShelfLocator.getId():
+                return new ModsShelfLocator(el, this.template);
             case ModsCartographics.getId():
                 return new ModsCartographics(el, this.template);
             case ModsForm.getId():
@@ -230,16 +249,17 @@ export class ElementField {
     }
 
 
-    public help() {
+    public help(translator: TranslateService) {
+        const label = translator.instant('mods.' + this.template.labelKey);
         let help = `
-            <h2>${this.template.label} <i>${this.template.usage || ''}</i> <code>${this.template.selector || ''}</code></h2>
+            <h2>${label} <i>${this.template.usage || ''}</i> <code>${this.template.selector || ''}</code></h2>
             ${this.template.description || ''}<br/>
         `;
         for (const field of Object.keys(this.template.fields)) {
             const f = this.template.fields[field];
             if (f.help != 'off') {
                 help += `
-                    <h3>${f.label} <i>${f.usage || ''}</i> <code>${f.selector || ''}</code></h3>
+                    <h3>${f.labelKey} <i>${f.usage || ''}</i> <code>${f.selector || ''}</code></h3>
                     ${f.description || ''}`;
             }
 
@@ -254,6 +274,14 @@ export class ElementField {
 
     public label() {
         return this.template.label;
+    }
+
+    public labelKey() {
+        return this.template.labelKey;
+    }
+
+    public selector() {
+        return this.template.selector;
     }
 
     private selectorById(id: string): string {
@@ -300,8 +328,14 @@ export class ElementField {
                 return ModsResource.getSelector();
             case ModsFrequency.getId():
                 return ModsFrequency.getSelector();
+            case ModsDateIssued.getId():
+                return ModsDateIssued.getSelector();
             case ModsCartographics.getId():
                 return ModsCartographics.getSelector();
+            case ModsUrl.getId():
+                return ModsUrl.getSelector();
+            case ModsShelfLocator.getId():
+                return ModsShelfLocator.getSelector();
             case ModsForm.getId():
                 return ModsForm.getSelector();
             case ModsRecordChangeDate.getId():

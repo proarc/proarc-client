@@ -55,12 +55,16 @@ export class EditorComponent implements OnInit {
         if (pid) {
           this.editor.init({
             pid: pid,
-            preparation: false
+            preparation: false,
+            metadata: null,
+            isNew: false
           });
         } else if (batchId) {
           this.editor.init({
             pid: batchId,
-            preparation: true
+            preparation: true,
+            metadata: null,
+            isNew: false
           });
         }
     });
@@ -109,8 +113,8 @@ export class EditorComponent implements OnInit {
 
   confirmLeaveDialog() {
     const data: SimpleDialogData = {
-      title: 'Upozorneni',
-      message:'Opouštíte formulář bez uložení. Opravdu chcete pokracovat?',
+      title: 'Upozornění',
+      message:'Opouštíte formulář bez uložení. Opravdu chcete pokračovat?',
       btn1: {
         label: "Ano",
         value: 'true',
@@ -127,11 +131,14 @@ export class EditorComponent implements OnInit {
   }
   
   hasPendingChanges(): boolean {
-    if (this.editor.showPagesEditor()) {
-      return this.editor.isDirty;
-    } else if (this.editor.metadata && (!this.editor.left.isPage() && !this.editor.left.isChronicle()) || this.editor.rightEditorType === 'metadata') {
-      return this.editor.metadata.hasChanges();
-    }
-    return false;
+    return this.editor.hasPendingChanges();
+    // if (this.editor.showPagesEditor()) {
+    //   return this.editor.isDirty;
+    // } else if (this.editor.mode == 'children') {
+    //   return this.editor.isLeftDirty || ;
+    // } else if (this.editor.metadata && ((!this.editor.left.isPage() && !this.editor.left.isChronicle()) || this.editor.rightEditorType === 'metadata')) {
+    //   return this.editor.metadata.hasChanges();
+    // }
+    // return false;
   }
 }

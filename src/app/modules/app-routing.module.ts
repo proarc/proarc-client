@@ -27,7 +27,7 @@ const routes: Routes = [
   { path: 'viewer', component: ViewerComponent },
   { path: 'import', component: ImportComponent },
   { path: 'import/history', component: HistoryComponent },
-  { path: 'import/edit/:batch_id', component: EditorComponent },
+  { path: 'import/edit/:batch_id', component: EditorComponent, canDeactivate:[ConfirmLeaveEditorGuard] },
   { path: '', redirectTo: '/search', pathMatch: 'full' }
 
 ];

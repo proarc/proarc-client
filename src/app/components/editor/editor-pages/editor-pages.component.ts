@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { EditorService } from 'src/app/services/editor.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { MatSelect } from '@angular/material/select';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-editor-pages',
@@ -11,7 +12,27 @@ import { MatSelect } from '@angular/material/select';
 })
 export class EditorPagesComponent implements OnInit {
 
-  holder: PageUpdateHolder;
+  holder: PageUpdateHolder; 
+  pageTypeControl: FormControl<{code: string, name: string} | null> = new FormControl<{code: string, name: string} | null>(null);
+  numberingTypesControl: FormControl<{id: string, label: string} | null> = new FormControl<{id: string, label: string} | null>(null);
+  pageNumberControl= new FormControl();
+  pageNumberPrefixControl= new FormControl();
+  pageNumberSuffixControl= new FormControl();
+  pageNumberIncrementControl= new FormControl();
+  pageIndexControl= new FormControl();
+  posControl= new FormControl();
+  applyControl= new FormControl();
+  controls: FormGroup = new FormGroup({
+    pageTypeControl: this.pageTypeControl,
+    pageNumberControl: this.pageNumberControl,
+    pageNumberPrefixControl: this.pageNumberPrefixControl,
+    pageNumberSuffixControl: this.pageNumberSuffixControl,
+    pageNumberIncrementControl: this.pageNumberIncrementControl,
+    pageIndexControl: this.pageIndexControl,
+    numberingTypesControl: this.numberingTypesControl,
+    posControl: this.posControl,
+    applyControl: this.applyControl
+  });
 
   constructor(
     public config: ConfigService,
@@ -21,7 +42,9 @@ export class EditorPagesComponent implements OnInit {
 
   ngOnInit() {
     this.holder = new PageUpdateHolder();
-
+    this.controls.valueChanges.subscribe((e: any) => {
+      this.editor.isDirty = this.controls.dirty;
+    })
   }
 
   canSave(): boolean {
@@ -32,10 +55,10 @@ export class EditorPagesComponent implements OnInit {
     if (!this.canSave()) {
       return;
     }
-    // this.editor.editSelectedPages(this.holder, null);
     this.editor.updateSelectedPages(this.holder, null);
-    this.holder.reset();
-    this.setChanges();
+    // this.holder.reset();
+    this.controls.markAsPristine();
+    this.editor.isDirty = false;
   }
 
   addBrackets() {
@@ -51,9 +74,9 @@ export class EditorPagesComponent implements OnInit {
     this.onSave();
   }
 
-  setChanges() {
-    this.editor.isDirty = this.canSave();
-  }
+  // setChanges() {
+  //   this.editor.isDirty = this.canSave();
+  // }
 }
 
 

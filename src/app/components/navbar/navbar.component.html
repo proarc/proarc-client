@@ -29,5 +29,7 @@
 
   </ng-container>
   <a *ngIf="!auth.isLoggedIn()"  [routerLink]="['/login']" routerLinkActive="active" mat-button>{{ "navbar.login" | translate }}</a>
+    <a *ngIf="translator.currentLang === 'en'" (click)="onLanguageChanged('cs')"  mat-button>CS</a>
+    <a *ngIf="translator.currentLang === 'cs'" (click)="onLanguageChanged('en')"  mat-button>EN</a>
 
 </mat-toolbar>

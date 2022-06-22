@@ -10,7 +10,7 @@ export class Page {
   public note: string;
   public identifiers: PageIdentifier[];
   public position: string;
-  public genre: string;
+  public genre: string = 'page';
 
   public originalIndex: string;
   public originalNumber: string;
@@ -211,6 +211,40 @@ export class Page {
     || this.type !== this.originalType || this.note !== this.originalNote 
     || this.position !== this.originalPosition || this.genre !== this.originalGenre;
   }
+
+  
+
+  public toXml(): string {
+    let ret = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <mods:mods version="3.6" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <mods:genre type="${this.type}">${this.genre}</mods:genre>
+    <mods:identifier type="uuid">${this.pid}</mods:identifier>
+    <mods:part type="${this.type}">
+    <mods:detail type="pageNumber">
+    <mods:number>${this.number}</mods:number>
+    </mods:detail>
+    </mods:part>
+    <mods:part>
+    <mods:detail type="pageIndex"> 
+    <mods:number>${this.index}</mods:number>
+    </mods:detail>
+    </mods:part>
+    `;
+
+    if (this.position) {
+      ret = `${ret}<mods:note>${this.position}</mods:note>`
+    }
+
+    if (this.note) {
+      ret = `${ret}
+      <mods:physicalDescription><mods:note>${this.note}</mods:note></mods:physicalDescription>`
+    }
+
+    ret = `${ret}
+    </mods:mods>`
+    return ret;
+  }
+
 }
 
 export class PageIdentifier {

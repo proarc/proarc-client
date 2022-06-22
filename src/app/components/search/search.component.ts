@@ -67,7 +67,7 @@ export class SearchComponent implements OnInit {
   organizations: string[];
   users: User[];
 
-  searchMode: string = 'phrase';
+  searchMode: string = 'advanced';
 
   constructor(private api: ApiService, 
               public properties: LocalStorageService, 
@@ -103,11 +103,11 @@ export class SearchComponent implements OnInit {
   }
 
 
-  dragEnd(sizes: any) {
-      this.splitArea1Width = sizes[0];
-      this.splitArea2Width = sizes[1];
-      this.properties.setStringProperty('search.split.0', String(sizes[0]));
-      this.properties.setStringProperty('search.split.1', String(sizes[1]));
+  dragEnd(e: any) {
+      this.splitArea1Width = e.sizes[0];
+      this.splitArea2Width = e.sizes[1];
+      this.properties.setStringProperty('search.split.0', String(e.sizes[0]));
+      this.properties.setStringProperty('search.split.1', String(e.sizes[1]));
   }
 
   getSplitSize(split: number): number {
@@ -360,12 +360,17 @@ export class SearchComponent implements OnInit {
       } else {
           this.state = 'success';
           this.ui.showInfoSnackBar("Objekty byly zkopirovane");
-          // console.log(response);
-          const l = this.items.push(DocumentItem.fromJson(response.response.data[0]));
-          this.selectItem(this.items[l-1]);
-          setTimeout(()=>{
-            this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
-          }, 50);
+          if (item.model === this.model) {
+            const idx =  this.items.findIndex(it => it.pid === item.pid) + 1;
+            this.items.splice(idx,0,DocumentItem.fromJson(response.response.data[0]));
+            this.selectItem(this.items[idx]);
+            // setTimeout(()=>{
+            //   this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
+            // }, 50);
+          } else {
+            // Kopirujeme objekt podrazeni ve stromu
+            this.selectItem(this.selectedItem);
+          }
           
       }
     }, error => {
@@ -459,7 +464,7 @@ export class SearchComponent implements OnInit {
   }
 
   canCopy(item: DocumentItem): boolean {
-    return item.model === 'model:ndkmonographvolume' || item.model === 'model:ndkperiodicalissue'
+    return this.config.allowedCopyModels.includes(item.model)
   }
 
   enterModel(e: any) {
@@ -469,6 +474,10 @@ export class SearchComponent implements OnInit {
 
   openFromTree(item: DocumentItem) {
     this.router.navigate(['/document', item.pid]);
+  }
+  
+  selectFromTree(tree: Tree) {
+    this.search.selectedTree = tree;
   }
 
 }

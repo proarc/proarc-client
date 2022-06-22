@@ -32,3 +32,11 @@ input.app-input-invalid {
   color: red;
 }
 
+input.app-disabled{
+  pointer-events: none;
+}
+
+.app-disabled{
+  pointer-events: none;
+}
+

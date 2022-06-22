@@ -1,6 +1,6 @@
 var APP_GLOBAL = {
-    // proarcUrl: "http://proarc.inovatika.dev/api",  
-    proarcUrl: "/api",   
+    // proarcUrl: "http://proarc.inovatika.dev/api",
+    proarcUrl: "/api",
   ga: "UA-159265713-1",
   exports:[
     'archive',
@@ -79,5 +79,6 @@ var APP_GLOBAL = {
   languages: ['cze', 'eng', 'fre', 'heb', 'ita', 'pol', 'por', 'rus', 'gre', 'slo', 'grc', 'spa', 'mul', 'zxx'],
   topLocations: ['BOA001', 'ABA000'],
   identifiers: [ 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'],
-  pagePositions: ['right_left', 'left_right', 'left', 'right', 'singlePage']
+  pagePositions: ['right_left', 'left_right', 'left', 'right', 'singlePage'],
+  lang: 'en'
 }

@@ -64,18 +64,18 @@
   }
 
   .app-result-area {
-    height: 100%;
+    height: calc(100% - 86px);
     background-color: #eee;
   }
   
   .app-tree {
     margin-top: 5px;
-    max-height: calc(50% - 84px) !important;
+    // max-height: calc(50% - 84px) !important;
     overflow: auto;
   }
 
   .app-table {
-    height: calc(50% - 5px);
+    // height: 100%;
     // box-shadow: none;
     border: 1px solid #cecece;
 

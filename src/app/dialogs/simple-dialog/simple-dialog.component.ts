@@ -17,8 +17,6 @@ export class SimpleDialogComponent implements OnInit {
   ngOnInit() {
   }
 
-
-
   btnEnabled() {
     const num = this.data.numberInput;
     if (num) {

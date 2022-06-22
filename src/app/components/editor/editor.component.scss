@@ -1,6 +1,10 @@
 .app-editor-wrapper {
     height: 100%;
     position: relative;
+    .app-disabled {
+        opacity: .3;
+        pointer-events: none;
+    }
     .app-panel {
         width: 100%; 
         display: block; 

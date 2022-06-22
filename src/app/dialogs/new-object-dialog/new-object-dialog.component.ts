@@ -23,6 +23,8 @@ export class NewObjectDialogComponent implements OnInit {
   seriesDaysIncluded: number[] = [];
   weekDays = [1,2,3,4,5,6,7];
 
+  filteredModels: string[];
+
   constructor(
     public adapter: DateAdapter<any>,
     private datePipe: DatePipe,
@@ -33,6 +35,7 @@ export class NewObjectDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: NewObjectData) { }
 
   ngOnInit() {
+    this.filteredModels = this.data.models.filter(f => f.indexOf('page') < 0);
   }
 
 
@@ -45,7 +48,8 @@ export class NewObjectDialogComponent implements OnInit {
     this.state = 'saving';
     const customPid = this.data.customPid ? this.data.pid : null;
 
-    let data = `model=${this.data.model}`;
+    let data = `model=${this.data.model}&createObject=false`;
+    //let data = `model=${this.data.model}`;
     if (customPid) {
       data = `${data}&pid=${customPid}`;
     }
@@ -69,12 +73,9 @@ export class NewObjectDialogComponent implements OnInit {
         this.state = 'error';
         return;
       }
+        this.state = 'success';
       const pid =  response['response']['data'][0]['pid'];
-      this.dialogRef.close({pid: pid})
-    },
-    (error) => {
-      console.log('error', error);
-      this.state = 'error';
+      this.dialogRef.close({pid: pid, data: response['response']['data'][0]})
     });
   }
 
@@ -85,11 +86,12 @@ export class NewObjectDialogComponent implements OnInit {
         this.state = 'saving';
         const customPid = this.data.customPid ? this.data.pid : null;
     
-        let data = `model=${this.data.model}`;
+        let data = `model=${this.data.model}&createObject=false`;
+        //let data = `model=${this.data.model}`;
         if (customPid) {
           data = `${data}&pid=${customPid}`;
         }
-        data = `${data}&xml=${result.mods}`;
+        data = `${data}&xml=${encodeURIComponent(result.mods)}`;
         this.api.createObject(data).subscribe((response: any) => {
           if (response['response'].errors) {
             console.log('error', response['response'].errors);
@@ -99,11 +101,7 @@ export class NewObjectDialogComponent implements OnInit {
           }
           const pid =  response['response']['data'][0]['pid'];
           this.state = 'success';
-          this.dialogRef.close({pid: pid});
-        },
-        (error) => {
-          console.log('error', error);
-          this.state = 'error';
+          this.dialogRef.close({pid: pid, data: response['response']['data'][0]});
         });
       }
     });

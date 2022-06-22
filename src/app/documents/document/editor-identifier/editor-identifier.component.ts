@@ -22,7 +22,7 @@ export class EditorIdentifierComponent implements OnInit {
   }
 
   getIdentifiers(): any[] {
-    return this.editor.left.isChronicle() ? this.codebook.chronicleIdentifiers : this.codebook.identifiers;
+    return this.editor.left.isChronicle() ? this.codebook.chronicleIdentifiers : this.editor.left.canContainPdf() ? this.codebook.eDocumentIdentifiers : this.codebook.identifiers;
   }
 
 }

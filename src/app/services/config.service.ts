@@ -129,6 +129,8 @@ export class ConfigService {
 
     private static defaultDefaultModel = 'model:ndkmonographvolume';
 
+    private static defaultAllowedCopyModels = ['model:ndkmonographvolume', 'model:ndkperiodicalissue', 'model:oldprintvolume'];
+
     private static defaultDefaultExports = [
         'archive',
         'archive_stt',
@@ -143,11 +145,13 @@ export class ConfigService {
 
     private static defaultIdentifiers = [ 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'];
     private static defaultChronicleIdentifiers = [ 'signature1', 'signature2', 'inventaryNumber', 'OtherNumber' , 'id', 'localId', 'officialNumber'];
+    private static defaultEDocumentsIdentifiers = [ 'doi', 'handle', 'ismn', 'url', 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici'];
     private static defaultPagePositions = ['right_left', 'left_right', 'left', 'right', 'singlePage'];
 
     public proarcBackendUrl = APP_GLOBAL.proarcUrl;
     public allModels = APP_GLOBAL.models || ConfigService.defaultModels;
     public defaultModel = APP_GLOBAL.defaultModel || ConfigService.defaultDefaultModel;
+    public allowedCopyModels = APP_GLOBAL.allowedCopyModels || ConfigService.defaultAllowedCopyModels;
 
     public showPageIdentifiers = APP_GLOBAL.showPageIdentifiers == undefined ? true : !!APP_GLOBAL.showPageIdentifiers;
     public showPageIndex = APP_GLOBAL.showPageIndex == undefined ? true : !!APP_GLOBAL.showPageIndex;
@@ -172,6 +176,9 @@ export class ConfigService {
 
     public topChronicleIdentifiers: any = [];
     public otherChronicleIdentifiers = APP_GLOBAL.chronicleIdentifiers || ConfigService.defaultChronicleIdentifiers;
+
+    public topEDocumentsIdentifiers: any = [];
+    public otherEDocumentsIdentifiers = APP_GLOBAL.eDocumentIdentifiers || ConfigService.defaultEDocumentsIdentifiers;
 
     public organizations = APP_GLOBAL.organizations || [];
     public exports = APP_GLOBAL.exports || ConfigService.defaultDefaultExports;

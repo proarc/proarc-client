@@ -118,6 +118,8 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { DatePipe } from '@angular/common';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
+import {EditorBdmComponent} from './components/editor/editor-bdm/editor-bdm.component';
+import { NewMetadataDialogComponent } from './dialogs/new-metadata-dialog/new-metadata-dialog.component';
 
 
 // export function hljsLanguages() {
@@ -184,6 +186,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HelpDialogComponent,
     ReloadBatchDialogComponent,
     EditorChronicleComponent,
+    EditorBdmComponent,
     EditorChronicleAuthorComponent,
     EditorChronicleNoteComponent,
     EditorChronicleTitleComponent,
@@ -221,6 +224,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditorPartComponent,
     EditorTableOfContentsComponent,
     AlertDialogComponent,
+    NewMetadataDialogComponent,
   ],
   imports: [
     BrowserModule,

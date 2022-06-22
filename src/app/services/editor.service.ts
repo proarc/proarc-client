@@ -21,11 +21,13 @@ import { ModelTemplate } from '../templates/modelTemplate';
 import { ChildrenValidationDialogComponent } from '../dialogs/children-validation-dialog/children-validation-dialog.component';
 import { SimpleDialogData } from '../dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from '../dialogs/simple-dialog/simple-dialog.component';
+import { NewMetadataDialogComponent } from '../dialogs/new-metadata-dialog/new-metadata-dialog.component';
 
 @Injectable()
 export class EditorService {
 
     public preparation = false;
+    public pid: string;
 
     public state = 'none';
     public ready = false;
@@ -45,7 +47,7 @@ export class EditorService {
     public right: DocumentItem | null;
     public children: DocumentItem[];
     public lastSelected: DocumentItem | null;
-    
+
     public metadata: Metadata | null;
 
     private multipleChildrenMode: boolean;
@@ -64,6 +66,7 @@ export class EditorService {
     allowedChildrenModels: string[];
 
     public isDirty: boolean;
+    public isLeftDirty: boolean;
 
     public page: Page;
 
@@ -87,14 +90,23 @@ export class EditorService {
 
     hasPendingChanges(): boolean {
         if (this.showPagesEditor()) {
-          return this.isDirty;
-        } else if (this.left.isPage() || this.right.isPage()) {
+            return this.isDirty;
+        } else if (this.mode == 'children') {
+            return this.isLeftDirty || this.isDirty || (this.metadata && this.metadata.hasChanges());
+        } else if (this.page && (this.left.isPage() || this.right.isPage())) {
             return this.page.hasChanged();
         } else if (this.metadata && (!this.left.isPage() && !this.left.isChronicle()) || this.rightEditorType === 'metadata') {
             return this.metadata.hasChanges();
         }
         return false;
-      }
+    }
+
+    resetChanges() {
+        this.isDirty = false;
+        if (this.metadata) {
+            this.metadata.resetChanges();
+        }
+    }
 
     watchRightDocument(): Observable<DocumentItem> {
         return this.rightDocumentsubject.asObservable();
@@ -102,25 +114,27 @@ export class EditorService {
 
     confirmLeaveDialog() {
         const data: SimpleDialogData = {
-          title: 'Upozorneni',
-          message:'Opouštíte formulář bez uložení. Opravdu chcete pokracovat?',
-          btn1: {
-            label: "Ano",
-            value: 'true',
-            color: 'warn'
-          },
-          btn2: {
-            label: "Ne",
-            value: 'false',
-            color: 'default'
-          },
+            title: 'Upozornění',
+            message: 'Opouštíte formulář bez uložení. Opravdu chcete pokračovat?',
+            btn1: {
+                label: "Ano",
+                value: 'true',
+                color: 'warn'
+            },
+            btn2: {
+                label: "Ne",
+                value: 'false',
+                color: 'default'
+            },
         };
         const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
         return dialogRef.afterClosed();
-      }
+    }
 
     init(params: EditorParams) {
         this.isDirty = false;
+        this.isLeftDirty = false;
+        this.pid = params.pid;
         this.previousItem = null;
         this.nextItem = null;
         this.parent = null;
@@ -133,12 +147,36 @@ export class EditorService {
         this.relocationMode = false;
         this.state = 'loading';
         this.preparation = params.preparation;
-        if (params.preparation) {
-            this.initBatchEditor(params.pid);
+        if (params.isNew) {
+            // this.metadata = params.metadata;
+            const item: DocumentItem = DocumentItem.fromJson(params.metadata);
+            item.notSaved = true;
+            if (item.isPage()) {
+                this.right = item;
+
+            } else {
+                this.metadata = new Metadata(params.metadata.pid, params.metadata.model, params.metadata.content, params.metadata.timestamp);
+                //this.left = DocumentItem.fromJson(params.metadata);
+                this.left = item;
+            }
         } else {
-            this.initDocumentEditor(params.pid);
+            if (params.preparation) {
+                this.initBatchEditor(params.pid);
+            } else {
+                this.initDocumentEditor(params.pid);
+            }
+            this.initSelectedColumns();
         }
-        this.initSelectedColumns();
+    }
+
+    reload() {
+        this.isDirty = false;
+        this.isLeftDirty = false;
+        if (this.preparation) {
+            this.initBatchEditor(this.pid);
+        } else {
+            this.initDocumentEditor(this.pid);
+        }
     }
 
     initSelectedColumns() {
@@ -157,7 +195,13 @@ export class EditorService {
         obj.pid = id;
         this.api.getImportBatch(parseInt(id)).subscribe((batch: Batch) => {
             obj.parent = batch.parentPid;
-            this.api.getBatchPages(id).subscribe((pages: DocumentItem[]) => {
+            this.api.getBatchPages(id).subscribe((response: any) => {
+                if (response['response'].errors) {
+                    this.ui.showErrorSnackBarFromObject(response['response'].errors);
+                    this.state = 'error';
+                    return;
+                }
+                const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
                 this.left = obj;
                 this.children = pages;
                 this.mode = 'children'
@@ -172,8 +216,14 @@ export class EditorService {
     }
 
     reloadBatch(callback: () => void, moveToNext = false) {
-        this.api.getBatchPages(this.left!.pid).subscribe((pages: DocumentItem[]) => {
-            if (this.isMultipleChildrenMode()) {
+        this.api.getBatchPages(this.left!.pid).subscribe((response: any) => {
+            if (response['response'].errors) {
+                this.ui.showErrorSnackBarFromObject(response['response'].errors);
+                this.state = 'error';
+                return;
+            }
+            const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
+            if (this.numberOfSelectedChildren() > 1) {
                 for (const oldChild of this.children) {
                     if (oldChild.selected) {
                         for (const newChild of pages) {
@@ -228,6 +278,10 @@ export class EditorService {
             item.selected = true;
         }
 
+    }
+
+    initNewMetadataEditor(data: any) {
+        this.left = DocumentItem.fromJson(data);
     }
 
     initDocumentEditor(pid: string) {
@@ -551,19 +605,41 @@ export class EditorService {
             parentPid: this.left.pid
         }
         const dialogRef = this.dialog.open(NewObjectDialogComponent, { data: data });
-        dialogRef.afterClosed().subscribe(result => {
+        dialogRef.afterClosed().subscribe((result: any) => {
             if (result && result['pid']) {
-                this.state = 'saving';
-                const pid = result['pid'];
-                this.reloadChildren(() => {
-                    for (const item of this.children) {
-                        if (item.pid == pid) {
-                            this.selectRight(item);
-                            break;
-                        }
+                if (result && result['pid']) {
+                    const dialogRef = this.dialog.open(NewMetadataDialogComponent, { data: result.data });
+                    dialogRef.afterClosed().subscribe(res => {
+                    if (res && res['pid']) {
+                        const pid = result.pid;
+                        // this.state = 'saving';
+                        // const data = result.data;
+                        // const item = DocumentItem.fromJson(data);
+                        // item.notSaved = true;
+                        // this.children.push(item);
+                        // this.rightEditorType == 'metadata';
+                        // this.selectRight(item);
+                        // this.state = 'success'; 
+                        // this.reloadChildren(() => {
+                        //     for (const item of this.children) {
+                        //         if (item.pid == pid) {
+                        //             this.selectRight(item);
+                        //             break;
+                        //         }
+                        //     }
+                        //     this.state = 'success';
+                        // });
+                        this.router.navigate(['/document', pid]);
+                        this.init(
+                            {
+                                pid: data.parentPid,
+                                preparation: false,
+                                metadata: null,
+                                isNew: false
+                            });
                     }
-                    this.state = 'success';
-                });
+                    });
+                  }
             }
         });
 
@@ -574,7 +650,7 @@ export class EditorService {
         const pidArray = this.children.map(item => item.pid);
         const request = this.preparation ? this.api.editBatchRelations(this.left.pid, pidArray) : this.api.editRelations(this.left.pid, pidArray);
         request.subscribe((response: any) => {
-            
+
             if (response['response'].errors) {
                 this.ui.showErrorSnackBarFromObject(response['response'].errors);
                 this.state = 'error';
@@ -627,7 +703,7 @@ export class EditorService {
 
     updateModsFromCatalog(xml: string) {
         // console.log(mods)
-        this.metadata =  new Metadata(this.metadata.pid, this.metadata.model, xml, this.metadata.timestamp);
+        this.metadata = new Metadata(this.metadata.pid, this.metadata.model, xml, this.metadata.timestamp);
         // this.state = 'success';
     }
 
@@ -637,7 +713,7 @@ export class EditorService {
             if (resp.errors) {
                 this.state = 'error';
                 this.ui.showErrorSnackBarFromObject(resp.errors);
-                this.metadata =  new Metadata(this.metadata.pid, this.metadata.model, xml, this.metadata.timestamp);
+                this.metadata = new Metadata(this.metadata.pid, this.metadata.model, xml, this.metadata.timestamp);
                 setTimeout(() => {
                     this.metadata.validate();
                 }, 100);
@@ -770,7 +846,7 @@ export class EditorService {
                     if (callback) {
                         callback(null);
                     }
-                } 
+                }
                 this.state = 'success';
             });
         });
@@ -778,6 +854,11 @@ export class EditorService {
 
     loadMetadata(callback: () => void) {
         if (this.metadata && this.metadata.pid === this.right.pid) {
+            callback();
+            return;
+        }
+        if (this.right.notSaved) {
+            this.metadata = new Metadata(this.right.pid, this.right.model, this.right.content, 0);
             callback();
             return;
         }
@@ -841,7 +922,9 @@ export class EditorService {
                 this.init(
                     {
                         pid: this.left.pid,
-                        preparation: false
+                        preparation: false,
+                        metadata: null,
+                        isNew: false
                     });
 
             }
@@ -866,7 +949,9 @@ export class EditorService {
                 this.init(
                     {
                         pid: this.left.pid,
-                        preparation: false
+                        preparation: false,
+                        metadata: null,
+                        isNew: false
                     });
             }
         });
@@ -1068,10 +1153,10 @@ export class EditorService {
 
 
     updateSelectedPages(holder: PageUpdateHolder, callback: () => void) {
-        if (this.preparation) {
-            this.editSelectedBatchPages(holder, callback);
-            return;
-        }
+        // if (this.preparation) {
+        //     this.editSelectedBatchPages(holder, callback);
+        //     return;
+        // }
         this.state = 'saving';
         const pages = [];
         for (const item of this.children) {
@@ -1084,18 +1169,28 @@ export class EditorService {
                 this.ui.showErrorSnackBarFromObject(result.response.errors);
                 this.state = 'error';
             } else {
-                this.reloadChildren(() => {
-                    this.state = 'success';
-                });
+                if (this.preparation) {
+                    this.reloadBatch(() => {
+                        this.state = 'success';
+                        if (callback) {
+                            callback();
+                        }
+                    });
+                    return;
+                } else {
+                    this.reloadChildren(() => {
+                        this.state = 'success';
+                    });
+                }
             }
         })
     }
 
     changeBrackets(holder: PageUpdateHolder, useBrackets: boolean, callback: () => void) {
-        if (this.preparation) {
-            this.editSelectedBatchPages(holder, callback);
-            return;
-        }
+        // if (this.preparation) {
+        //     this.editSelectedBatchPages(holder, callback);
+        //     return;
+        // }
         this.state = 'saving';
         const pages = [];
         for (const item of this.children) {
@@ -1103,10 +1198,25 @@ export class EditorService {
                 pages.push(item.pid);
             }
         }
-        this.api.editBrackets(pages, holder, useBrackets, this.getBatchId()).subscribe(result => {
-            this.reloadChildren(() => {
-                this.state = 'success';
-            });
+        this.api.editBrackets(pages, holder, useBrackets, this.getBatchId()).subscribe((result: any) => {
+            if (result.response.errors) {
+                this.ui.showErrorSnackBarFromObject(result.response.errors);
+                this.state = 'error';
+            } else {
+                if (this.preparation) {
+                    this.reloadBatch(() => {
+                        this.state = 'success';
+                        if (callback) {
+                            callback();
+                        }
+                    });
+                    return;
+                } else {
+                    this.reloadChildren(() => {
+                        this.state = 'success';
+                    });
+                }
+            }
         })
     }
 
@@ -1174,6 +1284,19 @@ export class EditorService {
         });
     }
 
+    onIngest() {
+
+        if (this.isLeftDirty) {
+            const d = this.confirmLeaveDialog().subscribe((result: any) => {
+                if (result === 'true') {
+                    this.ingest();
+                }
+            });
+        } else {
+            this.ingest();
+        }
+    }
+
     ingest() {
         const batchParent = this.getBatchParent();
         if (batchParent) {
@@ -1221,15 +1344,6 @@ export class EditorService {
     }
 
 
-
-
-
-
-
-
-
-
-
     getEditorDate() {
 
     }
@@ -1263,4 +1377,6 @@ export class EditorService {
 export interface EditorParams {
     pid: string;
     preparation: boolean;
+    metadata: any;
+    isNew: boolean;
 }

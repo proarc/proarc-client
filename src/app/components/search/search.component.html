@@ -182,6 +182,7 @@
 <div class="app-search-actions">
   <div class="app-object-actions">
     <ng-container *ngIf="search.selectedTree">
+      <button (click)="selectItem(selectedItem)" mat-button>{{'common.refresh' | translate }}</button>
       <button (click)="openItem(search.selectedTree.item)" mat-button>Otevřít</button>
       <button (click)="onExport(search.selectedTree.item)" mat-button>Exportovat</button>
       <button (click)="onUrnnbn(search.selectedTree.item)" mat-button>URN:NBN</button>
@@ -193,8 +194,6 @@
     </ng-container>
   </div>
 </div>
-
-
 
 <div class="app-table app-items">
 
@@ -231,7 +230,7 @@
     <div class="result-export" *ngIf="properties.isSearchColEnabled('isLocked')">{{ 'search.isLocked' | translate }}</div>
   </div>
   <div class="scrollable">
-    <app-tree [tree]="tree" (onOpen)="openFromTree($event)"></app-tree>
+    <app-tree [tree]="tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)"></app-tree>
   </div>
 </div>
 </div>

@@ -3,7 +3,7 @@
   <ng-container></ng-container>
   <div class="app-card" *ngFor="let item of field.getItems(); last as last; first as first;" [class.app-warning]="item.validationWarning && !item.isValid()" >
     <div class="app-card-header">
-      <span class="app-card-title" [class.app-no-collapse]="!collapsable">{{ field.label() }} <i>{{ field.usage() }}</i></span>
+      <span [matTooltip]="field.labelKey()" class="app-card-title" [class.app-no-collapse]="!collapsable">{{ 'mods.' + field.labelKey() | translate }} <i>{{ field.usage() }}</i></span>
       <button matTooltip="{{ 'common.remove' | translate }}" (click)="field.removeItem(item)" mat-icon-button>
         <mat-icon>delete</mat-icon>
       </button>

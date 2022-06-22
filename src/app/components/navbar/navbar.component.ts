@@ -7,6 +7,7 @@ import { NewObjectDialogComponent, NewObjectData } from 'src/app/dialogs/new-obj
 import { ConfigService } from 'src/app/services/config.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { AboutDialogComponent } from 'src/app/dialogs/about-dialog/about-dialog.component';
+import { NewMetadataDialogComponent } from 'src/app/dialogs/new-metadata-dialog/new-metadata-dialog.component';
 
 @Component({
   selector: 'app-navbar',
@@ -34,13 +35,24 @@ export class NavbarComponent implements OnInit {
     this.auth.logout();
   }
 
-  onCreateNewObject() {
+  onCreateNewObject() { 
     const data: NewObjectData = {
       models: this.config.allModels,
       model: this.properties.getStringProperty('search.model', this.config.defaultModel),
       customPid: false
     }
     const dialogRef = this.dialog.open(NewObjectDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result['pid']) {
+        const pid = result['pid'];
+        this.showMetadataDialog(result.data);
+        // this.router.navigate(['/document', pid]);
+      }
+    });
+  }
+
+  showMetadataDialog(data: any) {
+    const dialogRef = this.dialog.open(NewMetadataDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['pid']) {
         const pid = result['pid'];
