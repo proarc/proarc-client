@@ -3,7 +3,11 @@
 
     <app-field-codebook field="physicalLocation" [item]="item" [options]="codebook.locations" [(value)]='item.physicalLocation["_"]'></app-field-codebook>
 
-    <app-field-text field="shelfLocator" [item]="item" [(value)]="item.shelfLocator['_']"></app-field-text>
+    <app-editor-field *ngIf="item.available('shelfLocator')" [field]="item.shelfLocators" [nested]='true'>
+      <ng-template let-shelfLocator="item" #templateContent>
+        <app-field-text field="value" [item]="shelfLocator" [(value)]="shelfLocator.modsElement['_']"></app-field-text>
+      </ng-template>
+    </app-editor-field>
 
     <app-editor-field *ngIf="item.available('url')" [field]="item.urls" [nested]='true'>
       <ng-template let-url="item" #templateContent>

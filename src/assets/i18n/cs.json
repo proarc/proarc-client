@@ -1604,6 +1604,8 @@
     "location/url/value": "Hodnota",
     "relatedItem/location/url/@usage": "Užití",
     "relatedItem/location/url/value": "Hodnota",
+    "relatedItem/location/shelfLocator/value": "Hodnota",
+    "location/shelfLocator/value": "Hodnota",
     "option": {
       "": "-",
       "Contents": "Contents",

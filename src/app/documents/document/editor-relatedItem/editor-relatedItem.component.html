@@ -75,7 +75,11 @@
     <app-editor-field *ngIf="item.available('location')" [field]="item.locations" [nested]='true'>
       <ng-template let-location="item" #templateContent>
         <app-field-codebook field="physicalLocation" [item]="location" [options]="codebook.locations" [(value)]='location.physicalLocation["_"]'></app-field-codebook>
-        <app-field-text field="shelfLocator" [item]="location" [(value)]="location.shelfLocator['_']"></app-field-text>
+        <app-editor-field *ngIf="location.available('shelfLocator')" [field]="location.shelfLocators" [nested]='true'>
+          <ng-template let-shelfLocator="item" #templateContent>
+            <app-field-text field="value" [item]="shelfLocator" [(value)]="shelfLocator.modsElement['_']"></app-field-text>
+          </ng-template>
+        </app-editor-field>
         <app-editor-field *ngIf="location.available('url')" [field]="location.urls" [nested]='true'>
           <ng-template let-url="item" #templateContent>
             <app-field-dropdown field="usage" [item]="url" [(value)]='url.attrs["usage"]'></app-field-dropdown>

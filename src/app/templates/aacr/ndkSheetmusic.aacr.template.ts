@@ -318,7 +318,16 @@ export class NdkSheetMusicAacrTemplate {
           label: 'Signatura',
           selector: 'location/shelfLocator',
           labelKey: 'location/shelfLocator',
-          description: `Signatura nebo lokační údaje o daném konkrétním dokumentu, který slouží jako předloha.`
+          description: `Signatura nebo lokační údaje o daném konkrétním dokumentu, který slouží jako předloha.`,
+          fields: {
+            value: {
+              usage: 'M',
+              selector: 'location/shelfLocator/value',
+              labelKey: 'location/shelfLocator/value',
+              label: 'Hodnota',
+              help: 'off'
+            },
+          }
         },
         url: {
           usage: 'O',
@@ -1344,7 +1353,16 @@ export class NdkSheetMusicAacrTemplate {
               label: 'Signatura',
               selector: 'relatedItem/location/shelfLocator',
               labelKey: 'relatedItem/location/shelfLocator',
-              description: `Signatura nebo lokační údaje o daném konkrétním dokumentu, který slouží jako předloha.`
+              description: `Signatura nebo lokační údaje o daném konkrétním dokumentu, který slouží jako předloha.`,
+              fields: {
+                value: {
+                  usage: 'MA',
+                  selector: 'relatedItem/location/shelfLocator/value',
+                  labelKey: 'relatedItem/location/shelfLocator/value',
+                  label: 'Hodnota',
+                  help: 'off'
+                },
+              }
             },
             url: {
               usage: 'O',

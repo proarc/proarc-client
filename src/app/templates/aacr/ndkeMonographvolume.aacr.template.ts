@@ -306,7 +306,16 @@ export class NdkeMonographVolumeAacrTemplate {
           label: 'Signatura',
           selector: 'location/shelfLocator',
           labelKey: 'location/shelfLocator',
-          description: `Signatura nebo lokační údaje o daném konkrétním dokumentu, který slouží jako předloha.`
+          description: `Signatura nebo lokační údaje o daném konkrétním dokumentu, který slouží jako předloha.`,
+          fields: {
+            value: {
+              usage: 'RA',
+              selector: 'location/shelfLocator/value',
+              labelKey: 'location/shelfLocator/value',
+              label: 'Hodnota',
+              help: 'off'
+            },
+          }
         },
         url: {
           usage: 'MA',

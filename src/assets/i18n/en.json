@@ -1721,6 +1721,8 @@
     "location/url/value": "Value",
     "relatedItem/location/url/@usage": "Usage",
     "relatedItem/location/url/value": "Value",
+    "relatedItem/location/shelfLocator/value": "Value",
+    "location/shelfLocator/value": "Value",
     "option": {
       "": "-",
       "Contents": "Contents",
