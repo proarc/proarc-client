@@ -87,9 +87,13 @@ export class EditorMetadataComponent implements OnInit {
             console.log(r);
             if (r && r.errors && r.status === -4 && !ignoreValidation) {
               const messages = this.ui.extractErrorsAsString(r.errors);
-              this.confirmSave(String(this.translator.instant('common.warning')), messages, true);
+              if (r.data === 'cantIgnore') {
+                this.ui.showErrorSnackBar( messages)
+              } else {
+                this.confirmSave(this.translator.instant('common.warning'), messages, true);
+              }
+              
             }
-            // this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', false);
           });
         }
       }
@@ -117,7 +121,12 @@ export class EditorMetadataComponent implements OnInit {
         this.editor.saveMetadata(false, (r: any) => {
           if (r && r.errors && r.status === -4) {
             const messages = this.ui.extractErrorsAsString(r.errors);
-            this.confirmSave(String(this.translator.instant('common.warning')), messages, true);
+            if (r.data === 'cantIgnore') {
+              this.ui.showErrorSnackBar(messages);
+              
+            } else {
+              this.confirmSave(this.translator.instant('common.warning'), messages, true);
+            }
           }
         });
       }
