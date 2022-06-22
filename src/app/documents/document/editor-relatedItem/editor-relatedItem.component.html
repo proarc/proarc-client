@@ -182,6 +182,14 @@
       </ng-template>
     </app-editor-field>
 
+    <app-editor-field *ngIf="item.available('identifier')" [field]="item.identifiers" [nested]='true'>
+      <ng-template let-identifier="item" #templateContent>
+        <app-field-codebook field="type" [item]="identifier" [options]="getIdentifiers()" [(value)]='identifier.attrs["type"]'></app-field-codebook>
+        <app-field-codebook field="validity" [item]="identifier" [options]="validityOptions" [(value)]='identifier.attrs["invalid"]'></app-field-codebook>
+        <app-field-text field="value" [item]="identifier" [(value)]="identifier.modsElement['_']" ></app-field-text>
+      </ng-template>
+    </app-editor-field>
+
   </ng-template>
 </app-editor-field>
 

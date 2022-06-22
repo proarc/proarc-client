@@ -526,6 +526,9 @@
         "use_coordinates": "Použít alespoň souřadnice"
       }
     },
+    "bdm": {
+      "editor_title": "Popisná metadata eČlánku"
+    },
     "chronicle": {
       "editor_title": "Popisná metadata kroniky",
       "author": {
@@ -1587,7 +1590,7 @@
     "bdm/titleInfo/nonSort": "Člen, jímž začíná název",
     "bdm/name": "Údaje o autorech",
     "bdm/subject": "Klíčová slova",
-    "bdm/part": "Rozdah článku",
+    "bdm/part": "Rozsah článku",
     "bdm/part/extent/start": "První stránka článku",
     "bdm/part/extent/end": "Poslední stránka článku",
     "bdm/genre/@type": "Typ obsahu",
@@ -1606,6 +1609,14 @@
     "relatedItem/location/url/value": "Hodnota",
     "relatedItem/location/shelfLocator/value": "Hodnota",
     "location/shelfLocator/value": "Hodnota",
+    "bdm/relatedItem/physicalDescription": "Strany recenzovaného díla",
+    "bdm/relatedItem/physicalDescription/extent": "Počet stran",
+    "bdm/relatedItem/note": "Edice",
+    "bdm/relatedItem/note/value" : "Hodnota",
+    "relatedItem/identifier": "Identifikátory",
+    "relatedItem/identifier/@type": "Typ",
+    "relatedItem/identifier/@invalid": "Neplatný",
+    "relatedItem/identifier/value": "Hodnota",
     "option": {
       "": "-",
       "Contents": "Contents",
