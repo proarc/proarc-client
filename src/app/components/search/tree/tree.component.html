@@ -8,7 +8,7 @@
             <mat-icon class="app-tree-expand" *ngIf="tree.expandable() && !tree.loading" (click)="toggle($event)">{{ tree.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
             <span class="app-tree-expand" *ngIf="!tree.expandable() && !tree.loading" style="width: 36px;" >&#160;</span>
           </div>
-          <span>{{ tree.item.label }}</span>
+          <div>{{ tree.item.label }}</div>
         </div>
         <div class="result-model" *ngIf="properties.isSearchColEnabled('model')">{{ "model." + tree.item.model | translate }}</div>
         <div class="result-pid" *ngIf="properties.isSearchColEnabled('pid')">{{ tree.item.pid }}</div>
