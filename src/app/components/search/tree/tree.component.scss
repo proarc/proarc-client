@@ -28,6 +28,10 @@
     float: left;
   }
   flex: 1;
+  span {
+    min-width: 100px;
+  }
+  
 }
 .result-model {
   width: 140px;
