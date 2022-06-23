@@ -18,7 +18,7 @@
 
   .app-search-mode {
     .app-active {
-      font-weight:bold;
+      font-weight: bold;
     }
   }
 
@@ -67,7 +67,7 @@
     height: calc(100% - 86px);
     background-color: #eee;
   }
-  
+
   .app-tree {
     margin-top: 5px;
     // max-height: calc(50% - 84px) !important;
@@ -113,6 +113,10 @@
 
     .app-header {
       flex: 1;
+      top: 0;
+      position: sticky;
+      background: white;
+      border-top: 1px #cecece solid;
     }
 
     .sort-arrow {
@@ -129,6 +133,7 @@
     .result-model {
       width: 200px;
     }
+
     .result-pid {
       width: 275px;
       font-size: 12px;
