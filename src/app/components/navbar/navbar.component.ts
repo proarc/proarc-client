@@ -44,9 +44,12 @@ export class NavbarComponent implements OnInit {
     const dialogRef = this.dialog.open(NewObjectDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['pid']) {
-        const pid = result['pid'];
-        this.showMetadataDialog(result.data);
-        // this.router.navigate(['/document', pid]);
+        if (result.isMultiple) {
+          const pid = result['pid'];
+          this.router.navigate(['/document', pid]);
+        } else {
+          this.showMetadataDialog(result.data);
+        }
       }
     });
   }
