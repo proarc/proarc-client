@@ -94,6 +94,9 @@ export class NewObjectDialogComponent implements OnInit {
         if (customPid) {
           data = `${data}&pid=${customPid}`;
         }
+        if (this.data.parentPid) {
+          data = `${data}&parent=${this.data.parentPid}`;
+        }
         data = `${data}&xml=${encodeURIComponent(result.mods)}`;
         this.api.createObject(data).subscribe((response: any) => {
           if (response['response'].errors) {

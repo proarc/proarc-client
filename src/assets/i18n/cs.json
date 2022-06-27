@@ -258,7 +258,8 @@
     "profile": "Profil",
     "settings": "Nastavení",
     "about": "O aplikaci",
-    "workflow": "Záměry"
+    "workflow": "Záměry",
+    "admin": "Administrace"
   },
   "settings": {
     "settings": "Nastavení",
@@ -1783,9 +1784,7 @@
   },
   "admin": {
     "users": {
-      
-
-      "label": "Administrace ",
+      "label": "Administrace uživatelů",
       "username": "Uživatel",
       "forename": "Jméno",
       "surname": "Příjmení",

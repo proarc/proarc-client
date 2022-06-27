@@ -243,7 +243,8 @@
     "profile": "Profile",
     "settings": "Settings",
     "about": "About",
-    "workflow": "Workflow"
+    "workflow": "Workflow",
+    "admin": "Admintration"
   },
   "editor": {
     "toolbar": {
@@ -1896,6 +1897,28 @@
       "w3cdtf": "W3CDTF",
       "yes": "yes",
       "primary": "primary"
+    }
+  },
+  "admin": {
+    "users": {
+      "label": "User administration",
+      "username": "User name",
+      "forename": "Forename",
+      "surname": "Surname",
+      "organization": "Organization",
+      "home": "Home folder",
+      "email": "Email",
+      "role": "Role",
+      "roles": {
+        "user":"User",
+        "admin": "Administrator",
+        "superAdmin": "Super Administrator"
+      },
+      "changeModelFunction": "Can run change model function",
+      "updateModelFunction": "Can run update model function",
+      "unlockObjectFunction": "Can run unlockObject function",
+      "lockObjectFunction": "Can run lockObject function"
+
     }
   }
 
