@@ -609,7 +609,6 @@ export class EditorService {
             if (result && result['pid']) {
 
                 if (result.isMultiple) {
-                    const pid = result['pid'];
                     this.init(
                         {
                             pid: data.parentPid,
@@ -620,9 +619,9 @@ export class EditorService {
                 } else {
                     const dialogRef = this.dialog.open(NewMetadataDialogComponent, { data: result.data });
                     dialogRef.afterClosed().subscribe(res => {
-                        if (res && res['pid']) {
-                            const pid = result.pid;
-                            this.router.navigate(['/document', pid]);
+                        //if (res && res['pid']) {
+                            //const pid = result.pid;
+                            //this.router.navigate(['/document', pid]);
                             this.init(
                                 {
                                     pid: data.parentPid,
@@ -630,7 +629,7 @@ export class EditorService {
                                     metadata: null,
                                     isNew: false
                                 });
-                        }
+                        //} 
                     });
                 }
 

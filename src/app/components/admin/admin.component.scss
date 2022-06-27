@@ -1,0 +1,14 @@
+.app-users {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 10px;
+  .app-user-list {
+    width: 200px;
+  }
+
+  .app-user-detail {
+    margin-top: 30px;
+  }
+}

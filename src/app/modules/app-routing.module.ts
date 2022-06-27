@@ -12,6 +12,7 @@ import { ImportComponent } from '../components/import/import.component';
 import { HistoryComponent } from '../components/import/history/history.component';
 import { SettingsComponent } from '../components/settings/settings.component';
 import { ConfirmLeaveEditorGuard } from '../confirm-leave-editor.guard';
+import { AdminComponent } from '../components/admin/admin.component';
 
 const routes: Routes = [
   { path: 'document/:pid', component: EditorComponent, canDeactivate:[ConfirmLeaveEditorGuard] },
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'import', component: ImportComponent },
   { path: 'import/history', component: HistoryComponent },
   { path: 'import/edit/:batch_id', component: EditorComponent, canDeactivate:[ConfirmLeaveEditorGuard] },
+  { path: 'admin', component: AdminComponent },
   { path: '', redirectTo: '/search', pathMatch: 'full' }
 
 ];

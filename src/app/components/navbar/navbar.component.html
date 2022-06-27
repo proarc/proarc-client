@@ -15,6 +15,7 @@
   
   <ng-container *ngIf="auth.isLoggedIn()">
     <a *ngIf="auth.isSuperAdmin() || auth.isAdmin()" [routerLink]="['/devices']" routerLinkActive="active" mat-button>{{ "navbar.devices" | translate }}</a>
+    <a *ngIf="auth.isSuperAdmin() || auth.isAdmin()" [routerLink]="['/admin']" routerLinkActive="active" mat-button>{{ "navbar.admin" | translate }}</a>
     <button (click)="showAboutDialog()" mat-button>{{ "navbar.about" | translate }}</button>
     <a [matMenuTriggerFor]="profile_menu" mat-button>{{ "navbar.profile" | translate }}</a>
     <mat-menu #profile_menu="matMenu">

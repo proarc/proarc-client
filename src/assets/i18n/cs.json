@@ -1780,5 +1780,29 @@
       "yes": "Ano",
       "primary": "Primární (hlavní)"
     }
+  },
+  "admin": {
+    "users": {
+      
+
+      "label": "Administrace ",
+      "username": "Uživatel",
+      "forename": "Jméno",
+      "surname": "Příjmení",
+      "organization": "Organizace",
+      "home": "Adresář",
+      "email": "Email",
+      "role": "Role",
+      "roles": {
+        "user":"Uživatel",
+        "admin": "Administrator",
+        "superAdmin": "Super Administrator"
+      },
+      "changeModelFunction": "Smí spustit funkce převody modelů",
+      "updateModelFunction": "Smí spustit funkce updatu modelů",
+      "unlockObjectFunction": "Smí spustit funkce odemknutí objektu",
+      "lockObjectFunction": "Smí spustit funkce uzamknutí objektu"
+
+    }
   }
 }

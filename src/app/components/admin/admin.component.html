@@ -1,0 +1,48 @@
+<div class="app-users" flex>
+  <div class="app-user-list">
+    <ul>
+      <li *ngFor="let user of users"><a (click)="selectUser(user)">{{ user.name }}</a></li>
+    </ul>
+  </div>
+  <div *ngIf="selectedUser" class="app-user-detail">
+    <mat-form-field>
+      <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'admin.users.username' | translate"
+        [(ngModel)]="selectedUser.name">
+    </mat-form-field>
+    <mat-form-field>
+      <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'admin.users.forename' | translate"
+        [(ngModel)]="selectedUser.forename">
+    </mat-form-field>
+    <mat-form-field>
+      <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'admin.users.surname' | translate"
+        [(ngModel)]="selectedUser.surname">
+    </mat-form-field>
+    <mat-form-field>
+      <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'admin.users.email' | translate"
+        [(ngModel)]="selectedUser.email">
+    </mat-form-field>
+    <mat-form-field>
+      <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'admin.users.organization' | translate"
+        [(ngModel)]="selectedUser.organization">
+    </mat-form-field>
+
+    <div>{{'admin.users.home' | translate}} : {{ selectedUser.home }}</div>
+
+    <mat-form-field>
+      <mat-select [(ngModel)]='selectedUser.role' placeholder="{{ 'admin.users.role' | translate }}">
+        <mat-option *ngFor="let role of roles" [value]="role">{{ 'admin.users.roles.' + role | translate }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div>
+      <mat-checkbox color="primary" [(ngModel)]="selectedUser.changeModelFunction">{{ 'admin.users.changeModelFunction'
+        | translate }}</mat-checkbox>
+      <mat-checkbox color="primary" [(ngModel)]="selectedUser.updateModelFunction">{{ 'admin.users.updateModelFunction'
+        | translate }}</mat-checkbox>
+      <mat-checkbox color="primary" [(ngModel)]="selectedUser.lockObjectFunction">{{ 'admin.users.lockObjectFunction' |
+        translate }}</mat-checkbox>
+      <mat-checkbox color="primary" [(ngModel)]="selectedUser.unlockObjectFunction">{{
+        'admin.users.unlockObjectFunction' | translate }}</mat-checkbox>
+    </div>
+    <button mat-raised-button color="default" (click)="save()">{{ 'common.save' | translate }}</button>
+  </div>
+</div>

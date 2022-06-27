@@ -106,6 +106,7 @@ export class NewMetadataDialogComponent implements OnInit {
     const d = this.dialog.open(SimpleDialogComponent, { data: data });
     d.afterClosed().subscribe(result => {
       if (result === 'true') {
+        this.state = 'success';
         this.dialogRef.close('close');
       }
     });

@@ -673,6 +673,13 @@ export class ApiService {
     return this.put('user', data).pipe(map((response: any) => User.fromJson(response['response']['data'][0])));
   }
 
+  saveUser(user: User): Observable<User> {
+    let data = `userId=${user.userId}&forename=${user.forename}&surname=${user.surname}&email=${user.email}&organization=${user.organization}&role=${user.role}`;
+    data = `${data}&changeModelFunction=${user.changeModelFunction}&updateModelFunction=${user.updateModelFunction}`;
+    data = `${data}&unlockObjectFunction=${user.unlockObjectFunction}&lockObjectFunction=${user.lockObjectFunction}`;
+    return this.put('user', data).pipe(map((response: any) => User.fromJson(response['response']['data'][0])));
+  }
+
   editUserPassword(user: User, password: string): Observable<any> {
     const data = `userId=${user.userId}&forename=${user.forename}&surname=${user.surname}&email=${user.email}&organization=${user.organization}&role=${user.role}&password=${password}`;
     return this.put('user', data)
