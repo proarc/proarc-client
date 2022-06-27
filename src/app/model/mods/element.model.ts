@@ -139,7 +139,7 @@ export abstract class ModsElement {
     public validate(): boolean {
         let error = false;
         let anyValue = false;
-        const isRequired = this.template ? this.template.usage == 'M' : false
+        let isRequired = this.template ? this.template.usage == 'M' : false
         this.controls.forEach((value, key) => {
             value.markAsTouched();
             if (value.errors) {
@@ -157,7 +157,7 @@ export abstract class ModsElement {
                         error = true;
                     }
                 });
-                // error = true;
+                error = true;
             } else {
                 this.controls.forEach((value, key) => {
                     value.markAsUntouched();
