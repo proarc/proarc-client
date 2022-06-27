@@ -6,6 +6,7 @@ export class User {
   public userGroup: number;
 
   public name: string;
+  public password: string;
   public forename: string;
   public surname: string;
   public home: string;

@@ -1784,8 +1784,10 @@
   },
   "admin": {
     "users": {
-      "label": "Administrace uživatelů",
+      "title": "Administrace uživatelů",
       "username": "Uživatel",
+      "password": "heslo",
+      "password_tooltip": "Heslo uživatele musí obsahovat alespoň 6 znaků.",
       "forename": "Jméno",
       "surname": "Příjmení",
       "organization": "Organizace",
@@ -1800,7 +1802,15 @@
       "changeModelFunction": "Smí spustit funkce převody modelů",
       "updateModelFunction": "Smí spustit funkce updatu modelů",
       "unlockObjectFunction": "Smí spustit funkce odemknutí objektu",
-      "lockObjectFunction": "Smí spustit funkce uzamknutí objektu"
+      "lockObjectFunction": "Smí spustit funkce uzamknutí objektu",
+      "new": "Vytvořit  nového uživatele",
+      "delete": "Smazat uživatele",
+      "delete_dialog": {
+        "title": "Odstranění uživatele",
+        "message": "Opravdu chcete odstranit uživatele {{ name }}?",
+        "success": "Uživatel byl odstraněn"
+      },
+      "new_success": "Uživatel byl přidan"
 
     }
   }

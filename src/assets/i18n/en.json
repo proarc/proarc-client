@@ -1903,6 +1903,8 @@
     "users": {
       "label": "User administration",
       "username": "User name",
+      "password": "Password",
+      "password_tooltip": "Password must have min 6 characters.",
       "forename": "Forename",
       "surname": "Surname",
       "organization": "Organization",
@@ -1917,7 +1919,15 @@
       "changeModelFunction": "Can run change model function",
       "updateModelFunction": "Can run update model function",
       "unlockObjectFunction": "Can run unlockObject function",
-      "lockObjectFunction": "Can run lockObject function"
+      "lockObjectFunction": "Can run lockObject function",
+      "new": "Create new user",
+      "delete": "Delete user",
+      "delete_dialog": {
+        "title": "Remove user",
+        "message": "Are you sure you want to remove user {{ name }}?",
+        "success": "User has been removed"
+      },
+      "new_success": "User created successfully"
 
     }
   }

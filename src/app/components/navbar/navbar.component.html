@@ -8,7 +8,8 @@
     <a [routerLink]="['/import', 'history']" routerLinkActive="active" mat-button>{{ "navbar.history" | translate }}</a>
     <a [routerLink]="['/search']" routerLinkActive="active" mat-button>{{ "navbar.search" | translate }}</a>
     <button (click)="onCreateNewObject()" mat-button>{{ "navbar.new_object" | translate }}</button>
-    <a *ngIf="config.showWorkflow" [href]="config.workflowUrl" target="_empty" mat-button>{{ "navbar.workflow" | translate }}</a>
+    <!-- <a *ngIf="config.showWorkflow" [href]="config.workflowUrl" target="_empty" mat-button>{{ "navbar.workflow" | translate }}</a> -->
+    <a *ngIf="config.showWorkflow" [routerLink]="['/workflow']" routerLinkActive="active" mat-button>{{ "navbar.workflow" | translate }}</a>
   </ng-container>
 
   <span class="fill-remaining-space"></span>
