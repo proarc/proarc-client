@@ -662,6 +662,18 @@ export class ApiService {
     return this.get('workflow');
   }
 
+  getWorkflowProfiles(): Observable<any> {
+    return this.get('workflow/profile');
+  }
+
+  getWorkflowItem(id: number): Observable<any> {
+    return this.get('workflow?id='+id);
+  }
+
+  getWorkflowMaterial(id: number): Observable<any> {
+    return this.get('workflow/material?jobId='+id);
+  }
+
   getUsers(): Observable<User[]> {
     return this.get('user')
             .pipe(map((response: any) => User.fromJsonArray(response['response']['data'])));

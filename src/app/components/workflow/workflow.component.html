@@ -1,27 +1,106 @@
 <div class="app-workflow">
-	<as-split direction="horizontal">
-		<as-split-area [size]="40">
-			<as-split direction="vertical">
-				<as-split-area>
-					<div *ngFor="let item of items">{{item.label}}</div>
-				</as-split-area>
-				<as-split-area>
-					<p>List2</p>
-				</as-split-area>
-			</as-split>
-		</as-split-area>
-		<as-split-area [size]="60">
-			<as-split direction="vertical">
-				<as-split-area [size]="30">
-					<p>Detail</p>
-				</as-split-area>
-				<as-split-area [size]="40">
-					<p>Ukoly</p>
-				</as-split-area>
-				<as-split-area [size]="30">
-					<p>Pod Ukoly</p>
-				</as-split-area>
-			</as-split>
-		</as-split-area>
-	</as-split>
+  <as-split direction="horizontal">
+    <as-split-area [size]="40">
+      <as-split direction="vertical">
+        <as-split-area>
+          <!-- List of workflow items -->
+          <div *ngFor="let item of items">{{item.label}}</div>
+        </as-split-area>
+        <as-split-area>
+          <p>List2</p>
+        </as-split-area>
+      </as-split>
+    </as-split-area>
+    <as-split-area [size]="60">
+      <as-split direction="vertical">
+        <as-split-area [size]="30">
+          <!-- Detail of selected item -->
+          <div class="app-detail" *ngIf="selectedItem">
+            <div>
+              <mat-form-field>
+                <input autocomplete="off" matInput [placeholder]="'workflow.label' | translate"
+                  [(ngModel)]="selectedItem.label">
+              </mat-form-field>
+            </div>
+
+            <div>
+
+              <mat-form-field>
+                <input autocomplete="off" matInput [placeholder]="'workflow.state' | translate"
+                  [(ngModel)]="selectedItem.state">
+              </mat-form-field>
+
+              <mat-form-field>
+                <input autocomplete="off" matInput [placeholder]="'workflow.priority' | translate"
+                  [(ngModel)]="selectedItem.priority">
+              </mat-form-field>
+
+              <mat-form-field>
+                <input autocomplete="off" matInput [placeholder]="'workflow.profileName' | translate"
+                  [(ngModel)]="selectedItem.profileName">
+              </mat-form-field>
+
+            </div>
+
+            <div>
+
+              <mat-form-field>
+                <input autocomplete="off" matInput [placeholder]="'workflow.ownerId' | translate"
+                  [(ngModel)]="selectedItem.ownerId" readonly>
+              </mat-form-field>
+
+              <mat-form-field>
+                <input autocomplete="off" matInput [placeholder]="'workflow.priority' | translate"
+                  [(ngModel)]="selectedItem.priority">
+              </mat-form-field>
+
+              <mat-form-field>
+                <input autocomplete="off" matInput [placeholder]="'workflow.id' | translate"
+                  [(ngModel)]="selectedItem.id" readonly>
+              </mat-form-field>
+
+            </div>
+
+
+
+            <div>
+
+              <mat-form-field>
+                <input autocomplete="off" matInput [placeholder]="'workflow.created' | translate"
+                  [(ngModel)]="selectedItem.created">
+              </mat-form-field>
+
+              <mat-form-field>
+                <input autocomplete="off" matInput [placeholder]="'workflow.modified' | translate"
+                  [(ngModel)]="selectedItem.modified">
+              </mat-form-field>
+
+            </div>
+
+
+          </div>
+
+
+        </as-split-area>
+        <as-split-area [size]="40">
+          <div *ngIf="selectedProfile">
+            <ul>
+              <li *ngFor="let task of selectedProfile.task">
+                {{ task.hint }}
+              </li>
+            </ul>
+          </div>
+        </as-split-area>
+        <as-split-area [size]="30">
+          <div *ngIf="material">
+            <ul>
+              <li *ngFor="let m of material">
+                {{ m.profileLabel }}
+              </li>
+            </ul>
+          </div>
+        </as-split-area>
+      </as-split>
+    </as-split-area>
+  </as-split>
 </div>
