@@ -1,1 +1,27 @@
-<p>workflow works!</p>
+<div class="app-workflow">
+	<as-split direction="horizontal">
+		<as-split-area [size]="40">
+			<as-split direction="vertical">
+				<as-split-area>
+					<div *ngFor="let item of items">{{item.label}}</div>
+				</as-split-area>
+				<as-split-area>
+					<p>List2</p>
+				</as-split-area>
+			</as-split>
+		</as-split-area>
+		<as-split-area [size]="60">
+			<as-split direction="vertical">
+				<as-split-area [size]="30">
+					<p>Detail</p>
+				</as-split-area>
+				<as-split-area [size]="40">
+					<p>Ukoly</p>
+				</as-split-area>
+				<as-split-area [size]="30">
+					<p>Pod Ukoly</p>
+				</as-split-area>
+			</as-split>
+		</as-split-area>
+	</as-split>
+</div>
