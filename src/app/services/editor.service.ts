@@ -1239,6 +1239,7 @@ export class EditorService {
             } else {
                 this.state = 'success';
                 this.ui.showInfoSnackBar("Objekty byly reindexovány");
+                this.reload();
             }
         });
     }
