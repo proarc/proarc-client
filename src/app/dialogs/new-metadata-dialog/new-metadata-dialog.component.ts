@@ -19,6 +19,8 @@ export class NewMetadataDialogComponent implements OnInit {
   public inited = false;
   state = 'none';
 
+  editorParams: any;
+
   constructor(
     private router: Router,
     public dialogRef: MatDialogRef<NewObjectDialogComponent>,
@@ -30,6 +32,11 @@ export class NewMetadataDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
+    this.editorParams = {
+      pid: this.editor.pid,
+      preparation: this.editor.preparation,
+      metadata: this.editor.metadata
+    }
     this.editor.init({
       pid: this.data.pid,
       preparation: false,
@@ -107,6 +114,8 @@ export class NewMetadataDialogComponent implements OnInit {
     d.afterClosed().subscribe(result => {
       if (result === 'true') {
         this.state = 'success';
+        this.editor.state = 'success';
+        this.editor.init(this.editorParams);
         this.dialogRef.close('close');
       }
     });
@@ -134,6 +143,7 @@ export class NewMetadataDialogComponent implements OnInit {
         }
         const pid = response['response']['data'][0]['pid'];
         this.state = 'success';
+        this.editor.state = 'success';
         this.editor.resetChanges();
         this.dialogRef.close(response['response']['data'][0]);
         //this.router.navigate(['/document', pid]);

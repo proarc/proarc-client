@@ -617,7 +617,7 @@ export class EditorService {
                             isNew: false
                         });
                 } else {
-                    const dialogRef = this.dialog.open(NewMetadataDialogComponent, { data: result.data });
+                    const dialogRef = this.dialog.open(NewMetadataDialogComponent, { disableClose: true, data: result.data });
                     dialogRef.afterClosed().subscribe(res => {
                         //if (res && res['pid']) {
                             //const pid = result.pid;
