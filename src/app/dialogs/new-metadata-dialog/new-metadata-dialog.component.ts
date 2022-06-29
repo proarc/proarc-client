@@ -19,6 +19,8 @@ export class NewMetadataDialogComponent implements OnInit {
   public inited = false;
   state = 'none';
 
+  editorParams: any;
+
   constructor(
     private router: Router,
     public dialogRef: MatDialogRef<NewObjectDialogComponent>,
@@ -30,6 +32,11 @@ export class NewMetadataDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
+    this.editorParams = {
+      pid: this.editor.pid,
+      preparation: this.editor.preparation,
+      metadata: this.editor.metadata
+    }
     this.editor.init({
       pid: this.data.pid,
       preparation: false,
@@ -38,7 +45,7 @@ export class NewMetadataDialogComponent implements OnInit {
     });
     this.inited = true;
     setTimeout(() => {
-      this.editor.metadata.validate();
+      this.editor.metadata.expandRequired();
     }, 100);
 
   }
@@ -70,7 +77,7 @@ export class NewMetadataDialogComponent implements OnInit {
   savePage() {
     let data = `model=${this.editor.page.model}`;
     data = `${data}&pid=${this.editor.page.pid}`;
-    data = `${data}&xml=${this.editor.page.toXml()}`;
+    data = `${data}&xml=${encodeURIComponent(this.editor.page.toXml())}`;
     if (this.data.parent) {
       data = `${data}&parent=${this.data.parent}`;
     }
@@ -106,6 +113,9 @@ export class NewMetadataDialogComponent implements OnInit {
     const d = this.dialog.open(SimpleDialogComponent, { data: data });
     d.afterClosed().subscribe(result => {
       if (result === 'true') {
+        this.state = 'success';
+        this.editor.state = 'success';
+        this.editor.init(this.editorParams);
         this.dialogRef.close('close');
       }
     });
@@ -120,7 +130,7 @@ export class NewMetadataDialogComponent implements OnInit {
     if (this.editor.metadata.validate()) {
       let data = `model=${this.editor.metadata.model}`;
       data = `${data}&pid=${this.editor.metadata.pid}`;
-      data = `${data}&xml=${this.editor.metadata.toMods()}`;
+      data = `${data}&xml=${encodeURIComponent(this.editor.metadata.toMods())}`;
       if (this.data.parent) {
         data = `${data}&parent=${this.data.parent}`;
       }
@@ -133,6 +143,7 @@ export class NewMetadataDialogComponent implements OnInit {
         }
         const pid = response['response']['data'][0]['pid'];
         this.state = 'success';
+        this.editor.state = 'success';
         this.editor.resetChanges();
         this.dialogRef.close(response['response']['data'][0]);
         //this.router.navigate(['/document', pid]);
@@ -163,7 +174,7 @@ export class NewMetadataDialogComponent implements OnInit {
       if (result === 'yes') {
         let data = `model=${this.editor.metadata.model}`;
         data = `${data}&pid=${this.editor.metadata.pid}`;
-        data = `${data}&xml=${this.editor.metadata.toMods()}`;
+        data = `${data}&xml=${encodeURIComponent(this.editor.metadata.toMods())}`;
         if (this.data.parent) {
           data = `${data}&parent=${this.data.parent}`;
         }

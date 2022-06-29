@@ -48,8 +48,7 @@ export class NewObjectDialogComponent implements OnInit {
     this.state = 'saving';
     const customPid = this.data.customPid ? this.data.pid : null;
 
-    let data = `model=${this.data.model}&createObject=false`;
-    //let data = `model=${this.data.model}`;
+    let data = `model=${this.data.model}`;
     if (customPid) {
       data = `${data}&pid=${customPid}`;
     }
@@ -58,12 +57,16 @@ export class NewObjectDialogComponent implements OnInit {
     }
 
     if (this.isMultiple) {
+      // tady vytvorime a rovnou ulozime
       data += '&seriesPartNumberFrom='+this.seriesPartNumberFrom;
       data += '&seriesDateFrom='+ this.datePipe.transform(this.seriesDateFrom, 'yyyy-MM-dd');
       data += '&seriesDateTo='+this.datePipe.transform(this.seriesDateTo, 'yyyy-MM-dd');
       this.seriesDaysIncluded.forEach(d => {
         data += '&seriesDaysIncluded='+d;
       });
+    } else {
+      // jen pripravime pro editace
+      data = `${data}&createObject=false`;
     }
 
     this.api.createObject(data).subscribe((response: any) => {
@@ -73,9 +76,9 @@ export class NewObjectDialogComponent implements OnInit {
         this.state = 'error';
         return;
       }
-        this.state = 'success';
+      this.state = 'success';
       const pid =  response['response']['data'][0]['pid'];
-      this.dialogRef.close({pid: pid, data: response['response']['data'][0]})
+      this.dialogRef.close({pid: pid, data: response['response']['data'][0], isMultiple: this.isMultiple})
     });
   }
 
@@ -91,10 +94,12 @@ export class NewObjectDialogComponent implements OnInit {
         if (customPid) {
           data = `${data}&pid=${customPid}`;
         }
-        data = `${data}&xml=${result.mods}`;
+        if (this.data.parentPid) {
+          data = `${data}&parent=${this.data.parentPid}`;
+        }
+        data = `${data}&xml=${encodeURIComponent(result.mods)}`;
         this.api.createObject(data).subscribe((response: any) => {
           if (response['response'].errors) {
-            console.log('error', response['response'].errors);
             this.ui.showErrorSnackBarFromObject(response['response'].errors);
             this.state = 'error';
             return;

@@ -361,11 +361,12 @@ export class SearchComponent implements OnInit {
           this.state = 'success';
           this.ui.showInfoSnackBar("Objekty byly zkopirovane");
           if (item.model === this.model) {
-            const l = this.items.push(DocumentItem.fromJson(response.response.data[0]));
-            this.selectItem(this.items[l-1]);
-            setTimeout(()=>{
-              this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
-            }, 50);
+            const idx =  this.items.findIndex(it => it.pid === item.pid) + 1;
+            this.items.splice(idx,0,DocumentItem.fromJson(response.response.data[0]));
+            this.selectItem(this.items[idx]);
+            // setTimeout(()=>{
+            //   this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
+            // }, 50);
           } else {
             // Kopirujeme objekt podrazeni ve stromu
             this.selectItem(this.selectedItem);

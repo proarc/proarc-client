@@ -169,6 +169,7 @@ export class NdkePeriodicalIssueAacrTemplate {
           label: 'Datum vydání',
           selector: 'originInfo/dateIssued',
           labelKey: 'originInfo/dateIssued',
+          expanded: true,
           description: `Datum vydání předlohy<br/>
             vyplňuje se ručně, dle předlohy`,
           fields: {

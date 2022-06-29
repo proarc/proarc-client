@@ -42,7 +42,8 @@ const modules = [
     MatAutocompleteModule,
     MatTreeModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatTableModule
   ];
 
   @NgModule({

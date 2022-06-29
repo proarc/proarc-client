@@ -654,3 +654,7 @@ a, button {
 .app-alert-error {
   color:  $warn-color;
 }
+
+app-new-metadata-dialog .app-editor-field .app-required {
+  border-color: #2309bb !important;
+}

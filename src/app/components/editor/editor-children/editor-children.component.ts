@@ -13,8 +13,6 @@ import { ResizedEvent } from 'angular-resize-event';
 import { ParentDialogComponent } from 'src/app/dialogs/parent-dialog/parent-dialog.component';
 import { ConvertDialogComponent } from 'src/app/dialogs/convert-dialog/convert-dialog.component';
 import { AuthService } from 'src/app/services/auth.service';
-import { Tree } from 'src/app/model/mods/tree.model';
-import { map } from 'rxjs';
 
 
 
@@ -482,7 +480,8 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
         parent, 
         items,
         expandedPath: this.expandedPath,
-      } 
+      },
+      width: '90%'
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.pid) {

@@ -120,6 +120,8 @@ import { DatePipe } from '@angular/common';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 import {EditorBdmComponent} from './components/editor/editor-bdm/editor-bdm.component';
 import { NewMetadataDialogComponent } from './dialogs/new-metadata-dialog/new-metadata-dialog.component';
+import { WorkflowComponent } from './components/workflow/workflow.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 
 // export function hljsLanguages() {
@@ -225,6 +227,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditorTableOfContentsComponent,
     AlertDialogComponent,
     NewMetadataDialogComponent,
+    WorkflowComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,

@@ -20,10 +20,11 @@
     "save": "Uložit",
     "publish": "Uložit a zveřejnit",
     "unpublish": "Zrušit zveřejnění",
-    "warning": "Varování",
+    "warning": "Upozornění",
     "add_brackets": "ozávorkovat",
     "remove_brackets": "odzávorkovat",
     "multiple": "Více",
+    "refresh": "Obnovit",
     "day": {
       "1": "Pondělí",
       "2": "Úterý",
@@ -257,7 +258,8 @@
     "profile": "Profil",
     "settings": "Nastavení",
     "about": "O aplikaci",
-    "workflow": "Záměry"
+    "workflow": "Záměry",
+    "admin": "Administrace"
   },
   "settings": {
     "settings": "Nastavení",
@@ -621,7 +623,7 @@
       },
       "split_btn": "Rozdělit jméno",
       "set_primary": "Označit jako hlavního autora",
-      "unset_primary": "Zrušit označní hlavního autora"
+      "unset_primary": "Zrušit označení hlavního autora"
     },
     "publisher": {
       "title": "Nakladatel",
@@ -1779,5 +1781,41 @@
       "yes": "Ano",
       "primary": "Primární (hlavní)"
     }
+  },
+  "admin": {
+    "users": {
+      "title": "Administrace uživatelů",
+      "username": "Uživatel",
+      "password": "heslo",
+      "password_tooltip": "Heslo uživatele musí obsahovat alespoň 6 znaků.",
+      "forename": "Jméno",
+      "surname": "Příjmení",
+      "organization": "Organizace",
+      "home": "Adresář",
+      "email": "Email",
+      "role": "Role",
+      "roles": {
+        "user":"Uživatel",
+        "admin": "Administrator",
+        "superAdmin": "Super Administrator"
+      },
+      "changeModelFunction": "Smí spustit funkce převody modelů",
+      "updateModelFunction": "Smí spustit funkce updatu modelů",
+      "unlockObjectFunction": "Smí spustit funkce odemknutí objektu",
+      "lockObjectFunction": "Smí spustit funkce uzamknutí objektu",
+      "new": "Vytvořit  nového uživatele",
+      "delete": "Smazat uživatele",
+      "delete_dialog": {
+        "title": "Odstranění uživatele",
+        "message": "Opravdu chcete odstranit uživatele {{ name }}?",
+        "success": "Uživatel byl odstraněn"
+      },
+      "new_success": "Uživatel byl přidan"
+
+    }
+  },
+  "workflow": {
+    "title": "Záměry",
+    "task": "Úkol"
   }
 }

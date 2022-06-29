@@ -208,7 +208,18 @@ export class HistoryComponent implements OnInit, OnDestroy {
     for (const batch of batches) {
       if (batch.isLoading()) {
         this.api.getImportBatchStatus(batch.id).subscribe(
-          (status: [number, number]) => {
+          (response: any) => {
+
+            if (response.response.errors) {
+              this.state = 'error';
+              this.ui.showErrorSnackBarFromObject(response.response.errors);
+              clearInterval(this.timer);
+              this.state = 'failure';
+              return;
+            }
+      
+            const status: [number, number] = Batch.statusFromJson(response['response']);
+
             const done = status[0];
             const count = status[1];
             if (count === 0) {
@@ -216,9 +227,6 @@ export class HistoryComponent implements OnInit, OnDestroy {
             } else {
               this.progressMap[batch.id] = Math.round((done * 1.0 / count) * 100) + '%';
             }
-          },
-          (error) => {
-            this.progressMap[batch.id] = '!';
           });
       }
     }

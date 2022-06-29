@@ -136,10 +136,14 @@ export abstract class ModsElement {
         return false;
     }
 
+    public isRequired(): boolean {
+        return this.template ? this.template.usage == 'M' : false;
+    }
+
     public validate(): boolean {
         let error = false;
         let anyValue = false;
-        const isRequired = this.template ? this.template.usage == 'M' : false
+        let isRequired = this.template ? this.template.usage == 'M' : false
         this.controls.forEach((value, key) => {
             value.markAsTouched();
             if (value.errors) {

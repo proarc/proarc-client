@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
+import { IsActiveMatchOptions, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { NewObjectDialogComponent, NewObjectData } from 'src/app/dialogs/new-object-dialog/new-object-dialog.component';
 import { ConfigService } from 'src/app/services/config.service';
@@ -44,19 +44,30 @@ export class NavbarComponent implements OnInit {
     const dialogRef = this.dialog.open(NewObjectDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['pid']) {
-        const pid = result['pid'];
-        this.showMetadataDialog(result.data);
-        // this.router.navigate(['/document', pid]);
+        if (result.isMultiple) {
+          const pid = result['pid'];
+          this.router.navigate(['/document', pid]);
+        } else {
+          this.showMetadataDialog(result.data);
+        }
       }
     });
   }
 
   showMetadataDialog(data: any) {
-    const dialogRef = this.dialog.open(NewMetadataDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(NewMetadataDialogComponent, { disableClose: true, data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['pid']) {
         const pid = result['pid'];
+        const p: IsActiveMatchOptions = {
+          matrixParams: 'subset',
+          queryParams: 'ignored',
+          paths: 'subset',
+          fragment: 'ignored'
+        };        
         this.router.navigate(['/document', pid]);
+      } else {
+        
       }
     });
   }

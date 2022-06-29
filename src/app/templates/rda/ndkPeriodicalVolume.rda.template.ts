@@ -122,6 +122,7 @@ export class NdkPeriodicalVolumeRdaTemplate {
           label: 'Rok',
           selector: 'originInfo/dateIssued',
           labelKey: 'originInfo/dateIssued',
+          expanded: true,
           cols: 2,
           description: `Datum vydání předlohy, rok nebo rozsah let, kdy ročník vycházel`,
           fields: {

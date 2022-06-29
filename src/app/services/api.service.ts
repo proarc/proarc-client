@@ -658,6 +658,26 @@ export class ApiService {
      .pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
+  getWorkflow(): Observable<any> {
+    return this.get('workflow');
+  }
+
+  getWorkflowProfiles(): Observable<any> {
+    return this.get('workflow/profile');
+  }
+
+  getWorkflowItem(id: number): Observable<any> {
+    return this.get('workflow?id='+id);
+  }
+
+  getWorkflowMaterial(id: number): Observable<any> {
+    return this.get('workflow/material?jobId='+id);
+  }
+
+  getWorkflowTask(id: number): Observable<any> {
+    return this.get('workflow/task?jobId='+id);
+  }
+
   getUsers(): Observable<User[]> {
     return this.get('user')
             .pipe(map((response: any) => User.fromJsonArray(response['response']['data'])));
@@ -671,6 +691,47 @@ export class ApiService {
   editUser(user: User, forename: string, surname: string): Observable<User> {
     const data = `userId=${user.userId}&forename=${forename}&surname=${surname}&email=${user.email}&organization=${user.organization}&role=${user.role}`;
     return this.put('user', data).pipe(map((response: any) => User.fromJson(response['response']['data'][0])));
+  }
+
+  saveUser(user: User): Observable<User> {
+    let data = `userId=${user.userId}&surname=${user.surname}&role=${user.role}`;
+    if (user.password) {
+      data = `${data}&password=${user.password}`;
+    }
+    if (user.forename) {
+      data = `${data}&forename=${user.forename}`;
+    }
+    if (user.email) {
+      data = `${data}&email=${user.email}`;
+    }
+    if (user.organization) {
+      data = `${data}&organization=${user.organization}`;
+    }
+    
+    data = `${data}&changeModelFunction=${user.changeModelFunction}&updateModelFunction=${user.updateModelFunction}`;
+    data = `${data}&unlockObjectFunction=${user.unlockObjectFunction}&lockObjectFunction=${user.lockObjectFunction}`;
+    return this.put('user', data).pipe(map((response: any) => User.fromJson(response['response']['data'][0])));
+  }
+
+  newUser(user: User): Observable<any> {
+    let data = `name=${user.name}&surname=${user.surname}&role=${user.role}&password=${user.password}`;
+    if (user.forename) {
+      data = `${data}&forename=${user.forename}`;
+    }
+    if (user.email) {
+      data = `${data}&email=${user.email}`;
+    }
+    if (user.organization) {
+      data = `${data}&organization=${user.organization}`;
+    }
+    data = `${data}&changeModelFunction=${user.changeModelFunction}&updateModelFunction=${user.updateModelFunction}`;
+    data = `${data}&unlockObjectFunction=${user.unlockObjectFunction}&lockObjectFunction=${user.lockObjectFunction}`;
+    return this.post('user', data);
+  }
+
+  deleteUser(user: User): Observable<any> {
+    let data = `user?userId=${user.userId}`;
+    return this.delete(data);
   }
 
   editUserPassword(user: User, password: string): Observable<any> {

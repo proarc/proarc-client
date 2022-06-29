@@ -1,0 +1,33 @@
+.app-users-title {
+  margin: 20px;
+}
+.app-users {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 10px;
+  .app-user-list {
+    width: 200px;
+    a {
+      cursor: pointer;
+    }
+      .selected {
+        font-weight: bold;
+      }
+  }
+
+  .app-user-detail {
+    margin-top: 30px;
+    mat-form-field {
+      margin-right: 12px;
+    }
+    mat-checkbox {
+      margin-right: 12px;
+    }
+  }
+
+  .app-actions {
+    margin-top: 12px;
+  }
+}
