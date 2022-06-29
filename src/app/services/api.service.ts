@@ -674,6 +674,10 @@ export class ApiService {
     return this.get('workflow/material?jobId='+id);
   }
 
+  getWorkflowTask(id: number): Observable<any> {
+    return this.get('workflow/task?jobId='+id);
+  }
+
   getUsers(): Observable<User[]> {
     return this.get('user')
             .pipe(map((response: any) => User.fromJsonArray(response['response']['data'])));

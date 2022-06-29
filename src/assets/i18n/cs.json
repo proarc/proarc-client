@@ -1813,5 +1813,9 @@
       "new_success": "Uživatel byl přidan"
 
     }
+  },
+  "workflow": {
+    "title": "Záměry",
+    "task": "Úkol"
   }
 }

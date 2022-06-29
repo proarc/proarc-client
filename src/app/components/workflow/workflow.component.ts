@@ -16,10 +16,12 @@ export class WorkflowComponent implements OnInit {
   profiles: any[];
   selectedProfile: any;
 
+  workFlowColumns = ['taskUsername', 'label'];
   items: Workflow[];
   selectedItem: Workflow;
 
   material: any[];
+  tasks: any[];
 
   constructor(
     private translator: TranslateService,
@@ -29,17 +31,6 @@ export class WorkflowComponent implements OnInit {
 
   ngOnInit(): void {
     this.getWorkflowProfiles();
-  }
-
-  getWorkflow() {
-    this.api.getWorkflow().subscribe((response: any) => {
-      if (response['response'].errors) {
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
-        return;
-      }
-      this.items = response.response.data;
-      this.selectItem(this.items[0]);
-    });
   }
 
   getWorkflowProfiles() {
@@ -54,6 +45,18 @@ export class WorkflowComponent implements OnInit {
     });
   }
 
+  getWorkflow() {
+    this.items = [];
+    this.api.getWorkflow().subscribe((response: any) => {
+      if (response['response'].errors) {
+        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        return;
+      }
+      this.items = response.response.data;
+      this.selectItem(this.items[0]);
+    });
+  }
+
   getMaterial(id: number) {
     this.api.getWorkflowMaterial(id).subscribe((response: any) => {
       if (response['response'].errors) {
@@ -61,6 +64,16 @@ export class WorkflowComponent implements OnInit {
         return;
       }
       this.material = response.response.data;
+    });
+  }
+
+  getTask(id: number) {
+    this.api.getWorkflowTask(id).subscribe((response: any) => {
+      if (response['response'].errors) {
+        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        return;
+      }
+      this.tasks = response.response.data;
     });
   }
 
@@ -77,6 +90,7 @@ export class WorkflowComponent implements OnInit {
   selectItem(w: Workflow) {
     this.selectedItem = w;
     this.selectedProfile = this.profiles.find(p => p.name === w.profileName);
+    this.tasks = this.selectedProfile.task;
     this.getMaterial(this.selectedItem.id);
     // this.getItem(this.selectedItem.id)
   }
