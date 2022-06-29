@@ -57,7 +57,7 @@
           <mat-form-field class="app-full-width" [class.app-disabled]="!holder.editIndex">
             <input (keyup.enter)="onSave()" [readonly]="!holder.editIndex" type="number" step="1" min="0"
               autocomplete="off" matInput [placeholder]="'editor.pages.index_from' | translate"
-              [(ngModel)]="holder.pageIndex" [formControlName]="'pageIndexControl'">
+              [(ngModel)]="holder.pageIndex" [formControl]="pageIndexControl">
           </mat-form-field>
 
         </div>

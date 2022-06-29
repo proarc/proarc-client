@@ -64,9 +64,7 @@ export class NavbarComponent implements OnInit {
           queryParams: 'ignored',
           paths: 'subset',
           fragment: 'ignored'
-        };
-        console.log(this.router.isActive('document', p)) 
-        
+        };        
         this.router.navigate(['/document', pid]);
       } else {
         
