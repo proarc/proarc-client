@@ -177,6 +177,7 @@ export class NdkPeriodicalIssueRdaTemplate {
           label: 'Datum vydání',
           selector: 'originInfo/dateIssued',
           labelKey: 'originInfo/dateIssued',
+          expanded: true,
           cols: 2,
           description: `Datum vydání předlohy<br/>
             vyplňuje se ručně, dle předlohy`,
