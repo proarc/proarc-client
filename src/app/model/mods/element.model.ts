@@ -136,6 +136,10 @@ export abstract class ModsElement {
         return false;
     }
 
+    public isRequired(): boolean {
+        return this.template ? this.template.usage == 'M' : false;
+    }
+
     public validate(): boolean {
         let error = false;
         let anyValue = false;
@@ -157,7 +161,7 @@ export abstract class ModsElement {
                         error = true;
                     }
                 });
-                error = true;
+                // error = true;
             } else {
                 this.controls.forEach((value, key) => {
                     value.markAsUntouched();

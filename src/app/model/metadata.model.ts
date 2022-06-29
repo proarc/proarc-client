@@ -124,6 +124,30 @@ export class Metadata {
     return valid;
   }
 
+  
+
+  expandRequired(): boolean {
+    let valid = true;
+    for (const id of this.fieldsIds) {
+      const f = this.fields.get(id);
+      for (const item of f.getItems()) {
+        if (item.isRequired()) {
+            item.collapsed = false;
+        }
+        for (const subfield of item.getSubfields()) {
+          for (const item2 of subfield.getItems()) {
+            if (item2.isRequired()) {
+              valid = false;
+                item2.collapsed = false;
+                item.collapsed = false;
+            }
+          }
+        }
+      }
+    }
+    return valid;
+  }
+
   private resolveStandard(data: { [x: string]: any; }): string {
     let standard = '';
     let mods: any = data;

@@ -38,7 +38,7 @@ export class NewMetadataDialogComponent implements OnInit {
     });
     this.inited = true;
     setTimeout(() => {
-      this.editor.metadata.validate();
+      this.editor.metadata.expandRequired();
     }, 100);
 
   }
