@@ -45,7 +45,7 @@
       mat-icon-button>
       <mat-icon>format_list_numbered</mat-icon>
     </button>
-    <button class="app-action" matTooltip="{{ 'editor.children.convertPages' | translate }}" (click)="showConvertDialog()" mat-icon-button>
+    <button class="app-action" matTooltip="{{ 'editor.children.convertPages' | translate }}" *ngIf="auth.user.changeModelFunction || auth.isSuperAdmin()" (click)="showConvertDialog()" mat-icon-button>
       <mat-icon>swap_horiz</mat-icon>
     </button>
 
