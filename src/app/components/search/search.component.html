@@ -94,8 +94,8 @@
       <button (click)="onExport(selectedItem)" mat-button>Exportovat</button>
       <button (click)="onUrnnbn(selectedItem)" mat-button>URN:NBN</button>
       <button (click)="onDeleteItem()" mat-button>Smazat</button>
-      <button *ngIf="!selectedItem.isLocked" (click)="onLock(selectedItem, true)" mat-button>Uzamknout</button>
-      <button *ngIf="selectedItem.isLocked" (click)="onLock(selectedItem, false)" mat-button>Odemknout</button>
+      <button *ngIf="!selectedItem.isLocked && (auth.user.lockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, true)" mat-button>Uzamknout</button>
+      <button *ngIf="selectedItem.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, false)" mat-button>Odemknout</button>
       <button *ngIf="selectedItem.state === 'fedora-system:def/model#Deleted'" (click)="onRestore(selectedItem)" mat-button>Obnovit objekt</button>
     </div>
     <div class="app-paginator">

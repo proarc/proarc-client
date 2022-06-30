@@ -40,13 +40,13 @@ export class ApiService {
   private get(path: string, params = {}): Observable<Object> {
     return this.http.get(encodeURI(`${this.getApiUrl()}${path}`), { params: params }).pipe(
       finalize(() => this.stopLoading())
-    ).pipe(catchError(this.handleError));;;
+    ).pipe(catchError(this.handleError));
   }
 
   private head(path: string, params = {}): Observable<Object> {
     return this.http.head(encodeURI(`${this.getApiUrl()}${path}`), { params: params }).pipe(
       finalize(() => this.stopLoading())
-    ).pipe(catchError(this.handleError));;;
+    ).pipe(catchError(this.handleError));
   }
 
 
@@ -89,8 +89,8 @@ export class ApiService {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error);
     } else {
-      console.error(
-        `Backend returned code ${error.status}, body was: `, error.error);
+      // console.error(
+      //   `Backend returned code ${error.status}, body was: `, error.error);
     }
     // Return an observable with a user-facing error message.
     // return throwError({'status':error.status, 'message': error.message});
@@ -616,9 +616,9 @@ export class ApiService {
     return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
-  createImportBatch(path: string, profile: string, indices: boolean, device: string): Observable<Batch> {
+  createImportBatch(path: string, profile: string, indices: boolean, device: string): Observable<any> {
     const data = `folderPath=${path}&profile=${profile}&indices=${indices}&device=${device}`;
-    return this.post('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
+    return this.post('import/batch', data);
   }
 
   reReadFolder(path: string): Observable<any> {
