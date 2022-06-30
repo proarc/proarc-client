@@ -68,11 +68,11 @@ export class ImportTree {
     }
 
     expandable(): boolean {
-        return this.folder.state == "empty";
+        return this.folder.state.toLowerCase() === "empty";
     }
 
     selectable(): boolean {
-        return this.folder.state == "new";
+        return this.folder.state.toLowerCase() === "new";
     }
 
 

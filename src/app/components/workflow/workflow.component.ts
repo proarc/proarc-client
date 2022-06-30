@@ -95,4 +95,8 @@ export class WorkflowComponent implements OnInit {
     // this.getItem(this.selectedItem.id)
   }
 
+  createWorkflow() {
+    
+  }
+
 }

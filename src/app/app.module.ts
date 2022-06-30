@@ -88,7 +88,7 @@ import { EditorPhysicalComponent } from './documents/document/editor-physical/ed
 import { TreeComponent } from './components/search/tree/tree.component';
 import { SearchService } from './services/search.service';
 import { ImportService } from './services/import.service';
-import { ImportTreeComponent } from './components/import/tree/tree.component';
+import { ImportTreeComponent } from './components/import-old/tree/tree.component';
 import { IngestDialogComponent } from './dialogs/ingest-dialog/ingest-dialog.component';
 import { AboutDialogComponent } from './dialogs/about-dialog/about-dialog.component';
 import { PreferredTopsDialogComponent } from './dialogs/preferred-tops-dialog/preferred-tops-dialog.component';
@@ -122,6 +122,7 @@ import {EditorBdmComponent} from './components/editor/editor-bdm/editor-bdm.comp
 import { NewMetadataDialogComponent } from './dialogs/new-metadata-dialog/new-metadata-dialog.component';
 import { WorkflowComponent } from './components/workflow/workflow.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { ImportOldComponent } from './components/import-old/import-old.component';
 
 
 // export function hljsLanguages() {
@@ -229,6 +230,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NewMetadataDialogComponent,
     WorkflowComponent,
     AdminComponent,
+    ImportOldComponent,
   ],
   imports: [
     BrowserModule,

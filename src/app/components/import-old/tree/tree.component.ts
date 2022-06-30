@@ -48,14 +48,16 @@ export class ImportTreeComponent implements OnInit {
   }
 
   onClick() {
+    
+    if (this.tree.selectable()) {
+      this.importService.toggleFoder(this.tree.folder);
+    }
     if (this.tree.expandable()) {
       if (!this.tree.expanded) {
         this.tree.expand(this.api, this.ui);
       } else {
         this.tree.expanded = false;
       }
-    } else if (this.tree.selectable()) {
-      this.importService.toggleFoder(this.tree.folder);
     }
   }
 

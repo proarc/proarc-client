@@ -94,8 +94,8 @@
       <button (click)="onExport(selectedItem)" mat-button>Exportovat</button>
       <button (click)="onUrnnbn(selectedItem)" mat-button>URN:NBN</button>
       <button (click)="onDeleteItem()" mat-button>Smazat</button>
-      <button *ngIf="!selectedItem.isLocked" (click)="onLock(selectedItem, true)" mat-button>Uzamknout</button>
-      <button *ngIf="selectedItem.isLocked" (click)="onLock(selectedItem, false)" mat-button>Odemknout</button>
+      <button *ngIf="!selectedItem.isLocked && (auth.user.lockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, true)" mat-button>Uzamknout</button>
+      <button *ngIf="selectedItem.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, false)" mat-button>Odemknout</button>
       <button *ngIf="selectedItem.state === 'fedora-system:def/model#Deleted'" (click)="onRestore(selectedItem)" mat-button>Obnovit objekt</button>
     </div>
     <div class="app-paginator">
@@ -189,8 +189,8 @@
       <button (click)="onExpandAll()" mat-button>Rozbalit</button>
       <button *ngIf="search.selectedTree.removable()" (click)="onDeleteFromTree()" mat-button>Smazat</button>
       <button *ngIf="canCopy(search.selectedTree.item)" (click)="onCopyItem(search.selectedTree.item)" mat-button>Zkopírovat</button>
-      <button *ngIf="!search.selectedTree.item.isLocked" (click)="onLock(search.selectedTree.item, true)" mat-button>Uzamknout</button>
-      <button *ngIf="search.selectedTree.item.isLocked" (click)="onLock(search.selectedTree.item, false)" mat-button>Odemknout</button>
+      <button *ngIf="!search.selectedTree.item.isLocked && (auth.user.lockObjectFunction  || auth.isSuperAdmin())" (click)="onLock(search.selectedTree.item, true)" mat-button>Uzamknout</button>
+      <button *ngIf="search.selectedTree.item.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" (click)="onLock(search.selectedTree.item, false)" mat-button>Odemknout</button>
     </ng-container>
   </div>
 </div>
