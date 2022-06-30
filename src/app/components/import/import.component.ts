@@ -134,6 +134,19 @@ export class ImportComponent implements OnInit {
     }
   }
 
+  // Determine when can select folder by profile
+  canReread(folder: Folder): boolean {
+    if (!folder.states) {
+      return false;
+    }
+    const p = folder.states.find(s => s.profile === this.selectedProfile.id);
+    if (p) {
+      return p.state === 'IMPORTED'
+    } else {
+      return false;
+    }
+  }
+
   toggleSelected(folder: Folder) {
     folder.selected = !folder.selected;
   }
@@ -146,9 +159,6 @@ export class ImportComponent implements OnInit {
         selectedFolders.push(f);
       }
     });
-
-    console.log(selectedFolders);
-    //return;
 
     if (selectedFolders.length === 0) {
       return;

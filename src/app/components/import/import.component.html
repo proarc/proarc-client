@@ -34,7 +34,7 @@
           <mat-icon (click)="toggleFolder(f, idx+1)" class="app-tree-expand" *ngIf="f.canExpand">{{ f.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
           <mat-icon  class="app-tree-expand" *ngIf="!f.canExpand">none</mat-icon>
           <mat-icon [class.app-disabled]="!canSelect(f)" class="app-tree-checkbox" (click)="toggleSelected(f)">{{ f.selected ? "check_box" : "check_box_outline_blank" }}</mat-icon>
-          <mat-icon class="app-tree-checkbox" title="Připravit ke znovunačtení" (click)="reRead(f)">refresh</mat-icon>
+          <mat-icon class="app-tree-checkbox" title="Připravit ke znovunačtení" *ngIf="canReread(f)" (click)="reRead(f)">refresh</mat-icon>
           {{ f.name }}
         </ng-container>
       </div>
