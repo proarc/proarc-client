@@ -449,6 +449,22 @@ export class OldprintChapterAacrTemplate {
             ['udc', 'udc']
           ]
         },
+        edition: {
+          usage: 'MA',
+          label: 'Vydání',
+          selector: 'classification/@edition',
+          labelKey: 'classification/@edition',
+          cols: 2,
+          description: `
+          <ul>
+            <li>
+              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)
+            </li>
+          </ul>`,
+          options: [
+            ['Konspekt', 'Konspekt']
+          ]
+        },
         value: {
           usage: 'M',
           selector: 'classification/value',
