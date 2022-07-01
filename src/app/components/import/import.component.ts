@@ -29,7 +29,12 @@ export class ImportComponent implements OnInit {
   selectedProfile: Profile;
 
   folders: Folder[] = [];
-
+  nonStatusProfiles: string[] = [
+    'profile.default_archive_import', 
+    'profile.default_kramerius_import',
+     'profile.ndk_monograph_kramerius_import',
+    'profile.ndk_periodical_kramerius_import',
+    'profile.stt_kramerius_import']
 
   constructor(
     private api: ApiService,
@@ -163,7 +168,30 @@ export class ImportComponent implements OnInit {
     if (selectedFolders.length === 0) {
       return;
     }
-    if (selectedFolders.length === 1) {
+    if (this.nonStatusProfiles.includes(this.selectedProfile.id)) {
+      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, this.generateIndex, this.selectedDevice.id).subscribe((response: any) => {
+        const data: SimpleDialogData = {
+          title: "Načtení adresářů",
+          message: "Načtení adresářů se zpracovává na pozadí.",
+          btn1: {
+            label: "Zavřít",
+            value: 'close',
+            color: 'default'
+          },
+          btn2: {
+            label: "Otevřít správu importních procesů",
+            value: 'open',
+            color: 'primary'
+          }
+        };
+        const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+        dialogRef.afterClosed().subscribe(result => {
+          if (result === 'open') {
+            this.router.navigate(['/import', 'history']);
+          }
+        });
+      });
+    } else if (selectedFolders.length === 1) {
       this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, this.generateIndex, this.selectedDevice.id).subscribe((response: any) => {
 
         if (response['response'].errors) {
