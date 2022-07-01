@@ -6,7 +6,7 @@
           <!-- List of workflow items -->
           <div class="app-toolbar" >
             <button (click)="getWorkflow()" mat-button>{{'common.refresh' | translate }}</button>
-            <button (click)="createWorkflow()" mat-button>{{'common.new' | translate }}</button>
+            <button (click)="createWorkflow()" mat-button>{{'workflow.create_new' | translate }}</button>
           </div>
 
           <!-- <div *ngFor="let item of items">{{item.label}}</div> -->
@@ -25,7 +25,7 @@
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="workFlowColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: workFlowColumns;" (click)="selectItem(row.id)"></tr>
+            <tr mat-row *matRowDef="let row; columns: workFlowColumns;" (click)="selectItem(row)"></tr>
           </table>
 
 
@@ -40,7 +40,8 @@
         <as-split-area [size]="30">
           <!-- Detail of selected item -->
           <div class="app-toolbar" >
-            <button (click)="getTask(selectedItem.id)" mat-button>{{'common.refresh' | translate }}</button>
+            <button (click)="getDetail()" mat-button>{{'common.refresh' | translate }}</button>
+            <button (click)="saveDetail()" mat-button>{{'common.save' | translate }}</button>
           </div>
           <div class="app-detail" *ngIf="selectedItem">
             <div>

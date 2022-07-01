@@ -5,7 +5,7 @@ import { Atm } from './../model/atm.model';
 import { DocumentItem } from './../model/documentItem.model';
 import { Metadata } from 'src/app/model/metadata.model';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
 import { Device } from '../model/device.model';
@@ -22,6 +22,7 @@ import { ProArc } from '../utils/proarc';
 import { Registrar } from '../model/registrar.model';
 import { ConfigService } from './config.service';
 import { PageUpdateHolder } from '../components/editor/editor-pages/editor-pages.component';
+import { Workflow } from '../model/workflow.model';
 
 @Injectable()
 export class ApiService {
@@ -62,7 +63,7 @@ export class ApiService {
     }
     return this.http.put(encodeURI(`${this.getApiUrl()}${path}`), body, options).pipe(
       finalize(() => this.stopLoading())
-    ).pipe(catchError(this.handleError));;;
+    ).pipe(catchError(this.handleError));
   }
 
   private post(path: string, body: any, options: any = null): Observable<Object> {
@@ -491,7 +492,7 @@ export class ApiService {
     return this.get('authorities').pipe(map((response: any) => Catalogue.fromJsonArray(response['response']['data'])));
   }
 
-  getCatalogSearchResults(type: string, catalog: string, field: string, query: string): Observable<CatalogueEntry[]> {
+  getCatalogSearchResults(type: string, catalog: string, field: string, query: string): Observable<any> {
     const params: any = {
       catalog: catalog,
       fieldName: field,
@@ -502,8 +503,7 @@ export class ApiService {
       resource = 'authorities';
       params['type'] = 'ALL';
     }
-    return this.get(`${resource}/query`, params).pipe(map((response: any) =>
-      CatalogueEntry.fromJsonArray(response['metadataCatalogEntries']['entry'])));
+    return this.get(`${resource}/query`, params);
   }
 
   getDevices(): Observable<Device[]> {
@@ -668,6 +668,20 @@ export class ApiService {
 
   getWorkflowItem(id: number): Observable<any> {
     return this.get('workflow?id='+id);
+  }
+
+  saveWorkflowItem(w: Workflow): Observable<any> {
+    // const body = new HttpParams({fromObject: w})
+    let httpParams = new HttpParams();
+    Object.keys(w).forEach(key => {
+      const value = (w as any)[key];
+      httpParams = httpParams.set(key, value+'');
+    });
+    return this.put('workflow', httpParams);
+  }
+
+  createWorkflow(data: string): Observable<any> {
+    return this.post('workflow', data);
   }
 
   getWorkflowMaterial(id: number): Observable<any> {

@@ -1803,7 +1803,7 @@
       "updateModelFunction": "Smí spustit funkce updatu modelů",
       "unlockObjectFunction": "Smí spustit funkce odemknutí objektu",
       "lockObjectFunction": "Smí spustit funkce uzamknutí objektu",
-      "new": "Vytvořit  nového uživatele",
+      "new": "Vytvořit nového uživatele",
       "delete": "Smazat uživatele",
       "delete_dialog": {
         "title": "Odstranění uživatele",
@@ -1816,6 +1816,7 @@
   },
   "workflow": {
     "title": "Záměry",
-    "task": "Úkol"
+    "task": "Úkol",
+    "create_new": "Vytvořit nový záměr"
   }
 }

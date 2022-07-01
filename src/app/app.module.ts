@@ -123,6 +123,7 @@ import { NewMetadataDialogComponent } from './dialogs/new-metadata-dialog/new-me
 import { WorkflowComponent } from './components/workflow/workflow.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { ImportOldComponent } from './components/import-old/import-old.component';
+import { NewWorkflowDialogComponent } from './components/workflow/new-workflow-dialog/new-workflow-dialog.component';
 
 
 // export function hljsLanguages() {
@@ -231,6 +232,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     WorkflowComponent,
     AdminComponent,
     ImportOldComponent,
+    NewWorkflowDialogComponent,
   ],
   imports: [
     BrowserModule,
