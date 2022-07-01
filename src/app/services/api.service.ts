@@ -631,8 +631,12 @@ export class ApiService {
     return this.post('import/batches', data);//.pipe(map(response => Batch.fromJson(response['response']['data'][0])));
   }
 
-  getImportBatchStatus(id: number): Observable<any> {
+  getImportBatchStatusOld(id: number): Observable<any> {
     return this.get('import/batch/item', { batchId: id });
+  }
+
+  getImportBatchStatus(id: number): Observable<any> {
+    return this.get('import/batch?id='+id, { batchId: id });
   }
 
   getImportBatches(params: any): Observable<any> {
