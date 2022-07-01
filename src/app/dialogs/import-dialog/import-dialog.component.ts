@@ -13,6 +13,7 @@ import { UIService } from 'src/app/services/ui.service';
 export class ImportDialogComponent implements OnInit, OnDestroy {
 
   state = 'loading';
+  failureMessage: string = '';
 
   public count = 0;
   public done = 0;
@@ -36,13 +37,23 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
   }
 
   onTick() {
+    //this.api.getImportBatchStatus(this.batchId).subscribe((response: any) => {
     this.api.getImportBatchStatus(this.batchId).subscribe((response: any) => {
-      console.log(response)
+      
       if (response.response.errors) {
         this.state = 'error';
         this.ui.showErrorSnackBarFromObject(response.response.errors);
         clearInterval(this.timer);
         this.state = 'failure';
+        return;
+      }
+
+      const batch: Batch = Batch.fromJson(response['response'].data[0])
+
+      if (batch.state === 'LOADING_FAILED') {
+        clearInterval(this.timer);
+        this.state = 'failure';
+        this.failureMessage = batch.failure;
         return;
       }
 

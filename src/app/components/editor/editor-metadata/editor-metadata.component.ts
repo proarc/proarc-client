@@ -73,7 +73,6 @@ export class EditorMetadataComponent implements OnInit {
           data = `${data}&xml=${this.editor.metadata.toMods()}`;
           this.api.createObject(data).subscribe((response: any) => {
             if (response['response'].errors) {
-              console.log('error', response['response'].errors);
               this.ui.showErrorSnackBarFromObject(response['response'].errors);
               this.state = 'error';
               return;
@@ -84,7 +83,6 @@ export class EditorMetadataComponent implements OnInit {
 
         } else {
           this.editor.saveMetadata(ignoreValidation, (r: any) => {
-            console.log(r);
             if (r && r.errors && r.status === -4 && !ignoreValidation) {
               const messages = this.ui.extractErrorsAsString(r.errors);
               if (r.data === 'cantIgnore') {

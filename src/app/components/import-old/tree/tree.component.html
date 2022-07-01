@@ -7,7 +7,7 @@
             </mat-spinner>
             <mat-icon [class.app-disabled]="!tree.selectable() && !tree.expandable()" class="app-tree-expand" *ngIf="tree.expandable() && !tree.loading">{{ tree.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
             <mat-icon [class.app-disabled]="!tree.selectable() && !tree.expandable()" class="app-tree-checkbox" >{{ importService.isFolderSelected(tree.folder) ? "check_box" : "check_box_outline_blank" }}</mat-icon>
-            <mat-icon class="app-tree-checkbox" title="Připravit ke znovunačtení" *ngIf="!tree.expandable()" (click)="reRead()">refresh</mat-icon>
+            <mat-icon class="app-tree-checkbox" title="Připravit ke znovunačtení" (click)="reRead()">refresh</mat-icon>
           </div>
           <div [class.app-disabled]="!tree.selectable() && !tree.expandable()" class="app-folder-label">
             {{ tree.folder.name }}

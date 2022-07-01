@@ -5,7 +5,7 @@ import { Atm } from './../model/atm.model';
 import { DocumentItem } from './../model/documentItem.model';
 import { Metadata } from 'src/app/model/metadata.model';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
 import { Device } from '../model/device.model';
@@ -22,6 +22,7 @@ import { ProArc } from '../utils/proarc';
 import { Registrar } from '../model/registrar.model';
 import { ConfigService } from './config.service';
 import { PageUpdateHolder } from '../components/editor/editor-pages/editor-pages.component';
+import { Workflow } from '../model/workflow.model';
 
 @Injectable()
 export class ApiService {
@@ -40,13 +41,13 @@ export class ApiService {
   private get(path: string, params = {}): Observable<Object> {
     return this.http.get(encodeURI(`${this.getApiUrl()}${path}`), { params: params }).pipe(
       finalize(() => this.stopLoading())
-    ).pipe(catchError(this.handleError));;;
+    ).pipe(catchError(this.handleError));
   }
 
   private head(path: string, params = {}): Observable<Object> {
     return this.http.head(encodeURI(`${this.getApiUrl()}${path}`), { params: params }).pipe(
       finalize(() => this.stopLoading())
-    ).pipe(catchError(this.handleError));;;
+    ).pipe(catchError(this.handleError));
   }
 
 
@@ -62,7 +63,7 @@ export class ApiService {
     }
     return this.http.put(encodeURI(`${this.getApiUrl()}${path}`), body, options).pipe(
       finalize(() => this.stopLoading())
-    ).pipe(catchError(this.handleError));;;
+    ).pipe(catchError(this.handleError));
   }
 
   private post(path: string, body: any, options: any = null): Observable<Object> {
@@ -89,8 +90,8 @@ export class ApiService {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error);
     } else {
-      console.error(
-        `Backend returned code ${error.status}, body was: `, error.error);
+      // console.error(
+      //   `Backend returned code ${error.status}, body was: `, error.error);
     }
     // Return an observable with a user-facing error message.
     // return throwError({'status':error.status, 'message': error.message});
@@ -491,7 +492,7 @@ export class ApiService {
     return this.get('authorities').pipe(map((response: any) => Catalogue.fromJsonArray(response['response']['data'])));
   }
 
-  getCatalogSearchResults(type: string, catalog: string, field: string, query: string): Observable<CatalogueEntry[]> {
+  getCatalogSearchResults(type: string, catalog: string, field: string, query: string): Observable<any> {
     const params: any = {
       catalog: catalog,
       fieldName: field,
@@ -502,8 +503,7 @@ export class ApiService {
       resource = 'authorities';
       params['type'] = 'ALL';
     }
-    return this.get(`${resource}/query`, params).pipe(map((response: any) =>
-      CatalogueEntry.fromJsonArray(response['metadataCatalogEntries']['entry'])));
+    return this.get(`${resource}/query`, params);
   }
 
   getDevices(): Observable<Device[]> {
@@ -616,9 +616,9 @@ export class ApiService {
     return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
-  createImportBatch(path: string, profile: string, indices: boolean, device: string): Observable<Batch> {
+  createImportBatch(path: string, profile: string, indices: boolean, device: string): Observable<any> {
     const data = `folderPath=${path}&profile=${profile}&indices=${indices}&device=${device}`;
-    return this.post('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
+    return this.post('import/batch', data);
   }
 
   reReadFolder(path: string): Observable<any> {
@@ -631,8 +631,12 @@ export class ApiService {
     return this.post('import/batches', data);//.pipe(map(response => Batch.fromJson(response['response']['data'][0])));
   }
 
-  getImportBatchStatus(id: number): Observable<any> {
+  getImportBatchStatusOld(id: number): Observable<any> {
     return this.get('import/batch/item', { batchId: id });
+  }
+
+  getImportBatchStatus(id: number): Observable<any> {
+    return this.get('import/batch?id='+id, { batchId: id });
   }
 
   getImportBatches(params: any): Observable<any> {
@@ -658,6 +662,40 @@ export class ApiService {
      .pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
+  getWorkflow(): Observable<any> {
+    return this.get('workflow');
+  }
+
+  getWorkflowProfiles(): Observable<any> {
+    return this.get('workflow/profile');
+  }
+
+  getWorkflowItem(id: number): Observable<any> {
+    return this.get('workflow?id='+id);
+  }
+
+  saveWorkflowItem(w: Workflow): Observable<any> {
+    // const body = new HttpParams({fromObject: w})
+    let httpParams = new HttpParams();
+    Object.keys(w).forEach(key => {
+      const value = (w as any)[key];
+      httpParams = httpParams.set(key, value+'');
+    });
+    return this.put('workflow', httpParams);
+  }
+
+  createWorkflow(data: string): Observable<any> {
+    return this.post('workflow', data);
+  }
+
+  getWorkflowMaterial(id: number): Observable<any> {
+    return this.get('workflow/material?jobId='+id);
+  }
+
+  getWorkflowTask(id: number): Observable<any> {
+    return this.get('workflow/task?jobId='+id);
+  }
+
   getUsers(): Observable<User[]> {
     return this.get('user')
             .pipe(map((response: any) => User.fromJsonArray(response['response']['data'])));
@@ -671,6 +709,47 @@ export class ApiService {
   editUser(user: User, forename: string, surname: string): Observable<User> {
     const data = `userId=${user.userId}&forename=${forename}&surname=${surname}&email=${user.email}&organization=${user.organization}&role=${user.role}`;
     return this.put('user', data).pipe(map((response: any) => User.fromJson(response['response']['data'][0])));
+  }
+
+  saveUser(user: User): Observable<User> {
+    let data = `userId=${user.userId}&surname=${user.surname}&role=${user.role}`;
+    if (user.password) {
+      data = `${data}&password=${user.password}`;
+    }
+    if (user.forename) {
+      data = `${data}&forename=${user.forename}`;
+    }
+    if (user.email) {
+      data = `${data}&email=${user.email}`;
+    }
+    if (user.organization) {
+      data = `${data}&organization=${user.organization}`;
+    }
+    
+    data = `${data}&changeModelFunction=${user.changeModelFunction}&updateModelFunction=${user.updateModelFunction}`;
+    data = `${data}&unlockObjectFunction=${user.unlockObjectFunction}&lockObjectFunction=${user.lockObjectFunction}`;
+    return this.put('user', data).pipe(map((response: any) => User.fromJson(response['response']['data'][0])));
+  }
+
+  newUser(user: User): Observable<any> {
+    let data = `name=${user.name}&surname=${user.surname}&role=${user.role}&password=${user.password}`;
+    if (user.forename) {
+      data = `${data}&forename=${user.forename}`;
+    }
+    if (user.email) {
+      data = `${data}&email=${user.email}`;
+    }
+    if (user.organization) {
+      data = `${data}&organization=${user.organization}`;
+    }
+    data = `${data}&changeModelFunction=${user.changeModelFunction}&updateModelFunction=${user.updateModelFunction}`;
+    data = `${data}&unlockObjectFunction=${user.unlockObjectFunction}&lockObjectFunction=${user.lockObjectFunction}`;
+    return this.post('user', data);
+  }
+
+  deleteUser(user: User): Observable<any> {
+    let data = `user?userId=${user.userId}`;
+    return this.delete(data);
   }
 
   editUserPassword(user: User, password: string): Observable<any> {

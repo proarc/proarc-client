@@ -6,6 +6,7 @@ export class User {
   public userGroup: number;
 
   public name: string;
+  public password: string;
   public forename: string;
   public surname: string;
   public home: string;
@@ -14,6 +15,11 @@ export class User {
   public created: Date;
   public organization: string;
   public role: string;
+
+  public changeModelFunction: boolean;
+  public unlockObjectFunction: boolean;
+  public updateModelFunction: boolean;
+  public lockObjectFunction: boolean;
 
   public static fromJson(json: any): User {
       const user = new User();
@@ -28,6 +34,10 @@ export class User {
       user.created = new Date(json['created']);
       user.organization = json['organization'];
       user.role = json['role'];
+      user.changeModelFunction = json['changeModelFunction'];
+      user.unlockObjectFunction = json['unlockObjectFunction'];
+      user.updateModelFunction = json['updateModelFunction'];
+      user.lockObjectFunction = json['lockObjectFunction'];
       return user;
   }
 

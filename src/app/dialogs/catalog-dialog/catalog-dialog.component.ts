@@ -68,11 +68,11 @@ export class CatalogDialogComponent implements OnInit {
     }
   
     onCatalogChanged(catalog: Catalogue) {
-      if (catalog.fileds.length > 0) {
-        if (this.activeField && catalog.fileds.indexOf(this.activeField) > -1) {
+      if (catalog.fields.length > 0) {
+        if (this.activeField && catalog.fields.indexOf(this.activeField) > -1) {
           return;
         }
-        this.activeField = catalog.fileds[0];
+        this.activeField = catalog.fields[0];
       } else {
         this.activeField = null;
       }
@@ -86,8 +86,8 @@ export class CatalogDialogComponent implements OnInit {
       const catalog = this.activeCatalog.id;
       const field = this.activeField;
       const query = this.activeQuery;
-      this.api.getCatalogSearchResults(this.type, catalog, field.id, query).subscribe((result: CatalogueEntry[]) => {
-        this.results = result;
+      this.api.getCatalogSearchResults(this.type, catalog, field.id, query).subscribe((response: any) => {
+        this.results = CatalogueEntry.fromJsonArray(response['metadataCatalogEntries']['entry']);
         if (this.results.length > 0) {
           this.activeIndex = 0;
         } else {
