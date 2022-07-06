@@ -433,6 +433,7 @@ export class NdkMapAacrTemplate {
               usage: 'MA',
               label: 'Měřítko',
               selector: 'subject/cartographics/scale',
+              labelKey: 'subject/cartographics/scale',
               description: `Obsah pole 255 podpole a MARC21 záznamu`
             }
           }

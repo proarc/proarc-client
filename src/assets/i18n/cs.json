@@ -1619,6 +1619,7 @@
     "relatedItem/identifier/@type": "Typ",
     "relatedItem/identifier/@invalid": "Neplatný",
     "relatedItem/identifier/value": "Hodnota",
+    "subject/cartographics/scale": "Měřítko",
     "option": {
       "": "-",
       "Contents": "Contents",

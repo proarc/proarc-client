@@ -37,12 +37,21 @@ export class ModsSubject extends ModsElement {
             this.modsElement['temporal'] = ModsUtils.createEmptyField();
         }
         if (!this.modsElement['name']) {
-            this.modsElement['name'] = ModsUtils.createEmptyField();
+            this.modsElement['name'] = [{}];
+        }
+        if (!this.modsElement['name'][0]) {
+            this.modsElement['name'][0] = {};
+        }
+        if (!this.modsElement['name'][0]['namePart']) {
+            this.modsElement['name'][0]['namePart'];
+        }
+        if (!this.modsElement['name'][0]['namePart']) {
+            this.modsElement['name'][0]['namePart'] = ModsUtils.createEmptyField();
         }
         this.topic = this.modsElement['topic'][0];
         this.geographic = this.modsElement['geographic'][0];
         this.temporal = this.modsElement['temporal'][0];
-        this.name = this.modsElement['name'][0];
+        this.name = this.modsElement['name'][0]['namePart'][0];
 
         if(this.available('cartographics')) {
             this.cartographics = new ElementField(this.modsElement, ModsCartographics.getSelector(), this.getField('cartographics'));

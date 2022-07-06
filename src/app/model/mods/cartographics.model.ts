@@ -3,8 +3,9 @@ import ModsUtils from './utils';
 
 export class ModsCartographics extends ModsElement {
 
+    scale: string;
     coordinates: any;
-    scale: any;
+
 
     static getSelector() {
         return 'cartographics';
@@ -20,15 +21,16 @@ export class ModsCartographics extends ModsElement {
     }
 
     private init() {
+        if (!this.modsElement['scale']) {
+            this.modsElement['scale'] = ModsUtils.createEmptyField();
+        }
+        this.scale = this.modsElement['scale'][0];
         if (!this.modsElement['coordinates']) {
             this.modsElement['coordinates'] = [ModsUtils.createTextElement('', null)];
         }
         this.coordinates = this.modsElement['coordinates'][0];
 
-        if (!this.modsElement['scale']) {
-            this.modsElement['scale'] = [ModsUtils.createTextElement('', null)];
-        }
-        this.scale = this.modsElement['scale'][0];
+
     }
 
 }
