@@ -16,7 +16,10 @@
     </ng-container>
 
     <div class="app-message" *ngIf="state=='success'">{{ "import.load_dialog.success" | translate }}</div>
-    <div class="app-message app-error-message" *ngIf="state=='failure'">{{ "import.load_dialog.failure" | translate }}</div>
+    <div class="app-message app-error-message" *ngIf="state=='failure'">
+        <div>{{ "import.load_dialog.failure" | translate }}</div>
+        <div>{{ failureMessage }}</div>
+    </div>
 
 </div>
 

@@ -5,6 +5,7 @@ import { transformGeometryWithOptions } from 'ol/format/Feature';
 import { Workflow } from 'src/app/model/workflow.model';
 import { ApiService } from 'src/app/services/api.service';
 import { UIService } from 'src/app/services/ui.service';
+import { NewWorkflowDialogComponent } from './new-workflow-dialog/new-workflow-dialog.component';
 
 @Component({
   selector: 'app-workflow',
@@ -77,8 +78,19 @@ export class WorkflowComponent implements OnInit {
     });
   }
 
-  getItem(id: number) {
-    this.api.getWorkflowItem(id).subscribe((response: any) => {
+  saveDetail() {
+    this.api.saveWorkflowItem(this.selectedItem).subscribe((response: any) => {
+      if (response['response'].errors) {
+        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        return;
+      }
+      this.tasks = response.response.data;
+    });
+    
+  }
+
+  getDetail() {
+    this.api.getWorkflowItem(this.selectedItem.id).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorSnackBarFromObject(response['response'].errors);
         return;
@@ -96,7 +108,12 @@ export class WorkflowComponent implements OnInit {
   }
 
   createWorkflow() {
-    
+    const dialogRef = this.dialog.open(NewWorkflowDialogComponent, {data: {profiles: this.profiles}});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'ok') {
+        this.getWorkflow();
+      }
+    });
   }
 
 }

@@ -3,17 +3,17 @@ export class Catalogue {
 
   public id: string;
   public name: string;
-  public fileds: CatalogueField[];
+  public fields: CatalogueField[];
 
   public static fromJson(json: any): Catalogue {
       const catalog = new Catalogue();
       catalog.id = json['id'];
       catalog.name = json['name'];
-      catalog.fileds = [];
+      catalog.fields = [];
       if (json['fields']) {
         for (const filed of json['fields']) {
           if (filed['fieldId']) {
-            catalog.fileds.push({
+            catalog.fields.push({
               id: filed['fieldId'],
               name: filed['fieldTitle']
             });
