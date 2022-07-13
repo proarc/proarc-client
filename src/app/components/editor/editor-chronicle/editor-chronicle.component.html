@@ -15,7 +15,7 @@
 <div class="app-editor-content" *ngIf="editor.metadata">
   <app-editor-chronicle-location *ngIf="available('location')" [field]="editor.metadata.getField('location')"></app-editor-chronicle-location>
   <app-editor-identifier *ngIf="available('identifier')" [field]="editor.metadata.getField('identifier')"></app-editor-identifier>
-  <app-editor-genre *ngIf="available('genre')" [field]="editor.metadata.getField('genre')"></app-editor-genre>
+  <app-editor-chronicle-genre *ngIf="available('genre')" [field]="editor.metadata.getField('genre')"></app-editor-chronicle-genre>
   <app-editor-title *ngIf="available('titleInfo')" [field]="editor.metadata.getField('titleInfo')"></app-editor-title>
   <app-editor-abstract *ngIf="available('abstract')" [field]="editor.metadata.getField('abstract')"></app-editor-abstract>
   <app-editor-language *ngIf="available('language')" [field]="editor.metadata.getField('language')"></app-editor-language>

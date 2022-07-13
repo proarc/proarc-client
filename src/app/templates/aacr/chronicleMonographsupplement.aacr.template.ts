@@ -5,28 +5,28 @@ export class ChronicleMonographsupplementAacrTemplate {
       usage: 'M',
       label: 'Informace o názvu',
       selector: 'titleInfo',
-      labelKey: 'titleInfo',
+      labelKey: 'chronicle/titleInfo',
       description: `Název přílohy krameria`,
       fields: {
         title: {
           usage: 'M',
           label: 'Název',
           selector: 'titleInfo/title',
-          labelKey: 'titleInfo/title',
+          labelKey: 'chronicle/titleInfo/title',
           description: `Název přílohy kroniky.`
         },
         subTitle: {
           usage: 'MA',
           label: 'Podnázev',
           selector: 'titleInfo/subTitle',
-          labelKey: 'titleInfo/subTitle',
+          labelKey: 'chronicle/titleInfo/subTitle',
           description: `Podnázev přílohy kroniky.`
         },
         partNumber: {
           usage: 'R',
           label: 'Díl',
           selector: 'titleInfo/partNumber',
-          labelKey: 'titleInfo/partNumber',
+          labelKey: 'chronicle/titleInfo/partNumber',
           cols: 2,
           description: `Číslo části<br/>
             V případě, že se jedná o vícesvazkovou kroniku je zde uvedeno číslo přílohy.`
@@ -35,7 +35,7 @@ export class ChronicleMonographsupplementAacrTemplate {
           usage: 'R',
           label: 'Část',
           selector: 'titleInfo/partName',
-          labelKey: 'titleInfo/partName',
+          labelKey: 'chronicle/titleInfo/partName',
           cols: 2,
           description: `Název části<br/>
             V případě, že se jedná o vícesvazkovou kroniku je zde uveden název přílohy.`
@@ -46,20 +46,20 @@ export class ChronicleMonographsupplementAacrTemplate {
       usage: 'M',
       label: 'Informace o místě a data vzniku',
       selector: 'originInfo',
-      labelKey: 'originInfo',
+      labelKey: 'chronicle/originInfo',
       description: `Informace o místě a datu vzniku kroniky.`,
       fields: {
         dateIssued: {
           usage: 'O',
           label: 'Datum vzniku',
           selector: 'originInfo/dateIssued',
-          labelKey: 'originInfo/dateIssued',
+          labelKey: 'chronicle/originInfo/dateIssued',
           description: `Datum vydání kroniky.`,
           fields: {
             value: {
               usage: 'MA',
               selector: 'originInfo/dateIssued/value',
-              labelKey: 'originInfo/dateIssued/value',
+              labelKey: 'chronicle/originInfo/dateIssued/value',
               label: 'Hodnota',
               help: 'off'
             },
@@ -67,7 +67,7 @@ export class ChronicleMonographsupplementAacrTemplate {
               usage: 'O',
               label: 'Odhad',
               selector: 'originInfo/dateIssued/@qualifier',
-              labelKey: 'originInfo/dateIssued/@qualifier',
+              labelKey: 'chronicle/originInfo/dateIssued/@qualifier',
               cols: 2,
               description: `Možnost dalšího upřesnění. Možné hodnoty
             <ul>
@@ -86,7 +86,7 @@ export class ChronicleMonographsupplementAacrTemplate {
               usage: 'O',
               label: 'Rozmezí',
               selector: 'originInfo/dateIssued/@point',
-              labelKey: 'originInfo/dateIssued/@point',
+              labelKey: 'chronicle/originInfo/dateIssued/@point',
               cols: 2,
               description: `Hodnoty „Od“ resp. „Do“ jen u údaje pro rozmezí dat.`,
               options: [
@@ -101,7 +101,7 @@ export class ChronicleMonographsupplementAacrTemplate {
           usage: 'O',
           label: 'Místo vzniku',
           selector: 'originInfo/place/placeTerm',
-          labelKey: 'originInfo/place/placeTerm',
+          labelKey: 'chronicle/originInfo/place/placeTerm',
           description: `Údaje o místě spojeném s vydáním, výrobou nebo původem popisovaného dokumentu.`
         },
       }
@@ -110,14 +110,14 @@ export class ChronicleMonographsupplementAacrTemplate {
       usage: 'O',
       label: 'Jazyk',
       selector: 'language',
-      labelKey: 'language',
+      labelKey: 'chronicle/language',
       description: `Údaje o jazyce dokumentu. V případě vícenásobného výskytu nutno element &lt;language> opakovat`,
       fields: {
         language: {
           usage: 'M',
           label: 'Jazyk',
           selector: 'language/languageTerm',
-          labelKey: 'language/languageTerm',
+          labelKey: 'chronicle/language/languageTerm',
           description: `Přesné určení jazyka kódem.<br/>Nutno použít kontrolovaný slovník ISO 639-2.`
         }
       }
@@ -126,13 +126,13 @@ export class ChronicleMonographsupplementAacrTemplate {
       usage: 'M',
       label: 'Charakter kroniky',
       selector: 'genre',
-      labelKey: 'genre',
+      labelKey: 'chronicle/genre',
       description: `Bližší údaje o typu dokumentu.<p>Pro svazek kroniky hodnota “kronika”.`,
       fields: {
         value: {
           usage: 'M',
           selector: 'genre/value',
-          labelKey: 'genre/value',
+          labelKey: 'chronicle/genre/value',
           cols: 3,
           label: 'Evidenční jednotka',
           description: `Možnosti
@@ -152,7 +152,7 @@ export class ChronicleMonographsupplementAacrTemplate {
           label: 'Typ obsahu',
           cols: 3,
           selector: 'genre/@type',
-          labelKey: 'genre/@type',
+          labelKey: 'chronicle/genre/@type',
           options: [
             ['skolniKronika', 'Školní kronika'],
             ['obecniKronika', 'Obecní kronika'],
@@ -170,7 +170,7 @@ export class ChronicleMonographsupplementAacrTemplate {
           label: 'Čísla',
           cols: 3,
           selector: 'genre/@lang',
-          labelKey: 'genre/@lang',
+          labelKey: 'chronicle/genre/@lang',
         }
       }
     },
@@ -178,7 +178,7 @@ export class ChronicleMonographsupplementAacrTemplate {
       usage: 'M',
       label: 'Identifikátor',
       selector: 'identifier',
-      labelKey: 'identifier',
+      labelKey: 'chronicle/identifier',
       description: `Údaje o identifikátorech.<br/>
         Obsahuje unikátní identifikátory mezinárodní nebo lokální.<br/>
         Uvádějí se i neplatné resp. zrušené identifikátory - atribut invalid=“yes“.`,
@@ -187,14 +187,14 @@ export class ChronicleMonographsupplementAacrTemplate {
           usage: 'M',
           label: 'Typ',
           selector: 'identifier/@type',
-          labelKey: 'identifier/@type',
+          labelKey: 'chronicle/identifier/@type',
           cols: 2,
         },
         validity: {
           usage: 'MA',
           label: 'Platnost',
           selector: 'identifier/@invalid',
-          labelKey: 'identifier/@invalid',
+          labelKey: 'chronicle/identifier/@invalid',
           cols: 2,
           description: `Uvádějí se i neplatné resp. zrušené identifikátory
           <ul>
@@ -209,7 +209,7 @@ export class ChronicleMonographsupplementAacrTemplate {
         value: {
           usage: 'M',
           selector: 'identifier/value',
-          labelKey: 'identifier/value',
+          labelKey: 'chronicle/identifier/value',
           label: 'Hodnota',
           help: 'off'
         }
@@ -219,14 +219,14 @@ export class ChronicleMonographsupplementAacrTemplate {
       usage: 'MA',
       label: 'Umístění',
       selector: 'location',
-      labelKey: 'location',
+      labelKey: 'chronicle/location',
       description: `Údaje o uložení popisovaného dokumentu, např. signatura, místo uložení apod.`,
       fields: {
         physicalLocation: {
           usage: 'MA',
           label: 'Název archivu',
           selector: 'location/physicalLocation',
-          labelKey: 'location/physicalLocation',
+          labelKey: 'chronicle/location/physicalLocation',
         },
       }
     },
@@ -234,14 +234,14 @@ export class ChronicleMonographsupplementAacrTemplate {
       usage: 'R',
       label: 'Obsah, regest',
       selector: 'abstract',
-      labelKey: 'abstract',
+      labelKey: 'chronicle/abstract',
       description: `Obsah, regest`,
       fields: {
         abstract: {
           usage: 'RA',
           label: 'Obsah, regest',
           selector: 'abstract',
-          labelKey: 'abstract/value',
+          labelKey: 'chronicle/abstract/value',
           help: 'off'
         }
       }
@@ -250,14 +250,14 @@ export class ChronicleMonographsupplementAacrTemplate {
       usage: 'MA',
       label: 'Osoba, které se podílela na vzniku',
       selector: 'name',
-      labelKey: 'name',
+      labelKey: 'chronicle/name',
       description: `Údaje o odpovědnosti za kroniku`,
       fields: {
         name: {
           usage: 'MA',
           label: 'Celé jméno',
           selector: 'name/namePart[not(@type)]',
-          labelKey: 'name/namePart[not(@type)]',
+          labelKey: 'chronicle/name/namePart[not(@type)]',
           description: `Vyplnit pokud nelze rozlišit křestní jméno a příjmení.`
         },
         given: {
@@ -291,7 +291,7 @@ export class ChronicleMonographsupplementAacrTemplate {
           usage: 'MA',
           label: 'Role',
           selector: 'name/role/roleTerm',
-          labelKey: 'name/role/roleTerm',
+          labelKey: 'chronicle/name/role/roleTerm',
           expanded: true,
           description: `Specifikace role osoby nebo organizace<br/>
           Kód role z kontrolovaného slovníku rolí
@@ -304,7 +304,7 @@ export class ChronicleMonographsupplementAacrTemplate {
       usage: 'RA',
       label: 'Poznámka',
       selector: 'note',
-      labelKey: 'note',
+      labelKey: 'chronicle/note',
       description: `Obecná poznámka ke svazku monografie jako celku<br/>
       Odpovídá hodnotám v poli 245, $c (statement of responsibility)
       a v polích 5XX (poznámky) katalogizačního záznamu`,
@@ -312,7 +312,7 @@ export class ChronicleMonographsupplementAacrTemplate {
         note: {
           usage: 'RA',
           selector: 'note/value',
-          labelKey: 'note/value',
+          labelKey: 'chronicle/note/value',
           label: 'Poznámka',
           help: 'off'
         },
@@ -320,7 +320,7 @@ export class ChronicleMonographsupplementAacrTemplate {
           usage: 'R',
           label: 'Typ',
           selector: 'note/@type',
-          labelKey: 'note/@type',
+          labelKey: 'chronicle/note/@type',
           options: [
             ['private', 'Nepublikovatelná'],
             ['public', 'Veřejná']
