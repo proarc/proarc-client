@@ -66,7 +66,15 @@ var APP_GLOBAL = {
       'model:chronicletitle',
       'model:chroniclevolume',
       'model:chroniclesupplement',
-      'model:bdmarticle'
+      'model:bdmarticle',
+      'model:clippingstitle',
+      'model:clippingsvolume',
+      'model:graphic',
+      'model:monograph',
+      'model:monographunit',
+      'model:periodical',
+      'model:periodicalvolume',
+      'model:periodicalitem'
   ],
   defaultModel: 'model:ndkmonographvolume',
   showCommentEditor: false,

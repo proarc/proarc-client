@@ -766,7 +766,15 @@
     "model:chronicletitle": "Vícedílná kronika",
     "model:chroniclevolume": "Kronika",
     "model:chroniclesupplement": "Příloha kroniky",
-    "model:bdmarticle": "eČlánek"
+    "model:bdmarticle": "eČlánek",
+    "model:clippingstitle": "Sbírka výstřižků",
+    "model:clippingsvolume": "Výstřižek",
+    "model:graphic": "Grafika",
+    "model:monograph": "K4 Monografie",
+    "model:monographunit": "K4 Monografie - volná část",
+    "model:periodical": "K4 Periodikum",
+    "model:periodicalitem": "K4 Výtisk",
+    "model:periodicalvolume": "K4 Ročník"
   },
   "viewer": {
     "tooltip": {
@@ -1653,6 +1661,8 @@
     "chronicle/note": "Poznámka",
     "chronicle/note/value": "Poznámka",
     "chronicle/note/@type": "Typ",
+    "part/date": "Datum vydání",
+    "part/text": "Poznámka",
     "option": {
       "": "-",
       "Contents": "Contents",

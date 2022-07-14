@@ -59,6 +59,14 @@ import {NdkeChapterAacrTemplate} from './aacr/ndkeChapter.aacr.template';
 import {ChronicleMonographtitleAacrTemplate} from './aacr/chronicleMonographtitle.aacr.template';
 import {ChronicleMonographvolumeAacrTemplate} from './aacr/chronicleMonographvolume.aacr.template';
 import {ChronicleMonographsupplementAacrTemplate} from './aacr/chronicleMonographsupplement.aacr.template';
+import {GraphicAacrTemplate} from './none/graphic.aacr.template';
+import {ClippingsVolumeAacrTemplate} from './none/clippingsVolume.aacr.template';
+import {ClippingsTitleAacrTemplate} from './none/clippingsTitle.aacr.template';
+import {K4PeriodicalAacrTemplate} from './none/k4Periodical.aacr.template';
+import {K4MonographAacrTemplate} from './none/k4Monograph.aacr.template';
+import {K4MonographUnitAacrTemplate} from './none/k4MonographUnit.aacr.template';
+import {K4PeriodicalVolumeAacrTemplate} from './none/k4PeriodicalVolume.aacr.template';
+import {K4PeriodicalItemAacrTemplate} from './none/k4PeriodicalItem.aacr.template';
 
 export class ModelTemplate {
 
@@ -95,6 +103,13 @@ export class ModelTemplate {
       "model:ndkemonographvolume": NdkeMonographVolumeAacrTemplate.data,
       "model:ndkechapter": NdkeChapterAacrTemplate.data,
 
+      // vystrizky
+      "model:clippingstitle": ClippingsTitleAacrTemplate.data,
+      "model:clippingsvolume": ClippingsVolumeAacrTemplate.data,
+
+      // grafiky
+      "model:graphic": GraphicAacrTemplate.data,
+
       // eClanek
       "model:bdmarticle": BdmArticleTemplate.data,  // bez urceni pravidel
 
@@ -110,6 +125,12 @@ export class ModelTemplate {
       "model:ndktrack": NdkMusicTrackAacrTemplate.data,
       "model:ndkaudiopage": NdkMusicAudioPageAacrTemplate.data,
 
+      // k4
+      "model:monograph": K4MonographAacrTemplate.data,
+      "model:monographunit": K4MonographUnitAacrTemplate.data,
+      "model:periodical": K4PeriodicalAacrTemplate.data,
+      "model:periodicalitem": K4PeriodicalItemAacrTemplate.data,
+      "model:periodicalvolume": K4PeriodicalVolumeAacrTemplate.data,
     },
     "rda": {
       "model:ndkmonographtitle": NdkMonographTitleRdaTemplate.data,
@@ -143,6 +164,13 @@ export class ModelTemplate {
       "model:ndkemonographvolume": NdkeMonographVolumeRdaTemplate.data,
       "model:ndkechapter": NdkeChapterRdaTemplate.data, // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
 
+      // vystrizky
+      "model:clippingstitle": ClippingsTitleAacrTemplate.data,
+      "model:clippingsvolume": ClippingsVolumeAacrTemplate.data,
+
+      // grafiky
+      "model:graphic": GraphicAacrTemplate.data,
+
       // eClanek
       "model:bdmarticle": BdmArticleTemplate.data,  // bez urceni pravidel
 
@@ -158,6 +186,12 @@ export class ModelTemplate {
       "model:ndktrack": NdkMusicTrackAacrTemplate.data,
       "model:ndkaudiopage": NdkMusicAudioPageAacrTemplate.data,
 
+      // k4
+      "model:monograph": K4MonographAacrTemplate.data,
+      "model:monographunit": K4MonographUnitAacrTemplate.data,
+      "model:periodical": K4PeriodicalAacrTemplate.data,
+      "model:periodicalvolume": K4PeriodicalVolumeAacrTemplate.data,
+      "model:periodicalitem": K4PeriodicalItemAacrTemplate.data,
     }
   }
 

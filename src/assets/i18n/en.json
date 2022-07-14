@@ -581,7 +581,16 @@
     "model:page": "Page",
     "model:chroniclevolume": "Chronicle",
     "model:chronicletitle": "Multipart Chronicle",
-    "model:chroniclesupplement": "Chronicle Supplement"
+    "model:chroniclesupplement": "Chronicle Supplement",
+    "model:bdmarticle": "BDM article",
+    "model:clippingstitle": "Clippings Title",
+    "model:clippingsvolume": "Clippings Volume",
+    "model:graphic": "Graphic",
+    "model:monograph": "K4 Monograph",
+    "model:monographunit": "K4 Monograph Unit",
+    "model:periodical": "K4 Periodical",
+    "model:periodicalvolume": "K4 Periodical Volume",
+    "model:periodicalitem": "K4 Periodical Item"
   },
   "viewer": {
     "tooltip": {
@@ -1770,6 +1779,8 @@
     "chronicle/note": "Note",
     "chronicle/note/value": "Value",
     "chronicle/note/@type": "Type",
+    "part/date": "Date",
+    "part/text": "Text",
     "option": {
       "": "-",
       "Contents": "Contents",

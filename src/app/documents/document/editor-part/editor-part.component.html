@@ -1,7 +1,11 @@
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
     <app-field-dropdown field="type" [item]="item" [(value)]='item.attrs["type"]'></app-field-dropdown>
+
+    <app-field-text field="date" [item]="item" [(value)]="item.date['_']"></app-field-text>
+    <app-field-text field="text" [item]="item" [(value)]="item.text['_']"></app-field-text>
     <app-field-text field="caption" [item]="item" [(value)]="item.caption['_']"></app-field-text>
+    <app-field-text field="number" [item]="item" [(value)]="item.number['_']"></app-field-text>
 
 
     <app-editor-field *ngIf="item.available('extent')" [field]="item.extents" [nested]='true'>

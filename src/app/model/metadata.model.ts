@@ -124,7 +124,7 @@ export class Metadata {
     return valid;
   }
 
-  
+
 
   expandRequired(): boolean {
     let valid = true;
@@ -163,15 +163,19 @@ export class Metadata {
     if (mods.length) {
       mods = mods[0];
     }
-    for (const ri of mods['recordInfo']) {
-      if (ri['descriptionStandard'] && ri['descriptionStandard'][0]) {
-        standard = ri['descriptionStandard'][0]['_'] || '';
-        break;
+    if (!mods['recordInfo']) {
+      standard = 'aacr'
+    } else {
+      for (const ri of mods['recordInfo']) {
+        if (ri['descriptionStandard'] && ri['descriptionStandard'][0]) {
+          standard = ri['descriptionStandard'][0]['_'] || '';
+          break;
+        }
       }
-    }
-    standard.trim();
-    if (standard != 'aacr') {
-      standard = 'rda'
+      standard.trim();
+      if (standard != 'aacr') {
+        standard = 'rda'
+      }
     }
     return standard;
   }
@@ -362,13 +366,13 @@ export class Metadata {
     for (const id of this.fieldsIds) {
       const f = this.fields.get(id);
       for (const item of f.getItems()) {
-          
+
         if (item.hasChanges()) {
           return true;
         }
         for (const subfield of item.getSubfields()) {
           for (const item2 of subfield.getItems()) {
-            
+
             if (item2.hasChanges()) {
               return true;
             }
