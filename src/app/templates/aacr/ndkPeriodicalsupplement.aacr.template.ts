@@ -162,6 +162,7 @@ export class NdkPeriodicalSupplementAacrTemplate {
       label: 'Původ předlohy',
       selector: 'originInfo',
       labelKey: 'originInfo',
+      expanded: true,
       description: `Informace o původu předlohy<br/>
       informace o původu přílohy
       plnit pokud se liší od údajů v popisu čísla periodika
@@ -191,6 +192,7 @@ export class NdkPeriodicalSupplementAacrTemplate {
           selector: 'originInfo/dateIssued',
           labelKey: 'originInfo/dateIssued',
           cols: 2,
+          expanded: true,
           description: `Satum vydání přílohy, dle toho jaké údaje jsou k dispozici<br/>
             možno použít hodnotu z katalogizačního záznamu, pole 260, $c`,
           fields: {

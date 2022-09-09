@@ -178,6 +178,7 @@ export class NdkPeriodicalIssueAacrTemplate {
           selector: 'originInfo/dateIssued',
           labelKey: 'originInfo/dateIssued',
           cols: 2,
+          expanded: true,
           description: `Datum vydání předlohy<br/>
             vyplňuje se ručně, dle předlohy`,
           fields: {

@@ -162,6 +162,7 @@ export class NdkPeriodicalSupplementRdaTemplate {
       label: 'Původ předlohy',
       selector: 'originInfo',
       labelKey: 'originInfo',
+      expanded: true,
       description: `Informace o původu předlohy: odpovídá poli 264<br/>
       plnit, pokud se liší od údajů v popisu čísla periodika (platí i pro jednotlivé subelementy)<br/>
       Pozn.:<br/>
@@ -240,6 +241,7 @@ export class NdkPeriodicalSupplementRdaTemplate {
           selector: 'originInfo/dateIssued',
           labelKey: 'originInfo/dateIssued',
           cols: 2,
+          expanded: true,
           description: `Datum vydání přílohy, podle údajů, které jsou k dispozici<br/>
             možno použít hodnotu z katalogizačního záznamu<br/>
             Odpovídá hodnotě z katalogizačního záznamu, pole 264_1 $c a pole 008/07-10<br/>

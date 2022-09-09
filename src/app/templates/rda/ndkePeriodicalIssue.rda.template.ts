@@ -171,6 +171,7 @@ export class NdkePeriodicalIssueRdaTemplate {
           labelKey: 'originInfo/dateIssued',
           description: `Datum vydání předlohy<br/>
             vyplňuje se ručně, dle předlohy`,
+          expanded: true,
           fields: {
             value: {
               usage: 'MA',
