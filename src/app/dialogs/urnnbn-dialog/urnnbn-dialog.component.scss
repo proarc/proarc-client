@@ -2,7 +2,7 @@
   margin: 0 0 15px;
 }
 .mat-dialog-content {
-  width:470px;
+  width:800px;
   min-height:70px;
   .app-urnnbn-registrar {
     display: block;
@@ -17,5 +17,17 @@
   }
   .app-log-btn {
     margin: 2px 0 15px;
+  }
+
+  table {
+    width: 100%;
+    th {
+      font-weight: bold;
+      padding: 5px;
+    }
+    td {
+      padding: 5px;
+    }
+    
   }
 }

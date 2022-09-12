@@ -20,6 +20,9 @@ export class UrnbnbDialogComponent implements OnInit {
   registrars: Registrar[] = [];
   errors: any[];
 
+  tableColumns = ['label', 'model', 'statusType', 'warning', 'pid', 'message'];
+  responseData: any;
+
   constructor(
     public dialogRef: MatDialogRef<UrnbnbDialogComponent>,
     private api: ApiService,
@@ -60,23 +63,30 @@ export class UrnbnbDialogComponent implements OnInit {
         this.message = 'Při registraci URN:NBN se vyskytla chyba';
         return;
       }
-      const data = response['response']['data'][0];
-      if (data['statusType'] == "URNNBN_EXISTS") {
-        this.state = 'error';
-        this.message = `Dokument má již přiděleno URN:NBN ${data['urnnbn']}`;
-      } else if (data['statusType'] == "NO_PAGE_FOUND") {
-        this.state = 'error';
-        this.message = 'Dokument neobsahuje žádné strany';
-      } else if (!data['statusType'] && data['urnnbn']) {
+      if (response.response.data.length === 0) {
+        this.message = `Žádné položky k zobrazení`;
         this.state = 'success';
-        this.message = `Dokumentu bylo úspěšně přiděleno URN:NBN ${data['urnnbn']}`;
-      } else {
-        this.state = 'error';
-        this.message = 'Při registraci URN:NBN se vyskytla chyba';
-        if (data['message']) {
-          this.log = data['message'];
-        }
+        return;
       }
+
+      this.responseData = response.response.data;
+      // const data = response['response']['data'][0];
+      // if (data['statusType'] == "URNNBN_EXISTS") {
+      //   this.state = 'error';
+      //   this.message = `Dokument má již přiděleno URN:NBN ${data['urnnbn']}`;
+      // } else if (data['statusType'] == "NO_PAGE_FOUND") {
+      //   this.state = 'error';
+      //   this.message = 'Dokument neobsahuje žádné strany';
+      // } else if (!data['statusType'] && data['urnnbn']) {
+      //   this.state = 'success';
+      //   this.message = `Dokumentu bylo úspěšně přiděleno URN:NBN ${data['urnnbn']}`;
+      // } else {
+      //   this.state = 'error';
+      //   this.message = 'Při registraci URN:NBN se vyskytla chyba';
+      //   if (data['message']) {
+      //     this.log = data['message'];
+      //   }
+      // }
       // console.log('data', data);
     },
     (error) => {
@@ -84,6 +94,10 @@ export class UrnbnbDialogComponent implements OnInit {
       this.state = 'error';
       this.message = 'Při registraci URN:NBN se vyskytla chyba';
     });
+  }
+
+  selectRow(row: any) {
+
   }
 
   formDisabled(): boolean {

@@ -12,6 +12,42 @@
     </mat-select>
   </mat-form-field>
 
+  <table *ngIf="responseData" mat-table [dataSource]="responseData" style="width: 100%">
+      <ng-container matColumnDef="label">
+      <th mat-header-cell *matHeaderCellDef>Popis</th>
+      <td mat-cell *matCellDef="let row">{{row.label}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="model">
+      <th mat-header-cell *matHeaderCellDef>Model</th>
+      <td mat-cell *matCellDef="let row">{{ "model." + row.model | translate }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="statusType">
+      <th mat-header-cell *matHeaderCellDef>Chyba</th>
+      <td mat-cell *matCellDef="let row">{{row.statusType}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="warning">
+      <th mat-header-cell *matHeaderCellDef>Stav</th>
+      <td mat-cell *matCellDef="let row">{{ row.hasOwnProperty('warning') ? (row.warning ? ':-|' : ':-(') : ':-)' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="pid">
+      <th mat-header-cell *matHeaderCellDef>PID</th>
+      <td mat-cell *matCellDef="let row">{{row.pid}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="message">
+      <th mat-header-cell *matHeaderCellDef>message</th>
+      <td mat-cell *matCellDef="let row">{{row.message}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: tableColumns;" (click)="selectRow(row)"></tr>
+
+  </table>
+
 </div>
 
 <div mat-dialog-actions cdk-focus-start>
