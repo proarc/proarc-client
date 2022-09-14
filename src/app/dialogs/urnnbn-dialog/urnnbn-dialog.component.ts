@@ -22,6 +22,7 @@ export class UrnbnbDialogComponent implements OnInit {
 
   tableColumns = ['label', 'model', 'statusType', 'warning', 'pid', 'message'];
   responseData: any;
+  selectedRow: string;
 
   constructor(
     public dialogRef: MatDialogRef<UrnbnbDialogComponent>,
@@ -70,6 +71,7 @@ export class UrnbnbDialogComponent implements OnInit {
       }
 
       this.responseData = response.response.data;
+      this.state = 'success';
       // const data = response['response']['data'][0];
       // if (data['statusType'] == "URNNBN_EXISTS") {
       //   this.state = 'error';
@@ -97,7 +99,8 @@ export class UrnbnbDialogComponent implements OnInit {
   }
 
   selectRow(row: any) {
-
+    this.message = row.message;
+    this.selectedRow = row.pid;
   }
 
   formDisabled(): boolean {

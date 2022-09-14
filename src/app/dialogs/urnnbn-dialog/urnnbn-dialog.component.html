@@ -2,8 +2,6 @@
 
 <div mat-dialog-content>
 
-  <div *ngIf="message" class="app-urnnbn-message" [class.app-error]="state == 'error'">{{ message}}</div>
-
   <button *ngIf="log" class="app-log-btn" mat-stroked-button color="primary" (click)="showErrorDetail(log)">Zobrazit chybový výstup</button>
 
   <mat-form-field class="app-urnnbn-registrar">
@@ -44,9 +42,10 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: tableColumns;" (click)="selectRow(row)"></tr>
+      <tr mat-row *matRowDef="let row; columns: tableColumns;" (click)="selectRow(row)" [class.active]="row.pid === selectedRow"></tr>
 
   </table>
+  <div *ngIf="message" class="app-urnnbn-message" [class.app-error]="state == 'error'">{{ message}}</div>
 
 </div>
 
