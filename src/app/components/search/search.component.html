@@ -91,6 +91,7 @@
   <div class="app-search-actions">
     <div class="app-object-actions" *ngIf="selectedItem">
       <button (click)="openItem(selectedItem)" mat-button>Otevřít</button>
+      <button (click)="showFoxml(selectedItem)" mat-button>FOXML</button>
       <button (click)="onExport(selectedItem)" mat-button>Exportovat</button>
       <button (click)="onUrnnbn(selectedItem)" mat-button>URN:NBN</button>
       <button (click)="onDeleteItem()" mat-button>Smazat</button>
@@ -184,10 +185,11 @@
     <ng-container *ngIf="search.selectedTree">
       <button (click)="selectItem(selectedItem)" mat-button>{{'common.refresh' | translate }}</button>
       <button (click)="openItem(search.selectedTree.item)" mat-button>Otevřít</button>
+      <button (click)="showFoxml(search.selectedTree.item)" mat-button>FOXML</button>
       <button (click)="onExport(search.selectedTree.item)" mat-button>Exportovat</button>
       <button (click)="onUrnnbn(search.selectedTree.item)" mat-button>URN:NBN</button>
       <button (click)="onExpandAll()" mat-button>Rozbalit</button>
-      <button *ngIf="search.selectedTree.removable()" (click)="onDeleteFromTree()" mat-button>Smazat</button>
+      <button *ngIf="search.selectedTree.item" (click)="onDeleteFromTree()" mat-button>Smazat</button>
       <button *ngIf="canCopy(search.selectedTree.item)" (click)="onCopyItem(search.selectedTree.item)" mat-button>Zkopírovat</button>
       <button *ngIf="!search.selectedTree.item.isLocked && (auth.user.lockObjectFunction  || auth.isSuperAdmin())" (click)="onLock(search.selectedTree.item, true)" mat-button>Uzamknout</button>
       <button *ngIf="search.selectedTree.item.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" (click)="onLock(search.selectedTree.item, false)" mat-button>Odemknout</button>
