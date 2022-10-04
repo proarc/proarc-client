@@ -66,7 +66,7 @@ export class NewObjectDialogComponent implements OnInit {
       });
     } else {
       // jen pripravime pro editace
-      data = `${data}&createObject=false`;
+      data = `${data}&createObject=false&validate=false`;
     }
 
     this.api.createObject(data).subscribe((response: any) => {

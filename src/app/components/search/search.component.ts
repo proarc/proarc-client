@@ -225,7 +225,7 @@ export class SearchComponent implements OnInit {
   }
 
   onDeleteItem() {
-    this.onDelete(this.selectedItem, (pids: string[]) => {
+    this.onDelete(this.selectedItem, true, (pids: string[]) => {
       for (let i = this.items.length - 1; i >= 0; i--) {
         if (pids.indexOf(this.items[i].pid) > -1) {
           this.items.splice(i, 1);
@@ -385,12 +385,13 @@ export class SearchComponent implements OnInit {
   }
 
   onDeleteFromTree() {
-    this.onDelete(this.search.selectedTree.item, (pids: string[]) => {
+    const refresh = this.search.selectedTree.item.parent ? false : true;
+    this.onDelete(this.search.selectedTree.item, refresh, (pids: string[]) => {
       this.search.selectedTree.remove();
     });
   }
 
-  private onDelete(item: DocumentItem, callback: (pids: string[]) => any = null) {
+  private onDelete(item: DocumentItem, refresh: boolean, callback: (pids: string[]) => any = null) {
     const checkbox = {
       label: String(this.translator.instant('editor.children.delete_dialog.permanently')),
       checked: false
@@ -413,12 +414,12 @@ export class SearchComponent implements OnInit {
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.deleteObject(item, checkbox.checked, callback);
+        this.deleteObject(item, checkbox.checked, refresh, callback);
       }
     });
   }
 
-  private deleteObject(item: DocumentItem, pernamently: boolean, callback: (pids: string[]) => any = null) {
+  private deleteObject(item: DocumentItem, pernamently: boolean, refresh: boolean, callback: (pids: string[]) => any = null) {
     this.state = 'loading';
     this.api.deleteObjects([item.pid], pernamently).subscribe((response: any) => {
       if (response['response'].errors) {
@@ -432,7 +433,10 @@ export class SearchComponent implements OnInit {
         }
         this.state = 'success';
         this.ui.showInfoSnackBar('Objekt byl úspěšně smazan');
-        this.reload();
+        if (refresh) {
+          this.reload();
+        }
+        
       }
     });
   }

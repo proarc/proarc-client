@@ -184,6 +184,22 @@ export class ConfigService {
     public exports = APP_GLOBAL.exports || ConfigService.defaultDefaultExports;
     public pagePositions = APP_GLOBAL.pagePositions || ConfigService.defaultPagePositions;
 
+    modelChanges: [
+        {
+            origin: 'ndkMonographVolume', 
+            dest: [ 
+                {model: 'ndkMonographTitle', apiPoint: "aa"}
+            ]
+        },
+        {
+            origin: 'ndkMonographTitle', 
+            dest: [ 
+                {model: 'ndkMonographVolume', apiPoint: ""},
+                {model: 'ndkMonographTitle', apiPoint: "aa"}
+            ];
+        }
+    ]
+
     constructor() {
     }
 
