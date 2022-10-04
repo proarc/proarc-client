@@ -29,9 +29,17 @@
       <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'admin.users.email' | translate"
         [(ngModel)]="selectedUser.email">
     </mat-form-field>
+
+
     <mat-form-field>
-      <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'admin.users.organization' | translate"
-        [(ngModel)]="selectedUser.organization">
+      <input *ngIf="selectedUser" matInput (keyup.enter)="save()" 
+      #org="ngModel" 
+      name="org" [(ngModel)]="selectedUser.organization"  [placeholder]="'admin.users.organization' | translate" [matAutocomplete]="mat1">
+      <mat-autocomplete #mat1="matAutocomplete" panelWidth="auto">
+        <mat-option *ngFor="let org of organizations"  [value]="org">
+          {{ 'organization.' + org | translate }} ({{ org }})
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
 
     <div>{{'admin.users.home' | translate}} : {{ selectedUser.home }}</div>
