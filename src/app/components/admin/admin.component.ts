@@ -5,6 +5,7 @@ import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { User } from 'src/app/model/user.model';
 import { ApiService } from 'src/app/services/api.service';
+import { ConfigService } from 'src/app/services/config.service';
 import { UIService } from 'src/app/services/ui.service';
 
 @Component({
@@ -20,16 +21,19 @@ export class AdminComponent implements OnInit {
 
   users: User[];
   selectedUser: User;
-  roles = ['user', 'admin', 'superAdmin']
+  roles = ['user', 'admin', 'superAdmin'];
+  organizations: string[];
 
   constructor(
     private translator: TranslateService,
+    private config: ConfigService,
     private dialog: MatDialog,
     private api: ApiService,
     private ui: UIService) { }
 
   ngOnInit(): void {
-    this.getUsers(-1)
+    this.getUsers(-1);
+    this.organizations = this.config.organizations;
   }
 
   getUsers(id: number) {
