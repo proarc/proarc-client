@@ -488,4 +488,12 @@ export class SearchComponent implements OnInit {
     this.search.selectedTree = tree;
   }
 
+  canChangeModel(): boolean {
+    return this.config.modelChanges.findIndex(m => ('model:' + m.origin).toLocaleLowerCase() === this.selectedItem.model.toLocaleLowerCase()) > -1
+  }
+
+  changeModel() {
+    
+  }
+
 }

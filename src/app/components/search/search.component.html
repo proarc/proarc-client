@@ -94,6 +94,7 @@
       <button (click)="showFoxml(selectedItem)" mat-button>FOXML</button>
       <button (click)="onExport(selectedItem)" mat-button>Exportovat</button>
       <button (click)="onUrnnbn(selectedItem)" mat-button>URN:NBN</button>
+      <button *ngIf="canChangeModel()" (click)="changeModel()" mat-button>Převody NDK modelů</button>
       <button (click)="onDeleteItem()" mat-button>Smazat</button>
       <button *ngIf="!selectedItem.isLocked && (auth.user.lockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, true)" mat-button>Uzamknout</button>
       <button *ngIf="selectedItem.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, false)" mat-button>Odemknout</button>

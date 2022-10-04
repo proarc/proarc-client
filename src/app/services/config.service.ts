@@ -184,21 +184,88 @@ export class ConfigService {
     public exports = APP_GLOBAL.exports || ConfigService.defaultDefaultExports;
     public pagePositions = APP_GLOBAL.pagePositions || ConfigService.defaultPagePositions;
 
-    modelChanges: [
+    public static modelChangesDefault = [
         {
-            origin: 'ndkMonographVolume', 
+            origin: 'clippingstitle', 
             dest: [ 
-                {model: 'ndkMonographTitle', apiPoint: "aa"}
+                {model: 'ndkMonographTitle', apiPoint: "object/changeClippingsTitleToNdkMonographTitle"},
+				{model: 'ndkMonographVolume', apiPoint: "object/changeClippingsVolumeToNdkMonographVolume"},
             ]
         },
         {
-            origin: 'ndkMonographTitle', 
+            origin: 'clippingsvolume', 
             dest: [ 
-                {model: 'ndkMonographVolume', apiPoint: ""},
-                {model: 'ndkMonographTitle', apiPoint: "aa"}
-            ];
+                {model: 'ndkMonographVolume', apiPoint: "object/changeClippingsVolumeToNdkMonographVolume"},
+            ]
+        },
+		{
+            origin: 'monograph', 
+            dest: [ 
+                {model: 'ndkMonographVolume', apiPoint: "object/changeK4MonographToNdkMonographVolume"},
+				{model: 'ndkMonographVolume', apiPoint: "object/changeK4MonographUnitToNdkMonographVolume"},
+            ]
+        },
+		{
+            origin: 'monographunit', 
+            dest: [ 
+                {model: 'ndkMonographVolume', apiPoint: "object/changeK4MonographUnitToNdkMonographVolume"},
+            ]
+        },
+		{
+            origin: 'ndkMonographVolume', 
+            dest: [ 
+                {model: 'ndkMonographVolume', apiPoint: "object/changeK4MonographUnitToNdkMonographVolume"},
+				{model: 'clippingsvolume', apiPoint: "object/changeNdkMonographVolumeToClippingsVolume"},
+				{model: 'ndkmonographtitle', apiPoint: "object/changeNdkMonographVolumeToNdkMonographTitle"},
+            ]
+        },
+		{
+            origin: 'ndkmonographtitle', 
+            dest: [ 
+                {model: 'ndkMonographVolume', apiPoint: "object/changeK4MonographUnitToNdkMonographVolume"},
+				{model: 'clippingstitle', apiPoint: "object/changeNdkMonographTitleToClippingsTitle"},
+				{model: 'ndkMonographVolume', apiPoint: "object/changeNdkMonographTitleToNdkMonographVolume"},
+				{model: 'clippingsvolume', apiPoint: "object/changeNdkMonographVolumeToClippingsVolume"},
+				{model: 'ndkmonographtitle', apiPoint: "object/changeNdkMonographVolumeToNdkMonographTitle"},
+            ]
+        },
+		{
+            origin: 'periodicalitem', 
+            dest: [ 
+                {model: 'ndkPeriodicalIssue', apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
+            ]
+        },
+		{
+            origin: 'ndkperiodicalvolume', 
+            dest: [ 
+                {model: 'ndkPeriodicalIssue', apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
+            ]
+        },
+		{
+            origin: 'periodicalvolume', 
+            dest: [ 
+                {model: 'ndkPeriodicalIssue', apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
+				{model: 'ndkperiodicalvolume', apiPoint: "object/changeK4PeriodicalVolumeToNdkPeriodicalVolume"},
+            ]
+        },
+		{
+            origin: 'periodical', 
+            dest: [ 
+                {model: 'ndkPeriodicalIssue', apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
+				{model: 'ndkperiodical', apiPoint: "object/changeK4PeriodicalToNdkPeriodical"},
+				{model: 'ndkperiodicalvolume', apiPoint: "object/changeK4PeriodicalVolumeToNdkPeriodicalVolume"},
+            ]
+        },
+		{
+            origin: 'ndkperiodical', 
+            dest: [ 
+                {model: 'ndkPeriodicalIssue', apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
+				{model: 'ndkperiodicalvolume', apiPoint: "object/changeK4PeriodicalVolumeToNdkPeriodicalVolume"},
+            ]
         }
-    ]
+    ];
+
+    public modelChanges = ConfigService.modelChangesDefault || [];
 
     constructor() {
     }
