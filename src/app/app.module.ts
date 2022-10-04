@@ -124,6 +124,7 @@ import { WorkflowComponent } from './components/workflow/workflow.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { ImportOldComponent } from './components/import-old/import-old.component';
 import { NewWorkflowDialogComponent } from './components/workflow/new-workflow-dialog/new-workflow-dialog.component';
+import { ChangeModelDialogComponent } from './dialogs/change-model-dialog/change-model-dialog.component';
 
 
 // export function hljsLanguages() {
@@ -233,6 +234,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdminComponent,
     ImportOldComponent,
     NewWorkflowDialogComponent,
+    ChangeModelDialogComponent,
   ],
   imports: [
     BrowserModule,

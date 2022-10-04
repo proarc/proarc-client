@@ -17,6 +17,7 @@ import { SplitAreaDirective, SplitComponent } from 'angular-split';
 import { Tree } from 'src/app/model/mods/tree.model';
 import { SearchService } from 'src/app/services/search.service';
 import { UIService } from 'src/app/services/ui.service';
+import { ChangeModelDialogComponent } from 'src/app/dialogs/change-model-dialog/change-model-dialog.component';
 
 @Component({
   selector: 'app-search',
@@ -493,7 +494,17 @@ export class SearchComponent implements OnInit {
   }
 
   changeModel() {
-    
+    const dialogRef = this.dialog.open(ChangeModelDialogComponent, { 
+      data: { 
+        pid: this.selectedItem.pid, 
+        model: this.selectedItem.model, 
+        dest: this.config.modelChanges.find(m => ('model:' + m.origin).toLocaleLowerCase() === this.selectedItem.model.toLocaleLowerCase()).dest } 
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        
+      }
+    });
   }
 
 }

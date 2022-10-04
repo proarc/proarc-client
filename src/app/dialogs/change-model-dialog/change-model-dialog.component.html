@@ -1,0 +1,15 @@
+<div mat-dialog-content>
+
+  <button mat-raised-button color="primary" *ngFor="let dest of data.dest" (click)="convert(dest)">Převést na {{ 'model.model:' +  dest.model | translate}}</button>
+
+  <button mat-raised-button color="default" class="app-close" mat-dialog-close="close" >{{ 'common.close' | translate }}</button>
+
+
+  <div *ngIf="inProgress" class="app-progress">
+    <mat-spinner
+      [strokeWidth]="5" 
+      [diameter]="60">
+    </mat-spinner>
+  </div>
+
+</div>
