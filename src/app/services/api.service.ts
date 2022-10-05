@@ -273,9 +273,14 @@ export class ApiService {
     return this.post(path, data);
   }
 
-
   changeModel(pid: string, model:string, path: string) {
     const data = `pid=${pid}&model=${model}`;
+    return this.post(path, data);
+  }
+
+  updateObjects(pid: string, model:string) {
+    const data = `pid=${pid}&model=${model}`;
+    const path = `object/updateAllObjectsObjects`;
     return this.post(path, data);
   }
 

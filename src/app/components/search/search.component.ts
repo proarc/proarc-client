@@ -507,4 +507,17 @@ export class SearchComponent implements OnInit {
     });
   }
 
+  updateObjects() {
+    this.state = 'loading';
+    this.api.updateObjects(this.selectedItem.pid, this.selectedItem.model).subscribe((response: any) => {
+      if (response.response.errors) {
+        this.state = 'error';
+        this.ui.showErrorSnackBarFromObject(response.response.errors);
+      } else {
+        this.state = 'success';
+        this.ui.showInfoSnackBar(this.translator.instant('Update hotový'))
+      }
+    });
+  }
+
 }
