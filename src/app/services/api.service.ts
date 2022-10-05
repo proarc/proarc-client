@@ -274,6 +274,12 @@ export class ApiService {
   }
 
 
+  changeModel(pid: string, model:string, path: string) {
+    const data = `pid=${pid}&model=${model}`;
+    return this.post(path, data);
+  }
+
+
   reindexPages(parentPid: string, pagePid: string, batchId: any = null, model: string): Observable<any> {
     let data = `parent=${parentPid}&pid=${pagePid}`;
     if (batchId) {
