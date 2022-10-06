@@ -146,6 +146,7 @@ export class ConfigService {
     private static defaultIdentifiers = [ 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'];
     private static defaultChronicleIdentifiers = [ 'signature1', 'signature2', 'inventaryNumber', 'OtherNumber' , 'id', 'localId', 'officialNumber'];
     private static defaultEDocumentsIdentifiers = [ 'doi', 'handle', 'ismn', 'url', 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici'];
+    private static defaultOldprintIdentifiers = ['barcode', 'ccnb', 'doi', 'hdl', 'ismn', 'isbn', 'permalink', 'sici', 'url',  'uuid', 'urnnbn', 'BCBT'];
     private static defaultPagePositions = ['right_left', 'left_right', 'left', 'right', 'singlePage'];
 
     public proarcBackendUrl = APP_GLOBAL.proarcUrl;
@@ -177,6 +178,9 @@ export class ConfigService {
     public topChronicleIdentifiers: any = [];
     public otherChronicleIdentifiers = APP_GLOBAL.chronicleIdentifiers || ConfigService.defaultChronicleIdentifiers;
 
+    public topOldptintIdentifiers: any = [];
+    public otherOldprintIdentifiers = APP_GLOBAL.oldprintIdentifiers || ConfigService.defaultOldprintIdentifiers;
+
     public topEDocumentsIdentifiers: any = [];
     public otherEDocumentsIdentifiers = APP_GLOBAL.eDocumentIdentifiers || ConfigService.defaultEDocumentsIdentifiers;
 
@@ -186,42 +190,42 @@ export class ConfigService {
 
     public static modelChangesDefault = [
         {
-            origin: 'clippingstitle', 
-            dest: [ 
+            origin: 'clippingstitle',
+            dest: [
                 {model: 'ndkmonographtitle', apiPoint: "object/changeClippingsTitleToNdkMonographTitle"},
 				{model: 'ndkmonographvolume', apiPoint: "object/changeClippingsVolumeToNdkMonographVolume"},
             ]
         },
         {
-            origin: 'clippingsvolume', 
-            dest: [ 
+            origin: 'clippingsvolume',
+            dest: [
                 {model: 'ndkmonographvolume', apiPoint: "object/changeClippingsVolumeToNdkMonographVolume"},
             ]
         },
 		{
-            origin: 'monograph', 
-            dest: [ 
+            origin: 'monograph',
+            dest: [
                 {model: 'ndkmonographvolume', originmodel:"monograph", apiPoint: "object/changeK4MonographToNdkMonographVolume"},
 				{model: 'ndkmonographvolume', originmodel:"monographunit", apiPoint: "object/changeK4MonographUnitToNdkMonographVolume"},
             ]
         },
 		{
-            origin: 'monographunit', 
-            dest: [ 
+            origin: 'monographunit',
+            dest: [
                 {model: 'ndkmonographvolume', originmodel:"monographunit", apiPoint: "object/changeK4MonographUnitToNdkMonographVolume"},
             ]
         },
 		{
-            origin: 'ndkmonographvolume', 
-            dest: [ 
+            origin: 'ndkmonographvolume',
+            dest: [
                 {model: 'ndkmonographvolume', originmodel:"monographunit", apiPoint: "object/changeK4MonographUnitToNdkMonographVolume"},
 				// {model: 'clippingsvolume', apiPoint: "object/changeNdkMonographVolumeToClippingsVolume"},
 				{model: 'ndkmonographtitle', originmodel:"ndkmonographvolume", apiPoint: "object/changeNdkMonographVolumeToNdkMonographTitle"},
             ]
         },
 		{
-            origin: 'ndkmonographtitle', 
-            dest: [ 
+            origin: 'ndkmonographtitle',
+            dest: [
                 {model: 'ndkmonographvolume', originmodel:"monographunit", apiPoint: "object/changeK4MonographUnitToNdkMonographVolume"},
 				// {model: 'clippingstitle', apiPoint: "object/changeNdkMonographTitleToClippingsTitle"},
 				{model: 'ndkmonographvolume', originmodel:"ndkmonographtitle", apiPoint: "object/changeNdkMonographTitleToNdkMonographVolume"},
@@ -230,35 +234,35 @@ export class ConfigService {
             ]
         },
 		{
-            origin: 'periodicalitem', 
-            dest: [ 
+            origin: 'periodicalitem',
+            dest: [
                 {model: 'ndkperiodicalissue', originmodel:"periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
             ]
         },
 		{
-            origin: 'ndkperiodicalvolume', 
-            dest: [ 
+            origin: 'ndkperiodicalvolume',
+            dest: [
                 {model: 'ndkperiodicalissue', originmodel:"periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
             ]
         },
 		{
-            origin: 'periodicalvolume', 
-            dest: [ 
+            origin: 'periodicalvolume',
+            dest: [
                 {model: 'ndkperiodicalissue', originmodel:"periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
 				{model: 'ndkperiodicalvolume', originmodel:"periodicalvolume", apiPoint: "object/changeK4PeriodicalVolumeToNdkPeriodicalVolume"},
             ]
         },
 		{
-            origin: 'periodical', 
-            dest: [ 
+            origin: 'periodical',
+            dest: [
                 {model: 'ndkperiodicalissue', originmodel:"periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
 				{model: 'ndkperiodical', originmodel:"periodical", apiPoint: "object/changeK4PeriodicalToNdkPeriodical"},
 				{model: 'ndkperiodicalvolume', originmodel:"periodicalvolume", apiPoint: "object/changeK4PeriodicalVolumeToNdkPeriodicalVolume"},
             ]
         },
 		{
-            origin: 'ndkperiodical', 
-            dest: [ 
+            origin: 'ndkperiodical',
+            dest: [
                 {model: 'ndkperiodicalissue', originmodel:"periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
 				{model: 'ndkperiodicalvolume', originmodel:"periodicalvolume", apiPoint: "object/changeK4PeriodicalVolumeToNdkPeriodicalVolume"},
             ]

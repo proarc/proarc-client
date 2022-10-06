@@ -131,6 +131,12 @@ export class DocumentItem {
     return this.model === 'model:chroniclevolume' || this.model === 'model:chronicletitle' || this.model === 'model:chroniclesupplement';
   }
 
+  public isOldprint(): boolean {
+    return this.model === 'model:oldprintvolume' || this.model === 'model:oldprintsheetmusic' || this.model === 'model:oldprintmap'
+      || this.model === 'model:oldprintgraphics' || this.model === 'model:oldprintomnibusvolume' || this.model === 'model:oldprintchapter'
+      || this.model === 'model:oldprintmonographtitle' || this.model === 'model:oldprintsupplement';
+  }
+
   // public isTopLevel(): boolean {
   //   return !this.isPage() && !this.isVolume() && !this.isIssue();
   // }

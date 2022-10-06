@@ -725,6 +725,8 @@
     "othernumber": "Přírůstkové číslo",
     "doi": "DOI",
     "handle": "Handle",
+    "hdl": "Handle",
+    "bcbt": "BCBT",
     "url": "URL"
   },
   "model": {
