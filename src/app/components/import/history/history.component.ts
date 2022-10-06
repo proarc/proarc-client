@@ -5,7 +5,7 @@ import { User } from 'src/app/model/user.model';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { LogDialogComponent } from 'src/app/dialogs/log-dialog/log-dialog.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { ReloadBatchDialogComponent } from 'src/app/dialogs/reload-batch-dialog/reload-batch-dialog.component';
 import { Profile } from 'src/app/model/profile.model';
 import { ImportDialogComponent } from 'src/app/dialogs/import-dialog/import-dialog.component';
@@ -63,10 +63,14 @@ export class HistoryComponent implements OnInit, OnDestroy {
     private ui: UIService,
     private dialog: MatDialog,
     private router: Router,
+    private route: ActivatedRoute,
     private translator: TranslateService) { }
 
   ngOnInit() {
-    this.changeView('overview');
+    this.route.queryParams.subscribe(p => {
+      this.processParams(p);
+      this.loadData();
+    }); 
     this.api.getUsers().subscribe((users: User[]) => {
       this.users = users;
     });
@@ -79,6 +83,17 @@ export class HistoryComponent implements OnInit, OnDestroy {
     if (this.timer) {
       clearInterval(this.timer);
     }
+  }
+
+  processParams(p: any) {
+      this.view = p['view'] ? p['view'] : 'overview';
+      this.selectedState = p['state'] ? p['state'] : 'ALL';
+      this.description = p['description'] ? p['description'] : null;
+      this.user = p['user'] ? p['user'] : null;
+      this.createFrom = p['createFrom'] ? p['createFrom'] : null;
+      this.createTo = p['createTo'] ? p['createTo'] : null;
+      this.modifiedFrom = p['modifiedFrom'] ? p['modifiedFrom'] : null;
+      this.modifiedTo = p['modifiedTo'] ? p['modifiedTo'] : null;
   }
 
   setRefresh() {
@@ -104,25 +119,75 @@ export class HistoryComponent implements OnInit, OnDestroy {
     }
   }
 
-  changeView(view: string) {
-    
-    this.pageIndex = 0;
-    if (view == 'overview') {
-      this.view = 'overview';
+  loadData() {
+    if (this.view == 'overview') {
       this.reloadBatches();
-    } else if (view == 'queue') {
-      this.view = 'queue';
+    } else if (this.view == 'queue') {
       this.reloadQueue();
     }
   }
 
+  changeView(view: string) {
+    this.pageIndex = 0;
+    const q: any = {};
+    q['view'] = view;
+    q.page = null;
+    this.router.navigate([], { queryParams: q, queryParamsHandling: 'merge' });
+  }
+
+  filter() {
+    
+    this.pageIndex = 0;
+    const params: any = {};
+    if (this.selectedState && this.selectedState !== 'ALL') {
+      params['state'] = this.selectedState;
+    } else {
+      params['state'] = null;
+    }
+
+    if (this.description) {
+      params['description'] = this.description;
+    } else {
+      params['description'] = null;
+    }
+
+    if (this.user) {
+      params['userId'] = this.user;
+    } else {
+      params['userId'] = null;
+    }
+
+    if (this.createFrom) {
+      params['createFrom'] = this.datePipe.transform(this.createFrom, 'yyyy-MM-dd');
+    } else {
+      params['createFrom'] = null;
+    }
+
+    if (this.createTo) {
+      params['createTo'] = this.datePipe.transform(this.createTo, 'yyyy-MM-dd');
+    } else {
+      params['createTo'] = null;
+    }
+
+    if (this.modifiedFrom) {
+      params['modifiedFrom'] = this.datePipe.transform(this.modifiedFrom, 'yyyy-MM-dd');
+    } else {
+      params['modifiedFrom'] = null;
+    }
+
+    if (this.modifiedTo) {
+      params['modifiedTo'] = this.datePipe.transform(this.modifiedTo, 'yyyy-MM-dd');
+    } else {
+      params['statemodifiedTo'] = null;
+    }
+
+    params.page = null;
+    this.router.navigate([], { queryParams: params, queryParamsHandling: 'merge' });
+  }
+
   reload() {
     this.pageIndex = 0;
-    if (this.view == 'overview') {
-      this.reloadBatches();
-    } else if (this.view == 'queue') {
-      this.reloadQueue()
-    }
+    this.loadData();
   }
 
   reloadBatches() {
@@ -304,7 +369,12 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
   onStateChanged() {
     this.pageIndex = 0;
-    this.reloadBatches();
+    const q: any = {};
+    q['state'] = this.selectedState;
+    q.page = null;
+    this.router.navigate([], { queryParams: q, queryParamsHandling: 'merge' });
+
+    // this.reloadBatches();
   }
 
   onPageChanged(page: any) {
