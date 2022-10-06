@@ -12,7 +12,7 @@
 <div class="app-search-results">
 
   <div *ngIf="searchMode === 'phrase'" class="app-search-filteres">
-    <a mat-raised-button color="primary" class="app-search" (click)="reload()">
+    <a mat-raised-button color="primary" class="app-search" (click)="filter()">
       {{ 'search.search' | translate }}
     </a>
     <mat-form-field class="model-filter app-filter">
@@ -23,12 +23,12 @@
     </mat-form-field>
 
     <mat-form-field class="document-search">
-      <input matInput [placeholder]="'search.search' | translate" (keyup.enter)="reload()" [(ngModel)]="query">
+      <input matInput [placeholder]="'search.search' | translate" (keyup.enter)="filter()" [(ngModel)]="query">
     </mat-form-field>
   </div>
 
   <div *ngIf="searchMode !== 'phrase'" class="app-search-filteres">
-    <a mat-raised-button color="primary" class="app-search" (click)="reload()">
+    <a mat-raised-button color="primary" class="app-search" (click)="filter()">
       {{ 'search.search' | translate }}
     </a>
 
@@ -40,13 +40,13 @@
     </mat-form-field>
 
     <mat-form-field class="document-search">
-      <input matInput [placeholder]="'search.fields.title' | translate" (keyup.enter)="reload()" [(ngModel)]="queryLabel">
+      <input matInput [placeholder]="'search.fields.title' | translate" (keyup.enter)="filter()" [(ngModel)]="queryLabel">
     </mat-form-field>
     <mat-form-field class="document-search">
-      <input matInput [placeholder]="'search.fields.identifier' | translate" (keyup.enter)="reload()" [(ngModel)]="queryIdentifier">
+      <input matInput [placeholder]="'search.fields.identifier' | translate" (keyup.enter)="filter()" [(ngModel)]="queryIdentifier">
     </mat-form-field>
     <mat-form-field class="document-search">
-      <input matInput [placeholder]="'search.fields.creator' | translate" (keyup.enter)="reload()" [(ngModel)]="queryCreator">
+      <input matInput [placeholder]="'search.fields.creator' | translate" (keyup.enter)="filter()" [(ngModel)]="queryCreator">
     </mat-form-field>
 
 
@@ -84,7 +84,6 @@
   <as-split style="height: calc(100% - 50px);" unit="percent" [gutterSize]="10" direction="vertical" (dragEnd)="dragEnd($event)" #split="asSplit">
 
     <as-split-area #area1="asSplitArea" [minSize]="20" [size]="getSplitSize(0)">
-
 
   <div class="app-items-wrapper" *ngIf="items">
 

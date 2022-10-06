@@ -12,7 +12,7 @@ import { UrnbnbDialogComponent } from 'src/app/dialogs/urnnbn-dialog/urnnbn-dial
 import { ConfigService } from 'src/app/services/config.service';
 import { User } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SplitAreaDirective, SplitComponent } from 'angular-split';
 import { Tree } from 'src/app/model/mods/tree.model';
 import { SearchService } from 'src/app/services/search.service';
@@ -75,6 +75,7 @@ export class SearchComponent implements OnInit {
               public auth: AuthService,
               private dialog: MatDialog,
               private router: Router,
+              private route: ActivatedRoute,
               public search: SearchService,
               private config: ConfigService,
               private ui: UIService,
@@ -86,22 +87,61 @@ export class SearchComponent implements OnInit {
     this.splitArea1Width = this.properties.getStringProperty('search.split.0', "60"),
     this.splitArea2Width = this.properties.getStringProperty('search.split.1', "40"),
     this.organizations = this.config.organizations;
-    this.organization = this.properties.getStringProperty('search.organization', '-');
-    this.owner = this.properties.getStringProperty('search.owner', '-');
-    this.processor = this.properties.getStringProperty('search.processor', '-');
-    this.sortField = this.properties.getStringProperty('search.sort_field', 'created');
-    this.sortAsc = this.properties.getBoolProperty('search.sort_asc', false);
-    this.model = this.properties.getStringProperty('search.model', this.config.defaultModel);
-    this.queryField = this.properties.getStringProperty('search.query_field', 'queryLabel');
-    if (this.model !== 'all' && this.model !== 'model:page' && this.model !== 'model:ndkpage') {
-      this.reload();
-    } else {
-      this.state = 'success';
-    }
+
+    this.route.queryParams.subscribe(p => {
+      this.processParams(p);
+      
+      if (this.model !== 'all' && this.model !== 'model:page' && this.model !== 'model:ndkpage') {
+        this.reload();
+      } else {
+        this.state = 'success';
+      }
+
+    });
+    
     this.api.getUsers().subscribe((users: User[]) => {
       this.users = users;
     });
   }
+
+  filter() {
+    const params = {
+      type: this.searchMode,
+      model: this.model,
+      organization: this.organization,
+      query: this.query,
+      queryField: this.queryField,
+      queryLabel: this.queryLabel,
+      queryIdentifier: this.queryIdentifier,
+      queryCreator: this.queryCreator,
+      page: this.pageIndex,
+      owner: this.owner || null,
+      processor: this.processor,
+      sortField: this.sortField,
+      sortAsc: this.sortAsc
+    }
+    params.page = null;
+    this.router.navigate([], { queryParams: params, queryParamsHandling: 'merge' });
+  }
+
+
+  processParams(p: any) {
+
+    this.searchMode  = p['description'] ? p['description'] : 'advanced';
+    this.model = p['model'] ? p['model'] : this.properties.getStringProperty('search.model', this.config.defaultModel);
+    this.organization = p['organization'] ? p['organization'] : this.properties.getStringProperty('search.organization', '-');
+    this.query = p['query'] ? p['query'] : null;
+    this.queryField = p['queryField'] ? p['queryField'] : this.properties.getStringProperty('search.query_field', 'queryLabel');
+    this.queryLabel = p['queryLabel'] ? p['queryLabel'] : null;
+    this.queryIdentifier = p['queryIdentifier'] ? p['queryIdentifier'] : null;
+    this.queryCreator = p['queryCreator'] ? p['queryCreator'] : null;
+    this.pageIndex = p['pageIndex'] ? p['pageIndex'] : null;
+    this.owner = p['owner'] ? p['owner'] : this.properties.getStringProperty('search.owner', '-');
+    this.processor = p['processor'] ? p['processor'] : this.properties.getStringProperty('search.processor', '-');
+    this.sortField = p['sortField'] ? p['sortField'] : this.properties.getStringProperty('search.sort_field', 'created');
+    this.sortAsc = p['sortAsc'] ? p['sortAsc'] : this.properties.getBoolProperty('search.sort_asc', false);
+
+}
 
 
   dragEnd(e: any) {
