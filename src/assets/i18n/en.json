@@ -562,6 +562,8 @@
     "sici": "SICI",
     "doi": "DOI",
     "handle": "Handle",
+    "hdl": "Handle",
+    "bcbt": "BCBT",
     "url": "URL"
   },
   "model": {

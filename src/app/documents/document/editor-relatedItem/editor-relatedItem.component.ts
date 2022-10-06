@@ -58,6 +58,7 @@ export class EditorRelatedItemComponent implements OnInit {
 
   getIdentifiers(): any[] {
     return this.editor.left.isChronicle() ? this.codebook.chronicleIdentifiers :
+      this.editor.left.isOldprint() ? this.codebook.oldprintIdentifiers :
       this.editor.left.canContainPdf() ? this.codebook.eDocumentIdentifiers :
         this.codebook.identifiers;
   }
