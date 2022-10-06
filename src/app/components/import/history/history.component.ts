@@ -105,6 +105,8 @@ export class HistoryComponent implements OnInit, OnDestroy {
   }
 
   changeView(view: string) {
+    
+    this.pageIndex = 0;
     if (view == 'overview') {
       this.view = 'overview';
       this.reloadBatches();
@@ -115,6 +117,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
   }
 
   reload() {
+    this.pageIndex = 0;
     if (this.view == 'overview') {
       this.reloadBatches();
     } else if (this.view == 'queue') {
@@ -300,6 +303,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
   }
 
   onStateChanged() {
+    this.pageIndex = 0;
     this.reloadBatches();
   }
 
