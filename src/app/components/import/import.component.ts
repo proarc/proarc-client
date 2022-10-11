@@ -144,7 +144,12 @@ export class ImportComponent implements OnInit {
     if (p) {
       return p.state === 'NEW'
     } else {
-      return false;
+      const p2 = folder.states.find(s => s.profile === 'profile.default');
+      if (p2) {
+        return p2.state === 'NEW'
+      } else {
+        return false;
+      }
     }
   }
 
