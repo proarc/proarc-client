@@ -38,11 +38,17 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
 
   onTick() {
     //this.api.getImportBatchStatus(this.batchId).subscribe((response: any) => {
-    this.api.getImportBatchStatus(this.batchId).subscribe((response: any) => {
-      
+    this.api.getImportBatchStatusOld(this.batchId).subscribe((response: any) => {
+
       if (response.response.errors) {
+        this.api.getImportBatchStatus(this.batchId).subscribe((response: any) => {
+          const batch2: Batch = Batch.fromJson(response['response'].data[0])
+          this.state = 'failure';
+          this.failureMessage = batch2.failure;
+          return;
+        });
         this.state = 'error';
-        this.ui.showErrorSnackBarFromObject(response.response.errors);
+        //this.ui.showErrorSnackBarFromObject(response.response.errors);
         clearInterval(this.timer);
         this.state = 'failure';
         return;
