@@ -143,6 +143,28 @@ export class ConfigService {
         'kwis'
     ];
 
+    private static defaultProfiles = [
+        'profile.default',
+        'profile.createObjectWithMetadata_import',
+        'profile.default_archive_import',
+        'profile.soundrecording_import',
+        'profile.default_kramerius_import',
+        'profile.stt_kramerius_import',
+        'profile.ndk_monograph_kramerius_import',
+        'profile.ndk_periodical_kramerius_import',
+        'profile.chronicle',
+        'profile.oldprint',
+        'profile.ndk_full_import',
+        'exportProfile.kramerius',
+        'exportProfile.ndk',
+        'exportProfile.archive',
+        'exportProfile.desa',
+        'exportProfile.cejsh',
+        'exportProfile.crossref',
+        'exportProfile.kwis',
+        'internalProfile.reindex'
+    ]
+
     private static defaultIdentifiers = [ 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'];
     private static defaultChronicleIdentifiers = [ 'signature1', 'signature2', 'inventaryNumber', 'OtherNumber' , 'id', 'localId', 'officialNumber'];
     private static defaultEDocumentsIdentifiers = [ 'doi', 'handle', 'ismn', 'url', 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici'];
@@ -185,6 +207,7 @@ export class ConfigService {
     public otherEDocumentsIdentifiers = APP_GLOBAL.eDocumentIdentifiers || ConfigService.defaultEDocumentsIdentifiers;
 
     public organizations = APP_GLOBAL.organizations || [];
+    public profiles = APP_GLOBAL.profiles || ConfigService.defaultProfiles;
     public exports = APP_GLOBAL.exports || ConfigService.defaultDefaultExports;
     public pagePositions = APP_GLOBAL.pagePositions || ConfigService.defaultPagePositions;
 

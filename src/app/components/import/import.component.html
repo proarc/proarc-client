@@ -16,6 +16,12 @@
       </mat-select>
     </mat-form-field>
 
+    <mat-form-field class="app-import-profiles">
+      <mat-select [placeholder]="'history.priority' | translate" [(ngModel)]="selectedPriority">
+        <mat-option *ngFor="let priority of priorities" [value]="priority">{{ 'history.priorities.' + priority  | translate}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <mat-form-field class="app-import-devices">
       <mat-select [placeholder]="'import.device' | translate" [(ngModel)]="selectedDevice">
         <mat-option *ngFor="let device of devices" [value]="device">{{ device.label }}</mat-option>
@@ -41,5 +47,5 @@
     </div>
   </div>
 
-  
+
 </div>

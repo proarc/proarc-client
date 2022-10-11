@@ -11,6 +11,7 @@ import { Profile } from 'src/app/model/profile.model';
 import { ImportDialogComponent } from 'src/app/dialogs/import-dialog/import-dialog.component';
 import { DatePipe } from '@angular/common';
 import { UIService } from 'src/app/services/ui.service';
+import {ConfigService} from '../../../services/config.service';
 
 @Component({
   selector: 'app-history',
@@ -42,6 +43,8 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
   description: string;
   user: string;
+  priority: string;
+  profile: string;
   createFrom: Date;
   createTo: Date;
   modifiedFrom: Date;
@@ -54,8 +57,46 @@ export class HistoryComponent implements OnInit, OnDestroy {
     'LOADED',
     'INGESTING',
     'INGESTING_FAILED',
-    'INGESTED'
+    'INGESTED',
+    'STOPPED',
+    'EXPORTING',
+    'EXPORT_FAILED',
+    'EXPORT_DONE',
+    'REINDEXING',
+    'REINDEX_FAILED',
+    'REINDEX_DONE'
   ];
+
+  priorities = [
+    'lowest',
+    'low',
+    'medium',
+    'high',
+    'highest'
+  ];
+
+  profiles: string[];
+    // 'profile.default',
+    // 'profile.createObjectWithMetadata_import',
+    // 'profile.default_archive_import',
+    // 'profile.soundrecording_import',
+    // 'profile.default_kramerius_import',
+    // 'profile.stt_kramerius_import',
+    // 'profile.ndk_monograph_kramerius_import',
+    // 'profile.ndk_periodical_kramerius_import',
+    // 'profile.chronicle',
+    // 'profile.oldprint',
+    // 'profile.ndk_full_import',
+    // 'exportProfile.kramerius',
+    // 'exportProfile.ndk',
+    // 'exportProfile.archive',
+    // 'exportProfile.desa',
+    // 'exportProfile.cejsh',
+    // 'exportProfile.crossref',
+    // 'exportProfile.kwis',
+    // // 'exportProfile.aleph',
+    // 'internalProfile.reindex'
+  // ]
 
   constructor(
     private datePipe: DatePipe,
@@ -64,16 +105,18 @@ export class HistoryComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
+    private config: ConfigService,
     private translator: TranslateService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(p => {
       this.processParams(p);
       this.loadData();
-    }); 
+    });
     this.api.getUsers().subscribe((users: User[]) => {
       this.users = users;
     });
+    this.profiles = this.config.profiles;
     // this.timer= setInterval(() => {
     //   this.updateLoadingBatchesProgress();
     // }, 5000);
@@ -90,6 +133,8 @@ export class HistoryComponent implements OnInit, OnDestroy {
       this.selectedState = p['state'] ? p['state'] : 'ALL';
       this.description = p['description'] ? p['description'] : null;
       this.user = p['user'] ? p['user'] : null;
+      this.priority= p['priority'] ? p['priority'] : null;
+      this.profile = p['profile'] ? p['profile'] : null;
       this.createFrom = p['createFrom'] ? p['createFrom'] : null;
       this.createTo = p['createTo'] ? p['createTo'] : null;
       this.modifiedFrom = p['modifiedFrom'] ? p['modifiedFrom'] : null;
@@ -136,7 +181,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
   }
 
   filter() {
-    
+
     this.pageIndex = 0;
     const params: any = {};
     if (this.selectedState && this.selectedState !== 'ALL') {
@@ -157,11 +202,24 @@ export class HistoryComponent implements OnInit, OnDestroy {
       params['userId'] = null;
     }
 
+    if (this.priority) {
+      params['priority'] = this.priority;
+    } else {
+      params['priority'] = null;
+    }
+
+    if (this.profile) {
+      params['profile'] = this.profile;
+    } else {
+      params['profile'] = null;
+    }
+
     if (this.createFrom) {
       params['createFrom'] = this.datePipe.transform(this.createFrom, 'yyyy-MM-dd');
     } else {
       params['createFrom'] = null;
     }
+
 
     if (this.createTo) {
       params['createTo'] = this.datePipe.transform(this.createTo, 'yyyy-MM-dd');
@@ -210,6 +268,14 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
     if (this.user) {
       params['userId'] = this.user;
+    }
+
+    if (this.priority) {
+      params['priority'] = this.priority;
+    }
+
+    if (this.profile) {
+      params['profile'] = this.profile;
     }
 
     if (this.createFrom) {
@@ -285,7 +351,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
               this.state = 'failure';
               return;
             }
-      
+
             const status: [number, number] = Batch.statusFromJson(response['response']);
 
             const done = status[0];
@@ -407,6 +473,32 @@ export class HistoryComponent implements OnInit, OnDestroy {
         }
 
       });
+    });
+  }
+
+  stop(b: Batch) {
+    this.api.stopBatch(b.id).subscribe((response: any) => {
+
+      if (response.response.errors) {
+        this.state = 'error';
+        this.ui.showErrorSnackBarFromObject(response.response.errors);
+        return;
+      }
+
+      this.reloadBatches();
+
+      // const batch: Batch = Batch.fromJson(response['response']['data'][0]);
+      //
+      // const dialogRef = this.dialog.open(ImportDialogComponent, { data: { batch: batch.id } });
+      // dialogRef.afterClosed().subscribe(result => {
+      //
+      //   if (result === 'open') {
+      //     this.onIngestBatch();
+      //   } else {
+      //     this.reloadBatches();
+      //   }
+      //
+      // });
     });
   }
 

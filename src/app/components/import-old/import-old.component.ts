@@ -35,6 +35,15 @@ export class ImportOldComponent implements OnInit {
   profiles: Profile[];
   selectedProfile: Profile;
 
+  priorities = [
+    'lowest',
+    'low',
+    'medium',
+    'high',
+    'highest'
+  ];
+  selectedPriority = 'medium';
+
   // folders: Folder[];
   // selectedFolder: Folder;
   // path: string;
@@ -104,8 +113,8 @@ export class ImportOldComponent implements OnInit {
       return;
     }
     if (this.importService.folders.length == 1) {
-      this.api.createImportBatch(this.importService.folders[0].path, this.selectedProfile.id, this.generateIndex, this.selectedDevice.id).subscribe((response: any) => {
-        
+      this.api.createImportBatch(this.importService.folders[0].path, this.selectedProfile.id, this.generateIndex, this.selectedDevice.id, this.selectedPriority).subscribe((response: any) => {
+
         if (response['response'].errors) {
           console.log('error', response['response'].errors);
           this.ui.showErrorSnackBarFromObject(response['response'].errors);

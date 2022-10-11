@@ -205,7 +205,7 @@ export class ApiService {
 
   getImportFolders(folder: string | null = null): Observable<any> {
     return this.get('import/folder', { folder: folder});
-        
+
   }
 
   getImportProfiles(): Observable<Profile[]> {
@@ -246,7 +246,7 @@ export class ApiService {
       query = `object?purge=${purge}&hierarchy=true&${query}`;
     }
     return this.delete(query);
-            
+
   }
 
   restoreObject(pid: string, hierarchy: boolean, purge: boolean): Observable<any> {
@@ -296,7 +296,7 @@ export class ApiService {
     return this.put('object/reindexObjects', data);
   }
 
-  getPage(pid: string, model: string, batchId: any = null): Observable<Page> {    
+  getPage(pid: string, model: string, batchId: any = null): Observable<Page> {
     const editorId = model == 'model:page' ? 'proarc.mods.PageForm' : model;
     const params: any = { pid: pid, editorId: editorId };
     if (batchId) {
@@ -421,8 +421,8 @@ export class ApiService {
       params['queryModel'] = options['model'];
     }
 
-    
-    
+
+
     if (options['type'] === 'phrase') {
       if (options['query']) {
         params['phrase'] = options['query'];
@@ -449,16 +449,16 @@ export class ApiService {
       if (options['queryLabel'] && options['queryLabel'] != '') {
         params['queryLabel'] = options['queryLabel'];
       }
-      
+
       if (options['queryIdentifier'] && options['queryIdentifier'] != '') {
         params['queryIdentifier'] = options['queryIdentifier'];
       }
-      
+
       if (options['queryCreator'] && options['queryCreator'] != '-') {
         params['queryCreator'] = options['queryCreator'];
       }
     }
-    
+
     params['sortField'] = options['sortField'] || '';
     if (options['sortAsc']) {
       params['_sort'] = 'asc';
@@ -622,13 +622,18 @@ export class ApiService {
     return this.put('import/batch', data);
   }
 
+  stopBatch(id: number): Observable<any> {
+    let data = `id=${id}`;
+    return this.post('import/batchStopped', data);
+  }
+
   reloadBatch(id: number, profile: string): Observable<Batch> {
     const data = `id=${id}&profile=${profile}&state=LOADING_FAILED`;
     return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
-  createImportBatch(path: string, profile: string, indices: boolean, device: string): Observable<any> {
-    const data = `folderPath=${path}&profile=${profile}&indices=${indices}&device=${device}`;
+  createImportBatch(path: string, profile: string, indices: boolean, device: string, priority:string): Observable<any> {
+    const data = `folderPath=${path}&profile=${profile}&indices=${indices}&device=${device}&priority=${priority}`;
     return this.post('import/batch', data);
   }
 
@@ -736,7 +741,7 @@ export class ApiService {
     if (user.organization) {
       data = `${data}&organization=${user.organization}`;
     }
-    
+
     data = `${data}&changeModelFunction=${user.changeModelFunction}&updateModelFunction=${user.updateModelFunction}`;
     data = `${data}&unlockObjectFunction=${user.unlockObjectFunction}&lockObjectFunction=${user.lockObjectFunction}`;
     return this.put('user', data).pipe(map((response: any) => User.fromJson(response['response']['data'][0])));
