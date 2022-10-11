@@ -28,9 +28,18 @@ export class ImportComponent implements OnInit {
   profiles: Profile[];
   selectedProfile: Profile;
 
+  priorities = [
+    'lowest',
+    'low',
+    'medium',
+    'high',
+    'highest'
+  ];
+  selectedPriority = 'medium';
+
   folders: Folder[] = [];
   nonStatusProfiles: string[] = [
-    'profile.default_archive_import', 
+    'profile.default_archive_import',
     'profile.default_kramerius_import',
      'profile.ndk_monograph_kramerius_import',
     'profile.ndk_periodical_kramerius_import',
@@ -89,7 +98,7 @@ export class ImportComponent implements OnInit {
     }
   }
 
-  
+
 
   reRead(folder: Folder) {
     // this.importService.toggleFoder(this.tree.folder);
@@ -101,7 +110,7 @@ export class ImportComponent implements OnInit {
         folder.state = "NEW";
         folder.states.find(s => s.profile === this.selectedProfile.id).state = "NEW"
       }
-      
+
     });
   }
 
@@ -158,7 +167,7 @@ export class ImportComponent implements OnInit {
 
   onLoad() {
     const selectedFolders: Folder[] = [];
-    
+
     this.folders.forEach(f => {
       if (f.selected && this.canSelect(f)) {
         selectedFolders.push(f);
@@ -169,7 +178,7 @@ export class ImportComponent implements OnInit {
       return;
     }
     if (this.nonStatusProfiles.includes(this.selectedProfile.id)) {
-      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, this.generateIndex, this.selectedDevice.id).subscribe((response: any) => {
+      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, this.generateIndex, this.selectedDevice.id, this.selectedPriority).subscribe((response: any) => {
         const data: SimpleDialogData = {
           title: "Načtení adresářů",
           message: "Načtení adresářů se zpracovává na pozadí.",
@@ -192,7 +201,7 @@ export class ImportComponent implements OnInit {
         });
       });
     } else if (selectedFolders.length === 1) {
-      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, this.generateIndex, this.selectedDevice.id).subscribe((response: any) => {
+      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, this.generateIndex, this.selectedDevice.id, this.selectedPriority).subscribe((response: any) => {
 
         if (response['response'].errors) {
           console.log('error', response['response'].errors);

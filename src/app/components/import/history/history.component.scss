@@ -27,6 +27,7 @@
     }
     .app-filter {
       margin-left: 10px;
+      width: 150px;
     }
   }
   .app-table {
@@ -48,8 +49,14 @@
     }
     .batch-modified {
       width: 125px;
-    }    
+    }
     .batch-state {
+      width: 120px;
+    }
+    .batch-profile {
+      width: 120px;
+    }
+    .batch-priority {
       width: 120px;
     }
     .batch-user {

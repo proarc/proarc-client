@@ -13,6 +13,8 @@ export class Batch {
   public failure: string;
   public parentPid: string;
   public pageCount: number;
+  public folderPah: string;
+  public priority: string;
 
   public static fromJson(json: any): Batch {
       const batch = new Batch();
@@ -27,6 +29,8 @@ export class Batch {
       batch.parentPid = json['parentPid'];
       batch.failure = json['failure'];
       batch.pageCount = json['pageCount'] ? parseInt(json['pageCount']) : 0;
+      batch.folderPah = json['folderPath'];
+      batch.priority = json['priority'];
       return batch;
   }
 
@@ -48,5 +52,5 @@ export class Batch {
   isLoading() {
     return this.state === 'LOADING';
   }
-  
+
 }
