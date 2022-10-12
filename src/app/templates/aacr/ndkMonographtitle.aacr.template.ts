@@ -146,26 +146,26 @@ export class NdkMonographTitleAacrTemplate {
             },
           }
         },
-        issuance: {
-          usage: 'O',
-          label: 'Vydání',
-          selector: 'originInfo/issuance',
-          labelKey: 'originInfo/issuance',
-          cols: 2,
-          description: `Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>
-            Možné hodnoty
-            <ul>
-              <li>Monografické (monographic)</li>
-              <li>Vícedílné (multipart monograph)</li>
-              <li>Jednotkové (single unit)</li>
-            </ul>`,
-          options: [
-            ['', '-'],
-            ['monographic', 'Monografické'],
-            ['single unit', 'Jednotkové'],
-            ['multipart monograph', 'Vícedílné']
-          ]
-        },
+        // issuance: {
+        //   usage: 'O',
+        //   label: 'Vydání',
+        //   selector: 'originInfo/issuance',
+        //   labelKey: 'originInfo/issuance',
+        //   cols: 2,
+        //   description: `Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>
+        //     Možné hodnoty
+        //     <ul>
+        //       <li>Monografické (monographic)</li>
+        //       <li>Vícedílné (multipart monograph)</li>
+        //       <li>Jednotkové (single unit)</li>
+        //     </ul>`,
+        //   options: [
+        //     ['', '-'],
+        //     ['monographic', 'Monografické'],
+        //     ['single unit', 'Jednotkové'],
+        //     ['multipart monograph', 'Vícedílné']
+        //   ]
+        // },
         place: {
           usage: 'O',
           label: 'Místo',
