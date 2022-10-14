@@ -54,6 +54,8 @@
     "failure": "Objekt se nepodařilo vytvořit",
     "create_new": "Připravit nový objekt",
     "create": "Vytvořit",
+    "create_edit": "Vytvořit a přejít do objektu",
+    "create_back": "Vytvořit",
     "seriesPartNumberFrom": "Číslo od",
     "seriesDateFrom": "Datum od",
     "seriesDateTo": "Datum do"

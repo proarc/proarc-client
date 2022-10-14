@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatInput } from '@angular/material/input';
 
 @Component({
   selector: 'app-login',
@@ -9,6 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
+  @ViewChild('username') nameInput: MatInput;
 
   state = 'none';
 
@@ -19,6 +22,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.error = null;
+    setTimeout(() => {
+      this.nameInput.focus();
+    }, 100);
+    
   }
 
   onSubmit(form: NgForm) {

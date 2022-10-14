@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { AlertDialogComponent } from '../dialogs/alert-dialog/alert-dialog.component';
 
 @Injectable()
 export class UIService {
+
+  private refreshSubject = new Subject<boolean>();
+  public refresh : Observable<boolean> = this.refreshSubject.asObservable();
 
   dialogRef: MatDialogRef<AlertDialogComponent>;
   constructor(
@@ -15,6 +18,10 @@ export class UIService {
     private snackBar: MatSnackBar,
     private translator: TranslateService
   ) {
+  }
+
+  public shoulRefresh() {
+    this.refreshSubject.next(true);
   }
 
   public showErrorDialog(data: { type: string; title: string; message: any[] | string[]; }) {

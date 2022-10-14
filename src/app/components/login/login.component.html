@@ -4,8 +4,8 @@
     <div class="app-card-content">
       <mat-form-field>
         <input 
-          type="text" 
-          matInput 
+          type="text" #username="matInput"
+          matInput cdkFocusInitial
           [placeholder]="'login.username' | translate" 
           ngModel 
           name="username"

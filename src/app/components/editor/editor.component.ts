@@ -32,6 +32,7 @@ export class EditorComponent implements OnInit {
     public config: ConfigService,
     private properties: LocalStorageService,
     private dialog: MatDialog
+
     ) { }
 
 

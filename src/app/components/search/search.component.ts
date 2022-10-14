@@ -102,6 +102,10 @@ export class SearchComponent implements OnInit {
     this.api.getUsers().subscribe((users: User[]) => {
       this.users = users;
     });
+
+    this.ui.refresh.subscribe(v => {
+      this.reload();
+    });
   }
 
   filter() {

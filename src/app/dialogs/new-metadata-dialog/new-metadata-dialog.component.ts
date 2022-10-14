@@ -122,7 +122,7 @@ export class NewMetadataDialogComponent implements OnInit {
 
   }
 
-  onSave() {
+  onSave(gotoEdit: boolean) {
     if (this.isPage()) {
       this.savePage();
       return;
@@ -145,16 +145,22 @@ export class NewMetadataDialogComponent implements OnInit {
         this.state = 'success';
         this.editor.state = 'success';
         this.editor.resetChanges();
-        this.dialogRef.close(response['response']['data'][0]);
+        if (gotoEdit) {
+          this.dialogRef.close(response['response']['data'][0]);
+        } else {
+          this.ui.shoulRefresh();
+          this.dialogRef.close();
+        }
+        
         //this.router.navigate(['/document', pid]);
 
       });
     } else {
-      this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', true);
+      this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', true, gotoEdit);
     }
   }
 
-  confirmSave(title: string, message: string, ignoreValidation: boolean) {
+  confirmSave(title: string, message: string, ignoreValidation: boolean, gotoEdit: boolean) {
     const data: SimpleDialogData = {
       title,
       message,
@@ -188,7 +194,13 @@ export class NewMetadataDialogComponent implements OnInit {
           const pid = response['response']['data'][0]['pid'];
           this.state = 'success';
           this.editor.resetChanges();
-          this.dialogRef.close(response['response']['data'][0]);
+          if (gotoEdit) {
+            this.dialogRef.close(response['response']['data'][0]);
+          } else {
+            this.ui.shoulRefresh();
+            this.dialogRef.close();
+          }
+
 
         });
       }

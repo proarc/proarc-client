@@ -132,6 +132,9 @@ export class EditorService {
     }
 
     init(params: EditorParams) {
+        this.ui.refresh.subscribe(v => {
+            location.reload();
+          });
         this.isDirty = false;
         this.isLeftDirty = false;
         this.pid = params.pid;

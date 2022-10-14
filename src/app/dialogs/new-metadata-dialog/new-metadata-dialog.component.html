@@ -17,6 +17,7 @@
 </div>
 
 <div mat-dialog-actions cdk-focus-start>
-  <button mat-raised-button color="default" (click)="onSave()" >{{ 'new_object.create' | translate }}</button>
+  <button mat-raised-button color="default" (click)="onSave(true)" >{{ 'new_object.create_edit' | translate }}</button>
+  <button mat-raised-button color="default" (click)="onSave(false)" >{{ 'new_object.create_back' | translate }}</button>
   <button mat-raised-button color="default" (click)="onClose()" >{{ 'common.close' | translate }}</button>
 </div>
