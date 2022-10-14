@@ -12,13 +12,16 @@
         <div class="app-toolbar" *ngIf="!editor.preparation">
           <div class="app-label">
             <div class="app-label-title">
-              <ng-container *ngFor="let p of editor.path">
+              <ng-container *ngFor="let p of editor.path; let last = last">
                 <a (click)="editor.goToObjectByPid(p.pid)" [title]="'model.' + p.model | translate">{{ p.label }}</a>
-                <mat-icon class="icon-half">chevron_right</mat-icon>
+                <mat-icon class="icon-half" *ngIf="!last">chevron_right</mat-icon>
               </ng-container>
-              {{ editor.left.label }}
+              <ng-container *ngIf="editor.path.length === 0">{{ editor.left.label }}</ng-container>
             </div>
-            <div class="app-label-model">{{ 'model.' + editor.left.model | translate }}</div>
+            
+            <div *ngIf="editor.path.length === 0" class="app-label-model">{{ 'model.' + editor.left.model | translate }}</div>
+            <div *ngIf="editor.path.length > 0" class="app-label-model">{{ 'model.' + editor.left.model | translate }} - {{ editor.left.label }}</div>
+              
           </div>
 
           <div class="app-actions">

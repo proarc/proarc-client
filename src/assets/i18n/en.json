@@ -50,6 +50,8 @@
     "pid": "PID",
     "failure": "Failed to create the object",
     "create": "Create new object",
+    "create_edit": "Create and edit",
+    "create_back": "Create",
     "seriesPartNumberFrom": "Number from",
     "seriesDateFrom": "Date from",
     "seriesDateTo": "Date to"
