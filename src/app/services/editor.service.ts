@@ -44,7 +44,7 @@ export class EditorService {
     public doubleRight = false;
 
     public left: DocumentItem | null;
-    public right: DocumentItem | null;
+    public selectedItem: DocumentItem | null;
     public children: DocumentItem[];
     public lastSelected: DocumentItem | null;
 
@@ -93,7 +93,7 @@ export class EditorService {
             return this.isDirty;
         } else if (this.mode == 'children') {
             return this.isLeftDirty || this.isDirty || (this.metadata && this.metadata.hasChanges());
-        } else if (this.page && (this.left.isPage() || this.right.isPage())) {
+        } else if (this.page && (this.left.isPage() || this.selectedItem.isPage())) {
             return this.page.hasChanged();
         } else if (this.metadata && (!this.left.isPage() && !this.left.isChronicle()) || this.rightEditorType === 'metadata') {
             return this.metadata.hasChanges();
@@ -142,7 +142,7 @@ export class EditorService {
         this.nextItem = null;
         this.parent = null;
         this.left = null;
-        this.right = null;
+        this.selectedItem = null;
         this.selectRight(null);
         this.ready = false;
         this.metadata = null;
@@ -155,7 +155,7 @@ export class EditorService {
             const item: DocumentItem = DocumentItem.fromJson(params.metadata);
             item.notSaved = true;
             if (item.isPage()) {
-                this.right = item;
+                this.selectedItem = item;
 
             } else {
                 this.metadata = new Metadata(params.metadata.pid, params.metadata.model, params.metadata.content, params.metadata.timestamp);
@@ -241,9 +241,9 @@ export class EditorService {
                 this.children = pages;
                 if (this.children.length > 0) {
                     let index = 0;
-                    if (this.right) {
+                    if (this.selectedItem) {
                         for (let i = 0; i < this.children.length; i++) {
-                            if (this.right.pid == this.children[i].pid) {
+                            if (this.selectedItem.pid == this.children[i].pid) {
                                 index = i;
                                 break;
                             }
@@ -266,7 +266,7 @@ export class EditorService {
     moveToNext() {
         let index = -1;
         for (let i = 0; i < this.children.length; i++) {
-            if (this.right == this.children[i]) {
+            if (this.selectedItem == this.children[i]) {
                 index = i;
                 break;
             }
@@ -374,23 +374,23 @@ export class EditorService {
         }
         setTimeout(() => {
             this.doubleRight = true;
-            this.properties.setBoolProperty('editor.double_right_' + this.right!.model, true);
+            this.properties.setBoolProperty('editor.double_right_' + this.selectedItem!.model, true);
         }, 100);
     }
 
 
     public isDoubleRight(): boolean {
-        return this.doubleRight && this.right && this.right.isPage() && !this.showRelocationEditor();
+        return this.doubleRight && this.selectedItem && this.selectedItem.isPage() && !this.showRelocationEditor();
     }
 
     public leaveDoubleRight() {
         this.doubleRight = false;
-        this.properties.setBoolProperty('editor.double_right_' + this.right.model, false);
+        this.properties.setBoolProperty('editor.double_right_' + this.selectedItem.model, false);
     }
 
 
     public showRightObjectEditor(): boolean {
-        return this.right && !this.relocationMode && (this.numberOfSelectedChildren() < 2);
+        return this.selectedItem && !this.relocationMode && (this.numberOfSelectedChildren() < 2);
     }
 
     public showRelocationEditor(): boolean {
@@ -433,12 +433,12 @@ export class EditorService {
 
     public switchRightEditor(type: string) {
         this.rightEditorType = type;
-        this.properties.setStringProperty('editor.right_editor_' + this.right.model, type);
+        this.properties.setStringProperty('editor.right_editor_' + this.selectedItem.model, type);
     }
 
     public switchThirdEditor(type: string) {
         this.thirdEditorType = type;
-        this.properties.setStringProperty('editor.third_editor_' + this.right.model, type);
+        this.properties.setStringProperty('editor.third_editor_' + this.selectedItem.model, type);
     }
 
     public switchMode(mode: string) {
@@ -548,7 +548,7 @@ export class EditorService {
                 this.doubleRight = false;
             }
         }
-        this.right = item;
+        this.selectedItem = item;
         this.rightDocumentsubject.next(item);
     }
 
@@ -730,7 +730,7 @@ export class EditorService {
                         }
                     });
                 } else if (this.mode === 'detail') {
-                    this.selectRight(this.right);
+                    this.selectRight(this.selectedItem);
                 }
                 this.state = 'success';
             });
@@ -775,7 +775,7 @@ export class EditorService {
             if (this.preparation) {
                 this.reloadBatch(() => {
                     this.state = 'success';
-                    if (callback && newPage.pid == this.right.pid) {
+                    if (callback && newPage.pid == this.selectedItem.pid) {
                         callback(newPage);
                     }
                 }, moveToNext);
@@ -784,7 +784,7 @@ export class EditorService {
                     if (this.mode === 'children') {
                         this.reloadChildren(() => {
                             this.state = 'success';
-                            if (callback && newPage.pid == this.right.pid) {
+                            if (callback && newPage.pid == this.selectedItem.pid) {
                                 callback(newPage);
                             }
                         }, moveToNext);
@@ -849,16 +849,16 @@ export class EditorService {
     }
 
     loadMetadata(callback: () => void) {
-        if (this.metadata && this.metadata.pid === this.right.pid) {
+        if (this.metadata && this.metadata.pid === this.selectedItem.pid) {
             callback();
             return;
         }
-        if (this.right.notSaved) {
-            this.metadata = new Metadata(this.right.pid, this.right.model, this.right.content, 0);
+        if (this.selectedItem.notSaved) {
+            this.metadata = new Metadata(this.selectedItem.pid, this.selectedItem.model, this.selectedItem.content, 0);
             callback();
             return;
         }
-        this.api.getMetadata(this.right.pid, this.right.model).subscribe((metadata: Metadata) => {
+        this.api.getMetadata(this.selectedItem.pid, this.selectedItem.model).subscribe((metadata: Metadata) => {
             this.metadata = metadata;
             if (callback) {
                 callback();
@@ -872,7 +872,7 @@ export class EditorService {
         if (this.isMultipleChildrenMode()) {
             pids = this.children.filter(c => c.selected).map(c => c.pid);
         } else {
-            pids = [this.right.pid];
+            pids = [this.selectedItem.pid];
         }
         this.api.deleteObjects(pids, pernamently, this.getBatchId()).subscribe((response: any) => {
 
@@ -933,7 +933,7 @@ export class EditorService {
         if (this.isMultipleChildrenMode()) {
             pids = this.children.filter(c => c.selected).map(c => c.pid);
         } else {
-            pids = [this.right.pid];
+            pids = [this.selectedItem.pid];
         }
         this.api.setParent(this.left.pid, destinationPid).subscribe((response: any) => {
             if (response['response'].errors) {
@@ -959,7 +959,7 @@ export class EditorService {
         if (this.isMultipleChildrenMode()) {
             pids = this.children.filter(c => c.selected).map(c => c.pid);
         } else {
-            pids = [this.right.pid];
+            pids = [this.selectedItem.pid];
         }
         this.api.relocateObjects(parentPid, destinationPid, pids).subscribe((response: any) => {
             if (response['response'].errors) {
@@ -1005,7 +1005,7 @@ export class EditorService {
     setMultipleChildrenMode(enabled: boolean) {
         if (enabled) {
             this.multipleChildrenMode = true;
-            this.right.selected = true;
+            this.selectedItem.selected = true;
             // this.doubleRight = false;
             // this.selectRight(null);
         } else {
@@ -1028,7 +1028,7 @@ export class EditorService {
         let index = -1;
         for (const child of this.children) {
             index += 1;
-            if (this.right == child) {
+            if (this.selectedItem == child) {
                 // if (child.selected) {
                 return index;;
             }
@@ -1260,10 +1260,10 @@ export class EditorService {
                     }
                 }
             } else {
-                if (this.right) {
+                if (this.selectedItem) {
                     let index = 0;
                     for (let i = 0; i < children.length; i++) {
-                        if (this.right.pid == children[i].pid) {
+                        if (this.selectedItem.pid == children[i].pid) {
                             index = i;
                             break;
                         }

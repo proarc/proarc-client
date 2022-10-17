@@ -49,7 +49,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
         } 
       }
     );
-    this.reload(this.editor.right);
+    this.reload(this.editor.selectedItem);
   }
 
   ngAfterViewInit() {

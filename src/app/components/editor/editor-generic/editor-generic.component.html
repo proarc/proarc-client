@@ -1,0 +1,80 @@
+<div class="app-toolbar" *ngIf="switchable">
+  <div class="app-context" *ngIf="!editor.showRelocationEditor()">
+    <button *ngIf="editor.mode != 'detail'" matTooltip="{{ 'editor.toolbar.editor_metadata' | translate }}"
+      [class.app-inactive]="editor.rightEditorType != 'metadata'" (click)="editor.switchRightEditor('metadata')"
+      mat-icon-button>
+      <span class="app-text-icon">M</span>
+    </button>
+    <button *ngIf="editor.selectedItem.isPage() && !editor.doubleRight"
+      matTooltip="{{ 'editor.toolbar.editor_image' | translate }}"
+      [class.app-inactive]="editorType != 'image'" (click)="editorType = 'image'"
+      mat-icon-button>
+      <mat-icon>image</mat-icon>
+    </button>
+    <button *ngIf="editor.selectedItem.isSong() && !editor.doubleRight"
+      matTooltip="{{ 'editor.toolbar.editor_song' | translate }}"
+      [class.app-inactive]="editorType != 'song'" (click)="editorType = 'song'"
+      mat-icon-button>
+      <mat-icon>audiotrack</mat-icon>
+    </button>
+    <button *ngIf="editor.selectedItem.canContainPdf() && !editor.doubleRight"
+      matTooltip="{{ 'editor.toolbar.editor_pdf' | translate }}"
+      [class.app-inactive]="editorType != 'pdf'" (click)="editorType = 'pdf'"
+      mat-icon-button>
+      <mat-icon>picture_as_pdf</mat-icon>
+    </button>
+    <button *ngIf="!editor.doubleRight" matTooltip="{{ 'editor.toolbar.editor_mods' | translate }}"
+      [class.app-inactive]="editorType !== 'mods'" (click)="editorType = 'mods'"
+      mat-icon-button>
+      <mat-icon>code</mat-icon>
+    </button>
+    <button *ngIf="editor.selectedItem.isPage()" matTooltip="{{ 'editor.toolbar.editor_ocr' | translate }}"
+      [class.app-inactive]="editorType != 'ocr'" (click)="editorType = 'ocr'"
+      mat-icon-button>
+      <mat-icon>title</mat-icon>
+    </button>
+    <button matTooltip="{{ 'editor.toolbar.editor_atm' | translate }}"
+      [class.app-inactive]="editorType != 'atm'" (click)="editorType = 'atm'"
+      mat-icon-button>
+      <mat-icon>scanner</mat-icon>
+    </button>
+    <button *ngIf="config.showCommentEditor" matTooltip="{{ 'editor.toolbar.editor_comment' | translate }}"
+      [class.app-inactive]="editorType != 'comment'" (click)="editor.switchRightEditor('comment')"
+      mat-icon-button>
+      <mat-icon>format_quote</mat-icon>
+    </button>
+
+    <button *ngIf="!editor.doubleRight && editor.mode == 'children'" (click)="editor.enterDoubleRight()"
+      mat-icon-button matTooltip="{{ 'editor.toolbar.editor_enter_double_right' | translate }}">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+  </div>
+
+</div>
+
+<div class="app-content" [ngSwitch]="editorType">
+  <app-editor-children *ngSwitchCase="'children'" [items]="data"></app-editor-children>
+  <app-viewer *ngSwitchCase="'image'" [pid]="pid"></app-viewer>
+  <app-editor-mods *ngSwitchCase="'mods'"></app-editor-mods>
+  <app-editor-ocr *ngSwitchCase="'ocr'" [pid]="pid"></app-editor-ocr>
+  <app-editor-comment *ngSwitchCase="'comment'" [pid]="pid"></app-editor-comment>
+  <app-editor-atm *ngSwitchCase="'atm'" [pid]="pid"></app-editor-atm>
+  <!-- <app-editor-metadata *ngSwitchCase="'metadata'" [pid]="pid"></app-editor-metadata> -->
+
+
+  <ng-container *ngSwitchCase="'metadata'">
+    <app-editor-page *ngIf="editor.left.isPage()" [model]="editor.left.model" [pid]="editor.left.pid">
+    </app-editor-page>
+    <app-editor-song *ngIf="editor.left.isSong()" [model]="editor.left.model" [pid]="editor.left.pid">
+    </app-editor-song>
+    <app-editor-chronicle *ngIf="editor.left.isChronicle()" [pid]="editor.left.pid"></app-editor-chronicle>
+    <app-editor-bdm *ngIf="editor.left.isBdm()" [pid]="editor.left.pid"></app-editor-bdm>
+    <app-editor-metadata *ngIf="!editor.left.isPage() && !editor.left.isChronicle() && !editor.left.isBdm()" [pid]="editor.left.pid">
+    </app-editor-metadata>
+  </ng-container>
+
+  <app-editor-geo *ngIf="editor.leftEditorType == 'geo'" [pid]="editor.left.pid"></app-editor-geo>
+
+  <!-- <app-editor-metadata *ngIf="editor.leftEditorType == 'geo'" [pid]="editor.left.pid"></app-editor-metadata> -->
+
+</div>

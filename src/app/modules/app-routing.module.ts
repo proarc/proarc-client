@@ -14,9 +14,11 @@ import { SettingsComponent } from '../components/settings/settings.component';
 import { ConfirmLeaveEditorGuard } from '../confirm-leave-editor.guard';
 import { AdminComponent } from '../components/admin/admin.component';
 import { WorkflowComponent } from '../components/workflow/workflow.component';
+import { RepositoryComponent } from '../pages/repository/repository.component';
 
 const routes: Routes = [
   { path: 'document/:pid', component: EditorComponent, canDeactivate:[ConfirmLeaveEditorGuard] },
+  { path: 'repository/:pid', component: RepositoryComponent, canDeactivate:[ConfirmLeaveEditorGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'devices', component: DevicesComponent },

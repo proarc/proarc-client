@@ -38,11 +38,26 @@ export class EditorMetadataComponent implements OnInit {
       // nic, uz mame metadata v editoru
       // this.editor.metadata = this.metadata;
     } else {
+      this.load(pid);
+    }
+  }
+
+  load(pid: string) {
+
       this.state = 'loading';
+
+      // this.api.getMetadata(pid, this.right.model).subscribe((metadata: Metadata) => {
+      //     this.metadata = metadata;
+      //     if (callback) {
+      //         callback();
+      //     }
+      //     this.state = 'success';
+      // });
+
+
       this.editor.loadMetadata(() => {
         this.state = 'success';
       });
-    }
   }
 
   available(element: string): boolean {

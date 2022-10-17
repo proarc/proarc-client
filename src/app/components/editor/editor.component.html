@@ -124,10 +124,10 @@
     <as-split-area #area2="asSplitArea" [minSize]="20" [size]="getSplitSize(1)">
 
       <div class="app-panel" [class.app-disabled]="editor.isLeftDirty">
-        <div class="app-toolbar" *ngIf="editor.right && editor.numberOfSelectedChildren() < 2">
+        <div class="app-toolbar" *ngIf="editor.selectedItem && editor.numberOfSelectedChildren() < 2">
           <div class="app-label">
-            <div class="app-label-title">{{ editor.right.label }}</div>
-            <div class="app-label-model">{{ 'model.' + editor.right.model | translate }}</div>
+            <div class="app-label-title">{{ editor.selectedItem.label }}</div>
+            <div class="app-label-model">{{ 'model.' + editor.selectedItem.model | translate }}</div>
           </div>
           <div class="app-context" *ngIf="!editor.showRelocationEditor()">
             <button *ngIf="editor.mode != 'detail'" matTooltip="{{ 'editor.toolbar.editor_metadata' | translate }}"
@@ -135,19 +135,19 @@
               mat-icon-button>
               <span class="app-text-icon">M</span>
             </button>
-            <button *ngIf="editor.right.isPage() && !editor.doubleRight"
+            <button *ngIf="editor.selectedItem.isPage() && !editor.doubleRight"
               matTooltip="{{ 'editor.toolbar.editor_image' | translate }}"
               [class.app-inactive]="editor.rightEditorType != 'image'" (click)="editor.switchRightEditor('image')"
               mat-icon-button>
               <mat-icon>image</mat-icon>
             </button>
-            <button *ngIf="editor.right.isSong() && !editor.doubleRight"
+            <button *ngIf="editor.selectedItem.isSong() && !editor.doubleRight"
               matTooltip="{{ 'editor.toolbar.editor_song' | translate }}"
               [class.app-inactive]="editor.rightEditorType != 'song'" (click)="editor.switchRightEditor('song')"
               mat-icon-button>
               <mat-icon>audiotrack</mat-icon>
             </button>
-            <button *ngIf="editor.right.canContainPdf() && !editor.doubleRight"
+            <button *ngIf="editor.selectedItem.canContainPdf() && !editor.doubleRight"
               matTooltip="{{ 'editor.toolbar.editor_pdf' | translate }}"
               [class.app-inactive]="editor.rightEditorType != 'pdf'" (click)="editor.switchRightEditor('pdf')"
               mat-icon-button>
@@ -158,7 +158,7 @@
               mat-icon-button>
               <mat-icon>code</mat-icon>
             </button>
-            <button *ngIf="editor.right.isPage()" matTooltip="{{ 'editor.toolbar.editor_ocr' | translate }}"
+            <button *ngIf="editor.selectedItem.isPage()" matTooltip="{{ 'editor.toolbar.editor_ocr' | translate }}"
               [class.app-inactive]="editor.rightEditorType != 'ocr'" (click)="editor.switchRightEditor('ocr')"
               mat-icon-button>
               <mat-icon>title</mat-icon>
@@ -189,7 +189,7 @@
               editor.numberOfSelectedChildren() } }}</div>
           </div>
           <div class="app-context">
-            <button *ngIf="editor.right.isPage() && !editor.doubleRight" (click)="editor.enterDoubleRight()"
+            <button *ngIf="editor.selectedItem.isPage() && !editor.doubleRight" (click)="editor.enterDoubleRight()"
               mat-icon-button matTooltip="{{ 'editor.toolbar.editor_enter_double_right' | translate }}">
               <mat-icon>keyboard_arrow_right</mat-icon>
             </button>
@@ -197,22 +197,22 @@
         </div>
 
         <div class="app-content" *ngIf="editor.showRightObjectEditor()">
-          <app-viewer *ngIf="editor.rightEditorType == 'image'" [pid]="editor.right.pid"></app-viewer>
-          <app-pdf *ngIf="editor.rightEditorType == 'pdf'" [pid]="editor.right.pid"></app-pdf>
-          <app-song *ngIf="editor.rightEditorType == 'song'" [pid]="editor.right.pid"></app-song>
-          <app-editor-ocr *ngIf="editor.rightEditorType == 'ocr'" [pid]="editor.right.pid"></app-editor-ocr>
+          <app-viewer *ngIf="editor.rightEditorType == 'image'" [pid]="editor.selectedItem.pid"></app-viewer>
+          <app-pdf *ngIf="editor.rightEditorType == 'pdf'" [pid]="editor.selectedItem.pid"></app-pdf>
+          <app-song *ngIf="editor.rightEditorType == 'song'" [pid]="editor.selectedItem.pid"></app-song>
+          <app-editor-ocr *ngIf="editor.rightEditorType == 'ocr'" [pid]="editor.selectedItem.pid"></app-editor-ocr>
           <app-editor-mods *ngIf="editor.rightEditorType == 'mods'"></app-editor-mods>
-          <app-editor-comment *ngIf="editor.rightEditorType == 'comment'" [pid]="editor.right.pid"></app-editor-comment>
-          <app-editor-atm *ngIf="editor.rightEditorType == 'atm'" [pid]="editor.right.pid"></app-editor-atm>
+          <app-editor-comment *ngIf="editor.rightEditorType == 'comment'" [pid]="editor.selectedItem.pid"></app-editor-comment>
+          <app-editor-atm *ngIf="editor.rightEditorType == 'atm'" [pid]="editor.selectedItem.pid"></app-editor-atm>
           <ng-container *ngIf="editor.rightEditorType == 'metadata'">
-            <app-editor-page *ngIf="editor.right.isPage()" [model]="editor.right.model" [pid]="editor.right.pid">
+            <app-editor-page *ngIf="editor.selectedItem.isPage()" [model]="editor.selectedItem.model" [pid]="editor.selectedItem.pid">
             </app-editor-page>
-            <app-editor-song *ngIf="editor.right.isSong()" [model]="editor.right.model" [pid]="editor.right.pid">
+            <app-editor-song *ngIf="editor.selectedItem.isSong()" [model]="editor.selectedItem.model" [pid]="editor.selectedItem.pid">
             </app-editor-song>
-            <app-editor-metadata *ngIf="!editor.right.isPage()" [pid]="editor.right.pid"></app-editor-metadata>
+            <app-editor-metadata *ngIf="!editor.selectedItem.isPage()" [pid]="editor.selectedItem.pid"></app-editor-metadata>
             <!--
-          <app-editor-issue *ngIf="editor.right.isIssue()" [pid]="editor.right.pid"></app-editor-issue>
-          <app-editor-volume *ngIf="editor.right.isVolume()" [pid]="editor.right.pid"></app-editor-volume> -->
+          <app-editor-issue *ngIf="editor.selectedItem.isIssue()" [pid]="editor.selectedItem.pid"></app-editor-issue>
+          <app-editor-volume *ngIf="editor.selectedItem.isVolume()" [pid]="editor.selectedItem.pid"></app-editor-volume> -->
           </ng-container>
         </div>
 
@@ -229,23 +229,23 @@
     </as-split-area>
 
 
-    <as-split-area *ngIf="editor.right && editor.doubleRight" #area3="asSplitArea" [minSize]="20"
+    <as-split-area *ngIf="editor.selectedItem && editor.doubleRight" #area3="asSplitArea" [minSize]="20"
       [size]="getSplitSize(2)">
 
 
       <div class="app-panel">
         <div class="app-toolbar">
           <div class="app-label">
-            <div class="app-label-title">{{ editor.right.label }}</div>
-            <div class="app-label-model">{{ 'model.' + editor.right.model | translate }}</div>
+            <div class="app-label-title">{{ editor.selectedItem.label }}</div>
+            <div class="app-label-model">{{ 'model.' + editor.selectedItem.model | translate }}</div>
           </div>
           <div class="app-context">
-            <button *ngIf="editor.right.isPage()" matTooltip="{{ 'editor.toolbar.editor_image' | translate }}"
+            <button *ngIf="editor.selectedItem.isPage()" matTooltip="{{ 'editor.toolbar.editor_image' | translate }}"
               [class.app-inactive]="editor.thirdEditorType != 'image'" (click)="editor.switchThirdEditor('image')"
               mat-icon-button>
               <mat-icon>image</mat-icon>
             </button>
-            <button *ngIf="editor.right.isSong()" matTooltip="{{ 'editor.toolbar.editor_song' | translate }}"
+            <button *ngIf="editor.selectedItem.isSong()" matTooltip="{{ 'editor.toolbar.editor_song' | translate }}"
               [class.app-inactive]="editor.thirdEditorType != 'song'" (click)="editor.switchThirdEditor('song')"
               mat-icon-button>
               <mat-icon>audiotrack</mat-icon>
@@ -262,8 +262,8 @@
           </div>
         </div>
         <div class="app-content">
-          <app-pdf *ngIf="editor.thirdEditorType == 'pdf'" [pid]="editor.right.pid"></app-pdf>
-          <app-song *ngIf="editor.thirdEditorType == 'song'" [pid]="editor.right.pid"></app-song>
+          <app-pdf *ngIf="editor.thirdEditorType == 'pdf'" [pid]="editor.selectedItem.pid"></app-pdf>
+          <app-song *ngIf="editor.thirdEditorType == 'song'" [pid]="editor.selectedItem.pid"></app-song>
           <app-viewer *ngIf="editor.thirdEditorType == 'image'" [pid]="editor.lastSelected.pid"></app-viewer>
           <app-editor-mods *ngIf="editor.thirdEditorType == 'mods'"></app-editor-mods>
         </div>

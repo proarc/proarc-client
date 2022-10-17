@@ -107,12 +107,12 @@ export class EditorPageComponent implements OnInit {
 
   private onPidChanged(pid: string) {
     this.state = 'loading';
-    if (this.editor.right.notSaved) {
+    if (this.editor.selectedItem.notSaved) {
       const page = new Page();
       page.pid = pid;
       page.type = 'normalPage';
-      page.model = this.editor.right.model;
-      page.number = this.editor.right.label;
+      page.model = this.editor.selectedItem.model;
+      page.number = this.editor.selectedItem.label;
       page.timestamp = new Date().getTime();
       this.setPage(page);
       this.controls.markAsDirty();
@@ -215,11 +215,11 @@ export class EditorPageComponent implements OnInit {
       return;
     }
     this.editor.page.removeEmptyIdentifiers();
-    if (this.editor.right.notSaved) {
+    if (this.editor.selectedItem.notSaved) {
       let data = `model=${this.editor.page.model}`;
       data = `${data}&pid=${this.editor.page.pid}`;
       data = `${data}&xml=${this.editor.page.toXml()}`;
-      data = `${data}&parent=${this.editor.right.parent}`;
+      data = `${data}&parent=${this.editor.selectedItem.parent}`;
       this.api.createObject(data).subscribe((response: any) => {
         if (response['response'].errors) {
           console.log('error', response['response'].errors);
@@ -227,7 +227,7 @@ export class EditorPageComponent implements OnInit {
           this.state = 'error';
           return;
         }
-        this.editor.right.notSaved = false;
+        this.editor.selectedItem.notSaved = false;
         const pid =  response['response']['data'][0]['pid'];
         this.editor.reloadChildren(() => {
             for (const item of this.editor.children) {

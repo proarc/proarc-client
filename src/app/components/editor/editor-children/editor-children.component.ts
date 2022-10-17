@@ -174,7 +174,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
     if (this.editor.isMultipleChildrenMode()) {
       return item.selected;
     } else {
-      const selected = this.editor.right === item;
+      const selected = this.editor.selectedItem === item;
       if (!this.movedToIndex && selected) {
         let container;
         if (type == 'grid') {
@@ -558,7 +558,7 @@ export class EditorChildrenComponent implements OnInit, AfterViewInit {
 
   onMove() {
     // this.translator.waitForTranslation().then(() => {
-      const fromIndex = this.editor.children.indexOf(this.editor.right);
+      const fromIndex = this.editor.children.indexOf(this.editor.selectedItem);
       const input = {
         label: String(this.translator.instant('editor.children.move_dialog.position')),
         value: fromIndex + 1,

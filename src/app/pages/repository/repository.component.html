@@ -1,0 +1,24 @@
+<div class="app-editor-wrapper" *ngIf="editor.ready">
+    <as-split direction="horizontal" [restrictMove]="false" [useTransition]="true">
+      <as-split-area [size]="50">
+        <as-split direction="vertical" [restrictMove]="false">
+          <as-split-area>
+            <app-editor-generic [editorType]="'children'" [pid]="pid" [data]="editor.children"></app-editor-generic>
+          </as-split-area>
+          <as-split-area>
+            <app-editor-generic [editorType]="'metadata'" [pid]="selectedPid"></app-editor-generic>
+          </as-split-area>
+        </as-split>
+      </as-split-area>
+      <as-split-area [size]="50">
+        <as-split direction="vertical" [restrictMove]="true">
+          <as-split-area [size]="60">
+            <app-editor-generic *ngIf="selectedPid" [editorType]="'mods'" [pid]="selectedPid" [item]="'selected'" [switchable]="true"></app-editor-generic>
+          </as-split-area>
+          <as-split-area [size]="40">
+            <app-editor-generic [editorType]="'atm'" [pid]="selectedPid"></app-editor-generic>
+          </as-split-area>
+        </as-split>
+      </as-split-area>
+    </as-split>
+</div>
