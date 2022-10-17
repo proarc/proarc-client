@@ -2,10 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { Device } from 'src/app/model/device.model';
 import { Atm } from 'src/app/model/atm.model';
-import { EditorService } from 'src/app/services/editor.service';
+// import { EditorService } from 'src/app/services/editor.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { User } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { RepositoryService } from 'src/app/services/repository.service';
 
 @Component({
   selector: 'app-editor-atm',
@@ -34,7 +35,11 @@ export class EditorAtmComponent implements OnInit {
     this.onPidChanged(pid);
   }
 
-  constructor(private editor: EditorService, private api: ApiService, private config: ConfigService, public auth: AuthService) {
+  constructor(
+    private repo: RepositoryService, 
+    private api: ApiService, 
+    private config: ConfigService, 
+    public auth: AuthService) {
   }
 
   ngOnInit() {
@@ -42,8 +47,12 @@ export class EditorAtmComponent implements OnInit {
   }
 
   private onPidChanged(pid: string) {
+    console.log(pid);
+    if (!pid) {
+      return;
+    }
     this.state = 'loading';
-   this.api.getAtm(pid, this.editor.getBatchId()).subscribe((atm: Atm) => {
+    this.api.getAtm(pid, null).subscribe((atm: Atm) => {
       this.atm = atm;
       if (this.devices) {
         this.state = 'success';
@@ -70,9 +79,9 @@ export class EditorAtmComponent implements OnInit {
     if (!this.atm.hasChanged()) {
       return;
     }
-    this.editor.saveAtm(this.atm, (atm: Atm) => {
-      this.atm = atm;
-    });
+    // this.editor.saveAtm(this.atm, (atm: Atm) => {
+    //   this.atm = atm;
+    // });
   }
 
 }

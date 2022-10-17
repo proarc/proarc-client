@@ -23,7 +23,8 @@ export class RepositoryComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.editor.watchRightDocument().subscribe((item: DocumentItem) => {
+    this.repo.selectionChanged().subscribe((item: DocumentItem) => {
+      console.log(item)
       if (item) {
         this.selectedPid = item.pid;
       }
@@ -36,7 +37,7 @@ export class RepositoryComponent implements OnInit {
         const q = results[1];
         this.pid = p.get('pid');
         if (this.pid) {
-          //this.repo.loadData(this.pid);
+          this.repo.loadData(this.pid);
 
           this.editor.init({
             pid: this.pid,
@@ -50,7 +51,7 @@ export class RepositoryComponent implements OnInit {
   }
 
   ngOnChanges() {
-    this.selectedPid = this.editor.numberOfSelectedChildren() < 1 ? this.pid : this.editor.getSelectedChildren()[0].pid
+    this.selectedPid = this.repo.getNumOfSelected() < 1 ? this.pid : this.repo.getFirstSelected().pid
   }
 
 }

@@ -53,7 +53,8 @@
 </div>
 
 <div class="app-content" [ngSwitch]="editorType">
-  <app-editor-children *ngSwitchCase="'children'" [items]="data"></app-editor-children>
+  <app-editor-structure *ngSwitchCase="'structure'" [items]="data"></app-editor-structure>
+  <!-- <app-editor-children *ngSwitchCase="'children'" [items]="data"></app-editor-children> -->
   <app-viewer *ngSwitchCase="'image'" [pid]="pid"></app-viewer>
   <app-editor-mods *ngSwitchCase="'mods'"></app-editor-mods>
   <app-editor-ocr *ngSwitchCase="'ocr'" [pid]="pid"></app-editor-ocr>

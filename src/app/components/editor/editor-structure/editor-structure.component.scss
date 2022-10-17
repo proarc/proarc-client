@@ -1,0 +1,13 @@
+table {
+  width: 100%;
+
+  tr {
+    &.selected {
+      background: #4469a5;
+      td {
+        color: #ffffff;
+      }
+    }
+
+  }
+}

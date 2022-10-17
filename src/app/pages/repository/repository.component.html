@@ -3,7 +3,7 @@
       <as-split-area [size]="50">
         <as-split direction="vertical" [restrictMove]="false">
           <as-split-area>
-            <app-editor-generic [editorType]="'children'" [pid]="pid" [data]="editor.children"></app-editor-generic>
+            <app-editor-generic [editorType]="'structure'" [pid]="pid" [data]="repo.children"></app-editor-generic>
           </as-split-area>
           <as-split-area>
             <app-editor-generic [editorType]="'metadata'" [pid]="selectedPid"></app-editor-generic>

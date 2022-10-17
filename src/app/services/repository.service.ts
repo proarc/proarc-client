@@ -14,6 +14,8 @@ export class RepositoryService {
   public children: DocumentItem[];
   public lastSelected: DocumentItem | null;
 
+  private selectionSubject = new Subject<DocumentItem>();
+
   constructor(
     private api: ApiService) { }
 
@@ -27,5 +29,28 @@ export class RepositoryService {
       this.children = children;
       this.ready = true;
     });
+  }
+
+  selectOne(item: DocumentItem) {
+    this.children.forEach(i => i.selected = false);
+    item.selected = true;
+    this.lastSelected = item;
+    this.selectionSubject.next(item)
+  }
+
+  selectionChanged(): Observable<DocumentItem> {
+    return this.selectionSubject.asObservable();
+  }
+
+  getNumOfSelected() {
+    return this.children.filter(i => i.selected).length;
+  }
+
+  getSelected() {
+    return this.children.filter(i => i.selected);
+  }
+
+  getFirstSelected() {
+    return this.children.find(i => i.selected);
   }
 }

@@ -127,6 +127,7 @@ import { NewWorkflowDialogComponent } from './components/workflow/new-workflow-d
 import { ChangeModelDialogComponent } from './dialogs/change-model-dialog/change-model-dialog.component';
 import { RepositoryComponent } from './pages/repository/repository.component';
 import { EditorGenericComponent } from './components/editor/editor-generic/editor-generic.component';
+import { EditorStructureComponent } from './components/editor/editor-structure/editor-structure.component';
 
 
 // export function hljsLanguages() {
@@ -239,6 +240,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ChangeModelDialogComponent,
     RepositoryComponent,
     EditorGenericComponent,
+    EditorStructureComponent,
   ],
   imports: [
     BrowserModule,
