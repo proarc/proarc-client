@@ -2,13 +2,13 @@
 <div class="app-editor-content-wrapper">
     <div class="app-editor-toolbar">
         <div class="app-label">{{ 'editor.metadata.editor_title' | translate }}
-            <ng-container *ngIf="editor.metadata">
+            <ng-container *ngIf="repo.metadata[pid]">
                 <span class="app-label-circle"></span>
-                <span class="app-label-sub">{{ editor.metadata.standard }}</span>
+                <span class="app-label-sub">{{ repo.metadata[pid].standard }}</span>
             </ng-container>
         </div>
         <div class="app-actions-right" *ngIf="!notSaved">
-            <button class="app-action" (click)="onLoadFromCatalog()" [matTooltip]="'editor.metadata.catalog' | translate" mat-icon-button>
+            <button class="app-action" (click)="onLoadFromCatalog()" [matTooltip]="'repo.metadata[pid].catalog' | translate" mat-icon-button>
                 <mat-icon>local_library</mat-icon>
             </button>
             <div class="app-divider"></div>
@@ -18,24 +18,24 @@
         </div>
     </div>
 
-<div class="app-editor-content" *ngIf="editor.metadata">
-    <app-editor-title *ngIf="available('titleInfo')" [field]="editor.metadata.getField('titleInfo')"></app-editor-title>
-    <app-editor-publisher *ngIf="available('originInfo')" [field]="editor.metadata.getField('originInfo')"></app-editor-publisher>
-    <app-editor-author *ngIf="available('name')" [field]="editor.metadata.getField('name')"></app-editor-author>
-    <app-editor-location *ngIf="available('location')" [field]="editor.metadata.getField('location')"></app-editor-location>
-    <app-editor-subject *ngIf="available('subject')" [field]="editor.metadata.getField('subject')"></app-editor-subject>
-    <app-editor-part *ngIf="available('part')" [field]="editor.metadata.getField('part')"></app-editor-part>
-    <app-editor-language *ngIf="available('language')" [field]="editor.metadata.getField('language')"></app-editor-language>
-    <app-editor-abstract *ngIf="available('abstract')" [field]="editor.metadata.getField('abstract')"></app-editor-abstract>
-    <app-editor-physical *ngIf="available('physicalDescription')" [field]="editor.metadata.getField('physicalDescription')"></app-editor-physical>
-    <app-editor-note *ngIf="available('note')" [field]="editor.metadata.getField('note')"></app-editor-note>
-    <app-editor-genre *ngIf="available('genre')" [field]="editor.metadata.getField('genre')"></app-editor-genre>
-    <app-editor-classification *ngIf="available('classification')" [field]="editor.metadata.getField('classification')"></app-editor-classification>
-    <app-editor-resource *ngIf="available('typeOfResource')" [field]="editor.metadata.getField('typeOfResource')"></app-editor-resource>
-    <app-editor-tableOfContents *ngIf="available('tableOfContents')" [field]="editor.metadata.getField('tableOfContents')"></app-editor-tableOfContents>
-    <app-editor-identifier *ngIf="available('identifier')" [field]="editor.metadata.getField('identifier')"></app-editor-identifier>
-    <app-editor-recordInfo *ngIf="available('recordInfo')" [field]="editor.metadata.getField('recordInfo')"></app-editor-recordInfo>
-    <app-editor-relatedItem *ngIf="available('relatedItem')" [field]="editor.metadata.getField('relatedItem')"></app-editor-relatedItem>
+<div class="app-editor-content" *ngIf="repo.metadata[pid]">
+    <app-editor-title *ngIf="available('titleInfo')" [field]="repo.metadata[pid].getField('titleInfo')"></app-editor-title>
+    <app-editor-publisher *ngIf="available('originInfo')" [field]="repo.metadata[pid].getField('originInfo')"></app-editor-publisher>
+    <app-editor-author *ngIf="available('name')" [field]="repo.metadata[pid].getField('name')"></app-editor-author>
+    <app-editor-location *ngIf="available('location')" [field]="repo.metadata[pid].getField('location')"></app-editor-location>
+    <app-editor-subject *ngIf="available('subject')" [field]="repo.metadata[pid].getField('subject')"></app-editor-subject>
+    <app-editor-part *ngIf="available('part')" [field]="repo.metadata[pid].getField('part')"></app-editor-part>
+    <app-editor-language *ngIf="available('language')" [field]="repo.metadata[pid].getField('language')"></app-editor-language>
+    <app-editor-abstract *ngIf="available('abstract')" [field]="repo.metadata[pid].getField('abstract')"></app-editor-abstract>
+    <app-editor-physical *ngIf="available('physicalDescription')" [field]="repo.metadata[pid].getField('physicalDescription')"></app-editor-physical>
+    <app-editor-note *ngIf="available('note')" [field]="repo.metadata[pid].getField('note')"></app-editor-note>
+    <app-editor-genre *ngIf="available('genre')" [field]="repo.metadata[pid].getField('genre')"></app-editor-genre>
+    <app-editor-classification *ngIf="available('classification')" [field]="repo.metadata[pid].getField('classification')"></app-editor-classification>
+    <app-editor-resource *ngIf="available('typeOfResource')" [field]="repo.metadata[pid].getField('typeOfResource')"></app-editor-resource>
+    <app-editor-tableOfContents *ngIf="available('tableOfContents')" [field]="repo.metadata[pid].getField('tableOfContents')"></app-editor-tableOfContents>
+    <app-editor-identifier *ngIf="available('identifier')" [field]="repo.metadata[pid].getField('identifier')"></app-editor-identifier>
+    <app-editor-recordInfo *ngIf="available('recordInfo')" [field]="repo.metadata[pid].getField('recordInfo')"></app-editor-recordInfo>
+    <app-editor-relatedItem *ngIf="available('relatedItem')" [field]="repo.metadata[pid].getField('relatedItem')"></app-editor-relatedItem>
 
 </div>
 

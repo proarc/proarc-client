@@ -19,16 +19,18 @@ export class RepositoryComponent implements OnInit {
     private route: ActivatedRoute,
     public editor: EditorService,
     public repo: RepositoryService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
 
-    this.repo.selectionChanged().subscribe((item: DocumentItem) => {
-      console.log(item)
-      if (item) {
-        this.selectedPid = item.pid;
+    this.repo.selectionChanged().subscribe(() => {
+      if (this.repo.getNumOfSelected() == 0) {
+        this.selectedPid = this.repo.item.pid;
+      } else if (this.repo.getNumOfSelected() == 0) {
+        this.selectedPid = this.repo.getFirstSelected().pid;
+      } else {
+        this.selectedPid = this.repo.getFirstSelected().pid;
       }
-      
     });
 
     combineLatest([this.route.paramMap, this.route.queryParamMap]).subscribe(
@@ -36,6 +38,7 @@ export class RepositoryComponent implements OnInit {
         const p = results[0];
         const q = results[1];
         this.pid = p.get('pid');
+        this.selectedPid = this.pid;
         if (this.pid) {
           this.repo.loadData(this.pid);
 
@@ -52,6 +55,10 @@ export class RepositoryComponent implements OnInit {
 
   ngOnChanges() {
     this.selectedPid = this.repo.getNumOfSelected() < 1 ? this.pid : this.repo.getFirstSelected().pid
+  }
+
+  hasPendingChanges(): boolean {
+    return this.repo.hasPendingChanges();
   }
 
 }

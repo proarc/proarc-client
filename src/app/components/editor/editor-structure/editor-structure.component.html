@@ -1,6 +1,5 @@
 
-<table mat-table [dataSource]="items" class="mat-elevation-z8">
-
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" #table>
 
   <ng-container matColumnDef="pid">
     <th mat-header-cell *matHeaderCellDef>{{'search.pid' | translate}} </th>
@@ -38,6 +37,9 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.selected]="row.selected" 
-      (click)="rowClick(row, $event)" draggable="true"></tr>
+  <tr mat-row *matRowDef="let row; let idx = index; columns: displayedColumns" [class.selected]="row.selected" 
+      (click)="rowClick(row, idx, $event)"  (dblclick)="open(row)"
+      draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart(row, idx, $event)" (dragover)="dragover($event)"
+      (dragend)="dragend($event)"
+      ></tr>
 </table>

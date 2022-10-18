@@ -18,8 +18,7 @@ export class EditorGenericComponent implements OnInit {
 
 
   constructor(
-    public config: ConfigService,
-    public editor: EditorService) { }
+    public config: ConfigService) { }
 
   ngOnInit(): void {
   }

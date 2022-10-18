@@ -4,7 +4,7 @@
       <div class="app-label">MODS XML</div>
       <div class="app-actions-right">
 
-        <ng-container *ngIf="editor.metadata && (editor.leftEditorType == 'metadata' || editor.leftEditorType == 'geo') && editor.mode == 'detail'">
+        <ng-container *ngIf="item && repo.metadata[item.pid]">
             <button class="app-action" [class.app-inactive]="!realtime" (click)="setRealtime(true)" [matTooltip]="'editor.mods.realtime_on' | translate" mat-icon-button>
                 <mat-icon>timer</mat-icon>
             </button>
@@ -39,7 +39,7 @@
     <!-- <textarea *ngIf="editting" [(ngModel)]="mods.content" (input)="onChange($event)"></textarea> -->
         <pre *ngIf="editting && !realtime" class="app-xml-content app-mods-editing" #editingPre><code class="app-mods-editing" (input)="checkChanged()" contenteditable="true" [highlight]="mods.original"></code></pre> 
         <pre *ngIf="!editting && !realtime" class="app-xml-content" #originalPre><code [highlight]="mods.original"></code></pre> 
-        <pre *ngIf="!editting && realtime" class="app-xml-content"><code [highlight]="editor.metadata.toMods()"></code></pre> 
+        <pre *ngIf="!editting && realtime" class="app-xml-content"><code [highlight]="repo.metadata[item.pid].toMods()"></code></pre> 
   </div>
 
   <mat-spinner *ngIf="state === 'loading'"

@@ -1,5 +1,5 @@
 import { EditorService } from 'src/app/services/editor.service';
-import { Component, OnInit, Input, ViewChild, Output } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, SimpleChange } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CatalogDialogComponent } from 'src/app/dialogs/catalog-dialog/catalog-dialog.component';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
@@ -7,6 +7,9 @@ import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dial
 import { TranslateService } from '@ngx-translate/core';
 import { UIService } from 'src/app/services/ui.service';
 import { ApiService } from 'src/app/services/api.service';
+import { RepositoryService } from 'src/app/services/repository.service';
+import { DocumentItem } from 'src/app/model/documentItem.model';
+import { Metadata } from 'src/app/model/metadata.model';
 
 @Component({
   selector: 'app-editor-metadata',
@@ -18,14 +21,13 @@ export class EditorMetadataComponent implements OnInit {
   state = 'none';
 
   @Input() notSaved = false;
+  @Input() item: DocumentItem;
+  @Input() pid: string;
+  
 
-  @Input()
-  set pid(pid: string) {
-    this.onPidChanged(pid);
-  }
   constructor(
     private translator: TranslateService,
-    public editor: EditorService,
+    public repo: RepositoryService,
     private api: ApiService,
     private ui: UIService,
     private dialog: MatDialog) { }
@@ -33,35 +35,31 @@ export class EditorMetadataComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnChanges(c: SimpleChange) {
+    if (this.pid && this.item) {
+      this.load(this.pid);
+    }
+  }
+
   private onPidChanged(pid: string) {
+    if (!pid) {
+      return;
+    }
     if (this.notSaved) {
       // nic, uz mame metadata v editoru
-      // this.editor.metadata = this.metadata;
+      // this.repo.metadata[this.pid] = this.metadata;
     } else {
       this.load(pid);
     }
   }
 
   load(pid: string) {
-
       this.state = 'loading';
-
-      // this.api.getMetadata(pid, this.right.model).subscribe((metadata: Metadata) => {
-      //     this.metadata = metadata;
-      //     if (callback) {
-      //         callback();
-      //     }
-      //     this.state = 'success';
-      // });
-
-
-      this.editor.loadMetadata(() => {
-        this.state = 'success';
-      });
+      this.repo.loadMetadata(this.pid, this.item.model);
   }
 
   available(element: string): boolean {
-    return this.editor.metadata.template[element];
+    return this.repo.metadata[this.pid].template[element];
   }
 
   confirmSave(title: string, message: string, ignoreValidation: boolean) {
@@ -83,9 +81,9 @@ export class EditorMetadataComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         if (this.notSaved) {
-          let data = `model=${this.editor.metadata.model}`;
-          data = `${data}&pid=${this.editor.metadata.pid}`;
-          data = `${data}&xml=${this.editor.metadata.toMods()}`;
+          let data = `model=${this.repo.metadata[this.pid].model}`;
+          data = `${data}&pid=${this.repo.metadata[this.pid].pid}`;
+          data = `${data}&xml=${this.repo.metadata[this.pid].toMods()}`;
           this.api.createObject(data).subscribe((response: any) => {
             if (response['response'].errors) {
               this.ui.showErrorSnackBarFromObject(response['response'].errors);
@@ -97,7 +95,7 @@ export class EditorMetadataComponent implements OnInit {
           });
 
         } else {
-          this.editor.saveMetadata(ignoreValidation, (r: any) => {
+          this.repo.saveMetadata(this.pid, this.item.model, ignoreValidation, (r: any) => {
             if (r && r.errors && r.status === -4 && !ignoreValidation) {
               const messages = this.ui.extractErrorsAsString(r.errors);
               if (r.data === 'cantIgnore') {
@@ -113,12 +111,14 @@ export class EditorMetadataComponent implements OnInit {
     });
   }
 
+  
+
   onSave() {
-    if (this.editor.metadata.validate()) {
+    if (this.repo.metadata[this.pid].validate()) {
       if (this.notSaved) {
-        let data = `model=${this.editor.metadata.model}`;
-        data = `${data}&pid=${this.editor.metadata.pid}`;
-        data = `${data}&xml=${this.editor.metadata.toMods()}`;
+        let data = `model=${this.repo.metadata[this.pid].model}`;
+        data = `${data}&pid=${this.repo.metadata[this.pid].pid}`;
+        data = `${data}&xml=${this.repo.metadata[this.pid].toMods()}`;
         this.api.createObject(data).subscribe((response: any) => {
           if (response['response'].errors) {
             console.log('error', response['response'].errors);
@@ -131,7 +131,7 @@ export class EditorMetadataComponent implements OnInit {
         });
 
       } else {
-        this.editor.saveMetadata(false, (r: any) => {
+        this.repo.saveMetadata(this.pid, this.item.model, false, (r: any) => {
           if (r && r.errors && r.status === -4) {
             const messages = this.ui.extractErrorsAsString(r.errors);
             if (r.data === 'cantIgnore') {
@@ -152,13 +152,7 @@ export class EditorMetadataComponent implements OnInit {
     const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'full' } });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
-        this.editor.saveModsFromCatalog(result['mods'], () => { });
-        // this.editor.updateModsFromCatalog(result['mods']);
-        // setTimeout(() => {
-        //   if (!this.editor.metadata.validate()) {
-        //     this.ui.showErrorSnackBar('Importovaná metadata z katalogu obsahuje nevalidní data');
-        //   }
-        // }, 100);
+        //this.repo.saveModsFromCatalog(result['mods'], () => { });
       }
     });
   }

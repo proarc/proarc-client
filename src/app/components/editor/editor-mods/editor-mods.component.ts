@@ -1,9 +1,11 @@
-import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, SimpleChange } from '@angular/core';
 import { Mods } from 'src/app/model/mods.model';
 import { EditorService } from 'src/app/services/editor.service';
 import { ApiService } from 'src/app/services/api.service';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Subscription } from 'rxjs';
+import { RepositoryService } from 'src/app/services/repository.service';
+import { UIService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-editor-mods',
@@ -12,8 +14,10 @@ import { Subscription } from 'rxjs';
 })
 export class EditorModsComponent implements OnInit, OnDestroy {
 
-  @ViewChild('editingPre') editingPre : ElementRef;
-  @ViewChild('originalPre') originalPre : ElementRef;
+  @Input('item') item: DocumentItem;
+
+  @ViewChild('editingPre') editingPre: ElementRef;
+  @ViewChild('originalPre') originalPre: ElementRef;
   realtime = false;
   state = 'none';
   editting = false;
@@ -26,35 +30,33 @@ export class EditorModsComponent implements OnInit, OnDestroy {
 
   private rightDocumentSubscription: Subscription;
 
-
-  // @Input()
-  // set pid(pid: string) {
-  //   this.onPidChanged(pid);
-  // }
-
-  constructor(public editor: EditorService, private api: ApiService) {
+  constructor(
+    public repo: RepositoryService, 
+    private ui: UIService,
+    private api: ApiService) {
   }
 
   ngOnInit() {
-    this.rightDocumentSubscription = this.editor.watchRightDocument().subscribe(
-      (item: DocumentItem) => {
-        if (item) {
-          if (item.notSaved) {
-            this.mods =  Mods.fromJson(item.content);
-          } else {
-            this.reload(item);
-          }
-          
-          
-        } 
-      }
-    );
-    this.reload(this.editor.selectedItem);
+    // this.rightDocumentSubscription = this.repo.selectionChanged().subscribe(
+    //   () => {
+    //     if (this.item) {
+    //       if (this.item.notSaved) {
+    //         this.mods = Mods.fromJson(this.item.content);
+    //       } else {
+    //         this.reload(this.item);
+    //       }
+    //     }
+    //   }
+    // );
+    // this.reload(this.item);
   }
 
-  ngAfterViewInit() {
-    
+  ngOnChanges(c: SimpleChange) {
+    if (this.item) {
+      this.reload(this.item);
+    }
   }
+
 
   public setRealtime(enable: boolean) {
     if (enable) {
@@ -96,10 +98,33 @@ export class EditorModsComponent implements OnInit, OnDestroy {
       return;
     }
     this.mods.content = this.editingPre.nativeElement.innerText;
-    this.editor.saveMods(this.mods, false, (mods: Mods) => {
-      this.mods = mods;
-      this.editting = false;
-      this.anyChange = false;
+    this.saveMods(this.mods, false);
+
+
+  }
+
+  saveMods(mods: Mods, ignoreValidation: boolean) {
+    this.state = 'saving';
+    this.api.editModsXml(mods.pid, mods.content, mods.timestamp, ignoreValidation, null).subscribe((resp: any) => {
+      if (resp.errors) {
+        this.state = 'error';
+        this.ui.showErrorSnackBar(resp.errors.mods[0].errorMessage)
+      } else {
+        this.api.getMods(mods.pid, null).subscribe((response: any) => {
+
+          if (response.errors) {
+            this.state = 'error';
+            this.ui.showErrorSnackBar(response.errors.mods[0].errorMessage)
+          } else {
+            const newMods: Mods = Mods.fromJson(response['record']);
+            this.mods = newMods;
+            this.editting = false;
+            this.anyChange = false;
+            this.state = 'success';
+          }
+        });
+      }
+
     });
   }
 
@@ -124,8 +149,8 @@ export class EditorModsComponent implements OnInit, OnDestroy {
     this.anyChange = false;
     this.editting = false;
     this.state = 'loading';
-    this.api.getMods(this.lastPid, this.editor.getBatchId()).subscribe((mods: any) => {
-      this.mods =  Mods.fromJson(mods['record']);
+    this.api.getMods(this.lastPid, null).subscribe((mods: any) => {
+      this.mods = Mods.fromJson(mods['record']);
       this.state = 'success';
     }, () => {
       this.state = 'failure';
