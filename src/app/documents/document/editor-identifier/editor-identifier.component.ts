@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ElementField } from 'src/app/model/mods/elementField.model';
 import { CodebookService } from 'src/app/services/codebook.service';
 import { EditorService } from 'src/app/services/editor.service';
+import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({
   selector: 'app-editor-identifier',
@@ -15,16 +16,16 @@ export class EditorIdentifierComponent implements OnInit {
 
   validityOptions = [{code: '', name: 'Platný' }, {code: 'yes', name: 'Neplatný'}];
 
-  constructor(public codebook: CodebookService, private editor: EditorService) {
+  constructor(public codebook: CodebookService, private layout: LayoutService) {
   }
 
   ngOnInit() {
   }
 
   getIdentifiers(): any[] {
-    return this.editor.left.isChronicle() ? this.codebook.chronicleIdentifiers :
-      this.editor.left.isOldprint() ? this.codebook.oldprintIdentifiers :
-      this.editor.left.canContainPdf() ? this.codebook.eDocumentIdentifiers :
+    return this.layout.selectedItem.isChronicle() ? this.codebook.chronicleIdentifiers :
+      this.layout.selectedItem.isOldprint() ? this.codebook.oldprintIdentifiers :
+      this.layout.selectedItem.canContainPdf() ? this.codebook.eDocumentIdentifiers :
         this.codebook.identifiers;
   }
 

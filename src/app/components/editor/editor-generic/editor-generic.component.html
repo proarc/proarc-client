@@ -56,7 +56,6 @@
   <app-editor-structure *ngSwitchCase="'structure'" [items]="layout.items"></app-editor-structure>
   <!-- <app-editor-children *ngSwitchCase="'children'" [items]="data"></app-editor-children> -->
   <ng-container *ngSwitchCase="'image'" >
-    {{ layout.selectedItem.isPage()}}
     <app-viewer *ngIf="layout.selectedItem && layout.selectedItem.isPage()" [pid]="layout.selectedItem.pid"></app-viewer>
   </ng-container>
   <app-editor-mods *ngSwitchCase="'mods'" ></app-editor-mods>

@@ -4,12 +4,12 @@
   <div class="app-editor-toolbar" *ngIf="!notSaved">
       <div class="app-label">{{ 'editor.page.title' | translate }}</div>
       <div class="app-actions-right">
-      <button class="app-action" [class.app-disabled]="!editor.page || !editor.page.hasChanged()" (click)="onRevert()" [matTooltip]="'common.revert' | translate" mat-icon-button>
+      <button class="app-action" [class.app-disabled]="!page || !page.hasChanged()" (click)="onRevert()" [matTooltip]="'common.revert' | translate" mat-icon-button>
           <mat-icon>replay</mat-icon>
       </button>
       <div class="app-divider"></div>
 
-      <button class="app-action" [class.app-disabled]="!editor.page || !editor.page.hasChanged()" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
+      <button class="app-action" [class.app-disabled]="!page || !page.hasChanged()" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
           <mat-icon>save</mat-icon>
       </button>
     </div>
@@ -23,9 +23,9 @@
         <div class="app-card" style="padding: 8px;">
           <div class="app-card-content">
 
-            <mat-form-field [ngClass]="config.showPageIndex ? 'app-half-right' : 'app-full-width'" [class.app-invalid]="!editor.page.type">
+            <mat-form-field [ngClass]="config.showPageIndex ? 'app-half-right' : 'app-full-width'" [class.app-invalid]="!page.type">
               <span class="app-usage" [class.app-help-off]="true">M</span>
-              <mat-select #typeSelect [placeholder]="'editor.page.type' | translate" name="type" [(value)]="editor.page.type" [formControl]="pageTypeControl"
+              <mat-select #typeSelect [placeholder]="'editor.page.type' | translate" name="type" [(value)]="page.type" [formControl]="pageTypeControl"
               (focusout)="removeFocus()"
                (keyup.enter)="enterSelect(typeSelect, 'type')">
                <mat-option [value]="null"></mat-option>
@@ -33,34 +33,34 @@
               </mat-select>
             </mat-form-field> 
 
-            <mat-form-field class="app-half-left" *ngIf="config.showPageIndex" [class.app-invalid]="!editor.page.index">
+            <mat-form-field class="app-half-left" *ngIf="config.showPageIndex" [class.app-invalid]="!page.index">
               <span class="app-usage" [class.app-help-off]="true">M</span>
               <input autocomplete="off" matInput #pageIndex 
                 (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageIndex')" 
-                [placeholder]="'editor.page.index' | translate" [(ngModel)]="editor.page.index" [formControl]="pageIndexControl">
+                [placeholder]="'editor.page.index' | translate" [(ngModel)]="page.index" [formControl]="pageIndexControl">
             </mat-form-field>
             
-            <mat-form-field class="app-page-number" [class.app-invalid]="!editor.page.number">
+            <mat-form-field class="app-page-number" [class.app-invalid]="!page.number">
               <span class="app-usage" [class.app-help-off]="true">M</span>
               <input (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageNumber')" [formControl]="pageNumberControl"
-              autocomplete="off" matInput [placeholder]="'editor.page.number' | translate" [(ngModel)]="editor.page.number" #pageNumber>
+              autocomplete="off" matInput [placeholder]="'editor.page.number' | translate" [(ngModel)]="page.number" #pageNumber>
 
-              <button class="app-brackets" [class.app-disabled]="!editor.page.number" [matTooltip]="isInBrackets() ? 'Odebrat závorky' : 'Vložit do závorek'" (click)="switchBrackets()" mat-icon-button>
+              <button class="app-brackets" [class.app-disabled]="!page.number" [matTooltip]="isInBrackets() ? 'Odebrat závorky' : 'Vložit do závorek'" (click)="switchBrackets()" mat-icon-button>
                 <span class="app-text-icon">[ ]</span>
               </button>
             </mat-form-field>
 
-            <mat-form-field class="app-half-left" *ngIf="editor.page.isNdkPage()">
+            <mat-form-field class="app-half-left" *ngIf="page.isNdkPage()">
               <span class="app-usage" [class.app-help-off]="true">O</span>
-              <mat-select [(ngModel)]='editor.page.position' placeholder="{{ 'editor.page.position' | translate }}" [formControl]="posControl"
+              <mat-select [(ngModel)]='page.position' placeholder="{{ 'editor.page.position' | translate }}" [formControl]="posControl"
                #posSelect (keyup.enter)="enterSelect(posSelect, 'position')" (focusout)="removeFocus()">
                 <mat-option *ngFor="let position of positions" [value]="position">{{ 'editor.page.positions.' + position | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
 
-            <mat-form-field class="app-half-right" *ngIf="editor.page.isNdkPage()" [class.app-invalid]="!editor.page.genre">
+            <mat-form-field class="app-half-right" *ngIf="page.isNdkPage()" [class.app-invalid]="!page.genre">
               <span class="app-usage" [class.app-help-off]="true">M</span>
-              <mat-select [(ngModel)]='editor.page.genre' placeholder="{{ 'editor.page.genre' | translate }}" [formControl]="genreControl"
+              <mat-select [(ngModel)]='page.genre' placeholder="{{ 'editor.page.genre' | translate }}" [formControl]="genreControl"
                (keyup.enter)="enterSelect(genreSelect, 'genre')" (focusout)="removeFocus()" #genreSelect>
                 <mat-option *ngFor="let genre of genres" [value]="genre">{{ 'editor.page.genres.' + genre | translate }}</mat-option>
               </mat-select>
@@ -71,28 +71,28 @@
               <span class="app-usage" [class.app-help-off]="true">O</span>
               <textarea [formControl]="pageIndexControl"
               cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="15"
-              autocomplete="off" matInput [(ngModel)]='editor.page.note' placeholder="{{ 'editor.page.note' | translate }}"></textarea>
+              autocomplete="off" matInput [(ngModel)]='page.note' placeholder="{{ 'editor.page.note' | translate }}"></textarea>
             </mat-form-field>
     
 
 
           <ng-container *ngIf="config.showPageIdentifiers">
-            <div class="app-card app-identifier" *ngFor="let identifier of editor.page.identifiers; index as index; last as last; first as first;">
+            <div class="app-card app-identifier" *ngFor="let identifier of page.identifiers; index as index; last as last; first as first;">
               <div class="app-card-header">
                 <span class="app-card-title">{{ 'editor.page.identifier' | translate }}</span>
           
-                <button matTooltip="{{ 'common.remove' | translate }}" color="primary" (click)="editor.page.removeIdentifier(index)" mat-icon-button>
+                <button matTooltip="{{ 'common.remove' | translate }}" color="primary" (click)="page.removeIdentifier(index)" mat-icon-button>
                   <mat-icon>delete</mat-icon>
                 </button>
 
-                <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" color="primary" (click)="editor.page.moveIdentifierDown(index)" mat-icon-button>
+                <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" color="primary" (click)="page.moveIdentifierDown(index)" mat-icon-button>
                   <mat-icon>arrow_drop_down</mat-icon>
                 </button>
-                <button [disabled]="first" matTooltip="{{ 'common.move_up' | translate }}" color="primary" (click)="editor.page.moveIdentifierUp(index)" mat-icon-button>
+                <button [disabled]="first" matTooltip="{{ 'common.move_up' | translate }}" color="primary" (click)="page.moveIdentifierUp(index)" mat-icon-button>
                   <mat-icon>arrow_drop_up</mat-icon>
                 </button>
             
-                <button matTooltip="{{ 'editor.page.add_identifier' | translate }}" color="primary" (click)="editor.page.addIdentifierAfter(index)" mat-icon-button>
+                <button matTooltip="{{ 'editor.page.add_identifier' | translate }}" color="primary" (click)="page.addIdentifierAfter(index)" mat-icon-button>
                   <mat-icon>add</mat-icon>
                 </button>
               </div>

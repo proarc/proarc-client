@@ -19,7 +19,10 @@ export class LayoutService {
   //public selection: DocumentItem[] | null; // selected item
   public selectedItem: DocumentItem; // selected item
 
+  public isDirty: boolean; // some components have unsaved changes
+
   private selectionSubject = new Subject<boolean>();
+  private moveNextSubject = new Subject<boolean>();
 
   constructor() { }
 
@@ -34,6 +37,10 @@ export class LayoutService {
       this.selectedItem = this.getSelected()[0];
     }
     this.selectionSubject.next(true);
+  }
+  
+  moveToNext(): Observable<boolean> {
+    return this.moveNextSubject.asObservable();
   }
   
   selectionChanged(): Observable<boolean> {

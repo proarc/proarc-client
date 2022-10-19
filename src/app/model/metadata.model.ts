@@ -77,6 +77,7 @@ export class Metadata {
 
 
   public static fromMods(mods: Mods, model: string) {
+    console.log(model)
     return new Metadata(mods.pid, model, mods.content, mods.timestamp);
   }
 
@@ -163,10 +164,12 @@ export class Metadata {
     if (mods.length) {
       mods = mods[0];
     }
-    for (const ri of mods['recordInfo']) {
-      if (ri['descriptionStandard'] && ri['descriptionStandard'][0]) {
-        standard = ri['descriptionStandard'][0]['_'] || '';
-        break;
+    if (mods['recordInfo']) {
+      for (const ri of mods['recordInfo']) {
+        if (ri['descriptionStandard'] && ri['descriptionStandard'][0]) {
+          standard = ri['descriptionStandard'][0]['_'] || '';
+          break;
+        }
       }
     }
     standard.trim();

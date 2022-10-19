@@ -11,6 +11,7 @@ import { RepositoryService } from 'src/app/services/repository.service';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Metadata } from 'src/app/model/metadata.model';
 import { LayoutService } from 'src/app/services/layout.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-editor-metadata',
@@ -28,6 +29,8 @@ export class EditorMetadataComponent implements OnInit {
   public metadata: Metadata;
   public visible = true;
 
+sc: Subscription;
+
   constructor(
     private translator: TranslateService,
     public layout: LayoutService,
@@ -36,7 +39,11 @@ export class EditorMetadataComponent implements OnInit {
     private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.layout.selectionChanged().subscribe(() => {
+    this.sc = this.layout.selectionChanged().subscribe(() => {
+      if (!this.layout.selectedItem || this.layout.selectedItem.isPage()) {
+        this.visible = false;
+        return;
+      }
       if (this.layout.getNumOfSelected() === 0) {
         this.item = this.layout.item;
         this.pid = this.item.pid;
@@ -54,7 +61,15 @@ export class EditorMetadataComponent implements OnInit {
     })
   }
 
+  ngOnDestroy() {
+    this.sc.unsubscribe();
+  }
+
   ngOnChanges(c: SimpleChange) {
+    if (!this.layout.selectedItem || this.layout.selectedItem.isPage()) {
+      this.visible = false;
+      return;
+    }
     if (this.pid) {
       this.item = this.layout.item;
       this.pid = this.item.pid;

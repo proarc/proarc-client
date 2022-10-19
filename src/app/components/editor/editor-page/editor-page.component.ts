@@ -11,6 +11,8 @@ import { MatSelect } from '@angular/material/select';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UIService } from 'src/app/services/ui.service';
+import { LayoutService } from 'src/app/services/layout.service';
+import { DocumentItem } from 'src/app/model/documentItem.model';
 
 @Component({
   selector: 'app-editor-page',
@@ -37,12 +39,12 @@ export class EditorPageComponent implements OnInit {
   @ViewChild("posSelect") posSelect: MatSelect;
   @ViewChild("genreSelect") genreSelect: MatSelect;
 
-  pageTypeControl: FormControl<{code: string, name: string} | null> = new FormControl<{code: string, name: string} | null>(null);
-  pageNumberControl= new FormControl();
-  pageIndexControl= new FormControl();
-  posControl= new FormControl();
-  genreControl= new FormControl();
-  noteControl= new FormControl();
+  pageTypeControl: FormControl<{ code: string, name: string } | null> = new FormControl<{ code: string, name: string } | null>(null);
+  pageNumberControl = new FormControl();
+  pageIndexControl = new FormControl();
+  posControl = new FormControl();
+  genreControl = new FormControl();
+  noteControl = new FormControl();
   controls: FormGroup = new FormGroup({
     pageTypeControl: this.pageTypeControl,
     pageNumberControl: this.pageNumberControl,
@@ -52,23 +54,27 @@ export class EditorPageComponent implements OnInit {
     noteControl: this.noteControl
   });
 
+  public page: Page;
+
   @Input()
   set pid(pid: string) {
     this.onPidChanged(pid);
   }
 
-  constructor(public editor: EditorService,
-              private api: ApiService,
-              private ui: UIService,
-              private dialog: MatDialog,
-              public config: ConfigService,
-              public codebook: CodebookService,
-              public translator: TranslateService) {
+  constructor(
+    public layout: LayoutService,
+    //public editor: EditorService,
+    private api: ApiService,
+    private ui: UIService,
+    private dialog: MatDialog,
+    public config: ConfigService,
+    public codebook: CodebookService,
+    public translator: TranslateService) {
   }
 
   ngOnInit() {
     this.controls.valueChanges.subscribe((e: any) => {
-      this.editor.isDirty = this.controls.dirty;
+      this.layout.isDirty = this.controls.dirty;
     })
   }
 
@@ -77,50 +83,50 @@ export class EditorPageComponent implements OnInit {
   }
 
   private setPage(page: Page) {
-    this.editor.page = page;
+    this.page = page;
     this.controls.get('pageTypeControl').setValue(page.type);
     this.controls.markAsPristine();
-    this.editor.isDirty = false;
+    this.layout.isDirty = false;
     this.state = 'success';
     if (this.movedToNextFrom == 'pageNumber') {
-      setTimeout(() => { 
+      setTimeout(() => {
         this.pageNumberField.nativeElement.focus();
-      },10);
+      }, 10);
     } else if (this.movedToNextFrom == 'pageIndex') {
-      setTimeout(() => { 
+      setTimeout(() => {
         this.pageIndexField.nativeElement.focus();
-      },10);
+      }, 10);
     } else if (this.movedToNextFrom == 'type') {
-      setTimeout(() => { 
+      setTimeout(() => {
         this.typeSelect.focus();
-      },10);
+      }, 10);
     } else if (this.movedToNextFrom == 'position') {
-      setTimeout(() => { 
+      setTimeout(() => {
         this.posSelect.focus();
-      },10);
+      }, 10);
     } else if (this.movedToNextFrom == 'genre') {
-      setTimeout(() => { 
+      setTimeout(() => {
         this.genreSelect.focus();
-      },10);
+      }, 10);
     }
   }
 
   private onPidChanged(pid: string) {
     this.state = 'loading';
-    if (this.editor.selectedItem.notSaved) {
+    if (this.layout.selectedItem.notSaved) {
       const page = new Page();
       page.pid = pid;
       page.type = 'normalPage';
-      page.model = this.editor.selectedItem.model;
-      page.number = this.editor.selectedItem.label;
+      page.model = this.layout.selectedItem.model;
+      page.number = this.layout.selectedItem.label;
       page.timestamp = new Date().getTime();
       this.setPage(page);
       this.controls.markAsDirty();
-      this.editor.isDirty = true;
+      this.layout.isDirty = true;
       this.state = 'success';
       return;
     }
-    this.api.getPage(pid, this.model, this.editor.getBatchId()).subscribe((page: Page) => {
+    this.api.getPage(pid, this.model, this.layout.getBatchId()).subscribe((page: Page) => {
       this.setPage(page);
 
     }, () => {
@@ -129,7 +135,7 @@ export class EditorPageComponent implements OnInit {
   }
 
   onRevert() {
-    this.editor.page.restore();
+    this.page.restore();
   }
 
   onSaveFrom(from: string) {
@@ -137,41 +143,41 @@ export class EditorPageComponent implements OnInit {
   }
 
   isInBrackets(): boolean {
-    if (!this.editor.page.number) {
+    if (!this.page.number) {
       return false;
     }
-    return this.editor.page.number.startsWith('[') && this.editor.page.number.endsWith(']');
+    return this.page.number.startsWith('[') && this.page.number.endsWith(']');
   }
 
   switchBrackets() {
-    if (!this.editor.page.number) {
+    if (!this.page.number) {
       return
     }
     if (this.isInBrackets()) {
-      this.editor.page.number = this.editor.page.number.substring(1, this.editor.page.number.length - 1);
+      this.page.number = this.page.number.substring(1, this.page.number.length - 1);
     } else {
-      let number = this.editor.page.number;
+      let number = this.page.number;
       if (!number.startsWith('[')) {
         number = '[' + number;
       }
       if (!number.endsWith(']')) {
         number = number + ']';
       }
-      this.editor.page.number = number;
+      this.page.number = number;
     }
   }
 
   private validate(): boolean {
-    if (!this.editor.page.number) {
+    if (!this.page.number) {
       return false;
     }
-    if (this.config.showPageIndex && !this.editor.page.index) {
+    if (this.config.showPageIndex && !this.page.index) {
       return false;
     }
-    if (!this.editor.page.type) {
+    if (!this.page.type) {
       return false;
     }
-    if (this.editor.page.isNdkPage() && !this.editor.page.genre) {
+    if (this.page.isNdkPage() && !this.page.genre) {
       return false;
     }
     return true;
@@ -207,19 +213,19 @@ export class EditorPageComponent implements OnInit {
   private save(from: string) {
     this.movedToNextFrom = from;
     this.controls.markAsPristine();
-    this.editor.isDirty = false;
-    if (!this.editor.page.hasChanged()) {
+    this.layout.isDirty = false;
+    if (!this.page.hasChanged()) {
       if (!!from) {
-        this.editor.moveToNext();
+        this.layout.moveToNext();
       }
       return;
     }
-    this.editor.page.removeEmptyIdentifiers();
-    if (this.editor.selectedItem.notSaved) {
-      let data = `model=${this.editor.page.model}`;
-      data = `${data}&pid=${this.editor.page.pid}`;
-      data = `${data}&xml=${this.editor.page.toXml()}`;
-      data = `${data}&parent=${this.editor.selectedItem.parent}`;
+    this.page.removeEmptyIdentifiers();
+    if (this.layout.selectedItem.notSaved) {
+      let data = `model=${this.page.model}`;
+      data = `${data}&pid=${this.page.pid}`;
+      data = `${data}&xml=${this.page.toXml()}`;
+      data = `${data}&parent=${this.layout.selectedItem.parent}`;
       this.api.createObject(data).subscribe((response: any) => {
         if (response['response'].errors) {
           console.log('error', response['response'].errors);
@@ -227,34 +233,72 @@ export class EditorPageComponent implements OnInit {
           this.state = 'error';
           return;
         }
-        this.editor.selectedItem.notSaved = false;
-        const pid =  response['response']['data'][0]['pid'];
-        this.editor.reloadChildren(() => {
-            for (const item of this.editor.children) {
-                if (item.pid == pid) {
-                    this.editor.selectRight(item);
-                    break;
-                }
-            }
-            this.onPidChanged(pid);
-            this.state = 'success';
-        });
+        this.layout.selectedItem.notSaved = false;
+        const pid = response['response']['data'][0]['pid'];
+        // this.editor.reloadChildren(() => {
+        //   for (const item of this.editor.children) {
+        //     if (item.pid == pid) {
+        //       this.editor.selectRight(item);
+        //       break;
+        //     }
+        //   }
+        //   this.onPidChanged(pid);
+        //   this.state = 'success';
+        // });
         this.state = 'success';
       });
     } else {
-      this.editor.savePage(this.editor.page, (page: Page) => {
+      this.savePage(this.page, (page: Page) => {
         if (page) {
-          this.editor.page = page;
+          this.page = page;
         }
       }, !!from);
     }
   }
 
-  public hasChanged() {
-    return this.editor.page.hasChanged();
+  savePage(page: Page, callback: (page: Page) => void, moveToNext = false) {
+    this.state = 'saving';
+    this.api.editPage(page, this.layout.getBatchId()).subscribe((resp: any) => {
+      if (resp.response.errors) {
+        this.ui.showErrorSnackBarFromObject(resp.response.errors);
+        this.state = 'error';
+        return;
+      }
+      const newPage: Page = Page.fromJson(resp['response']['data'][0], page.model);
+      if (this.layout.type === 'import') {
+        // this.reloadBatch(() => {
+        //   this.state = 'success';
+        //   if (callback && newPage.pid == this.layout.selectedItem.pid) {
+        //     callback(newPage);
+        //   }
+        // }, moveToNext);
+      } else {
+        // this.api.getDocument(page.pid).subscribe((doc: DocumentItem) => {
+        //   if (this.mode === 'children') {
+        //     this.reloadChildren(() => {
+        //       this.state = 'success';
+        //       if (callback && newPage.pid == this.selectedItem.pid) {
+        //         callback(newPage);
+        //       }
+        //     }, moveToNext);
+        //   } else {
+        //     this.selectRight(doc);
+        //     this.left = doc;
+        //     this.state = 'success';
+        //     if (callback) {
+        //       callback(newPage);
+        //     }
+        //   }
+        // });
+      }
+    });
   }
 
-  
+  public hasChanged() {
+    return this.page.hasChanged();
+  }
+
+
   enterSelect(s: MatSelect, from: string) {
     s.close();
     this.onSave(from);

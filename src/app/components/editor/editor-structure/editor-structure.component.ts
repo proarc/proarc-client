@@ -80,7 +80,7 @@ export class EditorStructureComponent implements OnInit {
     public auth: AuthService,
     public layout: LayoutService,
     public repo: RepositoryService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.isRepo = this.layout.type === 'repo';
@@ -93,6 +93,10 @@ export class EditorStructureComponent implements OnInit {
     } else {
       this.viewMode = this.properties.getStringProperty('children.view_mode', 'list');
     }
+
+    this.layout.moveToNext().subscribe(() => {
+      this.moveToNext();
+    });
   }
 
   ngOnChanges(e: any) {
@@ -106,7 +110,7 @@ export class EditorStructureComponent implements OnInit {
     this.childrenWrapperEl.nativeElement.focus();
   }
 
-  
+
 
   onResized(event: ResizedEvent) {
     const d = event.newRect.width / 101;
@@ -143,6 +147,26 @@ export class EditorStructureComponent implements OnInit {
       if (this.arrowIndex + step < this.items.length) {
         this.rowClick(this.items[this.arrowIndex + step], this.arrowIndex + step, event);
       }
+    }
+
+  }
+
+  moveToNext() {
+    let index = -1;
+    for (let i = 0; i < this.items.length; i++) {
+      if (this.layout.selectedItem == this.items[i]) {
+        index = i;
+        break;
+      }
+    }
+    index += 1;
+    if (index < this.items.length) {
+      this.rowClick(this.items[index], index, null);
+      const item = this.items[index];
+      // if (this.isMultipleChildrenMode()) {
+      //   this.setSingleChildMode(item);
+      // }
+      item.selected = true;
     }
 
   }
