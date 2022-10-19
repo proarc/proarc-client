@@ -6,7 +6,7 @@ import { Atm } from 'src/app/model/atm.model';
 import { ConfigService } from 'src/app/services/config.service';
 import { User } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/services/auth.service';
-import { RepositoryService } from 'src/app/services/repository.service';
+import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({
   selector: 'app-editor-atm',
@@ -15,6 +15,7 @@ import { RepositoryService } from 'src/app/services/repository.service';
 })
 export class EditorAtmComponent implements OnInit {
 
+  @Input('pid') pid: string;
   state = 'none';
   atm: Atm;
   devices: Device[];
@@ -30,13 +31,8 @@ export class EditorAtmComponent implements OnInit {
     'exported'
   ];
 
-  @Input()
-  set pid(pid: string) {
-    this.onPidChanged(pid);
-  }
-
   constructor(
-    private repo: RepositoryService, 
+    private layout: LayoutService, 
     private api: ApiService, 
     private config: ConfigService, 
     public auth: AuthService) {
@@ -44,15 +40,18 @@ export class EditorAtmComponent implements OnInit {
 
   ngOnInit() {
     this.organizations = this.config.organizations;
+    this.layout.selectionChanged().subscribe(() => {
+      this.reload();
+    });
+    this.reload();
   }
 
-  private onPidChanged(pid: string) {
-    console.log(pid);
-    if (!pid) {
+  private reload() {
+    if (!this.layout.selectedItem) {
       return;
     }
     this.state = 'loading';
-    this.api.getAtm(pid, null).subscribe((atm: Atm) => {
+    this.api.getAtm(this.layout.selectedItem.pid, null).subscribe((atm: Atm) => {
       this.atm = atm;
       if (this.devices) {
         this.state = 'success';

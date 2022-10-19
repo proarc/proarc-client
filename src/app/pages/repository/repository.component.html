@@ -1,22 +1,22 @@
-<div class="app-editor-wrapper" *ngIf="editor.ready">
+<div class="app-editor-wrapper" *ngIf="layout.ready">
     <as-split direction="horizontal" [restrictMove]="false" [useTransition]="true">
       <as-split-area [size]="50">
         <as-split direction="vertical" [restrictMove]="false">
           <as-split-area>
-            <app-editor-generic [editorType]="'structure'" [pid]="pid" [data]="repo.children"></app-editor-generic>
+            <app-editor-generic [editorType]="'structure'" ></app-editor-generic>
           </as-split-area>
           <as-split-area>
-            <app-editor-generic [editorType]="'metadata'" [pid]="selectedPid" [data]="repo.getNumOfSelected() === 0 ? [repo.item] : repo.getSelected()"></app-editor-generic>
+            <app-editor-generic [editorType]="'metadata'" ></app-editor-generic>
           </as-split-area>
         </as-split>
       </as-split-area>
       <as-split-area [size]="50">
         <as-split direction="vertical" [restrictMove]="true">
           <as-split-area [size]="60">
-            <app-editor-generic *ngIf="selectedPid" [editorType]="'mods'" [pid]="selectedPid" [data]="repo.getNumOfSelected() === 0 ? [repo.item] : repo.getSelected()" [switchable]="true"></app-editor-generic>
+            <app-editor-generic *ngIf="layout.selectedItem" [editorType]="'atm'" ></app-editor-generic>
           </as-split-area>
-          <as-split-area [size]="40">
-            <app-editor-generic [editorType]="'atm'" [pid]="selectedPid"></app-editor-generic>
+          <as-split-area [size]="40" >
+            <app-editor-generic [editorType]="'image'"></app-editor-generic>
           </as-split-area>
         </as-split>
       </as-split-area>

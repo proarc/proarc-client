@@ -6,6 +6,8 @@ import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Subscription } from 'rxjs';
 import { RepositoryService } from 'src/app/services/repository.service';
 import { UIService } from 'src/app/services/ui.service';
+import { Metadata } from 'src/app/model/metadata.model';
+import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({
   selector: 'app-editor-mods',
@@ -14,7 +16,6 @@ import { UIService } from 'src/app/services/ui.service';
 })
 export class EditorModsComponent implements OnInit, OnDestroy {
 
-  @Input('item') item: DocumentItem;
 
   @ViewChild('editingPre') editingPre: ElementRef;
   @ViewChild('originalPre') originalPre: ElementRef;
@@ -27,36 +28,26 @@ export class EditorModsComponent implements OnInit, OnDestroy {
 
   originalText = '';
 
+  metadata: Metadata;
+
+  item: DocumentItem;
+
+  public visible = true;
 
   private rightDocumentSubscription: Subscription;
 
   constructor(
-    public repo: RepositoryService, 
+    public layout: LayoutService,
     private ui: UIService,
     private api: ApiService) {
   }
 
   ngOnInit() {
-    // this.rightDocumentSubscription = this.repo.selectionChanged().subscribe(
-    //   () => {
-    //     if (this.item) {
-    //       if (this.item.notSaved) {
-    //         this.mods = Mods.fromJson(this.item.content);
-    //       } else {
-    //         this.reload(this.item);
-    //       }
-    //     }
-    //   }
-    // );
-    // this.reload(this.item);
+    this.layout.selectionChanged().subscribe(() => {
+      this.reload();
+    });
+    this.reload();
   }
-
-  ngOnChanges(c: SimpleChange) {
-    if (this.item) {
-      this.reload(this.item);
-    }
-  }
-
 
   public setRealtime(enable: boolean) {
     if (enable) {
@@ -138,10 +129,14 @@ export class EditorModsComponent implements OnInit, OnDestroy {
   }
 
 
-  private reload(item: DocumentItem) {
-    if (item) {
-      this.lastPid = item.pid;
+  private reload() {
+    this.item = this.layout.selectedItem;
+    if (this.item) {
+      this.visible = true;
+      this.lastPid = this.item.pid;
       this.setRealtime(false);
+    } else {
+      this.visible = false;
     }
   }
 

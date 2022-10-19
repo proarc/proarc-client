@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChange } from '@angular/core';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { ConfigService } from 'src/app/services/config.service';
 import { EditorService } from 'src/app/services/editor.service';
+import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({
   selector: 'app-editor-generic',
@@ -11,16 +12,21 @@ import { EditorService } from 'src/app/services/editor.service';
 export class EditorGenericComponent implements OnInit {
 
   @Input('editorType') editorType: string;
-  @Input('pid') pid: string;
-  @Input('data') data: any;
-  @Input('item') item: string = 'root';
-  @Input('switchable') switchable: boolean;
+
+  switchableTypes = ['mods', 'metadata', 'atm', 'ocr']
+  switchable: boolean;
 
 
   constructor(
-    public config: ConfigService) { }
+    public config: ConfigService,
+    public layout: LayoutService) { }
 
   ngOnInit(): void {
+
+  }
+
+  ngOnChanges(c: SimpleChange) {
+    this.switchable = this.switchableTypes.includes(this.editorType);
   }
 
 }

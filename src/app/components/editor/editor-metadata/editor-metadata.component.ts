@@ -10,6 +10,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { RepositoryService } from 'src/app/services/repository.service';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Metadata } from 'src/app/model/metadata.model';
+import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({
   selector: 'app-editor-metadata',
@@ -21,45 +22,58 @@ export class EditorMetadataComponent implements OnInit {
   state = 'none';
 
   @Input() notSaved = false;
-  @Input() item: DocumentItem;
   @Input() pid: string;
-  
+
+  public item: DocumentItem | null;
+  public metadata: Metadata;
+  public visible = true;
 
   constructor(
     private translator: TranslateService,
-    public repo: RepositoryService,
+    public layout: LayoutService,
     private api: ApiService,
     private ui: UIService,
     private dialog: MatDialog) { }
 
   ngOnInit() {
+    this.layout.selectionChanged().subscribe(() => {
+      if (this.layout.getNumOfSelected() === 0) {
+        this.item = this.layout.item;
+        this.pid = this.item.pid;
+        this.visible = true;
+        this.load();
+      } else if (this.layout.getNumOfSelected() === 1) {
+        this.item = this.layout.selectedItem;
+        this.pid = this.item.pid;
+        this.visible = true;
+        this.load();
+      } else {
+        this.visible = false;
+      }
+
+    })
   }
 
   ngOnChanges(c: SimpleChange) {
-    if (this.pid && this.item) {
-      this.load(this.pid);
+    if (this.pid) {
+      this.item = this.layout.item;
+      this.pid = this.item.pid;
+      this.visible = true;
+      this.load();
     }
   }
 
-  private onPidChanged(pid: string) {
-    if (!pid) {
-      return;
-    }
-    if (this.notSaved) {
-      // nic, uz mame metadata v editoru
-      // this.repo.metadata[this.pid] = this.metadata;
-    } else {
-      this.load(pid);
-    }
-  }
+  load() {
+    this.state = 'loading';
+    this.api.getMetadata(this.pid, this.item.model).subscribe((metadata: Metadata) => {
+      this.metadata = metadata;
+      this.state = 'success';
+    });
 
-  load(pid: string) {
-      this.state = 'loading';
-      this.repo.loadMetadata(this.pid, this.item.model);
   }
 
   available(element: string): boolean {
-    return this.repo.metadata[this.pid].template[element];
+    return this.metadata.template[element];
   }
 
   confirmSave(title: string, message: string, ignoreValidation: boolean) {
@@ -81,9 +95,9 @@ export class EditorMetadataComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         if (this.notSaved) {
-          let data = `model=${this.repo.metadata[this.pid].model}`;
-          data = `${data}&pid=${this.repo.metadata[this.pid].pid}`;
-          data = `${data}&xml=${this.repo.metadata[this.pid].toMods()}`;
+          let data = `model=${this.metadata.model}`;
+          data = `${data}&pid=${this.metadata.pid}`;
+          data = `${data}&xml=${this.metadata.toMods()}`;
           this.api.createObject(data).subscribe((response: any) => {
             if (response['response'].errors) {
               this.ui.showErrorSnackBarFromObject(response['response'].errors);
@@ -95,30 +109,18 @@ export class EditorMetadataComponent implements OnInit {
           });
 
         } else {
-          this.repo.saveMetadata(this.pid, this.item.model, ignoreValidation, (r: any) => {
-            if (r && r.errors && r.status === -4 && !ignoreValidation) {
-              const messages = this.ui.extractErrorsAsString(r.errors);
-              if (r.data === 'cantIgnore') {
-                this.ui.showErrorSnackBar( messages)
-              } else {
-                this.confirmSave(this.translator.instant('common.warning'), messages, true);
-              }
-              
-            }
-          });
+          this.saveMetadata(ignoreValidation);
         }
       }
     });
   }
 
-  
-
   onSave() {
-    if (this.repo.metadata[this.pid].validate()) {
+    if (this.metadata.validate()) {
       if (this.notSaved) {
-        let data = `model=${this.repo.metadata[this.pid].model}`;
-        data = `${data}&pid=${this.repo.metadata[this.pid].pid}`;
-        data = `${data}&xml=${this.repo.metadata[this.pid].toMods()}`;
+        let data = `model=${this.metadata.model}`;
+        data = `${data}&pid=${this.metadata.pid}`;
+        data = `${data}&xml=${this.metadata.toMods()}`;
         this.api.createObject(data).subscribe((response: any) => {
           if (response['response'].errors) {
             console.log('error', response['response'].errors);
@@ -131,22 +133,38 @@ export class EditorMetadataComponent implements OnInit {
         });
 
       } else {
-        this.repo.saveMetadata(this.pid, this.item.model, false, (r: any) => {
-          if (r && r.errors && r.status === -4) {
-            const messages = this.ui.extractErrorsAsString(r.errors);
-            if (r.data === 'cantIgnore') {
-              this.ui.showErrorSnackBar(messages);
-              
-            } else {
-              this.confirmSave(this.translator.instant('common.warning'), messages, true);
-            }
-          }
-        });
+        this.saveMetadata(false);
       }
     } else {
       this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', true);
     }
   }
+
+
+  saveMetadata(ignoreValidation: boolean) {
+    this.state = 'saving';
+    this.api.editMetadata(this.metadata, ignoreValidation).subscribe((response: any) => {
+      if (response.errors) {
+        if (response.status === -4) {
+          // Ukazeme dialog a posleme s ignoreValidation=true
+          //this.state = 'error';
+          const messages = this.ui.extractErrorsAsString(response.errors);
+          if (response.data === 'cantIgnore') {
+            this.ui.showErrorSnackBar(messages);
+
+          } else {
+            this.confirmSave(this.translator.instant('common.warning'), messages, true);
+          }
+          return;
+        } else {
+          this.ui.showErrorSnackBarFromObject(response.errors);
+          this.state = 'error';
+          return;
+        }
+      }
+    });
+  }
+
 
   onLoadFromCatalog() {
     const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'full' } });

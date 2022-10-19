@@ -5,12 +5,12 @@
       mat-icon-button>
       <span class="app-text-icon">M</span>
     </button>
-    <!-- <button *ngIf="editor.selectedItem.isPage() && !editor.doubleRight"
+    <button *ngIf="layout.selectedItem && layout.selectedItem.isPage()"
       matTooltip="{{ 'editor.toolbar.editor_image' | translate }}"
       [class.app-inactive]="editorType != 'image'" (click)="editorType = 'image'"
       mat-icon-button>
       <mat-icon>image</mat-icon>
-    </button> -->
+    </button>
     <!-- <button *ngIf="editor.selectedItem.isSong() && !editor.doubleRight"
       matTooltip="{{ 'editor.toolbar.editor_song' | translate }}"
       [class.app-inactive]="editorType != 'song'" (click)="editorType = 'song'"
@@ -28,7 +28,7 @@
       mat-icon-button>
       <mat-icon>code</mat-icon>
     </button>
-    <button *ngIf="data[0] && data[0].isPage()" matTooltip="{{ 'editor.toolbar.editor_ocr' | translate }}"
+    <button *ngIf="layout.selectedItem.isPage()" matTooltip="{{ 'editor.toolbar.editor_ocr' | translate }}"
       [class.app-inactive]="editorType != 'ocr'" (click)="editorType = 'ocr'"
       mat-icon-button>
       <mat-icon>title</mat-icon>
@@ -52,30 +52,33 @@
 
 </div>
 
-<div class="app-content" [ngSwitch]="editorType">
-  <app-editor-structure *ngSwitchCase="'structure'" [items]="data"></app-editor-structure>
+<div class="app-content" [ngSwitch]="editorType" style="height:100%;">
+  <app-editor-structure *ngSwitchCase="'structure'" [items]="layout.items"></app-editor-structure>
   <!-- <app-editor-children *ngSwitchCase="'children'" [items]="data"></app-editor-children> -->
-  <app-viewer *ngSwitchCase="'image'" [pid]="pid"></app-viewer>
-  <app-editor-mods *ngSwitchCase="'mods'" [item]="data[0]"></app-editor-mods>
-  <app-editor-ocr *ngSwitchCase="'ocr'" [pid]="pid"></app-editor-ocr>
-  <app-editor-comment *ngSwitchCase="'comment'" [pid]="pid"></app-editor-comment>
-  <app-editor-atm *ngSwitchCase="'atm'" [pid]="pid"></app-editor-atm>
+  <ng-container *ngSwitchCase="'image'" >
+    {{ layout.selectedItem.isPage()}}
+    <app-viewer *ngIf="layout.selectedItem && layout.selectedItem.isPage()" [pid]="layout.selectedItem.pid"></app-viewer>
+  </ng-container>
+  <app-editor-mods *ngSwitchCase="'mods'" ></app-editor-mods>
+  <app-editor-ocr *ngSwitchCase="'ocr'" ></app-editor-ocr>
+  <app-editor-comment *ngSwitchCase="'comment'" ></app-editor-comment>
+  <app-editor-atm *ngSwitchCase="'atm'" ></app-editor-atm>
   <!-- <app-editor-metadata *ngSwitchCase="'metadata'" [pid]="pid"></app-editor-metadata> -->
 
 
   <ng-container *ngSwitchCase="'metadata'">
-    <ng-container *ngIf="data[0]">
-      <app-editor-page *ngIf="data[0].isPage()" [model]="data[0].model" [pid]="pid" > </app-editor-page>
-      <app-editor-song *ngIf="data[0].isSong()" [model]="data[0].model" [pid]="pid"> </app-editor-song>
-      <app-editor-chronicle *ngIf="data[0].isChronicle()" [pid]="data[0].pid"></app-editor-chronicle>
-      <app-editor-bdm *ngIf="data[0].isBdm()" [pid]="data[0].pid"></app-editor-bdm>
-      <app-editor-metadata *ngIf="!data[0].isPage() && !data[0].isChronicle() && !data[0].isBdm()" 
-          [item]="data[0]" [pid]="pid">
+    <ng-container *ngIf="layout.selectedItem">
+      <app-editor-page *ngIf="layout.selectedItem.isPage()" [model]="layout.selectedItem.model" [pid]="layout.selectedItem.pid" > </app-editor-page>
+      <app-editor-song *ngIf="layout.selectedItem.isSong()" [model]="layout.selectedItem.model" [pid]="layout.selectedItem.pid"> </app-editor-song>
+      <app-editor-chronicle *ngIf="layout.selectedItem.isChronicle()" [pid]="layout.selectedItem.pid"></app-editor-chronicle>
+      <app-editor-bdm *ngIf="layout.selectedItem.isBdm()" [pid]="layout.selectedItem.pid"></app-editor-bdm>
+      <app-editor-metadata *ngIf="!layout.selectedItem.isPage() && !layout.selectedItem.isChronicle() && !layout.selectedItem.isBdm()" 
+          [pid]="layout.selectedItem.pid">
       </app-editor-metadata>
     </ng-container>
   </ng-container>
 
-  <app-editor-geo *ngSwitchCase="'geo'" [pid]="pid"></app-editor-geo>
+  <app-editor-geo *ngSwitchCase="'geo'" [pid]="layout.selectedItem.pid"></app-editor-geo>
 
   <!-- <app-editor-metadata *ngIf="editor.leftEditorType == 'geo'" [pid]="editor.left.pid"></app-editor-metadata> -->
 
