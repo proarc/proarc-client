@@ -286,7 +286,8 @@
     "settings": "Settings",
     "about": "About",
     "workflow": "Workflow",
-    "admin": "Admintration"
+    "admin": "Admintration",
+    "layout": "Layout"
   },
   "editor": {
     "toolbar": {

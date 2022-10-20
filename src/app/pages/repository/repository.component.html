@@ -1,24 +1,69 @@
 <div class="app-editor-wrapper" *ngIf="layout.ready">
-    <as-split direction="horizontal" [restrictMove]="false" [useTransition]="true">
-      <as-split-area [size]="50">
-        <as-split direction="vertical" [restrictMove]="false">
-          <as-split-area>
-            <app-editor-generic [editorType]="'structure'" ></app-editor-generic>
-          </as-split-area>
-          <as-split-area>
-            <app-editor-generic [editorType]="'metadata'" ></app-editor-generic>
-          </as-split-area>
+  <div class="app-toolbar" style="display: flex;">
+    <div class="app-label">
+      <div class="app-label-title">
+        <ng-container *ngFor="let p of layout.path; let last = last">
+          <a (click)="goToObjectByPid(p.pid)" [title]="'model.' + p.model | translate">{{ p.label }}</a>
+          <mat-icon class="icon-half" *ngIf="!last">chevron_right</mat-icon>
+        </ng-container>
+        <ng-container *ngIf="layout.path.length === 0">{{ layout.item.label }}</ng-container>
+      </div>
+
+      <div *ngIf="layout.path.length === 0" class="app-label-model">{{ 'model.' + layout.item.model | translate }}</div>
+      <div *ngIf="layout.path.length > 0" class="app-label-model">{{ 'model.' + layout.item.model | translate }} - {{
+        layout.item.label }}</div>
+    </div>
+    <div class="app-actions">
+      <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToObject(previousItem)"
+        [class.app-disabled]="!previousItem" mat-icon-button>
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+      <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToObject(parent)"
+        [class.app-disabled]="!parent" mat-icon-button>
+        <mat-icon>keyboard_arrow_up</mat-icon>
+      </button>
+      <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="goToObject(nextItem)"
+        [class.app-disabled]="!nextItem" mat-icon-button>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <as-split *ngIf="config" direction="horizontal" [disabled]="config.disabled" >
+    <ng-template ngFor let-column [ngForOf]="config.columns" let-icol="index">
+      <as-split-area *ngIf="column.visible" [order]="icol" [size]="column.size">
+        <as-split direction="vertical" [disabled]="config.disabled" >
+          <ng-template ngFor let-row [ngForOf]="column.rows" let-irow="index">
+            <as-split-area *ngIf="row.visible" [order]="irow" [size]="row.size">
+              <app-editor-generic [editorType]="row.type"></app-editor-generic>
+            </as-split-area>
+          </ng-template>
         </as-split>
       </as-split-area>
-      <as-split-area [size]="50">
-        <as-split direction="vertical" [restrictMove]="true">
-          <as-split-area [size]="60">
-            <app-editor-generic *ngIf="layout.selectedItem" [editorType]="'atm'" ></app-editor-generic>
-          </as-split-area>
-          <as-split-area [size]="40" >
-            <app-editor-generic [editorType]="'image'"></app-editor-generic>
-          </as-split-area>
-        </as-split>
-      </as-split-area>
-    </as-split>
+    </ng-template>
+  </as-split>
+
+<!--   
+  <as-split direction="horizontal" [restrictMove]="false" [useTransition]="true">
+    <as-split-area [size]="50">
+      <as-split direction="vertical" [restrictMove]="false">
+        <as-split-area>
+          <app-editor-generic [editorType]="'structure'"></app-editor-generic>
+        </as-split-area>
+        <as-split-area>
+          <app-editor-generic [editorType]="'metadata'"></app-editor-generic>
+        </as-split-area>
+      </as-split>
+    </as-split-area>
+    <as-split-area [size]="50">
+      <as-split direction="vertical" [restrictMove]="true">
+        <as-split-area [size]="60">
+          <app-editor-generic *ngIf="layout.selectedItem" [editorType]="'atm'"></app-editor-generic>
+        </as-split-area>
+        <as-split-area [size]="40">
+          <app-editor-generic [editorType]="'image'"></app-editor-generic>
+        </as-split-area>
+      </as-split>
+    </as-split-area>
+  </as-split> -->
 </div>

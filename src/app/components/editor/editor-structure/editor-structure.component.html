@@ -3,7 +3,7 @@
 <div class="app-editor-toolbar">
 
   <button class="app-action" 
-    matTooltip="{{ 'history.refresh' | translate }}" (click)="repo.reload()" mat-icon-button>
+    matTooltip="{{ 'history.refresh' | translate }}" (click)="layout.setShouldRefresh()" mat-icon-button>
     <mat-icon>sync</mat-icon>
   </button>
 
@@ -52,7 +52,7 @@
 
   <div class="app-actions-right">
     <ng-container *ngIf="isRepo">
-      <button class="app-action" matTooltip="{{ 'editor.children.add_new' | translate }}" *ngIf="repo.canAddChildren()"
+      <button class="app-action" matTooltip="{{ 'editor.children.add_new' | translate }}" *ngIf="canAddChildren()"
         (click)="onCreateNewObject()" mat-icon-button>
         <mat-icon>add</mat-icon>
       </button>

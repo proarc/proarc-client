@@ -16,7 +16,7 @@ import { LayoutService } from 'src/app/services/layout.service';
 })
 export class EditorModsComponent implements OnInit, OnDestroy {
 
-
+  @Input() pid: string;
   @ViewChild('editingPre') editingPre: ElementRef;
   @ViewChild('originalPre') originalPre: ElementRef;
   realtime = false;
@@ -43,10 +43,20 @@ export class EditorModsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.layout.selectionChanged().subscribe(() => {
+    // this.layout.selectionChanged().subscribe(() => {
+    //   this.reload();
+    // });
+    // this.reload();
+  }
+
+  ngOnChanges(c: SimpleChange) {
+    if (!this.layout.selectedItem) {
+      this.visible = false;
+      return;
+    }
+    if (this.pid) {
       this.reload();
-    });
-    this.reload();
+    }
   }
 
   public setRealtime(enable: boolean) {

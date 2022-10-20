@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Component } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { DocumentItem } from '../model/documentItem.model';
 import { Metadata } from '../model/metadata.model';
@@ -19,12 +19,34 @@ export class LayoutService {
   //public selection: DocumentItem[] | null; // selected item
   public selectedItem: DocumentItem; // selected item
 
+  path: { pid: string, label: string, model: string }[] = [];
+  expandedPath: string[];
+  public parent: DocumentItem | null;
+
   public isDirty: boolean; // some components have unsaved changes
 
+  private refreshSubject = new Subject<boolean>();
   private selectionSubject = new Subject<boolean>();
   private moveNextSubject = new Subject<boolean>();
 
+  
+  allowedChildrenModels: string[];
+
+  dirtyComps: {[key: string]: Component} = {};
+
   constructor() { }
+
+  setIsDirty(comp: Component) {
+    if (!this.dirtyComps[comp.selector]) {
+      this.dirtyComps[comp.selector] = comp;
+    }
+  }
+
+  cleanIsDirty(comp: Component) {
+    if (this.dirtyComps[comp.selector]) {
+      delete this.dirtyComps[comp.selector];
+    }
+  }
 
   setSelection() {
     
@@ -45,6 +67,14 @@ export class LayoutService {
   
   selectionChanged(): Observable<boolean> {
     return this.selectionSubject.asObservable();
+  }
+  
+  setShouldRefresh() {
+    this.refreshSubject.next(true);
+  }
+  
+  shouldRefresh(): Observable<boolean> {
+    return this.refreshSubject.asObservable();
   }
 
   getSelected() {

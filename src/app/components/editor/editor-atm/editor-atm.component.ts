@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { Device } from 'src/app/model/device.model';
 import { Atm } from 'src/app/model/atm.model';
@@ -7,6 +7,7 @@ import { ConfigService } from 'src/app/services/config.service';
 import { User } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { LayoutService } from 'src/app/services/layout.service';
+import { UIService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-editor-atm',
@@ -35,6 +36,7 @@ export class EditorAtmComponent implements OnInit {
     private layout: LayoutService, 
     private api: ApiService, 
     private config: ConfigService, 
+    private ui: UIService,
     public auth: AuthService) {
   }
 
@@ -44,6 +46,16 @@ export class EditorAtmComponent implements OnInit {
       this.reload();
     });
     this.reload();
+  }
+
+  ngOnChanges(c: SimpleChange) {
+    if (!this.layout.selectedItem) {
+      //this.visible = false;
+      return;
+    }
+    if (this.pid) {
+      this.reload();
+    }
   }
 
   private reload() {
@@ -78,9 +90,18 @@ export class EditorAtmComponent implements OnInit {
     if (!this.atm.hasChanged()) {
       return;
     }
-    // this.editor.saveAtm(this.atm, (atm: Atm) => {
-    //   this.atm = atm;
-    // });
+
+    this.state = 'saving';
+    this.api.editAtm(this.atm, this.layout.getBatchId()).subscribe((response: any) => {
+        if (response.response.errors) {
+            this.ui.showErrorSnackBarFromObject(response.response.errors);
+            this.state = 'error';
+            return;
+        }
+        const newAtm: Atm = Atm.fromJson(response['response']['data'][0]);
+        this.atm = newAtm;
+        this.state = 'success';
+    });
   }
 
 }

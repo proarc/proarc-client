@@ -94,12 +94,6 @@ export class RepositoryService {
     return false;
   }
 
-  public goToObject(item: DocumentItem) {
-    if (item) {
-      this.router.navigate(['/repository', item.pid]);
-    }
-  }
-
   public goToObjectByPid(pid: string) {
     if (pid) {
       this.router.navigate(['/repository', pid]);

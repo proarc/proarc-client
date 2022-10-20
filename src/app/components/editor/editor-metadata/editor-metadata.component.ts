@@ -39,30 +39,31 @@ sc: Subscription;
     private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.sc = this.layout.selectionChanged().subscribe(() => {
-      if (!this.layout.selectedItem || this.layout.selectedItem.isPage()) {
-        this.visible = false;
-        return;
-      }
-      if (this.layout.getNumOfSelected() === 0) {
-        this.item = this.layout.item;
-        this.pid = this.item.pid;
-        this.visible = true;
-        this.load();
-      } else if (this.layout.getNumOfSelected() === 1) {
-        this.item = this.layout.selectedItem;
-        this.pid = this.item.pid;
-        this.visible = true;
-        this.load();
-      } else {
-        this.visible = false;
-      }
+    // this.sc = this.layout.selectionChanged().subscribe(() => {
+    //   console.log("AA")
+    //   if (!this.layout.selectedItem || this.layout.selectedItem.isPage()) {
+    //     this.visible = false;
+    //     return;
+    //   }
+    //   if (this.layout.getNumOfSelected() === 0) {
+    //     this.item = this.layout.item;
+    //     this.pid = this.item.pid;
+    //     this.visible = true;
+    //     this.load();
+    //   } else if (this.layout.getNumOfSelected() === 1) {
+    //     this.item = this.layout.selectedItem;
+    //     this.pid = this.item.pid;
+    //     this.visible = true;
+    //     this.load();
+    //   } else {
+    //     this.visible = false;
+    //   }
 
-    })
+    // })
   }
 
   ngOnDestroy() {
-    this.sc.unsubscribe();
+    // this.sc.unsubscribe();
   }
 
   ngOnChanges(c: SimpleChange) {
@@ -71,7 +72,7 @@ sc: Subscription;
       return;
     }
     if (this.pid) {
-      this.item = this.layout.item;
+      this.item = this.layout.selectedItem;
       this.pid = this.item.pid;
       this.visible = true;
       this.load();

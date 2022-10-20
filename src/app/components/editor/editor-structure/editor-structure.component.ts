@@ -7,6 +7,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { ResizedEvent } from 'angular-resize-event';
 import { ChildrenValidationDialogComponent } from 'src/app/dialogs/children-validation-dialog/children-validation-dialog.component';
 import { ConvertDialogComponent } from 'src/app/dialogs/convert-dialog/convert-dialog.component';
+import { NewMetadataDialogComponent } from 'src/app/dialogs/new-metadata-dialog/new-metadata-dialog.component';
+import { NewObjectData, NewObjectDialogComponent } from 'src/app/dialogs/new-object-dialog/new-object-dialog.component';
 import { ParentDialogComponent } from 'src/app/dialogs/parent-dialog/parent-dialog.component';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
@@ -41,6 +43,9 @@ export class EditorStructureComponent implements OnInit {
   sourceIndex: number;
   isDragging = false;
 
+  
+  expandedPath: string[];
+
   movedToIndex: boolean;
   arrowIndex: number;
 
@@ -51,9 +56,6 @@ export class EditorStructureComponent implements OnInit {
   viewMode = 'none'; // 'list' | 'grid' | 'icons'
   shortLabels = false;
   pageChildren = false;
-
-  expandedPath: string[];
-  parent: DocumentItem | null;
   public relocationMode: boolean;
 
   hasChanges: boolean = false;
@@ -109,8 +111,6 @@ export class EditorStructureComponent implements OnInit {
   obtainFocus() {
     this.childrenWrapperEl.nativeElement.focus();
   }
-
-
 
   onResized(event: ResizedEvent) {
     const d = event.newRect.width / 101;
@@ -223,8 +223,13 @@ export class EditorStructureComponent implements OnInit {
   }
 
   open(item: DocumentItem) {
-    console.log(item.pid)
-    this.repo.goToObject(item);
+    this.goToObject(item);
+  }
+
+  public goToObject(item: DocumentItem) {
+    if (item) {
+      this.router.navigate(['/repository', item.pid]);
+    }
   }
 
   // Drag events
@@ -251,7 +256,7 @@ export class EditorStructureComponent implements OnInit {
     if (!this.dragEnabled) {
       return;
     }
-    const isMultiple = this.repo.getNumOfSelected() > 1;
+    const isMultiple = this.layout.getNumOfSelected() > 1;
     this.source = event.currentTarget;
     this.sourceNext = event.currentTarget.nextSibling;
     this.sourceIndex = idx;
@@ -289,7 +294,7 @@ export class EditorStructureComponent implements OnInit {
     if (!this.dragEnabled) {
       return;
     }
-    const isMultiple = this.repo.getNumOfSelected() > 1;
+    const isMultiple = this.layout.getNumOfSelected() > 1;
     const targetIndex = this.getIndex(this.source);
     let to = targetIndex;
     this.source.parentNode.insertBefore(this.source, this.sourceNext);
@@ -316,7 +321,7 @@ export class EditorStructureComponent implements OnInit {
         const item = rest[i];
         this.items.push(item);
       }
-      this.repo.setIsDirty(this as Component);
+      this.layout.setIsDirty(this as Component);
       this.table.renderRows();
     } else {
       const from = this.sourceIndex;
@@ -350,15 +355,15 @@ export class EditorStructureComponent implements OnInit {
       const item = rest[i];
       this.items.push(item);
     }
-    this.repo.setIsDirty(this as Component);
+    this.layout.setIsDirty(this as Component);
     this.table.renderRows();
   }
 
   reorder(from: number, to: number) {
-    if (this.repo.getNumOfSelected() > 1) {
+    if (this.layout.getNumOfSelected() > 1) {
       this.reorderMultiple(to + 1);
     } else {
-      this.repo.setIsDirty(this as Component);
+      this.layout.setIsDirty(this as Component);
       const item = this.items[from];
       this.items.splice(from, 1);
       this.items.splice(to, 0, item);
@@ -377,24 +382,48 @@ export class EditorStructureComponent implements OnInit {
   }
 
 
-
+  canAddChildren(): boolean {
+    return this.layout.allowedChildrenModels && this.layout.allowedChildrenModels.length > 0;
+  }
 
   onCreateNewObject() {
-    this.repo.onCreateNewObject();
+    if (!this.canAddChildren()) {
+      return;
+    }
+    const data: NewObjectData = {
+      models: this.layout.allowedChildrenModels,
+      model: this.layout.allowedChildrenModels[0],
+      customPid: false,
+      parentPid: this.layout.selectedItem.pid
+    }
+    const dialogRef = this.dialog.open(NewObjectDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result && result['pid']) {
+
+        if (result.isMultiple) {
+          this.layout.setShouldRefresh();
+        } else {
+          const dialogRef = this.dialog.open(NewMetadataDialogComponent, { disableClose: true, data: result.data });
+          dialogRef.afterClosed().subscribe(res => {
+            this.layout.setShouldRefresh();
+          });
+        }
+
+      }
+    });
   }
 
   showConvertDialog() {
-    const dialogRef = this.dialog.open(ConvertDialogComponent, { data: { pid: this.repo.item.pid, model: this.repo.item.model, children: this.items } });
+    const dialogRef = this.dialog.open(ConvertDialogComponent, { data: { pid: this.layout.item.pid, model: this.layout.item.model, children: this.items } });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result.status == 'ok') {
-          this.repo.reloadChildren(() => {
-            this.ui.showInfoSnackBar("Strany byly převedeny");
-          });
+          this.layout.setShouldRefresh();
+          this.ui.showInfoSnackBar("Strany byly převedeny");
+          
         } else if (result.status == 'failure') {
-          this.repo.reloadChildren(() => {
-            this.ui.showInfoSnackBar("Strany byly převedeny s chybou");
-          });
+          this.layout.setShouldRefresh();
+          this.ui.showInfoSnackBar("Strany byly převedeny s chybou");
         }
       }
     });
@@ -418,7 +447,37 @@ export class EditorStructureComponent implements OnInit {
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.repo.reindexChildren();
+        this.reindexChildren();
+      }
+    });
+  }
+
+  reindexChildren() {
+    let pagePid = null;
+    let model = null;
+    for (const page of this.items) {
+      if (page.isPage()) {
+        pagePid = page.pid;
+        model = page.model;
+        break;
+      }
+    }
+    if (!pagePid) {
+      return;
+    }
+    this.state = 'saving';
+    this.api.reindexPages(this.layout.item.pid, pagePid, null, model).subscribe(result => {
+
+      if (result.response.errors) {
+        this.ui.showErrorSnackBarFromObject(result.response.errors);
+        this.state = 'error';
+      } else if (result.response.data) {
+        this.ui.showErrorSnackBarFromObject(result.response.data.map((d: any) => d.errorMessage = d.validation));
+        this.state = 'error';
+      } else {
+        this.state = 'success';
+        this.ui.showInfoSnackBar("Objekty byly reindexovány");
+        this.layout.setShouldRefresh();
       }
     });
   }
@@ -426,11 +485,9 @@ export class EditorStructureComponent implements OnInit {
 
 
   onRelocateOutside() {
-    const selected = this.repo.getSelected();
-    const items = selected.length > 0 ? selected : [this.repo.item];
-    const parent = selected.length > 0 ? this.repo.item : this.parent;
-
-
+    const selected = this.layout.getSelected();
+    const items = selected.length > 0 ? selected : [this.layout.item];
+    const parent = selected.length > 0 ? this.layout.item : this.layout.parent;
 
     if (this.properties.getStringProperty('parent.expandedPath')) {
       this.expandedPath = JSON.parse(this.properties.getStringProperty('parent.expandedPath'));
@@ -476,7 +533,7 @@ export class EditorStructureComponent implements OnInit {
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        if (this.parent) {
+        if (this.layout.parent) {
 
 
 
@@ -531,7 +588,7 @@ export class EditorStructureComponent implements OnInit {
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        if (this.layout.getNumOfSelected() > 0 || this.parent) {
+        if (this.layout.getNumOfSelected() > 0 || this.layout.parent) {
           this.relocateObjects(items[0].parent, destinationPid, checkbox.checked);
         } else {
           this.setParent(destinationPid, checkbox.checked);
