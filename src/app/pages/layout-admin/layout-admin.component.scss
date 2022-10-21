@@ -5,9 +5,17 @@
 }
 .bloc {
   height: 100%;
+  mat-form-field {
+    position: absolute;
+  }
 }
 .explanations {
-  padding: 15px;
+  background-color: white;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
 .panel {
   font-size: 100px;
@@ -22,10 +30,14 @@
 .panel > p {
   margin: 0;
 }
-button {
-  margin-bottom: 10px;
-  color: red;
+.panel-button {
+  padding: 5px;
+  border: solid 2px red;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   &.active {
-    color: green;
+    border-color: green;
   }
 }

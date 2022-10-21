@@ -85,6 +85,10 @@ export class LayoutService {
     return this.getSelected().length;
   }
 
+  getFirstSelectedIndex() {
+    return this.items.findIndex(i => i.selected);
+  }
+
   getBatchId() {
     return this.batchId;
   }

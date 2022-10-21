@@ -17,7 +17,6 @@ import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { RepositoryService } from 'src/app/services/repository.service';
 import { UIService } from 'src/app/services/ui.service';
 
 @Component({
@@ -28,6 +27,7 @@ import { UIService } from 'src/app/services/ui.service';
 export class EditorStructureComponent implements OnInit {
 
   @Input() items: DocumentItem[];
+  @Input() viewMode: string = 'list'; // 'list' | 'grid' | 'icons'
   @ViewChild('table') table: MatTable<DocumentItem>;
   @ViewChild('childrenWrapper') childrenWrapperEl: ElementRef;
 
@@ -53,7 +53,6 @@ export class EditorStructureComponent implements OnInit {
   iconWidth: number;
   iconHeight: number;
 
-  viewMode = 'none'; // 'list' | 'grid' | 'icons'
   shortLabels = false;
   pageChildren = false;
   public relocationMode: boolean;
@@ -80,8 +79,7 @@ export class EditorStructureComponent implements OnInit {
     private ui: UIService,
     private api: ApiService,
     public auth: AuthService,
-    public layout: LayoutService,
-    public repo: RepositoryService
+    public layout: LayoutService
   ) { }
 
   ngOnInit(): void {
@@ -193,6 +191,11 @@ export class EditorStructureComponent implements OnInit {
 
   setColumns() {
     this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field)
+  }
+
+  selectAll() {
+    this.items.forEach(i => i.selected = true);
+    this.layout.setSelection();
   }
 
   rowClick(row: DocumentItem, idx: number, event: MouseEvent) {
@@ -756,7 +759,7 @@ export class EditorStructureComponent implements OnInit {
   }
 
   onMove() {
-    const fromIndex = this.items.indexOf(this.repo.getFirstSelected());
+    const fromIndex = this.layout.getFirstSelectedIndex();
     const input = {
       label: String(this.translator.instant('editor.children.move_dialog.position')),
       value: fromIndex + 1,

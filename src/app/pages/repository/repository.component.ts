@@ -17,7 +17,7 @@ import { defaultLayoutConfig, IConfig } from '../layout-admin/layout-admin.compo
 })
 export class RepositoryComponent implements OnInit {
 
-  localStorageName = 'proarc-layout';
+  localStorageName = 'proarc-layout-repo';
   config: IConfig = null;
 
   pid: string;
@@ -37,17 +37,19 @@ export class RepositoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
-    if (localStorage.getItem(this.localStorageName)) {
-      this.config = JSON.parse(localStorage.getItem(this.localStorageName))
-    } else {
-      this.config = JSON.parse(JSON.stringify(defaultLayoutConfig));
-    }
-
+    // if (localStorage.getItem(this.localStorageName)) {
+    //   this.config = JSON.parse(localStorage.getItem(this.localStorageName))
+    // } else {
+    //   this.config = JSON.parse(JSON.stringify(defaultLayoutConfig));
+    // }
     this.layout.type = 'repo';
 
     this.layout.shouldRefresh().subscribe(() => {
       this.loadData(this.pid);
+    });
+
+    this.layout.selectionChanged().subscribe(() => {
+      this.setVisibility();
     });
 
 
@@ -61,6 +63,27 @@ export class RepositoryComponent implements OnInit {
         }
       });
   }
+
+  setVisibility() {
+    
+
+    if (localStorage.getItem(this.localStorageName)) {
+      this.config = JSON.parse(localStorage.getItem(this.localStorageName))
+    } else {
+      this.config = JSON.parse(JSON.stringify(defaultLayoutConfig));
+    }
+
+    this.config.columns.forEach(c => {
+      c.rows.forEach(r => {
+        if (r.type === 'image' && r.visible) {
+          r.isEmpty = !(this.layout.selectedItem && this.layout.selectedItem.isPage());
+        }
+      });
+      c.visible = c.rows.findIndex(r => r.visible && !r.isEmpty) > -1;
+    });
+    
+  }
+
 
   loadData(pid: string) {
     this.layout.ready = false;
@@ -86,6 +109,7 @@ export class RepositoryComponent implements OnInit {
         this.setupNavigation();
 
       });
+      this.setVisibility();
     });
   }
 

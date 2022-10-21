@@ -50,8 +50,6 @@ export class RepositoryService {
     this.loadData(this.pid);
   }
 
-  
-
   selectAll() {
     this.children.forEach(i => i.selected = true);
     this.selectionSubject.next(true)

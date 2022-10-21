@@ -34,7 +34,7 @@
   <div class="app-divider"></div>
 
   <button class="app-action" matTooltip="{{ 'editor.children.select_all' | translate }}"
-    (click)="repo.selectAll()" mat-icon-button>
+    (click)="selectAll()" mat-icon-button>
     <mat-icon>check_box</mat-icon>
   </button>
   <div class="app-divider"></div>
@@ -104,7 +104,22 @@
 <div class="app-editor-content app-children-editor-content" #childrenWrapper tabindex="0" (keyup)="keyup($event)"
     (resized)="onResized($event)">
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" #table>
+    <!-- <div class="app-view-grid" *ngIf="viewMode == 'grid'" #childrenGridList (mousedown)="mousedown($event)">
+      <div *ngFor="let item of items; let i = index" (click)="rowClick(item, i, $event)" (dblclick)="open(item)"
+        class="app-grid-item-wrapper" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart($event)"
+        (dragover)="dragover($event)" (dragend)="dragend($event)" (mousedown)="mousedown($event)"
+        [class.app-selected]="item.selected"
+        [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [style.width]="iconWidth + '%'">
+        <div class="app-grid-item">
+          <div class="app-grid-item-label">{{ shortLabels ? item.shortLabel : item.label }}
+            <br />
+            ({{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }})
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+<table mat-table *ngIf="viewMode == 'list'" [dataSource]="dataSource" class="mat-elevation-z8" #table>
 
   <ng-container matColumnDef="pid">
     <th mat-header-cell *matHeaderCellDef>{{'search.pid' | translate}} </th>

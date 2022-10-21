@@ -55,10 +55,12 @@
 </div>
 
 <div class="app-content" [ngSwitch]="editorType" style="height:100%;">
-  <app-editor-structure *ngSwitchCase="'structure'" [items]="layout.items"></app-editor-structure>
+  <app-editor-structure *ngSwitchCase="'structure-list'" [viewMode]="'list'" [items]="layout.items"></app-editor-structure>
+  <app-editor-structure *ngSwitchCase="'structure-grid'" [viewMode]="'grid'" [items]="layout.items"></app-editor-structure>
+  <app-editor-structure *ngSwitchCase="'structure-icons'" [viewMode]="'icons'" [items]="layout.items"></app-editor-structure>
   <!-- <app-editor-children *ngSwitchCase="'children'" [items]="data"></app-editor-children> -->
   <ng-container *ngSwitchCase="'image'" >
-    <app-viewer *ngIf="layout.selectedItem && layout.selectedItem.isPage()" [pid]="layout.selectedItem.pid"></app-viewer>
+    <app-viewer *ngIf="layout.selectedItem && layout.selectedItem.isPage()" [pid]="layout.selectedItem.pid" ></app-viewer>
   </ng-container>
   <app-editor-mods *ngSwitchCase="'mods'"  [pid]="layout.selectedItem.pid"></app-editor-mods>
   <app-editor-ocr *ngSwitchCase="'ocr'"  [pid]="layout.selectedItem.pid"></app-editor-ocr>

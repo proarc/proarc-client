@@ -43,7 +43,8 @@ const modules = [
     MatTreeModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatTableModule
+    MatTableModule,
+    MatButtonToggleModule
   ];
 
   @NgModule({
