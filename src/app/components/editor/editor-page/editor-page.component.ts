@@ -1,7 +1,6 @@
 import { CodebookService } from './../../../services/codebook.service';
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
-import { EditorService } from 'src/app/services/editor.service';
 import { Page } from 'src/app/model/page.model';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from 'src/app/services/config.service';

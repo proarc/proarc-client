@@ -1,13 +1,14 @@
 import { CodebookService } from './../../../services/codebook.service';
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
-import { EditorService } from 'src/app/services/editor.service';
 import { Page } from 'src/app/model/page.model';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from 'src/app/services/config.service';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
+import { LayoutService } from 'src/app/services/layout.service';
+import { UIService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-editor-song',
@@ -36,12 +37,13 @@ export class EditorSongComponent implements OnInit {
     this.onPidChanged(pid);
   }
 
-  constructor(private editor: EditorService,
-              private api: ApiService,
-              private dialog: MatDialog,
-              public config: ConfigService,
-              public codebook: CodebookService,
-              public translator: TranslateService) {
+  constructor(private layout: LayoutService,
+    private ui: UIService,
+    private api: ApiService,
+    private dialog: MatDialog,
+    public config: ConfigService,
+    public codebook: CodebookService,
+    public translator: TranslateService) {
   }
 
   ngOnInit() {
@@ -56,17 +58,17 @@ export class EditorSongComponent implements OnInit {
       return;
     }
     this.state = 'loading';
-    this.api.getPage(pid, this.model, this.editor.getBatchId()).subscribe((page: Page) => {
+    this.api.getPage(pid, this.model, this.layout.getBatchId()).subscribe((page: Page) => {
       this.page = page;
       this.state = 'success';
       if (this.movedToNextFrom == 'pageNumber') {
         setTimeout(() => {
           this.pageNumberFiled.nativeElement.focus();
-        },10);
+        }, 10);
       } else if (this.movedToNextFrom == 'pageIndex') {
         setTimeout(() => {
           this.pageIndexFiled.nativeElement.focus();
-        },10);
+        }, 10);
       }
 
     }, () => {
@@ -154,16 +156,56 @@ export class EditorSongComponent implements OnInit {
     this.movedToNextFrom = from;
     if (!this.page.hasChanged()) {
       if (!!from) {
-        this.editor.moveToNext();
+        this.layout.moveToNext();
       }
       return;
     }
     this.page.removeEmptyIdentifiers();
-    this.editor.savePage(this.page, (page: Page) => {
+    this.savePage(this.page, (page: Page) => {
       if (page) {
         this.page = page;
       }
     }, !!from);
+  }
+
+
+
+  savePage(page: Page, callback: (page: Page) => void, moveToNext = false) {
+    this.state = 'saving';
+    this.api.editPage(page, this.layout.getBatchId()).subscribe((resp: any) => {
+      if (resp.response.errors) {
+        this.ui.showErrorSnackBarFromObject(resp.response.errors);
+        this.state = 'error';
+        return;
+      }
+      const newPage: Page = Page.fromJson(resp['response']['data'][0], page.model);
+      if (this.layout.type === 'import') {
+        // this.reloadBatch(() => {
+        //   this.state = 'success';
+        //   if (callback && newPage.pid == this.layout.selectedItem.pid) {
+        //     callback(newPage);
+        //   }
+        // }, moveToNext);
+      } else {
+        // this.api.getDocument(page.pid).subscribe((doc: DocumentItem) => {
+        //   if (this.mode === 'children') {
+        //     this.reloadChildren(() => {
+        //       this.state = 'success';
+        //       if (callback && newPage.pid == this.selectedItem.pid) {
+        //         callback(newPage);
+        //       }
+        //     }, moveToNext);
+        //   } else {
+        //     this.selectRight(doc);
+        //     this.left = doc;
+        //     this.state = 'success';
+        //     if (callback) {
+        //       callback(newPage);
+        //     }
+        //   }
+        // });
+      }
+    });
   }
 
 }

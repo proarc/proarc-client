@@ -1,9 +1,12 @@
 import { CodebookService } from './../../../services/codebook.service';
 import { Component, OnInit } from '@angular/core';
-import { EditorService } from 'src/app/services/editor.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { MatSelect } from '@angular/material/select';
 import { FormControl, FormGroup } from '@angular/forms';
+import { LayoutService } from 'src/app/services/layout.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ApiService } from 'src/app/services/api.service';
+import { UIService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-editor-pages',
@@ -12,16 +15,16 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class EditorPagesComponent implements OnInit {
 
-  holder: PageUpdateHolder; 
-  pageTypeControl: FormControl<{code: string, name: string} | null> = new FormControl<{code: string, name: string} | null>(null);
-  numberingTypesControl: FormControl<{id: string, label: string} | null> = new FormControl<{id: string, label: string} | null>(null);
-  pageNumberControl= new FormControl();
-  pageNumberPrefixControl= new FormControl();
-  pageNumberSuffixControl= new FormControl();
-  pageNumberIncrementControl= new FormControl();
-  pageIndexControl= new FormControl();
-  posControl= new FormControl();
-  applyControl= new FormControl();
+  holder: PageUpdateHolder;
+  pageTypeControl: FormControl<{ code: string, name: string } | null> = new FormControl<{ code: string, name: string } | null>(null);
+  numberingTypesControl: FormControl<{ id: string, label: string } | null> = new FormControl<{ id: string, label: string } | null>(null);
+  pageNumberControl = new FormControl();
+  pageNumberPrefixControl = new FormControl();
+  pageNumberSuffixControl = new FormControl();
+  pageNumberIncrementControl = new FormControl();
+  pageIndexControl = new FormControl();
+  posControl = new FormControl();
+  applyControl = new FormControl();
   controls: FormGroup = new FormGroup({
     pageTypeControl: this.pageTypeControl,
     pageNumberControl: this.pageNumberControl,
@@ -34,16 +37,21 @@ export class EditorPagesComponent implements OnInit {
     applyControl: this.applyControl
   });
 
+  state: string;
+
   constructor(
+    private api: ApiService,
+    private ui: UIService,
+    private dialog: MatDialog,
     public config: ConfigService,
-    public editor: EditorService, 
+    public layout: LayoutService,
     public codebook: CodebookService) {
   }
 
   ngOnInit() {
     this.holder = new PageUpdateHolder();
     this.controls.valueChanges.subscribe((e: any) => {
-      this.editor.isDirty = this.controls.dirty;
+      this.layout.isDirty = this.controls.dirty;
     })
   }
 
@@ -55,28 +63,80 @@ export class EditorPagesComponent implements OnInit {
     if (!this.canSave()) {
       return;
     }
-    this.editor.updateSelectedPages(this.holder, null);
+    this.updateSelectedPages(this.holder, null);
     // this.holder.reset();
     this.controls.markAsPristine();
-    this.editor.isDirty = false;
+    this.layout.isDirty = false;
   }
 
   addBrackets() {
-    this.editor.changeBrackets(this.holder, true, null);
+    this.changeBrackets(this.holder, true, null);
   }
 
   removeBrackets() {
-    this.editor.changeBrackets(this.holder, false, null);
+    this.changeBrackets(this.holder, false, null);
   }
-  
+
   enterSelect(s: MatSelect) {
     s.close();
     this.onSave();
   }
 
-  // setChanges() {
-  //   this.editor.isDirty = this.canSave();
-  // }
+
+  updateSelectedPages(holder: PageUpdateHolder, callback: () => void) {
+    // if (this.preparation) {
+    //     this.editSelectedBatchPages(holder, callback);
+    //     return;
+    // }
+    this.state = 'saving';
+    const pages = [];
+    for (const item of this.layout.items) {
+      if (item.isPage() && item.selected) {
+        pages.push(item.pid);
+      }
+    }
+    this.api.editPages(pages, holder, this.layout.getBatchId()).subscribe((result: any) => {
+      if (result.response.errors) {
+        this.ui.showErrorSnackBarFromObject(result.response.errors);
+        this.state = 'error';
+      } else {
+        if (this.layout.type !== 'repo') {
+          this.layout.setShouldRefresh();
+          return;
+        } else {
+          this.layout.setShouldRefresh();
+        }
+      }
+    })
+  }
+
+  changeBrackets(holder: PageUpdateHolder, useBrackets: boolean, callback: () => void) {
+    // if (this.preparation) {
+    //     this.editSelectedBatchPages(holder, callback);
+    //     return;
+    // }
+    this.state = 'saving';
+    const pages = [];
+    for (const item of this.layout.items) {
+      if (item.isPage() && item.selected) {
+        pages.push(item.pid);
+      }
+    }
+    this.api.editBrackets(pages, holder, useBrackets, this.layout.getBatchId()).subscribe((result: any) => {
+      if (result.response.errors) {
+        this.ui.showErrorSnackBarFromObject(result.response.errors);
+        this.state = 'error';
+      } else {
+        if (this.layout.type !== 'repo') {
+          this.layout.setShouldRefresh();
+          return;
+        } else {
+          this.layout.setShouldRefresh();
+        }
+      }
+    })
+  }
+
 }
 
 
@@ -107,7 +167,7 @@ export class PageUpdateHolder {
     }
   ];
 
-  applyOptions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+  applyOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
   editType: boolean;
   editIndex: boolean;
@@ -167,14 +227,14 @@ export class PageUpdateHolder {
 
   romanize(num: number): string {
     if (isNaN(num)) {
-        return '';
+      return '';
     }
     const digits = String(+num).split('');
-    const  key = ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM',
-               '', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC',
-               '', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
+    const key = ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM',
+      '', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC',
+      '', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
     let roman = '',
-    i = 3;
+      i = 3;
     while (i--) {
       roman = (key[+digits.pop() + (i * 10)] || '') + roman;
     }
@@ -197,11 +257,11 @@ export class PageUpdateHolder {
   }
 
   alphabetIndex(text: string) {
-    if(text == null) { 
+    if (text == null) {
       return 0;
     }
     let result = 0;
-    for(let i = 0; i < text.length; i++){
+    for (let i = 0; i < text.length; i++) {
       const letter = text.substring(i, i + 1);
       const power = text.length - (i + 1);
       const index = this.alphabet.indexOf(letter) + 1;
@@ -211,24 +271,24 @@ export class PageUpdateHolder {
   }
 
   deromanize(roman: string) {
-    if(roman == null) {
+    if (roman == null) {
       return 0;
     }
     let num = this.romanCharToInt(roman.charAt(0));
     let pre, curr;
-  
-    for(let i = 1; i < roman.length; i++){
+
+    for (let i = 1; i < roman.length; i++) {
       curr = this.romanCharToInt(roman.charAt(i));
-      pre = this.romanCharToInt(roman.charAt(i-1));
-      if(curr <= pre) {
+      pre = this.romanCharToInt(roman.charAt(i - 1));
+      if (curr <= pre) {
         num += curr;
       } else {
-        num = num - pre*2 + curr;
+        num = num - pre * 2 + curr;
       }
     }
     return num;
   }
-  
+
 
   getAlphabetFromNumber(num: number) {
     let str = '';
@@ -236,7 +296,7 @@ export class PageUpdateHolder {
     while (num > 0) {
       t = (num - 1) % 26;
       str = String.fromCharCode(65 + t) + str;
-      num = (num - t)/26 | 0;
+      num = (num - t) / 26 | 0;
     }
     return str;
   }
@@ -279,7 +339,7 @@ export class PageUpdateHolder {
 
   getNumberForIndex(index: number, checkDouble = true) {
     let num = this.findIndexInNumbering(this.pageNumberFrom);
-    let idx = this.doubleColumns ? index*2 : index;
+    let idx = this.doubleColumns ? index * 2 : index;
     num += this.pageNumberIncrement * idx;
     let result = this.getAsString(num);
     if (checkDouble && this.doubleColumns) {

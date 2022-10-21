@@ -5,7 +5,7 @@ import { Metadata } from 'src/app/model/metadata.model';
 import { ElementField } from 'src/app/model/mods/elementField.model';
 import { ModsSubject } from 'src/app/model/mods/subject.model';
 import { CodebookService } from 'src/app/services/codebook.service';
-import { EditorService } from 'src/app/services/editor.service';
+import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({
   selector: 'app-editor-subject',
@@ -16,7 +16,7 @@ export class EditorSubjectComponent implements OnInit {
 
   @Input() field: ElementField;
 
-  constructor(public codebook: CodebookService, private dialog: MatDialog, public editor: EditorService) {
+  constructor(public codebook: CodebookService, private dialog: MatDialog, public layout: LayoutService) {
   }
 
   ngOnInit() {
@@ -27,7 +27,7 @@ export class EditorSubjectComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result && result['mods']) {
         const mods = result['mods'];
-        const metadata = new Metadata('', this.editor.metadata.model, mods, 0);
+        const metadata = new Metadata('', this.layout.selectedItem.model, mods, 0);
         const nameField = metadata.getField(ModsSubject.getSelector());
         const items = nameField.getItems();
         if (nameField && items.length > 0) {

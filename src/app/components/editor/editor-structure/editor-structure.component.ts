@@ -27,7 +27,7 @@ import { UIService } from 'src/app/services/ui.service';
 export class EditorStructureComponent implements OnInit {
 
   @Input() items: DocumentItem[];
-  @Input() viewMode: string = 'list'; // 'list' | 'grid' | 'icons'
+  @Input() viewMode: string; // 'list' | 'grid' | 'icons'
   @ViewChild('table') table: MatTable<DocumentItem>;
   @ViewChild('childrenWrapper') childrenWrapperEl: ElementRef;
 
@@ -88,11 +88,11 @@ export class EditorStructureComponent implements OnInit {
     this.setColumns();
     this.shortLabels = this.properties.getBoolProperty('children.short_labels', false);
     this.pageChildren = this.items.findIndex(it => it.isPage()) > -1;
-    if (this.pageChildren) {
-      this.viewMode = this.properties.getStringProperty('children.page_view_mode', 'icons');
-    } else {
-      this.viewMode = this.properties.getStringProperty('children.view_mode', 'list');
-    }
+    // if (this.pageChildren) {
+    //   this.viewMode = this.properties.getStringProperty('children.page_view_mode', 'icons');
+    // } else {
+    //   this.viewMode = this.properties.getStringProperty('children.view_mode', 'list');
+    // }
 
     this.layout.moveToNext().subscribe(() => {
       this.moveToNext();
@@ -611,13 +611,7 @@ export class EditorStructureComponent implements OnInit {
         return;
       } else {
         this.state = 'success';
-        // this.init(
-        //   {
-        //     pid: this.layout.pid,
-        //     preparation: false,
-        //     metadata: null,
-        //     isNew: false
-        //   });
+        this.layout.setShouldRefresh();
       }
     });
   }
@@ -797,4 +791,9 @@ export class EditorStructureComponent implements OnInit {
     // });
   }
 
+
+  thumb(pid: string) {
+    // return this.api.getThumbUrl(pid);
+    return this.api.getStreamUrl(pid, 'THUMBNAIL', this.layout.getBatchId());
+  }
 }

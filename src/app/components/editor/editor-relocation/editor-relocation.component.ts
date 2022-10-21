@@ -1,12 +1,14 @@
 import { ApiService } from 'src/app/services/api.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { DocumentItem } from 'src/app/model/documentItem.model';
-import { EditorService } from 'src/app/services/editor.service';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { LayoutService } from 'src/app/services/layout.service';
+import { UIService } from 'src/app/services/ui.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-editor-relocation',
@@ -21,6 +23,7 @@ export class EditorRelocationComponent implements OnInit {
   rootPid: string;
   parent: string;
   shortLabels = false;
+  public relocationMode: boolean;
 
   @Input()
   set pid(pid: string) {
@@ -29,11 +32,13 @@ export class EditorRelocationComponent implements OnInit {
     this.goUp();
   }
 
-  constructor(public editor: EditorService,
-              private dialog: MatDialog,
-              private translator: TranslateService,
-              private properties: LocalStorageService,
-              private api: ApiService) {
+  constructor(public layout: LayoutService,
+    private ui: UIService,
+    private router: Router,
+    private dialog: MatDialog,
+    private translator: TranslateService,
+    private properties: LocalStorageService,
+    private api: ApiService) {
   }
 
   ngOnInit() {
@@ -76,37 +81,48 @@ export class EditorRelocationComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
 
-        if (this.editor.numberOfSelectedChildren() > 0 || this.editor.parent) {
-          const items = this.editor.numberOfSelectedChildren() > 0 ? this.editor.getSelectedChildren() : [this.editor.left];
-          this.editor.relocateObjects(items[0].parent, this.selection.pid, checkbox.checked);
+        if (this.layout.getNumOfSelected() > 0 || this.layout.parent) {
+          this.relocateObjects(this.layout.selectedItem.parent, this.selection.pid, checkbox.checked);
         } else {
-          this.editor.setParent(this.selection.pid, checkbox.checked);
+          this.setParent(this.selection.pid, checkbox.checked);
         }
-        // const items = selected.length > 0 ? selected : [this.editor.left];
-        // const parent = selected.length > 0 ? this.editor.left : this.editor.parent;
-        // this.editor.relocateObjects(this.selection.parent, this.selection.pid, checkbox.checked);
+      }
+    });
+  }
+
+  setParent(destinationPid: string, openDestination: boolean) {
+    this.state = 'saving';
+    let pids: string[] = this.items.filter(c => c.selected).map(c => c.pid);
+    this.api.setParent(this.layout.pid, destinationPid).subscribe((response: any) => {
+      if (response['response'].errors) {
+        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.state = 'error';
+        return;
+      } else {
+        this.state = 'success';
+        this.layout.setShouldRefresh();
       }
     });
   }
 
   onCancel() {
-    this.editor.setRelocationMode(false);
+    this.setRelocationMode(false);
   }
 
- goUp() {
+  goUp() {
     this.state = 'loading';
     this.api.getParent(this.rootPid).subscribe((item: DocumentItem) => {
-        if (item) {
-            this.loadChildrenForPid(item.pid);
-        } else {
-          this.api.getDocument(this.rootPid).subscribe((root: DocumentItem) => {
-            this.items = [];
-            this.items.push(root);
-            this.state = 'success';
-          });
-        }
+      if (item) {
+        this.loadChildrenForPid(item.pid);
+      } else {
+        this.api.getDocument(this.rootPid).subscribe((root: DocumentItem) => {
+          this.items = [];
+          this.items.push(root);
+          this.state = 'success';
+        });
+      }
     });
-}
+  }
 
   open(item: DocumentItem) {
     if (item.isPage()) {
@@ -130,7 +146,54 @@ export class EditorRelocationComponent implements OnInit {
     });
   }
 
+  relocateObjects(parentPid: string, destinationPid: string, openDestination: boolean) {
+    this.state = 'saving';
+    let pids: string[] = this.items.filter(c => c.selected).map(c => c.pid);
+    const isMultiple = this.items.filter(c => c.selected).length > 1;
 
+    this.api.relocateObjects(parentPid, destinationPid, pids).subscribe((response: any) => {
+      if (response['response'].errors) {
+        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.state = 'error';
+        return;
+      }
+      if (!openDestination) {
+        this.setRelocationMode(false);
+        let nextSelection = 0;
+        for (let i = this.items.length - 1; i >= 0; i--) {
+          if (pids.indexOf(this.items[i].pid) > -1) {
+            this.items.splice(i, 1);
+            nextSelection = i - 1;
+          }
+        }
+        if (nextSelection < 0) {
+          nextSelection = 0;
+        }
+        if (this.items.length > 0 && !isMultiple) {
+          this.layout.setSelection();
+        }
+        this.state = 'success';
+        // this.goToObjectByPid(destinationPid);
+      } else {
+        this.goToObjectByPid(destinationPid);
+      }
+    });
+  }
+
+
+  public goToObjectByPid(pid: string) {
+    if (pid) {
+      this.router.navigate(['/repository', pid]);
+    }
+  }
+
+  setRelocationMode(enabled: boolean) {
+    this.relocationMode = enabled;
+  }
+
+  switchRelocationMode() {
+    this.setRelocationMode(!this.relocationMode);
+  }
 
 
 }

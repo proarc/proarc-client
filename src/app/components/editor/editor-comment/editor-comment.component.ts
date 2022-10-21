@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
-import { EditorService } from 'src/app/services/editor.service';
 import { Note } from 'src/app/model/note.model';
+import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({
   selector: 'app-editor-comment',
@@ -15,12 +15,12 @@ export class EditorCommentComponent implements OnInit {
   note: Note;
   anyChange: boolean;
 
-  @Input() 
+  @Input()
   set pid(pid: string) {
     this.onPidChanged(pid);
   }
 
-  constructor(private editor: EditorService, private api: ApiService) {
+  constructor(private layout: LayoutService, private api: ApiService) {
   }
 
   ngOnInit() {
@@ -40,10 +40,12 @@ export class EditorCommentComponent implements OnInit {
     if (!this.anyChange) {
       return;
     }
-    this.editor.saveNote(this.note, (note: Note) => {
-      this.note = note;
+    this.state = 'saving';
+    this.api.editNote(this.note, this.layout.getBatchId()).subscribe((newNote: Note) => {
+      this.note = newNote;
       this.editting = false;
       this.anyChange = false;
+      this.state = 'success';
     });
   }
 
@@ -56,7 +58,7 @@ export class EditorCommentComponent implements OnInit {
     this.anyChange = false;
     this.editting = false;
     this.state = 'loading';
-    this.api.getNote(pid, this.editor.getBatchId()).subscribe((note: Note) => {
+    this.api.getNote(pid, this.layout.getBatchId()).subscribe((note: Note) => {
       this.note = note;
       this.state = 'success';
     }, () => {

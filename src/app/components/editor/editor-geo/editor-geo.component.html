@@ -9,8 +9,8 @@
         </div>
     </div>  
 
-<div class="app-editor-content" *ngIf="editor.metadata">
-    <app-editor-subject-geo [field]="editor.metadata.getField('subject_geo')"></app-editor-subject-geo>
+<div class="app-editor-content" *ngIf="metadata">
+    <app-editor-subject-geo [field]="metadata.getField('subject_geo')"></app-editor-subject-geo>
 </div>
     
 <mat-spinner *ngIf="state === 'loading'"
