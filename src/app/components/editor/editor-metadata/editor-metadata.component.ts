@@ -84,7 +84,6 @@ sc: Subscription;
       this.metadata = metadata;
       this.state = 'success';
     });
-
   }
 
   available(element: string): boolean {

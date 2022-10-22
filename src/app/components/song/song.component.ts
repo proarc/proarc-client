@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
-import { EditorService } from 'src/app/services/editor.service';
+import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({
   selector: 'app-song',
@@ -24,7 +24,7 @@ export class SongComponent implements OnInit, OnDestroy {
   state = 'none';
   audio: any;
 
-  constructor(private api: ApiService, private editor: EditorService) {
+  constructor(private api: ApiService, private layout: LayoutService) {
   }
 
   ngOnDestroy(): void {
@@ -46,7 +46,7 @@ export class SongComponent implements OnInit, OnDestroy {
     this.playing = false;
     this.canPlay = false;
     this.state = 'loading';
-    const url = this.api.getStreamUrl(pid, 'FULL', this.editor.getBatchId());
+    const url = this.api.getStreamUrl(pid, 'FULL', this.layout.getBatchId());
     if (this.audio) {
       this.audio.setAttribute('src', url);
       this.audio.load();

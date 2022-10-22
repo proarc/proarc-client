@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, SimpleChange } from '@angular/core';
 import { Mods } from 'src/app/model/mods.model';
-import { EditorService } from 'src/app/services/editor.service';
 import { ApiService } from 'src/app/services/api.service';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Subscription } from 'rxjs';

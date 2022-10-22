@@ -3,7 +3,7 @@ import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiService } from 'src/app/services/api.service';
-import { EditorService } from 'src/app/services/editor.service';
+import { LayoutService } from 'src/app/services/layout.service';
 import { UIService } from 'src/app/services/ui.service';
 import { NewObjectDialogComponent } from '../new-object-dialog/new-object-dialog.component';
 import { SimpleDialogData } from '../simple-dialog/simple-dialog';
@@ -27,7 +27,7 @@ export class NewMetadataDialogComponent implements OnInit {
     private ui: UIService,
     private api: ApiService,
     private dialog: MatDialog,
-    private editor: EditorService,
+    private layout: LayoutService,
     private translator: TranslateService,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 

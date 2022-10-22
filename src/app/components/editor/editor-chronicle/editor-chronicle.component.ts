@@ -1,9 +1,13 @@
-import { EditorService } from 'src/app/services/editor.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CatalogDialogComponent } from 'src/app/dialogs/catalog-dialog/catalog-dialog.component';
 import {SimpleDialogData} from '../../../dialogs/simple-dialog/simple-dialog';
 import {SimpleDialogComponent} from '../../../dialogs/simple-dialog/simple-dialog.component';
+import { LayoutService } from 'src/app/services/layout.service';
+import { Metadata } from 'src/app/model/metadata.model';
+import { ApiService } from 'src/app/services/api.service';
+import { UIService } from 'src/app/services/ui.service';
+import { MetadataService } from 'src/app/services/metadata.service';
 
 @Component({
   selector: 'app-editor-chronicle',
@@ -19,7 +23,11 @@ export class EditorChronicleComponent implements OnInit {
   set pid(pid: string) {
     this.onPidChanged(pid);
   }
-  constructor(public editor: EditorService, private dialog: MatDialog) { }
+  constructor(public layout: LayoutService, 
+    private api: ApiService,
+    private ui: UIService,
+    public metaService: MetadataService,
+    private dialog: MatDialog) { }
 
   ngOnInit() {
   }
@@ -29,14 +37,14 @@ export class EditorChronicleComponent implements OnInit {
       return;
     }
     this.state = 'loading';
-    this.editor.loadMetadata(() => {
+    this.metaService.loadMetadata((metadata: Metadata) => {
       this.state = 'success';
     });
   }
 
   onSave() {
-    if (this.editor.metadata.validate()) {
-      this.editor.saveMetadata(false, () => {
+    if (this.metaService.metadata.validate()) {
+      this.metaService.saveMetadata(false, () => {
       });
     } else {
 
@@ -57,20 +65,15 @@ export class EditorChronicleComponent implements OnInit {
       const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
       dialogRef.afterClosed().subscribe(result => {
         if (result === 'yes') {
-          this.editor.saveMetadata(false, () => {
+          this.metaService.saveMetadata(false, () => {
           });
         }
       });
-
-
-      // TODO show warning dialog
-      // this.editor.saveMetadata(() => {
-      // });
     }
   }
 
   available(element: string): boolean {
-    return this.editor.metadata.template[element];
+    return this.metaService.metadata.template[element];
   }
 
 
@@ -78,7 +81,7 @@ export class EditorChronicleComponent implements OnInit {
     const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'full' } });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
-        this.editor.saveModsFromCatalog(result['mods'], () => {
+        this.metaService.saveModsFromCatalog(result['mods'], () => {
 
         });
       }

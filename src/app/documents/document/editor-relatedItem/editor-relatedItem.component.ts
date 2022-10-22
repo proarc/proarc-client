@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ElementField } from 'src/app/model/mods/elementField.model';
 import {CodebookService} from '../../../services/codebook.service';
 import { TranslateService } from '@ngx-translate/core';
-import {EditorService} from '../../../services/editor.service';
+import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({
   selector: 'app-editor-relatedItem',
@@ -30,7 +30,7 @@ export class EditorRelatedItemComponent implements OnInit {
 
   @Input() field: ElementField;
 
-  constructor(public translator: TranslateService, public codebook: CodebookService, private editor: EditorService) {
+  constructor(public translator: TranslateService, public codebook: CodebookService, private layout: LayoutService) {
     this.translateCodes();
     translator.onLangChange.subscribe(() => this.translateCodes());
   }
@@ -57,9 +57,9 @@ export class EditorRelatedItemComponent implements OnInit {
   }
 
   getIdentifiers(): any[] {
-    return this.editor.left.isChronicle() ? this.codebook.chronicleIdentifiers :
-      this.editor.left.isOldprint() ? this.codebook.oldprintIdentifiers :
-      this.editor.left.canContainPdf() ? this.codebook.eDocumentIdentifiers :
+    return this.layout.selectedItem.isChronicle() ? this.codebook.chronicleIdentifiers :
+      this.layout.selectedItem.isOldprint() ? this.codebook.oldprintIdentifiers :
+      this.layout.selectedItem.canContainPdf() ? this.codebook.eDocumentIdentifiers :
         this.codebook.identifiers;
   }
 }
