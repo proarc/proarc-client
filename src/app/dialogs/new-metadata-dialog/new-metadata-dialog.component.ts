@@ -2,8 +2,10 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { Metadata } from 'src/app/model/metadata.model';
 import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
+import { MetadataService } from 'src/app/services/metadata.service';
 import { UIService } from 'src/app/services/ui.service';
 import { NewObjectDialogComponent } from '../new-object-dialog/new-object-dialog.component';
 import { SimpleDialogData } from '../simple-dialog/simple-dialog';
@@ -18,6 +20,7 @@ export class NewMetadataDialogComponent implements OnInit {
 
   public inited = false;
   state = 'none';
+  metadata: Metadata;
 
   editorParams: any;
 
@@ -32,23 +35,23 @@ export class NewMetadataDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
-    this.editorParams = {
-      pid: this.editor.pid,
-      preparation: this.editor.preparation,
-      metadata: this.editor.metadata
-    }
-    this.editor.init({
-      pid: this.data.pid,
-      preparation: false,
-      metadata: this.data,
-      isNew: true
-    });
-    this.inited = true;
-    setTimeout(() => {
-      this.editor.metadata.expandRequired();
-    }, 100);
-
+    this.load();
   }
+
+  load() {
+    this.state = 'loading';
+    this.api.getMetadata(this.data['pid'], this.data['model']).subscribe((metadata: Metadata) => {
+      this.metadata = metadata;
+      this.state = 'success';
+
+      setTimeout(() => {
+        this.metadata.expandRequired();
+      }, 100);
+
+    });
+  }
+
+
 
   public isPage(): boolean {
     return this.data.model === 'model:page' || this.data.model === 'model:ndkpage' || this.data.model === 'model:oldprintpage';
@@ -75,9 +78,10 @@ export class NewMetadataDialogComponent implements OnInit {
   }
 
   savePage() {
-    let data = `model=${this.editor.page.model}`;
-    data = `${data}&pid=${this.editor.page.pid}`;
-    data = `${data}&xml=${encodeURIComponent(this.editor.page.toXml())}`;
+    let data = `model=${this.data.model}`;
+    data = `${data}&pid=${this.data.pid}`;
+    data = `${data}&xml=${encodeURIComponent(this.metadata.toMods())}`;
+    // data = `${data}&xml=${encodeURIComponent(this.editor.page.toXml())}`;
     if (this.data.parent) {
       data = `${data}&parent=${this.data.parent}`;
     }
@@ -88,9 +92,9 @@ export class NewMetadataDialogComponent implements OnInit {
         this.state = 'error';
         return;
       }
-      this.editor.selectedItem.notSaved = false;
+      this.layout.selectedItem.notSaved = false;
       this.state = 'success';
-      this.editor.resetChanges();
+      this.metadata.resetChanges();
       this.dialogRef.close(response['response']['data'][0]);
     });
   }
@@ -98,7 +102,7 @@ export class NewMetadataDialogComponent implements OnInit {
   onClose() {
     const data: SimpleDialogData = {
       title: 'Upozornění',
-      message:'Opouštíte formulář bez uložení. Opravdu chcete pokračovat?',
+      message: 'Opouštíte formulář bez uložení. Opravdu chcete pokračovat?',
       btn1: {
         label: "Ano",
         value: 'true',
@@ -114,8 +118,7 @@ export class NewMetadataDialogComponent implements OnInit {
     d.afterClosed().subscribe(result => {
       if (result === 'true') {
         this.state = 'success';
-        this.editor.state = 'success';
-        this.editor.init(this.editorParams);
+        // this.editor.init(this.editorParams);
         this.dialogRef.close('close');
       }
     });
@@ -127,10 +130,10 @@ export class NewMetadataDialogComponent implements OnInit {
       this.savePage();
       return;
     }
-    if (this.editor.metadata.validate()) {
-      let data = `model=${this.editor.metadata.model}`;
-      data = `${data}&pid=${this.editor.metadata.pid}`;
-      data = `${data}&xml=${encodeURIComponent(this.editor.metadata.toMods())}`;
+    if (this.metadata.validate()) {
+      let data = `model=${this.metadata.model}`;
+      data = `${data}&pid=${this.metadata.pid}`;
+      data = `${data}&xml=${encodeURIComponent(this.metadata.toMods())}`;
       if (this.data.parent) {
         data = `${data}&parent=${this.data.parent}`;
       }
@@ -143,15 +146,15 @@ export class NewMetadataDialogComponent implements OnInit {
         }
         const pid = response['response']['data'][0]['pid'];
         this.state = 'success';
-        this.editor.state = 'success';
-        this.editor.resetChanges();
+        this.state = 'success';
+        this.metadata.resetChanges();
         if (gotoEdit) {
           this.dialogRef.close(response['response']['data'][0]);
         } else {
           this.ui.shoulRefresh();
           this.dialogRef.close();
         }
-        
+
         //this.router.navigate(['/document', pid]);
 
       });
@@ -178,9 +181,9 @@ export class NewMetadataDialogComponent implements OnInit {
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        let data = `model=${this.editor.metadata.model}`;
-        data = `${data}&pid=${this.editor.metadata.pid}`;
-        data = `${data}&xml=${encodeURIComponent(this.editor.metadata.toMods())}`;
+        let data = `model=${this.metadata.model}`;
+        data = `${data}&pid=${this.metadata.pid}`;
+        data = `${data}&xml=${encodeURIComponent(this.metadata.toMods())}`;
         if (this.data.parent) {
           data = `${data}&parent=${this.data.parent}`;
         }
@@ -193,7 +196,7 @@ export class NewMetadataDialogComponent implements OnInit {
           }
           const pid = response['response']['data'][0]['pid'];
           this.state = 'success';
-          this.editor.resetChanges();
+          this.metadata.resetChanges();
           if (gotoEdit) {
             this.dialogRef.close(response['response']['data'][0]);
           } else {

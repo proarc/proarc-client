@@ -54,7 +54,7 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  showMetadataDialog(data: any) {
+  showMetadataDialog(data: any,) {
     const dialogRef = this.dialog.open(NewMetadataDialogComponent, { disableClose: true, data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['pid']) {

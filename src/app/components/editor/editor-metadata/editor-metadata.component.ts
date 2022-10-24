@@ -23,6 +23,7 @@ export class EditorMetadataComponent implements OnInit {
 
   @Input() notSaved = false;
   @Input() pid: string;
+  @Input() model: string;
 
   public item: DocumentItem | null;
   public metadata: Metadata;

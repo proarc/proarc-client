@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { ElementField } from 'src/app/model/mods/elementField.model';
 import { CodebookService } from 'src/app/services/codebook.service';
-import { EditorService } from 'src/app/services/editor.service';
 import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({

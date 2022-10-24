@@ -24,7 +24,7 @@ import { SimpleDialogComponent } from '../dialogs/simple-dialog/simple-dialog.co
 import { NewMetadataDialogComponent } from '../dialogs/new-metadata-dialog/new-metadata-dialog.component';
 
 @Injectable()
-export class EditorService1 {
+export class EditorService {
 
     public preparation = false;
     public pid: string;

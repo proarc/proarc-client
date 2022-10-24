@@ -11,7 +11,7 @@
   </app-editor-song>
   <app-editor-chronicle *ngIf="isChronicle()" [notSaved]="true" [pid]="data.pid"></app-editor-chronicle>
   <app-editor-bdm *ngIf="isBdm()" [notSaved]="true" [pid]="data.pid"></app-editor-bdm>
-  <app-editor-metadata *ngIf="!isPage() && !isChronicle() && !isBdm()" [notSaved]="true" [pid]="data.pid" >
+  <app-editor-metadata *ngIf="!isPage() && !isChronicle() && !isBdm()" [notSaved]="true" [pid]="data.pid" [model]="data.model" >
   </app-editor-metadata>
   </div>
 </div>

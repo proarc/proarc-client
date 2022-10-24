@@ -4,11 +4,11 @@
     <div class="app-label">{{ 'editor.pages.title' | translate }}</div>
     <div class="app-actions-right">
 
-      <button class="app-action" (click)="editor.switchMultipleSelectionMode()"
+      <!-- <button class="app-action" (click)="editor.switchMultipleSelectionMode()"
         [matTooltip]="'common.cancel' | translate" mat-icon-button>
         <mat-icon>clear</mat-icon>
       </button>
-      <div class="app-divider"></div>
+      <div class="app-divider"></div> -->
 
       <button class="app-action" [class.app-disabled]="canSave()" [disabled]="canSave()" (click)="addBrackets()" [matTooltip]="'common.add_brackets' | translate"
         mat-icon-button>

@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, SimpleChange } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { Ocr } from 'src/app/model/ocr.model';
-import { EditorService } from 'src/app/services/editor.service';
 import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({

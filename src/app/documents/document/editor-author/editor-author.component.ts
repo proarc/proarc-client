@@ -14,6 +14,7 @@ import { LayoutService } from 'src/app/services/layout.service';
 })
 export class EditorAuthorComponent implements OnInit {
   @Input() field: ElementField;
+  @Input() model: string;
 
   private roleCodes = ['act', 'adp', 'aft', 'ann', 'ant', 'app', 'aqt', 'arc', 'arr', 'art', 'asg', 'asn', 'att', 'auc', 'aud',
         'aui', 'aus', 'aut', 'bdd', 'bjd', 'bkd', 'bkp', 'bnd', 'bpd', 'bsl', 'ccp', 'chr', 'cli', 'cll', 'clt', 'cmm', 'cmp', 'cmt',
@@ -35,7 +36,9 @@ export class EditorAuthorComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    if (!this.model) {
+      this.model = this.layout.selectedItem.model;
+    }
   }
 
   onLoadFromCatalog(item: any) {
@@ -43,7 +46,7 @@ export class EditorAuthorComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
         const mods = result['mods'];
-        const metadata = new Metadata('', this.layout.selectedItem.model, mods, 0);
+        const metadata = new Metadata('', this.model, mods, 0);
         const nameField = metadata.getField(ModsAuthor.getSelector());
         const items = nameField.getItems();
         if (nameField && items.length > 0) {

@@ -15,11 +15,15 @@ import { LayoutService } from 'src/app/services/layout.service';
 export class EditorSubjectComponent implements OnInit {
 
   @Input() field: ElementField;
+  @Input() model: string;
 
   constructor(public codebook: CodebookService, private dialog: MatDialog, public layout: LayoutService) {
   }
 
   ngOnInit() {
+    if (!this.model) {
+      this.model = this.layout.selectedItem.model;
+    }
   }
 
   onLoadFromCatalog(item: any) {

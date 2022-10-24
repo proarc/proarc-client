@@ -78,7 +78,7 @@ export class NewObjectDialogComponent implements OnInit {
       }
       this.state = 'success';
       const pid =  response['response']['data'][0]['pid'];
-      this.dialogRef.close({pid: pid, data: response['response']['data'][0], isMultiple: this.isMultiple});
+      this.dialogRef.close({data: response['response']['data'][0], isMultiple: this.isMultiple});
       
     });
   }
