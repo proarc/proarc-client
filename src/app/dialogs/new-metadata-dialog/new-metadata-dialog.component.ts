@@ -155,8 +155,6 @@ export class NewMetadataDialogComponent implements OnInit {
           this.dialogRef.close();
         }
 
-        //this.router.navigate(['/document', pid]);
-
       });
     } else {
       this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', true, gotoEdit);

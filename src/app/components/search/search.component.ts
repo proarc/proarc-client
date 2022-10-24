@@ -205,7 +205,7 @@ export class SearchComponent implements OnInit {
   }
 
   openItem(item: DocumentItem) {
-    this.router.navigate(['/document', item.pid]);
+    this.router.navigate(['/repository', item.pid]);
   }
 
   selectItem(item: DocumentItem) {
@@ -526,7 +526,7 @@ export class SearchComponent implements OnInit {
   }
 
   openFromTree(item: DocumentItem) {
-    this.router.navigate(['/document', item.pid]);
+    this.router.navigate(['/repository', item.pid]);
   }
   
   selectFromTree(tree: Tree) {

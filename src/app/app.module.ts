@@ -129,6 +129,7 @@ import { RepositoryComponent } from './pages/repository/repository.component';
 import { EditorGenericComponent } from './components/editor/editor-generic/editor-generic.component';
 import { EditorStructureComponent } from './components/editor/editor-structure/editor-structure.component';
 import { LayoutAdminComponent } from './pages/layout-admin/layout-admin.component';
+import { BatchesComponent } from './pages/batches/batches.component';
 
 
 // export function hljsLanguages() {
@@ -243,6 +244,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditorGenericComponent,
     EditorStructureComponent,
     LayoutAdminComponent,
+    BatchesComponent,
   ],
   imports: [
     BrowserModule,

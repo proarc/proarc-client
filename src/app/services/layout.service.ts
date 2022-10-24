@@ -89,6 +89,10 @@ export class LayoutService {
     return this.items.findIndex(i => i.selected);
   }
 
+  setBatchId(id: string) {
+    this.batchId = id;
+  }
+
   getBatchId() {
     return this.batchId;
   }

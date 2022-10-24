@@ -1,9 +1,9 @@
 <div class="explanations">
   <div>
-    <div>Toggle areas visibility:</div>
+    <div>{{ 'admin.layout.explain' | translate }}:</div>
     <mat-button-toggle-group [(ngModel)]="layout" (change)="setLayoutConfig()">
-      <mat-button-toggle value="repo">Repo</mat-button-toggle>
-      <mat-button-toggle value="import">Import</mat-button-toggle>
+      <mat-button-toggle value="repo">{{ 'admin.layout.repo' | translate }}</mat-button-toggle>
+      <mat-button-toggle value="import">{{ 'admin.layout.import' | translate }}</mat-button-toggle>
     </mat-button-toggle-group>
   </div>
   <div>

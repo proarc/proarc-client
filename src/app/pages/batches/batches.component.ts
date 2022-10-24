@@ -1,26 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { combineLatest, forkJoin } from 'rxjs';
+import { Batch } from 'src/app/model/batch.model';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { RepositoryService } from 'src/app/services/repository.service';
 import { UIService } from 'src/app/services/ui.service';
 import { ModelTemplate } from 'src/app/templates/modelTemplate';
-import { defaultLayoutConfig, IConfig } from '../layout-admin/layout-admin.component';
-
+import { IConfig, defaultLayoutConfig } from '../layout-admin/layout-admin.component';
 
 @Component({
-  selector: 'app-repository',
-  templateUrl: './repository.component.html',
-  styleUrls: ['./repository.component.scss']
+  selector: 'app-batches',
+  templateUrl: './batches.component.html',
+  styleUrls: ['./batches.component.scss']
 })
-export class RepositoryComponent implements OnInit {
+export class BatchesComponent implements OnInit {
 
-  localStorageName = 'proarc-layout-repo';
+  localStorageName = 'proarc-layout-import';
   config: IConfig = null;
 
-  pid: string;
+  batchId: string;
   parent: DocumentItem | null;
   previousItem: DocumentItem | null;
   nextItem: DocumentItem | null;
@@ -37,16 +37,10 @@ export class RepositoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // if (localStorage.getItem(this.localStorageName)) {
-    //   this.config = JSON.parse(localStorage.getItem(this.localStorageName))
-    // } else {
-    //   this.config = JSON.parse(JSON.stringify(defaultLayoutConfig));
-    // }
-    this.layout.type = 'repo';
-    this.layout.setBatchId(null);
+    this.layout.type = 'import';
 
     this.layout.shouldRefresh().subscribe(() => {
-      this.loadData(this.pid);
+      this.loadData(this.batchId);
     });
 
     this.layout.selectionChanged().subscribe(() => {
@@ -58,15 +52,15 @@ export class RepositoryComponent implements OnInit {
       results => {
         const p = results[0];
         const q = results[1];
-        this.pid = p.get('pid');
-        if (this.pid) {
-          this.loadData(this.pid);
+        this.batchId = p.get('batch_id');
+        if (this.batchId) {
+          this.loadData(this.batchId);
         }
       });
   }
 
   setVisibility() {
-    
+
 
     if (localStorage.getItem(this.localStorageName)) {
       this.config = JSON.parse(localStorage.getItem(this.localStorageName))
@@ -82,36 +76,45 @@ export class RepositoryComponent implements OnInit {
       });
       c.visible = c.rows.findIndex(r => r.visible && !r.isEmpty) > -1;
     });
-    
+
   }
 
 
-  loadData(pid: string) {
+  loadData(id: string) {
     this.layout.ready = false;
-    this.pid = pid;
-    const rDoc = this.api.getDocument(pid);
-    const rChildren = this.api.getRelations(pid);
-    forkJoin([rDoc, rChildren]).subscribe(([item, children]: [DocumentItem, DocumentItem[]]) => {
-      this.layout.item = item;
-      this.layout.items = children;
-      this.layout.ready = true;
-      this.layout.setSelection();
-      this.layout.allowedChildrenModels = ModelTemplate.allowedChildrenForModel(item.model);
 
-      this.api.getParent(pid).subscribe((item: DocumentItem) => {
-
-        this.parent = item;
-        this.layout.parent = item;
-        this.layout.path = [];
-        if (item) {
-          this.layout.path.unshift({ pid: item.pid, label: item.label, model: item.model });
-          this.setPath(item.pid);
+    const obj = new DocumentItem();
+    obj.pid = id;
+    this.api.getImportBatch(parseInt(id)).subscribe((batch: Batch) => {
+      obj.parent = batch.parentPid;
+      this.layout.setBatchId(id);
+      this.api.getBatchPages(id).subscribe((response: any) => {
+        if (response['response'].errors) {
+          this.ui.showErrorSnackBarFromObject(response['response'].errors);
+          return;
         }
-        this.setupNavigation();
+        const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
+        this.layout.item = obj;
+        this.layout.items = pages;
+        this.layout.items[0].selected = true;
+        this.layout.ready = true;
+        this.layout.setSelection();
 
+        // this.layout.allowedChildrenModels = ModelTemplate.allowedChildrenForModel(item.model);
+
+        // this.parent = item;
+        // this.layout.parent = item;
+        // this.layout.path = [];
+        // if (item) {
+        //   this.layout.path.unshift({ pid: item.pid, label: item.label, model: item.model });
+        //   this.setPath(item.pid);
+        // }
+        // this.setupNavigation();
+        this.setVisibility();
       });
-      this.setVisibility();
     });
+
+
   }
 
   setPath(pid: string) {
@@ -150,19 +153,8 @@ export class RepositoryComponent implements OnInit {
   }
 
   hasPendingChanges(): boolean {
-    return this.repo.hasPendingChanges();
+    return false;
   }
 
-  public goToObject(item: DocumentItem) {
-    if (item) {
-      this.router.navigate(['/repository', item.pid]);
-    }
-  }
-
-  public goToObjectByPid(pid: string) {
-    if (pid) {
-      this.router.navigate(['/repository', pid]);
-    }
-  }
 
 }

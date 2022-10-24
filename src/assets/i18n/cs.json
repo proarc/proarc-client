@@ -1862,6 +1862,11 @@
       },
       "new_success": "Uživatel byl přidan"
 
+    },
+    "layout": {
+      "explain": "Viditelnost panelů",
+      "repo": "úložiště",
+      "import": "import"
     }
   },
   "workflow": {

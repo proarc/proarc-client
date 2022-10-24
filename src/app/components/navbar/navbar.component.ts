@@ -46,7 +46,7 @@ export class NavbarComponent implements OnInit {
       if (result && result['pid']) {
         if (result.isMultiple) {
           const pid = result['pid'];
-          this.router.navigate(['/document', pid]);
+          this.router.navigate(['/repository', pid]);
         } else {
           this.showMetadataDialog(result.data);
         }
@@ -65,7 +65,7 @@ export class NavbarComponent implements OnInit {
           paths: 'subset',
           fragment: 'ignored'
         };        
-        this.router.navigate(['/document', pid]);
+        this.router.navigate(['/repository', pid]);
       } else {
         
       }

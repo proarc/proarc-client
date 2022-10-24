@@ -39,14 +39,4 @@ export class EditorGenericComponent implements OnInit {
     this.switchable = this.switchableTypes.includes(this.editorType);
       
   }
-
-  setVisibility() {
-    console.log(this.editorType);
-    if (this.editorType === 'image') {
-      this.panel.isEmpty = !(this.layout.selectedItem && this.layout.selectedItem.isPage());
-      console.log(this.panel.isEmpty);
-    }
-  }
-
-
 }
