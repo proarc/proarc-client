@@ -100,7 +100,7 @@ export class EditorRelocationComponent implements OnInit {
         return;
       } else {
         this.state = 'success';
-        this.layout.setShouldRefresh();
+        this.layout.setShouldRefresh(true);
       }
     });
   }

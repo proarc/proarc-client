@@ -81,7 +81,6 @@ export class LayoutAdminComponent implements OnInit {
   }
 
   onDragEnd(columnindex: number, e: any) {
-    console.log(e)
     // Column dragged
     if (columnindex === -1) {
       // Set size for all visible columns

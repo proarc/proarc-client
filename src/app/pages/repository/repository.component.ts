@@ -44,8 +44,9 @@ export class RepositoryComponent implements OnInit {
     this.layout.type = 'repo';
     this.layout.setBatchId(null);
 
-    this.layout.shouldRefresh().subscribe(() => {
-      this.loadData(this.pid);
+    this.layout.shouldRefresh().subscribe((keepSelection: boolean) => {
+      
+      this.loadData(this.pid, keepSelection);
     });
 
     this.layout.selectionChanged().subscribe(() => {
@@ -59,7 +60,7 @@ export class RepositoryComponent implements OnInit {
         const q = results[1];
         this.pid = p.get('pid');
         if (this.pid) {
-          this.loadData(this.pid);
+          this.loadData(this.pid, false);
         }
       });
   }
@@ -69,7 +70,7 @@ export class RepositoryComponent implements OnInit {
     dialogRef.afterClosed().subscribe((ret: any) => {
       
         this.initConfig();
-        this.loadData(this.pid);
+        this.loadData(this.pid, true);
     });
   }
 
@@ -95,7 +96,15 @@ export class RepositoryComponent implements OnInit {
   }
 
 
-  loadData(pid: string) {
+  loadData(pid: string, keepSelection: boolean) {
+    const selection: string[] = [];
+      if (keepSelection) {
+        this.layout.items.forEach(item => {
+          if (item.selected) {
+            selection.push(item.pid);
+          }
+        })
+      }
     this.layout.ready = false;
     this.pid = pid;
     const rDoc = this.api.getDocument(pid);
@@ -103,6 +112,13 @@ export class RepositoryComponent implements OnInit {
     forkJoin([rDoc, rChildren]).subscribe(([item, children]: [DocumentItem, DocumentItem[]]) => {
       this.layout.item = item;
       this.layout.items = children;
+      if (keepSelection) {
+        this.layout.items.forEach(item => {
+          if (selection.includes(item.pid)) {
+            item.selected = true;
+          }
+        })
+      }
       this.layout.ready = true;
       this.layout.setSelection();
       this.layout.allowedChildrenModels = ModelTemplate.allowedChildrenForModel(item.model);

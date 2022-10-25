@@ -127,9 +127,7 @@ export class EditorPageComponent implements OnInit {
     }
     this.api.getPage(pid, this.model, this.layout.getBatchId()).subscribe((page: Page) => {
       this.setPage(page);
-
-    }, () => {
-      this.state = 'failure';
+      this.state = 'success';
     });
   }
 
@@ -234,16 +232,7 @@ export class EditorPageComponent implements OnInit {
         }
         this.layout.selectedItem.notSaved = false;
         const pid = response['response']['data'][0]['pid'];
-        // this.editor.reloadChildren(() => {
-        //   for (const item of this.editor.children) {
-        //     if (item.pid == pid) {
-        //       this.editor.selectRight(item);
-        //       break;
-        //     }
-        //   }
-        //   this.onPidChanged(pid);
-        //   this.state = 'success';
-        // });
+        this.layout.setShouldRefresh(true)
         this.state = 'success';
       });
     } else {
@@ -264,6 +253,7 @@ export class EditorPageComponent implements OnInit {
         return;
       }
       const newPage: Page = Page.fromJson(resp['response']['data'][0], page.model);
+      this.layout.setShouldRefresh(true);
       if (this.layout.type === 'import') {
         // this.reloadBatch(() => {
         //   this.state = 'success';

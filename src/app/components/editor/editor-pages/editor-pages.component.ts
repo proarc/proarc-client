@@ -100,12 +100,7 @@ export class EditorPagesComponent implements OnInit {
         this.ui.showErrorSnackBarFromObject(result.response.errors);
         this.state = 'error';
       } else {
-        if (this.layout.type !== 'repo') {
-          this.layout.setShouldRefresh();
-          return;
-        } else {
-          this.layout.setShouldRefresh();
-        }
+        this.layout.setShouldRefresh(true);
       }
     })
   }
@@ -127,12 +122,7 @@ export class EditorPagesComponent implements OnInit {
         this.ui.showErrorSnackBarFromObject(result.response.errors);
         this.state = 'error';
       } else {
-        if (this.layout.type !== 'repo') {
-          this.layout.setShouldRefresh();
-          return;
-        } else {
-          this.layout.setShouldRefresh();
-        }
+        this.layout.setShouldRefresh(true);
       }
     })
   }

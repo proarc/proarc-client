@@ -3,7 +3,7 @@
 <div class="app-editor-toolbar">
 
   <button class="app-action" 
-    matTooltip="{{ 'history.refresh' | translate }}" (click)="layout.setShouldRefresh()" mat-icon-button>
+    matTooltip="{{ 'history.refresh' | translate }}" (click)="layout.setShouldRefresh(false)" mat-icon-button>
     <mat-icon>sync</mat-icon>
   </button>
 
@@ -147,7 +147,7 @@
 
   <ng-container matColumnDef="label">
     <th mat-header-cell *matHeaderCellDef> {{'search.name' | translate}} </th>
-    <td mat-cell *matCellDef="let element"> {{element.label}} </td>
+    <td mat-cell *matCellDef="let element"> {{shortLabels ? element.shortLabel : element.label}} </td>
   </ng-container>
 
   <ng-container matColumnDef="model">
