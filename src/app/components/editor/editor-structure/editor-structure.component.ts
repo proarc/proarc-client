@@ -1,4 +1,5 @@
 
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
@@ -205,8 +206,13 @@ export class EditorStructureComponent implements OnInit {
 
   rowClick(row: DocumentItem, idx: number, event: MouseEvent) {
     if (event && (event.metaKey || event.ctrlKey)) {
-      row.selected = !row.selected;
-      this.layout.setSelection();
+        // Nesmi byt prazdna selecke pro import
+      if (this.layout.type === 'import' && row.selected && this.layout.getNumOfSelected() === 1) {
+        return;
+      } else {
+        row.selected = !row.selected;
+        this.layout.setSelection();
+      }
     } else if (event && event.shiftKey) {
       if (this.lastClickIdx > -1) {
         const from = Math.min(this.lastClickIdx, idx);
@@ -550,19 +556,9 @@ export class EditorStructureComponent implements OnInit {
             } else {
               this.state = 'success';
 
-              // this.init(
-              //   {
-              //     pid: this.layout.pid,
-              //     preparation: false,
-              //     metadata: null,
-              //     isNew: false
-              //   });
-
+              this.layout.setShouldRefresh(true);
             }
           });
-
-
-
         }
       }
     });
