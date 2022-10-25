@@ -9,7 +9,6 @@ import { ApiService } from 'src/app/services/api.service';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Metadata } from 'src/app/model/metadata.model';
 import { LayoutService } from 'src/app/services/layout.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-editor-metadata',
@@ -28,7 +27,6 @@ export class EditorMetadataComponent implements OnInit {
   public metadata: Metadata;
   public visible = true;
 
-sc: Subscription;
 
   constructor(
     private translator: TranslateService,
@@ -38,31 +36,9 @@ sc: Subscription;
     private dialog: MatDialog) { }
 
   ngOnInit() {
-    // this.sc = this.layout.selectionChanged().subscribe(() => {
-    //   console.log("AA")
-    //   if (!this.layout.selectedItem || this.layout.selectedItem.isPage()) {
-    //     this.visible = false;
-    //     return;
-    //   }
-    //   if (this.layout.getNumOfSelected() === 0) {
-    //     this.item = this.layout.item;
-    //     this.pid = this.item.pid;
-    //     this.visible = true;
-    //     this.load();
-    //   } else if (this.layout.getNumOfSelected() === 1) {
-    //     this.item = this.layout.selectedItem;
-    //     this.pid = this.item.pid;
-    //     this.visible = true;
-    //     this.load();
-    //   } else {
-    //     this.visible = false;
-    //   }
-
-    // })
   }
 
   ngOnDestroy() {
-    // this.sc.unsubscribe();
   }
 
   ngOnChanges(c: SimpleChange) {
@@ -120,6 +96,7 @@ sc: Subscription;
             }
             const pid = response['response']['data'][0]['pid'];
             this.state = 'success';
+            this.layout.setShouldRefresh(true);
           });
 
         } else {
@@ -165,7 +142,6 @@ sc: Subscription;
           const messages = this.ui.extractErrorsAsString(response.errors);
           if (response.data === 'cantIgnore') {
             this.ui.showErrorSnackBar(messages);
-
           } else {
             this.confirmSave(this.translator.instant('common.warning'), messages, true);
           }
@@ -175,6 +151,8 @@ sc: Subscription;
           this.state = 'error';
           return;
         }
+      } else {
+        this.layout.setShouldRefresh(true)
       }
     });
   }

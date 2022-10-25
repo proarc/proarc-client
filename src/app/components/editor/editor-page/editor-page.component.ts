@@ -232,7 +232,7 @@ export class EditorPageComponent implements OnInit {
         }
         this.layout.selectedItem.notSaved = false;
         const pid = response['response']['data'][0]['pid'];
-        this.layout.setShouldRefresh(true)
+        this.layout.setShouldRefresh(true);
         this.state = 'success';
       });
     } else {

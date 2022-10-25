@@ -69,7 +69,7 @@ var APP_GLOBAL = {
       'model:bdmarticle'
   ],
   defaultModel: 'model:ndkmonographvolume',
-  showCommentEditor: false,
+  showCommentEditor: true,
   showWorkflow: true,
   topPageTypes: [
       'normalPage',
