@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 import { combineLatest, forkJoin } from 'rxjs';
+import { IngestDialogComponent } from 'src/app/dialogs/ingest-dialog/ingest-dialog.component';
+import { ParentDialogComponent } from 'src/app/dialogs/parent-dialog/parent-dialog.component';
+import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
+import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { Batch } from 'src/app/model/batch.model';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { ApiService } from 'src/app/services/api.service';
@@ -8,7 +13,7 @@ import { LayoutService } from 'src/app/services/layout.service';
 import { RepositoryService } from 'src/app/services/repository.service';
 import { UIService } from 'src/app/services/ui.service';
 import { ModelTemplate } from 'src/app/templates/modelTemplate';
-import { IConfig, defaultLayoutConfig } from '../layout-admin/layout-admin.component';
+import { IConfig, defaultLayoutConfig, LayoutAdminComponent } from '../layout-admin/layout-admin.component';
 
 @Component({
   selector: 'app-batches',
@@ -19,7 +24,7 @@ export class BatchesComponent implements OnInit {
 
   localStorageName = 'proarc-layout-import';
   config: IConfig = null;
-
+  state: string;
   batchId: string;
   parent: DocumentItem | null;
   previousItem: DocumentItem | null;
@@ -29,14 +34,14 @@ export class BatchesComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    // public editor: EditorService,
-    private repo: RepositoryService,
+    private dialog: MatDialog,
     public layout: LayoutService,
     private ui: UIService,
     private api: ApiService
   ) { }
 
   ngOnInit(): void {
+    this.initConfig();
     this.layout.type = 'import';
 
     this.layout.shouldRefresh().subscribe(() => {
@@ -61,13 +66,6 @@ export class BatchesComponent implements OnInit {
 
   setVisibility() {
 
-
-    if (localStorage.getItem(this.localStorageName)) {
-      this.config = JSON.parse(localStorage.getItem(this.localStorageName))
-    } else {
-      this.config = JSON.parse(JSON.stringify(defaultLayoutConfig));
-    }
-
     this.config.columns.forEach(c => {
       c.rows.forEach(r => {
         if (r.type === 'image' && r.visible) {
@@ -77,6 +75,23 @@ export class BatchesComponent implements OnInit {
       c.visible = c.rows.findIndex(r => r.visible && !r.isEmpty) > -1;
     });
 
+  }
+
+  showLayoutAdmin() {
+    const dialogRef = this.dialog.open(LayoutAdminComponent, { data: { layout: 'import'} });
+    dialogRef.afterClosed().subscribe((ret: any) => {
+      
+        this.initConfig();
+        this.loadData(this.batchId);
+    });
+  }
+
+  initConfig() {
+    if (localStorage.getItem(this.localStorageName)) {
+      this.config = JSON.parse(localStorage.getItem(this.localStorageName))
+    } else {
+      this.config = JSON.parse(JSON.stringify(defaultLayoutConfig));
+    }
   }
 
 
@@ -117,37 +132,62 @@ export class BatchesComponent implements OnInit {
 
   }
 
-  setPath(pid: string) {
-    this.api.getParent(pid).subscribe((item: DocumentItem) => {
-      if (item) {
-        this.layout.path.unshift({ pid: item.pid, label: item.label, model: item.model });
-        this.setPath(item.pid);
-      }
-    });
+  onIngest() {
+
+    if (this.hasPendingChanges()) {
+      const d = this.confirmLeaveDialog().subscribe((result: any) => {
+        if (result === 'true') {
+          this.ingest();
+        }
+      });
+    } else {
+      this.ingest();
+    }
   }
 
-  private setupNavigation() {
-    this.previousItem = null;
-    this.nextItem = null;
-    if (!this.parent) {
-      return;
-    }
-    const parentId = this.parent.pid;
-    this.api.getRelations(this.parent.pid).subscribe((siblings: DocumentItem[]) => {
-      let index = -1;
-      let i = -1;
-      for (const sibling of siblings) {
-        i += 1;
-        if (sibling.pid === this.layout.item.pid) {
-          index = i;
-          break;
+  confirmLeaveDialog() {
+    const data: SimpleDialogData = {
+      title: 'Upozornění',
+      message: 'Opouštíte formulář bez uložení. Opravdu chcete pokračovat?',
+      btn1: {
+        label: "Ano",
+        value: 'true',
+        color: 'warn'
+      },
+      btn2: {
+        label: "Ne",
+        value: 'false',
+        color: 'default'
+      },
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    return dialogRef.afterClosed();
+  }
+
+  ingest() {
+    const batchParent = this.getBatchParent();
+    if (batchParent) {
+      this.ingestBatch(batchParent);
+    } else {
+      const dialogRef = this.dialog.open(ParentDialogComponent, { data: { btnLabel: 'import.save' } });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result && result.pid) {
+          this.ingestBatch(result.pid);
         }
-      }
-      if (index >= 1 && this.parent.pid == parentId) {
-        this.previousItem = siblings[index - 1];
-      }
-      if (index >= 0 && index < siblings.length - 1) {
-        this.nextItem = siblings[index + 1];
+      });
+    }
+  }
+
+  private ingestBatch(parentPid: string) {
+    this.state = 'loading';
+    const bathId = parseInt(this.batchId);
+    const dialogRef = this.dialog.open(IngestDialogComponent, { data: { batch: bathId, parent: parentPid } });
+    dialogRef.afterClosed().subscribe(result => {
+      this.state = 'success';
+      if (result == 'open') {
+        this.router.navigate(['/document', parentPid]);
+      } else {
+        this.router.navigate(['/']);
       }
     });
   }
@@ -156,5 +196,25 @@ export class BatchesComponent implements OnInit {
     return false;
   }
 
+  public getBatchParent(): string | undefined {
+    return undefined;
+  }
+  
+  formatPagesCount(): string {
+    if (!this.layout.items) {
+        return "";
+    }
+    const c = this.layout.items.length;
+    if (c == 0) {
+        return 'žádná strana';
+    }
+    if (c == 1) {
+        return '1 strana';
+    }
+    if (c < 5) {
+        return `${c} strany`;
+    }
+    return `${c} stran`;
+}
 
 }

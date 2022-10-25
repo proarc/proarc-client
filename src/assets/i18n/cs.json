@@ -1864,7 +1864,7 @@
 
     },
     "layout": {
-      "explain": "Viditelnost panelů",
+      "explain": "Kliknutím zmenite viditelnosti panelů",
       "repo": "úložiště",
       "import": "import"
     }

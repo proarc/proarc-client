@@ -27,6 +27,10 @@
         <mat-icon>keyboard_arrow_right</mat-icon>
       </button>
     </div>
+    
+    <button matTooltip="{{ 'navbar.layout' | translate }}" (click)="showLayoutAdmin()" mat-icon-button>
+      <mat-icon>dashboard</mat-icon>
+    </button>
   </div>
 
   <as-split *ngIf="config" direction="horizontal" [disabled]="config.disabled" >

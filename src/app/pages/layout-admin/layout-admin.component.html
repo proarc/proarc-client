@@ -1,48 +1,55 @@
-<div class="explanations">
-  <div>
-    <div>{{ 'admin.layout.explain' | translate }}:</div>
-    <mat-button-toggle-group [(ngModel)]="layout" (change)="setLayoutConfig()">
-      <mat-button-toggle value="repo">{{ 'admin.layout.repo' | translate }}</mat-button-toggle>
-      <mat-button-toggle value="import">{{ 'admin.layout.import' | translate }}</mat-button-toggle>
-    </mat-button-toggle-group>
-  </div>
-  <div>
-  <div style="display:flex; flex-direction: row;width:500px;height:160px;">
-    <div style="display:flex; height: 100%;" [style.flex]="'0 0 '+c.size+'%'" *ngFor="let c of config.columns">
-      <div style="display:flex;flex-direction: column; width:100%">
-        <div (click)="r.visible = !r.visible; refreshColumnVisibility()" class="panel-button" [class.active]="r.visible" style="display:flex; " [style.flex]="'0 0 '+r.size+'%'" *ngFor="let r of c.rows">
-          <div>{{ r.type }}</div>
-        </div>
-    </div>
-    </div>
-  </div>
-</div>
-</div>
-<div style="height:calc(100% - 160px);">
-<as-split *ngIf="config" direction="horizontal" [disabled]="config.disabled" (dragEnd)="onDragEnd(-1, $event)"> 
-  <ng-template ngFor let-column [ngForOf]="config.columns" let-icol="index">
-    <as-split-area *ngIf="column.visible" [order]="icol" [size]="column.size">
-      <as-split direction="vertical" [disabled]="config.disabled" (dragEnd)="onDragEnd(icol, $event)">
-        <ng-template ngFor let-row [ngForOf]="column.rows" let-irow="index">
-          <as-split-area *ngIf="row.visible" [order]="irow" [size]="row.size">
-            <div class="bloc">
-              <mat-form-field appearance="fill">
-                <mat-label>Panel type</mat-label>
-                <mat-select [(ngModel)]="row.type" (selectionChange)="refreshColumnVisibility()">
-                  <mat-option *ngFor="let type of types" [value]="type">
-                    {{type}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-              <div class="panel">
-                <p>{{ row.type }}</p>
-              </div>
-              
+<h1 mat-dialog-title>{{ 'navbar.layout' | translate }}</h1>
+<div mat-dialog-content style="width:1280px;height:800px;">
+  <div class="explanations">
+    <!-- <div>
+      <mat-button-toggle-group [(ngModel)]="data.layout" (change)="setLayoutConfig()">
+        <mat-button-toggle value="repo">{{ 'admin.layout.repo' | translate }}</mat-button-toggle>
+        <mat-button-toggle value="import">{{ 'admin.layout.import' | translate }}</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div> -->
+    <div [matTooltip]="'admin.layout.explain' | translate">
+      <div style="display:flex; flex-direction: row;width:500px;height:160px;">
+        <div style="display:flex; height: 100%;" [style.flex]="'0 0 '+c.size+'%'" *ngFor="let c of config.columns">
+          <div style="display:flex;flex-direction: column; width:100%">
+            <div (click)="r.visible = !r.visible; refreshColumnVisibility()" class="panel-button"
+              [class.active]="r.visible" style="display:flex; " [style.flex]="'0 0 '+r.size+'%'"
+              *ngFor="let r of c.rows">
+              <div>{{ r.type }}</div>
             </div>
-          </as-split-area>
-        </ng-template>
-      </as-split>
-    </as-split-area>
-  </ng-template>
-</as-split>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="height:calc(100% - 160px);">
+    <as-split *ngIf="config" direction="horizontal" [disabled]="config.disabled" (dragEnd)="onDragEnd(-1, $event)">
+      <ng-template ngFor let-column [ngForOf]="config.columns" let-icol="index">
+        <as-split-area *ngIf="column.visible" [order]="icol" [size]="column.size">
+          <as-split direction="vertical" [disabled]="config.disabled" (dragEnd)="onDragEnd(icol, $event)">
+            <ng-template ngFor let-row [ngForOf]="column.rows" let-irow="index">
+              <as-split-area *ngIf="row.visible" [order]="irow" [size]="row.size">
+                <div class="bloc">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Panel type</mat-label>
+                    <mat-select [(ngModel)]="row.type" (selectionChange)="refreshColumnVisibility()">
+                      <mat-option *ngFor="let type of types" [value]="type">
+                        {{type}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <div class="panel">
+                    <p>{{ row.type }}</p>
+                  </div>
+
+                </div>
+              </as-split-area>
+            </ng-template>
+          </as-split>
+        </as-split-area>
+      </ng-template>
+    </as-split>
+  </div>
+</div>
+<div mat-dialog-actions cdk-focus-start>
+  <button mat-raised-button color="default" [mat-dialog-close]="false">{{ 'common.close' | translate }}</button>
 </div>

@@ -374,12 +374,8 @@ export class EditorStructureComponent implements OnInit {
     this.table.renderRows();
   }
 
-  getBatchId() {
-    return this.isRepo ? null : '';
-  }
-
   validateChildren() {
-    const dialogRef = this.dialog.open(ChildrenValidationDialogComponent, { data: { children: this.items, batchId: this.getBatchId() } });
+    const dialogRef = this.dialog.open(ChildrenValidationDialogComponent, { data: { children: this.items, batchId: this.layout.getBatchId() } });
     dialogRef.afterClosed().subscribe(result => {
     });
   }
@@ -469,7 +465,7 @@ export class EditorStructureComponent implements OnInit {
       return;
     }
     this.state = 'saving';
-    this.api.reindexPages(this.layout.item.pid, pagePid, null, model).subscribe(result => {
+    this.api.reindexPages(this.layout.item.pid, pagePid, this.layout.getBatchId(), model).subscribe(result => {
 
       if (result.response.errors) {
         this.ui.showErrorSnackBarFromObject(result.response.errors);
@@ -724,7 +720,7 @@ export class EditorStructureComponent implements OnInit {
     let pids: string[] = this.items.filter(c => c.selected).map(c => c.pid);
     const isMultiple = this.items.filter(c => c.selected).length > 1;
 
-    this.api.deleteObjects(pids, pernamently, this.getBatchId()).subscribe((response: any) => {
+    this.api.deleteObjects(pids, pernamently, this.layout.getBatchId()).subscribe((response: any) => {
 
       if (response['response'].errors) {
         this.ui.showErrorSnackBarFromObject(response['response'].errors);

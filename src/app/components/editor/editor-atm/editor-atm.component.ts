@@ -63,7 +63,7 @@ export class EditorAtmComponent implements OnInit {
       return;
     }
     this.state = 'loading';
-    this.api.getAtm(this.layout.selectedItem.pid, null).subscribe((atm: Atm) => {
+    this.api.getAtm(this.layout.selectedItem.pid, this.layout.getBatchId()).subscribe((atm: Atm) => {
       this.atm = atm;
       if (this.devices) {
         this.state = 'success';

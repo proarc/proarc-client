@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, Output, SimpleChange } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CatalogDialogComponent } from 'src/app/dialogs/catalog-dialog/catalog-dialog.component';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
@@ -6,7 +6,6 @@ import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dial
 import { TranslateService } from '@ngx-translate/core';
 import { UIService } from 'src/app/services/ui.service';
 import { ApiService } from 'src/app/services/api.service';
-import { RepositoryService } from 'src/app/services/repository.service';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Metadata } from 'src/app/model/metadata.model';
 import { LayoutService } from 'src/app/services/layout.service';

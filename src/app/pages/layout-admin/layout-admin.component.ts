@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface ILayoutPanel {
     visible: boolean,
@@ -54,18 +55,21 @@ export const defaultLayoutConfig: IConfig = {
 })
 export class LayoutAdminComponent implements OnInit {
 
-  
   localStorageName = 'proarc-layout';
   config: IConfig = null;
 
   types = ['structure-list', 'structure-grid', 'structure-icons', 'metadata', 'mods', 'atm', 'ocr', 'comment', 'image'];
-  layout = 'repo';
+  
 
-  constructor() { }
+  constructor(public dialogRef: MatDialogRef<LayoutAdminComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: {layout: string}) { }
 
   ngOnInit() {
-    if (localStorage.getItem(this.localStorageName + '-' + this.layout)) {
-      this.config = JSON.parse(localStorage.getItem(this.localStorageName + '-' + this.layout))
+    if (!this.data.layout) {
+      this.data.layout = 'repo';
+    }
+    if (localStorage.getItem(this.localStorageName + '-' + this.data.layout)) {
+      this.config = JSON.parse(localStorage.getItem(this.localStorageName + '-' + this.data.layout))
     } else {
       this.resetConfig()
     }
@@ -73,7 +77,7 @@ export class LayoutAdminComponent implements OnInit {
 
   resetConfig() {
     this.config = JSON.parse(JSON.stringify(defaultLayoutConfig));
-    localStorage.removeItem(this.localStorageName + '-' + this.layout)
+    localStorage.removeItem(this.localStorageName + '-' + this.data.layout)
   }
 
   onDragEnd(columnindex: number, e: any) {
@@ -109,15 +113,15 @@ export class LayoutAdminComponent implements OnInit {
   }
 
   setLayoutConfig() {
-    if (localStorage.getItem(this.localStorageName + '-' + this.layout)) {
-      this.config = JSON.parse(localStorage.getItem(this.localStorageName + '-' + this.layout))
+    if (localStorage.getItem(this.localStorageName + '-' + this.data.layout)) {
+      this.config = JSON.parse(localStorage.getItem(this.localStorageName + '-' + this.data.layout))
     } else {
       this.resetConfig()
     }
   }
 
   saveLocalStorage() {
-    localStorage.setItem(this.localStorageName + '-' + this.layout, JSON.stringify(this.config))
+    localStorage.setItem(this.localStorageName + '-' + this.data.layout, JSON.stringify(this.config))
   }
 
 }

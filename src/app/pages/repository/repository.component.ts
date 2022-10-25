@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, forkJoin } from 'rxjs';
 import { DocumentItem } from 'src/app/model/documentItem.model';
@@ -7,7 +8,7 @@ import { LayoutService } from 'src/app/services/layout.service';
 import { RepositoryService } from 'src/app/services/repository.service';
 import { UIService } from 'src/app/services/ui.service';
 import { ModelTemplate } from 'src/app/templates/modelTemplate';
-import { defaultLayoutConfig, IConfig } from '../layout-admin/layout-admin.component';
+import { defaultLayoutConfig, IConfig, LayoutAdminComponent } from '../layout-admin/layout-admin.component';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class RepositoryComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    // public editor: EditorService,
+    private dialog: MatDialog,
     private repo: RepositoryService,
     public layout: LayoutService,
     private ui: UIService,
@@ -37,11 +38,9 @@ export class RepositoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // if (localStorage.getItem(this.localStorageName)) {
-    //   this.config = JSON.parse(localStorage.getItem(this.localStorageName))
-    // } else {
-    //   this.config = JSON.parse(JSON.stringify(defaultLayoutConfig));
-    // }
+    
+    this.initConfig();
+
     this.layout.type = 'repo';
     this.layout.setBatchId(null);
 
@@ -65,14 +64,24 @@ export class RepositoryComponent implements OnInit {
       });
   }
 
-  setVisibility() {
-    
+  showLayoutAdmin() {
+    const dialogRef = this.dialog.open(LayoutAdminComponent, { data: { layout: 'repo'} });
+    dialogRef.afterClosed().subscribe((ret: any) => {
+      
+        this.initConfig();
+        this.loadData(this.pid);
+    });
+  }
 
+  initConfig() {
     if (localStorage.getItem(this.localStorageName)) {
       this.config = JSON.parse(localStorage.getItem(this.localStorageName))
     } else {
       this.config = JSON.parse(JSON.stringify(defaultLayoutConfig));
     }
+  }
+
+  setVisibility() {
 
     this.config.columns.forEach(c => {
       c.rows.forEach(r => {
