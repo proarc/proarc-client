@@ -1,7 +1,14 @@
 <div class="app-panel">
 
 <div class="app-toolbar" *ngIf="switchable">
-  <div class="app-context">
+  <div class="app-toolbar" *ngIf="layout.getNumOfSelected() > 1">
+    <div class="app-label">
+      <div class="app-label-title">{{ 'editor.children.multiple_selection_label' | translate }}</div>
+      <div class="app-label-model">{{ ('editor.children.multiple_selection_count' + countPlurals() ) | translate: { count:
+        layout.getNumOfSelected() } }}</div>
+    </div>
+  </div>
+  <div class="app-context" *ngIf="!layout.showPagesEditor()">
     <button matTooltip="{{ 'editor.toolbar.editor_metadata' | translate }}"
       [class.app-inactive]="editorType != 'metadata'" (click)="editorType = 'metadata'"
       mat-icon-button>
@@ -30,7 +37,7 @@
       mat-icon-button>
       <mat-icon>code</mat-icon>
     </button>
-    <button *ngIf="layout.selectedItem.isPage()" matTooltip="{{ 'editor.toolbar.editor_ocr' | translate }}"
+    <button *ngIf="layout.selectedItem && layout.selectedItem.isPage()" matTooltip="{{ 'editor.toolbar.editor_ocr' | translate }}"
       [class.app-inactive]="editorType != 'ocr'" (click)="editorType = 'ocr'"
       mat-icon-button>
       <mat-icon>title</mat-icon>
@@ -62,13 +69,15 @@
   <ng-container *ngSwitchCase="'image'" >
     <app-viewer *ngIf="layout.selectedItem && layout.selectedItem.isPage()" [pid]="layout.selectedItem.pid" ></app-viewer>
   </ng-container>
-  <app-editor-mods *ngSwitchCase="'mods'"  [pid]="layout.selectedItem.pid"></app-editor-mods>
-  <app-editor-ocr *ngSwitchCase="'ocr'"  [pid]="layout.selectedItem.pid"></app-editor-ocr>
-  <app-editor-comment *ngSwitchCase="'comment'"  [pid]="layout.selectedItem.pid"></app-editor-comment>
-  <app-editor-atm *ngSwitchCase="'atm'"  [pid]="layout.selectedItem.pid"></app-editor-atm>
-
+  <ng-container *ngIf="layout.selectedItem">
+    <app-editor-mods *ngSwitchCase="'mods'"  [pid]="layout.selectedItem.pid"></app-editor-mods>
+    <app-editor-ocr *ngSwitchCase="'ocr'"  [pid]="layout.selectedItem.pid"></app-editor-ocr>
+    <app-editor-comment *ngSwitchCase="'comment'"  [pid]="layout.selectedItem.pid"></app-editor-comment>
+    <app-editor-atm *ngSwitchCase="'atm'"  [pid]="layout.selectedItem.pid"></app-editor-atm>
+  </ng-container>
   <ng-container *ngSwitchCase="'metadata'">
-    <ng-container *ngIf="layout.selectedItem">
+    <app-editor-pages *ngIf="layout.showPagesEditor()"></app-editor-pages>
+    <ng-container *ngIf="layout.selectedItem && !layout.showPagesEditor()">
       <app-editor-page *ngIf="layout.selectedItem.isPage()" [model]="layout.selectedItem.model" [pid]="layout.selectedItem.pid" > </app-editor-page>
       <app-editor-song *ngIf="layout.selectedItem.isSong()" [model]="layout.selectedItem.model" [pid]="layout.selectedItem.pid"> </app-editor-song>
       <app-editor-chronicle *ngIf="layout.selectedItem.isChronicle()" [pid]="layout.selectedItem.pid"></app-editor-chronicle>

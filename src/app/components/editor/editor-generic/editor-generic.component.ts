@@ -2,7 +2,6 @@ import { Component, Input, OnInit, SimpleChange } from '@angular/core';
 import { ILayoutPanel } from 'src/app/pages/layout-admin/layout-admin.component';
 import { ConfigService } from 'src/app/services/config.service';
 import { LayoutService } from 'src/app/services/layout.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-editor-generic',
@@ -17,26 +16,31 @@ export class EditorGenericComponent implements OnInit {
   switchableTypes = ['mods', 'metadata', 'atm', 'ocr']
   switchable: boolean;
 
-  sc: Subscription;
 
   constructor(
     public config: ConfigService,
     public layout: LayoutService) { }
 
   ngOnInit(): void {
-    // this.sc = this.layout.selectionChanged().subscribe(() => {
-    //   console.log(this.editorType);
-    //   this.setVisibility();
-    // });
-    // this.setVisibility();
   }
 
   ngOnDestroy() {
-    //this.sc.unsubscribe();
   }
 
   ngOnChanges(c: SimpleChange) {
     this.switchable = this.switchableTypes.includes(this.editorType);
       
   }
+  
+
+  countPlurals(): string {
+    let count = this.layout.getNumOfSelected();
+      if (count > 4) {
+        return '5'
+      } else if (count > 1) {
+        return '4'
+      } else {
+        return count + '';
+      }
+    }
 }

@@ -69,8 +69,8 @@ export class LayoutService {
     return this.selectionSubject.asObservable();
   }
   
-  setShouldRefresh() {
-    this.refreshSubject.next(true);
+  setShouldRefresh(keepSelection: boolean) {
+    this.refreshSubject.next(keepSelection);
   }
   
   shouldRefresh(): Observable<boolean> {
@@ -96,5 +96,24 @@ export class LayoutService {
   getBatchId() {
     return this.batchId;
   }
+
+  public showPagesEditor(): boolean {
+    // if (this.relocationMode) {
+    //     return false;
+    // }
+    if (this.getNumOfSelected() < 2) {
+        return false;
+    }
+    let count = 0;
+    for (const child of this.items) {
+        if (child.selected) {
+            count += 1;
+            if (!child.isPage()) {
+                return false;
+            }
+        }
+    }
+    return count > 0;
+}
 
 }

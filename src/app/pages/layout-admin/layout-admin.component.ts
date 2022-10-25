@@ -23,16 +23,8 @@ export const defaultLayoutConfig: IConfig = {
       visible: true,
       size: 33,
       rows: [
-        { visible: true, size: 25, type: 'structure' },
+        { visible: true, size: 25, type: 'structure-list' },
         { visible: true, size: 75, type: 'metadata' },
-      ],
-    },
-    {
-      visible: true,
-      size: 33,
-      rows: [
-        { visible: true, size: 60, type: 'atm' },
-        { visible: true, size: 40, type: 'image' },
       ],
     },
     {
@@ -42,6 +34,14 @@ export const defaultLayoutConfig: IConfig = {
         { visible: true, size: 20, type: 'mods' },
         { visible: false, size: 30, type: 'ocr' },
         { visible: false, size: 50, type: 'comment' },
+      ],
+    },
+    {
+      visible: true,
+      size: 33,
+      rows: [
+        { visible: true, size: 40, type: 'image' },
+        { visible: true, size: 60, type: 'atm' },
       ],
     },
   ],
@@ -81,7 +81,6 @@ export class LayoutAdminComponent implements OnInit {
   }
 
   onDragEnd(columnindex: number, e: any) {
-    console.log(e)
     // Column dragged
     if (columnindex === -1) {
       // Set size for all visible columns

@@ -66,7 +66,6 @@ export class ViewerComponent implements OnInit, OnDestroy {
   }
 
   onPidChanged(pid: string) {
-    console.log(pid)
     this.state = 'loading';
     const url = this.api.getStreamUrl(pid, 'FULL', this.layout.getBatchId());
     const image = new Image();

@@ -28,6 +28,7 @@ export class EditorStructureComponent implements OnInit {
 
   @Input() items: DocumentItem[];
   @Input() viewMode: string; // 'list' | 'grid' | 'icons'
+  //@Input() selectedIndex: number = -1;
   @ViewChild('table') table: MatTable<DocumentItem>;
   @ViewChild('childrenWrapper') childrenWrapperEl: ElementRef;
 
@@ -187,6 +188,10 @@ export class EditorStructureComponent implements OnInit {
 
   setSelectedColumns() {
     this.properties.setStringProperty('selectedColumns', JSON.stringify(this.selectedColumns));
+    this.initSelectedColumns();
+    this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field);
+    this.dataSource = new MatTableDataSource(this.items);
+    this.table.renderRows();
   }
 
   setColumns() {
@@ -400,11 +405,11 @@ export class EditorStructureComponent implements OnInit {
       if (result && result['pid']) {
 
         if (result.isMultiple) {
-          this.layout.setShouldRefresh();
+          this.layout.setShouldRefresh(true);
         } else {
           const dialogRef = this.dialog.open(NewMetadataDialogComponent, { disableClose: true, data: result.data });
           dialogRef.afterClosed().subscribe(res => {
-            this.layout.setShouldRefresh();
+            this.layout.setShouldRefresh(true);
           });
         }
 
@@ -417,11 +422,11 @@ export class EditorStructureComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result.status == 'ok') {
-          this.layout.setShouldRefresh();
+          this.layout.setShouldRefresh(false);
           this.ui.showInfoSnackBar("Strany byly převedeny");
           
         } else if (result.status == 'failure') {
-          this.layout.setShouldRefresh();
+          this.layout.setShouldRefresh(false);
           this.ui.showInfoSnackBar("Strany byly převedeny s chybou");
         }
       }
@@ -476,7 +481,7 @@ export class EditorStructureComponent implements OnInit {
       } else {
         this.state = 'success';
         this.ui.showInfoSnackBar("Objekty byly reindexovány");
-        this.layout.setShouldRefresh();
+        this.layout.setShouldRefresh(false);
       }
     });
   }
@@ -607,7 +612,7 @@ export class EditorStructureComponent implements OnInit {
         return;
       } else {
         this.state = 'success';
-        this.layout.setShouldRefresh();
+        this.layout.setShouldRefresh(false);
       }
     });
   }
