@@ -130,6 +130,7 @@ import { EditorGenericComponent } from './components/editor/editor-generic/edito
 import { EditorStructureComponent } from './components/editor/editor-structure/editor-structure.component';
 import { LayoutAdminComponent } from './pages/layout-admin/layout-admin.component';
 import { BatchesComponent } from './pages/batches/batches.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 // export function hljsLanguages() {
@@ -257,6 +258,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularResizeEventModule,
     AngularSplitModule.forRoot(),
     HighlightModule,
+    FlexLayoutModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
