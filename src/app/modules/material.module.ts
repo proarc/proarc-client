@@ -22,6 +22,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatDividerModule } from '@angular/material/divider';
 
 const modules = [
     MatButtonModule,
@@ -44,7 +45,8 @@ const modules = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatTableModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatDividerModule
   ];
 
   @NgModule({

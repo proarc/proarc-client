@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>{{ 'navbar.layout' | translate }}</h1>
+<h1 mat-dialog-title>{{ 'navbar.layout' | translate }} layoutu stránky</h1>
 <div mat-dialog-content style="width:1280px;height:800px;">
   <div class="explanations">
     <!-- <div>
@@ -11,6 +11,17 @@
       <div style="display:flex; flex-direction: row;width:500px;height:160px;">
         <div style="display:flex; height: 100%;" [style.flex]="'0 0 '+c.size+'%'" *ngFor="let c of config.columns">
           <div style="display:flex;flex-direction: column; width:100%">
+            <div (click)="r.visible = !r.visible; refreshColumnVisibility()" class="panel-button" [class.active]="r.visible" style="display:flex; " [style.flex]="'0 0 '+r.size+'%'" *ngFor="let r of c.rows">
+              <div>{{ r.type }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div [matTooltip]="'admin.layout.explain' | translate">
+      <div style="display:flex; flex-direction: row;width:500px;height:160px;">
+        <div style="display:flex; height: 100%;" [style.flex]="'0 0 '+c.size+'%'" *ngFor="let c of config.columns">
+          <div style="display:flex;flex-direction: column; width:100%">
             <div (click)="r.visible = !r.visible; refreshColumnVisibility()" class="panel-button"
               [class.active]="r.visible" style="display:flex; " [style.flex]="'0 0 '+r.size+'%'"
               *ngFor="let r of c.rows">
@@ -19,8 +30,9 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
+  <mat-divider style="margin-bottom:16px;margin-top: 16px"></mat-divider>
   <div style="height:calc(100% - 160px);">
     <as-split *ngIf="config" direction="horizontal" [disabled]="config.disabled" (dragEnd)="onDragEnd(-1, $event)">
       <ng-template ngFor let-column [ngForOf]="config.columns" let-icol="index">
@@ -51,5 +63,5 @@
   </div>
 </div>
 <div mat-dialog-actions cdk-focus-start>
-  <button mat-raised-button color="default" [mat-dialog-close]="false">{{ 'common.close' | translate }}</button>
+  <button mat-stroked-button color="default" [mat-dialog-close]="false">{{ 'common.close' | translate }}</button>
 </div>
