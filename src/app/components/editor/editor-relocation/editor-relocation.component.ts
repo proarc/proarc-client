@@ -170,7 +170,7 @@ export class EditorRelocationComponent implements OnInit {
           nextSelection = 0;
         }
         if (this.items.length > 0 && !isMultiple) {
-          this.layout.setSelection();
+          this.layout.setSelection(false);
         }
         this.state = 'success';
         // this.goToObjectByPid(destinationPid);

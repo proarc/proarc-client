@@ -42,10 +42,10 @@ export class EditorAtmComponent implements OnInit {
 
   ngOnInit() {
     this.organizations = this.config.organizations;
-    this.layout.selectionChanged().subscribe(() => {
-      this.reload();
-    });
-    this.reload();
+    // this.layout.selectionChanged().subscribe(() => {
+    //   this.reload();
+    // });
+    // this.reload();
   }
 
   ngOnChanges(c: SimpleChange) {

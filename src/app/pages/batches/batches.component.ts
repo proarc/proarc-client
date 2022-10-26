@@ -113,7 +113,8 @@ export class BatchesComponent implements OnInit {
         this.layout.items = pages;
         this.layout.items[0].selected = true;
         this.layout.ready = true;
-        this.layout.setSelection();
+        
+        this.layout.setSelection(false);
 
         // this.layout.allowedChildrenModels = ModelTemplate.allowedChildrenForModel(item.model);
 

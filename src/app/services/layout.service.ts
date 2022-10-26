@@ -1,5 +1,5 @@
 import { Injectable, Component } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { DocumentItem } from '../model/documentItem.model';
 import { Metadata } from '../model/metadata.model';
 
@@ -26,8 +26,10 @@ export class LayoutService {
   public isDirty: boolean; // some components have unsaved changes
 
   private refreshSubject = new Subject<boolean>();
-  private selectionSubject = new Subject<boolean>();
-  private moveNextSubject = new Subject<boolean>();
+  private selectionSubject = new ReplaySubject<boolean>(1);
+  private moveNextSubject = new ReplaySubject<boolean>(1);
+  public movingToNext = false;
+  public movedToNextFrom: string;
 
   
   allowedChildrenModels: string[];
@@ -48,8 +50,9 @@ export class LayoutService {
     }
   }
 
-  setSelection() {
-    
+  setSelection(fromStructure: boolean) {
+    // this.movingToNext = false;
+    // this.movedToNextFrom = null;
     const num = this.getNumOfSelected();
     if (num > 1) {
       this.selectedItem = null;
@@ -58,7 +61,13 @@ export class LayoutService {
     } else {
       this.selectedItem = this.getSelected()[0];
     }
-    this.selectionSubject.next(true);
+    this.selectionSubject.next(fromStructure);
+  }
+  
+  shouldMoveToNext(from: string) {
+    this.movedToNextFrom = from;
+    this.movingToNext = true;
+    this.moveNextSubject.next(true);
   }
   
   moveToNext(): Observable<boolean> {

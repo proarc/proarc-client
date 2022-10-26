@@ -45,7 +45,7 @@ export class EditorStructureComponent implements OnInit {
   sourceIndex: number;
   isDragging = false;
 
-  
+
   expandedPath: string[];
 
   movedToIndex: boolean;
@@ -95,10 +95,6 @@ export class EditorStructureComponent implements OnInit {
     // } else {
     //   this.viewMode = this.properties.getStringProperty('children.view_mode', 'list');
     // }
-
-    this.layout.moveToNext().subscribe(() => {
-      this.moveToNext();
-    });
   }
 
   ngOnChanges(e: any) {
@@ -106,6 +102,21 @@ export class EditorStructureComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.items);
       // this.rows = JSON.parse(JSON.stringify(this.items));
     }
+  }
+
+  ngAfterViewInit() {
+    this.childrenWrapperEl.nativeElement.focus();
+
+    this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
+      if (!fromStructure) {
+        this.arrowIndex = this.layout.getFirstSelectedIndex();
+        this.obtainFocus();
+      }
+    });
+
+    this.layout.moveToNext().subscribe(() => {
+      this.moveToNext();
+    });
   }
 
   obtainFocus() {
@@ -152,21 +163,14 @@ export class EditorStructureComponent implements OnInit {
   }
 
   moveToNext() {
-    let index = -1;
-    for (let i = 0; i < this.items.length; i++) {
-      if (this.layout.selectedItem == this.items[i]) {
-        index = i;
-        break;
-      }
-    }
-    index += 1;
+    let index = this.layout.getFirstSelectedIndex() + 1;
     if (index < this.items.length) {
       this.rowClick(this.items[index], index, null);
-      const item = this.items[index];
+      //const item = this.items[index];
       // if (this.isMultipleChildrenMode()) {
       //   this.setSingleChildMode(item);
       // }
-      item.selected = true;
+      //item.selected = true;
     }
 
   }
@@ -201,17 +205,18 @@ export class EditorStructureComponent implements OnInit {
 
   selectAll() {
     this.items.forEach(i => i.selected = true);
-    this.layout.setSelection();
+    this.layout.setSelection(true);
   }
 
   rowClick(row: DocumentItem, idx: number, event: MouseEvent) {
     if (event && (event.metaKey || event.ctrlKey)) {
-        // Nesmi byt prazdna selecke pro import
+      // Nesmi byt prazdna selecke pro import
       if (this.layout.type === 'import' && row.selected && this.layout.getNumOfSelected() === 1) {
         return;
       } else {
         row.selected = !row.selected;
-        this.layout.setSelection();
+
+        this.layout.setSelection(true);
       }
     } else if (event && event.shiftKey) {
       if (this.lastClickIdx > -1) {
@@ -220,20 +225,21 @@ export class EditorStructureComponent implements OnInit {
         for (let i = from; i <= to; i++) {
           this.items[i].selected = true;
         }
-        this.layout.setSelection();
+        this.layout.setSelection(true);
       } else {
         // nic neni.
         this.items.forEach(i => i.selected = false);
         row.selected = true;
-        this.layout.setSelection();
+        this.layout.setSelection(true);
       }
 
     } else {
       this.items.forEach(i => i.selected = false);
       row.selected = true;
-      this.layout.setSelection();
+      this.layout.setSelection(true);
     }
     this.lastClickIdx = idx;
+    this.arrowIndex = idx;
   }
 
   open(item: DocumentItem) {
@@ -430,7 +436,7 @@ export class EditorStructureComponent implements OnInit {
         if (result.status == 'ok') {
           this.layout.setShouldRefresh(false);
           this.ui.showInfoSnackBar("Strany byly převedeny");
-          
+
         } else if (result.status == 'failure') {
           this.layout.setShouldRefresh(false);
           this.ui.showInfoSnackBar("Strany byly převedeny s chybou");
@@ -645,7 +651,7 @@ export class EditorStructureComponent implements OnInit {
           nextSelection = 0;
         }
         if (this.items.length > 0 && !isMultiple) {
-          this.layout.setSelection();
+          this.layout.setSelection(true);
         }
         this.state = 'success';
         // this.goToObjectByPid(destinationPid);
@@ -740,7 +746,7 @@ export class EditorStructureComponent implements OnInit {
           nextSelection = 0;
         }
         if (this.items.length > 0 && !isMultiple) {
-          this.layout.setSelection();
+          this.layout.setSelection(true);
         }
         this.ui.showInfoSnackBar(String(this.translator.instant('editor.children.delete_dialog.success')));
         this.state = 'success';

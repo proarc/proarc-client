@@ -27,7 +27,7 @@ export class EditorPageComponent implements OnInit {
   positions = ['left', 'right', 'singlePage'];
   genres = ['page', 'reprePage'];
 
-  movedToNextFrom: string;
+  // movedToNextFrom: string;
 
   @Input() model: string;
 
@@ -78,7 +78,7 @@ export class EditorPageComponent implements OnInit {
   }
 
   removeFocus() {
-    this.movedToNextFrom = '';
+    this.layout.movedToNextFrom = null;
   }
 
   private setPage(page: Page) {
@@ -87,23 +87,24 @@ export class EditorPageComponent implements OnInit {
     this.controls.markAsPristine();
     this.layout.isDirty = false;
     this.state = 'success';
-    if (this.movedToNextFrom == 'pageNumber') {
+    console.log(this.layout.movedToNextFrom)
+    if (this.layout.movedToNextFrom == 'pageNumber') {
       setTimeout(() => {
         this.pageNumberField.nativeElement.focus();
       }, 10);
-    } else if (this.movedToNextFrom == 'pageIndex') {
+    } else if (this.layout.movedToNextFrom == 'pageIndex') {
       setTimeout(() => {
         this.pageIndexField.nativeElement.focus();
       }, 10);
-    } else if (this.movedToNextFrom == 'type') {
+    } else if (this.layout.movedToNextFrom == 'type') {
       setTimeout(() => {
         this.typeSelect.focus();
       }, 10);
-    } else if (this.movedToNextFrom == 'position') {
+    } else if (this.layout.movedToNextFrom == 'position') {
       setTimeout(() => {
         this.posSelect.focus();
       }, 10);
-    } else if (this.movedToNextFrom == 'genre') {
+    } else if (this.layout.movedToNextFrom == 'genre') {
       setTimeout(() => {
         this.genreSelect.focus();
       }, 10);
@@ -208,12 +209,12 @@ export class EditorPageComponent implements OnInit {
   }
 
   private save(from: string) {
-    this.movedToNextFrom = from;
+    this.layout.movedToNextFrom = from;
     this.controls.markAsPristine();
     this.layout.isDirty = false;
     if (!this.page.hasChanged()) {
       if (!!from) {
-        this.layout.moveToNext();
+        this.layout.shouldMoveToNext(from);
       }
       return;
     }

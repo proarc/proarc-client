@@ -106,6 +106,7 @@ export class RepositoryComponent implements OnInit {
         })
       }
     this.layout.ready = false;
+    this.layout.setBatchId(null);
     this.pid = pid;
     const rDoc = this.api.getDocument(pid);
     const rChildren = this.api.getRelations(pid);
@@ -120,7 +121,7 @@ export class RepositoryComponent implements OnInit {
         })
       }
       this.layout.ready = true;
-      this.layout.setSelection();
+      this.layout.setSelection(false);
       this.layout.allowedChildrenModels = ModelTemplate.allowedChildrenForModel(item.model);
 
       this.api.getParent(pid).subscribe((item: DocumentItem) => {

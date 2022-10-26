@@ -156,7 +156,7 @@ export class EditorSongComponent implements OnInit {
     this.movedToNextFrom = from;
     if (!this.page.hasChanged()) {
       if (!!from) {
-        this.layout.moveToNext();
+        this.layout.shouldMoveToNext(from);
       }
       return;
     }

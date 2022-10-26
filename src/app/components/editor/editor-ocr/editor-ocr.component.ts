@@ -21,21 +21,21 @@ export class EditorOcrComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.layout.selectionChanged().subscribe(() => {
-      this.anyChange = false;
-      this.editting = false;
-      this.loadOcr();
-    });
-    this.loadOcr();
+    // this.layout.selectionChanged().subscribe(() => {
+    //   this.anyChange = false;
+    //   this.editting = false;
+    //   this.loadOcr();
+    // });
+    // this.loadOcr();
   }
 
   ngOnChanges(c: SimpleChange) {
-    // if (!this.pid) {
-    //   return;
-    // }
-    // this.anyChange = false;
-    // this.editting = false;
-    // this.loadOcr();
+    if (!this.pid) {
+      return;
+    }
+    this.anyChange = false;
+    this.editting = false;
+    this.loadOcr();
   }
 
   loadOcr() {
