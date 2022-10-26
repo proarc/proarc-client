@@ -32,7 +32,7 @@
       <mat-icon>dashboard</mat-icon>
     </button>
   </div>
-
+<div style="height: calc(100% - 49px);">
   <as-split *ngIf="config" direction="horizontal" [disabled]="config.disabled" >
     <ng-template ngFor let-column [ngForOf]="config.columns" let-icol="index">
       <as-split-area *ngIf="column.visible" [order]="icol" [size]="column.size">
@@ -46,4 +46,5 @@
       </as-split-area>
     </ng-template>
   </as-split>
+</div>
 </div>
