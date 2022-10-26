@@ -87,7 +87,6 @@ export class EditorPageComponent implements OnInit {
     this.controls.markAsPristine();
     this.layout.isDirty = false;
     this.state = 'success';
-    console.log(this.layout.movedToNextFrom)
     if (this.layout.movedToNextFrom == 'pageNumber') {
       setTimeout(() => {
         this.pageNumberField.nativeElement.focus();

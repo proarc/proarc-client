@@ -113,7 +113,7 @@ export class BatchesComponent implements OnInit {
         this.layout.items = pages;
         this.layout.items[0].selected = true;
         this.layout.ready = true;
-        
+
         this.layout.setSelection(false);
 
         // this.layout.allowedChildrenModels = ModelTemplate.allowedChildrenForModel(item.model);
@@ -170,7 +170,7 @@ export class BatchesComponent implements OnInit {
     if (batchParent) {
       this.ingestBatch(batchParent);
     } else {
-      const dialogRef = this.dialog.open(ParentDialogComponent, { data: { btnLabel: 'import.save' } });
+      const dialogRef = this.dialog.open(ParentDialogComponent, { data: { btnLabel: 'import.save', items: this.layout.items } });
       dialogRef.afterClosed().subscribe(result => {
         if (result && result.pid) {
           this.ingestBatch(result.pid);
@@ -198,7 +198,7 @@ export class BatchesComponent implements OnInit {
   }
 
   public getBatchParent(): string | undefined {
-    return undefined;
+    return this.layout.item.parent;
   }
   
   formatPagesCount(): string {
