@@ -1,6 +1,7 @@
 <mat-toolbar class="mat-elevation-z6">
-  <a routerLink="/" class="app-logo">
-    <span>ProArc</span>
+  <a routerLink="/" class="app-logo" fxLayout="row" fxLayoutAlign="start center">
+    <img src="/assets/img/logo-proarc-3.svg" />
+    <!-- <span>ProArc</span> -->
   </a>
 
   <ng-container *ngIf="auth.isLoggedIn()">
