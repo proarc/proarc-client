@@ -1,5 +1,13 @@
-@import './src/variables.scss';
-@import './src/theme.scss';
+// --- ROOT ---
+
+@import 'sass/app-variables.scss';
+@import "sass/app-mixins";
+@import 'sass/app-global.scss';
+//@import 'sass/app-mat-override.scss';
+//@import 'sass/app-layout.scss';
+
+
+// john
 @import "~leaflet/dist/leaflet.css";
 
 html {

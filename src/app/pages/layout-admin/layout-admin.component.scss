@@ -1,8 +1,11 @@
-// pedro
+@import './src/sass/app-variables.scss';
+@import "./src/sass/app-mixins";
+@import './src/sass/app-global.scss';
+
 .app-desc {
+  @extend .app-p-4;
   border: 1px solid rgba(silver, .6);
   background-color: rgba(silver, .1);
-  padding: 16px;
 }
 
 .app-layout-controller {
@@ -10,7 +13,7 @@
   min-height: 160px;
 
   .app-item {
-    cursor: pointer;
+    @extend .app-cursor-pointer;
     position: relative;
 
     &.app-active {
@@ -32,9 +35,7 @@
 
         opacity: .1;
         $app-size: 50px;
-        font-size: $app-size;
-        width: $app-size;
-        height: $app-size;
+        @include setIcon(50);
       }
     }
   }
