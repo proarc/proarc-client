@@ -22,6 +22,7 @@
     "add_brackets": "add brackets",
     "remove_brackets": "remove brackets",
     "refresh": "Refresh",
+    "setLayout": "Set layout",
     "day": {
       "1": "Monday",
       "2": "Tuesday",
