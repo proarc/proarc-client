@@ -1982,6 +1982,40 @@
       "repo": "Repository",
       "import": "Import"
     }
-  }
+  },
 
+
+
+  "desc": {
+    "help": "Help",
+    "panelType": "Panel type"
+  },
+  "button": {
+    "setLayout": "Set layout"
+  },
+  "dynamic": {
+    "repo": "Storage",
+    "import": "Import",
+    "structure-list": "Table",
+    "structure-grid": "Grid",
+    "structure-icons": "Previews",
+    "metadata": "Descriptive Metadata",
+    "mods": "Mods XML",
+    "atm": "Administrative and technical metadata",
+    "ocr": "Scan",
+    "comment": "Comment",
+    "image": "Image"
+  },
+  "modal": {
+    "layoutSettings": {
+      "title": "Layout settings - <span class=\"app-text-lowercase\">{{value}}</span>",
+      "help": {
+        "1": "you can activate or deactivate the block by clicking on the block in the right control panel",
+        "2": "active blocks are marked in green, inactive in red",
+        "3": "the current layout of the individual blocks can be seen in the lower preview",
+        "4": "you can resize individual blocks horizontally and vertically",
+        "5": "you can then assign the type you want to display to the individual blocks"
+      }
+    }
+  }
 }

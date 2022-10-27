@@ -1874,5 +1874,40 @@
     "title": "Záměry",
     "task": "Úkol",
     "create_new": "Vytvořit nový záměr"
+  },
+
+  
+
+  "desc": {
+    "help": "Nápověda",
+    "panelType": "Typ panelu"
+  },
+  "button": {
+    "setLayout": "nastavit rozložení"
+  },
+  "dynamic": {
+    "repo": "Úložiště",
+    "import": "Import",
+    "structure-list": "Tabulka",
+    "structure-grid": "Mřížka",
+    "structure-icons": "Náhledy",
+    "metadata": "Popisná metadata",
+    "mods": "Mods XML",
+    "atm": "Administrativní a technická metadata",
+    "ocr": "Scan",
+    "comment": "Komentář",
+    "image": "Obrázek"
+  },
+  "modal": {
+    "layoutSettings": {
+      "title": "Nastavení rozložení - <span class=\"app-text-lowercase\">{{value}}</span>",
+      "help": {
+        "1": "kliknutím na blok v pravém kontrolním panelu můžete blok aktivovat nebo deaktivovat",
+        "2": "zeleně jsou označeny bloky aktivní, červeně neaktivní",
+        "3": "v dolním náhledu je vidět aktuální rozložení jednotlivých bloků",
+        "4": "u jednotlivých bloků můžete měnit jejich velikost horizontálně a vertikálně",
+        "5": "jednotlivým blokům pak můžete přidělit typ, který chcete zobrazovat"
+      }
+    }
   }
 }

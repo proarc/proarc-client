@@ -1,18 +1,15 @@
-<h1 mat-dialog-title>{{ 'navbar.layout' | translate }} layoutu {{ data.layout }}</h1><!-- repo -> uloziste, import -> import -->
+<h1 mat-dialog-title [innerHtml]="'modal.layoutSettings.title' | translate : {value: ('dynamic.' + data.layout | translate)}"></h1>
 <div mat-dialog-content style="width:1280px;height:800px;">
   <div fxLayout="column" fxLayoutGap="16px" fxFlexFill>
     <div fxLayout="row" fxLayoutGap="16px">
       <div fxFlex class="app-desc">
-        <h3 fxLayout="row" fxLayoutAlign="start center" class="app-m-0">
-         <!--  <mat-icon style="margin-right: 4px">help</mat-icon> -->
-          <span>Nápověda</span>
-        </h3>
+        <h3 class="app-mb-0">{{ 'desc.help' | translate }}</h3>
        <ul class="app-m-0">
-        <li>kliknutím na blok v pravém kontrolním panelu můžete blok aktivovat nebo deaktivovat</li>
-        <li>zeleně jsou označeny bloky aktivní, červeně neaktivní</li>
-        <li>v dolním náhledu je vidět aktuální rozložení jednotlivých bloků</li>
-        <li>u jednotlivých bloků můžete měnit jejich velikost horizontálně a vertikálně</li>
-        <li>jednotlivým blokům pak můžete přidělit typ, který chcete zobrazovat</li>
+        <li>{{ 'modal.layoutSettings.help.1' | translate }}</li>
+        <li>{{ 'modal.layoutSettings.help.2' | translate }}</li>
+        <li>{{ 'modal.layoutSettings.help.3' | translate }}</li>
+        <li>{{ 'modal.layoutSettings.help.4' | translate }}</li>
+        <li>{{ 'modal.layoutSettings.help.5' | translate }}</li>
        </ul>
       </div>
       <div fxFlex fxLayout="row" fxLayoutGap="3px" class="app-layout-controller" [matTooltip]="'admin.layout.explain' | translate">
@@ -20,7 +17,7 @@
           <div fxLayout="column" fxLayoutGap="3px" fxFlexFill>
             <div *ngFor="let r of c.rows" [fxFlex]="r.size+'%'"(click)="r.visible = !r.visible; refreshColumnVisibility()" fxLayout="columne" fxLayoutAlign="center center" class="app-item" [ngClass]="r.visible ? 'app-active' : 'app-disabled'">
               <mat-icon *ngIf="!r.visible">not_interested</mat-icon>
-              <div>{{ r.type }}</div>
+              <div class="app-text-center">{{ 'dynamic.' + r.type | translate }}</div>
             </div>
           </div>
         </div>
@@ -35,15 +32,15 @@
                 <as-split-area *ngIf="row.visible" [order]="irow" [size]="row.size">
                   <div fxLayout="column" fxFlexFill>
                     <mat-form-field appearance="fill">
-                      <mat-label>Panel type</mat-label>
+                      <mat-label>{{ 'desc.panelType' | translate }}</mat-label>
                       <mat-select [(ngModel)]="row.type" (selectionChange)="refreshColumnVisibility()">
                         <mat-option *ngFor="let type of types" [value]="type">
-                          {{type}}
+                          {{ 'dynamic.' + type | translate }}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
                     <div fxFlex fxLayout="column" fxLayoutAlign="center center">
-                      <div class="app-area-name">{{ row.type }}</div>
+                      <div class="app-area-name app-p-4 app-text-center">{{ 'dynamic.' + row.type  | translate }}</div>
                     </div>
                   </div>
                 </as-split-area>
