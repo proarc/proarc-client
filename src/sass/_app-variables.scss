@@ -50,7 +50,9 @@ $app-color-success: mat-color($mat-green, 800) !default;
 $app-color-disabled: $app-gray-4;
 
 // elements
-//$app-body-bg: $app-gray-1;
+$app-layout-active-color: mat-color($mat-green, 800) !default;
+$app-layout-disabled-color: mat-color($mat-red, 800) !default;
+
 $app-body-bg: $app-color-lightnes;
 $app-body-color: $app-color-darknes;
 $app-border-radius: 4px !default;

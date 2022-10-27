@@ -4,8 +4,8 @@
 
 .app-desc {
   @extend .app-p-4;
-  border: 1px solid rgba(silver, .6);
-  background-color: rgba(silver, .1);
+  border: 1px solid $app-gray-3;
+  background-color: $app-gray-1;
 }
 
 .app-layout-controller {
@@ -17,15 +17,13 @@
     position: relative;
 
     &.app-active {
-      $app-color: green;
-      background-color: rgba($app-color, .15);
-      color: $app-color;
+      background-color: rgba($app-layout-active-color, .15);
+      color: $app-layout-active-color;
     }
   
     &.app-disabled {
-      $app-color: red;
-      background-color: rgba($app-color, .1);
-      color: $app-color;
+      background-color: rgba($app-layout-disabled-color, .1);
+      color: $app-layout-disabled-color;
 
       .mat-icon {
         position: absolute;
@@ -34,7 +32,6 @@
         right: auto;
 
         opacity: .1;
-        $app-size: 50px;
         @include setIcon(50);
       }
     }
@@ -42,7 +39,7 @@
 }
 
 .app-layout-preview {
-  background-color: rgba(silver, .25);
+  background-color: $app-gray-2;
 
   .as-split-area {
     .mat-form-field {
@@ -61,6 +58,6 @@
 // split override
 ::ng-deep {
   .as-split-gutter {
-    background-color: white !important;
+    background-color: $app-color-lightnes !important;
   }
 }
