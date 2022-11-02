@@ -90,12 +90,12 @@ export class SearchComponent implements OnInit {
 
     this.route.queryParams.subscribe(p => {
       this.processParams(p);
-      
-      if (this.model !== 'all' && this.model !== 'model:page' && this.model !== 'model:ndkpage') {
-        this.reload();
-      } else {
-        this.state = 'success';
-      }
+      this.reload();
+      // if (this.model !== 'all' && this.model !== 'model:page' && this.model !== 'model:ndkpage') {
+      //   this.reload();
+      // } else {
+      //   this.state = 'success';
+      // }
 
     });
     
@@ -131,7 +131,8 @@ export class SearchComponent implements OnInit {
 
   processParams(p: any) {
 
-    this.searchMode  = p['description'] ? p['description'] : 'advanced';
+    //this.searchMode  = p['description'] ? p['description'] : 'advanced';
+    this.searchMode  = p['type'] ? p['type'] : 'advanced';
     this.model = p['model'] ? p['model'] : this.properties.getStringProperty('search.model', this.config.defaultModel);
     this.organization = p['organization'] ? p['organization'] : this.properties.getStringProperty('search.organization', '-');
     this.query = p['query'] ? p['query'] : null;
