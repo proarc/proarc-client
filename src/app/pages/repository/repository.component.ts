@@ -95,6 +95,23 @@ export class RepositoryComponent implements OnInit {
     
   }
 
+  onDragEnd(columnindex: number, e: any) {
+    // Column dragged
+    if (columnindex === -1) {
+      // Set size for all visible columns
+      this.config.columns.filter((c) => c.visible === true).forEach((column, index) => (column.size = e.sizes[index]))
+    }
+    // Row dragged
+    else {
+      // Set size for all visible rows from specified column
+      this.config.columns[columnindex].rows
+        .filter((r) => r.visible === true)
+        .forEach((row, index) => (row.size = e.sizes[index]))
+    }
+
+    localStorage.setItem(this.localStorageName, JSON.stringify(this.config));
+  }
+
 
   loadData(pid: string, keepSelection: boolean) {
     const selection: string[] = [];

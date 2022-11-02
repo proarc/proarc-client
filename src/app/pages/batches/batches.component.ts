@@ -78,11 +78,11 @@ export class BatchesComponent implements OnInit {
   }
 
   showLayoutAdmin() {
-    const dialogRef = this.dialog.open(LayoutAdminComponent, { data: { layout: 'import'} });
+    const dialogRef = this.dialog.open(LayoutAdminComponent, { data: { layout: 'import' } });
     dialogRef.afterClosed().subscribe((ret: any) => {
-      
-        this.initConfig();
-        this.loadData(this.batchId);
+
+      this.initConfig();
+      this.loadData(this.batchId);
     });
   }
 
@@ -200,22 +200,41 @@ export class BatchesComponent implements OnInit {
   public getBatchParent(): string | undefined {
     return this.layout.item.parent;
   }
-  
+
   formatPagesCount(): string {
     if (!this.layout.items) {
-        return "";
+      return "";
     }
     const c = this.layout.items.length;
     if (c == 0) {
-        return 'žádná strana';
+      return 'žádná strana';
     }
     if (c == 1) {
-        return '1 strana';
+      return '1 strana';
     }
     if (c < 5) {
-        return `${c} strany`;
+      return `${c} strany`;
     }
     return `${c} stran`;
-}
+  }
+
+
+
+  onDragEnd(columnindex: number, e: any) {
+    // Column dragged
+    if (columnindex === -1) {
+      // Set size for all visible columns
+      this.config.columns.filter((c) => c.visible === true).forEach((column, index) => (column.size = e.sizes[index]))
+    }
+    // Row dragged
+    else {
+      // Set size for all visible rows from specified column
+      this.config.columns[columnindex].rows
+        .filter((r) => r.visible === true)
+        .forEach((row, index) => (row.size = e.sizes[index]))
+    }
+
+    localStorage.setItem(this.localStorageName, JSON.stringify(this.config));
+  }
 
 }
