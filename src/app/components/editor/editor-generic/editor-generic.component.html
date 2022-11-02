@@ -67,7 +67,7 @@
   <app-editor-structure *ngSwitchCase="'structure-icons'" [viewMode]="'icons'" [items]="layout.items"></app-editor-structure>
   <!-- <app-editor-children *ngSwitchCase="'children'" [items]="data"></app-editor-children> -->
   <ng-container *ngSwitchCase="'image'" >
-    <app-viewer *ngIf="layout.selectedItem && layout.selectedItem.isPage()" [pid]="layout.selectedItem.pid" ></app-viewer>
+    <app-viewer *ngIf="layout.lastSelectedItem && layout.lastSelectedItem.isPage()" [pid]="layout.lastSelectedItem.pid" ></app-viewer>
   </ng-container>
   <ng-container *ngIf="layout.selectedItem">
     <app-editor-mods *ngSwitchCase="'mods'"  [pid]="layout.selectedItem.pid"></app-editor-mods>

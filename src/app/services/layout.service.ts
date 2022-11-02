@@ -18,6 +18,7 @@ export class LayoutService {
   public items: DocumentItem[] | null; // all children items
   //public selection: DocumentItem[] | null; // selected item
   public selectedItem: DocumentItem; // selected item
+  public lastSelectedItem: DocumentItem; // selected item
 
   path: { pid: string, label: string, model: string }[] = [];
   expandedPath: string[];

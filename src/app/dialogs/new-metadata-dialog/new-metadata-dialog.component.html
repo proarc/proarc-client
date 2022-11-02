@@ -1,23 +1,23 @@
+<h1 mat-dialog-title>{{ 'new_object.title_edit' | translate }}: {{'model.' + data.model | translate}}</h1>
 
-  <h1 mat-dialog-title>{{ 'new_object.title_edit' | translate }}:  {{'model.' + data.model | translate}}</h1>
+<div mat-dialog-content style="max-width:600px;">
 
-  <div mat-dialog-content style="max-width:600px;">
+  <div class="app-content" *ngIf="inited">
     
-    <div class="app-content" *ngIf="inited">
-
-  <app-editor-page *ngIf="isPage()" [model]="data.model" [notSaved]="true" [pid]="data.pid">
-  </app-editor-page>
-  <app-editor-song *ngIf="isSong()" [model]="data.model" [notSaved]="true" [pid]="data.pid">
-  </app-editor-song>
-  <app-editor-chronicle *ngIf="isChronicle()" [notSaved]="true" [pid]="data.pid"></app-editor-chronicle>
-  <app-editor-bdm *ngIf="isBdm()" [notSaved]="true" [pid]="data.pid"></app-editor-bdm>
-  <app-editor-metadata *ngIf="!isPage() && !isChronicle() && !isBdm()" [notSaved]="true" [pid]="data.pid" [model]="data.model" >
-  </app-editor-metadata>
+    <app-editor-page *ngIf="isPage()" [model]="data.model" [notSaved]="true" [pid]="data.pid">
+    </app-editor-page>
+    <app-editor-song *ngIf="isSong()" [model]="data.model" [notSaved]="true" [pid]="data.pid">
+    </app-editor-song>
+    <app-editor-chronicle *ngIf="isChronicle()" [notSaved]="true" [pid]="data.pid"></app-editor-chronicle>
+    <app-editor-bdm *ngIf="isBdm()" [notSaved]="true" [pid]="data.pid"></app-editor-bdm>
+    <app-editor-metadata *ngIf="!isPage() && !isChronicle() && !isBdm()" [notSaved]="true" [pid]="data.pid"
+      [model]="data.model" [metadata]="metadata">
+    </app-editor-metadata>
   </div>
 </div>
 
 <div mat-dialog-actions cdk-focus-start>
-  <button mat-raised-button color="default" (click)="onSave(true)" >{{ 'new_object.create_edit' | translate }}</button>
-  <button mat-raised-button color="default" (click)="onSave(false)" >{{ 'new_object.create_back' | translate }}</button>
-  <button mat-raised-button color="default" (click)="onClose()" >{{ 'common.close' | translate }}</button>
+  <button mat-raised-button color="default" (click)="onSave(true)">{{ 'new_object.create_edit' | translate }}</button>
+  <button mat-raised-button color="default" (click)="onSave(false)">{{ 'new_object.create_back' | translate }}</button>
+  <button mat-raised-button color="default" (click)="onClose()">{{ 'common.close' | translate }}</button>
 </div>

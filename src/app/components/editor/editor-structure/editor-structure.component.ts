@@ -239,6 +239,15 @@ export class EditorStructureComponent implements OnInit {
       this.layout.setSelection(true);
     }
     this.lastClickIdx = idx;
+    this.layout.lastSelectedItem = row;
+    if (row.selected) {
+      this.layout.lastSelectedItem = row;
+    } else {
+      const last = this.items.filter((i: DocumentItem) => i.selected);
+      if (last.length > 0) {
+        this.layout.lastSelectedItem = last[last.length - 1];
+      }
+    }
     this.arrowIndex = idx;
   }
 

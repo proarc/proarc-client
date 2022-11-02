@@ -69,7 +69,7 @@ export class BatchesComponent implements OnInit {
     this.config.columns.forEach(c => {
       c.rows.forEach(r => {
         if (r.type === 'image' && r.visible) {
-          r.isEmpty = !(this.layout.selectedItem && this.layout.selectedItem.isPage());
+          r.isEmpty = !(this.layout.lastSelectedItem && this.layout.lastSelectedItem.isPage());
         }
       });
       c.visible = c.rows.findIndex(r => r.visible && !r.isEmpty) > -1;
@@ -113,6 +113,7 @@ export class BatchesComponent implements OnInit {
         this.layout.items = pages;
         this.layout.items[0].selected = true;
         this.layout.ready = true;
+        this.layout.lastSelectedItem = this.layout.items[0];
 
         this.layout.setSelection(false);
 

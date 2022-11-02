@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChange } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CatalogDialogComponent } from 'src/app/dialogs/catalog-dialog/catalog-dialog.component';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
@@ -22,9 +22,9 @@ export class EditorMetadataComponent implements OnInit {
   @Input() notSaved = false;
   @Input() pid: string;
   @Input() model: string;
+  @Input() metadata: Metadata;
 
   public item: DocumentItem | null;
-  public metadata: Metadata;
   public visible = true;
 
 
@@ -41,11 +41,17 @@ export class EditorMetadataComponent implements OnInit {
   ngOnDestroy() {
   }
 
-  ngOnChanges(c: SimpleChange) {
+  ngOnChanges(c: SimpleChanges) {
+    console.log(c)
+    if (c['metadata'] && c['metadata'].currentValue) {
+      this.metadata = c['metadata'].currentValue;
+      return;
+    }
     if (!this.layout.selectedItem || this.layout.selectedItem.isPage()) {
       this.visible = false;
       return;
     }
+
     if (this.pid) {
       this.item = this.layout.selectedItem;
       this.pid = this.item.pid;

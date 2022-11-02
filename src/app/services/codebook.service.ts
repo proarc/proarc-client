@@ -104,4 +104,59 @@ export class CodebookService {
     this.refreshAll();
   }
 
+
+  getIdentifiers(model: string): any[] {
+    return this.isChronicle(model) ? this.chronicleIdentifiers :
+      this.isOldprint(model) ? this.oldprintIdentifiers :
+      this.canContainPdf(model) ? this.eDocumentIdentifiers :
+        this.identifiers;
+  }
+
+  public isPage(model: string): boolean {
+    return model === 'model:page' || model === 'model:ndkpage' || model === 'model:oldprintpage';
+  }
+
+  public isSong(model: string): boolean {
+    return model == 'model:ndkaudiopage';
+  }
+
+  // public isVolume(): boolean {
+  //   return this.model === 'model:ndkperiodicalvolume';
+  // }
+
+  // public isIssue(): boolean {
+  //   return this.model === 'model:ndkperiodicalissue';
+  // }
+
+  public isChronicle(model: string): boolean {
+    return model === 'model:chroniclevolume' || model === 'model:chronicletitle' || model === 'model:chroniclesupplement';
+  }
+
+  public isOldprint(model: string): boolean {
+    return model === 'model:oldprintvolume' || model === 'model:oldprintsheetmusic' || model === 'model:oldprintmap'
+      || model === 'model:oldprintgraphics' || model === 'model:oldprintomnibusvolume' || model === 'model:oldprintchapter'
+      || model === 'model:oldprintmonographtitle' || model === 'model:oldprintsupplement';
+  }
+
+  // public isTopLevel(): boolean {
+  //   return !this.isPage() && !this.isVolume() && !this.isIssue();
+  // }
+
+  public isBdm(model: string): boolean {
+    return model === 'model:bdmarticle';
+  }
+
+  public canContainPdf(model: string): boolean {
+    return [
+      'model:ndkeperiodical',
+      'model:ndkeperiodicalvolume',
+      'model:ndkeperiodicalissue',
+      'model:ndkearticle',
+      'model:ndkemonographtitle',
+      'model:ndkemonographvolume',
+      'model:ndkechapter',
+      'model:bdmarticle'
+    ].indexOf(model) >= 0;
+  }
+
 }

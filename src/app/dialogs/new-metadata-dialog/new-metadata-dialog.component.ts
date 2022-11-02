@@ -18,7 +18,7 @@ import { SimpleDialogComponent } from '../simple-dialog/simple-dialog.component'
 })
 export class NewMetadataDialogComponent implements OnInit {
 
-  public inited = false;
+  public inited = true;
   state = 'none';
   metadata: Metadata;
 
@@ -39,16 +39,22 @@ export class NewMetadataDialogComponent implements OnInit {
   }
 
   load() {
-    this.state = 'loading';
-    this.api.getMetadata(this.data['pid'], this.data['model']).subscribe((metadata: Metadata) => {
-      this.metadata = metadata;
-      this.state = 'success';
+    // this.state = 'loading';
+    this.metadata = new Metadata(this.data.pid, this.data.model, this.data.content, this.data.timestamp);
+    
+    setTimeout(() => {
+      this.metadata.expandRequired();
+    }, 100);
 
-      setTimeout(() => {
-        this.metadata.expandRequired();
-      }, 100);
+    // this.api.getMetadata(this.data['pid'], this.data['model']).subscribe((metadata: Metadata) => {
+    //   this.metadata = metadata;
+    //   this.state = 'success';
 
-    });
+    //   setTimeout(() => {
+    //     this.metadata.expandRequired();
+    //   }, 100);
+
+    // });
   }
 
 

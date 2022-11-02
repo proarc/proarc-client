@@ -29,8 +29,9 @@ export class EditorRelatedItemComponent implements OnInit {
   public roles: { code: string; name: any; }[] = [];
 
   @Input() field: ElementField;
+  @Input() model: string;
 
-  constructor(public translator: TranslateService, public codebook: CodebookService, private layout: LayoutService) {
+  constructor(public translator: TranslateService, public codebook: CodebookService) {
     this.translateCodes();
     translator.onLangChange.subscribe(() => this.translateCodes());
   }
@@ -56,10 +57,11 @@ export class EditorRelatedItemComponent implements OnInit {
     // });
   }
 
-  getIdentifiers(): any[] {
-    return this.layout.selectedItem.isChronicle() ? this.codebook.chronicleIdentifiers :
-      this.layout.selectedItem.isOldprint() ? this.codebook.oldprintIdentifiers :
-      this.layout.selectedItem.canContainPdf() ? this.codebook.eDocumentIdentifiers :
-        this.codebook.identifiers;
+  getIdentifiers(): any[] {  
+    return this.codebook.getIdentifiers(this.model);
+    // return this.layout.selectedItem.isChronicle() ? this.codebook.chronicleIdentifiers :
+    //   this.layout.selectedItem.isOldprint() ? this.codebook.oldprintIdentifiers :
+    //   this.layout.selectedItem.canContainPdf() ? this.codebook.eDocumentIdentifiers :
+    //     this.codebook.identifiers;
   }
 }

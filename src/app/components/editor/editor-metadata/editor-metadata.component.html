@@ -33,9 +33,9 @@
     <app-editor-classification *ngIf="available('classification')" [field]="metadata.getField('classification')"></app-editor-classification>
     <app-editor-resource *ngIf="available('typeOfResource')" [field]="metadata.getField('typeOfResource')"></app-editor-resource>
     <app-editor-tableOfContents *ngIf="available('tableOfContents')" [field]="metadata.getField('tableOfContents')"></app-editor-tableOfContents>
-    <app-editor-identifier *ngIf="available('identifier')" [field]="metadata.getField('identifier')"></app-editor-identifier>
+    <app-editor-identifier *ngIf="available('identifier')" [field]="metadata.getField('identifier')" [model]="model"></app-editor-identifier>
     <app-editor-recordInfo *ngIf="available('recordInfo')" [field]="metadata.getField('recordInfo')"></app-editor-recordInfo>
-    <app-editor-relatedItem *ngIf="available('relatedItem')" [field]="metadata.getField('relatedItem')"></app-editor-relatedItem>
+    <app-editor-relatedItem *ngIf="available('relatedItem')" [field]="metadata.getField('relatedItem')" [model]="model"></app-editor-relatedItem>
 
 </div>
 
