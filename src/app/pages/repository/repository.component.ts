@@ -87,7 +87,7 @@ export class RepositoryComponent implements OnInit {
     this.config.columns.forEach(c => {
       c.rows.forEach(r => {
         if (r.type === 'image' && r.visible) {
-          r.isEmpty = !(this.layout.selectedItem && this.layout.selectedItem.isPage());
+          r.isEmpty = !(this.layout.lastSelectedItem && this.layout.lastSelectedItem.isPage());
         }
       });
       c.visible = c.rows.findIndex(r => r.visible && !r.isEmpty) > -1;
