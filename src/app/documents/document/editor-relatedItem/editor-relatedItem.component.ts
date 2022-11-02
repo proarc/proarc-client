@@ -3,7 +3,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ElementField } from 'src/app/model/mods/elementField.model';
 import {CodebookService} from '../../../services/codebook.service';
 import { TranslateService } from '@ngx-translate/core';
-import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({
   selector: 'app-editor-relatedItem',

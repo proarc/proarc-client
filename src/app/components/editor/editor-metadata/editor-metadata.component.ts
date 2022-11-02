@@ -42,7 +42,6 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   ngOnChanges(c: SimpleChanges) {
-    console.log(c)
     if (c['metadata'] && c['metadata'].currentValue) {
       this.metadata = c['metadata'].currentValue;
       return;
