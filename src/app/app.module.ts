@@ -131,6 +131,7 @@ import { EditorStructureComponent } from './components/editor/editor-structure/e
 import { LayoutAdminComponent } from './pages/layout-admin/layout-admin.component';
 import { BatchesComponent } from './pages/batches/batches.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { EditorAesComponent } from './components/editor/editor-aes/editor-aes.component';
 
 
 // export function hljsLanguages() {
@@ -211,6 +212,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditorPhysicalComponent,
     EditorRecordInfoComponent,
     EditorRelatedItemComponent,
+    EditorAesComponent,
     TreeComponent,
     ImportTreeComponent,
     IngestDialogComponent,

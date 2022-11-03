@@ -52,6 +52,11 @@
       mat-icon-button>
       <mat-icon>format_quote</mat-icon>
     </button>
+    <button *ngIf="layout.selectedItem.isPage()" matTooltip="{{ 'editor.toolbar.editor_aes' | translate }}"
+      [class.app-inactive]="editorType != 'aes'" (click)="editorType = 'aes'"
+      mat-icon-button>
+      <mat-icon>text_format</mat-icon>
+    </button>
 
     <!-- <button *ngIf="!editor.doubleRight && editor.mode == 'children'" (click)="editor.enterDoubleRight()"
       mat-icon-button matTooltip="{{ 'editor.toolbar.editor_enter_double_right' | translate }}">

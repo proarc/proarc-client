@@ -1,0 +1,21 @@
+<div class="app-editor-content-wrapper">
+
+  <div class="app-editor-toolbar">
+    <div class="app-label">{{ 'editor.pages.title' | translate }}</div>
+    <div class="app-actions-right">
+
+      <div class="app-divider"></div>
+
+      <button class="app-action" [class.app-disabled]="!canSave()" [disabled]="!canSave()" matTooltip="{{ 'common.save' | translate }}"
+        (click)="onSave()" mat-icon-button>
+        <mat-icon>save</mat-icon>
+      </button>
+    </div>
+
+  </div>
+
+  <div class="app-editor-content">
+
+  </div>
+
+</div>
