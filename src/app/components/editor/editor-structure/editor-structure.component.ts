@@ -527,9 +527,7 @@ export class EditorStructureComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.pid) {
         this.expandedPath = result.expandedPath;
-
         this.properties.setStringProperty('parent.expandedPath', JSON.stringify(this.expandedPath));
-
         this.relocateOutside(items, result.pid);
       } else if (result && result.delete) {
         this.deleteParent(parent.pid);
@@ -660,6 +658,7 @@ export class EditorStructureComponent implements OnInit {
           this.layout.setSelection(true);
         }
         this.state = 'success';
+        this.dataSource = new MatTableDataSource(this.items);
         // this.goToObjectByPid(destinationPid);
       } else {
         this.goToObjectByPid(destinationPid);
