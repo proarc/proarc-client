@@ -164,6 +164,7 @@ export class RepositoryComponent implements OnInit {
         this.layout.path.unshift({ pid: item.pid, label: item.label, model: item.model });
         this.setPath(item.pid);
       }
+      console.log(this.layout.path)
     });
   }
 
