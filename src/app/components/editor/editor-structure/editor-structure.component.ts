@@ -212,11 +212,10 @@ export class EditorStructureComponent implements OnInit {
     if (event && (event.metaKey || event.ctrlKey)) {
       // Nesmi byt prazdna selecke pro import
       if (this.layout.type === 'import' && row.selected && this.layout.getNumOfSelected() === 1) {
+        this.layout.lastSelectedItem = row;
         return;
       } else {
         row.selected = !row.selected;
-
-        this.layout.setSelection(true);
       }
     } else if (event && event.shiftKey) {
       if (this.lastClickIdx > -1) {
@@ -225,21 +224,18 @@ export class EditorStructureComponent implements OnInit {
         for (let i = from; i <= to; i++) {
           this.items[i].selected = true;
         }
-        this.layout.setSelection(true);
       } else {
         // nic neni.
         this.items.forEach(i => i.selected = false);
         row.selected = true;
-        this.layout.setSelection(true);
       }
 
     } else {
       this.items.forEach(i => i.selected = false);
       row.selected = true;
-      this.layout.setSelection(true);
     }
     this.lastClickIdx = idx;
-    this.layout.lastSelectedItem = row;
+    // this.layout.lastSelectedItem = row;
     if (row.selected) {
       this.layout.lastSelectedItem = row;
     } else {
@@ -248,6 +244,7 @@ export class EditorStructureComponent implements OnInit {
         this.layout.lastSelectedItem = last[last.length - 1];
       }
     }
+    this.layout.setSelection(true);
     this.arrowIndex = idx;
   }
 

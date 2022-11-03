@@ -80,6 +80,9 @@ export class LayoutService {
   }
   
   setShouldRefresh(keepSelection: boolean) {
+    if (!keepSelection) {
+      this.lastSelectedItem = null;
+    }
     this.refreshSubject.next(keepSelection);
   }
   
