@@ -244,7 +244,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
   }
 
   reload() {
-    this.pageIndex = 0;
+    // this.pageIndex = 0;
     this.loadData();
   }
 
