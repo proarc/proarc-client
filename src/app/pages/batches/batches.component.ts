@@ -187,7 +187,7 @@ export class BatchesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.state = 'success';
       if (result == 'open') {
-        this.router.navigate(['/document', parentPid]);
+        this.router.navigate(['/repository', parentPid]);
       } else {
         this.router.navigate(['/']);
       }

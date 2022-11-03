@@ -351,7 +351,6 @@ export class EditorStructureComponent implements OnInit {
       this.table.renderRows();
     } else {
       const from = this.sourceIndex;
-      console.log(from, to);
       if (from !== to) {
         this.reorder(from, to);
       }
