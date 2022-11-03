@@ -84,9 +84,9 @@
     </mat-form-field>
 
     <mat-form-field class="app-filter">
-      <mat-select [placeholder]="'history.user' | translate" name="user" [(value)]="user" (keyup.enter)="filter()">
+      <mat-select [placeholder]="'history.user' | translate" name="user" [(ngModel)]="user" (keyup.enter)="filter()">
         <mat-option value="">Vše</mat-option>
-        <mat-option *ngFor="let user of users" [value]="user.userId">{{ user.name }}</mat-option>
+        <mat-option *ngFor="let user of users" [value]="user.userId+''">{{ user.name }}</mat-option>
       </mat-select>
     </mat-form-field>
 

@@ -132,7 +132,8 @@ export class HistoryComponent implements OnInit, OnDestroy {
       this.view = p['view'] ? p['view'] : 'overview';
       this.selectedState = p['state'] ? p['state'] : 'ALL';
       this.description = p['description'] ? p['description'] : null;
-      this.user = p['user'] ? p['user'] : null;
+      // this.user = p['userId'] ? this.users.find(u => u.userId === p['userId']) : null;
+      this.user = p['userId'] ? p['userId']  : null;
       this.priority= p['priority'] ? p['priority'] : null;
       this.profile = p['profile'] ? p['profile'] : null;
       this.createFrom = p['createFrom'] ? p['createFrom'] : null;
