@@ -67,6 +67,10 @@
 </div>
 
 <div class="app-content" [ngSwitch]="editorType" style="height:100%;">
+  <div class="app-table app-tree"  *ngSwitchCase="'tree'">
+    <app-tree [tree]="layout.tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)"
+      [expanded]="false" [expandedPath]="layout.expandedPath"></app-tree>
+  </div>
   <app-editor-structure *ngSwitchCase="'structure-list'" [viewMode]="'list'" [items]="layout.items"></app-editor-structure>
   <app-editor-structure *ngSwitchCase="'structure-grid'" [viewMode]="'grid'" [items]="layout.items"></app-editor-structure>
   <app-editor-structure *ngSwitchCase="'structure-icons'" [viewMode]="'icons'" [items]="layout.items"></app-editor-structure>

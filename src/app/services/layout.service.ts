@@ -2,6 +2,7 @@ import { Injectable, Component } from '@angular/core';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { DocumentItem } from '../model/documentItem.model';
 import { Metadata } from '../model/metadata.model';
+import { Tree } from '../model/mods/tree.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class LayoutService {
 
   public pid: string; // pid in url
   public item: DocumentItem | null; // item by pid
+  public tree: Tree;
   public items: DocumentItem[] | null; // all children items
   //public selection: DocumentItem[] | null; // selected item
   public selectedItem: DocumentItem; // selected item

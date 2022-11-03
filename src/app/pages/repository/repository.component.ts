@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, forkJoin } from 'rxjs';
 import { DocumentItem } from 'src/app/model/documentItem.model';
+import { Tree } from 'src/app/model/mods/tree.model';
 import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { RepositoryService } from 'src/app/services/repository.service';
@@ -25,6 +26,7 @@ export class RepositoryComponent implements OnInit {
   parent: DocumentItem | null;
   previousItem: DocumentItem | null;
   nextItem: DocumentItem | null;
+  expandedPath: string[] = [];
   // selected: string;
 
   constructor(
@@ -38,14 +40,14 @@ export class RepositoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
+
     this.initConfig();
 
     this.layout.type = 'repo';
     this.layout.setBatchId(null);
 
     this.layout.shouldRefresh().subscribe((keepSelection: boolean) => {
-      
+
       this.loadData(this.pid, keepSelection);
     });
 
@@ -67,11 +69,11 @@ export class RepositoryComponent implements OnInit {
   }
 
   showLayoutAdmin() {
-    const dialogRef = this.dialog.open(LayoutAdminComponent, { data: { layout: 'repo'} });
+    const dialogRef = this.dialog.open(LayoutAdminComponent, { data: { layout: 'repo' } });
     dialogRef.afterClosed().subscribe((ret: any) => {
-      
-        this.initConfig();
-        this.loadData(this.pid, true);
+
+      this.initConfig();
+      this.loadData(this.pid, true);
     });
   }
 
@@ -93,7 +95,7 @@ export class RepositoryComponent implements OnInit {
       });
       c.visible = c.rows.findIndex(r => r.visible && !r.isEmpty) > -1;
     });
-    
+
   }
 
   onDragEnd(columnindex: number, e: any) {
@@ -116,13 +118,13 @@ export class RepositoryComponent implements OnInit {
 
   loadData(pid: string, keepSelection: boolean) {
     const selection: string[] = [];
-      if (keepSelection) {
-        this.layout.items.forEach(item => {
-          if (item.selected) {
-            selection.push(item.pid);
-          }
-        })
-      }
+    if (keepSelection) {
+      this.layout.items.forEach(item => {
+        if (item.selected) {
+          selection.push(item.pid);
+        }
+      })
+    }
     this.layout.ready = false;
     this.layout.setBatchId(null);
     this.pid = pid;
@@ -130,6 +132,10 @@ export class RepositoryComponent implements OnInit {
     const rChildren = this.api.getRelations(pid);
     forkJoin([rDoc, rChildren]).subscribe(([item, children]: [DocumentItem, DocumentItem[]]) => {
       this.layout.item = item;
+      if (children.length === 0) {
+        this.layout.selectedItem = item;
+        this.layout.lastSelectedItem = item;
+      }
       this.layout.items = children;
       if (keepSelection) {
         this.layout.items.forEach(item => {
@@ -147,9 +153,14 @@ export class RepositoryComponent implements OnInit {
         this.parent = item;
         this.layout.parent = item;
         this.layout.path = [];
+        this.expandedPath = [];
         if (item) {
           this.layout.path.unshift({ pid: item.pid, label: item.label, model: item.model });
-          this.setPath(item.pid);
+          this.expandedPath.unshift(item.pid );
+          this.setPath(item, item.pid);
+        } else {
+          this.layout.tree = new Tree(item);
+          this.layout.expandedPath = this.expandedPath;
         }
         this.setupNavigation();
 
@@ -158,11 +169,22 @@ export class RepositoryComponent implements OnInit {
     });
   }
 
-  setPath(pid: string) {
+  selectItem(item: DocumentItem) {
+    item.selected = true;
+    // this.search.selectedTreePid = item.pid;
+    // this.tree = new Tree(item);
+
+  }
+
+  setPath(child: DocumentItem, pid: string) {
     this.api.getParent(pid).subscribe((item: DocumentItem) => {
       if (item) {
         this.layout.path.unshift({ pid: item.pid, label: item.label, model: item.model });
-        this.setPath(item.pid);
+        this.expandedPath.unshift(item.pid );
+        this.setPath(item, item.pid);
+      } else {
+        this.layout.tree = new Tree(child);
+        this.layout.expandedPath = this.expandedPath;
       }
     });
   }

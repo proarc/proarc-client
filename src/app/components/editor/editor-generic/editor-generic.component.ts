@@ -1,4 +1,6 @@
 import { Component, Input, OnInit, SimpleChange } from '@angular/core';
+import { DocumentItem } from 'src/app/model/documentItem.model';
+import { Tree } from 'src/app/model/mods/tree.model';
 import { ILayoutPanel } from 'src/app/pages/layout-admin/layout-admin.component';
 import { ConfigService } from 'src/app/services/config.service';
 import { LayoutService } from 'src/app/services/layout.service';
@@ -31,7 +33,15 @@ export class EditorGenericComponent implements OnInit {
     this.switchable = this.switchableTypes.includes(this.editorType);
       
   }
+
+  openFromTree(item: DocumentItem) {
+    // this.router.navigate(['/repository', item.pid]);
+  }
   
+  selectFromTree(tree: Tree) {
+    // this.search.selectedTree = tree;
+  }
+
 
   countPlurals(): string {
     let count = this.layout.getNumOfSelected();
