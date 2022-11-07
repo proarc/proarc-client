@@ -770,7 +770,9 @@
     "handle": "Handle",
     "hdl": "Handle",
     "bcbt": "BCBT",
-    "url": "URL"
+    "url": "URL",
+    "matrix number": "Matrix number",
+    "issue number": "Issue number"
   },
   "model": {
     "model:periodical": "K4 Periodikum",
@@ -1876,7 +1878,7 @@
     "create_new": "Vytvořit nový záměr"
   },
 
-  
+
 
   "desc": {
     "help": "Nápověda",

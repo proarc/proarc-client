@@ -28,7 +28,7 @@
     "angular-split": "^14.1.0",
     "highlight.js": "^11.5.1",
     "leaflet": "^1.8.0",
-    "moment": "^2.29.3",
+    "moment": "^2.29.4",
     "ngx-highlightjs": "^7.0.0",
     "ol": "^6.14.1",
     "rxjs": "~7.5.0",
@@ -39,7 +39,7 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^14.0.0",
+    "@angular-devkit/build-angular": "^14.2.8",
     "@angular/cli": "~14.0.0",
     "@angular/compiler-cli": "^14.0.0",
     "@types/jasmine": "~4.0.0",

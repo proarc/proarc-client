@@ -608,7 +608,9 @@
     "handle": "Handle",
     "hdl": "Handle",
     "bcbt": "BCBT",
-    "url": "URL"
+    "url": "URL",
+    "matrix number": "Matrix number",
+    "issue number": "Issue number"
   },
   "model": {
     "model:ndkperiodical": "NDK Periodical",
