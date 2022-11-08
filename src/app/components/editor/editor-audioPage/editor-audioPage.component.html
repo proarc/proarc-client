@@ -4,12 +4,12 @@
   <div class="app-editor-toolbar" *ngIf="!notSaved">
       <div class="app-label">{{ 'editor.song.title' | translate }}</div>
       <div class="app-actions-right">
-      <button class="app-action" [class.app-disabled]="!page || !page.hasChanged()" (click)="onRevert()" [matTooltip]="'common.revert' | translate" mat-icon-button>
+      <button class="app-action" [class.app-disabled]="!audioPage || !audioPage.hasChanged()" (click)="onRevert()" [matTooltip]="'common.revert' | translate" mat-icon-button>
           <mat-icon>replay</mat-icon>
       </button>
       <div class="app-divider"></div>
 
-      <button class="app-action" [class.app-disabled]="!page || !page.hasChanged()" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
+      <button class="app-action" [class.app-disabled]="!audioPage || !audioPage.hasChanged()" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
           <mat-icon>save</mat-icon>
       </button>
     </div>
@@ -22,48 +22,35 @@
       <div class="app-editor-field app-usages">
         <div class="app-card" style="padding: 8px;">
           <div class="app-card-content">
-
-
-
-            <mat-form-field class="app-page-number" [class.app-invalid]="!page.number">
+            <mat-form-field class="app-half-left" *ngIf="config.showPageIndex" [class.app-invalid]="!audioPage.index">
               <span class="app-usage" [class.app-help-off]="true">M</span>
-              <input (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageNumber')" autocomplete="off" matInput [placeholder]="'editor.song.number' | translate" [(ngModel)]="page.number" #pageNumber>
-
-              <button class="app-brackets" [class.app-disabled]="!page.number" [matTooltip]="isInBrackets() ? 'Odebrat závorky' : 'Vložit do závorek'" (click)="switchBrackets()" mat-icon-button>
-                <span class="app-text-icon">[ ]</span>
-              </button>
-
-            </mat-form-field>
-
-            <mat-form-field class="app-half-left" *ngIf="config.showPageIndex" [class.app-invalid]="!page.index">
-              <span class="app-usage" [class.app-help-off]="true">M</span>
-              <input (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageIndex')" autocomplete="off" matInput [placeholder]="'editor.song.index' | translate" [(ngModel)]="page.index" #pageIndex>
+              <input (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageIndex')" autocomplete="off" matInput [placeholder]="'editor.song.index' | translate" [(ngModel)]="audioPage.index" #pageIndex>
             </mat-form-field>
 
             <mat-form-field class="app-full-width">
               <span class="app-usage" [class.app-help-off]="true">O</span>
               <textarea
               cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="15"
-              autocomplete="off" matInput [(ngModel)]='page.note' placeholder="{{ 'editor.song.note' | translate }}"></textarea>
+              autocomplete="off" matInput [(ngModel)]='audioPage.note' placeholder="{{ 'editor.song.note' | translate }}"></textarea>
             </mat-form-field>
 
           <ng-container *ngIf="config.showPageIdentifiers">
-            <div class="app-card app-identifier" *ngFor="let identifier of page.identifiers; index as index; last as last; first as first;">
+            <div class="app-card app-identifier" *ngFor="let identifier of audioPage.identifiers; index as index; last as last; first as first;">
               <div class="app-card-header">
                 <span class="app-card-title">{{ 'editor.song.identifier' | translate }}</span>
 
-                <button matTooltip="{{ 'common.remove' | translate }}" color="primary" (click)="page.removeIdentifier(index)" mat-icon-button>
+                <button matTooltip="{{ 'common.remove' | translate }}" color="primary" (click)="audioPage.removeIdentifier(index)" mat-icon-button>
                   <mat-icon>delete</mat-icon>
                 </button>
 
-                <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" color="primary" (click)="page.moveIdentifierDown(index)" mat-icon-button>
+                <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" color="primary" (click)="audioPage.moveIdentifierDown(index)" mat-icon-button>
                   <mat-icon>arrow_drop_down</mat-icon>
                 </button>
-                <button [disabled]="first" matTooltip="{{ 'common.move_up' | translate }}" color="primary" (click)="page.moveIdentifierUp(index)" mat-icon-button>
+                <button [disabled]="first" matTooltip="{{ 'common.move_up' | translate }}" color="primary" (click)="audioPage.moveIdentifierUp(index)" mat-icon-button>
                   <mat-icon>arrow_drop_up</mat-icon>
                 </button>
 
-                <button matTooltip="{{ 'editor.song.add_identifier' | translate }}" color="primary" (click)="page.addIdentifierAfter(index)" mat-icon-button>
+                <button matTooltip="{{ 'editor.song.add_identifier' | translate }}" color="primary" (click)="audioPage.addIdentifierAfter(index)" mat-icon-button>
                   <mat-icon>add</mat-icon>
                 </button>
 

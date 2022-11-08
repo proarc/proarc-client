@@ -9,26 +9,22 @@ import { MatDialog } from '@angular/material/dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { LayoutService } from 'src/app/services/layout.service';
 import { UIService } from 'src/app/services/ui.service';
+import {AudioPage} from '../../../model/audioPage.model';
 
 @Component({
-  selector: 'app-editor-song',
-  templateUrl: './editor-song.component.html',
-  styleUrls: ['./editor-song.component.scss']
+  selector: 'app-editor-audioPage',
+  templateUrl: './editor-audioPage.component.html',
+  styleUrls: ['./editor-audioPage.component.scss']
 })
-export class EditorSongComponent implements OnInit {
+export class EditorAudioPageComponent implements OnInit {
 
   @Input() notSaved = false;
   state = 'none';
-  page: Page;
-
-  positions = ['left', 'right', 'singlePage'];
-  genres = ['page', 'reprePage'];
+  audioPage: AudioPage;
 
   movedToNextFrom: string;
 
   @Input() model: string;
-
-  @ViewChild("pageNumber") pageNumberFiled: ElementRef;
   @ViewChild("pageIndex") pageIndexFiled: ElementRef;
 
 
@@ -58,14 +54,10 @@ export class EditorSongComponent implements OnInit {
       return;
     }
     this.state = 'loading';
-    this.api.getPage(pid, this.model, this.layout.getBatchId()).subscribe((page: Page) => {
-      this.page = page;
+    this.api.getAudioPage(pid, this.model, this.layout.getBatchId()).subscribe((audioPage: AudioPage) => {
+      this.audioPage = audioPage;
       this.state = 'success';
-      if (this.movedToNextFrom == 'pageNumber') {
-        setTimeout(() => {
-          this.pageNumberFiled.nativeElement.focus();
-        }, 10);
-      } else if (this.movedToNextFrom == 'pageIndex') {
+      if (this.movedToNextFrom == 'pageIndex') {
         setTimeout(() => {
           this.pageIndexFiled.nativeElement.focus();
         }, 10);
@@ -77,49 +69,15 @@ export class EditorSongComponent implements OnInit {
   }
 
   onRevert() {
-    this.page.restore();
+    this.audioPage.restore();
   }
 
   onSaveFrom(from: string) {
     this.onSave(from);
   }
 
-  isInBrackets(): boolean {
-    if (!this.page.number) {
-      return false;
-    }
-    return this.page.number.startsWith('[') && this.page.number.endsWith(']');
-  }
-
-  switchBrackets() {
-    if (!this.page.number) {
-      return
-    }
-    if (this.isInBrackets()) {
-      this.page.number = this.page.number.substring(1, this.page.number.length - 1);
-    } else {
-      let number = this.page.number;
-      if (!number.startsWith('[')) {
-        number = '[' + number;
-      }
-      if (!number.endsWith(']')) {
-        number = number + ']';
-      }
-      this.page.number = number;
-    }
-  }
-
   private validate(): boolean {
-    if (!this.page.number) {
-      return false;
-    }
-    if (this.config.showPageIndex && !this.page.index) {
-      return false;
-    }
-    if (!this.page.type) {
-      return false;
-    }
-    if (this.page.isNdkPage() && !this.page.genre) {
+    if (this.config.showPageIndex && !this.audioPage.index) {
       return false;
     }
     return true;
@@ -154,31 +112,32 @@ export class EditorSongComponent implements OnInit {
 
   private save(from: string) {
     this.movedToNextFrom = from;
-    if (!this.page.hasChanged()) {
+    if (!this.audioPage.hasChanged()) {
       if (!!from) {
         this.layout.shouldMoveToNext(from);
       }
       return;
     }
-    this.page.removeEmptyIdentifiers();
-    this.savePage(this.page, (page: Page) => {
-      if (page) {
-        this.page = page;
+    this.audioPage.removeEmptyIdentifiers();
+    this.saveSong(this.audioPage, (audioPage: AudioPage) => {
+      if (audioPage) {
+        this.audioPage = audioPage;
       }
     }, !!from);
   }
 
 
 
-  savePage(page: Page, callback: (page: Page) => void, moveToNext = false) {
+  saveSong(audioPage: AudioPage, callback: (audioPage: AudioPage) => void, moveToNext = false) {
     this.state = 'saving';
-    this.api.editPage(page, this.layout.getBatchId()).subscribe((resp: any) => {
+    this.api.editAudioPage(audioPage, this.layout.getBatchId()).subscribe((resp: any) => {
       if (resp.response.errors) {
         this.ui.showErrorSnackBarFromObject(resp.response.errors);
         this.state = 'error';
         return;
       }
-      const newPage: Page = Page.fromJson(resp['response']['data'][0], page.model);
+      const newAudioPage: AudioPage = AudioPage.fromJson(resp['response']['data'][0], audioPage.model);
+      this.layout.setShouldRefresh(true);
       if (this.layout.type === 'import') {
         // this.reloadBatch(() => {
         //   this.state = 'success';

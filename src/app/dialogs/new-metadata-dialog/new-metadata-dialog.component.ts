@@ -41,7 +41,7 @@ export class NewMetadataDialogComponent implements OnInit {
   load() {
     // this.state = 'loading';
     this.metadata = new Metadata(this.data.pid, this.data.model, this.data.content, this.data.timestamp);
-    
+
     setTimeout(() => {
       this.metadata.expandRequired();
     }, 100);
@@ -63,7 +63,7 @@ export class NewMetadataDialogComponent implements OnInit {
     return this.data.model === 'model:page' || this.data.model === 'model:ndkpage' || this.data.model === 'model:oldprintpage';
   }
 
-  public isSong(): boolean {
+  public isAudioPage(): boolean {
     return this.data.model == 'model:ndkaudiopage';
   }
 

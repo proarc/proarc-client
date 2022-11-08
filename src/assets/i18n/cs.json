@@ -515,6 +515,16 @@
       "page_position_right_left": "střídání pravá-levá-pravá..." ,
       "page_position_left_right": "střídání levá-pravá-levá..."
     },
+    "audioPages": {
+      "title": "Hromadná úprava nahrávek",
+      "edit_page_index": "Editovat indexy nahrávek",
+      "index_from": "Indexovat od čisla",
+      "apply": "Aplikovat na",
+      "apply_to": "Každou {{ num > 1 ? num + '.' : ''}} nahrávku",
+      "apply_to0": "Každou nahrávku",
+      "apply_to2": "Každou {{ num }}. nahrávku",
+      "apply_to_first": "Včetně první nahrávky"
+    },
     "type": {
       "biblio": "Bibliografická metadata",
       "relations": "Vazby"
@@ -1876,7 +1886,7 @@
     "create_new": "Vytvořit nový záměr"
   },
 
-  
+
 
   "desc": {
     "help": "Nápověda",

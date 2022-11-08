@@ -116,7 +116,7 @@ export class CodebookService {
     return model === 'model:page' || model === 'model:ndkpage' || model === 'model:oldprintpage';
   }
 
-  public isSong(model: string): boolean {
+  public isAudioPage(model: string): boolean {
     return model == 'model:ndkaudiopage';
   }
 

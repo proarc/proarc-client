@@ -51,7 +51,7 @@ import { EditorModsComponent } from './components/editor/editor-mods/editor-mods
 import { EditorCommentComponent } from './components/editor/editor-comment/editor-comment.component';
 import { EditorAtmComponent } from './components/editor/editor-atm/editor-atm.component';
 import { EditorPageComponent } from './components/editor/editor-page/editor-page.component';
-import { EditorSongComponent } from './components/editor/editor-song/editor-song.component';
+import { EditorAudioPageComponent } from './components/editor/editor-audioPage/editor-audioPage.component';
 import { EditorGeoComponent } from './components/editor/editor-geo/editor-geo.component';
 import { EditorSubjectGeoComponent } from './documents/document/editor-subject-geo/editor-subject-geo.component';
 import { ImportComponent } from './components/import/import.component';
@@ -132,6 +132,7 @@ import { LayoutAdminComponent } from './pages/layout-admin/layout-admin.componen
 import { BatchesComponent } from './pages/batches/batches.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { EditorAesComponent } from './components/editor/editor-aes/editor-aes.component';
+import {EditorAudioPagesComponent} from './components/editor/editor-audioPages/editor-audioPages.component';
 
 
 // export function hljsLanguages() {
@@ -181,11 +182,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditorCommentComponent,
     EditorAtmComponent,
     EditorPageComponent,
-    EditorSongComponent,
+    EditorAudioPageComponent,
     EditorMetadataComponent,
     EditorGeoComponent,
     EditorSubjectGeoComponent,
     EditorPagesComponent,
+    EditorAudioPagesComponent,
     EditorRelocationComponent,
     ImportComponent,
     HistoryComponent,

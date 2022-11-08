@@ -89,7 +89,7 @@ export class EditorService {
     }
 
     hasPendingChanges(): boolean {
-        if (this.showPagesEditor()) {
+        if (this.showPagesEditor() || this.showAudioPagesEditor()) {
             return this.isDirty;
         } else if (this.mode == 'children') {
             return this.isLeftDirty || this.isDirty || (this.metadata && this.metadata.hasChanges());
@@ -295,7 +295,7 @@ export class EditorService {
             const model = this.left.model;
             this.allowedChildrenModels = ModelTemplate.allowedChildrenForModel(model);
             this.children = children;
-            if (item.isPage() || item.isSong()) {
+            if (item.isPage() || item.isAudioPage()) {
                 this.switchMode('detail');
             } else {
                 const mode = this.properties.getStringProperty('editor.mode', 'detail');
@@ -422,6 +422,28 @@ export class EditorService {
         return count > 0;
     }
 
+    public showAudioPagesEditor(): boolean {
+        if (this.mode !== 'children') {
+            return false;
+        }
+        if (this.relocationMode) {
+            return false;
+        }
+        if (this.numberOfSelectedChildren() < 2) {
+            return false;
+        }
+        let count = 0;
+        for (const child of this.children) {
+            if (child.selected) {
+                count += 1;
+                if (!child.isAudioPage()) {
+                    return false;
+                }
+            }
+        }
+        return count > 0;
+    }
+
     public switchLeftEditor(type: string) {
         this.leftEditorType = type;
         if (this.left.isPage()) {
@@ -522,7 +544,7 @@ export class EditorService {
             if (!this.rightEditorType) {
                 if (item.isPage()) {
                     this.rightEditorType = 'image';
-                } else if (item.isSong()) {
+                } else if (item.isAudioPage()) {
                     this.rightEditorType = 'song';
                 } else if (item.canContainPdf()) {
                     this.rightEditorType = 'pdf';
@@ -536,7 +558,7 @@ export class EditorService {
                 if (!this.thirdEditorType) {
                     if (item.isPage()) {
                         this.thirdEditorType = 'image';
-                    } else if (item.isSong()) {
+                    } else if (item.isAudioPage()) {
                         this.thirdEditorType = 'song';
                     } else if (item.canContainPdf()) {
                         this.thirdEditorType = 'pdf';
@@ -632,7 +654,7 @@ export class EditorService {
                                     metadata: null,
                                     isNew: false
                                 });
-                        //} 
+                        //}
                     });
                 }
 

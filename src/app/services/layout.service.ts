@@ -33,7 +33,7 @@ export class LayoutService {
   public movingToNext = false;
   public movedToNextFrom: string;
 
-  
+
   allowedChildrenModels: string[];
 
   dirtyComps: {[key: string]: Component} = {};
@@ -65,28 +65,28 @@ export class LayoutService {
     }
     this.selectionSubject.next(fromStructure);
   }
-  
+
   shouldMoveToNext(from: string) {
     this.movedToNextFrom = from;
     this.movingToNext = true;
     this.moveNextSubject.next(true);
   }
-  
+
   moveToNext(): Observable<boolean> {
     return this.moveNextSubject.asObservable();
   }
-  
+
   selectionChanged(): Observable<boolean> {
     return this.selectionSubject.asObservable();
   }
-  
+
   setShouldRefresh(keepSelection: boolean) {
     if (!keepSelection) {
       this.lastSelectedItem = null;
     }
     this.refreshSubject.next(keepSelection);
   }
-  
+
   shouldRefresh(): Observable<boolean> {
     return this.refreshSubject.asObservable();
   }
@@ -116,18 +116,33 @@ export class LayoutService {
     //     return false;
     // }
     if (this.getNumOfSelected() < 2) {
-        return false;
+      return false;
     }
     let count = 0;
     for (const child of this.items) {
-        if (child.selected) {
-            count += 1;
-            if (!child.isPage()) {
-                return false;
-            }
+      if (child.selected) {
+        count += 1;
+        if (!child.isPage()) {
+          return false;
         }
+      }
     }
     return count > 0;
-}
+  }
 
+  public showAudioPagesEditor(): boolean {
+    if (this.getNumOfSelected() < 2) {
+      return false;
+    }
+    let count = 0;
+    for (const child of this.items) {
+      if (child.selected) {
+        count += 1;
+        if (!child.isAudioPage()) {
+          return false;
+        }
+      }
+    }
+    return count > 0;
+  }
 }

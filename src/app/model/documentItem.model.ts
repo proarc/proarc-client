@@ -115,7 +115,7 @@ export class DocumentItem {
     return this.model === 'model:page' || this.model === 'model:ndkpage' || this.model === 'model:oldprintpage';
   }
 
-  public isSong(): boolean {
+  public isAudioPage(): boolean {
     return this.model == 'model:ndkaudiopage';
   }
 

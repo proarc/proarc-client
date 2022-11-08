@@ -3,11 +3,11 @@
 <div mat-dialog-content style="max-width:600px;">
 
   <div class="app-content" *ngIf="inited">
-    
+
     <app-editor-page *ngIf="isPage()" [model]="data.model" [notSaved]="true" [pid]="data.pid">
     </app-editor-page>
-    <app-editor-song *ngIf="isSong()" [model]="data.model" [notSaved]="true" [pid]="data.pid">
-    </app-editor-song>
+    <app-editor-audioPage *ngIf="isAudioPage()" [model]="data.model" [notSaved]="true" [pid]="data.pid">
+    </app-editor-audioPage>
     <app-editor-chronicle *ngIf="isChronicle()" [notSaved]="true" [pid]="data.pid"></app-editor-chronicle>
     <app-editor-bdm *ngIf="isBdm()" [notSaved]="true" [pid]="data.pid"></app-editor-bdm>
     <app-editor-metadata *ngIf="!isPage() && !isChronicle() && !isBdm()" [notSaved]="true" [pid]="data.pid"
