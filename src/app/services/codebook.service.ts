@@ -14,7 +14,8 @@ export class CodebookService {
     "Locations": "sigla",
     "ChronicleIdentifiers": "identifier",
     "EDocumentsIdentifiers": "identifier",
-    "OldprintIdentifiers": "identifier"
+    "OldprintIdentifiers": "identifier",
+    "MusicDocumentsIdentifiers": "identifier"
   }
 
   pageTypes: any[] = [];
@@ -23,6 +24,7 @@ export class CodebookService {
   identifiers: any[] = [];
   chronicleIdentifiers: any[] = [];
   eDocumentIdentifiers: any[] = [];
+  musicDocumentIdentifiers: any[] = [];
   oldprintIdentifiers : any[] = [];
 
   constructor(private translator: TranslateService, private config: ConfigService, private locals: LocalStorageService) {
@@ -39,6 +41,7 @@ export class CodebookService {
       this.chronicleIdentifiers = this.buildCollection('ChronicleIdentifiers');
       this.eDocumentIdentifiers = this.buildCollection('EDocumentsIdentifiers');
       this.oldprintIdentifiers = this.buildCollection('OldprintIdentifiers');
+      this.musicDocumentIdentifiers = this.buildCollection('MusicDocumentsIdentifiers');
     //});
   }
 
@@ -109,7 +112,8 @@ export class CodebookService {
     return this.isChronicle(model) ? this.chronicleIdentifiers :
       this.isOldprint(model) ? this.oldprintIdentifiers :
       this.canContainPdf(model) ? this.eDocumentIdentifiers :
-        this.identifiers;
+      this.isMusicDocument(model) ? this.musicDocumentIdentifiers :
+      this.identifiers;
   }
 
   public isPage(model: string): boolean {
@@ -118,6 +122,11 @@ export class CodebookService {
 
   public isSong(model: string): boolean {
     return model == 'model:ndkaudiopage';
+  }
+
+  public isMusicDocument(model: string): boolean {
+     return model === 'model:ndkphonographcylinder' || model === 'model:ndkmusicdocument'
+       || model === 'model:ndksong' || model === 'model:ndktrack' || model === 'ndkaudiopage';
   }
 
   // public isVolume(): boolean {
