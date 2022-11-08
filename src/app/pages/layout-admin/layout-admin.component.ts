@@ -58,7 +58,7 @@ export class LayoutAdminComponent implements OnInit {
   localStorageName = 'proarc-layout';
   config: IConfig = null;
 
-  types = ['structure-list', 'structure-grid', 'structure-icons', 'metadata', 'mods', 'atm', 'ocr', 'comment', 'image']; //'tree'
+  types = ['structure-list', 'structure-grid', 'structure-icons', 'metadata', 'mods', 'atm', 'ocr', 'comment', 'image', 'pdf']; //'tree'
   
 
   constructor(public dialogRef: MatDialogRef<LayoutAdminComponent>,

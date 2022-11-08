@@ -20,18 +20,18 @@
       mat-icon-button>
       <mat-icon>image</mat-icon>
     </button>
-    <!-- <button *ngIf="editor.selectedItem.isSong() && !editor.doubleRight"
+    <button *ngIf="layout.selectedItem && layout.selectedItem.isSong()"
       matTooltip="{{ 'editor.toolbar.editor_song' | translate }}"
       [class.app-inactive]="editorType != 'song'" (click)="editorType = 'song'"
       mat-icon-button>
       <mat-icon>audiotrack</mat-icon>
-    </button> -->
-    <!-- <button *ngIf="editor.selectedItem.canContainPdf() && !editor.doubleRight"
+    </button>
+    <button *ngIf="layout.selectedItem.canContainPdf()"
       matTooltip="{{ 'editor.toolbar.editor_pdf' | translate }}"
       [class.app-inactive]="editorType != 'pdf'" (click)="editorType = 'pdf'"
       mat-icon-button>
       <mat-icon>picture_as_pdf</mat-icon>
-    </button> -->
+    </button>
     <button matTooltip="{{ 'editor.toolbar.editor_mods' | translate }}"
       [class.app-inactive]="editorType !== 'mods'" (click)="editorType = 'mods'"
       mat-icon-button>
@@ -78,6 +78,13 @@
   <ng-container *ngSwitchCase="'image'" >
     <app-viewer *ngIf="layout.lastSelectedItem && layout.lastSelectedItem.isPage()" [pid]="layout.lastSelectedItem.pid" ></app-viewer>
   </ng-container>
+  <ng-container *ngSwitchCase="'pdf'" >
+    <app-pdf *ngIf="layout.lastSelectedItem" [pid]="layout.lastSelectedItem.pid"></app-pdf>
+  </ng-container>
+  <ng-container *ngSwitchCase="'song'" >
+    <app-song *ngIf="layout.lastSelectedItem" [pid]="layout.lastSelectedItem.pid"></app-song>
+  </ng-container>
+  
   <ng-container *ngIf="layout.selectedItem">
     <app-editor-mods *ngSwitchCase="'mods'"  [pid]="layout.selectedItem.pid"></app-editor-mods>
     <app-editor-ocr *ngSwitchCase="'ocr'"  [pid]="layout.selectedItem.pid"></app-editor-ocr>
