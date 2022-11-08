@@ -9,6 +9,26 @@ export class NdkePeriodicalIssueRdaTemplate {
       expanded: true,
       description: `Název titulu periodika, kterého je číslo součástí pro plnění použít katalogizační záznam nebo názvové autority`,
       fields: {
+        type: {
+          usage: 'MA',
+          label: 'Typ',
+          selector: 'titleInfo/@type',
+          labelKey: 'titleInfo/@type',
+          cols: 2,
+          description: `Hlavní název bez typu - pole 245 a $a<br/>
+          Možné hodnoty
+          <ul>
+            <li>Alternativní název (alternative) – pole 246</li>
+            <li>Přeložený název (translated) – pole 242</li>
+            <li>Jednotný název (uniform) – pole 130 resp. 240</li>
+          </ul>`,
+          options: [
+            ['', '-'],
+            ['translated', 'Přeložený název'],
+            ['alternative', 'Alternativní název'],
+            ['uniform', 'Jednotný název']
+          ]
+        },
         title: {
           usage: 'M',
           label: 'Název periodika',
@@ -135,6 +155,24 @@ export class NdkePeriodicalIssueRdaTemplate {
           cols: 2,
           description: `Číslo národní autority`,
         },
+        etal: {
+          usage: 'O',
+          label: 'Etal',
+          selector: 'relatedItem/name/etal',
+          labelKey: 'name/etal',
+          cols: 2,
+          description: `Element indikující, že existuje více autorů, než pouze ti, kteří byli uvedeni v <name> elementu.</br>
+          V případě užití tohoto elementu je dále top element <name> neopakovatelný.</br>
+          <etal> je nutné umístit do samostatného top elementu <name>, ve kterém se nesmí objevit subelementy <namePart> a <nameIdentifier>.`
+        },
+        affiliation: {
+          usage: 'O',
+          label: 'Napojená instituce',
+          selector: 'relatedItem/name/affiliation',
+          labelKey: 'name/affiliation',
+          description: `Umožňuje vepsat název instituce, se kterou je autor spojen<br/>
+          např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.`
+        },
         role: {
           usage: 'MA',
           label: 'Role',
@@ -241,6 +279,30 @@ export class NdkePeriodicalIssueRdaTemplate {
       labelKey: 'location',
       description: `Údaje o uložení popisovaného dokumentu, např. signatura, místo uložení apod.`,
       fields: {
+        physicalLocation: {
+          usage: 'MA',
+          label: 'Místo uložení',
+          labelKey: 'location/physicalLocation',
+          selector: 'relatedItem/location/physicalLocation',
+          description: `Údaje o instituci, kde je fyzicky uložen daný konkrétní popisovaný dokument, např. NK ČR nutno použít kontrolovaný slovník – sigly knihovnen (ABA001 atd.) odpovídá poli 910 $a v MARC21<br\>
+          Pozn. u dokumentů v digitální podobě není možné vyplnit`,
+        },
+        shelfLocator: {
+          usage: 'MA',
+          label: 'Signatura',
+          selector: 'relatedItem/location/shelfLocator',
+          labelKey: 'location/shelfLocator',
+          description: `Signatura nebo lokační údaje o daném konkrétním dokumentu, který slouží jako předloha.`,
+          fields: {
+            value: {
+              usage: 'MA',
+              selector: 'relatedItem/location/shelfLocator/value',
+              labelKey: 'location/shelfLocator/value',
+              label: 'Hodnota',
+              help: 'off'
+            },
+          }
+        },
         url: {
           usage: 'MA',
           label: 'URL',
@@ -279,6 +341,40 @@ export class NdkePeriodicalIssueRdaTemplate {
         },
       }
     },
+    note: {
+      usage: 'O',
+      label: 'Poznámka',
+      selector: 'note',
+      labelKey: 'note',
+      description: `Obecná poznámka k titulu periodika jako celku<br/>
+      Odpovídá hodnotám v poli 245, $c (statement of responsibility)
+      a v polích 5XX (poznámky) katalogizačního záznamu`,
+      fields: {
+        note: {
+          usage: 'RA',
+          selector: 'note/value',
+          labelKey: 'note/value',
+          label: 'Poznámka',
+          help: 'off'
+        }
+      }
+    },
+    abstract: {
+      usage: 'RA',
+      label: 'Abstrakt',
+      selector: 'abstract',
+      labelKey: 'abstract',
+      description: `Shrnutí obsahu jako celku odpovídá poli 520 MARC21`,
+      fields: {
+        abstract: {
+          usage: 'R',
+          label: 'Abstrakt',
+          selector: 'abstract',
+          labelKey: 'abstract/value',
+          help: 'off'
+        }
+      }
+    },
     classification: {
       usage: 'R',
       label: 'Klasifikace',
@@ -288,7 +384,7 @@ export class NdkePeriodicalIssueRdaTemplate {
       Odpovídá poli 072 $a MARC21`,
       fields: {
         authority: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Autorita',
           selector: 'classification/@authority',
           labelKey: 'classification/@authority',
@@ -324,7 +420,7 @@ export class NdkePeriodicalIssueRdaTemplate {
           ]
         },
         value: {
-          usage: 'M',
+          usage: 'MA',
           selector: 'classification/value',
           labelKey: 'classification/value',
           label: 'Hodnota',
@@ -445,7 +541,7 @@ export class NdkePeriodicalIssueRdaTemplate {
           počet stránek bude vyjádřen ve fyzické strukturální mapě`,
         },
         note: {
-          usage: 'RA',
+          usage: 'O',
           label: 'Poznámka',
           selector: 'physicalDescription/note',
           labelKey: 'physicalDescription/note',
