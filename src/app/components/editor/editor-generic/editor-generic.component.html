@@ -66,7 +66,7 @@
 
 </div>
 
-<div class="app-content" [ngSwitch]="editorType" style="height:100%;">
+<div class="app-content" [ngSwitch]="editorType" style="height:calc(100% - 46px);">
   <div class="app-table app-tree"  *ngSwitchCase="'tree'">
     <app-tree [tree]="layout.tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)"
       [expanded]="false" [expandedPath]="layout.expandedPath"></app-tree>

@@ -1,7 +1,6 @@
 import { Injectable, Component } from '@angular/core';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { DocumentItem } from '../model/documentItem.model';
-import { Metadata } from '../model/metadata.model';
 import { Tree } from '../model/mods/tree.model';
 
 @Injectable({
