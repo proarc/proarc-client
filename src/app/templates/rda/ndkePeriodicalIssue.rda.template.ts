@@ -158,7 +158,7 @@ export class NdkePeriodicalIssueRdaTemplate {
         etal: {
           usage: 'O',
           label: 'Etal',
-          selector: 'relatedItem/name/etal',
+          selector: 'name/etal',
           labelKey: 'name/etal',
           cols: 2,
           description: `Element indikující, že existuje více autorů, než pouze ti, kteří byli uvedeni v <name> elementu.</br>
@@ -168,7 +168,7 @@ export class NdkePeriodicalIssueRdaTemplate {
         affiliation: {
           usage: 'O',
           label: 'Napojená instituce',
-          selector: 'relatedItem/name/affiliation',
+          selector: 'name/affiliation',
           labelKey: 'name/affiliation',
           description: `Umožňuje vepsat název instituce, se kterou je autor spojen<br/>
           např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.`
@@ -283,20 +283,20 @@ export class NdkePeriodicalIssueRdaTemplate {
           usage: 'MA',
           label: 'Místo uložení',
           labelKey: 'location/physicalLocation',
-          selector: 'relatedItem/location/physicalLocation',
+          selector: 'location/physicalLocation',
           description: `Údaje o instituci, kde je fyzicky uložen daný konkrétní popisovaný dokument, např. NK ČR nutno použít kontrolovaný slovník – sigly knihovnen (ABA001 atd.) odpovídá poli 910 $a v MARC21<br\>
           Pozn. u dokumentů v digitální podobě není možné vyplnit`,
         },
         shelfLocator: {
           usage: 'MA',
           label: 'Signatura',
-          selector: 'relatedItem/location/shelfLocator',
+          selector: 'location/shelfLocator',
           labelKey: 'location/shelfLocator',
           description: `Signatura nebo lokační údaje o daném konkrétním dokumentu, který slouží jako předloha.`,
           fields: {
             value: {
               usage: 'MA',
-              selector: 'relatedItem/location/shelfLocator/value',
+              selector: 'location/shelfLocator/value',
               labelKey: 'location/shelfLocator/value',
               label: 'Hodnota',
               help: 'off'
