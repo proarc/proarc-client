@@ -18,10 +18,10 @@
               </ng-container>
               <ng-container *ngIf="editor.path.length === 0">{{ editor.left.label }}</ng-container>
             </div>
-            
+
             <div *ngIf="editor.path.length === 0" class="app-label-model">{{ 'model.' + editor.left.model | translate }}</div>
             <div *ngIf="editor.path.length > 0" class="app-label-model">{{ 'model.' + editor.left.model | translate }} - {{ editor.left.label }}</div>
-              
+
           </div>
 
           <div class="app-actions">
@@ -29,7 +29,7 @@
               [class.app-inactive]="editor.mode != 'detail'" (click)="editor.switchMode('detail')" mat-icon-button>
               <mat-icon>details</mat-icon>
             </button>
-            <button *ngIf="!editor.left.isPage() && !editor.left.isSong()"
+            <button *ngIf="!editor.left.isPage() && !editor.left.isAudioPage()"
               matTooltip="{{ 'editor.toolbar.editor_mode_children' | translate }}"
               [class.app-inactive]="editor.mode != 'children'" (click)="editor.switchMode('children')" mat-icon-button>
               <mat-icon>dehaze</mat-icon>
@@ -104,8 +104,8 @@
           <ng-container *ngIf="editor.leftEditorType == 'metadata'">
             <app-editor-page *ngIf="editor.left.isPage()" [model]="editor.left.model" [pid]="editor.left.pid">
             </app-editor-page>
-            <app-editor-song *ngIf="editor.left.isSong()" [model]="editor.left.model" [pid]="editor.left.pid">
-            </app-editor-song>
+            <app-editor-audioPage *ngIf="editor.left.isAudioPage()" [model]="editor.left.model" [pid]="editor.left.pid">
+            </app-editor-audioPage>
             <!-- <app-editor-issue *ngIf="editor.left.isIssue()" [pid]="editor.left.pid"></app-editor-issue> -->
             <!-- <app-editor-volume *ngIf="editor.left.isVolume()" [pid]="editor.left.pid"></app-editor-volume> -->
             <app-editor-chronicle *ngIf="editor.left.isChronicle()" [pid]="editor.left.pid"></app-editor-chronicle>
@@ -141,7 +141,7 @@
               mat-icon-button>
               <mat-icon>image</mat-icon>
             </button>
-            <button *ngIf="editor.selectedItem.isSong() && !editor.doubleRight"
+            <button *ngIf="editor.selectedItem.isAudioPage() && !editor.doubleRight"
               matTooltip="{{ 'editor.toolbar.editor_song' | translate }}"
               [class.app-inactive]="editor.rightEditorType != 'song'" (click)="editor.switchRightEditor('song')"
               mat-icon-button>
@@ -207,8 +207,8 @@
           <ng-container *ngIf="editor.rightEditorType == 'metadata'">
             <app-editor-page *ngIf="editor.selectedItem.isPage()" [model]="editor.selectedItem.model" [pid]="editor.selectedItem.pid">
             </app-editor-page>
-            <app-editor-song *ngIf="editor.selectedItem.isSong()" [model]="editor.selectedItem.model" [pid]="editor.selectedItem.pid">
-            </app-editor-song>
+            <app-editor-audioPage *ngIf="editor.selectedItem.isAudioPage()" [model]="editor.selectedItem.model" [pid]="editor.selectedItem.pid">
+            </app-editor-audioPage>
             <app-editor-metadata *ngIf="!editor.selectedItem.isPage()" [pid]="editor.selectedItem.pid"></app-editor-metadata>
             <!--
           <app-editor-issue *ngIf="editor.selectedItem.isIssue()" [pid]="editor.selectedItem.pid"></app-editor-issue>
@@ -218,6 +218,10 @@
 
         <div class="app-content" *ngIf="editor.showPagesEditor()">
           <app-editor-pages></app-editor-pages>
+        </div>
+
+        <div class="app-content" *ngIf="editor.showAudioPagesEditor()">
+          <app-editor-audioPages></app-editor-audioPages>
         </div>
 
         <div class="app-content" *ngIf="editor.showRelocationEditor()">
@@ -245,9 +249,9 @@
               mat-icon-button>
               <mat-icon>image</mat-icon>
             </button>
-            <button *ngIf="editor.selectedItem.isSong()" matTooltip="{{ 'editor.toolbar.editor_song' | translate }}"
-              [class.app-inactive]="editor.thirdEditorType != 'song'" (click)="editor.switchThirdEditor('song')"
-              mat-icon-button>
+            <button *ngIf="editor.selectedItem.isAudioPage()" matTooltip="{{ 'editor.toolbar.editor_song' | translate }}"
+                    [class.app-inactive]="editor.thirdEditorType != 'song'" (click)="editor.switchThirdEditor('song')"
+                    mat-icon-button>
               <mat-icon>audiotrack</mat-icon>
             </button>
             <button matTooltip="{{ 'editor.toolbar.editor_mods' | translate }}"

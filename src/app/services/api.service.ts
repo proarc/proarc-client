@@ -23,6 +23,8 @@ import { Registrar } from '../model/registrar.model';
 import { ConfigService } from './config.service';
 import { PageUpdateHolder } from '../components/editor/editor-pages/editor-pages.component';
 import { Workflow } from '../model/workflow.model';
+import {AudioPage} from '../model/audioPage.model';
+import {AudioPagesUpdateHolder} from '../components/editor/editor-audioPages/editor-audioPages.component';
 
 @Injectable()
 export class ApiService {
@@ -306,9 +308,28 @@ export class ApiService {
             .pipe(map((response: any) => Page.fromJson(response['response']['data'][0], model)));
   }
 
+  getAudioPage(pid: string, model: string, batchId: any = null): Observable<AudioPage> {
+    const editorId = model == 'model:page' ? 'proarc.mods.PageForm' : model;
+    const params: any = { pid: pid, editorId: editorId };
+    if (batchId) {
+      params['batchId'] = batchId;
+    }
+    return this.get('object/mods/custom', params)
+            .pipe(map((response: any) => AudioPage.fromJson(response['response']['data'][0], model)));
+  }
+
   editPage(page: Page, batchId: any = null): Observable<any> {
     const editorId = page.model == 'model:page' ? 'proarc.mods.PageForm' : page.model;
     let data = `pid=${page.pid}&editorId=${editorId}&jsonData=${JSON.stringify(page.toJson())}&timestamp=${page.timestamp}`;
+    if (batchId) {
+      data = `${data}&batchId=${batchId}`;
+    }
+    return this.put('object/mods/custom', data);
+  }
+
+  editAudioPage(audioPage: AudioPage, batchId: any = null): Observable<any> {
+    const editorId = audioPage.model == 'model:page' ? 'proarc.mods.PageForm' : audioPage.model;
+    let data = `pid=${audioPage.pid}&editorId=${editorId}&jsonData=${JSON.stringify(audioPage.toJson())}&timestamp=${audioPage.timestamp}`;
     if (batchId) {
       data = `${data}&batchId=${batchId}`;
     }
@@ -562,6 +583,21 @@ export class ApiService {
     }
     if (holder.editPosition) {
       data += `&pagePosition=${holder.pagePosition}`;
+    }
+    data += `&applyTo=${holder.applyTo}`;
+    return this.put('object/mods/editorPages', data);
+  }
+
+  editAudioPages(pages: string[], holder: AudioPagesUpdateHolder, batchId: any = null) {
+    let data = `pids=${pages}`;
+    if (batchId) {
+      data = `${data}&batchId=${batchId}`;
+    }
+    if (holder.editIndex) {
+      data += `&startIndex=${holder.pageIndex}`;
+    }
+    if (holder.applyTo > 1) {
+      data += `&applyToFirstPage=${holder.applyToFirst}`;
     }
     data += `&applyTo=${holder.applyTo}`;
     return this.put('object/mods/editorPages', data);

@@ -20,7 +20,7 @@
       mat-icon-button>
       <mat-icon>image</mat-icon>
     </button>
-    <button *ngIf="layout.selectedItem && layout.selectedItem.isSong()"
+    <button *ngIf="layout.selectedItem && layout.selectedItem.isAudioPage()"
       matTooltip="{{ 'editor.toolbar.editor_song' | translate }}"
       [class.app-inactive]="editorType != 'song'" (click)="editorType = 'song'"
       mat-icon-button>
@@ -52,11 +52,13 @@
       mat-icon-button>
       <mat-icon>format_quote</mat-icon>
     </button>
-    <button *ngIf="layout.selectedItem.isPage()" matTooltip="{{ 'editor.toolbar.editor_aes' | translate }}"
+    <!--
+    <button *ngIf="layout.selectedItem.isAudioPage()" matTooltip="{{ 'editor.toolbar.editor_aes' | translate }}"
       [class.app-inactive]="editorType != 'aes'" (click)="editorType = 'aes'"
       mat-icon-button>
       <mat-icon>text_format</mat-icon>
     </button>
+    -->
 
     <!-- <button *ngIf="!editor.doubleRight && editor.mode == 'children'" (click)="editor.enterDoubleRight()"
       mat-icon-button matTooltip="{{ 'editor.toolbar.editor_enter_double_right' | translate }}">
@@ -84,7 +86,7 @@
   <ng-container *ngSwitchCase="'song'" >
     <app-song *ngIf="layout.lastSelectedItem" [pid]="layout.lastSelectedItem.pid"></app-song>
   </ng-container>
-  
+
   <ng-container *ngIf="layout.selectedItem">
     <app-editor-mods *ngSwitchCase="'mods'"  [pid]="layout.selectedItem.pid"></app-editor-mods>
     <app-editor-ocr *ngSwitchCase="'ocr'"  [pid]="layout.selectedItem.pid"></app-editor-ocr>
@@ -93,9 +95,10 @@
   </ng-container>
   <ng-container *ngSwitchCase="'metadata'">
     <app-editor-pages *ngIf="layout.showPagesEditor()"></app-editor-pages>
-    <ng-container *ngIf="layout.selectedItem && !layout.showPagesEditor()">
+    <app-editor-audioPages *ngIf="layout.showAudioPagesEditor()"></app-editor-audioPages>
+    <ng-container *ngIf="layout.selectedItem && !layout.showPagesEditor() && !layout.showAudioPagesEditor()">
       <app-editor-page *ngIf="layout.selectedItem.isPage()" [model]="layout.selectedItem.model" [pid]="layout.selectedItem.pid" > </app-editor-page>
-      <app-editor-song *ngIf="layout.selectedItem.isSong()" [model]="layout.selectedItem.model" [pid]="layout.selectedItem.pid"> </app-editor-song>
+      <app-editor-audioPage *ngIf="layout.selectedItem.isAudioPage()" [model]="layout.selectedItem.model" [pid]="layout.selectedItem.pid"> </app-editor-audioPage>
       <app-editor-chronicle *ngIf="layout.selectedItem.isChronicle()" [pid]="layout.selectedItem.pid"></app-editor-chronicle>
       <app-editor-bdm *ngIf="layout.selectedItem.isBdm()" [pid]="layout.selectedItem.pid"></app-editor-bdm>
       <app-editor-metadata *ngIf="!layout.selectedItem.isPage() && !layout.selectedItem.isChronicle() && !layout.selectedItem.isBdm()"
