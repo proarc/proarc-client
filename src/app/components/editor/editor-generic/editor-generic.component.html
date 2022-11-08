@@ -20,7 +20,7 @@
       mat-icon-button>
       <mat-icon>image</mat-icon>
     </button>
-    <button *ngIf="layout.selectedItem && layout.selectedItem.isSong()"
+    <button *ngIf="layout.selectedItem && layout.selectedItem.isAudioPage()"
       matTooltip="{{ 'editor.toolbar.editor_song' | translate }}"
       [class.app-inactive]="editorType != 'song'" (click)="editorType = 'song'"
       mat-icon-button>
@@ -86,7 +86,7 @@
   <ng-container *ngSwitchCase="'song'" >
     <app-song *ngIf="layout.lastSelectedItem" [pid]="layout.lastSelectedItem.pid"></app-song>
   </ng-container>
-  
+
   <ng-container *ngIf="layout.selectedItem">
     <app-editor-mods *ngSwitchCase="'mods'"  [pid]="layout.selectedItem.pid"></app-editor-mods>
     <app-editor-ocr *ngSwitchCase="'ocr'"  [pid]="layout.selectedItem.pid"></app-editor-ocr>
