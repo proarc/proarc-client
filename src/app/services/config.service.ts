@@ -166,6 +166,7 @@ export class ConfigService {
     ]
 
     private static defaultIdentifiers = [ 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'];
+    private static defaultMusicIdentifiers = ['issue number', 'matrix number',  'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'];
     private static defaultChronicleIdentifiers = [ 'signature1', 'signature2', 'inventaryNumber', 'OtherNumber' , 'id', 'localId', 'officialNumber'];
     private static defaultEDocumentsIdentifiers = [ 'doi', 'handle', 'ismn', 'url', 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici'];
     private static defaultOldprintIdentifiers = ['barcode', 'ccnb', 'doi', 'hdl', 'ismn', 'isbn', 'permalink', 'sici', 'url',  'uuid', 'urnnbn', 'BCBT'];
@@ -205,6 +206,9 @@ export class ConfigService {
 
     public topEDocumentsIdentifiers: any = [];
     public otherEDocumentsIdentifiers = APP_GLOBAL.eDocumentIdentifiers || ConfigService.defaultEDocumentsIdentifiers;
+
+    public topMusicDocumentsIdentifiers: any = [];
+    public otherMusicDocumentsIdentifiers = APP_GLOBAL.musicDocumentIdentifiers || ConfigService.defaultMusicIdentifiers;
 
     public organizations = APP_GLOBAL.organizations || [];
     public profiles = APP_GLOBAL.profiles || ConfigService.defaultProfiles;

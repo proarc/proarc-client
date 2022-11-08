@@ -102,7 +102,7 @@
       <app-editor-chronicle *ngIf="layout.selectedItem.isChronicle()" [pid]="layout.selectedItem.pid"></app-editor-chronicle>
       <app-editor-bdm *ngIf="layout.selectedItem.isBdm()" [pid]="layout.selectedItem.pid"></app-editor-bdm>
       <app-editor-metadata *ngIf="!layout.selectedItem.isPage() && !layout.selectedItem.isChronicle() && !layout.selectedItem.isBdm()"
-          [pid]="layout.selectedItem.pid">
+          [pid]="layout.selectedItem.pid" [model]="layout.selectedItem.model">
       </app-editor-metadata>
     </ng-container>
   </ng-container>

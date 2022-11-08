@@ -10,7 +10,7 @@ export class NdkePeriodicalVolumeAacrTemplate {
       description: `informace o čísle ročníku`,
       fields: {
         partNumber: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Číslo',
           selector: 'titleInfo/partNumber',
           labelKey: 'titleInfo/partNumber',
@@ -96,8 +96,26 @@ export class NdkePeriodicalVolumeAacrTemplate {
           cols: 2,
           description: `Číslo národní autority`,
         },
+        etal: {
+          usage: 'O',
+          label: 'Etal',
+          selector: 'name/etal',
+          labelKey: 'name/etal',
+          cols: 2,
+          description: `Element indikující, že existuje více autorů, než pouze ti, kteří byli uvedeni v <name> elementu.</br>
+          V případě užití tohoto elementu je dále top element <name> neopakovatelný.</br>
+          <etal> je nutné umístit do samostatného top elementu <name>, ve kterém se nesmí objevit subelementy <namePart> a <nameIdentifier>.`
+        },
+        affiliation: {
+          usage: 'O',
+          label: 'Napojená instituce',
+          selector: 'name/affiliation',
+          labelKey: 'name/affiliation',
+          description: `Umožňuje vepsat název instituce, se kterou je autor spojen<br/>
+          např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.`
+        },
         role: {
-          usage: 'MA',
+          usage: 'R',
           label: 'Role',
           selector: 'name/role/roleTerm',
           labelKey: 'name/role/roleTerm',
@@ -165,6 +183,24 @@ export class NdkePeriodicalVolumeAacrTemplate {
             },
           }
         },
+      }
+    },
+    note: {
+      usage: 'O',
+      label: 'Poznámka',
+      selector: 'note',
+      labelKey: 'note',
+      description: `Obecná poznámka k titulu periodika jako celku<br/>
+      Odpovídá hodnotám v poli 245, $c (statement of responsibility)
+      a v polích 5XX (poznámky) katalogizačního záznamu`,
+      fields: {
+        note: {
+          usage: 'RA',
+          selector: 'note/value',
+          labelKey: 'note/value',
+          label: 'Poznámka',
+          help: 'off'
+        }
       }
     },
     genre: {
