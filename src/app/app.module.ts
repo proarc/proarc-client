@@ -133,6 +133,7 @@ import { BatchesComponent } from './pages/batches/batches.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { EditorAesComponent } from './components/editor/editor-aes/editor-aes.component';
 import {EditorAudioPagesComponent} from './components/editor/editor-audioPages/editor-audioPages.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 // export function hljsLanguages() {
@@ -250,6 +251,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditorStructureComponent,
     LayoutAdminComponent,
     BatchesComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,23 @@
 @import './src/sass/app-variables';
+@import './src/sass/app-mixins';
+@import './src/sass/app-global';
 
-mat-toolbar {
+.mat-toolbar {
+  border-bottom: 1px solid #385585;
+
+  .app-left {
+    .app-logo {
+      img {
+        @extend .app-mr-4;
+        height: 16px;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
+// old scss
+/* mat-toolbar {
   position: fixed;
   z-index: 1000;
   background-color: $toolbar-color !important;
@@ -53,4 +70,4 @@ mat-toolbar {
     margin-right: 16px;
     float: left;
   }
-}
+} */

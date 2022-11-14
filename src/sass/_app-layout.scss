@@ -23,20 +23,7 @@ body {
   color: $app-body-color;
 
   .app-content-wrapper {
-    height: 100%;
-    padding-top: $app-toolbar-height;
-
-    .app-container {
-      @extend .app-p-4;
-      margin: 0 auto;
-      max-width: $app-container;
-      width: 100%;
-    }
-
-    .app-container-fluid {
-      @extend .app-p-4;
-      max-width: 100%;
-    }
+    overflow: auto;
   }
 }
 

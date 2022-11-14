@@ -5,8 +5,8 @@ $primary-color: mat-color($app-primary);
 $accent-color: #456aa5;
 $warn-color: mat-color($app-warn);
 
-$main-bg: #e4e4e4;
-$main-text: #555555;
+/* $main-bg: #e4e4e4;
+$main-text: #555555; */
 $toolbar-color: $primary-color;
 $dropdown-bg: #fff; 
 $breadcrumb-color: $toolbar-color;
@@ -53,7 +53,7 @@ $app-color-disabled: $app-gray-4;
 $app-layout-active-color: mat-color($mat-green, 800) !default;
 $app-layout-disabled-color: mat-color($mat-red, 800) !default;
 
-$app-body-bg: $app-color-lightnes;
+$app-body-bg: $app-gray-2;
 $app-body-color: $app-color-darknes;
 $app-border-radius: 4px !default;
 $app-card-border-color: $app-gray-3;
