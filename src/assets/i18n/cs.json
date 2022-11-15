@@ -1892,7 +1892,12 @@
 
   "desc": {
     "help": "Nápověda",
-    "panelType": "Typ panelu"
+    "panelType": "Typ panelu",
+    "version": "Verze",
+    "core": "Jádro",
+    "client": "Klient",
+    "build": "Build",
+    "revision": "Revize"
   },
   "button": {
     "setLayout": "nastavit rozložení"

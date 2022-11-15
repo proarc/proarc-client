@@ -1990,7 +1990,12 @@
 
   "desc": {
     "help": "Help",
-    "panelType": "Panel type"
+    "panelType": "Panel type",
+    "version": "Version",
+    "core": "Core",
+    "client": "Client",
+    "build": "Build",
+    "revision": "Revision"
   },
   "button": {
     "setLayout": "Set layout"
