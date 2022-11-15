@@ -4,22 +4,22 @@
       <img src="/assets/img/logo-proarc-7.svg" />
     </a>
     <ng-container *ngIf="auth.isLoggedIn()">
-      <a [routerLink]="['/import']" routerLinkActive="active" mat-button>{{ "navbar.import" | translate }}</a>
-      <a [routerLink]="['/import', 'history']" routerLinkActive="active" mat-button>{{ "navbar.history" | translate }}</a>
-      <a [routerLink]="['/search']" routerLinkActive="active" mat-button>{{ "navbar.search" | translate }}</a>
-      <button (click)="onCreateNewObject()" mat-button>{{ "navbar.new_object" | translate }}</button>
+      <a mat-button [routerLink]="['/import']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">{{ "navbar.import" | translate }}</a>
+      <a mat-button [routerLink]="['/import', 'history']" routerLinkActive="active">{{ "navbar.history" | translate }}</a>
+      <a mat-button [routerLink]="['/search']" routerLinkActive="active">{{ "navbar.search" | translate }}</a>
+      <a mat-button (click)="onCreateNewObject()">{{ "navbar.new_object" | translate }}</a>
       <!-- <a *ngIf="config.showWorkflow" [href]="config.workflowUrl" target="_empty" mat-button>{{ "navbar.workflow" | translate }}</a> -->
-      <a *ngIf="config.showWorkflow" [routerLink]="['/workflow']" routerLinkActive="active" mat-button>{{ "navbar.workflow" | translate }}</a>
+      <a mat-button *ngIf="config.showWorkflow" [routerLink]="['/workflow']" routerLinkActive="active">{{ "navbar.workflow" | translate }}</a>
     </ng-container>
   </div>
   
   <div class="app-right">
     <ng-container *ngIf="auth.isLoggedIn()">
-      <a *ngIf="auth.isSuperAdmin() || auth.isAdmin()" [routerLink]="['/devices']" routerLinkActive="active" mat-button>{{ "navbar.devices" | translate }}</a>
-      <a *ngIf="auth.isSuperAdmin() || auth.isAdmin()" [routerLink]="['/admin']" routerLinkActive="active" mat-button>{{ "navbar.admin" | translate }}</a>
+      <a mat-button *ngIf="auth.isSuperAdmin() || auth.isAdmin()" [routerLink]="['/devices']" routerLinkActive="active">{{ "navbar.devices" | translate }}</a>
+      <a mat-button *ngIf="auth.isSuperAdmin() || auth.isAdmin()" [routerLink]="['/admin']" routerLinkActive="active">{{ "navbar.admin" | translate }}</a>
       <!-- <a  [routerLink]="['/layout']" routerLinkActive="active" mat-button>{{ "navbar.layout" | translate }}</a> -->
-      <button (click)="showAboutDialog()" mat-button>{{ "navbar.about" | translate }}</button>
-      <a [matMenuTriggerFor]="profile_menu" mat-button>{{ "navbar.profile" | translate }}</a>
+      <a mat-button (click)="showAboutDialog()">{{ "navbar.about" | translate }}</a>
+      <a mat-button [matMenuTriggerFor]="profile_menu">{{ "navbar.profile" | translate }}</a>
       <mat-menu #profile_menu="matMenu">
         <button mat-menu-item disabled>
           <span>{{ auth.user.name }}</span>
@@ -31,8 +31,8 @@
       </mat-menu>
     </ng-container>
   
-    <a *ngIf="!auth.isLoggedIn()"  [routerLink]="['/login']" routerLinkActive="active" mat-button>{{ "navbar.login" | translate }}</a>
-    <a *ngIf="translator.currentLang === 'en'" (click)="onLanguageChanged('cs')"  mat-button>CS</a>
-    <a *ngIf="translator.currentLang === 'cs'" (click)="onLanguageChanged('en')"  mat-button>EN</a>
+    <a mat-button *ngIf="!auth.isLoggedIn()"  [routerLink]="['/login']" routerLinkActive="active">{{ "navbar.login" | translate }}</a>
+    <a mat-button *ngIf="translator.currentLang === 'en'" (click)="onLanguageChanged('cs')">CS</a>
+    <a mat-button *ngIf="translator.currentLang === 'cs'" (click)="onLanguageChanged('en')">EN</a>
   </div>
 </mat-toolbar>
