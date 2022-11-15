@@ -1900,7 +1900,8 @@
     "revision": "Revize"
   },
   "button": {
-    "setLayout": "nastavit rozložení"
+    "setLayout": "nastavit rozložení",
+    "close": "Zavřít"
   },
   "dynamic": {
     "repo": "Úložiště",
@@ -1925,6 +1926,10 @@
         "4": "u jednotlivých bloků můžete měnit jejich velikost horizontálně a vertikálně",
         "5": "jednotlivým blokům pak můžete přidělit typ, který chcete zobrazovat"
       }
+    },
+    "about": {
+      "title": "ProArc",
+      "message": "<p>Produkční a archivační systém je nástroj pro výrobu a úpravu popisných, administrativních a technických metadat. Vývoj probíhá pod licencí <a href=\"http://www.gnu.org/licenses/gpl.html\" target=\"_blank\">GNU GPL v3.</a></p>"
     }
   }
 }

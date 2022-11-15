@@ -1998,7 +1998,8 @@
     "revision": "Revision"
   },
   "button": {
-    "setLayout": "Set layout"
+    "setLayout": "Set layout",
+    "close": "Close"
   },
   "dynamic": {
     "repo": "Storage",
@@ -2023,6 +2024,10 @@
         "4": "you can resize individual blocks horizontally and vertically",
         "5": "you can then assign the type you want to display to the individual blocks"
       }
+    },
+    "about": {
+      "title": "ProArc",
+      "message": "<p>The production and archiving system is a tool for the production and editing of descriptive, administrative and technical metadata. Development is under the license <a href=\"http://www.gnu.org/licenses/gpl.html\" target=\"_blank\">GNU GPL v3.</a></p>"
     }
   }
 }
