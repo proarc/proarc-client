@@ -397,7 +397,10 @@ table {
 
   .app-breadcrumbs {
     @extend .app-h-100, .app-pr-4;
-    border-right: 1px solid $app-toolbar-border-color;
+
+    app-search & {
+      border-right: 1px solid $app-toolbar-border-color;
+    }
 
     .mat-icon {
       @extend .app-mr-1;
@@ -412,6 +415,5 @@ table {
     .app-last {
       opacity: .6;
     }
-  }
-  
+  }  
 }
