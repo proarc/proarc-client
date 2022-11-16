@@ -1995,7 +1995,14 @@
     "core": "Core",
     "client": "Client",
     "build": "Build",
-    "revision": "Revision"
+    "revision": "Revision",
+    "settings": "Settings",
+    "devices": "Devices",
+    "newDevice": "New device",
+    "deviceModification": "Device modification",
+    "import": "Import",
+    "newAudioLine": "New audio line",
+    "editingAudioLine": "Editing an audio line"
   },
   "button": {
     "setLayout": "Set layout",

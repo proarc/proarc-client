@@ -1,15 +1,17 @@
-<div class="breadcrumb-nav">
-  <div *ngIf="mode == 'new'">
-      <a [routerLink]="['/devices']">{{ 'device.devices' | translate }}</a>
-      <mat-icon>chevron_right</mat-icon>
-      <span>{{ 'device.new' | translate }}</span>
-  </div>
-  <div *ngIf="mode == 'edit' && device">
-      <a [routerLink]="['/devices']">{{ 'device.device' | translate }}</a>
-      <mat-icon>chevron_right</mat-icon>
-      <a [routerLink]="['/devices', device.id]">{{ deviceName }}</a>
-      <mat-icon>chevron_right</mat-icon>
-      <span>{{ 'device.editing' | translate }}</span>
+<div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
+		<a routerLink="/"><mat-icon>home</mat-icon> Home</a>
+    <span class="app-separator">/</span>
+    <a routerLink="/devices">{{ 'desc.devices' | translate }}</a>
+    <span class="app-separator">/</span>
+		<ng-container *ngIf="mode == 'new'">
+			<span class="app-last">{{ 'desc.newDevice' | translate }}</span>
+		</ng-container>
+		<ng-container *ngIf="mode == 'edit' && device">
+			<a [routerLink]="['/devices', device.id]">{{ deviceName }}</a>
+			<span class="app-separator">/</span>
+			<span class="app-last">{{ 'desc.deviceModification' | translate }}</span>
+		</ng-container>
   </div>
 </div>
 

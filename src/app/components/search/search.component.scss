@@ -1,19 +1,24 @@
+@import './src/sass/app-variables';
+@import './src/sass/app-mixins';
+@import './src/sass/app-global';
+
+/* to delete after testing
 .breadcrumb-nav {
   span {
     margin-right: 20px;
   }
   .app-divider {
     display: inline-block;
-    // float: right;
     height: 40px;
-    background: #385585;
+    background: $app-toolbar-border-color;
     width: 1px;
     margin: 3px;
   }
   .app-inactive {
     color: #ffffff57
   }
-}
+} */
+
 .app-search-results {
   height: calc(100% - 50px);
   padding: 10px 20px;

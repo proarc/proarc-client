@@ -1897,7 +1897,14 @@
     "core": "Jádro",
     "client": "Klient",
     "build": "Build",
-    "revision": "Revize"
+    "revision": "Revize",
+    "settings": "Nastavení",
+    "devices": "Zařízení",
+    "newDevice": "Nové zařízení",
+    "deviceModification": "Úprava zařízení",
+    "import": "Import",
+    "newAudioLine": "Nová audio linka",
+    "editingAudioLine": "Úprava audio linky"
   },
   "button": {
     "setLayout": "nastavit rozložení",

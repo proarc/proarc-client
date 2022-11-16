@@ -61,6 +61,12 @@ $app-card-bg-hover: $app-gray-1;
 $app-card-bg-expanded: $app-card-bg-hover;
 $app-toolbar-height: 64px !default;
 $app-toolbar-border-color: #385585 !default;
+
+$app-breadcrumbsbar-height: 40px !default;
+$app-breadcrumbsbar-bg: $primary-color !default;
+$app-breadcrumbsbar-color: $app-color-lightnes !default;
+
+
 $app-container: 1280px !default;
 $app-button-height: 32px !default;
 $app-badge-size: 20px !default;

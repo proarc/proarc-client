@@ -1,9 +1,12 @@
-<div class="breadcrumb-nav">
-  <span>{{ 'device.devices' | translate }}</span>
+<div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
+    <a routerLink="/"><mat-icon>home</mat-icon> Home</a>
+    <span class="app-separator">/</span>
+    <span class="app-last">{{ 'desc.devices' | translate }}</span>
+  </div>
 </div>
 
 <div class="devices" *ngIf="state=='success'">
-
   <div class="actions">
     <a mat-raised-button 
         color="primary"
@@ -11,8 +14,6 @@
         {{ 'device.add_device' | translate }}
     </a>
   </div>
-
-
   <div class="device-list">
     <div class="app-table">
       <div class="app-row app-header">
@@ -27,8 +28,6 @@
       </a>
     </div>
   </div>
-
 </div>
 
-<mat-spinner *ngIf="state=='loading'" [strokeWidth]="5" [diameter]="60" class="center-spinner">
-</mat-spinner>
+<mat-spinner *ngIf="state=='loading'" [strokeWidth]="5" [diameter]="60" class="center-spinner"></mat-spinner>

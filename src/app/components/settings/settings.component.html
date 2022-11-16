@@ -1,5 +1,9 @@
-<div class="breadcrumb-nav">
-  <span>{{ 'settings.settings' | translate }}</span>
+<div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
+    <a routerLink="/"><mat-icon>home</mat-icon> Home</a>
+    <span class="app-separator">/</span>
+    <span class="app-last">{{ 'desc.settings' | translate }}</span>
+  </div>
 </div>
 
 <div class="app-settings" [class.app-disabled]="state == 'loading'">

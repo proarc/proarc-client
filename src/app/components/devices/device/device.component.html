@@ -1,12 +1,15 @@
-<div class="breadcrumb-nav">
-  <div *ngIf="device">
-      <a [routerLink]="['/devices']">{{ 'device.devices' | translate }}</a>
-      <mat-icon>chevron_right</mat-icon>
-      <span>{{device.label}}</span>
+<div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
+    <a routerLink="/"><mat-icon>home</mat-icon> Home</a>
+    <span class="app-separator">/</span>
+    <a routerLink="/devices">{{ 'desc.devices' | translate }}</a>
+    <span class="app-separator">/</span>
+    <span class="app-last">{{ device.label }}</span>
   </div>
 </div>
-<div class="app-device" *ngIf="state === 'success'">
 
+
+<div class="app-device" *ngIf="state === 'success'">
   <div class="app-device-label">{{ device.label }}</div>
 
   <div class="app-detail-key-value">Typ: <strong>{{ 'device.models.' + device.model | translate }}</strong></div>

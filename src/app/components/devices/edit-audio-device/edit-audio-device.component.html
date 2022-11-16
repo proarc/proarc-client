@@ -1,18 +1,19 @@
-<div class="breadcrumb-nav">
-  <div *ngIf="mode == 'new'">
-      <a [routerLink]="['/devices']">Zařízení</a>
-      <mat-icon>chevron_right</mat-icon>
-      <a [routerLink]="['/devices', device.id]">{{ device.label }}</a>
-      <mat-icon>chevron_right</mat-icon>
-      <span>Nová audio linka</span>
-
-  </div>
-  <div *ngIf="mode == 'edit' && device">
-      <a [routerLink]="['/devices']">Zařízení</a>
-      <mat-icon>chevron_right</mat-icon>
-      <a [routerLink]="['/devices', device.id]">{{ device.label }}</a>
-      <mat-icon>chevron_right</mat-icon>
-      <span>Úprava audio linky {{ id }}</span>
+<div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
+		<a routerLink="/"><mat-icon>home</mat-icon> Home</a>
+    <span class="app-separator">/</span>
+    <a routerLink="/devices">{{ 'desc.devices' | translate }}</a>
+    <span class="app-separator">/</span>
+		<ng-container *ngIf="mode == 'new'">
+			<a [routerLink]="['/devices', device.id]">{{ device.label }}</a>
+			<span class="app-separator">/</span>
+			<span class="app-last">{{ 'desc.newAudioLine' | translate }}</span>
+		</ng-container>
+		<ng-container *ngIf="mode == 'edit' && device">
+			<a [routerLink]="['/devices', device.id]">{{ device.label }}</a>
+			<span class="app-separator">/</span>
+			<span class="app-last">{{ 'desc.editingAudioLine' | translate }} {{ id }}</span>
+		</ng-container>
   </div>
 </div>
 

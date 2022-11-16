@@ -67,13 +67,12 @@ html, body {
   left: calc(50% - 30px);
 }
 
+/* to delete after testing
 .breadcrumb-nav {
   background: $primary-color;
   height: 50px;
   color: #eeeeee;
   padding-left: 20px;
- /*  -webkit-box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
-  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12); */
   .mat-icon {
     margin: 13px;
     opacity: 0.5;
@@ -96,7 +95,7 @@ html, body {
       opacity: 1;
     }
   }
-}
+} */
 
 .app-card {
   -webkit-box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);

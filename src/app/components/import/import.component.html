@@ -1,11 +1,13 @@
-<div class="breadcrumb-nav">
-  <span>Import</span>
+<div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
+    <a routerLink="/"><mat-icon>home</mat-icon> Home</a>
+    <span class="app-separator">/</span>
+    <span class="app-last">{{ 'desc.import' | translate }}</span>
+  </div>
 </div>
 
 <div class="app-import">
-
   <div class="app-actions">
-
     <button mat-raised-button color="primary" (click)="onLoad()" >
       {{ 'import.load' | translate }}
     </button>
@@ -29,7 +31,6 @@
     </mat-form-field>
 
     <mat-checkbox color="primary" class="app-import-index" [(ngModel)]="generateIndex">{{ 'import.generate_index' | translate }}</mat-checkbox>
-
   </div>
 
   <div class="app-table app-items">
@@ -46,6 +47,4 @@
       </div>
     </div>
   </div>
-
-
 </div>
