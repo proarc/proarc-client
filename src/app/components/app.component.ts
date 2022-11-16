@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   public showFooter: boolean = this.config.showFooter;
 
   constructor(private translator: TranslateService,
-    private auth: AuthService,
+    public auth: AuthService,
     private router: Router,
     private config: ConfigService
     ) {

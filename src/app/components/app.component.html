@@ -6,5 +6,5 @@
   <div fxFlex class="app-content-wrapper">
     <router-outlet></router-outlet> 
   </div>
-  <app-footer *ngIf="showFooter"></app-footer>
+  <app-footer *ngIf="showFooter && auth.isLoggedIn()"></app-footer>
 </div>
