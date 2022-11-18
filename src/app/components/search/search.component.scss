@@ -2,6 +2,11 @@
 @import './src/sass/app-mixins';
 @import './src/sass/app-global';
 
+// new
+.app-search-results {
+  @extend .app-p-4;
+}
+
 /* to delete after testing
 .breadcrumb-nav {
   span {
@@ -20,8 +25,11 @@
 } */
 
 .app-search-results {
-  height: calc(100% - 50px);
+  /*  to delete after testing
+  height: calc(100% - $app-breadcrumbsbar-height);
   padding: 10px 20px;
+   */
+   
   .app-search-filteres {
     height: 50px;
     overflow: hidden;
