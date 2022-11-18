@@ -10,10 +10,63 @@
     <button mat-button value="deleted" [class.app-active]="searchMode === 'deleted'" (click)="searchMode = 'deleted'">Hledat ve smazaných</button>
   </div>
 
-  <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'" style="margin-top: 1px;"></mat-progress-bar>
+  <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'"></mat-progress-bar>
 
-  <div *ngIf="state!=='loading'" fxFlex class="app-search-results" fxLayout="column" fxFlexFill>
-    <div *ngIf="searchMode === 'phrase'" class="app-search-filteres">
+  <div *ngIf="state!=='loading'" fxFlex class="app-search-results" fxLayout="column">
+    <div class="app-formbar" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
+      <button mat-flat-button color="primary" (click)="filter()">
+        {{ 'search.search' | translate }}
+      </button>
+      <ng-container *ngIf="searchMode === 'phrase'">
+        <mat-form-field>
+          <mat-select #modelSelect [placeholder]="'search.model' | translate" name="model" [(ngModel)]="model" (keyup.enter)="enterModel(modelSelect)">
+            <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
+            <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+          <input matInput [placeholder]="'search.search' | translate" (keyup.enter)="filter()" [(ngModel)]="query">
+        </mat-form-field>
+      </ng-container>
+      <ng-container *ngIf="searchMode !== 'phrase'">
+        <mat-form-field>
+          <mat-select [placeholder]="'search.model' | translate" name="model" [(ngModel)]="model">
+            <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
+            <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+          <input matInput [placeholder]="'search.fields.title' | translate" (keyup.enter)="filter()" [(ngModel)]="queryLabel">
+        </mat-form-field>
+        <mat-form-field fxFlex>
+          <input matInput [placeholder]="'search.fields.identifier' | translate" (keyup.enter)="filter()" [(ngModel)]="queryIdentifier">
+        </mat-form-field>
+        <mat-form-field fxFlex>
+          <input matInput [placeholder]="'search.fields.creator' | translate" (keyup.enter)="filter()" [(ngModel)]="queryCreator">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select [placeholder]="'search.fields.organization' | translate" name="organization" [(value)]="organization">
+            <mat-option value="-">Vše</mat-option>
+            <mat-option *ngFor="let org of organizations" [value]="org">{{ 'organization.' + org | translate }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select [placeholder]="'search.fields.owner' | translate" name="owner" [(value)]="owner">
+            <mat-option value="-">Vše</mat-option>
+            <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select [placeholder]="'search.fields.processor' | translate" name="processor" [(value)]="processor">
+            <mat-option value="-">Vše</mat-option>
+            <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
+    </div>
+
+    <!-- to delete after testing
+    <div *ngIf="searchMode === 'phrase'" class="app-formbar">
       <a mat-raised-button color="primary" class="app-search" (click)="filter()">
         {{ 'search.search' | translate }}
       </a>
@@ -67,15 +120,7 @@
           <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
         </mat-select>
       </mat-form-field>
-      <!-- <div>
-        <mat-form-field>
-          <mat-select [disabled]="!auth.isSuperAdmin() && !auth.isAdmin()" [placeholder]="'editor.atm.userProcessor' | translate" name="userProcessor" [(value)]="atm.userProcessor">
-              <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
-              <mat-option value="all">Všichni</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div> -->
-    </div>
+    </div> -->
   
     <as-split fxFlex unit="percent" [gutterSize]="10" direction="vertical" (dragEnd)="dragEnd($event)" #split="asSplit">
       <as-split-area #area1="asSplitArea" [minSize]="20" [size]="getSplitSize(0)">

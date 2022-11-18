@@ -1,49 +1,51 @@
-<div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
-    <a routerLink="/"><mat-icon>home</mat-icon> Home</a>
-    <span class="app-separator">/</span>
-    <span class="app-last">{{ 'desc.import' | translate }}</span>
-  </div>
-</div>
-
-<div class="app-import">
-  <div class="app-actions">
-    <button mat-raised-button color="primary" (click)="onLoad()" >
-      {{ 'import.load' | translate }}
-    </button>
-
-    <mat-form-field class="app-import-profiles">
-      <mat-select [placeholder]="'import.profile' | translate" [(ngModel)]="selectedProfile" (selectionChange)="onProfileChanged()">
-        <mat-option *ngFor="let profile of profiles" [value]="profile">{{ profile.label }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field class="app-import-profiles">
-      <mat-select [placeholder]="'history.priority' | translate" [(ngModel)]="selectedPriority">
-        <mat-option *ngFor="let priority of priorities" [value]="priority">{{ 'history.priorities.' + priority  | translate}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field class="app-import-devices">
-      <mat-select [placeholder]="'import.device' | translate" [(ngModel)]="selectedDevice">
-        <mat-option *ngFor="let device of devices" [value]="device">{{ device.label }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-checkbox color="primary" class="app-import-index" [(ngModel)]="generateIndex">{{ 'import.generate_index' | translate }}</mat-checkbox>
+<div fxLayout="column" fxFlexFill>
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
+    <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
+      <a routerLink="/"><mat-icon>home</mat-icon> Home</a>
+      <span class="app-separator">/</span>
+      <span class="app-last">{{ 'desc.import' | translate }}</span>
+    </div>
   </div>
 
-  <div class="app-table app-items">
-    <div class="app-scrollable">
-      <div *ngFor="let f of folders; let idx = index;">
-        <ng-container *ngIf="!f.hidden">
-          <span [style.margin-left]="f.level*15 + 'px'"> </span>
-          <mat-icon (click)="toggleFolder(f, idx+1)" class="app-tree-expand" *ngIf="f.canExpand">{{ f.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
-          <mat-icon  class="app-tree-expand" *ngIf="!f.canExpand">none</mat-icon>
-          <mat-icon [class.app-disabled]="!canSelect(f)" class="app-tree-checkbox" (click)="toggleSelected(f)">{{ f.selected ? "check_box" : "check_box_outline_blank" }}</mat-icon>
-          <mat-icon class="app-tree-checkbox" title="Připravit ke znovunačtení" *ngIf="canReread(f)" (click)="reRead(f)">refresh</mat-icon>
-          {{ f.name }}
-        </ng-container>
+  <div fxFlex class="app-import" fxLayout="column" fxFlexFill>
+    <div class="app-actions">
+      <button mat-raised-button color="primary" (click)="onLoad()" >
+        {{ 'import.load' | translate }}
+      </button>
+  
+      <mat-form-field class="app-import-profiles">
+        <mat-select [placeholder]="'import.profile' | translate" [(ngModel)]="selectedProfile" (selectionChange)="onProfileChanged()">
+          <mat-option *ngFor="let profile of profiles" [value]="profile">{{ profile.label }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field class="app-import-profiles">
+        <mat-select [placeholder]="'history.priority' | translate" [(ngModel)]="selectedPriority">
+          <mat-option *ngFor="let priority of priorities" [value]="priority">{{ 'history.priorities.' + priority  | translate}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field class="app-import-devices">
+        <mat-select [placeholder]="'import.device' | translate" [(ngModel)]="selectedDevice">
+          <mat-option *ngFor="let device of devices" [value]="device">{{ device.label }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-checkbox color="primary" class="app-import-index" [(ngModel)]="generateIndex">{{ 'import.generate_index' | translate }}</mat-checkbox>
+    </div>
+  
+    <div fxFlex class="app-table app-items">
+      <div class="app-scrollable">
+        <div *ngFor="let f of folders; let idx = index;">
+          <ng-container *ngIf="!f.hidden">
+            <span [style.margin-left]="f.level*15 + 'px'"> </span>
+            <mat-icon (click)="toggleFolder(f, idx+1)" class="app-tree-expand" *ngIf="f.canExpand">{{ f.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
+            <mat-icon  class="app-tree-expand" *ngIf="!f.canExpand">none</mat-icon>
+            <mat-icon [class.app-disabled]="!canSelect(f)" class="app-tree-checkbox" (click)="toggleSelected(f)">{{ f.selected ? "check_box" : "check_box_outline_blank" }}</mat-icon>
+            <mat-icon class="app-tree-checkbox" title="Připravit ke znovunačtení" *ngIf="canReread(f)" (click)="reRead(f)">refresh</mat-icon>
+            {{ f.name }}
+          </ng-container>
+        </div>
       </div>
     </div>
   </div>

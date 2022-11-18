@@ -52,6 +52,7 @@ $app-color-disabled: $app-gray-4;
 // elements
 $app-layout-active-color: mat-color($mat-green, 800) !default;
 $app-layout-disabled-color: mat-color($mat-red, 800) !default;
+$app-layout-gap: 16px !default;
 
 $app-body-bg: $app-gray-2;
 $app-body-color: $app-color-darknes;
