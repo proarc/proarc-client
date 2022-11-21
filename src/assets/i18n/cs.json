@@ -1904,7 +1904,8 @@
     "deviceModification": "Úprava zařízení",
     "import": "Import",
     "newAudioLine": "Nová audio linka",
-    "editingAudioLine": "Úprava audio linky"
+    "editingAudioLine": "Úprava audio linky",
+    "repository": "Repozitář"
   },
   "button": {
     "setLayout": "nastavit rozložení",

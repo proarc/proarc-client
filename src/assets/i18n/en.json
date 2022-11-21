@@ -2002,7 +2002,8 @@
     "deviceModification": "Device modification",
     "import": "Import",
     "newAudioLine": "New audio line",
-    "editingAudioLine": "Editing an audio line"
+    "editingAudioLine": "Editing an audio line",
+    "repository": "Repozitory"
   },
   "button": {
     "setLayout": "Set layout",

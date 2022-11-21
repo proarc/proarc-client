@@ -383,6 +383,10 @@ table {
   background-color: $app-breadcrumbsbar-bg;
   color: $app-breadcrumbsbar-color;
 
+  &.app-view-border-bottom {
+    border-bottom: 1px solid $app-toolbar-border-color;
+  }
+
   a {
     color: $app-breadcrumbsbar-color; 
   }
@@ -395,9 +399,15 @@ table {
     }
   }
 
+  .app-label-model {
+    font-size: 13px;
+    opacity: .8;
+  }
+
   .app-breadcrumbs {
     @extend .app-h-100, .app-pr-4;
 
+    &.app-view-border-right,
     app-search & {
       border-right: 1px solid $app-toolbar-border-color;
     }

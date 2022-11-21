@@ -1,4 +1,55 @@
-<div class="app-editor-wrapper" *ngIf="layout.ready">
+
+<div fxLayout="column" fxFlexFill *ngIf="layout.ready" class="app-editor-wrapper">
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar app-view-border-bottom">
+    <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs app-view-border-right">
+      <a routerLink="/"><mat-icon>home</mat-icon> Home</a>
+      <span class="app-separator">/</span>
+      <ng-container *ngFor="let p of layout.path; let last = last">
+        <a (click)="goToObjectByPid(p.pid)" [title]="'model.' + p.model | translate">{{ p.label }}</a>
+        <span class="app-separator" *ngIf="!last">/</span>
+      </ng-container>
+      <span *ngIf="layout.path.length === 0" class="app-last">{{ layout.item.label }}</span>
+    </div>
+    <div fxFlex class="app-pl-4">
+      <div *ngIf="layout.path.length === 0" class="app-label-model">{{ 'model.' + layout.item.model | translate }}</div>
+      <div *ngIf="layout.path.length > 0" class="app-label-model">{{ 'model.' + layout.item.model | translate }} - {{ layout.item.label }}</div>
+    </div>
+    <div>
+      <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToObject(previousItem)" *ngIf="previousItem" mat-icon-button>
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+      <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToObject(parent)" *ngIf="parent" mat-icon-button>
+        <mat-icon>keyboard_arrow_up</mat-icon>
+      </button>
+      <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="goToObject(nextItem)" *ngIf="nextItem" mat-icon-button>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+      <button matTooltip="{{ 'navbar.layout' | translate }}" (click)="showLayoutAdmin()" mat-icon-button>
+        <mat-icon>dashboard</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div fxFlex class="app-oh">
+    <as-split *ngIf="config" direction="horizontal" [disabled]="config.disabled"  (dragEnd)="onDragEnd(-1, $event)">
+      <ng-template ngFor let-column [ngForOf]="config.columns" let-icol="index">
+        <as-split-area *ngIf="column.visible" [order]="icol" [size]="column.size">
+          <as-split direction="vertical" [disabled]="config.disabled" (dragEnd)="onDragEnd(icol, $event)">
+            <ng-template ngFor let-row [ngForOf]="column.rows" let-irow="index">
+              <as-split-area *ngIf="row.visible && !row.isEmpty" [order]="irow" [size]="row.size">
+                <app-editor-generic [editorType]="row.type" [panel]="row"></app-editor-generic>
+              </as-split-area>
+            </ng-template>
+          </as-split>
+        </as-split-area>
+      </ng-template>
+    </as-split>
+  </div>
+</div>
+
+
+
+<!-- <div class="app-editor-wrapper" *ngIf="layout.ready">
   <div class="app-toolbar" style="display: flex;">
     <div class="app-label">
       <div class="app-label-title">
@@ -8,43 +59,40 @@
         </ng-container>
         <ng-container *ngIf="layout.path.length === 0">{{ layout.item.label }}</ng-container>
       </div>
-
       <div *ngIf="layout.path.length === 0" class="app-label-model">{{ 'model.' + layout.item.model | translate }}</div>
-      <div *ngIf="layout.path.length > 0" class="app-label-model">{{ 'model.' + layout.item.model | translate }} - {{
-        layout.item.label }}</div>
+      <div *ngIf="layout.path.length > 0" class="app-label-model">{{ 'model.' + layout.item.model | translate }} - {{ layout.item.label }}</div>
     </div>
-    <div class="app-actions">
-      <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToObject(previousItem)"
-        [class.app-disabled]="!previousItem" mat-icon-button>
+
+    <div class="app-action">
+      <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToObject(previousItem)" [class.app-disabled]="!previousItem" mat-icon-button>
         <mat-icon>keyboard_arrow_left</mat-icon>
       </button>
-      <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToObject(parent)"
-        [class.app-disabled]="!parent" mat-icon-button>
+      <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToObject(parent)" [class.app-disabled]="!parent" mat-icon-button>
         <mat-icon>keyboard_arrow_up</mat-icon>
       </button>
-      <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="goToObject(nextItem)"
-        [class.app-disabled]="!nextItem" mat-icon-button>
+      <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="goToObject(nextItem)" [class.app-disabled]="!nextItem" mat-icon-button>
         <mat-icon>keyboard_arrow_right</mat-icon>
       </button>
     </div>
-    
+
     <button matTooltip="{{ 'navbar.layout' | translate }}" (click)="showLayoutAdmin()" mat-icon-button>
       <mat-icon>dashboard</mat-icon>
     </button>
   </div>
-<div style="height: calc(100% - 49px);">
-  <as-split *ngIf="config" direction="horizontal" [disabled]="config.disabled"  (dragEnd)="onDragEnd(-1, $event)">
-    <ng-template ngFor let-column [ngForOf]="config.columns" let-icol="index">
-      <as-split-area *ngIf="column.visible" [order]="icol" [size]="column.size">
-        <as-split direction="vertical" [disabled]="config.disabled" (dragEnd)="onDragEnd(icol, $event)">
-          <ng-template ngFor let-row [ngForOf]="column.rows" let-irow="index">
-            <as-split-area *ngIf="row.visible && !row.isEmpty" [order]="irow" [size]="row.size">
-              <app-editor-generic [editorType]="row.type" [panel]="row"></app-editor-generic>
-            </as-split-area>
-          </ng-template>
-        </as-split>
-      </as-split-area>
-    </ng-template>
-  </as-split>
-</div>
-</div>
+
+  <div style="height: calc(100% - 49px);">
+    <as-split *ngIf="config" direction="horizontal" [disabled]="config.disabled"  (dragEnd)="onDragEnd(-1, $event)">
+      <ng-template ngFor let-column [ngForOf]="config.columns" let-icol="index">
+        <as-split-area *ngIf="column.visible" [order]="icol" [size]="column.size">
+          <as-split direction="vertical" [disabled]="config.disabled" (dragEnd)="onDragEnd(icol, $event)">
+            <ng-template ngFor let-row [ngForOf]="column.rows" let-irow="index">
+              <as-split-area *ngIf="row.visible && !row.isEmpty" [order]="irow" [size]="row.size">
+                <app-editor-generic [editorType]="row.type" [panel]="row"></app-editor-generic>
+              </as-split-area>
+            </ng-template>
+          </as-split>
+        </as-split-area>
+      </ng-template>
+    </as-split>
+  </div>
+</div> -->
