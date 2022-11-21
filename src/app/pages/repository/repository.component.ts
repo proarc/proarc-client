@@ -69,7 +69,11 @@ export class RepositoryComponent implements OnInit {
   }
 
   showLayoutAdmin() {
-    const dialogRef = this.dialog.open(LayoutAdminComponent, { data: { layout: 'repo' } });
+    const dialogRef = this.dialog.open(LayoutAdminComponent, { 
+      data: { layout: 'repo' },
+      width: '1280px',
+      panelClass: 'app-dialog-layout-settings'
+    });
     dialogRef.afterClosed().subscribe((ret: any) => {
 
       this.initConfig();
