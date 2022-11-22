@@ -10,7 +10,7 @@
     <button mat-button value="deleted" [class.app-active]="searchMode === 'deleted'" (click)="searchMode = 'deleted'">Hledat ve smazaných</button>
   </div>
 
-  <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'"></mat-progress-bar>
+  <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'" style="margin-top: 1px;"></mat-progress-bar>
 
   <div *ngIf="state!=='loading'" fxFlex class="app-search-results" fxLayout="column">
     <div class="app-formbar" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
@@ -50,13 +50,13 @@
             <mat-option *ngFor="let org of organizations" [value]="org">{{ 'organization.' + org | translate }}</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="app-owner">
           <mat-select [placeholder]="'search.fields.owner' | translate" name="owner" [(value)]="owner">
             <mat-option value="-">Vše</mat-option>
             <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="app-processor">
           <mat-select [placeholder]="'search.fields.processor' | translate" name="processor" [(value)]="processor">
             <mat-option value="-">Vše</mat-option>
             <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>

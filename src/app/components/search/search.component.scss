@@ -5,6 +5,15 @@
 // new
 .app-search-results {
   @extend .app-p-4;
+
+  .app-formbar {
+    .mat-form-field {
+      &.app-owner,
+      &.app-processor {
+        width: 120px;
+      }
+    }
+  }
 }
 
 /* to delete after testing

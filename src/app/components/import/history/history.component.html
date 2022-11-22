@@ -78,7 +78,7 @@
           <mat-option *ngFor="let user of users" [value]="user.userId+''">{{ user.name }}</mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field class="app-resized">
         <mat-select [placeholder]="'history.priority' | translate" name="priority" [(value)]="priority" (keyup.enter)="filter()">
           <mat-option value="">Vše</mat-option>
           <mat-option *ngFor="let priority of priorities" [value]="priority">{{ 'history.priorities.' + priority | translate }}</mat-option>

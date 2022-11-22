@@ -9,7 +9,7 @@
   .app-formbar {
     .mat-form-field {
       &.app-resized {
-        $app-size: 150px;
+        $app-size: 120px;
         flex: 1 1 $app-size;
         max-width: $app-size;
         min-width: $app-size;
