@@ -10,7 +10,10 @@
     .mat-form-field {
       &.app-owner,
       &.app-processor {
-        width: 120px;
+        $app-size: 120px;
+        flex: 1 1 $app-size;
+        max-width: $app-size;
+        min-width: $app-size;
       }
     }
   }
