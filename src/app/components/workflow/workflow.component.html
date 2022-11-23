@@ -4,7 +4,7 @@
       <as-split direction="vertical">
         <as-split-area>
           <!-- List of workflow items -->
-          <div class="app-toolbar" >
+          <div class="app-toolbar-old" >
             <button (click)="getWorkflow()" mat-button>{{'common.refresh' | translate }}</button>
             <button (click)="createWorkflow()" mat-button>{{'workflow.create_new' | translate }}</button>
           </div>
@@ -39,7 +39,7 @@
       <as-split direction="vertical">
         <as-split-area [size]="30">
           <!-- Detail of selected item -->
-          <div class="app-toolbar" >
+          <div class="app-toolbar-old" >
             <button (click)="getDetail()" mat-button>{{'common.refresh' | translate }}</button>
             <button (click)="saveDetail()" mat-button>{{'common.save' | translate }}</button>
           </div>
@@ -110,7 +110,7 @@
         </as-split-area>
         <as-split-area [size]="40">
           <!-- Tasks list -->
-          <div class="app-toolbar" >
+          <div class="app-toolbar-old" >
             <span class="app-title">{{ 'workflow.task' | translate}}</span>
           </div>
           <div *ngIf="selectedProfile">
