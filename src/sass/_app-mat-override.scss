@@ -1,10 +1,20 @@
 // --- MATERIAL OVERRIDE ---
 
-.mat-flat-button {
-  height: $app-button-height !important;
-  line-height: $app-button-height !important;
+.mat-button-base {
+  &.mat-button-disabled {
+    color: inherit !important;
+    opacity: .4;
+  }
+
+  &.mat-flat-button {
+    height: $app-button-height !important;
+    line-height: $app-button-height !important;
+  }
 }
 
+
 .mat-progress-bar {
-  margin-top: 1px;
+  &.app-progress-bar {
+    margin-top: 1px;
+  }
 }

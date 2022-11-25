@@ -1,4 +1,36 @@
+<div fxLayout="column" fxFlexFill>
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
+    <div fxFlex>
+			<div class="app-toolbar-label">
+				<span class="app-text">OCR</span>
+			</div>
+		</div>
+		<div>
+      <button mat-icon-button [disabled]="editting" (click)="onEdit()" [matTooltip]="'common.edit' | translate">
+				<mat-icon>edit</mat-icon>
+			</button>
+			<button mat-icon-button [disabled]="!editting" (click)="onClear()" [matTooltip]="'common.cancel' | translate">
+				<mat-icon>clear</mat-icon>
+			</button>
+			<button mat-icon-button [disabled]="!anyChange" (click)="onSave()" [matTooltip]="'common.save' | translate">
+				<mat-icon>save</mat-icon>
+			</button>
+		</div>
+  </div>
+	<div fxFlex>
+		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
+		<div class="app-editor-content" *ngIf="state !== 'loading'">
+			<textarea *ngIf="editting" [(ngModel)]="ocr.content" (input)="onChange()"></textarea>
+			<div *ngIf="!editting" class="app-text-content">{{ ocr.original }}</div>
+		</div>
+	</div>
+</div>
 
+
+
+
+
+<!-- to delete after testing
 <div class="app-editor-content-wrapper">
 
     <div class="app-editor-toolbar">
@@ -36,7 +68,7 @@
     </mat-spinner>
 
 
-</div>
+</div> -->
 
 
 

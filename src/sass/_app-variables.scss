@@ -60,13 +60,26 @@ $app-border-radius: 4px !default;
 $app-card-border-color: $app-gray-3;
 $app-card-bg-hover: $app-gray-1;
 $app-card-bg-expanded: $app-card-bg-hover;
-$app-toolbar-height: 64px !default;
-$app-toolbar-border-color: #385585 !default;
+$app-navbar-height: 64px !default;
+$app-navbar-border-color: #385585 !default;
 
+// new
 $app-breadcrumbsbar-height: 40px !default;
 $app-breadcrumbsbar-bg: $primary-color !default;
 $app-breadcrumbsbar-color: $app-color-lightnes !default;
 
+$app-toolbar-height: 40px !default;
+$app-toolbar-border-color: #385585 !default;
+$app-toolbar-bg: $primary-color !default;
+$app-toolbar-button-bg-active: $app-toolbar-border-color !default;
+$app-toolbar-color: $app-color-lightnes !default;
+
+$app-toolbar-action-height: 50px !default;
+$app-toolbar-action-bg: $app-gray-8 !default;
+$app-toolbar-action-color: $app-gray-2 !default;
+$app-toolbar-action-border-color:  $app-color-darknes !default;
+
+// end
 
 $app-container: 1280px !default;
 $app-button-height: 32px !default;

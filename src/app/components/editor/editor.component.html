@@ -9,7 +9,7 @@
     <as-split-area #area1="asSplitArea" [minSize]="1" [size]="getSplitSize(0)">
 
       <div class="app-panel">
-        <div class="app-toolbar" *ngIf="!editor.preparation">
+        <div class="app-toolbar-old" *ngIf="!editor.preparation">
           <div class="app-label">
             <div class="app-label-title">
               <ng-container *ngFor="let p of editor.path; let last = last">
@@ -84,7 +84,7 @@
           </div>
         </div>
 
-        <div class="app-toolbar" *ngIf="editor.preparation">
+        <div class="app-toolbar-old" *ngIf="editor.preparation">
           <div class="app-label">
             <div class="app-label-title">Import</div>
             <div class="app-label-model">{{editor.formatPagesCount() }}</div>
@@ -124,7 +124,7 @@
     <as-split-area #area2="asSplitArea" [minSize]="20" [size]="getSplitSize(1)">
 
       <div class="app-panel" [class.app-disabled]="editor.isLeftDirty">
-        <div class="app-toolbar" *ngIf="editor.selectedItem && editor.numberOfSelectedChildren() < 2">
+        <div class="app-toolbar-old" *ngIf="editor.selectedItem && editor.numberOfSelectedChildren() < 2">
           <div class="app-label">
             <div class="app-label-title">{{ editor.selectedItem.label }}</div>
             <div class="app-label-model">{{ 'model.' + editor.selectedItem.model | translate }}</div>
@@ -182,7 +182,7 @@
 
         </div>
 
-        <div class="app-toolbar" *ngIf="editor.numberOfSelectedChildren() > 1">
+        <div class="app-toolbar-old" *ngIf="editor.numberOfSelectedChildren() > 1">
           <div class="app-label">
             <div class="app-label-title">{{ 'editor.children.multiple_selection_label' | translate }}</div>
             <div class="app-label-model">{{ ('editor.children.multiple_selection_count' + countPlurals() ) | translate: { count:
@@ -238,7 +238,7 @@
 
 
       <div class="app-panel">
-        <div class="app-toolbar">
+        <div class="app-toolbar-old">
           <div class="app-label">
             <div class="app-label-title">{{ editor.selectedItem.label }}</div>
             <div class="app-label-model">{{ 'model.' + editor.selectedItem.model | translate }}</div>

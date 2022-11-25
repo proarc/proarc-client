@@ -1,4 +1,46 @@
-<div class="app-editor-content-wrapper">
+<div fxLayout="column" fxFlexFill>
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
+    <div fxFlex>
+			<div class="app-toolbar-label">
+				<span class="app-text">{{ 'desc.picture' | translate }}</span>
+			</div>
+		</div>
+		<div>
+      <button mat-icon-button [class.app-active]="positionLock" [matTooltip]="'viewer.tooltip.' + (positionLock ? 'unlock' : 'lock') | translate" (click)="onSwitchLock()">
+				<mat-icon>lock</mat-icon>
+			</button>
+			<button mat-icon-button [matTooltip]="'viewer.tooltip.zoomIn' | translate" (click)="zoomIn()">
+				<mat-icon>zoom_in</mat-icon>
+			</button>
+			<button mat-icon-button [matTooltip]="'viewer.tooltip.zoomOut' | translate" (click)="zoomOut()">
+				<mat-icon>zoom_out</mat-icon>
+			</button>    
+			<button mat-icon-button [matTooltip]="'viewer.tooltip.fitToScreen' | translate" (click)="fitToScreen()">
+				<mat-icon>crop_square</mat-icon>
+			</button>   
+			<button mat-icon-button [matTooltip]="'viewer.tooltip.rotateRight' | translate" (click)="rotateRight()">
+				<mat-icon>rotate_right</mat-icon>
+			</button>   
+			<button mat-icon-button *ngIf="fullscreenAvailable && !fullscreenEnabled()" [matTooltip]="'viewer.tooltip.enterFullscreen' | translate" (click)="enterFullscreen()">
+				<mat-icon>fullscreen</mat-icon>
+			</button>   
+			<button mat-icon-button *ngIf="fullscreenAvailable && fullscreenEnabled()" [matTooltip]="'viewer.tooltip.exitFullscreen' | translate" (click)="exitFullscreen()">
+				<mat-icon>fullscreen_exit</mat-icon>
+			</button>      
+		</div>
+  </div>
+	<div fxFlex>
+		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
+		<div class="app-pt-2 app-pb-2 app-h-100">
+			<div id="app-viewer" class="app-viewer-wrapper" (resized)="onResized($event)"></div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- to delete after testing
+	<div class="app-editor-content-wrapper">
 
     <div class="app-editor-toolbar">
         <div class="app-label">Obrázek</div>
@@ -42,5 +84,5 @@
     </mat-spinner>
 
 
-</div>
+</div> -->
 

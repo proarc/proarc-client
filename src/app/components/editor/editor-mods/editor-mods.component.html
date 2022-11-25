@@ -1,5 +1,46 @@
-<div class="app-editor-content-wrapper" *ngIf="visible">
+<div fxLayout="column" fxFlexFill>
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
+    <div fxFlex>
+			<div class="app-toolbar-label">
+				<span class="app-text">MODS XML</span>
+			</div>
+		</div>
+		<div>
+			<ng-container *ngIf="item && metadata">
+				<button mat-icon-button [class.app-active]="realtime" (click)="setRealtime(true)" [matTooltip]="'editor.mods.realtime_on' | translate">
+						<mat-icon>timer</mat-icon>
+				</button>
+				<button  mat-icon-button [class.app-active]="!realtime" (click)="setRealtime(false)" [matTooltip]="'editor.mods.realtime_off' | translate">
+						<mat-icon>timer_off</mat-icon>
+				</button>
+			</ng-container>
+			<button mat-icon-button (click)="onRefresh()" [matTooltip]="'editor.mods.refresh' | translate" [disabled]="editting || realtime" (click)="onRefresh()">
+					<mat-icon>refresh</mat-icon>
+			</button>
+			<button mat-icon-button (click)="onEdit()" [matTooltip]="'common.edit' | translate" [disabled]="editting || realtime" (click)="onEdit()">
+				<mat-icon>edit</mat-icon>
+			</button>
+			<button mat-icon-button (click)="onClear()" [matTooltip]="'common.cancel' | translate" [disabled]="!editting || realtime">
+				<mat-icon>clear</mat-icon>
+			</button>
+			<button mat-icon-button matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" [disabled]="!anyChange || realtime">
+				<mat-icon>save</mat-icon>
+			</button>
+		</div>
+  </div>
+	<div fxFlex>
+		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
+		<div class="app-editor-content" *ngIf="state !=='loading'">
+			<pre *ngIf="editting && !realtime" class="app-xml-content app-mods-editing" #editingPre><code class="app-mods-editing" (input)="checkChanged()" contenteditable="true" [highlight]="mods.original"></code></pre> 
+			<pre *ngIf="!editting && !realtime" class="app-xml-content" #originalPre><code [highlight]="mods.original"></code></pre> 
+			<pre *ngIf="!editting && realtime" class="app-xml-content"><code [highlight]="metadata.toMods()"></code></pre> 
+		</div>
+	</div>
+</div>
 
+
+<!-- to delete after testing
+	<div class="app-editor-content-wrapper" *ngIf="visible">
   <div class="app-editor-toolbar">
       <div class="app-label">MODS XML</div>
       <div class="app-actions-right">
@@ -36,7 +77,6 @@
   
   </div>  
   <div class="app-editor-content" *ngIf="state === 'success'">
-    <!-- <textarea *ngIf="editting" [(ngModel)]="mods.content" (input)="onChange($event)"></textarea> -->
         <pre *ngIf="editting && !realtime" class="app-xml-content app-mods-editing" #editingPre><code class="app-mods-editing" (input)="checkChanged()" contenteditable="true" [highlight]="mods.original"></code></pre> 
         <pre *ngIf="!editting && !realtime" class="app-xml-content" #originalPre><code [highlight]="mods.original"></code></pre> 
         <pre *ngIf="!editting && realtime" class="app-xml-content"><code [highlight]="metadata.toMods()"></code></pre> 
@@ -49,4 +89,4 @@
   </mat-spinner>
 
 
-</div>
+</div> -->

@@ -2003,7 +2003,9 @@
     "import": "Import",
     "newAudioLine": "New audio line",
     "editingAudioLine": "Editing an audio line",
-    "repository": "Repozitory"
+    "repository": "Repozitory",
+    "comment": "Comment",
+    "picture": "Picture"
   },
   "button": {
     "setLayout": "Set layout",

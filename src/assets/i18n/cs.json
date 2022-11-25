@@ -1905,7 +1905,9 @@
     "import": "Import",
     "newAudioLine": "Nová audio linka",
     "editingAudioLine": "Úprava audio linky",
-    "repository": "Repozitář"
+    "repository": "Repozitář",
+    "comment": "Komentář",
+    "picture": "Obrázek"
   },
   "button": {
     "setLayout": "nastavit rozložení",

@@ -10,7 +10,7 @@
     <button mat-button value="deleted" [class.app-active]="searchMode === 'deleted'" (click)="searchMode = 'deleted'">Hledat ve smazaných</button>
   </div>
 
-  <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'" style="margin-top: 1px;"></mat-progress-bar>
+  <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'" class="app-progress-bar"></mat-progress-bar>
 
   <div *ngIf="state!=='loading'" fxFlex class="app-search-results" fxLayout="column">
     <div class="app-formbar" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">

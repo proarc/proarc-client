@@ -1,5 +1,33 @@
-<div class="app-editor-content-wrapper">
+<div fxLayout="column" fxFlexFill>
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
+    <div fxFlex>
+			<div class="app-toolbar-label">
+				<span class="app-text">PDF</span>
+			</div>
+		</div>
+		<div>
+      <button mat-icon-button *ngIf="state == 'ok' || state == 'empty'" (click)="onAdd()" matTooltip="Načíst nový digitální obsah">
+				<mat-icon>add</mat-icon>
+			</button>
+			<button mat-icon-button *ngIf="state == 'ok'" (click)="onRemove()" matTooltip="Odstranit digitální obsah">
+				<mat-icon>delete</mat-icon>
+			</button>
+			<input style="display: none;" #pdfInput id="pdf_file_upload" name="pdf_file_upload" type="file" (change)="uploadPdf($event)" accept=".pdf,.PDF" />
+		</div>
+  </div>
+	<div fxFlex>
+		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
+		<div class="app-editor-content">
+			<div class="app-pdf-wrapper">
+				<iframe *ngIf="state == 'ok'" [src]="pdfUrl | appSafe" width="100%" height="100%" frameborder="0"></iframe>
+				<div *ngIf="state == 'empty'" class="app-empty">Žádný digitální obsah</div>
+			</div>
+		</div>
+	</div>
+</div>
 
+<!-- to delete after testing
+	<div class="app-editor-content-wrapper">
     <div class="app-editor-toolbar">
         <div class="app-label">PDF</div>
         <div class="app-actions-right">
@@ -35,4 +63,4 @@
 
 
 </div>
-
+ -->

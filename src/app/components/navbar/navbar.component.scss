@@ -3,8 +3,8 @@
 @import './src/sass/app-global';
 
 .mat-toolbar {
-  height: $app-toolbar-height;
-  border-bottom: 1px solid $app-toolbar-border-color;
+  height: $app-navbar-height;
+  border-bottom: 1px solid $app-navbar-border-color;
 
   .app-left {
     .app-logo {
