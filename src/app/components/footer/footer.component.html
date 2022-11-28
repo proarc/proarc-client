@@ -2,7 +2,9 @@
   <div fxFlex class="app-left">
     ProArc © {{ currentYear }}<span class="app-pipe"></span>
     <strong>{{ 'desc.client' | translate }}:</strong>&#160;<span class="app-text-lowercase">{{ 'desc.version' | translate }}</span>&#160;1.1.2. (1.7.2022)<span class="app-pipe"></span>
-    <strong>{{ 'desc.core' | translate }}:</strong>&#160;<span class="app-text-lowercase">{{ 'desc.version' | translate }}</span>&#160;{{ backendInfo.version }}&#160;-&#160;<span class="app-text-lowercase">{{ 'desc.build' | translate }}</span> {{ backendInfo.timestamp }}
+    <ng-container *ngIf="backendInfo">
+      <strong>{{ 'desc.core' | translate }}:</strong>&#160;<span class="app-text-lowercase">{{ 'desc.version' | translate }}</span>&#160;{{ backendInfo.version }}&#160;-&#160;<span class="app-text-lowercase">{{ 'desc.build' | translate }}</span> {{ backendInfo.timestamp }}
+    </ng-container>
   </div>
   <div class="app-right">
     Developed by <a href="https://www.inovatika.cz" title="Inovatika" target="_blank"><img src="assets/img/logo-inovatika.png" alt="Inovatika" /></a>

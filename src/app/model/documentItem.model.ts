@@ -100,6 +100,7 @@ export class DocumentItem {
         l += " "
       }
       l += "(" + page.pageIndex + ')';
+      page.label = l;
       page.shortLabel = l;
       array.push(page);
     }

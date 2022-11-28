@@ -63,6 +63,7 @@ export class EditorStructureComponent implements OnInit {
 
   public selectedColumns = [
     { field: 'label', selected: true },
+    { field: 'pageType', selected: true },
     { field: 'model', selected: true },
     { field: 'pid', selected: false },
     { field: 'owner', selected: false },
@@ -198,12 +199,13 @@ export class EditorStructureComponent implements OnInit {
     this.properties.setStringProperty('selectedColumns', JSON.stringify(this.selectedColumns));
     this.initSelectedColumns();
     this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field);
+    
     this.dataSource = new MatTableDataSource(this.items);
     this.table.renderRows();
   }
 
   setColumns() {
-    this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field)
+    this.displayedColumns = this.selectedColumns.filter(c => c.selected && !(this.isRepo && c.field === 'pageType')).map(c => c.field);
   }
 
   selectAll() {

@@ -4,9 +4,10 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class LocalStorageService {
 
-    availableSearchColumns = ['name', 'model', 'pid', 'owner', 'processor', 'organization', 'status', 'created', 'modified', 'export', 'isLocked'];
+    availableSearchColumns = ['name', 'pageType', 'model', 'pid', 'owner', 'processor', 'organization', 'status', 'created', 'modified', 'export', 'isLocked'];
     private searchColumnsDefaults: any = {
         'name': true,
+        'pageType': true,
         'model': true,
         'pid': true,
         'processor': false,
@@ -24,6 +25,10 @@ export class LocalStorageService {
 
     isSearchColEnabled(col: string): boolean {
         return  this.getBoolProperty('search.cols.' + col, !!this.searchColumnsDefaults[col]);
+    }
+
+    getSearchColumns(): string|null {
+        return localStorage.getItem('selectedColumns') || this.searchColumnsDefaults;
     }
 
     getStringProperty(property: string, defaultValue: string|null = null): string|null {

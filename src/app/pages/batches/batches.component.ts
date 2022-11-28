@@ -116,7 +116,7 @@ export class BatchesComponent implements OnInit {
           this.ui.showErrorSnackBarFromObject(response['response'].errors);
           return;
         }
-        const pages: DocumentItem[] = DocumentItem.fromJsonArray(response['response']['data']);
+        const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
         this.layout.item = obj;
         this.layout.items = pages;
         if (keepSelection) {

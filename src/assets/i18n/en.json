@@ -115,6 +115,7 @@
     "title": "Search",
     "name": "Name",
     "label": "Name",
+    "pageType": "Page type",
     "pid": "PID",
     "model": "Model",
     "owner": "Owner",
