@@ -377,6 +377,10 @@ table {
 
 
 // new features
+as-split {
+  background-color: $app-split-panel-bg;
+}
+
 .app-breadcrumbsbar {
   @extend .app-pl-4, .app-pr-4;
   height: $app-breadcrumbsbar-height;
