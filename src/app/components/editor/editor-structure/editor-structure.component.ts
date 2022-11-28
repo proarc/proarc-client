@@ -90,6 +90,9 @@ export class EditorStructureComponent implements OnInit {
     this.setColumns();
     this.shortLabels = this.properties.getBoolProperty('children.short_labels', false);
     this.pageChildren = this.items.findIndex(it => it.isPage()) > -1;
+    if (!this.isRepo) {
+      this.lastClickIdx = 0;
+    }
     // if (this.pageChildren) {
     //   this.viewMode = this.properties.getStringProperty('children.page_view_mode', 'icons');
     // } else {

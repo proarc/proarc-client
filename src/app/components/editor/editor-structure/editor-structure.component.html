@@ -98,7 +98,7 @@
         </ng-container>
 
         <ng-container matColumnDef="label">
-          <th mat-header-cell *matHeaderCellDef> {{'search.name' | translate}} </th>
+          <th mat-header-cell *matHeaderCellDef> {{'search.name' | translate}} : {{shortLabels}}</th>
           <td mat-cell *matCellDef="let element"> {{shortLabels ? element.shortLabel : element.label}} </td>
         </ng-container>
 

@@ -44,8 +44,8 @@ export class BatchesComponent implements OnInit {
     this.initConfig();
     this.layout.type = 'import';
 
-    this.layout.shouldRefresh().subscribe(() => {
-      this.loadData(this.batchId);
+    this.layout.shouldRefresh().subscribe((keepSelection: boolean) => {
+      this.loadData(this.batchId, keepSelection);
     });
 
     this.layout.selectionChanged().subscribe(() => {
@@ -59,7 +59,7 @@ export class BatchesComponent implements OnInit {
         const q = results[1];
         this.batchId = p.get('batch_id');
         if (this.batchId) {
-          this.loadData(this.batchId);
+          this.loadData(this.batchId, false);
         }
       });
   }
@@ -82,7 +82,7 @@ export class BatchesComponent implements OnInit {
     dialogRef.afterClosed().subscribe((ret: any) => {
 
       this.initConfig();
-      this.loadData(this.batchId);
+      this.loadData(this.batchId, true);
     });
   }
 
@@ -95,7 +95,15 @@ export class BatchesComponent implements OnInit {
   }
 
 
-  loadData(id: string) {
+  loadData(id: string, keepSelection: boolean) {
+    const selection: string[] = [];
+    if (keepSelection) {
+      this.layout.items.forEach(item => {
+        if (item.selected) {
+          selection.push(item.pid);
+        }
+      })
+    }
     this.layout.ready = false;
 
     const obj = new DocumentItem();
@@ -108,10 +116,19 @@ export class BatchesComponent implements OnInit {
           this.ui.showErrorSnackBarFromObject(response['response'].errors);
           return;
         }
-        const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
+        const pages: DocumentItem[] = DocumentItem.fromJsonArray(response['response']['data']);
         this.layout.item = obj;
         this.layout.items = pages;
-        this.layout.items[0].selected = true;
+        if (keepSelection) {
+          this.layout.items.forEach(item => {
+            if (selection.includes(item.pid)) {
+              item.selected = true;
+            }
+          })
+        } else {
+          this.layout.items[0].selected = true;
+        }
+        
         this.layout.ready = true;
         this.layout.lastSelectedItem = this.layout.items[0];
 
@@ -128,6 +145,7 @@ export class BatchesComponent implements OnInit {
         // }
         // this.setupNavigation();
         this.setVisibility();
+        
       });
     });
 
