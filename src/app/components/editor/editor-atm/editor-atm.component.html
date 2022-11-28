@@ -16,7 +16,7 @@
   </div>
 	<div fxFlex>
 		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
-		<div class="app-editor-content app-atm-editor-content" *ngIf="state !== 'loading'">
+		<div class="app-editor-content app-atm-editor-content" *ngIf="state !== 'loading' && atm">
       <div class="app-detail-key-value">{{ 'editor.atm.pid' | translate }}: <strong>{{ atm.pid }}</strong></div>
       <div class="app-detail-key-value">{{ 'editor.atm.model' | translate }}: <strong>{{ "model." + atm.model | translate }}</strong></div>
       <div class="app-detail-key-value">{{ 'editor.atm.owner' | translate }}: <strong>{{ atm.owner }}</strong></div>
