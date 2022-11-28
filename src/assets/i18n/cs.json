@@ -1908,11 +1908,14 @@
     "editingAudioLine": "Úprava audio linky",
     "repository": "Repozitář",
     "comment": "Komentář",
-    "picture": "Obrázek"
+    "picture": "Obrázek",
+    "editing": "Editace",
+    "batchManagement": "Správa dávek"
   },
   "button": {
     "setLayout": "nastavit rozložení",
-    "close": "Zavřít"
+    "close": "Zavřít",
+    "continue": "Pokračovat"
   },
   "dynamic": {
     "repo": "Úložiště",
