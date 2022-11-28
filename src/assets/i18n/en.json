@@ -2005,11 +2005,14 @@
     "editingAudioLine": "Editing an audio line",
     "repository": "Repozitory",
     "comment": "Comment",
-    "picture": "Picture"
+    "picture": "Picture",
+    "editing": "Editing",
+    "batchManagement": "Batch management"
   },
   "button": {
     "setLayout": "Set layout",
-    "close": "Close"
+    "close": "Close",
+    "continue": "Continue"
   },
   "dynamic": {
     "repo": "Storage",
