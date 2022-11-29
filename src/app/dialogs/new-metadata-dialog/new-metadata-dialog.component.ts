@@ -26,7 +26,7 @@ export class NewMetadataDialogComponent implements OnInit {
 
   constructor(
     private router: Router,
-    public dialogRef: MatDialogRef<NewObjectDialogComponent>,
+    public dialogRef: MatDialogRef<NewMetadataDialogComponent>,
     private ui: UIService,
     private api: ApiService,
     private dialog: MatDialog,
@@ -156,6 +156,8 @@ export class NewMetadataDialogComponent implements OnInit {
         this.metadata.resetChanges();
         if (gotoEdit) {
           this.dialogRef.close(response['response']['data'][0]);
+          //this.ui.setSelection(pid);
+          //this.dialogRef.close();
         } else {
           this.ui.shoulRefresh();
           this.dialogRef.close();

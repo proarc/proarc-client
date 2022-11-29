@@ -52,9 +52,17 @@ export class LayoutService {
     }
   }
 
-  setSelection(fromStructure: boolean) {
+  clearSelection() {
+    this.items.forEach(i => i.selected = false);
+  }
+
+  setSelection(fromStructure: boolean, fromTree: boolean = false) {
     // this.movingToNext = false;
     // this.movedToNextFrom = null;
+    if (fromTree) {
+      this.selectionSubject.next(fromStructure);
+      return;
+    }
     const num = this.getNumOfSelected();
     if (num > 1) {
       this.selectedItem = null;

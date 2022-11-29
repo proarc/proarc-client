@@ -12,6 +12,9 @@ export class UIService {
   private refreshSubject = new Subject<boolean>();
   public refresh : Observable<boolean> = this.refreshSubject.asObservable();
 
+  private selectionSubject = new Subject<string>();
+  public selection : Observable<string> = this.selectionSubject.asObservable();
+
   dialogRef: MatDialogRef<AlertDialogComponent>;
   constructor(
     private dialog: MatDialog,
@@ -22,6 +25,10 @@ export class UIService {
 
   public shoulRefresh() {
     this.refreshSubject.next(true);
+  }
+
+  public setSelection(pid: string) {
+    this.selectionSubject.next(pid);
   }
 
   public showErrorDialog(data: { type: string; title: string; message: any[] | string[]; }) {

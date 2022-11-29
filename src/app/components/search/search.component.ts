@@ -213,7 +213,7 @@ export class SearchComponent implements OnInit {
     this.selectedItem = item;
     this.tree = new Tree(item);
     this.search.selectedTree = this.tree;
-    this.tree.expand(this.api);
+    this.tree.expand(this.api, false);
   }
 
   findItem(pid: string) {

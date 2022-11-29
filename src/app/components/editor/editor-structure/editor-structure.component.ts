@@ -431,6 +431,12 @@ export class EditorStructureComponent implements OnInit {
         } else {
           const dialogRef = this.dialog.open(NewMetadataDialogComponent, { disableClose: true, data: result.data });
           dialogRef.afterClosed().subscribe(res => {
+            console.log(res);
+            if (res) {
+              res.selected =true;
+              this.items.push(res);
+            }
+            
             this.layout.setShouldRefresh(true);
           });
         }

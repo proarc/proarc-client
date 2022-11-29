@@ -18,7 +18,7 @@ export class Tree {
         this.level = level;
     }
 
-    expand(api: ApiService, all: boolean = false) {
+    expand(api: ApiService, all: boolean, callback: any = undefined) {
         if (!this.expandable()) {
             return;
         }
@@ -43,6 +43,9 @@ export class Tree {
             this.loading = false;
             if (all) {
                 this.expandChildren(api);
+            }
+            if(callback) {
+                callback();
             }
         });
     }

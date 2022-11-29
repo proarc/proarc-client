@@ -34,14 +34,6 @@ export class EditorGenericComponent implements OnInit {
       
   }
 
-  openFromTree(item: DocumentItem) {
-    // this.router.navigate(['/repository', item.pid]);
-  }
-  
-  selectFromTree(tree: Tree) {
-    // this.search.selectedTree = tree;
-  }
-
 
   countPlurals(): string {
     let count = this.layout.getNumOfSelected();

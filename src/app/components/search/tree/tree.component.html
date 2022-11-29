@@ -1,6 +1,7 @@
       
-      <ng-container *ngIf="tree">
-      <div (click)="select()" (dblclick)="open()" class="app-row" [class.app-selected]="tree.item.pid == search.selectedTreePid">
+      <ng-container *ngIf="tree?.item">
+      <div (click)="select()" (dblclick)="open()" class="app-row" [class.app-selected]="tree.item.pid == search.selectedTreePid"
+        [class.app-active]="tree.item.selected && !tree.expandable()">
         <div class="result-label">
           <div class="app-tree-left" [style.width]="(tree.level * 20 + 40) + 'px'">
             <mat-spinner *ngIf="tree.loading" [strokeWidth]="3" [diameter]="20">
@@ -11,7 +12,7 @@
           <div>{{ tree.item.label }}</div>
         </div>
         <div class="result-model" *ngIf="properties.isSearchColEnabled('model')">{{ "model." + tree.item.model | translate }}</div>
-        <div class="result-pid" *ngIf="properties.isSearchColEnabled('pid')">{{ tree.item.pid }}</div>
+        <div class="result-pid" *ngIf="properties.isSearchColEnabled('pid') && !inPanel">{{ tree.item.pid }}</div>
         <div class="result-processor" *ngIf="properties.isSearchColEnabled('processor')">{{ tree.item.processor }}</div>
         <div class="result-organization" *ngIf="properties.isSearchColEnabled('organization')">{{ 'organization.' + tree.item.organization | translate }}</div>
         <div class="result-status" *ngIf="properties.isSearchColEnabled('status')">{{ 'editor.atm.statuses.' + tree.item.status | translate }}</div>
@@ -22,7 +23,7 @@
         <div class="result-export" *ngIf="properties.isSearchColEnabled('isLocked')">{{ (tree.item.isLocked ? 'common.yes' : 'common.no') | translate }}</div>
       </div>
       <ng-container *ngIf="tree.expanded && tree.children">
-        <app-tree *ngFor="let child of tree.children" [tree]="child" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)" [expandedPath]="expandedPath"></app-tree>
+        <app-tree *ngFor="let child of tree.children" [tree]="child" [inPanel]="inPanel" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)" [expandedPath]="expandedPath"></app-tree>
       </ng-container>
 
 

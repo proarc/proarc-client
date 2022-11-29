@@ -14,31 +14,37 @@ import { SearchService } from 'src/app/services/search.service';
 export class TreeComponent implements OnInit {
 
   @Input('tree') tree: Tree;
+  @Input('inPanel') inPanel: boolean;
   @Input('expanded') expanded: boolean;
   @Input('expandedPath') expandedPath: string[];
   @Output() onSelect = new EventEmitter<Tree>();
   @Output() onOpen = new EventEmitter<DocumentItem>();
 
-  constructor(public properties: LocalStorageService, 
+  constructor(public properties: LocalStorageService,
     private router: Router,
-    private api: ApiService, 
-    public search: SearchService) { 
+    private api: ApiService,
+    public search: SearchService) {
   }
 
   ngOnInit() {
     if (this.tree && this.expanded) {
-      this.tree.expand(this.api);
+      this.tree.expand(this.api, false);
     }
   }
 
   ngOnChanges(c: any) {
-    if (this.tree && this.expandedPath && this.expandedPath.includes(this.tree.item.pid)) {
-      this.tree.expand(this.api);
+    if (this.tree && this.tree.item && this.expandedPath && this.expandedPath.includes(this.tree.item.pid)) {
+      this.tree.expand(this.api, false);
     }
   }
 
   select() {
-    this.search.selectedTreePid = this.tree.item.pid;
+    if (this.tree.expandable()) {
+      this.search.selectedTreePid = this.tree.item.pid;
+      this.tree.expand(this.api, false, () => {
+        this.selectFromTree(this.tree);
+      });
+    }
     this.selectFromTree(this.tree);
   }
 
@@ -46,7 +52,7 @@ export class TreeComponent implements OnInit {
     event.stopPropagation();
     event.preventDefault();
     if (!this.tree.expanded) {
-      this.tree.expand(this.api);
+      this.tree.expand(this.api, false);
     } else {
       this.tree.expanded = false;
     }

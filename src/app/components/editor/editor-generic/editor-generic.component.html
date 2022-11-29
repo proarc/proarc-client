@@ -38,7 +38,7 @@
    <!--  content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />
     --- !!!LAST!!! ---<br /> -->
     <div class="app-table app-tree"  *ngSwitchCase="'tree'">
-      <app-tree [tree]="layout.tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)" [expanded]="false" [expandedPath]="layout.expandedPath"></app-tree>
+      <app-editor-tree [item]="layout.item"></app-editor-tree>
     </div>
     <app-editor-structure *ngSwitchCase="'structure-list'" [viewMode]="'list'" [items]="layout.items"></app-editor-structure>
     <app-editor-structure *ngSwitchCase="'structure-grid'" [viewMode]="'grid'" [items]="layout.items"></app-editor-structure>
