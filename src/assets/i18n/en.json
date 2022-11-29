@@ -2018,13 +2018,15 @@
   "dynamic": {
     "repo": "Storage",
     "import": "Import",
+    "tree": "Tree",
     "structure-list": "Table",
     "structure-grid": "Grid",
     "structure-icons": "Previews",
     "metadata": "Descriptive Metadata",
     "mods": "Mods XML",
     "atm": "Administrative and technical metadata",
-    "ocr": "Scan",
+    "ocr": "OCR",
+    "pdf": "Pdf",
     "comment": "Comment",
     "image": "Image"
   },

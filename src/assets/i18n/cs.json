@@ -1920,13 +1920,15 @@
   "dynamic": {
     "repo": "Úložiště",
     "import": "Import",
+    "tree": "Strom",
     "structure-list": "Tabulka",
     "structure-grid": "Mřížka",
     "structure-icons": "Náhledy",
     "metadata": "Popisná metadata",
     "mods": "Mods XML",
     "atm": "Administrativní a technická metadata",
-    "ocr": "Scan",
+    "ocr": "OCR",
+    "pdf": "Pdf",
     "comment": "Komentář",
     "image": "Obrázek"
   },
