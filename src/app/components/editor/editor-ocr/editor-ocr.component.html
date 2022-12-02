@@ -17,7 +17,7 @@
 			</button>
 		</div>
   </div>
-	<div fxFlex>
+	<div fxFlex class="app-oa-y">
 		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
 		<div class="app-editor-content" *ngIf="state !== 'loading'">
 			<textarea *ngIf="editting" [(ngModel)]="ocr.content" (input)="onChange()"></textarea>
@@ -25,52 +25,3 @@
 		</div>
 	</div>
 </div>
-
-
-
-
-
-<!-- to delete after testing
-<div class="app-editor-content-wrapper">
-
-    <div class="app-editor-toolbar">
-        <div class="app-label">OCR</div>
-        <div class="app-actions-right">
-            <button class="app-action" [class.app-disabled]="editting" (click)="onEdit()" [matTooltip]="'common.edit' | translate" mat-icon-button>
-                <mat-icon>edit</mat-icon>
-            </button>
-
-            <button class="app-action" [class.app-disabled]="!editting" (click)="onClear()" [matTooltip]="'common.cancel' | translate" mat-icon-button>
-                <mat-icon>clear</mat-icon>
-            </button>
-            <div class="app-divider"></div>
-
-            <button class="app-action" [class.app-disabled]="!anyChange" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
-                <mat-icon>save</mat-icon>
-            </button>
-        </div>
-
-    
-    </div>  
-      
-    <div class="app-editor-content" *ngIf="state === 'success'">
-
-          <textarea *ngIf="editting" [(ngModel)]="ocr.content" (input)="onChange()"></textarea>
-
-          <div *ngIf="!editting" class="app-text-content">{{ ocr.original }}</div>
-        
-    </div>
-
-    <mat-spinner *ngIf="state === 'loading'"
-        [strokeWidth]="5" 
-        [diameter]="60"
-        class="center-spinner">
-    </mat-spinner>
-
-
-</div> -->
-
-
-
-
-

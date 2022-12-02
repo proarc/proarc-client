@@ -1,13 +1,13 @@
 <div fxLayout="column" fxFlexFill>
   <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-metadata app-view-border-bottom" *ngIf="switchable">
-    <ng-container *ngIf="layout.getNumOfSelected() > 1">
+    <div fxFlex *ngIf="layout.getNumOfSelected() > 1">
       <div class="app-toolbar-label">
         <span class="app-text">{{ 'editor.children.multiple_selection_label' | translate }}</span>
         <span class="app-pipe"></span>
         <span class="app-text-supplement">{{ ('editor.children.multiple_selection_count' + countPlurals() ) | translate: { count: layout.getNumOfSelected() } }}</span>
       </div>
-    </ng-container>
-    <ng-container *ngIf="!layout.showPagesEditor()">
+    </div>
+    <div *ngIf="!layout.showPagesEditor()">
       <button mat-icon-button [matTooltip]="'editor.toolbar.editor_metadata' | translate" [class.app-active]="editorType === 'metadata'" (click)="editorType = 'metadata'">
         <span class="app-text-icon">M</span>
       </button>
@@ -32,7 +32,7 @@
       <button mat-icon-button *ngIf="config.showCommentEditor" [matTooltip]="'editor.toolbar.editor_comment' | translate" [class.app-active]="editorType === 'comment'" (click)="editorType = 'comment'">
         <mat-icon>format_quote</mat-icon>
       </button>
-    </ng-container>
+    </div>
   </div>
   <div fxFlex [ngSwitch]="editorType">
    <!--  content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />content<br />

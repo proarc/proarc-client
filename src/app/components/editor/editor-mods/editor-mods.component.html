@@ -28,7 +28,7 @@
 			</button>
 		</div>
   </div>
-	<div fxFlex>
+	<div fxFlex class="app-oa-y">
 		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
 		<div class="app-editor-content" *ngIf="state !=='loading'">
 			<pre *ngIf="editting && !realtime" class="app-xml-content app-mods-editing" #editingPre><code class="app-mods-editing" (input)="checkChanged()" contenteditable="true" [highlight]="mods.original"></code></pre> 
@@ -37,56 +37,3 @@
 		</div>
 	</div>
 </div>
-
-
-<!-- to delete after testing
-	<div class="app-editor-content-wrapper" *ngIf="visible">
-  <div class="app-editor-toolbar">
-      <div class="app-label">MODS XML</div>
-      <div class="app-actions-right">
-
-        <ng-container *ngIf="item && metadata">
-            <button class="app-action" [class.app-inactive]="!realtime" (click)="setRealtime(true)" [matTooltip]="'editor.mods.realtime_on' | translate" mat-icon-button>
-                <mat-icon>timer</mat-icon>
-            </button>
-            <button class="app-action" [class.app-inactive]="realtime" (click)="setRealtime(false)" [matTooltip]="'editor.mods.realtime_off' | translate" mat-icon-button>
-                <mat-icon>timer_off</mat-icon>
-            </button>
-            <div class="app-divider"></div>
-        </ng-container>
-
-
-        <button class="app-action" [class.app-disabled]="editting || realtime" (click)="onRefresh()" [matTooltip]="'editor.mods.refresh' | translate" mat-icon-button>
-            <mat-icon>refresh</mat-icon>
-        </button>
-
-        <button class="app-action" [class.app-disabled]="editting || realtime" (click)="onEdit()" [matTooltip]="'common.edit' | translate" mat-icon-button>
-            <mat-icon>edit</mat-icon>
-        </button>
-
-        <button class="app-action" [class.app-disabled]="!editting || realtime" (click)="onClear()" [matTooltip]="'common.cancel' | translate" mat-icon-button>
-            <mat-icon>clear</mat-icon>
-        </button>
-
-        <div class="app-divider"></div>
-
-        <button class="app-action" [class.app-disabled]="!anyChange || realtime" matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
-            <mat-icon>save</mat-icon>
-        </button>
-    </div>
-  
-  </div>  
-  <div class="app-editor-content" *ngIf="state === 'success'">
-        <pre *ngIf="editting && !realtime" class="app-xml-content app-mods-editing" #editingPre><code class="app-mods-editing" (input)="checkChanged()" contenteditable="true" [highlight]="mods.original"></code></pre> 
-        <pre *ngIf="!editting && !realtime" class="app-xml-content" #originalPre><code [highlight]="mods.original"></code></pre> 
-        <pre *ngIf="!editting && realtime" class="app-xml-content"><code [highlight]="metadata.toMods()"></code></pre> 
-  </div>
-
-  <mat-spinner *ngIf="state === 'loading'"
-      [strokeWidth]="5" 
-      [diameter]="60"
-      class="center-spinner">
-  </mat-spinner>
-
-
-</div> -->

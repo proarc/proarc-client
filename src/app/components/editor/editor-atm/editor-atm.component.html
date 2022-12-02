@@ -14,7 +14,7 @@
       </button>
 		</div>
   </div>
-	<div fxFlex>
+	<div fxFlex class="app-oa-y">
 		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
 		<div class="app-editor-content app-atm-editor-content" *ngIf="state !== 'loading' && atm">
       <div class="app-detail-key-value">{{ 'editor.atm.pid' | translate }}: <strong>{{ atm.pid }}</strong></div>
@@ -62,90 +62,3 @@
     </div>
 	</div>
 </div>
-
-
-
-<!-- to delete after testing
-<div class="app-editor-content-wrapper">
-  <div class="app-editor-toolbar">
-    <div class="app-label">{{ 'editor.atm.title' | translate }}</div>
-    <div class="app-actions-right">
-      <button class="app-action" [class.app-disabled]="!atm || !atm.hasChanged()" (click)="onRevert()"
-        [matTooltip]="'common.revert' | translate" mat-icon-button>
-        <mat-icon>replay</mat-icon>
-      </button>
-      <div class="app-divider"></div>
-
-      <button class="app-action" [class.app-disabled]="!atm || !atm.hasChanged()"
-        matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" mat-icon-button>
-        <mat-icon>save</mat-icon>
-      </button>
-    </div>
-
-
-  </div>
-
-  <div class="app-editor-content app-atm-editor-content" *ngIf="state === 'success'">
-    <div class="app-detail-key-value">{{ 'editor.atm.pid' | translate }}: <strong>{{ atm.pid }}</strong></div>
-    <div class="app-detail-key-value">{{ 'editor.atm.model' | translate }}: <strong>{{ "model." + atm.model | translate
-        }}</strong></div>
-    <div class="app-detail-key-value">{{ 'editor.atm.owner' | translate }}: <strong>{{ atm.owner }}</strong></div>
-    <div class="app-detail-key-value">{{ 'editor.atm.created' | translate }}: <strong>{{ atm.created | appDatetime
-        }}</strong></div>
-    <div class="app-detail-key-value">{{ 'editor.atm.modified' | translate }}: <strong>{{ atm.modified | appDatetime
-        }}</strong></div>
-    <div class="app-detail-key-value">{{ 'editor.atm.filename' | translate }}: <strong>{{ atm.filename || '-'
-        }}</strong></div>
-    <div class="app-detail-key-value">{{ 'editor.atm.export' | translate }}: <strong>{{ atm.exportResult || '-'
-        }}</strong></div>
-
-    <div>
-      <mat-form-field>
-        <mat-select [placeholder]="'editor.atm.device' | translate" name="device" [(value)]="atm.device">
-          <mat-option [value]="'null'">{{ 'editor.atm.no_device' | translate }}</mat-option>
-          <mat-option *ngFor="let device of devices" [value]="device.id">{{ device.label }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field>
-        <mat-select [disabled]="!auth.isSuperAdmin()" [placeholder]="'editor.atm.organization' | translate"
-          name="organization" [(value)]="atm.organization">
-          <mat-option *ngFor="let organization of organizations" [value]="organization">{{ 'organization.' +
-            organization | translate }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div>
-      <mat-form-field>
-        <mat-select [disabled]="!auth.isSuperAdmin() && !auth.isAdmin()"
-          [placeholder]="'editor.atm.userProcessor' | translate" name="userProcessor" [(value)]="atm.userProcessor">
-          <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
-          <mat-option value="all">Všichni</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div>
-      <mat-form-field>
-        <mat-select [placeholder]="'editor.atm.status' | translate" name="status" [(value)]="atm.status">
-          <mat-option *ngFor="let status of statuses" [value]="status">{{ 'editor.atm.statuses.' + status | translate }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div *ngIf="atm.isLocked">
-      <div class="app-detail-key-value"><strong>{{ 'search.isLocked' | translate }}</strong></div>
-      <div class="app-detail-key-value">{{ 'editor.atm.lockedBy' | translate }}: <strong>{{ atm.lockedBy }}</strong>
-      </div>
-      <div class="app-detail-key-value">{{ 'editor.atm.lockedDate' | translate }}: <strong>{{ atm.lockedDate | date :
-          'dd.MM.yyyy' }}</strong></div>
-    </div>
-
-  </div>
-
-  <mat-spinner *ngIf="state === 'loading'" [strokeWidth]="5" [diameter]="60" class="center-spinner">
-  </mat-spinner>
-</div> -->
