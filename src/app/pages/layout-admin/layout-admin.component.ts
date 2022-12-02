@@ -68,6 +68,7 @@ export class LayoutAdminComponent implements OnInit {
     if (!this.data.layout) {
       this.data.layout = 'repo';
     }
+    console.log(this.data.layout)
     if (localStorage.getItem(this.localStorageName + '-' + this.data.layout)) {
       this.config = JSON.parse(localStorage.getItem(this.localStorageName + '-' + this.data.layout))
     } else {

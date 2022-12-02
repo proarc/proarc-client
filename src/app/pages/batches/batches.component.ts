@@ -78,7 +78,12 @@ export class BatchesComponent implements OnInit {
   }
 
   showLayoutAdmin() {
-    const dialogRef = this.dialog.open(LayoutAdminComponent, { data: { layout: 'import' } });
+    const dialogRef = this.dialog.open(LayoutAdminComponent, { 
+      data: { layout: 'import' },
+      width: '1280px',
+      height: '90%',
+      panelClass: 'app-dialog-layout-settings'
+     });
     dialogRef.afterClosed().subscribe((ret: any) => {
 
       this.initConfig();
