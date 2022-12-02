@@ -49,7 +49,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
   }
 
   ngOnChanges(c: SimpleChange) {
-    if (!this.layout.selectedItem) {
+    if (!this.layout.lastSelectedItem) {
       this.visible = false;
       return;
     }
@@ -139,7 +139,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
 
 
   private reload() {
-    this.item = this.layout.selectedItem;
+    this.item = this.layout.lastSelectedItem;
     if (this.item) {
       this.visible = true;
       this.lastPid = this.item.pid;

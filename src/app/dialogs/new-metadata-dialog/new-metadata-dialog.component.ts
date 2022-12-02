@@ -98,7 +98,7 @@ export class NewMetadataDialogComponent implements OnInit {
         this.state = 'error';
         return;
       }
-      this.layout.selectedItem.notSaved = false;
+      this.layout.selectedParentItem.notSaved = false;
       this.state = 'success';
       this.metadata.resetChanges();
       this.dialogRef.close(response['response']['data'][0]);

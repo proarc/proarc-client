@@ -11,19 +11,19 @@
       <button mat-icon-button [matTooltip]="'editor.toolbar.editor_metadata' | translate" [class.app-active]="editorType === 'metadata'" (click)="editorType = 'metadata'">
         <span class="app-text-icon">M</span>
       </button>
-      <button mat-icon-button *ngIf="layout.selectedItem && layout.selectedItem.isPage()" [matTooltip]="'editor.toolbar.editor_image' | translate" [class.app-active]="editorType === 'image'" (click)="editorType = 'image'">
+      <button mat-icon-button *ngIf="layout.lastSelectedItem && layout.lastSelectedItem.isPage()" [matTooltip]="'editor.toolbar.editor_image' | translate" [class.app-active]="editorType === 'image'" (click)="editorType = 'image'">
         <mat-icon>image</mat-icon>
       </button>
-      <button mat-icon-button *ngIf="layout.selectedItem && layout.selectedItem.isAudioPage()" [matTooltip]="'editor.toolbar.editor_song' | translate" [class.app-active]="editorType === 'song'" (click)="editorType = 'song'">
+      <button mat-icon-button *ngIf="layout.lastSelectedItem && layout.lastSelectedItem.isAudioPage()" [matTooltip]="'editor.toolbar.editor_song' | translate" [class.app-active]="editorType === 'song'" (click)="editorType = 'song'">
         <mat-icon>audiotrack</mat-icon>
       </button>
-      <button mat-icon-button *ngIf="layout.selectedItem.canContainPdf()" [matTooltip]="'editor.toolbar.editor_pdf' | translate" [class.app-active]="editorType === 'pdf'" (click)="editorType = 'pdf'">
+      <button mat-icon-button *ngIf="layout.lastSelectedItem && layout.lastSelectedItem.canContainPdf()" [matTooltip]="'editor.toolbar.editor_pdf' | translate" [class.app-active]="editorType === 'pdf'" (click)="editorType = 'pdf'">
         <mat-icon>picture_as_pdf</mat-icon>
       </button>
       <button mat-icon-button [matTooltip]="'editor.toolbar.editor_mods' | translate" [class.app-active]="editorType === 'mods'" (click)="editorType = 'mods'">
         <mat-icon>code</mat-icon>
       </button>
-      <button mat-icon-button *ngIf="layout.selectedItem && layout.selectedItem.isPage()" [matTooltip]="'editor.toolbar.editor_ocr' | translate" [class.app-active]="editorType === 'ocr'" (click)="editorType = 'ocr'">
+      <button mat-icon-button *ngIf="layout.lastSelectedItem && layout.lastSelectedItem.isPage()" [matTooltip]="'editor.toolbar.editor_ocr' | translate" [class.app-active]="editorType === 'ocr'" (click)="editorType = 'ocr'">
         <mat-icon>title</mat-icon>
       </button>
       <button mat-icon-button [matTooltip]="'editor.toolbar.editor_atm' | translate" [class.app-active]="editorType === 'atm'" (click)="editorType = 'atm'">
@@ -52,25 +52,25 @@
     <ng-container *ngSwitchCase="'song'" >
       <app-song *ngIf="layout.lastSelectedItem" [pid]="layout.lastSelectedItem.pid"></app-song>
     </ng-container>
-    <ng-container *ngIf="layout.selectedItem">
-      <app-editor-mods *ngSwitchCase="'mods'"  [pid]="layout.selectedItem.pid"></app-editor-mods>
-      <app-editor-ocr *ngSwitchCase="'ocr'"  [pid]="layout.selectedItem.pid"></app-editor-ocr>
-      <app-editor-comment *ngSwitchCase="'comment'"  [pid]="layout.selectedItem.pid"></app-editor-comment>
-      <app-editor-atm *ngSwitchCase="'atm'"  [pid]="layout.selectedItem.pid"></app-editor-atm>
+    <ng-container *ngIf="layout.lastSelectedItem">
+      <app-editor-mods *ngSwitchCase="'mods'"  [pid]="layout.lastSelectedItem.pid"></app-editor-mods>
+      <app-editor-ocr *ngSwitchCase="'ocr'"  [pid]="layout.lastSelectedItem.pid"></app-editor-ocr>
+      <app-editor-comment *ngSwitchCase="'comment'"  [pid]="layout.lastSelectedItem.pid"></app-editor-comment>
+      <app-editor-atm *ngSwitchCase="'atm'"  [pid]="layout.lastSelectedItem.pid"></app-editor-atm>
     </ng-container>
     <ng-container *ngSwitchCase="'metadata'">
       <app-editor-pages *ngIf="layout.showPagesEditor()"></app-editor-pages>
       <app-editor-audioPages *ngIf="layout.showAudioPagesEditor()"></app-editor-audioPages>
-      <ng-container *ngIf="layout.selectedItem && !layout.showPagesEditor() && !layout.showAudioPagesEditor()">
-        <app-editor-page *ngIf="layout.selectedItem.isPage()" [model]="layout.selectedItem.model" [pid]="layout.selectedItem.pid" > </app-editor-page>
-        <app-editor-audioPage *ngIf="layout.selectedItem.isAudioPage()" [model]="layout.selectedItem.model" [pid]="layout.selectedItem.pid"> </app-editor-audioPage>
-        <app-editor-chronicle *ngIf="layout.selectedItem.isChronicle()" [pid]="layout.selectedItem.pid"></app-editor-chronicle>
-        <app-editor-bdm *ngIf="layout.selectedItem.isBdm()" [pid]="layout.selectedItem.pid"></app-editor-bdm>
-        <app-editor-metadata *ngIf="!layout.selectedItem.isPage() && !layout.selectedItem.isChronicle() && !layout.selectedItem.isBdm()" [pid]="layout.selectedItem.pid" [model]="layout.selectedItem.model">
+      <ng-container *ngIf="layout.lastSelectedItem && !layout.showPagesEditor() && !layout.showAudioPagesEditor()">
+        <app-editor-page *ngIf="layout.lastSelectedItem.isPage()" [model]="layout.lastSelectedItem.model" [pid]="layout.lastSelectedItem.pid" > </app-editor-page>
+        <app-editor-audioPage *ngIf="layout.lastSelectedItem.isAudioPage()" [model]="layout.lastSelectedItem.model" [pid]="layout.lastSelectedItem.pid"> </app-editor-audioPage>
+        <app-editor-chronicle *ngIf="layout.lastSelectedItem.isChronicle()" [pid]="layout.lastSelectedItem.pid" [model]="layout.lastSelectedItem.model"></app-editor-chronicle>
+        <app-editor-bdm *ngIf="layout.lastSelectedItem.isBdm()" [pid]="layout.lastSelectedItem.pid" [model]="layout.lastSelectedItem.model"></app-editor-bdm>
+        <app-editor-metadata *ngIf="!layout.lastSelectedItem.isPage() && !layout.lastSelectedItem.isChronicle() && !layout.lastSelectedItem.isBdm()" [pid]="layout.lastSelectedItem.pid" [model]="layout.lastSelectedItem.model">
         </app-editor-metadata>
       </ng-container>
     </ng-container>
-    <app-editor-geo *ngSwitchCase="'geo'" [pid]="layout.selectedItem.pid"></app-editor-geo>
+    <app-editor-geo *ngSwitchCase="'geo'" [pid]="layout.lastSelectedItem.pid"></app-editor-geo>
   </div>
 </div>
 

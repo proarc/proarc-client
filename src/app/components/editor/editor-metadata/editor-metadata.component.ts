@@ -46,13 +46,13 @@ export class EditorMetadataComponent implements OnInit {
       this.metadata = c['metadata'].currentValue;
       return;
     }
-    if (!this.layout.selectedItem || this.layout.selectedItem.isPage()) {
+    if (!this.layout.lastSelectedItem || this.layout.lastSelectedItem.isPage()) {
       this.visible = false;
       return;
     }
 
     if (this.pid) {
-      this.item = this.layout.selectedItem;
+      this.item = this.layout.lastSelectedItem;
       this.pid = this.item.pid;
       this.visible = true;
       this.load();

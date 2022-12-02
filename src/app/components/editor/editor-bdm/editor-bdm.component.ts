@@ -15,6 +15,7 @@ import { MetadataService } from 'src/app/services/metadata.service';
 export class EditorBdmComponent implements OnInit {
 
   @Input() notSaved = false;
+  @Input() model: string;
   state = 'none';
 
   @Input()
@@ -33,7 +34,7 @@ export class EditorBdmComponent implements OnInit {
       return;
     }
     this.state = 'loading';
-    this.metaService.loadMetadata((metadata: Metadata) => {
+    this.metaService.loadMetadata(this.pid, this.model, (metadata: Metadata) => {
       this.state = 'success';
     });
   }

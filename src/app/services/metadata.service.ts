@@ -52,17 +52,17 @@ export class MetadataService {
     });
   }
 
-  loadMetadata(callback: (m: Metadata) => void) {
-    if (this.metadata && this.metadata.pid === this.layout.selectedItem.pid) {
+  loadMetadata(pid: string, model: string, callback: (m: Metadata) => void) {
+    if (this.metadata && this.metadata.pid === pid) {
       callback(this.metadata);
       return;
     }
-    if (this.layout.selectedItem.notSaved) {
-      this.metadata = new Metadata(this.layout.selectedItem.pid, this.layout.selectedItem.model, this.layout.selectedItem.content, 0);
-      callback(this.metadata);
-      return;
-    }
-    this.api.getMetadata(this.layout.selectedItem.pid, this.layout.selectedItem.model).subscribe((metadata: Metadata) => {
+    // if (this.layout.selectedItem.notSaved) {
+    //   this.metadata = new Metadata(this.layout.selectedItem.pid, this.layout.selectedItem.model, this.layout.selectedItem.content, 0);
+    //   callback(this.metadata);
+    //   return;
+    // }
+    this.api.getMetadata(pid, model).subscribe((metadata: Metadata) => {
       this.metadata = metadata;
       if (callback) {
         callback(metadata);

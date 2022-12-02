@@ -82,7 +82,7 @@ export class EditorRelocationComponent implements OnInit {
       if (result === 'yes') {
 
         if (this.layout.getNumOfSelected() > 0 || this.layout.parent) {
-          this.relocateObjects(this.layout.selectedItem.parent, this.selection.pid, checkbox.checked);
+          this.relocateObjects(this.layout.lastSelectedItem.parent, this.selection.pid, checkbox.checked);
         } else {
           this.setParent(this.selection.pid, checkbox.checked);
         }

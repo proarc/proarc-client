@@ -40,7 +40,7 @@ export class EditorGeoComponent implements OnInit {
 
   load() {
     this.state = 'loading';
-    this.api.getMetadata(this.pid, this.layout.selectedItem.model).subscribe((metadata: Metadata) => {
+    this.api.getMetadata(this.pid, this.layout.lastSelectedItem.model).subscribe((metadata: Metadata) => {
       this.metadata = metadata;
       this.state = 'success';
     });

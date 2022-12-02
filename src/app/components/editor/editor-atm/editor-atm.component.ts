@@ -49,7 +49,7 @@ export class EditorAtmComponent implements OnInit {
   }
 
   ngOnChanges(c: SimpleChange) {
-    if (!this.layout.selectedItem) {
+    if (!this.layout.lastSelectedItem) {
       //this.visible = false;
       return;
     }
@@ -59,11 +59,11 @@ export class EditorAtmComponent implements OnInit {
   }
 
   private reload() {
-    if (!this.layout.selectedItem) {
+    if (!this.layout.lastSelectedItem) {
       return;
     }
     this.state = 'loading';
-    this.api.getAtm(this.layout.selectedItem.pid, this.layout.getBatchId()).subscribe((atm: Atm) => {
+    this.api.getAtm(this.layout.lastSelectedItem.pid, this.layout.getBatchId()).subscribe((atm: Atm) => {
       this.atm = atm;
       if (this.devices) {
         this.state = 'success';

@@ -39,12 +39,12 @@ export class EditorOcrComponent implements OnInit {
   }
 
   loadOcr() {
-    if (!this.layout.selectedItem) {
+    if (!this.layout.lastSelectedItem) {
       return;
     }
     this.state = 'loading';
 
-    this.api.getOcr(this.layout.selectedItem.pid, this.layout.getBatchId()).subscribe((ocr: Ocr) => {
+    this.api.getOcr(this.layout.lastSelectedItem.pid, this.layout.getBatchId()).subscribe((ocr: Ocr) => {
       this.ocr = ocr;
       this.state = 'success';
     }, () => {

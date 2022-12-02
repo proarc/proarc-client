@@ -420,7 +420,7 @@ export class EditorStructureComponent implements OnInit {
       models: this.layout.allowedChildrenModels,
       model: this.layout.allowedChildrenModels[0],
       customPid: false,
-      parentPid: this.layout.selectedItem.pid
+      parentPid: this.layout.selectedParentItem.pid
     }
     const dialogRef = this.dialog.open(NewObjectDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe((result: any) => {

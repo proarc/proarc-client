@@ -112,12 +112,12 @@ export class EditorPageComponent implements OnInit {
 
   private onPidChanged(pid: string) {
     this.state = 'loading';
-    if (this.layout.selectedItem.notSaved) {
+    if (this.layout.lastSelectedItem.notSaved) {
       const page = new Page();
       page.pid = pid;
       page.type = 'normalPage';
-      page.model = this.layout.selectedItem.model;
-      page.number = this.layout.selectedItem.label;
+      page.model = this.layout.lastSelectedItem.model;
+      page.number = this.layout.lastSelectedItem.label;
       page.timestamp = new Date().getTime();
       this.setPage(page);
       this.controls.markAsDirty();
@@ -218,11 +218,11 @@ export class EditorPageComponent implements OnInit {
       return;
     }
     this.page.removeEmptyIdentifiers();
-    if (this.layout.selectedItem.notSaved) {
+    if (this.layout.lastSelectedItem.notSaved) {
       let data = `model=${this.page.model}`;
       data = `${data}&pid=${this.page.pid}`;
       data = `${data}&xml=${this.page.toXml()}`;
-      data = `${data}&parent=${this.layout.selectedItem.parent}`;
+      data = `${data}&parent=${this.layout.lastSelectedItem.parent}`;
       this.api.createObject(data).subscribe((response: any) => {
         if (response['response'].errors) {
           console.log('error', response['response'].errors);
@@ -230,7 +230,7 @@ export class EditorPageComponent implements OnInit {
           this.state = 'error';
           return;
         }
-        this.layout.selectedItem.notSaved = false;
+        this.layout.lastSelectedItem.notSaved = false;
         const pid = response['response']['data'][0]['pid'];
         this.layout.setShouldRefresh(true);
         this.state = 'success';

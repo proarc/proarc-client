@@ -37,7 +37,7 @@ export class EditorAuthorComponent implements OnInit {
 
   ngOnInit() {
     if (!this.model) {
-      this.model = this.layout.selectedItem.model;
+      this.model = this.layout.lastSelectedItem.model;
     }
   }
 

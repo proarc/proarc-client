@@ -138,7 +138,7 @@ export class RepositoryComponent implements OnInit {
     forkJoin([rDoc, rChildren]).subscribe(([item, children]: [DocumentItem, DocumentItem[]]) => {
       this.layout.item = item;
       if (children.length === 0) {
-        this.layout.selectedItem = item;
+        this.layout.selectedParentItem = item;
         this.layout.lastSelectedItem = item;
       }
       this.layout.items = children;

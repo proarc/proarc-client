@@ -17,9 +17,9 @@ export class LayoutService {
   public item: DocumentItem | null; // item by pid
   public tree: Tree;
   public items: DocumentItem[] | null; // all children items
-  //public selection: DocumentItem[] | null; // selected item
-  public selectedItem: DocumentItem; // selected item
-  public lastSelectedItem: DocumentItem; // selected item
+  public selectedParentItem: DocumentItem; // selected item 
+  public selectedChildItem: DocumentItem; // selected item in children
+  public lastSelectedItem: DocumentItem; // last selected child item
 
   path: { pid: string, label: string, model: string }[] = [];
   expandedPath: string[];
@@ -65,11 +65,11 @@ export class LayoutService {
     }
     const num = this.getNumOfSelected();
     if (num > 1) {
-      this.selectedItem = null;
+      this.selectedChildItem = null;
     } else if (num === 0) {
-      this.selectedItem = this.item;
+      this.selectedChildItem = this.item;
     } else {
-      this.selectedItem = this.getSelected()[0];
+      this.selectedChildItem = this.getSelected()[0];
     }
     this.selectionSubject.next(fromStructure);
   }

@@ -26,7 +26,7 @@ export class EditorTreeComponent implements OnInit {
 
     this.layout.clearSelection();
     tree.item.selected = true;
-    this.layout.selectedItem = tree.item;
+    this.layout.selectedParentItem = tree.item;
     this.layout.lastSelectedItem = tree.item;
     if (tree.children) {
       this.layout.items = tree.children.map(ch => ch.item);

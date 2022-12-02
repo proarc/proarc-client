@@ -16,6 +16,7 @@ import { MetadataService } from 'src/app/services/metadata.service';
 })
 export class EditorChronicleComponent implements OnInit {
 
+  @Input() model: string;
   @Input() notSaved = false;
   state = 'none';
 
@@ -37,7 +38,7 @@ export class EditorChronicleComponent implements OnInit {
       return;
     }
     this.state = 'loading';
-    this.metaService.loadMetadata((metadata: Metadata) => {
+    this.metaService.loadMetadata(this.pid, this.model, (metadata: Metadata) => {
       this.state = 'success';
     });
   }
