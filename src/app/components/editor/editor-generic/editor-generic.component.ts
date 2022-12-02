@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChange } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@angular/core';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Tree } from 'src/app/model/mods/tree.model';
 import { ILayoutPanel } from 'src/app/pages/layout-admin/layout-admin.component';
@@ -14,6 +14,7 @@ export class EditorGenericComponent implements OnInit {
 
   @Input('editorType') editorType: string;
   @Input('panel') panel: ILayoutPanel;
+  @Output() onIngest = new EventEmitter<boolean>();
 
   switchableTypes = ['mods', 'metadata', 'atm', 'ocr']
   switchable: boolean;
@@ -34,7 +35,6 @@ export class EditorGenericComponent implements OnInit {
       
   }
 
-
   countPlurals(): string {
     let count = this.layout.getNumOfSelected();
       if (count > 4) {
@@ -44,5 +44,9 @@ export class EditorGenericComponent implements OnInit {
       } else {
         return count + '';
       }
+    }
+
+    passOnIngest() {
+      this.onIngest.emit(true);
     }
 }

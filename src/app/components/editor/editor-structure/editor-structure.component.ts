@@ -1,6 +1,6 @@
 
 import { ThisReceiver } from '@angular/compiler';
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -29,6 +29,7 @@ export class EditorStructureComponent implements OnInit {
 
   @Input() items: DocumentItem[];
   @Input() viewMode: string; // 'list' | 'grid' | 'icons'
+  @Output() onIngest = new EventEmitter<boolean>();
   //@Input() selectedIndex: number = -1;
   @ViewChild('table') table: MatTable<DocumentItem>;
   @ViewChild('childrenWrapper') childrenWrapperEl: ElementRef;
@@ -816,4 +817,9 @@ export class EditorStructureComponent implements OnInit {
     // return this.api.getThumbUrl(pid);
     return this.api.getStreamUrl(pid, 'THUMBNAIL', this.layout.getBatchId());
   }
+
+  ingest() {
+    this.onIngest.emit(true);
+  }
+
 }

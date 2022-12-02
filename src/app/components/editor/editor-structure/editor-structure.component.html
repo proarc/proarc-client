@@ -30,6 +30,7 @@
       </button>
     </div>
     <div>
+
       <button mat-icon-button [matTooltip]="'editor.children.add_new' | translate" *ngIf="canAddChildren() && isRepo" (click)="onCreateNewObject()">
         <mat-icon>add</mat-icon>
       </button>        
@@ -55,8 +56,10 @@
       <button mat-icon-button [matTooltip]="'common.save' | translate" (click)="onSave()" [disabled]="!hasChanges">
         <mat-icon>save</mat-icon>
       </button>  
+      <button *ngIf="!isRepo" mat-flat-button color="primary" (click)="ingest()">{{ 'button.continue' | translate }}</button>
     </div>
   </div>
+
   <div fxFlex>
     <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
     <div class="app-editor-content app-children-editor-content" #childrenWrapper tabindex="0" (keyup)="keyup($event)" (resized)="onResized($event)" *ngIf="state !=='loading'">
