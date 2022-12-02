@@ -254,7 +254,9 @@ export class EditorStructureComponent implements OnInit {
   }
 
   open(item: DocumentItem) {
-    this.goToObject(item);
+    if (this.isRepo) {
+      this.goToObject(item);
+    }
   }
 
   public goToObject(item: DocumentItem) {
