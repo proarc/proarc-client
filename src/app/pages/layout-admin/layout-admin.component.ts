@@ -58,7 +58,7 @@ export class LayoutAdminComponent implements OnInit {
   localStorageName = 'proarc-layout';
   config: IConfig = null;
 
-  types = ['structure-list', 'structure-grid', 'structure-icons', 'metadata', 'mods', 'atm', 'ocr', 'comment', 'image', 'pdf','tree']; //,'tree'
+  types = ['structure-list', 'structure-grid', 'structure-icons', 'metadata', 'mods', 'atm', 'ocr', 'comment', 'image', 'pdf']; //,'tree'
   
 
   constructor(public dialogRef: MatDialogRef<LayoutAdminComponent>,
@@ -67,8 +67,9 @@ export class LayoutAdminComponent implements OnInit {
   ngOnInit() {
     if (!this.data.layout) {
       this.data.layout = 'repo';
+      this.types.unshift('tree');
     }
-    console.log(this.data.layout)
+    
     if (localStorage.getItem(this.localStorageName + '-' + this.data.layout)) {
       this.config = JSON.parse(localStorage.getItem(this.localStorageName + '-' + this.data.layout))
     } else {

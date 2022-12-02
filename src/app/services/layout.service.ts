@@ -29,7 +29,7 @@ export class LayoutService {
 
   private refreshSubject = new Subject<boolean>();
   private selectionSubject = new ReplaySubject<boolean>(1);
-  private moveNextSubject = new ReplaySubject<boolean>(1);
+  private moveNextSubject = new ReplaySubject<number>(1);
   public movingToNext = false;
   public movedToNextFrom: string;
 
@@ -75,12 +75,14 @@ export class LayoutService {
   }
 
   shouldMoveToNext(from: string) {
+    let index = this.getFirstSelectedIndex() + 1;
     this.movedToNextFrom = from;
     this.movingToNext = true;
-    this.moveNextSubject.next(true);
+    this.moveNextSubject.next(index);
   }
 
-  moveToNext(): Observable<boolean> {
+  moveToNext(): Observable<number> {
+    //let index = this.getFirstSelectedIndex() + 1;
     return this.moveNextSubject.asObservable();
   }
 

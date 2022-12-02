@@ -119,8 +119,8 @@ export class EditorStructureComponent implements OnInit {
       }
     });
 
-    this.layout.moveToNext().subscribe(() => {
-      this.moveToNext();
+    this.layout.moveToNext().subscribe((idx: number) => {
+      this.moveToNext(idx);
     });
   }
 
@@ -167,15 +167,9 @@ export class EditorStructureComponent implements OnInit {
 
   }
 
-  moveToNext() {
-    let index = this.layout.getFirstSelectedIndex() + 1;
+  moveToNext(index: number) {
     if (index < this.items.length) {
       this.rowClick(this.items[index], index, null);
-      //const item = this.items[index];
-      // if (this.isMultipleChildrenMode()) {
-      //   this.setSingleChildMode(item);
-      // }
-      //item.selected = true;
     }
 
   }
@@ -744,6 +738,7 @@ export class EditorStructureComponent implements OnInit {
     this.state = 'saving';
     let pids: string[] = this.items.filter(c => c.selected).map(c => c.pid);
     const isMultiple = this.items.filter(c => c.selected).length > 1;
+    const first = this.layout.getFirstSelectedIndex();
 
     this.api.deleteObjects(pids, pernamently, this.layout.getBatchId()).subscribe((response: any) => {
 
@@ -752,20 +747,26 @@ export class EditorStructureComponent implements OnInit {
         this.state = 'error';
         return;
       } else {
-        const removedPid: string[] = response['response']['data'].map((x: any) => x.pid);
-        let nextSelection = 0;
-        for (let i = this.items.length - 1; i >= 0; i--) {
-          if (removedPid.indexOf(this.items[i].pid) > -1) {
-            this.items.splice(i, 1);
-            nextSelection = i - 1;
-          }
+        const i = this.items[first];
+        if (i) {
+          this.rowClick(i, first, null);
         }
-        if (nextSelection < 0) {
-          nextSelection = 0;
-        }
-        if (this.items.length > 0 && !isMultiple) {
-          this.layout.setSelection(true);
-        }
+        
+        this.layout.setShouldRefresh(true);
+        // const removedPid: string[] = response['response']['data'].map((x: any) => x.pid);
+        // let nextSelection = 0;
+        // for (let i = this.items.length - 1; i >= 0; i--) {
+        //   if (removedPid.indexOf(this.items[i].pid) > -1) {
+        //     this.items.splice(i, 1);
+        //     nextSelection = i - 1;
+        //   }
+        // }
+        // if (nextSelection < 0) {
+        //   nextSelection = 0;
+        // }
+        // if (this.items.length > 0 && !isMultiple) {
+        //   this.layout.setSelection(true);
+        // }
         this.ui.showInfoSnackBar(String(this.translator.instant('editor.children.delete_dialog.success')));
         this.state = 'success';
       }
