@@ -27,6 +27,8 @@ export class EditorPageComponent implements OnInit {
   positions = ['left', 'right', 'singlePage'];
   genres = ['page', 'reprePage'];
 
+  public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
+
   // movedToNextFrom: string;
 
   @Input() model: string;

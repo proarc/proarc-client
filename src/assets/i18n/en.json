@@ -2013,7 +2013,9 @@
   "button": {
     "setLayout": "Set layout",
     "close": "Close",
-    "continue": "Continue"
+    "continue": "Continue",
+    "metadataCatalog": "Metadata catalog",
+    "save": "Save"
   },
   "dynamic": {
     "repo": "Storage",

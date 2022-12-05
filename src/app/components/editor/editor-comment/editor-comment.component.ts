@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { Note } from 'src/app/model/note.model';
 import { LayoutService } from 'src/app/services/layout.service';
+import { UIService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-editor-comment',
@@ -15,12 +16,17 @@ export class EditorCommentComponent implements OnInit {
   note: Note;
   anyChange: boolean;
 
+  public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
+
   @Input()
   set pid(pid: string) {
     this.onPidChanged(pid);
   }
 
-  constructor(private layout: LayoutService, private api: ApiService) {
+  constructor(
+    private layout: LayoutService,
+    private api: ApiService,
+    private ui: UIService) {
   }
 
   ngOnInit() {

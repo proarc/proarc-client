@@ -11,10 +11,10 @@
 		</div>
 		<div>
 			<ng-container *ngIf="!notSaved">
-				<button  mat-icon-button (click)="onLoadFromCatalog()" [matTooltip]="'metadata.catalog' | translate">
+				<button  mat-icon-button (click)="onLoadFromCatalog()" [matTooltip]="'button.metadataCatalog' | translate" [matTooltipPosition]="toolbarTooltipPosition">
 					<mat-icon>local_library</mat-icon>
 				</button>
-				<button mat-icon-button [matTooltip]="'common.save' | translate" (click)="onSave()" >
+				<button mat-icon-button (click)="onSave()" [matTooltip]="'button.save' | translate" [matTooltipPosition]="toolbarTooltipPosition">
 					<mat-icon>save</mat-icon>
 				</button>
 			</ng-container>

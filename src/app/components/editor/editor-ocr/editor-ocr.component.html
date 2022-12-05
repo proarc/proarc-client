@@ -6,13 +6,13 @@
 			</div>
 		</div>
 		<div>
-      <button mat-icon-button [disabled]="editting" (click)="onEdit()" [matTooltip]="'common.edit' | translate">
+      <button mat-icon-button [disabled]="editting" (click)="onEdit()" [matTooltip]="'common.edit' | translate" [matTooltipPosition]="toolbarTooltipPosition">
 				<mat-icon>edit</mat-icon>
 			</button>
-			<button mat-icon-button [disabled]="!editting" (click)="onClear()" [matTooltip]="'common.cancel' | translate">
+			<button mat-icon-button [disabled]="!editting" (click)="onClear()" [matTooltip]="'common.cancel' | translate" [matTooltipPosition]="toolbarTooltipPosition">
 				<mat-icon>clear</mat-icon>
 			</button>
-			<button mat-icon-button [disabled]="!anyChange" (click)="onSave()" [matTooltip]="'common.save' | translate">
+			<button mat-icon-button [disabled]="!anyChange" (click)="onSave()" [matTooltip]="'button.save' | translate" [matTooltipPosition]="toolbarTooltipPosition">
 				<mat-icon>save</mat-icon>
 			</button>
 		</div>

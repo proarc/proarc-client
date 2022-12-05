@@ -2,6 +2,7 @@ import { Component, OnInit, Input, SimpleChange } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { Ocr } from 'src/app/model/ocr.model';
 import { LayoutService } from 'src/app/services/layout.service';
+import { UIService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-editor-ocr',
@@ -15,9 +16,14 @@ export class EditorOcrComponent implements OnInit {
   ocr: Ocr;
   anyChange: boolean;
 
+  public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
+
   @Input() pid: string;
 
-  constructor(private layout: LayoutService, private api: ApiService) {
+  constructor(
+    private layout: LayoutService, 
+    private api: ApiService,
+    private ui: UIService) {
   }
 
   ngOnInit() {

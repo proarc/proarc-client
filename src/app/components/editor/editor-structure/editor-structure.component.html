@@ -1,46 +1,46 @@
 <div fxLayout="column" fxFlexFill>
   <div fxLayout="row" class="app-toolbar app-view-action">
     <div fxFlex>
-      <button mat-icon-button [matTooltip]="'history.refresh' | translate" (click)="layout.setShouldRefresh(false)">
+      <button mat-icon-button (click)="layout.setShouldRefresh(false)" [matTooltip]="'history.refresh' | translate" [matTooltipPosition]="toolbarTooltipPosition">
         <mat-icon>sync</mat-icon>
       </button>
-      <button mat-icon-button [class.app-active]="viewMode === 'list'" [matTooltip]="'editor.children.view_list' | translate" (click)="changeViewMode('list')">
+      <button mat-icon-button [class.app-active]="viewMode === 'list'" (click)="changeViewMode('list')" [matTooltip]="'editor.children.view_list' | translate" [matTooltipPosition]="toolbarTooltipPosition">
         <mat-icon>format_align_justify</mat-icon>
       </button>
-      <button mat-icon-button [class.app-active]="viewMode === 'grid'" [matTooltip]="'editor.children.view_grid' | translate" (click)="changeViewMode('grid')">
+      <button mat-icon-button [class.app-active]="viewMode === 'grid'" (click)="changeViewMode('grid')" [matTooltip]="'editor.children.view_grid' | translate" [matTooltipPosition]="toolbarTooltipPosition">
         <mat-icon>apps</mat-icon>
       </button>
-      <button mat-icon-button *ngIf="pageChildren" [class.app-active]="viewMode === 'icons'" [matTooltip]="'editor.children.view_icons' | translate" (click)="changeViewMode('icons')">
+      <button mat-icon-button *ngIf="pageChildren" [class.app-active]="viewMode === 'icons'" (click)="changeViewMode('icons')" [matTooltip]="'editor.children.view_icons' | translate" [matTooltipPosition]="toolbarTooltipPosition">
         <mat-icon>image</mat-icon>
       </button>
-      <button mat-icon-button [class.app-active]="shortLabels" [matTooltip]="'editor.children.short_labels_' + (shortLabels ? 'on' : 'off') | translate" (click)="switchUseShortLabel()">
+      <button mat-icon-button [class.app-active]="shortLabels" (click)="switchUseShortLabel()" [matTooltip]="'editor.children.short_labels_' + (shortLabels ? 'on' : 'off') | translate" [matTooltipPosition]="toolbarTooltipPosition">
         <mat-icon>short_text</mat-icon>
       </button>
-      <button mat-icon-button [matTooltip]="'editor.children.select_all' | translate" (click)="selectAll()">
+      <button mat-icon-button (click)="selectAll()" [matTooltip]="'editor.children.select_all' | translate" [matTooltipPosition]="toolbarTooltipPosition">
         <mat-icon>check_box</mat-icon>
       </button>
-      <button mat-icon-button *ngIf="pageChildren" [matTooltip]="'editor.children.validate' | translate" (click)="validateChildren()">
+      <button mat-icon-button *ngIf="pageChildren" (click)="validateChildren()" [matTooltip]="'editor.children.validate' | translate" [matTooltipPosition]="toolbarTooltipPosition">
         <mat-icon>fact_check</mat-icon>
       </button>
-      <button mat-icon-button *ngIf="pageChildren" [matTooltip]="'editor.children.reindex' | translate" (click)="onReindexChildren()">
+      <button mat-icon-button *ngIf="pageChildren" (click)="onReindexChildren()" [matTooltip]="'editor.children.reindex' | translate" [matTooltipPosition]="toolbarTooltipPosition">
         <mat-icon>format_list_numbered</mat-icon>
       </button>
-      <button mat-icon-button [matTooltip]="'editor.children.convertPages' | translate" *ngIf="auth.user.changeModelFunction || auth.isSuperAdmin()" (click)="showConvertDialog()">
+      <button mat-icon-button *ngIf="auth.user.changeModelFunction || auth.isSuperAdmin()" (click)="showConvertDialog()" [matTooltip]="'editor.children.convertPages' | translate" [matTooltipPosition]="toolbarTooltipPosition">
         <mat-icon>swap_horiz</mat-icon>
       </button>
     </div>
     <div>
-      <button mat-icon-button [matTooltip]="'editor.children.add_new' | translate" *ngIf="canAddChildren() && isRepo" (click)="onCreateNewObject()">
+      <button mat-icon-button *ngIf="canAddChildren() && isRepo" (click)="onCreateNewObject()" [matTooltip]="'editor.children.add_new' | translate" [matTooltipPosition]="toolbarTooltipPosition">
         <mat-icon>add</mat-icon>
       </button>        
-      <button mat-icon-button [matTooltip]="'editor.children.move' | translate" (click)="onMove()">
+      <button mat-icon-button (click)="onMove()" [matTooltip]="'editor.children.move' | translate" [matTooltipPosition]="toolbarTooltipPosition">
         <mat-icon>reply</mat-icon>
       </button>
-      <button mat-icon-button *ngIf="isRepo" [matTooltip]="'editor.children.relocate_label' | translate" (click)="onRelocateOutside()">
+      <button mat-icon-button *ngIf="isRepo" (click)="onRelocateOutside()" [matTooltip]="'editor.children.relocate_label' | translate" [matTooltipPosition]="toolbarTooltipPosition">
         <mat-icon>forward</mat-icon>
       </button>
       <ng-container *ngIf="viewMode === 'list'">
-        <button mat-icon-button [matMenuTriggerFor]="columns_menu" [matTooltip]="'editor.children.select_columns' | translate">
+        <button mat-icon-button [matMenuTriggerFor]="columns_menu" [matTooltip]="'editor.children.select_columns' | translate" [matTooltipPosition]="toolbarTooltipPosition">
           <mat-icon>rule</mat-icon>
         </button>
         <mat-menu #columns_menu="matMenu">
@@ -49,10 +49,10 @@
           </div>
         </mat-menu>
       </ng-container>
-      <button mat-icon-button [matTooltip]="'editor.children.delete' | translate" (click)="onDelete()">
+      <button mat-icon-button (click)="onDelete()" [matTooltip]="'editor.children.delete' | translate" [matTooltipPosition]="toolbarTooltipPosition">
         <mat-icon>delete</mat-icon>
       </button>
-      <button mat-icon-button [matTooltip]="'common.save' | translate" (click)="onSave()" [disabled]="!hasChanges">
+      <button mat-icon-button (click)="onSave()" [disabled]="!hasChanges" [matTooltip]="'button.save' | translate" [matTooltipPosition]="toolbarTooltipPosition">
         <mat-icon>save</mat-icon>
       </button>  
       <button *ngIf="!isRepo" mat-flat-button color="primary" (click)="ingest()">{{ 'button.continue' | translate }}</button>

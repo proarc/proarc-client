@@ -6,10 +6,10 @@
 			</div>
 		</div>
 		<div>
-			<button mat-icon-button (click)="onRevert()" [matTooltip]="'common.revert' | translate" [disabled]="!page">
+			<button mat-icon-button (click)="onRevert()" [disabled]="!page" [matTooltip]="'common.revert' | translate" [matTooltipPosition]="toolbarTooltipPosition">
         <mat-icon>replay</mat-icon>
       </button>
-      <button  mat-icon-button matTooltip="{{ 'common.save' | translate }}" (click)="onSave()" [disabled]="!page">
+      <button  mat-icon-button (click)="onSave()" [disabled]="!page" [matTooltip]="'button.save' | translate" [matTooltipPosition]="toolbarTooltipPosition">
         <mat-icon>save</mat-icon>
       </button>
 		</div>

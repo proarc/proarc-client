@@ -1915,7 +1915,9 @@
   "button": {
     "setLayout": "nastavit rozložení",
     "close": "Zavřít",
-    "continue": "Pokračovat"
+    "continue": "Pokračovat",
+    "metadataCatalog": "Metadata katalog",
+    "save": "Uložit"
   },
   "dynamic": {
     "repo": "Úložiště",

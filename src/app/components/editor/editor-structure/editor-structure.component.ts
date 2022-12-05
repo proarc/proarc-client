@@ -62,6 +62,8 @@ export class EditorStructureComponent implements OnInit {
 
   hasChanges: boolean = false;
 
+  public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
+
   public selectedColumns = [
     { field: 'label', selected: true },
     { field: 'pageType', selected: true },

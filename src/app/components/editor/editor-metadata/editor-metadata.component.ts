@@ -27,6 +27,8 @@ export class EditorMetadataComponent implements OnInit {
   public item: DocumentItem | null;
   public visible = true;
 
+  public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
+
 
   constructor(
     private translator: TranslateService,
