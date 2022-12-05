@@ -67,6 +67,9 @@ export class LayoutAdminComponent implements OnInit {
   ngOnInit() {
     if (!this.data.layout) {
       this.data.layout = 'repo';
+    }
+
+    if (this.data.layout === 'repo') {
       this.types.unshift('tree');
     }
     
