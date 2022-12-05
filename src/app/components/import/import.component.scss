@@ -18,62 +18,10 @@
 }
 
 .app-import {
-  /* to delete after testing
-  height: calc(100% - 50px);
-  padding: 15px 20px;
-   */
-  /* to delete after testing 
-  .app-actions {
-    height: 50px;
-    padding-left: 20px;
-    padding-top: 10px;
-    overflow: hidden;
-    button {
-      margin-right: 16px;
-    }
-    .app-import-profiles {
-      margin-right: 16px;
-      width: 200px;
-    }
-    .app-import-devices {
-      margin-right: 16px;
-      width: 200px;
-    }
-    .app-import-history {
-      float: right;
-      display: block;
-      margin-top: 12px;
-    }
-  } */
   .app-table {
-    /* to delete after testing
-    height: calc(100% - 70px); */
     padding: 8px 0;
     width: 100%;
     float: left;
     font-size: 14px;
-
-   /*  to delete after testing
-    .app-scrollable {
-      height: 100%;
-      overflow-y: auto;
-      .app-disabled  {
-        color: #666;
-        cursor: default;
-        opacity: 0.3;
-      }
-    } */
   }
 }
-
-/* to delete after testing
-.breadcrumb-nav {
-  overflow: hidden;
-  .app-actions-right {
-    float: right;
-    padding-right: 10px;
-    button {
-      margin-top: 2px;
-    }
-  }
-} */

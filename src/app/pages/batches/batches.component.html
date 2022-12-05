@@ -32,33 +32,3 @@
     </as-split>
   </div>
 </div>
-
-
-<!-- to delete after testing
-<div class="app-editor-wrapper" *ngIf="layout.ready">
-  <div class="app-toolbar" >
-    <div class="app-label">
-      <div class="app-label-title">Import</div>
-      <div class="app-label-model">{{formatPagesCount() }}</div>
-    </div>
-    <button mat-button style="float: right;" (click)="onIngest()">Pokračovat</button>
-    <button matTooltip="{{ 'navbar.layout' | translate }}" (click)="showLayoutAdmin()" mat-icon-button>
-        <mat-icon>dashboard</mat-icon>
-      </button>
-  </div>
-  <div style="height: calc(100% - 49px);">
-  <as-split *ngIf="config" direction="horizontal" [disabled]="config.disabled" (dragEnd)="onDragEnd(-1, $event)">
-    <ng-template ngFor let-column [ngForOf]="config.columns" let-icol="index">
-      <as-split-area *ngIf="column.visible" [order]="icol" [size]="column.size">
-        <as-split direction="vertical" [disabled]="config.disabled" (dragEnd)="onDragEnd(icol, $event)">
-          <ng-template ngFor let-row [ngForOf]="column.rows" let-irow="index">
-            <as-split-area *ngIf="row.visible && !row.isEmpty" [order]="irow" [size]="row.size">
-              <app-editor-generic [editorType]="row.type" [panel]="row"></app-editor-generic>
-            </as-split-area>
-          </ng-template>
-        </as-split>
-      </as-split-area>
-    </ng-template>
-  </as-split>
-</div>
-</div> -->

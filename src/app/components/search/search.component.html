@@ -64,63 +64,6 @@
         </mat-form-field>
       </ng-container>
     </div>
-
-    <!-- to delete after testing
-    <div *ngIf="searchMode === 'phrase'" class="app-formbar">
-      <a mat-raised-button color="primary" class="app-search" (click)="filter()">
-        {{ 'search.search' | translate }}
-      </a>
-      <mat-form-field class="model-filter app-filter">
-        <mat-select #modelSelect [placeholder]="'search.model' | translate" name="model" [(ngModel)]="model" (keyup.enter)="enterModel(modelSelect)">
-          <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
-          <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="document-search">
-        <input matInput [placeholder]="'search.search' | translate" (keyup.enter)="filter()" [(ngModel)]="query">
-      </mat-form-field>
-    </div>
-  
-    <div *ngIf="searchMode !== 'phrase'" class="app-search-filteres">
-      <a mat-raised-button color="primary" class="app-search" (click)="filter()">
-        {{ 'search.search' | translate }}
-      </a>
-      <mat-form-field class="model-filter app-filter">
-        <mat-select [placeholder]="'search.model' | translate" name="model" [(ngModel)]="model">
-          <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
-          <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="document-search">
-        <input matInput [placeholder]="'search.fields.title' | translate" (keyup.enter)="filter()" [(ngModel)]="queryLabel">
-      </mat-form-field>
-      <mat-form-field class="document-search">
-        <input matInput [placeholder]="'search.fields.identifier' | translate" (keyup.enter)="filter()" [(ngModel)]="queryIdentifier">
-      </mat-form-field>
-      <mat-form-field class="document-search">
-        <input matInput [placeholder]="'search.fields.creator' | translate" (keyup.enter)="filter()" [(ngModel)]="queryCreator">
-      </mat-form-field>
-  
-      <mat-form-field class="organization-filter app-filter">
-        <mat-select  [placeholder]="'search.fields.organization' | translate" name="organization" [(value)]="organization">
-          <mat-option value="-">Vše</mat-option>
-          <mat-option *ngFor="let org of organizations" [value]="org">{{ 'organization.' + org | translate }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-  
-      <mat-form-field class="owner-filter app-filter">
-        <mat-select [placeholder]="'search.fields.owner' | translate" name="owner" [(value)]="owner">
-          <mat-option value="-">Vše</mat-option>
-          <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field class="owner-filter app-filter">
-        <mat-select [placeholder]="'search.fields.processor' | translate" name="processor" [(value)]="processor">
-          <mat-option value="-">Vše</mat-option>
-          <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div> -->
   
     <as-split fxFlex unit="percent" [gutterSize]="10" direction="vertical" (dragEnd)="dragEnd($event)" #split="asSplit">
       <as-split-area #area1="asSplitArea" [minSize]="20" [size]="getSplitSize(0)">
@@ -272,8 +215,3 @@
     </as-split>
   </div>
 </div>
-
-<!-- to delete after testing
-<div class="app-loader" *ngIf="state=='loading'">
-  <mat-spinner [strokeWidth]="5" [diameter]="60" class="center-spinner"></mat-spinner>
-</div> -->

@@ -19,62 +19,7 @@
   }
 }
 
-/* to delete after testing
-.breadcrumb-nav {
-  span {
-    margin-right: 20px;
-  }
-  .app-divider {
-    display: inline-block;
-    height: 40px;
-    background: $app-toolbar-border-color;
-    width: 1px;
-    margin: 3px;
-  }
-  .app-inactive {
-    color: #ffffff57
-  }
-} */
-
-.app-search-results {
-  /*  to delete after testing
-  height: calc(100% - $app-breadcrumbsbar-height);
-  padding: 10px 20px;
-   */
-   
-  /* to delete after testing
-  .app-search-filteres {
-    height: 50px;
-    overflow: hidden;
-    display: flex;
-    .app-search {
-      height: 32px;
-      line-height: 32px;
-      margin-top: 4px;
-    }
-    .model-filter {
-      width: 160px;
-    }
-    .app-filter {
-      font-size: 13px;
-      margin-left: 10px;
-    }
-    .query-field-filter {
-      width: 100px;
-    }
-    .owner-filter {
-      width: 140px;
-    }
-    .organization-filter {
-      width: 200px;
-    }
-    .document-search {
-      margin-left: 10px;
-      font-size: 13px;
-      flex: 1;
-    }
-  } */
-  
+.app-search-results {  
   .app-search-actions {
     height: 42px;
     background: #fff;
