@@ -135,6 +135,7 @@ import { EditorAesComponent } from './components/editor/editor-aes/editor-aes.co
 import {EditorAudioPagesComponent} from './components/editor/editor-audioPages/editor-audioPages.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { EditorTreeComponent } from './components/editor/editor-tree/editor-tree.component';
+import { MarkSequenceDialogComponent } from './dialogs/mark-sequence-dialog/mark-sequence-dialog.component';
 
 
 // export function hljsLanguages() {
@@ -254,6 +255,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BatchesComponent,
     FooterComponent,
     EditorTreeComponent,
+    MarkSequenceDialogComponent,
   ],
   imports: [
     BrowserModule,

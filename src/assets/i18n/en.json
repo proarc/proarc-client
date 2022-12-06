@@ -391,7 +391,8 @@
         "button_tooltip": "Remove relation to current parent",
         "title": "Remove relation to parent",
         "message": "Are you sure you want to remove relation to parent?"
-      }
+      },
+      "markSequence": "Mark sequence"
     },
     "mods": {
       "realtime_on": "Realtime",

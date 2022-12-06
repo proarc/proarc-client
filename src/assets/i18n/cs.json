@@ -444,7 +444,8 @@
         "button_tooltip": "Zrušit vazbu na aktualní nadřazený objekt",
         "title": "Zrušení vazbu na nadřazený",
         "message": "Opravdu chcete zrušit vazbu na nadřazený objekt?"
-      }
+      },
+      "markSequence": "Označit řadu"
     },
     "mods": {
       "realtime_on": "V reálném čase",

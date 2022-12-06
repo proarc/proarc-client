@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ResizedEvent } from 'angular-resize-event';
 import { ChildrenValidationDialogComponent } from 'src/app/dialogs/children-validation-dialog/children-validation-dialog.component';
 import { ConvertDialogComponent } from 'src/app/dialogs/convert-dialog/convert-dialog.component';
+import { MarkSequenceDialogComponent } from 'src/app/dialogs/mark-sequence-dialog/mark-sequence-dialog.component';
 import { NewMetadataDialogComponent } from 'src/app/dialogs/new-metadata-dialog/new-metadata-dialog.component';
 import { NewObjectData, NewObjectDialogComponent } from 'src/app/dialogs/new-object-dialog/new-object-dialog.component';
 import { ParentDialogComponent } from 'src/app/dialogs/parent-dialog/parent-dialog.component';
@@ -196,7 +197,7 @@ export class EditorStructureComponent implements OnInit {
     this.properties.setStringProperty('selectedColumns', JSON.stringify(this.selectedColumns));
     this.initSelectedColumns();
     this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field);
-    
+
     this.dataSource = new MatTableDataSource(this.items);
     this.table.renderRows();
   }
@@ -428,17 +429,18 @@ export class EditorStructureComponent implements OnInit {
         if (result.isMultiple) {
           this.layout.setShouldRefresh(true);
         } else {
-          const dialogRef = this.dialog.open(NewMetadataDialogComponent, { 
-            disableClose: true, 
+          const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
+            disableClose: true,
             height: '90%',
-            data: result.data });
+            data: result.data
+          });
           dialogRef.afterClosed().subscribe(res => {
             console.log(res);
             if (res) {
-              res.selected =true;
+              res.selected = true;
               this.items.push(res);
             }
-            
+
             this.layout.setShouldRefresh(true);
           });
         }
@@ -756,7 +758,7 @@ export class EditorStructureComponent implements OnInit {
         if (i) {
           this.rowClick(i, first, null);
         }
-        
+
         this.layout.setShouldRefresh(true);
         // const removedPid: string[] = response['response']['data'].map((x: any) => x.pid);
         // let nextSelection = 0;
@@ -826,6 +828,16 @@ export class EditorStructureComponent implements OnInit {
 
   ingest() {
     this.onIngest.emit(true);
+  }
+
+  markSequence() {
+
+    const dialogRef = this.dialog.open(MarkSequenceDialogComponent, {
+      width: '800px',
+      data: { items: this.items, batchId: this.layout.getBatchId() }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
 }

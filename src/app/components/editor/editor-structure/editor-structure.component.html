@@ -28,6 +28,9 @@
       <button mat-icon-button *ngIf="auth.user.changeModelFunction || auth.isSuperAdmin()" (click)="showConvertDialog()" [matTooltip]="'editor.children.convertPages' | translate" [matTooltipPosition]="toolbarTooltipPosition">
         <mat-icon>swap_horiz</mat-icon>
       </button>
+      <button mat-icon-button *ngIf="!isRepo" (click)="markSequence()" [matTooltip]="'editor.children.markSequence' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+        <mat-icon>dynamic_feed</mat-icon>
+      </button>
     </div>
     <div>
       <button mat-icon-button *ngIf="canAddChildren() && isRepo" (click)="onCreateNewObject()" [matTooltip]="'editor.children.add_new' | translate" [matTooltipPosition]="toolbarTooltipPosition">

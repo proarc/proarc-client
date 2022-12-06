@@ -1,0 +1,57 @@
+<h1 mat-dialog-title>{{ 'editor.children.markSequence' | translate }}</h1>
+
+<div mat-dialog-content style="height:100%;">
+  <mat-stepper [linear]="false" #stepper>
+    <mat-step>
+      <ng-template matStepLabel>Vyberte zdroje</ng-template>
+      <ul>
+        <li *ngFor="let item of orig">
+          <mat-checkbox color="primary" [(ngModel)]="item.selected">{{ item.label }}</mat-checkbox>
+        </li>
+      </ul>
+      <div>
+        <button mat-raised-button matStepperNext>Next</button>
+      </div>
+
+    </mat-step>
+    <mat-step label="Vyberte cíle">
+      <ul>
+        <li *ngFor="let item of dest">
+          <mat-checkbox color="primary" [(ngModel)]="item.selected">{{ item.label }}</mat-checkbox>
+        </li>
+      </ul>
+      <div>
+        <button mat-raised-button matStepperPrevious>Back</button>
+        <button mat-raised-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Vyberte pole kam se to kopiruje</ng-template>
+      <div>
+        <mat-checkbox color="primary" [(ngModel)]="pageType">Editovat typ stran</mat-checkbox>
+      </div>
+      <div>
+        <mat-checkbox color="primary" [(ngModel)]="pageIndex">Editovat index stran</mat-checkbox>
+      </div>
+      <div>
+        <mat-checkbox color="primary" [(ngModel)]="pageNumber">Editovat čísla stran</mat-checkbox>
+      </div>
+
+      <div>
+        <button mat-raised-button matStepperPrevious>Back</button>
+        <button mat-raised-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Provest</ng-template>
+      <div>
+        <button mat-raised-button color="primary" (click)="save()" [matTooltip]="'button.save' | translate" >{{ 'button.save' | translate }}</button> 
+      <br/>
+      </div>
+      <div>
+        <button mat-raised-button matStepperPrevious>Back</button>
+        <button mat-raised-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+</div>
