@@ -428,7 +428,10 @@ export class EditorStructureComponent implements OnInit {
         if (result.isMultiple) {
           this.layout.setShouldRefresh(true);
         } else {
-          const dialogRef = this.dialog.open(NewMetadataDialogComponent, { disableClose: true, data: result.data });
+          const dialogRef = this.dialog.open(NewMetadataDialogComponent, { 
+            disableClose: true, 
+            height: '90%',
+            data: result.data });
           dialogRef.afterClosed().subscribe(res => {
             console.log(res);
             if (res) {
