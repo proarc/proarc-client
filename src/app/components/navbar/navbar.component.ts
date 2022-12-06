@@ -55,7 +55,11 @@ export class NavbarComponent implements OnInit {
   }
 
   showMetadataDialog(data: any,) {
-    const dialogRef = this.dialog.open(NewMetadataDialogComponent, { disableClose: true, data: data });
+    const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
+       disableClose: true, 
+       height: '90%',
+       data: data 
+      });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['pid']) {
         const pid = result['pid'];

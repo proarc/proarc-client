@@ -1,8 +1,8 @@
 <h1 mat-dialog-title>{{ 'new_object.title_edit' | translate }}: {{'model.' + data.model | translate}}</h1>
 
-<div mat-dialog-content style="max-width:600px;">
+<div mat-dialog-content style="max-width:600px;height:100%;">
 
-  <div class="app-content" *ngIf="inited">
+  <div class="app-content" style="max-width:600px;height:100%;" *ngIf="inited">
 
     <app-editor-page *ngIf="isPage()" [model]="data.model" [notSaved]="true" [pid]="data.pid">
     </app-editor-page>
