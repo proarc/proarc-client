@@ -139,8 +139,8 @@ export class RepositoryComponent implements OnInit {
       this.layout.item = item;
       if (children.length === 0) {
         this.layout.selectedParentItem = item;
-        this.layout.lastSelectedItem = item;
       }
+      this.layout.lastSelectedItem = item;
       this.layout.items = children;
       if (keepSelection) {
         this.layout.items.forEach(item => {

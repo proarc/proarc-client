@@ -62,12 +62,18 @@ export class MetadataService {
     //   callback(this.metadata);
     //   return;
     // }
-    this.api.getMetadata(pid, model).subscribe((metadata: Metadata) => {
-      this.metadata = metadata;
+    this.api.getMetadata(pid, model).subscribe((response: any) => {
+      if (response['response'].errors) {
+        console.log('error', response['response'].errors);
+        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        return;
+      }
+      this.metadata = new Metadata(pid, model, response['record']['content'], response['record']['timestamp']);
       if (callback) {
-        callback(metadata);
+        callback(this.metadata);
       }
     });
+    
   }
 
   updateModsFromCatalog(xml: string) {

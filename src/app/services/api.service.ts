@@ -352,9 +352,8 @@ export class ApiService {
     return this.put('object/atm', data);
   }
 
-  getMetadata(pid: string, model: string): Observable<Metadata> {
-    return this.get('object/mods/plain', { pid: pid }).pipe(map((response: any) =>
-      new Metadata(pid, model, response['record']['content'], response['record']['timestamp'])));
+  getMetadata(pid: string, model: string): Observable<any> {
+    return this.get('object/mods/plain', { pid: pid });
   }
 
   getMods(pid: string, batchId: any = null): Observable<any> {

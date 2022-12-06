@@ -63,10 +63,23 @@ export class EditorMetadataComponent implements OnInit {
 
   load() {
     this.state = 'loading';
-    this.api.getMetadata(this.pid, this.item.model).subscribe((metadata: Metadata) => {
-      this.metadata = metadata;
+
+    this.api.getMetadata(this.pid, this.model).subscribe((response: any) => {
+      if (response.errors) {
+        console.log('error', response.errors);
+        this.ui.showErrorSnackBarFromObject(response.errors);
+        this.state = 'error';
+        return;
+      }
+      this.metadata = new Metadata(this.pid, this.model, response['record']['content'], response['record']['timestamp']);
       this.state = 'success';
     });
+
+
+    // this.api.getMetadata(this.pid, this.item.model).subscribe((metadata: Metadata) => {
+    //   this.metadata = metadata;
+    //   this.state = 'success';
+    // });
   }
 
   available(element: string): boolean {
