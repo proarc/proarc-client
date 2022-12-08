@@ -31,10 +31,10 @@
   </div>
 
   <div fxFlex class="app-oh">
-    <as-split *ngIf="config" direction="horizontal" [disabled]="config.disabled"  (dragEnd)="onDragEnd(-1, $event)">
-      <ng-template ngFor let-column [ngForOf]="config.columns" let-icol="index">
+    <as-split *ngIf="layout.layoutConfig" direction="horizontal" [disabled]="layout.layoutConfig.disabled"  (dragEnd)="onDragEnd(-1, $event)">
+      <ng-template ngFor let-column [ngForOf]="layout.layoutConfig.columns" let-icol="index">
         <as-split-area *ngIf="column.visible" [order]="icol" [size]="column.size">
-          <as-split direction="vertical" [disabled]="config.disabled" (dragEnd)="onDragEnd(icol, $event)">
+          <as-split direction="vertical" [disabled]="layout.layoutConfig.disabled" (dragEnd)="onDragEnd(icol, $event)">
             <ng-template ngFor let-row [ngForOf]="column.rows" let-irow="index">
               <as-split-area *ngIf="row.visible && !row.isEmpty" [order]="irow" [size]="row.size">
                 <app-editor-generic [editorType]="row.type" [panel]="row"></app-editor-generic>

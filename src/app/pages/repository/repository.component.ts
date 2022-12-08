@@ -20,7 +20,7 @@ import { defaultLayoutConfig, IConfig, LayoutAdminComponent } from '../layout-ad
 export class RepositoryComponent implements OnInit {
 
   localStorageName = 'proarc-layout-repo';
-  config: IConfig = null;
+  // config: IConfig = null;
 
   pid: string;
   parent: DocumentItem | null;
@@ -84,22 +84,22 @@ export class RepositoryComponent implements OnInit {
 
   initConfig() {
     if (localStorage.getItem(this.localStorageName)) {
-      this.config = JSON.parse(localStorage.getItem(this.localStorageName))
+      this.layout.layoutConfig = JSON.parse(localStorage.getItem(this.localStorageName))
     } else {
-      this.config = JSON.parse(JSON.stringify(defaultLayoutConfig));
+      this.layout.layoutConfig = JSON.parse(JSON.stringify(defaultLayoutConfig));
     }
   }
 
   setVisibility() {
 
-    this.config.columns.forEach(c => {
-      c.rows.forEach(r => {
-        if (r.type === 'image' && r.visible) {
-          r.isEmpty = !(this.layout.lastSelectedItem && this.layout.lastSelectedItem.isPage());
-        }
-      });
-      c.visible = c.rows.findIndex(r => r.visible && !r.isEmpty) > -1;
-    });
+    // this.layout.layoutConfig.columns.forEach(c => {
+    //   c.rows.forEach(r => {
+    //     if (r.type === 'image' && r.visible) {
+    //       r.isEmpty = !(this.layout.lastSelectedItem && this.layout.lastSelectedItem.isPage());
+    //     }
+    //   });
+    //   c.visible = c.rows.findIndex(r => r.visible && !r.isEmpty) > -1;
+    // });
 
   }
 
@@ -107,17 +107,17 @@ export class RepositoryComponent implements OnInit {
     // Column dragged
     if (columnindex === -1) {
       // Set size for all visible columns
-      this.config.columns.filter((c) => c.visible === true).forEach((column, index) => (column.size = e.sizes[index]))
+      this.layout.layoutConfig.columns.filter((c) => c.visible === true).forEach((column, index) => (column.size = e.sizes[index]))
     }
     // Row dragged
     else {
       // Set size for all visible rows from specified column
-      this.config.columns[columnindex].rows
+      this.layout.layoutConfig.columns[columnindex].rows
         .filter((r) => r.visible === true)
         .forEach((row, index) => (row.size = e.sizes[index]))
     }
 
-    localStorage.setItem(this.localStorageName, JSON.stringify(this.config));
+    localStorage.setItem(this.localStorageName, JSON.stringify(this.layout.layoutConfig));
   }
 
 

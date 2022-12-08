@@ -2,11 +2,14 @@ import { Injectable, Component } from '@angular/core';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { DocumentItem } from '../model/documentItem.model';
 import { Tree } from '../model/mods/tree.model';
+import { IConfig } from '../pages/layout-admin/layout-admin.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LayoutService {
+
+  layoutConfig: IConfig = null;
 
   public ready = false;
   public type: string = 'repo';  // keeps repo or import layout

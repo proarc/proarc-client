@@ -38,9 +38,9 @@
     <div class="app-table app-tree"  *ngSwitchCase="'tree'">
       <app-editor-tree [item]="layout.item"></app-editor-tree>
     </div>
-    <app-editor-structure *ngSwitchCase="'structure-list'" [viewMode]="'list'" [items]="layout.items"  (onIngest)="passOnIngest()"></app-editor-structure>
-    <app-editor-structure *ngSwitchCase="'structure-grid'" [viewMode]="'grid'" [items]="layout.items" (onIngest)="passOnIngest()"></app-editor-structure>
-    <app-editor-structure *ngSwitchCase="'structure-icons'" [viewMode]="'icons'" [items]="layout.items" (onIngest)="passOnIngest()"></app-editor-structure>
+    <app-editor-structure *ngSwitchCase="'structure-list'" [viewMode]="'list'" [items]="layout.items" [panel]="panel" (onIngest)="passOnIngest()"></app-editor-structure>
+    <app-editor-structure *ngSwitchCase="'structure-grid'" [viewMode]="'grid'" [items]="layout.items" [panel]="panel" (onIngest)="passOnIngest()"></app-editor-structure>
+    <app-editor-structure *ngSwitchCase="'structure-icons'" [viewMode]="'icons'" [items]="layout.items" [panel]="panel" (onIngest)="passOnIngest()"></app-editor-structure>
     <ng-container *ngSwitchCase="'image'" >
       <app-viewer *ngIf="layout.lastSelectedItem && layout.lastSelectedItem.isPage()" [pid]="layout.lastSelectedItem.pid" ></app-viewer>
     </ng-container>

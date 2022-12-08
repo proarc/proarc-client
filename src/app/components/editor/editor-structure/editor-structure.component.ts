@@ -15,6 +15,7 @@ import { ParentDialogComponent } from 'src/app/dialogs/parent-dialog/parent-dial
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { DocumentItem } from 'src/app/model/documentItem.model';
+import { ILayoutPanel, localStorageName } from 'src/app/pages/layout-admin/layout-admin.component';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { LayoutService } from 'src/app/services/layout.service';
@@ -30,6 +31,7 @@ export class EditorStructureComponent implements OnInit {
 
   @Input() items: DocumentItem[];
   @Input() viewMode: string; // 'list' | 'grid' | 'icons'
+  @Input('panel') panel: ILayoutPanel;
   @Output() onIngest = new EventEmitter<boolean>();
   //@Input() selectedIndex: number = -1;
   @ViewChild('table') table: MatTable<DocumentItem>;
@@ -184,6 +186,9 @@ export class EditorStructureComponent implements OnInit {
 
   changeViewMode(view: string) {
     this.viewMode = view;
+    this.panel.type = 'structure-' + view;
+    const l = this.isRepo ? 'repo' : 'import';
+    localStorage.setItem(localStorageName + '-' + l, JSON.stringify(this.layout.layoutConfig))
   }
 
   initSelectedColumns() {
