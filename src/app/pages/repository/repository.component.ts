@@ -160,10 +160,21 @@ export class RepositoryComponent implements OnInit {
         this.layout.path = [];
         this.expandedPath = [];
         if (parent) {
+          parent.selected = true;
           this.layout.path.unshift({ pid: parent.pid, label: parent.label, model: parent.model });
           this.expandedPath.unshift(parent.pid );
           this.setPath(parent, parent.pid);
-          this.layout.tree = new Tree(parent);
+          // this.layout.tree = new Tree(parent);
+          if  (children.length === 0) {
+            this.layout.selectedParentItem = parent;
+            // find siblings
+            this.api.getRelations(parent.pid).subscribe((siblings: DocumentItem[]) => {
+              if (siblings.length > 0) {
+                this.layout.items = siblings;
+              }
+            });
+          }
+          
         } else {
           this.layout.tree = new Tree(item);
           this.layout.expandedPath = this.expandedPath;

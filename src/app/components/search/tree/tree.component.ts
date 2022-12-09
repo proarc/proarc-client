@@ -17,6 +17,8 @@ export class TreeComponent implements OnInit {
   @Input('inPanel') inPanel: boolean;
   @Input('expanded') expanded: boolean;
   @Input('expandedPath') expandedPath: string[];
+  @Input() selectedPid: string;
+  @Input() selectedParentPid: string;
   @Output() onSelect = new EventEmitter<Tree>();
   @Output() onOpen = new EventEmitter<DocumentItem>();
 
@@ -39,9 +41,10 @@ export class TreeComponent implements OnInit {
   }
 
   select() {
+    this.search.selectedTreePid = this.tree.item.pid;
     if (this.tree.expandable()) {
-      this.search.selectedTreePid = this.tree.item.pid;
       this.tree.expand(this.api, false, () => {
+        this.expandedPath.includes(this.tree.item.pid)
         this.selectFromTree(this.tree);
       });
     }

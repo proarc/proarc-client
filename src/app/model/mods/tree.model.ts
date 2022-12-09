@@ -45,7 +45,7 @@ export class Tree {
                 this.expandChildren(api);
             }
             if(callback) {
-                callback();
+                callback(children);
             }
         });
     }

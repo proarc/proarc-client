@@ -36,7 +36,7 @@
         <as-split-area *ngIf="column.visible" [order]="icol" [size]="column.size">
           <as-split direction="vertical" [disabled]="layout.layoutConfig.disabled" (dragEnd)="onDragEnd(icol, $event)">
             <ng-template ngFor let-row [ngForOf]="column.rows" let-irow="index">
-              <as-split-area *ngIf="row.visible && !row.isEmpty" [order]="irow" [size]="row.size">
+              <as-split-area *ngIf="row.visible" [order]="irow" [size]="row.size">
                 <app-editor-generic [editorType]="row.type" [panel]="row"></app-editor-generic>
               </as-split-area>
             </ng-template>

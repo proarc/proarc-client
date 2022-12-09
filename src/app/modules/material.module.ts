@@ -23,7 +23,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatDividerModule } from '@angular/material/divider';
-import {MatStepperModule} from '@angular/material/stepper';
 
 const modules = [
     MatButtonModule,
@@ -47,8 +46,7 @@ const modules = [
     MatNativeDateModule,
     MatTableModule,
     MatButtonToggleModule,
-    MatDividerModule,
-    MatStepperModule
+    MatDividerModule
   ];
 
   @NgModule({

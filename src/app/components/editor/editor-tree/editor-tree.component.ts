@@ -25,19 +25,29 @@ export class EditorTreeComponent implements OnInit {
   selectFromTree(tree: Tree) {
 
     this.layout.clearSelection();
-    tree.item.selected = true;
-    this.layout.selectedParentItem = tree.item;
+    // this.layout.selectedParentItem = tree.item;
+    //
     this.layout.lastSelectedItem = tree.item;
     if (tree.children) {
+      this.layout.selectedParentItem = tree.item;
       this.layout.items = tree.children.map(ch => ch.item);
       this.layout.clearSelection();
     } else {
 
+      if (this.layout.selectedParentItem.pid !== tree.parent.item.pid) {
+        this.layout.selectedParentItem = tree.parent.item;
+        if (tree.parent.children) {
+          this.layout.items = tree.parent.children.map(ch => ch.item);
+          this.layout.clearSelection();
+        } 
+        
+      }
       if (tree.expandable()) {
         this.layout.items = [];
       }
 
     }
+    tree.item.selected = true;
     this.layout.setSelection(true, true);
 
   }
