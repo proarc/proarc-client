@@ -123,12 +123,14 @@ export class RepositoryComponent implements OnInit {
 
   loadData(pid: string, keepSelection: boolean) {
     const selection: string[] = [];
+    let lastSelected: string = null;
     if (keepSelection) {
       this.layout.items.forEach(item => {
         if (item.selected) {
           selection.push(item.pid);
         }
-      })
+      });
+      lastSelected = this.layout.lastSelectedItem.pid;
     }
     this.layout.ready = false;
     this.layout.setBatchId(null);
@@ -137,9 +139,9 @@ export class RepositoryComponent implements OnInit {
     const rChildren = this.api.getRelations(pid);
     forkJoin([rDoc, rChildren]).subscribe(([item, children]: [DocumentItem, DocumentItem[]]) => {
       this.layout.item = item;
-      if (children.length === 0) {
+      //if (children.length === 0) {
         this.layout.selectedParentItem = item;
-      }
+      //}
       this.layout.lastSelectedItem = item;
       this.layout.items = children;
       if (keepSelection) {
@@ -147,7 +149,10 @@ export class RepositoryComponent implements OnInit {
           if (selection.includes(item.pid)) {
             item.selected = true;
           }
-        })
+          if (item.pid === lastSelected) {
+            this.layout.lastSelectedItem = item;
+          }
+        });
       }
       this.layout.ready = true;
       this.layout.setSelection(false);

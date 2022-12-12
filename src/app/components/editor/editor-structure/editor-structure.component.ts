@@ -427,8 +427,8 @@ export class EditorStructureComponent implements OnInit {
       customPid: false,
       parentPid: this.layout.selectedParentItem.pid
     }
-    const dialogRef = this.dialog.open(NewObjectDialogComponent, { data: data });
-    dialogRef.afterClosed().subscribe((result: any) => {
+    const dialogRef1 = this.dialog.open(NewObjectDialogComponent, { data: data });
+    dialogRef1.afterClosed().subscribe((result: any) => {
       if (result && result['pid']) {
 
         if (result.isMultiple) {
@@ -440,10 +440,11 @@ export class EditorStructureComponent implements OnInit {
             data: result.data
           });
           dialogRef.afterClosed().subscribe(res => {
-            console.log(res);
+            // console.log(res);
             if (res) {
               res.selected = true;
               this.items.push(res);
+              this.rowClick(res, this.items.length -1, null);
             }
 
             this.layout.setShouldRefresh(true);
