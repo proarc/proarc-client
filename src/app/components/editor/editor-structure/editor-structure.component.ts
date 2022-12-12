@@ -29,7 +29,7 @@ import { UIService } from 'src/app/services/ui.service';
 })
 export class EditorStructureComponent implements OnInit {
 
-  @Input() items: DocumentItem[];
+ // @Input() items: DocumentItem[];
   @Input() viewMode: string; // 'list' | 'grid' | 'icons'
   @Input('panel') panel: ILayoutPanel;
   @Output() onIngest = new EventEmitter<boolean>();
@@ -96,7 +96,7 @@ export class EditorStructureComponent implements OnInit {
     this.initSelectedColumns();
     this.setColumns();
     this.shortLabels = this.properties.getBoolProperty('children.short_labels', false);
-    this.pageChildren = this.items.findIndex(it => it.isPage()) > -1;
+    this.pageChildren = this.layout.items.findIndex(it => it.isPage()) > -1;
     if (!this.isRepo) {
       this.lastClickIdx = 0;
     }
@@ -108,9 +108,9 @@ export class EditorStructureComponent implements OnInit {
   }
 
   ngOnChanges(e: any) {
-    if (this.items) {
-      this.dataSource = new MatTableDataSource(this.items);
-      // this.rows = JSON.parse(JSON.stringify(this.items));
+    if (this.layout.items) {
+      this.dataSource = new MatTableDataSource(this.layout.items);
+      // this.rows = JSON.parse(JSON.stringify(this.layout.items));
     }
   }
 
@@ -156,7 +156,7 @@ export class EditorStructureComponent implements OnInit {
         step = this.iconColumns;
       }
       if (this.arrowIndex - step >= 0) {
-        this.rowClick(this.items[this.arrowIndex - step], this.arrowIndex - step, event);
+        this.rowClick(this.layout.items[this.arrowIndex - step], this.arrowIndex - step, event);
       }
     } else if (event.keyCode === 39 || event.keyCode === 40) {
       event.stopPropagation();
@@ -165,16 +165,16 @@ export class EditorStructureComponent implements OnInit {
       if (event.keyCode === 40 && (this.viewMode === 'icons' || this.viewMode === 'grid')) {
         step = this.iconColumns;
       }
-      if (this.arrowIndex + step < this.items.length) {
-        this.rowClick(this.items[this.arrowIndex + step], this.arrowIndex + step, event);
+      if (this.arrowIndex + step < this.layout.items.length) {
+        this.rowClick(this.layout.items[this.arrowIndex + step], this.arrowIndex + step, event);
       }
     }
 
   }
 
   moveToNext(index: number) {
-    if (index < this.items.length) {
-      this.rowClick(this.items[index], index, null);
+    if (index < this.layout.items.length) {
+      this.rowClick(this.layout.items[index], index, null);
     }
 
   }
@@ -203,7 +203,7 @@ export class EditorStructureComponent implements OnInit {
     this.initSelectedColumns();
     this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field);
 
-    this.dataSource = new MatTableDataSource(this.items);
+    this.dataSource = new MatTableDataSource(this.layout.items);
     this.table.renderRows();
   }
 
@@ -212,7 +212,7 @@ export class EditorStructureComponent implements OnInit {
   }
 
   selectAll() {
-    this.items.forEach(i => i.selected = true);
+    this.layout.items.forEach(i => i.selected = true);
     this.layout.setSelection(true);
   }
 
@@ -230,16 +230,16 @@ export class EditorStructureComponent implements OnInit {
         const from = Math.min(this.lastClickIdx, idx);
         const to = Math.max(this.lastClickIdx, idx);
         for (let i = from; i <= to; i++) {
-          this.items[i].selected = true;
+          this.layout.items[i].selected = true;
         }
       } else {
         // nic neni.
-        this.items.forEach(i => i.selected = false);
+        this.layout.items.forEach(i => i.selected = false);
         row.selected = true;
       }
 
     } else {
-      this.items.forEach(i => i.selected = false);
+      this.layout.items.forEach(i => i.selected = false);
       row.selected = true;
     }
     this.lastClickIdx = idx;
@@ -247,7 +247,7 @@ export class EditorStructureComponent implements OnInit {
     if (row.selected) {
       this.layout.lastSelectedItem = row;
     } else {
-      const last = this.items.filter((i: DocumentItem) => i.selected);
+      const last = this.layout.items.filter((i: DocumentItem) => i.selected);
       if (last.length > 0) {
         this.layout.lastSelectedItem = last[last.length - 1];
       }
@@ -337,9 +337,9 @@ export class EditorStructureComponent implements OnInit {
     if (isMultiple) {
       const movedItems = [];
       let shift = 0;
-      for (let i = this.items.length - 1; i >= 0; i--) {
-        if (this.items[i].selected) {
-          const item = this.items.splice(i, 1);
+      for (let i = this.layout.items.length - 1; i >= 0; i--) {
+        if (this.layout.items[i].selected) {
+          const item = this.layout.items.splice(i, 1);
           movedItems.push(item[0]);
           if (i < to) {
             shift += 1;
@@ -349,13 +349,13 @@ export class EditorStructureComponent implements OnInit {
       if (shift > 1) {
         to = to - shift + 1;
       }
-      const rest = this.items.splice(to, this.items.length - to);
+      const rest = this.layout.items.splice(to, this.layout.items.length - to);
       for (let i = movedItems.length - 1; i >= 0; i--) {
-        this.items.push(movedItems[i]);
+        this.layout.items.push(movedItems[i]);
       }
       for (let i = 0; i < rest.length; i++) {
         const item = rest[i];
-        this.items.push(item);
+        this.layout.items.push(item);
       }
       this.layout.setIsDirty(this as Component);
       this.table.renderRows();
@@ -370,9 +370,9 @@ export class EditorStructureComponent implements OnInit {
   reorderMultiple(to: number) {
     const movedItems = [];
     let shift = 0;
-    for (let i = this.items.length - 1; i >= 0; i--) {
-      if (this.items[i].selected) {
-        const item = this.items.splice(i, 1);
+    for (let i = this.layout.items.length - 1; i >= 0; i--) {
+      if (this.layout.items[i].selected) {
+        const item = this.layout.items.splice(i, 1);
         movedItems.push(item[0]);
         if (i < to) {
           shift += 1;
@@ -382,13 +382,13 @@ export class EditorStructureComponent implements OnInit {
     if (shift > 1) {
       to = to - shift + 1;
     }
-    const rest = this.items.splice(to, this.items.length - to);
+    const rest = this.layout.items.splice(to, this.layout.items.length - to);
     for (let i = movedItems.length - 1; i >= 0; i--) {
-      this.items.push(movedItems[i]);
+      this.layout.items.push(movedItems[i]);
     }
     for (let i = 0; i < rest.length; i++) {
       const item = rest[i];
-      this.items.push(item);
+      this.layout.items.push(item);
     }
     this.layout.setIsDirty(this as Component);
     this.table.renderRows();
@@ -399,15 +399,15 @@ export class EditorStructureComponent implements OnInit {
       this.reorderMultiple(to + 1);
     } else {
       this.layout.setIsDirty(this as Component);
-      const item = this.items[from];
-      this.items.splice(from, 1);
-      this.items.splice(to, 0, item);
+      const item = this.layout.items[from];
+      this.layout.items.splice(from, 1);
+      this.layout.items.splice(to, 0, item);
     }
     this.table.renderRows();
   }
 
   validateChildren() {
-    const dialogRef = this.dialog.open(ChildrenValidationDialogComponent, { data: { children: this.items, batchId: this.layout.getBatchId() } });
+    const dialogRef = this.dialog.open(ChildrenValidationDialogComponent, { data: { children: this.layout.items, batchId: this.layout.getBatchId() } });
     dialogRef.afterClosed().subscribe(result => {
     });
   }
@@ -443,8 +443,8 @@ export class EditorStructureComponent implements OnInit {
             // console.log(res);
             if (res) {
               res.selected = true;
-              this.items.push(res);
-              this.rowClick(res, this.items.length -1, null);
+              this.layout.items.push(res);
+              this.rowClick(res, this.layout.items.length -1, null);
             }
 
             this.layout.setShouldRefresh(true);
@@ -456,7 +456,7 @@ export class EditorStructureComponent implements OnInit {
   }
 
   showConvertDialog() {
-    const dialogRef = this.dialog.open(ConvertDialogComponent, { data: { pid: this.layout.item.pid, model: this.layout.item.model, children: this.items } });
+    const dialogRef = this.dialog.open(ConvertDialogComponent, { data: { pid: this.layout.item.pid, model: this.layout.item.model, children: this.layout.items } });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result.status == 'ok') {
@@ -497,7 +497,7 @@ export class EditorStructureComponent implements OnInit {
   reindexChildren() {
     let pagePid = null;
     let model = null;
-    for (const page of this.items) {
+    for (const page of this.layout.items) {
       if (page.isPage()) {
         pagePid = page.pid;
         model = page.model;
@@ -630,7 +630,7 @@ export class EditorStructureComponent implements OnInit {
 
   setParent(destinationPid: string, openDestination: boolean) {
     this.state = 'saving';
-    let pids: string[] = this.items.filter(c => c.selected).map(c => c.pid);
+    let pids: string[] = this.layout.items.filter(c => c.selected).map(c => c.pid);
     this.api.setParent(this.layout.pid, destinationPid).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorSnackBarFromObject(response['response'].errors);
@@ -653,8 +653,8 @@ export class EditorStructureComponent implements OnInit {
 
   relocateObjects(parentPid: string, destinationPid: string, openDestination: boolean) {
     this.state = 'saving';
-    let pids: string[] = this.items.filter(c => c.selected).map(c => c.pid);
-    const isMultiple = this.items.filter(c => c.selected).length > 1;
+    let pids: string[] = this.layout.items.filter(c => c.selected).map(c => c.pid);
+    const isMultiple = this.layout.items.filter(c => c.selected).length > 1;
 
     this.api.relocateObjects(parentPid, destinationPid, pids).subscribe((response: any) => {
       if (response['response'].errors) {
@@ -665,20 +665,20 @@ export class EditorStructureComponent implements OnInit {
       if (!openDestination) {
         this.setRelocationMode(false);
         let nextSelection = 0;
-        for (let i = this.items.length - 1; i >= 0; i--) {
-          if (pids.indexOf(this.items[i].pid) > -1) {
-            this.items.splice(i, 1);
+        for (let i = this.layout.items.length - 1; i >= 0; i--) {
+          if (pids.indexOf(this.layout.items[i].pid) > -1) {
+            this.layout.items.splice(i, 1);
             nextSelection = i - 1;
           }
         }
         if (nextSelection < 0) {
           nextSelection = 0;
         }
-        if (this.items.length > 0 && !isMultiple) {
+        if (this.layout.items.length > 0 && !isMultiple) {
           this.layout.setSelection(true);
         }
         this.state = 'success';
-        this.dataSource = new MatTableDataSource(this.items);
+        this.dataSource = new MatTableDataSource(this.layout.items);
         // this.goToObjectByPid(destinationPid);
       } else {
         this.goToObjectByPid(destinationPid);
@@ -700,7 +700,7 @@ export class EditorStructureComponent implements OnInit {
     }
 
     this.state = 'saving';
-    const pidArray = this.items.map(item => item.pid);
+    const pidArray = this.layout.items.map(item => item.pid);
     const request = this.isRepo ? this.api.editRelations(this.layout.pid, pidArray) : this.api.editBatchRelations(this.layout.pid, pidArray);
     request.subscribe((response: any) => {
 
@@ -749,8 +749,8 @@ export class EditorStructureComponent implements OnInit {
 
   deleteSelectedChildren(pernamently: boolean) {
     this.state = 'saving';
-    let pids: string[] = this.items.filter(c => c.selected).map(c => c.pid);
-    const isMultiple = this.items.filter(c => c.selected).length > 1;
+    let pids: string[] = this.layout.items.filter(c => c.selected).map(c => c.pid);
+    const isMultiple = this.layout.items.filter(c => c.selected).length > 1;
     const first = this.layout.getFirstSelectedIndex();
 
     this.api.deleteObjects(pids, pernamently, this.layout.getBatchId()).subscribe((response: any) => {
@@ -760,7 +760,7 @@ export class EditorStructureComponent implements OnInit {
         this.state = 'error';
         return;
       } else {
-        const i = this.items[first];
+        const i = this.layout.items[first];
         if (i) {
           this.rowClick(i, first, null);
         }
@@ -768,16 +768,16 @@ export class EditorStructureComponent implements OnInit {
         this.layout.setShouldRefresh(true);
         // const removedPid: string[] = response['response']['data'].map((x: any) => x.pid);
         // let nextSelection = 0;
-        // for (let i = this.items.length - 1; i >= 0; i--) {
-        //   if (removedPid.indexOf(this.items[i].pid) > -1) {
-        //     this.items.splice(i, 1);
+        // for (let i = this.layout.items.length - 1; i >= 0; i--) {
+        //   if (removedPid.indexOf(this.layout.items[i].pid) > -1) {
+        //     this.layout.items.splice(i, 1);
         //     nextSelection = i - 1;
         //   }
         // }
         // if (nextSelection < 0) {
         //   nextSelection = 0;
         // }
-        // if (this.items.length > 0 && !isMultiple) {
+        // if (this.layout.items.length > 0 && !isMultiple) {
         //   this.layout.setSelection(true);
         // }
         this.ui.showInfoSnackBar(String(this.translator.instant('editor.children.delete_dialog.success')));
@@ -793,7 +793,7 @@ export class EditorStructureComponent implements OnInit {
       label: String(this.translator.instant('editor.children.move_dialog.position')),
       value: fromIndex + 1,
       min: 1,
-      max: this.items.length
+      max: this.layout.items.length
     };
     const message = String(this.translator.instant('editor.children.move_dialog.message')) + ' (' +
       String(this.translator.instant('editor.children.move_dialog.between')) +
@@ -818,7 +818,7 @@ export class EditorStructureComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         const toIndex = input.value - 1;
-        if (toIndex >= 0 && toIndex < this.items.length) {
+        if (toIndex >= 0 && toIndex < this.layout.items.length) {
           this.reorder(fromIndex, input.value - 1);
         }
       }
@@ -840,7 +840,7 @@ export class EditorStructureComponent implements OnInit {
 
     const dialogRef = this.dialog.open(MarkSequenceDialogComponent, {
       width: '800px',
-      data: { items: this.items, batchId: this.layout.getBatchId() }
+      data: { items: this.layout.items, batchId: this.layout.getBatchId() }
     });
     dialogRef.afterClosed().subscribe(result => {
     });

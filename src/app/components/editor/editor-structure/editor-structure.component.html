@@ -79,7 +79,7 @@
     <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
     <div class="app-editor-content app-children-editor-content" #childrenWrapper tabindex="0" (keyup)="keyup($event)" (resized)="onResized($event)" *ngIf="state !=='loading'">
       <div class="app-view-grid" *ngIf="viewMode == 'grid'" #childrenGridList (mousedown)="mousedown($event)">
-        <div *ngFor="let item of items; let i = index" (click)="rowClick(item, i, $event)" (dblclick)="open(item)"
+        <div *ngFor="let item of layout.items; let i = index" (click)="rowClick(item, i, $event)" (dblclick)="open(item)"
           class="app-grid-item-wrapper" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart(item,i,$event)"
           (dragover)="dragover($event)" (dragend)="dragend($event)" (mousedown)="mousedown($event)"
           [class.app-selected]="item.selected"
@@ -94,7 +94,7 @@
       </div>
       <div class="app-view-icons" *ngIf="viewMode == 'icons'" #childrenIconList
         [class.app-multiple-selection]="layout.getNumOfSelected() > 1" (mousedown)="mousedown($event)">
-        <div *ngFor="let item of items; let i = index" class="app-item" (click)="rowClick(item, i, $event)"
+        <div *ngFor="let item of layout.items; let i = index" class="app-item" (click)="rowClick(item, i, $event)"
           (dblclick)="open(item)" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart(item, i, $event)"
           (dragend)="dragend($event)" (dragover)="dragover($event)" (mousedown)="mousedown($event)"
           [class.app-selected]="item.selected" [style.width]="iconWidth + '%'"

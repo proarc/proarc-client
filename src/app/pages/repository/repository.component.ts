@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, forkJoin } from 'rxjs';
+import { combineLatest, forkJoin, Subscription } from 'rxjs';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Tree } from 'src/app/model/mods/tree.model';
 import { ApiService } from 'src/app/services/api.service';
@@ -29,6 +29,8 @@ export class RepositoryComponent implements OnInit {
   expandedPath: string[] = [];
   // selected: string;
 
+  subscriptions: Subscription[] = [];
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -39,6 +41,10 @@ export class RepositoryComponent implements OnInit {
     private api: ApiService
   ) { }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
   ngOnInit(): void {
 
     this.initConfig();
@@ -46,14 +52,13 @@ export class RepositoryComponent implements OnInit {
     this.layout.type = 'repo';
     this.layout.setBatchId(null);
 
-    this.layout.shouldRefresh().subscribe((keepSelection: boolean) => {
-
+    this.subscriptions.push(this.layout.shouldRefresh().subscribe((keepSelection: boolean) => {
       this.loadData(this.pid, keepSelection);
-    });
+    }));
 
-    this.layout.selectionChanged().subscribe(() => {
-      this.setVisibility();
-    });
+    // this.layout.selectionChanged().subscribe(() => {
+    //   this.setVisibility();
+    // });
 
 
     combineLatest([this.route.paramMap, this.route.queryParamMap]).subscribe(
@@ -131,7 +136,10 @@ export class RepositoryComponent implements OnInit {
         }
       });
       lastSelected = this.layout.lastSelectedItem.pid;
-    }
+    } 
+    
+    this.layout.path = [];
+    this.expandedPath = [];
     this.layout.ready = false;
     this.layout.setBatchId(null);
     this.pid = pid;
