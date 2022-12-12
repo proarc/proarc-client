@@ -20,7 +20,7 @@ export class UrnbnbDialogComponent implements OnInit {
   registrars: Registrar[] = [];
   errors: any[];
 
-  tableColumns = ['label', 'model', 'statusType', 'warning', 'pid', 'message'];
+  tableColumns = ['label', 'model', 'statusType', 'warning', 'pid', 'urnnbn', 'message'];
   responseData: any;
   selectedRow: string;
 

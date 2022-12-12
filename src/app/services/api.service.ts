@@ -25,11 +25,15 @@ import { PageUpdateHolder } from '../components/editor/editor-pages/editor-pages
 import { Workflow } from '../model/workflow.model';
 import {AudioPage} from '../model/audioPage.model';
 import {AudioPagesUpdateHolder} from '../components/editor/editor-audioPages/editor-audioPages.component';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ApiService {
 
-  constructor(private http: HttpClient, private config: ConfigService) {
+  constructor(
+    private http: HttpClient, 
+    private router: Router,
+    private config: ConfigService) {
   }
 
   public getBaseUrl(): string {
@@ -91,6 +95,9 @@ export class ApiService {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error);
+    } else if (error.status === 303) {
+      // Forbiden. Redirect to login
+      this.router.navigate(['/login']);
     } else {
       // console.error(
       //   `Backend returned code ${error.status}, body was: `, error.error);
