@@ -268,6 +268,25 @@ export class EditorStructureComponent implements OnInit {
     }
   }
 
+  public goToParent() {
+    console.log(this.layout.selectedParentItem)
+    if (this.layout.selectedParentItem) {
+      this.router.navigate(['/repository', this.layout.selectedParentItem.pid]);
+    }
+  }
+
+  goToNext() {
+    if (this.layout.nextItem) {
+      this.router.navigate(['/repository', this.layout.nextItem.pid]);
+    }
+  }
+
+  goToPrevious() {
+    if (this.layout.previousItem) {
+      this.router.navigate(['/repository', this.layout.previousItem.pid]);
+    }
+  }
+
   // Drag events
 
   private getIndex(el: any) {
@@ -414,7 +433,7 @@ export class EditorStructureComponent implements OnInit {
 
 
   canAddChildren(): boolean {
-    return this.layout.allowedChildrenModels && this.layout.allowedChildrenModels.length > 0;
+    return this.layout.allowedChildrenModels() && this.layout.allowedChildrenModels().length > 0;
   }
 
   onCreateNewObject() {
@@ -422,8 +441,8 @@ export class EditorStructureComponent implements OnInit {
       return;
     }
     const data: NewObjectData = {
-      models: this.layout.allowedChildrenModels,
-      model: this.layout.allowedChildrenModels[0],
+      models: this.layout.allowedChildrenModels(),
+      model: this.layout.allowedChildrenModels()[0],
       customPid: false,
       parentPid: this.layout.selectedParentItem.pid
     }

@@ -3,6 +3,7 @@ import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { DocumentItem } from '../model/documentItem.model';
 import { Tree } from '../model/mods/tree.model';
 import { IConfig } from '../pages/layout-admin/layout-admin.component';
+import { ModelTemplate } from 'src/app/templates/modelTemplate';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,8 @@ export class LayoutService {
   path: { pid: string, label: string, model: string }[] = [];
   expandedPath: string[];
   public parent: DocumentItem | null;
+  public previousItem: DocumentItem | null;
+  public nextItem: DocumentItem | null;
 
   public isDirty: boolean; // some components have unsaved changes
 
@@ -37,11 +40,15 @@ export class LayoutService {
   public movedToNextFrom: string;
 
 
-  allowedChildrenModels: string[];
 
   dirtyComps: {[key: string]: Component} = {};
 
   constructor() { }
+
+  allowedChildrenModels(): string[]{
+    return ModelTemplate.allowedChildrenForModel(this.selectedParentItem.model);
+  }
+  
 
   setIsDirty(comp: Component) {
     if (!this.dirtyComps[comp.selector]) {

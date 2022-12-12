@@ -8,7 +8,6 @@ import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { RepositoryService } from 'src/app/services/repository.service';
 import { UIService } from 'src/app/services/ui.service';
-import { ModelTemplate } from 'src/app/templates/modelTemplate';
 import { defaultLayoutConfig, IConfig, LayoutAdminComponent } from '../layout-admin/layout-admin.component';
 
 
@@ -24,8 +23,6 @@ export class RepositoryComponent implements OnInit {
 
   pid: string;
   parent: DocumentItem | null;
-  previousItem: DocumentItem | null;
-  nextItem: DocumentItem | null;
   expandedPath: string[] = [];
   // selected: string;
 
@@ -95,19 +92,6 @@ export class RepositoryComponent implements OnInit {
     }
   }
 
-  setVisibility() {
-
-    // this.layout.layoutConfig.columns.forEach(c => {
-    //   c.rows.forEach(r => {
-    //     if (r.type === 'image' && r.visible) {
-    //       r.isEmpty = !(this.layout.lastSelectedItem && this.layout.lastSelectedItem.isPage());
-    //     }
-    //   });
-    //   c.visible = c.rows.findIndex(r => r.visible && !r.isEmpty) > -1;
-    // });
-
-  }
-
   onDragEnd(columnindex: number, e: any) {
     // Column dragged
     if (columnindex === -1) {
@@ -164,7 +148,7 @@ export class RepositoryComponent implements OnInit {
       }
       this.layout.ready = true;
       this.layout.setSelection(false);
-      this.layout.allowedChildrenModels = ModelTemplate.allowedChildrenForModel(item.model);
+      
 
       this.api.getParent(pid).subscribe((parent: DocumentItem) => {
 
@@ -177,8 +161,8 @@ export class RepositoryComponent implements OnInit {
           this.layout.path.unshift({ pid: parent.pid, label: parent.label, model: parent.model });
           this.expandedPath.unshift(parent.pid );
           this.setPath(parent, parent.pid);
-          // this.layout.tree = new Tree(parent);
-          if  (children.length === 0) {
+          if (!this.layout.allowedChildrenModels() || this.layout.allowedChildrenModels().length === 0) {
+          // if  (children.length === 0) {
             this.layout.selectedParentItem = parent;
             // find siblings
             this.api.getRelations(parent.pid).subscribe((siblings: DocumentItem[]) => {
@@ -195,7 +179,6 @@ export class RepositoryComponent implements OnInit {
         this.setupNavigation();
 
       });
-      this.setVisibility();
     });
   }
 
@@ -220,8 +203,8 @@ export class RepositoryComponent implements OnInit {
   }
 
   private setupNavigation() {
-    this.previousItem = null;
-    this.nextItem = null;
+    this.layout.previousItem = null;
+    this.layout.nextItem = null;
     if (!this.parent) {
       return;
     }
@@ -237,10 +220,10 @@ export class RepositoryComponent implements OnInit {
         }
       }
       if (index >= 1 && this.parent.pid == parentId) {
-        this.previousItem = siblings[index - 1];
+        this.layout.previousItem = siblings[index - 1];
       }
       if (index >= 0 && index < siblings.length - 1) {
-        this.nextItem = siblings[index + 1];
+        this.layout.nextItem = siblings[index + 1];
       }
     });
   }

@@ -61,17 +61,17 @@
       <button *ngIf="!isRepo" mat-flat-button color="primary" (click)="ingest()">{{ 'button.continue' | translate }}</button>
     </div>
 
-    <!-- <div *ngIf="isRepo">
-      <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToObject(previousItem)" *ngIf="previousItem" mat-icon-button>
+    <div *ngIf="isRepo">
+      <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToNext()" *ngIf="layout.previousItem" mat-icon-button>
         <mat-icon>keyboard_arrow_left</mat-icon>
       </button>
-      <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToObject(parent)" *ngIf="parent" mat-icon-button>
+      <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToParent()" *ngIf="layout.parent" mat-icon-button>
         <mat-icon>keyboard_arrow_up</mat-icon>
       </button>
-      <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="goToObject(nextItem)" *ngIf="nextItem" mat-icon-button>
+      <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="goToPrevious()" *ngIf="layout.nextItem" mat-icon-button>
         <mat-icon>keyboard_arrow_right</mat-icon>
       </button>
-    </div> -->
+    </div>
     
   </div>
 
