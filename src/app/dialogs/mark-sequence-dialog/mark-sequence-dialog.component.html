@@ -82,6 +82,7 @@
 </div>
 
 <div mat-dialog-actions cdk-focus-start>
-  <button (click)="save()" mat-flat-button color="primary" [matTooltip]="'button.save' | translate">{{ 'button.save' |
+  <button (click)="save()" mat-raised-button color="primary" [matTooltip]="'button.save' | translate">{{ 'button.save' |
     translate }}</button>
+    <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.close' | translate }}</button>
 </div>

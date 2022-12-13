@@ -29,7 +29,7 @@ import { UIService } from 'src/app/services/ui.service';
 })
 export class EditorStructureComponent implements OnInit {
 
- // @Input() items: DocumentItem[];
+  // @Input() items: DocumentItem[];
   @Input() viewMode: string; // 'list' | 'grid' | 'icons'
   @Input('panel') panel: ILayoutPanel;
   @Output() onIngest = new EventEmitter<boolean>();
@@ -377,7 +377,11 @@ export class EditorStructureComponent implements OnInit {
         this.layout.items.push(item);
       }
       this.layout.setIsDirty(this as Component);
-      this.table.renderRows();
+      this.hasChanges = true;
+      if (this.table) {
+        this.table.renderRows();
+      }
+
     } else {
       const from = this.sourceIndex;
       if (from !== to) {
@@ -410,10 +414,13 @@ export class EditorStructureComponent implements OnInit {
       this.layout.items.push(item);
     }
     this.layout.setIsDirty(this as Component);
-    this.table.renderRows();
+    if (this.table) {
+      this.table.renderRows();
+    }
   }
 
   reorder(from: number, to: number) {
+    this.hasChanges = true;
     if (this.layout.getNumOfSelected() > 1) {
       this.reorderMultiple(to + 1);
     } else {
@@ -422,7 +429,9 @@ export class EditorStructureComponent implements OnInit {
       this.layout.items.splice(from, 1);
       this.layout.items.splice(to, 0, item);
     }
-    this.table.renderRows();
+    if (this.table) {
+      this.table.renderRows();
+    }
   }
 
   validateChildren() {
@@ -463,7 +472,7 @@ export class EditorStructureComponent implements OnInit {
             if (res) {
               res.selected = true;
               this.layout.items.push(res);
-              this.rowClick(res, this.layout.items.length -1, null);
+              this.rowClick(res, this.layout.items.length - 1, null);
             }
 
             this.layout.setShouldRefresh(true);
@@ -720,7 +729,7 @@ export class EditorStructureComponent implements OnInit {
 
     this.state = 'saving';
     const pidArray = this.layout.items.map(item => item.pid);
-    const request = this.isRepo ? this.api.editRelations(this.layout.pid, pidArray) : this.api.editBatchRelations(this.layout.pid, pidArray);
+    const request = this.isRepo ? this.api.editRelations(this.layout.selectedParentItem.pid, pidArray) : this.api.editBatchRelations(this.layout.selectedParentItem.pid, pidArray);
     request.subscribe((response: any) => {
 
       if (response['response'].errors) {
@@ -860,13 +869,14 @@ export class EditorStructureComponent implements OnInit {
     const dialogRef = this.dialog.open(MarkSequenceDialogComponent, {
       width: '90%',
       height: '80%',
-      data: { 
-        iconWidth: {orig:this.iconWidth, dest:this.iconWidth},
-        iconHeight: {orig:this.iconHeight, dest:this.iconHeight},
+      data: {
+        iconWidth: { orig: this.iconWidth, dest: this.iconWidth },
+        iconHeight: { orig: this.iconHeight, dest: this.iconHeight },
         viewMode: this.viewMode,
         api: this.api,
-        items: this.layout.items, 
-        batchId: this.layout.getBatchId() }
+        items: this.layout.items,
+        batchId: this.layout.getBatchId()
+      }
     });
     dialogRef.afterClosed().subscribe(result => {
     });

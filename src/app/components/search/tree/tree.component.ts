@@ -23,7 +23,6 @@ export class TreeComponent implements OnInit {
   @Output() onOpen = new EventEmitter<DocumentItem>();
 
   constructor(public properties: LocalStorageService,
-    private router: Router,
     private api: ApiService,
     public search: SearchService) {
   }

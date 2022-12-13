@@ -141,6 +141,7 @@ export class RepositoryComponent implements OnInit {
       this.layout.item = item;
       this.layout.lastSelectedItem = item;
       this.layout.items = children;
+      // this.layout.path.unshift({ pid: item.pid, label: item.label, model: item.model });
       if (keepSelection) {
         this.layout.items.forEach(item => {
           if (selection.includes(item.pid)) {

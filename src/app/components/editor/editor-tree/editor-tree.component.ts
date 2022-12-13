@@ -19,10 +19,18 @@ export class EditorTreeComponent implements OnInit {
   constructor(public layout: LayoutService) { }
 
   ngOnInit(): void {
-    this.selectedPid = this.layout.expandedPath[this.layout.expandedPath.length - 1];
-    this.selectedParentPid = this.layout.expandedPath[0];
-
     this.layout.tree = new Tree(this.layout.rootItem);
+    if (this.layout.expandedPath.length === 0) {
+      this.selectedPid = this.layout.rootItem.pid;
+      this.selectedParentPid = this.layout.rootItem.pid;
+
+      this.layout.tree.item.selected = true;
+      this.layout.rootItem.selected = true;
+    } else {
+      this.selectedPid = this.layout.expandedPath[this.layout.expandedPath.length - 1];
+      this.selectedParentPid = this.layout.expandedPath[0];
+    }
+    console.log(this.layout.tree)
   }
 
   openFromTree(item: DocumentItem) {
