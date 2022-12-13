@@ -873,6 +873,7 @@ export class EditorStructureComponent implements OnInit {
         iconWidth: { orig: this.iconWidth, dest: this.iconWidth },
         iconHeight: { orig: this.iconHeight, dest: this.iconHeight },
         viewMode: this.viewMode,
+        displayedColumns: this.displayedColumns,
         api: this.api,
         items: this.layout.items,
         batchId: this.layout.getBatchId()

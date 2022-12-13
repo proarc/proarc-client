@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatLabel } from '@angular/material/form-field';
+import { MatTableDataSource } from '@angular/material/table';
 import { ResizedEvent } from 'angular-resize-event';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 
@@ -13,6 +14,8 @@ export class MarkSequenceDialogComponent implements OnInit {
 
   orig: any[] = [];
   dest: any[] = [];
+  origTable: any;
+  destTable: any;
   // origViewMode = 'icons';
   // destViewMode = 'icons';
   meta: any;
@@ -32,6 +35,8 @@ export class MarkSequenceDialogComponent implements OnInit {
       this.orig.push(JSON.parse(JSON.stringify(item)));
       this.dest.push(JSON.parse(JSON.stringify(item)));
       this.dest.forEach(i => i.selected = false);
+      this.origTable = new MatTableDataSource(this.orig);
+      this.destTable = new MatTableDataSource(this.dest);
       
     })
   }
