@@ -1,4 +1,4 @@
 <app-tree [tree]="layout.tree" [inPanel]="true" 
-[selectedPid]="this.layout.lastSelectedItem.pid" [selectedParentPid]="this.layout.selectedParentItem?.pid"
+[selectedPid]="selectedPid" [selectedParentPid]="selectedPid"
 (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)" 
 [expanded]="false" [expandedPath]="layout.expandedPath"></app-tree>

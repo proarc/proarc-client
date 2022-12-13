@@ -51,7 +51,7 @@ export class RepositoryComponent implements OnInit {
     this.layout.setBatchId(null);
 
     this.subscriptions.push(this.layout.shouldRefresh().subscribe((keepSelection: boolean) => {
-      this.loadData(this.pid, keepSelection);
+      this.loadData(keepSelection);
     }));
 
     // this.layout.selectionChanged().subscribe(() => {
@@ -66,7 +66,7 @@ export class RepositoryComponent implements OnInit {
         this.pid = p.get('pid');
         if (this.pid) {
           this.layout.lastSelectedItem = null;
-          this.loadData(this.pid, false);
+          this.loadData(false);
         }
       });
   }
@@ -79,9 +79,8 @@ export class RepositoryComponent implements OnInit {
       panelClass: 'app-dialog-layout-settings'
     });
     dialogRef.afterClosed().subscribe((ret: any) => {
-
       this.initConfig();
-      this.loadData(this.pid, true);
+      this.loadData(true);
     });
   }
 
@@ -115,9 +114,10 @@ export class RepositoryComponent implements OnInit {
     return a?.length > 0;
   }
 
-  loadData(pid: string, keepSelection: boolean) {
-
+  loadData(keepSelection: boolean) {
+    let pid = this.pid;
     const selection: string[] = [];
+    let path: string[] = [];
     let lastSelected: string = null;
     if (keepSelection) {
       this.layout.items.forEach(item => {
@@ -125,11 +125,14 @@ export class RepositoryComponent implements OnInit {
           selection.push(item.pid);
         }
       });
+      pid = this.layout.lastSelectedItem.pid;
       lastSelected = this.layout.lastSelectedItem.pid;
+      path = JSON.parse(JSON.stringify(this.layout.expandedPath));
     }
 
     this.layout.ready = false;
     this.layout.path = [];
+    this.layout.tree = null;
     this.layout.selectedParentItem = null;
     const rDoc = this.api.getDocument(pid);
     const rChildren = this.api.getRelations(pid);
@@ -167,21 +170,34 @@ export class RepositoryComponent implements OnInit {
           });
         }
         this.layout.path.unshift({ pid: parent.pid, label: parent.label, model: parent.model });
-        this.setLayoutPath(parent);
+        this.setLayoutPath(parent, keepSelection, path);
       } else {
         this.layout.rootItem = item;
+        if (keepSelection) {
+          this.layout.expandedPath = JSON.parse(JSON.stringify(path));
+        } else {
+          this.layout.expandedPath = this.layout.path.map(p => p.pid);
+        }
+        
         this.layout.ready = true;
       }
     });
   }
 
-  setLayoutPath(item: DocumentItem) {
+  setLayoutPath(item: DocumentItem, keepSelection: boolean, path: string[]) {
     this.api.getParent(item.pid).subscribe((parent: DocumentItem) => {
       if (parent) {
         this.layout.path.unshift({ pid: parent.pid, label: parent.label, model: parent.model });
-        this.setLayoutPath(parent);
+        this.setLayoutPath(parent, keepSelection, path);
       } else {
         this.layout.rootItem = item;
+
+        if (keepSelection) {
+          this.layout.expandedPath = JSON.parse(JSON.stringify(path));
+        } else {
+          this.layout.expandedPath = this.layout.path.map(p => p.pid);
+          this.layout.expandedPath.push(this.layout.lastSelectedItem.pid);
+        }
         this.layout.ready = true;
       }
     });

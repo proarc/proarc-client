@@ -48,11 +48,6 @@ export class BatchesComponent implements OnInit {
       this.loadData(this.batchId, keepSelection);
     });
 
-    this.layout.selectionChanged().subscribe(() => {
-      this.setVisibility();
-    });
-
-
     combineLatest([this.route.paramMap, this.route.queryParamMap]).subscribe(
       results => {
         const p = results[0];
@@ -62,17 +57,6 @@ export class BatchesComponent implements OnInit {
           this.loadData(this.batchId, false);
         }
       });
-  }
-
-  setVisibility() {
-    // this.layout.layoutConfig.columns.forEach(c => {
-    //   c.rows.forEach(r => {
-    //     if (r.type === 'image' && r.visible) {
-    //       r.isEmpty = !(this.layout.lastSelectedItem && this.layout.lastSelectedItem.isPage());
-    //     }
-    //   });
-    //   c.visible = c.rows.findIndex(r => r.visible && !r.isEmpty) > -1;
-    // });
   }
 
   showLayoutAdmin() {
@@ -147,7 +131,6 @@ export class BatchesComponent implements OnInit {
         //   this.setPath(item.pid);
         // }
         // this.setupNavigation();
-        this.setVisibility();
         
       });
     });

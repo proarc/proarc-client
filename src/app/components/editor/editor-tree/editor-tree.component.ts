@@ -13,11 +13,15 @@ export class EditorTreeComponent implements OnInit {
   // @Input() item: DocumentItem;
 
   isSelected = false;
+  selectedPid: string;
+  selectedParentPid: string;
 
   constructor(public layout: LayoutService) { }
 
   ngOnInit(): void {
-    this.layout.expandedPath = this.layout.path.map(p => p.pid);
+    this.selectedPid = this.layout.expandedPath[this.layout.expandedPath.length - 1];
+    this.selectedParentPid = this.layout.expandedPath[0];
+
     this.layout.tree = new Tree(this.layout.rootItem);
   }
 
@@ -53,6 +57,13 @@ export class EditorTreeComponent implements OnInit {
 
     }
     //tree.item.selected = true;
+    this.layout.expandedPath = [];
+    let p = tree;
+    this.layout.expandedPath.unshift(p.item.pid);
+    while (p.parent) {
+      p = p.parent;
+      this.layout.expandedPath.unshift(p.item.pid);
+    }
     this.isSelected = true;
     this.layout.setSelection(true, true);
 

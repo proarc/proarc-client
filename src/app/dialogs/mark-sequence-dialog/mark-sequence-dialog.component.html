@@ -1,38 +1,87 @@
 <h1 mat-dialog-title>{{ 'editor.children.markSequence' | translate }}</h1>
 
 <div mat-dialog-content style="height:100%;display: flex;flex-direction: row;">
+  <div fxFlex class="app-mark">
+    <as-split direction="horizontal" [disabled]="false">
+      <as-split-area [size]="40" (resized)="onResized($event, 'orig')">
+        <div>Vyberte zdroje </div>
 
-  <div style="flex: auto;">
-      <div>Vyberte zdroje</div>
-      <ul>
-        <li *ngFor="let item of orig">
-          <mat-checkbox color="primary" [(ngModel)]="item.selected">{{ item.label }}</mat-checkbox>
-        </li>
-      </ul>
-  </div>
-  <div style="flex: auto;">
-    <div>Vyberte cíle</div>
-    <ul>
-      <li *ngFor="let item of dest">
-        <mat-checkbox color="primary" [(ngModel)]="item.selected">{{ item.label }}</mat-checkbox>
-      </li>
-    </ul>
-  </div>
-  <div style="flex: auto;">
-    <div>Vyberte pole kam se to kopiruje</div>
-    <div>
-      <mat-checkbox color="primary" [(ngModel)]="pageType">Editovat typ stran</mat-checkbox>
-    </div>
-    <div>
-      <mat-checkbox color="primary" [(ngModel)]="pageIndex">Editovat index stran</mat-checkbox>
-    </div>
-    <div>
-      <mat-checkbox color="primary" [(ngModel)]="pageNumber">Editovat čísla stran</mat-checkbox>
-    </div>
-  </div>
+        <div class="app-view-icons" *ngIf="data.viewMode == 'icons'" #childrenIconList>
+          <div *ngFor="let item of orig; let i = index" class="app-item" (click)="select(item, i, $event)"
+            [class.app-selected]="item.selected" [style.width]="data.iconWidth['orig'] + '%'"
+            [style.height]="data.iconHeight['orig'] + 'px'">
+            <div class="app-item-content">
+              <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"></div>
+              <div class="app-item-label">{{ item.label + (data.shortLabels ? "" : (", " + ("page_type." + item.pageType
+                | translate))) }}</div>
+            </div>
+          </div>
+        </div>
 
+        <div class="app-view-grid" *ngIf="data.viewMode == 'grid'" #childrenGridList >
+          <div *ngFor="let item of orig; let i = index" (click)="select(item, i, $event)" 
+            class="app-grid-item-wrapper" 
+            [class.app-selected]="item.selected"
+            [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [style.width]="data.iconWidth['orig'] + '%'">
+            <div class="app-grid-item">
+              <div class="app-grid-item-label">{{ data.shortLabels ? item.shortLabel : item.label }}
+                <br />
+                ({{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }})
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </as-split-area>
+      <as-split-area [size]="40" (resized)="onResized($event, 'dest')">
+        <div>Vyberte cíle</div>
+
+        <div class="app-view-icons" *ngIf="data.viewMode == 'icons'" #childrenIconList>
+          <div *ngFor="let item of dest; let i = index" class="app-item" (click)="select(item, i, $event)"
+            [class.app-selected]="item.selected" [style.width]="data.iconWidth['dest'] + '%'"
+            [style.height]="data.iconHeight['dest'] + 'px'">
+            <div class="app-item-content">
+              <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"></div>
+              <div class="app-item-label">{{ item.label + (data.shortLabels ? "" : (", " + ("page_type." + item.pageType
+                | translate))) }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-view-grid" *ngIf="data.viewMode == 'grid'" #childrenGridList >
+          <div *ngFor="let item of dest; let i = index" (click)="select(item, i, $event)" 
+            class="app-grid-item-wrapper" 
+            [class.app-selected]="item.selected"
+            [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [style.width]="data.iconWidth['dest'] + '%'">
+            <div class="app-grid-item">
+              <div class="app-grid-item-label">{{ data.shortLabels ? item.shortLabel : item.label }}
+                <br />
+                ({{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }})
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </as-split-area>
+      <as-split-area [size]="20">
+        <div>Vyberte pole kam se to kopiruje</div>
+        <div>
+          <mat-checkbox color="primary" [(ngModel)]="pageType">Editovat typ stran</mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox color="primary" [(ngModel)]="pageIndex">Editovat index stran</mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox color="primary" [(ngModel)]="pageNumber">Editovat čísla stran</mat-checkbox>
+        </div>
+      </as-split-area>
+    </as-split>
+  </div>
 </div>
 
 <div mat-dialog-actions cdk-focus-start>
-  <button (click)="save()" mat-flat-button color="primary" [matTooltip]="'button.save' | translate" >{{ 'button.save' | translate }}</button> 
+  <button (click)="save()" mat-flat-button color="primary" [matTooltip]="'button.save' | translate">{{ 'button.save' |
+    translate }}</button>
 </div>

@@ -116,7 +116,7 @@ export class EditorMetadataComponent implements OnInit {
             }
             const pid = response['response']['data'][0]['pid'];
             this.state = 'success';
-            this.layout.setShouldRefresh(true);
+            // this.layout.setShouldRefresh(true);
           });
 
         } else {
@@ -172,7 +172,7 @@ export class EditorMetadataComponent implements OnInit {
           return;
         }
       } else {
-        this.layout.setShouldRefresh(true)
+        // this.layout.setShouldRefresh(true)
       }
     });
   }

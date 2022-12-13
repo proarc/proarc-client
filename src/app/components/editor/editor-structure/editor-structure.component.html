@@ -33,7 +33,7 @@
       </button>
     </div>
     <div>
-      <button mat-icon-button *ngIf="canAddChildren() && isRepo" (click)="onCreateNewObject()" [matTooltip]="'editor.children.add_new' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+      <button mat-icon-button *ngIf="isRepo && canAddChildren()" (click)="onCreateNewObject()" [matTooltip]="'editor.children.add_new' | translate" [matTooltipPosition]="toolbarTooltipPosition">
         <mat-icon>add</mat-icon>
       </button>        
       <button mat-icon-button (click)="onMove()" [matTooltip]="'editor.children.move' | translate" [matTooltipPosition]="toolbarTooltipPosition">
@@ -92,6 +92,7 @@
           </div>
         </div>
       </div>
+
       <div class="app-view-icons" *ngIf="viewMode == 'icons'" #childrenIconList
         [class.app-multiple-selection]="layout.getNumOfSelected() > 1" (mousedown)="mousedown($event)">
         <div *ngFor="let item of layout.items; let i = index" class="app-item" (click)="rowClick(item, i, $event)"

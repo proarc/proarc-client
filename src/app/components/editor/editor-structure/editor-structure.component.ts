@@ -858,8 +858,15 @@ export class EditorStructureComponent implements OnInit {
   markSequence() {
 
     const dialogRef = this.dialog.open(MarkSequenceDialogComponent, {
-      width: '800px',
-      data: { items: this.layout.items, batchId: this.layout.getBatchId() }
+      width: '90%',
+      height: '80%',
+      data: { 
+        iconWidth: {orig:this.iconWidth, dest:this.iconWidth},
+        iconHeight: {orig:this.iconHeight, dest:this.iconHeight},
+        viewMode: this.viewMode,
+        api: this.api,
+        items: this.layout.items, 
+        batchId: this.layout.getBatchId() }
     });
     dialogRef.afterClosed().subscribe(result => {
     });
