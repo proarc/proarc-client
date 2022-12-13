@@ -8,7 +8,8 @@
         <a (click)="goToObjectByPid(p.pid)" [title]="'model.' + p.model | translate">{{ p.label }}</a>
         <span class="app-separator" *ngIf="!last">/</span>
       </ng-container>
-      <span *ngIf="layout.path.length === 0" class="app-last app-text-cutter" [matTooltip]="layout.item.label" [matTooltipPosition]="'above'">{{ layout.item.label }}</span>
+      <span *ngIf="layout.path.length === 0" class="app-last app-text-cutter" 
+      [matTooltip]="layout.item.label" [matTooltipPosition]="'above'">{{ layout.item.label }}</span>
     </div>
     <div fxFlex class="app-pl-4">
       <div *ngIf="layout.path.length === 0" class="app-label-model">{{ 'model.' + layout.item.model | translate }}</div>

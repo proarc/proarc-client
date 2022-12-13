@@ -36,7 +36,7 @@
   </div>
   <div fxFlex [ngSwitch]="editorType">
     <div class="app-table app-tree"  *ngSwitchCase="'tree'">
-      <app-editor-tree [item]="layout.item"></app-editor-tree>
+      <app-editor-tree ></app-editor-tree>
     </div>
     <app-editor-structure *ngSwitchCase="'structure-list'" [viewMode]="'list'" [panel]="panel" (onIngest)="passOnIngest()"></app-editor-structure>
     <app-editor-structure *ngSwitchCase="'structure-grid'" [viewMode]="'grid'" [panel]="panel" (onIngest)="passOnIngest()"></app-editor-structure>

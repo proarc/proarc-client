@@ -10,11 +10,15 @@ import { LayoutService } from 'src/app/services/layout.service';
 })
 export class EditorTreeComponent implements OnInit {
 
-  @Input() item: DocumentItem;
+  // @Input() item: DocumentItem;
+
+  isSelected = false;
 
   constructor(public layout: LayoutService) { }
 
   ngOnInit(): void {
+    this.layout.expandedPath = this.layout.path.map(p => p.pid);
+    this.layout.tree = new Tree(this.layout.rootItem);
   }
 
   openFromTree(item: DocumentItem) {
@@ -25,8 +29,6 @@ export class EditorTreeComponent implements OnInit {
   selectFromTree(tree: Tree) {
 
     this.layout.clearSelection();
-    // this.layout.selectedParentItem = tree.item;
-    //
     this.layout.lastSelectedItem = tree.item;
     if (tree.children) {
       this.layout.selectedParentItem = tree.item;
@@ -34,20 +36,24 @@ export class EditorTreeComponent implements OnInit {
       this.layout.clearSelection();
     } else {
 
-      if (this.layout.selectedParentItem.pid !== tree.parent.item.pid) {
+      if (this.layout.selectedParentItem.pid !== tree.parent.item.pid || !this.isSelected) {
         this.layout.selectedParentItem = tree.parent.item;
         if (tree.parent.children) {
           this.layout.items = tree.parent.children.map(ch => ch.item);
           this.layout.clearSelection();
-        } 
-        
+        }
       }
+      this.layout.items.forEach(i => {
+        i.selected = i.pid === tree.item.pid;
+      });
+
       if (tree.expandable()) {
         this.layout.items = [];
       }
 
     }
-    tree.item.selected = true;
+    //tree.item.selected = true;
+    this.isSelected = true;
     this.layout.setSelection(true, true);
 
   }

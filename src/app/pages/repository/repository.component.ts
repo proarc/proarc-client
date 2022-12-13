@@ -8,6 +8,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { RepositoryService } from 'src/app/services/repository.service';
 import { UIService } from 'src/app/services/ui.service';
+import { ModelTemplate } from 'src/app/templates/modelTemplate';
 import { defaultLayoutConfig, IConfig, LayoutAdminComponent } from '../layout-admin/layout-admin.component';
 
 
@@ -71,7 +72,7 @@ export class RepositoryComponent implements OnInit {
   }
 
   showLayoutAdmin() {
-    const dialogRef = this.dialog.open(LayoutAdminComponent, { 
+    const dialogRef = this.dialog.open(LayoutAdminComponent, {
       data: { layout: 'repo' },
       width: '1280px',
       height: '90%',
@@ -109,8 +110,13 @@ export class RepositoryComponent implements OnInit {
     localStorage.setItem(this.localStorageName, JSON.stringify(this.layout.layoutConfig));
   }
 
+  canHasChildren(model: string): boolean {
+    const a = ModelTemplate.allowedChildrenForModel(model)
+    return a?.length > 0;
+  }
 
   loadData(pid: string, keepSelection: boolean) {
+
     const selection: string[] = [];
     let lastSelected: string = null;
     if (keepSelection) {
@@ -120,8 +126,79 @@ export class RepositoryComponent implements OnInit {
         }
       });
       lastSelected = this.layout.lastSelectedItem.pid;
-    } 
-    
+    }
+
+    this.layout.ready = false;
+    this.layout.path = [];
+    this.layout.selectedParentItem = null;
+    const rDoc = this.api.getDocument(pid);
+    const rChildren = this.api.getRelations(pid);
+    const rParent = this.api.getParent(pid);
+    forkJoin([rDoc, rChildren, rParent]).subscribe(([item, children, parent]: [DocumentItem, DocumentItem[], DocumentItem]) => {
+      this.layout.item = item;
+      this.layout.lastSelectedItem = item;
+      this.layout.items = children;
+      if (keepSelection) {
+        this.layout.items.forEach(item => {
+          if (selection.includes(item.pid)) {
+            item.selected = true;
+          }
+          if (item.pid === lastSelected) {
+            this.layout.lastSelectedItem = item;
+          }
+        });
+      }
+      if (this.canHasChildren(item.model)){
+        this.layout.selectedParentItem = item;
+      }
+      
+      this.layout.setSelection(false);
+
+      if (parent) {
+        if (!this.canHasChildren(item.model)){
+          this.layout.selectedParentItem = parent;
+          // find siblings
+          this.api.getRelations(parent.pid).subscribe((siblings: DocumentItem[]) => {
+            if (siblings.length > 0) {
+              this.layout.items = siblings;
+              this.layout.items.forEach(item => { item.selected = item.pid === pid});
+              this.layout.setSelection(false);
+            }
+          });
+        }
+        this.layout.path.unshift({ pid: parent.pid, label: parent.label, model: parent.model });
+        this.setLayoutPath(parent);
+      } else {
+        this.layout.rootItem = item;
+        this.layout.ready = true;
+      }
+    });
+  }
+
+  setLayoutPath(item: DocumentItem) {
+    this.api.getParent(item.pid).subscribe((parent: DocumentItem) => {
+      if (parent) {
+        this.layout.path.unshift({ pid: parent.pid, label: parent.label, model: parent.model });
+        this.setLayoutPath(parent);
+      } else {
+        this.layout.rootItem = item;
+        this.layout.ready = true;
+      }
+    });
+  }
+
+  loadData_(pid: string, keepSelection: boolean) {
+    const selection: string[] = [];
+    let lastSelected: string = null;
+    if (keepSelection) {
+      this.layout.items.forEach(item => {
+        if (item.selected) {
+          selection.push(item.pid);
+        }
+      });
+      lastSelected = this.layout.lastSelectedItem.pid;
+    }
+
     this.layout.path = [];
     this.expandedPath = [];
     this.layout.ready = false;
@@ -132,7 +209,7 @@ export class RepositoryComponent implements OnInit {
     forkJoin([rDoc, rChildren]).subscribe(([item, children]: [DocumentItem, DocumentItem[]]) => {
       this.layout.item = item;
       //if (children.length === 0) {
-        this.layout.selectedParentItem = item;
+      this.layout.selectedParentItem = item;
       //}
       this.layout.lastSelectedItem = item;
       this.layout.items = children;
@@ -148,7 +225,7 @@ export class RepositoryComponent implements OnInit {
       }
       this.layout.ready = true;
       this.layout.setSelection(false);
-      
+
 
       this.api.getParent(pid).subscribe((parent: DocumentItem) => {
 
@@ -159,10 +236,10 @@ export class RepositoryComponent implements OnInit {
         if (parent) {
           parent.selected = true;
           this.layout.path.unshift({ pid: parent.pid, label: parent.label, model: parent.model });
-          this.expandedPath.unshift(parent.pid );
+          this.expandedPath.unshift(parent.pid);
           this.setPath(parent, parent.pid);
           if (!this.layout.allowedChildrenModels() || this.layout.allowedChildrenModels().length === 0) {
-          // if  (children.length === 0) {
+            // if  (children.length === 0) {
             this.layout.selectedParentItem = parent;
             // find siblings
             this.api.getRelations(parent.pid).subscribe((siblings: DocumentItem[]) => {
@@ -171,7 +248,7 @@ export class RepositoryComponent implements OnInit {
               }
             });
           }
-          
+
         } else {
           this.layout.tree = new Tree(item);
           this.layout.expandedPath = this.expandedPath;
@@ -193,7 +270,7 @@ export class RepositoryComponent implements OnInit {
     this.api.getParent(pid).subscribe((item: DocumentItem) => {
       if (item) {
         this.layout.path.unshift({ pid: item.pid, label: item.label, model: item.model });
-        this.expandedPath.unshift(item.pid );
+        this.expandedPath.unshift(item.pid);
         this.setPath(item, item.pid);
       } else {
         this.layout.tree = new Tree(child);
