@@ -878,6 +878,9 @@ export class EditorStructureComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.layout.setShouldRefresh(true);
+      }
     });
   }
 

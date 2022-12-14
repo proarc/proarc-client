@@ -836,6 +836,11 @@ export class ApiService {
     return this.head(path);
   }
 
+  
+
+  saveMarkSequence(data: any): Observable<any> {
+    return this.post('object/mods/editorPagesCopyMetadata', data);
+  }
 
 
 }

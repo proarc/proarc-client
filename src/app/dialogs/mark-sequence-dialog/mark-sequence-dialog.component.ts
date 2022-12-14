@@ -4,6 +4,8 @@ import { MatLabel } from '@angular/material/form-field';
 import { MatTableDataSource } from '@angular/material/table';
 import { ResizedEvent } from 'angular-resize-event';
 import { DocumentItem } from 'src/app/model/documentItem.model';
+import { ApiService } from 'src/app/services/api.service';
+import { UIService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-mark-sequence-dialog',
@@ -20,24 +22,26 @@ export class MarkSequenceDialogComponent implements OnInit {
   // destViewMode = 'icons';
   meta: any;
 
-  pageType: boolean;
-  pageIndex: boolean;
-  pageNumber: boolean;
+  pageType: boolean = false;
+  pageIndex: boolean = false;
+  pageNumber: boolean = false;
   lastClickIdx: number = -1;
 
   constructor(
+    private api: ApiService,
+    private ui: UIService,
     public dialogRef: MatDialogRef<MarkSequenceDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
   ngOnInit(): void {
-     this.data.items.forEach((item: DocumentItem) => {
+    this.data.items.forEach((item: DocumentItem) => {
       this.orig.push(JSON.parse(JSON.stringify(item)));
       this.dest.push(JSON.parse(JSON.stringify(item)));
       this.dest.forEach(i => i.selected = false);
       this.origTable = new MatTableDataSource(this.orig);
       this.destTable = new MatTableDataSource(this.dest);
-      
+
     })
   }
 
@@ -52,7 +56,7 @@ export class MarkSequenceDialogComponent implements OnInit {
     return this.data.api.getStreamUrl(pid, 'THUMBNAIL', this.data.batchId);
   }
 
-  select(item: DocumentItem, idx: number, event: MouseEvent){
+  select(item: DocumentItem, idx: number, event: MouseEvent) {
     if (event && (event.metaKey || event.ctrlKey)) {
       // Nesmi byt prazdna selecke pro import
       item.selected = !item.selected;
@@ -77,7 +81,21 @@ export class MarkSequenceDialogComponent implements OnInit {
   }
 
   save() {
-
+    const data = {
+      sourcePids: this.orig.filter(i => i.selected).map(i => i.pid), 
+      destinationPids: this.dest.filter(i => i.selected).map(i => i.pid), 
+      copyPageIndex: this.pageIndex, 
+      copyPageNumber: this.pageNumber,
+      copyPageType: this.pageType, 
+      batchId: this.data.batchId
+    }
+    this.api.saveMarkSequence(data).subscribe((result: any) => {
+    if (result.response.errors) {
+      this.ui.showErrorSnackBarFromObject(result.response.errors);
+    } else {
+      this.dialogRef.close(true);
+    }
+  })
   }
 
 }
