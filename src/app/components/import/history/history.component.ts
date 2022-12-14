@@ -342,7 +342,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
     }
     for (const batch of batches) {
       if (batch.isLoading()) {
-        this.api.getImportBatchStatus(batch.id).subscribe(
+        this.api.getImportBatchStatusOld(batch.id).subscribe(
           (response: any) => {
 
             if (response.response.errors) {
