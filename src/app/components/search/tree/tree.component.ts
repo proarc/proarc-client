@@ -30,14 +30,20 @@ export class TreeComponent implements OnInit {
   ngOnInit() {
     if (this.tree && this.expanded) {
       this.tree.expand(this.api, false);
+      setTimeout(() => {
+        this.selectFromTree(this.tree);
+      }, 1000);
+      //  
     }
   }
 
-  ngOnChanges(c: any) {
-    if (this.tree && this.tree.item && this.expandedPath && this.expandedPath.includes(this.tree.item.pid)) {
-      this.tree.expand(this.api, false);
-    }
-  }
+  // ngOnChanges(c: any) {
+  //   if (this.tree && this.tree.item && this.expandedPath && this.expandedPath.includes(this.tree.item.pid)) {
+  //     this.tree.expand(this.api, false);
+  //     console.log(c)
+  //     this.selectFromTree(this.tree);
+  //   }
+  // }
 
   select() {
     this.search.selectedTreePid = this.tree.item.pid;

@@ -34,6 +34,7 @@ export class LayoutService {
 
   public isDirty: boolean; // some components have unsaved changes
 
+  private refreshSelectedSubject = new Subject<string>();
   private refreshSubject = new Subject<boolean>();
   private selectionSubject = new ReplaySubject<boolean>(1);
   private moveNextSubject = new ReplaySubject<number>(1);
@@ -101,6 +102,10 @@ export class LayoutService {
     return this.selectionSubject.asObservable();
   }
 
+  refreshSelectedItem(moveToNext: boolean, from: string) {
+    this.refreshSelectedSubject.next(moveToNext ? from : '');
+  }
+
   setShouldRefresh(keepSelection: boolean) {
     if (!keepSelection) {
       this.lastSelectedItem = null;
@@ -110,6 +115,10 @@ export class LayoutService {
 
   shouldRefresh(): Observable<boolean> {
     return this.refreshSubject.asObservable();
+  }
+
+  shouldRefreshSelectedItem(): Observable<any> {
+    return this.refreshSelectedSubject.asObservable();
   }
 
   getSelected() {

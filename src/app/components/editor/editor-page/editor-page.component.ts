@@ -234,7 +234,8 @@ export class EditorPageComponent implements OnInit {
         }
         this.layout.lastSelectedItem.notSaved = false;
         const pid = response['response']['data'][0]['pid'];
-        this.layout.setShouldRefresh(true);
+        // this.layout.setShouldRefresh(true);
+        this.layout.refreshSelectedItem(!!from, from);
         this.state = 'success';
       });
     } else {
@@ -242,11 +243,11 @@ export class EditorPageComponent implements OnInit {
         if (page) {
           this.page = page;
         }
-      }, !!from);
+      }, !!from, from);
     }
   }
 
-  savePage(page: Page, callback: (page: Page) => void, moveToNext = false) {
+  savePage(page: Page, callback: (page: Page) => void, moveToNext = false, from: string) {
     this.state = 'saving';
     this.api.editPage(page, this.layout.getBatchId()).subscribe((resp: any) => {
       if (resp.response.errors) {
@@ -255,33 +256,10 @@ export class EditorPageComponent implements OnInit {
         return;
       }
       const newPage: Page = Page.fromJson(resp['response']['data'][0], page.model);
-      this.layout.setShouldRefresh(true);
-      if (this.layout.type === 'import') {
-        // this.reloadBatch(() => {
-        //   this.state = 'success';
-        //   if (callback && newPage.pid == this.layout.selectedItem.pid) {
-        //     callback(newPage);
-        //   }
-        // }, moveToNext);
-      } else {
-        // this.api.getDocument(page.pid).subscribe((doc: DocumentItem) => {
-        //   if (this.mode === 'children') {
-        //     this.reloadChildren(() => {
-        //       this.state = 'success';
-        //       if (callback && newPage.pid == this.selectedItem.pid) {
-        //         callback(newPage);
-        //       }
-        //     }, moveToNext);
-        //   } else {
-        //     this.selectRight(doc);
-        //     this.left = doc;
-        //     this.state = 'success';
-        //     if (callback) {
-        //       callback(newPage);
-        //     }
-        //   }
-        // });
-      }
+      // this.layout.setShouldRefresh(true);
+      this.layout.refreshSelectedItem(moveToNext, from);
+      
+      this.state = 'success';
     });
   }
 

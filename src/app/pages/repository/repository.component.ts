@@ -54,6 +54,10 @@ export class RepositoryComponent implements OnInit {
       this.loadData(keepSelection);
     }));
 
+    this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
+      this.refreshSelected(from);
+    }));
+
     // this.layout.selectionChanged().subscribe(() => {
     //   this.setVisibility();
     // });
@@ -112,6 +116,17 @@ export class RepositoryComponent implements OnInit {
   canHasChildren(model: string): boolean {
     const a = ModelTemplate.allowedChildrenForModel(model)
     return a?.length > 0;
+  }
+
+  refreshSelected(from: string) {
+    this.api.getDocument(this.layout.lastSelectedItem.pid).subscribe((item: DocumentItem) =>{
+      const selected = this.layout.lastSelectedItem.selected;
+      Object.assign(this.layout.lastSelectedItem, item);
+      this.layout.lastSelectedItem.selected = selected;
+      if (!!from) {
+        this.layout.shouldMoveToNext(from);
+      }
+    });
   }
 
   loadData(keepSelection: boolean) {

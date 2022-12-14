@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
-import { combineLatest, forkJoin } from 'rxjs';
+import { combineLatest, forkJoin, Subscription } from 'rxjs';
 import { IngestDialogComponent } from 'src/app/dialogs/ingest-dialog/ingest-dialog.component';
 import { ParentDialogComponent } from 'src/app/dialogs/parent-dialog/parent-dialog.component';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { Batch } from 'src/app/model/batch.model';
 import { DocumentItem } from 'src/app/model/documentItem.model';
+import { Page } from 'src/app/model/page.model';
 import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { RepositoryService } from 'src/app/services/repository.service';
@@ -29,7 +30,8 @@ export class BatchesComponent implements OnInit {
   parent: DocumentItem | null;
   previousItem: DocumentItem | null;
   nextItem: DocumentItem | null;
-  // selected: string;
+
+  subscriptions: Subscription[] = [];
 
   constructor(
     private router: Router,
@@ -40,13 +42,21 @@ export class BatchesComponent implements OnInit {
     private api: ApiService
   ) { }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
   ngOnInit(): void {
     this.initConfig();
     this.layout.type = 'import';
-
-    this.layout.shouldRefresh().subscribe((keepSelection: boolean) => {
+    
+    this.subscriptions.push(this.layout.shouldRefresh().subscribe((keepSelection: boolean) => {
       this.loadData(this.batchId, keepSelection);
-    });
+    }));
+
+    this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
+      this.refreshSelected(from);
+    }));
 
     combineLatest([this.route.paramMap, this.route.queryParamMap]).subscribe(
       results => {
@@ -57,6 +67,20 @@ export class BatchesComponent implements OnInit {
           this.loadData(this.batchId, false);
         }
       });
+  }
+
+  refreshSelected(from: string) {
+
+    this.api.getBatchPage(this.layout.getBatchId(), this.layout.lastSelectedItem.pid).subscribe((response: any) =>{
+
+      const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
+      const selected = this.layout.lastSelectedItem.selected;
+      Object.assign(this.layout.lastSelectedItem, pages[0]);
+      this.layout.lastSelectedItem.selected = selected;
+      if (!!from) {
+        this.layout.shouldMoveToNext(from);
+      }
+    });
   }
 
   showLayoutAdmin() {
@@ -92,6 +116,10 @@ export class BatchesComponent implements OnInit {
       })
     }
     this.layout.ready = false;
+    
+    this.layout.path = [];
+    this.layout.tree = null;
+    this.layout.selectedParentItem = null;
 
     const obj = new DocumentItem();
     obj.pid = id;
@@ -106,6 +134,8 @@ export class BatchesComponent implements OnInit {
         const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
         this.layout.item = obj;
         this.layout.items = pages;
+        this.layout.lastSelectedItem = this.layout.items[0];
+        this.layout.selectedParentItem = obj;
         if (keepSelection) {
           this.layout.items.forEach(item => {
             if (selection.includes(item.pid)) {
@@ -117,20 +147,8 @@ export class BatchesComponent implements OnInit {
         }
         
         this.layout.ready = true;
-        this.layout.lastSelectedItem = this.layout.items[0];
 
         this.layout.setSelection(false);
-
-        // this.layout.allowedChildrenModels = ModelTemplate.allowedChildrenForModel(item.model);
-
-        // this.parent = item;
-        // this.layout.parent = item;
-        // this.layout.path = [];
-        // if (item) {
-        //   this.layout.path.unshift({ pid: item.pid, label: item.label, model: item.model });
-        //   this.setPath(item.pid);
-        // }
-        // this.setupNavigation();
         
       });
     });

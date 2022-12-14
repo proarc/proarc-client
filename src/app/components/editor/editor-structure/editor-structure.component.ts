@@ -29,7 +29,6 @@ import { UIService } from 'src/app/services/ui.service';
 })
 export class EditorStructureComponent implements OnInit {
 
-  // @Input() items: DocumentItem[];
   @Input() viewMode: string; // 'list' | 'grid' | 'icons'
   @Input('panel') panel: ILayoutPanel;
   @Output() onIngest = new EventEmitter<boolean>();
@@ -176,7 +175,6 @@ export class EditorStructureComponent implements OnInit {
     if (index < this.layout.items.length) {
       this.rowClick(this.layout.items[index], index, null);
     }
-
   }
 
   switchUseShortLabel() {

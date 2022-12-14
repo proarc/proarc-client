@@ -30,7 +30,6 @@ export class EditorTreeComponent implements OnInit {
       this.selectedPid = this.layout.expandedPath[this.layout.expandedPath.length - 1];
       this.selectedParentPid = this.layout.expandedPath[0];
     }
-    console.log(this.layout.tree)
   }
 
   openFromTree(item: DocumentItem) {
@@ -39,7 +38,6 @@ export class EditorTreeComponent implements OnInit {
   }
 
   selectFromTree(tree: Tree) {
-
     this.layout.clearSelection();
     this.layout.lastSelectedItem = tree.item;
     if (tree.children) {

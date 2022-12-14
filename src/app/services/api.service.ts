@@ -522,6 +522,10 @@ export class ApiService {
     return this.get('import/batch/item', { batchId: id });
   }
 
+  getBatchPage(id: string, pid: string): Observable<any> {
+    return this.get('import/batch/item', { batchId: id, pid: pid });
+  }
+
   getCatalogs(): Observable<Catalogue[]> {
     return this.get('bibliographies').pipe(map((response: any) => Catalogue.fromJsonArray(response['response']['data'])));
   }
