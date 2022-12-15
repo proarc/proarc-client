@@ -4,6 +4,7 @@ import { DocumentItem } from '../model/documentItem.model';
 import { Tree } from '../model/mods/tree.model';
 import { IConfig } from '../pages/layout-admin/layout-admin.component';
 import { ModelTemplate } from 'src/app/templates/modelTemplate';
+import { Metadata } from '../model/metadata.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,7 @@ export class LayoutService {
   public selectedParentItem: DocumentItem; // selected item 
   public selectedChildItem: DocumentItem; // selected item in children
   public lastSelectedItem: DocumentItem; // last selected child item
+  public lastSelectedItemMetadata: Metadata; // last selected child item
 
   path: { pid: string, label: string, model: string }[] = [];
   expandedPath: string[];

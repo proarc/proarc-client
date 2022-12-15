@@ -6,7 +6,7 @@
 			</div>
 		</div>
 		<div>
-			<ng-container *ngIf="item && metadata">
+			<ng-container *ngIf="item && layout.lastSelectedItemMetadata">
 				<button mat-icon-button [class.app-active]="realtime" (click)="setRealtime(true)" [matTooltip]="'editor.mods.realtime_on' | translate" [matTooltipPosition]="toolbarTooltipPosition">
 						<mat-icon>timer</mat-icon>
 				</button>
@@ -33,7 +33,7 @@
 		<div class="app-editor-content" *ngIf="state !=='loading'">
 			<pre *ngIf="editting && !realtime" class="app-xml-content app-mods-editing" #editingPre><code class="app-mods-editing" (input)="checkChanged()" contenteditable="true" [highlight]="mods.original"></code></pre> 
 			<pre *ngIf="!editting && !realtime" class="app-xml-content" #originalPre><code [highlight]="mods.original"></code></pre> 
-			<pre *ngIf="!editting && realtime" class="app-xml-content"><code [highlight]="metadata.toMods()"></code></pre> 
+			<pre *ngIf="!editting && realtime" class="app-xml-content"><code [highlight]="layout.lastSelectedItemMetadata.toMods()"></code></pre> 
 		</div>
 	</div>
 </div>

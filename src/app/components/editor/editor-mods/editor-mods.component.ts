@@ -27,7 +27,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
 
   originalText = '';
 
-  metadata: Metadata;
+  // metadata: Metadata;
 
   item: DocumentItem;
 

@@ -72,14 +72,11 @@ export class EditorMetadataComponent implements OnInit {
         return;
       }
       this.metadata = new Metadata(this.pid, this.model, response['record']['content'], response['record']['timestamp']);
+      if (!this.notSaved) {
+        this.layout.lastSelectedItemMetadata = this.metadata;
+      }
       this.state = 'success';
     });
-
-
-    // this.api.getMetadata(this.pid, this.item.model).subscribe((metadata: Metadata) => {
-    //   this.metadata = metadata;
-    //   this.state = 'success';
-    // });
   }
 
   available(element: string): boolean {
