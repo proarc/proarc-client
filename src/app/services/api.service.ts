@@ -31,8 +31,8 @@ import { Router } from '@angular/router';
 export class ApiService {
 
   constructor(
-    private http: HttpClient, 
     private router: Router,
+    private http: HttpClient, 
     private config: ConfigService) {
   }
 
@@ -45,9 +45,13 @@ export class ApiService {
   }
 
   private get(path: string, params = {}): Observable<Object> {
-    return this.http.get(encodeURI(`${this.getApiUrl()}${path}`), { params: params }).pipe(
+    return this.http.get(encodeURI(`${this.getApiUrl()}${path}`), { params: params })
+    .pipe(
       finalize(() => this.stopLoading())
-    ).pipe(catchError(this.handleError));
+    )
+    .pipe(
+      catchError(this.handleError)
+      );
   }
 
   private head(path: string, params = {}): Observable<Object> {
@@ -92,15 +96,17 @@ export class ApiService {
   }
 
   private handleError(error: HttpErrorResponse) {
+    //  console.log(error);
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error);
-    } else if (error.status === 303) {
+    } else if (error.status === 403) {
       // Forbiden. Redirect to login
+      console.log("Forbiden");
       this.router.navigate(['/login']);
     } else {
-      // console.error(
-      //   `Backend returned code ${error.status}, body was: `, error.error);
+      console.error(
+         `Backend returned code ${error.status}, body was: `, error.error);
     }
     // Return an observable with a user-facing error message.
     // return throwError({'status':error.status, 'message': error.message});
