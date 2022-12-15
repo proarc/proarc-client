@@ -19,7 +19,7 @@
       <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToObject(layout.previousItem)" *ngIf="layout.previousItem" mat-icon-button>
         <mat-icon>keyboard_arrow_left</mat-icon>
       </button>
-      <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToObject(parent)" *ngIf="parent" mat-icon-button>
+      <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToObject(layout.parent)" *ngIf="layout.parent" mat-icon-button>
         <mat-icon>keyboard_arrow_up</mat-icon>
       </button>
       <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="goToObject(layout.nextItem)" *ngIf="layout.nextItem" mat-icon-button>

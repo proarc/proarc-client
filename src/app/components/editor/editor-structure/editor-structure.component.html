@@ -62,13 +62,13 @@
     </div>
 
     <div *ngIf="isRepo">
-      <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToNext()" *ngIf="layout.previousItem" mat-icon-button>
+      <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToPrevious()" *ngIf="layout.previousItem" mat-icon-button>
         <mat-icon>keyboard_arrow_left</mat-icon>
       </button>
       <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToParent()" *ngIf="layout.parent" mat-icon-button>
         <mat-icon>keyboard_arrow_up</mat-icon>
       </button>
-      <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="goToPrevious()" *ngIf="layout.nextItem" mat-icon-button>
+      <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="goToNext()" *ngIf="layout.nextItem" mat-icon-button>
         <mat-icon>keyboard_arrow_right</mat-icon>
       </button>
     </div>

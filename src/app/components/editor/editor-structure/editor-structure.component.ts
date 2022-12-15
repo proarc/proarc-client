@@ -267,22 +267,15 @@ export class EditorStructureComponent implements OnInit {
   }
 
   public goToParent() {
-    console.log(this.layout.selectedParentItem)
-    if (this.layout.selectedParentItem) {
-      this.router.navigate(['/repository', this.layout.selectedParentItem.pid]);
-    }
+      this.router.navigate(['/repository', this.layout.parent.pid]);
   }
 
   goToNext() {
-    if (this.layout.nextItem) {
       this.router.navigate(['/repository', this.layout.nextItem.pid]);
-    }
   }
 
   goToPrevious() {
-    if (this.layout.previousItem) {
       this.router.navigate(['/repository', this.layout.previousItem.pid]);
-    }
   }
 
   // Drag events

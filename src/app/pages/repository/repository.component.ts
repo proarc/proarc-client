@@ -24,7 +24,7 @@ export class RepositoryComponent implements OnInit {
   // config: IConfig = null;
 
   pid: string;
-  parent: DocumentItem | null;
+  // parent: DocumentItem | null;
   expandedPath: string[] = [];
   // selected: string;
 
@@ -167,6 +167,7 @@ export class RepositoryComponent implements OnInit {
     this.layout.ready = false;
     this.layout.path = [];
     this.layout.tree = null;
+    this.layout.parent = null;
     this.layout.selectedParentItem = null;
     const rDoc = this.api.getDocument(pid);
     const rChildren = this.api.getRelations(pid);
@@ -193,6 +194,7 @@ export class RepositoryComponent implements OnInit {
       this.layout.setSelection(false);
 
       if (parent) {
+        this.layout.parent = parent;
         if (!this.canHasChildren(item.model)){
           this.layout.selectedParentItem = parent;
           // find siblings
@@ -213,9 +215,9 @@ export class RepositoryComponent implements OnInit {
         } else {
           this.layout.expandedPath = this.layout.path.map(p => p.pid);
         }
-        
         this.layout.ready = true;
       }
+      this.setupNavigation();
     });
   }
 
@@ -280,7 +282,7 @@ export class RepositoryComponent implements OnInit {
 
       this.api.getParent(pid).subscribe((parent: DocumentItem) => {
 
-        this.parent = parent;
+        // this.parent = parent;
         this.layout.parent = parent;
         this.layout.path = [];
         this.expandedPath = [];
@@ -333,11 +335,11 @@ export class RepositoryComponent implements OnInit {
   private setupNavigation() {
     this.layout.previousItem = null;
     this.layout.nextItem = null;
-    if (!this.parent) {
+    if (!this.layout.parent) {
       return;
     }
-    const parentId = this.parent.pid;
-    this.api.getRelations(this.parent.pid).subscribe((siblings: DocumentItem[]) => {
+    const parentId = this.layout.parent.pid;
+    this.api.getRelations(this.layout.parent.pid).subscribe((siblings: DocumentItem[]) => {
       let index = -1;
       let i = -1;
       for (const sibling of siblings) {
@@ -347,7 +349,7 @@ export class RepositoryComponent implements OnInit {
           break;
         }
       }
-      if (index >= 1 && this.parent.pid == parentId) {
+      if (index >= 1 && this.layout.parent.pid == parentId) {
         this.layout.previousItem = siblings[index - 1];
       }
       if (index >= 0 && index < siblings.length - 1) {

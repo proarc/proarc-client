@@ -33,7 +33,6 @@ export class EditorTreeComponent implements OnInit {
   }
 
   openFromTree(item: DocumentItem) {
-    console.log('selected:', item.pid)
     // this.router.navigate(['/repository', item.pid]);
   }
 
