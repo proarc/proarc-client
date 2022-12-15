@@ -839,7 +839,12 @@ export class ApiService {
   
 
   saveMarkSequence(data: any): Observable<any> {
-    return this.post('object/mods/editorPagesCopyMetadata', data);
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json; charset=UTF-8'
+      })
+    };
+    return this.post('object/mods/editorPagesCopyMetadata', data, options);
   }
 
 

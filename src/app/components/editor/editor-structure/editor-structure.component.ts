@@ -784,21 +784,23 @@ export class EditorStructureComponent implements OnInit {
           this.rowClick(i, first, null);
         }
 
-        this.layout.setShouldRefresh(true);
-        // const removedPid: string[] = response['response']['data'].map((x: any) => x.pid);
-        // let nextSelection = 0;
-        // for (let i = this.layout.items.length - 1; i >= 0; i--) {
-        //   if (removedPid.indexOf(this.layout.items[i].pid) > -1) {
-        //     this.layout.items.splice(i, 1);
-        //     nextSelection = i - 1;
-        //   }
-        // }
-        // if (nextSelection < 0) {
-        //   nextSelection = 0;
-        // }
-        // if (this.layout.items.length > 0 && !isMultiple) {
-        //   this.layout.setSelection(true);
-        // }
+        const removedPid: string[] = response['response']['data'].map((x: any) => x.pid);
+        let nextSelection = 0;
+        for (let i = this.layout.items.length - 1; i >= 0; i--) {
+          if (removedPid.indexOf(this.layout.items[i].pid) > -1) {
+            this.layout.items.splice(i, 1);
+            nextSelection = i;
+          }
+        }
+        if (nextSelection < 0) {
+          nextSelection = 0;
+        }
+        if (this.layout.items.length > 0) {
+          this.rowClick(this.layout.items[nextSelection], nextSelection, null);
+        }
+
+
+        // this.layout.setShouldRefresh(true);
         this.ui.showInfoSnackBar(String(this.translator.instant('editor.children.delete_dialog.success')));
         this.state = 'success';
       }
@@ -863,7 +865,8 @@ export class EditorStructureComponent implements OnInit {
       data: {
         iconWidth: { orig: this.iconWidth, dest: this.iconWidth },
         iconHeight: { orig: this.iconHeight, dest: this.iconHeight },
-        viewMode: this.viewMode,
+        viewModeOrig: this.viewMode,
+        viewModeDest: this.viewMode,
         displayedColumns: this.displayedColumns,
         api: this.api,
         items: this.layout.items,
