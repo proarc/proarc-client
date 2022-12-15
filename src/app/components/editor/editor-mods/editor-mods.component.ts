@@ -122,6 +122,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
             this.editting = false;
             this.anyChange = false;
             this.state = 'success';
+            this.layout.refreshSelectedItem(true, 'metadata');
           }
         });
       }

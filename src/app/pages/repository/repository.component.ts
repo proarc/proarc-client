@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, forkJoin, Subscription } from 'rxjs';
 import { DocumentItem } from 'src/app/model/documentItem.model';
+import { Metadata } from 'src/app/model/metadata.model';
 import { Tree } from 'src/app/model/mods/tree.model';
 import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
@@ -119,14 +120,32 @@ export class RepositoryComponent implements OnInit {
   }
 
   refreshSelected(from: string) {
-    this.api.getDocument(this.layout.lastSelectedItem.pid).subscribe((item: DocumentItem) =>{
-      const selected = this.layout.lastSelectedItem.selected;
-      Object.assign(this.layout.lastSelectedItem, item);
-      this.layout.lastSelectedItem.selected = selected;
-      if (!!from) {
-        this.layout.shouldMoveToNext(from);
-      }
-    });
+    if (from === 'metadata') {
+      this.layout.lastSelectedItemMetadata = null;
+      const pid = this.layout.lastSelectedItem.pid;
+      const model = this.layout.lastSelectedItem.model;
+      const rDoc = this.api.getDocument(this.layout.lastSelectedItem.pid);
+      const rMetadata = this.api.getMetadata(pid, model);
+      forkJoin([rDoc, rMetadata]).subscribe(([item, respMeta]: [DocumentItem, any]) => {
+        const selected = this.layout.lastSelectedItem.selected;
+        Object.assign(this.layout.lastSelectedItem, item);
+        this.layout.lastSelectedItem.selected = selected;
+        const meta = new Metadata(pid, model, respMeta['record']['content'], respMeta['record']['timestamp']);
+        //Object.assign(this.layout.lastSelectedItemMetadata, meta);
+        if (!!from) {
+          this.layout.shouldMoveToNext(from);
+        }
+      });
+    } else {
+      this.api.getDocument(this.layout.lastSelectedItem.pid).subscribe((item: DocumentItem) =>{
+        const selected = this.layout.lastSelectedItem.selected;
+        Object.assign(this.layout.lastSelectedItem, item);
+        this.layout.lastSelectedItem.selected = selected;
+        if (!!from) {
+          this.layout.shouldMoveToNext(from);
+        }
+      });
+    }
   }
 
   loadData(keepSelection: boolean) {

@@ -37,11 +37,7 @@ export class EditorMetadataComponent implements OnInit {
     private ui: UIService,
     private dialog: MatDialog) { }
 
-  ngOnInit() {
-  }
-
-  ngOnDestroy() {
-  }
+  ngOnInit() {}
 
   ngOnChanges(c: SimpleChanges) {
     if (c['metadata'] && c['metadata'].currentValue) {
@@ -171,7 +167,7 @@ export class EditorMetadataComponent implements OnInit {
         }
       } else {
         // this.layout.setShouldRefresh(true)
-        
+
         this.layout.refreshSelectedItem(false, null);
       }
     });

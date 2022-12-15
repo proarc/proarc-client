@@ -65,7 +65,8 @@
         <app-editor-audioPage *ngIf="layout.lastSelectedItem.isAudioPage()" [model]="layout.lastSelectedItem.model" [pid]="layout.lastSelectedItem.pid"> </app-editor-audioPage>
         <app-editor-chronicle *ngIf="layout.lastSelectedItem.isChronicle()" [pid]="layout.lastSelectedItem.pid" [model]="layout.lastSelectedItem.model"></app-editor-chronicle>
         <app-editor-bdm *ngIf="layout.lastSelectedItem.isBdm()" [pid]="layout.lastSelectedItem.pid" [model]="layout.lastSelectedItem.model"></app-editor-bdm>
-        <app-editor-metadata *ngIf="!layout.lastSelectedItem.isPage() && !layout.lastSelectedItem.isChronicle() && !layout.lastSelectedItem.isBdm()" [pid]="layout.lastSelectedItem.pid" [model]="layout.lastSelectedItem.model">
+        <app-editor-metadata *ngIf="!layout.lastSelectedItem.isPage() && !layout.lastSelectedItem.isChronicle() && !layout.lastSelectedItem.isBdm()" 
+          [pid]="layout.lastSelectedItem.pid" [metadata]="layout.lastSelectedItemMetadata" [model]="layout.lastSelectedItem.model">
         </app-editor-metadata>
       </ng-container>
     </ng-container>
