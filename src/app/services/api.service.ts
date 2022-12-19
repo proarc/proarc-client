@@ -95,6 +95,12 @@ export class ApiService {
     ).pipe(catchError(this.handleError));;
   }
 
+  private request(method: string, path: string, params = {}, body: any): Observable<Object> {
+    return this.http.request(method, encodeURI(`${this.getApiUrl()}${path}`), { params, body }).pipe(
+      finalize(() => this.stopLoading())
+    ).pipe(catchError(this.handleError));;
+  }
+
   private handleError(error: HttpErrorResponse) {
     //  console.log(error);
     if (error.status === 0) {
@@ -254,13 +260,24 @@ export class ApiService {
   }
 
   deleteObjects(pids: string[], purge: boolean, batchId: any = null): Observable<any> | null {
-    let query = pids.map(pid => `pid=${pid}`).join('&');
+    let url = '';
+    let body: any = {};
+    //let query = pids.map(pid => `pid=${pid}`).join('&');
     if (batchId) {
-      query = `import/batch/item?batchId=${batchId}&${query}`;
+      url = `import/batch/item`;
+      body.batchId = batchId;
+      body.pid = pids;
+      //query = `import/batch/item?batchId=${batchId}&${query}`;
     } else {
-      query = `object?purge=${purge}&hierarchy=true&${query}`;
+      url = `object`;
+      body.purge = purge;
+      body.hierarchy = true;
+      body.restore = false;
+      body.pid = pids;
+      // query = `object?purge=${purge}&hierarchy=true&${query}`;
     }
-    return this.delete(query);
+    //return this.delete(query);
+    return this.request('delete', url, {}, body);
 
   }
 
