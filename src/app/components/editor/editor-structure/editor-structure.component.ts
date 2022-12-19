@@ -87,7 +87,7 @@ export class EditorStructureComponent implements OnInit {
     { field: 'status', selected: false }
   ];
   displayedColumns: string[] = [];
-  dataSource: any;
+  // dataSource: any;
 
   constructor(
     private router: Router,
@@ -116,12 +116,11 @@ export class EditorStructureComponent implements OnInit {
     // }
   }
 
-  ngOnChanges(e: any) {
-    if (this.layout.items) {
-      this.dataSource = new MatTableDataSource(this.layout.items);
-      // this.rows = JSON.parse(JSON.stringify(this.layout.items));
-    }
-  }
+  // ngOnChanges(e: any) {
+  //   if (this.layout.items) {
+  //     this.dataSource = new MatTableDataSource(this.layout.items);
+  //   }
+  // }
 
   ngAfterViewInit() {
     this.childrenWrapperEl.nativeElement.focus();
@@ -211,7 +210,7 @@ export class EditorStructureComponent implements OnInit {
     this.initSelectedColumns();
     this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field);
 
-    this.dataSource = new MatTableDataSource(this.layout.items);
+    // this.dataSource = new MatTableDataSource(this.layout.items);
     this.table.renderRows();
   }
 
@@ -708,8 +707,7 @@ export class EditorStructureComponent implements OnInit {
           this.layout.setSelection(true);
         }
         this.state = 'success';
-        this.dataSource = new MatTableDataSource(this.layout.items);
-        // this.goToObjectByPid(destinationPid);
+        // this.dataSource = new MatTableDataSource(this.layout.items);
       } else {
         this.goToObjectByPid(destinationPid);
       }
