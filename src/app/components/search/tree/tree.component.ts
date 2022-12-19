@@ -33,7 +33,7 @@ export class TreeComponent implements OnInit {
       this.tree.expand(this.api, false);
       setTimeout(() => {
         this.selectFromTree(this.tree);
-      }, 2000);
+      }, 1000);
       //  
     }
   }

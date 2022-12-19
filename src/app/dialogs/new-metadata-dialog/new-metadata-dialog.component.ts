@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Metadata } from 'src/app/model/metadata.model';
 import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
@@ -159,7 +160,7 @@ export class NewMetadataDialogComponent implements OnInit {
           //this.ui.setSelection(pid);
           //this.dialogRef.close();
         } else {
-          this.ui.shoulRefresh();
+          // this.ui.shoulRefresh();
           this.dialogRef.close();
         }
 

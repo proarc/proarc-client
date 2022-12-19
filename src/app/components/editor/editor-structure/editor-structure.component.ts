@@ -471,12 +471,13 @@ export class EditorStructureComponent implements OnInit {
           dialogRef.afterClosed().subscribe(res => {
             // console.log(res);
             if (res) {
-              res.selected = true;
-              this.layout.items.push(res);
-              this.rowClick(res, this.layout.items.length - 1, null);
+              const item = DocumentItem.fromJson(res);
+              item.selected = true;
+              this.layout.items.push(item);
+              this.rowClick(item, this.layout.items.length - 1, null);
+              this.layout.refreshSelectedItem(true, 'pages');
             }
-
-            this.layout.setShouldRefresh(true);
+            // this.layout.setShouldRefresh(true);
           });
         }
 
@@ -805,6 +806,9 @@ export class EditorStructureComponent implements OnInit {
         if (nextSelection < 0) {
           nextSelection = 0;
         }
+        if (nextSelection > this.layout.items.length - 1) {
+          nextSelection = this.layout.items.length - 1;
+        }
         if (this.layout.items.length > 0) {
           this.rowClick(this.layout.items[nextSelection], nextSelection, null);
         }
@@ -812,6 +816,7 @@ export class EditorStructureComponent implements OnInit {
 
         // this.layout.setShouldRefresh(true);
         this.ui.showInfoSnackBar(String(this.translator.instant('editor.children.delete_dialog.success')));
+        this.layout.refreshSelectedItem(true, 'pages');
         this.state = 'success';
       }
 
