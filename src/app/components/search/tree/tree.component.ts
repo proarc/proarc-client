@@ -28,11 +28,12 @@ export class TreeComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.tree && this.expanded) {
+    if (this.tree && this.tree.item && this.expandedPath && this.expandedPath.includes(this.tree.item.pid)) {
+    // if (this.tree && this.expanded) {
       this.tree.expand(this.api, false);
       setTimeout(() => {
         this.selectFromTree(this.tree);
-      }, 1000);
+      }, 2000);
       //  
     }
   }
@@ -49,7 +50,7 @@ export class TreeComponent implements OnInit {
     this.search.selectedTreePid = this.tree.item.pid;
     if (this.tree.expandable()) {
       this.tree.expand(this.api, false, () => {
-        this.expandedPath.includes(this.tree.item.pid)
+        // this.expandedPath.includes(this.tree.item.pid)
         this.selectFromTree(this.tree);
       });
     }

@@ -86,10 +86,6 @@ export class EditorPagesComponent implements OnInit {
 
 
   updateSelectedPages(holder: PageUpdateHolder, callback: () => void) {
-    // if (this.preparation) {
-    //     this.editSelectedBatchPages(holder, callback);
-    //     return;
-    // }
     this.state = 'saving';
     const pages = [];
     for (const item of this.layout.items) {
@@ -102,16 +98,13 @@ export class EditorPagesComponent implements OnInit {
         this.ui.showErrorSnackBarFromObject(result.response.errors);
         this.state = 'error';
       } else {
-        this.layout.setShouldRefresh(true);
+        this.layout.refreshSelectedItem(true, 'pages');
+        //this.layout.setShouldRefresh(true);
       }
     })
   }
 
   changeBrackets(holder: PageUpdateHolder, useBrackets: boolean, callback: () => void) {
-    // if (this.preparation) {
-    //     this.editSelectedBatchPages(holder, callback);
-    //     return;
-    // }
     this.state = 'saving';
     const pages = [];
     for (const item of this.layout.items) {
@@ -124,7 +117,8 @@ export class EditorPagesComponent implements OnInit {
         this.ui.showErrorSnackBarFromObject(result.response.errors);
         this.state = 'error';
       } else {
-        this.layout.setShouldRefresh(true);
+        this.layout.refreshSelectedItem(true, 'pages');
+        //this.layout.setShouldRefresh(true);
       }
     })
   }

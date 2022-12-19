@@ -1,4 +1,6 @@
-<app-tree [tree]="layout.tree" [inPanel]="true" 
-[selectedPid]="selectedPid" [selectedParentPid]="selectedPid"
-(onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)" 
-[expanded]="true" [expandedPath]="layout.expandedPath"></app-tree>
+<ng-container *ngIf="layout.tree?.item">
+  <app-tree [tree]="layout.tree" [inPanel]="true" 
+  [selectedPid]="selectedPid" [selectedParentPid]="selectedParentPid"
+  (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)" 
+  [expanded]="true" [expandedPath]="layout.expandedPath"></app-tree>
+</ng-container>

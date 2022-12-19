@@ -1,32 +1,39 @@
-      
-      <ng-container *ngIf="tree?.item">
-      <div (click)="select()" (dblclick)="open()" class="app-row" [class.app-selected]="(tree.item.pid === search.selectedTreePid || tree.item.pid === selectedParentPid) && tree.expandable()"
-        [class.app-active]="(tree.item.selected  || tree.item.pid == selectedPid) && !tree.expandable()">
-        <div class="result-label">
-          <div class="app-tree-left" [style.width]="(tree.level * 20 + 40) + 'px'">
-            <mat-spinner *ngIf="tree.loading" [strokeWidth]="3" [diameter]="20">
-            </mat-spinner>
-            <mat-icon class="app-tree-expand" *ngIf="tree.expandable() && !tree.loading" (click)="toggle($event)">{{ tree.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
-            <span class="app-tree-expand" *ngIf="!tree.expandable() && !tree.loading" style="width: 36px;" >&#160;</span>
-          </div>
-          <div>{{ tree.item.label }}</div>
-        </div>
-        <div class="result-model" *ngIf="properties.isSearchColEnabled('model')">{{ "model." + tree.item.model | translate }}</div>
-        <div class="result-pid" *ngIf="properties.isSearchColEnabled('pid') && !inPanel">{{ tree.item.pid }}</div>
-        <div class="result-processor" *ngIf="properties.isSearchColEnabled('processor')">{{ tree.item.processor }}</div>
-        <div class="result-organization" *ngIf="properties.isSearchColEnabled('organization')">{{ 'organization.' + tree.item.organization | translate }}</div>
-        <div class="result-status" *ngIf="properties.isSearchColEnabled('status')">{{ 'editor.atm.statuses.' + tree.item.status | translate }}</div>
-        <div class="result-created" *ngIf="properties.isSearchColEnabled('created')">{{ tree.item.created | appDatetime }}</div>
-        <div class="result-modified" *ngIf="properties.isSearchColEnabled('modified')">{{ tree.item.modified | appDatetime }}</div>
-        <div class="result-owner" *ngIf="properties.isSearchColEnabled('owner')">{{ tree.item.owner }}</div>
-        <div class="result-export" *ngIf="properties.isSearchColEnabled('export')">{{ tree.item.writeExports() }}</div>
-        <div class="result-export" *ngIf="properties.isSearchColEnabled('isLocked')">{{ (tree.item.isLocked ? 'common.yes' : 'common.no') | translate }}</div>
+<ng-container *ngIf="tree?.item">
+  <div (click)="select()" (dblclick)="open()" class="app-row"
+    [class.app-selected]="(tree.item.pid === search.selectedTreePid || tree.item.pid === selectedParentPid) && tree.expandable()"
+    [class.app-active]="(tree.item.selected  || tree.item.pid == selectedPid) && !tree.expandable()">
+    <div class="result-label">
+      <div class="app-tree-left" [style.width]="(tree.level * 20 + 40) + 'px'">
+        <mat-spinner *ngIf="tree.loading" [strokeWidth]="3" [diameter]="20">
+        </mat-spinner>
+        <mat-icon class="app-tree-expand" *ngIf="tree.expandable() && !tree.loading" (click)="toggle($event)">{{
+          tree.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
+        <span class="app-tree-expand" *ngIf="!tree.expandable() && !tree.loading" style="width: 36px;">&#160;</span>
       </div>
-      <ng-container *ngIf="tree.expanded && tree.children">
-        <app-tree *ngFor="let child of tree.children"
-         [tree]="child" [inPanel]="inPanel" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)" 
-         [expandedPath]="expandedPath" [selectedPid]="selectedPid" [selectedParentPid]="selectedParentPid"></app-tree>
-      </ng-container>
+      <div>{{ tree.item.label }}</div>
+    </div>
+    <div class="result-model" *ngIf="properties.isSearchColEnabled('model')">{{ "model." + tree.item.model | translate
+      }}</div>
+    <div class="result-pid" *ngIf="properties.isSearchColEnabled('pid') && !inPanel">{{ tree.item.pid }}</div>
+    <div class="result-processor" *ngIf="properties.isSearchColEnabled('processor')">{{ tree.item.processor }}</div>
+    <div class="result-organization" *ngIf="properties.isSearchColEnabled('organization')">{{ 'organization.' +
+      tree.item.organization | translate }}</div>
+    <div class="result-status" *ngIf="properties.isSearchColEnabled('status')">{{ 'editor.atm.statuses.' +
+      tree.item.status | translate }}</div>
+    <div class="result-created" *ngIf="properties.isSearchColEnabled('created')">{{ tree.item.created | appDatetime }}
+    </div>
+    <div class="result-modified" *ngIf="properties.isSearchColEnabled('modified')">{{ tree.item.modified | appDatetime
+      }}</div>
+    <div class="result-owner" *ngIf="properties.isSearchColEnabled('owner')">{{ tree.item.owner }}</div>
+    <div class="result-export" *ngIf="properties.isSearchColEnabled('export')">{{ tree.item.writeExports() }}</div>
+    <div class="result-export" *ngIf="properties.isSearchColEnabled('isLocked')">{{ (tree.item.isLocked ? 'common.yes' :
+      'common.no') | translate }}</div>
+  </div>
+  <ng-container *ngIf="tree.expanded && tree.children">
+    <app-tree *ngFor="let child of tree.children" [tree]="child" [inPanel]="inPanel" (onOpen)="openFromTree($event)"
+      (onSelect)="selectFromTree($event)" [expandedPath]="expandedPath" [selectedPid]="selectedPid"
+      [selectedParentPid]="selectedParentPid"></app-tree>
+  </ng-container>
 
 
-    </ng-container>
+</ng-container>

@@ -136,6 +136,8 @@ export class RepositoryComponent implements OnInit {
           this.layout.shouldMoveToNext(from);
         }
       });
+    } else if(from === 'pages') {
+      this.refreshPages();
     } else {
       this.api.getDocument(this.layout.lastSelectedItem.pid).subscribe((item: DocumentItem) =>{
         const selected = this.layout.lastSelectedItem.selected;
@@ -148,11 +150,42 @@ export class RepositoryComponent implements OnInit {
     }
   }
 
+  refreshPages() {
+    const selection: string[] = [];
+    const lastSelected = this.layout.lastSelectedItem.pid;;
+    this.layout.items.forEach(item => {
+      if (item.selected) {
+        selection.push(item.pid);
+      }
+    });
+    this.layout.items = [];
+    this.layout.tree = null;
+    this.api.getRelations(this.layout.selectedParentItem.pid).subscribe((children: DocumentItem[]) =>{
+      
+      this.layout.items = children;
+      for (let i=0; i < this.layout.items.length; i++) {
+        const item = this.layout.items[i];
+      // this.layout.items.forEach(item => {
+        if (selection.includes(item.pid)) {
+          item.selected = true;
+          Object.assign(item, children[i]);
+        }
+        if (item.pid === lastSelected) {
+          this.layout.lastSelectedItem = item;
+        }
+
+      //});
+      }
+      this.layout.expandedPath = this.layout.path.map(p => p.pid);
+    });
+  }
+
   loadData(keepSelection: boolean) {
     let pid = this.pid;
     const selection: string[] = [];
     let path: string[] = [];
     let lastSelected: string = null;
+    let selectedParentItem: DocumentItem = null;
     if (keepSelection) {
       this.layout.items.forEach(item => {
         if (item.selected) {
@@ -161,6 +194,7 @@ export class RepositoryComponent implements OnInit {
       });
       pid = this.layout.lastSelectedItem.pid;
       lastSelected = this.layout.lastSelectedItem.pid;
+      selectedParentItem = this.layout.selectedParentItem;
       path = JSON.parse(JSON.stringify(this.layout.expandedPath));
     }
 
@@ -186,8 +220,9 @@ export class RepositoryComponent implements OnInit {
             this.layout.lastSelectedItem = item;
           }
         });
+        this.layout.selectedParentItem = selectedParentItem;
       }
-      if (this.canHasChildren(item.model)){
+      if (this.canHasChildren(item.model) && !keepSelection){
         this.layout.selectedParentItem = item;
       }
       
@@ -195,8 +230,11 @@ export class RepositoryComponent implements OnInit {
 
       if (parent) {
         this.layout.parent = parent;
-        if (!this.canHasChildren(item.model)){
-          this.layout.selectedParentItem = parent;
+        if (!this.canHasChildren(item.model)){ 
+          if(!keepSelection) {
+            this.layout.selectedParentItem = parent;
+          }
+          
           // find siblings
           this.api.getRelations(parent.pid).subscribe((siblings: DocumentItem[]) => {
             if (siblings.length > 0) {
@@ -240,78 +278,6 @@ export class RepositoryComponent implements OnInit {
     });
   }
 
-  loadData_(pid: string, keepSelection: boolean) {
-    const selection: string[] = [];
-    let lastSelected: string = null;
-    if (keepSelection) {
-      this.layout.items.forEach(item => {
-        if (item.selected) {
-          selection.push(item.pid);
-        }
-      });
-      lastSelected = this.layout.lastSelectedItem.pid;
-    }
-
-    this.layout.path = [];
-    this.expandedPath = [];
-    this.layout.ready = false;
-    this.layout.setBatchId(null);
-    this.pid = pid;
-    const rDoc = this.api.getDocument(pid);
-    const rChildren = this.api.getRelations(pid);
-    forkJoin([rDoc, rChildren]).subscribe(([item, children]: [DocumentItem, DocumentItem[]]) => {
-      this.layout.item = item;
-      //if (children.length === 0) {
-      this.layout.selectedParentItem = item;
-      //}
-      this.layout.lastSelectedItem = item;
-      this.layout.items = children;
-      if (keepSelection) {
-        this.layout.items.forEach(item => {
-          if (selection.includes(item.pid)) {
-            item.selected = true;
-          }
-          if (item.pid === lastSelected) {
-            this.layout.lastSelectedItem = item;
-          }
-        });
-      }
-      this.layout.ready = true;
-      this.layout.setSelection(false);
-
-
-      this.api.getParent(pid).subscribe((parent: DocumentItem) => {
-
-        // this.parent = parent;
-        this.layout.parent = parent;
-        this.layout.path = [];
-        this.expandedPath = [];
-        if (parent) {
-          parent.selected = true;
-          this.layout.path.unshift({ pid: parent.pid, label: parent.label, model: parent.model });
-          this.expandedPath.unshift(parent.pid);
-          this.setPath(parent, parent.pid);
-          if (!this.layout.allowedChildrenModels() || this.layout.allowedChildrenModels().length === 0) {
-            // if  (children.length === 0) {
-            this.layout.selectedParentItem = parent;
-            // find siblings
-            this.api.getRelations(parent.pid).subscribe((siblings: DocumentItem[]) => {
-              if (siblings.length > 0) {
-                this.layout.items = siblings;
-              }
-            });
-          }
-
-        } else {
-          this.layout.tree = new Tree(item);
-          this.layout.expandedPath = this.expandedPath;
-        }
-        this.setupNavigation();
-
-      });
-    });
-  }
-
   selectItem(item: DocumentItem) {
     item.selected = true;
     // this.search.selectedTreePid = item.pid;
@@ -319,18 +285,18 @@ export class RepositoryComponent implements OnInit {
 
   }
 
-  setPath(child: DocumentItem, pid: string) {
-    this.api.getParent(pid).subscribe((item: DocumentItem) => {
-      if (item) {
-        this.layout.path.unshift({ pid: item.pid, label: item.label, model: item.model });
-        this.expandedPath.unshift(item.pid);
-        this.setPath(item, item.pid);
-      } else {
-        this.layout.tree = new Tree(child);
-        this.layout.expandedPath = this.expandedPath;
-      }
-    });
-  }
+  // setPath(child: DocumentItem, pid: string) {
+  //   this.api.getParent(pid).subscribe((item: DocumentItem) => {
+  //     if (item) {
+  //       this.layout.path.unshift({ pid: item.pid, label: item.label, model: item.model });
+  //       this.expandedPath.unshift(item.pid);
+  //       this.setPath(item, item.pid);
+  //     } else {
+  //       this.layout.tree = new Tree(child);
+  //       this.layout.expandedPath = this.expandedPath;
+  //     }
+  //   });
+  // }
 
   private setupNavigation() {
     this.layout.previousItem = null;

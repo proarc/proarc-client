@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Tree } from 'src/app/model/mods/tree.model';
 import { LayoutService } from 'src/app/services/layout.service';
@@ -15,21 +16,39 @@ export class EditorTreeComponent implements OnInit {
   isSelected = false;
   selectedPid: string;
   selectedParentPid: string;
+  subscriptions: Subscription[] = [];
 
   constructor(public layout: LayoutService) { }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
   ngOnInit(): void {
-    this.layout.tree = new Tree(this.layout.rootItem);
+    this.initTree();
+    this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
+      if (from === 'pages') {
+        this.initTree();
+      }
+    }));
+  }
+
+  initTree() {
     if (this.layout.expandedPath.length === 0) {
       this.selectedPid = this.layout.rootItem.pid;
       this.selectedParentPid = this.layout.rootItem.pid;
-
-      this.layout.tree.item.selected = true;
-      this.layout.rootItem.selected = true;
     } else {
       this.selectedPid = this.layout.expandedPath[this.layout.expandedPath.length - 1];
-      this.selectedParentPid = this.layout.expandedPath[0];
+      this.selectedParentPid = this.layout.expandedPath[this.layout.expandedPath.length - 1];
     }
+    setTimeout(() => {
+
+      this.layout.tree = new Tree(this.layout.rootItem);
+      if (this.layout.expandedPath.length === 0) {
+        this.layout.tree.item.selected = true;
+        this.layout.rootItem.selected = true;
+      }
+    }, 100);
   }
 
   openFromTree(item: DocumentItem) {
@@ -61,14 +80,15 @@ export class EditorTreeComponent implements OnInit {
       }
 
     }
-    //tree.item.selected = true;
-    this.layout.expandedPath = [];
-    let p = tree;
-    this.layout.expandedPath.unshift(p.item.pid);
-    while (p.parent) {
-      p = p.parent;
-      this.layout.expandedPath.unshift(p.item.pid);
-    }
+    
+    // this.layout.expandedPath = [];
+    // let p = tree;
+    // this.layout.expandedPath.unshift(p.item.pid);
+    // while (p.parent) {
+    //   p = p.parent;
+    //   this.layout.expandedPath.unshift(p.item.pid);
+    // }
+
     this.isSelected = true;
     this.layout.setSelection(true, true);
 
