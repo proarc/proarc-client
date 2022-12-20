@@ -1,6 +1,58 @@
-<ng-container *ngIf="layout.tree?.item">
+<ng-container *ngIf="isReady">
+  
   <app-tree [tree]="layout.tree" [inPanel]="true" 
   [selectedPid]="selectedPid" [selectedParentPid]="selectedParentPid"
   (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)" 
-  [expanded]="true" [expandedPath]="layout.expandedPath"></app-tree>
+  [expanded]="true" [expandedPath]="[]"></app-tree>
+
+  <!-- <app-tree [tree]="layout.tree" [inPanel]="true" 
+  [selectedPid]="selectedPid" [selectedParentPid]="selectedParentPid"
+  (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)" 
+  [expanded]="true" [expandedPath]="layout.expandedPath"></app-tree> -->
+
+  <!-- <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+      <button mat-icon-button disabled></button>
+      <ng-container 
+             [ngTemplateOutlet]="row" 
+             [ngTemplateOutletContext]="{node:node}">
+        </ng-container>
+    </mat-tree-node>
+    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+      <button mat-icon-button matTreeNodeToggle
+              [attr.aria-label]="'Toggle ' + node.label">
+        <mat-icon class="mat-icon-rtl-mirror">
+          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+        </mat-icon>
+      </button>
+      <ng-container 
+             [ngTemplateOutlet]="row" 
+             [ngTemplateOutletContext]="{node:node}">
+        </ng-container>
+    </mat-tree-node>
+  </mat-tree>
 </ng-container>
+
+<ng-template #row let-node='node'>
+  <div (click)="select(node.item)" (dblclick)="open(node.item)" class="app-row"
+    [class.app-selected]="(node.item.pid === selectedParentPid) && node.expandable"
+    [class.app-active]="(node.item.selected  || node.item.pid == selectedPid) && !node.expandable">
+    <div class="result-label">
+      <div>{{ node.item.label }}</div>
+    </div>
+    <div class="result-model" *ngIf="properties.isSearchColEnabled('model')">{{ "model." + node.item.model | translate
+      }}</div>
+    <div class="result-processor" *ngIf="properties.isSearchColEnabled('processor')">{{ node.item.processor }}</div>
+    <div class="result-organization" *ngIf="properties.isSearchColEnabled('organization')">{{ 'organization.' +
+      node.item.organization | translate }}</div>
+    <div class="result-status" *ngIf="properties.isSearchColEnabled('status')">{{ 'editor.atm.statuses.' +
+      node.item.status | translate }}</div>
+    <div class="result-created" *ngIf="properties.isSearchColEnabled('created')">{{ node.item.created | appDatetime }}
+    </div>
+    <div class="result-modified" *ngIf="properties.isSearchColEnabled('modified')">{{ node.item.modified | appDatetime
+      }}</div>
+    <div class="result-owner" *ngIf="properties.isSearchColEnabled('owner')">{{ node.item.owner }}</div>
+    <div class="result-export" *ngIf="properties.isSearchColEnabled('isLocked')">{{ (node.item.isLocked ? 'common.yes' :
+      'common.no') | translate }}</div>
+  </div>
+</ng-template> -->

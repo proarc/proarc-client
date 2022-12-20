@@ -68,6 +68,16 @@ export class LayoutService {
 
   clearSelection() {
     this.items.forEach(i => i.selected = false);
+    this.clearTree(this.tree)
+  }
+
+  clearTree(tree: Tree) {
+    tree.item.selected = false;
+    if (tree.children) {
+      tree.children.forEach(ch => {
+        this.clearTree(ch);
+      });
+    }
   }
 
   setSelection(fromStructure: boolean, fromTree: boolean = false) {
