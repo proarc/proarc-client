@@ -97,11 +97,20 @@ export class BdmArticleTemplate {
           ]
         },
         nameIdentifier: {
-          usage: 'O',
-          label: 'Identifikátor autora (ORCID ID)',
-          selector: 'name/nameIdentifier',
+          usage: 'RA',
+          label: 'Identifikátor autora',
+          selector: 'bdm/name/nameIdentifier',
           labelKey: 'bdm/name/nameIdentifier',
+          cols: 2,
           description: `Číslo národní autority`,
+        },
+        nameIdentifierOrcId: {
+          usage: 'RA',
+          label: 'ORC ID',
+          selector: 'bdm/name/nameIdentifierOrcId',
+          labelKey: 'bdm/name/nameIdentifierOrcId',
+          cols: 2,
+          description: `ORC ID`,
         },
         name: {
           usage: 'MA',
@@ -144,6 +153,25 @@ export class BdmArticleTemplate {
           labelKey: "name/namePart[@type='termsOfAddress']",
           cols: 2,
           description: `Tituly a jiná slova nebo čísla související se jménem.`
+        },
+        etal: {
+          usage: 'O',
+          label: 'Etal',
+          selector: 'name/etal',
+          labelKey: 'name/etal',
+          cols: 2,
+          description: `Element indikující, že existuje více autorů, než pouze ti, kteří byli uvedeni v <name> elementu.</br>
+          V případě užití tohoto elementu je dále top element <name> neopakovatelný.</br>
+          <etal> je nutné umístit do samostatného top elementu <name>, ve kterém se nesmí objevit subelementy <namePart> a <nameIdentifier>.`
+        },
+        affiliation: {
+          usage: 'O',
+          label: 'Napojená instituce',
+          selector: 'name/affiliation',
+          labelKey: 'name/affiliation',
+          cols: 2,
+          description: `Umožňuje vepsat název instituce, se kterou je autor spojen<br/>
+          např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.`
         },
         role: {
           usage: 'MA',
@@ -349,6 +377,104 @@ export class BdmArticleTemplate {
         }
       }
     },
+    classification: {
+      usage: 'R',
+      label: 'Klasifikace',
+      selector: 'classification',
+      labelKey: 'classification',
+      description: `Klasifikační údaje věcného třídění podle Mezinárodního desetinného třídění<br/>
+      odpovídá poli 080 MARC21`,
+      fields: {
+        authority: {
+          usage: 'M',
+          label: 'Autorita',
+          selector: 'classification/@authority',
+          labelKey: 'classification/@authority',
+          cols: 2,
+          description: `
+          <ul>
+            <li>
+              vyplnit hodnotu <strong>udc</strong> (v případě 072 $a)
+            </li>
+            <li>
+              vyplnit hodnotu <strong>Konspekt</strong>  (v případě 072 $9)
+            </li>
+          </ul>`,
+          options: [
+            ['udc', 'udc'],
+            ['Konspekt', 'Konspekt']
+          ]
+        },
+        edition: {
+          usage: 'M',
+          label: 'Vydání',
+          selector: 'classification/@edition',
+          labelKey: 'classification/@edition',
+          cols: 2,
+          description: `
+          <ul>
+            <li>
+              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)
+            </li>
+          </ul>`,
+          options: [
+            ['Konspekt', 'Konspekt']
+          ]
+        },
+        value: {
+          usage: 'R',
+          selector: 'classification/value',
+          labelKey: 'classification/value',
+          label: 'Hodnota',
+          help: 'off'
+        }
+      }
+    },
+    location: {
+      usage: 'MA',
+      label: 'Uložení',
+      selector: 'location',
+      labelKey: 'location',
+      description: `Údaje o uložení popisovaného dokumentu, např. signatura, místo uložení apod.`,
+      fields: {
+        url: {
+          usage: 'MA',
+          label: 'URL',
+          selector: 'location/url',
+          labelKey: 'location/url',
+          description: `Pro uvedení lokace elektronického dokumentu`,
+          fields: {
+            value: {
+              usage: 'MA',
+              selector: 'location/url/value',
+              labelKey: 'location/url/value',
+              label: 'Hodnota',
+              help: 'off'
+            },
+            note: {
+              usage: 'R',
+              selector: 'location/url/@note',
+              labelKey: 'location/url/@note',
+              cols: 2,
+              label: 'Note',
+              help: 'off'
+            },
+            usage: {
+              usage: 'R',
+              cols: 2,
+              selector: 'location/url/@usage',
+              labelKey: 'location/url/@usage',
+              label: 'Usage',
+              help: 'off',
+              options: [
+                ['', '-'],
+                ['primary', 'primary']
+              ]
+            },
+          }
+        },
+      }
+    },
     identifier: {
       usage: 'M',
       label: 'Identifikátory článku',
@@ -375,6 +501,185 @@ export class BdmArticleTemplate {
           label: 'Hodnota',
           help: 'off'
         }
+      }
+    },
+    recordInfo: {
+      usage: 'M',
+      label: 'Údaje o metadatovém záznamu',
+      selector: 'recordInfo',
+      labelKey: 'recordInfo',
+      description: `údaje o metadatovém záznamu – jeho vzniku, změnách apod.`,
+      fields: {
+        descriptionStandard: {
+          usage: 'MA',
+          label: 'Standard metadat',
+          cols: 2,
+          selector: 'recordInfo/descriptionStandard',
+          labelKey: 'recordInfo/descriptionStandard',
+          description: `Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>
+            Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"`,
+          options: [
+            ['aacr', 'aacr'],
+            ['rda', 'rda']
+          ]
+        },
+        recordContentSource: {
+          usage: 'R',
+          label: 'Content source',
+          selector: 'recordInfo/recordContentSource',
+          labelKey: 'recordInfo/recordContentSource',
+          description: `Kód nebo jméno instituce, která záznam vytvořila nebo změnila`,
+          fields: {
+            value: {
+              usage: 'R',
+              label: 'Content source',
+              cols: 2,
+              selector: 'recordInfo/recordContentSource',
+              labelKey: 'recordInfo/recordContentSource',
+              help: 'off'
+            },
+            authority: {
+              usage: 'R',
+              label: 'Autorita',
+              cols: 2,
+              selector: 'recordInfo/recordContentSource/@authority',
+              labelKey: 'recordInfo/recordContentSource/@authority',
+              description: `authority – hodnota "marcorg"`,
+              options: [
+                ['marcorg', 'marcorg']
+              ]
+            }
+          }
+        },
+        recordCreationDate: {
+          usage: 'M',
+          label: 'Datum vytvoření',
+          selector: 'recordInfo/recordCreationDate',
+          labelKey: 'recordInfo/recordCreationDate',
+          description: `datum prvního vytvoření záznamu, na úroveň minut`,
+          fields: {
+            value: {
+              usage: 'M',
+              label: 'Datum vytvoření',
+              cols: 2,
+              selector: 'recordInfo/recordCreationDate',
+              labelKey: 'recordInfo/recordCreationDate',
+              help: 'off'
+            },
+            encoding: {
+              usage: 'M',
+              label: 'Kódování',
+              cols: 2,
+              selector: 'recordInfo/recordCreationDate/@encoding',
+              labelKey: 'recordInfo/recordCreationDate/@encoding',
+              description: `Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"`,
+              options: [
+                ['iso8601', 'iso8601']
+              ]
+            }
+          }
+        },
+        recordChangeDate: {
+          usage: 'MA',
+          label: 'Datum změny',
+          selector: 'recordInfo/recordChangeDate',
+          labelKey: 'recordInfo/recordChangeDate',
+          description: `datum změny záznamu `,
+          fields: {
+            value: {
+              usage: 'MA',
+              label: 'Datum změny',
+              cols: 2,
+              selector: 'recordInfo/recordChangeDate',
+              labelKey: 'recordInfo/recordChangeDate',
+              help: 'off'
+            },
+            encoding: {
+              usage: 'M',
+              label: 'Kódování',
+              cols: 2,
+              selector: 'recordInfo/recordChangeDate/@encoding',
+              labelKey: 'recordInfo/recordChangeDate/@encoding',
+              description: `Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"`,
+              options: [
+                ['iso8601', 'iso8601']
+              ]
+            }
+          }
+        },
+        recordIdentifier: {
+          usage: 'R',
+          label: 'Identifikátor záznamu',
+          selector: 'recordInfo/recordIdentifier',
+          labelKey: 'recordInfo/recordIdentifier',
+          description: `identifikátor záznamu v katalogu, přebírá se z pole 001`,
+          fields: {
+            value: {
+              usage: 'MA',
+              label: 'Identifikátor záznamu',
+              cols: 2,
+              selector: 'recordInfo/recordIdentifier',
+              labelKey: 'recordInfo/recordIdentifier',
+              help: 'off'
+            },
+            source: {
+              usage: 'R',
+              label: 'Zdroj',
+              cols: 2,
+              selector: 'recordInfo/recordIdentifier/@source',
+              labelKey: 'recordInfo/recordIdentifier/@source',
+              description: `hodnota se přebírá z katalogu pole 003 `
+            }
+          }
+        },
+        recordOrigin: {
+          usage: 'R',
+          label: 'Údaje o vzniku záznamu',
+          cols: 2,
+          selector: 'recordInfo/recordOrigin',
+          labelKey: 'recordInfo/recordOrigin',
+          description: `údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"`,
+          options: [
+            ['machine generated', 'machine generated'],
+            ['human prepared', 'human prepared']
+          ]
+        },
+        languageOfCataloging: {
+          usage: 'R',
+          label: 'Jazyk záznamu',
+          selector: 'recordInfo/languageOfCataloging',
+          labelKey: 'recordInfo/languageOfCataloging',
+          description: `jazyk katalogového záznamu`,
+          fields: {
+            languageOfCataloging: {
+              usage: 'R',
+              label: 'Jazyk záznamu',
+              cols: 2,
+              selector: 'recordInfo/languageOfCataloging',
+              labelKey: 'recordInfo/languageOfCataloging',
+              help: 'off'
+            },
+            languageTerm: {
+              usage: 'R',
+              label: 'Zdroj',
+              cols: 2,
+              selector: 'recordInfo/languageOfCataloging/languageTerm',
+              labelKey: 'recordInfo/languageOfCataloging/languageTerm',
+              description: `přebírá se z katalogu - pole 40 $b`
+            },
+            authority: {
+              usage: 'R',
+              label: 'Autorita',
+              cols: 2,
+              selector: 'recordInfo/languageOfCataloging/languageTerm/@authority',
+              labelKey: 'recordInfo/languageOfCataloging/languageTerm/@authority',
+              description: `authority – hodnota "iso639-2b"`,
+              options: [
+                ['iso639-2b', 'iso639-2b']
+              ]
+            }
+          }
+        },
       }
     },
     relatedItem: {

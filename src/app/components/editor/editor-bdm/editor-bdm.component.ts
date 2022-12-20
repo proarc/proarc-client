@@ -23,11 +23,13 @@ export class EditorBdmComponent implements OnInit {
   @Input() metadata: Metadata;
   state = 'none';
 
+  public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
+
   // @Input()
   // set pid(pid: string) {
   //   this.onPidChanged(pid);
   // }
-  constructor(public layout: LayoutService, 
+  constructor(public layout: LayoutService,
     private translator: TranslateService,
     private api: ApiService,
     private ui: UIService,
@@ -137,7 +139,7 @@ export class EditorBdmComponent implements OnInit {
     });
   }
 
-  
+
 
   confirmSave(title: string, message: string, ignoreValidation: boolean) {
     const data: SimpleDialogData = {
