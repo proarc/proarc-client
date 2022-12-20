@@ -12,7 +12,8 @@ export class ModsAuthor extends ModsElement {
     public termsOfAddress: any;
     public date: any;
     public roles: ElementField;
-    public nameIdentifier: string;
+    public nameIdentifier: {[x: string]: string; };
+    public nameIdentifierOrcId: {[x: string]: string; };
     public etal: string;
 
     static getSelector() {
@@ -76,9 +77,25 @@ export class ModsAuthor extends ModsElement {
         }
 
         if (!this.modsElement['nameIdentifier']) {
-            this.modsElement['nameIdentifier'] = ModsUtils.createEmptyField();
+            this.modsElement['nameIdentifier'] = [];
         }
-        this.nameIdentifier = this.modsElement['nameIdentifier'][0];
+        const nameIdentifiers = this.modsElement['nameIdentifier'];
+        for (const nameIdentifier of nameIdentifiers) {
+            if (!ModsUtils.hasAnyAttribute(nameIdentifier)) {
+                this.nameIdentifier = nameIdentifier;
+            }  else if (ModsUtils.hasAttributeWithValue(nameIdentifier, 'type', 'orcid')) {
+                this.nameIdentifierOrcId = nameIdentifier;
+            }
+        }
+
+        if (this.nameIdentifier == null) {
+          this.nameIdentifier = ModsUtils.createTextElement('', null);
+          nameIdentifiers.push(this.nameIdentifier);
+        }
+        if (this.nameIdentifierOrcId == null) {
+          this.nameIdentifierOrcId = ModsUtils.createTextElement('', {'type': 'orcid'});
+          nameIdentifiers.push(this.nameIdentifierOrcId);
+        }
 
         if (!this.modsElement['etal']) {
             this.modsElement['etal'] = ModsUtils.createEmptyField();

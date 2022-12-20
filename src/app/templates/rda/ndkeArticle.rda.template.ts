@@ -158,11 +158,20 @@ export class NdkeArticleRdaTemplate {
           cols: 2,
           description: `Číslo národní autority`,
         },
+        nameIdentifierOrcId: {
+          usage: 'RA',
+          label: 'ORC ID',
+          selector: 'name/nameIdentifierOrcId',
+          labelKey: 'name/nameIdentifierOrcId',
+          cols: 2,
+          description: `ORC ID`,
+        },
         affiliation: {
           usage: 'O',
           label: 'Napojená instituce',
           selector: 'name/affiliation',
           labelKey: 'name/affiliation',
+          cols: 2,
           description: `Umožňuje vepsat název instituce, se kterou je autor spojen<br/>
           např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.`
         },
