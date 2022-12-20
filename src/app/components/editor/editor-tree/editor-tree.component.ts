@@ -1,6 +1,5 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, Input, OnInit } from '@angular/core';
-import { MatTreeFlattener, MatTreeFlatDataSource } from '@angular/material/tree';
 import { Subscription } from 'rxjs';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Tree } from 'src/app/model/mods/tree.model';
@@ -9,13 +8,6 @@ import { LayoutService } from 'src/app/services/layout.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { SearchService } from 'src/app/services/search.service';
 
-interface ItemFlatNode {
-  expandable: boolean;
-  isExpanded: boolean;
-  label: string;
-  item: DocumentItem;
-  level: number;
-}
 
 @Component({
   selector: 'app-editor-tree',
@@ -33,34 +25,6 @@ export class EditorTreeComponent implements OnInit {
   subscriptions: Subscription[] = [];
   isReady = false;
 
-  tree_data: any[] = [];
-
-  private _transformer = (node: any, level: number) => {
-    return {
-      expandable: !node.isPage() && node.children,
-      label: node.label,
-      item: node,
-      isExpanded: true,
-      level: level,
-    };
-  };
-
-  treeControl = new FlatTreeControl<ItemFlatNode>(
-    node => node.level,
-    node => node.expandable,
-  );
-
-  treeFlattener = new MatTreeFlattener(
-    this._transformer,
-    node => node.level,
-    node => node.expandable,
-    node => node.children,
-  );
-
-  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-
-  hasChild = (_: number, node: ItemFlatNode) => node.expandable;
-
   constructor(
     public properties: LocalStorageService,
     public search: SearchService,
@@ -75,10 +39,47 @@ export class EditorTreeComponent implements OnInit {
     this.initTree();
     this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
       if (from === 'pages') {
-        this.initTree();
+        this.refreshChildren();
       }
     }));
 
+  }
+
+  findTree(pid: string) {
+    console.log(this.layout.tree)
+    return this.findByPid(this.layout.tree, pid);
+  }
+
+  findByPid(tree: Tree, pid: string) {
+    if (tree.children) {
+      for (const ch of tree.children){
+        if (ch.item.pid === pid) {
+          return ch;
+        } else {
+          const f: Tree = this.findByPid(ch, pid);
+          if (f) {
+            return f;
+          }
+        }
+      };
+    }
+    return null;
+  }
+    
+
+  refreshChildren() {
+    const tree = this.findTree(this.layout.selectedParentItem.pid);
+    if (!tree) {
+      return
+    }
+    tree.children = [];
+    this.api.getRelations(this.layout.selectedParentItem.pid).subscribe((children: DocumentItem[]) => {
+      for (const child of children) {
+        const childTree = new Tree(child, tree, tree.level + 1);
+        tree.children.push(childTree);
+      }
+      this.isReady = true;
+    });
   }
 
   initTree() {
@@ -92,18 +93,8 @@ export class EditorTreeComponent implements OnInit {
       this.selectedPid = this.layout.expandedPath[this.layout.expandedPath.length - 1];
       this.selectedParentPid = this.layout.expandedPath[this.layout.expandedPath.length - 1];
     }
-    // setTimeout(() => {
-
-    //   this.layout.tree = new Tree(this.layout.rootItem);
-    //   if (this.layout.expandedPath.length === 0) {
-    //     this.layout.tree.item.selected = true;
-    //     this.layout.rootItem.selected = true;
-    //   }
-    // }, 100);
-
     this.layout.tree = new Tree(this.layout.rootItem);
-    const path: string[] = this.layout.expandedPath;
-    this.tree_data = [this.layout.rootItem];
+    const path: string[] = JSON.parse(JSON.stringify(this.layout.expandedPath));
     const pid = path.shift();
     if (pid) {
       // this.getChildrenMat(this.layout.rootItem, path);
@@ -113,31 +104,6 @@ export class EditorTreeComponent implements OnInit {
       //this.treeControl.expandAll();
       this.isReady = true;
     }
-
-
-    // this.tree_data = [this.layout.rootItem];
-    // this.getChildrenMat(this.layout.rootItem);
-    // this.dataSource.data = this.tree_data;
-    // console.log(this.layout.rootItem);
-  }
-
-  getChildrenMat(item: any, path: string[]) {
-    this.api.getRelations(item.pid).subscribe((children: DocumentItem[]) => {
-      item.children = children;
-      item.isExpanded = true;
-      const pid = path.shift();
-      if (pid) {
-        const child = item.children.find((ch: any) => ch.pid === pid);
-        if (child) {
-          this.getChildrenMat(child, path);
-        }
-      } else {
-        this.dataSource.data = this.tree_data;
-        // this.treeControl.expandAll();
-        this.isReady = true;
-      }
-      
-    });
   }
 
   getChildren(tree: Tree, path: string[]) {
@@ -155,7 +121,6 @@ export class EditorTreeComponent implements OnInit {
           this.getChildren(child, path);
         }
       } else {
-        this.dataSource.data = this.tree_data;
         this.isReady = true;
       }
       // this.dataSource.data = this.tree_data;
@@ -167,7 +132,6 @@ export class EditorTreeComponent implements OnInit {
   }
 
   selectFromTree(tree: Tree) {
-    console.log(this.layout.tree)
     this.layout.clearSelection();
     this.layout.lastSelectedItem = tree.item;
     if (tree.children) {
