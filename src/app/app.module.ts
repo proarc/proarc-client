@@ -121,7 +121,7 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FOR
 import {EditorBdmComponent} from './components/editor/editor-bdm/editor-bdm.component';
 import { NewMetadataDialogComponent } from './dialogs/new-metadata-dialog/new-metadata-dialog.component';
 import { WorkflowComponent } from './components/workflow/workflow.component';
-import { AdminComponent } from './components/admin/admin.component';
+import { AdminComponent } from './pages/admin/admin.component';
 import { ImportOldComponent } from './components/import-old/import-old.component';
 import { NewWorkflowDialogComponent } from './components/workflow/new-workflow-dialog/new-workflow-dialog.component';
 import { ChangeModelDialogComponent } from './dialogs/change-model-dialog/change-model-dialog.component';

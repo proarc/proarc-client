@@ -12,7 +12,7 @@ import { ImportComponent } from '../components/import/import.component';
 import { HistoryComponent } from '../components/import/history/history.component';
 import { SettingsComponent } from '../components/settings/settings.component';
 import { ConfirmLeaveEditorGuard } from '../confirm-leave-editor.guard';
-import { AdminComponent } from '../components/admin/admin.component';
+import { AdminComponent } from '../pages/admin/admin.component';
 import { WorkflowComponent } from '../components/workflow/workflow.component';
 import { RepositoryComponent } from '../pages/repository/repository.component';
 import { LayoutAdminComponent } from '../pages/layout-admin/layout-admin.component';

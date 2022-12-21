@@ -31,7 +31,7 @@
     </mat-form-field>
 
 
-    <mat-form-field>
+    <!-- <mat-form-field>
       <input *ngIf="selectedUser" matInput (keyup.enter)="save()" 
       #org="ngModel" 
       name="org" [(ngModel)]="selectedUser.organization"  [placeholder]="'admin.users.organization' | translate" [matAutocomplete]="mat1">
@@ -40,6 +40,12 @@
           {{ 'organization.' + org | translate }} ({{ org }})
         </mat-option>
       </mat-autocomplete>
+    </mat-form-field> -->
+
+    <mat-form-field>
+      <mat-select [placeholder]="'admin.users.organization' | translate" name="organization" [(ngModel)]="selectedUser.organization">
+        <mat-option *ngFor="let organization of organizations" [value]="organization">{{ 'organization.' + organization | translate }}</mat-option>
+      </mat-select>
     </mat-form-field>
 
     <div>{{'admin.users.home' | translate}} : {{ selectedUser.home }}</div>
