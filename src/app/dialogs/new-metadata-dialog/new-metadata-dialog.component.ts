@@ -155,14 +155,11 @@ export class NewMetadataDialogComponent implements OnInit {
         this.state = 'success';
         this.state = 'success';
         this.metadata.resetChanges();
-        if (gotoEdit) {
-          this.dialogRef.close(response['response']['data'][0]);
-          //this.ui.setSelection(pid);
-          //this.dialogRef.close();
-        } else {
-          // this.ui.shoulRefresh();
-          this.dialogRef.close();
-        }
+        this.dialogRef.close({gotoEdit, item: response['response']['data'][0]});
+        // if (gotoEdit) {
+        // } else {
+        //   this.dialogRef.close(response['response']['data'][0]);
+        // }
 
       });
     } else {
@@ -204,12 +201,13 @@ export class NewMetadataDialogComponent implements OnInit {
           const pid = response['response']['data'][0]['pid'];
           this.state = 'success';
           this.metadata.resetChanges();
-          if (gotoEdit) {
-            this.dialogRef.close(response['response']['data'][0]);
-          } else {
-            this.ui.shoulRefresh();
-            this.dialogRef.close();
-          }
+          this.dialogRef.close({gotoEdit, item: response['response']['data'][0]});
+          // if (gotoEdit) {
+          //   this.dialogRef.close(response['response']['data'][0]);
+          // } else {
+          //   this.ui.shoulRefresh();
+          //   this.dialogRef.close();
+          // }
 
 
         });

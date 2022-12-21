@@ -133,7 +133,6 @@ export class EditorStructureComponent implements OnInit {
     });
 
     this.layout.moveToNext().subscribe((idx: number) => {
-      console.log(idx)
       this.moveToNext(idx);
     });
   }
@@ -225,7 +224,6 @@ export class EditorStructureComponent implements OnInit {
   }
 
   rowClick(row: DocumentItem, idx: number, event: MouseEvent) {
-    console.log(idx)
     if (event && (event.metaKey || event.ctrlKey)) {
       // Nesmi byt prazdna selecke pro import
       if (this.layout.type === 'import' && row.selected && this.layout.getNumOfSelected() === 1) {
@@ -471,11 +469,14 @@ export class EditorStructureComponent implements OnInit {
           });
           dialogRef.afterClosed().subscribe(res => {
             // console.log(res);
-            if (res) {
-              const item = DocumentItem.fromJson(res);
+            if (res?.item) {
+              const item = DocumentItem.fromJson(res.item);
               item.selected = true;
               this.layout.items.push(item);
-              this.rowClick(item, this.layout.items.length - 1, null);
+              console.log(res.gotoEdit);
+              if (res.gotoEdit) {
+                this.rowClick(item, this.layout.items.length - 1, null);
+              }
               this.layout.refreshSelectedItem(true, 'pages');
             }
             // this.layout.setShouldRefresh(true);
@@ -809,7 +810,6 @@ export class EditorStructureComponent implements OnInit {
         if (nextSelection > this.layout.items.length - 1) {
           nextSelection = this.layout.items.length - 1;
         }
-        console.log(nextSelection)
         if (this.layout.items.length > 0) {
           this.rowClick(this.layout.items[nextSelection], nextSelection, null);
         }

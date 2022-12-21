@@ -46,11 +46,13 @@ export class EditorTreeComponent implements OnInit {
   }
 
   findTree(pid: string) {
-    console.log(this.layout.tree)
     return this.findByPid(this.layout.tree, pid);
   }
 
   findByPid(tree: Tree, pid: string) {
+    if (tree.item.pid === pid) {
+      return tree;
+    }
     if (tree.children) {
       for (const ch of tree.children){
         if (ch.item.pid === pid) {
@@ -97,11 +99,8 @@ export class EditorTreeComponent implements OnInit {
     const path: string[] = JSON.parse(JSON.stringify(this.layout.expandedPath));
     const pid = path.shift();
     if (pid) {
-      // this.getChildrenMat(this.layout.rootItem, path);
       this.getChildren(this.layout.tree, path);
     } else {
-      //this.dataSource.data = this.tree_data;
-      //this.treeControl.expandAll();
       this.isReady = true;
     }
   }

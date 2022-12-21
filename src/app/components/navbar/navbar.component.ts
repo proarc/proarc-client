@@ -60,16 +60,18 @@ export class NavbarComponent implements OnInit {
        height: '90%',
        data: data 
       });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result && result['pid']) {
-        const pid = result['pid'];
+    dialogRef.afterClosed().subscribe(res => {
+      if (res?.item) {
+        const pid = res.item['pid'];
         const p: IsActiveMatchOptions = {
           matrixParams: 'subset',
           queryParams: 'ignored',
           paths: 'subset',
           fragment: 'ignored'
         };        
-        this.router.navigate(['/repository', pid]);
+        if (res.gotoEdit) {
+          this.router.navigate(['/repository', pid]);
+        }
       } else {
         
       }

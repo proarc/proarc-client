@@ -4,16 +4,16 @@
     <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs app-view-border-right">
       <a routerLink="/"><mat-icon>home</mat-icon> Home</a>
       <span class="app-separator">/</span>
-      <ng-container *ngFor="let p of layout.path; let last = last">
-        <a (click)="goToObjectByPid(p.pid)" [title]="'model.' + p.model | translate">{{ p.label }}</a>
-        <span class="app-separator" *ngIf="!last">/</span>
+      <ng-container *ngFor="let p of layout.path; let last = last; let l = count; let idx = index">
+        <a *ngIf="!last" (click)="goToObjectByPid(p.pid)" [matTooltip]="'model.' + p.model | translate">{{ p.label }}</a>
+        <span class="app-separator" *ngIf="idx < l - 2">/</span>
       </ng-container>
-      <span *ngIf="layout.path.length === 0" class="app-last app-text-cutter" 
-      [matTooltip]="layout.item.label" [matTooltipPosition]="'above'">{{ layout.item.label }}</span>
+      <span *ngIf="layout.path.length === 1" class="app-last app-text-cutter" 
+      [matTooltip]="'model.' + layout.item.model | translate" [matTooltipPosition]="'above'">{{ layout.item.label }}</span>
     </div>
     <div fxFlex class="app-pl-4">
-      <div *ngIf="layout.path.length === 0" class="app-label-model">{{ 'model.' + layout.item.model | translate }}</div>
-      <div *ngIf="layout.path.length > 0" class="app-label-model">{{ 'model.' + layout.item.model | translate }} - {{ layout.item.label }}</div>
+      <div *ngIf="layout.path.length === 1" class="app-label-model">{{ 'model.' + layout.item.model | translate }}</div>
+      <div *ngIf="layout.path.length > 1" class="app-label-model">{{ 'model.' + layout.item.model | translate }} - {{ layout.item.label }}</div>
     </div>
     <div>
       <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToObject(layout.previousItem)" *ngIf="layout.previousItem" mat-icon-button>

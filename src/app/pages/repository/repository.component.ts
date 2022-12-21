@@ -164,7 +164,6 @@ export class RepositoryComponent implements OnInit {
       this.layout.items = children;
       for (let i=0; i < this.layout.items.length; i++) {
         const item = this.layout.items[i];
-      // this.layout.items.forEach(item => {
         if (selection.includes(item.pid)) {
           item.selected = true;
           Object.assign(item, children[i]);
@@ -172,8 +171,6 @@ export class RepositoryComponent implements OnInit {
         if (item.pid === lastSelected) {
           this.layout.lastSelectedItem = item;
         }
-
-      //});
       }
       this.layout.expandedPath = this.layout.path.map(p => p.pid);
     });
@@ -226,6 +223,7 @@ export class RepositoryComponent implements OnInit {
       }
       
       this.layout.setSelection(false);
+      this.layout.path.unshift({ pid: item.pid, label: item.label, model: item.model });
 
       if (parent) {
         this.layout.parent = parent;
@@ -247,12 +245,12 @@ export class RepositoryComponent implements OnInit {
         this.setLayoutPath(parent, keepSelection, path);
       } else {
         this.layout.rootItem = item;
-        if (keepSelection) {
-          this.layout.expandedPath = JSON.parse(JSON.stringify(path));
-        } else {
-          this.layout.expandedPath = this.layout.path.map(p => p.pid);
-        }
         this.layout.ready = true;
+      }
+      if (keepSelection) {
+        this.layout.expandedPath = JSON.parse(JSON.stringify(path));
+      } else {
+        this.layout.expandedPath = this.layout.path.map(p => p.pid);
       }
       this.setupNavigation();
     });
@@ -270,7 +268,6 @@ export class RepositoryComponent implements OnInit {
           this.layout.expandedPath = JSON.parse(JSON.stringify(path));
         } else {
           this.layout.expandedPath = this.layout.path.map(p => p.pid);
-          this.layout.expandedPath.push(this.layout.lastSelectedItem.pid);
         }
         this.layout.ready = true;
       }

@@ -133,33 +133,33 @@ export class RepositoryService {
     });
   }
 
-  onCreateNewObject() {
-    if (!this.canAddChildren()) {
-      return;
-    }
-    const data: NewObjectData = {
-      models: this.allowedChildrenModels,
-      model: this.allowedChildrenModels[0],
-      customPid: false,
-      parentPid: this.item.pid
-    }
-    const dialogRef = this.dialog.open(NewObjectDialogComponent, { data: data });
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result && result['pid']) {
+  // onCreateNewObject() {
+  //   if (!this.canAddChildren()) {
+  //     return;
+  //   }
+  //   const data: NewObjectData = {
+  //     models: this.allowedChildrenModels,
+  //     model: this.allowedChildrenModels[0],
+  //     customPid: false,
+  //     parentPid: this.item.pid
+  //   }
+  //   const dialogRef = this.dialog.open(NewObjectDialogComponent, { data: data });
+  //   dialogRef.afterClosed().subscribe((result: any) => {
+  //     if (result && result['pid']) {
 
-        if (result.isMultiple) {
-          this.loadData(data.parentPid);
-        } else {
-          const dialogRef = this.dialog.open(NewMetadataDialogComponent, { disableClose: true, data: result.data });
-          dialogRef.afterClosed().subscribe(res => {
-            this.loadData(data.parentPid);
-          });
-        }
+  //       if (result.isMultiple) {
+  //         this.loadData(data.parentPid);
+  //       } else {
+  //         const dialogRef = this.dialog.open(NewMetadataDialogComponent, { disableClose: true, data: result.data });
+  //         dialogRef.afterClosed().subscribe(res => {
+  //           this.loadData(data.parentPid);
+  //         });
+  //       }
 
-      }
-    });
+  //     }
+  //   });
 
-  }
+  // }
 
   reloadChildren(callback: () => void, moveToNext = false) {
     this.api.getRelations(this.item.pid).subscribe((children: DocumentItem[]) => {
