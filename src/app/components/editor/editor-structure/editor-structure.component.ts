@@ -133,6 +133,7 @@ export class EditorStructureComponent implements OnInit {
     });
 
     this.layout.moveToNext().subscribe((idx: number) => {
+      console.log(idx)
       this.moveToNext(idx);
     });
   }
@@ -224,6 +225,7 @@ export class EditorStructureComponent implements OnInit {
   }
 
   rowClick(row: DocumentItem, idx: number, event: MouseEvent) {
+    console.log(idx)
     if (event && (event.metaKey || event.ctrlKey)) {
       // Nesmi byt prazdna selecke pro import
       if (this.layout.type === 'import' && row.selected && this.layout.getNumOfSelected() === 1) {
@@ -778,8 +780,8 @@ export class EditorStructureComponent implements OnInit {
   deleteSelectedChildren(pernamently: boolean) {
     this.state = 'saving';
     let pids: string[] = this.layout.items.filter(c => c.selected).map(c => c.pid);
-    const isMultiple = this.layout.items.filter(c => c.selected).length > 1;
-    const first = this.layout.getFirstSelectedIndex();
+    // const isMultiple = this.layout.items.filter(c => c.selected).length > 1;
+    // const first = this.layout.getFirstSelectedIndex();
 
     this.api.deleteObjects(pids, pernamently, this.layout.getBatchId()).subscribe((response: any) => {
 
@@ -788,10 +790,10 @@ export class EditorStructureComponent implements OnInit {
         this.state = 'error';
         return;
       } else {
-        const i = this.layout.items[first];
-        if (i) {
-          this.rowClick(i, first, null);
-        }
+        // const i = this.layout.items[first];
+        // if (i) {
+        //   this.rowClick(i, first, null);
+        // }
 
         const removedPid: string[] = response['response']['data'].map((x: any) => x.pid);
         let nextSelection = 0;
@@ -807,6 +809,7 @@ export class EditorStructureComponent implements OnInit {
         if (nextSelection > this.layout.items.length - 1) {
           nextSelection = this.layout.items.length - 1;
         }
+        console.log(nextSelection)
         if (this.layout.items.length > 0) {
           this.rowClick(this.layout.items[nextSelection], nextSelection, null);
         }

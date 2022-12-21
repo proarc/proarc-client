@@ -152,14 +152,13 @@ export class RepositoryComponent implements OnInit {
 
   refreshPages() {
     const selection: string[] = [];
-    const lastSelected = this.layout.lastSelectedItem.pid;;
+    const lastSelected = this.layout.lastSelectedItem.pid;
     this.layout.items.forEach(item => {
       if (item.selected) {
         selection.push(item.pid);
       }
     });
     this.layout.items = [];
-    this.layout.tree = null;
     this.api.getRelations(this.layout.selectedParentItem.pid).subscribe((children: DocumentItem[]) =>{
       
       this.layout.items = children;

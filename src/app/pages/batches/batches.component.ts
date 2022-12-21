@@ -49,7 +49,7 @@ export class BatchesComponent implements OnInit {
   ngOnInit(): void {
     this.initConfig();
     this.layout.type = 'import';
-    
+
     this.subscriptions.push(this.layout.shouldRefresh().subscribe((keepSelection: boolean) => {
       this.loadData(this.batchId, keepSelection);
     }));
@@ -70,8 +70,11 @@ export class BatchesComponent implements OnInit {
   }
 
   refreshSelected(from: string) {
-
-    this.api.getBatchPage(this.layout.getBatchId(), this.layout.lastSelectedItem.pid).subscribe((response: any) =>{
+    if (from === 'pages') {
+      this.refreshPages();
+      return;
+    }
+    this.api.getBatchPage(this.layout.getBatchId(), this.layout.lastSelectedItem.pid).subscribe((response: any) => {
 
       const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
       const selected = this.layout.lastSelectedItem.selected;
@@ -83,13 +86,38 @@ export class BatchesComponent implements OnInit {
     });
   }
 
+  refreshPages() {
+    const selection: string[] = [];
+    const lastSelected = this.layout.lastSelectedItem.pid;
+    this.layout.items.forEach(item => {
+      if (item.selected) {
+        selection.push(item.pid);
+      }
+    });
+
+    this.api.getBatchPages(this.layout.getBatchId()).subscribe((response: any) => {
+      const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
+      console.log(pages, selection, lastSelected)
+      this.layout.items = pages;
+      for (let i = 0; i < this.layout.items.length; i++) {
+        const item = this.layout.items[i];
+        if (selection.includes(item.pid)) {
+          item.selected = true;
+        }
+        if (item.pid === lastSelected) {
+          this.layout.lastSelectedItem = item;
+        }
+      }
+    });
+  }
+
   showLayoutAdmin() {
-    const dialogRef = this.dialog.open(LayoutAdminComponent, { 
+    const dialogRef = this.dialog.open(LayoutAdminComponent, {
       data: { layout: 'import' },
       width: '1280px',
       height: '90%',
       panelClass: 'app-dialog-layout-settings'
-     });
+    });
     dialogRef.afterClosed().subscribe((ret: any) => {
 
       this.initConfig();
@@ -116,7 +144,7 @@ export class BatchesComponent implements OnInit {
       })
     }
     this.layout.ready = false;
-    
+
     this.layout.path = [];
     this.layout.tree = null;
     this.layout.selectedParentItem = null;
@@ -145,11 +173,11 @@ export class BatchesComponent implements OnInit {
         } else {
           this.layout.items[0].selected = true;
         }
-        
+
         this.layout.ready = true;
 
         this.layout.setSelection(false);
-        
+
       });
     });
 
