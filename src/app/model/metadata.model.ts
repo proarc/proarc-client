@@ -51,7 +51,7 @@ export class Metadata {
 
 
   public readonly pid: string;
-  public readonly timestamp: number = -1;
+  public timestamp: number = -1;
   public readonly originalMods: string;
   private mods: { [x: string]: any; };
   public readonly model: string;
@@ -77,7 +77,6 @@ export class Metadata {
 
 
   public static fromMods(mods: Mods, model: string) {
-    console.log(model)
     return new Metadata(mods.pid, model, mods.content, mods.timestamp);
   }
 

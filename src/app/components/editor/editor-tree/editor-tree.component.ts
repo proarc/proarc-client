@@ -179,4 +179,8 @@ export class EditorTreeComponent implements OnInit {
     console.log(item)
   }
 
+  toggle(item: any) {
+
+  }
+
 }

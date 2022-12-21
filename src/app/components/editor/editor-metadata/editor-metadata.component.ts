@@ -167,7 +167,8 @@ export class EditorMetadataComponent implements OnInit {
         }
       } else {
         // this.layout.setShouldRefresh(true)
-
+        // console.log(response)
+        this.metadata.timestamp = response.data[0].timestamp;
         this.layout.refreshSelectedItem(false, null);
       }
     });
