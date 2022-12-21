@@ -7,9 +7,9 @@
         <mat-icon>local_library</mat-icon>
       </button>
 
-      <button [disabled]="!item.canSplitName()" matTooltip="{{ 'editor.author.split_btn' | translate }}" (click)="item.splitName()" mat-icon-button>
+      <!--<button [disabled]="!item.canSplitName()" matTooltip="{{ 'editor.author.split_btn' | translate }}" (click)="item.splitName()" mat-icon-button>
         <mat-icon>play_for_work</mat-icon>
-      </button>
+      </button>-->
 
       <button matTooltip="{{ 'editor.author.' + (item.isPrimary() ? 'unset_primary' : 'set_primary') | translate }}" [color]="item.isPrimary() ? 'primary' : ''" (click)="item.switchPrimary()" mat-icon-button>
         <mat-icon>{{ item.isPrimary() ? 'star' : 'star_outline' }}</mat-icon>
@@ -23,11 +23,12 @@
 
   <ng-template let-item="item" #templateContent>
     <app-field-dropdown field="type" [item]="item" [(value)]='item.attrs["type"]'></app-field-dropdown>
-    <app-field-text field="name" [item]="item" [(value)]="item.name['_']" ></app-field-text>
-    <app-field-text field="given" [item]="item" [(value)]="item.given['_']" ></app-field-text>
-    <app-field-text field="family" [item]="item" [(value)]="item.family['_']" ></app-field-text>
-    <app-field-text field="date" [item]="item" [(value)]="item.date['_']" ></app-field-text>
-    <app-field-text field="termsOfAddress" [item]="item" [(value)]="item.termsOfAddress['_']" ></app-field-text>
+    <app-editor-field *ngIf="item.available('namePart')" [field]="item.nameParts" [nested]='true'>
+      <ng-template let-namePart="item" #templateContent>
+        <app-field-dropdown field="type" [item]="namePart" [(value)]='namePart.attrs["type"]'></app-field-dropdown>
+        <app-field-text field="value" [item]="namePart" [(value)]='namePart.modsElement["_"]'></app-field-text>
+      </ng-template>
+    </app-editor-field>
     <app-field-text field="nameIdentifier" [item]="item" [(value)]="item.nameIdentifier['_']"></app-field-text>
     <app-field-text field="nameIdentifierOrcId" [item]="item" [(value)]="item.nameIdentifierOrcId['_']"></app-field-text>
     <app-field-text field="etal" [item]="item" [(value)]="item.etal['_']"></app-field-text>

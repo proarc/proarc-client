@@ -88,47 +88,43 @@ export class NdkeChapterAacrTemplate {
             ['family', 'Rodina']
           ]
         },
-        name: {
+        namePart: {
           usage: 'MA',
-          label: 'Celé jméno',
-          selector: 'name/namePart[not(@type)]',
-          labelKey: 'name/namePart[not(@type)]',
-          description: `Vyplnit pokud nelze rozlišit křestní jméno a příjmení.`
-        },
-        given: {
-          usage: 'MA',
-          label: 'Křestní',
-          selector: "name/namePart[@type='given']",
-          labelKey: "name/namePart[@type='given']",
-          cols: 2,
-          description: `Údaje o křestním jméně.<br/>
-          V případě více křestních jmen se doporučuje
-          uvést je společně ve stejném elementu , např. hodnota "Jan Amos"`
-        },
-        family: {
-          usage: 'MA',
-          label: 'Příjmení',
-          selector: "name/namePart[@type='family']",
-          labelKey: "name/namePart[@type='family']",
-          cols: 2,
-          description: `Údaje o příjmení.`
-        },
-        date: {
-          usage: 'RA',
-          label: 'Datum',
-          selector: "name/namePart[@type='date']",
-          labelKey: "name/namePart[@type='date']",
-          cols: 2,
-          description: `Životopisná data autora<br/>
-          Pokud známe datum narození a úmrtí autora, vyplnit ve tvaru RRRR-RRRR.`
-        },
-        termsOfAddress: {
-          usage: 'RA',
-          label: 'Ostatní související se jménem',
-          selector: "name/namePart[@type='termsOfAddress']",
-          labelKey: "name/namePart[@type='termsOfAddress']",
-          cols: 2,
-          description: `Tituly a jiná slova nebo čísla související se jménem.`
+          label: 'Jméno',
+          selector: 'name/namePart',
+          labelKey: 'name/namePart',
+          description: `Vyplnit údaje o autorovi.`,
+          fields: {
+            type: {
+              usage: 'R',
+              label: 'Typ',
+              selector: 'name/namePart/@type',
+              labelKey: 'name/namePart/@type',
+              cols: 2,
+              description: `Použít jednu z hodnot:
+                <ul>
+                    <li><strong>Křestní jméno</strong> (given)</li>
+                    <li><strong>Příjmení</strong> (family)</li>
+                    <li><strong>Datum</strong> (date)</li>
+                    <li><strong>Ostatní související se jménem</strong> (termsOfAddress)</li>
+                </ul>`,
+              options: [
+                ['', '-'],
+                ['given', 'Křestní jméno'],
+                ['family', 'Příjmení'],
+                ['date', 'Datum'],
+                ['termsOfAddress', 'Ostatní související se jménem'],
+              ]
+            },
+            value: {
+              label: 'Hodnota',
+              usage: 'M',
+              selector: 'name/namePart',
+              labelKey: 'name/namePart/value',
+              cols: 2,
+              help: 'off'
+            }
+          }
         },
         nameIdentifier: {
           usage: 'RA',
@@ -137,6 +133,16 @@ export class NdkeChapterAacrTemplate {
           labelKey: 'name/nameIdentifier',
           cols: 2,
           description: `Číslo národní autority`,
+        },
+        etal: {
+          usage: 'O',
+          label: 'Etal',
+          selector: 'name/etal',
+          labelKey: 'name/etal',
+          cols: 2,
+          description: `Element indikující, že existuje více autorů, než pouze ti, kteří byli uvedeni v <name> elementu.</br>
+          V případě užití tohoto elementu je dále top element <name> neopakovatelný.</br>
+          <etal> je nutné umístit do samostatného top elementu <name>, ve kterém se nesmí objevit subelementy <namePart> a <nameIdentifier>.`
         },
         role: {
           usage: 'MA',
