@@ -50,11 +50,12 @@
     <app-editor-field *ngIf="item.available('name')" [field]="item.names" [nested]='true'>
       <ng-template let-name="item" #templateContent>
         <app-field-dropdown field="type" [item]="name" [(value)]='name.attrs["type"]'></app-field-dropdown>
-        <app-field-text field="name" [item]="name" [(value)]="name.name['_']"></app-field-text>
-        <app-field-text field="given" [item]="name" [(value)]="name.given['_']"></app-field-text>
-        <app-field-text field="family" [item]="name" [(value)]="name.family['_']"></app-field-text>
-        <app-field-text field="date" [item]="name" [(value)]="name.date['_']"></app-field-text>
-        <app-field-text field="termsOfAddress" [item]="name" [(value)]="name.termsOfAddress['_']"></app-field-text>
+        <app-editor-field *ngIf="name.available('namePart')" [field]="name.nameParts" [nested]='true'>
+          <ng-template let-namePart="item" #templateContent>
+            <app-field-dropdown field="type" [item]="namePart" [(value)]='namePart.attrs["type"]'></app-field-dropdown>
+            <app-field-text field="value" [item]="namePart" [(value)]='namePart.modsElement["_"]'></app-field-text>
+          </ng-template>
+        </app-editor-field>
         <app-field-text field="nameIdentifier" [item]="name" [(value)]="name.nameIdentifier['_']"></app-field-text>
         <app-field-text field="etal" [item]="name" [(value)]="name.etal['_']"></app-field-text>
         <app-field-text field="affiliation" [item]="name" [(value)]='name.affiliation["_"]'></app-field-text>
