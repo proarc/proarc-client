@@ -26,7 +26,7 @@
           <div fxFlex class="app-oa-y">
             <div class="app-editor-content app-children-editor-content">
               <div class="app-view-icons" *ngIf="data.viewModeOrig === 'icons'" #childrenIconList>
-                <div *ngFor="let item of orig; let i = index" class="app-item" (click)="select(item, i, $event)"
+                <div *ngFor="let item of orig; let i = index" class="app-item" (click)="select(orig, item, i, $event)"
                   [class.app-selected]="item.selected" [style.width]="data.iconWidth['orig'] + '%'"
                   [style.height]="data.iconHeight['orig'] + 'px'">
                   <div class="app-item-content">
@@ -39,7 +39,7 @@
               </div>
 
               <div class="app-view-grid" *ngIf="data.viewModeOrig == 'grid'" #childrenGridList>
-                <div *ngFor="let item of orig; let i = index" (click)="select(item, i, $event)"
+                <div *ngFor="let item of orig; let i = index" (click)="select(orig, item, i, $event)"
                   class="app-grid-item-wrapper" [class.app-selected]="item.selected"
                   [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'"
                   [style.width]="data.iconWidth['orig'] + '%'">
@@ -97,7 +97,7 @@
 
                 <tr mat-header-row *matHeaderRowDef="data.displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; let idx = index; columns: data.displayedColumns"
-                  [class.selected]="row.selected" (click)="select(row, idx, $event)"></tr>
+                  [class.selected]="row.selected" (click)="select(orig, row, idx, $event)"></tr>
               </table>
             </div>
           </div>
@@ -127,7 +127,7 @@
           <div fxFlex class="app-oa-y">
             <div class="app-editor-content app-children-editor-content">
               <div class="app-view-icons" *ngIf="data.viewModeDest == 'icons'" #childrenIconList>
-                <div *ngFor="let item of dest; let i = index" class="app-item" (click)="select(item, i, $event)"
+                <div *ngFor="let item of dest; let i = index" class="app-item" (click)="select(dest, item, i, $event)"
                   [class.app-selected]="item.selected" [style.width]="data.iconWidth['dest'] + '%'"
                   [style.height]="data.iconHeight['dest'] + 'px'">
                   <div class="app-item-content">
@@ -140,7 +140,7 @@
               </div>
 
               <div class="app-view-grid" *ngIf="data.viewModeDest == 'grid'" #childrenGridList>
-                <div *ngFor="let item of dest; let i = index" (click)="select(item, i, $event)"
+                <div *ngFor="let item of dest; let i = index" (click)="select(dest, item, i, $event)"
                   class="app-grid-item-wrapper" [class.app-selected]="item.selected"
                   [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'"
                   [style.width]="data.iconWidth['dest'] + '%'">
@@ -198,7 +198,7 @@
 
                 <tr mat-header-row *matHeaderRowDef="data.displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; let idx = index; columns: data.displayedColumns"
-                  [class.selected]="row.selected" (click)="select(row, idx, $event)"></tr>
+                  [class.selected]="row.selected" (click)="select(dest, row, idx, $event)"></tr>
               </table>
 
             </div>

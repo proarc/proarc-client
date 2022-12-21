@@ -56,7 +56,7 @@ export class MarkSequenceDialogComponent implements OnInit {
     return this.data.api.getStreamUrl(pid, 'THUMBNAIL', this.data.batchId);
   }
 
-  select(item: DocumentItem, idx: number, event: MouseEvent) {
+  select(array: any[], item: DocumentItem, idx: number, event: MouseEvent) {
     if (event && (event.metaKey || event.ctrlKey)) {
       // Nesmi byt prazdna selecke pro import
       item.selected = !item.selected;
@@ -65,16 +65,16 @@ export class MarkSequenceDialogComponent implements OnInit {
         const from = Math.min(this.lastClickIdx, idx);
         const to = Math.max(this.lastClickIdx, idx);
         for (let i = from; i <= to; i++) {
-          this.dest[i].selected = true;
+          array[i].selected = true;
         }
       } else {
         // nic neni.
-        this.dest.forEach(i => i.selected = false);
+        array.forEach(i => i.selected = false);
         item.selected = true;
       }
 
     } else {
-      this.dest.forEach(i => i.selected = false);
+      array.forEach(i => i.selected = false);
       item.selected = true;
     }
     this.lastClickIdx = idx;
