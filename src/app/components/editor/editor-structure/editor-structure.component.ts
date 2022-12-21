@@ -709,6 +709,7 @@ export class EditorStructureComponent implements OnInit {
         if (this.layout.items.length > 0 && !isMultiple) {
           this.layout.setSelection(true);
         }
+        this.layout.refreshSelectedItem(true, 'pages');
         this.state = 'success';
         // this.dataSource = new MatTableDataSource(this.layout.items);
       } else {
