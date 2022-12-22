@@ -462,8 +462,8 @@ export class NdkePeriodicalIssueAacrTemplate {
         name: {
           usage: 'MA',
           label: 'Autor',
-          selector: 'name',
-          labelKey: 'name',
+          selector: 'subject/name',
+          labelKey: 'subject/name',
           description: `Údaje o odpovědnosti za číslo periodika<br/>
       použití u ročenek, specializovaných periodik, tematických čísel nebo zvláštních vydání`,
           fields: {
