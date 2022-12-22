@@ -144,7 +144,7 @@ export class NdkePeriodicalIssueRdaTemplate {
           }
         },
         nameIdentifier: {
-          usage: 'MA',
+          usage: 'RA',
           label: 'Identifikátor autora',
           selector: 'name/nameIdentifier',
           labelKey: 'name/nameIdentifier',
@@ -256,16 +256,6 @@ export class NdkePeriodicalIssueRdaTemplate {
           cols: 1,
           description: `Údaje o místě spojeném s vydáním, výrobou nebo původem popisovaného dokumentu.`
         },
-        dateCreated: {
-          usage: 'R',
-          label: 'Datum vytvoření',
-          selector: 'originInfo/dateCreated',
-          labelKey: 'originInfo/dateCreated',
-          cols: 2,
-          description: `Datum vytvoření p5edlohy<br/>
-          bude použito pouze při popisu tiskaře, viz poznámka u <strong>Nakladatel</strong> nebo např. u popisu CD/DVD apod.<br/>
-          odpovídá hodnotě z katalogizačního záznamu, pole 264 $g`
-        },
       }
     },
     location: {
@@ -347,7 +337,7 @@ export class NdkePeriodicalIssueRdaTemplate {
       a v polích 5XX (poznámky) katalogizačního záznamu`,
       fields: {
         note: {
-          usage: 'RA',
+          usage: 'O',
           selector: 'note/value',
           labelKey: 'note/value',
           label: 'Poznámka',
@@ -363,7 +353,7 @@ export class NdkePeriodicalIssueRdaTemplate {
       description: `Shrnutí obsahu jako celku odpovídá poli 520 MARC21`,
       fields: {
         abstract: {
-          usage: 'R',
+          usage: 'RA',
           label: 'Abstrakt',
           selector: 'abstract',
           labelKey: 'abstract/value',
@@ -416,7 +406,7 @@ export class NdkePeriodicalIssueRdaTemplate {
           ]
         },
         value: {
-          usage: 'MA',
+          usage: 'R',
           selector: 'classification/value',
           labelKey: 'classification/value',
           label: 'Hodnota',
@@ -452,7 +442,7 @@ export class NdkePeriodicalIssueRdaTemplate {
           ]
         },
         topic: {
-          usage: 'R',
+          usage: 'O',
           label: 'Klíčové slovo/Předmětové heslo',
           selector: 'subject/topic',
           labelKey: 'subject/topic',
@@ -467,7 +457,7 @@ export class NdkePeriodicalIssueRdaTemplate {
           description: `Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21`
         },
         geographic: {
-          usage: 'R',
+          usage: 'O',
           label: 'Geografické věcné třídění',
           selector: 'subject/geographic',
           labelKey: 'subject/geographic',
@@ -521,7 +511,7 @@ export class NdkePeriodicalIssueRdaTemplate {
       }
     },
     physicalDescription: {
-      usage: 'R',
+      usage: 'O',
       label: 'Fyzický popis',
       selector: 'physicalDescription',
       labelKey: 'physicalDescription',
@@ -642,7 +632,7 @@ export class NdkePeriodicalIssueRdaTemplate {
             Jiný interní identifikátor <i>R</i>, např. barcode, oclc, sysno, permalink`
         },
         validity: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Platnost',
           selector: 'identifier/@invalid',
           labelKey: 'identifier/@invalid',

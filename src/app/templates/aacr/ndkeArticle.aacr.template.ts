@@ -258,9 +258,32 @@ export class NdkeArticleAacrTemplate {
       labelKey: 'language',
       description: `Údaje o jazyce dokumentu`,
       fields: {
+        objectPart: {
+          usage: 'R',
+          label: 'Část',
+          cols: 2,
+          selector: 'language/@objectPart',
+          labelKey: 'language/@objectPart',
+          description: `Možnost vyjádřit jazyk konkrétní části svazku <br/>
+          možné hodnoty<br/>
+          <ul>
+            <li><strong>Shrnutí</strong> (summary) – odpovídá poli 041 $b</li>
+            <li><strong>Obsah</strong> (table of contents) - odpovídá poli 041 $f</li>
+            <li><strong>Doprovodný materiál</strong> (accompanying material) - odpovídá poli 041 $g</li>
+            <li><strong>Překlad</strong> (translation) - odpovídá poli 041 $h</li>
+          </ul>`,
+          options: [
+            ['', '-'],
+            ['summary', 'Shrnutí'],
+            ['table of contents', 'Obsah'],
+            ['accompanying material', 'Doprovodný materiál'],
+            ['translation', 'Překlad']
+          ]
+        },
         language: {
-          usage: 'M',
+          usage: 'R',
           label: 'Jazyk',
+          cols: 2,
           selector: 'language/languageTerm',
           labelKey: 'language/languageTerm',
           description: `Přesné určení jazyka`
@@ -275,7 +298,7 @@ export class NdkeArticleAacrTemplate {
       description: `Obsahuje údaje o fyzickém popisu zdroje/předlohy`,
       fields: {
         digitalOrigin: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Zdroje digitálního dokumentu',
           selector: 'physicalDescription/digitalOrigin',
           labelKey: 'physicalDescription/digitalOrigin',
@@ -284,6 +307,13 @@ export class NdkeArticleAacrTemplate {
             ['', '-'],
             ['born digital', 'born digital']
           ]
+        },
+        note: {
+          usage: 'O',
+          label: 'Poznámka',
+          selector: 'physicalDescription/note',
+          labelKey: 'physicalDescription/note',
+          description: `V případě doskenu se POVINNĚ vyplní hodnota <strong>dosken</strong>`
         },
         form: {
           usage: 'RA',
@@ -414,7 +444,7 @@ export class NdkeArticleAacrTemplate {
             Jiný interní identifikátor <i>R</i>, např. barcode, oclc, sysno, permalink`
         },
         validity: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Platnost',
           selector: 'identifier/@invalid',
           labelKey: 'identifier/@invalid',
@@ -464,7 +494,7 @@ export class NdkeArticleAacrTemplate {
       description: `Shrnutí obsahu jako celku odpovídá poli 520 MARC21`,
       fields: {
         abstract: {
-          usage: 'R',
+          usage: 'RA',
           label: 'Abstrakt',
           selector: 'abstract',
           labelKey: 'abstract/value',
@@ -779,7 +809,7 @@ export class NdkeArticleAacrTemplate {
       }
     },
     relatedItem: {
-      usage: 'MA',
+      usage: 'O',
       label: 'Recenze na',
       selector: 'relatedItem',
       labelKey: 'bdm/relatedItem',
