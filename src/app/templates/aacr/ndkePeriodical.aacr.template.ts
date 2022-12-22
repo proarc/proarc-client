@@ -61,7 +61,7 @@ export class NdkePeriodicalAacrTemplate {
           odpovídající pole a podpole podle typu, viz typ`
         },
         partNumber: {
-          usage: 'MA',
+          usage: 'RA',
           label: 'Číslo části',
           selector: 'titleInfo/partNumber',
           labelKey: 'titleInfo/partNumber',
@@ -172,7 +172,7 @@ export class NdkePeriodicalAacrTemplate {
           např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.`
         },
         role: {
-          usage: 'MA',
+          usage: 'RA',
           label: 'Role',
           selector: 'name/role/roleTerm',
           labelKey: 'name/role/roleTerm',
@@ -353,7 +353,7 @@ export class NdkePeriodicalAacrTemplate {
           }
         },
         url: {
-          usage: 'O',
+          usage: 'MA',
           label: 'URL',
           selector: 'location/url',
           labelKey: 'location/url',
@@ -367,7 +367,7 @@ export class NdkePeriodicalAacrTemplate {
               help: 'off'
             },
             note: {
-              usage: 'O',
+              usage: 'R',
               selector: 'location/url/@note',
               labelKey: 'location/url/@note',
               cols: 2,
@@ -375,7 +375,7 @@ export class NdkePeriodicalAacrTemplate {
               help: 'off'
             },
             usage: {
-              usage: 'O',
+              usage: 'R',
               cols: 2,
               selector: 'location/url/@usage',
               labelKey: 'location/url/@usage',
@@ -391,7 +391,7 @@ export class NdkePeriodicalAacrTemplate {
       }
     },
     note: {
-      usage: 'O',
+      usage: 'RA',
       label: 'Poznámka',
       selector: 'note',
       labelKey: 'note',
@@ -448,7 +448,7 @@ export class NdkePeriodicalAacrTemplate {
           ]
         },
         topic: {
-          usage: 'R',
+          usage: 'O',
           label: 'Klíčové slovo/Předmětové heslo',
           selector: 'subject/topic',
           labelKey: 'subject/topic',
@@ -456,7 +456,7 @@ export class NdkePeriodicalAacrTemplate {
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x`
         },
         geographic: {
-          usage: 'R',
+          usage: 'O',
           label: 'Geografické věcné třídění',
           selector: 'subject/geographic',
           labelKey: 'subject/geographic',
@@ -900,7 +900,7 @@ export class NdkePeriodicalAacrTemplate {
       }
     },
     relatedItem: {
-      usage: 'MA',
+      usage: 'O',
       label: 'Informace o dalších dokumentech',
       selector: 'relatedItem',
       labelKey: 'relatedItem',
