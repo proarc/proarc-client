@@ -31,77 +31,12 @@ table {
   }
 
 }
-
-
-    .app-view-list {
-      // overflow: auto;
-      // height: calc(100% - 2px);
-      overflow: hidden;
-      margin-top:2px;
-      &.app-table {
-        box-shadow: none;
-        .app-row-header {
-          font-weight: bold;
-        }
-        .app-row {
-          padding: 0px 10px;
-          height: 40px;
-          line-height: 40px;
-          cursor: pointer;
-          .app-col-open {
-            // width: 40px;
-            button {
-              margin-left: -10px;
-            }
-          }
-          .app-col{
-            width: 120px;
-            margin-left: 5px;
-            // text-align: right;
-          }
-          .app-col-model{
-            width: 150px;
-            // text-align: right;
-          }
-          .app-col-pid{
-            width: 300px;
-          }
-          .app-col-label {
-            padding-left: 10px;
-            flex: 1;
-            .app-invalid {
-              font-size: 15px;
-              width: 15px;
-              height: 15px;
-              color: red;
-              display: block;
-              float: left;
-              line-height: 15px;
-              margin-left: -17px;
-              margin-top: 12px;
-            }
-          }
-          .app-col-actions {
-            text-align: right;
-            margin-right: 8px;
-            width: 55px;
-          }
-          .app-drag-handle {
-            cursor: webkit-grab;
-            cursor: grab;
-          }
-          .app-icon-top {
-            margin-top: 8px;
-          }
-          &.app-selected {
-            background: #4469a5;
-            color: #ffffff;
-            border-bottom-color: #ffffff2e;
-          }
-        }
-      }
-    }
-
+.app-view-list {
+  .mat-row {
+    cursor: pointer;
+    user-select: none;
+  }
+}
 
     .app-view-grid {
       width: 100%;
