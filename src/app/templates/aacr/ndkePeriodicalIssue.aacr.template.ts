@@ -144,7 +144,7 @@ export class NdkePeriodicalIssueAacrTemplate {
           }
         },
         nameIdentifier: {
-          usage: 'MA',
+          usage: 'RA',
           label: 'Identifikátor autora',
           selector: 'name/nameIdentifier',
           labelKey: 'name/nameIdentifier',
@@ -256,16 +256,6 @@ export class NdkePeriodicalIssueAacrTemplate {
           cols: 1,
           description: `Údaje o místě spojeném s vydáním, výrobou nebo původem popisovaného dokumentu.`
         },
-        dateCreated: {
-          usage: 'R',
-          label: 'Datum vytvoření',
-          selector: 'originInfo/dateCreated',
-          labelKey: 'originInfo/dateCreated',
-          cols: 2,
-          description: `Datum vytvoření p5edlohy<br/>
-          bude použito pouze při popisu tiskaře, viz poznámka u <strong>Nakladatel</strong> nebo např. u popisu CD/DVD apod.<br/>
-          odpovídá hodnotě z katalogizačního záznamu, pole 260 $g`
-        },
       }
     },
     location: {
@@ -347,7 +337,7 @@ export class NdkePeriodicalIssueAacrTemplate {
       a v polích 5XX (poznámky) katalogizačního záznamu`,
       fields: {
         note: {
-          usage: 'RA',
+          usage: 'O',
           selector: 'note/value',
           labelKey: 'note/value',
           label: 'Poznámka',
@@ -363,7 +353,7 @@ export class NdkePeriodicalIssueAacrTemplate {
       description: `Shrnutí obsahu jako celku odpovídá poli 520 MARC21`,
       fields: {
         abstract: {
-          usage: 'R',
+          usage: 'RA',
           label: 'Abstrakt',
           selector: 'abstract',
           labelKey: 'abstract/value',
@@ -412,7 +402,7 @@ export class NdkePeriodicalIssueAacrTemplate {
           ]
         },
         value: {
-          usage: 'MA',
+          usage: 'R',
           selector: 'classification/value',
           labelKey: 'classification/value',
           cols: 2,
@@ -448,7 +438,7 @@ export class NdkePeriodicalIssueAacrTemplate {
           ]
         },
         topic: {
-          usage: 'R',
+          usage: 'O',
           label: 'Klíčové slovo/Předmětové heslo',
           selector: 'subject/topic',
           labelKey: 'subject/topic',
@@ -463,19 +453,99 @@ export class NdkePeriodicalIssueAacrTemplate {
           description: `Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21`
         },
         geographic: {
-          usage: 'R',
+          usage: 'O',
           label: 'Geografické věcné třídění',
           selector: 'subject/geographic',
           labelKey: 'subject/geographic',
           description: `Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21`
         },
         name: {
-          usage: 'R',
-          label: 'Jméno použité jako věcné záhlaví',
+          usage: 'MA',
+          label: 'Autor',
           selector: 'subject/name',
           labelKey: 'subject/name',
-          description: `Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21<br/>
-          Struktura a atributy stejné jako pro údaje o původcích – viz element <name>`
+          description: `Údaje o odpovědnosti za číslo periodika<br/>
+      použití u ročenek, specializovaných periodik, tematických čísel nebo zvláštních vydání`,
+          fields: {
+            type: {
+              usage: 'M',
+              label: 'Typ',
+              selector: 'name/@type',
+              labelKey: 'name/@type',
+              cols: 2,
+              description: `Použít jednu z hodnot:
+          <ul>
+            <li><strong>Osoba</strong> (personal)</li>
+            <li><strong>Organizace</strong> (corporate)</li>
+            <li><strong>Konference</strong> (conference)</li>
+            <li><strong>Rodina</strong> (family)</li>
+          </ul>`,
+              options: [
+                ['', '-'],
+                ['personal', 'Osoba'],
+                ['corporate', 'Organizace'],
+                ['conference', 'Konference'],
+                ['family', 'Rodina']
+              ]
+            },
+            namePart: {
+              usage: 'MA',
+              label: 'Jméno',
+              selector: 'name/namePart',
+              labelKey: 'name/namePart',
+              description: `Vyplnit údaje o autorovi.`,
+              fields: {
+                type: {
+                  usage: 'R',
+                  label: 'Typ',
+                  selector: 'name/namePart/@type',
+                  labelKey: 'name/namePart/@type',
+                  cols: 2,
+                  description: `Použít jednu z hodnot:
+                <ul>
+                    <li><strong>Křestní jméno</strong> (given)</li>
+                    <li><strong>Příjmení</strong> (family)</li>
+                    <li><strong>Datum</strong> (date)</li>
+                    <li><strong>Ostatní související se jménem</strong> (termsOfAddress)</li>
+                </ul>`,
+                  options: [
+                    ['', '-'],
+                    ['given', 'Křestní jméno'],
+                    ['family', 'Příjmení'],
+                    ['date', 'Datum'],
+                    ['termsOfAddress', 'Ostatní související se jménem'],
+                  ]
+                },
+                value: {
+                  label: 'Hodnota',
+                  usage: 'M',
+                  selector: 'name/namePart',
+                  labelKey: 'name/namePart/value',
+                  cols: 2,
+                  help: 'off'
+                }
+              }
+            },
+            nameIdentifier: {
+              usage: 'MA',
+              label: 'Identifikátor autora',
+              selector: 'name/nameIdentifier',
+              labelKey: 'name/nameIdentifier',
+              cols: 2,
+              description: `Číslo národní autority`,
+            },
+            role: {
+              usage: 'MA',
+              label: 'Role',
+              selector: 'name/role/roleTerm',
+              labelKey: 'name/role/roleTerm',
+              expanded: true,
+              description: `Specifikace role osoby nebo organizace<br/>
+          Kód role z kontrolovaného slovníku rolí
+          (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)`,
+              fields: {},
+            }
+          }
         },
       }
     },
@@ -517,7 +587,7 @@ export class NdkePeriodicalIssueAacrTemplate {
       }
     },
     physicalDescription: {
-      usage: 'R',
+      usage: 'O',
       label: 'Fyzický popis',
       selector: 'physicalDescription',
       labelKey: 'physicalDescription',
@@ -638,7 +708,7 @@ export class NdkePeriodicalIssueAacrTemplate {
             Jiný interní identifikátor <i>R</i>, např. barcode, oclc, sysno, permalink`
         },
         validity: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Platnost',
           selector: 'identifier/@invalid',
           labelKey: 'identifier/@invalid',

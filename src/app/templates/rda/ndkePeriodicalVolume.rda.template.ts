@@ -85,7 +85,7 @@ export class NdkePeriodicalVolumeRdaTemplate {
           }
         },
         nameIdentifier: {
-          usage: 'MA',
+          usage: 'RA',
           label: 'Identifikátor autora',
           selector: 'name/nameIdentifier',
           labelKey: 'name/nameIdentifier',
@@ -139,7 +139,7 @@ export class NdkePeriodicalVolumeRdaTemplate {
           description: `Datum vydání předlohy, rok nebo rozsah let, kdy ročník vycházel`,
           fields: {
             value: {
-              usage: 'MA',
+              usage: 'M',
               selector: 'originInfo/dateIssued/value',
               labelKey: 'originInfo/dateIssued/value',
               label: 'Hodnota',
@@ -165,7 +165,7 @@ export class NdkePeriodicalVolumeRdaTemplate {
               ]
             },
             point: {
-              usage: 'M',
+              usage: 'MA',
               label: 'Point',
               selector: 'originInfo/dateIssued/@point',
               labelKey: 'originInfo/dateIssued/@point',
@@ -191,7 +191,7 @@ export class NdkePeriodicalVolumeRdaTemplate {
       a v polích 5XX (poznámky) katalogizačního záznamu`,
       fields: {
         note: {
-          usage: 'RA',
+          usage: 'O',
           selector: 'note/value',
           labelKey: 'note/value',
           label: 'Poznámka',
@@ -244,7 +244,7 @@ export class NdkePeriodicalVolumeRdaTemplate {
             Jiný interní identifikátor <i>R</i>, např. barcode, oclc, sysno, permalink`
         },
         validity: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Platnost',
           selector: 'identifier/@invalid',
           labelKey: 'identifier/@invalid',
