@@ -445,7 +445,8 @@
         "title": "Zrušení vazbu na nadřazený",
         "message": "Opravdu chcete zrušit vazbu na nadřazený objekt?"
       },
-      "markSequence": "Označit řadu"
+      "markSequence": "Označit řadu",
+      "markSequenceSaved": "Úspěšně uloženo"
     },
     "mods": {
       "realtime_on": "V reálném čase",

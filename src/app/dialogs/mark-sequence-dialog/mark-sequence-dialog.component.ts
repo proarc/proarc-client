@@ -95,6 +95,7 @@ export class MarkSequenceDialogComponent implements OnInit {
         this.ui.showErrorSnackBarFromObject(result.response.errors);
       } else {
         // this.dialogRef.close(this.changed);
+        this.ui.showInfo('editor.children.markSequenceSaved')
         this.changed = true;
       }
     })

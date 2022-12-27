@@ -392,7 +392,8 @@
         "title": "Remove relation to parent",
         "message": "Are you sure you want to remove relation to parent?"
       },
-      "markSequence": "Mark sequence"
+      "markSequence": "Mark sequence",
+      "markSequenceSaved": "Saved successfully"
     },
     "mods": {
       "realtime_on": "Realtime",
