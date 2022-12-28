@@ -120,6 +120,7 @@ export class EditorTreeComponent implements OnInit {
           this.getChildren(child, path);
         }
       } else {
+        this.selectFromTree(tree);
         this.isReady = true;
       }
       // this.dataSource.data = this.tree_data;
@@ -171,16 +172,28 @@ export class EditorTreeComponent implements OnInit {
 
   }
 
-  select(item: any) {
-    console.log(item)
+  select(item: Tree) {
+    if (item.expandable()) {
+      item.expand(this.api, false, () => {
+        this.selectFromTree(item);
+      });
+    }
+    this.selectFromTree(item);
+    
   }
 
   open(item: any) {
-    console.log(item)
+    //console.log(item)
   }
 
-  toggle(item: any) {
-
+  toggle(event: any, item: Tree) {
+    event.stopPropagation();
+    event.preventDefault();
+    if (!item.expanded) {
+      item.expand(this.api, false);
+    } else {
+      item.expanded = false;
+    }
   }
 
 }

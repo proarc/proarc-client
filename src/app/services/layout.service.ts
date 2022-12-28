@@ -115,7 +115,7 @@ export class LayoutService {
   }
 
   refreshSelectedItem(moveToNext: boolean, from: string) {
-    this.refreshSelectedSubject.next(moveToNext ? from : '');
+    this.refreshSelectedSubject.next(from);
   }
 
   setShouldRefresh(keepSelection: boolean) {
