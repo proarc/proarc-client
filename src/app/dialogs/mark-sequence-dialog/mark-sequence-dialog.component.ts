@@ -26,6 +26,7 @@ export class MarkSequenceDialogComponent implements OnInit {
   pageIndex: boolean = false;
   pageNumber: boolean = false;
   lastClickIdx: number = -1;
+  changed = false;
 
   constructor(
     private api: ApiService,
@@ -82,20 +83,22 @@ export class MarkSequenceDialogComponent implements OnInit {
 
   save() {
     const data = {
-      sourcePids: this.orig.filter(i => i.selected).map(i => i.pid), 
-      destinationPids: this.dest.filter(i => i.selected).map(i => i.pid), 
-      copyPageIndex: this.pageIndex, 
+      sourcePids: this.orig.filter(i => i.selected).map(i => i.pid),
+      destinationPids: this.dest.filter(i => i.selected).map(i => i.pid),
+      copyPageIndex: this.pageIndex,
       copyPageNumber: this.pageNumber,
-      copyPageType: this.pageType, 
+      copyPageType: this.pageType,
       batchId: this.data.batchId
     }
     this.api.saveMarkSequence(data).subscribe((result: any) => {
-    if (result.response.errors) {
-      this.ui.showErrorSnackBarFromObject(result.response.errors);
-    } else {
-      this.dialogRef.close(true);
-    }
-  })
+      if (result.response.errors) {
+        this.ui.showErrorSnackBarFromObject(result.response.errors);
+      } else {
+        // this.dialogRef.close(this.changed);
+        this.ui.showInfo('editor.children.markSequenceSaved')
+        this.changed = true;
+      }
+    })
   }
 
 }

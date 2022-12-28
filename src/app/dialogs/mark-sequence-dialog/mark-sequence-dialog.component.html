@@ -52,7 +52,7 @@
                 </div>
               </div>
 
-              <table mat-table *ngIf="data.viewModeOrig == 'list'" [dataSource]="origTable" class="mat-elevation-z8"
+              <table mat-table *ngIf="data.viewModeOrig == 'list'" [dataSource]="origTable" class="mat-elevation-z8 app-view-list"
                 #table>
                 <ng-container matColumnDef="pid">
                   <th mat-header-cell *matHeaderCellDef>{{'search.pid' | translate}} </th>
@@ -153,7 +153,7 @@
                 </div>
               </div>
 
-              <table mat-table *ngIf="data.viewModeDest == 'list'" [dataSource]="destTable" class="mat-elevation-z8"
+              <table mat-table *ngIf="data.viewModeDest == 'list'" [dataSource]="destTable" class="mat-elevation-z8 app-view-list"
                 #table>
                 <ng-container matColumnDef="pid">
                   <th mat-header-cell *matHeaderCellDef>{{'search.pid' | translate}} </th>
@@ -224,5 +224,5 @@
 <div mat-dialog-actions cdk-focus-start>
   <button (click)="save()" mat-raised-button color="primary" [matTooltip]="'button.save' | translate">{{ 'button.save' |
     translate }}</button>
-  <button mat-raised-button color="default" [mat-dialog-close]="false">{{ 'common.close' | translate }}</button>
+  <button mat-raised-button color="default" [mat-dialog-close]="changed">{{ 'common.close' | translate }}</button>
 </div>
