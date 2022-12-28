@@ -130,11 +130,11 @@ export class RepositoryComponent implements OnInit {
         const selected = this.layout.lastSelectedItem.selected;
         Object.assign(this.layout.lastSelectedItem, item);
         this.layout.lastSelectedItem.selected = selected;
-        const meta = new Metadata(pid, model, respMeta['record']['content'], respMeta['record']['timestamp']);
+        // const meta = new Metadata(pid, model, respMeta['record']['content'], respMeta['record']['timestamp']);
         //Object.assign(this.layout.lastSelectedItemMetadata, meta);
-        if (!!from) {
-          this.layout.shouldMoveToNext(from);
-        }
+        // if (!!from) {
+        //   this.layout.shouldMoveToNext(from);
+        // }
       });
     } else if(from === 'pages') {
       this.refreshPages();
