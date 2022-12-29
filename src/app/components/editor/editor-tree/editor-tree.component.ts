@@ -1,6 +1,10 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
+import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Tree } from 'src/app/model/mods/tree.model';
 import { ApiService } from 'src/app/services/api.service';
@@ -18,6 +22,18 @@ export class EditorTreeComponent implements OnInit {
 
   // @Input() item: DocumentItem;
 
+  columns: { field: string, visible: boolean, prefix?: string, type?: string }[] = [
+    // { field: 'label', visible: true },
+    { field: 'model', visible: true, type: 'translatable', prefix: 'model' },
+    { field: 'processor', visible: false },
+    { field: 'organization', visible: false, type: 'translatable', prefix: 'organization' },
+    { field: 'status', visible: true, type: 'translatable', prefix: 'editor.atm.statuses' },
+    { field: 'created', visible: false, type: 'date' },
+    { field: 'modified', visible: true, type: 'date' },
+    { field: 'owner', visible: true},
+    { field: 'export', visible: false},
+    { field: 'isLocked', visible: true, type: 'boolean' }
+  ];
 
   isSelected = false;
   selectedPid: string;
@@ -27,6 +43,8 @@ export class EditorTreeComponent implements OnInit {
 
   constructor(
     public properties: LocalStorageService,
+    private translator: TranslateService,
+    private dialog: MatDialog,
     public search: SearchService,
     public layout: LayoutService,
     private api: ApiService) { }
@@ -54,7 +72,7 @@ export class EditorTreeComponent implements OnInit {
       return tree;
     }
     if (tree.children) {
-      for (const ch of tree.children){
+      for (const ch of tree.children) {
         if (ch.item.pid === pid) {
           return ch;
         } else {
@@ -67,7 +85,7 @@ export class EditorTreeComponent implements OnInit {
     }
     return null;
   }
-    
+
 
   refreshChildren() {
     const tree = this.findTree(this.layout.selectedParentItem.pid);
@@ -179,7 +197,7 @@ export class EditorTreeComponent implements OnInit {
       });
     }
     this.selectFromTree(item);
-    
+
   }
 
   open(item: any) {
@@ -194,6 +212,57 @@ export class EditorTreeComponent implements OnInit {
     } else {
       item.expanded = false;
     }
+  }
+
+  dragenter(tree: Tree, event: any) {
+    event.preventDefault();
+    //console.log(event)
+  }
+
+  dragstart(event: DragEvent) {
+    event.dataTransfer.setData("tree", "KK");
+    console.log(event)
+  }
+
+  dragend(tree: Tree, event: any) {
+    console.log(event)
+  }
+
+  drop(tree: Tree, event: any) {
+    const items: DocumentItem[] = JSON.parse(event.dataTransfer?.getData("item"));
+    //console.log()
+    if (items[0].parent !== tree.item.parent) {
+      this.changeParent(items);
+    }
+    console.log(JSON.parse(event.dataTransfer?.getData("item")));
+  }
+
+  dragover(tree: Tree, event: any) {
+    event.preventDefault();
+    // console.log(event)
+  }
+
+  changeParent(items: DocumentItem[]) {
+    const data: SimpleDialogData = {
+      title: String(this.translator.instant('editor.tree.change_parent_title')),
+      message: String(this.translator.instant('editor.tree.change_parent_msg')),
+      btn1: {
+        label: String(this.translator.instant('common.yes')),
+        value: 'yes',
+        color: 'primary'
+      },
+      btn2: {
+        label: String(this.translator.instant('common.no')),
+        value: 'no',
+        color: 'default'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        
+      }
+    });
   }
 
 }

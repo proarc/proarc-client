@@ -344,6 +344,10 @@
   "editor": {
     "add_field": "Přidat",
     "info": "Zobrazit informace k popisu",
+    "tree": {
+      "change_parent_title": "Změnit nadřazený objekt",
+      "change_parent_msg": "Opravdu chcete změnit nadřazený objekt?"
+    },
     "toolbar": {
       "nav_up": "Přejít na nadřazený objekt",
       "nav_prev": "Přejít na předchozí objekt",
