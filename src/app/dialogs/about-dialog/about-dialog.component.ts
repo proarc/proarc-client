@@ -1,6 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
+import { versionInfo } from 'src/version-info';
 
 @Component({
   selector: 'app-about-dialog',
@@ -10,10 +11,12 @@ import { ApiService } from 'src/app/services/api.service';
 export class AboutDialogComponent implements OnInit {
 
   backendInfo: any;
+  clientInfo: any;
 
   constructor(private api: ApiService) { }
 
   ngOnInit() {
+    this.clientInfo = versionInfo;
     this.api.getInfo().subscribe((info) => {
       this.backendInfo = info;
     },
