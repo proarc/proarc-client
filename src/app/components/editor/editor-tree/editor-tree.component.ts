@@ -38,6 +38,7 @@ export class EditorTreeComponent implements OnInit {
   isSelected = false;
   selectedPid: string;
   selectedParentPid: string;
+  // selectedTree: Tree;
   subscriptions: Subscription[] = [];
   isReady = false;
 
@@ -244,10 +245,7 @@ export class EditorTreeComponent implements OnInit {
   changeParent(items: DocumentItem[], newParent: Tree) {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('editor.tree.change_parent_title')),
-      message: String(this.translator.instant('editor.tree.change_parent_msg')) + 
-      `<br/>from: ${items[0].parent}
-      <br/>to: ${newParent.item.pid}
-      ` ,
+      message: String(this.translator.instant('editor.tree.change_parent_msg')),
       btn1: {
         label: String(this.translator.instant('common.yes')),
         value: 'yes',
@@ -276,10 +274,20 @@ export class EditorTreeComponent implements OnInit {
         return;
       }
       // refresh whole tree
+      const selectedTree = this.findTree(this.layout.selectedParentItem.pid);
+      this.layout.expandedPath = [];
+      this.layout.expandedPath.unshift(selectedTree.item.pid);
+      let parent = selectedTree.parent;
+      while (parent) {
+        this.layout.expandedPath.unshift(parent.item.pid);
+        parent = parent.parent;
+      }
       this.initTree();
       
     });
   }
+
+
 
 
 
