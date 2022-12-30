@@ -472,10 +472,9 @@ export class EditorStructureComponent implements OnInit {
             // console.log(res);
             if (res?.item) {
               const item = DocumentItem.fromJson(res.item);
-              item.selected = true;
               this.layout.items.push(item);
-              console.log(res.gotoEdit);
               if (res.gotoEdit) {
+                item.selected = true;
                 this.rowClick(item, this.layout.items.length - 1, null);
               }
               this.layout.refreshSelectedItem(true, 'pages');
