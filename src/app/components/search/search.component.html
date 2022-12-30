@@ -74,12 +74,12 @@
               <button (click)="showFoxml(selectedItem)" mat-button>FOXML</button>
               <button (click)="onExport(selectedItem)" mat-button>Exportovat</button>
               <button (click)="onUrnnbn(selectedItem)" mat-button>URN:NBN</button>
-              <button *ngIf="canChangeModel()" (click)="changeModel()" mat-button>Převody NDK modelů</button>
+              <button *ngIf="canChangeModel(selectedItem)" (click)="changeModel(selectedItem)" mat-button>Převody NDK modelů</button>
               <button (click)="onDeleteItem()" mat-button>Smazat</button>
               <button *ngIf="!selectedItem.isLocked && (auth.user.lockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, true)" mat-button>Uzamknout</button>
               <button *ngIf="selectedItem.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, false)" mat-button>Odemknout</button>
               <button *ngIf="selectedItem.state === 'fedora-system:def/model#Deleted'" (click)="onRestore(selectedItem)" mat-button>Obnovit objekt</button>
-              <button (click)="updateObjects()" mat-button>Update všech objektů</button>
+              <button (click)="updateObjects(selectedItem)" mat-button>Update všech objektů</button>
             </div>
             <div class="app-paginator">
               <mat-paginator [length]="resultCount"
@@ -163,11 +163,13 @@
                 <button (click)="showFoxml(search.selectedTree.item)" mat-button>FOXML</button>
                 <button (click)="onExport(search.selectedTree.item)" mat-button>Exportovat</button>
                 <button (click)="onUrnnbn(search.selectedTree.item)" mat-button>URN:NBN</button>
+                <button *ngIf="canChangeModel(search.selectedTree.item)" (click)="changeModel(search.selectedTree.item)" mat-button>Převody NDK modelů</button>
                 <button (click)="onExpandAll()" mat-button>Rozbalit</button>
                 <button *ngIf="search.selectedTree.item" (click)="onDeleteFromTree()" mat-button>Smazat</button>
                 <button *ngIf="canCopy(search.selectedTree.item)" (click)="onCopyItem(search.selectedTree.item)" mat-button>Zkopírovat</button>
                 <button *ngIf="!search.selectedTree.item.isLocked && (auth.user.lockObjectFunction  || auth.isSuperAdmin())" (click)="onLock(search.selectedTree.item, true)" mat-button>Uzamknout</button>
                 <button *ngIf="search.selectedTree.item.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" (click)="onLock(search.selectedTree.item, false)" mat-button>Odemknout</button>
+                <button (click)="updateObjects(search.selectedTree.item)" mat-button>Update všech objektů</button>
               </ng-container>
             </div>
           </div>

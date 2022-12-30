@@ -537,16 +537,16 @@ export class SearchComponent implements OnInit {
     this.search.selectedTree = tree;
   }
 
-  canChangeModel(): boolean {
-    return this.config.modelChanges.findIndex(m => ('model:' + m.origin).toLocaleLowerCase() === this.selectedItem.model.toLocaleLowerCase()) > -1
+  canChangeModel(item: DocumentItem): boolean {
+    return this.config.modelChanges.findIndex(m => ('model:' + m.origin).toLocaleLowerCase() === item.model.toLocaleLowerCase()) > -1
   }
 
-  changeModel() {
+  changeModel(item: DocumentItem) {
     const dialogRef = this.dialog.open(ChangeModelDialogComponent, { 
       data: { 
-        pid: this.selectedItem.pid, 
-        model: this.selectedItem.model, 
-        dest: this.config.modelChanges.find(m => ('model:' + m.origin).toLocaleLowerCase() === this.selectedItem.model.toLocaleLowerCase()).dest } 
+        pid: item.pid, 
+        model: item.model, 
+        dest: this.config.modelChanges.find(m => ('model:' + m.origin).toLocaleLowerCase() === item.model.toLocaleLowerCase()).dest } 
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -555,9 +555,9 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  updateObjects() {
+  updateObjects(item: DocumentItem) {
     this.state = 'loading';
-    this.api.updateObjects(this.selectedItem.pid, this.selectedItem.model).subscribe((response: any) => {
+    this.api.updateObjects(item.pid, item.model).subscribe((response: any) => {
       if (response.response.errors) {
         this.state = 'error';
         this.ui.showErrorSnackBarFromObject(response.response.errors);
