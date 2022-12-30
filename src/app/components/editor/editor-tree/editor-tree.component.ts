@@ -10,7 +10,7 @@ import { Tree } from 'src/app/model/mods/tree.model';
 import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { SearchService } from 'src/app/services/search.service';
+import { UIService } from 'src/app/services/ui.service';
 
 
 @Component({
@@ -45,7 +45,7 @@ export class EditorTreeComponent implements OnInit {
     public properties: LocalStorageService,
     private translator: TranslateService,
     private dialog: MatDialog,
-    public search: SearchService,
+    private ui: UIService,
     public layout: LayoutService,
     private api: ApiService) { }
 
@@ -105,7 +105,6 @@ export class EditorTreeComponent implements OnInit {
   initTree() {
     this.isReady = false;
     this.layout.tree = null;
-    this.search.selectedTreePid = null;
     if (this.layout.expandedPath.length === 0) {
       this.selectedPid = this.layout.rootItem.pid;
       this.selectedParentPid = this.layout.rootItem.pid;
@@ -229,12 +228,12 @@ export class EditorTreeComponent implements OnInit {
   }
 
   drop(tree: Tree, event: any) {
-    const items: DocumentItem[] = JSON.parse(event.dataTransfer?.getData("item"));
+    const items: DocumentItem[] = JSON.parse(event.dataTransfer?.getData("items"));
     //console.log()
-    if (items[0].parent !== tree.item.parent) {
-      this.changeParent(items);
+    if (items[0].parent !== tree.item.pid) {
+      this.changeParent(items, tree);
     }
-    console.log(JSON.parse(event.dataTransfer?.getData("item")));
+    // console.log(JSON.parse(event.dataTransfer?.getData("items")));
   }
 
   dragover(tree: Tree, event: any) {
@@ -242,10 +241,13 @@ export class EditorTreeComponent implements OnInit {
     // console.log(event)
   }
 
-  changeParent(items: DocumentItem[]) {
+  changeParent(items: DocumentItem[], newParent: Tree) {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('editor.tree.change_parent_title')),
-      message: String(this.translator.instant('editor.tree.change_parent_msg')),
+      message: String(this.translator.instant('editor.tree.change_parent_msg')) + 
+      `<br/>from: ${items[0].parent}
+      <br/>to: ${newParent.item.pid}
+      ` ,
       btn1: {
         label: String(this.translator.instant('common.yes')),
         value: 'yes',
@@ -260,9 +262,25 @@ export class EditorTreeComponent implements OnInit {
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        
+        this.relocateObjects(items, newParent.item);
       }
     });
   }
+
+  relocateObjects(items: DocumentItem[], destItem: DocumentItem) {
+    let pids: string[] = items.filter(c => c.selected).map(c => c.pid);
+
+    this.api.relocateObjects(items[0].parent, destItem.pid, pids).subscribe((response: any) => {
+      if (response['response'].errors) {
+        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        return;
+      }
+      // refresh whole tree
+      this.initTree();
+      
+    });
+  }
+
+
 
 }

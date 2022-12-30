@@ -43,7 +43,7 @@
       </div>
     </div>
     <ng-container *ngIf="tree.expanded && tree.children">
-      <div *ngFor="let child of tree.children"  (drop)="drop(tree, $event)" (dragenter)="dragenter(tree, $event)" (dragover)="dragover(tree, $event)" draggable="false">
+      <div *ngFor="let child of tree.children"  (drop)="drop(child, $event)" (dragenter)="dragenter(tree, $event)" (dragover)="dragover(tree, $event)" draggable="false">
         <ng-container *ngTemplateOutlet="rowTmpl; context:{ tree: child }"></ng-container>
       </div>
     </ng-container>

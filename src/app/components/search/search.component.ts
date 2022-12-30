@@ -455,8 +455,11 @@ export class SearchComponent implements OnInit {
         value: 'no',
         color: 'default'
       },
-      checkbox: this.auth.isSuperAdmin() ? checkbox : undefined
+      // checkbox: this.auth.isSuperAdmin() ? checkbox : undefined
     };
+    if (this.auth.isSuperAdmin()) {
+      data.checkbox = checkbox;
+    }
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {

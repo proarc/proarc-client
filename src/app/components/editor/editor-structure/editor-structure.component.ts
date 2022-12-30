@@ -325,7 +325,7 @@ export class EditorStructureComponent implements OnInit {
     }
     this.isDragging = true;
     event.dataTransfer.effectAllowed = 'move';
-    event.dataTransfer.setData("item", JSON.stringify([item]));
+    event.dataTransfer.setData("items", JSON.stringify(this.layout.getSelected()));
   }
 
   dragenter(event: any) {
