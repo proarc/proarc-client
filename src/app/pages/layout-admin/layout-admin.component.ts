@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export const localStorageName = 'proarc-layout';
 
 export interface ILayoutPanel {
+    id: string,
     visible: boolean,
     isEmpty?: boolean,
     size: number,
@@ -25,25 +26,25 @@ export const defaultLayoutConfig: IConfig = {
       visible: true,
       size: 33,
       rows: [
-        { visible: true, size: 25, type: 'structure-list' },
-        { visible: true, size: 75, type: 'metadata' },
+        { id: 'panel1', visible: true, size: 25, type: 'structure-list' },
+        { id: 'panel2', visible: true, size: 75, type: 'metadata' },
       ],
     },
     {
       visible: true,
       size: -1,
       rows: [
-        { visible: true, size: 20, type: 'mods' },
-        { visible: false, size: 30, type: 'ocr' },
-        { visible: false, size: 50, type: 'comment' },
+        { id: 'panel3', visible: true, size: 20, type: 'mods' },
+        { id: 'panel4', visible: false, size: 30, type: 'ocr' },
+        { id: 'panel5', visible: false, size: 50, type: 'comment' },
       ],
     },
     {
       visible: true,
       size: 33,
       rows: [
-        { visible: true, size: 40, type: 'image' },
-        { visible: true, size: 60, type: 'atm' },
+        { id: 'panel6', visible: true, size: 40, type: 'image' },
+        { id: 'panel7', visible: true, size: 60, type: 'atm' },
       ],
     },
   ],
@@ -74,9 +75,18 @@ export class LayoutAdminComponent implements OnInit {
     if (this.data.layout === 'repo') {
       this.types.unshift('tree');
     }
+
+    let idx = 0;
     
     if (localStorage.getItem(localStorageName + '-' + this.data.layout)) {
-      this.config = JSON.parse(localStorage.getItem(localStorageName + '-' + this.data.layout))
+      this.config = JSON.parse(localStorage.getItem(localStorageName + '-' + this.data.layout));
+      this.config.columns.forEach(c => {
+        c.rows.forEach(r => {
+          if (!r.id) {
+            r.id = 'panel' + idx++;
+          }
+        });
+      });
     } else {
       this.resetConfig()
     }

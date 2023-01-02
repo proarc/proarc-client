@@ -109,7 +109,9 @@ export class ApiService {
     } else if (error.status === 403) {
       // Forbiden. Redirect to login
       console.log("Forbiden");
-      this.router.navigate(['/login']);
+      if (this.router) {
+        this.router.navigate(['/login']);
+      }
     } else {
       console.error(
          `Backend returned code ${error.status}, body was: `, error.error);

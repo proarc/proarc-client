@@ -90,8 +90,16 @@ export class RepositoryComponent implements OnInit {
   }
 
   initConfig() {
+    let idx = 0;
     if (localStorage.getItem(this.localStorageName)) {
-      this.layout.layoutConfig = JSON.parse(localStorage.getItem(this.localStorageName))
+      this.layout.layoutConfig = JSON.parse(localStorage.getItem(this.localStorageName));
+      this.layout.layoutConfig.columns.forEach(c => {
+        c.rows.forEach(r => {
+          if (!r.id) {
+            r.id = 'panel' + idx++;
+          }
+        });
+      });
     } else {
       this.layout.layoutConfig = JSON.parse(JSON.stringify(defaultLayoutConfig));
     }

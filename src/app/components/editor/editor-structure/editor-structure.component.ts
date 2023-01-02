@@ -303,8 +303,13 @@ export class EditorStructureComponent implements OnInit {
     }
     return false;
   }
+  
   mousedown(event: any) {
     this.dragEnabled = true;
+  }
+  
+  mouseup(event: any) {
+    this.dragEnabled = false;
   }
 
   dragstart(item: DocumentItem, idx: number, event: any) {
@@ -326,10 +331,12 @@ export class EditorStructureComponent implements OnInit {
     this.isDragging = true;
     event.dataTransfer.effectAllowed = 'move';
     event.dataTransfer.setData("items", JSON.stringify(this.layout.getSelected()));
+    event.dataTransfer.setData("panel", this.panel.id);
   }
 
   dragenter(event: any) {
-    if (!this.dragEnabled || this.source.parentNode !== event.currentTarget.parentNode) {
+    if (!this.dragEnabled || !this.source || this.source.parentNode !== event.currentTarget.parentNode) {
+      // event.dataTransfer.dropEffect = 'none';
       return;
     }
     const target = event.currentTarget;
@@ -342,6 +349,14 @@ export class EditorStructureComponent implements OnInit {
 
   dragover(event: any) {
     event.preventDefault();
+    // if (this.panel.id !== event.dataTransfer.getData("panel")) {
+    //   event.dataTransfer.dropEffect = 'none';
+    // }
+    if (!this.dragEnabled || !this.source || this.source.parentNode !== event.currentTarget.parentNode) {
+      event.dataTransfer.dropEffect = 'none';
+    }
+    
+    return false;
   }
 
 

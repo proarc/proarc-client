@@ -230,7 +230,6 @@ export class EditorTreeComponent implements OnInit {
 
   drop(tree: Tree, event: any) {
     const items: DocumentItem[] = JSON.parse(event.dataTransfer?.getData("items"));
-    //console.log()
     if (items[0].parent !== tree.item.pid) {
       this.changeParent(items, tree);
     }

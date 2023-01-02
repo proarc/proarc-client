@@ -25,6 +25,7 @@ export class MarkSequenceDialogComponent implements OnInit {
   pageType: boolean = false;
   pageIndex: boolean = false;
   pageNumber: boolean = false;
+  pagePosition: boolean = false;
   lastClickIdx: number = -1;
   changed = false;
 
@@ -88,6 +89,7 @@ export class MarkSequenceDialogComponent implements OnInit {
       copyPageIndex: this.pageIndex,
       copyPageNumber: this.pageNumber,
       copyPageType: this.pageType,
+      copyPagePosition: this.pagePosition,
       batchId: this.data.batchId
     }
     this.api.saveMarkSequence(data).subscribe((result: any) => {
