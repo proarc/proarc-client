@@ -136,6 +136,7 @@ import {EditorAudioPagesComponent} from './components/editor/editor-audioPages/e
 import { FooterComponent } from './components/footer/footer.component';
 import { EditorTreeComponent } from './components/editor/editor-tree/editor-tree.component';
 import { MarkSequenceDialogComponent } from './dialogs/mark-sequence-dialog/mark-sequence-dialog.component';
+import { EditorPremisComponent } from './components/editor/editor-premis/editor-premis.component';
 
 
 // export function hljsLanguages() {
@@ -256,6 +257,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FooterComponent,
     EditorTreeComponent,
     MarkSequenceDialogComponent,
+    EditorPremisComponent,
   ],
   imports: [
     BrowserModule,

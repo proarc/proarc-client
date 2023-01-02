@@ -872,6 +872,13 @@ export class ApiService {
     return this.post('object/mods/editorPagesCopyMetadata', data, options);
   }
 
+  
+
+  getPremis(pid: string): Observable<any> {
+    const params: any = { pid: pid };
+    return this.get('object/technicalMetadataXmlPremis', params);
+  }
+
 
 }
 

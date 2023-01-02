@@ -40,6 +40,15 @@ export class EditorMetadataComponent implements OnInit {
   ngOnInit() {}
 
   ngOnChanges(c: SimpleChanges) {
+
+    if (c['pid'] && c['pid'].currentValue) {
+      this.item = this.layout.lastSelectedItem;
+      this.pid = c['pid'].currentValue;
+      this.visible = true;
+      this.load();
+      return;
+    }
+
     if (c['metadata'] && c['metadata'].currentValue) {
       this.metadata = c['metadata'].currentValue;
       return;
@@ -47,13 +56,6 @@ export class EditorMetadataComponent implements OnInit {
     if (!this.layout.lastSelectedItem || this.layout.lastSelectedItem.isPage()) {
       this.visible = false;
       return;
-    }
-
-    if (this.pid) {
-      this.item = this.layout.lastSelectedItem;
-      this.pid = this.item.pid;
-      this.visible = true;
-      this.load();
     }
   }
 

@@ -61,7 +61,7 @@ export class LayoutAdminComponent implements OnInit {
   
   config: IConfig = null;
 
-  types = ['structure-list', 'structure-grid', 'structure-icons', 'metadata', 'mods', 'atm', 'ocr', 'comment', 'image', 'pdf']; //,'tree'
+  types = ['structure-list', 'structure-grid', 'structure-icons', 'metadata', 'mods', 'atm', 'ocr', 'premis', 'comment', 'image', 'pdf']; //,'tree'
   
 
   constructor(public dialogRef: MatDialogRef<LayoutAdminComponent>,

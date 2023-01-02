@@ -56,6 +56,7 @@
       <app-editor-ocr *ngSwitchCase="'ocr'"  [pid]="layout.lastSelectedItem.pid"></app-editor-ocr>
       <app-editor-comment *ngSwitchCase="'comment'"  [pid]="layout.lastSelectedItem.pid"></app-editor-comment>
       <app-editor-atm *ngSwitchCase="'atm'"  [pid]="layout.lastSelectedItem.pid"></app-editor-atm>
+      <app-editor-premis *ngSwitchCase="'premis'"  [pid]="layout.lastSelectedItem.pid"></app-editor-premis>
     </ng-container>
     <ng-container *ngSwitchCase="'metadata'">
       <app-editor-pages *ngIf="layout.showPagesEditor()"></app-editor-pages>
