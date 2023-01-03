@@ -96,6 +96,13 @@ export class BatchesComponent implements OnInit {
     });
 
     this.api.getBatchPages(this.layout.getBatchId()).subscribe((response: any) => {
+    
+      if (response['response'].status === -1) {
+        this.ui.showErrorSnackBar(response['response'].data);
+        // this.router.navigate(['/import/history']);
+        return;
+      }
+
       const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
       console.log(pages, selection, lastSelected)
       this.layout.items = pages;
@@ -157,6 +164,11 @@ export class BatchesComponent implements OnInit {
       this.api.getBatchPages(id).subscribe((response: any) => {
         if (response['response'].errors) {
           this.ui.showErrorSnackBarFromObject(response['response'].errors);
+          return;
+        }
+        if (response['response'].status === -1) {
+          this.ui.showErrorSnackBar(response['response'].data);
+          // this.router.navigate(['/import/history']);
           return;
         }
         const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);

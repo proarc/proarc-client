@@ -353,6 +353,13 @@ export class HistoryComponent implements OnInit, OnDestroy {
               return;
             }
 
+            
+        if (response['response'].status === -1) {
+          this.ui.showErrorSnackBar(response['response'].data);
+          // this.router.navigate(['/import/history']);
+          return;
+        }
+
             const status: [number, number] = Batch.statusFromJson(response['response']);
 
             const done = status[0];
