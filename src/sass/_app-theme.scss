@@ -43,12 +43,3 @@ $app-warn: mat-palette($mat-red);
 $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 
 @include angular-material-theme($app-theme);
-
-/* from k7 admin - my-pallete will be removed when started code refactoring
-$app-primary: mat-palette($mat-light-blue, 800);
-$app-accent: mat-palette($mat-pink, 500, 900, A100);
-$app-warn: mat-palette($mat-red, 600);
-$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
-
-@include angular-material-theme($app-theme); 
-*/
