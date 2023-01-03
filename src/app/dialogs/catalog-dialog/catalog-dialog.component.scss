@@ -35,7 +35,7 @@
         .app-row {
           cursor: pointer;
           &.app-active {
-            background: $primary-color;
+            background: $app-color-primary;
             color: #fff;
           }
         }

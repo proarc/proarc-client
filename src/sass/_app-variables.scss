@@ -1,21 +1,6 @@
 @import 'app-theme.scss';
 
 // --- johny start ---
-$primary-color: mat-color($app-primary);
-$accent-color: #456aa5;
-$warn-color: mat-color($app-warn);
-
-/* $main-bg: #e4e4e4;
-$main-text: #555555; */
-$toolbar-color: $primary-color;
-$dropdown-bg: #fff; 
-$breadcrumb-color: $toolbar-color;
-$dialog-color: $toolbar-color;
-$card-color: #222222;
-
-$scroll-track-color: #eee;
-$scroll-thumb-color: $primary-color;
-
 $table-color-bg: #ffffff;
 $table-color-bg-hover: #6794dc21;
 $table-color-bg-active: #597484;
@@ -56,21 +41,24 @@ $app-layout-active-color: mat-color($mat-green, 800) !default;
 $app-layout-disabled-color: mat-color($mat-red, 800) !default;
 $app-layout-gap: 16px !default;
 
+$app-scrollbar-track-bg: $app-gray-1;
+$app-scrollbar-thumb-bg: $app-color-primary;
+
 $app-body-bg: $app-gray-2;
 $app-body-color: $app-color-darknes;
 
 $app-navbar-height: 64px !default;
-$app-navbar-border-color: #385585 !default;
+$app-navbar-border-color: mat-color($app-primary, 700) !default;
 
 $app-breadcrumbsbar-height: 40px !default;
-$app-breadcrumbsbar-bg: $primary-color !default;
+$app-breadcrumbsbar-bg: $app-color-primary !default;
 $app-breadcrumbsbar-color: $app-color-lightnes !default;
 
 $app-split-panel-bg: $app-color-lightnes !default;
 
 $app-toolbar-height: 40px !default;
-$app-toolbar-border-color: #385585 !default;
-$app-toolbar-bg: $primary-color !default;
+$app-toolbar-border-color: $app-navbar-border-color;
+$app-toolbar-bg: $app-color-primary !default;
 $app-toolbar-button-bg-active: $app-toolbar-border-color !default;
 $app-toolbar-color: $app-color-lightnes !default;
 
