@@ -2018,7 +2018,14 @@
     "comment": "Comment",
     "picture": "Picture",
     "editing": "Editing",
-    "batchManagement": "Batch management"
+    "batchManagement": "Batch management",
+    "selectResources": "Select resources",
+    "selectTheTargets": "Select the targets",
+    "editPageType": "Edit page type",
+    "editPageIndex": "Edit page index",
+    "editPageNumbers": "Edit page numbers",
+    "editPagePositions": "Edit page positions",
+    "selectTheFieldToCopyTo": "Select the field to copy to"
   },
   "button": {
     "setLayout": "Set layout",

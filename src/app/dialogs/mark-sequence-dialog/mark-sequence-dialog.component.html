@@ -1,23 +1,23 @@
-<h1 mat-dialog-title>{{ 'editor.children.markSequence' | translate }}</h1>
-
-<div mat-dialog-content style="height:100%;display: flex;flex-direction: row;">
-  <div fxFlex class="app-mark">
+<div fxLayout="column" fxFlexFill>
+  <h1 mat-dialog-title>{{ 'editor.children.markSequence' | translate }}</h1>
+  <div mat-dialog-content fxFlex>
     <as-split direction="horizontal" [disabled]="false">
       <as-split-area [size]="40" (resized)="onResized($event, 'orig')">
         <div fxLayout="column" fxFlexFill>
-          <div fxLayout="row" class="app-toolbar app-view-action">
-            <div fxFlex>Vyberte zdroje</div>
+          <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-action">
+            <div fxFlex>
+              <div class="app-toolbar-label">
+                <span class="app-text">{{ 'desc.selectResources' | translate }}</span>
+              </div>
+            </div>
             <div>
-              <button mat-icon-button [class.app-active]="data.viewModeOrig === 'list'"
-                (click)="data.viewModeOrig = 'list'" [matTooltip]="'editor.children.view_list' | translate">
+              <button mat-icon-button [class.app-active]="data.viewModeOrig === 'list'" (click)="data.viewModeOrig = 'list'" [matTooltip]="'editor.children.view_list' | translate">
                 <mat-icon>format_align_justify</mat-icon>
               </button>
-              <button mat-icon-button [class.app-active]="data.viewModeOrig === 'grid'"
-                (click)="data.viewModeOrig = 'grid'" [matTooltip]="'editor.children.view_grid' | translate">
+              <button mat-icon-button [class.app-active]="data.viewModeOrig === 'grid'" (click)="data.viewModeOrig = 'grid'" [matTooltip]="'editor.children.view_grid' | translate">
                 <mat-icon>apps</mat-icon>
               </button>
-              <button mat-icon-button [class.app-active]="data.viewModeOrig === 'icons'"
-                (click)="data.viewModeOrig = 'icons'" [matTooltip]="'editor.children.view_icons' | translate">
+              <button mat-icon-button [class.app-active]="data.viewModeOrig === 'icons'" (click)="data.viewModeOrig = 'icons'" [matTooltip]="'editor.children.view_icons' | translate">
                 <mat-icon>image</mat-icon>
               </button>
             </div>
@@ -25,35 +25,27 @@
 
           <div fxFlex class="app-oa-y">
             <div class="app-editor-content app-children-editor-content">
-              <div class="app-view-icons" *ngIf="data.viewModeOrig === 'icons'" #childrenIconList>
-                <div *ngFor="let item of orig; let i = index" class="app-item" (click)="select(orig, item, i, $event)"
-                  [class.app-selected]="item.selected" [style.width]="data.iconWidth['orig'] + '%'"
-                  [style.height]="data.iconHeight['orig'] + 'px'">
-                  <div class="app-item-content">
+              <div class="app-view-icon" *ngIf="data.viewModeOrig === 'icons'" #childrenIconList fxLayout="row wrap">
+                <div *ngFor="let item of orig; let i = index" class="app-item-wrapper" (click)="select(orig, item, i, $event)" [class.app-selected]="item.selected" [fxFlex]="data.iconWidth['orig'] + '%'" [style.height]="data.iconHeight['orig'] + 'px'">
+                  <div class="app-item">
                     <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"></div>
-                    <div class="app-item-label">{{ item.label + (data.shortLabels ? "" : (", " + ("page_type." +
-                      item.pageType
-                      | translate))) }}</div>
+                    <div class="app-item-label">{{ item.label + (data.shortLabels ? "" : (", " + ("page_type." + item.pageType | translate))) }}</div>
                   </div>
                 </div>
               </div>
 
-              <div class="app-view-grid" *ngIf="data.viewModeOrig == 'grid'" #childrenGridList>
-                <div *ngFor="let item of orig; let i = index" (click)="select(orig, item, i, $event)"
-                  class="app-grid-item-wrapper" [class.app-selected]="item.selected"
-                  [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'"
-                  [style.width]="data.iconWidth['orig'] + '%'">
-                  <div class="app-grid-item">
-                    <div class="app-grid-item-label">{{ data.shortLabels ? item.shortLabel : item.label }}
-                      <br />
+              <div class="app-view-grid" *ngIf="data.viewModeOrig == 'grid'" #childrenGridList fxLayout="row wrap">
+                <div *ngFor="let item of orig; let i = index" (click)="select(orig, item, i, $event)" class="app-item-wrapper" [class.app-selected]="item.selected" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [fxFlex]="data.iconWidth['orig'] + '%'">
+                  <div class="app-item">
+                    <div class="app-item-label">
+                      {{ data.shortLabels ? item.shortLabel : item.label }}<br />
                       ({{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }})
                     </div>
                   </div>
                 </div>
               </div>
 
-              <table mat-table *ngIf="data.viewModeOrig == 'list'" [dataSource]="origTable" class="mat-elevation-z8 app-view-list"
-                #table>
+              <table mat-table *ngIf="data.viewModeOrig == 'list'" [dataSource]="origTable" class="app-w-100" #table>
                 <ng-container matColumnDef="pid">
                   <th mat-header-cell *matHeaderCellDef>{{'search.pid' | translate}} </th>
                   <td mat-cell *matCellDef="let element"> {{element.pid}} </td>
@@ -96,29 +88,29 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="data.displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; let idx = index; columns: data.displayedColumns"
-                  [class.selected]="row.selected" (click)="select(orig, row, idx, $event)"></tr>
+                <tr mat-row *matRowDef="let row; let idx = index; columns: data.displayedColumns" [class.app-selected]="row.selected" (click)="select(orig, row, idx, $event)"></tr>
               </table>
             </div>
           </div>
         </div>
       </as-split-area>
+
       <as-split-area [size]="40" (resized)="onResized($event, 'dest')">
-
         <div fxLayout="column" fxFlexFill>
-          <div fxLayout="row" class="app-toolbar app-view-action">
-            <div fxFlex>Vyberte cíle</div>
+          <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-action">
+            <div fxFlex>
+              <div class="app-toolbar-label">
+                <span class="app-text">{{ 'desc.selectTheTargets' | translate }}</span>
+              </div>
+            </div>
             <div>
-              <button mat-icon-button [class.app-active]="data.viewModeDest === 'list'"
-                (click)="data.viewModeDest = 'list'" [matTooltip]="'editor.children.view_list' | translate">
+              <button mat-icon-button [class.app-active]="data.viewModeDest === 'list'" (click)="data.viewModeDest = 'list'" [matTooltip]="'editor.children.view_list' | translate">
                 <mat-icon>format_align_justify</mat-icon>
               </button>
-              <button mat-icon-button [class.app-active]="data.viewModeDest === 'grid'"
-                (click)="data.viewModeDest = 'grid'" [matTooltip]="'editor.children.view_grid' | translate">
+              <button mat-icon-button [class.app-active]="data.viewModeDest === 'grid'" (click)="data.viewModeDest = 'grid'" [matTooltip]="'editor.children.view_grid' | translate">
                 <mat-icon>apps</mat-icon>
               </button>
-              <button mat-icon-button [class.app-active]="data.viewModeDest === 'icons'"
-                (click)="data.viewModeDest = 'icons'" [matTooltip]="'editor.children.view_icons' | translate">
+              <button mat-icon-button [class.app-active]="data.viewModeDest === 'icons'" (click)="data.viewModeDest = 'icons'" [matTooltip]="'editor.children.view_icons' | translate">
                 <mat-icon>image</mat-icon>
               </button>
             </div>
@@ -126,35 +118,27 @@
 
           <div fxFlex class="app-oa-y">
             <div class="app-editor-content app-children-editor-content">
-              <div class="app-view-icons" *ngIf="data.viewModeDest == 'icons'" #childrenIconList>
-                <div *ngFor="let item of dest; let i = index" class="app-item" (click)="select(dest, item, i, $event)"
-                  [class.app-selected]="item.selected" [style.width]="data.iconWidth['dest'] + '%'"
-                  [style.height]="data.iconHeight['dest'] + 'px'">
-                  <div class="app-item-content">
+              <div class="app-view-icon" *ngIf="data.viewModeDest == 'icons'" #childrenIconList fxLayout="row wrap">
+                <div *ngFor="let item of dest; let i = index" class="app-item-wrapper" (click)="select(dest, item, i, $event)" [class.app-selected]="item.selected" [fxFlex]="data.iconWidth['dest'] + '%'" [style.height]="data.iconHeight['dest'] + 'px'">
+                  <div class="app-item">
                     <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"></div>
-                    <div class="app-item-label">{{ item.label + (data.shortLabels ? "" : (", " + ("page_type." +
-                      item.pageType
-                      | translate))) }}</div>
+                    <div class="app-item-label">{{ item.label + (data.shortLabels ? "" : (", " + ("page_type." + item.pageType | translate))) }}</div>
                   </div>
                 </div>
               </div>
 
-              <div class="app-view-grid" *ngIf="data.viewModeDest == 'grid'" #childrenGridList>
-                <div *ngFor="let item of dest; let i = index" (click)="select(dest, item, i, $event)"
-                  class="app-grid-item-wrapper" [class.app-selected]="item.selected"
-                  [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'"
-                  [style.width]="data.iconWidth['dest'] + '%'">
-                  <div class="app-grid-item">
-                    <div class="app-grid-item-label">{{ data.shortLabels ? item.shortLabel : item.label }}
-                      <br />
+              <div class="app-view-grid" *ngIf="data.viewModeDest == 'grid'" #childrenGridList fxLayout="row wrap">
+                <div *ngFor="let item of dest; let i = index" (click)="select(dest, item, i, $event)" class="app-item-wrapper" [class.app-selected]="item.selected" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [fxFlex]="data.iconWidth['dest'] + '%'">
+                  <div class="app-item">
+                    <div class="app-item-label">
+                      {{ data.shortLabels ? item.shortLabel : item.label }}<br />
                       ({{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }})
                     </div>
                   </div>
                 </div>
               </div>
 
-              <table mat-table *ngIf="data.viewModeDest == 'list'" [dataSource]="destTable" class="mat-elevation-z8 app-view-list"
-                #table>
+              <table mat-table *ngIf="data.viewModeDest == 'list'" [dataSource]="destTable" class="app-w-100" #table>
                 <ng-container matColumnDef="pid">
                   <th mat-header-cell *matHeaderCellDef>{{'search.pid' | translate}} </th>
                   <td mat-cell *matCellDef="let element"> {{element.pid}} </td>
@@ -197,35 +181,35 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="data.displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; let idx = index; columns: data.displayedColumns"
-                  [class.selected]="row.selected" (click)="select(dest, row, idx, $event)"></tr>
+                <tr mat-row *matRowDef="let row; let idx = index; columns: data.displayedColumns" [class.app-selected]="row.selected" (click)="select(dest, row, idx, $event)"></tr>
               </table>
 
             </div>
           </div>
         </div>
-
       </as-split-area>
-      <as-split-area [size]="20">
-        <div>Vyberte pole kam se to kopiruje</div>
-        <div>
-          <mat-checkbox color="primary" [(ngModel)]="pageType">Editovat typ stran</mat-checkbox>
+
+      <as-split-area [size]="20" class="app-pl-4">
+        <div class="app-mb-2">
+          <strong>{{ 'desc.selectTheFieldToCopyTo' | translate }}</strong>
         </div>
         <div>
-          <mat-checkbox color="primary" [(ngModel)]="pageIndex">Editovat index stran</mat-checkbox>
+          <mat-checkbox color="primary" [(ngModel)]="pageType">{{ 'desc.editPageType' | translate }}</mat-checkbox>
         </div>
         <div>
-          <mat-checkbox color="primary" [(ngModel)]="pageNumber">Editovat čísla stran</mat-checkbox>
+          <mat-checkbox color="primary" [(ngModel)]="pageIndex">{{ 'desc.editPageIndex' | translate }}</mat-checkbox>
         </div>
         <div>
-          <mat-checkbox color="primary" [(ngModel)]="pagePosition">Editovat pozice stran</mat-checkbox>
+          <mat-checkbox color="primary" [(ngModel)]="pageNumber">{{ 'desc.editPageNumbers' | translate }}</mat-checkbox>
+        </div>
+        <div>
+          <mat-checkbox color="primary" [(ngModel)]="pagePosition">{{ 'desc.editPagePositions' | translate }}</mat-checkbox>
         </div>
       </as-split-area>
     </as-split>
   </div>
-</div>
-<div mat-dialog-actions cdk-focus-start>
-  <button (click)="save()" mat-raised-button color="primary" [matTooltip]="'button.save' | translate">{{ 'button.save' |
-    translate }}</button>
-  <button mat-raised-button color="default" [mat-dialog-close]="changed">{{ 'common.close' | translate }}</button>
+  <div mat-dialog-actions cdk-focus-start>
+    <button mat-flat-button color="primary" (click)="save()" [matTooltip]="'button.save' | translate">{{ 'button.save' | translate }}</button>
+    <button mat-flat-button [mat-dialog-close]="changed">{{ 'common.close' | translate }}</button>
+  </div>
 </div>
