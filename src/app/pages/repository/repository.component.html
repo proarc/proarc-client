@@ -16,13 +16,13 @@
       <div *ngIf="layout.path.length > 1" class="app-label-model">{{ 'model.' + layout.item.model | translate }} - {{ layout.item.label }}</div>
     </div>
     <div>
-      <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToObject(layout.previousItem)" *ngIf="layout.previousItem" mat-icon-button>
+      <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToObject(layout.previousItem)" [disabled]="!layout.previousItem" mat-icon-button>
         <mat-icon>keyboard_arrow_left</mat-icon>
       </button>
-      <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToObject(layout.parent)" *ngIf="layout.parent" mat-icon-button>
+      <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToObject(layout.parent)" [disabled]="!layout.parent" mat-icon-button>
         <mat-icon>keyboard_arrow_up</mat-icon>
       </button>
-      <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="goToObject(layout.nextItem)" *ngIf="layout.nextItem" mat-icon-button>
+      <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="goToObject(layout.nextItem)" [disabled]="!layout.nextItem" mat-icon-button>
         <mat-icon>keyboard_arrow_right</mat-icon>
       </button>
       <button matTooltip="{{ 'navbar.layout' | translate }}" (click)="showLayoutAdmin()" mat-icon-button>
