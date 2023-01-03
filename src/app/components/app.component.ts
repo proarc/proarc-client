@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
       } else {
         this.translator.use('cs');
       }
-      this.auth.checkOnStart();
+      // this.auth.checkOnStart();
   }
 
   ngOnInit() {

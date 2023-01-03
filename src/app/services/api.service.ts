@@ -25,13 +25,14 @@ import { PageUpdateHolder } from '../components/editor/editor-pages/editor-pages
 import { Workflow } from '../model/workflow.model';
 import { AudioPage } from '../model/audioPage.model';
 import { AudioPagesUpdateHolder } from '../components/editor/editor-audioPages/editor-audioPages.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterState } from '@angular/router';
 
 @Injectable()
 export class ApiService {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private http: HttpClient,
     private config: ConfigService) {
   }
@@ -58,12 +59,8 @@ export class ApiService {
       'Accept-Language': this.getLang()
     })
     return this.http.get(encodeURI(`${this.getApiUrl()}${path}`), { params: params, headers })
-      .pipe(
-        finalize(() => this.stopLoading())
-      )
-      .pipe(
-        catchError(this.handleError)
-      );
+      .pipe(finalize(() => this.stopLoading()))
+      .pipe(catchError(err => this.handleError(err, this)));
   }
 
   private head(path: string, params = {}): Observable<Object> {
@@ -71,8 +68,6 @@ export class ApiService {
       finalize(() => this.stopLoading())
     ).pipe(catchError(this.handleError));
   }
-
-
 
   private put(path: string, body: any, options: any = null): Observable<Object> {
     if (!options) {
@@ -98,31 +93,32 @@ export class ApiService {
     }
     return this.http.post(encodeURI(`${this.getApiUrl()}${path}`), body, options).pipe(
       finalize(() => this.stopLoading())
-    ).pipe(catchError(this.handleError));;;
+    ).pipe(catchError(this.handleError));
   }
 
   private delete(path: string, params = {}): Observable<Object> {
     return this.http.delete(encodeURI(`${this.getApiUrl()}${path}`), { params: params }).pipe(
       finalize(() => this.stopLoading())
-    ).pipe(catchError(this.handleError));;
+    ).pipe(catchError(this.handleError));
   }
 
   private request(method: string, path: string, params = {}, body: any): Observable<Object> {
     return this.http.request(method, encodeURI(`${this.getApiUrl()}${path}`), { params, body }).pipe(
       finalize(() => this.stopLoading())
-    ).pipe(catchError(this.handleError));;
+    ).pipe(catchError(err => this.handleError(err, this)));
   }
 
-  private handleError(error: HttpErrorResponse) {
+  private handleError(error: HttpErrorResponse, me: any) {
     //  console.log(error);
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error);
     } else if (error.status === 403) {
       // Forbiden. Redirect to login
-      console.log("Forbiden");
-      if (this.router) {
-        this.router.navigate(['/login']);
+      console.log("Forbiden", me.router.routerState.snapshot);
+      const url = me.router.routerState.snapshot.url;
+      if (me.router) {
+        me.router.navigate(['/login'], {url: url});
       }
     } else {
       console.error(

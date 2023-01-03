@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatInput } from '@angular/material/input';
 
 @Component({
@@ -16,15 +16,18 @@ export class LoginComponent implements OnInit {
   state = 'none';
 
   error: string;
+  url: string = '';
 
   constructor(private auth: AuthService, 
-              private router: Router) { }
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.error = null;
     setTimeout(() => {
       this.nameInput.focus();
     }, 100);
+    this.url = this.route.snapshot.queryParams['url'];
     
   }
 
@@ -40,7 +43,12 @@ export class LoginComponent implements OnInit {
     this.auth.login(username, password, (result) => {
       this.state = 'none';
       if (result) {
-        this.router.navigate(['/']);
+        if (this.url) {
+          this.router.navigate([this.url]);
+        } else {
+          this.router.navigate(['/']);
+        }
+        
       } else {
         this.error = "login_failed";
       }

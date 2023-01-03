@@ -17,28 +17,33 @@ import { WorkflowComponent } from '../components/workflow/workflow.component';
 import { RepositoryComponent } from '../pages/repository/repository.component';
 import { LayoutAdminComponent } from '../pages/layout-admin/layout-admin.component';
 import { BatchesComponent } from '../pages/batches/batches.component';
+import { AuthGuard } from '../auth.guard';
 
 const routes: Routes = [
-  { path: 'document/:pid', component: EditorComponent, canDeactivate:[ConfirmLeaveEditorGuard] },
-  { path: 'repository/:pid', component: RepositoryComponent, canDeactivate:[ConfirmLeaveEditorGuard] },
-  { path: 'login', component: LoginComponent },
-  { path: 'settings', component: SettingsComponent },
-  { path: 'devices', component: DevicesComponent },
-  { path: 'devices/new', component: EditDeviceComponent },
-  { path: 'devices/:id', component: DeviceComponent },
-  { path: 'devices/:id/edit', component: EditDeviceComponent },
-  { path: 'devices/:device_id/audio/new', component: EditAudioDeviceComponent },
-  { path: 'devices/:device_id/audio/:id/edit', component: EditAudioDeviceComponent },
-  { path: 'search', component: SearchComponent },
-  { path: 'viewer', component: ViewerComponent },
-  { path: 'import', component: ImportComponent },
-  { path: 'import/history', component: HistoryComponent },
-  // { path: 'import/edit/:batch_id', component: EditorComponent, canDeactivate:[ConfirmLeaveEditorGuard] },
-  { path: 'import/edit/:batch_id', component: BatchesComponent, canDeactivate:[ConfirmLeaveEditorGuard] },
-  { path: 'admin', component: AdminComponent },
-  { path: 'layout', component: LayoutAdminComponent },
-  { path: 'workflow', component: WorkflowComponent },
-  { path: '', redirectTo: '/search', pathMatch: 'full' }
+      { path: 'login', component: LoginComponent },
+  {
+    path: '', canActivate: [AuthGuard], children: [
+      { path: 'document/:pid', component: EditorComponent, canDeactivate: [ConfirmLeaveEditorGuard] },
+      { path: 'repository/:pid', component: RepositoryComponent, canDeactivate: [ConfirmLeaveEditorGuard] },
+      { path: 'settings', component: SettingsComponent },
+      { path: 'devices', component: DevicesComponent },
+      { path: 'devices/new', component: EditDeviceComponent },
+      { path: 'devices/:id', component: DeviceComponent },
+      { path: 'devices/:id/edit', component: EditDeviceComponent },
+      { path: 'devices/:device_id/audio/new', component: EditAudioDeviceComponent },
+      { path: 'devices/:device_id/audio/:id/edit', component: EditAudioDeviceComponent },
+      { path: 'search', component: SearchComponent },
+      { path: 'viewer', component: ViewerComponent },
+      { path: 'import', component: ImportComponent },
+      { path: 'import/history', component: HistoryComponent },
+      // { path: 'import/edit/:batch_id', component: EditorComponent, canDeactivate:[ConfirmLeaveEditorGuard] },
+      { path: 'import/edit/:batch_id', component: BatchesComponent, canDeactivate: [ConfirmLeaveEditorGuard] },
+      { path: 'admin', component: AdminComponent },
+      { path: 'layout', component: LayoutAdminComponent },
+      { path: 'workflow', component: WorkflowComponent },
+      { path: '', redirectTo: '/search', pathMatch: 'full' }
+    ]
+  }
 
 ];
 

@@ -12,7 +12,7 @@ import { EditorLanguageComponent } from './documents/document/editor-language/ed
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ApiService } from './services/api.service';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './modules/app-routing.module';
 
@@ -312,7 +312,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         },
         // themePath: 'path-to-theme.css' // Optional, and useful if you want to change the theme dynamically
       }
-    }
+    },
+    { provide: APP_INITIALIZER, useFactory: (config: AuthService) => () => config.initializeApp(), deps: [AuthService], multi: true },
   ],
   entryComponents: [
     AlertDialogComponent,

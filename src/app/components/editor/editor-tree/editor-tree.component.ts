@@ -220,8 +220,8 @@ export class EditorTreeComponent implements OnInit {
   }
 
   dragstart(event: DragEvent) {
-    event.dataTransfer.setData("tree", "KK");
-    console.log(event)
+    // event.dataTransfer.setData("tree", "KK");
+    // console.log(event)
   }
 
   dragend(tree: Tree, event: any) {
