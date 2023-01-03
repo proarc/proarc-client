@@ -23,8 +23,8 @@ import { Registrar } from '../model/registrar.model';
 import { ConfigService } from './config.service';
 import { PageUpdateHolder } from '../components/editor/editor-pages/editor-pages.component';
 import { Workflow } from '../model/workflow.model';
-import {AudioPage} from '../model/audioPage.model';
-import {AudioPagesUpdateHolder} from '../components/editor/editor-audioPages/editor-audioPages.component';
+import { AudioPage } from '../model/audioPage.model';
+import { AudioPagesUpdateHolder } from '../components/editor/editor-audioPages/editor-audioPages.component';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -32,8 +32,17 @@ export class ApiService {
 
   constructor(
     private router: Router,
-    private http: HttpClient, 
+    private http: HttpClient,
     private config: ConfigService) {
+  }
+
+  private getLang(): string {
+    const lang = localStorage.getItem('lang');
+    if (lang) {
+      return lang;
+    } else {
+      return 'cs';
+    }
   }
 
   public getBaseUrl(): string {
@@ -45,12 +54,15 @@ export class ApiService {
   }
 
   private get(path: string, params = {}): Observable<Object> {
-    return this.http.get(encodeURI(`${this.getApiUrl()}${path}`), { params: params })
-    .pipe(
-      finalize(() => this.stopLoading())
-    )
-    .pipe(
-      catchError(this.handleError)
+    const headers = new HttpHeaders({
+      'Accept-Language': this.getLang()
+    })
+    return this.http.get(encodeURI(`${this.getApiUrl()}${path}`), { params: params, headers })
+      .pipe(
+        finalize(() => this.stopLoading())
+      )
+      .pipe(
+        catchError(this.handleError)
       );
   }
 
@@ -114,11 +126,11 @@ export class ApiService {
       }
     } else {
       console.error(
-         `Backend returned code ${error.status}, body was: `, error.error);
+        `Backend returned code ${error.status}, body was: `, error.error);
     }
     // Return an observable with a user-facing error message.
     // return throwError({'status':error.status, 'message': error.message});
-    return of({response:{'status':error.status, 'message': error.message, 'errors': [error.error]}});
+    return of({ response: { 'status': error.status, 'message': error.message, 'errors': [error.error] } });
   }
 
   private cdkSpinnerCreate() {
@@ -227,13 +239,13 @@ export class ApiService {
   // }
 
   getImportFolders(folder: string | null = null): Observable<any> {
-    return this.get('import/folder', { folder: folder});
+    return this.get('import/folder', { folder: folder });
 
   }
 
   getImportProfiles(): Observable<Profile[]> {
     return this.get('profile', { profileGroup: 'import.profiles' })
-        .pipe(map((response: any) => Profile.fromJsonArray(response['response']['data'])));
+      .pipe(map((response: any) => Profile.fromJsonArray(response['response']['data'])));
   }
 
   setParent(srcParent: string, dstParent: string): Observable<any> {
@@ -253,7 +265,7 @@ export class ApiService {
       })
     };
     const payload =
-     {
+    {
       'srcPid': srcParent,
       'dstPid': dstParent,
       'pid': pids
@@ -307,12 +319,12 @@ export class ApiService {
     return this.post(path, data);
   }
 
-  changeModel(pid: string, model:string, path: string) {
+  changeModel(pid: string, model: string, path: string) {
     const data = `pid=${pid}&model=${model}`;
     return this.post(path, data);
   }
 
-  updateObjects(pid: string, model:string) {
+  updateObjects(pid: string, model: string) {
     const data = `pid=${pid}&model=${model}`;
     const path = `object/updateAllObjectsObjects`;
     return this.post(path, data);
@@ -337,7 +349,7 @@ export class ApiService {
       params['batchId'] = batchId;
     }
     return this.get('object/mods/custom', params)
-            .pipe(map((response: any) => Page.fromJson(response['response']['data'][0], model)));
+      .pipe(map((response: any) => Page.fromJson(response['response']['data'][0], model)));
   }
 
   getAudioPage(pid: string, model: string, batchId: any = null): Observable<AudioPage> {
@@ -347,7 +359,7 @@ export class ApiService {
       params['batchId'] = batchId;
     }
     return this.get('object/mods/custom', params)
-            .pipe(map((response: any) => AudioPage.fromJson(response['response']['data'][0], model)));
+      .pipe(map((response: any) => AudioPage.fromJson(response['response']['data'][0], model)));
   }
 
   editPage(page: Page, batchId: any = null): Observable<any> {
@@ -703,7 +715,7 @@ export class ApiService {
     return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
-  createImportBatch(path: string, profile: string, indices: boolean, device: string, priority:string): Observable<any> {
+  createImportBatch(path: string, profile: string, indices: boolean, device: string, priority: string): Observable<any> {
     const data = `folderPath=${path}&profile=${profile}&indices=${indices}&device=${device}&priority=${priority}`;
     return this.post('import/batch', data);
   }
@@ -723,30 +735,30 @@ export class ApiService {
   }
 
   getImportBatchStatus(id: number): Observable<any> {
-    return this.get('import/batch?id='+id, { batchId: id });
+    return this.get('import/batch?id=' + id, { batchId: id });
   }
 
   getImportBatches(params: any): Observable<any> {
     return this.get('import/batch', params)
-    // .pipe(map((response: any) => Batch.fromJsonArray(response['response']['data'])));
-    .pipe(map((response: any) => response['response']));
+      // .pipe(map((response: any) => Batch.fromJsonArray(response['response']['data'])));
+      .pipe(map((response: any) => response['response']));
   }
 
 
   getInfo(): Observable<any> {
     return this.get('info', {})
-            .pipe(map((response: any) => response['response']['data'][0]));
+      .pipe(map((response: any) => response['response']['data'][0]));
   }
 
 
   getBatchQueue(): Observable<Batch[]> {
     return this.get('import/processingBatches', {})
-            .pipe(map((response: any) => Batch.fromJsonArray(response['response']['data'])));
+      .pipe(map((response: any) => Batch.fromJsonArray(response['response']['data'])));
   }
 
   getImportBatch(id: number): Observable<any> {
     return this.get('import/batch', { id: id })
-     .pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
+      .pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
   getWorkflow(): Observable<any> {
@@ -758,7 +770,7 @@ export class ApiService {
   }
 
   getWorkflowItem(id: number): Observable<any> {
-    return this.get('workflow?id='+id);
+    return this.get('workflow?id=' + id);
   }
 
   saveWorkflowItem(w: Workflow): Observable<any> {
@@ -766,7 +778,7 @@ export class ApiService {
     let httpParams = new HttpParams();
     Object.keys(w).forEach(key => {
       const value = (w as any)[key];
-      httpParams = httpParams.set(key, value+'');
+      httpParams = httpParams.set(key, value + '');
     });
     return this.put('workflow', httpParams);
   }
@@ -776,21 +788,21 @@ export class ApiService {
   }
 
   getWorkflowMaterial(id: number): Observable<any> {
-    return this.get('workflow/material?jobId='+id);
+    return this.get('workflow/material?jobId=' + id);
   }
 
   getWorkflowTask(id: number): Observable<any> {
-    return this.get('workflow/task?jobId='+id);
+    return this.get('workflow/task?jobId=' + id);
   }
 
   getUsers(): Observable<User[]> {
     return this.get('user')
-            .pipe(map((response: any) => User.fromJsonArray(response['response']['data'])));
+      .pipe(map((response: any) => User.fromJsonArray(response['response']['data'])));
   }
 
   getUser(): Observable<User> {
     return this.get('user?whoAmI=true')
-            .pipe(map((response: any) => User.fromJson(response['response']['data'][0])));
+      .pipe(map((response: any) => User.fromJson(response['response']['data'][0])));
   }
 
   editUser(user: User, forename: string, surname: string): Observable<User> {
@@ -861,7 +873,7 @@ export class ApiService {
     return this.head(path);
   }
 
-  
+
 
   saveMarkSequence(data: any): Observable<any> {
     const options = {
@@ -872,7 +884,7 @@ export class ApiService {
     return this.post('object/mods/editorPagesCopyMetadata', data, options);
   }
 
-  
+
 
   getPremis(pid: string): Observable<any> {
     const params: any = { pid: pid };
