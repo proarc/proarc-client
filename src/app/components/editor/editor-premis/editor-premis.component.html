@@ -1,1 +1,42 @@
-<p>editor-premis works!</p>
+<div fxLayout="column" fxFlexFill>
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
+    <div fxFlex>
+			<div class="app-toolbar-label">
+				<span class="app-text">PREMIS XML</span>
+			</div>
+		</div>
+		<div>
+			<!-- <ng-container *ngIf="item && layout.lastSelectedItemMetadata">
+				<button mat-icon-button [class.app-active]="realtime" (click)="setRealtime(true)" [matTooltip]="'editor.mods.realtime_on' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+						<mat-icon>timer</mat-icon>
+				</button>
+				<button  mat-icon-button [class.app-active]="!realtime" (click)="setRealtime(false)" [matTooltip]="'editor.mods.realtime_off' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+						<mat-icon>timer_off</mat-icon>
+				</button>
+			</ng-container> -->
+			<button mat-icon-button (click)="onRefresh()" [disabled]="editting || realtime" (click)="onRefresh()" [matTooltip]="'editor.mods.refresh' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+					<mat-icon>refresh</mat-icon>
+			</button>
+			<button mat-icon-button (click)="onEdit()" [disabled]="editting || realtime" (click)="onEdit()" [matTooltip]="'common.edit' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+				<mat-icon>edit</mat-icon>
+			</button>
+			<button mat-icon-button (click)="onClear()" [disabled]="!editting || realtime" [matTooltip]="'common.cancel' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+				<mat-icon>clear</mat-icon>
+			</button>
+			<button mat-icon-button (click)="onSave()" [disabled]="!anyChange || realtime" [matTooltip]="'button.save' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+				<mat-icon>save</mat-icon>
+			</button>
+		</div>
+  </div>
+	<div fxFlex class="app-oa-y">
+		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
+		<div class="app-editor-content" *ngIf="state !=='loading'">
+      <ng-container *ngIf="mods">
+			<pre *ngIf="editting && !realtime" class="app-xml-content app-mods-editing" #editingPre><code class="app-mods-editing" (input)="checkChanged()" contenteditable="true" [highlight]="mods.original"></code></pre> 
+			<pre *ngIf="!editting && !realtime" class="app-xml-content" #originalPre><code [highlight]="mods.original"></code></pre> 
+			<!-- <pre *ngIf="!editting && realtime" class="app-xml-content"><code [highlight]="layout.lastSelectedItemMetadata.toMods()"></code></pre>  -->
+    </ng-container>
+      <div *ngIf="!mods">No PREMIS</div>
+		</div>
+	</div>
+</div>

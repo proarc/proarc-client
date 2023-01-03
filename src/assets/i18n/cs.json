@@ -1946,7 +1946,8 @@
     "ocr": "OCR",
     "pdf": "Pdf",
     "comment": "Komentář",
-    "image": "Obrázek"
+    "image": "Obrázek",
+    "premis": "PREMIS XML"
   },
   "modal": {
     "layoutSettings": {

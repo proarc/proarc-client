@@ -2040,7 +2040,8 @@
     "ocr": "OCR",
     "pdf": "Pdf",
     "comment": "Comment",
-    "image": "Image"
+    "image": "Image",
+    "premis": "PREMIS XML"
   },
   "modal": {
     "layoutSettings": {
