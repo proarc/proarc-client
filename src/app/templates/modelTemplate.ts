@@ -214,5 +214,19 @@ export class ModelTemplate {
     return models.map((m: string) => `model:${m}`);
   }
 
+  static allowedParentsForModel(model: string) {
+    if (model.startsWith('model:')) {
+      model = model.substring(6);
+    }
+    const models: string[] = [];
+    const keys = Object.keys(ModelTemplate.relations);
+    keys.forEach(k => {
+      if (ModelTemplate.relations[k].includes(model)) {
+        models.push('model:'+ k);
+      }
+    });
+    return models;
+  }
+
 
 }

@@ -9,6 +9,7 @@ import { User } from 'src/app/model/user.model';
 import { Tree } from 'src/app/model/mods/tree.model';
 import { SearchService } from 'src/app/services/search.service';
 import { SplitComponent, SplitAreaDirective } from 'angular-split';
+import { ModelTemplate } from 'src/app/templates/modelTemplate';
 
 @Component({
   selector: 'app-parent-dialog',
@@ -65,10 +66,13 @@ export class ParentDialogComponent implements OnInit {
     private config: ConfigService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private api: ApiService) {
-    this.models = this.config.allModels;
+    // this.models = this.config.allModels;
   }
 
   ngOnInit() {
+    
+    this.models = ModelTemplate.allowedParentsForModel(this.data.items[0].model);
+
     this.splitArea1Width = this.properties.getStringProperty('parent.split.0', "60"),
     this.splitArea2Width = this.properties.getStringProperty('parent.split.1', "40"),
     this.model = this.properties.getStringProperty('parent.model', this.config.defaultModel);
