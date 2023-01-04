@@ -1905,6 +1905,100 @@
 
 
 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   "desc": {
     "help": "Nápověda",
     "panelType": "Typ panelu",
@@ -1924,7 +2018,14 @@
     "comment": "Komentář",
     "picture": "Obrázek",
     "editing": "Editace",
-    "batchManagement": "Správa dávek"
+    "batchManagement": "Správa dávek",
+    "selectResources": "Vyberte zdroje",
+    "selectTheTargets": "Vyberte cíle",
+    "editPageType": "Editovat typ stran",
+    "editPageIndex": "Editovat index stran",
+    "editPageNumbers": "Editovat čísla stran",
+    "editPagePositions": "Editovat pozice stran",
+    "selectTheFieldToCopyTo": "Vyberte pole kam kopírovat"
   },
   "button": {
     "setLayout": "nastavit rozložení",
