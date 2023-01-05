@@ -36,6 +36,7 @@ $app-color-disabled: $app-gray-4;
 // common
 $app-border-radius: 4px !default;
 $app-item-selected: mat-color($app-primary, 100) !default;
+$app-item-hover: mat-color($app-primary, 50) !default;
 
 // elements
 $app-layout-active-color: mat-color($mat-green, 800) !default;
@@ -114,12 +115,8 @@ $alerts: (
 
 // states
 $states: (
-  planned: #7b7b7b,
-  running: #456aa5,
-  finished: #45a55a,
-  failed: #ab493f,
-  killed: #ca7023,
-  not-running: #ca7023,
-  warning: #ab493f,
+  sentiment_satisfied: $app-color-success,
+  mood_bad: $app-color-warn,
+  mood: $app-color-info,
   default: $app-gray-6
 );

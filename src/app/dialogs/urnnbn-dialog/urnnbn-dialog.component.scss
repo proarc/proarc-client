@@ -1,3 +1,15 @@
+@import './src/sass/app-variables';
+@import './src/sass/app-mixins';
+@import './src/sass/app-global';
+
+.mat-table {
+  .mat-cell {
+    .mat-icon {
+      @include setStateColor('icon');
+    }
+  }
+}
+
 /* to delete after testing
 .mat-dialog-title {
   margin: 0 0 15px;

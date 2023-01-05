@@ -37,6 +37,26 @@
       background-color: $app-item-selected;
     }
   }
+
+  &.app-striped {
+    .mat-row {
+      &:nth-child(odd) {
+        &:not(.app-selected) {
+          background-color: $app-gray-1;
+        }
+      }
+    }
+  }
+
+  &.app-hover {
+    .mat-row {
+      &:hover {
+        &:not(.app-selected) {
+          background-color: $app-item-hover;
+        }
+      }
+    }
+  }
 }
 
 // progress bar

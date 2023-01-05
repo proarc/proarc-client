@@ -52,10 +52,12 @@
 }
 
 // set badge color
-@mixin setStateColor() {
+@mixin setStateColor($type: null) {
   @each $state, $color in $states {
-    &.app-#{$state} {
-      background-color: $color !important;
+    @if ($type == 'icon') {
+      &.app-#{$state} {
+        color: $color !important;
+      }
     }
   }
 }
