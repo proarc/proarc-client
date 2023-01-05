@@ -117,6 +117,6 @@ $alerts: (
 $states: (
   sentiment_satisfied: $app-color-success,
   mood_bad: $app-color-warn,
-  mood: $app-color-info,
+  mood: mat-color($mat-yellow, 700),
   default: $app-gray-6
 );
