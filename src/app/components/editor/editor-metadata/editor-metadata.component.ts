@@ -20,7 +20,7 @@ export class EditorMetadataComponent implements OnInit {
   state = 'none';
 
   @Input() notSaved = false;
-  @Input() pid: string;
+  // @Input() pid: string;
   @Input() model: string;
   @Input() metadata: Metadata;
 
@@ -41,41 +41,42 @@ export class EditorMetadataComponent implements OnInit {
 
   ngOnChanges(c: SimpleChanges) {
 
-    if (c['pid'] && c['pid'].currentValue) {
-      this.item = this.layout.lastSelectedItem;
-      this.pid = c['pid'].currentValue;
-      this.visible = true;
-      this.load();
-      return;
-    }
-
     if (c['metadata'] && c['metadata'].currentValue) {
       this.metadata = c['metadata'].currentValue;
       return;
     }
+
+    // if (c['pid'] && c['pid'].currentValue) {
+    //   this.item = this.layout.lastSelectedItem;
+    //   this.pid = c['pid'].currentValue;
+    //   this.visible = true;
+    //   this.load();
+    //   return;
+    // }
+
     if (!this.layout.lastSelectedItem || this.layout.lastSelectedItem.isPage()) {
       this.visible = false;
       return;
     }
   }
 
-  load() {
-    this.state = 'loading';
+  // load() {
+  //   this.state = 'loading';
 
-    this.api.getMetadata(this.pid, this.model).subscribe((response: any) => {
-      if (response.errors) {
-        console.log('error', response.errors);
-        this.ui.showErrorSnackBarFromObject(response.errors);
-        this.state = 'error';
-        return;
-      }
-      this.metadata = new Metadata(this.pid, this.model, response['record']['content'], response['record']['timestamp']);
-      if (!this.notSaved) {
-        this.layout.lastSelectedItemMetadata = this.metadata;
-      }
-      this.state = 'success';
-    });
-  }
+  //   this.api.getMetadata(this.pid, this.model).subscribe((response: any) => {
+  //     if (response.errors) {
+  //       console.log('error', response.errors);
+  //       this.ui.showErrorSnackBarFromObject(response.errors);
+  //       this.state = 'error';
+  //       return;
+  //     }
+  //     this.metadata = new Metadata(this.pid, this.model, response['record']['content'], response['record']['timestamp']);
+  //     if (!this.notSaved) {
+  //       this.layout.lastSelectedItemMetadata = this.metadata;
+  //     }
+  //     this.state = 'success';
+  //   });
+  // }
 
   available(element: string): boolean {
     return this.metadata.template[element];

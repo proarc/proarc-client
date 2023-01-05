@@ -22,8 +22,8 @@ import { ModsResource } from './mods/resource.model';
 import { ModelTemplate } from '../templates/modelTemplate';
 import { ModsPart } from './mods/part.model';
 import { ModsRecordInfo } from './mods/recordInfo.model';
-import {ModsTableOfContents} from './mods/tableOfContents';
-import {ModsRelatedItem} from './mods/relatedItem.model';
+import { ModsTableOfContents } from './mods/tableOfContents';
+import { ModsRelatedItem } from './mods/relatedItem.model';
 import { Subject, Observable, ReplaySubject } from 'rxjs';
 declare var $: any;
 
@@ -90,10 +90,10 @@ export class Metadata {
 
   private parseMods(mods: string) {
     const xml = mods.replace(/xmlns.*=".*"/g, '');
-    const data = {tagNameProcessors: [processors.stripPrefix], explicitCharkey: true};
+    const data = { tagNameProcessors: [processors.stripPrefix], explicitCharkey: true };
     const ctx = this;
     parseString(xml, data, function (err: any, result: any) {
-        ctx.processMods(result);
+      ctx.processMods(result);
     });
   }
 
@@ -105,7 +105,7 @@ export class Metadata {
         if (!item.validate()) {
           valid = false;
           //if (item.collapsed) {
-            item.collapsed = false;
+          item.collapsed = false;
           //}
         }
         for (const subfield of item.getSubfields()) {
@@ -113,8 +113,8 @@ export class Metadata {
             if (!item2.validate()) {
               valid = false;
               //if (item2.collapsed) {
-                item2.collapsed = false;
-                item.collapsed = false;
+              item2.collapsed = false;
+              item.collapsed = false;
               //}
             }
           }
@@ -124,7 +124,7 @@ export class Metadata {
     return valid;
   }
 
-  
+
 
   expandRequired(): boolean {
     let valid = true;
@@ -132,14 +132,14 @@ export class Metadata {
       const f = this.fields.get(id);
       for (const item of f.getItems()) {
         if (item.isRequired()) {
-            item.collapsed = false;
+          item.collapsed = false;
         }
         for (const subfield of item.getSubfields()) {
           for (const item2 of subfield.getItems()) {
             if (item2.isRequired()) {
               valid = false;
-                item2.collapsed = false;
-                item.collapsed = false;
+              item2.collapsed = false;
+              item.collapsed = false;
             }
           }
         }
@@ -157,8 +157,8 @@ export class Metadata {
       } else {
         mods = data['modsCollection'][0]['mods'];
       }
-    } else if(data['mods']) {
-       mods = data['mods'];
+    } else if (data['mods']) {
+      mods = data['mods'];
     }
     if (mods.length) {
       mods = mods[0];
@@ -181,53 +181,35 @@ export class Metadata {
   private processMods(data: any) {
     this.standard = this.resolveStandard(data);
     this.template = ModelTemplate.data[this.standard][this.model];
-    // if (ProArc.isChronicle(this.model)) {
-    //   this.fieldsIds = [
-    //     ModsTitle.getId(),
-    //     ModsAuthor.getId(),
-    //     ModsPublisher.getId(),
-    //     ModsChronicleLocation.getId(),
-    //     ModsLanguage.getId(),
-    //     ModsIdentifier.getId(),
-    //     ModsNote.getId(),
-    //     ModsAbstract.getId(),
-    //     ModsGenreChronical.getId(),
-    //     ModsGeo.getId(),
-    //     ModsPart.getId(),
-    //     ModsRecordInfo.getId(),
-    //     ModsRelatedItem.getId(),
-    //     ModsTableOfContents.getId(),
-    //   ];
-    // } else {
-      this.fieldsIds = [];
-      const allIds = [
-        ModsGeo.getId(),
-        ModsTitle.getId(),
-        ModsAuthor.getId(),
-        ModsPublisher.getId(),
-        ModsLocation.getId(),
-        ModsLanguage.getId(),
-        ModsSubject.getId(),
-        ModsIdentifier.getId(),
-        ModsNote.getId(),
-        ModsAbstract.getId(),
-        ModsGenre.getId(),
-        ModsClassification.getId(),
-        ModsPhysical.getId(),
-        ModsResource.getId(),
-        ModsPart.getId(),
-        ModsRecordInfo.getId(),
-        ModsRelatedItem.getId(),
-        ModsTableOfContents.getId(),
-      ];
-      for (const id of allIds) {
-        if (this.template[id]) {
-          this.fieldsIds.push(id);
-        }
+    if (!this.template) {
+      return;
+    }
+    this.fieldsIds = [];
+    const allIds = [
+      ModsGeo.getId(),
+      ModsTitle.getId(),
+      ModsAuthor.getId(),
+      ModsPublisher.getId(),
+      ModsLocation.getId(),
+      ModsLanguage.getId(),
+      ModsSubject.getId(),
+      ModsIdentifier.getId(),
+      ModsNote.getId(),
+      ModsAbstract.getId(),
+      ModsGenre.getId(),
+      ModsClassification.getId(),
+      ModsPhysical.getId(),
+      ModsResource.getId(),
+      ModsPart.getId(),
+      ModsRecordInfo.getId(),
+      ModsRelatedItem.getId(),
+      ModsTableOfContents.getId(),
+    ];
+    for (const id of allIds) {
+      if (this.template[id]) {
+        this.fieldsIds.push(id);
       }
-    // }
-
-
+    }
 
     this.fields = new Map<String, ElementField>();
     this.mods = data;
@@ -253,17 +235,17 @@ export class Metadata {
     //   const id = "physicalDescription";
     //   this.fields.set(id, new ElementField(root, id, this.template[id]));
     // } else {
-      for (const id of this.fieldsIds) {
-        if (id === ModsGeo.getId()) {
-          this.fields.set(id, new ElementField(root, id, this.template[id], 'authority', ['geo:origin', 'geo:storage', 'geo:area']));
-        } else if (id === ModsIdentifier.getId() && ProArc.isChronicle(this.model)) {
-          this.fields.set(id, new ElementField(root, id, this.template[id], 'type', ProArc.chronicleIdentifierTypes));
-        } else if (id === ModsSubject.getId()) {
-          this.fields.set(id, new ElementField(root, id, this.template[id], 'authority', [], ['geo:origin', 'geo:storage', 'geo:area']));
-        } else {
-          this.fields.set(id, new ElementField(root, id, this.template[id]));
-        }
+    for (const id of this.fieldsIds) {
+      if (id === ModsGeo.getId()) {
+        this.fields.set(id, new ElementField(root, id, this.template[id], 'authority', ['geo:origin', 'geo:storage', 'geo:area']));
+      } else if (id === ModsIdentifier.getId() && ProArc.isChronicle(this.model)) {
+        this.fields.set(id, new ElementField(root, id, this.template[id], 'type', ProArc.chronicleIdentifierTypes));
+      } else if (id === ModsSubject.getId()) {
+        this.fields.set(id, new ElementField(root, id, this.template[id], 'authority', [], ['geo:origin', 'geo:storage', 'geo:area']));
+      } else {
+        this.fields.set(id, new ElementField(root, id, this.template[id]));
       }
+    }
     // }
   }
 
@@ -288,13 +270,13 @@ export class Metadata {
     // if (this.isVolume() || this.isIssue()) {
     //   this.normalizeField(root, ModsPhysical.getSelector());
     // } else {
-      if (this.fieldsIds.indexOf(ModsPublisher.getId()) >= 0) {
-        const publishers = new ElementField(root, ModsPublisher.getSelector(), this.template[ModsPublisher.getSelector()]);
-        publishers.update();
-      }
-      for (const selector of Metadata.selectors) {
-        this.normalizeField(root, selector);
-      }
+    if (this.fieldsIds.indexOf(ModsPublisher.getId()) >= 0) {
+      const publishers = new ElementField(root, ModsPublisher.getSelector(), this.template[ModsPublisher.getSelector()]);
+      publishers.update();
+    }
+    for (const selector of Metadata.selectors) {
+      this.normalizeField(root, selector);
+    }
     // }
     return mods;
   }
@@ -311,7 +293,7 @@ export class Metadata {
     }
     if (el.hasOwnProperty('$')) {
       const attrs: any = el['$'];
-      Object.keys(attrs).forEach(function(key) {
+      Object.keys(attrs).forEach(function (key) {
         if (attrs[key] === '') {
           delete attrs[key];
         }
@@ -346,7 +328,7 @@ export class Metadata {
     }
     if (typeof el === 'object') {
       const ctx = this;
-      Object.keys(el).forEach(function(key) {
+      Object.keys(el).forEach(function (key) {
         if (ctx.normalize(el[key])) {
           delete el[key];
         }
@@ -364,13 +346,13 @@ export class Metadata {
     for (const id of this.fieldsIds) {
       const f = this.fields.get(id);
       for (const item of f.getItems()) {
-          
+
         if (item.hasChanges()) {
           return true;
         }
         for (const subfield of item.getSubfields()) {
           for (const item2 of subfield.getItems()) {
-            
+
             if (item2.hasChanges()) {
               return true;
             }
@@ -385,7 +367,7 @@ export class Metadata {
     for (const id of this.fieldsIds) {
       const f = this.fields.get(id);
       for (const item of f.getItems()) {
-          item.resetChanges();
+        item.resetChanges();
         for (const subfield of item.getSubfields()) {
           for (const item2 of subfield.getItems()) {
             item2.resetChanges();

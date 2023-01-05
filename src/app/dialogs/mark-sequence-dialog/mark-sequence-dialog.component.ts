@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ResizedEvent } from 'angular-resize-event';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { ApiService } from 'src/app/services/api.service';
+import { LayoutService } from 'src/app/services/layout.service';
 import { UIService } from 'src/app/services/ui.service';
 
 @Component({
@@ -33,10 +34,17 @@ export class MarkSequenceDialogComponent implements OnInit {
     private api: ApiService,
     private ui: UIService,
     public dialogRef: MatDialogRef<MarkSequenceDialogComponent>,
+    private layout: LayoutService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
   ngOnInit(): void {
+    this.initLists();
+  }
+
+  initLists() {
+    this.orig = [];
+    this.dest = [];
     this.data.items.forEach((item: DocumentItem) => {
       this.orig.push(JSON.parse(JSON.stringify(item)));
       this.dest.push(JSON.parse(JSON.stringify(item)));
@@ -44,7 +52,7 @@ export class MarkSequenceDialogComponent implements OnInit {
       this.origTable = new MatTableDataSource(this.orig);
       this.destTable = new MatTableDataSource(this.dest);
 
-    })
+    });
   }
 
   onResized(event: ResizedEvent, data: string) {
@@ -100,7 +108,43 @@ export class MarkSequenceDialogComponent implements OnInit {
         this.ui.showInfo('editor.children.markSequenceSaved')
         this.changed = true;
       }
+      this.refreshPages();
     })
+  }
+
+  refreshPages() {
+    const selection: string[] = [];
+    const lastSelected = this.layout.lastSelectedItem.pid;
+    this.layout.items.forEach(item => {
+      if (item.selected) {
+        selection.push(item.pid);
+      }
+    });
+    this.layout.items = [];
+    this.data.items = [];
+    this.api.getBatchPages(this.layout.getBatchId()).subscribe((response: any) => {
+
+      if (response['response'].status === -1) {
+        this.ui.showErrorSnackBar(response['response'].data);
+        // this.router.navigate(['/import/history']);
+        return;
+      }
+
+      const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
+      console.log(pages, selection, lastSelected)
+      this.layout.items = pages;
+      for (let i = 0; i < this.layout.items.length; i++) {
+        const item = this.layout.items[i];
+        if (selection.includes(item.pid)) {
+          item.selected = true;
+        }
+        if (item.pid === lastSelected) {
+          this.layout.lastSelectedItem = item;
+        }
+      }
+      this.data.items = pages;
+      this.initLists();
+    });
   }
 
 }

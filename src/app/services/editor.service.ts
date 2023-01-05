@@ -880,7 +880,7 @@ export class EditorService {
             callback();
             return;
         }
-        this.api.getMetadata(this.selectedItem.pid, this.selectedItem.model).subscribe((metadata: Metadata) => {
+        this.api.getMetadata(this.selectedItem.pid).subscribe((metadata: Metadata) => {
             this.metadata = metadata;
             if (callback) {
                 callback();

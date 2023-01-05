@@ -201,7 +201,8 @@ export class EditorStructureComponent implements OnInit {
   initSelectedColumns() {
     const prop = this.properties.getStringProperty('selectedColumns');
     if (prop) {
-      this.selectedColumns = JSON.parse(prop);
+      Object.assign(this.selectedColumns, JSON.parse(prop));
+      // this.selectedColumns = JSON.parse(prop);
     }
   }
 

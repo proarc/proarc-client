@@ -62,7 +62,7 @@ export class MetadataService {
     //   callback(this.metadata);
     //   return;
     // }
-    this.api.getMetadata(pid, model).subscribe((response: any) => {
+    this.api.getMetadata(pid).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
         this.ui.showErrorSnackBarFromObject(response['response'].errors);

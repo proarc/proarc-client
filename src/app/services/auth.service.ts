@@ -91,7 +91,7 @@ export class AuthService {
                         resolve(true);
                     },
                     (error: any) => {
-                        console.log(error);
+                        console.log(error.message);
                         resolve(true);
                     });
         });

@@ -392,7 +392,7 @@ export class ApiService {
     return this.put('object/atm', data);
   }
 
-  getMetadata(pid: string, model: string): Observable<any> {
+  getMetadata(pid: string): Observable<any> {
     return this.get('object/mods/plain', { pid: pid });
   }
 

@@ -68,7 +68,7 @@
         <app-editor-bdm *ngIf="layout.lastSelectedItem.isBdm()" [pid]="layout.lastSelectedItem.pid" 
           [model]="layout.lastSelectedItem.model" [metadata]="layout.lastSelectedItemMetadata"></app-editor-bdm>
         <app-editor-metadata *ngIf="!layout.lastSelectedItem.isPage() && !layout.lastSelectedItem.isChronicle() && !layout.lastSelectedItem.isBdm()" 
-          [pid]="layout.lastSelectedItem.pid" [metadata]="layout.lastSelectedItemMetadata" [model]="layout.lastSelectedItem.model">
+          [metadata]="layout.lastSelectedItemMetadata" [model]="layout.lastSelectedItem.model">
         </app-editor-metadata>
       </ng-container>
     </ng-container>

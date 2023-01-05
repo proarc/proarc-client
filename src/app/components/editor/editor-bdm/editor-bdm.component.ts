@@ -55,7 +55,7 @@ export class EditorBdmComponent implements OnInit {
   load() {
     this.state = 'loading';
 
-    this.api.getMetadata(this.pid, this.model).subscribe((response: any) => {
+    this.api.getMetadata(this.pid).subscribe((response: any) => {
       if (response.errors) {
         console.log('error', response.errors);
         this.ui.showErrorSnackBarFromObject(response.errors);

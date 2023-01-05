@@ -110,8 +110,8 @@
             <!-- <app-editor-volume *ngIf="editor.left.isVolume()" [pid]="editor.left.pid"></app-editor-volume> -->
             <app-editor-chronicle *ngIf="editor.left.isChronicle()" [pid]="editor.left.pid"></app-editor-chronicle>
             <app-editor-bdm *ngIf="editor.left.isBdm()" [pid]="editor.left.pid"></app-editor-bdm>
-            <app-editor-metadata *ngIf="!editor.left.isPage() && !editor.left.isChronicle() && !editor.left.isBdm()" [pid]="editor.left.pid">
-            </app-editor-metadata>
+            <!-- <app-editor-metadata *ngIf="!editor.left.isPage() && !editor.left.isChronicle() && !editor.left.isBdm()" [pid]="editor.left.pid">
+            </app-editor-metadata> -->
           </ng-container>
 
           <app-editor-geo *ngIf="editor.leftEditorType == 'geo'" [pid]="editor.left.pid"></app-editor-geo>
@@ -209,7 +209,7 @@
             </app-editor-page>
             <app-editor-audioPage *ngIf="editor.selectedItem.isAudioPage()" [model]="editor.selectedItem.model" [pid]="editor.selectedItem.pid">
             </app-editor-audioPage>
-            <app-editor-metadata *ngIf="!editor.selectedItem.isPage()" [pid]="editor.selectedItem.pid"></app-editor-metadata>
+            <!-- <app-editor-metadata *ngIf="!editor.selectedItem.isPage()" [pid]="editor.selectedItem.pid"></app-editor-metadata> -->
             <!--
           <app-editor-issue *ngIf="editor.selectedItem.isIssue()" [pid]="editor.selectedItem.pid"></app-editor-issue>
           <app-editor-volume *ngIf="editor.selectedItem.isVolume()" [pid]="editor.selectedItem.pid"></app-editor-volume> -->

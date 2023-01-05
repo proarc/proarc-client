@@ -59,11 +59,15 @@ export class RepositoryComponent implements OnInit {
       this.refreshSelected(from);
     }));
 
+    this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
+      this.loadMetadata(this.layout.lastSelectedItem.pid, this.layout.lastSelectedItem.model);
+    }));
+
     // this.layout.selectionChanged().subscribe(() => {
     //   this.setVisibility();
     // });
 
-
+    this.layout.lastSelectedItemMetadata = null;
     combineLatest([this.route.paramMap, this.route.queryParamMap]).subscribe(
       results => {
         const p = results[0];
@@ -133,11 +137,12 @@ export class RepositoryComponent implements OnInit {
       const pid = this.layout.lastSelectedItem.pid;
       const model = this.layout.lastSelectedItem.model;
       const rDoc = this.api.getDocument(this.layout.lastSelectedItem.pid);
-      const rMetadata = this.api.getMetadata(pid, model);
+      const rMetadata = this.api.getMetadata(pid);
       forkJoin([rDoc, rMetadata]).subscribe(([item, respMeta]: [DocumentItem, any]) => {
         const selected = this.layout.lastSelectedItem.selected;
         Object.assign(this.layout.lastSelectedItem, item);
         this.layout.lastSelectedItem.selected = selected;
+        this.layout.lastSelectedItemMetadata = new Metadata(pid, model, respMeta['record']['content'], respMeta['record']['timestamp']);
         // const meta = new Metadata(pid, model, respMeta['record']['content'], respMeta['record']['timestamp']);
         //Object.assign(this.layout.lastSelectedItemMetadata, meta);
         // if (!!from) {
@@ -216,12 +221,12 @@ export class RepositoryComponent implements OnInit {
       this.layout.items = children;
       // this.layout.path.unshift({ pid: item.pid, label: item.label, model: item.model });
       if (keepSelection) {
-        this.layout.items.forEach(item => {
-          if (selection.includes(item.pid)) {
-            item.selected = true;
+        this.layout.items.forEach(ch => {
+          if (selection.includes(ch.pid)) {
+            ch.selected = true;
           }
-          if (item.pid === lastSelected) {
-            this.layout.lastSelectedItem = item;
+          if (ch.pid === lastSelected) {
+            this.layout.lastSelectedItem = ch;
           }
         });
         this.layout.selectedParentItem = selectedParentItem;
@@ -261,6 +266,25 @@ export class RepositoryComponent implements OnInit {
         this.layout.expandedPath = this.layout.path.map(p => p.pid);
       }
       this.setupNavigation();
+    });
+  }
+
+   loadMetadata(pid: string, model: string) {
+
+    if (this.layout.lastSelectedItemMetadata && this.layout.lastSelectedItemMetadata.pid === pid) {
+      return;
+    }
+    this.layout.lastSelectedItemMetadata = null;
+    if (!pid) {
+      return;
+    }
+    this.api.getMetadata(pid).subscribe((response: any) => {
+      if (response.errors) {
+        console.log('error', response.errors);
+        this.ui.showErrorSnackBarFromObject(response.errors);
+        return;
+      }
+      this.layout.lastSelectedItemMetadata = new Metadata(pid, model, response['record']['content'], response['record']['timestamp']);
     });
   }
 

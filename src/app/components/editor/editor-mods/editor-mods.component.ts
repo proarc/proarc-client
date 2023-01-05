@@ -7,6 +7,10 @@ import { RepositoryService } from 'src/app/services/repository.service';
 import { UIService } from 'src/app/services/ui.service';
 import { Metadata } from 'src/app/model/metadata.model';
 import { LayoutService } from 'src/app/services/layout.service';
+import { TranslateService } from '@ngx-translate/core';
+import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 
 @Component({
   selector: 'app-editor-mods',
@@ -36,9 +40,11 @@ export class EditorModsComponent implements OnInit, OnDestroy {
   public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
 
   constructor(
+    private translator: TranslateService,
     public layout: LayoutService,
     private ui: UIService,
-    private api: ApiService) {
+    private api: ApiService,
+    private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -99,8 +105,6 @@ export class EditorModsComponent implements OnInit, OnDestroy {
     }
     this.mods.content = this.editingPre.nativeElement.innerText;
     this.saveMods(this.mods, false);
-
-
   }
 
   saveMods(mods: Mods, ignoreValidation: boolean) {
@@ -108,7 +112,32 @@ export class EditorModsComponent implements OnInit, OnDestroy {
     this.api.editModsXml(mods.pid, mods.content, mods.timestamp, ignoreValidation, this.layout.getBatchId()).subscribe((resp: any) => {
       if (resp.errors) {
         this.state = 'error';
-        this.ui.showErrorSnackBar(resp.errors.mods[0].errorMessage)
+        // if (resp.errors.mods) {
+        //   this.ui.showErrorSnackBar(resp.errors.mods[0].errorMessage)
+        // }
+        // if (resp.errors['mods.identifier']) {
+        //   this.ui.showErrorSnackBar(resp.errors['mods.identifier'][0].errorMessage)
+        // }
+
+
+        if (resp.status === -4) {
+          // Ukazeme dialog a posleme s ignoreValidation=true
+          //this.state = 'error';
+          const messages = this.ui.extractErrorsAsString(resp.errors);
+          if (resp.data === 'cantIgnore') {
+            this.ui.showErrorSnackBar(messages);
+          } else {
+            this.confirmSave(this.translator.instant('common.warning'), messages, true);
+          }
+          return;
+        } else {
+          this.ui.showErrorSnackBarFromObject(resp.errors);
+          this.state = 'error';
+          return;
+        }
+
+
+        
       } else {
         this.api.getMods(mods.pid, this.layout.getBatchId()).subscribe((response: any) => {
 
@@ -126,6 +155,29 @@ export class EditorModsComponent implements OnInit, OnDestroy {
         });
       }
 
+    });
+  }
+
+  confirmSave(title: string, message: string, ignoreValidation: boolean) {
+    const data: SimpleDialogData = {
+      title,
+      message,
+      btn1: {
+        label: "Uložit",
+        value: 'yes',
+        color: 'warn'
+      },
+      btn2: {
+        label: "Neukládat",
+        value: 'no',
+        color: 'default'
+      },
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.saveMods(this.mods, true);
+      }
     });
   }
 
