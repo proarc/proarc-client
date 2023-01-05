@@ -90,9 +90,9 @@
       </div>
 
       <div class="app-view-icon" *ngIf="viewMode == 'icons'" #childrenIconList [class.app-multiple-selection]="layout.getNumOfSelected() > 1" (mousedown)="mousedown($event)" (mouseup)="mouseup($event)" fxLayout="row wrap">
-        <div *ngFor="let item of layout.items; let i = index" class="app-item-wrapper" (click)="rowClick(item, i, $event)" (dblclick)="open(item)" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart(item, i, $event)" (dragend)="dragend($event)" (dragover)="dragover($event)" (mousedown)="mousedown($event)" [class.app-selected]="item.selected" [fxFlex]="iconWidth + '%'" [style.height]="iconHeight + 'px'">
+        <div *ngFor="let item of layout.items; let i = index" class="app-item-wrapper" (click)="rowClick(item, i, $event)" (dblclick)="open(item)" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart(item, i, $event)" (dragend)="dragend($event)" (dragover)="dragover($event)" (mousedown)="mousedown($event)" [class.app-selected]="item.selected" [fxFlex]="iconWidth + '%'"><!--[style.height]="iconHeight + 'px'"-->
           <div class="app-item">
-            <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"></div>
+            <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="iconHeight + 'px'"></div>
             <div class="app-item-label" *ngIf="isRepo">
               {{ shortLabels ? item.shortLabel : item.label }}<br />
               ({{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }})

@@ -26,9 +26,9 @@
           <div fxFlex class="app-oa-y">
             <div class="app-editor-content">
               <div class="app-view-icon" *ngIf="data.viewModeOrig === 'icons'" #childrenIconList fxLayout="row wrap">
-                <div *ngFor="let item of orig; let i = index" class="app-item-wrapper" (click)="select(orig, item, i, $event)" [class.app-selected]="item.selected" [fxFlex]="data.iconWidth['orig'] + '%'" [style.height]="data.iconHeight['orig'] + 'px'">
+                <div *ngFor="let item of orig; let i = index" class="app-item-wrapper" (click)="select(orig, item, i, $event)" [class.app-selected]="item.selected" [fxFlex]="data.iconWidth['orig'] + '%'">
                   <div class="app-item">
-                    <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"></div>
+                    <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['orig'] + 'px'"></div>
                     <div class="app-item-label">{{ item.label + (data.shortLabels ? "" : (", " + ("page_type." + item.pageType | translate))) }}</div>
                   </div>
                 </div>
@@ -119,9 +119,9 @@
           <div fxFlex class="app-oa-y">
             <div class="app-editor-content">
               <div class="app-view-icon" *ngIf="data.viewModeDest == 'icons'" #childrenIconList fxLayout="row wrap">
-                <div *ngFor="let item of dest; let i = index" class="app-item-wrapper" (click)="select(dest, item, i, $event)" [class.app-selected]="item.selected" [fxFlex]="data.iconWidth['dest'] + '%'" [style.height]="data.iconHeight['dest'] + 'px'">
+                <div *ngFor="let item of dest; let i = index" class="app-item-wrapper" (click)="select(dest, item, i, $event)" [class.app-selected]="item.selected" [fxFlex]="data.iconWidth['dest'] + '%'">
                   <div class="app-item">
-                    <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"></div>
+                    <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['dest'] + 'px'"></div>
                     <div class="app-item-label">{{ item.label + (data.shortLabels ? "" : (", " + ("page_type." + item.pageType | translate))) }}</div>
                   </div>
                 </div>

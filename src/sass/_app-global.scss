@@ -415,34 +415,27 @@ as-split {
 
       &.app-selected {
         .app-item {
-          border-width: 3px;
-          border-style: solid;
-          border-color: $app-item-selected;
+          background-color: $app-item-selected;
 
-          .app-item-label {
-            background-color: rgba($app-item-selected, .8);  
+          .app-item-thumb {
+            /* border-width: 4px;
+            border-style: solid;
+            border-color: $app-item-selected; */
+            opacity: .5;
           }
         }
       }
 
       .app-item {
         @extend .app-h-100;
-        position: relative;
-        padding: $app-icon-item-pd;
-        border-width: 1px;
-        border-style: solid;
-        border-color: $app-icon-item-border-color;
-
+        background-color: $app-gray-2;
+      
         .app-item-thumb {
-          @extend .app-h-100;
+          background-size: cover;
         }
 
         .app-item-label {
           @extend .app-text-center, .app-p-1;
-          position: absolute;
-          left: 0;
-          bottom: 0;
-          background-color: rgba($app-color-lightnes, .8);
         }
       }
     }
