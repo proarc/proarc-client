@@ -3,7 +3,7 @@
 <div mat-dialog-content fxLayout="column">
   <div>
     <mat-form-field class="app-w-100">
-      <mat-select [placeholder]="'urnnbn.resolver' | translate" [(ngModel)]="selectedRegistrar" [disabled]="formDisabled()">
+      <mat-select [placeholder]="'desc.resolver' | translate" [(ngModel)]="selectedRegistrar" [disabled]="formDisabled()">
         <mat-option *ngFor="let registrar of registrars" [value]="registrar">{{ registrar.name }}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -11,38 +11,38 @@
   <div class="app-oa-y">
     <table *ngIf="responseData" mat-table [dataSource]="responseData">
       <ng-container matColumnDef="label">
-        <th mat-header-cell *matHeaderCellDef>Popis</th>
-        <td mat-cell *matCellDef="let row">{{row.label}}</td>
+        <th mat-header-cell *matHeaderCellDef>{{ 'desc.description' | translate }}</th>
+        <td mat-cell *matCellDef="let row">{{ row.label }}</td>
       </ng-container>
 
       <ng-container matColumnDef="model">
-        <th mat-header-cell *matHeaderCellDef>Model</th>
+        <th mat-header-cell *matHeaderCellDef>{{ 'desc.model' | translate }}</th>
         <td mat-cell *matCellDef="let row">{{ "model." + row.model | translate }}</td>
       </ng-container>
 
       <ng-container matColumnDef="statusType">
-        <th mat-header-cell *matHeaderCellDef>Chyba</th>
-        <td mat-cell *matCellDef="let row">{{row.statusType}}</td>
+        <th mat-header-cell *matHeaderCellDef>{{ 'desc.error' | translate }}</th>
+        <td mat-cell *matCellDef="let row">{{ row.statusType }}</td>
       </ng-container>
 
       <ng-container matColumnDef="warning">
-        <th mat-header-cell *matHeaderCellDef>Stav</th>
+        <th mat-header-cell *matHeaderCellDef>{{ 'desc.state' | translate }}</th>
         <td mat-cell *matCellDef="let row">{{ row.hasOwnProperty('warning') ? (row.warning ? ':-|' : ':-(') : ':-)' }}</td>
       </ng-container>
 
       <ng-container matColumnDef="pid">
         <th mat-header-cell *matHeaderCellDef>PID</th>
-        <td mat-cell *matCellDef="let row">{{row.pid}}</td>
+        <td mat-cell *matCellDef="let row">{{ row.pid }}</td>
       </ng-container>
 
       <ng-container matColumnDef="urnnbn">
         <th mat-header-cell *matHeaderCellDef>URN:NBN</th>
-        <td mat-cell *matCellDef="let row">{{row.urnnbn}}</td>
+        <td mat-cell *matCellDef="let row">{{ row.urnnbn }}</td>
       </ng-container>
 
       <ng-container matColumnDef="message">
-        <th mat-header-cell *matHeaderCellDef>message</th>
-        <td mat-cell *matCellDef="let row">{{row.message}}</td>
+        <th mat-header-cell *matHeaderCellDef>{{ 'desc.message' | translate }}</th>
+        <td mat-cell *matCellDef="let row">{{ row.message }}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="tableColumns; sticky: true"></tr>

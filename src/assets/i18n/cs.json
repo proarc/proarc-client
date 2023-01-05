@@ -2025,7 +2025,13 @@
     "editPageIndex": "Editovat index stran",
     "editPageNumbers": "Editovat čísla stran",
     "editPagePositions": "Editovat pozice stran",
-    "selectTheFieldToCopyTo": "Vyberte pole kam kopírovat"
+    "selectTheFieldToCopyTo": "Vyberte pole kam kopírovat",
+    "resolver": "Řešitel",
+    "description": "Popis",
+    "model": "Model",
+    "error": "Chyba",
+    "state": "Stav",
+    "message": "Zpráva"
   },
   "button": {
     "setLayout": "nastavit rozložení",
