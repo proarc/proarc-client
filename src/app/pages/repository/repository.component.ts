@@ -61,6 +61,7 @@ export class RepositoryComponent implements OnInit {
 
     this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
       this.loadMetadata(this.layout.lastSelectedItem.pid, this.layout.lastSelectedItem.model);
+      
     }));
 
     // this.layout.selectionChanged().subscribe(() => {
@@ -285,6 +286,7 @@ export class RepositoryComponent implements OnInit {
         return;
       }
       this.layout.lastSelectedItemMetadata = new Metadata(pid, model, response['record']['content'], response['record']['timestamp']);
+      
     });
   }
 

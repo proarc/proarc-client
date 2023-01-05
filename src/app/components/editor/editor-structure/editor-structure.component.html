@@ -19,7 +19,7 @@
       <button mat-icon-button (click)="selectAll()" [matTooltip]="'editor.children.select_all' | translate" >
         <mat-icon>check_box</mat-icon>
       </button>
-      <button mat-icon-button *ngIf="pageChildren" (click)="validateChildren()" [matTooltip]="'editor.children.validate' | translate" >
+      <button mat-icon-button  (click)="validateChildren()" [matTooltip]="'editor.children.validate' | translate" >
         <mat-icon>fact_check</mat-icon>
       </button>
       <button mat-icon-button *ngIf="pageChildren" (click)="onReindexChildren()" [matTooltip]="'editor.children.reindex' | translate" >

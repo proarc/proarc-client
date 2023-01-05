@@ -123,7 +123,7 @@ export class NdkPeriodicalVolumeAacrTemplate {
           description: `Datum vydání předlohy, rok nebo rozsah let, kdy ročník vycházel`,
           fields: {
             value: {
-              usage: 'MA',
+              usage: 'M',
               selector: 'originInfo/dateIssued/value',
               labelKey: 'originInfo/dateIssued/value',
               label: 'Hodnota',
