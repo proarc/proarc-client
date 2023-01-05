@@ -2032,7 +2032,9 @@
     "close": "Close",
     "continue": "Continue",
     "metadataCatalog": "Metadata catalog",
-    "save": "Save"
+    "save": "Save",
+    "register": "Register",
+    "viewErrorOutput": "View error output"
   },
   "dynamic": {
     "repo": "Storage",

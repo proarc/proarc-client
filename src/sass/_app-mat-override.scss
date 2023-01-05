@@ -15,10 +15,26 @@
 
 // mat table
 .mat-table {
-  tr {
-    &.mat-header-row,
-    &.mat-row {
-      height: $app-mat-table-row-height;
+  @extend .app-w-100;
+
+  // common behavior
+  .mat-header-row,
+  .mat-row {
+    height: $app-mat-table-row-height;
+
+    .mat-header-cell,
+    .mat-cell {
+      @extend .app-pr-2;
+
+      &:first-of-type {
+        @extend .app-pl-2;
+      }
+    }
+  }
+
+  .mat-row {
+    &.app-selected {
+      background-color: $app-item-selected;
     }
   }
 }
@@ -27,5 +43,36 @@
 .mat-progress-bar {
   &.app-progress-bar {
     margin-top: 1px;
+  }
+}
+
+// mat dialog
+.mat-dialog-container {
+  position: relative;
+
+  .mat-progress-bar {
+    @extend .app-m-0;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+// mat card
+.mat-card {
+  @extend .app-clean-shadow;
+
+  &.app-alert {
+    @include setAlertCard();
+    border-width: 1px;
+    border-style: solid;
+    border-color: $app-gray-3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .mat-icon {
+      @extend .app-mr-1;
+    }
   }
 }

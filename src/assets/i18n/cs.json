@@ -2032,7 +2032,9 @@
     "close": "Zavřít",
     "continue": "Pokračovat",
     "metadataCatalog": "Metadata katalog",
-    "save": "Uložit"
+    "save": "Uložit",
+    "register": "Registrovat",
+    "viewErrorOutput": "Zobrazit chybový výstup"
   },
   "dynamic": {
     "repo": "Úložiště",

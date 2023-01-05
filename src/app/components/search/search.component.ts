@@ -253,7 +253,11 @@ export class SearchComponent implements OnInit {
   }
 
   onUrnnbn(item: DocumentItem) {
-    const dialogRef = this.dialog.open(UrnbnbDialogComponent, { data: item.pid });
+    const dialogRef = this.dialog.open(UrnbnbDialogComponent, { 
+      data: item.pid,
+      panelClass: 'app-urnbnb-dialog',
+      minWidth: '400px'
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
     

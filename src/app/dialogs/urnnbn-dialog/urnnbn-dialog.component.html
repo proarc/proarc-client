@@ -1,4 +1,80 @@
+<mat-progress-bar mode="indeterminate" *ngIf="state ==='saving'" class="app-progress-bar"></mat-progress-bar>
 <h1 mat-dialog-title>{{ 'urnnbn.title' | translate }}</h1>
+<div mat-dialog-content fxLayout="column">
+  <div>
+    <mat-form-field class="app-w-100">
+      <mat-select [placeholder]="'urnnbn.resolver' | translate" [(ngModel)]="selectedRegistrar" [disabled]="formDisabled()">
+        <mat-option *ngFor="let registrar of registrars" [value]="registrar">{{ registrar.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="app-oa-y">
+    <table *ngIf="responseData" mat-table [dataSource]="responseData">
+      <ng-container matColumnDef="label">
+        <th mat-header-cell *matHeaderCellDef>Popis</th>
+        <td mat-cell *matCellDef="let row">{{row.label}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="model">
+        <th mat-header-cell *matHeaderCellDef>Model</th>
+        <td mat-cell *matCellDef="let row">{{ "model." + row.model | translate }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="statusType">
+        <th mat-header-cell *matHeaderCellDef>Chyba</th>
+        <td mat-cell *matCellDef="let row">{{row.statusType}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="warning">
+        <th mat-header-cell *matHeaderCellDef>Stav</th>
+        <td mat-cell *matCellDef="let row">{{ row.hasOwnProperty('warning') ? (row.warning ? ':-|' : ':-(') : ':-)' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="pid">
+        <th mat-header-cell *matHeaderCellDef>PID</th>
+        <td mat-cell *matCellDef="let row">{{row.pid}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="urnnbn">
+        <th mat-header-cell *matHeaderCellDef>URN:NBN</th>
+        <td mat-cell *matCellDef="let row">{{row.urnnbn}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="message">
+        <th mat-header-cell *matHeaderCellDef>message</th>
+        <td mat-cell *matCellDef="let row">{{row.message}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="tableColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: tableColumns;" (click)="selectRow(row)" [class.app-selected]="row.pid === selectedRow"></tr>
+    </table>
+  </div>
+ 
+  <!-- to delete after testing
+    <div *ngIf="message" class="app-urnnbn-message" [class.app-error]="state == 'error'">{{ message}}</div> 
+  -->
+
+  <mat-card *ngIf="message" class="app-alert app-success app-mt-4" [ngClass]="state == 'error' ? 'app-error' : null">
+    <mat-icon>info</mat-icon> {{ message }}
+  </mat-card>
+</div>
+<div mat-dialog-actions cdk-focus-start>
+  <button mat-flat-button color="primary" [disabled]="formDisabled()" (click)="onRegister()">{{ 'button.register' | translate }}</button>
+  <button mat-flat-button mat-dialog-close="close" >{{ 'button.close' | translate }}</button>
+  <button *ngIf="log" mat-flat-button color="warn" (click)="showErrorDetail(log)">{{ 'button.viewErrorOutput' | translate }}</button>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- to delete after testing
+  
+<h1 mat-dialog-title>{{ 'urnnbn.title' | translate }}</h1>AAA
 
 <div mat-dialog-content>
 
@@ -66,3 +142,4 @@
 </div>
 
 
+ -->

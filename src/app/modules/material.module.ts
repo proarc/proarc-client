@@ -46,7 +46,8 @@ const modules = [
     MatNativeDateModule,
     MatTableModule,
     MatButtonToggleModule,
-    MatDividerModule
+    MatDividerModule,
+    MatCardModule
   ];
 
   @NgModule({
