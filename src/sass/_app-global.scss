@@ -367,8 +367,14 @@ as-split {
 
 // editor content
 .app-editor-content {
-  ::selection { background: transparent; }
-  ::-moz-selection { background: transparent; }
+  
+  // common behavior
+  .mat-table,
+  .app-view-grid,
+  .app-view-icon {
+    ::selection { background: transparent; }
+    ::-moz-selection { background: transparent; }
+  } 
 
   .mat-table {
     .mat-row {
