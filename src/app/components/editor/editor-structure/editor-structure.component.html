@@ -82,6 +82,7 @@
         <div *ngFor="let item of layout.items; let i = index" (click)="rowClick(item, i, $event)" (dblclick)="open(item)" class="app-item-wrapper" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart(item,i,$event)" (dragover)="dragover($event)" (dragend)="dragend($event)" (mousedown)="mousedown($event)" [class.app-selected]="item.selected" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [fxFlex]="iconWidth + '%'">
           <div class="app-item">
             <div class="app-item-label">
+              <mat-icon *ngIf="item.invalid">warning</mat-icon>
               {{ shortLabels ? item.shortLabel : item.label }}<br />
               ({{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }})
             </div>
@@ -94,15 +95,20 @@
           <div class="app-item">
             <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"></div>
             <div class="app-item-label" *ngIf="isRepo">
+              <mat-icon *ngIf="item.invalid">warning</mat-icon>
               {{ shortLabels ? item.shortLabel : item.label }}<br />
               ({{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }})
             </div>
-            <div class="app-item-label" *ngIf="!isRepo">{{ item.label + (shortLabels ? "" : (", " + ("page_type." + item.pageType | translate))) }}</div>
+            <div class="app-item-label" *ngIf="!isRepo">
+              <mat-icon *ngIf="item.invalid">warning</mat-icon>
+              {{ item.label + (shortLabels ? "" : (", " + ("page_type." + item.pageType | translate))) }}
+            </div>
           </div>
         </div>
       </div>
 
       <table mat-table *ngIf="viewMode == 'list'" [dataSource]="layout.items" class="app-w-100" #table>
+
         <ng-container matColumnDef="pid">
           <th mat-header-cell *matHeaderCellDef>{{'search.pid' | translate}} </th>
           <td mat-cell *matCellDef="let element"> {{element.pid}} </td>
@@ -110,7 +116,7 @@
 
         <ng-container matColumnDef="label">
           <th mat-header-cell *matHeaderCellDef> {{'search.name' | translate}}</th>
-          <td mat-cell *matCellDef="let element">{{shortLabels ? element.shortLabel : element.label}} </td>
+          <td mat-cell *matCellDef="let element"><mat-icon *ngIf="element.invalid">warning</mat-icon>{{shortLabels ? element.shortLabel : element.label}} </td>
         </ng-container>
 
         <ng-container matColumnDef="pageType">
