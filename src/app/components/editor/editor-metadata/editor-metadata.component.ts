@@ -119,6 +119,11 @@ export class EditorMetadataComponent implements OnInit {
         } else {
           this.saveMetadata(ignoreValidation);
         }
+      } else {
+        const el: any = document.querySelectorAll('input.ng-invalid')[0];
+        if (el) {
+          el.focus();
+        }
       }
     });
   }

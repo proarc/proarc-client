@@ -14,7 +14,7 @@
       [class.app-parent]="tree.item.pid === selectedParentPid"
       [class.app-active-tree]="(tree.item.selected  || tree.item.pid == selectedPid)"
       draggable="true" (dragenter)="dragenter(tree, $event)" (dragstart)="dragstart($event)"
-      (dragend)="dragend(tree, $event)" (dragover)="dragover(tree, $event)" >
+      (dragend)="dragend(tree, $event)" (dragover)="dragover(tree, $event)"  (drop)="drop(tree, $event)" >
       <div class="app-expansion-cell">
         <div class="app-expansion-icon" [style.width]="(tree.level * 20 + 40) + 'px'">
           <mat-spinner *ngIf="tree.loading" [strokeWidth]="3" [diameter]="20">
@@ -43,7 +43,7 @@
       </div>
     </div>
     <ng-container *ngIf="tree.expanded && tree.children">
-      <div *ngFor="let child of tree.children"  (drop)="drop(child, $event)" (dragenter)="dragenter(tree, $event)" (dragover)="dragover(tree, $event)" draggable="false">
+      <div *ngFor="let child of tree.children" (dragenter)="dragenter(tree, $event)" (dragover)="dragover(tree, $event)" draggable="false">
         <ng-container *ngTemplateOutlet="rowTmpl; context:{ tree: child }"></ng-container>
       </div>
     </ng-container>
