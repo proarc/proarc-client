@@ -13,7 +13,7 @@
     <div (click)="select(tree)" (dblclick)="open(tree)" class="app-row"
       [class.app-parent]="tree.item.pid === selectedParentPid"
       [class.app-active-tree]="(tree.item.selected  || tree.item.pid == selectedPid)"
-      draggable="true" (dragenter)="dragenter(tree, $event)" (dragstart)="dragstart($event)"
+      draggable="true" (dragenter)="dragenter(tree, $event)" (dragstart)="dragstart($event)" (dragleave)="dragleave($event)"
       (dragend)="dragend(tree, $event)" (dragover)="dragover(tree, $event)"  (drop)="drop(tree, $event)" >
       <div class="app-expansion-cell">
         <div class="app-expansion-icon" [style.width]="(tree.level * 20 + 40) + 'px'">
@@ -43,7 +43,7 @@
       </div>
     </div>
     <ng-container *ngIf="tree.expanded && tree.children">
-      <div *ngFor="let child of tree.children" (dragenter)="dragenter(tree, $event)" (dragover)="dragover(tree, $event)" draggable="false">
+      <div *ngFor="let child of tree.children" >
         <ng-container *ngTemplateOutlet="rowTmpl; context:{ tree: child }"></ng-container>
       </div>
     </ng-container>

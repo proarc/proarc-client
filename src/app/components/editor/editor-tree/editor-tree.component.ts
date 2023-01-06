@@ -11,6 +11,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UIService } from 'src/app/services/ui.service';
+import { ModelTemplate } from 'src/app/templates/modelTemplate';
 
 
 @Component({
@@ -30,8 +31,8 @@ export class EditorTreeComponent implements OnInit {
     { field: 'status', visible: true, type: 'translatable', prefix: 'editor.atm.statuses' },
     { field: 'created', visible: false, type: 'date' },
     { field: 'modified', visible: true, type: 'date' },
-    { field: 'owner', visible: true},
-    { field: 'export', visible: false},
+    { field: 'owner', visible: true },
+    { field: 'export', visible: false },
     { field: 'isLocked', visible: true, type: 'boolean' }
   ];
 
@@ -215,8 +216,24 @@ export class EditorTreeComponent implements OnInit {
   }
 
   dragenter(tree: Tree, event: any) {
+    const source: DocumentItem = this.layout.lastSelectedItem;
+    const target: DocumentItem = tree.item;
+    const allowed = ModelTemplate.allowedChildrenForModel(target.model).includes(source.model);
+    if (event.target.classList.contains("app-row")) {
+      if (allowed) {
+        event.target.classList.add("dragoverAllowed");
+      } else {
+        event.target.classList.add("dragoverNotAllowed");
+      }
+    }
     event.preventDefault();
-    //console.log(event)
+  }
+
+  dragleave(event: any) {
+    if (event.target.classList.contains("app-row")) {
+      event.target.classList.remove("dragoverAllowed");
+      event.target.classList.remove("dragoverNotAllowed");
+    }
   }
 
   dragstart(event: DragEvent) {
@@ -282,7 +299,7 @@ export class EditorTreeComponent implements OnInit {
         parent = parent.parent;
       }
       this.initTree();
-      
+
     });
   }
 
