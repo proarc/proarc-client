@@ -398,6 +398,7 @@ as-split {
       }
 
       .app-item {
+        @extend .app-h-100, .app-text-center, .app-p-1;
         padding: $app-grid-item-pd;
         border-width: 1px;
         border-style: solid;
