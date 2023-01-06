@@ -42,7 +42,7 @@
     &.app-#{$alert} {
       color: $color;
       border-color: rgba($color, .2);
-      background-color: rgba($color, .1) !important;
+      background-color: rgba($color, .1);
 
       .mat-icon {
         color: $color;
