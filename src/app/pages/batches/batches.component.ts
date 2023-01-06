@@ -104,7 +104,6 @@ export class BatchesComponent implements OnInit {
       }
 
       const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
-      console.log(pages, selection, lastSelected)
       this.layout.items = pages;
       for (let i = 0; i < this.layout.items.length; i++) {
         const item = this.layout.items[i];

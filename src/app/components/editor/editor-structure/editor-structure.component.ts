@@ -1,8 +1,9 @@
 
-import { ThisReceiver } from '@angular/compiler';
-import { Component, OnInit, Input, ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
+
+import { Component, OnInit, Input, ViewChild, ElementRef, EventEmitter, Output, ViewChildren, ViewContainerRef, QueryList } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatTable } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ResizedEvent } from 'angular-resize-event';
@@ -21,7 +22,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UIService } from 'src/app/services/ui.service';
-import {MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions} from '@angular/material/tooltip';
+import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions } from '@angular/material/tooltip';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 300,
@@ -34,7 +35,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
 @Component({
   selector: 'app-editor-structure',
   templateUrl: './editor-structure.component.html',
-  providers: [{provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults}],
+  providers: [{ provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults }],
   styleUrls: ['./editor-structure.component.scss']
 })
 export class EditorStructureComponent implements OnInit {
@@ -42,15 +43,19 @@ export class EditorStructureComponent implements OnInit {
   @Input() viewMode: string; // 'list' | 'grid' | 'icons'
   @Input('panel') panel: ILayoutPanel;
   @Output() onIngest = new EventEmitter<boolean>();
-  //@Input() selectedIndex: number = -1;
+
   @ViewChild('table') table: MatTable<DocumentItem>;
+  @ViewChildren('matrow', { read: ViewContainerRef }) rows: QueryList<ViewContainerRef>;
+  @ViewChild('childrenList') childrenListEl: ElementRef;
+  @ViewChild('childrenIconList') childrenIconListEl: ElementRef;
+  @ViewChild('childrenGridList') childrenGridListEl: ElementRef;
   @ViewChild('childrenWrapper') childrenWrapperEl: ElementRef;
 
   public state = 'none';
   isRepo: boolean = true;
 
   lastClickIdx: number = -1;
-  rows: DocumentItem[] = [];
+  // rows: DocumentItem[] = [];
 
   source: any;
   sourceNext: any;
@@ -87,7 +92,8 @@ export class EditorStructureComponent implements OnInit {
     { field: 'status', selected: false }
   ];
   displayedColumns: string[] = [];
-  // dataSource: any;
+
+  subscriptions: Subscription[] = [];
 
   constructor(
     private router: Router,
@@ -100,6 +106,10 @@ export class EditorStructureComponent implements OnInit {
     public layout: LayoutService
   ) { }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
   ngOnInit(): void {
     this.isRepo = this.layout.type === 'repo';
     this.initSelectedColumns();
@@ -109,18 +119,12 @@ export class EditorStructureComponent implements OnInit {
     if (!this.isRepo) {
       this.lastClickIdx = 0;
     }
-    // if (this.pageChildren) {
-    //   this.viewMode = this.properties.getStringProperty('children.page_view_mode', 'icons');
-    // } else {
-    //   this.viewMode = this.properties.getStringProperty('children.view_mode', 'list');
-    // }
+    this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((fromStructure: boolean) => {
+      setTimeout(() => {
+        this.scrollToSelected();
+      }, 100);
+    }));
   }
-
-  // ngOnChanges(e: any) {
-  //   if (this.layout.items) {
-  //     this.dataSource = new MatTableDataSource(this.layout.items);
-  //   }
-  // }
 
   ngAfterViewInit() {
     this.childrenWrapperEl.nativeElement.focus();
@@ -135,6 +139,31 @@ export class EditorStructureComponent implements OnInit {
     this.layout.moveToNext().subscribe((idx: number) => {
       this.moveToNext(idx);
     });
+  }
+
+  scrollToSelected() {
+    const index = this.layout.items.findIndex(i => i.selected);
+    if (index < 0) {
+      return;
+    }
+    let container: any;
+    if (this.viewMode == 'grid') {
+      container = this.childrenGridListEl;
+    } else if (this.viewMode == 'icons') {
+      container = this.childrenIconListEl;
+    } else {
+
+      let row = this.rows.get(index); 
+      row.element.nativeElement.scrollIntoView(true);
+      return;
+    }
+    
+    if (container) {
+      if (index > 0) {
+        const el = container.nativeElement.children[index];
+        el.scrollIntoView(true);
+      }
+    }
   }
 
   obtainFocus() {
@@ -277,15 +306,15 @@ export class EditorStructureComponent implements OnInit {
   }
 
   public goToParent() {
-      this.router.navigate(['/repository', this.layout.parent.pid]);
+    this.router.navigate(['/repository', this.layout.parent.pid]);
   }
 
   goToNext() {
-      this.router.navigate(['/repository', this.layout.nextItem.pid]);
+    this.router.navigate(['/repository', this.layout.nextItem.pid]);
   }
 
   goToPrevious() {
-      this.router.navigate(['/repository', this.layout.previousItem.pid]);
+    this.router.navigate(['/repository', this.layout.previousItem.pid]);
   }
 
   // Drag events
@@ -304,11 +333,11 @@ export class EditorStructureComponent implements OnInit {
     }
     return false;
   }
-  
+
   mousedown(event: any) {
     this.dragEnabled = true;
   }
-  
+
   mouseup(event: any) {
     this.dragEnabled = false;
   }
@@ -356,7 +385,7 @@ export class EditorStructureComponent implements OnInit {
     if (!this.dragEnabled || !this.source || this.source.parentNode !== event.currentTarget.parentNode) {
       event.dataTransfer.dropEffect = 'none';
     }
-    
+
     return false;
   }
 

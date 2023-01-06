@@ -150,10 +150,10 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; let idx = index; columns: displayedColumns" [class.app-selected]="row.selected" 
+        <tr mat-row #matrow *matRowDef="let row; let idx = index; columns: displayedColumns" [class.app-selected]="row.selected" 
             (click)="rowClick(row, idx, $event)"  (dblclick)="open(row)"  (mousedown)="mousedown($event)" (mouseup)="mouseup($event)"
             draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart(row, idx, $event)" (dragover)="dragover($event)"
-            (dragend)="dragend($event)"
+            (dragend)="dragend($event)" 
             ></tr>
       </table>
     </div>
