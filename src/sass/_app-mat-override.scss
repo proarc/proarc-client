@@ -34,7 +34,7 @@
 
   .mat-row {
     &.app-selected {
-      background-color: $app-item-selected;
+      background-color: $app-color-item-selected;
     }
   }
 
@@ -52,7 +52,7 @@
     .mat-row {
       &:hover {
         &:not(.app-selected) {
-          background-color: $app-item-hover;
+          background-color: $app-color-item-hover;
         }
       }
     }

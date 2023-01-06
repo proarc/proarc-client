@@ -379,7 +379,7 @@ as-split {
   .mat-table {
     .mat-row {
       &.app-selected {
-        background-color: $app-item-selected;
+        background-color: $app-color-item-selected;
       }
     }
   }
@@ -393,7 +393,7 @@ as-split {
 
       &.app-selected {
         .app-item {
-          background-color: $app-item-selected;
+          background-color: $app-color-item-selected;
         }
       }
 
@@ -416,7 +416,7 @@ as-split {
 
       &.app-selected {
         .app-item {
-          background-color: $app-item-selected;
+          background-color: $app-color-item-selected;
 
           .app-item-thumb {
             opacity: .5;
@@ -435,6 +435,20 @@ as-split {
         .app-item-label {
           @extend .app-text-center, .app-p-1;
         }
+      }
+    }
+  }
+
+  &.app-tree {
+    .app-row {
+      &.dragoverAllowed {
+        background: $app-color-item-dragover-allowed;
+        color: $app-color-lightnes;
+      }
+    
+      &.dragoverNotAllowed {
+        background: $app-color-item-dragover-noallowed;
+        color: $app-color-lightnes;
       }
     }
   }
