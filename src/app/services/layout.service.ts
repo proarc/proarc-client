@@ -110,6 +110,10 @@ export class LayoutService {
     return this.moveNextSubject.asObservable();
   }
 
+  setSelectionChanged(fromStructure: boolean) {
+    this.selectionSubject.next(fromStructure);
+  }
+
   selectionChanged(): Observable<boolean> {
     return this.selectionSubject.asObservable();
   }

@@ -134,6 +134,10 @@ export class EditorStructureComponent implements OnInit {
         this.arrowIndex = this.layout.getFirstSelectedIndex();
         this.obtainFocus();
       }
+      if (this.table) {
+        this.table.renderRows();
+      }
+      
     });
 
     this.layout.moveToNext().subscribe((idx: number) => {
@@ -375,6 +379,7 @@ export class EditorStructureComponent implements OnInit {
     } else {
       target.parentNode.insertBefore(this.source, target.nextSibling); // insert after
     }
+    this.layout.setSelectionChanged(true);
   }
 
   dragover(event: any) {
@@ -434,6 +439,7 @@ export class EditorStructureComponent implements OnInit {
         this.reorder(from, to);
       }
     }
+    this.layout.setSelectionChanged(true);
   }
 
   reorderMultiple(to: number) {
