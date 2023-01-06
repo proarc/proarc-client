@@ -122,7 +122,7 @@ export class EditorStructureComponent implements OnInit {
     this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((fromStructure: boolean) => {
       setTimeout(() => {
         this.scrollToSelected();
-      }, 100);
+      }, 500);
     }));
   }
 

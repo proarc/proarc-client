@@ -65,13 +65,12 @@ export class ParentDialogComponent implements OnInit {
     public search: SearchService,
     private config: ConfigService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private api: ApiService) {
-    // this.models = this.config.allModels;
-  }
+    private api: ApiService) { }
 
   ngOnInit() {
     
-    this.models = ModelTemplate.allowedParentsForModel(this.data.items[0].model);
+    // this.models = ModelTemplate.allowedParentsForModel(this.data.items[0].model);
+    this.models = this.config.allModels;
 
     this.splitArea1Width = this.properties.getStringProperty('parent.split.0', "60"),
     this.splitArea2Width = this.properties.getStringProperty('parent.split.1', "40"),
@@ -95,6 +94,10 @@ export class ParentDialogComponent implements OnInit {
 
 
     this.reload();
+  }
+
+  isAllowed() {
+    return ModelTemplate.allowedChildrenForModel(this.selectedItem.model).includes(this.data.items[0].model);
   }
 
   getSortIcon(field: string) {

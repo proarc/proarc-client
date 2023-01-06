@@ -161,7 +161,7 @@
     [matTooltip]="'editor.children.delete_parent_dialog.button_tooltip' | translate">
     <mat-icon>delete</mat-icon>{{ 'editor.children.delete_parent_dialog.button' | translate }}
   </button>
-  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="!selectedItem || state=='loading'">{{
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="!selectedItem || state=='loading' || !isAllowed()">{{
     data.btnLabel | translate }} {{ selectedItem ? ( ' do: ' + selectedItem.label ) : ''}} </button>
   <button mat-raised-button color="default" mat-dialog-close="close">{{ 'common.cancel' | translate }}</button>
 
