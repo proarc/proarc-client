@@ -23,10 +23,10 @@ export class MarkSequenceDialogComponent implements OnInit {
   // destViewMode = 'icons';
   meta: any;
 
-  pageType: boolean = false;
-  pageIndex: boolean = false;
-  pageNumber: boolean = false;
-  pagePosition: boolean = false;
+  pageType: boolean = true;
+  pageIndex: boolean = true;
+  pageNumber: boolean = true;
+  pagePosition: boolean = true;
   lastClickIdx: number = -1;
   changed = false;
 

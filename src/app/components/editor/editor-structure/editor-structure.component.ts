@@ -898,8 +898,8 @@ export class EditorStructureComponent implements OnInit {
       data: {
         iconWidth: { orig: this.iconWidth, dest: this.iconWidth },
         iconHeight: { orig: this.iconHeight, dest: this.iconHeight },
-        viewModeOrig: this.viewMode,
-        viewModeDest: this.viewMode,
+        viewModeOrig: 'list',
+        viewModeDest: 'icons',
         displayedColumns: this.displayedColumns,
         api: this.api,
         items: this.layout.items,
