@@ -19,7 +19,7 @@ export class EditorBdmComponent implements OnInit {
 
   @Input() notSaved = false;
   @Input() model: string;
-  @Input() pid: string;
+  // @Input() pid: string;
   @Input() metadata: Metadata;
   state = 'none';
 
@@ -39,37 +39,43 @@ export class EditorBdmComponent implements OnInit {
   }
 
   ngOnChanges(c: SimpleChanges) {
-    console.log(c, this.pid)
+
     if (c['metadata'] && c['metadata'].currentValue) {
       this.metadata = c['metadata'].currentValue;
       return;
     }
-    if (!this.layout.lastSelectedItem) {
+
+    // if (c['pid'] && c['pid'].currentValue) {
+    //   this.item = this.layout.lastSelectedItem;
+    //   this.pid = c['pid'].currentValue;
+    //   this.visible = true;
+    //   this.load();
+    //   return;
+    // }
+
+    if (!this.layout.lastSelectedItem || this.layout.lastSelectedItem.isPage()) {
       return;
     }
-    if (this.pid) {
-      this.load();
-    }
   }
 
-  load() {
-    this.state = 'loading';
+  // load() {
+  //   this.state = 'loading';
 
-    this.api.getMetadata(this.pid).subscribe((response: any) => {
-      if (response.errors) {
-        console.log('error', response.errors);
-        this.ui.showErrorSnackBarFromObject(response.errors);
-        this.state = 'error';
-        return;
-      }
-      this.metadata = new Metadata(this.pid, this.model, response['record']['content'], response['record']['timestamp']);
-      console.log(this.metadata)
-      if (!this.notSaved) {
-        this.layout.lastSelectedItemMetadata = this.metadata;
-      }
-      this.state = 'success';
-    });
-  }
+  //   this.api.getMetadata(this.pid).subscribe((response: any) => {
+  //     if (response.errors) {
+  //       console.log('error', response.errors);
+  //       this.ui.showErrorSnackBarFromObject(response.errors);
+  //       this.state = 'error';
+  //       return;
+  //     }
+  //     this.metadata = new Metadata(this.pid, this.model, response['record']['content'], response['record']['timestamp']);
+  //     console.log(this.metadata)
+  //     if (!this.notSaved) {
+  //       this.layout.lastSelectedItemMetadata = this.metadata;
+  //     }
+  //     this.state = 'success';
+  //   });
+  // }
 
   saveMetadata(ignoreValidation: boolean) {
     this.state = 'saving';

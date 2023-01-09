@@ -9,7 +9,7 @@
     <app-editor-audioPage *ngIf="isAudioPage()" [model]="data.model" [notSaved]="true" [pid]="data.pid">
     </app-editor-audioPage>
     <app-editor-chronicle *ngIf="isChronicle()" [notSaved]="true" [pid]="data.pid"></app-editor-chronicle>
-    <app-editor-bdm *ngIf="isBdm()" [notSaved]="true" [pid]="data.pid"></app-editor-bdm>
+    <app-editor-bdm *ngIf="isBdm()" [notSaved]="true" [metadata]="metadata" [model]="data.model"></app-editor-bdm>
     <app-editor-metadata *ngIf="!isPage() && !isChronicle() && !isBdm()" [notSaved]="true" 
       [model]="data.model" [metadata]="metadata">
     </app-editor-metadata>
