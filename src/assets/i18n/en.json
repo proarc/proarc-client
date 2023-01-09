@@ -2075,6 +2075,13 @@
     },
     "urnnbn": {
       "title": "Registration URN:NBN"
+    },
+    "childrenValidation": {
+      "title": "Validation",
+      "alert": {
+        "success": "All objects are valid. Total: {{value}}",
+        "error": "Number of invalid {{value1}} objects from {{value2}}"
+      }
     }
   }
 }

@@ -2075,6 +2075,13 @@
     },
     "urnnbn": {
       "title": "Registrace URN:NBN"
+    },
+    "childrenValidation": {
+      "title": "Validace",
+      "alert": {
+        "success": "Všechny objekty jsou validní. Celkem: {{value}}",
+        "error": "Počet nevalidních objektů {{value1}} z {{value2}}"
+      }
     }
   }
 }

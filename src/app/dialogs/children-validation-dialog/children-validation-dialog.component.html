@@ -1,32 +1,17 @@
-<h1 mat-dialog-title>Validace</h1>
-<div mat-dialog-content [style.width]="'600px'">
-    <ng-container *ngIf="state == 'running'">
-        {{ index + 1 }} / {{ count }}
-        <mat-progress-bar
-                color="primary"
-                mode="buffer"
-                [value]="(index/count) * 100"
-                [bufferValue]="0">
-        </mat-progress-bar>
-    </ng-container>
-
-    <ng-container *ngIf="state == 'done'">
-        <div class="app-message" *ngIf="numberOfInvalid == 0">
-            Všechny objekty jsou validní. Celkem: {{ numberOfValid }}
-        </div>
-        <div class="app-message app-error-message" *ngIf="numberOfInvalid > 0">
-            Počet nevalidních objektů {{ numberOfInvalid }} z {{ count }}
-        </div>
-    </ng-container>
-
-    <div style="height: 0px; overflow: hidden;">
-        <div *ngFor="let m of metadatas">
-            <app-editor-metadata [notSaved]="true"  [model]="m.metadata.model" [metadata]="m.metadata"></app-editor-metadata>
-        </div>
-    </div>
-
+<mat-progress-bar *ngIf="state == 'running'" color="primary" mode="buffer" [value]="(index/count) * 100" [bufferValue]="0"></mat-progress-bar>
+<h1 mat-dialog-title>{{ 'dialog.childrenValidation.title' | translate }}</h1>
+<div mat-dialog-content>
+	<ng-container *ngIf="state == 'running'">{{ index + 1 }} / {{ count }}</ng-container>
+	<mat-card *ngIf="state == 'done'" class="app-alert" [ngClass]="numberOfInvalid == 0 ? 'app-success' : 'app-warn'">
+		<mat-icon>{{ numberOfInvalid == 0 ? 'info' : 'report' }}</mat-icon>
+		{{ numberOfInvalid == 0 ? ('dialog.childrenValidation.alert.success' | translate : {value: numberOfValid}) : ('dialog.childrenValidation.alert.error' | translate : {value1: numberOfInvalid, value2: count}) }}
+	</mat-card>
+	<div style="height: 0px; overflow: hidden;">
+		<div *ngFor="let m of metadatas">
+			<app-editor-metadata [notSaved]="true"  [model]="m.metadata.model" [metadata]="m.metadata"></app-editor-metadata>
+		</div>
+	</div>
 </div>
-
-<div mat-dialog-actions cdk-focus-start>
-    <button *ngIf="state == 'done'" mat-raised-button color="primary" mat-dialog-close="done">Zavřít</button>
-  </div>
+<div *ngIf="state == 'done'" mat-dialog-actions cdk-focus-start>
+	<button mat-flat-button color="primary" mat-dialog-close="done">{{ 'button.close' | translate }}</button>
+</div>
