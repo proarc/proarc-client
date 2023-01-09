@@ -20,7 +20,7 @@ export class ChildrenValidationDialogComponent implements OnInit {
   numberOfValid = 0;
   count: number;
 
-  metadatas: {item: DocumentItem, metadata: Metadata}[] = [];
+  metadatas: { item: DocumentItem, metadata: Metadata }[] = [];
 
   constructor(
     private api: ApiService,
@@ -42,16 +42,18 @@ export class ChildrenValidationDialogComponent implements OnInit {
 
   revalidate() {
 
-    this.index = 0;
-    this.numberOfInvalid = 0;
-    this.numberOfValid = 0;
+    // this.index = 0;
+    // this.numberOfInvalid = 0;
+    // this.numberOfValid = 0;
     this.metadatas.forEach(m => {
-      m.item.invalid = !m.metadata.validate();
-      if (m.item.invalid) {
-        this.numberOfInvalid += 1;
-      } else {
-        this.numberOfValid += 1;
-      }
+        m.item.invalid = !m.metadata.validate();
+        console.log(m.item)
+        if (m.item.invalid) {
+          this.numberOfInvalid += 1;
+        } else {
+          this.numberOfValid += 1;
+        }
+      
     });
 
   }
@@ -74,14 +76,13 @@ export class ChildrenValidationDialogComponent implements OnInit {
         this.validate();
       });
     } else {
-
       this.api.getMetadata(item.pid).subscribe((response: any) => {
         if (response.errors) {
           this.numberOfInvalid += 1;
           item.invalid = true;
         } else {
           const metadata = new Metadata(item.pid, item.model, response['record']['content'], response['record']['timestamp']);
-          this.metadatas.push({item, metadata});
+          this.metadatas.push({ item, metadata });
         }
 
         this.index += 1;
@@ -112,7 +113,7 @@ export class ChildrenValidationDialogComponent implements OnInit {
     setTimeout(() => {
       this.revalidate();
     }, 100)
-    
+
     this.state = 'done';
   }
 
