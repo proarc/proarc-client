@@ -2058,7 +2058,7 @@
     "image": "Image",
     "premis": "PREMIS XML"
   },
-  "modal": {
+  "dialog": {
     "layoutSettings": {
       "title": "Layout settings - <span class=\"app-text-lowercase\">{{value}}</span>",
       "help": {
@@ -2072,6 +2072,9 @@
     "about": {
       "title": "ProArc",
       "message": "<p>The production and archiving system is a tool for the production and editing of descriptive, administrative and technical metadata. Development is under the license <a href=\"http://www.gnu.org/licenses/gpl.html\" target=\"_blank\">GNU GPL v3.</a></p>"
+    },
+    "urnnbn": {
+      "title": "Registration URN:NBN"
     }
   }
 }
