@@ -14,7 +14,7 @@
       [class.app-parent]="tree.item.pid === selectedParentPid"
       [class.app-active-tree]="(tree.item.selected  || tree.item.pid == selectedPid)"
       draggable="true" (dragenter)="dragenter(tree, $event)" (dragstart)="dragstart($event)" (dragleave)="dragleave($event)"
-      (dragend)="dragend(tree, $event)" (dragover)="dragover(tree, $event)"  (drop)="drop(tree, $event)" >
+      (dragend)="dragend(tree, $event)" (dragover)="dragover($event)" (drop)="drop(tree, $event)" >
       <div class="app-expansion-cell">
         <div class="app-expansion-icon" [style.width]="(tree.level * 20 + 40) + 'px'">
           <mat-spinner *ngIf="tree.loading" [strokeWidth]="3" [diameter]="20">

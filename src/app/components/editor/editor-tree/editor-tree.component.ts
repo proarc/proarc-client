@@ -216,10 +216,10 @@ export class EditorTreeComponent implements OnInit {
   }
 
   dragenter(tree: Tree, event: any) {
-    const source: DocumentItem = this.layout.lastSelectedItem;
-    const target: DocumentItem = tree.item;
-    const allowed = ModelTemplate.allowedChildrenForModel(target.model).includes(source.model);
     if (event.target.classList.contains("app-row")) {
+      const source: DocumentItem = this.layout.lastSelectedItem;
+      const target: DocumentItem = tree.item;
+      const allowed = ModelTemplate.allowedChildrenForModel(target.model).includes(source.model);
       if (allowed) {
         event.target.classList.add("dragoverAllowed");
       } else {
@@ -242,7 +242,7 @@ export class EditorTreeComponent implements OnInit {
   }
 
   dragend(tree: Tree, event: any) {
-    console.log(event)
+    // console.log(event)
   }
 
   drop(tree: Tree, event: any) {
@@ -253,9 +253,8 @@ export class EditorTreeComponent implements OnInit {
     // console.log(JSON.parse(event.dataTransfer?.getData("items")));
   }
 
-  dragover(tree: Tree, event: any) {
+  dragover(event: any) {
     event.preventDefault();
-    // console.log(event)
   }
 
   changeParent(items: DocumentItem[], newParent: Tree) {
