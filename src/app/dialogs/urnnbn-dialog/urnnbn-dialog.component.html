@@ -56,7 +56,7 @@
   </div>
 
   <mat-card *ngIf="message" class="app-alert app-mt-4" [ngClass]="state == 'error' ? 'app-warn' : 'app-success'">
-    <mat-icon>{{ state == 'error' ? 'warning' : 'info' }}</mat-icon> {{ message }}
+    <mat-icon>{{ state == 'error' ? 'report' : 'info' }}</mat-icon> {{ message }}
   </mat-card>
 </div>
 <div mat-dialog-actions cdk-focus-start>

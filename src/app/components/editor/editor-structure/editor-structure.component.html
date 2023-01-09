@@ -79,11 +79,10 @@
     <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
     <div class="app-editor-content" #childrenWrapper tabindex="0" (keyup)="keyup($event)" (resized)="onResized($event)" *ngIf="state !=='loading'">
       <div class="app-view-grid" *ngIf="viewMode == 'grid'" #childrenGridList (mousedown)="mousedown($event)"  (mouseup)="mouseup($event)" fxLayout="row wrap">
-        <div *ngFor="let item of layout.items; let i = index" (click)="rowClick(item, i, $event)" (dblclick)="open(item)" class="app-item-wrapper" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart(item,i,$event)" (dragover)="dragover($event)" (dragend)="dragend($event)" (mousedown)="mousedown($event)" [class.app-selected]="item.selected" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [fxFlex]="iconWidth + '%'">
+        <div *ngFor="let item of layout.items; let i = index" (click)="rowClick(item, i, $event)" (dblclick)="open(item)" class="app-item-wrapper" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart(item,i,$event)" (dragover)="dragover($event)" (dragend)="dragend($event)" (mousedown)="mousedown($event)" [class.app-selected]="item.selected" [class.app-invalid]="item.invalid" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [fxFlex]="iconWidth + '%'">
           <div class="app-item">
             <div class="app-item-label">
-              <mat-icon *ngIf="item.invalid">warning</mat-icon>
-              {{ shortLabels ? item.shortLabel : item.label }}<br />
+              <mat-icon *ngIf="item.invalid" class="app-mr-1">report</mat-icon>{{ shortLabels ? item.shortLabel : item.label }}<br />
               ({{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }})
             </div>
           </div>
@@ -91,12 +90,11 @@
       </div>
 
       <div class="app-view-icon" *ngIf="viewMode == 'icons'" #childrenIconList [class.app-multiple-selection]="layout.getNumOfSelected() > 1" (mousedown)="mousedown($event)" (mouseup)="mouseup($event)" fxLayout="row wrap">
-        <div *ngFor="let item of layout.items; let i = index" class="app-item-wrapper" (click)="rowClick(item, i, $event)" (dblclick)="open(item)" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart(item, i, $event)" (dragend)="dragend($event)" (dragover)="dragover($event)" (mousedown)="mousedown($event)" [class.app-selected]="item.selected" [fxFlex]="iconWidth + '%'"><!--[style.height]="iconHeight + 'px'"-->
+        <div *ngFor="let item of layout.items; let i = index" class="app-item-wrapper" (click)="rowClick(item, i, $event)" (dblclick)="open(item)" draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart(item, i, $event)" (dragend)="dragend($event)" (dragover)="dragover($event)" (mousedown)="mousedown($event)" [class.app-selected]="item.selected" [class.app-invalid]="item.invalid" [fxFlex]="iconWidth + '%'"><!--[style.height]="iconHeight + 'px'"-->
           <div class="app-item">
             <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="iconHeight + 'px'"></div>
             <div class="app-item-label" *ngIf="isRepo">
-              <mat-icon *ngIf="item.invalid">warning</mat-icon>
-              {{ shortLabels ? item.shortLabel : item.label }}<br />
+              <mat-icon *ngIf="item.invalid" class="app-mr-1">report</mat-icon>{{ shortLabels ? item.shortLabel : item.label }}<br />
               ({{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }})
             </div>
             <div class="app-item-label" *ngIf="!isRepo">
@@ -116,7 +114,7 @@
 
         <ng-container matColumnDef="label">
           <th mat-header-cell *matHeaderCellDef> {{'search.name' | translate}}</th>
-          <td mat-cell *matCellDef="let element"><mat-icon *ngIf="element.invalid">warning</mat-icon>{{shortLabels ? element.shortLabel : element.label}} </td>
+          <td mat-cell *matCellDef="let element"><mat-icon *ngIf="element.invalid" class="app-mr-1">report</mat-icon>{{shortLabels ? element.shortLabel : element.label}} </td>
         </ng-container>
 
         <ng-container matColumnDef="pageType">
@@ -153,7 +151,7 @@
         <tr mat-row #matrow *matRowDef="let row; let idx = index; columns: displayedColumns" [class.app-selected]="row.selected" 
             (click)="rowClick(row, idx, $event)"  (dblclick)="open(row)"  (mousedown)="mousedown($event)" (mouseup)="mouseup($event)"
             draggable="true" (dragenter)="dragenter($event)" (dragstart)="dragstart(row, idx, $event)" (dragover)="dragover($event)"
-            (dragend)="dragend($event)" 
+            (dragend)="dragend($event)" [class.app-invalid]="row.invalid"
             ></tr>
       </table>
     </div>

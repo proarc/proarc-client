@@ -376,14 +376,6 @@ as-split {
     ::-moz-selection { background: transparent; }
   } 
 
-  .mat-table {
-    .mat-row {
-      &.app-selected {
-        background-color: $app-color-item-selected;
-      }
-    }
-  }
-
   .app-view-grid {
     padding: $app-grid-item-pd 0;
 
@@ -394,6 +386,16 @@ as-split {
       &.app-selected {
         .app-item {
           background-color: $app-color-item-selected;
+        }
+      }
+
+      &.app-invalid {
+        .app-item {
+          background-color: rgba($app-color-item-invalid, .1);
+          
+          .mat-icon {
+            @include setIcon(20, $app-color-item-invalid, sub);
+          }
         }
       }
 
@@ -420,6 +422,18 @@ as-split {
 
           .app-item-thumb {
             opacity: .5;
+          }
+        }
+      }
+
+      &.app-invalid {
+        .app-item {
+          background-color: rgba($app-color-item-invalid, .1);
+          
+          .app-item-label {
+            .mat-icon {
+              @include setIcon(20, $app-color-item-invalid, sub);
+            }
           }
         }
       }

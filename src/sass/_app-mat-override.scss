@@ -36,6 +36,20 @@
     &.app-selected {
       background-color: $app-color-item-selected;
     }
+
+    &.app-invalid {
+      background-color: rgba($app-color-item-invalid, .1);
+
+      .mat-icon {
+        color: $app-color-item-invalid;
+      }
+    }
+
+    .mat-cell {
+      .mat-icon {
+        @include setIcon(20, $position: sub);
+      }
+    }
   }
 
   &.app-striped {
