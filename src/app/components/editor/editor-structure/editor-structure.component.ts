@@ -529,8 +529,9 @@ export class EditorStructureComponent implements OnInit {
               const item = DocumentItem.fromJson(res.item);
               this.layout.items.push(item);
               if (res.gotoEdit) {
-                item.selected = true;
-                this.rowClick(item, this.layout.items.length - 1, null);
+                // item.selected = true;
+                // this.rowClick(item, this.layout.items.length - 1, null);
+                this.router.navigate(['/repository', item.pid]);
               }
               this.layout.refreshSelectedItem(true, 'pages');
             }

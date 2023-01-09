@@ -116,10 +116,10 @@ export class ApiService {
     } else if (error.status === 403) {
       // Forbiden. Redirect to login
       console.log("Forbiden", me.router.routerState.snapshot);
-      const url = me.router.routerState.snapshot.url;
-      if (me.router) {
-        me.router.navigate(['/login'], {url: url});
-      }
+      // const url = me.router.routerState.snapshot.url;
+      // if (me.router) {
+      //   me.router.navigate(['/login'], {url: url});
+      // }
     } else {
       console.error(
         `Backend returned code ${error.status}, body was: `, error.error);
