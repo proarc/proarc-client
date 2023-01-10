@@ -2033,7 +2033,16 @@
     "state": "Stav",
     "message": "Zpráva",
     "locked": "Zamčený",
-    "unlocked": "Odemčený"
+    "unlocked": "Odemčený",
+    "name": "Název",
+    "pid": "PID",
+    "processor": "Zpracovatel",
+    "organization": "Organizace",
+    "status": "Status",
+    "created": "Vytvořeno",
+    "modified": "Upraveno",
+    "owner": "Vlastník",
+    "export": "Export"
   },
   "button": {
     "setLayout": "nastavit rozložení",
