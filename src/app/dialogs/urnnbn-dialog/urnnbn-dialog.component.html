@@ -12,7 +12,13 @@
     <table *ngIf="responseData" mat-table [dataSource]="responseData" class="app-striped app-hover">
       <ng-container matColumnDef="label">
         <th mat-header-cell *matHeaderCellDef>{{ 'desc.description' | translate }}</th>
-        <td mat-cell *matCellDef="let row">{{ row.label }}</td>
+        <td mat-cell *matCellDef="let row">
+          <div class="app-text-cutter-wrapper">
+            <div class="app-text-cutter">
+              {{ row.label }}
+            </div>
+          </div>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="model">
@@ -30,7 +36,7 @@
         <!-- <td mat-cell *matCellDef="let row">{{ row.hasOwnProperty('warning') ? (row.warning ? ':-|' : ':-(') : ':-)' }}</td> -->
         <td mat-cell *matCellDef="let row">
           <mat-icon [ngClass]="row.hasOwnProperty('warning') ? (row.warning ? 'app-sentiment_satisfied' : 'app-mood_bad') : 'app-mood'">
-            {{ row.hasOwnProperty('warning') ? (row.warning ? 'sentiment_satisfied' : 'mood_bad') : 'mood' }}
+            {{ row.hasOwnProperty('warning') ? (row.warning ? 'mood' : 'mood_bad') : 'sentiment_satisfied' }}
           </mat-icon>
         </td>
       </ng-container>
@@ -55,8 +61,8 @@
     </table>
   </div>
 
-  <mat-card *ngIf="message" class="app-alert app-mt-4" [ngClass]="state == 'error' ? 'app-warn' : 'app-success'">
-    <mat-icon>{{ state == 'error' ? 'report' : 'info' }}</mat-icon> {{ message }}
+  <mat-card *ngIf="message" class="app-alert app-mt-4" [ngClass]="state == 'error' || !selectedRowWarning ? 'app-warn' : 'app-success'">
+    <mat-icon>{{ state == 'error' || !selectedRowWarning ? 'report' : 'info' }}</mat-icon> {{ message }}
   </mat-card>
 </div>
 <div mat-dialog-actions cdk-focus-start>

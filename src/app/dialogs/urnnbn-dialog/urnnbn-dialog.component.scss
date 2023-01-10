@@ -6,6 +6,19 @@
   .mat-cell {
     .mat-icon {
       @include setStateColor('icon');
+      @include setIcon(24);
+    }
+
+    &.mat-column-label {
+      width: 20%;
+    }
+
+    &.mat-column-pid {
+      width: 290px;
+    }
+
+    &.mat-column-urnnbn {
+      width: 180px;
     }
   }
 }

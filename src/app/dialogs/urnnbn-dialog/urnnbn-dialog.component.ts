@@ -23,6 +23,7 @@ export class UrnbnbDialogComponent implements OnInit {
   tableColumns = ['label', 'model', 'statusType', 'warning', 'pid', 'urnnbn', 'message'];
   responseData: any;
   selectedRow: string;
+  selectedRowWarning: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<UrnbnbDialogComponent>,
@@ -101,6 +102,7 @@ export class UrnbnbDialogComponent implements OnInit {
   selectRow(row: any) {
     this.message = row.message;
     this.selectedRow = row.pid;
+    this.selectedRowWarning = row.warning;
   }
 
   formDisabled(): boolean {
