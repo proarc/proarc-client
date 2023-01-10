@@ -123,8 +123,8 @@ $alerts: (
 
 // states
 $states: (
-  sentiment_satisfied: $app-color-success,
+  sentiment_satisfied: mat-color($mat-yellow, 700),
   mood_bad: $app-color-warn,
-  mood: mat-color($mat-yellow, 700),
+  mood: $app-color-success,
   default: $app-gray-6
 );
