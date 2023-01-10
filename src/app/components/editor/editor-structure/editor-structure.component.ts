@@ -70,6 +70,7 @@ export class EditorStructureComponent implements OnInit {
   public relocationMode: boolean;
 
   hasChanges: boolean = false;
+  scrollPos = -1;
 
   // public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
 
@@ -112,8 +113,9 @@ export class EditorStructureComponent implements OnInit {
       this.lastClickIdx = 0;
     }
     this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((fromStructure: boolean) => {
+      this.setScrollPos();
       setTimeout(() => {
-        this.scrollToSelected();
+        this.scrollBack();
       }, 500);
     }));
   }
@@ -129,7 +131,7 @@ export class EditorStructureComponent implements OnInit {
       if (this.table) {
         this.table.renderRows();
       }
-      
+
     }));
 
     this.layout.moveToNext().subscribe((idx: number) => {
@@ -137,8 +139,37 @@ export class EditorStructureComponent implements OnInit {
     });
   }
 
+  tableRendered() {
+    if (this.scrollPos > -1) {
+      document.getElementById('table').parentElement.parentElement.scrollTop = this.scrollPos;
+    }
+  }
+
+  scrollBack() {
+    console.log(this.scrollPos)
+    let container: any;
+    if (this.viewMode == 'grid') {
+      container = this.childrenGridListEl;
+    } else if (this.viewMode == 'icons') {
+      container = this.childrenIconListEl;
+    } else {
+      if (this.scrollPos > -1) {
+        document.getElementById('table').parentElement.parentElement.scrollTop = this.scrollPos;
+      }
+      return;
+    }
+
+    if (container && this.scrollPos > -1) {
+      setTimeout(() => {
+        container.nativeElement.parentElement.parentElement.scrollTop = this.scrollPos;
+      }, 300);
+        
+    }
+  }
+
   scrollToSelected() {
     const index = this.layout.items.findIndex(i => i.selected);
+    console.log(index);
     if (index < 0) {
       return;
     }
@@ -148,18 +179,45 @@ export class EditorStructureComponent implements OnInit {
     } else if (this.viewMode == 'icons') {
       container = this.childrenIconListEl;
     } else {
-
-      let row = this.rows.get(index); 
-      row.element.nativeElement.scrollIntoView(true);
+      if (this.scrollPos > -1) {
+        console.log(document.getElementById('table').parentElement.parentElement)
+        document.getElementById('table').parentElement.parentElement.scrollTop = this.scrollPos;
+      } else {
+        let row = this.rows.get(index);
+        row.element.nativeElement.scrollIntoView(true);
+      }
       return;
     }
-    
+
+
     if (container) {
+      if (this.scrollPos > -1) {
+        container.nativeElement.scrollTop = this.scrollPos;
+        return;
+      }
       if (index > 0) {
         const el = container.nativeElement.children[index];
         el.scrollIntoView(true);
       }
     }
+  }
+
+  setScrollPos() {
+    let container: any;
+    if (this.viewMode == 'grid') {
+      container = this.childrenGridListEl;
+    } else if (this.viewMode == 'icons') {
+      container = this.childrenIconListEl;
+    } else {
+
+      this.scrollPos = document.getElementById('table').parentElement.parentElement.scrollTop;
+      console.log(this.scrollPos);
+      // let row = this.rows.get(index); 
+      // row.element.nativeElement.scrollIntoView(true);
+      return;
+    }
+    this.scrollPos = container.nativeElement.parentElement.parentElement.scrollTop;
+    console.log(this.scrollPos);
   }
 
   obtainFocus() {
@@ -479,7 +537,7 @@ export class EditorStructureComponent implements OnInit {
   }
 
   validateChildren() {
-    const dialogRef = this.dialog.open(ChildrenValidationDialogComponent, { 
+    const dialogRef = this.dialog.open(ChildrenValidationDialogComponent, {
       data: { children: this.layout.items, batchId: this.layout.getBatchId() },
       panelClass: 'app-children-validation-dialog',
       width: '600px'
@@ -528,7 +586,7 @@ export class EditorStructureComponent implements OnInit {
               } else {
                 this.layout.refreshSelectedItem(true, 'pages');
               }
-              
+
             }
             // this.layout.setShouldRefresh(true);
           });

@@ -105,7 +105,8 @@
         </div>
       </div>
 
-      <table mat-table *ngIf="viewMode == 'list'" [dataSource]="layout.items" class="app-w-100" #table>
+      <table id="table" mat-table *ngIf="viewMode == 'list'" (contentChanged)="tableRendered()"
+       [dataSource]="layout.items" class="app-w-100" #table>
 
         <ng-container matColumnDef="pid">
           <th mat-header-cell *matHeaderCellDef>{{'search.pid' | translate}} </th>
