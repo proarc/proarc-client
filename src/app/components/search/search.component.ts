@@ -34,11 +34,6 @@ export class SearchComponent implements OnInit {
   @ViewChild('area2') area2: SplitAreaDirective;
   @ViewChild('modelSelect') modelSelect: MatSelect;
   @ViewChild('scroll') scroll: ElementRef;
-  // @ViewChild(MatSort) sort: MatSort;
-
-  /* ngAfterViewInit() {
-    this.items.sort = this.sort;
-  } */
 
   splitArea1Width: string;
   splitArea2Width: string;

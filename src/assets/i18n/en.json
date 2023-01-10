@@ -2033,7 +2033,16 @@
     "state": "State",
     "message": "Message",
     "locked": "Zamčený",
-    "unlocked": "Odemčený"
+    "unlocked": "Odemčený",
+    "name": "Name",
+    "pid": "PID",
+    "processor": "Processor",
+    "organization": "Organization",
+    "status": "Status",
+    "created": "Created",
+    "modified": "Modified",
+    "owner": "Owner",
+    "export": "Export"
   },
   "button": {
     "setLayout": "Set layout",

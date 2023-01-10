@@ -90,7 +90,7 @@
 
               <ng-container matColumnDef="label">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header
-                sortActionDescription="Sort by number">{{ 'search.name' | translate }}</th>
+                sortActionDescription="Sort by number">{{ 'desc.name' | translate }}</th>
                 <td mat-cell *matCellDef="let element">
                   <div class="app-text-cutter-wrapper" [matTooltip]="element.label">
                     <div class="app-text-cutter">
@@ -101,47 +101,47 @@
               </ng-container>
 
               <ng-container matColumnDef="model">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'search.model' | translate }}</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.model' | translate }}</th>
                 <td mat-cell *matCellDef="let element">{{ "model." + element.model | translate }}}</td>
               </ng-container>
 
               <ng-container matColumnDef="pid">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'search.pid' | translate }}</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.pid' | translate }}</th>
                 <td mat-cell *matCellDef="let element">{{ element.pid }}</td>
               </ng-container>
 
               <ng-container matColumnDef="processor">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'search.processor' | translate }}</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.processor' | translate }}</th>
                 <td mat-cell *matCellDef="let element">{{ element.processor }}</td>
               </ng-container>
 
               <ng-container matColumnDef="organization">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'search.organization' | translate }}</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.organization' | translate }}</th>
                 <td mat-cell *matCellDef="let element">{{ 'organization.' + element.organization | translate }}</td>
               </ng-container>
 
               <ng-container matColumnDef="status">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'search.status' | translate }}</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.status' | translate }}</th>
                 <td mat-cell *matCellDef="let element">{{ 'editor.atm.statuses.' + element.status | translate }}</td>
               </ng-container>
 
               <ng-container matColumnDef="created">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'search.created' | translate }}</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.created' | translate }}</th>
                 <td mat-cell *matCellDef="let element">{{ element.created | appDatetime }}</td>
               </ng-container>
 
               <ng-container matColumnDef="modified">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'search.modified ' | translate }}</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.modified' | translate }}</th>
                 <td mat-cell *matCellDef="let element">{{ element.modified | appDatetime }}</td>
               </ng-container>
 
               <ng-container matColumnDef="owner">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'search.owner' | translate }}</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.owner' | translate }}</th>
                 <td mat-cell *matCellDef="let element">{{ element.owner }}</td>
               </ng-container>
 
               <ng-container matColumnDef="export">
-                <th mat-header-cell *matHeaderCellDef>{{ 'search.export' | translate }}</th>
+                <th mat-header-cell *matHeaderCellDef>{{ 'desc.export' | translate }}</th>
                 <td mat-cell *matCellDef="let element">{{ element.writeExports() }}</td>
               </ng-container>
 
@@ -157,90 +157,6 @@
             </table>
           </div>
         </div>
-        <!-- <div class="app-items-wrapper" *ngIf="items">
-          <div class="app-search-actions">
-            <div class="app-object-actions" *ngIf="selectedItem">
-              <button (click)="openItem(selectedItem)" mat-button>Otevřít</button>
-              <button (click)="showFoxml(selectedItem)" mat-button>FOXML</button>
-              <button (click)="onExport(selectedItem)" mat-button>Exportovat</button>
-              <button (click)="onUrnnbn(selectedItem)" mat-button>URN:NBN</button>
-              <button *ngIf="canChangeModel(selectedItem)" (click)="changeModel(selectedItem)" mat-button>Převody NDK modelů</button>
-              <button (click)="onDeleteItem()" mat-button>Smazat</button>
-              <button *ngIf="!selectedItem.isLocked && (auth.user.lockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, true)" mat-button>Uzamknout</button>
-              <button *ngIf="selectedItem.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, false)" mat-button>Odemknout</button>
-              <button *ngIf="selectedItem.state === 'fedora-system:def/model#Deleted'" (click)="onRestore(selectedItem)" mat-button>Obnovit objekt</button>
-              <button (click)="updateObjects(selectedItem)" mat-button>Update všech objektů</button>
-            </div>
-            <div class="app-paginator">
-              <mat-paginator [length]="resultCount"
-                hidePageSize="true"
-                [pageIndex]="pageIndex"
-                [pageSize]="pageSize"
-                (page)="onPageChanged($event)">
-              </mat-paginator>
-            </div>
-          </div>
-  
-          <div class="app-table app-items">
-            <div class="search-result-list">
-              <div class="app-row app-header">
-                <div class="result-label app-header-sortable" *ngIf="properties.isSearchColEnabled('name')" (click)="sortBy('label')">
-                  {{ 'search.name' | translate }}
-                  <mat-icon *ngIf="getSortIcon('label')" class="sort-arrow">{{ getSortIcon('label') }}</mat-icon>
-                </div>
-                <div class="result-model app-header-sortable" *ngIf="properties.isSearchColEnabled('model')" (click)="sortBy('model')">
-                  {{ 'search.model' | translate }}
-                  <mat-icon *ngIf="getSortIcon('model')" class="sort-arrow">{{ getSortIcon('model') }}</mat-icon>
-                </div>
-                <div class="result-pid app-header-sortable" *ngIf="properties.isSearchColEnabled('pid')" (click)="sortBy('pid')">
-                  {{ 'search.pid' | translate }}
-                  <mat-icon *ngIf="getSortIcon('pid')" class="sort-arrow">{{ getSortIcon('pid') }}</mat-icon>
-                </div>
-                <div class="result-processor app-header-sortable" *ngIf="properties.isSearchColEnabled('processor')" (click)="sortBy('user')">
-                  {{ 'search.processor' | translate }}
-                  <mat-icon *ngIf="getSortIcon('user')" class="sort-arrow">{{ getSortIcon('user') }}</mat-icon>
-                </div>
-                <div class="result-organization app-header-sortable" *ngIf="properties.isSearchColEnabled('organization')" (click)="sortBy('organization')">
-                  {{ 'search.organization' | translate }}
-                  <mat-icon *ngIf="getSortIcon('organization')" class="sort-arrow">{{ getSortIcon('organization') }}</mat-icon>
-                </div>
-                <div class="result-status app-header-sortable" *ngIf="properties.isSearchColEnabled('status')" (click)="sortBy('status')">
-                  {{ 'search.status' | translate }}
-                  <mat-icon *ngIf="getSortIcon('status')" class="sort-arrow">{{ getSortIcon('status') }}</mat-icon>
-                </div>
-                <div class="result-created app-header-sortable" *ngIf="properties.isSearchColEnabled('created')" (click)="sortBy('created')">
-                  {{ 'search.created' | translate }}
-                  <mat-icon *ngIf="getSortIcon('created')" class="sort-arrow">{{ getSortIcon('created') }}</mat-icon>
-                </div>
-                <div class="result-modified app-header-sortable" *ngIf="properties.isSearchColEnabled('modified')" (click)="sortBy('modified')">
-                  {{ 'search.modified' | translate }}
-                  <mat-icon *ngIf="getSortIcon('modified')" class="sort-arrow">{{ getSortIcon('modified') }}</mat-icon>
-                </div>
-                <div class="result-owner app-header-sortable" *ngIf="properties.isSearchColEnabled('owner')" (click)="sortBy('owner')">
-                  {{ 'search.owner' | translate }}
-                  <mat-icon *ngIf="getSortIcon('owner')" class="sort-arrow">{{ getSortIcon('owner') }}</mat-icon>
-                </div>
-                <div class="result-export" *ngIf="properties.isSearchColEnabled('export')">{{ 'search.export' | translate }}</div>
-                <div class="result-export" *ngIf="properties.isSearchColEnabled('isLocked')">{{ 'search.isLocked' | translate }}</div>
-              </div>
-              <div class="scrollable" #scroll>
-                <div *ngFor="let item of items" (click)="selectItem(item)" (dblclick)="openItem(item)" class="app-row" [class.app-selected]="item == selectedItem">
-                  <div class="result-label" *ngIf="properties.isSearchColEnabled('name')">{{ item.label }}</div>
-                  <div class="result-model" *ngIf="properties.isSearchColEnabled('model')">{{ "model." + item.model | translate }}</div>
-                  <div class="result-pid" *ngIf="properties.isSearchColEnabled('pid')">{{ item.pid }}</div>
-                  <div class="result-processor" *ngIf="properties.isSearchColEnabled('processor')">{{ item.processor }}</div>
-                  <div class="result-organization" *ngIf="properties.isSearchColEnabled('organization')">{{ 'organization.' + item.organization | translate }}</div>
-                  <div class="result-status" *ngIf="properties.isSearchColEnabled('status')">{{ 'editor.atm.statuses.' + item.status | translate }}</div>
-                  <div class="result-created" *ngIf="properties.isSearchColEnabled('created')">{{ item.created | appDatetime }}</div>
-                  <div class="result-modified" *ngIf="properties.isSearchColEnabled('modified')">{{ item.modified | appDatetime }}</div>
-                  <div class="result-owner" *ngIf="properties.isSearchColEnabled('owner')">{{ item.owner }}</div>
-                  <div class="result-export" *ngIf="properties.isSearchColEnabled('export')">{{ item.writeExports() }}</div>
-                  <div class="result-export" *ngIf="properties.isSearchColEnabled('isLocked')">{{ (item.isLocked ? 'common.yes' : 'common.no') | translate }}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
       </as-split-area>
       
       <as-split-area #area2="asSplitArea" [minSize]="20" [size]="getSplitSize(1)">
