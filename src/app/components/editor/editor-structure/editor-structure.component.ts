@@ -147,23 +147,9 @@ export class EditorStructureComponent implements OnInit {
 
   scrollBack() {
     console.log(this.scrollPos)
-    let container: any;
-    if (this.viewMode == 'grid') {
-      container = this.childrenGridListEl;
-    } else if (this.viewMode == 'icons') {
-      container = this.childrenIconListEl;
-    } else {
-      if (this.scrollPos > -1) {
-        document.getElementById('table').parentElement.parentElement.scrollTop = this.scrollPos;
-      }
-      return;
-    }
-
-    if (container && this.scrollPos > -1) {
-      setTimeout(() => {
-        container.nativeElement.parentElement.parentElement.scrollTop = this.scrollPos;
-      }, 300);
-        
+    
+    if (this.scrollPos > -1) {
+      document.getElementById('scrollable').scrollTop = this.scrollPos;
     }
   }
 
@@ -203,21 +189,7 @@ export class EditorStructureComponent implements OnInit {
   }
 
   setScrollPos() {
-    let container: any;
-    if (this.viewMode == 'grid') {
-      container = this.childrenGridListEl;
-    } else if (this.viewMode == 'icons') {
-      container = this.childrenIconListEl;
-    } else {
-
-      this.scrollPos = document.getElementById('table').parentElement.parentElement.scrollTop;
-      console.log(this.scrollPos);
-      // let row = this.rows.get(index); 
-      // row.element.nativeElement.scrollIntoView(true);
-      return;
-    }
-    this.scrollPos = container.nativeElement.parentElement.parentElement.scrollTop;
-    console.log(this.scrollPos);
+    this.scrollPos = document.getElementById('scrollable').scrollTop;
   }
 
   obtainFocus() {

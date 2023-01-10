@@ -75,7 +75,7 @@
     
   </div>
 
-  <div fxFlex class="app-oa-y">
+  <div fxFlex class="app-oa-y" id="scrollable">
     <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
     <div class="app-editor-content" #childrenWrapper tabindex="0" (keyup)="keyup($event)" (resized)="onResized($event)" *ngIf="state !=='loading'">
       <div class="app-view-grid" *ngIf="viewMode == 'grid'" #childrenGridList (mousedown)="mousedown($event)"  (mouseup)="mouseup($event)" fxLayout="row wrap">
