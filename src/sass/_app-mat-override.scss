@@ -46,8 +46,21 @@
     }
 
     .mat-cell {
+      font-size: 13px;
+
       .mat-icon {
         @include setIcon(20, $position: sub);
+      }
+
+      .app-text-cutter-wrapper {
+        display: flex;
+      }
+
+      .app-text-cutter {
+        @extend .app-pr-4;
+        position: absolute;
+        max-width: 100%;
+        align-self: center;
       }
     }
   }

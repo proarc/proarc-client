@@ -2031,7 +2031,9 @@
     "model": "Model",
     "error": "Chyba",
     "state": "Stav",
-    "message": "Zpráva"
+    "message": "Zpráva",
+    "locked": "Zamčený",
+    "unlocked": "Odemčený"
   },
   "button": {
     "setLayout": "nastavit rozložení",

@@ -348,21 +348,19 @@ as-split {
     border-top: 1px solid $app-toolbar-border-color;
   }
 
-  /* &.app-toolbar-action {
+  &.app-toolbar-action {
     min-height: $app-toolbar-action-height;
     background-color: $app-toolbar-action-bg;
     color: $app-toolbar-action-color;
 
-    .mat-icon-button {
-      &.app-active {
-        background-color: $app-toolbar-action-border-color;
-      }
-  
-      .app-text-icon {
-        font-size: 18px;
-      }			
+    .mat-button-base {
+      @extend .app-clean-radius;
     }
-  } */
+
+    &.app-view-border-bottom {
+      border-bottom: 1px solid $app-toolbar-action-border-color;
+    }
+  }
 }
 
 // editor content

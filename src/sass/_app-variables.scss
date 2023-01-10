@@ -32,7 +32,7 @@ $app-gray-9: mat-color($mat-gray, 900) !default;
 $app-color-info: mat-color($mat-amber, 900) !default;
 $app-color-success: mat-color($mat-green, 800) !default;
 $app-color-disabled: $app-gray-4;
-$app-color-item-selected: mat-color($app-primary, 100) !default;
+$app-color-item-selected: #d1e3ff !default;
 $app-color-item-invalid: $app-color-warn;
 $app-color-item-hover: mat-color($app-primary, 50) !default;
 $app-color-item-dragover-allowed: $app-color-success;
@@ -66,6 +66,11 @@ $app-toolbar-border-color: $app-navbar-border-color;
 $app-toolbar-bg: $app-color-primary !default;
 $app-toolbar-button-bg-active: $app-toolbar-border-color !default;
 $app-toolbar-color: $app-color-lightnes !default;
+
+$app-toolbar-action-height: 40px !default;
+$app-toolbar-action-border-color: $app-gray-3;
+$app-toolbar-action-bg: transparent !default;
+$app-toolbar-action-color: inherit !default;
 
 $app-grid-item-pd: 2px !default;
 $app-grid-item-border-color: $app-gray-4;

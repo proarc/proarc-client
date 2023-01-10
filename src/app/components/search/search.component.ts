@@ -18,6 +18,7 @@ import { Tree } from 'src/app/model/mods/tree.model';
 import { SearchService } from 'src/app/services/search.service';
 import { UIService } from 'src/app/services/ui.service';
 import { ChangeModelDialogComponent } from 'src/app/dialogs/change-model-dialog/change-model-dialog.component';
+import {MatSort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-search',
@@ -32,6 +33,11 @@ export class SearchComponent implements OnInit {
   @ViewChild('area2') area2: SplitAreaDirective;
   @ViewChild('modelSelect') modelSelect: MatSelect;
   @ViewChild('scroll') scroll: ElementRef;
+  @ViewChild(MatSort) sort: MatSort;
+
+  /* ngAfterViewInit() {
+    this.items.sort = this.sort;
+  } */
 
   splitArea1Width: string;
   splitArea2Width: string;
@@ -69,6 +75,8 @@ export class SearchComponent implements OnInit {
   users: User[];
 
   searchMode: string = 'advanced';
+
+  displayedColumns: string[] = ['label', 'model', 'pid', 'processor', 'organization', 'status', 'created', 'modified', 'owner', 'export', 'isLocked'];
 
   constructor(private api: ApiService, 
               public properties: LocalStorageService, 

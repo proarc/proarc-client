@@ -17,8 +17,20 @@
       }
     }
   }
+
+  .mat-table {
+    .mat-column-label {
+      width: 25%;
+    }
+
+    .mat-column-isLocked {
+      width: 15px;
+    }
+  }
 }
 
+
+// johny
 .app-search-results {  
   .app-search-actions {
     height: 42px;

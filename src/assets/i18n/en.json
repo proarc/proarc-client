@@ -2031,7 +2031,9 @@
     "model": "Model",
     "error": "Error",
     "state": "State",
-    "message": "Message"
+    "message": "Message",
+    "locked": "Zamčený",
+    "unlocked": "Odemčený"
   },
   "button": {
     "setLayout": "Set layout",
