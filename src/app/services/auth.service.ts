@@ -18,7 +18,7 @@ export class AuthService {
         private config: ConfigService) {
     }
 
-    login(username: string, password: string, callback: (result: boolean) => void) {
+    login(username: string, password: string, callback: (result: boolean, err: any) => void) {
         const httpOptions = {
             responseType: 'text',
             headers: new HttpHeaders({
@@ -30,15 +30,15 @@ export class AuthService {
             .subscribe((result) => {
                 this.api.getUser().subscribe((user: User) => {
                     this.user = user;
-                    callback(true);
+                    callback(true, null);
                 },
                     (error) => {
                         this.user = null;
-                        callback(false);
+                        callback(false, error);
                     });
             }, (error) => {
                 console.log('login error', error);
-                callback(false);
+                callback(false, error);
             })
     }
 

@@ -93,13 +93,13 @@ export class ApiService {
     }
     return this.http.post(encodeURI(`${this.getApiUrl()}${path}`), body, options).pipe(
       finalize(() => this.stopLoading())
-    ).pipe(catchError(this.handleError));
+    ).pipe(catchError(err => this.handleError(err, this)));
   }
 
   private delete(path: string, params = {}): Observable<Object> {
     return this.http.delete(encodeURI(`${this.getApiUrl()}${path}`), { params: params }).pipe(
       finalize(() => this.stopLoading())
-    ).pipe(catchError(this.handleError));
+    ).pipe(catchError(err => this.handleError(err, this)));
   }
 
   private request(method: string, path: string, params = {}, body: any): Observable<Object> {
@@ -113,9 +113,16 @@ export class ApiService {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error);
+    } else if (error.status === 503 || error.status === 504) {
+      // Forbiden. Redirect to login
+      console.log("Service Unavailable");
+      const url = me.router.routerState.snapshot.url;
+      if (me.router) {
+        me.router.navigate(['/login'], {url: url, err: '503'});
+      }
     } else if (error.status === 403) {
       // Forbiden. Redirect to login
-      console.log("Forbiden", me.router.routerState.snapshot);
+      console.log("Forbiden");
       // const url = me.router.routerState.snapshot.url;
       // if (me.router) {
       //   me.router.navigate(['/login'], {url: url});

@@ -38,7 +38,8 @@
     "password": "Password",
     "error": {
       "login_failed": "Login failed",
-      "missing_credentials": "Fill in User Name and Password"
+      "missing_credentials": "Fill in User Name and Password",
+      "service_unavailable": "Service Unavailable. Contact administrator"
     }
   },
   "new_object": {

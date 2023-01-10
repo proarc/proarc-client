@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.state = 'loading';
-    this.auth.login(username, password, (result) => {
+    this.auth.login(username, password, (result: boolean, error: any) => {
       this.state = 'none';
       if (result) {
         if (this.url) {
@@ -50,7 +50,12 @@ export class LoginComponent implements OnInit {
         }
         
       } else {
-        this.error = "login_failed";
+        if (error.status === 503 || error.status === 504) {
+          this.error = "service_unavailable";
+        } else {
+          this.error = "login_failed";
+        }
+        
       }
     });
   }

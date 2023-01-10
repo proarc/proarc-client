@@ -41,7 +41,8 @@
     "password": "Heslo",
     "error": {
       "login_failed": "Přihlášení se nezdařilo",
-      "missing_credentials": "Nejdříve zadejte přihlašovací údaje"
+      "missing_credentials": "Nejdříve zadejte přihlašovací údaje",
+      "service_unavailable": "API je nedostupné. Kontaktujte správce"
     }
   },
   "new_object": {
