@@ -17,7 +17,7 @@
   </div>
 	<div fxFlex class="app-oa-y">
 		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
-		<div class="app-editor-content">
+		<div class="app-editor-content app-h-100">
 			<div class="app-pdf-wrapper">
 				<iframe *ngIf="state == 'ok'" [src]="pdfUrl | appSafe" width="100%" height="100%" frameborder="0"></iframe>
 				<div *ngIf="state == 'empty'" class="app-empty">Žádný digitální obsah</div>
