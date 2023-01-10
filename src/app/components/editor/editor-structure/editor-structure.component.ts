@@ -129,7 +129,7 @@ export class EditorStructureComponent implements OnInit {
   ngAfterViewInit() {
     this.childrenWrapperEl.nativeElement.focus();
 
-    this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
+    this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
       if (!fromStructure) {
         this.arrowIndex = this.layout.getFirstSelectedIndex();
         this.obtainFocus();
@@ -138,7 +138,7 @@ export class EditorStructureComponent implements OnInit {
         this.table.renderRows();
       }
       
-    });
+    }));
 
     this.layout.moveToNext().subscribe((idx: number) => {
       this.moveToNext(idx);
