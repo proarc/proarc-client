@@ -22,20 +22,12 @@ import { AuthService } from 'src/app/services/auth.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UIService } from 'src/app/services/ui.service';
-import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions } from '@angular/material/tooltip';
 
-export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
-  showDelay: 300,
-  hideDelay: 10,
-  touchendHideDelay: 10,
-  position: 'above',
-  disableTooltipInteractivity: true
-};
+
 
 @Component({
   selector: 'app-editor-structure',
   templateUrl: './editor-structure.component.html',
-  providers: [{ provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults }],
   styleUrls: ['./editor-structure.component.scss']
 })
 export class EditorStructureComponent implements OnInit {
@@ -531,9 +523,12 @@ export class EditorStructureComponent implements OnInit {
               if (res.gotoEdit) {
                 // item.selected = true;
                 // this.rowClick(item, this.layout.items.length - 1, null);
+
                 this.router.navigate(['/repository', item.pid]);
+              } else {
+                this.layout.refreshSelectedItem(true, 'pages');
               }
-              this.layout.refreshSelectedItem(true, 'pages');
+              
             }
             // this.layout.setShouldRefresh(true);
           });

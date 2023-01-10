@@ -16,6 +16,8 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './modules/app-routing.module';
 
+import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions } from '@angular/material/tooltip';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppComponent } from './components/app.component';
@@ -138,6 +140,13 @@ import { EditorTreeComponent } from './components/editor/editor-tree/editor-tree
 import { MarkSequenceDialogComponent } from './dialogs/mark-sequence-dialog/mark-sequence-dialog.component';
 import { EditorPremisComponent } from './components/editor/editor-premis/editor-premis.component';
 
+export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
+  showDelay: 300,
+  hideDelay: 10,
+  touchendHideDelay: 10,
+  position: 'above',
+  disableTooltipInteractivity: true
+};
 
 // export function hljsLanguages() {
 //   return [
@@ -313,6 +322,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         // themePath: 'path-to-theme.css' // Optional, and useful if you want to change the theme dynamically
       }
     },
+    { provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults },
     { provide: APP_INITIALIZER, useFactory: (config: AuthService) => () => config.initializeApp(), deps: [AuthService], multi: true },
   ],
   entryComponents: [
