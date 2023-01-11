@@ -88,6 +88,8 @@ export class EditorStructureComponent implements OnInit {
 
   subscriptions: Subscription[] = [];
 
+  refreshing = false;
+
   constructor(
     private router: Router,
     private properties: LocalStorageService,
@@ -113,7 +115,8 @@ export class EditorStructureComponent implements OnInit {
       this.lastClickIdx = 0;
     }
     this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((fromStructure: boolean) => {
-      this.setScrollPos();
+      // this.setScrollPos();
+      this.refreshing = true;
       setTimeout(() => {
         this.scrollBack();
       }, 500);
@@ -145,17 +148,21 @@ export class EditorStructureComponent implements OnInit {
     }
   }
 
-  scrollBack() {
-    console.log(this.scrollPos)
-    
-    if (this.scrollPos > -1) {
-      document.getElementById('scrollable').scrollTop = this.scrollPos;
+  setScrollPos() {
+    if (!this.refreshing) {
+      this.scrollPos = this.childrenListEl.nativeElement.scrollTop;
     }
+  }
+
+  scrollBack() {
+    if (this.scrollPos > -1) {
+      this.childrenListEl.nativeElement.scrollTop = this.scrollPos;
+    }
+    this.refreshing = false;
   }
 
   scrollToSelected() {
     const index = this.layout.items.findIndex(i => i.selected);
-    console.log(index);
     if (index < 0) {
       return;
     }
@@ -188,10 +195,6 @@ export class EditorStructureComponent implements OnInit {
     }
   }
 
-  setScrollPos() {
-    this.scrollPos = document.getElementById('scrollable').scrollTop;
-  }
-
   obtainFocus() {
     this.childrenWrapperEl.nativeElement.focus();
   }
@@ -199,11 +202,9 @@ export class EditorStructureComponent implements OnInit {
   onResized(event: ResizedEvent) {
     const d = event.newRect.width / 101;
     this.iconColumns = Math.floor(d);
-    // const c = 1 + d - this.iconColumns; 
 
     this.iconHeight = ((event.newRect.width - 4.0) / this.iconColumns) * 1.47;
     this.iconWidth = 100.0 / this.iconColumns;
-    // this.iconColumnHeight = 
   }
 
   // navigate by keyboard
@@ -556,6 +557,8 @@ export class EditorStructureComponent implements OnInit {
 
                 this.router.navigate(['/repository', item.pid]);
               } else {
+                item.selected = true;
+                this.rowClick(item, this.layout.items.length - 1, null);
                 this.layout.refreshSelectedItem(true, 'pages');
               }
 
