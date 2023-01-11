@@ -44,9 +44,6 @@ import { AtmComponent } from './components/atm/atm.component';
 import { OcrComponent } from './components/ocr/ocr.component';
 import { NoteComponent } from './components/note/note.component';
 import { EditAudioDeviceComponent } from './components/devices/edit-audio-device/edit-audio-device.component';
-import { EditorService } from './services/editor.service';
-import { EditorComponent } from './components/editor/editor.component';
-import { EditorChildrenComponent } from './components/editor/editor-children/editor-children.component';
 import { LocalStorageService } from './services/local-storage.service';
 import { EditorOcrComponent } from './components/editor/editor-ocr/editor-ocr.component';
 import { EditorModsComponent } from './components/editor/editor-mods/editor-mods.component';
@@ -188,8 +185,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     NoteComponent,
     ViewerComponent,
     EditAudioDeviceComponent,
-    EditorComponent,
-    EditorChildrenComponent,
     EditorOcrComponent,
     EditorModsComponent,
     EditorCommentComponent,
@@ -292,7 +287,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ApiService,
     AuthService,
     UIService,
-    EditorService,
     LocalStorageService,
     CodebookService,
     CuzkService,

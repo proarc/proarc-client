@@ -7,7 +7,6 @@ import { DevicesComponent } from '../components/devices/devices.component';
 import { DeviceComponent } from '../components/devices/device/device.component';
 import { EditDeviceComponent } from '../components/devices/edit-device/edit-device.component';
 import { EditAudioDeviceComponent } from '../components/devices/edit-audio-device/edit-audio-device.component';
-import { EditorComponent } from '../components/editor/editor.component';
 import { ImportComponent } from '../components/import/import.component';
 import { HistoryComponent } from '../components/import/history/history.component';
 import { SettingsComponent } from '../components/settings/settings.component';
@@ -23,7 +22,6 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
   {
     path: '', canActivate: [AuthGuard], children: [
-      { path: 'document/:pid', component: EditorComponent, canDeactivate: [ConfirmLeaveEditorGuard] },
       { path: 'repository/:pid', component: RepositoryComponent, canDeactivate: [ConfirmLeaveEditorGuard] },
       { path: 'settings', component: SettingsComponent },
       { path: 'devices', component: DevicesComponent },
