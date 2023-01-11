@@ -67,7 +67,7 @@
     </table>
   </div>
 
-  <mat-card *ngIf="message" class="app-alert app-mt-4" [ngClass]="state == 'error' || !selectedRowWarning ? 'app-warn' : 'app-success'">
+  <mat-card *ngIf="message" class="app-alert app-mt-4" [ngClass]="(state == 'error' ? 'app-warn' : false) || (selectedRowWarning ? 'app-info' : 'app-warn')">
     <mat-icon>{{ state == 'error' || !selectedRowWarning ? 'report' : 'info' }}</mat-icon> {{ message }}
   </mat-card>
 </div>
