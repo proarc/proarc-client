@@ -56,6 +56,7 @@ export class EditorPageComponent implements OnInit {
   });
 
   public page: Page;
+  lastFocus = 'pageIndex';
 
   @Input()
   set pid(pid: string) {
@@ -81,6 +82,10 @@ export class EditorPageComponent implements OnInit {
 
   removeFocus() {
     this.layout.movedToNextFrom = null;
+  }
+
+  setFocus(f: string) {
+    this.lastFocus = f;
   }
 
   private setPage(page: Page) {
@@ -180,6 +185,14 @@ export class EditorPageComponent implements OnInit {
       return false;
     }
     return true;
+  }
+
+  saveIcon() {
+    if (this.layout.type === 'repo') {
+      this.save(null);
+    } else {
+      this.save(this.lastFocus)
+    }
   }
 
   onSave(from: string = null) {
