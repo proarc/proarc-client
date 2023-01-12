@@ -104,7 +104,7 @@ html, body {
       cursor: pointer;
     }
     &:hover {
-      background: $table-color-bg-hover;
+      background: $app-color-item-hover;
     }
     &.app-header {
       // color: rgba(0,0,0,.63);
@@ -119,8 +119,7 @@ html, body {
       }
     }
     &.app-selected {
-      background: $app-color-primary;
-      color: #ffffff;
+      background: $app-color-item-selected;
       border-bottom-color: #ffffff2e;
     }
 
