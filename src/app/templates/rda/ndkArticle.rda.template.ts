@@ -561,6 +561,17 @@ export class NdkArticleRdaTemplate {
       labelKey: 'part',
       description: `Popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.`,
       fields: {
+        type: {
+          usage: 'M',
+          label: 'Typ',
+          selector: 'part/@type',
+          labelKey: 'part/@type',
+          description: `Hodnota bude "pageNumber" nebo "pageIndex`,
+          options: [
+            ['pageNumber', 'page number'],
+            ['pageIndex', 'page index']
+          ]
+        },
         extent: {
           usage: 'MA',
           label: 'Extent',
