@@ -562,7 +562,7 @@ export class NdkArticleRdaTemplate {
       description: `Popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.`,
       fields: {
         type: {
-          usage: 'M',
+          usage: 'R',
           label: 'Typ',
           selector: 'part/@type',
           labelKey: 'part/@type',
