@@ -143,7 +143,12 @@ export class EditorPageComponent implements OnInit {
   }
 
   onSaveFrom(from: string) {
-    this.onSave(from);
+    if (this.layout.type === 'repo') {
+      this.onSave(null);
+    } else {
+      this.onSave(from);
+    }
+    
   }
 
   isInBrackets(): boolean {
@@ -269,6 +274,7 @@ export class EditorPageComponent implements OnInit {
         return;
       }
       const newPage: Page = Page.fromJson(resp['response']['data'][0], page.model);
+      this.setPage(newPage);
       // this.layout.setShouldRefresh(true);
       this.layout.refreshSelectedItem(moveToNext, from);
       
