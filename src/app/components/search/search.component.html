@@ -160,27 +160,24 @@
       </as-split-area>
       
       <as-split-area #area2="asSplitArea" [minSize]="20" [size]="getSplitSize(1)">
-        <div class="app-items-wrapper" *ngIf="tree">
-          <div class="app-search-actions">
-            <div class="app-object-actions">
-              <ng-container *ngIf="search.selectedTree">
-                <button (click)="selectItem(selectedItem)" mat-button>{{'common.refresh' | translate }}</button>
-                <button (click)="openItem(search.selectedTree.item)" mat-button>Otevřít</button>
-                <button (click)="showFoxml(search.selectedTree.item)" mat-button>FOXML</button>
-                <button (click)="onExport(search.selectedTree.item)" mat-button>Exportovat</button>
-                <button (click)="onUrnnbn(search.selectedTree.item)" mat-button>URN:NBN</button>
-                <button *ngIf="canChangeModel(search.selectedTree.item)" (click)="changeModel(search.selectedTree.item)" mat-button>Převody NDK modelů</button>
-                <button (click)="onExpandAll()" mat-button>Rozbalit</button>
-                <button *ngIf="search.selectedTree.item" (click)="onDeleteFromTree()" mat-button>Smazat</button>
-                <button *ngIf="canCopy(search.selectedTree.item)" (click)="onCopyItem(search.selectedTree.item)" mat-button>Zkopírovat</button>
-                <button *ngIf="!search.selectedTree.item.isLocked && (auth.user.lockObjectFunction  || auth.isSuperAdmin())" (click)="onLock(search.selectedTree.item, true)" mat-button>Uzamknout</button>
-                <button *ngIf="search.selectedTree.item.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" (click)="onLock(search.selectedTree.item, false)" mat-button>Odemknout</button>
-                <button (click)="updateObjects(search.selectedTree.item)" mat-button>Update všech objektů</button>
-              </ng-container>
+        <div class="app-content-wrapper" *ngIf="tree" fxLayout="column" fxFlexFill>
+          <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar app-toolbar-action app-view-border-bottom">
+            <div fxFlex *ngIf="search.selectedTree" fxLayout="row" fxFlexFill>
+              <button (click)="selectItem(selectedItem)" mat-button>{{'common.refresh' | translate }}</button>
+              <button (click)="openItem(search.selectedTree.item)" mat-button>Otevřít</button>
+              <button (click)="showFoxml(search.selectedTree.item)" mat-button>FOXML</button>
+              <button (click)="onExport(search.selectedTree.item)" mat-button>Exportovat</button>
+              <button (click)="onUrnnbn(search.selectedTree.item)" mat-button>URN:NBN</button>
+              <button *ngIf="canChangeModel(search.selectedTree.item)" (click)="changeModel(search.selectedTree.item)" mat-button>Převody NDK modelů</button>
+              <button (click)="onExpandAll()" mat-button>Rozbalit</button>
+              <button *ngIf="search.selectedTree.item" (click)="onDeleteFromTree()" mat-button>Smazat</button>
+              <button *ngIf="canCopy(search.selectedTree.item)" (click)="onCopyItem(search.selectedTree.item)" mat-button>Zkopírovat</button>
+              <button *ngIf="!search.selectedTree.item.isLocked && (auth.user.lockObjectFunction  || auth.isSuperAdmin())" (click)="onLock(search.selectedTree.item, true)" mat-button>Uzamknout</button>
+              <button *ngIf="search.selectedTree.item.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" (click)="onLock(search.selectedTree.item, false)" mat-button>Odemknout</button>
+              <button (click)="updateObjects(search.selectedTree.item)" mat-button>Update všech objektů</button>
             </div>
           </div>
-  
-          <div class="app-table app-items">
+          <div fxFlex class="app-table app-items app-oh">
             <div class="search-result-list">
               <div class="app-row app-header">
                 <div class="result-label" *ngIf="properties.isSearchColEnabled('name')">

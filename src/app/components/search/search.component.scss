@@ -32,40 +32,6 @@
 
 // johny
 .app-search-results {  
-  .app-search-actions {
-    height: 42px;
-    background: #fff;
-    border-bottom: 1px solid #ccc;
-    .app-paginator {
-      float: right;
-      // text-align: right;
-      // width: 250px;
-      ::ng-deep .mat-paginator-container {
-        justify-content: left;
-      }
-    }
-    .app-object-actions {
-      float: left;
-      padding-right: 10px;
-      button {
-        margin-top: 2px;
-      }
-    }
-
-  }
-  as-split-area {
-    overflow: hidden !important;
-  }
-  .app-items-wrapper {
-    height: 100%;
-    overflow: hidden;
-    border-bottom: 1px solid #cecece;
-    .app-items {
-      height: calc(100% - 42px);
-      overflow: hidden;
-    }
-  }
-
   .search-result-list {
     height: 100%;
     // height: calc(100% - 40px);
