@@ -26,7 +26,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
   pageSize = 20;
   resultCount = 200;
 
-  selectedState = 'ALL';
+  selectedState = 'LOADED';
 
   users: User[];
   batches: Batch[];
@@ -130,7 +130,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
   processParams(p: any) {
       this.view = p['view'] ? p['view'] : 'overview';
-      this.selectedState = p['state'] ? p['state'] : 'ALL';
+      this.selectedState = p['state'] ? p['state'] : 'LOADED';
       this.description = p['description'] ? p['description'] : null;
       // this.user = p['userId'] ? this.users.find(u => u.userId === p['userId']) : null;
       this.user = p['userId'] ? p['userId']  : null;
