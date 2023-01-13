@@ -24,6 +24,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSortModule } from '@angular/material/sort';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 const modules = [
     MatButtonModule,
@@ -49,7 +50,8 @@ const modules = [
     MatButtonToggleModule,
     MatDividerModule,
     MatCardModule,
-    MatSortModule
+    MatSortModule,
+    DragDropModule
   ];
 
   @NgModule({

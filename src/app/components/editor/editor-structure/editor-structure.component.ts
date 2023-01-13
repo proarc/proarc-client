@@ -23,6 +23,7 @@ import { LayoutService } from 'src/app/services/layout.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UIService } from 'src/app/services/ui.service';
 
+import { CdkDragDrop, CdkDragStart, moveItemInArray, transferArrayItem, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 
 @Component({
@@ -71,6 +72,7 @@ export class EditorStructureComponent implements OnInit {
 
   hasChanges: boolean = false;
   scrollPos = -1;
+  dragDisabled = true;
 
   // public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
 
@@ -375,6 +377,7 @@ export class EditorStructureComponent implements OnInit {
     }
     const isMultiple = this.layout.getNumOfSelected() > 1;
     this.source = event.currentTarget;
+    console.log(this.source)
     this.sourceNext = event.currentTarget.nextSibling;
     this.sourceIndex = idx;
     if (isMultiple && !item.selected) {
@@ -392,17 +395,20 @@ export class EditorStructureComponent implements OnInit {
   }
 
   dragenter(event: any) {
-    if (!this.dragEnabled || !this.source || this.source.parentNode !== event.currentTarget.parentNode) {
+    const target = event.currentTarget;
+    if (!this.dragEnabled || !this.source ||
+      this.source.parentNode !== event.currentTarget.parentNode ||
+      this.source === target) {
       // event.dataTransfer.dropEffect = 'none';
       return;
     }
-    const target = event.currentTarget;
+    console.log(this.source, target)
     if (this.isbefore(this.source, target)) {
       target.parentNode.insertBefore(this.source, target); // insert before
     } else {
       target.parentNode.insertBefore(this.source, target.nextSibling); // insert after
     }
-    this.layout.setSelectionChanged(true);
+    //this.layout.setSelectionChanged(true);
   }
 
   dragover(event: any) {
@@ -424,6 +430,7 @@ export class EditorStructureComponent implements OnInit {
       return;
     }
     const isMultiple = this.layout.getNumOfSelected() > 1;
+
     const targetIndex = this.getIndex(this.source);
     let to = targetIndex;
     this.source.parentNode.insertBefore(this.source, this.sourceNext);
@@ -979,6 +986,59 @@ export class EditorStructureComponent implements OnInit {
         this.layout.setShouldRefresh(true);
       }
     });
+  }
+
+  array_move(arr: any[], old_index: number, new_index: number) {
+    if (new_index >= arr.length) {
+        var k = new_index - arr.length + 1;
+        while (k--) {
+            arr.push(undefined);
+        }
+    }
+    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+    return arr; // for testing
+  }
+
+  drop1(event: any) {
+    // Return the drag container to disabled.
+    this.dragDisabled = true;
+
+    const selections: number[] = [];
+    let indexCounted = false;
+
+    // Get the indexes for all selected items
+    this.layout.items.forEach((item, i) => {
+      if (item.selected) {
+        selections.unshift(i);
+      }
+    });
+
+    const selected: DocumentItem[] = this.layout.items.filter(i => i.selected);
+
+    if (selections.length > 1) {
+      // If multiple selections exist
+      let newIndex = event.currentIndex;
+      selections.forEach(s => {
+        this.layout.items.splice(s, 1);
+        if (s < event.currentIndex) {
+          newIndex --;
+          indexCounted = true;
+        }
+      });
+      if (indexCounted) {
+        newIndex++;
+      }
+      this.layout.items.splice(newIndex, 0, ...selected);
+
+    } else {
+      // If a single selection
+      console.log(event.previousIndex, event.currentIndex)
+      moveItemInArray(this.layout.items, event.previousIndex, event.currentIndex);
+    }
+    this.layout.setIsDirty(this as Component);
+    this.hasChanges = true;
+    this.table.renderRows();
+
   }
 
 }
