@@ -43,7 +43,7 @@ export class LayoutService {
   public movingToNext = false;
   public movedToNextFrom: string;
 
-
+  dragging = false;
 
   dirtyComps: {[key: string]: Component} = {};
 

@@ -54,6 +54,7 @@ export class EditorStructureComponent implements OnInit {
   sourceNext: any;
   dragEnabled = true;
   sourceIndex: number;
+  targetIndex: number;
   isDragging = false;
 
 
@@ -377,7 +378,6 @@ export class EditorStructureComponent implements OnInit {
     }
     const isMultiple = this.layout.getNumOfSelected() > 1;
     this.source = event.currentTarget;
-    console.log(this.source)
     this.sourceNext = event.currentTarget.nextSibling;
     this.sourceIndex = idx;
     if (isMultiple && !item.selected) {
@@ -394,7 +394,7 @@ export class EditorStructureComponent implements OnInit {
     event.dataTransfer.setData("panel", this.panel.id);
   }
 
-  dragenter(event: any) {
+  dragenter(event: any, idx: number) {
     const target = event.currentTarget;
     if (!this.dragEnabled || !this.source ||
       this.source.parentNode !== event.currentTarget.parentNode ||
@@ -402,13 +402,14 @@ export class EditorStructureComponent implements OnInit {
       // event.dataTransfer.dropEffect = 'none';
       return;
     }
-    console.log(this.source, target)
+    this.targetIndex = idx;
+
     if (this.isbefore(this.source, target)) {
       target.parentNode.insertBefore(this.source, target); // insert before
     } else {
       target.parentNode.insertBefore(this.source, target.nextSibling); // insert after
     }
-    //this.layout.setSelectionChanged(true);
+
   }
 
   dragover(event: any) {
@@ -425,51 +426,105 @@ export class EditorStructureComponent implements OnInit {
 
 
   dragend(event: any) {
+    
     this.isDragging = false;
     if (!this.dragEnabled) {
       return;
     }
+
     const isMultiple = this.layout.getNumOfSelected() > 1;
 
     const targetIndex = this.getIndex(this.source);
     let to = targetIndex;
-    this.source.parentNode.insertBefore(this.source, this.sourceNext);
+    to = this.targetIndex;
+    // this.source.parentNode.insertBefore(this.source, this.sourceNext);
     if (isMultiple) {
-      const movedItems = [];
-      let shift = 0;
-      for (let i = this.layout.items.length - 1; i >= 0; i--) {
-        if (this.layout.items[i].selected) {
-          const item = this.layout.items.splice(i, 1);
-          movedItems.push(item[0]);
-          if (i < to) {
-            shift += 1;
-          }
-        }
-      }
-      if (shift > 1) {
-        to = to - shift + 1;
-      }
-      const rest = this.layout.items.splice(to, this.layout.items.length - to);
-      for (let i = movedItems.length - 1; i >= 0; i--) {
-        this.layout.items.push(movedItems[i]);
-      }
-      for (let i = 0; i < rest.length; i++) {
-        const item = rest[i];
-        this.layout.items.push(item);
-      }
-      this.layout.setIsDirty(this as Component);
-      this.hasChanges = true;
-      if (this.table) {
-        this.table.renderRows();
-      }
+
+      this.dropMultiple();
+
+      // const movedItems = [];
+      // let shift = 0;
+      // for (let i = this.layout.items.length - 1; i >= 0; i--) {
+      //   if (this.layout.items[i].selected) {
+      //     const item = this.layout.items.splice(i, 1);
+      //     movedItems.push(item[0]);
+      //     if (i < to) {
+      //       shift += 1;
+      //     }
+      //   }
+      // }
+      // if (shift > 1) {
+      //   to = to - shift + 1;
+      // }
+      // const rest = this.layout.items.splice(to, this.layout.items.length - to);
+      // for (let i = movedItems.length - 1; i >= 0; i--) {
+      //   this.layout.items.push(movedItems[i]);
+      // }
+      // for (let i = 0; i < rest.length; i++) {
+      //   const item = rest[i];
+      //   this.layout.items.push(item);
+      // }
+      // this.layout.setIsDirty(this as Component);
+      // this.hasChanges = true;
+      // if (this.table) {
+      //   this.table.renderRows();
+      // }
 
     } else {
       const from = this.sourceIndex;
+      
+      this.hasChanges = true;
       if (from !== to) {
         this.reorder(from, to);
       }
     }
     this.layout.setSelectionChanged(true);
+  }
+
+  public trackItem (index: number, item: DocumentItem) {
+    return item.pid;
+  }
+
+  dropMultiple() {
+    const selections: number[] = [];
+    let indexCounted = false;
+
+    // Get the indexes for all selected items
+    this.layout.items.forEach((item, i) => {
+      if (item.selected) {
+        selections.unshift(i);
+      }
+    });
+
+    const selected: DocumentItem[] = this.layout.items.filter(i => i.selected);
+    if (selections.length > 1) {
+      let newIndex = this.targetIndex;
+      selections.forEach(s => {
+        const item = this.layout.items.splice(s, 1);
+        if (s < this.targetIndex) {
+          newIndex --;
+          indexCounted = true;
+        }
+      });
+      if (indexCounted) {
+        newIndex++;
+      }
+      this.layout.items.splice(newIndex, 0, ...selected);
+
+    } else {
+      // If a single selection
+      moveItemInArray(this.layout.items, this.sourceIndex, this.targetIndex);
+    }
+    this.layout.setIsDirty(this as Component);
+    this.hasChanges = true;
+    if (this.table) {
+        this.table.renderRows();
+      
+    }
+    this.state = 'loading';
+    setTimeout(() => {
+      this.state = 'success';
+    }, 1);
   }
 
   reorderMultiple(to: number) {
@@ -999,8 +1054,17 @@ export class EditorStructureComponent implements OnInit {
     return arr; // for testing
   }
 
+  cdkDragStart(event: any) {
+    this.layout.dragging = true;
+  }
+
+  cdkDragEnd(event: any) {
+    this.layout.dragging = false;
+  }
+
   drop1(event: any) {
     // Return the drag container to disabled.
+    this.layout.dragging = false;
     this.dragDisabled = true;
 
     const selections: number[] = [];
@@ -1032,7 +1096,6 @@ export class EditorStructureComponent implements OnInit {
 
     } else {
       // If a single selection
-      console.log(event.previousIndex, event.currentIndex)
       moveItemInArray(this.layout.items, event.previousIndex, event.currentIndex);
     }
     this.layout.setIsDirty(this as Component);

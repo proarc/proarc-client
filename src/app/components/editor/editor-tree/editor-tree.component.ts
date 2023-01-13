@@ -215,6 +215,24 @@ export class EditorTreeComponent implements OnInit {
     }
   }
 
+  mouseOver(tree: Tree, event: any) {
+    if (this.layout.dragging) {
+      this.dragenter(tree, event)
+    }
+  }
+
+  mouseUp(tree: Tree, event: any) {
+    if (this.layout.dragging) {
+      this.drop(tree, event)
+    }
+  }
+
+  mouseLeave(tree: Tree, event: any) {
+    if (this.layout.dragging) {
+      this.dragleave(event)
+    }
+  }
+
   dragenter(tree: Tree, event: any) {
     if (event.target.classList.contains("app-row")) {
       const source: DocumentItem = this.layout.lastSelectedItem;
@@ -246,10 +264,12 @@ export class EditorTreeComponent implements OnInit {
   }
 
   drop(tree: Tree, event: any) {
-    const items: DocumentItem[] = JSON.parse(event.dataTransfer?.getData("items"));
+    // const items: DocumentItem[] = JSON.parse(event.dataTransfer?.getData("items"));
+    const items: DocumentItem[] = this.layout.items.filter(i => i.selected);
     if (items[0].parent !== tree.item.pid) {
       this.changeParent(items, tree);
     }
+    this.layout.dragging = false;
     // console.log(JSON.parse(event.dataTransfer?.getData("items")));
   }
 

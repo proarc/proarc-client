@@ -31,7 +31,7 @@
     </div>
   </div>
 
-  <div fxFlex class="app-oh">
+  <div fxFlex class="app-oh" cdkDropListGroup>
     <as-split *ngIf="layout.layoutConfig" direction="horizontal" [disabled]="layout.layoutConfig.disabled"  (dragEnd)="onDragEnd(-1, $event)">
       <ng-template ngFor let-column [ngForOf]="layout.layoutConfig.columns" let-icol="index">
         <as-split-area *ngIf="column.visible" [order]="icol" [size]="column.size">
