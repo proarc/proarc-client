@@ -70,6 +70,14 @@
         <div class="app-content-wrapper" *ngIf="items" fxLayout="column" fxFlexFill>
           <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar app-toolbar-action app-view-border-bottom">
             <div fxFlex *ngIf="selectedItem" fxLayout="row" fxFlexFill>
+              <button mat-icon-button [matMenuTriggerFor]="columns_menu" [matTooltip]="'editor.children.select_columns' | translate" >
+                <mat-icon>rule</mat-icon>
+              </button>
+              <mat-menu #columns_menu="matMenu">
+                <div *ngFor="let column of selectedColumns" mat-menu-item>
+                  <mat-checkbox name="column.field" [(ngModel)]="column.selected" (change)="setSelectedColumns()">{{ 'search.' + column.field | translate }}</mat-checkbox>
+                </div>
+              </mat-menu>
               <button (click)="openItem(selectedItem)" mat-button>Otevřít</button>
               <button (click)="showFoxml(selectedItem)" mat-button>FOXML</button>
               <button (click)="onExport(selectedItem)" mat-button>Exportovat</button>
@@ -80,13 +88,14 @@
               <button *ngIf="selectedItem.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, false)" mat-button>Odemknout</button>
               <button *ngIf="selectedItem.state === 'fedora-system:def/model#Deleted'" (click)="onRestore(selectedItem)" mat-button>Obnovit objekt</button>
               <button (click)="updateObjects(selectedItem)" mat-button>Update všech objektů</button>
+              
             </div>
             <div>
               <mat-paginator [length]="resultCount" hidePageSize="true" [pageIndex]="pageIndex" [pageSize]="pageSize" (page)="onPageChanged($event)"></mat-paginator>
             </div>
           </div>
           <div class="app-oa-y">
-            <table mat-table [dataSource]="items" matSort class="app-striped app-hover" (matSortChange)="sortTable($event)">
+            <table mat-table #table [dataSource]="items" matSort class="app-striped app-hover" (matSortChange)="sortTable($event)">
 
               <ng-container matColumnDef="label">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header

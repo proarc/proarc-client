@@ -20,6 +20,7 @@ import { UIService } from 'src/app/services/ui.service';
 import { ChangeModelDialogComponent } from 'src/app/dialogs/change-model-dialog/change-model-dialog.component';
 
 import {MatSort, Sort} from '@angular/material/sort';
+import { MatTable } from '@angular/material/table';
 
 @Component({
   selector: 'app-search',
@@ -71,8 +72,23 @@ export class SearchComponent implements OnInit {
   users: User[];
 
   searchMode: string = 'advanced';
+  
+  @ViewChild('table') table: MatTable<DocumentItem>;
+  public selectedColumns = [
+    { field: 'label', selected: true },
+    { field: 'model', selected: true },
+    { field: 'pid', selected: true },
+    { field: 'processor', selected: true },
+    { field: 'organization', selected: true },
+    { field: 'status', selected: true },
+    { field: 'created', selected: true },
+    { field: 'modified', selected: true },
+    { field: 'owner', selected: true },
+    { field: 'export', selected: true },
+    { field: 'isLocked', selected: true }
+  ];
 
-  displayedColumns: string[] = ['label', 'model', 'pid', 'processor', 'organization', 'status', 'created', 'modified', 'owner', 'export', 'isLocked'];
+  displayedColumns: string[] = [];
 
   constructor(private api: ApiService, 
               public properties: LocalStorageService, 
@@ -91,7 +107,7 @@ export class SearchComponent implements OnInit {
     this.splitArea1Width = this.properties.getStringProperty('search.split.0', "60"),
     this.splitArea2Width = this.properties.getStringProperty('search.split.1', "40"),
     this.organizations = this.config.organizations;
-
+    this.initSelectedColumns();
     this.route.queryParams.subscribe(p => {
       this.processParams(p);
       this.reload();
@@ -578,6 +594,27 @@ export class SearchComponent implements OnInit {
         this.ui.showInfoSnackBar(this.translator.instant('Update hotový'))
       }
     });
+  }
+
+  setColumns() {
+    this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field);
+  }
+
+  initSelectedColumns() {
+    const prop = this.properties.getStringProperty('searchColumns');
+    if (prop) {
+      Object.assign(this.selectedColumns, JSON.parse(prop));
+      // this.selectedColumns = JSON.parse(prop);
+    }
+    this.setColumns();
+  }
+
+  setSelectedColumns() {
+    this.properties.setStringProperty('searchColumns', JSON.stringify(this.selectedColumns));
+    this.initSelectedColumns();
+
+    // this.dataSource = new MatTableDataSource(this.layout.items);
+    this.table.renderRows();
   }
 
 }
