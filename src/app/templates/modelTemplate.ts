@@ -178,7 +178,7 @@ export class ModelTemplate {
     'page': [],
     'oldprintomnibusvolume': ['oldprintvolume', 'oldprintmonographtitle', 'oldprintgraphics', 'oldprintmap', 'oldprintsheetmusic', 'oldprintpage'],
     'oldprintmonographtitle': ['oldprintvolume'],
-    'oldprintvo`lume': ['oldprintchapter', 'oldprintsupplement', 'oldprintpage'],
+    'oldprintvolume': ['oldprintchapter', 'oldprintsupplement', 'oldprintpage'],
     'oldprintsupplement': ['oldprintpage'],
     'oldprintchapter': [],
     'oldprintgraphics': ['oldprintpage'],

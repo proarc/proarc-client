@@ -50,7 +50,12 @@ export class LayoutService {
   constructor() { }
 
   allowedChildrenModels(): string[]{
-    return ModelTemplate.allowedChildrenForModel(this.selectedParentItem.model);
+    if (this.selectedParentItem) {
+      return ModelTemplate.allowedChildrenForModel(this.selectedParentItem.model);
+    } else {
+      return [];
+    }
+    
   }
   
 
