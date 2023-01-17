@@ -15,6 +15,7 @@ import { UIService } from 'src/app/services/ui.service';
 })
 export class MarkSequenceDialogComponent implements OnInit {
 
+  showOrig = false;
   orig: any[] = [];
   dest: any[] = [];
   origTable: any;
@@ -28,6 +29,7 @@ export class MarkSequenceDialogComponent implements OnInit {
   pageNumber: boolean = true;
   pagePosition: boolean = true;
   lastClickIdx: number = -1;
+  lastSelectedItem: DocumentItem;
   changed = false;
 
   constructor(
@@ -88,6 +90,7 @@ export class MarkSequenceDialogComponent implements OnInit {
       item.selected = true;
     }
     this.lastClickIdx = idx;
+    this.lastSelectedItem = item;
   }
 
   save() {

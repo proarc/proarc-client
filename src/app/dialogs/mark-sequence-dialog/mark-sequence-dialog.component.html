@@ -2,7 +2,7 @@
   <h1 mat-dialog-title>{{ 'editor.children.markSequence' | translate }}</h1>
   <div mat-dialog-content fxFlex>
     <as-split direction="horizontal" [disabled]="false">
-      <as-split-area [size]="40" (resized)="onResized($event, 'orig')">
+      <as-split-area [size]="40" (resized)="onResized($event, 'orig')" *ngIf="showOrig">
         <div fxLayout="column" fxFlexFill>
           <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-action">
             <div fxFlex>
@@ -187,6 +187,10 @@
             </div>
           </div>
         </div>
+      </as-split-area>
+
+      <as-split-area [size]="20" class="app-pl-4">
+        <app-viewer *ngIf="lastSelectedItem" [pid]="lastSelectedItem.pid" ></app-viewer>
       </as-split-area>
 
       <as-split-area [size]="20" class="app-pl-4">
