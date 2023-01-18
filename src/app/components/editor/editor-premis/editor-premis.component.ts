@@ -4,7 +4,7 @@ import { Mods } from 'src/app/model/mods.model';
 import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { UIService } from 'src/app/services/ui.service';
-import { parseString, processors } from 'xml2js';
+import { parseString, processors, Builder } from 'xml2js';
 
 @Component({
   selector: 'app-editor-premis',
@@ -17,6 +17,8 @@ export class EditorPremisComponent implements OnInit {
   set pid(pid: string) {
     this.onPidChanged(pid);
   }
+
+  editorType = 'metadata';
 
   @ViewChild('editingPre') editingPre: ElementRef;
   @ViewChild('originalPre') originalPre: ElementRef;
@@ -34,8 +36,7 @@ export class EditorPremisComponent implements OnInit {
   item: DocumentItem;
 
   public visible = true;
-
-  public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
+  jsonPremis: any;
 
   constructor(
     public layout: LayoutService,
@@ -56,15 +57,19 @@ export class EditorPremisComponent implements OnInit {
   //   });
   // }
 
-  // private parseXml(mods: string) {
-  //   const xml = mods.replace(/xmlns.*=".*"/g, '');
-  //   const data = {tagNameProcessors: [processors.stripPrefix], explicitCharkey: true};
-  //   const ctx = this;
-  //   parseString(xml, data, function (err: any, result: any) {
-  //       // ctx.processMods(result);
-  //       console.log(result)
-  //   });
-  // }
+  private parseXml(mods: string) {
+    const xml = mods.replace(/xmlns.*=".*"/g, '');
+    const data = {tagNameProcessors: [processors.stripPrefix], explicitCharkey: true};
+    const ctx = this;
+    parseString(xml, data, function (err: any, result: any) {
+        ctx.processPremis(result);
+        console.log(result)
+    });
+  }
+  
+  processPremis(json: any) {
+    this.jsonPremis = json;
+  }
 
   public setRealtime(enable: boolean) {
     if (enable) {
@@ -97,6 +102,12 @@ export class EditorPremisComponent implements OnInit {
       return;
     }
     this.loadMods();
+  }
+
+  onSaveMetadata() {
+    const builder = new Builder({ 'headless': true });
+    const xml = builder.buildObject(this.jsonPremis);
+    console.log(xml);
   }
 
   onSave() {
@@ -161,12 +172,14 @@ export class EditorPremisComponent implements OnInit {
 
   private loadMods() {
     this.mods = null;
+    this.jsonPremis = null;
     this.anyChange = false;
     this.editting = false;
     this.state = 'loading';
     this.api.getPremis(this.lastPid).subscribe((response: any) => {
       if (response && response['record']) {
         this.mods = Mods.fromJson(response['record']);
+        this.parseXml(response.record.content);
         this.state = 'success';
       } else if (response && response['response'] && response['response'].errors) {
         console.log('error', response['response'].errors);
@@ -176,6 +189,31 @@ export class EditorPremisComponent implements OnInit {
         this.state = 'success';
       }
     });
+  }
+
+  addDigiprovMD(c: any) {
+    const n = JSON.parse(JSON.stringify(c));
+    this.jsonPremis.mets.amdSec[0].digiprovMD.push(n)
+  }
+
+  addAfterItem(item: any) {
+    
+  }
+
+  removeItem(item: any) {
+
+  }
+
+  openHelpDialog(item: any) {
+    
+  }
+    
+  moveDown(item: any, idx: number) {
+    
+  }
+    
+  moveUp(item: any, idx: number) {
+    
   }
 
 }
