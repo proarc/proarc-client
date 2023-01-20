@@ -67,22 +67,29 @@
 							item: amdSec
 						}"></div>
 						<div class="app-card-content" [class.app-collapsed]="amdSec.collapsed">
-							<mat-form-field >
+							<mat-form-field>
 								<input autocomplete="off" matInput [(ngModel)]="amdSec['$'].ID"
 									[placeholder]="'premis.amdSecId' | translate">
 							</mat-form-field>
-						<div class="app-card" *ngFor="let techMD of amdSec['mets:techMD']">
-							<div class="app-card-content">
-								<mat-form-field >
-									<input autocomplete="off" matInput [(ngModel)]="techMD['$'].ID"
-										[placeholder]="'premis.techMDId' | translate">
-								</mat-form-field>
-							</div>
-							<div *ngFor="let mdWrap of techMD['mets:mdWrap']">
-								<div *ngFor="let xmlData of mdWrap['mets:xmlData']">
-									<div *ngFor="let object of xmlData['premis:object']">
+							<div class="app-card" *ngFor="let techMD of amdSec['mets:techMD']">
+								<div *ngTemplateOutlet="headerTmpl; 
+							context:{ data: {
+								collapsable: true, 
+								nested: true, 
+								labelKey: 'techMD'
+								},
+								item: techMD
+							}"></div>
+								<div class="app-card-content" [class.app-collapsed]="techMD.collapsed">
+									<mat-form-field>
+										<input autocomplete="off" matInput [(ngModel)]="techMD['$'].ID"
+											[placeholder]="'premis.techMDId' | translate">
+									</mat-form-field>
+									<div *ngFor="let mdWrap of techMD['mets:mdWrap']">
+										<div *ngFor="let xmlData of mdWrap['mets:xmlData']">
+											<div *ngFor="let object of xmlData['premis:object']">
 
-										<div *ngTemplateOutlet="fieldTmpl; 
+												<div *ngTemplateOutlet="fieldTmpl; 
 									context:{ data: {
 										collapsable: true, 
 										nested: true, 
@@ -90,7 +97,7 @@
 										root: object['premis:objectIdentifier'],
 									  fields: ['objectIdentifierType', 'objectIdentifierValue']}}"></div>
 
-										<div *ngTemplateOutlet="fieldTmpl; 
+												<div *ngTemplateOutlet="fieldTmpl; 
 										context:{ data: {
 											collapsable: true, 
 											nested: true, 
@@ -98,7 +105,7 @@
 											root: object['premis:preservationLevel'],
 											fields: ['preservationLevelValue']}}"></div>
 
-										<div *ngTemplateOutlet="fieldTmpl; 
+												<div *ngTemplateOutlet="fieldTmpl; 
 											context:{ data: {
 												collapsable: true, 
 												nested: true, 
@@ -106,7 +113,7 @@
 												root: object['premis:significantProperties'],
 												fields: ['preservationLevelValue']}}"></div>
 
-										<div *ngTemplateOutlet="fieldTmpl; 
+												<div *ngTemplateOutlet="fieldTmpl; 
 									  context:{ data: {
 										collapsable: true, 
 										nested: true, 
@@ -114,7 +121,7 @@
 										root: object['premis:objectCharacteristics'],
 										fields: ['compositionLevel', 'creatingApplication', 'fixity', 'format', 'size']}}"></div>
 
-										<div *ngTemplateOutlet="fieldTmpl; 
+												<div *ngTemplateOutlet="fieldTmpl; 
 										context:{ data: {
 											collapsable: true, 
 											nested: true, 
@@ -122,7 +129,7 @@
 											root: object['premis:originalName'],
 											fields: ['_']}}"></div>
 
-										<div *ngTemplateOutlet="fieldTmpl; 
+												<div *ngTemplateOutlet="fieldTmpl; 
 											context:{ data: {
 												collapsable: true, 
 												nested: true, 
@@ -130,7 +137,7 @@
 												root: object['premis:storage'],
 												fields: ['compositionLevel']}}"></div>
 
-										<div *ngTemplateOutlet="fieldTmpl; 
+												<div *ngTemplateOutlet="fieldTmpl; 
 									 context:{ data: {
 										collapsable: true, 
 										nested: true, 
@@ -138,52 +145,157 @@
 										root: object['premis:signatureInformation'],
 										fields: ['compositionLevel']}}"></div>
 
-										<div
-											*ngTemplateOutlet="fieldTmpl; 
+												<div
+													*ngTemplateOutlet="fieldTmpl; 
 										context:{ data: {
 										 collapsable: true, 
 										 nested: true, 
 										 labelKey: 'relationship',
 										 root: object['premis:relationship'],
 										 fields: ['relatedEventIdentification', 'relatedObjectIdentification', 'relationshipType', 'relationshipSubType']}}">
-										</div>
+												</div>
 
-										<div
-											*ngTemplateOutlet="fieldTmpl; 
+												<div *ngTemplateOutlet="fieldTmpl; 
 										context:{ data: {
 										 collapsable: true, 
 										 nested: true, 
 										 labelKey: 'linkingEventIdentifier',
 										 root: object['premis:linkingEventIdentifier'],
 										 fields: ['linkingEventIdentifierType', 'linkingEventIdentifierValue']}}">
-										</div>
+												</div>
 
-										<div
-											*ngTemplateOutlet="fieldTmpl; 
+												<div *ngTemplateOutlet="fieldTmpl; 
 										context:{ data: {
 										 collapsable: true, 
 										 nested: true, 
 										 labelKey: 'linkingRightsStatementIdentifier',
 										 root: object['premis:linkingRightsStatementIdentifier'],
 										 fields: ['compositionLevel']}}">
+												</div>
+
+											</div>
 										</div>
 
+									</div>
+								</div>
+							</div>
+
+							<div class="app-card" *ngFor="let digiprovMD of amdSec['mets:digiprovMD']; let last = last">
+								<div *ngTemplateOutlet="headerTmpl; 
+								context:{ data: {
+									collapsable: true, 
+									nested: true, 
+									labelKey: 'digiprovMD'
+									},
+									item: digiprovMD
+								}"></div>
+								<div class="app-card-content" [class.app-collapsed]="digiprovMD.collapsed">
+									<mat-form-field>
+										<input autocomplete="off" matInput [(ngModel)]="digiprovMD['$'].ID"
+											[placeholder]="'premis.techMDId' | translate">
+									</mat-form-field>
+									<div *ngFor="let mdWrap of digiprovMD['mets:mdWrap']">
+										<div *ngFor="let xmlData of mdWrap['mets:xmlData']">
+											<div *ngFor="let event of xmlData['premis:event']">
+
+												<div *ngTemplateOutlet="fieldTmpl; 
+									context:{ data: {
+										collapsable: true, 
+										nested: true, 
+										labelKey: 'eventIdentifier',
+										root: event['premis:eventIdentifier'],
+									  fields: ['eventIdentifierType', 'eventIdentifierValue']}}"></div>
+
+												<div *ngTemplateOutlet="fieldTmpl; 
+										context:{ data: {
+											collapsable: true, 
+											nested: true, 
+											labelKey: 'eventType',
+											root: event['premis:eventType'],
+											fields: ['_']}}"></div>
+
+												<div *ngTemplateOutlet="fieldTmpl; 
+											context:{ data: {
+												collapsable: true, 
+												nested: true, 
+												labelKey: 'eventDateTime',
+												root: event['premis:eventDateTime'],
+												fields: ['_']}}"></div>
+
+												<div *ngTemplateOutlet="fieldTmpl; 
+									  context:{ data: {
+										collapsable: true, 
+										nested: true, 
+										labelKey: 'eventDetail',
+										root: event['premis:eventDetail'],
+										fields: ['_']}}"></div>
+
+												<div *ngTemplateOutlet="fieldTmpl; 
+										context:{ data: {
+											collapsable: true, 
+											nested: true, 
+											labelKey: 'eventOutcomeInformation',
+											root: event['premis:eventOutcomeInformation'],
+											fields: ['eventOutcome']}}"></div>
+
+												<div *ngTemplateOutlet="fieldTmpl; 
+											context:{ data: {
+												collapsable: true, 
+												nested: true, 
+												labelKey: 'linkingAgentIdentifier',
+												root: event['premis:linkingAgentIdentifier'],
+												fields: ['linkingAgentIdentifierType', 'linkingAgentIdentifierValue', 'linkingAgentRole']}}"></div>
+
+												<div *ngTemplateOutlet="fieldTmpl; 
+									 context:{ data: {
+										collapsable: true, 
+										nested: true, 
+										labelKey: 'linkingObjectIdentifier',
+										root: event['premis:linkingObjectIdentifier'],
+										fields: ['linkingObjectIdentifierType', 'linkingObjectIdentifierValue']}}"></div>
+
+											</div>
+
+
+											<div *ngFor="let agent of xmlData['premis:agent']">
+
+												<div *ngTemplateOutlet="fieldTmpl; 
+									context:{ data: {
+										collapsable: true, 
+										nested: true, 
+										labelKey: 'agentIdentifier',
+										root: agent['premis:agentIdentifier'],
+									  fields: ['agentIdentifierType', 'agentIdentifierValue']}}"></div>
+
+												<div *ngTemplateOutlet="fieldTmpl; 
+										context:{ data: {
+											collapsable: true, 
+											nested: true, 
+											labelKey: 'agentType',
+											root: agent['premis:agentType'],
+											fields: ['_']}}"></div>
+
+												<div *ngTemplateOutlet="fieldTmpl; 
+											context:{ data: {
+												collapsable: true, 
+												nested: true, 
+												labelKey: 'agentname',
+												root: agent['premis:agentname'],
+												fields: ['_']}}"></div>
+
+
+											</div>
+
+										</div>
+
+									</div>
 								</div>
 							</div>
 
 						</div>
 					</div>
-						</div>
 
-					<div class="app-editor-field">
-						<div class="app-card" *ngFor="let digiprovMD of amdSec.digiprovMD; let last = last">
-							<div>{{ digiprovMD['$'].ID}}</div>
-							<div *ngFor="let mdWrap of digiprovMD['mets:mdWrap']">
-								<input [(ngModel)]="mdWrap['$'].MDTYPE" />
-							</div>
-							<div *ngIf="last" (click)="addDigiprovMD(digiprovMD)">+</div>
-						</div>
-					</div>
+
 
 				</div>
 
@@ -214,7 +326,7 @@
 				<mat-icon>expand_less</mat-icon>
 			</button>
 		</ng-container>
-		<button matTooltip="{{ 'editor.add_field' | translate }}" (click)="addAfterItem(item)" mat-icon-button>
+		<button matTooltip="{{ 'editor.add_field' | translate }}" (click)="addAfterItem(data.root)" mat-icon-button>
 			<mat-icon>add</mat-icon>
 		</button>
 		<!-- <ng-template [ngTemplateOutlet]="templateMenu" [ngTemplateOutletContext]="{ item: item  }"></ng-template> -->

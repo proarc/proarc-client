@@ -216,8 +216,10 @@ export class EditorPremisComponent implements OnInit {
     this.jsonPremis.mets.amdSec[0].digiprovMD.push(n)
   }
 
-  addAfterItem(item: any) {
-
+  addAfterItem(parent: any) {
+    const item = parent[0];
+    const newItem = JSON.parse(JSON.stringify(item));
+    parent.push(newItem)
   }
 
   removeItem(item: any) {
