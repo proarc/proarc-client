@@ -59,16 +59,33 @@ export class EditorPremisComponent implements OnInit {
 
   private parseXml(mods: string) {
     const xml = mods.replace(/xmlns.*=".*"/g, '');
-    const data = {tagNameProcessors: [processors.stripPrefix], explicitCharkey: true};
+    const data = { explicitCharkey: true };
     const ctx = this;
     parseString(xml, data, function (err: any, result: any) {
-        ctx.processPremis(result);
-        console.log(result)
+      ctx.processPremis(result);
     });
   }
-  
+
   processPremis(json: any) {
     this.jsonPremis = json;
+
+    console.log(this.jsonPremis)
+    this.jsonPremis['mets:mets']['$'] = {
+      'xmlns:mets': "http://www.loc.gov/METS/",
+      'xmlns:xsi': "http://www.w3.org/2001/XMLSchema-instance",
+      'xmlns:premis': "info:lc/xmlns/premis-v2"
+    };
+    // this.jsonPremis['mets:mets'].['amdSec'].forEach((amdSec: any) => {
+    //   amdSec.['techMD'].forEach((techMD: any) => {
+    //     techMD.['mdWrap'].forEach((w: any) => {
+    //       w.['xmlData'].forEach((x: any) => {
+    //         x.['object'].forEach((o: any) => {
+    //           o['$'] = null;
+    //         })
+    //       });
+    //     });
+    //   })
+    // });
   }
 
   public setRealtime(enable: boolean) {
@@ -105,8 +122,12 @@ export class EditorPremisComponent implements OnInit {
   }
 
   onSaveMetadata() {
+
+    // xmlns: xmlns:mets="http://www.loc.gov/METS/" xmlns:nk="info:ndk/xmlns/nk-v1"
     const builder = new Builder({ 'headless': true });
     const xml = builder.buildObject(this.jsonPremis);
+    this.mods.content = xml;
+    this.savePremis(this.mods, true);
     console.log(xml);
   }
 
@@ -117,19 +138,18 @@ export class EditorPremisComponent implements OnInit {
       return;
     }
     this.mods.content = this.editingPre.nativeElement.innerText;
-    this.saveMods(this.mods, false);
-
+    this.savePremis(this.mods, false);
 
   }
 
-  saveMods(mods: Mods, ignoreValidation: boolean) {
+  savePremis(mods: Mods, ignoreValidation: boolean) {
     this.state = 'saving';
-    this.api.editModsXml(mods.pid, mods.content, mods.timestamp, ignoreValidation, this.layout.getBatchId()).subscribe((resp: any) => {
+    this.api.savePremis(mods.pid, mods.content, mods.timestamp, ignoreValidation, this.layout.getBatchId()).subscribe((resp: any) => {
       if (resp.errors) {
         this.state = 'error';
         this.ui.showErrorSnackBar(resp.errors.mods[0].errorMessage)
       } else {
-        this.api.getMods(mods.pid, this.layout.getBatchId()).subscribe((response: any) => {
+        this.api.getPremis(this.lastPid).subscribe((response: any) => {
 
           if (response.errors) {
             this.state = 'error';
@@ -197,23 +217,27 @@ export class EditorPremisComponent implements OnInit {
   }
 
   addAfterItem(item: any) {
-    
+
   }
 
   removeItem(item: any) {
 
   }
 
+  switchCollapsed(item: any) {
+    item.collapsed = !item.collapsed;
+  }
+
   openHelpDialog(item: any) {
-    
+
   }
-    
+
   moveDown(item: any, idx: number) {
-    
+
   }
-    
+
   moveUp(item: any, idx: number) {
-    
+
   }
 
 }

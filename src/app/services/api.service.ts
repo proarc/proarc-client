@@ -894,6 +894,16 @@ export class ApiService {
     return this.get('object/technicalMetadataXmlPremis', params);
   }
 
+  savePremis(pid: string, xml: string, timestamp: number, ignoreValidation: boolean, batchId: any = null): Observable<any> {
+    const xmlText = xml.replace(/&/g, '%26');
+    let data = `pid=${pid}&ignoreValidation=${ignoreValidation}&xmlData=${xmlText}&timestamp=${timestamp}`;
+    if (batchId) {
+      data = `${data}&batchId=${batchId}`;
+    }
+    // return this.put('object/mods/custom', data).pipe(map(response => Mods.fromJson(response['response']['data'][0])));
+    return this.put('object/technicalPremis', data).pipe(map((response: any) => response['response']));
+  }
+
 
 }
 
