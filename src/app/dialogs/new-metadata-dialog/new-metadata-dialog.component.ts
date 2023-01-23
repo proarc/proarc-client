@@ -155,7 +155,7 @@ export class NewMetadataDialogComponent implements OnInit {
         this.state = 'success';
         this.state = 'success';
         this.metadata.resetChanges();
-        this.dialogRef.close({gotoEdit, item: response['response']['data'][0]});
+        this.dialogRef.close({ gotoEdit, item: response['response']['data'][0] });
         // if (gotoEdit) {
         // } else {
         //   this.dialogRef.close(response['response']['data'][0]);
@@ -201,7 +201,7 @@ export class NewMetadataDialogComponent implements OnInit {
           const pid = response['response']['data'][0]['pid'];
           this.state = 'success';
           this.metadata.resetChanges();
-          this.dialogRef.close({gotoEdit, item: response['response']['data'][0]});
+          this.dialogRef.close({ gotoEdit, item: response['response']['data'][0] });
           // if (gotoEdit) {
           //   this.dialogRef.close(response['response']['data'][0]);
           // } else {
@@ -211,6 +211,11 @@ export class NewMetadataDialogComponent implements OnInit {
 
 
         });
+      } else {
+        let el: any = document.querySelectorAll('app-new-metadata-dialog .mat-form-field-invalid input,app-new-metadata-dialog .mat-form-field-invalid mat-select')[0];
+        if (el) {
+          el.focus();
+        }
       }
     });
   }

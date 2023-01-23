@@ -43,6 +43,10 @@ export class EditorMetadataComponent implements OnInit {
 
     if (c['metadata'] && c['metadata'].currentValue) {
       this.metadata = c['metadata'].currentValue;
+      
+      setTimeout(() => {
+        this.focusToFirstRequired();
+      }, 500);
       return;
     }
 
@@ -120,12 +124,33 @@ export class EditorMetadataComponent implements OnInit {
           this.saveMetadata(ignoreValidation);
         }
       } else {
-        const el: any = document.querySelectorAll('input.ng-invalid')[0];
-        if (el) {
-          el.focus();
-        }
+        this.focusToFirstInvalid();
       }
     });
+  }
+
+  focusToFirstInvalid() {
+    const el: any = document.querySelectorAll('input.ng-invalid')[0];
+    console.log(el);
+    if (el) {
+      el.focus();
+    }
+  }
+
+  focusToFirstRequired() {
+    // find in new object
+    let el: any = document.querySelectorAll('app-new-metadata-dialog input[required]')[0];
+    if (el) {
+      el.focus();
+      return;
+    }
+
+    //find in already exiting object
+    el = document.querySelectorAll('input[required]')[0];
+    if (el) {
+      el.focus();
+    }
+
   }
 
   onSave() {
@@ -145,6 +170,9 @@ export class EditorMetadataComponent implements OnInit {
           this.state = 'success';
         });
 
+        setTimeout(() => {
+          this.focusToFirstInvalid();
+        }, 500);
       } else {
         this.saveMetadata(false);
       }
@@ -179,6 +207,9 @@ export class EditorMetadataComponent implements OnInit {
         this.metadata.timestamp = response.data[0].timestamp;
         this.layout.refreshSelectedItem(false, 'metadata');
       }
+      setTimeout(() => {
+        this.focusToFirstInvalid();
+      }, 500);
     });
   }
 
