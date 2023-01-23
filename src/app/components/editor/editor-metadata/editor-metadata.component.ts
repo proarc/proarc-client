@@ -130,8 +130,7 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   focusToFirstInvalid() {
-    const el: any = document.querySelectorAll('input.ng-invalid')[0];
-    console.log(el);
+    const el: any = document.querySelectorAll('.mat-form-field-invalid input, .mat-form-field-invalid mat-select')[0];
     if (el) {
       el.focus();
     }
