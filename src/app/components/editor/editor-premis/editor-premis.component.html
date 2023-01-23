@@ -56,7 +56,7 @@
 		<div class="app-premis" *ngIf="state !=='loading' && editorType === 'metadata'">
 
 			<div *ngIf="jsonPremis">
-				<div class="app-editor-field" *ngFor="let amdSec of jsonPremis['mets:mets']['mets:amdSec']">
+				<div class="app-editor-field" *ngFor="let amdSec of jsonPremis['mets:mets']['mets:amdSec']; let idx = index">
 					<div class="app-card">
 						<div *ngTemplateOutlet="headerTmpl; 
 						context:{ data: {
@@ -64,21 +64,23 @@
 							nested: true, 
 							labelKey: 'amdSec'
 							},
-							item: amdSec
+							item: amdSec,
+							idx: idx
 						}"></div>
 						<div class="app-card-content" [class.app-collapsed]="amdSec.collapsed">
 							<mat-form-field>
 								<input autocomplete="off" matInput [(ngModel)]="amdSec['$'].ID"
 									[placeholder]="'premis.amdSecId' | translate">
 							</mat-form-field>
-							<div class="app-card" *ngFor="let techMD of amdSec['mets:techMD']">
+							<div class="app-card" *ngFor="let techMD of amdSec['mets:techMD']; let idx = index">
 								<div *ngTemplateOutlet="headerTmpl; 
 							context:{ data: {
 								collapsable: true, 
 								nested: true, 
 								labelKey: 'techMD'
 								},
-								item: techMD
+								item: techMD,
+							  idx: idx
 							}"></div>
 								<div class="app-card-content" [class.app-collapsed]="techMD.collapsed">
 									<mat-form-field>
@@ -180,14 +182,15 @@
 								</div>
 							</div>
 
-							<div class="app-card" *ngFor="let digiprovMD of amdSec['mets:digiprovMD']; let last = last">
+							<div class="app-card" *ngFor="let digiprovMD of amdSec['mets:digiprovMD']; let idx = index; let last = last">
 								<div *ngTemplateOutlet="headerTmpl; 
 								context:{ data: {
 									collapsable: true, 
 									nested: true, 
 									labelKey: 'digiprovMD'
 									},
-									item: digiprovMD
+									item: digiprovMD,
+							    idx: idx
 								}"></div>
 								<div class="app-card-content" [class.app-collapsed]="digiprovMD.collapsed">
 									<mat-form-field>
@@ -305,15 +308,15 @@
 	</div>
 </div>
 
-<ng-template #headerTmpl let-data="data" let-item="item">
+<ng-template #headerTmpl let-data="data" let-item="item" let-idx="idx">
 	<div class="app-card-header">
 		<span [matTooltip]="data.labelKey" class="app-card-title" [class.app-no-collapse]="!data.collapsable">{{
 			'premis.' +
 			data.labelKey | translate }} </span>
-		<button matTooltip="{{ 'common.remove' | translate }}" (click)="removeItem(item)" mat-icon-button>
+		<button matTooltip="{{ 'common.remove' | translate }}" (click)="removeItem(data.root, item, idx)" mat-icon-button>
 			<mat-icon>delete</mat-icon>
 		</button>
-		<button matTooltip="{{ 'editor.info' | translate }}" (click)="openHelpDialog(item)" mat-icon-button>
+		<button matTooltip="{{ 'editor.info' | translate }}" (click)="openHelpDialog(data, item)" mat-icon-button>
 			<mat-icon>help_outline</mat-icon>
 		</button>
 		<ng-container *ngIf="data.collapsable">
@@ -326,8 +329,8 @@
 				<mat-icon>expand_less</mat-icon>
 			</button>
 		</ng-container>
-		<button matTooltip="{{ 'editor.add_field' | translate }}" (click)="addAfterItem(data.root)" mat-icon-button>
-			<mat-icon>add</mat-icon>
+		<button matTooltip="{{ 'editor.duplicate_field' | translate }}" (click)="addAfterItem(data.root, item, idx)" mat-icon-button>
+			<mat-icon>control_point_duplicate</mat-icon>
 		</button>
 		<!-- <ng-template [ngTemplateOutlet]="templateMenu" [ngTemplateOutletContext]="{ item: item  }"></ng-template> -->
 	</div>
@@ -335,8 +338,8 @@
 
 <ng-template #fieldTmpl let-data="data">
 	<div class="app-editor-field" [class.app-nested]="data.nested" *ngIf="data.root">
-		<div class="app-card" *ngFor="let item of data.root">
-			<div *ngTemplateOutlet="headerTmpl; context:{ data: data, item: item }"></div>
+		<div class="app-card" *ngFor="let item of data.root; let idx = index">
+			<div *ngTemplateOutlet="headerTmpl; context:{ data: data, item: item, idx: idx }"></div>
 			<div class="app-card-content" [class.app-collapsed]="data.collapsable && item.collapsed">
 				<mat-form-field *ngFor="let field of data.fields">
 					<input *ngIf="field === '_'" autocomplete="off" matInput [(ngModel)]="item._"

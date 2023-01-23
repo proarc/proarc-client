@@ -1,4 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
+import { HelpDialogComponent } from 'src/app/dialogs/help-dialog/help-dialog.component';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Mods } from 'src/app/model/mods.model';
 import { ApiService } from 'src/app/services/api.service';
@@ -39,6 +42,8 @@ export class EditorPremisComponent implements OnInit {
   jsonPremis: any;
 
   constructor(
+    private dialog: MatDialog, 
+    private translator: TranslateService,
     public layout: LayoutService,
     private api: ApiService,
     private ui: UIService,) { }
@@ -216,23 +221,38 @@ export class EditorPremisComponent implements OnInit {
     this.jsonPremis.mets.amdSec[0].digiprovMD.push(n)
   }
 
-  addAfterItem(parent: any) {
-    const item = parent[0];
+  addAfterItem(parent: any, item: any, idx: number) {
     const newItem = JSON.parse(JSON.stringify(item));
-    parent.push(newItem)
+    parent.splice(idx, 0, newItem)
   }
 
-  removeItem(item: any) {
-
+  removeItem(parent: any, item: any, idx: number) {
+    parent.splice(idx, 1)
   }
 
   switchCollapsed(item: any) {
     item.collapsed = !item.collapsed;
   }
 
-  openHelpDialog(item: any) {
+  openHelpDialog(data: any, item: any) {
+    const label = this.translator.instant('mods.' + data.labelKey);
+    let help = `
+        <h2>${label} <code>${data.selector || ''}</code></h2>
+        ${data.description || ''}<br/>
+    `;
+    // for (const field of Object.keys(this.template.fields)) {
+    //     const f = this.template.fields[field];
+    //     if (f.help != 'off') {
+    //         help += `
+    //             <h3>${f.labelKey} <i>${f.usage || ''}</i> <code>${f.selector || ''}</code></h3>
+    //             ${f.description || ''}`;
+    //     }
 
+    // }
+    this.dialog.open(HelpDialogComponent, { data: help });
   }
+
+
 
   moveDown(item: any, idx: number) {
 
