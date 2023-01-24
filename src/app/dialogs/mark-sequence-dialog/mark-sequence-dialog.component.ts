@@ -28,7 +28,8 @@ export class MarkSequenceDialogComponent implements OnInit {
   pageIndex: boolean = true;
   pageNumber: boolean = true;
   pagePosition: boolean = true;
-  lastClickIdx: number = -1;
+  lastClickIdx: {[key: string]: number} = {orig: -1, dest: -1};
+  lastClickIdxDest: number = -1;
   lastSelectedItem: DocumentItem;
   changed = false;
 
@@ -68,14 +69,14 @@ export class MarkSequenceDialogComponent implements OnInit {
     return this.data.api.getStreamUrl(pid, 'THUMBNAIL', this.data.batchId);
   }
 
-  select(array: any[], item: DocumentItem, idx: number, event: MouseEvent) {
+  select(array: any[], item: DocumentItem, idx: number, event: MouseEvent, col: string) {
     if (event && (event.metaKey || event.ctrlKey)) {
       // Nesmi byt prazdna selecke pro import
       item.selected = !item.selected;
     } else if (event && event.shiftKey) {
-      if (this.lastClickIdx > -1) {
-        const from = Math.min(this.lastClickIdx, idx);
-        const to = Math.max(this.lastClickIdx, idx);
+      if (this.lastClickIdx[col] > -1) {
+        const from = Math.min(this.lastClickIdx[col], idx);
+        const to = Math.max(this.lastClickIdx[col], idx);
         for (let i = from; i <= to; i++) {
           array[i].selected = true;
         }
@@ -89,7 +90,7 @@ export class MarkSequenceDialogComponent implements OnInit {
       array.forEach(i => i.selected = false);
       item.selected = true;
     }
-    this.lastClickIdx = idx;
+    this.lastClickIdx[col] = idx;
     this.lastSelectedItem = item;
   }
 

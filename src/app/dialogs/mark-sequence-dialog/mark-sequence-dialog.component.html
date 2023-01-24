@@ -2,7 +2,7 @@
   <h1 mat-dialog-title>{{ 'editor.children.markSequence' | translate }}</h1>
   <div mat-dialog-content fxFlex>
     <as-split direction="horizontal" [disabled]="false">
-      <as-split-area [size]="40" (resized)="onResized($event, 'orig')" *ngIf="showOrig">
+      <as-split-area [size]="30" (resized)="onResized($event, 'orig')" >
         <div fxLayout="column" fxFlexFill>
           <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-action">
             <div fxFlex>
@@ -26,7 +26,7 @@
           <div fxFlex class="app-oa-y">
             <div class="app-editor-content">
               <div class="app-view-icon" *ngIf="data.viewModeOrig === 'icons'" #childrenIconList fxLayout="row wrap">
-                <div *ngFor="let item of orig; let i = index" class="app-item-wrapper" (click)="select(orig, item, i, $event)" [class.app-selected]="item.selected" [fxFlex]="data.iconWidth['orig'] + '%'">
+                <div *ngFor="let item of orig; let i = index" class="app-item-wrapper" (click)="select(orig, item, i, $event, 'orig')" [class.app-selected]="item.selected" [fxFlex]="data.iconWidth['orig'] + '%'">
                   <div class="app-item">
                     <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['orig'] + 'px'"></div>
                     <div class="app-item-label">{{ item.label + (data.shortLabels ? "" : (", " + ("page_type." + item.pageType | translate))) }}</div>
@@ -35,7 +35,7 @@
               </div>
 
               <div class="app-view-grid" *ngIf="data.viewModeOrig == 'grid'" #childrenGridList fxLayout="row wrap">
-                <div *ngFor="let item of orig; let i = index" (click)="select(orig, item, i, $event)" class="app-item-wrapper" [class.app-selected]="item.selected" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [fxFlex]="data.iconWidth['orig'] + '%'">
+                <div *ngFor="let item of orig; let i = index" (click)="select(orig, item, i, $event, 'orig')" class="app-item-wrapper" [class.app-selected]="item.selected" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [fxFlex]="data.iconWidth['orig'] + '%'">
                   <div class="app-item">
                     <div class="app-item-label">
                       {{ data.shortLabels ? item.shortLabel : item.label }}<br />
@@ -88,14 +88,14 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="data.displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; let idx = index; columns: data.displayedColumns" [class.app-selected]="row.selected" (click)="select(orig, row, idx, $event)"></tr>
+                <tr mat-row *matRowDef="let row; let idx = index; columns: data.displayedColumns" [class.app-selected]="row.selected" (click)="select(orig, row, idx, $event, 'orig')"></tr>
               </table>
             </div>
           </div>
         </div>
       </as-split-area>
 
-      <as-split-area [size]="40" (resized)="onResized($event, 'dest')">
+      <as-split-area [size]="30" (resized)="onResized($event, 'dest')">
         <div fxLayout="column" fxFlexFill>
           <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-action">
             <div fxFlex>
@@ -119,7 +119,7 @@
           <div fxFlex class="app-oa-y">
             <div class="app-editor-content">
               <div class="app-view-icon" *ngIf="data.viewModeDest == 'icons'" #childrenIconList fxLayout="row wrap">
-                <div *ngFor="let item of dest; let i = index" class="app-item-wrapper" (click)="select(dest, item, i, $event)" [class.app-selected]="item.selected" [fxFlex]="data.iconWidth['dest'] + '%'">
+                <div *ngFor="let item of dest; let i = index" class="app-item-wrapper" (click)="select(dest, item, i, $event, 'dest')" [class.app-selected]="item.selected" [fxFlex]="data.iconWidth['dest'] + '%'">
                   <div class="app-item">
                     <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['dest'] + 'px'"></div>
                     <div class="app-item-label">{{ item.label + (data.shortLabels ? "" : (", " + ("page_type." + item.pageType | translate))) }}</div>
@@ -128,7 +128,7 @@
               </div>
 
               <div class="app-view-grid" *ngIf="data.viewModeDest == 'grid'" #childrenGridList fxLayout="row wrap">
-                <div *ngFor="let item of dest; let i = index" (click)="select(dest, item, i, $event)" class="app-item-wrapper" [class.app-selected]="item.selected" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [fxFlex]="data.iconWidth['dest'] + '%'">
+                <div *ngFor="let item of dest; let i = index" (click)="select(dest, item, i, $event, 'dest')" class="app-item-wrapper" [class.app-selected]="item.selected" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [fxFlex]="data.iconWidth['dest'] + '%'">
                   <div class="app-item">
                     <div class="app-item-label">
                       {{ data.shortLabels ? item.shortLabel : item.label }}<br />
@@ -181,7 +181,7 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="data.displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; let idx = index; columns: data.displayedColumns" [class.app-selected]="row.selected" (click)="select(dest, row, idx, $event)"></tr>
+                <tr mat-row *matRowDef="let row; let idx = index; columns: data.displayedColumns" [class.app-selected]="row.selected" (click)="select(dest, row, idx, $event, 'dest')"></tr>
               </table>
 
             </div>
