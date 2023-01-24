@@ -450,18 +450,4 @@ as-split {
       }
     }
   }
-
-  &.app-tree {
-    .app-row {
-      &.dragoverAllowed {
-        background: $app-color-item-dragover-allowed;
-        color: $app-color-lightnes;
-      }
-    
-      &.dragoverNotAllowed {
-        background: $app-color-item-dragover-noallowed;
-        color: $app-color-lightnes;
-      }
-    }
-  }
 }

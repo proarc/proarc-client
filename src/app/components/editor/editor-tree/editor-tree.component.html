@@ -1,46 +1,46 @@
 <ng-container *ngIf="isReady">
+  <div *ngTemplateOutlet="rowTmpl; context:{ tree: layout.tree }"></div>
 
-  <!-- <app-tree [tree]="layout.tree" [inPanel]="true" 
-  [selectedPid]="selectedPid" [selectedParentPid]="selectedParentPid"
-  (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)" 
-  [expanded]="true" [expandedPath]="[]"></app-tree> -->
-
-
-  <div *ngTemplateOutlet="rowTmpl; context:{ tree: layout.tree }" ></div>
-
-  <ng-template #rowTmpl let-tree="tree" >
-    <div (click)="select(tree)" (dblclick)="open(tree)" class="app-row"
+  <ng-template #rowTmpl let-tree="tree">
+    <div (click)="select(tree)" (dblclick)="open(tree)" class="app-row" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px"
       [class.app-parent]="tree.item.pid === selectedParentPid"
       [class.app-active-tree]="(tree.item.selected  || tree.item.pid == selectedPid)"
       draggable="true" (dragenter)="dragenter(tree, $event)" (dragstart)="dragstart($event)" (dragleave)="dragleave($event)"
       (dragend)="dragend(tree, $event)" (dragover)="dragover($event)" (drop)="drop(tree, $event)" 
       (mouseover)="mouseOver(tree, $event)" (mouseleave)="dragleave($event)" (mouseup)="mouseUp(tree, $event)">
+
       <div class="app-expansion-cell">
-        <div class="app-expansion-icon" [style.width]="(tree.level * 20 + 40) + 'px'">
-          <mat-spinner *ngIf="tree.loading" [strokeWidth]="3" [diameter]="20">
-          </mat-spinner>
-          <mat-icon class="app-tree-expand" *ngIf="tree.expandable() && !tree.loading" (click)="toggle($event, tree)">{{
-            tree.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
+        <div class="app-expansion-icon" [style.width]="(tree.level * 20 + 30) + 'px'"><!--(tree.level * 20 + 20) + 'px'"-->
+          <mat-spinner *ngIf="tree.loading" [strokeWidth]="3" [diameter]="20"></mat-spinner>
+          <mat-icon class="app-tree-expand" *ngIf="tree.expandable() && !tree.loading" (click)="toggle($event, tree)">{{ tree.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
           <span class="app-tree-expand" *ngIf="!tree.expandable() && !tree.loading" style="width: 36px;">&#160;</span>
         </div>
-        <div>{{ tree.item.label }}</div>
       </div>
-      <div *ngFor="let col of columns" class="app-cell">
+      <div class="app-cell-first" [fxFlex]="(150 - tree.level * 20) + 'px'">
+        <div class="app-text-cutter">
+          {{ tree.item.label }}
+        </div>
+      </div>
+      <ng-container *ngFor="let col of columns">
         <ng-container *ngIf="col.visible" [ngSwitch]="col.type">
-          <ng-container *ngSwitchCase="'date'">
-            {{ tree.item[col.field] | appDatetime }}
-          </ng-container>
-          <ng-container *ngSwitchCase="'boolean'">
-            {{ (tree.item[col.field]? 'common.yes' : 'common.no') | translate }}
-          </ng-container>
-          <ng-container *ngSwitchCase="'translatable'">
-            {{ col.prefix + '.' + tree.item[col.field] | translate }}
-          </ng-container>
-          <ng-container *ngSwitchDefault>
-            {{ tree.item[col.field] }}
-          </ng-container>
+          <div class="app-cell" [ngClass]="'app-' + col.field" fxFlex>
+            <div class="app-text-cutter">
+              <ng-container *ngSwitchCase="'date'">
+                <span [matTooltip]="tree.item[col.field] | appDatetime">{{ tree.item[col.field] | appDatetime }}</span>
+              </ng-container>
+              <ng-container *ngSwitchCase="'boolean'">
+                {{ (tree.item[col.field]? 'common.yes' : 'common.no') | translate }}
+              </ng-container>
+              <ng-container *ngSwitchCase="'translatable'">
+                <span [matTooltip]="col.prefix + '.' + tree.item[col.field] | translate">{{ col.prefix + '.' + tree.item[col.field] | translate }}</span>
+              </ng-container>
+              <ng-container *ngSwitchDefault>
+                <span [matTooltip]="tree.item[col.field]">{{ tree.item[col.field] }}</span>
+              </ng-container>     
+            </div>
+          </div>
         </ng-container>
-      </div>
+      </ng-container>
     </div>
     <ng-container *ngIf="tree.expanded && tree.children">
       <div *ngFor="let child of tree.children" >
@@ -48,3 +48,4 @@
       </div>
     </ng-container>
   </ng-template>
+</ng-container>

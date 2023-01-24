@@ -69,7 +69,7 @@
     .mat-row {
       &:nth-child(odd) {
         &:not(.app-selected) {
-          background-color: $app-gray-1;
+          background-color: $app-color-item-bg;
         }
       }
     }
