@@ -113,10 +113,7 @@
         </div>
       </div>
 
-      <table id="table" mat-table *ngIf="viewMode == 'list'" (contentChanged)="tableRendered()" 
-        (mouseup)="mouseup($event)"
-        [dataSource]="layout.items" class="app-w-100" #table
-        >
+      <table id="table" mat-table *ngIf="viewMode == 'list'" (contentChanged)="tableRendered()" (mouseup)="mouseup($event)" [dataSource]="layout.items" class="app-w-100 app-striped app-hover" #table>
         <!-- cdkDropList (cdkDropListDropped)="drop1($event)" cdkDropListData="layout.items" -->
 
         <ng-container matColumnDef="pid">
