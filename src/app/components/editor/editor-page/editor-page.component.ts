@@ -289,7 +289,7 @@ export class EditorPageComponent implements OnInit {
 
   enterSelect(s: MatSelect, from: string) {
     s.close();
-    this.onSaveFrom(from); 
+    this.onSaveFrom(from);
   }
 
 }

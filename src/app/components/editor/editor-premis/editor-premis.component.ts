@@ -2,6 +2,8 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { HelpDialogComponent } from 'src/app/dialogs/help-dialog/help-dialog.component';
+import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
+import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Mods } from 'src/app/model/mods.model';
 import { ApiService } from 'src/app/services/api.service';
@@ -128,12 +130,43 @@ export class EditorPremisComponent implements OnInit {
 
   onSaveMetadata() {
 
+    const isValid = this.isValid();
+    if (!isValid) {
+      this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', true);
+      return;
+    }
+
     // xmlns: xmlns:mets="http://www.loc.gov/METS/" xmlns:nk="info:ndk/xmlns/nk-v1"
     const builder = new Builder({ 'headless': true });
     const xml = builder.buildObject(this.jsonPremis);
     this.mods.content = xml;
-    this.savePremis(this.mods, true);
-    console.log(xml);
+    this.savePremis(this.mods, false);
+  }
+
+  confirmSave(title: string, message: string, ignoreValidation: boolean) {
+    const data: SimpleDialogData = {
+      title,
+      message,
+      btn1: {
+        label: "Uložit",
+        value: 'yes',
+        color: 'warn'
+      },
+      btn2: {
+        label: "Neukládat",
+        value: 'no',
+        color: 'default'
+      },
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        const builder = new Builder({ 'headless': true });
+        const xml = builder.buildObject(this.jsonPremis);
+        this.mods.content = xml;
+        this.savePremis(this.mods, true);
+      } 
+    });
   }
 
   onSave() {
@@ -173,6 +206,16 @@ export class EditorPremisComponent implements OnInit {
     });
   }
 
+  isValid() {
+    const el: any = document.querySelectorAll('.ng-invalid input, .ng-invalid mat-select')[0];
+    console.log(el)
+    if (el) {
+      el.focus();
+      return false;
+    }
+    return true;
+  }
+
   checkChanged() {
     //console.log(this.editingPre.nativeElement.innerText, this.originalText)
     this.anyChange = this.editingPre.nativeElement.innerText !== this.originalText;
@@ -180,6 +223,19 @@ export class EditorPremisComponent implements OnInit {
 
   onChange() {
     this.anyChange = true;
+  }
+
+  createIfNotExists(root: any[], fields: string[]){
+    const items: any[] = [];
+    root.forEach(r => {
+      fields.forEach(f => {
+        if (r['premis:' + f][0] === '') {
+          r['premis:' + f][0] = {_: ''};
+        }
+        items.push(r['premis:' + f][0]);
+      });
+    });
+    return items;
   }
 
 
@@ -237,8 +293,8 @@ export class EditorPremisComponent implements OnInit {
   openHelpDialog(data: any, item: any) {
     const label = this.translator.instant('mods.' + data.labelKey);
     let help = `
-        <h2>${label} <code>${data.selector || ''}</code></h2>
-        ${data.description || ''}<br/>
+        <h2>${label} <code>${data.selector || ''}</code></h2>;
+        ${data.help || ''}<br/>
     `;
     // for (const field of Object.keys(this.template.fields)) {
     //     const f = this.template.fields[field];

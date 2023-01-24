@@ -365,7 +365,9 @@
       "editor_mode_detail": "Metadata",
       "editor_mode_children": "Vazby",
       "editor_enter_double_right": "Otevřít třetí panel",
-      "editor_leave_double_right": "Zavřít třetí panel"
+      "editor_leave_double_right": "Zavřít třetí panel",
+      "editor_premis": "PREMIS ",
+      "editor_premisXML": "PREMIS XML"
     },
     "atm": {
       "title": "Administrativní a technická metadata",
@@ -2068,7 +2070,7 @@
     "pdf": "Pdf",
     "comment": "Komentář",
     "image": "Obrázek",
-    "premis": "PREMIS XML"
+    "premis": "PREMIS"
   },
   "dialog": {
     "layoutSettings": {

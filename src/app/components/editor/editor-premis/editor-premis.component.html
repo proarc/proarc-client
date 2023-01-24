@@ -7,13 +7,13 @@
 		</div>
 		<div>
 
-			<button mat-icon-button [matTooltip]="'editor.toolbar.editor_metadata' | translate"
+			<button mat-icon-button [matTooltip]="'editor.toolbar.editor_premis' | translate"
 				[class.app-active]="editorType === 'metadata'" (click)="editorType = 'metadata'">
-				<span class="app-text-icon">M</span>
+				<span class="app-text-icon">P</span>
 			</button>
-			<button mat-icon-button [matTooltip]="'editor.toolbar.editor_mods' | translate"
+			<button mat-icon-button [matTooltip]="'editor.toolbar.editor_premisXML' | translate"
 				[class.app-active]="editorType === 'xml'" (click)="editorType = 'xml'">
-				<mat-icon>code</mat-icon>
+				<mat-icon>code_blocks</mat-icon>
 			</button>
 
 
@@ -48,7 +48,6 @@
 					#editingPre><code class="app-mods-editing" (input)="checkChanged()" contenteditable="true" [highlight]="mods.original"></code></pre>
 				<pre *ngIf="!editting && !realtime" class="app-xml-content"
 					#originalPre><code [highlight]="mods.original"></code></pre>
-				<!-- <pre *ngIf="!editting && realtime" class="app-xml-content"><code [highlight]="layout.lastSelectedItemMetadata.toMods()"></code></pre>  -->
 			</ng-container>
 			<div *ngIf="!mods">No PREMIS</div>
 		</div>
@@ -62,7 +61,9 @@
 						context:{ data: {
 							collapsable: true, 
 							nested: true, 
-							labelKey: 'amdSec'
+							labelKey: 'amdSec',
+							selector: '/mets:mets/mets:amdSec',
+							help: 'TADY NAPOVEDA'
 							},
 							item: amdSec,
 							idx: idx
@@ -77,7 +78,9 @@
 							context:{ data: {
 								collapsable: true, 
 								nested: true, 
-								labelKey: 'techMD'
+								labelKey: 'techMD',
+								selector: '/mets:mets/mets:amdSec/mets:techMD',
+								help: 'TADY NAPOVEDA pro techMD'
 								},
 								item: techMD,
 							  idx: idx
@@ -91,21 +94,38 @@
 										<div *ngFor="let xmlData of mdWrap['mets:xmlData']">
 											<div *ngFor="let object of xmlData['premis:object']">
 
+												<mat-form-field>
+													<mat-select required [(ngModel)]="object['$']['xsi:type']" [placeholder]="'premis.objectType' | translate">
+														<mat-option  [value]="'file'">
+															{{ 'premis.objectTypeFile' | translate }}
+														</mat-option>
+														<mat-option  [value]="'representation'">
+															{{ 'premis.objectTypeRepresentation' | translate }}
+														</mat-option>
+														<mat-option  [value]="'bitstream'">
+															{{ 'premis.objectTypeBitstream' | translate }}
+														</mat-option>
+													</mat-select>
+												</mat-form-field>
+
 												<div *ngTemplateOutlet="fieldTmpl; 
 									context:{ data: {
 										collapsable: true, 
 										nested: true, 
+										access: 'M',
 										labelKey: 'objectIdentifier',
 										root: object['premis:objectIdentifier'],
+										items:  createIfNotExists(object['premis:objectIdentifier'],  ['objectIdentifierType', 'objectIdentifierValue']),
 									  fields: ['objectIdentifierType', 'objectIdentifierValue']}}"></div>
 
 												<div *ngTemplateOutlet="fieldTmpl; 
 										context:{ data: {
 											collapsable: true, 
 											nested: true, 
+											access: 'M',
 											labelKey: 'preservationLevel',
 											root: object['premis:preservationLevel'],
-											fields: ['preservationLevelValue']}}"></div>
+											fields: ['preservationLevelValue', 'preservationLevelRole', 'preservationLevelRationale', 'preservationLevelDateAssigned']}}"></div>
 
 												<div *ngTemplateOutlet="fieldTmpl; 
 											context:{ data: {
@@ -113,13 +133,14 @@
 												nested: true, 
 												labelKey: 'significantProperties',
 												root: object['premis:significantProperties'],
-												fields: ['preservationLevelValue']}}"></div>
+												fields: ['significantPropertiesType', 'significantPropertiesValue', 'significantPropertiesExtension']}}"></div>
 
 												<div *ngTemplateOutlet="fieldTmpl; 
 									  context:{ data: {
 										collapsable: true, 
 										nested: true, 
 										labelKey: 'objectCharacteristics',
+										access: 'M',
 										root: object['premis:objectCharacteristics'],
 										fields: ['compositionLevel', 'creatingApplication', 'fixity', 'format', 'size']}}"></div>
 
@@ -128,6 +149,7 @@
 											collapsable: true, 
 											nested: true, 
 											labelKey: 'originalName',
+											access: 'M',
 											root: object['premis:originalName'],
 											fields: ['_']}}"></div>
 
@@ -153,6 +175,7 @@
 										 collapsable: true, 
 										 nested: true, 
 										 labelKey: 'relationship',
+										 access: 'M',
 										 root: object['premis:relationship'],
 										 fields: ['relatedEventIdentification', 'relatedObjectIdentification', 'relationshipType', 'relationshipSubType']}}">
 												</div>
@@ -162,6 +185,7 @@
 										 collapsable: true, 
 										 nested: true, 
 										 labelKey: 'linkingEventIdentifier',
+										 access: 'M',
 										 root: object['premis:linkingEventIdentifier'],
 										 fields: ['linkingEventIdentifierType', 'linkingEventIdentifierValue']}}">
 												</div>
@@ -206,6 +230,7 @@
 										collapsable: true, 
 										nested: true, 
 										labelKey: 'eventIdentifier',
+										access: 'M',
 										root: event['premis:eventIdentifier'],
 									  fields: ['eventIdentifierType', 'eventIdentifierValue']}}"></div>
 
@@ -214,6 +239,7 @@
 											collapsable: true, 
 											nested: true, 
 											labelKey: 'eventType',
+											access: 'M',
 											root: event['premis:eventType'],
 											fields: ['_']}}"></div>
 
@@ -222,6 +248,7 @@
 												collapsable: true, 
 												nested: true, 
 												labelKey: 'eventDateTime',
+												access: 'M',
 												root: event['premis:eventDateTime'],
 												fields: ['_']}}"></div>
 
@@ -230,6 +257,7 @@
 										collapsable: true, 
 										nested: true, 
 										labelKey: 'eventDetail',
+										access: 'M',
 										root: event['premis:eventDetail'],
 										fields: ['_']}}"></div>
 
@@ -238,6 +266,7 @@
 											collapsable: true, 
 											nested: true, 
 											labelKey: 'eventOutcomeInformation',
+											access: 'M',
 											root: event['premis:eventOutcomeInformation'],
 											fields: ['eventOutcome']}}"></div>
 
@@ -246,6 +275,7 @@
 												collapsable: true, 
 												nested: true, 
 												labelKey: 'linkingAgentIdentifier',
+												access: 'M',
 												root: event['premis:linkingAgentIdentifier'],
 												fields: ['linkingAgentIdentifierType', 'linkingAgentIdentifierValue', 'linkingAgentRole']}}"></div>
 
@@ -254,6 +284,7 @@
 										collapsable: true, 
 										nested: true, 
 										labelKey: 'linkingObjectIdentifier',
+										access: 'M',
 										root: event['premis:linkingObjectIdentifier'],
 										fields: ['linkingObjectIdentifierType', 'linkingObjectIdentifierValue']}}"></div>
 
@@ -267,6 +298,7 @@
 										collapsable: true, 
 										nested: true, 
 										labelKey: 'agentIdentifier',
+										access: 'M',
 										root: agent['premis:agentIdentifier'],
 									  fields: ['agentIdentifierType', 'agentIdentifierValue']}}"></div>
 
@@ -275,16 +307,27 @@
 											collapsable: true, 
 											nested: true, 
 											labelKey: 'agentType',
+											access: 'M',
 											root: agent['premis:agentType'],
 											fields: ['_']}}"></div>
 
-												<div *ngTemplateOutlet="fieldTmpl; 
-											context:{ data: {
-												collapsable: true, 
-												nested: true, 
-												labelKey: 'agentname',
-												root: agent['premis:agentname'],
-												fields: ['_']}}"></div>
+											<div *ngTemplateOutlet="fieldTmpl; 
+										context:{ data: {
+											collapsable: true, 
+											nested: true, 
+											labelKey: 'agentName',
+											access: 'M',
+											root: agent['premis:agentName'],
+											fields: ['_']}}"></div>
+
+											<div *ngTemplateOutlet="fieldTmpl; 
+										context:{ data: {
+											collapsable: true, 
+											nested: true, 
+											labelKey: 'agentNote',
+											access: 'MA',
+											root: agent['premis:agentNote'],
+											fields: ['_']}}"></div>
 
 
 											</div>
@@ -294,12 +337,8 @@
 									</div>
 								</div>
 							</div>
-
 						</div>
 					</div>
-
-
-
 				</div>
 
 			</div>
@@ -336,17 +375,21 @@
 	</div>
 </ng-template>
 
-<ng-template #fieldTmpl let-data="data">
+<ng-template #fieldTmpl let-data="data" let-items="items">
 	<div class="app-editor-field" [class.app-nested]="data.nested" *ngIf="data.root">
-		<div class="app-card" *ngFor="let item of data.root; let idx = index">
+		<div class="app-card" *ngFor="let item of data.root; let idx = index" [class.app-required]="data.access === 'M'">
 			<div *ngTemplateOutlet="headerTmpl; context:{ data: data, item: item, idx: idx }"></div>
 			<div class="app-card-content" [class.app-collapsed]="data.collapsable && item.collapsed">
-				<mat-form-field *ngFor="let field of data.fields">
-					<input *ngIf="field === '_'" autocomplete="off" matInput [(ngModel)]="item._"
-						[placeholder]="'premis.value' | translate">
-					<input *ngIf="field !== '_'" autocomplete="off" matInput [(ngModel)]="item['premis:'+field][0]._"
-						[placeholder]="'premis.' + field | translate">
-				</mat-form-field>
+				<ng-container *ngFor="let field of data.fields">
+					<mat-form-field *ngIf="field === '_' || item['premis:'+field]">
+						<input *ngIf="field === '_'" autocomplete="off" matInput [(ngModel)]="item['_']" [required]="data.access === 'M'"
+							name="data.labelKey" 
+               #name="ngModel"
+							[placeholder]="'premis.value' | translate">
+						<input *ngIf="field !== '_' && item['premis:'+field]" autocomplete="off" matInput  [(ngModel)]="item['premis:'+field][0]._" [required]="data.access === 'M'"
+							[placeholder]="'premis.' + field | translate">
+					</mat-form-field>
+				</ng-container>
 			</div>
 
 		</div>

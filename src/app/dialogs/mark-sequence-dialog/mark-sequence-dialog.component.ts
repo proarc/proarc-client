@@ -15,7 +15,7 @@ import { UIService } from 'src/app/services/ui.service';
 })
 export class MarkSequenceDialogComponent implements OnInit {
 
-  showOrig = false;
+  showOrig = true;
   orig: any[] = [];
   dest: any[] = [];
   origTable: any;
@@ -45,10 +45,10 @@ export class MarkSequenceDialogComponent implements OnInit {
   }
 
   initLists() {
-    this.orig = [];
+    this.orig = this.data.items;
     this.dest = [];
     this.data.items.forEach((item: DocumentItem) => {
-      this.orig.push(JSON.parse(JSON.stringify(item)));
+      //this.orig.push(JSON.parse(JSON.stringify(item)));
       this.dest.push(JSON.parse(JSON.stringify(item)));
       this.dest.forEach(i => i.selected = false);
       this.origTable = new MatTableDataSource(this.orig);
