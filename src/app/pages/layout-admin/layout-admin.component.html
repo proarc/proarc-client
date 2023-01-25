@@ -1,16 +1,16 @@
 <div fxLayout="column" fxFlexFill>
-  <h1 mat-dialog-title [innerHtml]="'modal.layoutSettings.title' | translate : {value: ('dynamic.' + data.layout | translate)}"></h1>
+  <h1 mat-dialog-title [innerHtml]="'dialog.layoutSettings.title' | translate : {value: ('dynamic.' + data.layout | translate)}"></h1>
   <div fxFlex mat-dialog-content>
     <div fxLayout="column" fxLayoutGap="16px" fxFlexFill>
       <div fxLayout="row" fxLayoutGap="16px">
         <div fxFlex class="app-desc">
           <h3 class="app-mb-0">{{ 'desc.help' | translate }}</h3>
         <ul class="app-m-0">
-          <li>{{ 'modal.layoutSettings.help.1' | translate }}</li>
-          <li>{{ 'modal.layoutSettings.help.2' | translate }}</li>
-          <li>{{ 'modal.layoutSettings.help.3' | translate }}</li>
-          <li>{{ 'modal.layoutSettings.help.4' | translate }}</li>
-          <li>{{ 'modal.layoutSettings.help.5' | translate }}</li>
+          <li>{{ 'dialog.layoutSettings.help.1' | translate }}</li>
+          <li>{{ 'dialog.layoutSettings.help.2' | translate }}</li>
+          <li>{{ 'dialog.layoutSettings.help.3' | translate }}</li>
+          <li>{{ 'dialog.layoutSettings.help.4' | translate }}</li>
+          <li>{{ 'dialog.layoutSettings.help.5' | translate }}</li>
         </ul>
         </div>
         <div fxFlex fxLayout="row" fxLayoutGap="3px" class="app-layout-controller" [matTooltip]="'admin.layout.explain' | translate">
