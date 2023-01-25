@@ -208,7 +208,6 @@ export class EditorPremisComponent implements OnInit {
 
   isValid() {
     const el: any = document.querySelectorAll('.ng-invalid input, .ng-invalid mat-select')[0];
-    console.log(el)
     if (el) {
       el.focus();
       return false;

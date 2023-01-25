@@ -162,6 +162,13 @@
 										nested: true, 
 										labelKey: 'objectCharacteristics',
 										access: 'M',
+										selector: 'premis:object/premis:objectCharacteristics',
+										help: ['Technické údaje o souboru.<br/>',
+										' - <code>compositionLevel</code>: údaj o tom, zda je nutné digitální objekt rozbalit nebo dekodovat;	např. 0 (defaultně pro žádné zabalení nebo kodování); 1 pro jedno	zabalení a kodovani, podobně pak hodnota 2',
+										' - <code>creatingApplication</code>: Hodnota',
+										' - <code>fixity</code>: údaje o kontrolním součtu',
+										' - <code>format</code>: údaje o formátu souboru pro soubory ALTO XML je možné vytvořit element dvakrát, jednou popisuje formát XML, podruhé obsahuje informace o použitém standardu ALTO 2.0 (viz příklad 2)',
+										' - <code>size</code>: údaje o velikosti souboru v bytech'],
 										root: object['premis:objectCharacteristics'],
 										fields: ['compositionLevel', 'creatingApplication', 'fixity', 'format', 'size']}}"></div>
 
