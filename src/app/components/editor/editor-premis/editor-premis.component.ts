@@ -291,23 +291,14 @@ export class EditorPremisComponent implements OnInit {
   }
 
   openHelpDialog(data: any, item: any) {
-    const label = this.translator.instant('mods.' + data.labelKey);
+    const label = this.translator.instant('premis.' + data.labelKey);
     let help = `
-        <h2>${label} <code>${data.selector || ''}</code></h2>;
-        ${data.help || ''}<br/>
-    `;
-    // for (const field of Object.keys(this.template.fields)) {
-    //     const f = this.template.fields[field];
-    //     if (f.help != 'off') {
-    //         help += `
-    //             <h3>${f.labelKey} <i>${f.usage || ''}</i> <code>${f.selector || ''}</code></h3>
-    //             ${f.description || ''}`;
-    //     }
-
-    // }
+        <h2>${label} <code>${data.selector || ''}</code></h2><br/>`;
+    data.help.forEach((h: string) => {
+      help += h + '<br/>'
+    })
     this.dialog.open(HelpDialogComponent, { data: help });
   }
-
 
 
   moveDown(item: any, idx: number) {

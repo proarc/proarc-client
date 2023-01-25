@@ -2097,5 +2097,21 @@
         "error": "Počet nevalidních objektů {{value1}} z {{value2}}"
       }
     }
-  }
+  },
+"premis": {
+  "object": "PREMIS Objekt",
+  "objectType": "typ objektu",
+  "objectIdentifier": "identifikátor",
+  "objectIdentifierType": "typ identifikátoru",
+  "objectIdentifierValue": "hodnota identifikátoru",
+  "preservationLevel": "úroven ochrany",
+  "preservationLevelValue": "hodnota", 
+  "preservationLevelRole": "role", 
+  "preservationLevelRationale": "rationale", 
+  "preservationLevelDateAssigned": "datum",
+  "significantProperties":"signifikantní vlastnosti",
+  "significantPropertiesType": "significantPropertiesType",
+  "significantPropertiesValue": "significantPropertiesValue",
+  "significantPropertiesExtension": "significantPropertiesExtension"
+}
 }
