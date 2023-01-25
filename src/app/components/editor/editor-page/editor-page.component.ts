@@ -218,7 +218,7 @@ export class EditorPageComponent implements OnInit {
           color: 'default'
         },
       };
-      const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+      const dialogRef = this.dialog.open(SimpleDialogComponent, { autoFocus: true, data: data });
       dialogRef.afterClosed().subscribe(result => {
         if (result === 'yes') {
           this.save(from);
