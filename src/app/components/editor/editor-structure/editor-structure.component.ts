@@ -573,7 +573,10 @@ export class EditorStructureComponent implements OnInit {
 
   validateChildren() {
     const dialogRef = this.dialog.open(ChildrenValidationDialogComponent, {
-      data: { children: this.layout.items, batchId: this.layout.getBatchId() },
+      data: { 
+        parent: this.layout.selectedParentItem,
+        children: this.layout.items, 
+        batchId: this.layout.getBatchId() },
       panelClass: 'app-children-validation-dialog',
       width: '600px'
     });

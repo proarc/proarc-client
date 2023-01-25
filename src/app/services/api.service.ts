@@ -905,5 +905,13 @@ export class ApiService {
   }
 
 
+  validate(pid: string, batchId: string): Observable<any> {
+    let data = `pid=${pid}`
+    if (batchId) {
+      data = `${data}&batchId=${batchId}`;
+    }
+    return this.post('object/mods/validate', data);
+  }
+
 }
 

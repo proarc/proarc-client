@@ -61,7 +61,11 @@ export abstract class ModsElement {
     }
 
     public isMandatory(field: any): boolean {
-        return this.usage(field) == 'M';
+        return this.usage(field) == 'M' || this.required(field);
+    }
+
+    public required(field: string): boolean {
+        return this.fieldValue(field, 'required');
     }
 
     public usage(field: string): string {
@@ -137,13 +141,14 @@ export abstract class ModsElement {
     }
 
     public isRequired(): boolean {
-        return this.template ? this.template.usage == 'M' : false;
+        return this.template ? (this.template.usage == 'M' || this.template.required) : false;
     }
 
     public validate(): boolean {
+        console.log(this.template)
         let error = false;
         let anyValue = false;
-        let isRequired = this.template ? this.template.usage == 'M' : false
+        let isRequired = this.isRequired();
         this.controls.forEach((value, key) => {
             value.markAsTouched();
             if (value.errors) {
@@ -157,14 +162,20 @@ export abstract class ModsElement {
         if (!anyValue) {
             if(isRequired) {
                 this.controls.forEach((value, key) => {
-                    if (this.template.fields[key+''].usage === 'M') {
+                    if (this.template.fields[key+''].required || this.template.fields[key+''].usage === 'M') {
                         error = true;
                     }
                 });
                 // error = true;
             } else {
                 this.controls.forEach((value, key) => {
-                    value.markAsUntouched();
+                    // value.markAsUntouched();
+                    if (this.template.fields[key+''].required) {
+                        error = true;
+                        isRequired = true;
+                    } else {
+                        value.markAsUntouched();
+                    }
                 });
             }
         }

@@ -230,6 +230,7 @@ export class NdkPeriodicalIssueRdaTemplate {
       fields: {
         physicalLocation: {
           usage: 'MA',
+          required: true,
           label: 'Místo uložení',
           selector: 'location/physicalLocation',
           labelKey: 'location/physicalLocation',

@@ -40,6 +40,19 @@ export class ChildrenValidationDialogComponent implements OnInit {
     this.validate();
   }
 
+  validateApi() {
+    this.api.validate(this.data.parent.pid, this.data.batchId).subscribe((response: any) => {
+      if (response.errors) {
+        
+      } else {
+        
+      }
+
+      this.state = 'done';
+
+    });
+  }
+
   revalidate() {
 
     // this.index = 0;
@@ -47,13 +60,11 @@ export class ChildrenValidationDialogComponent implements OnInit {
     // this.numberOfValid = 0;
     this.metadatas.forEach(m => {
         m.item.invalid = !m.metadata.validate();
-        console.log(m.item)
         if (m.item.invalid) {
           this.numberOfInvalid += 1;
         } else {
           this.numberOfValid += 1;
         }
-      
     });
 
   }
@@ -93,20 +104,6 @@ export class ChildrenValidationDialogComponent implements OnInit {
 
   }
 
-
-  //   this.api.getImportBatchStatus(this.batchId).subscribe(
-  //     (status: [number, number]) => {
-  //     this.done = status[0];
-  //     this.count = status[1];
-  //     if (this.done === this.count) {
-  //       this.onLoaded();
-  //     }
-  //   },
-  //   (error) => {
-  //       clearInterval(this.timer);
-  //       this.state = 'failure';
-  //   });
-  // }
 
 
   private onFinish() {
