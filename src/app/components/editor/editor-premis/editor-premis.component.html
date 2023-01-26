@@ -165,67 +165,79 @@
 										selector: 'premis:object/premis:objectCharacteristics',
 										help: ['Technické údaje o souboru.<br/>',
 										' - <code>compositionLevel</code>: údaj o tom, zda je nutné digitální objekt rozbalit nebo dekodovat;	např. 0 (defaultně pro žádné zabalení nebo kodování); 1 pro jedno	zabalení a kodovani, podobně pak hodnota 2',
-										' - <code>creatingApplication</code>: Hodnota',
+										' - <code>creatingApplication</code>: údaje o aplikaci, ve které byl popisovaný soubor vytvořen; nutno popsat skener, SW kde vzniklo ALTO XML/TXT, SW/kodek pro vytvoření JPEG2000 MC',
 										' - <code>fixity</code>: údaje o kontrolním součtu',
 										' - <code>format</code>: údaje o formátu souboru pro soubory ALTO XML je možné vytvořit element dvakrát, jednou popisuje formát XML, podruhé obsahuje informace o použitém standardu ALTO 2.0 (viz příklad 2)',
 										' - <code>size</code>: údaje o velikosti souboru v bytech'],
 										root: object['premis:objectCharacteristics'],
 										fields: ['compositionLevel', 'creatingApplication', 'fixity', 'format', 'size']}}"></div>
 
-												<div *ngTemplateOutlet="fieldTmpl; 
-										context:{ data: {
-											collapsable: true, 
-											nested: true, 
-											labelKey: 'originalName',
-											access: 'M',
-											root: object['premis:originalName'],
-											fields: ['_']}}"></div>
+												<div *ngTemplateOutlet="fieldTmpl;  context:{ 
+													data: {
+													collapsable: true, 
+													nested: true, 
+													labelKey: 'originalName',
+													access: 'M',
+													selector: 'premis:object/premis:originalName',
+													help: ['Původní jméno souboru , např. digibok_2007081301091_0011.jp2.'],
+													root: object['premis:originalName'],
+													fields: ['_']}}"></div>
 
-												<div *ngTemplateOutlet="fieldTmpl; 
-											context:{ data: {
-												collapsable: true, 
-												nested: true, 
-												labelKey: 'storage',
-												root: object['premis:storage'],
-												fields: ['compositionLevel']}}"></div>
+												<div *ngTemplateOutlet="fieldTmpl;  context:{ 
+													data: {
+													collapsable: true, 
+													nested: true, 
+													labelKey: 'storage',
+													selector: 'premis:object/premis:storage',
+													help: ['úložiště'],
+													root: object['premis:storage'],
+													fields: ['_']}}"></div>
 
-												<div *ngTemplateOutlet="fieldTmpl; 
-									 context:{ data: {
-										collapsable: true, 
-										nested: true, 
-										labelKey: 'signatureInformation',
-										root: object['premis:signatureInformation'],
-										fields: ['compositionLevel']}}"></div>
+												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+													data: {
+													collapsable: true, 
+													nested: true, 
+													labelKey: 'signatureInformation',
+													root: object['premis:signatureInformation'],
+													fields: ['_']}}"></div>
 
 												<div
-													*ngTemplateOutlet="fieldTmpl; 
-										context:{ data: {
-										 collapsable: true, 
-										 nested: true, 
-										 labelKey: 'relationship',
-										 access: 'M',
-										 root: object['premis:relationship'],
-										 fields: ['relatedEventIdentification', 'relatedObjectIdentification', 'relationshipType', 'relationshipSubType']}}">
-												</div>
+													*ngTemplateOutlet="fieldTmpl; context:{ 
+														data: {
+														collapsable: true, 
+														nested: true, 
+														labelKey: 'relationship',
+														access: 'M',
+															selector: 'premis:object/premis:relationship',
+															help: ['vyjádření vztahu popisovaného souboru k jiným souborům a událostem (eventům)<br/>',
+															' - <code>relationshipType</code>: typ vztahu, doporučené hodnoty: derivation= vztah kde objekt je výsledkem změny jiného objektu; structural= vztah mezi částmi objektu; tj. např. ALTO vytvořené z TIFFU bude mít vztah derivation, podobně jako JPEG2000 z TIFFu vytvořený;',
+															' - <code>relationshipSubType</code>: upřesnění vztahu, doporučené hodnoty: created from; has source; is source of; has sibling; has part; is part of; has root; includes; is included in; apod.; tj. např. ALTO nebo JPEG2000 vytvořený z původního TIFFu budou mít vztah &quot;created from&quot;',
+															' - <code>relatedEventIdentification</code>: identifikace s popisovaným souborem související události (eventu); seznam událostí viz PREMIS event 0-n',
+															' - <code>relatedObjectIdentification</code>: identifikace souvisejícího souboru 1-n pro MC, XML pro vyjádření vztahu k původnímu objektu (skenu)'],
+														root: object['premis:relationship'],
+														fields: ['relationshipType', 'relationshipSubType', 'relatedEventIdentification', 'relatedObjectIdentification']}}"></div>
 
-												<div *ngTemplateOutlet="fieldTmpl; 
-										context:{ data: {
-										 collapsable: true, 
-										 nested: true, 
-										 labelKey: 'linkingEventIdentifier',
-										 access: 'M',
-										 root: object['premis:linkingEventIdentifier'],
-										 fields: ['linkingEventIdentifierType', 'linkingEventIdentifierValue']}}">
-												</div>
+												<div *ngTemplateOutlet="fieldTmpl; context:{
+													 data: {
+														collapsable: true, 
+														nested: true, 
+														labelKey: 'linkingEventIdentifier',
+														access: 'M',
+														selector: 'premis:object/premis:linkingEventIdentifier',
+														help: ['identifikátor události týkající původního skenu PS; typy událostí mohou být např. vytvoření, smazání 0-n pro PS nutný link na události vytvoření (digitalizace) a jeho vymazání<br/>',
+														' - <code>linkingEventIdentifierType</code>: typ identifikátoru události, např. UUID, NK_eventID, vlastní číslovací systém apod.',
+														' - <code>linkingEventIdentifierValue</code>: hodnota identifikátoru, např. event_01; img0001-master-event001 apod.'],
+														root: object['premis:linkingEventIdentifier'],
+														fields: ['linkingEventIdentifierType', 'linkingEventIdentifierValue']}}"></div>
 
-												<div *ngTemplateOutlet="fieldTmpl; 
-										context:{ data: {
-										 collapsable: true, 
-										 nested: true, 
-										 labelKey: 'linkingRightsStatementIdentifier',
-										 root: object['premis:linkingRightsStatementIdentifier'],
-										 fields: ['compositionLevel']}}">
-												</div>
+												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+													data: {
+													collapsable: true, 
+													nested: true, 
+													selector: 'premis:object/premis:linkingRightsStatementIdentifier',
+													labelKey: 'linkingRightsStatementIdentifier',
+													root: object['premis:linkingRightsStatementIdentifier'],
+													fields: ['_']}}"></div>
 
 											</div>
 										</div>
@@ -254,115 +266,149 @@
 										<div *ngFor="let xmlData of mdWrap['mets:xmlData']">
 											<div *ngFor="let event of xmlData['premis:event']">
 
-												<div *ngTemplateOutlet="fieldTmpl; 
-									context:{ data: {
-										collapsable: true, 
-										nested: true, 
-										labelKey: 'eventIdentifier',
-										access: 'M',
-										root: event['premis:eventIdentifier'],
-									  fields: ['eventIdentifierType', 'eventIdentifierValue']}}"></div>
+												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+													data: {
+													collapsable: true, 
+													nested: true, 
+													labelKey: 'eventIdentifier',
+													access: 'M',
+													selector: 'premis:event/premis:eventIdentifier',
+													help: ['údaje o identifikátoru události v kontextu digitalizace nebo repozitáře<br/>',
+													' - <code>eventIdentifierType</code>: typ identifikátoru, např. no.nb.evt; NK_eventID, UUID apod.',
+													' - <code>eventIdentifierValue</code>: hodnota identifikátoru, např. EVT_001; event_019 apod.'],
+													root: event['premis:eventIdentifier'],
+													fields: ['eventIdentifierType', 'eventIdentifierValue']}}"></div>
 
-												<div *ngTemplateOutlet="fieldTmpl; 
-										context:{ data: {
-											collapsable: true, 
-											nested: true, 
-											labelKey: 'eventType',
-											access: 'M',
-											root: event['premis:eventType'],
-											fields: ['_']}}"></div>
+												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+													data: {
+													collapsable: true, 
+													nested: true, 
+													labelKey: 'eventType',
+													access: 'M',
+													selector: 'premis:event/premis:eventType',
+													help: ['kategorizace události, nutno použít kontrolovaný slovník; typy událostí, které musí být zaznamenány: capture, migration, derivation, deletion <br/>'],
+													root: event['premis:eventType'],
+													fields: ['_']}}"></div>
 
-												<div *ngTemplateOutlet="fieldTmpl; 
-											context:{ data: {
-												collapsable: true, 
-												nested: true, 
-												labelKey: 'eventDateTime',
-												access: 'M',
-												root: event['premis:eventDateTime'],
-												fields: ['_']}}"></div>
+												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+													data: {
+													collapsable: true, 
+													nested: true, 
+													labelKey: 'eventDateTime',
+													access: 'M',
+													selector: 'premis:event/premis:eventDateTime',
+													help: ['datum a čas kdy byla událost provedena; nutno zapsat v ISO 8601 na úroveň vteřin<br/>'],
+													root: event['premis:eventDateTime'],
+													fields: ['_']}}"></div>
 
-												<div *ngTemplateOutlet="fieldTmpl; 
-									  context:{ data: {
-										collapsable: true, 
-										nested: true, 
-										labelKey: 'eventDetail',
-										access: 'M',
-										root: event['premis:eventDetail'],
-										fields: ['_']}}"></div>
+												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+													data: {
+													collapsable: true, 
+													nested: true, 
+													labelKey: 'eventDetail',
+													access: 'M',
+													selector: 'premis:event/premis:eventDetail',
+													help: ['další údaje o události, doporučené hodnoty pro výše uvedené <eventType> následují za /:<br/>',
+														' - capture/digitization – vznik prvního skenu',
+														' - capture/XML_creation',
+														' - capture/TXT_creation',
+														' - migration/MC_creation',
+														' - deletion/PS_deletion'],
+													root: event['premis:eventDetail'],
+													fields: ['_']}}"></div>
 
-												<div *ngTemplateOutlet="fieldTmpl; 
-										context:{ data: {
-											collapsable: true, 
-											nested: true, 
-											labelKey: 'eventOutcomeInformation',
-											access: 'M',
-											root: event['premis:eventOutcomeInformation'],
-											fields: ['eventOutcome']}}"></div>
+												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+													data: {
+													collapsable: true, 
+													nested: true, 
+													labelKey: 'eventOutcomeInformation',
+													access: 'M',
+													selector: 'premis:event/premis:eventOutcomeInformation',
+													help: ['informace o výsledku události<br/>',
+													' - <code>eventOutcome</code>: kategorizace výsledku události, např. slovy jako successful nebo failure, možno použít kódy – nutno používat kontrolovaný slovník nebo seznam kódů'],
+													root: event['premis:eventOutcomeInformation'],
+													fields: ['eventOutcome']}}"></div>
 
-												<div *ngTemplateOutlet="fieldTmpl; 
-											context:{ data: {
-												collapsable: true, 
-												nested: true, 
-												labelKey: 'linkingAgentIdentifier',
-												access: 'M',
-												root: event['premis:linkingAgentIdentifier'],
-												fields: ['linkingAgentIdentifierType', 'linkingAgentIdentifierValue', 'linkingAgentRole']}}"></div>
+												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+													data: {
+													collapsable: true, 
+													nested: true, 
+													labelKey: 'linkingAgentIdentifier',
+													access: 'M',
+													selector: 'premis:event/premis:linkingAgentIdentifier',
+													help: ['identifikace jednoho nebo více agentů spojených s událostí<br/>',
+													' - <code>linkingAgentIdentifierType</code>: označení typu identifikátoru, např. NK_AgentID, UUID apod.',
+													' - <code>linkingAgentIdentifierValue</code>: hodnota identifikátoru, např. agent_softwareName_5.2; agent_novakJ apod',
+													' - <code>linkingAgentRole</code>: role agenta ve vztahu k události, např. software; SW component; operator; nutno používat kontrolovaný slovník'],
+													root: event['premis:linkingAgentIdentifier'],
+													fields: ['linkingAgentIdentifierType', 'linkingAgentIdentifierValue', 'linkingAgentRole']}}"></div>
 
-												<div *ngTemplateOutlet="fieldTmpl; 
-									 context:{ data: {
-										collapsable: true, 
-										nested: true, 
-										labelKey: 'linkingObjectIdentifier',
-										access: 'M',
-										root: event['premis:linkingObjectIdentifier'],
-										fields: ['linkingObjectIdentifierType', 'linkingObjectIdentifierValue']}}"></div>
+												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+													data: {
+													collapsable: true, 
+													nested: true, 
+													labelKey: 'linkingObjectIdentifier',
+													access: 'M',
+													selector: 'premis:event/premis:linkingObjectIdentifier',
+													help: ['informace o objektu/souboru spojeného s událostí, link na něj <br/>',
+													' - <code>linkingObjectIdentifierType</code>: označení typu identifikátoru,např. hodnota &quot;file&quot;',
+													' - <code>linkingObjectIdentifierValue</code>: hodnota identifikátoru, URN:NBN:cz-_0011#0001 aj'],
+													root: event['premis:linkingObjectIdentifier'],
+													fields: ['linkingObjectIdentifierType', 'linkingObjectIdentifierValue']}}"></div>
 
 											</div>
 
 
 											<div *ngFor="let agent of xmlData['premis:agent']">
 
-												<div *ngTemplateOutlet="fieldTmpl; 
-									context:{ data: {
-										collapsable: true, 
-										nested: true, 
-										labelKey: 'agentIdentifier',
-										access: 'M',
-										root: agent['premis:agentIdentifier'],
-									  fields: ['agentIdentifierType', 'agentIdentifierValue']}}"></div>
+												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+													data: {
+													collapsable: true, 
+													nested: true, 
+													labelKey: 'agentIdentifier',
+													access: 'M',
+													selector: 'premis:agent/premis:agentIdentifier',
+													help: ['popis identifikátoru, který jednoznačně označuje agenta v rámci jednoho kontextu (repozitář např.) <br/>',
+													' - <code>agentIdentifierType</code>: označení typu identifikátoru, např. NK_AgentID, UUID apod.',
+													' - <code>agentIdentifierValue</code>: hodnota identifikátoru, např. agent_softwareName_5.2; agent_novakJ apod'],
+													root: agent['premis:agentIdentifier'],
+													fields: ['agentIdentifierType', 'agentIdentifierValue']}}"></div>
 
-												<div *ngTemplateOutlet="fieldTmpl; 
-										context:{ data: {
-											collapsable: true, 
-											nested: true, 
-											labelKey: 'agentType',
-											access: 'M',
-											root: agent['premis:agentType'],
-											fields: ['_']}}"></div>
+												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+													data: {
+													collapsable: true, 
+													nested: true, 
+													labelKey: 'agentType',
+													access: 'M',
+													selector: 'premis:agent/premis:agentType',
+													help: ['obecné označení agenta – pro osoby např. osoba, pro SW např. software apod. hodnoty: organization; person; software <br/>'],
+													root: agent['premis:agentType'],
+													fields: ['_']}}"></div>
 
-											<div *ngTemplateOutlet="fieldTmpl; 
-										context:{ data: {
-											collapsable: true, 
-											nested: true, 
-											labelKey: 'agentName',
-											access: 'M',
-											root: agent['premis:agentName'],
-											fields: ['_']}}"></div>
+												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+													data: {
+													collapsable: true, 
+													nested: true, 
+													labelKey: 'agentName',
+													access: 'M',
+													selector: 'premis:agent/premis:agentName',
+													help: ['textové upřesnění agenta, např. přesný název SW, plné jméno osoby apod. - FixImage1.3; Jan Novák; CCS docWorks 6.2.1; <br/>'],
+													root: agent['premis:agentName'],
+													fields: ['_']}}"></div>
 
-											<div *ngTemplateOutlet="fieldTmpl; 
-										context:{ data: {
-											collapsable: true, 
-											nested: true, 
-											labelKey: 'agentNote',
-											access: 'MA',
-											root: agent['premis:agentNote'],
-											fields: ['_']}}"></div>
-
+												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+													data: {
+													collapsable: true, 
+													nested: true, 
+													labelKey: 'agentNote',
+													access: 'MA',
+													selector: 'premis:agent/premis:agentNote',
+													help: ['použití pouze pokud je <agentType> Software a půjde o agenta souvisejícího s migrací původního souboru např. TIFF na JPEG2000 (creation/migration Event); bude obsahovat příkaz k výrobě JPEG2000 souboru v aplikaci Kakadu nebo OpenJpeg <br/>'],
+													root: agent['premis:agentNote'],
+													fields: ['_']}}"></div>
 
 											</div>
-
 										</div>
-
 									</div>
 								</div>
 							</div>
