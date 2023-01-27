@@ -37,6 +37,10 @@
 				[matTooltip]="'button.save' | translate">
 				<mat-icon>save</mat-icon>
 			</button>
+			<button mat-icon-button *ngIf="editorType === 'metadata'" (click)="validate()"
+				[matTooltip]="'button.save' | translate">
+				<mat-icon>check</mat-icon>
+			</button>
 		</div>
 	</div>
 
@@ -55,21 +59,26 @@
 		<div *ngIf="state !=='loading' && editorType === 'metadata'">
 
 			<ng-container *ngIf="jsonPremis">
-				<div class="app-editor-field" *ngFor="let amdSec of jsonPremis['mets:mets']['mets:amdSec']; let idx = index">
-						<!-- <div *ngTemplateOutlet="headerTmpl; 
-						context:{ data: {
+				<div class="app-editor-field">
+					<div class="app-card" *ngFor="let o of objects; let idx = index">
+						<div *ngTemplateOutlet="headerTmpl;  context:{ 
+							data: {
 							collapsable: true, 
 							nested: true, 
-							labelKey: 'amdSec',
-							selector: '/mets:mets/mets:amdSec'
+							selector: o.selector,
+							labelKey: o.labelKey
 							},
-							item: amdSec,
-							idx: idx
-						}"></div> -->
-							<!-- <mat-form-field>
-								<input autocomplete="off" matInput [(ngModel)]="amdSec['$'].ID"
-									[placeholder]="'premis.amdSecId' | translate">
-							</mat-form-field> -->
+							item: o,
+							idx: idx}"></div>
+							<div class="app-card-content" [class.app-collapsed]="o.collapsed">
+						<input autocomplete="off" matInput [(ngModel)]="o.objectIdentifier[0].objectIdentifierType"
+										[placeholder]="'premis.object' | translate">
+								</div>
+					</div>
+				</div>
+
+
+				<div class="app-editor-field" *ngFor="let amdSec of jsonPremis['mets:mets']['mets:amdSec']; let idx = index">
 							<div class="app-card" *ngFor="let techMD of amdSec['mets:techMD']; let idx = index">
 								<div *ngTemplateOutlet="headerTmpl;  context:{ 
 									data: {

@@ -10,6 +10,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { UIService } from 'src/app/services/ui.service';
 import { parseString, processors, Builder } from 'xml2js';
+import { PremisAgent, PremisEvent, PremisObject } from './premis-models';
 
 @Component({
   selector: 'app-editor-premis',
@@ -43,6 +44,10 @@ export class EditorPremisComponent implements OnInit {
   public visible = true;
   jsonPremis: any;
 
+  objects: PremisObject[];
+  events: PremisEvent[];
+  agents: PremisAgent[];
+
   constructor(
     private dialog: MatDialog, 
     private translator: TranslateService,
@@ -54,15 +59,8 @@ export class EditorPremisComponent implements OnInit {
   }
 
   onPidChanged(pid: string) {
-    // this.loadData(pid)
     this.reload();
   }
-
-  // loadData(pid: string) {
-  //   this.api.getPremis(pid).subscribe((resp: any) => {
-  //     this.parseXml(resp.record.content)
-  //   });
-  // }
 
   private parseXml(mods: string) {
     const xml = mods.replace(/xmlns.*=".*"/g, '');
@@ -76,7 +74,24 @@ export class EditorPremisComponent implements OnInit {
   processPremis(json: any) {
     this.jsonPremis = json;
 
-    console.log(this.jsonPremis)
+    console.log(json);
+    this.objects = [];
+    this.events = [];
+    this.agents = [];
+    this.jsonPremis['mets:mets']['mets:amdSec'][0]['mets:techMD'].forEach((techMD: any) => {
+      this.objects.push(new PremisObject(techMD));
+    });
+    this.jsonPremis['mets:mets']['mets:amdSec'][0]['mets:digiprovMD'].forEach((digiprovMD: any) => {
+      digiprovMD['mets:mdWrap'][0]['mets:xmlData']['premis:event']?.forEach((event: any) => {
+        this.events.push(new PremisEvent(digiprovMD));
+      })
+      digiprovMD['mets:mdWrap'][0]['mets:xmlData']['premis:agent']?.forEach((agent: any) => {
+        this.events.push(new PremisAgent(digiprovMD));
+      })
+      
+    });
+
+    console.log(this.objects);
     this.jsonPremis['mets:mets']['$'] = {
       'xmlns:mets': "http://www.loc.gov/METS/",
       'xmlns:xsi': "http://www.w3.org/2001/XMLSchema-instance",
@@ -95,11 +110,18 @@ export class EditorPremisComponent implements OnInit {
     // });
   }
 
+  validate() {
+    this.objects.forEach(o => {
+      console.log(o.id, o.isValid())
+    })
+    
+  }
+
   public setRealtime(enable: boolean) {
     if (enable) {
       this.onClear();
     } else {
-      this.loadMods();
+      this.loadPremis();
     }
     this.realtime = enable;
   }
@@ -125,7 +147,7 @@ export class EditorPremisComponent implements OnInit {
     if (this.editting || this.realtime) {
       return;
     }
-    this.loadMods();
+    this.loadPremis();
   }
 
   onSaveMetadata() {
@@ -226,14 +248,14 @@ export class EditorPremisComponent implements OnInit {
 
   createIfNotExists(root: any[], fields: string[]){
     const items: any[] = [];
-    root.forEach(r => {
-      fields.forEach(f => {
-        if (r['premis:' + f][0] === '') {
-          r['premis:' + f][0] = {_: ''};
-        }
-        items.push(r['premis:' + f][0]);
-      });
-    });
+    // root.forEach(r => {
+    //   fields.forEach(f => {
+    //     if (r['premis:' + f][0] === '') {
+    //       r['premis:' + f][0] = {_: ''};
+    //     }
+    //     items.push(r['premis:' + f][0]);
+    //   });
+    // });
     return items;
   }
 
@@ -244,13 +266,12 @@ export class EditorPremisComponent implements OnInit {
       this.visible = true;
       this.lastPid = this.item.pid;
       this.setRealtime(false);
-      // this.loadMods();
     } else {
       this.visible = false;
     }
   }
 
-  private loadMods() {
+  private loadPremis() {
     this.mods = null;
     this.jsonPremis = null;
     this.anyChange = false;
