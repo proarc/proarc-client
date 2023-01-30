@@ -63,201 +63,167 @@
 					<div class="app-card" *ngFor="let o of objects; let idx = index">
 						<div *ngTemplateOutlet="headerTmpl;  context:{ 
 							data: {
-							collapsable: true, 
-							nested: true, 
 							selector: o.selector,
 							labelKey: o.labelKey
 							},
 							item: o,
 							idx: idx}"></div>
-							<div class="app-card-content" [class.app-collapsed]="o.collapsed">
-						<input autocomplete="off" matInput [(ngModel)]="o.objectIdentifier[0].objectIdentifierType"
-										[placeholder]="'premis.object' | translate">
+						<div class="app-card-content" [class.app-collapsed]="o.collapsed">
+
+							<mat-form-field>
+								<input autocomplete="off" matInput [(ngModel)]="o.id" [placeholder]="'premis.techMDId' | translate">
+							</mat-form-field>
+							
+							<mat-form-field>
+								<mat-select required [(ngModel)]="o.type"
+									[placeholder]="'premis.objectType' | translate">
+									<mat-option [value]="'premis:file'">
+										{{ 'premis.objectTypeFile' | translate }}
+									</mat-option>
+									<mat-option [value]="'premis:representation'">
+										{{ 'premis.objectTypeRepresentation' | translate }}
+									</mat-option>
+									<mat-option [value]="'premis:bitstream'">
+										{{ 'premis.objectTypeBitstream' | translate }}
+									</mat-option>
+								</mat-select>
+							</mat-form-field>
+
+							<mat-form-field>
+								<input autocomplete="off" matInput required [(ngModel)]="o.originalName" [placeholder]="'premis.originalName' | translate">
+							</mat-form-field>
+
+							<mat-form-field>
+								<input autocomplete="off" matInput required [(ngModel)]="o.storage" [placeholder]="'premis.storage' | translate">
+							</mat-form-field>
+
+							<div class="app-card" *ngFor="let item of o.objectIdentifier; let idx = index" [class.app-required]="o.access === 'M'">
+								<div *ngTemplateOutlet="headerTmpl; context:{ data: item, item: item, idx: idx }"></div>
+								<div class="app-card-content" [class.app-collapsed]="item.collapsed">
+									<mat-form-field>
+										<input autocomplete="off" matInput [(ngModel)]="item.objectIdentifierType" required
+											[placeholder]="'premis.objectIdentifierType' | translate">
+									</mat-form-field>
+									<mat-form-field>
+										<input autocomplete="off" matInput [(ngModel)]="item.objectIdentifierValue" required
+											[placeholder]="'premis.objectIdentifierValue' | translate">
+									</mat-form-field>
 								</div>
+							</div>
+
+							<div class="app-card" *ngFor="let item of o.preservationLevel; let idx = index" [class.app-required]="o.access === 'M'">
+								<div *ngTemplateOutlet="headerTmpl; context:{ data: item, item: item, idx: idx }"></div>
+								<div class="app-card-content" [class.app-collapsed]="item.collapsed">
+									<mat-form-field>
+										<input autocomplete="off" matInput [(ngModel)]="item.preservationLevelValue" required
+											[placeholder]="'premis.preservationLevelValue' | translate">
+									</mat-form-field>
+									<mat-form-field>
+										<input autocomplete="off" matInput [(ngModel)]="item.preservationLevelDateAssigned"
+											[placeholder]="'premis.preservationLevelDateAssigned' | translate">
+									</mat-form-field>
+									<mat-form-field>
+										<input autocomplete="off" matInput [(ngModel)]="item.preservationLevelRole"
+											[placeholder]="'premis.preservationLevelRole' | translate">
+									</mat-form-field>
+									<mat-form-field>
+										<input autocomplete="off" matInput [(ngModel)]="item.preservationLevelRationale"
+											[placeholder]="'premis.preservationLevelRationale' | translate">
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="app-card" *ngFor="let item of o.significantProperties; let idx = index" [class.app-required]="o.access === 'M'">
+								<div *ngTemplateOutlet="headerTmpl; context:{ data: item, item: item, idx: idx }"></div>
+								<div class="app-card-content" [class.app-collapsed]="item.collapsed">
+									<mat-form-field>
+										<input autocomplete="off" matInput [(ngModel)]="item.significantPropertiesType"
+											[placeholder]="'premis.significantPropertiesType' | translate">
+									</mat-form-field>
+									<mat-form-field>
+										<input autocomplete="off" matInput [(ngModel)]="item.significantPropertiesValue"
+											[placeholder]="'premis.significantPropertiesValue' | translate">
+									</mat-form-field>
+									<mat-form-field>
+										<input autocomplete="off" matInput [(ngModel)]="item.significantPropertiesExtension"
+											[placeholder]="'premis.significantPropertiesExtension' | translate">
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="app-card" *ngFor="let item of o.objectCharacteristics; let idx = index" [class.app-required]="o.access === 'M'">
+								<div *ngTemplateOutlet="headerTmpl; context:{ data: item, item: item, idx: idx }"></div>
+								<div class="app-card-content" [class.app-collapsed]="item.collapsed">
+									<mat-form-field>
+										<input autocomplete="off" matInput [(ngModel)]="item.compositionLevel" required
+											[placeholder]="'premis.compositionLevel' | translate">
+									</mat-form-field>
+									<mat-form-field>
+										<input autocomplete="off" matInput [(ngModel)]="item.creatingApplication" required
+											[placeholder]="'premis.creatingApplication' | translate">
+									</mat-form-field>
+									<mat-form-field>
+										<input autocomplete="off" matInput [(ngModel)]="item.fixity" required
+											[placeholder]="'premis.fixity' | translate">
+									</mat-form-field>
+									<mat-form-field>
+										<input autocomplete="off" matInput [(ngModel)]="item.format" required
+											[placeholder]="'premis.format' | translate">
+									</mat-form-field>
+									<mat-form-field>
+										<input autocomplete="off" matInput [(ngModel)]="item.size" required
+											[placeholder]="'premis.size' | translate">
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="app-card" *ngFor="let item of o.relationship; let idx = index" [class.app-required]="o.access === 'M'">
+								<div *ngTemplateOutlet="headerTmpl; context:{ data: item, item: item, idx: idx }"></div>
+								<div class="app-card-content" [class.app-collapsed]="item.collapsed">
+									<mat-form-field>
+										<input autocomplete="off" matInput [(ngModel)]="item.relationshipType" required
+											[placeholder]="'premis.relationshipType' | translate">
+									</mat-form-field>
+									<mat-form-field>
+										<input autocomplete="off" matInput [(ngModel)]="item.relationshipSubType" required
+											[placeholder]="'premis.relationshipSubType' | translate">
+									</mat-form-field>
+									<mat-form-field>
+										<input autocomplete="off" matInput [(ngModel)]="item.relatedEventIdentification" required
+											[placeholder]="'premis.relatedEventIdentification' | translate">
+									</mat-form-field>
+									<mat-form-field>
+										<input autocomplete="off" matInput [(ngModel)]="item.relatedObjectIdentification" required
+											[placeholder]="'premis.relatedObjectIdentification' | translate">
+									</mat-form-field>
+								</div>
+							</div>
+
+							<div class="app-card" *ngFor="let item of o.linkingEventIdentifier; let idx = index" [class.app-required]="o.access === 'M'">
+								<div *ngTemplateOutlet="headerTmpl; context:{ data: item, item: item, idx: idx }"></div>
+								<div class="app-card-content" [class.app-collapsed]="item.collapsed">
+									<mat-form-field>
+										<input autocomplete="off" matInput [(ngModel)]="item.linkingEventIdentifierType" required
+											[placeholder]="'premis.linkingEventIdentifierType' | translate">
+									</mat-form-field>
+									<mat-form-field>
+										<input autocomplete="off" matInput [(ngModel)]="item.linkingEventIdentifierValue" required
+											[placeholder]="'premis.linkingEventIdentifierValue' | translate">
+									</mat-form-field>
+								</div>
+							</div>
+							
+						</div>
 					</div>
 				</div>
 
 
 				<div class="app-editor-field" *ngFor="let amdSec of jsonPremis['mets:mets']['mets:amdSec']; let idx = index">
-							<div class="app-card" *ngFor="let techMD of amdSec['mets:techMD']; let idx = index">
-								<div *ngTemplateOutlet="headerTmpl;  context:{ 
-									data: {
-									collapsable: true, 
-									nested: true, 
-									selector: '/mets:mets/mets:amdSec/mets:techMD',
-									labelKey: 'techMD'
-									},
-									item: techMD,
-									idx: idx}"></div>
-								<div class="app-card-content" [class.app-collapsed]="techMD.collapsed">
-									<mat-form-field>
-										<input autocomplete="off" matInput [(ngModel)]="techMD['$'].ID"
-											[placeholder]="'premis.techMDId' | translate">
-									</mat-form-field>
-									<div *ngFor="let mdWrap of techMD['mets:mdWrap']">
-										<div *ngFor="let xmlData of mdWrap['mets:xmlData']">
-											<div class="app-card" *ngFor="let object of xmlData['premis:object']">
-												<div *ngTemplateOutlet="headerTmpl;  context:{ 
-													data: {
-													collapsable: true, 
-													nested: true, 
-													selector: 'premis:object',
-													help: ['Kořenový element pro premis objekt; použít vždy s atributem podle typu objektu.'],
-													labelKey: 'object'
-													},
-													item: object,
-													idx: idx}"></div>
-												<div class="app-card-content" [class.app-collapsed]="object.collapsed">
-												<mat-form-field>
-													<mat-select required [(ngModel)]="object['$']['xsi:type']" [placeholder]="'premis.objectType' | translate">
-														<mat-option  [value]="'file'">
-															{{ 'premis.objectTypeFile' | translate }}
-														</mat-option>
-														<mat-option  [value]="'representation'">
-															{{ 'premis.objectTypeRepresentation' | translate }}
-														</mat-option>
-														<mat-option  [value]="'bitstream'">
-															{{ 'premis.objectTypeBitstream' | translate }}
-														</mat-option>
-													</mat-select>
-												</mat-form-field>
+					
+					
 
-												<div *ngTemplateOutlet="fieldTmpl;  context:{ 
-													data: {
-													collapsable: true, 
-													nested: true, 
-													access: 'M',
-													selector: 'premis:object/premis:objectIdentifier',
-													help: ['Identifikátor k jednoznačnému odlišení objektu v určitém kontextu.<br/>',
-																	' - <code>objectIdentifierType</code>: Popis kontextu, ve kterém je identifikátor unikátní, např. NDK, ANL nebo název repozitáře; nutno použít kontrolovaný slovník',
-																	' - <code>objectIdentifierValue</code>: Vlastní hodnota identifikátoru, např. img0001-master, urn.nbn.cz123465 apod.'],
-													labelKey: 'objectIdentifier',
-													root: object['premis:objectIdentifier'],
-													items:  createIfNotExists(object['premis:objectIdentifier'],  ['objectIdentifierType', 'objectIdentifierValue']),
-													fields: ['objectIdentifierType', 'objectIdentifierValue']}}"></div>
-
-												<div *ngTemplateOutlet="fieldTmpl; 
-										context:{ data: {
-											collapsable: true, 
-											nested: true, 
-											access: 'M',
-											selector: 'premis:object/premis:preservationLevel',
-											help: ['údaje o úrovni ochrany souboru, která se na něj vztahuje; některé soubory nejsou tak důležité jako jiné, mají menší úroveň ochrany.<br/>',
-											' - <code>preservationLevelValue</code>: hodnota úrovně ochrany, která je pro soubor relevantní, pro původní sken PS hodnota deleted, pro MC a XML hodnota preservation',
-											' - <code>preservationLevelDateAssigned</code>: datum, kdy byla přiřazena hodnota úrovně ochrany, zápis v ISO 8601, na úroveň dne (DD-MM-RRRR)',
-											' - <code>preservationLevelRole</code>: Role',
-											' - <code>preservationLevelRationale</code>: Rationale'],
-											labelKey: 'preservationLevel',
-											root: object['premis:preservationLevel'],
-											fields: ['preservationLevelValue', 'preservationLevelDateAssigned', 'preservationLevelRole', 'preservationLevelRationale']}}"></div>
-
-												<div *ngTemplateOutlet="fieldTmpl; 
-											context:{ data: {
-												collapsable: true, 
-												nested: true, 
-											access: 'M',
-											selector: 'premis:object/premis:significantProperties',
-											help: ['Signifikantní vlastnosti.<br/>',
-											' - <code>significantPropertiesType</code>: Typ',
-											' - <code>significantPropertiesValue</code>: Hodnota',
-											' - <code>significantPropertiesExtension</code>: Extension'],
-												labelKey: 'significantProperties',
-												root: object['premis:significantProperties'],
-												fields: ['significantPropertiesType', 'significantPropertiesValue', 'significantPropertiesExtension']}}"></div>
-
-												<div *ngTemplateOutlet="fieldTmpl; 
-									  context:{ data: {
-										collapsable: true, 
-										nested: true, 
-										labelKey: 'objectCharacteristics',
-										access: 'M',
-										selector: 'premis:object/premis:objectCharacteristics',
-										help: ['Technické údaje o souboru.<br/>',
-										' - <code>compositionLevel</code>: údaj o tom, zda je nutné digitální objekt rozbalit nebo dekodovat;	např. 0 (defaultně pro žádné zabalení nebo kodování); 1 pro jedno	zabalení a kodovani, podobně pak hodnota 2',
-										' - <code>creatingApplication</code>: údaje o aplikaci, ve které byl popisovaný soubor vytvořen; nutno popsat skener, SW kde vzniklo ALTO XML/TXT, SW/kodek pro vytvoření JPEG2000 MC',
-										' - <code>fixity</code>: údaje o kontrolním součtu',
-										' - <code>format</code>: údaje o formátu souboru pro soubory ALTO XML je možné vytvořit element dvakrát, jednou popisuje formát XML, podruhé obsahuje informace o použitém standardu ALTO 2.0 (viz příklad 2)',
-										' - <code>size</code>: údaje o velikosti souboru v bytech'],
-										root: object['premis:objectCharacteristics'],
-										fields: ['compositionLevel', 'creatingApplication', 'fixity', 'format', 'size']}}"></div>
-
-												<div *ngTemplateOutlet="fieldTmpl;  context:{ 
-													data: {
-													collapsable: true, 
-													nested: true, 
-													labelKey: 'originalName',
-													access: 'M',
-													selector: 'premis:object/premis:originalName',
-													help: ['Původní jméno souboru , např. digibok_2007081301091_0011.jp2.'],
-													root: object['premis:originalName'],
-													fields: ['_']}}"></div>
-
-												<div *ngTemplateOutlet="fieldTmpl;  context:{ 
-													data: {
-													collapsable: true, 
-													nested: true, 
-													labelKey: 'storage',
-													selector: 'premis:object/premis:storage',
-													help: ['úložiště'],
-													root: object['premis:storage'],
-													fields: ['_']}}"></div>
-
-												<div *ngTemplateOutlet="fieldTmpl; context:{ 
-													data: {
-													collapsable: true, 
-													nested: true, 
-													labelKey: 'signatureInformation',
-													root: object['premis:signatureInformation'],
-													fields: ['_']}}"></div>
-
-												<div
-													*ngTemplateOutlet="fieldTmpl; context:{ 
-														data: {
-														collapsable: true, 
-														nested: true, 
-														labelKey: 'relationship',
-														access: 'M',
-															selector: 'premis:object/premis:relationship',
-															help: ['vyjádření vztahu popisovaného souboru k jiným souborům a událostem (eventům)<br/>',
-															' - <code>relationshipType</code>: typ vztahu, doporučené hodnoty: derivation= vztah kde objekt je výsledkem změny jiného objektu; structural= vztah mezi částmi objektu; tj. např. ALTO vytvořené z TIFFU bude mít vztah derivation, podobně jako JPEG2000 z TIFFu vytvořený;',
-															' - <code>relationshipSubType</code>: upřesnění vztahu, doporučené hodnoty: created from; has source; is source of; has sibling; has part; is part of; has root; includes; is included in; apod.; tj. např. ALTO nebo JPEG2000 vytvořený z původního TIFFu budou mít vztah &quot;created from&quot;',
-															' - <code>relatedEventIdentification</code>: identifikace s popisovaným souborem související události (eventu); seznam událostí viz PREMIS event 0-n',
-															' - <code>relatedObjectIdentification</code>: identifikace souvisejícího souboru 1-n pro MC, XML pro vyjádření vztahu k původnímu objektu (skenu)'],
-														root: object['premis:relationship'],
-														fields: ['relationshipType', 'relationshipSubType', 'relatedEventIdentification', 'relatedObjectIdentification']}}"></div>
-
-												<div *ngTemplateOutlet="fieldTmpl; context:{
-													 data: {
-														collapsable: true, 
-														nested: true, 
-														labelKey: 'linkingEventIdentifier',
-														access: 'M',
-														selector: 'premis:object/premis:linkingEventIdentifier',
-														help: ['identifikátor události týkající původního skenu PS; typy událostí mohou být např. vytvoření, smazání 0-n pro PS nutný link na události vytvoření (digitalizace) a jeho vymazání<br/>',
-														' - <code>linkingEventIdentifierType</code>: typ identifikátoru události, např. UUID, NK_eventID, vlastní číslovací systém apod.',
-														' - <code>linkingEventIdentifierValue</code>: hodnota identifikátoru, např. event_01; img0001-master-event001 apod.'],
-														root: object['premis:linkingEventIdentifier'],
-														fields: ['linkingEventIdentifierType', 'linkingEventIdentifierValue']}}"></div>
-
-												<div *ngTemplateOutlet="fieldTmpl; context:{ 
-													data: {
-													collapsable: true, 
-													nested: true, 
-													selector: 'premis:object/premis:linkingRightsStatementIdentifier',
-													labelKey: 'linkingRightsStatementIdentifier',
-													root: object['premis:linkingRightsStatementIdentifier'],
-													fields: ['_']}}"></div>
-
-											</div>
-										</div>
-										</div>
-
-									</div>
-								</div>
-							</div>
-
-							<div class="app-card" *ngFor="let digiprovMD of amdSec['mets:digiprovMD']; let idx = index; let last = last">
-								<div *ngTemplateOutlet="headerTmpl; 
+					<div class="app-card" *ngFor="let digiprovMD of amdSec['mets:digiprovMD']; let idx = index; let last = last">
+						<div *ngTemplateOutlet="headerTmpl; 
 								context:{ data: {
 									collapsable: true, 
 									nested: true, 
@@ -266,16 +232,16 @@
 									item: digiprovMD,
 							    idx: idx
 								}"></div>
-								<div class="app-card-content" [class.app-collapsed]="digiprovMD.collapsed">
-									<mat-form-field>
-										<input autocomplete="off" matInput [(ngModel)]="digiprovMD['$'].ID"
-											[placeholder]="'premis.techMDId' | translate">
-									</mat-form-field>
-									<div *ngFor="let mdWrap of digiprovMD['mets:mdWrap']">
-										<div *ngFor="let xmlData of mdWrap['mets:xmlData']">
-											<div *ngFor="let event of xmlData['premis:event']">
+						<div class="app-card-content" [class.app-collapsed]="digiprovMD.collapsed">
+							<mat-form-field>
+								<input autocomplete="off" matInput [(ngModel)]="digiprovMD['$'].ID"
+									[placeholder]="'premis.techMDId' | translate">
+							</mat-form-field>
+							<div *ngFor="let mdWrap of digiprovMD['mets:mdWrap']">
+								<div *ngFor="let xmlData of mdWrap['mets:xmlData']">
+									<div *ngFor="let event of xmlData['premis:event']">
 
-												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+										<div *ngTemplateOutlet="fieldTmpl; context:{ 
 													data: {
 													collapsable: true, 
 													nested: true, 
@@ -288,7 +254,7 @@
 													root: event['premis:eventIdentifier'],
 													fields: ['eventIdentifierType', 'eventIdentifierValue']}}"></div>
 
-												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+										<div *ngTemplateOutlet="fieldTmpl; context:{ 
 													data: {
 													collapsable: true, 
 													nested: true, 
@@ -299,7 +265,7 @@
 													root: event['premis:eventType'],
 													fields: ['_']}}"></div>
 
-												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+										<div *ngTemplateOutlet="fieldTmpl; context:{ 
 													data: {
 													collapsable: true, 
 													nested: true, 
@@ -310,7 +276,7 @@
 													root: event['premis:eventDateTime'],
 													fields: ['_']}}"></div>
 
-												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+										<div *ngTemplateOutlet="fieldTmpl; context:{ 
 													data: {
 													collapsable: true, 
 													nested: true, 
@@ -326,7 +292,7 @@
 													root: event['premis:eventDetail'],
 													fields: ['_']}}"></div>
 
-												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+										<div *ngTemplateOutlet="fieldTmpl; context:{ 
 													data: {
 													collapsable: true, 
 													nested: true, 
@@ -338,7 +304,7 @@
 													root: event['premis:eventOutcomeInformation'],
 													fields: ['eventOutcome']}}"></div>
 
-												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+										<div *ngTemplateOutlet="fieldTmpl; context:{ 
 													data: {
 													collapsable: true, 
 													nested: true, 
@@ -352,7 +318,7 @@
 													root: event['premis:linkingAgentIdentifier'],
 													fields: ['linkingAgentIdentifierType', 'linkingAgentIdentifierValue', 'linkingAgentRole']}}"></div>
 
-												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+										<div *ngTemplateOutlet="fieldTmpl; context:{ 
 													data: {
 													collapsable: true, 
 													nested: true, 
@@ -365,12 +331,12 @@
 													root: event['premis:linkingObjectIdentifier'],
 													fields: ['linkingObjectIdentifierType', 'linkingObjectIdentifierValue']}}"></div>
 
-											</div>
+									</div>
 
 
-											<div *ngFor="let agent of xmlData['premis:agent']">
+									<div *ngFor="let agent of xmlData['premis:agent']">
 
-												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+										<div *ngTemplateOutlet="fieldTmpl; context:{ 
 													data: {
 													collapsable: true, 
 													nested: true, 
@@ -383,7 +349,7 @@
 													root: agent['premis:agentIdentifier'],
 													fields: ['agentIdentifierType', 'agentIdentifierValue']}}"></div>
 
-												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+										<div *ngTemplateOutlet="fieldTmpl; context:{ 
 													data: {
 													collapsable: true, 
 													nested: true, 
@@ -394,7 +360,7 @@
 													root: agent['premis:agentType'],
 													fields: ['_']}}"></div>
 
-												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+										<div *ngTemplateOutlet="fieldTmpl; context:{ 
 													data: {
 													collapsable: true, 
 													nested: true, 
@@ -405,7 +371,7 @@
 													root: agent['premis:agentName'],
 													fields: ['_']}}"></div>
 
-												<div *ngTemplateOutlet="fieldTmpl; context:{ 
+										<div *ngTemplateOutlet="fieldTmpl; context:{ 
 													data: {
 													collapsable: true, 
 													nested: true, 
@@ -416,11 +382,11 @@
 													root: agent['premis:agentNote'],
 													fields: ['_']}}"></div>
 
-											</div>
-										</div>
 									</div>
 								</div>
 							</div>
+						</div>
+					</div>
 				</div>
 
 			</ng-container>
@@ -431,16 +397,17 @@
 
 <ng-template #headerTmpl let-data="data" let-item="item" let-idx="idx">
 	<div class="app-card-header">
-		<span [matTooltip]="data.labelKey" class="app-card-title" [class.app-no-collapse]="!data.collapsable">{{
+		<span [matTooltip]="data.labelKey" class="app-card-title" >{{
 			'premis.' +
 			data.labelKey | translate }} </span>
 		<button matTooltip="{{ 'common.remove' | translate }}" (click)="removeItem(data.root, item, idx)" mat-icon-button>
 			<mat-icon>delete</mat-icon>
 		</button>
-		<button *ngIf="data.help" matTooltip="{{ 'editor.info' | translate }}" (click)="openHelpDialog(data, item)" mat-icon-button>
+		<button *ngIf="data.help" matTooltip="{{ 'editor.info' | translate }}" (click)="openHelpDialog(data, item)"
+			mat-icon-button>
 			<mat-icon>help_outline</mat-icon>
 		</button>
-		<ng-container *ngIf="data.collapsable">
+		<ng-container>
 			<button class="app-collapse" *ngIf="item.collapsed" matTooltip="{{ 'common.expand' | translate }}"
 				(click)="switchCollapsed(item)" mat-icon-button>
 				<mat-icon>expand_more</mat-icon>
@@ -450,7 +417,8 @@
 				<mat-icon>expand_less</mat-icon>
 			</button>
 		</ng-container>
-		<button matTooltip="{{ 'editor.duplicate_field' | translate }}" (click)="addAfterItem(data.root, item, idx)" mat-icon-button>
+		<button matTooltip="{{ 'editor.duplicate_field' | translate }}" (click)="addAfterItem(data.root, item, idx)"
+			mat-icon-button>
 			<mat-icon>control_point_duplicate</mat-icon>
 		</button>
 		<!-- <ng-template [ngTemplateOutlet]="templateMenu" [ngTemplateOutletContext]="{ item: item  }"></ng-template> -->
@@ -458,17 +426,17 @@
 </ng-template>
 
 <ng-template #fieldTmpl let-data="data" let-items="items">
-	<div class="app-editor-field" [class.app-nested]="data.nested" *ngIf="data.root">
+	<div class="app-editor-field app-nested" *ngIf="data.root">
 		<div class="app-card" *ngFor="let item of data.root; let idx = index" [class.app-required]="data.access === 'M'">
 			<div *ngTemplateOutlet="headerTmpl; context:{ data: data, item: item, idx: idx }"></div>
 			<div class="app-card-content" [class.app-collapsed]="data.collapsable && item.collapsed">
 				<ng-container *ngFor="let field of data.fields">
 					<mat-form-field *ngIf="field === '_' || item['premis:'+field]">
-						<input *ngIf="field === '_'" autocomplete="off" matInput [(ngModel)]="item['_']" [required]="data.access === 'M'"
-							name="data.labelKey" 
-              #name="ngModel"
+						<input *ngIf="field === '_'" autocomplete="off" matInput [(ngModel)]="item['_']"
+							[required]="data.access === 'M'" name="data.labelKey" #name="ngModel"
 							[placeholder]="'premis.value' | translate">
-						<input *ngIf="field !== '_' && item['premis:'+field]" autocomplete="off" matInput  [(ngModel)]="item['premis:'+field][0]._" [required]="data.access === 'M'"
+						<input *ngIf="field !== '_' && item['premis:'+field]" autocomplete="off" matInput
+							[(ngModel)]="item['premis:'+field][0]._" [required]="data.access === 'M'"
 							[placeholder]="'premis.' + field | translate">
 					</mat-form-field>
 				</ng-container>

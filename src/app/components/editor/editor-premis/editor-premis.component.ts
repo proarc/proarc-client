@@ -10,7 +10,9 @@ import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { UIService } from 'src/app/services/ui.service';
 import { parseString, processors, Builder } from 'xml2js';
-import { PremisAgent, PremisEvent, PremisObject } from './premis-models';
+import { PremisAgent } from './models/premis-agent';
+import { PremisEvent } from './models/premis-event';
+import { PremisObject } from './models/premis-object';
 
 @Component({
   selector: 'app-editor-premis',
@@ -79,19 +81,21 @@ export class EditorPremisComponent implements OnInit {
     this.events = [];
     this.agents = [];
     this.jsonPremis['mets:mets']['mets:amdSec'][0]['mets:techMD'].forEach((techMD: any) => {
-      this.objects.push(new PremisObject(techMD));
+      techMD['mets:mdWrap'][0]['mets:xmlData'][0]['premis:object']?.forEach((o: any) => {
+        this.objects.push(new PremisObject(techMD));
+      })
     });
+    console.log(this.objects);
     this.jsonPremis['mets:mets']['mets:amdSec'][0]['mets:digiprovMD'].forEach((digiprovMD: any) => {
-      digiprovMD['mets:mdWrap'][0]['mets:xmlData']['premis:event']?.forEach((event: any) => {
+      digiprovMD['mets:mdWrap'][0]['mets:xmlData'][0]['premis:event']?.forEach((event: any) => {
         this.events.push(new PremisEvent(digiprovMD));
       })
-      digiprovMD['mets:mdWrap'][0]['mets:xmlData']['premis:agent']?.forEach((agent: any) => {
+      digiprovMD['mets:mdWrap'][0]['mets:xmlData'][0]['premis:agent']?.forEach((agent: any) => {
         this.events.push(new PremisAgent(digiprovMD));
       })
       
     });
 
-    console.log(this.objects);
     this.jsonPremis['mets:mets']['$'] = {
       'xmlns:mets': "http://www.loc.gov/METS/",
       'xmlns:xsi': "http://www.w3.org/2001/XMLSchema-instance",
