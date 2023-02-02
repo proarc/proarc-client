@@ -1,7 +1,9 @@
 <ng-container *ngIf="tree?.item">
   <div (click)="select()" (dblclick)="open()" class="app-row" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px"
     [class.app-parent]="(tree.item.pid === search.selectedTreePid || tree.item.pid === selectedParentPid) && tree.expandable()"
-    [class.app-active-tree]="(tree.item.selected  || tree.item.pid == selectedPid) && !tree.expandable()">
+    [class.app-active-tree]="(tree.item.pid === search.selectedTreePid || tree.item.pid === selectedParentPid) && !tree.expandable()">
+    <!-- class app-parent (tree.item.pid === search.selectedTreePid || tree.item.pid === selectedParentPid) && tree.expandable()-->
+    <!-- class app-active-tree [class.app-active-tree]="(tree.item.selected || tree.item.pid == selectedPid) && !tree.expandable()" -->
 
     <div class="app-expansion-cell">
       <div class="app-expansion-icon" [style.width]="(tree.level * 20 + 30) + 'px'">
