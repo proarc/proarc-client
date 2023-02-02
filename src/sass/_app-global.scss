@@ -511,6 +511,10 @@ as-split {
       max-width: 100%;
       min-width: 20px;
 
+      .mat-icon {
+        pointer-events: auto;
+      }
+
       &.app-pid {
         $app-width: 300px;
         flex: 1 1 $app-width !important;
