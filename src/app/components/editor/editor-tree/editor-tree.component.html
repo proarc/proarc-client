@@ -29,7 +29,8 @@
                 <span [matTooltip]="tree.item[col.field] | appDatetime">{{ tree.item[col.field] | appDatetime }}</span>
               </ng-container>
               <ng-container *ngSwitchCase="'boolean'">
-                {{ (tree.item[col.field]? 'common.yes' : 'common.no') | translate }}
+                <mat-icon [matTooltip]="tree.item[col.field] ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">{{ tree.item[col.field] ? 'lock' : 'lock_open' }}</mat-icon>
+                <!-- {{ (tree.item[col.field]? 'common.yes' : 'common.no') | translate }} -->
               </ng-container>
               <ng-container *ngSwitchCase="'translatable'">
                 <span [matTooltip]="col.prefix + '.' + tree.item[col.field] | translate">{{ col.prefix + '.' + tree.item[col.field] | translate }}</span>
