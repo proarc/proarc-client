@@ -123,3 +123,11 @@
     }
   }
 }
+
+// mat icon
+.mat-icon {
+  &.app-disabled {
+    color: $app-gray-4 !important;
+    cursor: default;
+  }
+}

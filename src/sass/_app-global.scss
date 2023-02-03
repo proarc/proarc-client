@@ -458,6 +458,10 @@ as-split {
     height: $app-mat-table-row-height;
     border-bottom: 1px solid $app-table-border-color;
     font-size: 13px;
+
+    &:hover {
+      background-color: $app-color-item-hover;
+    }
   
     &.app-header {
       overflow-y: scroll;

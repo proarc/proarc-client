@@ -6,22 +6,7 @@
 .app-import {
   @extend .app-p-4;
 
-  .app-table {
-    @extend .app-oh, .app-oa-y;
-
-    .app-disabled  {
-      color: $app-gray-5;
-      cursor: default;
-      opacity: 0.3;
-    }
-  }
-}
-
-.app-import {
-  .app-table {
-    padding: 8px 0;
-    width: 100%;
-    float: left;
-    font-size: 14px;
+  .app-content-wrapper {
+    background-color: $app-color-lightnes;
   }
 }
