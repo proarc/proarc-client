@@ -1904,102 +1904,6 @@
     "task": "Úkol",
     "create_new": "Vytvořit nový záměr"
   },
-  "desc": {
-    "help": "Nápověda",
-    "panelType": "Typ panelu",
-    "version": "Verze",
-    "core": "Jádro",
-    "client": "Klient",
-    "build": "Build",
-    "revision": "Revize",
-    "settings": "Nastavení",
-    "devices": "Zařízení",
-    "newDevice": "Nové zařízení",
-    "deviceModification": "Úprava zařízení",
-    "import": "Import",
-    "newAudioLine": "Nová audio linka",
-    "editingAudioLine": "Úprava audio linky",
-    "repository": "Repozitář",
-    "comment": "Komentář",
-    "picture": "Obrázek",
-    "editing": "Editace",
-    "batchManagement": "Správa dávek",
-    "selectResources": "Vyberte zdroje",
-    "selectTheTargets": "Vyberte cíle",
-    "editPageType": "Editovat typ stran",
-    "editPageIndex": "Editovat index stran",
-    "editPageNumbers": "Editovat čísla stran",
-    "editPagePositions": "Editovat pozice stran",
-    "selectTheFieldToCopyTo": "Vyberte pole",
-    "resolver": "Řešitel",
-    "description": "Popis",
-    "model": "Model",
-    "error": "Chyba",
-    "state": "Stav",
-    "message": "Zpráva",
-    "locked": "Zamčený",
-    "unlocked": "Odemčený",
-    "name": "Název",
-    "pid": "PID",
-    "processor": "Zpracovatel",
-    "organization": "Organizace",
-    "status": "Status",
-    "created": "Vytvořeno",
-    "modified": "Upraveno",
-    "owner": "Vlastník",
-    "export": "Export"
-  },
-  "button": {
-    "setLayout": "nastavit rozložení",
-    "close": "Zavřít",
-    "continue": "Pokračovat",
-    "metadataCatalog": "Metadata katalog",
-    "save": "Uložit",
-    "register": "Registrovat",
-    "viewErrorOutput": "Zobrazit chybový výstup"
-  },
-  "dynamic": {
-    "repo": "Úložiště",
-    "import": "Import",
-    "tree": "Strom",
-    "structure-list": "Tabulka",
-    "structure-grid": "Mřížka",
-    "structure-icons": "Náhledy",
-    "metadata": "Popisná metadata",
-    "mods": "Mods XML",
-    "atm": "Administrativní a technická metadata",
-    "ocr": "OCR",
-    "pdf": "Pdf",
-    "comment": "Komentář",
-    "image": "Obrázek",
-    "premis": "PREMIS"
-  },
-  "dialog": {
-    "layoutSettings": {
-      "title": "Nastavení rozložení - <span class=\"app-text-lowercase\">{{value}}</span>",
-      "help": {
-        "1": "kliknutím na blok v pravém kontrolním panelu můžete blok aktivovat nebo deaktivovat",
-        "2": "zeleně jsou označeny bloky aktivní, červeně neaktivní",
-        "3": "v dolním náhledu je vidět aktuální rozložení jednotlivých bloků",
-        "4": "u jednotlivých bloků můžete měnit jejich velikost horizontálně a vertikálně",
-        "5": "jednotlivým blokům pak můžete přidělit typ, který chcete zobrazovat"
-      }
-    },
-    "about": {
-      "title": "ProArc",
-      "message": "<p>Produkční a archivační systém je nástroj pro výrobu a úpravu popisných, administrativních a technických metadat. Vývoj probíhá pod licencí <a href=\"http://www.gnu.org/licenses/gpl.html\" target=\"_blank\">GNU GPL v3.</a></p>"
-    },
-    "urnnbn": {
-      "title": "Registrace URN:NBN"
-    },
-    "childrenValidation": {
-      "title": "Validace",
-      "alert": {
-        "success": "Všechny objekty jsou validní. Celkem: {{value}}",
-        "error": "Počet nevalidních objektů {{value1}} z {{value2}}"
-      }
-    }
-  },
   "premis": {
     "techMD": "technická metadata",
     "techMDId": "identifikátor",
@@ -2054,11 +1958,162 @@
     "agentIdentifierValue": "hodnota",
     "agentType": "označení agenta",
     "agentName": "upřesnění agenta",
-    "agentNote": "poznámka",
-    "objectTypeFile": "soubor",
-    "objectTypeRepresentation": "o digitální reprezentace",
-    "objectTypeBitstream": "bitstream",
-    "objectCharacteristics": "technické údaje o souboru"
-  
+    "agentNote": "poznámka"
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  "desc": {
+    "help": "Nápověda",
+    "panelType": "Typ panelu",
+    "version": "Verze",
+    "core": "Jádro",
+    "client": "Klient",
+    "build": "Build",
+    "revision": "Revize",
+    "settings": "Nastavení",
+    "devices": "Zařízení",
+    "newDevice": "Nové zařízení",
+    "deviceModification": "Úprava zařízení",
+    "import": "Import",
+    "newAudioLine": "Nová audio linka",
+    "editingAudioLine": "Úprava audio linky",
+    "repository": "Repozitář",
+    "comment": "Komentář",
+    "picture": "Obrázek",
+    "editing": "Editace",
+    "batchManagement": "Správa dávek",
+    "selectResources": "Vyberte zdroje",
+    "selectTheTargets": "Vyberte cíle",
+    "editPageType": "Editovat typ stran",
+    "editPageIndex": "Editovat index stran",
+    "editPageNumbers": "Editovat čísla stran",
+    "editPagePositions": "Editovat pozice stran",
+    "selectTheFieldToCopyTo": "Vyberte pole",
+    "resolver": "Řešitel",
+    "description": "Popis",
+    "model": "Model",
+    "error": "Chyba",
+    "state": "Stav",
+    "message": "Zpráva",
+    "locked": "Zamčený",
+    "unlocked": "Odemčený",
+    "name": "Název",
+    "pid": "PID",
+    "processor": "Zpracovatel",
+    "organization": "Organizace",
+    "status": "Status",
+    "created": "Vytvořeno",
+    "modified": "Upraveno",
+    "owner": "Vlastník",
+    "export": "Export",
+    "all": "Vše",
+    "search": "Vyhledat",
+    "identifier": "Identifikátor",
+    "creator": "Tvůrce"
+  },
+  "button": {
+    "setLayout": "nastavit rozložení",
+    "close": "Zavřít",
+    "continue": "Pokračovat",
+    "metadataCatalog": "Metadata katalog",
+    "save": "Uložit",
+    "register": "Registrovat",
+    "viewErrorOutput": "Zobrazit chybový výstup",
+    "open": "Otevřít",
+    "export": "Exportovat",
+    "conversionsOfNdkModels": "Převody NDK modelů",
+    "delete": "Smazat",
+    "lockIt": "Uzamknout",
+    "unlock": "Odemknout",
+    "restoreTheObject": "Obnovit objekt",
+    "updateAllObjects": "Update všech objektů",
+    "refresh": "Obnovit",
+    "unpack": "Rozbalit",
+    "copy": "Zkopírovat",
+    "query": "Dotaz",
+    "advancedSearch": "Pokročilé hledání",
+    "searchInDeleted": "Hledat ve smazaných",
+    "search": "Vyhledat",
+    "columnSelection": "Výběr sloupců"
+  },
+  "dynamic": {
+    "repo": "Úložiště",
+    "import": "Import",
+    "tree": "Strom",
+    "structure-list": "Tabulka",
+    "structure-grid": "Mřížka",
+    "structure-icons": "Náhledy",
+    "metadata": "Popisná metadata",
+    "mods": "Mods XML",
+    "atm": "Administrativní a technická metadata",
+    "ocr": "OCR",
+    "pdf": "Pdf",
+    "comment": "Komentář",
+    "image": "Obrázek",
+    "premis": "PREMIS"
+  },
+  "dialog": {
+    "layoutSettings": {
+      "title": "Nastavení rozložení - <span class=\"app-text-lowercase\">{{value}}</span>",
+      "help": {
+        "1": "kliknutím na blok v pravém kontrolním panelu můžete blok aktivovat nebo deaktivovat",
+        "2": "zeleně jsou označeny bloky aktivní, červeně neaktivní",
+        "3": "v dolním náhledu je vidět aktuální rozložení jednotlivých bloků",
+        "4": "u jednotlivých bloků můžete měnit jejich velikost horizontálně a vertikálně",
+        "5": "jednotlivým blokům pak můžete přidělit typ, který chcete zobrazovat"
+      }
+    },
+    "about": {
+      "title": "ProArc",
+      "message": "<p>Produkční a archivační systém je nástroj pro výrobu a úpravu popisných, administrativních a technických metadat. Vývoj probíhá pod licencí <a href=\"http://www.gnu.org/licenses/gpl.html\" target=\"_blank\">GNU GPL v3.</a></p>"
+    },
+    "urnnbn": {
+      "title": "Registrace URN:NBN"
+    },
+    "childrenValidation": {
+      "title": "Validace",
+      "alert": {
+        "success": "Všechny objekty jsou validní. Celkem: {{value}}",
+        "error": "Počet nevalidních objektů {{value1}} z {{value2}}"
+      }
+    }
   }
 }

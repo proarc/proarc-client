@@ -5,9 +5,9 @@
       <span class="app-separator">/</span>
       <span class="app-last">{{ 'search.title' | translate }}</span>
     </div>
-    <button mat-button value="phrase"  [class.app-active]="searchMode === 'phrase'" (click)="searchMode = 'phrase'">Dotaz</button>
-    <button mat-button value="advanced" [class.app-active]="searchMode === 'advanced'" (click)="searchMode = 'advanced'">Pokročilé hledání</button>
-    <button mat-button value="deleted" [class.app-active]="searchMode === 'deleted'" (click)="searchMode = 'deleted'">Hledat ve smazaných</button>
+    <button mat-button value="phrase"  [class.app-active]="searchMode === 'phrase'" (click)="searchMode = 'phrase'">{{ 'button.query' | translate }}</button>
+    <button mat-button value="advanced" [class.app-active]="searchMode === 'advanced'" (click)="searchMode = 'advanced'">{{ 'button.advancedSearch' | translate }}</button>
+    <button mat-button value="deleted" [class.app-active]="searchMode === 'deleted'" (click)="searchMode = 'deleted'">{{ 'button.searchInDeleted' | translate }}</button>
   </div>
 
   <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'" class="app-progress-bar"></mat-progress-bar>
@@ -15,50 +15,50 @@
   <div *ngIf="state!=='loading'" fxFlex class="app-search-results" fxLayout="column">
     <div class="app-formbar" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
       <button mat-flat-button color="primary" (click)="filter()">
-        {{ 'search.search' | translate }}
+        {{ 'button.search' | translate }}
       </button>
       <ng-container *ngIf="searchMode === 'phrase'">
         <mat-form-field>
-          <mat-select #modelSelect [placeholder]="'search.model' | translate" name="model" [(ngModel)]="model" (keyup.enter)="enterModel(modelSelect)">
-            <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
+          <mat-select #modelSelect [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model" (keyup.enter)="enterModel(modelSelect)">
+            <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field fxFlex>
-          <input matInput [placeholder]="'search.search' | translate" (keyup.enter)="filter()" [(ngModel)]="query">
+          <input matInput [placeholder]="'desc.search' | translate" (keyup.enter)="filter()" [(ngModel)]="query">
         </mat-form-field>
       </ng-container>
       <ng-container *ngIf="searchMode !== 'phrase'">
         <mat-form-field>
-          <mat-select [placeholder]="'search.model' | translate" name="model" [(ngModel)]="model">
-            <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
+          <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model">
+            <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field fxFlex>
-          <input matInput [placeholder]="'search.fields.title' | translate" (keyup.enter)="filter()" [(ngModel)]="queryLabel">
+          <input matInput [placeholder]="'desc.name' | translate" (keyup.enter)="filter()" [(ngModel)]="queryLabel">
         </mat-form-field>
         <mat-form-field fxFlex>
-          <input matInput [placeholder]="'search.fields.identifier' | translate" (keyup.enter)="filter()" [(ngModel)]="queryIdentifier">
+          <input matInput [placeholder]="'desc.identifier' | translate" (keyup.enter)="filter()" [(ngModel)]="queryIdentifier">
         </mat-form-field>
         <mat-form-field fxFlex>
-          <input matInput [placeholder]="'search.fields.creator' | translate" (keyup.enter)="filter()" [(ngModel)]="queryCreator">
+          <input matInput [placeholder]="'desc.creator' | translate" (keyup.enter)="filter()" [(ngModel)]="queryCreator">
         </mat-form-field>
         <mat-form-field>
-          <mat-select [placeholder]="'search.fields.organization' | translate" name="organization" [(value)]="organization">
-            <mat-option value="-">Vše</mat-option>
+          <mat-select [placeholder]="'desc.organization' | translate" name="organization" [(value)]="organization">
+            <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let org of organizations" [value]="org">{{ 'organization.' + org | translate }}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="app-owner">
-          <mat-select [placeholder]="'search.fields.owner' | translate" name="owner" [(value)]="owner">
-            <mat-option value="-">Vše</mat-option>
+          <mat-select [placeholder]="'desc.owner' | translate" name="owner" [(value)]="owner">
+            <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="app-processor">
-          <mat-select [placeholder]="'search.fields.processor' | translate" name="processor" [(value)]="processor">
-            <mat-option value="-">Vše</mat-option>
+          <mat-select [placeholder]="'desc.processor' | translate" name="processor" [(value)]="processor">
+            <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -70,7 +70,7 @@
         <div class="app-content-wrapper" *ngIf="items" fxLayout="column" fxFlexFill>
           <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar app-toolbar-action app-view-border-bottom">
             <div fxFlex *ngIf="selectedItem" fxLayout="row" fxFlexFill>
-              <button mat-icon-button [matMenuTriggerFor]="columns_menu" [matTooltip]="'editor.children.select_columns' | translate" >
+              <button mat-icon-button [matMenuTriggerFor]="columns_menu" [matTooltip]="'button.columnSelection' | translate" >
                 <mat-icon>rule</mat-icon>
               </button>
               <mat-menu #columns_menu="matMenu">
@@ -78,17 +78,16 @@
                   <mat-checkbox name="column.field" [(ngModel)]="column.selected" (change)="setSelectedColumns()">{{ 'search.' + column.field | translate }}</mat-checkbox>
                 </div>
               </mat-menu>
-              <button (click)="openItem(selectedItem)" mat-button>Otevřít</button>
+              <button (click)="openItem(selectedItem)" mat-button>{{ 'button.open' | translate }}</button>
               <button (click)="showFoxml(selectedItem)" mat-button>FOXML</button>
-              <button (click)="onExport(selectedItem)" mat-button>Exportovat</button>
+              <button (click)="onExport(selectedItem)" mat-button>{{ 'button.export' | translate }}</button>
               <button (click)="onUrnnbn(selectedItem)" mat-button>URN:NBN</button>
-              <button *ngIf="canChangeModel(selectedItem)" (click)="changeModel(selectedItem)" mat-button>Převody NDK modelů</button>
-              <button (click)="onDeleteItem()" mat-button>Smazat</button>
-              <button *ngIf="!selectedItem.isLocked && (auth.user.lockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, true)" mat-button>Uzamknout</button>
-              <button *ngIf="selectedItem.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, false)" mat-button>Odemknout</button>
-              <button *ngIf="selectedItem.state === 'fedora-system:def/model#Deleted'" (click)="onRestore(selectedItem)" mat-button>Obnovit objekt</button>
-              <button (click)="updateObjects(selectedItem)" mat-button>Update všech objektů</button>
-              
+              <button *ngIf="canChangeModel(selectedItem)" (click)="changeModel(selectedItem)" mat-button>{{ 'button.conversionsOfNdkModels' | translate }}</button>
+              <button (click)="onDeleteItem()" mat-button>{{ 'button.delete' | translate }}</button>
+              <button *ngIf="!selectedItem.isLocked && (auth.user.lockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, true)" mat-button>{{ 'button.lockIt' | translate }}</button>
+              <button *ngIf="selectedItem.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, false)" mat-button>{{ 'button.unlock' | translate }}</button>
+              <button *ngIf="selectedItem.state === 'fedora-system:def/model#Deleted'" (click)="onRestore(selectedItem)" mat-button>{{ 'button.restoreTheObject' | translate }}</button>
+              <button (click)="updateObjects(selectedItem)" mat-button>{{ 'button.updateAllObjects' | translate }}</button>
             </div>
             <div>
               <mat-paginator [length]="resultCount" hidePageSize="true" [pageIndex]="pageIndex" [pageSize]="pageSize" (page)="onPageChanged($event)"></mat-paginator>
@@ -96,10 +95,8 @@
           </div>
           <div class="app-oa-y">
             <table mat-table #table [dataSource]="items" matSort class="app-striped app-hover" (matSortChange)="sortTable($event)">
-
               <ng-container matColumnDef="label">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header
-                sortActionDescription="Sort by number">{{ 'desc.name' | translate }}</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">{{ 'desc.name' | translate }}</th>
                 <td mat-cell *matCellDef="let element">
                   <div class="app-text-cutter-wrapper" [matTooltip]="element.label">
                     <div class="app-text-cutter">
@@ -172,57 +169,38 @@
         <div class="app-content-wrapper" *ngIf="tree" fxLayout="column" fxFlexFill>
           <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar app-toolbar-action app-view-border-bottom">
             <div fxFlex *ngIf="search.selectedTree" fxLayout="row" fxFlexFill>
-              <button (click)="selectItem(selectedItem)" mat-button>{{'common.refresh' | translate }}</button>
-              <button (click)="openItem(search.selectedTree.item)" mat-button>Otevřít</button>
+              <button (click)="selectItem(selectedItem)" mat-button>{{'button.refresh' | translate }}</button>
+              <button (click)="openItem(search.selectedTree.item)" mat-button>{{ 'button.open' | translate }}</button>
               <button (click)="showFoxml(search.selectedTree.item)" mat-button>FOXML</button>
-              <button (click)="onExport(search.selectedTree.item)" mat-button>Exportovat</button>
+              <button (click)="onExport(search.selectedTree.item)" mat-button>{{ 'button.export' | translate }}</button>
               <button (click)="onUrnnbn(search.selectedTree.item)" mat-button>URN:NBN</button>
-              <button *ngIf="canChangeModel(search.selectedTree.item)" (click)="changeModel(search.selectedTree.item)" mat-button>Převody NDK modelů</button>
-              <button (click)="onExpandAll()" mat-button>Rozbalit</button>
-              <button *ngIf="search.selectedTree.item" (click)="onDeleteFromTree()" mat-button>Smazat</button>
-              <button *ngIf="canCopy(search.selectedTree.item)" (click)="onCopyItem(search.selectedTree.item)" mat-button>Zkopírovat</button>
-              <button *ngIf="!search.selectedTree.item.isLocked && (auth.user.lockObjectFunction  || auth.isSuperAdmin())" (click)="onLock(search.selectedTree.item, true)" mat-button>Uzamknout</button>
-              <button *ngIf="search.selectedTree.item.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" (click)="onLock(search.selectedTree.item, false)" mat-button>Odemknout</button>
-              <button (click)="updateObjects(search.selectedTree.item)" mat-button>Update všech objektů</button>
+              <button *ngIf="canChangeModel(search.selectedTree.item)" (click)="changeModel(search.selectedTree.item)" mat-button>{{ 'button.conversionsOfNdkModels' | translate }}</button>
+              <button (click)="onExpandAll()" mat-button>{{ 'button.unpack' | translate }}</button>
+              <button *ngIf="search.selectedTree.item" (click)="onDeleteFromTree()" mat-button>{{ 'button.delete' | translate }}</button>
+              <button *ngIf="canCopy(search.selectedTree.item)" (click)="onCopyItem(search.selectedTree.item)" mat-button>{{ 'button.copy' | translate }}</button>
+              <button *ngIf="!search.selectedTree.item.isLocked && (auth.user.lockObjectFunction  || auth.isSuperAdmin())" (click)="onLock(search.selectedTree.item, true)" mat-button>{{ 'button.lockIt' | translate }}</button>
+              <button *ngIf="search.selectedTree.item.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" (click)="onLock(search.selectedTree.item, false)" mat-button>{{ 'button.unlock' | translate }}</button>
+              <button (click)="updateObjects(search.selectedTree.item)" mat-button>{{ 'button.updateAllObjects' | translate }}</button>
             </div>
           </div>
-          <div fxFlex class="app-table app-items app-oh">
-            <div class="search-result-list">
-              <div class="app-row app-header">
-                <div class="result-label" *ngIf="properties.isSearchColEnabled('name')">
-                  {{ 'search.name' | translate }}
-                </div>
-                <div class="result-model" *ngIf="properties.isSearchColEnabled('model')">
-                  {{ 'search.model' | translate }}
-                </div>
-                <div class="result-pid" *ngIf="properties.isSearchColEnabled('pid')">
-                  {{ 'search.pid' | translate }}
-                </div>
-                <div class="result-processor" *ngIf="properties.isSearchColEnabled('processor')">
-                  {{ 'search.processor' | translate }}
-                </div>
-                <div class="result-organization" *ngIf="properties.isSearchColEnabled('organization')">
-                  {{ 'search.organization' | translate }}
-                </div>
-                <div class="result-status" *ngIf="properties.isSearchColEnabled('status')">
-                  {{ 'search.status' | translate }}
-                </div>
-                <div class="result-created" *ngIf="properties.isSearchColEnabled('created')">
-                  {{ 'search.created' | translate }}
-                </div>
-                <div class="result-modified" *ngIf="properties.isSearchColEnabled('modified')">
-                  {{ 'search.modified' | translate }}
-                </div>
-                <div class="result-owner" *ngIf="properties.isSearchColEnabled('owner')">
-                  {{ 'search.owner' | translate }}
-                </div>
-                <div class="result-export" *ngIf="properties.isSearchColEnabled('export')">{{ 'search.export' | translate }}</div>
-                <div class="result-export" *ngIf="properties.isSearchColEnabled('isLocked')">{{ 'search.isLocked' | translate }}</div>
+          <div fxFlex class="app-oh app-tree">
+              <div class="app-row app-header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
+                <div [style.width]="(tree.level * 20 + 30) + 'px'"></div>
+                <div class="app-cell-first" [fxFlex]="(300 - tree.level * 20) + 'px'" *ngIf="properties.isSearchColEnabled('name')">{{ 'desc.name' | translate }}</div>
+                <div fxFlex class="app-cell app-model" *ngIf="properties.isSearchColEnabled('model')">{{ 'desc.model' | translate }}</div>
+                <div fxFlex class="app-cell app-pid" *ngIf="properties.isSearchColEnabled('pid')">PID</div>
+                <div fxFlex class="app-cell app-processor" *ngIf="properties.isSearchColEnabled('processor')">{{ 'desc.processor' | translate }}</div>
+                <div fxFlex class="app-cell app-organization" *ngIf="properties.isSearchColEnabled('organization')">{{ 'desc.organization' | translate }}</div>
+                <div fxFlex class="app-cell app-status" *ngIf="properties.isSearchColEnabled('status')">{{ 'desc.status' | translate }}</div>
+                <div fxFlex class="app-cell app-created" *ngIf="properties.isSearchColEnabled('created')">{{ 'desc.created' | translate }}</div>
+                <div fxFlex class="app-cell app-modified" *ngIf="properties.isSearchColEnabled('modified')">{{ 'desc.modified' | translate }}</div>
+                <div fxFlex class="app-cell app-owner" *ngIf="properties.isSearchColEnabled('owner')">{{ 'desc.owner' | translate }}</div>
+                <div fxFlex class="app-cell app-export" *ngIf="properties.isSearchColEnabled('export')">{{ 'desc.export' | translate }}</div>
+                <div fxFlex class="app-cell app-isLocked"></div>
               </div>
-              <div class="scrollable">
+              <div class="app-h-100 app-oa-y">
                 <app-tree [tree]="tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)"></app-tree>
               </div>
-            </div>
           </div>
         </div>
       </as-split-area>

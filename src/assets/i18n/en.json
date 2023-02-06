@@ -2043,7 +2043,11 @@
     "created": "Created",
     "modified": "Modified",
     "owner": "Owner",
-    "export": "Export"
+    "export": "Export",
+    "all": "All",
+    "search": "Search",
+    "identifier": "Identifier",
+    "creator": "creator"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2052,7 +2056,23 @@
     "metadataCatalog": "Metadata catalog",
     "save": "Save",
     "register": "Register",
-    "viewErrorOutput": "View error output"
+    "viewErrorOutput": "View error output",
+    "open": "Open",
+    "export": "Export",
+    "conversionsOfNdkModels": "Conversions of NDK models",
+    "delete": "delete",
+    "lockIt": "Lock it",
+    "unlock": "Unlock",
+    "restoreTheObject": "Restore the object",
+    "updateAllObjects": "Update all objects",
+    "refresh": "Refresh",
+    "unpack": "Unpack",
+    "copy": "Copy",
+    "query": "Query",
+    "advancedSearch": "Advanced search",
+    "searchInDeleted": "Search in delete",
+    "search": "Search",
+    "columnSelection": "Column selection"
   },
   "dynamic": {
     "repo": "Storage",
