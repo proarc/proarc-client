@@ -38,7 +38,7 @@
     }
 
     &.app-invalid {
-      background-color: rgba($app-color-item-invalid, .1);
+      background-color: rgba($app-color-item-invalid, .1) !important;
 
       .mat-icon {
         color: $app-color-item-invalid;
