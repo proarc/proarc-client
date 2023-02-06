@@ -184,7 +184,10 @@ export class SearchComponent implements OnInit {
   }
 
   reload(selectedPid: string = null) {
-    this.properties.setStringProperty('search.model', this.model);
+    if (this.model !== 'all') {
+      // nechceme all
+      this.properties.setStringProperty('search.model', this.model);
+    }
     this.properties.setStringProperty('search.query_field', this.queryField);
     this.properties.setStringProperty('search.organization', this.organization);
     this.properties.setStringProperty('search.owner', this.owner);
