@@ -85,13 +85,12 @@ export class EditorPremisComponent implements OnInit {
         this.objects.push(new PremisObject(techMD));
       })
     });
-    console.log(this.objects);
     this.jsonPremis['mets:mets']['mets:amdSec'][0]['mets:digiprovMD'].forEach((digiprovMD: any) => {
       digiprovMD['mets:mdWrap'][0]['mets:xmlData'][0]['premis:event']?.forEach((event: any) => {
         this.events.push(new PremisEvent(digiprovMD));
       })
       digiprovMD['mets:mdWrap'][0]['mets:xmlData'][0]['premis:agent']?.forEach((agent: any) => {
-        this.events.push(new PremisAgent(digiprovMD));
+        this.agents.push(new PremisAgent(digiprovMD));
       })
       
     });
@@ -101,17 +100,6 @@ export class EditorPremisComponent implements OnInit {
       'xmlns:xsi': "http://www.w3.org/2001/XMLSchema-instance",
       'xmlns:premis': "info:lc/xmlns/premis-v2"
     };
-    // this.jsonPremis['mets:mets'].['amdSec'].forEach((amdSec: any) => {
-    //   amdSec.['techMD'].forEach((techMD: any) => {
-    //     techMD.['mdWrap'].forEach((w: any) => {
-    //       w.['xmlData'].forEach((x: any) => {
-    //         x.['object'].forEach((o: any) => {
-    //           o['$'] = null;
-    //         })
-    //       });
-    //     });
-    //   })
-    // });
   }
 
   validate() {

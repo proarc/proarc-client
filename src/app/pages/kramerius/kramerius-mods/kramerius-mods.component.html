@@ -1,0 +1,41 @@
+<div fxLayout="column" fxFlexFill>
+	<div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
+		<div fxFlex>
+			<div class="app-toolbar-label">
+				<span class="app-text">XML</span>
+			</div>
+		</div>
+		<div>
+
+			<button mat-icon-button (click)="onRefresh()" [disabled]="editting || realtime" 
+				[matTooltip]="'editor.mods.refresh' | translate">
+				<mat-icon>refresh</mat-icon>
+			</button>
+			<button mat-icon-button (click)="onEdit()" [disabled]="editting || realtime" 
+				[matTooltip]="'common.edit' | translate">
+				<mat-icon>edit</mat-icon>
+			</button>
+			<button mat-icon-button (click)="onClear()" [disabled]="!editting || realtime"
+				[matTooltip]="'common.cancel' | translate">
+				<mat-icon>clear</mat-icon>
+			</button>
+			<button mat-icon-button (click)="onSave()" [disabled]="!anyChange || realtime"
+				[matTooltip]="'button.save' | translate">
+				<mat-icon>save</mat-icon>
+			</button>
+		</div>
+	</div>
+
+	<div fxFlex class="app-oa-y">
+		<mat-progress-bar *ngIf="!mods" mode="indeterminate"  class="app-progress-bar"></mat-progress-bar>
+		<div class="app-editor-content" >
+			<ng-container *ngIf="mods">
+				<pre *ngIf="editting && !realtime" class="app-xml-content app-mods-editing"
+					#editingPre><code class="app-mods-editing" (input)="checkChanged()" contenteditable="true" [highlight]="mods.original"></code></pre>
+				<pre *ngIf="!editting && !realtime" class="app-xml-content"
+					#originalPre><code [highlight]="mods.original"></code></pre>
+			</ng-container>
+			<div *ngIf="!mods">No PREMIS</div>
+		</div>
+	</div>
+</div>

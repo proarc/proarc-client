@@ -56,6 +56,7 @@ export class AuthService {
         },
             (error) => {
                 this.user = null;
+                
                 this.router.navigate(['/login']);
             });
     }
@@ -81,7 +82,7 @@ export class AuthService {
     }
 
     initializeApp(): Promise<any> {
-        console.log('initializeApp')
+        console.log('initializeApp');
         return new Promise((resolve, reject) => {
             this.http.get(this.getApiUrl() + 'user?whoAmI=true')
                 // .pipe(catchError(err => this.handleError))

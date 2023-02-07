@@ -10,7 +10,7 @@
       <button mat-icon-button [class.app-active]="viewMode === 'grid'" (click)="changeViewMode('grid')" [matTooltip]="'editor.children.view_grid' | translate" >
         <mat-icon>apps</mat-icon>
       </button>
-      <button mat-icon-button *ngIf="pageChildren" [class.app-active]="viewMode === 'icons'" (click)="changeViewMode('icons')" [matTooltip]="'editor.children.view_icons' | translate" >
+      <button mat-icon-button [disabled]="!pageChildren" [class.app-active]="viewMode === 'icons'" (click)="changeViewMode('icons')" [matTooltip]="'editor.children.view_icons' | translate" >
         <mat-icon>image</mat-icon>
       </button>
       <button mat-icon-button [class.app-active]="shortLabels" (click)="switchUseShortLabel()" [matTooltip]="'editor.children.short_labels_' + (shortLabels ? 'on' : 'off') | translate" >

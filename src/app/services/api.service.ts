@@ -887,8 +887,6 @@ export class ApiService {
     return this.post('object/mods/editorPagesCopyMetadata', data, options);
   }
 
-
-
   getPremis(pid: string): Observable<any> {
     const params: any = { pid: pid };
     return this.get('object/technicalMetadataXmlPremis', params);
@@ -911,6 +909,28 @@ export class ApiService {
       data = `${data}&batchId=${batchId}`;
     }
     return this.post('object/mods/validate', data);
+  }
+
+  getKrameriusMods(pid: string, instance: string): Observable<any> {
+    const params: any = { pid, instance };
+    return this.get('kramerius/viewMods', params);
+  }
+
+  saveKrameriusMods(pid: string, instance: string, xml: string, timestamp: number): Observable<any> {
+    // const params: any = { pid, instance };
+    // return this.post('object/kramerius/custom', params);
+    const xmlText = xml.replace(/&/g, '%26');
+    let data = `pid=${pid}&instance=${instance}&xmlData=${xmlText}&timestamp=${timestamp}`;
+    
+    return this.post('kramerius/updateMods', data);
+
+  }
+
+
+  getKrameriusImageUrl(pid: string, instance: string) {
+
+    let url = `${this.getApiUrl()}kramerius/viewImage?pid=${pid}&instance=${instance}`;
+    return url;
   }
 
 }

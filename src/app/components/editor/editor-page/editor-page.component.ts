@@ -119,7 +119,18 @@ export class EditorPageComponent implements OnInit {
 
   private onPidChanged(pid: string) {
     this.state = 'loading';
-    if (this.layout.lastSelectedItem.notSaved) {
+    if (this.layout.type === 'kramerius') {
+      const page = new Page();
+      page.pid = pid;
+      page.type = this.layout.lastSelectedItem.pageType;
+      page.model = this.layout.lastSelectedItem.model;
+      page.number = this.layout.lastSelectedItem.pageNumber;
+      page.index = this.layout.lastSelectedItem.pageIndex;
+      page.timestamp = this.layout.lastSelectedItem.timestamp;
+      this.setPage(page);
+      this.state = 'success';
+      return;
+    } else if (this.layout.lastSelectedItem.notSaved) {
       const page = new Page();
       page.pid = pid;
       page.type = 'normalPage';
@@ -227,6 +238,11 @@ export class EditorPageComponent implements OnInit {
     }
   }
 
+  private saveToKramerius() {
+    this.api.saveKrameriusMods(this.page.pid, this.layout.krameriusInstance, this.page.toXml(), this.page.timestamp).subscribe((response: any) => {
+    });
+  }
+
   private save(from: string) {
     this.layout.movedToNextFrom = from;
     this.controls.markAsPristine();
@@ -238,6 +254,10 @@ export class EditorPageComponent implements OnInit {
       return;
     }
     this.page.removeEmptyIdentifiers();
+    if (this.layout.type === 'kramerius') {
+      this.saveToKramerius();
+      return;
+    }
     if (this.layout.lastSelectedItem.notSaved) {
       let data = `model=${this.page.model}`;
       data = `${data}&pid=${this.page.pid}`;

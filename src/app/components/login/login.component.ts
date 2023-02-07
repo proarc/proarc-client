@@ -43,8 +43,15 @@ export class LoginComponent implements OnInit {
     this.auth.login(username, password, (result: boolean, error: any) => {
       this.state = 'none';
       if (result) {
+        console.log(this.url)
         if (this.url) {
-          this.router.navigate([this.url]);
+          // split query params
+          const parts = this.url.split('?')
+
+          const params: any = Object.assign({}, this.route.snapshot.queryParams);
+          params.url = null;
+
+          this.router.navigate([this.url], {queryParams: params});
         } else {
           this.router.navigate(['/']);
         }

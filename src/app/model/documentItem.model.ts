@@ -34,6 +34,8 @@ export class DocumentItem {
   public notSaved: boolean;
   public content: string;
 
+  public timestamp: number;
+
   constructor() {
     this.invalid = false;
   }

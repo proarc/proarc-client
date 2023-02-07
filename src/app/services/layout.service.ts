@@ -16,6 +16,8 @@ export class LayoutService {
   public ready = false;
   public type: string = 'repo';  // keeps repo or import layout
 
+  public krameriusInstance: string; // in case we are editing kramerius object
+
   private batchId: string | null;
 
   public pid: string; // pid in url
