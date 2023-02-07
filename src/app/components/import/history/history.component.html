@@ -195,28 +195,5 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumnsQueue;" class="app-cursor-pointer" [class.app-selected]="row == selectedBatch" (click)="selectBatch(row)" (dblclick)="openBatch(row)"></tr>
       </table>
     </div>
-
-    <!-- <div class="app-table app-mt-4" *ngIf="view == 'queue'">
-      <div class="batch-list">
-        <div class="app-row app-header">
-          <div class="batch-folder">{{ 'history.folder' | translate }}</div>
-          <div class="batch-created">{{ 'history.created' | translate }}</div>
-          <div class="batch-modified">{{ 'history.modified' | translate }}</div>
-          <div class="batch-user">{{ 'history.user' | translate }}</div>
-          <div class="batch-pages">Počet stran</div>
-          <div class="batch-pages">Stav</div>
-        </div>
-        <div class="scrollable" style="height: calc(100% - 5px);">
-          <div *ngFor="let batch of queue" class="app-row">
-            <div class="batch-folder" [matTooltip]="batch.description">{{ batch.description }}</div>
-            <div class="batch-created">{{ batch.create | appDatetime }}</div>
-            <div class="batch-modified">{{ batch.timestamp | appDatetime }}</div>
-            <div class="batch-user">{{ batch.user }}</div>
-            <div class="batch-pages">{{ batch.pageCount }}</div>
-            <div class="batch-pages">{{ batchProgress(batch) || "Čeká" }}</div>
-          </div>
-        </div>
-      </div>
-    </div> -->
   </div>
 </div>
