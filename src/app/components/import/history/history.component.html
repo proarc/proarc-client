@@ -5,7 +5,7 @@
       <span class="app-separator">/</span>
       <a routerLink="/import">{{ 'desc.import' | translate }}</a>
       <span class="app-separator">/</span>
-      <span class="app-last">{{ 'history.title' | translate }}</span>
+      <span class="app-last">{{ 'desc.batchManagement' | translate }}</span>
     </div>
   </div>
 
@@ -15,35 +15,35 @@
     <div class="app-formbar" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
       <ng-container *ngIf="view == 'overview'">
         <mat-form-field>
-          <mat-select [placeholder]="'history.state' | translate" [(ngModel)]="selectedState" (selectionChange)="onStateChanged()">
-            <mat-option *ngFor="let state of batchStates" [value]="state">{{ 'history.states.' + state | translate }}</mat-option>
+          <mat-select [placeholder]="'desc.state' | translate" [(ngModel)]="selectedState" (selectionChange)="onStateChanged()">
+            <mat-option *ngFor="let state of batchStates" [value]="state">{{ 'states.' + state | translate }}</mat-option>
           </mat-select>
         </mat-form-field>
         <button mat-flat-button color="primary" (click)="reload()">
-          <mat-icon style="margin-right:8px;">sync</mat-icon>
-          {{ 'history.refresh' | translate }}
+          <mat-icon>sync</mat-icon>
+          {{ 'button.refresh' | translate }}
         </button>
-        <mat-checkbox [(ngModel)]="autoRefresh" (change)="setRefresh()">Automaticky obnovit</mat-checkbox>
+        <mat-checkbox [(ngModel)]="autoRefresh" (change)="setRefresh()">{{ 'desc.automaticallyRestore' | translate }}</mat-checkbox>
         <button mat-flat-button color="primary" (click)="changeView('queue')">
-          Zobrazit frontu načítání
+          {{ 'button.showLoadingQueue' | translate }}
         </button>
         <button mat-flat-button color="primary" (click)="onReloadBatch()" *ngIf="selectedBatch && (selectedBatch.state === 'LOADING_FAILED' || selectedBatch.state === 'LOADED' || selectedBatch.state === 'STOPPED')">
-          {{ 'history.reload' | translate }}
+          {{ 'button.reload' | translate }}
         </button>
         <button mat-flat-button color="primary" (click)="onIngestBatch()" *ngIf="selectedBatch && selectedBatch.state === 'LOADED'">
-          {{ 'history.ingest' | translate }}
+          {{ 'button.continue' | translate }}
         </button>
         <button mat-flat-button color="primary" (click)="onEditBatchObject()" *ngIf="selectedBatch && selectedBatch.state === 'INGESTED' && selectedBatch.parentPid">
-          {{ 'history.edit' | translate }}
+          {{ 'button.goToObject' | translate }}
         </button>
       </ng-container>
       <ng-container *ngIf="view == 'queue'">
-        <button mat-flat-button color="primary" (click)="filter()">
-          <mat-icon style="margin-right:8px;">sync</mat-icon>
-          {{ 'history.refresh' | translate }}
+        <button mat-flat-button color="primary" (click)="reload()">
+          <mat-icon>sync</mat-icon>
+          {{ 'button.refresh' | translate }}
         </button>
         <button mat-flat-button color="primary" (click)="changeView('overview')">
-          Zpět na seznam všech procesů
+          {{ 'button.backToTheListOfAllProcesses' | translate }}
         </button>
       </ng-container>
     </div>
@@ -95,52 +95,108 @@
       </button>
     </div>
 
-    <div fxFlex class="app-table" *ngIf="view == 'overview'">
-      <div class="batch-list">
-        <div class="app-row app-header">
-          <div class="batch-folder">{{ 'history.folder' | translate }}</div>
-           <!-- <div class="batch-folderPath">{{ 'history.folderPath' | translate }}</div> -->
-          <div class="batch-created">{{ 'history.created' | translate }}</div>
-          <div class="batch-modified">{{ 'history.modified' | translate }}</div>
-          <div class="batch-state">{{ 'history.state' | translate }}</div>
-          <div class="batch-profile">{{ 'history.profile' | translate}}</div>
-          <div class="batch-user">{{ 'history.user' | translate }}</div>
-          <div class="batch-priority">{{ 'history.priority' | translate }}</div>
-          <div class="batch-actions"></div>
-        </div>
-        <div class="scrollable">
-          <div *ngFor="let batch of batches" [class.app-selected]="batch == selectedBatch" class="app-row app-pointer" (click)="selectBatch(batch)" (dblclick)="openBatch(batch)">
-            <div class="batch-folder" [matTooltip]="batch.description">{{ batch.description }}</div>
-            <!-- <div cladd="batch-folderPath">{{ batch.folderPah }}</div> -->
-            <div class="batch-created">{{ batch.create | appDatetime }}</div>
-            <div class="batch-modified">{{ batch.timestamp | appDatetime }}</div>
-            <div class="batch-state">{{ 'history.states.' + batch.state | translate }}</div>
-            <div class="batch-profile">{{ 'history.profiles.' + batch.profile | translate}}</div>
-            <div class="batch-user">{{ batch.user }}</div>
-            <div class="batch-priority">{{ 'history.priorities.' + batch.priority | translate }}</div>
-            <div class="batch-actions">
-              <button (click)="onShowLog(batch);$event.preventDefault();$event.stopPropagation()" *ngIf="batch.failure" mat-icon-button color="default" [matTooltip]="'history.show_log' | translate" matTooltipPosition="below">
-                <mat-icon>error_outline</mat-icon>
-              </button>
-              <button mat-icon-button color="default" [matTooltip]="'history.reingest' | translate" matTooltipPosition="below"
-              (click)="reIngest(batch);$event.preventDefault();$event.stopPropagation()" *ngIf="batch.state === 'INGESTING_FAILED'" >
-                <mat-icon>save_alt</mat-icon>
-              </button>
-              <button mat-icon-button color="default" [matTooltip]="'history.stop' | translate" matTooltipPosition="below"
-              (click)="stop(batch);$event.preventDefault();$event.stopPropagation()" *ngIf="batch.state === 'LOADING'" >
-                <mat-icon>stop</mat-icon>
-              </button>
-              <span *ngIf="batch.isLoading()">{{ batchProgress(batch) }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="app-paginator">
-        <mat-paginator [length]="resultCount" hidePageSize="true" [pageIndex]="pageIndex" [pageSize]="pageSize" (page)="onPageChanged($event)"></mat-paginator>
-      </div>
+    <div fxFlex class="app-oa-y" *ngIf="view == 'overview'">
+      <table mat-table #table [dataSource]="batches" class="app-striped app-hover">
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>{{ 'history.folder' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="create">
+          <th mat-header-cell *matHeaderCellDef>{{ 'history.created' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.create | appDatetime }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="timestamp">
+          <th mat-header-cell *matHeaderCellDef>{{ 'history.modified' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.timestamp | appDatetime }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="state">
+          <th mat-header-cell *matHeaderCellDef>{{ 'history.state' | translate }}</th>
+          <td mat-cell *matCellDef="let element">
+            <span [class]="'app-badge app-' + element.state">{{ 'states.' + element.state | translate }}<strong *ngIf="element.isLoading()" class="app-ml-2">{{ batchProgress(element) }}</strong></span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="profile">
+          <th mat-header-cell *matHeaderCellDef>{{ 'history.profile' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ 'history.profiles.' +  element.profile | translate }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="user">
+          <th mat-header-cell *matHeaderCellDef>{{ 'history.user' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.user }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="priority">
+          <th mat-header-cell *matHeaderCellDef>{{ 'history.priority' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ 'history.priorities.' + element.priority | translate }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <a *ngIf="element.failure" (click)="onShowLog(element);$event.preventDefault();$event.stopPropagation()" [matTooltip]="'history.show_log' | translate" matTooltipPosition="below">
+              <mat-icon>error_outline</mat-icon>
+            </a>
+            <a *ngIf="element.state === 'INGESTING_FAILED'" (click)="reIngest(element);$event.preventDefault();$event.stopPropagation()" [matTooltip]="'history.reingest' | translate" matTooltipPosition="below">
+              <mat-icon>save_alt</mat-icon>
+            </a>
+            <a *ngIf="element.state === 'LOADING'" (click)="stop(element);$event.preventDefault();$event.stopPropagation()" [matTooltip]="'history.stop' | translate" matTooltipPosition="below" class="app-color-warn">
+              <mat-icon>cancel</mat-icon>
+            </a>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsOverview; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsOverview;" class="app-cursor-pointer" [class.app-selected]="row == selectedBatch" (click)="selectBatch(row)" (dblclick)="openBatch(row)"></tr>
+      </table>
+      <mat-paginator [length]="resultCount" hidePageSize="true" [pageIndex]="pageIndex" [pageSize]="pageSize" (page)="onPageChanged($event)"></mat-paginator>
     </div>
 
-    <div class="app-table app-mt-4" *ngIf="view == 'queue'">
+    <div fxFlex class="app-oa-y app-mt-4" *ngIf="view == 'queue'">
+      <table mat-table #table [dataSource]="queue" class="app-striped app-hover">
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>{{ 'history.folder' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="create">
+          <th mat-header-cell *matHeaderCellDef>{{ 'history.created' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.create | appDatetime }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="timestamp">
+          <th mat-header-cell *matHeaderCellDef>{{ 'history.modified' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.timestamp | appDatetime }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="state">
+          <th mat-header-cell *matHeaderCellDef>{{ 'history.state' | translate }}</th>
+          <td mat-cell *matCellDef="let element">
+            <span class="app-badge" [ngClass]="batchProgress(element) === '0%' ? 'app-WAITING' : 'app-' + element.state">
+              {{ batchProgress(element) === '0%' ? ('states.WAITING' | translate) : ('states.' + element.state | translate) }}<strong *ngIf="element.isLoading()" class="app-ml-2">{{ batchProgress(element) }}</strong>
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="pageCount">
+          <th mat-header-cell *matHeaderCellDef>{{ 'Počet stran' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.pageCount }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="user">
+          <th mat-header-cell *matHeaderCellDef>{{ 'history.user' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.user }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsQueue; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsQueue;" class="app-cursor-pointer" [class.app-selected]="row == selectedBatch" (click)="selectBatch(row)" (dblclick)="openBatch(row)"></tr>
+      </table>
+    </div>
+
+    <!-- <div class="app-table app-mt-4" *ngIf="view == 'queue'">
       <div class="batch-list">
         <div class="app-row app-header">
           <div class="batch-folder">{{ 'history.folder' | translate }}</div>
@@ -161,6 +217,6 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>

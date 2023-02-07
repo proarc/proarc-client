@@ -218,22 +218,6 @@
     "modifiedTo": "Modified to",
     "show_log": "Show error detail",
     "reingest": "Save again",
-    "states": {
-      "ALL": "All",
-      "LOADING": "Loading",
-      "LOADING_FAILED": "Loading failed",
-      "LOADED": "Loaded",
-      "INGESTING": "Saving",
-      "INGESTING_FAILED": "Saving failed",
-      "INGESTED": "Saved",
-      "STOPPED": "Stoped",
-      "EXPORTING": "Exporting",
-      "EXPORT_FAILED": "Exporting failed",
-      "EXPORT_DONE": "Exported",
-      "REINDEXING": "Reindexing",
-      "REINDEX_FAILED": "Reindexing failed",
-      "REINDEX_DONE": "Reindexed"
-    },
     "priority": "Priority",
     "priorities": {
       "lowest": "Lowest",
@@ -2047,7 +2031,8 @@
     "all": "All",
     "search": "Search",
     "identifier": "Identifier",
-    "creator": "creator"
+    "creator": "creator",
+    "automaticallyRestore": "Automatically restore"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2072,7 +2057,11 @@
     "advancedSearch": "Advanced search",
     "searchInDeleted": "Search in delete",
     "search": "Search",
-    "columnSelection": "Column selection"
+    "columnSelection": "Column selection",
+    "showLoadingQueue": "Show loading queue",
+    "reload": "Reload",
+    "goToObject": "Go to object",
+    "backToTheListOfAllProcesses": "Back to the list of all processes"
   },
   "dynamic": {
     "repo": "Storage",
@@ -2089,6 +2078,26 @@
     "comment": "Comment",
     "image": "Image",
     "premis": "PREMIS XML"
+  },
+  "states": {
+    "ALL": "All",
+    "LOADING": "Loading",
+    "LOADING_FAILED": "Loading failed",
+    "LOADED": "Loaded",
+    "INGESTING": "Saving",
+    "INGESTING_FAILED": "Saving failed",
+    "INGESTED": "Saved",
+    "STOPPED": "Stoped",
+    "EXPORTING": "Exporting",
+    "EXPORT_FAILED": "Exporting failed",
+    "EXPORT_DONE": "Exported",
+    "REINDEXING": "Reindexing",
+    "REINDEX_FAILED": "Reindexing failed",
+    "REINDEX_DONE": "Reindexed",
+    "UPLOADING": "Uploading",
+    "UPLOAD_FAILED": "Uploading failed",
+    "UPLOAD_DONE": "Uploaded",
+    "WAITING": "Waiting in queue"
   },
   "dialog": {
     "layoutSettings": {

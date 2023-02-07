@@ -58,6 +58,10 @@
       &.app-#{$state} {
         color: $color !important;
       }
+    } @else if ($type == 'badge') {
+      &.app-#{$state} {
+        background-color: $color;
+      }
     }
   }
 }

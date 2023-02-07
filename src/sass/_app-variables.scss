@@ -82,6 +82,8 @@ $app-grid-item-border-color: $app-gray-4;
 $app-icon-item-pd: $app-grid-item-pd;
 $app-icon-item-border-color: $app-grid-item-border-color;
 
+$app-badge-height: 18px !default;
+
 // footer
 $app-footer-bg-color: $app-color-darknes;
 $app-footer-color: $app-gray-5;
@@ -130,5 +132,24 @@ $states: (
   sentiment_satisfied: $app-color-info,
   mood_bad: $app-color-warn,
   mood: $app-color-success,
+
+  LOADING: mat-color($mat-blue-gray, 600),
+  LOADED:  $app-color-success,
+  LOADING_FAILED: $app-color-warn,
+  INGESTING: mat-color($mat-blue-gray, 600),
+  INGESTED: $app-color-success,
+  INGESTING_FAILED: $app-color-warn,
+  EXPORTING: mat-color($mat-blue-gray, 600),
+  EXPORT_DONE: $app-color-success,
+  EXPORT_FAILED: $app-color-warn,
+  REINDEXING: mat-color($mat-blue-gray, 600),
+  REINDEX_DONE: $app-color-success,
+  REINDEX_FAILED: $app-color-warn,
+  UPLOADING: mat-color($mat-blue-gray, 600),
+  UPLOAD_DONE: $app-color-success,
+  UPLOAD_FAILED: $app-color-warn,
+  STOPPED: mat-color($mat-blue-gray, 600),
+  WAITING: mat-color($mat-teal, 500),
+
   default: $app-gray-6
 );

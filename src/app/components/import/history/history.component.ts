@@ -50,6 +50,9 @@ export class HistoryComponent implements OnInit, OnDestroy {
   modifiedFrom: Date;
   modifiedTo: Date;
 
+  displayedColumnsOverview: string[] = ['description', 'create',  'timestamp', 'state', 'profile', 'user', 'priority', 'actions'];
+  displayedColumnsQueue: string[] = ['description', 'create',  'timestamp', 'state', 'pageCount', 'user' ];
+
   batchStates = [
     'ALL',
     'LOADING',

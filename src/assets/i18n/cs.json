@@ -2031,7 +2031,8 @@
     "all": "Vše",
     "search": "Vyhledat",
     "identifier": "Identifikátor",
-    "creator": "Tvůrce"
+    "creator": "Tvůrce",
+    "automaticallyRestore": "Automaticky obnovit"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2056,7 +2057,11 @@
     "advancedSearch": "Pokročilé hledání",
     "searchInDeleted": "Hledat ve smazaných",
     "search": "Vyhledat",
-    "columnSelection": "Výběr sloupců"
+    "columnSelection": "Výběr sloupců",
+    "showLoadingQueue": "Zobrazit frontu načítání",
+    "reload": "Načíst znovu",
+    "goToObject": "Přejít na objekt",
+    "backToTheListOfAllProcesses": "Zpět na seznam všech procesů"
   },
   "dynamic": {
     "repo": "Úložiště",

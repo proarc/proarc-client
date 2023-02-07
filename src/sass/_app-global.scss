@@ -213,17 +213,18 @@ a {
 }
 
 .app-badge {
-  @include setStateColor();
   @extend .app-pr-2, .app-pl-2;
   display: inline-flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 20px;
-  border-radius: $app-border-radius;
+  height: $app-badge-height;
+  border-radius: calc($app-badge-height / 2);
   color: $app-color-lightnes;
   font-size: 12px;
-  text-transform: uppercase;
+  text-transform: lowercase;
+
+  @include setStateColor('badge');
 }
 
 .app-list-inside {

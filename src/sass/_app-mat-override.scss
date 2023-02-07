@@ -45,6 +45,11 @@
       }
     }
 
+    .mat-column-actions {
+      @extend .app-text-right;
+      width: 30px;
+    }
+
     .mat-cell {
       font-size: 13px;
 
@@ -129,5 +134,13 @@
   &.app-disabled {
     color: $app-gray-4 !important;
     cursor: default;
+  }
+}
+
+// pagination
+.mat-paginator {
+  .app-oa-y & {
+    position: sticky;
+    bottom: 0;
   }
 }
