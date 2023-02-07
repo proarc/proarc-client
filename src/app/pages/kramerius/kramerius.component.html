@@ -1,0 +1,25 @@
+
+<div fxLayout="column" fxFlexFill  class="app-editor-wrapper">
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar app-view-border-bottom">
+    
+  </div>
+
+  <div fxFlex class="app-oh" *ngIf="state !== 'loading'">
+    <as-split  direction="horizontal"  (dragEnd)="onDragEnd(-1, $event)">
+      
+        <as-split-area [order]="0" [size]="40">
+          <app-editor-page *ngIf="this.layout.lastSelectedItem && isPage()" [model]="this.model" [pid]="pid" > </app-editor-page>
+          <app-editor-metadata *ngIf="this.layout.lastSelectedItemMetadata && !isPage()" [metadata]="this.layout.lastSelectedItemMetadata" [model]="this.layout.lastSelectedItemMetadata.model"></app-editor-metadata>
+        </as-split-area>
+      
+        <as-split-area [order]="1" [size]="30">
+          <app-kramerius-mods [mods]="mods"></app-kramerius-mods>
+        </as-split-area>
+
+        <as-split-area [order]="2" [size]="30" class="app-pl-4">
+          <app-viewer [isKramerius]="true" [instance]="instance" [pid]="pid"></app-viewer>
+        </as-split-area>
+      
+    </as-split>
+  </div>
+</div>

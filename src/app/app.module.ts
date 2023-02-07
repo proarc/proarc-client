@@ -136,6 +136,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { EditorTreeComponent } from './components/editor/editor-tree/editor-tree.component';
 import { MarkSequenceDialogComponent } from './dialogs/mark-sequence-dialog/mark-sequence-dialog.component';
 import { EditorPremisComponent } from './components/editor/editor-premis/editor-premis.component';
+import { KrameriusComponent } from './pages/kramerius/kramerius.component';
+import { MetadataComponent } from './pages/kramerius/metadata/metadata.component';
+import { KrameriusModsComponent } from './pages/kramerius/kramerius-mods/kramerius-mods.component';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 300,
@@ -262,6 +265,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditorTreeComponent,
     MarkSequenceDialogComponent,
     EditorPremisComponent,
+    KrameriusComponent,
+    MetadataComponent,
+    KrameriusModsComponent,
   ],
   imports: [
     BrowserModule,

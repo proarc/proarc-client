@@ -17,12 +17,14 @@ import { RepositoryComponent } from '../pages/repository/repository.component';
 import { LayoutAdminComponent } from '../pages/layout-admin/layout-admin.component';
 import { BatchesComponent } from '../pages/batches/batches.component';
 import { AuthGuard } from '../auth.guard';
+import { KrameriusComponent } from '../pages/kramerius/kramerius.component';
 
 const routes: Routes = [
       { path: 'login', component: LoginComponent },
   {
     path: '', canActivate: [AuthGuard], children: [
       { path: 'repository/:pid', component: RepositoryComponent, canDeactivate: [ConfirmLeaveEditorGuard] },
+      { path: 'kramerius/:pid', component: KrameriusComponent },
       { path: 'settings', component: SettingsComponent },
       { path: 'devices', component: DevicesComponent },
       { path: 'devices/new', component: EditDeviceComponent },

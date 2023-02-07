@@ -30,6 +30,9 @@ import { LayoutService } from 'src/app/services/layout.service';
 })
 export class ViewerComponent implements OnInit, OnDestroy {
 
+  @Input() isKramerius: boolean;
+  @Input() instance: string;
+
   @Input() 
   set pid(pid: string) {
     this.onPidChanged(pid);
@@ -67,7 +70,10 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   onPidChanged(pid: string) {
     this.state = 'loading';
-    const url = this.api.getStreamUrl(pid, 'FULL', this.layout.getBatchId());
+    const url = this.isKramerius ? 
+                this.api.getKrameriusImageUrl(pid, this.instance) :
+                this.api.getStreamUrl(pid, 'FULL', this.layout.getBatchId());
+    console.log(url)
     const image = new Image();
     image.onload = (() => {
         this.onLoad(url, image.width, image.height);

@@ -130,6 +130,7 @@ export class EditorStructureComponent implements OnInit {
     this.childrenWrapperEl.nativeElement.focus();
 
     this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
+      this.pageChildren = this.layout.items.findIndex(it => it.isPage()) > -1;
       if (!fromStructure) {
         this.arrowIndex = this.layout.getFirstSelectedIndex();
         this.obtainFocus();
