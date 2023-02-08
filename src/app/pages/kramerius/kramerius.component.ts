@@ -116,7 +116,9 @@ export class KrameriusComponent implements OnInit {
         console.log('error', response['response'].errors);
         this.ui.showErrorSnackBarFromObject(response['response'].errors);
         this.state = 'error';
-      } else if (response && response['response'] && response['response']['data']) {
+      } else if (response && response['response'] && response['response']['status'] === -1) {
+          this.ui.showErrorSnackBar(response['response']['data'], 2000);
+      }  else if (response && response['response'] && response['response']['data']) {
         if (response['response']['data'][0].status === 'Failed') {
           this.ui.showErrorSnackBar(response['response']['data'][0].reason, 2000);
         } else {
