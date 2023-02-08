@@ -1,8 +1,8 @@
-<h1 mat-dialog-title>{{ 'history.log_dialog.title' | translate }}</h1>
-<div mat-dialog-content style="max-width:80vw; overflow: auto; margin: 0;">
-  <div class="app-log-title">{{ data.title }}</div>
-  <pre class="app-log-content">{{ data.content }}</pre>
+<h1 mat-dialog-title>{{ 'desc.errorDetail' | translate }}</h1>
+<div mat-dialog-content class="app-oh app-oa-y"> 
+  <strong>{{ data.title }}</strong>
+  <pre class="app-ws-pw">{{ data.content }}</pre>
 </div>
 <div mat-dialog-actions cdk-focus-start>
-  <button mat-raised-button color="primary" [mat-dialog-close]="'close'" >{{ 'common.close' | translate }}</button>
+  <button mat-flat-button color="primary" [mat-dialog-close]="'close'" >{{ 'button.close' | translate }}</button>
 </div>

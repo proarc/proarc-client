@@ -213,67 +213,6 @@
       "failure": "Uložení do úložiště se nezdařilo"
     }
   },
-  "history": {
-    "title": "Správa dávek",
-    "stop": "Zastavit",
-    "desc": "Složka/název/PID",
-    "desc_tooltip": "Omezí výsledek podle názvu adresáře, importovaného souboru nebo PIDu objektu.",
-    "state": "Stav",
-    "folder": "Složka / PID",
-    "user": "Uživatel",
-    "created": "Vytvořeno",
-    "modified": "Upraveno",
-    "createFrom": "Vytvořeno od",
-    "createTo": "Vytvořeno do",
-    "modifiedFrom": "Upraveno od",
-    "modifiedTo": "Upraveno do",
-    "show_log": "Zobrazit detail chyby",
-    "reingest": "Uložit znovu",
-    "log_dialog": {
-      "title": "Detail chyby"
-    },
-    "priority": "Priorita",
-    "priorities": {
-      "lowest": "Nejnižší",
-      "low": "Nízká",
-      "medium": "Střední",
-      "high": "Vysoká",
-      "highest": "Nejvyšší"
-    },
-    "profile": "Profil",
-    "profiles": {
-      "profile.default": "Import - Default",
-      "profile.createObjectWithMetadata_import": "Import - S tvorbou objektu",
-      "profile.default_archive_import": "Import - Archivní",
-      "profile.soundrecording_import": "Import - Zvuk",
-      "profile.default_kramerius_import": "Import - Kramerius",
-      "profile.stt_kramerius_import": "Import - STT Kramerius",
-      "profile.ndk_monograph_kramerius_import": "Import - NDK Monografie Kramerius",
-      "profile.ndk_periodical_kramerius_import": "Import - NDK Periodikum Kramerius",
-      "profile.chronicle": "Import - Kronika",
-      "profile.oldprint": "Import - STT",
-      "profile.ndk_full_import": "Import - NDK Full",
-      "exportProfile.kramerius": "Export - Kramerius",
-      "exportProfile.ndk": "Export - NDK PSP",
-      "exportProfile.archive": "Export - Archive",
-      "exportProfile.desa": "Export - DESA",
-      "exportProfile.cejsh": "Export - Cejsh",
-      "exportProfile.crossref": "Export - Crossref",
-      "exportProfile.kwis": "Export - KWIS",
-      "exportProfile.aleph": "Export - Aleph",
-      "internalProfile.reindex": "Internal - Reindexace"
-    },
-    "refresh": "Obnovit",
-    "reload": "Načíst znovu",
-    "filter": "Filtrovat",
-    "edit": "Přejít na objekt",
-    "ingest": "Pokračovat",
-    "reload_dialog": {
-      "title": "Opětovné načtení dávky",
-      "message": "Vytvořená metadata budou odstraněna. Opravdu chcete pokračovat?",
-      "profile": "Profil"
-    }
-  },
   "navbar": {
     "new_object": "Nový objekt",
     "search": "Hledat",
@@ -2036,7 +1975,17 @@
     "search": "Vyhledat",
     "identifier": "Identifikátor",
     "creator": "Tvůrce",
-    "automaticallyRestore": "Automaticky obnovit"
+    "automaticallyRestore": "Automaticky obnovit",
+    "createFrom": "Vytvořeno od",
+    "createTo": "Vytvořeno do",
+    "modifiedFrom": "Upraveno od",
+    "modifiedTo": "Upraveno do",
+    "user": "Uživatel",
+    "priority": "Priorita",
+    "profile": "Profil",
+    "folderNamePid": "Složka/název/PID",
+    "numberOfPages": "Počet stran",
+    "errorDetail": "Detail chyby"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2065,7 +2014,12 @@
     "showLoadingQueue": "Zobrazit frontu načítání",
     "reload": "Načíst znovu",
     "goToObject": "Přejít na objekt",
-    "backToTheListOfAllProcesses": "Zpět na seznam všech procesů"
+    "backToTheListOfAllProcesses": "Zpět na seznam všech procesů",
+    "filter": "Filtrovat",
+    "viewErrorDetail": "Zobrazit detail chyby",
+    "saveAgain": "Uložit znovu",
+    "stop": "Stopnout",
+    "cancel": "Zrušit"
   },
   "dynamic": {
     "repo": "Úložiště",
@@ -2127,6 +2081,45 @@
         "success": "Všechny objekty jsou validní. Celkem: {{value}}",
         "error": "Počet nevalidních objektů {{value1}} z {{value2}}"
       }
+    },
+    "reloadDialog": {
+      "title": "Opětovné načtení dávky",
+      "message": "Vytvořená metadata budou odstraněna. Opravdu chcete pokračovat?"
+    }
+  },
+  "formField": {
+    "folderNamePid": {
+      "placeholder": "Složka/název/PID",
+      "tooltip": "Omezí výsledek podle názvu adresáře, importovaného souboru nebo PIDu objektu."
+    },
+    "priorities": {
+      "lowest": "Nejnižší",
+      "low": "Nízká",
+      "medium": "Střední",
+      "high": "Vysoká",
+      "highest": "Nejvyšší"
+    },
+    "profiles": {
+      "profile.default": "Import - Default",
+      "profile.createObjectWithMetadata_import": "Import - S tvorbou objektu",
+      "profile.default_archive_import": "Import - Archivní",
+      "profile.soundrecording_import": "Import - Zvuk",
+      "profile.default_kramerius_import": "Import - Kramerius",
+      "profile.stt_kramerius_import": "Import - STT Kramerius",
+      "profile.ndk_monograph_kramerius_import": "Import - NDK Monografie Kramerius",
+      "profile.ndk_periodical_kramerius_import": "Import - NDK Periodikum Kramerius",
+      "profile.chronicle": "Import - Kronika",
+      "profile.oldprint": "Import - STT",
+      "profile.ndk_full_import": "Import - NDK Full",
+      "exportProfile.kramerius": "Export - Kramerius",
+      "exportProfile.ndk": "Export - NDK PSP",
+      "exportProfile.archive": "Export - Archive",
+      "exportProfile.desa": "Export - DESA",
+      "exportProfile.cejsh": "Export - Cejsh",
+      "exportProfile.crossref": "Export - Crossref",
+      "exportProfile.kwis": "Export - KWIS",
+      "exportProfile.aleph": "Export - Aleph",
+      "internalProfile.reindex": "Internal - Reindexace"
     }
   }
 }

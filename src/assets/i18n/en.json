@@ -203,63 +203,6 @@
       "message": "Failed to load the folder"
     }
   },
-  "history": {
-    "title": "Batch management",
-    "stop": "Stop",
-    "state": "State",
-    "desc": "Folder / PID",
-    "folder": "Folder / PID",
-    "user": "User",
-    "created": "Created",
-    "modified": "Modified",
-    "createFrom": "Created from",
-    "createTo": "Created to",
-    "modifiedFrom": "Modified from",
-    "modifiedTo": "Modified to",
-    "show_log": "Show error detail",
-    "reingest": "Save again",
-    "priority": "Priority",
-    "priorities": {
-      "lowest": "Lowest",
-      "low": "Low",
-      "medium": "Medium",
-      "high": "High",
-      "highest": "Highest"
-    },
-    "profile": "Profile",
-    "profiles": {
-      "profile.default": "Import - Default",
-      "profile.createObjectWithMetadata_import": "Import - Create Object with metadata",
-      "profile.default_archive_import": "Import - Archive",
-      "profile.soundrecording_import": "Import - Soundrecording",
-      "profile.default_kramerius_import": "Import - Kramerius",
-      "profile.stt_kramerius_import": "Import - Oldprint Kramerius",
-      "profile.ndk_monograph_kramerius_import": "Import - NDK Monograph Kramerius",
-      "profile.ndk_periodical_kramerius_import": "Import - NDK Periodical Kramerius",
-      "profile.chronicle": "Import - Chronicle",
-      "profile.oldprint": "Import - Oldprint",
-      "profile.ndk_full_import": "Import - NDK Full",
-      "exportProfile.kramerius": "Export - Kramerius",
-      "exportProfile.ndk": "Export - NDK PSP",
-      "exportProfile.archive": "Export - Archive",
-      "exportProfile.desa": "Export - DESA",
-      "exportProfile.cejsh": "Export - Cejsh",
-      "exportProfile.crossref": "Export - Crossref",
-      "exportProfile.kwis": "Export - KWIS",
-      "exportProfile.aleph": "Export - Aleph",
-      "internalProfile.reindex": "Internal - Reindex"
-    },
-    "refresh": "Refresh",
-    "reload": "Reload batch",
-    "filter": "Filter",
-    "edit": "Go to the object",
-    "continue": "Resume",
-    "reload_dialog": {
-      "title": "Batch reloading",
-      "message": "Are you sure you want to reload the imported directory? The metadata will be deleted.",
-      "profile": "Profile"
-    }
-  },
   "navbar": {
     "new_object": "New object",
     "search": "Search",
@@ -2032,7 +1975,17 @@
     "search": "Search",
     "identifier": "Identifier",
     "creator": "creator",
-    "automaticallyRestore": "Automatically restore"
+    "automaticallyRestore": "Automatically restore",
+    "createFrom": "Created from",
+    "createTo": "Created to",
+    "modifiedFrom": "Modified from",
+    "modifiedTo": "Modified to",
+    "user": "User",
+    "priority": "Priority",
+    "profile": "Profile",
+    "folderNamePid": "Folder/name/PID",
+    "numberOfPages": "Number of pages",
+    "errorDetail": "Error detail"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2061,7 +2014,12 @@
     "showLoadingQueue": "Show loading queue",
     "reload": "Reload",
     "goToObject": "Go to object",
-    "backToTheListOfAllProcesses": "Back to the list of all processes"
+    "backToTheListOfAllProcesses": "Back to the list of all processes",
+    "filter": "Filter",
+    "viewErrorDetail": "View error detail",
+    "saveAgain": "Save again",
+    "stop": "Stop",
+    "cancel": "Cancel"
   },
   "dynamic": {
     "repo": "Storage",
@@ -2123,6 +2081,45 @@
         "success": "All objects are valid. Total: {{value}}",
         "error": "Number of invalid {{value1}} objects from {{value2}}"
       }
+    },
+    "reloadDialog": {
+      "title": "Batch reloading",
+      "message": "Are you sure you want to reload the imported directory? The metadata will be deleted."
+    }
+  },
+  "formField": {
+    "folderNamePid": {
+      "placeholder": "Folder/name/PID",
+      "tooltip": "Limits the result by directory name, imported file or object PID."
+    },
+    "priorities": {
+      "lowest": "Lowest",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "highest": "Highest"
+    },
+    "profiles": {
+      "profile.default": "Import - Default",
+      "profile.createObjectWithMetadata_import": "Import - Create Object with metadata",
+      "profile.default_archive_import": "Import - Archive",
+      "profile.soundrecording_import": "Import - Soundrecording",
+      "profile.default_kramerius_import": "Import - Kramerius",
+      "profile.stt_kramerius_import": "Import - Oldprint Kramerius",
+      "profile.ndk_monograph_kramerius_import": "Import - NDK Monograph Kramerius",
+      "profile.ndk_periodical_kramerius_import": "Import - NDK Periodical Kramerius",
+      "profile.chronicle": "Import - Chronicle",
+      "profile.oldprint": "Import - Oldprint",
+      "profile.ndk_full_import": "Import - NDK Full",
+      "exportProfile.kramerius": "Export - Kramerius",
+      "exportProfile.ndk": "Export - NDK PSP",
+      "exportProfile.archive": "Export - Archive",
+      "exportProfile.desa": "Export - DESA",
+      "exportProfile.cejsh": "Export - Cejsh",
+      "exportProfile.crossref": "Export - Crossref",
+      "exportProfile.kwis": "Export - KWIS",
+      "exportProfile.aleph": "Export - Aleph",
+      "internalProfile.reindex": "Internal - Reindex"
     }
   }
 }
