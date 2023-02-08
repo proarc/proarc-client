@@ -24,8 +24,8 @@
     </mat-form-field>
 
     <mat-form-field class="app-import-profiles">
-      <mat-select [placeholder]="'history.priority' | translate" [(ngModel)]="selectedPriority">
-        <mat-option *ngFor="let priority of priorities" [value]="priority">{{ 'history.priorities.' + priority  | translate}}</mat-option>
+      <mat-select [placeholder]="'desc.priority' | translate" [(ngModel)]="selectedPriority">
+        <mat-option *ngFor="let priority of priorities" [value]="priority">{{ 'formField.priorities.' + priority  | translate}}</mat-option>
       </mat-select>
     </mat-form-field>
 
