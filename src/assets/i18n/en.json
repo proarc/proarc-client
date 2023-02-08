@@ -2019,7 +2019,8 @@
     "viewErrorDetail": "View error detail",
     "saveAgain": "Save again",
     "stop": "Stop",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "continueToPrepareMetadata": "Continue to prepare metadata"
   },
   "dynamic": {
     "repo": "Storage",
@@ -2085,6 +2086,15 @@
     "reloadDialog": {
       "title": "Batch reloading",
       "message": "Are you sure you want to reload the imported directory? The metadata will be deleted."
+    },
+    "importDialog": {
+      "title": "Loading",
+      "messagePreparing": "Preparing import ...",
+      "messageLoading": "Reading objects {{ done }}/<strong>{{ count }}</strong>",
+      "alert": {
+        "success": "Import success",
+        "failure": "Import failed"
+      }
     }
   },
   "formField": {

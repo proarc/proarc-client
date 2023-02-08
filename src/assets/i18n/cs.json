@@ -2019,7 +2019,8 @@
     "viewErrorDetail": "Zobrazit detail chyby",
     "saveAgain": "Uložit znovu",
     "stop": "Stopnout",
-    "cancel": "Zrušit"
+    "cancel": "Zrušit",
+    "continueToPrepareMetadata": "Pokračovat k přípravě metadat"
   },
   "dynamic": {
     "repo": "Úložiště",
@@ -2085,6 +2086,15 @@
     "reloadDialog": {
       "title": "Opětovné načtení dávky",
       "message": "Vytvořená metadata budou odstraněna. Opravdu chcete pokračovat?"
+    },
+    "importDialog": {
+      "title": "Načítání",
+      "messagePreparing": "Probíhá příprava importu ...",
+      "messageLoading": "Probíhá načítání objektů {{ done }}/<strong>{{ count }}</strong>",
+      "alert": {
+        "success": "Import proběhl v pořádku",
+        "failure": "Import se nezdařil"
+      }
     }
   },
   "formField": {

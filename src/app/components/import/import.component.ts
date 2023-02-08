@@ -214,7 +214,11 @@ export class ImportComponent implements OnInit {
           return;
         }
         const batch: Batch = Batch.fromJson(response['response']['data'][0]);
-        const dialogRef = this.dialog.open(ImportDialogComponent, { data: { batch: batch.id } });
+        const dialogRef = this.dialog.open(ImportDialogComponent, { 
+          data: { batch: batch.id },
+          panelClass: 'app-dialog-import',
+          width: '600px' 
+        });
         dialogRef.afterClosed().subscribe(result => {
           if (result === 'open') {
             this.router.navigate(['/import', 'edit', batch.id]);

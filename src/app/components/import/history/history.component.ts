@@ -379,7 +379,11 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
 
   onReloadBatch() {
-    const dialogRef = this.dialog.open(ReloadBatchDialogComponent, { data: null });
+    const dialogRef = this.dialog.open(ReloadBatchDialogComponent, { 
+      data: null,
+      panelClass: 'app-dialog-reload-batch',
+      width: '600px'
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.profile) {
         this.reloadBatch(result.profile);
@@ -405,7 +409,11 @@ export class HistoryComponent implements OnInit, OnDestroy {
     if (!this.selectedBatch) {
       return;
     }
-    const dialogRef = this.dialog.open(ImportDialogComponent, { data: { batch: this.selectedBatch.id, parent: parentPid, ingestOnly: true } });
+    const dialogRef = this.dialog.open(ImportDialogComponent, { 
+      data: { batch: this.selectedBatch.id, parent: parentPid, ingestOnly: true },
+      panelClass: 'app-dialog-import',
+      width: '600px'  
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'open') {
         this.router.navigate(['/repository', parentPid]);
@@ -420,7 +428,11 @@ export class HistoryComponent implements OnInit, OnDestroy {
       return;
     }
     this.api.reloadBatch(this.selectedBatch.id, profile.id).subscribe((batch: Batch) => {
-      const dialogRef = this.dialog.open(ImportDialogComponent, { data: { batch: batch.id } });
+      const dialogRef = this.dialog.open(ImportDialogComponent, { 
+        data: { batch: batch.id },
+        panelClass: 'app-dialog-import',
+        width: '600px' 
+      });
       dialogRef.afterClosed().subscribe(result => {
 
         if (result === 'open') {
@@ -474,7 +486,11 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
       const batch: Batch = Batch.fromJson(response['response']['data'][0]);
 
-      const dialogRef = this.dialog.open(ImportDialogComponent, { data: { batch: batch.id } });
+      const dialogRef = this.dialog.open(ImportDialogComponent, { 
+        data: { batch: batch.id },
+        panelClass: 'app-dialog-import',
+        width: '600px' 
+      });
       dialogRef.afterClosed().subscribe(result => {
 
         if (result === 'open') {
