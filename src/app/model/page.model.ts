@@ -64,6 +64,10 @@ export class Page {
       if (page.type && page.type.length > 0) {
         page.type = page.type.substr(0, 1).toLowerCase() + page.type.substr(1);
       }
+      if (data['identifiers']) {
+        page.identifiers = PageIdentifier.fromJsonArray(data['identifiers']);
+        page.originalIdentifiers = PageIdentifier.fromJsonArray(data['identifiers']);
+      }
       const mods = data['mods']
       if (mods) {
         if (mods['note'] && mods['note'][0] && mods['note'][0]['value']) {
@@ -75,8 +79,10 @@ export class Page {
         if (mods['physicalDescription'] && mods['physicalDescription'][0] && mods['physicalDescription'][0]['note'] && mods['physicalDescription'][0]['note'][0] && mods['physicalDescription'][0]['note'][0]['value']) {
           page.note = mods['physicalDescription'][0]['note'][0]['value'];
         }
-        page.identifiers = PageIdentifier.fromJsonArray(mods['identifier']);
-        page.originalIdentifiers = PageIdentifier.fromJsonArray(mods['identifier']);
+        if (mods['identifier']) {
+          page.identifiers = PageIdentifier.fromJsonArray(mods['identifier']);
+          page.originalIdentifiers = PageIdentifier.fromJsonArray(mods['identifier']);
+        } 
       }
       page.originalPosition = page.position;
       page.originalGenre = page.genre;

@@ -272,6 +272,14 @@ as-split {
     }
   }
 
+  .mat-select-value {
+    color: $app-breadcrumbsbar-color;
+  }
+  
+  .mat-form-field-label {
+    color: $app-breadcrumbsbar-color;
+  }
+
   .app-label-model {
     font-size: 13px;
     opacity: .8;

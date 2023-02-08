@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { combineLatest } from 'rxjs';
+import { combineLatest, Subscription } from 'rxjs';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Metadata } from 'src/app/model/metadata.model';
 import { Mods } from 'src/app/model/mods.model';
+import { Page } from 'src/app/model/page.model';
 import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { UIService } from 'src/app/services/ui.service';
@@ -17,13 +18,17 @@ import { parseString } from 'xml2js';
 export class KrameriusComponent implements OnInit {
 
   public pid: string;
-  public instance: string
+  public instance: string;
+  public importInstance: string;
+  public instances: { krameriusInstanceId: string, krameriusInstanceName: string }[];
   public model: string;
-  public dataTimestamp: number;
+  public hasImage = false;
   // public metadata: Metadata;
   public xml: string;
   mods: Mods;
   state = 'none';
+
+  subscriptions: Subscription[] = [];
 
   constructor(
     private router: Router,
@@ -32,14 +37,24 @@ export class KrameriusComponent implements OnInit {
     public layout: LayoutService,
     private api: ApiService) { }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
   ngOnInit(): void {
     this.layout.type = 'kramerius';
+
+    this.subscriptions.push(this.layout.shouldRefresh().subscribe((keepSelection: boolean) => {
+      this.loadData();
+    }));
+
     combineLatest([this.route.paramMap, this.route.queryParamMap]).subscribe(
       results => {
         const p = results[0];
         const q = results[1];
         this.pid = p.get('pid');
         this.instance = q.get('instance');
+        this.importInstance = this.instance;
         this.layout.krameriusInstance = this.instance;
         if (this.pid) {
           this.loadData();
@@ -47,49 +62,24 @@ export class KrameriusComponent implements OnInit {
       });
   }
 
-  private parseXml(mods: string) {
-    const xml = mods.replace(/xmlns.*=".*"/g, '');
-    const data = { explicitCharkey: true };
-    const ctx = this;
-    parseString(xml, data, function (err: any, result: any) {
-      ctx.processPage(result);
-      
-    });
-  }
-
-  processPage(json: any) {
-    console.log(json);
-    this.layout.lastSelectedItem = new DocumentItem();
-    const pageType = json['mods:mods']['mods:part'][0]['$']['type'];
-    const detail: any[] = json['mods:mods']['mods:part'].map((d: any) => d['mods:detail']) ;
-    console.log(detail)
-    const pageNumber = detail.filter(d => d[0]['$']['type'] === 'pageNumber')[0][0]['mods:number'][0]._;
-    const pageIndex = detail.filter(d => d[0]['$']['type'] === 'pageIndex')[0][0]['mods:number'][0]._;
-    this.layout.lastSelectedItem.pid = this.pid;
-    this.layout.lastSelectedItem.pageType = pageType;
-    this.layout.lastSelectedItem.model = this.model;
-    this.layout.lastSelectedItem.pageNumber = pageNumber;
-    this.layout.lastSelectedItem.pageIndex = pageIndex;
-    this.layout.lastSelectedItem.timestamp = this.dataTimestamp;
-  }
-
   loadData() {
     this.state = 'loading';
+    this.hasImage = false;
     this.layout.lastSelectedItemMetadata = null;
     this.layout.lastSelectedItem = null;
     this.api.getKrameriusMods(this.pid, this.instance).subscribe((response: any) => {
-      if (response && response['record']) {
+      if (response && response['response'] && response['response']['data']) {
+        // stranka
+        this.model = response['response']['data'][0].model;
+        this.layout.krameriusPage = Page.fromJson(response['response']['data'][0], this.model);
+        this.mods = Mods.fromJson(response['response']['data'][0]);
+        this.hasImage = true;
+        this.state = 'success';
+      } else if (response && response['record']) {
+        this.hasImage = false;
         this.model = response['record'].model;
-        this.dataTimestamp = response['record'].timestamp;
-        
-        if (this.isPage()) {
-          this.mods = Mods.fromJson(response['record']);
-          this.parseXml(response.record.content);
-        } else {
-          this.mods = Mods.fromJson(response['record']);
-          this.layout.lastSelectedItemMetadata = new Metadata(this.pid, response['record']['model'], response['record']['content'], response['record']['timestamp']);
-        }
-        // this.parseXml(response.record.content);
+        this.mods = Mods.fromJson(response['record']);
+        this.layout.lastSelectedItemMetadata = new Metadata(this.pid, response['record']['model'], response['record']['content'], response['record']['timestamp']);
         this.state = 'success';
       } else if (response && response['response'] && response['response'].errors) {
         console.log('error', response['response'].errors);
@@ -98,16 +88,64 @@ export class KrameriusComponent implements OnInit {
       } else {
         this.state = 'success';
       }
-      
     });
+
+    this.api.getKrameriusInstances().subscribe((resp: any) => {
+      this.instances = resp.response.data;
+    });
+
+    // this.api.getKrameriusImage(this.pid, this.instance).subscribe((resp: any) => {
+    //   console.log(resp)
+    //   this.hasImage = resp.response.status !== 404;
+    //   this.hasImage = true;
+    // });
   }
 
   onDragEnd(columnindex: number, e: any) {
-    
+
   }
 
   public isPage(): boolean {
     return this.model === 'model:page' || this.model === 'model:ndkpage' || this.model === 'model:oldprintpage';
+  }
+
+  importToKramerius() {
+
+    this.api.importToKramerius(this.pid, this.instance, this.importInstance).subscribe((response: any) => {
+      if (response && response['response'] && response['response'].errors) {
+        console.log('error', response['response'].errors);
+        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.state = 'error';
+      } else if (response && response['response'] && response['response']['data']) {
+        if (response['response']['data'][0].status === 'Failed') {
+          this.ui.showErrorSnackBar(response['response']['data'][0].reason, 2000);
+        } else {
+          this.ui.showInfoSnackBar(response['response']['data'][0].reason, 2000);
+        }
+      } else {
+        this.state = 'success';
+      }
+    });
+
+  }
+
+  importToProArc() {
+    this.api.importToProArc(this.pid, this.instance).subscribe((response: any) => {
+      if (response && response['response'] && response['response'].errors) {
+        console.log('error', response['response'].errors);
+        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.state = 'error';
+      } else if (response && response['response'] && response['response']['data']) {
+        if (response['response']['data'][0].status === 'Failed') {
+          this.ui.showErrorSnackBar(response['response']['data'][0].reason, 2000);
+        } else {
+          this.ui.showInfoSnackBar('Import proběhl v pořádku', 2000);
+        }
+      } else {
+        this.state = 'success';
+      }
+    });
+
   }
 
 }

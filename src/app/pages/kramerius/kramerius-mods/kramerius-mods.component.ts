@@ -1,5 +1,8 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Mods } from 'src/app/model/mods.model';
+import { ApiService } from 'src/app/services/api.service';
+import { LayoutService } from 'src/app/services/layout.service';
+import { UIService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-kramerius-mods',
@@ -9,7 +12,8 @@ import { Mods } from 'src/app/model/mods.model';
 export class KrameriusModsComponent implements OnInit {
 
   @Input() mods: Mods;
-
+  @Input() pid: string;
+  @Input() instance: string;
 
   @ViewChild('editingPre') editingPre: ElementRef;
   @ViewChild('originalPre') originalPre: ElementRef;
@@ -21,12 +25,10 @@ export class KrameriusModsComponent implements OnInit {
 
   originalText = '';
 
-  constructor() { }
+  constructor(private api: ApiService, private ui: UIService, private layout: LayoutService) { }
 
   ngOnInit(): void {
   }
-
-  
 
   public setRealtime(enable: boolean) {
     if (enable) {
@@ -66,7 +68,17 @@ export class KrameriusModsComponent implements OnInit {
   }
 
   onSave() {
-
+    this.mods.content = this.editingPre.nativeElement.innerText;
+    this.api.saveKrameriusMods(this.pid, this.instance, this.mods.content, this.mods.timestamp).subscribe((response: any) => {
+      if (response && response['response'] && response['response'].errors) {
+        console.log('error', response['response'].errors);
+        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.state = 'error';
+      } else {
+        this.layout.setShouldRefresh(false);
+        this.state = 'success';
+      }
+    });
   }
 
 }

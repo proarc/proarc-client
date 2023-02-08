@@ -27,7 +27,7 @@
 	</div>
 
 	<div fxFlex class="app-oa-y">
-		<mat-progress-bar *ngIf="!mods" mode="indeterminate"  class="app-progress-bar"></mat-progress-bar>
+		<!-- <mat-progress-bar *ngIf="!mods" mode="indeterminate"  class="app-progress-bar"></mat-progress-bar> -->
 		<div class="app-editor-content" >
 			<ng-container *ngIf="mods">
 				<pre *ngIf="editting && !realtime" class="app-xml-content app-mods-editing"
@@ -35,7 +35,7 @@
 				<pre *ngIf="!editting && !realtime" class="app-xml-content"
 					#originalPre><code [highlight]="mods.original"></code></pre>
 			</ng-container>
-			<div *ngIf="!mods">No PREMIS</div>
+			<div *ngIf="!mods">No XML</div>
 		</div>
 	</div>
 </div>

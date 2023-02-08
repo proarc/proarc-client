@@ -87,7 +87,8 @@ export class ApiService {
     if (!options) {
       options = {
         headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+          'Accept-Language': this.getLang()
         })
       };
     }
@@ -921,17 +922,55 @@ export class ApiService {
     // return this.post('object/kramerius/custom', params);
     const xmlText = xml.replace(/&/g, '%26');
     let data = `pid=${pid}&instance=${instance}&xmlData=${xmlText}&timestamp=${timestamp}`;
-    
     return this.post('kramerius/updateMods', data);
-
   }
 
+  saveKrameriusJSON(pid: string, instance: string, json: string, timestamp: number): Observable<any> {
+    let data = `pid=${pid}&instance=${instance}&jsonData=${json}&timestamp=${timestamp}`;
+    return this.post('kramerius/updateMods', data);
+  }
 
   getKrameriusImageUrl(pid: string, instance: string) {
-
     let url = `${this.getApiUrl()}kramerius/viewImage?pid=${pid}&instance=${instance}`;
     return url;
   }
 
+  getKrameriusImage(pid: string, instance: string) {
+    let url = `kramerius/viewImage?pid=${pid}&instance=${instance}`;
+    return this.get(url);
+  }
+
+  getKrameriusInstances() {
+    let url = `export/kramerius4`;
+    return this.get(url);
+  }
+
+  importToProArc(pid: string, instance: string): Observable<any> {
+    let data = `pid=${pid}&instance=${instance}`;
+    return this.post('kramerius/importToProArc', data);
+  }
+
+  importToKramerius(pid: string, instance: string, importInstance: string): Observable<any> {
+    let data = `pid=${pid}&instance=${instance}&importInstance=${importInstance}`;
+    return this.post('kramerius/importToKramerius', data);
+  }
+
 }
 
+
+// ### IMPORT 2 PROARC
+// POST {{proarcUrl}}/rest/v1/kramerius/importToProArc
+// Accept: application/json
+// Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+
+// instance={{instance}}&pid={{uuid}}
+
+// ### IMPORT 2 KRAMERIUS
+// POST {{proarcUrl}}/rest/v1/kramerius/importToKramerius
+// Accept: application/json
+// Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+
+// instance={{instance}}&importInstance={{instanceDestination}}&pid={{uuid}}
+
+// ### GET KRAMERIUS INSTANCE
+// GET {{proarcUrl}}/rest/v1/export/kramerius4

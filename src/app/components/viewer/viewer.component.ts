@@ -73,13 +73,13 @@ export class ViewerComponent implements OnInit, OnDestroy {
     const url = this.isKramerius ? 
                 this.api.getKrameriusImageUrl(pid, this.instance) :
                 this.api.getStreamUrl(pid, 'FULL', this.layout.getBatchId());
-    console.log(url)
     const image = new Image();
     image.onload = (() => {
         this.onLoad(url, image.width, image.height);
     });
     image.onerror = (() => {
         image.onerror = null;
+        this.state = 'error';
         console.log('image load failure');
     });
     image.src = url;

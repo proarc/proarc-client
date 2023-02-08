@@ -120,14 +120,8 @@ export class EditorPageComponent implements OnInit {
   private onPidChanged(pid: string) {
     this.state = 'loading';
     if (this.layout.type === 'kramerius') {
-      const page = new Page();
-      page.pid = pid;
-      page.type = this.layout.lastSelectedItem.pageType;
-      page.model = this.layout.lastSelectedItem.model;
-      page.number = this.layout.lastSelectedItem.pageNumber;
-      page.index = this.layout.lastSelectedItem.pageIndex;
-      page.timestamp = this.layout.lastSelectedItem.timestamp;
-      this.setPage(page);
+      
+      this.setPage(this.layout.krameriusPage);
       this.state = 'success';
       return;
     } else if (this.layout.lastSelectedItem.notSaved) {
@@ -239,7 +233,8 @@ export class EditorPageComponent implements OnInit {
   }
 
   private saveToKramerius() {
-    this.api.saveKrameriusMods(this.page.pid, this.layout.krameriusInstance, this.page.toXml(), this.page.timestamp).subscribe((response: any) => {
+    this.api.saveKrameriusJSON(this.page.pid, this.layout.krameriusInstance, JSON.stringify(this.page.toJson()), this.page.timestamp).subscribe((response: any) => {
+      this.layout.setShouldRefresh(false);
     });
   }
 
