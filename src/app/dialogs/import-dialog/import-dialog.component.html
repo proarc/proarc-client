@@ -3,7 +3,7 @@
 	<ng-container *ngIf="state == 'loading'">
 		<mat-progress-bar *ngIf="count > 0" color="primary" mode="buffer" [value]="(done/count) * 100" [bufferValue]="0"></mat-progress-bar>
 		<div *ngIf="count === 0">{{ "dialog.importDialog.messagePreparing" | translate }}</div>
-		<div *ngIf="count > 0" [innerHtml]="'dialog.importDialog.messageLoading' | translate: { done: done, count: count }"><!-- {{ "dialog.importDialog.messageLoading" | translate: { done: done, count: count  } }} --></div>
+		<div *ngIf="count > 0" [innerHtml]="'dialog.importDialog.messageLoading' | translate: { done: done, count: count }"></div>
 	</ng-container>
 
 	<mat-card class="app-alert app-success" *ngIf="state=='success'">

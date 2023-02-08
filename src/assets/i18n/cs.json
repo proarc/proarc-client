@@ -196,14 +196,6 @@
       "empty": "-",
       "unknown": "?"
     },
-    "load_dialog": {
-      "title": "Načítání",
-      "preparing": "Probíhá příprava importu",
-      "loading": "Probíhá načítání objektů {{ done }}/{{ count }}",
-      "open": "Pokračovat k přípravě metadat",
-      "success": "Import proběhl v pořádku",
-      "failure": "Import se nezdařil"
-    },
     "ingest_dialog": {
       "title": "Ukládání",
       "message": "Probíhá ukládání do úložiště",

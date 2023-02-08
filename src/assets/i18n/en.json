@@ -182,14 +182,6 @@
       "title": "Import",
       "message": "Importing objects to the repository {{ done }}/{{ count }}"
     },
-    "load_dialog": {
-      "title": "Loading",
-      "preparing": "Preparing import",
-      "loading": "Reading objects {{ done }}/{{ count }}",
-      "open": "Continue preparing metadata",
-      "success": "Import success",
-      "failure": "Import failed"
-    },
     "ingest_dialog": {
       "title": "Ingesting",
       "message": "Ingesting into repository",
