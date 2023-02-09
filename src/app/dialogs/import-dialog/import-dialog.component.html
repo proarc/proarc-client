@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>{{ "dialog.importDialog.title" | translate }}</h1>
-<div mat-dialog-content>
+<div mat-dialog-content class="app-oh app-oa-y">
 	<ng-container *ngIf="state == 'loading'">
 		<mat-progress-bar *ngIf="count > 0" color="primary" mode="buffer" [value]="(done/count) * 100" [bufferValue]="0"></mat-progress-bar>
 		<div *ngIf="count === 0">{{ "dialog.importDialog.messagePreparing" | translate }}</div>
@@ -12,8 +12,9 @@
 
 	<mat-card class="app-alert app-warn" *ngIf="state=='failure'">
 		<mat-icon>report</mat-icon> {{ "dialog.importDialog.alert.failure" | translate }}
-		<div>{{ failureMessage }}</div>
 	</mat-card>
+
+	<pre class="app-ws-pw" *ngIf="state=='failure'">{{ failureMessage }}</pre>
 </div>
 
 <div mat-dialog-actions cdk-focus-start>
