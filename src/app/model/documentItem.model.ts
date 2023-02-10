@@ -56,6 +56,12 @@ export class DocumentItem {
     item.processor = json['processor'];
     item.organization = json['organization'];
 
+    
+    item.pageIndex = json['pageIndex'] || null;
+    item.pageNumber = json['pageNumber'] || null;
+    item.pageType = json['pageType'] || null;
+
+
     if (json['modified']) {
       item.modified = new Date(json['modified']);
     }

@@ -117,6 +117,8 @@
     "name": "Name",
     "label": "Name",
     "pageType": "Page type",
+    "pageIndex": "Page index",
+    "pageNumber": "Page number",
     "pid": "PID",
     "model": "Model",
     "owner": "Owner",

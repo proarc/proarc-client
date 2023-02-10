@@ -131,6 +131,16 @@
           <td mat-cell *matCellDef="let element"> {{element.pageType}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="pageIndex">
+          <th mat-header-cell *matHeaderCellDef> {{'search.pageIndex' | translate}}</th>
+          <td mat-cell *matCellDef="let element"> {{element.pageIndex}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="pageNumber">
+          <th mat-header-cell *matHeaderCellDef> {{'search.pageNumber' | translate}}</th>
+          <td mat-cell *matCellDef="let element"> {{element.pageNumber}} </td>
+        </ng-container>
+
         <ng-container matColumnDef="model">
           <th mat-header-cell *matHeaderCellDef> {{'search.model' | translate}} </th>
           <td mat-cell *matCellDef="let element"> {{ 'model.' + element.model | translate}} </td>

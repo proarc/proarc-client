@@ -130,6 +130,8 @@
     "name": "Název",
     "label": "Název",
     "pageType": "Typ strany",
+    "pageIndex": "Index strany",
+    "pageNumber": "Číslo strany",
     "pid": "PID",
     "model": "Model",
     "owner": "Vlastník",

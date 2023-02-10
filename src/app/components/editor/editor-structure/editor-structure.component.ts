@@ -80,6 +80,8 @@ export class EditorStructureComponent implements OnInit {
   public selectedColumns = [
     { field: 'label', selected: true },
     { field: 'pageType', selected: true },
+    { field: 'pageIndex', selected: true },
+    { field: 'pageNumber', selected: true },
     { field: 'model', selected: true },
     { field: 'pid', selected: false },
     { field: 'owner', selected: false },
