@@ -180,7 +180,7 @@ export class ApiService {
     return this.post('object/copyObject', data);
   }
 
-  export(type: string, pid: string, policy: string, ignoreMissingUrnNbn: boolean): Observable<any> | undefined {
+  export(type: string, pid: string, policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string): Observable<any> | undefined {
     let data = `pid=${pid}`;
     if (ignoreMissingUrnNbn) {
       data = `${data}&ignoreMissingUrnNbn=true`;
@@ -198,7 +198,7 @@ export class ApiService {
         break;
       }
       case ProArc.EXPORT_KRAMERIUS: {
-        data = `${data}&policy=policy:${policy}`;
+        data = `${data}&policy=policy:${policy}&krameriusInstance=${krameriusInstance}`;
         path = 'export/kramerius4'
         break;
       }

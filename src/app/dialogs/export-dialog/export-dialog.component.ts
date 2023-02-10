@@ -23,6 +23,9 @@ export class ExportDialogComponent implements OnInit {
   errors: any[];
   canContinue = false;
 
+  public importInstance: string;
+  public instances: { krameriusInstanceId: string, krameriusInstanceName: string }[];
+
   constructor(
     public dialogRef: MatDialogRef<ExportDialogComponent>,
     private api: ApiService,
@@ -37,6 +40,11 @@ export class ExportDialogComponent implements OnInit {
     } else {
       this.types = this.config.exports.filter((t: string) => t !== 'archive_stt')
     }
+
+    this.api.getKrameriusInstances().subscribe((resp: any) => {
+      this.instances = resp.response.data;
+    });
+
     this.selectedType = this.types[0];
     this.policyPublic = true;
   }
@@ -47,7 +55,7 @@ export class ExportDialogComponent implements OnInit {
     const policy = this.policyPublic ? 'public' : 'private';
     this.errors = [];
     this.target = null;
-    this.api.export(this.selectedType, pid, policy, ignoreMissingUrnNbn).subscribe((response: any) => {
+    this.api.export(this.selectedType, pid, policy, ignoreMissingUrnNbn, this.importInstance).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
         this.ui.showErrorSnackBarFromObject(response['response'].errors);
