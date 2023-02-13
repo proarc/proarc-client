@@ -1029,8 +1029,9 @@ export class EditorStructureComponent implements OnInit {
   markSequence() {
 
     const dialogRef = this.dialog.open(MarkSequenceDialogComponent, {
-      width: '90%',
-      height: '80%',
+      width: '95%',
+      maxWidth: '100vw',
+      height: '90%',
       data: {
         iconWidth: { orig: this.iconWidth, dest: this.iconWidth },
         iconHeight: { orig: this.iconHeight, dest: this.iconHeight },

@@ -32,6 +32,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   @Input() isKramerius: boolean;
   @Input() instance: string;
+  @Input() hideToolbar: boolean;
 
   @Input() 
   set pid(pid: string) {

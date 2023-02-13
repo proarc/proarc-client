@@ -50,8 +50,11 @@ export class MarkSequenceDialogComponent implements OnInit {
     this.dest = [];
     this.data.items.forEach((item: DocumentItem) => {
       //this.orig.push(JSON.parse(JSON.stringify(item)));
-      this.dest.push(JSON.parse(JSON.stringify(item)));
-      this.dest.forEach(i => i.selected = false);
+      const di = JSON.parse(JSON.stringify(item));
+      di.selectedInOrig = item.selected;
+      di.selected = false;
+      this.dest.push(di);
+      // this.dest.forEach(i => i.selected = false);
       this.origTable = new MatTableDataSource(this.orig);
       this.destTable = new MatTableDataSource(this.dest);
 
@@ -59,7 +62,7 @@ export class MarkSequenceDialogComponent implements OnInit {
   }
 
   onResized(event: ResizedEvent, data: string) {
-    const d = event.newRect.width / 101;
+    const d = event.newRect.width / 51;
     const iconColumns = Math.floor(d);
     this.data.iconHeight[data] = ((event.newRect.width - 4.0) / iconColumns) * 1.47;
     this.data.iconWidth[data] = 100.0 / iconColumns;
@@ -92,6 +95,14 @@ export class MarkSequenceDialogComponent implements OnInit {
     }
     this.lastClickIdx[col] = idx;
     this.lastSelectedItem = item;
+  }
+
+  markSequence() {
+
+    this.dest.forEach((item: DocumentItem, idx: number) => {
+      this.data.items[idx].selected = item.selected;
+    });
+    this.initLists();
   }
 
   save() {

@@ -1,13 +1,16 @@
 <div fxLayout="column" fxFlexFill>
-  <h1 mat-dialog-title>{{ 'editor.children.markSequence' | translate }}</h1>
+  <h1 mat-dialog-title>{{ 'editor.children.markSequence' | translate }}
+    <button mat-flat-button color="primary" (click)="markSequence()" [matTooltip]="'editor.children.markSequence' | translate">{{ 'editor.children.markSequence' | translate }}</button>
+  </h1>
+  
   <div mat-dialog-content fxFlex>
     <as-split direction="horizontal" [disabled]="false">
-      <as-split-area [size]="30" (resized)="onResized($event, 'orig')" >
+      <as-split-area [size]="40" (resized)="onResized($event, 'orig')" >
         <div fxLayout="column" fxFlexFill>
           <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-action">
             <div fxFlex>
               <div class="app-toolbar-label">
-                <span class="app-text">{{ 'desc.selectResources' | translate }}</span>
+                <span class="app-text">{{ 'desc.selectTheTargets' | translate }}</span>
               </div>
             </div>
             <div>
@@ -26,7 +29,8 @@
           <div fxFlex class="app-oa-y">
             <div class="app-editor-content">
               <div class="app-view-icon" *ngIf="data.viewModeOrig === 'icons'" #childrenIconList fxLayout="row wrap">
-                <div *ngFor="let item of orig; let i = index" class="app-item-wrapper" (click)="select(orig, item, i, $event, 'orig')" [class.app-selected]="item.selected" [fxFlex]="data.iconWidth['orig'] + '%'">
+                <div *ngFor="let item of orig; let i = index" class="app-item-wrapper" (click)="select(orig, item, i, $event, 'orig')" 
+                [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [fxFlex]="data.iconWidth['orig'] + '%'">
                   <div class="app-item">
                     <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['orig'] + 'px'"></div>
                     <div class="app-item-label">{{ item.label + (data.shortLabels ? "" : (", " + ("page_type." + item.pageType | translate))) }}</div>
@@ -35,7 +39,8 @@
               </div>
 
               <div class="app-view-grid" *ngIf="data.viewModeOrig == 'grid'" #childrenGridList fxLayout="row wrap">
-                <div *ngFor="let item of orig; let i = index" (click)="select(orig, item, i, $event, 'orig')" class="app-item-wrapper" [class.app-selected]="item.selected" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [fxFlex]="data.iconWidth['orig'] + '%'">
+                <div *ngFor="let item of orig; let i = index" (click)="select(orig, item, i, $event, 'orig')" class="app-item-wrapper" 
+                [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [fxFlex]="data.iconWidth['orig'] + '%'">
                   <div class="app-item">
                     <div class="app-item-label">
                       {{ data.shortLabels ? item.shortLabel : item.label }}<br />
@@ -45,7 +50,7 @@
                 </div>
               </div>
 
-              <table mat-table *ngIf="data.viewModeOrig == 'list'" [dataSource]="origTable" class="app-w-100" #table>
+              <table mat-table *ngIf="data.viewModeOrig == 'list'" [dataSource]="destTable" class="app-w-100" #table>
                 <ng-container matColumnDef="pid">
                   <th mat-header-cell *matHeaderCellDef>{{'search.pid' | translate}} </th>
                   <td mat-cell *matCellDef="let element"> {{element.pid}} </td>
@@ -60,6 +65,16 @@
                 <ng-container matColumnDef="pageType">
                   <th mat-header-cell *matHeaderCellDef> {{'search.pageType' | translate}}</th>
                   <td mat-cell *matCellDef="let element"> {{element.pageType}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="pageIndex">
+                  <th mat-header-cell *matHeaderCellDef> {{'search.pageIndex' | translate}}</th>
+                  <td mat-cell *matCellDef="let element"> {{element.pageIndex}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="pageNumber">
+                  <th mat-header-cell *matHeaderCellDef> {{'search.pageNumber' | translate}}</th>
+                  <td mat-cell *matCellDef="let element"> {{element.pageNumber}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="model">
@@ -88,14 +103,16 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="data.displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; let idx = index; columns: data.displayedColumns" [class.app-selected]="row.selected" (click)="select(orig, row, idx, $event, 'orig')"></tr>
+                <tr mat-row *matRowDef="let row; let idx = index; columns: data.displayedColumns" 
+                  [class.app-selected]="row.selected"  [class.app-selectedInOrig]="row.selectedInOrig" 
+                  (click)="select(orig, row, idx, $event, 'orig')"></tr>
               </table>
             </div>
           </div>
         </div>
       </as-split-area>
 
-      <as-split-area [size]="30" (resized)="onResized($event, 'dest')">
+      <as-split-area [size]="40" (resized)="onResized($event, 'dest')">
         <div fxLayout="column" fxFlexFill>
           <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-action">
             <div fxFlex>
@@ -119,7 +136,8 @@
           <div fxFlex class="app-oa-y">
             <div class="app-editor-content">
               <div class="app-view-icon" *ngIf="data.viewModeDest == 'icons'" #childrenIconList fxLayout="row wrap">
-                <div *ngFor="let item of dest; let i = index" class="app-item-wrapper" (click)="select(dest, item, i, $event, 'dest')" [class.app-selected]="item.selected" [fxFlex]="data.iconWidth['dest'] + '%'">
+                <div *ngFor="let item of dest; let i = index" class="app-item-wrapper" (click)="select(dest, item, i, $event, 'dest')" 
+                [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [fxFlex]="data.iconWidth['dest'] + '%'">
                   <div class="app-item">
                     <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['dest'] + 'px'"></div>
                     <div class="app-item-label">{{ item.label + (data.shortLabels ? "" : (", " + ("page_type." + item.pageType | translate))) }}</div>
@@ -128,7 +146,8 @@
               </div>
 
               <div class="app-view-grid" *ngIf="data.viewModeDest == 'grid'" #childrenGridList fxLayout="row wrap">
-                <div *ngFor="let item of dest; let i = index" (click)="select(dest, item, i, $event, 'dest')" class="app-item-wrapper" [class.app-selected]="item.selected" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [fxFlex]="data.iconWidth['dest'] + '%'">
+                <div *ngFor="let item of dest; let i = index" (click)="select(dest, item, i, $event, 'dest')" class="app-item-wrapper" 
+                [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [fxFlex]="data.iconWidth['dest'] + '%'">
                   <div class="app-item">
                     <div class="app-item-label">
                       {{ data.shortLabels ? item.shortLabel : item.label }}<br />
@@ -155,6 +174,16 @@
                   <td mat-cell *matCellDef="let element"> {{element.pageType}} </td>
                 </ng-container>
 
+                <ng-container matColumnDef="pageIndex">
+                  <th mat-header-cell *matHeaderCellDef> {{'search.pageIndex' | translate}}</th>
+                  <td mat-cell *matCellDef="let element"> {{element.pageIndex}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="pageNumber">
+                  <th mat-header-cell *matHeaderCellDef> {{'search.pageNumber' | translate}}</th>
+                  <td mat-cell *matCellDef="let element"> {{element.pageNumber}} </td>
+                </ng-container>
+
                 <ng-container matColumnDef="model">
                   <th mat-header-cell *matHeaderCellDef> {{'search.model' | translate}} </th>
                   <td mat-cell *matCellDef="let element"> {{ 'model.' + element.model | translate}} </td>
@@ -181,7 +210,9 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="data.displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; let idx = index; columns: data.displayedColumns" [class.app-selected]="row.selected" (click)="select(dest, row, idx, $event, 'dest')"></tr>
+                <tr mat-row *matRowDef="let row; let idx = index; columns: data.displayedColumns" 
+                  [class.app-selected]="row.selected" [class.app-selectedInOrig]="row.selectedInOrig" 
+                  (click)="select(dest, row, idx, $event, 'dest')"></tr>
               </table>
 
             </div>
@@ -190,10 +221,10 @@
       </as-split-area>
 
       <as-split-area [size]="20" class="app-pl-4">
-        <app-viewer *ngIf="lastSelectedItem" [pid]="lastSelectedItem.pid" ></app-viewer>
+        <app-viewer *ngIf="lastSelectedItem" [pid]="lastSelectedItem.pid" [hideToolbar]="true" ></app-viewer>
       </as-split-area>
 
-      <as-split-area [size]="20" class="app-pl-4">
+      <!-- <as-split-area [size]="20" class="app-pl-4">
         <div class="app-mb-2">
           <strong>{{ 'desc.selectTheFieldToCopyTo' | translate }}</strong>
         </div>
@@ -209,11 +240,26 @@
         <div>
           <mat-checkbox color="primary" [(ngModel)]="pagePosition">{{ 'desc.editPagePositions' | translate }}</mat-checkbox>
         </div>
-      </as-split-area>
+      </as-split-area> -->
     </as-split>
   </div>
   <div mat-dialog-actions cdk-focus-start>
+
+    <div>
+      <mat-checkbox color="primary" [(ngModel)]="pageType">{{ 'desc.editPageType' | translate }}</mat-checkbox>
+    </div>
+    <div>
+      <mat-checkbox color="primary" [(ngModel)]="pageIndex">{{ 'desc.editPageIndex' | translate }}</mat-checkbox>
+    </div>
+    <div>
+      <mat-checkbox color="primary" [(ngModel)]="pageNumber">{{ 'desc.editPageNumbers' | translate }}</mat-checkbox>
+    </div>
+    <div>
+      <mat-checkbox color="primary" [(ngModel)]="pagePosition">{{ 'desc.editPagePositions' | translate }}</mat-checkbox>
+    </div>
+
     <button mat-flat-button color="primary" (click)="save()" [matTooltip]="'button.save' | translate">{{ 'button.save' | translate }}</button>
     <button mat-flat-button [mat-dialog-close]="changed">{{ 'common.close' | translate }}</button>
+
   </div>
 </div>
