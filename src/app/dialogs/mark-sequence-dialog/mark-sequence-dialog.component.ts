@@ -78,17 +78,22 @@ export class MarkSequenceDialogComponent implements OnInit {
   }
 
   zoomIn(panel: string) {
-    this.maxIconWidth[panel] = this.maxIconWidth[panel] + 10;
+    this.maxIconWidth[panel] = Math.floor(this.maxIconWidth[panel] * 1.2);
     this.resize(panel);
   }
 
   zoomOut(panel: string) {
-    this.maxIconWidth[panel] = this.maxIconWidth[panel] - 10;
+    this.maxIconWidth[panel] = Math.floor(this.maxIconWidth[panel] * .8);
     this.resize(panel);
   }
 
   thumb(pid: string) {
-    return this.data.api.getStreamUrl(pid, 'PREVIEW', this.data.batchId);
+    if (this.data.iconHeight['dest'] > 150) {
+      return this.data.api.getStreamUrl(pid, 'PREVIEW', this.data.batchId);
+    } else {
+      return this.data.api.getStreamUrl(pid, 'THUMBNAIL', this.data.batchId);
+    }
+
   }
 
   select(array: any[], item: DocumentItem, idx: number, event: MouseEvent, col: string) {
