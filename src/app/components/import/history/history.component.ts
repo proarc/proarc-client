@@ -456,6 +456,10 @@ export class HistoryComponent implements OnInit, OnDestroy {
     this.router.navigate(['/repository', this.selectedBatch.parentPid]);
   }
 
+  onReexport() {
+    // TODO po Lukasi
+  }
+
   onStateChanged() {
     this.pageIndex = 0;
     const q: any = {};
