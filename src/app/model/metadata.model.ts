@@ -65,9 +65,10 @@ export class Metadata {
   public template: { [x: string]: boolean; };
   public standard: string;
 
-  constructor(pid: string, model: string, mods: string, timestamp: number) {
+  constructor(pid: string, model: string, mods: string, timestamp: number, standard: string) {
     this.pid = pid;
     this.timestamp = timestamp;
+    this.standard = standard;
     this.model = model;
     this.originalMods = mods.trim();
     // this.originalDc = dc.trim();
@@ -77,7 +78,7 @@ export class Metadata {
 
 
   public static fromMods(mods: Mods, model: string) {
-    return new Metadata(mods.pid, model, mods.content, mods.timestamp);
+    return new Metadata(mods.pid, model, mods.content, mods.timestamp, null);
   }
 
   // public isVolume(): boolean {
@@ -179,7 +180,10 @@ export class Metadata {
   }
 
   private processMods(data: any) {
-    this.standard = this.resolveStandard(data);
+    if (!this.standard) {
+      this.standard = this.resolveStandard(data);
+    }
+    
     this.template = ModelTemplate.data[this.standard][this.model];
     if (!this.template) {
       return;

@@ -47,7 +47,7 @@ export class EditorGeoComponent implements OnInit {
         this.state = 'error';
         return;
       }
-      this.metadata = new Metadata(this.pid, this.layout.lastSelectedItem.model, response['record']['content'], response['record']['timestamp']);
+      this.metadata = new Metadata(this.pid, this.layout.lastSelectedItem.model, response['record']['content'], response['record']['timestamp'], response['record']['standard']);
       this.state = 'success';
     });
 

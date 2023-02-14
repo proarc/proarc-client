@@ -79,7 +79,7 @@ export class KrameriusComponent implements OnInit {
         this.hasImage = false;
         this.model = response['record'].model;
         this.mods = Mods.fromJson(response['record']);
-        this.layout.lastSelectedItemMetadata = new Metadata(this.pid, response['record']['model'], response['record']['content'], response['record']['timestamp']);
+        this.layout.lastSelectedItemMetadata = new Metadata(this.pid, response['record']['model'], response['record']['content'], response['record']['timestamp'], response['record']['standard']);
         this.state = 'success';
       } else if (response && response['response'] && response['response'].errors) {
         console.log('error', response['response'].errors);

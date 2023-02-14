@@ -5,7 +5,11 @@
 				<span class="app-text">{{ 'editor.metadata.editor_title' | translate }}</span>
 				<ng-container *ngIf="metadata">
 					<span class="app-pipe"></span>
-					<span class="app-text-supplement">{{ metadata.standard }}</span>
+					<!-- <span class="app-text-supplement">{{ metadata.standard }}</span> -->
+					<mat-radio-group class="app-text-supplement" aria-label="'standard'" [(ngModel)]="metadata.standard" (change)="setStandard()">
+						<mat-radio-button value="rda">rda</mat-radio-button>
+						<mat-radio-button value="aacr">aacr</mat-radio-button>
+					</mat-radio-group>
 				</ng-container>	
 			</div>
 		</div>

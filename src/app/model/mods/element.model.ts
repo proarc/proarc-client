@@ -145,7 +145,7 @@ export abstract class ModsElement {
     }
 
     public validate(): boolean {
-        console.log(this.template)
+        // console.log(this.template)
         let error = false;
         let anyValue = false;
         let isRequired = this.isRequired();

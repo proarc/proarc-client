@@ -68,7 +68,7 @@ export class MetadataService {
         this.ui.showErrorSnackBarFromObject(response['response'].errors);
         return;
       }
-      this.metadata = new Metadata(pid, model, response['record']['content'], response['record']['timestamp']);
+      this.metadata = new Metadata(pid, model, response['record']['content'], response['record']['timestamp'], response['record']['standard']);
       if (callback) {
         callback(this.metadata);
       }
@@ -78,15 +78,15 @@ export class MetadataService {
 
   updateModsFromCatalog(xml: string) {
     // console.log(mods)
-    this.metadata = new Metadata(this.metadata.pid, this.metadata.model, xml, this.metadata.timestamp);
+    this.metadata = new Metadata(this.metadata.pid, this.metadata.model, xml, this.metadata.timestamp, this.metadata.standard);
     // this.state = 'success';
   }
 
   saveModsFromCatalog(xml: string, callback: (m: Mods) => void) {
-    this.api.editModsXml(this.metadata.pid, xml, this.metadata.timestamp, false).subscribe((resp: any) => {
+    this.api.editModsXml(this.metadata.pid, xml, this.metadata.timestamp, null, false).subscribe((resp: any) => {
       if (resp.errors) {
         this.ui.showErrorSnackBarFromObject(resp.errors);
-        this.metadata = new Metadata(this.metadata.pid, this.metadata.model, xml, this.metadata.timestamp);
+        this.metadata = new Metadata(this.metadata.pid, this.metadata.model, xml, this.metadata.timestamp, this.metadata.standard);
         setTimeout(() => {
           this.metadata.validate();
         }, 100);

@@ -413,16 +413,19 @@ export class ApiService {
   }
 
   editMetadata(document: Metadata, ignoreValidation: boolean): Observable<any> {
-    return this.editModsXml(document.pid, document.toMods(), document.timestamp, ignoreValidation);
+    return this.editModsXml(document.pid, document.toMods(), document.timestamp, document.standard, ignoreValidation);
   }
 
   editMods(mods: Mods, ignoreValidation: boolean, batchId: any = null): Observable<Mods> {
-    return this.editModsXml(mods.pid, mods.content, mods.timestamp, ignoreValidation, batchId).pipe(map(response => Mods.fromJson(response['data'][0])));
+    return this.editModsXml(mods.pid, mods.content, mods.timestamp, null, ignoreValidation, batchId).pipe(map(response => Mods.fromJson(response['data'][0])));
   }
 
-  editModsXml(pid: string, xml: string, timestamp: number, ignoreValidation: boolean, batchId: any = null): Observable<any> {
+  editModsXml(pid: string, xml: string, timestamp: number, standard: string, ignoreValidation: boolean, batchId: any = null): Observable<any> {
     const xmlText = xml.replace(/&/g, '%26');
     let data = `pid=${pid}&ignoreValidation=${ignoreValidation}&xmlData=${xmlText}&timestamp=${timestamp}`;
+    if (standard) {
+      data = `${data}&standard=${standard}`;
+    }
     if (batchId) {
       data = `${data}&batchId=${batchId}`;
     }

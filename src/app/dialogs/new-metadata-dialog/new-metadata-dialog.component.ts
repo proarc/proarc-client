@@ -41,7 +41,7 @@ export class NewMetadataDialogComponent implements OnInit {
 
   load() {
     // this.state = 'loading';
-    this.metadata = new Metadata(this.data.pid, this.data.model, this.data.content, this.data.timestamp);
+    this.metadata = new Metadata(this.data.pid, this.data.model, this.data.content, this.data.timestamp, null);
 
     setTimeout(() => {
       this.metadata.expandRequired();

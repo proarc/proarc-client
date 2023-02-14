@@ -145,7 +145,7 @@ export class RepositoryComponent implements OnInit {
         const selected = this.layout.lastSelectedItem.selected;
         Object.assign(this.layout.lastSelectedItem, item);
         this.layout.lastSelectedItem.selected = selected;
-        this.layout.lastSelectedItemMetadata = new Metadata(pid, model, respMeta['record']['content'], respMeta['record']['timestamp']);
+        this.layout.lastSelectedItemMetadata = new Metadata(pid, model, respMeta['record']['content'], respMeta['record']['timestamp'], respMeta['record']['standard']);
         // const meta = new Metadata(pid, model, respMeta['record']['content'], respMeta['record']['timestamp']);
         //Object.assign(this.layout.lastSelectedItemMetadata, meta);
         // if (!!from) {
@@ -287,7 +287,7 @@ export class RepositoryComponent implements OnInit {
         this.ui.showErrorSnackBarFromObject(response.errors);
         return;
       }
-      this.layout.lastSelectedItemMetadata = new Metadata(pid, model, response['record']['content'], response['record']['timestamp']);
+      this.layout.lastSelectedItemMetadata = new Metadata(pid, model, response['record']['content'], response['record']['timestamp'], response['record']['standard']);
       
     });
   }

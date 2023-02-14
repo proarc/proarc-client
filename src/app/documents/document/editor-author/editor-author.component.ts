@@ -46,7 +46,7 @@ export class EditorAuthorComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
         const mods = result['mods'];
-        const metadata = new Metadata('', this.model, mods, 0);
+        const metadata = new Metadata('', this.model, mods, 0, null);
         const nameField = metadata.getField(ModsAuthor.getSelector());
         const items = nameField.getItems();
         if (nameField && items.length > 0) {

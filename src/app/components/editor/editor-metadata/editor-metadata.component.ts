@@ -222,4 +222,9 @@ export class EditorMetadataComponent implements OnInit {
     });
   }
 
+  setStandard() {    
+    this.layout.lastSelectedItemMetadata = new Metadata(this.metadata.pid, this.metadata.model, this.metadata.originalMods, this.metadata.timestamp, this.metadata.standard);
+    this.metadata = this.layout.lastSelectedItemMetadata;
+  }
+
 }

@@ -31,7 +31,7 @@ export class EditorSubjectComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result && result['mods']) {
         const mods = result['mods'];
-        const metadata = new Metadata('', this.layout.lastSelectedItem.model, mods, 0);
+        const metadata = new Metadata('', this.layout.lastSelectedItem.model, mods, 0, null);
         const nameField = metadata.getField(ModsSubject.getSelector());
         const items = nameField.getItems();
         if (nameField && items.length > 0) {

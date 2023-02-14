@@ -92,7 +92,7 @@ export class ChildrenValidationDialogComponent implements OnInit {
           this.numberOfInvalid += 1;
           item.invalid = true;
         } else {
-          const metadata = new Metadata(item.pid, item.model, response['record']['content'], response['record']['timestamp']);
+          const metadata = new Metadata(item.pid, item.model, response['record']['content'], response['record']['timestamp'], response['record']['standard']);
           this.metadatas.push({ item, metadata });
         }
 
