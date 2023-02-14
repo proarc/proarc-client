@@ -200,13 +200,48 @@ export class BatchesComponent implements OnInit {
     if (this.hasPendingChanges()) {
       const d = this.confirmLeaveDialog().subscribe((result: any) => {
         if (result === 'true') {
-          this.ingest();
+          this.tryIngest();
         }
       });
     } else {
-      this.ingest();
+      this.tryIngest();
     }
   }
+  validatePages() {
+    let valid = true;
+    this.layout.items.forEach((p: DocumentItem) => {
+      valid = valid && p.isValidPage();
+      p.invalid = !p.isValidPage();
+    });
+    return valid;
+  }
+
+  tryIngest() {
+    if (!this.validatePages()) {
+      const data: SimpleDialogData = {
+        title:'Invalid',
+        message: 'Ne vsechny strany jsou validni',
+        btn1: {
+          label: "Pokračovat",
+          value: 'yes',
+          color: 'warn'
+        },
+        btn2: {
+          label: "Nepokračovat",
+          value: 'no',
+          color: 'default'
+        },
+      };
+      const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === 'yes') {
+          this.ingest();
+        } 
+      });
+    }
+  }
+
+
 
   confirmLeaveDialog() {
     const data: SimpleDialogData = {
