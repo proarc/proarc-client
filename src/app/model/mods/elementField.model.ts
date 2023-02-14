@@ -40,9 +40,13 @@ export class ElementField {
     public root;
     private items: ModsElement[];
     private template;
+    private allExpanded: boolean;
 
     constructor(mods: { [x: string]: any; }, id: string, template: any, attr: any = null, requiredValues: any[] = [], forbiddenValues: any[] = []) {
         this.template = template;
+        if (localStorage.getItem('metadata.allExpanded')) {
+            this.allExpanded = localStorage.getItem('metadata.allExpanded') === 'true';
+        }
         this.id = id;
         const selector = this.selectorById(id)
         if (mods[selector] === undefined) {
@@ -68,7 +72,7 @@ export class ElementField {
         }
         if (this.items.length - hiddenItems < 1) {
             const item = this.add();
-            if (!this.hasExpandedChildren() && !this.template.expanded) {
+            if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded) {
                 item.collapsed = true;
             }
         }

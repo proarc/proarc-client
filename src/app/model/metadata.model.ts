@@ -70,6 +70,10 @@ export class Metadata {
     this.timestamp = timestamp;
     this.standard = standard;
     this.model = model;
+    if (localStorage.getItem('expandedModels')) {
+      localStorage.setItem('metadata.allExpanded', JSON.parse(localStorage.getItem('expandedModels').includes(model).toString()));
+    }
+    
     this.originalMods = mods.trim();
     // this.originalDc = dc.trim();
     // this.relations = relations;

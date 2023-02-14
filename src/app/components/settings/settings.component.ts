@@ -8,6 +8,8 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UIService } from 'src/app/services/ui.service';
 import { CodebookService } from 'src/app/services/codebook.service';
 import { PreferredTopsDialogComponent } from 'src/app/dialogs/preferred-tops-dialog/preferred-tops-dialog.component';
+import { ConfigService } from 'src/app/services/config.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-settings',
@@ -23,6 +25,7 @@ export class SettingsComponent implements OnInit {
   surname: string;
 
   searchCols: any;
+  selectedModels = new FormControl('');
 
   constructor(
     private api: ApiService,
@@ -30,6 +33,7 @@ export class SettingsComponent implements OnInit {
     private ui: UIService,
     public codebook: CodebookService,
     public properties: LocalStorageService, 
+    public config: ConfigService,
     private auth: AuthService) { }
 
   ngOnInit() {
@@ -42,6 +46,12 @@ export class SettingsComponent implements OnInit {
     for (const col of this.properties.availableSearchColumns) {
       this.searchCols[col] = this.properties.isSearchColEnabled(col);
     }
+
+    if (localStorage.getItem('expandedModels')) {
+      this.selectedModels.setValue(JSON.parse(localStorage.getItem('expandedModels')));
+    }
+    
+
   }
 
   changeCodebookTops(type: any) {
@@ -81,6 +91,8 @@ export class SettingsComponent implements OnInit {
     this.dialog.open(NewPasswordDialogComponent);
   }
 
-
+  changeExpandedModels() {
+    localStorage.setItem('expandedModels', JSON.stringify(this.selectedModels.value));
+  }
 
 }

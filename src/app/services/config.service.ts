@@ -299,6 +299,7 @@ export class ConfigService {
 	public modelChanges = ConfigService.modelChangesDefault || [];
 
 	public showFooter = !!APP_GLOBAL.showFooter;
+	public expandedModels = !!APP_GLOBAL.expandedModels;
 
 	constructor() {
 	}

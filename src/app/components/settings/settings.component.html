@@ -89,8 +89,6 @@
   </div>
 
 
-
-
   <div class="app-settings-panel app-settings-preferred" *ngIf="user">
     <div class="app-settings-panel-header">Preferované hodnoty</div>
     <div class="app-settings-panel-content">
@@ -142,6 +140,22 @@
         </button>
       </div>
 
+
+      <div style="margin-top: 20px;">
+        <div class="app-settings-label">Rozbalení formuláře</div>
+        <div>
+          <mat-form-field>
+            <mat-select  [placeholder]="'desc.model' | translate" name="model" multiple [formControl]="selectedModels" >
+              <mat-option *ngFor="let model of config.allModels" [value]="model">{{ "model." + model | translate }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <button mat-stroked-button
+          style="margin-top: 8px;"
+          color="primary"
+          (click)="changeExpandedModels()">Upravit
+        </button>
+      </div>
 
 
     </div>

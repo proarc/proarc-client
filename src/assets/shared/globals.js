@@ -81,5 +81,6 @@ var APP_GLOBAL = {
   identifiers: [ 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'],
   pagePositions: ['right_left', 'left_right', 'left', 'right', 'singlePage'],
   lang: 'en',
+  expandedModels: ['model:ndkemonographvolume','model:ndkearticle'],
   showFooter: true
 }
