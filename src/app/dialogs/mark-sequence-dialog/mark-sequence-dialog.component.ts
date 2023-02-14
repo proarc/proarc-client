@@ -28,10 +28,13 @@ export class MarkSequenceDialogComponent implements OnInit {
   pageIndex: boolean = true;
   pageNumber: boolean = true;
   pagePosition: boolean = true;
-  lastClickIdx: {[key: string]: number} = {orig: -1, dest: -1};
+  lastClickIdx: { [key: string]: number } = { orig: -1, dest: -1 };
   lastClickIdxDest: number = -1;
-  lastSelectedItem: DocumentItem;
+  lastSelectedItemPid: string;
   changed = false;
+
+  maxIconWidth: any = { orig: 51, dest: 51 };
+  rectSize: any = {};
 
   constructor(
     private api: ApiService,
@@ -43,6 +46,7 @@ export class MarkSequenceDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.initLists();
+    this.lastSelectedItemPid = this.layout.lastSelectedItem.pid;
   }
 
   initLists() {
@@ -61,11 +65,26 @@ export class MarkSequenceDialogComponent implements OnInit {
     });
   }
 
-  onResized(event: ResizedEvent, data: string) {
-    const d = event.newRect.width / 51;
+  onResized(event: ResizedEvent, panel: string) {
+    this.rectSize[panel] = event.newRect.width;
+    this.resize(panel);
+  }
+
+  resize(panel: string) {
+    const d = this.rectSize[panel] / this.maxIconWidth[panel];
     const iconColumns = Math.floor(d);
-    this.data.iconHeight[data] = ((event.newRect.width - 4.0) / iconColumns) * 1.47;
-    this.data.iconWidth[data] = 100.0 / iconColumns;
+    this.data.iconHeight[panel] = ((this.rectSize[panel] - 4.0) / iconColumns) * 1.47;
+    this.data.iconWidth[panel] = 100.0 / iconColumns;
+  }
+
+  zoomIn(panel: string) {
+    this.maxIconWidth[panel] = this.maxIconWidth[panel] + 10;
+    this.resize(panel);
+  }
+
+  zoomOut(panel: string) {
+    this.maxIconWidth[panel] = this.maxIconWidth[panel] - 10;
+    this.resize(panel);
   }
 
   thumb(pid: string) {
@@ -94,7 +113,7 @@ export class MarkSequenceDialogComponent implements OnInit {
       item.selected = true;
     }
     this.lastClickIdx[col] = idx;
-    this.lastSelectedItem = item;
+    this.lastSelectedItemPid = item.pid;
   }
 
   markSequence() {

@@ -14,6 +14,12 @@
               </div>
             </div>
             <div>
+              <button mat-icon-button *ngIf="data.viewModeOrig === 'icons'" (click)="zoomOut('orig')" [matTooltip]="'viewer.tooltip.zoomOut' | translate">
+                <mat-icon>zoom_out</mat-icon>
+              </button>
+              <button mat-icon-button *ngIf="data.viewModeOrig === 'icons'" (click)="zoomIn('orig')" [matTooltip]="'viewer.tooltip.zoomIn' | translate">
+                <mat-icon>zoom_in</mat-icon>
+              </button>
               <button mat-icon-button [class.app-active]="data.viewModeOrig === 'list'" (click)="data.viewModeOrig = 'list'" [matTooltip]="'editor.children.view_list' | translate">
                 <mat-icon>format_align_justify</mat-icon>
               </button>
@@ -29,17 +35,17 @@
           <div fxFlex class="app-oa-y">
             <div class="app-editor-content">
               <div class="app-view-icon" *ngIf="data.viewModeOrig === 'icons'" #childrenIconList fxLayout="row wrap">
-                <div *ngFor="let item of orig; let i = index" class="app-item-wrapper" (click)="select(orig, item, i, $event, 'orig')" 
-                [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [fxFlex]="data.iconWidth['orig'] + '%'">
+                <div *ngFor="let item of orig; let i = index" class="app-item-wrapper" (click)="select(dest, item, i, $event, 'dest')" 
+                [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [fxFlex]="data.iconWidth['dest'] + '%'">
                   <div class="app-item">
-                    <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['orig'] + 'px'"></div>
+                    <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['dest'] + 'px'"></div>
                     <div class="app-item-label">{{ item.label + (data.shortLabels ? "" : (", " + ("page_type." + item.pageType | translate))) }}</div>
                   </div>
                 </div>
               </div>
 
               <div class="app-view-grid" *ngIf="data.viewModeOrig == 'grid'" #childrenGridList fxLayout="row wrap">
-                <div *ngFor="let item of orig; let i = index" (click)="select(orig, item, i, $event, 'orig')" class="app-item-wrapper" 
+                <div *ngFor="let item of orig; let i = index" (click)="select(dest, item, i, $event, 'dest')" class="app-item-wrapper" 
                 [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [fxFlex]="data.iconWidth['orig'] + '%'">
                   <div class="app-item">
                     <div class="app-item-label">
@@ -105,7 +111,7 @@
                 <tr mat-header-row *matHeaderRowDef="data.displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; let idx = index; columns: data.displayedColumns" 
                   [class.app-selected]="row.selected"  [class.app-selectedInOrig]="row.selectedInOrig" 
-                  (click)="select(orig, row, idx, $event, 'orig')"></tr>
+                  (click)="select(dest, row, idx, $event, 'dest')"></tr>
               </table>
             </div>
           </div>
@@ -121,6 +127,12 @@
               </div>
             </div>
             <div>
+              <button mat-icon-button *ngIf="data.viewModeDest === 'icons'" (click)="zoomOut('dest')" [matTooltip]="'viewer.tooltip.zoomOut' | translate">
+                <mat-icon>zoom_out</mat-icon>
+              </button>
+              <button mat-icon-button *ngIf="data.viewModeDest === 'icons'" (click)="zoomIn('dest')" [matTooltip]="'viewer.tooltip.zoomIn' | translate">
+                <mat-icon>zoom_in</mat-icon>
+              </button>
               <button mat-icon-button [class.app-active]="data.viewModeDest === 'list'" (click)="data.viewModeDest = 'list'" [matTooltip]="'editor.children.view_list' | translate">
                 <mat-icon>format_align_justify</mat-icon>
               </button>
@@ -221,7 +233,7 @@
       </as-split-area>
 
       <as-split-area [size]="20" class="app-pl-4">
-        <app-viewer *ngIf="lastSelectedItem" [pid]="lastSelectedItem.pid" [hideToolbar]="true" ></app-viewer>
+        <app-viewer *ngIf="lastSelectedItemPid" [pid]="lastSelectedItemPid" [hideToolbar]="true" ></app-viewer>
       </as-split-area>
 
       <!-- <as-split-area [size]="20" class="app-pl-4">
