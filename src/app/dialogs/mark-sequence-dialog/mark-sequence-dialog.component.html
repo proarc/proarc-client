@@ -35,7 +35,7 @@
           <div fxFlex class="app-oa-y">
             <div class="app-editor-content">
               <div class="app-view-icon" *ngIf="data.viewModeOrig === 'icons'" #childrenIconList fxLayout="row wrap">
-                <div *ngFor="let item of orig; let i = index" class="app-item-wrapper" (click)="select(dest, item, i, $event, 'dest')" 
+                <div *ngFor="let item of dest; let i = index" class="app-item-wrapper" (click)="select(dest, item, i, $event, 'dest')" 
                 [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [fxFlex]="data.iconWidth['dest'] + '%'">
                   <div class="app-item">
                     <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['dest'] + 'px'"></div>
@@ -45,7 +45,7 @@
               </div>
 
               <div class="app-view-grid" *ngIf="data.viewModeOrig == 'grid'" #childrenGridList fxLayout="row wrap">
-                <div *ngFor="let item of orig; let i = index" (click)="select(dest, item, i, $event, 'dest')" class="app-item-wrapper" 
+                <div *ngFor="let item of dest; let i = index" (click)="select(dest, item, i, $event, 'dest')" class="app-item-wrapper" 
                 [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [fxFlex]="data.iconWidth['orig'] + '%'">
                   <div class="app-item">
                     <div class="app-item-label">

@@ -88,7 +88,7 @@ export class MarkSequenceDialogComponent implements OnInit {
   }
 
   thumb(pid: string) {
-    return this.data.api.getStreamUrl(pid, 'THUMBNAIL', this.data.batchId);
+    return this.data.api.getStreamUrl(pid, 'PREVIEW', this.data.batchId);
   }
 
   select(array: any[], item: DocumentItem, idx: number, event: MouseEvent, col: string) {
