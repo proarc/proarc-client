@@ -33,7 +33,7 @@ export class MarkSequenceDialogComponent implements OnInit {
   lastSelectedItemPid: string;
   changed = false;
 
-  maxIconWidth: any = { orig: 51, dest: 51 };
+  maxIconWidth: any = { orig: 91, dest: 91 };
   rectSize: any = {};
 
   constructor(
