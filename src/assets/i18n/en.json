@@ -84,7 +84,8 @@
     "error": "Export failed",
     "show_error_detail": "Show error detail",
     "export": "Launch export",
-    "continue": "Continue"
+    "continue": "Continue",
+    "kramerius_instances": "Kramerius instances"
   },
   "device": {
     "devices": "Devices",

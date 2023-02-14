@@ -10,7 +10,7 @@
 
 
   <mat-form-field class="app-export-selection" *ngIf="selectedType=='kramerius'">
-    <mat-select [placeholder]="'kramerius.instances' | translate" name="instance" [(ngModel)]="importInstance">
+    <mat-select [placeholder]="'export.kramerius_instances' | translate" name="instance" [(ngModel)]="importInstance">
       <mat-option *ngFor="let ins of instances" [value]="ins.krameriusInstanceId">{{ ins.krameriusInstanceName}}</mat-option>
     </mat-select>
   </mat-form-field>

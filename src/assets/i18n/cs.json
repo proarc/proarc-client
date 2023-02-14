@@ -97,7 +97,8 @@
     "error": "Export se nezdařil",
     "show_error_detail": "Zobrazit detail chyby",
     "export": "Zahájit export",
-    "continue": "Přesto exportovat"
+    "continue": "Přesto exportovat",
+    "kramerius_instances": "Instance Krameria"
   },
   "device": {
     "devices": "Zařízení",

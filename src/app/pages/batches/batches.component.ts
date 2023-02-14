@@ -219,8 +219,8 @@ export class BatchesComponent implements OnInit {
   tryIngest() {
     if (!this.validatePages()) {
       const data: SimpleDialogData = {
-        title:'Invalid',
-        message: 'Ne vsechny strany jsou validni',
+        title:'Nevalidní data',
+        message: 'Ne všechny strany jsou validní',
         btn1: {
           label: "Pokračovat",
           value: 'yes',
