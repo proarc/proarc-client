@@ -32,7 +32,7 @@
 	<div fxFlex>
 		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
 		<div class="app-pt-2 app-pb-2 app-h-100">
-			<div id="app-viewer" class="app-viewer-wrapper" (resized)="onResized($event)"></div>
+			<div [id]="idViewer" class="app-viewer-wrapper" (resized)="onResized($event)"></div>
 		</div>
 	</div>
 </div>

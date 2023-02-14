@@ -30,6 +30,7 @@ import { LayoutService } from 'src/app/services/layout.service';
 })
 export class ViewerComponent implements OnInit, OnDestroy {
 
+  @Input() idViewer = 'app-viewer';
   @Input() isKramerius: boolean;
   @Input() instance: string;
   @Input() hideToolbar: boolean;
@@ -62,6 +63,9 @@ export class ViewerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
     this.init();
   }
 
@@ -147,7 +151,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
   init() {
     const interactions = ol.interaction.defaults({ keyboardPan: false, pinchRotate: false });
     this.view = new ol.Map({
-      target: 'app-viewer',
+      target: this.idViewer,
       controls: [],
       interactions: interactions,
       loadTilesWhileAnimating: true,
@@ -219,7 +223,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
   }
 
   enterFullscreen() {
-    const el: any = document.getElementById('app-viewer');
+    const el: any = document.getElementById(this.idViewer);
     // go full-screen
     if (el.requestFullscreen) {
         el.requestFullscreen();
