@@ -40,42 +40,16 @@ export class EditorBdmComponent implements OnInit {
 
   ngOnChanges(c: SimpleChanges) {
 
+    console.log(this.metadata);
     if (c['metadata'] && c['metadata'].currentValue) {
       this.metadata = c['metadata'].currentValue;
       return;
     }
 
-    // if (c['pid'] && c['pid'].currentValue) {
-    //   this.item = this.layout.lastSelectedItem;
-    //   this.pid = c['pid'].currentValue;
-    //   this.visible = true;
-    //   this.load();
-    //   return;
-    // }
-
     if (!this.layout.lastSelectedItem || this.layout.lastSelectedItem.isPage()) {
       return;
     }
   }
-
-  // load() {
-  //   this.state = 'loading';
-
-  //   this.api.getMetadata(this.pid).subscribe((response: any) => {
-  //     if (response.errors) {
-  //       console.log('error', response.errors);
-  //       this.ui.showErrorSnackBarFromObject(response.errors);
-  //       this.state = 'error';
-  //       return;
-  //     }
-  //     this.metadata = new Metadata(this.pid, this.model, response['record']['content'], response['record']['timestamp']);
-  //     console.log(this.metadata)
-  //     if (!this.notSaved) {
-  //       this.layout.lastSelectedItemMetadata = this.metadata;
-  //     }
-  //     this.state = 'success';
-  //   });
-  // }
 
   saveMetadata(ignoreValidation: boolean) {
     this.state = 'saving';

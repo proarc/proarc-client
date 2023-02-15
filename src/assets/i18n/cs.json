@@ -764,6 +764,7 @@
     "tooltip": {
       "lock": "Uzamknout pozici",
       "unlock": "Odemknout pozici",
+      "lockPanel": "Uzamknout/Odemknout panel",
       "zoomIn": "Přiblížit",
       "zoomOut": "Oddálit",
       "fitToScreen": "Přizpůsobit obrazovce",

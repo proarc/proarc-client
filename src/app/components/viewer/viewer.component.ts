@@ -40,6 +40,10 @@ export class ViewerComponent implements OnInit, OnDestroy {
     this.onPidChanged(pid);
   }
 
+  private inputPid: string;
+  private currentPid: string;
+  isLocked = false;
+
   private view: any;
   private imageLayer: any;
 
@@ -73,7 +77,18 @@ export class ViewerComponent implements OnInit, OnDestroy {
     this.view.updateSize();
   }
 
+  changeLockPanel() {
+    this.isLocked = !this.isLocked;
+    if (!this.isLocked) {
+      this.onPidChanged(this.inputPid)
+    }
+  }
+
   onPidChanged(pid: string) {
+    this.inputPid = pid;
+    if (this.isLocked) {
+      return;
+    }
     this.state = 'loading';
     const url = this.isKramerius ? 
                 this.api.getKrameriusImageUrl(pid, this.instance) :
