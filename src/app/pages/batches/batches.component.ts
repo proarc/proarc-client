@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { combineLatest, forkJoin, Subscription } from 'rxjs';
 import { IngestDialogComponent } from 'src/app/dialogs/ingest-dialog/ingest-dialog.component';
 import { ParentDialogComponent } from 'src/app/dialogs/parent-dialog/parent-dialog.component';
@@ -39,6 +40,7 @@ export class BatchesComponent implements OnInit {
     private dialog: MatDialog,
     public layout: LayoutService,
     private ui: UIService,
+    private translator: TranslateService,
     private api: ApiService
   ) { }
 
@@ -207,20 +209,27 @@ export class BatchesComponent implements OnInit {
       this.tryIngest();
     }
   }
-  validatePages() {
+  validatePages(): number {
     let valid = true;
+    let invalidCount = 0;
     this.layout.items.forEach((p: DocumentItem) => {
       valid = valid && p.isValidPage();
       p.invalid = !p.isValidPage();
+      if (p.invalid) {
+        invalidCount++
+      }
+      
     });
-    return valid;
+    return invalidCount;
   }
 
   tryIngest() {
-    if (!this.validatePages()) {
+    const invalidCount = this.validatePages() 
+    if (invalidCount > 0) {
+      let message =   String(this.translator.instant('dialog.childrenValidation.alert.error', {value1: invalidCount, value2: this.layout.items.length}));
       const data: SimpleDialogData = {
         title:'Nevalidní data',
-        message: 'Ne všechny strany jsou validní',
+        message,
         btn1: {
           label: "Pokračovat",
           value: 'yes',
