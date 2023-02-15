@@ -40,7 +40,6 @@ export class EditorBdmComponent implements OnInit {
 
   ngOnChanges(c: SimpleChanges) {
 
-    console.log(this.metadata);
     if (c['metadata'] && c['metadata'].currentValue) {
       this.metadata = c['metadata'].currentValue;
       return;

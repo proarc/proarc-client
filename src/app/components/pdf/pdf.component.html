@@ -6,6 +6,15 @@
 			</div>
 		</div>
 		<div>
+      <button mat-icon-button  [matTooltip]="'editor.toolbar.editor_pdf' | translate" [disabled]="!streamProfiles.includes('RAW')" [class.app-active]="streamType === 'RAW'" (click)="streamType = 'RAW'">
+        <mat-icon>picture_as_pdf</mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="Ikona" [disabled]="!streamProfiles.includes('THUMBNAIL')" [class.app-active]="streamType === 'THUMBNAIL'" (click)="streamType = 'THUMBNAIL'">
+				<mat-icon>image_search</mat-icon>
+			</button>
+      <button mat-icon-button matTooltip="Nahled" [disabled]="!streamProfiles.includes('PREVIEW')" [class.app-active]="streamType === 'PREVIEW'" (click)="streamType = 'PREVIEW'">
+				<mat-icon>image</mat-icon>
+			</button>
       <button mat-icon-button *ngIf="state == 'ok' || state == 'empty'" (click)="onAdd()" matTooltip="Načíst nový digitální obsah">
 				<mat-icon>add</mat-icon>
 			</button>
@@ -16,11 +25,27 @@
 		</div>
   </div>
 	<div fxFlex class="app-oa-y">
-		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
+		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='head'" class="app-progress-bar"></mat-progress-bar>
 		<div class="app-editor-content app-h-100">
-			<div class="app-pdf-wrapper">
-				<iframe *ngIf="state == 'ok'" [src]="pdfUrl | appSafe" width="100%" height="100%" frameborder="0"></iframe>
+			<div class="app-pdf-wrapper" *ngIf="streamType === 'RAW'">
+				<!-- <iframe *ngIf="state == 'head'" [src]="pdfUrl | appSafe" width="100%" height="100%" frameborder="0"></iframe> -->
+
+				<!-- <pdf-viewer *ngIf="state == 'head'" [src]="pdfUrl"
+              [render-text]="true"
+              [original-size]="false"
+								style="width: 100%; height: 100%"
+								(after-load-complete)="state = 'ok'"></pdf-viewer> -->
+
+				<ngx-extended-pdf-viewer *ngIf="state === 'head' || state === 'ok'" 
+					[src]="pdfUrl" 
+					[height]="'100%'" 
+					(pdfLoaded)="state = 'ok'" 
+					[useBrowserLocale]="true" ></ngx-extended-pdf-viewer>
+
 				<div *ngIf="state == 'empty'" class="app-empty">Žádný digitální obsah</div>
+			</div>
+			<div class="app-pdf-wrapper" *ngIf="streamType !== 'RAW'">
+				<img [src]="urlByStream(streamType)" />
 			</div>
 		</div>
 	</div>
