@@ -116,6 +116,7 @@
   "search": {
     "title": "Search",
     "name": "Name",
+    "filename": "File name",
     "label": "Name",
     "pageType": "Page type",
     "pageIndex": "Page index",

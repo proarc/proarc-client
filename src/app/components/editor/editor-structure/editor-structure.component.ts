@@ -79,7 +79,6 @@ export class EditorStructureComponent implements OnInit {
   // public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
 
   public selectedColumns = [
-    { field: 'label', selected: true },
     { field: 'pageType', selected: true },
     { field: 'pageIndex', selected: true },
     { field: 'pageNumber', selected: true },
@@ -261,25 +260,33 @@ export class EditorStructureComponent implements OnInit {
     localStorage.setItem(localStorageName + '-' + l, JSON.stringify(this.layout.layoutConfig))
   }
 
+  selectedColumnsPropName() {
+    return this.isRepo ? 'selectedColumnsRepo' : 'selectedColumnsImport';
+  }
+
   initSelectedColumns() {
-    const prop = this.properties.getStringProperty('selectedColumns');
+
+    const prop = this.properties.getStringProperty(this.selectedColumnsPropName());
     if (prop) {
       Object.assign(this.selectedColumns, JSON.parse(prop));
-      // this.selectedColumns = JSON.parse(prop);
+    } else {
+      if (this.isRepo) {
+        this.selectedColumns.unshift({ field: 'label', selected: true })
+      } else {
+        this.selectedColumns.unshift({ field: 'filename', selected: true })
+      }
     }
   }
 
   setSelectedColumns() {
-    this.properties.setStringProperty('selectedColumns', JSON.stringify(this.selectedColumns));
+    this.properties.setStringProperty(this.selectedColumnsPropName(), JSON.stringify(this.selectedColumns));
     this.initSelectedColumns();
     this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field);
-
-    // this.dataSource = new MatTableDataSource(this.layout.items);
     this.table.renderRows();
   }
 
   setColumns() {
-    this.displayedColumns = this.selectedColumns.filter(c => c.selected && !(this.isRepo && c.field === 'pageType')).map(c => c.field);
+    this.displayedColumns = this.selectedColumns.filter(c => c.selected && !(this.isRepo && c.field === 'pageType') && !(this.isRepo && c.field === 'filename') && !(!this.isRepo && c.field === 'label')).map(c => c.field);
   }
 
   selectAll() {

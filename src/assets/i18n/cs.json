@@ -129,6 +129,7 @@
   "search": {
     "title": "Hledání",
     "name": "Název",
+    "filename": "Název souboru",
     "label": "Název",
     "pageType": "Typ strany",
     "pageIndex": "Index strany",
