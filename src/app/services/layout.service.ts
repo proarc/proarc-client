@@ -21,7 +21,7 @@ export class LayoutService {
 
   private batchId: string | null;
 
-  public pid: string; // pid in url
+  // public pid: string; // pid in url
   public rootItem: DocumentItem | null; // root item
   public item: DocumentItem | null; // item by pid
   public tree: Tree;
