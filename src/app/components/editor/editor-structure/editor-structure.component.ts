@@ -823,7 +823,7 @@ export class EditorStructureComponent implements OnInit {
   setParent(destinationPid: string, openDestination: boolean) {
     this.state = 'saving';
     let pids: string[] = this.layout.items.filter(c => c.selected).map(c => c.pid);
-    this.api.setParent(this.layout.pid, destinationPid).subscribe((response: any) => {
+    this.api.setParent(this.layout.item.pid, destinationPid).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorSnackBarFromObject(response['response'].errors);
         this.state = 'error';
