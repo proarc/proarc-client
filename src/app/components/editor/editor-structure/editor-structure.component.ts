@@ -770,7 +770,7 @@ export class EditorStructureComponent implements OnInit {
 
 
           this.state = 'saving';
-          this.api.deleteParent(this.layout.pid, parent).subscribe((response: any) => {
+          this.api.deleteParent(this.layout.item.pid, parent).subscribe((response: any) => {
             if (response['response'].errors) {
               this.ui.showErrorSnackBarFromObject(response['response'].errors);
               this.state = 'error';

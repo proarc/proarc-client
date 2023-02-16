@@ -1,3 +1,13 @@
+
+
+    
+<div>
+  <mat-radio-group class="app-text-supplement" aria-label="'standard'" [(ngModel)]="field.getItems()[0].attrs['type']">
+      <mat-radio-button value="peer-reviewed">peer-reviewed</mat-radio-button>
+      <mat-radio-button value="none">none</mat-radio-button>
+  </mat-radio-group>
+</div>
+
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
 

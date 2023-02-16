@@ -875,6 +875,11 @@ export class ApiService {
     return url;
   }
 
+  getStreamProfile(pid: string) {
+    let url = `object/streamprofile?pid=${pid}`;
+    return this.get(url);
+  }
+
   headStream(pid: string, stream: string) {
     let path = `object/dissemination?pid=${pid}&datastream=${stream}`
     return this.head(path);

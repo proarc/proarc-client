@@ -562,6 +562,7 @@
     "tooltip": {
       "lock": "Lock Position",
       "unlock": "Unlock Position",
+      "lockPanel": "Lock/unlock panel",
       "zoomIn": "Zoom in",
       "zoomOut": "Zoom out",
       "fitToScreen": "Fit to Screen",

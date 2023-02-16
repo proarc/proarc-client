@@ -23,6 +23,9 @@ export class PdfComponent implements OnInit {
   pdfUrl: string;
   state = 'loading';
 
+  streamType = 'RAW';
+  streamProfiles: string[] = [];
+
   constructor(private api: ApiService,
      private dialog: MatDialog,
      private ui: UIService) {
@@ -31,16 +34,36 @@ export class PdfComponent implements OnInit {
   ngOnInit() {
   }
 
+  urlByStream(stream: string) {
+    return this.api.getStreamUrl(this.currentPid, stream);
+  }
+
   onPidChanged(pid: string) {
     this.currentPid = pid;
     this.state = 'loading';
     this.pdfUrl = this.api.getStreamUrl(pid, 'RAW');
-    this.api.headStream(pid, 'RAW').subscribe(() => {
-      this.state = 'ok';
-    },
-    () => {
-      this.state = 'empty';
-    })
+    this.api.getStreamProfile(pid).subscribe((response: any) => {
+      console.log(response)
+      if(response?.response?.data) {
+        this.streamProfiles = response.response.data.map((o: any) => o.dsid);
+      } else {
+        this.streamProfiles = [];
+      }
+      console.log(this.streamProfiles);
+      
+    });
+    this.api.headStream(pid, 'RAW').subscribe((response: any) => {
+      if (!response) {
+        this.state = 'head';
+      } else if (response?.response && response.response.status === 200) {
+        this.state = 'head';
+      } else if (response?.response && response.response.status === 404) {
+        this.state = 'empty';
+      } else {
+        this.state = 'error';
+      }
+      
+    });
   }
 
   onAdd() {
