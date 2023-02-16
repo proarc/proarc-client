@@ -87,7 +87,7 @@
           <div class="app-item">
             <div class="app-item-label">
               <mat-icon *ngIf="item.invalid" class="app-mr-1">report</mat-icon>{{ shortLabels ? item.shortLabel : item.label }}<br />
-              ({{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }})
+              ({{ (item.pageType ? "pageType." + item.pageType : "model." + item.model) | translate }})
             </div>
           </div>
         </div>
@@ -103,11 +103,11 @@
             <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="iconHeight + 'px'"></div>
             <div class="app-item-label" *ngIf="isRepo">
               <mat-icon *ngIf="item.invalid" class="app-mr-1">report</mat-icon>{{ shortLabels ? item.shortLabel : item.label }}<br />
-              ({{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }})
+              ({{ (item.pageType ? "pageType." + item.pageType : "model." + item.model) | translate }})
             </div>
             <div class="app-item-label" *ngIf="!isRepo">
               <mat-icon *ngIf="item.invalid">warning</mat-icon>
-              {{ item.label + (shortLabels ? "" : (", " + ("page_type." + item.pageType | translate))) }}
+              {{ item.label + (shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}
             </div>
           </div>
         </div>

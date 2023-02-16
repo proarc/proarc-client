@@ -539,25 +539,6 @@
     "issue number": "Issue number",
     "matrix number": "Matrix number"
   },
-  "model": {
-    "model:ndkperiodical": "NDK Periodical",
-    "model:ndkperiodicalvolume": "NDK Volume",
-    "model:ndkperiodicalissue": "NDK Isssue",
-    "model:ndkperiodicalsupplement": "NDK Supplement",
-    "model:ndkarticle": "NDK Monograph Volume",
-    "model:ndkpicture": "NDK Picture/Map - internal part",
-    "model:ndkmonographtitle": "NDK Multipart Monograph",
-    "model:ndkmonographvolume": "NDK Monograph",
-    "model:ndkmonographsupplement": "NDK Monograph Supplement",
-    "model:ndkchapter": "NDK Chapter",
-    "model:ndkmap": "NDK Cartographic Document",
-    "model:ndksheetmusic": "NDK Sheet Music",
-    "model:ndkpage": "NDK Page",
-    "model:page": "Page",
-    "model:chroniclevolume": "Chronicle",
-    "model:chronicletitle": "Multipart Chronicle",
-    "model:chroniclesupplement": "Chronicle Supplement"
-  },
   "viewer": {
     "tooltip": {
       "lock": "Lock Position",
@@ -1368,62 +1349,6 @@
     "wpr" : "Writer of preface",
     "wst" : "Writer of supplementary textual content"
   },
-  "page_type" : {
-    "unknown" : "page",
-    "advertisement" : "advertisement",
-    "audio": "audio",
-    "backcover" : "back cover",
-    "backendsheet" : "back end sheet",
-    "blank" : "blank",
-    "cover" : "cover",
-    "flyleaf" : "fly leaf",
-    "frontcover" : "front cover",
-    "frontendsheet" : "front end sheet",
-    "frontjacket" : "front jacket",
-    "index" : "index",
-    "jacket" : "jacket",
-    "listofillustrations" : "list of illustrations",
-    "listofmaps" : "list of maps",
-    "listoftables" : "list of tables",
-    "map" : "map",
-    "normalpage" : "normal page",
-    "other" : "page",
-    "spine" : "spine",
-    "titlepage" : "title page",
-    "tableofcontents" : "table of contents",
-    "table" : "table",
-    "backendpaper" : "back endpaper",
-    "dedication" : "dedication",
-    "edge" : "edge",
-    "errata" : "errata",
-    "frontendpaper" : "front endpaper",
-    "frontispiece" : "frontispiece",
-    "illustration" : "illustration",
-    "imprimatur" : "imprimatur",
-    "listofsupplements" : "list of supplements",
-    "preface" : "preface",
-    "news": "news",
-    "abstract": "abstract",
-    "introduction": "introduction",
-    "review": "review",
-    "mainarticle": "main article",
-    "editorial": "editorial",
-    "obituary": "obituary",
-    "bibliographicalportrait": "portrait",
-    "colophon": "colophon",
-    "interview": "interview",
-    "anotation": "annotation",
-    "manuscriptnotes": "manuscript notes",
-    "calibrationtable": "calibration table",
-    "bibliography": "bibliography",
-    "booklet": "booklet",
-    "appendix": "appendix",
-    "imgdisc": "disk image",
-    "impressum": "impressum",
-    "sheetmusic": "sheet music",
-    "case": "case",
-    "fragmentsofbookbinding": "fragments of book binding"
-  },
   "sigla": {
     "BOA001" : "Moravian Library in Brno",
     "BOE801" : "Museum of Brno Region",
@@ -2023,34 +1948,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   "desc": {
     "help": "Help",
     "panelType": "Panel type",
@@ -2109,7 +2006,12 @@
     "profile": "Profile",
     "folderNamePid": "Folder/name/PID",
     "numberOfPages": "Number of pages",
-    "errorDetail": "Error detail"
+    "errorDetail": "Error detail",
+    "markRow": "Mark row",
+    "fileName": "File name",
+    "pageType":"Page type",
+    "pageIndex": "Page index",
+    "pageNumber": "Page number"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2144,7 +2046,13 @@
     "saveAgain": "Save again",
     "stop": "Stop",
     "cancel": "Cancel",
-    "continueToPrepareMetadata": "Continue to prepare metadata"
+    "continueToPrepareMetadata": "Continue to prepare metadata",
+    "markRow": "Mark row",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "viewTable": "View table",
+    "viewGrid": "View grid",
+    "viewPreviews": "View previews" 
   },
   "dynamic": {
     "repo": "Storage",
@@ -2161,6 +2069,109 @@
     "comment": "Comment",
     "image": "Image",
     "premis": "PREMIS XML"
+  },
+  "model": {  
+    "model:periodical": "K4 Periodical",
+    "model:periodicalvolume": "K4 Year",
+    "model:periodicalissue": "K4 Number",
+    "model:monograph": "K4 Monograph",
+    "model:monographtitle": "K4 Monograph title",
+    "model:monographunit": "K4 Monograph - free part",
+    "model:ndkperiodical": "NDK Periodical",
+    "model:ndkperiodicalvolume": "NDK Volume",
+    "model:ndkperiodicalissue": "NDK Isssue",
+    "model:ndkperiodicalsupplement": "NDK Supplement",
+    "model:ndkarticle": "NDK Monograph Volume",
+    "model:ndkpicture": "NDK Picture/Map - internal part",
+    "model:ndkmonographtitle": "NDK Multipart Monograph",
+    "model:ndkmonographvolume": "NDK Monograph",
+    "model:ndkmonographsupplement": "NDK Monograph Supplement",
+    "model:ndkchapter": "NDK Chapter",
+    "model:ndkmap": "NDK Cartographic Document",
+    "model:ndksheetmusic": "NDK Sheet Music",
+    "model:ndkpage": "NDK Page",
+    "model:page": "Page",
+    "model:oldprintomnibusvolume": "STT Convolut",
+    "model:oldprintmonographtitle": "STT Multi-volume monograph",
+    "model:oldprintvolume": "STT Volume of monographs",
+    "model:oldprintsupplement": "STT Monograph Appendix",
+    "model:oldprintchapter": "STT Chapter",
+    "model:oldprintgraphics": "STT Graphics",
+    "model:oldprintmap": "STT Cartographic document",
+    "model:oldprintsheetmusic": "STT Music",
+    "model:oldprintpage": "STT Page",
+    "model:ndkeperiodical": "NDK ePeriodicum",
+    "model:ndkeperiodicalvolume": "NDK eYearbook",
+    "model:ndkeperiodicalissue": "NDK eNumber",
+    "model:ndkearticle": "NDK eArticle",
+    "model:ndkemonographtitle": "NDK Multipart eMonograph",
+    "model:ndkemonographvolume": "NDK Volume of eMonographs",
+    "model:ndkechapter": "NDK eChapter",
+    "model:ndkphonographcylinder": "NDK Phonographic roller",
+    "model:ndkmusicdocument": "NDK Audio documentary",
+    "model:ndksong": "NDK Composition",
+    "model:ndktrack": "NDK Part of a song",
+    "model:ndkaudiopage": "Sound recording",
+    "model:chronicletitle": "Multipart Chronicle",
+    "model:chroniclevolume": "Chronicle",
+    "model:chroniclesupplement": "Chronicle Supplement",
+    "model:bdmarticle": "eArticle"
+  },
+  "pageType" : {
+    "unknown" : "page",
+    "advertisement" : "advertisement",
+    "audio": "audio",
+    "backcover" : "back cover",
+    "backendsheet" : "back end sheet",
+    "blank" : "blank",
+    "cover" : "cover",
+    "flyleaf" : "fly leaf",
+    "frontcover" : "front cover",
+    "frontendsheet" : "front end sheet",
+    "frontjacket" : "front jacket",
+    "index" : "index",
+    "jacket" : "jacket",
+    "listofillustrations" : "list of illustrations",
+    "listofmaps" : "list of maps",
+    "listoftables" : "list of tables",
+    "map" : "map",
+    "normalpage" : "normal page",
+    "other" : "page",
+    "spine" : "spine",
+    "titlepage" : "title page",
+    "tableofcontents" : "table of contents",
+    "table" : "table",
+    "backendpaper" : "back endpaper",
+    "dedication" : "dedication",
+    "edge" : "edge",
+    "errata" : "errata",
+    "frontendpaper" : "front endpaper",
+    "frontispiece" : "frontispiece",
+    "illustration" : "illustration",
+    "imprimatur" : "imprimatur",
+    "listofsupplements" : "list of supplements",
+    "preface" : "preface",
+    "news": "news",
+    "abstract": "abstract",
+    "introduction": "introduction",
+    "review": "review",
+    "mainarticle": "main article",
+    "editorial": "editorial",
+    "obituary": "obituary",
+    "bibliographicalportrait": "portrait",
+    "colophon": "colophon",
+    "interview": "interview",
+    "anotation": "annotation",
+    "manuscriptnotes": "manuscript notes",
+    "calibrationtable": "calibration table",
+    "bibliography": "bibliography",
+    "booklet": "booklet",
+    "appendix": "appendix",
+    "imgdisc": "disk image",
+    "impressum": "impressum",
+    "sheetmusic": "sheet music",
+    "case": "case",
+    "fragmentsofbookbinding": "fragments of book binding"
   },
   "states": {
     "ALL": "All",
