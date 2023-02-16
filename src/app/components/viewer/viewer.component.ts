@@ -6,15 +6,15 @@ declare var ol: any;
 
 declare global {
   interface Document {
-      msExitFullscreen: any;
-      mozCancelFullScreen: any;
-      mozFullScreenElement: any;
-      msFullscreenElement: any;
+    msExitFullscreen: any;
+    mozCancelFullScreen: any;
+    mozFullScreenElement: any;
+    msFullscreenElement: any;
   }
 
   interface Element {
-      msRequestFullscreen(): void;
-      mozRequestFullScreen(): void;
+    msRequestFullscreen(): void;
+    mozRequestFullScreen(): void;
   }
 }
 
@@ -35,13 +35,19 @@ export class ViewerComponent implements OnInit, OnDestroy {
   @Input() instance: string;
   @Input() hideToolbar: boolean;
 
-  @Input() 
+  @Input()
   set pid(pid: string) {
     this.onPidChanged(pid);
   }
 
+  @Input()
+  set stream(stream: string) {
+    this.currentStream = stream;
+    this.loadImage();
+  }
+
+  private currentStream: string;
   private inputPid: string;
-  private currentPid: string;
   isLocked = false;
 
   private view: any;
@@ -89,21 +95,26 @@ export class ViewerComponent implements OnInit, OnDestroy {
     if (this.isLocked) {
       return;
     }
+    this.loadImage();
+  }
+
+  loadImage() {
+    const stream = this.currentStream ? this.currentStream : 'FULL';
     this.state = 'loading';
-    const url = this.isKramerius ? 
-                this.api.getKrameriusImageUrl(pid, this.instance) :
-                this.api.getStreamUrl(pid, 'FULL', this.layout.getBatchId());
+    const url = this.isKramerius ?
+      this.api.getKrameriusImageUrl(this.inputPid, this.instance) :
+      this.api.getStreamUrl(this.inputPid, stream, this.layout.getBatchId());
     const image = new Image();
     image.onload = (() => {
-        this.onLoad(url, image.width, image.height);
+      this.onLoad(url, image.width, image.height);
     });
     image.onerror = (() => {
-        image.onerror = null;
-        this.state = 'error';
-        console.log('image load failure');
+      image.onerror = null;
+      this.state = 'error';
+      console.log('image load failure');
     });
     image.src = url;
-}
+  }
 
   onLoad(url: string, width: number, height: number) {
     this.positionLock = this.properties.getBoolProperty('viewer.positionLock', false);
@@ -241,58 +252,58 @@ export class ViewerComponent implements OnInit, OnDestroy {
     const el: any = document.getElementById(this.idViewer);
     // go full-screen
     if (el.requestFullscreen) {
-        el.requestFullscreen();
+      el.requestFullscreen();
     } else if (el['webkitRequestFullscreen']) {
-        el['webkitRequestFullscreen']();
+      el['webkitRequestFullscreen']();
     } else if (el.mozRequestFullScreen) {
-        el.mozRequestFullScreen();
+      el.mozRequestFullScreen();
     } else if (el.msRequestFullscreen) {
-        el.msRequestFullscreen();
+      el.msRequestFullscreen();
     }
-}
+  }
 
-exitFullscreen() {
+  exitFullscreen() {
     if (document.exitFullscreen) {
-        document.exitFullscreen();
+      document.exitFullscreen();
     } else if (document['webkitExitFullscreen' as keyof Document]) {
-        document['webkitExitFullscreen' as keyof Document]();
+      document['webkitExitFullscreen' as keyof Document]();
     } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
+      document.mozCancelFullScreen();
     } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
+      document.msExitFullscreen();
     }
-}
+  }
 
-fullscreenEnabled() {
+  fullscreenEnabled() {
     return document['fullscreenElement']
-    || document['webkitFullscreenElement' as keyof Document]
-    || document.mozFullScreenElement
-    || document.msFullscreenElement;
-}
+      || document['webkitFullscreenElement' as keyof Document]
+      || document.mozFullScreenElement
+      || document.msFullscreenElement;
+  }
 
-onFullscreenChanged() {
+  onFullscreenChanged() {
     this.fitToScreen();
     setTimeout(() => {
-        this.fitToScreen();
+      this.fitToScreen();
     }, 200);
-}
+  }
 
 
 
 
-private initFullscreenCapabilities() {
-  this.fullscreenAvailable = document.fullscreenEnabled
-  || document['webkitFullscreenEnable' as keyof Document]
-  || document['mozFullScreenEnabled' as keyof Document]
-  || document['msFullscreenEnabled' as keyof Document];
+  private initFullscreenCapabilities() {
+    this.fullscreenAvailable = document.fullscreenEnabled
+      || document['webkitFullscreenEnable' as keyof Document]
+      || document['mozFullScreenEnabled' as keyof Document]
+      || document['msFullscreenEnabled' as keyof Document];
 
-  // document.addEventListener('fullscreenchange', this.onFullscreenChanged);
-  const ctx = this;
-  document.addEventListener('fullscreenchange', () => ctx.onFullscreenChanged());
-  document.addEventListener('webkitfullscreenchange', () => ctx.onFullscreenChanged());
-  document.addEventListener('mozfullscreenchange', () => ctx.onFullscreenChanged());
-  document.addEventListener('MSFullscreenChange', () => ctx.onFullscreenChanged());
-}
+    // document.addEventListener('fullscreenchange', this.onFullscreenChanged);
+    const ctx = this;
+    document.addEventListener('fullscreenchange', () => ctx.onFullscreenChanged());
+    document.addEventListener('webkitfullscreenchange', () => ctx.onFullscreenChanged());
+    document.addEventListener('mozfullscreenchange', () => ctx.onFullscreenChanged());
+    document.addEventListener('MSFullscreenChange', () => ctx.onFullscreenChanged());
+  }
 
 
 }

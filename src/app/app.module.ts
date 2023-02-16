@@ -140,8 +140,8 @@ import { KrameriusComponent } from './pages/kramerius/kramerius.component';
 import { MetadataComponent } from './pages/kramerius/metadata/metadata.component';
 import { KrameriusModsComponent } from './pages/kramerius/kramerius-mods/kramerius-mods.component';
 
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { MediaComponent } from './components/media/media.component';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 300,
@@ -271,6 +271,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     KrameriusComponent,
     MetadataComponent,
     KrameriusModsComponent,
+    MediaComponent,
   ],
   imports: [
     BrowserModule,
@@ -284,7 +285,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularSplitModule.forRoot(),
     HighlightModule,
     FlexLayoutModule,
-    PdfViewerModule,
     NgxExtendedPdfViewerModule ,
     TranslateModule.forRoot({
       loader: {

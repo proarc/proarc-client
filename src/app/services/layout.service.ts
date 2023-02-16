@@ -6,6 +6,7 @@ import { IConfig } from '../pages/layout-admin/layout-admin.component';
 import { ModelTemplate } from 'src/app/templates/modelTemplate';
 import { Metadata } from '../model/metadata.model';
 import { Page } from '../model/page.model';
+import { StreamProfile } from '../model/stream-profile';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,7 @@ export class LayoutService {
   public lastSelectedItem: DocumentItem; // last selected child item
   public lastSelectedItemMetadata: Metadata; // last selected child item
   public krameriusPage: Page; // last selected child item
+  public streamProfiles: StreamProfile[];
 
   path: { pid: string, label: string, model: string }[] = [];
   expandedPath: string[];

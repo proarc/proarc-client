@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
@@ -7,36 +7,48 @@ import { ApiService } from 'src/app/services/api.service';
 import { UIService } from 'src/app/services/ui.service';
 
 @Component({
-  selector: 'app-pdf',
-  templateUrl: './pdf.component.html',
-  styleUrls: ['./pdf.component.scss']
+  selector: 'app-media',
+  templateUrl: './media.component.html',
+  styleUrls: ['./media.component.scss']
 })
-export class PdfComponent implements OnInit {
+export class MediaComponent implements OnInit {
 
   @ViewChild('pdfInput') pdfInput: ElementRef;
 
-  private currentPid: string;
+  public currentPid: string;
 
-  @Input() 
+  @Input()
   set pid(pid: string) {
     this.onPidChanged(pid);
   }
   pdfUrl: string;
   state = 'loading';
 
-  streamType = 'RAW';
+  streamProfile: StreamProfile;
   streamProfiles: StreamProfile[] = [];
 
   constructor(private api: ApiService,
-     private dialog: MatDialog,
-     private ui: UIService) {
+    private dialog: MatDialog,
+    private ui: UIService) {
   }
 
   ngOnInit() {
   }
 
-  urlByStream(stream: string) {
-    return this.api.getStreamUrl(this.currentPid, stream);
+  urlByStream() {
+    return this.api.getStreamUrl(this.currentPid, this.streamProfile.dsid);
+  }
+
+  isPlainImage() {
+    return ['image/jpeg'].includes(this.streamProfile.mime);
+  }
+
+  isImage() {
+    const isIma = ['image/tiff', 'image/jp2', 'image/jpeg'].includes(this.streamProfile.mime);
+    if (isIma) {
+      setTimeout(() => {this.state = 'ok'}, 100);
+    }
+    return isIma;
   }
 
   hasProfile(stream: string) {
@@ -48,31 +60,35 @@ export class PdfComponent implements OnInit {
     this.state = 'loading';
     this.pdfUrl = this.api.getStreamUrl(pid, 'RAW');
     this.api.getStreamProfile(pid).subscribe((response: any) => {
-      console.log(response)
-      if(response?.response?.data) {
+      if (response?.response?.data) {
         this.streamProfiles = response.response.data;
+        if (this.streamProfiles.length > 0) {
+          this.streamProfile = this.streamProfiles[0];
+          this.api.headStream(pid, this.streamProfile.dsid).subscribe((response: any) => {
+            if (!response) {
+              this.state = 'head';
+            } else if (response?.response && response.response.status === 200) {
+              this.state = 'head';
+            } else if (response?.response && response.response.status === 404) {
+              this.state = 'empty';
+            } else {
+              this.state = 'error';
+            }
+          });
+        } else {
+          this.state = 'empty';
+          this.streamProfile = null;
+        }
       } else {
-        this.streamProfiles = [];
-      }
-      console.log(this.streamProfiles);
-      
-    });
-    this.api.headStream(pid, 'RAW').subscribe((response: any) => {
-      if (!response) {
-        this.state = 'head';
-      } else if (response?.response && response.response.status === 200) {
-        this.state = 'head';
-      } else if (response?.response && response.response.status === 404) {
         this.state = 'empty';
-      } else {
-        this.state = 'error';
+        this.streamProfiles = [];
+        this.streamProfile = null;
       }
-      
     });
   }
 
   onAdd() {
-    let event = new MouseEvent('click', {bubbles: true});
+    let event = new MouseEvent('click', { bubbles: true });
     this.pdfInput.nativeElement.dispatchEvent(event);
 
   }
@@ -90,8 +106,7 @@ export class PdfComponent implements OnInit {
   }
 
 
-
-onRemove() {
+  onRemove() {
     const data: SimpleDialogData = {
       title: "Odstranění digitálního obsahu",
       message: "Opravdu chcete odstranit digitální obsah?",

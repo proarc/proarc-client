@@ -1,0 +1,44 @@
+<div fxLayout="column" fxFlexFill>
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
+    <div fxFlex>
+			<div class="app-toolbar-label">
+				<span class="app-text">Media</span>
+			</div>
+		</div>
+		<div class="app-breadcrumbsbar">
+      <mat-form-field>
+        <mat-select name="profiles" [(ngModel)]="streamProfile">
+          <mat-option *ngFor="let p of streamProfiles" [value]="p">{{ p.dsid | translate }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- <button mat-icon-button *ngIf="state == 'ok' || state == 'empty'" (click)="onAdd()" matTooltip="Načíst nový digitální obsah">
+				<mat-icon>add</mat-icon>
+			</button>
+			<button mat-icon-button *ngIf="state == 'ok'" (click)="onRemove()" matTooltip="Odstranit digitální obsah">
+				<mat-icon>delete</mat-icon>
+			</button>
+			<input style="display: none;" #pdfInput id="pdf_file_upload" name="pdf_file_upload" type="file" (change)="uploadPdf($event)" accept=".pdf,.PDF" /> -->
+		</div>
+  </div>
+	<div fxFlex class="app-oa-y">
+		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='head'" class="app-progress-bar"></mat-progress-bar>
+		<div class="app-editor-content app-h-100" *ngIf="streamProfile">
+			<div class="app-pdf-wrapper" *ngIf="streamProfile.mime === 'application/pdf'">
+
+				<ngx-extended-pdf-viewer *ngIf="state === 'head' || state === 'ok'" 
+					[src]="pdfUrl" 
+					[height]="'100%'" 
+					(pdfLoaded)="state = 'ok'" 
+					[enablePrint]="false"
+					[useBrowserLocale]="true" ></ngx-extended-pdf-viewer>
+
+				<div *ngIf="state == 'empty'" class="app-empty">Žádný digitální obsah</div>
+			</div>
+			<!-- <div class="app-pdf-wrapper" *ngIf="isPlainImage()">
+				<img [src]="urlByStream()" (load)="state = 'ok'" />
+			</div> -->
+      <app-viewer *ngIf="isImage()" [pid]="currentPid" [stream]="streamProfile.dsid"></app-viewer>
+		</div>
+    <div *ngIf="!streamProfile" class="app-empty">Žádný digitální obsah</div>
+	</div>
+</div>

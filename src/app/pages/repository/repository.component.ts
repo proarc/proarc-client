@@ -5,6 +5,7 @@ import { combineLatest, forkJoin, Subscription } from 'rxjs';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Metadata } from 'src/app/model/metadata.model';
 import { Tree } from 'src/app/model/mods/tree.model';
+import { StreamProfile } from 'src/app/model/stream-profile';
 import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { RepositoryService } from 'src/app/services/repository.service';
@@ -218,7 +219,9 @@ export class RepositoryComponent implements OnInit {
     const rDoc = this.api.getDocument(pid);
     const rChildren = this.api.getRelations(pid);
     const rParent = this.api.getParent(pid);
-    forkJoin([rDoc, rChildren, rParent]).subscribe(([item, children, parent]: [DocumentItem, DocumentItem[], DocumentItem]) => {
+    const rProfiles = this.api.getStreamProfile(pid);
+    forkJoin([rDoc, rChildren, rParent, rProfiles]).subscribe(([item, children, parent, profiles]: [DocumentItem, DocumentItem[], DocumentItem, any]) => {
+      console.log(profiles)
       this.layout.item = item;
       this.layout.lastSelectedItem = item;
       this.layout.items = children;

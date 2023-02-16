@@ -45,6 +45,9 @@
       <app-viewer *ngIf="layout.lastSelectedItem && layout.lastSelectedItem.isPage()" [pid]="layout.lastSelectedItem.pid" ></app-viewer>
       <div *ngIf="!(layout.lastSelectedItem && layout.lastSelectedItem.isPage())">{{'Image not available' | translate}}</div>
     </ng-container>
+    <ng-container *ngSwitchCase="'media'" >
+      <app-media *ngIf="layout.lastSelectedItem" [pid]="layout.lastSelectedItem.pid"></app-media>
+    </ng-container>
     <ng-container *ngSwitchCase="'pdf'" >
       <app-pdf *ngIf="layout.lastSelectedItem" [pid]="layout.lastSelectedItem.pid"></app-pdf>
     </ng-container>

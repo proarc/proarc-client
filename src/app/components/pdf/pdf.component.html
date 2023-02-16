@@ -6,13 +6,13 @@
 			</div>
 		</div>
 		<div>
-      <button mat-icon-button  [matTooltip]="'editor.toolbar.editor_pdf' | translate" [disabled]="!streamProfiles.includes('RAW')" [class.app-active]="streamType === 'RAW'" (click)="streamType = 'RAW'">
+      <button mat-icon-button  [matTooltip]="'editor.toolbar.editor_pdf' | translate" [disabled]="!hasProfile('RAW')" [class.app-active]="streamType === 'RAW'" (click)="streamType = 'RAW'">
         <mat-icon>picture_as_pdf</mat-icon>
       </button>
-      <button mat-icon-button matTooltip="Ikona" [disabled]="!streamProfiles.includes('THUMBNAIL')" [class.app-active]="streamType === 'THUMBNAIL'" (click)="streamType = 'THUMBNAIL'">
+      <button mat-icon-button matTooltip="Ikona" [disabled]="!hasProfile('THUMBNAIL')" [class.app-active]="streamType === 'THUMBNAIL'" (click)="streamType = 'THUMBNAIL'">
 				<mat-icon>image_search</mat-icon>
 			</button>
-      <button mat-icon-button matTooltip="Nahled" [disabled]="!streamProfiles.includes('PREVIEW')" [class.app-active]="streamType === 'PREVIEW'" (click)="streamType = 'PREVIEW'">
+      <button mat-icon-button matTooltip="Nahled" [disabled]="!hasProfile('PREVIEW')" [class.app-active]="streamType === 'PREVIEW'" (click)="streamType = 'PREVIEW'">
 				<mat-icon>image</mat-icon>
 			</button>
       <button mat-icon-button *ngIf="state == 'ok' || state == 'empty'" (click)="onAdd()" matTooltip="Načíst nový digitální obsah">
@@ -40,6 +40,7 @@
 					[src]="pdfUrl" 
 					[height]="'100%'" 
 					(pdfLoaded)="state = 'ok'" 
+					[enablePrint]="false"
 					[useBrowserLocale]="true" ></ngx-extended-pdf-viewer>
 
 				<div *ngIf="state == 'empty'" class="app-empty">Žádný digitální obsah</div>
