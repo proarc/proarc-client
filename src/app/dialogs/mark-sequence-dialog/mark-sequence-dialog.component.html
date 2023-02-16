@@ -1,9 +1,10 @@
 <div fxLayout="column" fxFlexFill>
-  <h1 mat-dialog-title>{{ 'editor.children.markSequence' | translate }}
-    <button mat-flat-button color="primary" (click)="markSequence()" [matTooltip]="'editor.children.markSequence' | translate">{{ 'editor.children.markSequence' | translate }}</button>
-  </h1>
+  <div fxLayout="row" fxLayoutGap="16px">
+    <h1 mat-dialog-title fxFlex>{{ 'desc.markRow' | translate }}</h1>
+    <button mat-flat-button color="primary" (click)="markSequence()">{{ 'button.markRow' | translate }}</button>
+  </div>
   
-  <div mat-dialog-content fxFlex>
+  <div mat-dialog-content fxFlex class="app-maxh-100">
     <as-split direction="horizontal" [disabled]="false">
       <as-split-area [size]="40" (resized)="onResized($event, 'orig')" >
         <div fxLayout="column" fxFlexFill>
@@ -14,19 +15,19 @@
               </div>
             </div>
             <div>
-              <button mat-icon-button *ngIf="data.viewModeOrig === 'icons'" (click)="zoomOut('orig')" [matTooltip]="'viewer.tooltip.zoomOut' | translate">
+              <button mat-icon-button *ngIf="data.viewModeOrig === 'icons'" (click)="zoomOut('orig')" [matTooltip]="'button.zoomOut' | translate">
                 <mat-icon>zoom_out</mat-icon>
               </button>
-              <button mat-icon-button *ngIf="data.viewModeOrig === 'icons'" (click)="zoomIn('orig')" [matTooltip]="'viewer.tooltip.zoomIn' | translate">
+              <button mat-icon-button *ngIf="data.viewModeOrig === 'icons'" (click)="zoomIn('orig')" [matTooltip]="'button.zoomIn' | translate">
                 <mat-icon>zoom_in</mat-icon>
               </button>
-              <button mat-icon-button [class.app-active]="data.viewModeOrig === 'list'" (click)="data.viewModeOrig = 'list'" [matTooltip]="'editor.children.view_list' | translate">
+              <button mat-icon-button [class.app-active]="data.viewModeOrig === 'list'" (click)="data.viewModeOrig = 'list'" [matTooltip]="'button.viewTable' | translate">
                 <mat-icon>format_align_justify</mat-icon>
               </button>
-              <button mat-icon-button [class.app-active]="data.viewModeOrig === 'grid'" (click)="data.viewModeOrig = 'grid'" [matTooltip]="'editor.children.view_grid' | translate">
+              <button mat-icon-button [class.app-active]="data.viewModeOrig === 'grid'" (click)="data.viewModeOrig = 'grid'" [matTooltip]="'button.viewGrid' | translate">
                 <mat-icon>apps</mat-icon>
               </button>
-              <button mat-icon-button [class.app-active]="data.viewModeOrig === 'icons'" (click)="data.viewModeOrig = 'icons'" [matTooltip]="'editor.children.view_icons' | translate">
+              <button mat-icon-button [class.app-active]="data.viewModeOrig === 'icons'" (click)="data.viewModeOrig = 'icons'" [matTooltip]="'button.viewPreviews' | translate">
                 <mat-icon>image</mat-icon>
               </button>
             </div>
@@ -35,11 +36,10 @@
           <div fxFlex class="app-oa-y">
             <div class="app-editor-content">
               <div class="app-view-icon" *ngIf="data.viewModeOrig === 'icons'" #childrenIconList fxLayout="row wrap">
-                <div *ngFor="let item of dest; let i = index" class="app-item-wrapper" (click)="select(dest, item, i, $event, 'dest')" 
-                [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [fxFlex]="data.iconWidth['dest'] + '%'">
+                <div *ngFor="let item of dest; let i = index" class="app-item-wrapper" (click)="select(dest, item, i, $event, 'dest')" [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [fxFlex]="data.iconWidth['dest'] + '%'">
                   <div class="app-item">
                     <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['dest'] + 'px'"></div>
-                    <div class="app-item-label">{{ item.label + (data.shortLabels ? "" : (", " + ("page_type." + item.pageType | translate))) }}</div>
+                    <div class="app-item-label">{{ item.label + (data.shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}</div>
                   </div>
                 </div>
               </div>
@@ -50,7 +50,7 @@
                   <div class="app-item">
                     <div class="app-item-label">
                       {{ data.shortLabels ? item.shortLabel : item.label }}<br />
-                      ({{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }})
+                      ({{ (item.pageType ? "pageType." + item.pageType : "model." + item.model) | translate }})
                     </div>
                   </div>
                 </div>
@@ -58,59 +58,59 @@
 
               <table mat-table *ngIf="data.viewModeOrig == 'list'" [dataSource]="destTable" class="app-w-100" #table>
                 <ng-container matColumnDef="pid">
-                  <th mat-header-cell *matHeaderCellDef>{{'search.pid' | translate}} </th>
+                  <th mat-header-cell *matHeaderCellDef>{{'desc.pid' | translate}} </th>
                   <td mat-cell *matCellDef="let element"> {{element.pid}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="label">
-                  <th mat-header-cell *matHeaderCellDef> {{'search.name' | translate}}</th>
+                  <th mat-header-cell *matHeaderCellDef> {{'desc.name' | translate}}</th>
                   <td mat-cell *matCellDef="let element"> {{data.shortLabels ? element.shortLabel : element.label}}
                   </td>
                 </ng-container>
 
                 <ng-container matColumnDef="filename">
-                  <th mat-header-cell *matHeaderCellDef> {{'search.filename' | translate}}</th>
+                  <th mat-header-cell *matHeaderCellDef> {{'desc.fileName' | translate}}</th>
                   <td mat-cell *matCellDef="let element"> {{element.filename}}
                   </td>
                 </ng-container>
 
                 <ng-container matColumnDef="pageType">
-                  <th mat-header-cell *matHeaderCellDef> {{'search.pageType' | translate}}</th>
+                  <th mat-header-cell *matHeaderCellDef> {{'desc.pageType' | translate}}</th>
                   <td mat-cell *matCellDef="let element"> {{element.pageType}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="pageIndex">
-                  <th mat-header-cell *matHeaderCellDef> {{'search.pageIndex' | translate}}</th>
+                  <th mat-header-cell *matHeaderCellDef> {{'desc.pageIndex' | translate}}</th>
                   <td mat-cell *matCellDef="let element"> {{element.pageIndex}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="pageNumber">
-                  <th mat-header-cell *matHeaderCellDef> {{'search.pageNumber' | translate}}</th>
+                  <th mat-header-cell *matHeaderCellDef> {{'desc.pageNumber' | translate}}</th>
                   <td mat-cell *matCellDef="let element"> {{element.pageNumber}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="model">
-                  <th mat-header-cell *matHeaderCellDef> {{'search.model' | translate}} </th>
+                  <th mat-header-cell *matHeaderCellDef> {{'desc.model' | translate}} </th>
                   <td mat-cell *matCellDef="let element"> {{ 'model.' + element.model | translate}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="owner">
-                  <th mat-header-cell *matHeaderCellDef> {{'search.owner' | translate}} </th>
+                  <th mat-header-cell *matHeaderCellDef> {{'desc.owner' | translate}} </th>
                   <td mat-cell *matCellDef="let element"> {{element.owner}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="created">
-                  <th mat-header-cell *matHeaderCellDef> {{'search.created' | translate}} </th>
+                  <th mat-header-cell *matHeaderCellDef> {{'desc.created' | translate}} </th>
                   <td mat-cell *matCellDef="let element"> {{element.created | date : 'dd.MM.yyyy'}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="modified">
-                  <th mat-header-cell *matHeaderCellDef> {{'search.modified' | translate}} </th>
+                  <th mat-header-cell *matHeaderCellDef> {{'desc.modified' | translate}} </th>
                   <td mat-cell *matCellDef="let element"> {{element.modified | date : 'dd.MM.yyyy'}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="status">
-                  <th mat-header-cell *matHeaderCellDef> {{'search.status' | translate}} </th>
+                  <th mat-header-cell *matHeaderCellDef> {{'desc.status' | translate}} </th>
                   <td mat-cell *matCellDef="let element"> {{element.status}} </td>
                 </ng-container>
 
@@ -133,19 +133,19 @@
               </div>
             </div>
             <div>
-              <button mat-icon-button *ngIf="data.viewModeDest === 'icons'" (click)="zoomOut('dest')" [matTooltip]="'viewer.tooltip.zoomOut' | translate">
+              <button mat-icon-button *ngIf="data.viewModeDest === 'icons'" (click)="zoomOut('dest')" [matTooltip]="'button.zoomOut' | translate">
                 <mat-icon>zoom_out</mat-icon>
               </button>
-              <button mat-icon-button *ngIf="data.viewModeDest === 'icons'" (click)="zoomIn('dest')" [matTooltip]="'viewer.tooltip.zoomIn' | translate">
+              <button mat-icon-button *ngIf="data.viewModeDest === 'icons'" (click)="zoomIn('dest')" [matTooltip]="'button.zoomIn' | translate">
                 <mat-icon>zoom_in</mat-icon>
               </button>
-              <button mat-icon-button [class.app-active]="data.viewModeDest === 'list'" (click)="data.viewModeDest = 'list'" [matTooltip]="'editor.children.view_list' | translate">
+              <button mat-icon-button [class.app-active]="data.viewModeDest === 'list'" (click)="data.viewModeDest = 'list'" [matTooltip]="'button.viewTable' | translate">
                 <mat-icon>format_align_justify</mat-icon>
               </button>
-              <button mat-icon-button [class.app-active]="data.viewModeDest === 'grid'" (click)="data.viewModeDest = 'grid'" [matTooltip]="'editor.children.view_grid' | translate">
+              <button mat-icon-button [class.app-active]="data.viewModeDest === 'grid'" (click)="data.viewModeDest = 'grid'" [matTooltip]="'button.viewGrid' | translate">
                 <mat-icon>apps</mat-icon>
               </button>
-              <button mat-icon-button [class.app-active]="data.viewModeDest === 'icons'" (click)="data.viewModeDest = 'icons'" [matTooltip]="'editor.children.view_icons' | translate">
+              <button mat-icon-button [class.app-active]="data.viewModeDest === 'icons'" (click)="data.viewModeDest = 'icons'" [matTooltip]="'button.viewPreviews' | translate">
                 <mat-icon>image</mat-icon>
               </button>
             </div>
@@ -158,7 +158,7 @@
                 [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [fxFlex]="data.iconWidth['dest'] + '%'">
                   <div class="app-item">
                     <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['dest'] + 'px'"></div>
-                    <div class="app-item-label">{{ item.label + (data.shortLabels ? "" : (", " + ("page_type." + item.pageType | translate))) }}</div>
+                    <div class="app-item-label">{{ item.label + (data.shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}</div>
                   </div>
                 </div>
               </div>
@@ -169,7 +169,7 @@
                   <div class="app-item">
                     <div class="app-item-label">
                       {{ data.shortLabels ? item.shortLabel : item.label }}<br />
-                      ({{ (item.pageType ? "page_type." + item.pageType : "model." + item.model) | translate }})
+                      ({{ (item.pageType ? "pageType." + item.pageType : "model." + item.model) | translate }})
                     </div>
                   </div>
                 </div>
@@ -177,59 +177,59 @@
 
               <table mat-table *ngIf="data.viewModeDest == 'list'" [dataSource]="destTable" class="app-w-100" #table>
                 <ng-container matColumnDef="pid">
-                  <th mat-header-cell *matHeaderCellDef>{{'search.pid' | translate}} </th>
+                  <th mat-header-cell *matHeaderCellDef>{{'desc.pid' | translate}} </th>
                   <td mat-cell *matCellDef="let element"> {{element.pid}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="label">
-                  <th mat-header-cell *matHeaderCellDef> {{'search.name' | translate}}</th>
+                  <th mat-header-cell *matHeaderCellDef> {{'desc.name' | translate}}</th>
                   <td mat-cell *matCellDef="let element"> {{data.shortLabels ? element.shortLabel : element.label}}
                   </td>
                 </ng-container>
 
                 <ng-container matColumnDef="filename">
-                  <th mat-header-cell *matHeaderCellDef> {{'search.filename' | translate}}</th>
+                  <th mat-header-cell *matHeaderCellDef> {{'desc.fileName' | translate}}</th>
                   <td mat-cell *matCellDef="let element"> {{element.filename}}
                   </td>
                 </ng-container>
 
                 <ng-container matColumnDef="pageType">
-                  <th mat-header-cell *matHeaderCellDef> {{'search.pageType' | translate}}</th>
+                  <th mat-header-cell *matHeaderCellDef> {{'desc.pageType' | translate}}</th>
                   <td mat-cell *matCellDef="let element"> {{element.pageType}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="pageIndex">
-                  <th mat-header-cell *matHeaderCellDef> {{'search.pageIndex' | translate}}</th>
+                  <th mat-header-cell *matHeaderCellDef> {{'desc.pageIndex' | translate}}</th>
                   <td mat-cell *matCellDef="let element"> {{element.pageIndex}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="pageNumber">
-                  <th mat-header-cell *matHeaderCellDef> {{'search.pageNumber' | translate}}</th>
+                  <th mat-header-cell *matHeaderCellDef> {{'desc.pageNumber' | translate}}</th>
                   <td mat-cell *matCellDef="let element"> {{element.pageNumber}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="model">
-                  <th mat-header-cell *matHeaderCellDef> {{'search.model' | translate}} </th>
+                  <th mat-header-cell *matHeaderCellDef> {{'desc.model' | translate}} </th>
                   <td mat-cell *matCellDef="let element"> {{ 'model.' + element.model | translate}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="owner">
-                  <th mat-header-cell *matHeaderCellDef> {{'search.owner' | translate}} </th>
+                  <th mat-header-cell *matHeaderCellDef> {{'desc.owner' | translate}} </th>
                   <td mat-cell *matCellDef="let element"> {{element.owner}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="created">
-                  <th mat-header-cell *matHeaderCellDef> {{'search.created' | translate}} </th>
+                  <th mat-header-cell *matHeaderCellDef> {{'desc.created' | translate}} </th>
                   <td mat-cell *matCellDef="let element"> {{element.created | date : 'dd.MM.yyyy'}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="modified">
-                  <th mat-header-cell *matHeaderCellDef> {{'search.modified' | translate}} </th>
+                  <th mat-header-cell *matHeaderCellDef> {{'desc.modified' | translate}} </th>
                   <td mat-cell *matCellDef="let element"> {{element.modified | date : 'dd.MM.yyyy'}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="status">
-                  <th mat-header-cell *matHeaderCellDef> {{'search.status' | translate}} </th>
+                  <th mat-header-cell *matHeaderCellDef> {{'desc.status' | translate}} </th>
                   <td mat-cell *matCellDef="let element"> {{element.status}} </td>
                 </ng-container>
 
@@ -244,46 +244,22 @@
         </div>
       </as-split-area>
 
-      <as-split-area [size]="20" class="app-pl-4">
+      <as-split-area [size]="20">
         <app-viewer *ngIf="lastSelectedItemPid" [pid]="lastSelectedItemPid" [hideToolbar]="true" [idViewer]="'app-viewer-mark'"></app-viewer>
       </as-split-area>
-
-      <!-- <as-split-area [size]="20" class="app-pl-4">
-        <div class="app-mb-2">
-          <strong>{{ 'desc.selectTheFieldToCopyTo' | translate }}</strong>
-        </div>
-        <div>
-          <mat-checkbox color="primary" [(ngModel)]="pageType">{{ 'desc.editPageType' | translate }}</mat-checkbox>
-        </div>
-        <div>
-          <mat-checkbox color="primary" [(ngModel)]="pageIndex">{{ 'desc.editPageIndex' | translate }}</mat-checkbox>
-        </div>
-        <div>
-          <mat-checkbox color="primary" [(ngModel)]="pageNumber">{{ 'desc.editPageNumbers' | translate }}</mat-checkbox>
-        </div>
-        <div>
-          <mat-checkbox color="primary" [(ngModel)]="pagePosition">{{ 'desc.editPagePositions' | translate }}</mat-checkbox>
-        </div>
-      </as-split-area> -->
     </as-split>
   </div>
-  <div mat-dialog-actions cdk-focus-start>
-
-    <div>
-      <mat-checkbox color="primary" [(ngModel)]="pageType">{{ 'desc.editPageType' | translate }}</mat-checkbox>
+  
+  <div mat-dialog-actions cdk-focus-start fxLayout="row" fxLayoutGap="16px">
+    <div fxFlex>
+      <button mat-flat-button color="primary" (click)="save()" [matTooltip]="'button.save' | translate">{{ 'button.save' | translate }}</button>
+      <button mat-flat-button [mat-dialog-close]="changed">{{ 'button.close' | translate }}</button>
     </div>
     <div>
-      <mat-checkbox color="primary" [(ngModel)]="pageIndex">{{ 'desc.editPageIndex' | translate }}</mat-checkbox>
-    </div>
-    <div>
-      <mat-checkbox color="primary" [(ngModel)]="pageNumber">{{ 'desc.editPageNumbers' | translate }}</mat-checkbox>
-    </div>
-    <div>
+      <mat-checkbox color="primary" [(ngModel)]="pageType" class="app-mr-4">{{ 'desc.editPageType' | translate }}</mat-checkbox>
+      <mat-checkbox color="primary" [(ngModel)]="pageIndex" class="app-mr-4">{{ 'desc.editPageIndex' | translate }}</mat-checkbox>
+      <mat-checkbox color="primary" [(ngModel)]="pageNumber" class="app-mr-4">{{ 'desc.editPageNumbers' | translate }}</mat-checkbox>
       <mat-checkbox color="primary" [(ngModel)]="pagePosition">{{ 'desc.editPagePositions' | translate }}</mat-checkbox>
     </div>
-
-    <button mat-flat-button color="primary" (click)="save()" [matTooltip]="'button.save' | translate">{{ 'button.save' | translate }}</button>
-    <button mat-flat-button [mat-dialog-close]="changed">{{ 'common.close' | translate }}</button>
-
   </div>
 </div>

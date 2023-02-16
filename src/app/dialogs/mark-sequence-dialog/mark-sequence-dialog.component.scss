@@ -1,7 +1,11 @@
+@import './src/sass/app-variables';
+@import './src/sass/app-mixins';
+@import './src/sass/app-global';
+
 .app-selectedInOrig td {
-  color: red !important;
+  color: $app-color-warn;
 }
 
 .app-selectedInOrig .app-item-label {
-  color: red !important;
+  color: $app-color-warn;
 }
