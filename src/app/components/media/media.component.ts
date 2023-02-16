@@ -43,12 +43,21 @@ export class MediaComponent implements OnInit {
     return ['image/jpeg'].includes(this.streamProfile.mime);
   }
 
+  isPdf() {
+    return this.streamProfile.mime === 'application/pdf';
+  }
+
   isImage() {
     const isIma = ['image/tiff', 'image/jp2', 'image/jpeg'].includes(this.streamProfile.mime);
     if (isIma) {
       setTimeout(() => {this.state = 'ok'}, 100);
     }
     return isIma;
+  }
+
+  isAudio() {
+    // return ['audio/mpeg3'].includes(this.streamProfile.mime) ;
+    return this.streamProfile.mime.indexOf('audio') > -1 ;
   }
 
   hasProfile(stream: string) {

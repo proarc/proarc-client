@@ -21,9 +21,9 @@
 		</div>
   </div>
 	<div fxFlex class="app-oa-y">
-		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='head'" class="app-progress-bar"></mat-progress-bar>
+		<!-- <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='head'" class="app-progress-bar"></mat-progress-bar> -->
 		<div class="app-editor-content app-h-100" *ngIf="streamProfile">
-			<div class="app-pdf-wrapper" *ngIf="streamProfile.mime === 'application/pdf'">
+			<!-- <div class="app-pdf-wrapper" *ngIf="streamProfile.mime === 'application/pdf'">
 
 				<ngx-extended-pdf-viewer *ngIf="state === 'head' || state === 'ok'" 
 					[src]="pdfUrl" 
@@ -33,11 +33,10 @@
 					[useBrowserLocale]="true" ></ngx-extended-pdf-viewer>
 
 				<div *ngIf="state == 'empty'" class="app-empty">Žádný digitální obsah</div>
-			</div>
-			<!-- <div class="app-pdf-wrapper" *ngIf="isPlainImage()">
-				<img [src]="urlByStream()" (load)="state = 'ok'" />
 			</div> -->
+      <app-pdf *ngIf="isPdf()" [stream]="streamProfile.dsid" [pid]="currentPid"></app-pdf>
       <app-viewer *ngIf="isImage()" [pid]="currentPid" [stream]="streamProfile.dsid"></app-viewer>
+      <app-song *ngIf="isAudio()" [pid]="currentPid"></app-song>
 		</div>
     <div *ngIf="!streamProfile" class="app-empty">Žádný digitální obsah</div>
 	</div>
