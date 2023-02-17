@@ -36,7 +36,7 @@
         <button mat-flat-button color="primary" (click)="onEditBatchObject()" *ngIf="selectedBatch && selectedBatch.state === 'INGESTED' && selectedBatch.parentPid">
           {{ 'button.goToObject' | translate }}
         </button>
-        <button mat-flat-button color="primary" (click)="onReexport()" *ngIf="selectedBatch && selectedBatch.state === 'EXPORT_FAILED' && selectedBatch.parentPid">
+        <button mat-flat-button color="primary" (click)="onReexport()" *ngIf="selectedBatch && selectedBatch.state === 'EXPORT_FAILED'">
           {{ 'button.reexport' | translate }}
         </button>
       </ng-container>

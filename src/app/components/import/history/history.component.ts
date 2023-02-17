@@ -458,6 +458,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
   onReexport() {
     // TODO po Lukasi
+    
   }
 
   onStateChanged() {

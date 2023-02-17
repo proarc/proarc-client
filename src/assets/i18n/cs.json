@@ -2060,7 +2060,8 @@
     "zoomOut": "Přiblížit",
     "viewTable": "Zobrazit tabulku",
     "viewGrid": "Zobrazit mřížku",
-    "viewPreviews": "Zobrazit náhledy" 
+    "viewPreviews": "Zobrazit náhledy",
+    "reexport": "Znovu exportovat"
   },
   "dynamic": {
     "repo": "Úložiště",
