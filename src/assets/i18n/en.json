@@ -2019,7 +2019,10 @@
     "fileName": "File name",
     "pageType":"Page type",
     "pageIndex": "Page index",
-    "pageNumber": "Page number"
+    "pageNumber": "Page number",
+    "pageNumbers": "Page numbers",
+    "pagePositions": "Page positions",
+    "edit": "Edit"
   },
   "button": {
     "setLayout": "Set layout",

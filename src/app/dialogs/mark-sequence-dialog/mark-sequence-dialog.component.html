@@ -251,10 +251,11 @@
   </div>
 
   <div class="app-pt-4">
-    <mat-checkbox color="primary" [(ngModel)]="pageType" class="app-mr-4">{{ 'desc.editPageType' | translate }}</mat-checkbox>
-    <mat-checkbox color="primary" [(ngModel)]="pageIndex" class="app-mr-4">{{ 'desc.editPageIndex' | translate }}</mat-checkbox>
-    <mat-checkbox color="primary" [(ngModel)]="pageNumber" class="app-mr-4">{{ 'desc.editPageNumbers' | translate }}</mat-checkbox>
-    <mat-checkbox color="primary" [(ngModel)]="pagePosition">{{ 'desc.editPagePositions' | translate }}</mat-checkbox>
+    <span class="app-mr-4">{{ 'desc.edit' | translate }}:</span>
+    <mat-checkbox color="primary" [(ngModel)]="pageType" class="app-mr-4">{{ 'desc.pageType' | translate }}</mat-checkbox>
+    <mat-checkbox color="primary" [(ngModel)]="pageIndex" class="app-mr-4">{{ 'desc.pageIndex' | translate }}</mat-checkbox>
+    <mat-checkbox color="primary" [(ngModel)]="pageNumber" class="app-mr-4">{{ 'desc.pageNumbers' | translate }}</mat-checkbox>
+    <mat-checkbox color="primary" [(ngModel)]="pagePosition">{{ 'desc.pagePositions' | translate }}</mat-checkbox>
   </div>
   
   <div mat-dialog-actions cdk-focus-start>

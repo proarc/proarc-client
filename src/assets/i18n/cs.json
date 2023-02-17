@@ -2019,7 +2019,10 @@
     "fileName": "Název souboru",
     "pageType":"Typ strany",
     "pageIndex": "Index strany",
-    "pageNumber": "Číslo strany"
+    "pageNumber": "Číslo strany",
+    "pageNumbers": "Čísla stran",
+    "pagePositions": "Pozice stran",
+    "edit": "Editovat"
   },
   "button": {
     "setLayout": "nastavit rozložení",
