@@ -10,6 +10,7 @@ import { ElementField } from 'src/app/model/mods/elementField.model';
 export class EditorGenreComponent implements OnInit {
 
   @Input() field: ElementField;
+  @Input() showGenreSwitch: boolean;
 
   constructor() {
   }

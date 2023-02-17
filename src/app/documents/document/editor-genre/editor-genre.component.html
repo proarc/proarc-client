@@ -1,11 +1,10 @@
 
-<div class="app-p-2">
+<div class="app-p-2" *ngIf="showGenreSwitch">
   <mat-radio-group aria-label="'standard'" [(ngModel)]="field.getItems()[0].attrs['type']" color="primary">
-      <mat-radio-button value="peer-reviewed">peer-reviewed</mat-radio-button>
-      <mat-radio-button value="none">none</mat-radio-button>
+      <mat-radio-button [value]="'peer-reviewed'">Recenzovaný článek</mat-radio-button>
+      <mat-radio-button [value]="''">Nerecenzovaný článek</mat-radio-button>
   </mat-radio-group>
 </div>
-
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
 

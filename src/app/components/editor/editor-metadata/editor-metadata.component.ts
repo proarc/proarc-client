@@ -227,4 +227,8 @@ export class EditorMetadataComponent implements OnInit {
     this.metadata = this.layout.lastSelectedItemMetadata;
   }
 
+  showGenreSwitch() {
+    return this.metadata.model === 'model:ndkearticle' || this.metadata.model === 'model:bdmarticle';
+  }
+
 }

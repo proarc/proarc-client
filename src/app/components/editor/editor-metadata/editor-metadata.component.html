@@ -26,6 +26,7 @@
 	<div fxFlex class="app-oa-y">
 		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
 		<div class="app-editor-content" *ngIf="visible && metadata && state !=='loading'">
+			<app-editor-genre *ngIf="available('genre') && showGenreSwitch()" [field]="metadata.getField('genre')" [showGenreSwitch]="showGenreSwitch()"></app-editor-genre>
 			<app-editor-title *ngIf="available('titleInfo')" [field]="metadata.getField('titleInfo')"></app-editor-title>
 			<app-editor-publisher *ngIf="available('originInfo')" [field]="metadata.getField('originInfo')"></app-editor-publisher>
 			<app-editor-author *ngIf="available('name')" [field]="metadata.getField('name')" [model]="model"></app-editor-author>
@@ -36,7 +37,7 @@
 			<app-editor-abstract *ngIf="available('abstract')" [field]="metadata.getField('abstract')"></app-editor-abstract>
 			<app-editor-physical *ngIf="available('physicalDescription')" [field]="metadata.getField('physicalDescription')"></app-editor-physical>
 			<app-editor-note *ngIf="available('note')" [field]="metadata.getField('note')"></app-editor-note>
-			<app-editor-genre *ngIf="available('genre')" [field]="metadata.getField('genre')"></app-editor-genre>
+			<app-editor-genre *ngIf="available('genre') && !showGenreSwitch()" [field]="metadata.getField('genre')" ></app-editor-genre>
 			<app-editor-classification *ngIf="available('classification')" [field]="metadata.getField('classification')"></app-editor-classification>
 			<app-editor-resource *ngIf="available('typeOfResource')" [field]="metadata.getField('typeOfResource')"></app-editor-resource>
 			<app-editor-tableOfContents *ngIf="available('tableOfContents')" [field]="metadata.getField('tableOfContents')"></app-editor-tableOfContents>

@@ -22,7 +22,7 @@
     <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
     <div class="app-editor-content" *ngIf="metadata">
 
-      <app-editor-genre *ngIf="available('genre')" [field]="metadata.getField('genre')"></app-editor-genre>
+      <app-editor-genre *ngIf="available('genre')" [field]="metadata.getField('genre')" [showGenreSwitch]="true"></app-editor-genre>
       <app-editor-language *ngIf="available('language')" [field]="metadata.getField('language')"></app-editor-language>
       <app-editor-identifier *ngIf="available('identifier')"
                              [field]="metadata.getField('identifier')"></app-editor-identifier>
