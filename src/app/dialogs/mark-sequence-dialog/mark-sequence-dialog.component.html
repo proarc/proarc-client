@@ -1,6 +1,6 @@
 <div fxLayout="column" fxFlexFill>
   <div fxLayout="row" fxLayoutGap="16px">
-    <h1 mat-dialog-title fxFlex>{{ 'desc.markRow' | translate }}</h1>
+    <h1 mat-dialog-title>{{ 'desc.markRow' | translate }}</h1>
     <button mat-flat-button color="primary" (click)="markSequence()">{{ 'button.markRow' | translate }}</button>
   </div>
   
@@ -249,17 +249,18 @@
       </as-split-area>
     </as-split>
   </div>
+
+  <div class="app-pt-4">
+    <mat-checkbox color="primary" [(ngModel)]="pageType" class="app-mr-4">{{ 'desc.editPageType' | translate }}</mat-checkbox>
+    <mat-checkbox color="primary" [(ngModel)]="pageIndex" class="app-mr-4">{{ 'desc.editPageIndex' | translate }}</mat-checkbox>
+    <mat-checkbox color="primary" [(ngModel)]="pageNumber" class="app-mr-4">{{ 'desc.editPageNumbers' | translate }}</mat-checkbox>
+    <mat-checkbox color="primary" [(ngModel)]="pagePosition">{{ 'desc.editPagePositions' | translate }}</mat-checkbox>
+  </div>
   
-  <div mat-dialog-actions cdk-focus-start fxLayout="row" fxLayoutGap="16px">
-    <div fxFlex>
+  <div mat-dialog-actions cdk-focus-start>
+    <div>
       <button mat-flat-button color="primary" (click)="save()" [matTooltip]="'button.save' | translate">{{ 'button.save' | translate }}</button>
       <button mat-flat-button [mat-dialog-close]="changed">{{ 'button.close' | translate }}</button>
-    </div>
-    <div>
-      <mat-checkbox color="primary" [(ngModel)]="pageType" class="app-mr-4">{{ 'desc.editPageType' | translate }}</mat-checkbox>
-      <mat-checkbox color="primary" [(ngModel)]="pageIndex" class="app-mr-4">{{ 'desc.editPageIndex' | translate }}</mat-checkbox>
-      <mat-checkbox color="primary" [(ngModel)]="pageNumber" class="app-mr-4">{{ 'desc.editPageNumbers' | translate }}</mat-checkbox>
-      <mat-checkbox color="primary" [(ngModel)]="pagePosition">{{ 'desc.editPagePositions' | translate }}</mat-checkbox>
     </div>
   </div>
 </div>
