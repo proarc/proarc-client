@@ -1977,7 +1977,7 @@
     "editing": "Editing",
     "batchManagement": "Batch management",
     "selectResources": "Select resources",
-    "selectTheTargets": "Select the targets",
+    "selectTheTarget": "Select the target",
     "editPageType": "Edit page type",
     "editPageIndex": "Edit page index",
     "editPageNumbers": "Edit page numbers",
@@ -2020,8 +2020,7 @@
     "pageType":"Page type",
     "pageIndex": "Page index",
     "pageNumber": "Page number",
-    "pageNumbers": "Page numbers",
-    "pagePositions": "Page positions",
+    "pagePosition": "Page position",
     "edit": "Edit"
   },
   "button": {
@@ -2064,7 +2063,9 @@
     "viewTable": "View table",
     "viewGrid": "View grid",
     "viewPreviews": "View previews" ,
-    "reexport": "Repeat export"
+    "reexport": "Repeat export",
+    "create": "Create",
+    "loadMetadataFromCatalog": "Load metadata from catalog"
   },
   "dynamic": {
     "repo": "Storage",
@@ -2242,6 +2243,15 @@
       "alert": {
         "success": "Import success",
         "failure": "Import failed"
+      }
+    },
+    "newObject": {
+      "title": "",
+      "message": "",
+      "alert": {
+        "info": "",
+        "success": "",
+        "failure": ""
       }
     }
   },

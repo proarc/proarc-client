@@ -1977,7 +1977,7 @@
     "editing": "Editace",
     "batchManagement": "Správa dávek",
     "selectResources": "Vyberte zdroje",
-    "selectTheTargets": "Vyberte cíle",
+    "selectTheTarget": "Vyberte cíl",
     "editPageType": "Editovat typ stran",
     "editPageIndex": "Editovat index stran",
     "editPageNumbers": "Editovat čísla stran",
@@ -2020,8 +2020,7 @@
     "pageType":"Typ strany",
     "pageIndex": "Index strany",
     "pageNumber": "Číslo strany",
-    "pageNumbers": "Čísla stran",
-    "pagePositions": "Pozice stran",
+    "pagePosition": "Pozice strany",
     "edit": "Editovat"
   },
   "button": {
@@ -2064,7 +2063,9 @@
     "viewTable": "Zobrazit tabulku",
     "viewGrid": "Zobrazit mřížku",
     "viewPreviews": "Zobrazit náhledy",
-    "reexport": "Znovu exportovat"
+    "reexport": "Znovu exportovat",
+    "create": "Vytvořit",
+    "loadMetadataFromCatalog": "Načíst metadata z katalogu"
   },
   "dynamic": {
     "repo": "Úložiště",
@@ -2242,6 +2243,15 @@
       "alert": {
         "success": "Import proběhl v pořádku",
         "failure": "Import se nezdařil"
+      }
+    },
+    "newObject": {
+      "title": "",
+      "message": "",
+      "alert": {
+        "info": "",
+        "success": "",
+        "failure": ""
       }
     }
   },
