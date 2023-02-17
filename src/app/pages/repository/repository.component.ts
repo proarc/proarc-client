@@ -219,9 +219,8 @@ export class RepositoryComponent implements OnInit {
     const rDoc = this.api.getDocument(pid);
     const rChildren = this.api.getRelations(pid);
     const rParent = this.api.getParent(pid);
-    const rProfiles = this.api.getStreamProfile(pid);
-    forkJoin([rDoc, rChildren, rParent, rProfiles]).subscribe(([item, children, parent, profiles]: [DocumentItem, DocumentItem[], DocumentItem, any]) => {
-      console.log(profiles)
+    // const rProfiles = this.api.getStreamProfile(pid);
+    forkJoin([rDoc, rChildren, rParent]).subscribe(([item, children, parent]: [DocumentItem, DocumentItem[], DocumentItem]) => {
       this.layout.item = item;
       this.layout.lastSelectedItem = item;
       this.layout.items = children;

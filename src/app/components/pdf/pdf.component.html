@@ -31,7 +31,8 @@
 					[src]="pdfUrl" 
 					[height]="'100%'" 
 					(pdfLoaded)="state = 'ok'" 
-					[enablePrint]="false"
+					[enablePrint]="false" [showOpenFileButton]="false" [showEditor]="false" 
+					[language]="getLang()"
 					[useBrowserLocale]="true" ></ngx-extended-pdf-viewer>
 
 				<div *ngIf="state == 'empty'" class="app-empty">Žádný digitální obsah</div>

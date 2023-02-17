@@ -12,16 +12,17 @@
         </div>
     </div>
 
-<div class="app-editor-content" *ngIf="metaService.metadata">
-  <app-editor-chronicle-location *ngIf="available('location')" [field]="metaService.metadata.getField('location')"></app-editor-chronicle-location>
-  <app-editor-identifier *ngIf="available('identifier')" [field]="metaService.metadata.getField('identifier')"></app-editor-identifier>
-  <app-editor-genre *ngIf="available('genre')" [field]="metaService.metadata.getField('genre')"></app-editor-genre>
-  <app-editor-title *ngIf="available('titleInfo')" [field]="metaService.metadata.getField('titleInfo')"></app-editor-title>
-  <app-editor-abstract *ngIf="available('abstract')" [field]="metaService.metadata.getField('abstract')"></app-editor-abstract>
-  <app-editor-language *ngIf="available('language')" [field]="metaService.metadata.getField('language')"></app-editor-language>
-  <app-editor-publisher *ngIf="available('originInfo')" [field]="metaService.metadata.getField('originInfo')"></app-editor-publisher>
-  <app-editor-author *ngIf="available('name')" [field]="metaService.metadata.getField('name')"></app-editor-author>
-  <app-editor-note *ngIf="available('note')" [field]="metaService.metadata.getField('note')"></app-editor-note>
+<div class="app-editor-content" *ngIf="metadata">
+  <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
+  <app-editor-chronicle-location *ngIf="available('location')" [field]="metadata.getField('location')"></app-editor-chronicle-location>
+  <app-editor-identifier *ngIf="available('identifier')" [field]="metadata.getField('identifier')"></app-editor-identifier>
+  <app-editor-genre *ngIf="available('genre')" [field]="metadata.getField('genre')"></app-editor-genre>
+  <app-editor-title *ngIf="available('titleInfo')" [field]="metadata.getField('titleInfo')"></app-editor-title>
+  <app-editor-abstract *ngIf="available('abstract')" [field]="metadata.getField('abstract')"></app-editor-abstract>
+  <app-editor-language *ngIf="available('language')" [field]="metadata.getField('language')"></app-editor-language>
+  <app-editor-publisher *ngIf="available('originInfo')" [field]="metadata.getField('originInfo')"></app-editor-publisher>
+  <app-editor-author *ngIf="available('name')" [field]="metadata.getField('name')"></app-editor-author>
+  <app-editor-note *ngIf="available('note')" [field]="metadata.getField('note')"></app-editor-note>
 
   <!--
 
@@ -50,13 +51,5 @@
   <app-editor-relatedItem *ngIf="available('relatedItem')" [field]="editor.metadata.getField('relatedItem')"></app-editor-relatedItem>
     -->
 </div>
-
-<mat-spinner *ngIf="state === 'loading'"
-          [strokeWidth]="5"
-          [diameter]="60"
-          class="center-spinner">
-</mat-spinner>
-
-
 
 </div>

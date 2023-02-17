@@ -66,6 +66,14 @@
     "resolver": "Resolver",
     "register": "Register"
   },
+  "streamProfile": {
+    "FULL": "Detail",
+    "PREVIEW": "Preview",
+    "RAW": "Original",
+    "THUMBNAIL": "Icon",
+    "NDK_ARCHIVAL": "Archive copy",
+    "NDK_USER": "User copy"
+  },
   "export": {
     "title": "Export",
     "type": "Export Type",
@@ -2068,7 +2076,8 @@
     "pdf": "Pdf",
     "comment": "Comment",
     "image": "Image",
-    "premis": "PREMIS XML"
+    "premis": "PREMIS XML",
+    "media": "Media"
   },
   "model": {  
     "model:periodical": "K4 Periodical",

@@ -39,13 +39,23 @@ export class PdfComponent implements OnInit {
 
   ngOnInit() {
   }
-  
+
+  getLang(): string {
+    const lang = localStorage.getItem('lang');
+    if (lang) {
+      return lang;
+    } else {
+      return 'cs';
+    }
+  }
 
   onPidChanged(pid: string) {
     this.currentPid = pid;
     this.state = 'loading';
     this.pdfUrl = this.api.getStreamUrl(pid, this.currentStream);
-    
+    if (!pid) {
+      return;
+    }
     this.api.headStream(pid, 'RAW').subscribe((response: any) => {
       if (!response) {
         this.state = 'head';

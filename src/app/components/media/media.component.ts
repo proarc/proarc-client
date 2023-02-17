@@ -73,17 +73,17 @@ export class MediaComponent implements OnInit {
         this.streamProfiles = response.response.data;
         if (this.streamProfiles.length > 0) {
           this.streamProfile = this.streamProfiles[0];
-          this.api.headStream(pid, this.streamProfile.dsid).subscribe((response: any) => {
-            if (!response) {
-              this.state = 'head';
-            } else if (response?.response && response.response.status === 200) {
-              this.state = 'head';
-            } else if (response?.response && response.response.status === 404) {
-              this.state = 'empty';
-            } else {
-              this.state = 'error';
-            }
-          });
+          // this.api.headStream(pid, this.streamProfile.dsid).subscribe((response: any) => {
+          //   if (!response) {
+          //     this.state = 'head';
+          //   } else if (response?.response && response.response.status === 200) {
+          //     this.state = 'head';
+          //   } else if (response?.response && response.response.status === 404) {
+          //     this.state = 'empty';
+          //   } else {
+          //     this.state = 'error';
+          //   }
+          // });
         } else {
           this.state = 'empty';
           this.streamProfile = null;

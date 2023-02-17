@@ -79,6 +79,14 @@
     "revision": "Revize",
     "message": "<p>Produkční a archivační systém je nástroj pro výrobu a úpravu popisných, administrativních a technických metadat. Vývoj probíhá pod licencí <a href=\"http://www.gnu.org/licenses/gpl.html\" target=\"_blank\">GNU GPL v3.</a></p>"
   },
+  "streamProfile": {
+    "FULL": "Detailní náhled",
+    "PREVIEW": "Náhled",
+    "RAW": "Originál",
+    "THUMBNAIL": "Ikona",
+    "NDK_ARCHIVAL": "Archivní kopie",
+    "NDK_USER": "Uživatelská kopie"
+  },
   "export": {
     "title": "Export",
     "type": "Typ exportu",
@@ -2068,7 +2076,8 @@
     "pdf": "Pdf",
     "comment": "Komentář",
     "image": "Obrázek",
-    "premis": "PREMIS"
+    "premis": "PREMIS",
+    "media": "Media"
   },
   "model": {
     "model:periodical": "K4 Periodikum",
