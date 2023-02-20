@@ -2021,7 +2021,13 @@
     "pageIndex": "Page index",
     "pageNumber": "Page number",
     "pagePosition": "Page position",
-    "edit": "Edit"
+    "edit": "Edit",
+    "ownPid": "Own pid",
+    "more": "More",
+    "numberFrom": "Number from",
+    "dateFrom": "Date from",
+    "dateTo": "Date to",
+    "releasedIn": "Released in"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2246,12 +2252,11 @@
       }
     },
     "newObject": {
-      "title": "",
-      "message": "",
+      "title": "New object",
+      "message": "If necessary, it is possible to choose the object's own PID in the form uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.\nThe PID must not already be assigned to another object.",
       "alert": {
-        "info": "",
-        "success": "",
-        "failure": ""
+        "invalidPid": "The PID does not match the form uuid:xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+        "failure": "The object could not be created"
       }
     }
   },

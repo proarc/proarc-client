@@ -41,7 +41,11 @@ export class NavbarComponent implements OnInit {
       model: this.properties.getStringProperty('search.model', this.config.defaultModel),
       customPid: false
     }
-    const dialogRef = this.dialog.open(NewObjectDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(NewObjectDialogComponent, { 
+      data: data,
+      width: '600px',
+      panelClass: 'app-dialog-new-bject'
+     });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['pid']) {
         if (result.isMultiple) {

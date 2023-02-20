@@ -2021,7 +2021,13 @@
     "pageIndex": "Index strany",
     "pageNumber": "Číslo strany",
     "pagePosition": "Pozice strany",
-    "edit": "Editovat"
+    "edit": "Editovat",
+    "ownPid": "Vlastní pid",
+    "more": "Více",
+    "numberFrom": "Číslo od",
+    "dateFrom": "Datum od",
+    "dateTo": "Datum do",
+    "releasedIn": "Vydáno v"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2246,12 +2252,11 @@
       }
     },
     "newObject": {
-      "title": "",
-      "message": "",
+      "title": "Nový objekt",
+      "message": "V případě potřeby je možné zvolit vlastní PID objektu ve tvaru uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.\nPID nesmí být již přidělen jinému objektu.",
       "alert": {
-        "info": "",
-        "success": "",
-        "failure": ""
+        "invalidPid": "PID neodpovídá tvaru uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+        "failure": "Objekt se nepodařilo vytvořit"
       }
     }
   },
