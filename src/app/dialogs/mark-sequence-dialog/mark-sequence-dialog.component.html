@@ -11,7 +11,7 @@
           <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-action">
             <div fxFlex>
               <div class="app-toolbar-label">
-                <span class="app-text">{{ 'desc.selectTheTargets' | translate }}</span>
+                <span class="app-text">{{ 'desc.selectTheTarget' | translate }}</span>
               </div>
             </div>
             <div>
@@ -76,7 +76,7 @@
 
                 <ng-container matColumnDef="pageType">
                   <th mat-header-cell *matHeaderCellDef> {{'desc.pageType' | translate}}</th>
-                  <td mat-cell *matCellDef="let element"> {{element.pageType}} </td>
+                  <td mat-cell *matCellDef="let element"> {{ "pageType." + element.pageType | translate }} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="pageIndex">
@@ -129,7 +129,7 @@
           <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-action">
             <div fxFlex>
               <div class="app-toolbar-label">
-                <span class="app-text">{{ 'desc.selectTheTargets' | translate }}</span>
+                <span class="app-text">{{ 'desc.selectTheTarget' | translate }}</span>
               </div>
             </div>
             <div>
@@ -251,10 +251,11 @@
   </div>
 
   <div class="app-pt-4">
-    <mat-checkbox color="primary" [(ngModel)]="pageType" class="app-mr-4">{{ 'desc.editPageType' | translate }}</mat-checkbox>
-    <mat-checkbox color="primary" [(ngModel)]="pageIndex" class="app-mr-4">{{ 'desc.editPageIndex' | translate }}</mat-checkbox>
-    <mat-checkbox color="primary" [(ngModel)]="pageNumber" class="app-mr-4">{{ 'desc.editPageNumbers' | translate }}</mat-checkbox>
-    <mat-checkbox color="primary" [(ngModel)]="pagePosition">{{ 'desc.editPagePositions' | translate }}</mat-checkbox>
+    <span class="app-mr-4">{{ 'desc.edit' | translate }}:</span>
+    <mat-checkbox color="primary" [(ngModel)]="pageType" class="app-mr-4">{{ 'desc.pageType' | translate }}</mat-checkbox>
+    <mat-checkbox color="primary" [(ngModel)]="pageNumber" class="app-mr-4">{{ 'desc.pageNumber' | translate }}</mat-checkbox>
+    <mat-checkbox color="primary" [(ngModel)]="pageIndex" class="app-mr-4">{{ 'desc.pageIndex' | translate }}</mat-checkbox>
+    <mat-checkbox color="primary" [(ngModel)]="pagePosition">{{ 'desc.pagePosition' | translate }}</mat-checkbox>
   </div>
   
   <div mat-dialog-actions cdk-focus-start>

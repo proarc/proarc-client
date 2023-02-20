@@ -1977,7 +1977,7 @@
     "editing": "Editace",
     "batchManagement": "Správa dávek",
     "selectResources": "Vyberte zdroje",
-    "selectTheTargets": "Vyberte cíle",
+    "selectTheTarget": "Vyberte cíl",
     "editPageType": "Editovat typ stran",
     "editPageIndex": "Editovat index stran",
     "editPageNumbers": "Editovat čísla stran",
@@ -2019,7 +2019,15 @@
     "fileName": "Název souboru",
     "pageType":"Typ strany",
     "pageIndex": "Index strany",
-    "pageNumber": "Číslo strany"
+    "pageNumber": "Číslo strany",
+    "pagePosition": "Pozice strany",
+    "edit": "Editovat",
+    "ownPid": "Vlastní pid",
+    "more": "Více",
+    "numberFrom": "Číslo od",
+    "dateFrom": "Datum od",
+    "dateTo": "Datum do",
+    "releasedIn": "Vydáno v"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2061,7 +2069,9 @@
     "viewTable": "Zobrazit tabulku",
     "viewGrid": "Zobrazit mřížku",
     "viewPreviews": "Zobrazit náhledy",
-    "reexport": "Znovu exportovat"
+    "reexport": "Znovu exportovat",
+    "create": "Vytvořit",
+    "loadMetadataFromCatalog": "Načíst metadata z katalogu"
   },
   "dynamic": {
     "repo": "Úložiště",
@@ -2239,6 +2249,14 @@
       "alert": {
         "success": "Import proběhl v pořádku",
         "failure": "Import se nezdařil"
+      }
+    },
+    "newObject": {
+      "title": "Nový objekt",
+      "message": "V případě potřeby je možné zvolit vlastní PID objektu ve tvaru uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.\nPID nesmí být již přidělen jinému objektu.",
+      "alert": {
+        "invalidPid": "PID neodpovídá tvaru uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+        "failure": "Objekt se nepodařilo vytvořit"
       }
     }
   },

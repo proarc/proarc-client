@@ -1977,7 +1977,7 @@
     "editing": "Editing",
     "batchManagement": "Batch management",
     "selectResources": "Select resources",
-    "selectTheTargets": "Select the targets",
+    "selectTheTarget": "Select the target",
     "editPageType": "Edit page type",
     "editPageIndex": "Edit page index",
     "editPageNumbers": "Edit page numbers",
@@ -2019,7 +2019,15 @@
     "fileName": "File name",
     "pageType":"Page type",
     "pageIndex": "Page index",
-    "pageNumber": "Page number"
+    "pageNumber": "Page number",
+    "pagePosition": "Page position",
+    "edit": "Edit",
+    "ownPid": "Own pid",
+    "more": "More",
+    "numberFrom": "Number from",
+    "dateFrom": "Date from",
+    "dateTo": "Date to",
+    "releasedIn": "Released in"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2061,7 +2069,9 @@
     "viewTable": "View table",
     "viewGrid": "View grid",
     "viewPreviews": "View previews" ,
-    "reexport": "Repeat export"
+    "reexport": "Repeat export",
+    "create": "Create",
+    "loadMetadataFromCatalog": "Load metadata from catalog"
   },
   "dynamic": {
     "repo": "Storage",
@@ -2239,6 +2249,14 @@
       "alert": {
         "success": "Import success",
         "failure": "Import failed"
+      }
+    },
+    "newObject": {
+      "title": "New object",
+      "message": "If necessary, it is possible to choose the object's own PID in the form uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.\nThe PID must not already be assigned to another object.",
+      "alert": {
+        "invalidPid": "The PID does not match the form uuid:xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+        "failure": "The object could not be created"
       }
     }
   },

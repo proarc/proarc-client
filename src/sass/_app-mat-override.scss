@@ -124,7 +124,8 @@
     justify-content: center;
 
     .mat-icon {
-      @extend .app-mr-1;
+      @include setIcon(18);
+      @extend .app-mr-2;
     }
   }
 }
