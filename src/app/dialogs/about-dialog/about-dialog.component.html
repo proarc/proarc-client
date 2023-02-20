@@ -1,6 +1,6 @@
-<h1 mat-dialog-title>{{ 'modal.about.title' | translate }}</h1>
+<h1 mat-dialog-title>{{ 'dialog.about.title' | translate }}</h1>
 <div mat-dialog-content>
-  <p [innerHTML]="'modal.about.message' | translate"></p>
+  <p [innerHTML]="'dialog.about.message' | translate"></p>
   <div class="app-mb-4">
     <h3 class="app-m-0">{{ 'desc.client' | translate }}</h3>
     <ng-container *ngIf="clientInfo">
@@ -18,5 +18,3 @@
 <div mat-dialog-actions cdk-focus-start>
   <button mat-flat-button color="default" mat-dialog-close="close" >{{ 'button.close' | translate }}</button>
 </div>
-
-
