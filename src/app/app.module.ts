@@ -9,7 +9,7 @@ import { EditorLocationComponent } from './documents/document/editor-location/ed
 import { ModsEditorComponent } from './documents/document/mods-editor/mods-editor.component';
 import { EditorAuthorComponent } from './documents/document/editor-author/editor-author.component';
 import { EditorLanguageComponent } from './documents/document/editor-language/editor-language.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { ApiService } from './services/api.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
@@ -281,6 +281,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReactiveFormsModule,
     MaterialModule,
     HttpClientModule,
+    HttpClientJsonpModule,
     AngularResizeEventModule,
     AngularSplitModule.forRoot(),
     HighlightModule,

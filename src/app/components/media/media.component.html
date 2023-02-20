@@ -10,7 +10,10 @@
         <mat-select name="profiles" [(ngModel)]="streamProfile">
           <mat-option *ngFor="let p of streamProfiles" [value]="p">{{ 'streamProfile.' + p.dsid | translate }}</mat-option>
         </mat-select>
-      </mat-form-field>
+      </mat-form-field> 
+			<button mat-icon-button  [matTooltip]="'viewer.tooltip.lockPanel' | translate" (click)="changeLockPanel()" [class.app-active]="isLocked">
+				<mat-icon>push_pin</mat-icon>
+			</button>   
 		</div>
   </div>
 	<div fxFlex class="app-oa-y">

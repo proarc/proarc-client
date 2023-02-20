@@ -7,7 +7,6 @@ import { LayoutService } from 'src/app/services/layout.service';
 import { Metadata } from 'src/app/model/metadata.model';
 import { ApiService } from 'src/app/services/api.service';
 import { UIService } from 'src/app/services/ui.service';
-import { MetadataService } from 'src/app/services/metadata.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

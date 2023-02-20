@@ -5,7 +5,6 @@ import {SimpleDialogData} from '../../../dialogs/simple-dialog/simple-dialog';
 import {SimpleDialogComponent} from '../../../dialogs/simple-dialog/simple-dialog.component';
 import { Metadata } from 'src/app/model/metadata.model';
 import { LayoutService } from 'src/app/services/layout.service';
-import { MetadataService } from 'src/app/services/metadata.service';
 import { ApiService } from 'src/app/services/api.service';
 import { UIService } from 'src/app/services/ui.service';
 import { TranslateService } from '@ngx-translate/core';

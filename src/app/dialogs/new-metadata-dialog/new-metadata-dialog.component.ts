@@ -6,7 +6,6 @@ import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Metadata } from 'src/app/model/metadata.model';
 import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
-import { MetadataService } from 'src/app/services/metadata.service';
 import { UIService } from 'src/app/services/ui.service';
 import { NewObjectDialogComponent } from '../new-object-dialog/new-object-dialog.component';
 import { SimpleDialogData } from '../simple-dialog/simple-dialog';

@@ -9,6 +9,7 @@ import { StreamProfile } from 'src/app/model/stream-profile';
 import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { RepositoryService } from 'src/app/services/repository.service';
+import { TemplateService } from 'src/app/services/template.service';
 import { UIService } from 'src/app/services/ui.service';
 import { ModelTemplate } from 'src/app/templates/modelTemplate';
 import { defaultLayoutConfig, IConfig, LayoutAdminComponent } from '../layout-admin/layout-admin.component';
@@ -38,6 +39,7 @@ export class RepositoryComponent implements OnInit {
     private repo: RepositoryService,
     public layout: LayoutService,
     private ui: UIService,
+    private tmpl: TemplateService,
     private api: ApiService
   ) { }
 
@@ -147,11 +149,6 @@ export class RepositoryComponent implements OnInit {
         Object.assign(this.layout.lastSelectedItem, item);
         this.layout.lastSelectedItem.selected = selected;
         this.layout.lastSelectedItemMetadata = new Metadata(pid, model, respMeta['record']['content'], respMeta['record']['timestamp'], respMeta['record']['standard']);
-        // const meta = new Metadata(pid, model, respMeta['record']['content'], respMeta['record']['timestamp']);
-        //Object.assign(this.layout.lastSelectedItemMetadata, meta);
-        // if (!!from) {
-        //   this.layout.shouldMoveToNext(from);
-        // }
       });
     } else if(from === 'pages') {
       this.refreshPages();
@@ -289,7 +286,12 @@ export class RepositoryComponent implements OnInit {
         this.ui.showErrorSnackBarFromObject(response.errors);
         return;
       }
-      this.layout.lastSelectedItemMetadata = new Metadata(pid, model, response['record']['content'], response['record']['timestamp'], response['record']['standard']);
+      
+      const standard = Metadata.resolveStandard(response['record']['content']);
+      this.tmpl.getTemplate(standard, model).subscribe((tmpl: any) => {
+        this.layout.lastSelectedItemMetadata = new Metadata(pid, model, response['record']['content'], response['record']['timestamp'], response['record']['standard'], tmpl);
+      })
+      // this.layout.lastSelectedItemMetadata = new Metadata(pid, model, response['record']['content'], response['record']['timestamp'], response['record']['standard']);
       
     });
   }

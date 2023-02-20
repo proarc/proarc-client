@@ -41,7 +41,8 @@
             ],
             "scripts": [
               "src/assets/js/ol.js",
-              "src/assets/js/jquery.min.js"
+              "src/assets/js/jquery.min.js",
+              "node_modules/json-6/lib/json6.js"
             ]
           },
           "configurations": {

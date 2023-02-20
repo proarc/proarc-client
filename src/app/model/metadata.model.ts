@@ -24,8 +24,11 @@ import { ModsPart } from './mods/part.model';
 import { ModsRecordInfo } from './mods/recordInfo.model';
 import { ModsTableOfContents } from './mods/tableOfContents';
 import { ModsRelatedItem } from './mods/relatedItem.model';
-import { Subject, Observable, ReplaySubject } from 'rxjs';
 declare var $: any;
+
+import * as JSON5 from 'json5';
+// import * as JSON6 from 'json-6';
+// declare var JSON6: any;
 
 export class Metadata {
 
@@ -65,11 +68,12 @@ export class Metadata {
   public template: { [x: string]: boolean; };
   public standard: string;
 
-  constructor(pid: string, model: string, mods: string, timestamp: number, standard: string) {
+  constructor(pid: string, model: string, mods: string, timestamp: number, standard: string, template: any = null) {
     this.pid = pid;
     this.timestamp = timestamp;
     this.standard = standard;
     this.model = model;
+    this.template = template;
     if (localStorage.getItem('expandedModels')) {
       localStorage.setItem('metadata.allExpanded', JSON.parse(localStorage.getItem('expandedModels').includes(model).toString()));
     }
@@ -82,7 +86,7 @@ export class Metadata {
 
 
   public static fromMods(mods: Mods, model: string) {
-    return new Metadata(mods.pid, model, mods.content, mods.timestamp, null);
+    return new Metadata(mods.pid, model, mods.content, mods.timestamp, null, null);
   }
 
   // public isVolume(): boolean {
@@ -129,8 +133,6 @@ export class Metadata {
     return valid;
   }
 
-
-
   expandRequired(): boolean {
     let valid = true;
     for (const id of this.fieldsIds) {
@@ -153,7 +155,7 @@ export class Metadata {
     return valid;
   }
 
-  private resolveStandard(data: { [x: string]: any; }): string {
+  static resolveStandard(data: { [x: string]: any; }): string {
     let standard = '';
     let mods: any = data;
     if (data['modsCollection']) {
@@ -185,10 +187,13 @@ export class Metadata {
 
   private processMods(data: any) {
     if (!this.standard) {
-      this.standard = this.resolveStandard(data);
+      this.standard = Metadata.resolveStandard(data);
     }
+
+    // if (!this.template) {
+    //   this.template = ModelTemplate.data[this.standard][this.model];
+    // }
     
-    this.template = ModelTemplate.data[this.standard][this.model];
     if (!this.template) {
       return;
     }

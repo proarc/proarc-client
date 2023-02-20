@@ -119,7 +119,7 @@ export class ApiService {
       console.log("Service Unavailable");
       const url = me.router.routerState.snapshot.url;
       if (me.router) {
-        me.router.navigate(['/login'], {url: url, err: '503'});
+        me.router.navigate(['/login'], { url: url, err: '503' });
       }
     } else if (error.status === 403) {
       // Forbiden. Redirect to login

@@ -1,162 +1,162 @@
-import { NdkMapAacrTemplate } from "./aacr/ndkMap.aacr.template";
-import { NdkMapRdaTemplate } from "./rda/ndkMap.rda.template";
-import { NdkMonographSupplementAacrTemplate } from "./aacr/ndkMonographsupplement.aacr.template";
-import { NdkMonographSupplementRdaTemplate } from "./rda/ndkMonographsupplement.rda.template";
-import { NdkMonographTitleAacrTemplate } from "./aacr/ndkMonographtitle.aacr.template";
-import { NdkMonographTitleRdaTemplate } from "./rda/ndkMonographtitle.rda.template";
-import { NdkMonographVolumeAacrTemplate } from "./aacr/ndkMonographvolume.aacr.template";
-import { NdkMonographVolumeRdaTemplate } from "./rda/ndkMonographvolume.rda.template";
-import { NdkPeriodicalAacrTemplate } from "./aacr/ndkPeriodical.aacr.template";
-import { NdkPeriodicalRdaTemplate } from "./rda/ndkPeriodical.rda.template";
-import { NdkPeriodicalIssueAacrTemplate } from "./aacr/ndkPeriodicalIssue.aacr.template";
-import { NdkPeriodicalIssueRdaTemplate } from "./rda/ndkPeriodicalIssue.rda.template";
-import { NdkPeriodicalSupplementAacrTemplate } from "./aacr/ndkPeriodicalsupplement.aacr.template";
-import { NdkPeriodicalSupplementRdaTemplate } from "./rda/ndkPeriodicalsupplement.rda.template";
-import { NdkPeriodicalVolumeAacrTemplate } from "./aacr/ndkPeriodicalVolume.aacr.template";
-import { NdkPeriodicalVolumeRdaTemplate } from "./rda/ndkPeriodicalVolume.rda.template";
-import { NdkSheetMusicAacrTemplate } from "./aacr/ndkSheetmusic.aacr.template";
-import { NdkSheetMusicRdaTemplate } from "./rda/ndkSheetmusic.rda.template";
-import {NdkMusicDocumentAacrTemplate} from './aacr/ndkMusicDocument.aacr.template';
-import {NdkMusicSongAacrTemplate} from './aacr/ndkMusicSong.aacr.template';
-import {NdkMusicTrackAacrTemplate} from './aacr/ndkMusicTrack.aacr.template';
-import {NdkMusicAudioPageAacrTemplate} from './aacr/ndkMusicAudioPage.aacr.template';
-import {AacrTemplate} from './aacr/aacr.template';
-import {RdaTemplate} from './rda/rda.template';
-import {NdkPictureAacrTemplate} from './aacr/ndkPicture.aacr.template';
-import {NdkChapterAacrTemplate} from './aacr/ndkChapter.aacr.template';
-import {NdkArticleAacrTemplate} from './aacr/ndkArticle.aacr.template';
-import {NdkArticleRdaTemplate} from './rda/ndkArticle.rda.template';
-import {BdmArticleTemplate} from './none/bdmArticle.template';
-import {OldprintConvolutteAacrTemplate} from './aacr/oldprintConvolutte.aacr.template';
-import {OldprintMonographtitleAacrTemplate} from './aacr/oldprintMonographtitle.aacr.template';
-import {OldprintMonographtitleRdaTemplate} from './rda/oldprintMonographtitle.rda.template';
-import {OldprintMonographVolumeAacrTemplate} from './aacr/oldprintMonographvolume.aacr.template';
-import {OldprintMonographVolumeRdaTemplate} from './rda/oldprintMonographvolume.rda.template';
-import {OldprintMonographSupplementRdaTemplate} from './rda/oldprintMonographsupplement.rda.template';
-import {OldprintMonographSupplementAacrTemplate} from './aacr/oldprintMonographsupplement.aacr.template';
-import {OldprintChapterAacrTemplate} from './aacr/oldprintChapter.aacr.template';
-import {OldprintChapterRdaTemplate} from './rda/oldprintChapter.rda.template';
-import {OldprintGraphicsRdaTemplate} from './rda/oldprintGraphics.rda.template';
-import {OldprintGraphicsAacrTemplate} from './aacr/oldprintGraphics.aacr.template';
-import {OldprintMapRdaTemplate} from './rda/oldprintMap.rda.template';
-import {OldprintMapAacrTemplate} from './aacr/oldprintMap.aacr.template';
-import {OldprintSheetMusicRdaTemplate} from './rda/oldprintSheetmusic.rda.template';
-import {OldprintSheetMusicAacrTemplate} from './aacr/oldprintSheetmusic.aacr.template';
-import {NdkePeriodicalRdaTemplate} from './rda/ndkePeriodical.rda.template';
-import {NdkePeriodicalAacrTemplate} from './aacr/ndkePeriodical.aacr.template';
-import {NdkePeriodicalVolumeRdaTemplate} from './rda/ndkePeriodicalVolume.rda.template';
-import {NdkePeriodicalVolumeAacrTemplate} from './aacr/ndkePeriodicalVolume.aacr.template';
-import {NdkePeriodicalIssueRdaTemplate} from './rda/ndkePeriodicalIssue.rda.template';
-import {NdkePeriodicalIssueAacrTemplate} from './aacr/ndkePeriodicalIssue.aacr.template';
-import {NdkeArticleRdaTemplate} from './rda/ndkeArticle.rda.template';
-import {NdkeArticleAacrTemplate} from './aacr/ndkeArticle.aacr.template';
-import {NdkeMonographTitleRdaTemplate} from './rda/ndkeMonographtitle.rda.template';
-import {NdkeMonographTitleAacrTemplate} from './aacr/ndkeMonographtitle.aacr.template';
-import {NdkeMonographVolumeRdaTemplate} from './rda/ndkeMonographvolume.rda.template';
-import {NdkeMonographVolumeAacrTemplate} from './aacr/ndkeMonographvolume.aacr.template';
-import {NdkeChapterRdaTemplate} from './rda/ndkeChapter.rda.template';
-import {NdkeChapterAacrTemplate} from './aacr/ndkeChapter.aacr.template';
-import {ChronicleMonographtitleAacrTemplate} from './aacr/chronicleMonographtitle.aacr.template';
-import {ChronicleMonographvolumeAacrTemplate} from './aacr/chronicleMonographvolume.aacr.template';
-import {ChronicleMonographsupplementAacrTemplate} from './aacr/chronicleMonographsupplement.aacr.template';
+// import { NdkMap } from "./aacr/ndkMap.aacr.template";
+// import { NdkMap } from "./rda/ndkMap.rda.template";
+// import { NdkMonographSupplement } from "./aacr/ndkMonographsupplement.aacr.template";
+// import { NdkMonographSupplement } from "./rda/ndkMonographsupplement.rda.template";
+// import { NdkMonographTitle } from "./aacr/ndkMonographtitle.aacr.template";
+// import { NdkMonographTitle } from "./rda/ndkMonographtitle.rda.template";
+// import { NdkMonographVolume } from "./aacr/ndkMonographvolume.aacr.template";
+// import { NdkMonographVolume } from "./rda/ndkMonographvolume.rda.template";
+// import { NdkPeriodical } from "./aacr/ndkPeriodical.aacr.template";
+// import { NdkPeriodical } from "./rda/ndkPeriodical.rda.template";
+// import { NdkPeriodicalIssue } from "./aacr/ndkPeriodicalIssue.aacr.template";
+// import { NdkPeriodicalIssue } from "./rda/ndkPeriodicalIssue.rda.template";
+// import { NdkPeriodicalSupplement } from "./aacr/ndkPeriodicalsupplement.aacr.template";
+// import { NdkPeriodicalSupplement } from "./rda/ndkPeriodicalsupplement.rda.template";
+// import { NdkPeriodicalVolume } from "./aacr/ndkPeriodicalVolume.aacr.template";
+// import { NdkPeriodicalVolume } from "./rda/ndkPeriodicalVolume.rda.template";
+// import { NdkSheetMusic } from "./aacr/ndkSheetmusic.aacr.template";
+// import { NdkSheetMusic } from "./rda/ndkSheetmusic.rda.template";
+// import {NdkMusicDocument} from './aacr/ndkMusicDocument.aacr.template';
+// import {NdkMusicSong} from './aacr/ndkMusicSong.aacr.template';
+// import {NdkMusicTrack} from './aacr/ndkMusicTrack.aacr.template';
+// import {NdkMusicAudioPage} from './aacr/ndkMusicAudioPage.aacr.template';
+// import {} from './aacr/aacr.template';
+// import {} from './rda/rda.template';
+// import {NdkPicture} from './aacr/ndkPicture.aacr.template';
+// import {NdkChapter} from './aacr/ndkChapter.aacr.template';
+// import {NdkArticle} from './aacr/ndkArticle.aacr.template';
+// import {NdkArticle} from './rda/ndkArticle.rda.template';
+// import {BdmArticleTemplate} from './none/bdmArticle.template';
+// import {OldprintConvolutte} from './aacr/oldprintConvolutte.aacr.template';
+// import {OldprintMonographtitle} from './aacr/oldprintMonographtitle.aacr.template';
+// import {OldprintMonographtitle} from './rda/oldprintMonographtitle.rda.template';
+// import {OldprintMonographVolume} from './aacr/oldprintMonographvolume.aacr.template';
+// import {OldprintMonographVolume} from './rda/oldprintMonographvolume.rda.template';
+// import {OldprintMonographSupplement} from './rda/oldprintMonographsupplement.rda.template';
+// import {OldprintMonographSupplement} from './aacr/oldprintMonographsupplement.aacr.template';
+// import {OldprintChapter} from './aacr/oldprintChapter.aacr.template';
+// import {OldprintChapter} from './rda/oldprintChapter.rda.template';
+// import {OldprintGraphics} from './rda/oldprintGraphics.rda.template';
+// import {OldprintGraphics} from './aacr/oldprintGraphics.aacr.template';
+// import {OldprintMap} from './rda/oldprintMap.rda.template';
+// import {OldprintMap} from './aacr/oldprintMap.aacr.template';
+// import {OldprintSheetMusic} from './rda/oldprintSheetmusic.rda.template';
+// import {OldprintSheetMusic} from './aacr/oldprintSheetmusic.aacr.template';
+// import {NdkePeriodical} from './rda/ndkePeriodical.rda.template';
+// import {NdkePeriodical} from './aacr/ndkePeriodical.aacr.template';
+// import {NdkePeriodicalVolume} from './rda/ndkePeriodicalVolume.rda.template';
+// import {NdkePeriodicalVolume} from './aacr/ndkePeriodicalVolume.aacr.template';
+// import {NdkePeriodicalIssue} from './rda/ndkePeriodicalIssue.rda.template';
+// import {NdkePeriodicalIssue} from './aacr/ndkePeriodicalIssue.aacr.template';
+// import {NdkeArticle} from './rda/ndkeArticle.rda.template';
+// import {NdkeArticle} from './aacr/ndkeArticle.aacr.template';
+// import {NdkeMonographTitle} from './rda/ndkeMonographtitle.rda.template';
+// import {NdkeMonographTitle} from './aacr/ndkeMonographtitle.aacr.template';
+// import {NdkeMonographVolume} from './rda/ndkeMonographvolume.rda.template';
+// import {NdkeMonographVolume} from './aacr/ndkeMonographvolume.aacr.template';
+// import {NdkeChapter} from './rda/ndkeChapter.rda.template';
+// import {NdkeChapter} from './aacr/ndkeChapter.aacr.template';
+// import {ChronicleMonographtitle} from './aacr/chronicleMonographtitle.aacr.template';
+// import {ChronicleMonographvolume} from './aacr/chronicleMonographvolume.aacr.template';
+// import {ChronicleMonographsupplement} from './aacr/chronicleMonographsupplement.aacr.template';
 
 export class ModelTemplate {
 
-  static data: any = {
+  static mappings: any = {
     "aacr": {
-      "model:ndkmonographtitle": NdkMonographTitleAacrTemplate.data,
-      "model:ndkmonographvolume": NdkMonographVolumeAacrTemplate.data,
-      "model:ndkmonographsupplement": NdkMonographSupplementAacrTemplate.data,
-      "model:ndkmap": NdkMapAacrTemplate.data,
-      "model:ndksheetmusic": NdkSheetMusicAacrTemplate.data,
-      "model:ndkperiodical": NdkPeriodicalAacrTemplate.data,
-      "model:ndkperiodicalvolume": NdkPeriodicalVolumeAacrTemplate.data,
-      "model:ndkperiodicalissue": NdkPeriodicalIssueAacrTemplate.data,
-      "model:ndkperiodicalsupplement": NdkPeriodicalSupplementAacrTemplate.data,
+      "model:ndkmonographtitle": 'NdkMonographTitle',
+      "model:ndkmonographvolume": 'NdkMonographVolume',
+      "model:ndkmonographsupplement": 'NdkMonographSupplement',
+      "model:ndkmap": 'NdkMap',
+      "model:ndksheetmusic": 'NdkSheetMusic',
+      "model:ndkperiodical": 'NdkPeriodical',
+      "model:ndkperiodicalvolume": 'NdkPeriodicalVolume',
+      "model:ndkperiodicalissue": 'NdkPeriodicalIssue',
+      "model:ndkperiodicalsupplement": 'NdkPeriodicalSupplement',
 
-      "model:ndkarticle": NdkArticleAacrTemplate.data,
-      "model:ndkpicture": NdkPictureAacrTemplate.data,
-      "model:ndkchapter": NdkChapterAacrTemplate.data,
+      "model:ndkarticle": 'NdkArticle',
+      "model:ndkpicture": 'NdkPicture',
+      "model:ndkchapter": 'NdkChapter',
 
-      "model:oldprintomnibusvolume": OldprintConvolutteAacrTemplate.data,           // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
-      "model:oldprintmonographtitle": OldprintMonographtitleAacrTemplate.data,
-      "model:oldprintvolume": OldprintMonographVolumeAacrTemplate.data,
-      "model:oldprintsupplement": OldprintMonographSupplementAacrTemplate.data,
-      "model:oldprintchapter": OldprintChapterAacrTemplate.data,
-      "model:oldprintgraphics": OldprintGraphicsAacrTemplate.data,
-      "model:oldprintmap": OldprintMapAacrTemplate.data,
-      "model:oldprintsheetmusic": OldprintSheetMusicAacrTemplate.data,
+      "model:oldprintomnibusvolume": 'OldprintConvolutte',           // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
+      "model:oldprintmonographtitle": 'OldprintMonographtitle',
+      "model:oldprintvolume": 'OldprintMonographVolume',
+      "model:oldprintsupplement": 'OldprintMonographSupplement',
+      "model:oldprintchapter": 'OldprintChapter',
+      "model:oldprintgraphics": 'OldprintGraphics',
+      "model:oldprintmap": 'OldprintMap',
+      "model:oldprintsheetmusic": 'OldprintSheetMusic',
 
-      "model:ndkeperiodical": NdkePeriodicalAacrTemplate.data,
-      "model:ndkeperiodicalvolume": NdkePeriodicalVolumeAacrTemplate.data,
-      "model:ndkeperiodicalissue": NdkePeriodicalIssueAacrTemplate.data,
-      "model:ndkearticle": NdkeArticleAacrTemplate.data,
-      "model:ndkemonographtitle": NdkeMonographTitleAacrTemplate.data,
-      "model:ndkemonographvolume": NdkeMonographVolumeAacrTemplate.data,
-      "model:ndkechapter": NdkeChapterAacrTemplate.data,
+      "model:ndkeperiodical": 'NdkePeriodical',
+      "model:ndkeperiodicalvolume": 'NdkePeriodicalVolume',
+      "model:ndkeperiodicalissue": 'NdkePeriodicalIssue',
+      "model:ndkearticle": 'NdkeArticle',
+      "model:ndkemonographtitle": 'NdkeMonographTitle',
+      "model:ndkemonographvolume": 'NdkeMonographVolume',
+      "model:ndkechapter": 'NdkeChapter',
 
       // eClanek
-      "model:bdmarticle": BdmArticleTemplate.data,  // bez urceni pravidel
+      "model:bdmarticle": 'BdmArticleTemplate',  // bez urceni pravidel
 
       // chronicle
-      "model:chronicletitle": ChronicleMonographtitleAacrTemplate.data,
-      "model:chroniclevolume": ChronicleMonographvolumeAacrTemplate.data,
-      "model:chroniclesupplement": ChronicleMonographsupplementAacrTemplate.data,
+      "model:chronicletitle": 'ChronicleMonographtitle',
+      "model:chroniclevolume": 'ChronicleMonographvolume',
+      "model:chroniclesupplement": 'ChronicleMonographsupplement',
 
       // ndk music documents
-      "model:ndkphonographcylinder": NdkMusicDocumentAacrTemplate.data,
-      "model:ndkmusicdocument": NdkMusicDocumentAacrTemplate.data,
-      "model:ndksong": NdkMusicSongAacrTemplate.data,
-      "model:ndktrack": NdkMusicTrackAacrTemplate.data,
-      "model:ndkaudiopage": NdkMusicAudioPageAacrTemplate.data,
+      "model:ndkphonographcylinder": 'NdkMusicDocument',
+      "model:ndkmusicdocument": 'NdkMusicDocument',
+      "model:ndksong": 'NdkMusicSong',
+      "model:ndktrack": 'NdkMusicTrack',
+      "model:ndkaudiopage": 'NdkMusicAudioPage',
 
     },
     "rda": {
-      "model:ndkmonographtitle": NdkMonographTitleRdaTemplate.data,
-      "model:ndkmonographvolume": NdkMonographVolumeRdaTemplate.data,
-      "model:ndkmonographsupplement": NdkMonographSupplementRdaTemplate.data,
-      "model:ndkmap": NdkMapRdaTemplate.data,
-      "model:ndksheetmusic": NdkSheetMusicRdaTemplate.data,
-      "model:ndkperiodical": NdkPeriodicalRdaTemplate.data,
-      "model:ndkperiodicalvolume": NdkPeriodicalVolumeRdaTemplate.data,
-      "model:ndkperiodicalissue": NdkPeriodicalIssueRdaTemplate.data,
-      "model:ndkperiodicalsupplement": NdkPeriodicalSupplementRdaTemplate.data,
+      "model:ndkmonographtitle": 'NdkMonographTitle',
+      "model:ndkmonographvolume": 'NdkMonographVolume',
+      "model:ndkmonographsupplement": 'NdkMonographSupplement',
+      "model:ndkmap": 'NdkMap',
+      "model:ndksheetmusic": 'NdkSheetMusic',
+      "model:ndkperiodical": 'NdkPeriodical',
+      "model:ndkperiodicalvolume": 'NdkPeriodicalVolume',
+      "model:ndkperiodicalissue": 'NdkPeriodicalIssue',
+      "model:ndkperiodicalsupplement": 'NdkPeriodicalSupplement',
 
-      "model:ndkarticle": NdkArticleRdaTemplate.data,
-      "model:ndkpicture": NdkPictureAacrTemplate.data, // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
-      "model:ndkchapter": NdkChapterAacrTemplate.data, // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
+      "model:ndkarticle": 'NdkArticle',
+      "model:ndkpicture": 'NdkPicture', // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
+      "model:ndkchapter": 'NdkChapter', // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
 
-      "model:oldprintomnibusvolume": OldprintConvolutteAacrTemplate.data,       // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
-      "model:oldprintmonographtitle": OldprintMonographtitleRdaTemplate.data,
-      "model:oldprintvolume": OldprintMonographVolumeRdaTemplate.data,
-      "model:oldprintsupplement": OldprintMonographSupplementRdaTemplate.data,
-      "model:oldprintchapter": OldprintChapterRdaTemplate.data,
-      "model:oldprintgraphics": OldprintGraphicsRdaTemplate.data,
-      "model:oldprintmap": OldprintMapRdaTemplate.data,
-      "model:oldprintsheetmusic": OldprintSheetMusicRdaTemplate.data,
+      "model:oldprintomnibusvolume": 'OldprintConvolutte',       // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
+      "model:oldprintmonographtitle": 'OldprintMonographtitle',
+      "model:oldprintvolume": 'OldprintMonographVolume',
+      "model:oldprintsupplement": 'OldprintMonographSupplement',
+      "model:oldprintchapter": 'OldprintChapter',
+      "model:oldprintgraphics": 'OldprintGraphics',
+      "model:oldprintmap": 'OldprintMap',
+      "model:oldprintsheetmusic": 'OldprintSheetMusic',
 
-      "model:ndkeperiodical": NdkePeriodicalRdaTemplate.data,
-      "model:ndkeperiodicalvolume": NdkePeriodicalVolumeRdaTemplate.data,
-      "model:ndkeperiodicalissue": NdkePeriodicalIssueRdaTemplate.data,
-      "model:ndkearticle": NdkeArticleRdaTemplate.data,
-      "model:ndkemonographtitle": NdkeMonographTitleRdaTemplate.data,
-      "model:ndkemonographvolume": NdkeMonographVolumeRdaTemplate.data,
-      "model:ndkechapter": NdkeChapterRdaTemplate.data, // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
+      "model:ndkeperiodical": 'NdkePeriodical',
+      "model:ndkeperiodicalvolume": 'NdkePeriodicalVolume',
+      "model:ndkeperiodicalissue": 'NdkePeriodicalIssue',
+      "model:ndkearticle": 'NdkeArticle',
+      "model:ndkemonographtitle": 'NdkeMonographTitle',
+      "model:ndkemonographvolume": 'NdkeMonographVolume',
+      "model:ndkechapter": 'NdkeChapter', // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
 
       // eClanek
-      "model:bdmarticle": BdmArticleTemplate.data,  // bez urceni pravidel
+      "model:bdmarticle": 'BdmArticleTemplate',  // bez urceni pravidel
 
       // chronicle
-      "model:chronicletitle": ChronicleMonographtitleAacrTemplate.data,
-      "model:chroniclevolume": ChronicleMonographvolumeAacrTemplate.data,
-      "model:chroniclesupplement": ChronicleMonographsupplementAacrTemplate.data,
+      "model:chronicletitle": 'ChronicleMonographtitle',
+      "model:chroniclevolume": 'ChronicleMonographvolume',
+      "model:chroniclesupplement": 'ChronicleMonographsupplement',
 
       // ndk music documents -- ndkMusic ma pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
-      "model:ndkphonographcylinder": NdkMusicDocumentAacrTemplate.data,
-      "model:ndkmusicdocument": NdkMusicDocumentAacrTemplate.data,
-      "model:ndksong": NdkMusicSongAacrTemplate.data,
-      "model:ndktrack": NdkMusicTrackAacrTemplate.data,
-      "model:ndkaudiopage": NdkMusicAudioPageAacrTemplate.data,
+      "model:ndkphonographcylinder": 'NdkMusicDocument',
+      "model:ndkmusicdocument": 'NdkMusicDocument',
+      "model:ndksong": 'NdkMusicSong',
+      "model:ndktrack": 'NdkMusicTrack',
+      "model:ndkaudiopage": 'NdkMusicAudioPage',
 
     }
   }
