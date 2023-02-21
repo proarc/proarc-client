@@ -2,11 +2,8 @@
 @import './src/sass/app-mixins';
 @import './src/sass/app-global';
 
-// new
 .app-import {
-  @extend .app-p-4;
-
-  .app-content-wrapper {
+  .app-tree {
     background-color: $app-color-lightnes;
   }
 }

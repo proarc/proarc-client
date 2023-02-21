@@ -2027,7 +2027,8 @@
     "numberFrom": "Number from",
     "dateFrom": "Date from",
     "dateTo": "Date to",
-    "releasedIn": "Released in"
+    "releasedIn": "Released in",
+    "type": "Type"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2071,7 +2072,8 @@
     "viewPreviews": "View previews" ,
     "reexport": "Repeat export",
     "create": "Create",
-    "loadMetadataFromCatalog": "Load metadata from catalog"
+    "loadMetadataFromCatalog": "Load metadata from catalog",
+    "addDevice": "Add device"
   },
   "dynamic": {
     "repo": "Storage",
@@ -2135,7 +2137,9 @@
     "model:chronicletitle": "Multipart Chronicle",
     "model:chroniclevolume": "Chronicle",
     "model:chroniclesupplement": "Chronicle Supplement",
-    "model:bdmarticle": "eArticle"
+    "model:bdmarticle": "eArticle",
+    "proarc:audiodevice": "Audio device",
+    "proarc:device": "Image device"
   },
   "pageType" : {
     "unknown" : "page",

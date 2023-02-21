@@ -7,7 +7,7 @@
     </div>
   </div>
 
-  <div fxFlex class="app-import" fxLayout="column">
+  <div fxFlex class="app-import app-p-4" fxLayout="column">
     <div class="app-formbar" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
       <button mat-flat-button color="primary" (click)="onLoad()">
         {{ 'import.load' | translate }}
@@ -30,7 +30,7 @@
       <mat-checkbox color="primary" class="app-import-index" [(ngModel)]="generateIndex">{{ 'import.generate_index' | translate }}</mat-checkbox>
     </div>
   
-    <div fxFlex class="app-content-wrapper app-tree app-oh app-oa-y">
+    <div fxFlex class="app-tree app-oh app-oa-y">
       <ng-container *ngFor="let f of folders; let idx = index;">
         <div class="app-row" *ngIf="!f.hidden" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
           <div class="app-cell" fxLayout="row" fxLayoutAlign="start center">
