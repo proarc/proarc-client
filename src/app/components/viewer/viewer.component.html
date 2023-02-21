@@ -27,9 +27,6 @@
 			<button mat-icon-button *ngIf="fullscreenAvailable && fullscreenEnabled()" [matTooltip]="'viewer.tooltip.exitFullscreen' | translate" (click)="exitFullscreen()">
 				<mat-icon>fullscreen_exit</mat-icon>
 			</button>   
-			<button mat-icon-button  [matTooltip]="'viewer.tooltip.lockPanel' | translate" (click)="changeLockPanel()" [class.app-active]="isLocked">
-				<mat-icon>push_pin</mat-icon>
-			</button>      
 		</div>
   </div>
 	<div fxFlex>

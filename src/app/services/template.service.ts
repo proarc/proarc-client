@@ -23,18 +23,21 @@ export class TemplateService {
   }
 
   getTemplate(standard: string, model: string) {
-    console.log(standard, model)
     if (this.templates[standard][model]) {
       return of(this.templates[standard][model]);
     } else {
-      const name = ModelTemplate.mappings[standard][model]
-      let url = `/assets/templates/${standard}/${name}.${standard}.template.json6`;
-    return this.http.get(url, {responseType: 'text'}).pipe(map((rsp: any) => {
-      // console.log(rsp)
-      const rsp2 = JSON6.parse(rsp);
-      this.addTemplate(standard, model, rsp2);
-      return rsp2;
-    }));
+      const name = ModelTemplate.mappings[standard][model];
+      if (name) {
+        let url = `/assets/templates/${standard}/${name}.${standard}.template.json6`;
+        return this.http.get(url, { responseType: 'text' }).pipe(map((rsp: any) => {
+          // console.log(rsp)
+          const rsp2 = JSON6.parse(rsp);
+          this.addTemplate(standard, model, rsp2);
+          return rsp2;
+        }));
+      } else {
+        return of(null);
+      }
     }
 
   }

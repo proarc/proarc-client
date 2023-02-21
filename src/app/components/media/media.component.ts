@@ -48,7 +48,7 @@ export class MediaComponent implements OnInit {
   }
 
   isImage() {
-    const isIma = ['image/tiff', 'image/jp2', 'image/jpeg'].includes(this.streamProfile.mime);
+    const isIma = ['image/png', 'image/jpeg'].includes(this.streamProfile.mime);
     if (isIma) {
       setTimeout(() => {this.state = 'ok'}, 100);
     }
@@ -58,6 +58,14 @@ export class MediaComponent implements OnInit {
   isAudio() {
     // return ['audio/mpeg3'].includes(this.streamProfile.mime) ;
     return this.streamProfile.mime.indexOf('audio') > -1 ;
+  }
+
+  isUnsupported() {
+    const isIma = ['image/tiff', 'image/jp2'].includes(this.streamProfile.mime);
+    if (isIma) {
+      setTimeout(() => {this.state = 'ok'}, 100);
+    }
+    return isIma;
   }
 
   hasProfile(stream: string) {
@@ -83,18 +91,12 @@ export class MediaComponent implements OnInit {
       if (response?.response?.data) {
         this.streamProfiles = response.response.data;
         if (this.streamProfiles.length > 0) {
-          this.streamProfile = this.streamProfiles[0];
-          // this.api.headStream(pid, this.streamProfile.dsid).subscribe((response: any) => {
-          //   if (!response) {
-          //     this.state = 'head';
-          //   } else if (response?.response && response.response.status === 200) {
-          //     this.state = 'head';
-          //   } else if (response?.response && response.response.status === 404) {
-          //     this.state = 'empty';
-          //   } else {
-          //     this.state = 'error';
-          //   }
-          // });
+          // try FULL as default
+          this.streamProfile = this.streamProfiles.find(s => s.dsid === 'FULL');
+          if (!this.streamProfile) {
+            this.streamProfile = this.streamProfiles[0];
+          }
+          
         } else {
           this.state = 'empty';
           this.streamProfile = null;

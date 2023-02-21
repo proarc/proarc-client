@@ -99,7 +99,11 @@ export class ViewerComponent implements OnInit, OnDestroy {
   }
 
   loadImage() {
+    if (!this.inputPid) {
+      return;
+    }
     const stream = this.currentStream ? this.currentStream : 'FULL';
+    //const stream = 'FULL';
     this.state = 'loading';
     const url = this.isKramerius ?
       this.api.getKrameriusImageUrl(this.inputPid, this.instance) :
@@ -108,7 +112,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
     image.onload = (() => {
       this.onLoad(url, image.width, image.height);
     });
-    image.onerror = (() => {
+    image.onerror = ((err: any) => {
       image.onerror = null;
       this.state = 'error';
       console.log('image load failure');

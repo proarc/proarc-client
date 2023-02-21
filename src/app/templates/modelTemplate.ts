@@ -96,7 +96,7 @@ export class ModelTemplate {
       "model:ndkechapter": 'NdkeChapter',
 
       // eClanek
-      "model:bdmarticle": 'BdmArticleTemplate',  // bez urceni pravidel
+      "model:bdmarticle": 'BdmArticle',  // bez urceni pravidel
 
       // chronicle
       "model:chronicletitle": 'ChronicleMonographtitle',
@@ -144,7 +144,7 @@ export class ModelTemplate {
       "model:ndkechapter": 'NdkeChapter', // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
 
       // eClanek
-      "model:bdmarticle": 'BdmArticleTemplate',  // bez urceni pravidel
+      "model:bdmarticle": 'BdmArticle',  // bez urceni pravidel
 
       // chronicle
       "model:chronicletitle": 'ChronicleMonographTitle',

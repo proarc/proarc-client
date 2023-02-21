@@ -20,8 +20,9 @@
 		<!-- <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='head'" class="app-progress-bar"></mat-progress-bar> -->
 		<div class="app-editor-content app-h-100" *ngIf="streamProfile">
       <app-pdf *ngIf="isPdf()" [stream]="streamProfile.dsid" [pid]="currentPid"></app-pdf>
-      <app-viewer *ngIf="isImage()" [stream]="streamProfile.dsid" [pid]="currentPid"></app-viewer>
+      <app-viewer *ngIf="isImage()" [idViewer]="'app-viewer-media'" [stream]="streamProfile.dsid" [pid]="currentPid"></app-viewer>
       <app-song *ngIf="isAudio()" [pid]="currentPid"></app-song>
+    	<div *ngIf="isUnsupported()" class="app-empty">Digitální obsah ne podporovan ({{streamProfile.mime}})</div>
 		</div>
     <div *ngIf="!streamProfile" class="app-empty">Žádný digitální obsah</div>
 	</div>
