@@ -14,7 +14,10 @@ export class AuthService {
 
     public user: User;
 
-    constructor(private http: HttpClient, private api: ApiService, private router: Router,
+    constructor(
+        private http: HttpClient, 
+        private api: ApiService, 
+        private router: Router,
         private config: ConfigService) {
     }
 
@@ -56,17 +59,14 @@ export class AuthService {
         },
             (error) => {
                 this.user = null;
-                
                 this.router.navigate(['/login']);
             });
     }
 
     checkLogin(): () => Observable<any> {
-        console.log('checkLogin')
         return () => this.http.get('user?whoAmI=true')
             .pipe(
                 tap(user => {
-
                     console.log('user');
                     this.user = user as User;
                 })
@@ -88,7 +88,7 @@ export class AuthService {
                 // .pipe(catchError(err => this.handleError))
                 .subscribe(
                     (user: any) => {
-                        this.user = user as User;
+                        this.user = User.fromJson(user['response']['data'][0]);
                         resolve(true);
                     },
                     (error: any) => {
