@@ -41,6 +41,7 @@ export class EditorMetadataComponent implements OnInit {
 
   ngOnChanges(c: SimpleChanges) {
 
+    console.log(c, this.model)
     if (c['metadata'] && c['metadata'].currentValue) {
       this.metadata = c['metadata'].currentValue;
       
@@ -49,6 +50,7 @@ export class EditorMetadataComponent implements OnInit {
       }, 500);
       return;
     }
+
 
     // if (c['pid'] && c['pid'].currentValue) {
     //   this.item = this.layout.lastSelectedItem;

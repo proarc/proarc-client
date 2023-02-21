@@ -67,11 +67,11 @@
       <ng-container *ngIf="layout.lastSelectedItem && !layout.showPagesEditor() && !layout.showAudioPagesEditor()">
         <app-editor-page *ngIf="layout.lastSelectedItem.isPage()" [model]="layout.lastSelectedItem.model" [pid]="layout.lastSelectedItem.pid" > </app-editor-page>
         <app-editor-audioPage *ngIf="layout.lastSelectedItem.isAudioPage()" [model]="layout.lastSelectedItem.model" [pid]="layout.lastSelectedItem.pid"> </app-editor-audioPage>
-        <app-editor-chronicle *ngIf="layout.lastSelectedItem.isChronicle()" [pid]="layout.lastSelectedItem.pid" 
-        [metadata]="layout.lastSelectedItemMetadata" [model]="layout.lastSelectedItem.model"></app-editor-chronicle>
-        <app-editor-bdm *ngIf="layout.lastSelectedItem.isBdm()" 
-          [model]="layout.lastSelectedItem.model" [metadata]="layout.lastSelectedItemMetadata"></app-editor-bdm>
-        <app-editor-metadata *ngIf="!layout.lastSelectedItem.isPage() && !layout.lastSelectedItem.isAudioPage() && !layout.lastSelectedItem.isChronicle() && !layout.lastSelectedItem.isBdm()" 
+        <!-- <app-editor-chronicle *ngIf="layout.lastSelectedItem.isChronicle()" [pid]="layout.lastSelectedItem.pid" 
+        [metadata]="layout.lastSelectedItemMetadata" [model]="layout.lastSelectedItem.model"></app-editor-chronicle> -->
+        <!-- <app-editor-bdm *ngIf="layout.lastSelectedItem.isBdm()" 
+          [model]="layout.lastSelectedItem.model" [metadata]="layout.lastSelectedItemMetadata"></app-editor-bdm> -->
+        <app-editor-metadata *ngIf="!layout.lastSelectedItem.isPage() && !layout.lastSelectedItem.isAudioPage()" 
           [metadata]="layout.lastSelectedItemMetadata" [model]="layout.lastSelectedItem.model">
         </app-editor-metadata>
       </ng-container>
