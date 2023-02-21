@@ -68,12 +68,6 @@ import { ShortenPipe } from './pipes/shorten.pipe';
 import { HelpDialogComponent } from './dialogs/help-dialog/help-dialog.component';
 import { ReloadBatchDialogComponent } from './dialogs/reload-batch-dialog/reload-batch-dialog.component';
 import { ConfigService } from './services/config.service';
-import { EditorChronicleComponent } from './components/editor/editor-chronicle/editor-chronicle.component';
-import { EditorChronicleAuthorComponent } from './documents/document/editor-chronicle-author/editor-chronicle-author.component';
-import { EditorChronicleNoteComponent } from './documents/document/editor-chronicle-note/editor-chronicle-note.component';
-import { EditorChronicleTitleComponent } from './documents/document/editor-chronicle-title/editor-chronicle-title.component';
-import { EditorChroniclePublisherComponent } from './documents/document/editor-chronicle-publisher/editor-chronicle-publisher.component';
-import { EditorChronicleGenreComponent } from './documents/document/editor-chronicle-genre/editor-chronicle-genre.component';
 import { EditorChronicleLocationComponent } from './documents/document/editor-chronicle-location/editor-chronicle-location.component';
 import { FundService } from './services/fund.service';
 import { FundDialogComponent } from './dialogs/fund-dialog/fund-dialog.component';
@@ -117,7 +111,6 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { DatePipe } from '@angular/common';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
-import {EditorBdmComponent} from './components/editor/editor-bdm/editor-bdm.component';
 import { NewMetadataDialogComponent } from './dialogs/new-metadata-dialog/new-metadata-dialog.component';
 import { WorkflowComponent } from './components/workflow/workflow.component';
 import { AdminComponent } from './pages/admin/admin.component';
@@ -213,13 +206,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     UrnbnbDialogComponent,
     HelpDialogComponent,
     ReloadBatchDialogComponent,
-    EditorChronicleComponent,
-    EditorBdmComponent,
-    EditorChronicleAuthorComponent,
-    EditorChronicleNoteComponent,
-    EditorChronicleTitleComponent,
-    EditorChroniclePublisherComponent,
-    EditorChronicleGenreComponent,
     EditorChronicleLocationComponent,
     FundDialogComponent,
     SettingsComponent,
