@@ -2027,7 +2027,8 @@
     "numberFrom": "Číslo od",
     "dateFrom": "Datum od",
     "dateTo": "Datum do",
-    "releasedIn": "Vydáno v"
+    "releasedIn": "Vydáno v",
+    "type": "Typ"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2071,7 +2072,8 @@
     "viewPreviews": "Zobrazit náhledy",
     "reexport": "Znovu exportovat",
     "create": "Vytvořit",
-    "loadMetadataFromCatalog": "Načíst metadata z katalogu"
+    "loadMetadataFromCatalog": "Načíst metadata z katalogu",
+    "addDevice": "Přidat zařízení"
   },
   "dynamic": {
     "repo": "Úložiště",
@@ -2135,7 +2137,9 @@
     "model:chronicletitle": "Vícedílná kronika",
     "model:chroniclevolume": "Kronika",
     "model:chroniclesupplement": "Příloha kroniky",
-    "model:bdmarticle": "eČlánek"
+    "model:bdmarticle": "eČlánek",
+    "proarc:audiodevice": "Audio zařízení",
+    "proarc:device": "Obrazové zařízení"
   },
   "pageType": {
     "unknown": "strana",

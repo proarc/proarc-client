@@ -12,6 +12,8 @@ export class DevicesComponent implements OnInit {
   state = 'none';
   devices: Device[];
 
+  displayedColumns: string[] = ['model', 'label'];
+
   constructor(private api: ApiService) { }
 
   ngOnInit() {

@@ -1,33 +1,36 @@
-<div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
-    <a routerLink="/"><mat-icon>home</mat-icon> Home</a>
-    <span class="app-separator">/</span>
-    <span class="app-last">{{ 'desc.devices' | translate }}</span>
-  </div>
-</div>
-
-<div class="devices" *ngIf="state=='success'">
-  <div class="actions">
-    <a mat-raised-button 
-        color="primary"
-        [routerLink]="['/devices', 'new']">
-        {{ 'device.add_device' | translate }}
-    </a>
-  </div>
-  <div class="device-list">
-    <div class="app-table">
-      <div class="app-row app-header">
-        <div class="device-model">{{ 'device.model' | translate }}</div>
-        <div class="device-name">{{ 'device.name' | translate }}</div>
-      </div>
+<div fxLayout="column" fxFlexFill>
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
+    <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
+      <a routerLink="/"><mat-icon>home</mat-icon> Home</a>
+      <span class="app-separator">/</span>
+      <span class="app-last">{{ 'desc.devices' | translate }}</span>
     </div>
-    <div class="scrollable app-table">
-      <a *ngFor="let device of devices" [routerLink]="['/devices', device.id]" class="app-row">
-        <div class="device-model">{{ 'device.models.' + device.model | translate }}</div>
-        <div class="device-name">{{ device.label }}</div>
+  </div>
+
+  <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'" class="app-progress-bar"></mat-progress-bar>
+
+  <div fxFlex class="app-devices app-p-4" fxLayout="column">
+    <div class="app-formbar" class="app-mb-4">
+      <a mat-flat-button color="primary" [routerLink]="['/devices', 'new']">
+        {{ 'button.addDevice' | translate }}
       </a>
     </div>
+
+    <div fxFlex class="app-oh app-oa-y">
+      <table mat-table [dataSource]="devices" class="app-hover app-striped">
+        <ng-container matColumnDef="model">
+          <th mat-header-cell *matHeaderCellDef>{{ 'desc.type' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ 'model.' + element.model | translate }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="label">
+          <th mat-header-cell *matHeaderCellDef>{{ 'desc.name' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.label }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/devices', row.id]" class="app-cursor-pointer"></tr>
+      </table>
+    </div>
   </div>
 </div>
-
-<mat-spinner *ngIf="state=='loading'" [strokeWidth]="5" [diameter]="60" class="center-spinner"></mat-spinner>
