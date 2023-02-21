@@ -4,9 +4,9 @@
       label: 'Název',
       selector: 'titleInfo',
       labelKey: 'titleInfo',
-      description: `Název svazku monografie<br/>
+      description: `Název kartografického dokumentu<br/>
       Pro plnění použít katalogizační záznam<br/>
-      pokud má monografie více typů názvů, element se opakuje podle potřeby`,
+      pokud má kartografický dokument více typů názvů, element se opakuje podle potřeby s příslušným atributem`,
       fields: {
         type: {
           usage: 'MA',
@@ -17,6 +17,7 @@
           description: `Hlavní název bez typu - pole 245 a $a<br/>
           Možné hodnoty
           <ul>
+            <li>Zkrácený název (abbreviated) - pole 210</li>
             <li>Alternativní název (alternative) – pole 246</li>
             <li>Přeložený název (translated) – pole 242</li>
             <li>Jednotný název (uniform) – pole 130 resp. 240</li>
@@ -47,7 +48,7 @@
           label: 'Název',
           selector: 'titleInfo/title',
           labelKey: 'titleInfo/title',
-          description: `Názvová informace – název svazku monografie</br>
+          description: `Názvová informace – název kartografického dokumentu</br>
           hodnoty převzít z katalogu<br/>
           odpovídající pole a podpole podle typu, viz typ`
         },
@@ -56,7 +57,7 @@
           label: 'Podnázev',
           selector: 'titleInfo/subTitle',
           labelKey: 'titleInfo/subTitle',
-          description: `Podnázev svazku monografie<br/>
+          description: `Podnázev kartografického dokumentu<br/>
           odpovídající pole a podpole podle typu, viz typ`
         },
         partNumber: {
@@ -65,7 +66,7 @@
           selector: 'titleInfo/partNumber',
           labelKey: 'titleInfo/partNumber',
           cols: 2,
-          description: `V případě, že se jedná o vícesvazkovou monografii, je zde uvedeno číslo svazku`
+          description: `Číslo části`
         },
         partName: {
           usage: 'MA',
@@ -73,7 +74,7 @@
           selector: 'titleInfo/partName',
           labelKey: 'titleInfo/partName',
           cols: 2,
-          description: `V případě, že se jedná o vícesvazkovou monografii, je zde uveden název svazku<br/>
+          description: `Název části<br/>
           odpovídající pole a podpole podle typu, viz typ`
         }
       }
@@ -83,9 +84,9 @@
       label: 'Autor',
       selector: 'name',
       labelKey: 'name',
-      description: `Údaje o odpovědnosti za svazek<br/>
+      description: `Údaje o odpovědnosti za kartografický dokument<br/>
       POZOR – údaje o odpovědnosti nutno přebírat z polí 1XX a 7XX MARCu21<br/>
-      pokud má monografie autora a ilustrátora, element <name> se opakuje s různými rolemi`,
+      pokud má kartografický dokument jiné původce než je autor, element <name> se opakuje s různými rolemi (kartograf, litograf apod.)`,
       fields: {
         type: {
           usage: 'MA',
@@ -146,24 +147,6 @@
             }
           }
         },
-        nameIdentifier: {
-          usage: 'MA',
-          label: 'Identifikátor autora',
-          selector: 'name/nameIdentifier',
-          labelKey: 'name/nameIdentifier',
-          cols: 2,
-          description: `Číslo národní autority`,
-        },
-        etal: {
-          usage: 'MA',
-          label: 'Etal',
-          selector: 'name/etal',
-          labelKey: 'name/etal',
-          cols: 2,
-          description: `Element indikující, že existuje více autorů, než pouze ti, kteří byli uvedeni v <name> elementu.</br>
-          V případě užití tohoto elementu je dále top element <name> neopakovatelný.</br>
-          <etal> je nutné umístit do samostatného top elementu <name>, ve kterém se nesmí objevit subelementy <namePart> a <nameIdentifier>.`
-        },
         role: {
           usage: 'MA',
           label: 'Role',
@@ -174,6 +157,24 @@
           Kód role z kontrolovaného slovníku rolí
           (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)`,
           fields: {},
+        },
+        nameIdentifier: {
+          usage: 'MA',
+          label: 'Identifikátor autora',
+          selector: 'name/nameIdentifier',
+          labelKey: 'name/nameIdentifier',
+          cols: 2,
+          description: `Číslo národní autority`,
+        },
+        etal: {
+          usage: 'O',
+          label: 'Etal',
+          selector: 'name/etal',
+          labelKey: 'name/etal',
+          cols: 2,
+          description: `Element indikující, že existuje více autorů, než pouze ti, kteří byli uvedeni v <name> elementu.</br>
+          V případě užití tohoto elementu je dále top element <name> neopakovatelný.</br>
+          <etal> je nutné umístit do samostatného top elementu <name>, ve kterém se nesmí objevit subelementy <namePart> a <nameIdentifier>.`
         }
       }
     },
@@ -182,16 +183,16 @@
       label: 'Původ předlohy',
       selector: 'originInfo',
       labelKey: 'originInfo',
-      description: `Informace o původu předlohy`,
+      description: `Informace o původu předlohy: odpovídá poli 260`,
       fields: {
         publisher: {
           usage: 'MA',
           label: 'Nakladatel',
           selector: 'originInfo/publisher',
           labelKey: 'originInfo/publisher',
-          description: `Jméno entity, která dokument vydala, vytiskla nebo jinak vyprodukovala<br/>
-            Odpovídá poli 260 $b katalogizačního záznamu v MARC21.<br/>
-            Pokud má monografie více vydavatelů, přebírají se za záznamu všichni (jsou v jednom poli 260).`,
+          description: `Jméno entity, která dokument vytvořila, vydala, distribuovala nebo vyrobila<br/>
+            odpovídá poli 260 $b katalogizačního záznamu v MARC21<br/>
+            pokud má dokument více vydavatelů/distributorů/výrobců, přebírají se ze záznamu všichni (v jednom poli 260)`,
         },
         dateIssued: {
           usage: 'M',
@@ -201,7 +202,7 @@
           cols: 2,
           description: `Datum vydání předlohy.<br/>
             Přebírat z katalogu.<br/>
-            Odpovídá hodnotě z katalogizačního záznamu, pole 260, $c a pole 008/07-10`,
+            Odpovídá hodnotě z katalogizačního záznamu, pole 260 $c a pole 008/07-10`,
           fields: {
             value: {
               usage: 'MA',
@@ -260,14 +261,6 @@
             },
           }
         },
-        edition: {
-          usage: 'R',
-          label: 'Vydání',
-          selector: 'originInfo/edition',
-          labelKey: 'originInfo/edition',
-          cols: 2,
-          description: `Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu.`
-        },
         issuance: {
           usage: 'M',
           label: 'Vydání',
@@ -293,14 +286,12 @@
           label: 'Místo',
           selector: 'originInfo/place/placeTerm',
           labelKey: 'originInfo/place/placeTerm',
-          cols: 2,
-          description: `Údaje o místě spojeném s vydáním, výrobou nebo původem popisovaného dokumentu.<br/>
-            Odpovídá hodnotám z katalogizačního záznamu, pole 260, $a resp. pole 008/15-17`,
+          description: `Datum vytvoření, distribuce, výroby předlohy`
         },
       }
     },
     location: {
-      usage: 'MA',
+      usage: 'A',
       label: 'Uložení',
       selector: 'location',
       labelKey: 'location',
@@ -390,7 +381,7 @@
             ['mednas', 'mednas'],
             ['czmesh', 'czmesh'],
             ['msvkth', 'msvkth'],
-            ['agrovoc', 'agrovoc'],
+            ['agrovoc', 'agrovoc']
           ]
         },
         topic: {
@@ -402,7 +393,7 @@
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21`
         },
         geographic: {
-          usage: 'R',
+          usage: 'MA',
           label: 'Geografické věcné třídění',
           selector: 'subject/geographic',
           labelKey: 'subject/geographic',
@@ -417,7 +408,7 @@
         },
         name: {
           usage: 'R',
-          label: 'Jméno použité jako všcné záhlaví',
+          label: 'Jméno použité jako věcné záhlaví',
           selector: 'subject/name',
           labelKey: 'subject/name',
           description: `Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21`,
@@ -501,6 +492,30 @@
               fields: {},
             }
           }
+        },
+        cartographics: {
+          usage: 'MA',
+          label: 'Kartografické údaje',
+          selector: 'subject/cartographics',
+          labelKey: 'subject/cartographics',
+          description: `přebírá se ze záznamu MARC 21 pole 034
+          je žádoucí je vyplnit v případě, pokud se jedná o samostatnou mapu, pokud jde např. o atlas, vyplňuje se v nižší úrovni`,
+          fields: {
+            coordinates: {
+              usage: 'MA',
+              label: 'Souřadnice',
+              selector: 'subject/cartographics/coordinates',
+              labelKey: 'subject/cartographics/coordinates',
+              description: `Obsah pole 034 $d, $e, $f, $g`
+            },
+            scale: {
+              usage: 'MA',
+              label: 'Měřítko',
+              selector: 'subject/cartographics/scale',
+              labelKey: 'subject/cartographics/scale',
+              description: `Obsah pole 255 podpole a MARC21 záznamu`
+            }
+          }
         }
       }
     },
@@ -509,7 +524,7 @@
       label: 'Jazyk',
       selector: 'language',
       labelKey: 'language',
-      description: `Údaje o jazyce dokumentu; v případě vícenásobného výskytu nutno element &lt;language> opakovat`,
+      description: `Údaje o jazyce dokumentu`,
       fields: {
         objectPart: {
           usage: 'MA',
@@ -585,15 +600,15 @@
           label: 'Forma',
           selector: 'physicalDescription/form',
           labelKey: 'physicalDescription/form',
-          description: `Údaje o fyzické podobě dokumentu, např. print, electronic, microfilm apod.<br/>
-          odpovídá hodnotě v poli 008/23
-          `,
+          description: `Údaje o fyzické podobě dokumentu, např. kartografický dokument, mapa apod.<br/>
+          odpovídá hodnotě v poli 008/23`,
           fields: {
             authority: {
               usage: 'M',
               label: 'Autorita',
               selector: 'physicalDescription/form/@authority',
               labelKey: 'physicalDescription/form/@authority',
+              cols: 2,
               description: `Možné hodnoty
               <ul>
                 <li><strong>marcform</strong></li>
@@ -605,7 +620,8 @@
                 ['marcform', 'marcform'],
                 ['marccategory', 'marccategory'],
                 ['marcsmd', 'marcsmd'],
-                ['gmd', 'gmd']]
+                ['gmd', 'gmd'],
+              ]
             },
             value: {
               usage: 'M',
@@ -623,7 +639,7 @@
       label: 'Poznámka',
       selector: 'note',
       labelKey: 'note',
-      description: `Obecná poznámka ke svazku monografie jako celku<br/>
+      description: `Obecná poznámka k dílu jako celku<br/>
       Odpovídá hodnotám v poli 245, $c (statement of responsibility)
       a v polích 5XX (poznámky) katalogizačního záznamu`,
       fields: {
@@ -642,7 +658,7 @@
       selector: 'genre',
       labelKey: 'genre',
       description: `Bližší údaje o typu dokumentu<br/>
-      Pro monografie hodnota <strong>volume</strong>`,
+      Hodnota <strong>cartographic</strong>`,
       fields: {
         value: {
           usage: 'M',
@@ -658,8 +674,7 @@
       label: 'Identifikátor',
       selector: 'identifier',
       labelKey: 'identifier',
-      description: `Údaje o identifikátorech, obsahuje unikátní
-      identifikátory mezinárodní nebo lokální, které svazek monografie má.`,
+      description: `Údaje o identifikátorech, obsahuje unikátní identifikátory mezinárodní nebo lokální, které kartografický dokument obsahuje.`,
       fields: {
         type: {
           usage: 'M',
@@ -685,10 +700,6 @@
               <li>
                 <strong>ISBN</strong> (isbn) <i>MA</i><br/>
                 převzít z katalogizačního záznamu z pole 020, $a, $z
-              </li>
-              <li>
-                <strong>ISMN</strong> (ismn) <i>MA</i><br/>
-                převzít z katalogizačního záznamu z pole 024 (1. ind.="2"), $a, $z
               </li>
             </ul>
             Jiný interní identifikátor <i>R</i>, např. barcode, oclc, sysno, permalink`
@@ -724,7 +735,8 @@
       selector: 'classification',
       labelKey: 'classification',
       description: `Klasifikační údaje věcného třídění podle Mezinárodního desetinného třídění<br/>
-      odpovídá poli 080 MARC21`,
+      odpovídá poli 080 MARC21
+      `,
       fields: {
         authority: {
           usage: 'M',
@@ -766,7 +778,8 @@
       label: 'Typ zdroje',
       selector: 'typeOfResource',
       labelKey: 'typeOfResource',
-      description: `Popis charakteristiky typu nebo obsahu zdroje.<p>Pro monografie hodnota „text“.`,
+      description: `Pro kartografické dokumenty hodnota <strong>cartographic</strong><br/>
+      mělo by se vyčítat z MARC21 katalogizačního záznamu z pozice 06 návěští (pro cartographic hodnoty e a f)`,
       fields: {
         value: {
           usage: 'R',
@@ -776,18 +789,7 @@
           help: 'off',
           options: [
             ['', '-'],
-            ['text', 'text']
-          ]
-        },
-        manuscript: {
-          usage: 'R',
-          label: 'Manuscript',
-          selector: 'typeOfResource/@manuscript',
-          labelKey: 'typeOfResource/@manuscript',
-          description: `Rukopis`,
-          options: [
-            ['', '-'],
-            ['yes', 'yes']
+            ['cartographic', 'cartographic']
           ]
         }
       }

@@ -127,7 +127,7 @@ export class ModelTemplate {
       "model:ndkchapter": 'NdkChapter', // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
 
       "model:oldprintomnibusvolume": 'OldprintConvolutte',       // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
-      "model:oldprintmonographtitle": 'OldprintMonographtitle',
+      "model:oldprintmonographtitle": 'OldprintMonographTitle',
       "model:oldprintvolume": 'OldprintMonographVolume',
       "model:oldprintsupplement": 'OldprintMonographSupplement',
       "model:oldprintchapter": 'OldprintChapter',
@@ -147,9 +147,9 @@ export class ModelTemplate {
       "model:bdmarticle": 'BdmArticleTemplate',  // bez urceni pravidel
 
       // chronicle
-      "model:chronicletitle": 'ChronicleMonographtitle',
-      "model:chroniclevolume": 'ChronicleMonographvolume',
-      "model:chroniclesupplement": 'ChronicleMonographsupplement',
+      "model:chronicletitle": 'ChronicleMonographTitle',
+      "model:chroniclevolume": 'ChronicleMonographVolume',
+      "model:chroniclesupplement": 'ChronicleMonographSupplement',
 
       // ndk music documents -- ndkMusic ma pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
       "model:ndkphonographcylinder": 'NdkMusicDocument',
