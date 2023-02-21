@@ -1,22 +1,128 @@
-<div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
-		<a routerLink="/"><mat-icon>home</mat-icon> Home</a>
-    <span class="app-separator">/</span>
-    <a routerLink="/devices">{{ 'desc.devices' | translate }}</a>
-    <span class="app-separator">/</span>
-		<ng-container *ngIf="mode == 'new'">
-			<span class="app-last">{{ 'desc.newDevice' | translate }}</span>
-		</ng-container>
-		<ng-container *ngIf="mode == 'edit' && device">
-			<a [routerLink]="['/devices', device.id]">{{ deviceName }}</a>
-			<span class="app-separator">/</span>
-			<span class="app-last">{{ 'desc.deviceModification' | translate }}</span>
-		</ng-container>
+<div fxLayout="column" fxFlexFill>
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
+    <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
+      <a routerLink="/"><mat-icon>home</mat-icon> Home</a>
+      <span class="app-separator">/</span>
+      <a routerLink="/devices">{{ 'desc.devices' | translate }}</a>
+      <span class="app-separator">/</span>
+      <ng-container *ngIf="mode == 'new'">
+        <span class="app-last">{{ 'desc.newDevice' | translate }}</span>
+      </ng-container>
+      <ng-container *ngIf="mode == 'edit' && device">
+        <a [routerLink]="['/devices', device.id]">{{ deviceName }}</a>
+        <span class="app-separator">/</span>
+        <span class="app-last">{{ 'desc.deviceModification' | translate }}</span>
+      </ng-container>
+    </div>
+  </div>
+
+  <div fxFlex class="app-device-edit app-p-4 app-oa-y" fxLayout="column">
+    <mat-card *ngIf="state=='success' || state=='saving'">
+      <mat-card-content>
+        <fieldset class="app-p-4 app-mb-4">
+          <legend>{{ 'desc.general' | translate }}</legend>
+          <div fxLayout="row" fxLayoutGap="16px">
+            <mat-form-field fxFlex *ngIf="mode == 'new'">
+              <mat-select required [placeholder]="'desc.typeOfDevice' | translate" name="model" [(value)]="device.model">
+                <mat-option *ngFor="let model of models" [value]="model">{{ 'model.' + model | translate }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <input type="text" matInput autocomplete="off" [placeholder]="'desc.name' | translate" [disabled]="state=='saving'" [(ngModel)]='device.label' name="label" required>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutGap="16px">
+            <mat-form-field fxFlex>
+              <input type="text" matInput autocomplete="off" [placeholder]="'desc.imageProducer' | translate" [disabled]="state=='saving'" [(ngModel)]='device.imageProducer' name="imageProducer" required>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <mat-select [placeholder]="'desc.captureDevice' | translate" name="captureDevice" [(value)]="device.captureDevice">
+                <mat-option *ngFor="let captureDevice of captureDevices" [value]="captureDevice">{{ captureDevice }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>        
+        </fieldset>
+
+        <fieldset class="app-p-4 app-mb-4">
+          <legend>{{ 'desc.scanner' | translate }}</legend>
+          <div fxLayout="row" fxLayoutGap="16px">
+            <mat-form-field fxFlex>
+              <input type="text" matInput autocomplete="off" [placeholder]="'desc.manufacturer' | translate" [disabled]="state=='saving'" [(ngModel)]='device.scannerManufacturer' name="scannerManufacturer" required>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <mat-select required [placeholder]="'desc.scannerSensor' | translate" name="scannerSensor" [(value)]="device.scannerSensor">
+                <mat-option *ngFor="let sensor of sensors" [value]="sensor">{{ sensor }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutGap="16px">
+            <mat-form-field fxFlex>
+              <input type="text" matInput autocomplete="off" [placeholder]="'desc.modelName' | translate" [disabled]="state=='saving'" [(ngModel)]='device.scannerModelName' name="scannerModelName" required>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <input type="text" matInput autocomplete="off" [placeholder]="'desc.modelNumber' | translate" [disabled]="state=='saving'" [(ngModel)]='device.scannerModelNumber' name="scannerModelNumber" required>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <input type="text" matInput autocomplete="off" [placeholder]="'desc.modelSerialNumber' | translate" [disabled]="state=='saving'" [(ngModel)]='device.scannerModelSerialNo' name="scannerModelSerialNo" required>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutGap="16px">
+            <mat-form-field fxFlex>
+              <input type="number" step="1" matInput autocomplete="off" [placeholder]="'X - ' + ('desc.opticalResolution' | translate)" [disabled]="state=='saving'" [(ngModel)]='device.xOpticalResolution' name="xOpticalRsolution" required>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <input type="number" step="1" matInput autocomplete="off" [placeholder]="'Y - ' + ('desc.opticalResolution' | translate)" [disabled]="state=='saving'" [(ngModel)]='device.yOpticalResolution' name="yOpticalRsolution" required>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <mat-select required [placeholder]="'desc.opticalResolutionUnit' | translate" name="opticalResolutionUnit" [(value)]="device.opticalResolutionUnit">
+                <mat-option *ngFor="let resolutionUnit of resolutionUnits" [value]="resolutionUnit">{{ resolutionUnit }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutGap="16px">
+            <mat-form-field fxFlex>
+              <input type="text" matInput autocomplete="off" [placeholder]="'desc.softwareName' | translate" [disabled]="state=='saving'" [(ngModel)]='device.scanningSoftwareName' name="scanningSoftwareName" required>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <input type="text" matInput autocomplete="off" [placeholder]="'desc.softwareVersion' | translate" [disabled]="state=='saving'" [(ngModel)]='device.scanningSoftwareVersionNo' name="scanningSoftwareVersionNo" required>
+            </mat-form-field>
+          </div>
+        </fieldset>
+
+        <fieldset class="app-p-4 app-mb-4">
+          <legend>{{ 'desc.digitalCamera' | translate }}</legend>
+          <div fxLayout="row" fxLayoutGap="16px">
+            <mat-form-field fxFlex>
+              <input type="text" matInput autocomplete="off" [placeholder]="'desc.manufacturer' | translate" [disabled]="state=='saving'" [(ngModel)]='device.digitalCameraManufacturer' name="digitalCameraManufacturer">
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <mat-select [placeholder]="'desc.cameraSensor' | translate" name="cameraSensor" [(value)]="device.cameraSensor">
+                <mat-option *ngFor="let sensor of sensors" [value]="sensor">{{ sensor }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutGap="16px">
+            <mat-form-field fxFlex>
+              <input type="text" matInput autocomplete="off" [placeholder]="'desc.modelName' | translate" [disabled]="state=='saving'" [(ngModel)]='device.digitalCameraModelName' name="digitalCameraModelName">
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <input type="text" matInput autocomplete="off" [placeholder]="'desc.modelNumber' | translate" [disabled]="state=='saving'" [(ngModel)]='device.digitalCameraModelNumber' name="digitalCameraModelNumber">
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <input type="text" matInput autocomplete="off" [placeholder]="'desc.modelSerialNumber' | translate" [disabled]="state=='saving'" [(ngModel)]='device.digitalCameraModelSerialNo' name="digitalCameraModelSerialNo">
+            </mat-form-field>
+          </div>
+        </fieldset>
+        <button (click)="onSubmit()" mat-flat-button [disabled]="state=='saving'" color="primary">
+          {{ mode=='new' ? ('device.create' | translate) : ('device.edit' | translate) }}
+         </button>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>
 
 
-<div class="app-edit-device" *ngIf="state=='success' || state=='saving'">
+<!-- <div class="app-edit-device" *ngIf="state=='success' || state=='saving'">
   <div class="app-card">
           <div class="app-card-content">
 
@@ -157,4 +263,4 @@
 
 
 <mat-spinner *ngIf="state === 'loading'" [strokeWidth]="5" [diameter]="60" class="center-spinner">
-</mat-spinner>
+</mat-spinner> -->
