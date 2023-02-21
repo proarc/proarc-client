@@ -1,15 +1,118 @@
-<div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
-    <a routerLink="/"><mat-icon>home</mat-icon> Home</a>
-    <span class="app-separator">/</span>
-    <a routerLink="/devices">{{ 'desc.devices' | translate }}</a>
-    <span class="app-separator">/</span>
-    <span class="app-last">{{ device.label }}</span>
+<div fxLayout="column" fxFlexFill>
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
+    <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
+      <a routerLink="/"><mat-icon>home</mat-icon> Home</a>
+      <span class="app-separator">/</span>
+      <a routerLink="/devices">{{ 'desc.devices' | translate }}</a>
+      <span class="app-separator">/</span>
+      <span class="app-last">{{ device.label }}</span>
+    </div>
+  </div>
+  
+  <div fxFlex class="app-device app-p-4 app-oa-y" fxLayout="column">
+    <mat-card *ngIf="state === 'success'">
+      <mat-card-content>
+        <fieldset class="app-p-4 app-mb-4">
+          <legend>{{ 'desc.general' | translate }}</legend>
+          <div fxLayout="row" fxLayoutGap="16px">
+            <mat-form-field fxFlex>
+              <input type="text" matInput [placeholder]="'desc.name' | translate" disabled [(ngModel)]='device.label'>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutGap="16px">
+            <mat-form-field fxFlex>
+              <input type="text" matInput [placeholder]="'desc.imageProducer' | translate" disabled [(ngModel)]='device.imageProducer'>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <input type="text" matInput [placeholder]="'desc.captureDevice' | translate" disabled [(ngModel)]='device.captureDevice'>
+            </mat-form-field>
+          </div>        
+        </fieldset>
+
+        <fieldset class="app-p-4 app-mb-4">
+          <legend>{{ 'desc.scanner' | translate }}</legend>
+          <div fxLayout="row" fxLayoutGap="16px">
+            <mat-form-field fxFlex>
+              <input type="text" matInput [placeholder]="'desc.manufacturer' | translate" disabled [(ngModel)]='device.scannerManufacturer'>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <input type="text" matInput [placeholder]="'desc.scannerSensor' | translate" disabled [(ngModel)]='device.scannerSensor'>
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="row" fxLayoutGap="16px">
+            <mat-form-field fxFlex>
+              <input type="text" matInput [placeholder]="'desc.modelName' | translate" disabled [(ngModel)]='device.scannerModelName'>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <input type="text" matInput [placeholder]="'desc.modelNumber' | translate" disabled [(ngModel)]='device.scannerModelNumber'>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <input type="text" matInput [placeholder]="'desc.modelSerialNumber' | translate" disabled [(ngModel)]='device.scannerModelSerialNo'>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutGap="16px">
+            <mat-form-field fxFlex>
+              <input type="number" step="1" matInput [placeholder]="'X - ' + ('desc.opticalResolution' | translate)" disabled [(ngModel)]='device.xOpticalResolution'>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <input type="number" step="1" matInput [placeholder]="'Y - ' + ('desc.opticalResolution' | translate)" disabled [(ngModel)]='device.yOpticalResolution'>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <input type="text" matInput [placeholder]="'desc.opticalResolutionUnit' | translate" disabled [(ngModel)]='device.opticalResolutionUnit'>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutGap="16px">
+            <mat-form-field fxFlex>
+              <input type="text" matInput [placeholder]="'desc.softwareName' | translate" disabled [(ngModel)]='device.scanningSoftwareName'>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <input type="text" matInput [placeholder]="'desc.softwareVersion' | translate" disabled [(ngModel)]='device.scanningSoftwareVersionNo'>
+            </mat-form-field>
+          </div>
+        </fieldset>
+
+        <fieldset class="app-p-4 app-mb-4">
+          <legend>{{ 'desc.digitalCamera' | translate }}</legend>
+          <div fxLayout="row" fxLayoutGap="16px">
+            <mat-form-field fxFlex>
+              <input type="text" matInput [placeholder]="'desc.manufacturer' | translate" disabled [(ngModel)]='device.digitalCameraManufacturer'>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <input type="text" matInput [placeholder]="'desc.cameraSensor' | translate" disabled [(ngModel)]='device.cameraSensor'>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutGap="16px">
+            <mat-form-field fxFlex>
+              <input type="text" matInput [placeholder]="'desc.modelName' | translate" disabled [(ngModel)]='device.digitalCameraModelName'>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <input type="text" matInput autocomplete="off" [placeholder]="'desc.modelNumber' | translate" disabled [(ngModel)]='device.digitalCameraModelNumber'>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <input type="text" matInput autocomplete="off" [placeholder]="'desc.modelSerialNumber' | translate" disabled [(ngModel)]='device.digitalCameraModelSerialNo'>
+            </mat-form-field>
+          </div>
+        </fieldset>
+
+        <button mat-flat-button color="primary" [routerLink]="['/devices', device.id, 'edit']" class="app-mr-2">
+          {{ 'button.editDevice' | translate }}
+        </button>
+        <button mat-flat-button color="warn" (click)="removeDevice()" class="app-mr-2">
+          {{ 'button.removeDevice' | translate }}
+        </button>
+        <button mat-flat-button color="primary" *ngIf="device.isAudio()" [routerLink]="['/devices', device.id, 'audio', 'new']">
+          {{ 'button.addInfoToAudioFiles' | translate }}
+        </button>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>
 
 
-<div class="app-device" *ngIf="state === 'success'">
+
+<!-- to delete
+  <div class="app-device" *ngIf="state === 'success'">
   <div class="app-device-label">{{ device.label }}</div>
 
   <div class="app-detail-key-value">Typ: <strong>{{ 'device.models.' + device.model | translate }}</strong></div>
@@ -110,4 +213,4 @@
           [strokeWidth]="5" 
           [diameter]="60" 
           class="center-spinner">
-</mat-spinner>
+</mat-spinner> -->

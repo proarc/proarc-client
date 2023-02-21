@@ -2089,7 +2089,10 @@
     "reexport": "Znovu exportovat",
     "create": "Vytvořit",
     "loadMetadataFromCatalog": "Načíst metadata z katalogu",
-    "addDevice": "Přidat zařízení"
+    "addDevice": "Přidat zařízení",
+    "editDevice": "Upravit zařízení",
+    "removeDevice": "Odstranit zařízení",
+    "addInfoToAudioFiles": "Přidat info ke zvukovém souborům"
   },
   "dynamic": {
     "repo": "Úložiště",

@@ -2089,7 +2089,10 @@
     "reexport": "Repeat export",
     "create": "Create",
     "loadMetadataFromCatalog": "Load metadata from catalog",
-    "addDevice": "Add device"
+    "addDevice": "Add device",
+    "editDevice": "Edit device",
+    "removeDevice": "Remove device",
+    "addInfoToAudioFiles": "Add info to audio files"
   },
   "dynamic": {
     "repo": "Storage",
