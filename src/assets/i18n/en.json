@@ -2028,7 +2028,23 @@
     "dateFrom": "Date from",
     "dateTo": "Date to",
     "releasedIn": "Released in",
-    "type": "Type"
+    "type": "Type",
+    "general": "General",
+    "typeOfDevice": "Type of device",
+    "imageProducer": "Image producer",
+    "captureDevice": "Capture device",
+    "scanner": "Scanner",
+    "manufacturer": "Manufacturer",
+    "scannerSensor": "Scanner sensor",
+    "modelName": "Model name",
+    "modelNumber": "Model number",
+    "modelSerialNumber": "Model serial number",
+    "opticalResolution": "Optical resolution",
+    "opticalResolutionUnit": "Optical resolution unit",
+    "softwareName": "Software name",
+    "softwareVersion": "Software version",
+    "digitalCamera": "Digital camera",
+    "cameraSensor": "Camera sensor"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2073,7 +2089,10 @@
     "reexport": "Repeat export",
     "create": "Create",
     "loadMetadataFromCatalog": "Load metadata from catalog",
-    "addDevice": "Add device"
+    "addDevice": "Add device",
+    "editDevice": "Edit device",
+    "removeDevice": "Remove device",
+    "addInfoToAudioFiles": "Add info to audio files"
   },
   "dynamic": {
     "repo": "Storage",

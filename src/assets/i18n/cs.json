@@ -2028,7 +2028,23 @@
     "dateFrom": "Datum od",
     "dateTo": "Datum do",
     "releasedIn": "Vydáno v",
-    "type": "Typ"
+    "type": "Typ",
+    "general": "Obecné",
+    "typeOfDevice": "Typ zařízení",
+    "imageProducer": "Výrobce obrázků",
+    "captureDevice": "Zachycovací zařízení",
+    "scanner": "Skener",
+    "manufacturer": "Výrobce",
+    "scannerSensor": "Senzor skeneru",
+    "modelName": "Jméno modelu",
+    "modelNumber": "Číslo modelu",
+    "modelSerialNumber": "Sériové číslo modelu",
+    "opticalResolution": "Optické rozlišení",
+    "opticalResolutionUnit": "Jednotka optického rozlišení",
+    "softwareName": "Jméno softwaru",
+    "softwareVersion": "Verze softwaru",
+    "digitalCamera": "Digitální kamera",
+    "cameraSensor": "Kamerový senzor"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2073,7 +2089,10 @@
     "reexport": "Znovu exportovat",
     "create": "Vytvořit",
     "loadMetadataFromCatalog": "Načíst metadata z katalogu",
-    "addDevice": "Přidat zařízení"
+    "addDevice": "Přidat zařízení",
+    "editDevice": "Upravit zařízení",
+    "removeDevice": "Odstranit zařízení",
+    "addInfoToAudioFiles": "Přidat info ke zvukovém souborům"
   },
   "dynamic": {
     "repo": "Úložiště",

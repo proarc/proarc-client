@@ -20,6 +20,17 @@ a {
   }
 }
 
+fieldset {
+  border-width: 1px;
+  border-color: $app-gray-4;
+  border-style: solid;
+
+  legend {
+    @extend .app-pl-2, .app-pr-2;
+    color: $app-color-primary;
+  }
+}
+
 // theme colors
 .app-color-primary {
   color: $app-color-primary;
