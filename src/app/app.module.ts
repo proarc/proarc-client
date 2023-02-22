@@ -78,7 +78,6 @@ import { EditorAbstractComponent } from './documents/document/editor-abstract/ed
 import { EditorPhysicalComponent } from './documents/document/editor-physical/editor-physical.component';
 import { TreeComponent } from './components/search/tree/tree.component';
 import { SearchService } from './services/search.service';
-import { ImportService } from './services/import.service';
 import { IngestDialogComponent } from './dialogs/ingest-dialog/ingest-dialog.component';
 import { AboutDialogComponent } from './dialogs/about-dialog/about-dialog.component';
 import { PreferredTopsDialogComponent } from './dialogs/preferred-tops-dialog/preferred-tops-dialog.component';
@@ -279,7 +278,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     FundService,
     OsmService,
     SearchService,
-    ImportService,
     DatePipe,
     { provide: MAT_DATE_LOCALE, useValue: 'cs-CZ' },
     {

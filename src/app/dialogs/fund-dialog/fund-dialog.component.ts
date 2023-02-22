@@ -24,7 +24,9 @@ export class FundDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.allFunds = this.fund.getFund(this.archive);
+    this.fund.getFund(this.archive).subscribe((funds: any[]) => {
+      this.allFunds = funds;
+    });
   }
 
   search(query: string) {

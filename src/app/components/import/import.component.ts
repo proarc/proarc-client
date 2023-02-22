@@ -8,7 +8,6 @@ import { Batch } from 'src/app/model/batch.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ImportDialogComponent } from 'src/app/dialogs/import-dialog/import-dialog.component';
 import { Router } from '@angular/router';
-import { ImportService } from 'src/app/services/import.service';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { UIService } from 'src/app/services/ui.service';
@@ -48,13 +47,13 @@ export class ImportComponent implements OnInit {
   constructor(
     private api: ApiService,
     private ui: UIService,
-    public importService: ImportService,
+    //public importService: ImportService,
     private router: Router,
     private dialog: MatDialog) { }
 
 
   ngOnInit() {
-    this.importService.init();
+    //this.importService.init();
     const rDevice = this.api.getDevices();
     const rProfiles = this.api.getImportProfiles();
     forkJoin([rDevice, rProfiles]).subscribe(([devices, profiles]: [Device[], Profile[]]) => {
