@@ -19,6 +19,8 @@ export class DeviceComponent implements OnInit {
   state = 'none';
   private id: string;
 
+  displayedColumns: string[] = ['name', 'type', 'manufacturer', 'serialNumber', 'settings', 'identifierType', 'identifierValue', 'identifierRole', 'actions'];
+
   constructor(private api: ApiService,
               private dialog: MatDialog,
               private router: Router,

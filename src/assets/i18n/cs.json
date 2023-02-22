@@ -2044,7 +2044,12 @@
     "softwareName": "Jméno softwaru",
     "softwareVersion": "Verze softwaru",
     "digitalCamera": "Digitální kamera",
-    "cameraSensor": "Kamerový senzor"
+    "cameraSensor": "Kamerový senzor",
+    "serialNumber": "Sériové číslo",
+    "identifierType": "Typ identifikátoru",
+    "identifierValue": "Hodnota identifikátoru",
+    "identifierRole": "Role identifikátoru",
+    "informationAboutAudioFiles": "Informace ke zvukovým souborům"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2092,7 +2097,9 @@
     "addDevice": "Přidat zařízení",
     "editDevice": "Upravit zařízení",
     "removeDevice": "Odstranit zařízení",
-    "addInfoToAudioFiles": "Přidat info ke zvukovém souborům"
+    "addInfoToAudioFiles": "Přidat info ke zvukovém souborům",
+    "deleteInfoForAudioFiles": "Smazat info ke zvukovém souborům",
+    "editInfoForAudioFiles": "Upravit info ke zvukovém souborům"
   },
   "dynamic": {
     "repo": "Úložiště",

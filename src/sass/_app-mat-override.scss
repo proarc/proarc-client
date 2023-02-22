@@ -48,6 +48,12 @@
     .mat-column-actions {
       @extend .app-text-right;
       width: 30px;
+
+      .app-action-item {
+        &:not(:last-child) {
+          @extend .app-mr-2;
+        }
+      }
     }
 
     .mat-cell {

@@ -1,68 +1,7 @@
-/* to delete 
-
-@import './src/sass/app-variables';
-
-.app-device {
-    padding: 20px;
-    .app-device-label {
-      font-size: 22px;
-      color: #333;
-      margin-bottom: 16px;
+.mat-table {
+  .mat-row {
+    .mat-column-actions {
+      width: 60px;
     }
-    .app-detail-key-value {
-      color: #888;
-      margin-bottom: 4px;
-      strong {
-        padding-left: 3px;
-        color: #555;
-        a {
-          color: #3f4fb5;
-          text-decoration: none;
-        }
-      }
-    }
-    .app-detail-label {
-      color: $app-color-primary;
-      margin-bottom: 8px;
-      margin-top: 16px;
-    }
-  
-    .audio-device-list {
-      margin-top: 12px;
-      .device-name {
-        width: 200px;
-      }
-      .device-type {
-        width: 150px;
-      }
-      .device-manufacturer {
-        width: 250px;
-      }
-      .device-serial-number {
-        width: 200px;
-      }
-      .device-settings {
-        width: 250px;
-      }
-      .device-id-type {
-        width: 200px;
-      }
-      .device-id-value {
-        width: 200px;
-      }
-      .device-id-role {
-        flex: 1;
-      }
-      .device-actions {
-        min-width: 100px;
-        width: 100px;
-        text-align: right;
-      }
-    }
-    .actions {
-      margin-top: 20px;
-      a, button {
-        margin-right: 8px;
-      }
-    }
-  } */
+  }
+}

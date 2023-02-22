@@ -2044,7 +2044,12 @@
     "softwareName": "Software name",
     "softwareVersion": "Software version",
     "digitalCamera": "Digital camera",
-    "cameraSensor": "Camera sensor"
+    "cameraSensor": "Camera sensor",
+    "serialNumber": "Serial number",
+    "identifierType": "Identifier type",
+    "identifierValue": "Identifier value",
+    "identifierRole": "Identifier rolw",
+    "informationAboutAudioFiles": "Information about audio files"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2092,7 +2097,9 @@
     "addDevice": "Add device",
     "editDevice": "Edit device",
     "removeDevice": "Remove device",
-    "addInfoToAudioFiles": "Add info to audio files"
+    "addInfoToAudioFiles": "Add info to audio files",
+    "deleteInfoForAudioFiles": "Delete info for audio files",
+    "editInfoForAudioFiles": "Edit info for audio files"
   },
   "dynamic": {
     "repo": "Storage",
