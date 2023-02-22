@@ -81,7 +81,6 @@ import { EditorPhysicalComponent } from './documents/document/editor-physical/ed
 import { TreeComponent } from './components/search/tree/tree.component';
 import { SearchService } from './services/search.service';
 import { ImportService } from './services/import.service';
-import { ImportTreeComponent } from './components/import-old/tree/tree.component';
 import { IngestDialogComponent } from './dialogs/ingest-dialog/ingest-dialog.component';
 import { AboutDialogComponent } from './dialogs/about-dialog/about-dialog.component';
 import { PreferredTopsDialogComponent } from './dialogs/preferred-tops-dialog/preferred-tops-dialog.component';
@@ -114,7 +113,6 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FOR
 import { NewMetadataDialogComponent } from './dialogs/new-metadata-dialog/new-metadata-dialog.component';
 import { WorkflowComponent } from './components/workflow/workflow.component';
 import { AdminComponent } from './pages/admin/admin.component';
-import { ImportOldComponent } from './components/import-old/import-old.component';
 import { NewWorkflowDialogComponent } from './components/workflow/new-workflow-dialog/new-workflow-dialog.component';
 import { ChangeModelDialogComponent } from './dialogs/change-model-dialog/change-model-dialog.component';
 import { RepositoryComponent } from './pages/repository/repository.component';
@@ -216,7 +214,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditorRelatedItemComponent,
     EditorAesComponent,
     TreeComponent,
-    ImportTreeComponent,
     IngestDialogComponent,
     AboutDialogComponent,
     PreferredTopsDialogComponent,
@@ -242,7 +239,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     NewMetadataDialogComponent,
     WorkflowComponent,
     AdminComponent,
-    ImportOldComponent,
     NewWorkflowDialogComponent,
     ChangeModelDialogComponent,
     RepositoryComponent,
