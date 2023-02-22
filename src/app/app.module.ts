@@ -111,9 +111,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { DatePipe } from '@angular/common';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 import { NewMetadataDialogComponent } from './dialogs/new-metadata-dialog/new-metadata-dialog.component';
-import { WorkflowComponent } from './components/workflow/workflow.component';
 import { AdminComponent } from './pages/admin/admin.component';
-import { NewWorkflowDialogComponent } from './components/workflow/new-workflow-dialog/new-workflow-dialog.component';
 import { ChangeModelDialogComponent } from './dialogs/change-model-dialog/change-model-dialog.component';
 import { RepositoryComponent } from './pages/repository/repository.component';
 import { EditorGenericComponent } from './components/editor/editor-generic/editor-generic.component';
@@ -133,6 +131,7 @@ import { KrameriusModsComponent } from './pages/kramerius/kramerius-mods/krameri
 
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { MediaComponent } from './components/media/media.component';
+import { SharedModule } from './shared.module';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 300,
@@ -237,9 +236,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditorTableOfContentsComponent,
     AlertDialogComponent,
     NewMetadataDialogComponent,
-    WorkflowComponent,
     AdminComponent,
-    NewWorkflowDialogComponent,
     ChangeModelDialogComponent,
     RepositoryComponent,
     EditorGenericComponent,
@@ -259,16 +256,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MaterialModule,
+    SharedModule,
     HttpClientModule,
     HttpClientJsonpModule,
-    AngularResizeEventModule,
-    AngularSplitModule.forRoot(),
     HighlightModule,
     FlexLayoutModule,
     NgxExtendedPdfViewerModule ,
+    AngularSplitModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
