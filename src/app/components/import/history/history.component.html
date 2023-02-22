@@ -11,7 +11,7 @@
 
   <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'"></mat-progress-bar>
 
-  <div fxFlex class="app-history" *ngIf="state=='success'" fxLayout="column">
+  <div fxFlex class="app-history app-p-4" *ngIf="state=='success'" fxLayout="column">
     <div class="app-formbar" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
       <ng-container *ngIf="view == 'overview'">
         <mat-form-field>
@@ -142,13 +142,13 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let element">
-            <a *ngIf="element.failure" (click)="onShowLog(element);$event.preventDefault();$event.stopPropagation()" [matTooltip]="'button.viewErrorDetail' | translate" matTooltipPosition="below">
+            <a *ngIf="element.failure" (click)="onShowLog(element);$event.preventDefault();$event.stopPropagation()" [matTooltip]="'button.viewErrorDetail' | translate" matTooltipPosition="below" class="app-icon-button">
               <mat-icon>error_outline</mat-icon>
             </a>
-            <a *ngIf="element.state === 'INGESTING_FAILED'" (click)="reIngest(element);$event.preventDefault();$event.stopPropagation()" [matTooltip]="'button.saveAgain' | translate" matTooltipPosition="below">
+            <a *ngIf="element.state === 'INGESTING_FAILED'" (click)="reIngest(element);$event.preventDefault();$event.stopPropagation()" [matTooltip]="'button.saveAgain' | translate" matTooltipPosition="below" class="app-icon-button">
               <mat-icon>save_alt</mat-icon>
             </a>
-            <a *ngIf="element.state === 'LOADING'" (click)="stop(element);$event.preventDefault();$event.stopPropagation()" [matTooltip]="'button.stop' | translate" matTooltipPosition="below" class="app-color-warn">
+            <a *ngIf="element.state === 'LOADING'" (click)="stop(element);$event.preventDefault();$event.stopPropagation()" [matTooltip]="'button.stop' | translate" matTooltipPosition="below" class="app-color-warn" class="app-icon-button">
               <mat-icon>cancel</mat-icon>
             </a>
           </td>

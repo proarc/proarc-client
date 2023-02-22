@@ -1,11 +1,4 @@
-@import './src/sass/app-variables';
-@import './src/sass/app-mixins';
-@import './src/sass/app-global';
-
-// new
 .app-history {
-  @extend .app-p-4;
-
   .app-formbar {
     .mat-form-field {
       &.app-resized {
@@ -13,6 +6,14 @@
         flex: 1 1 $app-size;
         max-width: $app-size;
         min-width: $app-size;
+      }
+    }
+  }
+
+  .mat-table {
+    .mat-row {
+      .mat-column-actions {
+        width: 60px;
       }
     }
   }
