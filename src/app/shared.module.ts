@@ -14,14 +14,15 @@ import { AngularSplitModule } from 'angular-split';
     ReactiveFormsModule,
     MaterialModule,
     AngularResizeEventModule,
-    AngularSplitModule.forRoot(),
+    AngularSplitModule,
   ],
   exports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    AngularResizeEventModule
+    AngularResizeEventModule,
+    AngularSplitModule
   ]
 })
 export class SharedModule { }
