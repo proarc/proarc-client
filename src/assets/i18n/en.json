@@ -2049,7 +2049,11 @@
     "identifierType": "Identifier type",
     "identifierValue": "Identifier value",
     "identifierRole": "Identifier rolw",
-    "informationAboutAudioFiles": "Information about audio files"
+    "informationAboutAudioFiles": "Information about audio files",
+    "linkingAgentIdentifier": "Linking agent identifier",
+    "value": "Value",
+    "role": "Role",
+    "agentExtension": "Agent extension"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2099,7 +2103,9 @@
     "removeDevice": "Remove device",
     "addInfoToAudioFiles": "Add info to audio files",
     "deleteInfoForAudioFiles": "Delete info for audio files",
-    "editInfoForAudioFiles": "Edit info for audio files"
+    "editInfoForAudioFiles": "Edit info for audio files",
+    "createAnAudioLine": "Create an audio line",
+    "editTheAudioLine": "Edit the audio line"
   },
   "dynamic": {
     "repo": "Storage",
