@@ -8,7 +8,7 @@ import { LocalStorageService } from './local-storage.service';
 export class CodebookService {
 
   collPrefix: any = {
-    "PageTypes": "page_type",
+    "PageTypes": "pageType",
     "Languages": "lang",
     "Identifiers": "identifier",
     "Locations": "sigla",
