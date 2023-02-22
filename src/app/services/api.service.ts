@@ -722,6 +722,11 @@ export class ApiService {
     return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
+  reExportBatch(id: number): Observable<any> {
+    let data = `id=${id}`;
+    return this.post('export/reexport', data);
+  }
+
   createImportBatch(path: string, profile: string, indices: boolean, device: string, priority: string): Observable<any> {
     const data = `folderPath=${path}&profile=${profile}&indices=${indices}&device=${device}&priority=${priority}`;
     return this.post('import/batch', data);

@@ -457,7 +457,15 @@ export class HistoryComponent implements OnInit, OnDestroy {
   }
 
   onReexport() {
-    // TODO po Lukasi
+    this.api.reExportBatch(this.selectedBatch.id).subscribe((response: any) => {
+      if (response.response.errors) {
+        this.state = 'error';
+        this.ui.showErrorSnackBarFromObject(response.response.errors);
+      } else if (response.response.data[0].errors) {
+        this.state = 'error';
+        this.ui.showErrorSnackBar(response.response.data[0].errors[0].message);
+      }
+    })
     
   }
 
