@@ -11,7 +11,7 @@
 
   <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'"></mat-progress-bar>
 
-  <div fxFlex class="app-history" *ngIf="state=='success'" fxLayout="column">
+  <div fxFlex class="app-history app-p-4" *ngIf="state=='success'" fxLayout="column">
     <div class="app-formbar" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
       <ng-container *ngIf="view == 'overview'">
         <mat-form-field>

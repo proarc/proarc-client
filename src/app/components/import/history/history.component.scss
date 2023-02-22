@@ -1,11 +1,4 @@
-@import './src/sass/app-variables';
-@import './src/sass/app-mixins';
-@import './src/sass/app-global';
-
-// new
 .app-history {
-  @extend .app-p-4;
-
   .app-formbar {
     .mat-form-field {
       &.app-resized {
