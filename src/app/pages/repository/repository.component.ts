@@ -148,7 +148,12 @@ export class RepositoryComponent implements OnInit {
         const selected = this.layout.lastSelectedItem.selected;
         Object.assign(this.layout.lastSelectedItem, item);
         this.layout.lastSelectedItem.selected = selected;
-        this.layout.lastSelectedItemMetadata = new Metadata(pid, model, respMeta['record']['content'], respMeta['record']['timestamp'], respMeta['record']['standard']);
+
+        const standard = Metadata.resolveStandard(respMeta['record']['content']);
+        this.tmpl.getTemplate(standard, model).subscribe((tmpl: any) => {
+          this.layout.lastSelectedItemMetadata = new Metadata(pid, model, respMeta['record']['content'], respMeta['record']['timestamp'], respMeta['record']['standard'], tmpl);
+        })
+        // this.layout.lastSelectedItemMetadata = new Metadata(pid, model, respMeta['record']['content'], respMeta['record']['timestamp'], respMeta['record']['standard']);
       });
     } else if(from === 'pages') {
       this.refreshPages();
@@ -290,7 +295,7 @@ export class RepositoryComponent implements OnInit {
       const standard = Metadata.resolveStandard(response['record']['content']);
       this.tmpl.getTemplate(standard, model).subscribe((tmpl: any) => {
         this.layout.lastSelectedItemMetadata = new Metadata(pid, model, response['record']['content'], response['record']['timestamp'], response['record']['standard'], tmpl);
-      })
+      });
       // this.layout.lastSelectedItemMetadata = new Metadata(pid, model, response['record']['content'], response['record']['timestamp'], response['record']['standard']);
       
     });

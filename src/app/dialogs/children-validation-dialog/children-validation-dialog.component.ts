@@ -5,6 +5,7 @@ import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Metadata } from 'src/app/model/metadata.model';
 import { Page } from 'src/app/model/page.model';
 import { ApiService } from 'src/app/services/api.service';
+import { TemplateService } from 'src/app/services/template.service';
 
 @Component({
   templateUrl: './children-validation-dialog.component.html',
@@ -24,6 +25,7 @@ export class ChildrenValidationDialogComponent implements OnInit {
 
   constructor(
     private api: ApiService,
+    private tmpl: TemplateService,
     public dialogRef: MatDialogRef<ChildrenValidationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.children = data.children;
@@ -43,9 +45,9 @@ export class ChildrenValidationDialogComponent implements OnInit {
   validateApi() {
     this.api.validate(this.data.parent.pid, this.data.batchId).subscribe((response: any) => {
       if (response.errors) {
-        
+
       } else {
-        
+
       }
 
       this.state = 'done';
@@ -59,12 +61,12 @@ export class ChildrenValidationDialogComponent implements OnInit {
     // this.numberOfInvalid = 0;
     // this.numberOfValid = 0;
     this.metadatas.forEach(m => {
-        m.item.invalid = !m.metadata.validate();
-        if (m.item.invalid) {
-          this.numberOfInvalid += 1;
-        } else {
-          this.numberOfValid += 1;
-        }
+      m.item.invalid = !m.metadata.validate();
+      if (m.item.invalid) {
+        this.numberOfInvalid += 1;
+      } else {
+        this.numberOfValid += 1;
+      }
     });
 
   }
@@ -92,8 +94,14 @@ export class ChildrenValidationDialogComponent implements OnInit {
           this.numberOfInvalid += 1;
           item.invalid = true;
         } else {
-          const metadata = new Metadata(item.pid, item.model, response['record']['content'], response['record']['timestamp'], response['record']['standard']);
-          this.metadatas.push({ item, metadata });
+          const standard = Metadata.resolveStandard(this.data.content);
+          this.tmpl.getTemplate(standard, this.data.model).subscribe((tmpl: any) => {
+            const metadata = new Metadata(item.pid, item.model, response['record']['content'], response['record']['timestamp'], response['record']['standard'], tmpl);
+            this.metadatas.push({ item, metadata });
+          });
+
+          // const metadata = new Metadata(item.pid, item.model, response['record']['content'], response['record']['timestamp'], response['record']['standard']);
+          // this.metadatas.push({ item, metadata });
         }
 
         this.index += 1;

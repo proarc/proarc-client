@@ -7,6 +7,7 @@ import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dial
 import { Metadata } from 'src/app/model/metadata.model';
 import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
+import { TemplateService } from 'src/app/services/template.service';
 import { UIService } from 'src/app/services/ui.service';
 
 @Component({
@@ -27,6 +28,7 @@ export class EditorGeoComponent implements OnInit {
     private api: ApiService,
     private ui: UIService,
     private translator: TranslateService,
+    private tmpl: TemplateService,
     public layout: LayoutService,
     private dialog: MatDialog) { }
 
@@ -47,14 +49,13 @@ export class EditorGeoComponent implements OnInit {
         this.state = 'error';
         return;
       }
-      this.metadata = new Metadata(this.pid, this.layout.lastSelectedItem.model, response['record']['content'], response['record']['timestamp'], response['record']['standard']);
-      this.state = 'success';
+      this.tmpl.getTemplate(response['record']['standard'], this.layout.lastSelectedItem.model).subscribe((tmpl: any) => {
+        this.metadata = new Metadata(this.pid, this.layout.lastSelectedItem.model, response['record']['content'], response['record']['timestamp'], response['record']['standard'], tmpl);
+        this.state = 'success';
+      });
+      // this.metadata = new Metadata(this.pid, this.layout.lastSelectedItem.model, response['record']['content'], response['record']['timestamp'], response['record']['standard']);
+      // this.state = 'success';
     });
-
-    // this.api.getMetadata(this.pid, this.layout.lastSelectedItem.model).subscribe((metadata: Metadata) => {
-    //   this.metadata = metadata;
-    //   this.state = 'success';
-    // });
 
   }
 

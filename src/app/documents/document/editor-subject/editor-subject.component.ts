@@ -6,6 +6,7 @@ import { ElementField } from 'src/app/model/mods/elementField.model';
 import { ModsSubject } from 'src/app/model/mods/subject.model';
 import { CodebookService } from 'src/app/services/codebook.service';
 import { LayoutService } from 'src/app/services/layout.service';
+import { TemplateService } from 'src/app/services/template.service';
 
 @Component({
   selector: 'app-editor-subject',
@@ -17,7 +18,11 @@ export class EditorSubjectComponent implements OnInit {
   @Input() field: ElementField;
   @Input() model: string;
 
-  constructor(public codebook: CodebookService, private dialog: MatDialog, public layout: LayoutService) {
+  constructor(
+    public codebook: CodebookService, 
+    private dialog: MatDialog, 
+    private tmpl: TemplateService,
+    public layout: LayoutService) {
   }
 
   ngOnInit() {
@@ -31,13 +36,25 @@ export class EditorSubjectComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result && result['mods']) {
         const mods = result['mods'];
-        const metadata = new Metadata('', this.layout.lastSelectedItem.model, mods, 0, null);
-        const nameField = metadata.getField(ModsSubject.getSelector());
-        const items = nameField.getItems();
-        if (nameField && items.length > 0) {
-          this.field.addAfterItem(item, items[0]);
-          this.field.removeItem(item);
-        }
+
+        const standard = Metadata.resolveStandard(mods);
+        this.tmpl.getTemplate(standard, this.layout.lastSelectedItem.model).subscribe((tmpl: any) => {
+          const metadata = new Metadata('', this.layout.lastSelectedItem.model, mods, 0, standard, tmpl);
+          const nameField = metadata.getField(ModsSubject.getSelector());
+          const items = nameField.getItems();
+          if (nameField && items.length > 0) {
+            this.field.addAfterItem(item, items[0]);
+            this.field.removeItem(item);
+          }
+        });
+
+        // const metadata = new Metadata('', this.layout.lastSelectedItem.model, mods, 0, null);
+        // const nameField = metadata.getField(ModsSubject.getSelector());
+        // const items = nameField.getItems();
+        // if (nameField && items.length > 0) {
+        //   this.field.addAfterItem(item, items[0]);
+        //   this.field.removeItem(item);
+        // }
       }
     });
   }

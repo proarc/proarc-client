@@ -68,7 +68,7 @@ export class Metadata {
   public template: { [x: string]: boolean; };
   public standard: string;
 
-  constructor(pid: string, model: string, mods: string, timestamp: number, standard: string, template: any = null) {
+  constructor(pid: string, model: string, mods: string, timestamp: number, standard: string, template: any) {
     this.pid = pid;
     this.timestamp = timestamp;
     this.standard = standard;

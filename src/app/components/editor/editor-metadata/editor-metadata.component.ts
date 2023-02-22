@@ -9,6 +9,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Metadata } from 'src/app/model/metadata.model';
 import { LayoutService } from 'src/app/services/layout.service';
+import { TemplateService } from 'src/app/services/template.service';
 
 @Component({
   selector: 'app-editor-metadata',
@@ -33,6 +34,7 @@ export class EditorMetadataComponent implements OnInit {
   constructor(
     private translator: TranslateService,
     public layout: LayoutService,
+    private tmpl: TemplateService,
     private api: ApiService,
     private ui: UIService,
     private dialog: MatDialog) { }
@@ -41,7 +43,6 @@ export class EditorMetadataComponent implements OnInit {
 
   ngOnChanges(c: SimpleChanges) {
 
-    console.log(c, this.model)
     if (c['metadata'] && c['metadata'].currentValue) {
       this.metadata = c['metadata'].currentValue;
       
@@ -225,8 +226,10 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   setStandard() {    
-    this.layout.lastSelectedItemMetadata = new Metadata(this.metadata.pid, this.metadata.model, this.metadata.originalMods, this.metadata.timestamp, this.metadata.standard);
-    this.metadata = this.layout.lastSelectedItemMetadata;
+    this.tmpl.getTemplate(this.metadata.standard, this.layout.lastSelectedItem.model).subscribe((tmpl: any) => {
+      this.layout.lastSelectedItemMetadata = new Metadata(this.metadata.pid, this.metadata.model, this.metadata.originalMods, this.metadata.timestamp, this.metadata.standard, tmpl);
+      this.metadata = this.layout.lastSelectedItemMetadata;
+    });
   }
 
   showGenreSwitch() {

@@ -6,6 +6,7 @@ import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Metadata } from 'src/app/model/metadata.model';
 import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
+import { TemplateService } from 'src/app/services/template.service';
 import { UIService } from 'src/app/services/ui.service';
 import { NewObjectDialogComponent } from '../new-object-dialog/new-object-dialog.component';
 import { SimpleDialogData } from '../simple-dialog/simple-dialog';
@@ -30,6 +31,7 @@ export class NewMetadataDialogComponent implements OnInit {
     private ui: UIService,
     private api: ApiService,
     private dialog: MatDialog,
+    private tmpl: TemplateService,
     private layout: LayoutService,
     private translator: TranslateService,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
@@ -39,22 +41,20 @@ export class NewMetadataDialogComponent implements OnInit {
   }
 
   load() {
-    // this.state = 'loading';
-    this.metadata = new Metadata(this.data.pid, this.data.model, this.data.content, this.data.timestamp, null);
+    const standard = Metadata.resolveStandard(this.data.content);
+    this.tmpl.getTemplate(standard, this.data.model).subscribe((tmpl: any) => {
+      this.metadata = new Metadata(this.data.pid, this.data.model, this.data.content, this.data.timestamp, null, tmpl);
+      setTimeout(() => {
+        this.metadata.expandRequired();
+      }, 100);
+    });
 
-    setTimeout(() => {
-      this.metadata.expandRequired();
-    }, 100);
+    // this.metadata = new Metadata(this.data.pid, this.data.model, this.data.content, this.data.timestamp, null);
 
-    // this.api.getMetadata(this.data['pid'], this.data['model']).subscribe((metadata: Metadata) => {
-    //   this.metadata = metadata;
-    //   this.state = 'success';
+    // setTimeout(() => {
+    //   this.metadata.expandRequired();
+    // }, 100);
 
-    //   setTimeout(() => {
-    //     this.metadata.expandRequired();
-    //   }, 100);
-
-    // });
   }
 
 

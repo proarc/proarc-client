@@ -6,6 +6,7 @@ import { CatalogDialogComponent } from 'src/app/dialogs/catalog-dialog/catalog-d
 import { Metadata } from 'src/app/model/metadata.model';
 import { ModsAuthor } from 'src/app/model/mods/author.model';
 import { LayoutService } from 'src/app/services/layout.service';
+import { TemplateService } from 'src/app/services/template.service';
 
 @Component({
   selector: 'app-editor-author',
@@ -30,7 +31,11 @@ export class EditorAuthorComponent implements OnInit {
 
   public roles: { code: string; name: any; }[] = [];
 
-  constructor(public translator: TranslateService, private dialog: MatDialog, public layout: LayoutService) {
+  constructor(
+    public translator: TranslateService, 
+    private dialog: MatDialog, 
+    private tmpl: TemplateService,
+    public layout: LayoutService) {
     this.translateCodes();
     translator.onLangChange.subscribe(() => this.translateCodes());
   }
@@ -46,13 +51,26 @@ export class EditorAuthorComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
         const mods = result['mods'];
-        const metadata = new Metadata('', this.model, mods, 0, null);
-        const nameField = metadata.getField(ModsAuthor.getSelector());
-        const items = nameField.getItems();
-        if (nameField && items.length > 0) {
-          this.field.addAfterItem(item, items[0]);
-          this.field.removeItem(item);
-        }
+
+        const standard = Metadata.resolveStandard(mods);
+        this.tmpl.getTemplate(standard, this.layout.lastSelectedItem.model).subscribe((tmpl: any) => {
+          const metadata = new Metadata('', this.model, mods, 0, standard, tmpl);
+          const nameField = metadata.getField(ModsAuthor.getSelector());
+          const items = nameField.getItems();
+          if (nameField && items.length > 0) {
+            this.field.addAfterItem(item, items[0]);
+            this.field.removeItem(item);
+          }
+        });
+
+
+        // const metadata = new Metadata('', this.model, mods, 0, null);
+        // const nameField = metadata.getField(ModsAuthor.getSelector());
+        // const items = nameField.getItems();
+        // if (nameField && items.length > 0) {
+        //   this.field.addAfterItem(item, items[0]);
+        //   this.field.removeItem(item);
+        // }
       }
     });
   }

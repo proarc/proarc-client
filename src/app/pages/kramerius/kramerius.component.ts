@@ -7,6 +7,7 @@ import { Mods } from 'src/app/model/mods.model';
 import { Page } from 'src/app/model/page.model';
 import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
+import { TemplateService } from 'src/app/services/template.service';
 import { UIService } from 'src/app/services/ui.service';
 import { parseString } from 'xml2js';
 
@@ -35,6 +36,7 @@ export class KrameriusComponent implements OnInit {
     private route: ActivatedRoute,
     private ui: UIService,
     public layout: LayoutService,
+    private tmpl: TemplateService,
     private api: ApiService) { }
 
   ngOnDestroy() {
@@ -79,7 +81,14 @@ export class KrameriusComponent implements OnInit {
         this.hasImage = false;
         this.model = response['record'].model;
         this.mods = Mods.fromJson(response['record']);
-        this.layout.lastSelectedItemMetadata = new Metadata(this.pid, response['record']['model'], response['record']['content'], response['record']['timestamp'], response['record']['standard']);
+
+        const standard = Metadata.resolveStandard(response['record']['content']);
+        this.tmpl.getTemplate(standard, this.model).subscribe((tmpl: any) => {
+          this.layout.lastSelectedItemMetadata = new Metadata(this.pid, this.model, response['record']['content'], response['record']['timestamp'], response['record']['standard'], tmpl);
+        });
+
+        //this.layout.lastSelectedItemMetadata = new Metadata(this.pid, response['record']['model'], response['record']['content'], response['record']['timestamp'], response['record']['standard']);
+        
         this.state = 'success';
       } else if (response && response['response'] && response['response'].errors) {
         console.log('error', response['response'].errors);
