@@ -49,7 +49,7 @@
       @extend .app-text-right;
       width: 30px;
 
-      .app-action-item {
+      .app-icon-button {
         &:not(:last-child) {
           @extend .app-mr-2;
         }
