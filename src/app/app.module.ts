@@ -75,8 +75,6 @@ import { OsmService } from './services/osm.service';
 import { SettingsComponent } from './components/settings/settings.component';
 import { NewPasswordDialogComponent } from './dialogs/new-password-dialog/new-password-dialog.component';
 import { EditorAbstractComponent } from './documents/document/editor-abstract/editor-abstract.component';
-import { AngularSplitModule } from 'angular-split';
-import { AngularResizeEventModule } from 'angular-resize-event';
 import { EditorPhysicalComponent } from './documents/document/editor-physical/editor-physical.component';
 import { TreeComponent } from './components/search/tree/tree.component';
 import { SearchService } from './services/search.service';
@@ -262,7 +260,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     HighlightModule,
     FlexLayoutModule,
     NgxExtendedPdfViewerModule ,
-    AngularSplitModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

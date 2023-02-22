@@ -4,7 +4,6 @@ import { WorkflowComponent } from './workflow.component';
 import { NewWorkflowDialogComponent } from './new-workflow-dialog/new-workflow-dialog.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from 'src/app/shared.module';
-import { AngularSplitModule } from 'angular-split';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -33,7 +32,6 @@ const routes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
-    AngularSplitModule.forRoot(),
     RouterModule.forChild(routes),
     TranslateModule.forChild({
       defaultLanguage: 'cs',
