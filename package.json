@@ -29,7 +29,6 @@
     "highlight.js": "^11.5.1",
     "json-6": "^1.1.4",
     "json5": "^2.2.3",
-    "leaflet": "^1.8.0",
     "moment": "^2.29.3",
     "ngx-extended-pdf-viewer": "^16.0.2",
     "ngx-highlightjs": "^7.0.0",

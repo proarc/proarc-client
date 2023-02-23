@@ -51,8 +51,6 @@ import { EditorCommentComponent } from './components/editor/editor-comment/edito
 import { EditorAtmComponent } from './components/editor/editor-atm/editor-atm.component';
 import { EditorPageComponent } from './components/editor/editor-page/editor-page.component';
 import { EditorAudioPageComponent } from './components/editor/editor-audioPage/editor-audioPage.component';
-import { EditorGeoComponent } from './components/editor/editor-geo/editor-geo.component';
-import { EditorSubjectGeoComponent } from './documents/document/editor-subject-geo/editor-subject-geo.component';
 import { ImportComponent } from './components/import/import.component';
 import { ImportDialogComponent } from './dialogs/import-dialog/import-dialog.component';
 import { HistoryComponent } from './components/import/history/history.component';
@@ -61,7 +59,6 @@ import { NewObjectDialogComponent } from './dialogs/new-object-dialog/new-object
 import { CatalogDialogComponent } from './dialogs/catalog-dialog/catalog-dialog.component';
 import { ParentDialogComponent } from './dialogs/parent-dialog/parent-dialog.component';
 import { CuzkService } from './services/cuzk.service';
-import { LocationDialogComponent } from './dialogs/location-dialog/location-dialog.component';
 import { ExportDialogComponent } from './dialogs/export-dialog/export-dialog.component';
 import { UrnbnbDialogComponent } from './dialogs/urnnbn-dialog/urnnbn-dialog.component';
 import { ShortenPipe } from './pipes/shorten.pipe';
@@ -71,7 +68,6 @@ import { ConfigService } from './services/config.service';
 import { EditorChronicleLocationComponent } from './documents/document/editor-chronicle-location/editor-chronicle-location.component';
 import { FundService } from './services/fund.service';
 import { FundDialogComponent } from './dialogs/fund-dialog/fund-dialog.component';
-import { OsmService } from './services/osm.service';
 import { SettingsComponent } from './components/settings/settings.component';
 import { NewPasswordDialogComponent } from './dialogs/new-password-dialog/new-password-dialog.component';
 import { EditorAbstractComponent } from './documents/document/editor-abstract/editor-abstract.component';
@@ -185,8 +181,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditorPageComponent,
     EditorAudioPageComponent,
     EditorMetadataComponent,
-    EditorGeoComponent,
-    EditorSubjectGeoComponent,
     EditorPagesComponent,
     EditorAudioPagesComponent,
     EditorRelocationComponent,
@@ -195,7 +189,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     NewObjectDialogComponent,
     CatalogDialogComponent,
     ParentDialogComponent,
-    LocationDialogComponent,
     ExportDialogComponent,
     UrnbnbDialogComponent,
     HelpDialogComponent,
@@ -276,7 +269,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     CuzkService,
     ConfigService,
     FundService,
-    OsmService,
     SearchService,
     DatePipe,
     { provide: MAT_DATE_LOCALE, useValue: 'cs-CZ' },
@@ -310,7 +302,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     NewObjectDialogComponent,
     CatalogDialogComponent,
     ParentDialogComponent,
-    LocationDialogComponent,
     ExportDialogComponent,
     UrnbnbDialogComponent,
     HelpDialogComponent,
