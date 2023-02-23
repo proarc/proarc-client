@@ -23,6 +23,7 @@ export class EditorGeoComponent implements OnInit {
   set pid(pid: string) {
     this.onPidChanged(pid);
   }
+  inputPid: string;
   public metadata: Metadata;
   constructor(
     private api: ApiService,
@@ -36,21 +37,29 @@ export class EditorGeoComponent implements OnInit {
   }
 
   private onPidChanged(pid: string) {
-    this.state = 'loading';
+    this.inputPid = pid;
     this.load();
   }
 
+  available(element: string): boolean {
+    return this.metadata.template[element];
+  }
+
   load() {
+    if (!this.inputPid) {
+      return;
+    }
     this.state = 'loading';
-    this.api.getMetadata(this.pid).subscribe((response: any) => {
-      if (response['response'].errors) {
-        console.log('error', response['response'].errors);
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+    this.api.getMetadata(this.inputPid).subscribe((response: any) => {
+      if (response.errors) {
+        console.log('error', response.errors);
+        this.ui.showErrorSnackBarFromObject(response.errors);
         this.state = 'error';
         return;
       }
-      this.tmpl.getTemplate(response['record']['standard'], this.layout.lastSelectedItem.model).subscribe((tmpl: any) => {
-        this.metadata = new Metadata(this.pid, this.layout.lastSelectedItem.model, response['record']['content'], response['record']['timestamp'], response['record']['standard'], tmpl);
+      const standard = Metadata.resolveStandard(response['record']['content']);
+      this.tmpl.getTemplate(standard, this.layout.lastSelectedItem.model).subscribe((tmpl: any) => {
+        this.metadata = new Metadata(this.inputPid, this.layout.lastSelectedItem.model, response['record']['content'], response['record']['timestamp'], standard, tmpl);
         this.state = 'success';
       });
       // this.metadata = new Metadata(this.pid, this.layout.lastSelectedItem.model, response['record']['content'], response['record']['timestamp'], response['record']['standard']);
