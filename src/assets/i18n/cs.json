@@ -2049,7 +2049,11 @@
     "identifierType": "Typ identifikátoru",
     "identifierValue": "Hodnota identifikátoru",
     "identifierRole": "Role identifikátoru",
-    "informationAboutAudioFiles": "Informace ke zvukovým souborům"
+    "informationAboutAudioFiles": "Informace ke zvukovým souborům",
+    "linkingAgentIdentifier": "Identifikátor propojovacího agenta",
+    "value": "Hodnota",
+    "role": "Role",
+    "agentExtension": "Rozšíření agenta"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2099,7 +2103,9 @@
     "removeDevice": "Odstranit zařízení",
     "addInfoToAudioFiles": "Přidat info ke zvukovém souborům",
     "deleteInfoForAudioFiles": "Smazat info ke zvukovém souborům",
-    "editInfoForAudioFiles": "Upravit info ke zvukovém souborům"
+    "editInfoForAudioFiles": "Upravit info ke zvukovém souborům",
+    "createAnAudioLine": "Vytvořit audio linku",
+    "editTheAudioLine": "Upravit audio linku"
   },
   "dynamic": {
     "repo": "Úložiště",
