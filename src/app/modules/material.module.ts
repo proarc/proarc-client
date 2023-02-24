@@ -26,6 +26,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSortModule } from '@angular/material/sort';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatListModule} from '@angular/material/list';
 
 const modules = [
     MatButtonModule,
@@ -53,7 +54,8 @@ const modules = [
     MatCardModule,
     MatSortModule,
     DragDropModule,
-    MatRadioModule
+    MatRadioModule,
+    MatListModule
   ];
 
   @NgModule({

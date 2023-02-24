@@ -118,7 +118,8 @@
 
 // mat card
 .mat-card {
-  @extend .app-clean-shadow;
+  @extend .app-clean-shadow, .app-clean-radius;
+  border: 1px solid $app-card-border-color;
 
   &.app-alert {
     @include setAlertCard();

@@ -2053,7 +2053,20 @@
     "linkingAgentIdentifier": "Identifikátor propojovacího agenta",
     "value": "Hodnota",
     "role": "Role",
-    "agentExtension": "Rozšíření agenta"
+    "agentExtension": "Rozšíření agenta",
+    "userAdministration": "Administrace uživatelů",
+    "aListOfUsers": "Seznam uživatelů",
+    "accountInformation": "Informace o účtu",
+    "username": "Uživatelské jméno",
+    "password": "Heslo",
+    "surname": "Příjmení",
+    "email": "Email",
+    "folder": "Adresář",
+    "theUserIsAllowedToRunTheseFunctions": "Uživetel smí spustit tyto funkce",
+    "conversionOfModels": "Převod modelů",
+    "updateModels": "Update modelů",
+    "lockingTheObject": "Uzamknutí objektu",
+    "unlockingTheObject": "Odemknutí objektu"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2105,7 +2118,8 @@
     "deleteInfoForAudioFiles": "Smazat info ke zvukovém souborům",
     "editInfoForAudioFiles": "Upravit info ke zvukovém souborům",
     "createAnAudioLine": "Vytvořit audio linku",
-    "editTheAudioLine": "Upravit audio linku"
+    "editTheAudioLine": "Upravit audio linku",
+    "createNewUser": "Vytvořit nového uživatele"
   },
   "dynamic": {
     "repo": "Úložiště",

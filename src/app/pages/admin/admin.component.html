@@ -1,73 +1,71 @@
-<h1 class="app-users-title">{{ 'admin.users.title' | translate }}</h1>
-<div class="app-users">
-  <div class="app-user-list">
-    <ul>
-      <li *ngFor="let user of users"><a [class.selected]="user.userId === selectedUser?.userId"
-          (click)="selectUser(user)">{{ user.name }}</a></li>
-    </ul>
-    <button mat-raised-button color="default" (click)="newUser()">{{ 'admin.users.new' | translate }}</button>
-  </div>
-  <div *ngIf="selectedUser" class="app-user-detail">
-    <mat-form-field>
-      <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'admin.users.username' | translate"
-        [(ngModel)]="selectedUser.name" required #name>
-    </mat-form-field>
-    <mat-form-field>
-      <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'admin.users.password' | translate"
-        [matTooltip]="'admin.users.password_tooltip' | translate" [(ngModel)]="selectedUser.password" type="password"
-        required #password>
-    </mat-form-field>
-    <mat-form-field>
-      <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'admin.users.forename' | translate"
-        [(ngModel)]="selectedUser.forename">
-    </mat-form-field>
-    <mat-form-field>
-      <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'admin.users.surname' | translate"
-        [(ngModel)]="selectedUser.surname" required #surname>
-    </mat-form-field>
-    <mat-form-field>
-      <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'admin.users.email' | translate"
-        [(ngModel)]="selectedUser.email">
-    </mat-form-field>
-
-
-    <!-- <mat-form-field>
-      <input *ngIf="selectedUser" matInput (keyup.enter)="save()" 
-      #org="ngModel" 
-      name="org" [(ngModel)]="selectedUser.organization"  [placeholder]="'admin.users.organization' | translate" [matAutocomplete]="mat1">
-      <mat-autocomplete #mat1="matAutocomplete" panelWidth="auto">
-        <mat-option *ngFor="let org of organizations"  [value]="org">
-          {{ 'organization.' + org | translate }} ({{ org }})
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field> -->
-
-    <mat-form-field>
-      <mat-select [placeholder]="'admin.users.organization' | translate" name="organization" [(ngModel)]="selectedUser.organization">
-        <mat-option *ngFor="let organization of organizations" [value]="organization">{{ 'organization.' + organization | translate }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <div>{{'admin.users.home' | translate}} : {{ selectedUser.home }}</div>
-
-    <mat-form-field>
-      <mat-select [(ngModel)]='selectedUser.role' placeholder="{{ 'admin.users.role' | translate }}">
-        <mat-option *ngFor="let role of roles" [value]="role">{{ 'admin.users.roles.' + role | translate }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <div>
-      <mat-checkbox color="primary" [(ngModel)]="selectedUser.changeModelFunction">{{ 'admin.users.changeModelFunction'
-        | translate }}</mat-checkbox>
-      <mat-checkbox color="primary" [(ngModel)]="selectedUser.updateModelFunction">{{ 'admin.users.updateModelFunction'
-        | translate }}</mat-checkbox>
-      <mat-checkbox color="primary" [(ngModel)]="selectedUser.lockObjectFunction">{{ 'admin.users.lockObjectFunction' |
-        translate }}</mat-checkbox>
-      <mat-checkbox color="primary" [(ngModel)]="selectedUser.unlockObjectFunction">{{
-        'admin.users.unlockObjectFunction' | translate }}</mat-checkbox>
-    </div>
-    <div class="app-actions">
-      <button mat-raised-button color="default" (click)="save()">{{ 'common.save' | translate }}</button>
-      <!-- <button mat-raised-button color="default" (click)="deleteUser()">{{ 'admin.users.delete' | translate }}</button> -->
+<div fxLayout="column" fxFlexFill>
+  <div fxFlex class="app-p-4 app-oa-y" fxLayout="column">
+    <h1>{{ 'desc.userAdministration' | translate }}</h1>
+    <div fxFlex>
+      <mat-card>
+        <mat-card-content fxLayout="row" fxLayoutGap="16px">
+          <div fxLayout="column">
+            <fieldset class="app-p-4 app-mb-4" fxFlex>
+              <legend>{{ 'desc.aListOfUsers' | translate }}</legend>
+              <mat-radio-group fxLayout="column">
+                <mat-radio-button *ngFor="let user of users" (click)="selectUser(user)" [value]="user.name" [checked]="user.userId === selectedUser?.userId">
+                  {{ user.name }}
+                </mat-radio-button>
+              </mat-radio-group>
+            </fieldset>
+            <div>
+              <button mat-flat-button color="primary" (click)="newUser()">{{ 'button.createNewUser' | translate }}</button>
+            </div>
+          </div>
+          <div fxFlex fxLayout="column">
+            <fieldset class="app-p-4 app-mb-4" fxFlex>
+              <legend>{{ 'desc.accountInformation' | translate }}</legend>
+              <div fxLayout="row" fxLayoutGap="16px">
+                <mat-form-field fxFlex>
+                  <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.username' | translate" [(ngModel)]="selectedUser.name" required #name>
+                </mat-form-field>
+                <mat-form-field fxFlex>
+                  <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.password' | translate" [matTooltip]="'admin.users.password_tooltip' | translate" [(ngModel)]="selectedUser.password" type="password" required #password>
+                </mat-form-field>
+                <mat-form-field fxFlex>
+                  <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.name' | translate" [(ngModel)]="selectedUser.forename">
+                </mat-form-field>
+                <mat-form-field  fxFlex>
+                  <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.surname' | translate" [(ngModel)]="selectedUser.surname" required #surname>
+                </mat-form-field>
+                <mat-form-field fxFlex>
+                  <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.email' | translate" [(ngModel)]="selectedUser.email">
+                </mat-form-field>
+              </div>
+              <div fxLayout="row" fxLayoutGap="16px">
+                <mat-form-field fxFlex>
+                  <mat-select [placeholder]="'desc.organization' | translate" name="organization" [(ngModel)]="selectedUser.organization">
+                    <mat-option *ngFor="let organization of organizations" [value]="organization">{{ 'organization.' + organization | translate }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field fxFlex>
+                  <mat-select [(ngModel)]='selectedUser.role' placeholder="{{ 'desc.role' | translate }}">
+                    <mat-option *ngFor="let role of roles" [value]="role">{{ 'admin.users.roles.' + role | translate }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="app-mb-4">
+                <strong>{{'desc.folder' | translate}}</strong>: <em class="app-desc">{{ selectedUser.home }}</em>
+              </div>
+              <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center">
+                <span class="app-label">{{ 'desc.theUserIsAllowedToRunTheseFunctions' | translate }}:</span>
+                <mat-checkbox color="primary" [(ngModel)]="selectedUser.changeModelFunction">{{ 'desc.conversionOfModels' | translate }}</mat-checkbox>
+                <mat-checkbox color="primary" [(ngModel)]="selectedUser.updateModelFunction">{{ 'desc.updateModels' | translate }}</mat-checkbox>
+                <mat-checkbox color="primary" [(ngModel)]="selectedUser.lockObjectFunction">{{ 'desc.lockingTheObject' | translate }}</mat-checkbox>
+                <mat-checkbox color="primary" [(ngModel)]="selectedUser.unlockObjectFunction">{{ 'desc.lockingTheObject' | translate }}</mat-checkbox>
+              </div>
+            </fieldset>
+            <div>
+              <button mat-flat-button color="primary" (click)="save()">{{ 'button.save' | translate }}</button>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
 </div>

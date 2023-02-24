@@ -2053,7 +2053,20 @@
     "linkingAgentIdentifier": "Linking agent identifier",
     "value": "Value",
     "role": "Role",
-    "agentExtension": "Agent extension"
+    "agentExtension": "Agent extension",
+    "userAdministration": "User administration",
+    "aListOfUsers": "A list of users",
+    "accountInformation": "Account information",
+    "username": "User name",
+    "password": "Password",
+    "surname": "Surname",
+    "email": "Email",
+    "folder": "Folder",
+    "theUserIsAllowedToRunTheseFunctions": "The user is allowed to run these functions",
+    "conversionOfModels": "Model conversions",
+    "updateModels": "Update models",
+    "lockingTheObject": "Locking the object",
+    "unlockingTheObject": "Unlocking the object"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2105,7 +2118,8 @@
     "deleteInfoForAudioFiles": "Delete info for audio files",
     "editInfoForAudioFiles": "Edit info for audio files",
     "createAnAudioLine": "Create an audio line",
-    "editTheAudioLine": "Edit the audio line"
+    "editTheAudioLine": "Edit the audio line",
+    "createNewUser": "Create a new user"
   },
   "dynamic": {
     "repo": "Storage",

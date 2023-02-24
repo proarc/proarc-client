@@ -22,7 +22,7 @@ a {
 
 fieldset {
   border-width: 1px;
-  border-color: $app-gray-4;
+  border-color: $app-fieldset-border-color;
   border-style: solid;
 
   legend {
@@ -244,6 +244,11 @@ fieldset {
 
 .app-list-inside {
   list-style-position: inside;
+}
+
+.app-list-unstyled {
+  @extend .app-m-0, .app-p-0;
+  list-style: none;
 }
 
 .app-not-allowed {
