@@ -14,6 +14,7 @@
       <mat-option *ngFor="let ins of instances" [value]="ins.krameriusInstanceId">{{ ins.krameriusInstanceName}}</mat-option>
     </mat-select>
   </mat-form-field>
+  <mat-checkbox [disabled]="formDisabled()" *ngIf="selectedType=='archive' || selectedType=='ndk_psp'" color="primary" [(ngModel)]="isBagit">{{ 'export.isBagit' | translate }}</mat-checkbox>
   <mat-checkbox [disabled]="formDisabled()" *ngIf="selectedType=='kramerius' || selectedType=='kwis'" color="primary" [(ngModel)]="policyPublic">{{ 'export.policy_public' | translate }}</mat-checkbox>
   <div *ngIf="state=='saving'" class="app-export-message">{{ 'export.exporting' | translate }}</div>
   <div *ngIf="state=='error'" class="app-export-error">

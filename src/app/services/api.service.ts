@@ -180,7 +180,7 @@ export class ApiService {
     return this.post('object/copyObject', data);
   }
 
-  export(type: string, pid: string, policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string): Observable<any> | undefined {
+  export(type: string, pid: string, policy: string, isBagit: boolean, ignoreMissingUrnNbn: boolean, krameriusInstance: string): Observable<any> | undefined {
     let data = `pid=${pid}`;
     if (ignoreMissingUrnNbn) {
       data = `${data}&ignoreMissingUrnNbn=true`;
@@ -203,7 +203,8 @@ export class ApiService {
         break;
       }
       case ProArc.EXPORT_ARCHIVE: {
-        path = 'export/archive'
+        path = 'export/archive';
+        data = `${data}&isBagit=${isBagit}`;
         break;
       }
       case ProArc.EXPORT_ARCHIVE_OLDPRINT: {
@@ -212,7 +213,8 @@ export class ApiService {
         break;
       }
       case ProArc.EXPORT_NDK_PSP: {
-        path = 'export/ndk'
+        path = 'export/ndk';
+        data = `${data}&isBagit=${isBagit}`;
         break;
       }
       case ProArc.EXPORT_CEJSH: {

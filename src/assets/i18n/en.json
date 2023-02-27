@@ -93,7 +93,8 @@
     "show_error_detail": "Show error detail",
     "export": "Launch export",
     "continue": "Continue",
-    "kramerius_instances": "Kramerius instances"
+    "kramerius_instances": "Kramerius instances",
+    "isBagit": "BAGIT package"
   },
   "device": {
     "devices": "Devices",

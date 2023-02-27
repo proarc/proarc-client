@@ -106,7 +106,8 @@
     "show_error_detail": "Zobrazit detail chyby",
     "export": "Zahájit export",
     "continue": "Přesto exportovat",
-    "kramerius_instances": "Instance Krameria"
+    "kramerius_instances": "Instance Krameria",
+    "isBagit": "BAGIT balíček"
   },
   "device": {
     "devices": "Zařízení",
