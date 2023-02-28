@@ -11,7 +11,7 @@ import { UIService } from 'src/app/services/ui.service';
   templateUrl: './urnnbn-dialog.component.html',
   styleUrls: ['./urnnbn-dialog.component.scss']
 })
-export class UrnbnbDialogComponent implements OnInit {
+export class UrnnbnDialogComponent implements OnInit {
 
   state = 'none';
   message = '';
@@ -26,7 +26,7 @@ export class UrnbnbDialogComponent implements OnInit {
   selectedRowWarning: boolean;
 
   constructor(
-    public dialogRef: MatDialogRef<UrnbnbDialogComponent>,
+    public dialogRef: MatDialogRef<UrnnbnDialogComponent>,
     private api: ApiService,
     private ui: UIService,
     private dialog: MatDialog, 

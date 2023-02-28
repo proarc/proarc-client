@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { ExportDialogComponent } from 'src/app/dialogs/export-dialog/export-dialog.component';
-import { UrnbnbDialogComponent } from 'src/app/dialogs/urnnbn-dialog/urnnbn-dialog.component';
+import { UrnnbnDialogComponent } from 'src/app/dialogs/urnnbn-dialog/urnnbn-dialog.component';
 import { ConfigService } from 'src/app/services/config.service';
 import { User } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -276,7 +276,7 @@ export class SearchComponent implements OnInit {
   }
 
   onUrnnbn(item: DocumentItem) {
-    const dialogRef = this.dialog.open(UrnbnbDialogComponent, { 
+    const dialogRef = this.dialog.open(UrnnbnDialogComponent, { 
       data: item.pid,
       panelClass: 'app-urnbnb-dialog',
       width: '1200px'
