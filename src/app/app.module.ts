@@ -21,13 +21,11 @@ import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions } from '@angular/
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppComponent } from './components/app.component';
-import { MaterialModule } from './modules/material.module';
 import { XmlViewComponent } from './documents/document/mods-xml/xml-view.component';
 
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 // import xml from 'highlight.js/lib/languages/xml';
 import { EditorTitleComponent } from './documents/document/editor-title/editor-title.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditorPublisherComponent } from './documents/document/editor-publisher/editor-publisher.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthService } from './services/auth.service';
@@ -60,7 +58,7 @@ import { CatalogDialogComponent } from './dialogs/catalog-dialog/catalog-dialog.
 import { ParentDialogComponent } from './dialogs/parent-dialog/parent-dialog.component';
 import { CuzkService } from './services/cuzk.service';
 import { ExportDialogComponent } from './dialogs/export-dialog/export-dialog.component';
-import { UrnbnbDialogComponent } from './dialogs/urnnbn-dialog/urnnbn-dialog.component';
+import { UrnnbnDialogComponent } from './dialogs/urnnbn-dialog/urnnbn-dialog.component';
 import { ShortenPipe } from './pipes/shorten.pipe';
 import { HelpDialogComponent } from './dialogs/help-dialog/help-dialog.component';
 import { ReloadBatchDialogComponent } from './dialogs/reload-batch-dialog/reload-batch-dialog.component';
@@ -190,7 +188,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CatalogDialogComponent,
     ParentDialogComponent,
     ExportDialogComponent,
-    UrnbnbDialogComponent,
+    UrnnbnDialogComponent,
     HelpDialogComponent,
     ReloadBatchDialogComponent,
     EditorChronicleLocationComponent,
@@ -294,26 +292,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     { provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults },
     { provide: APP_INITIALIZER, useFactory: (config: AuthService) => () => config.initializeApp(), deps: [AuthService], multi: true },
   ],
-  entryComponents: [
-    AlertDialogComponent,
-    SimpleDialogComponent,
-    ImportDialogComponent,
-    LogDialogComponent,
-    NewObjectDialogComponent,
-    CatalogDialogComponent,
-    ParentDialogComponent,
-    ExportDialogComponent,
-    UrnbnbDialogComponent,
-    HelpDialogComponent,
-    ReloadBatchDialogComponent,
-    FundDialogComponent,
-    NewPasswordDialogComponent,
-    IngestDialogComponent,
-    AboutDialogComponent,
-    PreferredTopsDialogComponent,
-    ChildrenValidationDialogComponent,
-    ConvertDialogComponent
-  ],
+  entryComponents: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
