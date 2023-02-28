@@ -149,12 +149,12 @@
               <mat-option *ngFor="let model of config.allModels" [value]="model">{{ "model." + model | translate }}</mat-option>
             </mat-select>
           </mat-form-field>
-        </div>
         <button mat-stroked-button
           style="margin-top: 8px;"
           color="primary"
-          (click)="changeExpandedModels()">Upravit
+          (click)="changeExpandedModels()">{{'button.save' | translate}}
         </button>
+        </div>
       </div>
 
 
