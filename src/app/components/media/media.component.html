@@ -11,6 +11,19 @@
           <mat-option *ngFor="let p of streamProfiles" [value]="p">{{ 'streamProfile.' + p.dsid | translate }}</mat-option>
         </mat-select>
       </mat-form-field> 
+      <button mat-button  (click)="onAddPdf()" matTooltip="Načíst nový digitální obsah (pdf)">
+				<mat-icon>upload</mat-icon> pdf</button>
+			<input style="display: none;" #pdfInput id="pdf_file_upload" name="pdf_file_upload" type="file" (change)="uploadPdf($event)" accept=".pdf,.PDF" />
+
+      <button mat-button (click)="onAddEpub()" matTooltip="Načíst nový digitální obsah (epub)">
+				<mat-icon>upload</mat-icon> epub
+			</button>
+			<input style="display: none;" #epubInput id="epub_file_upload" name="epub_file_upload" type="file" (change)="uploadEpub($event)" accept=".epub" />
+
+			<button mat-icon-button *ngIf="state == 'ok'" (click)="onRemove()" matTooltip="Odstranit digitální obsah">
+				<mat-icon>delete</mat-icon>
+			</button>
+
 			<button mat-icon-button  [matTooltip]="'viewer.tooltip.lockPanel' | translate" (click)="changeLockPanel()" [class.app-active]="isLocked">
 				<mat-icon>push_pin</mat-icon>
 			</button>   
@@ -20,6 +33,7 @@
 		<!-- <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='head'" class="app-progress-bar"></mat-progress-bar> -->
 		<div class="app-editor-content app-h-100" *ngIf="streamProfile">
       <app-pdf *ngIf="isPdf()" [stream]="streamProfile.dsid" [pid]="currentPid"></app-pdf>
+      <app-epub *ngIf="isEpub()" [stream]="streamProfile.dsid" [pid]="currentPid"></app-epub>
       <app-viewer *ngIf="isImage()" [idViewer]="'app-viewer-media'" [stream]="streamProfile.dsid" [pid]="currentPid"></app-viewer>
       <app-song *ngIf="isAudio()" [pid]="currentPid"></app-song>
     	<div *ngIf="isUnsupported()" class="app-empty">Digitální obsah ne podporovan ({{streamProfile.mime}})</div>

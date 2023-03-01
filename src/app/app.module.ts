@@ -123,6 +123,8 @@ import { KrameriusModsComponent } from './pages/kramerius/kramerius-mods/krameri
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { MediaComponent } from './components/media/media.component';
 import { SharedModule } from './shared.module';
+import { EditorPremisMultipleComponent } from './components/editor/editor-premis-multiple/editor-premis-multiple.component';
+import { EpubComponent } from './components/epub/epub.component';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 300,
@@ -239,6 +241,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MetadataComponent,
     KrameriusModsComponent,
     MediaComponent,
+    EditorPremisMultipleComponent,
+    EpubComponent,
   ],
   imports: [
     BrowserModule,

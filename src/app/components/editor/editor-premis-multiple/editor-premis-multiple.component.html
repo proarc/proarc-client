@@ -1,0 +1,44 @@
+<div fxLayout="column" fxFlexFill>
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
+    <div fxFlex>
+			<div class="app-toolbar-label">
+				<span class="app-text">{{ 'premis.edit-multiple' | translate }}</span>
+			</div>
+		</div>
+		<div>
+      <button mat-icon-button (click)="save()" [disabled]="!canSave()" [matTooltip]="'button.save' | translate" >
+        <mat-icon>save</mat-icon>
+      </button>
+		</div>
+  </div>
+  <div fxFlex class="app-oa-y">
+    <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
+    <div class="app-editor-content" *ngIf="state !=='loading'">
+      <div class="app-editor-field">
+        
+  
+        <div class="app-card">
+          <div class="app-card-content">
+            <mat-form-field class="app-full-width">
+              <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'premis.agentIdentifierType' | translate" [(ngModel)]="agentIdentifierType">
+            </mat-form-field>
+            <mat-form-field class="app-full-width">
+              <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'premis.agentIdentifierValue' | translate" [(ngModel)]="agentIdentifierValue">
+            </mat-form-field>
+            <mat-form-field class="app-full-width">
+              <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'premis.agentName' | translate" [(ngModel)]="agentName">
+            </mat-form-field>
+            <mat-form-field class="app-full-width">
+              <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'premis.agentType' | translate" [(ngModel)]="agentType">
+            </mat-form-field>
+            <mat-form-field class="app-full-width">
+              <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'premis.agentNote' | translate" [(ngModel)]="agentNote">
+            </mat-form-field>
+          </div>
+        </div>
+  
+        
+      </div>
+    </div>
+  </div>
+</div>

@@ -13,6 +13,8 @@ import { UIService } from 'src/app/services/ui.service';
 })
 export class MediaComponent implements OnInit {
 
+  @ViewChild('pdfInput') pdfInput: ElementRef;
+  @ViewChild('epubInput') epubInput: ElementRef;
   public currentPid: string;
   public inputPid: string;
   isLocked = false;
@@ -47,23 +49,27 @@ export class MediaComponent implements OnInit {
     return this.streamProfile.mime === 'application/pdf';
   }
 
+  isEpub() {
+    return this.streamProfile.mime === 'application/epub+zip';
+  }
+
   isImage() {
     const isIma = ['image/png', 'image/jpeg'].includes(this.streamProfile.mime);
     if (isIma) {
-      setTimeout(() => {this.state = 'ok'}, 100);
+      setTimeout(() => { this.state = 'ok' }, 100);
     }
     return isIma;
   }
 
   isAudio() {
     // return ['audio/mpeg3'].includes(this.streamProfile.mime) ;
-    return this.streamProfile.mime.indexOf('audio') > -1 ;
+    return this.streamProfile.mime.indexOf('audio') > -1;
   }
 
   isUnsupported() {
     const isIma = ['image/tiff', 'image/jp2'].includes(this.streamProfile.mime);
     if (isIma) {
-      setTimeout(() => {this.state = 'ok'}, 100);
+      setTimeout(() => { this.state = 'ok' }, 100);
     }
     return isIma;
   }
@@ -96,7 +102,7 @@ export class MediaComponent implements OnInit {
           if (!this.streamProfile) {
             this.streamProfile = this.streamProfiles[0];
           }
-          
+
         } else {
           this.state = 'empty';
           this.streamProfile = null;
@@ -106,6 +112,73 @@ export class MediaComponent implements OnInit {
         this.streamProfiles = [];
         this.streamProfile = null;
       }
+    });
+  }
+
+  onAddPdf() {
+    let event = new MouseEvent('click', { bubbles: true });
+    this.pdfInput.nativeElement.dispatchEvent(event);
+
+  }
+
+  onAddEpub() {
+    let event = new MouseEvent('click', { bubbles: true });
+    this.epubInput.nativeElement.dispatchEvent(event);
+
+  }
+
+  uploadPdf(event: any) {
+    console.log('uploadPdf', event);
+    const files = <Array<File>>event.target.files;
+    if (files.length != 1) {
+      return;
+    }
+    this.state = 'loading';
+    this.api.uploadFile(files[0], this.currentPid, 'application/pdf').subscribe(response => {
+      this.state = 'ok';
+    });
+  }
+
+  uploadEpub(event: any) {
+    console.log('uploadEpub', event);
+    const files = <Array<File>>event.target.files;
+    if (files.length != 1) {
+      return;
+    }
+    this.state = 'loading';
+    this.api.uploadFile(files[0], this.currentPid, 'application/epub+zip').subscribe(response => {
+      this.state = 'ok';
+    });
+  }
+
+  onRemove() {
+    const data: SimpleDialogData = {
+      title: "Odstranění digitálního obsahu",
+      message: "Opravdu chcete odstranit digitální obsah? (daastream " + this.streamProfile.dsid + ")",
+      btn2: {
+        label: "Ne",
+        value: 'no',
+        color: 'default'
+      },
+      btn1: {
+        label: "Ano",
+        value: 'yes',
+        color: 'warn'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.state = 'loading';
+        this.remove();
+      }
+    });
+  }
+
+  remove() {
+    this.api.deletePdf(this.currentPid, this.streamProfile.dsid).subscribe(() => {
+      this.state = 'empty';
+      this.ui.showInfoSnackBar("Digitální obsah byl odstraněn");
     });
   }
 

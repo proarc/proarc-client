@@ -1,0 +1,21 @@
+<div class="reader-container" [ngClass]="{'nav-open' : navOpen}">
+  <div id="titlebar">
+    <div id="metainfo">
+      <span id="book-title">{{ bookTitle + (chapterTitle === bookTitle ? '' : ' - ' + chapterTitle) }}</span>
+      <span id="title-seperator">&nbsp;&nbsp;–&nbsp;&nbsp;</span>
+      <span id="chapter-title"></span>
+    </div>
+  </div>
+  <div class="sidebar-nav" (click)="toggleNav()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div class="sidenav">
+    <a class="toc-link" *ngFor="let chapter of chapters" (click)="displayChapter(chapter)">{{ chapter.label }}</a>
+  </div>
+  <div id="divider"></div>
+  <div id="epub_viewer"></div>
+  <div id="prev" class="arrow" (click)="showPrev()">‹</div>
+  <div id="next" class="arrow" (click)="showNext()">›</div>
+</div>

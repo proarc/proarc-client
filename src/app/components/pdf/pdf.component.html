@@ -5,7 +5,7 @@
 				<span class="app-text">PDF</span>
 			</div>
 		</div>
-		<div>
+		<!-- <div>
       <button mat-icon-button *ngIf="state == 'ok' || state == 'empty'" (click)="onAdd()" matTooltip="Načíst nový digitální obsah">
 				<mat-icon>add</mat-icon>
 			</button>
@@ -13,7 +13,7 @@
 				<mat-icon>delete</mat-icon>
 			</button>
 			<input style="display: none;" #pdfInput id="pdf_file_upload" name="pdf_file_upload" type="file" (change)="uploadPdf($event)" accept=".pdf,.PDF" />
-		</div>
+		</div> -->
   </div>
 	<div fxFlex class="app-oa-y">
 		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='head'" class="app-progress-bar"></mat-progress-bar>

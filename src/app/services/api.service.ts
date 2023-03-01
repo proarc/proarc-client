@@ -472,15 +472,16 @@ export class ApiService {
   }
 
 
-  deletePdf(pid: string): Observable<any> {
-    let query = `object/dissemination?pid=${pid}&datastream=RAW`;
+  deletePdf(pid: string, datastream: string): Observable<any> {
+    let query = `object/dissemination?pid=${pid}&datastream=${datastream}`;
     return this.delete(query);
   }
 
-  uploadPdf(file: File, pid: string) {
+  uploadFile(file: File, pid: string, mime: string) {
     const formData: any = new FormData();
     formData.append('file', file);
-    formData.append('mime', 'application/pdf');
+    formData.append('mime', mime);
+    formData.append('jsonErrors', true);
     formData.append('pid', pid);
     return this.post('object/dissemination', formData, {});
   }

@@ -15,7 +15,6 @@ export class PdfComponent implements OnInit {
 
   @ViewChild('pdfInput') pdfInput: ElementRef;
 
-
   private currentStream: string;
   @Input()
   set stream(stream: string) {
@@ -83,7 +82,7 @@ export class PdfComponent implements OnInit {
       return;
     }
     this.state = 'loading';
-    this.api.uploadPdf(files[0], this.currentPid).subscribe(response => {
+    this.api.uploadFile(files[0], this.currentPid, 'application/pdf').subscribe(response => {
       this.state = 'ok';
     });
   }
@@ -115,7 +114,7 @@ onRemove() {
   }
 
   remove() {
-    this.api.deletePdf(this.currentPid).subscribe(() => {
+    this.api.deletePdf(this.currentPid, 'RAW').subscribe(() => {
       this.state = 'empty';
       this.ui.showInfoSnackBar("Digitální obsah byl odstraněn");
     });
