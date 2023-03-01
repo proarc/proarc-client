@@ -48,6 +48,7 @@
         },
         partNumber: {
           usage: 'MA',
+          required: true,
           label: 'Číslo výtisku',
           selector: 'titleInfo/partNumber',
           labelKey: 'titleInfo/partNumber',
@@ -248,6 +249,7 @@
           fields: {
             value: {
               usage: 'MA',
+              required: true,
               selector: 'location/shelfLocator/value',
               labelKey: 'location/shelfLocator/value',
               label: 'Hodnota',

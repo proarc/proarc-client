@@ -66,6 +66,7 @@
         },
         partNumber: {
           usage: 'M',
+          required: true,
           label: 'Číslo výtisku',
           selector: 'titleInfo/partNumber',
           labelKey: 'titleInfo/partNumber',
@@ -265,6 +266,7 @@
       fields: {
         physicalLocation: {
           usage: 'MA',
+          required: true,
           label: 'Místo uložení',
           labelKey: 'location/physicalLocation',
           selector: 'location/physicalLocation',
@@ -280,6 +282,7 @@
           fields: {
             value: {
               usage: 'MA',
+              required: true,
               selector: 'location/shelfLocator/value',
               labelKey: 'location/shelfLocator/value',
               label: 'Hodnota',
@@ -580,6 +583,7 @@
         },
         language: {
           usage: 'R',
+          required: true,
           label: 'Jazyk',
           selector: 'language/languageTerm',
           labelKey: 'language/languageTerm',

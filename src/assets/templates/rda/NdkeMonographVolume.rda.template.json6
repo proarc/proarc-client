@@ -415,6 +415,7 @@
           fields: {
             value: {
               usage: 'RA',
+              required: true,
               selector: 'location/shelfLocator/value',
               labelKey: 'location/shelfLocator/value',
               label: 'Hodnota',

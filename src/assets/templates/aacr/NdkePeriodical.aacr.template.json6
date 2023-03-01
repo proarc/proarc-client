@@ -334,6 +334,7 @@
       fields: {
         physicalLocation: {
           usage: 'MA',
+          required: true,
           label: 'Místo uložení',
           labelKey: 'location/physicalLocation',
           selector: 'location/physicalLocation',

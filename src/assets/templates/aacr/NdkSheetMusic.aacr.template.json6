@@ -92,6 +92,7 @@
       fields: {
         type: {
           usage: 'MA',
+          required: true,
           label: 'Typ',
           selector: 'name/@type',
           labelKey: 'name/@type',
