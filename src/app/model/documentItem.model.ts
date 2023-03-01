@@ -61,7 +61,9 @@ export class DocumentItem {
     item.pageNumber = json['pageNumber'] || null;
     item.pageType = json['pageType'] || null;
 
-
+    if (json['timestamp']) {
+      item.modified = new Date(json['timestamp']);
+    }
     if (json['modified']) {
       item.modified = new Date(json['modified']);
     }
