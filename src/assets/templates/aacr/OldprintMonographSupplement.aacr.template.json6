@@ -1,6 +1,7 @@
 {
     titleInfo: {
       usage: 'M',
+      required: true,
       label: 'Název',
       selector: 'titleInfo',
       labelKey: 'titleInfo',
@@ -9,6 +10,7 @@
       fields: {
         title: {
           usage: 'M',
+          required: true,
           label: 'Název',
           selector: 'titleInfo/title',
           labelKey: 'titleInfo/title',
@@ -93,6 +95,7 @@
             value: {
               label: 'Hodnota',
               usage: 'M',
+              required: true,
               selector: 'name/namePart',
               labelKey: 'name/namePart/value',
               cols: 2,
@@ -196,6 +199,7 @@
         },
         transliteration: {
           usage: 'M',
+          required: true,
           label: 'Transliteration',
           selector: 'originInfo/@transliteration',
           labelKey: 'originInfo/@transliteration',
@@ -224,6 +228,7 @@
             value: {
               label: 'Hodnota',
               usage: 'M',
+              required: true,
               selector: 'originInfo/frequency',
               labelKey: 'originInfo/frequency',
               help: 'off'
@@ -278,6 +283,7 @@
     },
     language: {
       usage: 'M',
+      required: true,
       label: 'Jazyk',
       selector: 'language',
       labelKey: 'language',
@@ -285,6 +291,7 @@
       fields: {
         language: {
           usage: 'M',
+          required: true,
           label: 'Jazyk',
           selector: 'language/languageTerm',
           labelKey: 'language/languageTerm',
@@ -310,6 +317,7 @@
     },
     physicalDescription: {
       usage: 'M',
+      required: true,
       label: 'Fyzický popis',
       selector: 'physicalDescription',
       labelKey: 'physicalDescription',
@@ -333,6 +341,7 @@
         },
         form: {
           usage: 'M',
+          required: true,
           label: 'Forma',
           selector: 'physicalDescription/form',
           labelKey: 'physicalDescription/form',
@@ -382,6 +391,7 @@
             },
             value: {
               usage: 'M',
+              required: true,
               selector: 'physicalDescription/form/value',
               labelKey: 'physicalDescription/form/value',
               label: 'Hodnota',
@@ -410,6 +420,7 @@
     },
     genre: {
       usage: 'M',
+      required: true,
       label: 'Žánr',
       selector: 'genre',
       labelKey: 'genre',
@@ -418,6 +429,7 @@
       fields: {
         value: {
           usage: 'M',
+          required: true,
           selector: 'genre/value',
           labelKey: 'genre/value',
           label: 'Hodnota',
@@ -427,6 +439,7 @@
     },
     identifier: {
       usage: 'M',
+      required: true,
       label: 'Identifikátor',
       selector: 'identifier',
       labelKey: 'identifier',
@@ -435,6 +448,7 @@
       fields: {
         type: {
           usage: 'M',
+          required: true,
           label: 'Typ',
           selector: 'identifier/@type',
           labelKey: 'identifier/@type',
@@ -487,6 +501,7 @@
         },
         value: {
           usage: 'M',
+          required: true,
           selector: 'identifier/value',
           labelKey: 'identifier/value',
           label: 'Hodnota',
@@ -589,6 +604,7 @@
     },
     recordInfo: {
       usage: 'M',
+      required: true,
       label: 'Údaje o metadatovém záznamu',
       selector: 'recordInfo',
       labelKey: 'recordInfo',
@@ -637,6 +653,7 @@
         },
         recordCreationDate: {
           usage: 'M',
+          required: true,
           label: 'Datum vytvoření',
           selector: 'recordInfo/recordCreationDate',
           labelKey: 'recordInfo/recordCreationDate',
@@ -644,6 +661,7 @@
           fields: {
             value: {
               usage: 'M',
+              required: true,
               label: 'Datum vytvoření',
               cols: 2,
               selector: 'recordInfo/recordCreationDate',
@@ -652,6 +670,7 @@
             },
             encoding: {
               usage: 'M',
+              required: true,
               label: 'Kódování',
               cols: 2,
               selector: 'recordInfo/recordCreationDate/@encoding',
@@ -680,6 +699,7 @@
             },
             encoding: {
               usage: 'M',
+              required: true,
               label: 'Kódování',
               cols: 2,
               selector: 'recordInfo/recordChangeDate/@encoding',
