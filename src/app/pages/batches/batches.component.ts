@@ -198,7 +198,6 @@ export class BatchesComponent implements OnInit {
   }
 
   onIngest() {
-
     if (this.hasPendingChanges()) {
       const d = this.confirmLeaveDialog().subscribe((result: any) => {
         if (result === 'true') {
@@ -209,6 +208,7 @@ export class BatchesComponent implements OnInit {
       this.tryIngest();
     }
   }
+
   validatePages(): number {
     let valid = true;
     let invalidCount = 0;
@@ -224,7 +224,7 @@ export class BatchesComponent implements OnInit {
   }
 
   tryIngest() {
-    const invalidCount = this.validatePages() 
+    const invalidCount = this.validatePages() ;
     if (invalidCount > 0) {
       let message =   String(this.translator.instant('dialog.childrenValidation.alert.error', {value1: invalidCount, value2: this.layout.items.length}));
       const data: SimpleDialogData = {
@@ -247,6 +247,8 @@ export class BatchesComponent implements OnInit {
           this.ingest();
         } 
       });
+    } else {
+      this.ingest();
     }
   }
 
