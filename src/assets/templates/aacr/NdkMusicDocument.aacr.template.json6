@@ -1,6 +1,7 @@
 {
     titleInfo: {
       usage: 'M',
+      required: true,
       label: 'Název',
       selector: 'titleInfo',
       labelKey: 'titleInfo',
@@ -43,6 +44,7 @@
         },
         title: {
           usage: 'M',
+          required: true,
           label: 'Název',
           selector: 'titleInfo/title',
           labelKey: 'titleInfo/title',
@@ -136,6 +138,7 @@
             value: {
               label: 'Hodnota',
               usage: 'M',
+              required: true,
               selector: 'name/namePart',
               labelKey: 'name/namePart/value',
               cols: 2,
@@ -176,6 +179,7 @@
     },
     originInfo: {
       usage: 'M',
+      required: true,
       label: 'Původ předlohy',
       selector: 'originInfo',
       labelKey: 'originInfo',
@@ -192,6 +196,7 @@
         },
         eventType: {
           usage: 'M',
+          required: true,
           label: 'Typ',
           selector: 'originInfo/@eventType',
           labelKey: 'originInfo/@eventType',
@@ -245,6 +250,7 @@
         },
         dateIssued: {
           usage: 'M',
+          required: true,
           label: 'Datum vydání',
           selector: 'originInfo/dateIssued',
           labelKey: 'originInfo/dateIssued',
@@ -320,6 +326,7 @@
         },
         issuance: {
           usage: 'M',
+          required: true,
           label: 'Vydání',
           selector: 'originInfo/issuance',
           labelKey: 'originInfo/issuance',
@@ -372,6 +379,7 @@
     },
     location: {
       usage: 'M',
+      required: true,
       label: 'Uložení',
       selector: 'location',
       labelKey: 'location',
@@ -387,6 +395,7 @@
         },
         shelfLocator: {
           usage: 'M',
+          required: true,
           label: 'Signatura',
           selector: 'location/shelfLocator',
           labelKey: 'location/shelfLocator',
@@ -394,6 +403,7 @@
           fields: {
             value: {
               usage: 'M',
+              required: true,
               selector: 'location/shelfLocator/value',
               labelKey: 'location/shelfLocator/value',
               label: 'Hodnota',
@@ -405,6 +415,7 @@
     },
     physicalDescription: {
       usage: 'M',
+      required: true,
       label: 'Fyzický popis',
       selector: 'physicalDescription',
       labelKey: 'physicalDescription',
@@ -412,6 +423,7 @@
       fields: {
         extent: {
           usage: 'M',
+          required: true,
           label: 'Rozsah',
           selector: 'physicalDescription/extent',
           labelKey: 'physicalDescription/extent',
@@ -427,6 +439,7 @@
         },
         form: {
           usage: 'M',
+          required: true,
           label: 'Forma',
           selector: 'physicalDescription/form',
           labelKey: 'physicalDescription/form',
@@ -440,6 +453,7 @@
           fields: {
             authority: {
               usage: 'M',
+              required: true,
               label: 'Autorita',
               selector: 'physicalDescription/form/@authority',
               labelKey: 'physicalDescription/form/@authority',
@@ -455,6 +469,7 @@
             },
             value: {
               usage: 'M',
+              required: true,
               selector: 'physicalDescription/form/value',
               labelKey: 'physicalDescription/form/value',
               label: 'Hodnota',
@@ -492,6 +507,7 @@
       fields: {
         value: {
           usage: 'M',
+          required: true,
           label: 'Hodnota',
           selector: 'genre/value',
           labelKey: 'genre/value',
@@ -504,6 +520,7 @@
     },
     identifier: {
       usage: 'M',
+      required: true,
       label: 'Identifikátor',
       selector: 'identifier',
       labelKey: 'identifier',
@@ -512,6 +529,7 @@
       fields: {
         type: {
           usage: 'M',
+          required: true,
           label: 'Typ',
           selector: 'identifier/@type',
           labelKey: 'identifier/@type',
@@ -560,6 +578,7 @@
         },
         value: {
           usage: 'M',
+          required: true,
           selector: 'identifier/value',
           labelKey: 'identifier/value',
           label: 'Hodnota',
@@ -596,6 +615,7 @@
     },
     recordInfo: {
       usage: 'M',
+      required: true,
       label: 'Údaje o metadatovém záznamu',
       cols: 2,
       selector: 'recordInfo',
@@ -644,6 +664,7 @@
         },
         recordCreationDate: {
           usage: 'M',
+          required: true,
           label: 'Datum vytvoření',
           selector: 'recordInfo/recordCreationDate',
           labelKey: 'recordInfo/recordCreationDate',
@@ -651,6 +672,7 @@
           fields: {
             value: {
               usage: 'M',
+              required: true,
               label: 'Datum vytvoření',
               cols: 2,
               selector: 'recordInfo/recordCreationDate',
@@ -659,6 +681,7 @@
             },
             encoding: {
               usage: 'M',
+              required: true,
               label: 'Kódování',
               cols: 2,
               selector: 'recordInfo/recordCreationDate/@encoding',
@@ -687,6 +710,7 @@
             },
             encoding: {
               usage: 'M',
+              required: true,
               label: 'Kódování',
               cols: 2,
               selector: 'recordInfo/recordChangeDate/@encoding',

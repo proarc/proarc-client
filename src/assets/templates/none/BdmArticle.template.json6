@@ -3,6 +3,7 @@ export class BdmArticleTemplate {
   static data = {
     titleInfo: {
       usage: 'M',
+      required: true,
       label: 'Názvové údaje',
       selector: 'titleInfo',
       labelKey: 'titleInfo',
@@ -37,6 +38,7 @@ export class BdmArticleTemplate {
         },
         title: {
           usage: 'M',
+          required: true,
           label: 'Název',
           selector: 'titleInfo/title',
           labelKey: 'titleInfo/title',
@@ -143,6 +145,7 @@ export class BdmArticleTemplate {
             value: {
               label: 'Hodnota',
               usage: 'M',
+              required: true,
               selector: 'name/namePart',
               labelKey: 'name/namePart/value',
               cols: 2,
@@ -199,6 +202,7 @@ export class BdmArticleTemplate {
         },
         lang: {
           usage: 'M',
+          required: true,
           label: 'Jazyk',
           selector: 'subject/@lang',
           labelKey: 'subject/@lang',
@@ -207,6 +211,7 @@ export class BdmArticleTemplate {
     },
     language: {
       usage: 'M',
+      required: true,
       label: 'Jazyk',
       selector: 'language',
       labelKey: 'language',
@@ -214,6 +219,7 @@ export class BdmArticleTemplate {
       fields: {
         language: {
           usage: 'M',
+          required: true,
           label: 'Jazyk článku',
           selector: 'language/languageTerm',
           labelKey: 'language/languageTerm',
@@ -282,6 +288,7 @@ export class BdmArticleTemplate {
     },
     physicalDescription: {
       usage: 'M',
+      required: true,
       label: 'Fyzický popis',
       selector: 'physicalDescription',
       labelKey: 'physicalDescription',
@@ -289,6 +296,7 @@ export class BdmArticleTemplate {
       fields: {
         form: {
           usage: 'M',
+          required: true,
           label: 'Typ média',
           selector: 'physicalDescription/form',
           labelKey: 'physicalDescription/form',
@@ -297,6 +305,7 @@ export class BdmArticleTemplate {
           fields: {
             value: {
               usage: 'M',
+              required: true,
               label: 'Hodnota',
               labelKey: 'physicalDescription/form/value',
               help: 'off',
@@ -335,6 +344,7 @@ export class BdmArticleTemplate {
       fields: {
         value: {
           usage: 'M',
+          required: true,
           selector: 'genre/value',
           labelKey: 'genre/value',
           label: 'Hodnota',
@@ -383,6 +393,7 @@ export class BdmArticleTemplate {
       fields: {
         authority: {
           usage: 'M',
+          required: true,
           label: 'Autorita',
           selector: 'classification/@authority',
           labelKey: 'classification/@authority',
@@ -403,6 +414,7 @@ export class BdmArticleTemplate {
         },
         edition: {
           usage: 'M',
+          required: true,
           label: 'Vydání',
           selector: 'classification/@edition',
           labelKey: 'classification/@edition',
@@ -473,6 +485,7 @@ export class BdmArticleTemplate {
     },
     identifier: {
       usage: 'M',
+      required: true,
       label: 'Identifikátory článku',
       selector: 'identifier',
       labelKey: 'identifier',
@@ -480,6 +493,7 @@ export class BdmArticleTemplate {
       fields: {
         type: {
           usage: 'M',
+          required: true,
           label: 'Typ',
           selector: 'identifier/@type',
           labelKey: 'identifier/@type',
@@ -492,6 +506,7 @@ export class BdmArticleTemplate {
         },
         value: {
           usage: 'M',
+          required: true,
           selector: 'identifier/value',
           labelKey: 'identifier/value',
           label: 'Hodnota',
@@ -501,6 +516,7 @@ export class BdmArticleTemplate {
     },
     recordInfo: {
       usage: 'M',
+      required: true,
       label: 'Údaje o metadatovém záznamu',
       selector: 'recordInfo',
       labelKey: 'recordInfo',
@@ -549,6 +565,7 @@ export class BdmArticleTemplate {
         },
         recordCreationDate: {
           usage: 'M',
+          required: true,
           label: 'Datum vytvoření',
           selector: 'recordInfo/recordCreationDate',
           labelKey: 'recordInfo/recordCreationDate',
@@ -556,6 +573,7 @@ export class BdmArticleTemplate {
           fields: {
             value: {
               usage: 'M',
+              required: true,
               label: 'Datum vytvoření',
               cols: 2,
               selector: 'recordInfo/recordCreationDate',
@@ -564,6 +582,7 @@ export class BdmArticleTemplate {
             },
             encoding: {
               usage: 'M',
+              required: true,
               label: 'Kódování',
               cols: 2,
               selector: 'recordInfo/recordCreationDate/@encoding',
@@ -592,6 +611,7 @@ export class BdmArticleTemplate {
             },
             encoding: {
               usage: 'M',
+              required: true,
               label: 'Kódování',
               cols: 2,
               selector: 'recordInfo/recordChangeDate/@encoding',
@@ -721,6 +741,7 @@ export class BdmArticleTemplate {
         },
         titleInfo: {
           usage: 'M',
+          required: true,
           label: 'Název recenzovaného díla',
           selector: 'relatedItem/titleInfo',
           labelKey: 'bdm/relatedItem/titleInfo',
@@ -728,6 +749,7 @@ export class BdmArticleTemplate {
           fields: {
             title: {
               usage: 'M',
+              required: true,
               label: 'Název recenzovaného díla',
               selector: 'relatedItem/titleInfo/title',
               labelKey: 'bdm/relatedItem/titleInfo/title',
@@ -737,6 +759,7 @@ export class BdmArticleTemplate {
         },
         name: {
           usage: 'M',
+          required: true,
           label: 'Autoři recenzovaného díla',
           selector: 'relatedItem/name',
           labelKey: 'bdm/relatedItem/name',
@@ -794,6 +817,7 @@ export class BdmArticleTemplate {
                 value: {
                   label: 'Hodnota',
                   usage: 'M',
+                  required: true,
                   selector: 'name/namePart',
                   labelKey: 'name/namePart/value',
                   cols: 2,
@@ -805,6 +829,7 @@ export class BdmArticleTemplate {
         },
         originInfo: {
           usage: 'M',
+          required: true,
           label: 'Nakladatelské údaje recenzovaného díla',
           selector: 'relatedItem/originInfo',
           labelKey: 'relatedItem/originInfo',
@@ -860,6 +885,7 @@ export class BdmArticleTemplate {
         },
         identifier: {
           usage: 'M',
+          required: true,
           label: 'Identifikátory článku',
           selector: 'relatedItem/identifier',
           labelKey: 'relatedItem/identifier',
@@ -867,6 +893,7 @@ export class BdmArticleTemplate {
           fields: {
             type: {
               usage: 'M',
+              required: true,
               label: 'Typ',
               selector: 'relatedItem/identifier/@type',
               labelKey: 'relatedItem/identifier/@type',
@@ -880,6 +907,7 @@ export class BdmArticleTemplate {
             },
             value: {
               usage: 'M',
+              required: true,
               selector: 'relatedItem/identifier/value',
               labelKey: 'relatedItem/identifier/value',
               label: 'Hodnota',

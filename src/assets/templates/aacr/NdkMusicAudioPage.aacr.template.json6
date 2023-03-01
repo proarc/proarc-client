@@ -17,6 +17,7 @@
     },
     identifier: {
       usage: 'M',
+      required: true,
       label: 'Identifikátor',
       selector: 'identifier',
       labelKey: 'identifier',
@@ -25,6 +26,7 @@
       fields: {
         type: {
           usage: 'M',
+          required: true,
           label: 'Typ',
           selector: 'identifier/@type',
           labelKey: 'identifier/@type',
@@ -73,6 +75,7 @@
         },
         value: {
           usage: 'M',
+          required: true,
           selector: 'identifier/value',
           labelKey: 'identifier/value',
           label: 'Hodnota',
@@ -82,6 +85,7 @@
     },
     part: {
       usage: 'M',
+      required: true,
       label: 'Popis',
       selector: 'part',
       labelKey: 'part',
@@ -95,18 +99,21 @@
         },
         detail: {
           usage: 'M',
+          required: true,
           label: 'Detail',
           selector: 'part/detail',
           labelKey: 'part/detail',
           fields: {
             type: {
               usage: 'M',
+              required: true,
               label: 'Typ',
               selector: 'part/detail/@type',
               labelKey: 'part/detail/@type',
             },
             number: {
               usage: 'M',
+              required: true,
               label: 'Hodnota',
               selector: 'part/detail/number',
               labelKey: 'part/detail/number',
@@ -117,6 +124,7 @@
     },
     recordInfo: {
       usage: 'M',
+      required: true,
       label: 'Údaje o metadatovém záznamu',
       selector: 'recordInfo',
       labelKey: 'recordInfo',
@@ -165,6 +173,7 @@
         },
         recordCreationDate: {
           usage: 'M',
+          required: true,
           label: 'Datum vytvoření',
           selector: 'recordInfo/recordCreationDate',
           labelKey: 'recordInfo/recordCreationDate',
@@ -172,6 +181,7 @@
           fields: {
             value: {
               usage: 'M',
+              required: true,
               label: 'Datum vytvoření',
               cols: 2,
               selector: 'recordInfo/recordCreationDate',
@@ -180,6 +190,7 @@
             },
             encoding: {
               usage: 'M',
+              required: true,
               label: 'Kódování',
               cols: 2,
               selector: 'recordInfo/recordCreationDate/@encoding',
@@ -208,6 +219,7 @@
             },
             encoding: {
               usage: 'M',
+              required: true,
               label: 'Kódování',
               cols: 2,
               selector: 'recordInfo/recordChangeDate/@encoding',

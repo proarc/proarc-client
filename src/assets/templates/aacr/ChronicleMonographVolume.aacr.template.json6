@@ -1,6 +1,7 @@
 {
     titleInfo: {
       usage: 'M',
+      required: true,
       label: 'Informace o názvu',
       selector: 'titleInfo',
       labelKey: 'titleInfo',
@@ -8,6 +9,7 @@
       fields: {
         title: {
           usage: 'M',
+          required: true,
           label: 'Název',
           selector: 'titleInfo/title',
           labelKey: 'titleInfo/title',
@@ -42,6 +44,7 @@
     },
     originInfo: {
       usage: 'M',
+      required: true,
       label: 'Informace o místě a data vzniku',
       selector: 'originInfo',
       labelKey: 'originInfo',
@@ -113,6 +116,7 @@
       fields: {
         language: {
           usage: 'M',
+          required: true,
           label: 'Jazyk',
           selector: 'language/languageTerm',
           labelKey: 'language/languageTerm',
@@ -122,6 +126,7 @@
     },
     genre: {
       usage: 'M',
+      required: true,
       label: 'Charakter kroniky',
       selector: 'genre',
       labelKey: 'genre',
@@ -129,6 +134,7 @@
       fields: {
         value: {
           usage: 'M',
+          required: true,
           cols: 3,
           label: 'Evidenční jednotka',
           selector: 'genre/value',
@@ -174,6 +180,7 @@
     },
     identifier: {
       usage: 'M',
+      required: true,
       label: 'Identifikátor',
       selector: 'identifier',
       labelKey: 'identifier',
@@ -183,6 +190,7 @@
       fields: {
         type: {
           usage: 'M',
+          required: true,
           label: 'Typ',
           selector: 'identifier/@type',
           labelKey: 'identifier/@type',
@@ -206,6 +214,7 @@
         },
         value: {
           usage: 'M',
+          required: true,
           selector: 'identifier/value',
           labelKey: 'identifier/value',
           label: 'Hodnota',
@@ -282,6 +291,7 @@
             value: {
               label: 'Hodnota',
               usage: 'M',
+              required: true,
               selector: 'name/namePart',
               labelKey: 'name/namePart/value',
               cols: 2,
