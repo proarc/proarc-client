@@ -155,9 +155,18 @@ export class Metadata {
     return valid;
   }
 
+  static resolveStandardFromXml(data: string): string {
+    if (data.indexOf('<mods:descriptionStandard>aacr</mods:descriptionStandard>') > -1) {
+      return 'aacr'
+    } else {
+      return 'rda'
+    }
+  }
+
   static resolveStandard(data: { [x: string]: any; }): string {
     let standard = '';
     let mods: any = data;
+    console.log(data)
     if (data['modsCollection']) {
       if (data['modsCollection']['mods']) {
         mods = data['modsCollection']['mods'];

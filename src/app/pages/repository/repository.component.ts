@@ -149,9 +149,10 @@ export class RepositoryComponent implements OnInit {
         Object.assign(this.layout.lastSelectedItem, item);
         this.layout.lastSelectedItem.selected = selected;
 
-        const standard = Metadata.resolveStandard(respMeta['record']['content']);
+        
+        const standard = respMeta['record']['standard'] ? respMeta['record']['standard'] : Metadata.resolveStandardFromXml(respMeta['record']['content']);
         this.tmpl.getTemplate(standard, model).subscribe((tmpl: any) => {
-          this.layout.lastSelectedItemMetadata = new Metadata(pid, model, respMeta['record']['content'], respMeta['record']['timestamp'], respMeta['record']['standard'], tmpl);
+          this.layout.lastSelectedItemMetadata = new Metadata(pid, model, respMeta['record']['content'], respMeta['record']['timestamp'], standard, tmpl);
         })
         // this.layout.lastSelectedItemMetadata = new Metadata(pid, model, respMeta['record']['content'], respMeta['record']['timestamp'], respMeta['record']['standard']);
       });
@@ -292,9 +293,9 @@ export class RepositoryComponent implements OnInit {
         return;
       }
       
-      const standard = Metadata.resolveStandard(response['record']['content']);
+      const standard = response['record']['standard'] ? response['record']['standard'] : Metadata.resolveStandardFromXml(response['record']['content']);
       this.tmpl.getTemplate(standard, model).subscribe((tmpl: any) => {
-        this.layout.lastSelectedItemMetadata = new Metadata(pid, model, response['record']['content'], response['record']['timestamp'], response['record']['standard'], tmpl);
+        this.layout.lastSelectedItemMetadata = new Metadata(pid, model, response['record']['content'], response['record']['timestamp'], standard, tmpl);
       });
       // this.layout.lastSelectedItemMetadata = new Metadata(pid, model, response['record']['content'], response['record']['timestamp'], response['record']['standard']);
       

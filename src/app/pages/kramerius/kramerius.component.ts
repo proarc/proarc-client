@@ -82,9 +82,9 @@ export class KrameriusComponent implements OnInit {
         this.model = response['record'].model;
         this.mods = Mods.fromJson(response['record']);
 
-        const standard = Metadata.resolveStandard(response['record']['content']);
+        const standard = response['record']['standard'] ? response['record']['standard'] : Metadata.resolveStandardFromXml(response['record']['content']);
         this.tmpl.getTemplate(standard, this.model).subscribe((tmpl: any) => {
-          this.layout.lastSelectedItemMetadata = new Metadata(this.pid, this.model, response['record']['content'], response['record']['timestamp'], response['record']['standard'], tmpl);
+          this.layout.lastSelectedItemMetadata = new Metadata(this.pid, this.model, response['record']['content'], response['record']['timestamp'], standard, tmpl);
         });
 
         //this.layout.lastSelectedItemMetadata = new Metadata(this.pid, response['record']['model'], response['record']['content'], response['record']['timestamp'], response['record']['standard']);

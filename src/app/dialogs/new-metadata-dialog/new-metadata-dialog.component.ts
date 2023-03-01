@@ -41,9 +41,9 @@ export class NewMetadataDialogComponent implements OnInit {
   }
 
   load() {
-    const standard = Metadata.resolveStandard(this.data.content);
+    const standard = Metadata.resolveStandardFromXml(this.data.content);
     this.tmpl.getTemplate(standard, this.data.model).subscribe((tmpl: any) => {
-      this.metadata = new Metadata(this.data.pid, this.data.model, this.data.content, this.data.timestamp, null, tmpl);
+      this.metadata = new Metadata(this.data.pid, this.data.model, this.data.content, this.data.timestamp, standard, tmpl);
       setTimeout(() => {
         this.metadata.expandRequired();
       }, 100);
