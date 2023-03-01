@@ -394,7 +394,6 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
 
   onIngestBatch() {
-    console.log(this.selectedBatch, this.selectedBatch.parentPid)
     if (!this.selectedBatch) {
       return;
     }
