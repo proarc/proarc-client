@@ -1,4 +1,4 @@
-<div class="reader-container" [ngClass]="{'nav-open' : navOpen}">
+<!-- <div class="reader-container" [ngClass]="{'nav-open' : navOpen}">
   <div id="titlebar">
     <div id="metainfo">
       <span id="book-title">{{ bookTitle + (chapterTitle === bookTitle ? '' : ' - ' + chapterTitle) }}</span>
@@ -15,7 +15,36 @@
     <a class="toc-link" *ngFor="let chapter of chapters" (click)="displayChapter(chapter)">{{ chapter.label }}</a>
   </div>
   <div id="divider"></div>
+</div> -->
+
+
+<div fxLayout="column" fxFlexFill>
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
+    <div fxFlex>
+			<div class="app-toolbar-label">
+				<span class="app-text">E-pub</span>
+        <span id="book-title">{{ bookTitle + (chapterTitle === bookTitle ? '' : ' - ' + chapterTitle) }}</span>
+			</div>
+		</div>
+		<div>
+      <button mat-icon-button  (click)="showPrev()" matTooltip="next">
+				<mat-icon>keyboard_arrow_left</mat-icon>
+			</button>
+			<button mat-icon-button  (click)="showNext()" matTooltip="prev">
+				<mat-icon>keyboard_arrow_right</mat-icon>
+			</button>
+		</div>
+  </div>
+	<div fxFlex class="app-oa-y">
+		<!-- <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='head'" class="app-progress-bar"></mat-progress-bar> -->
+		<div class="app-editor-content app-h-100">
+			<div class="app-pdf-wrapper">
+				
   <div id="epub_viewer"></div>
-  <div id="prev" class="arrow" (click)="showPrev()">‹</div>
-  <div id="next" class="arrow" (click)="showNext()">›</div>
+  <!-- <div id="prev" class="arrow" (click)="showPrev()">‹</div>
+  <div id="next" class="arrow" (click)="showNext()">›</div> -->
+
+			</div>
+		</div>
+	</div>
 </div>
