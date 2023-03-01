@@ -151,7 +151,7 @@
     "status": "Status",
     "state": "Status",
     "created": "Vytvořeno",
-    "modified": "Změněno",
+    "modified": "Upraveno",
     "export": "Export",
     "isLocked": "Zamčený",
     "search": "Vyhledat",
@@ -1915,7 +1915,8 @@
     "objectTypeFile": "soubor",
     "objectTypeRepresentation": "o digitální reprezentace",
     "objectTypeBitstream": "bitstream",
-    "objectCharacteristics": "technické údaje o souboru"
+    "objectCharacteristics": "technické údaje o souboru",
+    "edit-multiple": "Hromadná úprava agentů"
   },
 
 
