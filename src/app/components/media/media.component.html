@@ -20,7 +20,7 @@
 			</button>
 			<input style="display: none;" #epubInput id="epub_file_upload" name="epub_file_upload" type="file" (change)="uploadEpub($event)" accept=".epub" />
 
-			<button mat-icon-button *ngIf="state == 'ok'" (click)="onRemove()" matTooltip="Odstranit digitální obsah">
+			<button mat-icon-button *ngIf="streamProfile" (click)="onRemove()" matTooltip="Odstranit digitální obsah">
 				<mat-icon>delete</mat-icon>
 			</button>
 
