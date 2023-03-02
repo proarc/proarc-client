@@ -63,12 +63,11 @@ export class EpubComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.subscriptions.push(this.layout.resized().subscribe((a: boolean) => {
-      if(this.rendition) {
-        this.rendition.resize(this.epubViewer.nativeElement.clientWidth, this.epubViewer.nativeElement.clientHeight);
-        // this.rendition.display();
-      }
-    }))
+    // this.subscriptions.push(this.layout.resized().subscribe((a: boolean) => {
+    //   if(this.rendition) {
+    //     this.rendition.resize(this.epubViewer.nativeElement.clientWidth, this.epubViewer.nativeElement.clientHeight);
+    //   }
+    // }))
   }
 
   loadBook() {
@@ -82,7 +81,7 @@ export class EpubComponent implements OnInit {
       width: "100%",
       height: "100%",
       // manager: "continuous",
-      flow: "scrolled",
+      // flow: "scrolled",
       spread: "always"
     });
     this.rendition.on('rendered', (section: { href: string; }) => {

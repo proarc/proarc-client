@@ -150,6 +150,7 @@ export class LayoutService {
 
   setResized() {
     this.resizedSubject.next(true);
+    window.dispatchEvent(new Event('resize'));
   }
 
   resized(): Observable<boolean> {
