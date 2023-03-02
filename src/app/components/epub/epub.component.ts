@@ -68,6 +68,17 @@ export class EpubComponent implements OnInit {
     //     this.rendition.resize(this.epubViewer.nativeElement.clientWidth, this.epubViewer.nativeElement.clientHeight);
     //   }
     // }))
+    document.addEventListener("keydown", (e: KeyboardEvent) => {
+      
+      if (e.key === 'ArrowLeft') {
+        // left arrow
+        this.showPrev();
+      }
+      else if (e.key === 'ArrowRight') {
+        // right arrow
+        this.showNext();
+      }
+    });
   }
 
   loadBook() {
