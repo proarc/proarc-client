@@ -27,10 +27,10 @@
 								style="width: 100%; height: 100%"
 								(after-load-complete)="state = 'ok'"></pdf-viewer> -->
 
-				<ngx-extended-pdf-viewer *ngIf="state === 'head' || state === 'ok'" 
+				<ngx-extended-pdf-viewer #pdfViewer *ngIf="state === 'head' || state === 'ok'" 
 					[src]="pdfUrl" 
 					[height]="'100%'" 
-					(pdfLoaded)="state = 'ok'" 
+					(pdfLoaded)="pdfRendered($event)" 
 					[enablePrint]="false" [showOpenFileButton]="false" [showEditor]="false" 
 					[language]="getLang()"
 					[useBrowserLocale]="true" ></ngx-extended-pdf-viewer>

@@ -63,15 +63,16 @@ export class EpubComponent implements OnInit {
     this.rendition = this.book.renderTo('epub_viewer', 
     {
       width: "100%",
-      height: 600,
+      height: "100%",
+      // manager: "continuous",
+      flow: "scrolled",
       spread: "always"
     });
-    this.rendition.display();
-    this.navOpen = false;
     this.rendition.on('rendered', (section: { href: string; }) => {
       this.currentChapter = this.book.navigation.get(section.href);
       this.chapterTitle = this.currentChapter ? this.currentChapter.label : '';
     });
+    this.rendition.display();
   }
 
 
