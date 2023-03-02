@@ -15,7 +15,7 @@ export class EpubComponent implements OnInit {
   chapterTitle = '';
   book: Book;
   rendition: Rendition;
-  chapters: NavItem[];
+  chapters: NavItem[] = [];
   navOpen: Boolean;
   currentChapter: any;
   sessionId: string;
@@ -55,8 +55,6 @@ export class EpubComponent implements OnInit {
   ngOnInit() {}
 
   loadBook() {
-    // this.book = this.epubService.getBook(this.currentRoute.snapshot.params['id']);
-    console.log(this.epubUrl);
     this.book = Epub(this.epubUrl,  { openAs: "epub" });
     this.book.loaded.metadata.then(meta => {
       this.bookTitle = meta.title;
@@ -74,16 +72,6 @@ export class EpubComponent implements OnInit {
       this.currentChapter = this.book.navigation.get(section.href);
       this.chapterTitle = this.currentChapter ? this.currentChapter.label : '';
     });
-
-    // this.epubService.getAnnotations(this.currentRoute.snapshot.params['id']).subscribe( response => {
-    //   for (const cfi of response.epubCfis) {
-    //     this.rendition.annotations.add('highlight', cfi, {data: 'Testing'}, (e) => {
-    //           console.log('highlight clicked', e.target);
-    //         }, 'hl',
-    //         {'fill': 'red', 'fill-opacity': '0.3', 'mix-blend-mode': 'multiply'}
-    //       );
-    //   }
-    // });
   }
 
 
