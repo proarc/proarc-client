@@ -741,7 +741,6 @@ export class BdmArticleTemplate {
         },
         titleInfo: {
           usage: 'M',
-          required: true,
           label: 'Název recenzovaného díla',
           selector: 'relatedItem/titleInfo',
           labelKey: 'bdm/relatedItem/titleInfo',
@@ -749,7 +748,6 @@ export class BdmArticleTemplate {
           fields: {
             title: {
               usage: 'M',
-              required: true,
               label: 'Název recenzovaného díla',
               selector: 'relatedItem/titleInfo/title',
               labelKey: 'bdm/relatedItem/titleInfo/title',
@@ -759,7 +757,6 @@ export class BdmArticleTemplate {
         },
         name: {
           usage: 'M',
-          required: true,
           label: 'Autoři recenzovaného díla',
           selector: 'relatedItem/name',
           labelKey: 'bdm/relatedItem/name',
@@ -817,7 +814,6 @@ export class BdmArticleTemplate {
                 value: {
                   label: 'Hodnota',
                   usage: 'M',
-                  required: true,
                   selector: 'name/namePart',
                   labelKey: 'name/namePart/value',
                   cols: 2,
@@ -829,7 +825,6 @@ export class BdmArticleTemplate {
         },
         originInfo: {
           usage: 'M',
-          required: true,
           label: 'Nakladatelské údaje recenzovaného díla',
           selector: 'relatedItem/originInfo',
           labelKey: 'relatedItem/originInfo',
@@ -885,7 +880,6 @@ export class BdmArticleTemplate {
         },
         identifier: {
           usage: 'M',
-          required: true,
           label: 'Identifikátory článku',
           selector: 'relatedItem/identifier',
           labelKey: 'relatedItem/identifier',
@@ -893,7 +887,6 @@ export class BdmArticleTemplate {
           fields: {
             type: {
               usage: 'M',
-              required: true,
               label: 'Typ',
               selector: 'relatedItem/identifier/@type',
               labelKey: 'relatedItem/identifier/@type',
@@ -907,7 +900,6 @@ export class BdmArticleTemplate {
             },
             value: {
               usage: 'M',
-              required: true,
               selector: 'relatedItem/identifier/value',
               labelKey: 'relatedItem/identifier/value',
               label: 'Hodnota',
