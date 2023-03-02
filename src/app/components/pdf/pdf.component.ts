@@ -71,7 +71,6 @@ export class PdfComponent implements OnInit {
   }
 
   pdfRendered(e: any) {
-    console.log(this.pdfViewer);
     this.state = 'ok';
   }
 

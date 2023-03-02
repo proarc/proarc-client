@@ -128,8 +128,8 @@ export class RepositoryComponent implements OnInit {
         .filter((r) => r.visible === true)
         .forEach((row, index) => (row.size = e.sizes[index]))
     }
-
     localStorage.setItem(this.localStorageName, JSON.stringify(this.layout.layoutConfig));
+    this.layout.setResized();
   }
 
   canHasChildren(model: string): boolean {

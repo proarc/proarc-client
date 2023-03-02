@@ -1,9 +1,11 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import Book from 'epubjs/types/book';
 import { NavItem } from 'epubjs/types/navigation';
 import Rendition from 'epubjs/types/rendition';
 import Epub from 'epubjs';
+import { LayoutService } from 'src/app/services/layout.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-epub',
@@ -11,18 +13,21 @@ import Epub from 'epubjs';
   styleUrls: ['./epub.component.scss']
 })
 export class EpubComponent implements OnInit {
+
+  @ViewChild('epubViewer') epubViewer: ElementRef;
+
   bookTitle = '';
   chapterTitle = '';
   book: Book;
   rendition: Rendition;
   chapters: NavItem[] = [];
-  navOpen: Boolean;
+  
   currentChapter: any;
-  sessionId: string;
-  pollInterval: any;
+  
   state: string;
   epubUrl: string;
 
+  subscriptions: Subscription[] = [];
   
   private currentStream: string;
   @Input()
@@ -48,11 +53,23 @@ export class EpubComponent implements OnInit {
   }
 
   constructor(
-    private api: ApiService
+    private api: ApiService,
+    private layout: LayoutService
   ) {
   }
 
-  ngOnInit() {}
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
+  ngOnInit() {
+    this.subscriptions.push(this.layout.resized().subscribe((a: boolean) => {
+      if(this.rendition) {
+        this.rendition.resize(this.epubViewer.nativeElement.clientWidth, this.epubViewer.nativeElement.clientHeight);
+        // this.rendition.display();
+      }
+    }))
+  }
 
   loadBook() {
     this.book = Epub(this.epubUrl,  { openAs: "epub" });
@@ -81,10 +98,6 @@ export class EpubComponent implements OnInit {
   }
   showPrev() {
     this.rendition.prev();
-  }
-
-  toggleNav() {
-    this.navOpen = !this.navOpen;
   }
 
   displayChapter(chapter: any) {

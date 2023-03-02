@@ -44,8 +44,12 @@ export class LayoutService {
 
   private refreshSelectedSubject = new Subject<string>();
   private refreshSubject = new Subject<boolean>();
+
   private selectionSubject = new ReplaySubject<boolean>(1);
   private moveNextSubject = new ReplaySubject<number>(1);
+
+  private resizedSubject = new Subject<boolean>();
+
   public movingToNext = false;
   public movedToNextFrom: string;
 
@@ -143,6 +147,15 @@ export class LayoutService {
   shouldRefresh(): Observable<boolean> {
     return this.refreshSubject.asObservable();
   }
+
+  setResized() {
+    this.resizedSubject.next(true);
+  }
+
+  resized(): Observable<boolean> {
+    return this.resizedSubject.asObservable();
+  }
+  
 
   shouldRefreshSelectedItem(): Observable<any> {
     return this.refreshSelectedSubject.asObservable();
