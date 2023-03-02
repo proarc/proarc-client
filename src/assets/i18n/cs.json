@@ -2121,7 +2121,10 @@
     "editInfoForAudioFiles": "Upravit info ke zvukovém souborům",
     "createAnAudioLine": "Vytvořit audio linku",
     "editTheAudioLine": "Upravit audio linku",
-    "createNewUser": "Vytvořit nového uživatele"
+    "createNewUser": "Vytvořit nového uživatele",
+    "chapters": "Kapitoly",
+    "prev_page": "Přejít na předchozí stranu",
+    "next_page": "Přejít na následující stranu"
   },
   "dynamic": {
     "repo": "Úložiště",

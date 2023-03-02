@@ -2120,7 +2120,10 @@
     "editInfoForAudioFiles": "Edit info for audio files",
     "createAnAudioLine": "Create an audio line",
     "editTheAudioLine": "Edit the audio line",
-    "createNewUser": "Create a new user"
+    "createNewUser": "Create a new user",
+    "chapters": "Chapters",
+    "prev_page": "Next page",
+    "next_page": "Previous page"
   },
   "dynamic": {
     "repo": "Storage",

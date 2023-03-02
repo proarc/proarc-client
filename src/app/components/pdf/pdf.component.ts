@@ -14,6 +14,7 @@ import { UIService } from 'src/app/services/ui.service';
 export class PdfComponent implements OnInit {
 
   @ViewChild('pdfInput') pdfInput: ElementRef;
+  @ViewChild('pdfViewer') pdfViewer: ElementRef;
 
   private currentStream: string;
   @Input()
@@ -67,6 +68,10 @@ export class PdfComponent implements OnInit {
       }
       
     });
+  }
+
+  pdfRendered(e: any) {
+    this.state = 'ok';
   }
 
   onAdd() {

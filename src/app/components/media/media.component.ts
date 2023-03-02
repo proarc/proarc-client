@@ -23,7 +23,7 @@ export class MediaComponent implements OnInit {
   set pid(pid: string) {
     this.onPidChanged(pid);
   }
-  pdfUrl: string;
+  // pdfUrl: string;
   state = 'loading';
 
   streamProfile: StreamProfile;
@@ -91,8 +91,11 @@ export class MediaComponent implements OnInit {
       return;
     }
     this.currentPid = pid;
+    this.getProfiles(pid);
+  }
+
+  getProfiles(pid: string) {
     this.state = 'loading';
-    this.pdfUrl = this.api.getStreamUrl(pid, 'RAW');
     this.api.getStreamProfile(pid).subscribe((response: any) => {
       if (response?.response?.data) {
         this.streamProfiles = response.response.data;
@@ -128,7 +131,7 @@ export class MediaComponent implements OnInit {
   }
 
   uploadPdf(event: any) {
-    console.log('uploadPdf', event);
+    //console.log('uploadPdf', event);
     const files = <Array<File>>event.target.files;
     if (files.length != 1) {
       return;
@@ -140,7 +143,7 @@ export class MediaComponent implements OnInit {
   }
 
   uploadEpub(event: any) {
-    console.log('uploadEpub', event);
+    //console.log('uploadEpub', event);
     const files = <Array<File>>event.target.files;
     if (files.length != 1) {
       return;
@@ -148,6 +151,19 @@ export class MediaComponent implements OnInit {
     this.state = 'loading';
     this.api.uploadFile(files[0], this.currentPid, 'application/epub+zip').subscribe(response => {
       this.state = 'ok';
+    });
+  }
+
+  uploadFile(event: any) {
+    console.log('uploadEpub', event);
+    const files = <Array<File>>event.target.files;
+    if (files.length != 1) {
+      return;
+    }
+    this.state = 'loading';
+    this.api.uploadFile(files[0], this.currentPid, files[0].type).subscribe(response => {
+      this.state = 'ok';
+      this.getProfiles(this.currentPid);
     });
   }
 
@@ -179,6 +195,7 @@ export class MediaComponent implements OnInit {
     this.api.deletePdf(this.currentPid, this.streamProfile.dsid).subscribe(() => {
       this.state = 'empty';
       this.ui.showInfoSnackBar("Digitální obsah byl odstraněn");
+      this.getProfiles(this.currentPid);
     });
   }
 

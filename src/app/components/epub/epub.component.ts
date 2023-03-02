@@ -1,9 +1,11 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import Book from 'epubjs/types/book';
 import { NavItem } from 'epubjs/types/navigation';
 import Rendition from 'epubjs/types/rendition';
 import Epub from 'epubjs';
+import { LayoutService } from 'src/app/services/layout.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-epub',
@@ -11,18 +13,21 @@ import Epub from 'epubjs';
   styleUrls: ['./epub.component.scss']
 })
 export class EpubComponent implements OnInit {
+
+  @ViewChild('epubViewer') epubViewer: ElementRef;
+
   bookTitle = '';
   chapterTitle = '';
   book: Book;
   rendition: Rendition;
-  chapters: NavItem[];
-  navOpen: Boolean;
+  chapters: NavItem[] = [];
+  
   currentChapter: any;
-  sessionId: string;
-  pollInterval: any;
+  
   state: string;
   epubUrl: string;
 
+  subscriptions: Subscription[] = [];
   
   private currentStream: string;
   @Input()
@@ -48,15 +53,35 @@ export class EpubComponent implements OnInit {
   }
 
   constructor(
-    private api: ApiService
+    private api: ApiService,
+    private layout: LayoutService
   ) {
   }
 
-  ngOnInit() {}
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
+  ngOnInit() {
+    // this.subscriptions.push(this.layout.resized().subscribe((a: boolean) => {
+    //   if(this.rendition) {
+    //     this.rendition.resize(this.epubViewer.nativeElement.clientWidth, this.epubViewer.nativeElement.clientHeight);
+    //   }
+    // }))
+    document.addEventListener("keydown", (e: KeyboardEvent) => {
+      
+      if (e.key === 'ArrowLeft') {
+        // left arrow
+        this.showPrev();
+      }
+      else if (e.key === 'ArrowRight') {
+        // right arrow
+        this.showNext();
+      }
+    });
+  }
 
   loadBook() {
-    // this.book = this.epubService.getBook(this.currentRoute.snapshot.params['id']);
-    console.log(this.epubUrl);
     this.book = Epub(this.epubUrl,  { openAs: "epub" });
     this.book.loaded.metadata.then(meta => {
       this.bookTitle = meta.title;
@@ -65,25 +90,16 @@ export class EpubComponent implements OnInit {
     this.rendition = this.book.renderTo('epub_viewer', 
     {
       width: "100%",
-      height: 600,
+      height: "100%",
+      // manager: "continuous",
+      // flow: "scrolled",
       spread: "always"
     });
-    this.rendition.display();
-    this.navOpen = false;
     this.rendition.on('rendered', (section: { href: string; }) => {
       this.currentChapter = this.book.navigation.get(section.href);
       this.chapterTitle = this.currentChapter ? this.currentChapter.label : '';
     });
-
-    // this.epubService.getAnnotations(this.currentRoute.snapshot.params['id']).subscribe( response => {
-    //   for (const cfi of response.epubCfis) {
-    //     this.rendition.annotations.add('highlight', cfi, {data: 'Testing'}, (e) => {
-    //           console.log('highlight clicked', e.target);
-    //         }, 'hl',
-    //         {'fill': 'red', 'fill-opacity': '0.3', 'mix-blend-mode': 'multiply'}
-    //       );
-    //   }
-    // });
+    this.rendition.display();
   }
 
 
@@ -92,10 +108,6 @@ export class EpubComponent implements OnInit {
   }
   showPrev() {
     this.rendition.prev();
-  }
-
-  toggleNav() {
-    this.navOpen = !this.navOpen;
   }
 
   displayChapter(chapter: any) {
