@@ -66,7 +66,7 @@ import { ConfigService } from './services/config.service';
 import { EditorChronicleLocationComponent } from './documents/document/editor-chronicle-location/editor-chronicle-location.component';
 import { FundService } from './services/fund.service';
 import { FundDialogComponent } from './dialogs/fund-dialog/fund-dialog.component';
-import { SettingsComponent } from './components/settings/settings.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 import { NewPasswordDialogComponent } from './dialogs/new-password-dialog/new-password-dialog.component';
 import { EditorAbstractComponent } from './documents/document/editor-abstract/editor-abstract.component';
 import { EditorPhysicalComponent } from './documents/document/editor-physical/editor-physical.component';

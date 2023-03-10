@@ -9,7 +9,7 @@ import { EditDeviceComponent } from '../pages/devices/edit-device/edit-device.co
 import { EditAudioDeviceComponent } from '../pages/devices/edit-audio-device/edit-audio-device.component';
 import { ImportComponent } from '../components/import/import.component';
 import { HistoryComponent } from '../components/import/history/history.component';
-import { SettingsComponent } from '../components/settings/settings.component';
+import { SettingsComponent } from '../pages/settings/settings.component';
 import { ConfirmLeaveEditorGuard } from '../confirm-leave-editor.guard';
 import { AdminComponent } from '../pages/admin/admin.component';
 import { WorkflowComponent } from '../pages/workflow/workflow.component';
