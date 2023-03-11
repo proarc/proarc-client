@@ -2331,6 +2331,14 @@
       "alert": {
         "error": "The password entered does not match the password confirmation"
       }
+    },
+    "preferredTops": {
+      "title": {
+        "pagetypes": "Preferred types of parties",
+        "languages": "Preferred languages",
+        "locations": "Preferred storage locations",
+        "identifiers": "Preferred Identifiers"
+      }
     }
   },
   "formField": {

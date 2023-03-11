@@ -24,7 +24,7 @@
         <button mat-menu-item disabled>
           <span>{{ auth.user.name }}</span>
         </button>
-        <a [routerLink]="['/settings']" routerLinkActive="active" mat-button>{{ "navbar.settings" | translate }}</a>
+        <button [routerLink]="['/settings']" routerLinkActive="active" mat-menu-item>{{ "navbar.settings" | translate }}</button>
         <button mat-menu-item (click)="logout()">
           <span>{{ "navbar.logout" | translate }}</span>
         </button>

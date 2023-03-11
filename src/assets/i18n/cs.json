@@ -234,42 +234,6 @@
     "admin": "Administrace",
     "layout": "Rozložení"
   },
-  "settings": {
-    "settings": "Nastavení",
-    "profile": {
-      "label": "Profil",
-      "username": "Uživatel",
-      "forename": "Jméno",
-      "surname": "Příjmení",
-      "organization": "Organizace",
-      "home": "Adresář",
-      "role": "Role",
-      "updated": "Uživatelský profil upraven",
-      "change_password": "Změnit heslo",
-      "new_password_btn": "Zadejte nové heslo",
-      "new_password": {
-        "title": "Nové heslo",
-        "password": "Nové heslo",
-        "password_confirmation": "Potvrzení hesla",
-        "error_mismatch": "Zadané heslo se neshoduje s potvrzením hesla",
-        "error_short": "Heslo musí mít alespoň 6 znaků",
-        "updated": "Nové heslo bylo uloženo"
-      }
-    },
-    "search": {
-      "label": "Hledání",
-      "cols": "Zobrazená pole ve výsledcích hledání",
-      "updated": "Nastavení upraveno"
-    },
-    "preferred": {
-      "title": {
-        "pagetypes": "Preferované typy stran",
-        "languages": "Preferované jazyky",
-        "locations": "Preferovaná místa uložení",
-        "identifiers": "Preferované Identifikátory"
-      }
-    }
-  },
   "editor": {
     "add_field": "Přidat",
     "info": "Zobrazit informace k popisu",
@@ -2330,6 +2294,14 @@
       "title": "Změna hesla",
       "alert": {
         "error": "Zadané heslo se neshoduje s potvrzením hesla"
+      }
+    },
+    "preferredTops": {
+      "title": {
+        "PageTypes": "Preferované typy stran",
+        "Languages": "Preferované jazyky",
+        "Locations": "Preferovaná místa uložení",
+        "Identifiers": "Preferované Identifikátory"
       }
     }
   },
