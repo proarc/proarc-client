@@ -1937,8 +1937,6 @@
 
 
 
-
-
   "desc": {
     "help": "Help",
     "panelType": "Panel type",
@@ -2058,7 +2056,9 @@
     "identifiers": "Identifiers",
     "storageLocations": "Storage locations",
     "expandingTheForm": "Expanding the form",
-    "noValue": "No value"
+    "noValue": "No value",
+    "newPassword": "New password",
+    "passwordConfirmation": "Password confirmation"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2324,6 +2324,12 @@
       "alert": {
         "invalidPid": "The PID does not match the form uuid:xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
         "failure": "The object could not be created"
+      }
+    },
+    "newPassword": {
+      "title": "Changing the password",
+      "alert": {
+        "error": "The password entered does not match the password confirmation"
       }
     }
   },

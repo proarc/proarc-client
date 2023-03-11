@@ -2056,7 +2056,9 @@
     "identifiers": "Identifikátory",
     "storageLocations": "Místa uložení",
     "expandingTheForm": "Rozbalení formuláře",
-    "noValue": "Žádná hodnota"
+    "noValue": "Žádná hodnota",
+    "newPassword": "Nové heslo",
+    "passwordConfirmation": "Potvrzení hesla"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2322,6 +2324,12 @@
       "alert": {
         "invalidPid": "PID neodpovídá tvaru uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
         "failure": "Objekt se nepodařilo vytvořit"
+      }
+    },
+    "newPassword": {
+      "title": "Změna hesla",
+      "alert": {
+        "error": "Zadané heslo se neshoduje s potvrzením hesla"
       }
     }
   },

@@ -88,7 +88,10 @@ export class SettingsComponent implements OnInit {
 
 
   changePassword() {
-    this.dialog.open(NewPasswordDialogComponent);
+    this.dialog.open(NewPasswordDialogComponent, { 
+      width: '550px',
+      panelClass: 'app-dialog-new-password'
+    });
   }
 
   changeExpandedModels() {
