@@ -199,6 +199,34 @@
   }
 }
 
+// form field
+.mat-form-field {
+  &.mat-form-field-appearance-legacy {
+    &.app-clean-mb {
+      .mat-form-field-wrapper {
+        margin-bottom: -1.25em;
+      }
+    }
+  }
+}
+
+// slide toggle
+.mat-slide-toggle {
+  &.app-slide-toogle {
+    .mat-slide-toggle-bar {
+      width: calc(36px - #{$app-mat-slide-toggle-reduction});
+      height: calc(14px - #{$app-mat-slide-toggle-reduction});
+
+      .mat-slide-toggle-thumb-container,
+      .mat-slide-toggle-thumb {
+        width: calc(20px - #{$app-mat-slide-toggle-reduction});
+        height: calc(20px - #{$app-mat-slide-toggle-reduction});
+      }
+    } 
+  }
+}
+
+
 
 
 

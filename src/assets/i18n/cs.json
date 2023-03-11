@@ -735,26 +735,6 @@
       "exitFullscreen": "Opustit režem celé obrazovky"
     }
   },
-  "organization": {
-    "ABA007": "Knihovna Akademie věd ČR",
-    "BOA001": "Moravská zemská knihovna",
-    "ABA010": "Knihovna Národního muzea",
-    "ABA012": "Národní pedagogická knihovna Komenského Praha",
-    "HKA001": "Studijní a vědecká knihovna v Hradci Králové",
-    "ABE301": "Český rozhlas - knihovna",
-    "ABG001": "Městská knihovna v Praze",
-    "ABD068": "Univerzita Karlova v Praze - 1.LF a VFN",
-    "ABD103": "Univerzita Karlova v Praze - Fakulta sociálních věd",
-    "PAG001": "Krajská knihovna v Pardubicích",
-    "JIG001": "Městská knihovna Jihlava",
-    "HBG001": "Krajská knihovna Vysočiny",
-    "226102010": "SOkA Jihlava",
-    "226103010": "SOkA Pelhřimov",
-    "226101010": "SOkA Havlíčkův Brod",
-    "226104010": "SOkA Třebíč",
-    "226105010": "SOkA Žďár nad Sázavou",
-    "Inovatika": "Inovatika"
-  },
   "lang": {
     "aar": "afarština",
     "abk": "abcházština",
@@ -1957,7 +1937,6 @@
 
 
 
-
   "desc": {
     "help": "Nápověda",
     "panelType": "Typ panelu",
@@ -2068,7 +2047,16 @@
     "conversionOfModels": "Převod modelů",
     "updateModels": "Update modelů",
     "lockingTheObject": "Uzamknutí objektu",
-    "unlockingTheObject": "Odemknutí objektu"
+    "unlockingTheObject": "Odemknutí objektu",
+    "preferredValues": "Preferované hodnoty",
+    "displayedFieldsInSearchResults": "Zobrazená pole ve výsledcích hledání",
+    "forename": "Jméno",
+    "typesOfParties": "Typy stran",
+    "languages": "Jazyky",
+    "identifiers": "Identifikátory",
+    "storageLocations": "Místa uložení",
+    "expandingTheForm": "Rozbalení formuláře",
+    "noValue": "Žádná hodnota"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2124,7 +2112,9 @@
     "createNewUser": "Vytvořit nového uživatele",
     "chapters": "Kapitoly",
     "prev_page": "Přejít na předchozí stranu",
-    "next_page": "Přejít na následující stranu"
+    "next_page": "Přejít na následující stranu",
+    "changePassword": "Změnit heslo",
+    "edit": "Upravit"
   },
   "dynamic": {
     "repo": "Úložiště",
@@ -2267,6 +2257,26 @@
     "UPLOAD_FAILED": "Chyba nahrávání",
     "UPLOAD_DONE": "Nahráno",
     "WAITING": "Čeká ve frontě"
+  },
+  "organization": {
+    "ABA007": "Knihovna Akademie věd ČR",
+    "BOA001": "Moravská zemská knihovna",
+    "ABA010": "Knihovna Národního muzea",
+    "ABA012": "Národní pedagogická knihovna Komenského Praha",
+    "HKA001": "Studijní a vědecká knihovna v Hradci Králové",
+    "ABE301": "Český rozhlas - knihovna",
+    "ABG001": "Městská knihovna v Praze",
+    "ABD068": "Univerzita Karlova v Praze - 1.LF a VFN",
+    "ABD103": "Univerzita Karlova v Praze - Fakulta sociálních věd",
+    "PAG001": "Krajská knihovna v Pardubicích",
+    "JIG001": "Městská knihovna Jihlava",
+    "HBG001": "Krajská knihovna Vysočiny",
+    "226102010": "SOkA Jihlava",
+    "226103010": "SOkA Pelhřimov",
+    "226101010": "SOkA Havlíčkův Brod",
+    "226104010": "SOkA Třebíč",
+    "226105010": "SOkA Žďár nad Sázavou",
+    "Inovatika": "Inovatika"
   },
   "dialog": {
     "layoutSettings": {

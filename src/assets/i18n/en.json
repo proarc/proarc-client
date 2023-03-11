@@ -561,24 +561,6 @@
       "exitFullscreen": "Exit Full Screen"
     }
   },
-  "organization": {
-    "ABA007": "Knihovna Akademie věd ČR",
-    "BOA001": "Moravská zemská knihovna",
-    "ABA010": "Knihovna Národního muzea",
-    "ABA012": "Národní pedagogická knihovna Komenského Praha",
-    "HKA001": "Studijní a vědecká knihovna v Hradci Králové",
-    "ABE301": "Český rozhlas - knihovna",
-    "ABG001": "Městská knihovna v Praze",
-    "ABD068": "Univerzita Karlova v Praze - 1.LF a VFN",
-    "ABD103": "Univerzita Karlova v Praze - Fakulta sociálních věd",
-    "PAG001": "Krajská knihovna v Pardubicích",
-    "JIG001": "Městská knihovna Jihlava",
-    "226102010": "SOkA Jihlava",
-    "226103010": "SOkA Pelhřimov",
-    "226101010": "SOkA Havlíčkův Brod",
-    "226104010": "SOkA Třebíč",
-    "226105010": "SOkA Žďár nad Sázavou"
-  },
   "lang": {
     "aar" : "Afar",
     "abk" : "Abkhazian",
@@ -2067,7 +2049,16 @@
     "conversionOfModels": "Model conversions",
     "updateModels": "Update models",
     "lockingTheObject": "Locking the object",
-    "unlockingTheObject": "Unlocking the object"
+    "unlockingTheObject": "Unlocking the object",
+    "preferredValues": "Preferred values",
+    "displayedFieldsInSearchResults": "Displayed fields in search results",
+    "forename": "Forname",
+    "typesOfParties": "Types of parties",
+    "languages": "Languages",
+    "identifiers": "Identifiers",
+    "storageLocations": "Storage locations",
+    "expandingTheForm": "Expanding the form",
+    "noValue": "No value"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2123,7 +2114,9 @@
     "createNewUser": "Create a new user",
     "chapters": "Chapters",
     "prev_page": "Next page",
-    "next_page": "Previous page"
+    "next_page": "Previous page",
+    "changePassword": "Change password",
+    "edit": "Edit"
   },
   "dynamic": {
     "repo": "Storage",
@@ -2266,6 +2259,26 @@
     "UPLOAD_FAILED": "Uploading failed",
     "UPLOAD_DONE": "Uploaded",
     "WAITING": "Waiting in queue"
+  },
+  "organization": {
+    "ABA007": "Library of the Academy of Sciences of the Czech Republic",
+    "BOA001": "Moravian State Library",
+    "ABA010": "National Museum Library",
+    "ABA012": "Comenius Prague National Pedagogical Library",
+    "HKA001": "Study and research library in Hradec Králové",
+    "ABE301": "Czech Radio - library",
+    "ABG001": "Municipal library in Prague",
+    "ABD068": "Charles University in Prague - 1.LF and VFN",
+    "ABD103": "Charles University in Prague - Faculty of Social Sciences",
+    "PAG001": "Regional library in Pardubice",
+    "JIG001": "Jihlava City Library",
+    "HBG001": "Vysočina Regional Library",
+    "226102010": "SOkA Jihlava",
+    "226103010": "SOkA Pelhřimov",
+    "226101010": "SOkA Havlíčkův Brod",
+    "226104010": "SOkA Třebíč",
+    "226105010": "SOkA Žďár nad Sázavou",
+    "Inovatika": "Inovatika"
   },
   "dialog": {
     "layoutSettings": {
