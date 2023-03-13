@@ -2,7 +2,7 @@
   <app-usage [item]="item" [field]="field"></app-usage>
   <mat-select [required]="item.isMandatory(field)" [formControl]="item.getControl(field)"  [(ngModel)]='value' (ngModelChange)="valueChange.emit(value)" [placeholder]="'mods.' + item.labelKey(field) | translate">
     <mat-option *ngFor="let option of options" [value]="option.code">
-      {{ option.name }}
+      {{ option.name }} {{ showCode ? '('+option.code + ')' : '' }}
     </mat-option>
   </mat-select>
 </mat-form-field>

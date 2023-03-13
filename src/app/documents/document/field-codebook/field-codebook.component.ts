@@ -13,6 +13,7 @@ export class FieldCodebookComponent implements OnInit {
   @Input() field: string;
   @Input() value: string;
   @Input() options: any;
+  @Input() showCode: boolean;
   @Output() valueChange = new EventEmitter<string>();
 
   constructor() {

@@ -38,7 +38,7 @@
       <ng-template let-role="item" #templateContent>
         <mat-select class="app-no-placeholder" [(ngModel)]='role.role["_"]'>
           <mat-option *ngFor="let role of roles" [value]="role.code">
-            {{ role.name }}
+             {{ role.name }} ({{ role.code }})
           </mat-option>
         </mat-select>
       </ng-template>
