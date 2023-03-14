@@ -2,7 +2,7 @@
   <ng-template let-item="item" #templateContent>
 
     <app-field-text field="extent" [item]="item" [(value)]="item.extent['_']" ></app-field-text>
-    <app-field-textarea field="note" [item]="item" [(value)]="item.note['_']" ></app-field-textarea>
+    <app-autocomplete field="note" [item]="item" [(value)]="item.note['_']" ></app-autocomplete>
     <app-field-dropdown field="digitalOrigin" [item]="item" [(value)]="item.digitalOrigin['_']"></app-field-dropdown>
 
     <app-editor-field *ngIf="item.available('form')" [field]="item.forms" [nested]='true'>
