@@ -14,7 +14,6 @@ import { ConfirmLeaveEditorGuard } from '../confirm-leave-editor.guard';
 import { AdminComponent } from '../pages/admin/admin.component';
 import { WorkflowComponent } from '../pages/workflow/workflow.component';
 import { RepositoryComponent } from '../pages/repository/repository.component';
-//import { LayoutAdminComponent } from '../pages/layout-admin/layout-admin.component';
 import { BatchesComponent } from '../pages/batches/batches.component';
 import { AuthGuard } from '../auth.guard';
 import { KrameriusComponent } from '../pages/kramerius/kramerius.component';
@@ -39,7 +38,6 @@ const routes: Routes = [
       // { path: 'import/edit/:batch_id', component: EditorComponent, canDeactivate:[ConfirmLeaveEditorGuard] },
       { path: 'import/edit/:batch_id', component: BatchesComponent, canDeactivate: [ConfirmLeaveEditorGuard] },
       { path: 'admin', component: AdminComponent },
-      //{ path: 'layout', component: LayoutAdminComponent },
       { path: 'workflow', loadChildren: () => import('../pages/workflow/workflow.module').then(m => m.WorkflowModule) },
       { path: '', redirectTo: '/search', pathMatch: 'full' }
     ]

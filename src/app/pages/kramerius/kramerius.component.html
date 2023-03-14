@@ -1,21 +1,19 @@
 <div fxLayout="column" fxFlexFill class="app-editor-wrapper">
-  <div fxLayout="row" fxLayoutAlign="start baseline" class="app-breadcrumbsbar app-view-border-bottom app-formbar">
-    <mat-form-field>
-      <mat-select [placeholder]="'kramerius.instances' | translate" name="instance" [(ngModel)]="importInstance">
-        <mat-option *ngFor="let ins of instances" [value]="ins.krameriusInstanceId">{{ ins.krameriusInstanceName
-          }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <button mat-button (click)="importToKramerius()">{{ 'import to Kramerius' | translate }}
-    </button>
-    <button mat-button (click)="importToProArc()" >{{ 'import to ProArc' | translate }}
-    </button>
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-toolbar-action app-pl-2">
+    <div fxLayout="row" fxFlexFill fxLayoutGap="8px">
+      <span class="app-text" fxFlexAlign="center">{{ 'desc.instance' | translate }}:</span>
+      <mat-form-field class="app-clean-mb app-select" fxLayout="row" fxLayoutAlign="start center" fxFlexAlign="center">
+        <mat-select name="instance" [(ngModel)]="importInstance">
+          <mat-option *ngFor="let ins of instances" [value]="ins.krameriusInstanceId">{{ ins.krameriusInstanceName }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-button (click)="importToKramerius()">{{ 'button.importToKramerius' | translate }}</button>
+      <button mat-button (click)="importToProArc()">{{ 'button.importToProarc' | translate }}</button>
+    </div>
   </div>
 
   <div fxFlex class="app-oh" *ngIf="state !== 'loading'">
     <as-split direction="horizontal" (dragEnd)="onDragEnd(-1, $event)">
-
       <as-split-area [order]="0" [size]="40">
         <app-editor-page *ngIf="this.layout.krameriusPage" [model]="this.model" [pid]="pid"> </app-editor-page>
         <app-editor-metadata *ngIf="this.layout.lastSelectedItemMetadata && !isPage()"
@@ -31,7 +29,6 @@
         <app-viewer *ngIf="hasImage" [isKramerius]="true" [instance]="instance" [pid]="pid"></app-viewer>
         <div *ngIf="!hasImage">NO IMAGE</div>
       </as-split-area>
-
     </as-split>
   </div>
 </div>

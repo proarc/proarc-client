@@ -2024,7 +2024,8 @@
     "expandingTheForm": "Expanding the form",
     "noValue": "No value",
     "newPassword": "New password",
-    "passwordConfirmation": "Password confirmation"
+    "passwordConfirmation": "Password confirmation",
+    "instance": "Instance"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2082,7 +2083,9 @@
     "prev_page": "Next page",
     "next_page": "Previous page",
     "changePassword": "Change password",
-    "edit": "Edit"
+    "edit": "Edit",
+    "importToKramerius": "Import to Kramerius",
+    "importToProarc": "Import to ProArc"
   },
   "dynamic": {
     "repo": "Storage",

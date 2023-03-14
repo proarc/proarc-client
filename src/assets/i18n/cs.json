@@ -2024,7 +2024,8 @@
     "expandingTheForm": "Rozbalení formuláře",
     "noValue": "Žádná hodnota",
     "newPassword": "Nové heslo",
-    "passwordConfirmation": "Potvrzení hesla"
+    "passwordConfirmation": "Potvrzení hesla",
+    "instance": "Instance"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2082,7 +2083,9 @@
     "prev_page": "Přejít na předchozí stranu",
     "next_page": "Přejít na následující stranu",
     "changePassword": "Změnit heslo",
-    "edit": "Upravit"
+    "edit": "Upravit",
+    "importToKramerius": "Importovat do Kraméria",
+    "importToProarc": "Importovat do ProArcu"
   },
   "dynamic": {
     "repo": "Úložiště",
