@@ -77,13 +77,25 @@ export class ConfigService {
 	];
 
 	private static defaultLocations = [
-		'ABA000', 'ABA001', 'ABA004', 'ABA006', 'ABA007', 'ABA008', 'ABA009', 'ABA010', 'ABA011', 'ABA013', 'ABB045', 
-		'ABC135', 'ABD001', 'ABD005', 'ABD020', 'ABD024', 'ABD025', 'ABD103', 'ABD134', 'ABE045', 'ABE050', 'ABE135', 
-		'ABE308', 'ABE310', 'ABE323', 'ABE336', 'ABE343', 'ABE345', 'ABE370', 'ABE459', 'ABG001', 'BOA001', 'BOA002', 
-		'BOB007', 'BOD006', 'BOE310', 'BOE801', 'BOE950', 'BVE301', 'CBA001', 'HBG001', 'HKA001', 'HKE302', 'HKG001', 
-		'HOE802', 'JCG001', 'JHE301', 'KLG001', 'KME301', 'KOE801', 'KTG503', 'KVG001', 'LIA001', 'OLA001', 'OPD001', 
+		'ABA000', 'ABA001', 'ABA004', 'ABA006', 'ABA007', 'ABA008', 'ABA009', 'ABA010', 'ABA011', 'ABA013', 'ABB045',
+		'ABC135', 'ABD001', 'ABD005', 'ABD020', 'ABD024', 'ABD025', 'ABD103', 'ABD134', 'ABE045', 'ABE050', 'ABE135',
+		'ABE308', 'ABE310', 'ABE323', 'ABE336', 'ABE343', 'ABE345', 'ABE370', 'ABE459', 'ABG001', 'BOA001', 'BOA002',
+		'BOB007', 'BOD006', 'BOE310', 'BOE801', 'BOE950', 'BVE301', 'CBA001', 'HBG001', 'HKA001', 'HKE302', 'HKG001',
+		'HOE802', 'JCG001', 'JHE301', 'KLG001', 'KME301', 'KOE801', 'KTG503', 'KVG001', 'LIA001', 'OLA001', 'OPD001',
 		'OPE301', 'OSA001', 'OSE309', 'PNA001', 'PNE303', 'ROE301', 'ULG001', 'UOG505', 'ZLE302', 'ZLG001'
 	];
+
+  private static defaultRoleCodes = ['act', 'adp', 'aft', 'ann', 'ant', 'app', 'aqt', 'arc', 'arr', 'art', 'asg', 'asn', 'att', 'auc', 'aud',
+    'aui', 'aus', 'aut', 'bdd', 'bjd', 'bkd', 'bkp', 'bnd', 'bpd', 'bsl', 'ccp', 'chr', 'cli', 'cll', 'clt', 'cmm', 'cmp', 'cmt',
+    'cnd', 'cns', 'coe', 'col', 'com', 'cos', 'cot', 'cov', 'cpc', 'cpe', 'cph', 'cpl', 'cpt', 'cre', 'crp', 'crr', 'csl',
+    'csp', 'cst', 'ctb', 'cte', 'ctg', 'ctr', 'cts', 'ctt', 'cur', 'cwt', 'dfd', 'dfe', 'dft', 'dgg', 'dis', 'dln', 'dnc',
+    'dnr', 'dpc', 'dpt', 'drm', 'drt', 'dsr', 'dst', 'dte', 'dto', 'dub', 'edt', 'egr', 'elt', 'eng', 'etr', 'exp', 'fac',
+    'flm', 'fmo', 'fnd', 'frg', 'grt', 'hnr', 'hst', 'ill', 'ilu', 'ins', 'inv', 'itr', 'ive', 'ivr', 'lbt', 'lee', 'lel',
+    'len', 'let', 'lie', 'lil', 'lit', 'lsa', 'lse', 'lso', 'ltg', 'lyr', 'mdc', 'mod', 'mon', 'mrk', 'mte', 'mus', 'nrt',
+    'opn', 'org', 'orm', 'oth', 'own', 'pat', 'pbd', 'pbl', 'pfr', 'pht', 'plt', 'pop', 'ppm', 'prc', 'prd', 'prf', 'prg',
+    'prm', 'pro', 'prt', 'pta', 'pte', 'ptf', 'pth', 'ptt', 'rbr', 'rce', 'rcp', 'red', 'ren', 'res', 'rev', 'rpt', 'rpy',
+    'rse', 'rsp', 'rst', 'rth', 'rtm', 'sad', 'sce', 'scr', 'scl', 'sec', 'sgn', 'sng', 'spk', 'spn', 'srv', 'stn', 'stl',
+    'str', 'ths', 'trc', 'trl', 'tyd', 'tyg', 'voc', 'wam', 'wdc', 'wde', 'wit'];
 
 	private static defaultModels = [
 		'model:ndkperiodical',
@@ -197,6 +209,8 @@ export class ConfigService {
 
 	public topIdentifiers = APP_GLOBAL.topIdentifiers || [];
 	public otherIdentifiers = APP_GLOBAL.identifiers || ConfigService.defaultIdentifiers;
+
+  public roleCodes = APP_GLOBAL.roleCodes || ConfigService.defaultRoleCodes;
 
 	public topChronicleIdentifiers: any = [];
 	public otherChronicleIdentifiers = APP_GLOBAL.chronicleIdentifiers || ConfigService.defaultChronicleIdentifiers;

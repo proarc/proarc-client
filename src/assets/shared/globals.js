@@ -82,5 +82,9 @@ var APP_GLOBAL = {
   pagePositions: ['right_left', 'left_right', 'left', 'right', 'singlePage'],
   lang: 'en',
   expandedModels: ['model:ndkemonographvolume','model:ndkearticle'],
-  showFooter: true
+  showFooter: true,
+
+  roleCodes: ['act', 'adp', 'ant', 'arr', 'aui', 'aut', 'cmp', 'cnd', 'com', 'cre', 'crp', 'dis', 'dnr', 'dst', 'dte',
+    'dto', 'dub', 'edt', 'egr', 'fmo', 'fnd', 'ill', 'itr', 'lbt', 'lyr', 'mus', 'oth', 'pbl', 'prf', 'prt', 'rcd', 'red',
+    'rev', 'sng', 'trl']
 }

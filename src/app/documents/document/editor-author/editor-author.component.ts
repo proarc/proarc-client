@@ -7,6 +7,8 @@ import { Metadata } from 'src/app/model/metadata.model';
 import { ModsAuthor } from 'src/app/model/mods/author.model';
 import { LayoutService } from 'src/app/services/layout.service';
 import { TemplateService } from 'src/app/services/template.service';
+import {ConfigService} from '../../../services/config.service';
+import {forEach} from 'ol/geom/flat/segments';
 
 @Component({
   selector: 'app-editor-author',
@@ -32,9 +34,10 @@ export class EditorAuthorComponent implements OnInit {
   public roles: { code: string; name: any; }[] = [];
 
   constructor(
-    public translator: TranslateService, 
-    private dialog: MatDialog, 
+    public translator: TranslateService,
+    private dialog: MatDialog,
     private tmpl: TemplateService,
+    private config: ConfigService,
     public layout: LayoutService) {
     this.translateCodes();
     translator.onLangChange.subscribe(() => this.translateCodes());
@@ -78,9 +81,10 @@ export class EditorAuthorComponent implements OnInit {
   translateCodes() {
     // this.translator.waitForTranslation().then(() => {
       this.roles = [];
-      for (const code of this.roleCodes) {
+      //for (const code of this.roleCodes) {
+      this.config.roleCodes.forEach((code: string) => {
         this.roles.push({code: code, name: this.translator.instant('role.' + code)});
-      }
+      })
       this.roles.sort((a: any, b: any): number => {
         if (a.name < b.name) {
           return -1;
