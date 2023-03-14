@@ -226,6 +226,13 @@
   }
 }
 
+// select
+.mat-select-panel {
+  .mat-option {
+    line-height: $app-mat-select-option-height !important;
+    height: $app-mat-select-option-height !important;
+  }
+}
 
 
 
