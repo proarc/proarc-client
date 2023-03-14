@@ -1909,6 +1909,8 @@
     "client": "Klient",
     "build": "Build",
     "revision": "Revize",
+    "storage": "Uložiště",
+    "database": "Databáze",
     "settings": "Nastavení",
     "devices": "Zařízení",
     "newDevice": "Nové zařízení",

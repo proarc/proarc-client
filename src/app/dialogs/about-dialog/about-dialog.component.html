@@ -14,6 +14,11 @@
     <span class="app-label app-mr-1">{{ 'desc.revision' | translate }}:</span><strong>{{ backendInfo.revision }}</strong><br />
     <span class="app-label app-mr-1">RDflow:</span><strong>{{ backendInfo.rdflowVersion }}</strong><br />
   </div>
+  <div class="app-mb4">
+    <h3 class="app-m-0">{{ 'desc.storage' | translate }}</h3>
+    <span class="app-label app-mr-1">{{ 'desc.storage' | translate }}:</span><strong>{{ backendInfo.storage }}</strong><br/>
+    <span class="app-label app-mr-1">{{ 'desc.database' | translate }}:</span><strong>{{ backendInfo.database}}</strong><br/>
+  </div>
 </div>
 <div mat-dialog-actions cdk-focus-start>
   <button mat-flat-button color="default" mat-dialog-close="close" >{{ 'button.close' | translate }}</button>

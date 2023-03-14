@@ -1909,6 +1909,8 @@
     "client": "Client",
     "build": "Build",
     "revision": "Revision",
+    "storage": "Storage",
+    "database": "Database",
     "settings": "Settings",
     "devices": "Devices",
     "newDevice": "New device",
@@ -2099,7 +2101,7 @@
     "premis": "PREMIS XML",
     "media": "Media"
   },
-  "model": {  
+  "model": {
     "model:periodical": "K4 Periodical",
     "model:periodicalvolume": "K4 Year",
     "model:periodicalissue": "K4 Number",
