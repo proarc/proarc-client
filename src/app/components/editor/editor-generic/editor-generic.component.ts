@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@angular/core';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Tree } from 'src/app/model/mods/tree.model';
-import { ILayoutPanel } from 'src/app/pages/layout-admin/layout-admin.component';
+import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.component';
 import { ConfigService } from 'src/app/services/config.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { UIService } from 'src/app/services/ui.service';

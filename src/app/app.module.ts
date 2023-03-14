@@ -107,7 +107,7 @@ import { ChangeModelDialogComponent } from './dialogs/change-model-dialog/change
 import { RepositoryComponent } from './pages/repository/repository.component';
 import { EditorGenericComponent } from './components/editor/editor-generic/editor-generic.component';
 import { EditorStructureComponent } from './components/editor/editor-structure/editor-structure.component';
-import { LayoutAdminComponent } from './pages/layout-admin/layout-admin.component';
+import { LayoutAdminComponent } from './dialogs/layout-admin/layout-admin.component';
 import { BatchesComponent } from './pages/batches/batches.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { EditorAesComponent } from './components/editor/editor-aes/editor-aes.component';
