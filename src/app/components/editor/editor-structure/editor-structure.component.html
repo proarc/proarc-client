@@ -86,7 +86,7 @@
         (dragover)="dragover($event)" (dragend)="dragend($event)" (mousedown)="mousedown($event)" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'">
           <div class="app-item">
             <div class="app-item-label">
-              <mat-icon *ngIf="item.invalid" class="app-mr-1">report</mat-icon>{{ shortLabels ? item.shortLabel : item.label }}<br />
+              <mat-icon *ngIf="item.invalid" class="app-mr-1">warning</mat-icon>{{ shortLabels ? item.shortLabel : item.label }}<br />
               ({{ (item.pageType ? "pageType." + item.pageType : "model." + item.model) | translate }})
             </div>
           </div>
@@ -102,7 +102,7 @@
           <div class="app-item">
             <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="iconHeight + 'px'"></div>
             <div class="app-item-label" *ngIf="isRepo">
-              <mat-icon *ngIf="item.invalid" class="app-mr-1">report</mat-icon>{{ shortLabels ? item.shortLabel : item.label }}<br />
+              <mat-icon *ngIf="item.invalid" class="app-mr-1">warning</mat-icon>{{ shortLabels ? item.shortLabel : item.label }}<br />
               ({{ (item.pageType ? "pageType." + item.pageType : "model." + item.model) | translate }})
             </div>
             <div class="app-item-label" *ngIf="!isRepo">
@@ -124,14 +124,14 @@
         <ng-container matColumnDef="label">
           <th mat-header-cell *matHeaderCellDef> {{'search.name' | translate}}</th>
           <td mat-cell *matCellDef="let element">
-            <mat-icon *ngIf="element.invalid" class="app-mr-1">report</mat-icon>{{shortLabels ? element.shortLabel : element.label}} 
+            <mat-icon *ngIf="element.invalid" class="app-mr-1">warning</mat-icon>{{shortLabels ? element.shortLabel : element.label}} 
           </td>
         </ng-container>
 
         <ng-container matColumnDef="filename">
           <th mat-header-cell *matHeaderCellDef> {{'search.filename' | translate}}</th>
           <td mat-cell *matCellDef="let element">
-            <mat-icon *ngIf="element.invalid" class="app-mr-1">report</mat-icon>{{element.filename}} 
+            <mat-icon *ngIf="element.invalid" class="app-mr-1">warning</mat-icon>{{element.filename}} 
           </td>
         </ng-container>
 
