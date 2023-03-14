@@ -266,7 +266,7 @@ export class ElementField {
             const f = this.template.fields[field];
             if (f.help != 'off') {
                 help += `
-                    <h3>${f.labelKey} <i>${f.usage || ''}</i> <code>${f.selector || ''}</code></h3>
+                    <h3>${translator.instant('mods.' + f.labelKey)} <i>${f.usage || ''}</i> <code>${f.selector || ''}</code></h3>
                     ${f.description || ''}`;
             }
 
