@@ -16,7 +16,7 @@ import { ParentDialogComponent } from 'src/app/dialogs/parent-dialog/parent-dial
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { DocumentItem } from 'src/app/model/documentItem.model';
-import { ILayoutPanel, localStorageName } from 'src/app/pages/layout-admin/layout-admin.component';
+import { ILayoutPanel, localStorageName } from 'src/app/dialogs/layout-admin/layout-admin.component';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { LayoutService } from 'src/app/services/layout.service';

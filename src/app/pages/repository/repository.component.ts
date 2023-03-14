@@ -12,7 +12,7 @@ import { RepositoryService } from 'src/app/services/repository.service';
 import { TemplateService } from 'src/app/services/template.service';
 import { UIService } from 'src/app/services/ui.service';
 import { ModelTemplate } from 'src/app/templates/modelTemplate';
-import { defaultLayoutConfig, IConfig, LayoutAdminComponent } from '../layout-admin/layout-admin.component';
+import { defaultLayoutConfig, IConfig, LayoutAdminComponent } from 'src/app/dialogs/layout-admin/layout-admin.component';
 
 
 @Component({

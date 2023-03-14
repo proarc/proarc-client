@@ -2,7 +2,7 @@ import { Injectable, Component } from '@angular/core';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { DocumentItem } from '../model/documentItem.model';
 import { Tree } from '../model/mods/tree.model';
-import { IConfig } from '../pages/layout-admin/layout-admin.component';
+import { IConfig } from '../dialogs/layout-admin/layout-admin.component';
 import { ModelTemplate } from 'src/app/templates/modelTemplate';
 import { Metadata } from '../model/metadata.model';
 import { Page } from '../model/page.model';

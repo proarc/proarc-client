@@ -15,7 +15,7 @@ import { LayoutService } from 'src/app/services/layout.service';
 import { RepositoryService } from 'src/app/services/repository.service';
 import { UIService } from 'src/app/services/ui.service';
 import { ModelTemplate } from 'src/app/templates/modelTemplate';
-import { IConfig, defaultLayoutConfig, LayoutAdminComponent } from '../layout-admin/layout-admin.component';
+import { IConfig, defaultLayoutConfig, LayoutAdminComponent } from 'src/app/dialogs/layout-admin/layout-admin.component';
 
 @Component({
   selector: 'app-batches',
