@@ -208,7 +208,7 @@ export class ApiService {
         break;
       }
       case ProArc.EXPORT_ARCHIVE_OLDPRINT: {
-        data = `${data}&package=STT`;
+        data = `${data}&package=STT&isBagit=${isBagit}`;
         path = 'export/archive'
         break;
       }

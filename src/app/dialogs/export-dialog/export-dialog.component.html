@@ -14,7 +14,7 @@
       <mat-option *ngFor="let ins of instances" [value]="ins.krameriusInstanceId">{{ ins.krameriusInstanceName}}</mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-checkbox [disabled]="formDisabled()" *ngIf="selectedType=='archive' || selectedType=='ndk_psp'" color="primary" [(ngModel)]="isBagit">{{ 'export.isBagit' | translate }}</mat-checkbox>
+  <mat-checkbox [disabled]="formDisabled()" *ngIf="selectedType=='archive' || selectedType=='archive_stt'|| selectedType=='ndk_psp'" color="primary" [(ngModel)]="isBagit">{{ 'export.isBagit' | translate }}</mat-checkbox>
   <mat-checkbox [disabled]="formDisabled()" *ngIf="selectedType=='kramerius' || selectedType=='kwis'" color="primary" [(ngModel)]="policyPublic">{{ 'export.policy_public' | translate }}</mat-checkbox>
   <div *ngIf="state=='saving'" class="app-export-message">{{ 'export.exporting' | translate }}</div>
   <div *ngIf="state=='error'" class="app-export-error">
@@ -29,13 +29,13 @@
 </div>
 
 <div mat-dialog-actions cdk-focus-start>
-  
+
   <button mat-raised-button color="primary" *ngIf="!canContinue" [disabled]="formDisabled()" (click)="onExport(false)">{{ 'export.export' | translate }}</button>
   <button mat-raised-button color="primary" *ngIf="canContinue" [disabled]="formDisabled()" (click)="onExport(true)">{{ 'export.continue' | translate }}</button>
   <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.close' | translate }}</button>
   <mat-spinner *ngIf="state=='saving'"
     style="margin-left: auto"
-    [strokeWidth]="3" 
+    [strokeWidth]="3"
     [diameter]="30">
   </mat-spinner>
 </div>
