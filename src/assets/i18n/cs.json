@@ -2297,10 +2297,7 @@
       }
     },
     "newPassword": {
-      "title": "Změna hesla",
-      "alert": {
-        "error": "Zadané heslo se neshoduje s potvrzením hesla"
-      }
+      "title": "Změna hesla"
     },
     "preferredTops": {
       "title": {
@@ -2350,6 +2347,16 @@
     "info": {
       "digitalContentIsNotSupported": "Digitální obsah není podporován",
       "noDigitalContent": "Žádný digitální obsah"
+    }
+  },
+  "snackbar": {
+    "settings.search.updated": "Nastavení bylo upraveno",
+    "settings.profile": {
+      "updated": "Nové heslo bylo uloženo",
+      "error": {
+        "mismatch": "Zadané heslo se neshoduje s potvrzením hesla",
+        "short": "Heslo je příliš kráté, musí mít alespoň 6 znaků"
+      }
     }
   }
 }

@@ -39,16 +39,16 @@ export class NewPasswordDialogComponent implements OnInit {
 
   onUpdate() {
     if (this.password1 != this.password2) {
-      this.error = 'settings.profile.new_password.error_mismatch';
+      this.error = 'snackbar.settings.profile.error.mismatch';
       return;
     }
     if (this.password1.length < 6) {
-      this.error = 'settings.profile.new_password.error_short';
+      this.error = 'snackbar.settings.profile.error.short';
       return;
     }
     this.state = 'saving';
     this.api.editUserPassword(this.auth.getUser(), this.password1).subscribe(()=> {
-      this.ui.showInfoSnackBar(String(this.translator.instant('settings.profile.new_password.updated')));
+      this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.settings.profile.updated')));
       this.dialogRef.close();
     });
   }

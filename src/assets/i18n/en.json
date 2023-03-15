@@ -2297,10 +2297,7 @@
       }
     },
     "newPassword": {
-      "title": "Changing the password",
-      "alert": {
-        "error": "The password entered does not match the password confirmation"
-      }
+      "title": "Changing the password"
     },
     "preferredTops": {
       "title": {
@@ -2350,6 +2347,16 @@
     "info": {
       "digitalContentIsNotSupported": "Digital content is not supported",
       "noDigitalContent": "No digital content"
+    }
+  },
+  "snackbar": {
+    "settings.search.updated": "Settings have been modified",
+    "settings.profile": {
+      "updated": "The new password has been saved",
+      "error": {
+        "mismatch": "The password entered does not match the password confirmation",
+        "short": "Password is too short, must have at least 6 characters"
+      }
     }
   }
 }

@@ -74,7 +74,7 @@ export class SettingsComponent implements OnInit {
       this.surname = this.user.surname;
       this.auth.updateUser(user);
       this.state = 'none';
-      this.ui.showInfo('settings.profile.updated');
+      this.ui.showInfo('snackbar.settings.profile.updated');
     });
   }
 
@@ -83,7 +83,7 @@ export class SettingsComponent implements OnInit {
     for (const col of this.properties.availableSearchColumns) {
       this.properties.setBoolProperty('search.cols.' + col, this.searchCols[col]);
     }
-    this.ui.showInfo('settings.search.updated');
+    this.ui.showInfo('snackbar.settings.search.updated');
   }
 
 
