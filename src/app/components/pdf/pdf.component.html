@@ -8,21 +8,19 @@
   </div>
 	<div fxFlex class="app-oa-y">
 		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='head'" class="app-progress-bar"></mat-progress-bar>
-		<div class="app-editor-content app-h-100">
-			<div class="app-pdf-wrapper">				
-				<ngx-extended-pdf-viewer #pdfViewer *ngIf="state === 'head' || state === 'ok'" 
-					[src]="pdfUrl" 
-					[height]="'100%'" 
-					(pdfLoaded)="pdfRendered($event)" 
-					[enablePrint]="false" [showOpenFileButton]="false" [showEditor]="false" 
-					[language]="getLang()"
-					[useBrowserLocale]="true" ></ngx-extended-pdf-viewer>
+		<div class="app-editor-content app-h-100 app-oh">	
+			<ngx-extended-pdf-viewer #pdfViewer *ngIf="state === 'head' || state === 'ok'" 
+				[src]="pdfUrl" 
+				[height]="'100%'" 
+				(pdfLoaded)="pdfRendered($event)" 
+				[enablePrint]="false" [showOpenFileButton]="false" [showEditor]="false" 
+				[language]="getLang()"
+				[useBrowserLocale]="true" ></ngx-extended-pdf-viewer>
 
-				<mat-card class="app-alert app-info app-m-4"*ngIf="state == 'empty'">
-					<mat-icon>info</mat-icon>
-					{{ 'alert.info.noDigitalContent' | translate }}
-				</mat-card>
-			</div>
+			<mat-card class="app-alert app-info app-m-4"*ngIf="state == 'empty'">
+				<mat-icon>info</mat-icon>
+				{{ 'alert.info.noDigitalContent' | translate }}
+			</mat-card>
 		</div>
 	</div>
 </div>
