@@ -11,7 +11,7 @@
 	</mat-card>
 
 	<mat-card class="app-alert app-warn" *ngIf="state=='failure'">
-		<mat-icon>report</mat-icon> {{ "dialog.importDialog.alert.failure" | translate }}
+		<mat-icon>warning</mat-icon> {{ "dialog.importDialog.alert.failure" | translate }}
 	</mat-card>
 
 	<pre class="app-ws-pw" *ngIf="state=='failure'">{{ failureMessage }}</pre>
