@@ -5,28 +5,11 @@
 				<span class="app-text">PDF</span>
 			</div>
 		</div>
-		<!-- <div>
-      <button mat-icon-button *ngIf="state == 'ok' || state == 'empty'" (click)="onAdd()" matTooltip="Načíst nový digitální obsah">
-				<mat-icon>add</mat-icon>
-			</button>
-			<button mat-icon-button *ngIf="state == 'ok'" (click)="onRemove()" matTooltip="Odstranit digitální obsah">
-				<mat-icon>delete</mat-icon>
-			</button>
-			<input style="display: none;" #pdfInput id="pdf_file_upload" name="pdf_file_upload" type="file" (change)="uploadPdf($event)" accept=".pdf,.PDF" />
-		</div> -->
   </div>
 	<div fxFlex class="app-oa-y">
 		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='head'" class="app-progress-bar"></mat-progress-bar>
 		<div class="app-editor-content app-h-100">
-			<div class="app-pdf-wrapper">
-				<!-- <iframe *ngIf="state == 'head'" [src]="pdfUrl | appSafe" width="100%" height="100%" frameborder="0"></iframe> -->
-
-				<!-- <pdf-viewer *ngIf="state == 'head'" [src]="pdfUrl"
-              [render-text]="true"
-              [original-size]="false"
-								style="width: 100%; height: 100%"
-								(after-load-complete)="state = 'ok'"></pdf-viewer> -->
-
+			<div class="app-pdf-wrapper">				
 				<ngx-extended-pdf-viewer #pdfViewer *ngIf="state === 'head' || state === 'ok'" 
 					[src]="pdfUrl" 
 					[height]="'100%'" 
@@ -35,7 +18,10 @@
 					[language]="getLang()"
 					[useBrowserLocale]="true" ></ngx-extended-pdf-viewer>
 
-				<div *ngIf="state == 'empty'" class="app-empty">Žádný digitální obsah</div>
+				<mat-card class="app-alert app-info app-m-4"*ngIf="state == 'empty'">
+					<mat-icon>info</mat-icon>
+					{{ 'alert.info.noDigitalContent' | translate }}
+				</mat-card>
 			</div>
 		</div>
 	</div>
