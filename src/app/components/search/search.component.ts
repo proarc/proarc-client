@@ -289,7 +289,11 @@ export class SearchComponent implements OnInit {
   }
 
   onExport(item: DocumentItem) {
-    const dialogRef = this.dialog.open(ExportDialogComponent, { disableClose: true, data: {pid: item.pid, model: item.model } });
+    const dialogRef = this.dialog.open(ExportDialogComponent, { 
+      disableClose: true, 
+      data: {pid: item.pid, model: item.model },
+      width: '600px'
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         
