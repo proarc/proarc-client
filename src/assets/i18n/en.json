@@ -2025,7 +2025,8 @@
     "noValue": "No value",
     "newPassword": "New password",
     "passwordConfirmation": "Password confirmation",
-    "instance": "Instance"
+    "instance": "Instance",
+    "media": "Media"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2343,6 +2344,12 @@
       "exportProfile.kwis": "Export - KWIS",
       "exportProfile.aleph": "Export - Aleph",
       "internalProfile.reindex": "Internal - Reindex"
+    }
+  },
+  "alert": {
+    "info": {
+      "digitalContentIsNotSupported": "Digital content is not supported",
+      "noDigitalContent": "No digital content"
     }
   }
 }

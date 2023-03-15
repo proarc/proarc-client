@@ -1901,8 +1901,7 @@
 
 
 
-
-  "desc": {
+"desc": {
     "help": "Nápověda",
     "panelType": "Typ panelu",
     "version": "Verze",
@@ -2026,7 +2025,8 @@
     "noValue": "Žádná hodnota",
     "newPassword": "Nové heslo",
     "passwordConfirmation": "Potvrzení hesla",
-    "instance": "Instance"
+    "instance": "Instance",
+    "media": "Média"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2344,6 +2344,12 @@
       "exportProfile.kwis": "Export - KWIS",
       "exportProfile.aleph": "Export - Aleph",
       "internalProfile.reindex": "Internal - Reindexace"
+    }
+  },
+  "alert": {
+    "info": {
+      "digitalContentIsNotSupported": "Digitální obsah není podporován",
+      "noDigitalContent": "Žádný digitální obsah"
     }
   }
 }

@@ -1,29 +1,25 @@
 <div fxLayout="column" fxFlexFill>
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
-    <div fxFlex>
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description app-view-border-bottom">
+    <div>
 			<div class="app-toolbar-label">
-				<span class="app-text">Media</span>
+				<span class="app-text">{{ 'desc.media' | translate }}</span>
 			</div>
 		</div>
-		<div class="app-breadcrumbsbar">
-      <mat-form-field>
+		<div fxFlex class="app-text-center">
+      <mat-form-field class="app-clean-mb app-select" *ngIf="streamProfile">
         <mat-select name="profiles" [(ngModel)]="streamProfile">
           <mat-option *ngFor="let p of streamProfiles" [value]="p">{{ 'streamProfile.' + p.dsid | translate }}</mat-option>
         </mat-select>
       </mat-form-field> 
-      <button mat-button  (click)="onAddPdf()" matTooltip="Načíst nový digitální obsah">
-				<mat-icon>upload</mat-icon></button>
-			<input style="display: none;" #pdfInput id="pdf_file_upload" name="pdf_file_upload" type="file" (change)="uploadFile($event)" accept=".pdf,.PDF,.epub" />
-
-      <!-- <button mat-button (click)="onAddEpub()" matTooltip="Načíst nový digitální obsah (epub)">
-				<mat-icon>upload</mat-icon> epub
+		</div>
+		<div>
+      <button mat-icon-button  (click)="onAddPdf()" matTooltip="Načíst nový digitální obsah">
+				<mat-icon>upload</mat-icon>
 			</button>
-			<input style="display: none;" #epubInput id="epub_file_upload" name="epub_file_upload" type="file" (change)="uploadFile($event)" accept=".epub" /> -->
-
+			<input style="display: none;" #pdfInput id="pdf_file_upload" name="pdf_file_upload" type="file" (change)="uploadFile($event)" accept=".pdf,.PDF,.epub" />
 			<button mat-icon-button *ngIf="streamProfile" (click)="onRemove()" matTooltip="Odstranit digitální obsah">
 				<mat-icon>delete</mat-icon>
 			</button>
-
 			<button mat-icon-button  [matTooltip]="'viewer.tooltip.lockPanel' | translate" (click)="changeLockPanel()" [class.app-active]="isLocked">
 				<mat-icon>push_pin</mat-icon>
 			</button>   
@@ -36,8 +32,14 @@
       <app-epub *ngIf="isEpub()" [stream]="streamProfile.dsid" [pid]="currentPid"></app-epub>
       <app-viewer *ngIf="isImage()" [idViewer]="'app-viewer-media'" [stream]="streamProfile.dsid" [pid]="currentPid"></app-viewer>
       <app-song *ngIf="isAudio()" [pid]="currentPid"></app-song>
-    	<div *ngIf="isUnsupported()" class="app-empty">Digitální obsah ne podporovan ({{streamProfile.mime}})</div>
+			<mat-card class="app-alert app-info app-m-4" *ngIf="isUnsupported()">
+				<mat-icon>info</mat-icon>
+				{{ 'alert.info.digitalContentIsNotSupported' | translate }} ({{streamProfile.mime}})
+			</mat-card>
 		</div>
-    <div *ngIf="!streamProfile" class="app-empty">Žádný digitální obsah</div>
+		<mat-card class="app-alert app-info app-m-4" *ngIf="!streamProfile">
+			<mat-icon>info</mat-icon>
+			{{ 'alert.info.noDigitalContent' | translate }}
+		</mat-card>
 	</div>
 </div>
