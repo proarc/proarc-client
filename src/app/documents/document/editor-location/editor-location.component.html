@@ -1,7 +1,8 @@
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
 
-    <app-field-codebook field="physicalLocation" [item]="item" [options]="codebook.locations" [(value)]='item.physicalLocation["_"]'></app-field-codebook>
+<!--    <app-field-codebook field="physicalLocation" [item]="item" [options]="codebook.locations" [(value)]='item.physicalLocation["_"]'></app-field-codebook>-->
+    <app-field-text field="physicalLocation" [item]="item"  [(value)]='item.physicalLocation["_"]'></app-field-text>
 
     <app-editor-field *ngIf="item.available('shelfLocator')" [field]="item.shelfLocators" [nested]='true'>
       <ng-template let-shelfLocator="item" #templateContent>
