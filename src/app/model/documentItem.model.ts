@@ -27,6 +27,7 @@ export class DocumentItem {
   public pageIndex: string;
   public pageNumber: string;
   public pageType: string;
+  public pagePosition: string;
 
   public invalid: boolean;
 
@@ -60,6 +61,7 @@ export class DocumentItem {
     item.pageIndex = json['pageIndex'] || null;
     item.pageNumber = json['pageNumber'] || null;
     item.pageType = json['pageType'] || null;
+    item.pagePosition = json['pagePosition'] || null;
 
     if (json['timestamp']) {
       item.modified = new Date(json['timestamp']);
@@ -105,6 +107,7 @@ export class DocumentItem {
       page.pageNumber = json['pageNumber'] || "";
       page.pageType = json['pageType'] || "";
       page.pageType = page.pageType.toLowerCase();
+      page.pagePosition = json['pagePosition'] || "";
       let l = page.pageNumber;
       if (l) {
         l += " "

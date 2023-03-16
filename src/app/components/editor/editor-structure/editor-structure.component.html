@@ -150,6 +150,11 @@
           <td mat-cell *matCellDef="let element"> {{element.pageNumber}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="pagePosition">
+          <th mat-header-cell *matHeaderCellDef> {{'desc.position' | translate}}</th> 
+          <td mat-cell *matCellDef="let element"> {{element.pagePosition}} </td>
+        </ng-container>
+
         <ng-container matColumnDef="model">
           <th mat-header-cell *matHeaderCellDef> {{'search.model' | translate}} </th>
           <td mat-cell *matCellDef="let element"> {{ 'model.' + element.model | translate}} </td>

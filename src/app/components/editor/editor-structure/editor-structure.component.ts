@@ -82,6 +82,7 @@ export class EditorStructureComponent implements OnInit {
     { field: 'pageType', selected: true },
     { field: 'pageNumber', selected: true },
     { field: 'pageIndex', selected: true },
+    { field: 'pagePosition', selected: true },
     { field: 'model', selected: true },
     { field: 'pid', selected: false },
     { field: 'owner', selected: false },
