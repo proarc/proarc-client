@@ -2301,6 +2301,9 @@
         "archive": "Archiving",
         "archive_stt": "Archiving of old prints",
         "ndk_psp": "NDK PSP",
+        "archive_bagit": "Archiving with BAGIT",
+        "archive_stt_bagit": "Archiving of old prints with BAGIT",
+        "ndk_psp_bagit": "NDK PSP with BAGIT",
         "cejsh": "CEJSH",
         "crossref": "Crossref",
         "kwis": "KWIS"

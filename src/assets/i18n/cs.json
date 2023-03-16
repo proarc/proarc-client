@@ -2301,6 +2301,9 @@
         "archive": "Archivace",
         "archive_stt": "Archivace starých tisků",
         "ndk_psp": "NDK PSP",
+        "archive_bagit": "Archivace s BAGIT balíčkem",
+        "archive_stt_bagit": "Archivace starých tisků s BAGIT balíčkem",
+        "ndk_psp_bagit": "NDK PSP s BAGIT balíčkem",
         "cejsh": "CEJSH",
         "crossref": "Crossref",
         "kwis": "KWIS"
