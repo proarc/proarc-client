@@ -961,6 +961,11 @@ export class ApiService {
     return this.get(url);
   }
 
+  getValidExports(model: string): Observable<any> {
+    let url = `export/validExports?model=${model}`;
+    return this.get(url);
+  }
+
   importToProArc(pid: string, instance: string): Observable<any> {
     let data = `pid=${pid}&instance=${instance}`;
     return this.post('kramerius/importToProArc', data);
