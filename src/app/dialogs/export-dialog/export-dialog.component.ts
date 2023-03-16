@@ -19,7 +19,7 @@ export class ExportDialogComponent implements OnInit {
 
   selectedType: string;
   policyPublic: boolean;
-  isBagit: boolean = false;
+  //isBagit: boolean = false;
   target: string;
   errors: any[];
   canContinue = false;
@@ -61,7 +61,7 @@ export class ExportDialogComponent implements OnInit {
     const policy = this.policyPublic ? 'public' : 'private';
     this.errors = [];
     this.target = null;
-    this.api.export(this.selectedType, pid, policy, this.isBagit, ignoreMissingUrnNbn, this.importInstance).subscribe((response: any) => {
+    this.api.export(this.selectedType, pid, policy, ignoreMissingUrnNbn, this.importInstance).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
         this.ui.showErrorSnackBarFromObject(response['response'].errors);

@@ -8,6 +8,9 @@ export class ProArc {
     public static EXPORT_ARCHIVE = 'archive';
     public static EXPORT_ARCHIVE_OLDPRINT = 'archive_stt';
     public static EXPORT_NDK_PSP = 'ndk_psp';
+    public static EXPORT_ARCHIVE_BAGIT = 'archive_bagit';
+    public static EXPORT_ARCHIVE_OLDPRINT_BAGIT = 'archive_stt_bagit';
+    public static EXPORT_NDK_PSP_BAGIT = 'ndk_psp_bagit';
     public static EXPORT_CEJSH = 'cejsh';
     public static EXPORT_CROSSREF = 'crossref';
     public static EXPORT_KWIS = 'kwis';

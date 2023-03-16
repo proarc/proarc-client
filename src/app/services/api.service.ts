@@ -180,7 +180,7 @@ export class ApiService {
     return this.post('object/copyObject', data);
   }
 
-  export(type: string, pid: string, policy: string, isBagit: boolean, ignoreMissingUrnNbn: boolean, krameriusInstance: string): Observable<any> | undefined {
+  export(type: string, pid: string, policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string): Observable<any> | undefined {
     let data = `pid=${pid}`;
     if (ignoreMissingUrnNbn) {
       data = `${data}&ignoreMissingUrnNbn=true`;
@@ -204,17 +204,32 @@ export class ApiService {
       }
       case ProArc.EXPORT_ARCHIVE: {
         path = 'export/archive';
-        data = `${data}&isBagit=${isBagit}`;
+        data = `${data}&isBagit=false`;
+        break;
+      }
+      case ProArc.EXPORT_ARCHIVE_BAGIT: {
+        path = 'export/archive';
+        data = `${data}&isBagit=true`;
         break;
       }
       case ProArc.EXPORT_ARCHIVE_OLDPRINT: {
-        data = `${data}&package=STT&isBagit=${isBagit}`;
+        data = `${data}&package=STT&isBagit=false`;
+        path = 'export/archive'
+        break;
+      }
+      case ProArc.EXPORT_ARCHIVE_OLDPRINT_BAGIT: {
+        data = `${data}&package=STT&isBagit=true`;
         path = 'export/archive'
         break;
       }
       case ProArc.EXPORT_NDK_PSP: {
         path = 'export/ndk';
-        data = `${data}&isBagit=${isBagit}`;
+        data = `${data}&isBagit=false`;
+        break;
+      }
+      case ProArc.EXPORT_NDK_PSP_BAGIT: {
+        path = 'export/ndk';
+        data = `${data}&isBagit=true`;
         break;
       }
       case ProArc.EXPORT_CEJSH: {

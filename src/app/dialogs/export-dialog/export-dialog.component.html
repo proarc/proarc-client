@@ -12,7 +12,7 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-checkbox [disabled]="formDisabled()" *ngIf="selectedType=='archive' || selectedType=='archive_stt'|| selectedType=='ndk_psp'" color="primary" [(ngModel)]="isBagit">{{ 'desc.bagitPackage' | translate }}</mat-checkbox>
+  <!-- <mat-checkbox [disabled]="formDisabled()" *ngIf="selectedType=='archive' || selectedType=='archive_stt'|| selectedType=='ndk_psp'" color="primary" [(ngModel)]="isBagit">{{ 'desc.bagitPackage' | translate }}</mat-checkbox> -->
   <mat-checkbox [disabled]="formDisabled()" *ngIf="selectedType=='kramerius' || selectedType=='kwis'" color="primary" [(ngModel)]="policyPublic">{{ 'desc.publiclyAvailable' | translate }}</mat-checkbox>
 
   <mat-card class="app-alert app-info app-mt-4" *ngIf="state=='saving'">

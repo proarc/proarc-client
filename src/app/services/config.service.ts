@@ -145,9 +145,12 @@ export class ConfigService {
 
 	private static defaultDefaultExports = [
 		'archive',
+		'archive_bagit',
 		'archive_stt',
+		'archive_stt_bagit',
 		'kramerius',
 		'ndk_psp',
+		'ndk_psp_bagit',
 		'datastream_full',
 		'datastream_raw',
 		'cejsh',
