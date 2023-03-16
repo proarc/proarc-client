@@ -36,6 +36,9 @@ export class MarkSequenceDialogComponent implements OnInit {
   maxIconWidth: any = { orig: 91, dest: 91 };
   rectSize: any = {};
 
+  // název souboru, typ strany, číslo, index +přidat: pozice
+  displayedColumns: string[] = ['filename', 'pageType', 'pageNumber', 'pageIndex']; // , 'pagePosition'
+
   constructor(
     private api: ApiService,
     private ui: UIService,
