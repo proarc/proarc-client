@@ -37,7 +37,7 @@ export class MarkSequenceDialogComponent implements OnInit {
   rectSize: any = {};
 
   // název souboru, typ strany, číslo, index +přidat: pozice
-  displayedColumns: string[] = ['filename', 'pageType', 'pageNumber', 'pageIndex']; // , 'pagePosition'
+  displayedColumns: string[] = ['filename', 'pageType', 'pageNumber', 'pageIndex', 'position']; // 
 
   constructor(
     private api: ApiService,
