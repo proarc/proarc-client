@@ -17,9 +17,9 @@
       <button mat-icon-button *ngIf="layout.lastSelectedItem && layout.lastSelectedItem.isAudioPage()" [matTooltip]="'editor.toolbar.editor_song' | translate" [matTooltipPosition]="toolbarTooltipPosition" [class.app-active]="editorType === 'song'" (click)="editorType = 'song'">
         <mat-icon>audiotrack</mat-icon>
       </button>
-      <button mat-icon-button *ngIf="layout.lastSelectedItem && layout.lastSelectedItem.canContainPdf()" [matTooltip]="'editor.toolbar.editor_pdf' | translate" [matTooltipPosition]="toolbarTooltipPosition" [class.app-active]="editorType === 'pdf'" (click)="editorType = 'pdf'">
+      <!-- <button mat-icon-button *ngIf="layout.lastSelectedItem && layout.lastSelectedItem.canContainPdf()" [matTooltip]="'editor.toolbar.editor_pdf' | translate" [matTooltipPosition]="toolbarTooltipPosition" [class.app-active]="editorType === 'pdf'" (click)="editorType = 'pdf'">
         <mat-icon>picture_as_pdf</mat-icon>
-      </button>
+      </button> -->
       <button mat-icon-button [matTooltip]="'editor.toolbar.editor_mods' | translate" [matTooltipPosition]="toolbarTooltipPosition" [class.app-active]="editorType === 'mods'" (click)="editorType = 'mods'">
         <mat-icon>code</mat-icon>
       </button>
@@ -48,9 +48,9 @@
     <ng-container *ngSwitchCase="'media'" >
       <app-media *ngIf="layout.lastSelectedItem" [pid]="layout.lastSelectedItem.pid"></app-media>
     </ng-container>
-    <ng-container *ngSwitchCase="'pdf'" >
+    <!-- <ng-container *ngSwitchCase="'pdf'" >
       <app-pdf *ngIf="layout.lastSelectedItem" [pid]="layout.lastSelectedItem.pid"></app-pdf>
-    </ng-container>
+    </ng-container> -->
     <ng-container *ngSwitchCase="'song'" >
       <app-song *ngIf="layout.lastSelectedItem" [pid]="layout.lastSelectedItem.pid"></app-song>
     </ng-container>
