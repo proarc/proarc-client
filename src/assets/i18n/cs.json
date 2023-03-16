@@ -87,28 +87,6 @@
     "NDK_ARCHIVAL": "Archivní kopie",
     "NDK_USER": "Uživatelská kopie"
   },
-  "export": {
-    "title": "Export",
-    "type": "Typ exportu",
-    "type_datastream_full": "Skeny",
-    "type_datastream_raw": "Původní sken",
-    "type_kramerius": "Kramerius",
-    "type_archive": "Archivace",
-    "type_archive_stt": "Archivace starých tisků",
-    "type_ndk_psp": "NDK PSP",
-    "type_cejsh": "CEJSH",
-    "type_crossref": "Crossref",
-    "type_kwis": "KWIS",
-    "policy_public": "Veřejně dostupné",
-    "done": "Export byl dokončen a najdete jej v uživatelském adresáři",
-    "exporting": "Export byl zadán a bude probíhat na pozadí. Dialog můžete zavřít.",
-    "error": "Export se nezdařil",
-    "show_error_detail": "Zobrazit detail chyby",
-    "export": "Zahájit export",
-    "continue": "Přesto exportovat",
-    "kramerius_instances": "Instance Krameria",
-    "isBagit": "BAGIT balíček"
-  },
   "device": {
     "devices": "Zařízení",
     "device": "Zařízení",
@@ -1901,8 +1879,7 @@
 
 
 
-
-  "desc": {
+"desc": {
     "help": "Nápověda",
     "panelType": "Typ panelu",
     "version": "Verze",
@@ -2026,7 +2003,12 @@
     "noValue": "Žádná hodnota",
     "newPassword": "Nové heslo",
     "passwordConfirmation": "Potvrzení hesla",
-    "instance": "Instance"
+    "instance": "Instance",
+    "media": "Média",
+    "exportType": "Typ exportu",
+    "krameriusInstances": "Instance Krameria",
+    "publiclyAvailable": "Veřejně dostupné",
+    "bagitPackage": "BAGIT balíček"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2086,7 +2068,9 @@
     "changePassword": "Změnit heslo",
     "edit": "Upravit",
     "importToKramerius": "Importovat do Kraméria",
-    "importToProarc": "Importovat do ProArcu"
+    "importToProarc": "Importovat do ProArcu",
+    "startExport": "Zahájit export",
+    "exportAnyway": "Přesto exportovat"
   },
   "dynamic": {
     "repo": "Úložiště",
@@ -2297,10 +2281,7 @@
       }
     },
     "newPassword": {
-      "title": "Změna hesla",
-      "alert": {
-        "error": "Zadané heslo se neshoduje s potvrzením hesla"
-      }
+      "title": "Změna hesla"
     },
     "preferredTops": {
       "title": {
@@ -2308,6 +2289,25 @@
         "Languages": "Preferované jazyky",
         "Locations": "Preferovaná místa uložení",
         "Identifiers": "Preferované Identifikátory"
+      }
+    },
+    "export": {
+      "title": "Export",
+      "type": {
+        "datastream_full": "Skeny",
+        "datastream_raw": "Původní sken",
+        "kramerius": "Kramerius",
+        "archive": "Archivace",
+        "archive_stt": "Archivace starých tisků",
+        "ndk_psp": "NDK PSP",
+        "cejsh": "CEJSH",
+        "crossref": "Crossref",
+        "kwis": "KWIS"
+      },
+      "alert": {
+        "done": "Export byl dokončen a najdete jej v uživatelském adresáři.",
+        "exporting": "Export byl zadán a bude probíhat na pozadí. Dialog můžete zavřít.",
+        "error": "Export se nezdařil."
       }
     }
   },
@@ -2344,6 +2344,22 @@
       "exportProfile.kwis": "Export - KWIS",
       "exportProfile.aleph": "Export - Aleph",
       "internalProfile.reindex": "Internal - Reindexace"
+    }
+  },
+  "alert": {
+    "info": {
+      "digitalContentIsNotSupported": "Digitální obsah není podporován",
+      "noDigitalContent": "Žádný digitální obsah"
+    }
+  },
+  "snackbar": {
+    "settings.search.updated": "Nastavení bylo upraveno",
+    "settings.profile": {
+      "updated": "Nové heslo bylo uloženo",
+      "error": {
+        "mismatch": "Zadané heslo se neshoduje s potvrzením hesla",
+        "short": "Heslo je příliš kráté, musí mít alespoň 6 znaků"
+      }
     }
   }
 }

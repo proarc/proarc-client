@@ -1,43 +1,42 @@
-<h1 mat-dialog-title>{{ 'export.title' | translate }}</h1>
-
-<div mat-dialog-content>
-
-  <mat-form-field class="app-export-selection">
-    <mat-select [placeholder]="'export.type' | translate" [(ngModel)]="selectedType" [disabled]="formDisabled()">
-      <mat-option *ngFor="let type of types" [value]="type">{{ "export.type_" + type | translate }}</mat-option>
+<mat-progress-bar mode="indeterminate" *ngIf="state ==='saving'" class="app-progress-bar"></mat-progress-bar>
+<h1 mat-dialog-title>{{ 'dialog.export.title' | translate }}</h1>
+<div mat-dialog-content class="app-scrollbar-fix">
+  <mat-form-field class="app-w-100">
+    <mat-select [placeholder]="'desc.exportType' | translate" [(ngModel)]="selectedType" [disabled]="formDisabled()">
+      <mat-option *ngFor="let type of types" [value]="type">{{ "dialog.export.type." + type | translate }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field *ngIf="selectedType=='kramerius'" class="app-w-100">
+    <mat-select [placeholder]="'desc.krameriusInstances' | translate" name="instance" [(ngModel)]="importInstance">
+      <mat-option *ngFor="let ins of instances" [value]="ins.krameriusInstanceId">{{ ins.krameriusInstanceName }}</mat-option>
     </mat-select>
   </mat-form-field>
 
+  <mat-checkbox [disabled]="formDisabled()" *ngIf="selectedType=='archive' || selectedType=='archive_stt'|| selectedType=='ndk_psp'" color="primary" [(ngModel)]="isBagit">{{ 'desc.bagitPackage' | translate }}</mat-checkbox>
+  <mat-checkbox [disabled]="formDisabled()" *ngIf="selectedType=='kramerius' || selectedType=='kwis'" color="primary" [(ngModel)]="policyPublic">{{ 'desc.publiclyAvailable' | translate }}</mat-checkbox>
 
-  <mat-form-field class="app-export-selection" *ngIf="selectedType=='kramerius'">
-    <mat-select [placeholder]="'export.kramerius_instances' | translate" name="instance" [(ngModel)]="importInstance">
-      <mat-option *ngFor="let ins of instances" [value]="ins.krameriusInstanceId">{{ ins.krameriusInstanceName}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-checkbox [disabled]="formDisabled()" *ngIf="selectedType=='archive' || selectedType=='archive_stt'|| selectedType=='ndk_psp'" color="primary" [(ngModel)]="isBagit">{{ 'export.isBagit' | translate }}</mat-checkbox>
-  <mat-checkbox [disabled]="formDisabled()" *ngIf="selectedType=='kramerius' || selectedType=='kwis'" color="primary" [(ngModel)]="policyPublic">{{ 'export.policy_public' | translate }}</mat-checkbox>
-  <div *ngIf="state=='saving'" class="app-export-message">{{ 'export.exporting' | translate }}</div>
-  <div *ngIf="state=='error'" class="app-export-error">
-    <button *ngFor="let error of errors" (click)="showErrorDetail(error)" mat-icon-button color="default" [matTooltip]="'export.show_error_detail' | translate" matTooltipPosition="below">
-      <mat-icon>error_outline</mat-icon>
+  <mat-card class="app-alert app-info app-mt-4" *ngIf="state=='saving'">
+    <mat-icon>info</mat-icon>
+    {{ 'dialog.export.alert.exporting' | translate }}
+  </mat-card>
+  <mat-card class="app-alert app-warn app-mt-4" *ngIf="state=='error'" fxLayout="column" fxLayoutGap="8px">
+    <div>{{ 'dialog.export.alert.error' | translate }}</div>
+    <button *ngFor="let error of errors" (click)="showErrorDetail(error)" mat-flat-button color="warn">
+      {{ 'button.viewErrorDetail' | translate }}
     </button>
-    {{ 'export.error' | translate }}
-  </div>
-  <div *ngIf="state=='done'" class="app-export-message">{{ 'export.done' | translate }}</div>
-  <div *ngIf="state=='done'" class="app-export-message">{{ target }}</div>
-
+  </mat-card>
+  <mat-card class="app-alert app-success app-mt-4" *ngIf="state=='done'">
+    <span>
+      {{ 'dialog.export.alert.done' | translate }}<br />
+      <em>{{ target }}</em>
+    </span>
+  </mat-card>
 </div>
 
 <div mat-dialog-actions cdk-focus-start>
-
-  <button mat-raised-button color="primary" *ngIf="!canContinue" [disabled]="formDisabled()" (click)="onExport(false)">{{ 'export.export' | translate }}</button>
-  <button mat-raised-button color="primary" *ngIf="canContinue" [disabled]="formDisabled()" (click)="onExport(true)">{{ 'export.continue' | translate }}</button>
-  <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.close' | translate }}</button>
-  <mat-spinner *ngIf="state=='saving'"
-    style="margin-left: auto"
-    [strokeWidth]="3"
-    [diameter]="30">
-  </mat-spinner>
+  <button mat-flat-button color="primary" *ngIf="!canContinue" [disabled]="formDisabled()" (click)="onExport(false)">{{ 'button.startExport' | translate }}</button>
+  <button mat-flat-button color="primary" *ngIf="canContinue" [disabled]="formDisabled()" (click)="onExport(true)">{{ 'button.exportAnyway' | translate }}</button>
+  <button mat-flat-button mat-dialog-close="close" >{{ 'button.close' | translate }}</button>
 </div>
 
 

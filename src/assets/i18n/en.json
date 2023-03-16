@@ -74,28 +74,6 @@
     "NDK_ARCHIVAL": "Archive copy",
     "NDK_USER": "User copy"
   },
-  "export": {
-    "title": "Export",
-    "type": "Export Type",
-    "type_datastream_full": "Scans",
-    "type_datastream_raw": "Original Scans",
-    "type_kramerius": "Kramerius",
-    "type_archive": "Archivation",
-    "type_archive_stt": "Archivation of old prints",
-    "type_ndk_psp": "NDK PSP",
-    "type_cejsh": "CEJSH",
-    "type_crossref": "Crossref",
-    "type_kwis": "KWIS",
-    "policy_public": "Publicly available",
-    "done": "The export has been completed and can be found in the user directory",
-    "exporting": "The export has been specified and will continue in the background. You can close the dialog.",
-    "error": "Export failed",
-    "show_error_detail": "Show error detail",
-    "export": "Launch export",
-    "continue": "Continue",
-    "kramerius_instances": "Kramerius instances",
-    "isBagit": "BAGIT package"
-  },
   "device": {
     "devices": "Devices",
     "device": "Device",
@@ -2025,7 +2003,12 @@
     "noValue": "No value",
     "newPassword": "New password",
     "passwordConfirmation": "Password confirmation",
-    "instance": "Instance"
+    "instance": "Instance",
+    "media": "Media",
+    "exportType": "Exportu type",
+    "krameriusInstances": "Kramerius instances",
+    "publiclyAvailable": "Publicly available",
+    "bagitPackage": "BAGIT package"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2085,7 +2068,9 @@
     "changePassword": "Change password",
     "edit": "Edit",
     "importToKramerius": "Import to Kramerius",
-    "importToProarc": "Import to ProArc"
+    "importToProarc": "Import to ProArc",
+    "startExport": "Start export",
+    "exportAnyway": "Export anyway"
   },
   "dynamic": {
     "repo": "Storage",
@@ -2296,10 +2281,7 @@
       }
     },
     "newPassword": {
-      "title": "Changing the password",
-      "alert": {
-        "error": "The password entered does not match the password confirmation"
-      }
+      "title": "Changing the password"
     },
     "preferredTops": {
       "title": {
@@ -2307,6 +2289,25 @@
         "languages": "Preferred languages",
         "locations": "Preferred storage locations",
         "identifiers": "Preferred Identifiers"
+      }
+    },
+    "export": {
+      "title": "Export",
+      "type": {
+        "datastream_full": "Scans",
+        "datastream_raw": "The original scan",
+        "kramerius": "Kramerius",
+        "archive": "Archiving",
+        "archive_stt": "Archiving of old prints",
+        "ndk_psp": "NDK PSP",
+        "cejsh": "CEJSH",
+        "crossref": "Crossref",
+        "kwis": "KWIS"
+      },
+      "alert": {
+        "done": "The export has been completed and you can find it in the user directory.",
+        "exporting": "The export has been entered and will run in the background. You can close the dialog.",
+        "error": "Export failed."
       }
     }
   },
@@ -2343,6 +2344,22 @@
       "exportProfile.kwis": "Export - KWIS",
       "exportProfile.aleph": "Export - Aleph",
       "internalProfile.reindex": "Internal - Reindex"
+    }
+  },
+  "alert": {
+    "info": {
+      "digitalContentIsNotSupported": "Digital content is not supported",
+      "noDigitalContent": "No digital content"
+    }
+  },
+  "snackbar": {
+    "settings.search.updated": "Settings have been modified",
+    "settings.profile": {
+      "updated": "The new password has been saved",
+      "error": {
+        "mismatch": "The password entered does not match the password confirmation",
+        "short": "Password is too short, must have at least 6 characters"
+      }
     }
   }
 }
