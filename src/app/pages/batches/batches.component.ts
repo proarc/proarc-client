@@ -183,7 +183,7 @@ export class BatchesComponent implements OnInit {
               item.selected = true;
             }
           })
-        } else {
+        } else if(this.layout.items.length > 0) {
           this.layout.items[0].selected = true;
         }
 
