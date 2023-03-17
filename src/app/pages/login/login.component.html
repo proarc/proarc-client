@@ -1,35 +1,29 @@
-<div class="app-card">
-  <div class="app-card-title">Přihlášení</div>
-  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
-    <div class="app-card-content">
-      <mat-form-field>
-        <input 
-          type="text" #username="matInput"
-          matInput cdkFocusInitial
-          [placeholder]="'login.username' | translate" 
-          ngModel 
-          name="username"
-          required>
-      </mat-form-field>
-      <mat-form-field>
-        <input 
-          type="password" 
-          matInput 
-          [placeholder]="'login.password' | translate" 
-          ngModel 
-          name="password"
-          required>
-      </mat-form-field>
-      <div class="warn-message" *ngIf="error">
-        {{ 'login.error.' + error | translate }}
+<div fxLayout="column" fxFlexFill>
+  <div fxFlex class="app-oa-y app-p-4" fxLayout="column" fxFlexFill fxLayoutAlign="center center">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+      <mat-card>
+        <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'" class="app-progress-bar"></mat-progress-bar>
+        <mat-card-title class="app-mb-4">{{ 'desc.login' | translate }}</mat-card-title>
+        <mat-card-content class="app-mb-0">
+          <mat-form-field class="app-w-100">
+            <input type="text" #username="matInput" matInput cdkFocusInitial [placeholder]="'desc.username' | translate" ngModel name="username"required>
+          </mat-form-field>
+          <mat-form-field class="app-w-100">
+            <input type="password" matInput [placeholder]="'desc.password' | translate" ngModel name="password" required>
+          </mat-form-field>
+          <mat-card class="app-alert app-warn app-mb-4" *ngIf="error">
+            <mat-icon>warning</mat-icon>
+            {{ 'login.error.' + error | translate }}
+          </mat-card>
+        </mat-card-content>
+        <mat-card-actions class="app-pl-2 app-pr-2 app-pb-2 app-pt-0">
+          <button type="submit" mat-flat-button color="primary">{{ 'button.logIn' | translate }}</button>
+        </mat-card-actions>
+      </mat-card>
+      <div fxLayout="row" fxLayoutGap="16px" class="app-p-2 app-login-footer" fxLayoutAlign="start center">
+        <div fxFlex>ProArc © {{ currentYear }}</div>
+        <div>Developed by <a href="https://www.inovatika.cz" title="Inovatika" target="_blank"><img src="assets/img/logo-inovatika-black.png" alt="Inovatika" /></a></div>
       </div>
-    </div>
-    <div class="app-card-actions">
-      <button type="submit" mat-raised-button color="primary">Přihlásit</button>
-      <mat-spinner *ngIf="state=='loading'"
-          [strokeWidth]="3" 
-          [diameter]="30">
-      </mat-spinner>
-    </div>
-  </form>
+    </form> 
+  </div>
 </div>
