@@ -292,6 +292,11 @@ export class RepositoryComponent implements OnInit {
         this.ui.showErrorSnackBarFromObject(response.errors);
         return;
       }
+
+      if (!response['record']) {
+        this.ui.showErrorSnackBar('Error getting metadata');
+        return;
+      }
       
       const standard = response['record']['standard'] ? response['record']['standard'] : Metadata.resolveStandardFromXml(response['record']['content']);
       this.tmpl.getTemplate(standard, model).subscribe((tmpl: any) => {

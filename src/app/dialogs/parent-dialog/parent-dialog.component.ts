@@ -167,6 +167,7 @@ export class ParentDialogComponent implements OnInit {
       this.items = items;
       this.state = 'success';
       if (this.data.expandedPath) {
+        console.log(this.data.expandedPath)
         this.expandedPath = this.data.expandedPath;
         const root = this.expandedPath[this.expandedPath.length - 1];
         if (root) {
@@ -175,7 +176,7 @@ export class ParentDialogComponent implements OnInit {
 
             this.selectItem(item);
             setTimeout(() => {
-              document.getElementById(root).scrollIntoView();
+              document.getElementById(root).scrollIntoView({block: 'center'});
               // this.search.selectedTreePid = this.expandedPath[0];
             }, 550);
 
@@ -202,6 +203,7 @@ export class ParentDialogComponent implements OnInit {
       return;
     }
     if (this.selectedTree) {
+      this.expandedPath = [];
       this.setExpandedPath(this.selectedTree);
     } else {
       this.expandedPath = [this.selectedItem.pid]
@@ -215,9 +217,13 @@ export class ParentDialogComponent implements OnInit {
   }
 
   selectItem(item: DocumentItem) {
-    this.selectedItem = item;
-    this.search.selectedTreePid = item.pid;
-    this.tree = new Tree(item);
+    //this.selectedItem = null;
+    //setTimeout(() => {
+      
+      this.selectedItem = item;
+      this.search.selectedTreePid = item.pid;
+      this.tree = new Tree(item);
+    //}, 10);
 
   }
 
@@ -243,8 +249,9 @@ export class ParentDialogComponent implements OnInit {
   }
 
   selectFromTree(tree: Tree) {
+    this.search.selectedTreePid = tree.item.pid;
     this.selectedTree = tree;
-    this.selectedItem = tree.item;
+    // this.selectedItem = tree.item;
   }
 
   dragEnd(e: any) {

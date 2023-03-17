@@ -86,7 +86,7 @@ export class EditorMetadataComponent implements OnInit {
   // }
 
   available(element: string): boolean {
-    return this.metadata.template[element];
+    return this.metadata && this.metadata.template && this.metadata.template[element];
   }
 
   confirmSave(title: string, message: string, ignoreValidation: boolean) {
