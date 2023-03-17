@@ -2010,7 +2010,8 @@
     "exportType": "Exportu type",
     "krameriusInstances": "Kramerius instances",
     "publiclyAvailable": "Publicly available",
-    "bagitPackage": "BAGIT package"
+    "bagitPackage": "BAGIT package",
+    "login": "Login"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2072,7 +2073,8 @@
     "importToKramerius": "Import to Kramerius",
     "importToProarc": "Import to ProArc",
     "startExport": "Start export",
-    "exportAnyway": "Export anyway"
+    "exportAnyway": "Export anyway",
+    "logIn": "Log in"
   },
   "dynamic": {
     "repo": "Storage",

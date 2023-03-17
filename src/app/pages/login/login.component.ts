@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
 
   error: string;
   url: string = '';
+  currentYear: number=new Date().getFullYear();
 
   constructor(private auth: AuthService, 
               private router: Router,

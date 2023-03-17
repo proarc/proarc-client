@@ -2010,7 +2010,8 @@
     "exportType": "Typ exportu",
     "krameriusInstances": "Instance Krameria",
     "publiclyAvailable": "Veřejně dostupné",
-    "bagitPackage": "BAGIT balíček"
+    "bagitPackage": "BAGIT balíček",
+    "login": "Přihlášení"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2072,7 +2073,8 @@
     "importToKramerius": "Importovat do Kraméria",
     "importToProarc": "Importovat do ProArcu",
     "startExport": "Zahájit export",
-    "exportAnyway": "Přesto exportovat"
+    "exportAnyway": "Přesto exportovat",
+    "logIn": "Přihlásit"
   },
   "dynamic": {
     "repo": "Úložiště",

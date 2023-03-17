@@ -1,7 +1,11 @@
 @import './src/sass/app-variables';
+@import './src/sass/app-mixins';
+@import './src/sass/app-global';
 
-.app-card {
-  width: 500px;
-  margin: 50px auto;
+.app-login-footer {
+  color: $app-gray-5;
+
+  img {
+    height: 10px;
+  }
 }
-

@@ -130,6 +130,12 @@
 .mat-card {
   @extend .app-clean-shadow, .app-clean-radius;
   border: 1px solid $app-card-border-color;
+  position: relative;
+
+  .mat-progress-bar {
+    position: absolute;
+    top: 0;
+  }
 
   &.app-alert {
     @include setAlertCard();
