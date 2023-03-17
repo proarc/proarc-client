@@ -27,7 +27,7 @@ import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 // import xml from 'highlight.js/lib/languages/xml';
 import { EditorTitleComponent } from './documents/document/editor-title/editor-title.component';
 import { EditorPublisherComponent } from './documents/document/editor-publisher/editor-publisher.component';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './pages/login/login.component';
 import { AuthService } from './services/auth.service';
 import { EditorIdentifierComponent } from './documents/document/editor-identifier/editor-identifier.component';
 import { EditorNoteComponent } from './documents/document/editor-note/editor-note.component';
