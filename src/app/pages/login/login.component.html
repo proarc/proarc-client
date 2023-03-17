@@ -1,6 +1,6 @@
 <div fxLayout="column" fxFlexFill>
-  <div fxFlex class="app-oa-y app-p-4" fxLayout="column" fxFlexFill fxLayoutAlign="center center">
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <div fxFlex class="app-oa-y app-p-4 app-h-100" fxLayout="column" fxFlexFill fxLayoutAlign="start center">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="app-m-auto">
       <mat-card>
         <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'" class="app-progress-bar"></mat-progress-bar>
         <mat-card-title class="app-mb-4">{{ 'desc.login' | translate }}</mat-card-title>
