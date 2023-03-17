@@ -1,8 +1,8 @@
 import { ViewerComponent } from './../components/viewer/viewer.component';
-import { SearchComponent } from './../components/search/search.component';
+import { SearchComponent } from '../pages/search/search.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from '../components/login/login.component';
+import { LoginComponent } from '../pages/login/login.component';
 import { DevicesComponent } from '../pages/devices/devices.component';
 import { DeviceComponent } from '../pages/devices/device/device.component';
 import { EditDeviceComponent } from '../pages/devices/edit-device/edit-device.component';
