@@ -35,6 +35,7 @@ export class ParentDialogComponent implements OnInit {
   state = 'none';
   items: DocumentItem[];
   selectedItem: DocumentItem;
+  selectedInSearch: DocumentItem;
   selectedTree: Tree;
   models: string[];
   model: string;
@@ -337,6 +338,7 @@ export class ParentDialogComponent implements OnInit {
     //setTimeout(() => {
 
     this.selectedItem = item;
+    this.selectedInSearch = item;
     this.search.selectedTreePid = item.pid;
     this.tree = new Tree(item);
     //}, 10);
@@ -391,6 +393,7 @@ export class ParentDialogComponent implements OnInit {
   select(array: any[], item: DocumentItem, idx: number, event: MouseEvent, col: string) {
     if (event && (event.metaKey || event.ctrlKey)) {
       // Nesmi byt prazdna selecke pro import
+      console.log('tady')
       item.selected = !item.selected;
     } else if (event && event.shiftKey) {
       if (this.lastClickIdx[col] > -1) {

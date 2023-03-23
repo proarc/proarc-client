@@ -2,15 +2,15 @@
   <div fxLayout="row" fxLayoutGap="16px">
     <h1 mat-dialog-title>{{ 'import.select_parent' | translate }}</h1>
   </div>
-  
+
   <div mat-dialog-content fxFlex class="app-maxh-100">
     <as-split direction="horizontal" [disabled]="false">
-      <as-split-area [size]="20" >
+      <as-split-area [size]="40">
         <div fxLayout="column" fxFlexFill>
 
           <div fxFlex class="app-oa-y">
             <div class="app-editor-content">
-              
+
 
               <table mat-table [dataSource]="origTable" class="app-w-100" #table>
                 <ng-container matColumnDef="pid">
@@ -46,7 +46,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="pagePosition">
-                  <th mat-header-cell *matHeaderCellDef> {{'desc.pagePosition' | translate}}</th> 
+                  <th mat-header-cell *matHeaderCellDef> {{'desc.pagePosition' | translate}}</th>
                   <td mat-cell *matCellDef="let element"> {{element.pagePosition}} </td>
                 </ng-container>
 
@@ -59,241 +59,259 @@
                   <th mat-header-cell *matHeaderCellDef> {{'search.owner' | translate}} </th>
                   <td mat-cell *matCellDef="let element"> {{element.owner}} </td>
                 </ng-container>
-        
+
                 <ng-container matColumnDef="created">
                   <th mat-header-cell *matHeaderCellDef> {{'search.created' | translate}} </th>
                   <td mat-cell *matCellDef="let element"> {{element.created | date : 'dd.MM.yyyy'}} </td>
                 </ng-container>
-        
+
                 <ng-container matColumnDef="modified">
                   <th mat-header-cell *matHeaderCellDef> {{'search.modified' | translate}} </th>
                   <td mat-cell *matCellDef="let element"> {{element.modified | date : 'dd.MM.yyyy'}}</td>
                 </ng-container>
-        
+
                 <ng-container matColumnDef="status">
                   <th mat-header-cell *matHeaderCellDef> {{'search.status' | translate}} </th>
                   <td mat-cell *matCellDef="let element"> {{element.status}} </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="data.displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; let idx = index; columns: data.displayedColumns" 
-                  [class.app-selected]="row.selected"  [class.app-selectedInOrig]="row.selectedInOrig" 
-                  (click)="select(data.items, row, idx, $event, 'dest')"></tr>
+                <tr mat-row *matRowDef="let row; let idx = index; columns: data.displayedColumns"
+                  [class.app-selected]="row.selected" (click)="select(orig, row, idx, $event, 'dest')"></tr>
               </table>
             </div>
           </div>
         </div>
       </as-split-area>
 
-      <as-split-area [size]="40">
-        <div fxLayout="column" fxFlexFill>
-          <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-action">
-            <div fxFlex>
-              <div class="app-search-mode">
-                <button mat-button value="phrase" [class.app-active]="searchMode === 'phrase'"
-                  (click)="searchMode = 'phrase'">Dotaz</button>
-                <button mat-button value="advanced" [class.app-active]="searchMode === 'advanced'"
-                  (click)="searchMode = 'advanced'">Pokročilé hledání</button>
+      <as-split-area [size]="60">
+        <as-split style="height: calc(100% - 5px);" unit="percent" [gutterSize]="10" direction="vertical"
+          (dragEnd)="dragEnd($event)" #split="asSplit">
+
+          <as-split-area #area1="asSplitArea" [minSize]="20" [size]="getSplitSize(0)">
+            <div fxLayout="column" fxFlexFill>
+              <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-action">
+                <div fxFlex>
+                  <div class="app-search-mode">
+                    <button mat-button value="phrase" [class.app-active]="searchMode === 'phrase'"
+                      (click)="searchMode = 'phrase'">Dotaz</button>
+                    <button mat-button value="advanced" [class.app-active]="searchMode === 'advanced'"
+                      (click)="searchMode = 'advanced'">Pokročilé hledání</button>
+                  </div>
+
+                  <div class="actions" *ngIf="state=='success'">
+
+                    <div *ngIf="searchMode === 'phrase'" class="app-search-filteres">
+                      <a mat-raised-button color="primary" class="app-search" (click)="reload()">
+                        {{ 'search.search' | translate }}
+                      </a>
+                      <mat-form-field class="model-filter app-filter">
+                        <mat-select [placeholder]="'search.model' | translate" name="model" [(ngModel)]="model">
+                          <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
+                          <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate
+                            }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+
+                      <mat-form-field class="document-search">
+                        <input matInput [placeholder]="'search.search' | translate" (keyup.enter)="reload()"
+                          [(ngModel)]="query">
+                      </mat-form-field>
+                    </div>
+
+                    <div *ngIf="searchMode === 'advanced'" class="app-search-filteres">
+                      <a mat-raised-button color="primary" class="app-search" (click)="reload()">
+                        {{ 'search.search' | translate }}
+                      </a>
+
+                      <mat-form-field class="model-filter app-filter">
+                        <mat-select [placeholder]="'search.model' | translate" name="model" [(ngModel)]="model">
+                          <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
+                          <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate
+                            }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+
+                      <mat-form-field class="document-search">
+                        <input matInput [placeholder]="'search.fields.title' | translate" (keyup.enter)="reload()"
+                          [(ngModel)]="queryLabel">
+                      </mat-form-field>
+                      <mat-form-field class="document-search">
+                        <input matInput [placeholder]="'search.fields.identifier' | translate" (keyup.enter)="reload()"
+                          [(ngModel)]="queryIdentifier">
+                      </mat-form-field>
+
+                      <mat-form-field class="owner-filter app-filter">
+                        <mat-select [placeholder]="'search.fields.owner' | translate" name="owner" [(value)]="owner">
+                          <mat-option value="-">Vše</mat-option>
+                          <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-form-field class="owner-filter app-filter">
+                        <mat-select [placeholder]="'search.fields.processor' | translate" name="processor"
+                          [(value)]="processor">
+                          <mat-option value="-">Vše</mat-option>
+                          <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+
+                    </div>
+
+                  </div>
+                </div>
+
               </div>
-            
-              <div class="actions" *ngIf="state=='success'">
-            
-                <div *ngIf="searchMode === 'phrase'" class="app-search-filteres">
-                  <a mat-raised-button color="primary" class="app-search" (click)="reload()">
-                    {{ 'search.search' | translate }}
-                  </a>
-                  <mat-form-field class="model-filter app-filter">
-                    <mat-select [placeholder]="'search.model' | translate" name="model" [(ngModel)]="model">
-                      <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
-                      <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-            
-                  <mat-form-field class="document-search">
-                    <input matInput [placeholder]="'search.search' | translate" (keyup.enter)="reload()" [(ngModel)]="query">
-                  </mat-form-field>
-                </div>
-            
-                <div *ngIf="searchMode === 'advanced'" class="app-search-filteres">
-                  <a mat-raised-button color="primary" class="app-search" (click)="reload()">
-                    {{ 'search.search' | translate }}
-                  </a>
-            
-                  <mat-form-field class="model-filter app-filter">
-                    <mat-select [placeholder]="'search.model' | translate" name="model" [(ngModel)]="model">
-                      <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
-                      <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-            
-                  <mat-form-field class="document-search">
-                    <input matInput [placeholder]="'search.fields.title' | translate" (keyup.enter)="reload()"
-                      [(ngModel)]="queryLabel">
-                  </mat-form-field>
-                  <mat-form-field class="document-search">
-                    <input matInput [placeholder]="'search.fields.identifier' | translate" (keyup.enter)="reload()"
-                      [(ngModel)]="queryIdentifier">
-                  </mat-form-field>
-            
-                  <mat-form-field class="owner-filter app-filter">
-                    <mat-select [placeholder]="'search.fields.owner' | translate" name="owner" [(value)]="owner">
-                      <mat-option value="-">Vše</mat-option>
-                      <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                  <mat-form-field class="owner-filter app-filter">
-                    <mat-select [placeholder]="'search.fields.processor' | translate" name="processor" [(value)]="processor">
-                      <mat-option value="-">Vše</mat-option>
-                      <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-            
-                </div>
-            
+
+              <div fxFlex class="app-oa-y">
+
+                <table mat-table #searchTable [dataSource]="items" matSort class="app-striped app-hover"
+                  (matSortChange)="sortTable($event)">
+                  <ng-container matColumnDef="label">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">{{
+                      'desc.name' | translate }}</th>
+                    <td mat-cell *matCellDef="let element">
+                      <div class="app-text-cutter-wrapper" [matTooltip]="element.label">
+                        <div class="app-text-cutter">
+                          {{ element.label }}
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="model">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.model' | translate }}</th>
+                    <td mat-cell *matCellDef="let element">
+                      <div class="app-text-cutter-wrapper" [matTooltip]="'model.' + element.model | translate">
+                        <div class="app-text-cutter">
+                          {{ "model." + element.model | translate }}
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="pid">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.pid' | translate }}</th>
+                    <td mat-cell *matCellDef="let element">
+                      <div class="app-text-cutter-wrapper" [matTooltip]="element.pid">
+                        <div class="app-text-cutter">
+                          {{ element.pid }}
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="processor">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.processor' | translate }}</th>
+                    <td mat-cell *matCellDef="let element">
+                      <div class="app-text-cutter-wrapper" [matTooltip]="element.processor">
+                        <div class="app-text-cutter">
+                          {{ element.processor }}
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="organization">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.organization' | translate }}</th>
+                    <td mat-cell *matCellDef="let element">
+                      <div class="app-text-cutter-wrapper"
+                        [matTooltip]="'organization.' + element.organization | translate">
+                        <div class="app-text-cutter">
+                          {{ 'organization.' + element.organization | translate }}
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.status' | translate }}</th>
+                    <td mat-cell *matCellDef="let element">
+                      <div class="app-text-cutter-wrapper"
+                        [matTooltip]="'editor.atm.statuses.' + element.status | translate">
+                        <div class="app-text-cutter">
+                          {{ 'editor.atm.statuses.' + element.status | translate }}
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="created">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.created' | translate }}</th>
+                    <td mat-cell *matCellDef="let element">
+                      <div class="app-text-cutter-wrapper" [matTooltip]="element.created | appDatetime">
+                        <div class="app-text-cutter">
+                          {{ element.created | appDatetime }}
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="modified">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.modified' | translate }}</th>
+                    <td mat-cell *matCellDef="let element">
+                      <div class="app-text-cutter-wrapper" [matTooltip]="element.modified | appDatetime">
+                        <div class="app-text-cutter">
+                          {{ element.modified | appDatetime }}
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="owner">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.owner' | translate }}</th>
+                    <td mat-cell *matCellDef="let element">
+                      <div class="app-text-cutter-wrapper" [matTooltip]="element.owner">
+                        <div class="app-text-cutter">
+                          {{ element.owner }}
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="export">
+                    <th mat-header-cell *matHeaderCellDef>{{ 'desc.export' | translate }}</th>
+                    <td mat-cell *matCellDef="let element">{{ element.writeExports() }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="isLocked">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element">
+                      <mat-icon
+                        [matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">{{
+                        element.isLocked ? 'lock' : 'lock_open' }}</mat-icon>
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectItem(row)" [id]="row.pid"
+                    class="app-cursor-pointer" [class.app-selected]="row.pid == selectedInSearch.pid"></tr>
+                </table>
+
               </div>
             </div>
-            
-          </div>
+          </as-split-area>
 
-          <div fxFlex class="app-oa-y">
+          <as-split-area #area2="asSplitArea" [minSize]="20" [size]="getSplitSize(1)">
+            <div class="app-table app-tree" *ngIf="selectedItem">
+              <app-tree [tree]="tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)"
+                [expanded]="data.selectedTree !== undefined" [expandedPath]="expandedPath"></app-tree>
+            </div>
+          </as-split-area>
 
-            <table mat-table #searchTable [dataSource]="items" matSort class="app-striped app-hover" (matSortChange)="sortTable($event)">
-              <ng-container matColumnDef="label">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">{{ 'desc.name' | translate }}</th>
-                <td mat-cell *matCellDef="let element">
-                  <div class="app-text-cutter-wrapper" [matTooltip]="element.label">
-                    <div class="app-text-cutter">
-                      {{ element.label }}
-                    </div>
-                  </div>
-                </td>
-              </ng-container>
-
-              <ng-container matColumnDef="model">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.model' | translate }}</th>
-                <td mat-cell *matCellDef="let element">
-                  <div class="app-text-cutter-wrapper" [matTooltip]="'model.' + element.model | translate">
-                    <div class="app-text-cutter">
-                      {{ "model." + element.model | translate }}
-                    </div>
-                  </div>
-                </td>
-              </ng-container>
-
-              <ng-container matColumnDef="pid">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.pid' | translate }}</th>
-                <td mat-cell *matCellDef="let element">
-                  <div class="app-text-cutter-wrapper" [matTooltip]="element.pid">
-                    <div class="app-text-cutter">
-                      {{ element.pid }}
-                    </div>
-                  </div>
-                </td>
-              </ng-container>
-
-              <ng-container matColumnDef="processor">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.processor' | translate }}</th>
-                <td mat-cell *matCellDef="let element">
-                  <div class="app-text-cutter-wrapper" [matTooltip]="element.processor">
-                    <div class="app-text-cutter">
-                      {{ element.processor }}
-                    </div>
-                  </div>
-                </td>
-              </ng-container>
-
-              <ng-container matColumnDef="organization">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.organization' | translate }}</th>
-                <td mat-cell *matCellDef="let element">
-                  <div class="app-text-cutter-wrapper" [matTooltip]="'organization.' + element.organization | translate">
-                    <div class="app-text-cutter">
-                      {{ 'organization.' + element.organization | translate }}
-                    </div>
-                  </div>
-                </td>
-              </ng-container>
-
-              <ng-container matColumnDef="status">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.status' | translate }}</th>
-                <td mat-cell *matCellDef="let element">
-                  <div class="app-text-cutter-wrapper" [matTooltip]="'editor.atm.statuses.' + element.status | translate">
-                    <div class="app-text-cutter">
-                      {{ 'editor.atm.statuses.' + element.status | translate }}
-                    </div>
-                  </div>
-                </td>
-              </ng-container>
-
-              <ng-container matColumnDef="created">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.created' | translate }}</th>
-                <td mat-cell *matCellDef="let element">
-                  <div class="app-text-cutter-wrapper" [matTooltip]="element.created | appDatetime">
-                    <div class="app-text-cutter">
-                      {{ element.created | appDatetime }}
-                    </div>
-                  </div>
-                </td>
-              </ng-container>
-
-              <ng-container matColumnDef="modified">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.modified' | translate }}</th>
-                <td mat-cell *matCellDef="let element">
-                  <div class="app-text-cutter-wrapper" [matTooltip]="element.modified | appDatetime">
-                    <div class="app-text-cutter">
-                      {{ element.modified | appDatetime }}
-                    </div>
-                  </div>
-                </td>
-              </ng-container>
-
-              <ng-container matColumnDef="owner">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.owner' | translate }}</th>
-                <td mat-cell *matCellDef="let element">
-                  <div class="app-text-cutter-wrapper" [matTooltip]="element.owner">
-                    <div class="app-text-cutter">
-                      {{ element.owner }}
-                    </div>
-                  </div>
-                </td>
-              </ng-container>
-
-              <ng-container matColumnDef="export">
-                <th mat-header-cell *matHeaderCellDef>{{ 'desc.export' | translate }}</th>
-                <td mat-cell *matCellDef="let element">{{ element.writeExports() }}</td>
-              </ng-container>
-
-              <ng-container matColumnDef="isLocked">
-                <th mat-header-cell *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let element">
-                  <mat-icon [matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">{{ element.isLocked ? 'lock' : 'lock_open' }}</mat-icon>
-                </td>
-              </ng-container>
-    
-              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectItem(row)" [id]="row.pid"
-                class="app-cursor-pointer" [class.app-selected]="row == selectedItem"></tr>
-            </table>
-
-          </div>
-        </div>
+        </as-split>
       </as-split-area>
 
-      <as-split-area [size]="40">
-        <div class="app-table app-tree" *ngIf="selectedItem">
-          <app-tree [tree]="tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)"
-            [expanded]="data.selectedTree !== undefined" [expandedPath]="expandedPath"></app-tree>
-        </div>
-      </as-split-area>
     </as-split>
   </div>
-  
-  
+
+
   <div mat-dialog-actions cdk-focus-start>
     <button *ngIf="data.parent" mat-raised-button color="primary" (click)="deleteParent()"
       [matTooltip]="'editor.children.delete_parent_dialog.button_tooltip' | translate">
       <mat-icon>delete</mat-icon>{{ 'editor.children.delete_parent_dialog.button' | translate }}
     </button>
-    <button mat-raised-button color="primary" (click)="onSave()" [disabled]="getNumOfSelected() === 0 || state=='loading' || !isAllowed()">{{
+    <button mat-raised-button color="primary" (click)="onSave()"
+      [disabled]="getNumOfSelected() === 0 || state=='loading' || !isAllowed()">{{
       data.btnLabel | translate }} {{ selectedItem ? ( ' do: ' + selectedItem.label ) : ''}} </button>
     <button mat-raised-button color="default" [mat-dialog-close]="hasChanges">{{ 'common.close' | translate }}</button>
   </div>

@@ -16,6 +16,7 @@ import { RepositoryService } from 'src/app/services/repository.service';
 import { UIService } from 'src/app/services/ui.service';
 import { ModelTemplate } from 'src/app/templates/modelTemplate';
 import { IConfig, defaultLayoutConfig, LayoutAdminComponent } from 'src/app/dialogs/layout-admin/layout-admin.component';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-batches',
@@ -39,6 +40,7 @@ export class BatchesComponent implements OnInit {
     private route: ActivatedRoute,
     private dialog: MatDialog,
     public layout: LayoutService,
+    private properties: LocalStorageService,
     private ui: UIService,
     private translator: TranslateService,
     private api: ApiService
@@ -278,7 +280,27 @@ export class BatchesComponent implements OnInit {
     if (batchParent) {
       this.ingestBatch(batchParent);
     } else {
-      const dialogRef = this.dialog.open(ParentDialogComponent, { data: { btnLabel: 'import.save', items: this.layout.items } });
+
+let expandedPath: string[];
+      if (this.properties.getStringProperty('parent.expandedPath')) {
+        expandedPath = JSON.parse(this.properties.getStringProperty('parent.expandedPath'));
+      }
+
+      const dialogRef = this.dialog.open(ParentDialogComponent, { 
+        data: {
+          btnLabel: 'editor.children.relocate_label',
+          parent: null,
+          items: this.layout.items,
+          expandedPath: expandedPath,
+          displayedColumns: ['filename', 'pageType', 'pageNumber', 'pageIndex', 'pagePosition']
+        },
+        // data: { 
+        //   btnLabel: 'import.save', items: this.layout.items 
+        // }, 
+        width: '95%',
+        maxWidth: '100vw',
+        height: '90%',
+      });
       dialogRef.afterClosed().subscribe(result => {
         if (result && result.pid) {
           this.ingestBatch(result.pid);
