@@ -124,7 +124,12 @@
         <ng-container matColumnDef="label">
           <th mat-header-cell *matHeaderCellDef> {{'search.name' | translate}}</th>
           <td mat-cell *matCellDef="let element">
-            <mat-icon *ngIf="element.invalid" class="app-mr-1">warning</mat-icon>{{shortLabels ? element.shortLabel : element.label}} 
+            <!-- <mat-icon *ngIf="element.invalid" class="app-mr-1">warning</mat-icon>{{ shortLabels ? element.shortLabel : element.label }}  -->
+            <div class="app-text-cutter-wrapper" [matTooltip]="shortLabels ? element.shortLabel : element.label">
+              <div class="app-text-cutter">
+                <mat-icon *ngIf="element.invalid" class="app-mr-1">warning</mat-icon>{{ shortLabels ? element.shortLabel : element.label }} 
+              </div>
+            </div>
           </td>
         </ng-container>
 
@@ -157,7 +162,14 @@
 
         <ng-container matColumnDef="model">
           <th mat-header-cell *matHeaderCellDef> {{'search.model' | translate}} </th>
-          <td mat-cell *matCellDef="let element"> {{ 'model.' + element.model | translate}} </td>
+          <td mat-cell *matCellDef="let element">
+            <!-- {{ 'model.' + element.model | translate }} -->
+            <div class="app-text-cutter-wrapper" [matTooltip]="'model.' + element.model | translate">
+              <div class="app-text-cutter">
+                {{ 'model.' + element.model | translate }} 
+              </div>
+            </div>
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="owner">
@@ -180,7 +192,7 @@
           <td mat-cell *matCellDef="let element"> {{element.status}} </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
         <tr mat-row #matrow *matRowDef="let row; let idx = index; columns: displayedColumns" [class.app-selected]="row.selected" 
             (click)="rowClick(row, idx, $event)"  (dblclick)="open(row)"  [class.app-invalid]="row.invalid" 
             [id]="'tr_'+idx" [title]="row.label + ' (' + ('model.' + row.model | translate) + ')'"
