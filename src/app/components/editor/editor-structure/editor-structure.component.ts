@@ -731,19 +731,25 @@ export class EditorStructureComponent implements OnInit {
       data: {
         btnLabel: 'editor.children.relocate_label',
         parent,
-        items,
+        items: this.layout.items,
         expandedPath: this.expandedPath,
+        displayedColumns: this.displayedColumns
       },
-      width: '90%'
+      width: '95%',
+      maxWidth: '100vw',
+      height: '90%',
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result && result.pid) {
-        this.expandedPath = result.expandedPath;
-        this.properties.setStringProperty('parent.expandedPath', JSON.stringify(this.expandedPath));
-        this.relocateOutside(items, result.pid);
-      } else if (result && result.delete) {
-        this.deleteParent(parent.pid);
+      if(result) {
+        this.layout.setShouldRefresh(false);
       }
+      // if (result && result.pid) {
+      //   this.expandedPath = result.expandedPath;
+      //   this.properties.setStringProperty('parent.expandedPath', JSON.stringify(this.expandedPath));
+      //   // this.relocateOutside(items, result.pid);
+      // } else if (result && result.delete) {
+      //   // this.deleteParent(parent.pid);
+      // }
     });
   }
 

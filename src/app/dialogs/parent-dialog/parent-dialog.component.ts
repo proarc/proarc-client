@@ -1,6 +1,6 @@
 
 import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/api.service';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -10,6 +10,12 @@ import { Tree } from 'src/app/model/mods/tree.model';
 import { SearchService } from 'src/app/services/search.service';
 import { SplitComponent, SplitAreaDirective } from 'angular-split';
 import { ModelTemplate } from 'src/app/templates/modelTemplate';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { TranslateService } from '@ngx-translate/core';
+import { SimpleDialogData } from '../simple-dialog/simple-dialog';
+import { SimpleDialogComponent } from '../simple-dialog/simple-dialog.component';
+import { UIService } from 'src/app/services/ui.service';
+import { Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-parent-dialog',
@@ -59,22 +65,53 @@ export class ParentDialogComponent implements OnInit {
   tree: Tree;
   expandedPath: string[] = [];
 
+
+  lastClickIdx: { [key: string]: number } = { orig: -1, dest: -1 };
+  lastClickIdxDest: number = -1;
+  lastSelectedItemPid: string;
+  orig: any[] = [];
+  origTable: any;
+
+  hasChanges = false;
+
+  
+  public selectedColumns = [
+    { field: 'label', selected: true },
+    { field: 'model', selected: false },
+    { field: 'pid', selected: false },
+    { field: 'processor', selected: false },
+    { field: 'organization', selected: false },
+    { field: 'status', selected: false },
+    { field: 'created', selected: false },
+    { field: 'modified', selected: true },
+    { field: 'owner', selected: false },
+    { field: 'export', selected: false },
+    { field: 'isLocked', selected: false }
+  ];
+
+  displayedColumns: string[] = [];
+  @ViewChild('searchTable') searchTable: MatTable<DocumentItem>;
+
   constructor(
     public dialogRef: MatDialogRef<ParentDialogComponent>,
     public properties: LocalStorageService,
+    private translator: TranslateService,
+    private dialog: MatDialog,
     public search: SearchService,
+    private ui: UIService,
     private config: ConfigService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private api: ApiService) { }
 
   ngOnInit() {
-    
+
     // this.models = ModelTemplate.allowedParentsForModel(this.data.items[0].model);
     this.models = this.config.allModels;
+    this.initSelectedColumns();
 
     this.splitArea1Width = this.properties.getStringProperty('parent.split.0', "60"),
-    this.splitArea2Width = this.properties.getStringProperty('parent.split.1', "40"),
-    this.model = this.properties.getStringProperty('parent.model', this.config.defaultModel);
+      this.splitArea2Width = this.properties.getStringProperty('parent.split.1', "40"),
+      this.model = this.properties.getStringProperty('parent.model', this.config.defaultModel);
     this.queryField = this.properties.getStringProperty('parent.query_field', 'queryLabel');
 
     this.organizations = this.config.organizations;
@@ -92,12 +129,17 @@ export class ParentDialogComponent implements OnInit {
       this.users = users;
     });
 
+    this.data.items.forEach((item: DocumentItem) => {
+      const di = JSON.parse(JSON.stringify(item));
+      this.orig.push(di);
+      this.origTable = new MatTableDataSource(this.orig);
+    });
 
     this.reload();
   }
 
   isAllowed() {
-    return ModelTemplate.allowedChildrenForModel(this.selectedItem.model).includes(this.data.items[0].model);
+    return this.getNumOfSelected() > 0 && ModelTemplate.allowedChildrenForModel(this.selectedItem.model).includes(this.getSelected()[0].model);
   }
 
   getSortIcon(field: string) {
@@ -167,7 +209,6 @@ export class ParentDialogComponent implements OnInit {
       this.items = items;
       this.state = 'success';
       if (this.data.expandedPath) {
-        console.log(this.data.expandedPath)
         this.expandedPath = this.data.expandedPath;
         const root = this.expandedPath[this.expandedPath.length - 1];
         if (root) {
@@ -176,7 +217,7 @@ export class ParentDialogComponent implements OnInit {
 
             this.selectItem(item);
             setTimeout(() => {
-              document.getElementById(root).scrollIntoView({block: 'center'});
+              document.getElementById(root).scrollIntoView({ block: 'center' });
               // this.search.selectedTreePid = this.expandedPath[0];
             }, 550);
 
@@ -208,21 +249,96 @@ export class ParentDialogComponent implements OnInit {
     } else {
       this.expandedPath = [this.selectedItem.pid]
     }
+    this.properties.setStringProperty('parent.expandedPath', JSON.stringify(this.expandedPath));
+    this.relocateOutside(this.orig.filter(i => i.selected), this.selectedItem.pid);
 
-    this.dialogRef.close({ pid: this.selectedItem.pid, selectedItem: this.selectedItem, selectedTree: this.selectedTree, expandedPath: this.expandedPath });
+    // this.dialogRef.close({ pid: this.selectedItem.pid, selectedItem: this.selectedItem, selectedTree: this.selectedTree, expandedPath: this.expandedPath });
   }
 
   deleteParent() {
     this.dialogRef.close({ delete: true });
   }
 
+  private relocateOutside(items: DocumentItem[], destinationPid: string) {
+    const data: SimpleDialogData = {
+      title: String(this.translator.instant('editor.children.relocate_dialog.title')),
+      message: String(this.translator.instant('editor.children.relocate_dialog.message')),
+      btn1: {
+        label: String(this.translator.instant('common.yes')),
+        value: 'yes',
+        color: 'primary'
+      },
+      btn2: {
+        label: String(this.translator.instant('common.no')),
+        value: 'no',
+        color: 'default'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        if (this.getNumOfSelected() > 0 || this.data.parent) {
+          this.relocateObjects(items[0].parent, destinationPid);
+        } else {
+          this.setParent(destinationPid);
+        }
+
+      }
+    });
+  }
+
+  relocateObjects(parentPid: string, destinationPid: string) {
+    this.state = 'saving';
+    let pids: string[] = this.orig.filter(c => c.selected).map(c => c.pid);
+    const isMultiple = this.orig.filter(c => c.selected).length > 1;
+
+    this.api.relocateObjects(parentPid, destinationPid, pids).subscribe((response: any) => {
+      if (response['response'].errors) {
+        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.state = 'error';
+        return;
+      }
+
+      let nextSelection = 0;
+      for (let i = this.orig.length - 1; i >= 0; i--) {
+        if (pids.indexOf(this.orig[i].pid) > -1) {
+          this.orig.splice(i, 1);
+          nextSelection = i - 1;
+        }
+      }
+      if (nextSelection < 0) {
+        nextSelection = 0;
+      }
+
+      this.origTable = new MatTableDataSource(this.orig);
+      this.state = 'success';
+      this.hasChanges = true;
+    });
+  }
+
+  setParent(destinationPid: string) {
+    this.state = 'saving';
+    let pids: string[] = this.orig.filter(c => c.selected).map(c => c.pid);
+    this.api.setParent(this.lastSelectedItemPid, destinationPid).subscribe((response: any) => {
+      if (response['response'].errors) {
+        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.state = 'error';
+        return;
+      } else {
+        this.state = 'success';
+      }
+    });
+  }
+
+
+
   selectItem(item: DocumentItem) {
     //this.selectedItem = null;
     //setTimeout(() => {
-      
-      this.selectedItem = item;
-      this.search.selectedTreePid = item.pid;
-      this.tree = new Tree(item);
+
+    this.selectedItem = item;
+    this.search.selectedTreePid = item.pid;
+    this.tree = new Tree(item);
     //}, 10);
 
   }
@@ -230,6 +346,10 @@ export class ParentDialogComponent implements OnInit {
   open(item: DocumentItem, index: number = -1) {
   }
 
+
+  sortTable(sortState: Sort) {
+    this.sortBy(sortState.active);
+  }
 
   private loadChildrenForPid(pid: string) {
     this.state = 'loading';
@@ -251,7 +371,7 @@ export class ParentDialogComponent implements OnInit {
   selectFromTree(tree: Tree) {
     this.search.selectedTreePid = tree.item.pid;
     this.selectedTree = tree;
-    // this.selectedItem = tree.item;
+    this.selectedItem = tree.item;
   }
 
   dragEnd(e: any) {
@@ -266,6 +386,57 @@ export class ParentDialogComponent implements OnInit {
       return parseInt(this.splitArea1Width);
     }
     return parseInt(this.splitArea2Width);
+  }
+
+  select(array: any[], item: DocumentItem, idx: number, event: MouseEvent, col: string) {
+    if (event && (event.metaKey || event.ctrlKey)) {
+      // Nesmi byt prazdna selecke pro import
+      item.selected = !item.selected;
+    } else if (event && event.shiftKey) {
+      if (this.lastClickIdx[col] > -1) {
+        const from = Math.min(this.lastClickIdx[col], idx);
+        const to = Math.max(this.lastClickIdx[col], idx);
+        for (let i = from; i <= to; i++) {
+          array[i].selected = true;
+        }
+      } else {
+        // nic neni.
+        array.forEach(i => i.selected = false);
+        item.selected = true;
+      }
+
+    } else {
+      array.forEach(i => i.selected = false);
+      item.selected = true;
+    }
+    this.lastClickIdx[col] = idx;
+    this.lastSelectedItemPid = item.pid;
+  }
+
+  public getNumOfSelected() {
+    return this.orig.filter(i => i.selected).length;
+  }
+
+  getSelected() {
+    return this.orig.filter(i => i.selected);
+  }
+
+  setColumns() {
+    this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field);
+  }
+
+  initSelectedColumns() {
+    const prop = this.properties.getStringProperty('searchColumnsParent');
+    if (prop) {
+      Object.assign(this.selectedColumns, JSON.parse(prop));
+    }
+    this.setColumns();
+  }
+
+  setSelectedColumns() {
+    this.properties.setStringProperty('searchColumnsParent', JSON.stringify(this.selectedColumns));
+    this.initSelectedColumns();
+    this.searchTable.renderRows();
   }
 
 }

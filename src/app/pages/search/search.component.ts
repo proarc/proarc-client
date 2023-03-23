@@ -611,7 +611,6 @@ export class SearchComponent implements OnInit {
     const prop = this.properties.getStringProperty('searchColumns');
     if (prop) {
       Object.assign(this.selectedColumns, JSON.parse(prop));
-      // this.selectedColumns = JSON.parse(prop);
     }
     this.setColumns();
   }
@@ -619,8 +618,6 @@ export class SearchComponent implements OnInit {
   setSelectedColumns() {
     this.properties.setStringProperty('searchColumns', JSON.stringify(this.selectedColumns));
     this.initSelectedColumns();
-
-    // this.dataSource = new MatTableDataSource(this.layout.items);
     this.table.renderRows();
   }
 
