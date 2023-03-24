@@ -71,6 +71,7 @@ export class ElementField {
                 this.items.push(newEl);
             }
         }
+        
         if (this.items.length - hiddenItems < 1) {
             const item = this.add();
             if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded) {
@@ -97,7 +98,17 @@ export class ElementField {
                 this.items.unshift(peerEl);
                 this.root.unshift(peerRaw);
             }
+
+            if (this.items.length === 1) {
+                const item = this.add();
+                if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded) {
+                    item.collapsed = true;
+                }
+            }
+
         }
+
+
     }
 
     hasExpandedChildren(): boolean {
