@@ -730,7 +730,7 @@ export class EditorStructureComponent implements OnInit {
     const dialogRef = this.dialog.open(ParentDialogComponent, {
       data: {
         btnLabel: 'editor.children.relocate_label',
-        parent,
+        parent: this.layout.selectedParentItem,
         items: this.layout.items,
         expandedPath: this.expandedPath,
         displayedColumns: this.displayedColumns
