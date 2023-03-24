@@ -2,7 +2,7 @@
 
   <ng-container *ngFor="let item of field.getItems(); last as last; first as first;">
     
-    <ng-container *ngIf="!showGenreSwitch || !first || (item.attrs['type'] !== 'peer-reviewed' && item.attrs['type'] !== 'not-peer-reviewed')">
+    <ng-container *ngIf="showByGenre(first, item)">
 
       <div class="app-card"
         [class.app-required]="item.isRequired()"

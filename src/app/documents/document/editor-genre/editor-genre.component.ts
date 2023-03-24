@@ -19,7 +19,12 @@ export class EditorGenreComponent implements OnInit {
   }
 
   switchChanged(e:any) {
-    this.field.isPeerReviewed = e.value === 'peer-reviewed';
+    // this.field.isPeerReviewed = e.value === 'peer-reviewed';
+    if (this.field.isPeerReviewed) {
+      this.field.getItems()[0].attrs['type'] = 'peer-reviewed';
+    } else {
+      delete this.field.getItems()[0].attrs['type']
+    }
   }
 
 }

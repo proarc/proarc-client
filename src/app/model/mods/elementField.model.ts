@@ -79,20 +79,23 @@ export class ElementField {
         }
 
         // set isPeerReviewed
-        if(this.items[0] instanceof ModsGenre ) {
-            //console.log(this.items[0])
+        if(this.items[0] instanceof ModsGenre && template['selector'] === 'genre' ) {
             if (this.items[0].attrs['type'] === 'peer-reviewed') {
                 this.isPeerReviewed = true;
-            } else  if (this.items[0].attrs['type'] === 'not-peer-reviewed') {
+            } else  if (this.items[0].modsElement['_'] === 'article' && !this.items[0].attrs['type']) {
+                this.isPeerReviewed = false;
+            } else  if (this.items[0].modsElement['_'] === 'electronic_article' && !this.items[0].attrs['type']) {
                 this.isPeerReviewed = false;
             } else {
                 this.isPeerReviewed = false;
-                const peerEl = this.newElement(id, this.root[0]);
-                peerEl.attrs['type'] = 'not-peer-reviewed';
-                if (peerEl.modsElement['_'] !== 'article' && peerEl.modsElement['_'] !== 'electronic_article') {
-                    peerEl.modsElement['_'] = 'article';
+                const peerRaw = JSON.parse(JSON.stringify(this.root[0]));
+                delete peerRaw['$']['type'];
+                if (peerRaw['_'] !== 'article' && peerRaw['_'] !== 'electronic_article') {
+                    peerRaw['_'] = 'article';
                 }
+                const peerEl = this.newElement(id, peerRaw);
                 this.items.unshift(peerEl);
+                this.root.unshift(peerRaw);
             }
         }
     }

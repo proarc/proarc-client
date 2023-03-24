@@ -1,8 +1,8 @@
 
 <div class="app-p-2" *ngIf="showGenreSwitch">
-  <mat-radio-group aria-label="'standard'" [value]="field.getItems()[0].attrs['type']" color="primary" (change)="switchChanged($event)">
-      <mat-radio-button [value]="'peer-reviewed'">Recenzovaný článek</mat-radio-button>
-      <mat-radio-button [value]="'not-peer-reviewed'">Nerecenzovaný článek</mat-radio-button>
+  <mat-radio-group aria-label="'standard'" [(ngModel)]="field.isPeerReviewed" color="primary" (change)="switchChanged($event)">
+      <mat-radio-button [value]="true">Recenzovaný článek</mat-radio-button>
+      <mat-radio-button [value]="false">Nerecenzovaný článek</mat-radio-button>
   </mat-radio-group>
 </div>
 <app-editor-field [field]="field" [showGenreSwitch]="showGenreSwitch">
