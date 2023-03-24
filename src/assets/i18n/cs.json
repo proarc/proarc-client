@@ -2011,7 +2011,8 @@
     "krameriusInstances": "Instance Krameria",
     "publiclyAvailable": "Veřejně dostupné",
     "bagitPackage": "BAGIT balíček",
-    "login": "Přihlášení"
+    "login": "Přihlášení",
+    "includeRelatedItem": "včetně relatedItem"
   },
   "button": {
     "setLayout": "nastavit rozložení",

@@ -2011,7 +2011,8 @@
     "krameriusInstances": "Kramerius instances",
     "publiclyAvailable": "Publicly available",
     "bagitPackage": "BAGIT package",
-    "login": "Login"
+    "login": "Login",
+    "includeRelatedItem": "including relatedItem"
   },
   "button": {
     "setLayout": "Set layout",

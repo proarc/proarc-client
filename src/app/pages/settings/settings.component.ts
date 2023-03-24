@@ -27,6 +27,8 @@ export class SettingsComponent implements OnInit {
   searchCols: any;
   selectedModels = new FormControl('');
 
+  relatedItemExpanded: boolean;
+
   constructor(
     private api: ApiService,
     private dialog: MatDialog,
@@ -51,6 +53,10 @@ export class SettingsComponent implements OnInit {
       this.selectedModels.setValue(JSON.parse(localStorage.getItem('expandedModels')));
     }
     
+
+    if (localStorage.getItem('relatedItemExpanded')) {
+      this.relatedItemExpanded = localStorage.getItem('relatedItemExpanded') === 'true';
+    }
 
   }
 
@@ -96,6 +102,7 @@ export class SettingsComponent implements OnInit {
 
   changeExpandedModels() {
     localStorage.setItem('expandedModels', JSON.stringify(this.selectedModels.value));
+    localStorage.setItem('relatedItemExpanded', JSON.stringify(this.relatedItemExpanded));
   }
 
 }

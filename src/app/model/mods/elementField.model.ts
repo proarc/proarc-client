@@ -45,9 +45,17 @@ export class ElementField {
 
     constructor(mods: { [x: string]: any; }, id: string, template: any, attr: any = null, requiredValues: any[] = [], forbiddenValues: any[] = []) {
         this.template = template;
+        // console.log(id)
         if (localStorage.getItem('metadata.allExpanded')) {
             this.allExpanded = localStorage.getItem('metadata.allExpanded') === 'true';
         }
+
+        
+        if (id.startsWith('relatedItem')) {
+            this.allExpanded = this.allExpanded && localStorage.getItem('relatedItemExpanded') === 'true';
+            console.log(this.allExpanded)
+        }
+
         this.id = id;
         const selector = this.selectorById(id)
         if (mods[selector] === undefined) {
