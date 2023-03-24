@@ -343,7 +343,8 @@ as-split {
   background-color: $app-toolbar-bg;
   color: $app-toolbar-color;
   
-  .mat-icon-button {
+  .mat-icon-button,
+  .mat-button-base {
     @extend .app-clean-radius;
     margin-right: 1px;
 

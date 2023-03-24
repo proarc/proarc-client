@@ -2074,7 +2074,8 @@
     "importToProarc": "Import to ProArc",
     "startExport": "Start export",
     "exportAnyway": "Export anyway",
-    "logIn": "Log in"
+    "logIn": "Log in",
+    "unlink": "Unlink"
   },
   "dynamic": {
     "repo": "Storage",

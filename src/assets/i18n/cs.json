@@ -2074,7 +2074,8 @@
     "importToProarc": "Importovat do ProArcu",
     "startExport": "Zahájit export",
     "exportAnyway": "Přesto exportovat",
-    "logIn": "Přihlásit"
+    "logIn": "Přihlásit",
+    "unlink": "Zrušit vazbu"
   },
   "dynamic": {
     "repo": "Úložiště",

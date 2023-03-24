@@ -4,14 +4,12 @@
   </div>
 
   <div mat-dialog-content fxFlex class="app-maxh-100">
+    <mat-progress-bar *ngIf="state=='loading'" mode="indeterminate"></mat-progress-bar>
     <as-split direction="horizontal" [disabled]="false">
       <as-split-area [size]="40">
         <div fxLayout="column" fxFlexFill>
-
           <div fxFlex class="app-oa-y">
             <div class="app-editor-content">
-
-
               <table mat-table [dataSource]="origTable" class="app-w-100" #table>
                 <ng-container matColumnDef="pid">
                   <th mat-header-cell *matHeaderCellDef>{{'desc.pid' | translate}} </th>
@@ -83,92 +81,61 @@
           </div>
         </div>
       </as-split-area>
-
       <as-split-area [size]="60">
-        <as-split style="height: calc(100% - 5px);" unit="percent" [gutterSize]="10" direction="vertical"
-          (dragEnd)="dragEnd($event)" #split="asSplit">
-
+        <as-split style="height: calc(100% - 5px);" unit="percent" [gutterSize]="10" direction="vertical" (dragEnd)="dragEnd($event)" #split="asSplit">
           <as-split-area #area1="asSplitArea" [minSize]="20" [size]="getSplitSize(0)">
             <div fxLayout="column" fxFlexFill>
               <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-action">
-                <div fxFlex>
-                  <div class="app-search-mode">
-                    <button mat-button value="phrase" [class.app-active]="searchMode === 'phrase'"
-                      (click)="searchMode = 'phrase'">Dotaz</button>
-                    <button mat-button value="advanced" [class.app-active]="searchMode === 'advanced'"
-                      (click)="searchMode = 'advanced'">Pokročilé hledání</button>
-                  </div>
+                <button mat-button value="phrase"  [class.app-active]="searchMode === 'phrase'" (click)="searchMode = 'phrase'">{{ 'button.query' | translate }}</button>
+                <button mat-button value="advanced" [class.app-active]="searchMode === 'advanced'" (click)="searchMode = 'advanced'">{{ 'button.advancedSearch' | translate }}</button>
+              </div>
 
-                  <div class="actions" *ngIf="state=='success'">
+              <div class="app-formbar" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
+                <button mat-flat-button color="primary" (click)="reload()">{{ 'button.search' | translate }}</button>
+                <ng-container *ngIf="searchMode === 'phrase'">
+                  <mat-form-field>
+                    <mat-select #modelSelect [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model">
+                      <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
+                      <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field fxFlex="calc(10% - 16px)">
+                    <input matInput [placeholder]="'desc.search' | translate" (keyup.enter)="reload()" [(ngModel)]="query">
+                  </mat-form-field>
+                </ng-container>
 
-                    <div *ngIf="searchMode === 'phrase'" class="app-search-filteres">
-                      <a mat-raised-button color="primary" class="app-search" (click)="reload()">
-                        {{ 'search.search' | translate }}
-                      </a>
-                      <mat-form-field class="model-filter app-filter">
-                        <mat-select [placeholder]="'search.model' | translate" name="model" [(ngModel)]="model">
-                          <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
-                          <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate
-                            }}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-
-                      <mat-form-field class="document-search">
-                        <input matInput [placeholder]="'search.search' | translate" (keyup.enter)="reload()"
-                          [(ngModel)]="query">
-                      </mat-form-field>
-                    </div>
-
-                    <div *ngIf="searchMode === 'advanced'" class="app-search-filteres">
-                      <a mat-raised-button color="primary" class="app-search" (click)="reload()">
-                        {{ 'search.search' | translate }}
-                      </a>
-
-                      <mat-form-field class="model-filter app-filter">
-                        <mat-select [placeholder]="'search.model' | translate" name="model" [(ngModel)]="model">
-                          <mat-option value="all">{{ 'search.all_models' | translate }}</mat-option>
-                          <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate
-                            }}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-
-                      <mat-form-field class="document-search">
-                        <input matInput [placeholder]="'search.fields.title' | translate" (keyup.enter)="reload()"
-                          [(ngModel)]="queryLabel">
-                      </mat-form-field>
-                      <mat-form-field class="document-search">
-                        <input matInput [placeholder]="'search.fields.identifier' | translate" (keyup.enter)="reload()"
-                          [(ngModel)]="queryIdentifier">
-                      </mat-form-field>
-
-                      <mat-form-field class="owner-filter app-filter">
-                        <mat-select [placeholder]="'search.fields.owner' | translate" name="owner" [(value)]="owner">
-                          <mat-option value="-">Vše</mat-option>
-                          <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                      <mat-form-field class="owner-filter app-filter">
-                        <mat-select [placeholder]="'search.fields.processor' | translate" name="processor"
-                          [(value)]="processor">
-                          <mat-option value="-">Vše</mat-option>
-                          <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-
-                    </div>
-
-                  </div>
-                </div>
-
+                <ng-container *ngIf="searchMode === 'advanced'">
+                  <mat-form-field fxFlex="calc(10% - 16px)">
+                    <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model">
+                      <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
+                      <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field fxFlex="calc(10% - 16px)">
+                    <input matInput [placeholder]="'desc.name' | translate" (keyup.enter)="reload()" [(ngModel)]="queryLabel">
+                  </mat-form-field>
+                  <mat-form-field fxFlex="calc(10% - 16px)">
+                    <input matInput [placeholder]="'desc.identifier' | translate" (keyup.enter)="reload()" [(ngModel)]="queryIdentifier">
+                  </mat-form-field>
+                  <mat-form-field fxFlex="calc(10% - 16px)" class="app-owner">
+                    <mat-select [placeholder]="'desc.owner' | translate" name="owner" [(value)]="owner">
+                      <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
+                      <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field fxFlex="calc(10% - 16px)" class="app-processor">
+                    <mat-select [placeholder]="'desc.processor' | translate" name="processor" [(value)]="processor">
+                      <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
+                      <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </ng-container>
               </div>
 
               <div fxFlex class="app-oa-y">
-
-                <table mat-table #searchTable [dataSource]="items" matSort class="app-striped app-hover"
-                  (matSortChange)="sortTable($event)">
+                <table mat-table #searchTable [dataSource]="items" matSort class="app-striped app-hover" (matSortChange)="sortTable($event)">
                   <ng-container matColumnDef="label">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">{{
-                      'desc.name' | translate }}</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">{{ 'desc.name' | translate }}</th>
                     <td mat-cell *matCellDef="let element">
                       <div class="app-text-cutter-wrapper" [matTooltip]="element.label">
                         <div class="app-text-cutter">
@@ -214,8 +181,7 @@
                   <ng-container matColumnDef="organization">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.organization' | translate }}</th>
                     <td mat-cell *matCellDef="let element">
-                      <div class="app-text-cutter-wrapper"
-                        [matTooltip]="'organization.' + element.organization | translate">
+                      <div class="app-text-cutter-wrapper" [matTooltip]="'organization.' + element.organization | translate">
                         <div class="app-text-cutter">
                           {{ 'organization.' + element.organization | translate }}
                         </div>
@@ -226,8 +192,7 @@
                   <ng-container matColumnDef="status">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.status' | translate }}</th>
                     <td mat-cell *matCellDef="let element">
-                      <div class="app-text-cutter-wrapper"
-                        [matTooltip]="'editor.atm.statuses.' + element.status | translate">
+                      <div class="app-text-cutter-wrapper" [matTooltip]="'editor.atm.statuses.' + element.status | translate">
                         <div class="app-text-cutter">
                           {{ 'editor.atm.statuses.' + element.status | translate }}
                         </div>
@@ -276,46 +241,35 @@
                   <ng-container matColumnDef="isLocked">
                     <th mat-header-cell *matHeaderCellDef></th>
                     <td mat-cell *matCellDef="let element">
-                      <mat-icon
-                        [matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">{{
-                        element.isLocked ? 'lock' : 'lock_open' }}</mat-icon>
+                      <mat-icon [matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">{{ element.isLocked ? 'lock' : 'lock_open' }}</mat-icon>
                     </td>
                   </ng-container>
 
                   <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectItem(row)" [id]="row.pid"
-                    class="app-cursor-pointer" [class.app-selected]="row.pid == selectedInSearch?.pid"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectItem(row)" [id]="row.pid" class="app-cursor-pointer" [class.app-selected]="row.pid == selectedInSearch?.pid"></tr>
                 </table>
-
               </div>
             </div>
           </as-split-area>
 
           <as-split-area #area2="asSplitArea" [minSize]="20" [size]="getSplitSize(1)">
-            <div class="app-table app-tree" *ngIf="selectedItem">
-              <app-tree [tree]="tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)"
-                [expanded]="data.selectedTree !== undefined" [expandedPath]="expandedPath"></app-tree>
+            <div class="app-tree" *ngIf="selectedItem">
+              <app-tree [tree]="tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)" [expanded]="data.selectedTree !== undefined" [expandedPath]="expandedPath"></app-tree>
             </div>
           </as-split-area>
-
         </as-split>
       </as-split-area>
-
     </as-split>
   </div>
-
-
   <div mat-dialog-actions cdk-focus-start>
-    <button *ngIf="data.parent" mat-raised-button color="primary" (click)="deleteParent()"
-      [matTooltip]="'editor.children.delete_parent_dialog.button_tooltip' | translate">
-      <mat-icon>delete</mat-icon>{{ 'editor.children.delete_parent_dialog.button' | translate }}
+    <button mat-flat-button color="primary" *ngIf="data.parent" (click)="deleteParent()">{{ 'button.unlink' | translate }}</button>
+    <button mat-flat-button color="primary" (click)="onSave()" [disabled]="getNumOfSelected() === 0 || state=='loading' || !isAllowed()" class="app-button-move-to" [matTooltip]="selectedItem ? ( ' do: ' + selectedItem.label ) : ''">
+      <div class="app-text-cutter">
+        {{ data.btnLabel | translate }} {{ selectedItem ? ( ' do: ' + selectedItem.label ) : '' }}
+      </div>
     </button>
-    <button mat-raised-button color="primary" (click)="onSave()"
-      [disabled]="getNumOfSelected() === 0 || state=='loading' || !isAllowed()">{{
-      data.btnLabel | translate }} {{ selectedItem ? ( ' do: ' + selectedItem.label ) : ''}} </button>
-    <button mat-raised-button color="default" [mat-dialog-close]="hasChanges">{{ 'common.close' | translate }}</button>
+    <button mat-flat-button [mat-dialog-close]="hasChanges">{{ 'button.close' | translate }}</button>
   </div>
-
 </div>
 
 
@@ -349,5 +303,5 @@
   </div>
 </div> -->
 
-<mat-spinner *ngIf="state=='loading'" [strokeWidth]="5" [diameter]="60" class="center-spinner">
-</mat-spinner>
+<!-- <mat-spinner *ngIf="state=='loading'" [strokeWidth]="5" [diameter]="60" class="center-spinner">
+</mat-spinner> -->
