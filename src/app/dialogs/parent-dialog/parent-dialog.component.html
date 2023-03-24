@@ -284,7 +284,7 @@
 
                   <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
                   <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectItem(row)" [id]="row.pid"
-                    class="app-cursor-pointer" [class.app-selected]="row.pid == selectedInSearch.pid"></tr>
+                    class="app-cursor-pointer" [class.app-selected]="row.pid == selectedInSearch?.pid"></tr>
                 </table>
 
               </div>
