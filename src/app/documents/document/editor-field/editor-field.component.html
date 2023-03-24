@@ -1,40 +1,44 @@
 <div class="app-editor-field" [class.app-nested]="nested" [class.app-usages]="true">
 
-  <ng-container></ng-container>
-  <div class="app-card" *ngFor="let item of field.getItems(); last as last; first as first;"
-    [class.app-required]="item.isRequired()"
-    [class.app-warning]="item.validationWarning && !item.isValid()" >
-    <div class="app-card-header">
-      <span [matTooltip]="field.labelKey()" class="app-card-title" [class.app-no-collapse]="!collapsable">{{ 'mods.' + field.labelKey() | translate }} <i>{{ field.usage() }}</i></span>
-      <button matTooltip="{{ 'common.remove' | translate }}" (click)="field.removeItem(item)" mat-icon-button>
-        <mat-icon>delete</mat-icon>
-      </button>
-      <button matTooltip="{{ 'editor.info' | translate }}" (click)="openHelpDialog()" mat-icon-button>
-        <mat-icon>help_outline</mat-icon>
-      </button>
-      <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" (click)="field.moveDown(item)" mat-icon-button>
-          <mat-icon>arrow_drop_down</mat-icon>
-      </button>
-      <button [disabled]="first" matTooltip="{{ 'common.move_up' | translate }}" (click)="field.moveUp(item)" mat-icon-button>
-        <mat-icon>arrow_drop_up</mat-icon>
-      </button>
-      <ng-container *ngIf="collapsable">
-        <button class="app-collapse" *ngIf="item.collapsed" matTooltip="{{ 'common.expand' | translate }}" (click)="item.switchCollapsed()" mat-icon-button>
-          <mat-icon>expand_more</mat-icon>
-        </button>
-        <button class="app-collapse" *ngIf="!item.collapsed" matTooltip="{{ 'common.collapse' | translate }}" (click)="item.switchCollapsed()" mat-icon-button>
-          <mat-icon>expand_less</mat-icon>
-        </button>
-      </ng-container>
-      <button matTooltip="{{ 'editor.add_field' | translate }}" (click)="field.addAfterItem(item)" mat-icon-button>
-        <mat-icon>add</mat-icon>
-      </button>
-      <ng-template [ngTemplateOutlet]="templateMenu" [ngTemplateOutletContext]="{ item: item  }"></ng-template>
-    </div>
-    <div class="app-card-content" [class.app-collapsed]="collapsable && item.collapsed">
-      <ng-template [ngTemplateOutlet]="templateContent" [ngTemplateOutletContext]="{ item: item  }"></ng-template>
-    </div>
+  <ng-container *ngFor="let item of field.getItems(); last as last; first as first;">
+    
+    <ng-container *ngIf="!showGenreSwitch || !first || (item.attrs['type'] !== 'peer-reviewed' && item.attrs['type'] !== 'not-peer-reviewed')">
 
-  </div>
+      <div class="app-card"
+        [class.app-required]="item.isRequired()"
+        [class.app-warning]="item.validationWarning && !item.isValid()" >
+        <div class="app-card-header">
+          <span [matTooltip]="field.labelKey()" class="app-card-title" [class.app-no-collapse]="!collapsable">{{ 'mods.' + field.labelKey() | translate }} <i>{{ field.usage() }}</i></span>
+          <button matTooltip="{{ 'common.remove' | translate }}" (click)="field.removeItem(item)" mat-icon-button>
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button matTooltip="{{ 'editor.info' | translate }}" (click)="openHelpDialog()" mat-icon-button>
+            <mat-icon>help_outline</mat-icon>
+          </button>
+          <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" (click)="field.moveDown(item)" mat-icon-button>
+              <mat-icon>arrow_drop_down</mat-icon>
+          </button>
+          <button [disabled]="first" matTooltip="{{ 'common.move_up' | translate }}" (click)="field.moveUp(item)" mat-icon-button>
+            <mat-icon>arrow_drop_up</mat-icon>
+          </button>
+          <ng-container *ngIf="collapsable">
+            <button class="app-collapse" *ngIf="item.collapsed" matTooltip="{{ 'common.expand' | translate }}" (click)="item.switchCollapsed()" mat-icon-button>
+              <mat-icon>expand_more</mat-icon>
+            </button>
+            <button class="app-collapse" *ngIf="!item.collapsed" matTooltip="{{ 'common.collapse' | translate }}" (click)="item.switchCollapsed()" mat-icon-button>
+              <mat-icon>expand_less</mat-icon>
+            </button>
+          </ng-container>
+          <button matTooltip="{{ 'editor.add_field' | translate }}" (click)="field.addAfterItem(item)" mat-icon-button>
+            <mat-icon>add</mat-icon>
+          </button>
+          <ng-template [ngTemplateOutlet]="templateMenu" [ngTemplateOutletContext]="{ item: item  }"></ng-template>
+        </div>
+        <div class="app-card-content" [class.app-collapsed]="collapsable && item.collapsed">
+          <ng-template [ngTemplateOutlet]="templateContent" [ngTemplateOutletContext]="{ item: item, first: first  }"></ng-template>
+        </div>
 
+      </div>
+    </ng-container>
+  </ng-container>
 </div>

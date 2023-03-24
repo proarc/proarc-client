@@ -41,6 +41,7 @@ export class ElementField {
     private items: ModsElement[];
     private template;
     private allExpanded: boolean;
+    isPeerReviewed: boolean;
 
     constructor(mods: { [x: string]: any; }, id: string, template: any, attr: any = null, requiredValues: any[] = [], forbiddenValues: any[] = []) {
         this.template = template;
@@ -74,6 +75,24 @@ export class ElementField {
             const item = this.add();
             if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded) {
                 item.collapsed = true;
+            }
+        }
+
+        // set isPeerReviewed
+        if(this.items[0] instanceof ModsGenre ) {
+            //console.log(this.items[0])
+            if (this.items[0].attrs['type'] === 'peer-reviewed') {
+                this.isPeerReviewed = true;
+            } else  if (this.items[0].attrs['type'] === 'not-peer-reviewed') {
+                this.isPeerReviewed = false;
+            } else {
+                this.isPeerReviewed = false;
+                const peerEl = this.newElement(id, this.root[0]);
+                peerEl.attrs['type'] = 'not-peer-reviewed';
+                if (peerEl.modsElement['_'] !== 'article' && peerEl.modsElement['_'] !== 'electronic_article') {
+                    peerEl.modsElement['_'] = 'article';
+                }
+                this.items.unshift(peerEl);
             }
         }
     }

@@ -18,4 +18,8 @@ export class EditorGenreComponent implements OnInit {
   ngOnInit() {
   }
 
+  switchChanged(e:any) {
+    this.field.isPeerReviewed = e.value === 'peer-reviewed';
+  }
+
 }

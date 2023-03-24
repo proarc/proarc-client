@@ -1,17 +1,15 @@
 
 <div class="app-p-2" *ngIf="showGenreSwitch">
-  <mat-radio-group aria-label="'standard'" [(ngModel)]="field.getItems()[0].attrs['type']" color="primary">
+  <mat-radio-group aria-label="'standard'" [value]="field.getItems()[0].attrs['type']" color="primary" (change)="switchChanged($event)">
       <mat-radio-button [value]="'peer-reviewed'">Recenzovaný článek</mat-radio-button>
-      <mat-radio-button [value]="''">Nerecenzovaný článek</mat-radio-button>
+      <mat-radio-button [value]="'not-peer-reviewed'">Nerecenzovaný článek</mat-radio-button>
   </mat-radio-group>
 </div>
-<app-editor-field [field]="field">
+<app-editor-field [field]="field" [showGenreSwitch]="showGenreSwitch">
   <ng-template let-item="item" #templateContent>
-
-    <app-autocomplete [(value)]='item.attrs["authority"]' field="authority" [item]="item"></app-autocomplete>
-    <app-field-dropdown [(value)]='item.attrs["type"]' field="type" [item]="item"></app-field-dropdown>
-    <app-field-text [(value)]='item.attrs["lang"]' field="lang" [item]="item"></app-field-text>
-    <app-autocomplete field="value" [item]="item" [(value)]="item.modsElement['_']" ></app-autocomplete>
-
+      <app-autocomplete [(value)]='item.attrs["authority"]' field="authority" [item]="item"></app-autocomplete>
+      <app-field-dropdown [(value)]='item.attrs["type"]' field="type" [item]="item"></app-field-dropdown>
+      <app-field-text [(value)]='item.attrs["lang"]' field="lang" [item]="item"></app-field-text>
+      <app-autocomplete field="value" [item]="item" [(value)]="item.modsElement['_']" ></app-autocomplete>
   </ng-template>
 </app-editor-field>

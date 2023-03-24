@@ -16,6 +16,7 @@ export class EditorFieldComponent implements OnInit {
   @Input() field: ElementField;
   @Input() nested: boolean;
   @Input() collapsable: boolean = true;
+  @Input() showGenreSwitch: boolean;
 
   @ContentChild("templateContent") templateContent : TemplateRef<any>;
   @ContentChild("templateMenu") templateMenu : TemplateRef<any>;
