@@ -4,6 +4,21 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class LocalStorageService {
 
+
+
+    public static LANGUAGE = 'lang';
+    public static SEARCH_COLUMNS = 'searchColumns';
+    public static SEARCH_COLUMNS_PARENT = 'searchColumnsParent';
+    public static EXPANDED_MODELS = 'expandedModels';
+    public static ALL_EXPANDED = 'metadata.allExpanded';
+    public static RELATED_ITEM_EXPANDED = 'relatedItemExpanded';
+
+    public static TREE_COLUMNS = 'treeColumns';
+    public static TREE_COLUMNS_PARENT = 'treeColumnsParent';
+
+    public static COLUMNS_REPO = 'columnsRepo';
+    public static COLUMNS_IMPORT = 'columnsImport';
+
     availableSearchColumns = ['name', 'pageType', 'pageIndex', 'pageNumber', 'model', 'pid', 'owner', 'processor', 'organization', 'status', 'created', 'modified', 'export', 'isLocked'];
     private searchColumnsDefaults: any = {
         'name': true,

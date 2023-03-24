@@ -31,7 +31,7 @@
     {{ 'dialog.parent.alert.info' | translate }}:&#160;<strong>{{ selectedItem.label }}</strong>
   </mat-card>
   <div mat-dialog-actions cdk-focus-start>
-    <button mat-flat-button color="primary" *ngIf="data.parent" (click)="deleteParent()">{{ 'button.unlink' | translate }}</button>
+    <button mat-flat-button color="primary" *ngIf="data.parent" (click)="onDeleteParent()">{{ 'button.unlink' | translate }}</button>
     <button mat-flat-button color="primary" (click)="onSave()" [disabled]="getNumOfSelected() === 0 || state=='loading' || !isAllowed()">
       {{ 'button.move' | translate }}
     </button>

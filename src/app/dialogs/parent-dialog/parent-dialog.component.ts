@@ -256,8 +256,47 @@ export class ParentDialogComponent implements OnInit {
     // this.dialogRef.close({ pid: this.selectedItem.pid, selectedItem: this.selectedItem, selectedTree: this.selectedTree, expandedPath: this.expandedPath });
   }
 
-  deleteParent() {
-    this.dialogRef.close({ delete: true });
+  onDeleteParent() {
+    this.deleteParent(this.data.parent.pid)
+    // this.dialogRef.close({ delete: true });
+  }
+
+  
+
+  private deleteParent(parent: string) {
+    const data: SimpleDialogData = {
+      title: String(this.translator.instant('editor.children.delete_parent_dialog.title')),
+      message: String(this.translator.instant('editor.children.delete_parent_dialog.message')),
+      btn1: {
+        label: String(this.translator.instant('common.yes')),
+        value: 'yes',
+        color: 'primary'
+      },
+      btn2: {
+        label: String(this.translator.instant('common.no')),
+        value: 'no',
+        color: 'default'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        if (parent) {
+          this.state = 'saving';
+          this.api.deleteParent(this.lastSelectedItemPid, parent).subscribe((response: any) => {
+            if (response['response'].errors) {
+              this.ui.showErrorSnackBarFromObject(response['response'].errors);
+              this.state = 'error';
+              return;
+            } else {
+              this.state = 'success';
+
+              this.hasChanges = true;
+            }
+          });
+        }
+      }
+    });
   }
 
   private relocateOutside(items: DocumentItem[], destinationPid: string) {
