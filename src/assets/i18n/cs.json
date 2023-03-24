@@ -2012,7 +2012,8 @@
     "publiclyAvailable": "Veřejně dostupné",
     "bagitPackage": "BAGIT balíček",
     "login": "Přihlášení",
-    "includeRelatedItem": "včetně relatedItem"
+    "includeRelatedItem": "včetně relatedItem",
+    "theCurrentParentObject": "Aktuální nadřazený objekt"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2076,7 +2077,8 @@
     "startExport": "Zahájit export",
     "exportAnyway": "Přesto exportovat",
     "logIn": "Přihlásit",
-    "unlink": "Zrušit vazbu"
+    "unlink": "Zrušit vazbu",
+    "move": "Přesunout"
   },
   "dynamic": {
     "repo": "Úložiště",
@@ -2317,6 +2319,12 @@
         "done": "Export byl dokončen a najdete jej v uživatelském adresáři.",
         "exporting": "Export byl zadán a bude probíhat na pozadí. Dialog můžete zavřít.",
         "error": "Export se nezdařil."
+      }
+    },
+    "parent": {
+      "title": "Vyberte nadřazený objekt",
+      "alert": {
+        "info": "Přesunout objekt/y do"
       }
     }
   },

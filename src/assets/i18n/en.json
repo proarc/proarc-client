@@ -2012,7 +2012,8 @@
     "publiclyAvailable": "Publicly available",
     "bagitPackage": "BAGIT package",
     "login": "Login",
-    "includeRelatedItem": "including relatedItem"
+    "includeRelatedItem": "including relatedItem",
+    "theCurrentParentObject": "The current parent object"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2076,7 +2077,8 @@
     "startExport": "Start export",
     "exportAnyway": "Export anyway",
     "logIn": "Log in",
-    "unlink": "Unlink"
+    "unlink": "Unlink",
+    "move": "Move"
   },
   "dynamic": {
     "repo": "Storage",
@@ -2317,6 +2319,12 @@
         "done": "The export has been completed and you can find it in the user directory.",
         "exporting": "The export has been entered and will run in the background. You can close the dialog.",
         "error": "Export failed."
+      }
+    },
+    "parent": {
+      "title": "Select the parent object",
+      "alert": {
+        "info": "Move object/s to"
       }
     }
   },

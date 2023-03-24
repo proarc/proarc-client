@@ -2,8 +2,11 @@
 @import './src/sass/app-mixins';
 @import './src/sass/app-global';
 
-.app-button-move-to {
-  width: 200px;
+.mat-table {
+  .mat-column-label,
+  .mat-column-model {
+    min-width: 100px;
+  }
 }
 
 .app-formbar {
