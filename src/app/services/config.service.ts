@@ -233,6 +233,148 @@ export class ConfigService {
 	public pagePositions = APP_GLOBAL.pagePositions || ConfigService.defaultPagePositions;
 
 	public static modelChangesDefault = [
+    // ndk
+    {
+    	origin: 'ndkmonographtitle',
+    	dest: [
+        {model: 'ndkmonographvolume', originmodel:"monographunit", apiPoint: "object/changeK4MonographUnitToNdkMonographVolume"},
+        // {model: 'clippingstitle', apiPoint: "object/changeNdkMonographTitleToClippingsTitle"},
+        {model: 'ndkmonographvolume', originmodel:"ndkmonographtitle", apiPoint: "object/changeNdkMonographTitleToNdkMonographVolume"},
+        // {model: 'clippingsvolume', apiPoint: "object/changeNdkMonographVolumeToClippingsVolume"},
+    		{model: 'ndkmonographtitle', originmodel:"ndkmonographvolume", apiPoint: "object/changeNdkMonographVolumeToNdkMonographTitle"},
+    	]
+    },
+    {
+    	origin: 'ndkmonographvolume',
+    	dest: [
+        {model: 'ndkmonographvolume', originmodel:"monographunit", apiPoint: "object/changeK4MonographUnitToNdkMonographVolume"},
+        // {model: 'clippingsvolume', apiPoint: "object/changeNdkMonographVolumeToClippingsVolume"},
+        {model: 'ndkmonographtitle', originmodel:"ndkmonographvolume", apiPoint: "object/changeNdkMonographVolumeToNdkMonographTitle"},
+        {model: 'oldprintvolume', originmodel:"ndkmonographvolume", apiPoint: "object/changeNdkMonographVolumeToOldPrintMonographVolume"},
+    	]
+    },
+    {
+      origin: 'ndkmonographsupplement',
+      dest: [
+        {model: 'oldprintsupplement', originmodel:"ndkmonographsupplement", "apiPoint": "object/changeNdkMonographSupplementToOldPrintMonographSupplement"}
+      ]
+    },
+    {
+    	origin: 'ndkperiodical',
+    	dest: [
+        {model: 'ndkperiodicalissue', originmodel:"periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
+        {model: 'ndkperiodicalvolume', originmodel:"periodicalvolume", apiPoint: "object/changeK4PeriodicalVolumeToNdkPeriodicalVolume"},
+    	]
+    },
+    {
+    	origin: 'ndkperiodicalvolume',
+    	dest: [
+        {model: 'ndkperiodicalissue', originmodel:"periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
+    	]
+    },
+    {
+      origin: 'ndkmap',
+      dest: [
+        {model: 'oldprintmap', originmodel:"ndkmap", "apiPoint": "object/changeNdkCartographicToOldPrintCartographic"}
+      ]
+    },
+    {
+      origin: 'ndkchapter',
+      dest: [
+        {model: 'oldprintchapter', originmodel:"ndkchapter", "apiPoint": "object/changeNdkChapterToOldPrintChapter"}
+      ]
+    },
+    {
+      origin: 'ndksheetmusic',
+      dest: [
+        {model: 'oldprintsheetmusic', originmodel:"ndksheetmusic", "apiPoint": "object/changeNdkMusicSheetToOldPrintMusicSheet"}
+      ]
+    },
+    {
+      origin: 'ndkpicture',
+      dest: [
+        {model: 'oldprintgraphics', originmodel:"ndkpicture", "apiPoint": "object/changeNdkPictureToOldPrintGraphic"}
+      ]
+    },
+
+    // oldprint
+    {
+      origin: 'oldprintmap',
+      dest: [
+        {model: 'ndkmap', originmodel:"oldprintmap", "apiPoint": "object/changeOldPrintCartographicToNdkCartographic"}
+      ]
+    },
+    {
+      origin: 'oldprintchapter',
+      dest: [
+        {model: 'ndkchapter', originmodel:"oldprintchapter", "apiPoint": "object/changeOldPrintChapterToNdkChapter"}
+      ]
+    },
+    {
+      origin: 'oldprintsupplement',
+      dest: [
+        {model: 'ndkmonographsupplement', originmodel:"oldprintsupplement", "apiPoint": "object/changeOldPrintMonographSupplementToNdkMonographSupplement"}
+      ]
+    },
+    {
+      origin: 'oldprintsheetmusic',
+      dest: [
+        {model: 'ndksheetmusic', originmodel:"oldprintsheetmusic", "apiPoint": "object/changeOldPrintMusicSheetToNdkMusicSheet"}
+      ]
+    },
+    {
+      origin: 'oldprintgraphics',
+      dest: [
+        {model: 'ndkpicture', originmodel:"oldprintgraphics", "apiPoint": "object/changeOldPrintGraphicToNdkPicture"}
+      ]
+    },
+    {
+      origin: 'oldprintvolume',
+      dest: [
+        {model: 'ndkmonographvolume', originmodel:"oldprintvolume", "apiPoint": "object/changeOldPrintMonographVolumeToNdkMonographVolume"},
+        {model: 'oldprintgraphics', originmodel:"oldprintvolume", "apiPoint": "object/changeOldPrintMonographVolumeToOldPrintGraphic"},
+        {model: 'oldprintsheetmusic', originmodel:"oldprintvolume", "apiPoint": "object/changeOldPrintMonographVolumeToOldPrintMusicSheet"}
+      ]
+    },
+
+    // k4
+    {
+    	origin: 'monograph',
+    	dest: [
+        {model: 'ndkmonographvolume', originmodel:"monograph", apiPoint: "object/changeK4MonographToNdkMonographVolume"},
+        {model: 'ndkmonographvolume', originmodel:"monographunit", apiPoint: "object/changeK4MonographUnitToNdkMonographVolume"},
+    	]
+    },
+    {
+    	origin: 'monographunit',
+    	dest: [
+        {model: 'ndkmonographvolume', originmodel:"monographunit", apiPoint: "object/changeK4MonographUnitToNdkMonographVolume"},
+    	]
+    },
+    {
+    	origin: 'periodicalvolume',
+    	dest: [
+        {model: 'ndkperiodicalissue', originmodel:"periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
+        {model: 'ndkperiodicalvolume', originmodel:"periodicalvolume", apiPoint: "object/changeK4PeriodicalVolumeToNdkPeriodicalVolume"},
+    	]
+    },
+    {
+    	origin: 'periodical',
+    	dest: [
+        {model: 'ndkperiodicalissue', originmodel:"periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
+        {model: 'ndkperiodical', originmodel:"periodical", apiPoint: "object/changeK4PeriodicalToNdkPeriodical"},
+        {model: 'ndkperiodicalvolume', originmodel:"periodicalvolume", apiPoint: "object/changeK4PeriodicalVolumeToNdkPeriodicalVolume"},
+    	]
+    },
+    {
+    	origin: 'periodicalitem',
+    	dest: [
+        {model: 'ndkperiodicalissue', originmodel:"periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
+    	]
+    },
+
+
+    // clippings
 		{
 			origin: 'clippingstitle',
 			dest: [
@@ -246,71 +388,6 @@ export class ConfigService {
 				{model: 'ndkmonographvolume', apiPoint: "object/changeClippingsVolumeToNdkMonographVolume"},
 			]
 		},
-		{
-			origin: 'monograph',
-			dest: [
-				{model: 'ndkmonographvolume', originmodel:"monograph", apiPoint: "object/changeK4MonographToNdkMonographVolume"},
-				{model: 'ndkmonographvolume', originmodel:"monographunit", apiPoint: "object/changeK4MonographUnitToNdkMonographVolume"},
-			]
-		},
-		{
-			origin: 'monographunit',
-			dest: [
-				{model: 'ndkmonographvolume', originmodel:"monographunit", apiPoint: "object/changeK4MonographUnitToNdkMonographVolume"},
-			]
-		},
-		{
-			origin: 'ndkmonographvolume',
-			dest: [
-				{model: 'ndkmonographvolume', originmodel:"monographunit", apiPoint: "object/changeK4MonographUnitToNdkMonographVolume"},
-				// {model: 'clippingsvolume', apiPoint: "object/changeNdkMonographVolumeToClippingsVolume"},
-				{model: 'ndkmonographtitle', originmodel:"ndkmonographvolume", apiPoint: "object/changeNdkMonographVolumeToNdkMonographTitle"},
-			]
-		},
-		{
-			origin: 'ndkmonographtitle',
-			dest: [
-				{model: 'ndkmonographvolume', originmodel:"monographunit", apiPoint: "object/changeK4MonographUnitToNdkMonographVolume"},
-				// {model: 'clippingstitle', apiPoint: "object/changeNdkMonographTitleToClippingsTitle"},
-				{model: 'ndkmonographvolume', originmodel:"ndkmonographtitle", apiPoint: "object/changeNdkMonographTitleToNdkMonographVolume"},
-				// {model: 'clippingsvolume', apiPoint: "object/changeNdkMonographVolumeToClippingsVolume"},
-				{model: 'ndkmonographtitle', originmodel:"ndkmonographvolume", apiPoint: "object/changeNdkMonographVolumeToNdkMonographTitle"},
-			]
-		},
-		{
-			origin: 'periodicalitem',
-			dest: [
-				{model: 'ndkperiodicalissue', originmodel:"periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
-			]
-		},
-		{
-			origin: 'ndkperiodicalvolume',
-			dest: [
-				{model: 'ndkperiodicalissue', originmodel:"periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
-			]
-		},
-		{
-			origin: 'periodicalvolume',
-			dest: [
-				{model: 'ndkperiodicalissue', originmodel:"periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
-				{model: 'ndkperiodicalvolume', originmodel:"periodicalvolume", apiPoint: "object/changeK4PeriodicalVolumeToNdkPeriodicalVolume"},
-			]
-		},
-		{
-			origin: 'periodical',
-			dest: [
-				{model: 'ndkperiodicalissue', originmodel:"periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
-				{model: 'ndkperiodical', originmodel:"periodical", apiPoint: "object/changeK4PeriodicalToNdkPeriodical"},
-				{model: 'ndkperiodicalvolume', originmodel:"periodicalvolume", apiPoint: "object/changeK4PeriodicalVolumeToNdkPeriodicalVolume"},
-			]
-		},
-		{
-			origin: 'ndkperiodical',
-			dest: [
-				{model: 'ndkperiodicalissue', originmodel:"periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
-				{model: 'ndkperiodicalvolume', originmodel:"periodicalvolume", apiPoint: "object/changeK4PeriodicalVolumeToNdkPeriodicalVolume"},
-			]
-		}
 	];
 
 	public modelChanges = ConfigService.modelChangesDefault || [];
