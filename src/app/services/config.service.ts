@@ -395,6 +395,9 @@ export class ConfigService {
 	public showFooter = !!APP_GLOBAL.showFooter;
 	public expandedModels = !!APP_GLOBAL.expandedModels;
 
+	private static donators = [ 'ilnorway', 'norway', 'dkrvo19-23'];
+	public donators = APP_GLOBAL.donators || ConfigService.donators;
+
 	constructor() {
 	}
 

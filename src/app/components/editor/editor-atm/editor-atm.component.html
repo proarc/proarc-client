@@ -59,6 +59,14 @@
         <div class="app-detail-key-value">{{ 'editor.atm.lockedBy' | translate }}: <strong>{{ atm.lockedBy }}</strong></div>
         <div class="app-detail-key-value">{{ 'editor.atm.lockedDate' | translate }}: <strong>{{ atm.lockedDate | date : 'dd.MM.yyyy' }}</strong></div>
       </div>
+      <div>
+        <mat-form-field>
+          <mat-select [placeholder]="'editor.atm.donator' | translate" name="donator" [(value)]="atm.donator">
+            <mat-option [value]="null">{{ 'editor.atm.donators.none' | translate }}</mat-option>
+            <mat-option *ngFor="let donator of donators" [value]="donator">{{ 'editor.atm.donators.' + donator | translate }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
 	</div>
 </div>

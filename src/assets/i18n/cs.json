@@ -264,7 +264,14 @@
         "exported": "Exportováno"
       },
       "lockedBy": "Uzamkl(a)",
-      "lockedDate": "Datum uzamknutí"
+      "lockedDate": "Datum uzamknutí",
+      "donators": {
+        "none": "<Žádné donátor>",
+        "ilnorway": "Norské fondy (nové logo)",
+        "norway": "Norské fondy (staré logo)",
+        "dkrvo19-23": "DKRVO 2019 - 2023"
+      },
+      "donator": "Donátor"
     },
     "children": {
       "view_list": "Tabulka",

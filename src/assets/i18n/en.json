@@ -244,7 +244,14 @@
         "exported": "Exported"
       },
       "lockedBy": "Locked by",
-      "lockedDate": "Locked date"
+      "lockedDate": "Locked date",
+      "donators": {
+        "none": "<No donor>",
+        "ilnorway": "Norské fondy (nové logo)",
+        "norway": "Norské fondy (staré logo)",
+        "dkrvo19-23": "DKRVO 2019 - 2023"
+      },
+      "donator": "Donor"
     },
     "children": {
       "view_list": "Table",

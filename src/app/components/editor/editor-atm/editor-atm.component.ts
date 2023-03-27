@@ -22,6 +22,7 @@ export class EditorAtmComponent implements OnInit {
   devices: Device[];
   organizations: string[];
   users: User[];
+  donators: string[];
 
   public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
 
@@ -44,6 +45,7 @@ export class EditorAtmComponent implements OnInit {
 
   ngOnInit() {
     this.organizations = this.config.organizations;
+    this.donators = this.config.donators;
     // this.layout.selectionChanged().subscribe(() => {
     //   this.reload();
     // });
