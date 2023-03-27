@@ -317,7 +317,7 @@ export class ParentDialogComponent implements OnInit {
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        if (this.getNumOfSelected() > 0 || this.data.parent) {
+        if (this.data.isRepo && (this.getNumOfSelected() > 0 || this.data.parent)) {
           this.relocateObjects(items[0].parent, destinationPid);
         } else {
           this.setParent(destinationPid);
