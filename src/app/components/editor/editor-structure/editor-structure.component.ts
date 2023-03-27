@@ -734,7 +734,8 @@ export class EditorStructureComponent implements OnInit {
         items: this.layout.items,
         expandedPath: this.expandedPath,
         displayedColumns: this.displayedColumns,
-        isRepo: this.isRepo
+        isRepo: this.isRepo,
+        batchId: this.layout.getBatchId()
       },
       width: '95%',
       maxWidth: '100vw',

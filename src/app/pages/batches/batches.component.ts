@@ -100,7 +100,7 @@ export class BatchesComponent implements OnInit {
     });
 
     this.api.getBatchPages(this.layout.getBatchId()).subscribe((response: any) => {
-    
+
       if (response['response'].status === -1) {
         this.ui.showErrorSnackBar(response['response'].data);
         // this.router.navigate(['/import/history']);
@@ -185,7 +185,7 @@ export class BatchesComponent implements OnInit {
               item.selected = true;
             }
           })
-        } else if(this.layout.items.length > 0) {
+        } else if (this.layout.items.length > 0) {
           this.layout.items[0].selected = true;
         }
 
@@ -220,17 +220,17 @@ export class BatchesComponent implements OnInit {
       if (p.invalid) {
         invalidCount++
       }
-      
+
     });
     return invalidCount;
   }
 
   tryIngest() {
-    const invalidCount = this.validatePages() ;
+    const invalidCount = this.validatePages();
     if (invalidCount > 0) {
-      let message =   String(this.translator.instant('dialog.childrenValidation.alert.error', {value1: invalidCount, value2: this.layout.items.length}));
+      let message = String(this.translator.instant('dialog.childrenValidation.alert.error', { value1: invalidCount, value2: this.layout.items.length }));
       const data: SimpleDialogData = {
-        title:'Nevalidní data',
+        title: 'Nevalidní data',
         message,
         btn1: {
           label: "Pokračovat",
@@ -247,7 +247,7 @@ export class BatchesComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         if (result === 'yes') {
           this.ingest();
-        } 
+        }
       });
     } else {
       this.ingest();
@@ -281,18 +281,20 @@ export class BatchesComponent implements OnInit {
       this.ingestBatch(batchParent);
     } else {
 
-let expandedPath: string[];
+      let expandedPath: string[];
       if (this.properties.getStringProperty('parent.expandedPath')) {
         expandedPath = JSON.parse(this.properties.getStringProperty('parent.expandedPath'));
       }
 
-      const dialogRef = this.dialog.open(ParentDialogComponent, { 
+      const dialogRef = this.dialog.open(ParentDialogComponent, {
         data: {
           btnLabel: 'editor.children.relocate_label',
           parent: null,
           items: this.layout.items,
           expandedPath: expandedPath,
-          displayedColumns: ['filename', 'pageType', 'pageNumber', 'pageIndex', 'pagePosition']
+          displayedColumns: ['filename', 'pageType', 'pageNumber', 'pageIndex', 'pagePosition'],
+          isRepo: false,
+          batchId: this.batchId
         },
         // data: { 
         //   btnLabel: 'import.save', items: this.layout.items 

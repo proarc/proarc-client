@@ -16,6 +16,8 @@ import { SimpleDialogData } from '../simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from '../simple-dialog/simple-dialog.component';
 import { UIService } from 'src/app/services/ui.service';
 import { Sort } from '@angular/material/sort';
+import { IngestDialogComponent } from '../ingest-dialog/ingest-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-parent-dialog',
@@ -98,6 +100,7 @@ export class ParentDialogComponent implements OnInit {
     public properties: LocalStorageService,
     private translator: TranslateService,
     private dialog: MatDialog,
+    private router: Router,
     public search: SearchService,
     private ui: UIService,
     private config: ConfigService,
@@ -317,12 +320,28 @@ export class ParentDialogComponent implements OnInit {
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        if (this.data.isRepo && (this.getNumOfSelected() > 0 || this.data.parent)) {
+        if (!this.data.isRepo) {
+          this.ingestBatch(destinationPid);
+        } else if (this.data.isRepo && (this.getNumOfSelected() > 0 || this.data.parent)) {
           this.relocateObjects(items[0].parent, destinationPid);
         } else {
           this.setParent(destinationPid);
         }
 
+      }
+    });
+  }
+
+  private ingestBatch(parentPid: string) {
+    this.state = 'loading';
+    const bathId = parseInt(this.data.batchId);
+    const dialogRef = this.dialog.open(IngestDialogComponent, { data: { batch: bathId, parent: parentPid } });
+    dialogRef.afterClosed().subscribe(result => {
+      this.state = 'success';
+      if (result == 'open') {
+        this.router.navigate(['/repository', parentPid]);
+      } else {
+        this.router.navigate(['/']);
       }
     });
   }
