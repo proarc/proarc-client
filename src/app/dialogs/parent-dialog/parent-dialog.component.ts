@@ -143,7 +143,12 @@ export class ParentDialogComponent implements OnInit {
   }
 
   isAllowed() {
-    return this.getNumOfSelected() > 0 && this.selectedItem && ModelTemplate.allowedChildrenForModel(this.selectedItem.model).includes(this.getSelected()[0].model);
+    if (this.data.isRepo) {
+      return this.getNumOfSelected() > 0 && this.selectedItem && ModelTemplate.allowedChildrenForModel(this.selectedItem.model).includes(this.getSelected()[0].model);
+    } else {
+      return this.selectedItem && ModelTemplate.allowedChildrenForModel(this.selectedItem.model).includes(this.orig[0].model);
+    }
+    
   }
 
   getSortIcon(field: string) {

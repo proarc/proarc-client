@@ -6,11 +6,11 @@
   <div mat-dialog-content fxFlex class="app-maxh-100">
     <mat-progress-bar *ngIf="state=='loading'" mode="indeterminate"></mat-progress-bar>
     <as-split direction="horizontal" [disabled]="false">
-      <as-split-area *ngIf="data.isRepo" [size]="30">
+      <as-split-area *ngIf="data.isRepo" [size]="30" [order]="0">
         <ng-container [ngTemplateOutlet]="origTmpl"></ng-container>
       </as-split-area>
 
-      <as-split-area [size]="50">
+      <as-split-area [size]="50" [order]="1">
         <as-split style="height: calc(100% - 5px);" unit="percent" [gutterSize]="10" direction="vertical" (dragEnd)="dragEnd($event)" #split="asSplit">
           <as-split-area #area1="asSplitArea" [minSize]="20" [size]="getSplitSize(0)">
             <ng-container [ngTemplateOutlet]="searchTmpl"></ng-container>
@@ -21,7 +21,7 @@
         </as-split>
       </as-split-area>
 
-      <as-split-area *ngIf="data.isRepo" [size]="20" [size]="getSplitSize(1)">
+      <as-split-area *ngIf="data.isRepo" [size]="20" [size]="getSplitSize(1)" [order]="2">
         <ng-container [ngTemplateOutlet]="imageTmpl"></ng-container>
       </as-split-area>
     </as-split>
@@ -32,7 +32,7 @@
   </mat-card>
   <div mat-dialog-actions cdk-focus-start>
     <button mat-flat-button color="primary" *ngIf="data.parent" (click)="onDeleteParent()">{{ 'button.unlink' | translate }}</button>
-    <button mat-flat-button color="primary" (click)="onSave()" [disabled]="getNumOfSelected() === 0 || state=='loading' || !isAllowed()">
+    <button mat-flat-button color="primary" (click)="onSave()" [disabled]="(data.isRepo && getNumOfSelected() === 0) || state=='loading' || !isAllowed()">
       {{ (data.isRepo ? 'button.move' : 'button.save') | translate }}
     </button>
     <button mat-flat-button [mat-dialog-close]="hasChanges">{{ 'button.close' | translate }}</button>
