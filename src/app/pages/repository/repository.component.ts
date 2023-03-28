@@ -219,6 +219,7 @@ export class RepositoryComponent implements OnInit {
     this.layout.tree = null;
     this.layout.parent = null;
     this.layout.selectedParentItem = null;
+    this.layout.lastSelectedItem = null;
     const rDoc = this.api.getDocument(pid);
     const rChildren = this.api.getRelations(pid);
     const rParent = this.api.getParent(pid);

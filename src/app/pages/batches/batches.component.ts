@@ -48,6 +48,7 @@ export class BatchesComponent implements OnInit {
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
+    this.layout.lastSelectedItem = null;
   }
 
   ngOnInit(): void {
