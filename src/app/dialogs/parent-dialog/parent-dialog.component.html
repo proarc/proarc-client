@@ -6,7 +6,7 @@
   <div mat-dialog-content fxFlex class="app-maxh-100">
     <mat-progress-bar *ngIf="state=='loading'" mode="indeterminate"></mat-progress-bar>
     <as-split direction="horizontal" [disabled]="false">
-      <as-split-area [size]="30">
+      <as-split-area *ngIf="data.isRepo" [size]="30">
         <ng-container [ngTemplateOutlet]="origTmpl"></ng-container>
       </as-split-area>
 
@@ -21,19 +21,19 @@
         </as-split>
       </as-split-area>
 
-      <as-split-area [size]="20" [size]="getSplitSize(1)">
+      <as-split-area *ngIf="data.isRepo" [size]="20" [size]="getSplitSize(1)">
         <ng-container [ngTemplateOutlet]="imageTmpl"></ng-container>
       </as-split-area>
     </as-split>
   </div>
   <mat-card class="app-alert app-info app-mt-4" *ngIf="getNumOfSelected() !== 0 && state!=='loading' && isAllowed()">
     <mat-icon>info</mat-icon>
-    {{ 'dialog.parent.alert.info' | translate }}:&#160;<strong>{{ selectedItem.label }}</strong>
+    {{ (data.isRepo ? 'dialog.parent.alert.infoRepo' : 'dialog.parent.alert.infoImport') | translate }}:&#160;<strong>{{ selectedItem.label }}</strong>
   </mat-card>
   <div mat-dialog-actions cdk-focus-start>
     <button mat-flat-button color="primary" *ngIf="data.parent" (click)="onDeleteParent()">{{ 'button.unlink' | translate }}</button>
     <button mat-flat-button color="primary" (click)="onSave()" [disabled]="getNumOfSelected() === 0 || state=='loading' || !isAllowed()">
-      {{ 'button.move' | translate }}
+      {{ (data.isRepo ? 'button.move' : 'button.save') | translate }}
     </button>
     <button mat-flat-button [mat-dialog-close]="hasChanges">{{ 'button.close' | translate }}</button>
   </div>

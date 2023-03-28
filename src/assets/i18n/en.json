@@ -2331,7 +2331,8 @@
     "parent": {
       "title": "Select the parent object",
       "alert": {
-        "info": "Move object/s to"
+        "infoRepo": "Move object/s to",
+        "infoImport": "Save object/s to"
       }
     }
   },

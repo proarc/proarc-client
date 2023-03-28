@@ -2331,7 +2331,8 @@
     "parent": {
       "title": "Vyberte nadřazený objekt",
       "alert": {
-        "info": "Přesunout objekt/y do"
+        "infoRepo": "Přesunout objekt/y do",
+        "infoImport": "Uložit objekt/y do"
       }
     }
   },

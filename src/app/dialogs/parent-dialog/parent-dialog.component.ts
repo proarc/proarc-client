@@ -344,6 +344,7 @@ export class ParentDialogComponent implements OnInit {
         this.router.navigate(['/']);
       }
     });
+    this.dialogRef.close(false);
   }
 
   relocateObjects(parentPid: string, destinationPid: string) {
