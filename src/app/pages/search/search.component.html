@@ -64,7 +64,7 @@
         </mat-form-field>
       </ng-container>
     </div>
-  
+
     <as-split fxFlex unit="percent" [gutterSize]="10" direction="vertical" (dragEnd)="dragEnd($event)" #split="asSplit">
       <as-split-area #area1="asSplitArea" [minSize]="20" [size]="getSplitSize(0)">
         <div *ngIf="items" fxLayout="column" fxFlexFill>
@@ -82,7 +82,7 @@
               <button (click)="showFoxml(selectedItem)" mat-button>FOXML</button>
               <button (click)="onExport(selectedItem)" mat-button>{{ 'button.export' | translate }}</button>
               <button (click)="onUrnnbn(selectedItem)" mat-button>URN:NBN</button>
-              <button *ngIf="canChangeModel(selectedItem)" (click)="changeModel(selectedItem)" mat-button>{{ 'button.conversionsOfNdkModels' | translate }}</button>
+              <button *ngIf="canChangeModel(selectedItem)" (click)="changeModel(selectedItem)" mat-button>{{ 'button.conversionsOfModels' | translate }}</button>
               <button (click)="onDeleteItem()" mat-button>{{ 'button.delete' | translate }}</button>
               <button *ngIf="!selectedItem.isLocked && (auth.user.lockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, true)" mat-button>{{ 'button.lockIt' | translate }}</button>
               <button *ngIf="selectedItem.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, false)" mat-button>{{ 'button.unlock' | translate }}</button>
@@ -205,14 +205,14 @@
                   <mat-icon [matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">{{ element.isLocked ? 'lock' : 'lock_open' }}</mat-icon>
                 </td>
               </ng-container>
-    
+
               <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectItem(row)" (dblclick)="openItem(row)" class="app-cursor-pointer" [class.app-selected]="row == selectedItem"></tr>
             </table>
           </div>
         </div>
       </as-split-area>
-      
+
       <as-split-area #area2="asSplitArea" [minSize]="20" [size]="getSplitSize(1)">
         <div *ngIf="tree" fxLayout="column" fxFlexFill>
           <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar app-toolbar-action app-view-border-bottom">
@@ -222,7 +222,7 @@
               <button (click)="showFoxml(search.selectedTree.item)" mat-button>FOXML</button>
               <button (click)="onExport(search.selectedTree.item)" mat-button>{{ 'button.export' | translate }}</button>
               <button (click)="onUrnnbn(search.selectedTree.item)" mat-button>URN:NBN</button>
-              <button *ngIf="canChangeModel(search.selectedTree.item)" (click)="changeModel(search.selectedTree.item)" mat-button>{{ 'button.conversionsOfNdkModels' | translate }}</button>
+              <button *ngIf="canChangeModel(search.selectedTree.item)" (click)="changeModel(search.selectedTree.item)" mat-button>{{ 'button.conversionsOfModels' | translate }}</button>
               <button (click)="onExpandAll()" mat-button>{{ 'button.unpack' | translate }}</button>
               <button *ngIf="search.selectedTree.item" (click)="onDeleteFromTree()" mat-button>{{ 'button.delete' | translate }}</button>
               <button *ngIf="canCopy(search.selectedTree.item)" (click)="onCopyItem(search.selectedTree.item)" mat-button>{{ 'button.copy' | translate }}</button>
