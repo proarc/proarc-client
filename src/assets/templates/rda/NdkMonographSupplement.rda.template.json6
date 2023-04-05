@@ -121,7 +121,7 @@
         //   usage: "O",
         //   label: "Napojená instituce",
         //   selector: "name/affiliation",
-        labelKey: 'name/affiliation',
+//        labelKey: 'name/affiliation',
         //   description: 'Umožňuje vepsat název instituce, se kterou je autor spojen<br/>
         //   např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.'
         // },
@@ -133,7 +133,7 @@
           description: 'Číslo národní autority',
         },
         etal: {
-          usage: 'MA',
+          usage: 'O',
           label: 'Etal',
           selector: 'name/etal',
           labelKey: 'name/etal',
@@ -489,7 +489,7 @@
       }
     },
     language: {
-      usage: 'M',
+      usage: 'MA',
       required: true,
       label: 'Jazyk',
       selector: 'language',
@@ -584,7 +584,7 @@
                 ['rdacarrier', 'rdacarrier']]
             },
             type: {
-              usage: 'MA',
+              usage: 'M',
               label: 'Typ',
               selector: 'physicalDescription/form/@type',
               labelKey: 'physicalDescription/form/@type',
@@ -747,7 +747,7 @@
           ]
         },
         edition: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Vydání',
           selector: 'classification/@edition',
           labelKey: 'classification/@edition',
