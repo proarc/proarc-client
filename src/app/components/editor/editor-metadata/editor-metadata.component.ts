@@ -188,9 +188,8 @@ export class EditorMetadataComponent implements OnInit {
     });
   }
 
-  saveModsFromCatalog(xml: string, callback: () => void) {
+  saveModsFromCatalog(xml: string) {
     this.state = 'saving';
-    // this.api.editModsXml(mods.pid, mods.content, mods.timestamp, null, ignoreValidation, this.layout.getBatchId()).subscribe((resp: any) => {
     this.api.editModsXml(this.metadata.pid, xml, this.metadata.timestamp, null, false).subscribe((resp: any) => {
         if (resp.errors) {
             this.state = 'error';
@@ -210,7 +209,7 @@ export class EditorMetadataComponent implements OnInit {
     const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'full' } });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
-        this.saveModsFromCatalog(result['mods'], () => { });
+        this.saveModsFromCatalog(result['mods']);
       }
     });
   }
