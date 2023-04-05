@@ -352,7 +352,7 @@
 
 <ng-template #stromTmpl>
   <div class="app-tree" *ngIf="state !== 'saving' && selectedItem">
-    <app-tree [tree]="tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)" [expanded]="data.selectedTree !== undefined" [expandedPath]="expandedPath"></app-tree>
+    <app-tree *ngIf="tree" [tree]="tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)" [expanded]="data.selectedTree !== undefined" [expandedPath]="expandedPath"></app-tree>
   </div>
 </ng-template>
 
