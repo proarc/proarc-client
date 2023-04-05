@@ -490,7 +490,7 @@
           ]
         },
         topic: {
-          usage: 'M',
+          usage: 'R',
           label: 'Klíčové slovo/Předmětové heslo',
           selector: 'subject/topic',
           labelKey: 'subject/topic',
@@ -498,7 +498,7 @@
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21'
         },
         geographic: {
-          usage: 'R',
+          usage: 'MA',
           label: 'Geografické věcné třídění',
           selector: 'subject/geographic',
           labelKey: 'subject/geographic',
@@ -625,7 +625,7 @@
       }
     },
     language: {
-      usage: 'MA',
+      usage: 'M',
       required: true,
       label: 'Jazyk',
       selector: 'language',
@@ -671,7 +671,7 @@
       description: 'Shrnutí obsahu jako celku odpovídá poli 520 MARC21',
       fields: {
         abstract: {
-          usage: 'RA',
+          usage: 'R',
           label: 'Abstrakt',
           selector: 'abstract',
           labelKey: 'abstract/value',
@@ -680,8 +680,8 @@
       }
     },
     physicalDescription: {
-      usage: 'R',
-//      required: true,
+      usage: 'M',
+      required: true,
       label: 'Fyzický popis',
       selector: 'physicalDescription',
       labelKey: 'physicalDescription',
@@ -719,8 +719,8 @@
           ',
           fields: {
             authority: {
-              usage: 'R',
-//              required: true,
+              usage: 'MA',
+              required: true,
               label: 'Autorita',
               selector: 'physicalDescription/form/@authority',
               labelKey: 'physicalDescription/form/@authority',
@@ -890,7 +890,7 @@
           ]
         },
         edition: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Vydání',
           selector: 'classification/@edition',
           labelKey: 'classification/@edition',
