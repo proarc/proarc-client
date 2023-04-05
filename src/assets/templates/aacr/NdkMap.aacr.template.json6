@@ -63,7 +63,7 @@
           odpovídající pole a podpole podle typu, viz typ'
         },
         partNumber: {
-          usage: 'MA',
+          usage: 'RA',
           label: 'Číslo části',
           selector: 'titleInfo/partNumber',
           labelKey: 'titleInfo/partNumber',
@@ -71,7 +71,7 @@
           description: 'Číslo části'
         },
         partName: {
-          usage: 'MA',
+          usage: 'RA',
           label: 'Název části',
           selector: 'titleInfo/partName',
           labelKey: 'titleInfo/partName',
@@ -91,8 +91,8 @@
       pokud má kartografický dokument jiné původce než je autor, element <name> se opakuje s různými rolemi (kartograf, litograf apod.)',
       fields: {
         type: {
-          usage: 'MA',
-          required: true,
+          usage: 'R',
+//          required: true,
           label: 'Typ',
           selector: 'name/@type',
           labelKey: 'name/@type',
@@ -397,7 +397,7 @@
           ]
         },
         topic: {
-          usage: 'R',
+          usage: 'M',
           label: 'Klíčové slovo/Předmětové heslo',
           selector: 'subject/topic',
           labelKey: 'subject/topic',
@@ -532,7 +532,7 @@
       }
     },
     language: {
-      usage: 'M',
+      usage: 'MA',
       required: true,
       label: 'Jazyk',
       selector: 'language',
@@ -587,8 +587,8 @@
       }
     },
     physicalDescription: {
-      usage: 'M',
-      required: true,
+      usage: 'R',
+//      required: true,
       label: 'Fyzický popis',
       selector: 'physicalDescription',
       labelKey: 'physicalDescription',
@@ -620,8 +620,8 @@
           odpovídá hodnotě v poli 008/23',
           fields: {
             authority: {
-              usage: 'M',
-              required: true,
+              usage: 'R',
+//              required: true,
               label: 'Autorita',
               selector: 'physicalDescription/form/@authority',
               labelKey: 'physicalDescription/form/@authority',
@@ -696,7 +696,7 @@
       description: 'Údaje o identifikátorech, obsahuje unikátní identifikátory mezinárodní nebo lokální, které kartografický dokument obsahuje.',
       fields: {
         type: {
-          usage: 'M',
+          usage: 'MA',
           required: true,
           label: 'Typ',
           selector: 'identifier/@type',
@@ -1008,7 +1008,7 @@
       }
     },
     relatedItem: {
-      usage: 'MA',
+      usage: 'RA',
       label: 'Informace o dalších dokumentech',
       selector: 'relatedItem',
       labelKey: 'relatedItem',
