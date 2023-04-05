@@ -351,7 +351,7 @@
 </ng-template>
 
 <ng-template #stromTmpl>
-  <div class="app-tree" *ngIf="selectedItem">
+  <div class="app-tree" *ngIf="state !== 'saving' && selectedItem">
     <app-tree [tree]="tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)" [expanded]="data.selectedTree !== undefined" [expandedPath]="expandedPath"></app-tree>
   </div>
 </ng-template>

@@ -338,7 +338,7 @@ export class ParentDialogComponent implements OnInit {
   }
 
   private ingestBatch(parentPid: string) {
-    this.state = 'loading';
+    this.state = 'saving';
     const bathId = parseInt(this.data.batchId);
     const dialogRef = this.dialog.open(IngestDialogComponent, { data: { batch: bathId, parent: parentPid } });
     dialogRef.afterClosed().subscribe(result => {
@@ -354,6 +354,7 @@ export class ParentDialogComponent implements OnInit {
 
   relocateObjects(parentPid: string, destinationPid: string) {
     this.state = 'saving';
+    this.tree = null;
     let pids: string[] = this.orig.filter(c => c.selected).map(c => c.pid);
     const isMultiple = this.orig.filter(c => c.selected).length > 1;
 
@@ -377,6 +378,7 @@ export class ParentDialogComponent implements OnInit {
 
       this.origTable = new MatTableDataSource(this.orig);
       this.state = 'success';
+      this.tree = new Tree(this.selectedItem);
       this.hasChanges = true;
     });
   }
