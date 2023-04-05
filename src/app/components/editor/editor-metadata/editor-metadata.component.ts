@@ -188,12 +188,29 @@ export class EditorMetadataComponent implements OnInit {
     });
   }
 
+  saveModsFromCatalog(xml: string, callback: () => void) {
+    this.state = 'saving';
+    // this.api.editModsXml(mods.pid, mods.content, mods.timestamp, null, ignoreValidation, this.layout.getBatchId()).subscribe((resp: any) => {
+    this.api.editModsXml(this.metadata.pid, xml, this.metadata.timestamp, null, false).subscribe((resp: any) => {
+        if (resp.errors) {
+            this.state = 'error';
+            this.ui.showErrorSnackBarFromObject(resp.errors);
+            setTimeout(() => {
+                this.metadata.validate();
+            }, 100);
+            return;
+        }
+            this.state = 'success';
+        this.layout.refreshSelectedItem(false, 'metadata');
+    });
+}
+
 
   onLoadFromCatalog() {
     const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'full' } });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
-        //this.repo.saveModsFromCatalog(result['mods'], () => { });
+        this.saveModsFromCatalog(result['mods'], () => { });
       }
     });
   }
