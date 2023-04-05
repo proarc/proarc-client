@@ -832,7 +832,7 @@
               <strong>Platný</strong> <code>identifier/[not(@invalid)]</code>
             </li>
             <li>
-              <strong>Neplatný</strong> <code>identifier/[@invalid='yes']</code>
+              <strong>Neplatný</strong> <code>identifier/[@invalid="yes"]</code>
             </li>
           </ul>`
         },
@@ -1844,7 +1844,7 @@
               <strong>Platný</strong> <code>identifier/[not(@invalid)]</code>
             </li>
             <li>
-              <strong>Neplatný</strong> <code>identifier/[@invalid='yes']</code>
+              <strong>Neplatný</strong> <code>identifier/[@invalid="yes"]</code>
             </li>
           </ul>`
             },
