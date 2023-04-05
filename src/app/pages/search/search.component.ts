@@ -570,6 +570,7 @@ export class SearchComponent implements OnInit {
   
   selectFromTree(tree: Tree) {
     this.search.selectedTree = tree;
+    this.search.selectedTreePid = tree.item.pid;
   }
 
   canChangeModel(item: DocumentItem): boolean {
