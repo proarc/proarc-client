@@ -33,6 +33,7 @@ import {ModsDateIssued} from './dateIssued.model';
 import {ModsUrl} from './url.model';
 import {ModsShelfLocator} from './shelfLocator.model';
 import {ModsNamePart} from './namePart.model';
+import {ModsGeographicCode} from './ModsGeographicCode.model';
 
 export class ElementField {
 
@@ -50,7 +51,7 @@ export class ElementField {
             this.allExpanded = localStorage.getItem('metadata.allExpanded') === 'true';
         }
 
-        
+
         if (id.startsWith('relatedItem')) {
             this.allExpanded = this.allExpanded && localStorage.getItem('relatedItemExpanded') === 'true';
         }
@@ -78,7 +79,7 @@ export class ElementField {
                 this.items.push(newEl);
             }
         }
-        
+
         if (this.items.length - hiddenItems < 1) {
             const item = this.add();
             if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded) {
@@ -271,6 +272,8 @@ export class ElementField {
                 return new ModsFrequency(el, this.template);
             case ModsNamePart.getId():
                 return new ModsNamePart(el, this.template);
+            case ModsGeographicCode.getId():
+                return new ModsGeographicCode(el, this.template);
             case ModsDateIssued.getId():
                 return new ModsDateIssued(el, this.template);
             case ModsUrl.getId():
@@ -377,6 +380,8 @@ export class ElementField {
                 return ModsFrequency.getSelector();
             case ModsNamePart.getId():
                 return ModsNamePart.getSelector();
+            case ModsGeographicCode.getId():
+              return ModsGeographicCode.getSelector();
             case ModsDateIssued.getId():
                 return ModsDateIssued.getSelector();
             case ModsCartographics.getId():
