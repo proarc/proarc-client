@@ -10,8 +10,9 @@
       pokud má monografie více typů názvů, element se opakuje podle potřeby',
       fields: {
         type: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Typ',
+          required: true,
           selector: 'titleInfo/@type',
           labelKey: 'titleInfo/@type',
           cols: 2,
@@ -276,7 +277,7 @@
               help: 'off'
             },
             qualifier: {
-              usage: 'O',
+              usage: 'R',
               label: 'Upřesnění data',
               selector: 'originInfo/dateIssued/@qualifier',
               labelKey: 'originInfo/dateIssued/@qualifier',
@@ -311,7 +312,7 @@
               ]
             },
             point: {
-              usage: 'O',
+              usage: 'M',
               label: 'Point',
               selector: 'originInfo/dateIssued/@point',
               labelKey: 'originInfo/dateIssued/@point',
@@ -406,6 +407,15 @@
       labelKey: 'location',
       description: 'Údaje o uložení popisovaného dokumentu, např. signatura, místo uložení apod.',
       fields: {
+        physicalLocation: {
+          usage: 'RA',
+//          required: true,
+          label: 'Místo uložení',
+          selector: 'location/physicalLocation',
+          labelKey: 'location/physicalLocation',
+          description: 'Údaje o instituci, kde je fyzicky uložen daný konkrétní popisovaný dokument, např. NK ČR nutno použít kontrolovaný slovník – sigly knihovnen (ABA001 atd.) odpovídá poli 910 $a v MARC21<br\>\
+          Pozn. u dokumentů v digitální podobě není možné vyplnit',
+        },
         shelfLocator: {
           usage: 'RA',
           label: 'Signatura',
@@ -470,7 +480,7 @@
       Předpokládá se přebírání z katalogizačního záznamu',
       fields: {
         authority: {
-          usage: 'R',
+          usage: 'MA',
           label: 'Autorita',
           selector: 'subject/@authority',
           labelKey: 'subject/@authority',
@@ -646,7 +656,7 @@
       description: 'Shrnutí obsahu jako celku odpovídá poli 520 MARC21',
       fields: {
         abstract: {
-          usage: 'RA',
+          usage: 'R',
           label: 'Abstrakt',
           selector: 'abstract',
           labelKey: 'abstract/value',
@@ -655,7 +665,7 @@
       }
     },
     physicalDescription: {
-      usage: 'M',
+      usage: 'MA',
       required: true,
       label: 'Fyzický popis',
       selector: 'physicalDescription',
@@ -880,7 +890,7 @@
           ]
         },
         edition: {
-          usage: 'R',
+          usage: 'M',
           label: 'Vydání',
           selector: 'classification/@edition',
           labelKey: 'classification/@edition',
@@ -1110,7 +1120,7 @@
       }
     },
     relatedItem: {
-      usage: 'MA',
+      usage: 'O',
       label: 'Informace o dalších dokumentech',
       selector: 'relatedItem',
       labelKey: 'relatedItem',
