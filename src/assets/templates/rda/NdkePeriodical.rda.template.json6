@@ -275,7 +275,8 @@
             využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>',
           fields: {
             value: {
-              usage: 'MA',
+              usage: 'M',
+              required: true,
               selector: 'originInfo/dateIssued/value',
               labelKey: 'originInfo/dateIssued/value',
               label: 'Hodnota',
@@ -463,7 +464,7 @@
           description: 'Pro uvedení lokace elektronického dokumentu',
           fields: {
             value: {
-              usage: 'O',
+              usage: 'MA',
               selector: 'location/url/value',
               labelKey: 'location/url/value',
               label: 'Hodnota',
@@ -670,9 +671,29 @@
       labelKey: 'language',
       description: 'Údaje o jazyce dokumentu',
       fields: {
+        objectPart: {
+          usage: 'RA',
+          label: 'Část',
+          selector: 'language/@objectPart',
+          labelKey: 'language/@objectPart',
+          description: 'Možnost vyjádřit jazyk konkrétní částibr/>\
+          možné hodnoty<br/>\
+          <ul>\
+            <li><strong>Shrnutí</strong> (summary) – odpovídá poli 041 $b</li>\
+            <li><strong>Obsah</strong> (table of contents) - odpovídá poli 041 $f</li>\
+            <li><strong>Doprovodný materiál</strong> (accompanying material) - odpovídá poli 041 $g</li>\
+            <li><strong>Překlad</strong> (translation) - odpovídá poli 041 $h</li>\
+          </ul>',
+          options: [
+            ['', '-'],
+            ['summary', 'Shrnutí'],
+            ['table of contents', 'Obsah'],
+            ['accompanying material', 'Doprovodný materiál'],
+            ['translation', 'Překlad']
+          ]
+        },
         language: {
-          usage: 'M',
-          required: true,
+          usage: 'R',
           label: 'Jazyk',
           selector: 'language/languageTerm',
           labelKey: 'language/languageTerm',
@@ -688,7 +709,7 @@
       description: 'Obsahuje údaje o fyzickém popisu zdroje/předlohy',
       fields: {
         digitalOrigin: {
-          usage: 'M',
+          usage: 'MA',
           required: true,
           label: 'Zdroje digitálního dokumentu',
           selector: 'physicalDescription/digitalOrigin',
@@ -751,7 +772,7 @@
                 ['carrier', 'carrier']]
             },
             value: {
-              usage: 'M',
+              usage: 'MA',
               required: true,
               selector: 'physicalDescription/form/value',
               labelKey: 'physicalDescription/form/value',
@@ -854,8 +875,8 @@
       Odpovídá poli 072 $a MARC21',
       fields: {
         authority: {
-          usage: 'M',
-          required: true,
+          usage: 'MA',
+//          required: true,
           label: 'Autorita',
           selector: 'classification/@authority',
           labelKey: 'classification/@authority',
@@ -889,8 +910,8 @@
           ]
         },
         value: {
-          usage: 'M',
-          required: true,
+          usage: 'R',
+//          required: true,
           selector: 'classification/value',
           labelKey: 'classification/value',
           label: 'Hodnota',
