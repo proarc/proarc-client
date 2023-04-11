@@ -239,78 +239,6 @@
             odpovídá poli 260 $b katalogizačního záznamu v MARC21<br/>\
             pokud má titul více vydavatelů/ distributorů/ výrobců, přebírají se ze záznamu všichni (jsou v jednom poli 260)',
       },
-      eventType: {
-        usage: 'M',
-        required: true,
-        label: 'Typ',
-        selector: 'originInfo/@eventType',
-        labelKey: 'originInfo/@eventType',
-        cols: 2,
-        description: 'Hodnoty dle druhého indikátoru pole 264:\
-          <ul>\
-            <li>\
-              264_0 <strong>Produkce</strong> (production) <i>R</i><br/>\
-              Hodnota 0 se uvádí, jestliže pole obsahuje <strong>údaje o vytvoření</strong> zdroje v nezveřejněné podobě.\
-            </li>\
-            <li>\
-              264_1 <strong>Publikace</strong> (publication) <i>R</i><br/>\
-              Hodnota 1 se uvádí, jestliže pole obsahuje <strong>údaje o nakladateli</strong> zdroje\
-            </li>\
-            <li>\
-              264_2 <strong>Distribuce</strong> (distribution) <i>R</i><br/>\
-              Hodnota 2 se uvádí, jestliže pole obsahuje <strong>údaje o distribuci</strong> zdroje\
-            </li>\
-            <li>\
-              264_3 <strong>Výroba</strong> (manufacture) <i>R</i><br/>\
-              Hodnota 3 se uvádí, jestliže pole obsahuje <strong>údaje o tisku</strong>, výrobě zdroje ve zveřejněné podobě.\
-            </li>\
-            <li>\
-              264_4 <strong>Copyright</strong> (copyright) <i>R</i><br/>\
-              Hodnota 4 se uvádí, jestliže pole obsahuje <strong>údaje o ochraně podle autorského práva</strong>\
-            </li>\
-          </ul>\
-          <p>Element <originInfo> je opakovatelný. Alespoň v\
-          jednom případě musí být vyplněna hodnota\
-          eventType="production" nebo\
-          eventType="publication".\
-          </p>\
-          <p>Údaje o distribuci, výrobě a copyrightu jsou u\
-          tištěných monografií přesunuty z minimálního\
-          záznamu do doporučeného.<br/>\
-          </p>\
-          <p>Hodnota eventType musí být vyplněna na\
-          základě katalogizačního záznamu. Pravidlo pro\
-          převod je závazné, povinnost R značí, že musí\
-          být vybrána jedna z doporučených hodnot na\
-          základě katalogizačního záznamu.\
-          </p>',
-        options: [
-          [
-            '',
-            '-'
-          ],
-          [
-            'production',
-            'Produkce'
-          ],
-          [
-            'publication',
-            'Publikace'
-          ],
-          [
-            'distribution',
-            'Distribuce'
-          ],
-          [
-            'manufacture',
-            'Výroba'
-          ],
-          [
-            'copyright',
-            'Copyright'
-          ]
-        ]
-      },
       dateIssued: {
         usage: 'M',
         required: true,
@@ -459,31 +387,6 @@
         description: 'Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisovaného dokumentu<br/>\
             odpovídá hodnotě 264 $a'
       },
-      dateOther: {
-        usage: 'R',
-        label: 'Datum - jiné',
-        selector: 'originInfo/dateOther',
-        labelKey: 'originInfo/dateOther',
-        cols: 3,
-        description: 'Datum vytvoření, distribuce, výroby předlohy<br/>\
-          Tento elemet se využije v případě výskytu $c v:\
-          <ul>\
-            <li>264_0 <strong>Produkce</strong> (production)</li>\
-            <li>264_2 <strong>Distribuce</strong> (distribution)</li>\
-            <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
-          </ul>'
-      },
-      copyrightDate: {
-        usage: 'R',
-        label: 'Datum - copyright',
-        selector: 'originInfo/copyrightDate',
-        labelKey: 'originInfo/copyrightDate',
-        cols: 3,
-        description: 'Využije se pouze v případě výskytu pole 264 s druhým indikátorem 4 a podpolem $c<br/>\
-          <ul>\
-            <li>264_4 <strong>Copyright</strong> (copyright)</li>\
-          </ul>'
-      }
     }
   },
   location: {
@@ -1234,77 +1137,6 @@
             odpovídá poli 260 $b katalogizačního záznamu v MARC21<br/>\
             pokud má titul více vydavatelů/ distributorů/ výrobců, přebírají se ze záznamu všichni (jsou v jednom poli 260)',
           },
-          eventType: {
-            usage: 'M',
-            label: 'Typ',
-            selector: 'relatedItem/originInfo/@eventType',
-            labelKey: 'relatedItem/originInfo/@eventType',
-            cols: 2,
-            description: 'Hodnoty dle druhého indikátoru pole 264:\
-          <ul>\
-            <li>\
-              264_0 <strong>Produkce</strong> (production) <i>R</i><br/>\
-              Hodnota 0 se uvádí, jestliže pole obsahuje <strong>údaje o vytvoření</strong> zdroje v nezveřejněné podobě.\
-            </li>\
-            <li>\
-              264_1 <strong>Publikace</strong> (publication) <i>R</i><br/>\
-              Hodnota 1 se uvádí, jestliže pole obsahuje <strong>údaje o nakladateli</strong> zdroje\
-            </li>\
-            <li>\
-              264_2 <strong>Distribuce</strong> (distribution) <i>R</i><br/>\
-              Hodnota 2 se uvádí, jestliže pole obsahuje <strong>údaje o distribuci</strong> zdroje\
-            </li>\
-            <li>\
-              264_3 <strong>Výroba</strong> (manufacture) <i>R</i><br/>\
-              Hodnota 3 se uvádí, jestliže pole obsahuje <strong>údaje o tisku</strong>, výrobě zdroje ve zveřejněné podobě.\
-            </li>\
-            <li>\
-              264_4 <strong>Copyright</strong> (copyright) <i>R</i><br/>\
-              Hodnota 4 se uvádí, jestliže pole obsahuje <strong>údaje o ochraně podle autorského práva</strong>\
-            </li>\
-          </ul>\
-          <p>Element <originInfo> je opakovatelný. Alespoň v\
-          jednom případě musí být vyplněna hodnota\
-          eventType="production" nebo\
-          eventType="publication".\
-          </p>\
-          <p>Údaje o distribuci, výrobě a copyrightu jsou u\
-          tištěných monografií přesunuty z minimálního\
-          záznamu do doporučeného.<br/>\
-          </p>\
-          <p>Hodnota eventType musí být vyplněna na\
-          základě katalogizačního záznamu. Pravidlo pro\
-          převod je závazné, povinnost R značí, že musí\
-          být vybrána jedna z doporučených hodnot na\
-          základě katalogizačního záznamu.\
-          </p>',
-            options: [
-              [
-                '',
-                '-'
-              ],
-              [
-                'production',
-                'Produkce'
-              ],
-              [
-                'publication',
-                'Publikace'
-              ],
-              [
-                'distribution',
-                'Distribuce'
-              ],
-              [
-                'manufacture',
-                'Výroba'
-              ],
-              [
-                'copyright',
-                'Copyright'
-              ]
-            ]
-          },
           dateIssued: {
             usage: 'M',
             label: 'Datum vydání',
@@ -1450,31 +1282,6 @@
             description: 'Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisovaného dokumentu<br/>\
             odpovídá hodnotě 264 $a'
           },
-          dateOther: {
-            usage: 'R',
-            label: 'Datum - jiné',
-            selector: 'relatedItem/originInfo/dateOther',
-            labelKey: 'relatedItem/originInfo/dateOther',
-            cols: 3,
-            description: 'Datum vytvoření, distribuce, výroby předlohy<br/>\
-          Tento elemet se využije v případě výskytu $c v:\
-          <ul>\
-            <li>264_0 <strong>Produkce</strong> (production)</li>\
-            <li>264_2 <strong>Distribuce</strong> (distribution)</li>\
-            <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
-          </ul>'
-          },
-          copyrightDate: {
-            usage: 'R',
-            label: 'Datum - copyright',
-            selector: 'relatedItem/originInfo/copyrightDate',
-            labelKey: 'relatedItem/originInfo/copyrightDate',
-            cols: 3,
-            description: 'Využije se pouze v případě výskytu pole 264 s druhým indikátorem 4 a podpolem $c<br/>\
-          <ul>\
-            <li>264_4 <strong>Copyright</strong> (copyright)</li>\
-          </ul>'
-          }
         }
       },
       location: {
