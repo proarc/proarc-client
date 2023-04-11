@@ -314,8 +314,10 @@
         "message": "Opravdu chcete reindexovat všechny strany?"
       },
       "relocate_dialog": {
-        "title": "Přesun objektů",
-        "message": "Opravdu chcete přesunout vybrané objekty do nově zvoleného objektu?",
+        "titleRepo": "Přesun objektů",
+        "titleImport": "Uložení dávky do úložiště",
+        "messageRepo": "Opravdu chcete přesunout vybrané objekty do nově zvoleného objektu?",
+        "messageImport": "Opravdu chcete uložit dávku do vybraného objektu?",
         "go": "Přejít na nově zvolený objekt"
       },
       "delete_dialog": {
@@ -2332,7 +2334,7 @@
       "title": "Vyberte nadřazený objekt",
       "alert": {
         "infoRepo": "Přesunout objekt/y do",
-        "infoImport": "Uložit objekt/y do"
+        "infoImport": "Uložit dávku do"
       }
     }
   },

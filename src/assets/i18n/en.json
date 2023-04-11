@@ -295,8 +295,10 @@
         "message": "Are you sure you want reindex all pages?"
       },
       "relocate_dialog": {
-        "title": "Relocate objects",
-        "message": "Are you sure you want to move selected objects to the chosen object?",
+        "titleRepo": "Relocate objects",
+        "messageRepo": "Are you sure you want to move selected objects to the chosen object?",
+        "titleImport": "Save batch",
+        "messageImport": "Are you sure you want to save batch to the chosen object?",
         "go": "Go to the selected object"
       },
       "delete_dialog": {

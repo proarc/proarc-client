@@ -314,9 +314,15 @@ export class ParentDialogComponent implements OnInit {
   }
 
   private relocateOutside(items: DocumentItem[], destinationPid: string) {
+    const title = this.data.isRepo ?
+                  String(this.translator.instant('editor.children.relocate_dialog.titleRepo')) :
+                  String(this.translator.instant('editor.children.relocate_dialog.titleImport'));
+    const message = this.data.isRepo ?
+                  String(this.translator.instant('editor.children.relocate_dialog.messageRepo')) :
+                  String(this.translator.instant('editor.children.relocate_dialog.messageImport'));
     const data: SimpleDialogData = {
-      title: String(this.translator.instant('editor.children.relocate_dialog.title')),
-      message: String(this.translator.instant('editor.children.relocate_dialog.message')),
+      title,
+      message,
       btn1: {
         label: String(this.translator.instant('common.yes')),
         value: 'yes',
