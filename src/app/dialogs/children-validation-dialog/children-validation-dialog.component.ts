@@ -94,8 +94,8 @@ export class ChildrenValidationDialogComponent implements OnInit {
           this.numberOfInvalid += 1;
           item.invalid = true;
         } else {
-          const standard = Metadata.resolveStandard(this.data.content);
-          this.tmpl.getTemplate(standard, this.data.model).subscribe((tmpl: any) => {
+          const standard = Metadata.resolveStandard(response['record']['content']);
+          this.tmpl.getTemplate(standard, response['record']['model']).subscribe((tmpl: any) => {
             const metadata = new Metadata(item.pid, item.model, response['record']['content'], response['record']['timestamp'], response['record']['standard'], tmpl);
             this.metadatas.push({ item, metadata });
           });
