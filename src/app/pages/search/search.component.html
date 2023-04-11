@@ -246,7 +246,7 @@
                 <div fxFlex class="app-cell app-export" *ngIf="properties.isSearchColEnabled('export')">{{ 'desc.export' | translate }}</div>
                 <div fxFlex class="app-cell app-isLocked"></div>
               </div>
-              <div class="app-h-100 app-oa-y">
+              <div class="app-body-height app-oa-y">
                 <app-tree [tree]="tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)"></app-tree>
               </div>
           </div>

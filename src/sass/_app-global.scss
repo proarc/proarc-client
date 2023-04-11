@@ -487,6 +487,9 @@ as-split {
 }
 
 .app-tree {
+  .app-body-height {
+    height: calc(100% - 34px)
+  }
   .app-row {
     @extend .app-w-100;
     height: $app-mat-table-row-height;
