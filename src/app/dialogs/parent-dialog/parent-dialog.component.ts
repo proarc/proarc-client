@@ -222,8 +222,10 @@ export class ParentDialogComponent implements OnInit {
   }
 
   findAndSelect() {
-    if (this.data.expandedPath) {
-      this.expandedPath = this.data.expandedPath;
+    if (this.properties.getStringProperty('parent.expandedPath')) {
+      this.expandedPath = JSON.parse(this.properties.getStringProperty('parent.expandedPath'));
+    }
+    if (this.expandedPath) {
       const root = this.expandedPath[this.expandedPath.length - 1];
       if (root) {
         const item = this.items.find(i => i.pid === root);
