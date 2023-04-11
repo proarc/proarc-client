@@ -105,7 +105,7 @@ export class ModelTemplate {
       "model:chroniclesupplement": 'ChronicleMonographsupplement',
 
       // ndk music documents
-      "model:ndkphonographcylinder": 'NdkMusicDocument',
+      "model:ndkphonographcylinder": 'NdkMusicPhonograph',
       "model:ndkmusicdocument": 'NdkMusicDocument',
       "model:ndksong": 'NdkMusicSong',
       "model:ndktrack": 'NdkMusicTrack',
@@ -154,7 +154,7 @@ export class ModelTemplate {
       "model:chroniclesupplement": 'ChronicleMonographSupplement',
 
       // ndk music documents -- ndkMusic ma pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
-      "model:ndkphonographcylinder": 'NdkMusicDocument',
+      "model:ndkphonographcylinder": 'NdkMusicPhonograph',
       "model:ndkmusicdocument": 'NdkMusicDocument',
       "model:ndksong": 'NdkMusicSong',
       "model:ndktrack": 'NdkMusicTrack',
