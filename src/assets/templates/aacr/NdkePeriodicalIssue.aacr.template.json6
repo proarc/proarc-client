@@ -84,7 +84,7 @@
       použití u ročenek, specializovaných periodik, tematických čísel nebo zvláštních vydání',
       fields: {
         type: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Typ',
           selector: 'name/@type',
           labelKey: 'name/@type',
@@ -330,7 +330,7 @@
       }
     },
     note: {
-      usage: 'O',
+      usage: 'RA',
       label: 'Poznámka',
       selector: 'note',
       labelKey: 'note',
@@ -339,7 +339,7 @@
       a v polích 5XX (poznámky) katalogizačního záznamu',
       fields: {
         note: {
-          usage: 'O',
+          usage: 'RA',
           selector: 'note/value',
           labelKey: 'note/value',
           label: 'Poznámka',
@@ -629,7 +629,7 @@
       selector: 'genre',
       labelKey: 'genre',
       description: 'Bližší údaje o typu dokumentu<br/>\
-      Hodnota <strong>issue</strong>',
+      Hodnota <strong>electronic_issue</strong>',
       fields: {
         type: {
           usage: 'M',
