@@ -22,10 +22,13 @@
               <legend>{{ 'desc.accountInformation' | translate }}</legend>
               <div fxLayout="row" fxLayoutGap="16px">
                 <mat-form-field fxFlex>
-                  <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.username' | translate" [(ngModel)]="selectedUser.name" required #name>
+                  <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.username' | translate" 
+                  [matTooltip]="'admin.users.username_tooltip' | translate" title="" [(ngModel)]="selectedUser.name" pattern="[a-z][a-z0-9_-]{4,}"  required #name>
                 </mat-form-field>
                 <mat-form-field fxFlex>
-                  <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.password' | translate" [matTooltip]="'admin.users.password_tooltip' | translate" [(ngModel)]="selectedUser.password" type="password" required #password>
+                  <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.password' | translate" 
+                  title=""
+                  [matTooltip]="'admin.users.password_tooltip' | translate" [(ngModel)]="selectedUser.password" type="password" required #password>
                 </mat-form-field>
                 <mat-form-field fxFlex>
                   <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.name' | translate" [(ngModel)]="selectedUser.forename">

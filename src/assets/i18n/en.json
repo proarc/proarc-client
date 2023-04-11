@@ -1793,6 +1793,7 @@
       "label": "User administration",
       "username": "User name",
       "password": "Password",
+      "username_tooltip": "Username should match pattern [a-z][a-z0-9_-]{4,}",
       "password_tooltip": "Password must have min 6 characters.",
       "forename": "Forename",
       "surname": "Surname",

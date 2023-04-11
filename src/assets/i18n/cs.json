@@ -1754,6 +1754,7 @@
       "title": "Administrace uživatelů",
       "username": "Uživatel",
       "password": "heslo",
+      "username_tooltip": "Jmeno uživatele podle vzoru: první znak malé písmeno následováno alespoň 4 znaky z kombinace písmen, čísel, pomlčky a podtržítka.",
       "password_tooltip": "Heslo uživatele musí obsahovat alespoň 6 znaků.",
       "forename": "Jméno",
       "surname": "Příjmení",
