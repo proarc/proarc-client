@@ -78,6 +78,7 @@
                   <mat-checkbox name="column.field" [(ngModel)]="column.selected" (change)="setSelectedColumns()">{{ 'search.' + column.field | translate }}</mat-checkbox>
                 </div>
               </mat-menu>
+              <button (click)="reload()" mat-button>{{'button.refresh' | translate }}</button>
               <button (click)="openItem(selectedItem)" mat-button>{{ 'button.open' | translate }}</button>
               <button (click)="showFoxml(selectedItem)" mat-button>FOXML</button>
               <button (click)="onExport(selectedItem)" mat-button>{{ 'button.export' | translate }}</button>
