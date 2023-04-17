@@ -92,7 +92,7 @@ export class KrameriusComponent implements OnInit {
         this.state = 'success';
       } else if (response && response['response'] && response['response'].errors) {
         console.log('error', response['response'].errors);
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
       } else {
         this.state = 'success';
@@ -123,7 +123,7 @@ export class KrameriusComponent implements OnInit {
     this.api.importToKramerius(this.pid, this.instance, this.importInstance).subscribe((response: any) => {
       if (response && response['response'] && response['response'].errors) {
         console.log('error', response['response'].errors);
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
       } else if (response && response['response'] && response['response']['status'] === -1) {
           this.ui.showErrorSnackBar(response['response']['data'], 2000);
@@ -144,7 +144,7 @@ export class KrameriusComponent implements OnInit {
     this.api.importToProArc(this.pid, this.instance).subscribe((response: any) => {
       if (response && response['response'] && response['response'].errors) {
         console.log('error', response['response'].errors);
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
       } else if (response && response['response'] && response['response']['data']) {
         if (response['response']['data'][0].status === 'Failed') {

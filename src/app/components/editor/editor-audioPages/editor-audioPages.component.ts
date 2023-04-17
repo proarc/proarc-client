@@ -75,7 +75,7 @@ export class EditorAudioPagesComponent implements OnInit {
     }
     this.api.editAudioPages(pages, holder, this.layout.getBatchId()).subscribe((result: any) => {
       if (result.response.errors) {
-        this.ui.showErrorSnackBarFromObject(result.response.errors);
+        this.ui.showErrorDialogFromObject(result.response.errors);
         this.state = 'error';
       } else {
         this.layout.setShouldRefresh(true);

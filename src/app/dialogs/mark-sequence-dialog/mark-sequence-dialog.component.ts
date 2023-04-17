@@ -144,7 +144,7 @@ export class MarkSequenceDialogComponent implements OnInit {
     }
     this.api.saveMarkSequence(data).subscribe((result: any) => {
       if (result.response.errors) {
-        this.ui.showErrorSnackBarFromObject(result.response.errors);
+        this.ui.showErrorDialogFromObject(result.response.errors);
       } else {
         // this.dialogRef.close(this.changed);
         this.ui.showInfo('editor.children.markSequenceSaved')

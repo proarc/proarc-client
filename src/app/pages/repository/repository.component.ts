@@ -290,7 +290,7 @@ export class RepositoryComponent implements OnInit {
     this.api.getMetadata(pid).subscribe((response: any) => {
       if (response.errors) {
         console.log('error', response.errors);
-        this.ui.showErrorSnackBarFromObject(response.errors);
+        this.ui.showErrorDialogFromObject(response.errors);
         return;
       }
 

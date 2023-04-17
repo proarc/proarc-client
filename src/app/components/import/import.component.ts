@@ -117,7 +117,7 @@ export class ImportComponent implements OnInit {
     this.api.getImportFolders(folder.path).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('getImportFolders error', response['response'].errors);
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
       }
       const folders: Folder[] = Folder.fromJsonArray(response['response']['data']);
@@ -209,7 +209,7 @@ export class ImportComponent implements OnInit {
 
         if (response['response'].errors) {
           console.log('error', response['response'].errors);
-          this.ui.showErrorSnackBarFromObject(response['response'].errors);
+          this.ui.showErrorDialogFromObject(response['response'].errors);
           return;
         }
         const batch: Batch = Batch.fromJson(response['response']['data'][0]);

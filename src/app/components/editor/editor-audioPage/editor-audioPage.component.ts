@@ -132,7 +132,7 @@ export class EditorAudioPageComponent implements OnInit {
     this.state = 'saving';
     this.api.editAudioPage(audioPage, this.layout.getBatchId()).subscribe((resp: any) => {
       if (resp.response.errors) {
-        this.ui.showErrorSnackBarFromObject(resp.response.errors);
+        this.ui.showErrorDialogFromObject(resp.response.errors);
         this.state = 'error';
         return;
       }

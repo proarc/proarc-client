@@ -703,10 +703,10 @@ export class EditorStructureComponent implements OnInit {
     this.api.reindexPages(this.layout.item.pid, pagePid, this.layout.getBatchId(), model).subscribe(result => {
 
       if (result.response.errors) {
-        this.ui.showErrorSnackBarFromObject(result.response.errors);
+        this.ui.showErrorDialogFromObject(result.response.errors);
         this.state = 'error';
       } else if (result.response.data) {
-        this.ui.showErrorSnackBarFromObject(result.response.data.map((d: any) => d.errorMessage = d.validation));
+        this.ui.showErrorDialogFromObject(result.response.data.map((d: any) => d.errorMessage = d.validation));
         this.state = 'error';
       } else {
         this.state = 'success';
@@ -778,7 +778,7 @@ export class EditorStructureComponent implements OnInit {
           this.state = 'saving';
           this.api.deleteParent(this.layout.item.pid, parent).subscribe((response: any) => {
             if (response['response'].errors) {
-              this.ui.showErrorSnackBarFromObject(response['response'].errors);
+              this.ui.showErrorDialogFromObject(response['response'].errors);
               this.state = 'error';
               return;
             } else {
@@ -831,7 +831,7 @@ export class EditorStructureComponent implements OnInit {
     let pids: string[] = this.layout.items.filter(c => c.selected).map(c => c.pid);
     this.api.setParent(this.layout.item.pid, destinationPid).subscribe((response: any) => {
       if (response['response'].errors) {
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
         return;
       } else {
@@ -856,7 +856,7 @@ export class EditorStructureComponent implements OnInit {
 
     this.api.relocateObjects(parentPid, destinationPid, pids).subscribe((response: any) => {
       if (response['response'].errors) {
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
         return;
       }
@@ -903,7 +903,7 @@ export class EditorStructureComponent implements OnInit {
     request.subscribe((response: any) => {
 
       if (response['response'].errors) {
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
         return;
       }
@@ -954,7 +954,7 @@ export class EditorStructureComponent implements OnInit {
     this.api.deleteObjects(pids, pernamently, this.layout.getBatchId()).subscribe((response: any) => {
 
       if (response['response'].errors) {
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
         return;
       } else {

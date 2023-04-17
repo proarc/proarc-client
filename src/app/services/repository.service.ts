@@ -120,10 +120,10 @@ export class RepositoryService {
     this.api.reindexPages(this.item.pid, pagePid, null, model).subscribe(result => {
 
       if (result.response.errors) {
-        this.ui.showErrorSnackBarFromObject(result.response.errors);
+        this.ui.showErrorDialogFromObject(result.response.errors);
         this.state = 'error';
       } else if (result.response.data) {
-        this.ui.showErrorSnackBarFromObject(result.response.data.map((d: any) => d.errorMessage = d.validation));
+        this.ui.showErrorDialogFromObject(result.response.data.map((d: any) => d.errorMessage = d.validation));
         this.state = 'error';
       } else {
         this.state = 'success';

@@ -131,7 +131,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
           }
           return;
         } else {
-          this.ui.showErrorSnackBarFromObject(resp.errors);
+          this.ui.showErrorDialogFromObject(resp.errors);
           this.state = 'error';
           return;
         }

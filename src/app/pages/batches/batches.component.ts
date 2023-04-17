@@ -167,7 +167,7 @@ export class BatchesComponent implements OnInit {
       this.layout.setBatchId(id);
       this.api.getBatchPages(id).subscribe((response: any) => {
         if (response['response'].errors) {
-          this.ui.showErrorSnackBarFromObject(response['response'].errors);
+          this.ui.showErrorDialogFromObject(response['response'].errors);
           return;
         }
         if (response['response'].status === -1) {

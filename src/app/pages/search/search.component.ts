@@ -337,7 +337,7 @@ export class SearchComponent implements OnInit {
         this.api.restoreObject(item.pid, false, false).subscribe((response: any) => {
           if (response['response'].errors) {
             console.log('error', response['response'].errors);
-            this.ui.showErrorSnackBarFromObject(response['response'].errors);
+            this.ui.showErrorDialogFromObject(response['response'].errors);
             this.state = 'error';
             return;
           } else {
@@ -397,7 +397,7 @@ export class SearchComponent implements OnInit {
     this.api.lockObjects([item.pid], item.model).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
         return;
       } else {
@@ -415,7 +415,7 @@ export class SearchComponent implements OnInit {
     this.api.unlockObjects([item.pid], item.model).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
         return;
       } else {
@@ -432,11 +432,11 @@ export class SearchComponent implements OnInit {
     this.api.copyObject(item.pid, item.model).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
         return;
       } else if (response.response.data && response.response.data[0].validation) {
-        this.ui.showErrorSnackBarFromObject(response.response.data.map((d: any) => d.errorMessage = d.validation));
+        this.ui.showErrorDialogFromObject(response.response.data.map((d: any) => d.errorMessage = d.validation));
         this.state = 'error';
       } else {
           this.state = 'success';
@@ -503,7 +503,7 @@ export class SearchComponent implements OnInit {
     this.state = 'loading';
     this.api.deleteObjects([item.pid], pernamently).subscribe((response: any) => {
       if (response['response'].errors) {
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
         return;
       } else {
@@ -596,7 +596,7 @@ export class SearchComponent implements OnInit {
     this.api.updateObjects(item.pid, item.model).subscribe((response: any) => {
       if (response.response.errors) {
         this.state = 'error';
-        this.ui.showErrorSnackBarFromObject(response.response.errors);
+        this.ui.showErrorDialogFromObject(response.response.errors);
       } else {
         this.state = 'success';
         this.ui.showInfoSnackBar(this.translator.instant('Update hotový'))

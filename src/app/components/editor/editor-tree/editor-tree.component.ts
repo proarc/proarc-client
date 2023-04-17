@@ -305,7 +305,7 @@ export class EditorTreeComponent implements OnInit {
 
     this.api.relocateObjects(items[0].parent, destItem.pid, pids).subscribe((response: any) => {
       if (response['response'].errors) {
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
       }
       // refresh whole tree

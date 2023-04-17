@@ -261,7 +261,7 @@ export class EditorPageComponent implements OnInit {
       this.api.createObject(data).subscribe((response: any) => {
         if (response['response'].errors) {
           console.log('error', response['response'].errors);
-          this.ui.showErrorSnackBarFromObject(response['response'].errors);
+          this.ui.showErrorDialogFromObject(response['response'].errors);
           this.state = 'error';
           return;
         }
@@ -284,7 +284,7 @@ export class EditorPageComponent implements OnInit {
     this.state = 'saving';
     this.api.editPage(page, this.layout.getBatchId()).subscribe((resp: any) => {
       if (resp.response.errors) {
-        this.ui.showErrorSnackBarFromObject(resp.response.errors);
+        this.ui.showErrorDialogFromObject(resp.response.errors);
         this.state = 'error';
         return;
       }

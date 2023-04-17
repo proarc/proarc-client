@@ -299,7 +299,7 @@ export class ParentDialogComponent implements OnInit {
           this.state = 'saving';
           this.api.deleteParent(this.lastSelectedItemPid, parent).subscribe((response: any) => {
             if (response['response'].errors) {
-              this.ui.showErrorSnackBarFromObject(response['response'].errors);
+              this.ui.showErrorDialogFromObject(response['response'].errors);
               this.state = 'error';
               return;
             } else {
@@ -372,7 +372,7 @@ export class ParentDialogComponent implements OnInit {
 
     this.api.relocateObjects(parentPid, destinationPid, pids).subscribe((response: any) => {
       if (response['response'].errors) {
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
         return;
       }
@@ -403,7 +403,7 @@ export class ParentDialogComponent implements OnInit {
     let pids: string[] = this.orig.filter(c => c.selected).map(c => c.pid);
     this.api.setParent(this.lastSelectedItemPid, destinationPid).subscribe((response: any) => {
       if (response['response'].errors) {
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
         return;
       } else {

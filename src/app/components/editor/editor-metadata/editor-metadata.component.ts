@@ -86,7 +86,7 @@ export class EditorMetadataComponent implements OnInit {
           data = `${data}&xml=${this.metadata.toMods()}`;
           this.api.createObject(data).subscribe((response: any) => {
             if (response['response'].errors) {
-              this.ui.showErrorSnackBarFromObject(response['response'].errors);
+              this.ui.showErrorDialogFromObject(response['response'].errors);
               this.state = 'error';
               return;
             }
@@ -137,7 +137,7 @@ export class EditorMetadataComponent implements OnInit {
         this.api.createObject(data).subscribe((response: any) => {
           if (response['response'].errors) {
             console.log('error', response['response'].errors);
-            this.ui.showErrorSnackBarFromObject(response['response'].errors);
+            this.ui.showErrorDialogFromObject(response['response'].errors);
             this.state = 'error';
             return;
           }
@@ -172,7 +172,7 @@ export class EditorMetadataComponent implements OnInit {
           }
           return;
         } else {
-          this.ui.showErrorSnackBarFromObject(response.errors);
+          this.ui.showErrorDialogFromObject(response.errors);
           this.state = 'error';
           return;
         }
@@ -193,7 +193,7 @@ export class EditorMetadataComponent implements OnInit {
     this.api.editModsXml(this.metadata.pid, xml, this.metadata.timestamp, null, false).subscribe((resp: any) => {
         if (resp.errors) {
             this.state = 'error';
-            this.ui.showErrorSnackBarFromObject(resp.errors);
+            this.ui.showErrorDialogFromObject(resp.errors);
             setTimeout(() => {
                 this.metadata.validate();
             }, 100);

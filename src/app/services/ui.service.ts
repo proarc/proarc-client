@@ -35,7 +35,9 @@ export class UIService {
 
   public showErrorDialog(data: { type: string; title: string; message: any[] | string[]; }) {
     this.dialogRef = this.dialog.open(AlertDialogComponent, {    
-         data
+         data,
+         width: '400px',
+         panelClass: 'app-alert-dialog'
     });
   }
   
@@ -68,7 +70,7 @@ export class UIService {
 
   }
 
-  showErrorSnackBarFromObject(errors: any) {
+  showErrorDialogFromObject(errors: any) {
     // response.errors.mods[0].errorMessage
     const keys = Object.keys(errors);
     let message: any[] = [];
@@ -82,16 +84,12 @@ export class UIService {
       }
     });
 
-    //this.showErrorSnackBar(message);
-
     const data = {
       type: 'error',
       title: 'Chyba',
       message
     };
     this.showErrorDialog(data);
-
-
   }
 
   extractErrors(errors: any): {key: string, msg: string}[] {

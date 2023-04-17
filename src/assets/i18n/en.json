@@ -1788,44 +1788,6 @@
       "primary": "primary"
     }
   },
-  "admin": {
-    "users": {
-      "label": "User administration",
-      "username": "User name",
-      "password": "Password",
-      "username_tooltip": "Username should match pattern [a-z][a-z0-9_-]{4,}",
-      "password_tooltip": "Password must have min 6 characters.",
-      "forename": "Forename",
-      "surname": "Surname",
-      "organization": "Organization",
-      "home": "Home folder",
-      "email": "Email",
-      "role": "Role",
-      "roles": {
-        "user":"User",
-        "admin": "Administrator",
-        "superAdmin": "Super Administrator"
-      },
-      "changeModelFunction": "Can run change model function",
-      "updateModelFunction": "Can run update model function",
-      "unlockObjectFunction": "Can run unlockObject function",
-      "lockObjectFunction": "Can run lockObject function",
-      "new": "Create new user",
-      "delete": "Delete user",
-      "delete_dialog": {
-        "title": "Remove user",
-        "message": "Are you sure you want to remove user {{ name }}?",
-        "success": "User has been removed"
-      },
-      "new_success": "User created successfully"
-
-    },
-    "layout": {
-      "explain": "Toggle areas visibility",
-      "repo": "Repository",
-      "import": "Import"
-    }
-  },
 
 
 
@@ -2088,7 +2050,10 @@
     "exportAnyway": "Export anyway",
     "logIn": "Log in",
     "unlink": "Unlink",
-    "move": "Move"
+    "move": "Move",
+    "deleteUser": "Delete user",
+    "yes": "Yes",
+    "no": "No"
   },
   "dynamic": {
     "repo": "Storage",
@@ -2261,7 +2226,8 @@
         "3": "the current layout of the individual blocks can be seen in the lower preview",
         "4": "you can resize individual blocks horizontally and vertically",
         "5": "you can then assign the type you want to display to the individual blocks"
-      }
+      },
+      "tooltipPanel": "Click to change panel visibility"
     },
     "about": {
       "title": "ProArc",
@@ -2337,6 +2303,14 @@
         "infoRepo": "Move object/s to",
         "infoImport": "Save object/s to"
       }
+    },
+    "deleteUser": {
+      "title": "Deleting a user",
+      "message": "Are you sure you want to delete user {{ name }}?",
+      "alert": {
+        "success": "The user has been deleted",
+        "error": "to do"
+      }
     }
   },
   "formField": {
@@ -2372,6 +2346,20 @@
       "exportProfile.kwis": "Export - KWIS",
       "exportProfile.aleph": "Export - Aleph",
       "internalProfile.reindex": "Internal - Reindex"
+    },
+    "users": {
+      "tooltipUsername": "Username by pattern: first character a lowercase letter followed by at least 4 characters from a combination of letters, numbers, dashes and underscores.",
+      "tooltipPassowrd": "The user's password must contain at least 6 characters.",
+      "roles": {
+        "user":"User",
+        "admin": "Administrator",
+        "superAdmin": "Super Administrator"
+      },
+      "error": {
+        "username": "You must enter a username",
+        "password": "You must enter a password",
+        "surname": "You must enter a last name"
+      }
     }
   },
   "alert": {
@@ -2388,6 +2376,9 @@
         "mismatch": "The password entered does not match the password confirmation",
         "short": "Password is too short, must have at least 6 characters"
       }
+    },
+    "addNewUser": {
+      "success": "User has been added"
     }
   }
 }

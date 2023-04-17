@@ -66,7 +66,7 @@ export class NewWorkflowDialogComponent implements OnInit {
       console.log(response)
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
         return;
       }
