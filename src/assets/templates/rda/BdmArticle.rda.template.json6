@@ -214,13 +214,13 @@
             }
           }
         },
-        lang: {
-          usage: 'M',
-          required: true,
-          label: 'Jazyk',
-          selector: 'subject/@lang',
-          labelKey: 'subject/@lang',
-        }
+//        lang: {
+//          usage: 'M',
+//          required: true,
+//          label: 'Jazyk',
+//          selector: 'subject/@lang',
+//          labelKey: 'subject/@lang',
+//        }
       }
     },
     language: {
