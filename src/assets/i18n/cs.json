@@ -1537,6 +1537,8 @@
     "subject/name": "Autor",
     "subject/temporal": "Chronologické věcné třídění",
     "subject/topic": "Klíčové slovo/Předmětové heslo",
+    "subject/topic/value": "Hodnota",
+    "subject/topic/@lang": "Jazyk",
     "tableOfContents": "Tabulka souvislostí",
     "titleInfo": "Název",
     "titleInfo/@type": "Typ",

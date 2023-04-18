@@ -211,7 +211,24 @@
           selector: 'subject/topic',
           labelKey: 'subject/topic',
           description: `Libovolný výraz specifikující nebo charakterizující obsah vnitřní části<br/>
-          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21`
+          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21`,
+          fields: {
+            value: {
+              usage: 'M',
+              required: true,
+              label: 'Hodnota',
+              selector: 'subject/topic/value',
+              labelKey: 'subject/topic/value',
+              hint: false,
+            },
+            //            lang: {
+            //              usage: 'R',
+            //              label: 'Hodnota',
+            //              selector: 'subject/topic/@lang',
+            //              labelKey: 'subject/topic/@lang',
+            //              hint: false,
+            //            }
+          }
         },
         geographic: {
           usage: 'MA',

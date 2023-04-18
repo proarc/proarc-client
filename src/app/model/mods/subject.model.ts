@@ -3,14 +3,16 @@ import { ModsElement } from './element.model';
 import { ElementField } from './elementField.model';
 import { ModsCartographics } from './cartographics.model';
 import {ModsAuthor} from './author.model';
+import {ModsTopic} from './topic.model';
 
 export class ModsSubject extends ModsElement {
 
-    topic: any;
+    // topic: any;
     geographic: any;
     temporal: any;
     public names: ElementField;
     public cartographics: ElementField;
+    public topics: ElementField;
 
 
     static getSelector() {
@@ -27,9 +29,9 @@ export class ModsSubject extends ModsElement {
     }
 
     private init() {
-        if (!this.modsElement['topic']) {
-            this.modsElement['topic'] = ModsUtils.createEmptyField();
-        }
+        // if (!this.modsElement['topic']) {
+        //     this.modsElement['topic'] = ModsUtils.createEmptyField();
+        // }
         if (!this.modsElement['geographic']) {
             this.modsElement['geographic'] = ModsUtils.createEmptyField();
         }
@@ -48,13 +50,17 @@ export class ModsSubject extends ModsElement {
         // if (!this.modsElement['name'][0]['namePart']) {
         //     this.modsElement['name'][0]['namePart'] = ModsUtils.createEmptyField();
         // }
-        this.topic = this.modsElement['topic'][0];
+        // this.topic = this.modsElement['topic'][0];
         this.geographic = this.modsElement['geographic'][0];
         this.temporal = this.modsElement['temporal'][0];
 
         if (this.available('name')) {
             this.names = new ElementField(this.modsElement, ModsAuthor.getSelector(), this.getField('name'));
             this.addSubfield(this.names);
+        }
+        if (this.available('topic')) {
+          this.topics = new ElementField(this.modsElement, ModsTopic.getSelector(), this.getField('topic'));
+          this.addSubfield(this.topics);
         }
 
 

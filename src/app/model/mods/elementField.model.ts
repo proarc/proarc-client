@@ -33,6 +33,7 @@ import {ModsDateIssued} from './dateIssued.model';
 import {ModsUrl} from './url.model';
 import {ModsShelfLocator} from './shelfLocator.model';
 import {ModsNamePart} from './namePart.model';
+import {ModsTopic} from './topic.model';
 
 export class ElementField {
 
@@ -50,7 +51,7 @@ export class ElementField {
             this.allExpanded = localStorage.getItem('metadata.allExpanded') === 'true';
         }
 
-        
+
         if (id.startsWith('relatedItem')) {
             this.allExpanded = this.allExpanded && localStorage.getItem('relatedItemExpanded') === 'true';
         }
@@ -78,7 +79,7 @@ export class ElementField {
                 this.items.push(newEl);
             }
         }
-        
+
         if (this.items.length - hiddenItems < 1) {
             const item = this.add();
             if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded) {
@@ -88,7 +89,7 @@ export class ElementField {
 
         // set isPeerReviewed for electronic articles
         if(this.items[0] instanceof ModsGenre && template['selector'] === 'genre' &&  template['isElectronicArticle']) {
-        
+
             if (this.items[0].attrs['type'] === 'peer-reviewed') {
                 this.isPeerReviewed = true;
             } else  if (this.items[0].modsElement['_'] === 'article' && !this.items[0].attrs['type']) {
@@ -292,6 +293,8 @@ export class ElementField {
                 return new ModsRecordIdentifier(el, this.template);
             case ModsExtent.getId():
                 return new ModsExtent(el, this.template);
+            case ModsTopic.getId():
+                return new ModsTopic(el, this.template);
         }
         return undefined;
     }
@@ -400,6 +403,8 @@ export class ElementField {
                 return ModsExtent.getSelector();
             case ModsTableOfContents.getId():
                 return ModsTableOfContents.getSelector();
+            case ModsTopic.getId():
+                return ModsTopic.getSelector();
         }
         return '';
     }

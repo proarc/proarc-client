@@ -1576,6 +1576,8 @@
     "subject/name": "Name",
     "subject/temporal": "Temporal",
     "subject/topic": "Topic",
+    "subject/topic/value": "Value",
+    "subject/topic/@lang": "Lang",
     "tableOfContents": "Table of contents",
     "titleInfo": "Title info",
     "titleInfo/@type": "Type",

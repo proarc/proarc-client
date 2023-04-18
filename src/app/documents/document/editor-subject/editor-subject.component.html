@@ -9,8 +9,15 @@
 
   <ng-template let-item="item" #templateContent>
     <app-field-dropdown field="authority" [item]="item" [(value)]='item.attrs["authority"]'></app-field-dropdown>
-    <app-field-codebook field="lang" [item]="item" [options]="codebook.languages" [(value)]="item.attrs['lang']"></app-field-codebook>
-    <app-field-text field="topic" [item]="item" [(value)]='item.topic["_"]'></app-field-text>
+<!--    <app-field-codebook field="lang" [item]="item" [options]="codebook.languages" [(value)]="item.attrs['lang']"></app-field-codebook>-->
+<!--    <app-field-text field="topic" [item]="item" [(value)]='item.topic["_"]'></app-field-text>-->
+    <app-editor-field *ngIf="item.available('topic')" [field]="item.topics" [nested]='true'>
+      <ng-template let-topic="item" #templateContent>
+        <app-field-codebook field="lang" [item]="topic" [options]="codebook.languages" [(value)]="topic.attrs['lang']"></app-field-codebook>
+        <app-field-text field="value" [item]="topic" [(value)]='topic.modsElement["_"]'></app-field-text>
+      </ng-template>
+    </app-editor-field>
+
     <app-field-text field="geographic" [item]="item" [(value)]='item.geographic["_"]'></app-field-text>
     <app-field-text field="temporal" [item]="item" [(value)]='item.temporal["_"]'></app-field-text>
 
