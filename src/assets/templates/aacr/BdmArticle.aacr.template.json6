@@ -353,6 +353,7 @@
       }
     },
     genre: {
+      isElectronicArticle: true,
       usage: 'R',
       label: 'Typ obsahu',
       selector: 'genre',

@@ -562,6 +562,7 @@
     }
   },
   genre: {
+    isElectronicArticle: true,
     usage: 'M',
     required: true,
     label: 'Žánr',
