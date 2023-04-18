@@ -383,7 +383,6 @@
             ['obituary', 'nekrolog'],
             ['cover', 'obálka'],
             ['table of content', 'obsah'],
-            ['peer-reviewed', 'recenzováno'],
             ['preface', 'předmluva'],
             ['review', 'recenze'],
             ['index', 'rejstřík'],

@@ -628,10 +628,6 @@
             'obsah'
           ],
           [
-            'peer-reviewed',
-            'recenzováno'
-          ],
-          [
             'preface',
             'předmluva'
           ],
@@ -1693,10 +1689,6 @@
               [
                 'table of content',
                 'obsah'
-              ],
-              [
-                'peer-reviewed',
-                'recenzováno'
               ],
               [
                 'preface',
