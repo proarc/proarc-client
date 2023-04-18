@@ -86,8 +86,9 @@ export class ElementField {
             }
         }
 
-        // set isPeerReviewed
-        if(this.items[0] instanceof ModsGenre && template['selector'] === 'genre' ) {
+        // set isPeerReviewed for electronic articles
+        if(this.items[0] instanceof ModsGenre && template['selector'] === 'genre' &&  template['isElectronicArticle']) {
+        
             if (this.items[0].attrs['type'] === 'peer-reviewed') {
                 this.isPeerReviewed = true;
             } else  if (this.items[0].modsElement['_'] === 'article' && !this.items[0].attrs['type']) {

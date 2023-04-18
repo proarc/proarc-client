@@ -335,10 +335,13 @@
       }
     },
     genre: {
-      usage: 'R',
+      isElectronicArticle: true,
+      usage: 'M',
+      required: true,
       label: 'Typ obsahu',
       selector: 'genre',
       labelKey: 'genre',
+    description: 'Bližší údaje o typu dokumentu',
       fields: {
         value: {
           usage: 'M',
