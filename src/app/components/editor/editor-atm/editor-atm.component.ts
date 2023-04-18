@@ -98,7 +98,7 @@ export class EditorAtmComponent implements OnInit {
     this.state = 'saving';
     this.api.editAtm(this.atm, this.layout.getBatchId()).subscribe((response: any) => {
         if (response.response.errors) {
-            this.ui.showErrorSnackBarFromObject(response.response.errors);
+            this.ui.showErrorDialogFromObject(response.response.errors);
             this.state = 'error';
             return;
         }

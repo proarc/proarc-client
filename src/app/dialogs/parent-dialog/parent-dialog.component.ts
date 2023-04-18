@@ -217,24 +217,30 @@ export class ParentDialogComponent implements OnInit {
       this.resultCount = total;
       this.items = items;
       this.state = 'success';
-      if (this.data.expandedPath) {
-        this.expandedPath = this.data.expandedPath;
-        const root = this.expandedPath[this.expandedPath.length - 1];
-        if (root) {
-          const item = this.items.find(i => i.pid === root);
-          if (item) {
+      this.findAndSelect();
+    });
+  }
 
-            this.selectItem(item);
-            setTimeout(() => {
-              document.getElementById(root).scrollIntoView({ block: 'center' });
-              // this.search.selectedTreePid = this.expandedPath[0];
-            }, 550);
+  findAndSelect() {
+    if (this.properties.getStringProperty('parent.expandedPath')) {
+      this.expandedPath = JSON.parse(this.properties.getStringProperty('parent.expandedPath'));
+    }
+    if (this.expandedPath) {
+      const root = this.expandedPath[this.expandedPath.length - 1];
+      if (root) {
+        const item = this.items.find(i => i.pid === root);
+        if (item) {
 
-          }
+          this.selectItem(item);
+          setTimeout(() => {
+            document.getElementById(root).scrollIntoView({ block: 'center' });
+            // this.search.selectedTreePid = this.expandedPath[0];
+          }, 550);
 
         }
+
       }
-    });
+    }
   }
 
   setExpandedPath(tree: Tree) {
@@ -293,7 +299,7 @@ export class ParentDialogComponent implements OnInit {
           this.state = 'saving';
           this.api.deleteParent(this.lastSelectedItemPid, parent).subscribe((response: any) => {
             if (response['response'].errors) {
-              this.ui.showErrorSnackBarFromObject(response['response'].errors);
+              this.ui.showErrorDialogFromObject(response['response'].errors);
               this.state = 'error';
               return;
             } else {
@@ -308,9 +314,15 @@ export class ParentDialogComponent implements OnInit {
   }
 
   private relocateOutside(items: DocumentItem[], destinationPid: string) {
+    const title = this.data.isRepo ?
+                  String(this.translator.instant('editor.children.relocate_dialog.titleRepo')) :
+                  String(this.translator.instant('editor.children.relocate_dialog.titleImport'));
+    const message = this.data.isRepo ?
+                  String(this.translator.instant('editor.children.relocate_dialog.messageRepo')) :
+                  String(this.translator.instant('editor.children.relocate_dialog.messageImport'));
     const data: SimpleDialogData = {
-      title: String(this.translator.instant('editor.children.relocate_dialog.title')),
-      message: String(this.translator.instant('editor.children.relocate_dialog.message')),
+      title,
+      message,
       btn1: {
         label: String(this.translator.instant('common.yes')),
         value: 'yes',
@@ -338,7 +350,7 @@ export class ParentDialogComponent implements OnInit {
   }
 
   private ingestBatch(parentPid: string) {
-    this.state = 'loading';
+    this.state = 'saving';
     const bathId = parseInt(this.data.batchId);
     const dialogRef = this.dialog.open(IngestDialogComponent, { data: { batch: bathId, parent: parentPid } });
     dialogRef.afterClosed().subscribe(result => {
@@ -354,12 +366,13 @@ export class ParentDialogComponent implements OnInit {
 
   relocateObjects(parentPid: string, destinationPid: string) {
     this.state = 'saving';
+    const pid = this.selectedItem.pid;
+    this.clearSelected();
     let pids: string[] = this.orig.filter(c => c.selected).map(c => c.pid);
-    const isMultiple = this.orig.filter(c => c.selected).length > 1;
 
     this.api.relocateObjects(parentPid, destinationPid, pids).subscribe((response: any) => {
       if (response['response'].errors) {
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
         return;
       }
@@ -377,6 +390,10 @@ export class ParentDialogComponent implements OnInit {
 
       this.origTable = new MatTableDataSource(this.orig);
       this.state = 'success';
+      const item = this.items.find(item => pid);
+      this.selectItem(item);
+      this.findAndSelect();
+      // this.tree = new Tree(this.selectedItem);
       this.hasChanges = true;
     });
   }
@@ -386,7 +403,7 @@ export class ParentDialogComponent implements OnInit {
     let pids: string[] = this.orig.filter(c => c.selected).map(c => c.pid);
     this.api.setParent(this.lastSelectedItemPid, destinationPid).subscribe((response: any) => {
       if (response['response'].errors) {
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
         return;
       } else {
@@ -395,7 +412,12 @@ export class ParentDialogComponent implements OnInit {
     });
   }
 
-
+  clearSelected() {
+    this.selectedItem = null;
+    this.selectedInSearch = null;
+    this.search.selectedTreePid = null;
+    this.tree = null;
+  }
 
   selectItem(item: DocumentItem) {
     //this.selectedItem = null;

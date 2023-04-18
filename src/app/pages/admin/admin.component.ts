@@ -48,39 +48,41 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  setControleFieldTimeout(selectedFiled: any) {
+    selectedFiled.nativeElement.focus();
+    setTimeout(() => {selectedFiled.nativeElement.blur();}, 5);
+    setTimeout(() => {selectedFiled.nativeElement.focus();}, 50);
+  }
+
   selectUser(user: User) {
     this.selectedUser = user;
   }
 
   save() {
+    if (!this.selectedUser.name ) {
+      this.setControleFieldTimeout(this.name);
+      return;
+    }
 
-      if (!this.selectedUser.name ) {
-        this.ui.showErrorSnackBar(this.translator.instant('admin.users.name') + ' required');
-        this.name.nativeElement.focus();
-        return;
-      }
+    if (!this.selectedUser.password && this.selectedUser.userId === -1 ) {
+      this.setControleFieldTimeout(this.password);
+      return;
+    }
 
-      if (!this.selectedUser.surname ) {
-        this.ui.showErrorSnackBar(this.translator.instant('admin.users.surname') + ' required');
-        this.surname.nativeElement.focus();
-        return;
-      }
-
-      if (!this.selectedUser.password && this.selectedUser.userId === -1 ) {
-        this.ui.showErrorSnackBar(this.translator.instant('admin.users.password') + ' required');
-        this.password.nativeElement.focus();
-        return;
-      }
+    if (!this.selectedUser.surname ) {
+      this.setControleFieldTimeout(this.surname);
+      return;
+    }
 
     if (this.selectedUser.userId === -1) {
       this.api.newUser(this.selectedUser).subscribe((response: any) => {
         if (response['response'].errors) {
-          this.ui.showErrorSnackBarFromObject(response['response'].errors);
-          return;
+          this.ui.showErrorDialogFromObject(response['response'].errors);
+          return; 
         }
         const user: User =  User.fromJson(response['response']['data'][0]);
         this.getUsers(user.userId);
-        this.ui.showInfoSnackBar("admin.users.new_success");
+        this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.addNewUser.success')));
         
       });
     } else {
@@ -98,33 +100,35 @@ export class AdminComponent implements OnInit {
 
   deleteUser() {
     const data: SimpleDialogData = {
-      title: String(this.translator.instant('admin.users.delete_dialog.title')),
-      message: String(this.translator.instant('admin.users.delete_dialog.message', { name:this.selectedUser.name })),
+      title: String(this.translator.instant('dialog.deleteUser.title')),
+      message: String(this.translator.instant('dialog.deleteUser.message', { name:this.selectedUser.name })),
       btn1: {
-        label: 'Ano',
+        label: String(this.translator.instant('button.yes')),
         value: 'yes',
         color: 'warn'
       },
       btn2: {
-        label: 'Ne',
+        label: String(this.translator.instant('button.no')),
         value: 'no',
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      width: '400px',
+      panelClass: 'app-simple-dialog',
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.api.deleteUser(this.selectedUser).subscribe((response: any) => {
           if (response['response'].errors) {
-            this.ui.showErrorSnackBarFromObject(response['response'].errors);
+            this.ui.showErrorDialogFromObject(response['response'].errors);
             return;
           }
           this.getUsers(-1);
         });
-        
       }
-    });
-    
+    }); 
   }
 
 }

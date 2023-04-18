@@ -99,7 +99,7 @@ export class CatalogDialogComponent implements OnInit {
         this.state = 'success';
       } else if (response['response'].errors) {
         console.log('error', response['response'].errors);
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
         this.message = 'search-error';
         return;

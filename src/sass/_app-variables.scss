@@ -131,7 +131,8 @@ $iconSize: (
 $alerts: (
   warn: $app-color-warn,
   info: $app-color-info,
-  success:  $app-color-success
+  success:  $app-color-success,
+  message: $app-gray-7
 );
 
 // states

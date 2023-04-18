@@ -95,7 +95,7 @@ export class EditorPagesComponent implements OnInit {
     }
     this.api.editPages(pages, holder, this.layout.getBatchId()).subscribe((result: any) => {
       if (result.response.errors) {
-        this.ui.showErrorSnackBarFromObject(result.response.errors);
+        this.ui.showErrorDialogFromObject(result.response.errors);
         this.state = 'error';
       } else {
         this.layout.refreshSelectedItem(true, 'pages');
@@ -114,7 +114,7 @@ export class EditorPagesComponent implements OnInit {
     }
     this.api.editBrackets(pages, holder, useBrackets, this.layout.getBatchId()).subscribe((result: any) => {
       if (result.response.errors) {
-        this.ui.showErrorSnackBarFromObject(result.response.errors);
+        this.ui.showErrorDialogFromObject(result.response.errors);
         this.state = 'error';
       } else {
         this.layout.refreshSelectedItem(true, 'pages');

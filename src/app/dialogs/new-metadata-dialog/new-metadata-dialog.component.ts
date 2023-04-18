@@ -94,7 +94,7 @@ export class NewMetadataDialogComponent implements OnInit {
     this.api.createObject(data).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
         return;
       }
@@ -146,7 +146,7 @@ export class NewMetadataDialogComponent implements OnInit {
       this.api.createObject(data).subscribe((response: any) => {
         if (response['response'].errors) {
           console.log('error', response['response'].errors);
-          this.ui.showErrorSnackBarFromObject(response['response'].errors);
+          this.ui.showErrorDialogFromObject(response['response'].errors);
           this.state = 'error';
           return;
         }
@@ -193,7 +193,7 @@ export class NewMetadataDialogComponent implements OnInit {
         this.api.createObject(data).subscribe((response: any) => {
           if (response['response'].errors) {
             console.log('error', response['response'].errors);
-            this.ui.showErrorSnackBarFromObject(response['response'].errors);
+            this.ui.showErrorDialogFromObject(response['response'].errors);
             this.state = 'error';
             return;
           }

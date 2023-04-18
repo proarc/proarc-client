@@ -350,7 +350,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
             if (response.response.errors) {
               this.state = 'error';
-              this.ui.showErrorSnackBarFromObject(response.response.errors);
+              this.ui.showErrorDialogFromObject(response.response.errors);
               clearInterval(this.timer);
               this.state = 'failure';
               return;
@@ -459,7 +459,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
   onReexport() {
     this.api.reExportBatch(this.selectedBatch.id).subscribe((response: any) => {
       if (response.response.errors) {
-        this.ui.showErrorSnackBarFromObject(response.response.errors);
+        this.ui.showErrorDialogFromObject(response.response.errors);
       } else if (response.response.data[0].errors) {
         this.ui.showErrorSnackBar(response.response.data[0].errors[0].message);
       }
@@ -491,7 +491,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
       if (response.response.errors) {
         this.state = 'error';
-        this.ui.showErrorSnackBarFromObject(response.response.errors);
+        this.ui.showErrorDialogFromObject(response.response.errors);
         return;
       }
 
@@ -519,7 +519,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
       if (response.response.errors) {
         this.state = 'error';
-        this.ui.showErrorSnackBarFromObject(response.response.errors);
+        this.ui.showErrorDialogFromObject(response.response.errors);
         return;
       }
 

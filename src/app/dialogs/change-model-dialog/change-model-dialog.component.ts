@@ -33,7 +33,7 @@ export class ChangeModelDialogComponent implements OnInit {
     this.inProgress = true;
     this.api.changeModel(this.data.pid, this.data.model, dest.apiPoint).subscribe((response: any) => {
       if (response.response.errors) {
-        this.ui.showErrorSnackBarFromObject(response.response.errors);
+        this.ui.showErrorDialogFromObject(response.response.errors);
         this.dialogRef.close({ status: 'failure' });
       } else {
         this.ui.showInfoSnackBar('Model byl převeden na ' + this.translator.instant('model.model:' + dest.model ))

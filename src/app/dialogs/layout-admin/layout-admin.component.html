@@ -13,7 +13,7 @@
           <li>{{ 'dialog.layoutSettings.help.5' | translate }}</li>
         </ul>
         </div>
-        <div fxFlex fxLayout="row" fxLayoutGap="3px" class="app-layout-controller" [matTooltip]="'admin.layout.explain' | translate">
+        <div fxFlex fxLayout="row" fxLayoutGap="3px" class="app-layout-controller" [matTooltip]="'dialog.layoutSettings.tooltipPanel' | translate">
           <div *ngFor="let c of config.columns" [fxFlex]="c.size+'%'">
             <div fxLayout="column" fxLayoutGap="3px" fxFlexFill>
               <div *ngFor="let r of c.rows" [fxFlex]="r.size+'%'"(click)="r.visible = !r.visible; refreshColumnVisibility()" fxLayout="columne" fxLayoutAlign="center center" class="app-item" [ngClass]="r.visible ? 'app-active' : 'app-disabled'">

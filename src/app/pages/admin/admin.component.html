@@ -14,7 +14,8 @@
               </mat-radio-group>
             </fieldset>
             <div>
-              <button mat-flat-button color="primary" (click)="newUser()">{{ 'button.createNewUser' | translate }}</button>
+              <button mat-flat-button color="primary" (click)="newUser()" class="app-mr-2">{{ 'button.createNewUser' | translate }}</button>
+              <!-- <button mat-flat-button color="warn" (click)="deleteUser()">{{ 'button.deleteUser' | translate }}</button> -->
             </div>
           </div>
           <div fxFlex fxLayout="column">
@@ -22,16 +23,19 @@
               <legend>{{ 'desc.accountInformation' | translate }}</legend>
               <div fxLayout="row" fxLayoutGap="16px">
                 <mat-form-field fxFlex>
-                  <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.username' | translate" [(ngModel)]="selectedUser.name" required #name>
+                  <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.username' | translate" title="" [matTooltip]="'formField.users.tooltipUsername' | translate" [(ngModel)]="selectedUser.name" pattern="[a-z][a-z0-9_-]{4,}"  required #name>
+                  <mat-error *ngIf="!selectedUser.name">{{ 'formField.users.error.username' | translate }}</mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex>
-                  <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.password' | translate" [matTooltip]="'admin.users.password_tooltip' | translate" [(ngModel)]="selectedUser.password" type="password" required #password>
+                  <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.password' | translate" title="" minlength="6" [matTooltip]="'formField.users.tooltipPassowrd' | translate" [(ngModel)]="selectedUser.password" type="password" required #password>
+                  <mat-error *ngIf="!selectedUser.password">{{ 'formField.users.error.password' | translate }}</mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex>
-                  <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.name' | translate" [(ngModel)]="selectedUser.forename">
+                  <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.forename' | translate" [(ngModel)]="selectedUser.forename">
                 </mat-form-field>
                 <mat-form-field  fxFlex>
-                  <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.surname' | translate" [(ngModel)]="selectedUser.surname" required #surname>
+                  <input (keyup.enter)="save()" autocomplete="off" matInput title=""  [placeholder]="'desc.surname' | translate" [(ngModel)]="selectedUser.surname" required #surname>
+                  <mat-error *ngIf="!selectedUser.surname">{{ 'formField.users.error.surname' | translate }}</mat-error>
                 </mat-form-field>
                 <mat-form-field fxFlex>
                   <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.email' | translate" [(ngModel)]="selectedUser.email">
@@ -45,7 +49,7 @@
                 </mat-form-field>
                 <mat-form-field fxFlex>
                   <mat-select [(ngModel)]='selectedUser.role' placeholder="{{ 'desc.role' | translate }}">
-                    <mat-option *ngFor="let role of roles" [value]="role">{{ 'admin.users.roles.' + role | translate }}</mat-option>
+                    <mat-option *ngFor="let role of roles" [value]="role">{{ 'formField.users.roles.' + role | translate }}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>

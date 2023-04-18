@@ -38,7 +38,7 @@ export class UrnnbnDialogComponent implements OnInit {
       //.pipe(map(response => Registrar.fromJsonArray(response['response']['data'])));
       if (response['response'].errors) {
         console.log('onRegister error', response['response'].errors);
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
         this.message = 'Při registraci URN:NBN se vyskytla chyba';
         return;
@@ -60,7 +60,7 @@ export class UrnnbnDialogComponent implements OnInit {
     this.api.registerUrnnbn(this.selectedRegistrar.id, pid).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('onRegister error', response['response'].errors);
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
         this.message = 'Při registraci URN:NBN se vyskytla chyba';
         return;

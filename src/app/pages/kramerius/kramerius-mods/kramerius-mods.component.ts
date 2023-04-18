@@ -72,7 +72,7 @@ export class KrameriusModsComponent implements OnInit {
     this.api.saveKrameriusMods(this.pid, this.instance, this.mods.content, this.mods.timestamp).subscribe((response: any) => {
       if (response && response['response'] && response['response'].errors) {
         console.log('error', response['response'].errors);
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
       } else {
         this.layout.setShouldRefresh(false);

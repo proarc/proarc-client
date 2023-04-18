@@ -314,8 +314,10 @@
         "message": "Opravdu chcete reindexovat všechny strany?"
       },
       "relocate_dialog": {
-        "title": "Přesun objektů",
-        "message": "Opravdu chcete přesunout vybrané objekty do nově zvoleného objektu?",
+        "titleRepo": "Přesun objektů",
+        "titleImport": "Uložení dávky do úložiště",
+        "messageRepo": "Opravdu chcete přesunout vybrané objekty do nově zvoleného objektu?",
+        "messageImport": "Opravdu chcete uložit dávku do vybraného objektu?",
         "go": "Přejít na nově zvolený objekt"
       },
       "delete_dialog": {
@@ -1535,6 +1537,8 @@
     "subject/name": "Autor",
     "subject/temporal": "Chronologické věcné třídění",
     "subject/topic": "Klíčové slovo/Předmětové heslo",
+    "subject/topic/value": "Hodnota",
+    "subject/topic/@lang": "Jazyk",
     "tableOfContents": "Tabulka souvislostí",
     "titleInfo": "Název",
     "titleInfo/@type": "Typ",
@@ -1747,42 +1751,6 @@
       "primary": "Primární (hlavní)"
     }
   },
-  "admin": {
-    "users": {
-      "title": "Administrace uživatelů",
-      "username": "Uživatel",
-      "password": "heslo",
-      "password_tooltip": "Heslo uživatele musí obsahovat alespoň 6 znaků.",
-      "forename": "Jméno",
-      "surname": "Příjmení",
-      "organization": "Organizace",
-      "home": "Adresář",
-      "email": "Email",
-      "role": "Role",
-      "roles": {
-        "user": "Uživatel",
-        "admin": "Administrator",
-        "superAdmin": "Super Administrator"
-      },
-      "changeModelFunction": "Smí spustit funkce převody modelů",
-      "updateModelFunction": "Smí spustit funkce updatu modelů",
-      "unlockObjectFunction": "Smí spustit funkce odemknutí objektu",
-      "lockObjectFunction": "Smí spustit funkce uzamknutí objektu",
-      "new": "Vytvořit nového uživatele",
-      "delete": "Smazat uživatele",
-      "delete_dialog": {
-        "title": "Odstranění uživatele",
-        "message": "Opravdu chcete odstranit uživatele {{ name }}?",
-        "success": "Uživatel byl odstraněn"
-      },
-      "new_success": "Uživatel byl přidan"
-    },
-    "layout": {
-      "explain": "Kliknutím zmenite viditelnosti panelů",
-      "repo": "úložiště",
-      "import": "import"
-    }
-  },
   "workflow": {
     "title": "Záměry",
     "task": "Úkol",
@@ -1886,7 +1854,6 @@
 
 
 
-
 "desc": {
     "help": "Nápověda",
     "panelType": "Typ panelu",
@@ -1895,7 +1862,7 @@
     "client": "Klient",
     "build": "Build",
     "revision": "Revize",
-    "storage": "Uložiště",
+    "storage": "Úložiště",
     "database": "Databáze",
     "settings": "Nastavení",
     "devices": "Zařízení",
@@ -2085,7 +2052,10 @@
     "exportAnyway": "Přesto exportovat",
     "logIn": "Přihlásit",
     "unlink": "Zrušit vazbu",
-    "move": "Přesunout"
+    "move": "Přesunout",
+    "deleteUser": "Smazat uživatele",
+    "yes": "Ano",
+    "no": "Ne"
   },
   "dynamic": {
     "repo": "Úložiště",
@@ -2258,7 +2228,8 @@
         "3": "v dolním náhledu je vidět aktuální rozložení jednotlivých bloků",
         "4": "u jednotlivých bloků můžete měnit jejich velikost horizontálně a vertikálně",
         "5": "jednotlivým blokům pak můžete přidělit typ, který chcete zobrazovat"
-      }
+      },
+      "tooltipPanel": "Kliknutím zmenite viditelnosti panelů"
     },
     "about": {
       "title": "ProArc",
@@ -2332,7 +2303,15 @@
       "title": "Vyberte nadřazený objekt",
       "alert": {
         "infoRepo": "Přesunout objekt/y do",
-        "infoImport": "Uložit objekt/y do"
+        "infoImport": "Uložit dávku do"
+      }
+    },
+    "deleteUser": {
+      "title": "Odstranění uživatele",
+      "message": "Opravdu chcete odstranit uživatele {{ name }}?",
+      "alert": {
+        "success": "Uživatel byl odstraněn",
+        "error": "to do"
       }
     }
   },
@@ -2369,6 +2348,20 @@
       "exportProfile.kwis": "Export - KWIS",
       "exportProfile.aleph": "Export - Aleph",
       "internalProfile.reindex": "Internal - Reindexace"
+    },
+    "users": {
+      "tooltipUsername": "Jmeno uživatele podle vzoru: první znak malé písmeno následováno alespoň 4 znaky z kombinace písmen, čísel, pomlčky a podtržítka.",
+      "tooltipPassowrd": "Heslo uživatele musí obsahovat alespoň 6 znaků.",
+      "roles": {
+        "user": "Uživatel",
+        "admin": "Administrator",
+        "superAdmin": "Super Administrator"
+      },
+      "error": {
+        "username": "Musíte zadat uživateleské jméno",
+        "password": "Musíte zadat heslo",
+        "surname": "Musíte zadat příjmení"
+      }
     }
   },
   "alert": {
@@ -2385,6 +2378,9 @@
         "mismatch": "Zadané heslo se neshoduje s potvrzením hesla",
         "short": "Heslo je příliš kráté, musí mít alespoň 6 znaků"
       }
+    },
+    "addNewUser": {
+      "success": "Uživatel byl přidan"
     }
   }
 }

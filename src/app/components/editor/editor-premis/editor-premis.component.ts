@@ -276,7 +276,7 @@ export class EditorPremisComponent implements OnInit {
         this.state = 'success';
       } else if (response && response['response'] && response['response'].errors) {
         console.log('error', response['response'].errors);
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
       } else {
         this.state = 'success';

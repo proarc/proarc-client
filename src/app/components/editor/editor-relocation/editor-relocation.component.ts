@@ -95,7 +95,7 @@ export class EditorRelocationComponent implements OnInit {
     let pids: string[] = this.items.filter(c => c.selected).map(c => c.pid);
     this.api.setParent(this.layout.item.pid, destinationPid).subscribe((response: any) => {
       if (response['response'].errors) {
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
         return;
       } else {
@@ -153,7 +153,7 @@ export class EditorRelocationComponent implements OnInit {
 
     this.api.relocateObjects(parentPid, destinationPid, pids).subscribe((response: any) => {
       if (response['response'].errors) {
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
         return;
       }

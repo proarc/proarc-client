@@ -37,7 +37,7 @@ export class WorkflowComponent implements OnInit {
   getWorkflowProfiles() {
     this.api.getWorkflowProfiles().subscribe((response: any) => {
       if (response['response'].errors) {
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
       }
       this.profiles = response.response.data;
@@ -50,7 +50,7 @@ export class WorkflowComponent implements OnInit {
     this.items = [];
     this.api.getWorkflow().subscribe((response: any) => {
       if (response['response'].errors) {
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
       }
       this.items = response.response.data;
@@ -61,7 +61,7 @@ export class WorkflowComponent implements OnInit {
   getMaterial(id: number) {
     this.api.getWorkflowMaterial(id).subscribe((response: any) => {
       if (response['response'].errors) {
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
       }
       this.material = response.response.data;
@@ -71,7 +71,7 @@ export class WorkflowComponent implements OnInit {
   getTask(id: number) {
     this.api.getWorkflowTask(id).subscribe((response: any) => {
       if (response['response'].errors) {
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
       }
       this.tasks = response.response.data;
@@ -81,7 +81,7 @@ export class WorkflowComponent implements OnInit {
   saveDetail() {
     this.api.saveWorkflowItem(this.selectedItem).subscribe((response: any) => {
       if (response['response'].errors) {
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
       }
       this.tasks = response.response.data;
@@ -92,7 +92,7 @@ export class WorkflowComponent implements OnInit {
   getDetail() {
     this.api.getWorkflowItem(this.selectedItem.id).subscribe((response: any) => {
       if (response['response'].errors) {
-        this.ui.showErrorSnackBarFromObject(response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
       }
       this.selectedItem = response.response.data[0];

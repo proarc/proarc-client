@@ -48,7 +48,7 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
           return;
         });
         this.state = 'error';
-        //this.ui.showErrorSnackBarFromObject(response.response.errors);
+        //this.ui.showErrorDialogFromObject(response.response.errors);
         clearInterval(this.timer);
         this.state = 'failure';
         return;
