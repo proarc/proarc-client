@@ -298,17 +298,19 @@
           value: {
             usage: 'R',
             label: 'Hodnota',
+            cols: 2,
             selector: 'subject/topic/value',
             labelKey: 'subject/topic/value',
             hint: false,
           },
-          //            lang: {
-          //              usage: 'R',
-          //              label: 'Hodnota',
-          //              selector: 'subject/topic/@lang',
-          //              labelKey: 'subject/topic/@lang',
-          //              hint: false,
-          //            }
+          lang: {
+            usage: 'R',
+            label: 'Hodnota',
+            cols: 2,
+            selector: 'subject/topic/@lang',
+            labelKey: 'subject/topic/@lang',
+            hint: false,
+          }
         }
       },
       geographic: {
@@ -624,10 +626,6 @@
           [
             'table of content',
             'obsah'
-          ],
-          [
-            'peer-reviewed',
-            'recenzováno'
           ],
           [
             'preface',
@@ -1691,10 +1689,6 @@
               [
                 'table of content',
                 'obsah'
-              ],
-              [
-                'peer-reviewed',
-                'recenzováno'
               ],
               [
                 'preface',

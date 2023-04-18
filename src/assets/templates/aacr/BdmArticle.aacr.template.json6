@@ -1,6 +1,4 @@
-export class BdmArticleTemplate {
-
-  static data = {
+{
     titleInfo: {
       usage: 'M',
       required: true,
@@ -203,17 +201,19 @@ export class BdmArticleTemplate {
             value: {
               usage: 'R',
               label: 'Hodnota',
+              cols: 2,
               selector: 'subject/topic/value',
               labelKey: 'subject/topic/value',
               hint: false,
             },
-            //            lang: {
-            //              usage: 'R',
-            //              label: 'Hodnota',
-            //              selector: 'subject/topic/@lang',
-            //              labelKey: 'subject/topic/@lang',
-            //              hint: false,
-            //            }
+            lang: {
+              usage: 'R',
+              cols: 2,
+              label: 'Hodnota',
+              selector: 'subject/topic/@lang',
+              labelKey: 'subject/topic/@lang',
+              hint: false,
+            }
           }
         },
 //        lang: {
@@ -353,6 +353,7 @@ export class BdmArticleTemplate {
       }
     },
     genre: {
+      isElectronicArticle: true,
       usage: 'R',
       label: 'Typ obsahu',
       selector: 'genre',
@@ -383,7 +384,6 @@ export class BdmArticleTemplate {
             ['obituary', 'nekrolog'],
             ['cover', 'obálka'],
             ['table of content', 'obsah'],
-            ['peer-reviewed', 'recenzováno'],
             ['preface', 'předmluva'],
             ['review', 'recenze'],
             ['index', 'rejstřík'],
