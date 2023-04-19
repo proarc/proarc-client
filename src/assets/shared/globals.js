@@ -68,7 +68,7 @@ var APP_GLOBAL = {
       'model:chroniclesupplement',
       'model:bdmarticle'
   ],
-  defaultModel: 'model:ndkmonographvolume',
+  defaultModel: 'model:ndkperiodical',
   showCommentEditor: true,
   showWorkflow: true,
   topPageTypes: [
