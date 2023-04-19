@@ -113,17 +113,24 @@ export class ParentDialogComponent implements OnInit {
     this.models = this.config.allModels;
     this.initSelectedColumns();
 
-    this.splitArea1Width = this.properties.getStringProperty('parent.split.0', "60"),
-      this.splitArea2Width = this.properties.getStringProperty('parent.split.1', "40"),
-      this.model = this.properties.getStringProperty('parent.model', this.config.defaultModel);
-    this.queryField = this.properties.getStringProperty('parent.query_field', 'queryLabel');
+    this.splitArea1Width = this.properties.getStringProperty('parent.split.0', "60");
+    this.splitArea2Width = this.properties.getStringProperty('parent.split.1', "40");
 
+
+    if (this.data.isRepo) {
+      this.model = this.properties.getStringProperty('parent.model', this.config.defaultModel);
+      this.sortField = this.properties.getStringProperty('parent.sort_field', 'created');
+      this.sortAsc = this.properties.getBoolProperty('parent.sort_asc', false);
+    } else {
+      this.model = this.config.defaultModel;
+      this.sortField = 'modified';
+      this.sortAsc = false;
+    }
+    this.queryField = this.properties.getStringProperty('parent.query_field', 'queryLabel');
     this.organizations = this.config.organizations;
     this.organization = this.properties.getStringProperty('seaparentrch.organization', '-');
     this.owner = this.properties.getStringProperty('parent.owner', '-');
     this.processor = this.properties.getStringProperty('parent.processor', '-');
-    this.sortField = this.properties.getStringProperty('parent.sort_field', 'created');
-    this.sortAsc = this.properties.getBoolProperty('parent.sort_asc', false);
     if (this.model !== 'all' && this.model !== 'model:page' && this.model !== 'model:ndkpage') {
       this.reload();
     } else {
@@ -185,11 +192,13 @@ export class ParentDialogComponent implements OnInit {
 
   reload(page: number = 0) {
 
-    this.properties.setStringProperty('parent.model', this.model);
-    this.properties.setStringProperty('parent.query_field', this.queryField);
-    this.properties.setStringProperty('parent.organization', this.organization);
-    this.properties.setStringProperty('parent.owner', this.owner);
-    this.properties.setStringProperty('parent.processor', this.processor);
+    if (this.data.isRepo) {
+      this.properties.setStringProperty('parent.model', this.model);
+      this.properties.setStringProperty('parent.query_field', this.queryField);
+      this.properties.setStringProperty('parent.organization', this.organization);
+      this.properties.setStringProperty('parent.owner', this.owner);
+      this.properties.setStringProperty('parent.processor', this.processor);
+    }
 
 
     this.hierarchy = [];
@@ -217,7 +226,10 @@ export class ParentDialogComponent implements OnInit {
       this.resultCount = total;
       this.items = items;
       this.state = 'success';
-      this.findAndSelect();
+      if (this.data.isRepo) {
+        this.findAndSelect();
+      }
+      
     });
   }
 
