@@ -26,10 +26,10 @@
       </as-split-area>
     </as-split>
   </div>
-  <mat-card class="app-alert app-info app-mt-4" *ngIf="getNumOfSelected() !== 0 && state!=='loading' && isAllowed()">
-    <mat-icon>info</mat-icon>
+  <mat-divider *ngIf="getNumOfSelected() !== 0 && state!=='loading' && isAllowed()"></mat-divider>
+  <div *ngIf="getNumOfSelected() !== 0 && state!=='loading' && isAllowed()" class="app-mt-4">
     {{ (data.isRepo ? 'dialog.parent.alert.infoRepo' : 'dialog.parent.alert.infoImport') | translate }}:&#160;<strong>{{ selectedItem.label }}</strong>
-  </mat-card>
+  </div>
   <div mat-dialog-actions cdk-focus-start>
     <button mat-flat-button color="primary" *ngIf="data.parent" (click)="onDeleteParent()">{{ 'button.unlink' | translate }}</button>
     <button mat-flat-button color="primary" (click)="onSave()" [disabled]="(data.isRepo && getNumOfSelected() === 0) || state=='loading' || !isAllowed()">
