@@ -67,7 +67,7 @@
       fields: {
         type: {
           usage: 'M',
-          required: true,
+//          required: true,
           label: 'Typ',
           selector: 'name/@type',
           labelKey: 'name/@type',
