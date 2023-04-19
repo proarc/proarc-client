@@ -337,7 +337,15 @@ as-split {
   }  
 }
 
+// formbar
+.app-formbar {
+  .mat-form-field {
+    flex: 1 1 calc(10% - 16px);
+    min-width: calc(10% - 16px);
+  }
+}
 
+// toolbar
 .app-toolbar {
   min-height: $app-toolbar-height;
   background-color: $app-toolbar-bg;

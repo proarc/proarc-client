@@ -6,18 +6,6 @@
 .app-search-results {
   @extend .app-p-4;
 
-  .app-formbar {
-    .mat-form-field {
-      &.app-owner,
-      &.app-processor {
-        $app-size: 120px;
-        flex: 1 1 $app-size;
-        max-width: $app-size;
-        min-width: $app-size;
-      }
-    }
-  }
-
   .mat-table {
     .mat-column-label {
       width: 25%;

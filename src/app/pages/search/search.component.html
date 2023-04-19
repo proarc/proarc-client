@@ -35,6 +35,7 @@
             <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
           </mat-select>
         </mat-form-field>
+        <!-- <mat-icon *ngIf="activeFilter?.model" (click)="removeActiveFilter('model')">cancel</mat-icon> -->
         <mat-form-field fxFlex>
           <input matInput [placeholder]="'desc.name' | translate" (keyup.enter)="filter()" [(ngModel)]="queryLabel">
         </mat-form-field>

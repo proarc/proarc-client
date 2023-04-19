@@ -42,8 +42,8 @@
 <ng-template #origTmpl>
   <div fxLayout="column" fxFlexFill>
     <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
-      <div class="app-toolbar-label">
-				<span class="app-text">{{ 'desc.theCurrentParentObject' | translate }}: <strong>{{ data.parent?.label }}</strong></span>
+      <div class="app-toolbar-label app-text-cutter app-mr-2">
+				<span class="app-text">{{ 'desc.theCurrentParentObject' | translate }}: <strong [matTooltip]="data.parent?.label">{{ data.parent?.label }}</strong></span>
 			</div>
     </div>
     <div class="app-oa-y">
@@ -197,31 +197,31 @@
             <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field fxFlex="calc(10% - 16px)">
+        <mat-form-field>
           <input matInput [placeholder]="'desc.search' | translate" (keyup.enter)="reload()" [(ngModel)]="query">
         </mat-form-field>
       </ng-container>
 
       <ng-container *ngIf="searchMode === 'advanced'">
-        <mat-form-field fxFlex="calc(10% - 16px)">
+        <mat-form-field>
           <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model">
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field fxFlex="calc(10% - 16px)">
+        <mat-form-field>
           <input matInput [placeholder]="'desc.name' | translate" (keyup.enter)="reload()" [(ngModel)]="queryLabel">
         </mat-form-field>
-        <mat-form-field fxFlex="calc(10% - 16px)">
+        <mat-form-field>
           <input matInput [placeholder]="'desc.identifier' | translate" (keyup.enter)="reload()" [(ngModel)]="queryIdentifier">
         </mat-form-field>
-        <mat-form-field fxFlex="calc(10% - 16px)" class="app-owner">
+        <mat-form-field class="app-owner">
           <mat-select [placeholder]="'desc.owner' | translate" name="owner" [(value)]="owner">
             <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field fxFlex="calc(10% - 16px)" class="app-processor">
+        <mat-form-field class="app-processor">
           <mat-select [placeholder]="'desc.processor' | translate" name="processor" [(value)]="processor">
             <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
