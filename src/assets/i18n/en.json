@@ -2055,7 +2055,8 @@
     "move": "Move",
     "deleteUser": "Delete user",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "removeThisFilter": "Remove this filter"
   },
   "dynamic": {
     "repo": "Storage",

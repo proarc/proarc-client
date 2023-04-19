@@ -2055,7 +2055,8 @@
     "move": "Přesunout",
     "deleteUser": "Smazat uživatele",
     "yes": "Ano",
-    "no": "Ne"
+    "no": "Ne",
+    "removeThisFilter": "Odstranit tento filtr"
   },
   "dynamic": {
     "repo": "Úložiště",

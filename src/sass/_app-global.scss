@@ -342,6 +342,14 @@ as-split {
   .mat-form-field {
     flex: 1 1 calc(10% - 16px);
     min-width: calc(10% - 16px);
+
+    .mat-form-field-suffix {
+      .mat-icon-button {
+        .mat-icon {
+          @include setIcon(18);
+        }
+      }
+    }
   }
 }
 

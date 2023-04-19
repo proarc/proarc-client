@@ -21,6 +21,7 @@ import { ChangeModelDialogComponent } from 'src/app/dialogs/change-model-dialog/
 
 import {MatSort, Sort} from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
+import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 
 @Component({
   selector: 'app-search',
@@ -72,6 +73,9 @@ export class SearchComponent implements OnInit {
   users: User[];
 
   searchMode: string = 'advanced';
+
+  public urlParams: any; // pedro
+
   
   @ViewChild('table') table: MatTable<DocumentItem>;
   public selectedColumns = [
@@ -97,7 +101,7 @@ export class SearchComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               public search: SearchService,
-              private config: ConfigService,
+              public config: ConfigService,
               private ui: UIService,
               private translator: TranslateService) { 
                 this.models = this.config.allModels;
@@ -111,6 +115,7 @@ export class SearchComponent implements OnInit {
     this.route.queryParams.subscribe(p => {
       this.processParams(p);
       this.reload();
+      this.urlParams = p;
       // if (this.model !== 'all' && this.model !== 'model:page' && this.model !== 'model:ndkpage') {
       //   this.reload();
       // } else {
@@ -147,7 +152,7 @@ export class SearchComponent implements OnInit {
     params.page = null;
     this.router.navigate([], { queryParams: params, queryParamsHandling: 'merge' });
   }
-
+  
 
   processParams(p: any) {
 
