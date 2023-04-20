@@ -1,6 +1,6 @@
 
 
-import { Component, OnInit, Input, ViewChild, ElementRef, EventEmitter, Output, ViewChildren, ViewContainerRef, QueryList } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, EventEmitter, Output, ViewChildren, ViewContainerRef, QueryList, Renderer2, HostListener } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
@@ -38,6 +38,7 @@ export class EditorStructureComponent implements OnInit {
   @Output() onIngest = new EventEmitter<boolean>();
 
   @ViewChild('table') table: MatTable<DocumentItem>;
+  @ViewChild(MatTable, { read: ElementRef }) private matTableRef: ElementRef;
   @ViewChildren('matrow', { read: ViewContainerRef }) rows: QueryList<ViewContainerRef>;
   @ViewChild('childrenList') childrenListEl: ElementRef;
   @ViewChild('childrenIconList') childrenIconListEl: ElementRef;
@@ -78,16 +79,16 @@ export class EditorStructureComponent implements OnInit {
   // public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
 
   public selectedColumns = [
-    { field: 'pageType', selected: true },
-    { field: 'pageNumber', selected: true },
-    { field: 'pageIndex', selected: true },
-    { field: 'pagePosition', selected: true },
-    { field: 'model', selected: true },
-    { field: 'pid', selected: false },
-    { field: 'owner', selected: false },
-    { field: 'created', selected: false },
-    { field: 'modified', selected: true },
-    { field: 'status', selected: false }
+    { field: 'pageType', selected: true, width: 140 },
+    { field: 'pageNumber', selected: true, width: 140 },
+    { field: 'pageIndex', selected: true, width: 140 },
+    { field: 'pagePosition', selected: true, width: 140 },
+    { field: 'model', selected: true, width: 140 },
+    { field: 'pid', selected: false, width: 140 },
+    { field: 'owner', selected: false, width: 140 },
+    { field: 'created', selected: false, width: 140 },
+    { field: 'modified', selected: true, width: 140 },
+    { field: 'status', selected: false, width: 140 }
   ];
   displayedColumns: string[] = [];
 
@@ -95,7 +96,16 @@ export class EditorStructureComponent implements OnInit {
 
   refreshing = false;
 
+  pressed = false;
+  currentResizeIndex: string;
+  startX: number;
+  startWidth: number;
+  isResizingRight: boolean;
+  resizableMousemove: () => void;
+  resizableMouseup: () => void;
+
   constructor(
+    private renderer: Renderer2,
     private router: Router,
     private properties: LocalStorageService,
     private translator: TranslateService,
@@ -130,6 +140,7 @@ export class EditorStructureComponent implements OnInit {
 
   ngAfterViewInit() {
     this.childrenWrapperEl.nativeElement.focus();
+    this.setColumnSizes();
 
     this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
       this.pageChildren = this.layout.items.findIndex(it => it.isPage()) > -1;
@@ -271,9 +282,9 @@ export class EditorStructureComponent implements OnInit {
       Object.assign(this.selectedColumns, JSON.parse(prop));
     } else {
       if (this.isRepo) {
-        this.selectedColumns.unshift({ field: 'label', selected: true })
+        this.selectedColumns.unshift({ field: 'label', selected: true, width: 100 })
       } else {
-        this.selectedColumns.unshift({ field: 'filename', selected: true })
+        this.selectedColumns.unshift({ field: 'filename', selected: true, width: 100 })
       }
     }
   }
@@ -437,7 +448,7 @@ export class EditorStructureComponent implements OnInit {
 
 
   dragend(event: any) {
-    
+
     this.isDragging = false;
     if (!this.dragEnabled) {
       return;
@@ -483,7 +494,7 @@ export class EditorStructureComponent implements OnInit {
 
     } else {
       const from = this.sourceIndex;
-      
+
       this.hasChanges = true;
       if (from !== to) {
         this.reorder(from, to);
@@ -492,7 +503,7 @@ export class EditorStructureComponent implements OnInit {
     this.layout.setSelectionChanged(true);
   }
 
-  public trackItem (index: number, item: DocumentItem) {
+  public trackItem(index: number, item: DocumentItem) {
     return item.pid;
   }
 
@@ -513,7 +524,7 @@ export class EditorStructureComponent implements OnInit {
       selections.forEach(s => {
         const item = this.layout.items.splice(s, 1);
         if (s < this.targetIndex) {
-          newIndex --;
+          newIndex--;
           indexCounted = true;
         }
       });
@@ -529,8 +540,8 @@ export class EditorStructureComponent implements OnInit {
     this.layout.setIsDirty(this as Component);
     this.hasChanges = true;
     if (this.table) {
-        this.table.renderRows();
-      
+      this.table.renderRows();
+
     }
     this.state = 'loading';
     setTimeout(() => {
@@ -584,10 +595,11 @@ export class EditorStructureComponent implements OnInit {
 
   validateChildren() {
     const dialogRef = this.dialog.open(ChildrenValidationDialogComponent, {
-      data: { 
+      data: {
         parent: this.layout.selectedParentItem,
-        children: this.layout.items, 
-        batchId: this.layout.getBatchId() },
+        children: this.layout.items,
+        batchId: this.layout.getBatchId()
+      },
       panelClass: 'app-children-validation-dialog',
       width: '600px'
     });
@@ -723,7 +735,7 @@ export class EditorStructureComponent implements OnInit {
     const items = selected.length > 0 ? selected : [this.layout.item];
     const parent = selected.length > 0 ? this.layout.item : this.layout.parent;
 
-    
+
 
     const dialogRef = this.dialog.open(ParentDialogComponent, {
       data: {
@@ -740,7 +752,7 @@ export class EditorStructureComponent implements OnInit {
       height: '90%',
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         this.layout.setShouldRefresh(false);
       }
       // if (result && result.pid) {
@@ -1066,10 +1078,10 @@ export class EditorStructureComponent implements OnInit {
 
   array_move(arr: any[], old_index: number, new_index: number) {
     if (new_index >= arr.length) {
-        var k = new_index - arr.length + 1;
-        while (k--) {
-            arr.push(undefined);
-        }
+      var k = new_index - arr.length + 1;
+      while (k--) {
+        arr.push(undefined);
+      }
     }
     arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
     return arr; // for testing
@@ -1106,7 +1118,7 @@ export class EditorStructureComponent implements OnInit {
       selections.forEach(s => {
         this.layout.items.splice(s, 1);
         if (s < event.currentIndex) {
-          newIndex --;
+          newIndex--;
           indexCounted = true;
         }
       });
@@ -1123,6 +1135,114 @@ export class EditorStructureComponent implements OnInit {
     this.hasChanges = true;
     this.table.renderRows();
 
+  }
+
+
+
+  setColumnSizes() {
+
+    this.selectedColumns.forEach((column) => {
+        const col = document.getElementsByClassName('mat-column-' + column.field).item(0);
+      if (col) {
+        column.width = col.clientWidth;
+        // this.setColumnWidth(column);
+      }
+    });
+  }
+
+
+  onResizeColumn(event: any, field: string) {
+    // const index = this.selectedColumns.findIndex(c => c.field === field);
+    // console.log(field, index)
+    this.checkResizing(event, field);
+    this.currentResizeIndex = field;
+    this.pressed = true;
+    this.startX = event.pageX;
+    this.startWidth = event.target.parentElement.clientWidth;
+    event.preventDefault();
+    this.mouseMove(field);
+  }
+
+  private checkResizing(event: any, field: string) {
+    const cellData = this.getCellData(field);
+    const visibleColumns = this.selectedColumns.filter(c => c.selected);
+    const index = visibleColumns.findIndex(c => c.field === field);
+    if ((index === 0) || (Math.abs(event.pageX - cellData.right) < cellData.width / 2 && index !== visibleColumns.length - 1)) {
+      this.isResizingRight = true;
+    } else {
+      this.isResizingRight = false;
+    }
+  }
+
+  private getCellData(field: string) {
+    const headerRow = this.matTableRef.nativeElement.children[0].querySelector('tr');
+    // const cell = headerRow.children[index];
+    const cell = headerRow.getElementsByClassName('mat-column-' + field).item(0);
+    return cell.getBoundingClientRect();
+  }
+
+  mouseMove(field: string) {
+    this.resizableMousemove = this.renderer.listen('document', 'mousemove', (event) => {
+      if (this.pressed && event.buttons) {
+        const dx = (this.isResizingRight) ? (event.pageX - this.startX) : (-event.pageX + this.startX);
+        const width = this.startWidth + dx;
+        if (this.currentResizeIndex === field && width > 50) {
+          this.setColumnWidthChanges(field, width);
+        }
+      }
+    });
+    this.resizableMouseup = this.renderer.listen('document', 'mouseup', (event) => {
+      if (this.pressed) {
+        this.pressed = false;
+        this.currentResizeIndex = '';
+        this.resizableMousemove();
+        this.resizableMouseup();
+      }
+    });
+  }
+
+
+
+  setColumnWidthChanges(field: string, width: number) {
+    const visibleColumns = this.selectedColumns.filter(c => c.selected);
+    const index = visibleColumns.findIndex(c => c.field === field);
+    const orgWidth = visibleColumns[index].width;
+    const dx = width - orgWidth;
+    if (dx !== 0) {
+      const j = (this.isResizingRight) ? index + 1 : index - 1;
+      const newWidth = visibleColumns[j].width - dx;
+      if (newWidth > 50) {
+        visibleColumns[index].width = width;
+        this.setColumnWidth(visibleColumns[index]);
+        visibleColumns[j].width = newWidth;
+        this.setColumnWidth(visibleColumns[j]);
+      }
+    }
+  }
+
+  setColumnWidth(column: any) {
+    const columnEls = Array.from(document.getElementsByClassName('mat-column-' + column.field));
+    columnEls.forEach((el: any) => {
+      el.style.minWidth = column.width + 'px';
+      // el.style.width = column.width + 'px';
+    });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.setTableResize(this.matTableRef.nativeElement.clientWidth);
+  }
+
+  setTableResize(tableWidth: number) {
+    let totWidth = 0;
+    this.selectedColumns.forEach((column) => {
+      totWidth += column.width;
+    });
+    const scale = (tableWidth - 5) / totWidth;
+    this.selectedColumns.forEach((column) => {
+      column.width *= scale;
+      this.setColumnWidth(column);
+    });
   }
 
 }

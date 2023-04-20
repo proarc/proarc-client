@@ -29,3 +29,25 @@
     width: 16.6666%;
   }
 }
+
+
+table th .resize-handle:hover {
+  opacity: 1;
+  transition: .3s ease-in-out;
+}
+
+.resize-handle {
+  display: inline-block;
+  background-color: lightgray;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width:10px;
+  height: 100%;
+  cursor: col-resize;
+  opacity: 0;
+}
+
+// .resize-handle:hover {
+//   width: 20px;
+// }
