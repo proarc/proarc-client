@@ -346,7 +346,7 @@ as-split {
     .mat-form-field-suffix {
       .mat-icon-button {
         .mat-icon {
-          @include setIcon(18);
+          @include setIcon(18, $position: sub);
         }
       }
     }
