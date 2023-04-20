@@ -13,6 +13,11 @@
   <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'" class="app-progress-bar"></mat-progress-bar>
 
   <div *ngIf="state!=='loading'" fxFlex class="app-search-results" fxLayout="column">
+    <h1>
+      Debug:<br />
+      organization ->  {{ organization }}<br />
+      queryParams ->  {{ urlParams?.organization }}<br />
+    </h1>
     <div class="app-formbar" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
       <button mat-flat-button color="primary" (click)="filter()">
         {{ 'button.search' | translate }}
@@ -23,7 +28,7 @@
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
           </mat-select>
-          <button *ngIf="urlParams?.model !== this.config.defaultModel" matSuffix mat-icon-button aria-label="Clear" (click)="model=this.config.defaultModel; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+          <button *ngIf="model !== this.config.defaultModel && urlParams?.model === model" matSuffix mat-icon-button aria-label="Clear" (click)="model=this.config.defaultModel; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
@@ -40,7 +45,7 @@
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
           </mat-select>
-          <button *ngIf="urlParams?.model !== this.config.defaultModel" matSuffix mat-icon-button aria-label="Clear" (click)="model=this.config.defaultModel; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+          <button *ngIf="model !== this.config.defaultModel && urlParams?.model === model" matSuffix mat-icon-button aria-label="Clear" (click)="model=this.config.defaultModel; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
@@ -67,7 +72,7 @@
             <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let org of organizations" [value]="org">{{ 'organization.' + org | translate }}</mat-option>
           </mat-select>
-          <button *ngIf="urlParams?.organization !== '-'" matSuffix mat-icon-button aria-label="Clear" (click)="organization='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+          <button *ngIf="organization !=='-' && urlParams?.organization === organization" matSuffix mat-icon-button aria-label="Clear" (click)="organization='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
@@ -76,7 +81,7 @@
             <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
           </mat-select>
-          <button *ngIf="urlParams?.owner !== '-'" matSuffix mat-icon-button aria-label="Clear" (click)="owner='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+          <button *ngIf="owner !== '-' && urlParams?.owner === owner" matSuffix mat-icon-button aria-label="Clear" (click)="owner='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
@@ -85,7 +90,7 @@
             <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
           </mat-select>
-          <button *ngIf="urlParams?.processor !== '-'" matSuffix mat-icon-button aria-label="Clear" (click)="processor='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+          <button *ngIf="processor !== '-' &&  urlParams?.processor === processor" matSuffix mat-icon-button aria-label="Clear" (click)="processor='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>

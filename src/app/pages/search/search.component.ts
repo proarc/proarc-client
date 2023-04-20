@@ -152,7 +152,13 @@ export class SearchComponent implements OnInit {
     params.page = null;
     this.router.navigate([], { queryParams: params, queryParamsHandling: 'merge' });
   }
-  
+
+  // todo - Alberto jeste predela
+  removeActiveFilter(filter: any) {
+    this[filter as keyof SearchComponent]  = '' as never;
+    this.filter();
+  }
+
 
   processParams(p: any) {
 
