@@ -23,7 +23,7 @@
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
           </mat-select>
-          <button *ngIf="model !== this.config.defaultModel && urlParams?.model === model" matSuffix mat-icon-button aria-label="Clear" (click)="model=this.config.defaultModel; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+          <button *ngIf="model !== this.config.defaultModel && this.properties.getStringProperty('search.model') === model" matSuffix mat-icon-button aria-label="Clear" (click)="model=this.config.defaultModel; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
@@ -40,7 +40,7 @@
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
           </mat-select>
-          <button *ngIf="model !== this.config.defaultModel && urlParams?.model === model" matSuffix mat-icon-button aria-label="Clear" (click)="model=this.config.defaultModel; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+          <button *ngIf="model !== this.config.defaultModel && this.properties.getStringProperty('search.model') === model" matSuffix mat-icon-button aria-label="Clear" (click)="model=this.config.defaultModel; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
@@ -67,7 +67,7 @@
             <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let org of organizations" [value]="org">{{ 'organization.' + org | translate }}</mat-option>
           </mat-select>
-          <button *ngIf="organization !=='-' && urlParams?.organization === organization" matSuffix mat-icon-button aria-label="Clear" (click)="organization='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+          <button *ngIf="organization !=='-' && this.properties.getStringProperty('search.organization') === organization" matSuffix mat-icon-button aria-label="Clear" (click)="organization='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
@@ -76,7 +76,7 @@
             <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
           </mat-select>
-          <button *ngIf="owner !== '-' && urlParams?.owner === owner" matSuffix mat-icon-button aria-label="Clear" (click)="owner='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+          <button *ngIf="owner !== '-' && this.properties.getStringProperty('search.owner') === owner" matSuffix mat-icon-button aria-label="Clear" (click)="owner='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
@@ -85,7 +85,7 @@
             <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
           </mat-select>
-          <button *ngIf="processor !== '-' &&  urlParams?.processor === processor" matSuffix mat-icon-button aria-label="Clear" (click)="processor='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+          <button *ngIf="processor !== '-' &&  this.properties.getStringProperty('search.processor') === processor" matSuffix mat-icon-button aria-label="Clear" (click)="processor='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
@@ -105,7 +105,7 @@
                   <mat-checkbox name="column.field" [(ngModel)]="column.selected" (change)="setSelectedColumns()">{{ 'search.' + column.field | translate }}</mat-checkbox>
                 </div>
               </mat-menu>
-              <button (click)="reload()" mat-button>{{'button.refresh' | translate }}</button>
+              <button (click)="reload()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
               <button (click)="openItem(selectedItem)" mat-button>{{ 'button.open' | translate }}</button>
               <button (click)="showFoxml(selectedItem)" mat-button>FOXML</button>
               <button (click)="onExport(selectedItem)" mat-button>{{ 'button.export' | translate }}</button>
@@ -245,7 +245,7 @@
         <div *ngIf="tree" fxLayout="column" fxFlexFill>
           <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar app-toolbar-action app-view-border-bottom">
             <div fxFlex *ngIf="search.selectedTree" fxLayout="row" fxFlexFill>
-              <button (click)="selectItem(selectedItem)" mat-button>{{'button.refresh' | translate }}</button>
+              <button (click)="selectItem(selectedItem)" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
               <button (click)="openItem(search.selectedTree.item)" mat-button>{{ 'button.open' | translate }}</button>
               <button (click)="showFoxml(search.selectedTree.item)" mat-button>FOXML</button>
               <button (click)="onExport(search.selectedTree.item)" mat-button>{{ 'button.export' | translate }}</button>
