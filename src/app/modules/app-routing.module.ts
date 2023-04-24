@@ -17,6 +17,7 @@ import { RepositoryComponent } from '../pages/repository/repository.component';
 import { BatchesComponent } from '../pages/batches/batches.component';
 import { AuthGuard } from '../auth.guard';
 import { KrameriusComponent } from '../pages/kramerius/kramerius.component';
+import { AdminGuard } from '../admin.guard';
 
 const routes: Routes = [
       { path: 'login', component: LoginComponent },
@@ -37,7 +38,7 @@ const routes: Routes = [
       { path: 'import/history', component: HistoryComponent },
       // { path: 'import/edit/:batch_id', component: EditorComponent, canDeactivate:[ConfirmLeaveEditorGuard] },
       { path: 'import/edit/:batch_id', component: BatchesComponent, canDeactivate: [ConfirmLeaveEditorGuard] },
-      { path: 'admin', component: AdminComponent },
+      { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
       { path: 'workflow', loadChildren: () => import('../pages/workflow/workflow.module').then(m => m.WorkflowModule) },
       { path: '', redirectTo: '/search', pathMatch: 'full' }
     ]
