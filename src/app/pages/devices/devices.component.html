@@ -3,7 +3,7 @@
     <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
       <a routerLink="/"><mat-icon>home</mat-icon> Home</a>
       <span class="app-separator">/</span>
-      <span class="app-last">{{ 'desc.devices' | translate }}</span>
+      <span class="app-last">{{ 'device.devices' | translate }}</span>
     </div>
   </div>
 
@@ -12,19 +12,19 @@
   <div fxFlex class="app-devices app-p-4" fxLayout="column">
     <div class="app-formbar" class="app-mb-4">
       <a mat-flat-button color="primary" [routerLink]="['/devices', 'new']">
-        {{ 'button.addDevice' | translate }}
+        {{ 'device.button.addDevice' | translate }}
       </a>
     </div>
 
     <div fxFlex class="app-oh app-oa-y">
       <table mat-table [dataSource]="devices" class="app-hover app-striped">
         <ng-container matColumnDef="model">
-          <th mat-header-cell *matHeaderCellDef>{{ 'desc.type' | translate }}</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'device.type' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ 'model.' + element.model | translate }}</td>
         </ng-container>
 
         <ng-container matColumnDef="label">
-          <th mat-header-cell *matHeaderCellDef>{{ 'desc.name' | translate }}</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'device.name' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.label }}</td>
         </ng-container>
 
