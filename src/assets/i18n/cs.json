@@ -2026,7 +2026,8 @@
     "login": "Přihlášení",
     "includeRelatedItem": "včetně relatedItem",
     "theCurrentParentObject": "Aktuální nadřazený objekt",
-    "userEditing": "Editace uživatele"
+    "userEditing": "Editace uživatele",
+    "createUser": "Vytvoření uživatele"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2413,6 +2414,9 @@
     },
     "addNewUser": {
       "success": "Uživatel byl přidan"
+    },
+    "editUser": {
+      "success": "Uživatel byl upraven"
     }
   },
   "device": {

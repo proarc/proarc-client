@@ -2026,7 +2026,8 @@
     "login": "Login",
     "includeRelatedItem": "including relatedItem",
     "theCurrentParentObject": "The current parent object",
-    "userEditing": "User editing"
+    "userEditing": "User editing",
+    "createUser": "Create a user"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2413,6 +2414,9 @@
     },
     "addNewUser": {
       "success": "User has been added"
+    },
+    "editUser": {
+      "success": "User has been modified"
     }
   },
   "device": {

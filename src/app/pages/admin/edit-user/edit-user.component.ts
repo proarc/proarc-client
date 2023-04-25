@@ -4,6 +4,7 @@ import { User } from 'src/app/model/user.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { UIService } from 'src/app/services/ui.service';
+import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
   selector: 'app-edit-user',
@@ -17,7 +18,6 @@ export class EditUserComponent implements OnInit {
   @ViewChild('password') password: ElementRef;
 
   public id: number;
-  users: User[];
   selectedUser: any;
 
   roles = ['user', 'admin', 'superAdmin'];
@@ -25,34 +25,24 @@ export class EditUserComponent implements OnInit {
 
   constructor(
     private api: ApiService,        
-    private router: Router,
     private translator: TranslateService,
     private route: ActivatedRoute,
-    private ui: UIService
+    private ui: UIService,
+    private config: ConfigService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.getUser();
-      //this.reload();
     });
+    this.organizations = this.config.organizations;
   }
 
   private getUser() {
     this.api.getUserDetail(this.id).subscribe((user: User) => {
       this.selectedUser = user;
-    });
-  }
-
-  private getUsers() {
-    this.api.getUsers().subscribe((users: User[]) => {
-      this.users = users;
-      this.users.forEach(f => {
-        if (f.userId == this.id) {
-          this.selectedUser = f;
-        }
-      });
     });
   }
 
@@ -87,11 +77,12 @@ export class EditUserComponent implements OnInit {
         const user: User =  User.fromJson(response['response']['data'][0]);
         this.getUser();
         this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.addNewUser.success')));
-        
       });
     } else {
       this.api.saveUser(this.selectedUser).subscribe((user: User) => {
         this.selectedUser = user;
+        this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.editUser.success')));
+        this.router.navigate(['/admin']);
       });
     }
   }

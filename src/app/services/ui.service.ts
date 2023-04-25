@@ -54,8 +54,8 @@ export class UIService {
     this.snackBar.open(String(this.translator.instant(code)), '', { duration: duration });
   }
 
-  showInfoSnackBar(message: string, duration: number = 2000) {
-    this.snackBar.open(message, 'OK', { duration: duration, panelClass: 'app-snackbar-success' });
+  showInfoSnackBar(message: string, duration: number = 4000) {
+    this.snackBar.open(message, 'OK', { duration: duration, panelClass: 'app-snackbar-success', verticalPosition: 'top' });
   }
 
   showErrorSnackBar(message: string, duration: number = 4000) {
