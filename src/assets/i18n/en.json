@@ -74,32 +74,6 @@
     "NDK_ARCHIVAL": "Archive copy",
     "NDK_USER": "User copy"
   },
-  "device": {
-    "devices": "Devices",
-    "device": "Device",
-    "add_device": "Add device",
-    "name": "Name",
-    "model": "Type",
-    "edit": "Edit device",
-    "delete": "Remove device",
-    "new": "New device",
-    "create": "Create device",
-    "editing": "Edit device",
-    "models": {
-      "proarc:audiodevice": "Audio device",
-      "proarc:device": "Image device"
-    },
-    "delete_dialog": {
-      "title": "Remove device",
-      "message": "Are you sure you want to remove device {{ name }}?",
-      "success": "Device has been removed"
-    },
-    "delete_audio_dialog": {
-      "title": "Remove audio device",
-      "message": "Are you sure you want to remove the audio device?",
-      "success": "Audio device has been removed"
-    }
-  },
   "search": {
     "title": "Search",
     "name": "Name",
@@ -1854,6 +1828,75 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "desc": {
     "help": "Help",
     "panelType": "Panel type",
@@ -1865,12 +1908,7 @@
     "storage": "Storage",
     "database": "Database",
     "settings": "Settings",
-    "devices": "Devices",
-    "newDevice": "New device",
-    "deviceModification": "Device modification",
     "import": "Import",
-    "newAudioLine": "New audio line",
-    "editingAudioLine": "Editing an audio line",
     "repository": "Repozitory",
     "comment": "Comment",
     "picture": "Picture",
@@ -2033,14 +2071,6 @@
     "reexport": "Repeat export",
     "create": "Create",
     "loadMetadataFromCatalog": "Load metadata from catalog",
-    "addDevice": "Add device",
-    "editDevice": "Edit device",
-    "removeDevice": "Remove device",
-    "addInfoToAudioFiles": "Add info to audio files",
-    "deleteInfoForAudioFiles": "Delete info for audio files",
-    "editInfoForAudioFiles": "Edit info for audio files",
-    "createAnAudioLine": "Create an audio line",
-    "editTheAudioLine": "Edit the audio line",
     "createNewUser": "Create a new user",
     "chapters": "Chapters",
     "prev_page": "Next page",
@@ -2383,6 +2413,51 @@
     },
     "addNewUser": {
       "success": "User has been added"
+    }
+  },
+  "device": {
+    "devices": "Devices",
+    "name": "Name",
+    "general": "General",
+    "imageProducer": "Image producer",
+    "captureDevice": "Capture device",
+    "typeOfDevice": "Type of device",
+    "scanner": "Scanner",
+    "manufacturer": "Manufacturer",
+    "scannerSensor": "Scanner sensor",
+    "modelName": "Model name",
+    "modelNumber": "Model number",
+    "modelSerialNumber": "Model serial number",
+    "opticalResolution": "Optical resolution",
+    "opticalResolutionUnit": "Optical resolution unit",
+    "softwareName": "Software name",
+    "softwareVersion": "Software version",
+    "digitalCamera": "Digital camera",
+    "cameraSensor": "Camera sensor",
+    "serialNumber": "Serial number",
+    "identifierType": "Identifier type",
+    "identifierValue": "Identifier value",
+    "identifierRole": "Identifier role",
+    "informationAboutAudioFiles": "Information about audio files",
+    "linkingAgentIdentifier": "Linking agent identifier",
+    "value": "Value",
+    "role": "Role",
+    "agentExtension": "Agent extension",
+    "type": "Type",
+    "settings": "Settings",
+    "editingAudioLine": "Editing an audio line",
+    "deviceModification": "Device modification",
+    "button": {
+      "addDevice": "Add device",
+      "deleteInfoForAudioFiles": "Delete info for audio files",
+      "editInfoForAudioFiles": "Edit info for audio files",
+      "editDevice": "Edit device",
+      "removeDevice": "Remove device",
+      "addInfoToAudioFiles": "Add info to audio files",
+      "editTheAudioLine": "Edit the audio line",
+      "createAnAudioLine": "Create an audio line",
+      "create": "Create",
+      "edit": "Edit"
     }
   }
 }

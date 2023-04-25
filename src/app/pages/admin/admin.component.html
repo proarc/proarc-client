@@ -94,7 +94,7 @@
               <button mat-flat-button color="primary" (click)="newUser()" class="app-mr-2">{{ 'button.createNewUser' | translate }}</button>
             </div>
           </div>
-          <div fxFlex fxLayout="column">
+          <div fxFlex fxLayout="column" *ngIf="selectedUser">
             <fieldset class="app-p-4 app-mb-4" fxFlex>
               <legend>{{ 'desc.accountInformation' | translate }}</legend>
               <div fxLayout="row" fxLayoutGap="16px">
