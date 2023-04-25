@@ -502,6 +502,7 @@ as-split {
   }
 }
 
+// tree
 .app-tree {
   .app-row {
     @extend .app-w-100;
@@ -588,4 +589,11 @@ as-split {
       }
     }  
   }
+}
+
+// table footer
+.app-table-footer {
+  position: sticky;
+  bottom: 0;
+  background-color: $app-body-bg;
 }

@@ -1987,7 +1987,8 @@
     "bagitPackage": "BAGIT balíček",
     "login": "Přihlášení",
     "includeRelatedItem": "včetně relatedItem",
-    "theCurrentParentObject": "Aktuální nadřazený objekt"
+    "theCurrentParentObject": "Aktuální nadřazený objekt",
+    "userEditing": "Editace uživatele"
   },
   "button": {
     "setLayout": "nastavit rozložení",

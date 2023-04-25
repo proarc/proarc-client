@@ -1,8 +1,85 @@
 <div fxLayout="column" fxFlexFill>
-  <div fxFlex class="app-p-4 app-oa-y" fxLayout="column">
-    <h1>{{ 'desc.userAdministration' | translate }}</h1>
-    <div fxFlex>
-      <mat-card>
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
+    <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
+      <a routerLink="/"><mat-icon>home</mat-icon> Home</a>
+      <span class="app-separator">/</span>
+      <span class="app-last">{{ 'desc.userAdministration' | translate }}</span>
+    </div>
+  </div>
+  <div fxFlex class="app-p-4 app-oh">
+    <div class="app-maxh-100 app-oa-y app-mb-4"> 
+      <table mat-table [dataSource]="users" class="app-striped app-hover">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>{{ 'desc.username' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+      
+        <ng-container matColumnDef="forename">
+          <th mat-header-cell *matHeaderCellDef>{{ 'desc.forename' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.forename }}</td>
+        </ng-container>
+      
+        <ng-container matColumnDef="surname">
+          <th mat-header-cell *matHeaderCellDef>{{ 'desc.surname' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.surname }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>{{ 'desc.email' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="organization">
+          <th mat-header-cell *matHeaderCellDef>{{ 'desc.organization' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.organization }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="role">
+          <th mat-header-cell *matHeaderCellDef>{{ 'desc.role' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.role }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="home">
+          <th mat-header-cell *matHeaderCellDef>{{ 'desc.folder' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.home }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="changeModelFunction">
+          <th mat-header-cell *matHeaderCellDef>{{ 'desc.conversionOfModels' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.changeModelFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+
+        <ng-container matColumnDef="updateModelFunction">
+          <th mat-header-cell *matHeaderCellDef>{{ 'desc.updateModels' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.updateModelFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+
+        <ng-container matColumnDef="lockObjectFunction">
+          <th mat-header-cell *matHeaderCellDef>{{ 'desc.lockingTheObject' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.lockObjectFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+
+        <ng-container matColumnDef="unlockObjectFunction">
+          <th mat-header-cell *matHeaderCellDef>{{ 'desc.unlockingTheObject' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.unlockObjectFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <a [routerLink]="['/admin/' + element.userId  + '/edit']" [matTooltip]="'button.edit' | translate"><mat-icon>edit_note</mat-icon></a>
+          </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <div class="app-table-footer app-pt-4">
+        <button mat-flat-button color="primary" routerLink="/admin/create" class="app-mr-2">{{ 'button.createNewUser' | translate }}</button>
+      </div>
+      
+     
+      <!-- <mat-card>
         <mat-card-content fxLayout="row" fxLayoutGap="16px">
           <div fxLayout="column">
             <fieldset class="app-p-4 app-mb-4" fxFlex>
@@ -15,7 +92,6 @@
             </fieldset>
             <div>
               <button mat-flat-button color="primary" (click)="newUser()" class="app-mr-2">{{ 'button.createNewUser' | translate }}</button>
-              <!-- <button mat-flat-button color="warn" (click)="deleteUser()">{{ 'button.deleteUser' | translate }}</button> -->
             </div>
           </div>
           <div fxFlex fxLayout="column">
@@ -69,7 +145,7 @@
             </div>
           </div>
         </mat-card-content>
-      </mat-card>
+      </mat-card> -->
     </div>
   </div>
 </div>

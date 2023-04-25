@@ -125,6 +125,8 @@ import { MediaComponent } from './components/media/media.component';
 import { SharedModule } from './shared.module';
 import { EditorPremisMultipleComponent } from './components/editor/editor-premis-multiple/editor-premis-multiple.component';
 import { EpubComponent } from './components/epub/epub.component';
+import { EditUserComponent } from './pages/admin/edit-user/edit-user.component';
+import { CreateUserComponent } from './pages/admin/create-user/create-user.component';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 300,
@@ -243,6 +245,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MediaComponent,
     EditorPremisMultipleComponent,
     EpubComponent,
+    EditUserComponent,
+    CreateUserComponent,
   ],
   imports: [
     BrowserModule,

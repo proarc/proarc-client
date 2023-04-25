@@ -1987,7 +1987,8 @@
     "bagitPackage": "BAGIT package",
     "login": "Login",
     "includeRelatedItem": "including relatedItem",
-    "theCurrentParentObject": "The current parent object"
+    "theCurrentParentObject": "The current parent object",
+    "userEditing": "User editing"
   },
   "button": {
     "setLayout": "Set layout",

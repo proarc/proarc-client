@@ -24,6 +24,8 @@ export class AdminComponent implements OnInit {
   roles = ['user', 'admin', 'superAdmin'];
   organizations: string[];
 
+  displayedColumns: string[] = ['name', 'forename', 'surname', 'email', 'organization', 'role', 'home', 'changeModelFunction', 'updateModelFunction', 'lockObjectFunction', 'unlockObjectFunction', 'action'];
+
   constructor(
     private translator: TranslateService,
     private config: ConfigService,
