@@ -22,6 +22,8 @@ import { ChangeModelDialogComponent } from 'src/app/dialogs/change-model-dialog/
 import {MatSort, Sort} from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
+import { ConvertDialogComponent } from 'src/app/dialogs/convert-dialog/convert-dialog.component';
+import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({
   selector: 'app-search',
@@ -95,16 +97,17 @@ export class SearchComponent implements OnInit {
   displayedColumns: string[] = [];
 
   constructor(private api: ApiService, 
-              public properties: LocalStorageService, 
-              public auth: AuthService,
-              private dialog: MatDialog,
-              private router: Router,
-              private route: ActivatedRoute,
-              public search: SearchService,
-              public config: ConfigService,
-              private ui: UIService,
-              private translator: TranslateService) { 
-                this.models = this.config.allModels;
+    public properties: LocalStorageService, 
+    public auth: AuthService,
+    private dialog: MatDialog,
+    private router: Router,
+    private route: ActivatedRoute,
+    public search: SearchService,
+    public config: ConfigService,
+    private ui: UIService,
+    private translator: TranslateService,
+    public layout: LayoutService) { 
+    this.models = this.config.allModels;
   }
 
   ngOnInit() {
@@ -631,6 +634,22 @@ export class SearchComponent implements OnInit {
     this.properties.setStringProperty('searchColumns', JSON.stringify(this.selectedColumns));
     this.initSelectedColumns();
     this.table.renderRows();
+  }
+
+  showConvertDialog() {
+    const dialogRef = this.dialog.open(ConvertDialogComponent, { data: { pid: this.layout.item.pid, model: this.layout.item.model, children: this.layout.items } });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        if (result.status == 'ok') {
+          this.layout.setShouldRefresh(false);
+          this.ui.showInfoSnackBar("Strany byly převedeny");
+
+        } else if (result.status == 'failure') {
+          this.layout.setShouldRefresh(false);
+          this.ui.showInfoSnackBar("Strany byly převedeny s chybou");
+        }
+      }
+    });
   }
 
 }

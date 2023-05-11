@@ -100,11 +100,14 @@
           <fieldset class="app-p-4 app-mb-4">
             <legend>{{ 'desc.search' | translate }}</legend>
             <div class="app-label app-mb-2">{{ 'desc.displayedFieldsInSearchResults' | translate }}</div>
-            <div *ngFor="let col of properties.availableSearchColumns">
-              <mat-slide-toggle [(ngModel)]="searchCols[col]" color="primary" class="app-slide-toogle">{{ 'search.' + col | translate }}</mat-slide-toggle>
+            <div *ngFor="let column of selectedColumns">
+              <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
             </div>
+            <!-- <div *ngFor="let col of properties.availableSearchColumns">
+              <mat-slide-toggle [(ngModel)]="searchCols[col]" color="primary" class="app-slide-toogle">{{ 'search.' + col | translate }}</mat-slide-toggle>
+            </div> -->
           </fieldset>
-          <button mat-flat-button color="primary" (click)="seveSearchCols()">{{ 'button.save' | translate }}</button>
+          <button mat-flat-button color="primary" (click)="setSelectedColumns()">{{ 'button.save' | translate }}</button>
         </mat-card-content>
       </mat-card>
     </div>

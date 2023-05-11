@@ -2088,7 +2088,9 @@
     "deleteUser": "Smazat uživatele",
     "yes": "Ano",
     "no": "Ne",
-    "removeThisFilter": "Odstranit tento filtr"
+    "removeThisFilter": "Odstranit tento filtr",
+    "toIndex": "Indexovat",
+    "convertPages": "Převést strany"
   },
   "dynamic": {
     "repo": "Úložiště",
@@ -2404,7 +2406,7 @@
     }
   },
   "snackbar": {
-    "settings.search.updated": "Nastavení bylo upraveno",
+    "settings.searchColumns.updated": "Nastavení zobrazení sloupců bylo upraveno",
     "settings.profile": {
       "updated": "Nové heslo bylo uloženo",
       "error": {

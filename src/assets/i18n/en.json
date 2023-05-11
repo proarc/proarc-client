@@ -2088,7 +2088,9 @@
     "deleteUser": "Delete user",
     "yes": "Yes",
     "no": "No",
-    "removeThisFilter": "Remove this filter"
+    "removeThisFilter": "Remove this filter",
+    "toIndex": "To index",
+    "convertPages": "Convert pages"
   },
   "dynamic": {
     "repo": "Storage",
@@ -2404,7 +2406,7 @@
     }
   },
   "snackbar": {
-    "settings.search.updated": "Settings have been modified",
+    "settings.search.updated": "The column display settings have been modified",
     "settings.profile": {
       "updated": "The new password has been saved",
       "error": {

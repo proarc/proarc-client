@@ -106,16 +106,22 @@
                 </div>
               </mat-menu>
               <button (click)="reload()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
-              <button (click)="openItem(selectedItem)" mat-button>{{ 'button.open' | translate }}</button>
-              <button (click)="showFoxml(selectedItem)" mat-button>FOXML</button>
               <button (click)="onExport(selectedItem)" mat-button>{{ 'button.export' | translate }}</button>
               <button (click)="onUrnnbn(selectedItem)" mat-button>URN:NBN</button>
-              <button *ngIf="canChangeModel(selectedItem)" (click)="changeModel(selectedItem)" mat-button>{{ 'button.conversionsOfModels' | translate }}</button>
               <button (click)="onDeleteItem()" mat-button>{{ 'button.delete' | translate }}</button>
               <button *ngIf="!selectedItem.isLocked && (auth.user.lockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, true)" mat-button>{{ 'button.lockIt' | translate }}</button>
               <button *ngIf="selectedItem.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, false)" mat-button>{{ 'button.unlock' | translate }}</button>
               <button *ngIf="selectedItem.state === 'fedora-system:def/model#Deleted'" (click)="onRestore(selectedItem)" mat-button>{{ 'button.restoreTheObject' | translate }}</button>
-              <button (click)="updateObjects(selectedItem)" mat-button>{{ 'button.updateAllObjects' | translate }}</button>
+              <button mat-icon-button [matMenuTriggerFor]="menuMore">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menuMore="matMenu">
+                <button mat-menu-item (click)="showFoxml(selectedItem)">FOXML</button>
+                <button mat-menu-item *ngIf="canChangeModel(selectedItem)" (click)="changeModel(selectedItem)">{{ 'button.conversionsOfModels' | translate }}</button>
+                <button mat-menu-item (click)="updateObjects(selectedItem)">{{ 'button.updateAllObjects' | translate }}</button>
+                <!-- <button mat-menu-item>{{ 'button.toIndex' | translate }}</button> -->
+                <button mat-menu-item (click)="showConvertDialog()">{{ 'button.convertPages' | translate }}</button>
+              </mat-menu>
             </div>
             <div>
               <mat-paginator [length]="resultCount" hidePageSize="true" [pageIndex]="pageIndex" [pageSize]="pageSize" (page)="onPageChanged($event)"></mat-paginator>
@@ -246,17 +252,23 @@
           <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar app-toolbar-action app-view-border-bottom">
             <div fxFlex *ngIf="search.selectedTree" fxLayout="row" fxFlexFill>
               <button (click)="selectItem(selectedItem)" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
-              <button (click)="openItem(search.selectedTree.item)" mat-button>{{ 'button.open' | translate }}</button>
-              <button (click)="showFoxml(search.selectedTree.item)" mat-button>FOXML</button>
               <button (click)="onExport(search.selectedTree.item)" mat-button>{{ 'button.export' | translate }}</button>
               <button (click)="onUrnnbn(search.selectedTree.item)" mat-button>URN:NBN</button>
-              <button *ngIf="canChangeModel(search.selectedTree.item)" (click)="changeModel(search.selectedTree.item)" mat-button>{{ 'button.conversionsOfModels' | translate }}</button>
               <button (click)="onExpandAll()" mat-button>{{ 'button.unpack' | translate }}</button>
               <button *ngIf="search.selectedTree.item" (click)="onDeleteFromTree()" mat-button>{{ 'button.delete' | translate }}</button>
               <button *ngIf="canCopy(search.selectedTree.item)" (click)="onCopyItem(search.selectedTree.item)" mat-button>{{ 'button.copy' | translate }}</button>
               <button *ngIf="!search.selectedTree.item.isLocked && (auth.user.lockObjectFunction  || auth.isSuperAdmin())" (click)="onLock(search.selectedTree.item, true)" mat-button>{{ 'button.lockIt' | translate }}</button>
               <button *ngIf="search.selectedTree.item.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" (click)="onLock(search.selectedTree.item, false)" mat-button>{{ 'button.unlock' | translate }}</button>
-              <button (click)="updateObjects(search.selectedTree.item)" mat-button>{{ 'button.updateAllObjects' | translate }}</button>
+              <button mat-icon-button [matMenuTriggerFor]="menuMore">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menuMore="matMenu">
+                <button mat-menu-item (click)="showFoxml(search.selectedTree.item)">FOXML</button>
+                <button mat-menu-item *ngIf="canChangeModel(search.selectedTree.item)" (click)="changeModel(search.selectedTree.item)">{{ 'button.conversionsOfModels' | translate }}</button>
+                <button mat-menu-item (click)="updateObjects(search.selectedTree.item)">{{ 'button.updateAllObjects' | translate }}</button>
+                <!-- <button mat-menu-item>{{ 'button.toIndex' | translate }}</button> -->
+                <button mat-menu-item (click)="showConvertDialog()">{{ 'button.convertPages' | translate }}</button>
+              </mat-menu>
             </div>
           </div>
           <div fxFlex class="app-oh app-tree" fxLayout="column" fxFlexFill>

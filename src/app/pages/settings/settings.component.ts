@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { User } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -10,6 +10,8 @@ import { CodebookService } from 'src/app/services/codebook.service';
 import { PreferredTopsDialogComponent } from 'src/app/dialogs/preferred-tops-dialog/preferred-tops-dialog.component';
 import { ConfigService } from 'src/app/services/config.service';
 import { FormControl } from '@angular/forms';
+import { MatTable } from '@angular/material/table';
+import { DocumentItem } from '../../model/documentItem.model';
 
 @Component({
   selector: 'app-settings',
@@ -29,6 +31,23 @@ export class SettingsComponent implements OnInit {
 
   relatedItemExpanded: boolean;
 
+  @ViewChild('table') table: MatTable<DocumentItem>;
+  public selectedColumns = [
+    { field: 'label', selected: true },
+    { field: 'model', selected: true },
+    { field: 'pid', selected: true },
+    { field: 'processor', selected: true },
+    { field: 'organization', selected: true },
+    { field: 'status', selected: true },
+    { field: 'created', selected: true },
+    { field: 'modified', selected: true },
+    { field: 'owner', selected: true },
+    { field: 'export', selected: true },
+    { field: 'isLocked', selected: true }
+  ];
+
+  displayedColumns: string[] = [];
+
   constructor(
     private api: ApiService,
     private dialog: MatDialog,
@@ -39,6 +58,7 @@ export class SettingsComponent implements OnInit {
     private auth: AuthService) { }
 
   ngOnInit() {
+    this.initSelectedColumns();
     this.api.getUser().subscribe((user: User) => {
       this.user = user;
       this.forename = this.user.forename;
@@ -103,6 +123,25 @@ export class SettingsComponent implements OnInit {
   changeExpandedModels() {
     localStorage.setItem('expandedModels', JSON.stringify(this.selectedModels.value));
     localStorage.setItem('relatedItemExpanded', JSON.stringify(this.relatedItemExpanded));
+  }
+
+
+  setColumns() {
+    this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field);
+  }
+
+  initSelectedColumns() {
+    const prop = this.properties.getStringProperty('searchColumns');
+    if (prop) {
+      Object.assign(this.selectedColumns, JSON.parse(prop));
+    }
+    this.setColumns();
+  }
+
+  setSelectedColumns() {
+    this.properties.setStringProperty('searchColumns', JSON.stringify(this.selectedColumns));
+    this.initSelectedColumns();
+    this.ui.showInfo('snackbar.settings.searchColumns.updated');
   }
 
 }

@@ -255,6 +255,14 @@
   }
 }
 
+// menu
+.mat-menu-panel {
+  .mat-menu-item {
+    line-height: $app-mat-menu-item-height !important;
+    height: $app-mat-menu-item-height !important;
+  }
+}
+
 // slide toggle
 .mat-slide-toggle {
   &.app-slide-toogle {
