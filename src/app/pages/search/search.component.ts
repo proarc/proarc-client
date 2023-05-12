@@ -198,6 +198,7 @@ export class SearchComponent implements OnInit {
   }
 
   reload(selectedPid: string = null) {
+    this.initSelectedColumns();
     if (this.model !== 'all') {
       // nechceme all
       this.properties.setStringProperty('search.model', this.model);
