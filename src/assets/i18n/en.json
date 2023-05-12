@@ -2406,7 +2406,7 @@
     }
   },
   "snackbar": {
-    "settings.search.updated": "The column display settings have been modified",
+    "settings.searchColumns.updated": "The column display settings have been modified",
     "settings.profile": {
       "updated": "The new password has been saved",
       "error": {

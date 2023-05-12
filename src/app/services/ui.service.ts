@@ -51,7 +51,7 @@ export class UIService {
 
 
   showInfo(code: string, duration: number = 2000) {
-    this.snackBar.open(String(this.translator.instant(code)), '', { duration: duration });
+    this.snackBar.open(String(this.translator.instant(code)), '', { duration: duration, verticalPosition: 'top'});
   }
 
   showInfoSnackBar(message: string, duration: number = 4000) {

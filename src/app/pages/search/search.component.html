@@ -97,14 +97,6 @@
         <div *ngIf="items" fxLayout="column" fxFlexFill>
           <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar app-toolbar-action app-view-border-bottom">
             <div fxFlex *ngIf="selectedItem" fxLayout="row" fxFlexFill>
-              <button mat-icon-button [matMenuTriggerFor]="columns_menu" [matTooltip]="'button.columnSelection' | translate" >
-                <mat-icon>rule</mat-icon>
-              </button>
-              <mat-menu #columns_menu="matMenu">
-                <div *ngFor="let column of selectedColumns" mat-menu-item>
-                  <mat-checkbox name="column.field" [(ngModel)]="column.selected" (change)="setSelectedColumns()">{{ 'search.' + column.field | translate }}</mat-checkbox>
-                </div>
-              </mat-menu>
               <button (click)="reload()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
               <button (click)="onExport(selectedItem)" mat-button>{{ 'button.export' | translate }}</button>
               <button (click)="onUrnnbn(selectedItem)" mat-button>URN:NBN</button>
