@@ -103,7 +103,8 @@
             <div *ngFor="let column of selectedColumns">
               <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
             </div>
-            <!-- <div *ngFor="let col of properties.availableSearchColumns">
+            <!-- to delete after testing 
+            <div *ngFor="let col of properties.availableSearchColumns">
               <mat-slide-toggle [(ngModel)]="searchCols[col]" color="primary" class="app-slide-toogle">{{ 'search.' + col | translate }}</mat-slide-toggle>
             </div> -->
           </fieldset>
