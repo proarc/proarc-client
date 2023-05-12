@@ -2090,7 +2090,8 @@
     "no": "No",
     "removeThisFilter": "Remove this filter",
     "toIndex": "To index",
-    "convertPages": "Convert pages"
+    "convertPages": "Convert pages",
+    "more": "More"
   },
   "dynamic": {
     "repo": "Storage",

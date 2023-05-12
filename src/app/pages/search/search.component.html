@@ -104,7 +104,7 @@
               <button *ngIf="!selectedItem.isLocked && (auth.user.lockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, true)" mat-button>{{ 'button.lockIt' | translate }}</button>
               <button *ngIf="selectedItem.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, false)" mat-button>{{ 'button.unlock' | translate }}</button>
               <button *ngIf="selectedItem.state === 'fedora-system:def/model#Deleted'" (click)="onRestore(selectedItem)" mat-button>{{ 'button.restoreTheObject' | translate }}</button>
-              <button mat-icon-button [matMenuTriggerFor]="menuMore">
+              <button mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #menuMore="matMenu">
@@ -251,7 +251,7 @@
               <button *ngIf="canCopy(search.selectedTree.item)" (click)="onCopyItem(search.selectedTree.item)" mat-button>{{ 'button.copy' | translate }}</button>
               <button *ngIf="!search.selectedTree.item.isLocked && (auth.user.lockObjectFunction  || auth.isSuperAdmin())" (click)="onLock(search.selectedTree.item, true)" mat-button>{{ 'button.lockIt' | translate }}</button>
               <button *ngIf="search.selectedTree.item.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" (click)="onLock(search.selectedTree.item, false)" mat-button>{{ 'button.unlock' | translate }}</button>
-              <button mat-icon-button [matMenuTriggerFor]="menuMore">
+              <button mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #menuMore="matMenu">
