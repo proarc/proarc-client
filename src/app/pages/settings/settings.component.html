@@ -87,11 +87,6 @@
               <mat-slide-toggle [(ngModel)]="relatedItemExpanded" color="primary" class="app-slide-toogle" [matTooltip]="'desc.includeRelatedItem' | translate">{{ 'relatedItem' | translate }}</mat-slide-toggle>
               <button mat-flat-button color="primary" (click)="changeExpandedModels()">{{ 'button.edit' | translate }}</button>
             </div>
-
-            <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start end" class="app-mb-4">
-            </div>
-
-
           </fieldset>
         </mat-card-content>
       </mat-card>
@@ -100,15 +95,27 @@
           <fieldset class="app-p-4 app-mb-4">
             <legend>{{ 'desc.search' | translate }}</legend>
             <div class="app-label app-mb-2">{{ 'desc.displayedFieldsInSearchResults' | translate }}</div>
-            <div *ngFor="let column of selectedColumns">
+            <div *ngFor="let column of selectedColumnsSearch">
               <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
             </div>
-            <!-- to delete after testing 
-            <div *ngFor="let col of properties.availableSearchColumns">
-              <mat-slide-toggle [(ngModel)]="searchCols[col]" color="primary" class="app-slide-toogle">{{ 'search.' + col | translate }}</mat-slide-toggle>
-            </div> -->
           </fieldset>
-          <button mat-flat-button color="primary" (click)="setSelectedColumns()">{{ 'button.save' | translate }}</button>
+          <button mat-flat-button color="primary" (click)="setSelectedColumnsSearch()">{{ 'button.save' | translate }}</button>
+        </mat-card-content>
+      </mat-card>
+      <mat-card *ngIf="user">
+        <mat-card-content>
+          <fieldset class="app-p-4 app-mb-4">
+            <legend>{{ 'desc.editing' | translate }}</legend>
+            <div class="app-label app-mb-2">{{ 'desc.displayedFieldsInEditing' | translate }}</div>
+            <!-- <div *ngFor="let column of selectedColumnsEditing">
+              <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
+            </div> -->
+
+            <div *ngFor="let column of selectedColumnsEditing">
+              <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
+            </div>
+          </fieldset>
+          <button mat-flat-button color="primary" (click)="setSelectedColumnsEditing()">{{ 'button.save' | translate }}</button>
         </mat-card-content>
       </mat-card>
     </div>

@@ -31,8 +31,10 @@ export class SettingsComponent implements OnInit {
 
   relatedItemExpanded: boolean;
 
+  isRepo: boolean = true;
+
   @ViewChild('table') table: MatTable<DocumentItem>;
-  public selectedColumns = [
+  public selectedColumnsSearch = [
     { field: 'label', selected: true },
     { field: 'model', selected: true },
     { field: 'pid', selected: true },
@@ -44,6 +46,19 @@ export class SettingsComponent implements OnInit {
     { field: 'owner', selected: true },
     { field: 'export', selected: true },
     { field: 'isLocked', selected: true }
+  ];
+
+  public selectedColumnsEditing = [
+    { field: 'pageType', selected: true, width: 140 },
+    { field: 'pageNumber', selected: true, width: 140 },
+    { field: 'pageIndex', selected: true, width: 140 },
+    { field: 'pagePosition', selected: true, width: 140 },
+    { field: 'model', selected: true, width: 140 },
+    { field: 'pid', selected: false, width: 140 },
+    { field: 'owner', selected: false, width: 140 },
+    { field: 'created', selected: false, width: 140 },
+    { field: 'modified', selected: true, width: 140 },
+    { field: 'status', selected: false, width: 140 }
   ];
 
   displayedColumns: string[] = [];
@@ -58,7 +73,8 @@ export class SettingsComponent implements OnInit {
     private auth: AuthService) { }
 
   ngOnInit() {
-    this.initSelectedColumns();
+    this.initSelectedColumnsSearch();
+    this. initSelectedColumnsEditing();
     this.api.getUser().subscribe((user: User) => {
       this.user = user;
       this.forename = this.user.forename;
@@ -125,23 +141,52 @@ export class SettingsComponent implements OnInit {
     localStorage.setItem('relatedItemExpanded', JSON.stringify(this.relatedItemExpanded));
   }
 
-
-  setColumns() {
-    this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field);
+  // search
+  setColumnsSearch() {
+    this.displayedColumns = this.selectedColumnsSearch.filter(c => c.selected).map(c => c.field);
   }
 
-  initSelectedColumns() {
+  initSelectedColumnsSearch() {
     const prop = this.properties.getStringProperty('searchColumns');
     if (prop) {
-      Object.assign(this.selectedColumns, JSON.parse(prop));
+      Object.assign(this.selectedColumnsSearch, JSON.parse(prop));
     }
-    this.setColumns();
+    this.setColumnsSearch();
   }
 
-  setSelectedColumns() {
-    this.properties.setStringProperty('searchColumns', JSON.stringify(this.selectedColumns));
-    this.initSelectedColumns();
+  setSelectedColumnsSearch() {
+    this.properties.setStringProperty('searchColumns', JSON.stringify(this.selectedColumnsSearch));
+    this.initSelectedColumnsSearch();
     this.ui.showInfo('snackbar.settings.searchColumns.updated');
   }
 
+  // editing
+  selectedColumnsPropNameEditing() {
+    return this.isRepo ? 'selectedColumnsRepo' : 'selectedColumnsImport';
+  }
+
+  setColumnsEditing() {
+    this.displayedColumns = this.selectedColumnsEditing.filter(c => c.selected && !(this.isRepo && c.field === 'pageType') && !(this.isRepo && c.field === 'filename') && !(!this.isRepo && c.field === 'label')).map(c => c.field);
+  }
+
+  initSelectedColumnsEditing() {
+    const prop = this.properties.getStringProperty(this.selectedColumnsPropNameEditing());
+    if (prop) {
+      Object.assign(this.selectedColumnsEditing, JSON.parse(prop));
+    } else {
+      if (this.isRepo) {
+        this.selectedColumnsEditing.unshift({ field: 'label', selected: true, width: 100 })
+      } else {
+        this.selectedColumnsEditing.unshift({ field: 'filename', selected: true, width: 100 })
+      }
+    }
+  }
+
+  setSelectedColumnsEditing() {
+    this.properties.setStringProperty(this.selectedColumnsPropNameEditing(), JSON.stringify(this.selectedColumnsEditing));
+    this.initSelectedColumnsEditing();
+    this.ui.showInfo('snackbar.settings.searchColumns.updated');
+    this.displayedColumns = this.selectedColumnsEditing.filter(c => c.selected).map(c => c.field);
+    this.table.renderRows();
+  }
 }
