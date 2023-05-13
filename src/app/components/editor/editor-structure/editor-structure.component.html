@@ -18,11 +18,8 @@
       <button mat-icon-button [class.app-active]="shortLabels" (click)="switchUseShortLabel()" [matTooltip]="'editor.children.short_labels_' + (shortLabels ? 'on' : 'off') | translate" >
         <mat-icon>short_text</mat-icon>
       </button> -->
-      <button mat-icon-button (click)="selectAll()" [matTooltip]="'editor.children.select_all' | translate" >
-        <mat-icon>check_box</mat-icon>
-      </button>
       <button mat-icon-button  (click)="validateChildren()" [matTooltip]="'editor.children.validate' | translate" >
-        <mat-icon>fact_check</mat-icon>
+        <mat-icon>published_with_changes</mat-icon>
       </button>
       <button mat-icon-button *ngIf="pageChildren" (click)="onReindexChildren()" [matTooltip]="'editor.children.reindex' | translate" >
         <mat-icon>format_list_numbered</mat-icon>
@@ -33,14 +30,9 @@
       <button mat-icon-button *ngIf="!isRepo" (click)="markSequence()" [matTooltip]="'editor.children.markSequence' | translate" >
         <mat-icon>dynamic_feed</mat-icon>
       </button>
-    </div>
-    <div>
       <button mat-icon-button *ngIf="isRepo && canAddChildren()" (click)="onCreateNewObject()" [matTooltip]="'editor.children.add_new' | translate" >
         <mat-icon>add</mat-icon>
       </button>        
-      <button mat-icon-button (click)="onMove()" [matTooltip]="'editor.children.move' | translate" >
-        <mat-icon>reply</mat-icon>
-      </button>
       <button mat-icon-button *ngIf="isRepo" (click)="onRelocateOutside()" [matTooltip]="'editor.children.relocate_label' | translate" >
         <mat-icon>forward</mat-icon>
       </button>
@@ -64,20 +56,30 @@
         <mat-icon>save</mat-icon>
       </button>  
       <button *ngIf="!isRepo" mat-flat-button color="primary" (click)="ingest()">{{ 'button.continue' | translate }}</button>
+      <ng-container *ngIf="isRepo">
+        <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToParent()" [disabled]="!layout.parent" mat-icon-button>
+          <mat-icon>keyboard_arrow_up</mat-icon>
+        </button>
+        <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToFirst()" [disabled]="!layout.parent" mat-icon-button>
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+        <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToPrevious()" [disabled]="!layout.previousItem" mat-icon-button>
+          <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="goToNext()" [disabled]="!layout.nextItem" mat-icon-button>
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+      </ng-container>
     </div>
-
-    <div *ngIf="isRepo">
-      <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToPrevious()" [disabled]="!layout.previousItem" mat-icon-button>
-        <mat-icon>keyboard_arrow_left</mat-icon>
+    <div>
+      <button mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
+        <mat-icon>more_vert</mat-icon>
       </button>
-      <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToParent()" [disabled]="!layout.parent" mat-icon-button>
-        <mat-icon>keyboard_arrow_up</mat-icon>
-      </button>
-      <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="goToNext()" [disabled]="!layout.nextItem" mat-icon-button>
-        <mat-icon>keyboard_arrow_right</mat-icon>
-      </button>
+      <mat-menu #menuMore="matMenu">
+        <button mat-menu-item (click)="onMove()"><!-- <mat-icon>reply</mat-icon> -->{{ 'editor.children.move' | translate }}</button>
+        <button mat-menu-item (click)="selectAll()"><!-- mat-icon>fact_check</mat-icon> -->{{ 'editor.children.select_all' | translate }}</button>
+      </mat-menu>
     </div>
-    
   </div>
 
   <div fxFlex class="app-oa-y" #childrenList (scroll)="setScrollPos()">
