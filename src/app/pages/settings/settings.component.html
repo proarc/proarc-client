@@ -10,7 +10,7 @@
   <mat-progress-bar mode="indeterminate" *ngIf="state =='loading'" class="app-progress-bar"></mat-progress-bar>
 
   <div fxFlex class="app-device app-p-4 app-oa-y" fxLayout="column" *ngIf="state !== 'loading'">
-    <div fxLayout="row" fxLayoutGap="16px">
+    <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4">
       <mat-card fxFlex *ngIf="user">
         <mat-card-content>
           <fieldset class="app-p-4 app-mb-4">
@@ -90,11 +90,13 @@
           </fieldset>
         </mat-card-content>
       </mat-card>
-      <mat-card *ngIf="user">
+    </div>
+    <div fxLayout="row" fxLayoutGap="16px">
+      <mat-card fxFlex *ngIf="user">
         <mat-card-content>
           <fieldset class="app-p-4 app-mb-4">
-            <legend>{{ 'desc.search' | translate }}</legend>
-            <div class="app-label app-mb-2">{{ 'desc.displayedFieldsInSearchResults' | translate }}</div>
+            <legend>{{ 'pages.settings.search.legend' | translate }}</legend>
+            <div class="app-label app-mb-2">{{ 'pages.settings.search.label' | translate }}</div>
             <div *ngFor="let column of selectedColumnsSearch">
               <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
             </div>
@@ -102,20 +104,32 @@
           <button mat-flat-button color="primary" (click)="setSelectedColumnsSearch()">{{ 'button.save' | translate }}</button>
         </mat-card-content>
       </mat-card>
-      <mat-card *ngIf="user">
+      <mat-card fxFlex *ngIf="user">
         <mat-card-content>
           <fieldset class="app-p-4 app-mb-4">
-            <legend>{{ 'desc.editing' | translate }}</legend>
-            <div class="app-label app-mb-2">{{ 'desc.displayedFieldsInEditing' | translate }}</div>
+            <legend>{{ 'pages.settings.editingRepo.legend' | translate }}</legend>
+            <div class="app-label app-mb-2">{{ 'pages.settings.editingRepo.label' | translate }}</div>
             <!-- <div *ngFor="let column of selectedColumnsEditing">
               <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
             </div> -->
 
-            <div *ngFor="let column of selectedColumnsEditing">
+            <div *ngFor="let column of selectedColumnsEditingRepo">
               <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
             </div>
           </fieldset>
-          <button mat-flat-button color="primary" (click)="setSelectedColumnsEditing()">{{ 'button.save' | translate }}</button>
+          <button mat-flat-button color="primary" (click)="setSelectedColumnsEditingRepo()">{{ 'button.save' | translate }}</button>
+        </mat-card-content>
+      </mat-card>
+      <mat-card fxFlex *ngIf="user">
+        <mat-card-content>
+          <fieldset class="app-p-4 app-mb-4">
+            <legend>{{ 'pages.settings.editingImport.legend' | translate }}</legend>
+            <div class="app-label app-mb-2">{{ 'pages.settings.editingImport.label' | translate }}</div>
+            <div *ngFor="let column of selectedColumnsEditingImport">
+              <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
+            </div>
+          </fieldset>
+          <button mat-flat-button color="primary" (click)="setSelectedColumnsEditingImport()">{{ 'button.save' | translate }}</button>
         </mat-card-content>
       </mat-card>
     </div>

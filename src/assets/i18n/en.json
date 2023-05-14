@@ -2007,8 +2007,6 @@
     "lockingTheObject": "Locking the object",
     "unlockingTheObject": "Unlocking the object",
     "preferredValues": "Preferred values",
-    "displayedFieldsInSearchResults": "Displayed fields in search results",
-    "displayedFieldsInEditing": "Displayed fields in editing",
     "forename": "Forname",
     "typesOfParties": "Types of parties",
     "languages": "Languages",
@@ -2466,6 +2464,22 @@
       "createAnAudioLine": "Create an audio line",
       "create": "Create",
       "edit": "Edit"
+    }
+  },
+  "pages": {
+    "settings": {
+      "search": {
+        "legend": "Search",
+        "label": "Displayed fields in search results"
+      },
+      "editingRepo": {
+        "legend": "Editing in the repository",
+        "label": "Displayed fields in repository editing"
+      },
+      "editingImport": {
+        "legend": "Editing in import",
+        "label": "Displayed fields in the import edit"
+      }
     }
   }
 }

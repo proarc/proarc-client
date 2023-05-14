@@ -31,7 +31,7 @@ export class SettingsComponent implements OnInit {
 
   relatedItemExpanded: boolean;
 
-  isRepo: boolean = true;
+  isRepo: boolean;
 
   @ViewChild('table') table: MatTable<DocumentItem>;
   public selectedColumnsSearch = [
@@ -48,7 +48,20 @@ export class SettingsComponent implements OnInit {
     { field: 'isLocked', selected: true }
   ];
 
-  public selectedColumnsEditing = [
+  public selectedColumnsEditingRepo = [
+    { field: 'pageType', selected: true, width: 140 },
+    { field: 'pageNumber', selected: true, width: 140 },
+    { field: 'pageIndex', selected: true, width: 140 },
+    { field: 'pagePosition', selected: true, width: 140 },
+    { field: 'model', selected: true, width: 140 },
+    { field: 'pid', selected: false, width: 140 },
+    { field: 'owner', selected: false, width: 140 },
+    { field: 'created', selected: false, width: 140 },
+    { field: 'modified', selected: true, width: 140 },
+    { field: 'status', selected: false, width: 140 }
+  ];
+
+  public selectedColumnsEditingImport = [
     { field: 'pageType', selected: true, width: 140 },
     { field: 'pageNumber', selected: true, width: 140 },
     { field: 'pageIndex', selected: true, width: 140 },
@@ -74,7 +87,8 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.initSelectedColumnsSearch();
-    this. initSelectedColumnsEditing();
+    this. initSelectedColumnsEditingRepo();
+    this. initSelectedColumnsEditingImport();
     this.api.getUser().subscribe((user: User) => {
       this.user = user;
       this.forename = this.user.forename;
@@ -160,33 +174,65 @@ export class SettingsComponent implements OnInit {
     this.ui.showInfo('snackbar.settings.searchColumns.updated');
   }
 
-  // editing
-  selectedColumnsPropNameEditing() {
+  // repo editing
+  selectedColumnsPropNameEditingRepo() {
+    this.isRepo = true;
     return this.isRepo ? 'selectedColumnsRepo' : 'selectedColumnsImport';
   }
 
-  setColumnsEditing() {
-    this.displayedColumns = this.selectedColumnsEditing.filter(c => c.selected && !(this.isRepo && c.field === 'pageType') && !(this.isRepo && c.field === 'filename') && !(!this.isRepo && c.field === 'label')).map(c => c.field);
+  setColumnsEditingRepo() {
+    this.displayedColumns = this.selectedColumnsEditingRepo.filter(c => c.selected && !(this.isRepo && c.field === 'pageType') && !(this.isRepo && c.field === 'filename') && !(!this.isRepo && c.field === 'label')).map(c => c.field);
   }
 
-  initSelectedColumnsEditing() {
-    const prop = this.properties.getStringProperty(this.selectedColumnsPropNameEditing());
+  initSelectedColumnsEditingRepo() {
+    const prop = this.properties.getStringProperty(this.selectedColumnsPropNameEditingRepo());
     if (prop) {
-      Object.assign(this.selectedColumnsEditing, JSON.parse(prop));
+      Object.assign(this.selectedColumnsEditingRepo, JSON.parse(prop));
     } else {
       if (this.isRepo) {
-        this.selectedColumnsEditing.unshift({ field: 'label', selected: true, width: 100 })
+        this.selectedColumnsEditingRepo.unshift({ field: 'label', selected: true, width: 100 })
       } else {
-        this.selectedColumnsEditing.unshift({ field: 'filename', selected: true, width: 100 })
+        this.selectedColumnsEditingRepo.unshift({ field: 'filename', selected: true, width: 100 })
       }
     }
   }
 
-  setSelectedColumnsEditing() {
-    this.properties.setStringProperty(this.selectedColumnsPropNameEditing(), JSON.stringify(this.selectedColumnsEditing));
-    this.initSelectedColumnsEditing();
+  setSelectedColumnsEditingRepo() {
+    this.properties.setStringProperty(this.selectedColumnsPropNameEditingRepo(), JSON.stringify(this.selectedColumnsEditingRepo));
+    this.initSelectedColumnsEditingRepo();
     this.ui.showInfo('snackbar.settings.searchColumns.updated');
-    this.displayedColumns = this.selectedColumnsEditing.filter(c => c.selected).map(c => c.field);
-    this.table.renderRows();
+    this.displayedColumns = this.selectedColumnsEditingRepo.filter(c => c.selected).map(c => c.field);
+    //this.table.renderRows();
+  }
+
+  // repo import
+  selectedColumnsPropNameEditingImport() {
+    this.isRepo = false;
+    return this.isRepo ? 'selectedColumnsRepo' : 'selectedColumnsImport';
+  }
+
+  setColumnsEditingImport() {
+    this.displayedColumns = this.selectedColumnsEditingImport.filter(c => c.selected && !(this.isRepo && c.field === 'pageType') && !(this.isRepo && c.field === 'filename') && !(!this.isRepo && c.field === 'label')).map(c => c.field);
+  }
+
+  initSelectedColumnsEditingImport() {
+    const prop = this.properties.getStringProperty(this.selectedColumnsPropNameEditingImport());
+    if (prop) {
+      Object.assign(this.selectedColumnsEditingImport, JSON.parse(prop));
+    } else {
+      if (this.isRepo) {
+        this.selectedColumnsEditingImport.unshift({ field: 'label', selected: true, width: 100 })
+      } else {
+        this.selectedColumnsEditingImport.unshift({ field: 'filename', selected: true, width: 100 })
+      }
+    }
+  }
+
+  setSelectedColumnsEditingImport() {
+    this.properties.setStringProperty(this.selectedColumnsPropNameEditingImport(), JSON.stringify(this.selectedColumnsEditingImport));
+    this.initSelectedColumnsEditingImport();
+    this.ui.showInfo('snackbar.settings.searchColumns.updated');
+    this.displayedColumns = this.selectedColumnsEditingImport.filter(c => c.selected).map(c => c.field);
+    //this.table.renderRows();
   }
 }

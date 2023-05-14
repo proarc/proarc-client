@@ -289,13 +289,12 @@ export class EditorStructureComponent implements OnInit {
     }
   }
 
-  /* to delete after testing
   setSelectedColumns() {
     this.properties.setStringProperty(this.selectedColumnsPropName(), JSON.stringify(this.selectedColumns));
     this.initSelectedColumns();
     this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field);
     this.table.renderRows();
-  } */
+  }
 
   setColumns() {
     this.displayedColumns = this.selectedColumns.filter(c => c.selected && !(this.isRepo && c.field === 'pageType') && !(this.isRepo && c.field === 'filename') && !(!this.isRepo && c.field === 'label')).map(c => c.field);

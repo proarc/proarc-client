@@ -2007,8 +2007,6 @@
     "lockingTheObject": "Uzamknutí objektu",
     "unlockingTheObject": "Odemknutí objektu",
     "preferredValues": "Preferované hodnoty",
-    "displayedFieldsInSearchResults": "Zobrazená pole ve výsledcích hledání",
-    "displayedFieldsInEditing": "Zobrazená pole v editaci",
     "forename": "Jméno",
     "typesOfParties": "Typy stran",
     "languages": "Jazyky",
@@ -2466,6 +2464,22 @@
       "createAnAudioLine": "Vytvořit audio linku",
       "create": "Vytvořit",
       "edit": "Editovat"
+    }
+  },
+  "pages": {
+    "settings": {
+      "search": {
+        "legend": "Vyhledávání",
+        "label": "Zobrazená pole ve výsledcích hledání"
+      },
+      "editingRepo": {
+        "legend": "Editace v repozitáři",
+        "label": "Zobrazená pole v editaci repozitáře"
+      },
+      "editingImport": {
+        "legend": "Editace v importu",
+        "label": "Zobrazená pole v editaci importu"
+      }
     }
   }
 }
