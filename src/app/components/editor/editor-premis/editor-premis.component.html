@@ -1,22 +1,17 @@
 <div fxLayout="column" fxFlexFill>
 	<div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
-		<div fxFlex>
+		<!-- to delete after test <div fxFlex>
 			<div class="app-toolbar-label">
 				<span class="app-text">PREMIS</span>
 			</div>
-		</div>
+		</div> -->
 		<div>
-
-			<button mat-icon-button [matTooltip]="'editor.toolbar.editor_premis' | translate"
-				[class.app-active]="editorType === 'metadata'" (click)="editorType = 'metadata'">
+			<button mat-icon-button [matTooltip]="'editor.toolbar.editor_premis' | translate" [class.app-active]="editorType === 'metadata'" (click)="editorType = 'metadata'">
 				<span class="app-text-icon">P</span>
 			</button>
-			<button mat-icon-button [matTooltip]="'editor.toolbar.editor_premisXML' | translate"
-				[class.app-active]="editorType === 'xml'" (click)="editorType = 'xml'">
+			<button mat-icon-button [matTooltip]="'editor.toolbar.editor_premisXML' | translate" [class.app-active]="editorType === 'xml'" (click)="editorType = 'xml'">
 				<mat-icon>code_blocks</mat-icon>
 			</button>
-
-
 			<button mat-icon-button (click)="onRefresh()" [disabled]="editting || realtime" (click)="onRefresh()"
 				[matTooltip]="'editor.mods.refresh' | translate">
 				<mat-icon>refresh</mat-icon>
@@ -43,7 +38,6 @@
 			</button>
 		</div>
 	</div>
-
 	<div fxFlex class="app-oa-y">
 		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
 		<div class="app-editor-content" *ngIf="state !=='loading' && editorType === 'xml'">
