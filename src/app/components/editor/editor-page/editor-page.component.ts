@@ -22,9 +22,10 @@ import { DocumentItem } from 'src/app/model/documentItem.model';
 export class EditorPageComponent implements OnInit {
 
   // --- #268 ----
-  @Input('editorType') editorType: string;
   @Input('panel') panel: ILayoutPanel;
   @Output() onIngest = new EventEmitter<boolean>();
+  @Input('editorType') editorType: string;
+  @Output() onChangeEditorType = new EventEmitter<string>();
 
   switchableTypes = ['mods', 'metadata', 'atm', 'ocr']
   switchable: boolean = true;
@@ -330,6 +331,10 @@ export class EditorPageComponent implements OnInit {
   enterSelect(s: MatSelect, from: string) {
     s.close();
     this.onSaveFrom(from);
+  }
+
+  changeEditorType(t: string) {
+    this.onChangeEditorType.emit(t);
   }
 
 }

@@ -16,6 +16,7 @@ export class EditorOcrComponent implements OnInit {
   @Input('editorType') editorType: string;
   @Input('panel') panel: ILayoutPanel;
   @Output() onIngest = new EventEmitter<boolean>();
+  @Output() onChangeEditorType = new EventEmitter<string>();
 
   switchableTypes = ['mods', 'metadata', 'atm', 'ocr']
   switchable: boolean = true;
@@ -108,6 +109,10 @@ export class EditorOcrComponent implements OnInit {
 
   onChange() {
     this.anyChange = true;
+  }
+
+  changeEditorType(t: string) {
+    this.onChangeEditorType.emit(t);
   }
 
 }

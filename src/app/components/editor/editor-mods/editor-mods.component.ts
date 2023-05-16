@@ -21,29 +21,8 @@ import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.componen
 })
 export class EditorModsComponent implements OnInit, OnDestroy {
 
-   // --- #268 ----
    @Input('editorType') editorType: string;
-   @Input('panel') panel: ILayoutPanel;
-   @Output() onIngest = new EventEmitter<boolean>();
- 
-   switchableTypes = ['mods', 'metadata', 'atm', 'ocr']
-   switchable: boolean = true;
- 
-   /* ngOnChanges(c: SimpleChange) {
-     this.switchable = this.switchableTypes.includes(this.editorType);
-   } */
- 
-   countPlurals(): string {
-     let count = this.layout.getNumOfSelected();
-     if (count > 4) {
-       return '5'
-     } else if (count > 1) {
-       return '4'
-     } else {
-       return count + '';
-     }
-   }
-   // --- #368 ----
+   @Output() onChangeEditorType = new EventEmitter<string>();
 
   @Input() pid: string;
   @ViewChild('editingPre') editingPre: ElementRef;
@@ -244,6 +223,10 @@ export class EditorModsComponent implements OnInit, OnDestroy {
     if (this.rightDocumentSubscription) {
       this.rightDocumentSubscription.unsubscribe();
     }
+  }
+
+  changeEditorType(t: string) {
+    this.onChangeEditorType.emit(t);
   }
 
 }

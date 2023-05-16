@@ -17,29 +17,9 @@ import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.componen
 })
 export class EditorAtmComponent implements OnInit {
 
-   // --- #268 ----
-   @Input('editorType') editorType: string;
-   @Input('panel') panel: ILayoutPanel;
-   @Output() onIngest = new EventEmitter<boolean>();
- 
-   switchableTypes = ['mods', 'metadata', 'atm', 'ocr']
-   switchable: boolean = true;
- 
-   /* ngOnChanges(c: SimpleChange) {
-     this.switchable = this.switchableTypes.includes(this.editorType);
-   } */
- 
-   countPlurals(): string {
-     let count = this.layout.getNumOfSelected();
-     if (count > 4) {
-       return '5'
-     } else if (count > 1) {
-       return '4'
-     } else {
-       return count + '';
-     }
-   }
-   // --- #368 ----
+   
+  @Input('editorType') editorType: string;
+  @Output() onChangeEditorType = new EventEmitter<string>();
 
   @Input('pid') pid: string;
   state = 'none';
@@ -131,6 +111,10 @@ export class EditorAtmComponent implements OnInit {
         this.atm = newAtm;
         this.state = 'success';
     });
+  }
+
+  changeEditorType(t: string) {
+    this.onChangeEditorType.emit(t);
   }
 
 }

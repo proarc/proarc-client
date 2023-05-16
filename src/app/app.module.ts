@@ -127,6 +127,7 @@ import { EditorPremisMultipleComponent } from './components/editor/editor-premis
 import { EpubComponent } from './components/epub/epub.component';
 import { EditUserComponent } from './pages/admin/edit-user/edit-user.component';
 import { NewUserComponent } from './pages/admin/new-user/new-user.component';
+import { EditorSwitcherComponent } from './components/editor/editor-switcher/editor-switcher.component';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 300,
@@ -247,6 +248,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EpubComponent,
     EditUserComponent,
     NewUserComponent,
+    EditorSwitcherComponent
   ],
   imports: [
     BrowserModule,

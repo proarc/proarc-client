@@ -39,6 +39,10 @@ export class EditorGenericComponent implements OnInit {
       
   }
 
+  changeEditorType(newType: string) {
+    this.editorType = newType;
+  }
+
   countPlurals(): string {
     let count = this.layout.getNumOfSelected();
     if (count > 4) {

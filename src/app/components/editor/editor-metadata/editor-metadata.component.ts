@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CatalogDialogComponent } from 'src/app/dialogs/catalog-dialog/catalog-dialog.component';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
@@ -17,6 +17,10 @@ import { TemplateService } from 'src/app/services/template.service';
   styleUrls: ['./editor-metadata.component.scss']
 })
 export class EditorMetadataComponent implements OnInit {
+
+
+  @Input('editorType') editorType: string;
+  @Output() onChangeEditorType = new EventEmitter<string>();
 
   state = 'none';
 
@@ -39,6 +43,11 @@ export class EditorMetadataComponent implements OnInit {
     private ui: UIService,
     private dialog: MatDialog) { }
 
+
+  changeEditorType(t: string) {
+    this.onChangeEditorType.emit(t);
+  }
+  
   ngOnInit() {}
 
   ngOnChanges(c: SimpleChanges) {

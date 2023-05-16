@@ -46,10 +46,10 @@
       <app-song *ngIf="layout.lastSelectedItem" [pid]="layout.lastSelectedItem.pid"></app-song>
     </ng-container>
     <ng-container *ngIf="layout.lastSelectedItem">
-      <app-editor-mods *ngSwitchCase="'mods'"  [pid]="layout.lastSelectedItem.pid"></app-editor-mods>
-      <app-editor-ocr *ngSwitchCase="'ocr'"  [pid]="layout.lastSelectedItem.pid"></app-editor-ocr>
-      <app-editor-comment *ngSwitchCase="'comment'"  [pid]="layout.lastSelectedItem.pid"></app-editor-comment>
-      <app-editor-atm *ngSwitchCase="'atm'"  [pid]="layout.lastSelectedItem.pid"></app-editor-atm>
+      <app-editor-mods *ngSwitchCase="'mods'"  [pid]="layout.lastSelectedItem.pid" [editorType]="editorType" (onChangeEditorType)="changeEditorType($event)"></app-editor-mods>
+      <app-editor-ocr *ngSwitchCase="'ocr'"  [pid]="layout.lastSelectedItem.pid" [editorType]="editorType" (onChangeEditorType)="changeEditorType($event)"></app-editor-ocr>
+      <app-editor-comment *ngSwitchCase="'comment'"  [pid]="layout.lastSelectedItem.pid" [editorType]="editorType" (onChangeEditorType)="changeEditorType($event)"></app-editor-comment>
+      <app-editor-atm *ngSwitchCase="'atm'"  [pid]="layout.lastSelectedItem.pid" [editorType]="editorType" (onChangeEditorType)="changeEditorType($event)"></app-editor-atm>
       <ng-container *ngSwitchCase="'premis'">
         <app-editor-premis *ngIf="layout.getNumOfSelected() < 2"  [pid]="layout.lastSelectedItem.pid"></app-editor-premis>
         <app-editor-premis-multiple  *ngIf="layout.getNumOfSelected() > 1" ></app-editor-premis-multiple>
@@ -59,7 +59,7 @@
       <app-editor-pages *ngIf="layout.showPagesEditor()"></app-editor-pages>
       <app-editor-audioPages *ngIf="layout.showAudioPagesEditor()"></app-editor-audioPages>
       <ng-container *ngIf="layout.lastSelectedItem && !layout.showPagesEditor() && !layout.showAudioPagesEditor()">
-        <app-editor-page *ngIf="layout.lastSelectedItem.isPage()" [model]="layout.lastSelectedItem.model" [pid]="layout.lastSelectedItem.pid" > </app-editor-page>
+        <app-editor-page *ngIf="layout.lastSelectedItem.isPage()" [model]="layout.lastSelectedItem.model" [pid]="layout.lastSelectedItem.pid" [editorType]="editorType" (onChangeEditorType)="changeEditorType($event)" > </app-editor-page>
         <app-editor-audioPage *ngIf="layout.lastSelectedItem.isAudioPage()" [model]="layout.lastSelectedItem.model" [pid]="layout.lastSelectedItem.pid"> </app-editor-audioPage>
         <!-- <app-editor-chronicle *ngIf="layout.lastSelectedItem.isChronicle()" [pid]="layout.lastSelectedItem.pid" 
         [metadata]="layout.lastSelectedItemMetadata" [model]="layout.lastSelectedItem.model"></app-editor-chronicle> -->

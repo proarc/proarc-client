@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { Note } from 'src/app/model/note.model';
 import { LayoutService } from 'src/app/services/layout.service';
@@ -11,6 +11,9 @@ import { UIService } from 'src/app/services/ui.service';
 })
 export class EditorCommentComponent implements OnInit {
 
+  @Input('editorType') editorType: string;
+  @Output() onChangeEditorType = new EventEmitter<string>();
+  
   state = 'none';
   editting = false;
   note: Note;
