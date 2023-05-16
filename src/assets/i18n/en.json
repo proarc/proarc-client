@@ -2477,7 +2477,7 @@
       },
       "editingRepo": {
         "legend": "Editing in the repository",
-        "label": "Displayed fields in repository editing"
+        "label": "Displayed fields in the repository editing by model"
       },
       "editingImport": {
         "legend": "Editing in import",
