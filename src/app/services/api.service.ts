@@ -995,6 +995,10 @@ export class ApiService {
     return this.post('kramerius/importToKramerius', data);
   }
 
+  indexer(): Observable<any> {
+    return this.post('indexer', null);
+  }
+
 }
 
 

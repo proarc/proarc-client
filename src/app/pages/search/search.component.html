@@ -111,7 +111,7 @@
                 <button mat-menu-item (click)="showFoxml(selectedItem)">FOXML</button>
                 <button mat-menu-item *ngIf="canChangeModel(selectedItem)" (click)="changeModel(selectedItem)">{{ 'button.conversionsOfModels' | translate }}</button>
                 <button mat-menu-item (click)="updateObjects(selectedItem)">{{ 'button.updateAllObjects' | translate }}</button>
-                <!-- <button mat-menu-item>{{ 'button.toIndex' | translate }}</button> -->
+                <button mat-menu-item *ngIf="isAkubra" (click)="reindex(selectedItem)">{{ 'button.toIndex' | translate }}</button>
                 <button mat-menu-item (click)="showConvertDialog()">{{ 'button.convertPages' | translate }}</button>
               </mat-menu>
             </div>
@@ -188,7 +188,9 @@
               </ng-container>
 
               <ng-container matColumnDef="created">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.created' | translate }}</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.created' | translate }}
+                  <mat-icon>arrow_downward</mat-icon>
+                </th>
                 <td mat-cell *matCellDef="let element">
                   <div class="app-text-cutter-wrapper" [matTooltip]="element.created | appDatetime">
                     <div class="app-text-cutter">
@@ -258,7 +260,7 @@
                 <button mat-menu-item (click)="showFoxml(search.selectedTree.item)">FOXML</button>
                 <button mat-menu-item *ngIf="canChangeModel(search.selectedTree.item)" (click)="changeModel(search.selectedTree.item)">{{ 'button.conversionsOfModels' | translate }}</button>
                 <button mat-menu-item (click)="updateObjects(search.selectedTree.item)">{{ 'button.updateAllObjects' | translate }}</button>
-                <!-- <button mat-menu-item>{{ 'button.toIndex' | translate }}</button> -->
+                <button mat-menu-item *ngIf="isAkubra" (click)="reindex(search.selectedTree.item)">{{ 'button.toIndex' | translate }}</button>
                 <button mat-menu-item (click)="showConvertDialog()">{{ 'button.convertPages' | translate }}</button>
               </mat-menu>
             </div>

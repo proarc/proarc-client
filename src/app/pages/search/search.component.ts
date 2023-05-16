@@ -96,6 +96,8 @@ export class SearchComponent implements OnInit {
 
   displayedColumns: string[] = [];
 
+  isAkubra: boolean;
+
   constructor(private api: ApiService, 
     public properties: LocalStorageService, 
     public auth: AuthService,
@@ -129,6 +131,10 @@ export class SearchComponent implements OnInit {
     
     this.api.getUsers().subscribe((users: User[]) => {
       this.users = users;
+    });
+
+    this.api.getInfo().subscribe((info) => {
+      this.isAkubra = info.storage === 'Akubra';
     });
 
     this.ui.refresh.subscribe(v => {
@@ -177,8 +183,10 @@ export class SearchComponent implements OnInit {
     this.pageIndex = p['pageIndex'] ? p['pageIndex'] : null;
     this.owner = p['owner'] ? p['owner'] : this.properties.getStringProperty('search.owner', '-');
     this.processor = p['processor'] ? p['processor'] : this.properties.getStringProperty('search.processor', '-');
-    this.sortField = p['sortField'] ? p['sortField'] : this.properties.getStringProperty('search.sort_field', 'created');
-    this.sortAsc = p['sortAsc'] ? p['sortAsc'] : this.properties.getBoolProperty('search.sort_asc', false);
+    // this.sortField = p['sortField'] ? p['sortField'] : this.properties.getStringProperty('search.sort_field', 'created');
+    this.sortField = p['sortField'] ? p['sortField'] : 'created';
+    // this.sortAsc = p['sortAsc'] ? p['sortAsc'] : this.properties.getBoolProperty('search.sort_asc', false);
+    this.sortAsc = p['sortAsc'] ? p['sortAsc'] : false;
 
 }
 
@@ -565,9 +573,17 @@ export class SearchComponent implements OnInit {
       this.sortAsc = true;
     }
     this.sortField = field;
-    this.properties.setStringProperty('search.sort_field', this.sortField);
-    this.properties.setBoolProperty('search.sort_asc', this.sortAsc);
-    this.reload();
+    // this.properties.setStringProperty('search.sort_field', this.sortField);
+    // this.properties.setBoolProperty('search.sort_asc', this.sortAsc);
+    // this.reload();
+
+    const params = {
+      sortField: this.sortField,
+      sortAsc: this.sortAsc,
+      page: 0
+    }
+    params.page = null;
+    this.router.navigate([], { queryParams: params, queryParamsHandling: 'merge' });
   }
 
   canCopy(item: DocumentItem): boolean {
@@ -649,6 +665,37 @@ export class SearchComponent implements OnInit {
           this.layout.setShouldRefresh(false);
           this.ui.showInfoSnackBar("Strany byly převedeny s chybou");
         }
+      }
+    });
+  }
+
+  reindex(item: DocumentItem) {
+    const data: SimpleDialogData = {
+      title: String(this.translator.instant('Index Proarc')) ,
+      message: String(this.translator.instant('Opravdu chcete spustit index?')),
+      btn1: {
+        label: 'Ano',
+        value: 'yes',
+        color: 'warn'
+      },
+      btn2: {
+        label: 'Ne',
+        value: 'no',
+        color: 'default'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.api.indexer().subscribe((response: any) => {
+          if (response.response.errors) {
+            this.state = 'error';
+            this.ui.showErrorDialogFromObject(response.response.errors);
+          } else {
+            this.state = 'success';
+            this.ui.showInfoSnackBar(this.translator.instant('index Proarc spusten'))
+          }
+        });
       }
     });
   }
