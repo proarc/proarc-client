@@ -120,7 +120,9 @@
             </div>
           </div>
           <div class="app-oa-y">
-            <table mat-table #table [dataSource]="items" matSort class="app-striped app-hover" (matSortChange)="sortTable($event)">
+            <table mat-table #table [dataSource]="items" matSort class="app-striped app-hover"
+            [matSortActive]="sortField" [matSortDirection]="sortAsc ? 'asc' : 'desc'"
+             (matSortChange)="sortTable($event)">
               <ng-container matColumnDef="label">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">{{ 'desc.name' | translate }}</th>
                 <td mat-cell *matCellDef="let element">
@@ -188,9 +190,7 @@
               </ng-container>
 
               <ng-container matColumnDef="created">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.created' | translate }}
-                  <mat-icon>arrow_downward</mat-icon>
-                </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.created' | translate }}</th>
                 <td mat-cell *matCellDef="let element">
                   <div class="app-text-cutter-wrapper" [matTooltip]="element.created | appDatetime">
                     <div class="app-text-cutter">

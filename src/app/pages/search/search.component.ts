@@ -183,10 +183,12 @@ export class SearchComponent implements OnInit {
     this.pageIndex = p['pageIndex'] ? p['pageIndex'] : null;
     this.owner = p['owner'] ? p['owner'] : this.properties.getStringProperty('search.owner', '-');
     this.processor = p['processor'] ? p['processor'] : this.properties.getStringProperty('search.processor', '-');
-    // this.sortField = p['sortField'] ? p['sortField'] : this.properties.getStringProperty('search.sort_field', 'created');
-    this.sortField = p['sortField'] ? p['sortField'] : 'created';
-    // this.sortAsc = p['sortAsc'] ? p['sortAsc'] : this.properties.getBoolProperty('search.sort_asc', false);
-    this.sortAsc = p['sortAsc'] ? p['sortAsc'] : false;
+    this.sortField = p['sortField'] ? p['sortField'] : this.properties.getStringProperty('search.sort_field', 'created');
+    // this.sortField = p['sortField'] ? p['sortField'] : 'created';
+    console.log(p['sortAsc'])
+    this.sortAsc = p['sortAsc'] ? (p['sortAsc'] === 'true') : this.properties.getBoolProperty('search.sort_asc', false);
+    // this.sortAsc = p['sortAsc'] ? p['sortAsc'] : false;
+
 
 }
 
@@ -248,6 +250,7 @@ export class SearchComponent implements OnInit {
         
       }
       this.state = 'success';
+      
     });
   }
 
@@ -573,8 +576,8 @@ export class SearchComponent implements OnInit {
       this.sortAsc = true;
     }
     this.sortField = field;
-    // this.properties.setStringProperty('search.sort_field', this.sortField);
-    // this.properties.setBoolProperty('search.sort_asc', this.sortAsc);
+    this.properties.setStringProperty('search.sort_field', this.sortField);
+    this.properties.setBoolProperty('search.sort_asc', this.sortAsc);
     // this.reload();
 
     const params = {
