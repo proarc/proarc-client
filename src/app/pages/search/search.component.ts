@@ -185,7 +185,6 @@ export class SearchComponent implements OnInit {
     this.processor = p['processor'] ? p['processor'] : this.properties.getStringProperty('search.processor', '-');
     this.sortField = p['sortField'] ? p['sortField'] : this.properties.getStringProperty('search.sort_field', 'created');
     // this.sortField = p['sortField'] ? p['sortField'] : 'created';
-    console.log(p['sortAsc'])
     this.sortAsc = p['sortAsc'] ? (p['sortAsc'] === 'true') : this.properties.getBoolProperty('search.sort_asc', false);
     // this.sortAsc = p['sortAsc'] ? p['sortAsc'] : false;
 

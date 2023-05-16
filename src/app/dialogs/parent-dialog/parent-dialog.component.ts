@@ -150,8 +150,12 @@ export class ParentDialogComponent implements OnInit {
   }
 
   isAllowed() {
+    if (!this.selectedItem) {
+      return false;
+    }
     if (this.data.isRepo) {
-      return this.getNumOfSelected() > 0 && this.selectedItem && ModelTemplate.allowedChildrenForModel(this.selectedItem.model).includes(this.getSelected()[0].model);
+      return (this.getNumOfSelected() > 0 && ModelTemplate.allowedChildrenForModel(this.selectedItem.model).includes(this.getSelected()[0].model))
+             || (this.getNumOfSelected() === 0 && this.data.parent && ModelTemplate.allowedChildrenForModel(this.selectedItem.model).includes(this.data.parent.model));
     } else {
       return this.selectedItem && ModelTemplate.allowedChildrenForModel(this.selectedItem.model).includes(this.orig[0].model);
     }

@@ -32,7 +32,7 @@
   </div>
   <div mat-dialog-actions cdk-focus-start>
     <button mat-flat-button color="primary" *ngIf="data.parent" (click)="onDeleteParent()">{{ 'button.unlink' | translate }}</button>
-    <button mat-flat-button color="primary" (click)="onSave()" [disabled]="(data.isRepo && getNumOfSelected() === 0) || state=='loading' || !isAllowed()">
+    <button mat-flat-button color="primary" (click)="onSave()" [disabled]="state ==='loading' || !isAllowed()">
       {{ (data.isRepo ? 'button.move' : 'button.save') | translate }}
     </button>
     <button mat-flat-button [mat-dialog-close]="hasChanges">{{ 'button.close' | translate }}</button>
