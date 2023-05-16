@@ -257,6 +257,8 @@
 
 // menu
 .mat-menu-panel {
+  min-height: auto !important;
+
   .mat-menu-item {
     line-height: $app-mat-menu-item-height !important;
     height: $app-mat-menu-item-height !important;
