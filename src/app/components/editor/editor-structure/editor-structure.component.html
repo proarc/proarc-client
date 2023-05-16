@@ -18,9 +18,6 @@
       <button mat-icon-button [class.app-active]="shortLabels" (click)="switchUseShortLabel()" [matTooltip]="'editor.children.short_labels_' + (shortLabels ? 'on' : 'off') | translate" >
         <mat-icon>short_text</mat-icon>
       </button> -->
-      <button mat-icon-button  (click)="validateChildren()" [matTooltip]="'editor.children.validate' | translate" >
-        <mat-icon>check_circle</mat-icon>
-      </button>
       <button mat-icon-button *ngIf="pageChildren" (click)="onReindexChildren()" [matTooltip]="'editor.children.reindex' | translate" >
         <mat-icon>format_list_numbered</mat-icon>
       </button>
@@ -31,12 +28,11 @@
         <mat-icon><!-- to delete after testing dynamic_feed -->view_timeline</mat-icon>
       </button>
       <button mat-icon-button *ngIf="isRepo && canAddChildren()" (click)="onCreateNewObject()" [matTooltip]="'editor.children.add_new' | translate" >
-        <mat-icon>add</mat-icon>
+        <mat-icon>add_circle</mat-icon>
       </button>        
       <button mat-icon-button *ngIf="isRepo" (click)="onRelocateOutside()" [matTooltip]="'editor.children.relocate_label' | translate" >
         <mat-icon>forward</mat-icon>
       </button>
-
       <!-- to delete after testing
       <ng-container *ngIf="viewMode === 'list'">
         <button mat-icon-button [matMenuTriggerFor]="columns_menu" [matTooltip]="'editor.children.select_columns' | translate" >
@@ -57,7 +53,10 @@
       </button>
       <button mat-icon-button (click)="onSave()" [disabled]="!hasChanges" [matTooltip]="'button.save' | translate" >
         <mat-icon>save</mat-icon>
-      </button>  
+      </button>
+      <button mat-icon-button  (click)="validateChildren()" [matTooltip]="'editor.children.validate' | translate" >
+        <mat-icon>check_circle</mat-icon>
+      </button>
       <button *ngIf="!isRepo" mat-flat-button color="primary" (click)="ingest()">{{ 'button.continue' | translate }}</button>
       <ng-container *ngIf="isRepo">
         <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToParent()" [disabled]="!layout.parent" mat-icon-button>
