@@ -44,6 +44,7 @@ export class ExportDialogComponent implements OnInit {
 
     this.api.getKrameriusInstances().subscribe((resp: any) => {
       this.instances = resp.response.data;
+      this.importInstance = this.instances[0].krameriusInstanceId;
     });
 
     this.api.getValidExports(this.data.model).subscribe((resp: any) => {

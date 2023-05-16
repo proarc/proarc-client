@@ -149,6 +149,7 @@ export class ConfigService {
 		'archive_stt',
 		'archive_stt_bagit',
 		'kramerius',
+		'kramerius_bagit',
 		'ndk_psp',
 		'ndk_psp_bagit',
 		'datastream_full',
