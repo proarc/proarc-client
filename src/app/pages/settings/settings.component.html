@@ -114,12 +114,13 @@
       <mat-card fxFlex *ngIf="user">
         <mat-card-content>
           <fieldset class="app-p-4 app-mb-4">
-            <legend>{{ 'pages.settings.editingRepo.legend' | translate }}</legend>
-            <div class="app-label app-mb-2">{{ 'pages.settings.editingRepo.label' | translate }}</div>
-            <!-- <div *ngFor="let column of selectedColumnsEditing">
-              <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
-            </div> -->
-
+            <legend>{{ 'pages.settings.editingRepo.legend' | translate }}</legend>        
+            <div class="app-label">{{ 'pages.settings.editingRepo.label' | translate }}</div>
+            <mat-form-field class="app-w-100">
+              <mat-select [placeholder]="'desc.model' | translate" name="model">
+                <mat-option *ngFor="let item of items" [value]="item.name">{{ item.name | translate }}</mat-option>
+              </mat-select>
+            </mat-form-field>
             <div *ngFor="let column of selectedColumnsEditingRepo">
               <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
             </div>

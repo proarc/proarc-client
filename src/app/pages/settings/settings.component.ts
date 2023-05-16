@@ -33,6 +33,8 @@ export class SettingsComponent implements OnInit {
 
   isRepo: boolean;
 
+  items: any[];
+
   @ViewChild('table') table: MatTable<DocumentItem>;
   public selectedColumnsSearch = [
     { field: 'label', selected: true },
@@ -108,6 +110,7 @@ export class SettingsComponent implements OnInit {
       this.relatedItemExpanded = localStorage.getItem('relatedItemExpanded') === 'true';
     }
 
+    this.items = this.codebook.expandedModels;
   }
 
   changeCodebookTops(type: any) {

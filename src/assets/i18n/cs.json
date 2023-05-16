@@ -2477,7 +2477,7 @@
       },
       "editingRepo": {
         "legend": "Editace v repozitáři",
-        "label": "Zobrazená pole v editaci repozitáře"
+        "label": "Zobrazená pole v editaci repozitáře dle modelu"
       },
       "editingImport": {
         "legend": "Editace v importu",
