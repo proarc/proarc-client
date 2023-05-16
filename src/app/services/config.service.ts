@@ -207,6 +207,9 @@ export class ConfigService {
 	public topLanguages = APP_GLOBAL.topLanguages || [];
 	public otherLanguages = APP_GLOBAL.languages || ConfigService.defaultLanguages;
 
+	public topExpandedModels = APP_GLOBAL.topExpandedModels || [];
+	public otherExpandedModels = ConfigService.defaultModels;
+
 	public topLocations = APP_GLOBAL.topLocations || [];
 	public otherLocations = APP_GLOBAL.locations || ConfigService.defaultLocations;
 

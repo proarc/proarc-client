@@ -77,7 +77,14 @@
               <button mat-flat-button color="primary" (click)="changeCodebookTops('Locations')">{{ 'button.edit' | translate }}</button>
             </div>
             <mat-divider class="app-mb-4"></mat-divider>
+            
             <span class="app-label">{{ 'desc.expandingTheForm' | translate }}</span>
+            <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
+              <strong fxFlex>{{ codebook.getTopNames('ExpandedModels').join(", ") }}</strong>
+              <button mat-flat-button color="primary" (click)="changeCodebookTops('ExpandedModels')">{{ 'button.edit' | translate }}</button>
+            </div>
+
+            <!-- <span class="app-label">{{ 'desc.expandingTheForm' | translate }}</span>
             <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start end" class="app-mb-4">
               <mat-form-field fxFlex class="app-clean-mb">
                 <mat-select  [placeholder]="'desc.model' | translate" name="model" multiple [formControl]="selectedModels" >
@@ -86,7 +93,7 @@
               </mat-form-field>
               <mat-slide-toggle [(ngModel)]="relatedItemExpanded" color="primary" class="app-slide-toogle" [matTooltip]="'desc.includeRelatedItem' | translate">{{ 'relatedItem' | translate }}</mat-slide-toggle>
               <button mat-flat-button color="primary" (click)="changeExpandedModels()">{{ 'button.edit' | translate }}</button>
-            </div>
+            </div> -->
           </fieldset>
         </mat-card-content>
       </mat-card>

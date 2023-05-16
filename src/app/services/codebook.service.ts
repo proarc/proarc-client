@@ -11,6 +11,7 @@ export class CodebookService {
     "PageTypes": "pageType",
     "Languages": "lang",
     "Identifiers": "identifier",
+    "ExpandedModels": "model",
     "Locations": "sigla",
     "ChronicleIdentifiers": "identifier",
     "EDocumentsIdentifiers": "identifier",
@@ -22,6 +23,7 @@ export class CodebookService {
   languages: any[] = [];
   locations: any[] = [];
   identifiers: any[] = [];
+  expandedModels: any[] = [];
   chronicleIdentifiers: any[] = [];
   eDocumentIdentifiers: any[] = [];
   musicDocumentIdentifiers: any[] = [];
@@ -38,6 +40,7 @@ export class CodebookService {
       this.languages = this.buildCollection('Languages');
       this.locations = this.buildCollection('Locations');
       this.identifiers = this.buildCollection('Identifiers');
+      this.expandedModels = this.buildCollection('ExpandedModels');
       this.chronicleIdentifiers = this.buildCollection('ChronicleIdentifiers');
       this.eDocumentIdentifiers = this.buildCollection('EDocumentsIdentifiers');
       this.oldprintIdentifiers = this.buildCollection('OldprintIdentifiers');
@@ -90,7 +93,7 @@ export class CodebookService {
   }
 
   tName(code: string, collection: string): string {
-    let key = this.collPrefix[collection];;
+    let key = this.collPrefix[collection];
     if (collection == "Locations") {
       key += '.' + code.toUpperCase();
     } else {

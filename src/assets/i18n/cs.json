@@ -2309,7 +2309,8 @@
         "PageTypes": "Preferované typy stran",
         "Languages": "Preferované jazyky",
         "Locations": "Preferovaná místa uložení",
-        "Identifiers": "Preferované Identifikátory"
+        "Identifiers": "Preferované Identifikátory",
+        "ExpandedModels": "Rozbalení formuláře"
       }
     },
     "export": {
