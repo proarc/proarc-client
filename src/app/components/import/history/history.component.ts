@@ -62,8 +62,10 @@ export class HistoryComponent implements OnInit, OnDestroy {
     'INGESTING_FAILED',
     'INGESTED',
     'STOPPED',
+    'EXPORT_PLANNED',
     'EXPORTING',
     'EXPORT_FAILED',
+    'EXPORT_VALID_WARNING',
     'EXPORT_DONE',
     'REINDEXING',
     'REINDEX_FAILED',
@@ -356,7 +358,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
               return;
             }
 
-            
+
         if (response['response'].status === -1) {
           this.ui.showErrorSnackBar(response['response'].data);
           // this.router.navigate(['/import/history']);
@@ -379,7 +381,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
 
   onReloadBatch() {
-    const dialogRef = this.dialog.open(ReloadBatchDialogComponent, { 
+    const dialogRef = this.dialog.open(ReloadBatchDialogComponent, {
       data: null,
       panelClass: 'app-dialog-reload-batch',
       width: '600px'
@@ -409,10 +411,10 @@ export class HistoryComponent implements OnInit, OnDestroy {
     if (!this.selectedBatch) {
       return;
     }
-    const dialogRef = this.dialog.open(ImportDialogComponent, { 
+    const dialogRef = this.dialog.open(ImportDialogComponent, {
       data: { batch: this.selectedBatch.id, parent: parentPid, ingestOnly: true },
       panelClass: 'app-dialog-import',
-      width: '600px'  
+      width: '600px'
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'open') {
@@ -428,10 +430,10 @@ export class HistoryComponent implements OnInit, OnDestroy {
       return;
     }
     this.api.reloadBatch(this.selectedBatch.id, profile.id).subscribe((batch: Batch) => {
-      const dialogRef = this.dialog.open(ImportDialogComponent, { 
+      const dialogRef = this.dialog.open(ImportDialogComponent, {
         data: { batch: batch.id },
         panelClass: 'app-dialog-import',
-        width: '600px' 
+        width: '600px'
       });
       dialogRef.afterClosed().subscribe(result => {
 
@@ -464,7 +466,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
         this.ui.showErrorSnackBar(response.response.data[0].errors[0].message);
       }
     })
-    
+
   }
 
   onStateChanged() {
@@ -497,10 +499,10 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
       const batch: Batch = Batch.fromJson(response['response']['data'][0]);
 
-      const dialogRef = this.dialog.open(ImportDialogComponent, { 
+      const dialogRef = this.dialog.open(ImportDialogComponent, {
         data: { batch: batch.id },
         panelClass: 'app-dialog-import',
-        width: '600px' 
+        width: '600px'
       });
       dialogRef.afterClosed().subscribe(result => {
 

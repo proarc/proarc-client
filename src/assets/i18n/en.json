@@ -165,7 +165,7 @@
     "new_object": "New object",
     "search": "Search",
     "import": "Import",
-    "history": "Batch management",
+    "history": "Process management",
     "catalog": "Catalog",
     "devices": "Devices",
     "login": "Log in",
@@ -2226,6 +2226,8 @@
     "EXPORTING": "Exporting",
     "EXPORT_FAILED": "Exporting failed",
     "EXPORT_DONE": "Exported",
+    "EXPORT_PLANNED": "Export planed",
+    "EXPORT_VALID_WARNING": "Export with warning",
     "REINDEXING": "Reindexing",
     "REINDEX_FAILED": "Reindexing failed",
     "REINDEX_DONE": "Reindexed",
@@ -2330,8 +2332,8 @@
         "kwis": "KWIS"
       },
       "alert": {
-        "done": "The export has been completed and you can find it in the user directory.",
-        "exporting": "The export has been entered and will run in the background. You can close the dialog.",
+        "done": "The export has been planned.",
+        "exporting": "The export has been planned.",
         "error": "Export failed."
       }
     },
