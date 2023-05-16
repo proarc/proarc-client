@@ -175,7 +175,7 @@
     "new_object": "Nový objekt",
     "search": "Hledat",
     "import": "Import",
-    "history": "Správa dávek",
+    "history": "Správa procesů",
     "catalog": "Katalog",
     "devices": "Zařízení",
     "login": "Přihlásit",
@@ -2226,6 +2226,8 @@
     "EXPORTING": "Exportování",
     "EXPORT_FAILED": "Chyba exportu",
     "EXPORT_DONE": "Exportováno",
+    "EXPORT_PLANNED": "Export naplánován",
+    "EXPORT_VALID_WARNING": "Export skončil upozorněním",
     "REINDEXING": "Reindexování",
     "REINDEX_FAILED": "Chyba reindexace",
     "REINDEX_DONE": "Reindexováno",
@@ -2330,8 +2332,8 @@
         "kwis": "KWIS"
       },
       "alert": {
-        "done": "Export byl dokončen a najdete jej v uživatelském adresáři.",
-        "exporting": "Export byl zadán a bude probíhat na pozadí. Dialog můžete zavřít.",
+        "done": "Export byl naplánován.",
+        "exporting": "Export byl naplánován.",
         "error": "Export se nezdařil."
       }
     },
