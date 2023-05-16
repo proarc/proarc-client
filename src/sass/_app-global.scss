@@ -373,7 +373,8 @@ as-split {
     }
 
     .mat-icon {
-      @include setIcon(20, $position: sub);
+      @include setIcon(20);
+      line-height: 20px;
     }
   }
 
