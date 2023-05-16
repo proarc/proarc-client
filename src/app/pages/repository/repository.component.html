@@ -1,7 +1,7 @@
 <div fxLayout="column" fxFlexFill *ngIf="layout.ready" class="app-editor-wrapper">
   <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar app-view-border-bottom">
     <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs app-view-border-right">
-      <a routerLink="/"><mat-icon>home</mat-icon> Home</a>
+      <a routerLink="/"><mat-icon>home</mat-icon></a>
       <span class="app-separator">/</span>
       <ng-container *ngFor="let p of layout.path; let last = last; let l = count; let idx = index">
         <a *ngIf="!last" (click)="goToObjectByPid(p.pid)" [matTooltip]="'model.' + p.model | translate">{{ p.label }}</a>

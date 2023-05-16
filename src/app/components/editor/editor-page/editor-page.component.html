@@ -1,6 +1,8 @@
 <div fxLayout="column" fxFlexFill>
   <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-metadata" *ngIf="switchable">
-    <app-editor-switcher (onChangeEditorType)="changeEditorType($event)" [editorType]="editorType"></app-editor-switcher>
+    <div fxFlex>
+      <app-editor-switcher (onChangeEditorType)="changeEditorType($event)" [editorType]="editorType"></app-editor-switcher>
+    </div>
     <div>
       <button mat-icon-button (click)="onRevert()" [disabled]="!page" [matTooltip]="'button.refresh' | translate" [matTooltipPosition]="toolbarTooltipPosition">
         <mat-icon>sync</mat-icon>

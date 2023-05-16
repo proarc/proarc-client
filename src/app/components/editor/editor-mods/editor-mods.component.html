@@ -1,7 +1,7 @@
 <div fxLayout="column" fxFlexFill>
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-metadata" >
-		<app-editor-switcher (onChangeEditorType)="changeEditorType($event)" [editorType]="editorType"></app-editor-switcher>
-		<div>
+  <div fxLayout="row" class="app-toolbar app-view-metadata">
+		<div fxFlex>
+			<app-editor-switcher (onChangeEditorType)="changeEditorType($event)" [editorType]="editorType"></app-editor-switcher>
 			<ng-container *ngIf="item && layout.lastSelectedItemMetadata">
 				<button mat-icon-button [class.app-active]="realtime" (click)="setRealtime(true)" [matTooltip]="'editor.mods.realtime_on' | translate" [matTooltipPosition]="toolbarTooltipPosition">
 						<mat-icon>timer</mat-icon>
@@ -16,6 +16,22 @@
 			<button mat-icon-button (click)="onEdit()" [disabled]="editting || realtime" (click)="onEdit()" [matTooltip]="'common.edit' | translate" [matTooltipPosition]="toolbarTooltipPosition">
 				<mat-icon>edit</mat-icon>
 			</button>
+		</div>
+		<div>
+			<!-- <ng-container *ngIf="item && layout.lastSelectedItemMetadata">
+				<button mat-icon-button [class.app-active]="realtime" (click)="setRealtime(true)" [matTooltip]="'editor.mods.realtime_on' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+						<mat-icon>timer</mat-icon>
+				</button>
+				<button  mat-icon-button [class.app-active]="!realtime" (click)="setRealtime(false)" [matTooltip]="'editor.mods.realtime_off' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+						<mat-icon>timer_off</mat-icon>
+				</button>
+			</ng-container>
+			<button mat-icon-button (click)="onRefresh()" [disabled]="editting || realtime" (click)="onRefresh()" [matTooltip]="'editor.mods.refresh' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+					<mat-icon>refresh</mat-icon>
+			</button>
+			<button mat-icon-button (click)="onEdit()" [disabled]="editting || realtime" (click)="onEdit()" [matTooltip]="'common.edit' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+				<mat-icon>edit</mat-icon>
+			</button> -->
 			<button mat-icon-button (click)="onClear()" [disabled]="!editting || realtime" [matTooltip]="'common.cancel' | translate" [matTooltipPosition]="toolbarTooltipPosition">
 				<mat-icon>clear</mat-icon>
 			</button>
