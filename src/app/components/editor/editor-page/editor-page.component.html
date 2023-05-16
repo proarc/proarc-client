@@ -1,5 +1,5 @@
 <div fxLayout="column" fxFlexFill>
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-metadata" *ngIf="switchable">
+  <div fxLayout="row" class="app-toolbar app-view-metadata" *ngIf="switchable">
     <div fxFlex>
       <app-editor-switcher (onChangeEditorType)="changeEditorType($event)" [editorType]="editorType"></app-editor-switcher>
     </div>
