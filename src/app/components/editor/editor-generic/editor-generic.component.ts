@@ -41,16 +41,16 @@ export class EditorGenericComponent implements OnInit {
 
   countPlurals(): string {
     let count = this.layout.getNumOfSelected();
-      if (count > 4) {
-        return '5'
-      } else if (count > 1) {
-        return '4'
-      } else {
-        return count + '';
-      }
+    if (count > 4) {
+      return '5'
+    } else if (count > 1) {
+      return '4'
+    } else {
+      return count + '';
     }
+  }
 
-    passOnIngest() {
-      this.onIngest.emit(true);
-    }
+  passOnIngest() {
+    this.onIngest.emit(true);
+  }
 }

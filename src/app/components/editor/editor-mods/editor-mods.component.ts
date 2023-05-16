@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, SimpleChange } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, SimpleChange, EventEmitter, Output } from '@angular/core';
 import { Mods } from 'src/app/model/mods.model';
 import { ApiService } from 'src/app/services/api.service';
 import { DocumentItem } from 'src/app/model/documentItem.model';
@@ -11,6 +11,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
+import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.component';
+
 
 @Component({
   selector: 'app-editor-mods',
@@ -18,6 +20,30 @@ import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dial
   styleUrls: ['./editor-mods.component.scss']
 })
 export class EditorModsComponent implements OnInit, OnDestroy {
+
+   // --- #268 ----
+   @Input('editorType') editorType: string;
+   @Input('panel') panel: ILayoutPanel;
+   @Output() onIngest = new EventEmitter<boolean>();
+ 
+   switchableTypes = ['mods', 'metadata', 'atm', 'ocr']
+   switchable: boolean = true;
+ 
+   /* ngOnChanges(c: SimpleChange) {
+     this.switchable = this.switchableTypes.includes(this.editorType);
+   } */
+ 
+   countPlurals(): string {
+     let count = this.layout.getNumOfSelected();
+     if (count > 4) {
+       return '5'
+     } else if (count > 1) {
+       return '4'
+     } else {
+       return count + '';
+     }
+   }
+   // --- #368 ----
 
   @Input() pid: string;
   @ViewChild('editingPre') editingPre: ElementRef;

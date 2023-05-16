@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChange } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange, Output, EventEmitter } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { Device } from 'src/app/model/device.model';
 import { Atm } from 'src/app/model/atm.model';
@@ -8,6 +8,7 @@ import { User } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { UIService } from 'src/app/services/ui.service';
+import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.component';
 
 @Component({
   selector: 'app-editor-atm',
@@ -15,6 +16,30 @@ import { UIService } from 'src/app/services/ui.service';
   styleUrls: ['./editor-atm.component.scss']
 })
 export class EditorAtmComponent implements OnInit {
+
+   // --- #268 ----
+   @Input('editorType') editorType: string;
+   @Input('panel') panel: ILayoutPanel;
+   @Output() onIngest = new EventEmitter<boolean>();
+ 
+   switchableTypes = ['mods', 'metadata', 'atm', 'ocr']
+   switchable: boolean = true;
+ 
+   /* ngOnChanges(c: SimpleChange) {
+     this.switchable = this.switchableTypes.includes(this.editorType);
+   } */
+ 
+   countPlurals(): string {
+     let count = this.layout.getNumOfSelected();
+     if (count > 4) {
+       return '5'
+     } else if (count > 1) {
+       return '4'
+     } else {
+       return count + '';
+     }
+   }
+   // --- #368 ----
 
   @Input('pid') pid: string;
   state = 'none';
@@ -36,7 +61,7 @@ export class EditorAtmComponent implements OnInit {
   ];
 
   constructor(
-    private layout: LayoutService, 
+    public layout: LayoutService, 
     private api: ApiService, 
     private config: ConfigService, 
     private ui: UIService,

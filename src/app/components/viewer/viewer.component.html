@@ -1,10 +1,5 @@
 <div fxLayout="column" fxFlexFill>
   <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
-    <div fxFlex>
-			<div class="app-toolbar-label">
-				<span class="app-text">{{ 'desc.picture' | translate }}</span>
-			</div>
-		</div>
 		<div *ngIf="!hideToolbar">
       <button mat-icon-button [class.app-active]="positionLock" [matTooltip]="'viewer.tooltip.' + (positionLock ? 'unlock' : 'lock') | translate" (click)="onSwitchLock()">
 				<mat-icon>lock</mat-icon>

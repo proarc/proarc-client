@@ -1,10 +1,38 @@
 <div fxLayout="column" fxFlexFill>
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
-    <div fxFlex>
-			<div class="app-toolbar-label">
-				<span class="app-text">{{ 'editor.atm.title' | translate }}</span>
-			</div>
-		</div>
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-metadata" *ngIf="switchable">
+    <div fxFlex *ngIf="layout.getNumOfSelected() > 1">
+      <div class="app-toolbar-label">
+        <span class="app-text">{{ 'editor.children.multiple_selection_label' | translate }}</span>
+        <span class="app-pipe"></span>
+        <span class="app-text-supplement">{{ ('editor.children.multiple_selection_count' + countPlurals() ) | translate: { count: layout.getNumOfSelected() } }}</span>
+      </div>
+    </div>
+    <div fxFlex *ngIf="!layout.showPagesEditor()">
+      <button mat-icon-button [matTooltip]="'editor.toolbar.editor_metadata' | translate" [matTooltipPosition]="toolbarTooltipPosition" [class.app-active]="editorType === 'metadata'" (click)="editorType = 'metadata'">
+        <span class="app-text-icon">M</span>
+      </button>
+      <!-- to delete after testing <button mat-icon-button *ngIf="layout.lastSelectedItem && layout.lastSelectedItem.isPage()" [matTooltip]="'editor.toolbar.editor_image' | translate" [matTooltipPosition]="toolbarTooltipPosition" [class.app-active]="editorType === 'image'" (click)="editorType = 'image'">
+        <mat-icon>image</mat-icon>
+      </button> -->
+      <button mat-icon-button *ngIf="layout.lastSelectedItem && layout.lastSelectedItem.isAudioPage()" [matTooltip]="'editor.toolbar.editor_song' | translate" [matTooltipPosition]="toolbarTooltipPosition" [class.app-active]="editorType === 'song'" (click)="editorType = 'song'">
+        <mat-icon>audiotrack</mat-icon>
+      </button>
+      <!-- <button mat-icon-button *ngIf="layout.lastSelectedItem && layout.lastSelectedItem.canContainPdf()" [matTooltip]="'editor.toolbar.editor_pdf' | translate" [matTooltipPosition]="toolbarTooltipPosition" [class.app-active]="editorType === 'pdf'" (click)="editorType = 'pdf'">
+        <mat-icon>picture_as_pdf</mat-icon>
+      </button> -->
+      <button mat-icon-button [matTooltip]="'editor.toolbar.editor_mods' | translate" [matTooltipPosition]="toolbarTooltipPosition" [class.app-active]="editorType === 'mods'" (click)="editorType = 'mods'">
+        <mat-icon>code</mat-icon>
+      </button>
+      <button mat-icon-button *ngIf="layout.lastSelectedItem && layout.lastSelectedItem.isPage()" [matTooltip]="'editor.toolbar.editor_ocr' | translate" [matTooltipPosition]="toolbarTooltipPosition" [class.app-active]="editorType === 'ocr'" (click)="editorType = 'ocr'">
+        <mat-icon>title</mat-icon>
+      </button>
+      <button mat-icon-button [matTooltip]="'editor.toolbar.editor_atm' | translate" [matTooltipPosition]="toolbarTooltipPosition" [class.app-active]="editorType === 'atm'" (click)="editorType = 'atm'">
+        <span class="app-text-icon">A</span>
+      </button>
+      <!-- to delete after testing <button mat-icon-button *ngIf="config.showCommentEditor" [matTooltip]="'editor.toolbar.editor_comment' | translate" [matTooltipPosition]="toolbarTooltipPosition" [class.app-active]="editorType === 'comment'" (click)="editorType = 'comment'">
+        <mat-icon>format_quote</mat-icon>
+      </button> -->
+    </div>
 		<div>
       <button mat-icon-button (click)="onRevert()" [matTooltip]="'common.revert' | translate" [matTooltipPosition]="toolbarTooltipPosition" [disabled]="!atm || !atm.hasChanged()">
         <mat-icon>replay</mat-icon>

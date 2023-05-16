@@ -1,5 +1,5 @@
 import { CodebookService } from './../../../services/codebook.service';
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, SimpleChange, Output, EventEmitter } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { Page } from 'src/app/model/page.model';
 import { TranslateService } from '@ngx-translate/core';
@@ -11,6 +11,7 @@ import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dial
 import { FormControl, FormGroup } from '@angular/forms';
 import { UIService } from 'src/app/services/ui.service';
 import { LayoutService } from 'src/app/services/layout.service';
+import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.component';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 
 @Component({
@@ -19,6 +20,30 @@ import { DocumentItem } from 'src/app/model/documentItem.model';
   styleUrls: ['./editor-page.component.scss']
 })
 export class EditorPageComponent implements OnInit {
+
+  // --- #268 ----
+  @Input('editorType') editorType: string;
+  @Input('panel') panel: ILayoutPanel;
+  @Output() onIngest = new EventEmitter<boolean>();
+
+  switchableTypes = ['mods', 'metadata', 'atm', 'ocr']
+  switchable: boolean = true;
+
+  /* ngOnChanges(c: SimpleChange) {
+    this.switchable = this.switchableTypes.includes(this.editorType);
+  } */
+
+  countPlurals(): string {
+    let count = this.layout.getNumOfSelected();
+    if (count > 4) {
+      return '5'
+    } else if (count > 1) {
+      return '4'
+    } else {
+      return count + '';
+    }
+  }
+  // --- #368 ----
 
   @Input() notSaved = false;
   state = 'none';
