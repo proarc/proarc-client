@@ -173,8 +173,8 @@ export class HistoryComponent implements OnInit, OnDestroy {
   loadData() {
     if (this.view == 'overview') {
       this.reloadBatches();
-    } else if (this.view == 'queue') {
-      this.reloadQueue();
+    } else if (this.view == 'loadingQueue') {
+      this.reloadLoadingQueue();
     }
   }
 
@@ -312,7 +312,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
     });
   }
 
-  reloadQueue() {
+  reloadLoadingQueue() {
     this.selectedBatch = null;
     this.state = 'loading';
     const start = this.pageIndex * this.pageSize;

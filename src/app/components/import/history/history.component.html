@@ -24,7 +24,7 @@
           {{ 'button.refresh' | translate }}
         </button>
         <mat-checkbox [(ngModel)]="autoRefresh" (change)="setRefresh()">{{ 'desc.automaticallyRestore' | translate }}</mat-checkbox>
-        <button mat-flat-button color="primary" (click)="changeView('queue')">
+        <button mat-flat-button color="primary" (click)="changeView('loadingQueue')">
           {{ 'button.showLoadingQueue' | translate }}
         </button>
         <button mat-flat-button color="primary" (click)="onReloadBatch()" *ngIf="selectedBatch && (selectedBatch.state === 'LOADING_FAILED' || selectedBatch.state === 'LOADED' || selectedBatch.state === 'STOPPED')">
@@ -40,7 +40,7 @@
           {{ 'button.reexport' | translate }}
         </button>
       </ng-container>
-      <ng-container *ngIf="view == 'queue'">
+      <ng-container *ngIf="view == 'loadingQueue'">
         <button mat-flat-button color="primary" (click)="reload()">
           <mat-icon>sync</mat-icon>
           {{ 'button.refresh' | translate }}
@@ -50,7 +50,7 @@
         </button>
       </ng-container>
     </div>
-  
+
     <div *ngIf="view == 'overview'" class="app-formbar" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
       <mat-form-field fxFlex>
         <input matInput [matTooltip]="'formField.folderNamePid.tooltip' | translate" [placeholder]="'formField.folderNamePid.placeholder' | translate" (keyup.enter)="filter()" [(ngModel)]="description">
@@ -160,7 +160,7 @@
       <mat-paginator [length]="resultCount" hidePageSize="true" [pageIndex]="pageIndex" [pageSize]="pageSize" (page)="onPageChanged($event)"></mat-paginator>
     </div>
 
-    <div fxFlex class="app-oa-y app-mt-4" *ngIf="view == 'queue'">
+    <div fxFlex class="app-oa-y app-mt-4" *ngIf="view == 'loadingQueue'">
       <table mat-table #table [dataSource]="queue" class="app-striped app-hover">
         <ng-container matColumnDef="description">
           <th mat-header-cell *matHeaderCellDef>{{ 'desc.folderNamePid' | translate }}</th>
