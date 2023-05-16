@@ -28,7 +28,7 @@
         <mat-icon>swap_horiz</mat-icon>
       </button>
       <button mat-icon-button *ngIf="!isRepo" (click)="markSequence()" [matTooltip]="'editor.children.markSequence' | translate" >
-        <mat-icon>dynamic_feed</mat-icon>
+        <mat-icon><!-- to delete after testing dynamic_feed -->view_timeline</mat-icon>
       </button>
       <button mat-icon-button *ngIf="isRepo && canAddChildren()" (click)="onCreateNewObject()" [matTooltip]="'editor.children.add_new' | translate" >
         <mat-icon>add</mat-icon>
@@ -48,6 +48,9 @@
           </div>
         </mat-menu>
       </ng-container> -->
+      <button mat-icon-button (click)="selectAll()" *ngIf="!isRepo" [matTooltip]="'editor.children.select_all' | translate">
+        <mat-icon>checklist</mat-icon>
+      </button>
 
       <button mat-icon-button (click)="onDelete()" [matTooltip]="'editor.children.delete' | translate" >
         <mat-icon>delete</mat-icon>
@@ -77,7 +80,7 @@
       </button>
       <mat-menu #menuMore="matMenu">
         <button mat-menu-item (click)="onMove()"><!-- <mat-icon>reply</mat-icon> -->{{ 'editor.children.move' | translate }}</button>
-        <button mat-menu-item (click)="selectAll()"><!-- mat-icon>fact_check</mat-icon> -->{{ 'editor.children.select_all' | translate }}</button>
+        <button mat-menu-item (click)="selectAll()" *ngIf="isRepo">{{ 'editor.children.select_all' | translate }}</button>
       </mat-menu>
     </div>
   </div>
