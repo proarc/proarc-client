@@ -234,15 +234,15 @@ export class BatchesComponent implements OnInit {
         title: 'Nevalidní data',
         message,
         btn1: {
-          label: "Pokračovat",
-          value: 'yes',
+          label: "Zpět",
+          value: 'no',
           color: 'warn'
         },
-        btn2: {
-          label: "Nepokračovat",
-          value: 'no',
-          color: 'default'
-        },
+        // btn2: {
+        //   label: "Nepokračovat",
+        //   value: 'no',
+        //   color: 'default'
+        // },
       };
       const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
       dialogRef.afterClosed().subscribe(result => {
