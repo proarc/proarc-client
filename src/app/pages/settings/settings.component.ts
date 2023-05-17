@@ -33,7 +33,7 @@ export class SettingsComponent implements OnInit {
 
   isRepo: boolean;
 
-  items: any[];
+  models: any[];
 
   @ViewChild('table') table: MatTable<DocumentItem>;
   public selectedColumnsSearch = [
@@ -77,6 +77,7 @@ export class SettingsComponent implements OnInit {
   ];
 
   displayedColumns: string[] = [];
+  modelForColumns: string;
 
   constructor(
     private api: ApiService,
@@ -110,7 +111,12 @@ export class SettingsComponent implements OnInit {
       this.relatedItemExpanded = localStorage.getItem('relatedItemExpanded') === 'true';
     }
 
-    this.items = this.codebook.expandedModels;
+    this.models = this.config.allModels;
+    this.modelForColumns = this.models[0];
+  }
+
+  getColumnsForModel() {
+    this.selectedColumnsEditingRepo
   }
 
   changeCodebookTops(type: any) {

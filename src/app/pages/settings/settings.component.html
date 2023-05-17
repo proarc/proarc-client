@@ -117,8 +117,8 @@
             <legend>{{ 'pages.settings.editingRepo.legend' | translate }}</legend>        
             <div class="app-label">{{ 'pages.settings.editingRepo.label' | translate }}</div>
             <mat-form-field class="app-w-100">
-              <mat-select [placeholder]="'desc.model' | translate" name="model">
-                <mat-option *ngFor="let item of items" [value]="item.name">{{ item.name | translate }}</mat-option>
+              <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="modelForColumns" (valueChange)="getColumnsForModel()">
+                <mat-option *ngFor="let model of models" [value]="model">{{ 'model.' + model | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
             <div *ngFor="let column of selectedColumnsEditingRepo">

@@ -100,7 +100,8 @@ export class EditorPagesComponent implements OnInit {
       } else {
         
         if (this.layout.type !== 'repo') {
-          this.ui.showInfoDialog("Uloženo");
+          // this.ui.showInfoDialog("Uloženo");
+          this.ui.showInfoSnackBar("Uloženo");
         }
         this.layout.refreshSelectedItem(true, 'pages');
         //this.layout.setShouldRefresh(true);
