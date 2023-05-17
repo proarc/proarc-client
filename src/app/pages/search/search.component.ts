@@ -115,7 +115,6 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.splitArea1Width = parseInt(this.properties.getStringProperty('search.split.0', "60"));
     this.splitArea2Width = parseInt(this.properties.getStringProperty('search.split.1', "40"));
-    console.log(this.splitArea1Width)
     this.organizations = this.config.organizations;
     this.initSelectedColumns();
     this.route.queryParams.subscribe(p => {
@@ -196,7 +195,6 @@ export class SearchComponent implements OnInit {
   dragEnd(e: any) {
       // this.splitArea1Width = e.sizes[0];
       // this.splitArea2Width = e.sizes[1];
-      console.log(e)
       this.properties.setStringProperty('search.split.0', String(e.sizes[0]));
       this.properties.setStringProperty('search.split.1', String(e.sizes[1]));
   }
