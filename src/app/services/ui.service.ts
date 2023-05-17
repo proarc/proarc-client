@@ -40,6 +40,24 @@ export class UIService {
          panelClass: 'app-alert-dialog'
     });
   }
+
+  public showInfoDialog(message: string, duration: number = 2000) {
+    const data = {
+      type: 'success',
+      title: 'Info',
+      message: [message]
+    };
+    const dialogRef = this.dialog.open(AlertDialogComponent, {    
+         data,
+         width: '400px',
+         panelClass: 'app-alert-dialog'
+    });
+    dialogRef.afterOpened().subscribe(_ => {
+      setTimeout(() => {
+         dialogRef.close();
+      }, duration)
+    })
+  }
   
   public confirmed(): Observable<any> {
     

@@ -98,6 +98,10 @@ export class EditorPagesComponent implements OnInit {
         this.ui.showErrorDialogFromObject(result.response.errors);
         this.state = 'error';
       } else {
+        
+        if (this.layout.type !== 'repo') {
+          this.ui.showInfoDialog("Uloženo");
+        }
         this.layout.refreshSelectedItem(true, 'pages');
         //this.layout.setShouldRefresh(true);
       }

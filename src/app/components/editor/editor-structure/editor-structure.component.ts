@@ -922,13 +922,14 @@ export class EditorStructureComponent implements OnInit {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
         return;
+      } else {
+        this.ui.showInfoDialog("V poradku")
+        this.hasChanges = false;
+        this.state = 'success';
       }
-      this.hasChanges = false;
-      this.state = 'success';
     });
 
   }
-
 
 
   onDelete() {

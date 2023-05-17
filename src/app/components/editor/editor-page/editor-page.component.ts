@@ -314,6 +314,9 @@ export class EditorPageComponent implements OnInit {
         this.state = 'error';
         return;
       }
+      if (this.layout.type !== 'repo') {
+        this.ui.showInfoDialog("Uloženo");
+      }
       const newPage: Page = Page.fromJson(resp['response']['data'][0], page.model);
       this.setPage(newPage);
       // this.layout.setShouldRefresh(true);
