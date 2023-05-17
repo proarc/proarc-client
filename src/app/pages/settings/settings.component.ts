@@ -12,6 +12,9 @@ import { ConfigService } from 'src/app/services/config.service';
 import { FormControl } from '@angular/forms';
 import { MatTable } from '@angular/material/table';
 import { DocumentItem } from '../../model/documentItem.model';
+import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
+import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-settings',
@@ -76,11 +79,11 @@ export class SettingsComponent implements OnInit {
     { field: 'status', selected: false, width: 140 }
   ];
 
-  displayedColumns: string[] = [];
   modelForColumns: string;
 
   constructor(
     private api: ApiService,
+    private translator: TranslateService,
     private dialog: MatDialog,
     private ui: UIService,
     public codebook: CodebookService,
@@ -90,7 +93,6 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.initSelectedColumnsSearch();
-    this. initSelectedColumnsEditingRepo();
     this. initSelectedColumnsEditingImport();
     this.api.getUser().subscribe((user: User) => {
       this.user = user;
@@ -113,10 +115,11 @@ export class SettingsComponent implements OnInit {
 
     this.models = this.config.allModels;
     this.modelForColumns = this.models[0];
+    this. initSelectedColumnsEditingRepo();
   }
 
   getColumnsForModel() {
-    this.selectedColumnsEditingRepo
+    this.initSelectedColumnsEditingRepo();
   }
 
   changeCodebookTops(type: any) {
@@ -164,17 +167,11 @@ export class SettingsComponent implements OnInit {
     localStorage.setItem('relatedItemExpanded', JSON.stringify(this.relatedItemExpanded));
   }
 
-  // search
-  setColumnsSearch() {
-    this.displayedColumns = this.selectedColumnsSearch.filter(c => c.selected).map(c => c.field);
-  }
-
   initSelectedColumnsSearch() {
     const prop = this.properties.getStringProperty('searchColumns');
     if (prop) {
       Object.assign(this.selectedColumnsSearch, JSON.parse(prop));
     }
-    this.setColumnsSearch();
   }
 
   setSelectedColumnsSearch() {
@@ -189,39 +186,31 @@ export class SettingsComponent implements OnInit {
     return this.isRepo ? 'selectedColumnsRepo' : 'selectedColumnsImport';
   }
 
-  setColumnsEditingRepo() {
-    this.displayedColumns = this.selectedColumnsEditingRepo.filter(c => c.selected && !(this.isRepo && c.field === 'pageType') && !(this.isRepo && c.field === 'filename') && !(!this.isRepo && c.field === 'label')).map(c => c.field);
-  }
-
   initSelectedColumnsEditingRepo() {
-    const prop = this.properties.getStringProperty(this.selectedColumnsPropNameEditingRepo());
+    const prop = this.properties.getStringProperty('selectedColumnsRepo_' + this.modelForColumns);
     if (prop) {
       Object.assign(this.selectedColumnsEditingRepo, JSON.parse(prop));
     } else {
-      if (this.isRepo) {
-        this.selectedColumnsEditingRepo.unshift({ field: 'label', selected: true, width: 100 })
-      } else {
-        this.selectedColumnsEditingRepo.unshift({ field: 'filename', selected: true, width: 100 })
-      }
+      this.selectedColumnsEditingRepo.forEach((c:any) => {c.selected = true});
+      // if (this.isRepo) {
+      //   this.selectedColumnsEditingRepo.unshift({ field: 'label', selected: true, width: 100 })
+      // } else {
+      //   this.selectedColumnsEditingRepo.unshift({ field: 'filename', selected: true, width: 100 })
+      // }
     }
   }
 
   setSelectedColumnsEditingRepo() {
-    this.properties.setStringProperty(this.selectedColumnsPropNameEditingRepo(), JSON.stringify(this.selectedColumnsEditingRepo));
-    this.initSelectedColumnsEditingRepo();
+    this.properties.setStringProperty('selectedColumnsRepo_' + this.modelForColumns, JSON.stringify(this.selectedColumnsEditingRepo));
+    // this.initSelectedColumnsEditingRepo();
     this.ui.showInfo('snackbar.settings.searchColumns.updated');
-    this.displayedColumns = this.selectedColumnsEditingRepo.filter(c => c.selected).map(c => c.field);
-    //this.table.renderRows();
+    
   }
 
   // repo import
   selectedColumnsPropNameEditingImport() {
     this.isRepo = false;
     return this.isRepo ? 'selectedColumnsRepo' : 'selectedColumnsImport';
-  }
-
-  setColumnsEditingImport() {
-    this.displayedColumns = this.selectedColumnsEditingImport.filter(c => c.selected && !(this.isRepo && c.field === 'pageType') && !(this.isRepo && c.field === 'filename') && !(!this.isRepo && c.field === 'label')).map(c => c.field);
   }
 
   initSelectedColumnsEditingImport() {
@@ -241,7 +230,31 @@ export class SettingsComponent implements OnInit {
     this.properties.setStringProperty(this.selectedColumnsPropNameEditingImport(), JSON.stringify(this.selectedColumnsEditingImport));
     this.initSelectedColumnsEditingImport();
     this.ui.showInfo('snackbar.settings.searchColumns.updated');
-    this.displayedColumns = this.selectedColumnsEditingImport.filter(c => c.selected).map(c => c.field);
-    //this.table.renderRows();
+  }
+
+  resetSettings() {
+
+    const data: SimpleDialogData = {
+      title: String(this.translator.instant('settings.reset.title')),
+      message: String(this.translator.instant('settings.reset.message')),
+      btn1: {
+        label: String(this.translator.instant('common.yes')),
+        value: 'yes',
+        color: 'primary'
+      },
+      btn2: {
+        label: String(this.translator.instant('common.no')),
+        value: 'no',
+        color: 'default'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        localStorage.clear();
+      }
+    });
+
+    
   }
 }

@@ -141,5 +141,11 @@
         </mat-card-content>
       </mat-card>
     </div>
+    
+    <div fxLayout="row" fxLayoutGap="16px">
+      <mat-card fxFlex *ngIf="user">
+        <button mat-flat-button color="warn" (click)="resetSettings()">{{ 'button.reset' | translate }}</button>
+      </mat-card>
+    </div>
   </div>
 </div>
