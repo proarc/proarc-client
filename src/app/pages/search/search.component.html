@@ -91,9 +91,9 @@
         </mat-form-field>
       </ng-container>
     </div>
-
-    <as-split fxFlex unit="percent" [gutterSize]="10" direction="vertical" (dragEnd)="dragEnd($event)" #split="asSplit">
-      <as-split-area #area1="asSplitArea" [minSize]="20" [size]="getSplitSize(0)">
+    <div fxFlex class="app-oh">
+    <as-split unit="percent" [gutterSize]="10" direction="vertical" (dragEnd)="dragEnd($event)" #split="asSplit">
+      <as-split-area #area1="asSplitArea"  [size]="splitArea1Width">
         <div *ngIf="items" fxLayout="column" fxFlexFill>
           <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar app-toolbar-action app-view-border-bottom">
             <div fxFlex *ngIf="selectedItem" fxLayout="row" fxFlexFill>
@@ -241,7 +241,7 @@
         </div>
       </as-split-area>
 
-      <as-split-area #area2="asSplitArea" [minSize]="20" [size]="getSplitSize(1)">
+      <as-split-area #area2="asSplitArea"  [size]="splitArea2Width">
         <div *ngIf="tree" fxLayout="column" fxFlexFill>
           <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar app-toolbar-action app-view-border-bottom">
             <div fxFlex *ngIf="search.selectedTree" fxLayout="row" fxFlexFill>
@@ -287,5 +287,6 @@
         </div>
       </as-split-area>
     </as-split>
+    </div>
   </div>
 </div>
