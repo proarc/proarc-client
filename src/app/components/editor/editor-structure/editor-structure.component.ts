@@ -79,6 +79,8 @@ export class EditorStructureComponent implements OnInit {
   // public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
 
   public selectedColumns = [
+    { field: 'label', selected: true, width: 140 },
+    { field: 'filename', selected: true, width: 140 },
     { field: 'pageType', selected: true, width: 140 },
     { field: 'pageNumber', selected: true, width: 140 },
     { field: 'pageIndex', selected: true, width: 140 },
@@ -122,8 +124,9 @@ export class EditorStructureComponent implements OnInit {
 
   ngOnInit(): void {
     this.isRepo = this.layout.type === 'repo';
-    this.initSelectedColumns();
-    this.setColumns();
+    
+    this.setSelectedColumns(this.layout.selectedParentItem.model);
+    
     this.shortLabels = this.properties.getBoolProperty('children.short_labels', false);
     this.pageChildren = this.layout.items.findIndex(it => it.isPage()) > -1;
     if (!this.isRepo) {
@@ -136,6 +139,11 @@ export class EditorStructureComponent implements OnInit {
         this.scrollBack();
       }, 500);
     }));
+
+    this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
+      this.setSelectedColumns(this.layout.selectedParentItem.model);
+    }));
+
   }
 
   ngAfterViewInit() {
@@ -271,33 +279,24 @@ export class EditorStructureComponent implements OnInit {
     localStorage.setItem(localStorageName + '-' + l, JSON.stringify(this.layout.layoutConfig))
   }
 
-  selectedColumnsPropName() {
-    return this.isRepo ? 'selectedColumnsRepo' : 'selectedColumnsImport';
+  selectedColumnsPropName(model: string) {
+    return this.isRepo ? 'selectedColumnsRepo_' + model : 'selectedColumnsImport';
   }
 
-  initSelectedColumns() {
-
-    const prop = this.properties.getStringProperty(this.selectedColumnsPropName());
+  setSelectedColumns(model: string) {
+    const prop = this.properties.getStringProperty(this.selectedColumnsPropName(model) );
+    console.log(model)
     if (prop) {
       Object.assign(this.selectedColumns, JSON.parse(prop));
     } else {
-      if (this.isRepo) {
-        this.selectedColumns.unshift({ field: 'label', selected: true, width: 100 })
-      } else {
-        this.selectedColumns.unshift({ field: 'filename', selected: true, width: 100 })
-      }
+      this.selectedColumns.forEach((c:any) => {c.selected = true});
+      // if (this.isRepo) {
+      //   this.selectedColumns.unshift({ field: 'label', selected: true, width: 100 })
+      // } else {
+      //   this.selectedColumns.unshift({ field: 'filename', selected: true, width: 100 })
+      // }
     }
-  }
-
-  setSelectedColumns() {
-    this.properties.setStringProperty(this.selectedColumnsPropName(), JSON.stringify(this.selectedColumns));
-    this.initSelectedColumns();
     this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field);
-    this.table.renderRows();
-  }
-
-  setColumns() {
-    this.displayedColumns = this.selectedColumns.filter(c => c.selected && !(this.isRepo && c.field === 'pageType') && !(this.isRepo && c.field === 'filename') && !(!this.isRepo && c.field === 'label')).map(c => c.field);
   }
 
   selectAll() {

@@ -54,6 +54,8 @@ export class SettingsComponent implements OnInit {
   ];
 
   public selectedColumnsEditingRepo = [
+    { field: 'label', selected: true, width: 140 },
+    { field: 'filename', selected: true, width: 140 },
     { field: 'pageType', selected: true, width: 140 },
     { field: 'pageNumber', selected: true, width: 140 },
     { field: 'pageIndex', selected: true, width: 140 },
@@ -67,6 +69,7 @@ export class SettingsComponent implements OnInit {
   ];
 
   public selectedColumnsEditingImport = [
+    { field: 'filename', selected: true, width: 140 },
     { field: 'pageType', selected: true, width: 140 },
     { field: 'pageNumber', selected: true, width: 140 },
     { field: 'pageIndex', selected: true, width: 140 },
@@ -187,16 +190,12 @@ export class SettingsComponent implements OnInit {
   }
 
   initSelectedColumnsEditingRepo() {
+    console.log(this.modelForColumns)
     const prop = this.properties.getStringProperty('selectedColumnsRepo_' + this.modelForColumns);
     if (prop) {
       Object.assign(this.selectedColumnsEditingRepo, JSON.parse(prop));
     } else {
       this.selectedColumnsEditingRepo.forEach((c:any) => {c.selected = true});
-      // if (this.isRepo) {
-      //   this.selectedColumnsEditingRepo.unshift({ field: 'label', selected: true, width: 100 })
-      // } else {
-      //   this.selectedColumnsEditingRepo.unshift({ field: 'filename', selected: true, width: 100 })
-      // }
     }
   }
 
