@@ -2321,6 +2321,7 @@
         "datastream_full": "Scans",
         "datastream_raw": "The original scan",
         "kramerius": "Kramerius",
+        "kramerius_bagit": "Kramerius with BAGIT",
         "archive": "Archiving",
         "archive_stt": "Archiving of old prints",
         "ndk_psp": "NDK PSP",
