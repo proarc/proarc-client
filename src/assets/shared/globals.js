@@ -6,6 +6,7 @@ var APP_GLOBAL = {
     'archive',
     'archive_stt',
     'kramerius',
+		'kramerius_bagit',
     'ndk_psp',
     'datastream_full',
     'datastream_raw',

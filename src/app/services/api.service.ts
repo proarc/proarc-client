@@ -202,6 +202,11 @@ export class ApiService {
         path = 'export/kramerius4'
         break;
       }
+      case ProArc.EXPORT_KRAMERIUS_BAGIT: {
+        path = 'export/kramerius4';
+        data = `${data}&krameriusInstance=local&isBagit=true`;
+        break;
+      }
       case ProArc.EXPORT_ARCHIVE: {
         path = 'export/archive';
         data = `${data}&isBagit=false`;
