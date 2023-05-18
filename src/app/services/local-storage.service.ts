@@ -1,5 +1,6 @@
 
 import { Injectable } from '@angular/core';
+import { ConfigService } from './config.service';
 
 @Injectable()
 export class LocalStorageService {
@@ -37,18 +38,29 @@ export class LocalStorageService {
         'isLocked': true
     }
 
-    constructor() {
+
+
+
+    public availableColumnsEditingRepo = ['label', 'filename',
+        'pageType', 'pageNumber', 'pageIndex', 'pagePosition', 'model',
+        'pid', 'owner', 'created', 'modified', 'status'];
+
+    public colsEditingRepo: { [model: string]: { field: string, selected: boolean, width: number }[] };
+
+
+    constructor(
+        public config: ConfigService) {
     }
 
     isSearchColEnabled(col: string): boolean {
-        return  this.getBoolProperty('search.cols.' + col, !!this.searchColumnsDefaults[col]);
+        return this.getBoolProperty('search.cols.' + col, !!this.searchColumnsDefaults[col]);
     }
 
-    getSearchColumns(): string|null {
+    getSearchColumns(): string | null {
         return localStorage.getItem('selectedColumns') || this.searchColumnsDefaults;
     }
 
-    getStringProperty(property: string, defaultValue: string|null = null): string|null {
+    getStringProperty(property: string, defaultValue: string | null = null): string | null {
         return localStorage.getItem(property) || defaultValue;
     }
 
@@ -69,5 +81,28 @@ export class LocalStorageService {
         this.setStringProperty(property, value ? '1' : '0');
     }
 
+    getColsEditingRepo() {
+        const prop = this.getStringProperty('colsRepo');
+        if (prop) {
+            this.colsEditingRepo = {};
+            Object.assign(this.colsEditingRepo, JSON.parse(prop));
+        } else {
+            this.colsEditingRepo = {};
+            this.config.allModels.forEach((model: string) => {
+                this.colsEditingRepo[model] = this.availableColumnsEditingRepo.map((c: string) => {
+                    return {
+                        field: c,
+                        selected: true,
+                        width: 100
+                    }
+                });
+            })
+        }
+        return this.colsEditingRepo;
+    }
+
+    setColumnsEditingRepo() {
+        this.setStringProperty('colsRepo', JSON.stringify(this.colsEditingRepo));
+    }
 
 }

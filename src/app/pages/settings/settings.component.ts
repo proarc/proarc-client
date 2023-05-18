@@ -90,13 +90,13 @@ export class SettingsComponent implements OnInit {
     private dialog: MatDialog,
     private ui: UIService,
     public codebook: CodebookService,
-    public properties: LocalStorageService, 
+    public properties: LocalStorageService,
     public config: ConfigService,
     private auth: AuthService) { }
 
   ngOnInit() {
     this.initSelectedColumnsSearch();
-    this. initSelectedColumnsEditingImport();
+    this.initSelectedColumnsEditingImport();
     this.api.getUser().subscribe((user: User) => {
       this.user = user;
       this.forename = this.user.forename;
@@ -110,7 +110,7 @@ export class SettingsComponent implements OnInit {
     if (localStorage.getItem('expandedModels')) {
       this.selectedModels.setValue(JSON.parse(localStorage.getItem('expandedModels')));
     }
-    
+
 
     if (localStorage.getItem('relatedItemExpanded')) {
       this.relatedItemExpanded = localStorage.getItem('relatedItemExpanded') === 'true';
@@ -118,11 +118,11 @@ export class SettingsComponent implements OnInit {
 
     this.models = this.config.allModels;
     this.modelForColumns = this.models[0];
-    this. initSelectedColumnsEditingRepo();
+    this.properties.getColsEditingRepo();
   }
 
   getColumnsForModel() {
-    this.initSelectedColumnsEditingRepo();
+    // this.initSelectedColumnsEditingRepo();
   }
 
   changeCodebookTops(type: any) {
@@ -159,7 +159,7 @@ export class SettingsComponent implements OnInit {
 
 
   changePassword() {
-    this.dialog.open(NewPasswordDialogComponent, { 
+    this.dialog.open(NewPasswordDialogComponent, {
       width: '550px',
       panelClass: 'app-dialog-new-password'
     });
@@ -189,21 +189,10 @@ export class SettingsComponent implements OnInit {
     return this.isRepo ? 'selectedColumnsRepo' : 'selectedColumnsImport';
   }
 
-  initSelectedColumnsEditingRepo() {
-    console.log(this.modelForColumns)
-    const prop = this.properties.getStringProperty('selectedColumnsRepo_' + this.modelForColumns);
-    if (prop) {
-      Object.assign(this.selectedColumnsEditingRepo, JSON.parse(prop));
-    } else {
-      this.selectedColumnsEditingRepo.forEach((c:any) => {c.selected = true});
-    }
-  }
-
   setSelectedColumnsEditingRepo() {
-    this.properties.setStringProperty('selectedColumnsRepo_' + this.modelForColumns, JSON.stringify(this.selectedColumnsEditingRepo));
-    // this.initSelectedColumnsEditingRepo();
+    this.properties.setColumnsEditingRepo();
     this.ui.showInfo('snackbar.settings.searchColumns.updated');
-    
+
   }
 
   // repo import
@@ -254,6 +243,6 @@ export class SettingsComponent implements OnInit {
       }
     });
 
-    
+
   }
 }

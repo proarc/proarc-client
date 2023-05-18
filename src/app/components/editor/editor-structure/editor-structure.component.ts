@@ -125,7 +125,7 @@ export class EditorStructureComponent implements OnInit {
   ngOnInit(): void {
     this.isRepo = this.layout.type === 'repo';
     
-    this.setSelectedColumns(this.layout.selectedParentItem.model);
+    // this.setSelectedColumns();
     
     this.shortLabels = this.properties.getBoolProperty('children.short_labels', false);
     this.pageChildren = this.layout.items.findIndex(it => it.isPage()) > -1;
@@ -141,7 +141,7 @@ export class EditorStructureComponent implements OnInit {
     }));
 
     this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
-      this.setSelectedColumns(this.layout.selectedParentItem.model);
+      this.setSelectedColumns();
     }));
 
   }
@@ -283,20 +283,22 @@ export class EditorStructureComponent implements OnInit {
     return this.isRepo ? 'selectedColumnsRepo_' + model : 'selectedColumnsImport';
   }
 
-  setSelectedColumns(model: string) {
-    const prop = this.properties.getStringProperty(this.selectedColumnsPropName(model) );
-    console.log(model)
-    if (prop) {
-      Object.assign(this.selectedColumns, JSON.parse(prop));
-    } else {
-      this.selectedColumns.forEach((c:any) => {c.selected = true});
-      // if (this.isRepo) {
-      //   this.selectedColumns.unshift({ field: 'label', selected: true, width: 100 })
-      // } else {
-      //   this.selectedColumns.unshift({ field: 'filename', selected: true, width: 100 })
-      // }
-    }
-    this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field);
+  setSelectedColumns() {
+    const models: string[] = [];
+    this.layout.items.forEach(i => {
+      if (!models.includes(i.model)) {
+        models.push(i.model);
+      }
+    });
+    this.properties.getColsEditingRepo();
+    console.log(models, this.properties.colsEditingRepo)
+    this.displayedColumns = [];
+    models.forEach(model => {
+      const f = this.properties.colsEditingRepo[model].filter(c => c.selected && !this.displayedColumns.includes(c.field)).map(c => c.field);
+      console.log(f)
+      this.displayedColumns.push(...f);
+    });
+     console.log(this.displayedColumns)
   }
 
   selectAll() {
