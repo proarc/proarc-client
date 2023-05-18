@@ -291,14 +291,11 @@ export class EditorStructureComponent implements OnInit {
       }
     });
     this.properties.getColsEditingRepo();
-    console.log(models, this.properties.colsEditingRepo)
     this.displayedColumns = [];
     models.forEach(model => {
       const f = this.properties.colsEditingRepo[model].filter(c => c.selected && !this.displayedColumns.includes(c.field)).map(c => c.field);
-      console.log(f)
       this.displayedColumns.push(...f);
     });
-     console.log(this.displayedColumns)
   }
 
   selectAll() {

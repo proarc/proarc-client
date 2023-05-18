@@ -39,19 +39,7 @@ export class SettingsComponent implements OnInit {
   models: any[];
 
   @ViewChild('table') table: MatTable<DocumentItem>;
-  public selectedColumnsSearch = [
-    { field: 'label', selected: true },
-    { field: 'model', selected: true },
-    { field: 'pid', selected: true },
-    { field: 'processor', selected: true },
-    { field: 'organization', selected: true },
-    { field: 'status', selected: true },
-    { field: 'created', selected: true },
-    { field: 'modified', selected: true },
-    { field: 'owner', selected: true },
-    { field: 'export', selected: true },
-    { field: 'isLocked', selected: true }
-  ];
+  
 
   public selectedColumnsEditingRepo = [
     { field: 'label', selected: true, width: 140 },
@@ -95,7 +83,7 @@ export class SettingsComponent implements OnInit {
     private auth: AuthService) { }
 
   ngOnInit() {
-    this.initSelectedColumnsSearch();
+    this.properties.getSearchColumns();
     this.initSelectedColumnsEditingImport();
     this.api.getUser().subscribe((user: User) => {
       this.user = user;
@@ -170,16 +158,9 @@ export class SettingsComponent implements OnInit {
     localStorage.setItem('relatedItemExpanded', JSON.stringify(this.relatedItemExpanded));
   }
 
-  initSelectedColumnsSearch() {
-    const prop = this.properties.getStringProperty('searchColumns');
-    if (prop) {
-      Object.assign(this.selectedColumnsSearch, JSON.parse(prop));
-    }
-  }
 
   setSelectedColumnsSearch() {
-    this.properties.setStringProperty('searchColumns', JSON.stringify(this.selectedColumnsSearch));
-    this.initSelectedColumnsSearch();
+    this.properties.setSelectedColumnsSearch();
     this.ui.showInfo('snackbar.settings.searchColumns.updated');
   }
 

@@ -21,25 +21,19 @@ export class LocalStorageService {
     public static COLUMNS_IMPORT = 'columnsImport';
 
     availableSearchColumns = ['name', 'pageType', 'pageIndex', 'pageNumber', 'model', 'pid', 'owner', 'processor', 'organization', 'status', 'created', 'modified', 'export', 'isLocked'];
-    private searchColumnsDefaults: any = {
-        'name': true,
-        'pageType': true,
-        'pageIndex': true,
-        'pageNumber': true,
-        'model': true,
-        'pid': true,
-        'processor': false,
-        'organization': false,
-        'status': false,
-        'created': true,
-        'modified': true,
-        'owner': true,
-        'export': true,
-        'isLocked': true
-    }
-
-
-
+    public selectedColumnsSearchDefault = [
+        { field: 'label', selected: true },
+        { field: 'model', selected: true },
+        { field: 'pid', selected: true },
+        { field: 'processor', selected: true },
+        { field: 'organization', selected: true },
+        { field: 'status', selected: true },
+        { field: 'created', selected: true },
+        { field: 'modified', selected: true },
+        { field: 'owner', selected: true },
+        { field: 'export', selected: true },
+        { field: 'isLocked', selected: true }
+    ];
 
     public availableColumnsEditingRepo = ['label', 'filename',
         'pageType', 'pageNumber', 'pageIndex', 'pagePosition', 'model',
@@ -47,17 +41,32 @@ export class LocalStorageService {
 
     public colsEditingRepo: { [model: string]: { field: string, selected: boolean, width: number }[] };
 
+    public searchColumns: { field: string, selected: boolean; }[];
+
 
     constructor(
         public config: ConfigService) {
     }
 
-    isSearchColEnabled(col: string): boolean {
-        return this.getBoolProperty('search.cols.' + col, !!this.searchColumnsDefaults[col]);
+    isSearchColEnabled(field: string): boolean {
+        if (!this.searchColumns) {
+            this.getSearchColumns();
+        }
+        return this.searchColumns.findIndex((col: any) => col.field === field && col.selected) > -1;
     }
 
-    getSearchColumns(): string | null {
-        return localStorage.getItem('selectedColumns') || this.searchColumnsDefaults;
+    getSearchColumns() {
+        const prop = this.getStringProperty('searchColumns');
+        if (prop) {
+            this.searchColumns = [];
+            Object.assign(this.searchColumns, JSON.parse(prop));
+        } else {
+            Object.assign(this.searchColumns, this.selectedColumnsSearchDefault);
+        }
+    }
+
+    setSelectedColumnsSearch() {
+        this.setStringProperty('searchColumns', JSON.stringify(this.searchColumns));
     }
 
     getStringProperty(property: string, defaultValue: string | null = null): string | null {

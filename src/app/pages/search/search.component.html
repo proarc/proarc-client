@@ -268,7 +268,7 @@
           <div fxFlex class="app-oh app-tree" fxLayout="column" fxFlexFill>
               <div class="app-row app-header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
                 <div [style.width]="(tree.level * 20 + 30) + 'px'"></div>
-                <div class="app-cell-first" [fxFlex]="(300 - tree.level * 20) + 'px'" *ngIf="properties.isSearchColEnabled('name')">{{ 'desc.name' | translate }}</div>
+                <div class="app-cell-first" [fxFlex]="(300 - tree.level * 20) + 'px'" >{{ 'desc.name' | translate }}</div>
                 <div fxFlex class="app-cell app-model" *ngIf="properties.isSearchColEnabled('model')">{{ 'desc.model' | translate }}</div>
                 <div fxFlex class="app-cell app-pid" *ngIf="properties.isSearchColEnabled('pid')">PID</div>
                 <div fxFlex class="app-cell app-processor" *ngIf="properties.isSearchColEnabled('processor')">{{ 'desc.processor' | translate }}</div>
