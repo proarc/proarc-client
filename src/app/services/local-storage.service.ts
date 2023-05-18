@@ -61,6 +61,7 @@ export class LocalStorageService {
             this.searchColumns = [];
             Object.assign(this.searchColumns, JSON.parse(prop));
         } else {
+            this.searchColumns = [];
             Object.assign(this.searchColumns, this.selectedColumnsSearchDefault);
         }
     }
