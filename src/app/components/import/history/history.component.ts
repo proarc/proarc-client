@@ -12,6 +12,7 @@ import { ImportDialogComponent } from 'src/app/dialogs/import-dialog/import-dial
 import { DatePipe } from '@angular/common';
 import { UIService } from 'src/app/services/ui.service';
 import {ConfigService} from '../../../services/config.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-history',
@@ -105,6 +106,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
   constructor(
     private datePipe: DatePipe,
+    public auth: AuthService,
     private api: ApiService,
     private ui: UIService,
     private dialog: MatDialog,
@@ -516,7 +518,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
     });
   }
 
-  stop(b: Batch) {
+  stopBatch(b: Batch) {
     this.api.stopBatch(b.id).subscribe((response: any) => {
 
       if (response.response.errors) {
