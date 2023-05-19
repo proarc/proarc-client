@@ -14,7 +14,6 @@
       <a mat-tab-link (click)="changeView('personalSettings')" [active]="view == 'personalSettings'">{{ 'pages.settings.tabs.personalSettings' | translate }}</a>
       <a mat-tab-link (click)="changeView('localSettings')" [active]="view == 'localSettings'">{{ 'pages.settings.tabs.localSettings' | translate }}</a>
     </nav>
-  
     <div fxFlex *ngIf="view == 'personalSettings'" class="app-oa-y">
       <mat-card *ngIf="user">
         <mat-card-content>
