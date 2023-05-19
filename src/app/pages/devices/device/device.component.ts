@@ -48,6 +48,7 @@ export class DeviceComponent implements OnInit {
       const data: SimpleDialogData = {
         title: String(this.translator.instant('device.delete_dialog.title')),
         message: String(this.translator.instant('device.delete_dialog.message', { name: this.device.label })),
+        alertClass: 'app-message',
         btn2: {
           label: String(this.translator.instant('common.no')),
           value: 'no',
@@ -76,6 +77,7 @@ export class DeviceComponent implements OnInit {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('device.delete_audio_dialog.title')),
       message: String(this.translator.instant('device.delete_audio_dialog.message')),
+      alertClass: 'app-message',
       btn2: {
         label: String(this.translator.instant('common.no')),
         value: 'no',

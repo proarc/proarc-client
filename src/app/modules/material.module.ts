@@ -55,7 +55,8 @@ const modules = [
     MatSortModule,
     DragDropModule,
     MatRadioModule,
-    MatListModule
+    MatListModule,
+    MatTabsModule
   ];
 
   @NgModule({

@@ -23,6 +23,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class SettingsComponent implements OnInit {
 
+  view: string = 'personalSettings';
+
   state = 'none';
   user: User;
 
@@ -202,10 +204,10 @@ export class SettingsComponent implements OnInit {
   }
 
   resetSettings() {
-
     const data: SimpleDialogData = {
-      title: String(this.translator.instant('settings.reset.title')),
-      message: String(this.translator.instant('settings.reset.message')),
+      title: String(this.translator.instant('dialog.resetLocalSettings.title')),
+      message: String(this.translator.instant('dialog.resetLocalSettings.message')),
+      alertClass: 'app-warn',
       btn1: {
         label: String(this.translator.instant('common.yes')),
         value: 'yes',
@@ -221,9 +223,15 @@ export class SettingsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         localStorage.clear();
+        this.initSelectedColumnsEditingImport(); // alebrto podivat se
+        this.properties.getSearchColumns();
+        this.properties.getColsEditingRepo();
+        this.ui.showInfoSnackBar(this.translator.instant('snackbar.settings.resetLocalSettings.success'));
       }
     });
+  }
 
-
+  changeView(view: string) {
+    this.view = view;
   }
 }

@@ -171,6 +171,7 @@ export class MediaComponent implements OnInit {
     const data: SimpleDialogData = {
       title: "Odstranění digitálního obsahu",
       message: "Opravdu chcete odstranit digitální obsah? (daastream " + this.streamProfile.dsid + ")",
+      alertClass: 'app-message',
       btn2: {
         label: "Ne",
         value: 'no',

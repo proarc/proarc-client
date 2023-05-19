@@ -104,6 +104,7 @@ export class AdminComponent implements OnInit {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('dialog.deleteUser.title')),
       message: String(this.translator.instant('dialog.deleteUser.message', { name:this.selectedUser.name })),
+      alertClass: 'app-message',
       btn1: {
         label: String(this.translator.instant('button.yes')),
         value: 'yes',

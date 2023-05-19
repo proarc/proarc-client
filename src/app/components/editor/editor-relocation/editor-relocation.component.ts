@@ -65,6 +65,7 @@ export class EditorRelocationComponent implements OnInit {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('editor.children.relocate_dialog.title')),
       message: String(this.translator.instant('editor.children.relocate_dialog.message')),
+      alertClass: 'app-message',
       btn1: {
         label: String(this.translator.instant('common.yes')),
         value: 'yes',

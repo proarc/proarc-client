@@ -2090,7 +2090,8 @@
     "removeThisFilter": "Odstranit tento filtr",
     "toIndex": "Indexovat",
     "convertPages": "Převést strany",
-    "more": "Více"
+    "more": "Více",
+    "resetAllLocalSettings": "Resetovat všechny lokální nastavení"
   },
   "dynamic": {
     "repo": "Úložiště",
@@ -2352,6 +2353,10 @@
         "success": "Uživatel byl odstraněn",
         "error": "to do"
       }
+    },
+    "resetLocalSettings": {
+      "title": "Reset lokálního nastavení",
+      "message": "Opravdu chcete resetovat všechna lokální nastavení?"
     }
   },
   "formField": {
@@ -2410,12 +2415,18 @@
     }
   },
   "snackbar": {
-    "settings.searchColumns.updated": "Nastavení zobrazení sloupců bylo upraveno",
-    "settings.profile": {
-      "updated": "Nové heslo bylo uloženo",
-      "error": {
-        "mismatch": "Zadané heslo se neshoduje s potvrzením hesla",
-        "short": "Heslo je příliš kráté, musí mít alespoň 6 znaků"
+    "settings": {
+      "searchColumns.updated": "Nastavení zobrazení sloupců bylo upraveno",
+      "profile": {
+        "updated": "Nové heslo bylo uloženo",
+        "error": {
+          "mismatch": "Zadané heslo se neshoduje s potvrzením hesla",
+          "short": "Heslo je příliš kráté, musí mít alespoň 6 znaků"
+        }
+      },
+      "resetLocalSettings": {
+        "success": "Reset lokálního nastavení byl proveden",
+        "error": "Chyba při resetu lokálního nastavení"
       }
     },
     "addNewUser": {
@@ -2472,6 +2483,10 @@
   },
   "pages": {
     "settings": {
+      "tabs": {
+        "personalSettings": "Osobní nastavení",
+        "localSettings": "Lokální nastavení"
+      },
       "search": {
         "legend": "Vyhledávání",
         "label": "Zobrazená pole ve výsledcích hledání"

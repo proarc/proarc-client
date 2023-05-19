@@ -77,14 +77,14 @@ export class UIService {
   }
 
   showErrorSnackBar(message: string, duration: number = 4000) {
-    //this.snackBar.open(message, 'Chyba', { duration: duration, verticalPosition: 'top', panelClass: 'app-snackbar-error' });
+    this.snackBar.open(message, 'Chyba', { duration: duration, panelClass: 'app-snackbar-error', verticalPosition: 'top' });
     
-    const data = {
+   /*  const data = {
       type: 'error',
       title: 'Chyba',
       message: [message]
     };
-    this.showErrorDialog(data);
+    this.showErrorDialog(data); */
 
   }
 

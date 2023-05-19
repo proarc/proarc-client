@@ -167,6 +167,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
     const data: SimpleDialogData = {
       title,
       message,
+      alertClass: 'app-message',
       btn1: {
         label: "Uložit",
         value: 'yes',

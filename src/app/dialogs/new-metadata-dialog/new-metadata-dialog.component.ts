@@ -109,6 +109,7 @@ export class NewMetadataDialogComponent implements OnInit {
     const data: SimpleDialogData = {
       title: 'Upozornění',
       message: 'Opouštíte formulář bez uložení. Opravdu chcete pokračovat?',
+      alertClass: 'app-message',
       btn1: {
         label: "Ano",
         value: 'true',
@@ -170,6 +171,7 @@ export class NewMetadataDialogComponent implements OnInit {
     const data: SimpleDialogData = {
       title,
       message,
+      alertClass: 'app-message',
       btn1: {
         label: "Uložit",
         value: 'yes',

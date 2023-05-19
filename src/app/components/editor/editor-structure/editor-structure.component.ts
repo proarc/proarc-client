@@ -681,6 +681,7 @@ export class EditorStructureComponent implements OnInit {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('editor.children.reindex_dialog.title')),
       message: String(this.translator.instant('editor.children.reindex_dialog.message')),
+      alertClass: 'app-message',
       btn1: {
         label: String(this.translator.instant('common.yes')),
         value: 'yes',
@@ -771,6 +772,7 @@ export class EditorStructureComponent implements OnInit {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('editor.children.delete_parent_dialog.title')),
       message: String(this.translator.instant('editor.children.delete_parent_dialog.message')),
+      alertClass: 'app-message',
       btn1: {
         label: String(this.translator.instant('common.yes')),
         value: 'yes',
@@ -815,6 +817,7 @@ export class EditorStructureComponent implements OnInit {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('editor.children.relocate_dialog.title')),
       message: String(this.translator.instant('editor.children.relocate_dialog.message')),
+      alertClass: 'app-message',
       btn1: {
         label: String(this.translator.instant('common.yes')),
         value: 'yes',
@@ -938,6 +941,7 @@ export class EditorStructureComponent implements OnInit {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('editor.children.delete_dialog.title')),
       message: String(this.translator.instant('editor.children.delete_dialog.message')),
+      alertClass: 'app-message',
       btn1: {
         label: 'Ano',
         value: 'yes',
@@ -1020,6 +1024,7 @@ export class EditorStructureComponent implements OnInit {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('editor.children.move_dialog.title')),
       message,
+      alertClass: 'app-message',
       width: 400,
       btn1: {
         label: String(this.translator.instant('editor.children.move_dialog.move')),

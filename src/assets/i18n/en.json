@@ -2090,7 +2090,8 @@
     "removeThisFilter": "Remove this filter",
     "toIndex": "To index",
     "convertPages": "Convert pages",
-    "more": "More"
+    "more": "More",
+    "resetAllLocalSettings": "Reset all local settings"
   },
   "dynamic": {
     "repo": "Storage",
@@ -2352,6 +2353,10 @@
         "success": "The user has been deleted",
         "error": "to do"
       }
+    },
+    "resetLocalSettings": {
+      "title": "Reset local settings",
+      "message": "Are you sure you want to reset all local settings?"
     }
   },
   "formField": {
@@ -2410,12 +2415,18 @@
     }
   },
   "snackbar": {
-    "settings.searchColumns.updated": "The column display settings have been modified",
-    "settings.profile": {
-      "updated": "The new password has been saved",
-      "error": {
-        "mismatch": "The password entered does not match the password confirmation",
-        "short": "Password is too short, must have at least 6 characters"
+    "settings": {
+      "searchColumns.updated": "The column display settings have been modified",
+      "profile": {
+        "updated": "The new password has been saved",
+        "error": {
+          "mismatch": "The password entered does not match the password confirmation",
+          "short": "Password is too short, must have at least 6 characters"
+        }
+      },
+      "resetLocalSettings": {
+        "success": "A reset of the local settings has been performed",
+        "error": "Error resetting local settings"
       }
     },
     "addNewUser": {
@@ -2472,6 +2483,10 @@
   },
   "pages": {
     "settings": {
+      "tabs": {
+        "personalSettings": "Personal settings",
+        "localSettings": "Local settings"
+      },
       "search": {
         "legend": "Search",
         "label": "Displayed fields in search results"

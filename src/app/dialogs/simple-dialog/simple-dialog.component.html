@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{ data.title }}</h1>
 <div mat-dialog-content>
-  <mat-card class="app-alert app-message">
+  <mat-card class="app-alert" [ngClass]="data.alertClass ? data.alertClass : null">
     {{ data.message }}
   </mat-card>
   <mat-checkbox *ngIf="data.checkbox" color="primary" [(ngModel)]="data.checkbox.checked">{{ data.checkbox.label }}</mat-checkbox>

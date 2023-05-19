@@ -233,6 +233,7 @@ export class BatchesComponent implements OnInit {
       const data: SimpleDialogData = {
         title: 'Nevalidní data',
         message,
+        alertClass: 'app-message',
         btn1: {
           label: "Zpět",
           value: 'no',
@@ -261,6 +262,7 @@ export class BatchesComponent implements OnInit {
     const data: SimpleDialogData = {
       title: 'Upozornění',
       message: 'Opouštíte formulář bez uložení. Opravdu chcete pokračovat?',
+      alertClass: 'app-message',
       btn1: {
         label: "Ano",
         value: 'true',

@@ -297,6 +297,7 @@ export class ParentDialogComponent implements OnInit {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('editor.children.delete_parent_dialog.title')),
       message: String(this.translator.instant('editor.children.delete_parent_dialog.message')),
+      alertClass: 'app-message',
       btn1: {
         label: String(this.translator.instant('common.yes')),
         value: 'yes',
@@ -339,6 +340,7 @@ export class ParentDialogComponent implements OnInit {
     const data: SimpleDialogData = {
       title,
       message,
+      alertClass: 'app-message',
       btn1: {
         label: String(this.translator.instant('common.yes')),
         value: 'yes',

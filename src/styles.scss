@@ -565,20 +565,18 @@ a, button {
   color: green;
 }
 
-.app-snackbar-error .mat-simple-snackbar {
+/* .app-snackbar-error .mat-simple-snackbar {
   font-weight: bolder;
   padding: 24px;
   font-size: 1.5em;
-}
+} */
 
 
-.app-snackbar-error .mat-simple-snackbar-action {
+/* .app-snackbar-error .mat-simple-snackbar-action {
   color: black;
-}
+} */
 
-.app-snackbar-error.mat-snack-bar-container {
-  // top: 50%; 
-  // position: absolute;
+/* .app-snackbar-error.mat-snack-bar-container {
   max-width: 90% !important;
   margin-left: auto !important; // center align from left
   margin-right: auto !important; // center align from right
@@ -586,7 +584,7 @@ a, button {
   padding: 10px !important; // spacing between the text and boundary
   background-color: $app-color-warn;
   color: white;
-}
+} */
 
 .app-alert-error {
   color:  $app-color-warn;

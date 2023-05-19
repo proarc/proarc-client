@@ -272,6 +272,7 @@ export class SearchComponent implements OnInit {
     const data: SimpleDialogData = {
       title: "Rozbalit strom",
       message: "Opravdu chcete rozbalit zvolený objekt? Rozbalení může způsobit nadměrnou zátěž systému.",
+      alertClass: 'app-message',
       btn1: {
         label: 'Ano',
         value: 'yes',
@@ -345,6 +346,7 @@ export class SearchComponent implements OnInit {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('Obnovit objekt')),
       message: String(this.translator.instant('Opravdu chcete vybrané objekty obnovit?')),
+      alertClass: 'app-message',
       btn1: {
         label: 'Ano',
         value: 'yes',
@@ -381,9 +383,8 @@ export class SearchComponent implements OnInit {
       title: lock ? 
             String(this.translator.instant('Uzamknout objekt')) :
             String(this.translator.instant('Odemknout objekt')),
-      message: lock ? 
-            String(this.translator.instant('Opravdu chcete vybrané objekty uzamknout?')) :
-            String(this.translator.instant('Opravdu chcete vybrané objekty odemknout?')),
+      message: lock ? String(this.translator.instant('Opravdu chcete vybrané objekty uzamknout?')) : String(this.translator.instant('Opravdu chcete vybrané objekty odemknout?')),
+      alertClass: 'app-message',
       btn1: {
         label: 'Ano',
         value: 'yes',
@@ -501,6 +502,7 @@ export class SearchComponent implements OnInit {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('editor.children.delete_dialog.title')),
       message: String(this.translator.instant('editor.children.delete_dialog.message')),
+      alertClass: 'app-message',
       btn1: {
         label: 'Ano',
         value: 'yes',
@@ -675,6 +677,7 @@ export class SearchComponent implements OnInit {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('Index Proarc')) ,
       message: String(this.translator.instant('Opravdu chcete spustit index?')),
+      alertClass: 'app-message',
       btn1: {
         label: 'Ano',
         value: 'yes',
