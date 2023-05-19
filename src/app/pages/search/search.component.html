@@ -92,8 +92,8 @@
       </ng-container>
     </div>
     <div fxFlex class="app-oh">
-      <as-split unit="percent" [gutterSize]="10" direction="vertical" (dragEnd)="dragEnd($event)" #split="asSplit">
-        <as-split-area #area1="asSplitArea"  [size]="splitArea1Width">
+      <as-split [gutterSize]="10" direction="vertical" (dragEnd)="dragEnd($event)">
+        <as-split-area  [size]="splitArea1Width" [order]="0">
           <div *ngIf="items" fxLayout="column" fxFlexFill>
             <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar app-toolbar-action app-view-border-bottom">
               <div fxFlex *ngIf="selectedItem" fxLayout="row" fxFlexFill>
@@ -241,7 +241,7 @@
           </div>
         </as-split-area>
 
-        <as-split-area #area2="asSplitArea"  [size]="splitArea2Width">
+        <as-split-area [size]="splitArea2Width"  [order]="1">
           <div *ngIf="tree" fxLayout="column" fxFlexFill>
             <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar app-toolbar-action app-view-border-bottom">
               <div fxFlex *ngIf="search.selectedTree" fxLayout="row" fxFlexFill>

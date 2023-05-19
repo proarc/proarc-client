@@ -33,9 +33,9 @@ import { LayoutService } from 'src/app/services/layout.service';
 export class SearchComponent implements OnInit {
 
 
-  @ViewChild('split') split: SplitComponent;
-  @ViewChild('area1') area1: SplitAreaDirective;
-  @ViewChild('area2') area2: SplitAreaDirective;
+  //@ViewChild('split') split: SplitComponent;
+  // @ViewChild('area1') area1: SplitAreaDirective;
+  // @ViewChild('area2') area2: SplitAreaDirective;
   @ViewChild('modelSelect') modelSelect: MatSelect;
   @ViewChild('scroll') scroll: ElementRef;
 
@@ -114,7 +114,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     this.splitArea1Width = parseInt(this.properties.getStringProperty('search.split.0', "60"));
-    this.splitArea2Width = parseInt(this.properties.getStringProperty('search.split.1', "40"));
+    this.splitArea2Width = 100 - this.splitArea1Width;
     this.organizations = this.config.organizations;
     this.initSelectedColumns();
     this.route.queryParams.subscribe(p => {
