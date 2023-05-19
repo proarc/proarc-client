@@ -156,6 +156,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
             this.anyChange = false;
             this.state = 'success';
             this.layout.refreshSelectedItem(true, 'metadata');
+            this.ui.showInfoSnackBar(this.translator.instant('snackbar.changeSaved'), 4000);
           }
         });
       }
