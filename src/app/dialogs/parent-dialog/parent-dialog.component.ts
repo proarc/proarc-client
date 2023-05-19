@@ -31,8 +31,8 @@ export class ParentDialogComponent implements OnInit {
   @ViewChild('split') split: SplitComponent;
   @ViewChild('area1') area1: SplitAreaDirective;
   @ViewChild('area2') area2: SplitAreaDirective;
-  splitArea1Width: string;
-  splitArea2Width: string;
+  splitArea1Width: number;
+  splitArea2Width: number;
 
   state = 'none';
   items: DocumentItem[];
@@ -113,8 +113,8 @@ export class ParentDialogComponent implements OnInit {
     this.models = this.config.allModels;
     this.initSelectedColumns();
 
-    this.splitArea1Width = this.properties.getStringProperty('parent.split.0', "60");
-    this.splitArea2Width = this.properties.getStringProperty('parent.split.1', "40");
+    this.splitArea1Width = parseInt(this.properties.getStringProperty('parent.split.0', "60"));
+    this.splitArea2Width = 100 - this.splitArea1Width;
 
 
     if (this.data.isRepo) {
@@ -481,17 +481,10 @@ export class ParentDialogComponent implements OnInit {
   }
 
   dragEnd(e: any) {
-    this.splitArea1Width = e.sizes[0];
-    this.splitArea2Width = e.sizes[1];
+    // this.splitArea1Width = e.sizes[0];
+    // this.splitArea2Width = e.sizes[1];
     this.properties.setStringProperty('parent.split.0', e.sizes[0]);
     this.properties.setStringProperty('parent.split.1', e.sizes[1]);
-  }
-
-  getSplitSize(split: number): number {
-    if (split == 0) {
-      return parseInt(this.splitArea1Width);
-    }
-    return parseInt(this.splitArea2Width);
   }
 
   select(array: any[], item: DocumentItem, idx: number, event: MouseEvent, col: string) {

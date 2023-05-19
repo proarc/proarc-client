@@ -12,16 +12,16 @@
 
       <as-split-area [size]="50" [order]="1">
         <as-split style="height: calc(100% - 5px);" unit="percent" [gutterSize]="10" direction="vertical" (dragEnd)="dragEnd($event)" #split="asSplit">
-          <as-split-area #area1="asSplitArea" [minSize]="20" [size]="getSplitSize(0)">
+          <as-split-area #area1="asSplitArea" [size]="splitArea1Width">
             <ng-container [ngTemplateOutlet]="searchTmpl"></ng-container>
           </as-split-area>
-          <as-split-area #area2="asSplitArea" [minSize]="20" [size]="getSplitSize(1)">
+          <as-split-area #area2="asSplitArea" [size]="splitArea2Width">
             <ng-container [ngTemplateOutlet]="stromTmpl"></ng-container>
           </as-split-area>
         </as-split>
       </as-split-area>
 
-      <as-split-area *ngIf="data.isRepo" [size]="20" [size]="getSplitSize(1)" [order]="2">
+      <as-split-area *ngIf="data.isRepo" [size]="50" [order]="2">
         <ng-container [ngTemplateOutlet]="imageTmpl"></ng-container>
       </as-split-area>
     </as-split>
