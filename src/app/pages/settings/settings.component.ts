@@ -170,32 +170,12 @@ export class SettingsComponent implements OnInit {
 
   }
 
-  selectedColumnsPropNameEditingImport() {
-    return 'selectedColumnsImport';
-  }
-
   initSelectedColumnsEditingImport() {
-    const prop = this.properties.getStringProperty(this.selectedColumnsPropNameEditingImport());
-    this.selectedColumnsEditingImport = [];
-    if (prop) {
-      Object.assign(this.selectedColumnsEditingImport, JSON.parse(prop));
-    } else {
-
-      this.selectedColumnsEditingImport = this.properties.availableColumnsEditingRepo.map((c: string) => {
-        return {
-          field: c,
-          selected: true,
-          width: 100
-        }
-      });
-
-      // Remove first, label
-      this.selectedColumnsEditingImport.shift();
-    }
+    this.selectedColumnsEditingImport = this.properties.getSelectedColumnsEditingImport();
   }
 
   setSelectedColumnsEditingImport() {
-    this.properties.setStringProperty(this.selectedColumnsPropNameEditingImport(), JSON.stringify(this.selectedColumnsEditingImport));
+    this.properties.setStringProperty('selectedColumnsImport', JSON.stringify(this.selectedColumnsEditingImport));
     this.initSelectedColumnsEditingImport();
     this.ui.showInfo('snackbar.settings.searchColumns.updated');
   }

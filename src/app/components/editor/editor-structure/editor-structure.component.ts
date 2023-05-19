@@ -284,6 +284,14 @@ export class EditorStructureComponent implements OnInit {
   }
 
   setSelectedColumns() {
+    if (this.isRepo) {
+      this.setSelectedColumnsRepo();
+    } else {
+      this.setSelectedColumnsImport();
+    }
+  }
+
+  setSelectedColumnsRepo() {
     const models: string[] = [];
     this.layout.items.forEach(i => {
       if (!models.includes(i.model)) {
@@ -296,6 +304,11 @@ export class EditorStructureComponent implements OnInit {
       const f = this.properties.colsEditingRepo[model].filter(c => c.selected && !this.displayedColumns.includes(c.field)).map(c => c.field);
       this.displayedColumns.push(...f);
     });
+  }
+
+  setSelectedColumnsImport() {
+    const cols = this.properties.getSelectedColumnsEditingImport();
+    this.displayedColumns = cols.filter((c: any) => c.selected).map((c: any) => c.field);
   }
 
   selectAll() {

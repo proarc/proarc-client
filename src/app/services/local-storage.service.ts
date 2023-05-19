@@ -111,6 +111,27 @@ export class LocalStorageService {
         return this.colsEditingRepo;
     }
 
+    getSelectedColumnsEditingImport() {
+        const prop = this.getStringProperty('selectedColumnsImport');
+        let ret: any = [];
+        if (prop) {
+            Object.assign(ret, JSON.parse(prop));
+        } else {
+
+            ret = this.availableColumnsEditingRepo.map((c: string) => {
+                return {
+                    field: c,
+                    selected: true,
+                    width: 100
+                }
+            });
+
+            // Remove first, label
+            ret.shift();
+        }
+        return ret;
+    }
+
     setColumnsEditingRepo() {
         this.setStringProperty('colsRepo', JSON.stringify(this.colsEditingRepo));
     }
