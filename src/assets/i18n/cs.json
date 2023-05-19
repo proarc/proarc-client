@@ -2434,7 +2434,8 @@
     },
     "editUser": {
       "success": "Uživatel byl upraven"
-    }
+    },
+    "changeSaved": "Změna byla uložena"
   },
   "device": {
     "devices": "Zařízení",

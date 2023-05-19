@@ -2434,7 +2434,8 @@
     },
     "editUser": {
       "success": "User has been modified"
-    }
+    },
+    "changeSaved": "The change has been saved"
   },
   "device": {
     "devices": "Devices",
