@@ -36,12 +36,10 @@ export class SettingsComponent implements OnInit {
 
   relatedItemExpanded: boolean;
 
-  isRepo: boolean;
-
   models: any[];
 
   @ViewChild('table') table: MatTable<DocumentItem>;
-  
+
 
   public selectedColumnsEditingRepo = [
     { field: 'label', selected: true, width: 140 },
@@ -166,34 +164,33 @@ export class SettingsComponent implements OnInit {
     this.ui.showInfo('snackbar.settings.searchColumns.updated');
   }
 
-  // repo editing
-  selectedColumnsPropNameEditingRepo() {
-    this.isRepo = true;
-    return this.isRepo ? 'selectedColumnsRepo' : 'selectedColumnsImport';
-  }
-
   setSelectedColumnsEditingRepo() {
     this.properties.setColumnsEditingRepo();
     this.ui.showInfo('snackbar.settings.searchColumns.updated');
 
   }
 
-  // repo import
   selectedColumnsPropNameEditingImport() {
-    this.isRepo = false;
-    return this.isRepo ? 'selectedColumnsRepo' : 'selectedColumnsImport';
+    return 'selectedColumnsImport';
   }
 
   initSelectedColumnsEditingImport() {
     const prop = this.properties.getStringProperty(this.selectedColumnsPropNameEditingImport());
+    this.selectedColumnsEditingImport = [];
     if (prop) {
       Object.assign(this.selectedColumnsEditingImport, JSON.parse(prop));
     } else {
-      if (this.isRepo) {
-        this.selectedColumnsEditingImport.unshift({ field: 'label', selected: true, width: 100 })
-      } else {
-        this.selectedColumnsEditingImport.unshift({ field: 'filename', selected: true, width: 100 })
-      }
+
+      this.selectedColumnsEditingImport = this.properties.availableColumnsEditingRepo.map((c: string) => {
+        return {
+          field: c,
+          selected: true,
+          width: 100
+        }
+      });
+
+      // Remove first, label
+      this.selectedColumnsEditingImport.shift();
     }
   }
 
@@ -223,7 +220,7 @@ export class SettingsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         localStorage.clear();
-        this.initSelectedColumnsEditingImport(); // alebrto podivat se
+        this.initSelectedColumnsEditingImport();
         this.properties.getSearchColumns();
         this.properties.getColsEditingRepo();
         this.ui.showInfoSnackBar(this.translator.instant('snackbar.settings.resetLocalSettings.success'));
