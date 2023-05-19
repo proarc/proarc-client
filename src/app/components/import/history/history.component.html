@@ -20,7 +20,6 @@
           </mat-select>
         </mat-form-field>
         <button mat-flat-button color="primary" (click)="reload()">
-          <mat-icon>sync</mat-icon>
           {{ 'button.refresh' | translate }}
         </button>
         <mat-checkbox [(ngModel)]="autoRefresh" (change)="setRefresh()">{{ 'desc.automaticallyRestore' | translate }}</mat-checkbox>
