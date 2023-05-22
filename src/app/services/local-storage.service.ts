@@ -42,6 +42,7 @@ export class LocalStorageService {
     public colsEditingRepo: { [model: string]: { field: string, selected: boolean, width: number }[] };
 
     public searchColumns: { field: string, selected: boolean; }[];
+    public searchColumnsTree: { field: string, selected: boolean; }[];
 
 
     constructor(
@@ -55,6 +56,13 @@ export class LocalStorageService {
         return this.searchColumns.findIndex((col: any) => col.field === field && col.selected) > -1;
     }
 
+    isSearchColTreeEnabled(field: string): boolean {
+        if (!this.searchColumnsTree) {
+            this.getSearchColumnsTree();
+        }
+        return this.searchColumnsTree.findIndex((col: any) => col.field === field && col.selected) > -1;
+    }
+
     getSearchColumns() {
         const prop = this.getStringProperty('searchColumns');
         if (prop) {
@@ -66,8 +74,23 @@ export class LocalStorageService {
         }
     }
 
+    getSearchColumnsTree() {
+        const prop = this.getStringProperty('searchColumnsTree');
+        if (prop) {
+            this.searchColumnsTree = [];
+            Object.assign(this.searchColumnsTree, JSON.parse(prop));
+        } else {
+            this.searchColumnsTree = [];
+            Object.assign(this.searchColumnsTree, this.selectedColumnsSearchDefault);
+        }
+    }
+
     setSelectedColumnsSearch() {
         this.setStringProperty('searchColumns', JSON.stringify(this.searchColumns));
+    }
+
+    setSelectedColumnsSearchTree() {
+        this.setStringProperty('searchColumnsTree', JSON.stringify(this.searchColumnsTree));
     }
 
     getStringProperty(property: string, defaultValue: string | null = null): string | null {

@@ -269,15 +269,15 @@
                 <div class="app-row app-header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
                   <div [style.width]="(tree.level * 20 + 30) + 'px'"></div>
                   <div class="app-cell-first" [fxFlex]="(300 - tree.level * 20) + 'px'" >{{ 'desc.name' | translate }}</div>
-                  <div fxFlex class="app-cell app-model" *ngIf="properties.isSearchColEnabled('model')">{{ 'desc.model' | translate }}</div>
-                  <div fxFlex class="app-cell app-pid" *ngIf="properties.isSearchColEnabled('pid')">PID</div>
-                  <div fxFlex class="app-cell app-processor" *ngIf="properties.isSearchColEnabled('processor')">{{ 'desc.processor' | translate }}</div>
-                  <div fxFlex class="app-cell app-organization" *ngIf="properties.isSearchColEnabled('organization')">{{ 'desc.organization' | translate }}</div>
-                  <div fxFlex class="app-cell app-status" *ngIf="properties.isSearchColEnabled('status')">{{ 'desc.status' | translate }}</div>
-                  <div fxFlex class="app-cell app-created" *ngIf="properties.isSearchColEnabled('created')">{{ 'desc.created' | translate }}</div>
-                  <div fxFlex class="app-cell app-modified" *ngIf="properties.isSearchColEnabled('modified')">{{ 'desc.modified' | translate }}</div>
-                  <div fxFlex class="app-cell app-owner" *ngIf="properties.isSearchColEnabled('owner')">{{ 'desc.owner' | translate }}</div>
-                  <div fxFlex class="app-cell app-export" *ngIf="properties.isSearchColEnabled('export')">{{ 'desc.export' | translate }}</div>
+                  <div fxFlex class="app-cell app-model" *ngIf="properties.isSearchColTreeEnabled('model')">{{ 'desc.model' | translate }}</div>
+                  <div fxFlex class="app-cell app-pid" *ngIf="properties.isSearchColTreeEnabled('pid')">PID</div>
+                  <div fxFlex class="app-cell app-processor" *ngIf="properties.isSearchColTreeEnabled('processor')">{{ 'desc.processor' | translate }}</div>
+                  <div fxFlex class="app-cell app-organization" *ngIf="properties.isSearchColTreeEnabled('organization')">{{ 'desc.organization' | translate }}</div>
+                  <div fxFlex class="app-cell app-status" *ngIf="properties.isSearchColTreeEnabled('status')">{{ 'desc.status' | translate }}</div>
+                  <div fxFlex class="app-cell app-created" *ngIf="properties.isSearchColTreeEnabled('created')">{{ 'desc.created' | translate }}</div>
+                  <div fxFlex class="app-cell app-modified" *ngIf="properties.isSearchColTreeEnabled('modified')">{{ 'desc.modified' | translate }}</div>
+                  <div fxFlex class="app-cell app-owner" *ngIf="properties.isSearchColTreeEnabled('owner')">{{ 'desc.owner' | translate }}</div>
+                  <div fxFlex class="app-cell app-export" *ngIf="properties.isSearchColTreeEnabled('export')">{{ 'desc.export' | translate }}</div>
                   <div fxFlex class="app-cell app-isLocked"></div>
                 </div>
                 <div class="app-oa-y" fxFlex>

@@ -2417,6 +2417,7 @@
   "snackbar": {
     "settings": {
       "searchColumns.updated": "Nastavení zobrazení sloupců bylo upraveno",
+      "searchColumnsTree.updated": "Nastavení zobrazení sloupců ve stromě bylo upraveno",
       "profile": {
         "updated": "Nové heslo bylo uloženo",
         "error": {
@@ -2491,6 +2492,10 @@
       "search": {
         "legend": "Vyhledávání",
         "label": "Zobrazená pole ve výsledcích hledání"
+      },
+      "search_tree": {
+        "legend": "Vyhledávání (strom)",
+        "label": "Zobrazená pole ve stromě v dolní části"
       },
       "editingRepo": {
         "legend": "Editace v repozitáři",

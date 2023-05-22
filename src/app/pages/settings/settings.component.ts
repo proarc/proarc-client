@@ -26,7 +26,7 @@ export class SettingsComponent implements OnInit {
   view: string = 'personalSettings';
 
   state = 'none';
-  user: User;
+  user: User | null;
 
   forename: string;
   surname: string;
@@ -84,12 +84,14 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.properties.getSearchColumns();
+    this.properties.getSearchColumnsTree();
     this.initSelectedColumnsEditingImport();
     this.api.getUser().subscribe((user: User) => {
       this.user = user;
       this.forename = this.user.forename;
       this.surname = this.user.surname;
     });
+
     this.searchCols = {};
     for (const col of this.properties.availableSearchColumns) {
       this.searchCols[col] = this.properties.isSearchColEnabled(col);
@@ -138,12 +140,12 @@ export class SettingsComponent implements OnInit {
   }
 
 
-  seveSearchCols() {
-    for (const col of this.properties.availableSearchColumns) {
-      this.properties.setBoolProperty('search.cols.' + col, this.searchCols[col]);
-    }
-    this.ui.showInfo('snackbar.settings.search.updated');
-  }
+  // seveSearchCols() {
+  //   for (const col of this.properties.availableSearchColumns) {
+  //     this.properties.setBoolProperty('search.cols.' + col, this.searchCols[col]);
+  //   }
+  //   this.ui.showInfo('snackbar.settings.search.updated');
+  // }
 
 
   changePassword() {
@@ -158,10 +160,14 @@ export class SettingsComponent implements OnInit {
     localStorage.setItem('relatedItemExpanded', JSON.stringify(this.relatedItemExpanded));
   }
 
-
   setSelectedColumnsSearch() {
     this.properties.setSelectedColumnsSearch();
     this.ui.showInfo('snackbar.settings.searchColumns.updated');
+  }
+
+  setSelectedColumnsSearchTree() {
+    this.properties.setSelectedColumnsSearchTree();
+    this.ui.showInfo('snackbar.settings.searchColumnsTree.updated');
   }
 
   setSelectedColumnsEditingRepo() {

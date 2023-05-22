@@ -9,13 +9,13 @@
 
   <mat-progress-bar mode="indeterminate" *ngIf="state =='loading'" class="app-progress-bar"></mat-progress-bar>
 
-  <div fxFlex class="app-settings app-p-4" fxLayout="column" *ngIf="state !== 'loading'">
+  <div fxFlex class="app-settings app-p-4" fxLayout="column" *ngIf="state !== 'loading' && user">
     <nav mat-tab-nav-bar class="app-mb-4">
       <a mat-tab-link (click)="changeView('personalSettings')" [active]="view == 'personalSettings'">{{ 'pages.settings.tabs.personalSettings' | translate }}</a>
       <a mat-tab-link (click)="changeView('localSettings')" [active]="view == 'localSettings'">{{ 'pages.settings.tabs.localSettings' | translate }}</a>
     </nav>
     <div fxFlex *ngIf="view == 'personalSettings'" class="app-oa-y">
-      <mat-card *ngIf="user">
+      <mat-card >
         <mat-card-content>
           <fieldset class="app-p-4 app-mb-4">
             <legend>{{ 'desc.profile' | translate }}</legend>
@@ -53,7 +53,7 @@
     </div>
     <div fxFlex *ngIf="view == 'localSettings'" class="app-oa-y">
       <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4">
-        <mat-card fxFlex="35%" *ngIf="user">
+        <mat-card fxFlex="35%" >
           <mat-card-content>
             <fieldset class="app-p-4 app-mb-4">
               <legend>{{ 'desc.preferredValues' | translate }}</legend>
@@ -92,7 +92,7 @@
             </fieldset>
           </mat-card-content>
         </mat-card>
-        <mat-card fxFlex *ngIf="user">
+        <mat-card fxFlex >
           <mat-card-content>
             <fieldset class="app-p-4 app-mb-4">
               <legend>{{ 'pages.settings.search.legend' | translate }}</legend>
@@ -104,7 +104,19 @@
             <button mat-flat-button color="primary" (click)="setSelectedColumnsSearch()">{{ 'button.save' | translate }}</button>
           </mat-card-content>
         </mat-card>
-        <mat-card fxFlex *ngIf="user">
+        <mat-card fxFlex >
+          <mat-card-content>
+            <fieldset class="app-p-4 app-mb-4">
+              <legend>{{ 'pages.settings.search_tree.legend' | translate }}</legend>
+              <div class="app-label app-mb-2">{{ 'pages.settings.search_tree.label' | translate }}</div>
+              <div *ngFor="let column of properties.searchColumnsTree">
+                <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
+              </div>
+            </fieldset>
+            <button mat-flat-button color="primary" (click)="setSelectedColumnsSearchTree()">{{ 'button.save' | translate }}</button>
+          </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex >
           <mat-card-content *ngIf="properties.colsEditingRepo">
             <fieldset class="app-p-4 app-mb-4">
               <legend>{{ 'pages.settings.editingRepo.legend' | translate }}</legend>        
@@ -121,7 +133,7 @@
             <button mat-flat-button color="primary" (click)="setSelectedColumnsEditingRepo()">{{ 'button.save' | translate }}</button>
           </mat-card-content>
         </mat-card>
-        <mat-card fxFlex *ngIf="user">
+        <mat-card fxFlex >
           <mat-card-content>
             <fieldset class="app-p-4 app-mb-4">
               <legend>{{ 'pages.settings.editingImport.legend' | translate }}</legend>

@@ -2417,6 +2417,7 @@
   "snackbar": {
     "settings": {
       "searchColumns.updated": "The column display settings have been modified",
+      "searchColumnsTree.updated": "The column display settings in the tree have been modified",
       "profile": {
         "updated": "The new password has been saved",
         "error": {
@@ -2491,6 +2492,10 @@
       "search": {
         "legend": "Search",
         "label": "Displayed fields in search results"
+      },
+      "search_tree": {
+        "legend": "Search (tree)",
+        "label": "Displayed fields in tree"
       },
       "editingRepo": {
         "legend": "Editing in the repository",
