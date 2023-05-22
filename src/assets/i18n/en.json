@@ -2493,7 +2493,7 @@
         "legend": "Search",
         "label": "Displayed fields in search results"
       },
-      "search_tree": {
+      "searchTree": {
         "legend": "Search (tree)",
         "label": "Displayed fields in tree"
       },

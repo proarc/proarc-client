@@ -2091,7 +2091,7 @@
     "toIndex": "Indexovat",
     "convertPages": "Převést strany",
     "more": "Více",
-    "resetAllLocalSettings": "Resetovat všechny lokální nastavení"
+    "resetAllLocalSettings": "Resetovat všechna lokální nastavení"
   },
   "dynamic": {
     "repo": "Úložiště",
@@ -2490,11 +2490,11 @@
         "localSettings": "Lokální nastavení"
       },
       "search": {
-        "legend": "Vyhledávání",
+        "legend": "Hledat",
         "label": "Zobrazená pole ve výsledcích hledání"
       },
-      "search_tree": {
-        "legend": "Vyhledávání (strom)",
+      "searchTree": {
+        "legend": "Hledat (strom)",
         "label": "Zobrazená pole ve stromě v dolní části"
       },
       "editingRepo": {
@@ -2502,7 +2502,7 @@
         "label": "Zobrazená pole v editaci v úložišti dle modelu"
       },
       "editingImport": {
-        "legend": "Importu",
+        "legend": "Editace v importu",
         "label": "Zobrazená pole v editaci importu"
       }
     }
