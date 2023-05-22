@@ -3,7 +3,7 @@
 <div mat-dialog-content fxLayout="column">
   <div>
     <mat-form-field class="app-w-100">
-      <mat-select [placeholder]="'desc.resolver' | translate" [(ngModel)]="selectedRegistrar" [disabled]="formDisabled()">
+      <mat-select [placeholder]="'desc.registrar' | translate" [(ngModel)]="selectedRegistrar" [disabled]="formDisabled()">
         <mat-option *ngFor="let registrar of registrars" [value]="registrar">{{ registrar.name }}</mat-option>
       </mat-select>
     </mat-form-field>

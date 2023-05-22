@@ -2026,7 +2026,8 @@
     "includeRelatedItem": "včetně relatedItem",
     "theCurrentParentObject": "Aktuální nadřazený objekt",
     "userEditing": "Editace uživatele",
-    "createUser": "Vytvoření uživatele"
+    "createUser": "Vytvoření uživatele",
+    "registrar": "Registrátor"
   },
   "button": {
     "setLayout": "nastavit rozložení",

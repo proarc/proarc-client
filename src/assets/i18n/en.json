@@ -2026,7 +2026,8 @@
     "includeRelatedItem": "including relatedItem",
     "theCurrentParentObject": "The current parent object",
     "userEditing": "User editing",
-    "createUser": "Create a user"
+    "createUser": "Create a user",
+    "registrar": "Registrar"
   },
   "button": {
     "setLayout": "Set layout",
