@@ -2498,11 +2498,11 @@
         "label": "Zobrazená pole ve stromě v dolní části"
       },
       "editingRepo": {
-        "legend": "Editace v repozitáři",
-        "label": "Zobrazená pole v editaci repozitáře dle modelu"
+        "legend": "Editace v úložišti",
+        "label": "Zobrazená pole v editaci v úložišti dle modelu"
       },
       "editingImport": {
-        "legend": "Editace v importu",
+        "legend": "Importu",
         "label": "Zobrazená pole v editaci importu"
       }
     }
