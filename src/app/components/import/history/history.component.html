@@ -147,7 +147,7 @@
             <a *ngIf="element.state === 'INGESTING_FAILED'" (click)="reIngest(element);$event.preventDefault();$event.stopPropagation()" [matTooltip]="'button.saveAgain' | translate" matTooltipPosition="below" class="app-icon-button">
               <mat-icon>save_alt</mat-icon>
             </a>
-            <a *ngIf="element.state === 'LOADING' && auth.isSuperAdmin()" (click)="stopBatch(element);$event.preventDefault();$event.stopPropagation()" [matTooltip]="'button.stop' | translate" matTooltipPosition="below" class="app-color-warn" class="app-icon-button">
+            <a *ngIf="element.state === 'LOADING' && (auth.isSuperAdmin() || auth.getUser().name === element.user)" (click)="stopBatch(element);$event.preventDefault();$event.stopPropagation()" [matTooltip]="'button.stop' | translate" matTooltipPosition="below" class="app-color-warn" class="app-icon-button">
               <mat-icon>cancel</mat-icon>
             </a>
           </td>
