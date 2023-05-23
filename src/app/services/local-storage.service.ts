@@ -20,7 +20,7 @@ export class LocalStorageService {
     public static COLUMNS_REPO = 'columnsRepo';
     public static COLUMNS_IMPORT = 'columnsImport';
 
-    availableSearchColumns = ['name', 'pageType', 'pageIndex', 'pageNumber', 'model', 'pid', 'owner', 'processor', 'organization', 'status', 'created', 'modified', 'export', 'isLocked'];
+    availableSearchColumns = ['pageType', 'pageIndex', 'pageNumber', 'model', 'pid', 'owner', 'processor', 'organization', 'status', 'created', 'modified', 'export', 'isLocked'];
     public selectedColumnsSearchDefault = [
         { field: 'label', selected: true },
         { field: 'model', selected: true },
