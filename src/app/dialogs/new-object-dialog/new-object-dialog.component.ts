@@ -122,4 +122,5 @@ export interface NewObjectData {
   parentPid?: string;
   pid?: string;
   cislood?: string;
+  fromNavbar: boolean;
 }

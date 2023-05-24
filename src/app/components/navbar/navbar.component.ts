@@ -39,7 +39,8 @@ export class NavbarComponent implements OnInit {
     const data: NewObjectData = {
       models: this.config.allModels,
       model: this.properties.getStringProperty('search.model', this.config.defaultModel),
-      customPid: false
+      customPid: false,
+      fromNavbar: true
     }
     const dialogRef = this.dialog.open(NewObjectDialogComponent, { 
       data: data,
