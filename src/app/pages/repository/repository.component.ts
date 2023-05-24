@@ -59,17 +59,21 @@ export class RepositoryComponent implements OnInit {
     }));
 
     this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
-      this.refreshSelected(from);
-    }));
-
-    this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
-      this.loadMetadata(this.layout.lastSelectedItem.pid, this.layout.lastSelectedItem.model);
+      setTimeout(() => {
+        this.refreshSelected(from);
+      }, 10)
       
     }));
 
-    // this.layout.selectionChanged().subscribe(() => {
-    //   this.setVisibility();
-    // });
+    this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
+      setTimeout(() => {
+        if (this.layout.lastSelectedItem) {
+          this.loadMetadata(this.layout.lastSelectedItem.pid, this.layout.lastSelectedItem.model);
+        }
+        
+      }, 10)
+      
+    }));
 
     this.layout.lastSelectedItemMetadata = null;
     combineLatest([this.route.paramMap, this.route.queryParamMap]).subscribe(
