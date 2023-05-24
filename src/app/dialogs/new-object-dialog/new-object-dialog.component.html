@@ -53,7 +53,8 @@
 </div>
 
 <div mat-dialog-actions cdk-focus-start>
-  <button mat-flat-button color="primary" (click)="onLoadFromCatalog()">{{ 'button.loadMetadataFromCatalog' | translate }}</button>
+  <!-- <button mat-flat-button color="primary" (click)="onLoadFromCatalog()">{{ 'button.loadMetadataFromCatalog' | translate }}</button> -->
+  <button color="primary" (click)="onLoadFromCatalog()" mat-icon-button [matTooltip]="'button.loadMetadataFromCatalog' | translate"><mat-icon>local_library</mat-icon></button>
   <button mat-flat-button color="primary" (click)="onCreate()" [disabled]="!validate()" >{{ 'button.create' | translate }}</button>
   <button mat-flat-button color="default" mat-dialog-close="close" >{{ 'button.cancel' | translate }}</button>
 </div>
