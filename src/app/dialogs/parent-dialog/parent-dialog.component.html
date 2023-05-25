@@ -11,7 +11,7 @@
       </as-split-area>
 
       <as-split-area [size]="50" [order]="1">
-        <as-split style="height: calc(100% - 5px);" unit="percent" [gutterSize]="10" direction="vertical" (dragEnd)="dragEnd($event)" #split="asSplit">
+        <as-split style="height: calc(100% - 5px);" unit="percent" [gutterSize]="10" direction="vertical" #split="asSplit">
           <as-split-area #area1="asSplitArea" [size]="50">
             <ng-container [ngTemplateOutlet]="searchTmpl"></ng-container>
           </as-split-area>

@@ -51,7 +51,7 @@ export class ApiService {
   }
 
   public getApiUrl(): string {
-    return `${this.getBaseUrl()}/rest/v1/`
+    return `${this.getBaseUrl()}/rest/v2/`
   }
 
   private get(path: string, params = {}): Observable<Object> {

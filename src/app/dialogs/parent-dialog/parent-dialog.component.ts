@@ -113,8 +113,8 @@ export class ParentDialogComponent implements OnInit {
     this.models = this.config.allModels;
     this.initSelectedColumns();
 
-    this.splitArea1Width = parseInt(this.properties.getStringProperty('parent.split.0', "60"));
-    this.splitArea2Width = 100 - this.splitArea1Width;
+    // this.splitArea1Width = parseInt(this.properties.getStringProperty('parent.split.0', "60"));
+    // this.splitArea2Width = 100 - this.splitArea1Width;
 
 
     if (this.data.isRepo) {

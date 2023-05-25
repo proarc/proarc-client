@@ -1,5 +1,5 @@
 import { DocumentItem } from '../../model/documentItem.model';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -38,6 +38,8 @@ export class SearchComponent implements OnInit {
   // @ViewChild('area2') area2: SplitAreaDirective;
   @ViewChild('modelSelect') modelSelect: MatSelect;
   @ViewChild('scroll') scroll: ElementRef;
+  
+  @ViewChild(MatTable, { read: ElementRef }) private matTableRef: ElementRef;
 
   splitArea1Width: number;
   splitArea2Width: number;
@@ -81,17 +83,17 @@ export class SearchComponent implements OnInit {
   
   @ViewChild('table') table: MatTable<DocumentItem>;
   public selectedColumns = [
-    { field: 'label', selected: true },
-    { field: 'model', selected: true },
-    { field: 'pid', selected: true },
-    { field: 'processor', selected: true },
-    { field: 'organization', selected: true },
-    { field: 'status', selected: true },
-    { field: 'created', selected: true },
-    { field: 'modified', selected: true },
-    { field: 'owner', selected: true },
-    { field: 'export', selected: true },
-    { field: 'isLocked', selected: true }
+    { field: 'label', selected: true, width: 100 },
+    { field: 'model', selected: true, width: 100 },
+    { field: 'pid', selected: true, width: 100 },
+    { field: 'processor', selected: true, width: 100 },
+    { field: 'organization', selected: true, width: 100 },
+    { field: 'status', selected: true, width: 100 },
+    { field: 'created', selected: true, width: 100 },
+    { field: 'modified', selected: true, width: 100 },
+    { field: 'owner', selected: true, width: 100 },
+    { field: 'export', selected: true, width: 100 },
+    { field: 'isLocked', selected: true, width: 100 }
   ];
 
   displayedColumns: string[] = [];
@@ -704,5 +706,4 @@ export class SearchComponent implements OnInit {
       }
     });
   }
-
 }

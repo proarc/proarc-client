@@ -1182,7 +1182,7 @@ export class EditorStructureComponent implements OnInit {
     this.startX = event.pageX;
     this.startWidth = event.target.parentElement.clientWidth;
     event.preventDefault();
-    this.mouseMove(field);
+    this.columnResizing(field);
   }
 
   private checkResizing(event: any, field: string) {
@@ -1203,7 +1203,7 @@ export class EditorStructureComponent implements OnInit {
     return cell.getBoundingClientRect();
   }
 
-  mouseMove(field: string) {
+  columnResizing(field: string) {
     this.resizableMousemove = this.renderer.listen('document', 'mousemove', (event) => {
       if (this.pressed && event.buttons) {
         const dx = (this.isResizingRight) ? (event.pageX - this.startX) : (-event.pageX + this.startX);
