@@ -1,6 +1,6 @@
 
 
-import { Component, OnInit, Input, ViewChild, ElementRef, EventEmitter, Output, ViewChildren, ViewContainerRef, QueryList, Renderer2, HostListener } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, EventEmitter, Output, ViewChildren, ViewContainerRef, QueryList } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
@@ -98,16 +98,7 @@ export class EditorStructureComponent implements OnInit {
 
   refreshing = false;
 
-  pressed = false;
-  currentResizeIndex: string;
-  startX: number;
-  startWidth: number;
-  isResizingRight: boolean;
-  resizableMousemove: () => void;
-  resizableMouseup: () => void;
-
   constructor(
-    private renderer: Renderer2,
     private router: Router,
     private properties: LocalStorageService,
     private translator: TranslateService,
@@ -1172,99 +1163,5 @@ export class EditorStructureComponent implements OnInit {
     });
   }
 
-
-  onResizeColumn(event: any, field: string) {
-    // const index = this.selectedColumns.findIndex(c => c.field === field);
-    // console.log(field, index)
-    this.checkResizing(event, field);
-    this.currentResizeIndex = field;
-    this.pressed = true;
-    this.startX = event.pageX;
-    this.startWidth = event.target.parentElement.clientWidth;
-    event.preventDefault();
-    this.columnResizing(field);
-  }
-
-  private checkResizing(event: any, field: string) {
-    const cellData = this.getCellData(field);
-    const visibleColumns = this.selectedColumns.filter(c => c.selected);
-    const index = visibleColumns.findIndex(c => c.field === field);
-    if ((index === 0) || (Math.abs(event.pageX - cellData.right) < cellData.width / 2 && index !== visibleColumns.length - 1)) {
-      this.isResizingRight = true;
-    } else {
-      this.isResizingRight = false;
-    }
-  }
-
-  private getCellData(field: string) {
-    const headerRow = this.matTableRef.nativeElement.children[0].querySelector('tr');
-    // const cell = headerRow.children[index];
-    const cell = headerRow.getElementsByClassName('mat-column-' + field).item(0);
-    return cell.getBoundingClientRect();
-  }
-
-  columnResizing(field: string) {
-    this.resizableMousemove = this.renderer.listen('document', 'mousemove', (event) => {
-      if (this.pressed && event.buttons) {
-        const dx = (this.isResizingRight) ? (event.pageX - this.startX) : (-event.pageX + this.startX);
-        const width = this.startWidth + dx;
-        if (this.currentResizeIndex === field && width > 50) {
-          this.setColumnWidthChanges(field, width);
-        }
-      }
-    });
-    this.resizableMouseup = this.renderer.listen('document', 'mouseup', (event) => {
-      if (this.pressed) {
-        this.pressed = false;
-        this.currentResizeIndex = '';
-        this.resizableMousemove();
-        this.resizableMouseup();
-      }
-    });
-  }
-
-
-
-  setColumnWidthChanges(field: string, width: number) {
-    const visibleColumns = this.selectedColumns.filter(c => c.selected);
-    const index = visibleColumns.findIndex(c => c.field === field);
-    const orgWidth = visibleColumns[index].width;
-    const dx = width - orgWidth;
-    if (dx !== 0) {
-      const j = (this.isResizingRight) ? index + 1 : index - 1;
-      const newWidth = visibleColumns[j].width - dx;
-      if (newWidth > 50) {
-        visibleColumns[index].width = width;
-        this.setColumnWidth(visibleColumns[index]);
-        visibleColumns[j].width = newWidth;
-        this.setColumnWidth(visibleColumns[j]);
-      }
-    }
-  }
-
-  setColumnWidth(column: any) {
-    const columnEls = Array.from(document.getElementsByClassName('mat-column-' + column.field));
-    columnEls.forEach((el: any) => {
-      el.style.minWidth = column.width + 'px';
-      // el.style.width = column.width + 'px';
-    });
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.setTableResize(this.matTableRef.nativeElement.clientWidth);
-  }
-
-  setTableResize(tableWidth: number) {
-    let totWidth = 0;
-    this.selectedColumns.forEach((column) => {
-      totWidth += column.width;
-    });
-    const scale = (tableWidth - 5) / totWidth;
-    this.selectedColumns.forEach((column) => {
-      column.width *= scale;
-      this.setColumnWidth(column);
-    });
-  }
 
 }

@@ -1,5 +1,5 @@
 import { DocumentItem } from '../../model/documentItem.model';
-import { Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -19,9 +19,8 @@ import { SearchService } from 'src/app/services/search.service';
 import { UIService } from 'src/app/services/ui.service';
 import { ChangeModelDialogComponent } from 'src/app/dialogs/change-model-dialog/change-model-dialog.component';
 
-import {MatSort, Sort} from '@angular/material/sort';
+import {Sort} from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 import { ConvertDialogComponent } from 'src/app/dialogs/convert-dialog/convert-dialog.component';
 import { LayoutService } from 'src/app/services/layout.service';
 

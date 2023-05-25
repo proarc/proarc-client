@@ -126,7 +126,7 @@
         <!-- cdkDropList (cdkDropListDropped)="drop1($event)" cdkDropListData="layout.items" -->
 
         <ng-container matColumnDef="pid">
-          <th mat-header-cell *matHeaderCellDef>{{'search.pid' | translate}} <span class="resize-handle" (mousedown)="onResizeColumn($event, 'pid')">abaa</span></th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true">{{'search.pid' | translate}}</th>
           <td mat-cell *matCellDef="let element">
             <div class="app-text-cutter-wrapper" [matTooltip]="element.pid">
               <div class="app-text-cutter">
@@ -137,7 +137,7 @@
         </ng-container>
 
         <ng-container matColumnDef="label">
-          <th mat-header-cell *matHeaderCellDef> {{'search.name' | translate}} <span class="resize-handle" (mousedown)="onResizeColumn($event, 'label')"></span></th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"> {{'search.name' | translate}}</th>
           <td mat-cell *matCellDef="let element">
             <!-- <mat-icon *ngIf="element.invalid" class="app-mr-1">warning</mat-icon>{{ shortLabels ? element.shortLabel : element.label }}  -->
             <div class="app-text-cutter-wrapper" [matTooltip]="shortLabels ? element.shortLabel : element.label">
@@ -149,7 +149,7 @@
         </ng-container>
 
         <ng-container matColumnDef="filename">
-          <th mat-header-cell *matHeaderCellDef> {{'search.filename' | translate}} <span class="resize-handle" (mousedown)="onResizeColumn($event, 'filename')"></span> </th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"> {{'search.filename' | translate}}</th>
           <td mat-cell *matCellDef="let element">
             <div class="app-text-cutter-wrapper" [matTooltip]="element.filename">
               <div class="app-text-cutter">
@@ -160,7 +160,7 @@
         </ng-container>
 
         <ng-container matColumnDef="pageType">
-          <th mat-header-cell *matHeaderCellDef> {{'search.pageType' | translate}} <span class="resize-handle" (mousedown)="onResizeColumn($event, 'pageType')"></span></th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"> {{'search.pageType' | translate}}</th>
           <td mat-cell *matCellDef="let element">
             <div class="app-text-cutter-wrapper" [matTooltip]="'pageType.' + element.pageType | translate">
               <div class="app-text-cutter">
@@ -171,22 +171,22 @@
         </ng-container>
 
         <ng-container matColumnDef="pageIndex">
-          <th mat-header-cell *matHeaderCellDef> {{'search.pageIndex' | translate}} <span class="resize-handle" (mousedown)="onResizeColumn($event, 'pageIndex')"></span></th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"> {{'search.pageIndex' | translate}}</th>
           <td mat-cell *matCellDef="let element"> {{element.pageIndex}} </td>
         </ng-container>
 
         <ng-container matColumnDef="pageNumber">
-          <th mat-header-cell *matHeaderCellDef> {{'search.pageNumber' | translate}} <span class="resize-handle" (mousedown)="onResizeColumn($event, 'pageNumber')"></span></th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"> {{'search.pageNumber' | translate}}</th>
           <td mat-cell *matCellDef="let element"> {{element.pageNumber}} </td>
         </ng-container>
 
         <ng-container matColumnDef="pagePosition">
-          <th mat-header-cell *matHeaderCellDef> {{'search.pagePosition' | translate}} <span class="resize-handle" (mousedown)="onResizeColumn($event, 'pagePosition')"></span></th> 
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"> {{'search.pagePosition' | translate}}</th> 
           <td mat-cell *matCellDef="let element"> {{element.pagePosition}} </td>
         </ng-container>
 
         <ng-container matColumnDef="model">
-          <th mat-header-cell *matHeaderCellDef> {{'search.model' | translate}} <span class="resize-handle" (mousedown)="onResizeColumn($event, 'model')"></span> </th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"> {{'search.model' | translate}}</th>
           <td mat-cell *matCellDef="let element">
             <!-- {{ 'model.' + element.model | translate }} -->
             <div class="app-text-cutter-wrapper" [matTooltip]="'model.' + element.model | translate">
@@ -196,7 +196,7 @@
         </ng-container>
 
         <ng-container matColumnDef="owner">
-          <th mat-header-cell *matHeaderCellDef> {{'search.owner' | translate}} <span class="resize-handle" (mousedown)="onResizeColumn($event, 'owner')"></span> </th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"> {{'search.owner' | translate}}</th>
           <td mat-cell *matCellDef="let element">
             <div class="app-text-cutter-wrapper" [matTooltip]="element.owner">
               <div class="app-text-cutter">{{ element.owner }}</div>
@@ -205,7 +205,7 @@
         </ng-container>
 
         <ng-container matColumnDef="created">
-          <th mat-header-cell *matHeaderCellDef> {{'search.created' | translate}} <span class="resize-handle" (mousedown)="onResizeColumn($event, 'created')"></span> </th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"> {{'search.created' | translate}}</th>
           <td mat-cell *matCellDef="let element">
             <div class="app-text-cutter-wrapper" [matTooltip]="element.created | date : 'dd.MM.yyyy'">
               <div class="app-text-cutter">{{ element.created | date : 'dd.MM.yyyy' }}</div>
@@ -214,7 +214,7 @@
         </ng-container>
 
         <ng-container matColumnDef="modified">
-          <th mat-header-cell *matHeaderCellDef> {{'search.modified' | translate}} <span class="resize-handle" (mousedown)="onResizeColumn($event, 'modified')"></span> </th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"> {{'search.modified' | translate}}</th>
           <td mat-cell *matCellDef="let element">
             <div class="app-text-cutter-wrapper" [matTooltip]="element.modified | date : 'dd.MM.yyyy'">
               <div class="app-text-cutter">{{ element.modified | date : 'dd.MM.yyyy' }}</div>
@@ -223,7 +223,7 @@
         </ng-container>
 
         <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef> {{'search.status' | translate}} <span class="resize-handle" (mousedown)="onResizeColumn($event, 'status')"></span> </th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"> {{'search.status' | translate}}</th>
           <td mat-cell *matCellDef="let element">
             <div class="app-text-cutter-wrapper" [matTooltip]="element.status">
               <div class="app-text-cutter">{{ element.status }}</div>
