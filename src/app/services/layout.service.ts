@@ -163,7 +163,12 @@ export class LayoutService {
   }
 
   getSelected() {
-    return this.items.filter(item => item.selected);
+    if (this.items) {
+      return this.items.filter(item => item.selected);
+    } else {
+      return [];
+    }
+    
   }
 
   getNumOfSelected() {

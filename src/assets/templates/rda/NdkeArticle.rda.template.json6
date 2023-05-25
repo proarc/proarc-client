@@ -567,6 +567,7 @@
   },
   genre: {
     isElectronicArticle: true,
+    defaultValue: 'electronic_article',
     usage: 'M',
     required: true,
     label: 'Žánr',

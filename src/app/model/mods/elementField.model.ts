@@ -89,7 +89,7 @@ export class ElementField {
 
         // set isPeerReviewed for electronic articles
         if(this.items[0] instanceof ModsGenre && template['selector'] === 'genre' &&  template['isElectronicArticle']) {
-
+            
             if (this.items[0].attrs['type'] === 'peer-reviewed') {
                 this.isPeerReviewed = true;
             } else  if (this.items[0].modsElement['_'] === 'article' && !this.items[0].attrs['type']) {
@@ -110,6 +110,7 @@ export class ElementField {
 
             if (this.items.length === 1) {
                 const item = this.add();
+                item.modsElement['_'] = template['defaultValue'];
                 if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded) {
                     item.collapsed = true;
                 }
