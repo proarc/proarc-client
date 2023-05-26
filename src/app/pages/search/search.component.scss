@@ -7,6 +7,7 @@
   @extend .app-p-4;
 
   .mat-table {
+    /*  to delete after testing
     .mat-column-label {
       width: 25%;
     }
@@ -30,20 +31,20 @@
     .mat-column-created,
     .mat-column-modified {
       width: 8%;
-    }
+    } */
 
     .mat-column-isLocked {
-      width: 22px;
-      padding: 0;
+      width: 38px;
     }
   }
 }
 
 
+/* to delete after testing
 .mat-table {
   table-layout: fixed;
   width: 100%;
-  &.resizing {
+  &.app-resizing {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
@@ -60,7 +61,7 @@
     position: relative;      
     &:not(:last-child) {
       border-right: 1px solid rgb(128, 128, 128, .3);
-      .resize-holder {
+      .app-resize-holder {
         cursor: col-resize;
         width: 20px;
         height: 100%;
@@ -78,4 +79,4 @@
       padding: 0 10px;
     }
   }
-}
+} */

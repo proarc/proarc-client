@@ -17,11 +17,14 @@
       <div *ngIf="layout.path.length > 1" class="app-label-model"><a (click)="selectLast()">{{ 'model.' + layout.item.model | translate }} - {{ layout.item.label }}</a></div>
     </div>
     <div>
-      <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToObject(layout.previousItem)" [disabled]="!layout.previousItem" mat-icon-button>
-        <mat-icon>keyboard_arrow_left</mat-icon>
-      </button>
       <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToObject(layout.parent)" [disabled]="!layout.parent" mat-icon-button>
         <mat-icon>keyboard_arrow_up</mat-icon>
+      </button>
+      <button matTooltip="{{ 'editor.toolbar.nav_down' | translate }}" (click)="goToFirst()" [disabled]="!layout.parent" mat-icon-button>
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+      <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToObject(layout.previousItem)" [disabled]="!layout.previousItem" mat-icon-button>
+        <mat-icon>keyboard_arrow_left</mat-icon>
       </button>
       <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="goToObject(layout.nextItem)" [disabled]="!layout.nextItem" mat-icon-button>
         <mat-icon>keyboard_arrow_right</mat-icon>

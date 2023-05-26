@@ -67,6 +67,10 @@ export class EditorMetadataComponent implements OnInit {
     }
   }
 
+  hasPendingChanges(): boolean {
+    return this.metadata.hasChanges();
+  }
+
   available(element: string): boolean {
     return this.metadata && this.metadata.template && this.metadata.template[element];
   }
