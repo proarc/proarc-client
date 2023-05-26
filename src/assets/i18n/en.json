@@ -180,6 +180,7 @@
   "editor": {
     "toolbar": {
       "nav_up": "Go to parent object",
+      "nav_down": "Go to child object",
       "nav_prev": "Go to previous object",
       "nav_next": "Go to next object",
       "editor_image": "Image",

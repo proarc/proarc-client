@@ -196,6 +196,7 @@
     },
     "toolbar": {
       "nav_up": "Přejít na nadřazený objekt",
+      "nav_down": "Přejít na podřazený objekt",
       "nav_prev": "Přejít na předchozí objekt",
       "nav_next": "Přejít na následující objekt",
       "editor_image": "Obrázek",
