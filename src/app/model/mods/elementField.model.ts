@@ -110,14 +110,12 @@ export class ElementField {
 
             if (this.items.length === 1) {
                 const item = this.add();
-                item.modsElement['_'] = template['defaultValue'];
                 if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded) {
                     item.collapsed = true;
                 }
             }
 
         }
-
 
     }
 
@@ -152,6 +150,9 @@ export class ElementField {
 
     public add(el: ModsElement = null): ModsElement {
         const item: ModsElement = el || this.newElement(this.id, {});
+        if (!el && this.template['defaultValue']) {
+            item.modsElement['_'] = this.template['defaultValue'];
+        }
         this.items.push(item);
         this.root.push(item.getEl());
         return item;
