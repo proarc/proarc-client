@@ -53,10 +53,9 @@ export class EditorModsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.layout.selectionChanged().subscribe(() => {
-    //   this.reload();
-    // });
-    // this.reload();
+    this.layout.shouldRefreshSelectedItem().subscribe(() => {
+      this.reload();
+    });
   }
 
   ngOnChanges(c: SimpleChange) {
