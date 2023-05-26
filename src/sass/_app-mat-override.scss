@@ -95,6 +95,50 @@
       }
     }
   }
+
+  &.app-resize {
+    table-layout: fixed;
+
+    &.app-resizing {
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    .mat-cell,
+    .mat-header-cell {
+      @extend .app-pl-2, .app-pr-2;
+    }
+
+    .mat-header-cell {
+      position: relative;      
+      
+      &:not(:last-child) {
+        .app-resize-holder {
+          cursor: col-resize;
+          width: 10px;
+          height: 100%;
+          position: absolute;
+          right: 0;
+          top: 0;
+          z-index: 1;
+
+          &:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            border-right: 1px solid $app-table-border-color;
+          }
+        }
+      }
+
+      &:hover {
+        background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(238,238,238,1) 100%);
+      }
+    }
+  }
 }
 
 // progress bar

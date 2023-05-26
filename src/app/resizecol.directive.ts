@@ -24,7 +24,7 @@ export class ResizecolDirective {
       const thead = this.renderer.parentNode(row);
       this.table = this.renderer.parentNode(thead);
       const resizer = this.renderer.createElement("span");
-      this.renderer.addClass(resizer, "resize-holder");
+      this.renderer.addClass(resizer, "app-resize-holder");
       this.renderer.appendChild(this.column, resizer);
       this.renderer.listen(resizer, "mousedown", this.onMouseDown);
       this.renderer.listen(this.table, "mousemove", this.onMouseMove);
@@ -40,7 +40,7 @@ export class ResizecolDirective {
   onMouseMove = (event: MouseEvent) => {
     const offset = 0;
     if (this.pressed && event.buttons) {
-      this.renderer.addClass(this.table, "resizing");
+      this.renderer.addClass(this.table, "app-resizing");
       let width =this.startWidth + (event.pageX - this.startX - offset);
       this.renderer.setStyle(this.column, "width", `${width}px`);
     }
