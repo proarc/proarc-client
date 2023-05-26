@@ -107,7 +107,7 @@
 
     .mat-cell,
     .mat-header-cell {
-      @extend .app-pl-2, .app-pr-2;
+      @extend .app-pl-2, .app-pr-2, .app-text-cutter;
     }
 
     .mat-header-cell {
