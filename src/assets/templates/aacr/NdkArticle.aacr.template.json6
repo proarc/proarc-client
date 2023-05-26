@@ -354,6 +354,7 @@
           fields: {
             authority: {
               usage: 'M',
+              defaultValue: 'marcform',
               required: true,
               label: 'Autorita',
               selector: 'physicalDescription/form/@authority',
@@ -428,6 +429,7 @@
       fields: {
         value: {
           usage: 'M',
+          defaultValue: 'article',
           required: true,
           selector: 'genre/value',
           labelKey: 'genre/value',
@@ -581,12 +583,14 @@
       fields: {
         type: {
           usage: 'O',
+          defaultValue: 'pageIndex',
           label: 'Typ',
           selector: 'part/@type',
           labelKey: 'part/@type',
           description: `Hodnota bude vždy "volume" `,
           options: [
-            ['volume', 'volume']
+            ['pageIndex', 'Page Index'],
+            ['pageNumber', 'Page Number']
           ]
         },
         caption: {
@@ -1553,6 +1557,7 @@
               fields: {
                 authority: {
                   usage: 'MA',
+                  defaultValue: 'marcform',
                   label: 'Autorita',
                   selector: 'relatedItem/physicalDescription/form/@authority',
                   labelKey: 'relatedItem/physicalDescription/form/@authority',

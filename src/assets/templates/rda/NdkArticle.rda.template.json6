@@ -354,6 +354,7 @@
           fields: {
             authority: {
               usage: 'M',
+              defaultValue: 'marcform',
               required: true,
               label: 'Autorita',
               selector: 'physicalDescription/form/@authority',
@@ -428,6 +429,7 @@
       fields: {
         value: {
           usage: 'M',
+          defaultValue: 'article',
           required: true,
           selector: 'genre/value',
           labelKey: 'genre/value',
@@ -1582,6 +1584,7 @@
               fields: {
                 authority: {
                   usage: 'MA',
+                  defaultValue: 'marcform',
                   label: 'Autorita',
                   selector: 'relatedItem/physicalDescription/form/@authority',
                   labelKey: 'relatedItem/physicalDescription/form/@authority',

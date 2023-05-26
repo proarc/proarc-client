@@ -563,7 +563,6 @@
   },
   genre: {
     isElectronicArticle: true,
-    defaultValue: 'electronic_article',
     usage: 'M',
     required: true,
     label: 'Žánr',
@@ -573,6 +572,7 @@
     fields: {
       value: {
         usage: 'M',
+        defaultValue: 'electronic_article',
         required: true,
         cols: 2,
         selector: 'genre/value',

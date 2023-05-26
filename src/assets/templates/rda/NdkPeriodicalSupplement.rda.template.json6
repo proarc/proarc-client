@@ -620,6 +620,7 @@
             },
             value: {
               usage: 'M',
+              defaultValue: 'print',
               selector: 'physicalDescription/form/value',
               labelKey: 'physicalDescription/form/value',
               label: 'Hodnota',
@@ -673,6 +674,7 @@
         },
         value: {
           usage: 'M',
+          defaultValue: "supplement",
           selector: 'genre/value',
           labelKey: 'genre/value',
           label: 'Hodnota',

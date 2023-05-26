@@ -960,6 +960,7 @@
         type: {
           usage: 'O',
           label: 'Typ',
+          defaultValue: "volume",
           selector: 'part/@type',
           labelKey: 'part/@type',
           description: 'Hodnota bude vždy "volume" ',

@@ -354,7 +354,6 @@
     },
     genre: {
       isElectronicArticle: true,
-      defaultValue: 'article',
       usage: 'R',
       label: 'Typ obsahu',
       selector: 'genre',
@@ -362,6 +361,7 @@
       fields: {
         value: {
           usage: 'M',
+          defaultValue: 'article',
           required: true,
           selector: 'genre/value',
           labelKey: 'genre/value',
