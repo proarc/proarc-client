@@ -59,6 +59,7 @@
   .mat-header-cell {
     position: relative;      
     &:not(:last-child) {
+      border-right: 1px solid rgb(128, 128, 128, .3);
       .resize-holder {
         cursor: col-resize;
         width: 20px;
@@ -67,6 +68,7 @@
         right: -10px;
         top: 0;
         z-index: 1;
+        
       }
     }
   }

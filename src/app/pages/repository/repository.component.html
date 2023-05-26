@@ -10,11 +10,11 @@
         <a *ngIf="!last" (click)="goToObjectByPid(p.pid)" [matTooltip]="'model.' + p.model | translate" class="app-text-cutter" [matTooltip]="p.label">{{ p.label }}</a>
         <span class="app-separator" *ngIf="idx < l - 2">/</span>
       </ng-container>
-      <span *ngIf="layout.path.length === 1" class="app-last app-text-cutter" [matTooltip]="layout.item.label" [matTooltipPosition]="'above'">{{ layout.item.label }}</span>
+      <a *ngIf="layout.path.length === 1" (click)="selectLast()" class="app-last app-text-cutter" [matTooltip]="layout.item.label" [matTooltipPosition]="'above'">{{ layout.item.label }}</a>
     </div>
     <div fxFlex class="app-pl-4">
       <div *ngIf="layout.path.length === 1" class="app-label-model">{{ 'model.' + layout.item.model | translate }}</div>
-      <div *ngIf="layout.path.length > 1" class="app-label-model">{{ 'model.' + layout.item.model | translate }} - {{ layout.item.label }}</div>
+      <div *ngIf="layout.path.length > 1" class="app-label-model"><a (click)="selectLast()">{{ 'model.' + layout.item.model | translate }} - {{ layout.item.label }}</a></div>
     </div>
     <div>
       <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToObject(layout.previousItem)" [disabled]="!layout.previousItem" mat-icon-button>

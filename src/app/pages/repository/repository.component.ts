@@ -141,6 +141,13 @@ export class RepositoryComponent implements OnInit {
     return a?.length > 0;
   }
 
+  selectLast() {
+    this.layout.items.forEach(i => i.selected = false);
+    //this.layout.rootItem.selected = true;
+    this.layout.lastSelectedItem = this.layout.item;
+    this.layout.setSelection(false);
+  }
+
   refreshSelected(from: string) {
     if (from === 'metadata') {
       this.layout.lastSelectedItemMetadata = null;
