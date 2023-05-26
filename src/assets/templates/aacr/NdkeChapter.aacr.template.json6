@@ -360,7 +360,7 @@
           fields: {
             authority: {
               usage: 'MA',
-              defaultValue: "marcform",
+              defaultValue: 'marcform',
               label: 'Autorita',
               selector: 'physicalDescription/form/@authority',
               labelKey: 'physicalDescription/form/@authority',
@@ -412,7 +412,7 @@
     },
     genre: {
       usage: 'M',
-      defaultValue: "chapter",
+      defaultValue: 'chapter',
       required: true,
       label: 'Žánr',
       selector: 'genre',
@@ -669,7 +669,7 @@
             },
             authority: {
               usage: 'R',
-              default: 'marcorg'
+              defaultValue: 'marcorg',
               label: 'Autorita',
               cols: 2,
               selector: 'recordInfo/recordContentSource/@authority',

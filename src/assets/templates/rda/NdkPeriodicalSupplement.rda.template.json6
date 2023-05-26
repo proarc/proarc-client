@@ -674,7 +674,7 @@
         },
         value: {
           usage: 'M',
-          defaultValue: "supplement",
+          defaultValue: 'supplement',
           selector: 'genre/value',
           labelKey: 'genre/value',
           label: 'Hodnota',
@@ -885,6 +885,7 @@
             },
             authority: {
               usage: 'R',
+              defaultValue: 'marcorg',
               label: 'Autorita',
               cols: 2,
               selector: 'recordInfo/recordContentSource/@authority',

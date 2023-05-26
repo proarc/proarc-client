@@ -960,7 +960,7 @@
         type: {
           usage: 'O',
           label: 'Typ',
-          defaultValue: "volume",
+          defaultValue: 'volume',
           selector: 'part/@type',
           labelKey: 'part/@type',
           description: 'Hodnota bude vždy "volume" ',
@@ -1015,6 +1015,7 @@
             },
             authority: {
               usage: 'R',
+              defaultValue: 'marcorg',
               label: 'Autorita',
               cols: 2,
               selector: 'recordInfo/recordContentSource/@authority',

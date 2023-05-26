@@ -822,7 +822,7 @@
       fields: {
         type: {
           usage: 'O',
-          defaultValue: "volume",
+          defaultValue: 'volume',
           label: 'Typ',
           selector: 'part/@type',
           labelKey: 'part/@type',
@@ -878,6 +878,7 @@
             },
             authority: {
               usage: 'R',
+              defaultValue: 'marcorg',
               label: 'Autorita',
               cols: 2,
               selector: 'recordInfo/recordContentSource/@authority',
