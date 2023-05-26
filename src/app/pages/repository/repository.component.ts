@@ -399,4 +399,8 @@ export class RepositoryComponent implements OnInit {
     }
   }
 
+  public goToFirst() {
+    this.router.navigate(['/repository', this.layout.parent.pid]);
+  }
+
 }
