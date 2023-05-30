@@ -59,6 +59,13 @@ export class ApiService {
       'Accept-Language': this.getLang()
     })
     return this.http.get(encodeURI(`${this.getApiUrl()}${path}`), { params: params, headers })
+    .pipe(map((r: any) => {
+      if (r.response.status === -1) {
+        r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
+      }
+      return r;
+      
+    }))
       .pipe(finalize(() => this.stopLoading()))
       .pipe(catchError(err => this.handleError(err, this)));
   }
@@ -78,7 +85,15 @@ export class ApiService {
         })
       };
     }
-    return this.http.put(encodeURI(`${this.getApiUrl()}${path}`), body, options).pipe(
+    return this.http.put(encodeURI(`${this.getApiUrl()}${path}`), body, options)
+    .pipe(map((r: any) => {
+      if (r.response.status === -1) {
+        r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
+      }
+      return r;
+      
+    }))
+    .pipe(
       finalize(() => this.stopLoading())
     ).pipe(catchError(this.handleError));
   }
@@ -92,19 +107,42 @@ export class ApiService {
         })
       };
     }
-    return this.http.post(encodeURI(`${this.getApiUrl()}${path}`), body, options).pipe(
-      finalize(() => this.stopLoading())
-    ).pipe(catchError(err => this.handleError(err, this)));
+    return this.http.post(encodeURI(`${this.getApiUrl()}${path}`), body, options)
+    .pipe(map((r: any) => {
+      if (r.response.status === -1) {
+        r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
+      }
+      return r;
+      
+    }))
+    .pipe(finalize(() => this.stopLoading()))
+    .pipe(catchError(err => this.handleError(err, this)));
   }
 
   private delete(path: string, params = {}): Observable<Object> {
-    return this.http.delete(encodeURI(`${this.getApiUrl()}${path}`), { params: params }).pipe(
+    return this.http.delete(encodeURI(`${this.getApiUrl()}${path}`), { params: params })
+    .pipe(map((r: any) => {
+      if (r.response.status === -1) {
+        r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
+      }
+      return r;
+      
+    }))
+    .pipe(
       finalize(() => this.stopLoading())
     ).pipe(catchError(err => this.handleError(err, this)));
   }
 
   private request(method: string, path: string, params = {}, body: any): Observable<Object> {
-    return this.http.request(method, encodeURI(`${this.getApiUrl()}${path}`), { params, body }).pipe(
+    return this.http.request(method, encodeURI(`${this.getApiUrl()}${path}`), { params, body })
+    .pipe(map((r: any) => {
+      if (r.response.status === -1) {
+        r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
+      }
+      return r;
+      
+    }))
+    .pipe(
       finalize(() => this.stopLoading())
     ).pipe(catchError(err => this.handleError(err, this)));
   }
