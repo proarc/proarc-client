@@ -385,7 +385,7 @@ export class SearchComponent implements OnInit {
             String(this.translator.instant('Uzamknout objekt')) :
             String(this.translator.instant('Odemknout objekt')),
       message: lock ? String(this.translator.instant('Opravdu chcete vybrané objekty uzamknout?')) : String(this.translator.instant('Opravdu chcete vybrané objekty odemknout?')),
-      alertClass: 'app-message',
+      alertClass: 'app-warn',
       btn1: {
         label: 'Ano',
         value: 'yes',
@@ -397,7 +397,10 @@ export class SearchComponent implements OnInit {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      width: '600px'
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         if (lock) {
