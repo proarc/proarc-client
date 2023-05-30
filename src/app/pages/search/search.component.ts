@@ -508,12 +508,12 @@ export class SearchComponent implements OnInit {
       message: String(this.translator.instant('editor.children.delete_dialog.message')),
       alertClass: 'app-warn',
       btn1: {
-        label: 'Ano',
+        label: String(this.translator.instant('button.yes')),
         value: 'yes',
         color: 'warn'
       },
       btn2: {
-        label: 'Ne',
+        label: String(this.translator.instant('button.no')),
         value: 'no',
         color: 'default'
       },
