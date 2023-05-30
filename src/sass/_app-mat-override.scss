@@ -161,6 +161,8 @@
 
   .mat-dialog-content {
     &.app-scrollbar-fix {
+      margin-bottom: -10px;
+
       &:after {
         content: " ";
         display: block;
