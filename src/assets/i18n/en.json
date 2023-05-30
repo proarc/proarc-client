@@ -2359,6 +2359,14 @@
     "resetLocalSettings": {
       "title": "Reset local settings",
       "message": "Are you sure you want to reset all local settings?"
+    },
+    "lockObject": {
+      "title": "Lock object",
+      "message": "Are you sure you want to lock the selected objects?"
+    },
+    "unlockObject": {
+      "title": "Unlock the object",
+      "message": "Are you sure you want to unlock the selected objects?"
     }
   },
   "formField": {
@@ -2431,6 +2439,10 @@
         "success": "A reset of the local settings has been performed",
         "error": "Error resetting local settings"
       }
+    },
+    "search": {
+      "lockObject": "The object was successfully locked",
+      "unlockObject": "The object was successfully unlocked"
     },
     "addNewUser": {
       "success": "User has been added"
