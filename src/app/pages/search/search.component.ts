@@ -306,7 +306,7 @@ export class SearchComponent implements OnInit {
     const dialogRef = this.dialog.open(UrnnbnDialogComponent, { 
       data: item.pid,
       panelClass: 'app-urnbnb-dialog',
-      width: '1200px'
+      width: '600px'
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
@@ -503,7 +503,7 @@ export class SearchComponent implements OnInit {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('editor.children.delete_dialog.title')),
       message: String(this.translator.instant('editor.children.delete_dialog.message')),
-      alertClass: 'app-message',
+      alertClass: 'app-warn',
       btn1: {
         label: 'Ano',
         value: 'yes',
@@ -519,7 +519,10 @@ export class SearchComponent implements OnInit {
     if (this.auth.isSuperAdmin()) {
       data.checkbox = checkbox;
     }
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      data: data,
+      width: '600px'
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.deleteObject(item, checkbox.checked, refresh, callback);
