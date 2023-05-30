@@ -4,10 +4,10 @@
       <app-editor-switcher (onChangeEditorType)="changeEditorType($event)" [editorType]="editorType"></app-editor-switcher>
     </div>
     <div>
-      <button mat-icon-button (click)="onRevert()" [disabled]="!page" [matTooltip]="'button.refresh' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+      <button mat-icon-button (click)="onRevert()" [disabled]="!hasChanged()" [matTooltip]="'button.refresh' | translate" [matTooltipPosition]="toolbarTooltipPosition">
         <mat-icon>sync</mat-icon>
       </button>
-      <button  mat-icon-button (click)="saveIcon()" [disabled]="!page" [matTooltip]="'button.save' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+      <button  mat-icon-button (click)="saveIcon()" [disabled]="!hasChanged()" [matTooltip]="'button.save' | translate" [matTooltipPosition]="toolbarTooltipPosition">
         <mat-icon>save</mat-icon>
       </button>
     </div>
