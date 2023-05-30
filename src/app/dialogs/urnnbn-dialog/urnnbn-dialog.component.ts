@@ -91,6 +91,7 @@ export class UrnnbnDialogComponent implements OnInit {
       //   }
       // }
       // console.log('data', data);
+      this.dialogRef.updateSize('1200px');
     },
     (error) => {
       console.log('onRegister error', error);
