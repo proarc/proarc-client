@@ -329,6 +329,9 @@ export class EditorPageComponent implements OnInit {
   }
 
   public hasChanged() {
+    if (!this.page) {
+      return false;
+    }
     return this.page.hasChanged();
   }
 
