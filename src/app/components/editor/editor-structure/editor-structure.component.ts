@@ -289,12 +289,16 @@ export class EditorStructureComponent implements OnInit {
         models.push(i.model);
       }
     });
-    this.properties.getColsEditingRepo();
+    const colsEditModeParent = this.properties.getColsEditingRepo();
     this.displayedColumns = [];
-    models.forEach(model => {
-      const f = this.properties.colsEditingRepo[model].filter(c => c.selected && !this.displayedColumns.includes(c.field)).map(c => c.field);
-      this.displayedColumns.push(...f);
-    });
+    if (colsEditModeParent) {
+      this.displayedColumns = this.properties.colsEditingRepo[this.layout.selectedParentItem.model].filter(c => c.selected && !this.displayedColumns.includes(c.field)).map(c => c.field);
+    } else {
+      models.forEach(model => {
+        const f = this.properties.colsEditingRepo[model].filter(c => c.selected && !this.displayedColumns.includes(c.field)).map(c => c.field);
+        this.displayedColumns.push(...f);
+      });
+    }
   }
 
   setSelectedColumnsImport() {
@@ -305,6 +309,10 @@ export class EditorStructureComponent implements OnInit {
   selectAll() {
     this.layout.items.forEach(i => i.selected = true);
     this.layout.setSelection(true);
+  }
+
+  selectColumns() {
+    
   }
 
   rowClick(row: DocumentItem, idx: number, event: MouseEvent) {
@@ -749,6 +757,7 @@ export class EditorStructureComponent implements OnInit {
       data: {
         btnLabel: 'editor.children.relocate_label',
         parent: this.layout.selectedParentItem,
+        item: this.layout.item,
         items: this.layout.items,
         // expandedPath: this.expandedPath,
         displayedColumns: this.displayedColumns,

@@ -43,7 +43,7 @@
   <div fxLayout="column" fxFlexFill>
     <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
       <div class="app-toolbar-label app-text-cutter app-mr-2">
-				<span class="app-text">{{ 'desc.theCurrentParentObject' | translate }}: <strong [matTooltip]="data.parent?.label">{{ data.parent?.label }}</strong></span>
+				<span class="app-text">{{ 'desc.theCurrentParentObject' | translate }}: <strong [matTooltip]="data.parent.parent?.label">{{ data.parent?.label }}</strong></span>
 			</div>
     </div>
     <div class="app-oa-y">

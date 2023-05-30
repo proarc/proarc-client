@@ -127,9 +127,15 @@
                 </mat-select>
               </mat-form-field>
               <div *ngFor="let column of properties.colsEditingRepo[modelForColumns]">
-                <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
+                <mat-checkbox [name]="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
               </div>
+              
             </fieldset>
+
+              <div>
+                <mat-checkbox name="colsEditModeParent" [(ngModel)]="colsEditModeParent">{{ 'pages.settings.colsEditModeParent' | translate }}</mat-checkbox>
+              </div>
+
             <button mat-flat-button color="primary" (click)="setSelectedColumnsEditingRepo()">{{ 'button.save' | translate }}</button>
           </mat-card-content>
         </mat-card>

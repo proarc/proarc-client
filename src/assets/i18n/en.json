@@ -2506,7 +2506,8 @@
       "editingImport": {
         "legend": "Editing in import",
         "label": "Displayed fields in the import edit"
-      }
+      },
+      "colsEditModeParent": "By parent"
     }
   }
 }

@@ -80,6 +80,7 @@
       <mat-menu #menuMore="matMenu">
         <button mat-menu-item (click)="onMove()"><!-- <mat-icon>reply</mat-icon> -->{{ 'editor.children.move' | translate }}</button>
         <button mat-menu-item (click)="selectAll()" *ngIf="isRepo">{{ 'editor.children.select_all' | translate }}</button>
+        <button mat-menu-item (click)="selectColumns()" >{{'editor.children.select_columns' | translate}}</button>
       </mat-menu>
     </div>
   </div>

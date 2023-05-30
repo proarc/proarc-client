@@ -72,6 +72,7 @@ export class ParentDialogComponent implements OnInit {
   lastClickIdx: { [key: string]: number } = { orig: -1, dest: -1 };
   lastClickIdxDest: number = -1;
   lastSelectedItemPid: string;
+  lastSelectedItem: DocumentItem;
   orig: any[] = [];
   origTable: any;
 
@@ -282,18 +283,15 @@ export class ParentDialogComponent implements OnInit {
     }
     this.properties.setStringProperty('parent.expandedPath', JSON.stringify(this.expandedPath));
     this.relocateOutside(this.orig.filter(i => i.selected), this.selectedItem.pid);
-
-    // this.dialogRef.close({ pid: this.selectedItem.pid, selectedItem: this.selectedItem, selectedTree: this.selectedTree, expandedPath: this.expandedPath });
   }
 
   onDeleteParent() {
-    this.deleteParent(this.data.parent.pid)
-    // this.dialogRef.close({ delete: true });
+    this.deleteParent()
   }
 
   
 
-  private deleteParent(parent: string) {
+  private deleteParent() {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('editor.children.delete_parent_dialog.title')),
       message: String(this.translator.instant('editor.children.delete_parent_dialog.message')),
@@ -314,7 +312,9 @@ export class ParentDialogComponent implements OnInit {
       if (result === 'yes') {
         if (parent) {
           this.state = 'saving';
-          this.api.deleteParent(this.lastSelectedItemPid, parent).subscribe((response: any) => {
+          const pid = this.getNumOfSelected() > 0 ? this.lastSelectedItemPid: this.data.parent.pid;
+          const parent = this.getNumOfSelected() > 0 ? this.lastSelectedItem.parent : this.data.parent.parent;
+          this.api.deleteParent(pid, parent).subscribe((response: any) => {
             if (response['response'].errors) {
               this.ui.showErrorDialogFromObject(response['response'].errors);
               this.state = 'error';
@@ -357,7 +357,7 @@ export class ParentDialogComponent implements OnInit {
       if (result === 'yes') {
         if (!this.data.isRepo) {
           this.ingestBatch(destinationPid);
-        } else if (this.data.isRepo && (this.getNumOfSelected() > 0 || this.data.parent)) {
+        } else if (this.getNumOfSelected() > 0) {
           this.relocateObjects(items[0].parent, destinationPid);
         } else {
           this.setParent(destinationPid);
@@ -418,14 +418,16 @@ export class ParentDialogComponent implements OnInit {
 
   setParent(destinationPid: string) {
     this.state = 'saving';
-    let pids: string[] = this.orig.filter(c => c.selected).map(c => c.pid);
-    this.api.setParent(this.lastSelectedItemPid, destinationPid).subscribe((response: any) => {
+    // let pids: string[] = this.orig.filter(c => c.selected).map(c => c.pid);
+    this.api.setParent(this.data.parent.pid, destinationPid).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
         return;
       } else {
         this.state = 'success';
+        this.ui.showInfoSnackBar('Objekt presunut');
+        this.hasChanges = true;
       }
     });
   }
@@ -511,6 +513,7 @@ export class ParentDialogComponent implements OnInit {
     }
     this.lastClickIdx[col] = idx;
     this.lastSelectedItemPid = item.pid;
+    this.lastSelectedItem = item;
   }
 
   public getNumOfSelected() {

@@ -71,6 +71,7 @@ export class SettingsComponent implements OnInit {
   ];
 
   modelForColumns: string;
+  colsEditModeParent: boolean
 
   constructor(
     private api: ApiService,
@@ -108,7 +109,7 @@ export class SettingsComponent implements OnInit {
 
     this.models = this.config.allModels;
     this.modelForColumns = this.models[0];
-    this.properties.getColsEditingRepo();
+    this.colsEditModeParent = this.properties.getColsEditingRepo();
   }
 
   getColumnsForModel() {
@@ -171,7 +172,8 @@ export class SettingsComponent implements OnInit {
   }
 
   setSelectedColumnsEditingRepo() {
-    this.properties.setColumnsEditingRepo();
+    this.properties.setColumnsEditingRepo(this.colsEditModeParent);
+    
     this.ui.showInfo('snackbar.settings.searchColumns.updated');
 
   }
@@ -208,7 +210,7 @@ export class SettingsComponent implements OnInit {
         localStorage.clear();
         this.initSelectedColumnsEditingImport();
         this.properties.getSearchColumns();
-        this.properties.getColsEditingRepo();
+        this.colsEditModeParent =  this.properties.getColsEditingRepo();
         this.ui.showInfoSnackBar(this.translator.instant('snackbar.settings.resetLocalSettings.success'));
       }
     });

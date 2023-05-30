@@ -72,6 +72,7 @@ export class LocalStorageService {
             this.searchColumns = [];
             Object.assign(this.searchColumns, this.selectedColumnsSearchDefault);
         }
+        
     }
 
     getSearchColumnsTree() {
@@ -114,7 +115,7 @@ export class LocalStorageService {
         this.setStringProperty(property, value ? '1' : '0');
     }
 
-    getColsEditingRepo() {
+    getColsEditingRepo(): boolean {
         const prop = this.getStringProperty('colsRepo');
         if (prop) {
             this.colsEditingRepo = {};
@@ -131,7 +132,7 @@ export class LocalStorageService {
                 });
             })
         }
-        return this.colsEditingRepo;
+        return this.getBoolProperty('colsEditModeParent');
     }
 
     getSelectedColumnsEditingImport() {
@@ -155,8 +156,9 @@ export class LocalStorageService {
         return ret;
     }
 
-    setColumnsEditingRepo() {
+    setColumnsEditingRepo(colsEditModeParent: boolean) {
         this.setStringProperty('colsRepo', JSON.stringify(this.colsEditingRepo));
+        this.setBoolProperty('colsEditModeParent', colsEditModeParent);
     }
 
 }
