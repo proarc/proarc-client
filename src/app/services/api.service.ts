@@ -60,7 +60,7 @@ export class ApiService {
     })
     return this.http.get(encodeURI(`${this.getApiUrl()}${path}`), { params: params, headers })
     .pipe(map((r: any) => {
-      if (r.response.status === -1) {
+      if (r.response?.status === -1) {
         r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
       }
       return r;
@@ -87,7 +87,7 @@ export class ApiService {
     }
     return this.http.put(encodeURI(`${this.getApiUrl()}${path}`), body, options)
     .pipe(map((r: any) => {
-      if (r.response.status === -1) {
+      if (r.response?.status === -1) {
         r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
       }
       return r;
@@ -109,7 +109,7 @@ export class ApiService {
     }
     return this.http.post(encodeURI(`${this.getApiUrl()}${path}`), body, options)
     .pipe(map((r: any) => {
-      if (r.response.status === -1) {
+      if (r.response?.status === -1) {
         r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
       }
       return r;
@@ -122,7 +122,7 @@ export class ApiService {
   private delete(path: string, params = {}): Observable<Object> {
     return this.http.delete(encodeURI(`${this.getApiUrl()}${path}`), { params: params })
     .pipe(map((r: any) => {
-      if (r.response.status === -1) {
+      if (r.response?.status === -1) {
         r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
       }
       return r;
@@ -136,7 +136,7 @@ export class ApiService {
   private request(method: string, path: string, params = {}, body: any): Observable<Object> {
     return this.http.request(method, encodeURI(`${this.getApiUrl()}${path}`), { params, body })
     .pipe(map((r: any) => {
-      if (r.response.status === -1) {
+      if (r.response?.status === -1) {
         r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
       }
       return r;
