@@ -61,7 +61,7 @@ export class Metadata {
 
   // public volume: ModsVolume;
 
-  private fieldsIds: string[];
+  private fieldsIds: string[] = [];
 
   private fields: Map<String, ElementField>;
 
@@ -366,6 +366,7 @@ export class Metadata {
 
   hasChanges(): boolean {
     for (const id of this.fieldsIds) {
+      
       const f = this.fields.get(id);
       for (const item of f.getItems()) {
 
@@ -373,8 +374,8 @@ export class Metadata {
           return true;
         }
         for (const subfield of item.getSubfields()) {
+          
           for (const item2 of subfield.getItems()) {
-
             if (item2.hasChanges()) {
               return true;
             }

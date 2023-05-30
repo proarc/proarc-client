@@ -125,7 +125,7 @@ export class LocalStorageService {
                 this.colsEditingRepo[model] = this.availableColumnsEditingRepo.map((c: string) => {
                     return {
                         field: c,
-                        selected: true,
+                        selected: (model.indexOf('page') < 0 && c.indexOf('page') < 0) || (model.indexOf('page') > -1 && c.indexOf('page') > -1),
                         width: 100
                     }
                 });
