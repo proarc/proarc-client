@@ -381,23 +381,24 @@ export class SearchComponent implements OnInit {
 
   onLock(item: DocumentItem, lock: boolean) {
     const data: SimpleDialogData = {
-      title: lock ? 
-            String(this.translator.instant('Uzamknout objekt')) :
-            String(this.translator.instant('Odemknout objekt')),
-      message: lock ? String(this.translator.instant('Opravdu chcete vybrané objekty uzamknout?')) : String(this.translator.instant('Opravdu chcete vybrané objekty odemknout?')),
-      alertClass: 'app-message',
+      title: lock ? String(this.translator.instant('dialog.lockObject.title')) : String(this.translator.instant('dialog.unlockObject.title')),
+      message: lock ? String(this.translator.instant('dialog.lockObject.message')) : String(this.translator.instant('dialog.unlockObject.message')),
+      alertClass: 'app-warn',
       btn1: {
-        label: 'Ano',
+        label: String(this.translator.instant('button.yes')),
         value: 'yes',
         color: 'warn'
       },
       btn2: {
-        label: 'Ne',
+        label: String(this.translator.instant('button.no')),
         value: 'no',
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      width: '600px'
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         if (lock) {
@@ -428,7 +429,7 @@ export class SearchComponent implements OnInit {
         this.state = 'error';
         return;
       } else {
-        this.ui.showInfoSnackBar('Objekt byl úspěšně uzamčen');
+        this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.search.lockObject')));
         item.isLocked = true;
         this.changeLockInTree(this.search.selectedTree, true);
         // this.search.selectedTree.children.map(ch => ch.item.isLocked = true);
@@ -446,7 +447,7 @@ export class SearchComponent implements OnInit {
         this.state = 'error';
         return;
       } else {
-        this.ui.showInfoSnackBar('Objekt byl úspěšně odemčen');
+        this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.search.unlockObject')));
         item.isLocked = false;
         this.changeLockInTree(this.search.selectedTree, false);
         //this.search.selectedTree.children.map(ch => ch.item.isLocked = false);
@@ -505,12 +506,12 @@ export class SearchComponent implements OnInit {
       message: String(this.translator.instant('editor.children.delete_dialog.message')),
       alertClass: 'app-warn',
       btn1: {
-        label: 'Ano',
+        label: String(this.translator.instant('button.yes')),
         value: 'yes',
         color: 'warn'
       },
       btn2: {
-        label: 'Ne',
+        label: String(this.translator.instant('button.no')),
         value: 'no',
         color: 'default'
       },

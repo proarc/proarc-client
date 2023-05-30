@@ -2359,6 +2359,14 @@
     "resetLocalSettings": {
       "title": "Reset lokálního nastavení",
       "message": "Opravdu chcete resetovat všechna lokální nastavení?"
+    },
+    "lockObject": {
+      "title": "Uzamknout objekt",
+      "message": "Opravdu chcete vybrané objekty uzamknout?"
+    },
+    "unlockObject": {
+      "title": "Odemknout objekt",
+      "message": "Opravdu chcete vybrané objekty odemknout?"
     }
   },
   "formField": {
@@ -2431,6 +2439,10 @@
         "success": "Reset lokálního nastavení byl proveden",
         "error": "Chyba při resetu lokálního nastavení"
       }
+    },
+    "search": {
+      "lockObject": "Objekt byl úspěšně uzamčen",
+      "unlockObject": "Objekt byl úspěšně odemčen"
     },
     "addNewUser": {
       "success": "Uživatel byl přidan"
