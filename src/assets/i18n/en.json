@@ -2282,6 +2282,10 @@
         "error": "There was an error registering URN:NBN"
       }
     },
+    "expandAll": {
+      "title": "Expand the tree",
+      "message": "Are you sure you want to expand the selected object? Unpacking may cause excessive system load."
+    },
     "childrenValidation": {
       "title": "Validation",
       "alert": {

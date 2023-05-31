@@ -271,16 +271,16 @@ export class SearchComponent implements OnInit {
 
   onExpandAll() {
     const data: SimpleDialogData = {
-      title: "Rozbalit strom",
-      message: "Opravdu chcete rozbalit zvolený objekt? Rozbalení může způsobit nadměrnou zátěž systému.",
-      alertClass: 'app-message',
+      title: String(this.translator.instant('dialog.expandAll.title')),
+      message: String(this.translator.instant('dialog.expandAll.message')),
+      alertClass: 'app-info',
       btn1: {
-        label: 'Ano',
+        label: String(this.translator.instant('button.yes')),
         value: 'yes',
         color: 'primary'
       },
       btn2: {
-        label: 'Ne',
+        label: String(this.translator.instant('button.no')),
         value: 'no',
         color: 'default'
       }

@@ -2282,6 +2282,10 @@
         "error": "Při registraci URN:NBN se vyskytla chyba"
       }
     },
+    "expandAll": {
+      "title": "Rozbalit strom",
+      "message": "Opravdu chcete rozbalit zvolený objekt? Rozbalení může způsobit nadměrnou zátěž systému."
+    },
     "childrenValidation": {
       "title": "Validace",
       "alert": {
