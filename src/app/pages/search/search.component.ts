@@ -383,11 +383,11 @@ export class SearchComponent implements OnInit {
     const data: SimpleDialogData = {
       title: lock ? String(this.translator.instant('dialog.lockObject.title')) : String(this.translator.instant('dialog.unlockObject.title')),
       message: lock ? String(this.translator.instant('dialog.lockObject.message')) : String(this.translator.instant('dialog.unlockObject.message')),
-      alertClass: 'app-warn',
+      alertClass: 'app-info',
       btn1: {
         label: String(this.translator.instant('button.yes')),
         value: 'yes',
-        color: 'warn'
+        color: 'primary'
       },
       btn2: {
         label: String(this.translator.instant('button.no')),

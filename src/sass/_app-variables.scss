@@ -29,7 +29,7 @@ $app-gray-8: mat-color($mat-gray, 800) !default;
 $app-gray-9: mat-color($mat-gray, 900) !default;
 
 // custom colors
-$app-color-info: darken(mat-color($mat-yellow, 800), 5) !default;
+$app-color-info: mat-color($mat-cyan, 800) !default;
 $app-color-success: mat-color($mat-green, 800) !default;
 $app-color-disabled: $app-gray-4;
 $app-color-item-bg: $app-gray-1;
