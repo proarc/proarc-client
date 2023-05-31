@@ -295,12 +295,6 @@
         "messageImport": "Opravdu chcete uložit dávku do vybraného objektu?",
         "go": "Přejít na nově zvolený objekt"
       },
-      "delete_dialog": {
-        "title": "Smazání objektů",
-        "message": "Opravdu chcete vybrané objekty smazat?",
-        "permanently": "Smazat trvale z úložiště",
-        "success": "Objekty byly smazány"
-      },
       "delete_parent_dialog": {
         "button": "Zrušit vazbu",
         "button_tooltip": "Zrušit vazbu na aktualní nadřazený objekt",
@@ -2375,6 +2369,11 @@
     "unlockObject": {
       "title": "Odemknout objekt",
       "message": "Opravdu chcete vybrané objekty odemknout?"
+    },
+    "removeObject": {
+      "title": "Smazání objektů",
+      "message": "Opravdu chcete vybrané objekty smazat?",
+      "checkbox": "Smazat trvale z úložiště"
     }
   },
   "formField": {
@@ -2458,7 +2457,10 @@
     "editUser": {
       "success": "Uživatel byl upraven"
     },
-    "changeSaved": "Změna byla uložena"
+    "changeSaved": "Změna byla uložena",
+    "removeObject": {
+      "success": "Objekty byly úspěšně smazány"
+    }
   },
   "device": {
     "devices": "Zařízení",

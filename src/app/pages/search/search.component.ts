@@ -498,12 +498,12 @@ export class SearchComponent implements OnInit {
 
   private onDelete(item: DocumentItem, refresh: boolean, callback: (pids: string[]) => any = null) {
     const checkbox = {
-      label: String(this.translator.instant('editor.children.delete_dialog.permanently')),
+      label: String(this.translator.instant('dialog.removeObject.checkbox')),
       checked: false
     };
     const data: SimpleDialogData = {
-      title: String(this.translator.instant('editor.children.delete_dialog.title')),
-      message: String(this.translator.instant('editor.children.delete_dialog.message')),
+      title: String(this.translator.instant('dialog.removeObject.title')),
+      message: String(this.translator.instant('dialog.removeObject.message')),
       alertClass: 'app-warn',
       btn1: {
         label: String(this.translator.instant('button.yes')),
@@ -544,7 +544,7 @@ export class SearchComponent implements OnInit {
           callback(removedPid);
         }
         this.state = 'success';
-        this.ui.showInfoSnackBar('Objekt byl úspěšně smazan');
+        this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.removeObject.success')));
         if (refresh) {
           this.reload();
         }

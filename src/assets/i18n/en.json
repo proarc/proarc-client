@@ -276,12 +276,6 @@
         "messageImport": "Are you sure you want to save batch to the chosen object?",
         "go": "Go to the selected object"
       },
-      "delete_dialog": {
-        "title": "Remove objects",
-        "message": "Are you sure you want to remove selected objects",
-        "permanently": "Remove permanently",
-        "success": "Objects have been removed"
-      },
       "delete_parent_dialog": {
         "button": "Remove relation",
         "button_tooltip": "Remove relation to current parent",
@@ -2375,6 +2369,11 @@
     "unlockObject": {
       "title": "Unlock the object",
       "message": "Are you sure you want to unlock the selected objects?"
+    },
+    "removeObject": {
+      "title": "Remove objects",
+      "message": "Are you sure you want to remove selected objects?",
+      "checkbox": "Remove permanently"
     }
   },
   "formField": {
@@ -2458,7 +2457,10 @@
     "editUser": {
       "success": "User has been modified"
     },
-    "changeSaved": "The change has been saved"
+    "changeSaved": "The change has been saved",
+    "removeObject": {
+      "success": "The objects were successfully deleted"
+    }
   },
   "device": {
     "devices": "Devices",
