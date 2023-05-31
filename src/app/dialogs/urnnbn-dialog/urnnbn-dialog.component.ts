@@ -5,6 +5,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { LogDialogComponent } from '../log-dialog/log-dialog.component';
 import { Registrar } from 'src/app/model/registrar.model';
 import { UIService } from 'src/app/services/ui.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-urnnbn-dialog',
@@ -29,7 +30,8 @@ export class UrnnbnDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<UrnnbnDialogComponent>,
     private api: ApiService,
     private ui: UIService,
-    private dialog: MatDialog, 
+    private dialog: MatDialog,
+    private translator: TranslateService,
     @Inject(MAT_DIALOG_DATA) public data: string) { }
 
   ngOnInit() {
@@ -40,7 +42,7 @@ export class UrnnbnDialogComponent implements OnInit {
         console.log('onRegister error', response['response'].errors);
         this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
-        this.message = 'Při registraci URN:NBN se vyskytla chyba';
+        this.message = String(this.translator.instant('dialog.urnnbn.alert.error'));
         return;
       }
       const registrars: Registrar[] = Registrar.fromJsonArray(response['response']['data']);
@@ -62,41 +64,18 @@ export class UrnnbnDialogComponent implements OnInit {
         console.log('onRegister error', response['response'].errors);
         this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
-        this.message = 'Při registraci URN:NBN se vyskytla chyba';
+        this.message = String(this.translator.instant('dialog.urnnbn.alert.error'));
         return;
       }
       if (response.response.data.length === 0) {
-        this.message = `Žádné položky k zobrazení`;
+        this.message = String(this.translator.instant('dialog.urnnbn.alert.success'));
         this.state = 'success';
         return;
       }
 
       this.responseData = response.response.data;
       this.state = 'success';
-      // const data = response['response']['data'][0];
-      // if (data['statusType'] == "URNNBN_EXISTS") {
-      //   this.state = 'error';
-      //   this.message = `Dokument má již přiděleno URN:NBN ${data['urnnbn']}`;
-      // } else if (data['statusType'] == "NO_PAGE_FOUND") {
-      //   this.state = 'error';
-      //   this.message = 'Dokument neobsahuje žádné strany';
-      // } else if (!data['statusType'] && data['urnnbn']) {
-      //   this.state = 'success';
-      //   this.message = `Dokumentu bylo úspěšně přiděleno URN:NBN ${data['urnnbn']}`;
-      // } else {
-      //   this.state = 'error';
-      //   this.message = 'Při registraci URN:NBN se vyskytla chyba';
-      //   if (data['message']) {
-      //     this.log = data['message'];
-      //   }
-      // }
-      // console.log('data', data);
       this.dialogRef.updateSize('1200px');
-    },
-    (error) => {
-      console.log('onRegister error', error);
-      this.state = 'error';
-      this.message = 'Při registraci URN:NBN se vyskytla chyba';
     });
   }
 

@@ -2276,7 +2276,11 @@
       "message": "<p>Produkční a archivační systém je nástroj pro výrobu a úpravu popisných, administrativních a technických metadat. Vývoj probíhá pod licencí <a href=\"http://www.gnu.org/licenses/gpl.html\" target=\"_blank\">GNU GPL v3.</a></p>"
     },
     "urnnbn": {
-      "title": "Registrace URN:NBN"
+      "title": "Registrace URN:NBN",
+      "alert": {
+        "success": "Žádné položky k zobrazení",
+        "error": "Při registraci URN:NBN se vyskytla chyba"
+      }
     },
     "childrenValidation": {
       "title": "Validace",

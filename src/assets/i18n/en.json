@@ -2276,7 +2276,11 @@
       "message": "<p>The production and archiving system is a tool for the production and editing of descriptive, administrative and technical metadata. Development is under the license <a href=\"http://www.gnu.org/licenses/gpl.html\" target=\"_blank\">GNU GPL v3.</a></p>"
     },
     "urnnbn": {
-      "title": "Registration URN:NBN"
+      "title": "Registration URN:NBN",
+      "alert": {
+        "success": "No items to display",
+        "error": "There was an error registering URN:NBN"
+      }
     },
     "childrenValidation": {
       "title": "Validation",

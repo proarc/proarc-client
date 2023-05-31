@@ -104,7 +104,7 @@ export class UIService {
 
     const data = {
       type: 'error',
-      title: 'Chyba',
+      title: String(this.translator.instant('desc.error')),
       message
     };
     this.showErrorDialog(data);
