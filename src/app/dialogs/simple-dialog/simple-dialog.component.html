@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>{{ data.title }}</h1>
 <div mat-dialog-content class="app-scrollbar-fix">
   <mat-card class="app-alert" [ngClass]="data.alertClass ? data.alertClass : null">
-    {{ data.message }}
+    <mat-icon *ngIf="data.alertClass === 'app-warn'">warning</mat-icon>{{ data.message }}
   </mat-card>
   <mat-checkbox *ngIf="data.checkbox" color="primary" [(ngModel)]="data.checkbox.checked" class="app-mt-4">{{ data.checkbox.label }}</mat-checkbox>
   <mat-form-field *ngIf="data.numberInput">
