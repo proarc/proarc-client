@@ -640,7 +640,7 @@ export class SearchComponent implements OnInit {
         this.ui.showErrorDialogFromObject(response.response.errors);
       } else {
         this.state = 'success';
-        this.ui.showInfoSnackBar(this.translator.instant('Update hotový'))
+        this.ui.showInfoSnackBar(this.translator.instant('snackbar.updateObjects.success'))
       }
     });
   }
@@ -669,11 +669,11 @@ export class SearchComponent implements OnInit {
       if (result) {
         if (result.status == 'ok') {
           this.layout.setShouldRefresh(false);
-          this.ui.showInfoSnackBar("Strany byly převedeny");
+          this.ui.showInfoSnackBar(this.translator.instant('snackbar.convertPages.success'));
 
         } else if (result.status == 'failure') {
           this.layout.setShouldRefresh(false);
-          this.ui.showInfoSnackBar("Strany byly převedeny s chybou");
+          this.ui.showInfoSnackBar(this.translator.instant('snackbar.convertPages.failure'));
         }
       }
     });

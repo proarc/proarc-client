@@ -2467,6 +2467,13 @@
     },
     "changeModel": {
       "success": "Model byl převeden na {{value}}"
+    },
+    "updateObjects": {
+      "success": "Update objektů byl úspěšně proveden"
+    },
+    "convertPages": {
+      "success": "Strany byly úspěšně převedeny",
+      "failure": "Strany byly převedeny s chybou"
     }
   },
   "device": {

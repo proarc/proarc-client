@@ -2467,6 +2467,13 @@
     },
     "changeModel": {
       "success": "The model has been converted to {{value}}"
+    },
+    "updateObjects": {
+      "success": "The update of the objects was successfully performed"
+    },
+    "convertPages": {
+      "success": "The pages were successfully converted",
+      "failure": "Pages were converted with an error"
     }
   },
   "device": {
