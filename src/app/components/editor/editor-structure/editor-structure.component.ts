@@ -24,6 +24,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UIService } from 'src/app/services/ui.service';
 
 import { CdkDragDrop, CdkDragStart, moveItemInArray, transferArrayItem, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { ColumnsSettingsDialogComponent } from 'src/app/dialogs/columns-settings-dialog/columns-settings-dialog.component';
 
 
 @Component({
@@ -312,7 +313,20 @@ export class EditorStructureComponent implements OnInit {
   }
 
   selectColumns() {
-    
+    const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
+      data: {
+        itemModel: this.layout.item.model,
+        selectedModel: this.layout.lastSelectedItem.model
+      },
+      width: '50%',
+      maxWidth: '100vw',
+      height: '90%',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.layout.setShouldRefresh(false);
+      }
+    });
   }
 
   rowClick(row: DocumentItem, idx: number, event: MouseEvent) {
