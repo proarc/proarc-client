@@ -622,7 +622,8 @@ export class SearchComponent implements OnInit {
       data: { 
         pid: item.pid, 
         model: item.model, 
-        dest: this.config.modelChanges.find(m => ('model:' + m.origin).toLocaleLowerCase() === item.model.toLocaleLowerCase()).dest } 
+        dest: this.config.modelChanges.find(m => ('model:' + m.origin).toLocaleLowerCase() === item.model.toLocaleLowerCase()).dest
+      }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

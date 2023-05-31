@@ -2374,6 +2374,10 @@
       "title": "Remove objects",
       "message": "Are you sure you want to remove selected objects?",
       "checkbox": "Remove permanently"
+    },
+    "changeModel": {
+      "title": "Model conversion",
+      "action": "Convert {{value1}} to {{value2}}"
     }
   },
   "formField": {
@@ -2460,6 +2464,9 @@
     "changeSaved": "The change has been saved",
     "removeObject": {
       "success": "The objects were successfully deleted"
+    },
+    "changeModel": {
+      "success": "The model has been converted to {{value}}"
     }
   },
   "device": {

@@ -31,6 +31,13 @@ fieldset {
   }
 }
 
+ul {
+  &.app-list {
+    @extend .app-p-0, .app-m-0;
+    list-style-position: inside;
+  }
+}
+
 // theme colors
 .app-color-primary {
   color: $app-color-primary;

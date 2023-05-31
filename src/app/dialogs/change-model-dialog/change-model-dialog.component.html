@@ -1,15 +1,13 @@
+<h1 mat-dialog-title>{{ 'dialog.changeModel.title' | translate }}</h1>
 <div mat-dialog-content>
-
-  <button mat-raised-button color="primary" *ngFor="let dest of data.dest" (click)="change(dest)">Převést {{ 'model.model:' +  dest.originmodel | translate}} na {{ 'model.model:' +  dest.model | translate}}</button>
-
-  <button mat-raised-button color="default" class="app-close" mat-dialog-close="close" >{{ 'common.close' | translate }}</button>
-
-
-  <div *ngIf="inProgress" class="app-progress">
-    <mat-spinner
-      [strokeWidth]="5" 
-      [diameter]="60">
-    </mat-spinner>
-  </div>
-
+  <ul class="app-list">
+    <li *ngFor="let dest of data.dest" class="app-mb-1">
+      <a (click)="change(dest)">
+        <strong>{{ 'dialog.changeModel.action' | translate: {value1: 'model.model:' +  dest.originmodel | translate, value2: 'model.model:' +  dest.model | translate} }}</strong>
+      </a>
+    </li>
+  </ul>
+</div>
+<div mat-dialog-actions cdk-focus-start>
+  <button mat-flat-button mat-dialog-close="close">{{ 'button.close' | translate }}</button>
 </div>

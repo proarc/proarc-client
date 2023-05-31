@@ -2374,6 +2374,10 @@
       "title": "Smazání objektů",
       "message": "Opravdu chcete vybrané objekty smazat?",
       "checkbox": "Smazat trvale z úložiště"
+    },
+    "changeModel": {
+      "title": "Převod modelu",
+      "action": "Převést {{value1}} na {{value2}}"
     }
   },
   "formField": {
@@ -2460,6 +2464,9 @@
     "changeSaved": "Změna byla uložena",
     "removeObject": {
       "success": "Objekty byly úspěšně smazány"
+    },
+    "changeModel": {
+      "success": "Model byl převeden na {{value}}"
     }
   },
   "device": {
