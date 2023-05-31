@@ -24,10 +24,9 @@
       {{ 'button.viewErrorDetail' | translate }}
     </button>
   </mat-card>
-  <mat-card class="app-alert app-success app-mt-4" *ngIf="state=='done'">
-    <span>
-      {{ 'dialog.export.alert.done' | translate }}<br />
-    </span>
+  <mat-card class="app-alert app-success" *ngIf="state=='done'" [class.app-mt-4]="selectedType=='kramerius' || selectedType=='kwis'">
+      <mat-icon>check_circle</mat-icon>
+      {{ 'dialog.export.alert.done' | translate }}
   </mat-card>
 </div>
 

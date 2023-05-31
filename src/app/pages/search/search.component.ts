@@ -271,16 +271,16 @@ export class SearchComponent implements OnInit {
 
   onExpandAll() {
     const data: SimpleDialogData = {
-      title: "Rozbalit strom",
-      message: "Opravdu chcete rozbalit zvolený objekt? Rozbalení může způsobit nadměrnou zátěž systému.",
-      alertClass: 'app-message',
+      title: String(this.translator.instant('dialog.expandAll.title')),
+      message: String(this.translator.instant('dialog.expandAll.message')),
+      alertClass: 'app-info',
       btn1: {
-        label: 'Ano',
+        label: String(this.translator.instant('button.yes')),
         value: 'yes',
         color: 'primary'
       },
       btn2: {
-        label: 'Ne',
+        label: String(this.translator.instant('button.no')),
         value: 'no',
         color: 'default'
       }
@@ -383,11 +383,11 @@ export class SearchComponent implements OnInit {
     const data: SimpleDialogData = {
       title: lock ? String(this.translator.instant('dialog.lockObject.title')) : String(this.translator.instant('dialog.unlockObject.title')),
       message: lock ? String(this.translator.instant('dialog.lockObject.message')) : String(this.translator.instant('dialog.unlockObject.message')),
-      alertClass: 'app-warn',
+      alertClass: 'app-info',
       btn1: {
         label: String(this.translator.instant('button.yes')),
         value: 'yes',
-        color: 'warn'
+        color: 'primary'
       },
       btn2: {
         label: String(this.translator.instant('button.no')),
@@ -498,12 +498,12 @@ export class SearchComponent implements OnInit {
 
   private onDelete(item: DocumentItem, refresh: boolean, callback: (pids: string[]) => any = null) {
     const checkbox = {
-      label: String(this.translator.instant('editor.children.delete_dialog.permanently')),
+      label: String(this.translator.instant('dialog.removeObject.checkbox')),
       checked: false
     };
     const data: SimpleDialogData = {
-      title: String(this.translator.instant('editor.children.delete_dialog.title')),
-      message: String(this.translator.instant('editor.children.delete_dialog.message')),
+      title: String(this.translator.instant('dialog.removeObject.title')),
+      message: String(this.translator.instant('dialog.removeObject.message')),
       alertClass: 'app-warn',
       btn1: {
         label: String(this.translator.instant('button.yes')),
@@ -544,7 +544,7 @@ export class SearchComponent implements OnInit {
           callback(removedPid);
         }
         this.state = 'success';
-        this.ui.showInfoSnackBar('Objekt byl úspěšně smazan');
+        this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.removeObject.success')));
         if (refresh) {
           this.reload();
         }
