@@ -36,7 +36,7 @@ export class ParentDialogComponent implements OnInit {
 
   state = 'none';
   items: DocumentItem[];
-  selectedItem: DocumentItem;
+  selectedDestItem: DocumentItem;
   selectedInSearch: DocumentItem;
   selectedTree: Tree;
   models: string[];
@@ -151,14 +151,16 @@ export class ParentDialogComponent implements OnInit {
   }
 
   isAllowed() {
-    if (!this.selectedItem) {
+    if (!this.selectedDestItem) {
       return false;
     }
     if (this.data.isRepo) {
-      return (this.getNumOfSelected() > 0 && ModelTemplate.allowedChildrenForModel(this.selectedItem.model).includes(this.getSelected()[0].model))
-             || (this.getNumOfSelected() === 0 && this.data.parent && ModelTemplate.allowedChildrenForModel(this.selectedItem.model).includes(this.data.parent.model));
+      // No selected. Should take data.item element as origin. 
+      // Selected. Check allowed in selection
+      return (this.getNumOfSelected() > 0 && ModelTemplate.allowedChildrenForModel(this.selectedDestItem.model).includes(this.getSelected()[0].model))
+             || (this.getNumOfSelected() === 0 && ModelTemplate.allowedChildrenForModel(this.selectedDestItem.model).includes(this.data.item.model));
     } else {
-      return this.selectedItem && ModelTemplate.allowedChildrenForModel(this.selectedItem.model).includes(this.orig[0].model);
+      return this.selectedDestItem && ModelTemplate.allowedChildrenForModel(this.selectedDestItem.model).includes(this.orig[0].model);
     }
     
   }
@@ -207,7 +209,7 @@ export class ParentDialogComponent implements OnInit {
 
 
     this.hierarchy = [];
-    this.selectedItem = null;
+    this.selectedDestItem = null;
     this.pageIndex = page;
     this.state = 'loading';
     const options = {
@@ -272,17 +274,17 @@ export class ParentDialogComponent implements OnInit {
   }
 
   onSave() {
-    if (!this.selectedItem) {
+    if (!this.selectedDestItem) {
       return;
     }
     if (this.selectedTree) {
       this.expandedPath = [];
       this.setExpandedPath(this.selectedTree);
     } else {
-      this.expandedPath = [this.selectedItem.pid]
+      this.expandedPath = [this.selectedDestItem.pid]
     }
     this.properties.setStringProperty('parent.expandedPath', JSON.stringify(this.expandedPath));
-    this.relocateOutside(this.orig.filter(i => i.selected), this.selectedItem.pid);
+    this.relocateOutside(this.orig.filter(i => i.selected), this.selectedDestItem.pid);
   }
 
   onDeleteParent() {
@@ -310,10 +312,10 @@ export class ParentDialogComponent implements OnInit {
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        if (parent) {
+        
           this.state = 'saving';
-          const pid = this.getNumOfSelected() > 0 ? this.lastSelectedItemPid: this.data.parent.pid;
-          const parent = this.getNumOfSelected() > 0 ? this.lastSelectedItem.parent : this.data.parent.parent;
+          const pid = this.getNumOfSelected() > 0 ? this.lastSelectedItemPid: this.data.item.pid;
+          const parent = this.getNumOfSelected() > 0 ? this.lastSelectedItem.parent : this.data.parent;
           this.api.deleteParent(pid, parent).subscribe((response: any) => {
             if (response['response'].errors) {
               this.ui.showErrorDialogFromObject(response['response'].errors);
@@ -321,11 +323,11 @@ export class ParentDialogComponent implements OnInit {
               return;
             } else {
               this.state = 'success';
-
+              this.ui.showInfoSnackBar('Vazba zrusena');
               this.hasChanges = true;
             }
           });
-        }
+        
       }
     });
   }
@@ -358,9 +360,14 @@ export class ParentDialogComponent implements OnInit {
         if (!this.data.isRepo) {
           this.ingestBatch(destinationPid);
         } else if (this.getNumOfSelected() > 0) {
-          this.relocateObjects(items[0].parent, destinationPid);
+          // Mame vybrane objekty
+          this.relocateObjects(items[0].parent, destinationPid, this.orig.filter(c => c.selected).map(c => c.pid));
+        } else if (this.data.parent) {
+          // Nemame, presouvame data.item
+          this.relocateObjects(this.data.parent, destinationPid, this.data.item.pid);
         } else {
-          this.setParent(destinationPid);
+          // Nemame vybrane ani parent
+          this.setParent(this.data.item.pid, destinationPid);
         }
 
       }
@@ -382,11 +389,11 @@ export class ParentDialogComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
-  relocateObjects(parentPid: string, destinationPid: string) {
+  relocateObjects(parentPid: string, destinationPid: string, pids: string[]) {
     this.state = 'saving';
-    const pid = this.selectedItem.pid;
+    const pid = this.selectedDestItem.pid;
     this.clearSelected();
-    let pids: string[] = this.orig.filter(c => c.selected).map(c => c.pid);
+    
 
     this.api.relocateObjects(parentPid, destinationPid, pids).subscribe((response: any) => {
       if (response['response'].errors) {
@@ -395,6 +402,7 @@ export class ParentDialogComponent implements OnInit {
         return;
       }
 
+      this.ui.showInfoSnackBar('Objekt presunut');
       let nextSelection = 0;
       for (let i = this.orig.length - 1; i >= 0; i--) {
         if (pids.indexOf(this.orig[i].pid) > -1) {
@@ -416,10 +424,10 @@ export class ParentDialogComponent implements OnInit {
     });
   }
 
-  setParent(destinationPid: string) {
+  setParent(pid: string, destinationPid: string) {
     this.state = 'saving';
     // let pids: string[] = this.orig.filter(c => c.selected).map(c => c.pid);
-    this.api.setParent(this.data.parent.pid, destinationPid).subscribe((response: any) => {
+    this.api.setParent(pid, destinationPid).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';
@@ -433,7 +441,7 @@ export class ParentDialogComponent implements OnInit {
   }
 
   clearSelected() {
-    this.selectedItem = null;
+    this.selectedDestItem = null;
     this.selectedInSearch = null;
     this.search.selectedTreePid = null;
     this.tree = null;
@@ -443,7 +451,7 @@ export class ParentDialogComponent implements OnInit {
     //this.selectedItem = null;
     //setTimeout(() => {
 
-    this.selectedItem = item;
+    this.selectedDestItem = item;
     this.selectedInSearch = item;
     this.search.selectedTreePid = item.pid;
     this.tree = new Tree(item);
@@ -473,13 +481,13 @@ export class ParentDialogComponent implements OnInit {
   }
 
   openFromTree(item: DocumentItem) {
-    this.selectedItem = item;
+    this.selectedDestItem = item;
   }
 
   selectFromTree(tree: Tree) {
     this.search.selectedTreePid = tree.item.pid;
     this.selectedTree = tree;
-    this.selectedItem = tree.item;
+    this.selectedDestItem = tree.item;
   }
 
   dragEnd(e: any) {

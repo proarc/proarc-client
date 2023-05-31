@@ -751,12 +751,10 @@ export class EditorStructureComponent implements OnInit {
     const items = selected.length > 0 ? selected : [this.layout.item];
     const parent = selected.length > 0 ? this.layout.item : this.layout.parent;
 
-
-
     const dialogRef = this.dialog.open(ParentDialogComponent, {
       data: {
         btnLabel: 'editor.children.relocate_label',
-        parent: this.layout.selectedParentItem,
+        parent: this.layout.item.parent,
         item: this.layout.item,
         items: this.layout.items,
         // expandedPath: this.expandedPath,

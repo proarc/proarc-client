@@ -260,6 +260,7 @@ export class RepositoryComponent implements OnInit {
 
       if (parent) {
         this.layout.parent = parent;
+        this.layout.item.parent = parent.pid;
         if (!this.canHasChildren(item.model)){ 
           if(!keepSelection) {
             this.layout.selectedParentItem = parent;

@@ -312,8 +312,8 @@ export class ApiService {
       .pipe(map((response: any) => Profile.fromJsonArray(response['response']['data'])));
   }
 
-  setParent(srcParent: string, dstParent: string): Observable<any> {
-    const data = `pid=${srcParent}&parent=${dstParent}`;
+  setParent(pid: string, dstParent: string): Observable<any> {
+    const data = `pid=${pid}&parent=${dstParent}`;
     return this.post('object/member', data);
   }
 
