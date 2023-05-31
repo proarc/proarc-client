@@ -79,7 +79,7 @@ export class ModelTemplate {
       "model:ndkchapter": 'NdkChapter',
 
       "model:oldprintomnibusvolume": 'OldprintConvolutte',           // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
-      "model:oldprintmonographtitle": 'OldprintMonographtitle',
+      "model:oldprintmonographtitle": 'OldprintMonographTitle',
       "model:oldprintvolume": 'OldprintMonographVolume',
       "model:oldprintsupplement": 'OldprintMonographSupplement',
       "model:oldprintchapter": 'OldprintChapter',
