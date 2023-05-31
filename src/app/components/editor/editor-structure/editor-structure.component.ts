@@ -318,9 +318,7 @@ export class EditorStructureComponent implements OnInit {
         itemModel: this.layout.item.model,
         selectedModel: this.layout.lastSelectedItem.model
       },
-      width: '50%',
-      maxWidth: '100vw',
-      height: '90%',
+      width: '600px',
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
