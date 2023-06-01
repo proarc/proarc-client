@@ -663,8 +663,8 @@ export class SearchComponent implements OnInit {
     this.table.renderRows();
   }
 
-  showConvertDialog() {
-    const dialogRef = this.dialog.open(ConvertDialogComponent, { data: { pid: this.layout.item.pid, model: this.layout.item.model, children: this.layout.items } });
+  showConvertDialog(item: DocumentItem) {
+    const dialogRef = this.dialog.open(ConvertDialogComponent, { data: { pid: item.pid, model: item.model, children: this.layout.items } });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result.status == 'ok') {
