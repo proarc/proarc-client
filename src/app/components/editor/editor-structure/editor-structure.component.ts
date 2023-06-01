@@ -687,7 +687,7 @@ export class EditorStructureComponent implements OnInit {
   }
 
   showConvertDialog() {
-    const dialogRef = this.dialog.open(ConvertDialogComponent, { data: { pid: this.layout.item.pid, model: this.layout.item.model, children: this.layout.items } });
+    const dialogRef = this.dialog.open(ConvertDialogComponent, { data: { pid: this.layout.item.pid, model: this.layout.item.model } });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result.status == 'ok') {
