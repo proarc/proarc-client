@@ -2022,7 +2022,8 @@
     "theCurrentParentObject": "The current parent object",
     "userEditing": "User editing",
     "createUser": "Create a user",
-    "registrar": "Registrar"
+    "registrar": "Registrar",
+    "ltpToken": "Ltp Cesnet token"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2330,9 +2331,13 @@
         "archive": "Archiving",
         "archive_stt": "Archiving of old prints",
         "ndk_psp": "NDK PSP",
+        "ndk_psp_bagit": "NDK PSP with BAGIT",
+        "ndk_psp_upload_cesnet": "NDK PSP s nahráním na Ltp Cesnetu",
         "archive_bagit": "Archiving with BAGIT",
         "archive_stt_bagit": "Archiving of old prints with BAGIT",
-        "ndk_psp_bagit": "NDK PSP with BAGIT",
+        "ndk_oldprint": "NDK STT",
+        "ndk_oldprint_bagit": "NDK STT with BAGIT",
+        "ndk_oldprint_upload_cesnet": "NDK STT s nahráním na Ltp Cesnetu",
         "cejsh": "CEJSH",
         "crossref": "Crossref",
         "kwis": "KWIS"
