@@ -2022,7 +2022,8 @@
     "theCurrentParentObject": "Aktuální nadřazený objekt",
     "userEditing": "Editace uživatele",
     "createUser": "Vytvoření uživatele",
-    "registrar": "Registrátor"
+    "registrar": "Registrátor",
+    "ltpToken": "Ltp Cesnet token"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2330,9 +2331,13 @@
         "archive": "Archivace",
         "archive_stt": "Archivace starých tisků",
         "ndk_psp": "NDK PSP",
+        "ndk_psp_bagit": "NDK PSP s BAGIT balíčkem",
+        "ndk_psp_upload_cesnet": "NDK PSP s nahráním na Ltp Cesnetu",
         "archive_bagit": "Archivace s BAGIT balíčkem",
         "archive_stt_bagit": "Archivace starých tisků s BAGIT balíčkem",
-        "ndk_psp_bagit": "NDK PSP s BAGIT balíčkem",
+        "ndk_oldprint": "NDK STT",
+        "ndk_oldprint_bagit": "NDK STT s BAGIT balíčkem",
+        "ndk_oldprint_upload_cesnet": "NDK STT s nahráním na Ltp Cesnetu",
         "cejsh": "CEJSH",
         "crossref": "Crossref",
         "kwis": "KWIS"

@@ -12,7 +12,10 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-checkbox [disabled]="formDisabled()" *ngIf="selectedType=='kramerius' || selectedType=='kwis'" color="primary" [(ngModel)]="policyPublic">{{ 'desc.publiclyAvailable' | translate }}</mat-checkbox>
+  <mat-checkbox [disabled]="formDisabled()" *ngIf="selectedType=='kramerius_bagit' || selectedType=='kramerius' || selectedType=='kwis'" color="primary" [(ngModel)]="policyPublic">{{ 'desc.publiclyAvailable' | translate }}</mat-checkbox>
+  <mat-form-field *ngIf="selectedType=='ndk_psp_upload_cesnet' || selectedType=='ndk_oldprint_upload_cesnet'" class="app-w-100">
+    <input  type="text" autocomplete="off" matInput [placeholder]="'desc.ltpToken' | translate" [(ngModel)]="cesnetLtpToken">
+  </mat-form-field>
 
   <mat-card class="app-alert app-info app-mt-4" *ngIf="state=='saving'">
     <mat-icon>info</mat-icon>

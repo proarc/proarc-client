@@ -19,6 +19,7 @@ export class ExportDialogComponent implements OnInit {
 
   selectedType: string;
   policyPublic: boolean;
+  cesnetLtpToken: string;
   //isBagit: boolean = false;
   target: string;
   errors: any[];
@@ -32,7 +33,7 @@ export class ExportDialogComponent implements OnInit {
     private api: ApiService,
     private config: ConfigService,
     private ui: UIService,
-    private dialog: MatDialog, 
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: {pid: string, model: string}) { }
 
   ngOnInit() {
@@ -62,7 +63,7 @@ export class ExportDialogComponent implements OnInit {
     const policy = this.policyPublic ? 'public' : 'private';
     this.errors = [];
     this.target = null;
-    this.api.export(this.selectedType, pid, policy, ignoreMissingUrnNbn, this.importInstance).subscribe((response: any) => {
+    this.api.export(this.selectedType, pid, policy, ignoreMissingUrnNbn, this.importInstance, this.cesnetLtpToken).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
         this.ui.showErrorDialogFromObject(response['response'].errors);
@@ -81,7 +82,7 @@ export class ExportDialogComponent implements OnInit {
           }
         } else if (d.target) {
           this.target = d.target;
-        } 
+        }
       }
 
       if (this.errors.length === 0 && this.target) {
@@ -100,7 +101,7 @@ export class ExportDialogComponent implements OnInit {
   }
 
   formDisabled(): boolean {
-    return this.state === 'saving' || this.state === 'done'; 
+    return this.state === 'saving' || this.state === 'done';
   }
 
 

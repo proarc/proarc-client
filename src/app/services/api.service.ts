@@ -64,7 +64,7 @@ export class ApiService {
         r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
       }
       return r;
-      
+
     }))
       .pipe(finalize(() => this.stopLoading()))
       .pipe(catchError(err => this.handleError(err, this)));
@@ -91,7 +91,7 @@ export class ApiService {
         r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
       }
       return r;
-      
+
     }))
     .pipe(
       finalize(() => this.stopLoading())
@@ -113,7 +113,7 @@ export class ApiService {
         r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
       }
       return r;
-      
+
     }))
     .pipe(finalize(() => this.stopLoading()))
     .pipe(catchError(err => this.handleError(err, this)));
@@ -126,7 +126,7 @@ export class ApiService {
         r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
       }
       return r;
-      
+
     }))
     .pipe(
       finalize(() => this.stopLoading())
@@ -140,7 +140,7 @@ export class ApiService {
         r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
       }
       return r;
-      
+
     }))
     .pipe(
       finalize(() => this.stopLoading())
@@ -218,7 +218,7 @@ export class ApiService {
     return this.post('object/copyObject', data);
   }
 
-  export(type: string, pid: string, policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string): Observable<any> | undefined {
+  export(type: string, pid: string, policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string, cesnetLtpToken: string): Observable<any> | undefined {
     let data = `pid=${pid}`;
     if (ignoreMissingUrnNbn) {
       data = `${data}&ignoreMissingUrnNbn=true`;
@@ -242,7 +242,7 @@ export class ApiService {
       }
       case ProArc.EXPORT_KRAMERIUS_BAGIT: {
         path = 'export/kramerius4';
-        data = `${data}&krameriusInstance=local&isBagit=true`;
+        data = `${data}&policy=policy:${policy}&krameriusInstance=local&isBagit=true`;
         break;
       }
       case ProArc.EXPORT_ARCHIVE: {
@@ -265,14 +265,22 @@ export class ApiService {
         path = 'export/archive'
         break;
       }
-      case ProArc.EXPORT_NDK_PSP: {
+      case ProArc.EXPORT_NDK_PSP:
+      case ProArc.EXPORT_NDK_OLDPRINT: {
         path = 'export/ndk';
         data = `${data}&isBagit=false`;
         break;
       }
-      case ProArc.EXPORT_NDK_PSP_BAGIT: {
+      case ProArc.EXPORT_NDK_PSP_BAGIT:
+      case ProArc.EXPORT_NDK_OLDPRINT_BAGIT: {
         path = 'export/ndk';
         data = `${data}&isBagit=true`;
+        break;
+      }
+      case ProArc.EXPORT_NDK_PSP_CESNET_UPLOAD:
+      case ProArc.EXPORT_NDK_OLDPRINT_CESNET_UPLOAD: {
+        path = 'export/ndk';
+        data = `${data}&ltpCesnet=true&ltpCesnetToken=${cesnetLtpToken}`;
         break;
       }
       case ProArc.EXPORT_CEJSH: {
