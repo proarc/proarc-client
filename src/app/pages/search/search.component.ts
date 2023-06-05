@@ -664,7 +664,9 @@ export class SearchComponent implements OnInit {
   }
 
   showConvertDialog(item: DocumentItem) {
-    const dialogRef = this.dialog.open(ConvertDialogComponent, { data: { pid: item.pid, model: item.model } });
+    const dialogRef = this.dialog.open(ConvertDialogComponent, { 
+      data: { pid: item.pid, model: item.model }
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result.status == 'ok') {
