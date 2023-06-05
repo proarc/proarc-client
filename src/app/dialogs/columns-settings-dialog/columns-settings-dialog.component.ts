@@ -15,6 +15,8 @@ export class ColumnsSettingsDialogComponent implements OnInit {
   colsEditModeParent: boolean;
   models: any[];
 
+  selectedColumnsEditingImport: { field: string, selected: boolean }[];
+
   constructor(
     public dialogRef: MatDialogRef<ColumnsSettingsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -33,7 +35,23 @@ export class ColumnsSettingsDialogComponent implements OnInit {
     } else {
       this.modelForColumns = this.models[0];
     }
+
+    this.selectedColumnsEditingImport = this.properties.getSelectedColumnsEditingImport();
     
+  }
+
+  save() {
+    if (this.data.isRepo) {
+      this.setSelectedColumnsEditingRepo();
+    } else {
+      this.setSelectedColumnsEditingImport();
+    }
+  }
+
+  setSelectedColumnsEditingImport() {
+    this.properties.setStringProperty('selectedColumnsImport', JSON.stringify(this.selectedColumnsEditingImport));
+    this.ui.showInfo('snackbar.settings.searchColumns.updated');
+    this.dialogRef.close(true);
   }
 
   setSelectedColumnsEditingRepo() {

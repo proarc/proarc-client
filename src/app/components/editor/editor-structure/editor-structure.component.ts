@@ -315,6 +315,7 @@ export class EditorStructureComponent implements OnInit {
   selectColumns() {
     const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
       data: {
+        isRepo: this.isRepo,
         itemModel: this.layout.item.model,
         selectedModel: this.layout.lastSelectedItem.model
       },
