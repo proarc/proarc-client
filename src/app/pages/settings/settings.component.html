@@ -118,7 +118,7 @@
         </mat-card>
         <mat-card fxFlex >
           <mat-card-content *ngIf="properties.colsEditingRepo">
-            <fieldset class="app-p-4 app-mb-4">
+            <fieldset class="app-p-4 app-mb-3">
               <legend>{{ 'pages.settings.editingRepo.legend' | translate }}</legend>        
               <div class="app-label">{{ 'pages.settings.editingRepo.label' | translate }}</div>
               <mat-form-field class="app-w-100">
@@ -129,13 +129,10 @@
               <div *ngFor="let column of properties.colsEditingRepo[modelForColumns]">
                 <mat-checkbox [name]="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
               </div>
-              
             </fieldset>
-
-              <div>
-                <mat-checkbox name="colsEditModeParent" [(ngModel)]="colsEditModeParent">{{ 'pages.settings.colsEditModeParent' | translate }}</mat-checkbox>
-              </div>
-
+            <div class="app-mb-3">
+              <mat-checkbox name="colsEditModeParent" [(ngModel)]="colsEditModeParent">{{ 'pages.settings.colsEditModeParent' | translate }}</mat-checkbox>
+            </div>
             <button mat-flat-button color="primary" (click)="setSelectedColumnsEditingRepo()">{{ 'button.save' | translate }}</button>
           </mat-card-content>
         </mat-card>
