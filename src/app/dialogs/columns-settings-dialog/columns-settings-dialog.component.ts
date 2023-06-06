@@ -28,10 +28,8 @@ export class ColumnsSettingsDialogComponent implements OnInit {
 
     this.colsEditModeParent = this.properties.getColsEditingRepo();
     this.models = this.config.allModels;
-    if (this.colsEditModeParent && this.data.itemModel) {
-      this.modelForColumns = this.data.itemModel;
-    } else if (!this.colsEditModeParent && this.data.selectedModel) {
-      this.modelForColumns = this.data.selectedModel;
+    if (this.colsEditModeParent && this.data.selectedParentModel) {
+      this.modelForColumns = this.data.selectedParentModel;
     } else {
       this.modelForColumns = this.models[0];
     }

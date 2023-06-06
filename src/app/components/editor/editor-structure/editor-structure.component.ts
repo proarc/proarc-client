@@ -313,11 +313,13 @@ export class EditorStructureComponent implements OnInit {
   }
 
   selectColumns() {
+    console.log(this.layout.selectedParentItem.model)
     const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
       data: {
         isRepo: this.isRepo,
         itemModel: this.layout.item.model,
-        selectedModel: this.layout.lastSelectedItem.model
+        selectedModel: this.layout.lastSelectedItem.model,
+        selectedParentModel: this.layout.selectedParentItem.model,
       },
       width: '600px',
     });
