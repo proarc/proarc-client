@@ -63,6 +63,7 @@ export class NavbarComponent implements OnInit {
     const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
        disableClose: true, 
        height: '90%',
+       width: '680px',
        data: data 
       });
     dialogRef.afterClosed().subscribe(res => {

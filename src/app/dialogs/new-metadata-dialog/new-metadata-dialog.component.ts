@@ -107,16 +107,16 @@ export class NewMetadataDialogComponent implements OnInit {
 
   onClose() {
     const data: SimpleDialogData = {
-      title: 'Upozornění',
-      message: 'Opouštíte formulář bez uložení. Opravdu chcete pokračovat?',
-      alertClass: 'app-message',
+      title: this.translator.instant('dialog.newMetadata.onClose.title'),
+      message: this.translator.instant('dialog.newMetadata.onClose.alert'),
+      alertClass: 'app-warn',
       btn1: {
-        label: "Ano",
+        label: this.translator.instant('button.yes'),
         value: 'true',
         color: 'warn'
       },
       btn2: {
-        label: "Ne",
+        label: this.translator.instant('button.no'),
         value: 'false',
         color: 'default'
       },
@@ -163,7 +163,7 @@ export class NewMetadataDialogComponent implements OnInit {
 
       });
     } else {
-      this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', true, gotoEdit);
+      this.confirmSave(this.translator.instant('dialog.newMetadata.onSave.title'), this.translator.instant('dialog.newMetadata.onSave.alert'), true, gotoEdit);
     }
   }
 
@@ -171,14 +171,14 @@ export class NewMetadataDialogComponent implements OnInit {
     const data: SimpleDialogData = {
       title,
       message,
-      alertClass: 'app-message',
+      alertClass: 'app-warn',
       btn1: {
-        label: "Uložit",
+        label: this.translator.instant('button.save'),
         value: 'yes',
         color: 'warn'
       },
       btn2: {
-        label: "Neukládat",
+        label: this.translator.instant('button.doNotSave'),
         value: 'no',
         color: 'default'
       },
