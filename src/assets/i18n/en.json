@@ -2383,6 +2383,11 @@
     "changeModel": {
       "title": "Model conversion",
       "action": "Convert {{value1}} to {{value2}}"
+    },
+    "convertPages": {
+      "title": "Convert pages",
+      "action1": "Convert page to NDK page",
+      "action2": "Convert NDK page to page"
     }
   },
   "formField": {

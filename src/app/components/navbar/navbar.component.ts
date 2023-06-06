@@ -44,7 +44,7 @@ export class NavbarComponent implements OnInit {
     }
     const dialogRef = this.dialog.open(NewObjectDialogComponent, { 
       data: data,
-      width: '600px',
+      width: '680px',
       panelClass: 'app-dialog-new-bject'
      });
     dialogRef.afterClosed().subscribe(result => {

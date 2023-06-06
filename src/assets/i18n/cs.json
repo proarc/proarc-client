@@ -2383,6 +2383,11 @@
     "changeModel": {
       "title": "Převod modelu",
       "action": "Převést {{value1}} na {{value2}}"
+    },
+    "convertPages": {
+      "title": "Převést strany",
+      "action1": "Převést stranu na NDK stranu",
+      "action2": "Převést NDK stranu na stranu"
     }
   },
   "formField": {
