@@ -2023,7 +2023,10 @@
     "userEditing": "User editing",
     "createUser": "Create a user",
     "registrar": "Registrar",
-    "ltpToken": "Ltp Cesnet token"
+    "ltpToken": "Ltp Cesnet token",
+    "field": "Field",
+    "query": "Query",
+    "catalog": "Catalog"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2404,6 +2407,9 @@
     },
     "columnsSettings": {
       "title": "Column selection"
+    },
+    "catalog": {
+      "title": "Loading data from the catalog"
     }
   },
   "formField": {

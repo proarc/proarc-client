@@ -30,6 +30,8 @@ export class CatalogDialogComponent implements OnInit {
   model: string;
   models: string[];
 
+  displayedColumns: string[] = ['title'];
+
   constructor(
     public dialogRef: MatDialogRef<CatalogDialogComponent>,
     private api: ApiService,
@@ -97,6 +99,7 @@ export class CatalogDialogComponent implements OnInit {
           this.message = 'no-results';
         }
         this.state = 'success';
+        this.dialogRef.updateSize('1200px', '90%');
       } else if (response['response'].errors) {
         console.log('error', response['response'].errors);
         this.ui.showErrorDialogFromObject(response['response'].errors);

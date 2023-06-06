@@ -2023,7 +2023,10 @@
     "userEditing": "Editace uživatele",
     "createUser": "Vytvoření uživatele",
     "registrar": "Registrátor",
-    "ltpToken": "Ltp Cesnet token"
+    "ltpToken": "Ltp Cesnet token",
+    "field": "Pole",
+    "query": "Dotaz",
+    "catalog": "Katalog"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2404,6 +2407,9 @@
     },
     "columnsSettings": {
       "title": "Výběr sloupců"
+    },
+    "catalog": {
+      "title": "Načtení dat z katalogu"
     }
   },
   "formField": {
