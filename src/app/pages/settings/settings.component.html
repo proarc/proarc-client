@@ -116,11 +116,11 @@
             <button mat-flat-button color="primary" (click)="setSelectedColumnsSearchTree()">{{ 'button.save' | translate }}</button>
           </mat-card-content>
         </mat-card>
-        <mat-card fxFlex >
+        <mat-card fxFlex>
           <mat-card-content *ngIf="properties.colsEditingRepo">
             <fieldset class="app-p-4 app-mb-3">
               <legend>{{ 'pages.settings.editingRepo.legend' | translate }}</legend>        
-              <div class="app-label">{{ 'pages.settings.editingRepo.label' | translate }}</div>
+              <div class="app-label app-mb-3">{{ 'pages.settings.editingRepo.label' | translate }}</div>
               <mat-form-field class="app-w-100">
                 <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="modelForColumns" (selectionChange)="getColumnsForModel()">
                   <mat-option *ngFor="let model of models" [value]="model">{{ 'model.' + model | translate }}</mat-option>

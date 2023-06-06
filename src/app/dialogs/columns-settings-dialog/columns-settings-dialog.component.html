@@ -1,41 +1,31 @@
-<h1 mat-dialog-title>{{ 'editor.children.select_columns' | translate }}</h1>
-<div mat-dialog-content>
-
-  <mat-card fxFlex >
-    <mat-card-content *ngIf="data.isRepo && properties.colsEditingRepo">
-         
-        <div class="app-label">{{ 'pages.settings.editingRepo.label' | translate }}</div>
-        <mat-form-field class="app-w-100">
-          <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="modelForColumns" >
-            <mat-option *ngFor="let model of models" [value]="model">{{ 'model.' + model | translate }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <div *ngFor="let column of properties.colsEditingRepo[modelForColumns]">
-          <mat-checkbox [name]="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
-        </div>
-
-    </mat-card-content>
-
-    <mat-card-content *ngIf="!data.isRepo && selectedColumnsEditingImport">
-      
+<h1 mat-dialog-title>{{ 'dialog.columnsSettings.title' | translate }}</h1>
+<div mat-dialog-content class="app-scrollbar-fix">
+  <fieldset class="app-p-4 app-mb-3">
+    <ng-container *ngIf="data.isRepo && properties.colsEditingRepo">
+      <legend>{{ 'pages.settings.editingRepo.legend' | translate }}</legend>
+      <div class="app-label app-mb-3">{{ 'pages.settings.editingRepo.label' | translate }}</div>
+      <mat-form-field class="app-w-100">
+        <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="modelForColumns" >
+          <mat-option *ngFor="let model of models" [value]="model">{{ 'model.' + model | translate }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div *ngFor="let column of properties.colsEditingRepo[modelForColumns]">
+        <mat-checkbox [name]="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!data.isRepo && selectedColumnsEditingImport">
         <legend>{{ 'pages.settings.editingImport.legend' | translate }}</legend>
         <div class="app-label app-mb-2">{{ 'pages.settings.editingImport.label' | translate }}</div>
         <div *ngFor="let column of selectedColumnsEditingImport">
           <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
         </div>
-    </mat-card-content>
-
-    
-    
-    <div *ngIf="data.isRepo && properties.colsEditingRepo">
-      <mat-checkbox name="colsEditModeParent" [(ngModel)]="colsEditModeParent">{{ 'pages.settings.colsEditModeParent' | translate }}</mat-checkbox>
-    </div>
-  </mat-card>
-  
-
+    </ng-container>
+  </fieldset>
+  <div *ngIf="data.isRepo && properties.colsEditingRepo">
+    <mat-checkbox name="colsEditModeParent" [(ngModel)]="colsEditModeParent">{{ 'pages.settings.colsEditModeParent' | translate }}</mat-checkbox>
+  </div>
 </div>
 <div mat-dialog-actions cdk-focus-start> 
-   
   <button mat-flat-button color="primary" (click)="save()" >{{ 'button.save' | translate }}</button>
   <button mat-flat-button [mat-dialog-close]="false" >{{ 'button.close' | translate }}</button>
 </div>
