@@ -354,6 +354,7 @@
   },
   genre: {
     isElectronicArticle: true,
+    defaultValue: 'article',
     usage: 'M',
     required: true,
     label: 'Typ obsahu',
