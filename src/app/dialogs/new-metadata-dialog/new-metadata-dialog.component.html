@@ -1,23 +1,17 @@
-<h1 mat-dialog-title>{{ 'new_object.title_edit' | translate }}: {{'model.' + data.model | translate}}</h1>
+<div fxLayout="column" fxFlexFill>
+  <h1 mat-dialog-title>{{ 'dialog.newMetadata.title' | translate }}: {{'model.' + data.model | translate}}</h1>
 
-<div mat-dialog-content style="max-width:600px;height:100% !important;">
-
-  <div class="app-content" style="max-width:600px;height:100%;" *ngIf="inited">
-
-    <app-editor-page *ngIf="isPage()" [model]="data.model" [notSaved]="true" [pid]="data.pid">
-    </app-editor-page>
-    <app-editor-audioPage *ngIf="isAudioPage()" [model]="data.model" [notSaved]="true" [pid]="data.pid">
-    </app-editor-audioPage>
-    <!-- <app-editor-chronicle *ngIf="isChronicle()" [notSaved]="true" [pid]="data.pid"></app-editor-chronicle>
-    <app-editor-bdm *ngIf="isBdm()" [notSaved]="true" [metadata]="metadata" [model]="data.model"></app-editor-bdm> -->
-    <app-editor-metadata *ngIf="!isPage()" [notSaved]="true" 
-      [model]="data.model" [metadata]="metadata">
-    </app-editor-metadata>
+  <div fxFlex mat-dialog-content class="app-clean-max-height">
+    <ng-container *ngIf="inited">
+      <app-editor-page *ngIf="isPage()" [model]="data.model" [notSaved]="true" [pid]="data.pid"></app-editor-page>
+      <app-editor-audioPage *ngIf="isAudioPage()" [model]="data.model" [notSaved]="true" [pid]="data.pid"></app-editor-audioPage>
+      <app-editor-metadata *ngIf="!isPage()" [notSaved]="true" [model]="data.model" [metadata]="metadata"></app-editor-metadata>
+    </ng-container>
   </div>
-</div>
-
-<div mat-dialog-actions cdk-focus-start>
-  <button mat-raised-button color="default" (click)="onSave(true)">{{ 'new_object.create_edit' | translate }}</button>
-  <button mat-raised-button color="default" (click)="onSave(false)">{{ 'new_object.create_back' | translate }}</button>
-  <button mat-raised-button color="default" (click)="onClose()">{{ 'common.close' | translate }}</button>
+  
+  <div mat-dialog-actions cdk-focus-start>
+    <button mat-flat-button color="primary" (click)="onSave(true)">{{ 'button.createAndGoToObject' | translate }}</button>
+    <button mat-flat-button color="primary" (click)="onSave(false)">{{ 'button.create' | translate }}</button>
+    <button mat-flat-button (click)="onClose()">{{ 'button.close' | translate }}</button>
+  </div>
 </div>

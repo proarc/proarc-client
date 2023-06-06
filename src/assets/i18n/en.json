@@ -2088,7 +2088,9 @@
     "toIndex": "To index",
     "convertPages": "Convert pages",
     "more": "More",
-    "resetAllLocalSettings": "Reset all local settings"
+    "resetAllLocalSettings": "Reset all local settings",
+    "createAndGoToObject": "Create and go to object",
+    "doNotSave": "Do not save"
   },
   "dynamic": {
     "repo": "Storage",
@@ -2388,6 +2390,17 @@
       "title": "Convert pages",
       "action1": "Convert page to NDK page",
       "action2": "Convert NDK page to page"
+    },
+    "newMetadata": {
+      "title": "New object",
+      "onClose": {
+        "title": "Notice",
+        "alert": "You are leaving the form without saving. Are you sure you want to continue?"
+      },
+      "onSave": {
+        "title": "Invalid data",
+        "alert": "Invalid data, do you still want to save the document?"
+      }
     }
   },
   "formField": {

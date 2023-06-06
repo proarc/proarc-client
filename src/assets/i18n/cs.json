@@ -2088,7 +2088,9 @@
     "toIndex": "Indexovat",
     "convertPages": "Převést strany",
     "more": "Více",
-    "resetAllLocalSettings": "Resetovat všechna lokální nastavení"
+    "resetAllLocalSettings": "Resetovat všechna lokální nastavení",
+    "createAndGoToObject": "Vytvořit a přejít do objektu",
+    "doNotSave": "Neukládat"
   },
   "dynamic": {
     "repo": "Úložiště",
@@ -2388,6 +2390,17 @@
       "title": "Převést strany",
       "action1": "Převést stranu na NDK stranu",
       "action2": "Převést NDK stranu na stranu"
+    },
+    "newMetadata": {
+      "title": "Nový objekt",
+      "onClose": {
+        "title": "Upozornění",
+        "alert": "Opouštíte formulář bez uložení. Opravdu chcete pokračovat?"
+      },
+      "onSave": {
+        "title": "Nevalidní data",
+        "alert": "Nevalidní data, přejete si dokument přesto uložit?"
+      }
     }
   },
   "formField": {
