@@ -2508,7 +2508,7 @@
       "failure": "Strany byly převedeny s chybou"
     },
     "saveTheChange": {
-      "success": "Uložení změny bylo ůspěšně provedeno.",
+      "success": "Uložení změny bylo úspěšně provedeno.",
       "error": "Došlo k chybě při uložení změny."
     } 
   },
