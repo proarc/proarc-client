@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 import { ElementField } from 'src/app/model/mods/elementField.model';
 
@@ -12,10 +13,14 @@ export class EditorGenreComponent implements OnInit {
   @Input() field: ElementField;
   @Input() showGenreSwitch: boolean;
 
+  fControl: FormControl;
+
   constructor() {
   }
 
   ngOnInit() {
+    //console.log(this.field)
+    this.fControl = this.field.getItems()[0].getControl('peer-reviewed')
   }
 
   switchChanged(e:any) {

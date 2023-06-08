@@ -163,7 +163,7 @@ export abstract class ModsElement {
         if (!anyValue) {
             if(isRequired) {
                 this.controls.forEach((value, key) => {
-                    if (this.template.fields[key+''].required || this.template.fields[key+''].usage === 'M') {
+                    if (this.template.fields[key+''] && (this.template.fields[key+''].required || this.template.fields[key+''].usage === 'M')) {
                         error = true;
                     }
                 });
@@ -171,7 +171,7 @@ export abstract class ModsElement {
             } else {
                 this.controls.forEach((value, key) => {
                     // value.markAsUntouched();
-                    if (this.template.fields[key+''].required) {
+                    if (this.template.fields[key+'']?.required) {
                         error = true;
                         isRequired = true;
                     } else {
