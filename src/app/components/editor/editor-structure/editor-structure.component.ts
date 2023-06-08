@@ -652,7 +652,10 @@ export class EditorStructureComponent implements OnInit {
       parentPid: this.layout.selectedParentItem.pid,
       fromNavbar: false
     }
-    const dialogRef1 = this.dialog.open(NewObjectDialogComponent, { data: data });
+    const dialogRef1 = this.dialog.open(NewObjectDialogComponent, { 
+      data: data,
+      width: '680px'
+     });
     dialogRef1.afterClosed().subscribe((result: any) => {
       if (result && result['pid']) {
 
@@ -948,10 +951,12 @@ export class EditorStructureComponent implements OnInit {
 
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
+        this.ui.showErrorSnackBar(String(this.translator.instant('snackbar.saveTheChange.error')));
         this.state = 'error';
         return;
       } else {
-        this.ui.showInfoDialog("V poradku")
+        //this.ui.showInfoDialog("V poradku");
+        this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.saveTheChange.success')));
         this.hasChanges = false;
         this.state = 'success';
       }
