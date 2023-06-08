@@ -95,6 +95,7 @@ export class EditorStructureComponent implements OnInit {
   ];
   displayedColumns: string[] = [];
   colsEditModeParent: boolean;
+  colsImport: any;
 
   subscriptions: Subscription[] = [];
 
@@ -288,7 +289,9 @@ export class EditorStructureComponent implements OnInit {
 
   getColumnWidth(field: string) {
     if (this.isRepo) {
-      this.getColumnWidthRepo(field)
+      this.getColumnWidthRepo(field);
+    } else {
+      this.getColumnWidthImport(field);
     }
   }
   getColumnWidthRepo(field: string) {
@@ -302,7 +305,23 @@ export class EditorStructureComponent implements OnInit {
     }
   }
 
+  getColumnWidthImport(field: string) {
+    const el = this.colsImport.find((c: any)=> c.field === field);
+    if (el) {
+      return el.width + 'px';
+    } else {
+      return '';
+    }
+  }
+
   saveColumnsSizes(e: any, field?: string) {
+    if (this.isRepo) {
+      this.saveColumnsSizesRepo(e, field);
+    } else {
+      this.saveColumnsSizesImport(e, field);
+    }
+  }
+  saveColumnsSizesRepo(e: any, field?: string) {
     const model = this.colsEditModeParent ? this.layout.selectedParentItem.model : this.layout.items[0].model;
     const el = this.properties.colsEditingRepo[model].find((c: any)=> c.field === field);
     if (el) {
@@ -312,6 +331,17 @@ export class EditorStructureComponent implements OnInit {
     } 
 
     this.properties.setColumnsEditingRepoSimple();
+  }
+
+  saveColumnsSizesImport(e: any, field?: string) {
+    const el = this.colsImport.find((c: any)=> c.field === field);
+    if (el) {
+      el.width = e;
+    } else {
+      console.log("nemelo by")
+    } 
+
+    this.properties.setStringProperty('selectedColumnsImport', JSON.stringify(this.colsImport));
   }
 
   setSelectedColumnsRepo() {
@@ -334,8 +364,8 @@ export class EditorStructureComponent implements OnInit {
   }
 
   setSelectedColumnsImport() {
-    const cols = this.properties.getSelectedColumnsEditingImport();
-    this.displayedColumns = cols.filter((c: any) => c.selected).map((c: any) => c.field);
+    this.colsImport = this.properties.getSelectedColumnsEditingImport();
+    this.displayedColumns = this.colsImport.filter((c: any) => c.selected).map((c: any) => c.field);
   }
 
   selectAll() {

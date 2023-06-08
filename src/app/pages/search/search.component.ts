@@ -663,6 +663,28 @@ export class SearchComponent implements OnInit {
     this.table.renderRows();
   }
 
+  getColumnWidth(field: string) {
+   
+    const el = this.selectedColumns.find((c: any)=> c.field === field);
+    if (el) {
+      return el.width + 'px';
+    } else {
+      return '';
+    }
+  }
+
+  saveColumnsSizes(e: any, field?: string) {
+    const el = this.selectedColumns.find((c: any)=> c.field === field);
+    if (el) {
+      el.width = e;
+    } else {
+      console.log("nemelo by")
+    } 
+    this.properties.setStringProperty('searchColumns', JSON.stringify(this.selectedColumns));
+  }
+
+
+
   showConvertDialog(item: DocumentItem) {
     const dialogRef = this.dialog.open(ConvertDialogComponent, { 
       data: { pid: item.pid, model: item.model }

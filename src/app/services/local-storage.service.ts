@@ -161,4 +161,8 @@ export class LocalStorageService {
         this.setBoolProperty('colsEditModeParent', colsEditModeParent);
     }
 
+    setColumnsEditingRepoSimple() {
+        this.setStringProperty('colsRepo', JSON.stringify(this.colsEditingRepo));
+    }
+
 }

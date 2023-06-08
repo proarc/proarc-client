@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Input, Output, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[resizeColumn]'
@@ -6,6 +6,7 @@ import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 export class ResizecolDirective {
 
   @Input("resizeColumn") resizable!:boolean;
+  @Output('columnResized') columnResized: EventEmitter<number> = new EventEmitter();
   private startX!:number;
   private startWidth!:number;
   private column!: HTMLElement;
@@ -25,6 +26,10 @@ export class ResizecolDirective {
       this.table = this.renderer.parentNode(thead);
       const resizer = this.renderer.createElement("span");
       this.renderer.addClass(resizer, "app-resize-holder");
+      if (!this.column.style.width) {
+        this.renderer.setStyle(this.column, "width", `${this.column.offsetWidth}px`);
+      }
+      
       this.renderer.appendChild(this.column, resizer);
       this.renderer.listen(resizer, "mousedown", this.onMouseDown);
       this.renderer.listen(this.table, "mousemove", this.onMouseMove);
@@ -50,6 +55,7 @@ export class ResizecolDirective {
     if (this.pressed) {
       this.pressed = false;
       this.renderer.removeClass(this.table, "resizing");
+      this.columnResized.emit(this.column.offsetWidth);
     }
   };
 }

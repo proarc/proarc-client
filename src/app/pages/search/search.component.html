@@ -120,11 +120,12 @@
               </div>
             </div>
             <div class="app-oa-y">
-              <table mat-table #table [dataSource]="items" matSort class="app-striped app-hover app-resize"
+              <table mat-table #table [dataSource]="items" matSort class="app-striped app-hover app-resize" style="width:unset;"
               [matSortActive]="sortField" [matSortDirection]="sortAsc ? 'asc' : 'desc'"
               (matSortChange)="sortTable($event)">
                 <ng-container matColumnDef="label">
-                  <th mat-header-cell *matHeaderCellDef sortActionDescription="Sort by number" [resizeColumn]="true"><span mat-sort-header>{{ 'desc.name' | translate }}</span></th>
+                  <th mat-header-cell *matHeaderCellDef sortActionDescription="Sort by number"
+                   [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'label')" [style.width]="getColumnWidth('label')"><span mat-sort-header>{{ 'desc.name' | translate }}</span></th>
                   <td mat-cell *matCellDef="let element">
                     <div class="app-text-cutter-wrapper" [matTooltip]="element.label">
                       <div class="app-text-cutter">
@@ -135,7 +136,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="model">
-                  <th mat-header-cell *matHeaderCellDef  [resizeColumn]="true"><span mat-sort-header>{{ 'desc.model' | translate }}</span></th>
+                  <th mat-header-cell *matHeaderCellDef  [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'model')" [style.width]="getColumnWidth('model')"><span mat-sort-header>{{ 'desc.model' | translate }}</span></th>
                   <td mat-cell *matCellDef="let element">
                     <div class="app-text-cutter-wrapper" [matTooltip]="'model.' + element.model | translate">
                       <div class="app-text-cutter">
@@ -146,7 +147,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="pid">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"><span mat-sort-header>{{ 'desc.pid' | translate }}</span></th>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'pid')" [style.width]="getColumnWidth('pid')"><span mat-sort-header>{{ 'desc.pid' | translate }}</span></th>
                   <td mat-cell *matCellDef="let element">
                     <div class="app-text-cutter-wrapper" [matTooltip]="element.pid">
                       <div class="app-text-cutter">
@@ -157,7 +158,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="processor">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"><span mat-sort-header>{{ 'desc.processor' | translate }}</span></th>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'processor')" [style.width]="getColumnWidth('processor')"><span mat-sort-header>{{ 'desc.processor' | translate }}</span></th>
                   <td mat-cell *matCellDef="let element">
                     <div class="app-text-cutter-wrapper" [matTooltip]="element.processor">
                       <div class="app-text-cutter">
@@ -168,7 +169,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="organization">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"><span mat-sort-header>{{ 'desc.organization' | translate }}</span></th>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'organization')" [style.width]="getColumnWidth('organization')"><span mat-sort-header>{{ 'desc.organization' | translate }}</span></th>
                   <td mat-cell *matCellDef="let element">
                     <div class="app-text-cutter-wrapper" [matTooltip]="'organization.' + element.organization | translate">
                       <div class="app-text-cutter">
@@ -179,7 +180,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="status">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"><span mat-sort-header>{{ 'desc.status' | translate }}</span></th>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'status')" [style.width]="getColumnWidth('status')"><span mat-sort-header>{{ 'desc.status' | translate }}</span></th>
                   <td mat-cell *matCellDef="let element">
                     <div class="app-text-cutter-wrapper" [matTooltip]="'editor.atm.statuses.' + element.status | translate">
                       <div class="app-text-cutter">
@@ -190,7 +191,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="created">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"><span mat-sort-header>{{ 'desc.created' | translate }}</span></th>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'created')" [style.width]="getColumnWidth('created')"><span mat-sort-header>{{ 'desc.created' | translate }}</span></th>
                   <td mat-cell *matCellDef="let element">
                     <div class="app-text-cutter-wrapper" [matTooltip]="element.created | appDatetime">
                       <div class="app-text-cutter">
@@ -201,7 +202,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="modified">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"><span mat-sort-header>{{ 'desc.modified' | translate }}</span></th>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'modified')" [style.width]="getColumnWidth('modified')"><span mat-sort-header>{{ 'desc.modified' | translate }}</span></th>
                   <td mat-cell *matCellDef="let element">
                     <div class="app-text-cutter-wrapper" [matTooltip]="element.modified | appDatetime">
                       <div class="app-text-cutter">
@@ -212,7 +213,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="owner">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"><span mat-sort-header>{{ 'desc.owner' | translate }}</span></th>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'owner')" [style.width]="getColumnWidth('owner')"><span mat-sort-header>{{ 'desc.owner' | translate }}</span></th>
                   <td mat-cell *matCellDef="let element">
                     <div class="app-text-cutter-wrapper" [matTooltip]="element.owner">
                       <div class="app-text-cutter">
@@ -223,12 +224,12 @@
                 </ng-container>
 
                 <ng-container matColumnDef="export">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true">{{ 'desc.export' | translate }}</th>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'export')" [style.width]="getColumnWidth('export')">{{ 'desc.export' | translate }}</th>
                   <td mat-cell *matCellDef="let element">{{ element.writeExports() }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="isLocked">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"></th>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'isLocked')" [style.width]="getColumnWidth('isLocked')"></th>
                   <td mat-cell *matCellDef="let element">
                     <mat-icon [matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">{{ element.isLocked ? 'lock' : 'lock_open' }}</mat-icon>
                   </td>
