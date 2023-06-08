@@ -219,6 +219,13 @@ export abstract class ModsElement {
         return false;
     }
 
+    public setAsDirty() {
+        const keys = this.controls.keys();
+        for (let key of keys) {
+            this.controls.get(key).markAsDirty();
+        }
+    }
+
     public resetChanges() {
         const keys = this.controls.keys();
         for (let key of keys) {
