@@ -94,6 +94,7 @@ export class EditorStructureComponent implements OnInit {
     { field: 'status', selected: false, width: 140 }
   ];
   displayedColumns: string[] = [];
+  colsEditModeParent: boolean;
 
   subscriptions: Subscription[] = [];
 
@@ -101,7 +102,7 @@ export class EditorStructureComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private properties: LocalStorageService,
+    public properties: LocalStorageService,
     private translator: TranslateService,
     private dialog: MatDialog,
     private ui: UIService,
@@ -283,6 +284,36 @@ export class EditorStructureComponent implements OnInit {
     }
   }
 
+
+
+  getColumnWidth(field: string) {
+    if (this.isRepo) {
+      this.getColumnWidthRepo(field)
+    }
+  }
+  getColumnWidthRepo(field: string) {
+    const model = this.colsEditModeParent ? this.layout.selectedParentItem.model : this.layout.items[0].model;
+    // console.log(model)
+    const el = this.properties.colsEditingRepo[model].find((c: any)=> c.field === field);
+    if (el) {
+      return el.width + 'px';
+    } else {
+      return '';
+    }
+  }
+
+  saveColumnsSizes(e: any, field?: string) {
+    const model = this.colsEditModeParent ? this.layout.selectedParentItem.model : this.layout.items[0].model;
+    const el = this.properties.colsEditingRepo[model].find((c: any)=> c.field === field);
+    if (el) {
+      el.width = e;
+    } else {
+      console.log("nemelo by")
+    } 
+
+    this.properties.setColumnsEditingRepoSimple();
+  }
+
   setSelectedColumnsRepo() {
     const models: string[] = [];
     this.layout.items.forEach(i => {
@@ -290,9 +321,9 @@ export class EditorStructureComponent implements OnInit {
         models.push(i.model);
       }
     });
-    const colsEditModeParent = this.properties.getColsEditingRepo();
+    this.colsEditModeParent = this.properties.getColsEditingRepo();
     this.displayedColumns = [];
-    if (colsEditModeParent) {
+    if (this.colsEditModeParent) {
       this.displayedColumns = this.properties.colsEditingRepo[this.layout.selectedParentItem.model].filter(c => c.selected && !this.displayedColumns.includes(c.field)).map(c => c.field);
     } else {
       models.forEach(model => {
@@ -313,7 +344,6 @@ export class EditorStructureComponent implements OnInit {
   }
 
   selectColumns() {
-    console.log(this.layout.selectedParentItem.model)
     const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
       data: {
         isRepo: this.isRepo,
