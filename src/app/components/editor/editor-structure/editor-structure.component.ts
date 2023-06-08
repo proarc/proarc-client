@@ -652,7 +652,10 @@ export class EditorStructureComponent implements OnInit {
       parentPid: this.layout.selectedParentItem.pid,
       fromNavbar: false
     }
-    const dialogRef1 = this.dialog.open(NewObjectDialogComponent, { data: data });
+    const dialogRef1 = this.dialog.open(NewObjectDialogComponent, { 
+      data: data,
+      width: '680px'
+     });
     dialogRef1.afterClosed().subscribe((result: any) => {
       if (result && result['pid']) {
 
