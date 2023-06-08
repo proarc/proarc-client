@@ -213,6 +213,7 @@ export class ElementField {
         if (this.visibleItemsCount() === 0) {
             const item = this.add();
             item.collapsed = true;
+            setTimeout(() => {item.setAsDirty();}, 100);
         }
     }
 
