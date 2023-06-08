@@ -132,7 +132,7 @@ export class LocalStorageService {
                 });
             })
         }
-        return this.getBoolProperty('colsEditModeParent');
+        return this.getBoolProperty('colsEditModeParent', true);
     }
 
     getSelectedColumnsEditingImport() {

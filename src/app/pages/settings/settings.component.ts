@@ -34,7 +34,7 @@ export class SettingsComponent implements OnInit {
   searchCols: any;
   selectedModels = new FormControl('');
 
-  relatedItemExpanded: boolean = true;
+  relatedItemExpanded: boolean;
 
   models: any[];
 
@@ -71,7 +71,7 @@ export class SettingsComponent implements OnInit {
   ];
 
   modelForColumns: string;
-  colsEditModeParent: boolean
+  colsEditModeParent: boolean = true;
 
   constructor(
     private api: ApiService,
@@ -211,7 +211,6 @@ export class SettingsComponent implements OnInit {
         this.initSelectedColumnsEditingImport();
         this.properties.getSearchColumns();
         this.colsEditModeParent =  this.properties.getColsEditingRepo();
-        this.relatedItemExpanded = true;
         this.ui.showInfoSnackBar(this.translator.instant('snackbar.settings.resetLocalSettings.success'));
       }
     });
