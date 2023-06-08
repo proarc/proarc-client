@@ -2506,7 +2506,11 @@
     "convertPages": {
       "success": "Strany byly úspěšně převedeny",
       "failure": "Strany byly převedeny s chybou"
-    }
+    },
+    "saveTheChange": {
+      "success": "Uložení změny bylo ůspěšně provedeno.",
+      "error": "Došlo k chybě při uložení změny."
+    } 
   },
   "device": {
     "devices": "Zařízení",
