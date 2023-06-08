@@ -46,7 +46,6 @@ export class ElementField {
 
     constructor(mods: { [x: string]: any; }, id: string, template: any, attr: any = null, requiredValues: any[] = [], forbiddenValues: any[] = []) {
         this.template = template;
-        // console.log(id)
         if (localStorage.getItem('metadata.allExpanded')) {
             this.allExpanded = localStorage.getItem('metadata.allExpanded') === 'true';
         }
