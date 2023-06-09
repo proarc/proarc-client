@@ -209,14 +209,16 @@ export class ElementField {
         if (index >= 0 && index < this.items.length) {
             this.items.splice(index, 1);
             this.root.splice(index, 1);
-            
+            console.log(this.items)
+            setTimeout(() => {this.items[0].setAsDirty();}, 100);
         }
         if (this.visibleItemsCount() === 0) {
             const item = this.add();
             item.collapsed = true;
-            // setTimeout(() => {item.setAsDirty();}, 100);    
+            setTimeout(() => {item.setAsDirty();}, 100);    
         }
-        setTimeout(() => {this.items[0].setAsDirty();}, 100);
+        // console.log('tady');
+        // setTimeout(() => {this.items[0].setAsDirty();}, 100);
         
     }
 
