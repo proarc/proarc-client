@@ -1,4 +1,4 @@
-// --- MATERIAL OVERRIDE ---
+// --- MATERIAL OVERRIDE ---width
 
 // buttons
 .mat-button-base {
@@ -14,8 +14,15 @@
 }
 
 // mat table
-.mat-table {
+.mat-table:not(.app-resize) {
   @extend .app-w-100;
+}
+.mat-table.app-resize {
+  width: fit-content;
+}
+
+.mat-table {
+  // @extend .app-w-100;
 
   // common behavior
   .mat-header-row,
@@ -113,7 +120,7 @@
     .mat-header-cell {
       position: relative;      
       
-      &:not(:last-child) {
+      // &:not(:last-child) {
         .app-resize-holder {
           cursor: col-resize;
           width: 10px;
@@ -132,7 +139,7 @@
             border-right: 1px solid $app-table-border-color;
           }
         }
-      }
+      // }
 
       &:hover {
         background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(238,238,238,1) 100%);

@@ -127,7 +127,7 @@ export class LocalStorageService {
                     return {
                         field: c,
                         selected: (model.indexOf('page') < 0 && c.indexOf('page') < 0) || (model.indexOf('page') > -1 && c.indexOf('page') > -1),
-                        width: 100
+                        width: 150
                     }
                 });
             })
@@ -146,7 +146,7 @@ export class LocalStorageService {
                 return {
                     field: c,
                     selected: true,
-                    width: 100
+                    width: 150
                 }
             });
 

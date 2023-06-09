@@ -289,14 +289,13 @@ export class EditorStructureComponent implements OnInit {
 
   getColumnWidth(field: string) {
     if (this.isRepo) {
-      this.getColumnWidthRepo(field);
+      return this.getColumnWidthRepo(field);
     } else {
-      this.getColumnWidthImport(field);
+      return this.getColumnWidthImport(field);
     }
   }
   getColumnWidthRepo(field: string) {
     const model = this.colsEditModeParent ? this.layout.selectedParentItem.model : this.layout.items[0].model;
-    // console.log(model)
     const el = this.properties.colsEditingRepo[model].find((c: any)=> c.field === field);
     if (el) {
       return el.width + 'px';

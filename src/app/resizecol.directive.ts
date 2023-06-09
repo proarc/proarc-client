@@ -26,6 +26,7 @@ export class ResizecolDirective {
       this.table = this.renderer.parentNode(thead);
       const resizer = this.renderer.createElement("span");
       this.renderer.addClass(resizer, "app-resize-holder");
+      //console.log(this.column.style.width)
       if (!this.column.style.width) {
         this.renderer.setStyle(this.column, "width", `${this.column.offsetWidth}px`);
       }
