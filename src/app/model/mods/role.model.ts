@@ -24,6 +24,7 @@ export class ModsRole extends ModsElement {
             this.modsElement['roleTerm'] = [ModsUtils.createTextElement('', attrs)];
         }
         this.role = this.modsElement['roleTerm'][0];
+        this.getControl('roles');
     }
 
 }

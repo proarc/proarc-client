@@ -376,7 +376,6 @@ export class Metadata {
           return true;
         }
         for (const subfield of item.getSubfields()) {
-          
           for (const item2 of subfield.getItems()) {
             if (item2.hasChanges()) {
               return true;

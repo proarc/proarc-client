@@ -216,6 +216,14 @@ export abstract class ModsElement {
             //});
         }
 
+        for (const subfield of this.getSubfields()) {
+            for (const item2 of subfield.getItems()) {
+              if (item2.hasChanges()) {
+                return true;
+              }
+            }
+          }
+
         return false;
     }
 

@@ -9,6 +9,7 @@ import { LayoutService } from 'src/app/services/layout.service';
 import { TemplateService } from 'src/app/services/template.service';
 import {ConfigService} from '../../../services/config.service';
 import {forEach} from 'ol/geom/flat/segments';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-editor-author',
@@ -32,6 +33,7 @@ export class EditorAuthorComponent implements OnInit {
         'str', 'ths', 'trc', 'trl', 'tyd', 'tyg', 'voc', 'wam', 'wdc', 'wde', 'wit'];
 
   public roles: { code: string; name: any; }[] = [];
+  fControl: FormControl;
 
   constructor(
     public translator: TranslateService,
@@ -47,6 +49,8 @@ export class EditorAuthorComponent implements OnInit {
     if (!this.model) {
       this.model = this.layout.lastSelectedItem.model;
     }
+    
+    this.fControl = this.field.getItems()[0].getControl('roles')
   }
 
   onLoadFromCatalog(item: any) {
