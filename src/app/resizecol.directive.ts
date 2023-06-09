@@ -33,7 +33,8 @@ export class ResizecolDirective {
       
       this.renderer.appendChild(this.column, resizer);
       this.renderer.listen(resizer, "mousedown", this.onMouseDown);
-      this.renderer.listen(this.table, "mousemove", this.onMouseMove);
+      //this.renderer.listen(this.table, "mousemove", this.onMouseMove);
+      this.renderer.listen("document", "mousemove", this.onMouseMove);
       this.renderer.listen("document", "mouseup", this.onMouseUp);
     }
   }
@@ -49,6 +50,9 @@ export class ResizecolDirective {
       this.renderer.addClass(this.table, "app-resizing");
       let width =this.startWidth + (event.pageX - this.startX - offset);
       this.renderer.setStyle(this.column, "width", `${width}px`);
+      if (!this.column.nextSibling || this.column.nextSibling.nodeType === Node.COMMENT_NODE ) {
+        this.table.parentElement.parentElement.scrollLeft = this.table.scrollWidth;
+      }
     }
   };
 
