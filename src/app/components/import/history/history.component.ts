@@ -13,6 +13,7 @@ import { DatePipe } from '@angular/common';
 import { UIService } from 'src/app/services/ui.service';
 import {ConfigService} from '../../../services/config.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-history',
@@ -50,6 +51,26 @@ export class HistoryComponent implements OnInit, OnDestroy {
   createTo: Date;
   modifiedFrom: Date;
   modifiedTo: Date;
+
+  public selectedColumnsOverview = [
+    { field: 'description', selected: true, width: 100 },
+    { field: 'create', selected: true, width: 100 },
+    { field: 'timestamp', selected: true, width: 100 },
+    { field: 'state', selected: true, width: 100 },
+    { field: 'profile', selected: true, width: 100 },
+    { field: 'user', selected: true, width: 100 },
+    { field: 'priority', selected: true, width: 100 },
+    { field: 'actions', selected: true, width: 100 }
+  ];
+
+  public selectedColumnsQueue = [
+    { field: 'description', selected: true, width: 100 },
+    { field: 'create', selected: true, width: 100 },
+    { field: 'timestamp', selected: true, width: 100 },
+    { field: 'state', selected: true, width: 100 },
+    { field: 'pageCount', selected: true, width: 100 },
+    { field: 'user', selected: true, width: 100 }
+  ];
 
   displayedColumnsOverview: string[] = ['description', 'create',  'timestamp', 'state', 'profile', 'user', 'priority', 'actions'];
   displayedColumnsQueue: string[] = ['description', 'create',  'timestamp', 'state', 'pageCount', 'user' ];
@@ -113,7 +134,8 @@ export class HistoryComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private config: ConfigService,
-    private translator: TranslateService) { }
+    private translator: TranslateService,
+    public properties: LocalStorageService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(p => {
@@ -124,6 +146,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
       this.users = users;
     });
     this.profiles = this.config.profiles;
+    this.initSelectedColumnsOverview();
     // this.timer= setInterval(() => {
     //   this.updateLoadingBatchesProgress();
     // }, 5000);
@@ -543,5 +566,69 @@ export class HistoryComponent implements OnInit, OnDestroy {
       // });
     });
   }
+
+  // resizable columns
+  setColumnsOverview() {
+    this.displayedColumnsOverview = this.selectedColumnsOverview.filter(c => c.selected).map(c => c.field);
+  }
+
+  initSelectedColumnsOverview() {
+    const prop = this.properties.getStringProperty('historyOverviewColumns');
+    if (prop) {
+      Object.assign(this.selectedColumnsOverview, JSON.parse(prop));
+    }
+    this.setColumnsOverview();
+  }
+
+  getColumnWidthOverview(field: string) {
+    const el = this.selectedColumnsOverview.find((c: any)=> c.field === field);
+    if (el) {
+      return el.width + 'px';
+    } else {
+      return '';
+    }
+  }
+
+  saveColumnsSizesOverview(e: any, field?: string) {
+    const el = this.selectedColumnsOverview.find((c: any)=> c.field === field);
+    if (el) {
+      el.width = e;
+    } else {
+      console.log("nemelo by")
+    } 
+    this.properties.setStringProperty('historyOverviewColumns', JSON.stringify(this.selectedColumnsOverview));
+  }
+
+  setColumnsQueue() {
+    this.displayedColumnsQueue = this.selectedColumnsQueue.filter(c => c.selected).map(c => c.field);
+  }
+
+  initSelectedColumnsQueue() {
+    const prop = this.properties.getStringProperty('historyQueueColumns');
+    if (prop) {
+      Object.assign(this.selectedColumnsQueue, JSON.parse(prop));
+    }
+    this.setColumnsQueue();
+  }
+
+  getColumnWidthQueue(field: string) {
+    const el = this.selectedColumnsQueue.find((c: any)=> c.field === field);
+    if (el) {
+      return el.width + 'px';
+    } else {
+      return '';
+    }
+  }
+
+  saveColumnsSizesQueue(e: any, field?: string) {
+    const el = this.selectedColumnsQueue.find((c: any)=> c.field === field);
+    if (el) {
+      el.width = e;
+    } else {
+      console.log("nemelo by")
+    } 
+    this.properties.setStringProperty('historyQueueColumns', JSON.stringify(this.selectedColumnsQueue));
+  }
+  // end
 
 }
