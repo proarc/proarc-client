@@ -6,6 +6,7 @@ import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dial
 import { User } from 'src/app/model/user.model';
 import { ApiService } from 'src/app/services/api.service';
 import { ConfigService } from 'src/app/services/config.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UIService } from 'src/app/services/ui.service';
 
 @Component({
@@ -24,6 +25,21 @@ export class AdminComponent implements OnInit {
   roles = ['user', 'admin', 'superAdmin'];
   organizations: string[];
 
+  public selectedColumns = [
+    { field: 'name', selected: true, width: 100 },
+    { field: 'forename', selected: true, width: 100 },
+    { field: 'surname', selected: true, width: 100 },
+    { field: 'email', selected: true, width: 100 },
+    { field: 'organization', selected: true, width: 100 },
+    { field: 'role', selected: true, width: 100 },
+    { field: 'home', selected: true, width: 100 },
+    { field: 'changeModelFunction', selected: true, width: 100 },
+    { field: 'updateModelFunction', selected: true, width: 100 },
+    { field: 'lockObjectFunction', selected: true, width: 100 },
+    { field: 'unlockObjectFunction', selected: true, width: 100 },
+    { field: 'action', selected: true, width: 100 }
+  ];
+
   displayedColumns: string[] = ['name', 'forename', 'surname', 'email', 'organization', 'role', 'home', 'changeModelFunction', 'updateModelFunction', 'lockObjectFunction', 'unlockObjectFunction', 'action'];
 
   constructor(
@@ -31,11 +47,13 @@ export class AdminComponent implements OnInit {
     private config: ConfigService,
     private dialog: MatDialog,
     private api: ApiService,
-    private ui: UIService) { }
+    private ui: UIService,
+    public properties: LocalStorageService) { }
 
   ngOnInit(): void {
     this.getUsers(-1);
     this.organizations = this.config.organizations;
+    this.initSelectedColumns();
   }
 
   getUsers(id: number) {
@@ -133,5 +151,38 @@ export class AdminComponent implements OnInit {
       }
     }); 
   }
+
+  // resizable columns
+  setColumns() {
+    this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field);
+  }
+
+  initSelectedColumns() {
+    const prop = this.properties.getStringProperty('adminColumns');
+    if (prop) {
+      Object.assign(this.selectedColumns, JSON.parse(prop));
+    }
+    this.setColumns();
+  }
+
+  getColumnWidth(field: string) {
+    const el = this.selectedColumns.find((c: any)=> c.field === field);
+    if (el) {
+      return el.width + 'px';
+    } else {
+      return '';
+    }
+  }
+
+  saveColumnsSizes(e: any, field?: string) {
+    const el = this.selectedColumns.find((c: any)=> c.field === field);
+    if (el) {
+      el.width = e;
+    } else {
+      console.log("nemelo by")
+    } 
+    this.properties.setStringProperty('adminColumns', JSON.stringify(this.selectedColumns));
+  }
+  // end
 
 }
