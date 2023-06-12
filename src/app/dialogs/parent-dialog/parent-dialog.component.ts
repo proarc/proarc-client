@@ -93,6 +93,36 @@ export class ParentDialogComponent implements OnInit {
     { field: 'isLocked', selected: false }
   ];
 
+
+  public selectedColumnsLeftTable = [
+    { field: 'pid', selected: true, width: 100 },
+    { field: 'label', selected: true, width: 100 },
+    { field: 'filename', selected: true, width: 100 },
+    { field: 'pageType', selected: true, width: 100 },
+    { field: 'pageIndex', selected: true, width: 100 },
+    { field: 'pageNumber', selected: true, width: 100 },
+    { field: 'pagePosition', selected: true, width: 100 },
+    { field: 'model', selected: true, width: 100 },
+    { field: 'owner', selected: true, width: 100 },
+    { field: 'created', selected: true, width: 100 },
+    { field: 'modified', selected: true, width: 100 },
+    { field: 'status', selected: true, width: 100 }
+  ];
+
+  public selectedColumnsRightTable = [
+    { field: 'label', selected: true, width: 100 },
+    { field: 'model', selected: true, width: 100 },
+    { field: 'pid', selected: true, width: 100 },
+    { field: 'processor', selected: true, width: 100 },
+    { field: 'organization', selected: true, width: 100 },
+    { field: 'status', selected: true, width: 100 },
+    { field: 'created', selected: true, width: 100 },
+    { field: 'modified', selected: true, width: 100 },
+    { field: 'owner', selected: true, width: 100 },
+    { field: 'export', selected: true, width: 100 },
+    { field: 'isLocked', selected: true, width: 100 }
+  ];
+
   displayedColumns: string[] = [];
   @ViewChild('searchTable') searchTable: MatTable<DocumentItem>;
 
@@ -113,6 +143,8 @@ export class ParentDialogComponent implements OnInit {
     // this.models = ModelTemplate.allowedParentsForModel(this.data.items[0].model);
     this.models = this.config.allModels;
     this.initSelectedColumns();
+    this.initSelectedColumnsLeftTable();
+    this.initSelectedColumnsRightTable();
 
     // this.splitArea1Width = parseInt(this.properties.getStringProperty('parent.split.0', "60"));
     // this.splitArea2Width = 100 - this.splitArea1Width;
@@ -549,6 +581,70 @@ export class ParentDialogComponent implements OnInit {
     this.initSelectedColumns();
     this.searchTable.renderRows();
   }
+
+  // resizable columns
+  setColumnsLeftTable() {
+    this.origTable = this.selectedColumnsLeftTable.filter(c => c.selected).map(c => c.field);
+  }
+
+  initSelectedColumnsLeftTable() {
+    const prop = this.properties.getStringProperty('parentDialogLeftTableColumns');
+    if (prop) {
+      Object.assign(this.selectedColumnsLeftTable, JSON.parse(prop));
+    }
+    this.setColumnsLeftTable();
+  }
+
+  getColumnWidthLeftTable(field: string) {
+    const el = this.selectedColumnsLeftTable.find((c: any)=> c.field === field);
+    if (el) {
+      return el.width + 'px';
+    } else {
+      return '';
+    }
+  }
+
+  saveColumnsSizesLeftTable(e: any, field?: string) {
+    const el = this.selectedColumnsLeftTable.find((c: any)=> c.field === field);
+    if (el) {
+      el.width = e;
+    } else {
+      console.log("nemelo by")
+    } 
+    this.properties.setStringProperty('parentDialogLeftTableColumns', JSON.stringify(this.selectedColumnsLeftTable));
+  }
+
+  setColumnsRightTable() {
+    this.displayedColumns = this.selectedColumnsRightTable.filter(c => c.selected).map(c => c.field);
+  }
+
+  initSelectedColumnsRightTable() {
+    const prop = this.properties.getStringProperty('parentDialogRightTableColumns');
+    if (prop) {
+      Object.assign(this.selectedColumnsRightTable, JSON.parse(prop));
+    }
+    this.setColumnsRightTable();
+  }
+
+  getColumnWidthRightTable(field: string) {
+    const el = this.selectedColumnsRightTable.find((c: any)=> c.field === field);
+    if (el) {
+      return el.width + 'px';
+    } else {
+      return '';
+    }
+  }
+
+  saveColumnsSizesRightTable(e: any, field?: string) {
+    const el = this.selectedColumnsRightTable.find((c: any)=> c.field === field);
+    if (el) {
+      el.width = e;
+    } else {
+      console.log("nemelo by")
+    } 
+    this.properties.setStringProperty('parentDialogRightTableColumns', JSON.stringify(this.selectedColumnsRightTable));
+  }
+  // end
 
 }
 
