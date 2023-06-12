@@ -147,6 +147,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
     });
     this.profiles = this.config.profiles;
     this.initSelectedColumnsOverview();
+    this.initSelectedColumnsQueue();
     // this.timer= setInterval(() => {
     //   this.updateLoadingBatchesProgress();
     // }, 5000);
