@@ -46,18 +46,18 @@ export class MarkSequenceDialogComponent implements OnInit {
   ];
 
   public selectedColumnsDestTable = [
-    { field: 'pid', selected: true, width: 100 },
-    { field: 'label', selected: true, width: 100 },
+    { field: 'pid', selected: false, width: 100 },
+    { field: 'label', selected: false, width: 100 },
     { field: 'filename', selected: true, width: 100 },
     { field: 'pageType', selected: true, width: 100 },
     { field: 'pageIndex', selected: true, width: 100 },
     { field: 'pageNumber', selected: true, width: 100 },
     { field: 'pagePosition', selected: true, width: 100 },    
-    { field: 'model', selected: true, width: 100 },
-    { field: 'owner', selected: true, width: 100 },
-    { field: 'created', selected: true, width: 100 },
-    { field: 'modified', selected: true, width: 100 },
-    { field: 'status', selected: true, width: 100 }
+    { field: 'model', selected: false, width: 100 },
+    { field: 'owner', selected: false, width: 100 },
+    { field: 'created', selected: false, width: 100 },
+    { field: 'modified', selected: false, width: 100 },
+    { field: 'status', selected: false, width: 100 }
   ];
 
   // název souboru, typ strany, číslo, index +přidat: pozice

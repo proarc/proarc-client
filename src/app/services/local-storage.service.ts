@@ -22,17 +22,17 @@ export class LocalStorageService {
 
     availableSearchColumns = ['pageType', 'pageIndex', 'pageNumber', 'model', 'pid', 'owner', 'processor', 'organization', 'status', 'created', 'modified', 'export', 'isLocked'];
     public selectedColumnsSearchDefault = [
-        { field: 'label', selected: true },
-        { field: 'model', selected: true },
-        { field: 'pid', selected: true },
-        { field: 'processor', selected: true },
-        { field: 'organization', selected: true },
-        { field: 'status', selected: true },
-        { field: 'created', selected: true },
-        { field: 'modified', selected: true },
-        { field: 'owner', selected: true },
-        { field: 'export', selected: true },
-        { field: 'isLocked', selected: true }
+        { field: 'label', selected: true, width: 100 },
+        { field: 'model', selected: true, width: 100 },
+        { field: 'pid', selected: true, width: 100 },
+        { field: 'processor', selected: true, width: 100 },
+        { field: 'organization', selected: true, width: 100 },
+        { field: 'status', selected: true, width: 100 },
+        { field: 'created', selected: true, width: 100 },
+        { field: 'modified', selected: true, width: 100 },
+        { field: 'owner', selected: true, width: 100 },
+        { field: 'export', selected: true, width: 100 },
+        { field: 'isLocked', selected: true, width: 100 }
     ];
 
     public availableColumnsEditingRepo = ['label', 'filename',
