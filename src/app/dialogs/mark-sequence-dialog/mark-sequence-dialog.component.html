@@ -56,42 +56,42 @@
                 </div>
               </div>
 
-              <table mat-table *ngIf="data.viewModeOrig == 'list'" [dataSource]="destTable" class="app-w-100" #table>
+              <table mat-table *ngIf="data.viewModeOrig == 'list'" [dataSource]="destTable" class="app-striped app-hover app-resize" #table>
                 <ng-container matColumnDef="pid">
-                  <th mat-header-cell *matHeaderCellDef>{{'desc.pid' | translate}} </th>
-                  <td mat-cell *matCellDef="let element"> {{element.pid}} </td>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesOrigTable($event, 'pid')" [style.width]="getColumnWidthOrigTable('pid')">{{ 'desc.pid' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{element.pid }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="label">
-                  <th mat-header-cell *matHeaderCellDef> {{'desc.name' | translate}}</th>
-                  <td mat-cell *matCellDef="let element"> {{data.shortLabels ? element.shortLabel : element.label}}
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesOrigTable($event, 'label')" [style.width]="getColumnWidthOrigTable('label')">{{ 'desc.name' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{ data.shortLabels ? element.shortLabel : element.label }}
                   </td>
                 </ng-container>
 
                 <ng-container matColumnDef="filename">
-                  <th mat-header-cell *matHeaderCellDef> {{'desc.fileName' | translate}}</th>
-                  <td mat-cell *matCellDef="let element"> {{element.filename}}
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesOrigTable($event, 'filename')" [style.width]="getColumnWidthOrigTable('filename')">{{ 'desc.fileName' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{ element.filename }}
                   </td>
                 </ng-container>
 
                 <ng-container matColumnDef="pageType">
-                  <th mat-header-cell *matHeaderCellDef> {{'desc.pageType' | translate}}</th>
-                  <td mat-cell *matCellDef="let element"> {{ "pageType." + element.pageType | translate }} </td>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesOrigTable($event, 'pageType')" [style.width]="getColumnWidthOrigTable('pageType')">{{ 'desc.pageType' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{ "pageType." + element.pageType | translate }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="pageIndex">
-                  <th mat-header-cell *matHeaderCellDef> {{'desc.pageIndex' | translate}}</th>
-                  <td mat-cell *matCellDef="let element"> {{element.pageIndex}} </td>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesOrigTable($event, 'pageIndex')" [style.width]="getColumnWidthOrigTable('pageIndex')">{{ 'desc.pageIndex' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{ element.pageIndex }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="pageNumber">
-                  <th mat-header-cell *matHeaderCellDef> {{'desc.pageNumber' | translate}}</th>
-                  <td mat-cell *matCellDef="let element"> {{element.pageNumber}} </td>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesOrigTable($event, 'pageNumber')" [style.width]="getColumnWidthOrigTable('pageNumber')">{{ 'desc.pageNumber' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{ element.pageNumber }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="pagePosition">
-                  <th mat-header-cell *matHeaderCellDef> {{'desc.pagePosition' | translate}}</th> 
-                  <td mat-cell *matCellDef="let element"> {{element.pagePosition}} </td>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesOrigTable($event, 'pagePosition')" [style.width]="getColumnWidthOrigTable('pagePosition')">{{ 'desc.pagePosition' | translate }}</th> 
+                  <td mat-cell *matCellDef="let element">{{ element.pagePosition }}</td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -155,62 +155,66 @@
                 </div>
               </div>
 
-              <table mat-table *ngIf="data.viewModeDest == 'list'" [dataSource]="destTable" class="app-w-100" #table>
+              <table mat-table *ngIf="data.viewModeDest == 'list'" [dataSource]="destTable" class="app-striped app-hover app-resize" #table>
                 <ng-container matColumnDef="pid">
-                  <th mat-header-cell *matHeaderCellDef>{{'desc.pid' | translate}} </th>
-                  <td mat-cell *matCellDef="let element"> {{element.pid}} </td>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'pid')" [style.width]="getColumnWidthDestTable('pid')">{{ 'desc.pid' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{ element.pid }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="label">
-                  <th mat-header-cell *matHeaderCellDef> {{'desc.name' | translate}}</th>
-                  <td mat-cell *matCellDef="let element"> {{data.shortLabels ? element.shortLabel : element.label}}
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'label')" [style.width]="getColumnWidthDestTable('label')">{{ 'desc.name' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{ data.shortLabels ? element.shortLabel : element.label }}
                   </td>
                 </ng-container>
 
                 <ng-container matColumnDef="filename">
-                  <th mat-header-cell *matHeaderCellDef> {{'desc.fileName' | translate}}</th>
-                  <td mat-cell *matCellDef="let element"> {{element.filename}}
-                  </td>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'filename')" [style.width]="getColumnWidthDestTable('filename')">{{ 'desc.fileName' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{ element.filename }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="pageType">
-                  <th mat-header-cell *matHeaderCellDef> {{'desc.pageType' | translate}}</th>
-                  <td mat-cell *matCellDef="let element"> {{element.pageType}} </td>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'pageType')" [style.width]="getColumnWidthDestTable('pageType')">{{ 'desc.pageType' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{ element.pageType }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="pageIndex">
-                  <th mat-header-cell *matHeaderCellDef> {{'desc.pageIndex' | translate}}</th>
-                  <td mat-cell *matCellDef="let element"> {{element.pageIndex}} </td>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'pageIndex')" [style.width]="getColumnWidthDestTable('pageIndex')">{{ 'desc.pageIndex' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{ element.pageIndex }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="pageNumber">
-                  <th mat-header-cell *matHeaderCellDef> {{'desc.pageNumber' | translate}}</th>
-                  <td mat-cell *matCellDef="let element"> {{element.pageNumber}} </td>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'pageNumber')" [style.width]="getColumnWidthDestTable('pageNumber')">{{ 'desc.pageNumber' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{ element.pageNumber }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="pagePosition">
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'pagePosition')" [style.width]="getColumnWidthDestTable('pagePosition')">{{ 'desc.pagePosition' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{ element.pagePosition }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="model">
-                  <th mat-header-cell *matHeaderCellDef> {{'desc.model' | translate}} </th>
-                  <td mat-cell *matCellDef="let element"> {{ 'model.' + element.model | translate}} </td>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'model')" [style.width]="getColumnWidthDestTable('model')">{{ 'desc.model' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{ 'model.' + element.model | translate }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="owner">
-                  <th mat-header-cell *matHeaderCellDef> {{'desc.owner' | translate}} </th>
-                  <td mat-cell *matCellDef="let element"> {{element.owner}} </td>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'owner')" [style.width]="getColumnWidthDestTable('owner')">{{ 'desc.owner' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{ element.owner }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="created">
-                  <th mat-header-cell *matHeaderCellDef> {{'desc.created' | translate}} </th>
-                  <td mat-cell *matCellDef="let element"> {{element.created | date : 'dd.MM.yyyy'}} </td>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'created')" [style.width]="getColumnWidthDestTable('created')">{{ 'desc.created' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{ element.created | date : 'dd.MM.yyyy' }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="modified">
-                  <th mat-header-cell *matHeaderCellDef> {{'desc.modified' | translate}} </th>
-                  <td mat-cell *matCellDef="let element"> {{element.modified | date : 'dd.MM.yyyy'}} </td>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'modified')" [style.width]="getColumnWidthDestTable('modified')">{{ 'desc.modified' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{ element.modified | date : 'dd.MM.yyyy' }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="status">
-                  <th mat-header-cell *matHeaderCellDef> {{'desc.status' | translate}} </th>
-                  <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'status')" [style.width]="getColumnWidthDestTable('status')">{{ 'desc.status' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{ element.status }}</td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="data.displayedColumns"></tr>

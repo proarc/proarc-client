@@ -6,6 +6,7 @@ import { ResizedEvent } from 'angular-resize-event';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UIService } from 'src/app/services/ui.service';
 
 @Component({
@@ -36,6 +37,29 @@ export class MarkSequenceDialogComponent implements OnInit {
   maxIconWidth: any = { orig: 91, dest: 91 };
   rectSize: any = {};
 
+  public selectedColumnsOrigTable = [
+    { field: 'filename', selected: true, width: 100 },
+    { field: 'pageType', selected: true, width: 100 },
+    { field: 'pageNumber', selected: true, width: 100 },
+    { field: 'pageIndex', selected: true, width: 100 },
+    { field: 'pagePosition', selected: true, width: 100 }
+  ];
+
+  public selectedColumnsDestTable = [
+    { field: 'pid', selected: true, width: 100 },
+    { field: 'label', selected: true, width: 100 },
+    { field: 'filename', selected: true, width: 100 },
+    { field: 'pageType', selected: true, width: 100 },
+    { field: 'pageIndex', selected: true, width: 100 },
+    { field: 'pageNumber', selected: true, width: 100 },
+    { field: 'pagePosition', selected: true, width: 100 },    
+    { field: 'model', selected: true, width: 100 },
+    { field: 'owner', selected: true, width: 100 },
+    { field: 'created', selected: true, width: 100 },
+    { field: 'modified', selected: true, width: 100 },
+    { field: 'status', selected: true, width: 100 }
+  ];
+
   // název souboru, typ strany, číslo, index +přidat: pozice
   displayedColumns: string[] = ['filename', 'pageType', 'pageNumber', 'pageIndex', 'pagePosition']; // 
 
@@ -44,12 +68,15 @@ export class MarkSequenceDialogComponent implements OnInit {
     private ui: UIService,
     public dialogRef: MatDialogRef<MarkSequenceDialogComponent>,
     private layout: LayoutService,
+    public properties: LocalStorageService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
   ngOnInit(): void {
     this.initLists();
     this.lastSelectedItemPid = this.layout.lastSelectedItem.pid;
+    this.initSelectedColumnsOrigTable();
+    this.initSelectedColumnsDestTable();
   }
 
   initLists() {
@@ -188,5 +215,72 @@ export class MarkSequenceDialogComponent implements OnInit {
       this.initLists();
     });
   }
+
+
+  // resizable columns
+  // orig table
+  setColumnsOrigTable() {
+    this.displayedColumns = this.selectedColumnsOrigTable.filter(c => c.selected).map(c => c.field);
+  }
+
+  initSelectedColumnsOrigTable() {
+    const prop = this.properties.getStringProperty('markSequenceDialogOrigTableColumns');
+    if (prop) {
+      Object.assign(this.selectedColumnsOrigTable, JSON.parse(prop));
+    }
+    this.setColumnsOrigTable();
+  }
+
+  getColumnWidthOrigTable(field: string) {
+    const el = this.selectedColumnsOrigTable.find((c: any)=> c.field === field);
+    if (el) {
+      return el.width + 'px';
+    } else {
+      return '';
+    }
+  }
+
+  saveColumnsSizesOrigTable(e: any, field?: string) {
+    const el = this.selectedColumnsOrigTable.find((c: any)=> c.field === field);
+    if (el) {
+      el.width = e;
+    } else {
+      console.log("nemelo by")
+    } 
+    this.properties.setStringProperty('markSequenceDialogOrigTableColumns', JSON.stringify(this.selectedColumnsOrigTable));
+  }
+
+  // dest table
+  setColumnsDestTable() {
+    this.data.displayedColumns = this.selectedColumnsDestTable.filter(c => c.selected).map(c => c.field);
+  }
+
+  initSelectedColumnsDestTable() {
+    const prop = this.properties.getStringProperty('markSequenceDialogDestTableColumns');
+    if (prop) {
+      Object.assign(this.selectedColumnsDestTable, JSON.parse(prop));
+    }
+    this.setColumnsDestTable();
+  }
+
+  getColumnWidthDestTable(field: string) {
+    const el = this.selectedColumnsDestTable.find((c: any)=> c.field === field);
+    if (el) {
+      return el.width + 'px';
+    } else {
+      return '';
+    }
+  }
+
+  saveColumnsSizesDestTable(e: any, field?: string) {
+    const el = this.selectedColumnsDestTable.find((c: any)=> c.field === field);
+    if (el) {
+      el.width = e;
+    } else {
+      console.log("nemelo by")
+    } 
+    this.properties.setStringProperty('markSequenceDialogDestTableColumns', JSON.stringify(this.selectedColumnsDestTable));
+  }
+  // end
 
 }
