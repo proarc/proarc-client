@@ -41,7 +41,7 @@
       </ng-container>
       <ng-container *ngIf="view == 'loadingQueue'">
         <button mat-flat-button color="primary" (click)="reload()">
-          <mat-icon>sync</mat-icon>
+          <!-- <mat-icon>sync</mat-icon> -->
           {{ 'button.refresh' | translate }}
         </button>
         <button mat-flat-button color="primary" (click)="changeView('overview')">
@@ -98,24 +98,24 @@
     </div>
 
     <div fxFlex class="app-oa-y" *ngIf="view == 'overview'">
-      <table mat-table #table [dataSource]="batches" class="app-striped app-hover">
+      <table mat-table #table [dataSource]="batches" class="app-striped app-hover app-resize">
         <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef>{{ 'desc.folderNamePid' | translate }}</th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesOverview($event, 'description')" [style.width]="getColumnWidthOverview('description')">{{ 'desc.folderNamePid' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.description }}</td>
         </ng-container>
 
         <ng-container matColumnDef="create">
-          <th mat-header-cell *matHeaderCellDef>{{ 'desc.created' | translate }}</th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesOverview($event, 'create')" [style.width]="getColumnWidthOverview('create')">{{ 'desc.created' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.create | appDatetime }}</td>
         </ng-container>
 
         <ng-container matColumnDef="timestamp">
-          <th mat-header-cell *matHeaderCellDef>{{ 'desc.modified' | translate }}</th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesOverview($event, 'timestamp')" [style.width]="getColumnWidthOverview('timestamp')">{{ 'desc.modified' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.timestamp | appDatetime }}</td>
         </ng-container>
 
         <ng-container matColumnDef="state">
-          <th mat-header-cell *matHeaderCellDef>{{ 'desc.state' | translate }}</th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesOverview($event, 'state')" [style.width]="getColumnWidthOverview('state')">{{ 'desc.state' | translate }}</th>
           <td mat-cell *matCellDef="let element">
             <span class="app-badge" [ngClass]="batchProgress(element) === '0%' ? 'app-WAITING' : 'app-' + element.state">
               {{ batchProgress(element) === '0%' ? ('states.WAITING' | translate) : ('states.' + element.state | translate) }}<strong *ngIf="element.isLoading()" class="app-ml-2">{{ batchProgress(element) }}</strong>
@@ -124,22 +124,22 @@
         </ng-container>
 
         <ng-container matColumnDef="profile">
-          <th mat-header-cell *matHeaderCellDef>{{ 'desc.profile' | translate }}</th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesOverview($event, 'profile')" [style.width]="getColumnWidthOverview('profile')">{{ 'desc.profile' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ 'formField.profiles.' +  element.profile | translate }}</td>
         </ng-container>
 
         <ng-container matColumnDef="user">
-          <th mat-header-cell *matHeaderCellDef>{{ 'desc.user' | translate }}</th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesOverview($event, 'user')" [style.width]="getColumnWidthOverview('user')">{{ 'desc.user' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.user }}</td>
         </ng-container>
 
         <ng-container matColumnDef="priority">
-          <th mat-header-cell *matHeaderCellDef>{{ 'desc.priority' | translate }}</th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesOverview($event, 'priority')" [style.width]="getColumnWidthOverview('priority')">{{ 'desc.priority' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ 'formField.priorities.' + element.priority | translate }}</td>
         </ng-container>
 
         <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef></th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesOverview($event, 'actions')" [style.width]="getColumnWidthOverview('actions')"></th>
           <td mat-cell *matCellDef="let element">
             <a *ngIf="element.failure" (click)="onShowLog(element);$event.preventDefault();$event.stopPropagation()" [matTooltip]="'button.viewErrorDetail' | translate" matTooltipPosition="below" class="app-icon-button">
               <mat-icon>error_outline</mat-icon>
@@ -160,24 +160,24 @@
     </div>
 
     <div fxFlex class="app-oa-y app-mt-4" *ngIf="view == 'loadingQueue'">
-      <table mat-table #table [dataSource]="queue" class="app-striped app-hover">
+      <table mat-table #table [dataSource]="queue" class="app-striped app-hove app-resize">
         <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef>{{ 'desc.folderNamePid' | translate }}</th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesQueue($event, 'description')" [style.width]="getColumnWidthQueue('description')">{{ 'desc.folderNamePid' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.description }}</td>
         </ng-container>
 
         <ng-container matColumnDef="create">
-          <th mat-header-cell *matHeaderCellDef>{{ 'desc.created' | translate }}</th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesQueue($event, 'create')" [style.width]="getColumnWidthQueue('create')">{{ 'desc.created' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.create | appDatetime }}</td>
         </ng-container>
 
         <ng-container matColumnDef="timestamp">
-          <th mat-header-cell *matHeaderCellDef>{{ 'desc.modified' | translate }}</th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesQueue($event, 'timestamp')" [style.width]="getColumnWidthQueue('timestamp')">{{ 'desc.modified' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.timestamp | appDatetime }}</td>
         </ng-container>
 
         <ng-container matColumnDef="state">
-          <th mat-header-cell *matHeaderCellDef>{{ 'desc.state' | translate }}</th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesQueue($event, 'state')" [style.width]="getColumnWidthQueue('state')">{{ 'desc.state' | translate }}</th>
           <td mat-cell *matCellDef="let element">
             <span class="app-badge" [ngClass]="batchProgress(element) === '0%' ? 'app-WAITING' : 'app-' + element.state">
               {{ batchProgress(element) === '0%' ? ('states.WAITING' | translate) : ('states.' + element.state | translate) }}<strong *ngIf="element.isLoading()" class="app-ml-2">{{ batchProgress(element) }}</strong>
@@ -186,12 +186,12 @@
         </ng-container>
 
         <ng-container matColumnDef="pageCount">
-          <th mat-header-cell *matHeaderCellDef>{{ 'desc.numberOfPages' | translate }}</th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesQueue($event, 'pageCount')" [style.width]="getColumnWidthQueue('pageCount')">{{ 'desc.numberOfPages' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.pageCount }}</td>
         </ng-container>
 
         <ng-container matColumnDef="user">
-          <th mat-header-cell *matHeaderCellDef>{{ 'desc.user' | translate }}</th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesQueue($event, 'user')" [style.width]="getColumnWidthQueue('user')">{{ 'desc.user' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.user }}</td>
         </ng-container>
 
