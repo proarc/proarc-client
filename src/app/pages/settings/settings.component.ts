@@ -23,7 +23,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class SettingsComponent implements OnInit {
 
-  view: string = 'personalSettings';
+  view: string = 'localSettings';
 
   state = 'none';
   user: User | null;
