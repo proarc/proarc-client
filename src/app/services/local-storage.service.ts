@@ -70,7 +70,7 @@ export class LocalStorageService {
             Object.assign(this.searchColumns, JSON.parse(prop));
         } else {
             this.searchColumns = [];
-            Object.assign(this.searchColumns, this.selectedColumnsSearchDefault);
+            Object.assign(this.searchColumns, JSON.parse(JSON.stringify(this.selectedColumnsSearchDefault)));
         }
         
     }
@@ -82,7 +82,7 @@ export class LocalStorageService {
             Object.assign(this.searchColumnsTree, JSON.parse(prop));
         } else {
             this.searchColumnsTree = [];
-            Object.assign(this.searchColumnsTree, this.selectedColumnsSearchDefault);
+            Object.assign(this.searchColumnsTree, JSON.parse(JSON.stringify(this.selectedColumnsSearchDefault)));
         }
     }
 
