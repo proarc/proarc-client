@@ -193,12 +193,19 @@
     border-style: solid;
     border-color: $app-gray-3;
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: center;
 
     .mat-icon {
       @include setIcon(18);
-      @extend .app-mr-2;
+      flex: 1 1 26px;
+      box-sizing: border-box;
+      max-width: 26px;
+      min-width: 26px;
+    }
+
+    .app-text {
+      word-break: break-all;
     }
   }
 }
