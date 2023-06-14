@@ -1023,20 +1023,20 @@ export class EditorStructureComponent implements OnInit {
 
   onDelete() {
     const checkbox = {
-      label: String(this.translator.instant('editor.children.delete_dialog.permanently')),
+      label: String(this.translator.instant('dialog.removeObject.checkbox')),
       checked: false
     };
     const data: SimpleDialogData = {
-      title: String(this.translator.instant('editor.children.delete_dialog.title')),
-      message: String(this.translator.instant('editor.children.delete_dialog.message')),
-      alertClass: 'app-message',
+      title: String(this.translator.instant('dialog.removeObject.title')),
+      message: String(this.translator.instant('dialog.removeObject.message')),
+      alertClass: 'app-warn',
       btn1: {
-        label: 'Ano',
+        label: String(this.translator.instant('button.yes')),
         value: 'yes',
         color: 'warn'
       },
       btn2: {
-        label: 'Ne',
+        label: String(this.translator.instant('button.no')),
         value: 'no',
         color: 'default'
       }

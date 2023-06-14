@@ -522,7 +522,7 @@ export class SearchComponent implements OnInit {
     }
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
-      width: '600px'
+      //width: '600px'
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
