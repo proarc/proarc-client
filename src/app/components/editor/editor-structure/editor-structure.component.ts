@@ -1061,7 +1061,18 @@ export class EditorStructureComponent implements OnInit {
     this.api.deleteObjects(pids, pernamently, this.layout.getBatchId()).subscribe((response: any) => {
 
       if (response['response'].errors) {
-        this.ui.showErrorDialogFromObject(response['response'].errors);
+        //this.ui.showErrorDialogFromObject(response['response'].errors);
+        const data: SimpleDialogData = {
+          title: String(this.translator.instant('dialog.deleteSelectedChildren.error.title')),
+          message: String(this.translator.instant('dialog.deleteSelectedChildren.error.message')),
+          alertClass: 'app-warn',
+          btn1: {
+            label: String(this.translator.instant('button.close')),
+            value: 'close',
+            color: 'deffault'
+          }
+        };
+        const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
         this.state = 'error';
         return;
       } else {

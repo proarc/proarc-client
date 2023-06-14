@@ -2410,6 +2410,12 @@
     },
     "catalog": {
       "title": "Loading data from the catalog"
+    },
+    "deleteSelectedChildren": {
+      "error": {
+        "title": "Error",
+        "message": "An article with a parent object cannot be deleted"
+      }
     }
   },
   "formField": {

@@ -2410,6 +2410,12 @@
     },
     "catalog": {
       "title": "Načtení dat z katalogu"
+    },
+    "deleteSelectedChildren": {
+      "error": {
+        "title": "Chyba",
+        "message": "Článek s nadřazeným objektem nelze smazat"
+      }
     }
   },
   "formField": {
