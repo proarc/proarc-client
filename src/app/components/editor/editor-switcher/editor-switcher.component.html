@@ -10,15 +10,9 @@
   <button mat-icon-button [matTooltip]="'editor.toolbar.editor_metadata' | translate" [class.app-active]="editorType === 'metadata'" (click)="changeEditorType('metadata')">
     <span class="app-text-icon">M</span>
   </button>
-  <!-- to delete after testing <button mat-icon-button *ngIf="layout.lastSelectedItem && layout.lastSelectedItem.isPage()" [matTooltip]="'editor.toolbar.editor_image' | translate" [matTooltipPosition]="toolbarTooltipPosition" [class.app-active]="editorType === 'image'" (click)="editorType = 'image'">
-    <mat-icon>image</mat-icon>
-  </button> -->
   <button mat-icon-button *ngIf="layout.lastSelectedItem && layout.lastSelectedItem.isAudioPage()" [matTooltip]="'editor.toolbar.editor_song' | translate" [class.app-active]="changeEditorType('song')" (click)="editorType = 'song'">
     <mat-icon>audiotrack</mat-icon>
   </button>
-  <!-- <button mat-icon-button *ngIf="layout.lastSelectedItem && layout.lastSelectedItem.canContainPdf()" [matTooltip]="'editor.toolbar.editor_pdf' | translate" [matTooltipPosition]="toolbarTooltipPosition" [class.app-active]="editorType === 'pdf'" (click)="editorType = 'pdf'">
-    <mat-icon>picture_as_pdf</mat-icon>
-  </button> -->
   <button mat-icon-button [matTooltip]="'editor.toolbar.editor_mods' | translate"  [class.app-active]="editorType === 'mods'" (click)="changeEditorType('mods')">
     <mat-icon>code</mat-icon>
   </button>
@@ -28,7 +22,4 @@
   <button mat-icon-button [matTooltip]="'editor.toolbar.editor_atm' | translate" [class.app-active]="editorType === 'atm'" (click)="changeEditorType('atm')">
     <span class="app-text-icon">A</span>
   </button>
-  <!-- to delete after testing <button mat-icon-button *ngIf="config.showCommentEditor" [matTooltip]="'editor.toolbar.editor_comment' | translate" [matTooltipPosition]="toolbarTooltipPosition" [class.app-active]="editorType === 'comment'" (click)="editorType = 'comment'">
-    <mat-icon>format_quote</mat-icon>
-  </button> -->
 </ng-container>
