@@ -2516,6 +2516,10 @@
     "saveTheChange": {
       "success": "The change was saved successfully.",
       "error": "An error occurred while saving the change."
+    },
+    "deleteSelectedChildren": {
+      "success": "The objects were successfully deleted.",
+      "error": "An error occurred while deleting objects."
     }
   },
   "device": {

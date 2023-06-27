@@ -2516,7 +2516,11 @@
     "saveTheChange": {
       "success": "Uložení změny bylo úspěšně provedeno.",
       "error": "Došlo k chybě při uložení změny."
-    } 
+    },
+    "deleteSelectedChildren": {
+      "success": "Objekty byly úspěšně smazány.",
+      "error": "Došlo k chybě při mazání objektů."
+    }
   },
   "device": {
     "devices": "Zařízení",

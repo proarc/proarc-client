@@ -1101,7 +1101,7 @@ export class EditorStructureComponent implements OnInit {
 
 
         // this.layout.setShouldRefresh(true);
-        this.ui.showInfoSnackBar(String(this.translator.instant('editor.children.delete_dialog.success')));
+        this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.deleteSelectedChildren.success')));
         this.layout.refreshSelectedItem(true, 'pages');
         this.state = 'success';
       }
