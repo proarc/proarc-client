@@ -2450,6 +2450,7 @@
       "exportProfile.crossref": "Export - Crossref",
       "exportProfile.kwis": "Export - KWIS",
       "exportProfile.aleph": "Export - Aleph",
+      "exportProfile.datastream": "Export - Datastream",
       "internalProfile.reindex": "Internal - Reindex"
     },
     "users": {
