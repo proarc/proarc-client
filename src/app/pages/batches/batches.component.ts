@@ -216,11 +216,19 @@ export class BatchesComponent implements OnInit {
     let valid = true;
     let invalidCount = 0;
     this.layout.items.forEach((p: DocumentItem) => {
-      valid = valid && p.isValidPage();
-      p.invalid = !p.isValidPage();
-      if (p.invalid) {
-        invalidCount++
-      }
+      if (p.isPage()) {
+        valid = valid && p.isValidPage();
+        p.invalid = !p.isValidPage();
+        if (p.invalid) {
+          invalidCount++
+        }
+      } else if (p.isAudioPage()) {
+        valid = valid && p.isValidAudioPage();
+        p.invalid = !p.isValidAudioPage();
+        if (p.invalid) {
+          invalidCount++
+        }
+    }
 
     });
     return invalidCount;
@@ -299,9 +307,9 @@ export class BatchesComponent implements OnInit {
           isRepo: false,
           batchId: this.batchId
         },
-        // data: { 
-        //   btnLabel: 'import.save', items: this.layout.items 
-        // }, 
+        // data: {
+        //   btnLabel: 'import.save', items: this.layout.items
+        // },
         width: '95%',
         maxWidth: '100vw',
         height: '90%',

@@ -57,7 +57,7 @@ export class DocumentItem {
     item.processor = json['processor'];
     item.organization = json['organization'];
 
-    
+
     item.pageIndex = json['pageIndex'] || null;
     item.pageNumber = json['pageNumber'] || null;
     item.pageType = json['pageType'] || null;
@@ -129,11 +129,17 @@ export class DocumentItem {
   }
 
   public isValidPage(): boolean {
+    // console.log("Model page:" + this.model +" "+ this.pageIndex +" "+ this.pageNumber +" "+ this.pageType)
     return this.isPage() && !!this.pageIndex && !!this.pageNumber && !!this.pageType;
   }
 
   public isAudioPage(): boolean {
     return this.model == 'model:ndkaudiopage';
+  }
+
+  public isValidAudioPage(): boolean {
+    // console.log("Model audiopage:" + this.model +" "+ this.pageIndex +" "+ this.pageNumber +" "+ this.pageType)
+    return this.isAudioPage() && !!this.pageIndex && !!this.pageType;
   }
 
   // public isVolume(): boolean {
