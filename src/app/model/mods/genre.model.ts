@@ -16,6 +16,7 @@ export class ModsGenre extends ModsElement {
     }
 
     private init() {
+        const c = this.getControl('peer-reviewed');
     }
 
 }

@@ -67,6 +67,12 @@ export class EditorMetadataComponent implements OnInit {
     }
   }
 
+  checkPendingChanges() {
+    console.log(this.metadata)
+    const r = this.metadata.hasChanges();
+    console.log(r)
+  }
+
   hasPendingChanges(): boolean {
     if (!this.metadata) {
       return false;

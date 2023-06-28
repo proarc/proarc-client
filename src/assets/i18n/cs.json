@@ -2410,6 +2410,12 @@
     },
     "catalog": {
       "title": "Načtení dat z katalogu"
+    },
+    "deleteSelectedChildren": {
+      "error": {
+        "title": "Chyba",
+        "message": "Článek s nadřazeným objektem nelze smazat"
+      }
     }
   },
   "formField": {
@@ -2444,6 +2450,7 @@
       "exportProfile.crossref": "Export - Crossref",
       "exportProfile.kwis": "Export - KWIS",
       "exportProfile.aleph": "Export - Aleph",
+      "exportProfile.datastream": "Export - Datastream",
       "internalProfile.reindex": "Internal - Reindexace"
     },
     "users": {
@@ -2506,6 +2513,14 @@
     "convertPages": {
       "success": "Strany byly úspěšně převedeny",
       "failure": "Strany byly převedeny s chybou"
+    },
+    "saveTheChange": {
+      "success": "Uložení změny bylo úspěšně provedeno.",
+      "error": "Došlo k chybě při uložení změny."
+    },
+    "deleteSelectedChildren": {
+      "success": "Objekty byly úspěšně smazány.",
+      "error": "Došlo k chybě při mazání objektů."
     }
   },
   "device": {

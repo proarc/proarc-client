@@ -22,17 +22,17 @@ export class LocalStorageService {
 
     availableSearchColumns = ['pageType', 'pageIndex', 'pageNumber', 'model', 'pid', 'owner', 'processor', 'organization', 'status', 'created', 'modified', 'export', 'isLocked'];
     public selectedColumnsSearchDefault = [
-        { field: 'label', selected: true },
-        { field: 'model', selected: true },
-        { field: 'pid', selected: true },
-        { field: 'processor', selected: true },
-        { field: 'organization', selected: true },
-        { field: 'status', selected: true },
-        { field: 'created', selected: true },
-        { field: 'modified', selected: true },
-        { field: 'owner', selected: true },
-        { field: 'export', selected: true },
-        { field: 'isLocked', selected: true }
+        { field: 'label', selected: true, width: 100 },
+        { field: 'model', selected: true, width: 100 },
+        { field: 'pid', selected: true, width: 100 },
+        { field: 'processor', selected: true, width: 100 },
+        { field: 'organization', selected: true, width: 100 },
+        { field: 'status', selected: true, width: 100 },
+        { field: 'created', selected: true, width: 100 },
+        { field: 'modified', selected: true, width: 100 },
+        { field: 'owner', selected: true, width: 100 },
+        { field: 'export', selected: true, width: 100 },
+        { field: 'isLocked', selected: true, width: 100 }
     ];
 
     public availableColumnsEditingRepo = ['label', 'filename',
@@ -70,7 +70,7 @@ export class LocalStorageService {
             Object.assign(this.searchColumns, JSON.parse(prop));
         } else {
             this.searchColumns = [];
-            Object.assign(this.searchColumns, this.selectedColumnsSearchDefault);
+            Object.assign(this.searchColumns, JSON.parse(JSON.stringify(this.selectedColumnsSearchDefault)));
         }
         
     }
@@ -82,7 +82,7 @@ export class LocalStorageService {
             Object.assign(this.searchColumnsTree, JSON.parse(prop));
         } else {
             this.searchColumnsTree = [];
-            Object.assign(this.searchColumnsTree, this.selectedColumnsSearchDefault);
+            Object.assign(this.searchColumnsTree, JSON.parse(JSON.stringify(this.selectedColumnsSearchDefault)));
         }
     }
 
@@ -127,12 +127,12 @@ export class LocalStorageService {
                     return {
                         field: c,
                         selected: (model.indexOf('page') < 0 && c.indexOf('page') < 0) || (model.indexOf('page') > -1 && c.indexOf('page') > -1),
-                        width: 100
+                        width: 150
                     }
                 });
             })
         }
-        return this.getBoolProperty('colsEditModeParent');
+        return this.getBoolProperty('colsEditModeParent', true);
     }
 
     getSelectedColumnsEditingImport() {
@@ -146,7 +146,7 @@ export class LocalStorageService {
                 return {
                     field: c,
                     selected: true,
-                    width: 100
+                    width: 150
                 }
             });
 
@@ -159,6 +159,10 @@ export class LocalStorageService {
     setColumnsEditingRepo(colsEditModeParent: boolean) {
         this.setStringProperty('colsRepo', JSON.stringify(this.colsEditingRepo));
         this.setBoolProperty('colsEditModeParent', colsEditModeParent);
+    }
+
+    setColumnsEditingRepoSimple() {
+        this.setStringProperty('colsRepo', JSON.stringify(this.colsEditingRepo));
     }
 
 }

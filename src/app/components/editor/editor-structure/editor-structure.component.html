@@ -7,17 +7,9 @@
       <button mat-icon-button [class.app-active]="viewMode === 'list'" (click)="changeViewMode('list')" [matTooltip]="'editor.children.view_list' | translate" >
         <mat-icon>format_align_justify</mat-icon>
       </button>
-      <!-- to delete after testing
-      <button mat-icon-button [class.app-active]="viewMode === 'grid'" (click)="changeViewMode('grid')" [matTooltip]="'editor.children.view_grid' | translate" >
-        <mat-icon>apps</mat-icon>
-      </button> -->
       <button mat-icon-button [disabled]="!pageChildren" [class.app-active]="viewMode === 'icons'" (click)="changeViewMode('icons')" [matTooltip]="'editor.children.view_icons' | translate" >
         <mat-icon>apps</mat-icon>
       </button>
-      <!-- o delete after testing
-      <button mat-icon-button [class.app-active]="shortLabels" (click)="switchUseShortLabel()" [matTooltip]="'editor.children.short_labels_' + (shortLabels ? 'on' : 'off') | translate" >
-        <mat-icon>short_text</mat-icon>
-      </button> -->
       <button mat-icon-button *ngIf="pageChildren" (click)="onReindexChildren()" [matTooltip]="'editor.children.reindex' | translate" >
         <mat-icon>format_list_numbered</mat-icon>
       </button>
@@ -25,7 +17,7 @@
         <mat-icon>swap_horiz</mat-icon>
       </button>
       <button mat-icon-button *ngIf="!isRepo" (click)="markSequence()" [matTooltip]="'editor.children.markSequence' | translate" >
-        <mat-icon><!-- to delete after testing dynamic_feed -->view_timeline</mat-icon>
+        <mat-icon>view_timeline</mat-icon>
       </button>
       <button mat-icon-button *ngIf="isRepo && canAddChildren()" (click)="onCreateNewObject()" [matTooltip]="'editor.children.add_new' | translate" >
         <mat-icon>add_circle</mat-icon>
@@ -33,21 +25,9 @@
       <button mat-icon-button *ngIf="isRepo" (click)="onRelocateOutside()" [matTooltip]="'editor.children.relocate_label' | translate" >
         <mat-icon>forward</mat-icon>
       </button>
-      <!-- to delete after testing
-      <ng-container *ngIf="viewMode === 'list'">
-        <button mat-icon-button [matMenuTriggerFor]="columns_menu" [matTooltip]="'editor.children.select_columns' | translate" >
-          <mat-icon>rule</mat-icon>
-        </button>
-        <mat-menu #columns_menu="matMenu">
-          <div *ngFor="let column of selectedColumns" mat-menu-item>
-            <mat-checkbox name="column.field" [(ngModel)]="column.selected" (change)="setSelectedColumns()">{{ 'search.' + column.field | translate }}</mat-checkbox>
-          </div>
-        </mat-menu>
-      </ng-container> -->
       <button mat-icon-button (click)="selectAll()" *ngIf="!isRepo" [matTooltip]="'editor.children.select_all' | translate">
         <mat-icon>checklist</mat-icon>
       </button>
-
       <button mat-icon-button (click)="onDelete()" [matTooltip]="'editor.children.delete' | translate" >
         <mat-icon>delete</mat-icon>
       </button>
@@ -127,109 +107,67 @@
         <!-- cdkDropList (cdkDropListDropped)="drop1($event)" cdkDropListData="layout.items" -->
 
         <ng-container matColumnDef="pid">
-          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true">{{'search.pid' | translate}}</th>
-          <td mat-cell *matCellDef="let element">
-            <div class="app-text-cutter-wrapper" [matTooltip]="element.pid">
-              <div class="app-text-cutter">
-                {{ element.pid }}
-              </div>
-            </div>
-          </td>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'pid')" [style.width]="getColumnWidth('pid')">{{'search.pid' | translate}}</th>
+          <td mat-cell *matCellDef="let element">{{ element.pid }}</td>
         </ng-container>
 
         <ng-container matColumnDef="label">
-          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"> {{'search.name' | translate}}</th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'label')" [style.width]="getColumnWidth('label')"> {{'search.name' | translate}}</th>
           <td mat-cell *matCellDef="let element">
-            <!-- <mat-icon *ngIf="element.invalid" class="app-mr-1">warning</mat-icon>{{ shortLabels ? element.shortLabel : element.label }}  -->
-            <div class="app-text-cutter-wrapper" [matTooltip]="shortLabels ? element.shortLabel : element.label">
-              <div class="app-text-cutter">
-                <mat-icon *ngIf="element.invalid" class="app-mr-1">warning</mat-icon>{{ shortLabels ? element.shortLabel : element.label }} 
-              </div>
-            </div>
+            <mat-icon *ngIf="element.invalid" class="app-mr-2">warning</mat-icon>{{ shortLabels ? element.shortLabel : element.label }}    
           </td>
         </ng-container>
 
         <ng-container matColumnDef="filename">
-          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"> {{'search.filename' | translate}}</th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'filename')" [style.width]="getColumnWidth('filename')"> {{'search.filename' | translate}}</th>
           <td mat-cell *matCellDef="let element">
-            <div class="app-text-cutter-wrapper" [matTooltip]="element.filename">
-              <div class="app-text-cutter">
-                <mat-icon *ngIf="element.invalid" class="app-mr-1">warning</mat-icon>{{ element.filename }} 
-              </div>
-            </div>
+            <mat-icon *ngIf="element.invalid" class="app-mr-2">warning</mat-icon>{{ element.filename }} 
           </td>
         </ng-container>
 
         <ng-container matColumnDef="pageType">
-          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"> {{'search.pageType' | translate}}</th>
-          <td mat-cell *matCellDef="let element">
-            <div class="app-text-cutter-wrapper" [matTooltip]="'pageType.' + element.pageType | translate">
-              <div class="app-text-cutter">
-                {{ 'pageType.' + element.pageType | translate }}
-              </div>
-            </div>
-          </td>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,'pageType')" [style.width]="getColumnWidth('pageType')"> {{'search.pageType' | translate}}</th>
+          <td mat-cell *matCellDef="let element">{{ 'pageType.' + element.pageType | translate }}</td>
         </ng-container>
 
         <ng-container matColumnDef="pageIndex">
-          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"> {{'search.pageIndex' | translate}}</th>
-          <td mat-cell *matCellDef="let element"> {{element.pageIndex}} </td>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,'pageIndex')" [style.width]="getColumnWidth('pageIndex')"> {{'search.pageIndex' | translate}}</th>
+          <td mat-cell *matCellDef="let element">{{ element.pageIndex }}</td>
         </ng-container>
 
         <ng-container matColumnDef="pageNumber">
-          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"> {{'search.pageNumber' | translate}}</th>
-          <td mat-cell *matCellDef="let element"> {{element.pageNumber}} </td>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,'pageNumber')" [style.width]="getColumnWidth('pageNumber')"> {{'search.pageNumber' | translate}}</th>
+          <td mat-cell *matCellDef="let element">{{ element.pageNumber }}</td>
         </ng-container>
 
         <ng-container matColumnDef="pagePosition">
-          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"> {{'search.pagePosition' | translate}}</th> 
-          <td mat-cell *matCellDef="let element"> {{element.pagePosition}} </td>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,'pagePosition')" [style.width]="getColumnWidth('pagePosition')"> {{'search.pagePosition' | translate}}</th> 
+          <td mat-cell *matCellDef="let element">{{ element.pagePosition }}</td>
         </ng-container>
 
         <ng-container matColumnDef="model">
-          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"> {{'search.model' | translate}}</th>
-          <td mat-cell *matCellDef="let element">
-            <!-- {{ 'model.' + element.model | translate }} -->
-            <div class="app-text-cutter-wrapper" [matTooltip]="'model.' + element.model | translate">
-              <div class="app-text-cutter">{{ 'model.' + element.model | translate }} </div>
-            </div>
-          </td>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,'model')" [style.width]="getColumnWidth('model')"> {{'search.model' | translate}}</th>
+          <td mat-cell *matCellDef="let element">{{ 'model.' + element.model | translate }}</td>
         </ng-container>
 
         <ng-container matColumnDef="owner">
-          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"> {{'search.owner' | translate}}</th>
-          <td mat-cell *matCellDef="let element">
-            <div class="app-text-cutter-wrapper" [matTooltip]="element.owner">
-              <div class="app-text-cutter">{{ element.owner }}</div>
-            </div>
-          </td>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,'owner')" [style.width]="getColumnWidth('owner')"> {{'search.owner' | translate}}</th>
+          <td mat-cell *matCellDef="let element">{{ element.owner }}</td>
         </ng-container>
 
         <ng-container matColumnDef="created">
-          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"> {{'search.created' | translate}}</th>
-          <td mat-cell *matCellDef="let element">
-            <div class="app-text-cutter-wrapper" [matTooltip]="element.created | date : 'dd.MM.yyyy'">
-              <div class="app-text-cutter">{{ element.created | date : 'dd.MM.yyyy' }}</div>
-            </div>
-          </td>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,'created')" [style.width]="getColumnWidth('created')"> {{'search.created' | translate}}</th>
+          <td mat-cell *matCellDef="let element">{{ element.created | date : 'dd.MM.yyyy' }}</td>
         </ng-container>
 
         <ng-container matColumnDef="modified">
-          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"> {{'search.modified' | translate}}</th>
-          <td mat-cell *matCellDef="let element">
-            <div class="app-text-cutter-wrapper" [matTooltip]="element.modified | date : 'dd.MM.yyyy'">
-              <div class="app-text-cutter">{{ element.modified | date : 'dd.MM.yyyy' }}</div>
-            </div>
-          </td>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,'modified')" [style.width]="getColumnWidth('modified')"> {{'search.modified' | translate}}</th>
+          <td mat-cell *matCellDef="let element">{{ element.modified | date : 'dd.MM.yyyy' }}</td>
         </ng-container>
 
         <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"> {{'search.status' | translate}}</th>
-          <td mat-cell *matCellDef="let element">
-            <div class="app-text-cutter-wrapper" [matTooltip]="element.status">
-              <div class="app-text-cutter">{{ element.status }}</div>
-            </div>
-          </td>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,'status')" [style.width]="getColumnWidth('status')"> {{'search.status' | translate}}</th>
+          <td mat-cell *matCellDef="let element">{{ element.status }}</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

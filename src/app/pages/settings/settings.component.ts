@@ -23,7 +23,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class SettingsComponent implements OnInit {
 
-  view: string = 'personalSettings';
+  view: string = 'localSettings';
 
   state = 'none';
   user: User | null;
@@ -71,7 +71,7 @@ export class SettingsComponent implements OnInit {
   ];
 
   modelForColumns: string;
-  colsEditModeParent: boolean
+  colsEditModeParent: boolean = true;
 
   constructor(
     private api: ApiService,
@@ -210,6 +210,7 @@ export class SettingsComponent implements OnInit {
         localStorage.clear();
         this.initSelectedColumnsEditingImport();
         this.properties.getSearchColumns();
+        this.properties.getSearchColumnsTree();
         this.colsEditModeParent =  this.properties.getColsEditingRepo();
         this.ui.showInfoSnackBar(this.translator.instant('snackbar.settings.resetLocalSettings.success'));
       }

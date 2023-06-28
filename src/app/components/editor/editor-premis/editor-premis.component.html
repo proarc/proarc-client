@@ -1,10 +1,5 @@
 <div fxLayout="column" fxFlexFill>
 	<div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
-		<!-- to delete after test <div fxFlex>
-			<div class="app-toolbar-label">
-				<span class="app-text">PREMIS</span>
-			</div>
-		</div> -->
 		<div>
 			<button mat-icon-button [matTooltip]="'editor.toolbar.editor_premis' | translate" [class.app-active]="editorType === 'metadata'" (click)="editorType = 'metadata'">
 				<span class="app-text-icon">P</span>

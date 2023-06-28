@@ -46,7 +46,6 @@ export class ElementField {
 
     constructor(mods: { [x: string]: any; }, id: string, template: any, attr: any = null, requiredValues: any[] = [], forbiddenValues: any[] = []) {
         this.template = template;
-        // console.log(id)
         if (localStorage.getItem('metadata.allExpanded')) {
             this.allExpanded = localStorage.getItem('metadata.allExpanded') === 'true';
         }
@@ -193,6 +192,7 @@ export class ElementField {
         const item: ModsElement = el || this.newElement(this.id, {});
         this.items.splice(index + 1, 0, item);
         this.root.splice(index + 1, 0, item.getEl());
+        setTimeout(() => {item.setAsDirty();}, 100);  
         return item;
     }
 
@@ -210,11 +210,18 @@ export class ElementField {
         if (index >= 0 && index < this.items.length) {
             this.items.splice(index, 1);
             this.root.splice(index, 1);
+            
         }
         if (this.visibleItemsCount() === 0) {
             const item = this.add();
             item.collapsed = true;
+            setTimeout(() => {item.setAsDirty();}, 100);    
+        } else {
+            setTimeout(() => {this.items[0].setAsDirty();}, 100);
         }
+        // console.log('tady');
+        // setTimeout(() => {this.items[0].setAsDirty();}, 100);
+        
     }
 
     private move(array: any[], from: number, to: number) {

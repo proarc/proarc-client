@@ -10,22 +10,6 @@
 				</mat-radio-group>
 			</ng-container>
 		</div>
-		<!-- to delete after testing <div fxFlex>
-			<div class="app-toolbar-label">
-				<span class="app-text">{{ 'editor.metadata.editor_title' | translate }}</span>
-				<ng-container *ngIf="metadata">
-					<span class="app-pipe"></span>
-					<mat-radio-group aria-label="'standard'" [(ngModel)]="metadata.standard" (change)="setStandard()" color="primary">
-						<mat-radio-button value="rda">rda</mat-radio-button>
-						<mat-radio-button value="aacr">aacr</mat-radio-button>
-					</mat-radio-group>
-				</ng-container>
-			</div>
-			<mat-radio-group aria-label="'standard'" [(ngModel)]="metadata.standard" (change)="setStandard()" color="primary">
-				<mat-radio-button value="rda">rda</mat-radio-button>
-				<mat-radio-button value="aacr">aacr</mat-radio-button>
-			</mat-radio-group>
-		</div> -->
 		<div>
 			<ng-container *ngIf="!notSaved">
 				<button  mat-icon-button (click)="onLoadFromCatalog()" [matTooltip]="'button.metadataCatalog' | translate" [matTooltipPosition]="toolbarTooltipPosition">

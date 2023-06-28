@@ -94,6 +94,8 @@ export class EditorStructureComponent implements OnInit {
     { field: 'status', selected: false, width: 140 }
   ];
   displayedColumns: string[] = [];
+  colsEditModeParent: boolean;
+  colsImport: any;
 
   subscriptions: Subscription[] = [];
 
@@ -101,7 +103,7 @@ export class EditorStructureComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private properties: LocalStorageService,
+    public properties: LocalStorageService,
     private translator: TranslateService,
     private dialog: MatDialog,
     private ui: UIService,
@@ -283,6 +285,64 @@ export class EditorStructureComponent implements OnInit {
     }
   }
 
+
+
+  getColumnWidth(field: string) {
+    if (this.isRepo) {
+      return this.getColumnWidthRepo(field);
+    } else {
+      return this.getColumnWidthImport(field);
+    }
+  }
+  getColumnWidthRepo(field: string) {
+    const model = this.colsEditModeParent ? this.layout.selectedParentItem.model : this.layout.items[0].model;
+    const el = this.properties.colsEditingRepo[model].find((c: any)=> c.field === field);
+    if (el) {
+      return el.width + 'px';
+    } else {
+      return '';
+    }
+  }
+
+  getColumnWidthImport(field: string) {
+    const el = this.colsImport.find((c: any)=> c.field === field);
+    if (el) {
+      return el.width + 'px';
+    } else {
+      return '';
+    }
+  }
+
+  saveColumnsSizes(e: any, field?: string) {
+    if (this.isRepo) {
+      this.saveColumnsSizesRepo(e, field);
+    } else {
+      this.saveColumnsSizesImport(e, field);
+    }
+  }
+  saveColumnsSizesRepo(e: any, field?: string) {
+    const model = this.colsEditModeParent ? this.layout.selectedParentItem.model : this.layout.items[0].model;
+    const el = this.properties.colsEditingRepo[model].find((c: any)=> c.field === field);
+    if (el) {
+      el.width = e;
+    } else {
+      console.log("nemelo by")
+    } 
+
+    this.properties.setColumnsEditingRepoSimple();
+  }
+
+  saveColumnsSizesImport(e: any, field?: string) {
+    const el = this.colsImport.find((c: any)=> c.field === field);
+    if (el) {
+      el.width = e;
+    } else {
+      console.log("nemelo by")
+    } 
+
+    this.properties.setStringProperty('selectedColumnsImport', JSON.stringify(this.colsImport));
+  }
+
   setSelectedColumnsRepo() {
     const models: string[] = [];
     this.layout.items.forEach(i => {
@@ -290,9 +350,9 @@ export class EditorStructureComponent implements OnInit {
         models.push(i.model);
       }
     });
-    const colsEditModeParent = this.properties.getColsEditingRepo();
+    this.colsEditModeParent = this.properties.getColsEditingRepo();
     this.displayedColumns = [];
-    if (colsEditModeParent) {
+    if (this.colsEditModeParent) {
       this.displayedColumns = this.properties.colsEditingRepo[this.layout.selectedParentItem.model].filter(c => c.selected && !this.displayedColumns.includes(c.field)).map(c => c.field);
     } else {
       models.forEach(model => {
@@ -303,8 +363,8 @@ export class EditorStructureComponent implements OnInit {
   }
 
   setSelectedColumnsImport() {
-    const cols = this.properties.getSelectedColumnsEditingImport();
-    this.displayedColumns = cols.filter((c: any) => c.selected).map((c: any) => c.field);
+    this.colsImport = this.properties.getSelectedColumnsEditingImport();
+    this.displayedColumns = this.colsImport.filter((c: any) => c.selected).map((c: any) => c.field);
   }
 
   selectAll() {
@@ -313,7 +373,6 @@ export class EditorStructureComponent implements OnInit {
   }
 
   selectColumns() {
-    console.log(this.layout.selectedParentItem.model)
     const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
       data: {
         isRepo: this.isRepo,
@@ -652,7 +711,10 @@ export class EditorStructureComponent implements OnInit {
       parentPid: this.layout.selectedParentItem.pid,
       fromNavbar: false
     }
-    const dialogRef1 = this.dialog.open(NewObjectDialogComponent, { data: data });
+    const dialogRef1 = this.dialog.open(NewObjectDialogComponent, { 
+      data: data,
+      width: '680px'
+     });
     dialogRef1.afterClosed().subscribe((result: any) => {
       if (result && result['pid']) {
 
@@ -762,9 +824,6 @@ export class EditorStructureComponent implements OnInit {
 
 
   onRelocateOutside() {
-    const selected = this.layout.getSelected();
-    const items = selected.length > 0 ? selected : [this.layout.item];
-    const parent = selected.length > 0 ? this.layout.item : this.layout.parent;
 
     const dialogRef = this.dialog.open(ParentDialogComponent, {
       data: {
@@ -772,7 +831,7 @@ export class EditorStructureComponent implements OnInit {
         parent: this.layout.item.parent,
         item: this.layout.item,
         items: this.layout.items,
-        // expandedPath: this.expandedPath,
+        expandedPath: this.layout.expandedPath,
         displayedColumns: this.displayedColumns,
         isRepo: this.isRepo,
         batchId: this.layout.getBatchId()
@@ -948,10 +1007,12 @@ export class EditorStructureComponent implements OnInit {
 
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
+        this.ui.showErrorSnackBar(String(this.translator.instant('snackbar.saveTheChange.error')));
         this.state = 'error';
         return;
       } else {
-        this.ui.showInfoDialog("V poradku")
+        //this.ui.showInfoDialog("V poradku");
+        this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.saveTheChange.success')));
         this.hasChanges = false;
         this.state = 'success';
       }
@@ -962,20 +1023,20 @@ export class EditorStructureComponent implements OnInit {
 
   onDelete() {
     const checkbox = {
-      label: String(this.translator.instant('editor.children.delete_dialog.permanently')),
+      label: String(this.translator.instant('dialog.removeObject.checkbox')),
       checked: false
     };
     const data: SimpleDialogData = {
-      title: String(this.translator.instant('editor.children.delete_dialog.title')),
-      message: String(this.translator.instant('editor.children.delete_dialog.message')),
-      alertClass: 'app-message',
+      title: String(this.translator.instant('dialog.removeObject.title')),
+      message: String(this.translator.instant('dialog.removeObject.message')),
+      alertClass: 'app-warn',
       btn1: {
-        label: 'Ano',
+        label: String(this.translator.instant('button.yes')),
         value: 'yes',
         color: 'warn'
       },
       btn2: {
-        label: 'Ne',
+        label: String(this.translator.instant('button.no')),
         value: 'no',
         color: 'default'
       }
@@ -1000,7 +1061,18 @@ export class EditorStructureComponent implements OnInit {
     this.api.deleteObjects(pids, pernamently, this.layout.getBatchId()).subscribe((response: any) => {
 
       if (response['response'].errors) {
-        this.ui.showErrorDialogFromObject(response['response'].errors);
+        //this.ui.showErrorDialogFromObject(response['response'].errors);
+        const data: SimpleDialogData = {
+          title: String(this.translator.instant('dialog.deleteSelectedChildren.error.title')),
+          message: String(this.translator.instant('dialog.deleteSelectedChildren.error.message')),
+          alertClass: 'app-warn',
+          btn1: {
+            label: String(this.translator.instant('button.close')),
+            value: 'close',
+            color: 'deffault'
+          }
+        };
+        const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
         this.state = 'error';
         return;
       } else {
@@ -1029,7 +1101,7 @@ export class EditorStructureComponent implements OnInit {
 
 
         // this.layout.setShouldRefresh(true);
-        this.ui.showInfoSnackBar(String(this.translator.instant('editor.children.delete_dialog.success')));
+        this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.deleteSelectedChildren.success')));
         this.layout.refreshSelectedItem(true, 'pages');
         this.state = 'success';
       }
