@@ -33,7 +33,6 @@ export class EditorAuthorComponent implements OnInit {
         'str', 'ths', 'trc', 'trl', 'tyd', 'tyg', 'voc', 'wam', 'wdc', 'wde', 'wit'];
 
   public roles: { code: string; name: any; }[] = [];
-  fControl: FormControl;
 
   constructor(
     public translator: TranslateService,
@@ -49,8 +48,6 @@ export class EditorAuthorComponent implements OnInit {
     if (!this.model) {
       this.model = this.layout.lastSelectedItem.model;
     }
-    
-    this.fControl = this.field.getItems()[0].getControl('roles')
   }
 
   onLoadFromCatalog(item: any) {
