@@ -24,6 +24,7 @@ export class ExportDialogComponent implements OnInit {
   target: string;
   errors: any[];
   canContinue = false;
+  
 
   public importInstance: string;
   public instances: { krameriusInstanceId: string, krameriusInstanceName: string }[];
@@ -72,12 +73,12 @@ export class ExportDialogComponent implements OnInit {
       }
       const data =  response['response']['data'];
       for (const d of data) {
-        if(d.ignoreMissingUrnNbn) {
+        if(d.ignoreMissingUrnNbn && this.data.model.indexOf('oldprint') > -1) {
           this.canContinue = true;
         }
         if (d.errors && d.errors.length > 0) {
           this.errors.push(d.errors[0]);
-          if(d.errors[0].ignoreMissingUrnNbn) {
+          if(d.errors[0].ignoreMissingUrnNbn && this.data.model.indexOf('oldprint') > -1) {
             this.canContinue = true;
           }
         } else if (d.target) {
