@@ -4,6 +4,7 @@ import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { StreamProfile } from 'src/app/model/stream-profile';
 import { ApiService } from 'src/app/services/api.service';
+import { LayoutService } from 'src/app/services/layout.service';
 import { UIService } from 'src/app/services/ui.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class MediaComponent implements OnInit {
   public currentPid: string;
   public inputPid: string;
   isLocked = false;
+  isRepo = true;
 
   @Input()
   set pid(pid: string) {
@@ -31,10 +33,12 @@ export class MediaComponent implements OnInit {
 
   constructor(private api: ApiService,
     private dialog: MatDialog,
-    private ui: UIService) {
+    private ui: UIService,
+    private layout: LayoutService) {
   }
 
   ngOnInit() {
+    this.isRepo = this.layout.type === 'repo';
   }
 
   urlByStream() {
@@ -86,6 +90,7 @@ export class MediaComponent implements OnInit {
   }
 
   onPidChanged(pid: string) {
+    this.isRepo = this.layout.type === 'repo';
     this.inputPid = pid;
     if (this.isLocked) {
       return;
@@ -95,6 +100,11 @@ export class MediaComponent implements OnInit {
   }
 
   getProfiles(pid: string) {
+    if (!this.isRepo) {
+      this.streamProfiles = [];
+      this.streamProfile = null;
+      return;
+    }
     this.state = 'loading';
     this.api.getStreamProfile(pid).subscribe((response: any) => {
       if (response?.response?.data) {
