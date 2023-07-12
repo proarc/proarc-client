@@ -21,12 +21,12 @@
 		</div>
   </div>
 	<div fxFlex class="app-oa-y">
-		<div class="app-editor-content app-h-100" *ngIf="streamProfile">
-      <app-pdf *ngIf="isPdf()" [stream]="streamProfile.dsid" [pid]="currentPid"></app-pdf>
-      <app-epub *ngIf="isEpub()" [stream]="streamProfile.dsid" [pid]="currentPid"></app-epub>
-      <app-viewer *ngIf="isImage()" [idViewer]="'app-viewer-media'" [stream]="streamProfile.dsid" [pid]="currentPid"></app-viewer>
-      <app-song *ngIf="isAudio()" [pid]="currentPid"></app-song>
-			<mat-card class="app-alert app-info app-m-4" *ngIf="isUnsupported()">
+		<div class="app-editor-content app-h-100" *ngIf="streamProfile || !isRepo">
+      <app-pdf *ngIf="isRepo && isPdf()" [stream]="streamProfile?.dsid" [pid]="currentPid"></app-pdf>
+      <app-epub *ngIf="isRepo && isEpub()" [stream]="streamProfile?.dsid" [pid]="currentPid"></app-epub>
+      <app-viewer *ngIf="!isRepo || isImage()" [idViewer]="'app-viewer-media'" [stream]="streamProfile?.dsid" [pid]="currentPid"></app-viewer>
+      <app-song *ngIf="isRepo && isAudio()" [pid]="currentPid"></app-song>
+			<mat-card class="app-alert app-info app-m-4" *ngIf="isRepo && isUnsupported()">
 				<mat-icon>info</mat-icon>
 				{{ 'alert.info.digitalContentIsNotSupported' | translate }} ({{streamProfile.mime}})
 			</mat-card>

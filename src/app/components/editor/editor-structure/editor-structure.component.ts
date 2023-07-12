@@ -127,7 +127,7 @@ export class EditorStructureComponent implements OnInit {
       this.lastClickIdx = 0;
     }
     this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((fromStructure: boolean) => {
-      // this.setScrollPos();
+      this.refreshChildren();
       this.refreshing = true;
       setTimeout(() => {
         this.scrollBack();
@@ -138,6 +138,16 @@ export class EditorStructureComponent implements OnInit {
       this.setSelectedColumns();
     }));
 
+  }
+
+  refreshChildren() {
+    // const hasTree = this.layout.selectedParentItem;
+    // if (hasTree) {
+    //   return
+    // }
+    this.api.getRelations(this.layout.selectedParentItem.pid).subscribe((children: DocumentItem[]) => {
+      this.layout.items = children;
+    });
   }
 
   ngAfterViewInit() {
