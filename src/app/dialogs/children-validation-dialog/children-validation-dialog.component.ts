@@ -6,6 +6,7 @@ import { Metadata } from 'src/app/model/metadata.model';
 import { Page } from 'src/app/model/page.model';
 import { ApiService } from 'src/app/services/api.service';
 import { TemplateService } from 'src/app/services/template.service';
+import {AudioPage} from '../../model/audioPage.model';
 
 @Component({
   templateUrl: './children-validation-dialog.component.html',
@@ -80,6 +81,17 @@ export class ChildrenValidationDialogComponent implements OnInit {
     if (item.isPage()) {
       this.api.getPage(item.pid, item.model, this.data.batchId).subscribe((page: Page) => {
         item.invalid = !page.isValid();
+        if (item.invalid) {
+          this.numberOfInvalid += 1;
+        } else {
+          this.numberOfValid += 1;
+        }
+        this.index += 1;
+        this.validate();
+      });
+    } else if(item.isAudioPage()) {
+      this.api.getAudioPage(item.pid, item.model, this.data.batchId).subscribe((audioPage: AudioPage) => {
+        item.invalid = !audioPage.isValid();
         if (item.invalid) {
           this.numberOfInvalid += 1;
         } else {
