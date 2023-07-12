@@ -225,9 +225,9 @@ export class EditorPageComponent implements OnInit {
 
   saveIcon() {
     if (this.layout.type === 'repo') {
-      this.save(null);
+      this.onSave(null);
     } else {
-      this.save(this.lastFocus)
+      this.onSave(this.lastFocus)
     }
   }
 
