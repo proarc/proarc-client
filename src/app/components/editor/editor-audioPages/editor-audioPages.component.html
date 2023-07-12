@@ -1,58 +1,40 @@
-<div class="app-editor-content-wrapper">
-
-  <div class="app-editor-toolbar">
-    <div class="app-label">{{ 'editor.audioPages.title' | translate }}</div>
-    <div class="app-actions-right">
-
-      <!-- <button class="app-action" (click)="editor.switchMultipleSelectionMode()"
-        [matTooltip]="'common.cancel' | translate" mat-icon-button>
-        <mat-icon>clear</mat-icon>
-      </button>
-      <div class="app-divider"></div> -->
-
-      <div class="app-divider"></div>
-
-      <button class="app-action" [class.app-disabled]="!canSave()" [disabled]="!canSave()" matTooltip="{{ 'common.save' | translate }}"
-        (click)="onSave()" mat-icon-button>
+<div fxLayout="column" fxFlexFill>
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
+    <div fxFlex>
+			<div class="app-toolbar-label">
+				<span class="app-text">{{ 'editor.audioPages.title' | translate }}</span>
+			</div>
+		</div>
+		<div>
+      <button mat-icon-button (click)="onSave()" [disabled]="!canSave()" [matTooltip]="'button.save' | translate">
         <mat-icon>save</mat-icon>
       </button>
-    </div>
-
+		</div>
   </div>
-
-  <div class="app-editor-content">
-
-    <div class="app-editor-field">
-      <div class="app-card">
-        <div class="app-card-content">
-
-          <mat-checkbox color="primary" [(ngModel)]="holder.editIndex">{{ 'editor.audioPages.edit_page_index' | translate }}
-          </mat-checkbox>
-
-          <mat-form-field class="app-full-width" [class.app-disabled]="!holder.editIndex">
-            <input (keyup.enter)="onSave()" [readonly]="!holder.editIndex" type="number" step="1" min="0"
-              autocomplete="off" matInput [placeholder]="'editor.audioPages.index_from' | translate"
-              [(ngModel)]="holder.pageIndex" [formControl]="pageIndexControl">
-          </mat-form-field>
-
-        </div>
-      </div>
-
-      <div class="app-card">
-        <div class="app-card-content">
-          <div class="app-apply-to">
-            <mat-form-field>
-              <mat-select [placeholder]="'editor.audioPages.apply' | translate" name="apply" [(value)]="holder.applyTo"  [disabled]="!canSave()"
-              (keyup.enter)="enterSelect(applySelect)" #applySelect  [formControl]="applyControl">
-                <mat-option *ngFor="let num of holder.applyOptions;" [value]="num">{{'editor.audioPages.apply_to' + (num > 1 ? '2' : '0') |
-                  translate: { num: num } }}</mat-option>
-              </mat-select>
+  <div fxFlex class="app-oa-y">
+    <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='saving'" class="app-progress-bar"></mat-progress-bar>
+    <div class="app-editor-content" *ngIf="state !=='loading'">
+      <div class="app-editor-field">
+        <div class="app-card">
+          <div class="app-card-content">
+            <mat-checkbox color="primary" [(ngModel)]="holder.editIndex" class="app-mb-4">{{ 'editor.audioPages.edit_page_index' | translate }}</mat-checkbox>
+            <mat-form-field class="app-w-100" [class.app-disabled]="!holder.editIndex">
+              <input (keyup.enter)="onSave()" [readonly]="!holder.editIndex" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.audioPages.index_from' | translate" [(ngModel)]="holder.pageIndex" [formControl]="pageIndexControl">
             </mat-form-field>
           </div>
-
-          <mat-checkbox [disabled]="holder.applyTo == 1" color="primary" [(ngModel)]="holder.applyToFirst">{{
-            'editor.audioPages.apply_to_first' | translate }}</mat-checkbox>
-
+        </div>
+  
+        <div class="app-card">
+          <div class="app-card-content">
+            <div class="app-apply-to">
+              <mat-form-field>
+                <mat-select [placeholder]="'editor.audioPages.apply' | translate" name="apply" [(value)]="holder.applyTo"  [disabled]="!canSave()" (keyup.enter)="enterSelect(applySelect)" #applySelect  [formControl]="applyControl">
+                  <mat-option *ngFor="let num of holder.applyOptions;" [value]="num">{{'editor.audioPages.apply_to' + (num > 1 ? '2' : '0') | translate: { num: num } }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <mat-checkbox [disabled]="holder.applyTo == 1" color="primary" [(ngModel)]="holder.applyToFirst" class="app-mb-4">{{ 'editor.audioPages.apply_to_first' | translate }}</mat-checkbox>
+          </div>
         </div>
       </div>
     </div>
