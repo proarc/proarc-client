@@ -28,7 +28,7 @@
   </div>
   <mat-divider *ngIf="getNumOfSelected() !== 0 && state!=='loading' && isAllowed()"></mat-divider>
   <div *ngIf="getNumOfSelected() !== 0 && state!=='loading' && isAllowed()" class="app-mt-4">
-    {{ (data.isRepo ? 'dialog.parent.alert.infoRepo' : 'dialog.parent.alert.infoImport') | translate }}:&#160;<strong>{{ selectedDestItem.label }}</strong>
+    {{ (data.isRepo ? 'dialog.parent.alert.infoRepo' : 'dialog.parent.alert.infoImport') | translate }}:&#160;<strong>{{ selectedDestItem.label }}&#160;({{ 'model.' + selectedDestItem.model | translate}})</strong>
   </div>
   <div mat-dialog-actions cdk-focus-start>
     <button mat-flat-button color="primary" *ngIf="data.parent" (click)="onDeleteParent()">{{ 'button.unlink' | translate }}</button>
@@ -43,7 +43,7 @@
   <div fxLayout="column" fxFlexFill>
     <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
       <div class="app-toolbar-label app-text-cutter app-mr-2">
-				<span class="app-text">{{ 'desc.theCurrentParentObject' | translate }}: <strong [matTooltip]="data.item?.label">{{ data.item?.label }}</strong></span>
+				<span class="app-text">{{ 'desc.theCurrentParentObject' | translate }}: <strong [matTooltip]="data.item?.label">{{ data.item?.label }}&#160;({{ 'model.' + data.item?.model | translate}})</strong></span>
 			</div>
     </div>
     <div class="app-oa-y">
@@ -52,62 +52,62 @@
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesLeftTable($event, 'pid')" [style.width]="getColumnWidthLeftTable('pid')">{{'desc.pid' | translate}} </th>
           <td mat-cell *matCellDef="let element">{{ element.pid }}</td>
         </ng-container>
-  
+
         <ng-container matColumnDef="label">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesLeftTable($event, 'label')" [style.width]="getColumnWidthLeftTable('label')">{{ 'desc.name' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ data.shortLabels ? element.shortLabel : element.label }}</td>
         </ng-container>
-  
+
         <ng-container matColumnDef="filename">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesLeftTable($event, 'filename')" [style.width]="getColumnWidthLeftTable('filename')">{{ 'desc.fileName' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.filename }}</td>
         </ng-container>
-  
+
         <ng-container matColumnDef="pageType">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesLeftTable($event, 'pageType')" [style.width]="getColumnWidthLeftTable('pageType')">{{ 'desc.pageType' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ 'pageType.' + element.pageType | translate }}</td>
         </ng-container>
-  
+
         <ng-container matColumnDef="pageIndex">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesLeftTable($event, 'pageIndex')" [style.width]="getColumnWidthLeftTable('pageIndex')">{{ 'desc.pageIndex' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.pageIndex }}</td>
         </ng-container>
-  
+
         <ng-container matColumnDef="pageNumber">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesLeftTable($event, 'pageNumber')" [style.width]="getColumnWidthLeftTable('pageNumber')">{{ 'desc.pageNumber' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.pageNumber }}</td>
         </ng-container>
-  
+
         <ng-container matColumnDef="pagePosition">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesLeftTable($event, 'pagePosition')" [style.width]="getColumnWidthLeftTable('pagePosition')">{{ 'desc.pagePosition' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.pagePosition }}</td>
         </ng-container>
-  
+
         <ng-container matColumnDef="model">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesLeftTable($event, 'model')" [style.width]="getColumnWidthLeftTable('model')">{{ 'desc.model' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ 'model.' + element.model | translate }}</td>
         </ng-container>
-  
+
         <ng-container matColumnDef="owner">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesLeftTable($event, 'owner')" [style.width]="getColumnWidthLeftTable('owner')">{{ 'desc.owner' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.owner }}</td>
         </ng-container>
-  
+
         <ng-container matColumnDef="created">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesLeftTable($event, 'created')" [style.width]="getColumnWidthLeftTable('created')">{{ 'desc.created' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.created | date : 'dd.MM.yyyy' }}</td>
         </ng-container>
-  
+
         <ng-container matColumnDef="modified">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesLeftTable($event, 'modified')" [style.width]="getColumnWidthLeftTable('modified')">{{ 'desc.modified' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.modified | date : 'dd.MM.yyyy' }}</td>
         </ng-container>
-  
+
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesLeftTable($event, 'status')" [style.width]="getColumnWidthLeftTable('status')">{{ 'desc.status' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.status }}</td>
         </ng-container>
-  
+
         <tr mat-header-row *matHeaderRowDef="data.displayedColumns; sticky: true"></tr>
         <tr mat-row *matRowDef="let row; let idx = index; columns: data.displayedColumns" [class.app-selected]="row.selected" (click)="select(orig, row, idx, $event, 'dest')"></tr>
       </table>
@@ -115,7 +115,7 @@
   </div>
 </ng-template>
 
-<ng-template #searchTmpl> 
+<ng-template #searchTmpl>
   <div fxLayout="column" fxFlexFill>
     <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-action">
       <button mat-button value="phrase"  [class.app-active]="searchMode === 'phrase'" (click)="searchMode = 'phrase'">{{ 'button.query' | translate }}</button>

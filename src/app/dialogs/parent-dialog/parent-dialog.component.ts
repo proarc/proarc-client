@@ -78,7 +78,7 @@ export class ParentDialogComponent implements OnInit {
 
   hasChanges = false;
 
-  
+
   public selectedColumns = [
     { field: 'label', selected: true },
     { field: 'model', selected: false },
@@ -187,14 +187,14 @@ export class ParentDialogComponent implements OnInit {
       return false;
     }
     if (this.data.isRepo) {
-      // No selected. Should take data.item element as origin. 
+      // No selected. Should take data.item element as origin.
       // Selected. Check allowed in selection
       return (this.getNumOfSelected() > 0 && ModelTemplate.allowedChildrenForModel(this.selectedDestItem.model).includes(this.getSelected()[0].model))
              || (this.getNumOfSelected() === 0 && ModelTemplate.allowedChildrenForModel(this.selectedDestItem.model).includes(this.data.item.model));
     } else {
       return this.selectedDestItem && ModelTemplate.allowedChildrenForModel(this.selectedDestItem.model).includes(this.orig[0].model);
     }
-    
+
   }
 
   getSortIcon(field: string) {
@@ -268,7 +268,7 @@ export class ParentDialogComponent implements OnInit {
       if (this.data.isRepo) {
         this.findAndSelect();
       }
-      
+
     });
   }
 
@@ -323,7 +323,7 @@ export class ParentDialogComponent implements OnInit {
     this.deleteParent()
   }
 
-  
+
 
   private deleteParent() {
     const data: SimpleDialogData = {
@@ -344,7 +344,7 @@ export class ParentDialogComponent implements OnInit {
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        
+
           this.state = 'saving';
           const pid = this.getNumOfSelected() > 0 ? this.lastSelectedItemPid: this.data.item.pid;
           const parent = this.getNumOfSelected() > 0 ? this.lastSelectedItem.parent : this.data.parent;
@@ -359,7 +359,7 @@ export class ParentDialogComponent implements OnInit {
               this.hasChanges = true;
             }
           });
-        
+
       }
     });
   }
@@ -425,7 +425,7 @@ export class ParentDialogComponent implements OnInit {
     this.state = 'saving';
     const pid = this.selectedDestItem.pid;
     this.clearSelected();
-    
+
 
     this.api.relocateObjects(parentPid, destinationPid, pids).subscribe((response: any) => {
       if (response['response'].errors) {
@@ -610,7 +610,7 @@ export class ParentDialogComponent implements OnInit {
       el.width = e;
     } else {
       console.log("nemelo by")
-    } 
+    }
     this.properties.setStringProperty('parentDialogLeftTableColumns', JSON.stringify(this.selectedColumnsLeftTable));
   }
 
@@ -641,7 +641,7 @@ export class ParentDialogComponent implements OnInit {
       el.width = e;
     } else {
       console.log("nemelo by")
-    } 
+    }
     this.properties.setStringProperty('parentDialogRightTableColumns', JSON.stringify(this.selectedColumnsRightTable));
   }
   // end
