@@ -9,7 +9,7 @@ import { LayoutService } from 'src/app/services/layout.service';
 })
 export class SongComponent implements OnInit, OnDestroy {
 
-  @Input() 
+  @Input()
   set pid(pid: string) {
     this.onPidChanged(pid);
   }
@@ -59,8 +59,13 @@ export class SongComponent implements OnInit, OnDestroy {
       this.trackPositionText = this.formatTime(this.trackPosition);
     };
     this.audio.onloadedmetadata = () => {
-      this.trackDuration = Math.round(this.audio.duration);
-      this.trackDurationText = this.formatTime(this.trackDuration);
+
+      if (this.audio.duration !== Infinity) {
+        this.trackDuration = Math.round(this.audio.duration);
+        this.trackDurationText = this.formatTime(this.trackDuration);
+      } else {
+        this.trackDurationText = 'Infinity';
+      }
       this.trackPosition = Math.round(this.audio.currentTime);
       this.trackPositionText = this.formatTime(this.trackPosition);
       console.log('this.trackDuration', this.trackDuration);
@@ -111,9 +116,9 @@ export class SongComponent implements OnInit, OnDestroy {
 
 
   private formatTime(secs: number) {
-    const hr  = Math.floor(secs / 3600);
+    const hr = Math.floor(secs / 3600);
     const min = Math.floor((secs - (hr * 3600)) / 60);
-    const sec = Math.floor(secs - (hr * 3600) -  (min * 60));
+    const sec = Math.floor(secs - (hr * 3600) - (min * 60));
     const m = min < 10 ? '0' + min : '' + min;
     const s = sec < 10 ? '0' + sec : '' + sec;
     const h = hr > 0 ? hr + ':' : '';
