@@ -2162,6 +2162,42 @@
             labelKey: 'relatedItem/subject/geographic',
             description: 'Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21'
           },
+          geographicCode: {
+            usage: 'R',
+            label: 'Geografické věcné třídění formou kódu',
+            selector: 'subject/geographicCode',
+            labelKey: 'subject/geographicCode',
+            description: 'geografické věcné třídění formou kódu',
+            fields: {
+              authority: {
+                usage: 'R',
+                label: 'Autorita',
+                selector: 'subject/geographicCode/@authority',
+                labelKey: 'subject/geographicCode/@authority',
+                cols: 2,
+                description: 'Vždy hodnota "marcgac"',
+                options: [
+                  [
+                    '',
+                    '-'
+                  ],
+                  [
+                    'marcgac',
+                    'MarcGac'
+                  ],
+                ]
+              },
+              value: {
+                label: 'Hodnota',
+                usage: 'M',
+                required: true,
+                selector: 'subject/geographicCode/value',
+                labelKey: 'subject/geographicCode/value',
+                cols: 2,
+                help: 'off'
+              }
+            }
+          },
           temporal: {
             usage: 'R',
             label: 'Chronologické věcné třídění',
