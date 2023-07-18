@@ -619,6 +619,7 @@
             },
             value: {
               usage: 'M',
+              defaultValue: 'print',
               selector: 'physicalDescription/form/value',
               labelKey: 'physicalDescription/form/value',
               label: 'Hodnota',
@@ -672,6 +673,7 @@
         },
         value: {
           usage: 'M',
+          defaultValue: 'supplement',
           selector: 'genre/value',
           labelKey: 'genre/value',
           label: 'Hodnota',
@@ -880,6 +882,7 @@
             },
             authority: {
               usage: 'R',
+              defaultValue: 'marcorg',
               label: 'Autorita',
               cols: 2,
               selector: 'recordInfo/recordContentSource/@authority',

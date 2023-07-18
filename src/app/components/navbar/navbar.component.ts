@@ -39,11 +39,12 @@ export class NavbarComponent implements OnInit {
     const data: NewObjectData = {
       models: this.config.allModels,
       model: this.properties.getStringProperty('search.model', this.config.defaultModel),
-      customPid: false
+      customPid: false,
+      fromNavbar: true
     }
     const dialogRef = this.dialog.open(NewObjectDialogComponent, { 
       data: data,
-      width: '600px',
+      width: '680px',
       panelClass: 'app-dialog-new-bject'
      });
     dialogRef.afterClosed().subscribe(result => {
@@ -62,6 +63,7 @@ export class NavbarComponent implements OnInit {
     const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
        disableClose: true, 
        height: '90%',
+       width: '680px',
        data: data 
       });
     dialogRef.afterClosed().subscribe(res => {

@@ -354,7 +354,7 @@
           fields: {
             authority: {
               usage: 'R',
-//              required: true,
+              defaultValue: 'marcform',
               label: 'Autorita',
               selector: 'physicalDescription/form/@authority',
               labelKey: 'physicalDescription/form/@authority',
@@ -373,7 +373,6 @@
             },
             value: {
               usage: 'R',
-//              required: true,
               selector: 'physicalDescription/form/value',
               labelKey: 'physicalDescription/form/value',
               label: 'Hodnota',
@@ -428,6 +427,7 @@
       fields: {
         value: {
           usage: 'M',
+          defaultValue: 'article',
           required: true,
           selector: 'genre/value',
           labelKey: 'genre/value',
@@ -581,12 +581,14 @@
       fields: {
         type: {
           usage: 'M',
+          defaultValue: 'pageIndex',
           label: 'Typ',
           selector: 'part/@type',
           labelKey: 'part/@type',
           description: 'Hodnota bude vždy "volume" ',
           options: [
-            ['volume', 'volume']
+            ['pageIndex', 'Page Index'],
+            ['pageNumber', 'Page Number']
           ]
         },
         caption: {
@@ -636,6 +638,7 @@
             },
             authority: {
               usage: 'R',
+              defaultValue: 'marcorg',
               label: 'Autorita',
               cols: 2,
               selector: 'recordInfo/recordContentSource/@authority',
@@ -1334,6 +1337,24 @@
               labelKey: 'relatedItem/subject/topic',
               description: 'Libovolný výraz specifikující nebo charakterizující obsah periodika<br/>\
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x'
+              fields: {
+                value: {
+                  usage: 'R',
+                  label: 'Hodnota',
+//                  cols: 2,
+                  selector: 'subject/topic/value',
+                  labelKey: 'subject/topic/value',
+                  hint: false
+                },
+//                lang: {
+//                  usage: 'R',
+//                  cols: 2,
+//                  label: 'Hodnota',
+//                  selector: 'subject/topic/@lang',
+//                  labelKey: 'subject/topic/@lang',
+//                  hint: false,
+//                }
+              }
             },
             geographic: {
               usage: 'R',
@@ -1535,6 +1556,7 @@
               fields: {
                 authority: {
                   usage: 'MA',
+                  defaultValue: 'marcform',
                   label: 'Autorita',
                   selector: 'relatedItem/physicalDescription/form/@authority',
                   labelKey: 'relatedItem/physicalDescription/form/@authority',

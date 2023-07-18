@@ -353,6 +353,7 @@
           fields: {
             authority: {
               usage: 'R',
+              defaultValue: 'marcform',
 //              required: true,
               label: 'Autorita',
               selector: 'physicalDescription/form/@authority',
@@ -427,6 +428,7 @@
       fields: {
         value: {
           usage: 'M',
+          defaultValue: 'article',
           required: true,
           selector: 'genre/value',
           labelKey: 'genre/value',
@@ -662,6 +664,7 @@
             },
             authority: {
               usage: 'R',
+              defaultValue: 'marcorg',
               label: 'Autorita',
               cols: 2,
               selector: 'recordInfo/recordContentSource/@authority',
@@ -1358,8 +1361,26 @@
               label: 'Klíčové slovo/Předmětové heslo',
               selector: 'relatedItem/subject/topic',
               labelKey: 'relatedItem/subject/topic',
-              description: 'Libovolný výraz specifikující nebo charakterizující obsah periodika<br/>\
-          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x'
+              description: 'Libovolný výraz specifikující nebo charakterizující obsah periodika<br/>
+          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x',
+              fields: {
+                value: {
+                  usage: 'R',
+                  label: 'Hodnota',
+//                  cols: 2,
+                  selector: 'subject/topic/value',
+                  labelKey: 'subject/topic/value',
+                  hint: false,
+                },
+//                lang: {
+//                  usage: 'R',
+//                  cols: 2,
+//                  label: 'Hodnota',
+//                  selector: 'subject/topic/@lang',
+//                  labelKey: 'subject/topic/@lang',
+//                  hint: false
+//                }
+              }
             },
             geographic: {
               usage: 'R',
@@ -1560,6 +1581,7 @@
               fields: {
                 authority: {
                   usage: 'MA',
+                  defaultValue: 'marcform',
                   label: 'Autorita',
                   selector: 'relatedItem/physicalDescription/form/@authority',
                   labelKey: 'relatedItem/physicalDescription/form/@authority',

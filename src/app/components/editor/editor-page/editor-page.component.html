@@ -1,19 +1,33 @@
 <div fxLayout="column" fxFlexFill>
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
+  <div fxLayout="row" class="app-toolbar app-view-metadata" *ngIf="switchable">
+    <div fxFlex>
+      <app-editor-switcher (onChangeEditorType)="changeEditorType($event)" [editorType]="editorType"></app-editor-switcher>
+    </div>
+    <div>
+      <button mat-icon-button (click)="onRevert()" [disabled]="!hasChanged()" [matTooltip]="'button.refresh' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+        <mat-icon>sync</mat-icon>
+      </button>
+      <button  mat-icon-button (click)="saveIcon()" [disabled]="!hasChanged()" [matTooltip]="'button.save' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+        <mat-icon>save</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
     <div fxFlex>
 			<div class="app-toolbar-label">
 				<span class="app-text">{{ 'editor.page.title' | translate }}</span>
 			</div>
 		</div>
 		<div>
-			<button mat-icon-button (click)="onRevert()" [disabled]="!page" [matTooltip]="'common.revert' | translate" [matTooltipPosition]="toolbarTooltipPosition">
-        <mat-icon>replay</mat-icon>
+			<button mat-icon-button (click)="onRevert()" [disabled]="!page" [matTooltip]="'button.refresh' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+        <mat-icon>sync</mat-icon>
       </button>
       <button  mat-icon-button (click)="saveIcon()" [disabled]="!page" [matTooltip]="'button.save' | translate" [matTooltipPosition]="toolbarTooltipPosition">
         <mat-icon>save</mat-icon>
       </button>
 		</div>
-  </div>
+  </div> -->
   <div fxFlex class="app-oa-y">
     <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
     <div class="app-editor-content" *ngIf="state === 'success'">

@@ -1,10 +1,8 @@
 <div fxLayout="column" fxFlexFill>
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
+  <div fxLayout="row" class="app-toolbar app-view-metadata">
     <div fxFlex>
-			<div class="app-toolbar-label">
-				<span class="app-text">{{ 'editor.atm.title' | translate }}</span>
-			</div>
-		</div>
+      <app-editor-switcher (onChangeEditorType)="changeEditorType($event)" [editorType]="editorType"></app-editor-switcher>
+    </div>
 		<div>
       <button mat-icon-button (click)="onRevert()" [matTooltip]="'common.revert' | translate" [matTooltipPosition]="toolbarTooltipPosition" [disabled]="!atm || !atm.hasChanged()">
         <mat-icon>replay</mat-icon>

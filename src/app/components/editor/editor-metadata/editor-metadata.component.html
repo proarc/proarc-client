@@ -1,23 +1,21 @@
 <div fxLayout="column" fxFlexFill>
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
+  <div fxLayout="row" class="app-toolbar app-view-description">
 		<div fxFlex>
-			<div class="app-toolbar-label">
-				<span class="app-text">{{ 'editor.metadata.editor_title' | translate }}</span>
-				<ng-container *ngIf="metadata">
-					<span class="app-pipe"></span>
-					<mat-radio-group aria-label="'standard'" [(ngModel)]="metadata.standard" (change)="setStandard()" color="primary">
-						<mat-radio-button value="rda">rda</mat-radio-button>
-						<mat-radio-button value="aacr">aacr</mat-radio-button>
-					</mat-radio-group>
-				</ng-container>
-			</div>
+			<app-editor-switcher (onChangeEditorType)="changeEditorType($event)" [editorType]="editorType"></app-editor-switcher>
+			<ng-container *ngIf="metadata">
+				<span class="app-pipe"></span>
+				<mat-radio-group aria-label="'standard'" [(ngModel)]="metadata.standard" (change)="setStandard()" color="primary" class="app-ml-3">
+					<mat-radio-button value="rda">rda</mat-radio-button>
+					<mat-radio-button value="aacr">aacr</mat-radio-button>
+				</mat-radio-group>
+			</ng-container>
 		</div>
-		<div *ngIf="metadata">
+		<div>
 			<ng-container *ngIf="!notSaved">
 				<button  mat-icon-button (click)="onLoadFromCatalog()" [matTooltip]="'button.metadataCatalog' | translate" [matTooltipPosition]="toolbarTooltipPosition">
 					<mat-icon>local_library</mat-icon>
 				</button>
-				<button mat-icon-button (click)="onSave()" [matTooltip]="'button.save' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+				<button mat-icon-button [disabled]="!hasPendingChanges()" (click)="onSave()" [matTooltip]="'button.save' | translate" [matTooltipPosition]="toolbarTooltipPosition">
 					<mat-icon>save</mat-icon>
 				</button>
 			</ng-container>

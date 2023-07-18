@@ -182,10 +182,11 @@ export class ImportComponent implements OnInit {
       return;
     }
     if (this.nonStatusProfiles.includes(this.selectedProfile.id)) {
-      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, this.generateIndex, this.selectedDevice.id, this.selectedPriority).subscribe((response: any) => {
+      this.api.createImportBatch(selectedFolders[0].path, this.selectedProfile.id, this.generateIndex, this.selectedDevice?.id, this.selectedPriority).subscribe((response: any) => {
         const data: SimpleDialogData = {
           title: "Načtení adresářů",
           message: "Načtení adresářů se zpracovává na pozadí.",
+          alertClass: 'app-message',
           btn1: {
             label: "Zavřít",
             value: 'close',
@@ -232,6 +233,7 @@ export class ImportComponent implements OnInit {
         const data: SimpleDialogData = {
           title: "Hromadné načtení adresářů",
           message: "Hromadné načtení adresářů se zpracovává na pozadí.",
+          alertClass: 'app-message',
           btn1: {
             label: "Zavřít",
             value: 'close',

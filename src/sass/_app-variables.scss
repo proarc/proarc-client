@@ -29,7 +29,7 @@ $app-gray-8: mat-color($mat-gray, 800) !default;
 $app-gray-9: mat-color($mat-gray, 900) !default;
 
 // custom colors
-$app-color-info: darken(mat-color($mat-yellow, 800), 5) !default;
+$app-color-info: #856404 !default;
 $app-color-success: mat-color($mat-green, 800) !default;
 $app-color-disabled: $app-gray-4;
 $app-color-item-bg: $app-gray-1;
@@ -63,7 +63,7 @@ $app-breadcrumbsbar-color: $app-color-lightnes !default;
 
 $app-split-panel-bg: $app-color-lightnes !default;
 
-$app-toolbar-height: 40px !default;
+$app-toolbar-height: 34px !default;
 $app-toolbar-border-color: $app-navbar-border-color;
 $app-toolbar-bg: $app-color-primary !default;
 $app-toolbar-button-bg-active: $app-toolbar-border-color !default;
@@ -98,6 +98,7 @@ $app-button-height: 32px !default;
 $app-mat-radio-button-size: 14px !default;
 $app-mat-slide-toggle-reduction: 4px !default;
 $app-mat-select-option-height: 2em !default;
+$app-mat-menu-item-height: 2em !default;
 
 
 // gaps
@@ -147,9 +148,11 @@ $states: (
   INGESTING: mat-color($mat-blue-gray, 600),
   INGESTED: $app-color-success,
   INGESTING_FAILED: $app-color-warn,
+  EXPORT_PLANNED: $app-color-info,
   EXPORTING: mat-color($mat-blue-gray, 600),
   EXPORT_DONE: $app-color-success,
   EXPORT_FAILED: $app-color-warn,
+  EXPORT_VALID_WARNING: $app-color-warn,
   REINDEXING: mat-color($mat-blue-gray, 600),
   REINDEX_DONE: $app-color-success,
   REINDEX_FAILED: $app-color-warn,

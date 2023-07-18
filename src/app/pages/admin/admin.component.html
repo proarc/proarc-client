@@ -1,75 +1,82 @@
 <div fxLayout="column" fxFlexFill>
-  <div fxFlex class="app-p-4 app-oa-y" fxLayout="column">
-    <h1>{{ 'desc.userAdministration' | translate }}</h1>
-    <div fxFlex>
-      <mat-card>
-        <mat-card-content fxLayout="row" fxLayoutGap="16px">
-          <div fxLayout="column">
-            <fieldset class="app-p-4 app-mb-4" fxFlex>
-              <legend>{{ 'desc.aListOfUsers' | translate }}</legend>
-              <mat-radio-group fxLayout="column">
-                <mat-radio-button *ngFor="let user of users" (click)="selectUser(user)" [value]="user.name" [checked]="user.userId === selectedUser?.userId">
-                  {{ user.name }}
-                </mat-radio-button>
-              </mat-radio-group>
-            </fieldset>
-            <div>
-              <button mat-flat-button color="primary" (click)="newUser()" class="app-mr-2">{{ 'button.createNewUser' | translate }}</button>
-              <!-- <button mat-flat-button color="warn" (click)="deleteUser()">{{ 'button.deleteUser' | translate }}</button> -->
-            </div>
-          </div>
-          <div fxFlex fxLayout="column">
-            <fieldset class="app-p-4 app-mb-4" fxFlex>
-              <legend>{{ 'desc.accountInformation' | translate }}</legend>
-              <div fxLayout="row" fxLayoutGap="16px">
-                <mat-form-field fxFlex>
-                  <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.username' | translate" title="" [matTooltip]="'formField.users.tooltipUsername' | translate" [(ngModel)]="selectedUser.name" pattern="[a-z][a-z0-9_-]{4,}"  required #name>
-                  <mat-error *ngIf="!selectedUser.name">{{ 'formField.users.error.username' | translate }}</mat-error>
-                </mat-form-field>
-                <mat-form-field fxFlex>
-                  <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.password' | translate" title="" minlength="6" [matTooltip]="'formField.users.tooltipPassowrd' | translate" [(ngModel)]="selectedUser.password" type="password" required #password>
-                  <mat-error *ngIf="!selectedUser.password">{{ 'formField.users.error.password' | translate }}</mat-error>
-                </mat-form-field>
-                <mat-form-field fxFlex>
-                  <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.forename' | translate" [(ngModel)]="selectedUser.forename">
-                </mat-form-field>
-                <mat-form-field  fxFlex>
-                  <input (keyup.enter)="save()" autocomplete="off" matInput title=""  [placeholder]="'desc.surname' | translate" [(ngModel)]="selectedUser.surname" required #surname>
-                  <mat-error *ngIf="!selectedUser.surname">{{ 'formField.users.error.surname' | translate }}</mat-error>
-                </mat-form-field>
-                <mat-form-field fxFlex>
-                  <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.email' | translate" [(ngModel)]="selectedUser.email">
-                </mat-form-field>
-              </div>
-              <div fxLayout="row" fxLayoutGap="16px">
-                <mat-form-field fxFlex>
-                  <mat-select [placeholder]="'desc.organization' | translate" name="organization" [(ngModel)]="selectedUser.organization">
-                    <mat-option *ngFor="let organization of organizations" [value]="organization">{{ 'organization.' + organization | translate }}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <mat-form-field fxFlex>
-                  <mat-select [(ngModel)]='selectedUser.role' placeholder="{{ 'desc.role' | translate }}">
-                    <mat-option *ngFor="let role of roles" [value]="role">{{ 'formField.users.roles.' + role | translate }}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <div class="app-mb-4">
-                <strong>{{'desc.folder' | translate}}</strong>: <em class="app-desc">{{ selectedUser.home }}</em>
-              </div>
-              <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center">
-                <span class="app-label">{{ 'desc.theUserIsAllowedToRunTheseFunctions' | translate }}:</span>
-                <mat-checkbox color="primary" [(ngModel)]="selectedUser.changeModelFunction">{{ 'desc.conversionOfModels' | translate }}</mat-checkbox>
-                <mat-checkbox color="primary" [(ngModel)]="selectedUser.updateModelFunction">{{ 'desc.updateModels' | translate }}</mat-checkbox>
-                <mat-checkbox color="primary" [(ngModel)]="selectedUser.lockObjectFunction">{{ 'desc.lockingTheObject' | translate }}</mat-checkbox>
-                <mat-checkbox color="primary" [(ngModel)]="selectedUser.unlockObjectFunction">{{ 'desc.unlockingTheObject' | translate }}</mat-checkbox>
-              </div>
-            </fieldset>
-            <div>
-              <button mat-flat-button color="primary" (click)="save()">{{ 'button.save' | translate }}</button>
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
+    <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
+      <a routerLink="/"><mat-icon>home</mat-icon></a>
+      <span class="app-separator">/</span>
+      <span class="app-last">{{ 'desc.userAdministration' | translate }}</span>
+    </div>
+  </div>
+  <div fxFlex class="app-p-4 app-oh">
+    <div class="app-maxh-100 app-oa-y app-mb-4"> 
+      <table mat-table [dataSource]="users" class="app-striped app-hover app-resize">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'name')" [style.width]="getColumnWidth('name')">{{ 'desc.username' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+      
+        <ng-container matColumnDef="forename">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'forename')" [style.width]="getColumnWidth('forename')">{{ 'desc.forename' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.forename }}</td>
+        </ng-container>
+      
+        <ng-container matColumnDef="surname">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'surname')" [style.width]="getColumnWidth('surname')">{{ 'desc.surname' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.surname }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'email')" [style.width]="getColumnWidth('email')">{{ 'desc.email' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="organization">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'organization')" [style.width]="getColumnWidth('organization')">{{ 'desc.organization' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.organization }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="role">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'role')" [style.width]="getColumnWidth('role')">{{ 'desc.role' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.role }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="home">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'home')" [style.width]="getColumnWidth('home')">{{ 'desc.folder' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.home }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="changeModelFunction">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'changeModelFunction')" [style.width]="getColumnWidth('changeModelFunction')">{{ 'desc.conversionOfModels' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.changeModelFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+
+        <ng-container matColumnDef="updateModelFunction">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'updateModelFunction')" [style.width]="getColumnWidth('updateModelFunction')">{{ 'desc.updateModels' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.updateModelFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+
+        <ng-container matColumnDef="lockObjectFunction">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'lockObjectFunction')" [style.width]="getColumnWidth('lockObjectFunction')">{{ 'desc.lockingTheObject' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.lockObjectFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+
+        <ng-container matColumnDef="unlockObjectFunction">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'unlockObjectFunction')" [style.width]="getColumnWidth('unlockObjectFunction')">{{ 'desc.unlockingTheObject' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.unlockObjectFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'action')" [style.width]="getColumnWidth('action')"></th>
+          <td mat-cell *matCellDef="let element">
+            <a [routerLink]="['/admin/' + element.userId  + '/edit-user']" [matTooltip]="'button.edit' | translate"><mat-icon>edit_note</mat-icon></a>
+          </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <div class="app-table-footer app-pt-4">
+        <button mat-flat-button color="primary" routerLink="/admin/new-user" class="app-mr-2">{{ 'button.createNewUser' | translate }}</button>
+      </div>
     </div>
   </div>
 </div>

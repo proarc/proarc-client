@@ -12,6 +12,8 @@ import { ImportDialogComponent } from 'src/app/dialogs/import-dialog/import-dial
 import { DatePipe } from '@angular/common';
 import { UIService } from 'src/app/services/ui.service';
 import {ConfigService} from '../../../services/config.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-history',
@@ -50,6 +52,26 @@ export class HistoryComponent implements OnInit, OnDestroy {
   modifiedFrom: Date;
   modifiedTo: Date;
 
+  public selectedColumnsOverview = [
+    { field: 'description', selected: true, width: 100 },
+    { field: 'create', selected: true, width: 100 },
+    { field: 'timestamp', selected: true, width: 100 },
+    { field: 'state', selected: true, width: 100 },
+    { field: 'profile', selected: true, width: 100 },
+    { field: 'user', selected: true, width: 100 },
+    { field: 'priority', selected: true, width: 100 },
+    { field: 'actions', selected: true, width: 100 }
+  ];
+
+  public selectedColumnsQueue = [
+    { field: 'description', selected: true, width: 100 },
+    { field: 'create', selected: true, width: 100 },
+    { field: 'timestamp', selected: true, width: 100 },
+    { field: 'state', selected: true, width: 100 },
+    { field: 'pageCount', selected: true, width: 100 },
+    { field: 'user', selected: true, width: 100 }
+  ];
+
   displayedColumnsOverview: string[] = ['description', 'create',  'timestamp', 'state', 'profile', 'user', 'priority', 'actions'];
   displayedColumnsQueue: string[] = ['description', 'create',  'timestamp', 'state', 'pageCount', 'user' ];
 
@@ -62,8 +84,10 @@ export class HistoryComponent implements OnInit, OnDestroy {
     'INGESTING_FAILED',
     'INGESTED',
     'STOPPED',
+    'EXPORT_PLANNED',
     'EXPORTING',
     'EXPORT_FAILED',
+    'EXPORT_VALID_WARNING',
     'EXPORT_DONE',
     'REINDEXING',
     'REINDEX_FAILED',
@@ -103,13 +127,15 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
   constructor(
     private datePipe: DatePipe,
+    public auth: AuthService,
     private api: ApiService,
     private ui: UIService,
     private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
     private config: ConfigService,
-    private translator: TranslateService) { }
+    private translator: TranslateService,
+    public properties: LocalStorageService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(p => {
@@ -120,6 +146,8 @@ export class HistoryComponent implements OnInit, OnDestroy {
       this.users = users;
     });
     this.profiles = this.config.profiles;
+    this.initSelectedColumnsOverview();
+    this.initSelectedColumnsQueue();
     // this.timer= setInterval(() => {
     //   this.updateLoadingBatchesProgress();
     // }, 5000);
@@ -171,8 +199,8 @@ export class HistoryComponent implements OnInit, OnDestroy {
   loadData() {
     if (this.view == 'overview') {
       this.reloadBatches();
-    } else if (this.view == 'queue') {
-      this.reloadQueue();
+    } else if (this.view == 'loadingQueue') {
+      this.reloadLoadingQueue();
     }
   }
 
@@ -310,7 +338,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
     });
   }
 
-  reloadQueue() {
+  reloadLoadingQueue() {
     this.selectedBatch = null;
     this.state = 'loading';
     const start = this.pageIndex * this.pageSize;
@@ -356,7 +384,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
               return;
             }
 
-            
+
         if (response['response'].status === -1) {
           this.ui.showErrorSnackBar(response['response'].data);
           // this.router.navigate(['/import/history']);
@@ -379,7 +407,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
 
   onReloadBatch() {
-    const dialogRef = this.dialog.open(ReloadBatchDialogComponent, { 
+    const dialogRef = this.dialog.open(ReloadBatchDialogComponent, {
       data: null,
       panelClass: 'app-dialog-reload-batch',
       width: '600px'
@@ -409,10 +437,10 @@ export class HistoryComponent implements OnInit, OnDestroy {
     if (!this.selectedBatch) {
       return;
     }
-    const dialogRef = this.dialog.open(ImportDialogComponent, { 
+    const dialogRef = this.dialog.open(ImportDialogComponent, {
       data: { batch: this.selectedBatch.id, parent: parentPid, ingestOnly: true },
       panelClass: 'app-dialog-import',
-      width: '600px'  
+      width: '600px'
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'open') {
@@ -428,10 +456,10 @@ export class HistoryComponent implements OnInit, OnDestroy {
       return;
     }
     this.api.reloadBatch(this.selectedBatch.id, profile.id).subscribe((batch: Batch) => {
-      const dialogRef = this.dialog.open(ImportDialogComponent, { 
+      const dialogRef = this.dialog.open(ImportDialogComponent, {
         data: { batch: batch.id },
         panelClass: 'app-dialog-import',
-        width: '600px' 
+        width: '600px'
       });
       dialogRef.afterClosed().subscribe(result => {
 
@@ -464,7 +492,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
         this.ui.showErrorSnackBar(response.response.data[0].errors[0].message);
       }
     })
-    
+
   }
 
   onStateChanged() {
@@ -497,10 +525,10 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
       const batch: Batch = Batch.fromJson(response['response']['data'][0]);
 
-      const dialogRef = this.dialog.open(ImportDialogComponent, { 
+      const dialogRef = this.dialog.open(ImportDialogComponent, {
         data: { batch: batch.id },
         panelClass: 'app-dialog-import',
-        width: '600px' 
+        width: '600px'
       });
       dialogRef.afterClosed().subscribe(result => {
 
@@ -514,7 +542,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
     });
   }
 
-  stop(b: Batch) {
+  stopBatch(b: Batch) {
     this.api.stopBatch(b.id).subscribe((response: any) => {
 
       if (response.response.errors) {
@@ -539,5 +567,69 @@ export class HistoryComponent implements OnInit, OnDestroy {
       // });
     });
   }
+
+  // resizable columns
+  setColumnsOverview() {
+    this.displayedColumnsOverview = this.selectedColumnsOverview.filter(c => c.selected).map(c => c.field);
+  }
+
+  initSelectedColumnsOverview() {
+    const prop = this.properties.getStringProperty('historyOverviewColumns');
+    if (prop) {
+      Object.assign(this.selectedColumnsOverview, JSON.parse(prop));
+    }
+    this.setColumnsOverview();
+  }
+
+  getColumnWidthOverview(field: string) {
+    const el = this.selectedColumnsOverview.find((c: any)=> c.field === field);
+    if (el) {
+      return el.width + 'px';
+    } else {
+      return '';
+    }
+  }
+
+  saveColumnsSizesOverview(e: any, field?: string) {
+    const el = this.selectedColumnsOverview.find((c: any)=> c.field === field);
+    if (el) {
+      el.width = e;
+    } else {
+      console.log("nemelo by")
+    } 
+    this.properties.setStringProperty('historyOverviewColumns', JSON.stringify(this.selectedColumnsOverview));
+  }
+
+  setColumnsQueue() {
+    this.displayedColumnsQueue = this.selectedColumnsQueue.filter(c => c.selected).map(c => c.field);
+  }
+
+  initSelectedColumnsQueue() {
+    const prop = this.properties.getStringProperty('historyQueueColumns');
+    if (prop) {
+      Object.assign(this.selectedColumnsQueue, JSON.parse(prop));
+    }
+    this.setColumnsQueue();
+  }
+
+  getColumnWidthQueue(field: string) {
+    const el = this.selectedColumnsQueue.find((c: any)=> c.field === field);
+    if (el) {
+      return el.width + 'px';
+    } else {
+      return '';
+    }
+  }
+
+  saveColumnsSizesQueue(e: any, field?: string) {
+    const el = this.selectedColumnsQueue.find((c: any)=> c.field === field);
+    if (el) {
+      el.width = e;
+    } else {
+      console.log("nemelo by")
+    } 
+    this.properties.setStringProperty('historyQueueColumns', JSON.stringify(this.selectedColumnsQueue));
+  }
+  // end
 
 }

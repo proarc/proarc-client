@@ -4,9 +4,17 @@ var APP_GLOBAL = {
   ga: "UA-159265713-1",
   exports:[
     'archive',
+    'archive_bagit',
     'archive_stt',
+    'archive_stt_bagit',
     'kramerius',
+    'kramerius_bagit',
     'ndk_psp',
+    'ndk_psp_bagit',
+    'ndk_psp_upload_cesnet',
+    'ndk_oldprint',
+    'ndk_oldprint_bagit',
+    'ndk_oldprint_upload_cesnet',
     'datastream_full',
     'datastream_raw',
     'cejsh',
@@ -68,7 +76,7 @@ var APP_GLOBAL = {
       'model:chroniclesupplement',
       'model:bdmarticle'
   ],
-  defaultModel: 'model:ndkmonographvolume',
+  defaultModel: 'model:ndkperiodical',
   showCommentEditor: true,
   showWorkflow: true,
   topPageTypes: [

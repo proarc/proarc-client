@@ -75,7 +75,7 @@
 
     <app-editor-field *ngIf="item.available('location')" [field]="item.locations" [nested]='true'>
       <ng-template let-location="item" #templateContent>
-        <app-field-codebook field="physicalLocation" [item]="location" [options]="codebook.locations" [(value)]='location.physicalLocation["_"]'></app-field-codebook>
+        <app-field-text field="physicalLocation" [item]="location" [(value)]='location.physicalLocation["_"]'></app-field-text>
         <app-editor-field *ngIf="location.available('shelfLocator')" [field]="location.shelfLocators" [nested]='true'>
           <ng-template let-shelfLocator="item" #templateContent>
             <app-field-text field="value" [item]="shelfLocator" [(value)]="shelfLocator.modsElement['_']"></app-field-text>
@@ -94,8 +94,14 @@
     <app-editor-field *ngIf="item.available('subject')" [field]="item.subjects" [nested]='true'>
       <ng-template let-subject="item" #templateContent>
         <app-field-dropdown field="authority" [item]="subject" [(value)]='subject.attrs["authority"]'></app-field-dropdown>
-        <app-field-codebook field="lang" [item]="subject" [options]="codebook.languages" [(value)]="subject.attrs['lang']"></app-field-codebook>
-        <app-field-text field="topic" [item]="subject" [(value)]='subject.topic["_"]'></app-field-text>
+<!--        <app-field-codebook field="lang" [item]="subject" [options]="codebook.languages" [(value)]="subject.attrs['lang']"></app-field-codebook>-->
+<!--        <app-field-text field="topic" [item]="subject" [(value)]='subject.topic["_"]'></app-field-text>-->
+        <app-editor-field *ngIf="subject.available('topic')" [field]="subject.topics" [nested]='true'>
+          <ng-template let-topic="item" #templateContent>
+            <app-field-codebook field="lang" [item]="topic" [options]="codebook.languages" [(value)]="topic.attrs['lang']"></app-field-codebook>
+            <app-field-text field="value" [item]="topic" [(value)]='topic.modsElement["_"]'></app-field-text>
+          </ng-template>
+        </app-editor-field>
         <app-field-text field="geographic" [item]="subject" [(value)]='subject.geographic["_"]'></app-field-text>
         <app-field-text field="temporal" [item]="subject" [(value)]='subject.temporal["_"]'></app-field-text>
         <app-editor-field *ngIf="subject.available('name')" [field]="item.names" [nested]='true'>

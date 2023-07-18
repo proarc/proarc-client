@@ -125,6 +125,11 @@ import { MediaComponent } from './components/media/media.component';
 import { SharedModule } from './shared.module';
 import { EditorPremisMultipleComponent } from './components/editor/editor-premis-multiple/editor-premis-multiple.component';
 import { EpubComponent } from './components/epub/epub.component';
+import { EditUserComponent } from './pages/admin/edit-user/edit-user.component';
+import { NewUserComponent } from './pages/admin/new-user/new-user.component';
+import { EditorSwitcherComponent } from './components/editor/editor-switcher/editor-switcher.component';
+import { ResizecolDirective } from './resizecol.directive';
+import { ColumnsSettingsDialogComponent } from './dialogs/columns-settings-dialog/columns-settings-dialog.component';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 300,
@@ -140,8 +145,12 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
 //   ];
 // }
 
+// export function HttpLoaderFactory(http: HttpClient) {
+//   return new TranslateHttpLoader(http);
+// }
+
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json?v=' + Date.now());
 }
 
 @NgModule({
@@ -243,6 +252,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     MediaComponent,
     EditorPremisMultipleComponent,
     EpubComponent,
+    EditUserComponent,
+    NewUserComponent,
+    EditorSwitcherComponent,
+    ResizecolDirective,
+    ColumnsSettingsDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -360,6 +360,7 @@
           fields: {
             authority: {
               usage: 'MA',
+              defaultValue: 'marcform',
               label: 'Autorita',
               selector: 'physicalDescription/form/@authority',
               labelKey: 'physicalDescription/form/@authority',
@@ -420,6 +421,7 @@
       fields: {
         value: {
           usage: 'M',
+          defaultValue: 'chapter',
           required: true,
           label: 'Hodnota',
           selector: 'genre/value',
@@ -669,6 +671,7 @@
             },
             authority: {
               usage: 'R',
+              defaultValue: 'marcorg',
               label: 'Autorita',
               cols: 2,
               selector: 'recordInfo/recordContentSource/@authority',

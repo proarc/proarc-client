@@ -94,7 +94,7 @@ export abstract class ModsElement {
         const labelKey = this.fieldValue(field, 'labelKey');
         const label = translator.instant('mods.' + labelKey);
         return `<h3>${label} <i>${this.usage(field) || ''}</i> <code>${selector || ''}</code></h3>
-        ${description || '' }`;
+        ${description || ''}`;
     }
 
     public showHelp(field: string): boolean {
@@ -161,9 +161,9 @@ export abstract class ModsElement {
         });
 
         if (!anyValue) {
-            if(isRequired) {
+            if (isRequired) {
                 this.controls.forEach((value, key) => {
-                    if (this.template.fields[key+''].required || this.template.fields[key+''].usage === 'M') {
+                    if (this.template.fields[key + ''] && (this.template.fields[key + ''].required || this.template.fields[key + ''].usage === 'M')) {
                         error = true;
                     }
                 });
@@ -171,7 +171,7 @@ export abstract class ModsElement {
             } else {
                 this.controls.forEach((value, key) => {
                     // value.markAsUntouched();
-                    if (this.template.fields[key+''].required) {
+                    if (this.template.fields[key + '']?.required) {
                         error = true;
                         isRequired = true;
                     } else {
@@ -203,20 +203,39 @@ export abstract class ModsElement {
         if (!anyValue && isRequired) {
             error = true;
         }
-        return !(error && (isRequired|| anyValue));
+        return !(error && (isRequired || anyValue));
     }
 
     public hasChanges(): boolean {
         const keys = this.controls.keys();
         for (let key of keys) {
-        // keys.forEach(( key: string) => {
+            // keys.forEach(( key: string) => {
             if (this.controls.get(key).dirty) {
                 return true;
             }
-        //});
+            //});
         }
 
+        for (const subfield of this.getSubfields()) {
+            for (const item2 of subfield.getItems()) {
+              if (item2.hasChanges()) {
+                return true;
+              }
+            }
+          }
+
         return false;
+    }
+
+    public setAsDirty() {
+        if (this.controls.size === 0) {
+            this.subFields[0].getItems()[0].setAsDirty();
+        } else {
+            const keys = this.controls.keys();
+            for (let key of keys) {
+                this.controls.get(key).markAsDirty();
+            }
+        }
     }
 
     public resetChanges() {

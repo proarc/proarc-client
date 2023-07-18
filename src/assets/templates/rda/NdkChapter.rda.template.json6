@@ -678,6 +678,7 @@
             },
             authority: {
               usage: 'R',
+              defaultValue: 'marcorg',
               label: 'Autorita',
               cols: 2,
               selector: 'recordInfo/recordContentSource/@authority',
@@ -822,58 +823,5 @@
           }
         },
       }
-    },
-    // relatedItem: {
-    //   usage: 'MA',
-    //   label: 'Informace o dalších dokumentech',
-    //   selector: 'relatedItem',
-    //   labelKey: 'relatedItem',
-    //   description: 'Informace o dalších dokumentech/částech/zdrojích, které jsou ve. vztahu k popisovanému dokumentu;.',
-    //   fields: {
-    //     type: {
-    //       usage: 'R',
-    //       label: 'Typ',
-    //       selector: 'relatedItem/@type',
-    //       labelKey: 'relatedItem/@type',
-    //       description: 'Type spolu s otherType popisují vztah položky, popsané v <relatedItem> a dokumentu, který je předmětem MODS záznamu',
-    //       options: [
-    //         ['', '-'],
-    //         ['series', 'Series'],
-    //         ['original', 'original'],
-    //         ['isReferencedBy', 'isReferencedBy']
-    //       ]
-    //     },
-    //     otherType: {
-    //       usage: 'O',
-    //       label: 'Other type',
-    //       selector: 'relatedItem/@otherType',
-    //       labelKey: 'relatedItem/@otherType',
-    //       cols: 2,
-    //     },
-    //     otherTypeURI: {
-    //       usage: 'O',
-    //       label: 'Other Type URI',
-    //       selector: 'relatedItem/@otherTypeURI',
-    //       labelKey: 'relatedItem/@otherTypeURI',
-    //       description: 'Odkaz na zdroj položky v <relatedItem>, který se vztahuje k popisovanému',
-    //       cols: 2,
-    //     },
-    //     otherTypeAuth: {
-    //       usage: 'O',
-    //       label: 'Other Type Auth',
-    //       selector: 'relatedItem/@otherTypeAuth',
-    //       labelKey: 'relatedItem/@otherTypeAuth',
-    //       description: 'Autoritní záznam příbuzné položky',
-    //       cols: 2,
-    //     },
-    //     otherTypeAuthURI: {
-    //       usage: 'O',
-    //       label: 'Other Type Auth URI',
-    //       selector: 'relatedItem/@otherTypeAuthURI',
-    //       labelKey: 'relatedItem/@otherTypeAuthURI',
-    //       description: 'Odkaz na autoritní záznam příbuzné položky',
-    //       cols: 2,
-    //     },
-    //   }
-    // }
+    }
   }

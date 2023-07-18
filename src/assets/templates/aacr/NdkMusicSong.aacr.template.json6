@@ -516,22 +516,10 @@
             <li><strong>Partial contents</strong>ind1=2 hodnota</li>\
           </ul>',
         options: [
-          [
-            '',
-            '-'
-          ],
-          [
-            'Contents',
-            'Contents'
-          ],
-          [
-            'Incomplete contents',
-            'Incomplete contents'
-          ],
-          [
-            'Partial contents',
-            'Partial contents'
-          ],
+          ['', '-'],
+          ['Contents', 'Contents'],
+          ['Incomplete contents', 'Incomplete contents'],
+          ['Partial contents', 'Partial contents'],
         ]
       },
       value: {
@@ -595,10 +583,7 @@
         labelKey: 'genre/value',
         help: 'off',
         options: [
-          [
-            'sound recording',
-            'sound recording'
-          ]
+          ['sound recording', 'sound recording']
         ]
       }
     }
@@ -639,7 +624,7 @@
                 převzít z katalogizačního záznamu z pole 020, $a, $z\
               </li>\
               <li>\
-                <st\rong>ISMN</strong> (ismn) <i>MA</i><br/>\
+                <strong>ISMN</strong> (ismn) <i>MA</i><br/>\
                 převzít z katalogizačního záznamu z pole 024 (1. ind.="2"), $a, $z\
               </li>\
             </ul>\
@@ -781,6 +766,7 @@
           authority: {
             usage: 'R',
             label: 'Autorita',
+            defaultValue: 'marcorg',
             cols: 2,
             selector: 'recordInfo/recordContentSource/@authority',
             labelKey: 'recordInfo/recordContentSource/@authority',

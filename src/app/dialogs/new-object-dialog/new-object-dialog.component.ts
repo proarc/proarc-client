@@ -84,7 +84,10 @@ export class NewObjectDialogComponent implements OnInit {
   }
 
   onLoadFromCatalog() {
-    const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'full', create: true } });
+    const dialogRef = this.dialog.open(CatalogDialogComponent, { 
+      data: { type: 'full', create: true } ,
+      width: '1200px'
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
         this.state = 'saving';
@@ -122,4 +125,5 @@ export interface NewObjectData {
   parentPid?: string;
   pid?: string;
   cislood?: string;
+  fromNavbar: boolean;
 }

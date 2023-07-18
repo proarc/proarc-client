@@ -149,8 +149,13 @@ export class ConfigService {
 		'archive_stt',
 		'archive_stt_bagit',
 		'kramerius',
+		'kramerius_bagit',
 		'ndk_psp',
 		'ndk_psp_bagit',
+    'ndk_psp_upload_cesnet',
+    'ndk_oldprint',
+		'ndk_oldprint_bagit',
+    'ndk_oldprint_upload_cesnet',
 		'datastream_full',
 		'datastream_raw',
 		'cejsh',
@@ -206,6 +211,9 @@ export class ConfigService {
 
 	public topLanguages = APP_GLOBAL.topLanguages || [];
 	public otherLanguages = APP_GLOBAL.languages || ConfigService.defaultLanguages;
+
+	public topExpandedModels = APP_GLOBAL.topExpandedModels || [];
+	public otherExpandedModels = ConfigService.defaultModels;
 
 	public topLocations = APP_GLOBAL.topLocations || [];
 	public otherLocations = APP_GLOBAL.locations || ConfigService.defaultLocations;

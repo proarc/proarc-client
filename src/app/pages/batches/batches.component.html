@@ -1,7 +1,8 @@
+<mat-progress-bar mode="indeterminate" *ngIf="!layout.ready" class="app-progress-bar"></mat-progress-bar>
 <div fxLayout="column" fxFlexFill *ngIf="layout.ready">
   <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar app-view-border-bottom">
     <div fxFlex fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
-      <a routerLink="/"><mat-icon>home</mat-icon> Home</a>
+      <a routerLink="/"><mat-icon>home</mat-icon></a>
       <span class="app-separator">/</span>
       <a routerLink="/import">{{ 'desc.import' | translate }}</a>
       <span class="app-separator">/</span>

@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, SimpleChange } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange, Output, EventEmitter } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { Ocr } from 'src/app/model/ocr.model';
 import { LayoutService } from 'src/app/services/layout.service';
 import { UIService } from 'src/app/services/ui.service';
+import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.component';
 
 @Component({
   selector: 'app-editor-ocr',
@@ -10,6 +11,31 @@ import { UIService } from 'src/app/services/ui.service';
   styleUrls: ['./editor-ocr.component.scss']
 })
 export class EditorOcrComponent implements OnInit {
+
+  // --- #268 ----
+  @Input('editorType') editorType: string;
+  @Input('panel') panel: ILayoutPanel;
+  @Output() onIngest = new EventEmitter<boolean>();
+  @Output() onChangeEditorType = new EventEmitter<string>();
+
+  switchableTypes = ['mods', 'metadata', 'atm', 'ocr']
+  switchable: boolean = true;
+
+  /* ngOnChanges(c: SimpleChange) {
+    this.switchable = this.switchableTypes.includes(this.editorType);
+  } */
+
+  countPlurals(): string {
+    let count = this.layout.getNumOfSelected();
+    if (count > 4) {
+      return '5'
+    } else if (count > 1) {
+      return '4'
+    } else {
+      return count + '';
+    }
+  }
+  // --- #368 ----
 
   state = 'none';
   editting = false;
@@ -21,7 +47,7 @@ export class EditorOcrComponent implements OnInit {
   @Input() pid: string;
 
   constructor(
-    private layout: LayoutService, 
+    public layout: LayoutService, 
     private api: ApiService,
     private ui: UIService) {
   }
@@ -83,6 +109,10 @@ export class EditorOcrComponent implements OnInit {
 
   onChange() {
     this.anyChange = true;
+  }
+
+  changeEditorType(t: string) {
+    this.onChangeEditorType.emit(t);
   }
 
 }

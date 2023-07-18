@@ -51,7 +51,7 @@ export class ApiService {
   }
 
   public getApiUrl(): string {
-    return `${this.getBaseUrl()}/rest/v1/`
+    return `${this.getBaseUrl()}/rest/v2/`
   }
 
   private get(path: string, params = {}): Observable<Object> {
@@ -59,6 +59,13 @@ export class ApiService {
       'Accept-Language': this.getLang()
     })
     return this.http.get(encodeURI(`${this.getApiUrl()}${path}`), { params: params, headers })
+    .pipe(map((r: any) => {
+      if (r.response?.status === -1) {
+        r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
+      }
+      return r;
+
+    }))
       .pipe(finalize(() => this.stopLoading()))
       .pipe(catchError(err => this.handleError(err, this)));
   }
@@ -78,7 +85,15 @@ export class ApiService {
         })
       };
     }
-    return this.http.put(encodeURI(`${this.getApiUrl()}${path}`), body, options).pipe(
+    return this.http.put(encodeURI(`${this.getApiUrl()}${path}`), body, options)
+    .pipe(map((r: any) => {
+      if (r.response?.status === -1) {
+        r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
+      }
+      return r;
+
+    }))
+    .pipe(
       finalize(() => this.stopLoading())
     ).pipe(catchError(this.handleError));
   }
@@ -92,19 +107,42 @@ export class ApiService {
         })
       };
     }
-    return this.http.post(encodeURI(`${this.getApiUrl()}${path}`), body, options).pipe(
-      finalize(() => this.stopLoading())
-    ).pipe(catchError(err => this.handleError(err, this)));
+    return this.http.post(encodeURI(`${this.getApiUrl()}${path}`), body, options)
+    .pipe(map((r: any) => {
+      if (r.response?.status === -1) {
+        r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
+      }
+      return r;
+
+    }))
+    .pipe(finalize(() => this.stopLoading()))
+    .pipe(catchError(err => this.handleError(err, this)));
   }
 
   private delete(path: string, params = {}): Observable<Object> {
-    return this.http.delete(encodeURI(`${this.getApiUrl()}${path}`), { params: params }).pipe(
+    return this.http.delete(encodeURI(`${this.getApiUrl()}${path}`), { params: params })
+    .pipe(map((r: any) => {
+      if (r.response?.status === -1) {
+        r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
+      }
+      return r;
+
+    }))
+    .pipe(
       finalize(() => this.stopLoading())
     ).pipe(catchError(err => this.handleError(err, this)));
   }
 
   private request(method: string, path: string, params = {}, body: any): Observable<Object> {
-    return this.http.request(method, encodeURI(`${this.getApiUrl()}${path}`), { params, body }).pipe(
+    return this.http.request(method, encodeURI(`${this.getApiUrl()}${path}`), { params, body })
+    .pipe(map((r: any) => {
+      if (r.response?.status === -1) {
+        r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
+      }
+      return r;
+
+    }))
+    .pipe(
       finalize(() => this.stopLoading())
     ).pipe(catchError(err => this.handleError(err, this)));
   }
@@ -180,7 +218,7 @@ export class ApiService {
     return this.post('object/copyObject', data);
   }
 
-  export(type: string, pid: string, policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string): Observable<any> | undefined {
+  export(type: string, pid: string, policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string, cesnetLtpToken: string): Observable<any> | undefined {
     let data = `pid=${pid}`;
     if (ignoreMissingUrnNbn) {
       data = `${data}&ignoreMissingUrnNbn=true`;
@@ -200,6 +238,11 @@ export class ApiService {
       case ProArc.EXPORT_KRAMERIUS: {
         data = `${data}&policy=policy:${policy}&krameriusInstance=${krameriusInstance}`;
         path = 'export/kramerius4'
+        break;
+      }
+      case ProArc.EXPORT_KRAMERIUS_BAGIT: {
+        path = 'export/kramerius4';
+        data = `${data}&policy=policy:${policy}&krameriusInstance=local&isBagit=true`;
         break;
       }
       case ProArc.EXPORT_ARCHIVE: {
@@ -222,14 +265,22 @@ export class ApiService {
         path = 'export/archive'
         break;
       }
-      case ProArc.EXPORT_NDK_PSP: {
+      case ProArc.EXPORT_NDK_PSP:
+      case ProArc.EXPORT_NDK_OLDPRINT: {
         path = 'export/ndk';
         data = `${data}&isBagit=false`;
         break;
       }
-      case ProArc.EXPORT_NDK_PSP_BAGIT: {
+      case ProArc.EXPORT_NDK_PSP_BAGIT:
+      case ProArc.EXPORT_NDK_OLDPRINT_BAGIT: {
         path = 'export/ndk';
         data = `${data}&isBagit=true`;
+        break;
+      }
+      case ProArc.EXPORT_NDK_PSP_CESNET_UPLOAD:
+      case ProArc.EXPORT_NDK_OLDPRINT_CESNET_UPLOAD: {
+        path = 'export/ndk';
+        data = `${data}&ltpCesnet=true&ltpCesnetToken=${cesnetLtpToken}`;
         break;
       }
       case ProArc.EXPORT_CEJSH: {
@@ -269,8 +320,8 @@ export class ApiService {
       .pipe(map((response: any) => Profile.fromJsonArray(response['response']['data'])));
   }
 
-  setParent(srcParent: string, dstParent: string): Observable<any> {
-    const data = `pid=${srcParent}&parent=${dstParent}`;
+  setParent(pid: string, dstParent: string): Observable<any> {
+    const data = `pid=${pid}&parent=${dstParent}`;
     return this.post('object/member', data);
   }
 
@@ -835,6 +886,10 @@ export class ApiService {
       .pipe(map((response: any) => User.fromJson(response['response']['data'][0])));
   }
 
+  getUserDetail(id: number): Observable<User> {
+    return this.get('user', { userId: id }).pipe(map((response: any) => User.fromJson(response['response']['data'][0])));
+  }
+
   editUser(user: User, forename: string, surname: string): Observable<User> {
     const data = `userId=${user.userId}&forename=${forename}&surname=${surname}&email=${user.email}&organization=${user.organization}&role=${user.role}`;
     return this.put('user', data).pipe(map((response: any) => User.fromJson(response['response']['data'][0])));
@@ -989,6 +1044,10 @@ export class ApiService {
   importToKramerius(pid: string, instance: string, importInstance: string): Observable<any> {
     let data = `pid=${pid}&instance=${instance}&importInstance=${importInstance}`;
     return this.post('kramerius/importToKramerius', data);
+  }
+
+  indexer(): Observable<any> {
+    return this.post('indexer', null);
   }
 
 }

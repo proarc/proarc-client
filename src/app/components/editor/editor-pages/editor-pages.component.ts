@@ -7,6 +7,7 @@ import { LayoutService } from 'src/app/services/layout.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/api.service';
 import { UIService } from 'src/app/services/ui.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-editor-pages',
@@ -45,6 +46,7 @@ export class EditorPagesComponent implements OnInit {
     private api: ApiService,
     private ui: UIService,
     private dialog: MatDialog,
+    public translator: TranslateService,
     public config: ConfigService,
     public layout: LayoutService,
     public codebook: CodebookService) {
@@ -98,7 +100,13 @@ export class EditorPagesComponent implements OnInit {
         this.ui.showErrorDialogFromObject(result.response.errors);
         this.state = 'error';
       } else {
+        
+        if (this.layout.type !== 'repo') {
+          // this.ui.showInfoDialog("Uloženo");
+          this.ui.showInfoSnackBar(this.translator.instant('snackbar.changeSaved'), 4000);
+        }
         this.layout.refreshSelectedItem(true, 'pages');
+        this.state = 'success';
         //this.layout.setShouldRefresh(true);
       }
     })

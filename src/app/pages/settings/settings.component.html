@@ -1,7 +1,7 @@
 <div fxLayout="column" fxFlexFill>
   <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
     <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
-      <a routerLink="/"><mat-icon>home</mat-icon> Home</a>
+      <a routerLink="/"><mat-icon>home</mat-icon></a>
       <span class="app-separator">/</span>
       <span class="app-last">{{ 'desc.settings' | translate }}</span>
     </div>
@@ -9,9 +9,13 @@
 
   <mat-progress-bar mode="indeterminate" *ngIf="state =='loading'" class="app-progress-bar"></mat-progress-bar>
 
-  <div fxFlex class="app-device app-p-4 app-oa-y" fxLayout="column" *ngIf="state !== 'loading'">
-    <div fxLayout="row" fxLayoutGap="16px">
-      <mat-card fxFlex *ngIf="user">
+  <div fxFlex class="app-settings app-p-4" fxLayout="column" *ngIf="state !== 'loading' && user">
+    <nav mat-tab-nav-bar class="app-mb-4">
+      <a mat-tab-link (click)="changeView('localSettings')" [active]="view == 'localSettings'">{{ 'pages.settings.tabs.localSettings' | translate }}</a>
+      <a mat-tab-link (click)="changeView('personalSettings')" [active]="view == 'personalSettings'">{{ 'pages.settings.tabs.personalSettings' | translate }}</a>
+    </nav>
+    <div fxFlex *ngIf="view == 'personalSettings'" class="app-oa-y">
+      <mat-card >
         <mat-card-content>
           <fieldset class="app-p-4 app-mb-4">
             <legend>{{ 'desc.profile' | translate }}</legend>
@@ -46,67 +50,106 @@
           <button mat-flat-button color="primary" (click)="changePassword()">{{ 'button.changePassword' | translate }}</button>
         </mat-card-content>
       </mat-card>
-      <mat-card fxFlex *ngIf="user">
-        <mat-card-content>
-          <fieldset class="app-p-4 app-mb-4">
-            <legend>{{ 'desc.preferredValues' | translate }}</legend>
-            <div class="app-label">{{ 'desc.typesOfParties' | translate }}</div>
-            <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
-              <strong fxFlex>{{ codebook.getTopNames('PageTypes').join(", ") }}</strong>
-              <button mat-flat-button color="primary" (click)="changeCodebookTops('PageTypes')">{{ 'button.edit' | translate }}</button>
-            </div>
-            <mat-divider class="app-mb-4"></mat-divider>
-            <span class="app-label">{{ 'desc.languages' | translate }}</span>
-            <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
-              <strong fxFlex>{{ codebook.getTopNames('Languages').join(", ") }}</strong>
-              <button mat-flat-button color="primary" (click)="changeCodebookTops('Languages')">{{ 'button.edit' | translate }}</button>
-            </div>
-            <mat-divider class="app-mb-4"></mat-divider>
-            <span class="app-label">{{ 'desc.identifiers' | translate }}</span>
-            <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
-              <div fxFlex>
-                <strong>{{ codebook.getTopNames('Identifiers').join(", ") }}</strong>
-                <em *ngIf="codebook.getTopNames('Identifiers')?.length === 0" class="app-text-lowercase">{{ 'desc.noValue' | translate }}</em>
+    </div>
+    <div fxFlex *ngIf="view == 'localSettings'" class="app-oa-y">
+      <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4">
+        <mat-card fxFlex="35%" >
+          <mat-card-content>
+            <fieldset class="app-p-4 app-mb-4">
+              <legend>{{ 'desc.preferredValues' | translate }}</legend>
+              <div class="app-label">{{ 'desc.typesOfParties' | translate }}</div>
+              <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
+                <strong fxFlex>{{ codebook.getTopNames('PageTypes').join(", ") }}</strong>
+                <button mat-flat-button color="primary" (click)="changeCodebookTops('PageTypes')">{{ 'button.edit' | translate }}</button>
               </div>
-              <button mat-flat-button color="primary" (click)="changeCodebookTops('Identifiers')">{{ 'button.edit' | translate }}</button>
-            </div>
-            <mat-divider class="app-mb-4"></mat-divider>
-            <span class="app-label">{{ 'desc.storageLocations' | translate }}</span>
-            <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
-              <strong fxFlex>{{ codebook.getTopNames('Locations').join(", ") }}</strong>
-              <button mat-flat-button color="primary" (click)="changeCodebookTops('Locations')">{{ 'button.edit' | translate }}</button>
-            </div>
-            <mat-divider class="app-mb-4"></mat-divider>
-            <span class="app-label">{{ 'desc.expandingTheForm' | translate }}</span>
-            <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start end" class="app-mb-4">
-              <mat-form-field fxFlex class="app-clean-mb">
-                <mat-select  [placeholder]="'desc.model' | translate" name="model" multiple [formControl]="selectedModels" >
-                  <mat-option *ngFor="let model of config.allModels" [value]="model">{{ "model." + model | translate }}</mat-option>
+              <mat-divider class="app-mb-4"></mat-divider>
+              <span class="app-label">{{ 'desc.languages' | translate }}</span>
+              <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
+                <strong fxFlex>{{ codebook.getTopNames('Languages').join(", ") }}</strong>
+                <button mat-flat-button color="primary" (click)="changeCodebookTops('Languages')">{{ 'button.edit' | translate }}</button>
+              </div>
+              <mat-divider class="app-mb-4"></mat-divider>
+              <span class="app-label">{{ 'desc.identifiers' | translate }}</span>
+              <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
+                <div fxFlex>
+                  <strong>{{ codebook.getTopNames('Identifiers').join(", ") }}</strong>
+                  <em *ngIf="codebook.getTopNames('Identifiers')?.length === 0" class="app-text-lowercase">{{ 'desc.noValue' | translate }}</em>
+                </div>
+                <button mat-flat-button color="primary" (click)="changeCodebookTops('Identifiers')">{{ 'button.edit' | translate }}</button>
+              </div>
+              <mat-divider class="app-mb-4"></mat-divider>
+              <span class="app-label">{{ 'desc.storageLocations' | translate }}</span>
+              <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
+                <strong fxFlex>{{ codebook.getTopNames('Locations').join(", ") }}</strong>
+                <button mat-flat-button color="primary" (click)="changeCodebookTops('Locations')">{{ 'button.edit' | translate }}</button>
+              </div>
+              <mat-divider class="app-mb-4"></mat-divider>
+              <span class="app-label">{{ 'desc.expandingTheForm' | translate }}</span>
+              <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
+                <strong fxFlex>{{ codebook.getTopNames('ExpandedModels').join(", ") }}</strong>
+                <button mat-flat-button color="primary" (click)="changeCodebookTops('ExpandedModels')">{{ 'button.edit' | translate }}</button>
+              </div>
+            </fieldset>
+          </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex >
+          <mat-card-content>
+            <fieldset class="app-p-4 app-mb-4">
+              <legend>{{ 'pages.settings.search.legend' | translate }}</legend>
+              <div class="app-label app-mb-2">{{ 'pages.settings.search.label' | translate }}</div>
+              <div *ngFor="let column of properties.searchColumns">
+                <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
+              </div>
+            </fieldset>
+            <button mat-flat-button color="primary" (click)="setSelectedColumnsSearch()">{{ 'button.save' | translate }}</button>
+          </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex >
+          <mat-card-content>
+            <fieldset class="app-p-4 app-mb-4">
+              <legend>{{ 'pages.settings.searchTree.legend' | translate }}</legend>
+              <div class="app-label app-mb-2">{{ 'pages.settings.searchTree.label' | translate }}</div>
+              <div *ngFor="let column of properties.searchColumnsTree">
+                <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
+              </div>
+            </fieldset>
+            <button mat-flat-button color="primary" (click)="setSelectedColumnsSearchTree()">{{ 'button.save' | translate }}</button>
+          </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex>
+          <mat-card-content *ngIf="properties.colsEditingRepo">
+            <fieldset class="app-p-4 app-mb-3">
+              <legend>{{ 'pages.settings.editingRepo.legend' | translate }}</legend>        
+              <div class="app-label app-mb-3">{{ 'pages.settings.editingRepo.label' | translate }}</div>
+              <mat-form-field class="app-w-100">
+                <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="modelForColumns" (selectionChange)="getColumnsForModel()">
+                  <mat-option *ngFor="let model of models" [value]="model">{{ 'model.' + model | translate }}</mat-option>
                 </mat-select>
               </mat-form-field>
-              <mat-slide-toggle [(ngModel)]="relatedItemExpanded" color="primary" class="app-slide-toogle" [matTooltip]="'desc.includeRelatedItem' | translate">{{ 'relatedItem' | translate }}</mat-slide-toggle>
-              <button mat-flat-button color="primary" (click)="changeExpandedModels()">{{ 'button.edit' | translate }}</button>
+              <div *ngFor="let column of properties.colsEditingRepo[modelForColumns]">
+                <mat-checkbox [name]="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
+              </div>
+            </fieldset>
+            <div class="app-mb-3">
+              <mat-checkbox name="colsEditModeParent" [(ngModel)]="colsEditModeParent">{{ 'pages.settings.colsEditModeParent' | translate }}</mat-checkbox>
             </div>
-
-            <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start end" class="app-mb-4">
-            </div>
-
-
-          </fieldset>
-        </mat-card-content>
-      </mat-card>
-      <mat-card *ngIf="user">
-        <mat-card-content>
-          <fieldset class="app-p-4 app-mb-4">
-            <legend>{{ 'desc.search' | translate }}</legend>
-            <div class="app-label app-mb-2">{{ 'desc.displayedFieldsInSearchResults' | translate }}</div>
-            <div *ngFor="let col of properties.availableSearchColumns">
-              <mat-slide-toggle [(ngModel)]="searchCols[col]" color="primary" class="app-slide-toogle">{{ 'search.' + col | translate }}</mat-slide-toggle>
-            </div>
-          </fieldset>
-          <button mat-flat-button color="primary" (click)="seveSearchCols()">{{ 'button.save' | translate }}</button>
-        </mat-card-content>
-      </mat-card>
+            <button mat-flat-button color="primary" (click)="setSelectedColumnsEditingRepo()">{{ 'button.save' | translate }}</button>
+          </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex >
+          <mat-card-content>
+            <fieldset class="app-p-4 app-mb-4">
+              <legend>{{ 'pages.settings.editingImport.legend' | translate }}</legend>
+              <div class="app-label app-mb-2">{{ 'pages.settings.editingImport.label' | translate }}</div>
+              <div *ngFor="let column of selectedColumnsEditingImport">
+                <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
+              </div>
+            </fieldset>
+            <button mat-flat-button color="primary" (click)="setSelectedColumnsEditingImport()">{{ 'button.save' | translate }}</button>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <button mat-flat-button color="warn" (click)="resetSettings()">{{ 'button.resetAllLocalSettings' | translate }}</button>
     </div>
   </div>
 </div>

@@ -3,7 +3,7 @@
 <div mat-dialog-content fxLayout="column">
   <div>
     <mat-form-field class="app-w-100">
-      <mat-select [placeholder]="'desc.resolver' | translate" [(ngModel)]="selectedRegistrar" [disabled]="formDisabled()">
+      <mat-select [placeholder]="'desc.registrar' | translate" [(ngModel)]="selectedRegistrar" [disabled]="formDisabled()">
         <mat-option *ngFor="let registrar of registrars" [value]="registrar">{{ registrar.name }}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -67,8 +67,8 @@
     </table>
   </div>
 
-  <mat-card *ngIf="message" class="app-alert app-mt-4" [ngClass]="(state == 'error' ? 'app-warn' : false) || (selectedRowWarning ? 'app-info' : 'app-warn')">
-    <mat-icon>{{ state == 'error' || !selectedRowWarning ? 'report' : 'info' }}</mat-icon> {{ message }}
+  <mat-card *ngIf="message" class="app-alert" [ngClass]="(state == 'error' ? 'app-warn' : false) || (selectedRowWarning ? 'app-info' : 'app-warn')">
+    <mat-icon>{{ state == 'error' || !selectedRowWarning ? 'warning' : 'info' }}</mat-icon> {{ message }}
   </mat-card>
 </div>
 <div mat-dialog-actions cdk-focus-start>

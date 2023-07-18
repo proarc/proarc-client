@@ -31,6 +31,13 @@ fieldset {
   }
 }
 
+ul {
+  &.app-list {
+    @extend .app-p-0, .app-m-0;
+    list-style-position: inside;
+  }
+}
+
 // theme colors
 .app-color-primary {
   color: $app-color-primary;
@@ -71,6 +78,10 @@ fieldset {
 
 .app-clean-shadow {
   box-shadow: none !important;
+}
+
+.app-clean-max-height {
+  max-height: inherit !important;
 }
 
 .app-dn {
@@ -337,7 +348,23 @@ as-split {
   }  
 }
 
+// formbar
+.app-formbar {
+  .mat-form-field {
+    flex: 1 1 calc(10% - 16px);
+    min-width: calc(10% - 16px);
 
+    .mat-form-field-suffix {
+      .mat-icon-button {
+        .mat-icon {
+          @include setIcon(18, $position: sub);
+        }
+      }
+    }
+  }
+}
+
+// toolbar
 .app-toolbar {
   min-height: $app-toolbar-height;
   background-color: $app-toolbar-bg;
@@ -357,7 +384,8 @@ as-split {
     }
 
     .mat-icon {
-      @include setIcon(20, $position: sub);
+      @include setIcon(20);
+      line-height: 20px;
     }
   }
 
@@ -486,6 +514,7 @@ as-split {
   }
 }
 
+// tree
 .app-tree {
   .app-row {
     @extend .app-w-100;
@@ -572,4 +601,11 @@ as-split {
       }
     }  
   }
+}
+
+// table footer
+.app-table-footer {
+  position: sticky;
+  bottom: 0;
+  background-color: $app-body-bg;
 }

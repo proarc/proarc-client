@@ -203,6 +203,7 @@ export class NdkeMonographTitleAacrTemplate {
             },
             authority: {
               usage: 'R',
+              defaultValue: 'marcorg',
               label: 'Autorita',
               cols: 2,
               selector: 'recordInfo/recordContentSource/@authority',

@@ -216,11 +216,19 @@ export class BatchesComponent implements OnInit {
     let valid = true;
     let invalidCount = 0;
     this.layout.items.forEach((p: DocumentItem) => {
-      valid = valid && p.isValidPage();
-      p.invalid = !p.isValidPage();
-      if (p.invalid) {
-        invalidCount++
-      }
+      if (p.isPage()) {
+        valid = valid && p.isValidPage();
+        p.invalid = !p.isValidPage();
+        if (p.invalid) {
+          invalidCount++
+        }
+      } else if (p.isAudioPage()) {
+        valid = valid && p.isValidAudioPage();
+        p.invalid = !p.isValidAudioPage();
+        if (p.invalid) {
+          invalidCount++
+        }
+    }
 
     });
     return invalidCount;
@@ -233,16 +241,17 @@ export class BatchesComponent implements OnInit {
       const data: SimpleDialogData = {
         title: 'Nevalidní data',
         message,
+        alertClass: 'app-message',
         btn1: {
-          label: "Pokračovat",
-          value: 'yes',
+          label: "Zpět",
+          value: 'no',
           color: 'warn'
         },
-        btn2: {
-          label: "Nepokračovat",
-          value: 'no',
-          color: 'default'
-        },
+        // btn2: {
+        //   label: "Nepokračovat",
+        //   value: 'no',
+        //   color: 'default'
+        // },
       };
       const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
       dialogRef.afterClosed().subscribe(result => {
@@ -261,6 +270,7 @@ export class BatchesComponent implements OnInit {
     const data: SimpleDialogData = {
       title: 'Upozornění',
       message: 'Opouštíte formulář bez uložení. Opravdu chcete pokračovat?',
+      alertClass: 'app-message',
       btn1: {
         label: "Ano",
         value: 'true',
@@ -297,9 +307,9 @@ export class BatchesComponent implements OnInit {
           isRepo: false,
           batchId: this.batchId
         },
-        // data: { 
-        //   btnLabel: 'import.save', items: this.layout.items 
-        // }, 
+        // data: {
+        //   btnLabel: 'import.save', items: this.layout.items
+        // },
         width: '95%',
         maxWidth: '100vw',
         height: '90%',

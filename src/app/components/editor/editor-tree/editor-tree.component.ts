@@ -281,6 +281,7 @@ export class EditorTreeComponent implements OnInit {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('editor.tree.change_parent_title')),
       message: String(this.translator.instant('editor.tree.change_parent_msg')),
+      alertClass: 'app-message',
       btn1: {
         label: String(this.translator.instant('common.yes')),
         value: 'yes',

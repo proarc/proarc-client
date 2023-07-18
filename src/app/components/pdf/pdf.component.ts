@@ -98,6 +98,7 @@ onRemove() {
     const data: SimpleDialogData = {
       title: "Odstranění digitálního obsahu",
       message: "Opravdu chcete odstranit digitální obsah?",
+      alertClass: 'app-message',
       btn2: {
         label: "Ne",
         value: 'no',

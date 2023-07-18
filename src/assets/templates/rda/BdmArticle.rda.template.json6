@@ -354,6 +354,7 @@
   },
   genre: {
     isElectronicArticle: true,
+    defaultValue: 'article',
     usage: 'M',
     required: true,
     label: 'Typ obsahu',
@@ -363,6 +364,7 @@
     fields: {
       value: {
         usage: 'M',
+        defaultValue: 'article',
         required: true,
         selector: 'genre/value',
         labelKey: 'genre/value',
@@ -570,6 +572,7 @@
           },
           authority: {
             usage: 'R',
+            defaultValue: 'marcorg',
             label: 'Autorita',
             cols: 2,
             selector: 'recordInfo/recordContentSource/@authority',

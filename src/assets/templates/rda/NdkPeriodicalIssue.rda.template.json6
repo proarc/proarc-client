@@ -67,7 +67,6 @@
       fields: {
         type: {
           usage: 'M',
-          required: true,
           label: 'Typ',
           selector: 'name/@type',
           labelKey: 'name/@type',
@@ -118,7 +117,6 @@
             value: {
               label: 'Hodnota',
               usage: 'M',
-              required: true,
               selector: 'name/namePart',
               labelKey: 'name/namePart/value',
               cols: 2,
@@ -709,6 +707,7 @@
             },
             authority: {
               usage: 'R',
+              defaultValue: 'marcorg',
               label: 'Autorita',
               cols: 2,
               selector: 'recordInfo/recordContentSource/@authority',

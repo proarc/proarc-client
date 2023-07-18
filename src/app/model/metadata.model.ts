@@ -61,7 +61,7 @@ export class Metadata {
 
   // public volume: ModsVolume;
 
-  private fieldsIds: string[];
+  private fieldsIds: string[] = [];
 
   private fields: Map<String, ElementField>;
 
@@ -74,8 +74,10 @@ export class Metadata {
     this.standard = standard;
     this.model = model;
     this.template = template;
-    if (localStorage.getItem('expandedModels')) {
-      localStorage.setItem('metadata.allExpanded', JSON.parse(localStorage.getItem('expandedModels').includes(model).toString()));
+    const expanded = localStorage.getItem('codebook.top.ExpandedModels');
+    if (expanded) {
+      const expandedModels = expanded.split(',,');
+      localStorage.setItem('metadata.allExpanded', expandedModels.includes(model).toString());
     }
     
     this.originalMods = mods.trim();
@@ -366,6 +368,7 @@ export class Metadata {
 
   hasChanges(): boolean {
     for (const id of this.fieldsIds) {
+      
       const f = this.fields.get(id);
       for (const item of f.getItems()) {
 
@@ -374,7 +377,6 @@ export class Metadata {
         }
         for (const subfield of item.getSubfields()) {
           for (const item2 of subfield.getItems()) {
-
             if (item2.hasChanges()) {
               return true;
             }

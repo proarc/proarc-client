@@ -18,7 +18,7 @@
 		</div>
   </div>
   <div fxFlex class="app-oa-y">
-    <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
+    <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='saving'" class="app-progress-bar"></mat-progress-bar>
     <div class="app-editor-content" *ngIf="state !=='loading'">
       <div class="app-editor-field">
         <div class="app-card">

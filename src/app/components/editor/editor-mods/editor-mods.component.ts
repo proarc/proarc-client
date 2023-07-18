@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, SimpleChange } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, SimpleChange, EventEmitter, Output } from '@angular/core';
 import { Mods } from 'src/app/model/mods.model';
 import { ApiService } from 'src/app/services/api.service';
 import { DocumentItem } from 'src/app/model/documentItem.model';
@@ -11,6 +11,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
+import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.component';
+
 
 @Component({
   selector: 'app-editor-mods',
@@ -18,6 +20,9 @@ import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dial
   styleUrls: ['./editor-mods.component.scss']
 })
 export class EditorModsComponent implements OnInit, OnDestroy {
+
+   @Input('editorType') editorType: string;
+   @Output() onChangeEditorType = new EventEmitter<string>();
 
   @Input() pid: string;
   @ViewChild('editingPre') editingPre: ElementRef;
@@ -48,10 +53,9 @@ export class EditorModsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.layout.selectionChanged().subscribe(() => {
-    //   this.reload();
-    // });
-    // this.reload();
+    this.layout.shouldRefreshSelectedItem().subscribe(() => {
+      this.reload();
+    });
   }
 
   ngOnChanges(c: SimpleChange) {
@@ -151,6 +155,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
             this.anyChange = false;
             this.state = 'success';
             this.layout.refreshSelectedItem(true, 'metadata');
+            this.ui.showInfoSnackBar(this.translator.instant('snackbar.changeSaved'), 4000);
           }
         });
       }
@@ -162,6 +167,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
     const data: SimpleDialogData = {
       title,
       message,
+      alertClass: 'app-message',
       btn1: {
         label: "Uložit",
         value: 'yes',
@@ -218,6 +224,10 @@ export class EditorModsComponent implements OnInit, OnDestroy {
     if (this.rightDocumentSubscription) {
       this.rightDocumentSubscription.unsubscribe();
     }
+  }
+
+  changeEditorType(t: string) {
+    this.onChangeEditorType.emit(t);
   }
 
 }

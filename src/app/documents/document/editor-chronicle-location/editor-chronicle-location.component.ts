@@ -38,6 +38,7 @@ export class EditorChronicleLocationComponent implements OnInit {
         const data: SimpleDialogData = {
           title: String(this.translator.instant('editor.chronicle.location.archive_not_selected_title')),
           message: String(this.translator.instant('editor.chronicle.location.archive_not_selected_message')),
+          alertClass: 'app-message',
           btn1: {
             label: String(this.translator.instant('common.ok')),
             value: 'no',

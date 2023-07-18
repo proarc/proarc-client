@@ -396,6 +396,7 @@
           authority: {
             usage: 'R',
             label: 'Autorita',
+            defaultValue: 'marcorg',
             cols: 2,
             selector: 'recordInfo/recordContentSource/@authority',
             labelKey: 'recordInfo/recordContentSource/@authority',

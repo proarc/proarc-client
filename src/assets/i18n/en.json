@@ -74,32 +74,6 @@
     "NDK_ARCHIVAL": "Archive copy",
     "NDK_USER": "User copy"
   },
-  "device": {
-    "devices": "Devices",
-    "device": "Device",
-    "add_device": "Add device",
-    "name": "Name",
-    "model": "Type",
-    "edit": "Edit device",
-    "delete": "Remove device",
-    "new": "New device",
-    "create": "Create device",
-    "editing": "Edit device",
-    "models": {
-      "proarc:audiodevice": "Audio device",
-      "proarc:device": "Image device"
-    },
-    "delete_dialog": {
-      "title": "Remove device",
-      "message": "Are you sure you want to remove device {{ name }}?",
-      "success": "Device has been removed"
-    },
-    "delete_audio_dialog": {
-      "title": "Remove audio device",
-      "message": "Are you sure you want to remove the audio device?",
-      "success": "Audio device has been removed"
-    }
-  },
   "search": {
     "title": "Search",
     "name": "Name",
@@ -191,7 +165,7 @@
     "new_object": "New object",
     "search": "Search",
     "import": "Import",
-    "history": "Batch management",
+    "history": "Process management",
     "catalog": "Catalog",
     "devices": "Devices",
     "login": "Log in",
@@ -206,6 +180,7 @@
   "editor": {
     "toolbar": {
       "nav_up": "Go to parent object",
+      "nav_down": "Go to child object",
       "nav_prev": "Go to previous object",
       "nav_next": "Go to next object",
       "editor_image": "Image",
@@ -300,12 +275,6 @@
         "titleImport": "Save batch",
         "messageImport": "Are you sure you want to save batch to the chosen object?",
         "go": "Go to the selected object"
-      },
-      "delete_dialog": {
-        "title": "Remove objects",
-        "message": "Are you sure you want to remove selected objects",
-        "permanently": "Remove permanently",
-        "success": "Objects have been removed"
       },
       "delete_parent_dialog": {
         "button": "Remove relation",
@@ -1854,6 +1823,75 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "desc": {
     "help": "Help",
     "panelType": "Panel type",
@@ -1865,12 +1903,7 @@
     "storage": "Storage",
     "database": "Database",
     "settings": "Settings",
-    "devices": "Devices",
-    "newDevice": "New device",
-    "deviceModification": "Device modification",
     "import": "Import",
-    "newAudioLine": "New audio line",
-    "editingAudioLine": "Editing an audio line",
     "repository": "Repozitory",
     "comment": "Comment",
     "picture": "Picture",
@@ -1969,7 +2002,6 @@
     "lockingTheObject": "Locking the object",
     "unlockingTheObject": "Unlocking the object",
     "preferredValues": "Preferred values",
-    "displayedFieldsInSearchResults": "Displayed fields in search results",
     "forename": "Forname",
     "typesOfParties": "Types of parties",
     "languages": "Languages",
@@ -1987,7 +2019,14 @@
     "bagitPackage": "BAGIT package",
     "login": "Login",
     "includeRelatedItem": "including relatedItem",
-    "theCurrentParentObject": "The current parent object"
+    "theCurrentParentObject": "The current parent object",
+    "userEditing": "User editing",
+    "createUser": "Create a user",
+    "registrar": "Registrar",
+    "ltpToken": "Ltp Cesnet token",
+    "field": "Field",
+    "query": "Query",
+    "catalog": "Catalog"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2000,7 +2039,7 @@
     "open": "Open",
     "export": "Export",
     "conversionsOfModels": "Conversions of models",
-    "delete": "delete",
+    "delete": "Delete",
     "lockIt": "Lock it",
     "unlock": "Unlock",
     "restoreTheObject": "Restore the object",
@@ -2032,14 +2071,6 @@
     "reexport": "Repeat export",
     "create": "Create",
     "loadMetadataFromCatalog": "Load metadata from catalog",
-    "addDevice": "Add device",
-    "editDevice": "Edit device",
-    "removeDevice": "Remove device",
-    "addInfoToAudioFiles": "Add info to audio files",
-    "deleteInfoForAudioFiles": "Delete info for audio files",
-    "editInfoForAudioFiles": "Edit info for audio files",
-    "createAnAudioLine": "Create an audio line",
-    "editTheAudioLine": "Edit the audio line",
     "createNewUser": "Create a new user",
     "chapters": "Chapters",
     "prev_page": "Next page",
@@ -2055,7 +2086,14 @@
     "move": "Move",
     "deleteUser": "Delete user",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "removeThisFilter": "Remove this filter",
+    "toIndex": "To index",
+    "convertPages": "Convert pages",
+    "more": "More",
+    "resetAllLocalSettings": "Reset all local settings",
+    "createAndGoToObject": "Create and go to object",
+    "doNotSave": "Do not save"
   },
   "dynamic": {
     "repo": "Storage",
@@ -2191,6 +2229,8 @@
     "EXPORTING": "Exporting",
     "EXPORT_FAILED": "Exporting failed",
     "EXPORT_DONE": "Exported",
+    "EXPORT_PLANNED": "Export planed",
+    "EXPORT_VALID_WARNING": "Export with warning",
     "REINDEXING": "Reindexing",
     "REINDEX_FAILED": "Reindexing failed",
     "REINDEX_DONE": "Reindexed",
@@ -2236,7 +2276,15 @@
       "message": "<p>The production and archiving system is a tool for the production and editing of descriptive, administrative and technical metadata. Development is under the license <a href=\"http://www.gnu.org/licenses/gpl.html\" target=\"_blank\">GNU GPL v3.</a></p>"
     },
     "urnnbn": {
-      "title": "Registration URN:NBN"
+      "title": "Registration URN:NBN",
+      "alert": {
+        "success": "No items to display",
+        "error": "There was an error registering URN:NBN"
+      }
+    },
+    "expandAll": {
+      "title": "Expand the tree",
+      "message": "Are you sure you want to expand the selected object? Unpacking may cause excessive system load."
     },
     "childrenValidation": {
       "title": "Validation",
@@ -2274,7 +2322,8 @@
         "pagetypes": "Preferred types of parties",
         "languages": "Preferred languages",
         "locations": "Preferred storage locations",
-        "identifiers": "Preferred Identifiers"
+        "identifiers": "Preferred Identifiers",
+        "ExpandedModels": "Expanding the form"
       }
     },
     "export": {
@@ -2283,19 +2332,24 @@
         "datastream_full": "Scans",
         "datastream_raw": "The original scan",
         "kramerius": "Kramerius",
+        "kramerius_bagit": "Kramerius with BAGIT",
         "archive": "Archiving",
         "archive_stt": "Archiving of old prints",
         "ndk_psp": "NDK PSP",
+        "ndk_psp_bagit": "NDK PSP with BAGIT",
+        "ndk_psp_upload_cesnet": "NDK PSP s nahráním na Ltp Cesnetu",
         "archive_bagit": "Archiving with BAGIT",
         "archive_stt_bagit": "Archiving of old prints with BAGIT",
-        "ndk_psp_bagit": "NDK PSP with BAGIT",
+        "ndk_oldprint": "NDK STT",
+        "ndk_oldprint_bagit": "NDK STT with BAGIT",
+        "ndk_oldprint_upload_cesnet": "NDK STT s nahráním na Ltp Cesnetu",
         "cejsh": "CEJSH",
         "crossref": "Crossref",
         "kwis": "KWIS"
       },
       "alert": {
-        "done": "The export has been completed and you can find it in the user directory.",
-        "exporting": "The export has been entered and will run in the background. You can close the dialog.",
+        "done": "The export has been planned.",
+        "exporting": "The export has been planned.",
         "error": "Export failed."
       }
     },
@@ -2312,6 +2366,55 @@
       "alert": {
         "success": "The user has been deleted",
         "error": "to do"
+      }
+    },
+    "resetLocalSettings": {
+      "title": "Reset local settings",
+      "message": "Are you sure you want to reset all local settings?"
+    },
+    "lockObject": {
+      "title": "Lock object",
+      "message": "Are you sure you want to lock the selected objects?"
+    },
+    "unlockObject": {
+      "title": "Unlock the object",
+      "message": "Are you sure you want to unlock the selected objects?"
+    },
+    "removeObject": {
+      "title": "Remove objects",
+      "message": "Are you sure you want to remove selected objects?",
+      "checkbox": "Remove permanently"
+    },
+    "changeModel": {
+      "title": "Model conversion",
+      "action": "Convert {{value1}} to {{value2}}"
+    },
+    "convertPages": {
+      "title": "Convert pages",
+      "action1": "Convert page to NDK page",
+      "action2": "Convert NDK page to page"
+    },
+    "newMetadata": {
+      "title": "New object",
+      "onClose": {
+        "title": "Notice",
+        "alert": "You are leaving the form without saving. Are you sure you want to continue?"
+      },
+      "onSave": {
+        "title": "Invalid data",
+        "alert": "Invalid data, do you still want to save the document?"
+      }
+    },
+    "columnsSettings": {
+      "title": "Column selection"
+    },
+    "catalog": {
+      "title": "Loading data from the catalog"
+    },
+    "deleteSelectedChildren": {
+      "error": {
+        "title": "Error",
+        "message": "An article with a parent object cannot be deleted"
       }
     }
   },
@@ -2347,6 +2450,7 @@
       "exportProfile.crossref": "Export - Crossref",
       "exportProfile.kwis": "Export - KWIS",
       "exportProfile.aleph": "Export - Aleph",
+      "exportProfile.datastream": "Export - Datastream",
       "internalProfile.reindex": "Internal - Reindex"
     },
     "users": {
@@ -2371,16 +2475,122 @@
     }
   },
   "snackbar": {
-    "settings.search.updated": "Settings have been modified",
-    "settings.profile": {
-      "updated": "The new password has been saved",
-      "error": {
-        "mismatch": "The password entered does not match the password confirmation",
-        "short": "Password is too short, must have at least 6 characters"
+    "settings": {
+      "searchColumns.updated": "The column display settings have been modified",
+      "searchColumnsTree.updated": "The column display settings in the tree have been modified",
+      "profile": {
+        "updated": "The new password has been saved",
+        "error": {
+          "mismatch": "The password entered does not match the password confirmation",
+          "short": "Password is too short, must have at least 6 characters"
+        }
+      },
+      "resetLocalSettings": {
+        "success": "A reset of the local settings has been performed",
+        "error": "Error resetting local settings"
       }
+    },
+    "search": {
+      "lockObject": "The object was successfully locked",
+      "unlockObject": "The object was successfully unlocked"
     },
     "addNewUser": {
       "success": "User has been added"
+    },
+    "editUser": {
+      "success": "User has been modified"
+    },
+    "changeSaved": "The change has been saved",
+    "removeObject": {
+      "success": "The objects were successfully deleted"
+    },
+    "changeModel": {
+      "success": "The model has been converted to {{value}}"
+    },
+    "updateObjects": {
+      "success": "The update of the objects was successfully performed"
+    },
+    "convertPages": {
+      "success": "The pages were successfully converted",
+      "failure": "Pages were converted with an error"
+    },
+    "saveTheChange": {
+      "success": "The change was saved successfully.",
+      "error": "An error occurred while saving the change."
+    },
+    "deleteSelectedChildren": {
+      "success": "The objects were successfully deleted.",
+      "error": "An error occurred while deleting objects."
+    }
+  },
+  "device": {
+    "devices": "Devices",
+    "name": "Name",
+    "general": "General",
+    "imageProducer": "Image producer",
+    "captureDevice": "Capture device",
+    "typeOfDevice": "Type of device",
+    "scanner": "Scanner",
+    "manufacturer": "Manufacturer",
+    "scannerSensor": "Scanner sensor",
+    "modelName": "Model name",
+    "modelNumber": "Model number",
+    "modelSerialNumber": "Model serial number",
+    "opticalResolution": "Optical resolution",
+    "opticalResolutionUnit": "Optical resolution unit",
+    "softwareName": "Software name",
+    "softwareVersion": "Software version",
+    "digitalCamera": "Digital camera",
+    "cameraSensor": "Camera sensor",
+    "serialNumber": "Serial number",
+    "identifierType": "Identifier type",
+    "identifierValue": "Identifier value",
+    "identifierRole": "Identifier role",
+    "informationAboutAudioFiles": "Information about audio files",
+    "linkingAgentIdentifier": "Linking agent identifier",
+    "value": "Value",
+    "role": "Role",
+    "agentExtension": "Agent extension",
+    "type": "Type",
+    "settings": "Settings",
+    "editingAudioLine": "Editing an audio line",
+    "deviceModification": "Device modification",
+    "button": {
+      "addDevice": "Add device",
+      "deleteInfoForAudioFiles": "Delete info for audio files",
+      "editInfoForAudioFiles": "Edit info for audio files",
+      "editDevice": "Edit device",
+      "removeDevice": "Remove device",
+      "addInfoToAudioFiles": "Add info to audio files",
+      "editTheAudioLine": "Edit the audio line",
+      "createAnAudioLine": "Create an audio line",
+      "create": "Create",
+      "edit": "Edit"
+    }
+  },
+  "pages": {
+    "settings": {
+      "tabs": {
+        "personalSettings": "Personal settings",
+        "localSettings": "Local settings"
+      },
+      "search": {
+        "legend": "Search",
+        "label": "Displayed fields in search results"
+      },
+      "searchTree": {
+        "legend": "Search (tree)",
+        "label": "Displayed fields in tree"
+      },
+      "editingRepo": {
+        "legend": "Editing in the repository",
+        "label": "Displayed fields in the repository editing by model"
+      },
+      "editingImport": {
+        "legend": "Editing in import",
+        "label": "Displayed fields in the import edit"
+      },
+      "colsEditModeParent": "By parent"
     }
   }
 }

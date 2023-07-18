@@ -1,5 +1,6 @@
 
 import { Injectable } from '@angular/core';
+import { ConfigService } from './config.service';
 
 @Injectable()
 export class LocalStorageService {
@@ -19,36 +20,81 @@ export class LocalStorageService {
     public static COLUMNS_REPO = 'columnsRepo';
     public static COLUMNS_IMPORT = 'columnsImport';
 
-    availableSearchColumns = ['name', 'pageType', 'pageIndex', 'pageNumber', 'model', 'pid', 'owner', 'processor', 'organization', 'status', 'created', 'modified', 'export', 'isLocked'];
-    private searchColumnsDefaults: any = {
-        'name': true,
-        'pageType': true,
-        'pageIndex': true,
-        'pageNumber': true,
-        'model': true,
-        'pid': true,
-        'processor': false,
-        'organization': false,
-        'status': false,
-        'created': true,
-        'modified': true,
-        'owner': true,
-        'export': true,
-        'isLocked': true
+    availableSearchColumns = ['pageType', 'pageIndex', 'pageNumber', 'model', 'pid', 'owner', 'processor', 'organization', 'status', 'created', 'modified', 'export', 'isLocked'];
+    public selectedColumnsSearchDefault = [
+        { field: 'label', selected: true, width: 100 },
+        { field: 'model', selected: true, width: 100 },
+        { field: 'pid', selected: true, width: 100 },
+        { field: 'processor', selected: true, width: 100 },
+        { field: 'organization', selected: true, width: 100 },
+        { field: 'status', selected: true, width: 100 },
+        { field: 'created', selected: true, width: 100 },
+        { field: 'modified', selected: true, width: 100 },
+        { field: 'owner', selected: true, width: 100 },
+        { field: 'export', selected: true, width: 100 },
+        { field: 'isLocked', selected: true, width: 100 }
+    ];
+
+    public availableColumnsEditingRepo = ['label', 'filename',
+        'pageType', 'pageNumber', 'pageIndex', 'pagePosition', 'model',
+        'pid', 'owner', 'created', 'modified', 'status'];
+
+    public colsEditingRepo: { [model: string]: { field: string, selected: boolean, width: number }[] };
+
+    public searchColumns: { field: string, selected: boolean; }[];
+    public searchColumnsTree: { field: string, selected: boolean; }[];
+
+
+    constructor(
+        public config: ConfigService) {
     }
 
-    constructor() {
+    isSearchColEnabled(field: string): boolean {
+        if (!this.searchColumns) {
+            this.getSearchColumns();
+        }
+        return this.searchColumns.findIndex((col: any) => col.field === field && col.selected) > -1;
     }
 
-    isSearchColEnabled(col: string): boolean {
-        return  this.getBoolProperty('search.cols.' + col, !!this.searchColumnsDefaults[col]);
+    isSearchColTreeEnabled(field: string): boolean {
+        if (!this.searchColumnsTree) {
+            this.getSearchColumnsTree();
+        }
+        return this.searchColumnsTree.findIndex((col: any) => col.field === field && col.selected) > -1;
     }
 
-    getSearchColumns(): string|null {
-        return localStorage.getItem('selectedColumns') || this.searchColumnsDefaults;
+    getSearchColumns() {
+        const prop = this.getStringProperty('searchColumns');
+        if (prop) {
+            this.searchColumns = [];
+            Object.assign(this.searchColumns, JSON.parse(prop));
+        } else {
+            this.searchColumns = [];
+            Object.assign(this.searchColumns, JSON.parse(JSON.stringify(this.selectedColumnsSearchDefault)));
+        }
+        
     }
 
-    getStringProperty(property: string, defaultValue: string|null = null): string|null {
+    getSearchColumnsTree() {
+        const prop = this.getStringProperty('searchColumnsTree');
+        if (prop) {
+            this.searchColumnsTree = [];
+            Object.assign(this.searchColumnsTree, JSON.parse(prop));
+        } else {
+            this.searchColumnsTree = [];
+            Object.assign(this.searchColumnsTree, JSON.parse(JSON.stringify(this.selectedColumnsSearchDefault)));
+        }
+    }
+
+    setSelectedColumnsSearch() {
+        this.setStringProperty('searchColumns', JSON.stringify(this.searchColumns));
+    }
+
+    setSelectedColumnsSearchTree() {
+        this.setStringProperty('searchColumnsTree', JSON.stringify(this.searchColumnsTree));
+    }
+
+    getStringProperty(property: string, defaultValue: string | null = null): string | null {
         return localStorage.getItem(property) || defaultValue;
     }
 
@@ -69,5 +115,54 @@ export class LocalStorageService {
         this.setStringProperty(property, value ? '1' : '0');
     }
 
+    getColsEditingRepo(): boolean {
+        const prop = this.getStringProperty('colsRepo');
+        if (prop) {
+            this.colsEditingRepo = {};
+            Object.assign(this.colsEditingRepo, JSON.parse(prop));
+        } else {
+            this.colsEditingRepo = {};
+            this.config.allModels.forEach((model: string) => {
+                this.colsEditingRepo[model] = this.availableColumnsEditingRepo.map((c: string) => {
+                    return {
+                        field: c,
+                        selected: (model.indexOf('page') < 0 && c.indexOf('page') < 0) || (model.indexOf('page') > -1 && c.indexOf('page') > -1),
+                        width: 150
+                    }
+                });
+            })
+        }
+        return this.getBoolProperty('colsEditModeParent', true);
+    }
+
+    getSelectedColumnsEditingImport() {
+        const prop = this.getStringProperty('selectedColumnsImport');
+        let ret: any = [];
+        if (prop) {
+            Object.assign(ret, JSON.parse(prop));
+        } else {
+
+            ret = this.availableColumnsEditingRepo.map((c: string) => {
+                return {
+                    field: c,
+                    selected: true,
+                    width: 150
+                }
+            });
+
+            // Remove first, label
+            ret.shift();
+        }
+        return ret;
+    }
+
+    setColumnsEditingRepo(colsEditModeParent: boolean) {
+        this.setStringProperty('colsRepo', JSON.stringify(this.colsEditingRepo));
+        this.setBoolProperty('colsEditModeParent', colsEditModeParent);
+    }
+
+    setColumnsEditingRepoSimple() {
+        this.setStringProperty('colsRepo', JSON.stringify(this.colsEditingRepo));
+    }
 
 }

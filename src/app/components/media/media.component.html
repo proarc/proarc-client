@@ -1,12 +1,7 @@
 <div fxLayout="column" fxFlexFill>
   <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description app-view-border-bottom">
-    <div>
-			<div class="app-toolbar-label">
-				<span class="app-text">{{ 'desc.media' | translate }}</span>
-			</div>
-		</div>
-		<div fxFlex class="app-text-center">
-      <mat-form-field class="app-clean-mb app-select" *ngIf="streamProfile">
+		<div fxFlex *ngIf="streamProfile">
+      <mat-form-field class="app-clean-mb app-select">
         <mat-select name="profiles" [(ngModel)]="streamProfile">
           <mat-option *ngFor="let p of streamProfiles" [value]="p">{{ 'streamProfile.' + p.dsid | translate }}</mat-option>
         </mat-select>
@@ -26,13 +21,12 @@
 		</div>
   </div>
 	<div fxFlex class="app-oa-y">
-		<!-- <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='head'" class="app-progress-bar"></mat-progress-bar> -->
-		<div class="app-editor-content app-h-100" *ngIf="streamProfile">
-      <app-pdf *ngIf="isPdf()" [stream]="streamProfile.dsid" [pid]="currentPid"></app-pdf>
-      <app-epub *ngIf="isEpub()" [stream]="streamProfile.dsid" [pid]="currentPid"></app-epub>
-      <app-viewer *ngIf="isImage()" [idViewer]="'app-viewer-media'" [stream]="streamProfile.dsid" [pid]="currentPid"></app-viewer>
-      <app-song *ngIf="isAudio()" [pid]="currentPid"></app-song>
-			<mat-card class="app-alert app-info app-m-4" *ngIf="isUnsupported()">
+		<div class="app-editor-content app-h-100" *ngIf="streamProfile || !isRepo">
+      <app-pdf *ngIf="isRepo && isPdf()" [stream]="streamProfile?.dsid" [pid]="currentPid"></app-pdf>
+      <app-epub *ngIf="isRepo && isEpub()" [stream]="streamProfile?.dsid" [pid]="currentPid"></app-epub>
+      <app-viewer *ngIf="!isRepo || isImage()" [idViewer]="'app-viewer-media'" [stream]="streamProfile?.dsid" [pid]="currentPid"></app-viewer>
+      <app-song *ngIf="isRepo && isAudio()" [pid]="currentPid"></app-song>
+			<mat-card class="app-alert app-info app-m-4" *ngIf="isRepo && isUnsupported()">
 				<mat-icon>info</mat-icon>
 				{{ 'alert.info.digitalContentIsNotSupported' | translate }} ({{streamProfile.mime}})
 			</mat-card>

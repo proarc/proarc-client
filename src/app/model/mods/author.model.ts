@@ -77,10 +77,12 @@ export class ModsAuthor extends ModsElement {
         // }
         if (this.available('role')) {
             this.roles = new ElementField(this.modsElement, ModsRole.getSelector(), this.getField('role'));
+            this.addSubfield(this.roles);
         }
 
         if(this.available('namePart')) {
             this.nameParts = new ElementField(this.modsElement, ModsNamePart.getSelector(), this.getField('namePart'));
+            this.addSubfield(this.nameParts);
         }
 
 

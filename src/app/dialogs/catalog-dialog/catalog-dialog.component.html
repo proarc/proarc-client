@@ -1,56 +1,51 @@
-<div mat-dialog-content class="app-catalog-wrapper">
+<mat-progress-bar mode="indeterminate" *ngIf="state=='loading'" class="app-progress-bar"></mat-progress-bar>
+<div fxLayout="column" fxFlexFill>
+  <h1 mat-dialog-title>{{ 'dialog.catalog.title' | translate }}</h1>
+  <div *ngIf="catalogs" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
+    <mat-form-field fxFlex="250px" *ngIf="catalogs && catalogs.length > 0">
+      <mat-select (selectionChange)="onCatalogChanged($event.value)" [placeholder]="'desc.catalog' | translate" name="catalog" [(ngModel)]="activeCatalog" [disabled]="state=='loading'  || state=='saving'">
+        <mat-option *ngFor="let catalog of catalogs" [value]="catalog">{{ catalog.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-    <div class="app-actions" *ngIf="catalogs">
-  
-      <mat-form-field class="app-catalog" *ngIf="catalogs && catalogs.length > 0">
-        <mat-select (selectionChange)="onCatalogChanged($event.value)" placeholder="Katalog" name="catalog" [(ngModel)]="activeCatalog" [disabled]="state=='loading'  || state=='saving'">
-          <mat-option *ngFor="let catalog of catalogs" [value]="catalog">{{ catalog.name }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-  
-      <mat-form-field class="app-field" *ngIf="activeCatalog" >
-        <mat-select placeholder="Pole" name="field" [(ngModel)]="activeField" [disabled]="state=='loading'  || state=='saving'">
-          <mat-option *ngFor="let field of activeCatalog?.fields" [value]="field">{{ field.name }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-  
-      <mat-form-field class="app-query">
-        <input matInput placeholder="Dotaz" (keyup.enter)="search()" [(ngModel)]="activeQuery" [disabled]="state=='loading'  || state=='saving'">
-      </mat-form-field>
-  
-      <a mat-raised-button class="app-search" color="primary" (click)="search()" [disabled]="!activeQuery || state=='loading'  || state=='saving'">
-        <mat-icon style="margin-right:8px;">search</mat-icon>
-        {{ 'catalog.search' | translate }}
-      </a>
-    </div>
-  
-  
-    <div class="app-results" *ngIf="results && results.length > 0">
-      <div class="app-table">
-        <div *ngFor="let entry of results; let i = index" class="app-row" [class.app-active]="i == activeIndex" (click)="selectEntry(i)">
-          <div class="entry">{{ entry.title }}</div>
-        </div>
+    <mat-form-field *ngIf="activeCatalog" >
+      <mat-select [placeholder]="'desc.field' | translate" name="field" [(ngModel)]="activeField" [disabled]="state=='loading'  || state=='saving'">
+        <mat-option *ngFor="let field of activeCatalog?.fields" [value]="field">{{ field.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
+      <input matInput [placeholder]="'desc.query' | translate" (keyup.enter)="search()" [(ngModel)]="activeQuery" [disabled]="state=='loading'  || state=='saving'">
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" (click)="search()" [disabled]="!activeQuery || state=='loading'  || state=='saving'">
+      {{ 'button.search' | translate }}
+    </button>
+  </div>
+  <div fxFlex fxLayout="row" fxLayoutGap="16px" class="app-oh">
+    <ng-container *ngIf="results && results.length > 0">
+      <div fxFlex class="app-oa-y">
+        <table mat-table #table [dataSource]="results" class="app-striped app-hover">
+          <ng-container matColumnDef="title">
+            <td mat-cell *matCellDef="let element">
+              <div class="app-text-cutter-wrapper" [matTooltip]="element.title">
+                <div class="app-text-cutter">
+                  {{ element.title }}
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index" (click)="selectEntry(i)" class="app-cursor-pointer" [class.app-selected]="activeIndex == i"></tr>
+        </table>
       </div>
-      <div class="app-detail" *ngIf="activeIndex >= 0">
+      <div fxFlex class="app-oa-y" *ngIf="activeIndex >= 0">
         <div [innerHTML]="results[activeIndex].preview"></div>
       </div>
-    </div>
-    <div class="app-no-results" *ngIf="message">{{ 'catalog.' + message | translate }}</div>
-  
-
-</div>
-
-<mat-spinner *ngIf="state=='loading'" [strokeWidth]="5" [diameter]="60" class="center-spinner">
-</mat-spinner>
-
-<div mat-dialog-actions cdk-focus-start>
-  
-  <button *ngIf="data.create" mat-raised-button color="primary" (click)="onCreate()" [disabled]="activeIndex < 0 || state=='loading'  || state=='saving'" >{{ 'catalog.create' | translate }}</button>
-  <button *ngIf="!data.create" mat-raised-button color="primary" (click)="onSave()" [disabled]="activeIndex < 0 || state=='loading'  || state=='saving'" >{{ 'catalog.save' | translate }}</button>
-  <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.cancel' | translate }}</button>
-  <mat-spinner *ngIf="state=='saving'"
-    style="margin-left: auto"
-    [strokeWidth]="3" 
-    [diameter]="30">
-  </mat-spinner>
+    </ng-container>
+  </div>
+  <div mat-dialog-actions cdk-focus-start>
+    <button *ngIf="data.create" mat-flat-button color="primary" (click)="onCreate()" [disabled]="activeIndex < 0 || state=='loading'  || state=='saving'" >{{ 'button.create' | translate }}</button>
+    <button *ngIf="!data.create" mat-flat-button color="primary" (click)="onSave()" [disabled]="activeIndex < 0 || state=='loading'  || state=='saving'" >{{ 'button.save' | translate }}</button>
+    <button mat-flat-button mat-dialog-close="close" >{{ 'button.cancel' | translate }}</button>
+  </div>
 </div>

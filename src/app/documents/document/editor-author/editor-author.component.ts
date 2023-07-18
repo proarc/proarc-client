@@ -9,6 +9,7 @@ import { LayoutService } from 'src/app/services/layout.service';
 import { TemplateService } from 'src/app/services/template.service';
 import {ConfigService} from '../../../services/config.service';
 import {forEach} from 'ol/geom/flat/segments';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-editor-author',

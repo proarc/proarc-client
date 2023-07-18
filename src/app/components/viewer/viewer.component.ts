@@ -80,7 +80,10 @@ export class ViewerComponent implements OnInit, OnDestroy {
   }
 
   onResized(event: ResizedEvent) {
-    this.view.updateSize();
+    if (this.view) {
+      this.view.updateSize();
+    }
+    
   }
 
   changeLockPanel() {

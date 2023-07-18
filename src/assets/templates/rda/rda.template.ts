@@ -1039,6 +1039,7 @@ export class RdaTemplate {
             },
             authority: {
               usage: 'R',
+              defaultValue: 'marcorg',
               label: 'Autorita',
               selector: 'recordInfo/recordContentSource/@authority',
               labelKey: 'recordInfo/recordContentSource/@authority',

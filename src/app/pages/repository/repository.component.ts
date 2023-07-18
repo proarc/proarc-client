@@ -59,17 +59,21 @@ export class RepositoryComponent implements OnInit {
     }));
 
     this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
-      this.refreshSelected(from);
-    }));
-
-    this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
-      this.loadMetadata(this.layout.lastSelectedItem.pid, this.layout.lastSelectedItem.model);
+      setTimeout(() => {
+        this.refreshSelected(from);
+      }, 10)
       
     }));
 
-    // this.layout.selectionChanged().subscribe(() => {
-    //   this.setVisibility();
-    // });
+    this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
+      setTimeout(() => {
+        if (this.layout.lastSelectedItem) {
+          this.loadMetadata(this.layout.lastSelectedItem.pid, this.layout.lastSelectedItem.model);
+        }
+        
+      }, 10)
+      
+    }));
 
     this.layout.lastSelectedItemMetadata = null;
     combineLatest([this.route.paramMap, this.route.queryParamMap]).subscribe(
@@ -135,6 +139,13 @@ export class RepositoryComponent implements OnInit {
   canHasChildren(model: string): boolean {
     const a = ModelTemplate.allowedChildrenForModel(model)
     return a?.length > 0;
+  }
+
+  selectLast() {
+    this.layout.items.forEach(i => i.selected = false);
+    //this.layout.rootItem.selected = true;
+    this.layout.lastSelectedItem = this.layout.item;
+    this.layout.setSelection(false);
   }
 
   refreshSelected(from: string) {
@@ -249,6 +260,7 @@ export class RepositoryComponent implements OnInit {
 
       if (parent) {
         this.layout.parent = parent;
+        this.layout.item.parent = parent.pid;
         if (!this.canHasChildren(item.model)){ 
           if(!keepSelection) {
             this.layout.selectedParentItem = parent;
@@ -386,6 +398,10 @@ export class RepositoryComponent implements OnInit {
     if (pid) {
       this.router.navigate(['/repository', pid]);
     }
+  }
+
+  public goToFirst() {
+    this.router.navigate(['/repository', this.layout.parent.pid]);
   }
 
 }

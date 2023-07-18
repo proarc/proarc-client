@@ -1,25 +1,30 @@
+<mat-progress-bar mode="indeterminate" *ngIf="!layout.ready" class="app-progress-bar"></mat-progress-bar>
+
 <div fxLayout="column" fxFlexFill *ngIf="layout.ready" class="app-editor-wrapper">
+
   <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar app-view-border-bottom">
     <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs app-view-border-right">
-      <a routerLink="/"><mat-icon>home</mat-icon> Home</a>
+      <a routerLink="/"><mat-icon>home</mat-icon></a>
       <span class="app-separator">/</span>
       <ng-container *ngFor="let p of layout.path; let last = last; let l = count; let idx = index">
-        <a *ngIf="!last" (click)="goToObjectByPid(p.pid)" [matTooltip]="'model.' + p.model | translate">{{ p.label }}</a>
+        <a *ngIf="!last" (click)="goToObjectByPid(p.pid)" [matTooltip]="'model.' + p.model | translate" class="app-text-cutter" [matTooltip]="p.label">{{ p.label }}</a>
         <span class="app-separator" *ngIf="idx < l - 2">/</span>
       </ng-container>
-      <span *ngIf="layout.path.length === 1" class="app-last app-text-cutter" 
-      [matTooltip]="'model.' + layout.item.model | translate" [matTooltipPosition]="'above'">{{ layout.item.label }}</span>
+      <a *ngIf="layout.path.length === 1" (click)="selectLast()" class="app-last app-text-cutter" [matTooltip]="layout.item.label" [matTooltipPosition]="'above'">{{ layout.item.label }}</a>
     </div>
     <div fxFlex class="app-pl-4">
       <div *ngIf="layout.path.length === 1" class="app-label-model">{{ 'model.' + layout.item.model | translate }}</div>
-      <div *ngIf="layout.path.length > 1" class="app-label-model">{{ 'model.' + layout.item.model | translate }} - {{ layout.item.label }}</div>
+      <div *ngIf="layout.path.length > 1" class="app-label-model"><a (click)="selectLast()">{{ 'model.' + layout.item.model | translate }} - {{ layout.item.label }}</a></div>
     </div>
     <div>
-      <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToObject(layout.previousItem)" [disabled]="!layout.previousItem" mat-icon-button>
-        <mat-icon>keyboard_arrow_left</mat-icon>
-      </button>
       <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToObject(layout.parent)" [disabled]="!layout.parent" mat-icon-button>
         <mat-icon>keyboard_arrow_up</mat-icon>
+      </button>
+      <button matTooltip="{{ 'editor.toolbar.nav_down' | translate }}" (click)="goToFirst()" [disabled]="!layout.parent" mat-icon-button>
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+      <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToObject(layout.previousItem)" [disabled]="!layout.previousItem" mat-icon-button>
+        <mat-icon>keyboard_arrow_left</mat-icon>
       </button>
       <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="goToObject(layout.nextItem)" [disabled]="!layout.nextItem" mat-icon-button>
         <mat-icon>keyboard_arrow_right</mat-icon>

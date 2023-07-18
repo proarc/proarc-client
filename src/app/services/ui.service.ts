@@ -36,9 +36,27 @@ export class UIService {
   public showErrorDialog(data: { type: string; title: string; message: any[] | string[]; }) {
     this.dialogRef = this.dialog.open(AlertDialogComponent, {    
          data,
+         width: '600px',
+         panelClass: 'app-alert-dialog'
+    });
+  }
+
+  public showInfoDialog(message: string, duration: number = 2000) {
+    const data = {
+      type: 'success',
+      title: 'Info',
+      message: [message]
+    };
+    const dialogRef = this.dialog.open(AlertDialogComponent, {    
+         data,
          width: '400px',
          panelClass: 'app-alert-dialog'
     });
+    dialogRef.afterOpened().subscribe(_ => {
+      setTimeout(() => {
+         dialogRef.close();
+      }, duration)
+    })
   }
   
   public confirmed(): Observable<any> {
@@ -51,22 +69,22 @@ export class UIService {
 
 
   showInfo(code: string, duration: number = 2000) {
-    this.snackBar.open(String(this.translator.instant(code)), '', { duration: duration });
+    this.snackBar.open(String(this.translator.instant(code)), '', { duration: duration, verticalPosition: 'top'});
   }
 
-  showInfoSnackBar(message: string, duration: number = 2000) {
-    this.snackBar.open(message, 'OK', { duration: duration, panelClass: 'app-snackbar-success' });
+  showInfoSnackBar(message: string, duration: number = 4000) {
+    this.snackBar.open(message, 'OK', { duration: duration, panelClass: 'app-snackbar-success', verticalPosition: 'top' });
   }
 
   showErrorSnackBar(message: string, duration: number = 4000) {
-    //this.snackBar.open(message, 'Chyba', { duration: duration, verticalPosition: 'top', panelClass: 'app-snackbar-error' });
+    this.snackBar.open(message, 'Chyba', { duration: duration, panelClass: 'app-snackbar-error', verticalPosition: 'top' });
     
-    const data = {
+   /*  const data = {
       type: 'error',
       title: 'Chyba',
       message: [message]
     };
-    this.showErrorDialog(data);
+    this.showErrorDialog(data); */
 
   }
 
@@ -86,7 +104,7 @@ export class UIService {
 
     const data = {
       type: 'error',
-      title: 'Chyba',
+      title: String(this.translator.instant('desc.error')),
       message
     };
     this.showErrorDialog(data);

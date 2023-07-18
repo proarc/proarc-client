@@ -10,7 +10,7 @@
         <div class="app-song-wrapper" *ngIf="state === 'success'">
             <div class="app-controls">
                 <div class="app-track-position">
-                   {{ trackPositionText }}<span *ngIf="trackDuration < 50000"> / {{ trackDurationText }}</span>
+                   {{ trackPositionText }}<span *ngIf="trackDurationText !== 'Infinity'"> / {{ trackDurationText }}</span>
                 </div>
                 <ng-container *ngIf="playing">
                     <mat-icon class="app-button" (click)="moveBackward()">fast_rewind</mat-icon>

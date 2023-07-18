@@ -24,6 +24,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UIService } from 'src/app/services/ui.service';
 
 import { CdkDragDrop, CdkDragStart, moveItemInArray, transferArrayItem, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { ColumnsSettingsDialogComponent } from 'src/app/dialogs/columns-settings-dialog/columns-settings-dialog.component';
 
 
 @Component({
@@ -38,6 +39,7 @@ export class EditorStructureComponent implements OnInit {
   @Output() onIngest = new EventEmitter<boolean>();
 
   @ViewChild('table') table: MatTable<DocumentItem>;
+  @ViewChild(MatTable, { read: ElementRef }) private matTableRef: ElementRef;
   @ViewChildren('matrow', { read: ViewContainerRef }) rows: QueryList<ViewContainerRef>;
   @ViewChild('childrenList') childrenListEl: ElementRef;
   @ViewChild('childrenIconList') childrenIconListEl: ElementRef;
@@ -78,18 +80,22 @@ export class EditorStructureComponent implements OnInit {
   // public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
 
   public selectedColumns = [
-    { field: 'pageType', selected: true },
-    { field: 'pageNumber', selected: true },
-    { field: 'pageIndex', selected: true },
-    { field: 'pagePosition', selected: true },
-    { field: 'model', selected: true },
-    { field: 'pid', selected: false },
-    { field: 'owner', selected: false },
-    { field: 'created', selected: false },
-    { field: 'modified', selected: true },
-    { field: 'status', selected: false }
+    { field: 'label', selected: true, width: 140 },
+    { field: 'filename', selected: true, width: 140 },
+    { field: 'pageType', selected: true, width: 140 },
+    { field: 'pageNumber', selected: true, width: 140 },
+    { field: 'pageIndex', selected: true, width: 140 },
+    { field: 'pagePosition', selected: true, width: 140 },
+    { field: 'model', selected: true, width: 140 },
+    { field: 'pid', selected: false, width: 140 },
+    { field: 'owner', selected: false, width: 140 },
+    { field: 'created', selected: false, width: 140 },
+    { field: 'modified', selected: true, width: 140 },
+    { field: 'status', selected: false, width: 140 }
   ];
   displayedColumns: string[] = [];
+  colsEditModeParent: boolean;
+  colsImport: any;
 
   subscriptions: Subscription[] = [];
 
@@ -97,7 +103,7 @@ export class EditorStructureComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private properties: LocalStorageService,
+    public properties: LocalStorageService,
     private translator: TranslateService,
     private dialog: MatDialog,
     private ui: UIService,
@@ -112,24 +118,41 @@ export class EditorStructureComponent implements OnInit {
 
   ngOnInit(): void {
     this.isRepo = this.layout.type === 'repo';
-    this.initSelectedColumns();
-    this.setColumns();
+    
+    // this.setSelectedColumns();
+    
     this.shortLabels = this.properties.getBoolProperty('children.short_labels', false);
     this.pageChildren = this.layout.items.findIndex(it => it.isPage()) > -1;
     if (!this.isRepo) {
       this.lastClickIdx = 0;
     }
     this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((fromStructure: boolean) => {
-      // this.setScrollPos();
+      this.refreshChildren();
       this.refreshing = true;
       setTimeout(() => {
         this.scrollBack();
       }, 500);
     }));
+
+    this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
+      this.setSelectedColumns();
+    }));
+
+  }
+
+  refreshChildren() {
+    // const hasTree = this.layout.selectedParentItem;
+    // if (hasTree) {
+    //   return
+    // }
+    this.api.getRelations(this.layout.selectedParentItem.pid).subscribe((children: DocumentItem[]) => {
+      this.layout.items = children;
+    });
   }
 
   ngAfterViewInit() {
     this.childrenWrapperEl.nativeElement.focus();
+    this.setColumnSizes();
 
     this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
       this.pageChildren = this.layout.items.findIndex(it => it.isPage()) > -1;
@@ -260,38 +283,120 @@ export class EditorStructureComponent implements OnInit {
     localStorage.setItem(localStorageName + '-' + l, JSON.stringify(this.layout.layoutConfig))
   }
 
-  selectedColumnsPropName() {
-    return this.isRepo ? 'selectedColumnsRepo' : 'selectedColumnsImport';
-  }
-
-  initSelectedColumns() {
-
-    const prop = this.properties.getStringProperty(this.selectedColumnsPropName());
-    if (prop) {
-      Object.assign(this.selectedColumns, JSON.parse(prop));
-    } else {
-      if (this.isRepo) {
-        this.selectedColumns.unshift({ field: 'label', selected: true })
-      } else {
-        this.selectedColumns.unshift({ field: 'filename', selected: true })
-      }
-    }
+  selectedColumnsPropName(model: string) {
+    return this.isRepo ? 'selectedColumnsRepo_' + model : 'selectedColumnsImport';
   }
 
   setSelectedColumns() {
-    this.properties.setStringProperty(this.selectedColumnsPropName(), JSON.stringify(this.selectedColumns));
-    this.initSelectedColumns();
-    this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field);
-    this.table.renderRows();
+    if (this.isRepo) {
+      this.setSelectedColumnsRepo();
+    } else {
+      this.setSelectedColumnsImport();
+    }
   }
 
-  setColumns() {
-    this.displayedColumns = this.selectedColumns.filter(c => c.selected && !(this.isRepo && c.field === 'pageType') && !(this.isRepo && c.field === 'filename') && !(!this.isRepo && c.field === 'label')).map(c => c.field);
+
+
+  getColumnWidth(field: string) {
+    if (this.isRepo) {
+      return this.getColumnWidthRepo(field);
+    } else {
+      return this.getColumnWidthImport(field);
+    }
+  }
+  getColumnWidthRepo(field: string) {
+    const model = this.colsEditModeParent ? this.layout.selectedParentItem.model : this.layout.items[0].model;
+    const el = this.properties.colsEditingRepo[model].find((c: any)=> c.field === field);
+    if (el) {
+      return el.width + 'px';
+    } else {
+      return '';
+    }
+  }
+
+  getColumnWidthImport(field: string) {
+    const el = this.colsImport.find((c: any)=> c.field === field);
+    if (el) {
+      return el.width + 'px';
+    } else {
+      return '';
+    }
+  }
+
+  saveColumnsSizes(e: any, field?: string) {
+    if (this.isRepo) {
+      this.saveColumnsSizesRepo(e, field);
+    } else {
+      this.saveColumnsSizesImport(e, field);
+    }
+  }
+  saveColumnsSizesRepo(e: any, field?: string) {
+    const model = this.colsEditModeParent ? this.layout.selectedParentItem.model : this.layout.items[0].model;
+    const el = this.properties.colsEditingRepo[model].find((c: any)=> c.field === field);
+    if (el) {
+      el.width = e;
+    } else {
+      console.log("nemelo by")
+    } 
+
+    this.properties.setColumnsEditingRepoSimple();
+  }
+
+  saveColumnsSizesImport(e: any, field?: string) {
+    const el = this.colsImport.find((c: any)=> c.field === field);
+    if (el) {
+      el.width = e;
+    } else {
+      console.log("nemelo by")
+    } 
+
+    this.properties.setStringProperty('selectedColumnsImport', JSON.stringify(this.colsImport));
+  }
+
+  setSelectedColumnsRepo() {
+    const models: string[] = [];
+    this.layout.items.forEach(i => {
+      if (!models.includes(i.model)) {
+        models.push(i.model);
+      }
+    });
+    this.colsEditModeParent = this.properties.getColsEditingRepo();
+    this.displayedColumns = [];
+    if (this.colsEditModeParent) {
+      this.displayedColumns = this.properties.colsEditingRepo[this.layout.selectedParentItem.model].filter(c => c.selected && !this.displayedColumns.includes(c.field)).map(c => c.field);
+    } else {
+      models.forEach(model => {
+        const f = this.properties.colsEditingRepo[model].filter(c => c.selected && !this.displayedColumns.includes(c.field)).map(c => c.field);
+        this.displayedColumns.push(...f);
+      });
+    }
+  }
+
+  setSelectedColumnsImport() {
+    this.colsImport = this.properties.getSelectedColumnsEditingImport();
+    this.displayedColumns = this.colsImport.filter((c: any) => c.selected).map((c: any) => c.field);
   }
 
   selectAll() {
     this.layout.items.forEach(i => i.selected = true);
     this.layout.setSelection(true);
+  }
+
+  selectColumns() {
+    const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
+      data: {
+        isRepo: this.isRepo,
+        itemModel: this.layout.item.model,
+        selectedModel: this.layout.lastSelectedItem.model,
+        selectedParentModel: this.layout.selectedParentItem.model,
+      },
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.layout.setShouldRefresh(false);
+      }
+    });
   }
 
   rowClick(row: DocumentItem, idx: number, event: MouseEvent) {
@@ -347,6 +452,10 @@ export class EditorStructureComponent implements OnInit {
   }
 
   public goToParent() {
+    this.router.navigate(['/repository', this.layout.parent.pid]);
+  }
+
+  public goToFirst() {
     this.router.navigate(['/repository', this.layout.parent.pid]);
   }
 
@@ -437,7 +546,7 @@ export class EditorStructureComponent implements OnInit {
 
 
   dragend(event: any) {
-    
+
     this.isDragging = false;
     if (!this.dragEnabled) {
       return;
@@ -483,7 +592,7 @@ export class EditorStructureComponent implements OnInit {
 
     } else {
       const from = this.sourceIndex;
-      
+
       this.hasChanges = true;
       if (from !== to) {
         this.reorder(from, to);
@@ -492,7 +601,7 @@ export class EditorStructureComponent implements OnInit {
     this.layout.setSelectionChanged(true);
   }
 
-  public trackItem (index: number, item: DocumentItem) {
+  public trackItem(index: number, item: DocumentItem) {
     return item.pid;
   }
 
@@ -513,7 +622,7 @@ export class EditorStructureComponent implements OnInit {
       selections.forEach(s => {
         const item = this.layout.items.splice(s, 1);
         if (s < this.targetIndex) {
-          newIndex --;
+          newIndex--;
           indexCounted = true;
         }
       });
@@ -529,8 +638,8 @@ export class EditorStructureComponent implements OnInit {
     this.layout.setIsDirty(this as Component);
     this.hasChanges = true;
     if (this.table) {
-        this.table.renderRows();
-      
+      this.table.renderRows();
+
     }
     this.state = 'loading';
     setTimeout(() => {
@@ -584,10 +693,11 @@ export class EditorStructureComponent implements OnInit {
 
   validateChildren() {
     const dialogRef = this.dialog.open(ChildrenValidationDialogComponent, {
-      data: { 
+      data: {
         parent: this.layout.selectedParentItem,
-        children: this.layout.items, 
-        batchId: this.layout.getBatchId() },
+        children: this.layout.items,
+        batchId: this.layout.getBatchId()
+      },
       panelClass: 'app-children-validation-dialog',
       width: '600px'
     });
@@ -608,9 +718,13 @@ export class EditorStructureComponent implements OnInit {
       models: this.layout.allowedChildrenModels(),
       model: this.layout.allowedChildrenModels()[0],
       customPid: false,
-      parentPid: this.layout.selectedParentItem.pid
+      parentPid: this.layout.selectedParentItem.pid,
+      fromNavbar: false
     }
-    const dialogRef1 = this.dialog.open(NewObjectDialogComponent, { data: data });
+    const dialogRef1 = this.dialog.open(NewObjectDialogComponent, { 
+      data: data,
+      width: '680px'
+     });
     dialogRef1.afterClosed().subscribe((result: any) => {
       if (result && result['pid']) {
 
@@ -648,7 +762,7 @@ export class EditorStructureComponent implements OnInit {
   }
 
   showConvertDialog() {
-    const dialogRef = this.dialog.open(ConvertDialogComponent, { data: { pid: this.layout.item.pid, model: this.layout.item.model, children: this.layout.items } });
+    const dialogRef = this.dialog.open(ConvertDialogComponent, { data: { pid: this.layout.item.pid, model: this.layout.item.model } });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result.status == 'ok') {
@@ -667,6 +781,7 @@ export class EditorStructureComponent implements OnInit {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('editor.children.reindex_dialog.title')),
       message: String(this.translator.instant('editor.children.reindex_dialog.message')),
+      alertClass: 'app-message',
       btn1: {
         label: String(this.translator.instant('common.yes')),
         value: 'yes',
@@ -719,18 +834,14 @@ export class EditorStructureComponent implements OnInit {
 
 
   onRelocateOutside() {
-    const selected = this.layout.getSelected();
-    const items = selected.length > 0 ? selected : [this.layout.item];
-    const parent = selected.length > 0 ? this.layout.item : this.layout.parent;
-
-    
 
     const dialogRef = this.dialog.open(ParentDialogComponent, {
       data: {
         btnLabel: 'editor.children.relocate_label',
-        parent: this.layout.selectedParentItem,
+        parent: this.layout.item.parent,
+        item: this.layout.item,
         items: this.layout.items,
-        // expandedPath: this.expandedPath,
+        expandedPath: this.layout.expandedPath,
         displayedColumns: this.displayedColumns,
         isRepo: this.isRepo,
         batchId: this.layout.getBatchId()
@@ -740,7 +851,7 @@ export class EditorStructureComponent implements OnInit {
       height: '90%',
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         this.layout.setShouldRefresh(false);
       }
       // if (result && result.pid) {
@@ -757,6 +868,7 @@ export class EditorStructureComponent implements OnInit {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('editor.children.delete_parent_dialog.title')),
       message: String(this.translator.instant('editor.children.delete_parent_dialog.message')),
+      alertClass: 'app-message',
       btn1: {
         label: String(this.translator.instant('common.yes')),
         value: 'yes',
@@ -801,6 +913,7 @@ export class EditorStructureComponent implements OnInit {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('editor.children.relocate_dialog.title')),
       message: String(this.translator.instant('editor.children.relocate_dialog.message')),
+      alertClass: 'app-message',
       btn1: {
         label: String(this.translator.instant('common.yes')),
         value: 'yes',
@@ -904,32 +1017,36 @@ export class EditorStructureComponent implements OnInit {
 
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
+        this.ui.showErrorSnackBar(String(this.translator.instant('snackbar.saveTheChange.error')));
         this.state = 'error';
         return;
+      } else {
+        //this.ui.showInfoDialog("V poradku");
+        this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.saveTheChange.success')));
+        this.hasChanges = false;
+        this.state = 'success';
       }
-      this.hasChanges = false;
-      this.state = 'success';
     });
 
   }
 
 
-
   onDelete() {
     const checkbox = {
-      label: String(this.translator.instant('editor.children.delete_dialog.permanently')),
+      label: String(this.translator.instant('dialog.removeObject.checkbox')),
       checked: false
     };
     const data: SimpleDialogData = {
-      title: String(this.translator.instant('editor.children.delete_dialog.title')),
-      message: String(this.translator.instant('editor.children.delete_dialog.message')),
+      title: String(this.translator.instant('dialog.removeObject.title')),
+      message: String(this.translator.instant('dialog.removeObject.message')),
+      alertClass: 'app-warn',
       btn1: {
-        label: 'Ano',
+        label: String(this.translator.instant('button.yes')),
         value: 'yes',
         color: 'warn'
       },
       btn2: {
-        label: 'Ne',
+        label: String(this.translator.instant('button.no')),
         value: 'no',
         color: 'default'
       }
@@ -954,7 +1071,18 @@ export class EditorStructureComponent implements OnInit {
     this.api.deleteObjects(pids, pernamently, this.layout.getBatchId()).subscribe((response: any) => {
 
       if (response['response'].errors) {
-        this.ui.showErrorDialogFromObject(response['response'].errors);
+        //this.ui.showErrorDialogFromObject(response['response'].errors);
+        const data: SimpleDialogData = {
+          title: String(this.translator.instant('dialog.deleteSelectedChildren.error.title')),
+          message: String(this.translator.instant('dialog.deleteSelectedChildren.error.message')),
+          alertClass: 'app-warn',
+          btn1: {
+            label: String(this.translator.instant('button.close')),
+            value: 'close',
+            color: 'deffault'
+          }
+        };
+        const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
         this.state = 'error';
         return;
       } else {
@@ -983,7 +1111,7 @@ export class EditorStructureComponent implements OnInit {
 
 
         // this.layout.setShouldRefresh(true);
-        this.ui.showInfoSnackBar(String(this.translator.instant('editor.children.delete_dialog.success')));
+        this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.deleteSelectedChildren.success')));
         this.layout.refreshSelectedItem(true, 'pages');
         this.state = 'success';
       }
@@ -1005,6 +1133,7 @@ export class EditorStructureComponent implements OnInit {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('editor.children.move_dialog.title')),
       message,
+      alertClass: 'app-message',
       width: 400,
       btn1: {
         label: String(this.translator.instant('editor.children.move_dialog.move')),
@@ -1066,10 +1195,10 @@ export class EditorStructureComponent implements OnInit {
 
   array_move(arr: any[], old_index: number, new_index: number) {
     if (new_index >= arr.length) {
-        var k = new_index - arr.length + 1;
-        while (k--) {
-            arr.push(undefined);
-        }
+      var k = new_index - arr.length + 1;
+      while (k--) {
+        arr.push(undefined);
+      }
     }
     arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
     return arr; // for testing
@@ -1106,7 +1235,7 @@ export class EditorStructureComponent implements OnInit {
       selections.forEach(s => {
         this.layout.items.splice(s, 1);
         if (s < event.currentIndex) {
-          newIndex --;
+          newIndex--;
           indexCounted = true;
         }
       });
@@ -1124,5 +1253,19 @@ export class EditorStructureComponent implements OnInit {
     this.table.renderRows();
 
   }
+
+
+
+  setColumnSizes() {
+
+    this.selectedColumns.forEach((column) => {
+        const col = document.getElementsByClassName('mat-column-' + column.field).item(0);
+      if (col) {
+        column.width = col.clientWidth;
+        // this.setColumnWidth(column);
+      }
+    });
+  }
+
 
 }

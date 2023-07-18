@@ -36,7 +36,7 @@
 
     <app-editor-field *ngIf="item.roles" [field]="item.roles" class="app-roles" [nested]='true'>
       <ng-template let-role="item" #templateContent>
-        <mat-select class="app-no-placeholder" [(ngModel)]='role.role["_"]'>
+        <mat-select class="app-no-placeholder" [(ngModel)]='role.role["_"]' [formControl]="item.getControl('roles')">
           <mat-option *ngFor="let role of roles" [value]="role.code">
              {{ role.name }} ({{ role.code }})
           </mat-option>

@@ -12,6 +12,7 @@ export class PreferredTopsDialogComponent implements OnInit {
 
   checked: any = {};
   items: any[];
+  relatedItemExpanded: boolean;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, 
           private dialogRef: MatDialogRef<PreferredTopsDialogComponent>,
@@ -27,12 +28,17 @@ export class PreferredTopsDialogComponent implements OnInit {
       this.items = this.codebook.locations;
     } else if (this.data == 'Identifiers') {
       this.items = this.codebook.identifiers;
+    } else if (this.data == 'ExpandedModels') {
+      this.items = this.codebook.expandedModels;
     } else {
       this.items = [];
     }
     this.checked = {};
     for (const code of this.codebook.getTopCodes(this.data)) {
       this.checked[code] = true;
+    }
+    if (localStorage.getItem('relatedItemExpanded')) {
+      this.relatedItemExpanded = localStorage.getItem('relatedItemExpanded') === 'true';
     }
   }
 
@@ -44,6 +50,9 @@ export class PreferredTopsDialogComponent implements OnInit {
       }
     }
     this.codebook.setNewTopsInCollection(this.data, codes);
+    if (this.data == 'ExpandedModels') {
+      localStorage.setItem('relatedItemExpanded', JSON.stringify(this.relatedItemExpanded));
+    }
     this.dialogRef.close();
   }
 

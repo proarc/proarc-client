@@ -161,6 +161,7 @@ export class EditorPremisComponent implements OnInit {
     const data: SimpleDialogData = {
       title,
       message,
+      alertClass: 'app-message',
       btn1: {
         label: "Uložit",
         value: 'yes',

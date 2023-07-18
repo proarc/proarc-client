@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChange } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange, Output, EventEmitter } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { Device } from 'src/app/model/device.model';
 import { Atm } from 'src/app/model/atm.model';
@@ -8,6 +8,7 @@ import { User } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { UIService } from 'src/app/services/ui.service';
+import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.component';
 
 @Component({
   selector: 'app-editor-atm',
@@ -15,6 +16,10 @@ import { UIService } from 'src/app/services/ui.service';
   styleUrls: ['./editor-atm.component.scss']
 })
 export class EditorAtmComponent implements OnInit {
+
+   
+  @Input('editorType') editorType: string;
+  @Output() onChangeEditorType = new EventEmitter<string>();
 
   @Input('pid') pid: string;
   state = 'none';
@@ -36,7 +41,7 @@ export class EditorAtmComponent implements OnInit {
   ];
 
   constructor(
-    private layout: LayoutService, 
+    public layout: LayoutService, 
     private api: ApiService, 
     private config: ConfigService, 
     private ui: UIService,
@@ -106,6 +111,10 @@ export class EditorAtmComponent implements OnInit {
         this.atm = newAtm;
         this.state = 'success';
     });
+  }
+
+  changeEditorType(t: string) {
+    this.onChangeEditorType.emit(t);
   }
 
 }
