@@ -292,7 +292,7 @@ as-split {
   color: $app-breadcrumbsbar-color;
 
   &.app-view-border-bottom {
-    border-bottom: 1px solid $app-toolbar-border-color;
+    border-bottom: 1px solid $app-breadcrumbsbar-border-color;
   }
 
   a {
@@ -303,7 +303,7 @@ as-split {
     @extend .app-h-100, .app-clean-radius;
 
     &.app-active {
-      background-color: $app-toolbar-border-color;
+      background-color: $app-breadcrumbsbar-bg-active;
     }
   }
 
@@ -325,7 +325,7 @@ as-split {
 
     &.app-view-border-right,
     app-search & {
-      border-right: 1px solid $app-toolbar-border-color;
+      border-right: 1px solid $app-breadcrumbsbar-border-color;
     }
 
     .mat-icon {
