@@ -479,7 +479,7 @@
           odpovídá hodnotě v poli 008/23',
           fields: {
             authority: {
-              usage: 'MA',
+              usage: 'R',
               label: 'Autorita',
               selector: 'physicalDescription/form/@authority',
               labelKey: 'physicalDescription/form/@authority',
