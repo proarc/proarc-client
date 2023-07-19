@@ -682,7 +682,7 @@
     },
     physicalDescription: {
       usage: 'MA',
-      required: true,
+//      required: true,
       label: 'Fyzický popis',
       selector: 'physicalDescription',
       labelKey: 'physicalDescription',
@@ -690,7 +690,7 @@
       fields: {
         digitalOrigin: {
           usage: 'M',
-          required: true,
+//          required: true,
           label: 'Zdroje digitálního dokumentu',
           selector: 'physicalDescription/digitalOrigin',
           labelKey: 'physicalDescription/digitalOrigin',
