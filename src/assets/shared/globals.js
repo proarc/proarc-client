@@ -88,7 +88,7 @@ var APP_GLOBAL = {
   topLocations: ['BOA001', 'ABA000'],
   identifiers: [ 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'],
   pagePositions: ['right_left', 'left_right', 'left', 'right', 'singlePage'],
-  lang: 'en',
+  lang: 'cs',
   expandedModels: ['model:ndkemonographvolume','model:ndkearticle'],
   showFooter: true,
 

@@ -4,6 +4,8 @@ import { AuthService } from '../services/auth.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { ConfigService } from 'src/app/services/config.service';
 
+declare var APP_GLOBAL: any;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,9 +22,13 @@ export class AppComponent implements OnInit {
       const lang = localStorage.getItem('lang');
       if (lang) {
         this.translator.use(lang);
+      } else if(APP_GLOBAL.lang) {
+        this.translator.use(APP_GLOBAL.lang);
       } else {
         this.translator.use('cs');
       }
+
+      
       // this.auth.checkOnStart();
   }
 
