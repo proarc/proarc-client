@@ -1577,7 +1577,7 @@
               selector: 'relatedItem/subject/topic',
               labelKey: 'relatedItem/subject/topic',
               description: 'Libovolný výraz specifikující nebo charakterizující obsah svazku monografie<br/>\
-          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x'
+          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x',
           fields: {
                 value: {
                   usage: 'O',
