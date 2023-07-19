@@ -601,6 +601,7 @@
             },
             type: {
               usage: 'M',
+              required: true,
               label: 'Typ',
               selector: 'physicalDescription/form/@type',
               labelKey: 'physicalDescription/form/@type',
