@@ -665,7 +665,7 @@
     fields: {
       authority: {
         usage: 'M',
-        required: true,
+//        required: true,
         label: 'Autorita',
         selector: 'classification/@authority',
         labelKey: 'classification/@authority',
@@ -679,7 +679,7 @@
       },
       value: {
         usage: 'R',
-        required: true,
+//        required: true,
         selector: 'classification/value',
         labelKey: 'classification/value',
         label: 'Hodnota',
