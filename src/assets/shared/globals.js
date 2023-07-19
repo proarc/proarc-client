@@ -15,8 +15,11 @@ var APP_GLOBAL = {
     'ndk_oldprint',
     'ndk_oldprint_bagit',
     'ndk_oldprint_upload_cesnet',
+    'ndk_sip',
+    'ndk_sip_bagit',
     'datastream_full',
     'datastream_raw',
+    'datastream_ndkUser',
     'cejsh',
     'crossref',
     'kwis'
