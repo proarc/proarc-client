@@ -142,6 +142,11 @@ export class DocumentItem {
     return this.isAudioPage() && !!this.pageIndex && !!this.pageType;
   }
 
+  public isMusicDocument(): boolean {
+    return this.model === 'model:ndkphonographcylinder' || this.model === 'model:ndkmusicdocument'
+      || this.model === 'model:ndksong' || this.model === 'model:ndktrack' || this.model === 'ndkaudiopage';
+  }
+
   // public isVolume(): boolean {
   //   return this.model === 'model:ndkperiodicalvolume';
   // }

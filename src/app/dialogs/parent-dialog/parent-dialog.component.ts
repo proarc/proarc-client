@@ -18,6 +18,7 @@ import { UIService } from 'src/app/services/ui.service';
 import { Sort } from '@angular/material/sort';
 import { IngestDialogComponent } from '../ingest-dialog/ingest-dialog.component';
 import { Router } from '@angular/router';
+import {CodebookService} from '../../services/codebook.service';
 
 @Component({
   selector: 'app-parent-dialog',
@@ -192,7 +193,15 @@ export class ParentDialogComponent implements OnInit {
       return (this.getNumOfSelected() > 0 && ModelTemplate.allowedChildrenForModel(this.selectedDestItem.model).includes(this.getSelected()[0].model))
              || (this.getNumOfSelected() === 0 && ModelTemplate.allowedChildrenForModel(this.selectedDestItem.model).includes(this.data.item.model));
     } else {
-      return this.selectedDestItem && ModelTemplate.allowedChildrenForModel(this.selectedDestItem.model).includes(this.orig[0].model);
+
+      return this.selectedDestItem &&
+        (
+          // Pri importu pokud je na importu strana nebo ndk audio strana tak maji zvukove modely vyjimku a da se napojit na jakykoli model ze zvukovych.
+          ModelTemplate.allowedChildrenForModel(this.selectedDestItem.model).includes(this.orig[0].model) ||
+          (this.selectedDestItem.isMusicDocument() &&
+              ('model:ndkaudiopage' === this.orig[0].model || 'model:page' === this.orig[0].model)
+          )
+        );
     }
 
   }
