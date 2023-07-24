@@ -107,6 +107,7 @@ export class ConfigService {
 		'model:ndkmonographtitle',
 		'model:ndkmonographvolume',
 		'model:ndkmonographsupplement',
+    'model:ndkmonographunit',
 		'model:ndkchapter',
 		'model:ndkmap',
 		'model:ndksheetmusic',
