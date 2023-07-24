@@ -331,6 +331,7 @@
   },
   typeOfResource: {
     usage: 'M',
+    required: true,
     label: 'Typ zdroje',
     selector: 'typeOfResource',
     labelKey: 'typeOfResource',
@@ -338,6 +339,7 @@
     fields: {
       value: {
         usage: 'M',
+        required: true,
         selector: 'typeOfResource/value',
         labelKey: 'typeOfResource/value',
         label: 'Typ zdroje',

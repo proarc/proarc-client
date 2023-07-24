@@ -700,7 +700,7 @@
           fields: {
             authority: {
               usage: 'MA',
-              required: true,
+//              required: true,
               label: 'Autorita',
               selector: 'physicalDescription/form/@authority',
               labelKey: 'physicalDescription/form/@authority',
