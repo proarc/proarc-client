@@ -1,5 +1,5 @@
 <div fxLayout="column" fxFlexFill>
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar app-view-border-bottom">
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
     <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
       <a routerLink="/"><mat-icon>home</mat-icon></a>
       <span class="app-separator">/</span>
@@ -12,9 +12,9 @@
 
   <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'" class="app-progress-bar"></mat-progress-bar>
 
-  <div *ngIf="state!=='loading'" fxFlex class="app-search-results" fxLayout="column">
+  <div *ngIf="state!=='loading'" fxFlex class="app-content-wrapper app-search-results" fxLayout="column">
     <div class="app-formbar" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
-      <button mat-flat-button color="primary" (click)="filter()">
+      <button mat-stroked-button (click)="filter()">
         {{ 'button.search' | translate }}
       </button>
       <ng-container *ngIf="searchMode === 'phrase'">
@@ -91,11 +91,11 @@
         </mat-form-field>
       </ng-container>
     </div>
-    <div fxFlex class="app-oh">
+    <div fxFlex class="app-oh app-border-wrapper">
       <as-split [gutterSize]="10" direction="vertical" (dragEnd)="dragEnd($event)">
         <as-split-area  [size]="splitArea1Width" [order]="0">
           <div *ngIf="items" fxLayout="column" fxFlexFill>
-            <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar app-toolbar-action app-view-border-bottom">
+            <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar app-view-action">
               <div fxFlex *ngIf="selectedItem" fxLayout="row" fxFlexFill>
                 <button (click)="reload()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
                 <button (click)="onExport(selectedItem)" mat-button>{{ 'button.export' | translate }}</button>
@@ -197,7 +197,7 @@
 
         <as-split-area [size]="splitArea2Width"  [order]="1">
           <div *ngIf="tree" fxLayout="column" fxFlexFill>
-            <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar app-toolbar-action app-view-border-bottom">
+            <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar app-view-action">
               <div fxFlex *ngIf="search.selectedTree" fxLayout="row" fxFlexFill>
                 <button (click)="selectItem(selectedItem)" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
                 <button (click)="onExport(search.selectedTree.item)" mat-button>{{ 'button.export' | translate }}</button>

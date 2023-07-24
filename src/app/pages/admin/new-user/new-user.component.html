@@ -50,14 +50,14 @@
           </div>
           <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center">
             <span class="app-label">{{ 'desc.theUserIsAllowedToRunTheseFunctions' | translate }}:</span>
-            <mat-checkbox color="primary" [(ngModel)]="user.changeModelFunction">{{ 'desc.conversionOfModels' | translate }}</mat-checkbox>
-            <mat-checkbox color="primary" [(ngModel)]="user.updateModelFunction">{{ 'desc.updateModels' | translate }}</mat-checkbox>
-            <mat-checkbox color="primary" [(ngModel)]="user.lockObjectFunction">{{ 'desc.lockingTheObject' | translate }}</mat-checkbox>
-            <mat-checkbox color="primary" [(ngModel)]="user.unlockObjectFunction">{{ 'desc.unlockingTheObject' | translate }}</mat-checkbox>
+            <mat-checkbox [(ngModel)]="user.changeModelFunction">{{ 'desc.conversionOfModels' | translate }}</mat-checkbox>
+            <mat-checkbox [(ngModel)]="user.updateModelFunction">{{ 'desc.updateModels' | translate }}</mat-checkbox>
+            <mat-checkbox [(ngModel)]="user.lockObjectFunction">{{ 'desc.lockingTheObject' | translate }}</mat-checkbox>
+            <mat-checkbox [(ngModel)]="user.unlockObjectFunction">{{ 'desc.unlockingTheObject' | translate }}</mat-checkbox>
           </div>
         </fieldset>
         <div>
-          <button mat-flat-button color="primary" (click)="saveUser()">{{ 'button.save' | translate }}</button>
+          <button mat-stroked-button (click)="saveUser()">{{ 'button.save' | translate }}</button>
         </div>
       </mat-card-content>
     </mat-card>

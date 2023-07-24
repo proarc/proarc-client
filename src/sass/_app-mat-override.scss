@@ -4,12 +4,19 @@
 .mat-button-base {
   &.mat-button-disabled {
     color: inherit !important;
-    opacity: .4;
+    opacity: .2;
   }
 
   &.mat-flat-button {
     height: $app-button-height !important;
     line-height: $app-button-height !important;
+  }
+
+  &.mat-stroked-button {
+    height: $app-button-height !important;
+    line-height: $app-button-height !important;
+    background-color: $app-button-bg;
+    border: 1px solid $app-button-border-color;
   }
 }
 
@@ -220,6 +227,10 @@
 
 // pagination
 .mat-paginator {
+  .app-toolbar & {
+    @extend .app-clean-bg;
+  }
+
   .app-oa-y & {
     position: sticky;
     bottom: 0;
@@ -286,7 +297,7 @@
       border: 1px solid $app-toolbar-border-color;
     }
 
-    .app-toolbar-action & {
+    .app-toolbar & {
       //background-color: $app-color-lightnes;
       border: 1px solid $app-gray-4;
     }
