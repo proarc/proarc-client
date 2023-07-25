@@ -1,5 +1,4 @@
 <div fxLayout="column" fxFlexFill>
-  
   <div fxFlex [ngSwitch]="editorType">
     <div class="app-editor-content app-tree"  *ngSwitchCase="'tree'">
       <app-editor-tree ></app-editor-tree>
@@ -9,7 +8,9 @@
     <app-editor-structure *ngSwitchCase="'structure-icons'" [viewMode]="'icons'" [panel]="panel" (onIngest)="passOnIngest()"></app-editor-structure>
     <ng-container *ngSwitchCase="'image'" >
       <app-viewer *ngIf="layout.lastSelectedItem && layout.lastSelectedItem.isPage()" [pid]="layout.lastSelectedItem.pid" ></app-viewer>
-      <div *ngIf="!(layout.lastSelectedItem && layout.lastSelectedItem.isPage())" fxLayout="row" fxLayoutAlign="center center" fxFlexFill><span>{{'Image not available' | translate}}</span></div>
+      <div *ngIf="!(layout.lastSelectedItem && layout.lastSelectedItem.isPage())" fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
+        <mat-card class="app-alert app-info"><mat-icon>info</mat-icon>{{ 'alert.info.theImageIsNotAvailable' | translate }}</mat-card>
+      </div>
     </ng-container>
     <ng-container *ngSwitchCase="'media'" >
       <app-media *ngIf="layout.lastSelectedItem" [pid]="layout.lastSelectedItem.pid"></app-media>

@@ -304,7 +304,8 @@ as-split {
     color: $app-breadcrumbsbar-color; 
   }
 
-  .mat-button {
+  .mat-button,
+  .mat-icon-button {
     @extend .app-h-100, .app-clean-radius;
 
     &.app-active {
@@ -381,25 +382,27 @@ as-split {
     @extend .app-clean-radius;
   }
   
-  .mat-icon-button {
-    width: $app-toolbar-button-height;
+  .mat-button-base {
     height: $app-toolbar-button-height;
     line-height: $app-toolbar-button-height;
 
-    &.app-active {
-      background-color: $app-toolbar-button-bg-active;
-    }
-
-    .app-text-icon {
-      font-size: 18px;
-    }
-
-    .mat-icon {
-      @include setIcon(20);
-      line-height: 20px;
+    &.mat-icon-button {
+      width: $app-toolbar-button-height;
+  
+      &.app-active {
+        background-color: $app-toolbar-button-bg-active;
+      }
+  
+      .app-text-icon {
+        font-size: 18px;
+      }
+  
+      .mat-icon {
+        @include setIcon(20);
+        line-height: 20px;
+      }
     }
   }
-
 
   .app-toolbar-label {
     @extend .app-ml-2;

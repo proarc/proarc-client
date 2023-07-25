@@ -37,7 +37,7 @@
       <button mat-icon-button  (click)="validateChildren()" [matTooltip]="'editor.children.validate' | translate" >
         <mat-icon>check_circle</mat-icon>
       </button>
-      <button *ngIf="!isRepo" mat-flat-button color="primary" (click)="ingest()">{{ 'button.continue' | translate }}</button>
+      <button *ngIf="!isRepo" mat-button (click)="ingest()">{{ 'button.continue' | translate }}</button>
       <ng-container *ngIf="isRepo">
         <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToParent()" [disabled]="!layout.parent" mat-icon-button>
           <mat-icon>keyboard_arrow_up</mat-icon>

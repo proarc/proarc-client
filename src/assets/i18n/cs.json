@@ -2477,7 +2477,8 @@
   "alert": {
     "info": {
       "digitalContentIsNotSupported": "Digitální obsah není podporován",
-      "noDigitalContent": "Žádný digitální obsah"
+      "noDigitalContent": "Žádný digitální obsah",
+      "theImageIsNotAvailable": "Obrázek není k dispozici"
     }
   },
   "snackbar": {
