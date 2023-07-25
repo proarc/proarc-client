@@ -130,9 +130,15 @@
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
           </mat-select>
+          <button *ngIf="model !== this.config.defaultModel && this.searchedModel === model" matSuffix mat-icon-button aria-label="Clear" (click)="model=this.config.defaultModel;reload()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+            <mat-icon>close</mat-icon>
+          </button>
         </mat-form-field>
         <mat-form-field>
           <input matInput [placeholder]="'desc.search' | translate" (keyup.enter)="reload()" [(ngModel)]="query">
+          <button *ngIf="query === searchedQuery && query !== ''" matSuffix mat-icon-button aria-label="Clear" (click)="query='';searchedQuery='';reload()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+            <mat-icon>close</mat-icon>
+          </button>
         </mat-form-field>
       </ng-container>
 
@@ -142,24 +148,39 @@
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
           </mat-select>
+          <button *ngIf="model !== this.config.defaultModel && this.searchedModel === model" matSuffix mat-icon-button aria-label="Clear" (click)="model=this.config.defaultModel;reload()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+            <mat-icon>close</mat-icon>
+          </button>
         </mat-form-field>
         <mat-form-field>
           <input matInput [placeholder]="'desc.name' | translate" (keyup.enter)="reload()" [(ngModel)]="queryLabel">
+          <button *ngIf="queryLabel && queryLabel === searchedQueryLabel" matSuffix mat-icon-button aria-label="Clear" (click)="queryLabel='';searchedQueryLabel='';reload()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+            <mat-icon>close</mat-icon>
+          </button>
         </mat-form-field>
         <mat-form-field>
           <input matInput [placeholder]="'desc.identifier' | translate" (keyup.enter)="reload()" [(ngModel)]="queryIdentifier">
+          <button *ngIf="queryIdentifier && queryIdentifier === searchedIdentifier" matSuffix mat-icon-button aria-label="Clear" (click)="queryIdentifier='';searchedIdentifier='';reload()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+            <mat-icon>close</mat-icon>
+          </button>
         </mat-form-field>
         <mat-form-field class="app-owner">
           <mat-select [placeholder]="'desc.owner' | translate" name="owner" [(value)]="owner">
             <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
           </mat-select>
+          <button *ngIf="owner && owner === searchedOwner && owner !== '-'" matSuffix mat-icon-button aria-label="Clear" (click)="owner='';searchedOwner='';reload()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+            <mat-icon>close</mat-icon>
+          </button>
         </mat-form-field>
         <mat-form-field class="app-processor">
           <mat-select [placeholder]="'desc.processor' | translate" name="processor" [(value)]="processor">
             <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
           </mat-select>
+          <button *ngIf="processor && processor === searchedProcessor && processor !== '-'" matSuffix mat-icon-button aria-label="Clear" (click)="processor='';searchedProcessor='';reload()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+            <mat-icon>close</mat-icon>
+          </button>
         </mat-form-field>
       </ng-container>
     </div>
