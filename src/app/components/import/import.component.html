@@ -27,7 +27,7 @@
           <mat-option *ngFor="let device of devices" [value]="device">{{ device.label }}</mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-checkbox color="primary" class="app-import-index" [(ngModel)]="generateIndex">{{ 'import.generate_index' | translate }}</mat-checkbox>
+      <mat-checkbox class="app-import-index" [(ngModel)]="generateIndex">{{ 'import.generate_index' | translate }}</mat-checkbox>
     </div>
   
     <div fxFlex class="app-tree app-oh app-oa-y app-border-wrapper">
