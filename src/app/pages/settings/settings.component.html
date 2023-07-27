@@ -1,16 +1,17 @@
 <div fxLayout="column" fxFlexFill>
   <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
-    <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
+    <div fxFlex fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
       <a routerLink="/"><mat-icon>home</mat-icon></a>
       <span class="app-separator">/</span>
       <span class="app-last">{{ 'desc.settings' | translate }}</span>
     </div>
+    <button mat-button color="warn" (click)="resetSettings()" *ngIf="view == 'localSettings'">{{ 'button.resetAllLocalSettings' | translate }}</button>
   </div>
 
   <mat-progress-bar mode="indeterminate" *ngIf="state =='loading'" class="app-progress-bar"></mat-progress-bar>
 
   <div fxFlex class="app-settings app-p-4" fxLayout="column" *ngIf="state !== 'loading' && user">
-    <nav mat-tab-nav-bar class="app-mb-4">
+    <nav mat-tab-nav-bar class="app-mb-4" color="accent">
       <a mat-tab-link (click)="changeView('localSettings')" [active]="view == 'localSettings'">{{ 'pages.settings.tabs.localSettings' | translate }}</a>
       <a mat-tab-link (click)="changeView('personalSettings')" [active]="view == 'personalSettings'">{{ 'pages.settings.tabs.personalSettings' | translate }}</a>
     </nav>
@@ -149,7 +150,7 @@
           </mat-card-content>
         </mat-card>
       </div>
-      <button mat-flat-button color="warn" (click)="resetSettings()">{{ 'button.resetAllLocalSettings' | translate }}</button>
+      <!-- <button mat-flat-button color="warn" (click)="resetSettings()">{{ 'button.resetAllLocalSettings' | translate }}</button> -->
     </div>
   </div>
 </div>
