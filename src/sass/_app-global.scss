@@ -301,7 +301,9 @@ as-split {
   border-bottom: 1px solid $app-breadcrumbsbar-border-color;
 
   a {
-    color: $app-breadcrumbsbar-color; 
+    &:not(.app-model) {
+      color: $app-breadcrumbsbar-color; 
+    }
   }
 
   .mat-button,
@@ -321,10 +323,11 @@ as-split {
     color: $app-breadcrumbsbar-color;
   }
 
+  /* to delete after testing
   .app-label-model {
     font-size: 13px;
     opacity: .8;
-  }
+  } */
 
   .app-breadcrumbs {
     @extend .app-h-100, .app-pr-4;

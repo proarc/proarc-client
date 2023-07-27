@@ -93,6 +93,7 @@ $app-icon-item-pd: $app-grid-item-pd;
 $app-icon-item-border-color: $app-grid-item-border-color;
 
 $app-badge-height: 18px !default;
+$app-badge-model-bg: #607D8B;
 
 // footer
 $app-footer-bg-color: $app-color-darknes;
@@ -169,6 +170,6 @@ $states: (
   UPLOAD_FAILED: $app-color-warn,
   STOPPED: mat-color($mat-blue-gray, 600),
   WAITING: mat-color($mat-teal, 500),
-
+  model: $app-badge-model-bg,
   default: $app-gray-6
 );
