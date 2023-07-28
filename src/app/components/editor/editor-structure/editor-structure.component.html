@@ -39,16 +39,16 @@
       </button>
       <button *ngIf="!isRepo" mat-button (click)="ingest()">{{ 'button.continue' | translate }}</button>
       <ng-container *ngIf="isRepo">
-        <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToParent()" [disabled]="!layout.parent" mat-icon-button>
+        <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToParent()" [disabled]="!layout.parent" mat-icon-button class="app-btn-resized">
           <mat-icon>keyboard_arrow_up</mat-icon>
         </button>
-        <button matTooltip="{{ 'editor.toolbar.nav_down' | translate }}" (click)="goToFirst()" [disabled]="!layout.parent" mat-icon-button>
+        <button matTooltip="{{ 'editor.toolbar.nav_down' | translate }}" (click)="goToFirst()" [disabled]="!layout.parent" mat-icon-button class="app-btn-resized">
           <mat-icon>keyboard_arrow_down</mat-icon>
         </button>
-        <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToPrevious()" [disabled]="!layout.previousItem" mat-icon-button>
+        <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToPrevious()" [disabled]="!layout.previousItem" mat-icon-button class="app-btn-resized">
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
-        <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="goToNext()" [disabled]="!layout.nextItem" mat-icon-button>
+        <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="goToNext()" [disabled]="!layout.nextItem" mat-icon-button class="app-btn-resized">
           <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
       </ng-container>

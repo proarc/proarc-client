@@ -404,6 +404,10 @@ as-split {
         @include setIcon(20);
         line-height: 20px;
       }
+
+      &.app-btn-resized {
+        //width: 30px
+      }
     }
   }
 
