@@ -26,7 +26,6 @@
       </as-split-area>
     </as-split>
   </div>
-  <mat-divider *ngIf="getNumOfSelected() !== 0 && state!=='loading' && isAllowed()"></mat-divider>
   <div *ngIf="getNumOfSelected() !== 0 && state!=='loading' && isAllowed()" class="app-mt-4">
     {{ (data.isRepo ? 'dialog.parent.alert.infoRepo' : 'dialog.parent.alert.infoImport') | translate }}:&#160;<strong>{{ selectedDestItem.label }}&#160;({{ 'model.' + selectedDestItem.model | translate}})</strong>
   </div>
