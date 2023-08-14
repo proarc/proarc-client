@@ -173,7 +173,6 @@
           value: {
             label: 'Hodnota',
             usage: 'M',
-            required: true,
             selector: 'name/namePart',
             labelKey: 'name/namePart/value',
             cols: 2,
@@ -587,7 +586,6 @@
       },
       titleInfo: {
         usage: 'M',
-        required: true,
         label: 'Název',
         selector: 'relatedItem/titleInfo',
         labelKey: 'relatedItem/titleInfo',
@@ -646,7 +644,6 @@
           },
           title: {
             usage: 'M',
-            required: true,
             label: 'Název',
             selector: 'relatedItem/titleInfo/title',
             labelKey: 'relatedItem/titleInfo/title',
@@ -759,7 +756,6 @@
               value: {
                 label: 'Hodnota',
                 usage: 'M',
-                required: true,
                 selector: 'relatedItem/name/namePart',
                 labelKey: 'relatedItem/name/namePart/value',
                 cols: 2,
@@ -780,7 +776,6 @@
             label: 'Role',
             selector: 'relatedItem/name/role/roleTerm',
             labelKey: 'relatedItem/name/role/roleTerm',
-            expanded: true,
             description: 'Specifikace role osoby nebo organizace<br/>\
           Kód role z kontrolovaného slovníku rolí\
           (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)',
@@ -790,7 +785,6 @@
       },
       physicalDescription: {
         usage: 'M',
-        required: true,
         label: 'Fyzický popis',
         selector: 'relatedItem/physicalDescription',
         labelKey: 'relatedItem/physicalDescription',
@@ -798,7 +792,6 @@
         fields: {
           extent: {
             usage: 'M',
-            required: true,
             label: 'Rozsah',
             selector: 'relatedItem/physicalDescription/extent',
             labelKey: 'relatedItem/physicalDescription/extent',
@@ -825,7 +818,6 @@
       },
       genre: {
         usage: 'M',
-        required: true,
         label: 'Žánr',
         selector: 'relatedItem/genre',
         labelKey: 'relatedItem/genre',
@@ -833,7 +825,6 @@
         fields: {
           value: {
             usage: 'M',
-            required: true,
             label: 'Hodnota',
             selector: 'relatedItem/genre/value',
             labelKey: 'relatedItem/genre/value',
@@ -849,7 +840,6 @@
       },
       identifier: {
         usage: 'M',
-        required: true,
         label: 'Identifikátor',
         selector: 'relatedItem/identifier',
         labelKey: 'relatedItem/identifier',
@@ -858,7 +848,6 @@
         fields: {
           type: {
             usage: 'M',
-            required: true,
             label: 'Typ',
             selector: 'relatedItem/identifier/@type',
             labelKey: 'relatedItem/identifier/@type',
@@ -907,7 +896,6 @@
           },
           value: {
             usage: 'M',
-            required: true,
             selector: 'relatedItem/identifier/value',
             labelKey: 'relatedItem/identifier/value',
             label: 'Hodnota',
