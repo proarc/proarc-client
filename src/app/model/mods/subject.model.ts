@@ -3,6 +3,7 @@ import { ModsElement } from './element.model';
 import { ElementField } from './elementField.model';
 import { ModsCartographics } from './cartographics.model';
 import {ModsAuthor} from './author.model';
+import {ModsGeographicCode} from './ModsGeographicCode.model';
 import {ModsTopic} from './topic.model';
 
 export class ModsSubject extends ModsElement {
@@ -12,6 +13,7 @@ export class ModsSubject extends ModsElement {
     temporal: any;
     public names: ElementField;
     public cartographics: ElementField;
+    public geographicCodes: ElementField;
     public topics: ElementField;
 
 
@@ -67,6 +69,11 @@ export class ModsSubject extends ModsElement {
         if(this.available('cartographics')) {
             this.cartographics = new ElementField(this.modsElement, ModsCartographics.getSelector(), this.getField('cartographics'));
             this.addSubfield(this.cartographics);
+        }
+
+        if(this.available('geographicCode')) {
+          this.geographicCodes = new ElementField(this.modsElement, ModsGeographicCode.getSelector(), this.getField('geographicCode'));
+          this.addSubfield(this.geographicCodes);
         }
 
     }

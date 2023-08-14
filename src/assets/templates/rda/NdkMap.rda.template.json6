@@ -63,7 +63,7 @@
           odpovídající pole a podpole podle typu, viz typ'
         },
         partNumber: {
-          usage: 'MA',
+          usage: 'RA',
           label: 'Číslo části',
           selector: 'titleInfo/partNumber',
           labelKey: 'titleInfo/partNumber',
@@ -71,7 +71,7 @@
           description: 'Číslo části'
         },
         partName: {
-          usage: 'MA',
+          usage: 'RA',
           label: 'Název části',
           selector: 'titleInfo/partName',
           labelKey: 'titleInfo/partName',
@@ -91,8 +91,8 @@
       pokud má kartografický dokument jiné původce než je autor, element <name> se opakuje s různými rolemi (kartograf, litograf apod.)',
       fields: {
         type: {
-          usage: 'MA',
-          required: true,
+          usage: 'R',
+//          required: true,
           label: 'Typ',
           selector: 'name/@type',
           labelKey: 'name/@type',
@@ -514,7 +514,7 @@
           }
         },
         geographic: {
-          usage: 'R',
+          usage: 'MA',
           label: 'Geografické věcné třídění',
           selector: 'subject/geographic',
           labelKey: 'subject/geographic',
@@ -687,7 +687,7 @@
       description: 'Shrnutí obsahu jako celku odpovídá poli 520 MARC21',
       fields: {
         abstract: {
-          usage: 'RA',
+          usage: 'R',
           label: 'Abstrakt',
           selector: 'abstract',
           labelKey: 'abstract/value',
@@ -735,7 +735,7 @@
           ',
           fields: {
             authority: {
-              usage: 'M',
+              usage: 'MA',
               required: true,
               label: 'Autorita',
               selector: 'physicalDescription/form/@authority',
@@ -831,7 +831,7 @@
       description: 'Údaje o identifikátorech, obsahuje unikátní identifikátory mezinárodní nebo lokální, které kartografický dokument obsahuje.',
       fields: {
         type: {
-          usage: 'M',
+          usage: 'MA',
           required: true,
           label: 'Typ',
           selector: 'identifier/@type',
@@ -906,7 +906,7 @@
           ]
         },
         edition: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Vydání',
           selector: 'classification/@edition',
           labelKey: 'classification/@edition',
@@ -1163,7 +1163,7 @@
       }
     },
     relatedItem: {
-      usage: 'MA',
+      usage: 'RA',
       label: 'Informace o dalších dokumentech',
       selector: 'relatedItem',
       labelKey: 'relatedItem',

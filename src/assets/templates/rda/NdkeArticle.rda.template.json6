@@ -735,7 +735,7 @@
     label: 'Poznámka',
     selector: 'note',
     labelKey: 'note',
-    description: 'Obecná poznámka k titulu periodika jako celku<br/>\
+    description: 'Obecná poznámka<br/>\
       Odpovídá hodnotám v poli 245, $c (statement of responsibility)\
       a v polích 5XX (poznámky) katalogizačního záznamu',
     fields: {

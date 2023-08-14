@@ -5,8 +5,8 @@
       label: 'Název',
       selector: 'titleInfo',
       labelKey: 'titleInfo',
-      description: `Název titulu, souborný název<br/>
-      Pro plnění použít katalogizační záznam<br/>`,
+      description: 'Název titulu, souborný název<br/>\
+      Pro plnění použít katalogizační záznam<br/>',
       fields: {
         nonSort: {
           usage: 'O',
@@ -14,7 +14,7 @@
           selector: 'titleInfo/nonSort',
           labelKey: 'titleInfo/nonSort',
           cols: 2,
-          description: `Část názvu, která má být vynechána při vyhledávána. (např. The)`,
+          description: 'Část názvu, která má být vynechána při vyhledávána. (např. The)',
         },
         title: {
           usage: 'M',
@@ -22,7 +22,7 @@
           label: 'Název',
           selector: 'titleInfo/title',
           labelKey: 'titleInfo/title',
-          description: `Názvová informace – název konvolutu`
+          description: 'Názvová informace – název konvolutu'
         },
         subTitle: {
           usage: 'MA',
@@ -30,7 +30,7 @@
           selector: 'titleInfo/subTitle',
           labelKey: 'titleInfo/subTitle',
           cols: 2,
-          description: `Podnázev konvolutu`
+          description: 'Podnázev konvolutu'
         },
         partNumber: {
           usage: 'R',
@@ -38,7 +38,7 @@
           selector: 'titleInfo/partNumber',
           labelKey: 'titleInfo/partNumber',
           cols: 2,
-          description: `Číslo svazku souborného záznamu, pokud existuje`
+          description: 'Číslo svazku souborného záznamu, pokud existuje'
         },
         partName: {
           usage: 'R',
@@ -46,7 +46,7 @@
           selector: 'titleInfo/partName',
           labelKey: 'titleInfo/partName',
           cols: 2,
-          description: `Název svazku souborného záznamu, pokud existuje`
+          description: 'Název svazku souborného záznamu, pokud existuje'
         }
       }
     },
@@ -55,7 +55,7 @@
       label: 'Uložení',
       selector: 'location',
       labelKey: 'location',
-      description: `Údaje o uložení popisovaného dokumentu, např. signatura, místo uložení apod.`,
+      description: 'Údaje o uložení popisovaného dokumentu, např. signatura, místo uložení apod.',
       fields: {
         physicalLocation: {
           usage: 'M',
@@ -63,8 +63,8 @@
           label: 'Místo uložení',
           selector: 'location/physicalLocation',
           labelKey: 'location/physicalLocation',
-          description: `Údaje o instituci, kde je fyzicky uložen daný konkrétní popisovaný dokument, např. NK ČR nutno použít kontrolovaný slovník – sigly knihovnen (ABA001 atd.) odpovídá poli 910 $a v MARC21<br\>
-          Pozn. u dokumentů v digitální podobě není možné vyplnit`,
+          description: 'Údaje o instituci, kde je fyzicky uložen daný konkrétní popisovaný dokument, např. NK ČR nutno použít kontrolovaný slovník – sigly knihovnen (ABA001 atd.) odpovídá poli 910 $a v MARC21<br\>\
+          Pozn. u dokumentů v digitální podobě není možné vyplnit',
         },
         shelfLocator: {
           usage: 'M',
@@ -72,7 +72,7 @@
           label: 'Signatura',
           selector: 'location/shelfLocator',
           labelKey: 'location/shelfLocator',
-          description: `Signatura nebo lokační údaje o daném konkrétním dokumentu, který slouží jako předloha.`,
+          description: 'Signatura nebo lokační údaje o daném konkrétním dokumentu, který slouží jako předloha.',
           fields: {
             value: {
               usage: 'M',
@@ -92,7 +92,7 @@
       label: 'Žánr',
       selector: 'genre',
       labelKey: 'genre',
-      description: `Bližší údaje o typu dokumentu`,
+      description: 'Bližší údaje o typu dokumentu',
       fields: {
         value: {
           usage: 'M',
@@ -110,8 +110,8 @@
       label: 'Identifikátor',
       selector: 'identifier',
       labelKey: 'identifier',
-      description: `Údaje o identifikátorech, obsahuje unikátní
-      identifikátory mezinárodní nebo lokální, které svazek monografického dokumentu má.`,
+      description: 'Údaje o identifikátorech, obsahuje unikátní\
+      identifikátory mezinárodní nebo lokální, které svazek monografického dokumentu má.',
       fields: {
         type: {
           usage: 'M',
@@ -120,26 +120,26 @@
           selector: 'identifier/@type',
           labelKey: 'identifier/@type',
           cols: 2,
-          description: `Budou se povinně vyplňovat následující
-          hodnoty, pokud existují:
-            <ul>
-              <li>
-                <strong>UUID</strong> (uuid) <i>M</i><br/>
-                vygeneruje dodavatel
-              </li>
-              <li>
-                <strong>čČNB</strong> (ccnb) <i>MA</i><br/>
-                převzít z katalogizačního záznamu z pole 015, $a, $z - celého souboru
-              </li>
-              <li>
-                <strong>ISBN</strong> (isbn) <i>MA</i><br/>
-                převzít z katalogizačního záznamu z pole 020, $a, $z - celého souboru
-              </li>
-              <li>
-                <strong>ISMN</strong> (ismn) <i>MA</i><br/>
-                převzít z katalogizačního záznamu z pole 024 (1. ind.="2"), $a, $z - celého souboru
-              </li>
-            </ul>`
+          description: 'Budou se povinně vyplňovat následující\
+          hodnoty, pokud existují:\
+            <ul>\
+              <li>\
+                <strong>UUID</strong> (uuid) <i>M</i><br/>\
+                vygeneruje dodavatel\
+              </li>\
+              <li>\
+                <strong>čČNB</strong> (ccnb) <i>MA</i><br/>\
+                převzít z katalogizačního záznamu z pole 015, $a, $z - celého souboru\
+              </li>\
+              <li>\
+                <strong>ISBN</strong> (isbn) <i>MA</i><br/>\
+                převzít z katalogizačního záznamu z pole 020, $a, $z - celého souboru\
+              </li>\
+              <li>\
+                <strong>ISMN</strong> (ismn) <i>MA</i><br/>\
+                převzít z katalogizačního záznamu z pole 024 (1. ind.="2"), $a, $z - celého souboru\
+              </li>\
+            </ul>'
         },
         validity: {
           usage: 'MA',
@@ -147,15 +147,15 @@
           selector: 'identifier/@invalid',
           labelKey: 'identifier/@invalid',
           cols: 2,
-          description: `Uvádějí se i neplatné resp. zrušené identifikátory
-          <ul>
-            <li>
-              <strong>Platný</strong> <code>identifier/[not(@invalid)]</code>
-            </li>
-            <li>
-              <strong>Neplatný</strong> <code>identifier/[@invalid='yes']</code>
-            </li>
-          </ul>`
+          description: 'Uvádějí se i neplatné resp. zrušené identifikátory\
+          <ul>\
+            <li>\
+              <strong>Platný</strong> <code>identifier/[not(@invalid)]</code>\
+            </li>\
+            <li>\
+              <strong>Neplatný</strong> <code>identifier/[@invalid="yes"]</code>\
+            </li>\
+          </ul>'
         },
         value: {
           usage: 'M',
@@ -173,7 +173,7 @@
       label: 'Údaje o metadatovém záznamu',
       selector: 'recordInfo',
       labelKey: 'recordInfo',
-      description: `údaje o metadatovém záznamu – jeho vzniku, změnách apod.`,
+      description: 'údaje o metadatovém záznamu – jeho vzniku, změnách apod.',
       fields: {
         descriptionStandard: {
           usage: 'MA',
@@ -181,8 +181,8 @@
           cols: 2,
           selector: 'recordInfo/descriptionStandard',
           labelKey: 'recordInfo/descriptionStandard',
-          description: `Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>
-            Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"`,
+          description: 'Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>\
+            Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"',
           options: [
             ['aacr', 'aacr'],
             ['rda', 'rda']
@@ -193,7 +193,7 @@
           label: 'Content source',
           selector: 'recordInfo/recordContentSource',
           labelKey: 'recordInfo/recordContentSource',
-          description: `Kód nebo jméno instituce, která záznam vytvořila nebo změnila`,
+          description: 'Kód nebo jméno instituce, která záznam vytvořila nebo změnila',
           fields: {
             value: {
               usage: 'R',
@@ -210,7 +210,7 @@
               cols: 2,
               selector: 'recordInfo/recordContentSource/@authority',
               labelKey: 'recordInfo/recordContentSource/@authority',
-              description: `authority – hodnota "marcorg"`,
+              description: 'authority – hodnota "marcorg"',
               options: [
                 ['marcorg', 'marcorg']
               ]
@@ -223,7 +223,7 @@
           label: 'Datum vytvoření',
           selector: 'recordInfo/recordCreationDate',
           labelKey: 'recordInfo/recordCreationDate',
-          description: `datum prvního vytvoření záznamu, na úroveň minut`,
+          description: 'datum prvního vytvoření záznamu, na úroveň minut',
           fields: {
             value: {
               usage: 'M',
@@ -241,7 +241,7 @@
               cols: 2,
               selector: 'recordInfo/recordCreationDate/@encoding',
               labelKey: 'recordInfo/recordCreationDate/@encoding',
-              description: `Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"`,
+              description: 'Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"',
               options: [
                 ['iso8601', 'iso8601']
               ]
@@ -253,7 +253,7 @@
           label: 'Datum změny',
           selector: 'recordInfo/recordChangeDate',
           labelKey: 'recordInfo/recordChangeDate',
-          description: `datum změny záznamu `,
+          description: 'datum změny záznamu ',
           fields: {
             value: {
               usage: 'MA',
@@ -270,7 +270,7 @@
               cols: 2,
               selector: 'recordInfo/recordChangeDate/@encoding',
               labelKey: 'recordInfo/recordChangeDate/@encoding',
-              description: `Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"`,
+              description: 'Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"',
               options: [
                 ['iso8601', 'iso8601']
               ]
@@ -282,7 +282,7 @@
           label: 'Identifikátor záznamu',
           selector: 'recordInfo/recordIdentifier',
           labelKey: 'recordInfo/recordIdentifier',
-          description: `identifikátor záznamu v katalogu, přebírá se z pole 001`,
+          description: 'identifikátor záznamu v katalogu, přebírá se z pole 001',
           fields: {
             value: {
               usage: 'MA',
@@ -298,7 +298,7 @@
               cols: 2,
               selector: 'recordInfo/recordIdentifier/@source',
               labelKey: 'recordInfo/recordIdentifier/@source',
-              description: `hodnota se přebírá z katalogu pole 003 `
+              description: 'hodnota se přebírá z katalogu pole 003 '
             }
           }
         },
@@ -308,7 +308,7 @@
           cols: 2,
           selector: 'recordInfo/recordOrigin',
           labelKey: 'recordInfo/recordOrigin',
-          description: `údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"`,
+          description: 'údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"',
           options: [
             ['machine generated', 'machine generated'],
             ['human prepared', 'human prepared']
@@ -319,7 +319,7 @@
           label: 'Jazyk záznamu',
           selector: 'recordInfo/languageOfCataloging',
           labelKey: 'recordInfo/languageOfCataloging',
-          description: `jazyk katalogového záznamu`,
+          description: 'jazyk katalogového záznamu',
           fields: {
             languageOfCataloging: {
               usage: 'R',
@@ -335,7 +335,7 @@
               cols: 2,
               selector: 'recordInfo/languageOfCataloging/languageTerm',
               labelKey: 'recordInfo/languageOfCataloging/languageTerm',
-              description: `přebírá se z katalogu - pole 40 $b`
+              description: 'přebírá se z katalogu - pole 40 $b'
             },
             authority: {
               usage: 'R',
@@ -343,7 +343,7 @@
               cols: 2,
               selector: 'recordInfo/languageOfCataloging/languageTerm/@authority',
               labelKey: 'recordInfo/languageOfCataloging/languageTerm/@authority',
-              description: `authority – hodnota "iso639-2b"`,
+              description: 'authority – hodnota "iso639-2b"',
               options: [
                 ['iso639-2b', 'iso639-2b']
               ]

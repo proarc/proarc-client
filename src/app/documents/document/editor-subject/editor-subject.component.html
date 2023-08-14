@@ -19,6 +19,12 @@
     </app-editor-field>
 
     <app-field-text field="geographic" [item]="item" [(value)]='item.geographic["_"]'></app-field-text>
+    <app-editor-field *ngIf="item.available('geographicCode')" [field]="item.geographicCodes" [nested]='true'>
+      <ng-template let-geographicCode="item" #templateContent>
+        <app-field-text field="authority" [item]="geographicCode" [(value)]='geographicCode.attrs["authority"]'></app-field-text>
+        <app-field-text field="value" [item]="geographicCode" [(value)]='geographicCode.modsElement["_"]'></app-field-text>
+      </ng-template>
+    </app-editor-field>
     <app-field-text field="temporal" [item]="item" [(value)]='item.temporal["_"]'></app-field-text>
 
     <app-editor-field *ngIf="item.available('name')" [field]="item.names" [nested]='true'>

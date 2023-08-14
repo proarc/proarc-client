@@ -171,7 +171,7 @@
           description: 'Číslo národní autority',
         },
         etal: {
-          usage: 'MA',
+          usage: 'O',
           label: 'Etal',
           selector: 'name/etal',
           labelKey: 'name/etal',
@@ -273,7 +273,8 @@
             využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>',
           fields: {
             value: {
-              usage: 'MA',
+              usage: 'M',
+              required: true,
               selector: 'originInfo/dateIssued/value',
               labelKey: 'originInfo/dateIssued/value',
               label: 'Hodnota',
@@ -698,8 +699,8 @@
           ',
           fields: {
             authority: {
-              usage: 'M',
-              required: true,
+              usage: 'MA',
+//              required: true,
               label: 'Autorita',
               selector: 'physicalDescription/form/@authority',
               labelKey: 'physicalDescription/form/@authority',
@@ -883,7 +884,7 @@
           ]
         },
         edition: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Vydání',
           selector: 'classification/@edition',
           labelKey: 'classification/@edition',
@@ -1141,7 +1142,7 @@
       }
     },
     relatedItem: {
-      usage: 'MA',
+      usage: 'RA',
       label: 'Informace o dalších dokumentech',
       selector: 'relatedItem',
       labelKey: 'relatedItem',

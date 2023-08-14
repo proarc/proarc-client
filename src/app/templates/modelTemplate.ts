@@ -67,6 +67,7 @@ export class ModelTemplate {
       "model:ndkmonographtitle": 'NdkMonographTitle',
       "model:ndkmonographvolume": 'NdkMonographVolume',
       "model:ndkmonographsupplement": 'NdkMonographSupplement',
+      "model:ndkmonographunit": 'NdkMonographUnit',
       "model:ndkmap": 'NdkMap',
       "model:ndksheetmusic": 'NdkSheetMusic',
       "model:ndkperiodical": 'NdkPeriodical',
@@ -93,6 +94,7 @@ export class ModelTemplate {
       "model:ndkearticle": 'NdkeArticle',
       "model:ndkemonographtitle": 'NdkeMonographTitle',
       "model:ndkemonographvolume": 'NdkeMonographVolume',
+      "model:ndkemonographsupplement": 'NdkeMonographSupplement',
       "model:ndkechapter": 'NdkeChapter',
 
       // eClanek
@@ -104,7 +106,7 @@ export class ModelTemplate {
       "model:chroniclesupplement": 'ChronicleMonographsupplement',
 
       // ndk music documents
-      "model:ndkphonographcylinder": 'NdkMusicDocument',
+      "model:ndkphonographcylinder": 'NdkMusicPhonograph',
       "model:ndkmusicdocument": 'NdkMusicDocument',
       "model:ndksong": 'NdkMusicSong',
       "model:ndktrack": 'NdkMusicTrack',
@@ -115,6 +117,7 @@ export class ModelTemplate {
       "model:ndkmonographtitle": 'NdkMonographTitle',
       "model:ndkmonographvolume": 'NdkMonographVolume',
       "model:ndkmonographsupplement": 'NdkMonographSupplement',
+      "model:ndkmonographunit": 'NdkMonographUnit',
       "model:ndkmap": 'NdkMap',
       "model:ndksheetmusic": 'NdkSheetMusic',
       "model:ndkperiodical": 'NdkPeriodical',
@@ -123,10 +126,10 @@ export class ModelTemplate {
       "model:ndkperiodicalsupplement": 'NdkPeriodicalSupplement',
 
       "model:ndkarticle": 'NdkArticle',
-      "model:ndkpicture": 'NdkPicture', // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
-      "model:ndkchapter": 'NdkChapter', // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
+      "model:ndkpicture": 'NdkPicture',
+      "model:ndkchapter": 'NdkChapter',
 
-      "model:oldprintomnibusvolume": 'OldprintConvolutte',       // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
+      "model:oldprintomnibusvolume": 'OldprintConvolutte',
       "model:oldprintmonographtitle": 'OldprintMonographTitle',
       "model:oldprintvolume": 'OldprintMonographVolume',
       "model:oldprintsupplement": 'OldprintMonographSupplement',
@@ -141,7 +144,8 @@ export class ModelTemplate {
       "model:ndkearticle": 'NdkeArticle',
       "model:ndkemonographtitle": 'NdkeMonographTitle',
       "model:ndkemonographvolume": 'NdkeMonographVolume',
-      "model:ndkechapter": 'NdkeChapter', // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
+      "model:ndkemonographsupplement": 'NdkeMonographSupplement',
+      "model:ndkechapter": 'NdkeChapter',
 
       // eClanek
       "model:bdmarticle": 'BdmArticle',  // bez urceni pravidel
@@ -152,7 +156,7 @@ export class ModelTemplate {
       "model:chroniclesupplement": 'ChronicleMonographSupplement',
 
       // ndk music documents -- ndkMusic ma pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
-      "model:ndkphonographcylinder": 'NdkMusicDocument',
+      "model:ndkphonographcylinder": 'NdkMusicPhonograph',
       "model:ndkmusicdocument": 'NdkMusicDocument',
       "model:ndksong": 'NdkMusicSong',
       "model:ndktrack": 'NdkMusicTrack',
@@ -168,7 +172,8 @@ export class ModelTemplate {
     'ndkperiodicalsupplement': ['ndkarticle', 'ndkpage', 'page', 'bdmarticle'],
     'ndkarticle': [],
     'ndkpicture': [],
-    'ndkmonographtitle': ['ndkmonographvolume', 'ndkmonographtitle'],
+    'ndkmonographtitle': ['ndkmonographunit', 'ndkmonographtitle'],
+    'ndkmonographunit': ['ndkmonographsupplement', 'ndkchapter', 'ndkpicture', 'ndkmap', 'ndksheetmusic', 'ndkpage', 'page'],
     'ndkmonographvolume': ['ndkmonographsupplement', 'ndkchapter', 'ndkpicture', 'ndkmap', 'ndksheetmusic', 'ndkpage', 'page'],
     'ndkmonographsupplement': ['ndkchapter', 'ndkpage', 'page'],
     'ndkchapter': [],

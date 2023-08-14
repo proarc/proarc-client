@@ -235,6 +235,11 @@ export class ApiService {
         path = 'export/datastream'
         break;
       }
+      case ProArc.EXPORT_DATASTREAM_NDKUSER: {
+        data = `${data}&dsid=ndkUser`;
+        path = 'export/datastream'
+        break;
+      }
       case ProArc.EXPORT_KRAMERIUS: {
         data = `${data}&policy=policy:${policy}&krameriusInstance=${krameriusInstance}`;
         path = 'export/kramerius4'
@@ -266,12 +271,14 @@ export class ApiService {
         break;
       }
       case ProArc.EXPORT_NDK_PSP:
+      case ProArc.EXPORT_NDK_SIP:
       case ProArc.EXPORT_NDK_OLDPRINT: {
         path = 'export/ndk';
         data = `${data}&isBagit=false`;
         break;
       }
       case ProArc.EXPORT_NDK_PSP_BAGIT:
+      case ProArc.EXPORT_NDK_SIP_BAGIT:
       case ProArc.EXPORT_NDK_OLDPRINT_BAGIT: {
         path = 'export/ndk';
         data = `${data}&isBagit=true`;

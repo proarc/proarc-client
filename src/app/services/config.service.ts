@@ -107,6 +107,7 @@ export class ConfigService {
 		'model:ndkmonographtitle',
 		'model:ndkmonographvolume',
 		'model:ndkmonographsupplement',
+    'model:ndkmonographunit',
 		'model:ndkchapter',
 		'model:ndkmap',
 		'model:ndksheetmusic',
@@ -241,6 +242,10 @@ export class ConfigService {
 	public pagePositions = APP_GLOBAL.pagePositions || ConfigService.defaultPagePositions;
 
 	public static modelChangesDefault = [
+    // origin = model nad kterym to lze spustit
+    // originModel = vychozi model z ktereho se prevadi
+    // model = model na ktery se prevadi
+
     // ndk
     {
     	origin: 'ndkmonographtitle',
@@ -255,11 +260,17 @@ export class ConfigService {
     {
     	origin: 'ndkmonographvolume',
     	dest: [
-        {model: 'ndkmonographvolume', originmodel:"monographunit", apiPoint: "object/changeK4MonographUnitToNdkMonographVolume"},
+        {model: 'ndkmonographunit', originmodel: "ndkmonographvolume", apiPoint: "object/changeNdkMonographVolumeToNdkMonographUnit"},
         // {model: 'clippingsvolume', apiPoint: "object/changeNdkMonographVolumeToClippingsVolume"},
         {model: 'ndkmonographtitle', originmodel:"ndkmonographvolume", apiPoint: "object/changeNdkMonographVolumeToNdkMonographTitle"},
         {model: 'oldprintvolume', originmodel:"ndkmonographvolume", apiPoint: "object/changeNdkMonographVolumeToOldPrintMonographVolume"},
     	]
+    },
+    {
+      origin: 'ndkmonographunit',
+      dest: [
+        {model: 'ndkmonographvolume', originmodel: "ndkmonographunit", apiPoint: "object/changeNdkMonographUnitToNdkMonographVolume"},
+      ]
     },
     {
       origin: 'ndkmonographsupplement',
@@ -357,6 +368,7 @@ export class ConfigService {
     	origin: 'monographunit',
     	dest: [
         {model: 'ndkmonographvolume', originmodel:"monographunit", apiPoint: "object/changeK4MonographUnitToNdkMonographVolume"},
+        {model: 'ndkmonographunit', originmodel:"monographunit", apiPoint: "object/changeK4MonographUnitToNdkMonographUnit"},
     	]
     },
     {

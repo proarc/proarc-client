@@ -87,14 +87,14 @@
           ]
         },
         namePart: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Jméno',
           selector: 'name/namePart',
           labelKey: 'name/namePart',
           description: 'Vyplnit údaje o autorovi.',
           fields: {
             type: {
-              usage: 'R',
+              usage: 'MA',
               label: 'Typ',
               selector: 'name/namePart/@type',
               labelKey: 'name/namePart/@type',
@@ -207,7 +207,7 @@
               ]
             },
             point: {
-              usage: 'MA',
+              usage: 'O',
               label: 'Point',
               selector: 'originInfo/dateIssued/@point',
               labelKey: 'originInfo/dateIssued/@point',
@@ -388,7 +388,7 @@
               ]
             },
             namePart: {
-              usage: 'MA',
+              usage: 'M',
               label: 'Jméno',
               selector: 'name/namePart',
               labelKey: 'name/namePart',
@@ -657,13 +657,13 @@
       description: 'popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.',
       fields: {
         type: {
-          usage: 'O',
+          usage: 'M',
           label: 'Typ',
           selector: 'part/@type',
           labelKey: 'part/@type',
-          description: 'Hodnota bude vždy "volume" ',
+          description: 'Hodnota bude vždy "issue" ',
           options: [
-            ['volume', 'volume']
+            ['issue', 'issue']
           ]
         },
         caption: {
