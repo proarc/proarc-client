@@ -335,6 +335,7 @@
     selector: 'typeOfResource',
     labelKey: 'typeOfResource',
     description: 'Vyplnit hodnotu <strong>sound recording</strong>',
+    defaultValue: 'sound recording',
     fields: {
       value: {
         usage: 'M',
@@ -343,6 +344,7 @@
         labelKey: 'typeOfResource/value',
         label: 'Typ zdroje',
         help: 'off',
+        defaultValue: 'sound recording',
         options: [
           [
             'sound recording',

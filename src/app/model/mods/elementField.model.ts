@@ -89,7 +89,7 @@ export class ElementField {
 
         // set isPeerReviewed for electronic articles
         if(this.items[0] instanceof ModsGenre && template['selector'] === 'genre' &&  template['isElectronicArticle']) {
-            
+
             if (this.items[0].attrs['type'] === 'peer-reviewed') {
                 this.isPeerReviewed = true;
             } else  if (this.items[0].modsElement['_'] === 'article' && !this.items[0].attrs['type']) {
@@ -191,9 +191,12 @@ export class ElementField {
 
     private addAfter(index: number, el: ModsElement = null): ModsElement {
         const item: ModsElement = el || this.newElement(this.id, {});
+        if (!el && this.template['defaultValue']) {
+          item.modsElement['_'] = this.template['defaultValue'];
+        }
         this.items.splice(index + 1, 0, item);
         this.root.splice(index + 1, 0, item.getEl());
-        setTimeout(() => {item.setAsDirty();}, 100);  
+        setTimeout(() => {item.setAsDirty();}, 100);
         return item;
     }
 
@@ -211,18 +214,18 @@ export class ElementField {
         if (index >= 0 && index < this.items.length) {
             this.items.splice(index, 1);
             this.root.splice(index, 1);
-            
+
         }
         if (this.visibleItemsCount() === 0) {
             const item = this.add();
             item.collapsed = true;
-            setTimeout(() => {item.setAsDirty();}, 100);    
+            setTimeout(() => {item.setAsDirty();}, 100);
         } else {
             setTimeout(() => {this.items[0].setAsDirty();}, 100);
         }
         // console.log('tady');
         // setTimeout(() => {this.items[0].setAsDirty();}, 100);
-        
+
     }
 
     private move(array: any[], from: number, to: number) {
