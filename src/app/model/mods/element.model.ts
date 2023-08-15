@@ -141,8 +141,8 @@ export abstract class ModsElement {
     }
 
     public isRequired(): boolean {
-        // return this.template ? (this.template.usage == 'M' || this.template.required) : false;
-        return this.template ? (this.template.required) : false;
+        return this.template ? (this.template.usage == 'M' || this.template.required) : false;
+        // return this.template ? (this.template.required) : false;
     }
 
     public validate(): boolean {
