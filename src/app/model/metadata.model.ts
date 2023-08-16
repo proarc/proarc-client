@@ -79,7 +79,7 @@ export class Metadata {
       const expandedModels = expanded.split(',,');
       localStorage.setItem('metadata.allExpanded', expandedModels.includes(model).toString());
     }
-    
+
     this.originalMods = mods.trim();
     // this.originalDc = dc.trim();
     // this.relations = relations;
@@ -119,14 +119,16 @@ export class Metadata {
           item.collapsed = false;
           //}
         }
-        for (const subfield of item.getSubfields()) {
-          for (const item2 of subfield.getItems()) {
-            if (!item2.validate()) {
-              valid = false;
-              //if (item2.collapsed) {
-              item2.collapsed = false;
-              item.collapsed = false;
-              //}
+        if (item.hasAnyValue() || item.isRequired()) {
+          for (const subfield of item.getSubfields()) {
+            for (const item2 of subfield.getItems()) {
+              if (!item2.validate()) {
+                valid = false;
+                //if (item2.collapsed) {
+                item2.collapsed = false;
+                item.collapsed = false;
+                //}
+              }
             }
           }
         }
@@ -204,7 +206,7 @@ export class Metadata {
     // if (!this.template) {
     //   this.template = ModelTemplate.data[this.standard][this.model];
     // }
-    
+
     if (!this.template) {
       return;
     }
@@ -368,7 +370,7 @@ export class Metadata {
 
   hasChanges(): boolean {
     for (const id of this.fieldsIds) {
-      
+
       const f = this.fields.get(id);
       for (const item of f.getItems()) {
 
