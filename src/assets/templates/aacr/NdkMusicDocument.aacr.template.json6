@@ -548,7 +548,6 @@
     fields: {
       value: {
         usage: 'MA',
-        required: true,
         label: 'Hodnota',
         selector: 'genre/value',
         labelKey: 'genre/value',
@@ -779,7 +778,6 @@
           },
           encoding: {
             usage: 'M',
-            required: true,
             label: 'Kódování',
             cols: 2,
             selector: 'recordInfo/recordChangeDate/@encoding',

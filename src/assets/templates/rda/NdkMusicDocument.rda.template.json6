@@ -183,7 +183,7 @@
           value: {
             label: 'Hodnota',
             usage: 'M',
-            required: true,
+//            required: true,
             selector: 'name/namePart',
             labelKey: 'name/namePart/value',
             cols: 2,
@@ -645,7 +645,7 @@
     fields: {
       value: {
         usage: 'MA',
-        required: true,
+//        required: true,
         label: 'Hodnota',
         selector: 'genre/value',
         labelKey: 'genre/value',
@@ -875,7 +875,7 @@
           },
           encoding: {
             usage: 'M',
-            required: true,
+//            required: true,
             label: 'Kódování',
             cols: 2,
             selector: 'recordInfo/recordChangeDate/@encoding',
