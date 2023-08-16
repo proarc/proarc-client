@@ -181,7 +181,6 @@
           value: {
             label: 'Hodnota',
             usage: 'M',
-            required: true,
             selector: 'name/namePart',
             labelKey: 'name/namePart/value',
             cols: 2,
@@ -284,7 +283,6 @@
       },
       topic: {
         usage: 'M',
-        required: true,
         label: 'Klíčové slovo/Předmětové heslo',
         selector: 'subject/topic',
         labelKey: 'subject/topic',
@@ -293,7 +291,6 @@
         fields: {
           value: {
             usage: 'M',
-            required: true,
             label: 'Hodnota',
             selector: 'subject/topic/value',
             labelKey: 'subject/topic/value',
@@ -411,7 +408,6 @@
               value: {
                 label: 'Hodnota',
                 usage: 'M',
-                required: true,
                 selector: 'name/namePart',
                 labelKey: 'name/namePart/value',
                 cols: 2,
@@ -505,7 +501,6 @@
     fields: {
       displayLabel: {
         usage: 'M',
-        required: true,
         label: 'Zobrazená část',
         selector: 'language/@displayLabel',
         labelKey: 'language/@displayLabel',
@@ -831,7 +826,6 @@
           },
           encoding: {
             usage: 'M',
-            required: true,
             label: 'Kódování',
             cols: 2,
             selector: 'recordInfo/recordChangeDate/@encoding',
