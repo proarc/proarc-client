@@ -2392,7 +2392,13 @@
     "convertPages": {
       "title": "Převést strany",
       "action1": "Převést stranu na NDK stranu",
-      "action2": "Převést NDK stranu na stranu"
+      "action2": "Převést NDK stranu na stranu",
+      "pageToNdkPage" : "Převést Stranu na NDK stranu",
+      "ndkPagetoPage": "Převést NDK stranu na Stranu",
+      "pagetoSttPage": "Převést Stranu na STT stranu",
+      "sttPagetoPage": "Převést STT stranu na Stranu",
+      "ndkPagetoSttPage": "Převést NDK stranu na STT stranu",
+      "sttPagetoNdkPage": "Převést STT stranu na NDK stranu"
     },
     "newMetadata": {
       "title": "Nový objekt",

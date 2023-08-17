@@ -333,7 +333,8 @@ export class ConfigService {
     {
       origin: 'oldprintgraphics',
       dest: [
-        {model: 'ndkpicture', originmodel:"oldprintgraphics", "apiPoint": "object/changeOldPrintGraphicToNdkPicture"}
+        {model: 'ndkpicture', originmodel:"oldprintgraphics", "apiPoint": "object/changeOldPrintGraphicToNdkPicture"},
+        {model: 'oldprintvolume', originmodel:"oldprintgraphics", "apiPoint": "object/changeOldPrintGraphicToOldprintMonographVolume"}
       ]
     },
     {

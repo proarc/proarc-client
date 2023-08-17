@@ -2392,7 +2392,13 @@
     "convertPages": {
       "title": "Convert pages",
       "action1": "Convert page to NDK page",
-      "action2": "Convert NDK page to page"
+      "action2": "Convert NDK page to page",
+      "pageToNdkPage" : "Convert Page to NDK page",
+      "ndkPagetoPage": "Convert NDK page to Page",
+      "pagetoSttPage": "Convert Page to Old Print page",
+      "sttPagetoPage": "Convert Old Print page to Page",
+      "ndkPagetoSttPage": "Convert NDK page to Old Print page",
+      "sttPagetoNdkPage": "Convert Old Print page to NDK page"
     },
     "newMetadata": {
       "title": "New object",
