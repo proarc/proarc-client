@@ -2518,7 +2518,7 @@
     },
     "convertPages": {
       "success": "Strany byly úspěšně převedeny",
-      "failure": "Strany byly převedeny s chybou"
+      "failure": "Strany nebyly převedeny."
     },
     "saveTheChange": {
       "success": "Uložení změny bylo úspěšně provedeno.",

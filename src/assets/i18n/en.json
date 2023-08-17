@@ -2518,7 +2518,7 @@
     },
     "convertPages": {
       "success": "The pages were successfully converted",
-      "failure": "Pages were converted with an error"
+      "failure": "Pages were not converted"
     },
     "saveTheChange": {
       "success": "The change was saved successfully.",
