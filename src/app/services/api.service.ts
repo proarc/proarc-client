@@ -277,6 +277,12 @@ export class ApiService {
         data = `${data}&isBagit=false`;
         break;
       }
+      case ProArc.EXPORT_NDK_OLDPRINT_KRAMERIUS_UPLOAD:
+      case ProArc.EXPORT_NDK_KRAMERIUS_UPLOAD: {
+        data = `${data}&policy=policy:${policy}&krameriusInstance=${krameriusInstance}&isBagit=false`;
+        path = 'export/ndk'
+        break;
+      }
       case ProArc.EXPORT_NDK_PSP_BAGIT:
       case ProArc.EXPORT_NDK_SIP_BAGIT:
       case ProArc.EXPORT_NDK_OLDPRINT_BAGIT: {

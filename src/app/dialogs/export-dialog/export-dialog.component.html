@@ -6,13 +6,13 @@
       <mat-option *ngFor="let type of types" [value]="type">{{ "dialog.export.type." + type | translate }}</mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field *ngIf="selectedType=='kramerius'" class="app-w-100">
+  <mat-form-field *ngIf="selectedType=='kramerius' || selectedType==='ndk_psp_upload_kramerius' || selectedType === 'ndk_oldprint_upload_kramerius'" class="app-w-100">
     <mat-select [placeholder]="'desc.krameriusInstances' | translate" name="instance" [(ngModel)]="importInstance">
       <mat-option *ngFor="let ins of instances" [value]="ins.krameriusInstanceId">{{ ins.krameriusInstanceName }}</mat-option>
     </mat-select>
   </mat-form-field>
 
-  <mat-checkbox [disabled]="formDisabled()" *ngIf="selectedType=='kramerius_bagit' || selectedType=='kramerius' || selectedType=='kwis'" color="primary" [(ngModel)]="policyPublic">{{ 'desc.publiclyAvailable' | translate }}</mat-checkbox>
+  <mat-checkbox [disabled]="formDisabled()" *ngIf="selectedType=='kramerius_bagit' || selectedType=='kramerius' || selectedType=='kwis' || selectedType==='ndk_psp_upload_kramerius' || selectedType==='ndk_oldprint_upload_kramerius'" color="primary" [(ngModel)]="policyPublic">{{ 'desc.publiclyAvailable' | translate }}</mat-checkbox>
   <mat-form-field *ngIf="selectedType=='ndk_psp_upload_cesnet' || selectedType=='ndk_oldprint_upload_cesnet'" class="app-w-100">
     <input  type="text" autocomplete="off" matInput [placeholder]="'desc.ltpToken' | translate" [(ngModel)]="cesnetLtpToken">
   </mat-form-field>
