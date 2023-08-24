@@ -291,11 +291,68 @@
         place: {
           usage: 'MA',
           label: 'Místo',
-          selector: 'originInfo/place/placeTerm',
-          labelKey: 'originInfo/place/placeTerm',
-          cols: 2,
-          description: 'Údaje o místě spojeném s vydáním, výrobou nebo původem popisovaného dokumentu.<br/>\
-            Odpovídá hodnotám z katalogizačního záznamu, pole 260, $a resp. pole 008/15-17'
+          selector: 'originInfo/place',
+          labelKey: 'originInfo/place',
+          description: 'Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisovaného dokumentu<br/>\
+            odpovídá hodnotě 260 $a',
+          fields: {
+            placeTerm: {
+              usage: 'MA',
+              selector: 'originInfo/place/placeTerm',
+              labelKey: 'originInfo/place/placeTerm',
+              label: 'Místo',
+              description: 'Konkrétní určení místa, např. Praha nebo xr pro ČR',
+              fields: {
+                value: {
+                  usage: 'MA',
+                  selector: 'originInfo/place/placeTerm/value',
+                  labelKey: 'originInfo/place/placeTerm/value',
+                  label: 'Hodnota',
+                  help: 'off'
+                },
+                type: {
+                  usage: 'M',
+                  cols: 2,
+                  selector: 'originInfo/place/placeTerm/@type',
+                  labelKey: 'originInfo/place/placeTerm/@type',
+                  label: 'Type',
+                  description: 'Použít jednu z hodnot:\
+                  <ul>\
+                    <li><strong>code</strong> (code)</li>\
+                    <li><strong>text</strong> (text)</li>\
+                  </ul>',
+                  options: [
+                    [
+                      'code',
+                      'Kód'
+                    ],
+                    [
+                      'text',
+                      'Text'
+                    ]
+                  ]
+                },
+                authority: {
+                  usage: 'MA',
+                  cols: 2,
+                  selector: 'originInfo/place/placeTerm/@authority',
+                  labelKey: 'originInfo/place/placeTerm/@authority',
+                  label: 'Authority',
+                  description: 'Hodnota <strong>marccountry</strong> jen u údaje z pole 008',
+                  options: [
+                    [
+                      '',
+                      '-'
+                    ],
+                    [
+                      'marccountry',
+                      'Marc country'
+                    ]
+                  ]
+                }
+              }
+            },
+          },
         }
       }
     },
@@ -1391,11 +1448,68 @@
             place: {
               usage: 'MA',
               label: 'Místo',
-              selector: 'relatedItem/originInfo/place/placeTerm',
-              labelKey: 'relatedItem/originInfo/place/placeTerm',
-              cols: 1,
+              selector: 'relatedItem/originInfo/place',
+              labelKey: 'relatedItem/originInfo/place',
               description: 'Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisovaného dokumentu<br/>\
-            odpovídá hodnotě 264 $a'
+            odpovídá hodnotě 260 $a',
+              fields: {
+                placeTerm: {
+                  usage: 'MA',
+                  selector: 'relatedItem/originInfo/place/placeTerm',
+                  labelKey: 'relatedItem/originInfo/place/placeTerm',
+                  label: 'Místo',
+                  description: 'Konkrétní určení místa, např. Praha nebo xr pro ČR',
+                  fields: {
+                    value: {
+                      usage: 'MA',
+                      selector: 'relatedItem/originInfo/place/placeTerm/value',
+                      labelKey: 'relatedItem/originInfo/place/placeTerm/value',
+                      label: 'Hodnota',
+                      help: 'off'
+                    },
+                    type: {
+                      usage: 'M',
+                      cols: 2,
+                      selector: 'relatedItem/originInfo/place/placeTerm/@type',
+                      labelKey: 'relatedItem/originInfo/place/placeTerm/@type',
+                      label: 'Type',
+                      description: 'Použít jednu z hodnot:\
+                  <ul>\
+                    <li><strong>code</strong> (code)</li>\
+                    <li><strong>text</strong> (text)</li>\
+                  </ul>',
+                      options: [
+                        [
+                          'code',
+                          'Kód'
+                        ],
+                        [
+                          'text',
+                          'Text'
+                        ]
+                      ]
+                    },
+                    authority: {
+                      usage: 'MA',
+                      cols: 2,
+                      selector: 'relatedItem/originInfo/place/placeTerm/@authority',
+                      labelKey: 'relatedItem/originInfo/place/placeTerm/@authority',
+                      label: 'Authority',
+                      description: 'Hodnota <strong>marccountry</strong> jen u údaje z pole 008',
+                      options: [
+                        [
+                          '',
+                          '-'
+                        ],
+                        [
+                          'marccountry',
+                          'Marc country'
+                        ]
+                      ]
+                    }
+                  }
+                },
+              },
             },
             dateCreated: {
               usage: 'R',
