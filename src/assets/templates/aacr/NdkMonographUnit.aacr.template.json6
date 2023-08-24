@@ -289,6 +289,7 @@
           label: 'Vydání',
           selector: 'originInfo/issuance',
           labelKey: 'originInfo/issuance',
+          defaultValue: 'multipart monograph',
           cols: 2,
           description: 'Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>\
             Možné hodnoty\
@@ -378,67 +379,6 @@
           přebírat z katalogu<br/>\
           odpovídá hodnotě z katalogizačního záznamu, pole 264_0 $c pokud je LDR/06="d", "f", "t"'
         },
-        dateOther: {
-          usage: 'R',
-          label: 'Datum - jiné',
-          selector: 'originInfo/dateOther',
-          labelKey: 'originInfo/dateOther',
-          description: 'Datum vytvoření, distribuce, výroby předlohy<br/>\
-          Tento elemet se využije v případě výskytu $c v:\
-          <ul>\
-            <li>264_0 <strong>Produkce</strong> (production)</li>\
-            <li>264_2 <strong>Distribuce</strong> (distribution)</li>\
-            <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
-          </ul>',
-          fields: {
-            value: {
-              usage: 'R',
-              cols: 2,
-              selector: 'originInfo/dateOther/value',
-              labelKey: 'originInfo/dateOther/value',
-              label: 'Hodnota',
-              help: 'off'
-            },
-            type: {
-              usage: 'M',
-              cols: 2,
-              label: 'Upřesnění data',
-              selector: 'originInfo/dateOther/@type',
-              labelKey: 'originInfo/dateOther/@type',
-              description: 'Možnost dalšího upřesnění. Možné hodnoty\
-            <ul>\
-              <li>264_0 <strong>Produkce</strong> (production)</li>\
-              <li>264_2 <strong>Distribuce</strong> (distribution)</li>\
-              <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
-            </ul>',
-              options: [
-                [
-                  'production',
-                  'Produkce'
-                ],
-                [
-                  'distribution',
-                  'Distribuce'
-                ],
-                [
-                  'manufacture',
-                  'Výroba'
-                ]
-              ]
-            }
-          }
-        },
-        copyrightDate: {
-          usage: 'R',
-          label: 'Datum - copyright',
-          selector: 'originInfo/copyrightDate',
-          labelKey: 'originInfo/copyrightDate',
-          cols: 3,
-          description: 'Využije se pouze v případě výskytu pole 264 s druhým indikátorem 4 a podpolem $c<br/>\
-          <ul>\
-            <li>264_4 <strong>Copyright</strong> (copyright)</li>\
-          </ul>'
-        }
       }
     },
     location: {
@@ -545,7 +485,16 @@
           selector: 'subject/topic',
           labelKey: 'subject/topic',
           description: 'Libovolný výraz specifikující nebo charakterizující obsah svazku monografie<br/>\
-          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x'
+          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x',
+          fields: {
+            value: {
+              usage: 'R',
+              label: 'Hodnota',
+              selector: 'subject/topic/value',
+              labelKey: 'subject/topic/value',
+              hint: false,
+            }
+          }
         },
         geographic: {
           usage: 'R',
@@ -941,6 +890,21 @@
           labelKey: 'classification/value',
           label: 'Hodnota',
           help: 'off'
+        },
+        edition: {
+          usage: 'MA',
+          label: 'Vydání',
+          selector: 'classification/@edition',
+          labelKey: 'classification/@edition',
+          cols: 2,
+          description: '<ul>\
+            <li>\
+              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)\
+            </li>\
+          </ul>',
+          options: [
+            ['Konspekt', 'Konspekt']
+          ]
         }
       }
     },
@@ -1014,7 +978,7 @@
       description: 'údaje o metadatovém záznamu – jeho vzniku, změnách apod.',
       fields: {
         descriptionStandard: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Standard metadat',
           cols: 2,
           selector: 'recordInfo/descriptionStandard',
@@ -1578,6 +1542,7 @@
               label: 'Vydání',
               selector: 'relatedItem/originInfo/issuance',
               labelKey: 'relatedItem/originInfo/issuance',
+              defaultValue: 'multipart monograph',
               cols: 2,
               description: 'Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>\
             Možné hodnoty\
@@ -1669,67 +1634,6 @@
           přebírat z katalogu<br/>\
           odpovídá hodnotě z katalogizačního záznamu, pole 264_0 $c pokud je LDR/06="d", "f", "t"'
             },
-            dateOther: {
-              usage: 'R',
-              label: 'Datum - jiné',
-              selector: 'relatedItem/originInfo/dateOther',
-              labelKey: 'relatedItem/originInfo/dateOther',
-              description: 'Datum vytvoření, distribuce, výroby předlohy<br/>\
-          Tento elemet se využije v případě výskytu $c v:\
-          <ul>\
-            <li>264_0 <strong>Produkce</strong> (production)</li>\
-            <li>264_2 <strong>Distribuce</strong> (distribution)</li>\
-            <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
-          </ul>',
-              fields: {
-                value: {
-                  usage: 'R',
-                  cols: 2,
-                  selector: 'relatedItem/originInfo/dateOther/value',
-                  labelKey: 'relatedItem/originInfo/dateOther/value',
-                  label: 'Hodnota',
-                  help: 'off'
-                },
-                type: {
-                  usage: 'M',
-                  cols: 2,
-                  label: 'Upřesnění data',
-                  selector: 'relatedItem/originInfo/dateOther/@type',
-                  labelKey: 'relatedItem/originInfo/dateOther/@type',
-                  description: 'Možnost dalšího upřesnění. Možné hodnoty\
-            <ul>\
-              <li>264_0 <strong>Produkce</strong> (production)</li>\
-              <li>264_2 <strong>Distribuce</strong> (distribution)</li>\
-              <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
-            </ul>',
-                  options: [
-                    [
-                      'production',
-                      'Produkce'
-                    ],
-                    [
-                      'distribution',
-                      'Distribuce'
-                    ],
-                    [
-                      'manufacture',
-                      'Výroba'
-                    ]
-                  ]
-                }
-              }
-            },
-            copyrightDate: {
-              usage: 'R',
-              label: 'Datum - copyright',
-              selector: 'relatedItem/originInfo/copyrightDate',
-              labelKey: 'relatedItem/originInfo/copyrightDate',
-              cols: 3,
-              description: 'Využije se pouze v případě výskytu pole 264 s druhým indikátorem 4 a podpolem $c<br/>\
-          <ul>\
-            <li>264_4 <strong>Copyright</strong> (copyright)</li>\
-          </ul>'
-            }
           }
         },
         location: {

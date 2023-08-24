@@ -343,6 +343,7 @@
           label: 'Vydání',
           selector: 'originInfo/issuance',
           labelKey: 'originInfo/issuance',
+          defaultValue: 'multipart monograph',
           cols: 2,
           description: 'Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>\
             Možné hodnoty\
@@ -599,7 +600,16 @@
           selector: 'subject/topic',
           labelKey: 'subject/topic',
           description: 'Libovolný výraz specifikující nebo charakterizující obsah svazku monografie<br/>\
-          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x'
+          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x',
+          fields: {
+            value: {
+              usage: 'R',
+              label: 'Hodnota',
+              selector: 'subject/topic/value',
+              labelKey: 'subject/topic/value',
+              hint: false,
+            }
+          }
         },
         geographic: {
           usage: 'R',
@@ -993,7 +1003,7 @@
           ]
         },
         edition: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Vydání',
           selector: 'classification/@edition',
           labelKey: 'classification/@edition',
@@ -1087,7 +1097,7 @@
       description: 'údaje o metadatovém záznamu – jeho vzniku, změnách apod.',
       fields: {
         descriptionStandard: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Standard metadat',
           cols: 2,
           selector: 'recordInfo/descriptionStandard',
@@ -1651,6 +1661,7 @@
               label: 'Vydání',
               selector: 'relatedItem/originInfo/issuance',
               labelKey: 'relatedItem/originInfo/issuance',
+              defaultValue: 'multipart monograph',
               cols: 2,
               description: 'Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>\
             Možné hodnoty\

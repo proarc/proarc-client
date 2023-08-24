@@ -205,13 +205,21 @@
           ]
         },
         topic: {
-          usage: 'M',
-          required: true,
+          usage: 'MA',
           label: 'Klíčové slovo/Předmětové heslo',
           selector: 'subject/topic',
           labelKey: 'subject/topic',
-          description: 'Libovolný výraz specifikující nebo charakterizující obsah vnitřní části<br/>\
-          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21'
+          description: 'Libovolný výraz specifikující nebo charakterizující obsah periodika<br/>\
+          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x',
+          fields: {
+            value: {
+              usage: 'MA',
+              label: 'Hodnota',
+              selector: 'subject/topic/value',
+              labelKey: 'subject/topic/value',
+              hint: false,
+            }
+          }
         },
         geographic: {
           usage: 'MA',
