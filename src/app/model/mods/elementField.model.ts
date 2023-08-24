@@ -35,6 +35,8 @@ import {ModsShelfLocator} from './shelfLocator.model';
 import {ModsNamePart} from './namePart.model';
 import {ModsGeographicCode} from './ModsGeographicCode.model';
 import {ModsTopic} from './topic.model';
+import {ModsPlaceTerm} from './placeTerm.model';
+import {ModsPlace} from './place.model';
 
 export class ElementField {
 
@@ -290,6 +292,10 @@ export class ElementField {
                 return new ModsGeographicCode(el, this.template);
             case ModsDateIssued.getId():
                 return new ModsDateIssued(el, this.template);
+            case ModsPlace.getId():
+                return new ModsPlace(el, this.template);
+            case ModsPlaceTerm.getId():
+                return new ModsPlaceTerm(el, this.template);
             case ModsUrl.getId():
                 return new ModsUrl(el, this.template);
             case ModsShelfLocator.getId():
@@ -394,6 +400,10 @@ export class ElementField {
                 return ModsResource.getSelector();
             case ModsFrequency.getId():
                 return ModsFrequency.getSelector();
+            case ModsPlace.getId():
+                return ModsPlace.getSelector();
+            case ModsPlaceTerm.getId():
+                return ModsPlaceTerm.getSelector();
             case ModsNamePart.getId():
                 return ModsNamePart.getSelector();
             case ModsGeographicCode.getId():

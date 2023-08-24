@@ -5,7 +5,17 @@
     <app-field-dropdown field="transliteration" [item]="item" [(value)]='item.attrs["transliteration"]'></app-field-dropdown>
     <app-field-dropdown field="issuance" [item]="item" [(value)]='item.issuance["_"]'></app-field-dropdown>
     <app-field-text field="publisher" [item]="item" [(value)]="item.publisher['_']"></app-field-text>
-    <app-field-text field="place" [item]="item" [(value)]="item.place['_']" ></app-field-text>
+    <app-editor-field *ngIf="item.available('place')" [field]="item.places" [nested]='true'>
+      <ng-template let-place="item" #templateContent>
+        <app-editor-field *ngIf="place.available('placeTerm')" [field]="place.placeTerms" [nested]='true'>
+          <ng-template let-placeTerm="item" #templateContent>
+            <app-field-text field="value" [item]="placeTerm" [(value)]="placeTerm.modsElement['_']" ></app-field-text>
+            <app-field-dropdown field="type" [item]="placeTerm" [(value)]='placeTerm.attrs["type"]'></app-field-dropdown>
+            <app-field-dropdown field="authority" [item]="placeTerm" [(value)]='placeTerm.attrs["authority"]'></app-field-dropdown>
+          </ng-template>
+        </app-editor-field>
+      </ng-template>
+    </app-editor-field>
     <app-editor-field *ngIf="item.available('dateIssued')" [field]="item.dateIssueds" [nested]='true'>
       <ng-template let-dateIssued="item" #templateContent>
         <app-field-text field="value" [item]="dateIssued" [(value)]="dateIssued.modsElement['_']" ></app-field-text>
