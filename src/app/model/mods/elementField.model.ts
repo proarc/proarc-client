@@ -37,6 +37,7 @@ import {ModsGeographicCode} from './ModsGeographicCode.model';
 import {ModsTopic} from './topic.model';
 import {ModsPlaceTerm} from './placeTerm.model';
 import {ModsPlace} from './place.model';
+import {ModsDateOther} from './dateOther.model';
 
 export class ElementField {
 
@@ -292,6 +293,8 @@ export class ElementField {
                 return new ModsGeographicCode(el, this.template);
             case ModsDateIssued.getId():
                 return new ModsDateIssued(el, this.template);
+            case ModsDateOther.getId():
+                return new ModsDateOther(el, this.template);
             case ModsPlace.getId():
                 return new ModsPlace(el, this.template);
             case ModsPlaceTerm.getId():
@@ -410,6 +413,8 @@ export class ElementField {
               return ModsGeographicCode.getSelector();
             case ModsDateIssued.getId():
                 return ModsDateIssued.getSelector();
+            case ModsDateOther.getId():
+                return ModsDateOther.getSelector();
             case ModsCartographics.getId():
                 return ModsCartographics.getSelector();
             case ModsUrl.getId():

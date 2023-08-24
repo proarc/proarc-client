@@ -363,14 +363,50 @@
           label: 'Datum - jiné',
           selector: 'originInfo/dateOther',
           labelKey: 'originInfo/dateOther',
-          cols: 2,
           description: 'Datum vytvoření, distribuce, výroby předlohy<br/>\
           Tento elemet se využije v případě výskytu $c v:\
           <ul>\
             <li>264_0 <strong>Produkce</strong> (production)</li>\
             <li>264_2 <strong>Distribuce</strong> (distribution)</li>\
             <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
-          </ul>'
+          </ul>',
+          fields: {
+            value: {
+              usage: 'R',
+              cols: 2,
+              selector: 'originInfo/dateOther/value',
+              labelKey: 'originInfo/dateOther/value',
+              label: 'Hodnota',
+              help: 'off'
+            },
+            type: {
+              usage: 'M',
+              cols: 2,
+              label: 'Upřesnění data',
+              selector: 'originInfo/dateOther/@type',
+              labelKey: 'originInfo/dateOther/@type',
+              description: 'Možnost dalšího upřesnění. Možné hodnoty\
+            <ul>\
+              <li>264_0 <strong>Produkce</strong> (production)</li>\
+              <li>264_2 <strong>Distribuce</strong> (distribution)</li>\
+              <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
+            </ul>',
+              options: [
+                [
+                  'production',
+                  'Produkce'
+                ],
+                [
+                  'distribution',
+                  'Distribuce'
+                ],
+                [
+                  'manufacture',
+                  'Výroba'
+                ]
+              ]
+            }
+          }
         },
         copyrightDate: {
           usage: 'R',

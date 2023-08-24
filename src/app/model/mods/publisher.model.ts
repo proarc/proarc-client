@@ -4,6 +4,7 @@ import { ElementField } from './elementField.model';
 import { ModsFrequency } from './frequency.model';
 import {ModsDateIssued} from './dateIssued.model';
 import {ModsPlace} from './place.model';
+import {ModsDateOther} from './dateOther.model';
 
 export class ModsPublisher extends ModsElement {
 
@@ -11,13 +12,13 @@ export class ModsPublisher extends ModsElement {
     public edition: any;
     public issuance: any;
 
-    public dateOther: any;
     public dateCreated: any;
     public copyrightDate: any;
 
     public frequencies: ElementField;
     public dateIssueds: ElementField;
     public places: ElementField;
+    public dateOthers: ElementField;
 
     static getSelector() {
         return 'originInfo';
@@ -46,7 +47,7 @@ export class ModsPublisher extends ModsElement {
             this.modsElement['dateIssued'] = [];
         }
         if (!this.modsElement['dateOther']) {
-            this.modsElement['dateOther'] = ModsUtils.createEmptyField();
+            this.modsElement['dateOther'] = [];
         }
         if (!this.modsElement['copyrightDate']) {
             this.modsElement['copyrightDate'] = ModsUtils.createEmptyField();
@@ -61,7 +62,6 @@ export class ModsPublisher extends ModsElement {
         this.edition = this.modsElement['edition'][0];
         this.issuance = this.modsElement['issuance'][0];
         this.dateCreated = this.modsElement['dateCreated'][0];
-        this.dateOther = this.modsElement['dateOther'][0];
         this.copyrightDate = this.modsElement['copyrightDate'][0];
 
         if(this.available('frequency')) {
@@ -75,6 +75,10 @@ export class ModsPublisher extends ModsElement {
         if (this.available("place")) {
           this.places = new ElementField(this.modsElement, ModsPlace.getSelector(), this.getField('place'));
           this.addSubfield(this.places);
+        }
+        if (this.available("dateOther")) {
+          this.dateOthers = new ElementField(this.modsElement, ModsDateOther.getSelector(), this.getField('dateOther'));
+          this.addSubfield(this.dateOthers);
         }
     }
 

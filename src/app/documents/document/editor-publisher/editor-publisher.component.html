@@ -25,7 +25,12 @@
       </ng-template>
     </app-editor-field>
     <app-field-text field="dateCreated" [item]="item" [(value)]="item.dateCreated['_']" ></app-field-text>
-    <app-field-text field="dateOther" [item]="item" [(value)]="item.dateOther['_']" ></app-field-text>
+    <app-editor-field *ngIf="item.available('dateOther')" [field]="item.dateOthers" [nested]='true'>
+      <ng-template let-dateOther="item" #templateContent>
+        <app-field-text field="value" [item]="dateOther" [(value)]="dateOther.modsElement['_']" ></app-field-text>
+        <app-field-dropdown field="type" [item]="dateOther" [(value)]='dateOther.attrs["type"]'></app-field-dropdown>
+      </ng-template>
+    </app-editor-field>
     <app-field-text field="copyrightDate" [item]="item" [(value)]="item.copyrightDate['_']" ></app-field-text>
     <app-field-text field="edition" [item]="item" [(value)]="item.edition['_']" ></app-field-text>
 

@@ -1255,7 +1255,44 @@
             <li>264_0 <strong>Produkce</strong> (production)</li>\
             <li>264_2 <strong>Distribuce</strong> (distribution)</li>\
             <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
-          </ul>'
+          </ul>',
+              fields: {
+                value: {
+                  usage: 'R',
+                  cols: 2,
+                  selector: 'relatedItem/originInfo/dateOther/value',
+                  labelKey: 'relatedItem/originInfo/dateOther/value',
+                  label: 'Hodnota',
+                  help: 'off'
+                },
+                type: {
+                  usage: 'M',
+                  cols: 2,
+                  label: 'Upřesnění data',
+                  selector: 'relatedItem/originInfo/dateOther/@type',
+                  labelKey: 'relatedItem/originInfo/dateOther/@type',
+                  description: 'Možnost dalšího upřesnění. Možné hodnoty\
+            <ul>\
+              <li>264_0 <strong>Produkce</strong> (production)</li>\
+              <li>264_2 <strong>Distribuce</strong> (distribution)</li>\
+              <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
+            </ul>',
+                  options: [
+                    [
+                      'production',
+                      'Produkce'
+                    ],
+                    [
+                      'distribution',
+                      'Distribuce'
+                    ],
+                    [
+                      'manufacture',
+                      'Výroba'
+                    ]
+                  ]
+                }
+              }
             },
             copyrightDate: {
               usage: 'R',
@@ -1393,7 +1430,7 @@
               selector: 'relatedItem/subject/topic',
               labelKey: 'relatedItem/subject/topic',
               description: 'Libovolný výraz specifikující nebo charakterizující obsah periodika<br/>\
-          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x'
+          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x',
               fields: {
                 value: {
                   usage: 'R',

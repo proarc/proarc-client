@@ -1333,7 +1333,7 @@
                   usage: 'R',
                   label: 'Upřesnění data',
                   selector: 'relatedItem/originInfo/dateIssued/@qualifier',
-                  labelKey: 'originInfo/dateIssued/@qualifier',
+                  labelKey: 'relatedItem/originInfo/dateIssued/@qualifier',
                   cols: 3,
                   description: 'Možnost dalšího upřesnění. Možné hodnoty\
             <ul>\

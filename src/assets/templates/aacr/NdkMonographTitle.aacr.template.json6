@@ -232,6 +232,16 @@
         labelKey: 'originInfo/edition',
         description: 'Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu v MARC 21.'
       },
+      dateCreated: {
+        usage: 'R',
+        label: 'Datum vytvoření',
+        selector: 'originInfo/dateCreated',
+        labelKey: 'originInfo/dateCreated',
+        cols: 3,
+        description: 'Datum vydání předlohy pro rukopisy\
+          přebírat z katalogu<br/>\
+          odpovídá hodnotě z katalogizačního záznamu, pole 260 $g'
+      },
       dateIssued: {
         usage: 'M',
         label: 'Datum vydání',
@@ -522,7 +532,7 @@
           ',
         fields: {
           authority: {
-            usage: 'MA',
+            usage: 'M',
             required: true,
             label: 'Autorita',
             selector: 'physicalDescription/form/@authority',
@@ -561,28 +571,6 @@
               [
                 'rdacarrier',
                 'rdacarrier'
-              ]
-            ]
-          },
-          type: {
-            usage: 'MA',
-            label: 'Typ',
-            selector: 'physicalDescription/form/@type',
-            labelKey: 'physicalDescription/form/@type',
-            cols: 2,
-            description: 'Možné hodnoty\
-              <ul>\
-                <li><strong>media</strong> pro pole 337</li>\
-                <li><strong>carrier</strong> pro pole 338</li>\
-              </ul>',
-            options: [
-              [
-                'media',
-                'media'
-              ],
-              [
-                'carrier',
-                'carrier'
               ]
             ]
           },
@@ -685,8 +673,17 @@
         label: 'Klíčové slovo/Předmětové heslo',
         selector: 'subject/topic',
         labelKey: 'subject/topic',
-        description: 'Libovolný výraz specifikující nebo charakterizující obsah svazku monografie<br/>\
-          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x'
+        description: 'Libovolný výraz specifikující nebo charakterizující obsah titulu<br/>\
+          Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21',
+        fields: {
+          value: {
+            usage: 'R',
+            label: 'Hodnota',
+            selector: 'subject/topic/value',
+            labelKey: 'subject/topic/value',
+            hint: false,
+          }
+        }
       },
       geographic: {
         usage: 'R',
@@ -831,7 +828,7 @@
     fields: {
       authority: {
         usage: 'M',
-        required: true,
+//        required: true,
         label: 'Autorita',
         selector: 'classification/@authority',
         labelKey: 'classification/@authority',
@@ -856,7 +853,7 @@
         ]
       },
       edition: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Vydání',
         selector: 'classification/@edition',
         labelKey: 'classification/@edition',
@@ -875,7 +872,7 @@
       },
       value: {
         usage: 'M',
-        required: true,
+//        required: true,
         selector: 'classification/value',
         labelKey: 'classification/value',
         label: 'Hodnota',
@@ -1033,7 +1030,7 @@
     description: 'údaje o metadatovém záznamu – jeho vzniku, změnách apod.',
     fields: {
       descriptionStandard: {
-        usage: 'MA',
+        usage: 'M',
         label: 'Standard metadat',
         cols: 2,
         selector: 'recordInfo/descriptionStandard',

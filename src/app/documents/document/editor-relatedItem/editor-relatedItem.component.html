@@ -45,7 +45,12 @@
           </ng-template>
         </app-editor-field>
         <app-field-text field="dateCreated" [item]="originInfo" [(value)]="originInfo.dateCreated['_']" ></app-field-text>
-        <app-field-text field="dateOther" [item]="originInfo" [(value)]="originInfo.dateOther['_']" ></app-field-text>
+        <app-editor-field *ngIf="originInfo.available('dateOther')" [field]="originInfo.dateOthers" [nested]='true'>
+          <ng-template let-dateOther="item" #templateContent>
+            <app-field-text field="value" [item]="dateOther" [(value)]="dateOther.modsElement['_']" ></app-field-text>
+            <app-field-dropdown field="type" [item]="dateOther" [(value)]='dateOther.attrs["type"]'></app-field-dropdown>
+          </ng-template>
+        </app-editor-field>
         <app-field-text field="copyrightDate" [item]="originInfo" [(value)]="originInfo.copyrightDate['_']" ></app-field-text>
         <app-field-text field="edition" [item]="originInfo" [(value)]="originInfo.edition['_']" ></app-field-text>
         <app-editor-field *ngIf="originInfo.available('frequency')" [field]="originInfo.frequencies" [nested]='true'>
