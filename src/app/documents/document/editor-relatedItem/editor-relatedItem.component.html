@@ -25,7 +25,17 @@
         <app-field-dropdown field="transliteration" [item]="originInfo" [(value)]='originInfo.attrs["transliteration"]'></app-field-dropdown>
         <app-field-dropdown field="issuance" [item]="originInfo" [(value)]='originInfo.issuance["_"]'></app-field-dropdown>
         <app-field-text field="publisher" [item]="originInfo" [(value)]="originInfo.publisher['_']"></app-field-text>
-        <app-field-text field="place" [item]="originInfo" [(value)]="originInfo.place['_']" ></app-field-text>
+        <app-editor-field *ngIf="originInfo.available('place')" [field]="originInfo.places" [nested]='true'>
+          <ng-template let-place="item" #templateContent>
+            <app-editor-field *ngIf="place.available('placeTerm')" [field]="place.placeTerms" [nested]='true'>
+              <ng-template let-placeTerm="item" #templateContent>
+                <app-field-text field="value" [item]="placeTerm" [(value)]="placeTerm.modsElement['_']" ></app-field-text>
+                <app-field-dropdown field="type" [item]="placeTerm" [(value)]='placeTerm.attrs["type"]'></app-field-dropdown>
+                <app-field-dropdown field="authority" [item]="placeTerm" [(value)]='placeTerm.attrs["authority"]'></app-field-dropdown>
+              </ng-template>
+            </app-editor-field>
+          </ng-template>
+        </app-editor-field>
         <app-editor-field *ngIf="originInfo.available('dateIssued')" [field]="originInfo.dateIssueds" [nested]='true'>
           <ng-template let-dateIssued="item" #templateContent>
             <app-field-text field="value" [item]="dateIssued" [(value)]="dateIssued.modsElement['_']" ></app-field-text>
