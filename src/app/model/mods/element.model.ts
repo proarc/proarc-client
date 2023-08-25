@@ -145,15 +145,15 @@ export abstract class ModsElement {
         // return this.template ? (this.template.required) : false;
     }
 
-    public hasAnyValue(): boolean {
-      let anyValue = false;
-      this.controls.forEach((value, key) => {
-        if (value.value) {
-          anyValue = true;
-        }
-      });
-      return anyValue;
-    }
+  public hasAnyValue(): boolean {
+    let anyValue = false;
+    this.controls.forEach((value, key) => {
+      if (value.value) {
+        anyValue = true;
+      }
+    });
+    return anyValue;
+  }
 
     public validate(): boolean {
         // console.log(this.template)
