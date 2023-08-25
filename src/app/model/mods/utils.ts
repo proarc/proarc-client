@@ -24,6 +24,11 @@ export default class ModsUtils {
         return [{ '_': ''}];
     }
 
+    static createField(template:any, field: string) {
+        const val: string = template.getField(field)['defaultValue'] ? template.getField(field)['defaultValue'] : '';
+        return [{ '_': val}];
+    }
+
     static createTextElement(value: any, attrs: any) {
         const obj: any = {
             '_': value

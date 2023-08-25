@@ -35,13 +35,16 @@ export class ModsPublisher extends ModsElement {
 
     private init() {
         if (!this.modsElement['publisher']) {
-            this.modsElement['publisher'] = ModsUtils.createEmptyField();
+            //this.modsElement['publisher'] = ModsUtils.createEmptyField();
+            this.modsElement['publisher'] = ModsUtils.createField(this, 'publisher');
         }
         if (!this.modsElement['edition']) {
-            this.modsElement['edition'] = ModsUtils.createEmptyField();
+            //this.modsElement['edition'] = ModsUtils.createEmptyField();
+            this.modsElement['edition'] = ModsUtils.createField(this, 'edition');
         }
         if (!this.modsElement['issuance']) {
-            this.modsElement['issuance'] = ModsUtils.createEmptyField();
+            // this.modsElement['issuance'] = ModsUtils.createEmptyField();
+            this.modsElement['issuance'] = ModsUtils.createField(this, 'issuance');
         }
         if (!this.modsElement['dateIssued']) {
             this.modsElement['dateIssued'] = [];
