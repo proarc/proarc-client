@@ -1,4 +1,5 @@
 import { ModsElement } from './element.model';
+import ModsUtils from './utils';
 
 export class ModsForm extends ModsElement {
 
@@ -16,6 +17,9 @@ export class ModsForm extends ModsElement {
     }
 
     private init() {
+      if (!this.modsElement['_']) {
+        this.modsElement['_'] = ModsUtils.getDefaultValue(this, 'value');
+      }
     }
 
 

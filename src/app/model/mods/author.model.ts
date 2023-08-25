@@ -35,7 +35,7 @@ export class ModsAuthor extends ModsElement {
 
     private init() {
         if (!this.modsElement['affiliation']) {
-            this.modsElement['affiliation'] = ModsUtils.createEmptyField();
+            this.modsElement['affiliation'] = ModsUtils.createField(this, 'affiliation');
         }
         if (!this.modsElement['namePart']) {
             this.modsElement['namePart'] = [];
@@ -108,7 +108,7 @@ export class ModsAuthor extends ModsElement {
         }
 
         if (!this.modsElement['etal']) {
-            this.modsElement['etal'] = ModsUtils.createEmptyField();
+            this.modsElement['etal'] = ModsUtils.createField(this, 'etal');
         }
         this.etal = this.modsElement['etal'][0];
 

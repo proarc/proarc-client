@@ -21,11 +21,11 @@ export class ModsExtent extends ModsElement {
 
     private init() {
       if (!this.modsElement['start']) {
-        this.modsElement['start'] = ModsUtils.createEmptyField();
+        this.modsElement['start'] = ModsUtils.createField(this, 'start');
       }
 
       if (!this.modsElement['end']) {
-        this.modsElement['end'] = ModsUtils.createEmptyField();
+        this.modsElement['end'] = ModsUtils.createField(this, 'end');
       }
 
       this.start = this.modsElement['start'][0];

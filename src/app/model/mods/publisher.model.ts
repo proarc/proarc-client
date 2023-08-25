@@ -53,10 +53,10 @@ export class ModsPublisher extends ModsElement {
             this.modsElement['dateOther'] = [];
         }
         if (!this.modsElement['copyrightDate']) {
-            this.modsElement['copyrightDate'] = ModsUtils.createEmptyField();
+            this.modsElement['copyrightDate'] = ModsUtils.createField(this, 'copyrightDate');;
         }
         if (!this.modsElement['dateCreated']) {
-            this.modsElement['dateCreated'] = ModsUtils.createEmptyField();
+            this.modsElement['dateCreated'] = ModsUtils.createField(this, 'dateCreated');
         }
         if (!this.modsElement['place']) {
             this.modsElement['place'] = [];

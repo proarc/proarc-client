@@ -30,10 +30,10 @@ export class ModsRecordInfo extends ModsElement {
 
     private init() {
         if (!this.modsElement['descriptionStandard']) {
-            this.modsElement['descriptionStandard'] = ModsUtils.createEmptyField();
+            this.modsElement['descriptionStandard'] = ModsUtils.createField(this, 'descriptionStandard');
         }
         if (!this.modsElement['recordOrigin']) {
-            this.modsElement['recordOrigin'] = ModsUtils.createEmptyField();
+            this.modsElement['recordOrigin'] = ModsUtils.createField(this,'recordOrigin');
         }
         this.descriptionStandard = this.modsElement['descriptionStandard'][0];
         this.recordOrigin = this.modsElement['recordOrigin'][0];

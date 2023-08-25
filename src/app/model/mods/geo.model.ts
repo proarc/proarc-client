@@ -55,7 +55,7 @@ export class ModsGeo extends ModsElement {
             this.modsElement['geographic'] = [];
         }
         if (!this.modsElement['cartographics']) {
-            this.modsElement['cartographics'] = ModsUtils.createEmptyField()
+            this.modsElement['cartographics'] = ModsUtils.createField(this, 'cartographics');
         }
 
         if (!this.modsElement['cartographics']) {
@@ -237,32 +237,32 @@ export class ModsGeo extends ModsElement {
     }
 
     public clear() {
-        this.stat['_'] = ''; 
-        this.kraj_1960['_'] = ''; 
-        this.region_soudrznosti['_'] = ''; 
-        this.okres['_'] = ''; 
-        this.vusc['_'] = ''; 
-        this.orp['_'] = ''; 
-        this.pou['_'] = ''; 
-        this.obec['_'] = ''; 
-        this.zsj['_'] = ''; 
-        this.katastralni_uzemi['_'] = ''; 
-        this.cast_obce['_'] = ''; 
-        this.ulice['_'] = ''; 
-        this.adresni_misto['_'] = ''; 
-        this.stat_code['_'] = ''; 
-        this.kraj_1960_code['_'] = ''; 
-        this.region_soudrznosti_code['_'] = ''; 
-        this.okres_code['_'] = ''; 
-        this.vusc_code['_'] = ''; 
-        this.orp_code['_'] = ''; 
-        this.pou_code['_'] = ''; 
-        this.obec_code['_'] = ''; 
-        this.zsj_code['_'] = ''; 
-        this.katastralni_uzemi_code['_'] = ''; 
-        this.cast_obce_code['_'] = ''; 
-        this.ulice_code['_'] = ''; 
-        this.adresni_misto_code['_'] = ''; 
+        this.stat['_'] = '';
+        this.kraj_1960['_'] = '';
+        this.region_soudrznosti['_'] = '';
+        this.okres['_'] = '';
+        this.vusc['_'] = '';
+        this.orp['_'] = '';
+        this.pou['_'] = '';
+        this.obec['_'] = '';
+        this.zsj['_'] = '';
+        this.katastralni_uzemi['_'] = '';
+        this.cast_obce['_'] = '';
+        this.ulice['_'] = '';
+        this.adresni_misto['_'] = '';
+        this.stat_code['_'] = '';
+        this.kraj_1960_code['_'] = '';
+        this.region_soudrznosti_code['_'] = '';
+        this.okres_code['_'] = '';
+        this.vusc_code['_'] = '';
+        this.orp_code['_'] = '';
+        this.pou_code['_'] = '';
+        this.obec_code['_'] = '';
+        this.zsj_code['_'] = '';
+        this.katastralni_uzemi_code['_'] = '';
+        this.cast_obce_code['_'] = '';
+        this.ulice_code['_'] = '';
+        this.adresni_misto_code['_'] = '';
         this.coordinates['_'] = '';
     }
 

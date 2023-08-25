@@ -25,7 +25,7 @@ export class ModsPart extends ModsElement {
 
     private init() {
         if (!this.modsElement['type']) {
-             this.modsElement['type'] = ModsUtils.createEmptyField();
+             this.modsElement['type'] = ModsUtils.createField(this, 'type');
         }
         if (!this.modsElement['detail']) {
             this.modsElement['detail'] = [];

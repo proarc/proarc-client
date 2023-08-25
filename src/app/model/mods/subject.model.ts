@@ -35,10 +35,10 @@ export class ModsSubject extends ModsElement {
         //     this.modsElement['topic'] = ModsUtils.createEmptyField();
         // }
         if (!this.modsElement['geographic']) {
-            this.modsElement['geographic'] = ModsUtils.createEmptyField();
+            this.modsElement['geographic'] = ModsUtils.createField(this, 'geographic');
         }
         if (!this.modsElement['temporal']) {
-            this.modsElement['temporal'] = ModsUtils.createEmptyField();
+            this.modsElement['temporal'] = ModsUtils.createField(this, 'temporal');
         }
         // if (!this.modsElement['name']) {
         //     this.modsElement['name'] = [{}];

@@ -24,19 +24,19 @@ export class ModsTitle extends ModsElement {
 
     private init() {
         if (!this.modsElement['nonSort']) {
-            this.modsElement['nonSort'] = ModsUtils.createEmptyField();
+            this.modsElement['nonSort'] = ModsUtils.createField(this, 'nonSort');
         }
         if (!this.modsElement['title']) {
-            this.modsElement['title'] = ModsUtils.createEmptyField();
+            this.modsElement['title'] = ModsUtils.createField(this, 'title');
         }
         if (!this.modsElement['subTitle']) {
-            this.modsElement['subTitle'] = ModsUtils.createEmptyField();
+            this.modsElement['subTitle'] = ModsUtils.createField(this, 'subTitle');
         }
         if (!this.modsElement['partNumber']) {
-            this.modsElement['partNumber'] = ModsUtils.createEmptyField();
+            this.modsElement['partNumber'] = ModsUtils.createField(this, 'partNumber');
         }
         if (!this.modsElement['partName']) {
-            this.modsElement['partName'] = ModsUtils.createEmptyField();
+            this.modsElement['partName'] = ModsUtils.createField(this, 'partName');
         }
         this.nonSort = this.modsElement['nonSort'][0];
         this.title = this.modsElement['title'][0];

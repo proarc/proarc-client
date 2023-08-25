@@ -25,13 +25,13 @@ export class ModsPhysical extends ModsElement {
 
     private init() {
         if (!this.modsElement['extent']) {
-            this.modsElement['extent'] = ModsUtils.createEmptyField();
+            this.modsElement['extent'] = ModsUtils.createField(this, 'extent');
         }
         if (!this.modsElement['note']) {
-            this.modsElement['note'] = ModsUtils.createEmptyField();
+            this.modsElement['note'] = ModsUtils.createField(this, 'note');
         }
         if (!this.modsElement['digitalOrigin']) {
-            this.modsElement['digitalOrigin'] = ModsUtils.createEmptyField();
+            this.modsElement['digitalOrigin'] = ModsUtils.createField(this, 'digitalOrigin');
         }
         this.extent = this.modsElement['extent'][0];
         this.note = this.modsElement['note'][0];

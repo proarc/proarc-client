@@ -1,4 +1,5 @@
 import { ModsElement } from './element.model';
+import ModsUtils from './utils';
 
 export class ModsGeographicCode extends ModsElement {
 
@@ -17,6 +18,9 @@ export class ModsGeographicCode extends ModsElement {
     }
 
     private init() {
+      if (!this.modsElement['_']) {
+        this.modsElement['_'] = ModsUtils.getDefaultValue(this, 'value');
+      }
     }
 
 }

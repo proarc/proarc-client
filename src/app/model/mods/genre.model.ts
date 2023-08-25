@@ -1,4 +1,5 @@
 import { ModsElement } from './element.model';
+import ModsUtils from './utils';
 
 export class ModsGenre extends ModsElement {
 
@@ -17,6 +18,9 @@ export class ModsGenre extends ModsElement {
 
     private init() {
         const c = this.getControl('peer-reviewed');
+      if (!this.modsElement['_']) {
+        this.modsElement['_'] = ModsUtils.getDefaultValue(this, 'value');
+      }
     }
 
 }

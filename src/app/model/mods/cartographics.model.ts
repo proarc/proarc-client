@@ -22,7 +22,7 @@ export class ModsCartographics extends ModsElement {
 
     private init() {
         if (!this.modsElement['scale']) {
-            this.modsElement['scale'] = ModsUtils.createEmptyField();
+            this.modsElement['scale'] = ModsUtils.createField(this, 'scale');
         }
         this.scale = this.modsElement['scale'][0];
         if (!this.modsElement['coordinates']) {
