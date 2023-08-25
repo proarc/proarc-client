@@ -149,7 +149,7 @@
         description: 'Vyplnit údaje o autorovi.',
         fields: {
           type: {
-            usage: 'R',
+            usage: 'MA',
             label: 'Typ',
             selector: 'name/namePart/@type',
             labelKey: 'name/namePart/@type',
@@ -187,7 +187,6 @@
           value: {
             label: 'Hodnota',
             usage: 'M',
-            required: true,
             selector: 'name/namePart',
             labelKey: 'name/namePart/value',
             cols: 2,
@@ -255,7 +254,7 @@
             Odpovídá hodnotě z katalogizačního záznamu, pole 260, $c a pole 008/07-10',
         fields: {
           value: {
-            usage: 'MA',
+            usage: 'M',
             selector: 'originInfo/dateIssued/value',
             labelKey: 'originInfo/dateIssued/value',
             label: 'Hodnota',
@@ -639,7 +638,7 @@
         description: 'Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21',
         fields: {
           type: {
-            usage: 'M',
+            usage: 'MA',
             label: 'Typ',
             selector: 'name/@type',
             labelKey: 'name/@type',
@@ -823,7 +822,6 @@
   },
   physicalDescription: {
     usage: 'M',
-    required: true,
     label: 'Fyzický popis',
     selector: 'physicalDescription',
     labelKey: 'physicalDescription',
@@ -847,7 +845,6 @@
       },
       form: {
         usage: 'M',
-        required: true,
         label: 'Forma',
         selector: 'physicalDescription/form',
         labelKey: 'physicalDescription/form',
@@ -855,8 +852,7 @@
           odpovídá hodnotě v poli 008/23',
         fields: {
           authority: {
-            usage: 'MA',
-            required: true,
+            usage: 'M',
             label: 'Autorita',
             selector: 'physicalDescription/form/@authority',
             labelKey: 'physicalDescription/form/@authority',
@@ -888,7 +884,6 @@
           },
           value: {
             usage: 'M',
-            required: true,
             selector: 'physicalDescription/form/value',
             labelKey: 'physicalDescription/form/value',
             label: 'Hodnota',
@@ -1029,7 +1024,6 @@
     fields: {
       authority: {
         usage: 'M',
-        required: true,
         label: 'Autorita',
         selector: 'classification/@authority',
         labelKey: 'classification/@authority',
@@ -1041,21 +1035,24 @@
           ],
         ]
       },
-      //        edition: {
-      //          usage: 'M',
-      //          label: 'Vydání',
-      //          selector: 'classification/@edition',
-      //          labelKey: 'classification/@edition',
-      //          cols: 2,
-      //          description: '<ul>\
-      //            <li>\
-      //              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)\
-      //            </li>\
-      //          </ul>',
-      //          options: [
-      //            ['Konspekt', 'Konspekt']
-      //          ]
-      //        },
+      edition: {
+        usage: 'MA',
+        label: 'Vydání',
+        selector: 'classification/@edition',
+        labelKey: 'classification/@edition',
+        cols: 2,
+        description: '<ul>\
+            <li>\
+              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)\
+            </li>\
+          </ul>',
+        options: [
+          [
+            'Konspekt',
+            'Konspekt'
+          ]
+        ]
+      },
       value: {
         usage: 'R',
         //          required: true,
@@ -1144,7 +1141,7 @@
     description: 'údaje o metadatovém záznamu – jeho vzniku, změnách apod.',
     fields: {
       descriptionStandard: {
-        usage: 'MA',
+        usage: 'M',
         label: 'Standard metadat',
         cols: 2,
         selector: 'recordInfo/descriptionStandard',
