@@ -44,6 +44,7 @@ var APP_GLOBAL = {
       'model:ndkpicture',
       'model:ndkmonographtitle',
       'model:ndkmonographvolume',
+      'model:ndkmonographunit',
       'model:ndkmonographsupplement',
       'model:ndkchapter',
       'model:ndkmap',
