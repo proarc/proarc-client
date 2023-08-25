@@ -1,3 +1,4 @@
+import {ignoreElements} from 'rxjs';
 
 export default class ModsUtils {
 
@@ -24,8 +25,17 @@ export default class ModsUtils {
         return [{ '_': ''}];
     }
 
+    static getDefaultValue(template:any, field:string) {
+      // if (template.getField(field)) {
+      //   return template.getField(field)['defaultValue'] ? template.getField(field)['defaultValue'] : '';
+      // } else {
+      //   return '';
+      // }
+        return template.getField(field) && template.getField(field)['defaultValue'] ? template.getField(field)['defaultValue'] : '';
+    }
+
     static createField(template:any, field: string) {
-        const val: string = template.getField(field)['defaultValue'] ? template.getField(field)['defaultValue'] : '';
+        const val: string = ModsUtils.getDefaultValue(template, field);
         return [{ '_': val}];
     }
 

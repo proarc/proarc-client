@@ -1,6 +1,7 @@
 import { FormControl } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import { ElementField } from "./elementField.model";
+import ModsUtils from './utils';
 
 export abstract class ModsElement {
     public attrs: any;
@@ -41,12 +42,16 @@ export abstract class ModsElement {
         if (!this.modsElement['$']) {
             this.modsElement['$'] = {};
             for (const attribute of attributes) {
-                this.modsElement['$'][attribute] = '';
+                if (attribute) {
+                  this.modsElement['$'][attribute] = ModsUtils.getDefaultValue(this, attribute);
+                }
             }
         }
         for (const attribute of attributes) {
             if (!this.modsElement['$'][attribute]) {
-                this.modsElement['$'][attribute] = '';
+              if (attribute) {
+                this.modsElement['$'][attribute] = ModsUtils.getDefaultValue(this, attribute);
+              }
             }
         }
         this.attrs = this.modsElement['$'];

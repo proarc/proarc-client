@@ -19,6 +19,9 @@ export class ModsPlaceTerm extends ModsElement {
     }
 
     private init() {
+      if (!this.modsElement['_']) {
+        this.modsElement['_'] = ModsUtils.getDefaultValue(this, 'value');
+      }
     }
 
 

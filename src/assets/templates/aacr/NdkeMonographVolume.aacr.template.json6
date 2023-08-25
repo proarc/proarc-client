@@ -319,6 +319,7 @@
                   cols: 2,
                   selector: 'originInfo/place/placeTerm/@type',
                   labelKey: 'originInfo/place/placeTerm/@type',
+                  defaultValue: 'text',
                   label: 'Type',
                   description: 'Použít jednu z hodnot:\
                   <ul>\
@@ -1436,6 +1437,7 @@
                       cols: 2,
                       selector: 'relatedItem/originInfo/place/placeTerm/@type',
                       labelKey: 'relatedItem/originInfo/place/placeTerm/@type',
+                      defaultValue: 'text',
                       label: 'Type',
                       description: 'Použít jednu z hodnot:\
                   <ul>\
