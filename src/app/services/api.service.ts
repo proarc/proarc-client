@@ -925,7 +925,7 @@ export class ApiService {
 
     data = `${data}&changeModelFunction=${user.changeModelFunction}&updateModelFunction=${user.updateModelFunction}`;
     data = `${data}&unlockObjectFunction=${user.unlockObjectFunction}&lockObjectFunction=${user.lockObjectFunction}`;
-    data = `${data}&importToProdFunction=${user.importToProdFunction}`;
+    data = `${data}&importToProdFunction=${user.importToProdFunction}&czidloFunction=${user.czidloFunction}`;
     return this.put('user', data).pipe(map((response: any) => User.fromJson(response['response']['data'][0])));
   }
 
@@ -942,7 +942,7 @@ export class ApiService {
     }
     data = `${data}&changeModelFunction=${user.changeModelFunction}&updateModelFunction=${user.updateModelFunction}`;
     data = `${data}&unlockObjectFunction=${user.unlockObjectFunction}&lockObjectFunction=${user.lockObjectFunction}`;
-    data = `${data}&importToProdFunction=${user.importToProdFunction}`;
+    data = `${data}&importToProdFunction=${user.importToProdFunction}&czidloFunction=${user.czidloFunction}\`;`;
     return this.post('user', data);
   }
 

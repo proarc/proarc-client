@@ -2013,6 +2013,7 @@
     "lockingTheObject": "Locking the object",
     "unlockingTheObject": "Unlocking the object",
     "importToProdFunction": "Import to Kramerius production",
+    "czidloFunction": "CZIDLO function",
     "preferredValues": "Preferred values",
     "forename": "Forname",
     "typesOfParties": "Types of parties",

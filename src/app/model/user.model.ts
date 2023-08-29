@@ -21,6 +21,7 @@ export class User {
   public updateModelFunction: boolean;
   public lockObjectFunction: boolean;
   public importToProdFunction: boolean;
+  public czidloFunction: boolean;
 
   public static fromJson(json: any): User {
       const user = new User();
@@ -40,6 +41,7 @@ export class User {
       user.updateModelFunction = json['updateModelFunction'];
       user.lockObjectFunction = json['lockObjectFunction'];
       user.importToProdFunction = json['importToProdFunction'];
+      user.czidloFunction = json['czidloFunction'];
       return user;
   }
 

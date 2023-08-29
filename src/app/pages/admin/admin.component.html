@@ -69,6 +69,11 @@
           <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.importToProdFunction" [disabled]="true"></mat-checkbox></td>
         </ng-container>
 
+        <ng-container matColumnDef="czidloFunction">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'czidloFunction')" [style.width]="getColumnWidth('czidloFunction')">{{ 'desc.czidloFunction' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.czidloFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'action')" [style.width]="getColumnWidth('action')"></th>
           <td mat-cell *matCellDef="let element">

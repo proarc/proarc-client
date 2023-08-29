@@ -38,10 +38,11 @@ export class AdminComponent implements OnInit {
     { field: 'lockObjectFunction', selected: true, width: 100 },
     { field: 'unlockObjectFunction', selected: true, width: 100 },
     { field: 'importToProdFunction', selected: true, width: 100 },
+    { field: 'czidloFunction', selected: true, width: 100 },
     { field: 'action', selected: true, width: 100 }
   ];
 
-  displayedColumns: string[] = ['name', 'forename', 'surname', 'email', 'organization', 'role', 'home', 'changeModelFunction', 'updateModelFunction', 'lockObjectFunction', 'unlockObjectFunction', 'importToProdFunction', 'action'];
+  displayedColumns: string[] = ['name', 'forename', 'surname', 'email', 'organization', 'role', 'home', 'changeModelFunction', 'updateModelFunction', 'lockObjectFunction', 'unlockObjectFunction', 'importToProdFunction', 'czidloFunction', 'action'];
 
   constructor(
     private translator: TranslateService,
