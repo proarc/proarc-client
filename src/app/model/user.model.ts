@@ -20,6 +20,7 @@ export class User {
   public unlockObjectFunction: boolean;
   public updateModelFunction: boolean;
   public lockObjectFunction: boolean;
+  public importToProdFunction: boolean;
 
   public static fromJson(json: any): User {
       const user = new User();
@@ -38,6 +39,7 @@ export class User {
       user.unlockObjectFunction = json['unlockObjectFunction'];
       user.updateModelFunction = json['updateModelFunction'];
       user.lockObjectFunction = json['lockObjectFunction'];
+      user.importToProdFunction = json['importToProdFunction'];
       return user;
   }
 
