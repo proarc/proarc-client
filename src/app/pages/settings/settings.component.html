@@ -1,16 +1,17 @@
 <div fxLayout="column" fxFlexFill>
   <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
-    <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
+    <div fxFlex fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
       <a routerLink="/"><mat-icon>home</mat-icon></a>
       <span class="app-separator">/</span>
       <span class="app-last">{{ 'desc.settings' | translate }}</span>
     </div>
+    <button mat-button color="warn" (click)="resetSettings()" *ngIf="view == 'localSettings'">{{ 'button.resetAllLocalSettings' | translate }}</button>
   </div>
 
   <mat-progress-bar mode="indeterminate" *ngIf="state =='loading'" class="app-progress-bar"></mat-progress-bar>
 
   <div fxFlex class="app-settings app-p-4" fxLayout="column" *ngIf="state !== 'loading' && user">
-    <nav mat-tab-nav-bar class="app-mb-4">
+    <nav mat-tab-nav-bar class="app-mb-4" color="accent">
       <a mat-tab-link (click)="changeView('localSettings')" [active]="view == 'localSettings'">{{ 'pages.settings.tabs.localSettings' | translate }}</a>
       <a mat-tab-link (click)="changeView('personalSettings')" [active]="view == 'personalSettings'">{{ 'pages.settings.tabs.personalSettings' | translate }}</a>
     </nav>
@@ -46,8 +47,8 @@
               </mat-form-field>
             </div>
           </fieldset>
-          <button mat-flat-button color="primary" [disabled]="!profileChanged()" (click)="seveProfile()" class="app-mr-2">{{ 'button.save' | translate }}</button>
-          <button mat-flat-button color="primary" (click)="changePassword()">{{ 'button.changePassword' | translate }}</button>
+          <button mat-stroked-button [disabled]="!profileChanged()" (click)="seveProfile()" class="app-mr-2">{{ 'button.save' | translate }}</button>
+          <button mat-stroked-button (click)="changePassword()">{{ 'button.changePassword' | translate }}</button>
         </mat-card-content>
       </mat-card>
     </div>
@@ -60,13 +61,13 @@
               <div class="app-label">{{ 'desc.typesOfParties' | translate }}</div>
               <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
                 <strong fxFlex>{{ codebook.getTopNames('PageTypes').join(", ") }}</strong>
-                <button mat-flat-button color="primary" (click)="changeCodebookTops('PageTypes')">{{ 'button.edit' | translate }}</button>
+                <button mat-stroked-button (click)="changeCodebookTops('PageTypes')">{{ 'button.edit' | translate }}</button>
               </div>
               <mat-divider class="app-mb-4"></mat-divider>
               <span class="app-label">{{ 'desc.languages' | translate }}</span>
               <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
                 <strong fxFlex>{{ codebook.getTopNames('Languages').join(", ") }}</strong>
-                <button mat-flat-button color="primary" (click)="changeCodebookTops('Languages')">{{ 'button.edit' | translate }}</button>
+                <button mat-stroked-button (click)="changeCodebookTops('Languages')">{{ 'button.edit' | translate }}</button>
               </div>
               <mat-divider class="app-mb-4"></mat-divider>
               <span class="app-label">{{ 'desc.identifiers' | translate }}</span>
@@ -75,19 +76,19 @@
                   <strong>{{ codebook.getTopNames('Identifiers').join(", ") }}</strong>
                   <em *ngIf="codebook.getTopNames('Identifiers')?.length === 0" class="app-text-lowercase">{{ 'desc.noValue' | translate }}</em>
                 </div>
-                <button mat-flat-button color="primary" (click)="changeCodebookTops('Identifiers')">{{ 'button.edit' | translate }}</button>
+                <button mat-stroked-button (click)="changeCodebookTops('Identifiers')">{{ 'button.edit' | translate }}</button>
               </div>
               <mat-divider class="app-mb-4"></mat-divider>
               <span class="app-label">{{ 'desc.storageLocations' | translate }}</span>
               <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
                 <strong fxFlex>{{ codebook.getTopNames('Locations').join(", ") }}</strong>
-                <button mat-flat-button color="primary" (click)="changeCodebookTops('Locations')">{{ 'button.edit' | translate }}</button>
+                <button mat-stroked-button (click)="changeCodebookTops('Locations')">{{ 'button.edit' | translate }}</button>
               </div>
               <mat-divider class="app-mb-4"></mat-divider>
               <span class="app-label">{{ 'desc.expandingTheForm' | translate }}</span>
               <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
                 <strong fxFlex>{{ codebook.getTopNames('ExpandedModels').join(", ") }}</strong>
-                <button mat-flat-button color="primary" (click)="changeCodebookTops('ExpandedModels')">{{ 'button.edit' | translate }}</button>
+                <button mat-stroked-button (click)="changeCodebookTops('ExpandedModels')">{{ 'button.edit' | translate }}</button>
               </div>
             </fieldset>
           </mat-card-content>
@@ -101,7 +102,7 @@
                 <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
               </div>
             </fieldset>
-            <button mat-flat-button color="primary" (click)="setSelectedColumnsSearch()">{{ 'button.save' | translate }}</button>
+            <button mat-stroked-button (click)="setSelectedColumnsSearch()">{{ 'button.save' | translate }}</button>
           </mat-card-content>
         </mat-card>
         <mat-card fxFlex >
@@ -113,7 +114,7 @@
                 <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
               </div>
             </fieldset>
-            <button mat-flat-button color="primary" (click)="setSelectedColumnsSearchTree()">{{ 'button.save' | translate }}</button>
+            <button mat-stroked-button (click)="setSelectedColumnsSearchTree()">{{ 'button.save' | translate }}</button>
           </mat-card-content>
         </mat-card>
         <mat-card fxFlex>
@@ -133,7 +134,7 @@
             <div class="app-mb-3">
               <mat-checkbox name="colsEditModeParent" [(ngModel)]="colsEditModeParent">{{ 'pages.settings.colsEditModeParent' | translate }}</mat-checkbox>
             </div>
-            <button mat-flat-button color="primary" (click)="setSelectedColumnsEditingRepo()">{{ 'button.save' | translate }}</button>
+            <button mat-stroked-button (click)="setSelectedColumnsEditingRepo()">{{ 'button.save' | translate }}</button>
           </mat-card-content>
         </mat-card>
         <mat-card fxFlex >
@@ -145,11 +146,11 @@
                 <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
               </div>
             </fieldset>
-            <button mat-flat-button color="primary" (click)="setSelectedColumnsEditingImport()">{{ 'button.save' | translate }}</button>
+            <button mat-stroked-button (click)="setSelectedColumnsEditingImport()">{{ 'button.save' | translate }}</button>
           </mat-card-content>
         </mat-card>
       </div>
-      <button mat-flat-button color="warn" (click)="resetSettings()">{{ 'button.resetAllLocalSettings' | translate }}</button>
+      <!-- <button mat-flat-button color="warn" (click)="resetSettings()">{{ 'button.resetAllLocalSettings' | translate }}</button> -->
     </div>
   </div>
 </div>

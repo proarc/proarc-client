@@ -23,7 +23,7 @@ body {
   color: $app-body-color;
 
   .app-content-wrapper {
-    overflow: auto;
+    padding: $app-default-wrapper;
   }
 }
 

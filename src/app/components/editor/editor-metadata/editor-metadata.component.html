@@ -4,7 +4,7 @@
 			<app-editor-switcher (onChangeEditorType)="changeEditorType($event)" [editorType]="editorType"></app-editor-switcher>
 			<ng-container *ngIf="metadata">
 				<span class="app-pipe"></span>
-				<mat-radio-group aria-label="'standard'" [(ngModel)]="metadata.standard" (change)="setStandard()" color="primary" class="app-ml-3">
+				<mat-radio-group aria-label="'standard'" [(ngModel)]="metadata.standard" (change)="setStandard()" class="app-ml-3">
 					<mat-radio-button value="rda">rda</mat-radio-button>
 					<mat-radio-button value="aacr">aacr</mat-radio-button>
 				</mat-radio-group>

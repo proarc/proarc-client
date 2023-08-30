@@ -2,19 +2,19 @@
 
 <div fxLayout="column" fxFlexFill *ngIf="layout.ready" class="app-editor-wrapper">
 
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar app-view-border-bottom">
-    <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs app-view-border-right">
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
+    <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
       <a routerLink="/"><mat-icon>home</mat-icon></a>
       <span class="app-separator">/</span>
       <ng-container *ngFor="let p of layout.path; let last = last; let l = count; let idx = index">
         <a *ngIf="!last" (click)="goToObjectByPid(p.pid)" [matTooltip]="'model.' + p.model | translate" class="app-text-cutter" [matTooltip]="p.label">{{ p.label }}</a>
         <span class="app-separator" *ngIf="idx < l - 2">/</span>
       </ng-container>
-      <a *ngIf="layout.path.length === 1" (click)="selectLast()" class="app-last app-text-cutter" [matTooltip]="layout.item.label" [matTooltipPosition]="'above'">{{ layout.item.label }}</a>
+      <a *ngIf="layout.path.length === 1" (click)="selectLast()" class="app-text-cutter" [matTooltip]="layout.item.label" [matTooltipPosition]="'above'">{{ layout.item.label }}</a>
     </div>
-    <div fxFlex class="app-pl-4">
-      <div *ngIf="layout.path.length === 1" class="app-label-model">{{ 'model.' + layout.item.model | translate }}</div>
-      <div *ngIf="layout.path.length > 1" class="app-label-model"><a (click)="selectLast()">{{ 'model.' + layout.item.model | translate }} - {{ layout.item.label }}</a></div>
+    <div fxFlex>
+      <div *ngIf="layout.path.length === 1" class="app-badge app-model">{{ 'model.' + layout.item.model | translate }}</div>
+      <div *ngIf="layout.path.length > 1" class="app-badge app-model app-cursor-pointer" (click)="selectLast()">{{ 'model.' + layout.item.model | translate }} - {{ layout.item.label }}</div>
     </div>
     <div>
       <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToObject(layout.parent)" [disabled]="!layout.parent" mat-icon-button>
@@ -35,19 +35,21 @@
     </div>
   </div>
 
-  <div fxFlex class="app-oh" cdkDropListGroup>
-    <as-split *ngIf="layout.layoutConfig" direction="horizontal" [disabled]="layout.layoutConfig.disabled"  (dragEnd)="onDragEnd(-1, $event)">
-      <ng-template ngFor let-column [ngForOf]="layout.layoutConfig.columns" let-icol="index">
-        <as-split-area *ngIf="column.visible" [order]="icol" [size]="column.size">
-          <as-split direction="vertical" [disabled]="layout.layoutConfig.disabled" (dragEnd)="onDragEnd(icol, $event)">
-            <ng-template ngFor let-row [ngForOf]="column.rows" let-irow="index">
-              <as-split-area *ngIf="row.visible" [order]="irow" [size]="row.size">
-                <app-editor-generic [editorType]="row.type" [panel]="row"></app-editor-generic>
-              </as-split-area>
-            </ng-template>
-          </as-split>
-        </as-split-area>
-      </ng-template>
-    </as-split>
+  <div fxFlex class="app-oh app-p-4" cdkDropListGroup>
+    <div class="app-border-wrapper app-h-100">
+      <as-split *ngIf="layout.layoutConfig" direction="horizontal" [disabled]="layout.layoutConfig.disabled"  (dragEnd)="onDragEnd(-1, $event)">
+        <ng-template ngFor let-column [ngForOf]="layout.layoutConfig.columns" let-icol="index">
+          <as-split-area *ngIf="column.visible" [order]="icol" [size]="column.size">
+            <as-split direction="vertical" [disabled]="layout.layoutConfig.disabled" (dragEnd)="onDragEnd(icol, $event)">
+              <ng-template ngFor let-row [ngForOf]="column.rows" let-irow="index">
+                <as-split-area *ngIf="row.visible" [order]="irow" [size]="row.size">
+                  <app-editor-generic [editorType]="row.type" [panel]="row"></app-editor-generic>
+                </as-split-area>
+              </ng-template>
+            </as-split>
+          </as-split-area>
+        </ng-template>
+      </as-split>
+    </div>
   </div>
 </div>

@@ -18,6 +18,7 @@ import { UIService } from 'src/app/services/ui.service';
 import { Sort } from '@angular/material/sort';
 import { IngestDialogComponent } from '../ingest-dialog/ingest-dialog.component';
 import { Router } from '@angular/router';
+import { MatSelect } from '@angular/material/select';
 import {CodebookService} from '../../services/codebook.service';
 
 @Component({
@@ -32,6 +33,7 @@ export class ParentDialogComponent implements OnInit {
   @ViewChild('split') split: SplitComponent;
   @ViewChild('area1') area1: SplitAreaDirective;
   @ViewChild('area2') area2: SplitAreaDirective;
+  @ViewChild('modelSelect') modelSelect: MatSelect;
   splitArea1Width: number;
   splitArea2Width: number;
 
@@ -76,6 +78,13 @@ export class ParentDialogComponent implements OnInit {
   lastSelectedItem: DocumentItem;
   orig: any[] = [];
   origTable: any;
+
+  searchedModel: string;
+  searchedQuery: string;
+  searchedQueryLabel: string;
+  searchedIdentifier: string;
+  searchedOwner: string;
+  searchedProcessor: string;
 
   hasChanges = false;
 
@@ -135,7 +144,7 @@ export class ParentDialogComponent implements OnInit {
     private router: Router,
     public search: SearchService,
     private ui: UIService,
-    private config: ConfigService,
+    public config: ConfigService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private api: ApiService) { }
 
@@ -248,7 +257,6 @@ export class ParentDialogComponent implements OnInit {
       this.properties.setStringProperty('parent.processor', this.processor);
     }
 
-
     this.hierarchy = [];
     this.selectedDestItem = null;
     this.pageIndex = page;
@@ -271,14 +279,20 @@ export class ParentDialogComponent implements OnInit {
 
     }
     this.api.getSearchResults(options).subscribe(([items, total]: [DocumentItem[], number]) => {
+      
       this.resultCount = total;
       this.items = items;
       this.state = 'success';
       if (this.data.isRepo) {
         this.findAndSelect();
       }
-
     });
+    this.searchedModel = options.model;
+    this.searchedQuery = options.query;
+    this.searchedQueryLabel = options.queryLabel;
+    this.searchedIdentifier = options.queryIdentifier;
+    this.searchedOwner = options.owner;
+    this.searchedProcessor = options.processor;
   }
 
   findAndSelect() {
@@ -654,6 +668,11 @@ export class ParentDialogComponent implements OnInit {
     this.properties.setStringProperty('parentDialogRightTableColumns', JSON.stringify(this.selectedColumnsRightTable));
   }
   // end
+
+  enterModel(e: any) {
+    this.modelSelect.close();
+    this.reload();
+  }
 
 }
 

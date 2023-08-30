@@ -11,7 +11,7 @@
 
   <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'"></mat-progress-bar>
 
-  <div fxFlex class="app-history app-p-4" *ngIf="state=='success'" fxLayout="column">
+  <div fxFlex class="app-content-wrapper app-history" *ngIf="state=='success'" fxLayout="column">
     <div class="app-formbar" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
       <ng-container *ngIf="view == 'overview'">
         <mat-form-field>
@@ -19,32 +19,32 @@
             <mat-option *ngFor="let state of batchStates" [value]="state">{{ 'states.' + state | translate }}</mat-option>
           </mat-select>
         </mat-form-field>
-        <button mat-flat-button color="primary" (click)="reload()">
+        <button mat-stroked-button (click)="reload()">
           {{ 'button.refresh' | translate }}
         </button>
         <mat-checkbox [(ngModel)]="autoRefresh" (change)="setRefresh()">{{ 'desc.automaticallyRestore' | translate }}</mat-checkbox>
-        <button mat-flat-button color="primary" (click)="changeView('loadingQueue')">
+        <button mat-stroked-button (click)="changeView('loadingQueue')">
           {{ 'button.showLoadingQueue' | translate }}
         </button>
-        <button mat-flat-button color="primary" (click)="onReloadBatch()" *ngIf="selectedBatch && (selectedBatch.state === 'LOADING_FAILED' || selectedBatch.state === 'LOADED' || selectedBatch.state === 'STOPPED')">
+        <button mat-stroked-button (click)="onReloadBatch()" *ngIf="selectedBatch && (selectedBatch.state === 'LOADING_FAILED' || selectedBatch.state === 'LOADED' || selectedBatch.state === 'STOPPED')">
           {{ 'button.reload' | translate }}
         </button>
-        <button mat-flat-button color="primary" (click)="onIngestBatch()" *ngIf="selectedBatch && selectedBatch.state === 'LOADED'">
+        <button mat-stroked-button (click)="onIngestBatch()" *ngIf="selectedBatch && selectedBatch.state === 'LOADED'">
           {{ 'button.continue' | translate }}
         </button>
-        <button mat-flat-button color="primary" (click)="onEditBatchObject()" *ngIf="selectedBatch && selectedBatch.state === 'INGESTED' && selectedBatch.parentPid">
+        <button mat-stroked-button (click)="onEditBatchObject()" *ngIf="selectedBatch && selectedBatch.state === 'INGESTED' && selectedBatch.parentPid">
           {{ 'button.goToObject' | translate }}
         </button>
-        <button mat-flat-button color="primary" (click)="onReexport()" *ngIf="selectedBatch && selectedBatch.state === 'EXPORT_FAILED'">
+        <button mat-stroked-button (click)="onReexport()" *ngIf="selectedBatch && selectedBatch.state === 'EXPORT_FAILED'">
           {{ 'button.reexport' | translate }}
         </button>
       </ng-container>
       <ng-container *ngIf="view == 'loadingQueue'">
-        <button mat-flat-button color="primary" (click)="reload()">
+        <button mat-stroked-button (click)="reload()">
           <!-- <mat-icon>sync</mat-icon> -->
           {{ 'button.refresh' | translate }}
         </button>
-        <button mat-flat-button color="primary" (click)="changeView('overview')">
+        <button mat-stroked-button (click)="changeView('overview')">
           {{ 'button.backToTheListOfAllProcesses' | translate }}
         </button>
       </ng-container>
@@ -92,12 +92,12 @@
           <mat-option *ngFor="let profile of profiles" [value]="profile">{{ 'formField.profiles.' + profile | translate }}</mat-option>
         </mat-select>
       </mat-form-field>
-      <button mat-flat-button color="primary" (click)="filter()" [matTooltip]="'button.filter' | translate">
-        <mat-icon>filter_alt</mat-icon>
+      <button mat-stroked-button (click)="filter()">
+        {{ 'button.filter' | translate }}
       </button>
     </div>
 
-    <div fxFlex class="app-oa-y" *ngIf="view == 'overview'">
+    <div fxFlex class="app-oa-y app-border-wrapper" *ngIf="view == 'overview'">
       <table mat-table #table [dataSource]="batches" class="app-striped app-hover app-resize">
         <ng-container matColumnDef="description">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesOverview($event, 'description')" [style.width]="getColumnWidthOverview('description')">{{ 'desc.folderNamePid' | translate }}</th>

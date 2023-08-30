@@ -1,6 +1,6 @@
 <mat-progress-bar mode="indeterminate" *ngIf="!layout.ready" class="app-progress-bar"></mat-progress-bar>
 <div fxLayout="column" fxFlexFill *ngIf="layout.ready">
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar app-view-border-bottom">
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
     <div fxFlex fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
       <a routerLink="/"><mat-icon>home</mat-icon></a>
       <span class="app-separator">/</span>
@@ -10,26 +10,28 @@
       <span class="app-separator">/</span>
       <span class="app-last">{{ 'desc.editing' | translate }}</span>
     </div>
-    <div>
-      <button mat-flat-button color="primary" (click)="onIngest()">{{ 'button.continue' | translate }}</button>
+    <div fxLayout="row" fxLayoutAlign="start center" class="app-h-100">
+      <button mat-button (click)="onIngest()">{{ 'button.continue' | translate }}</button>
       <button mat-icon-button [matTooltip]="'navbar.layout' | translate" (click)="showLayoutAdmin()">
         <mat-icon>dashboard</mat-icon>
       </button>
     </div>
   </div>
-  <div fxFlex class="app-editing" fxLayout="column" class="app-oh">
-    <as-split *ngIf="layout.layoutConfig" direction="horizontal" [disabled]="layout.layoutConfig.disabled" (dragEnd)="onDragEnd(-1, $event)">
-      <ng-template ngFor let-column [ngForOf]="layout.layoutConfig.columns" let-icol="index">
-        <as-split-area *ngIf="column.visible" [order]="icol" [size]="column.size">
-          <as-split direction="vertical" [disabled]="layout.layoutConfig.disabled" (dragEnd)="onDragEnd(icol, $event)">
-            <ng-template ngFor let-row [ngForOf]="column.rows" let-irow="index">
-              <as-split-area *ngIf="row.visible && !row.isEmpty" [order]="irow" [size]="row.size">
-                <app-editor-generic [editorType]="row.type" [panel]="row" (onIngest)="onIngest()"></app-editor-generic>
-              </as-split-area>
-            </ng-template>
-          </as-split>
-        </as-split-area>
-      </ng-template>
-    </as-split>
+  <div fxFlex class="app-oh app-p-4" fxLayout="column">
+    <div class="app-border-wrapper app-h-100">
+      <as-split *ngIf="layout.layoutConfig" direction="horizontal" [disabled]="layout.layoutConfig.disabled" (dragEnd)="onDragEnd(-1, $event)">
+        <ng-template ngFor let-column [ngForOf]="layout.layoutConfig.columns" let-icol="index">
+          <as-split-area *ngIf="column.visible" [order]="icol" [size]="column.size">
+            <as-split direction="vertical" [disabled]="layout.layoutConfig.disabled" (dragEnd)="onDragEnd(icol, $event)">
+              <ng-template ngFor let-row [ngForOf]="column.rows" let-irow="index">
+                <as-split-area *ngIf="row.visible && !row.isEmpty" [order]="irow" [size]="row.size">
+                  <app-editor-generic [editorType]="row.type" [panel]="row" (onIngest)="onIngest()"></app-editor-generic>
+                </as-split-area>
+              </ng-template>
+            </as-split>
+          </as-split-area>
+        </ng-template>
+      </as-split>
+    </div>
   </div>
 </div>

@@ -8,7 +8,8 @@
 
   .app-left {
     .app-logo {
-      img {
+      img,
+      svg {
         @extend .app-mr-4;
         height: 16px;
         vertical-align: middle;
@@ -19,7 +20,7 @@
   .mat-button-base {
     &:hover, &.active {
       color: inherit;
-      background-color: rgba($app-color-lightnes, .15);
+      background-color: $app-navbar-active-item-color;
     }
   }
 }

@@ -1,15 +1,4 @@
-@import './src/sass/app-variables';
-@import './src/sass/app-mixins';
-@import './src/sass/app-global';
-
-.mat-table {
-  .mat-column-label,
-  .mat-column-model {
-    min-width: 100px;
-  }
+.app-breadcrumbsbar {
+  padding: 0 !important;
 }
 
-.app-formbar {
-  @extend .app-pl-2, .app-pr-2, .app-pt-2;
-  background-color: $app-body-bg;
-}

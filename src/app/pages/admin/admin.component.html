@@ -6,8 +6,11 @@
       <span class="app-last">{{ 'desc.userAdministration' | translate }}</span>
     </div>
   </div>
-  <div fxFlex class="app-p-4 app-oh">
-    <div class="app-maxh-100 app-oa-y app-mb-4">
+  <div fxFlex class="app-admin app-p-4" fxLayout="column">
+    <div class="app-formbar app-mb-4">
+      <button mat-stroked-button routerLink="/admin/new-user" class="app-mr-2">{{ 'button.createNewUser' | translate }}</button>
+    </div>
+    <div fxFlex class="app-oa-y app-border-wrapper"> 
       <table mat-table [dataSource]="users" class="app-striped app-hover app-resize">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'name')" [style.width]="getColumnWidth('name')">{{ 'desc.username' | translate }}</th>
@@ -84,9 +87,6 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-      <div class="app-table-footer app-pt-4">
-        <button mat-flat-button color="primary" routerLink="/admin/new-user" class="app-mr-2">{{ 'button.createNewUser' | translate }}</button>
-      </div>
     </div>
   </div>
 </div>

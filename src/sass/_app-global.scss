@@ -279,10 +279,18 @@ ul {
   pointer-events: none;
 }
 
+.app-border-wrapper {
+  border: 1px solid #{$app-default-border-color};
+}
+
 
 // new features
 as-split {
   background-color: $app-split-panel-bg;
+}
+
+.as-split-gutter {
+  background-color: $app-split-gutter-bg !important;
 }
 
 .app-breadcrumbsbar {
@@ -290,20 +298,20 @@ as-split {
   height: $app-breadcrumbsbar-height;
   background-color: $app-breadcrumbsbar-bg;
   color: $app-breadcrumbsbar-color;
-
-  &.app-view-border-bottom {
-    border-bottom: 1px solid $app-breadcrumbsbar-border-color;
-  }
+  border-bottom: 1px solid $app-breadcrumbsbar-border-color;
 
   a {
-    color: $app-breadcrumbsbar-color; 
+    &:not(.app-model) {
+      color: $app-breadcrumbsbar-color; 
+    }
   }
 
-  .mat-button {
+  .mat-button,
+  .mat-icon-button {
     @extend .app-h-100, .app-clean-radius;
 
     &.app-active {
-      background-color: $app-breadcrumbsbar-bg-active;
+      border-bottom: 2px solid $app-breadcrumbsbar-item-color-active;
     }
   }
 
@@ -315,10 +323,11 @@ as-split {
     color: $app-breadcrumbsbar-color;
   }
 
+  /* to delete after testing
   .app-label-model {
     font-size: 13px;
     opacity: .8;
-  }
+  } */
 
   .app-breadcrumbs {
     @extend .app-h-100, .app-pr-4;
@@ -369,23 +378,36 @@ as-split {
   min-height: $app-toolbar-height;
   background-color: $app-toolbar-bg;
   color: $app-toolbar-color;
-  
+  border-bottom: 1px solid $app-toolbar-border-color;
+
   .mat-icon-button,
   .mat-button-base {
     @extend .app-clean-radius;
-    margin-right: 1px;
+  }
+  
+  .mat-button-base {
+    height: $app-toolbar-button-height;
+    line-height: $app-toolbar-button-height;
 
-    &.app-active {
-      background-color: $app-toolbar-button-bg-active;
-    }
+    &.mat-icon-button {
+      width: $app-toolbar-button-height;
+  
+      &.app-active {
+        background-color: $app-toolbar-button-bg-active;
+      }
+  
+      .app-text-icon {
+        font-size: 18px;
+      }
+  
+      .mat-icon {
+        @include setIcon(20);
+        line-height: 20px;
+      }
 
-    .app-text-icon {
-      font-size: 18px;
-    }
-
-    .mat-icon {
-      @include setIcon(20);
-      line-height: 20px;
+      &.app-btn-resized {
+        //width: 30px
+      }
     }
   }
 
@@ -402,26 +424,12 @@ as-split {
     }
   }
 
-  &.app-view-border-bottom {
-    border-bottom: 1px solid $app-toolbar-border-color;
-  }
-
   &.app-view-border-top {
     border-top: 1px solid $app-toolbar-border-color;
   }
 
-  &.app-toolbar-action {
+  &.app-view-action {
     min-height: $app-toolbar-action-height;
-    background-color: $app-toolbar-action-bg;
-    color: $app-toolbar-action-color;
-
-    .mat-button-base {
-      @extend .app-clean-radius;
-    }
-
-    &.app-view-border-bottom {
-      border-bottom: 1px solid $app-toolbar-action-border-color;
-    }
   }
 }
 

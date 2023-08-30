@@ -115,7 +115,7 @@
             </mat-form-field>
           </div>
         </fieldset>
-        <button (click)="onSubmit()" mat-flat-button [disabled]="state=='saving'" color="primary">
+        <button (click)="onSubmit()" mat-stroked-button [disabled]="state=='saving'">
           {{ mode=='new' ? ('device.button.create' | translate) : ('device.button.edit' | translate) }}
          </button>
       </mat-card-content>

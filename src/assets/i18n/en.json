@@ -2495,7 +2495,8 @@
   "alert": {
     "info": {
       "digitalContentIsNotSupported": "Digital content is not supported",
-      "noDigitalContent": "No digital content"
+      "noDigitalContent": "No digital content",
+      "theImageIsNotAvailable": "The image is not available"
     }
   },
   "snackbar": {
