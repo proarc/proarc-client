@@ -333,7 +333,8 @@ as-split {
     @extend .app-h-100, .app-pr-4;
 
     &.app-view-border-right,
-    app-search & {
+    app-search &,
+    app-settings & {
       border-right: 1px solid $app-breadcrumbsbar-border-color;
     }
 
