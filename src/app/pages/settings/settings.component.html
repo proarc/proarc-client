@@ -15,10 +15,6 @@
   <mat-progress-bar mode="indeterminate" *ngIf="state =='loading'" class="app-progress-bar"></mat-progress-bar>
 
   <div fxFlex class="app-settings app-p-4" fxLayout="column" *ngIf="state !== 'loading' && user">
-   <!--  <nav mat-tab-nav-bar class="app-mb-4" color="accent">
-      <a mat-tab-link (click)="changeView('localSettings')" [active]="view == 'localSettings'">{{ 'pages.settings.tabs.localSettings' | translate }}</a>
-      <a mat-tab-link (click)="changeView('personalSettings')" [active]="view == 'personalSettings'">{{ 'pages.settings.tabs.personalSettings' | translate }}</a>
-    </nav> -->
     <div fxFlex *ngIf="view == 'personalSettings'" class="app-oa-y">
       <mat-card >
         <mat-card-content>
