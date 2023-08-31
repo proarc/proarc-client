@@ -58,12 +58,12 @@ $app-default-bg: $app-gray-1;
 $app-default-wrapper: 16px !default;
 
 $app-navbar-height: 56px !default;
-$app-navbar-border-color: $app-default-border-color;
-$app-navbar-active-item-color: $app-gray-3 !default;
+//$app-navbar-border-color: $app-default-border-color;
+$app-navbar-active-item-color: rgba($app-color-lightnes, .15) !default;
 
 $app-breadcrumbsbar-height: 40px !default;
 $app-breadcrumbsbar-bg: $app-default-bg !default;
-$app-breadcrumbsbar-item-color-active: $app-color-accent !default;
+$app-breadcrumbsbar-item-color-active: $app-color-primary !default;
 $app-breadcrumbsbar-color: $app-gray-7 !default;
 $app-breadcrumbsbar-border-color: $app-default-border-color !default;
 
