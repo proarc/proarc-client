@@ -263,21 +263,24 @@
       }
     }
 
-    // toolbar override
-    &.mat-primary {
-      .app-toolbar & {
-        .mat-radio-outer-circle {
-          border-color: rgba($app-color-lightnes, .7);
-        }
+    &.mat-accent {
+      .mat-radio-outer-circle {
+        border-color: $app-mat-radio-button-bg;
+      }
 
-        .mat-radio-inner-circle {
-          background-color: rgba($app-color-lightnes, .7);
-        }
+      .mat-radio-inner-circle {
+        background-color: $app-mat-radio-button-bg;
+      }
 
-        .mat-radio-ripple {          
-          .mat-radio-persistent-ripple {
-            background-color: $app-color-lightnes !important;
-          }
+      .mat-radio-ripple {          
+        .mat-radio-persistent-ripple {
+          background-color: $app-mat-radio-button-bg !important;
+        }
+      }
+
+      .mat-radio-ripple {
+        .mat-ripple-element {
+          background-color: $app-mat-radio-button-bg !important;
         }
       }
     }
