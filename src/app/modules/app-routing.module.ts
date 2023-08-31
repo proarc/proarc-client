@@ -20,6 +20,7 @@ import { KrameriusComponent } from '../pages/kramerius/kramerius.component';
 import { EditUserComponent } from '../pages/admin/edit-user/edit-user.component';
 import { NewUserComponent } from '../pages/admin/new-user/new-user.component';
 import { AdminGuard } from '../admin.guard';
+import { TotestComponent } from '../pages/totest/totest.component';
 
 const routes: Routes = [
       { path: 'login', component: LoginComponent },
@@ -44,7 +45,8 @@ const routes: Routes = [
       { path: 'admin/:id/edit-user', component: EditUserComponent },
       { path: 'admin/new-user', component: NewUserComponent },
       { path: 'workflow', loadChildren: () => import('../pages/workflow/workflow.module').then(m => m.WorkflowModule) },
-      { path: '', redirectTo: '/search', pathMatch: 'full' }
+      { path: '', redirectTo: '/search', pathMatch: 'full' },
+      { path: 'totest', component: TotestComponent }
     ]
   }
 

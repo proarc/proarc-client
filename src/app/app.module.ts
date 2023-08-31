@@ -130,6 +130,7 @@ import { NewUserComponent } from './pages/admin/new-user/new-user.component';
 import { EditorSwitcherComponent } from './components/editor/editor-switcher/editor-switcher.component';
 import { ResizecolDirective } from './resizecol.directive';
 import { ColumnsSettingsDialogComponent } from './dialogs/columns-settings-dialog/columns-settings-dialog.component';
+import { TotestComponent } from './pages/totest/totest.component';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 300,
@@ -256,7 +257,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     NewUserComponent,
     EditorSwitcherComponent,
     ResizecolDirective,
-    ColumnsSettingsDialogComponent
+    ColumnsSettingsDialogComponent,
+    TotestComponent
   ],
   imports: [
     BrowserModule,
