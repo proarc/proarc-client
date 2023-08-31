@@ -348,7 +348,24 @@
   }
 }
 
+// checkbox
+.mat-checkbox {
+  &.mat-checkbox-checked {
+    &.mat-accent {
+      .mat-checkbox-background {
+        background-color: $app-mat-checkbox-bg;
+      }
+    }
+  }
 
+  &:not(.mat-checkbox-disabled) {
+    .mat-checkbox-ripple {
+      .mat-ripple-element {
+        background-color: $app-mat-checkbox-bg !important; 
+      }
+    }
+  }
+}
 
 
 
