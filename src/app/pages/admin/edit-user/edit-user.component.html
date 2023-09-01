@@ -36,6 +36,7 @@
           <div fxLayout="row" fxLayoutGap="16px">
             <mat-form-field fxFlex>
               <mat-select [placeholder]="'desc.organization' | translate" name="organization" [(ngModel)]="selectedUser.organization">
+                <mat-option [value]="null">--</mat-option>
                 <mat-option *ngFor="let organization of organizations" [value]="organization">{{ 'organization.' + organization | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
