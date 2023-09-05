@@ -456,7 +456,7 @@ export class EditorStructureComponent implements OnInit {
   }
 
   public goToFirst() {
-    this.router.navigate(['/repository', this.layout.parent.pid]);
+    this.router.navigate(['/repository', this.layout.items[0].pid]);
   }
 
   goToNext() {
