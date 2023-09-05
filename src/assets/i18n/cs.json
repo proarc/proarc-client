@@ -2048,6 +2048,7 @@
     "metadataCatalog": "Metadata katalog",
     "save": "Uložit",
     "register": "Registrovat",
+    "successor": "Následovník",
     "viewErrorOutput": "Zobrazit chybový výstup",
     "open": "Otevřít",
     "export": "Exportovat",
@@ -2103,6 +2104,7 @@
     "removeThisFilter": "Odstranit tento filtr",
     "toIndex": "Indexovat",
     "convertPages": "Převést strany",
+    "czidloFunction": "CZIDLO",
     "more": "Více",
     "resetAllLocalSettings": "Resetovat všechna lokální nastavení",
     "createAndGoToObject": "Vytvořit a přejít do objektu",
@@ -2296,6 +2298,15 @@
       "alert": {
         "success": "Žádné položky k zobrazení",
         "error": "Při registraci URN:NBN se vyskytla chyba"
+      }
+    },
+    "czidlo": {
+      "title": "CZIDLO",
+      "successor": "Následovník",
+      "invalidate": "Lokálně zneplatnit",
+      "alert": {
+        "success": "Žádné položky k zobrazení",
+        "error": "Při zneplatneni URN:NBN se vyskytla chyba"
       }
     },
     "expandAll": {

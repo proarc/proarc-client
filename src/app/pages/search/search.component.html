@@ -113,6 +113,7 @@
                   <button mat-menu-item (click)="updateObjects(selectedItem)">{{ 'button.updateAllObjects' | translate }}</button>
                   <button mat-menu-item *ngIf="isAkubra && auth.isSuperAdmin()" (click)="reindex(selectedItem)">{{ 'button.toIndex' | translate }}</button>
                   <button mat-menu-item *ngIf="auth.user.changeModelFunction || auth.isSuperAdmin()" (click)="showConvertDialog(selectedItem)">{{ 'button.convertPages' | translate }}</button>
+                  <button mat-menu-item *ngIf="auth.user.czidloFunction || auth.isSuperAdmin()" (click)="czidlo(selectedItem)">{{ 'button.czidloFunction' | translate }}</button>
                 </mat-menu>
               </div>
               <div>
@@ -216,6 +217,7 @@
                   <button mat-menu-item (click)="updateObjects(search.selectedTree.item)">{{ 'button.updateAllObjects' | translate }}</button>
                   <button mat-menu-item *ngIf="isAkubra && auth.isSuperAdmin()" (click)="reindex(search.selectedTree.item)">{{ 'button.toIndex' | translate }}</button>
                   <button mat-menu-item *ngIf="auth.user.changeModelFunction || auth.isSuperAdmin()" (click)="showConvertDialog(search.selectedTree.item)">{{ 'button.convertPages' | translate }}</button>
+                  <button mat-menu-item *ngIf="auth.user.czidloFunction || auth.isSuperAdmin()" (click)="czidlo(search.selectedTree.item)">{{ 'button.czidloFunction' | translate }}</button>
                 </mat-menu>
               </div>
             </div>

@@ -131,6 +131,7 @@ import { EditorSwitcherComponent } from './components/editor/editor-switcher/edi
 import { ResizecolDirective } from './resizecol.directive';
 import { ColumnsSettingsDialogComponent } from './dialogs/columns-settings-dialog/columns-settings-dialog.component';
 import { TotestComponent } from './pages/totest/totest.component';
+import { CzidloDialogComponent } from './dialogs/czidlo-dialog/czidlo-dialog.component';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 300,
@@ -258,7 +259,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditorSwitcherComponent,
     ResizecolDirective,
     ColumnsSettingsDialogComponent,
-    TotestComponent
+    TotestComponent,
+    CzidloDialogComponent
   ],
   imports: [
     BrowserModule,

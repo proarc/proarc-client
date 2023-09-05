@@ -2048,6 +2048,7 @@
     "metadataCatalog": "Metadata catalog",
     "save": "Save",
     "register": "Register",
+    "successor": "Successor",
     "viewErrorOutput": "View error output",
     "open": "Open",
     "export": "Export",
@@ -2103,6 +2104,7 @@
     "removeThisFilter": "Remove this filter",
     "toIndex": "To index",
     "convertPages": "Convert pages",
+    "czidloFunction": "CZIDLO",
     "more": "More",
     "resetAllLocalSettings": "Reset all local settings",
     "createAndGoToObject": "Create and go to object",
@@ -2296,6 +2298,15 @@
       "alert": {
         "success": "No items to display",
         "error": "There was an error registering URN:NBN"
+      }
+    },
+    "czidlo": {
+      "title": "CZIDLO",
+      "successor": "Successor",
+      "invalidate": "Invalidate local",
+      "alert": {
+        "success": "No items to display",
+        "error": "There was an error invalidating"
       }
     },
     "expandAll": {

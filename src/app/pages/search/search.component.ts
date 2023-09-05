@@ -23,6 +23,7 @@ import {Sort} from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { ConvertDialogComponent } from 'src/app/dialogs/convert-dialog/convert-dialog.component';
 import { LayoutService } from 'src/app/services/layout.service';
+import { CzidloDialogComponent } from 'src/app/dialogs/czidlo-dialog/czidlo-dialog.component';
 
 @Component({
   selector: 'app-search',
@@ -699,6 +700,20 @@ export class SearchComponent implements OnInit {
           this.layout.setShouldRefresh(false);
           this.ui.showInfoSnackBar(this.translator.instant('snackbar.convertPages.failure'));
         }
+      }
+    });
+  }
+
+  czidlo(item: DocumentItem) {
+    
+    const dialogRef = this.dialog.open(CzidloDialogComponent, { 
+      data: item.pid,
+      panelClass: 'app-urnbnb-dialog',
+      width: '600px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+    
       }
     });
   }

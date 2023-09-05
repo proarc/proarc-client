@@ -200,11 +200,23 @@ export class ApiService {
     // }
   }
 
-
   registerUrnnbn(resolver: string, pid: string): Observable<any> {
     let data = `resolverId=${resolver}&pid=${pid}`;
     return this.post('object/urnnbn', data);
   }
+
+  successor(resolver: string, pid: string): Observable<any> {
+    let data = `resolverId=${resolver}&pid=${pid}`;
+    return this.post('object/urnnbn/createSuccessor', data);
+  }
+
+
+  invalidateLocal(pid: string): Observable<any> {
+    let data = `pid=${pid}`;
+    return this.post('object/urnnbn/invalidateLocal', data);
+  }
+
+
 
   createObject(data: string): Observable<any> {
     return this.post('object', data);
