@@ -2001,6 +2001,7 @@
     "updateModels": "Update models",
     "lockingTheObject": "Locking the object",
     "unlockingTheObject": "Unlocking the object",
+    "importToProdFunction": "Import to Kramerius production",
     "preferredValues": "Preferred values",
     "forename": "Forname",
     "typesOfParties": "Types of parties",

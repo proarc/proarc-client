@@ -34,7 +34,7 @@ export class UIService {
   }
 
   public showErrorDialog(data: { type: string; title: string; message: any[] | string[]; }) {
-    this.dialogRef = this.dialog.open(AlertDialogComponent, {    
+    this.dialogRef = this.dialog.open(AlertDialogComponent, {
          data,
          width: '600px',
          panelClass: 'app-alert-dialog'
@@ -47,7 +47,7 @@ export class UIService {
       title: 'Info',
       message: [message]
     };
-    const dialogRef = this.dialog.open(AlertDialogComponent, {    
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
          data,
          width: '400px',
          panelClass: 'app-alert-dialog'
@@ -58,9 +58,9 @@ export class UIService {
       }, duration)
     })
   }
-  
+
   public confirmed(): Observable<any> {
-    
+
     return this.dialogRef.afterClosed().pipe(take(1), map(res => {
         return res;
       }
@@ -78,7 +78,7 @@ export class UIService {
 
   showErrorSnackBar(message: string, duration: number = 4000) {
     this.snackBar.open(message, 'Chyba', { duration: duration, panelClass: 'app-snackbar-error', verticalPosition: 'top' });
-    
+
    /*  const data = {
       type: 'error',
       title: 'Chyba',
@@ -106,6 +106,15 @@ export class UIService {
       type: 'error',
       title: String(this.translator.instant('desc.error')),
       message
+    };
+    this.showErrorDialog(data);
+  }
+
+  showErrorDialogFromString(message: String) {
+    const data = {
+      type: 'error',
+      title: String(this.translator.instant('desc.error')),
+      message: [message]
     };
     this.showErrorDialog(data);
   }

@@ -37,10 +37,11 @@ export class AdminComponent implements OnInit {
     { field: 'updateModelFunction', selected: true, width: 100 },
     { field: 'lockObjectFunction', selected: true, width: 100 },
     { field: 'unlockObjectFunction', selected: true, width: 100 },
+    { field: 'importToProdFunction', selected: true, width: 100 },
     { field: 'action', selected: true, width: 100 }
   ];
 
-  displayedColumns: string[] = ['name', 'forename', 'surname', 'email', 'organization', 'role', 'home', 'changeModelFunction', 'updateModelFunction', 'lockObjectFunction', 'unlockObjectFunction', 'action'];
+  displayedColumns: string[] = ['name', 'forename', 'surname', 'email', 'organization', 'role', 'home', 'changeModelFunction', 'updateModelFunction', 'lockObjectFunction', 'unlockObjectFunction', 'importToProdFunction', 'action'];
 
   constructor(
     private translator: TranslateService,
@@ -64,7 +65,7 @@ export class AdminComponent implements OnInit {
       } else {
         this.selectedUser = this.users.find(u => u.userId === id);
       }
-      
+
     });
   }
 
@@ -98,12 +99,12 @@ export class AdminComponent implements OnInit {
       this.api.newUser(this.selectedUser).subscribe((response: any) => {
         if (response['response'].errors) {
           this.ui.showErrorDialogFromObject(response['response'].errors);
-          return; 
+          return;
         }
         const user: User =  User.fromJson(response['response']['data'][0]);
         this.getUsers(user.userId);
         this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.addNewUser.success')));
-        
+
       });
     } else {
       this.api.saveUser(this.selectedUser).subscribe((user: User) => {
@@ -134,7 +135,7 @@ export class AdminComponent implements OnInit {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
       width: '400px',
       panelClass: 'app-simple-dialog',
@@ -149,7 +150,7 @@ export class AdminComponent implements OnInit {
           this.getUsers(-1);
         });
       }
-    }); 
+    });
   }
 
   // resizable columns
@@ -180,7 +181,7 @@ export class AdminComponent implements OnInit {
       el.width = e;
     } else {
       console.log("nemelo by")
-    } 
+    }
     this.properties.setStringProperty('adminColumns', JSON.stringify(this.selectedColumns));
   }
   // end
