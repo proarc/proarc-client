@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CatalogDialogComponent } from 'src/app/dialogs/catalog-dialog/catalog-dialog.component';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
@@ -14,6 +14,7 @@ import { TemplateService } from 'src/app/services/template.service';
 @Component({
   selector: 'app-editor-metadata',
   templateUrl: './editor-metadata.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./editor-metadata.component.scss']
 })
 export class EditorMetadataComponent implements OnInit {

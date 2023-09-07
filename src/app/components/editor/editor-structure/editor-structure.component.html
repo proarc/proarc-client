@@ -10,16 +10,16 @@
       <button mat-icon-button [disabled]="!pageChildren" [class.app-active]="viewMode === 'icons'" (click)="changeViewMode('icons')" [matTooltip]="'editor.children.view_icons' | translate" >
         <mat-icon>apps</mat-icon>
       </button>
-      <button mat-icon-button *ngIf="pageChildren" (click)="onReindexChildren()" [matTooltip]="'editor.children.reindex' | translate" >
+      <button mat-icon-button [disabled]="!pageChildren" (click)="onReindexChildren()" [matTooltip]="'editor.children.reindex' | translate" >
         <mat-icon>format_list_numbered</mat-icon>
       </button>
-      <button mat-icon-button *ngIf="isRepo && (auth.user.changeModelFunction || auth.isSuperAdmin())" (click)="showConvertDialog()" [matTooltip]="'editor.children.convertPages' | translate" >
+      <button mat-icon-button *ngIf="isRepo" [disabled]="!(auth.user.changeModelFunction || auth.isSuperAdmin())" (click)="showConvertDialog()" [matTooltip]="'editor.children.convertPages' | translate" >
         <mat-icon>swap_horiz</mat-icon>
       </button>
       <button mat-icon-button *ngIf="!isRepo" (click)="markSequence()" [matTooltip]="'editor.children.markSequence' | translate" >
         <mat-icon>view_timeline</mat-icon>
       </button>
-      <button mat-icon-button *ngIf="isRepo && canAddChildren()" (click)="onCreateNewObject()" [matTooltip]="'editor.children.add_new' | translate" >
+      <button mat-icon-button *ngIf="isRepo" [disabled]="!canAddChildren()" (click)="onCreateNewObject()" [matTooltip]="'editor.children.add_new' | translate" >
         <mat-icon>add_circle</mat-icon>
       </button>        
       <button mat-icon-button *ngIf="isRepo" (click)="onRelocateOutside()" [matTooltip]="'editor.children.relocate_label' | translate" >

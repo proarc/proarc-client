@@ -8,6 +8,7 @@ export class ModsTitle extends ModsElement {
     subTitle: any;
     partNumber: any;
     partName: any;
+    isNonSortToggleDisabled: boolean;
 
     static getSelector() {
         return 'titleInfo';
@@ -43,6 +44,7 @@ export class ModsTitle extends ModsElement {
         this.subTitle = this.modsElement['subTitle'][0];
         this.partNumber = this.modsElement['partNumber'][0];
         this.partName = this.modsElement['partName'][0];
+        this.isNonSortToggleDisabled = this.nonSortToggleDisabled();
     }
 
     nonSortToggleDisabled(): boolean {
