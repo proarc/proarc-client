@@ -33,21 +33,21 @@
 				<ng-container *ngSwitchDefault>
 					<app-editor-genre *ngIf="showGenreSwitch() && available('genre')" [field]="metadata.getField('genre')" [showGenreSwitch]="showGenreSwitch()"></app-editor-genre>
 					<app-editor-title *ngIf="available('titleInfo')" [field]="metadata.getField('titleInfo')"></app-editor-title>
-          <app-editor-author *ngIf="available('name')" [field]="metadata.getField('name')" [model]="model"></app-editor-author>
-          <app-editor-publisher *ngIf="available('originInfo')" [field]="metadata.getField('originInfo')"></app-editor-publisher>
-          <app-editor-location *ngIf="available('location')" [field]="metadata.getField('location')"></app-editor-location>
-          <app-editor-identifier *ngIf="available('identifier')" [field]="metadata.getField('identifier')" [model]="model"></app-editor-identifier>
-          <app-editor-language *ngIf="available('language')" [field]="metadata.getField('language')"></app-editor-language>
-          <app-editor-physical *ngIf="available('physicalDescription')" [field]="metadata.getField('physicalDescription')"></app-editor-physical>
-          <app-editor-abstract *ngIf="available('abstract')" [field]="metadata.getField('abstract')"></app-editor-abstract>
-          <app-editor-note *ngIf="available('note')" [field]="metadata.getField('note')"></app-editor-note>
-          <app-editor-resource *ngIf="available('typeOfResource')" [field]="metadata.getField('typeOfResource')"></app-editor-resource>
-          <app-editor-genre *ngIf="available('genre') && !showGenreSwitch()" [field]="metadata.getField('genre')" ></app-editor-genre>
-          <app-editor-classification *ngIf="available('classification')" [field]="metadata.getField('classification')"></app-editor-classification>
-          <app-editor-subject *ngIf="available('subject')" [field]="metadata.getField('subject')" [model]="model"></app-editor-subject>
-          <app-editor-part *ngIf="available('part')" [field]="metadata.getField('part')"></app-editor-part>
-          <app-editor-tableOfContents *ngIf="available('tableOfContents')" [field]="metadata.getField('tableOfContents')"></app-editor-tableOfContents>
-          <app-editor-recordInfo *ngIf="available('recordInfo')" [field]="metadata.getField('recordInfo')"></app-editor-recordInfo>
+					<app-editor-author *ngIf="available('name')" [field]="metadata.getField('name')" [model]="model"></app-editor-author>
+					<app-editor-publisher *ngIf="available('originInfo')" [field]="metadata.getField('originInfo')"></app-editor-publisher>
+					<app-editor-location *ngIf="available('location')" [field]="metadata.getField('location')"></app-editor-location>
+					<app-editor-identifier *ngIf="available('identifier')" [field]="metadata.getField('identifier')" [model]="model"></app-editor-identifier>
+					<app-editor-language *ngIf="available('language')" [field]="metadata.getField('language')"></app-editor-language>
+					<app-editor-physical *ngIf="available('physicalDescription')" [field]="metadata.getField('physicalDescription')"></app-editor-physical>
+					<app-editor-abstract *ngIf="available('abstract')" [field]="metadata.getField('abstract')"></app-editor-abstract>
+					<app-editor-note *ngIf="available('note')" [field]="metadata.getField('note')"></app-editor-note>
+					<app-editor-resource *ngIf="available('typeOfResource')" [field]="metadata.getField('typeOfResource')"></app-editor-resource>
+					<app-editor-genre *ngIf="available('genre') && !showGenreSwitch()" [field]="metadata.getField('genre')" ></app-editor-genre>
+					<app-editor-classification *ngIf="available('classification')" [field]="metadata.getField('classification')"></app-editor-classification>
+					<app-editor-subject *ngIf="available('subject')" [field]="metadata.getField('subject')" [model]="model"></app-editor-subject>
+					<app-editor-part *ngIf="available('part')" [field]="metadata.getField('part')"></app-editor-part>
+					<app-editor-tableOfContents *ngIf="available('tableOfContents')" [field]="metadata.getField('tableOfContents')"></app-editor-tableOfContents>
+					<app-editor-recordInfo *ngIf="available('recordInfo')" [field]="metadata.getField('recordInfo')"></app-editor-recordInfo>
 					<app-editor-relatedItem *ngIf="available('relatedItem')" [field]="metadata.getField('relatedItem')" [model]="model"></app-editor-relatedItem>
 				</ng-container>
 			</ng-container>
