@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ElementField } from 'src/app/model/mods/elementField.model';
 import {CodebookService} from '../../../services/codebook.service';
 
 @Component({
   selector: 'app-editor-title',
   templateUrl: './editor-title.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./editor-title.component.scss']
 })
 export class EditorTitleComponent implements OnInit {

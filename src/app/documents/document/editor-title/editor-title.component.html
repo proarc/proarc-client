@@ -13,7 +13,7 @@
       [placeholder]="'mods.' + item.selector('title') | translate" >
       <mat-slide-toggle color="primary" class="non-sort-toggle"
                       matTooltip="{{ 'editor.title.non_sort_toggle' | translate }}"
-                      [disabled]="item.nonSortToggleDisabled()"
+                      [disabled]="item.isNonSortToggleDisabled"
                       (change)="item.onNonSotToggleChanged($event)"
                       [checked]='item.nonSort["_"].length > 0' >
       </mat-slide-toggle>
