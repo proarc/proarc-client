@@ -490,9 +490,14 @@ export class EditorStructureComponent implements OnInit {
 
   mouseup(event: any) {
     this.dragEnabled = false;
+    this.stop = true;
+  }
+
+  mousemove(event: any) {
   }
 
   dragstart(item: DocumentItem, idx: number, event: any) {
+    this.stop = true;
     if (!this.dragEnabled) {
       return;
     }
@@ -515,6 +520,7 @@ export class EditorStructureComponent implements OnInit {
   }
 
   dragenter(event: any, idx: number) {
+    this.stop = true;
     const target = event.currentTarget;
     if (!this.dragEnabled || !this.source ||
       this.source.parentNode !== event.currentTarget.parentNode ||
@@ -532,6 +538,21 @@ export class EditorStructureComponent implements OnInit {
 
   }
 
+  
+
+  stop = true;
+    h = 0;
+    y = 0;
+
+  scroll(el: any, step: number) {
+    var scrollTop = el.scrollTop;
+    el.scrollTop = scrollTop + step;
+    if (!this.stop) {
+        setTimeout(() => { this.scroll(el, step) }, 20);
+    }
+}
+
+
   dragover(event: any) {
     event.preventDefault();
     // if (this.panel.id !== event.dataTransfer.getData("panel")) {
@@ -541,12 +562,26 @@ export class EditorStructureComponent implements OnInit {
       event.dataTransfer.dropEffect = 'none';
     }
 
+    
+    // console.log(event)
+    // this.h = event.clientY;
+    // this.y = event.offsetY;
+    this.stop = true;
+    if (event.clientY < (this.childrenListEl.nativeElement.offsetTop + 45)) {
+        this.stop = false;
+        this.scroll(this.childrenListEl.nativeElement, -1)
+    }
+    if (event.clientY > (this.childrenListEl.nativeElement.offsetTop + this.childrenListEl.nativeElement.clientHeight - 45)) {
+      this.stop = false;
+        this.scroll(this.childrenListEl.nativeElement, 1)
+    }
+
     return false;
   }
 
 
   dragend(event: any) {
-
+    this.stop = true;
     this.isDragging = false;
     if (!this.dragEnabled) {
       return;

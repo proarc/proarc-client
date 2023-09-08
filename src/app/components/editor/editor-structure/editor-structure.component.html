@@ -67,7 +67,8 @@
 
   <div fxFlex class="app-oa-y" #childrenList (scroll)="setScrollPos()">
     <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
-    <div class="app-editor-content" #childrenWrapper tabindex="0" (keyup)="keyup($event)" (resized)="onResized($event)" *ngIf="state !=='loading'">
+    <div class="app-editor-content" #childrenWrapper tabindex="0"  *ngIf="state !=='loading'"
+      (keyup)="keyup($event)" (resized)="onResized($event)" (mousemove)="mousemove($event)">
       <div class="app-view-grid" *ngIf="viewMode == 'grid'" #childrenGridList (mousedown)="mousedown($event)"  (mouseup)="mouseup($event)" fxLayout="row wrap">
         <div *ngFor="let item of layout.items; let i = index; trackBy: trackItem" 
         (click)="rowClick(item, i, $event)" (dblclick)="open(item)" 
@@ -83,7 +84,8 @@
         </div>
       </div>
 
-      <div class="app-view-icon" *ngIf="viewMode == 'icons'" #childrenIconList [class.app-multiple-selection]="layout.getNumOfSelected() > 1" (mousedown)="mousedown($event)" (mouseup)="mouseup($event)" fxLayout="row wrap">
+      <div class="app-view-icon" *ngIf="viewMode == 'icons'" #childrenIconList [class.app-multiple-selection]="layout.getNumOfSelected() > 1" 
+        (mousedown)="mousedown($event)" (mouseup)="mouseup($event)" fxLayout="row wrap">
         <div *ngFor="let item of layout.items; let i = index" class="app-item-wrapper" 
         (click)="rowClick(item, i, $event)" (dblclick)="open(item)" 
         draggable="true" (dragenter)="dragenter($event, i)" (dragstart)="dragstart(item, i, $event)" (dragend)="dragend($event)" 
@@ -103,7 +105,8 @@
         </div>
       </div>
 
-      <table id="table" mat-table *ngIf="viewMode == 'list'" (contentChanged)="tableRendered()" (mouseup)="mouseup($event)" [dataSource]="layout.items" class="app-striped app-hover app-resize" #table>
+      <table id="table" mat-table *ngIf="viewMode == 'list'" (contentChanged)="tableRendered()" 
+        (mouseup)="mouseup($event)" [dataSource]="layout.items" class="app-striped app-hover app-resize" #table>
         <!-- cdkDropList (cdkDropListDropped)="drop1($event)" cdkDropListData="layout.items" -->
 
         <ng-container matColumnDef="pid">
