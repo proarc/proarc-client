@@ -78,6 +78,9 @@ export class ModsTitle extends ModsElement {
             this.title['_'] = this.nonSort['_'] + this.title['_'];
             this.nonSort['_'] = '';
         }
+        
+        console.log(this.controls)
+        this.getControl('nonSort').markAsDirty();
     }
 
 }

@@ -35,6 +35,8 @@ export class EditorMetadataComponent implements OnInit {
 
   public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
 
+  public fields: {[key: string]: boolean} = {};
+
 
   constructor(
     private translator: TranslateService,
@@ -49,12 +51,17 @@ export class EditorMetadataComponent implements OnInit {
     this.onChangeEditorType.emit(t);
   }
   
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   ngOnChanges(c: SimpleChanges) {
 
     if (c['metadata'] && c['metadata'].currentValue &&  (c['metadata'].currentValue !== c['metadata'].previousValue) ) {
       this.metadata = c['metadata'].currentValue;
+
+      Object.keys(this.metadata.template).forEach(k => {
+        this.fields[k] = true;
+      });
       
       setTimeout(() => {
         this.focusToFirstRequired();

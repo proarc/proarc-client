@@ -11,7 +11,7 @@ export abstract class ModsElement {
     private template;
 
     public validationWarning = false;
-    private controls: Map<String, FormControl>;
+    public controls: Map<String, FormControl>;
 
     private subFields: ElementField[];
 
