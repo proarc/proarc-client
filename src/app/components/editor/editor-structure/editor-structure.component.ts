@@ -849,13 +849,13 @@ export class EditorStructureComponent implements OnInit {
     if (!pagePid) {
       return;
     }
-    this.state = 'saving';
+    this.state = 'loading';
     this.api.reindexPages(this.layout.item.pid, pagePid, this.layout.getBatchId(), model).subscribe(result => {
 
       if (result.response.errors) {
         this.ui.showErrorDialogFromObject(result.response.errors);
         this.state = 'error';
-      } else if (result.response.data) {
+      } else if (result.response.data && result.response.data[0].status !== 'OK') {
         this.ui.showErrorDialogFromObject(result.response.data.map((d: any) => d.errorMessage = d.validation));
         this.state = 'error';
       } else {
