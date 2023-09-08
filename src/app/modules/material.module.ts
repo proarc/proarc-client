@@ -27,8 +27,10 @@ import { MatSortModule } from '@angular/material/sort';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatListModule} from '@angular/material/list';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 const modules = [
+  NoopAnimationsModule,
     MatButtonModule,
     MatToolbarModule,
     MatFormFieldModule,
