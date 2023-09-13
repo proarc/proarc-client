@@ -5,7 +5,7 @@ import {CodebookService} from '../../../services/codebook.service';
 @Component({
   selector: 'app-editor-title',
   templateUrl: './editor-title.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./editor-title.component.scss']
 })
 export class EditorTitleComponent implements OnInit {

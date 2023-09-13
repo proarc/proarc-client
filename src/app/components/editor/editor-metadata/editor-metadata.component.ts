@@ -14,7 +14,7 @@ import { TemplateService } from 'src/app/services/template.service';
 @Component({
   selector: 'app-editor-metadata',
   templateUrl: './editor-metadata.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./editor-metadata.component.scss']
 })
 export class EditorMetadataComponent implements OnInit {
