@@ -65,7 +65,6 @@ export class ModsTitle extends ModsElement {
                 i = ai;
                 ch = "'";
             }
-            console.log('i', i);
             if (i > -1) {
                 this.nonSort['_'] = str.substr(0, i + 1);
                 this.title['_'] = str.substr(i + 1);
@@ -79,7 +78,6 @@ export class ModsTitle extends ModsElement {
             this.nonSort['_'] = '';
         }
         
-        console.log(this.controls)
         this.getControl('nonSort').markAsDirty();
     }
 

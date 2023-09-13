@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ElementField } from 'src/app/model/mods/elementField.model';
 import {CodebookService} from '../../../services/codebook.service';
+import { ModsTitle } from 'src/app/model/mods/title.model';
 
 @Component({
   selector: 'app-editor-title',
@@ -16,6 +17,10 @@ export class EditorTitleComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  checkNonSort(item: ModsTitle) {
+    item.isNonSortToggleDisabled = item.nonSortToggleDisabled();
   }
 
 }
