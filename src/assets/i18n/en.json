@@ -1419,7 +1419,7 @@
     "originInfo/dateIssued/@qualifier": "Qualifier",
     "originInfo/dateOther": "Date other",
     "originInfo/dateOther/value": "Value",
-    "originInfo/dateOther/type": "Type",
+    "originInfo/dateOther/@type": "Type",
     "originInfo/edition": "Edition",
     "originInfo/frequency": "Frequency",
     "originInfo/frequency/@authority": "Authority",
