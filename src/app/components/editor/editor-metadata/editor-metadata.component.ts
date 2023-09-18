@@ -14,7 +14,7 @@ import { TemplateService } from 'src/app/services/template.service';
 @Component({
   selector: 'app-editor-metadata',
   templateUrl: './editor-metadata.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./editor-metadata.component.scss']
 })
 export class EditorMetadataComponent implements OnInit {
@@ -58,7 +58,7 @@ export class EditorMetadataComponent implements OnInit {
 
     if (c['metadata'] && c['metadata'].currentValue &&  (c['metadata'].currentValue !== c['metadata'].previousValue) ) {
       this.metadata = c['metadata'].currentValue;
-
+      
       Object.keys(this.metadata.template).forEach(k => {
         this.fields[k] = true;
       });
@@ -211,6 +211,7 @@ export class EditorMetadataComponent implements OnInit {
         // this.layout.setShouldRefresh(true)
         // console.log(response)
         this.metadata.timestamp = response.data[0].timestamp;
+        this.ui.showInfoSnackBar(this.translator.instant("snackbar.changeSaved"));
         this.layout.refreshSelectedItem(false, 'metadata');
       }
       setTimeout(() => {
