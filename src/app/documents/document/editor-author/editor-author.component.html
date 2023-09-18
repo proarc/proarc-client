@@ -33,6 +33,16 @@
     <app-field-text field="nameIdentifierOrcId" [item]="item" [(value)]="item.nameIdentifierOrcId['_']"></app-field-text>
     <app-field-text field="etal" [item]="item" [(value)]="item.etal['_']"></app-field-text>
     <app-field-text field="affiliation" [item]="item" [(value)]='item.affiliation["_"]'></app-field-text>
+    <app-editor-field *ngIf="item.available('displayForm')" [field]="item.displayForms" [nested]='true'>
+      <ng-template let-displayForm="item" #templateContent>
+        <app-field-text field="value" [item]="displayForm" [(value)]='displayForm.modsElement["_"]'></app-field-text>
+      </ng-template>
+    </app-editor-field>
+    <app-editor-field *ngIf="item.available('description')" [field]="item.descriptions" [nested]='true'>
+      <ng-template let-description="item" #templateContent>
+        <app-field-text field="value" [item]="description" [(value)]='description.modsElement["_"]'></app-field-text>
+      </ng-template>
+    </app-editor-field>
 
     <app-editor-field *ngIf="item.roles" [field]="item.roles" class="app-roles" [nested]='true'>
       <ng-template let-role="item" #templateContent>

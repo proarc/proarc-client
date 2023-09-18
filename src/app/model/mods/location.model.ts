@@ -3,11 +3,11 @@ import ModsUtils from './utils';
 import {ElementField} from './elementField.model';
 import {ModsUrl} from './url.model';
 import {ModsShelfLocator} from './shelfLocator.model';
+import {ModsPhysicalLocation} from './physicalLocation.model';
 
 export class ModsLocation extends ModsElement {
 
-    public physicalLocation: any;
-
+    public physicalLocations: ElementField;
     public urls: ElementField;
     public shelfLocators: ElementField;
 
@@ -25,12 +25,10 @@ export class ModsLocation extends ModsElement {
     }
 
     private init() {
-        if (!this.modsElement['physicalLocation']) {
-            const attrs = { 'authority': 'siglaADR' };
-            this.modsElement['physicalLocation'] = [ModsUtils.createTextElement('', attrs)];
+        if (this.available("physicalLocation")) {
+          this.physicalLocations = new ElementField(this.modsElement, ModsPhysicalLocation.getSelector(), this.getField('physicalLocation'));
+          this.addSubfield(this.physicalLocations);
         }
-        this.physicalLocation = this.modsElement['physicalLocation'][0];
-
       if(this.available("url")) {
         this.urls = new ElementField(this.modsElement, ModsUrl.getSelector(), this.getField('url'));
         this.addSubfield(this.urls);

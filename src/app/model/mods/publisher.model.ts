@@ -6,6 +6,9 @@ import {ModsDateIssued} from './dateIssued.model';
 import {ModsPlace} from './place.model';
 import {ModsDateOther} from './dateOther.model';
 import {ModsDateCreated} from './dateCreated.model';
+import {ModsDateValid} from './dateValid.model';
+import {ModsDateCaptured} from './dateCaptured.model';
+import {ModsDateModified} from './dateModified.model';
 
 export class ModsPublisher extends ModsElement {
 
@@ -20,6 +23,9 @@ export class ModsPublisher extends ModsElement {
     public dateCreateds: ElementField;
     public places: ElementField;
     public dateOthers: ElementField;
+    public dateValids: ElementField;
+    public dateCaptureds: ElementField;
+    public dateModifieds: ElementField;
 
     static getSelector() {
         return 'originInfo';
@@ -59,6 +65,15 @@ export class ModsPublisher extends ModsElement {
         if (!this.modsElement['dateCreated']) {
             this.modsElement['dateCreated'] = [];
         }
+        if (!this.modsElement['dateValid']) {
+            this.modsElement['dateValid'] = [];
+        }
+        if (!this.modsElement['dateCaptured']) {
+            this.modsElement['dateCaptured'] = [];
+        }
+        if (!this.modsElement['dateModified']) {
+            this.modsElement['dateModified'] = [];
+        }
         if (!this.modsElement['place']) {
             this.modsElement['place'] = [];
         }
@@ -86,6 +101,18 @@ export class ModsPublisher extends ModsElement {
         if (this.available("dateCreated")) {
           this.dateCreateds = new ElementField(this.modsElement, ModsDateCreated.getSelector(), this.getField('dateCreated'));
           this.addSubfield(this.dateCreateds);
+        }
+        if (this.available("dateValid")) {
+          this.dateValids = new ElementField(this.modsElement, ModsDateValid.getSelector(), this.getField('dateValid'));
+          this.addSubfield(this.dateValids);
+        }
+        if (this.available("dateCaptured")) {
+          this.dateCaptureds = new ElementField(this.modsElement, ModsDateCaptured.getSelector(), this.getField('dateCaptured'));
+          this.addSubfield(this.dateCaptureds);
+        }
+        if (this.available("dateModified")) {
+          this.dateModifieds = new ElementField(this.modsElement, ModsDateModified.getSelector(), this.getField('dateModified'));
+          this.addSubfield(this.dateModifieds);
         }
     }
 

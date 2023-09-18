@@ -15,11 +15,15 @@ export class ModsExtent extends ModsElement {
     }
 
     constructor(modsElement: any, template: any) {
-        super(modsElement, template);
+        super(modsElement, template, ['unit', 'lang']);
         this.init();
     }
 
     private init() {
+      if (!this.modsElement['_']) {
+        this.modsElement['_'] = ModsUtils.getDefaultValue(this, 'value');
+      }
+
       if (!this.modsElement['start']) {
         this.modsElement['start'] = ModsUtils.createField(this, 'start');
       }

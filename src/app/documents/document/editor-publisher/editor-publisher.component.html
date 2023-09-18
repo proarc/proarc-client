@@ -36,6 +36,24 @@
         <app-field-dropdown field="type" [item]="dateOther" [(value)]='dateOther.attrs["type"]'></app-field-dropdown>
       </ng-template>
     </app-editor-field>
+    <app-editor-field *ngIf="item.available('dateValid')" [field]="item.dateValids" [nested]='true'>
+      <ng-template let-dateValid="item" #templateContent>
+        <app-field-dropdown field="lang" [item]="dateValid" [(value)]='dateValid.attrs["lang"]'></app-field-dropdown>
+        <app-field-text field="value" [item]="dateValid" [(value)]="dateValid.modsElement['_']" ></app-field-text>
+      </ng-template>
+    </app-editor-field>
+    <app-editor-field *ngIf="item.available('dateCaptured')" [field]="item.dateCaptureds" [nested]='true'>
+      <ng-template let-dateCaptured="item" #templateContent>
+        <app-field-dropdown field="lang" [item]="dateCaptured" [(value)]='dateCaptured.attrs["lang"]'></app-field-dropdown>
+        <app-field-text field="value" [item]="dateCaptured" [(value)]="dateCaptured.modsElement['_']" ></app-field-text>
+      </ng-template>
+    </app-editor-field>
+    <app-editor-field *ngIf="item.available('dateModified')" [field]="item.dateModifieds" [nested]='true'>
+      <ng-template let-dateModified="item" #templateContent>
+        <app-field-dropdown field="lang" [item]="dateModified" [(value)]='dateModified.attrs["lang"]'></app-field-dropdown>
+        <app-field-text field="value" [item]="dateModified" [(value)]="dateModified.modsElement['_']" ></app-field-text>
+      </ng-template>
+    </app-editor-field>
     <app-field-text field="copyrightDate" [item]="item" [(value)]="item.copyrightDate['_']" ></app-field-text>
     <app-field-text field="edition" [item]="item" [(value)]="item.edition['_']" ></app-field-text>
 

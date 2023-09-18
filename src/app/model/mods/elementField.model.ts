@@ -39,6 +39,13 @@ import {ModsPlaceTerm} from './placeTerm.model';
 import {ModsPlace} from './place.model';
 import {ModsDateOther} from './dateOther.model';
 import {ModsDateCreated} from './dateCreated.model';
+import {ModsInternetMediaType} from './internetMediaType.model';
+import {ModsPhysicalLocation} from './physicalLocation.model';
+import {ModsDescription} from './description.model';
+import {ModsDisplayForm} from './displayForm.model';
+import {ModsDateValid} from './dateValid.model';
+import {ModsDateCaptured} from './dateCaptured.model';
+import {ModsDateModified} from './dateModified.model';
 
 export class ElementField {
 
@@ -296,6 +303,12 @@ export class ElementField {
                 return new ModsDateIssued(el, this.template);
             case ModsDateCreated.getId():
                 return new ModsDateCreated(el, this.template);
+            case ModsDateValid.getId():
+                return new ModsDateValid(el, this.template);
+            case ModsDateCaptured.getId():
+                return new ModsDateCaptured(el, this.template);
+            case ModsDateModified.getId():
+                return new ModsDateModified(el, this.template);
             case ModsDateOther.getId():
                 return new ModsDateOther(el, this.template);
             case ModsPlace.getId():
@@ -320,6 +333,14 @@ export class ElementField {
                 return new ModsRecordIdentifier(el, this.template);
             case ModsExtent.getId():
                 return new ModsExtent(el, this.template);
+            case ModsPhysicalLocation.getId():
+                return new ModsPhysicalLocation(el, this.template);
+            case ModsDescription.getId():
+                return new ModsDescription(el, this.template);
+            case ModsDisplayForm.getId():
+                return new ModsDisplayForm(el, this.template);
+            case ModsInternetMediaType.getId():
+                return new ModsInternetMediaType(el, this.template);
             case ModsTopic.getId():
                 return new ModsTopic(el, this.template);
         }
@@ -418,6 +439,12 @@ export class ElementField {
                 return ModsDateIssued.getSelector();
             case ModsDateCreated.getId():
                 return ModsDateCreated.getSelector();
+            case ModsDateValid.getId():
+                return ModsDateValid.getSelector();
+            case ModsDateCaptured.getId():
+                return ModsDateCaptured.getSelector();
+            case ModsDateModified.getId():
+                return ModsDateModified.getSelector();
             case ModsDateOther.getId():
                 return ModsDateOther.getSelector();
             case ModsCartographics.getId():
@@ -438,6 +465,14 @@ export class ElementField {
                 return ModsRecordIdentifier.getSelector();
             case ModsExtent.getId():
                 return ModsExtent.getSelector();
+            case ModsPhysicalLocation.getId():
+                return ModsPhysicalLocation.getSelector();
+            case ModsDisplayForm.getId():
+                return ModsDisplayForm.getSelector();
+            case ModsDescription.getId():
+                return ModsDescription.getSelector();
+            case ModsInternetMediaType.getId():
+                return ModsInternetMediaType.getSelector();
             case ModsTableOfContents.getId():
                 return ModsTableOfContents.getSelector();
             case ModsTopic.getId():

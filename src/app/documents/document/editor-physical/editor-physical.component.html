@@ -1,8 +1,17 @@
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
 
-    <app-field-text field="extent" [item]="item" [(value)]="item.extent['_']" ></app-field-text>
+    <app-field-text field="displayLabel" [item]="item" [(value)]='item.attrs["displayLabel"]'></app-field-text>
+
+    <app-editor-field *ngIf="item.available('extend')" [field]="item.extends" [nested]='true'>
+      <ng-template let-extend="item" #templateContent>
+        <app-autocomplete field="unit" [item]="extend" [(value)]='extend.attrs["unit"]'></app-autocomplete>
+        <app-autocomplete field="lang" [item]="extend" [(value)]='extend.attrs["lang"]'></app-autocomplete>
+        <app-autocomplete field="value" [item]="extend" [(value)]="extend.modsElement['_']"></app-autocomplete>
+      </ng-template>
+    </app-editor-field>
     <app-autocomplete field="note" [item]="item" [(value)]="item.note['_']" ></app-autocomplete>
+
     <app-field-dropdown field="digitalOrigin" [item]="item" [(value)]="item.digitalOrigin['_']"></app-field-dropdown>
 
     <app-editor-field *ngIf="item.available('form')" [field]="item.forms" [nested]='true'>
@@ -10,8 +19,11 @@
         <app-autocomplete field="authority" [item]="form" [(value)]='form.attrs["authority"]'></app-autocomplete>
         <app-autocomplete field="type" [item]="form" [(value)]='form.attrs["type"]'></app-autocomplete>
         <app-autocomplete field="value" [item]="form" [(value)]="form.modsElement['_']"></app-autocomplete>
-
-
+      </ng-template>
+    </app-editor-field>
+    <app-editor-field *ngIf="item.available('internetMediaType')" [field]="item.internetMediaTypes" [nested]='true'>
+      <ng-template let-internetMediaType="item" #templateContent>
+        <app-autocomplete field="value" [item]="internetMediaType" [(value)]="internetMediaType.modsElement['_']"></app-autocomplete>
       </ng-template>
     </app-editor-field>
 

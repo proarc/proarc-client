@@ -56,6 +56,24 @@
             <app-field-dropdown field="type" [item]="dateOther" [(value)]='dateOther.attrs["type"]'></app-field-dropdown>
           </ng-template>
         </app-editor-field>
+        <app-editor-field *ngIf="originInfo.available('dateValid')" [field]="originInfo.dateValids" [nested]='true'>
+          <ng-template let-dateValid="item" #templateContent>
+            <app-field-dropdown field="lang" [item]="dateValid" [(value)]='dateValid.attrs["lang"]'></app-field-dropdown>
+            <app-field-text field="value" [item]="dateValid" [(value)]="dateValid.modsElement['_']" ></app-field-text>
+          </ng-template>
+        </app-editor-field>
+        <app-editor-field *ngIf="originInfo.available('dateCaptured')" [field]="originInfo.dateCaptureds" [nested]='true'>
+          <ng-template let-dateCaptured="item" #templateContent>
+            <app-field-dropdown field="lang" [item]="dateCaptured" [(value)]='dateCaptured.attrs["lang"]'></app-field-dropdown>
+            <app-field-text field="value" [item]="dateCaptured" [(value)]="dateCaptured.modsElement['_']" ></app-field-text>
+          </ng-template>
+        </app-editor-field>
+        <app-editor-field *ngIf="originInfo.available('dateModified')" [field]="originInfo.dateModifieds" [nested]='true'>
+        <ng-template let-dateModified="item" #templateContent>
+          <app-field-dropdown field="lang" [item]="dateModified" [(value)]='dateModified.attrs["lang"]'></app-field-dropdown>
+          <app-field-text field="value" [item]="dateModified" [(value)]="dateModified.modsElement['_']" ></app-field-text>
+        </ng-template>
+      </app-editor-field>
         <app-field-text field="copyrightDate" [item]="originInfo" [(value)]="originInfo.copyrightDate['_']" ></app-field-text>
         <app-field-text field="edition" [item]="originInfo" [(value)]="originInfo.edition['_']" ></app-field-text>
         <app-editor-field *ngIf="originInfo.available('frequency')" [field]="originInfo.frequencies" [nested]='true'>
@@ -74,6 +92,16 @@
           <ng-template let-namePart="item" #templateContent>
             <app-field-dropdown field="type" [item]="namePart" [(value)]='namePart.attrs["type"]'></app-field-dropdown>
             <app-field-text field="value" [item]="namePart" [(value)]='namePart.modsElement["_"]'></app-field-text>
+          </ng-template>
+        </app-editor-field>
+        <app-editor-field *ngIf="name.available('displayForm')" [field]="name.displayForms" [nested]='true'>
+          <ng-template let-displayForm="item" #templateContent>
+            <app-field-text field="value" [item]="displayForm" [(value)]='displayForm.modsElement["_"]'></app-field-text>
+          </ng-template>
+        </app-editor-field>
+        <app-editor-field *ngIf="name.available('description')" [field]="name.descriptions" [nested]='true'>
+          <ng-template let-description="item" #templateContent>
+            <app-field-text field="value" [item]="description" [(value)]='description.modsElement["_"]'></app-field-text>
           </ng-template>
         </app-editor-field>
         <app-field-text field="nameIdentifier" [item]="name" [(value)]="name.nameIdentifier['_']"></app-field-text>
@@ -95,7 +123,14 @@
 
     <app-editor-field *ngIf="item.available('location')" [field]="item.locations" [nested]='true'>
       <ng-template let-location="item" #templateContent>
-        <app-field-text field="physicalLocation" [item]="location" [(value)]='location.physicalLocation["_"]'></app-field-text>
+<!--        <app-field-text field="physicalLocation" [item]="location" [(value)]='location.physicalLocation["_"]'></app-field-text>-->
+        <app-editor-field *ngIf="location.available('physicalLocation')" [field]="location.physicalLocations" [nested]='true'>
+          <ng-template let-physicalLocation="item" #templateContent>
+            <app-field-text field="displayLabel" [item]="physicalLocation" [(value)]="physicalLocation.attrs['displayLabel']"></app-field-text>
+            <app-field-text field="type" [item]="physicalLocation" [(value)]="physicalLocation.attrs['type']"></app-field-text>
+            <app-field-text field="value" [item]="physicalLocation" [(value)]="physicalLocation.modsElement['_']"></app-field-text>
+          </ng-template>
+        </app-editor-field>
         <app-editor-field *ngIf="location.available('shelfLocator')" [field]="location.shelfLocators" [nested]='true'>
           <ng-template let-shelfLocator="item" #templateContent>
             <app-field-text field="value" [item]="shelfLocator" [(value)]="shelfLocator.modsElement['_']"></app-field-text>
@@ -116,6 +151,12 @@
         <app-field-dropdown field="authority" [item]="subject" [(value)]='subject.attrs["authority"]'></app-field-dropdown>
 <!--        <app-field-codebook field="lang" [item]="subject" [options]="codebook.languages" [(value)]="subject.attrs['lang']"></app-field-codebook>-->
 <!--        <app-field-text field="topic" [item]="subject" [(value)]='subject.topic["_"]'></app-field-text>-->
+        <app-editor-field *ngIf="subject.available('titleInfo')" [field]="subject.titleInfos" [nested]='true'>
+          <ng-template let-titleInfo="item" #templateContent>
+            <app-field-text field="tile" [item]="titleInfo" [(value)]="titleInfo.title['_']"></app-field-text>
+            <app-field-text field="subtitle" [item]="titleInfo" [(value)]="titleInfo.subTitle['_']"></app-field-text>
+          </ng-template>
+        </app-editor-field>
         <app-editor-field *ngIf="subject.available('topic')" [field]="subject.topics" [nested]='true'>
           <ng-template let-topic="item" #templateContent>
             <app-field-codebook field="lang" [item]="topic" [options]="codebook.languages" [(value)]="topic.attrs['lang']"></app-field-codebook>
@@ -124,6 +165,7 @@
         </app-editor-field>
         <app-field-text field="geographic" [item]="subject" [(value)]='subject.geographic["_"]'></app-field-text>
         <app-field-text field="temporal" [item]="subject" [(value)]='subject.temporal["_"]'></app-field-text>
+        <app-field-text field="occupation" [item]="subject" [(value)]='subject.occupation["_"]'></app-field-text>
         <app-editor-field *ngIf="subject.available('name')" [field]="item.names" [nested]='true'>
           <ng-template let-name="item" #templateContent>
             <app-field-dropdown field="type" [item]="name" [(value)]='name.attrs["type"]'></app-field-dropdown>
@@ -176,7 +218,14 @@
 
     <app-editor-field *ngIf="item.available('physicalDescription')" [field]="item.physicalDescriptions" [nested]='true'>
       <ng-template let-physicalDescription="item" #templateContent>
-        <app-field-text field="extent" [item]="physicalDescription" [(value)]="physicalDescription.extent['_']" ></app-field-text>
+        <app-field-text field="displayLabel" [item]="physicalDescription" [(value)]='physicalDescription.attrs["displayLabel"]'></app-field-text>
+        <app-editor-field *ngIf="physicalDescription.available('extend')" [field]="physicalDescription.extends" [nested]='true'>
+          <ng-template let-extend="item" #templateContent>
+            <app-autocomplete field="unit" [item]="extend" [(value)]='extend.attrs["unit"]'></app-autocomplete>
+            <app-autocomplete field="lang" [item]="extend" [(value)]='extend.attrs["lang"]'></app-autocomplete>
+            <app-autocomplete field="value" [item]="extend" [(value)]="extend.modsElement['_']"></app-autocomplete>
+          </ng-template>
+        </app-editor-field>
         <app-field-textarea field="note" [item]="physicalDescription" [(value)]="physicalDescription.note['_']" ></app-field-textarea>
         <app-field-dropdown field="digitalOrigin" [item]="physicalDescription" [(value)]="physicalDescription.digitalOrigin['_']"></app-field-dropdown>
         <!--
@@ -188,6 +237,11 @@
           </ng-template>
         </app-editor-field>
         -->
+        <app-editor-field *ngIf="physicalDescription.available('internetMediaType')" [field]="physicalDescription.internetMediaTypes" [nested]='true'>
+          <ng-template let-internetMediaType="item" #templateContent>
+            <app-autocomplete field="value" [item]="internetMediaType" [(value)]="internetMediaType.modsElement['_']"></app-autocomplete>
+          </ng-template>
+        </app-editor-field>
       </ng-template>
     </app-editor-field>
 

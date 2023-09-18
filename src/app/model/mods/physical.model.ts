@@ -2,13 +2,16 @@ import ModsUtils from './utils';
 import { ModsElement } from './element.model';
 import { ElementField } from './elementField.model';
 import { ModsForm } from './form.model';
+import {ModsExtent} from './extent.model';
+import {ModsInternetMediaType} from './internetMediaType.model';
 
 export class ModsPhysical extends ModsElement {
 
     note: any;
-    extent: any;
     digitalOrigin: any;
     forms: ElementField;
+    extents : ElementField;
+    internetMediaTypes: ElementField;
 
     static getSelector() {
         return 'physicalDescription';
@@ -19,7 +22,7 @@ export class ModsPhysical extends ModsElement {
     }
 
     constructor(modsElement: any, template: any) {
-        super(modsElement, template);
+        super(modsElement, template, ['displayLabel']);
         this.init();
     }
 
@@ -33,10 +36,18 @@ export class ModsPhysical extends ModsElement {
         if (!this.modsElement['digitalOrigin']) {
             this.modsElement['digitalOrigin'] = ModsUtils.createField(this, 'digitalOrigin');
         }
-        this.extent = this.modsElement['extent'][0];
         this.note = this.modsElement['note'][0];
         this.digitalOrigin = this.modsElement['digitalOrigin'][0];
 
+        if (this.available('internetMediaType')) {
+          this.internetMediaTypes = new ElementField(this.modsElement, ModsInternetMediaType.getSelector(), this.getField('internetMediaType'));
+          this.addSubfield(this.internetMediaTypes);
+        }
+
+        if (this.available('extent')) {
+          this.extents = new ElementField(this.modsElement, ModsExtent.getSelector(), this.getField('extent'));
+          this.addSubfield(this.extents);
+        }
         if(this.available('form')) {
             this.forms = new ElementField(this.modsElement, ModsForm.getSelector(), this.getField('form'));
             this.addSubfield(this.forms);

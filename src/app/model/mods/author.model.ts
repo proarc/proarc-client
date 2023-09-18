@@ -4,6 +4,8 @@ import { ModsElement } from './element.model';
 import ModsUtils from './utils';
 import {ModsFrequency} from './frequency.model';
 import {ModsNamePart} from './namePart.model';
+import {ModsDisplayForm} from './displayForm.model';
+import {ModsDescription} from './description.model';
 
 export class ModsAuthor extends ModsElement {
 
@@ -17,6 +19,9 @@ export class ModsAuthor extends ModsElement {
     public nameParts: ElementField;
     public nameIdentifier: {[x: string]: string; };
     public nameIdentifierOrcId: {[x: string]: string; };
+    public displayForms: ElementField;
+    public descriptions: ElementField;
+
     public etal: string;
 
     static getSelector() {
@@ -83,6 +88,14 @@ export class ModsAuthor extends ModsElement {
         if(this.available('namePart')) {
             this.nameParts = new ElementField(this.modsElement, ModsNamePart.getSelector(), this.getField('namePart'));
             this.addSubfield(this.nameParts);
+        }
+        if (this.available('displayForm')) {
+          this.displayForms = new ElementField(this.modsElement, ModsDisplayForm.getSelector(), this.getField('displayForm'));
+          this.addSubfield(this.displayForms);
+        }
+        if (this.available('description')) {
+          this.descriptions = new ElementField(this.modsElement, ModsDescription.getSelector(), this.getField('description'));
+          this.addSubfield(this.descriptions);
         }
 
 
