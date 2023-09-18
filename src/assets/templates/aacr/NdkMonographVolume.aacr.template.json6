@@ -464,7 +464,16 @@
         labelKey: 'originInfo/dateCreated',
         cols: 2,
         description: 'Datum vydání předlohy pro rukopisy.<br/>\
-          přebírat z katalogu; odpovídá hodnotě z katalogizačního záznamu, pole 260 $c pokud je LDR/06="d", "f", "t"'
+          přebírat z katalogu; odpovídá hodnotě z katalogizačního záznamu, pole 260 $c pokud je LDR/06="d", "f", "t"',
+        fields: {
+          value: {
+            usage: 'R',
+            selector: 'originInfo/dateCreated/value',
+            labelKey: 'originInfo/dateCreated/value',
+            label: 'Hodnota',
+            help: 'off'
+          }
+        }
       },
     }
   },
@@ -1865,7 +1874,16 @@
             labelKey: 'relatedItem/originInfo/dateCreated',
             cols: 2,
             description: 'Datum vydání předlohy pro rukopisy.<br/>\
-          přebírat z katalogu; odpovídá hodnotě z katalogizačního záznamu, pole 260 $c pokud je LDR/06="d", "f", "t"'
+          přebírat z katalogu; odpovídá hodnotě z katalogizačního záznamu, pole 260 $c pokud je LDR/06="d", "f", "t"',
+            fields: {
+              value: {
+                usage: 'R',
+                selector: 'relatedItem/originInfo/dateCreated/value',
+                labelKey: 'relatedItem/originInfo/dateCreated/value',
+                label: 'Hodnota',
+                help: 'off'
+              }
+            }
           },
         }
       },

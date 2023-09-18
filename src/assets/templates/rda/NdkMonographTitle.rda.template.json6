@@ -530,7 +530,16 @@
         cols: 3,
         description: 'Datum vydání předlohy pro rukopisy\
           přebírat z katalogu<br/>\
-          odpovídá hodnotě z katalogizačního záznamu, pole 264_0 $c pokud je LDR/06="d", "f", "t"'
+          odpovídá hodnotě z katalogizačního záznamu, pole 264_0 $c pokud je LDR/06="d", "f", "t"',
+        fields: {
+          value: {
+            usage: 'R',
+            selector: 'originInfo/dateCreated/value',
+            labelKey: 'originInfo/dateCreated/value',
+            label: 'Hodnota',
+            help: 'off'
+          }
+        }
       },
       dateOther: {
         usage: 'R',

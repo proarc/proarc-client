@@ -1413,6 +1413,8 @@
     "originInfo/@transliteration": "Transliteration",
     "originInfo/copyrightDate": "Copyright date",
     "originInfo/dateCreated": "Date created",
+    "originInfo/dateCreated/value": "Value",
+    "originInfo/dateCreated/@point": "Point",
     "originInfo/dateIssued": "Date issued",
     "originInfo/dateIssued/@encoding": "Encoding",
     "originInfo/dateIssued/@point": "Point",

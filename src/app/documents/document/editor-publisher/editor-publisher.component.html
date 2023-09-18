@@ -24,7 +24,12 @@
         <app-field-dropdown field="point" [item]="dateIssued" [(value)]='dateIssued.attrs["point"]'></app-field-dropdown>
       </ng-template>
     </app-editor-field>
-    <app-field-text field="dateCreated" [item]="item" [(value)]="item.dateCreated['_']" ></app-field-text>
+    <app-editor-field *ngIf="item.available('dateCreated')" [field]="item.dateCreateds" [nested]='true'>
+      <ng-template let-dateCreated="item" #templateContent>
+        <app-field-text field="value" [item]="dateCreated" [(value)]="dateCreated.modsElement['_']" ></app-field-text>
+        <app-field-text field="point" [item]="dateCreated" [(value)]='dateCreated.attrs["point"]'></app-field-text>
+      </ng-template>
+    </app-editor-field>
     <app-editor-field *ngIf="item.available('dateOther')" [field]="item.dateOthers" [nested]='true'>
       <ng-template let-dateOther="item" #templateContent>
         <app-field-text field="value" [item]="dateOther" [(value)]="dateOther.modsElement['_']" ></app-field-text>

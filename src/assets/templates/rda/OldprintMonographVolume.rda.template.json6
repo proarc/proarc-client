@@ -372,7 +372,16 @@
           selector: 'originInfo/dateCreated',
           labelKey: 'originInfo/dateCreated',
           cols: 3,
-          description: 'Datum vydání předlohy'
+          description: 'Datum vydání předlohy',
+          fields: {
+            value: {
+              usage: 'R',
+              selector: 'originInfo/dateCreated/value',
+              labelKey: 'originInfo/dateCreated/value',
+              label: 'Hodnota',
+              help: 'off'
+            }
+          }
         },
         dateOther: {
           usage: 'R',

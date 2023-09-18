@@ -240,7 +240,16 @@
         cols: 3,
         description: 'Datum vydání předlohy pro rukopisy\
           přebírat z katalogu<br/>\
-          odpovídá hodnotě z katalogizačního záznamu, pole 260 $g'
+          odpovídá hodnotě z katalogizačního záznamu, pole 260 $g',
+        fields: {
+          value: {
+            usage: 'R',
+            selector: 'originInfo/dateCreated/value',
+            labelKey: 'originInfo/dateCreated/value',
+            label: 'Hodnota',
+            help: 'off'
+          }
+        }
       },
       dateIssued: {
         usage: 'M',
