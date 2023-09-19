@@ -140,6 +140,10 @@ export class ElementField {
         return false;
     }
 
+    cantAdd(): boolean {
+        return this.items.length > (this.template.max ? this.template.max : 10000000);
+    }
+
     public getItems(): ModsElement[] {
         const result = [];
         for (const item of this.items) {

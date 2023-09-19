@@ -29,7 +29,7 @@
               <mat-icon>expand_less</mat-icon>
             </button>
           </ng-container>
-          <button matTooltip="{{ 'editor.add_field' | translate }}" (click)="field.addAfterItem(item)" mat-icon-button>
+          <button [disabled]="field.cantAdd()" matTooltip="{{ 'editor.add_field' | translate }}" (click)="field.addAfterItem(item)" mat-icon-button>
             <mat-icon>add</mat-icon>
           </button>
           <ng-template [ngTemplateOutlet]="templateMenu" [ngTemplateOutletContext]="{ item: item  }"></ng-template>

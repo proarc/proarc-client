@@ -2,6 +2,7 @@
   titleInfo: {
     usage: 'M',
     required: true,
+    max: 1,
     label: 'Název',
     selector: 'titleInfo',
     labelKey: 'titleInfo',
