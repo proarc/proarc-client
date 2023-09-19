@@ -220,7 +220,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
     this.pageIndex = 0;
     const params: any = {};
-    if (this.selectedState && this.selectedState !== 'ALL') {
+    if (this.selectedState) {
       params['state'] = this.selectedState;
     } else {
       params['state'] = null;
