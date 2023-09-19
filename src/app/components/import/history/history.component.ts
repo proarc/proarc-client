@@ -11,7 +11,7 @@ import { Profile } from 'src/app/model/profile.model';
 import { ImportDialogComponent } from 'src/app/dialogs/import-dialog/import-dialog.component';
 import { DatePipe } from '@angular/common';
 import { UIService } from 'src/app/services/ui.service';
-import {ConfigService} from '../../../services/config.service';
+import { ConfigService } from '../../../services/config.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
@@ -72,8 +72,8 @@ export class HistoryComponent implements OnInit, OnDestroy {
     { field: 'user', selected: true, width: 100 }
   ];
 
-  displayedColumnsOverview: string[] = ['description', 'create',  'timestamp', 'state', 'profile', 'user', 'priority', 'actions'];
-  displayedColumnsQueue: string[] = ['description', 'create',  'timestamp', 'state', 'pageCount', 'user' ];
+  displayedColumnsOverview: string[] = ['description', 'create', 'timestamp', 'state', 'profile', 'user', 'priority', 'actions'];
+  displayedColumnsQueue: string[] = ['description', 'create', 'timestamp', 'state', 'pageCount', 'user'];
 
   batchStates = [
     'ALL',
@@ -103,26 +103,26 @@ export class HistoryComponent implements OnInit, OnDestroy {
   ];
 
   profiles: string[];
-    // 'profile.default',
-    // 'profile.createObjectWithMetadata_import',
-    // 'profile.default_archive_import',
-    // 'profile.soundrecording_import',
-    // 'profile.default_kramerius_import',
-    // 'profile.stt_kramerius_import',
-    // 'profile.ndk_monograph_kramerius_import',
-    // 'profile.ndk_periodical_kramerius_import',
-    // 'profile.chronicle',
-    // 'profile.oldprint',
-    // 'profile.ndk_full_import',
-    // 'exportProfile.kramerius',
-    // 'exportProfile.ndk',
-    // 'exportProfile.archive',
-    // 'exportProfile.desa',
-    // 'exportProfile.cejsh',
-    // 'exportProfile.crossref',
-    // 'exportProfile.kwis',
-    // // 'exportProfile.aleph',
-    // 'internalProfile.reindex'
+  // 'profile.default',
+  // 'profile.createObjectWithMetadata_import',
+  // 'profile.default_archive_import',
+  // 'profile.soundrecording_import',
+  // 'profile.default_kramerius_import',
+  // 'profile.stt_kramerius_import',
+  // 'profile.ndk_monograph_kramerius_import',
+  // 'profile.ndk_periodical_kramerius_import',
+  // 'profile.chronicle',
+  // 'profile.oldprint',
+  // 'profile.ndk_full_import',
+  // 'exportProfile.kramerius',
+  // 'exportProfile.ndk',
+  // 'exportProfile.archive',
+  // 'exportProfile.desa',
+  // 'exportProfile.cejsh',
+  // 'exportProfile.crossref',
+  // 'exportProfile.kwis',
+  // // 'exportProfile.aleph',
+  // 'internalProfile.reindex'
   // ]
 
   constructor(
@@ -160,17 +160,17 @@ export class HistoryComponent implements OnInit, OnDestroy {
   }
 
   processParams(p: any) {
-      this.view = p['view'] ? p['view'] : 'overview';
-      this.selectedState = p['state'] ? p['state'] : 'LOADED';
-      this.description = p['description'] ? p['description'] : null;
-      // this.user = p['userId'] ? this.users.find(u => u.userId === p['userId']) : null;
-      this.user = p['userId'] ? p['userId']  : null;
-      this.priority= p['priority'] ? p['priority'] : null;
-      this.profile = p['profile'] ? p['profile'] : null;
-      this.createFrom = p['createFrom'] ? p['createFrom'] : null;
-      this.createTo = p['createTo'] ? p['createTo'] : null;
-      this.modifiedFrom = p['modifiedFrom'] ? p['modifiedFrom'] : null;
-      this.modifiedTo = p['modifiedTo'] ? p['modifiedTo'] : null;
+    this.view = p['view'] ? p['view'] : 'overview';
+    this.selectedState = p['state'] ? p['state'] : 'LOADED';
+    this.description = p['description'] ? p['description'] : null;
+    // this.user = p['userId'] ? this.users.find(u => u.userId === p['userId']) : null;
+    this.user = p['userId'] ? p['userId'] : null;
+    this.priority = p['priority'] ? p['priority'] : null;
+    this.profile = p['profile'] ? p['profile'] : null;
+    this.createFrom = p['createFrom'] ? p['createFrom'] : null;
+    this.createTo = p['createTo'] ? p['createTo'] : null;
+    this.modifiedFrom = p['modifiedFrom'] ? p['modifiedFrom'] : null;
+    this.modifiedTo = p['modifiedTo'] ? p['modifiedTo'] : null;
   }
 
   setRefresh() {
@@ -186,6 +186,10 @@ export class HistoryComponent implements OnInit, OnDestroy {
 
   selectBatch(batch: Batch) {
     this.selectedBatch = batch;
+  }
+
+  goto(uuid: string) {
+    this.router.navigate(['/repository', uuid]);
   }
 
   openBatch(batch: Batch) {
@@ -385,11 +389,11 @@ export class HistoryComponent implements OnInit, OnDestroy {
             }
 
 
-        if (response['response'].status === -1) {
-          this.ui.showErrorSnackBar(response['response'].data);
-          // this.router.navigate(['/import/history']);
-          return;
-        }
+            if (response['response'].status === -1) {
+              this.ui.showErrorSnackBar(response['response'].data);
+              // this.router.navigate(['/import/history']);
+              return;
+            }
 
             const status: [number, number] = Batch.statusFromJson(response['response']);
 
@@ -582,7 +586,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
   }
 
   getColumnWidthOverview(field: string) {
-    const el = this.selectedColumnsOverview.find((c: any)=> c.field === field);
+    const el = this.selectedColumnsOverview.find((c: any) => c.field === field);
     if (el) {
       return el.width + 'px';
     } else {
@@ -591,12 +595,12 @@ export class HistoryComponent implements OnInit, OnDestroy {
   }
 
   saveColumnsSizesOverview(e: any, field?: string) {
-    const el = this.selectedColumnsOverview.find((c: any)=> c.field === field);
+    const el = this.selectedColumnsOverview.find((c: any) => c.field === field);
     if (el) {
       el.width = e;
     } else {
       console.log("nemelo by")
-    } 
+    }
     this.properties.setStringProperty('historyOverviewColumns', JSON.stringify(this.selectedColumnsOverview));
   }
 
@@ -613,7 +617,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
   }
 
   getColumnWidthQueue(field: string) {
-    const el = this.selectedColumnsQueue.find((c: any)=> c.field === field);
+    const el = this.selectedColumnsQueue.find((c: any) => c.field === field);
     if (el) {
       return el.width + 'px';
     } else {
@@ -622,12 +626,12 @@ export class HistoryComponent implements OnInit, OnDestroy {
   }
 
   saveColumnsSizesQueue(e: any, field?: string) {
-    const el = this.selectedColumnsQueue.find((c: any)=> c.field === field);
+    const el = this.selectedColumnsQueue.find((c: any) => c.field === field);
     if (el) {
       el.width = e;
     } else {
       console.log("nemelo by")
-    } 
+    }
     this.properties.setStringProperty('historyQueueColumns', JSON.stringify(this.selectedColumnsQueue));
   }
   // end
