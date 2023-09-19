@@ -309,6 +309,7 @@
             value: {
               usage: 'MA',
               required: true,
+              cols: 2,
               selector: 'location/physicalLocation/value',
               labelKey: 'location/physicalLocation/value',
               label: 'Hodnota',
@@ -316,6 +317,7 @@
             },
             type: {
               usage: 'MA',
+              cols: 2,
               selector: 'location/physicalLocation/@type',
               labelKey: 'location/physicalLocation/@type',
               defaultValue: 'siglaADR',
