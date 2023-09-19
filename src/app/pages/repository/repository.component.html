@@ -3,7 +3,7 @@
 <div fxLayout="column" fxFlexFill *ngIf="layout.ready" class="app-editor-wrapper">
 
   <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
-    <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
+    <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs app-view-border-right">
       <a routerLink="/"><mat-icon>home</mat-icon></a>
       <span class="app-separator">/</span>
       <ng-container *ngFor="let p of layout.path; let last = last; let l = count; let idx = index">
@@ -13,7 +13,7 @@
       <a *ngIf="layout.path.length === 1" (click)="selectLast()" class="app-text-cutter" [matTooltip]="layout.item.label" [matTooltipPosition]="'above'">{{ layout.item.label }}</a>
     </div>
     <div fxFlex>
-      <div *ngIf="layout.path.length === 1" class="app-badge app-model">{{ 'model.' + layout.item.model | translate }}</div>
+      <div *ngIf="layout.path.length === 1" class="app-ml-4 app-label">{{ 'model.' + layout.item.model | translate }}</div>
       <div *ngIf="layout.path.length > 1" class="app-badge app-model app-cursor-pointer" (click)="selectLast()">{{ 'model.' + layout.item.model | translate }} - {{ layout.item.label }}</div>
     </div>
     <div>
@@ -35,7 +35,7 @@
     </div>
   </div>
 
-  <div fxFlex class="app-oh app-p-4" cdkDropListGroup>
+  <div fxFlex class="app-oh app-content-wrapper" cdkDropListGroup>
     <div class="app-border-wrapper app-h-100">
       <as-split *ngIf="layout.layoutConfig" direction="horizontal" [disabled]="layout.layoutConfig.disabled"  (dragEnd)="onDragEnd(-1, $event)">
         <ng-template ngFor let-column [ngForOf]="layout.layoutConfig.columns" let-icol="index">

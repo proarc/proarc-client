@@ -9,7 +9,7 @@
 
   <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'" class="app-progress-bar"></mat-progress-bar>
 
-  <div fxFlex class="app-devices app-p-4" fxLayout="column">
+  <div fxFlex class="app-devices app-content-wrapper app-pt-4" fxLayout="column">
     <div class="app-formbar app-mb-4">
       <button mat-stroked-button [routerLink]="['/devices', 'new']">
         {{ 'device.button.addDevice' | translate }}
