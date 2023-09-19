@@ -127,7 +127,7 @@
         <app-editor-field *ngIf="location.available('physicalLocation')" [field]="location.physicalLocations" [nested]='true'>
           <ng-template let-physicalLocation="item" #templateContent>
             <app-field-text field="displayLabel" [item]="physicalLocation" [(value)]="physicalLocation.attrs['displayLabel']"></app-field-text>
-            <app-field-text field="type" [item]="physicalLocation" [(value)]="physicalLocation.attrs['type']"></app-field-text>
+            <app-field-text field="authority" [item]="physicalLocation" [(value)]="physicalLocation.attrs['authority']"></app-field-text>
             <app-field-text field="value" [item]="physicalLocation" [(value)]="physicalLocation.modsElement['_']"></app-field-text>
           </ng-template>
         </app-editor-field>

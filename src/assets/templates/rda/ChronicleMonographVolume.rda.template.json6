@@ -305,11 +305,11 @@
               label: 'Hodnota',
               help: 'off'
             },
-            type: {
+            authority: {
               usage: 'MA',
               cols: 2,
-              selector: 'location/physicalLocation/@type',
-              labelKey: 'location/physicalLocation/@type',
+              selector: 'location/physicalLocation/@authority',
+              labelKey: 'location/physicalLocation/@authority',
               defaultValue: 'siglaADR',
               label: 'Hodnota',
               help: 'off',

@@ -12,7 +12,7 @@ export class ModsPhysicalLocation extends ModsElement {
     }
 
     constructor(modsElement: any, template: any) {
-        super(modsElement, template, ['type', 'displayLabel']);
+        super(modsElement, template, ['authority', 'displayLabel']);
         this.init();
     }
 
