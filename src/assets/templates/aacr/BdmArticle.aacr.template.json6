@@ -876,6 +876,15 @@
               selector: 'relatedItem/physicalDescription/extent',
               labelKey: 'bdm/relatedItem/physicalDescription/extent',
               description: 'Údaje o rozsahu (stran, svazků nebo rozměrů)',
+              fields: {
+                value: {
+                  usage: 'RA',
+                  selector: 'relatedItem/physicalDescription/extent/value',
+                  labelKey: 'relatedItem/physicalDescription/extent/value',
+                  label: 'Hodnota',
+                  help: 'off'
+                }
+              }
             },
           }
         },

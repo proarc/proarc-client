@@ -2,8 +2,8 @@ import ModsUtils from './utils';
 import { ModsElement } from './element.model';
 import { ElementField } from './elementField.model';
 import { ModsForm } from './form.model';
-import {ModsExtent} from './extent.model';
 import {ModsInternetMediaType} from './internetMediaType.model';
+import {ModsPhysicalExtent} from './extentPhysical.model';
 
 export class ModsPhysical extends ModsElement {
 
@@ -45,7 +45,7 @@ export class ModsPhysical extends ModsElement {
         }
 
         if (this.available('extent')) {
-          this.extents = new ElementField(this.modsElement, ModsExtent.getSelector(), this.getField('extent'));
+          this.extents = new ElementField(this.modsElement, ModsPhysicalExtent.getId(), this.getField('extent'));
           this.addSubfield(this.extents);
         }
         if(this.available('form')) {

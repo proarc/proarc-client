@@ -596,6 +596,33 @@
         labelKey: 'location/physicalLocation',
         description: 'Údaje o instituci, kde je fyzicky uložen daný konkrétní popisovaný dokument, např. NK ČR nutno použít kontrolovaný slovník – sigly knihovnen (ABA001 atd.) odpovídá poli 910 $a v MARC21<br\>\
           Pozn. u dokumentů ze soukromých sbírek není možné vyplnit',
+        fields: {
+          value: {
+            usage: 'MA',
+            selector: 'location/physicalLocation/value',
+            labelKey: 'location/physicalLocation/value',
+            label: 'Hodnota',
+            help: 'off'
+          },
+          type: {
+            usage: 'MA',
+            selector: 'location/physicalLocation/@type',
+            labelKey: 'location/physicalLocation/@type',
+            defaultValue: 'siglaADR',
+            label: 'Hodnota',
+            help: 'off',
+            options: [
+              [
+                '',
+                '-'
+              ],
+              [
+                'siglaADR',
+                'Sigla ADR'
+              ]
+            ]
+          }
+        }
       },
       shelfLocator: {
         usage: 'M',
@@ -633,6 +660,16 @@
         labelKey: 'physicalDescription/extent',
         description: 'Údaje o rozsahu<br/>\
           odpovídá hodnotě v poli 300, $a, $b, $c a $e',
+        fields: {
+          value: {
+            usage: 'M',
+            required: true,
+            selector: 'physicalDescription/extent/value',
+            labelKey: 'physicalDescription/extent/value',
+            label: 'Hodnota',
+            help: 'off'
+          }
+        }
       },
       //        note: {
       //          usage: 'RA',
@@ -1679,6 +1716,33 @@
             labelKey: 'relatedItem/location/physicalLocation',
             description: 'Údaje o instituci, kde je fyzicky uložen daný konkrétní popisovaný dokument, např. NK ČR nutno použít kontrolovaný slovník – sigly knihovnen (ABA001 atd.) odpovídá poli 910 $a v MARC21<br\>\
           Pozn. u dokumentů ze soukromých sbírek není možné vyplnit',
+            fields: {
+              value: {
+                usage: 'MA',
+                selector: 'relatedItem/location/physicalLocation/value',
+                labelKey: 'relatedItem/location/physicalLocation/value',
+                label: 'Hodnota',
+                help: 'off'
+              },
+              type: {
+                usage: 'MA',
+                selector: 'location/physicalLocation/@type',
+                labelKey: 'location/physicalLocation/@type',
+                defaultValue: 'siglaADR',
+                label: 'Hodnota',
+                help: 'off',
+                options: [
+                  [
+                    '',
+                    '-'
+                  ],
+                  [
+                    'siglaADR',
+                    'Sigla ADR'
+                  ]
+                ]
+              }
+            }
           },
           shelfLocator: {
             usage: 'M',
@@ -1706,12 +1770,21 @@
         description: 'Obsahuje údaje o fyzickém popisu zdroje/předlohy',
         fields: {
           extent: {
-            usage: 'M',
+            usage: 'MA',
             label: 'Rozsah',
             selector: 'relatedItem/physicalDescription/extent',
             labelKey: 'relatedItem/physicalDescription/extent',
             description: 'Údaje o rozsahu<br/>\
           odpovídá hodnotě v poli 300, $a, $b, $c a $e',
+            fields: {
+              value: {
+                usage: 'MA',
+                selector: 'relatedItem/physicalDescription/extent/value',
+                labelKey: 'relatedItem/physicalDescription/extent/value',
+                label: 'Hodnota',
+                help: 'off'
+              }
+            }
           },
           //        note: {
           //          usage: 'RA',

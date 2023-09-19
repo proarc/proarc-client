@@ -332,6 +332,22 @@
             ]
           }
         }
+      },
+      extent: {
+        usage: 'RA',
+        label: 'Rozsah',
+        selector: 'relatedItem/physicalDescription/extent',
+        labelKey: 'bdm/relatedItem/physicalDescription/extent',
+        description: 'Údaje o rozsahu (stran, svazků nebo rozměrů)',
+        fields: {
+          value: {
+            usage: 'RA',
+            selector: 'bdm/relatedItem/physicalDescription/extent/value',
+            labelKey: 'bdm/relatedItem/physicalDescription/extent/value',
+            label: 'Hodnota',
+            help: 'off'
+          }
+        }
       }
     }
   },
@@ -878,6 +894,15 @@
             selector: 'relatedItem/physicalDescription/extent',
             labelKey: 'bdm/relatedItem/physicalDescription/extent',
             description: 'Údaje o rozsahu (stran, svazků nebo rozměrů)',
+            fields: {
+              value: {
+                usage: 'RA',
+                selector: 'bdm/relatedItem/physicalDescription/extent/value',
+                labelKey: 'bdm/relatedItem/physicalDescription/extent/value',
+                label: 'Hodnota',
+                help: 'off'
+              }
+            }
           },
         }
       },

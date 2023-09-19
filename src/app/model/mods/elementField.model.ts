@@ -46,6 +46,7 @@ import {ModsDisplayForm} from './displayForm.model';
 import {ModsDateValid} from './dateValid.model';
 import {ModsDateCaptured} from './dateCaptured.model';
 import {ModsDateModified} from './dateModified.model';
+import {ModsPhysicalExtent} from './extentPhysical.model';
 
 export class ElementField {
 
@@ -343,6 +344,8 @@ export class ElementField {
                 return new ModsInternetMediaType(el, this.template);
             case ModsTopic.getId():
                 return new ModsTopic(el, this.template);
+          case ModsPhysicalExtent.getId():
+            return new ModsPhysicalExtent(el, this.template);
         }
         return undefined;
     }
@@ -477,6 +480,8 @@ export class ElementField {
                 return ModsTableOfContents.getSelector();
             case ModsTopic.getId():
                 return ModsTopic.getSelector();
+          case ModsPhysicalExtent.getId():
+            return ModsPhysicalExtent.getSelector();
         }
         return '';
     }

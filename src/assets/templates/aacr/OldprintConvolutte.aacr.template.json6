@@ -65,6 +65,34 @@
           labelKey: 'location/physicalLocation',
           description: 'Údaje o instituci, kde je fyzicky uložen daný konkrétní popisovaný dokument, např. NK ČR nutno použít kontrolovaný slovník – sigly knihovnen (ABA001 atd.) odpovídá poli 910 $a v MARC21<br\>\
           Pozn. u dokumentů v digitální podobě není možné vyplnit',
+          fields: {
+            value: {
+              usage: 'M',
+              required: true,
+              selector: 'location/physicalLocation/value',
+              labelKey: 'location/physicalLocation/value',
+              label: 'Hodnota',
+              help: 'off'
+            },
+            type: {
+              usage: 'MA',
+              selector: 'location/physicalLocation/@type',
+              labelKey: 'location/physicalLocation/@type',
+              defaultValue: 'siglaADR',
+              label: 'Hodnota',
+              help: 'off',
+              options: [
+                [
+                  '',
+                  '-'
+                ],
+                [
+                  'siglaADR',
+                  'Sigla ADR'
+                ]
+              ]
+            }
+          }
         },
         shelfLocator: {
           usage: 'M',

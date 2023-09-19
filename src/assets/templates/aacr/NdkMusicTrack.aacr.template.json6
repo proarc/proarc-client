@@ -217,6 +217,16 @@
         labelKey: 'physicalDescription/extent',
         description: 'Údaje o rozsahu<br/>\
           odpovídá hodnotám v poli 306 $a (pokud pole obsahuje rozpisy stopáže jednotlivých částí) nebo stopáž dané části (formát – 00:00:00)',
+        fields: {
+          value: {
+            usage: 'M',
+            required: true,
+            selector: 'physicalDescription/extent/value',
+            labelKey: 'physicalDescription/extent/value',
+            label: 'Hodnota',
+            help: 'off'
+          }
+        }
       }
     }
   },
@@ -794,12 +804,21 @@
         description: 'Obsahuje údaje o fyzickém popisu zdroje/předlohy',
         fields: {
           extent: {
-            usage: 'M',
+            usage: 'MA',
             label: 'Rozsah',
             selector: 'relatedItem/physicalDescription/extent',
             labelKey: 'relatedItem/physicalDescription/extent',
             description: 'Údaje o rozsahu<br/>\
           odpovídá hodnotám v poli 306 $a (pokud pole obsahuje rozpisy stopáže jednotlivých částí) nebo stopáž dané části (formát – 00:00:00)',
+            fields: {
+              value: {
+                usage: 'MA',
+                selector: 'relatedItem/physicalDescription/extent/value',
+                labelKey: 'relatedItem/physicalDescription/extent/value',
+                label: 'Hodnota',
+                help: 'off'
+              }
+            }
           }
         }
       },

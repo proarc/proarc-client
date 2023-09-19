@@ -295,6 +295,36 @@
           label: 'Název archivu',
           selector: 'location/physicalLocation',
           labelKey: 'location/physicalLocation',
+          fields: {
+            value: {
+              usage: 'MA',
+              required: true,
+              cols: 2,
+              selector: 'location/physicalLocation/value',
+              labelKey: 'location/physicalLocation/value',
+              label: 'Hodnota',
+              help: 'off'
+            },
+            type: {
+              usage: 'MA',
+              cols: 2,
+              selector: 'location/physicalLocation/@type',
+              labelKey: 'location/physicalLocation/@type',
+              defaultValue: 'siglaADR',
+              label: 'Hodnota',
+              help: 'off',
+              options: [
+                [
+                  '',
+                  '-'
+                ],
+                [
+                  'siglaADR',
+                  'Sigla ADR'
+                ]
+              ]
+            }
+          }
         },
       }
     },

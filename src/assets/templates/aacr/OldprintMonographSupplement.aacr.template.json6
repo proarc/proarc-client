@@ -407,6 +407,15 @@
           description: 'Údaje o rozsahu (stran, svazků nebo rozměrů)<br/>\
           odpovídá hodnotě v poli 300, $a, $b a $c<br/>\
           počet stránek bude vyjádřen ve fyzické strukturální mapě',
+          fields: {
+            value: {
+              usage: 'RA',
+              selector: 'physicalDescription/extent/value',
+              labelKey: 'physicalDescription/extent/value',
+              label: 'Hodnota',
+              help: 'off'
+            }
+          }
         },
         note: {
           usage: 'RA',

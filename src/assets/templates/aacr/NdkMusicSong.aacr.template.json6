@@ -600,6 +600,16 @@
           skladba obsahuje části: 1-n částí, např. 3 části skladby<br/>\
           skladba neobsahuje části a je na ní rovnou navázán zvukový soubor:<br/>\
           stopáž (formát – 00:00:00) + odpovídá hodnotám v poli 306 $a',
+        fields: {
+          value: {
+            usage: 'M',
+            required: true,
+            selector: 'physicalDescription/extent/value',
+            labelKey: 'physicalDescription/extent/value',
+            label: 'Hodnota',
+            help: 'off'
+          }
+        }
       },
     }
   },
@@ -1605,7 +1615,7 @@
         description: 'Obsahuje údaje o fyzickém popisu zdroje/předlohy',
         fields: {
           extent: {
-            usage: 'M',
+            usage: 'MA',
             label: 'Rozsah',
             selector: 'relatedItem/physicalDescription/extent',
             labelKey: 'relatedItem/physicalDescription/extent',
@@ -1614,6 +1624,15 @@
           skladba neobsahuje části a je na ní rovnou navázán zvukový soubor:<br/>\
           stopáž (formát – 00:00:00) + odpovídá hodnotám v poli 306 $a',
           },
+          fields: {
+            value: {
+              usage: 'MA',
+              selector: 'relatedItem/physicalDescription/extent/value',
+              labelKey: 'relatedItem/physicalDescription/extent/value',
+              label: 'Hodnota',
+              help: 'off'
+            }
+          }
         }
       },
       note: {

@@ -3,11 +3,11 @@
 
     <app-field-text field="displayLabel" [item]="item" [(value)]='item.attrs["displayLabel"]'></app-field-text>
 
-    <app-editor-field *ngIf="item.available('extend')" [field]="item.extends" [nested]='true'>
-      <ng-template let-extend="item" #templateContent>
-        <app-autocomplete field="unit" [item]="extend" [(value)]='extend.attrs["unit"]'></app-autocomplete>
-        <app-autocomplete field="lang" [item]="extend" [(value)]='extend.attrs["lang"]'></app-autocomplete>
-        <app-autocomplete field="value" [item]="extend" [(value)]="extend.modsElement['_']"></app-autocomplete>
+    <app-editor-field *ngIf="item.available('extent')" [field]="item.extents" [nested]='true'>
+      <ng-template let-extent="item" #templateContent>
+        <app-autocomplete field="unit" [item]="extent" [(value)]='extent.attrs["unit"]'></app-autocomplete>
+        <app-autocomplete field="lang" [item]="extent" [(value)]='extent.attrs["lang"]'></app-autocomplete>
+        <app-autocomplete field="value" [item]="extent" [(value)]="extent.modsElement['_']"></app-autocomplete>
       </ng-template>
     </app-editor-field>
     <app-autocomplete field="note" [item]="item" [(value)]="item.note['_']" ></app-autocomplete>

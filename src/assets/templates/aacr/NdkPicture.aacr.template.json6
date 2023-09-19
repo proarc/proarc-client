@@ -1709,6 +1709,33 @@
             labelKey: 'relatedItem/location/physicalLocation',
             description: 'Údaje o instituci, kde je fyzicky uložen daný konkrétní popisovaný dokument, např. NK ČR nutno použít kontrolovaný slovník – sigly knihovnen (ABA001 atd.) odpovídá poli 910 $a v MARC21<br\>\
           Pozn. u dokumentů v digitální podobě není možné vyplnit',
+            fields: {
+              value: {
+                usage: 'MA',
+                selector: 'relatedItem/location/physicalLocation/value',
+                labelKey: 'relatedItem/location/physicalLocation/value',
+                label: 'Hodnota',
+                help: 'off'
+              },
+              type: {
+                usage: 'MA',
+                selector: 'location/physicalLocation/@type',
+                labelKey: 'location/physicalLocation/@type',
+                defaultValue: 'siglaADR',
+                label: 'Hodnota',
+                help: 'off',
+                options: [
+                  [
+                    '',
+                    '-'
+                  ],
+                  [
+                    'siglaADR',
+                    'Sigla ADR'
+                  ]
+                ]
+              }
+            }
           },
           shelfLocator: {
             usage: 'MA',
@@ -2058,6 +2085,15 @@
             description: 'Údaje o rozsahu (stran, svazků nebo rozměrů)<br/>\
           odpovídá hodnotě v poli 300, $a, $b a $c<br/>\
           počet stránek bude vyjádřen ve fyzické strukturální mapě',
+            fields: {
+              value: {
+                usage: 'RA',
+                selector: 'relatedItem/physicalDescription/extent/value',
+                labelKey: 'relatedItem/physicalDescription/extent/value',
+                label: 'Hodnota',
+                help: 'off'
+              }
+            }
           },
           note: {
             usage: 'RA',
