@@ -230,6 +230,10 @@ ul {
   font-size: 14px;
 }
 
+.app-model {
+  @extend .app-desc;
+}
+
 .app-explanation {
   color: $app-gray-6;
   font-size: 12px;

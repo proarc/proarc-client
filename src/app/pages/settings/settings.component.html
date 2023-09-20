@@ -14,7 +14,7 @@
 
   <mat-progress-bar mode="indeterminate" *ngIf="state =='loading'" class="app-progress-bar"></mat-progress-bar>
 
-  <div fxFlex class="app-settings app-p-4" fxLayout="column" *ngIf="state !== 'loading' && user">
+  <div fxFlex class="app-settings app-content-wrapper" fxLayout="column" *ngIf="state !== 'loading' && user">
     <div fxFlex *ngIf="view == 'personalSettings'" class="app-oa-y">
       <mat-card >
         <mat-card-content>

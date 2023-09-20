@@ -21,7 +21,7 @@
     </a>
     <ng-container *ngIf="auth.isLoggedIn()">
       <a mat-button [routerLink]="['/import']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">{{ "navbar.import" | translate }}</a>
-      <a mat-button [routerLink]="['/import', 'history']" routerLinkActive="active">{{ "navbar.history" | translate }}</a>
+      <a mat-button [routerLink]="['/process-management']" routerLinkActive="active">{{ "navbar.process-management" | translate }}</a>
       <a mat-button [routerLink]="['/search']" routerLinkActive="active">{{ "navbar.search" | translate }}</a>
       <a mat-button (click)="onCreateNewObject()">{{ "navbar.new_object" | translate }}</a>
       <a *ngIf="config.showWorkflow" [href]="config.workflowUrl" target="_empty" mat-button>{{ "navbar.workflow" | translate }}</a>
