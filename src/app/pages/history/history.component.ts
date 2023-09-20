@@ -11,7 +11,7 @@ import { Profile } from 'src/app/model/profile.model';
 import { ImportDialogComponent } from 'src/app/dialogs/import-dialog/import-dialog.component';
 import { DatePipe } from '@angular/common';
 import { UIService } from 'src/app/services/ui.service';
-import { ConfigService } from '../../../services/config.service';
+import { ConfigService } from '../../services/config.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
