@@ -12,9 +12,9 @@
       </ng-container>
       <a *ngIf="layout.path.length === 1" (click)="selectLast()" class="app-text-cutter" [matTooltip]="layout.item.label" [matTooltipPosition]="'above'">{{ layout.item.label }}</a>
     </div>
-    <div fxFlex>
-      <div *ngIf="layout.path.length === 1" class="app-ml-4 app-label">{{ 'model.' + layout.item.model | translate }}</div>
-      <div *ngIf="layout.path.length > 1" class="app-badge app-model app-cursor-pointer" (click)="selectLast()">{{ 'model.' + layout.item.model | translate }} - {{ layout.item.label }}</div>
+    <div fxFlex class="app-ml-4">
+      <div *ngIf="layout.path.length === 1" class="app-model">{{ 'model.' + layout.item.model | translate }}</div>
+      <div *ngIf="layout.path.length > 1" class="app-model app-cursor-pointer" (click)="selectLast()">{{ 'model.' + layout.item.model | translate }} - {{ layout.item.label }}</div>
     </div>
     <div>
       <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToObject(layout.parent)" [disabled]="!layout.parent" mat-icon-button>
