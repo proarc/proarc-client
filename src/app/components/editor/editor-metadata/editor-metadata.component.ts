@@ -36,7 +36,9 @@ export class EditorMetadataComponent implements OnInit {
   public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
 
   public fields: {[key: string]: boolean} = {};
-
+  public availableFields: string[];
+  public selectedField: string;
+  public byField: boolean;
 
   constructor(
     private translator: TranslateService,
@@ -58,10 +60,11 @@ export class EditorMetadataComponent implements OnInit {
 
     if (c['metadata'] && c['metadata'].currentValue &&  (c['metadata'].currentValue !== c['metadata'].previousValue) ) {
       this.metadata = c['metadata'].currentValue;
-      
+      this.availableFields = Object.keys(this.metadata.template);
       Object.keys(this.metadata.template).forEach(k => {
         this.fields[k] = true;
       });
+      this.selectedField = this.availableFields[0];
       
       setTimeout(() => {
         this.focusToFirstRequired();

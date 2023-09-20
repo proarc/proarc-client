@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ContentChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, Input, ContentChild, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { HelpDialogComponent } from 'src/app/dialogs/help-dialog/help-dialog.component';
@@ -8,10 +8,10 @@ import { ElementField } from 'src/app/model/mods/elementField.model';
 @Component({
   selector: 'app-editor-field',
   templateUrl: './editor-field.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./editor-field.component.scss']
 })
 export class EditorFieldComponent implements OnInit {
-
 
   @Input() field: ElementField;
   @Input() nested: boolean;
