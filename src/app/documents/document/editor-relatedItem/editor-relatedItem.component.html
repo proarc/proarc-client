@@ -75,7 +75,11 @@
         </ng-template>
       </app-editor-field>
         <app-field-text field="copyrightDate" [item]="originInfo" [(value)]="originInfo.copyrightDate['_']" ></app-field-text>
-        <app-field-text field="edition" [item]="originInfo" [(value)]="originInfo.edition['_']" ></app-field-text>
+        <app-editor-field *ngIf="originInfo.available('edition')" [field]="originInfo.editions" [nested]='true'>
+          <ng-template let-edition="item" #templateContent>
+            <app-field-text field="value" [item]="edition" [(value)]="edition.modsElement['_']" ></app-field-text>
+          </ng-template>
+        </app-editor-field>
         <app-editor-field *ngIf="originInfo.available('frequency')" [field]="originInfo.frequencies" [nested]='true'>
           <ng-template let-frequency="item" #templateContent>
             <app-autocomplete field="authority" [item]="frequency" [(value)]='frequency.attrs["authority"]'></app-autocomplete>

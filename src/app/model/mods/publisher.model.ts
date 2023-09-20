@@ -9,11 +9,11 @@ import {ModsDateCreated} from './dateCreated.model';
 import {ModsDateValid} from './dateValid.model';
 import {ModsDateCaptured} from './dateCaptured.model';
 import {ModsDateModified} from './dateModified.model';
+import {ModsEdition} from './edition.model';
 
 export class ModsPublisher extends ModsElement {
 
     public publisher: any;
-    public edition: any;
     public issuance: any;
 
     public copyrightDate: any;
@@ -26,6 +26,7 @@ export class ModsPublisher extends ModsElement {
     public dateValids: ElementField;
     public dateCaptureds: ElementField;
     public dateModifieds: ElementField;
+    public editions: ElementField;
 
     static getSelector() {
         return 'originInfo';
@@ -44,10 +45,6 @@ export class ModsPublisher extends ModsElement {
         if (!this.modsElement['publisher']) {
             //this.modsElement['publisher'] = ModsUtils.createEmptyField();
             this.modsElement['publisher'] = ModsUtils.createField(this, 'publisher');
-        }
-        if (!this.modsElement['edition']) {
-            //this.modsElement['edition'] = ModsUtils.createEmptyField();
-            this.modsElement['edition'] = ModsUtils.createField(this, 'edition');
         }
         if (!this.modsElement['issuance']) {
             // this.modsElement['issuance'] = ModsUtils.createEmptyField();
@@ -78,7 +75,6 @@ export class ModsPublisher extends ModsElement {
             this.modsElement['place'] = [];
         }
         this.publisher = this.modsElement['publisher'][0];
-        this.edition = this.modsElement['edition'][0];
         this.issuance = this.modsElement['issuance'][0];
         this.copyrightDate = this.modsElement['copyrightDate'][0];
 
@@ -113,6 +109,10 @@ export class ModsPublisher extends ModsElement {
         if (this.available("dateModified")) {
           this.dateModifieds = new ElementField(this.modsElement, ModsDateModified.getSelector(), this.getField('dateModified'));
           this.addSubfield(this.dateModifieds);
+        }
+        if (this.available("edition")) {
+          this.editions = new ElementField(this.modsElement, ModsEdition.getSelector(), this.getField('edition'));
+          this.addSubfield(this.editions);
         }
     }
 

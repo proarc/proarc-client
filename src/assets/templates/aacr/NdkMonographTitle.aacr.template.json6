@@ -230,7 +230,16 @@
         label: 'Vydání',
         selector: 'originInfo/edition',
         labelKey: 'originInfo/edition',
-        description: 'Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu v MARC 21.'
+        description: 'Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu v MARC 21.',
+        fields: {
+          value: {
+            usage: 'MA',
+            selector: 'originInfo/edition/value',
+            labelKey: 'originInfo/edition/value',
+            label: 'Hodnota',
+            help: 'off'
+          }
+        }
       },
       dateCreated: {
         usage: 'R',

@@ -55,7 +55,11 @@
       </ng-template>
     </app-editor-field>
     <app-field-text field="copyrightDate" [item]="item" [(value)]="item.copyrightDate['_']" ></app-field-text>
-    <app-field-text field="edition" [item]="item" [(value)]="item.edition['_']" ></app-field-text>
+    <app-editor-field *ngIf="item.available('edition')" [field]="item.editions" [nested]='true'>
+      <ng-template let-edition="item" #templateContent>
+        <app-field-text field="value" [item]="edition" [(value)]="edition.modsElement['_']" ></app-field-text>
+      </ng-template>
+    </app-editor-field>
 
     <app-editor-field *ngIf="item.available('frequency')" [field]="item.frequencies" [nested]='true'>
       <ng-template let-frequency="item" #templateContent>

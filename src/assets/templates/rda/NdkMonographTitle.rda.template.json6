@@ -433,7 +433,16 @@
         selector: 'originInfo/edition',
         labelKey: 'originInfo/edition',
         cols: 2,
-        description: 'Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu.'
+        description: 'Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu.',
+        fields: {
+          value: {
+            usage: 'MA',
+            selector: 'originInfo/edition/value',
+            labelKey: 'originInfo/edition/value',
+            label: 'Hodnota',
+            help: 'off'
+          }
+        }
       },
       // issuance: {
       //   usage: 'O',
