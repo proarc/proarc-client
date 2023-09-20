@@ -38,7 +38,7 @@ const routes: Routes = [
       { path: 'search', component: SearchComponent },
       { path: 'viewer', component: ViewerComponent },
       { path: 'import', component: ImportComponent },
-      { path: 'import/history', component: ProcessManagementComponent },
+      { path: 'process-management', component: ProcessManagementComponent },
       // { path: 'import/edit/:batch_id', component: EditorComponent, canDeactivate:[ConfirmLeaveEditorGuard] },
       { path: 'import/edit/:batch_id', component: BatchesComponent, canDeactivate: [ConfirmLeaveEditorGuard] },
       { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
