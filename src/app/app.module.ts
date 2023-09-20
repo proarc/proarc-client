@@ -49,9 +49,9 @@ import { EditorCommentComponent } from './components/editor/editor-comment/edito
 import { EditorAtmComponent } from './components/editor/editor-atm/editor-atm.component';
 import { EditorPageComponent } from './components/editor/editor-page/editor-page.component';
 import { EditorAudioPageComponent } from './components/editor/editor-audioPage/editor-audioPage.component';
-import { ImportComponent } from './components/import/import.component';
+import { ImportComponent } from './pages/import/import.component';
 import { ImportDialogComponent } from './dialogs/import-dialog/import-dialog.component';
-import { HistoryComponent } from './components/import/history/history.component';
+import { HistoryComponent } from './pages/import/history/history.component';
 import { LogDialogComponent } from './dialogs/log-dialog/log-dialog.component';
 import { NewObjectDialogComponent } from './dialogs/new-object-dialog/new-object-dialog.component';
 import { CatalogDialogComponent } from './dialogs/catalog-dialog/catalog-dialog.component';
