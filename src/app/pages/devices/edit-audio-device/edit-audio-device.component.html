@@ -20,7 +20,7 @@
 
 	<mat-progress-bar mode="indeterminate" *ngIf="state=='loading' || state=='saving'" class="app-progress-bar"></mat-progress-bar>
 
-	<div fxFlex class="app-edit-audio-device app-p-4 app-oa-y" fxLayout="column">
+	<div fxFlex class="app-edit-audio-device app-content-wrapper app-oa-y" fxLayout="column">
 		<mat-card *ngIf="state=='success' || state=='saving'">
 			<mat-card-content>
 				<fieldset class="app-p-4 app-mb-4">
