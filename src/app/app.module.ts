@@ -51,7 +51,7 @@ import { EditorPageComponent } from './components/editor/editor-page/editor-page
 import { EditorAudioPageComponent } from './components/editor/editor-audioPage/editor-audioPage.component';
 import { ImportComponent } from './pages/import/import.component';
 import { ImportDialogComponent } from './dialogs/import-dialog/import-dialog.component';
-import { HistoryComponent } from './pages/history/history.component';
+import { ProcessManagementComponent } from './pages/process-management/process-management.component';
 import { LogDialogComponent } from './dialogs/log-dialog/log-dialog.component';
 import { NewObjectDialogComponent } from './dialogs/new-object-dialog/new-object-dialog.component';
 import { CatalogDialogComponent } from './dialogs/catalog-dialog/catalog-dialog.component';
@@ -196,7 +196,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditorAudioPagesComponent,
     EditorRelocationComponent,
     ImportComponent,
-    HistoryComponent,
+    ProcessManagementComponent,
     NewObjectDialogComponent,
     CatalogDialogComponent,
     ParentDialogComponent,

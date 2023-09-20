@@ -8,7 +8,7 @@ import { DeviceComponent } from '../pages/devices/device/device.component';
 import { EditDeviceComponent } from '../pages/devices/edit-device/edit-device.component';
 import { EditAudioDeviceComponent } from '../pages/devices/edit-audio-device/edit-audio-device.component';
 import { ImportComponent } from '../pages/import/import.component';
-import { HistoryComponent } from '../pages/history/history.component';
+import { ProcessManagementComponent } from '../pages/process-management/process-management.component';
 import { SettingsComponent } from '../pages/settings/settings.component';
 import { ConfirmLeaveEditorGuard } from '../confirm-leave-editor.guard';
 import { AdminComponent } from '../pages/admin/admin.component';
@@ -38,7 +38,7 @@ const routes: Routes = [
       { path: 'search', component: SearchComponent },
       { path: 'viewer', component: ViewerComponent },
       { path: 'import', component: ImportComponent },
-      { path: 'import/history', component: HistoryComponent },
+      { path: 'import/history', component: ProcessManagementComponent },
       // { path: 'import/edit/:batch_id', component: EditorComponent, canDeactivate:[ConfirmLeaveEditorGuard] },
       { path: 'import/edit/:batch_id', component: BatchesComponent, canDeactivate: [ConfirmLeaveEditorGuard] },
       { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },

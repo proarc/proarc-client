@@ -16,11 +16,11 @@ import { AuthService } from 'src/app/services/auth.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
-  selector: 'app-history',
-  templateUrl: './history.component.html',
-  styleUrls: ['./history.component.scss']
+  selector: 'app-process-management',
+  templateUrl: './process-management.component.html',
+  styleUrls: ['./process-management.component.scss']
 })
-export class HistoryComponent implements OnInit, OnDestroy {
+export class ProcessManagementComponent implements OnInit, OnDestroy {
 
   state = 'none';
 
