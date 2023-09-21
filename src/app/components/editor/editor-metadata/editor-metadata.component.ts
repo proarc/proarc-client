@@ -35,7 +35,8 @@ export class EditorMetadataComponent implements OnInit {
 
   public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
 
-  public fields: {[key: string]: boolean} = {};
+  // public fields: {[key: string]: boolean} = {};
+  public fields: {[key: string]: any} = {};
   public availableFields: string[];
   public selectedField: string;
   public byField: boolean = true;
@@ -52,7 +53,7 @@ export class EditorMetadataComponent implements OnInit {
   changeEditorType(t: string) {
     this.onChangeEditorType.emit(t);
   }
-  
+
   ngOnInit() {
   }
 
@@ -65,7 +66,7 @@ export class EditorMetadataComponent implements OnInit {
         this.fields[k] = true;
       });
       this.selectedField = this.availableFields[0];
-      
+
       setTimeout(() => {
         this.focusToFirstRequired();
       }, 500);
@@ -249,7 +250,7 @@ export class EditorMetadataComponent implements OnInit {
     });
   }
 
-  setStandard() {    
+  setStandard() {
     this.tmpl.getTemplate(this.metadata.standard, this.layout.lastSelectedItem.model).subscribe((tmpl: any) => {
       this.layout.lastSelectedItemMetadata = new Metadata(this.metadata.pid, this.metadata.model, this.metadata.originalMods, this.metadata.timestamp, this.metadata.standard, tmpl);
       this.metadata = this.layout.lastSelectedItemMetadata;
