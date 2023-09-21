@@ -38,7 +38,7 @@ export class EditorMetadataComponent implements OnInit {
   public fields: {[key: string]: boolean} = {};
   public availableFields: string[];
   public selectedField: string;
-  public byField: boolean;
+  public byField: boolean = true;
 
   constructor(
     private translator: TranslateService,

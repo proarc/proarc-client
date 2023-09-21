@@ -4,12 +4,15 @@
 			<app-editor-switcher (onChangeEditorType)="changeEditorType($event)" [editorType]="editorType"></app-editor-switcher>
 			<ng-container *ngIf="metadata">
 				<span class="app-pipe"></span>
+				<button mat-icon-button [matTooltip]="'editor.toolbar.byField' | translate" [class.app-active]="byField" (click)="byField = !byField">
+					<mat-icon>keyboard_double_arrow_down</mat-icon>
+				</button>
+				<span class="app-pipe"></span>
 				<mat-radio-group aria-label="'standard'" [(ngModel)]="metadata.standard" (change)="setStandard()" class="app-ml-3">
 					<mat-radio-button value="rda">rda</mat-radio-button>
 					<mat-radio-button value="aacr">aacr</mat-radio-button>
 				</mat-radio-group>
 			</ng-container>
-					<mat-checkbox [(ngModel)]="byField">by field</mat-checkbox>
 		</div>
 		<div>
 			<ng-container *ngIf="!notSaved">
