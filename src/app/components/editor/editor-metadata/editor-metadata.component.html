@@ -3,8 +3,7 @@
 		<div fxFlex>
 			<app-editor-switcher (onChangeEditorType)="changeEditorType($event)" [editorType]="editorType"></app-editor-switcher>
 			<ng-container *ngIf="metadata">
-				<span class="app-pipe"></span>
-				<button mat-icon-button [matTooltip]="'editor.toolbar.byField' | translate" [class.app-active]="byField" (click)="byField = !byField">
+				<button mat-icon-button [matTooltip]="'desc.showOnlyTheElement' | translate" [class.app-active]="byField" (click)="byField = !byField">
 					<mat-icon>keyboard_double_arrow_down</mat-icon>
 				</button>
 				<span class="app-pipe"></span>
@@ -25,22 +24,25 @@
 			</ng-container>
 		</div>
 	</div>
-	<div fxFlex class="app-oa-y">
+	<div fxFlex class="app-oa-">
 		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
-		<div class="app-editor-content" *ngIf="metadata && state !=='loading'">
-      <ng-container *ngIf="byField">
-        <mat-select [(ngModel)]="selectedField">
-          <mat-option *ngFor="let field of availableFields" [value]="field">{{'mods.' + metadata.template[field]['labelKey'] | translate}}</mat-option>
-        </mat-select>
-      </ng-container>
-			<ng-container [ngSwitch]="model">
+		<div class="app-editor-content" *ngIf="metadata && state !=='loading'" fxLayout="column">
+			<div *ngIf="byField">
+				<mat-form-field class="app-w-100 app-p-2 app-mt-1 app-clean-mb">
+					<mat-label>{{ 'desc.showOnlyTheElement' | translate }}</mat-label>
+					<mat-select [(ngModel)]="selectedField">
+						<mat-option *ngFor="let field of availableFields" [value]="field">{{'mods.' + metadata.template[field]['labelKey'] | translate}}</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+
+			<div [ngSwitch]="model" fxFlex class="app-oa-y">
 				<ng-container *ngSwitchCase="'model:chroniclevolume'" [ngTemplateOutlet]="chronicle" ></ng-container>
 				<ng-container *ngSwitchCase="'model:chronicletitle'" [ngTemplateOutlet]="chronicle"></ng-container>
 				<ng-container *ngSwitchCase="'model:chroniclesupplement'" [ngTemplateOutlet]="chronicle"></ng-container>
 				<ng-container *ngSwitchCase="'model:bdmarticle'" [ngTemplateOutlet]="bdm"></ng-container>
 
 				<ng-container *ngSwitchDefault>
-
 					<app-editor-genre *ngIf="showGenreSwitch() && (!byField && fields['genre'] || selectedField==='genre')" [field]="metadata.getField('genre')" [showGenreSwitch]="showGenreSwitch()"></app-editor-genre>
 					<app-editor-title *ngIf="(!byField && fields['titleInfo'] || selectedField==='titleInfo')" [field]="metadata.getField('titleInfo')"></app-editor-title>
 					<app-editor-author *ngIf="(!byField && fields['name'] || selectedField==='name')" [field]="metadata.getField('name')" [model]="model"></app-editor-author>
@@ -60,7 +62,7 @@
 					<app-editor-recordInfo *ngIf="(!byField && fields['recordInfo'] || selectedField==='recordInfo')" [field]="metadata.getField('recordInfo')"></app-editor-recordInfo>
 					<app-editor-relatedItem *ngIf="(!byField && fields['relatedItem'] || selectedField==='relatedItem')" [field]="metadata.getField('relatedItem')" [model]="model"></app-editor-relatedItem>
 				</ng-container>
-			</ng-container>
+			</div>
 		</div>
 	</div>
 </div>

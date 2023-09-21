@@ -2047,7 +2047,8 @@
     "ltpToken": "Ltp Cesnet token",
     "field": "Field",
     "query": "Query",
-    "catalog": "Catalog"
+    "catalog": "Catalog",
+    "showOnlyTheElement": "Show only element (s)"
   },
   "button": {
     "setLayout": "Set layout",

@@ -2049,7 +2049,8 @@
     "ltpToken": "Ltp Cesnet token",
     "field": "Pole",
     "query": "Dotaz",
-    "catalog": "Katalog"
+    "catalog": "Katalog",
+    "showOnlyTheElement": "Zobrazit pouze element (y)"
   },
   "button": {
     "setLayout": "nastavit rozložení",
