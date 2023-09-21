@@ -2119,7 +2119,8 @@
     "more": "Více",
     "resetAllLocalSettings": "Resetovat všechna lokální nastavení",
     "createAndGoToObject": "Vytvořit a přejít do objektu",
-    "doNotSave": "Neukládat"
+    "doNotSave": "Neukládat",
+    "copyTextToClipboard": "Zkopírovat text do schránky"
   },
   "dynamic": {
     "repo": "Úložiště",
@@ -2568,6 +2569,9 @@
     "deleteSelectedChildren": {
       "success": "Objekty byly úspěšně smazány.",
       "error": "Došlo k chybě při mazání objektů."
+    },
+    "copyTextToClipboard": {
+      "success": "Text byl úspěšně zkopírován do schránky"
     }
   },
   "device": {

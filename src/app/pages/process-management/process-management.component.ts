@@ -14,6 +14,7 @@ import { UIService } from 'src/app/services/ui.service';
 import { ConfigService } from '../../services/config.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-process-management',
@@ -135,7 +136,8 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private config: ConfigService,
     private translator: TranslateService,
-    public properties: LocalStorageService) { }
+    public properties: LocalStorageService,
+    private clipboard: Clipboard) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(p => {
@@ -643,6 +645,11 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
     q['state'] = val;
     q.page = null;
     this.router.navigate([], { queryParams: q, queryParamsHandling: 'merge' });
+  }
+
+  copyTextToClipboard(val: string) {
+    this.clipboard.copy(val);
+    this.ui.showInfoSnackBar(this.translator.instant('snackbar.copyTextToClipboard.success'));
   }
 
 }

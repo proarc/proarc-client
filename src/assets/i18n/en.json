@@ -1911,6 +1911,8 @@
 
 
 
+  
+  
   "desc": {
     "help": "Help",
     "panelType": "Panel type",
@@ -2117,7 +2119,8 @@
     "more": "More",
     "resetAllLocalSettings": "Reset all local settings",
     "createAndGoToObject": "Create and go to object",
-    "doNotSave": "Do not save"
+    "doNotSave": "Do not save",
+    "copyTextToClipboard": "Copy text to clipboard"
   },
   "dynamic": {
     "repo": "Storage",
@@ -2566,6 +2569,9 @@
     "deleteSelectedChildren": {
       "success": "The objects were successfully deleted.",
       "error": "An error occurred while deleting objects."
+    },
+    "copyTextToClipboard": {
+      "success": "The text has been successfully copied to the clipboard"
     }
   },
   "device": {
