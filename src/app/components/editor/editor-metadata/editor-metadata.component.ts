@@ -35,7 +35,6 @@ export class EditorMetadataComponent implements OnInit {
 
   public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
 
-  // public fields: {[key: string]: boolean} = {};
   public fields: {[key: string]: any} = {};
   public availableFields: string[];
   public selectedField: string;

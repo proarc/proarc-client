@@ -65,7 +65,8 @@ export class Metadata {
 
   private fields: Map<String, ElementField>;
 
-  public template: { [x: string]: boolean; };
+  // public template: { [x: string]: boolean; };
+  public template: { [x: string]: any; };
   public standard: string;
 
   constructor(pid: string, model: string, mods: string, timestamp: number, standard: string, template: any) {
