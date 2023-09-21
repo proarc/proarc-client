@@ -118,7 +118,7 @@
         <ng-container matColumnDef="state">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesOverview($event, 'state')" [style.width]="getColumnWidthOverview('state')">{{ 'desc.state' | translate }}</th>
           <td mat-cell *matCellDef="let element">
-            <span class="app-badge" [ngClass]="batchProgress(element) === '0%' ? 'app-WAITING' : 'app-' + element.state">
+            <span (click)="selectedState === 'ALL' ? setBadgeFilter(element.state) : false" class="app-badge" [ngClass]="batchProgress(element) === '0%' ? 'app-WAITING' : 'app-' + element.state">
               {{ batchProgress(element) === '0%' ? ('states.WAITING' | translate) : ('states.' + element.state | translate) }}<strong *ngIf="element.isLoading()" class="app-ml-2">{{ batchProgress(element) }}</strong>
             </span>
           </td>

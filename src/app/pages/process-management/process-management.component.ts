@@ -636,4 +636,13 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
   }
   // end
 
+
+  setBadgeFilter(val: string) {
+    this.pageIndex = 0;
+    const q: any = {};
+    q['state'] = val;
+    q.page = null;
+    this.router.navigate([], { queryParams: q, queryParamsHandling: 'merge' });
+  }
+
 }
