@@ -2284,7 +2284,17 @@
     "226101010": "SOkA Havlíčkův Brod",
     "226104010": "SOkA Třebíč",
     "226105010": "SOkA Žďár nad Sázavou",
-    "Inovatika": "Inovatika"
+    "Inovatika": "Inovatika",
+    "TUG001": "Městská knihovna s regionálními funkcemi Trutnov",
+    "RKE801": "Muzeum a galerie Orlických hor",
+    "NAG001": "Okresní knihovna v Náchodě",
+    "HKE302": "Muzeum Východních Čech-společenskovědní knihovna",
+    "HKG001": "Knihovna města Hradec Králové",
+    "TUE801": "Správa Krkonošského národního parku ve Vrchlabí",
+    "TUE301": "Muzeum v Podkrkonoší Trutnov",
+    "JCG001": "Okresní knihovna Jičín",
+    "JCE301": "Regionální muzeum a galerie v Jičíně",
+    "NAE802": "Městské muzeum Jaroměř"
   },
   "dialog": {
     "layoutSettings": {
