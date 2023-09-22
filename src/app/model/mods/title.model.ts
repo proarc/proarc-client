@@ -1,5 +1,6 @@
 import ModsUtils from './utils';
 import { ModsElement } from './element.model';
+import { FormControl } from '@angular/forms';
 
 export class ModsTitle extends ModsElement {
 
@@ -9,6 +10,7 @@ export class ModsTitle extends ModsElement {
     partNumber: any;
     partName: any;
     isNonSortToggleDisabled: boolean;
+    titleControls: {[key: string]: FormControl} = {};
 
     static getSelector() {
         return 'titleInfo';
@@ -24,6 +26,7 @@ export class ModsTitle extends ModsElement {
     }
 
     private init() {
+        
         if (!this.modsElement['nonSort']) {
             this.modsElement['nonSort'] = ModsUtils.createField(this, 'nonSort');
         }
@@ -45,6 +48,7 @@ export class ModsTitle extends ModsElement {
         this.partNumber = this.modsElement['partNumber'][0];
         this.partName = this.modsElement['partName'][0];
         this.isNonSortToggleDisabled = this.nonSortToggleDisabled();
+        this.getControl('title');
     }
 
     nonSortToggleDisabled(): boolean {
@@ -77,7 +81,7 @@ export class ModsTitle extends ModsElement {
             this.title['_'] = this.nonSort['_'] + this.title['_'];
             this.nonSort['_'] = '';
         }
-        
+        this.controls['title'].setValue(this.title['_']);
         this.getControl('nonSort').markAsDirty();
     }
 

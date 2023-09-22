@@ -3,7 +3,7 @@
 		<div fxFlex>
 			<app-editor-switcher (onChangeEditorType)="changeEditorType($event)" [editorType]="editorType"></app-editor-switcher>
 			<ng-container *ngIf="metadata">
-				<button mat-icon-button [matTooltip]="'desc.showOnlyTheElement' | translate" [class.app-active]="byField" (click)="byField = !byField">
+				<button mat-icon-button [matTooltip]="'desc.showOnlyTheElement' | translate" [class.app-active]="byField" (click)="toggleByField()">
 					<mat-icon>keyboard_double_arrow_down</mat-icon>
 				</button>
 				<span class="app-pipe"></span>

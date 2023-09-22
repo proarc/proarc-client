@@ -11,14 +11,14 @@ export abstract class ModsElement {
     private template;
 
     public validationWarning = false;
-    public controls: Map<String, FormControl>;
+    public controls: {[key: string]: FormControl} = {};
 
     private subFields: ElementField[];
 
     constructor(modsElement: any, template: any, attributes: string[] = []) {
         this.validationWarning = false;
         this.subFields = [];
-        this.controls = new Map<String, FormControl>();
+        //this.controls = new Map<String, FormControl>();
         this.template = template;
         this.modsElement = modsElement;
         if (attributes.length > 0) {
@@ -131,10 +131,16 @@ export abstract class ModsElement {
     }
 
     public getControl(field: string): FormControl {
-        if (!this.controls.has(field)) {
-            this.controls.set(field, new FormControl());
+        //console.log(field);
+        if (!this.controls.hasOwnProperty(field)) {
+            const c = new FormControl();
+            if (this[field as keyof(ModsElement)]) {
+                c.setValue(this[field as keyof(ModsElement)]['_']);
+            } 
+            
+            this.controls[field] = c;
         }
-        return this.controls.get(field);
+        return this.controls[field];
     }
 
     public invalid(field: string): boolean {
@@ -152,7 +158,8 @@ export abstract class ModsElement {
 
   public hasAnyValue(): boolean {
     let anyValue = false;
-    this.controls.forEach((value, key) => {
+    Object.keys(this.controls).forEach((key) => {
+            const value = this.controls[key];
       if (value.value) {
         anyValue = true;
       }
@@ -165,7 +172,8 @@ export abstract class ModsElement {
         let error = false;
         let anyValue = false;
         let isRequired = this.isRequired();
-        this.controls.forEach((value, key) => {
+        Object.keys(this.controls).forEach((key) => {
+            const value = this.controls[key];
             value.markAsTouched();
             if (value.errors) {
                 error = true;
@@ -177,14 +185,16 @@ export abstract class ModsElement {
 
         if (!anyValue) {
             if (isRequired) {
-                this.controls.forEach((value, key) => {
+                Object.keys(this.controls).forEach((key) => {
+            const value = this.controls[key];
                     if (this.template.fields[key + ''] && (this.template.fields[key + ''].required || this.template.fields[key + ''].usage === 'M')) {
                         error = true;
                     }
                 });
                 // error = true;
             } else {
-                this.controls.forEach((value, key) => {
+                Object.keys(this.controls).forEach((key) => {
+            const value = this.controls[key];
                     // value.markAsUntouched();
                     if (this.template.fields[key + '']?.required) {
                         error = true;
@@ -207,7 +217,8 @@ export abstract class ModsElement {
         let error = false;
         let anyValue = false;
         const isRequired = this.template ? this.template.usage == 'M' : false
-        this.controls.forEach((value, key) => {
+        Object.keys(this.controls).forEach((key) => {
+            const value = this.controls[key];
             if (value.errors) {
                 error = true;
             }
@@ -222,10 +233,10 @@ export abstract class ModsElement {
     }
 
     public hasChanges(): boolean {
-        const keys = this.controls.keys();
+        const keys = Object.keys(this.controls);
         for (let key of keys) {
             // keys.forEach(( key: string) => {
-            if (this.controls.get(key).dirty) {
+            if (this.controls[key].dirty) {
                 return true;
             }
             //});
@@ -243,20 +254,20 @@ export abstract class ModsElement {
     }
 
     public setAsDirty() {
-        if (this.controls.size === 0) {
+        if (Object.keys(this.controls).length === 0) {
             this.subFields[0].getItems()[0].setAsDirty();
         } else {
-            const keys = this.controls.keys();
+            const keys = Object.keys(this.controls);
             for (let key of keys) {
-                this.controls.get(key).markAsDirty();
+                this.controls[key].markAsDirty();
             }
         }
     }
 
     public resetChanges() {
-        const keys = this.controls.keys();
+        const keys = Object.keys(this.controls);
         for (let key of keys) {
-            this.controls.get(key).markAsPristine();
+            this.controls[key].markAsPristine();
         }
 
         return false;

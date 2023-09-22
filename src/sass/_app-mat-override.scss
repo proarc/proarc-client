@@ -70,6 +70,10 @@
 
       .mat-icon {
         @include setIcon(20, $position: sub);
+
+        &.app-icon-copy {
+          @include setIcon(16, $position: sub);
+        }
       }
 
       .app-text-cutter-wrapper {
