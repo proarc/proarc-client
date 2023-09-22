@@ -5,6 +5,9 @@ import { Tree } from 'src/app/model/mods/tree.model';
 import { ApiService } from 'src/app/services/api.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { SearchService } from 'src/app/services/search.service';
+import { TranslateService } from '@ngx-translate/core';
+import { UIService } from 'src/app/services/ui.service';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-tree',
@@ -28,7 +31,10 @@ export class TreeComponent implements OnInit {
 
   constructor(public properties: LocalStorageService,
     private api: ApiService,
-    public search: SearchService) {
+    public search: SearchService,
+    private ui: UIService,
+    private translator: TranslateService,
+    private clipboard: Clipboard) {
   }
 
   ngOnInit() {
@@ -129,6 +135,11 @@ export class TreeComponent implements OnInit {
     
     this.search.selectedTreePid = this.tree.item.pid;
     this.onSelect.emit(tree);
+  }
+
+  copyTextToClipboard(val: string) {
+    this.clipboard.copy(val);
+    this.ui.showInfoSnackBar(this.translator.instant('snackbar.copyTextToClipboard.success'));
   }
 
 }

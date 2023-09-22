@@ -24,6 +24,7 @@ import { MatTable } from '@angular/material/table';
 import { ConvertDialogComponent } from 'src/app/dialogs/convert-dialog/convert-dialog.component';
 import { LayoutService } from 'src/app/services/layout.service';
 import { CzidloDialogComponent } from 'src/app/dialogs/czidlo-dialog/czidlo-dialog.component';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-search',
@@ -110,7 +111,8 @@ export class SearchComponent implements OnInit {
     public config: ConfigService,
     private ui: UIService,
     private translator: TranslateService,
-    public layout: LayoutService) { 
+    public layout: LayoutService,
+    private clipboard: Clipboard) { 
     this.models = this.config.allModels;
   }
 
@@ -748,5 +750,10 @@ export class SearchComponent implements OnInit {
         });
       }
     });
+  }
+
+  copyTextToClipboard(val: string) {
+    this.clipboard.copy(val);
+    this.ui.showInfoSnackBar(this.translator.instant('snackbar.copyTextToClipboard.success'));
   }
 }

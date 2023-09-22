@@ -593,6 +593,10 @@ as-split {
 
       .mat-icon {
         pointer-events: auto;
+
+        &.app-icon-copy {
+          @include setIcon(16, $position: sub);
+        }
       }
 
       &.app-pid {
