@@ -10,6 +10,7 @@ import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Metadata } from 'src/app/model/metadata.model';
 import { LayoutService } from 'src/app/services/layout.service';
 import { TemplateService } from 'src/app/services/template.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-editor-metadata',
@@ -42,6 +43,7 @@ export class EditorMetadataComponent implements OnInit {
 
   constructor(
     private translator: TranslateService,
+    private localS: LocalStorageService,
     public layout: LayoutService,
     private tmpl: TemplateService,
     private api: ApiService,
@@ -54,6 +56,12 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.byField = this.localS.getBoolProperty('metadata_by_field');
+  }
+
+  toggleByField() {
+    this.byField = !this.byField;
+    this.localS.setBoolProperty('metadata_by_field', this.byField);
   }
 
   ngOnChanges(c: SimpleChanges) {
