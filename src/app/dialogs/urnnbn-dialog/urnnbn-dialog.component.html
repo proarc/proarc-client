@@ -73,6 +73,6 @@
 </div>
 <div mat-dialog-actions cdk-focus-start>
   <button mat-flat-button color="primary" [disabled]="formDisabled()" (click)="onRegister()">{{ 'button.register' | translate }}</button>
-  <button mat-flat-button mat-dialog-close="close" >{{ 'button.close' | translate }}</button>
+  <button mat-stroked-button mat-dialog-close="close" >{{ 'button.close' | translate }}</button>
   <button *ngIf="log" mat-flat-button color="warn" (click)="showErrorDetail(log)">{{ 'button.viewErrorOutput' | translate }}</button>
 </div>
