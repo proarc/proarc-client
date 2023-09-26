@@ -65,7 +65,7 @@
     </div>
   </div>
 
-  <div fxFlex class="app-oa-y" #childrenList (scroll)="setScrollPos()">
+  <div fxFlex class="app-oa-y" #childrenList (scroll)="setScrollPos()" (keydown)="noscroll($event)">
     <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
     <div class="app-editor-content" #childrenWrapper tabindex="0"  *ngIf="state !=='loading'"
       (keyup)="keyup($event)" (resized)="onResized($event)" (mousemove)="mousemove($event)">

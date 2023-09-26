@@ -1,4 +1,4 @@
-<div class="app-editor-field" [class.app-nested]="nested" [class.app-usages]="true">
+<div class="app-editor-field" [class.app-nested]="nested" [class.app-usages]="true" *ngIf="field">
 
   <ng-container *ngFor="let item of field.getItems(); last as last; first as first;">
     

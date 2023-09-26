@@ -118,9 +118,9 @@ export class EditorStructureComponent implements OnInit {
 
   ngOnInit(): void {
     this.isRepo = this.layout.type === 'repo';
-    
+
     // this.setSelectedColumns();
-    
+
     this.shortLabels = this.properties.getBoolProperty('children.short_labels', false);
     this.pageChildren = this.layout.items.findIndex(it => it.isPage()) > -1;
     if (!this.isRepo) {
@@ -190,7 +190,7 @@ export class EditorStructureComponent implements OnInit {
     this.refreshing = false;
   }
 
-  scrollToSelected() {
+  scrollToSelected(alignToTop : boolean) {
     const index = this.layout.items.findIndex(i => i.selected);
     if (index < 0) {
       return;
@@ -201,13 +201,13 @@ export class EditorStructureComponent implements OnInit {
     } else if (this.viewMode == 'icons') {
       container = this.childrenIconListEl;
     } else {
-      if (this.scrollPos > -1) {
-        console.log(document.getElementById('table').parentElement.parentElement)
-        document.getElementById('table').parentElement.parentElement.scrollTop = this.scrollPos;
-      } else {
+      // if (this.scrollPos > -1) {
+      //   console.log(document.getElementById('table').parentElement.parentElement)
+      //   document.getElementById('table').parentElement.parentElement.scrollTop = this.scrollPos;
+      // } else {
+      // }
         let row = this.rows.get(index);
-        row.element.nativeElement.scrollIntoView(true);
-      }
+        row.element.nativeElement.scrollIntoView(alignToTop, {behavior : 'smooth'} );
       return;
     }
 
@@ -219,7 +219,7 @@ export class EditorStructureComponent implements OnInit {
       }
       if (index > 0) {
         const el = container.nativeElement.children[index];
-        el.scrollIntoView(true);
+        el.scrollIntoView(alignToTop, {behavior : 'smooth'} );
       }
     }
   }
@@ -236,30 +236,49 @@ export class EditorStructureComponent implements OnInit {
     this.iconWidth = 100.0 / this.iconColumns;
   }
 
+  noscroll(e: any) {
+    if (this.viewMode === 'list' && ["Space", "ArrowUp", "ArrowDown"].indexOf(e.code) > -1) {
+      e.preventDefault();
+    }
+  }
+
   // navigate by keyboard
   keyup(event: any) {
     if (!event) {
       return;
     }
-    if (event.keyCode === 37 || event.keyCode === 38) {
+    if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(event.code) > -1) {
       event.stopPropagation();
       event.preventDefault();
+    }
+    if (event.code === "ArrowUp") {
       let step = 1;
-      if (event.keyCode === 38 && (this.viewMode === 'icons' || this.viewMode === 'grid')) {
+      if (this.viewMode !== 'list') {
         step = this.iconColumns;
       }
       if (this.arrowIndex - step >= 0) {
         this.rowClick(this.layout.items[this.arrowIndex - step], this.arrowIndex - step, event);
+        this.scrollToSelected(false);
       }
-    } else if (event.keyCode === 39 || event.keyCode === 40) {
-      event.stopPropagation();
-      event.preventDefault();
+    } else if (event.code === "ArrowLeft" && this.viewMode !== 'list') {
       let step = 1;
-      if (event.keyCode === 40 && (this.viewMode === 'icons' || this.viewMode === 'grid')) {
+      if (this.arrowIndex - step >= 0) {
+        this.rowClick(this.layout.items[this.arrowIndex - step], this.arrowIndex - step, event);
+      }
+    } else if (event.code === "ArrowDown") {
+      let step = 1;
+      if (this.viewMode !== 'list') {
         step = this.iconColumns;
       }
       if (this.arrowIndex + step < this.layout.items.length) {
         this.rowClick(this.layout.items[this.arrowIndex + step], this.arrowIndex + step, event);
+        this.scrollToSelected(false);
+      }
+    } else if (event.code === "ArrowRight" && this.viewMode !== 'list') {
+      let step = 1;
+      if (this.arrowIndex + step < this.layout.items.length) {
+        this.rowClick(this.layout.items[this.arrowIndex + step], this.arrowIndex + step, event);
+        //this.scrollToSelected();
       }
     }
 
@@ -306,7 +325,7 @@ export class EditorStructureComponent implements OnInit {
   }
   getColumnWidthRepo(field: string) {
     const model = this.colsEditModeParent ? this.layout.selectedParentItem.model : this.layout.items[0].model;
-    const el = this.properties.colsEditingRepo[model].find((c: any)=> c.field === field);
+    const el = this.properties.colsEditingRepo[model].find((c: any) => c.field === field);
     if (el) {
       return el.width + 'px';
     } else {
@@ -315,7 +334,7 @@ export class EditorStructureComponent implements OnInit {
   }
 
   getColumnWidthImport(field: string) {
-    const el = this.colsImport.find((c: any)=> c.field === field);
+    const el = this.colsImport.find((c: any) => c.field === field);
     if (el) {
       return el.width + 'px';
     } else {
@@ -332,23 +351,23 @@ export class EditorStructureComponent implements OnInit {
   }
   saveColumnsSizesRepo(e: any, field?: string) {
     const model = this.colsEditModeParent ? this.layout.selectedParentItem.model : this.layout.items[0].model;
-    const el = this.properties.colsEditingRepo[model].find((c: any)=> c.field === field);
+    const el = this.properties.colsEditingRepo[model].find((c: any) => c.field === field);
     if (el) {
       el.width = e;
     } else {
       console.log("nemelo by")
-    } 
+    }
 
     this.properties.setColumnsEditingRepoSimple();
   }
 
   saveColumnsSizesImport(e: any, field?: string) {
-    const el = this.colsImport.find((c: any)=> c.field === field);
+    const el = this.colsImport.find((c: any) => c.field === field);
     if (el) {
       el.width = e;
     } else {
       console.log("nemelo by")
-    } 
+    }
 
     this.properties.setStringProperty('selectedColumnsImport', JSON.stringify(this.colsImport));
   }
@@ -538,19 +557,19 @@ export class EditorStructureComponent implements OnInit {
 
   }
 
-  
+
 
   stop = true;
-    h = 0;
-    y = 0;
+  h = 0;
+  y = 0;
 
   scroll(el: any, step: number) {
     var scrollTop = el.scrollTop;
     el.scrollTop = scrollTop + step;
     if (!this.stop) {
-        setTimeout(() => { this.scroll(el, step) }, 20);
+      setTimeout(() => { this.scroll(el, step) }, 20);
     }
-}
+  }
 
 
   dragover(event: any) {
@@ -562,18 +581,18 @@ export class EditorStructureComponent implements OnInit {
       event.dataTransfer.dropEffect = 'none';
     }
 
-    
+
     // console.log(event)
     // this.h = event.clientY;
     // this.y = event.offsetY;
     this.stop = true;
     if (event.clientY < (this.childrenListEl.nativeElement.offsetTop + 45)) {
-        this.stop = false;
-        this.scroll(this.childrenListEl.nativeElement, -1)
+      this.stop = false;
+      this.scroll(this.childrenListEl.nativeElement, -1)
     }
     if (event.clientY > (this.childrenListEl.nativeElement.offsetTop + this.childrenListEl.nativeElement.clientHeight - 45)) {
       this.stop = false;
-        this.scroll(this.childrenListEl.nativeElement, 1)
+      this.scroll(this.childrenListEl.nativeElement, 1)
     }
 
     return false;
@@ -756,10 +775,10 @@ export class EditorStructureComponent implements OnInit {
       parentPid: this.layout.selectedParentItem.pid,
       fromNavbar: false
     }
-    const dialogRef1 = this.dialog.open(NewObjectDialogComponent, { 
+    const dialogRef1 = this.dialog.open(NewObjectDialogComponent, {
       data: data,
       width: '680px'
-     });
+    });
     dialogRef1.afterClosed().subscribe((result: any) => {
       if (result && result['pid']) {
 
@@ -1294,7 +1313,7 @@ export class EditorStructureComponent implements OnInit {
   setColumnSizes() {
 
     this.selectedColumns.forEach((column) => {
-        const col = document.getElementsByClassName('mat-column-' + column.field).item(0);
+      const col = document.getElementsByClassName('mat-column-' + column.field).item(0);
       if (col) {
         column.width = col.clientWidth;
         // this.setColumnWidth(column);
