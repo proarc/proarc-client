@@ -63,7 +63,7 @@ export class ImportComponent implements OnInit {
         this.selectedProfile = this.profiles[0];
       }
       if (this.devices.length > 0) {
-        this.selectedDevice = this.devices[0];
+        // this.selectedDevice = this.devices[0];
       }
       this.loadFolder(Folder.root(), 0);
     });
