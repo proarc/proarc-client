@@ -4,7 +4,7 @@
     <app-field-codebook field="lang" [item]="item" [options]="codebook.languages" [(value)]="item.attrs['lang']"></app-field-codebook>
     <app-field-text field="nonSort" [item]="item" [(value)]="item.nonSort['_']"></app-field-text>
 
-    <mat-form-field class="app-field-col" *ngIf="item.available('title')" [class.app-invalid]="item.invalid('title')">
+    <mat-form-field class="app-field-col" *ngIf="item.template['fields']['title']" [class.app-invalid]="item.invalid('title')">
       <app-usage [item]="item" field="title"></app-usage>
 
       <!--<span *ngIf='item.nonSort["_"]' matPrefix class="title-prefix" color="primary">{{ item.nonSort["_"] }}</span>-->

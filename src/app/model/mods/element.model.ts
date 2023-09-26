@@ -8,7 +8,7 @@ export abstract class ModsElement {
     public modsElement: any;
     public collapsed = false;
     public hidden = false;
-    private template;
+    public template;
 
     public validationWarning = false;
     public controls: {[key: string]: FormControl} = {};

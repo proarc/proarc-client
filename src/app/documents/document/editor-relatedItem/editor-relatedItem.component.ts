@@ -36,7 +36,10 @@ export class EditorRelatedItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.field.getItems()[0].getControl('roles')
+    if (this.field) {
+      this.field.getItems()[0].getControl('roles')
+    }
+    
   }
 
   translateCodes() {

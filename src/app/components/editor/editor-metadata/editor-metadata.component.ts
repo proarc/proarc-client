@@ -67,6 +67,9 @@ export class EditorMetadataComponent implements OnInit {
   ngOnChanges(c: SimpleChanges) {
 
     if (c['metadata'] && c['metadata'].currentValue &&  (c['metadata'].currentValue !== c['metadata'].previousValue) ) {
+      if (!c['metadata'].currentValue.template) {
+        return;
+      }
       this.metadata = c['metadata'].currentValue;
       this.availableFields = Object.keys(this.metadata.template);
       Object.keys(this.metadata.template).forEach(k => {
