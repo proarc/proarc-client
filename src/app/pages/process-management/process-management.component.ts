@@ -274,7 +274,7 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
     if (this.modifiedTo) {
       params['modifiedTo'] = this.datePipe.transform(this.modifiedTo, 'yyyy-MM-dd');
     } else {
-      params['statemodifiedTo'] = null;
+      params['modifiedTo'] = null;
     }
 
     params.page = null;

@@ -12,10 +12,14 @@
   <div fxFlex class="app-content-wrapper app-history" *ngIf="state=='success'" fxLayout="column">
     <div class="app-formbar" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
       <ng-container *ngIf="view == 'overview'">
+        <!-- <h3>Debug => {{ this.selectedState }}</h3> -->
         <mat-form-field>
           <mat-select [placeholder]="'desc.state' | translate" [(ngModel)]="selectedState" (selectionChange)="onStateChanged()">
             <mat-option *ngFor="let state of batchStates" [value]="state">{{ 'states.' + state | translate }}</mat-option>
           </mat-select>
+          <button *ngIf="selectedState !== 'ALL'" (click)="selectedState = 'ALL'; onStateChanged()" matSuffix mat-icon-button aria-label="Clear" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+            <mat-icon>close</mat-icon>
+          </button>
         </mat-form-field>
         <button mat-stroked-button (click)="reload()">
           {{ 'button.refresh' | translate }}
@@ -49,46 +53,70 @@
     </div>
 
     <div *ngIf="view == 'overview'" class="app-formbar" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
-      <mat-form-field fxFlex>
+      <mat-form-field>
         <input matInput [matTooltip]="'formField.folderNamePid.tooltip' | translate" [placeholder]="'formField.folderNamePid.placeholder' | translate" (keyup.enter)="filter()" [(ngModel)]="description">
+        <button *ngIf="description" matSuffix mat-icon-button aria-label="Clear" (click)="description=''; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+          <mat-icon>close</mat-icon>
+        </button>
       </mat-form-field>
       <mat-form-field class="app-resized">
         <input matInput [matDatepicker]="dp1" [placeholder]="'desc.createFrom' | translate" [(ngModel)]="createFrom" (keyup.enter)="filter()">
         <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
         <mat-datepicker #dp1></mat-datepicker>
+        <button *ngIf="createFrom" matSuffix mat-icon-button aria-label="Clear" (click)="createFrom=null; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+          <mat-icon>close</mat-icon>
+        </button>
       </mat-form-field>
       <mat-form-field class="app-resized">
         <input matInput [matDatepicker]="dp2" [placeholder]="'desc.createTo' | translate" [(ngModel)]="createTo" (keyup.enter)="filter()">
         <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
         <mat-datepicker #dp2></mat-datepicker>
+        <button *ngIf="createTo" matSuffix mat-icon-button aria-label="Clear" (click)="createTo=null; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+          <mat-icon>close</mat-icon>
+        </button>
       </mat-form-field>
       <mat-form-field class="app-resized">
         <input matInput [matDatepicker]="dp3" [placeholder]="'desc.modifiedFrom' | translate" [(ngModel)]="modifiedFrom" (keyup.enter)="filter()">
         <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
         <mat-datepicker #dp3></mat-datepicker>
+        <button *ngIf="modifiedFrom" matSuffix mat-icon-button aria-label="Clear" (click)="modifiedFrom=null; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+          <mat-icon>close</mat-icon>
+        </button>
       </mat-form-field>
       <mat-form-field class="app-resized">
         <input matInput [matDatepicker]="dp4" [placeholder]="'desc.modifiedTo' | translate" [(ngModel)]="modifiedTo" (keyup.enter)="filter()">
         <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
         <mat-datepicker #dp4></mat-datepicker>
+        <button *ngIf="modifiedTo" matSuffix mat-icon-button aria-label="Clear" (click)="modifiedTo=null; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+          <mat-icon>close</mat-icon>
+        </button>
       </mat-form-field>
       <mat-form-field>
         <mat-select [placeholder]="'desc.user' | translate" name="user" [(ngModel)]="user" (keyup.enter)="filter()">
           <mat-option value="">{{ 'desc.all' | translate }}</mat-option>
           <mat-option *ngFor="let user of users" [value]="user.userId+''">{{ user.name }}</mat-option>
         </mat-select>
+        <button *ngIf="user" (click)="user=''; filter()" matSuffix mat-icon-button aria-label="Clear" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+          <mat-icon>close</mat-icon>
+        </button>
       </mat-form-field>
       <mat-form-field class="app-resized">
         <mat-select [placeholder]="'desc.priority' | translate" name="priority" [(value)]="priority" (keyup.enter)="filter()">
           <mat-option value="">{{ 'desc.all' | translate }}</mat-option>
           <mat-option *ngFor="let priority of priorities" [value]="priority">{{ 'formField.priorities.' + priority | translate }}</mat-option>
         </mat-select>
+        <button *ngIf="priority" (click)="priority=''; filter()" matSuffix mat-icon-button aria-label="Clear" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+          <mat-icon>close</mat-icon>
+        </button>
       </mat-form-field>
       <mat-form-field>
         <mat-select [placeholder]="'desc.profile' | translate" name="profile" [(value)]="profile" (keyup.enter)="filter()">
           <mat-option value="">{{ 'desc.all' | translate }}</mat-option>
           <mat-option *ngFor="let profile of profiles" [value]="profile">{{ 'formField.profiles.' + profile | translate }}</mat-option>
         </mat-select>
+        <button *ngIf="profile" (click)="profile=''; filter()" matSuffix mat-icon-button aria-label="Clear" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+          <mat-icon>close</mat-icon>
+        </button>
       </mat-form-field>
       <button mat-stroked-button (click)="filter()">
         {{ 'button.filter' | translate }}
