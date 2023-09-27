@@ -38,15 +38,11 @@
 
 // set alert card
 @mixin setAlertCard() {
-  @each $alert, $color in $alerts {
+  @each $alert, $item in $alerts {
     &.app-#{$alert} {
-      color: $color;
-      border-color: rgba($color, .2);
-      background-color: rgba($color, .1);
-
-      .mat-icon {
-        color: $color;
-      }
+      color: map-get( $item , color );
+      background-color: map-get( $item , bg );
+      border-color: map-get( $item , border );
     }
   }
 }
