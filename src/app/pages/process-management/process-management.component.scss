@@ -1,4 +1,4 @@
-.app-history {
+.app-process-management {
   .app-formbar {
     .mat-form-field {
       &.app-resized {
@@ -6,6 +6,10 @@
         flex: 1 1 $app-size;
         max-width: $app-size;
         min-width: $app-size;
+      }
+
+      &.app-state {
+        max-width: 300px !important;
       }
     }
   }

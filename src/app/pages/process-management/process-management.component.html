@@ -9,11 +9,10 @@
 
   <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'"></mat-progress-bar>
 
-  <div fxFlex class="app-content-wrapper app-history" *ngIf="state=='success'" fxLayout="column">
+  <div fxFlex class="app-content-wrapper app-process-management" *ngIf="state=='success'" fxLayout="column">
     <div class="app-formbar" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
       <ng-container *ngIf="view == 'overview'">
-        <!-- <h3>Debug => {{ this.selectedState }}</h3> -->
-        <mat-form-field>
+        <mat-form-field class="app-state">
           <mat-select [placeholder]="'desc.state' | translate" [(ngModel)]="selectedState" (selectionChange)="onStateChanged()">
             <mat-option *ngFor="let state of batchStates" [value]="state">{{ 'states.' + state | translate }}</mat-option>
           </mat-select>
