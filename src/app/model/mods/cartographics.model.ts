@@ -25,10 +25,13 @@ export class ModsCartographics extends ModsElement {
             this.modsElement['scale'] = ModsUtils.createField(this, 'scale');
         }
         this.scale = this.modsElement['scale'][0];
+        this.addControl('scale');
+
         if (!this.modsElement['coordinates']) {
             this.modsElement['coordinates'] = [ModsUtils.createTextElement('', null)];
         }
         this.coordinates = this.modsElement['coordinates'][0];
+        this.addControl('coordinates');
 
 
     }

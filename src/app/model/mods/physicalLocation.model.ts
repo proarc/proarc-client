@@ -20,6 +20,10 @@ export class ModsPhysicalLocation extends ModsElement {
       if (!this.modsElement['_']) {
         this.modsElement['_'] = ModsUtils.getDefaultValue(this, 'value');
       }
+      this.addControl('value');
+      this.addControl('authority');
+      this.addControl('displayLabel');
+
     }
 
 }

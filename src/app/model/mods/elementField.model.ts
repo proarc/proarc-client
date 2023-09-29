@@ -92,7 +92,7 @@ export class ElementField {
                 this.items.push(newEl);
             }
         }
-console.log(id, hiddenItems);
+        
         if (this.items.length - hiddenItems < 1) {
             const item = this.add();
             if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded) {

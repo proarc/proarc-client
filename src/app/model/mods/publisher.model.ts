@@ -42,38 +42,61 @@ export class ModsPublisher extends ModsElement {
     }
 
     private init() {
+      this.addControl('eventType');
+      this.addControl('transliteration');
+
         if (!this.modsElement['publisher']) {
             //this.modsElement['publisher'] = ModsUtils.createEmptyField();
             this.modsElement['publisher'] = ModsUtils.createField(this, 'publisher');
         }
+        this.addControl('publisher');
+
         if (!this.modsElement['issuance']) {
             // this.modsElement['issuance'] = ModsUtils.createEmptyField();
             this.modsElement['issuance'] = ModsUtils.createField(this, 'issuance');
         }
+        this.addControl('issuance');
+
         if (!this.modsElement['dateIssued']) {
             this.modsElement['dateIssued'] = [];
         }
+        this.addControl('dateIssued');
+
         if (!this.modsElement['dateOther']) {
             this.modsElement['dateOther'] = [];
         }
+        this.addControl('dateOther');
+
         if (!this.modsElement['copyrightDate']) {
             this.modsElement['copyrightDate'] = ModsUtils.createField(this, 'copyrightDate');;
         }
+        this.addControl('copyrightDate');
+
         if (!this.modsElement['dateCreated']) {
             this.modsElement['dateCreated'] = [];
         }
+        this.addControl('dateCreated');
+
         if (!this.modsElement['dateValid']) {
             this.modsElement['dateValid'] = [];
         }
+        this.addControl('dateValid');
+
         if (!this.modsElement['dateCaptured']) {
             this.modsElement['dateCaptured'] = [];
         }
+        this.addControl('dateCaptured');
+
         if (!this.modsElement['dateModified']) {
             this.modsElement['dateModified'] = [];
         }
+        this.addControl('dateModified');
+
         if (!this.modsElement['place']) {
             this.modsElement['place'] = [];
         }
+        this.addControl('place');
+
         this.publisher = this.modsElement['publisher'][0];
         this.issuance = this.modsElement['issuance'][0];
         this.copyrightDate = this.modsElement['copyrightDate'][0];

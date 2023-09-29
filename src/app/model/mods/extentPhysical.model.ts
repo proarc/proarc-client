@@ -20,5 +20,8 @@ export class ModsPhysicalExtent extends ModsElement {
       if (!this.modsElement['_']) {
         this.modsElement['_'] = ModsUtils.getDefaultValue(this, 'value');
       }
+      this.addControl('value');
+      this.addControl('unit');
+      this.addControl('lang');
     }
 }

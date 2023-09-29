@@ -27,15 +27,22 @@ export class ModsPhysical extends ModsElement {
     }
 
     private init() {
+        this.addControl('displayLabel');
         if (!this.modsElement['extent']) {
             this.modsElement['extent'] = ModsUtils.createField(this, 'extent');
         }
+        this.addControl('extent');
+        
         if (!this.modsElement['note']) {
             this.modsElement['note'] = ModsUtils.createField(this, 'note');
         }
+        this.addControl('note');
+        
         if (!this.modsElement['digitalOrigin']) {
             this.modsElement['digitalOrigin'] = ModsUtils.createField(this, 'digitalOrigin');
         }
+        this.addControl('digitalOrigin');
+
         this.note = this.modsElement['note'][0];
         this.digitalOrigin = this.modsElement['digitalOrigin'][0];
 

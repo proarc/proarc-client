@@ -29,15 +29,21 @@ export class ModsLocation extends ModsElement {
           this.physicalLocations = new ElementField(this.modsElement, ModsPhysicalLocation.getSelector(), this.getField('physicalLocation'));
           this.addSubfield(this.physicalLocations);
         }
+        this.addControl('physicalLocation');
+
       if(this.available("url")) {
         this.urls = new ElementField(this.modsElement, ModsUrl.getSelector(), this.getField('url'));
         this.addSubfield(this.urls);
       }
+      this.addControl('url');
+
 
       if(this.available("shelfLocator")) {
         this.shelfLocators = new ElementField(this.modsElement, ModsShelfLocator.getSelector(), this.getField('shelfLocator'));
         this.addSubfield(this.shelfLocators);
       }
+      this.addControl('shelfLocator');
+
 
     }
 

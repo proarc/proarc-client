@@ -158,6 +158,9 @@ export abstract class ModsElement {
     public invalid(field: string): boolean {
         const c: any = this.getControl2(field);
         console.log(c)
+        if (!c) {
+            console.log(this)
+        }
         if (c.touched && c.errors && c.errors.required) {
             return true;
         }
