@@ -47,6 +47,11 @@ export class ModsRelatedItem extends ModsElement {
   }
 
   private init() {
+    this.addControl('type');
+    this.addControl('otherType');
+    this.addControl('otherTypeURI');
+    this.addControl('otherTypeAuth');
+    this.addControl('otherTypeAuthURI');
     if (this.available('titleInfo')) {
       this.titleInfos = new ElementField(this.modsElement, ModsTitle.getSelector(), this.getField('titleInfo'));
       this.addSubfield(this.titleInfos);

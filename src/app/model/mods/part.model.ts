@@ -27,10 +27,12 @@ export class ModsPart extends ModsElement {
         if (!this.modsElement['type']) {
              this.modsElement['type'] = ModsUtils.createField(this, 'type');
         }
+        this.type = this.modsElement['type'][0];
+        this.addControl('type');
         if (!this.modsElement['detail']) {
             this.modsElement['detail'] = [];
         }
-        this.type = this.modsElement['type'][0];
+        this.addControl('detail');
         const ctx = this;
         this.modsElement['detail'].forEach(function(caption: { [x: string]: any[]; }) {
           if (caption['caption'] && caption['caption'][0]) {
@@ -42,10 +44,12 @@ export class ModsPart extends ModsElement {
           this.caption = caption['caption'][0];
           this.modsElement['detail'].push(caption);
         }
+        this.addControl('caption');
 
       if (this.available('extent')) {
         this.extents = new ElementField(this.modsElement, ModsExtent.getSelector(), this.getField('extent'));
         this.addSubfield(this.extents);
       }
+      this.addControl('extent');
     }
 }

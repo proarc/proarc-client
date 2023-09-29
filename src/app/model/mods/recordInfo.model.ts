@@ -32,11 +32,13 @@ export class ModsRecordInfo extends ModsElement {
         if (!this.modsElement['descriptionStandard']) {
             this.modsElement['descriptionStandard'] = ModsUtils.createField(this, 'descriptionStandard');
         }
+        this.descriptionStandard = this.modsElement['descriptionStandard'][0];
+        this.addControl('descriptionStandard');
         if (!this.modsElement['recordOrigin']) {
             this.modsElement['recordOrigin'] = ModsUtils.createField(this,'recordOrigin');
         }
-        this.descriptionStandard = this.modsElement['descriptionStandard'][0];
         this.recordOrigin = this.modsElement['recordOrigin'][0];
+        this.addControl('recordOrigin');
         if (this.available('recordContentSource')) {
             this.recordContentSources = new ElementField(this.modsElement, ModsRecordContentSource.getSelector(), this.getField('recordContentSource'));
             this.addSubfield(this.recordContentSources);

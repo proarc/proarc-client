@@ -12,6 +12,7 @@ export abstract class ModsElement {
 
     public validationWarning = false;
     public controls: {[key: string]: FormControl} = {};
+    public clazz: {[key: string]: string} = {};
 
     private subFields: ElementField[];
 
@@ -139,11 +140,11 @@ export abstract class ModsElement {
             
             this.controls[field] = c;
         }
+        this.clazz[field] = this.class(field);
         console.log('ADD ' + field);
     }
 
     public getControl2(field: string): FormControl {
-        console.log('GET ' + field);
         // if (!this.controls.hasOwnProperty(field)) {
         //     const c = new FormControl();
         //     if (this[field as keyof(ModsElement)]) {
@@ -157,9 +158,8 @@ export abstract class ModsElement {
 
     public invalid(field: string): boolean {
         const c: any = this.getControl2(field);
-        console.log(c)
         if (!c) {
-            console.log(this)
+            console.log(field, this)
         }
         if (c.touched && c.errors && c.errors.required) {
             return true;

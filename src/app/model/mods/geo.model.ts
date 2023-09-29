@@ -51,16 +51,16 @@ export class ModsGeo extends ModsElement {
         if (!this.attrs['authority']) {
             // this.attrs['authority'] = 'geo:origin';
         }
+        this.addControl('authority');
         if (!this.modsElement['geographic']) {
             this.modsElement['geographic'] = [];
         }
+        this.addControl('geographic');
         if (!this.modsElement['cartographics']) {
             this.modsElement['cartographics'] = ModsUtils.createField(this, 'cartographics');
         }
+      this.addControl('cartographics');
 
-        if (!this.modsElement['cartographics']) {
-            this.modsElement['cartographics'] = [];
-        }
         const ctx = this;
         this.modsElement['cartographics'].forEach(function(cartographics: { [x: string]: any[]; }) {
             if (cartographics['coordinates'] &&

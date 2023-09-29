@@ -14,6 +14,7 @@ export class ModsIssue extends ModsElement {
         if (!this.modsElement['titleInfo']) {
             this.modsElement['titleInfo'] = [{}];
         }
+      this.addControl('value');
         if (!this.modsElement['titleInfo'][0]) {
             this.modsElement['titleInfo'][0] = {};
         }
