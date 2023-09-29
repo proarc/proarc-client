@@ -34,7 +34,7 @@ export class ResizecolDirective {
       this.renderer.appendChild(this.column, resizer);
       this.renderer.listen(resizer, "mousedown", this.onMouseDown);
       //this.renderer.listen(this.table, "mousemove", this.onMouseMove);
-      this.renderer.listen("document", "mousemove", this.onMouseMove);
+      //this.renderer.listen("document", "mousemove", this.onMouseMove);
       this.renderer.listen("document", "mouseup", this.onMouseUp);
     }
   }

@@ -130,8 +130,7 @@ export abstract class ModsElement {
         return this.template['fields'][field];
     }
 
-    public getControl(field: string): FormControl {
-        //console.log(field);
+    public addControl(field: string) {
         if (!this.controls.hasOwnProperty(field)) {
             const c = new FormControl();
             if (this[field as keyof(ModsElement)]) {
@@ -140,11 +139,25 @@ export abstract class ModsElement {
             
             this.controls[field] = c;
         }
+        console.log('ADD ' + field);
+    }
+
+    public getControl2(field: string): FormControl {
+        console.log('GET ' + field);
+        // if (!this.controls.hasOwnProperty(field)) {
+        //     const c = new FormControl();
+        //     if (this[field as keyof(ModsElement)]) {
+        //         c.setValue(this[field as keyof(ModsElement)]['_']);
+        //     } 
+            
+        //     this.controls[field] = c;
+        // }
         return this.controls[field];
     }
 
     public invalid(field: string): boolean {
-        const c: any = this.getControl(field);
+        const c: any = this.getControl2(field);
+        console.log(c)
         if (c.touched && c.errors && c.errors.required) {
             return true;
         }

@@ -37,7 +37,7 @@ export class EditorRelatedItemComponent implements OnInit {
 
   ngOnInit() {
     if (this.field) {
-      this.field.getItems()[0].getControl('roles')
+      this.field.getItems()[0].addControl('roles')
     }
     
   }

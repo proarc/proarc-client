@@ -46,40 +46,7 @@ export class ModsAuthor extends ModsElement {
             this.modsElement['namePart'] = [];
         }
         this.affiliation = this.modsElement['affiliation'][0];
-        // const nameParts = this.modsElement['namePart'];
-        // for (const namePart of nameParts) {
-        //     if (!ModsUtils.hasAnyAttribute(namePart)) {
-        //         this.name = namePart;
-        //     }  else if (ModsUtils.hasAttributeWithValue(namePart, 'type', 'date')) {
-        //         this.date = namePart;
-        //     }  else if (ModsUtils.hasAttributeWithValue(namePart, 'type', 'family')) {
-        //         this.family = namePart;
-        //     }  else if (ModsUtils.hasAttributeWithValue(namePart, 'type', 'given')) {
-        //         this.given = namePart;
-        //     } else if (ModsUtils.hasAttributeWithValue(namePart, 'type', 'termsOfAddress')) {
-        //         this.termsOfAddress = namePart;
-        //     }
-        // }
-        // if (this.name == null) {
-        //     this.name = ModsUtils.createTextElement('', null);
-        //     nameParts.push(this.name);
-        // }
-        // if (this.date == null) {
-        //     this.date = ModsUtils.createTextElement('', {'type': 'date'});
-        //     nameParts.push(this.date);
-        // }
-        // if (this.family == null) {
-        //     this.family = ModsUtils.createTextElement('', {'type': 'family'});
-        //     nameParts.push(this.family);
-        // }
-        // if (this.given == null) {
-        //     this.given = ModsUtils.createTextElement('', {'type': 'given'});
-        //     nameParts.push(this.given);
-        // }
-        // if (this.termsOfAddress == null) {
-        //     this.termsOfAddress = ModsUtils.createTextElement('', {'type': 'termsOfAddress'});
-        //     nameParts.push(this.termsOfAddress);
-        // }
+        
         if (this.available('role')) {
             this.roles = new ElementField(this.modsElement, ModsRole.getSelector(), this.getField('role'));
             this.addSubfield(this.roles);
@@ -125,6 +92,15 @@ export class ModsAuthor extends ModsElement {
         }
         this.etal = this.modsElement['etal'][0];
 
+        this.addControl('namePart');
+        this.addControl('affiliation');
+        this.addControl('type');
+        this.addControl('nameIdentifier');
+        this.addControl('role');
+        this.addControl('displayForm');
+        this.addControl('etal');
+        this.addControl('description');
+        
 
         // if (this.modsElement['nameIdentifier']) {
         //     this.nameIdentifier = this.modsElement['nameIdentifier'][0]['_'];

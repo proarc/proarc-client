@@ -53,7 +53,7 @@ export class ElementField {
 
     private id;
     public root;
-    private items: ModsElement[];
+    public items: ModsElement[];
     private template;
     private allExpanded: boolean;
     isPeerReviewed: boolean;
@@ -92,7 +92,7 @@ export class ElementField {
                 this.items.push(newEl);
             }
         }
-
+console.log(id, hiddenItems);
         if (this.items.length - hiddenItems < 1) {
             const item = this.add();
             if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded) {

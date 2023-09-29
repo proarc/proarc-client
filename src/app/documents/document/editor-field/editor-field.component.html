@@ -1,6 +1,6 @@
 <div class="app-editor-field" [class.app-nested]="nested" [class.app-usages]="true" *ngIf="field">
 
-  <ng-container *ngFor="let item of field.getItems(); last as last; first as first;">
+  <ng-container *ngFor="let item of field.items; last as last; first as first;">
     
     <ng-container *ngIf="showByGenre(first, item)">
 

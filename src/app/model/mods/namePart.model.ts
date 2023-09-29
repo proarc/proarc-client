@@ -22,6 +22,9 @@ export class ModsNamePart extends ModsElement {
       if (!this.modsElement['_']) {
         this.modsElement['_'] = ModsUtils.getDefaultValue(this, 'value');
       }
+      
+      this.addControl('value');
+      this.addControl('type');
     }
 
 }

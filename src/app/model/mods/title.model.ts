@@ -48,7 +48,13 @@ export class ModsTitle extends ModsElement {
         this.partNumber = this.modsElement['partNumber'][0];
         this.partName = this.modsElement['partName'][0];
         this.isNonSortToggleDisabled = this.nonSortToggleDisabled();
-        this.getControl('title');
+        this.addControl('title');
+        this.addControl('subTitle');
+        this.addControl('partNumber');
+        this.addControl('partName');
+        this.addControl('type');
+        this.addControl('lang');
+        this.addControl('nonSort');
     }
 
     nonSortToggleDisabled(): boolean {
@@ -82,7 +88,7 @@ export class ModsTitle extends ModsElement {
             this.nonSort['_'] = '';
         }
         this.controls['title'].setValue(this.title['_']);
-        this.getControl('nonSort').markAsDirty();
+        this.controls['nonSort'].markAsDirty();
     }
 
 }

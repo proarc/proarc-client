@@ -13,14 +13,12 @@ export class EditorGenreComponent implements OnInit {
   @Input() field: ElementField;
   @Input() showGenreSwitch: boolean;
 
-  fControl: FormControl;
-
   constructor() {
   }
 
   ngOnInit() {
     //console.log(this.field)
-    this.fControl = this.field.getItems()[0].getControl('peer-reviewed')
+    this.field.getItems()[0].addControl('peer-reviewed')
   }
 
   switchChanged(e:any) {
