@@ -1,4 +1,4 @@
-<mat-form-field *ngIf="item.available(field)" [class]="item.class(field)" [class.app-invalid]="item.invalid(field)">
+<mat-form-field *ngIf="item.available(field)" [class]="item.clazz[field]" [class.app-invalid]="item.invalid(field)">
   <app-usage [item]="item" [field]="field"></app-usage>
   <textarea  cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="15"
   autocomplete="off" matInput [required]="item.isMandatory(field)" [formControl]="item.controls[field]"

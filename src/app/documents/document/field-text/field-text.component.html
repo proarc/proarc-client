@@ -1,4 +1,4 @@
-<mat-form-field *ngIf="item.available(field)" [class]="item.class(field)" [class.app-invalid]="item.invalid(field)">
+<mat-form-field *ngIf="item.available(field)" [class]="item.clazz[field]" [class.app-invalid]="item.invalid(field)">
   <app-usage [item]="item" [field]="field"></app-usage>
   <input [required]="item.isMandatory(field)"
   [formControl]="item.controls[field]" autocomplete="off" matInput

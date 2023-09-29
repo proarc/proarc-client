@@ -1,4 +1,4 @@
-import { FormControl } from "@angular/forms";
+import { FormControl, Validators } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import { ElementField } from "./elementField.model";
 import ModsUtils from './utils';
@@ -112,7 +112,7 @@ export abstract class ModsElement {
     }
 
     private fieldValue(field: string, key: string): any {
-        if (field) {
+        if (field && this.template['fields'][field] && this.template['fields'][field][key]) {
             return this.template['fields'][field][key];
         } else {
             return this.template[key];
@@ -133,7 +133,7 @@ export abstract class ModsElement {
 
     public addControl(field: string) {
         if (!this.controls.hasOwnProperty(field)) {
-            const c = new FormControl();
+            const c = new FormControl('');
             if (this[field as keyof(ModsElement)]) {
                 c.setValue(this[field as keyof(ModsElement)]['_']);
             } 
