@@ -13,6 +13,7 @@ export abstract class ModsElement {
     public validationWarning = false;
     public controls: {[key: string]: FormControl} = {};
     public clazz: {[key: string]: string} = {};
+    public isMandatory: {[key: string]: boolean} = {};
 
     private subFields: ElementField[];
 
@@ -66,8 +67,9 @@ export abstract class ModsElement {
         this.collapsed = !this.collapsed;
     }
 
-    public isMandatory(field: any): boolean {
-        return this.usage(field) == 'M' || this.required(field);
+    public isMandatory2(field: any): boolean {
+        return this.usage(field) == 'M' || 
+              (this.template['fields'][field] && this.template['fields'][field]['required']);
     }
 
     public required(field: string): boolean {
@@ -141,7 +143,11 @@ export abstract class ModsElement {
             this.controls[field] = c;
         }
         this.clazz[field] = this.class(field);
-        console.log('ADD ' + field);
+        this.isMandatory[field] = this.isMandatory2(field);
+        console.log('ADD ' + field, this.isMandatory[field]);
+        if (field === 'nonSort') {
+            console.log(this.usage(field) == 'M', this.required(field))
+        }
     }
 
     public getControl2(field: string): FormControl {
