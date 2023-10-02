@@ -23,7 +23,7 @@ export class AutocompleteComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!this.item.available(this.field)) {
+    if (!this.item.available[this.field]) {
       return;
     }
     this.options = this.item.options(this.field);

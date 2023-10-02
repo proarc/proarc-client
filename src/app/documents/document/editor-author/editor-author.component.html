@@ -23,7 +23,7 @@
 
   <ng-template let-item="item" #templateContent>
     <app-field-dropdown field="type" [item]="item" [(value)]='item.attrs["type"]'></app-field-dropdown>
-    <app-editor-field *ngIf="item.available('namePart')" [field]="item.nameParts" [nested]='true'>
+    <app-editor-field *ngIf="item.available['namePart']" [field]="item.nameParts" [nested]='true'>
       <ng-template let-namePart="item" #templateContent>
         <app-field-dropdown field="type" [item]="namePart" [(value)]='namePart.attrs["type"]'></app-field-dropdown>
         <app-field-text field="value" [item]="namePart" [(value)]='namePart.modsElement["_"]'></app-field-text>
@@ -33,12 +33,12 @@
     <app-field-text field="nameIdentifierOrcId" [item]="item" [(value)]="item.nameIdentifierOrcId['_']"></app-field-text>
     <app-field-text field="etal" [item]="item" [(value)]="item.etal['_']"></app-field-text>
     <app-field-text field="affiliation" [item]="item" [(value)]='item.affiliation["_"]'></app-field-text>
-    <app-editor-field *ngIf="item.available('displayForm')" [field]="item.displayForms" [nested]='true'>
+    <app-editor-field *ngIf="item.available['displayForm']" [field]="item.displayForms" [nested]='true'>
       <ng-template let-displayForm="item" #templateContent>
         <app-field-text field="value" [item]="displayForm" [(value)]='displayForm.modsElement["_"]'></app-field-text>
       </ng-template>
     </app-editor-field>
-    <app-editor-field *ngIf="item.available('description')" [field]="item.descriptions" [nested]='true'>
+    <app-editor-field *ngIf="item.available['description']" [field]="item.descriptions" [nested]='true'>
       <ng-template let-description="item" #templateContent>
         <app-field-text field="value" [item]="description" [(value)]='description.modsElement["_"]'></app-field-text>
       </ng-template>

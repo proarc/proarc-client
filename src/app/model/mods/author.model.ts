@@ -47,20 +47,20 @@ export class ModsAuthor extends ModsElement {
         }
         this.affiliation = this.modsElement['affiliation'][0];
         
-        if (this.available('role')) {
+        if (this.available['role']) {
             this.roles = new ElementField(this.modsElement, ModsRole.getSelector(), this.getField('role'));
             this.addSubfield(this.roles);
         }
 
-        if(this.available('namePart')) {
+        if(this.available['namePart']) {
             this.nameParts = new ElementField(this.modsElement, ModsNamePart.getSelector(), this.getField('namePart'));
             this.addSubfield(this.nameParts);
         }
-        if (this.available('displayForm')) {
+        if (this.available['displayForm']) {
           this.displayForms = new ElementField(this.modsElement, ModsDisplayForm.getSelector(), this.getField('displayForm'));
           this.addSubfield(this.displayForms);
         }
-        if (this.available('description')) {
+        if (this.available['description']) {
           this.descriptions = new ElementField(this.modsElement, ModsDescription.getSelector(), this.getField('description'));
           this.addSubfield(this.descriptions);
         }

@@ -39,19 +39,19 @@ export class ModsRecordInfo extends ModsElement {
         }
         this.recordOrigin = this.modsElement['recordOrigin'][0];
         this.addControl('recordOrigin');
-        if (this.available('recordContentSource')) {
+        if (this.available['recordContentSource']) {
             this.recordContentSources = new ElementField(this.modsElement, ModsRecordContentSource.getSelector(), this.getField('recordContentSource'));
             this.addSubfield(this.recordContentSources);
         }
-        if (this.available('recordCreationDate')) {
+        if (this.available['recordCreationDate']) {
             this.recordCreationDates = new ElementField(this.modsElement, ModsRecordCreationDate.getSelector(), this.getField('recordCreationDate'));
             this.addSubfield(this.recordCreationDates);
         }
-        if (this.available('recordChangeDate')) {
+        if (this.available['recordChangeDate']) {
             this.recordChangeDates = new ElementField(this.modsElement, ModsRecordChangeDate.getSelector(), this.getField('recordChangeDate'));
             this.addSubfield(this.recordChangeDates);
         }
-        if (this.available('recordIdentifier')) {
+        if (this.available['recordIdentifier']) {
             this.recordIdentifiers = new ElementField(this.modsElement, ModsRecordIdentifier.getSelector(), this.getField('recordIdentifier'));
             this.addSubfield(this.recordIdentifiers);
         }

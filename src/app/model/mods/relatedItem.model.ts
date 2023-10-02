@@ -52,60 +52,60 @@ export class ModsRelatedItem extends ModsElement {
     this.addControl('otherTypeURI');
     this.addControl('otherTypeAuth');
     this.addControl('otherTypeAuthURI');
-    if (this.available('titleInfo')) {
+    if (this.available['titleInfo']) {
       this.titleInfos = new ElementField(this.modsElement, ModsTitle.getSelector(), this.getField('titleInfo'));
       this.addSubfield(this.titleInfos);
     }
-    if (this.available('originInfo')) {
+    if (this.available['originInfo']) {
       this.originInfos = new ElementField(this.modsElement, ModsPublisher.getSelector(), this.getField('originInfo'));
       this.addSubfield(this.originInfos);
     }
-    if (this.available('name')) {
+    if (this.available['name']) {
       this.names = new ElementField(this.modsElement, ModsAuthor.getSelector(), this.getField('name'));
       this.addSubfield(this.names);
     }
-    if (this.available('location')) {
+    if (this.available['location']) {
       this.locations = new ElementField(this.modsElement, ModsLocation.getSelector(), this.getField('location'));
       this.addSubfield(this.locations);
     }
-    if (this.available('subject')) {
+    if (this.available['subject']) {
       this.subjects = new ElementField(this.modsElement, ModsSubject.getSelector(), this.getField('subject'));
       this.addSubfield(this.subjects);
     }
-    if (this.available('part')) {
+    if (this.available['part']) {
       this.parts = new ElementField(this.modsElement, ModsPart.getSelector(), this.getField('part'));
       this.addSubfield(this.parts);
     }
-    if (this.available('language')) {
+    if (this.available['language']) {
       this.languages = new ElementField(this.modsElement, ModsLanguage.getSelector(), this.getField('language'));
       this.addSubfield(this.languages);
     }
-    if (this.available('abstract')) {
+    if (this.available['abstract']) {
       this.abstracts = new ElementField(this.modsElement, ModsAbstract.getSelector(), this.getField('abstract'));
       this.addSubfield(this.abstracts);
     }
-    if (this.available('physicalDescription')) {
+    if (this.available['physicalDescription']) {
       this.physicalDescriptions = new ElementField(this.modsElement, ModsPhysical.getSelector(), this.getField('physicalDescription'));
       this.addSubfield(this.physicalDescriptions);
     }
-    if (this.available('note')) {
+    if (this.available['note']) {
       this.notes = new ElementField(this.modsElement, ModsNote.getSelector(), this.getField('note'));
       this.addSubfield(this.notes);
     }
-    if (this.available('genre')) {
+    if (this.available['genre']) {
       this.genres = new ElementField(this.modsElement, ModsGenre.getSelector(), this.getField('genre'));
       this.addSubfield(this.genres);
     }
-    if (this.available('classification')) {
+    if (this.available['classification']) {
       this.classifications = new ElementField(this.modsElement, ModsClassification.getSelector(), this.getField('classification'));
       this.addSubfield(this.classifications);
     }
-    if (this.available('typeOfResource')) {
+    if (this.available['typeOfResource']) {
       this.typeOfResources = new ElementField(this.modsElement, ModsResource.getSelector(), this.getField('typeOfResource'));
       this.addSubfield(this.typeOfResources);
     }
 
-    if (this.available('identifier')) {
+    if (this.available['identifier']) {
       this.identifiers = new ElementField(this.modsElement, ModsIdentifier.getSelector(), this.getField('identifier'));
       this.addSubfield(this.identifiers);
     }

@@ -14,6 +14,9 @@ export abstract class ModsElement {
     public controls: {[key: string]: FormControl} = {};
     public clazz: {[key: string]: string} = {};
     public isMandatory: {[key: string]: boolean} = {};
+    public usage: {[key: string]: string} = {};
+    public hasHelp: {[key: string]: boolean} = {};
+    public available: {[key: string]: boolean} = {};
 
     private subFields: ElementField[];
 
@@ -68,16 +71,19 @@ export abstract class ModsElement {
     }
 
     public isMandatory2(field: any): boolean {
-        return this.usage(field) == 'M' || 
-              (this.template['fields'][field] && this.template['fields'][field]['required']);
+        return this.usage2(field) == 'M' || this.required(field) ;
     }
 
     public required(field: string): boolean {
-        return this.fieldValue(field, 'required');
+        return this.template['fields'][field] && this.template['fields'][field]['required'];
     }
 
-    public usage(field: string): string {
-        return this.fieldValue(field, 'usage');
+    public usage2(field: string): string {
+        let u = '';
+        if (field && this.template['fields'][field] && this.template['fields'][field]['usage']) {
+            u = this.template['fields'][field]['usage'];
+        }
+        return u;
     }
 
     public label(field: string): string {
@@ -101,27 +107,36 @@ export abstract class ModsElement {
         const selector = this.fieldValue(field, 'selector');
         const labelKey = this.fieldValue(field, 'labelKey');
         const label = translator.instant('mods.' + labelKey);
-        return `<h3>${label} <i>${this.usage(field) || ''}</i> <code>${selector || ''}</code></h3>
+        return `<h3>${label} <i>${this.usage2(field) || ''}</i> <code>${selector || ''}</code></h3>
         ${description || ''}`;
     }
 
     public showHelp(field: string): boolean {
-        return this.fieldValue(field, 'help') != 'off';
+        let ret = true;
+        if (field && this.template['fields'][field] && this.template['fields'][field]['help']) {
+            ret = this.template['fields'][field]['help'] != 'off';
+        }
+        return ret;
     }
 
     public class(field: string): string {
-        return "app-field-col app-field-col-" + (this.fieldValue(field, 'cols') || 1);
+        let cols = '1';
+        if (field && this.template['fields'][field] && this.template['fields'][field]['cols']) {
+            cols = this.template['fields'][field]['cols'];
+        }
+        return "app-field-col app-field-col-" + cols;
     }
 
     private fieldValue(field: string, key: string): any {
-        if (field && this.template['fields'][field] && this.template['fields'][field][key]) {
+        if (field) {
+        // if (field && this.template['fields'][field] && this.template['fields'][field][key]) {
             return this.template['fields'][field][key];
         } else {
             return this.template[key];
         }
     }
 
-    public available(field: string): boolean {
+    public available2(field: string): boolean {
         return !!(this.template['fields'] && this.template['fields'][field]);
     }
 
@@ -142,11 +157,14 @@ export abstract class ModsElement {
             
             this.controls[field] = c;
         }
+        console.log('ADD ' + field);
         this.clazz[field] = this.class(field);
         this.isMandatory[field] = this.isMandatory2(field);
-        console.log('ADD ' + field, this.isMandatory[field]);
+        this.usage[field] = this.usage2(field);
+        this.hasHelp[field] = this.showHelp(field);
+        this.available[field] = this.available2(field);
         if (field === 'nonSort') {
-            console.log(this.usage(field) == 'M', this.required(field))
+            
         }
     }
 
