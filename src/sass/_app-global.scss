@@ -432,10 +432,6 @@ as-split {
   &.app-view-border-top {
     border-top: 1px solid $app-toolbar-border-color;
   }
-
-  &.app-view-action {
-    min-height: $app-toolbar-action-height;
-  }
 }
 
 // editor content
