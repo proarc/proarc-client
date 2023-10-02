@@ -120,7 +120,7 @@ export class Metadata {
           item.collapsed = false;
           //}
         }
-        if (item.hasAnyValue() || item.isRequired()) {
+        if (item.hasAnyValue() || item.isRequired) {
           for (const subfield of item.getSubfields()) {
             for (const item2 of subfield.getItems()) {
               if (!item2.validate()) {
@@ -143,12 +143,12 @@ export class Metadata {
     for (const id of this.fieldsIds) {
       const f = this.fields.get(id);
       for (const item of f.getItems()) {
-        if (item.isRequired()) {
+        if (item.isRequired) {
           item.collapsed = false;
         }
         for (const subfield of item.getSubfields()) {
           for (const item2 of subfield.getItems()) {
-            if (item2.isRequired()) {
+            if (item2.isRequired) {
               valid = false;
               item2.collapsed = false;
               item.collapsed = false;

@@ -10,6 +10,8 @@ export abstract class ModsElement {
     public hidden = false;
     public template;
 
+    public isRequired: boolean;
+
     public validationWarning = false;
     public controls: {[key: string]: FormControl} = {};
     public clazz: {[key: string]: string} = {};
@@ -30,6 +32,7 @@ export abstract class ModsElement {
         if (attributes.length > 0) {
             this.initAttributes(attributes);
         }
+        this.isRequired = this.isRequired2();
     }
 
     public addSubfield(field: ElementField) {
@@ -198,9 +201,8 @@ export abstract class ModsElement {
         return false;
     }
 
-    public isRequired(): boolean {
+    public isRequired2(): boolean {
         return this.template ? (this.template.usage === 'M' || this.template.required === true) : false;
-        // return this.template ? (this.template.required) : false;
     }
 
   public hasAnyValue(): boolean {
@@ -218,7 +220,7 @@ export abstract class ModsElement {
         // console.log(this.template)
         let error = false;
         let anyValue = false;
-        let isRequired = this.isRequired();
+        let isRequired = this.isRequired;
         Object.keys(this.controls).forEach((key) => {
             const value = this.controls[key];
             value.markAsTouched();

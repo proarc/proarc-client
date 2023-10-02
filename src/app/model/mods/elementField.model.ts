@@ -58,8 +58,14 @@ export class ElementField {
     private allExpanded: boolean;
     isPeerReviewed: boolean;
 
+    public labelKey: string;
+    public usage: string;
+
     constructor(mods: { [x: string]: any; }, id: string, template: any, attr: any = null, requiredValues: any[] = [], forbiddenValues: any[] = []) {
         this.template = template;
+
+        this.labelKey = this.template.labelKey;
+        this.usage = this.template.usage;
         if (localStorage.getItem('metadata.allExpanded')) {
             this.allExpanded = localStorage.getItem('metadata.allExpanded') === 'true';
         }
@@ -376,17 +382,8 @@ export class ElementField {
         return help;
     }
 
-
-    public usage() {
-        return this.template.usage;
-    }
-
     public label() {
         return this.template.label;
-    }
-
-    public labelKey() {
-        return this.template.labelKey;
     }
 
     public selector() {

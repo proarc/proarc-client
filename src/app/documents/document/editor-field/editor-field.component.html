@@ -5,10 +5,10 @@
     <ng-container *ngIf="showByGenre(first, item)">
 
       <div class="app-card"
-        [class.app-required]="item.isRequired()"
+        [class.app-required]="item.isRequired"
         [class.app-warning]="item.validationWarning && !item.isValid()" >
         <div class="app-card-header">
-          <span [matTooltip]="field.labelKey()" class="app-card-title" [class.app-no-collapse]="!collapsable">{{ 'mods.' + field.labelKey() | translate }} <i>{{ field.usage() }}</i></span>
+          <span [matTooltip]="field.labelKey" class="app-card-title" [class.app-no-collapse]="!collapsable">{{ 'mods.' + field.labelKey | translate }} <i>{{ field.usage }}</i></span>
           <button matTooltip="{{ 'common.remove' | translate }}" (click)="field.removeItem(item)" mat-icon-button>
             <mat-icon>delete</mat-icon>
           </button>
