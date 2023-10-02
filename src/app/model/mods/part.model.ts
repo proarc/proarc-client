@@ -46,7 +46,7 @@ export class ModsPart extends ModsElement {
         }
         this.addControl('caption');
 
-      if (this.available['extent']) {
+      if (this.available2('extent')) {
         this.extents = new ElementField(this.modsElement, ModsExtent.getSelector(), this.getField('extent'));
         this.addSubfield(this.extents);
       }

@@ -1,7 +1,7 @@
-<mat-form-field *ngIf="item.available[field]" [class]="item.clazz[field]" [class.app-invalid]="item.invalid(field)">
+<mat-form-field *ngIf="item.available[field]" [class]="item.clazz[field]" >
   <app-usage [item]="item" [field]="field"></app-usage>
   <input [required]="item.isMandatory[field]"
   [formControl]="item.controls[field]" autocomplete="off" matInput
   [(ngModel)]='value' (ngModelChange)="valueChange.emit(value)"
-  [placeholder]="'mods.' + item.labelKey(field) | translate">
+  [placeholder]="'mods.' + item.labelKey[field] | translate">
 </mat-form-field>

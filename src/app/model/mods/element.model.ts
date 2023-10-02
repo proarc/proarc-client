@@ -17,6 +17,7 @@ export abstract class ModsElement {
     public usage: {[key: string]: string} = {};
     public hasHelp: {[key: string]: boolean} = {};
     public available: {[key: string]: boolean} = {};
+    public labelKey: {[key: string]: string} = {};
 
     private subFields: ElementField[];
 
@@ -90,8 +91,13 @@ export abstract class ModsElement {
         return this.fieldValue(field, 'label');
     }
 
-    public labelKey(field: string): string {
-        return this.fieldValue(field, 'labelKey');
+    public labelKey2(field: string): string {
+        if (field && this.template['fields'][field] && this.template['fields'][field]['labelKey']) {
+            return this.template['fields'][field]['labelKey'];
+        } else {
+            return '';
+        }
+        
     }
 
     public selector(field: string): string {
@@ -163,6 +169,7 @@ export abstract class ModsElement {
         this.usage[field] = this.usage2(field);
         this.hasHelp[field] = this.showHelp(field);
         this.available[field] = this.available2(field);
+        this.labelKey[field] = this.labelKey2(field);
         if (field === 'nonSort') {
             
         }
@@ -192,7 +199,7 @@ export abstract class ModsElement {
     }
 
     public isRequired(): boolean {
-        return this.template ? (this.template.usage == 'M' || this.template.required) : false;
+        return this.template ? (this.template.usage === 'M' || this.template.required === true) : false;
         // return this.template ? (this.template.required) : false;
     }
 
@@ -216,6 +223,7 @@ export abstract class ModsElement {
             const value = this.controls[key];
             value.markAsTouched();
             if (value.errors) {
+                
                 error = true;
             }
             if (value.value) {
@@ -226,19 +234,22 @@ export abstract class ModsElement {
         if (!anyValue) {
             if (isRequired) {
                 Object.keys(this.controls).forEach((key) => {
-            const value = this.controls[key];
+                    const value = this.controls[key];
                     if (this.template.fields[key + ''] && (this.template.fields[key + ''].required || this.template.fields[key + ''].usage === 'M')) {
+                        console.log(isRequired, key, this);
                         error = true;
                     }
                 });
                 // error = true;
             } else {
                 Object.keys(this.controls).forEach((key) => {
-            const value = this.controls[key];
+                    const value = this.controls[key];
                     // value.markAsUntouched();
                     if (this.template.fields[key + '']?.required) {
+                        console.log(isRequired, key, this);
                         error = true;
                         isRequired = true;
+                        value.markAsTouched();
                     } else {
                         value.markAsUntouched();
                     }

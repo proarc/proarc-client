@@ -51,7 +51,7 @@ import {ModsEdition} from './edition.model';
 
 export class ElementField {
 
-    private id;
+    public id;
     public root;
     public items: ModsElement[];
     private template;

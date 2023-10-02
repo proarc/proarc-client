@@ -25,7 +25,7 @@ export class ModsPlace extends ModsElement {
       }
       this.addControl('placeTerm');
 
-      if (this.available['placeTerm']) {
+      if (this.available2('placeTerm')) {
         this.placeTerms = new ElementField(this.modsElement, ModsPlaceTerm.getSelector(), this.getField('placeTerm'));
         this.addSubfield(this.placeTerms);
       }
