@@ -156,25 +156,27 @@
             <fieldset class="app-p-4 app-mb-4">
               <legend>{{ 'pages.settings.processManagementOverview.legend' | translate }}</legend>
               <div class="app-label app-mb-2">{{ 'pages.settings.processManagementOverview.label' | translate }}</div>
-              <div *ngFor="let column of properties.searchColumns">
+              <div *ngFor="let column of properties.procMngColumns">
                 <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
               </div>
             </fieldset>
-            <button mat-stroked-button (click)="setSelectedColumnsSearch()">{{ 'button.save' | translate }}</button>
+            <button mat-stroked-button (click)="setSelectedColumnsProcMng()">{{ 'button.save' | translate }}</button>
           </mat-card-content>
         </mat-card>
+
         <mat-card fxFlex>
           <mat-card-content>
             <fieldset class="app-p-4 app-mb-4">
               <legend>{{ 'pages.settings.processManagementQueue.legend' | translate }}</legend>
               <div class="app-label app-mb-2">{{ 'pages.settings.processManagementQueue.label' | translate }}</div>
-              <div *ngFor="let column of properties.searchColumns">
+              <div *ngFor="let column of properties.queueColumns">
                 <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
               </div>
             </fieldset>
-            <button mat-stroked-button (click)="setSelectedColumnsSearch()">{{ 'button.save' | translate }}</button>
+            <button mat-stroked-button (click)="setSelectedColumnsQueue()">{{ 'button.save' | translate }}</button>
           </mat-card-content>
         </mat-card>
+
       </div>
     </div>
   </div>

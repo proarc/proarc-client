@@ -44,6 +44,29 @@ export class LocalStorageService {
     public searchColumns: { field: string, selected: boolean; }[];
     public searchColumnsTree: { field: string, selected: boolean; }[];
 
+    public procMngColumnsDefault = [
+        { field: 'description', selected: true, width: 100 },
+        { field: 'create', selected: true, width: 100 },
+        { field: 'timestamp', selected: true, width: 100 },
+        { field: 'state', selected: true, width: 100 },
+        { field: 'profile', selected: true, width: 100 },
+        { field: 'user', selected: true, width: 100 },
+        { field: 'priority', selected: true, width: 100 },
+        { field: 'actions', selected: true, width: 100 }
+    ];
+    public procMngColumns: { field: string, selected: boolean; }[];
+
+
+    public queueColumnsDefault = [
+        { field: 'description', selected: true, width: 100 },
+        { field: 'create', selected: true, width: 100 },
+        { field: 'timestamp', selected: true, width: 100 },
+        { field: 'state', selected: true, width: 100 },
+        { field: 'pageCount', selected: true, width: 100 },
+        { field: 'user', selected: true, width: 100 }
+    ];
+    public queueColumns: { field: string, selected: boolean; }[];
+
 
     constructor(
         public config: ConfigService) {
@@ -72,7 +95,31 @@ export class LocalStorageService {
             this.searchColumns = [];
             Object.assign(this.searchColumns, JSON.parse(JSON.stringify(this.selectedColumnsSearchDefault)));
         }
-        
+
+    }
+
+    getQueueColumns() {
+        const prop = this.getStringProperty('queueColumns');
+        if (prop) {
+            this.queueColumns = [];
+            Object.assign(this.queueColumns, JSON.parse(prop));
+        } else {
+            this.queueColumns = [];
+            Object.assign(this.queueColumns, JSON.parse(JSON.stringify(this.queueColumnsDefault)));
+        }
+
+    }
+
+    getProcMngColumns() {
+        const prop = this.getStringProperty('procMngColumns');
+        if (prop) {
+            this.procMngColumns = [];
+            Object.assign(this.procMngColumns, JSON.parse(prop));
+        } else {
+            this.procMngColumns = [];
+            Object.assign(this.procMngColumns, JSON.parse(JSON.stringify(this.procMngColumnsDefault)));
+        }
+
     }
 
     getSearchColumnsTree() {
@@ -88,6 +135,14 @@ export class LocalStorageService {
 
     setSelectedColumnsSearch() {
         this.setStringProperty('searchColumns', JSON.stringify(this.searchColumns));
+    }
+
+    setSelectedColumnsProcMng() {
+        this.setStringProperty('procMngColumns', JSON.stringify(this.procMngColumns));
+    }
+
+    setSelectedColumnsQueue() {
+        this.setStringProperty('queueColumns', JSON.stringify(this.queueColumns));
     }
 
     setSelectedColumnsSearchTree() {
