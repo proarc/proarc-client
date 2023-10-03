@@ -39,36 +39,48 @@ export class ModsAuthor extends ModsElement {
 
 
     private init() {
+        this.addControl('type');
+        this.addControl('usage');
+
         if (!this.modsElement['affiliation']) {
             this.modsElement['affiliation'] = ModsUtils.createField(this, 'affiliation');
         }
+        this.affiliation = this.modsElement['affiliation'][0];
+        this.addControl('affiliation');
+        
         if (!this.modsElement['namePart']) {
             this.modsElement['namePart'] = [];
         }
-        this.affiliation = this.modsElement['affiliation'][0];
-        
-        if (this.available2('role')) {
-            this.roles = new ElementField(this.modsElement, ModsRole.getSelector(), this.getField('role'));
-            this.addSubfield(this.roles);
-        }
-
         if(this.available2('namePart')) {
             this.nameParts = new ElementField(this.modsElement, ModsNamePart.getSelector(), this.getField('namePart'));
             this.addSubfield(this.nameParts);
         }
+        this.addControl('namePart');
+
+        if (this.available2('role')) {
+            this.roles = new ElementField(this.modsElement, ModsRole.getSelector(), this.getField('role'));
+            this.addSubfield(this.roles);
+        }
+        this.addControl('role');
+
         if (this.available2('displayForm')) {
           this.displayForms = new ElementField(this.modsElement, ModsDisplayForm.getSelector(), this.getField('displayForm'));
           this.addSubfield(this.displayForms);
         }
+        this.addControl('displayForm');
+
         if (this.available2('description')) {
           this.descriptions = new ElementField(this.modsElement, ModsDescription.getSelector(), this.getField('description'));
           this.addSubfield(this.descriptions);
         }
+        this.addControl('description');
 
 
         if (!this.modsElement['nameIdentifier']) {
             this.modsElement['nameIdentifier'] = [];
         }
+        this.addControl('nameIdentifier');
+
         const nameIdentifiers = this.modsElement['nameIdentifier'];
         for (const nameIdentifier of nameIdentifiers) {
             if (!ModsUtils.hasAnyAttribute(nameIdentifier)) {
@@ -86,20 +98,14 @@ export class ModsAuthor extends ModsElement {
           this.nameIdentifierOrcId = ModsUtils.createTextElement('', {'type': 'orcid'});
           nameIdentifiers.push(this.nameIdentifierOrcId);
         }
+        this.addControl('nameIdentifierOrcId');
 
         if (!this.modsElement['etal']) {
             this.modsElement['etal'] = ModsUtils.createField(this, 'etal');
         }
         this.etal = this.modsElement['etal'][0];
-
-        this.addControl('namePart');
-        this.addControl('affiliation');
-        this.addControl('type');
-        this.addControl('nameIdentifier');
-        this.addControl('role');
-        this.addControl('displayForm');
         this.addControl('etal');
-        this.addControl('description');
+
         
 
         // if (this.modsElement['nameIdentifier']) {

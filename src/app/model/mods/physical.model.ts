@@ -36,29 +36,33 @@ export class ModsPhysical extends ModsElement {
         if (!this.modsElement['note']) {
             this.modsElement['note'] = ModsUtils.createField(this, 'note');
         }
+        this.note = this.modsElement['note'][0];
         this.addControl('note');
         
         if (!this.modsElement['digitalOrigin']) {
             this.modsElement['digitalOrigin'] = ModsUtils.createField(this, 'digitalOrigin');
         }
+        this.digitalOrigin = this.modsElement['digitalOrigin'][0];
         this.addControl('digitalOrigin');
 
-        this.note = this.modsElement['note'][0];
-        this.digitalOrigin = this.modsElement['digitalOrigin'][0];
 
         if (this.available2('internetMediaType')) {
           this.internetMediaTypes = new ElementField(this.modsElement, ModsInternetMediaType.getSelector(), this.getField('internetMediaType'));
           this.addSubfield(this.internetMediaTypes);
         }
+        this.addControl('internetMediaType');
 
         if (this.available2('extent')) {
           this.extents = new ElementField(this.modsElement, ModsPhysicalExtent.getId(), this.getField('extent'));
           this.addSubfield(this.extents);
         }
+        this.addControl('extent');
+
         if(this.available2('form')) {
             this.forms = new ElementField(this.modsElement, ModsForm.getSelector(), this.getField('form'));
             this.addSubfield(this.forms);
         }
+        this.addControl('form');
 
     }
 

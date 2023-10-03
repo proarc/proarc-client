@@ -381,7 +381,7 @@ export class EditorStructureComponent implements OnInit {
     });
     this.colsEditModeParent = this.properties.getColsEditingRepo();
     this.displayedColumns = [];
-    if (this.colsEditModeParent) {
+    if (this.colsEditModeParent && this.layout.selectedParentItem?.model) {
       this.displayedColumns = this.properties.colsEditingRepo[this.layout.selectedParentItem.model].filter(c => c.selected && !this.displayedColumns.includes(c.field)).map(c => c.field);
     } else {
       models.forEach(model => {

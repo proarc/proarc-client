@@ -105,38 +105,50 @@ export class ModsPublisher extends ModsElement {
             this.frequencies = new ElementField(this.modsElement, ModsFrequency.getSelector(), this.getField('frequency'));
             this.addSubfield(this.frequencies);
         }
+        this.addControl('frequency');
+
         if(this.available2('dateIssued')) {
           this.dateIssueds = new ElementField(this.modsElement, ModsDateIssued.getSelector(), this.getField('dateIssued'));
           this.addSubfield(this.dateIssueds);
         }
+
         if (this.available2('place')) {
           this.places = new ElementField(this.modsElement, ModsPlace.getSelector(), this.getField('place'));
           this.addSubfield(this.places);
         }
+
         if (this.available2('dateOther')) {
           this.dateOthers = new ElementField(this.modsElement, ModsDateOther.getSelector(), this.getField('dateOther'));
           this.addSubfield(this.dateOthers);
         }
+
         if (this.available2('dateCreated')) {
           this.dateCreateds = new ElementField(this.modsElement, ModsDateCreated.getSelector(), this.getField('dateCreated'));
           this.addSubfield(this.dateCreateds);
         }
+
         if (this.available2('dateValid')) {
           this.dateValids = new ElementField(this.modsElement, ModsDateValid.getSelector(), this.getField('dateValid'));
           this.addSubfield(this.dateValids);
         }
+
         if (this.available2('dateCaptured')) {
           this.dateCaptureds = new ElementField(this.modsElement, ModsDateCaptured.getSelector(), this.getField('dateCaptured'));
           this.addSubfield(this.dateCaptureds);
         }
+
         if (this.available2('dateModified')) {
           this.dateModifieds = new ElementField(this.modsElement, ModsDateModified.getSelector(), this.getField('dateModified'));
           this.addSubfield(this.dateModifieds);
         }
+        this.addControl('');
+
         if (this.available2('edition')) {
           this.editions = new ElementField(this.modsElement, ModsEdition.getSelector(), this.getField('edition'));
           this.addSubfield(this.editions);
         }
+        this.addControl('edition');
+
     }
 
     public override update() {
