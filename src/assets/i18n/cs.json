@@ -2651,6 +2651,14 @@
         "legend": "Editace v importu",
         "label": "Zobrazená pole v editaci importu"
       },
+      "processManagementOverview": {
+        "legend": "Správa procesů",
+        "label": "Zobrazená pole ve správě procesů"
+      },
+      "processManagementQueue": {
+        "legend": "Správa procesů (fronta načítání)",
+        "label": "Zobrazená pole ve správě procesů ve frontě načítání"
+      },
       "colsEditModeParent": "Dle nadřazeného"
     }
   }

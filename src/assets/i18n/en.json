@@ -2651,6 +2651,14 @@
         "legend": "Editing in import",
         "label": "Displayed fields in the import edit"
       },
+      "processManagementOverview": {
+        "legend": "Process management",
+        "label": "Displayed fields in process management"
+      },
+      "processManagementQueue": {
+        "legend": "Process management (load queue)",
+        "label": "Displayed fields in process management in the loading queue"
+      },
       "colsEditModeParent": "By parent"
     }
   }
