@@ -247,10 +247,10 @@ export abstract class ModsElement {
                 Object.keys(this.controls).forEach((key) => {
                     const value = this.controls[key];
                     // value.markAsUntouched();
-                    if (this.template.fields[key + '']?.required) {
-                        console.log(isRequired, key, this);
+                    if (this.template.fields[key + '']?.required && !value.value) {
+                        console.log(isRequired, key, this, value.value);
                         error = true;
-                        isRequired = true;
+                        // isRequired = true;
                         value.markAsTouched();
                     } else {
                         value.markAsUntouched();
