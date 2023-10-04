@@ -8,7 +8,7 @@ import { ElementField } from 'src/app/model/mods/elementField.model';
 @Component({
   selector: 'app-editor-field',
   templateUrl: './editor-field.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./editor-field.component.scss']
 })
 export class EditorFieldComponent implements OnInit {

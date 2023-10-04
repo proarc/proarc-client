@@ -146,7 +146,8 @@ export abstract class ModsElement {
     }
 
     public available2(field: string): boolean {
-        return !!(this.template['fields'] && this.template['fields'][field]);
+        this.available[field] = !!(this.template['fields'] && this.template['fields'][field]);
+        return this.available[field];
     }
 
     public getTemplate() {
@@ -237,8 +238,10 @@ export abstract class ModsElement {
             if (isRequired) {
                 Object.keys(this.controls).forEach((key) => {
                     const value = this.controls[key];
-                    if (this.template.fields[key + ''] && (this.template.fields[key + ''].required || this.template.fields[key + ''].usage === 'M')) {
-                        console.log(isRequired, key, this);
+                    if (this.template.fields[key + ''] &&
+                       (this.template.fields[key + ''].required || this.template.fields[key + ''].usage === 'M') && 
+                       !value.value) {
+                        console.log(isRequired, key, value.value, this);
                         error = true;
                     }
                 });
@@ -248,7 +251,7 @@ export abstract class ModsElement {
                     const value = this.controls[key];
                     // value.markAsUntouched();
                     if (this.template.fields[key + '']?.required && !value.value) {
-                        console.log(isRequired, key, this, value.value);
+                        console.log(isRequired, key, value.value, this);
                         error = true;
                         // isRequired = true;
                         value.markAsTouched();
