@@ -111,9 +111,9 @@
     "all_models": "Vše",
     "field": "Pole",
     "create": "Vytvořeno",
-    "timestamp": "Čas vzniku",
+    "timestamp": "Upraveno",
     "pageCount": "Počet stránek",
-    "description": "Popis",
+    "description": "Název",
     "profile": "Profil",
     "user": "Uživatel",
     "priority": "Priorita",
@@ -2542,8 +2542,7 @@
   },
   "snackbar": {
     "settings": {
-      "searchColumns.updated": "Nastavení zobrazení sloupců bylo upraveno",
-      "searchColumnsTree.updated": "Nastavení zobrazení sloupců ve stromě bylo upraveno",
+      "columns.updated": "Nastavení zobrazení sloupců bylo upraveno",
       "profile": {
         "updated": "Nové heslo bylo uloženo",
         "error": {
