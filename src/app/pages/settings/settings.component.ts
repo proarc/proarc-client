@@ -88,6 +88,7 @@ export class SettingsComponent implements OnInit {
     this.properties.getSearchColumnsTree();
     this.initSelectedColumnsEditingImport();
     this.properties.getProcMngColumns();
+    this.properties.getQueueColumns();
     this.api.getUser().subscribe((user: User) => {
       this.user = user;
       this.forename = this.user.forename;
