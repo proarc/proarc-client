@@ -9,7 +9,7 @@
 
   <div fxFlex class="app-content-wrapper app-import" fxLayout="column">
     <div class="app-formbar" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
-      <button mat-stroked-button (click)="onLoad()" [disabled]="!selectedDevice">
+      <button mat-stroked-button (click)="onLoad()" [disabled]="selectedDevice.model === 'none'">
         {{ 'import.load' | translate }}
       </button>
       <mat-form-field class="app-import-profiles">
@@ -24,7 +24,6 @@
       </mat-form-field>
       <mat-form-field class="app-import-devices">
         <mat-select [placeholder]="'import.device' | translate" [(ngModel)]="selectedDevice">
-          <mat-option [value]="null">Vybrat</mat-option>
           <mat-option *ngFor="let device of devices" [value]="device">{{ device.label }}</mat-option>
         </mat-select>
       </mat-form-field>
