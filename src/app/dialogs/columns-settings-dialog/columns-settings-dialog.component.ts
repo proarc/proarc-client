@@ -48,13 +48,13 @@ export class ColumnsSettingsDialogComponent implements OnInit {
 
   setSelectedColumnsEditingImport() {
     this.properties.setStringProperty('selectedColumnsImport', JSON.stringify(this.selectedColumnsEditingImport));
-    this.ui.showInfo('snackbar.settings.searchColumns.updated');
+    this.ui.showInfo('snackbar.settings.columns.updated');
     this.dialogRef.close(true);
   }
 
   setSelectedColumnsEditingRepo() {
     this.properties.setColumnsEditingRepo(this.colsEditModeParent);
-    this.ui.showInfo('snackbar.settings.searchColumns.updated');
+    this.ui.showInfo('snackbar.settings.columns.updated');
     this.dialogRef.close(true);
   }
 

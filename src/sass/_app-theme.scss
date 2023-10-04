@@ -37,6 +37,7 @@ $my-palette: (
 );
 
 $app-primary: mat-palette($my-palette, 500);
+//$app-primary: mat-palette($mat-red, 500);
 //$app-primary: mat-palette($mat-light-blue, 900);
 $app-accent: mat-palette($mat-pink, 500, 900, A100);
 $app-warn: mat-palette($mat-red);

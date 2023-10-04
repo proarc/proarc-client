@@ -10,7 +10,7 @@
   <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'"></mat-progress-bar>
 
   <div fxFlex class="app-content-wrapper app-process-management" *ngIf="state=='success'" fxLayout="column">
-    <div class="app-formbar" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
+    <div class="app-formbar app-mt-2" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
       <ng-container *ngIf="view == 'overview'">
         <mat-form-field class="app-state">
           <mat-select [placeholder]="'desc.state' | translate" [(ngModel)]="selectedState" (selectionChange)="onStateChanged()">
@@ -188,7 +188,7 @@
       <mat-paginator [length]="resultCount" hidePageSize="true" [pageIndex]="pageIndex" [pageSize]="pageSize" (page)="onPageChanged($event)"></mat-paginator>
     </div>
 
-    <div fxFlex class="app-oa-y app-mt-4" *ngIf="view == 'loadingQueue'">
+    <div fxFlex class="app-oa-y app-mt-4 app-border-wrapper" *ngIf="view == 'loadingQueue'">
       <table mat-table #table [dataSource]="queue" class="app-striped app-hove app-resize">
         <ng-container matColumnDef="description">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesQueue($event, 'description')" [style.width]="getColumnWidthQueue('description')">{{ 'desc.folderNamePid' | translate }}</th>
