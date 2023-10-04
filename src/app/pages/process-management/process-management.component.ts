@@ -582,6 +582,9 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
 
   initSelectedColumnsOverview() {
     const prop = this.properties.getProcMngColumns();
+    
+    Object.assign(this.selectedColumnsOverview, JSON.parse(JSON.stringify(this.properties.procMngColumns)));
+      
     this.displayedColumnsOverview = this.properties.procMngColumns.filter(c => c.selected).map(c => c.field);
   }
 
@@ -601,7 +604,7 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
     } else {
       console.log("nemelo by")
     }
-    this.properties.setStringProperty('historyOverviewColumns', JSON.stringify(this.selectedColumnsOverview));
+    this.properties.setStringProperty('procMngColumns', JSON.stringify(this.selectedColumnsOverview));
   }
 
   setColumnsQueue() {
@@ -609,17 +612,10 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
   }
 
   initSelectedColumnsQueue() {
-
-    
     const prop = this.properties.getQueueColumns();
+    Object.assign(this.selectedColumnsQueue, JSON.parse(JSON.stringify(this.properties.queueColumns)));
     this.displayedColumnsQueue = this.properties.queueColumns.filter(c => c.selected).map(c => c.field);
 
-
-    // const prop = this.properties.getStringProperty('historyQueueColumns');
-    // if (prop) {
-    //   Object.assign(this.selectedColumnsQueue, JSON.parse(prop));
-    // }
-    // this.setColumnsQueue();
   }
 
   getColumnWidthQueue(field: string) {
@@ -638,7 +634,7 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
     } else {
       console.log("nemelo by")
     }
-    this.properties.setStringProperty('historyQueueColumns', JSON.stringify(this.selectedColumnsQueue));
+    this.properties.setStringProperty('queueColumns', JSON.stringify(this.selectedColumnsQueue));
   }
   // end
 
