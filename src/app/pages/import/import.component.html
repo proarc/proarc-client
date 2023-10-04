@@ -9,7 +9,7 @@
 
   <div fxFlex class="app-content-wrapper app-import" fxLayout="column">
     <div class="app-formbar" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
-      <button mat-stroked-button (click)="onLoad()" [disabled]="selectedDevice.model === 'none'">
+      <button mat-stroked-button (click)="onLoad()" [disabled]="selectedDevice?.model === 'none'">
         {{ 'import.load' | translate }}
       </button>
       <mat-form-field class="app-import-profiles">
