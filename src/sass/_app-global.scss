@@ -85,7 +85,7 @@ ul {
 }
 
 .app-dn {
-  display: none;
+  display: none !important;
 }
 
 .app-d-contents {
@@ -432,14 +432,13 @@ as-split {
   &.app-view-border-top {
     border-top: 1px solid $app-toolbar-border-color;
   }
-
-  &.app-view-action {
-    min-height: $app-toolbar-action-height;
-  }
 }
 
 // editor content
 .app-editor-content {
+  &:focus {
+    outline: none !important;
+  }
   
   // common behavior
   .mat-table,

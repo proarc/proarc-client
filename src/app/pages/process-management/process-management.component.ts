@@ -76,6 +76,7 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
   displayedColumnsOverview: string[] = ['description', 'create', 'timestamp', 'state', 'profile', 'user', 'priority', 'actions'];
   displayedColumnsQueue: string[] = ['description', 'create', 'timestamp', 'state', 'pageCount', 'user'];
 
+
   batchStates = [
     'ALL',
     'LOADING',
@@ -580,11 +581,8 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
   }
 
   initSelectedColumnsOverview() {
-    const prop = this.properties.getStringProperty('historyOverviewColumns');
-    if (prop) {
-      Object.assign(this.selectedColumnsOverview, JSON.parse(prop));
-    }
-    this.setColumnsOverview();
+    const prop = this.properties.getProcMngColumns();
+    this.displayedColumnsOverview = this.properties.procMngColumns.filter(c => c.selected).map(c => c.field);
   }
 
   getColumnWidthOverview(field: string) {
@@ -611,11 +609,17 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
   }
 
   initSelectedColumnsQueue() {
-    const prop = this.properties.getStringProperty('historyQueueColumns');
-    if (prop) {
-      Object.assign(this.selectedColumnsQueue, JSON.parse(prop));
-    }
-    this.setColumnsQueue();
+
+    
+    const prop = this.properties.getQueueColumns();
+    this.displayedColumnsQueue = this.properties.queueColumns.filter(c => c.selected).map(c => c.field);
+
+
+    // const prop = this.properties.getStringProperty('historyQueueColumns');
+    // if (prop) {
+    //   Object.assign(this.selectedColumnsQueue, JSON.parse(prop));
+    // }
+    // this.setColumnsQueue();
   }
 
   getColumnWidthQueue(field: string) {

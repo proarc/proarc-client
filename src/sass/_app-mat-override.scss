@@ -337,6 +337,11 @@
   .mat-menu-item {
     line-height: $app-mat-menu-item-height !important;
     height: $app-mat-menu-item-height !important;
+
+    .mat-icon {
+      @extend .app-mr-2;
+      @include setIcon($size: 18, $position: sub);
+    }
   }
 }
 

@@ -95,7 +95,7 @@
       <as-split [gutterSize]="10" direction="vertical" (dragEnd)="dragEnd($event)">
         <as-split-area  [size]="splitArea1Width" [order]="0">
           <div *ngIf="items" fxLayout="column" fxFlexFill>
-            <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar app-view-action">
+            <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar">
               <div fxFlex *ngIf="selectedItem" fxLayout="row" fxFlexFill>
                 <button (click)="reload()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
                 <button (click)="onExport(selectedItem)" mat-button>{{ 'button.export' | translate }}</button>
@@ -200,7 +200,7 @@
 
         <as-split-area [size]="splitArea2Width"  [order]="1">
           <div *ngIf="tree" fxLayout="column" fxFlexFill>
-            <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar app-view-action">
+            <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar">
               <div fxFlex *ngIf="search.selectedTree" fxLayout="row" fxFlexFill>
                 <button (click)="selectItem(selectedItem)" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
                 <button (click)="onExport(search.selectedTree.item)" mat-button>{{ 'button.export' | translate }}</button>

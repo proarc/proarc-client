@@ -77,6 +77,8 @@ export class EditorStructureComponent implements OnInit {
   scrollPos = -1;
   dragDisabled = true;
 
+  public columnSize: number;
+
   // public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
 
   public selectedColumns = [
@@ -1321,5 +1323,9 @@ export class EditorStructureComponent implements OnInit {
     });
   }
 
+  onResize(e: any) {
+    this.columnSize = e.newRect.width;
+    //console.log(e.newRect.width);
+  }
 
 }

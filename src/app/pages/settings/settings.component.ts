@@ -87,6 +87,7 @@ export class SettingsComponent implements OnInit {
     this.properties.getSearchColumns();
     this.properties.getSearchColumnsTree();
     this.initSelectedColumnsEditingImport();
+    this.properties.getProcMngColumns();
     this.api.getUser().subscribe((user: User) => {
       this.user = user;
       this.forename = this.user.forename;
@@ -164,6 +165,16 @@ export class SettingsComponent implements OnInit {
   setSelectedColumnsSearch() {
     this.properties.setSelectedColumnsSearch();
     this.ui.showInfo('snackbar.settings.searchColumns.updated');
+  }
+
+  setSelectedColumnsProcMng() {
+    this.properties.setSelectedColumnsProcMng();
+    this.ui.showInfo('snackbar.settings.procMngColumns.updated');
+  }
+
+  setSelectedColumnsQueue() {
+    this.properties.setSelectedColumnsQueue();
+    this.ui.showInfo('snackbar.settings.queueColumns.updated');
   }
 
   setSelectedColumnsSearchTree() {

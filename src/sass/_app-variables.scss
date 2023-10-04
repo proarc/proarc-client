@@ -79,8 +79,6 @@ $app-toolbar-button-height: $app-toolbar-height;
 
 $app-toolbar-color: $app-gray-7;
 
-$app-toolbar-action-height: 36px !default;
-
 $app-table-border-color: $app-gray-3;
 
 $app-card-border-color: rgba($app-gray-4, .8) !default;
@@ -141,10 +139,26 @@ $iconSize: (
 
 // alerts
 $alerts: (
-  warn: $app-color-warn,
-  info: $app-color-info,
-  success:  $app-color-success,
-  message: $app-gray-7
+  warn: (
+    color: $app-color-warn,
+    bg: rgba($app-color-warn, .1),
+    border: rgba($app-color-warn, .2)
+  ),    
+  info: (
+    color: $app-color-info,
+    bg: #fff3cd,
+    border: rgba($app-color-info, .15)
+  ),
+  success: (
+    color: $app-color-success,
+    bg: rgba($app-color-success, .1),
+    border: rgba($app-color-success, .2)
+  ),
+  message: (
+    color: $app-gray-7,
+    bg: rgba($app-gray-7, .1),
+    border: rgba($app-gray-7, .2)
+  )
 );
 
 // states
