@@ -101,7 +101,7 @@ export class ElementField {
         
         if (this.items.length - hiddenItems < 1) {
             const item = this.add();
-            if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded) {
+            if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded && !item.isRequired2()) {
                 item.collapsed = true;
             }
         }
@@ -129,7 +129,7 @@ export class ElementField {
 
             if (this.items.length === 1) {
                 const item = this.add();
-                if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded) {
+                if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded && !item.isRequired2()) {
                     item.collapsed = true;
                 }
             }
