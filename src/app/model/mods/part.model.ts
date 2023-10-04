@@ -51,7 +51,7 @@ export class ModsPart extends ModsElement {
     if (this.available2('extent')) {
       this.extents = new ElementField(this.modsElement, ModsExtent.getSelector(), this.getField('extent'));
       this.addSubfield(this.extents);
-    }
     this.addControl('extent');
+    }
   }
 }

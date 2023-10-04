@@ -39,6 +39,7 @@ export class ModsRecordInfo extends ModsElement {
         }
         this.recordOrigin = this.modsElement['recordOrigin'][0];
         this.addControl('recordOrigin');
+        
         if (this.available2('recordContentSource')) {
             this.recordContentSources = new ElementField(this.modsElement, ModsRecordContentSource.getSelector(), this.getField('recordContentSource'));
             this.addSubfield(this.recordContentSources);

@@ -165,8 +165,8 @@ export abstract class ModsElement {
             } 
             
             this.controls[field] = c;
+        // console.log('ADD ' + field + ' -> ' + this.labelKey2(field));
         }
-        console.log('ADD ' + field);
         this.clazz[field] = this.class(field);
         this.isMandatory[field] = this.isMandatory2(field);
         this.usage[field] = this.usage2(field);

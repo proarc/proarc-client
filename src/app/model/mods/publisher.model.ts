@@ -104,8 +104,8 @@ export class ModsPublisher extends ModsElement {
         if(this.available2('frequency')) {
             this.frequencies = new ElementField(this.modsElement, ModsFrequency.getSelector(), this.getField('frequency'));
             this.addSubfield(this.frequencies);
-        }
         this.addControl('frequency');
+        }
 
         if(this.available2('dateIssued')) {
           this.dateIssueds = new ElementField(this.modsElement, ModsDateIssued.getSelector(), this.getField('dateIssued'));
@@ -141,13 +141,12 @@ export class ModsPublisher extends ModsElement {
           this.dateModifieds = new ElementField(this.modsElement, ModsDateModified.getSelector(), this.getField('dateModified'));
           this.addSubfield(this.dateModifieds);
         }
-        this.addControl('');
 
         if (this.available2('edition')) {
           this.editions = new ElementField(this.modsElement, ModsEdition.getSelector(), this.getField('edition'));
           this.addSubfield(this.editions);
-        }
         this.addControl('edition');
+        }
 
     }
 
