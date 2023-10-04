@@ -165,28 +165,28 @@ export class SettingsComponent implements OnInit {
 
   setSelectedColumnsSearch() {
     this.properties.setSelectedColumnsSearch();
-    this.ui.showInfo('snackbar.settings.searchColumns.updated');
+    this.ui.showInfo('snackbar.settings.columns.updated');
   }
 
   setSelectedColumnsProcMng() {
     this.properties.setSelectedColumnsProcMng();
-    this.ui.showInfo('snackbar.settings.procMngColumns.updated');
+    this.ui.showInfo('snackbar.settings.columns.updated');
   }
 
   setSelectedColumnsQueue() {
     this.properties.setSelectedColumnsQueue();
-    this.ui.showInfo('snackbar.settings.queueColumns.updated');
+    this.ui.showInfo('snackbar.settings.columns.updated');
   }
 
   setSelectedColumnsSearchTree() {
     this.properties.setSelectedColumnsSearchTree();
-    this.ui.showInfo('snackbar.settings.searchColumnsTree.updated');
+    this.ui.showInfo('snackbar.settings.columns.updated');
   }
 
   setSelectedColumnsEditingRepo() {
     this.properties.setColumnsEditingRepo(this.colsEditModeParent);
     
-    this.ui.showInfo('snackbar.settings.searchColumns.updated');
+    this.ui.showInfo('snackbar.settings.columns.updated');
 
   }
 
@@ -197,7 +197,7 @@ export class SettingsComponent implements OnInit {
   setSelectedColumnsEditingImport() {
     this.properties.setStringProperty('selectedColumnsImport', JSON.stringify(this.selectedColumnsEditingImport));
     this.initSelectedColumnsEditingImport();
-    this.ui.showInfo('snackbar.settings.searchColumns.updated');
+    this.ui.showInfo('snackbar.settings.columns.updated');
   }
 
   resetSettings() {

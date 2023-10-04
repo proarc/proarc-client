@@ -98,9 +98,9 @@
     "all_models": "All",
     "field": "Field",
     "create": "Create",
-    "timestamp": "Timestamp",
+    "timestamp": "Modified",
     "pageCount": "Page count",
-    "description": "Description",
+    "description": "Name",
     "profile": "Profile",
     "user": "User",
     "priority": "Priority",
@@ -2542,8 +2542,7 @@
   },
   "snackbar": {
     "settings": {
-      "searchColumns.updated": "The column display settings have been modified",
-      "searchColumnsTree.updated": "The column display settings in the tree have been modified",
+      "columns.updated": "The column display settings have been modified",
       "profile": {
         "updated": "The new password has been saved",
         "error": {
