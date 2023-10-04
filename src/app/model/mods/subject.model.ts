@@ -73,25 +73,30 @@ export class ModsSubject extends ModsElement {
         if (this.available2('name')) {
             this.names = new ElementField(this.modsElement, ModsAuthor.getSelector(), this.getField('name'));
             this.addSubfield(this.names);
+            this.addControl('name');
         }
         if (this.available2('topic')) {
           this.topics = new ElementField(this.modsElement, ModsTopic.getSelector(), this.getField('topic'));
           this.addSubfield(this.topics);
+          this.addControl('topic');
         }
         if (this.available2('titleInfo')) {
           this.titleInfos = new ElementField(this.modsElement, ModsTitle.getSelector(), this.getField('titleInfo'));
           this.addSubfield(this.titleInfos);
+          this.addControl('titleInfo');
         }
 
 
         if(this.available2('cartographics')) {
             this.cartographics = new ElementField(this.modsElement, ModsCartographics.getSelector(), this.getField('cartographics'));
             this.addSubfield(this.cartographics);
+            this.addControl('cartographics');
         }
 
         if(this.available2('geographicCode')) {
           this.geographicCodes = new ElementField(this.modsElement, ModsGeographicCode.getSelector(), this.getField('geographicCode'));
           this.addSubfield(this.geographicCodes);
+          this.addControl('geographicCode');
         }
 
     }
