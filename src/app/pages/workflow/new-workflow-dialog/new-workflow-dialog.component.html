@@ -49,7 +49,7 @@
 <mat-spinner *ngIf="state=='loading'" [strokeWidth]="5" [diameter]="60" class="center-spinner">
 </mat-spinner>
 
-<div mat-dialog-actions cdk-focus-start>
+<div mat-dialog-actions cdkFocusRegionstart>
   <button mat-raised-button color="default" (click)="save()" >{{ 'common.save' | translate }}</button>
   <button mat-raised-button color="default" mat-dialog-close="close" >{{ 'common.close' | translate }}</button>
 </div>

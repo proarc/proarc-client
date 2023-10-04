@@ -8,7 +8,7 @@
 <div>
   <mat-slide-toggle *ngIf="this.data === 'ExpandedModels'" [(ngModel)]="relatedItemExpanded" color="primary" class="app-slide-toogle" [matTooltip]="'desc.includeRelatedItem' | translate">{{ 'relatedItem' | translate }}</mat-slide-toggle>
 </div>
-<div mat-dialog-actions cdk-focus-start> 
+<div mat-dialog-actions cdkFocusRegionstart> 
    
   <button mat-flat-button color="primary" (click)="onSave()" >{{ 'button.save' | translate }}</button>
   <button mat-flat-button [mat-dialog-close]="'close'" >{{ 'button.close' | translate }}</button>

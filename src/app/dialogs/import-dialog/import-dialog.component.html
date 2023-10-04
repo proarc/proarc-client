@@ -17,7 +17,7 @@
 	<pre class="app-ws-pw" *ngIf="state=='failure'">{{ failureMessage }}</pre>
 </div>
 
-<div mat-dialog-actions cdk-focus-start>
+<div mat-dialog-actions cdkFocusRegionstart>
 	<button *ngIf="state == 'success'" mat-flat-button color="primary" mat-dialog-close="open">{{ 'button.continueToPrepareMetadata' | translate }}</button>
 	<button mat-stroked-button mat-dialog-close="close" >{{ 'button.close' | translate }}</button>
 </div>

@@ -43,7 +43,7 @@
       </div>
     </ng-container>
   </div>
-  <div mat-dialog-actions cdk-focus-start>
+  <div mat-dialog-actions cdkFocusRegionstart>
     <button *ngIf="data.create" mat-flat-button color="primary" (click)="onCreate()" [disabled]="activeIndex < 0 || state=='loading'  || state=='saving'" >{{ 'button.create' | translate }}</button>
     <button *ngIf="!data.create" mat-flat-button color="primary" (click)="onSave()" [disabled]="activeIndex < 0 || state=='loading'  || state=='saving'" >{{ 'button.save' | translate }}</button>
     <button mat-stroked-button mat-dialog-close="close" >{{ 'button.cancel' | translate }}</button>

@@ -52,7 +52,7 @@
 
 </div>
 
-<div mat-dialog-actions cdk-focus-start>
+<div mat-dialog-actions cdkFocusRegionstart>
   <button *ngIf="data.fromNavbar" mat-flat-button color="primary" (click)="onLoadFromCatalog()">{{ 'button.loadMetadataFromCatalog' | translate }}</button>
   <button *ngIf="!data.fromNavbar" mat-icon-button color="primary" (click)="onLoadFromCatalog()" [matTooltip]="'button.loadMetadataFromCatalog' | translate"><mat-icon>local_library</mat-icon></button>
   <button mat-flat-button color="primary" (click)="onCreate()" [disabled]="!validate()" >{{ 'button.create' | translate }}</button>

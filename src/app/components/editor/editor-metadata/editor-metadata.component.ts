@@ -56,7 +56,7 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.byField = this.localS.getBoolProperty('metadata_by_field');
+    this.byField = !this.notSaved && this.localS.getBoolProperty('metadata_by_field');
   }
 
   toggleByField() {

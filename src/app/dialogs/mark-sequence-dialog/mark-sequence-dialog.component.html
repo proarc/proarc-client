@@ -242,7 +242,7 @@
     <mat-checkbox color="primary" [(ngModel)]="pagePosition">{{ 'desc.pagePosition' | translate }}</mat-checkbox>
   </div>
   
-  <div mat-dialog-actions cdk-focus-start>
+  <div mat-dialog-actions cdkFocusRegionstart>
     <div>
       <button mat-flat-button color="primary" (click)="save()" [matTooltip]="'button.save' | translate">{{ 'button.save' | translate }}</button>
       <button mat-flat-button [mat-dialog-close]="changed">{{ 'button.close' | translate }}</button>

@@ -71,7 +71,7 @@
     <mat-icon>{{ state == 'error' || !selectedRowWarning ? 'warning' : 'info' }}</mat-icon> {{ message }}
   </mat-card>
 </div>
-<div mat-dialog-actions cdk-focus-start>
+<div mat-dialog-actions cdkFocusRegionstart>
   <button mat-flat-button color="primary" [disabled]="formDisabled()" (click)="onRegister()">{{ 'button.register' | translate }}</button>
   <button mat-stroked-button mat-dialog-close="close" >{{ 'button.close' | translate }}</button>
   <button *ngIf="log" mat-flat-button color="warn" (click)="showErrorDetail(log)">{{ 'button.viewErrorOutput' | translate }}</button>
