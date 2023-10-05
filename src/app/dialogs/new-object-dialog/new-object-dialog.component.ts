@@ -7,6 +7,10 @@ import { ApiService } from 'src/app/services/api.service';
 import { DatePipe } from '@angular/common';
 import { UIService } from 'src/app/services/ui.service';
 import { CatalogDialogComponent } from '../catalog-dialog/catalog-dialog.component';
+import { MatDatepicker } from '@angular/material/datepicker';
+import { Moment } from 'moment';
+import * as moment from 'moment';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-new-object-dialog',
@@ -22,8 +26,18 @@ export class NewObjectDialogComponent implements OnInit {
   seriesDateTo: Date;
   seriesDaysIncluded: number[] = [];
   weekDays = [1,2,3,4,5,6,7];
+  seriesSignatura: string;
+
+  dateFormats = ['dd.mm.yyyy', 'mm.yyyy','yyyy'];
+  dateFormat: string = 'dd.mm.yyyy';
+
+  
+  frequences = ['other', 'd','w','hm','m','qy','hy','y'];
+  frequency: string = 'other';
 
   filteredModels: string[];
+
+  dateFrom = new FormControl(moment());
 
   constructor(
     public adapter: DateAdapter<any>,
@@ -41,6 +55,15 @@ export class NewObjectDialogComponent implements OnInit {
 
   validate(): boolean {
     return !this.data.customPid || Uuid.validate(this.data.pid);
+  }
+
+  setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
+    const ctrlValue = this.dateFrom.value!;
+    ctrlValue.month(normalizedMonthAndYear.month());
+    ctrlValue.year(normalizedMonthAndYear.year());
+    this.dateFrom.setValue(ctrlValue);
+    // this.seriesDateTo = ctrlValue;
+    // datepicker.close();
   }
 
   onCreate() {
@@ -64,6 +87,9 @@ export class NewObjectDialogComponent implements OnInit {
       this.seriesDaysIncluded.forEach(d => {
         data += '&seriesDaysIncluded='+d;
       });
+      data += '&seriesSignatura='+this.seriesSignatura;
+      data += '&seriesFrequency='+this.frequency;
+      data += '&seriesDateFormat='+this.dateFormat;
     } else {
       // jen pripravime pro editace
       data = `${data}&createObject=false&validate=false`;

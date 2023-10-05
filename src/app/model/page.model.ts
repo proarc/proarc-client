@@ -103,7 +103,7 @@ export class Page {
   }
 
   public toJson() {
-    return this.isNdkPage() ? this.ndkPageToJson() : this.pageToJson();
+    return (this.isNdkPage() || this.isSttPage()) ? this.ndkPageToJson() : this.pageToJson();
   }
 
   private pageToJson() {
@@ -151,6 +151,10 @@ export class Page {
 
   public isNdkPage(): boolean {
     return this.model === 'model:ndkpage';
+  }
+
+  public isSttPage(): boolean {
+    return this.model === 'model:oldprintpage';
   }
 
   public removeIdentifier(index: number) {

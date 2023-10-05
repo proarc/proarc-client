@@ -25,19 +25,49 @@
     </mat-form-field>
 
     <mat-form-field fxFlex>
-      <input matInput [matDatepicker]="dp1" [placeholder]="'desc.dateFrom' | translate" [(ngModel)]="seriesDateFrom" [disabled]="!isMultiple">
+      <input matInput [matDatepicker]="dp1" [placeholder]="'desc.dateFrom' | translate"  [disabled]="!isMultiple"
+        [(ngModel)]="seriesDateFrom">
       <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
-      <mat-datepicker #dp1></mat-datepicker>
+      <mat-datepicker #dp1>
+    </mat-datepicker>
     </mat-form-field>
 
     <mat-form-field fxFlex>
-      <input matInput [matDatepicker]="dp2" [placeholder]="'desc.dateTo' | translate" [(ngModel)]="seriesDateTo" [disabled]="!isMultiple">
+      <input matInput [matDatepicker]="dp2" [placeholder]="'desc.dateTo' | translate" [disabled]="!isMultiple"
+      [(ngModel)]="seriesDateTo" >
       <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
-      <mat-datepicker #dp2></mat-datepicker>
+      <mat-datepicker #dp2 ></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
+      <mat-label>{{ 'desc.frequency' | translate }}</mat-label>
+      <mat-select [(value)]="frequency" [disabled]="!isMultiple">
+        <mat-option *ngFor="let fr of frequences" [value]="fr">{{'common.frequency.' + fr | translate}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
+      <input type="text" autocomplete="off" matInput [placeholder]="'catalog.field.signature' | translate" [(ngModel)]="seriesSignatura" [disabled]="!isMultiple">
+    </mat-form-field>
+    </div>
+
+    <div>
+    <mat-form-field fxFlex>
+      <mat-label>{{ 'desc.dateFormat' | translate }}</mat-label>
+      <mat-select [(value)]="dateFormat" [disabled]="!isMultiple || frequency === 'other'">
+        <mat-option *ngFor="let df of dateFormats" [value]="df">{{df}}</mat-option>
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field fxFlex>
       <mat-label>{{ 'desc.releasedIn' | translate }}</mat-label>
+      <mat-select [(value)]="seriesDaysIncluded" multiple [disabled]="!isMultiple || frequency !== 'other'">
+        <mat-option *ngFor="let weekDay of weekDays" [value]="weekDay">{{'common.day.' + weekDay | translate}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
+      <mat-label>{{ 'desc.releasedInRange' | translate }}</mat-label>
       <mat-select [(value)]="seriesDaysIncluded" multiple [disabled]="!isMultiple">
         <mat-option *ngFor="let weekDay of weekDays" [value]="weekDay">{{'common.day.' + weekDay | translate}}</mat-option>
       </mat-select>
