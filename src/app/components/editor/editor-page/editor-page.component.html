@@ -62,7 +62,7 @@
               </button>
             </mat-form-field>
 
-            <mat-form-field class="app-half-left" *ngIf="page.isNdkPage()">
+            <mat-form-field class="app-half-left" *ngIf="page.isNdkPage() || page.isSttPage()">
               <span class="app-usage" [class.app-help-off]="true">O</span>
               <mat-select [(ngModel)]='page.position' placeholder="{{ 'editor.page.position' | translate }}" [formControl]="posControl"
                #posSelect (keyup.enter)="enterSelect(posSelect, 'position')" (focusout)="removeFocus()">
@@ -70,7 +70,7 @@
               </mat-select>
             </mat-form-field>
 
-            <mat-form-field class="app-half-right" *ngIf="page.isNdkPage()" [class.app-invalid]="!page.genre">
+            <mat-form-field class="app-half-right" *ngIf="page.isNdkPage() || page.isSttPage()" [class.app-invalid]="!page.genre">
               <span class="app-usage" [class.app-help-off]="true">M</span>
               <mat-select [(ngModel)]='page.genre' placeholder="{{ 'editor.page.genre' | translate }}" [formControl]="genreControl"
                (keyup.enter)="enterSelect(genreSelect, 'genre')" (focusout)="removeFocus()" #genreSelect>
