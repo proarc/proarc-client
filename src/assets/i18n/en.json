@@ -31,6 +31,16 @@
       "5": "Friday",
       "6": "Saturday",
       "7": "Sunday"
+    },
+    "frequency": {
+      "other": "Other",
+      "d": "Daily",
+      "w": "Weekly",
+      "hm": "14 days",
+      "m": "Monthly",
+      "qy": "By quarter",
+      "hy": "By half year",
+      "y": "Annually"
     }
   },
   "login": {
@@ -1991,6 +2001,9 @@
     "dateFrom": "Date from",
     "dateTo": "Date to",
     "releasedIn": "Released in",
+    "releasedInRange": "Released in range",
+    "frequency": "Frequency",
+    "dateFormat": "Date format",
     "type": "Type",
     "general": "General",
     "typeOfDevice": "Type of device",

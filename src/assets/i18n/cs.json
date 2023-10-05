@@ -34,7 +34,18 @@
       "5": "Pátek",
       "6": "Sobota",
       "7": "Neděle"
+    },
+    "frequency": {
+      "other": "Jine",
+      "d": "Denne",
+      "w": "Tydne",
+      "hm": "14 dny",
+      "m": "Mesicne",
+      "qy": "Ctrvleti",
+      "hy": "Pul roku",
+      "y": "Rocne"
     }
+
   },
   "login": {
     "username": "Uživatelské jméno",
@@ -1991,6 +2002,9 @@
     "dateFrom": "Datum od",
     "dateTo": "Datum do",
     "releasedIn": "Vydáno v",
+    "releasedInRange": "Vydáno v rozmezí",
+    "frequency": "Frekvence",
+    "dateFormat": "Formát data",
     "type": "Typ",
     "general": "Obecné",
     "typeOfDevice": "Typ zařízení",
