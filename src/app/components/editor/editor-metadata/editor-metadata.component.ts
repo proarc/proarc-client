@@ -80,10 +80,11 @@ export class EditorMetadataComponent implements OnInit {
       });
       this.selectedField = this.availableFields[0];
 
-      setTimeout(() => {
-        this.focusToFirstRequired();
-      }, 500);
-      return;
+      if (this.layout.moveFocus) {
+        setTimeout(() => {
+          this.focusToFirstRequired();
+        }, 500);
+      }
     }
 
     if (!this.layout.lastSelectedItem || this.layout.lastSelectedItem.isPage()) {
