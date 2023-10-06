@@ -252,6 +252,7 @@ export class EditorStructureComponent implements OnInit {
     if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(event.code) > -1) {
       event.stopPropagation();
       event.preventDefault();
+      this.layout.moveFocus = false;
     }
     if (event.code === "ArrowUp") {
       let step = 1;
@@ -421,6 +422,7 @@ export class EditorStructureComponent implements OnInit {
   }
 
   rowClick(row: DocumentItem, idx: number, event: MouseEvent) {
+    this.layout.moveFocus = false;
     if (event && (event.metaKey || event.ctrlKey)) {
       // Nesmi byt prazdna selecke pro import
       if (this.layout.type === 'import' && row.selected && this.layout.getNumOfSelected() === 1) {

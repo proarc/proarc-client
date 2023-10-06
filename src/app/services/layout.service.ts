@@ -57,6 +57,8 @@ export class LayoutService {
 
   dirtyComps: {[key: string]: Component} = {};
 
+  public moveFocus: boolean = true;
+
   constructor() { }
 
   allowedChildrenModels(): string[]{

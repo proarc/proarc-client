@@ -78,6 +78,7 @@ export class RepositoryComponent implements OnInit {
     this.layout.lastSelectedItemMetadata = null;
     combineLatest([this.route.paramMap, this.route.queryParamMap]).subscribe(
       results => {
+        this.layout.moveFocus = true;
         this.layout.items = [];
         const p = results[0];
         const q = results[1];
