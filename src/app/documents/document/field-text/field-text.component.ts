@@ -11,6 +11,7 @@ export class FieldTextComponent implements OnInit {
 
   @Input() item: ModsElement;
   @Input() field: string;
+  @Input() key: string;
   @Input() value: string;
   @Output() valueChange = new EventEmitter<string>();
 
@@ -19,6 +20,11 @@ export class FieldTextComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.item.controls[this.field].setValue(this.value);
+    // this.item.controls[this.field].valueChanges.subscribe((e: any) => {
+    //   this.item[this.field as keyof ModsElement][this.key] = this.item.controls[this.field].value;
+    //   //this.valueChange.emit(this.value);
+    // })
   }
 
 }

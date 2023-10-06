@@ -21,6 +21,9 @@
 				<button mat-icon-button [disabled]="!hasPendingChanges()" (click)="onSave()" [matTooltip]="'button.save' | translate" [matTooltipPosition]="toolbarTooltipPosition">
 					<mat-icon>save</mat-icon>
 				</button>
+				<button mat-icon-button (click)="logMetadata()" [matTooltip]="'button.save' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+					<mat-icon>log</mat-icon>
+				</button>
 			</ng-container>
 		</div>
 	</div>

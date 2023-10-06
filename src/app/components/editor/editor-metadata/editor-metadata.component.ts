@@ -36,7 +36,7 @@ export class EditorMetadataComponent implements OnInit {
 
   public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
 
-  public fields: {[key: string]: any} = {};
+  public fields: { [key: string]: any } = {};
   public availableFields: string[];
   public selectedField: string;
   public byField: boolean = true;
@@ -50,6 +50,9 @@ export class EditorMetadataComponent implements OnInit {
     private ui: UIService,
     private dialog: MatDialog) { }
 
+  logMetadata() {
+    console.log(this.metadata.mods);
+  }
 
   changeEditorType(t: string) {
     this.onChangeEditorType.emit(t);
@@ -66,7 +69,7 @@ export class EditorMetadataComponent implements OnInit {
 
   ngOnChanges(c: SimpleChanges) {
 
-    if (c['metadata'] && c['metadata'].currentValue &&  (c['metadata'].currentValue !== c['metadata'].previousValue) ) {
+    if (c['metadata'] && c['metadata'].currentValue && (c['metadata'].currentValue !== c['metadata'].previousValue)) {
       if (!c['metadata'].currentValue.template) {
         return;
       }
@@ -237,18 +240,18 @@ export class EditorMetadataComponent implements OnInit {
   saveModsFromCatalog(xml: string) {
     this.state = 'saving';
     this.api.editModsXml(this.metadata.pid, xml, this.metadata.timestamp, null, false).subscribe((resp: any) => {
-        if (resp.errors) {
-            this.state = 'error';
-            this.ui.showErrorDialogFromObject(resp.errors);
-            setTimeout(() => {
-                this.metadata.validate();
-            }, 100);
-            return;
-        }
-            this.state = 'success';
-        this.layout.refreshSelectedItem(false, 'metadata');
+      if (resp.errors) {
+        this.state = 'error';
+        this.ui.showErrorDialogFromObject(resp.errors);
+        setTimeout(() => {
+          this.metadata.validate();
+        }, 100);
+        return;
+      }
+      this.state = 'success';
+      this.layout.refreshSelectedItem(false, 'metadata');
     });
-}
+  }
 
 
   onLoadFromCatalog() {

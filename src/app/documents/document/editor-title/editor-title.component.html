@@ -18,8 +18,7 @@
                       [checked]='item.nonSort["_"].length > 0' >
       </mat-slide-toggle>
     </mat-form-field>
-
-    <app-field-text field="subTitle" [item]="item" [(value)]="item.subTitle['_']"></app-field-text>
+    <app-field-text field="subTitle" [item]="item" [(value)]="item.subTitle['_']" [key]="'_'" ></app-field-text>
     <app-field-text field="partNumber" [item]="item" [(value)]="item.partNumber['_']"></app-field-text>
     <app-field-text field="partName" [item]="item" [(value)]="item.partName['_']"></app-field-text>
   </ng-template>

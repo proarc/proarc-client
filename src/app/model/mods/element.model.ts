@@ -222,11 +222,11 @@ export abstract class ModsElement {
         let error = false;
         let anyValue = false;
         let isRequired = this.isRequired;
+        this.validationWarning = false;
         Object.keys(this.controls).forEach((key) => {
             const value = this.controls[key];
             value.markAsTouched();
             if (value.errors) {
-                
                 error = true;
             }
             if (value.value) {

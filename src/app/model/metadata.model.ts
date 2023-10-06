@@ -55,7 +55,7 @@ export class Metadata {
   public readonly pid: string;
   public timestamp: number = -1;
   public readonly originalMods: string;
-  private mods: { [x: string]: any; };
+  public mods: { [x: string]: any; };
   public readonly model: string;
 
   private fieldsIds: string[] = [];
