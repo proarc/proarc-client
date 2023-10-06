@@ -15,13 +15,13 @@
 		</div>
 		<div>
 			<ng-container *ngIf="!notSaved">
-				<button  mat-icon-button (click)="onLoadFromCatalog()" [matTooltip]="'button.metadataCatalog' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+				<button  mat-icon-button (click)="onLoadFromCatalog()" [matTooltip]="'button.metadataCatalog' | translate">
 					<mat-icon>local_library</mat-icon>
 				</button>
-				<button mat-icon-button [disabled]="!hasPendingChanges()" (click)="onSave()" [matTooltip]="'button.save' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+				<button mat-icon-button [disabled]="!hasPendingChanges()" (click)="onSave()" [matTooltip]="'button.save' | translate" >
 					<mat-icon>save</mat-icon>
 				</button>
-				<button mat-icon-button (click)="logMetadata()" [matTooltip]="'button.save' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+				<button mat-icon-button (click)="logMetadata()" [matTooltip]="'button.save' | translate" >
 					<mat-icon>log</mat-icon>
 				</button>
 			</ng-container>

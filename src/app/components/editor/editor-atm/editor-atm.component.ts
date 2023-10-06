@@ -29,7 +29,6 @@ export class EditorAtmComponent implements OnInit {
   users: User[];
   donators: string[];
 
-  public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
 
   statuses = [
     'new',

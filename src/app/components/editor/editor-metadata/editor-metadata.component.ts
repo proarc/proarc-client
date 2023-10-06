@@ -34,8 +34,6 @@ export class EditorMetadataComponent implements OnInit {
   public item: DocumentItem | null;
   public visible = true;
 
-  public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
-
   public fields: { [key: string]: any } = {};
   public availableFields: string[];
   public selectedField: string;

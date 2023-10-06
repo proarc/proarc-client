@@ -20,9 +20,6 @@ export class EditorGenericComponent implements OnInit {
   switchableTypes = ['mods', 'metadata', 'atm', 'ocr']
   switchable: boolean;
 
-  public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
-
-
   constructor(
     public config: ConfigService,
     public layout: LayoutService,

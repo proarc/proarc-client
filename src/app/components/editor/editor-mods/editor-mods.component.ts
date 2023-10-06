@@ -41,7 +41,6 @@ export class EditorModsComponent implements OnInit, OnDestroy {
 
   public visible = true;
 
-  public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
 
   subscriptions: Subscription[] = [];
 

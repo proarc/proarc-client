@@ -6,13 +6,13 @@
 			</div>
 		</div>
 		<div>
-			<button mat-icon-button (click)="addBrackets()" [disabled]="canSave()" [matTooltip]="'common.add_brackets' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+			<button mat-icon-button (click)="addBrackets()" [disabled]="canSave()" [matTooltip]="'common.add_brackets' | translate" >
         [<mat-icon>add</mat-icon>]
       </button>
-      <button mat-icon-button (click)="removeBrackets()" [disabled]="canSave()" [matTooltip]="'common.remove_brackets' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+      <button mat-icon-button (click)="removeBrackets()" [disabled]="canSave()" [matTooltip]="'common.remove_brackets' | translate">
         [<mat-icon>remove</mat-icon>]
       </button>
-      <button mat-icon-button (click)="onSave()" [disabled]="!canSave()" [matTooltip]="'button.save' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+      <button mat-icon-button (click)="onSave()" [disabled]="!canSave()" [matTooltip]="'button.save' | translate" >
         <mat-icon>save</mat-icon>
       </button>
 		</div>

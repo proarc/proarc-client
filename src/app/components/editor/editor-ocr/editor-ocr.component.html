@@ -4,13 +4,13 @@
 			<app-editor-switcher (onChangeEditorType)="changeEditorType($event)" [editorType]="editorType"></app-editor-switcher>
 		</div>
 		<div>
-      <button mat-icon-button [disabled]="editting" (click)="onEdit()" [matTooltip]="'common.edit' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+      <button mat-icon-button [disabled]="editting" (click)="onEdit()" [matTooltip]="'common.edit' | translate" >
 				<mat-icon>edit</mat-icon>
 			</button>
-			<button mat-icon-button [disabled]="!editting" (click)="onClear()" [matTooltip]="'common.cancel' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+			<button mat-icon-button [disabled]="!editting" (click)="onClear()" [matTooltip]="'common.cancel' | translate" >
 				<mat-icon>clear</mat-icon>
 			</button>
-			<button mat-icon-button [disabled]="!anyChange" (click)="onSave()" [matTooltip]="'button.save' | translate" [matTooltipPosition]="toolbarTooltipPosition">
+			<button mat-icon-button [disabled]="!anyChange" (click)="onSave()" [matTooltip]="'button.save' | translate" >
 				<mat-icon>save</mat-icon>
 			</button>
 		</div>

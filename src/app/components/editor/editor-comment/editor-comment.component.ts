@@ -19,8 +19,6 @@ export class EditorCommentComponent implements OnInit {
   note: Note;
   anyChange: boolean;
 
-  public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
-
   @Input()
   set pid(pid: string) {
     this.onPidChanged(pid);
