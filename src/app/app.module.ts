@@ -132,6 +132,7 @@ import { ResizecolDirective } from './resizecol.directive';
 import { ColumnsSettingsDialogComponent } from './dialogs/columns-settings-dialog/columns-settings-dialog.component';
 import { TotestComponent } from './pages/totest/totest.component';
 import { CzidloDialogComponent } from './dialogs/czidlo-dialog/czidlo-dialog.component';
+import { UpdateInSourceDialogComponent } from './dialogs/update-in-source-dialog/update-in-source-dialog.component';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 300,
@@ -260,7 +261,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ResizecolDirective,
     ColumnsSettingsDialogComponent,
     TotestComponent,
-    CzidloDialogComponent
+    CzidloDialogComponent,
+    UpdateInSourceDialogComponent
   ],
   imports: [
     BrowserModule,
