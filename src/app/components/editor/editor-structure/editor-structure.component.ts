@@ -98,6 +98,7 @@ export class EditorStructureComponent implements OnInit {
   displayedColumns: string[] = [];
   colsEditModeParent: boolean;
   colsImport: any;
+  colsWidth: { [key: string]: string } = {};
 
   subscriptions: Subscription[] = [];
 
@@ -192,7 +193,7 @@ export class EditorStructureComponent implements OnInit {
     this.refreshing = false;
   }
 
-  scrollToSelected(alignToTop : boolean) {
+  scrollToSelected(alignToTop: boolean) {
     const index = this.layout.items.findIndex(i => i.selected);
     if (index < 0) {
       return;
@@ -208,8 +209,8 @@ export class EditorStructureComponent implements OnInit {
       //   document.getElementById('table').parentElement.parentElement.scrollTop = this.scrollPos;
       // } else {
       // }
-        let row = this.rows.get(index);
-        row.element.nativeElement.scrollIntoView(alignToTop, {behavior : 'smooth'} );
+      let row = this.rows.get(index);
+      row.element.nativeElement.scrollIntoView(alignToTop, { behavior: 'smooth' });
       return;
     }
 
@@ -221,7 +222,7 @@ export class EditorStructureComponent implements OnInit {
       }
       if (index > 0) {
         const el = container.nativeElement.children[index];
-        el.scrollIntoView(alignToTop, {behavior : 'smooth'} );
+        el.scrollIntoView(alignToTop, { behavior: 'smooth' });
       }
     }
   }
@@ -315,9 +316,27 @@ export class EditorStructureComponent implements OnInit {
     } else {
       this.setSelectedColumnsImport();
     }
+    this.setColumnsWith();
   }
 
+  setColumnsWith() {
+    this.colsWidth = {};
+    const model = this.colsEditModeParent ? this.layout.selectedParentItem.model : this.layout.items[0].model;
 
+    if (this.isRepo) {
+      this.properties.colsEditingRepo[model].forEach(c => {
+        this.colsWidth[c.field] = c.width + 'px';
+      })
+    } else {
+      this.properties.getSelectedColumnsEditingImport().forEach((c: any) => {
+        this.colsWidth[c.field] = c.width + 'px';
+      })
+    }
+
+
+
+
+  }
 
   getColumnWidth(field: string) {
     if (this.isRepo) {
