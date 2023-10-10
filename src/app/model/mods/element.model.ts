@@ -225,7 +225,6 @@ export abstract class ModsElement {
         this.validationWarning = false;
         Object.keys(this.controls).forEach((key) => {
             const value = this.controls[key];
-            value.markAsTouched();
             if (value.errors) {
                 error = true;
             }
