@@ -36,14 +36,14 @@
       "7": "Neděle"
     },
     "frequency": {
-      "other": "Jine",
-      "d": "Denne",
-      "w": "Tydne",
-      "hm": "14 dny",
-      "m": "Mesicne",
-      "qy": "Ctrvleti",
-      "hy": "Pul roku",
-      "y": "Rocne"
+      "other": "Jiné",
+      "d": "Denně",
+      "w": "Týdně",
+      "hm": "Půl měsíčně",
+      "m": "Měsíčně",
+      "qy": "Čtvrtletně",
+      "hy": "Půlročně",
+      "y": "Ročně"
     }
 
   },
@@ -2001,8 +2001,8 @@
     "numberFrom": "Číslo od",
     "dateFrom": "Datum od",
     "dateTo": "Datum do",
-    "releasedIn": "Vydáno v",
-    "releasedInRange": "Vydáno v rozmezí",
+    "releasedIn": "Vydáno ve dne (dnech)",
+    "releasedInRange": "Vydáno v rozmezí dnů",
     "frequency": "Frekvence",
     "dateFormat": "Formát data",
     "type": "Typ",

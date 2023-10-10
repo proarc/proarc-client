@@ -29,7 +29,7 @@ export class CzidloDialogComponent implements OnInit {
   showSuccessor = false;
 
   constructor(
-    public dialogRef: MatDialogRef<UrnnbnDialogComponent>,
+    public dialogRef: MatDialogRef<CzidloDialogComponent>,
     private api: ApiService,
     private ui: UIService,
     private dialog: MatDialog,

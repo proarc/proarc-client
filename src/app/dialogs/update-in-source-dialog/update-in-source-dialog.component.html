@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>{{ 'UpdateInSource' | translate }}</h1>
+<div mat-dialog-content>
+    <div fxLayout="column" fxLayoutGap="8px">
+
+        <div>
+            <mat-form-field class="app-w-100">
+                <mat-select [placeholder]="'desc.catalogues' | translate" [(ngModel)]="selectedCatalogue">
+                    <mat-option *ngFor="let c of catalogs" [value]="c">{{ c.name
+                        }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="app-oa-y">
+            <mat-card *ngIf="message" class="app-alert"
+                [class.app-warn]="state == 'error'">
+                <mat-icon>{{ state == 'error' ? 'warning' : 'info' }}</mat-icon> {{ message }}
+            </mat-card>
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions cdk-focus-start>
+    <button mat-flat-button color="primary" (click)="update()">{{ 'button.updateInSource' | translate }}</button>
+    <button mat-stroked-button mat-dialog-close="close">{{ 'button.close' | translate }}</button>
+</div>

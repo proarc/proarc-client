@@ -25,6 +25,7 @@ import { ConvertDialogComponent } from 'src/app/dialogs/convert-dialog/convert-d
 import { LayoutService } from 'src/app/services/layout.service';
 import { CzidloDialogComponent } from 'src/app/dialogs/czidlo-dialog/czidlo-dialog.component';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { UpdateInSourceDialogComponent } from 'src/app/dialogs/update-in-source-dialog/update-in-source-dialog.component';
 
 @Component({
   selector: 'app-search',
@@ -709,6 +710,24 @@ export class SearchComponent implements OnInit {
   czidlo(item: DocumentItem) {
     
     const dialogRef = this.dialog.open(CzidloDialogComponent, { 
+      data: item.pid,
+      panelClass: 'app-urnbnb-dialog',
+      width: '600px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+    
+      }
+    });
+  }
+
+  canUpdateInSource(item: DocumentItem) {
+    return this.config.updateInSourceModels.includes(item.model)
+  }
+
+  updateInSource(item: DocumentItem) {
+    
+    const dialogRef = this.dialog.open(UpdateInSourceDialogComponent, { 
       data: item.pid,
       panelClass: 'app-urnbnb-dialog',
       width: '600px'

@@ -668,6 +668,16 @@ export class ApiService {
     return this.get('bibliographies').pipe(map((response: any) => Catalogue.fromJsonArray(response['response']['data'])));
   }
 
+  getCatalogsForUpdate(): Observable<any> {
+    return this.get('bibliographies?allowUpdate=true');
+  }
+
+  updateInSource(pid: string, catalogId: string) {
+    let data = `pid=${pid}&catalogId=${catalogId}`;
+    return this.post('object/updateCatalogRecord', data);
+    
+  }
+
   getAuthorityCatalogs(): Observable<Catalogue[]> {
     return this.get('authorities').pipe(map((response: any) => Catalogue.fromJsonArray(response['response']['data'])));
   }

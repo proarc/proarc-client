@@ -421,6 +421,9 @@ export class ConfigService {
 	private static donators = [ 'ilnorway', 'norway', 'dkrvo19-23'];
 	public donators = APP_GLOBAL.donators || ConfigService.donators;
 
+	public updateInSource = !!APP_GLOBAL.updateInSource;
+	public updateInSourceModels: string[] = APP_GLOBAL.updateInSourceModels;
+
 	constructor() {
 	}
 

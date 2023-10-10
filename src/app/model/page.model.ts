@@ -82,7 +82,7 @@ export class Page {
         if (mods['identifier']) {
           page.identifiers = PageIdentifier.fromJsonArray(mods['identifier']);
           page.originalIdentifiers = PageIdentifier.fromJsonArray(mods['identifier']);
-        } 
+        }
       }
       page.originalPosition = page.position;
       page.originalGenre = page.genre;
@@ -95,7 +95,7 @@ export class Page {
   }
 
   public static fromJson(json: any, model: string): Page {
-    if (model == 'model:ndkpage') {
+    if (model == 'model:ndkpage' || model === 'model:oldprintpage') {
       return Page.ndkPageFromJson(json, model)
     } else {
       return Page.pageFromJson(json, model);
@@ -125,7 +125,7 @@ export class Page {
     for (const i of this.identifiers) {
       ids.push(i.toJson());
     }
-    const mods: any = { 
+    const mods: any = {
       'identifier': ids
     };
     if (this.position) {
@@ -218,11 +218,11 @@ export class Page {
       }
     }
     return this.index !== this.originalIndex || this.number !== this.originalNumber
-    || this.type !== this.originalType || this.note !== this.originalNote 
+    || this.type !== this.originalType || this.note !== this.originalNote
     || this.position !== this.originalPosition || this.genre !== this.originalGenre;
   }
 
-  
+
 
   public toXml(): string {
     let ret = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -235,7 +235,7 @@ export class Page {
     </mods:detail>
     </mods:part>
     <mods:part>
-    <mods:detail type="pageIndex"> 
+    <mods:detail type="pageIndex">
     <mods:number>${this.index}</mods:number>
     </mods:detail>
     </mods:part>

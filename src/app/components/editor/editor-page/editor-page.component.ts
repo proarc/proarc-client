@@ -144,7 +144,7 @@ export class EditorPageComponent implements OnInit {
   private onPidChanged(pid: string) {
     this.state = 'loading';
     if (this.layout.type === 'kramerius') {
-      
+
       this.setPage(this.layout.krameriusPage);
       this.state = 'success';
       return;
@@ -177,7 +177,7 @@ export class EditorPageComponent implements OnInit {
     } else {
       this.onSave(from);
     }
-    
+
   }
 
   isInBrackets(): boolean {
@@ -215,7 +215,7 @@ export class EditorPageComponent implements OnInit {
     if (!this.page.type) {
       return false;
     }
-    if (this.page.isNdkPage() && !this.page.genre) {
+    if ((this.page.isNdkPage() || this.page.isSttPage()) && !this.page.genre) {
       return false;
     }
     return true;
@@ -321,7 +321,7 @@ export class EditorPageComponent implements OnInit {
       this.setPage(newPage);
       // this.layout.setShouldRefresh(true);
       this.layout.refreshSelectedItem(moveToNext, from);
-      
+
       this.state = 'success';
     });
   }
