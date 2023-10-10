@@ -422,6 +422,7 @@ export class ConfigService {
 	public donators = APP_GLOBAL.donators || ConfigService.donators;
 
 	public updateInSource = !!APP_GLOBAL.updateInSource;
+	public updateInSourceModels: string[] = APP_GLOBAL.updateInSourceModels;
 
 	constructor() {
 	}

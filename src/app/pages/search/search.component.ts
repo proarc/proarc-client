@@ -722,7 +722,7 @@ export class SearchComponent implements OnInit {
   }
 
   canUpdateInSource(item: DocumentItem) {
-    return item.model === 'model:ndkmonographvolume' || item.model === 'model:ndkperiodical'
+    return this.config.updateInSourceModels.includes(item.model)
   }
 
   updateInSource(item: DocumentItem) {

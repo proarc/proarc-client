@@ -1,7 +1,7 @@
 <div fxLayout="column" fxFlexFill>
   <div fxLayout="row" class="app-toolbar app-view-description">
 		<div fxFlex>
-			<app-editor-switcher (onChangeEditorType)="changeEditorType($event)" [editorType]="editorType"></app-editor-switcher>
+			<app-editor-switcher *ngIf="!notSaved" (onChangeEditorType)="changeEditorType($event)" [editorType]="editorType"></app-editor-switcher>
 			<ng-container *ngIf="metadata">
 				<button mat-icon-button [matTooltip]="'desc.showOnlyTheElement' | translate" [class.app-active]="byField" (click)="toggleByField()">
 					<mat-icon>keyboard_double_arrow_down</mat-icon>

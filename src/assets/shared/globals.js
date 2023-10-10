@@ -103,5 +103,7 @@ var APP_GLOBAL = {
   roleCodes: ['act', 'adp', 'ant', 'arr', 'aui', 'aut', 'cmp', 'cnd', 'com', 'cre', 'crp', 'dis', 'dnr', 'dst', 'dte',
     'dto', 'dub', 'edt', 'egr', 'fmo', 'fnd', 'ill', 'itr', 'lbt', 'lyr', 'mus', 'oth', 'pbl', 'prf', 'prt', 'rcd', 'red',
     'rev', 'sng', 'trl'],
-  updateInSource: true
+  updateInSource: true,
+  updateInSourceModels: ['model:ndkperiodical','model:ndkmonographvolume', 'model:ndkmusicdocument', 'model:ndkphonographcylinder', 'model:ndkmap',
+  'model:ndksheetmusic', 'model:oldprintgraphics', 'model:ndkmonographtitle'],
 }
