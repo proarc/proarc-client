@@ -25,6 +25,7 @@ export class NewObjectDialogComponent implements OnInit {
   seriesDateFrom: Date;
   seriesDateTo: Date;
   seriesDaysIncluded: number[] = [];
+  releasedInRange: number[] = [];
   weekDays = [1,2,3,4,5,6,7];
   seriesSignatura: string;
 
@@ -87,7 +88,15 @@ export class NewObjectDialogComponent implements OnInit {
       this.seriesDaysIncluded.forEach(d => {
         data += '&seriesDaysIncluded='+d;
       });
-      data += '&seriesSignatura='+this.seriesSignatura;
+      
+      this.releasedInRange.forEach(d => {
+        data += '&releasedInRange='+d;
+      });
+      
+      if (this.seriesSignatura) {
+        data += '&seriesSignatura='+this.seriesSignatura;
+      }
+      
       data += '&seriesFrequency='+this.frequency;
       data += '&seriesDateFormat='+this.dateFormat;
     } else {
