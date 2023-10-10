@@ -5,6 +5,7 @@ import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.componen
 import { ConfigService } from 'src/app/services/config.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { UIService } from 'src/app/services/ui.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-editor-generic',
@@ -17,23 +18,43 @@ export class EditorGenericComponent implements OnInit {
   @Input('panel') panel: ILayoutPanel;
   @Output() onIngest = new EventEmitter<boolean>();
 
-  switchableTypes = ['mods', 'metadata', 'atm', 'ocr']
-  switchable: boolean;
 
+  subscriptions: Subscription[] = [];
+  itemModel: string;
+  numOfSelected: number;
+  showPagesEditor: boolean;
+
+  showAudioPagesEditor: boolean;
+  
   constructor(
     public config: ConfigService,
     public layout: LayoutService,
     private ui: UIService) { }
 
-  ngOnInit(): void {
-  }
-
   ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  ngOnChanges(c: SimpleChange) {
-    this.switchable = this.switchableTypes.includes(this.editorType);
-      
+  ngOnInit(): void {
+    this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
+      this.numOfSelected = this.layout.getNumOfSelected();
+      this.showPagesEditor = this.layout.showPagesEditor();
+      this.showAudioPagesEditor = this.layout.showAudioPagesEditor();
+      this.itemModel = this.itemType();
+    }));
+  }
+
+  itemType(): string {
+    if (this.layout.lastSelectedItem.isPage()) {
+      return 'page';
+    }
+    if (this.layout.lastSelectedItem.isAudioPage()) {
+      return 'song';
+    }
+    if (this.layout.lastSelectedItem.isAudioPage()) {
+      return 'song';
+    }
+    return null;
   }
 
   changeEditorType(newType: string) {

@@ -34,10 +34,12 @@ export class EditorMetadataComponent implements OnInit {
   public item: DocumentItem | null;
   public visible = true;
 
+  public fieldIds: { [key: string]: any } = {};
   public fields: { [key: string]: any } = {};
   public availableFields: string[];
   public selectedField: string;
   public byField: boolean = true;
+  showGenreSwitch: boolean;
 
   constructor(
     private translator: TranslateService,
@@ -72,16 +74,18 @@ export class EditorMetadataComponent implements OnInit {
         return;
       }
       this.metadata = c['metadata'].currentValue;
+      this.setShowGenreSwitch();
       this.availableFields = Object.keys(this.metadata.template);
       Object.keys(this.metadata.template).forEach(k => {
-        this.fields[k] = true;
+        this.fieldIds[k] = true;
+        this.fields[k] = this.metadata.getField(k);
       });
       this.selectedField = this.availableFields[0];
 
       if (this.layout.moveFocus) {
         setTimeout(() => {
           this.focusToFirstRequired();
-        }, 500);
+        }, 10);
       }
     }
 
@@ -266,11 +270,12 @@ export class EditorMetadataComponent implements OnInit {
     this.tmpl.getTemplate(this.metadata.standard, this.layout.lastSelectedItem.model).subscribe((tmpl: any) => {
       this.layout.lastSelectedItemMetadata = new Metadata(this.metadata.pid, this.metadata.model, this.metadata.originalMods, this.metadata.timestamp, this.metadata.standard, tmpl);
       this.metadata = this.layout.lastSelectedItemMetadata;
+      this.setShowGenreSwitch();
     });
   }
 
-  showGenreSwitch() {
-    return this.metadata.model === 'model:ndkearticle' || this.metadata.model === 'model:bdmarticle';
+  setShowGenreSwitch() {
+    this.showGenreSwitch = this.metadata.model === 'model:ndkearticle' || this.metadata.model === 'model:bdmarticle';
   }
 
 }

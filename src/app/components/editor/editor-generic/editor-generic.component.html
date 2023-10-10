@@ -7,8 +7,8 @@
     <app-editor-structure *ngSwitchCase="'structure-grid'" [viewMode]="'grid'" [panel]="panel" (onIngest)="passOnIngest()"></app-editor-structure>
     <app-editor-structure *ngSwitchCase="'structure-icons'" [viewMode]="'icons'" [panel]="panel" (onIngest)="passOnIngest()"></app-editor-structure>
     <ng-container *ngSwitchCase="'image'" >
-      <app-viewer *ngIf="layout.lastSelectedItem && layout.lastSelectedItem.isPage()" [pid]="layout.lastSelectedItem.pid" ></app-viewer>
-      <div *ngIf="!(layout.lastSelectedItem && layout.lastSelectedItem.isPage())" fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
+      <app-viewer *ngIf="layout.lastSelectedItem &&  itemModel === 'page'" [pid]="layout.lastSelectedItem.pid" ></app-viewer>
+      <div *ngIf="!(layout.lastSelectedItem &&  itemModel === 'page')" fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
         <mat-card class="app-alert app-info"><mat-icon>info</mat-icon>{{ 'alert.info.theImageIsNotAvailable' | translate }}</mat-card>
       </div>
     </ng-container>
@@ -24,21 +24,21 @@
       <app-editor-comment *ngSwitchCase="'comment'"  [pid]="layout.lastSelectedItem.pid" [editorType]="editorType" (onChangeEditorType)="changeEditorType($event)"></app-editor-comment>
       <app-editor-atm *ngSwitchCase="'atm'"  [pid]="layout.lastSelectedItem.pid" [editorType]="editorType" (onChangeEditorType)="changeEditorType($event)"></app-editor-atm>
       <ng-container *ngSwitchCase="'premis'">
-        <app-editor-premis *ngIf="layout.getNumOfSelected() < 2"  [pid]="layout.lastSelectedItem.pid"></app-editor-premis>
-        <app-editor-premis-multiple  *ngIf="layout.getNumOfSelected() > 1" ></app-editor-premis-multiple>
+        <app-editor-premis *ngIf="numOfSelected < 2"  [pid]="layout.lastSelectedItem.pid"></app-editor-premis>
+        <app-editor-premis-multiple  *ngIf="numOfSelected > 1" ></app-editor-premis-multiple>
       </ng-container>
     </ng-container>
     <ng-container *ngSwitchCase="'metadata'">
-      <app-editor-pages *ngIf="layout.showPagesEditor()"></app-editor-pages>
-      <app-editor-audioPages *ngIf="layout.showAudioPagesEditor()"></app-editor-audioPages>
-      <ng-container *ngIf="layout.lastSelectedItem && !layout.showPagesEditor() && !layout.showAudioPagesEditor()">
-        <app-editor-page *ngIf="layout.lastSelectedItem.isPage()" [model]="layout.lastSelectedItem.model" [pid]="layout.lastSelectedItem.pid" [editorType]="editorType" (onChangeEditorType)="changeEditorType($event)"> </app-editor-page>
-        <app-editor-audioPage *ngIf="layout.lastSelectedItem.isAudioPage()" [model]="layout.lastSelectedItem.model" [pid]="layout.lastSelectedItem.pid"> </app-editor-audioPage>
+      <app-editor-pages *ngIf="showPagesEditor"></app-editor-pages>
+      <app-editor-audioPages *ngIf="showAudioPagesEditor"></app-editor-audioPages>
+      <ng-container *ngIf="layout.lastSelectedItem && !showPagesEditor && !showAudioPagesEditor">
+        <app-editor-page *ngIf="itemModel === 'page'" [model]="layout.lastSelectedItem.model" [pid]="layout.lastSelectedItem.pid" [editorType]="editorType" (onChangeEditorType)="changeEditorType($event)"> </app-editor-page>
+        <app-editor-audioPage *ngIf="itemModel === 'song'" [model]="layout.lastSelectedItem.model" [pid]="layout.lastSelectedItem.pid"> </app-editor-audioPage>
         <!-- <app-editor-chronicle *ngIf="layout.lastSelectedItem.isChronicle()" [pid]="layout.lastSelectedItem.pid" 
         [metadata]="layout.lastSelectedItemMetadata" [model]="layout.lastSelectedItem.model"></app-editor-chronicle> -->
         <!-- <app-editor-bdm *ngIf="layout.lastSelectedItem.isBdm()" 
           [model]="layout.lastSelectedItem.model" [metadata]="layout.lastSelectedItemMetadata"></app-editor-bdm> -->
-        <app-editor-metadata *ngIf="!layout.lastSelectedItem.isPage() && !layout.lastSelectedItem.isAudioPage()" 
+        <app-editor-metadata *ngIf="itemModel !== 'page' && itemModel !== 'song'" 
           [metadata]="layout.lastSelectedItemMetadata" [model]="layout.lastSelectedItem.model" [editorType]="editorType" (onChangeEditorType)="changeEditorType($event)">
         </app-editor-metadata>
       </ng-container>
