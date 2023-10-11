@@ -46,9 +46,9 @@ export class UpdateInSourceDialogComponent implements OnInit {
     this.api.updateInSource(this.data, this.selectedCatalogue.id).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('updateInSource error', response['response'].errors);
-        // this.ui.showErrorDialogFromObject(response['response'].errors);
+        //this.ui.showErrorDialogFromObject(response['response'].errors[0]);
         this.state = 'error';
-        this.message = String(this.translator.instant('dialog.updateInSource.alert.error'));
+        this.message = response['response'].errors[0].errorMessage;
         return;
       }
       this.message = String(this.translator.instant('dialog.updateInSource.alert.success'));

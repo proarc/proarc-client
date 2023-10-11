@@ -14,9 +14,18 @@ export class ResizecolDirective {
   private table!: HTMLElement;
 
   private pressed!: boolean;
+  mouseDownFunc: Function;
+  mouseMoveFunc: Function;
+  mouseUpFunc: Function;
 
   constructor(private renderer: Renderer2, private el: ElementRef) { 
     this.column = this.el.nativeElement;
+  }
+
+  ngOnDestroy() {
+    this.mouseDownFunc();
+    this.mouseMoveFunc();
+    this.mouseUpFunc();
   }
 
   ngOnInit(){
@@ -32,10 +41,10 @@ export class ResizecolDirective {
       }
       
       this.renderer.appendChild(this.column, resizer);
-      this.renderer.listen(resizer, "mousedown", this.onMouseDown);
+      this.mouseDownFunc = this.renderer.listen(resizer, "mousedown", this.onMouseDown);
       //this.renderer.listen(this.table, "mousemove", this.onMouseMove);
-      this.renderer.listen("document", "mousemove", this.onMouseMove);
-      this.renderer.listen("document", "mouseup", this.onMouseUp);
+      this.mouseMoveFunc = this.renderer.listen("document", "mousemove", this.onMouseMove);
+      this.mouseUpFunc = this.renderer.listen("document", "mouseup", this.onMouseUp);
     }
   }
   onMouseDown = (event: MouseEvent) => {
