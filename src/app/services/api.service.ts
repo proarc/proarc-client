@@ -110,7 +110,7 @@ export class ApiService {
     return this.http.post(encodeURI(`${this.getApiUrl()}${path}`), body, options)
     .pipe(map((r: any) => {
       if (r.response?.status === -1) {
-        r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
+        r.response.errors = [{errorMessage: r.response.errorMessage}];
       }
       return r;
 
