@@ -36,6 +36,7 @@ export class DocumentItem {
   public content: string;
 
   public timestamp: number;
+  public writeExports: string;
 
   constructor() {
     this.invalid = false;
@@ -86,6 +87,7 @@ export class DocumentItem {
     if (json['content']) {
       item.content = json['content'];
     }
+    item.writeExports = item.writeExports2();
     return item;
   }
 
@@ -186,7 +188,7 @@ export class DocumentItem {
     ].indexOf(this.model) >= 0;
   }
 
-  writeExports(): string {
+  writeExports2(): string {
     let exports = "";
     if (this.archiveExport == 1) {
       exports += '/A';

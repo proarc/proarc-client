@@ -332,10 +332,6 @@ export class EditorStructureComponent implements OnInit {
         this.colsWidth[c.field] = c.width + 'px';
       })
     }
-
-
-
-
   }
 
   getColumnWidth(field: string) {

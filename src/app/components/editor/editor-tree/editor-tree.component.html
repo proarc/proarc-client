@@ -12,8 +12,8 @@
       <div class="app-expansion-cell">
         <div class="app-expansion-icon" [style.width]="(tree.level * 20 + 30) + 'px'"><!--(tree.level * 20 + 20) + 'px'"-->
           <mat-spinner *ngIf="tree.loading" [strokeWidth]="3" [diameter]="20"></mat-spinner>
-          <mat-icon class="app-tree-expand" *ngIf="tree.expandable() && !tree.loading" (click)="toggle($event, tree)">{{ tree.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
-          <span class="app-tree-expand" *ngIf="!tree.expandable() && !tree.loading" style="width: 36px;">&#160;</span>
+          <mat-icon class="app-tree-expand" *ngIf="tree.expandable && !tree.loading" (click)="toggle($event, tree)">{{ tree.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
+          <span class="app-tree-expand" *ngIf="!tree.expandable && !tree.loading" style="width: 36px;">&#160;</span>
         </div>
       </div>
       <div class="app-cell-first" [fxFlex]="(150 - tree.level * 20) + 'px'">

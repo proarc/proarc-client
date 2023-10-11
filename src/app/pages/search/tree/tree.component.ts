@@ -103,7 +103,7 @@ export class TreeComponent implements OnInit {
   }
 
   select() {
-    if (this.tree.expandable()) {
+    if (this.tree.expandable2()) {
       this.tree.expand(this.api, false, () => {
         // this.expandedPath.includes(this.tree.item.pid)
         this.selectFromTree(this.tree);

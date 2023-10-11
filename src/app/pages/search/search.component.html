@@ -128,12 +128,12 @@
               (matSortChange)="sortTable($event)">
                 <ng-container matColumnDef="label">
                   <th mat-header-cell *matHeaderCellDef sortActionDescription="Sort by number"
-                   [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'label')" [style.width]="getColumnWidth('label')"><span mat-sort-header>{{ 'desc.name' | translate }}</span></th>
+                   [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'label')" [style.width]="colsWidth['label']"><span mat-sort-header>{{ 'desc.name' | translate }}</span></th>
                   <td mat-cell *matCellDef="let element">{{ element.label }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="model">
-                  <th mat-header-cell *matHeaderCellDef  [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'model')" [style.width]="getColumnWidth('model')"><span mat-sort-header>{{ 'desc.model' | translate }}</span></th>
+                  <th mat-header-cell *matHeaderCellDef  [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'model')" [style.width]="colsWidth['model']"><span mat-sort-header>{{ 'desc.model' | translate }}</span></th>
                   <td mat-cell *matCellDef="let element">
                     {{ "model." + element.model | translate }}
                     <!-- <div class="app-text-cutter-wrapper" [matTooltip]="'model.' + element.model | translate">
@@ -145,49 +145,49 @@
                 </ng-container>
 
                 <ng-container matColumnDef="pid">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'pid')" [style.width]="getColumnWidth('pid')"><span mat-sort-header>{{ 'desc.pid' | translate }}</span></th>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'pid')" [style.width]="colsWidth['pid']"><span mat-sort-header>{{ 'desc.pid' | translate }}</span></th>
                   <td mat-cell *matCellDef="let element">
                     <a class="app-icon-copy app-mr-1" (click)="copyTextToClipboard(element.pid)" [matTooltip]="'button.copyTextToClipboard' | translate"><mat-icon class="app-icon-copy">content_copy</mat-icon></a>{{ element.pid }}
                   </td>
                 </ng-container>
 
                 <ng-container matColumnDef="processor">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'processor')" [style.width]="getColumnWidth('processor')"><span mat-sort-header>{{ 'desc.processor' | translate }}</span></th>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'processor')" [style.width]="colsWidth['processor']"><span mat-sort-header>{{ 'desc.processor' | translate }}</span></th>
                   <td mat-cell *matCellDef="let element">{{ element.processor }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="organization">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'organization')" [style.width]="getColumnWidth('organization')"><span mat-sort-header>{{ 'desc.organization' | translate }}</span></th>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'organization')" [style.width]="colsWidth['organization']"><span mat-sort-header>{{ 'desc.organization' | translate }}</span></th>
                   <td mat-cell *matCellDef="let element">{{ 'organization.' + element.organization | translate }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="status">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'status')" [style.width]="getColumnWidth('status')"><span mat-sort-header>{{ 'desc.status' | translate }}</span></th>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'status')" [style.width]="colsWidth['status']"><span mat-sort-header>{{ 'desc.status' | translate }}</span></th>
                   <td mat-cell *matCellDef="let element">{{ 'editor.atm.statuses.' + element.status | translate }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="created">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'created')" [style.width]="getColumnWidth('created')"><span mat-sort-header>{{ 'desc.created' | translate }}</span></th>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'created')" [style.width]="colsWidth['created']"><span mat-sort-header>{{ 'desc.created' | translate }}</span></th>
                   <td mat-cell *matCellDef="let element">{{ element.created | appDatetime }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="modified">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'modified')" [style.width]="getColumnWidth('modified')"><span mat-sort-header>{{ 'desc.modified' | translate }}</span></th>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'modified')" [style.width]="colsWidth['modified']"><span mat-sort-header>{{ 'desc.modified' | translate }}</span></th>
                   <td mat-cell *matCellDef="let element">{{ element.modified | appDatetime }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="owner">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'owner')" [style.width]="getColumnWidth('owner')"><span mat-sort-header>{{ 'desc.owner' | translate }}</span></th>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'owner')" [style.width]="colsWidth['owner']"><span mat-sort-header>{{ 'desc.owner' | translate }}</span></th>
                   <td mat-cell *matCellDef="let element">{{ element.owner }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="export">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'export')" [style.width]="getColumnWidth('export')">{{ 'desc.export' | translate }}</th>
-                  <td mat-cell *matCellDef="let element">{{ element.writeExports() }}</td>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'export')" [style.width]="colsWidth['export']">{{ 'desc.export' | translate }}</th>
+                  <td mat-cell *matCellDef="let element">{{ element.writeExports }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="isLocked">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'isLocked')" [style.width]="getColumnWidth('isLocked')"></th>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'isLocked')" [style.width]="colsWidth['isLocked']"></th>
                   <td mat-cell *matCellDef="let element">
                     <mat-icon [matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">{{ element.isLocked ? 'lock' : 'lock_open' }}</mat-icon>
                   </td>
@@ -230,15 +230,15 @@
                 <div class="app-row app-header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
                   <div [style.width]="(tree.level * 20 + 30) + 'px'"></div>
                   <div class="app-cell-first" [fxFlex]="(300 - tree.level * 20) + 'px'" >{{ 'desc.name' | translate }}</div>
-                  <div fxFlex class="app-cell app-model" *ngIf="properties.isSearchColTreeEnabled('model')">{{ 'desc.model' | translate }}</div>
-                  <div fxFlex class="app-cell app-pid" *ngIf="properties.isSearchColTreeEnabled('pid')">PID</div>
-                  <div fxFlex class="app-cell app-processor" *ngIf="properties.isSearchColTreeEnabled('processor')">{{ 'desc.processor' | translate }}</div>
-                  <div fxFlex class="app-cell app-organization" *ngIf="properties.isSearchColTreeEnabled('organization')">{{ 'desc.organization' | translate }}</div>
-                  <div fxFlex class="app-cell app-status" *ngIf="properties.isSearchColTreeEnabled('status')">{{ 'desc.status' | translate }}</div>
-                  <div fxFlex class="app-cell app-created" *ngIf="properties.isSearchColTreeEnabled('created')">{{ 'desc.created' | translate }}</div>
-                  <div fxFlex class="app-cell app-modified" *ngIf="properties.isSearchColTreeEnabled('modified')">{{ 'desc.modified' | translate }}</div>
-                  <div fxFlex class="app-cell app-owner" *ngIf="properties.isSearchColTreeEnabled('owner')">{{ 'desc.owner' | translate }}</div>
-                  <div fxFlex class="app-cell app-export" *ngIf="properties.isSearchColTreeEnabled('export')">{{ 'desc.export' | translate }}</div>
+                  <div fxFlex class="app-cell app-model" *ngIf="properties.searchColumnsTreeSelected['model']">{{ 'desc.model' | translate }}</div>
+                  <div fxFlex class="app-cell app-pid" *ngIf="properties.searchColumnsTreeSelected['pid']">PID</div>
+                  <div fxFlex class="app-cell app-processor" *ngIf="properties.searchColumnsTreeSelected['processor']">{{ 'desc.processor' | translate }}</div>
+                  <div fxFlex class="app-cell app-organization" *ngIf="properties.searchColumnsTreeSelected['organization']">{{ 'desc.organization' | translate }}</div>
+                  <div fxFlex class="app-cell app-status" *ngIf="properties.searchColumnsTreeSelected['status']">{{ 'desc.status' | translate }}</div>
+                  <div fxFlex class="app-cell app-created" *ngIf="properties.searchColumnsTreeSelected['created']">{{ 'desc.created' | translate }}</div>
+                  <div fxFlex class="app-cell app-modified" *ngIf="properties.searchColumnsTreeSelected['modified']">{{ 'desc.modified' | translate }}</div>
+                  <div fxFlex class="app-cell app-owner" *ngIf="properties.searchColumnsTreeSelected['owner']">{{ 'desc.owner' | translate }}</div>
+                  <div fxFlex class="app-cell app-export" *ngIf="properties.searchColumnsTreeSelected['export']">{{ 'desc.export' | translate }}</div>
                   <div fxFlex class="app-cell app-isLocked"></div>
                 </div>
                 <div class="app-oa-y" fxFlex>
