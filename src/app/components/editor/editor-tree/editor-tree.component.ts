@@ -192,12 +192,14 @@ export class EditorTreeComponent implements OnInit {
   }
 
   select(item: Tree) {
-    if (item.expandable2()) {
+    if (item.expandable2() && !item.expanded) {
       item.expand(this.api, false, () => {
         this.selectFromTree(item);
       });
+    } else {
+      this.selectFromTree(item);
     }
-    this.selectFromTree(item);
+    
 
   }
 

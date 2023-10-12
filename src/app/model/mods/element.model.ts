@@ -240,7 +240,7 @@ export abstract class ModsElement {
                     if (this.template.fields[key + ''] &&
                        (this.template.fields[key + ''].required || this.template.fields[key + ''].usage === 'M') && 
                        !value.value) {
-                        console.log(isRequired, key, value.value, this);
+                        // console.log(isRequired, key, value.value, this);
                         error = true;
                     }
                 });
@@ -250,7 +250,7 @@ export abstract class ModsElement {
                     const value = this.controls[key];
                     // value.markAsUntouched();
                     if (this.template.fields[key + '']?.required && !value.value) {
-                        console.log(isRequired, key, value.value, this);
+                        // console.log(isRequired, key, value.value, this);
                         error = true;
                         // isRequired = true;
                         value.markAsTouched();

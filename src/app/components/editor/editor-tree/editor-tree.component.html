@@ -2,12 +2,16 @@
   <div *ngTemplateOutlet="rowTmpl; context:{ tree: layout.tree }"></div>
 
   <ng-template #rowTmpl let-tree="tree">
-    <div (click)="select(tree)" (dblclick)="open(tree)" class="app-row" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px"
+    <!-- <div (click)="select(tree)" (dblclick)="open(tree)" class="app-row" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px"
       [class.app-parent]="tree.item.pid === selectedParentPid"
       [class.app-active-tree]="(tree.item.selected  || tree.item.pid == selectedPid)"
       draggable="true" (dragenter)="dragenter(tree, $event)" (dragstart)="dragstart($event)" (dragleave)="dragleave($event)"
       (dragend)="dragend(tree, $event)" (dragover)="dragover($event)" (drop)="drop(tree, $event)" 
-      (mouseover)="mouseOver(tree, $event)" (mouseleave)="dragleave($event)" (mouseup)="mouseUp(tree, $event)">
+      (mouseover)="mouseOver(tree, $event)" (mouseleave)="dragleave($event)" (mouseup)="mouseUp(tree, $event)"> -->
+
+      <div (click)="select(tree)" (dblclick)="open(tree)" class="app-row" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px"
+        [class.app-parent]="tree.item.pid === selectedParentPid"
+        [class.app-active-tree]="(tree.item.selected  || tree.item.pid == selectedPid)">
 
       <div class="app-expansion-cell">
         <div class="app-expansion-icon" [style.width]="(tree.level * 20 + 30) + 'px'"><!--(tree.level * 20 + 20) + 'px'"-->
