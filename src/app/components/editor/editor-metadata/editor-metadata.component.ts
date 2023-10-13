@@ -87,7 +87,7 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   ngOnChanges(c: SimpleChanges) {
-    if (c['metadata'] && c['metadata'].currentValue && (c['metadata'].currentValue.timestamp !== c['metadata'].previousValue?.timestamp)) {
+    if (c['metadata'] && c['metadata'].currentValue && (!c['metadata'].previousValue || c['metadata'].currentValue.timestamp !== c['metadata'].previousValue.timestamp)) {
       if (!c['metadata'].currentValue.template) {
         return;
       }
