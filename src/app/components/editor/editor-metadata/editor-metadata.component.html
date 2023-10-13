@@ -39,31 +39,31 @@
 				</mat-form-field>
 			</div>
 
-			<div [ngSwitch]="model" fxFlex class="app-oa-y">
+			<div [ngSwitch]="model" fxFlex class="app-oa-y" #scroller (scroll)="checkVisibility()">
 				<ng-container *ngSwitchCase="'model:chroniclevolume'" [ngTemplateOutlet]="chronicle" ></ng-container>
 				<ng-container *ngSwitchCase="'model:chronicletitle'" [ngTemplateOutlet]="chronicle"></ng-container>
 				<ng-container *ngSwitchCase="'model:chroniclesupplement'" [ngTemplateOutlet]="chronicle"></ng-container>
 				<ng-container *ngSwitchCase="'model:bdmarticle'" [ngTemplateOutlet]="bdm"></ng-container>
 
 				<ng-container *ngSwitchDefault>
-					<app-editor-genre *ngIf="showGenreSwitch && (!byField && fieldIds['genre'] || selectedField==='genre')" [field]="fields['genre']" [showGenreSwitch]="showGenreSwitch"></app-editor-genre>
-					<app-editor-title *ngIf="(!byField && fieldIds['titleInfo'] || selectedField==='titleInfo')" [field]="fields['titleInfo']"></app-editor-title>
-					<app-editor-author *ngIf="(!byField && fieldIds['name'] || selectedField==='name')" [field]="fields['name']" [model]="model"></app-editor-author>
-					<app-editor-publisher *ngIf="(!byField && fieldIds['originInfo'] || selectedField==='originInfo')" [field]="fields['originInfo']"></app-editor-publisher>
-					<app-editor-location *ngIf="(!byField && fieldIds['location'] || selectedField==='location')" [field]="fields['location']"></app-editor-location>
-					<app-editor-identifier *ngIf="(!byField && fieldIds['identifier'] || selectedField==='identifier')" [field]="fields['identifier']" [model]="model"></app-editor-identifier>
-					<app-editor-language *ngIf="(!byField && fieldIds['language'] || selectedField==='language')" [field]="fields['language']"></app-editor-language>
-					<app-editor-physical *ngIf="(!byField && fieldIds['physicalDescription'] || selectedField==='physicalDescription')" [field]="fields['physicalDescription']"></app-editor-physical>
-					<app-editor-abstract *ngIf="(!byField && fieldIds['abstract'] || selectedField==='abstract')" [field]="fields['abstract']"></app-editor-abstract>
-					<app-editor-note *ngIf="(!byField && fieldIds['note'] || selectedField==='note')" [field]="fields['note']"></app-editor-note>
-					<app-editor-resource *ngIf="(!byField && fieldIds['typeOfResource'] || selectedField==='typeOfResource')" [field]="fields['typeOfResource']"></app-editor-resource>
-					<app-editor-genre *ngIf="(!byField && fieldIds['genre'] || selectedField==='genre') && !showGenreSwitch" [field]="fields['genre']" ></app-editor-genre>
-					<app-editor-classification *ngIf="(!byField && fieldIds['classification'] || selectedField==='classification')" [field]="fields['classification']"></app-editor-classification>
-					<app-editor-subject *ngIf="(!byField && fieldIds['subject'] || selectedField==='subject')" [field]="fields['subject']" [model]="model"></app-editor-subject>
-					<app-editor-part *ngIf="(!byField && fieldIds['part'] || selectedField==='part')" [field]="fields['part']"></app-editor-part>
-					<app-editor-tableOfContents *ngIf="(!byField && fieldIds['tableOfContents'] || selectedField==='tableOfContents')" [field]="fields['tableOfContents']"></app-editor-tableOfContents>
-					<app-editor-recordInfo *ngIf="(!byField && fieldIds['recordInfo'] || selectedField==='recordInfo')" [field]="fields['recordInfo']"></app-editor-recordInfo>
-					<app-editor-relatedItem *ngIf="(!byField && fieldIds['relatedItem'] || selectedField==='relatedItem')" [field]="fields['relatedItem']" [model]="model"></app-editor-relatedItem>
+					<app-editor-genre id="genre" *ngIf="showGenreSwitch && (!byField && fieldIds['genre'] || selectedField==='genre')" [field]="fields['genre']" [showGenreSwitch]="showGenreSwitch"></app-editor-genre>
+					<app-editor-title id="titleInfo" *ngIf="(!byField && fieldIds['titleInfo'] && visibleFields['titleInfo']  || selectedField==='titleInfo')" [field]="fields['titleInfo']"></app-editor-title>
+					<app-editor-author id="name" *ngIf="(!byField && fieldIds['name'] && visibleFields['name'] || selectedField==='name')" [field]="fields['name']" [model]="model"></app-editor-author>
+					<app-editor-publisher id="originInfo" *ngIf="(!byField && fieldIds['originInfo'] && visibleFields['originInfo'] || selectedField==='originInfo')" [field]="fields['originInfo']"></app-editor-publisher>
+					<app-editor-location id="location" *ngIf="(!byField && fieldIds['location'] && visibleFields['location'] || selectedField==='location')" [field]="fields['location']"></app-editor-location>
+					<app-editor-identifier id="identifier" *ngIf="(!byField && fieldIds['identifier'] && visibleFields['identifier'] || selectedField==='identifier')" [field]="fields['identifier']" [model]="model"></app-editor-identifier>
+					<app-editor-language id="language" *ngIf="(!byField && fieldIds['language']  && visibleFields['language'] || selectedField==='language')" [field]="fields['language']"></app-editor-language>
+					<app-editor-physical id="physicalDescription" *ngIf="(!byField && fieldIds['physicalDescription'] && visibleFields['physicalDescription'] || selectedField==='physicalDescription')" [field]="fields['physicalDescription']"></app-editor-physical>
+					<app-editor-abstract id="abstract" *ngIf="(!byField && fieldIds['abstract'] && visibleFields['abstract'] || selectedField==='abstract')" [field]="fields['abstract']"></app-editor-abstract>
+					<app-editor-note id="note" *ngIf="(!byField && fieldIds['note'] && visibleFields['note'] || selectedField==='note')" [field]="fields['note']"></app-editor-note>
+					<app-editor-resource id="typeOfResource" *ngIf="(!byField && fieldIds['typeOfResource'] && visibleFields['typeOfResource'] || selectedField==='typeOfResource')" [field]="fields['typeOfResource']"></app-editor-resource>
+					<app-editor-genre id="genre" *ngIf="(!byField && fieldIds['genre'] && visibleFields['genre'] || selectedField==='genre') && !showGenreSwitch" [field]="fields['genre']" ></app-editor-genre>
+					<app-editor-classification id="classification" *ngIf="(!byField && fieldIds['classification'] && visibleFields['classification'] || selectedField==='classification')" [field]="fields['classification']"></app-editor-classification>
+					<app-editor-subject id="subject" *ngIf="(!byField && fieldIds['subject'] && visibleFields['subject'] || selectedField==='subject')" [field]="fields['subject']" [model]="model"></app-editor-subject>
+					<app-editor-part id="part" *ngIf="(!byField && fieldIds['part'] && visibleFields['part'] || selectedField==='part')" [field]="fields['part']"></app-editor-part>
+					<app-editor-tableOfContents id="tableOfContents" *ngIf="(!byField && fieldIds['tableOfContents'] && visibleFields['tableOfContents'] || selectedField==='tableOfContents')" [field]="fields['tableOfContents']"></app-editor-tableOfContents>
+					<app-editor-recordInfo id="recordInfo" *ngIf="(!byField && fieldIds['recordInfo'] && visibleFields['recordInfo'] || selectedField==='recordInfo')" [field]="fields['recordInfo']"></app-editor-recordInfo>
+					<app-editor-relatedItem id="relatedItem" *ngIf="(!byField && fieldIds['relatedItem'] && visibleFields['relatedItem'] || selectedField==='relatedItem')" [field]="fields['relatedItem']" [model]="model"></app-editor-relatedItem>
 				</ng-container>
 			</div>
 		</div>

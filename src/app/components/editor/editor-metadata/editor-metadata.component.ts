@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, EventEmitter, Output, ChangeDetectionStrategy, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CatalogDialogComponent } from 'src/app/dialogs/catalog-dialog/catalog-dialog.component';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
@@ -31,15 +31,33 @@ export class EditorMetadataComponent implements OnInit {
   @Input() model: string;
   @Input() metadata: Metadata;
 
+  @ViewChild("scroller", { static: false }) scroller: ElementRef;
+
   public item: DocumentItem | null;
   public visible = true;
 
   public fieldIds: { [key: string]: any } = {};
   public fields: { [key: string]: any } = {};
   public availableFields: string[];
+  public visibleFields: { [key: string]: boolean } = {};
   public selectedField: string;
   public byField: boolean = true;
   showGenreSwitch: boolean;
+
+  // public fieldsOrder: { [key: string]: string[] } = {
+  //   chronicle: ['location', 'identifier', 'genre', 'titleInfo', 'abstract', 'language', 'originInfo', 'name', 'note'],
+
+  //   bdm: ['genre', 'language', 'identifier', 'physicalDescription', 'part', 'titleInfo', 'name', 'abstract', 'subject', 'note',
+  //     'classification', 'location', 'relatedItem', 'recordInfo'],
+
+  //   earticle: ['genre', 'titleInfo', 'name', 'originInfo', 'location', 'identifier', 'language', 'physicalDescription', 'abstract', 'note',
+  //     'typeOfResource', 'classification', 'subject', 'part', 'tableOfContents', 'recordInfo', 'relatedItem'],
+
+  //   default: ['titleInfo', 'name', 'originInfo', 'location', 'identifier', 'language', 'physicalDescription', 'abstract', 'note',
+  //     'typeOfResource', 'genre', 'classification', 'subject', 'part', 'tableOfContents', 'recordInfo', 'relatedItem']
+  // };
+
+  fieldsOrder: string[];
 
   constructor(
     private translator: TranslateService,
@@ -68,30 +86,98 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   ngOnChanges(c: SimpleChanges) {
-
-    if (c['metadata'] && c['metadata'].currentValue && (c['metadata'].currentValue !== c['metadata'].previousValue)) {
+    if (c['metadata'] && c['metadata'].currentValue && (c['metadata'].currentValue.timestamp !== c['metadata'].previousValue?.timestamp)) {
       if (!c['metadata'].currentValue.template) {
         return;
       }
+      
       this.metadata = c['metadata'].currentValue;
       this.setShowGenreSwitch();
       this.availableFields = Object.keys(this.metadata.template);
       Object.keys(this.metadata.template).forEach(k => {
         this.fieldIds[k] = true;
         this.fields[k] = this.metadata.getField(k);
+        this.visibleFields[k] = true;
       });
+
       this.selectedField = this.availableFields[0];
 
-      if (this.layout.moveFocus) {
-        setTimeout(() => {
-          this.focusToFirstRequired();
-        }, 10);
-      }
+      //setTimeout(() => {
+        this.setFieldsOrder();
+      //}, 10);
+
+
     }
 
     if (!this.layout.lastSelectedItem || this.layout.lastSelectedItem.isPage()) {
       this.visible = false;
       return;
+    }
+  }
+
+  setFieldsOrder() {
+
+    if (!this.scroller) {
+      setTimeout(() => {
+        this.setFieldsOrder();
+      }, 10);
+      return;
+    }
+    this.fieldsOrder = [];
+    for (let i = 0; i < this.scroller.nativeElement.children.length; i++) {
+      const el = this.scroller.nativeElement.children[i];
+      this.fieldsOrder.push(el.id);
+    }
+    // console.log(this.fieldsOrder)
+    this.checkVisibility();
+
+    if (this.layout.moveFocus) {
+      setTimeout(() => {
+        this.focusToFirstRequired();
+      }, 10);
+    }
+  }
+
+  elementIsVisibleInViewport(el: any): boolean {
+    const { top, left, bottom, right } = el.getBoundingClientRect();
+    // const { innerHeight, innerWidth } = window;
+    const viewPort = this.scroller.nativeElement.getBoundingClientRect();
+    return ((top <= viewPort.top && bottom > viewPort.top) ||
+      (top > viewPort.top && top < viewPort.bottom));
+  }
+
+  checkVisibility() {
+
+    if (this.scroller) {
+      const els: string[] = [];
+      for (let i = 0; i < this.scroller.nativeElement.children.length; i++) {
+        // const el = this.scroller.nativeElement.children
+        const el = this.scroller.nativeElement.children[i];
+
+        const v = this.elementIsVisibleInViewport(el);
+        this.visibleFields[el.id] = v;
+        if (v) {
+          els.push(el.id);
+        }
+      }
+
+      for (let i = 0; i < this.fieldsOrder.length; i++) {
+        const id = this.fieldsOrder[i];
+        if (els.includes(id)) {
+          this.visibleFields[this.fieldsOrder[i]] = true;
+          if (i > 0) {
+            this.visibleFields[this.fieldsOrder[i - 1]] = true;
+          }
+          if (i < this.fieldsOrder.length - 1) {
+            this.visibleFields[this.fieldsOrder[i + 1]] = true;
+          }
+        } else {
+          //this.visibleFields[this.fieldsOrder['default'][i]] = false;
+        }
+      }
+
+      //console.log(this.visibleFields);
+
     }
   }
 
