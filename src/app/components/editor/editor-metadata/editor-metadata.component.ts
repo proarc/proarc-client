@@ -83,6 +83,7 @@ export class EditorMetadataComponent implements OnInit {
   toggleByField() {
     this.byField = !this.byField;
     this.localS.setBoolProperty('metadata_by_field', this.byField);
+    this.checkVisibility();
   }
 
   ngOnChanges(c: SimpleChanges) {
@@ -90,7 +91,7 @@ export class EditorMetadataComponent implements OnInit {
       if (!c['metadata'].currentValue.template) {
         return;
       }
-      
+
       this.metadata = c['metadata'].currentValue;
       this.setShowGenreSwitch();
       this.availableFields = Object.keys(this.metadata.template);
@@ -103,7 +104,7 @@ export class EditorMetadataComponent implements OnInit {
       this.selectedField = this.availableFields[0];
 
       //setTimeout(() => {
-        this.setFieldsOrder();
+      this.setFieldsOrder();
       //}, 10);
 
 
@@ -138,6 +139,14 @@ export class EditorMetadataComponent implements OnInit {
     }
   }
 
+  changeSelected(e: any) {
+    this.selectedField = e;
+    this.availableFields.forEach(k => {
+      this.visibleFields[k] = false;
+    });
+    this.visibleFields[this.selectedField] = true;
+  }
+
   elementIsVisibleInViewport(el: any): boolean {
     const { top, left, bottom, right } = el.getBoundingClientRect();
     // const { innerHeight, innerWidth } = window;
@@ -147,6 +156,14 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   checkVisibility() {
+    if (this.byField) {
+
+      this.availableFields.forEach(k => {
+        this.visibleFields[k] = false;
+      });
+      this.visibleFields[this.selectedField] = true;
+      return;
+    }
 
     if (this.scroller) {
       const els: string[] = [];
