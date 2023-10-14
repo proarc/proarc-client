@@ -15,7 +15,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 @Component({
   selector: 'app-editor-metadata',
   templateUrl: './editor-metadata.component.html',
-  //changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./editor-metadata.component.scss']
 })
 export class EditorMetadataComponent implements OnInit {
@@ -29,7 +29,7 @@ export class EditorMetadataComponent implements OnInit {
   @Input() notSaved = false;
   // @Input() pid: string;
   @Input() model: string;
-  @Input() metadata: Metadata;
+  
 
   @ViewChild("scroller", { static: false }) scroller: ElementRef;
 
@@ -69,7 +69,7 @@ export class EditorMetadataComponent implements OnInit {
     private dialog: MatDialog) { }
 
   logMetadata() {
-    console.log(this.metadata.mods);
+    console.log(this.metadata);
   }
 
   changeEditorType(t: string) {
@@ -86,13 +86,13 @@ export class EditorMetadataComponent implements OnInit {
     this.checkVisibility();
   }
 
-  ngOnChanges(c: SimpleChanges) {
-    if (c['metadata'] && c['metadata'].currentValue && (!c['metadata'].previousValue || c['metadata'].currentValue.timestamp !== c['metadata'].previousValue.timestamp)) {
-      if (!c['metadata'].currentValue.template) {
-        return;
-      }
-
-      this.metadata = c['metadata'].currentValue;
+  public metadata: Metadata;
+  @Input() 
+  set data(m: Metadata) {
+    if(!m || (m.timestamp && m.timestamp === this.metadata?.timestamp)) {
+      return;
+    }
+      this.metadata = m;
       this.setShowGenreSwitch();
       this.availableFields = Object.keys(this.metadata.template);
       Object.keys(this.metadata.template).forEach(k => {
@@ -100,7 +100,6 @@ export class EditorMetadataComponent implements OnInit {
         this.fields[k] = this.metadata.getField(k);
         this.visibleFields[k] = true;
       });
-
       this.selectedField = this.availableFields[0];
 
       //setTimeout(() => {
@@ -108,11 +107,8 @@ export class EditorMetadataComponent implements OnInit {
       //}, 10);
 
 
-    }
-
     if (!this.layout.lastSelectedItem || this.layout.lastSelectedItem.isPage()) {
       this.visible = false;
-      return;
     }
   }
 
@@ -156,6 +152,11 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   checkVisibility() {
+    
+    // this.availableFields.forEach(k => {
+    //   this.visibleFields[k] = true;
+    // });
+
     if (this.byField) {
 
       this.availableFields.forEach(k => {

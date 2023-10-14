@@ -8,7 +8,7 @@
 	</mat-card>
 	<div style="height: 0px; overflow: hidden;">
 		<div *ngFor="let m of metadatas">
-			<app-editor-metadata [notSaved]="true"  [model]="m.metadata.model" [metadata]="m.metadata"></app-editor-metadata>
+			<app-editor-metadata [notSaved]="true"  [model]="m.metadata.model" [data]="m.metadata"></app-editor-metadata>
 		</div>
 	</div>
 </div>

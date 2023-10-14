@@ -18,7 +18,8 @@
 				<button  mat-icon-button (click)="onLoadFromCatalog()" [matTooltip]="'button.metadataCatalog' | translate">
 					<mat-icon>local_library</mat-icon>
 				</button>
-				<button mat-icon-button [disabled]="!hasPendingChanges()" (click)="onSave()" [matTooltip]="'button.save' | translate" >
+				<!--  -->
+				<button mat-icon-button  (click)="onSave()" [disabled]="!hasPendingChanges()" [matTooltip]="'button.save' | translate" >
 					<mat-icon>save</mat-icon>
 				</button>
 				<button mat-icon-button (click)="logMetadata()" [matTooltip]="'button.save' | translate" >

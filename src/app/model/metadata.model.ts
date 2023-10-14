@@ -363,11 +363,10 @@ export class Metadata {
   }
 
   hasChanges(): boolean {
+    
     for (const id of this.fieldsIds) {
-
       const f = this.fields.get(id);
       for (const item of f.getItems()) {
-
         if (item.hasChanges()) {
           return true;
         }
