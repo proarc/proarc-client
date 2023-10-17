@@ -227,6 +227,7 @@ export abstract class ModsElement {
             const value = this.controls[key];
             if (value.errors) {
                 error = true;
+                value.markAsTouched();
             }
             if (value.value) {
                 anyValue = true;

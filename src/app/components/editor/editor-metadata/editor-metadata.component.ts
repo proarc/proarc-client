@@ -336,6 +336,7 @@ export class EditorMetadataComponent implements OnInit {
         // this.layout.setShouldRefresh(true)
         // console.log(response)
         this.metadata.timestamp = response.data[0].timestamp;
+        this.metadata.resetChanges();
         this.ui.showInfoSnackBar(this.translator.instant("snackbar.changeSaved"));
         this.layout.refreshSelectedItem(false, 'metadata');
       }
