@@ -13,13 +13,13 @@ export abstract class ModsElement {
     public isRequired: boolean;
 
     public validationWarning = false;
-    public controls: {[key: string]: FormControl} = {};
-    public clazz: {[key: string]: string} = {};
-    public isMandatory: {[key: string]: boolean} = {};
-    public usage: {[key: string]: string} = {};
-    public hasHelp: {[key: string]: boolean} = {};
-    public available: {[key: string]: boolean} = {};
-    public labelKey: {[key: string]: string} = {};
+    public controls: { [key: string]: FormControl } = {};
+    public clazz: { [key: string]: string } = {};
+    public isMandatory: { [key: string]: boolean } = {};
+    public usage: { [key: string]: string } = {};
+    public hasHelp: { [key: string]: boolean } = {};
+    public available: { [key: string]: boolean } = {};
+    public labelKey: { [key: string]: string } = {};
 
     private subFields: ElementField[];
 
@@ -52,15 +52,15 @@ export abstract class ModsElement {
             this.modsElement['$'] = {};
             for (const attribute of attributes) {
                 if (attribute) {
-                  this.modsElement['$'][attribute] = ModsUtils.getDefaultValue(this, attribute);
+                    this.modsElement['$'][attribute] = ModsUtils.getDefaultValue(this, attribute);
                 }
             }
         }
         for (const attribute of attributes) {
             if (!this.modsElement['$'][attribute]) {
-              if (attribute) {
-                this.modsElement['$'][attribute] = ModsUtils.getDefaultValue(this, attribute);
-              }
+                if (attribute) {
+                    this.modsElement['$'][attribute] = ModsUtils.getDefaultValue(this, attribute);
+                }
             }
         }
         this.attrs = this.modsElement['$'];
@@ -75,7 +75,7 @@ export abstract class ModsElement {
     }
 
     public isMandatory2(field: any): boolean {
-        return this.usage2(field) == 'M' || this.required(field) ;
+        return this.usage2(field) == 'M' || this.required(field);
     }
 
     public required(field: string): boolean {
@@ -100,7 +100,7 @@ export abstract class ModsElement {
         } else {
             return '';
         }
-        
+
     }
 
     public selector(field: string): string {
@@ -138,7 +138,7 @@ export abstract class ModsElement {
 
     private fieldValue(field: string, key: string): any {
         if (field) {
-        // if (field && this.template['fields'][field] && this.template['fields'][field][key]) {
+            // if (field && this.template['fields'][field] && this.template['fields'][field][key]) {
             return this.template['fields'][field][key];
         } else {
             return this.template[key];
@@ -161,12 +161,12 @@ export abstract class ModsElement {
     public addControl(field: string) {
         if (!this.controls.hasOwnProperty(field)) {
             const c = new FormControl('');
-            if (this[field as keyof(ModsElement)]) {
-                c.setValue(this[field as keyof(ModsElement)]['_']);
-            } 
-            
+            if (this[field as keyof (ModsElement)]) {
+                c.setValue(this[field as keyof (ModsElement)]['_']);
+            }
+
             this.controls[field] = c;
-        // console.log('ADD ' + field + ' -> ' + this.labelKey2(field));
+            // console.log('ADD ' + field + ' -> ' + this.labelKey2(field));
         }
         this.clazz[field] = this.class(field);
         this.isMandatory[field] = this.isMandatory2(field);
@@ -175,7 +175,7 @@ export abstract class ModsElement {
         this.available[field] = this.available2(field);
         this.labelKey[field] = this.labelKey2(field);
         if (field === 'nonSort') {
-            
+
         }
     }
 
@@ -185,7 +185,7 @@ export abstract class ModsElement {
         //     if (this[field as keyof(ModsElement)]) {
         //         c.setValue(this[field as keyof(ModsElement)]['_']);
         //     } 
-            
+
         //     this.controls[field] = c;
         // }
         return this.controls[field];
@@ -206,16 +206,16 @@ export abstract class ModsElement {
         return this.template ? (this.template.usage === 'M' || this.template.required === true) : false;
     }
 
-  public hasAnyValue(): boolean {
-    let anyValue = false;
-    Object.keys(this.controls).forEach((key) => {
+    public hasAnyValue(): boolean {
+        let anyValue = false;
+        Object.keys(this.controls).forEach((key) => {
             const value = this.controls[key];
-      if (value.value) {
-        anyValue = true;
-      }
-    });
-    return anyValue;
-  }
+            if (value.value) {
+                anyValue = true;
+            }
+        });
+        return anyValue;
+    }
 
     public validate(): boolean {
         // console.log(this.template)
@@ -239,8 +239,8 @@ export abstract class ModsElement {
                 Object.keys(this.controls).forEach((key) => {
                     const value = this.controls[key];
                     if (this.template.fields[key + ''] &&
-                       (this.template.fields[key + ''].required || this.template.fields[key + ''].usage === 'M') && 
-                       !value.value) {
+                        (this.template.fields[key + ''].required || this.template.fields[key + ''].usage === 'M') &&
+                        !value.value) {
                         // console.log(isRequired, key, value.value, this);
                         error = true;
                     }
@@ -266,6 +266,13 @@ export abstract class ModsElement {
         } else {
             this.validationWarning = false;
         }
+
+        for (const subfield of this.getSubfields()) {
+            for (const item2 of subfield.getItems()) {
+                item2.validate()
+            }
+        }
+
         return !this.validationWarning;
     }
 
@@ -282,6 +289,7 @@ export abstract class ModsElement {
                 anyValue = true;
             }
         });
+
         if (!anyValue && isRequired) {
             error = true;
         }
@@ -300,11 +308,11 @@ export abstract class ModsElement {
 
         for (const subfield of this.getSubfields()) {
             for (const item2 of subfield.getItems()) {
-              if (item2.hasChanges()) {
-                return true;
-              }
+                if (item2.hasChanges()) {
+                    return true;
+                }
             }
-          }
+        }
 
         return false;
     }
