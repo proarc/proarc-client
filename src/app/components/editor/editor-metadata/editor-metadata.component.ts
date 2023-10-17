@@ -89,9 +89,10 @@ export class EditorMetadataComponent implements OnInit {
   public metadata: Metadata;
   @Input() 
   set data(m: Metadata) {
-    if(!m || (m.timestamp && m.timestamp === this.metadata?.timestamp)) {
+    if(!m || !m.template || (m.timestamp && m.timestamp === this.metadata?.timestamp)) {
       return;
     }
+
       this.metadata = m;
       this.setShowGenreSwitch();
       this.availableFields = Object.keys(this.metadata.template);
