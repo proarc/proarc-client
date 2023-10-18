@@ -144,12 +144,15 @@ export class EditorStructureComponent implements OnInit {
   }
 
   refreshChildren() {
-    // const hasTree = this.layout.selectedParentItem;
-    // if (hasTree) {
-    //   return
-    // }
+    //this.layout.items = [];
     this.api.getRelations(this.layout.selectedParentItem.pid).subscribe((children: DocumentItem[]) => {
       this.layout.items = children;
+      if (this.layout.lastSelectedItem) {
+        const item = this.layout.items.find(item => item.pid === this.layout.lastSelectedItem.pid);
+        if (item) {
+          item.selected = true;
+        }
+      }
     });
   }
 

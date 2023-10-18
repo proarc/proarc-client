@@ -107,6 +107,7 @@ export class ElementField {
         }
 
         // set isPeerReviewed for electronic articles
+        // this.isPeerReviewed = false;
         if(this.items[0] instanceof ModsGenre && template['selector'] === 'genre' &&  template['isElectronicArticle']) {
 
             if (this.items[0].attrs['type'] === 'peer-reviewed') {
@@ -135,7 +136,6 @@ export class ElementField {
             }
 
         }
-
     }
 
     hasExpandedChildren(): boolean {

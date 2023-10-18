@@ -29,7 +29,7 @@ export class EditorMetadataComponent implements OnInit {
   @Input() notSaved = false;
   // @Input() pid: string;
   @Input() model: string;
-  
+
 
   @ViewChild("scroller", { static: false }) scroller: ElementRef;
 
@@ -87,25 +87,27 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   public metadata: Metadata;
-  @Input() 
+  @Input()
   set data(m: Metadata) {
-    if(!m || !m.template || (m.timestamp && m.timestamp === this.metadata?.timestamp)) {
+    if (!m || !m.template || (m.timestamp && m.timestamp === this.metadata?.timestamp)) {
       return;
     }
 
-      this.metadata = m;
-      this.setShowGenreSwitch();
-      this.availableFields = Object.keys(this.metadata.template);
-      Object.keys(this.metadata.template).forEach(k => {
-        this.fieldIds[k] = true;
-        this.fields[k] = this.metadata.getField(k);
-        this.visibleFields[k] = true;
-      });
-      this.selectedField = this.availableFields[0];
-
-      //setTimeout(() => {
+    this.metadata = m;
+    this.setShowGenreSwitch();
+    this.availableFields = Object.keys(this.metadata.template);
+    Object.keys(this.metadata.template).forEach(k => {
+      this.fieldIds[k] = true;
+      this.fields[k] = this.metadata.getField(k);
+      this.visibleFields[k] = true;
+    });
+    this.selectedField = this.availableFields[0];
+    if (this.scroller) {
+      this.scroller.nativeElement.scrollTop = 0;
+    }
+    setTimeout(() => {
       this.setFieldsOrder();
-      //}, 10);
+    }, 10);
 
 
     if (!this.layout.lastSelectedItem || this.layout.lastSelectedItem.isPage()) {
@@ -121,19 +123,33 @@ export class EditorMetadataComponent implements OnInit {
       }, 10);
       return;
     }
+    //check if already rendered
+    if (this.scroller.nativeElement.children.length < this.availableFields.length) {
+      
+      setTimeout(() => {
+        this.setFieldsOrder();
+      }, 10);
+      return;
+    }
+
+
+    this.scroller.nativeElement.scrollTop = 0;
     this.fieldsOrder = [];
     for (let i = 0; i < this.scroller.nativeElement.children.length; i++) {
       const el = this.scroller.nativeElement.children[i];
       this.fieldsOrder.push(el.id);
     }
-    // console.log(this.fieldsOrder)
-    this.checkVisibility();
+    //console.log(this.fieldsOrder)
 
-    if (this.layout.moveFocus) {
-      setTimeout(() => {
-        this.focusToFirstRequired();
-      }, 10);
-    }
+    setTimeout(() => {
+      this.checkVisibility();
+      if (this.layout.moveFocus) {
+        setTimeout(() => {
+          this.focusToFirstRequired();
+        }, 10);
+      }
+    }, 10);
+
   }
 
   changeSelected(e: any) {
@@ -153,7 +169,7 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   checkVisibility() {
-    
+
     // this.availableFields.forEach(k => {
     //   this.visibleFields[k] = true;
     // });
