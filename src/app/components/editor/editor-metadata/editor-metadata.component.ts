@@ -15,7 +15,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 @Component({
   selector: 'app-editor-metadata',
   templateUrl: './editor-metadata.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./editor-metadata.component.scss']
 })
 export class EditorMetadataComponent implements OnInit {
@@ -139,6 +139,8 @@ export class EditorMetadataComponent implements OnInit {
       const el = this.scroller.nativeElement.children[i];
       this.fieldsOrder.push(el.id);
     }
+    
+    // this.metadata.validate();
     //console.log(this.fieldsOrder)
 
     setTimeout(() => {
@@ -278,10 +280,14 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   focusToFirstInvalid() {
-    const el: any = document.querySelectorAll('.mat-form-field-invalid input, .mat-form-field-invalid mat-select')[0];
-    if (el) {
-      el.focus();
-    }
+    const els = document.querySelectorAll('app-editor-metadata .mat-form-field-invalid input, app-editor-metadata .mat-form-field-invalid mat-select ');
+    els.forEach((el: any) => {
+      if (el.clientHeight > 0) {
+        el.focus();
+        return
+      }
+    });
+
   }
 
   focusToFirstRequired() {
@@ -319,7 +325,7 @@ export class EditorMetadataComponent implements OnInit {
 
         setTimeout(() => {
           this.focusToFirstInvalid();
-        }, 500);
+        }, 10);
       } else {
         this.saveMetadata(false);
       }

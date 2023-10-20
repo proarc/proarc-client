@@ -203,22 +203,28 @@ export class NewMetadataDialogComponent implements OnInit {
           this.state = 'success';
           this.metadata.resetChanges();
           this.dialogRef.close({ gotoEdit, item: response['response']['data'][0] });
-          // if (gotoEdit) {
-          //   this.dialogRef.close(response['response']['data'][0]);
-          // } else {
-          //   this.ui.shoulRefresh();
-          //   this.dialogRef.close();
-          // }
-
 
         });
       } else {
-        let el: any = document.querySelectorAll('app-new-metadata-dialog .mat-form-field-invalid input,app-new-metadata-dialog .mat-form-field-invalid mat-select')[0];
-        if (el) {
-          el.focus();
-        }
+        // let el: any = document.querySelectorAll('app-new-metadata-dialog .mat-form-field-invalid input,app-new-metadata-dialog .mat-form-field-invalid mat-select')[0];
+        // if (el) {
+        //   el.focus();
+        // }
+        this.focusToFirstInvalid();
       }
     });
+  }
+
+  focusToFirstInvalid() {
+    const els = document.querySelectorAll('app-new-metadata-dialog .mat-form-field-invalid input, app-new-metadata-dialog .mat-form-field-invalid mat-select ');
+    for (let i = 0; i<els.length; i++){
+      const el: any = els[i];
+      if (el.clientHeight > 0) {
+        el.focus();
+        return;
+      }
+    };
+
   }
 
 }
