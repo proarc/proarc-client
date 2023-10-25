@@ -239,7 +239,7 @@ export class EditorMetadataComponent implements OnInit {
     const data: SimpleDialogData = {
       title,
       message,
-      alertClass: 'app-message',
+      alertClass: 'app-info',
       btn1: {
         label: "Uložit",
         value: 'yes',
@@ -344,7 +344,8 @@ export class EditorMetadataComponent implements OnInit {
           //this.state = 'error';
           const messages = this.ui.extractErrorsAsString(response.errors);
           if (response.data === 'cantIgnore') {
-            this.ui.showErrorSnackBar(messages);
+            // #462 - replaced with row bellow - this.ui.showErrorSnackBar(messages);
+            this.ui.showErrorDialogFromObject(response.errors);
           } else {
             this.confirmSave(this.translator.instant('common.warning'), messages, true);
           }

@@ -1929,8 +1929,9 @@
 
 
 
-  
-  
+
+
+
   "desc": {
     "help": "Help",
     "panelType": "Panel type",
@@ -2141,7 +2142,8 @@
     "resetAllLocalSettings": "Reset all local settings",
     "createAndGoToObject": "Create and go to object",
     "doNotSave": "Do not save",
-    "copyTextToClipboard": "Copy text to clipboard"
+    "copyTextToClipboard": "Copy text to clipboard",
+    "updateInSource": "Zapsat UUID do zdrojového katalogu"
   },
   "dynamic": {
     "repo": "Storage",
@@ -2493,6 +2495,13 @@
       "error": {
         "title": "Error",
         "message": "An article with a parent object cannot be deleted"
+      }
+    },
+    "updateInSource": {
+      "title": "Zapsat UUID do zdrojového katalogu",
+      "alert": {
+        "success": "Zapsáno do katalogu",
+        "error": "Chyba zapsání!"
       }
     }
   },

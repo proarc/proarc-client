@@ -32,9 +32,9 @@ export class NewObjectDialogComponent implements OnInit {
   dateFormats = ['dd.mm.yyyy', 'mm.yyyy','yyyy'];
   dateFormat: string = 'dd.mm.yyyy';
 
-  
+
   frequences = ['other', 'd','w','hm','m','qy','hy','y'];
-  frequency: string = 'other';
+  frequency: string = 'w';
 
   filteredModels: string[];
 
@@ -88,15 +88,15 @@ export class NewObjectDialogComponent implements OnInit {
       this.seriesDaysIncluded.forEach(d => {
         data += '&seriesDaysIncluded='+d;
       });
-      
+
       this.releasedInRange.forEach(d => {
-        data += '&releasedInRange='+d;
+        data += '&seriesDaysInRange='+d;
       });
-      
+
       if (this.seriesSignatura) {
         data += '&seriesSignatura='+this.seriesSignatura;
       }
-      
+
       data += '&seriesFrequency='+this.frequency;
       data += '&seriesDateFormat='+this.dateFormat;
     } else {
@@ -114,12 +114,12 @@ export class NewObjectDialogComponent implements OnInit {
       this.state = 'success';
       const pid =  response['response']['data'][0]['pid'];
       this.dialogRef.close({pid: pid, data: response['response']['data'][0], isMultiple: this.isMultiple});
-      
+
     });
   }
 
   onLoadFromCatalog() {
-    const dialogRef = this.dialog.open(CatalogDialogComponent, { 
+    const dialogRef = this.dialog.open(CatalogDialogComponent, {
       data: { type: 'full', create: true } ,
       width: '1200px'
     });
@@ -127,7 +127,7 @@ export class NewObjectDialogComponent implements OnInit {
       if (result && result['mods']) {
         this.state = 'saving';
         const customPid = this.data.customPid ? this.data.pid : null;
-    
+
         let data = `model=${this.data.model}&createObject=false`;
         //let data = `model=${this.data.model}`;
         if (customPid) {

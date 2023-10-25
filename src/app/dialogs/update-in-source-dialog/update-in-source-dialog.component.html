@@ -1,10 +1,10 @@
-<h1 mat-dialog-title>{{ 'UpdateInSource' | translate }}</h1>
+<h1 mat-dialog-title>{{ 'dialog.updateInSource.title' | translate }}</h1>
 <div mat-dialog-content>
     <div fxLayout="column" fxLayoutGap="8px">
 
         <div>
             <mat-form-field class="app-w-100">
-                <mat-select [placeholder]="'desc.catalogues' | translate" [(ngModel)]="selectedCatalogue">
+                <mat-select [placeholder]="'desc.catalog' | translate" [(ngModel)]="selectedCatalogue">
                     <mat-option *ngFor="let c of catalogs" [value]="c">{{ c.name
                         }}</mat-option>
                 </mat-select>
