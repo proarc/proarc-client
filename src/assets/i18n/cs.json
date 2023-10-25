@@ -2142,7 +2142,8 @@
     "resetAllLocalSettings": "Resetovat všechna lokální nastavení",
     "createAndGoToObject": "Vytvořit a přejít do objektu",
     "doNotSave": "Neukládat",
-    "copyTextToClipboard": "Zkopírovat text do schránky"
+    "copyTextToClipboard": "Zkopírovat text do schránky",
+    "updateInSource": "Zapsat UUID do zdrojového katalogu"
   },
   "dynamic": {
     "repo": "Úložiště",
@@ -2494,6 +2495,13 @@
       "error": {
         "title": "Chyba",
         "message": "Článek s nadřazeným objektem nelze smazat"
+      }
+    },
+    "updateInSource": {
+      "title": "Zapsat UUID do zdrojového katalogu",
+      "alert": {
+        "success": "Zapsáno do katalogu",
+        "error": "Chyba zapsání!"
       }
     }
   },
