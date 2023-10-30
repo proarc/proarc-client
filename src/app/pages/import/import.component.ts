@@ -204,7 +204,7 @@ export class ImportComponent implements OnInit {
         const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
         dialogRef.afterClosed().subscribe(result => {
           if (result === 'open') {
-            this.router.navigate(['/import', 'history']);
+            this.router.navigate(['/process-management']);
           }
         });
       });
@@ -251,7 +251,7 @@ export class ImportComponent implements OnInit {
         const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
         dialogRef.afterClosed().subscribe(result => {
           if (result === 'open') {
-            this.router.navigate(['/import', 'history']);
+            this.router.navigate(['/process-management']);
           }
         });
       });

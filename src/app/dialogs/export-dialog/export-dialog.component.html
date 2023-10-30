@@ -33,7 +33,7 @@
   </mat-card>
 </div>
 
-<div mat-dialog-actions cdk-focus-start>
+<div mat-dialog-actions cdkFocusRegionstart>
   <button mat-flat-button color="primary" *ngIf="!canContinue && state !== 'error'" [disabled]="formDisabled()" (click)="onExport(false)">{{ 'button.startExport' | translate }}</button>
   <button mat-flat-button color="primary" *ngIf="canContinue" [disabled]="formDisabled()" (click)="onExport(true)">{{ 'button.exportAnyway' | translate }}</button>
   <button mat-stroked-button mat-dialog-close="close" >{{ 'button.close' | translate }}</button>

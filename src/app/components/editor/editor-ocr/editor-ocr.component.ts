@@ -42,8 +42,6 @@ export class EditorOcrComponent implements OnInit {
   ocr: Ocr;
   anyChange: boolean;
 
-  public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
-
   @Input() pid: string;
 
   constructor(

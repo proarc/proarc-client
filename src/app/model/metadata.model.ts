@@ -1,4 +1,3 @@
-// import { ModsVolume } from './mods/volume.model';
 import { ModsGeo } from './mods/geo.model';
 import { ModsPublisher } from './mods/publisher.model';
 import { ModsLanguage } from './mods/language.model';
@@ -56,10 +55,8 @@ export class Metadata {
   public readonly pid: string;
   public timestamp: number = -1;
   public readonly originalMods: string;
-  private mods: { [x: string]: any; };
+  public mods: { [x: string]: any; };
   public readonly model: string;
-
-  // public volume: ModsVolume;
 
   private fieldsIds: string[] = [];
 
@@ -120,7 +117,7 @@ export class Metadata {
           item.collapsed = false;
           //}
         }
-        if (item.hasAnyValue() || item.isRequired()) {
+        if (item.hasAnyValue() || item.isRequired) {
           for (const subfield of item.getSubfields()) {
             for (const item2 of subfield.getItems()) {
               if (!item2.validate()) {
@@ -143,12 +140,12 @@ export class Metadata {
     for (const id of this.fieldsIds) {
       const f = this.fields.get(id);
       for (const item of f.getItems()) {
-        if (item.isRequired()) {
+        if (item.isRequired) {
           item.collapsed = false;
         }
         for (const subfield of item.getSubfields()) {
           for (const item2 of subfield.getItems()) {
-            if (item2.isRequired()) {
+            if (item2.isRequired) {
               valid = false;
               item2.collapsed = false;
               item.collapsed = false;
@@ -257,11 +254,7 @@ export class Metadata {
       };
       root = this.mods['mods'];
     }
-    // if (this.isVolume() || this.isIssue()) {
-    //   this.volume = new ModsVolume(root);
-    //   const id = "physicalDescription";
-    //   this.fields.set(id, new ElementField(root, id, this.template[id]));
-    // } else {
+
     for (const id of this.fieldsIds) {
       if (id === ModsGeo.getId()) {
         this.fields.set(id, new ElementField(root, id, this.template[id], 'authority', ['geo:origin', 'geo:storage', 'geo:area']));
@@ -370,11 +363,10 @@ export class Metadata {
   }
 
   hasChanges(): boolean {
+    
     for (const id of this.fieldsIds) {
-
       const f = this.fields.get(id);
       for (const item of f.getItems()) {
-
         if (item.hasChanges()) {
           return true;
         }

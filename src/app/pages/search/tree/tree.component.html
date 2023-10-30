@@ -6,8 +6,8 @@
     <div class="app-expansion-cell">
       <div class="app-expansion-icon" [style.width]="(tree.level * 20 + 30) + 'px'">
         <mat-spinner *ngIf="tree.loading" [strokeWidth]="3" [diameter]="20"></mat-spinner>
-        <mat-icon class="app-tree-expand" *ngIf="tree.expandable() && !tree.loading" (click)="toggle($event)">{{ tree.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
-        <span class="app-tree-expand" *ngIf="!tree.expandable() && !tree.loading" style="width: 36px;">&#160;</span>
+        <mat-icon class="app-tree-expand" *ngIf="tree.expandable && !tree.loading" (click)="toggle($event)">{{ tree.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
+        <span class="app-tree-expand" *ngIf="!tree.expandable && !tree.loading" style="width: 36px;">&#160;</span>
       </div>
     </div>
     <div class="app-cell-first" [fxFlex]="(300- tree.level * 20) + 'px'">
@@ -15,18 +15,18 @@
         {{ tree.item.label }}
       </div>
     </div>
-    <div fxFlex class="app-cell app-model" *ngIf="properties.isSearchColTreeEnabled('model')"><div class="app-text-cutter">{{ "model." + tree.item.model | translate }}</div></div>
-    <div fxFlex class="app-cell app-pid" *ngIf="properties.isSearchColTreeEnabled('pid') && !inPanel">
+    <div fxFlex class="app-cell app-model" *ngIf="properties.searchColumnsTreeSelected['model']"><div class="app-text-cutter">{{ "model." + tree.item.model | translate }}</div></div>
+    <div fxFlex class="app-cell app-pid" *ngIf="properties.searchColumnsTreeSelected['pid'] && !inPanel">
       <div class="app-text-cutter"><a class="app-icon-copy app-mr-1" (click)="copyTextToClipboard(tree.item.pid)" [matTooltip]="'button.copyTextToClipboard' | translate"><mat-icon class="app-icon-copy">content_copy</mat-icon></a>{{ tree.item.pid }}</div>
     </div>
-    <div fxFlex class="app-cell app-processor" *ngIf="properties.isSearchColTreeEnabled('processor')"><div class="app-text-cutter">{{ tree.item.processor }}</div></div>
-    <div fxFlex class="app-cell app-organization" *ngIf="properties.isSearchColTreeEnabled('organization')"><div class="app-text-cutter">{{ 'organization.' + tree.item.organization | translate }}</div></div>
-    <div fxFlex class="app-cell app-status" *ngIf="properties.isSearchColTreeEnabled('status')"><div class="app-text-cutter">{{ 'editor.atm.statuses.' + tree.item.status | translate }}</div></div>
-    <div fxFlex class="app-cell app-created" *ngIf="properties.isSearchColTreeEnabled('created')"><div class="app-text-cutter">{{ tree.item.created | appDatetime }}</div></div>
-    <div fxFlex class="app-cell app-modified" *ngIf="properties.isSearchColTreeEnabled('modified')"><div class="app-text-cutter">{{ tree.item.modified | appDatetime }}</div></div>
-    <div fxFlex class="app-cell app-owner" *ngIf="properties.isSearchColTreeEnabled('owner')"><div class="app-text-cutter">{{ tree.item.owner }}</div></div>
-    <div fxFlex class="app-cell app-export" *ngIf="properties.isSearchColTreeEnabled('export')"><div class="app-text-cutter">{{ tree.item.writeExports() }}</div></div>
-    <div fxFlex class="app-cell app-isLocked" *ngIf="properties.isSearchColTreeEnabled('isLocked')">
+    <div fxFlex class="app-cell app-processor" *ngIf="properties.searchColumnsTreeSelected['processor']"><div class="app-text-cutter">{{ tree.item.processor }}</div></div>
+    <div fxFlex class="app-cell app-organization" *ngIf="properties.searchColumnsTreeSelected['organization']"><div class="app-text-cutter">{{ 'organization.' + tree.item.organization | translate }}</div></div>
+    <div fxFlex class="app-cell app-status" *ngIf="properties.searchColumnsTreeSelected['status']"><div class="app-text-cutter">{{ 'editor.atm.statuses.' + tree.item.status | translate }}</div></div>
+    <div fxFlex class="app-cell app-created" *ngIf="properties.searchColumnsTreeSelected['created']"><div class="app-text-cutter">{{ tree.item.created | appDatetime }}</div></div>
+    <div fxFlex class="app-cell app-modified" *ngIf="properties.searchColumnsTreeSelected['modified']"><div class="app-text-cutter">{{ tree.item.modified | appDatetime }}</div></div>
+    <div fxFlex class="app-cell app-owner" *ngIf="properties.searchColumnsTreeSelected['owner']"><div class="app-text-cutter">{{ tree.item.owner }}</div></div>
+    <div fxFlex class="app-cell app-export" *ngIf="properties.searchColumnsTreeSelected['export']"><div class="app-text-cutter">{{ tree.item.writeExports }}</div></div>
+    <div fxFlex class="app-cell app-isLocked" *ngIf="properties.searchColumnsTreeSelected['isLocked']">
       <mat-icon [matTooltip]="tree.item.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">{{ tree.item.isLocked ? 'lock' : 'lock_open' }}</mat-icon>
     </div>
   </div>

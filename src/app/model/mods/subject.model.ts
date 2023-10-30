@@ -34,18 +34,25 @@ export class ModsSubject extends ModsElement {
     }
 
     private init() {
-        // if (!this.modsElement['topic']) {
-        //     this.modsElement['topic'] = ModsUtils.createEmptyField();
-        // }
+        
+        this.addControl('authority');
+        this.addControl('lang');
+
         if (!this.modsElement['geographic']) {
             this.modsElement['geographic'] = ModsUtils.createField(this, 'geographic');
         }
+        this.addControl('geographic');
+
         if (!this.modsElement['temporal']) {
             this.modsElement['temporal'] = ModsUtils.createField(this, 'temporal');
         }
+        this.addControl('temporal');
+
         if (!this.modsElement['occupation']) {
             this.modsElement['occupation'] = ModsUtils.createField(this, 'occupation');
         }
+        this.addControl('occupation');
+
         // if (!this.modsElement['name']) {
         //     this.modsElement['name'] = [{}];
         // }
@@ -63,28 +70,33 @@ export class ModsSubject extends ModsElement {
         this.temporal = this.modsElement['temporal'][0];
         this.occupation = this.modsElement['occupation'][0];
 
-        if (this.available('name')) {
+        if (this.available2('name')) {
             this.names = new ElementField(this.modsElement, ModsAuthor.getSelector(), this.getField('name'));
             this.addSubfield(this.names);
+            this.addControl('name');
         }
-        if (this.available('topic')) {
+        if (this.available2('topic')) {
           this.topics = new ElementField(this.modsElement, ModsTopic.getSelector(), this.getField('topic'));
           this.addSubfield(this.topics);
+          this.addControl('topic');
         }
-        if (this.available('titleInfo')) {
+        if (this.available2('titleInfo')) {
           this.titleInfos = new ElementField(this.modsElement, ModsTitle.getSelector(), this.getField('titleInfo'));
           this.addSubfield(this.titleInfos);
+          this.addControl('titleInfo');
         }
 
 
-        if(this.available('cartographics')) {
+        if(this.available2('cartographics')) {
             this.cartographics = new ElementField(this.modsElement, ModsCartographics.getSelector(), this.getField('cartographics'));
             this.addSubfield(this.cartographics);
+            this.addControl('cartographics');
         }
 
-        if(this.available('geographicCode')) {
+        if(this.available2('geographicCode')) {
           this.geographicCodes = new ElementField(this.modsElement, ModsGeographicCode.getSelector(), this.getField('geographicCode'));
           this.addSubfield(this.geographicCodes);
+          this.addControl('geographicCode');
         }
 
     }

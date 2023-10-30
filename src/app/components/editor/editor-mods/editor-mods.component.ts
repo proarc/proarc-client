@@ -41,8 +41,8 @@ export class EditorModsComponent implements OnInit, OnDestroy {
 
   public visible = true;
 
-  private rightDocumentSubscription: Subscription;
-  public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
+
+  subscriptions: Subscription[] = [];
 
   constructor(
     private translator: TranslateService,
@@ -53,9 +53,9 @@ export class EditorModsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.layout.shouldRefreshSelectedItem().subscribe(() => {
+    this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe(() => {
       this.reload();
-    });
+    }));
   }
 
   ngOnChanges(c: SimpleChange) {
@@ -221,9 +221,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.rightDocumentSubscription) {
-      this.rightDocumentSubscription.unsubscribe();
-    }
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   changeEditorType(t: string) {

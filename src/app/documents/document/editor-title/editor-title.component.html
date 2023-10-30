@@ -4,11 +4,11 @@
     <app-field-codebook field="lang" [item]="item" [options]="codebook.languages" [(value)]="item.attrs['lang']"></app-field-codebook>
     <app-field-text field="nonSort" [item]="item" [(value)]="item.nonSort['_']"></app-field-text>
 
-    <mat-form-field class="app-field-col" *ngIf="item.template['fields']['title']" [class.app-invalid]="item.invalid('title')">
+    <mat-form-field class="app-field-col" *ngIf="item.template['fields']['title']" >
       <app-usage [item]="item" field="title"></app-usage>
 
       <!--<span *ngIf='item.nonSort["_"]' matPrefix class="title-prefix" color="primary">{{ item.nonSort["_"] }}</span>-->
-      <input [required]="item.isMandatory('title')" [formControl]="item.controls['title']"
+      <input [required]="item.isMandatory['title']" [formControl]="item.controls['title']"
       autocomplete="off" style="width: calc(100% - 60px)" spellcheck="false" matInput [(ngModel)]='item.title["_"]'
       [placeholder]="'mods.' + item.selector('title') | translate" (change)="checkNonSort(item)" >
       <mat-slide-toggle color="primary" class="non-sort-toggle"
@@ -18,8 +18,7 @@
                       [checked]='item.nonSort["_"].length > 0' >
       </mat-slide-toggle>
     </mat-form-field>
-
-    <app-field-text field="subTitle" [item]="item" [(value)]="item.subTitle['_']"></app-field-text>
+    <app-field-text field="subTitle" [item]="item" [(value)]="item.subTitle['_']" [key]="'_'" ></app-field-text>
     <app-field-text field="partNumber" [item]="item" [(value)]="item.partNumber['_']"></app-field-text>
     <app-field-text field="partName" [item]="item" [(value)]="item.partName['_']"></app-field-text>
   </ng-template>

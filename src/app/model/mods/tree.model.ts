@@ -5,6 +5,7 @@ export class Tree {
 
     item: DocumentItem
     expanded: boolean;
+    expandable: boolean;
     children: Tree[];
     loading: boolean;
     level: number;
@@ -16,10 +17,11 @@ export class Tree {
         this.expanded = false;
         this.loading = false;
         this.level = level;
+        this.expandable = this.expandable2();
     }
 
     expand(api: ApiService, all: boolean, callback: any = undefined) {
-        if (!this.expandable()) {
+        if (!this.expandable2()) {
             return;
         }
         if (this.expanded && !all) {
@@ -60,7 +62,7 @@ export class Tree {
         this.expand(api, true);
     }
 
-    expandable(): boolean {
+    expandable2(): boolean {
         return !this.item.isPage();
     }
 

@@ -4,7 +4,7 @@
     <app-field-text field="caption" [item]="item" [(value)]="item.caption['_']"></app-field-text>
 
 
-    <app-editor-field *ngIf="item.available('extent')" [field]="item.extents" [nested]='true'>
+    <app-editor-field *ngIf="item.available['extent']" [field]="item.extents" [nested]='true'>
       <ng-template let-extent="item" #templateContent>
         <app-field-text field="start" [item]="extent" [(value)]="extent.start['_']"></app-field-text>
         <app-field-text field="end" [item]="extent" [(value)]="extent.end['_']"></app-field-text>

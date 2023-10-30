@@ -20,6 +20,10 @@ export class ModsUrl extends ModsElement {
       if (!this.modsElement['_']) {
         this.modsElement['_'] = ModsUtils.getDefaultValue(this, 'value');
       }
+      this.addControl('value');
+      this.addControl('usage');
+      this.addControl('note');
+
     }
 
 

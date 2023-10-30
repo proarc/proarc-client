@@ -20,6 +20,11 @@ export class ModsDateIssued extends ModsElement {
       if (!this.modsElement['_']) {
         this.modsElement['_'] = ModsUtils.getDefaultValue(this, 'value');
       }
+      this.addControl('value');
+      this.addControl('qualifier');
+      this.addControl('encoding');
+      this.addControl('point');
+
     }
 
 

@@ -23,7 +23,7 @@ export class AutocompleteComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!this.item.available(this.field)) {
+    if (!this.item.available[this.field]) {
       return;
     }
     this.options = this.item.options(this.field);
@@ -31,7 +31,7 @@ export class AutocompleteComponent implements OnInit {
       return
     }
     
-    this.filteredOptions = this.item.getControl(this.field).valueChanges.pipe(
+    this.filteredOptions = this.item.controls[this.field].valueChanges.pipe(
       startWith(''),
       map(v => this._filter(v))
     );

@@ -43,6 +43,7 @@ export class LocalStorageService {
 
     public searchColumns: { field: string, selected: boolean; }[];
     public searchColumnsTree: { field: string, selected: boolean; }[];
+    public searchColumnsTreeSelected: { [field: string]: boolean };
 
     public procMngColumnsDefault = [
         { field: 'description', selected: true, width: 100 },
@@ -131,6 +132,12 @@ export class LocalStorageService {
             this.searchColumnsTree = [];
             Object.assign(this.searchColumnsTree, JSON.parse(JSON.stringify(this.selectedColumnsSearchDefault)));
         }
+
+        this.searchColumnsTreeSelected = {};
+        this.searchColumnsTree.forEach(c => {
+            this.searchColumnsTreeSelected[c.field] = c.selected;
+        });
+
     }
 
     setSelectedColumnsSearch() {

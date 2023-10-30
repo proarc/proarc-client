@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>{{ 'dialog.about.title' | translate }}</h1>
-<div mat-dialog-content>
+<div mat-dialog-content *ngIf="backendInfo">
   <p [innerHTML]="'dialog.about.message' | translate"></p>
   <div class="app-mb-4">
     <h3 class="app-m-0">{{ 'desc.client' | translate }}</h3>
@@ -7,7 +7,7 @@
       <span class="app-label app-mr-1">{{ 'desc.version' | translate }}:</span><strong>{{ clientInfo.tag }}</strong> ({{ clientInfo.date | date : 'dd.MM.yyyy'}})
     </ng-container>
   </div>
-  <div class="app-mb-4" *ngIf="backendInfo">
+  <div class="app-mb-4">
     <h3 class="app-m-0">{{ 'desc.core' | translate }}</h3>
     <span class="app-label app-mr-1">{{ 'desc.version' | translate }}:</span><strong>{{ backendInfo.version }}</strong><br />
     <span class="app-label app-mr-1">{{ 'desc.build' | translate }}:</span><strong>{{ backendInfo.timestamp }}</strong><br />
@@ -20,6 +20,6 @@
     <span class="app-label app-mr-1">{{ 'desc.database' | translate }}:</span><strong>{{ backendInfo.database}}</strong><br/>
   </div>
 </div>
-<div mat-dialog-actions cdk-focus-start>
+<div mat-dialog-actions cdkFocusRegionstart>
   <button mat-stroked-button color="default" mat-dialog-close="close">{{ 'button.close' | translate }}</button>
 </div>

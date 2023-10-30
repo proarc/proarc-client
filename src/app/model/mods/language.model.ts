@@ -24,6 +24,12 @@ export class ModsLanguage extends ModsElement {
             this.modsElement['languageTerm'] = [ModsUtils.createTextElement('', attrs)];
         }
         this.language = this.modsElement['languageTerm'][0];
+        this.addControl('language');
+        this.addControl('languageTerm');
+        this.addControl('type');
+        this.addControl('authority');
+        this.addControl('objectPart');
+
     }
     
 }

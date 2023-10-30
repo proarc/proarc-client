@@ -51,15 +51,21 @@ import {ModsEdition} from './edition.model';
 
 export class ElementField {
 
-    private id;
+    public id;
     public root;
-    private items: ModsElement[];
+    public items: ModsElement[];
     private template;
     private allExpanded: boolean;
     isPeerReviewed: boolean;
 
+    public labelKey: string;
+    public usage: string;
+
     constructor(mods: { [x: string]: any; }, id: string, template: any, attr: any = null, requiredValues: any[] = [], forbiddenValues: any[] = []) {
         this.template = template;
+
+        this.labelKey = this.template.labelKey;
+        this.usage = this.template.usage;
         if (localStorage.getItem('metadata.allExpanded')) {
             this.allExpanded = localStorage.getItem('metadata.allExpanded') === 'true';
         }
@@ -92,15 +98,16 @@ export class ElementField {
                 this.items.push(newEl);
             }
         }
-
+        
         if (this.items.length - hiddenItems < 1) {
             const item = this.add();
-            if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded) {
+            if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded && !item.isRequired2()) {
                 item.collapsed = true;
             }
         }
 
         // set isPeerReviewed for electronic articles
+        // this.isPeerReviewed = false;
         if(this.items[0] instanceof ModsGenre && template['selector'] === 'genre' &&  template['isElectronicArticle']) {
 
             if (this.items[0].attrs['type'] === 'peer-reviewed') {
@@ -123,13 +130,12 @@ export class ElementField {
 
             if (this.items.length === 1) {
                 const item = this.add();
-                if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded) {
+                if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded && !item.isRequired2()) {
                     item.collapsed = true;
                 }
             }
 
         }
-
     }
 
     hasExpandedChildren(): boolean {
@@ -376,17 +382,8 @@ export class ElementField {
         return help;
     }
 
-
-    public usage() {
-        return this.template.usage;
-    }
-
     public label() {
         return this.template.label;
-    }
-
-    public labelKey() {
-        return this.template.labelKey;
     }
 
     public selector() {

@@ -40,8 +40,6 @@ export class EditorPagesComponent implements OnInit {
 
   state: string;
 
-  public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
-
   constructor(
     private api: ApiService,
     private ui: UIService,

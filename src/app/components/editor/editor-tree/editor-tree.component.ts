@@ -172,7 +172,7 @@ export class EditorTreeComponent implements OnInit {
         i.selected = i.pid === tree.item.pid;
       });
 
-      if (tree.expandable()) {
+      if (tree.expandable2()) {
         this.layout.items = [];
       }
 
@@ -192,12 +192,14 @@ export class EditorTreeComponent implements OnInit {
   }
 
   select(item: Tree) {
-    if (item.expandable()) {
+    if (item.expandable2() && !item.expanded) {
       item.expand(this.api, false, () => {
         this.selectFromTree(item);
       });
+    } else {
+      this.selectFromTree(item);
     }
-    this.selectFromTree(item);
+    
 
   }
 

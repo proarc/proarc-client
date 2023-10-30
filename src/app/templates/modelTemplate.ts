@@ -101,8 +101,8 @@ export class ModelTemplate {
       "model:bdmarticle": 'BdmArticle',  // bez urceni pravidel
 
       // chronicle
-      "model:chronicletitle": 'ChronicleMonographtitle',
-      "model:chroniclevolume": 'ChronicleMonographvolume',
+      "model:chronicletitle": 'ChronicleMonographTitle',
+      "model:chroniclevolume": 'ChronicleMonographVolume',
       "model:chroniclesupplement": 'ChronicleMonographsupplement',
 
       // ndk music documents

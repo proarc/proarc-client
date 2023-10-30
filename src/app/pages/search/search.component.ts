@@ -19,7 +19,7 @@ import { SearchService } from 'src/app/services/search.service';
 import { UIService } from 'src/app/services/ui.service';
 import { ChangeModelDialogComponent } from 'src/app/dialogs/change-model-dialog/change-model-dialog.component';
 
-import {Sort} from '@angular/material/sort';
+import { Sort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { ConvertDialogComponent } from 'src/app/dialogs/convert-dialog/convert-dialog.component';
 import { LayoutService } from 'src/app/services/layout.service';
@@ -40,7 +40,7 @@ export class SearchComponent implements OnInit {
   // @ViewChild('area2') area2: SplitAreaDirective;
   @ViewChild('modelSelect') modelSelect: MatSelect;
   @ViewChild('scroll') scroll: ElementRef;
-  
+
   @ViewChild(MatTable, { read: ElementRef }) private matTableRef: ElementRef;
 
   splitArea1Width: number;
@@ -82,7 +82,7 @@ export class SearchComponent implements OnInit {
 
   public urlParams: any; // pedro
 
-  
+
   @ViewChild('table') table: MatTable<DocumentItem>;
   public selectedColumns = [
     { field: 'label', selected: true, width: 100 },
@@ -99,11 +99,12 @@ export class SearchComponent implements OnInit {
   ];
 
   displayedColumns: string[] = [];
+  colsWidth: { [key: string]: string } = {};
 
   isAkubra: boolean;
 
-  constructor(private api: ApiService, 
-    public properties: LocalStorageService, 
+  constructor(private api: ApiService,
+    public properties: LocalStorageService,
     public auth: AuthService,
     private dialog: MatDialog,
     private router: Router,
@@ -113,7 +114,7 @@ export class SearchComponent implements OnInit {
     private ui: UIService,
     private translator: TranslateService,
     public layout: LayoutService,
-    private clipboard: Clipboard) { 
+    private clipboard: Clipboard) {
     this.models = this.config.allModels;
   }
 
@@ -133,7 +134,7 @@ export class SearchComponent implements OnInit {
       // }
 
     });
-    
+
     this.api.getUsers().subscribe((users: User[]) => {
       this.users = users;
     });
@@ -169,7 +170,7 @@ export class SearchComponent implements OnInit {
 
   // todo - Alberto jeste predela
   removeActiveFilter(filter: any) {
-    this[filter as keyof SearchComponent]  = '' as never;
+    this[filter as keyof SearchComponent] = '' as never;
     this.filter();
   }
 
@@ -177,7 +178,7 @@ export class SearchComponent implements OnInit {
   processParams(p: any) {
 
     //this.searchMode  = p['description'] ? p['description'] : 'advanced';
-    this.searchMode  = p['type'] ? p['type'] : 'advanced';
+    this.searchMode = p['type'] ? p['type'] : 'advanced';
     this.model = p['model'] ? p['model'] : this.properties.getStringProperty('search.model', this.config.defaultModel);
     this.organization = p['organization'] ? p['organization'] : this.properties.getStringProperty('search.organization', '-');
     this.query = p['query'] ? p['query'] : null;
@@ -194,14 +195,14 @@ export class SearchComponent implements OnInit {
     // this.sortAsc = p['sortAsc'] ? p['sortAsc'] : false;
 
 
-}
+  }
 
 
   dragEnd(e: any) {
-      // this.splitArea1Width = e.sizes[0];
-      // this.splitArea2Width = e.sizes[1];
-      this.properties.setStringProperty('search.split.0', String(e.sizes[0]));
-      this.properties.setStringProperty('search.split.1', String(e.sizes[1]));
+    // this.splitArea1Width = e.sizes[0];
+    // this.splitArea2Width = e.sizes[1];
+    this.properties.setStringProperty('search.split.0', String(e.sizes[0]));
+    this.properties.setStringProperty('search.split.1', String(e.sizes[1]));
   }
 
   // getSplitSize(split: number): number {
@@ -251,10 +252,10 @@ export class SearchComponent implements OnInit {
         } else {
           this.selectItem(this.items[0]);
         }
-        
+
       }
       this.state = 'success';
-      
+
     });
   }
 
@@ -307,27 +308,27 @@ export class SearchComponent implements OnInit {
   }
 
   onUrnnbn(item: DocumentItem) {
-    const dialogRef = this.dialog.open(UrnnbnDialogComponent, { 
+    const dialogRef = this.dialog.open(UrnnbnDialogComponent, {
       data: item.pid,
       panelClass: 'app-urnbnb-dialog',
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-    
+
       }
     });
   }
 
   onExport(item: DocumentItem) {
-    const dialogRef = this.dialog.open(ExportDialogComponent, { 
-      disableClose: true, 
-      data: {pid: item.pid, model: item.model },
+    const dialogRef = this.dialog.open(ExportDialogComponent, {
+      disableClose: true,
+      data: { pid: item.pid, model: item.model },
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        
+
       }
     });
   }
@@ -376,9 +377,9 @@ export class SearchComponent implements OnInit {
             this.ui.showInfoSnackBar('Objekt byl úspěšně obnoven');
             this.reload();
           }
-          
+
         });
-        
+
       }
     });
   }
@@ -399,7 +400,7 @@ export class SearchComponent implements OnInit {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
       width: '600px'
     });
@@ -410,14 +411,14 @@ export class SearchComponent implements OnInit {
         } else {
           this.unlockObject(item);
         }
-        
+
       }
     });
   }
 
   changeLockInTree(tree: Tree, isLocked: boolean) {
     //tree.children.map(ch => ch.item.isLocked = isLocked);
-    if (tree.children && tree.children.length > 0 ) {
+    if (tree.children && tree.children.length > 0) {
       tree.children.forEach(ch => {
         ch.item.isLocked = isLocked;
         this.changeLockInTree(ch, isLocked);
@@ -439,7 +440,7 @@ export class SearchComponent implements OnInit {
         // this.search.selectedTree.children.map(ch => ch.item.isLocked = true);
         //this.reload(item.pid);
       }
-      
+
     });
   }
 
@@ -471,25 +472,25 @@ export class SearchComponent implements OnInit {
         this.ui.showErrorDialogFromObject(response.response.data.map((d: any) => d.errorMessage = d.validation));
         this.state = 'error';
       } else {
-          this.state = 'success';
-          this.ui.showInfoSnackBar("Objekty byly zkopirovane");
-          if (item.model === this.model) {
-            const idx =  this.items.findIndex(it => it.pid === item.pid) + 1;
-            this.items.splice(idx,0,DocumentItem.fromJson(response.response.data[0]));
-            this.selectItem(this.items[idx]);
-            // setTimeout(()=>{
-            //   this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
-            // }, 50);
-          } else {
-            // Kopirujeme objekt podrazeni ve stromu
-            this.selectItem(this.selectedItem);
-          }
-          
+        this.state = 'success';
+        this.ui.showInfoSnackBar("Objekty byly zkopirovane");
+        if (item.model === this.model) {
+          const idx = this.items.findIndex(it => it.pid === item.pid) + 1;
+          this.items.splice(idx, 0, DocumentItem.fromJson(response.response.data[0]));
+          this.selectItem(this.items[idx]);
+          // setTimeout(()=>{
+          //   this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
+          // }, 50);
+        } else {
+          // Kopirujeme objekt podrazeni ve stromu
+          this.selectItem(this.selectedItem);
+        }
+
       }
     }, error => {
       console.log(error);
-        this.ui.showInfoSnackBar(error.statusText);
-        this.state = 'error';
+      this.ui.showInfoSnackBar(error.statusText);
+      this.state = 'error';
     });
   }
 
@@ -552,7 +553,7 @@ export class SearchComponent implements OnInit {
         if (refresh) {
           this.reload();
         }
-        
+
       }
     });
   }
@@ -611,7 +612,7 @@ export class SearchComponent implements OnInit {
   openFromTree(item: DocumentItem) {
     this.router.navigate(['/repository', item.pid]);
   }
-  
+
   selectFromTree(tree: Tree) {
     this.search.selectedTree = tree;
     this.search.selectedTreePid = tree.item.pid;
@@ -622,16 +623,16 @@ export class SearchComponent implements OnInit {
   }
 
   changeModel(item: DocumentItem) {
-    const dialogRef = this.dialog.open(ChangeModelDialogComponent, { 
-      data: { 
-        pid: item.pid, 
-        model: item.model, 
+    const dialogRef = this.dialog.open(ChangeModelDialogComponent, {
+      data: {
+        pid: item.pid,
+        model: item.model,
         dest: this.config.modelChanges.find(m => ('model:' + m.origin).toLocaleLowerCase() === item.model.toLocaleLowerCase()).dest
       }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        
+
       }
     });
   }
@@ -654,11 +655,13 @@ export class SearchComponent implements OnInit {
   }
 
   initSelectedColumns() {
+    this.properties.getSearchColumnsTree();
     const prop = this.properties.getStringProperty('searchColumns');
     if (prop) {
       Object.assign(this.selectedColumns, JSON.parse(prop));
     }
     this.setColumns();
+    this.setColumnsWith();
   }
 
   setSelectedColumns() {
@@ -667,9 +670,19 @@ export class SearchComponent implements OnInit {
     this.table.renderRows();
   }
 
+
+
+  setColumnsWith() {
+    this.colsWidth = {};
+    this.selectedColumns.forEach(c => {
+      this.colsWidth[c.field] = c.width + 'px';
+    })
+
+  }
+
   getColumnWidth(field: string) {
-   
-    const el = this.selectedColumns.find((c: any)=> c.field === field);
+
+    const el = this.selectedColumns.find((c: any) => c.field === field);
     if (el) {
       return el.width + 'px';
     } else {
@@ -678,19 +691,19 @@ export class SearchComponent implements OnInit {
   }
 
   saveColumnsSizes(e: any, field?: string) {
-    const el = this.selectedColumns.find((c: any)=> c.field === field);
+    const el = this.selectedColumns.find((c: any) => c.field === field);
     if (el) {
       el.width = e;
     } else {
       console.log("nemelo by")
-    } 
+    }
     this.properties.setStringProperty('searchColumns', JSON.stringify(this.selectedColumns));
   }
 
 
 
   showConvertDialog(item: DocumentItem) {
-    const dialogRef = this.dialog.open(ConvertDialogComponent, { 
+    const dialogRef = this.dialog.open(ConvertDialogComponent, {
       data: { pid: item.pid, model: item.model }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -708,15 +721,15 @@ export class SearchComponent implements OnInit {
   }
 
   czidlo(item: DocumentItem) {
-    
-    const dialogRef = this.dialog.open(CzidloDialogComponent, { 
+
+    const dialogRef = this.dialog.open(CzidloDialogComponent, {
       data: item.pid,
       panelClass: 'app-urnbnb-dialog',
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-    
+
       }
     });
   }
@@ -726,22 +739,22 @@ export class SearchComponent implements OnInit {
   }
 
   updateInSource(item: DocumentItem) {
-    
-    const dialogRef = this.dialog.open(UpdateInSourceDialogComponent, { 
+
+    const dialogRef = this.dialog.open(UpdateInSourceDialogComponent, {
       data: item.pid,
       panelClass: 'app-urnbnb-dialog',
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-    
+
       }
     });
   }
 
   reindex(item: DocumentItem) {
     const data: SimpleDialogData = {
-      title: String(this.translator.instant('Index Proarc')) ,
+      title: String(this.translator.instant('Index Proarc')),
       message: String(this.translator.instant('Opravdu chcete spustit index?')),
       alertClass: 'app-message',
       btn1: {

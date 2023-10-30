@@ -24,6 +24,8 @@ export class ModsChronicleLocation extends ModsElement {
             this.modsElement['physicalLocation'] = [ModsUtils.createTextElement('', attrs)];
         }
         this.physicalLocation = this.modsElement['physicalLocation'][0];
+        this.addControl('physicalLocation');
+
         if (!this.physicalLocation['$']) {
             this.physicalLocation['$'] = { 'type': ''};
         }

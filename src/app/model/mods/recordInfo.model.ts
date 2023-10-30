@@ -32,26 +32,34 @@ export class ModsRecordInfo extends ModsElement {
         if (!this.modsElement['descriptionStandard']) {
             this.modsElement['descriptionStandard'] = ModsUtils.createField(this, 'descriptionStandard');
         }
+        this.descriptionStandard = this.modsElement['descriptionStandard'][0];
+        this.addControl('descriptionStandard');
+
         if (!this.modsElement['recordOrigin']) {
             this.modsElement['recordOrigin'] = ModsUtils.createField(this,'recordOrigin');
         }
-        this.descriptionStandard = this.modsElement['descriptionStandard'][0];
         this.recordOrigin = this.modsElement['recordOrigin'][0];
-        if (this.available('recordContentSource')) {
+        this.addControl('recordOrigin');
+        
+        if (this.available2('recordContentSource')) {
             this.recordContentSources = new ElementField(this.modsElement, ModsRecordContentSource.getSelector(), this.getField('recordContentSource'));
             this.addSubfield(this.recordContentSources);
+            this.addControl('recordContentSource');
         }
-        if (this.available('recordCreationDate')) {
+        if (this.available2('recordCreationDate')) {
             this.recordCreationDates = new ElementField(this.modsElement, ModsRecordCreationDate.getSelector(), this.getField('recordCreationDate'));
             this.addSubfield(this.recordCreationDates);
+            this.addControl('recordCreationDate');
         }
-        if (this.available('recordChangeDate')) {
+        if (this.available2('recordChangeDate')) {
             this.recordChangeDates = new ElementField(this.modsElement, ModsRecordChangeDate.getSelector(), this.getField('recordChangeDate'));
             this.addSubfield(this.recordChangeDates);
+            this.addControl('recordChangeDate');
         }
-        if (this.available('recordIdentifier')) {
+        if (this.available2('recordIdentifier')) {
             this.recordIdentifiers = new ElementField(this.modsElement, ModsRecordIdentifier.getSelector(), this.getField('recordIdentifier'));
             this.addSubfield(this.recordIdentifiers);
+            this.addControl('recordIdentifier');
         }
     }
 }

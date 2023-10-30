@@ -12,7 +12,7 @@ export class UIService {
   private refreshSubject = new Subject<boolean>();
   public refresh : Observable<boolean> = this.refreshSubject.asObservable();
 
-  public toolbarTooltipPosition: any = 'above';
+  // public toolbarTooltipPosition: any = 'above';
 
   private selectionSubject = new Subject<string>();
   public selection : Observable<string> = this.selectionSubject.asObservable();

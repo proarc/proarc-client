@@ -29,7 +29,7 @@
   <div *ngIf="getNumOfSelected() !== 0 && state!=='loading' && isAllowed()" class="app-mt-4">
     {{ (data.isRepo ? 'dialog.parent.alert.infoRepo' : 'dialog.parent.alert.infoImport') | translate }}:&#160;<strong>{{ selectedDestItem.label }}&#160;({{ 'model.' + selectedDestItem.model | translate}})</strong>
   </div>
-  <div mat-dialog-actions cdk-focus-start>
+  <div mat-dialog-actions cdkFocusRegionstart>
     <button mat-flat-button color="primary" *ngIf="data.parent" (click)="onDeleteParent()">{{ 'button.unlink' | translate }}</button>
     <button mat-flat-button color="primary" (click)="onSave()" [disabled]="state ==='loading' || !isAllowed()">
       {{ (data.isRepo ? 'button.move' : 'button.save') | translate }}
@@ -233,7 +233,7 @@
 
         <ng-container matColumnDef="export">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesRightTable($event, 'export')" [style.width]="getColumnWidthRightTable('export')">{{ 'desc.export' | translate }}</th>
-          <td mat-cell *matCellDef="let element">{{ element.writeExports() }}</td>
+          <td mat-cell *matCellDef="let element">{{ element.writeExports }}</td>
         </ng-container>
 
         <ng-container matColumnDef="isLocked">

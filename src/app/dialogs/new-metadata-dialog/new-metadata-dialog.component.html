@@ -5,11 +5,11 @@
     <ng-container *ngIf="inited">
       <app-editor-page *ngIf="isPage()" [model]="data.model" [notSaved]="true" [pid]="data.pid"></app-editor-page>
       <app-editor-audioPage *ngIf="isAudioPage()" [model]="data.model" [notSaved]="true" [pid]="data.pid"></app-editor-audioPage>
-      <app-editor-metadata *ngIf="!isPage()" [notSaved]="true" [model]="data.model" [metadata]="metadata"></app-editor-metadata>
+      <app-editor-metadata *ngIf="!isPage()" [notSaved]="true" [model]="data.model" [data]="metadata"></app-editor-metadata>
     </ng-container>
   </div>
   
-  <div mat-dialog-actions cdk-focus-start>
+  <div mat-dialog-actions cdkFocusRegionstart>
     <button mat-flat-button color="primary" (click)="onSave(true)">{{ 'button.createAndGoToObject' | translate }}</button>
     <button mat-flat-button color="primary" (click)="onSave(false)">{{ 'button.create' | translate }}</button>
     <button mat-flat-button (click)="onClose()">{{ 'button.close' | translate }}</button>

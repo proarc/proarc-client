@@ -98,6 +98,7 @@ export class EditorStructureComponent implements OnInit {
   displayedColumns: string[] = [];
   colsEditModeParent: boolean;
   colsImport: any;
+  colsWidth: { [key: string]: string } = {};
 
   subscriptions: Subscription[] = [];
 
@@ -143,12 +144,15 @@ export class EditorStructureComponent implements OnInit {
   }
 
   refreshChildren() {
-    // const hasTree = this.layout.selectedParentItem;
-    // if (hasTree) {
-    //   return
-    // }
+    //this.layout.items = [];
     this.api.getRelations(this.layout.selectedParentItem.pid).subscribe((children: DocumentItem[]) => {
       this.layout.items = children;
+      if (this.layout.lastSelectedItem) {
+        const item = this.layout.items.find(item => item.pid === this.layout.lastSelectedItem.pid);
+        if (item) {
+          item.selected = true;
+        }
+      }
     });
   }
 
@@ -192,7 +196,7 @@ export class EditorStructureComponent implements OnInit {
     this.refreshing = false;
   }
 
-  scrollToSelected(alignToTop : boolean) {
+  scrollToSelected(alignToTop: boolean) {
     const index = this.layout.items.findIndex(i => i.selected);
     if (index < 0) {
       return;
@@ -208,8 +212,8 @@ export class EditorStructureComponent implements OnInit {
       //   document.getElementById('table').parentElement.parentElement.scrollTop = this.scrollPos;
       // } else {
       // }
-        let row = this.rows.get(index);
-        row.element.nativeElement.scrollIntoView(alignToTop, {behavior : 'smooth'} );
+      let row = this.rows.get(index);
+      row.element.nativeElement.scrollIntoView(alignToTop, { behavior: 'smooth' });
       return;
     }
 
@@ -221,7 +225,7 @@ export class EditorStructureComponent implements OnInit {
       }
       if (index > 0) {
         const el = container.nativeElement.children[index];
-        el.scrollIntoView(alignToTop, {behavior : 'smooth'} );
+        el.scrollIntoView(alignToTop, { behavior: 'smooth' });
       }
     }
   }
@@ -315,9 +319,23 @@ export class EditorStructureComponent implements OnInit {
     } else {
       this.setSelectedColumnsImport();
     }
+    this.setColumnsWith();
   }
 
+  setColumnsWith() {
+    this.colsWidth = {};
+    const model = this.colsEditModeParent ? this.layout.selectedParentItem.model : this.layout.items[0].model;
 
+    if (this.isRepo) {
+      this.properties.colsEditingRepo[model].forEach(c => {
+        this.colsWidth[c.field] = c.width + 'px';
+      })
+    } else {
+      this.properties.getSelectedColumnsEditingImport().forEach((c: any) => {
+        this.colsWidth[c.field] = c.width + 'px';
+      })
+    }
+  }
 
   getColumnWidth(field: string) {
     if (this.isRepo) {
@@ -384,7 +402,7 @@ export class EditorStructureComponent implements OnInit {
     });
     this.colsEditModeParent = this.properties.getColsEditingRepo();
     this.displayedColumns = [];
-    if (this.colsEditModeParent) {
+    if (this.colsEditModeParent && this.layout.selectedParentItem?.model) {
       this.displayedColumns = this.properties.colsEditingRepo[this.layout.selectedParentItem.model].filter(c => c.selected && !this.displayedColumns.includes(c.field)).map(c => c.field);
     } else {
       models.forEach(model => {

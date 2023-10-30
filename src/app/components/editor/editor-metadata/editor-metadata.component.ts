@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, EventEmitter, Output, ChangeDetectionStrategy, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CatalogDialogComponent } from 'src/app/dialogs/catalog-dialog/catalog-dialog.component';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
@@ -15,7 +15,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 @Component({
   selector: 'app-editor-metadata',
   templateUrl: './editor-metadata.component.html',
-  //changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./editor-metadata.component.scss']
 })
 export class EditorMetadataComponent implements OnInit {
@@ -29,17 +29,35 @@ export class EditorMetadataComponent implements OnInit {
   @Input() notSaved = false;
   // @Input() pid: string;
   @Input() model: string;
-  @Input() metadata: Metadata;
+
+
+  @ViewChild("scroller", { static: false }) scroller: ElementRef;
 
   public item: DocumentItem | null;
   public visible = true;
 
-  public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
-
-  public fields: {[key: string]: any} = {};
+  public fieldIds: { [key: string]: any } = {};
+  public fields: { [key: string]: any } = {};
   public availableFields: string[];
+  public visibleFields: { [key: string]: boolean } = {};
   public selectedField: string;
   public byField: boolean = true;
+  showGenreSwitch: boolean;
+
+  // public fieldsOrder: { [key: string]: string[] } = {
+  //   chronicle: ['location', 'identifier', 'genre', 'titleInfo', 'abstract', 'language', 'originInfo', 'name', 'note'],
+
+  //   bdm: ['genre', 'language', 'identifier', 'physicalDescription', 'part', 'titleInfo', 'name', 'abstract', 'subject', 'note',
+  //     'classification', 'location', 'relatedItem', 'recordInfo'],
+
+  //   earticle: ['genre', 'titleInfo', 'name', 'originInfo', 'location', 'identifier', 'language', 'physicalDescription', 'abstract', 'note',
+  //     'typeOfResource', 'classification', 'subject', 'part', 'tableOfContents', 'recordInfo', 'relatedItem'],
+
+  //   default: ['titleInfo', 'name', 'originInfo', 'location', 'identifier', 'language', 'physicalDescription', 'abstract', 'note',
+  //     'typeOfResource', 'genre', 'classification', 'subject', 'part', 'tableOfContents', 'recordInfo', 'relatedItem']
+  // };
+
+  fieldsOrder: string[];
 
   constructor(
     private translator: TranslateService,
@@ -50,43 +68,153 @@ export class EditorMetadataComponent implements OnInit {
     private ui: UIService,
     private dialog: MatDialog) { }
 
+  logMetadata() {
+    console.log(this.metadata);
+  }
 
   changeEditorType(t: string) {
     this.onChangeEditorType.emit(t);
   }
 
   ngOnInit() {
-    this.byField = this.localS.getBoolProperty('metadata_by_field');
+    this.byField = !this.notSaved && this.localS.getBoolProperty('metadata_by_field');
   }
 
   toggleByField() {
     this.byField = !this.byField;
     this.localS.setBoolProperty('metadata_by_field', this.byField);
+    this.checkVisibility();
   }
 
-  ngOnChanges(c: SimpleChanges) {
-
-    if (c['metadata'] && c['metadata'].currentValue &&  (c['metadata'].currentValue !== c['metadata'].previousValue) ) {
-      if (!c['metadata'].currentValue.template) {
-        return;
-      }
-      this.metadata = c['metadata'].currentValue;
-      this.availableFields = Object.keys(this.metadata.template);
-      Object.keys(this.metadata.template).forEach(k => {
-        this.fields[k] = true;
-      });
-      this.selectedField = this.availableFields[0];
-
-      if (this.layout.moveFocus) {
-        setTimeout(() => {
-          this.focusToFirstRequired();
-        }, 500);
-      }
+  public metadata: Metadata;
+  @Input()
+  set data(m: Metadata) {
+    if (!m || !m.template || (m.timestamp && m.timestamp === this.metadata?.timestamp)) {
+      return;
     }
+
+    this.metadata = m;
+    this.setShowGenreSwitch();
+    this.availableFields = Object.keys(this.metadata.template);
+    Object.keys(this.metadata.template).forEach(k => {
+      this.fieldIds[k] = true;
+      this.fields[k] = this.metadata.getField(k);
+      this.visibleFields[k] = true;
+    });
+    this.selectedField = this.availableFields[0];
+    if (this.scroller) {
+      this.scroller.nativeElement.scrollTop = 0;
+    }
+    setTimeout(() => {
+      this.setFieldsOrder();
+    }, 10);
+
 
     if (!this.layout.lastSelectedItem || this.layout.lastSelectedItem.isPage()) {
       this.visible = false;
+    }
+  }
+
+  setFieldsOrder() {
+
+    if (!this.scroller) {
+      setTimeout(() => {
+        this.setFieldsOrder();
+      }, 10);
       return;
+    }
+    //check if already rendered
+    if (this.scroller.nativeElement.children.length < this.availableFields.length) {
+      
+      setTimeout(() => {
+        this.setFieldsOrder();
+      }, 10);
+      return;
+    }
+
+
+    this.scroller.nativeElement.scrollTop = 0;
+    this.fieldsOrder = [];
+    for (let i = 0; i < this.scroller.nativeElement.children.length; i++) {
+      const el = this.scroller.nativeElement.children[i];
+      this.fieldsOrder.push(el.id);
+    }
+    
+    // this.metadata.validate();
+    //console.log(this.fieldsOrder)
+
+    setTimeout(() => {
+      this.checkVisibility();
+      if (this.layout.moveFocus) {
+        setTimeout(() => {
+          this.focusToFirstRequired();
+        }, 10);
+      }
+    }, 10);
+
+  }
+
+  changeSelected(e: any) {
+    this.selectedField = e;
+    this.availableFields.forEach(k => {
+      this.visibleFields[k] = false;
+    });
+    this.visibleFields[this.selectedField] = true;
+  }
+
+  elementIsVisibleInViewport(el: any): boolean {
+    const { top, left, bottom, right } = el.getBoundingClientRect();
+    // const { innerHeight, innerWidth } = window;
+    const viewPort = this.scroller.nativeElement.getBoundingClientRect();
+    return ((top <= viewPort.top && bottom > viewPort.top) ||
+      (top > viewPort.top && top < viewPort.bottom));
+  }
+
+  checkVisibility() {
+
+    // this.availableFields.forEach(k => {
+    //   this.visibleFields[k] = true;
+    // });
+
+    if (this.byField) {
+
+      this.availableFields.forEach(k => {
+        this.visibleFields[k] = false;
+      });
+      this.visibleFields[this.selectedField] = true;
+      return;
+    }
+
+    if (this.scroller) {
+      const els: string[] = [];
+      for (let i = 0; i < this.scroller.nativeElement.children.length; i++) {
+        // const el = this.scroller.nativeElement.children
+        const el = this.scroller.nativeElement.children[i];
+
+        const v = this.elementIsVisibleInViewport(el);
+        this.visibleFields[el.id] = v;
+        if (v) {
+          els.push(el.id);
+        }
+      }
+
+      for (let i = 0; i < this.fieldsOrder.length; i++) {
+        const id = this.fieldsOrder[i];
+        if (els.includes(id)) {
+          this.visibleFields[this.fieldsOrder[i]] = true;
+          if (i > 0) {
+            this.visibleFields[this.fieldsOrder[i - 1]] = true;
+          }
+          if (i < this.fieldsOrder.length - 1) {
+            this.visibleFields[this.fieldsOrder[i + 1]] = true;
+          }
+        } else {
+          //this.visibleFields[this.fieldsOrder['default'][i]] = false;
+        }
+      }
+
+      //console.log(this.visibleFields);
+
     }
   }
 
@@ -152,10 +280,14 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   focusToFirstInvalid() {
-    const el: any = document.querySelectorAll('.mat-form-field-invalid input, .mat-form-field-invalid mat-select')[0];
-    if (el) {
-      el.focus();
-    }
+    const els = document.querySelectorAll('app-editor-metadata .mat-form-field-invalid input, app-editor-metadata .mat-form-field-invalid mat-select ');
+    els.forEach((el: any) => {
+      if (el.clientHeight > 0) {
+        el.focus();
+        return
+      }
+    });
+
   }
 
   focusToFirstRequired() {
@@ -193,7 +325,7 @@ export class EditorMetadataComponent implements OnInit {
 
         setTimeout(() => {
           this.focusToFirstInvalid();
-        }, 500);
+        }, 10);
       } else {
         this.saveMetadata(false);
       }
@@ -227,6 +359,7 @@ export class EditorMetadataComponent implements OnInit {
         // this.layout.setShouldRefresh(true)
         // console.log(response)
         this.metadata.timestamp = response.data[0].timestamp;
+        this.metadata.resetChanges();
         this.ui.showInfoSnackBar(this.translator.instant("snackbar.changeSaved"));
         this.layout.refreshSelectedItem(false, 'metadata');
       }
@@ -239,18 +372,18 @@ export class EditorMetadataComponent implements OnInit {
   saveModsFromCatalog(xml: string) {
     this.state = 'saving';
     this.api.editModsXml(this.metadata.pid, xml, this.metadata.timestamp, null, false).subscribe((resp: any) => {
-        if (resp.errors) {
-            this.state = 'error';
-            this.ui.showErrorDialogFromObject(resp.errors);
-            setTimeout(() => {
-                this.metadata.validate();
-            }, 100);
-            return;
-        }
-            this.state = 'success';
-        this.layout.refreshSelectedItem(false, 'metadata');
+      if (resp.errors) {
+        this.state = 'error';
+        this.ui.showErrorDialogFromObject(resp.errors);
+        setTimeout(() => {
+          this.metadata.validate();
+        }, 100);
+        return;
+      }
+      this.state = 'success';
+      this.layout.refreshSelectedItem(false, 'metadata');
     });
-}
+  }
 
 
   onLoadFromCatalog() {
@@ -266,11 +399,12 @@ export class EditorMetadataComponent implements OnInit {
     this.tmpl.getTemplate(this.metadata.standard, this.layout.lastSelectedItem.model).subscribe((tmpl: any) => {
       this.layout.lastSelectedItemMetadata = new Metadata(this.metadata.pid, this.metadata.model, this.metadata.originalMods, this.metadata.timestamp, this.metadata.standard, tmpl);
       this.metadata = this.layout.lastSelectedItemMetadata;
+      this.setShowGenreSwitch();
     });
   }
 
-  showGenreSwitch() {
-    return this.metadata.model === 'model:ndkearticle' || this.metadata.model === 'model:bdmarticle';
+  setShowGenreSwitch() {
+    this.showGenreSwitch = this.metadata.model === 'model:ndkearticle' || this.metadata.model === 'model:bdmarticle';
   }
 
 }
