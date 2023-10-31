@@ -117,6 +117,10 @@ export class Metadata {
           item.collapsed = false;
           //}
         }
+        // if (f.labelKey === 'location'){
+        //   console.log(item, item.hasAnyValue(), item.isRequired)
+        // }
+      
         if (item.hasAnyValue() || item.isRequired) {
           for (const subfield of item.getSubfields()) {
             for (const item2 of subfield.getItems()) {
@@ -132,6 +136,7 @@ export class Metadata {
         }
       }
     }
+
     return valid;
   }
 

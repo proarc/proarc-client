@@ -24,6 +24,7 @@ export class NewMetadataDialogComponent implements OnInit {
   metadata: Metadata;
 
   editorParams: any;
+  validating = false;
 
   constructor(
     private router: Router,
@@ -163,6 +164,7 @@ export class NewMetadataDialogComponent implements OnInit {
 
       });
     } else {
+      this.validating = true;
       this.confirmSave(this.translator.instant('dialog.newMetadata.onSave.title'), this.translator.instant('dialog.newMetadata.onSave.alert'), true, gotoEdit);
     }
   }
@@ -184,6 +186,7 @@ export class NewMetadataDialogComponent implements OnInit {
       },
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         let data = `model=${this.metadata.model}`;
@@ -205,6 +208,7 @@ export class NewMetadataDialogComponent implements OnInit {
           this.dialogRef.close({ gotoEdit, item: response['response']['data'][0] });
 
         });
+        this.validating = false;
       } else {
         // let el: any = document.querySelectorAll('app-new-metadata-dialog .mat-form-field-invalid input,app-new-metadata-dialog .mat-form-field-invalid mat-select')[0];
         // if (el) {

@@ -69,7 +69,17 @@ export class EditorMetadataComponent implements OnInit {
     private dialog: MatDialog) { }
 
   logMetadata() {
-    console.log(this.metadata);
+    //console.log(this.metadata);
+    console.log(this.metadata.validate());
+    const query = this.notSaved ?
+      'app-new-metadata-dialog .mat-form-field-invalid input, app-new-metadata-dialog .mat-form-field-invalid mat-select' :
+      'app-editor-metadata .mat-form-field-invalid input, app-editor-metadata .mat-form-field-invalid mat-select';
+
+    let el: any = document.querySelectorAll(query)[0];
+    console.log(el)
+    if (el) {
+      el.focus();
+    }
   }
 
   changeEditorType(t: string) {
@@ -84,6 +94,18 @@ export class EditorMetadataComponent implements OnInit {
     this.byField = !this.byField;
     this.localS.setBoolProperty('metadata_by_field', this.byField);
     this.checkVisibility();
+  }
+
+  _validating = false;
+  @Input()
+  set validating(v: boolean) {
+    this._validating = v;
+    if (this._validating) {
+      this.availableFields.forEach(k => {
+        this.visibleFields[k] = true;
+      });
+      this.scroller.nativeElement.scrollTop = 0;
+    }
   }
 
   public metadata: Metadata;
@@ -125,7 +147,7 @@ export class EditorMetadataComponent implements OnInit {
     }
     //check if already rendered
     if (this.scroller.nativeElement.children.length < this.availableFields.length) {
-      
+
       setTimeout(() => {
         this.setFieldsOrder();
       }, 10);
@@ -139,7 +161,7 @@ export class EditorMetadataComponent implements OnInit {
       const el = this.scroller.nativeElement.children[i];
       this.fieldsOrder.push(el.id);
     }
-    
+
     // this.metadata.validate();
     //console.log(this.fieldsOrder)
 
@@ -171,6 +193,14 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   checkVisibility() {
+
+    if (this._validating) {
+      // this.availableFields.forEach(k => {
+      //   this.visibleFields[k] = true;
+      // });
+      //this.scroller.nativeElement.scrollTop = 0;
+      return;
+    }
 
     // this.availableFields.forEach(k => {
     //   this.visibleFields[k] = true;
@@ -219,9 +249,9 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   checkPendingChanges() {
-    console.log(this.metadata)
+    //console.log(this.metadata)
     const r = this.metadata.hasChanges();
-    console.log(r)
+    //console.log(r)
   }
 
   hasPendingChanges(): boolean {
@@ -252,6 +282,10 @@ export class EditorMetadataComponent implements OnInit {
       },
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    this.availableFields.forEach(k => {
+      this.visibleFields[k] = true;
+    });
+    this.scroller.nativeElement.scrollTop = 0;
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         if (this.notSaved) {
@@ -273,6 +307,7 @@ export class EditorMetadataComponent implements OnInit {
         } else {
           this.saveMetadata(ignoreValidation);
         }
+        this._validating = false;
       } else {
         this.focusToFirstInvalid();
       }
@@ -280,19 +315,27 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   focusToFirstInvalid() {
-    const els = document.querySelectorAll('app-editor-metadata .mat-form-field-invalid input, app-editor-metadata .mat-form-field-invalid mat-select ');
-    els.forEach((el: any) => {
-      if (el.clientHeight > 0) {
-        el.focus();
-        return
-      }
-    });
+    const query = this.notSaved ?
+      'app-new-metadata-dialog .mat-form-field-invalid input, app-new-metadata-dialog .mat-form-field-invalid mat-select ' :
+      'app-editor-metadata .mat-form-field-invalid input, app-editor-metadata .mat-form-field-invalid mat-select ';
+    const els = document.querySelectorAll(query);
+    if (els.length > 0) {
+      (els[0] as any).focus();
+    }
+    this.state = 'none';
+    // els.forEach((el: any) => {
+    //   if (el.clientHeight > 0) {
+    //     el.focus();
+    //     return
+    //   }
+    // });
 
   }
 
   focusToFirstRequired() {
     // find in new object
-    let el: any = document.querySelectorAll('app-new-metadata-dialog input[required]')[0];
+    const query = this.notSaved ? 'app-new-metadata-dialog input[required]' : 'app-editor-metadata input[required]';
+    let el: any = document.querySelectorAll(query)[0];
     if (el) {
       el.focus();
       return;
@@ -330,6 +373,7 @@ export class EditorMetadataComponent implements OnInit {
         this.saveMetadata(false);
       }
     } else {
+      this._validating = true;
       this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', true);
     }
   }

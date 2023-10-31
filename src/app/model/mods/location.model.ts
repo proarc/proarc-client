@@ -29,6 +29,8 @@ export class ModsLocation extends ModsElement {
       this.physicalLocations = new ElementField(this.modsElement, ModsPhysicalLocation.getSelector(), this.getField('physicalLocation'));
       this.addSubfield(this.physicalLocations);
       // this.addControl('physicalLocation');
+      // this.addControl('displayLabel');
+      // this.addControl('authority');
     }
 
     if (this.available2('url')) {
@@ -42,9 +44,34 @@ export class ModsLocation extends ModsElement {
       this.shelfLocators = new ElementField(this.modsElement, ModsShelfLocator.getSelector(), this.getField('shelfLocator'));
       this.addSubfield(this.shelfLocators);
       // this.addControl('shelfLocator');
+      // this.addControl('value');
     }
 
 
   }
+
+    override validate(): boolean {
+      for(const i in this.physicalLocations.items) {
+        const item = this.physicalLocations.items[i];
+        if (!item.validate()) {
+          return false;
+        }
+      }
+      for(const i in this.urls.items) {
+        const item = this.urls.items[i];
+        if (!item.validate()) {
+          return false;
+        }
+      }
+      for(const i in this.shelfLocators.items) {
+        const item = this.shelfLocators.items[i];
+        if (!item.validate()) {
+          return false;
+        }
+      }
+      
+      // return super.validate();
+      return true;
+    }
 
 }
