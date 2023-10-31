@@ -15,6 +15,7 @@ import { ConfigService } from '../../services/config.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { ResolveConflictDialogComponent } from 'src/app/dialogs/resolve-conflict-dialog/resolve-conflict-dialog.component';
 
 @Component({
   selector: 'app-process-management',
@@ -81,6 +82,7 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
     'ALL',
     'LOADING',
     'LOADING_FAILED',
+    'LOADING_CONFLICT',
     'LOADED',
     'INGESTING',
     'INGESTING_FAILED',
@@ -423,6 +425,24 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
       if (result && result.profile) {
         this.reloadBatch(result.profile);
       }
+    });
+  }
+
+  onResolveConflict() {
+    if (!this.selectedBatch) {
+      return;
+    }
+    const dialogRef = this.dialog.open(ResolveConflictDialogComponent, {
+      data: this.selectedBatch ,
+      panelClass: 'app-dialog-import',
+      width: '600px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.api.resolveConflict(this.selectedBatch.id, this.selectedBatch.profile, result.useNewMetadata).subscribe((batch: Batch) => {
+          this.reloadBatches();
+        });
+      } 
     });
   }
 

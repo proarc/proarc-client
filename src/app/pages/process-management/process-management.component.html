@@ -39,6 +39,9 @@
         <button mat-stroked-button (click)="onReexport()" *ngIf="selectedBatch && selectedBatch.state === 'EXPORT_FAILED'">
           {{ 'button.reexport' | translate }}
         </button>
+        <button mat-stroked-button (click)="onResolveConflict()" *ngIf="selectedBatch && selectedBatch.state === 'LOADING_CONFLICT'">
+          {{ 'button.resolveconflict' | translate }}
+        </button>
       </ng-container>
       <ng-container *ngIf="view == 'loadingQueue'">
         <button mat-stroked-button (click)="reload()">

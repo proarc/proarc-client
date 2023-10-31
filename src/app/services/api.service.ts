@@ -831,6 +831,19 @@ export class ApiService {
     return this.post('export/reexport', data);
   }
 
+  resolveConflict(id: number, profile: string, isNew: boolean): Observable<any> {
+    
+    // &state=LOADING_CONFLICT&profile=profile.ndk_periodical_kramerius_import&id=86&useNewMetadata=true
+    let data = `id=${id}&profile=${profile}&state=LOADING_CONFLICT`;
+    if (isNew) {
+      data += '&useNewMetadata=true';
+    } else {
+      
+      data += '&useOriginalMetadata=true';
+    }
+    return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
+  }
+
   createImportBatch(path: string, profile: string, indices: boolean, device: string, priority: string): Observable<any> {
     const data = `folderPath=${path}&profile=${profile}&indices=${indices}&device=${device}&priority=${priority}`;
     return this.post('import/batch', data);
