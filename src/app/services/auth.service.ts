@@ -78,7 +78,7 @@ export class AuthService {
     }
 
     public getApiUrl(): string {
-        return `${this.getBaseUrl()}/rest/v1/`
+        return `${this.getBaseUrl()}/rest/v2/`
     }
 
     initializeApp(): Promise<any> {

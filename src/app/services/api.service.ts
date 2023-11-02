@@ -1102,20 +1102,3 @@ export class ApiService {
 
 }
 
-
-// ### IMPORT 2 PROARC
-// POST {{proarcUrl}}/rest/v1/kramerius/importToProArc
-// Accept: application/json
-// Content-Type: application/x-www-form-urlencoded; charset=UTF-8
-
-// instance={{instance}}&pid={{uuid}}
-
-// ### IMPORT 2 KRAMERIUS
-// POST {{proarcUrl}}/rest/v1/kramerius/importToKramerius
-// Accept: application/json
-// Content-Type: application/x-www-form-urlencoded; charset=UTF-8
-
-// instance={{instance}}&importInstance={{instanceDestination}}&pid={{uuid}}
-
-// ### GET KRAMERIUS INSTANCE
-// GET {{proarcUrl}}/rest/v1/export/kramerius4

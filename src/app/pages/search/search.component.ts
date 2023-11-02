@@ -344,7 +344,7 @@ export class SearchComponent implements OnInit {
   }
 
   showFoxml(item: DocumentItem) {
-    window.open('/api/rest/v1/object/dissemination?pid=' + item.pid, 'foxml');
+    window.open(this.api.getApiUrl() + 'object/dissemination?pid=' + item.pid, 'foxml');
   }
 
   onRestore(item: DocumentItem) {
