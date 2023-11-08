@@ -51,25 +51,30 @@ export class ModsLocation extends ModsElement {
   }
 
     override validate(): boolean {
-      for(const i in this.physicalLocations.items) {
-        const item = this.physicalLocations.items[i];
-        if (!item.validate()) {
-          return false;
+      if (this.physicalLocations && this.physicalLocations.items) {
+        for (const i in this.physicalLocations.items) {
+          const item = this.physicalLocations.items[i];
+          if (!item.validate()) {
+            return false;
+          }
         }
       }
-      for(const i in this.urls.items) {
-        const item = this.urls.items[i];
-        if (!item.validate()) {
-          return false;
+      if (this.urls && this.urls.items) {
+        for (const i in this.urls.items) {
+          const item = this.urls.items[i];
+          if (!item.validate()) {
+            return false;
+          }
         }
       }
-      for(const i in this.shelfLocators.items) {
-        const item = this.shelfLocators.items[i];
-        if (!item.validate()) {
-          return false;
+      if (this.shelfLocators && this.shelfLocators.items) {
+        for (const i in this.shelfLocators.items) {
+          const item = this.shelfLocators.items[i];
+          if (!item.validate()) {
+            return false;
+          }
         }
       }
-      
       // return super.validate();
       return true;
     }
