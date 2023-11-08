@@ -11,6 +11,7 @@ import { Metadata } from 'src/app/model/metadata.model';
 import { LayoutService } from 'src/app/services/layout.service';
 import { TemplateService } from 'src/app/services/template.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-editor-metadata',
@@ -58,6 +59,8 @@ export class EditorMetadataComponent implements OnInit {
   // };
 
   fieldsOrder: string[];
+  fieldsHeights: { top: number, bottom: number, height: number }[];
+  subscriptions: Subscription[] = [];
 
   constructor(
     private translator: TranslateService,
@@ -68,18 +71,38 @@ export class EditorMetadataComponent implements OnInit {
     private ui: UIService,
     private dialog: MatDialog) { }
 
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
   logMetadata() {
     //console.log(this.metadata);
-    console.log(this.metadata.validate());
-    const query = this.notSaved ?
-      'app-new-metadata-dialog .mat-form-field-invalid input, app-new-metadata-dialog .mat-form-field-invalid mat-select' :
-      'app-editor-metadata .mat-form-field-invalid input, app-editor-metadata .mat-form-field-invalid mat-select';
+    const valid = this.metadata.validate()
+    console.log(valid);
+    if (!valid) {
+      this.availableFields.forEach(k => {
+        this.visibleFields[k] = true;
+      });
 
-    let el: any = document.querySelectorAll(query)[0];
-    console.log(el)
-    if (el) {
-      el.focus();
+      this._validating = true;
+      setTimeout(() => {
+        //this.checkVisibility();
+        const query = this.notSaved ?
+          'app-new-metadata-dialog .app-expanded .mat-form-field-invalid input, app-new-metadata-dialog .mat-form-field-invalid mat-select' :
+          'app-editor-metadata .app-expanded .mat-form-field-invalid input, app-editor-metadata .mat-form-field-invalid mat-select';
+
+        let el: any = document.querySelectorAll(query)[0];
+        console.log(el)
+        if (el) {
+          el.focus();
+        }
+
+      }, 10)
+
     }
+
+
   }
 
   changeEditorType(t: string) {
@@ -88,6 +111,9 @@ export class EditorMetadataComponent implements OnInit {
 
   ngOnInit() {
     this.byField = !this.notSaved && this.localS.getBoolProperty('metadata_by_field');
+    this.subscriptions.push(this.layout.metadataResized().subscribe(e => {
+      this.onSizeChanged();
+    }));
   }
 
   toggleByField() {
@@ -137,6 +163,10 @@ export class EditorMetadataComponent implements OnInit {
     }
   }
 
+  scrollHeight = 0;
+  startHeight = 0;
+  endHeight = 0;
+
   setFieldsOrder() {
 
     if (!this.scroller) {
@@ -145,25 +175,24 @@ export class EditorMetadataComponent implements OnInit {
       }, 10);
       return;
     }
+    this.scrollHeight = this.scroller.nativeElement.scrollHeight;
     //check if already rendered
     if (this.scroller.nativeElement.children.length < this.availableFields.length) {
-
       setTimeout(() => {
         this.setFieldsOrder();
       }, 10);
       return;
     }
 
-
     this.scroller.nativeElement.scrollTop = 0;
     this.fieldsOrder = [];
-    for (let i = 0; i < this.scroller.nativeElement.children.length; i++) {
+    this.fieldsHeights = [];
+    for (let i = 2; i < this.scroller.nativeElement.children.length - 1; i++) {
       const el = this.scroller.nativeElement.children[i];
       this.fieldsOrder.push(el.id);
+      const { top, bottom, height } = el.getBoundingClientRect();
+      this.fieldsHeights.push({ top, bottom, height });
     }
-
-    // this.metadata.validate();
-    //console.log(this.fieldsOrder)
 
     setTimeout(() => {
       this.checkVisibility();
@@ -184,12 +213,52 @@ export class EditorMetadataComponent implements OnInit {
     this.visibleFields[this.selectedField] = true;
   }
 
+  onSizeChanged() {
+    // find element resized
+    let idx = 0;
+    let id = '';
+    let oldH = 0;
+    let el = null;
+    let newH = 0;
+    for (let i = 0; i < this.fieldsOrder.length; i++) {
+      id = this.fieldsOrder[i];
+      if (this.visibleFields[id]) {
+        idx = i;
+        oldH = this.fieldsHeights[idx].height;
+        el = document.getElementById(id);
+        newH = el.getBoundingClientRect().height;
+        if (oldH !== newH) {
+          break;
+        }
+      }
+    }
+
+    // const idx = this.fieldsOrder.indexOf(id);
+    // const oldH = this.fieldsHeights[idx].height;
+    // const el = document.getElementById(id);
+    // const newH = el.getBoundingClientRect().height;
+    const delta = newH - oldH;
+    this.scrollHeight = this.scrollHeight + delta;
+    this.fieldsHeights[idx].height = newH;
+    this.fieldsHeights[idx].bottom = this.fieldsHeights[idx].bottom + delta;
+    for (let i = idx + 1; i < this.fieldsHeights.length; i++) {
+      this.fieldsHeights[i].top = this.fieldsHeights[i].top + delta;
+      this.fieldsHeights[i].bottom = this.fieldsHeights[i].bottom + delta;
+    }
+    this.checkVisibility();
+  }
+
   elementIsVisibleInViewport(el: any): boolean {
     const { top, left, bottom, right } = el.getBoundingClientRect();
-    // const { innerHeight, innerWidth } = window;
     const viewPort = this.scroller.nativeElement.getBoundingClientRect();
     return ((top <= viewPort.top && bottom > viewPort.top) ||
       (top > viewPort.top && top < viewPort.bottom));
+  }
+
+  elementIsVisibleInViewport2(idx: number, top: number, bottom: number): boolean {
+    const el = this.fieldsHeights[idx];
+    return ((el.top <= top && el.bottom > top) ||
+      (el.top > top && el.top < bottom));
   }
 
   checkVisibility() {
@@ -217,33 +286,55 @@ export class EditorMetadataComponent implements OnInit {
 
     if (this.scroller) {
       const els: string[] = [];
-      for (let i = 0; i < this.scroller.nativeElement.children.length; i++) {
-        // const el = this.scroller.nativeElement.children
-        const el = this.scroller.nativeElement.children[i];
+      // for (let i = 0; i < this.scroller.nativeElement.children.length; i++) {
+      //   const el = this.scroller.nativeElement.children[i];
 
-        const v = this.elementIsVisibleInViewport(el);
-        this.visibleFields[el.id] = v;
-        if (v) {
-          els.push(el.id);
-        }
-      }
+      //   const v = this.elementIsVisibleInViewport(el);
+      //   // 
+      //   this.visibleFields[el.id] = v;
+      //   if (v) {
+      //     els.push(el.id);
+      //   }
+      // }
 
+      // for (let i = 0; i < this.fieldsOrder.length; i++) {
+      //   const id = this.fieldsOrder[i];
+      //   if (els.includes(id)) {
+      //     this.visibleFields[this.fieldsOrder[i]] = true;
+      //     if (i > 0) {
+      //       this.visibleFields[this.fieldsOrder[i - 1]] = true;
+      //     }
+      //     if (i < this.fieldsOrder.length - 1) {
+      //       this.visibleFields[this.fieldsOrder[i + 1]] = true;
+      //     }
+      //   }
+      // }
+
+
+      const top = this.scroller.nativeElement.getBoundingClientRect().top + this.scroller.nativeElement.scrollTop;
+      const bottom = this.scroller.nativeElement.getBoundingClientRect().bottom + this.scroller.nativeElement.scrollTop;
+      this.startHeight = 0;
+      this.endHeight = 0;
+      let visibleHeight = 0;
+      let firstFound = false;
+      let lastFound = false;
       for (let i = 0; i < this.fieldsOrder.length; i++) {
         const id = this.fieldsOrder[i];
-        if (els.includes(id)) {
-          this.visibleFields[this.fieldsOrder[i]] = true;
-          if (i > 0) {
-            this.visibleFields[this.fieldsOrder[i - 1]] = true;
-          }
-          if (i < this.fieldsOrder.length - 1) {
-            this.visibleFields[this.fieldsOrder[i + 1]] = true;
-          }
-        } else {
-          //this.visibleFields[this.fieldsOrder['default'][i]] = false;
+        const v = this.elementIsVisibleInViewport2(i, top, bottom);
+        if (!v && !firstFound) {
+          this.startHeight += this.fieldsHeights[i].height;
         }
+        if (v) {
+          firstFound = true;
+          visibleHeight += this.fieldsHeights[i].height;
+        }
+        if (!v && firstFound) {
+          lastFound = true;
+        }
+        this.visibleFields[this.fieldsOrder[i]] = v;
       }
+      this.endHeight = this.scrollHeight - visibleHeight - this.startHeight;
 
-      //console.log(this.visibleFields);
 
     }
   }
@@ -316,8 +407,8 @@ export class EditorMetadataComponent implements OnInit {
 
   focusToFirstInvalid() {
     const query = this.notSaved ?
-      'app-new-metadata-dialog .mat-form-field-invalid input, app-new-metadata-dialog .mat-form-field-invalid mat-select ' :
-      'app-editor-metadata .mat-form-field-invalid input, app-editor-metadata .mat-form-field-invalid mat-select ';
+      'app-new-metadata-dialog .app-expanded .mat-form-field-invalid input, app-new-metadata-dialog .mat-form-field-invalid mat-select ' :
+      'app-editor-metadata .app-expanded .mat-form-field-invalid input, app-editor-metadata .mat-form-field-invalid mat-select ';
     const els = document.querySelectorAll(query);
     if (els.length > 0) {
       (els[0] as any).focus();
@@ -334,7 +425,7 @@ export class EditorMetadataComponent implements OnInit {
 
   focusToFirstRequired() {
     // find in new object
-    const query = this.notSaved ? 'app-new-metadata-dialog input[required]' : 'app-editor-metadata input[required]';
+    const query = this.notSaved ? 'app-new-metadata-dialog  .app-expanded input[required]' : 'app-editor-metadata input[required]';
     let el: any = document.querySelectorAll(query)[0];
     if (el) {
       el.focus();

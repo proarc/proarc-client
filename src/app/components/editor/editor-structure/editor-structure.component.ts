@@ -324,7 +324,18 @@ export class EditorStructureComponent implements OnInit {
 
   setColumnsWith() {
     this.colsWidth = {};
-    const model = this.colsEditModeParent ? this.layout.selectedParentItem.model : this.layout.items[0].model;
+    let model;
+    
+    if (!this.layout.selectedParentItem) {
+      if (this.layout.items.length > 0) {
+        model = this.layout.items[0].model;
+      } else {
+        model = this.layout.lastSelectedItem.model;
+      }
+    } else {
+      model = this.colsEditModeParent ? this.layout.selectedParentItem.model : this.layout.items[0].model;
+    }
+     
 
     if (this.isRepo) {
       this.properties.colsEditingRepo[model].forEach(c => {

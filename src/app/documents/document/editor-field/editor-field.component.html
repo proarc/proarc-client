@@ -22,10 +22,10 @@
             <mat-icon>arrow_drop_up</mat-icon>
           </button>
           <ng-container *ngIf="collapsable">
-            <button class="app-collapse" *ngIf="item.collapsed" matTooltip="{{ 'common.expand' | translate }}" (click)="item.switchCollapsed()" mat-icon-button>
+            <button class="app-collapse" *ngIf="item.collapsed" matTooltip="{{ 'common.expand' | translate }}" (click)="switchCollapsed(item)" mat-icon-button>
               <mat-icon>expand_more</mat-icon>
             </button>
-            <button class="app-collapse" *ngIf="!item.collapsed" matTooltip="{{ 'common.collapse' | translate }}" (click)="item.switchCollapsed()" mat-icon-button>
+            <button class="app-collapse" *ngIf="!item.collapsed" matTooltip="{{ 'common.collapse' | translate }}" (click)="switchCollapsed(item)" mat-icon-button>
               <mat-icon>expand_less</mat-icon>
             </button>
           </ng-container>
@@ -34,7 +34,7 @@
           </button>
           <ng-template [ngTemplateOutlet]="templateMenu" [ngTemplateOutletContext]="{ item: item  }"></ng-template>
         </div>
-        <div class="app-card-content" [class.app-collapsed]="collapsable && item.collapsed">
+        <div class="app-card-content" [class.app-collapsed]="collapsable && item.collapsed" [class.app-expanded]="!item.collapsed">
           <ng-template [ngTemplateOutlet]="templateContent" [ngTemplateOutletContext]="{ item: item, first: first  }"></ng-template>
         </div>
 

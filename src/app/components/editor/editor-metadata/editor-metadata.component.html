@@ -41,6 +41,8 @@
 			</div>
 
 			<div [ngSwitch]="model" fxFlex class="app-oa-y" #scroller (scroll)="checkVisibility()">
+				<div style="float: left;" [style.height]="scrollHeight +'px'">&nbsp;</div>
+				<div [style.height]="startHeight +'px'"></div>
 				<ng-container *ngSwitchCase="'model:chroniclevolume'" [ngTemplateOutlet]="chronicle" ></ng-container>
 				<ng-container *ngSwitchCase="'model:chronicletitle'" [ngTemplateOutlet]="chronicle"></ng-container>
 				<ng-container *ngSwitchCase="'model:chroniclesupplement'" [ngTemplateOutlet]="chronicle"></ng-container>
@@ -63,9 +65,11 @@
 					<app-editor-subject id="subject" *ngIf="visibleFields['subject']" [field]="fields['subject']" [model]="model"></app-editor-subject>
 					<app-editor-part id="part" *ngIf="visibleFields['part']" [field]="fields['part']"></app-editor-part>
 					<app-editor-tableOfContents id="tableOfContents" *ngIf="visibleFields['tableOfContents']" [field]="fields['tableOfContents']"></app-editor-tableOfContents>
-					<app-editor-recordInfo id="recordInfo" *ngIf="visibleFields['recordInfo']" [field]="fields['recordInfo']"></app-editor-recordInfo>
-					<app-editor-relatedItem id="relatedItem" *ngIf="visibleFields['relatedItem']" [field]="fields['relatedItem']" [model]="model"></app-editor-relatedItem>
+					<app-editor-recordInfo id="recordInfo" *ngIf="visibleFields['recordInfo']" [field]="fields['recordInfo']" ></app-editor-recordInfo>
+					<app-editor-relatedItem id="relatedItem" *ngIf="visibleFields['relatedItem']" [field]="fields['relatedItem']" [model]="model" ></app-editor-relatedItem>
 				</ng-container>
+				
+				<div [style.height]="endHeight +'px'"></div>
 			</div>
 		</div>
 	</div>

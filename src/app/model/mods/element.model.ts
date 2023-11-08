@@ -217,7 +217,7 @@ export abstract class ModsElement {
         return anyValue;
     }
 
-    public validate(): boolean {
+    public validate(parent: ModsElement = null): boolean {
         // console.log(this.template)
         let error = false;
         let anyValue = false;
@@ -241,20 +241,25 @@ export abstract class ModsElement {
                     if (this.template.fields[key + ''] &&
                         (this.template.fields[key + ''].required || this.template.fields[key + ''].usage === 'M') &&
                         !value.value) {
-                        // console.log(isRequired, key, value.value, this);
                         error = true;
+                        value.markAsTouched();
+                        if (parent) {
+                          parent.collapsed = false;
+                        }
+                        this.collapsed = false;
                     }
                 });
                 // error = true;
             } else {
                 Object.keys(this.controls).forEach((key) => {
                     const value = this.controls[key];
-                    // value.markAsUntouched();
                     if (this.template.fields[key + '']?.required && !value.value) {
-                        // console.log(isRequired, key, value.value, this);
                         error = true;
-                        // isRequired = true;
                         value.markAsTouched();
+                        // if (parent) {
+                        //   parent.collapsed = false;
+                        // }
+                        // this.collapsed = false;
                     } else {
                         value.markAsUntouched();
                     }
@@ -263,13 +268,14 @@ export abstract class ModsElement {
         }
         if (error && (isRequired || anyValue)) {
             this.validationWarning = true;
+            this.collapsed = false;
         } else {
             this.validationWarning = false;
         }
 
         for (const subfield of this.getSubfields()) {
             for (const item2 of subfield.getItems()) {
-                item2.validate()
+                item2.validate(this)
             }
         }
 

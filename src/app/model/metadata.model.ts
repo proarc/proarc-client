@@ -26,6 +26,7 @@ import { ModsRelatedItem } from './mods/relatedItem.model';
 declare var $: any;
 
 import * as JSON5 from 'json5';
+import { ModsElement } from './mods/element.model';
 // import * as JSON6 from 'json-6';
 // declare var JSON6: any;
 
@@ -106,30 +107,29 @@ export class Metadata {
     });
   }
 
-  validate(): boolean {
+  validate(parent: ModsElement = null): boolean {
     let valid = true;
     for (const id of this.fieldsIds) {
       const f = this.fields.get(id);
       for (const item of f.getItems()) {
-        if (!item.validate()) {
+        if (!item.validate(parent)) {
           valid = false;
-          //if (item.collapsed) {
           item.collapsed = false;
-          //}
+          // if (parent) {
+          //   parent.collapsed = false;
+          // }
         }
-        // if (f.labelKey === 'location'){
-        //   console.log(item, item.hasAnyValue(), item.isRequired)
-        // }
       
         if (item.hasAnyValue() || item.isRequired) {
           for (const subfield of item.getSubfields()) {
             for (const item2 of subfield.getItems()) {
-              if (!item2.validate()) {
+              if (!item2.validate(item)) {
                 valid = false;
-                //if (item2.collapsed) {
                 item2.collapsed = false;
                 item.collapsed = false;
-                //}
+                // if (parent) {
+                //   parent.collapsed = false;
+                // }
               }
             }
           }

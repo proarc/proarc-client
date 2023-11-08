@@ -50,6 +50,8 @@ export class LayoutService {
 
   private resizedSubject = new Subject<boolean>();
 
+  private metadataResizedSubject = new Subject<boolean>();
+
   public movingToNext = false;
   public movedToNextFrom: string;
 
@@ -158,6 +160,15 @@ export class LayoutService {
   resized(): Observable<boolean> {
     return this.resizedSubject.asObservable();
   }
+
+  setMetadataResized() {
+    this.metadataResizedSubject.next(true);
+  }
+
+  metadataResized(): Observable<boolean> {
+    return this.metadataResizedSubject.asObservable();
+  }
+
   
 
   shouldRefreshSelectedItem(): Observable<any> {

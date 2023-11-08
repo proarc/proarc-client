@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, ContentChild, TemplateRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ContentChild, TemplateRef, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { HelpDialogComponent } from 'src/app/dialogs/help-dialog/help-dialog.component';
 import { ModsElement } from 'src/app/model/mods/element.model';
 
 import { ElementField } from 'src/app/model/mods/elementField.model';
+import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({
   selector: 'app-editor-field',
@@ -18,6 +19,7 @@ export class EditorFieldComponent implements OnInit {
   @Input() nested: boolean;
   @Input() collapsable: boolean = true;
   @Input() showGenreSwitch: boolean;
+  @Output() sizeChanged = new EventEmitter<string>();
 
   @ContentChild("templateContent") templateContent : TemplateRef<any>;
   @ContentChild("templateMenu") templateMenu : TemplateRef<any>;
@@ -25,7 +27,20 @@ export class EditorFieldComponent implements OnInit {
   validationWarning: string;
   //items: ModsElement[];
   
-  constructor(private dialog: MatDialog, private translator: TranslateService, private cd: ChangeDetectorRef) {
+  constructor(
+    private dialog: MatDialog, 
+    private translator: TranslateService, 
+    private cd: ChangeDetectorRef,
+    private layout: LayoutService) {
+  }
+
+  switchCollapsed(item: ModsElement) {
+    item.switchCollapsed();
+    setTimeout(() => {
+      //this.sizeChanged.emit(this.field.id);
+      this.layout.setMetadataResized();
+    }, 10)
+    
   }
 
   ngOnInit() {
