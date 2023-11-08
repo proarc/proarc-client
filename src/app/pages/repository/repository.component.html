@@ -23,7 +23,7 @@
         <mat-menu #menuMore="matMenu">
           <button mat-menu-item (click)="onExport()" >{{ 'button.export' | translate }}</button>
           <button mat-menu-item (click)="onUrnnbn()" >URN:NBN</button>
-          <button mat-menu-item *ngIf="canCopy()" (click)="onCopyItem()" mat-button>{{ 'button.copy' | translate }}</button>
+          <button mat-menu-item *ngIf="canCopy()" (click)="onCopyItem()">{{ 'button.copy' | translate }}</button>
           
           <!-- <button mat-menu-item *ngIf="auth.user.changeModelFunction || auth.isSuperAdmin()" (click)="showConvertDialog()">{{ 'button.convertPages' | translate }}</button> -->
           <button mat-menu-item *ngIf="auth.user.czidloFunction || auth.isSuperAdmin()" (click)="czidlo()">{{ 'button.czidloFunction' | translate }}</button>
