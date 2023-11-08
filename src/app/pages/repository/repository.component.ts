@@ -13,6 +13,14 @@ import { TemplateService } from 'src/app/services/template.service';
 import { UIService } from 'src/app/services/ui.service';
 import { ModelTemplate } from 'src/app/templates/modelTemplate';
 import { defaultLayoutConfig, IConfig, LayoutAdminComponent } from 'src/app/dialogs/layout-admin/layout-admin.component';
+import { ExportDialogComponent } from 'src/app/dialogs/export-dialog/export-dialog.component';
+import { UrnnbnDialogComponent } from 'src/app/dialogs/urnnbn-dialog/urnnbn-dialog.component';
+import { ConfigService } from 'src/app/services/config.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
+import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
+import { UpdateInSourceDialogComponent } from 'src/app/dialogs/update-in-source-dialog/update-in-source-dialog.component';
+import { CzidloDialogComponent } from 'src/app/dialogs/czidlo-dialog/czidlo-dialog.component';
 
 
 @Component({
@@ -23,12 +31,10 @@ import { defaultLayoutConfig, IConfig, LayoutAdminComponent } from 'src/app/dial
 export class RepositoryComponent implements OnInit {
 
   localStorageName = 'proarc-layout-repo';
-  // config: IConfig = null;
 
   pid: string;
-  // parent: DocumentItem | null;
   expandedPath: string[] = [];
-  // selected: string;
+  isAkubra: boolean;
 
   subscriptions: Subscription[] = [];
 
@@ -36,7 +42,9 @@ export class RepositoryComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
+    public auth: AuthService,
     private repo: RepositoryService,
+    public config: ConfigService,
     public layout: LayoutService,
     private ui: UIService,
     private tmpl: TemplateService,
@@ -50,6 +58,10 @@ export class RepositoryComponent implements OnInit {
   ngOnInit(): void {
 
     this.initConfig();
+
+    this.api.getInfo().subscribe((info) => {
+      this.isAkubra = info.storage === 'Akubra';
+    });
 
     this.layout.type = 'repo';
     this.layout.setBatchId(null);
@@ -404,5 +416,87 @@ export class RepositoryComponent implements OnInit {
   public goToFirst() {
     this.router.navigate(['/repository', this.layout.parent.pid]);
   }
+
+  onExport() {
+    const dialogRef = this.dialog.open(ExportDialogComponent, {
+      disableClose: true,
+      data: { pid: this.layout.item.pid, model: this.layout.item.model },
+      width: '600px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+
+      }
+    });
+  }
+
+  onUrnnbn() {
+    const dialogRef = this.dialog.open(UrnnbnDialogComponent, {
+      data: this.layout.item.pid,
+      panelClass: 'app-urnbnb-dialog',
+      width: '600px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+
+      }
+    });
+  }
+  
+
+  canCopy(): boolean {
+    return this.config.allowedCopyModels.includes(this.layout.item.model)
+  }
+  
+  onCopyItem() {
+    this.api.copyObject(this.layout.item.pid, this.layout.item.model).subscribe((response: any) => {
+      if (response['response'].errors) {
+        console.log('error', response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
+        return;
+      } else if (response.response.data && response.response.data[0].validation) {
+        this.ui.showErrorDialogFromObject(response.response.data.map((d: any) => d.errorMessage = d.validation));
+      } else {
+        this.ui.showInfoSnackBar("Objekty byly zkopirovane");
+
+      }
+    }, error => {
+      console.log(error);
+      this.ui.showInfoSnackBar(error.statusText);
+    });
+  }
+
+  czidlo() {
+
+    const dialogRef = this.dialog.open(CzidloDialogComponent, {
+      data: this.layout.item.pid,
+      panelClass: 'app-urnbnb-dialog',
+      width: '600px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+
+      }
+    });
+  }
+
+  canUpdateInSource() {
+    return this.config.updateInSourceModels.includes(this.layout.item.model)
+  }
+
+  updateInSource() {
+
+    const dialogRef = this.dialog.open(UpdateInSourceDialogComponent, {
+      data: this.layout.item.pid,
+      panelClass: 'app-urnbnb-dialog',
+      width: '600px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+
+      }
+    });
+  }
+
 
 }

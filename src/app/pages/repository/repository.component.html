@@ -12,10 +12,26 @@
       </ng-container>
       <a *ngIf="layout.path.length === 1" (click)="selectLast()" class="app-text-cutter" [matTooltip]="layout.item.label" [matTooltipPosition]="'above'">{{ layout.item.label }}</a>
     </div>
-    <div fxFlex class="app-ml-4">
+    <div class="app-ml-4" >
       <div *ngIf="layout.path.length === 1" class="app-model">{{ 'model.' + layout.item.model | translate }}</div>
       <div *ngIf="layout.path.length > 1" class="app-model app-cursor-pointer" (click)="selectLast()">{{ 'model.' + layout.item.model | translate }} - {{ layout.item.label }}</div>
     </div>
+    <div fxFlex class="app-ml-4">
+        <button mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menuMore="matMenu">
+          <button mat-menu-item (click)="onExport()" >{{ 'button.export' | translate }}</button>
+          <button mat-menu-item (click)="onUrnnbn()" >URN:NBN</button>
+          <button mat-menu-item *ngIf="canCopy()" (click)="onCopyItem()" mat-button>{{ 'button.copy' | translate }}</button>
+          
+          <!-- <button mat-menu-item *ngIf="auth.user.changeModelFunction || auth.isSuperAdmin()" (click)="showConvertDialog()">{{ 'button.convertPages' | translate }}</button> -->
+          <button mat-menu-item *ngIf="auth.user.czidloFunction || auth.isSuperAdmin()" (click)="czidlo()">{{ 'button.czidloFunction' | translate }}</button>
+          <button mat-menu-item *ngIf="config.updateInSource && auth.isSuperAdmin() && canUpdateInSource()" (click)="updateInSource()">{{ 'button.updateInSource' | translate }}</button>
+
+        </mat-menu>
+      </div>
+    
     <div>
       <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToObject(layout.parent)" [disabled]="!layout.parent" mat-icon-button>
         <mat-icon>keyboard_arrow_up</mat-icon>

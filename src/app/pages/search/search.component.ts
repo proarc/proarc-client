@@ -26,6 +26,7 @@ import { LayoutService } from 'src/app/services/layout.service';
 import { CzidloDialogComponent } from 'src/app/dialogs/czidlo-dialog/czidlo-dialog.component';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { UpdateInSourceDialogComponent } from 'src/app/dialogs/update-in-source-dialog/update-in-source-dialog.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -102,6 +103,7 @@ export class SearchComponent implements OnInit {
   colsWidth: { [key: string]: string } = {};
 
   isAkubra: boolean;
+  subscriptions: Subscription[] = [];
 
   constructor(private api: ApiService,
     public properties: LocalStorageService,
@@ -116,6 +118,11 @@ export class SearchComponent implements OnInit {
     public layout: LayoutService,
     private clipboard: Clipboard) {
     this.models = this.config.allModels;
+  }
+  
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   ngOnInit() {
@@ -143,9 +150,9 @@ export class SearchComponent implements OnInit {
       this.isAkubra = info.storage === 'Akubra';
     });
 
-    this.ui.refresh.subscribe(v => {
+    this.subscriptions.push(this.ui.refresh.subscribe(v => {
       this.reload();
-    });
+    }));
   }
 
   filter() {
