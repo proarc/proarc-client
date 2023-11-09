@@ -2437,7 +2437,8 @@
     "field": "Field",
     "query": "Query",
     "catalog": "Catalog",
-    "showOnlyTheElement": "Show only element (s)"
+    "showOnlyTheElement": "Show only element (s)",
+    "jumpToElement": "Jump to element"
   },
   "button": {
     "setLayout": "Set layout",

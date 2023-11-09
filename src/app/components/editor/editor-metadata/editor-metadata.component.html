@@ -31,11 +31,11 @@
 	<div fxFlex class="app-oa-">
 		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
 		<div class="app-editor-content" *ngIf="metadata && state !=='loading'" fxLayout="column">
-			<div *ngIf="byField">
+			<div *ngIf="byField || true">
 				<mat-form-field class="app-w-100 app-p-2 app-mt-1 app-clean-mb">
-					<mat-label>{{ 'desc.showOnlyTheElement' | translate }}</mat-label>
+					<mat-label>{{ 'desc.jumpToElement' | translate }}</mat-label>
 					<mat-select [(ngModel)]="selectedField" (valueChange)="scrollToElement($event)">
-						<mat-option *ngFor="let field of availableFields" [value]="field" [class.app-warning]="metadata.invalidFields.includes(field)">{{'mods.' + metadata.template[field]['labelKey'] | translate}}</mat-option>
+						<mat-option *ngFor="let field of availableFields" [value]="field" [class.app-warn-text]="metadata.invalidFields.includes(field)">{{'mods.' + metadata.template[field]['labelKey'] | translate}}</mat-option>
 					</mat-select>
 				</mat-form-field>
 			</div>

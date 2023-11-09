@@ -155,6 +155,7 @@ export class EditorMetadataComponent implements OnInit {
     }
     setTimeout(() => {
       this.setFieldsOrder();
+      this.metadata.validate();
     }, 10);
 
 
