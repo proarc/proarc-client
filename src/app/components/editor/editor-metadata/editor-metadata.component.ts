@@ -79,7 +79,7 @@ export class EditorMetadataComponent implements OnInit {
   logMetadata() {
     //console.log(this.metadata);
     const valid = this.metadata.validate()
-    console.log(valid);
+    console.log(valid, this.metadata.invalidFields);
     if (!valid) {
       this.availableFields.forEach(k => {
         this.visibleFields[k] = true;
@@ -203,6 +203,11 @@ export class EditorMetadataComponent implements OnInit {
       }
     }, 10);
 
+  }
+
+  scrollToElement(field: string) {
+    const idx = this.fieldsOrder.indexOf(field);
+    this.scroller.nativeElement.scrollTop = this.fieldsHeights[idx].top - this.scroller.nativeElement.getBoundingClientRect().top;
   }
 
   changeSelected(e: any) {

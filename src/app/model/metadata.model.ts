@@ -62,6 +62,7 @@ export class Metadata {
   private fieldsIds: string[] = [];
 
   private fields: Map<String, ElementField>;
+  public invalidFields: string[] = [];
 
   // public template: { [x: string]: boolean; };
   public template: { [x: string]: any; };
@@ -109,12 +110,14 @@ export class Metadata {
 
   validate(parent: ModsElement = null): boolean {
     let valid = true;
+    this.invalidFields = [];
     for (const id of this.fieldsIds) {
       const f = this.fields.get(id);
       for (const item of f.getItems()) {
         if (!item.validate(parent)) {
           valid = false;
           item.collapsed = false;
+          this.invalidFields.push(id);
           // if (parent) {
           //   parent.collapsed = false;
           // }
@@ -127,6 +130,7 @@ export class Metadata {
                 valid = false;
                 item2.collapsed = false;
                 item.collapsed = false;
+                this.invalidFields.push(id);
                 // if (parent) {
                 //   parent.collapsed = false;
                 // }

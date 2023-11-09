@@ -1,7 +1,7 @@
 
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DateAdapter } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { Uuid } from 'src/app/utils/uuid';
 import { ApiService } from 'src/app/services/api.service';
 import { DatePipe } from '@angular/common';
@@ -12,9 +12,60 @@ import { Moment } from 'moment';
 import * as moment from 'moment';
 import { FormControl } from '@angular/forms';
 
+
+export class MultiDateFormat {
+  value = '';
+  constructor() {}
+  get display() {
+    switch(this.value) {
+      case 'mm.yyyy':
+        return {
+          dateInput: 'MM.YYYY',
+          monthYearLabel: 'MM YYYY',
+          dateA11yLabel: 'MM.YYYY',
+          monthYearA11yLabel: 'MM YYYY',
+        };
+      case 'yyyy':
+        return {
+          dateInput: 'YYYY',
+          monthYearLabel: 'MM YYYY',
+          dateA11yLabel: 'MM.YYYY',
+          monthYearA11yLabel: 'MM YYYY',
+        };
+        default:
+          return {
+            dateInput: 'DD.MM.YYYY',
+            monthYearLabel: 'MMM YYYY',
+            dateA11yLabel: 'LL',
+            monthYearA11yLabel: 'MMMM YYYY',
+          }
+    }
+
+  }
+  get parse() {
+    switch(this.value) {
+      case 'mm.yyyy':
+        return {
+          dateInput: 'MM.YYYY'
+        };
+      case 'yyyy':
+        return {
+          dateInput: 'YYYY'
+        };
+        default:
+          return {
+            dateInput: 'DD.MM.YYYY'
+          }
+    }
+    
+  }
+}
+
+
 @Component({
   selector: 'app-new-object-dialog',
   templateUrl: './new-object-dialog.component.html',
+  providers: [{ provide: MAT_DATE_FORMATS, useClass: MultiDateFormat }],
   styleUrls: ['./new-object-dialog.component.scss']
 })
 export class NewObjectDialogComponent implements OnInit {
@@ -22,8 +73,8 @@ export class NewObjectDialogComponent implements OnInit {
   state = 'none';
   isMultiple: boolean;
   seriesPartNumberFrom: number;
-  seriesDateFrom: Date;
-  seriesDateTo: Date;
+  seriesDateFrom = new FormControl();
+  seriesDateTo = new FormControl();
   seriesDaysIncluded: number[] = [];
   releasedInRange: number[] = [];
   weekDays = [1,2,3,4,5,6,7];
@@ -38,9 +89,9 @@ export class NewObjectDialogComponent implements OnInit {
 
   filteredModels: string[];
 
-  dateFrom = new FormControl(moment());
 
   constructor(
+    @Inject(MAT_DATE_FORMATS) private dateFormatConfig: MultiDateFormat,
     public adapter: DateAdapter<any>,
     private datePipe: DatePipe,
     public dialogRef: MatDialogRef<NewObjectDialogComponent>,
@@ -58,13 +109,31 @@ export class NewObjectDialogComponent implements OnInit {
     return !this.data.customPid || Uuid.validate(this.data.pid);
   }
 
-  setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.dateFrom.value!;
-    ctrlValue.month(normalizedMonthAndYear.month());
-    ctrlValue.year(normalizedMonthAndYear.year());
-    this.dateFrom.setValue(ctrlValue);
+  setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>, control: FormControl) {
+    if (this.dateFormat === 'mm.yyyy') {
+      const ctrlValue = control.value ? control.value : new Date();
+      ctrlValue.setMonth(normalizedMonthAndYear.month());
+      ctrlValue.setFullYear(normalizedMonthAndYear.year());
+      control.setValue(ctrlValue);
     // this.seriesDateTo = ctrlValue;
-    // datepicker.close();
+      datepicker.close();
+    }
+  }
+
+  setYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>, control: FormControl) {
+    if (this.dateFormat === 'yyyy') {
+      const ctrlValue = control.value ? control.value : new Date();
+      ctrlValue.setMonth(normalizedMonthAndYear.month());
+      ctrlValue.setFullYear(normalizedMonthAndYear.year());
+      control.setValue(ctrlValue);
+    // this.seriesDateTo = ctrlValue;
+      datepicker.close();
+    }
+  }
+
+  changeFormat(e: string) {
+    this.dateFormatConfig.value = e;
+    this.seriesDateFrom = new FormControl(this.seriesDateFrom.value);
   }
 
   onCreate() {
@@ -83,8 +152,8 @@ export class NewObjectDialogComponent implements OnInit {
     if (this.isMultiple) {
       // tady vytvorime a rovnou ulozime
       data += '&seriesPartNumberFrom='+this.seriesPartNumberFrom;
-      data += '&seriesDateFrom='+ this.datePipe.transform(this.seriesDateFrom, 'yyyy-MM-dd');
-      data += '&seriesDateTo='+this.datePipe.transform(this.seriesDateTo, 'yyyy-MM-dd');
+      data += '&seriesDateFrom='+ this.datePipe.transform(this.seriesDateFrom.value, 'yyyy-MM-dd');
+      data += '&seriesDateTo='+this.datePipe.transform(this.seriesDateTo.value, 'yyyy-MM-dd');
       this.seriesDaysIncluded.forEach(d => {
         data += '&seriesDaysIncluded='+d;
       });
@@ -103,6 +172,9 @@ export class NewObjectDialogComponent implements OnInit {
       // jen pripravime pro editace
       data = `${data}&createObject=false&validate=false`;
     }
+
+    console.log(data)
+    return;
 
     this.api.createObject(data).subscribe((response: any) => {
       if (response['response'].errors) {

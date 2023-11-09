@@ -34,8 +34,8 @@
 			<div *ngIf="byField">
 				<mat-form-field class="app-w-100 app-p-2 app-mt-1 app-clean-mb">
 					<mat-label>{{ 'desc.showOnlyTheElement' | translate }}</mat-label>
-					<mat-select [(ngModel)]="selectedField" (valueChange)="changeSelected($event)">
-						<mat-option *ngFor="let field of availableFields" [value]="field">{{'mods.' + metadata.template[field]['labelKey'] | translate}}</mat-option>
+					<mat-select [(ngModel)]="selectedField" (valueChange)="scrollToElement($event)">
+						<mat-option *ngFor="let field of availableFields" [value]="field" [class.app-warning]="metadata.invalidFields.includes(field)">{{'mods.' + metadata.template[field]['labelKey'] | translate}}</mat-option>
 					</mat-select>
 				</mat-form-field>
 			</div>
