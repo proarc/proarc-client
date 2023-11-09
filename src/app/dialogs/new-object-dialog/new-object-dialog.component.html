@@ -12,31 +12,22 @@
     <input type="text" autocomplete="off" matInput [placeholder]="'desc.pid' | translate" [(ngModel)]="data.pid">
   </mat-form-field>
 
-  <mat-card class="app-alert app-warn app-mb-4"  *ngIf="data.customPid && !validate()">
-    <mat-icon>warning</mat-icon>{{ 'dialog.newObject.alert.invalidPid' | translate }}
+  <mat-card class="app-alert app-warn app-mb-4" *ngIf="data.customPid && !validate()">
+    <mat-icon>warning</mat-icon>
+    {{ 'dialog.newObject.alert.invalidPid' | translate }}
   </mat-card>
 
-  <mat-checkbox color="primary" [(ngModel)]="data.customPid" class="app-mr-4">{{ 'desc.ownPid' | translate }}</mat-checkbox>
-  <mat-checkbox color="primary" [(ngModel)]="isMultiple" *ngIf="data.parentPid && data.model === 'model:ndkperiodicalissue'">{{ 'desc.more' | translate }}</mat-checkbox><!-- TODO -->
+  <mat-checkbox color="primary" [(ngModel)]="data.customPid"
+                class="app-mr-4">{{ 'desc.ownPid' | translate }}</mat-checkbox>
+  <mat-checkbox color="primary" [(ngModel)]="isMultiple"
+                *ngIf="data.parentPid && data.model === 'model:ndkperiodicalissue'">{{ 'desc.more' | translate }}</mat-checkbox>
+  <!-- TODO -->
 
-  <div *ngIf="data.parentPid && data.model === 'model:ndkperiodicalissue'" fxLayout="row" fxLayoutGap="16px" class="app-formbar app-mt-1">
+  <div *ngIf="data.parentPid && data.model === 'model:ndkperiodicalissue'" fxLayout="row" fxLayoutGap="16px"
+       class="app-formbar app-mt-1">
     <mat-form-field fxFlex>
-      <input type="number" autocomplete="off" matInput [placeholder]="'desc.numberFrom' | translate" [(ngModel)]="seriesPartNumberFrom" [disabled]="!isMultiple">
-    </mat-form-field>
-
-    <mat-form-field fxFlex>
-      <input matInput [matDatepicker]="dp1" [placeholder]="'desc.dateFrom' | translate"  [disabled]="!isMultiple"
-         [formControl]="seriesDateFrom">
-      <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
-      <mat-datepicker #dp1 (monthSelected)="setMonthAndYear($event, dp1, seriesDateFrom)" (yearSelected)="setYear($event, dp1, seriesDateFrom)" startView="multi-year">
-    </mat-datepicker>
-    </mat-form-field>
-
-    <mat-form-field fxFlex>
-      <input matInput [matDatepicker]="dp2" [placeholder]="'desc.dateTo' | translate" [disabled]="!isMultiple"
-      [formControl]="seriesDateTo" >
-      <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
-      <mat-datepicker #dp2 (monthSelected)="setMonthAndYear($event, dp2, seriesDateTo)" (yearSelected)="setYear($event, dp2, seriesDateTo)" startView="multi-year" ></mat-datepicker>
+      <input type="number" autocomplete="off" matInput [placeholder]="'desc.numberFrom' | translate"
+             [(ngModel)]="seriesPartNumberFrom" [disabled]="!isMultiple">
     </mat-form-field>
 
     <mat-form-field fxFlex>
@@ -47,44 +38,75 @@
     </mat-form-field>
 
     <mat-form-field fxFlex>
-      <input type="text" autocomplete="off" matInput [placeholder]="'catalog.field.signature' | translate" [(ngModel)]="seriesSignatura" [disabled]="!isMultiple">
-    </mat-form-field>
-    </div>
-
-    <div *ngIf="data.parentPid && data.model === 'model:ndkperiodicalissue'" fxLayout="row" fxLayoutGap="16px" class="app-formbar app-mt-1">
-    <mat-form-field fxFlex>
       <mat-label>{{ 'desc.dateFormat' | translate }}</mat-label>
-      <mat-select (valueChange)="changeFormat($event)" [(value)]="dateFormat" [disabled]="!isMultiple || frequency === 'other' || frequency === 'd' || frequency === 'w' || frequency === 'hm'">
+      <mat-select (valueChange)="changeFormat($event)" [(value)]="dateFormat"
+                  [disabled]="!isMultiple || frequency === 'other' || frequency === 'd' || frequency === 'w' || frequency === 'hm'">
         <mat-option *ngFor="let df of dateFormats" [value]="df">{{df}}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field fxFlex>
+      <input type="text" autocomplete="off" matInput [placeholder]="'catalog.field.signature' | translate"
+             [(ngModel)]="seriesSignatura" [disabled]="!isMultiple">
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="data.parentPid && data.model === 'model:ndkperiodicalissue'" fxLayout="row" fxLayoutGap="16px"
+       class="app-formbar app-mt-1">
+    <mat-form-field fxFlex>
+      <input matInput [matDatepicker]="dp1" [placeholder]="'desc.dateFrom' | translate" [disabled]="!isMultiple"
+             [formControl]="seriesDateFrom">
+      <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+      <mat-datepicker #dp1 (monthSelected)="setMonthAndYear($event, dp1, seriesDateFrom)"
+                      (yearSelected)="setYear($event, dp1, seriesDateFrom)" startView="multi-year">
+      </mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
+      <input matInput [matDatepicker]="dp2" [placeholder]="'desc.dateTo' | translate" [disabled]="!isMultiple"
+             [formControl]="seriesDateTo">
+      <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+      <mat-datepicker #dp2 (monthSelected)="setMonthAndYear($event, dp2, seriesDateTo)"
+                      (yearSelected)="setYear($event, dp2, seriesDateTo)" startView="multi-year"></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
       <mat-label>{{ 'desc.releasedIn' | translate }}</mat-label>
-      <mat-select [(value)]="seriesDaysIncluded" multiple [disabled]="!isMultiple || frequency === 'other' || frequency ==='d'">
-        <mat-option *ngFor="let weekDay of weekDays" [value]="weekDay">{{'common.day.' + weekDay | translate}}</mat-option>
+      <mat-select [(value)]="seriesDaysIncluded" multiple
+                  [disabled]="!isMultiple || frequency === 'other' || frequency ==='d'">
+        <mat-option *ngFor="let weekDay of weekDays"
+                    [value]="weekDay">{{'common.day.' + weekDay | translate}}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field fxFlex>
       <mat-label>{{ 'desc.releasedInRange' | translate }}</mat-label>
-      <mat-select [(value)]="releasedInRange" multiple [disabled]="!isMultiple || frequency ==='d' || frequency === 'w'|| frequency === 'hm' || frequency === 'm' || frequency === 'qy' || frequency === 'hy' || frequency === 'y'">
-        <mat-option *ngFor="let weekDay of weekDays" [value]="weekDay">{{'common.day.' + weekDay | translate}}</mat-option>
+      <mat-select [(value)]="releasedInRange" multiple
+                  [disabled]="!isMultiple || frequency ==='d' || frequency === 'w'|| frequency === 'hm' || frequency === 'm' || frequency === 'qy' || frequency === 'hy' || frequency === 'y'">
+        <mat-option *ngFor="let weekDay of weekDays"
+                    [value]="weekDay">{{'common.day.' + weekDay | translate}}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
 
-  <div class="app-desc" [ngClass]="data.parentPid && data.model === 'model:ndkperiodicalissue' ? null : 'app-mt-4'">{{ 'dialog.newObject.message' | translate }}</div>
+  <div class="app-desc"
+       [ngClass]="data.parentPid && data.model === 'model:ndkperiodicalissue' ? null : 'app-mt-4'">{{ 'dialog.newObject.message' | translate }}</div>
 
-  <mat-card class="app-alert app-warn app-mt-4"  *ngIf="state=='error'">
-    <mat-icon>warning</mat-icon>{{ 'dialog.newObject.alert.failure' | translate }}
+  <mat-card class="app-alert app-warn app-mt-4" *ngIf="state=='error'">
+    <mat-icon>warning</mat-icon>
+    {{ 'dialog.newObject.alert.failure' | translate }}
   </mat-card>
 
 </div>
 
 <div mat-dialog-actions cdkFocusRegionstart>
-  <button *ngIf="data.fromNavbar" mat-flat-button color="primary" (click)="onLoadFromCatalog()">{{ 'button.loadMetadataFromCatalog' | translate }}</button>
-  <button *ngIf="!data.fromNavbar" mat-icon-button color="primary" (click)="onLoadFromCatalog()" [matTooltip]="'button.loadMetadataFromCatalog' | translate"><mat-icon>local_library</mat-icon></button>
-  <button mat-flat-button color="primary" (click)="onCreate()" [disabled]="!validate()" >{{ 'button.create' | translate }}</button>
-  <button mat-stroked-button color="default" mat-dialog-close="close" >{{ 'button.cancel' | translate }}</button>
+  <button *ngIf="data.fromNavbar" mat-flat-button color="primary"
+          (click)="onLoadFromCatalog()">{{ 'button.loadMetadataFromCatalog' | translate }}</button>
+  <button *ngIf="!data.fromNavbar" mat-icon-button color="primary" (click)="onLoadFromCatalog()"
+          [matTooltip]="'button.loadMetadataFromCatalog' | translate">
+    <mat-icon>local_library</mat-icon>
+  </button>
+  <button mat-flat-button color="primary" (click)="onCreate()"
+          [disabled]="!validate()">{{ 'button.create' | translate }}</button>
+  <button mat-stroked-button color="default" mat-dialog-close="close">{{ 'button.cancel' | translate }}</button>
 </div>
