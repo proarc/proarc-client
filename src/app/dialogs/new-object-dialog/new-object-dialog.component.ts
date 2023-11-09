@@ -173,9 +173,6 @@ export class NewObjectDialogComponent implements OnInit {
       data = `${data}&createObject=false&validate=false`;
     }
 
-    console.log(data)
-    return;
-
     this.api.createObject(data).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
