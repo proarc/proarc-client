@@ -40,7 +40,7 @@
 				</mat-form-field>
 			</div>
 
-			<div [ngSwitch]="model" fxFlex class="app-oa-y" #scroller (scroll)="checkVisibility()">
+			<div [ngSwitch]="model" fxFlex class="app-oa-y" #scroller (scroll)="checkVisibility()" tabIndex="0" style="outline: none !important; ">
 				<div style="float: left;" [style.height]="scrollHeight +'px'">&nbsp;</div>
 				<div [style.height]="startHeight +'px'"></div>
 				<ng-container *ngSwitchCase="'model:chroniclevolume'" [ngTemplateOutlet]="chronicle" ></ng-container>
