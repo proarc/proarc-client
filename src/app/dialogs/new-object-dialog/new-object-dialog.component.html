@@ -32,7 +32,7 @@
 
     <mat-form-field fxFlex>
       <mat-label>{{ 'desc.frequency' | translate }}</mat-label>
-      <mat-select [(value)]="frequency" [disabled]="!isMultiple">
+      <mat-select [(value)]="frequency" [disabled]="!isMultiple" (valueChange)="frecuencyChanged($event)">
         <mat-option *ngFor="let fr of frequences" [value]="fr">{{'common.frequency.' + fr | translate}}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -73,7 +73,7 @@
     <mat-form-field fxFlex>
       <mat-label>{{ 'desc.releasedIn' | translate }}</mat-label>
       <mat-select [(value)]="seriesDaysIncluded" multiple
-                  [disabled]="!isMultiple || frequency === 'other' || frequency ==='d'">
+                  [disabled]="!isMultiple || frequency === 'other' || frequency ==='w'">
         <mat-option *ngFor="let weekDay of weekDays"
                     [value]="weekDay">{{'common.day.' + weekDay | translate}}</mat-option>
       </mat-select>

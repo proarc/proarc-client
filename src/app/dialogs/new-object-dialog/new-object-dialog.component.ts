@@ -223,6 +223,12 @@ export class NewObjectDialogComponent implements OnInit {
     });
   }
 
+  frecuencyChanged(e:string) {
+    if (e === 'd') {
+      this.seriesDaysIncluded = [1,2,3,4,5,6,7]
+    }
+  }
+
 }
 
 export interface NewObjectData {
