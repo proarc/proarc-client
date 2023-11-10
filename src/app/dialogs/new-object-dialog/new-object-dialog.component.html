@@ -54,7 +54,7 @@
   <div *ngIf="data.parentPid && data.model === 'model:ndkperiodicalissue'" fxLayout="row" fxLayoutGap="16px"
        class="app-formbar app-mt-1">
     <mat-form-field fxFlex>
-      <input matInput [matDatepicker]="dp1" [placeholder]="'desc.dateFrom' | translate" [disabled]="!isMultiple"
+      <input matInput [matDatepicker]="dp1" [placeholder]="'desc.dateFrom' | translate" [disabled]="!isMultiple" [max]="maxDate"
              [formControl]="seriesDateFrom">
       <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
       <mat-datepicker #dp1 (monthSelected)="setMonthAndYear($event, dp1, seriesDateFrom)"
@@ -63,7 +63,7 @@
     </mat-form-field>
 
     <mat-form-field fxFlex>
-      <input matInput [matDatepicker]="dp2" [placeholder]="'desc.dateTo' | translate" [disabled]="!isMultiple"
+      <input matInput [matDatepicker]="dp2" [placeholder]="'desc.dateTo' | translate" [disabled]="!isMultiple" [max]="maxDate"
              [formControl]="seriesDateTo">
       <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
       <mat-datepicker #dp2 (monthSelected)="setMonthAndYear($event, dp2, seriesDateTo)"

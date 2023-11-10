@@ -89,6 +89,8 @@ export class NewObjectDialogComponent implements OnInit {
 
   filteredModels: string[];
 
+  maxDate: Date = new Date();
+
 
   constructor(
     @Inject(MAT_DATE_FORMATS) private dateFormatConfig: MultiDateFormat,
@@ -102,6 +104,7 @@ export class NewObjectDialogComponent implements OnInit {
 
   ngOnInit() {
     this.filteredModels = this.data.models.filter(f => f.indexOf('page') < 0);
+    this.maxDate.setFullYear(this.maxDate.getFullYear() + 2);
   }
 
 
