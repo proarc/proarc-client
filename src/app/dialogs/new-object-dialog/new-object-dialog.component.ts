@@ -57,7 +57,7 @@ export class MultiDateFormat {
             dateInput: 'DD.MM.YYYY'
           }
     }
-    
+
   }
 }
 
@@ -84,7 +84,8 @@ export class NewObjectDialogComponent implements OnInit {
   dateFormat: string = 'dd.mm.yyyy';
 
 
-  frequences = ['other', 'd','w','hm','m','qy','hy','y'];
+  // frequences = ['other', 'd','w','hm','m','qy','hy','y'];
+  frequences = ['other', 'd','w','hm','m','qy'];
   frequency: string = 'w';
 
   filteredModels: string[];

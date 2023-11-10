@@ -37,11 +37,11 @@
     },
     "frequency": {
       "other": "Jiné",
-      "d": "Denně",
-      "w": "Týdně",
-      "hm": "Půl měsíčně",
-      "m": "Měsíčně",
-      "qy": "Čtvrtletně",
+      "d": "Deník",
+      "w": "Týdeník",
+      "hm": "Čtrnáctideník",
+      "m": "Měsíčník",
+      "qy": "Čtvrtletník",
       "hy": "Půlročně",
       "y": "Ročně"
     }
