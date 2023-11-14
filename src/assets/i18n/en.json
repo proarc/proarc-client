@@ -2540,7 +2540,7 @@
     "model:monographunit": "K4 Monograph Unit",
     "model:ndkperiodical": "NDK Periodical",
     "model:ndkperiodicalvolume": "NDK Periodical Volume",
-    "model:ndkperiodicalissue": "NDK Periodical Isssue",
+    "model:ndkperiodicalissue": "NDK Periodical Issue",
     "model:ndkperiodicalsupplement": "NDK Periodical Supplement",
     "model:ndkarticle": "NDK Article",
     "model:ndkpicture": "NDK Picture/Map - internal part",
