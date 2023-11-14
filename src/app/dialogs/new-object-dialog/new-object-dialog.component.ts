@@ -72,7 +72,7 @@ export class NewObjectDialogComponent implements OnInit {
 
   state = 'none';
   isMultiple: boolean;
-  seriesPartNumberFrom: number;
+  seriesPartNumberFrom: number | null = null;
   seriesDateFrom = new FormControl();
   seriesDateTo = new FormControl();
   seriesDaysIncluded: number[] = [];
@@ -86,7 +86,7 @@ export class NewObjectDialogComponent implements OnInit {
 
   // frequences = ['other', 'd','w','hm','m','qy','hy','y'];
   frequences = ['other', 'd','w','hm','m','qy'];
-  frequency: string = 'w';
+  frequency: string = null;
 
   filteredModels: string[];
 
@@ -110,7 +110,7 @@ export class NewObjectDialogComponent implements OnInit {
 
 
   validate(): boolean {
-    return !this.data.customPid || Uuid.validate(this.data.pid);
+    return ((this.isMultiple && this.frequency && this.seriesPartNumberFrom !== null) || !this.isMultiple) && (!this.data.customPid || Uuid.validate(this.data.pid)) ;
   }
 
   setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>, control: FormControl) {
