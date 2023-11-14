@@ -26,13 +26,13 @@
   <div *ngIf="data.parentPid && data.model === 'model:ndkperiodicalissue'" fxLayout="row" fxLayoutGap="16px"
        class="app-formbar app-mt-1">
     <mat-form-field fxFlex>
-      <input type="number" autocomplete="off" matInput [placeholder]="'desc.numberFrom' | translate"
+      <input type="number" autocomplete="off" matInput [placeholder]="'desc.numberFrom' | translate" required
              [(ngModel)]="seriesPartNumberFrom" [disabled]="!isMultiple">
     </mat-form-field>
 
     <mat-form-field fxFlex>
       <mat-label>{{ 'desc.frequency' | translate }}</mat-label>
-      <mat-select [(value)]="frequency" [disabled]="!isMultiple" (valueChange)="frecuencyChanged($event)">
+      <mat-select [formControl]="frequency" [disabled]="!isMultiple" (valueChange)="frecuencyChanged($event)" required>
         <mat-option *ngFor="let fr of frequences" [value]="fr">{{'common.frequency.' + fr | translate}}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -40,7 +40,7 @@
     <mat-form-field fxFlex>
       <mat-label>{{ 'desc.dateFormat' | translate }}</mat-label>
       <mat-select (valueChange)="changeFormat($event)" [(value)]="dateFormat"
-                  [disabled]="!isMultiple || frequency === 'other' || frequency === 'd' || frequency === 'w' || frequency === 'hm'">
+                  [disabled]="!isMultiple || frequency.value === 'other' || frequency.value === 'd' || frequency.value === 'w' || frequency.value === 'hm'">
         <mat-option *ngFor="let df of dateFormats" [value]="df">{{df}}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -73,7 +73,7 @@
     <mat-form-field fxFlex>
       <mat-label>{{ 'desc.releasedIn' | translate }}</mat-label>
       <mat-select [(value)]="seriesDaysIncluded" multiple
-                  [disabled]="!isMultiple || frequency === 'other' || frequency ==='w' || frequency === 'hm' || frequency === 'm' || frequency === 'qy' || frequency === 'hy' || frequency === 'y'">
+                  [disabled]="!isMultiple || frequency.value !== 'd'">
         <mat-option *ngFor="let weekDay of weekDays"
                     [value]="weekDay">{{'common.day.' + weekDay | translate}}</mat-option>
       </mat-select>
@@ -82,7 +82,7 @@
     <mat-form-field fxFlex>
       <mat-label>{{ 'desc.releasedInRange' | translate }}</mat-label>
       <mat-select [(value)]="releasedInRange" multiple
-                  [disabled]="!isMultiple || frequency ==='d' || frequency === 'w'|| frequency === 'hm' || frequency === 'm' || frequency === 'qy' || frequency === 'hy' || frequency === 'y'">
+                  [disabled]="!isMultiple || frequency.value !=='other'">
         <mat-option *ngFor="let weekDay of weekDays"
                     [value]="weekDay">{{'common.day.' + weekDay | translate}}</mat-option>
       </mat-select>

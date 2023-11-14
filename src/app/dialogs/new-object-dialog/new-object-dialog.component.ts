@@ -86,7 +86,8 @@ export class NewObjectDialogComponent implements OnInit {
 
   // frequences = ['other', 'd','w','hm','m','qy','hy','y'];
   frequences = ['other', 'd','w','hm','m','qy'];
-  frequency: string = null;
+  frequency = new FormControl();
+  // frequency: string = null;
 
   filteredModels: string[];
 
@@ -110,7 +111,7 @@ export class NewObjectDialogComponent implements OnInit {
 
 
   validate(): boolean {
-    return ((this.isMultiple && this.frequency && this.seriesPartNumberFrom !== null) || !this.isMultiple) && (!this.data.customPid || Uuid.validate(this.data.pid)) ;
+    return ((this.isMultiple && this.frequency.value && this.seriesPartNumberFrom !== null) || !this.isMultiple) && (!this.data.customPid || Uuid.validate(this.data.pid)) ;
   }
 
   setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>, control: FormControl) {
@@ -170,7 +171,7 @@ export class NewObjectDialogComponent implements OnInit {
         data += '&seriesSignatura='+this.seriesSignatura;
       }
 
-      data += '&seriesFrequency='+this.frequency;
+      data += '&seriesFrequency='+this.frequency.value;
       data += '&seriesDateFormat='+this.dateFormat;
     } else {
       // jen pripravime pro editace
