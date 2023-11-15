@@ -72,7 +72,7 @@ export class NewObjectDialogComponent implements OnInit {
 
   state = 'none';
   isMultiple: boolean;
-  seriesPartNumberFrom: number | null = null;
+  seriesPartNumberFrom = new FormControl();
   seriesDateFrom = new FormControl();
   seriesDateTo = new FormControl();
   seriesDaysIncluded: number[] = [];
@@ -111,7 +111,12 @@ export class NewObjectDialogComponent implements OnInit {
 
 
   validate(): boolean {
-    return ((this.isMultiple && this.frequency.value && this.seriesPartNumberFrom !== null) || !this.isMultiple) && (!this.data.customPid || Uuid.validate(this.data.pid)) ;
+    return ((this.isMultiple && this.frequency.value && this.seriesPartNumberFrom.value !== null) || !this.isMultiple) && (!this.data.customPid || Uuid.validate(this.data.pid)) ;
+  }
+
+  markRequired() {
+    this.seriesPartNumberFrom.markAsTouched();
+    this.frequency.markAsTouched();
   }
 
   setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>, control: FormControl) {
@@ -156,7 +161,7 @@ export class NewObjectDialogComponent implements OnInit {
 
     if (this.isMultiple) {
       // tady vytvorime a rovnou ulozime
-      data += '&seriesPartNumberFrom='+this.seriesPartNumberFrom;
+      data += '&seriesPartNumberFrom='+this.seriesPartNumberFrom.value;
       data += '&seriesDateFrom='+ this.datePipe.transform(this.seriesDateFrom.value, 'yyyy-MM-dd');
       data += '&seriesDateTo='+this.datePipe.transform(this.seriesDateTo.value, 'yyyy-MM-dd');
       this.seriesDaysIncluded.forEach(d => {
