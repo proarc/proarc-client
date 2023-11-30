@@ -469,7 +469,7 @@ export class RepositoryComponent implements OnInit {
   czidlo() {
 
     const dialogRef = this.dialog.open(CzidloDialogComponent, {
-      data: this.layout.item.pid,
+      data: {pid: this.layout.item.pid, model: this.layout.item.model},
       panelClass: 'app-urnbnb-dialog',
       width: '600px'
     });

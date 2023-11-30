@@ -730,7 +730,7 @@ export class SearchComponent implements OnInit {
   czidlo(item: DocumentItem) {
 
     const dialogRef = this.dialog.open(CzidloDialogComponent, {
-      data: item.pid,
+      data: {pid: item.pid, model: item.model},
       panelClass: 'app-urnbnb-dialog',
       width: '600px'
     });
