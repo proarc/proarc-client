@@ -561,14 +561,6 @@
       "title": "Jazyk",
       "part": "Část"
     },
-    "identifier": {
-      "title": "Identifikátor",
-      "type": "Typ",
-      "value": "Hodnota",
-      "invalid": "Neplatný",
-      "valid": "Platný",
-      "validity": "Platnost"
-    },
     "note": {
       "tab": "Note",
       "note": "Note",
@@ -579,6 +571,12 @@
       "show_current": "Zobrazit aktuální"
     },
     "identifier": {
+      "title": "Identifikátor",
+      "type": "Typ",
+      "value": "Hodnota",
+      "invalid": "Neplatný",
+      "valid": "Platný",
+      "validity": "Platnost",
       "barcode": "Čárový kód",
       "issn": "ISSN",
       "isbn": "ISBN",
@@ -2720,6 +2718,10 @@
       "successor": "Následovník",
       "invalidate": "Lokálně zneplatnit",
       "newRegistration": "Nová registrace UUID",
+      "updateIdentifier": "Oprava/doplnění",
+      "operations": "Typ operace",
+      "update": "Oprava",
+      "delete": "Odstranění",
       "alert": {
         "success": "Žádné položky k zobrazení",
         "error": "Při zneplatneni URN:NBN se vyskytla chyba"

@@ -1,20 +1,38 @@
 <h1 mat-dialog-title>{{ 'CZIDLO' | translate }}</h1>
 <div mat-dialog-content>
     <div fxLayout="column" fxLayoutGap="8px">
-        <ng-container *ngIf="!(showSuccessor || showNewRegistration) && !responseData">
+        <ng-container *ngIf="!(showSuccessor || showNewRegistration || showUpdateIdentifier) && !responseData">
             <button mat-flat-button color="primary" (click)="onSuccessor()">{{ 'dialog.czidlo.successor' | translate
                 }}</button>
             <button mat-flat-button color="primary" (click)="invalidateLocal()">{{ 'dialog.czidlo.invalidate' |
                 translate }}</button>
             <button mat-flat-button color="primary" (click)="onNewRegistration()">{{ 'dialog.czidlo.newRegistration' |
                 translate }}</button>
+            <button mat-flat-button color="primary" (click)="onUpdateIdentifier()">{{ 'dialog.czidlo.updateIdentifier' |
+                translate }}</button>
         </ng-container>
 
-            <div *ngIf="showSuccessor || showNewRegistration">
+            <div *ngIf="showSuccessor || showNewRegistration || showUpdateIdentifier">
                 <mat-form-field class="app-w-100">
                     <mat-select [placeholder]="'desc.registrar' | translate" [(ngModel)]="selectedRegistrar"
                         [disabled]="formDisabled()">
                         <mat-option *ngFor="let registrar of registrars" [value]="registrar">{{ registrar.name
+                            }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div *ngIf="showUpdateIdentifier">
+                <mat-form-field class="app-w-100">
+                    <mat-select [placeholder]="'desc.identifiers' | translate" [(ngModel)]="selectedIdentifier"
+                        [disabled]="formDisabled()">
+                        <mat-option *ngFor="let identifier of identifiers" [value]="identifier.code">{{ 'editor.' + identifier.name | translate
+                            }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="app-w-100">
+                    <mat-select [placeholder]="'dialog.czidlo.operations' | translate" [(ngModel)]="selectedOperation"
+                        [disabled]="formDisabled()">
+                        <mat-option *ngFor="let op of operations" [value]="op">{{ 'dialog.czidlo.' + op | translate
                             }}</mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -90,6 +108,7 @@
 <div mat-dialog-actions cdkFocusRegionstart>
     <button *ngIf="showNewRegistration" mat-flat-button color="primary" [disabled]="formDisabled()" (click)="newRegistration()">{{ 'dialog.czidlo.newRegistration' | translate }}</button>
     <button *ngIf="showSuccessor" mat-flat-button color="primary" [disabled]="formDisabled()" (click)="successor()">{{ 'button.successor' | translate }}</button>
+    <button *ngIf="showUpdateIdentifier" mat-flat-button color="primary" [disabled]="formDisabled()" (click)="updateIdentifier()">{{ 'button.successor' | translate }}</button>
     <button mat-stroked-button mat-dialog-close="close">{{ 'button.close' | translate }}</button>
     <button *ngIf="log" mat-flat-button color="warn" (click)="showErrorDetail(log)">{{ 'button.viewErrorOutput' | translate }}</button>
 </div>

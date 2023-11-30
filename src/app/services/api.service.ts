@@ -216,12 +216,15 @@ export class ApiService {
     return this.post('object/urnnbn/invalidateLocal', data);
   }
 
+  updateIdentifier(pid: string, resolver: string, identifier: string, operation: string): Observable<any> {
+    let data = `pid=${pid}&resolverId=${resolver}&identifier=${identifier}&operation=${operation}`;
+    return this.post('object/urnnbn/updateIdentifier', data);
+  }
+
   newRegistration(pid: string, resolver: string): Observable<any> {
     let data = `pid=${pid}&resolverId=${resolver}`;
     return this.post('object/urnnbn/registerAgain', data);
   }
-
-
 
   createObject(data: string): Observable<any> {
     return this.post('object', data);

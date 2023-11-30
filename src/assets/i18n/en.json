@@ -2720,6 +2720,10 @@
       "successor": "Successor",
       "invalidate": "Invalidate local",
       "newRegistration": "New UUID registry",
+      "updateIdentifier": "Update/complete",
+      "operations": "Operations",
+      "update": "Update",
+      "delete": "Delete",
       "alert": {
         "success": "No items to display",
         "error": "There was an error invalidating"
