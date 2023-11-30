@@ -2720,6 +2720,7 @@
       "invalidate": "Lokálně zneplatnit",
       "newRegistration": "Nová registrace UUID",
       "updateIdentifier": "Oprava/doplnění",
+      "invalidateRemote": "Deaktivace URN:NBN",
       "operations": "Typ operace",
       "update": "Oprava",
       "delete": "Odstranění",

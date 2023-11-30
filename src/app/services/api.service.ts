@@ -221,6 +221,11 @@ export class ApiService {
     return this.post('object/urnnbn/updateIdentifier', data);
   }
 
+  invalidateRemote(resolver: string, urnnbn: string): Observable<any> {
+    let data = `valueToDeactivate=${urnnbn}&resolverId=${resolver}`;
+    return this.post('object/urnnbn/invalidateRemote', data);
+  }
+
   newRegistration(pid: string, resolver: string): Observable<any> {
     let data = `pid=${pid}&resolverId=${resolver}`;
     return this.post('object/urnnbn/registerAgain', data);

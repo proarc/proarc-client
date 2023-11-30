@@ -2722,6 +2722,7 @@
       "invalidate": "Invalidate local",
       "newRegistration": "New UUID registry",
       "updateIdentifier": "Update/complete",
+      "invalidateRemote": "Invalidate URN:NBN",
       "operations": "Operations",
       "update": "Update",
       "delete": "Delete",

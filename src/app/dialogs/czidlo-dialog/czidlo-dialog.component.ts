@@ -24,6 +24,7 @@ export class CzidloDialogComponent implements OnInit {
   identifiers: {code: string, name: string}[] = [];
   selectedOperation: string;
   operations = ['update', 'delete'];
+  invalidateURNNBN: string;
   errors: any[];
 
   tableColumns = ['label', 'model', 'statusType', 'warning', 'pid', 'urnnbn', 'message'];
@@ -34,6 +35,7 @@ export class CzidloDialogComponent implements OnInit {
   showSuccessor = false;
   showNewRegistration = false;
   showUpdateIdentifier = false;
+  showInvalidateRemote = false;
 
   constructor(
     public dialogRef: MatDialogRef<CzidloDialogComponent>,
@@ -119,9 +121,39 @@ export class CzidloDialogComponent implements OnInit {
     });
   }
 
+  onInvalidateRemote() {
+    this.showInvalidateRemote = true;
+  }
+
+  invalidateRemote() {
+
+    if (!this.selectedRegistrar || !this.invalidateURNNBN) {
+      return;
+    }
+    this.state = 'saving';
+    this.errors = [];
+    this.api.invalidateRemote(this.selectedRegistrar.id, this.invalidateURNNBN).subscribe((response: any) => {
+      if (response['response'].errors) {
+        console.log('invalidateRemote error', response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
+        this.state = 'error';
+        this.message = String(this.translator.instant('dialog.czidlo.alert.error'));
+        return;
+      }
+      if (response.response.data.length === 0) {
+        this.message = String(this.translator.instant('dialog.czidlo.alert.success'));
+        this.state = 'success';
+        return;
+      }
+
+      this.responseData = response.response.data;
+      this.state = 'success';
+      this.dialogRef.updateSize('1200px');
+    });
+  }
+
   onUpdateIdentifier() {
     this.showUpdateIdentifier = true;
-
   }
 
   updateIdentifier() {
