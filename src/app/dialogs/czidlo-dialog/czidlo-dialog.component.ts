@@ -27,6 +27,7 @@ export class CzidloDialogComponent implements OnInit {
   selectedRowWarning: boolean;
 
   showSuccessor = false;
+  showNewRegistration = false;
 
   constructor(
     public dialogRef: MatDialogRef<CzidloDialogComponent>,
@@ -59,6 +60,38 @@ export class CzidloDialogComponent implements OnInit {
   invalidateLocal() {
     const pid = this.data;
     this.api.invalidateLocal(pid).subscribe((response: any) => {
+      if (response['response'].errors) {
+        console.log('invalidateLocal error', response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
+        this.state = 'error';
+        this.message = String(this.translator.instant('dialog.czidlo.alert.error'));
+        return;
+      }
+      if (response.response.data.length === 0) {
+        this.message = String(this.translator.instant('dialog.czidlo.alert.success'));
+        this.state = 'success';
+        return;
+      }
+
+      this.responseData = response.response.data;
+      this.state = 'success';
+      this.dialogRef.updateSize('1200px');
+    });
+  }
+
+  onNewRegistration() {
+    this.showNewRegistration = true;
+  }
+
+  newRegistration() {
+
+    if (!this.selectedRegistrar) {
+      return;
+    }
+    this.state = 'saving';
+    const pid = this.data;
+    this.errors = [];
+    this.api.newRegistration(pid, this.selectedRegistrar.id).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('invalidateLocal error', response['response'].errors);
         this.ui.showErrorDialogFromObject(response['response'].errors);

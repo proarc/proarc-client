@@ -1,14 +1,16 @@
 <h1 mat-dialog-title>{{ 'CZIDLO' | translate }}</h1>
 <div mat-dialog-content>
     <div fxLayout="column" fxLayoutGap="8px">
-        <ng-container *ngIf="!showSuccessor && !responseData">
+        <ng-container *ngIf="!(showSuccessor || showNewRegistration) && !responseData">
             <button mat-flat-button color="primary" (click)="onSuccessor()">{{ 'dialog.czidlo.successor' | translate
                 }}</button>
             <button mat-flat-button color="primary" (click)="invalidateLocal()">{{ 'dialog.czidlo.invalidate' |
                 translate }}</button>
+            <button mat-flat-button color="primary" (click)="onNewRegistration()">{{ 'dialog.czidlo.newRegistration' |
+                translate }}</button>
         </ng-container>
 
-            <div *ngIf="showSuccessor">
+            <div *ngIf="showSuccessor || showNewRegistration">
                 <mat-form-field class="app-w-100">
                     <mat-select [placeholder]="'desc.registrar' | translate" [(ngModel)]="selectedRegistrar"
                         [disabled]="formDisabled()">
@@ -86,6 +88,7 @@
     </div>
 </div>
 <div mat-dialog-actions cdkFocusRegionstart>
+    <button *ngIf="showNewRegistration" mat-flat-button color="primary" [disabled]="formDisabled()" (click)="newRegistration()">{{ 'dialog.czidlo.newRegistration' | translate }}</button>
     <button *ngIf="showSuccessor" mat-flat-button color="primary" [disabled]="formDisabled()" (click)="successor()">{{ 'button.successor' | translate }}</button>
     <button mat-stroked-button mat-dialog-close="close">{{ 'button.close' | translate }}</button>
     <button *ngIf="log" mat-flat-button color="warn" (click)="showErrorDetail(log)">{{ 'button.viewErrorOutput' | translate }}</button>

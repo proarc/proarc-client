@@ -2719,6 +2719,7 @@
       "title": "CZIDLO",
       "successor": "Následovník",
       "invalidate": "Lokálně zneplatnit",
+      "newRegistration": "Nová registrace UUID",
       "alert": {
         "success": "Žádné položky k zobrazení",
         "error": "Při zneplatneni URN:NBN se vyskytla chyba"

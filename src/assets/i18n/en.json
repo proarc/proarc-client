@@ -2719,6 +2719,7 @@
       "title": "CZIDLO",
       "successor": "Successor",
       "invalidate": "Invalidate local",
+      "newRegistration": "New UUID registry",
       "alert": {
         "success": "No items to display",
         "error": "There was an error invalidating"
