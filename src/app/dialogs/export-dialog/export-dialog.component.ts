@@ -26,8 +26,10 @@ export class ExportDialogComponent implements OnInit {
   canContinue = false;
   
 
-  public importInstance: string;
+  public importInstance: { krameriusInstanceId: string, krameriusInstanceName: string, krameriusInstanceLicenses?: 
+    {krameriusInstanceLicenseName: string, krameriusInstanceLicenseDescription: string}[] };
   public instances: { krameriusInstanceId: string, krameriusInstanceName: string }[];
+  public licenseName: string;
 
   constructor(
     public dialogRef: MatDialogRef<ExportDialogComponent>,
@@ -46,7 +48,7 @@ export class ExportDialogComponent implements OnInit {
 
     this.api.getKrameriusInstances().subscribe((resp: any) => {
       this.instances = resp.response.data;
-      this.importInstance = this.instances[0].krameriusInstanceId;
+      this.importInstance = this.instances[0];
     });
 
     this.api.getValidExports(this.data.model).subscribe((resp: any) => {
@@ -64,7 +66,7 @@ export class ExportDialogComponent implements OnInit {
     const policy = this.policyPublic ? 'public' : 'private';
     this.errors = [];
     this.target = null;
-    this.api.export(this.selectedType, pid, policy, ignoreMissingUrnNbn, this.importInstance, this.cesnetLtpToken).subscribe((response: any) => {
+    this.api.export(this.selectedType, pid, policy, ignoreMissingUrnNbn, this.importInstance.krameriusInstanceId, this.cesnetLtpToken, this.licenseName).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
         this.ui.showErrorDialogFromObject(response['response'].errors);

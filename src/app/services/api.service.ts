@@ -238,7 +238,7 @@ export class ApiService {
     return this.post('object/copyObject', data);
   }
 
-  export(type: string, pid: string, policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string, cesnetLtpToken: string): Observable<any> | undefined {
+  export(type: string, pid: string, policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string, cesnetLtpToken: string, licenseName: string): Observable<any> | undefined {
     let data = `pid=${pid}`;
     if (ignoreMissingUrnNbn) {
       data = `${data}&ignoreMissingUrnNbn=true`;
@@ -261,7 +261,7 @@ export class ApiService {
         break;
       }
       case ProArc.EXPORT_KRAMERIUS: {
-        data = `${data}&policy=policy:${policy}&krameriusInstance=${krameriusInstance}`;
+        data = `${data}&policy=policy:${policy}&krameriusInstance=${krameriusInstance}&license=${licenseName}`;
         path = 'export/kramerius4'
         break;
       }
@@ -299,7 +299,7 @@ export class ApiService {
       }
       case ProArc.EXPORT_NDK_OLDPRINT_KRAMERIUS_UPLOAD:
       case ProArc.EXPORT_NDK_KRAMERIUS_UPLOAD: {
-        data = `${data}&policy=policy:${policy}&krameriusInstance=${krameriusInstance}&isBagit=false`;
+        data = `${data}&policy=policy:${policy}&krameriusInstance=${krameriusInstance}&license=${licenseName}&isBagit=false`;
         path = 'export/ndk'
         break;
       }

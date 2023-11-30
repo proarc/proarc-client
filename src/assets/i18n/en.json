@@ -2425,6 +2425,7 @@
     "media": "Media",
     "exportType": "Exportu type",
     "krameriusInstances": "Kramerius instances",
+    "krameriusLicenses": "Licenses",
     "publiclyAvailable": "Publicly available",
     "bagitPackage": "BAGIT package",
     "login": "Login",
