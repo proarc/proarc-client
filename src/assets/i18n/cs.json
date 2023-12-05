@@ -2634,7 +2634,11 @@
     "UPLOADING": "Nahrávání",
     "UPLOAD_FAILED": "Chyba nahrávání",
     "UPLOAD_DONE": "Nahráno",
-    "WAITING": "Čeká ve frontě"
+    "WAITING": "Čeká ve frontě",
+    "INTERNAL_RUNNING": "Jiné: Běží",
+    "INTERNAL_PLANNED": "Jiné: Naplánováno",
+    "INTERNAL_FAILED": "Jiné: Konec s chybou",
+    "INTERNAL_DONE": "Jiné: Hotovo"
   },
   "organization": {
     "ABA007": "Knihovna Akademie věd ČR",
@@ -2888,7 +2892,8 @@
       "exportProfile.kwis": "Export - KWIS",
       "exportProfile.aleph": "Export - Aleph",
       "exportProfile.datastream": "Export - Datastream",
-      "internalProfile.reindex": "Internal - Reindexace"
+      "internalProfile.reindex": "Interní - Reindexace",
+      "internalProfile.pero": "Interní - Pero"
     },
     "users": {
       "tooltipUsername": "Jmeno uživatele podle vzoru: první znak malé písmeno následováno alespoň 4 znaky z kombinace písmen, čísel, pomlčky a podtržítka.",

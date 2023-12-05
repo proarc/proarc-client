@@ -2634,7 +2634,11 @@
     "UPLOADING": "Uploading",
     "UPLOAD_FAILED": "Uploading failed",
     "UPLOAD_DONE": "Uploaded",
-    "WAITING": "Waiting in queue"
+    "WAITING": "Waiting in queue",
+    "INTERNAL_RUNNING": "Other - Running",
+    "INTERNAL_PLANNED": "Other - Planned",
+    "INTERNAL_FAILED": "Other - Failed",
+    "INTERNAL_DONE": "Other - Done"
   },
   "organization": {
     "ABA007": "Library of the Academy of Sciences of the Czech Republic",
@@ -2888,7 +2892,8 @@
       "exportProfile.kwis": "Export - KWIS",
       "exportProfile.aleph": "Export - Aleph",
       "exportProfile.datastream": "Export - Datastream",
-      "internalProfile.reindex": "Internal - Reindex"
+      "internalProfile.reindex": "Internal - Reindex",
+      "internalProfile.pero": "Internal - Pero"
     },
     "users": {
       "tooltipUsername": "Username by pattern: first character a lowercase letter followed by at least 4 characters from a combination of letters, numbers, dashes and underscores.",
