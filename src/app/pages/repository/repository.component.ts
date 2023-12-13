@@ -4,8 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, forkJoin, Subscription } from 'rxjs';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Metadata } from 'src/app/model/metadata.model';
-import { Tree } from 'src/app/model/mods/tree.model';
-import { StreamProfile } from 'src/app/model/stream-profile';
 import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { RepositoryService } from 'src/app/services/repository.service';
@@ -17,8 +15,6 @@ import { ExportDialogComponent } from 'src/app/dialogs/export-dialog/export-dial
 import { UrnnbnDialogComponent } from 'src/app/dialogs/urnnbn-dialog/urnnbn-dialog.component';
 import { ConfigService } from 'src/app/services/config.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
-import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { UpdateInSourceDialogComponent } from 'src/app/dialogs/update-in-source-dialog/update-in-source-dialog.component';
 import { CzidloDialogComponent } from 'src/app/dialogs/czidlo-dialog/czidlo-dialog.component';
 

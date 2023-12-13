@@ -139,6 +139,9 @@ export class EditorStructureComponent implements OnInit {
 
     this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
       this.setSelectedColumns();
+      if (this.panel.id !== this.layout.lastPanelClicked) {
+        this.scrollToLastClicked(false);
+      }
     }));
 
   }
@@ -207,11 +210,6 @@ export class EditorStructureComponent implements OnInit {
     } else if (this.viewMode == 'icons') {
       container = this.childrenIconListEl;
     } else {
-      // if (this.scrollPos > -1) {
-      //   console.log(document.getElementById('table').parentElement.parentElement)
-      //   document.getElementById('table').parentElement.parentElement.scrollTop = this.scrollPos;
-      // } else {
-      // }
       let row = this.rows.get(index);
       row.element.nativeElement.scrollIntoView(alignToTop, { behavior: 'smooth' });
       return;
@@ -223,6 +221,38 @@ export class EditorStructureComponent implements OnInit {
         container.nativeElement.scrollTop = this.scrollPos;
         return;
       }
+      if (index > 0) {
+        const el = container.nativeElement.children[index];
+        el.scrollIntoView(alignToTop, { behavior: 'smooth' });
+      }
+    }
+  }
+
+  scrollToLastClicked(alignToTop: boolean) {
+    if (!this.rows) {
+      return;
+    }
+    const index = this.layout.lastItemIdxClicked;
+    if (index < 0) {
+      return;
+    }
+    let container: any;
+    if (this.viewMode == 'grid') {
+      container = this.childrenGridListEl;
+    } else if (this.viewMode == 'icons') {
+      container = this.childrenIconListEl;
+    } else {
+      let row = this.rows.get(index);
+      setTimeout(() => {
+        row.element.nativeElement.scrollIntoView(alignToTop, { behavior: 'smooth' });
+      }, 100);
+      
+      return;
+    }
+
+
+    if (container) {
+
       if (index > 0) {
         const el = container.nativeElement.children[index];
         el.scrollIntoView(alignToTop, { behavior: 'smooth' });
@@ -487,6 +517,8 @@ export class EditorStructureComponent implements OnInit {
         this.layout.lastSelectedItem = last[last.length - 1];
       }
     }
+    this.layout.lastItemIdxClicked = this.lastClickIdx;
+    this.layout.lastPanelClicked = this.panel.id;
     this.layout.setSelection(true);
     this.arrowIndex = idx;
   }

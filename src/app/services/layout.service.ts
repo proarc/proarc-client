@@ -33,6 +33,8 @@ export class LayoutService {
   public lastSelectedItemMetadata: Metadata; // last selected child item
   public krameriusPage: Page; // last selected child item
   public streamProfiles: StreamProfile[];
+  public lastItemIdxClicked: number; // last item clicked
+  public lastPanelClicked: string; // last panel clicked
 
   path: { pid: string, label: string, model: string }[] = [];
   expandedPath: string[];
