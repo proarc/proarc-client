@@ -557,6 +557,11 @@ export class ApiService {
     return this.put('object/ocr', data).pipe(map((response: any) => Ocr.fromJson(response['record'])));
   }
 
+  generateAlto(pid: string): Observable<any> {
+    let data = `pid=${pid}`;
+    return this.post('object/generateAlto', data);
+  }
+
 
   getNote(pid: string, batchId: any = null): Observable<Note> {
     const params: any = { pid: pid };

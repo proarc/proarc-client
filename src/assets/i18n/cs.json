@@ -2486,7 +2486,8 @@
     "createAndGoToObject": "Vytvořit a přejít do objektu",
     "doNotSave": "Neukládat",
     "copyTextToClipboard": "Zkopírovat text do schránky",
-    "updateInSource": "Zapsat UUID do zdrojového katalogu"
+    "updateInSource": "Zapsat UUID do zdrojového katalogu",
+    "pero": "Korekce ALTO/OCR pomocí nástroje PERO"
   },
   "dynamic": {
     "repo": "Úložiště",

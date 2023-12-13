@@ -113,4 +113,17 @@ export class EditorOcrComponent implements OnInit {
     this.onChangeEditorType.emit(t);
   }
 
+  onPERO() {
+    this.api.generateAlto(this.pid).subscribe(response => {
+      if (response.response.errors) {
+        this.state = 'error';
+        this.ui.showErrorDialogFromObject(response.response.errors);
+      } else {
+        this.state = 'success';
+        this.ui.showInfoSnackBar(response.response.data[0].msg)
+      }
+    });
+
+  }
+
 }

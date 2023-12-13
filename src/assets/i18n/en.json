@@ -2486,7 +2486,8 @@
     "createAndGoToObject": "Create and go to object",
     "doNotSave": "Do not save",
     "copyTextToClipboard": "Copy text to clipboard",
-    "updateInSource": "Zapsat UUID do zdrojového katalogu"
+    "updateInSource": "Zapsat UUID do zdrojového katalogu",
+    "pero": "Korekce ALTO/OCR pomocí nástroje PERO"
   },
   "dynamic": {
     "repo": "Storage",
