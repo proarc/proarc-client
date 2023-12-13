@@ -3,8 +3,8 @@
     <div fxFlex>
 			<div class="app-toolbar-label">
 				<span class="app-text">{{ 'editor.pages.title' | translate }}</span>
-			
-				<span class="app-text">{{ layout.getNumOfSelected() }}</span>
+        <span class="app-pipe"></span>
+        <span class="app-text-supplement">{{ ('editor.children.multiple_selection_count' + plurals ) | translate: { count: numOfSelected } }}</span>
 			</div>
 		</div>
 		<div>

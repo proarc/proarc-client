@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/api.service';
 import { UIService } from 'src/app/services/ui.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-editor-pages',
@@ -39,6 +40,9 @@ export class EditorPagesComponent implements OnInit {
   });
 
   state: string;
+  plurals: string;
+  numOfSelected: number;
+  subscriptions: Subscription[] = [];
 
   constructor(
     private api: ApiService,
@@ -54,7 +58,26 @@ export class EditorPagesComponent implements OnInit {
     this.holder = new PageUpdateHolder();
     this.controls.valueChanges.subscribe((e: any) => {
       this.layout.isDirty = this.controls.dirty;
-    })
+    });
+
+    this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
+      this.plurals = this.countPlurals();
+    }));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
+  countPlurals(): string {
+    this.numOfSelected = this.layout.getNumOfSelected();
+    if (this.numOfSelected > 4) {
+      return '5'
+    } else if (this.numOfSelected > 1) {
+      return '4'
+    } else {
+      return this.numOfSelected + '';
+    }
   }
 
   canSave(): boolean {
