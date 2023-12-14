@@ -24,7 +24,13 @@ var APP_GLOBAL = {
     'datastream_ndkUser',
     'cejsh',
     'crossref',
-    'kwis'
+    'kwis',
+
+
+		'archive_extended', // - Archivace se surovými skeny
+		'archive_stt_extended', // - Archivace starých tisků se surovými skeny
+		'archive_extended_bagit', // - Archivace se surovými skeny v BAGIT balíčku
+		'archive_stt_extended_bagit' // - Archivace starých tisků se surovými skeny v BAGIT balíčku
   ],
   organizations: [
       'ABA007',

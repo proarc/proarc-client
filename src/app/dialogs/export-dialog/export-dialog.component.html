@@ -25,6 +25,20 @@
     <input  type="text" autocomplete="off" matInput [placeholder]="'desc.ltpToken' | translate" [(ngModel)]="cesnetLtpToken">
   </mat-form-field>
 
+  <mat-radio-group 
+  *ngIf="selectedType=='archive_extended' || selectedType==='archive_stt_extended' || selectedType === 'archive_extended_bagit' || selectedType === 'archive_stt_extended_bagit'" 
+  aria-label="'standard'" [(ngModel)]="extendedType" class="app-ml-3">
+    <mat-radio-button value="snkd">Skeny nejsou k dispozici</mat-radio-button>
+    <mat-radio-button value="pi">Přidat Informaci</mat-radio-button>
+    <mat-radio-button value="bv">Bez výběru</mat-radio-button>
+  </mat-radio-group>
+  <mat-form-field *ngIf="extendedType=='snkd'" class="app-w-100">
+    <input required type="text" autocomplete="off" matInput [placeholder]="'Skeny nejsou k dispozici message' | translate" [(ngModel)]="noTifMessage">
+  </mat-form-field>
+  <mat-form-field *ngIf="extendedType=='pi'" class="app-w-100">
+    <input required type="text" autocomplete="off" matInput [placeholder]="'Přidat Informaci' | translate" [(ngModel)]="addInfoMessage">
+  </mat-form-field>
+
   <mat-card class="app-alert app-info app-mt-4" *ngIf="state=='saving'">
     <mat-icon>info</mat-icon>
     {{ 'dialog.export.alert.exporting' | translate }}

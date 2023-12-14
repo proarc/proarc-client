@@ -24,6 +24,10 @@ export class ExportDialogComponent implements OnInit {
   target: string;
   errors: any[];
   canContinue = false;
+
+  extendedType: string;
+  noTifMessage: string;
+  addInfoMessage: string;
   
 
   public importInstance: { krameriusInstanceId: string, krameriusInstanceName: string, krameriusInstanceLicenses?: 
@@ -66,7 +70,9 @@ export class ExportDialogComponent implements OnInit {
     const policy = this.policyPublic ? 'public' : 'private';
     this.errors = [];
     this.target = null;
-    this.api.export(this.selectedType, pid, policy, ignoreMissingUrnNbn, this.importInstance.krameriusInstanceId, this.cesnetLtpToken, this.licenseName).subscribe((response: any) => {
+    this.api.export(this.selectedType, pid, policy, 
+      ignoreMissingUrnNbn, this.importInstance.krameriusInstanceId, this.cesnetLtpToken, this.licenseName,
+      this.extendedType, this.noTifMessage, this.addInfoMessage).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
         this.ui.showErrorDialogFromObject(response['response'].errors);

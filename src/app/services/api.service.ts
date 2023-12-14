@@ -243,7 +243,8 @@ export class ApiService {
     return this.post('object/copyObject', data);
   }
 
-  export(type: string, pid: string, policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string, cesnetLtpToken: string, licenseName: string): Observable<any> | undefined {
+  export(type: string, pid: string, policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string, cesnetLtpToken: string, licenseName: string,
+    extendedType: string, noTifMessage: string, addInfoMessage: string): Observable<any> | undefined {
     let data = `pid=${pid}`;
     if (ignoreMissingUrnNbn) {
       data = `${data}&ignoreMissingUrnNbn=true`;
@@ -334,6 +335,51 @@ export class ApiService {
         path = 'export/kwis'
         break;
       }
+      case ProArc.EXPORT_ARCHIVE_EXTENDED:{
+        path = 'export/archive';
+        if (extendedType === 'snkd') {
+          data = `${data}&noTifMessage=${noTifMessage}`;
+        }
+        if (extendedType === 'pi') {
+          data = `${data}&addInfoMessage=${addInfoMessage}`;
+        }
+        break;
+      }
+      case ProArc.EXPORT_ARCHIVE_STT_EXTENDED: {
+        path = 'export/archive';
+        data = `${data}&package=STT`;
+        if (extendedType === 'snkd') {
+          data = `${data}&noTifMessage=${noTifMessage}`;
+        }
+        if (extendedType === 'pi') {
+          data = `${data}&addInfoMessage=${addInfoMessage}`;
+        }
+        break;
+      }
+      case ProArc.EXPORT_ARCHIVE_EXTENDED_BAGIT:{
+        path = 'export/archive';
+        data = `${data}&isBagit=true`;
+        if (extendedType === 'snkd') {
+          data = `${data}&noTifMessage=${noTifMessage}`;
+        }
+        if (extendedType === 'pi') {
+          data = `${data}&addInfoMessage=${addInfoMessage}`;
+        }
+        break;
+      }
+      case ProArc.EXPORT_ARCHIVE_STT_EXTENDED_BAGIT: {
+        path = 'export/archive';
+        data = `${data}&package=STT&isBagit=true`;
+        if (extendedType === 'snkd') {
+          data = `${data}&noTifMessage=${noTifMessage}`;
+        }
+        if (extendedType === 'pi') {
+          data = `${data}&addInfoMessage=${addInfoMessage}`;
+        }
+        break;
+      }
+
+      
       default: return undefined;
     }
     return this.post(path, data);
