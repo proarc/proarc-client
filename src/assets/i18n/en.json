@@ -2639,7 +2639,8 @@
     "INTERNAL_RUNNING": "Other - Running",
     "INTERNAL_PLANNED": "Other - Planned",
     "INTERNAL_FAILED": "Other - Failed",
-    "INTERNAL_DONE": "Other - Done"
+    "INTERNAL_DONE": "Other - Done",
+    "IMPORT_PLANNED": "Import planed"
   },
   "organization": {
     "ABA007": "Library of the Academy of Sciences of the Czech Republic",

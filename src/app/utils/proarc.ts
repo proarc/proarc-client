@@ -36,4 +36,16 @@ export class ProArc {
       return model === 'model:chroniclevolume' || model === 'model:chronicletitle' || model === 'model:chroniclesupplement';
     }
 
+    public static dontShowStatusByProfile(profile: string) {
+      const dontShow = [
+      'profile.default_ndk_import',
+      'profile.default_archive_import',
+      'profile.default_kramerius_import',
+      'profile.ndk_monograph_kramerius_import',
+      'profile.ndk_periodical_kramerius_import',
+      'profile.replace_stream_import  ',
+    ];
+      return dontShow.includes(profile)
+    }
+
 }

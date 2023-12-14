@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { UIService } from 'src/app/services/ui.service';
+import { ProArc } from 'src/app/utils/proarc';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-import',
@@ -40,11 +42,12 @@ export class ImportComponent implements OnInit {
   nonStatusProfiles: string[] = [
     'profile.default_archive_import',
     'profile.default_kramerius_import',
-     'profile.ndk_monograph_kramerius_import',
+    'profile.ndk_monograph_kramerius_import',
     'profile.ndk_periodical_kramerius_import',
     'profile.stt_kramerius_import']
 
   constructor(
+    private translator: TranslateService,
     private api: ApiService,
     private ui: UIService,
     //public importService: ImportService,
@@ -217,10 +220,16 @@ export class ImportComponent implements OnInit {
           return;
         }
         const batch: Batch = Batch.fromJson(response['response']['data'][0]);
-        const dialogRef = this.dialog.open(ImportDialogComponent, { 
+
+        if (ProArc.dontShowStatusByProfile(batch.profile)) {
+          this.ui.showInfoSnackBar(this.translator.instant('IMPORT_PLANNED'));
+          return;
+        }
+
+        const dialogRef = this.dialog.open(ImportDialogComponent, {
           data: { batch: batch.id },
           panelClass: 'app-dialog-import',
-          width: '600px' 
+          width: '600px'
         });
         dialogRef.afterClosed().subscribe(result => {
           if (result === 'open') {

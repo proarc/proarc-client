@@ -2639,7 +2639,8 @@
     "INTERNAL_RUNNING": "Jiné: Běží",
     "INTERNAL_PLANNED": "Jiné: Naplánováno",
     "INTERNAL_FAILED": "Jiné: Konec s chybou",
-    "INTERNAL_DONE": "Jiné: Hotovo"
+    "INTERNAL_DONE": "Jiné: Hotovo",
+    "IMPORT_PLANNED": "Import naplánován"
   },
   "organization": {
     "ABA007": "Knihovna Akademie věd ČR",

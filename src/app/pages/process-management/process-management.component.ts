@@ -16,6 +16,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ResolveConflictDialogComponent } from 'src/app/dialogs/resolve-conflict-dialog/resolve-conflict-dialog.component';
+import { ProArc } from 'src/app/utils/proarc';
 
 @Component({
   selector: 'app-process-management',
@@ -446,8 +447,6 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
     });
   }
 
-
-
   onIngestBatch() {
     if (!this.selectedBatch) {
       return;
@@ -462,6 +461,9 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
 
   private ingestBatch(parentPid: string) {
     if (!this.selectedBatch) {
+      return;
+    }
+    if (ProArc.dontShowStatusByProfile(this.selectedBatch.profile)) {
       return;
     }
     const dialogRef = this.dialog.open(ImportDialogComponent, {
@@ -480,6 +482,10 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
 
   private reloadBatch(profile: Profile) {
     if (!this.selectedBatch || !profile) {
+      return;
+    }
+    
+    if (ProArc.dontShowStatusByProfile(profile.id)) {
       return;
     }
     this.api.reloadBatch(this.selectedBatch.id, profile.id).subscribe((batch: Batch) => {
@@ -547,6 +553,10 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
       if (response.response.errors) {
         this.state = 'error';
         this.ui.showErrorDialogFromObject(response.response.errors);
+        return;
+      }
+    
+      if (ProArc.dontShowStatusByProfile(b.profile)) {
         return;
       }
 
