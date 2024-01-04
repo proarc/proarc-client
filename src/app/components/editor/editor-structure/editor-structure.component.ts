@@ -142,7 +142,7 @@ export class EditorStructureComponent implements OnInit {
       if (this.panel.id !== this.layout.lastPanelClicked) {
 
         setTimeout(() => {
-          this.scrollToLastClicked(false);
+          this.scrollToLastClicked();
         }, 100);
 
       }
@@ -203,7 +203,16 @@ export class EditorStructureComponent implements OnInit {
     this.refreshing = false;
   }
 
-  scrollToSelected(alignToTop: boolean) {
+  isInViewport(element: any) {
+    const rect = element.getBoundingClientRect();
+    const parentRect = this.childrenListEl.nativeElement.getBoundingClientRect();
+    return (
+        rect.top >= parentRect.top &&
+        rect.bottom <= (parentRect.bottom)
+    );
+  }
+
+  scrollToSelected(align: string) {
     const index = this.layout.items.findIndex(i => i.selected);
     if (index < 0) {
       return;
@@ -215,7 +224,10 @@ export class EditorStructureComponent implements OnInit {
       container = this.childrenIconListEl;
     } else {
       let row = this.rows.get(index);
-      row.element.nativeElement.scrollIntoView(alignToTop, { behavior: 'smooth' });
+      if (!this.isInViewport(row.element.nativeElement)) {
+        row.element.nativeElement.scrollIntoView({ block: align, behavior: 'smooth' });
+      }
+      
       return;
     }
 
@@ -226,12 +238,15 @@ export class EditorStructureComponent implements OnInit {
       // }
       if (index >= 0) {
         const el = container.nativeElement.children[index];
-        el.scrollIntoView(alignToTop, { behavior: 'smooth' });
+        if (!this.isInViewport(el)) {
+          el.scrollIntoView({ block: align, behavior: 'smooth' });
+        }
+        
       }
     }
   }
 
-  scrollToLastClicked(alignToTop: boolean) {
+  scrollToLastClicked() {
     if (!this.rows) {
       return;
     }
@@ -248,10 +263,10 @@ export class EditorStructureComponent implements OnInit {
       // let row = this.rows.get(index);
       let row = this.rows.find(tr => tr.element.nativeElement.id === 'tr_' + index);
       //console.log(this.panel.id, index, row.element.nativeElement)
-      if (row) {
+      if (row && !this.isInViewport(row.element.nativeElement)) {
 
         setTimeout(() => {
-          row.element.nativeElement.scrollIntoView(alignToTop, { behavior: 'smooth' });
+          row.element.nativeElement.scrollIntoView({ block: 'center', behavior: 'smooth' });
         }, 100);
       }
 
@@ -262,7 +277,9 @@ export class EditorStructureComponent implements OnInit {
     if (container) {
       if (index >= 0) {
         const el = container.nativeElement.children[index];
-        el.scrollIntoView(alignToTop, { behavior: 'smooth' });
+        if (!this.isInViewport(el)) {
+          el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }
       }
     }
   }
@@ -302,7 +319,7 @@ export class EditorStructureComponent implements OnInit {
       }
       if (this.arrowIndex - step >= 0) {
         this.rowClick(this.layout.items[this.arrowIndex - step], this.arrowIndex - step, event);
-        this.scrollToSelected(false);
+        this.scrollToSelected('center');
       }
     } else if (event.code === "ArrowLeft" && this.viewMode !== 'list') {
       let step = 1;
@@ -316,7 +333,7 @@ export class EditorStructureComponent implements OnInit {
       }
       if (this.arrowIndex + step < this.layout.items.length) {
         this.rowClick(this.layout.items[this.arrowIndex + step], this.arrowIndex + step, event);
-        this.scrollToSelected(false);
+        this.scrollToSelected('end');
       }
     } else if (event.code === "ArrowRight" && this.viewMode !== 'list') {
       let step = 1;
@@ -746,7 +763,7 @@ export class EditorStructureComponent implements OnInit {
     }, 1);
 
     setTimeout(() => {
-      this.scrollToSelected(false);
+      this.scrollToSelected('end');
     }, 100);
   }
 
@@ -777,7 +794,7 @@ export class EditorStructureComponent implements OnInit {
     if (this.table) {
       this.table.renderRows();
     }
-    this.scrollToSelected(false);
+    this.scrollToSelected('end');
   }
 
   reorder(from: number, to: number) {
