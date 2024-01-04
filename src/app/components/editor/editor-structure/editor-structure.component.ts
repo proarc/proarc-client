@@ -763,7 +763,7 @@ export class EditorStructureComponent implements OnInit {
     }, 1);
 
     setTimeout(() => {
-      this.scrollToSelected('end');
+      this.scrollToSelected('start');
     }, 100);
   }
 
@@ -794,7 +794,7 @@ export class EditorStructureComponent implements OnInit {
     if (this.table) {
       this.table.renderRows();
     }
-    this.scrollToSelected('end');
+    this.scrollToSelected('start');
   }
 
   reorder(from: number, to: number) {
