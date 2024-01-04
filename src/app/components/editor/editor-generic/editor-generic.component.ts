@@ -45,6 +45,9 @@ export class EditorGenericComponent implements OnInit {
   }
 
   itemType(): string {
+    if (!this.layout.lastSelectedItem) {
+      return null;
+    }
     if (this.layout.lastSelectedItem.isPage()) {
       return 'page';
     }

@@ -168,7 +168,7 @@
       </div>
 
       <div class="app-view-icon" *ngIf="viewMode == 'icons'" #childrenIconList [class.app-multiple-selection]="layout.getNumOfSelected() > 1" 
-        (mousedown)="mousedown($event)" (mouseup)="mouseup($event)" fxLayout="row wrap">
+        (mousedown)="mousedown($event)" fxLayout="row wrap">
         <div *ngFor="let item of layout.items; let i = index" class="app-item-wrapper" 
         (click)="rowClick(item, i, $event)" (dblclick)="open(item)" 
         draggable="true" (dragenter)="dragenter($event, i)" (dragstart)="dragstart(item, i, $event)" (dragend)="dragend($event)" 

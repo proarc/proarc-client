@@ -386,7 +386,7 @@ export class EditorStructureComponent implements OnInit {
       } else {
         model = this.layout.lastSelectedItem.model;
       }
-    } else {
+    } else if (this.layout.items.length > 0) {
       model = this.colsEditModeParent ? this.layout.selectedParentItem.model : this.layout.items[0].model;
     }
 
@@ -703,18 +703,15 @@ export class EditorStructureComponent implements OnInit {
     this.layout.lastItemIdxClicked = to;
     // this.source.parentNode.insertBefore(this.source, this.sourceNext);
     if (isMultiple) {
-
       this.dropMultiple();
-
     } else {
       const from = this.sourceIndex;
-
       this.hasChanges = true;
       if (from !== to) {
         this.reorder(from, to);
       }
     }
-    this.layout.setSelectionChanged(true);
+      this.layout.setSelectionChanged(true);
   }
 
   public trackItem(index: number, item: DocumentItem) {
@@ -722,6 +719,7 @@ export class EditorStructureComponent implements OnInit {
   }
 
   dropMultiple() {
+    const scPos = this.childrenListEl.nativeElement.scrollTop;
     const selections: number[] = [];
     let indexCounted = false;
 
@@ -755,52 +753,52 @@ export class EditorStructureComponent implements OnInit {
     this.hasChanges = true;
     if (this.table) {
       this.table.renderRows();
-
     }
+
     this.state = 'loading';
     setTimeout(() => {
       this.state = 'success';
     }, 1);
-
     setTimeout(() => {
-      this.scrollToSelected('start');
-    }, 100);
+      this.childrenListEl.nativeElement.scrollTop = scPos;
+      // this.scrollToSelected('start');
+    }, 2);
   }
 
-  reorderMultiple(to: number) {
-    const movedItems = [];
-    let shift = 0;
-    for (let i = this.layout.items.length - 1; i >= 0; i--) {
-      if (this.layout.items[i].selected) {
-        const item = this.layout.items.splice(i, 1);
-        movedItems.push(item[0]);
-        if (i < to) {
-          shift += 1;
-        }
-      }
-    }
-    if (shift > 1) {
-      to = to - shift + 1;
-    }
-    const rest = this.layout.items.splice(to, this.layout.items.length - to);
-    for (let i = movedItems.length - 1; i >= 0; i--) {
-      this.layout.items.push(movedItems[i]);
-    }
-    for (let i = 0; i < rest.length; i++) {
-      const item = rest[i];
-      this.layout.items.push(item);
-    }
-    this.layout.setIsDirty(this as Component);
-    if (this.table) {
-      this.table.renderRows();
-    }
-    this.scrollToSelected('start');
-  }
+  // reorderMultiple(to: number) {
+  //   const movedItems = [];
+  //   let shift = 0;
+  //   for (let i = this.layout.items.length - 1; i >= 0; i--) {
+  //     if (this.layout.items[i].selected) {
+  //       const item = this.layout.items.splice(i, 1);
+  //       movedItems.push(item[0]);
+  //       if (i < to) {
+  //         shift += 1;
+  //       }
+  //     }
+  //   }
+  //   if (shift > 1) {
+  //     to = to - shift + 1;
+  //   }
+  //   const rest = this.layout.items.splice(to, this.layout.items.length - to);
+  //   for (let i = movedItems.length - 1; i >= 0; i--) {
+  //     this.layout.items.push(movedItems[i]);
+  //   }
+  //   for (let i = 0; i < rest.length; i++) {
+  //     const item = rest[i];
+  //     this.layout.items.push(item);
+  //   }
+  //   this.layout.setIsDirty(this as Component);
+  //   if (this.table) {
+  //     this.table.renderRows();
+  //   }
+  //   this.scrollToSelected('start');
+  // }
 
   reorder(from: number, to: number) {
     this.hasChanges = true;
     if (this.layout.getNumOfSelected() > 1) {
-      this.reorderMultiple(to + 1);
+      // this.reorderMultiple(to + 1);
     } else {
       this.layout.setIsDirty(this as Component);
       const item = this.layout.items[from];
