@@ -10,7 +10,7 @@ import { RepositoryService } from 'src/app/services/repository.service';
 import { TemplateService } from 'src/app/services/template.service';
 import { UIService } from 'src/app/services/ui.service';
 import { ModelTemplate } from 'src/app/templates/modelTemplate';
-import { defaultLayoutConfig, IConfig, LayoutAdminComponent } from 'src/app/dialogs/layout-admin/layout-admin.component';
+import { defaultLayoutConfig, IConfig, ILayoutPanel, LayoutAdminComponent } from 'src/app/dialogs/layout-admin/layout-admin.component';
 import { ExportDialogComponent } from 'src/app/dialogs/export-dialog/export-dialog.component';
 import { UrnnbnDialogComponent } from 'src/app/dialogs/urnnbn-dialog/urnnbn-dialog.component';
 import { ConfigService } from 'src/app/services/config.service';
@@ -114,18 +114,21 @@ export class RepositoryComponent implements OnInit {
 
   initConfig() {
     let idx = 0;
+    this.layout.panels = [];
     if (localStorage.getItem(this.localStorageName)) {
       this.layout.layoutConfig = JSON.parse(localStorage.getItem(this.localStorageName));
+    } else {
+      this.layout.layoutConfig = JSON.parse(JSON.stringify(defaultLayoutConfig));
+    }
       this.layout.layoutConfig.columns.forEach(c => {
         c.rows.forEach(r => {
           if (!r.id) {
             r.id = 'panel' + idx++;
           }
+            this.layout.panels.push(r);
         });
       });
-    } else {
-      this.layout.layoutConfig = JSON.parse(JSON.stringify(defaultLayoutConfig));
-    }
+      this.layout.clearPanelEditing();
   }
 
   onDragEnd(columnindex: number, e: any) {
@@ -154,7 +157,7 @@ export class RepositoryComponent implements OnInit {
     this.layout.items.forEach(i => i.selected = false);
     //this.layout.rootItem.selected = true;
     this.layout.lastSelectedItem = this.layout.item;
-    this.layout.setSelection(false);
+    this.layout.setSelection(false, null);
   }
 
   refreshSelected(from: string) {
@@ -264,7 +267,7 @@ export class RepositoryComponent implements OnInit {
         this.layout.selectedParentItem = item;
       }
       
-      this.layout.setSelection(false);
+      this.layout.setSelection(false, null);
       this.layout.path.unshift({ pid: item.pid, label: item.label, model: item.model });
 
       if (parent) {
@@ -280,7 +283,7 @@ export class RepositoryComponent implements OnInit {
             if (siblings.length > 0) {
               this.layout.items = siblings;
               this.layout.items.forEach(item => { item.selected = item.pid === pid});
-              this.layout.setSelection(false);
+              this.layout.setSelection(false, null);
             }
           });
         }

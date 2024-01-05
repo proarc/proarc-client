@@ -484,7 +484,7 @@ export class EditorStructureComponent implements OnInit {
 
   selectAll() {
     this.layout.items.forEach(i => i.selected = true);
-    this.layout.setSelection(true);
+    this.layout.setSelection(true, null);
   }
 
   selectColumns() {
@@ -543,7 +543,7 @@ export class EditorStructureComponent implements OnInit {
     }
     this.layout.lastItemIdxClicked = this.lastClickIdx;
     this.layout.lastPanelClicked = this.panel.id;
-    this.layout.setSelection(true);
+    this.layout.setSelection(true, null);
     this.arrowIndex = idx;
   }
 
@@ -711,7 +711,7 @@ export class EditorStructureComponent implements OnInit {
         this.reorder(from, to);
       }
     }
-      this.layout.setSelectionChanged(true);
+      this.layout.setSelectionChanged(true, this.panel);
   }
 
   public trackItem(index: number, item: DocumentItem) {
@@ -764,36 +764,6 @@ export class EditorStructureComponent implements OnInit {
       // this.scrollToSelected('start');
     }, 2);
   }
-
-  // reorderMultiple(to: number) {
-  //   const movedItems = [];
-  //   let shift = 0;
-  //   for (let i = this.layout.items.length - 1; i >= 0; i--) {
-  //     if (this.layout.items[i].selected) {
-  //       const item = this.layout.items.splice(i, 1);
-  //       movedItems.push(item[0]);
-  //       if (i < to) {
-  //         shift += 1;
-  //       }
-  //     }
-  //   }
-  //   if (shift > 1) {
-  //     to = to - shift + 1;
-  //   }
-  //   const rest = this.layout.items.splice(to, this.layout.items.length - to);
-  //   for (let i = movedItems.length - 1; i >= 0; i--) {
-  //     this.layout.items.push(movedItems[i]);
-  //   }
-  //   for (let i = 0; i < rest.length; i++) {
-  //     const item = rest[i];
-  //     this.layout.items.push(item);
-  //   }
-  //   this.layout.setIsDirty(this as Component);
-  //   if (this.table) {
-  //     this.table.renderRows();
-  //   }
-  //   this.scrollToSelected('start');
-  // }
 
   reorder(from: number, to: number) {
     this.hasChanges = true;
@@ -1107,7 +1077,7 @@ export class EditorStructureComponent implements OnInit {
           nextSelection = 0;
         }
         if (this.layout.items.length > 0 && !isMultiple) {
-          this.layout.setSelection(true);
+          this.layout.setSelection(true, this.panel);
         }
         this.layout.refreshSelectedItem(true, 'pages');
         this.state = 'success';
@@ -1130,7 +1100,6 @@ export class EditorStructureComponent implements OnInit {
     if (!this.hasChanges) {
       return;
     }
-
     this.state = 'saving';
     const pidArray = this.layout.items.map(item => item.pid);
     const request = this.isRepo ? this.api.editRelations(this.layout.selectedParentItem.pid, pidArray) : this.api.editBatchRelations(this.layout.selectedParentItem.pid, pidArray);
@@ -1146,6 +1115,7 @@ export class EditorStructureComponent implements OnInit {
         this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.saveTheChange.success')));
         this.hasChanges = false;
         this.state = 'success';
+        this.layout.clearPanelEditing();
       }
     });
 
@@ -1332,49 +1302,6 @@ export class EditorStructureComponent implements OnInit {
   cdkDragEnd(event: any) {
     this.layout.dragging = false;
   }
-
-  drop1(event: any) {
-    // Return the drag container to disabled.
-    this.layout.dragging = false;
-    this.dragDisabled = true;
-
-    const selections: number[] = [];
-    let indexCounted = false;
-
-    // Get the indexes for all selected items
-    this.layout.items.forEach((item, i) => {
-      if (item.selected) {
-        selections.unshift(i);
-      }
-    });
-
-    const selected: DocumentItem[] = this.layout.items.filter(i => i.selected);
-
-    if (selections.length > 1) {
-      // If multiple selections exist
-      let newIndex = event.currentIndex;
-      selections.forEach(s => {
-        this.layout.items.splice(s, 1);
-        if (s < event.currentIndex) {
-          newIndex--;
-          indexCounted = true;
-        }
-      });
-      if (indexCounted) {
-        newIndex++;
-      }
-      this.layout.items.splice(newIndex, 0, ...selected);
-
-    } else {
-      // If a single selection
-      moveItemInArray(this.layout.items, event.previousIndex, event.currentIndex);
-    }
-    this.layout.setIsDirty(this as Component);
-    this.hasChanges = true;
-    this.table.renderRows();
-
-  }
-
 
 
   setColumnSizes() {

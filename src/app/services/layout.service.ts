@@ -2,7 +2,7 @@ import { Injectable, Component } from '@angular/core';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { DocumentItem } from '../model/documentItem.model';
 import { Tree } from '../model/mods/tree.model';
-import { IConfig } from '../dialogs/layout-admin/layout-admin.component';
+import { IConfig, ILayoutPanel } from '../dialogs/layout-admin/layout-admin.component';
 import { ModelTemplate } from 'src/app/templates/modelTemplate';
 import { Metadata } from '../model/metadata.model';
 import { Page } from '../model/page.model';
@@ -63,7 +63,23 @@ export class LayoutService {
 
   public moveFocus: boolean = true;
 
+  
+  panels: ILayoutPanel[] = [];
+
   constructor() { }
+  
+
+  setPanelEditing(panel: ILayoutPanel) {
+    if (panel) {
+      this.panels.forEach(p => p.canEdit = false);
+      panel.canEdit = true;
+    }
+    
+  }
+
+  clearPanelEditing() {
+    this.panels.forEach(p => p.canEdit = true);
+  }
 
   allowedChildrenModels(): string[]{
     if (this.selectedParentItem) {
@@ -101,7 +117,8 @@ export class LayoutService {
     }
   }
 
-  setSelection(fromStructure: boolean, fromTree: boolean = false) {
+  setSelection(fromStructure: boolean, panel: ILayoutPanel, fromTree: boolean = false) {
+    this.setPanelEditing(panel);
     // this.movingToNext = false;
     // this.movedToNextFrom = null;
     if (fromTree) {
@@ -131,7 +148,8 @@ export class LayoutService {
     return this.moveNextSubject.asObservable();
   }
 
-  setSelectionChanged(fromStructure: boolean) {
+  setSelectionChanged(fromStructure: boolean, panel: ILayoutPanel) {
+    this.setPanelEditing(panel);
     this.selectionSubject.next(fromStructure);
   }
 
@@ -144,6 +162,7 @@ export class LayoutService {
   }
 
   setShouldRefresh(keepSelection: boolean) {
+    this.clearPanelEditing();
     if (!keepSelection) {
       this.lastSelectedItem = null;
     }

@@ -8,7 +8,9 @@ export interface ILayoutPanel {
     visible: boolean,
     isEmpty?: boolean,
     size: number,
-    type: string
+    type: string,
+    isDirty: boolean,
+    canEdit: boolean
   }
 
 export interface IConfig {
@@ -26,25 +28,25 @@ export const defaultLayoutConfig: IConfig = {
       visible: true,
       size: 33,
       rows: [
-        { id: 'panel1', visible: true, size: 25, type: 'structure-list' },
-        { id: 'panel2', visible: true, size: 75, type: 'metadata' },
+        { id: 'panel1', visible: true, size: 25, type: 'structure-list', isDirty: false, canEdit: true },
+        { id: 'panel2', visible: true, size: 75, type: 'metadata', isDirty: false, canEdit: true },
       ],
     },
     {
       visible: true,
       size: -1,
       rows: [
-        { id: 'panel3', visible: true, size: 20, type: 'mods' },
-        { id: 'panel4', visible: false, size: 30, type: 'ocr' },
-        { id: 'panel5', visible: false, size: 50, type: 'comment' },
+        { id: 'panel3', visible: true, size: 20, type: 'mods', isDirty: false, canEdit: true },
+        { id: 'panel4', visible: false, size: 30, type: 'ocr', isDirty: false, canEdit: true },
+        { id: 'panel5', visible: false, size: 50, type: 'comment', isDirty: false, canEdit: true },
       ],
     },
     {
       visible: true,
       size: 33,
       rows: [
-        { id: 'panel6', visible: true, size: 40, type: 'image' },
-        { id: 'panel7', visible: true, size: 60, type: 'atm' },
+        { id: 'panel6', visible: true, size: 40, type: 'image', isDirty: false, canEdit: true },
+        { id: 'panel7', visible: true, size: 60, type: 'atm', isDirty: false, canEdit: true },
       ],
     },
   ],

@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.component';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { DocumentItem } from 'src/app/model/documentItem.model';
@@ -21,7 +22,7 @@ import { ModelTemplate } from 'src/app/templates/modelTemplate';
 })
 export class EditorTreeComponent implements OnInit {
 
-  // @Input() item: DocumentItem;
+  @Input('panel') panel: ILayoutPanel;
 
   columns: { field: string, visible: boolean, prefix?: string, type?: string }[] = [
     // { field: 'label', visible: true },
@@ -187,7 +188,7 @@ export class EditorTreeComponent implements OnInit {
     // }
 
     this.isSelected = true;
-    this.layout.setSelection(true, true);
+    this.layout.setSelection(true, this.panel, true);
 
   }
 

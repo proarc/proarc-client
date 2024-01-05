@@ -283,6 +283,11 @@ ul {
   pointer-events: none;
 }
 
+as-split-area.app-avoid-click {
+  pointer-events: none;
+  opacity: .5;
+}
+
 .app-border-wrapper {
   border: 1px solid #{$app-default-border-color};
 }

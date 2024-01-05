@@ -1,4 +1,4 @@
-import { EditorRelocationComponent } from './components/editor/editor-relocation/editor-relocation.component';
+
 import { CodebookService } from './services/codebook.service';
 import { EditorPagesComponent } from './components/editor/editor-pages/editor-pages.component';
 import { EditorMetadataComponent } from './components/editor/editor-metadata/editor-metadata.component';
@@ -196,7 +196,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditorMetadataComponent,
     EditorPagesComponent,
     EditorAudioPagesComponent,
-    EditorRelocationComponent,
     ImportComponent,
     ProcessManagementComponent,
     NewObjectDialogComponent,

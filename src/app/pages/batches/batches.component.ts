@@ -137,11 +137,24 @@ export class BatchesComponent implements OnInit {
   }
 
   initConfig() {
+    let idx = 0;
+    this.layout.panels = [];
     if (localStorage.getItem(this.localStorageName)) {
-      this.layout.layoutConfig = JSON.parse(localStorage.getItem(this.localStorageName))
+      this.layout.layoutConfig = JSON.parse(localStorage.getItem(this.localStorageName));
+
     } else {
       this.layout.layoutConfig = JSON.parse(JSON.stringify(defaultLayoutConfig));
     }
+    
+    this.layout.layoutConfig.columns.forEach(c => {
+      c.rows.forEach(r => {
+        if (!r.id) {
+          r.id = 'panel' + idx++;
+        }
+        this.layout.panels.push(r);
+      });
+    });
+    this.layout.clearPanelEditing();
   }
 
 
@@ -192,7 +205,7 @@ export class BatchesComponent implements OnInit {
 
         this.layout.ready = true;
 
-        this.layout.setSelection(false);
+        this.layout.setSelection(false, null);
 
       });
     });
