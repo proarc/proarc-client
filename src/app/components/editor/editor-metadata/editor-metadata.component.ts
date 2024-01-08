@@ -12,6 +12,7 @@ import { LayoutService } from 'src/app/services/layout.service';
 import { TemplateService } from 'src/app/services/template.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { Subscription } from 'rxjs';
+import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.component';
 
 @Component({
   selector: 'app-editor-metadata',
@@ -28,7 +29,7 @@ export class EditorMetadataComponent implements OnInit {
   state = 'none';
 
   @Input() notSaved = false;
-  // @Input() pid: string;
+  @Input() panel: ILayoutPanel;
   @Input() model: string;
 
 
@@ -162,6 +163,7 @@ export class EditorMetadataComponent implements OnInit {
     if (!this.layout.lastSelectedItem || this.layout.lastSelectedItem.isPage()) {
       this.visible = false;
     }
+    this.layout.clearPanelEditing();
   }
 
   scrollHeight = 0;
@@ -355,7 +357,11 @@ export class EditorMetadataComponent implements OnInit {
     if (!this.metadata) {
       return false;
     }
-    return this.metadata.hasChanges();
+    const hasChanges = this.metadata.hasChanges();
+    if (hasChanges) {
+      this.layout.setPanelEditing(this.panel);
+    }
+    return hasChanges;
   }
 
   available(element: string): boolean {
@@ -446,6 +452,12 @@ export class EditorMetadataComponent implements OnInit {
 
   }
 
+  revert() {
+    this.layout.lastSelectedItemMetadata = null;
+    this.metadata = null;
+    this.layout.setSelectionChanged(false, null);
+  }
+
   onSave() {
     if (this.metadata.validate()) {
       if (this.notSaved) {
@@ -503,6 +515,7 @@ export class EditorMetadataComponent implements OnInit {
         this.metadata.resetChanges();
         this.ui.showInfoSnackBar(this.translator.instant("snackbar.changeSaved"));
         this.layout.refreshSelectedItem(false, 'metadata');
+        this.layout.clearPanelEditing();
       }
       setTimeout(() => {
         this.focusToFirstInvalid();

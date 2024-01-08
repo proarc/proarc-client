@@ -22,6 +22,9 @@
 				<button mat-icon-button  (click)="onSave()" [disabled]="!hasPendingChanges()" [matTooltip]="'button.save' | translate" >
 					<mat-icon>save</mat-icon>
 				</button>
+				<button mat-icon-button  (click)="revert()" [disabled]="!hasPendingChanges()" [matTooltip]="'button.refresh' | translate" >
+					<mat-icon>refresh</mat-icon>
+				</button>
 				<button mat-icon-button (click)="logMetadata()" [matTooltip]="'button.save' | translate" >
 					<mat-icon>log</mat-icon>
 				</button>

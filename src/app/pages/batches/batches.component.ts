@@ -158,6 +158,7 @@ export class BatchesComponent implements OnInit {
   }
 
 
+
   loadData(id: string, keepSelection: boolean) {
     const selection: string[] = [];
     if (keepSelection) {

@@ -330,7 +330,17 @@ export class EditorPageComponent implements OnInit {
     if (!this.page) {
       return false;
     }
-    return this.page.hasChanged();
+
+    const hasChanges = this.page.hasChanged();
+    if (hasChanges) {
+      this.layout.setPanelEditing(this.panel);
+    } else {
+      if (this.panel.canEdit) {
+        this.layout.clearPanelEditing();
+      }
+      
+    }
+    return hasChanges;
   }
 
 

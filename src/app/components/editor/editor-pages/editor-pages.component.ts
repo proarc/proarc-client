@@ -1,5 +1,5 @@
 import { CodebookService } from './../../../services/codebook.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ConfigService } from 'src/app/services/config.service';
 import { MatSelect } from '@angular/material/select';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -9,6 +9,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { UIService } from 'src/app/services/ui.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.component';
 
 @Component({
   selector: 'app-editor-pages',
@@ -17,6 +18,7 @@ import { Subscription } from 'rxjs';
 })
 export class EditorPagesComponent implements OnInit {
 
+  @Input() panel: ILayoutPanel; 
   holder: PageUpdateHolder;
   pageTypeControl: FormControl<{ code: string, name: string } | null> = new FormControl<{ code: string, name: string } | null>(null);
   numberingTypesControl: FormControl<{ id: string, label: string } | null> = new FormControl<{ id: string, label: string } | null>(null);
@@ -81,7 +83,17 @@ export class EditorPagesComponent implements OnInit {
   }
 
   canSave(): boolean {
-    return this.holder.editAny();
+
+    const hasChanges = this.holder.editAny();
+    if (hasChanges) {
+      this.layout.setPanelEditing(this.panel);
+    } else {
+      if (this.panel.canEdit) {
+        this.layout.clearPanelEditing();
+      }
+    }
+
+    return hasChanges
   }
 
   onSave() {

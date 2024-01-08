@@ -1,5 +1,5 @@
 import { CodebookService } from './../../../services/codebook.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ConfigService } from 'src/app/services/config.service';
 import { MatSelect } from '@angular/material/select';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -7,6 +7,7 @@ import { LayoutService } from 'src/app/services/layout.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/services/api.service';
 import { UIService } from 'src/app/services/ui.service';
+import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.component';
 
 @Component({
   selector: 'app-editor-audioPages',
@@ -15,6 +16,7 @@ import { UIService } from 'src/app/services/ui.service';
 })
 export class EditorAudioPagesComponent implements OnInit {
 
+  @Input() panel: ILayoutPanel; 
   holder: AudioPagesUpdateHolder;
   pageIndexControl = new FormControl();
   applyControl = new FormControl();
@@ -42,7 +44,16 @@ export class EditorAudioPagesComponent implements OnInit {
   }
 
   canSave(): boolean {
-    return this.holder.editAny();
+    const hasChanges = this.holder.editAny();
+    if (hasChanges) {
+      this.layout.setPanelEditing(this.panel);
+    } else {
+      if (this.panel.canEdit) {
+        this.layout.clearPanelEditing();
+      }
+    }
+
+    return hasChanges
   }
 
   onSave() {

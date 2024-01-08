@@ -3,6 +3,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { Note } from 'src/app/model/note.model';
 import { LayoutService } from 'src/app/services/layout.service';
 import { UIService } from 'src/app/services/ui.service';
+import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.component';
 
 @Component({
   selector: 'app-editor-comment',
@@ -11,6 +12,7 @@ import { UIService } from 'src/app/services/ui.service';
 })
 export class EditorCommentComponent implements OnInit {
 
+  @Input('panel') panel: ILayoutPanel;
   @Input('editorType') editorType: string;
   @Output() onChangeEditorType = new EventEmitter<string>();
   
@@ -40,6 +42,7 @@ export class EditorCommentComponent implements OnInit {
   onClear() {
     this.editting = false;
     this.anyChange = false;
+    this.layout.clearPanelEditing();
     this.note.restore();
   }
 
@@ -52,17 +55,20 @@ export class EditorCommentComponent implements OnInit {
       this.note = newNote;
       this.editting = false;
       this.anyChange = false;
+      this.layout.clearPanelEditing();
       this.state = 'success';
     });
   }
 
   onChange() {
     this.anyChange = true;
+    this.layout.setPanelEditing(this.panel);
   }
 
 
   private onPidChanged(pid: string) {
     this.anyChange = false;
+    this.layout.clearPanelEditing();
     this.editting = false;
     this.state = 'loading';
     this.api.getNote(pid, this.layout.getBatchId()).subscribe((note: Note) => {

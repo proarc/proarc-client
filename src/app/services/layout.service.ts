@@ -69,7 +69,7 @@ export class LayoutService {
   constructor() { }
   
 
-  setPanelEditing(panel: ILayoutPanel) {
+  setPanelEditing(panel: ILayoutPanel) { 
     if (panel) {
       this.panels.forEach(p => p.canEdit = false);
       panel.canEdit = true;

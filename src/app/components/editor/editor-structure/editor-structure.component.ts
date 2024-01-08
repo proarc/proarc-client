@@ -23,7 +23,7 @@ import { LayoutService } from 'src/app/services/layout.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UIService } from 'src/app/services/ui.service';
 
-import { CdkDragDrop, CdkDragStart, moveItemInArray, transferArrayItem, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { ColumnsSettingsDialogComponent } from 'src/app/dialogs/columns-settings-dialog/columns-settings-dialog.component';
 
 

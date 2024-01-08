@@ -65,6 +65,7 @@ export class EditorOcrComponent implements OnInit {
     }
     this.anyChange = false;
     this.editting = false;
+    this.layout.clearPanelEditing();
     this.loadOcr();
   }
 
@@ -89,6 +90,7 @@ export class EditorOcrComponent implements OnInit {
   onClear() {
     this.editting = false;
     this.anyChange = false;
+    this.layout.clearPanelEditing();
     this.ocr.restore();
   }
 
@@ -107,6 +109,7 @@ export class EditorOcrComponent implements OnInit {
 
   onChange() {
     this.anyChange = true;
+    this.layout.setPanelEditing(this.panel);
   }
 
   changeEditorType(t: string) {

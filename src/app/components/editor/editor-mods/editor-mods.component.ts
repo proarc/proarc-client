@@ -21,6 +21,7 @@ import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.componen
 })
 export class EditorModsComponent implements OnInit, OnDestroy {
 
+  @Input() panel: ILayoutPanel;
    @Input('editorType') editorType: string;
    @Output() onChangeEditorType = new EventEmitter<string>();
 

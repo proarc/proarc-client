@@ -1,5 +1,5 @@
 <div fxLayout="column" fxFlexFill>
-  <div fxFlex [ngSwitch]="editorType">
+  <div fxFlex [ngSwitch]="editorType">{{panel.id}}
     <div class="app-editor-content app-tree"  *ngSwitchCase="'tree'">
       <app-editor-tree  [panel]="panel" ></app-editor-tree>
     </div>
@@ -19,9 +19,10 @@
       <app-song *ngIf="layout.lastSelectedItem" [pid]="layout.lastSelectedItem.pid"></app-song>
     </ng-container>
     <ng-container *ngIf="layout.lastSelectedItem">
-      <app-editor-mods *ngSwitchCase="'mods'"  [pid]="layout.lastSelectedItem.pid" [editorType]="editorType" (onChangeEditorType)="changeEditorType($event)"></app-editor-mods>
-      <app-editor-ocr *ngSwitchCase="'ocr'"  [pid]="layout.lastSelectedItem.pid" [editorType]="editorType" (onChangeEditorType)="changeEditorType($event)"></app-editor-ocr>
-      <app-editor-comment *ngSwitchCase="'comment'"  [pid]="layout.lastSelectedItem.pid" [editorType]="editorType" (onChangeEditorType)="changeEditorType($event)"></app-editor-comment>
+      <app-editor-mods *ngSwitchCase="'mods'"  [pid]="layout.lastSelectedItem.pid" [panel]="panel"
+       [editorType]="editorType" (onChangeEditorType)="changeEditorType($event)"></app-editor-mods>
+      <app-editor-ocr *ngSwitchCase="'ocr'"  [panel]="panel" [pid]="layout.lastSelectedItem.pid" [editorType]="editorType" (onChangeEditorType)="changeEditorType($event)"></app-editor-ocr>
+      <app-editor-comment *ngSwitchCase="'comment'" [panel]="panel"  [pid]="layout.lastSelectedItem.pid" [editorType]="editorType" (onChangeEditorType)="changeEditorType($event)"></app-editor-comment>
       <app-editor-atm *ngSwitchCase="'atm'"  [pid]="layout.lastSelectedItem.pid" [editorType]="editorType" (onChangeEditorType)="changeEditorType($event)"></app-editor-atm>
       <ng-container *ngSwitchCase="'premis'">
         <app-editor-premis *ngIf="numOfSelected < 2"  [pid]="layout.lastSelectedItem.pid"></app-editor-premis>
@@ -29,16 +30,17 @@
       </ng-container>
     </ng-container>
     <ng-container *ngSwitchCase="'metadata'">
-      <app-editor-pages *ngIf="showPagesEditor"></app-editor-pages>
-      <app-editor-audioPages *ngIf="showAudioPagesEditor"></app-editor-audioPages>
+      <app-editor-pages *ngIf="showPagesEditor" [panel]="panel"></app-editor-pages>
+      <app-editor-audioPages *ngIf="showAudioPagesEditor" [panel]="panel"></app-editor-audioPages>
       <ng-container *ngIf="layout.lastSelectedItem && !showPagesEditor && !showAudioPagesEditor">
-        <app-editor-page *ngIf="itemModel === 'page'" [model]="layout.lastSelectedItem.model" [pid]="layout.lastSelectedItem.pid" [editorType]="editorType" (onChangeEditorType)="changeEditorType($event)"> </app-editor-page>
-        <app-editor-audioPage *ngIf="itemModel === 'song'" [model]="layout.lastSelectedItem.model" [pid]="layout.lastSelectedItem.pid"> </app-editor-audioPage>
+        <app-editor-page *ngIf="itemModel === 'page'"  [panel]="panel" [model]="layout.lastSelectedItem.model" [pid]="layout.lastSelectedItem.pid" 
+        [editorType]="editorType" (onChangeEditorType)="changeEditorType($event)"> </app-editor-page>
+        <app-editor-audioPage *ngIf="itemModel === 'song'" [panel]="panel" [model]="layout.lastSelectedItem.model" [pid]="layout.lastSelectedItem.pid"> </app-editor-audioPage>
         <!-- <app-editor-chronicle *ngIf="layout.lastSelectedItem.isChronicle()" [pid]="layout.lastSelectedItem.pid" 
         [metadata]="layout.lastSelectedItemMetadata" [model]="layout.lastSelectedItem.model"></app-editor-chronicle> -->
         <!-- <app-editor-bdm *ngIf="layout.lastSelectedItem.isBdm()" 
           [model]="layout.lastSelectedItem.model" [metadata]="layout.lastSelectedItemMetadata"></app-editor-bdm> -->
-        <app-editor-metadata *ngIf="itemModel !== 'page' && itemModel !== 'song'" 
+        <app-editor-metadata *ngIf="itemModel !== 'page' && itemModel !== 'song'"  [panel]="panel"
           [model]="layout.lastSelectedItem.model" [editorType]="editorType"
           [data]="layout.lastSelectedItemMetadata" (onChangeEditorType)="changeEditorType($event)">
         </app-editor-metadata>

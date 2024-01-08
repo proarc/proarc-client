@@ -10,6 +10,7 @@ import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dial
 import { LayoutService } from 'src/app/services/layout.service';
 import { UIService } from 'src/app/services/ui.service';
 import {AudioPage} from '../../../model/audioPage.model';
+import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.component';
 
 @Component({
   selector: 'app-editor-audioPage',
@@ -19,6 +20,7 @@ import {AudioPage} from '../../../model/audioPage.model';
 export class EditorAudioPageComponent implements OnInit {
 
   @Input() notSaved = false;
+  @Input() panel: ILayoutPanel;
   state = 'none';
   audioPage: AudioPage;
 
@@ -56,6 +58,7 @@ export class EditorAudioPageComponent implements OnInit {
     this.state = 'loading';
     this.api.getAudioPage(pid, this.model, this.layout.getBatchId()).subscribe((audioPage: AudioPage) => {
       this.audioPage = audioPage;
+      this.layout.clearPanelEditing();
       this.state = 'success';
       if (this.movedToNextFrom == 'pageIndex') {
         setTimeout(() => {
@@ -68,8 +71,21 @@ export class EditorAudioPageComponent implements OnInit {
     });
   }
 
+  hasChanged() {
+    const hasChanges = this.audioPage.hasChanged()
+    if (hasChanges) {
+      this.layout.setPanelEditing(this.panel);
+    } else {
+      if (this.panel.canEdit) {
+        this.layout.clearPanelEditing();
+      }
+    }
+    return hasChanges;
+  }
+
   onRevert() {
     this.audioPage.restore();
+    this.layout.clearPanelEditing();
   }
 
   onSaveFrom(from: string) {
