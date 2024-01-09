@@ -20,6 +20,14 @@ export class MediaComponent implements OnInit {
   public inputPid: string;
   isLocked = false;
   isRepo = true;
+  canAddPdf = false;
+  allowedModels = [
+  'model:ndkeperiodicalissue',
+  'model:ndkearticle',
+  'model:ndkemonographvolume',
+  'model:ndkechapter',
+  'model:chroniclesupplement',
+  'model:bdmarticle']
 
   @Input()
   set pid(pid: string) {
@@ -96,6 +104,7 @@ export class MediaComponent implements OnInit {
       return;
     }
     this.currentPid = pid;
+    this.canAddPdf = this.allowedModels.includes(this.layout.lastSelectedItem.model);
     this.getProfiles(pid);
   }
 

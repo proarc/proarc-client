@@ -8,7 +8,7 @@
       </mat-form-field> 
 		</div>
 		<div>
-      <button mat-icon-button  (click)="onAddPdf()" matTooltip="Načíst nový digitální obsah">
+      <button mat-icon-button [disabled]="!canAddPdf" (click)="onAddPdf()" matTooltip="Načíst nový digitální obsah">
 				<mat-icon>upload</mat-icon>
 			</button>
 			<input style="display: none;" #pdfInput id="pdf_file_upload" name="pdf_file_upload" type="file" (change)="uploadFile($event)" accept=".pdf,.PDF,.epub" />
