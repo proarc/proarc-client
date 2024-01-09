@@ -7,7 +7,7 @@
       <button mat-icon-button (click)="onRevert()" [matTooltip]="'common.revert' | translate"  [disabled]="!atm || !atm.hasChanged()">
         <mat-icon>replay</mat-icon>
       </button>
-      <button mat-icon-button (click)="onSave()" [matTooltip]="'common.save' | translate"  [disabled]="!atm || !atm.hasChanged()">
+      <button mat-icon-button (click)="onSave()" [matTooltip]="'common.save' | translate"  [disabled]="!atm || !hasChanged()">
         <mat-icon>save</mat-icon>
       </button>
 		</div>

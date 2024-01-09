@@ -92,6 +92,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
     }
     this.editting = false;
     this.anyChange = false;
+    this.layout.clearPanelEditing();
     this.mods.restore();
   }
 
@@ -154,6 +155,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
             this.mods = newMods;
             this.editting = false;
             this.anyChange = false;
+            this.layout.clearPanelEditing();
             this.state = 'success';
             this.layout.refreshSelectedItem(true, 'metadata');
             this.ui.showInfoSnackBar(this.translator.instant('snackbar.changeSaved'), 4000);
@@ -191,10 +193,16 @@ export class EditorModsComponent implements OnInit, OnDestroy {
   checkChanged() {
     //console.log(this.editingPre.nativeElement.innerText, this.originalText)
     this.anyChange = this.editingPre.nativeElement.innerText !== this.originalText;
+    if (this.anyChange) {
+      this.layout.setPanelEditing(this.panel);
+    } else {
+      this.layout.clearPanelEditing();
+    }
   }
 
   onChange() {
     this.anyChange = true;
+    this.layout.setPanelEditing(this.panel);
   }
 
 
@@ -211,6 +219,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
 
   private loadMods() {
     this.anyChange = false;
+    this.layout.clearPanelEditing();
     this.editting = false;
     this.state = 'loading';
     this.api.getMods(this.lastPid, this.layout.getBatchId()).subscribe((mods: any) => {

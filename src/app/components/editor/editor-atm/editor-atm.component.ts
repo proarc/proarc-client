@@ -17,7 +17,7 @@ import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.componen
 })
 export class EditorAtmComponent implements OnInit {
 
-   
+  @Input() panel: ILayoutPanel;
   @Input('editorType') editorType: string;
   @Output() onChangeEditorType = new EventEmitter<string>();
 
@@ -89,9 +89,21 @@ export class EditorAtmComponent implements OnInit {
     });
   }
 
+  hasChanged() {
+    const hasChanges = this.atm.hasChanged()
+    if (hasChanges) {
+      this.layout.setPanelEditing(this.panel);
+    } else {
+      if (this.panel.canEdit) {
+        this.layout.clearPanelEditing();
+      }
+    }
+    return hasChanges;
+  }
 
   onRevert() {
     this.atm.restore();
+        this.layout.clearPanelEditing();
   }
 
   onSave() {
