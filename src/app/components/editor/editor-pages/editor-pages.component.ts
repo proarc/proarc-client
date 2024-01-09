@@ -101,7 +101,7 @@ export class EditorPagesComponent implements OnInit {
       return;
     }
     this.updateSelectedPages(this.holder, null);
-    // this.holder.reset();
+    this.holder.reset();
     this.controls.markAsPristine();
     this.layout.isDirty = false;
   }

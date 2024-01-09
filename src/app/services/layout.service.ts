@@ -70,7 +70,6 @@ export class LayoutService {
   
 
   setPanelEditing(panel: ILayoutPanel) { 
-    console.log(panel)
     if (panel) {
       this.panels.forEach(p => p.canEdit = false);
       panel.canEdit = true;
