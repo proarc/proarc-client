@@ -188,7 +188,7 @@ export class EditorTreeComponent implements OnInit {
     // }
 
     this.isSelected = true;
-    this.layout.setSelection(true, this.panel, true);
+    this.layout.setSelection(true, null, true);
 
   }
 
@@ -325,9 +325,5 @@ export class EditorTreeComponent implements OnInit {
 
     });
   }
-
-
-
-
 
 }
