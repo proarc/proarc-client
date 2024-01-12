@@ -592,6 +592,7 @@ export class ParentDialogComponent implements OnInit {
   }
 
   initSelectedColumns() {
+    this.properties.getSearchColumnsTree();
     const prop = this.properties.getStringProperty('searchColumnsParent');
     if (prop) {
       Object.assign(this.selectedColumns, JSON.parse(prop));

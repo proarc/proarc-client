@@ -388,6 +388,8 @@ export class EditorStructureComponent implements OnInit {
       }
     } else if (this.layout.items.length > 0) {
       model = this.colsEditModeParent ? this.layout.selectedParentItem.model : this.layout.items[0].model;
+    } else {
+      model = this.layout.selectedParentItem.model
     }
 
 

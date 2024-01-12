@@ -43,7 +43,7 @@ export class LocalStorageService {
 
     public searchColumns: { field: string, selected: boolean; }[];
     public searchColumnsTree: { field: string, selected: boolean; }[];
-    public searchColumnsTreeSelected: { [field: string]: boolean };
+    public searchColumnsTreeSelected: { [field: string]: boolean } = {};
 
     public procMngColumnsDefault = [
         { field: 'description', selected: true, width: 100 },
