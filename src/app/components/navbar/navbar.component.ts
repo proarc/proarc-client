@@ -15,6 +15,7 @@ import { NewMetadataDialogComponent } from 'src/app/dialogs/new-metadata-dialog/
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  languages = ['cs', 'en', 'cs-en']
 
   constructor(public translator: TranslateService,
               public auth: AuthService,
