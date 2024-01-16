@@ -181,7 +181,11 @@ export class BatchesComponent implements OnInit {
       this.layout.setBatchId(id);
       this.api.getBatchPages(id).subscribe((response: any) => {
         if (response['response'].errors) {
-          this.ui.showErrorDialogFromObject(response['response'].errors);
+          const a =this.ui.showErrorDialogFromObject(response['response'].errors);
+          
+          a.afterClosed().subscribe(result => {
+            this.router.navigate(['/process-management']);
+          });
           return;
         }
         if (response['response'].status === -1) {

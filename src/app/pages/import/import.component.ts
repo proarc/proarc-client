@@ -123,8 +123,10 @@ export class ImportComponent implements OnInit {
     this.api.getImportFolders(folder.path).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('getImportFolders error', response['response'].errors);
-        this.ui.showErrorDialogFromObject(response['response'].errors);
-        return;
+        const a = this.ui.showErrorDialogFromObject(response['response'].errors);
+        a.afterClosed().subscribe(result => {
+          this.router.navigate(['/process-management']);
+        });
       }
       const folders: Folder[] = Folder.fromJsonArray(response['response']['data']);
       if (folders.length === 0) {
