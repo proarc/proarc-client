@@ -42,11 +42,14 @@ export class Page {
           page.type = page.type.substr(0, 1).toLowerCase() + page.type.substr(1);
         }
         page.identifiers = PageIdentifier.fromJsonArray(data['identifiers']);
+        page.originalIdentifiers = PageIdentifier.fromJsonArray(data['identifiers']);
+
+        page.originalPosition = page.position;
+        page.originalGenre = page.genre;
         page.originalIndex = page.index;
         page.originalNumber = page.number;
         page.originalType = page.type;
         page.originalNote = page.note;
-        page.originalIdentifiers = PageIdentifier.fromJsonArray(data['identifiers']);
       }
       return page;
   }

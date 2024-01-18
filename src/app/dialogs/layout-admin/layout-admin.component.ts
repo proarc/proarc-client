@@ -86,6 +86,7 @@ export class LayoutAdminComponent implements OnInit {
           if (!r.id) {
             r.id = 'panel' + idx++;
           }
+          r.canEdit = true;
         });
       });
     } else {

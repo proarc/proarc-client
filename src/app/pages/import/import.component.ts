@@ -108,7 +108,7 @@ export class ImportComponent implements OnInit {
   reRead(folder: Folder) {
     // this.importService.toggleFoder(this.tree.folder);
     this.api.reReadFolder(folder.path).subscribe((resp: any) => {
-      console.log(resp);
+      
       if (resp.response.error) {
         this.ui.showErrorSnackBar(resp.error);
       } else {

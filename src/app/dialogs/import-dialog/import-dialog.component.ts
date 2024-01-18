@@ -54,13 +54,16 @@ export class ImportDialogComponent implements OnInit, OnDestroy {
         return;
       }
 
-      const batch: Batch = Batch.fromJson(response['response'].data[0])
+      if (response['response'].data.length > 0) {
 
-      if (batch.state === 'LOADING_FAILED') {
-        clearInterval(this.timer);
-        this.state = 'failure';
-        this.failureMessage = batch.failure;
-        return;
+        const batch: Batch = Batch.fromJson(response['response'].data[0])
+
+        if (batch.state === 'LOADING_FAILED') {
+          clearInterval(this.timer);
+          this.state = 'failure';
+          this.failureMessage = batch.failure;
+          return;
+        }
       }
 
       const status: [number, number] = Batch.statusFromJson(response['response']);
