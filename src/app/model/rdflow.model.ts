@@ -1,4 +1,4 @@
-export class Workflow {
+export class RDFlow {
   barcode: string;
   created: Date;
   field001: string;

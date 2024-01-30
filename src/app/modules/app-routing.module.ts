@@ -12,7 +12,6 @@ import { ProcessManagementComponent } from '../pages/process-management/process-
 import { SettingsComponent } from '../pages/settings/settings.component';
 import { ConfirmLeaveEditorGuard } from '../confirm-leave-editor.guard';
 import { AdminComponent } from '../pages/admin/admin.component';
-import { WorkflowComponent } from '../pages/workflow/workflow.component';
 import { RepositoryComponent } from '../pages/repository/repository.component';
 import { BatchesComponent } from '../pages/batches/batches.component';
 import { AuthGuard } from '../auth.guard';
@@ -44,7 +43,7 @@ const routes: Routes = [
       { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
       { path: 'admin/:id/edit-user', component: EditUserComponent },
       { path: 'admin/new-user', component: NewUserComponent },
-      { path: 'workflow', loadChildren: () => import('../pages/workflow/workflow.module').then(m => m.WorkflowModule) },
+      { path: 'rdflow', loadChildren: () => import('../pages/rdflow/rdflow.module').then(m => m.RDFlowModule) },
       { path: '', redirectTo: '/search', pathMatch: 'full' },
       { path: 'totest', component: TotestComponent }
     ]

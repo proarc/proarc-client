@@ -30,7 +30,6 @@ import {MatListModule} from '@angular/material/list';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 const modules = [
-  NoopAnimationsModule,
     MatButtonModule,
     MatToolbarModule,
     MatFormFieldModule,

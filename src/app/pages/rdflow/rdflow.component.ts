@@ -2,30 +2,32 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { transformGeometryWithOptions } from 'ol/format/Feature';
-import { Workflow } from 'src/app/model/workflow.model';
+import { RDFlow } from 'src/app/model/rdflow.model';
 import { ApiService } from 'src/app/services/api.service';
 import { UIService } from 'src/app/services/ui.service';
 import { NewWorkflowDialogComponent } from './new-workflow-dialog/new-workflow-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-workflow',
-  templateUrl: './workflow.component.html',
-  styleUrls: ['./workflow.component.scss']
+  selector: 'app-rdflow',
+  templateUrl: './rdflow.component.html',
+  styleUrls: ['./rdflow.component.scss']
 })
-export class WorkflowComponent implements OnInit {
+export class RDFlowComponent implements OnInit {
 
   profiles: any[];
   selectedProfile: any;
 
   workFlowColumns = ['taskUsername', 'label'];
-  items: Workflow[];
-  selectedItem: Workflow;
+  items: RDFlow[];
+  selectedItem: RDFlow;
 
   material: any[];
+  taskColumns = ['label', 'user', 'state'];
   tasks: any[];
 
   constructor(
-    private translator: TranslateService,
+    private router: Router,
     private dialog: MatDialog,
     private api: ApiService,
     private ui: UIService) { }
@@ -68,8 +70,8 @@ export class WorkflowComponent implements OnInit {
     });
   }
 
-  getTask(id: number) {
-    this.api.getWorkflowTask(id).subscribe((response: any) => {
+  getTasks(id: number) {
+    this.api.getWorkflowTasks(id).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
@@ -99,11 +101,12 @@ export class WorkflowComponent implements OnInit {
     });
   }
 
-  selectItem(w: Workflow) {
+  selectItem(w: RDFlow) {
     this.selectedItem = w;
     this.selectedProfile = this.profiles.find(p => p.name === w.profileName);
-    this.tasks = this.selectedProfile.task;
+    //this.tasks = this.selectedProfile.task;
     this.getMaterial(this.selectedItem.id);
+    this.getTasks(this.selectedItem.id);
     // this.getItem(this.selectedItem.id)
   }
 
@@ -114,6 +117,11 @@ export class WorkflowComponent implements OnInit {
         this.getWorkflow();
       }
     });
+  }
+
+  openTask(id: string) {
+    console.log(id)
+    this.router.navigate(['rdflow/task', id])
   }
 
 }

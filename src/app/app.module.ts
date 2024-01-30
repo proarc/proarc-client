@@ -18,7 +18,7 @@ import { AppRoutingModule } from './modules/app-routing.module';
 
 import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions } from '@angular/material/tooltip';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppComponent } from './components/app.component';
 import { XmlViewComponent } from './documents/document/mods-xml/xml-view.component';
@@ -267,9 +267,10 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
+    NoopAnimationsModule,
     SharedModule,
+    AppRoutingModule,
     HttpClientModule,
     HttpClientJsonpModule,
     HighlightModule,
