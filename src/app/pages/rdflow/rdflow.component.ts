@@ -7,6 +7,8 @@ import { ApiService } from 'src/app/services/api.service';
 import { UIService } from 'src/app/services/ui.service';
 import { NewWorkflowDialogComponent } from './new-workflow-dialog/new-workflow-dialog.component';
 import { Router } from '@angular/router';
+import { LayoutService } from 'src/app/services/layout.service';
+import { LayoutAdminComponent } from 'src/app/dialogs/layout-admin/layout-admin.component';
 
 @Component({
   selector: 'app-rdflow',
@@ -30,10 +32,25 @@ export class RDFlowComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private api: ApiService,
-    private ui: UIService) { }
+    private ui: UIService,
+    public layout: LayoutService) { }
 
   ngOnInit(): void {
     this.getWorkflowProfiles();
+  }
+
+  showLayoutAdmin() {
+    const dialogRef = this.dialog.open(LayoutAdminComponent, {
+      data: { layout: 'import' },
+      width: '1280px',
+      height: '90%',
+      panelClass: 'app-dialog-layout-settings'
+    });
+    dialogRef.afterClosed().subscribe((ret: any) => {
+
+      // this.initConfig();
+      // this.loadData(this.batchId, true);
+    });
   }
 
   getWorkflowProfiles() {
@@ -57,6 +74,7 @@ export class RDFlowComponent implements OnInit {
       }
       this.items = response.response.data;
       this.selectItem(this.items[0]);
+      this.layout.ready = true;
     });
   }
 

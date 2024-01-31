@@ -8,6 +8,9 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TaskComponent } from './task/task.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { TaskEditComponent } from './task-edit/task-edit.component';
+import { MaterialEditComponent } from './material-edit/material-edit.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -27,10 +30,13 @@ const routes: Routes = [
   declarations: [
     RDFlowComponent,
     NewWorkflowDialogComponent,
-    TaskComponent
+    TaskComponent,
+    TaskEditComponent,
+    MaterialEditComponent
   ],
   imports: [
     SharedModule,
+    FlexLayoutModule,
     RouterModule.forChild(routes),
     TranslateModule.forChild({
       defaultLanguage: 'cs',

@@ -1,4 +1,21 @@
-<div class="app-workflow">
+<mat-progress-bar mode="indeterminate" *ngIf="!layout.ready" class="app-progress-bar"></mat-progress-bar>
+<div fxLayout="column" fxFlexFill *ngIf="layout.ready">
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
+    <div fxFlex fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
+      <a routerLink="/"><mat-icon>home</mat-icon></a>
+      <span class="app-separator">/</span>
+      <a routerLink="/rdflow">{{ 'navbar.workflow' | translate }}</a>
+      <span class="app-separator">/</span>
+      <span class="app-last">{{ 'desc.task' | translate }}</span>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" class="app-h-100">
+      <!-- <button mat-icon-button [matTooltip]="'navbar.layout' | translate" (click)="showLayoutAdmin()">
+        <mat-icon>dashboard</mat-icon>
+      </button> -->
+    </div>
+  </div>
+  <div fxFlex class="app-oh app-p-4" fxLayout="column">
+    <div class="app-border-wrapper app-h-100">
     <as-split direction="horizontal">
         <as-split-area [size]="40">
             Ukol
@@ -15,4 +32,6 @@ B
             </as-split>
         </as-split-area>
     </as-split>
+</div>
+</div>
 </div>

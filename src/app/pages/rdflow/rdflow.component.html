@@ -1,237 +1,181 @@
-<div class="app-workflow">
-  <as-split direction="horizontal">
-    <as-split-area [size]="40">
-      <as-split direction="vertical">
-        <as-split-area>
-          <!-- List of workflow items -->
-          <div class="app-toolbar-old" >
-            <button (click)="getWorkflow()" mat-button>{{'common.refresh' | translate }}</button>
-            <button (click)="createWorkflow()" mat-button>{{'workflow.create_new' | translate }}</button>
-          </div>
-
-          <!-- <div *ngFor="let item of items">{{item.label}}</div> -->
-          <table mat-table [dataSource]="items" class="example-table"
-                matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
-            <!-- Number Column -->
-            <ng-container matColumnDef="taskUsername">
-              <th mat-header-cell *matHeaderCellDef>taskUsername</th>
-              <td mat-cell *matCellDef="let row">{{row.taskUsername}}</td>
-            </ng-container>
-
-            <!-- Title Column -->
-            <ng-container matColumnDef="label">
-              <th mat-header-cell *matHeaderCellDef>Label</th>
-              <td mat-cell *matCellDef="let row">{{row.label}}</td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="workFlowColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: workFlowColumns;" (click)="selectItem(row)"></tr>
-          </table>
-
-
-        </as-split-area>
-        <as-split-area>
-          <p>Žádné položky k zobrazení</p>
-        </as-split-area>
-      </as-split>
-    </as-split-area>
-    <as-split-area [size]="60">
-      <as-split direction="vertical">
-        <as-split-area [size]="30">
-          <!-- Detail of selected item -->
-          <div class="app-toolbar-old" >
-            <button (click)="getDetail()" mat-button>{{'common.refresh' | translate }}</button>
-            <button (click)="saveDetail()" mat-button>{{'common.save' | translate }}</button>
-          </div>
-          <div class="app-detail" *ngIf="selectedItem">
-            <div>
-              <mat-form-field>
-                <input autocomplete="off" matInput [placeholder]="'workflow.label' | translate"
-                  [(ngModel)]="selectedItem.label">
-              </mat-form-field>
-            </div>
-
-            <div>
-
-              <mat-form-field>
-                <input autocomplete="off" matInput [placeholder]="'workflow.state' | translate"
-                  [(ngModel)]="selectedItem.state">
-              </mat-form-field>
-
-              <mat-form-field>
-                <input autocomplete="off" matInput [placeholder]="'workflow.priority' | translate"
-                  [(ngModel)]="selectedItem.priority">
-              </mat-form-field>
-
-              <mat-form-field>
-                <input autocomplete="off" matInput [placeholder]="'workflow.profileName' | translate"
-                  [(ngModel)]="selectedItem.profileName">
-              </mat-form-field>
-
-            </div>
-
-            <div>
-
-              <mat-form-field>
-                <input autocomplete="off" matInput [placeholder]="'workflow.ownerId' | translate"
-                  [(ngModel)]="selectedItem.ownerId" readonly>
-              </mat-form-field>
-
-              <mat-form-field>
-                <input autocomplete="off" matInput [placeholder]="'workflow.priority' | translate"
-                  [(ngModel)]="selectedItem.priority">
-              </mat-form-field>
-
-              <mat-form-field>
-                <input autocomplete="off" matInput [placeholder]="'workflow.id' | translate"
-                  [(ngModel)]="selectedItem.id" readonly>
-              </mat-form-field>
-
-            </div>
-
-            <div>
-
-              <mat-form-field>
-                <input autocomplete="off" matInput [placeholder]="'workflow.created' | translate"
-                  [(ngModel)]="selectedItem.created">
-              </mat-form-field>
-
-              <mat-form-field>
-                <input autocomplete="off" matInput [placeholder]="'workflow.modified' | translate"
-                  [(ngModel)]="selectedItem.modified">
-              </mat-form-field>
-            </div>
-          </div>
-
-
-        </as-split-area>
+<mat-progress-bar mode="indeterminate" *ngIf="!layout.ready" class="app-progress-bar"></mat-progress-bar>
+<div fxLayout="column" fxFlexFill *ngIf="layout.ready">
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
+    <div fxFlex fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
+      <a routerLink="/"><mat-icon>home</mat-icon></a>
+      <span class="app-separator">/</span>
+      <a routerLink="/rdflow">{{ 'navbar.workflow' | translate }}</a>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" class="app-h-100">
+      <button mat-icon-button [matTooltip]="'navbar.layout' | translate" (click)="showLayoutAdmin()">
+        <mat-icon>dashboard</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div fxFlex class="app-oh app-p-4" fxLayout="column">
+    <div class="app-border-wrapper app-h-100">
+      <as-split direction="horizontal">
         <as-split-area [size]="40">
-          <!-- Tasks list -->
-          
-          <div class="app-detail" *ngIf="selectedProfile">
-
-            <table mat-table [dataSource]="tasks" class="example-table"
-                matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
-                
-            <ng-container matColumnDef="label">
-              <th mat-header-cell *matHeaderCellDef>Ukol</th>
-              <td mat-cell *matCellDef="let row">{{row.profileLabel}}</td>
-            </ng-container>
-            
-            <ng-container matColumnDef="user">
-              <th mat-header-cell *matHeaderCellDef>Uzivatel</th>
-              <td mat-cell *matCellDef="let row">{{row.ownerName}}</td>
-            </ng-container>
-            
-            <ng-container matColumnDef="state">
-              <th mat-header-cell *matHeaderCellDef>Stav</th>
-              <td mat-cell *matCellDef="let row">{{row.state}}</td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="taskColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: taskColumns;" (dblclick)="openTask(row.id)"></tr>
-          </table>
-
-
-          </div>
+          <as-split direction="vertical">
+            <as-split-area>
+              <!-- List of workflow items -->
+              <div class="app-toolbar-old" >
+                <button (click)="getWorkflow()" mat-button>{{'common.refresh' | translate }}</button>
+                <button (click)="createWorkflow()" mat-button>{{'workflow.create_new' | translate }}</button>
+              </div>
+    
+              <!-- <div *ngFor="let item of items">{{item.label}}</div> -->
+              <table mat-table [dataSource]="items" class="example-table"
+                    matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+                <!-- Number Column -->
+                <ng-container matColumnDef="taskUsername">
+                  <th mat-header-cell *matHeaderCellDef>taskUsername</th>
+                  <td mat-cell *matCellDef="let row">{{row.taskUsername}}</td>
+                </ng-container>
+    
+                <!-- Title Column -->
+                <ng-container matColumnDef="label">
+                  <th mat-header-cell *matHeaderCellDef>Label</th>
+                  <td mat-cell *matCellDef="let row">{{row.label}}</td>
+                </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="workFlowColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: workFlowColumns;" (click)="selectItem(row)"></tr>
+              </table>
+    
+    
+            </as-split-area>
+            <as-split-area>
+              <p>Žádné položky k zobrazení</p>
+            </as-split-area>
+          </as-split>
         </as-split-area>
-        <as-split-area >
-          <div class="app-detail" *ngIf="material">
-            <!-- <ul>
-              <li *ngFor="let m of material">
-                {{ m.profileLabel }}
-              </li>
-            </ul> -->
-
-            <mat-card *ngFor="let m of material">
-              <div>
-                <button (click)="m.details = !m.details">{{m.details ? '-' : '+'}}</button><span>{{ m.profileLabel }}</span><span>{{m.ownerName}}</span><span>{{m.state}}</span>
+        <as-split-area [size]="60">
+          <as-split direction="vertical">
+            <as-split-area [size]="30">
+              <!-- Detail of selected item -->
+              <div class="app-toolbar-old" >
+                <button (click)="getDetail()" mat-button>{{'common.refresh' | translate }}</button>
+                <button (click)="saveDetail()" mat-button>{{'common.save' | translate }}</button>
               </div>
-              <ng-container *ngIf="m.details">
+              <div class="app-detail" *ngIf="selectedItem">
+                <div>
+                  <mat-form-field>
+                    <input autocomplete="off" matInput [placeholder]="'workflow.label' | translate"
+                      [(ngModel)]="selectedItem.label">
+                  </mat-form-field>
+                </div>
+    
+                <div>
+    
+                  <mat-form-field>
+                    <input autocomplete="off" matInput [placeholder]="'workflow.state' | translate"
+                      [(ngModel)]="selectedItem.state">
+                  </mat-form-field>
+    
+                  <mat-form-field>
+                    <input autocomplete="off" matInput [placeholder]="'workflow.priority' | translate"
+                      [(ngModel)]="selectedItem.priority">
+                  </mat-form-field>
+    
+                  <mat-form-field>
+                    <input autocomplete="off" matInput [placeholder]="'workflow.profileName' | translate"
+                      [(ngModel)]="selectedItem.profileName">
+                  </mat-form-field>
+    
+                </div>
+    
+                <div>
+    
+                  <mat-form-field>
+                    <input autocomplete="off" matInput [placeholder]="'workflow.ownerId' | translate"
+                      [(ngModel)]="selectedItem.ownerId" readonly>
+                  </mat-form-field>
+    
+                  <mat-form-field>
+                    <input autocomplete="off" matInput [placeholder]="'workflow.priority' | translate"
+                      [(ngModel)]="selectedItem.priority">
+                  </mat-form-field>
+    
+                  <mat-form-field>
+                    <input autocomplete="off" matInput [placeholder]="'workflow.id' | translate"
+                      [(ngModel)]="selectedItem.id" readonly>
+                  </mat-form-field>
+    
+                </div>
+    
+                <div>
+    
+                  <mat-form-field>
+                    <input autocomplete="off" matInput [placeholder]="'workflow.created' | translate"
+                      [(ngModel)]="selectedItem.created">
+                  </mat-form-field>
+    
+                  <mat-form-field>
+                    <input autocomplete="off" matInput [placeholder]="'workflow.modified' | translate"
+                      [(ngModel)]="selectedItem.modified">
+                  </mat-form-field>
+                </div>
+              </div>
+    
+    
+            </as-split-area>
+            <as-split-area [size]="40">
+              <!-- Tasks list -->
               
-              <div *ngIf="m.type === 'DIGITAL_OBJECT'">
-                <mat-form-field>
-                  <input matInput [placeholder]="'workflow.pid' | translate"
-                    [(ngModel)]="m.pid">
-                </mat-form-field>
-                <mat-form-field>
-                  <input matInput [placeholder]="'workflow.poznamka' | translate"
-                    [(ngModel)]="m.poznamka">
-                </mat-form-field>
+              <div class="app-detail" *ngIf="selectedProfile">
+    
+                <table mat-table [dataSource]="tasks" class="example-table"
+                    matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+                    
+                <ng-container matColumnDef="label">
+                  <th mat-header-cell *matHeaderCellDef>Ukol</th>
+                  <td mat-cell *matCellDef="let row">{{row.profileLabel}}</td>
+                </ng-container>
+                
+                <ng-container matColumnDef="user">
+                  <th mat-header-cell *matHeaderCellDef>Uzivatel</th>
+                  <td mat-cell *matCellDef="let row">{{row.ownerName}}</td>
+                </ng-container>
+                
+                <ng-container matColumnDef="state">
+                  <th mat-header-cell *matHeaderCellDef>Stav</th>
+                  <td mat-cell *matCellDef="let row">{{row.state}}</td>
+                </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="taskColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: taskColumns;" (dblclick)="openTask(row.id)"></tr>
+              </table>
+    
+    
               </div>
-              
-              <div *ngIf="m.type === 'FOLDER'">
-                <mat-form-field>
-                  <input matInput [placeholder]="'workflow.path' | translate"
-                    [(ngModel)]="m.path">
-                </mat-form-field>
-                <mat-form-field>
-                  <input matInput [placeholder]="'workflow.poznamka' | translate"
-                    [(ngModel)]="m.poznamka">
-                </mat-form-field>
+            </as-split-area>
+            <as-split-area >
+              <div class="app-detail" *ngIf="material">
+                <!-- <ul>
+                  <li *ngFor="let m of material">
+                    {{ m.profileLabel }}
+                  </li>
+                </ul> -->
+    
+                <mat-card *ngFor="let m of material">
+                  <div>
+                    <button (click)="m.details = !m.details">{{m.details ? '-' : '+'}}</button><span>{{ m.profileLabel }}</span><span>{{m.ownerName}}</span><span>{{m.state}}</span>
+                  </div>
+                  <ng-container *ngIf="m.details">
+                  
+                  <app-material-edit [material]="m"></app-material-edit>
+    
+                </ng-container>
+                </mat-card>
+    
               </div>
-
-              <div *ngIf="m.type === 'PHYSICAL_DOCUMENT'">
-                <mat-form-field>
-                  <input matInput [placeholder]="'workflow.source' | translate"
-                    [(ngModel)]="m.source">
-                </mat-form-field>
-                <mat-form-field>
-                  <input matInput [placeholder]="'workflow.barcode' | translate"
-                    [(ngModel)]="m.barcode">
-                </mat-form-field>
-                <mat-form-field>
-                  <input matInput [placeholder]="'workflow.field001' | translate"
-                    [(ngModel)]="m.field001">
-                </mat-form-field>
-                <mat-form-field>
-                  <input matInput [placeholder]="'workflow.sigla' | translate"
-                    [(ngModel)]="m.sigla">
-                </mat-form-field>
-                <mat-form-field>
-                  <input matInput [placeholder]="'workflow.signatura' | translate"
-                    [(ngModel)]="m.signatura">
-                </mat-form-field>
-                <mat-form-field>
-                  <input matInput [placeholder]="'workflow.detail' | translate"
-                    [(ngModel)]="m.detail">
-                </mat-form-field>
-                <mat-form-field>
-                  <input matInput [placeholder]="'workflow.edice' | translate"
-                    [(ngModel)]="m.edice">
-                </mat-form-field>
-                <mat-form-field>
-                  <input matInput [placeholder]="'workflow.cislo' | translate"
-                    [(ngModel)]="m.cislo">
-                </mat-form-field>
-                <mat-form-field>
-                  <input matInput [placeholder]="'workflow.rocnik' | translate"
-                    [(ngModel)]="m.rocnik">
-                </mat-form-field>
-                <mat-form-field>
-                  <input matInput [placeholder]="'workflow.rok' | translate"
-                    [(ngModel)]="m.rok">
-                </mat-form-field>
-                <mat-form-field>
-                  <input matInput [placeholder]="'workflow.rdczid' | translate"
-                    [(ngModel)]="m.rdczid">
-                </mat-form-field>
-                <mat-form-field>
-                  <input matInput [placeholder]="'workflow.poznamka' | translate"
-                    [(ngModel)]="m.poznamka">
-                </mat-form-field>
-                <mat-form-field>
-                  <input matInput [placeholder]="'workflow.metadata' | translate"
-                    [(ngModel)]="m.metadata">
-                </mat-form-field>
-              </div>
-
-            </ng-container>
-            </mat-card>
-
-          </div>
+            </as-split-area>
+          </as-split>
         </as-split-area>
       </as-split>
-    </as-split-area>
-  </as-split>
+    </div>
+  </div>
 </div>
+
+  

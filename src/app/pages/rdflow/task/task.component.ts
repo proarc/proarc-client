@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, forkJoin, Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
+import { LayoutService } from 'src/app/services/layout.service';
 import { UIService } from 'src/app/services/ui.service';
 
 @Component({
@@ -19,7 +20,8 @@ export class TaskComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private api: ApiService,
-    private ui: UIService
+    private ui: UIService,
+    public layout: LayoutService
   ) { }
 
   ngOnInit(): void {
@@ -31,6 +33,8 @@ export class TaskComponent implements OnInit {
           this.getParameters();
           this.getMaterial();
         }
+        
+      this.layout.ready = true;
       });
   }
 
