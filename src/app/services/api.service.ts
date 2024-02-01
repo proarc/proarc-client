@@ -962,6 +962,10 @@ export class ApiService {
     return this.get('workflow/profile');
   }
 
+  getWorkflowSubJobs(id: number): Observable<any> {
+    return this.get('workflow?parentId=' + id);
+  } 
+
   getWorkflowItem(id: number): Observable<any> {
     return this.get('workflow?id=' + id);
   }

@@ -21,12 +21,27 @@ export class RDFlowComponent implements OnInit {
   selectedProfile: any;
 
   workFlowColumns = ['taskUsername', 'label'];
-  items: RDFlow[];
-  selectedItem: RDFlow;
+  jobs: RDFlow[] = [];
+  subJobs: RDFlow[] = [];
+  selectedJob: RDFlow;
+
 
   material: any[];
   taskColumns = ['label', 'user', 'state'];
   tasks: any[];
+
+  states = [
+    {code: 'OPEN', value: 'Otevřený'},
+    {code: 'FINISHED', value: 'Hotový'},
+    {code: 'CANCELED', value: 'Zrušený'},
+  ]
+
+  priorities = [
+    {code: 1, value: 'Spěchá'},
+    {code: 2, value: 'Normální'},
+    {code: 3, value: 'Nízká'},
+    {code: 4, value: 'Odloženo'},
+  ]
 
   constructor(
     private router: Router,
@@ -66,15 +81,29 @@ export class RDFlowComponent implements OnInit {
   }
 
   getWorkflow() {
-    this.items = [];
+    this.jobs = [];
+    this.subJobs = [];
     this.api.getWorkflow().subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
       }
-      this.items = response.response.data;
-      this.selectItem(this.items[0]);
+      this.jobs = response.response.data;
+      this.selectJob(this.jobs[0]);
       this.layout.ready = true;
+    });
+  }
+
+  
+
+  getSubJobs(id: number) {
+    this.subJobs = [];
+    this.api.getWorkflowSubJobs(id).subscribe((response: any) => {
+      if (response['response'].errors) {
+        this.ui.showErrorDialogFromObject(response['response'].errors);
+        return;
+      }
+      this.subJobs = response.response.data;
     });
   }
 
@@ -99,7 +128,7 @@ export class RDFlowComponent implements OnInit {
   }
 
   saveDetail() {
-    this.api.saveWorkflowItem(this.selectedItem).subscribe((response: any) => {
+    this.api.saveWorkflowItem(this.selectedJob).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
@@ -110,21 +139,22 @@ export class RDFlowComponent implements OnInit {
   }
 
   getDetail() {
-    this.api.getWorkflowItem(this.selectedItem.id).subscribe((response: any) => {
+    this.api.getWorkflowItem(this.selectedJob.id).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
       }
-      this.selectedItem = response.response.data[0];
+      this.selectedJob = response.response.data[0];
     });
   }
 
-  selectItem(w: RDFlow) {
-    this.selectedItem = w;
+  selectJob(w: RDFlow) {
+    this.selectedJob = w;
     this.selectedProfile = this.profiles.find(p => p.name === w.profileName);
     //this.tasks = this.selectedProfile.task;
-    this.getMaterial(this.selectedItem.id);
-    this.getTasks(this.selectedItem.id);
+    this.getMaterial(this.selectedJob.id);
+    this.getTasks(this.selectedJob.id);
+    this.getSubJobs(this.selectedJob.id);
     // this.getItem(this.selectedItem.id)
   }
 

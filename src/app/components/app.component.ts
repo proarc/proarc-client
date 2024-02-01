@@ -20,18 +20,18 @@ export class AppComponent implements OnInit {
     private router: Router,
     private config: ConfigService,
     private api: ApiService
-    ) {
-      const lang = localStorage.getItem('lang');
-      if (lang) {
-        this.translator.use(lang);
-      } else if(APP_GLOBAL.lang) {
-        this.translator.use(APP_GLOBAL.lang);
-      } else {
-        this.translator.use('cs');
-      }
+  ) {
+    const lang = localStorage.getItem('lang');
+    if (lang) {
+      this.translator.use(lang);
+    } else if (APP_GLOBAL.lang) {
+      this.translator.use(APP_GLOBAL.lang);
+    } else {
+      this.translator.use('cs');
+    }
 
-      
-      // this.auth.checkOnStart();
+
+    // this.auth.checkOnStart();
   }
 
   ngOnInit() {
@@ -42,9 +42,10 @@ export class AppComponent implements OnInit {
       }
     });
 
-    this.api.getValuemap().subscribe(resp => {
-      console.log(resp);
-      this.config.valueMap = resp.response.data;
-    })
+    if (this.auth.user && !this.config.valueMap) {
+      this.api.getValuemap().subscribe(resp => {
+        this.config.valueMap = resp.response.data;
+      });
+    }
   }
 }

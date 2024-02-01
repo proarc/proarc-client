@@ -20,7 +20,9 @@ export class TaskComponent implements OnInit {
 
   scanners: {code: string, value: string}[] = [];
   scanner: any;
+  imageColors: {code: string, value: string}[] = [];
   imageColor: any;
+  dpis: {code: string, value: string}[] = [];
   dpi: any;
 
   constructor(
@@ -43,11 +45,19 @@ export class TaskComponent implements OnInit {
   }
 
   initData() {
-    this.getTask();
-    this.getParameters();
-    this.getMaterial();
-    this.scanners = this.config.getValueMap('wf.valuemap.scannerNow');
-    this.layout.ready = true;
+    if (this.config.valueMap) {
+      this.getTask();
+      this.getParameters();
+      this.getMaterial();
+      this.scanners = this.config.getValueMap('wf.valuemap.scannerNow');
+      this.imageColors = this.config.getValueMap('wf.valuemap.imageColor');
+      this.dpis = this.config.getValueMap('wf.valuemap.dpi');
+      this.layout.ready = true;
+    } else {
+      setTimeout(() => {
+        this.initData();
+      }, 100);
+    }
   }
 
   getTask() {
@@ -78,9 +88,15 @@ export class TaskComponent implements OnInit {
         return;
       }
       this.parameters = response.response.data;
-      this.scanner = this.parameters.find((p: any) => p.valueMapId === 'wf.valuemap.scannerNow').value;
-      this.dpi = this.parameters.find((p: any) => p.valueMapId === 'wf.valuemap.dpi').value;
-      this.imageColor = this.parameters.find((p: any) => p.valueMapId === 'wf.valuemap.imageColor').value;
+      this.scanner = this.parameters.find((p: any) => p.valueMapId === 'wf.valuemap.scannerNow')?.value;
+      this.dpi = this.parameters.find((p: any) => p.valueMapId === 'wf.valuemap.dpi')?.value;
+
+      // imageColor v  obcas vraci code a obcas value !!
+      const ic = this.parameters.find((p: any) => p.valueMapId === 'wf.valuemap.imageColor');
+      if (ic) {
+        this.imageColor = this.imageColors.find(c => c.value === ic.value || c.code === ic.value).code;
+      }
+      
     });
   }
 

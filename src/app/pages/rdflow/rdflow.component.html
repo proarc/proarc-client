@@ -24,29 +24,44 @@
                 <button (click)="createWorkflow()" mat-button>{{'workflow.create_new' | translate }}</button>
               </div>
     
-              <!-- <div *ngFor="let item of items">{{item.label}}</div> -->
-              <table mat-table [dataSource]="items" class="example-table"
+              <table mat-table [dataSource]="jobs"
                     matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
-                <!-- Number Column -->
+                    
                 <ng-container matColumnDef="taskUsername">
                   <th mat-header-cell *matHeaderCellDef>taskUsername</th>
                   <td mat-cell *matCellDef="let row">{{row.taskUsername}}</td>
                 </ng-container>
     
-                <!-- Title Column -->
                 <ng-container matColumnDef="label">
                   <th mat-header-cell *matHeaderCellDef>Label</th>
                   <td mat-cell *matCellDef="let row">{{row.label}}</td>
                 </ng-container>
     
                 <tr mat-header-row *matHeaderRowDef="workFlowColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: workFlowColumns;" (click)="selectItem(row)"></tr>
+                <tr mat-row *matRowDef="let row; columns: workFlowColumns;" (click)="selectJob(row)"></tr>
               </table>
     
     
             </as-split-area>
             <as-split-area>
-              <p>Žádné položky k zobrazení</p>
+              <span *ngIf="subJobs.length === 0">Žádné položky k zobrazení</span>
+              <table *ngIf="subJobs.length > 0" mat-table [dataSource]="subJobs"
+                    matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+                    
+                <ng-container matColumnDef="taskUsername">
+                  <th mat-header-cell *matHeaderCellDef>taskUsername</th>
+                  <td mat-cell *matCellDef="let row">{{row.taskUsername}}</td>
+                </ng-container>
+    
+                <ng-container matColumnDef="label">
+                  <th mat-header-cell *matHeaderCellDef>Label</th>
+                  <td mat-cell *matCellDef="let row">{{row.label}}</td>
+                </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="workFlowColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: workFlowColumns;" (click)="selectJob(row)"></tr>
+              </table>
+
             </as-split-area>
           </as-split>
         </as-split-area>
@@ -58,29 +73,31 @@
                 <button (click)="getDetail()" mat-button>{{'common.refresh' | translate }}</button>
                 <button (click)="saveDetail()" mat-button>{{'common.save' | translate }}</button>
               </div>
-              <div class="app-detail" *ngIf="selectedItem">
+              <div class="app-detail" *ngIf="selectedJob">
                 <div>
                   <mat-form-field>
                     <input autocomplete="off" matInput [placeholder]="'workflow.label' | translate"
-                      [(ngModel)]="selectedItem.label">
+                      [(ngModel)]="selectedJob.label">
                   </mat-form-field>
                 </div>
     
                 <div>
-    
                   <mat-form-field>
-                    <input autocomplete="off" matInput [placeholder]="'workflow.state' | translate"
-                      [(ngModel)]="selectedItem.state">
+                  <mat-select [(ngModel)]="selectedJob.state" [placeholder]="'workflow.scanner' | translate">
+                    <mat-option *ngFor="let o of states" [value]="o.code">{{o.value}}</mat-option>
+                  </mat-select>
                   </mat-form-field>
-    
+
+                  
                   <mat-form-field>
-                    <input autocomplete="off" matInput [placeholder]="'workflow.priority' | translate"
-                      [(ngModel)]="selectedItem.priority">
+                  <mat-select [(ngModel)]="selectedJob.priority" [placeholder]="'workflow.scanner' | translate">
+                    <mat-option *ngFor="let o of priorities" [value]="o.code">{{o.value}}</mat-option>
+                  </mat-select>
                   </mat-form-field>
     
                   <mat-form-field>
                     <input autocomplete="off" matInput [placeholder]="'workflow.profileName' | translate"
-                      [(ngModel)]="selectedItem.profileName">
+                      [(ngModel)]="selectedJob.profileName" readonly>
                   </mat-form-field>
     
                 </div>
@@ -89,17 +106,17 @@
     
                   <mat-form-field>
                     <input autocomplete="off" matInput [placeholder]="'workflow.ownerId' | translate"
-                      [(ngModel)]="selectedItem.ownerId" readonly>
+                      [(ngModel)]="selectedJob.ownerId" readonly>
                   </mat-form-field>
     
                   <mat-form-field>
-                    <input autocomplete="off" matInput [placeholder]="'workflow.priority' | translate"
-                      [(ngModel)]="selectedItem.priority">
+                    <input autocomplete="off" matInput [placeholder]="'workflow.financed' | translate"
+                      [(ngModel)]="selectedJob.financed">
                   </mat-form-field>
     
                   <mat-form-field>
                     <input autocomplete="off" matInput [placeholder]="'workflow.id' | translate"
-                      [(ngModel)]="selectedItem.id" readonly>
+                      [(ngModel)]="selectedJob.id" readonly>
                   </mat-form-field>
     
                 </div>
@@ -107,13 +124,13 @@
                 <div>
     
                   <mat-form-field>
-                    <input autocomplete="off" matInput [placeholder]="'workflow.created' | translate"
-                      [(ngModel)]="selectedItem.created">
+                    <input matInput [placeholder]="'workflow.created' | translate" 
+                      [value]="selectedJob.created | date : 'dd.MM.yyyy HH:mm'" readonly>
                   </mat-form-field>
     
                   <mat-form-field>
                     <input autocomplete="off" matInput [placeholder]="'workflow.modified' | translate"
-                      [(ngModel)]="selectedItem.modified">
+                      [value]="selectedJob.modified | date : 'dd.MM.yyyy HH:mm'" readonly>
                   </mat-form-field>
                 </div>
               </div>

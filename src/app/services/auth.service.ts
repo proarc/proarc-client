@@ -89,7 +89,11 @@ export class AuthService {
                 .subscribe(
                     (user: any) => {
                         this.user = User.fromJson(user['response']['data'][0]);
-                        resolve(true);
+                        this.api.getValuemap().subscribe(resp => {
+                            this.config.valueMap = resp.response.data;
+                            resolve(true);
+                          });
+                        // resolve(true);
                     },
                     (error: any) => {
                         console.log(error.message);

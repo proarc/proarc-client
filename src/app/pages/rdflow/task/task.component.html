@@ -36,9 +36,21 @@
                                     </mat-form-field>
                                 </div>
                                 <div>
+                                    <mat-form-field>
                                     <mat-select [(ngModel)]="scanner" [placeholder]="'workflow.scanner' | translate">
                                         <mat-option *ngFor="let o of scanners" [value]="o.code">{{o.value}}</mat-option>
                                     </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                    <mat-select [(ngModel)]="imageColor" [placeholder]="'workflow.imageColor' | translate">
+                                        <mat-option *ngFor="let o of imageColors" [value]="o.code">{{o.value}}</mat-option>
+                                    </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field>
+                                    <mat-select [(ngModel)]="dpi" [placeholder]="'workflow.dpi' | translate">
+                                        <mat-option *ngFor="let o of dpis" [value]="o.code">{{o.value}}</mat-option>
+                                    </mat-select>
+                                    </mat-form-field>
                                 </div>
                             </div>
                         </as-split-area>
