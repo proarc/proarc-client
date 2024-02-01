@@ -432,7 +432,13 @@ export class ConfigService {
 	public updateInSource = !!APP_GLOBAL.updateInSource;
 	public updateInSourceModels: string[] = APP_GLOBAL.updateInSourceModels;
 
+	public valueMap: {mapId: string, values: any[]}[];
+
 	constructor() {
+	}
+
+	public getValueMap(mapId: string): any[] {
+		return this.valueMap.find(m => m.mapId === mapId).values;
 	}
 
 }

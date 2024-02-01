@@ -138,7 +138,6 @@ export class RDFlowComponent implements OnInit {
   }
 
   openTask(id: string) {
-    console.log(id)
     this.router.navigate(['rdflow/task', id])
   }
 

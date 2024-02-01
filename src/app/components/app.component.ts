@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../services/auth.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { ConfigService } from 'src/app/services/config.service';
+import { ApiService } from '../services/api.service';
 
 declare var APP_GLOBAL: any;
 
@@ -17,7 +18,8 @@ export class AppComponent implements OnInit {
   constructor(private translator: TranslateService,
     public auth: AuthService,
     private router: Router,
-    private config: ConfigService
+    private config: ConfigService,
+    private api: ApiService
     ) {
       const lang = localStorage.getItem('lang');
       if (lang) {
@@ -39,5 +41,10 @@ export class AppComponent implements OnInit {
         (<any>window).gaaa('send', 'pageview');
       }
     });
+
+    this.api.getValuemap().subscribe(resp => {
+      console.log(resp);
+      this.config.valueMap = resp.response.data;
+    })
   }
 }

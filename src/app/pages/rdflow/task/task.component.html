@@ -1,37 +1,53 @@
 <mat-progress-bar mode="indeterminate" *ngIf="!layout.ready" class="app-progress-bar"></mat-progress-bar>
 <div fxLayout="column" fxFlexFill *ngIf="layout.ready">
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
-    <div fxFlex fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
-      <a routerLink="/"><mat-icon>home</mat-icon></a>
-      <span class="app-separator">/</span>
-      <a routerLink="/rdflow">{{ 'navbar.workflow' | translate }}</a>
-      <span class="app-separator">/</span>
-      <span class="app-last">{{ 'desc.task' | translate }}</span>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="start center" class="app-h-100">
-      <!-- <button mat-icon-button [matTooltip]="'navbar.layout' | translate" (click)="showLayoutAdmin()">
+    <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
+        <div fxFlex fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
+            <a routerLink="/"><mat-icon>home</mat-icon></a>
+            <span class="app-separator">/</span>
+            <a routerLink="/rdflow">{{ 'navbar.workflow' | translate }}</a>
+            <span class="app-separator">/</span>
+            <span class="app-last">{{ 'desc.task' | translate }}</span>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start center" class="app-h-100">
+            <!-- <button mat-icon-button [matTooltip]="'navbar.layout' | translate" (click)="showLayoutAdmin()">
         <mat-icon>dashboard</mat-icon>
       </button> -->
+        </div>
     </div>
-  </div>
-  <div fxFlex class="app-oh app-p-4" fxLayout="column">
-    <div class="app-border-wrapper app-h-100">
-    <as-split direction="horizontal">
-        <as-split-area [size]="40">
-            Ukol
-        </as-split-area>
-        <as-split-area [size]="60">
-
-            <as-split direction="vertical">
-                <as-split-area>
-A
+    <div fxFlex class="app-oh app-p-4" fxLayout="column">
+        <div class="app-border-wrapper app-h-100">
+            <as-split direction="horizontal">
+                <as-split-area [size]="40">
+                    Ukol
                 </as-split-area>
-                <as-split-area>
-B
+                <as-split-area [size]="60">
+
+                    <as-split direction="vertical">
+                        <as-split-area>
+                            <div class="app-toolbar-old">
+                                <button (click)="getTask()" mat-button>{{'common.refresh' | translate }}</button>
+                                <button (click)="saveTask()" mat-button>{{'common.save' | translate }}</button>
+                            </div>
+                            <div class="app-detail" *ngIf="task">
+                                <div>
+                                    <mat-form-field>
+                                        <input autocomplete="off" matInput [placeholder]="'workflow.label' | translate"
+                                            [title]="task.profileHint" [(ngModel)]="task.profileLabel">
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <mat-select [(ngModel)]="scanner" [placeholder]="'workflow.scanner' | translate">
+                                        <mat-option *ngFor="let o of scanners" [value]="o.code">{{o.value}}</mat-option>
+                                    </mat-select>
+                                </div>
+                            </div>
+                        </as-split-area>
+                        <as-split-area>
+                            B
+                        </as-split-area>
+                    </as-split>
                 </as-split-area>
             </as-split>
-        </as-split-area>
-    </as-split>
-</div>
-</div>
+        </div>
+    </div>
 </div>

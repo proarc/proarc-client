@@ -992,6 +992,15 @@ export class ApiService {
     return this.get('workflow/task?id=' + id);
   }
 
+  saveWorkflowTask(w: any): Observable<any> {
+    let httpParams = new HttpParams();
+    Object.keys(w).forEach(key => {
+      const value = (w as any)[key];
+      httpParams = httpParams.set(key, value + '');
+    });
+    return this.put('workflow', httpParams);
+  }
+
   getWorkflowTaskParameters(id: number): Observable<any> {
     return this.get('workflow/parameter?taskId=' + id);
   }
@@ -1174,6 +1183,11 @@ export class ApiService {
 
   indexer(): Observable<any> {
     return this.post('indexer', null);
+  }
+
+  getValuemap(): Observable<any> {
+    let url = `valuemap`;
+    return this.get(url);
   }
 
 }
