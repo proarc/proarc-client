@@ -1,76 +1,63 @@
 <div *ngIf="material.type === 'DIGITAL_OBJECT'">
-    <mat-form-field>
-      <input matInput [placeholder]="'workflow.pid' | translate"
-        [(ngModel)]="material.pid">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [placeholder]="'workflow.poznamka' | translate"
-        [(ngModel)]="material.poznamka">
-    </mat-form-field>
-  </div>
-  
-  <div *ngIf="material.type === 'FOLDER'">
-    <mat-form-field>
-      <input matInput [placeholder]="'workflow.path' | translate"
-        [(ngModel)]="material.path">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [placeholder]="'workflow.poznamka' | translate"
-        [(ngModel)]="material.poznamka">
-    </mat-form-field>
-  </div>
+  <mat-form-field>
+    <input matInput [placeholder]="'workflow.pid' | translate" [(ngModel)]="material.pid">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [placeholder]="'workflow.poznamka' | translate" [(ngModel)]="material.poznamka">
+  </mat-form-field>
+</div>
 
-  <div *ngIf="material.type === 'PHYSICAL_DOCUMENT'">
-    <mat-form-field>
-      <input matInput [placeholder]="'workflow.source' | translate"
-        [(ngModel)]="material.source">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [placeholder]="'workflow.barcode' | translate"
-        [(ngModel)]="material.barcode">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [placeholder]="'workflow.field001' | translate"
-        [(ngModel)]="material.field001">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [placeholder]="'workflow.sigla' | translate"
-        [(ngModel)]="material.sigla">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [placeholder]="'workflow.signatura' | translate"
-        [(ngModel)]="material.signatura">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [placeholder]="'workflow.detail' | translate"
-        [(ngModel)]="material.detail">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [placeholder]="'workflow.edice' | translate"
-        [(ngModel)]="material.edice">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [placeholder]="'workflow.cislo' | translate"
-        [(ngModel)]="material.cislo">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [placeholder]="'workflow.rocnik' | translate"
-        [(ngModel)]="material.rocnik">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [placeholder]="'workflow.rok' | translate"
-        [(ngModel)]="material.rok">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [placeholder]="'workflow.rdczid' | translate"
-        [(ngModel)]="material.rdczid">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [placeholder]="'workflow.poznamka' | translate"
-        [(ngModel)]="material.poznamka">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput [placeholder]="'workflow.metadata' | translate"
-        [(ngModel)]="material.metadata">
-    </mat-form-field>
-  </div>
+<div *ngIf="material.type === 'FOLDER'">
+  <mat-form-field>
+    <input matInput [placeholder]="'workflow.path' | translate" [(ngModel)]="material.path">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [placeholder]="'workflow.poznamka' | translate" [(ngModel)]="material.poznamka">
+  </mat-form-field>
+</div>
+
+<div *ngIf="material.type === 'PHYSICAL_DOCUMENT'">
+  <mat-form-field>
+    <input matInput [placeholder]="'workflow.source' | translate" [(ngModel)]="material.source">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [placeholder]="'workflow.barcode' | translate" [(ngModel)]="material.barcode">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [placeholder]="'workflow.field001' | translate" [(ngModel)]="material.field001">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [placeholder]="'workflow.sigla' | translate" [(ngModel)]="material.sigla">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [placeholder]="'workflow.signatura' | translate" [(ngModel)]="material.signatura">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [placeholder]="'workflow.detail' | translate" [(ngModel)]="material.detail">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [placeholder]="'workflow.edice' | translate" [(ngModel)]="material.edice">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [placeholder]="'workflow.cislo' | translate" [(ngModel)]="material.cislo">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [placeholder]="'workflow.rocnik' | translate" [(ngModel)]="material.rocnik">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [placeholder]="'workflow.rok' | translate" [(ngModel)]="material.rok">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [placeholder]="'workflow.rdczid' | translate" [(ngModel)]="material.rdczid">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [placeholder]="'workflow.poznamka' | translate" [(ngModel)]="material.poznamka">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [placeholder]="'workflow.metadata' | translate" [(ngModel)]="material.metadata">
+  </mat-form-field>
+</div>
+
+<div>
+  <button color="primary" mat-button (click)="save()">{{ 'save' | translate }}</button>
+</div>

@@ -2131,10 +2131,12 @@
       "primary": "primary"
     }
   },
-  "workflow": {
-    "title": "Záměry",
-    "task": "Úkol",
-    "create_new": "Vytvořit nový záměr"
+  "rdflow": {
+    "title": "Jobs",
+    "task": "Task",
+    "create_new": "Create new job",
+    "create_new_subjob": "Subjob",
+    "create_new_object": "Create new object"
   },
   "premis": {
     "techMD": "technická metadata",

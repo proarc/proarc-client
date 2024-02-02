@@ -2114,10 +2114,12 @@
       "primary": "Primární (hlavní)"
     }
   },
-  "workflow": {
+  "rdflow": {
     "title": "Záměry",
     "task": "Úkol",
-    "create_new": "Vytvořit nový záměr"
+    "create_new": "Vytvořit nový záměr",
+    "create_new_subjob": "Podzáměr",
+    "create_new_object": "Vytvořit nový objekt"
   },
   "premis": {
     "techMD": "technická metadata",

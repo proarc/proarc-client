@@ -1,15 +1,15 @@
-<h1 mat-dialog-title>{{ 'workflow.create_new' | translate }}</h1>
+<h1 mat-dialog-title>{{ 'rdflow.create_new' | translate }}</h1>
 <div mat-dialog-content class="app-catalog-wrapper">
   <div>
     <mat-form-field class="app-workflow-profiles">
-      <mat-select [placeholder]="'workflow.profile' | translate" [(ngModel)]="selectedProfile" >
+      <mat-select [placeholder]="'rdflow.profile' | translate" [(ngModel)]="selectedProfile" >
         <mat-option *ngFor="let profile of data.profiles" [value]="profile">{{ profile.title }}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
   <div>
     <mat-form-field class="app-workflow-catalogue">
-      <mat-select [placeholder]="'workflow.catalogue' | translate" [(ngModel)]="selectedCatalogue" >
+      <mat-select [placeholder]="'rdflow.catalogue' | translate" [(ngModel)]="selectedCatalogue" >
         <mat-option *ngFor="let c of catalogues" [value]="c">{{ c.name }}</mat-option>
       </mat-select>
     </mat-form-field>

@@ -6,11 +6,11 @@ import { ApiService } from 'src/app/services/api.service';
 import { UIService } from 'src/app/services/ui.service';
 
 @Component({
-  selector: 'app-new-workflow-dialog',
-  templateUrl: './new-workflow-dialog.component.html',
-  styleUrls: ['./new-workflow-dialog.component.scss']
+  selector: 'app-new-job-dialog',
+  templateUrl: './new-job-dialog.component.html',
+  styleUrls: ['./new-job-dialog.component.scss']
 })
-export class NewWorkflowDialogComponent implements OnInit {
+export class NewJobDialogComponent implements OnInit {
 
   selectedProfile: any;
 
@@ -28,7 +28,7 @@ export class NewWorkflowDialogComponent implements OnInit {
   constructor(
     private api: ApiService,
     private ui: UIService,
-    public dialogRef: MatDialogRef<NewWorkflowDialogComponent>,
+    public dialogRef: MatDialogRef<NewJobDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { profiles: any }) { }
 
   ngOnInit(): void {

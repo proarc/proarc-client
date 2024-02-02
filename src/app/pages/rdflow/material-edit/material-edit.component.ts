@@ -14,4 +14,8 @@ export class MaterialEditComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  save() {
+    
+  }
+
 }

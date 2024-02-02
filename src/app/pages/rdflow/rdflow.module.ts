@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RDFlowComponent } from './rdflow.component';
-import { NewWorkflowDialogComponent } from './new-workflow-dialog/new-workflow-dialog.component';
+import { NewJobDialogComponent } from './new-job-dialog/new-job-dialog.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from 'src/app/shared.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -29,7 +29,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     RDFlowComponent,
-    NewWorkflowDialogComponent,
+    NewJobDialogComponent,
     TaskComponent,
     TaskEditComponent,
     MaterialEditComponent

@@ -5,7 +5,7 @@ import { transformGeometryWithOptions } from 'ol/format/Feature';
 import { RDFlow } from 'src/app/model/rdflow.model';
 import { ApiService } from 'src/app/services/api.service';
 import { UIService } from 'src/app/services/ui.service';
-import { NewWorkflowDialogComponent } from './new-workflow-dialog/new-workflow-dialog.component';
+import { NewJobDialogComponent } from './new-job-dialog/new-job-dialog.component';
 import { Router } from '@angular/router';
 import { LayoutService } from 'src/app/services/layout.service';
 import { LayoutAdminComponent } from 'src/app/dialogs/layout-admin/layout-admin.component';
@@ -158,13 +158,21 @@ export class RDFlowComponent implements OnInit {
     // this.getItem(this.selectedItem.id)
   }
 
-  createWorkflow() {
-    const dialogRef = this.dialog.open(NewWorkflowDialogComponent, {data: {profiles: this.profiles}});
+  createJob() {
+    const dialogRef = this.dialog.open(NewJobDialogComponent, {data: {profiles: this.profiles}});
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'ok') {
         this.getWorkflow();
       }
     });
+  }
+
+  createSubJob(profile: string) {
+
+  }
+
+  createNewObject(profile: string) {
+    
   }
 
   openTask(id: string) {

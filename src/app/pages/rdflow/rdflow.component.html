@@ -21,7 +21,21 @@
               <!-- List of workflow items -->
               <div class="app-toolbar-old" >
                 <button (click)="getWorkflow()" mat-button>{{'common.refresh' | translate }}</button>
-                <button (click)="createWorkflow()" mat-button>{{'workflow.create_new' | translate }}</button>
+
+                <a mat-button [matMenuTriggerFor]="subjob_menu">{{ "rdflow.create_new_subjob" | translate }}</a>
+                <mat-menu #subjob_menu="matMenu">
+                  <button mat-menu-item (click)="createSubJob('a')">prvni</button>
+                  <button mat-menu-item (click)="createSubJob('b')">druhy</button>
+                </mat-menu>
+
+                <button (click)="createJob()" mat-button>{{'rdflow.create_new' | translate }}</button>
+
+                
+                <a mat-button [matMenuTriggerFor]="object_menu">{{ "rdflow.create_new_object" | translate }}</a>
+                <mat-menu #object_menu="matMenu">
+                  <button mat-menu-item (click)="createNewObject('a')">prvni</button>
+                  <button mat-menu-item (click)="createNewObject('b')">druhy</button>
+                </mat-menu>
               </div>
     
               <table mat-table [dataSource]="jobs"
@@ -76,27 +90,27 @@
               <div class="app-detail" *ngIf="selectedJob">
                 <div>
                   <mat-form-field>
-                    <input autocomplete="off" matInput [placeholder]="'workflow.label' | translate"
+                    <input autocomplete="off" matInput [placeholder]="'rdflow.label' | translate"
                       [(ngModel)]="selectedJob.label">
                   </mat-form-field>
                 </div>
     
                 <div>
                   <mat-form-field>
-                  <mat-select [(ngModel)]="selectedJob.state" [placeholder]="'workflow.scanner' | translate">
+                  <mat-select [(ngModel)]="selectedJob.state" [placeholder]="'rdflow.scanner' | translate">
                     <mat-option *ngFor="let o of states" [value]="o.code">{{o.value}}</mat-option>
                   </mat-select>
                   </mat-form-field>
 
                   
                   <mat-form-field>
-                  <mat-select [(ngModel)]="selectedJob.priority" [placeholder]="'workflow.scanner' | translate">
+                  <mat-select [(ngModel)]="selectedJob.priority" [placeholder]="'rdflow.scanner' | translate">
                     <mat-option *ngFor="let o of priorities" [value]="o.code">{{o.value}}</mat-option>
                   </mat-select>
                   </mat-form-field>
     
                   <mat-form-field>
-                    <input autocomplete="off" matInput [placeholder]="'workflow.profileName' | translate"
+                    <input autocomplete="off" matInput [placeholder]="'rdflow.profileName' | translate"
                       [(ngModel)]="selectedJob.profileName" readonly>
                   </mat-form-field>
     
@@ -105,17 +119,17 @@
                 <div>
     
                   <mat-form-field>
-                    <input autocomplete="off" matInput [placeholder]="'workflow.ownerId' | translate"
+                    <input autocomplete="off" matInput [placeholder]="'rdflow.ownerId' | translate"
                       [(ngModel)]="selectedJob.ownerId" readonly>
                   </mat-form-field>
     
                   <mat-form-field>
-                    <input autocomplete="off" matInput [placeholder]="'workflow.financed' | translate"
+                    <input autocomplete="off" matInput [placeholder]="'rdflow.financed' | translate"
                       [(ngModel)]="selectedJob.financed">
                   </mat-form-field>
     
                   <mat-form-field>
-                    <input autocomplete="off" matInput [placeholder]="'workflow.id' | translate"
+                    <input autocomplete="off" matInput [placeholder]="'rdflow.id' | translate"
                       [(ngModel)]="selectedJob.id" readonly>
                   </mat-form-field>
     
@@ -124,12 +138,12 @@
                 <div>
     
                   <mat-form-field>
-                    <input matInput [placeholder]="'workflow.created' | translate" 
+                    <input matInput [placeholder]="'rdflow.created' | translate" 
                       [value]="selectedJob.created | date : 'dd.MM.yyyy HH:mm'" readonly>
                   </mat-form-field>
     
                   <mat-form-field>
-                    <input autocomplete="off" matInput [placeholder]="'workflow.modified' | translate"
+                    <input autocomplete="off" matInput [placeholder]="'rdflow.modified' | translate"
                       [value]="selectedJob.modified | date : 'dd.MM.yyyy HH:mm'" readonly>
                   </mat-form-field>
                 </div>
@@ -177,7 +191,7 @@
     
                 <mat-card *ngFor="let m of material">
                   <div>
-                    <button (click)="m.details = !m.details">{{m.details ? '-' : '+'}}</button><span>{{ m.profileLabel }}</span><span>{{m.ownerName}}</span><span>{{m.state}}</span>
+                    <button mat-button (click)="m.details = !m.details">{{m.details ? '-' : '+'}}</button><span>{{ m.profileLabel }}</span><span>{{m.ownerName}}</span><span>{{m.state}}</span>
                   </div>
                   <ng-container *ngIf="m.details">
                   
