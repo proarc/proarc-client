@@ -337,6 +337,7 @@ export class ApiService {
       }
       case ProArc.EXPORT_ARCHIVE_EXTENDED:{
         path = 'export/archive';
+        data = `${data}&extendedPackage=true`;
         if (extendedType === 'snkd') {
           data = `${data}&noTifMessage=${noTifMessage}`;
         }
@@ -379,7 +380,7 @@ export class ApiService {
         break;
       }
 
-      
+
       default: return undefined;
     }
     return this.post(path, data);
@@ -739,7 +740,7 @@ export class ApiService {
   updateInSource(pid: string, catalogId: string) {
     let data = `pid=${pid}&catalogId=${catalogId}`;
     return this.post('object/updateCatalogRecord', data);
-    
+
   }
 
   getAuthorityCatalogs(): Observable<Catalogue[]> {
@@ -896,13 +897,13 @@ export class ApiService {
   }
 
   resolveConflict(id: number, profile: string, isNew: boolean): Observable<any> {
-    
+
     // &state=LOADING_CONFLICT&profile=profile.ndk_periodical_kramerius_import&id=86&useNewMetadata=true
     let data = `id=${id}&profile=${profile}&state=LOADING_CONFLICT`;
     if (isNew) {
       data += '&useNewMetadata=true';
     } else {
-      
+
       data += '&useOriginalMetadata=true';
     }
     return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
@@ -964,7 +965,7 @@ export class ApiService {
 
   getWorkflowSubJobs(id: number): Observable<any> {
     return this.get('workflow?parentId=' + id);
-  } 
+  }
 
   getWorkflowItem(id: number): Observable<any> {
     return this.get('workflow?id=' + id);
