@@ -31,7 +31,7 @@
 			</ng-container>
 		</div>
 	</div>
-	<div fxFlex class="app-oa-">
+	<div fxFlex >
 		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
 		<div class="app-editor-content" *ngIf="metadata && state !=='loading'" fxLayout="column">
 			<div *ngIf="byField || true">
@@ -43,9 +43,9 @@
 				</mat-form-field>
 			</div>
 
-			<div [ngSwitch]="model" fxFlex class="app-oa-y" #scroller (scroll)="checkVisibility()" tabIndex="0" style="outline: none !important; ">
+			<div [ngSwitch]="model" fxFlex class="app-oa-y" #scroller (scroll)="checkVisibility()" tabIndex="0" style="outline: none !important; position: relative;">
 				<div style="float: left;" [style.height]="scrollHeight +'px'">&nbsp;</div>
-				<div [style.height]="startHeight +'px'"></div>
+				<div></div>
 				<ng-container *ngSwitchCase="'model:chroniclevolume'" [ngTemplateOutlet]="chronicle" ></ng-container>
 				<ng-container *ngSwitchCase="'model:chronicletitle'" [ngTemplateOutlet]="chronicle"></ng-container>
 				<ng-container *ngSwitchCase="'model:chroniclesupplement'" [ngTemplateOutlet]="chronicle"></ng-container>

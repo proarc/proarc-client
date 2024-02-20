@@ -60,7 +60,7 @@ export class EditorMetadataComponent implements OnInit {
   // };
 
   fieldsOrder: string[];
-  fieldsHeights: { top: number, bottom: number, height: number }[];
+  fieldsHeights: { id: string, top: number, bottom: number, height: number }[];
   subscriptions: Subscription[] = [];
 
   constructor(
@@ -115,6 +115,7 @@ export class EditorMetadataComponent implements OnInit {
     this.subscriptions.push(this.layout.metadataResized().subscribe(e => {
       this.onSizeChanged();
     }));
+
   }
 
   toggleByField() {
@@ -138,13 +139,19 @@ export class EditorMetadataComponent implements OnInit {
   public metadata: Metadata;
   @Input()
   set data(m: Metadata) {
+    if (m === null) {
+      this.state = 'loading';
+    }
+    
     if (!m || !m.template || (m.timestamp && m.timestamp === this.metadata?.timestamp)) {
       return;
     }
 
     this.metadata = m;
+    this.state = 'none';
     this.setShowGenreSwitch();
     this.availableFields = Object.keys(this.metadata.template);
+    this.visibleFields = {};
     Object.keys(this.metadata.template).forEach(k => {
       this.fieldIds[k] = true;
       this.fields[k] = this.metadata.getField(k);
@@ -154,9 +161,11 @@ export class EditorMetadataComponent implements OnInit {
     if (this.scroller) {
       this.scroller.nativeElement.scrollTop = 0;
     }
+    this.fieldsOrder = [];
+    this.fieldsHeights = [];
     setTimeout(() => {
       this.setFieldsOrder();
-      this.metadata.validate();
+      // this.metadata.validate();
     }, 10);
 
 
@@ -178,7 +187,6 @@ export class EditorMetadataComponent implements OnInit {
       }, 10);
       return;
     }
-    this.scrollHeight = this.scroller.nativeElement.scrollHeight;
     //check if already rendered
     if (this.scroller.nativeElement.children.length < this.availableFields.length) {
       setTimeout(() => {
@@ -187,24 +195,39 @@ export class EditorMetadataComponent implements OnInit {
       return;
     }
 
+    // this.scrollHeight = this.scroller.nativeElement.scrollHeight;
+    let scrollHeight = 0;
     this.scroller.nativeElement.scrollTop = 0;
     this.fieldsOrder = [];
     this.fieldsHeights = [];
+    const scrollerTop = this.scroller.nativeElement.getBoundingClientRect().top;
     for (let i = 2; i < this.scroller.nativeElement.children.length - 1; i++) {
       const el = this.scroller.nativeElement.children[i];
       this.fieldsOrder.push(el.id);
       const { top, bottom, height } = el.getBoundingClientRect();
-      this.fieldsHeights.push({ top, bottom, height });
+      const t = top - scrollerTop;
+      // console.log(el.id, top, t)
+      scrollHeight += height;
+      this.fieldsHeights.push({ id: el.id, top: t, bottom, height });
     }
 
+    for (let i = 0; i < this.fieldsOrder.length; i++) {
+      const el = document.getElementById(this.fieldsOrder[i]);
+      el.style['position'] = 'absolute';
+      el.style['width'] = '100%';
+      el.style['top'] = this.fieldsHeights[i].top + 'px';
+    }
+    this.scrollHeight = scrollHeight;
+
     setTimeout(() => {
-      this.checkVisibility();
+
+      //this.checkVisibility();
       if (this.layout.moveFocus) {
         setTimeout(() => {
           this.focusToFirstRequired();
-        }, 10);
+        }, 30);
       }
-    }, 10);
+    }, 20);
 
   }
 
@@ -235,16 +258,13 @@ export class EditorMetadataComponent implements OnInit {
         oldH = this.fieldsHeights[idx].height;
         el = document.getElementById(id);
         newH = el.getBoundingClientRect().height;
+
         if (oldH !== newH) {
           break;
         }
       }
     }
 
-    // const idx = this.fieldsOrder.indexOf(id);
-    // const oldH = this.fieldsHeights[idx].height;
-    // const el = document.getElementById(id);
-    // const newH = el.getBoundingClientRect().height;
     const delta = newH - oldH;
     this.scrollHeight = this.scrollHeight + delta;
     this.fieldsHeights[idx].height = newH;
@@ -253,6 +273,8 @@ export class EditorMetadataComponent implements OnInit {
       this.fieldsHeights[i].top = this.fieldsHeights[i].top + delta;
       this.fieldsHeights[i].bottom = this.fieldsHeights[i].bottom + delta;
     }
+
+
     this.checkVisibility();
   }
 
@@ -294,29 +316,6 @@ export class EditorMetadataComponent implements OnInit {
 
     if (this.scroller) {
       const els: string[] = [];
-      // for (let i = 0; i < this.scroller.nativeElement.children.length; i++) {
-      //   const el = this.scroller.nativeElement.children[i];
-
-      //   const v = this.elementIsVisibleInViewport(el);
-      //   // 
-      //   this.visibleFields[el.id] = v;
-      //   if (v) {
-      //     els.push(el.id);
-      //   }
-      // }
-
-      // for (let i = 0; i < this.fieldsOrder.length; i++) {
-      //   const id = this.fieldsOrder[i];
-      //   if (els.includes(id)) {
-      //     this.visibleFields[this.fieldsOrder[i]] = true;
-      //     if (i > 0) {
-      //       this.visibleFields[this.fieldsOrder[i - 1]] = true;
-      //     }
-      //     if (i < this.fieldsOrder.length - 1) {
-      //       this.visibleFields[this.fieldsOrder[i + 1]] = true;
-      //     }
-      //   }
-      // }
 
 
       const top = this.scroller.nativeElement.getBoundingClientRect().top + this.scroller.nativeElement.scrollTop;
@@ -327,8 +326,9 @@ export class EditorMetadataComponent implements OnInit {
       let firstFound = false;
       let lastFound = false;
       for (let i = 0; i < this.fieldsOrder.length; i++) {
-        const id = this.fieldsOrder[i];
         const v = this.elementIsVisibleInViewport2(i, top, bottom);
+
+
         if (!v && !firstFound) {
           this.startHeight += this.fieldsHeights[i].height;
         }
@@ -339,11 +339,27 @@ export class EditorMetadataComponent implements OnInit {
         if (!v && firstFound) {
           lastFound = true;
         }
+
         this.visibleFields[this.fieldsOrder[i]] = v;
+
+
+
       }
       this.endHeight = this.scrollHeight - visibleHeight - this.startHeight;
 
+    }
+    setTimeout(() => {this.setElStyles()}, 30)
+  }
 
+  setElStyles() {
+    for (let i = 0; i < this.fieldsOrder.length; i++) {
+      const id = this.fieldsOrder[i];
+      const el = document.getElementById(id);
+      if (el) {
+        el.style['position'] = 'absolute';
+        el.style['width'] = '100%';
+        el.style['top'] = this.fieldsHeights[i].top + 'px';
+      }
     }
   }
 
