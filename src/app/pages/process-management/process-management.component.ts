@@ -382,7 +382,7 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
       return;
     }
     for (const batch of batches) {
-      if (batch.isLoading()) {
+      if (batch.isLoading() && batch.profile !== 'profile.default_archive_import' && batch.profile !== 'profile.default_ndk_import') {
         this.api.getImportBatchStatusOld(batch.id).subscribe(
           (response: any) => {
 

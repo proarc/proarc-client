@@ -258,6 +258,8 @@ ul {
   font-size: 12px;
   text-transform: lowercase;
 
+  background-color: grey;
+
   @include setStateColor('badge');
 }
 

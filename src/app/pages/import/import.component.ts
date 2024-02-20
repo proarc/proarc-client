@@ -41,6 +41,7 @@ export class ImportComponent implements OnInit {
   folders: Folder[] = [];
   nonStatusProfiles: string[] = [
     'profile.default_archive_import',
+    'profile.default_ndk_import',
     'profile.default_kramerius_import',
     'profile.ndk_monograph_kramerius_import',
     'profile.ndk_periodical_kramerius_import',

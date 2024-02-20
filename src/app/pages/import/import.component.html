@@ -9,7 +9,7 @@
 
   <div fxFlex class="app-content-wrapper app-import" fxLayout="column">
     <div class="app-formbar" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
-      <button mat-stroked-button (click)="onLoad()" [disabled]="selectedDevice?.model === 'none'">
+      <button mat-stroked-button (click)="onLoad()" [disabled]="selectedDevice?.model === 'none' && !(selectedProfile.id === 'profile.default_archive_import' || selectedProfile.id === 'profile.default_ndk_import')">
         {{ 'import.load' | translate }}
       </button>
       <mat-form-field class="app-import-profiles">
@@ -23,7 +23,7 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field class="app-import-devices">
-        <mat-select [placeholder]="'import.device' | translate" [(ngModel)]="selectedDevice">
+        <mat-select [placeholder]="'import.device' | translate" [(ngModel)]="selectedDevice" [disabled]="selectedProfile.id === 'profile.default_archive_import' || selectedProfile.id === 'profile.default_ndk_import'">
           <mat-option *ngFor="let device of devices" [value]="device">{{ device.label }}</mat-option>
         </mat-select>
       </mat-form-field>
