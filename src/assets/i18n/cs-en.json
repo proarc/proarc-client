@@ -2891,6 +2891,8 @@
       "profile.chronicle": "Import - Kronika",
       "profile.oldprint": "Import - STT",
       "profile.ndk_full_import": "Import - NDK Full",
+      "profile.default_ndk_import": "Import - NDK PSP",
+      "profile.replace_stream_import": "Import - Nahrazení streamů",
       "exportProfile.kramerius": "Export - Kramerius",
       "exportProfile.ndk": "Export - NDK PSP",
       "exportProfile.archive": "Export - Archive",
