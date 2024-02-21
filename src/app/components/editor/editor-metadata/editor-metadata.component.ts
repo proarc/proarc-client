@@ -46,21 +46,8 @@ export class EditorMetadataComponent implements OnInit {
   public byField: boolean = true;
   showGenreSwitch: boolean;
 
-  // public fieldsOrder: { [key: string]: string[] } = {
-  //   chronicle: ['location', 'identifier', 'genre', 'titleInfo', 'abstract', 'language', 'originInfo', 'name', 'note'],
-
-  //   bdm: ['genre', 'language', 'identifier', 'physicalDescription', 'part', 'titleInfo', 'name', 'abstract', 'subject', 'note',
-  //     'classification', 'location', 'relatedItem', 'recordInfo'],
-
-  //   earticle: ['genre', 'titleInfo', 'name', 'originInfo', 'location', 'identifier', 'language', 'physicalDescription', 'abstract', 'note',
-  //     'typeOfResource', 'classification', 'subject', 'part', 'tableOfContents', 'recordInfo', 'relatedItem'],
-
-  //   default: ['titleInfo', 'name', 'originInfo', 'location', 'identifier', 'language', 'physicalDescription', 'abstract', 'note',
-  //     'typeOfResource', 'genre', 'classification', 'subject', 'part', 'tableOfContents', 'recordInfo', 'relatedItem']
-  // };
-
   fieldsOrder: string[];
-  fieldsHeights: { id: string, top: number, bottom: number, height: number }[];
+  fieldsPositions: { id: string, top: number, bottom: number, height: number }[];
   subscriptions: Subscription[] = [];
 
   constructor(
@@ -162,10 +149,12 @@ export class EditorMetadataComponent implements OnInit {
       this.scroller.nativeElement.scrollTop = 0;
     }
     this.fieldsOrder = [];
-    this.fieldsHeights = [];
+    this.fieldsPositions = [];
     setTimeout(() => {
-      this.setFieldsOrder();
-      // this.metadata.validate();
+      this.metadata.validate();
+      setTimeout(() => {
+        this.setFieldsPositions();
+      }, 10);
     }, 10);
 
 
@@ -179,18 +168,18 @@ export class EditorMetadataComponent implements OnInit {
   startHeight = 0;
   endHeight = 0;
 
-  setFieldsOrder() {
+  setFieldsPositions() {
 
     if (!this.scroller) {
       setTimeout(() => {
-        this.setFieldsOrder();
+        this.setFieldsPositions();
       }, 10);
       return;
     }
     //check if already rendered
     if (this.scroller.nativeElement.children.length < this.availableFields.length) {
       setTimeout(() => {
-        this.setFieldsOrder();
+        this.setFieldsPositions();
       }, 10);
       return;
     }
@@ -199,7 +188,7 @@ export class EditorMetadataComponent implements OnInit {
     let scrollHeight = 0;
     this.scroller.nativeElement.scrollTop = 0;
     this.fieldsOrder = [];
-    this.fieldsHeights = [];
+    this.fieldsPositions = [];
     const scrollerTop = this.scroller.nativeElement.getBoundingClientRect().top;
     for (let i = 2; i < this.scroller.nativeElement.children.length - 1; i++) {
       const el = this.scroller.nativeElement.children[i];
@@ -208,14 +197,14 @@ export class EditorMetadataComponent implements OnInit {
       const t = top - scrollerTop;
       // console.log(el.id, top, t)
       scrollHeight += height;
-      this.fieldsHeights.push({ id: el.id, top: t, bottom, height });
+      this.fieldsPositions.push({ id: el.id, top: t, bottom, height });
     }
 
     for (let i = 0; i < this.fieldsOrder.length; i++) {
       const el = document.getElementById(this.fieldsOrder[i]);
       el.style['position'] = 'absolute';
       el.style['width'] = '100%';
-      el.style['top'] = this.fieldsHeights[i].top + 'px';
+      el.style['top'] = this.fieldsPositions[i].top + 'px';
     }
     this.scrollHeight = scrollHeight;
 
@@ -233,7 +222,7 @@ export class EditorMetadataComponent implements OnInit {
 
   scrollToElement(field: string) {
     const idx = this.fieldsOrder.indexOf(field);
-    this.scroller.nativeElement.scrollTop = this.fieldsHeights[idx].top - this.scroller.nativeElement.getBoundingClientRect().top;
+    this.scroller.nativeElement.scrollTop = this.fieldsPositions[idx].top - this.scroller.nativeElement.getBoundingClientRect().top;
   }
 
   changeSelected(e: any) {
@@ -255,7 +244,7 @@ export class EditorMetadataComponent implements OnInit {
       id = this.fieldsOrder[i];
       if (this.visibleFields[id]) {
         idx = i;
-        oldH = this.fieldsHeights[idx].height;
+        oldH = this.fieldsPositions[idx].height;
         el = document.getElementById(id);
         newH = el.getBoundingClientRect().height;
 
@@ -267,11 +256,11 @@ export class EditorMetadataComponent implements OnInit {
 
     const delta = newH - oldH;
     this.scrollHeight = this.scrollHeight + delta;
-    this.fieldsHeights[idx].height = newH;
-    this.fieldsHeights[idx].bottom = this.fieldsHeights[idx].bottom + delta;
-    for (let i = idx + 1; i < this.fieldsHeights.length; i++) {
-      this.fieldsHeights[i].top = this.fieldsHeights[i].top + delta;
-      this.fieldsHeights[i].bottom = this.fieldsHeights[i].bottom + delta;
+    this.fieldsPositions[idx].height = newH;
+    this.fieldsPositions[idx].bottom = this.fieldsPositions[idx].bottom + delta;
+    for (let i = idx + 1; i < this.fieldsPositions.length; i++) {
+      this.fieldsPositions[i].top = this.fieldsPositions[i].top + delta;
+      this.fieldsPositions[i].bottom = this.fieldsPositions[i].bottom + delta;
     }
 
 
@@ -286,7 +275,7 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   elementIsVisibleInViewport2(idx: number, top: number, bottom: number): boolean {
-    const el = this.fieldsHeights[idx];
+    const el = this.fieldsPositions[idx];
     return ((el.top <= top && el.bottom > top) ||
       (el.top > top && el.top < bottom));
   }
@@ -317,7 +306,6 @@ export class EditorMetadataComponent implements OnInit {
     if (this.scroller) {
       const els: string[] = [];
 
-
       const top = this.scroller.nativeElement.getBoundingClientRect().top + this.scroller.nativeElement.scrollTop;
       const bottom = this.scroller.nativeElement.getBoundingClientRect().bottom + this.scroller.nativeElement.scrollTop;
       this.startHeight = 0;
@@ -328,27 +316,22 @@ export class EditorMetadataComponent implements OnInit {
       for (let i = 0; i < this.fieldsOrder.length; i++) {
         const v = this.elementIsVisibleInViewport2(i, top, bottom);
 
-
         if (!v && !firstFound) {
-          this.startHeight += this.fieldsHeights[i].height;
+          this.startHeight += this.fieldsPositions[i].height;
         }
         if (v) {
           firstFound = true;
-          visibleHeight += this.fieldsHeights[i].height;
+          visibleHeight += this.fieldsPositions[i].height;
         }
         if (!v && firstFound) {
           lastFound = true;
         }
-
         this.visibleFields[this.fieldsOrder[i]] = v;
-
-
-
       }
       this.endHeight = this.scrollHeight - visibleHeight - this.startHeight;
 
     }
-    setTimeout(() => {this.setElStyles()}, 30)
+    setTimeout(() => {this.setElStyles()}, 1)
   }
 
   setElStyles() {
@@ -358,7 +341,7 @@ export class EditorMetadataComponent implements OnInit {
       if (el) {
         el.style['position'] = 'absolute';
         el.style['width'] = '100%';
-        el.style['top'] = this.fieldsHeights[i].top + 'px';
+        el.style['top'] = this.fieldsPositions[i].top + 'px';
       }
     }
   }

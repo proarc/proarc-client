@@ -72,7 +72,7 @@ export class ElementField {
 
 
         if (id.startsWith('relatedItem')) {
-            this.allExpanded = this.allExpanded && localStorage.getItem('relatedItemExpanded') === 'true';
+            this.allExpanded = this.allExpanded || localStorage.getItem('relatedItemExpanded') === 'true';
         }
 
         this.id = id;

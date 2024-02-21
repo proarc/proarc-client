@@ -9,16 +9,16 @@
         [class.app-warning]="item.validationWarning" >
         <div class="app-card-header">
           <span [matTooltip]="field.labelKey" class="app-card-title" [class.app-no-collapse]="!collapsable">{{ 'mods.' + field.labelKey | translate }} <i>{{ field.usage }}</i></span>
-          <button matTooltip="{{ 'common.remove' | translate }}" (click)="field.removeItem(item)" mat-icon-button>
+          <button matTooltip="{{ 'common.remove' | translate }}" (click)="removeItem(item)" mat-icon-button>
             <mat-icon>delete</mat-icon>
           </button>
           <button matTooltip="{{ 'editor.info' | translate }}" (click)="openHelpDialog()" mat-icon-button>
             <mat-icon>help_outline</mat-icon>
           </button>
-          <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" (click)="field.moveDown(item)" mat-icon-button>
+          <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" (click)="moveDown(item)" mat-icon-button>
               <mat-icon>arrow_drop_down</mat-icon>
           </button>
-          <button [disabled]="first" matTooltip="{{ 'common.move_up' | translate }}" (click)="field.moveUp(item)" mat-icon-button>
+          <button [disabled]="first" matTooltip="{{ 'common.move_up' | translate }}" (click)="moveUp(item)" mat-icon-button>
             <mat-icon>arrow_drop_up</mat-icon>
           </button>
           <ng-container *ngIf="collapsable">
@@ -29,7 +29,7 @@
               <mat-icon>expand_less</mat-icon>
             </button>
           </ng-container>
-          <button [disabled]="field.cantAdd()" matTooltip="{{ 'editor.add_field' | translate }}" (click)="field.addAfterItem(item)" mat-icon-button>
+          <button [disabled]="field.cantAdd()" matTooltip="{{ 'editor.add_field' | translate }}" (click)="addAfterItem(item)" mat-icon-button>
             <mat-icon>add</mat-icon>
           </button>
           <ng-template [ngTemplateOutlet]="templateMenu" [ngTemplateOutletContext]="{ item: item  }"></ng-template>

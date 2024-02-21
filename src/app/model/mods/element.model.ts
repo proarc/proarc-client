@@ -243,7 +243,7 @@ export abstract class ModsElement {
                         !value.value) {
                         error = true;
                         value.markAsTouched();
-                        if (parent) {
+                        if (parent && (parent.isRequired || parent.hasAnyValue()) ) {
                           parent.collapsed = false;
                         }
                         this.collapsed = false;

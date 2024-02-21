@@ -36,11 +36,33 @@ export class EditorFieldComponent implements OnInit {
 
   switchCollapsed(item: ModsElement) {
     item.switchCollapsed();
+    this.setMetadataResized();
+  }
+
+  addAfterItem(item: ModsElement) {
+    this.field.addAfterItem(item);
+    this.setMetadataResized();
+  }
+
+  removeItem(item: ModsElement) {
+    this.field.removeItem(item);
+    this.setMetadataResized();
+  }
+
+  moveUp(item: ModsElement) {
+    this.field.moveUp(item);
+    this.setMetadataResized();
+  }
+
+  moveDown(item: ModsElement) {
+    this.field.moveDown(item);
+    this.setMetadataResized();
+  }
+
+  setMetadataResized() {
     setTimeout(() => {
-      //this.sizeChanged.emit(this.field.id);
       this.layout.setMetadataResized();
-    }, 10)
-    
+    }, 10);
   }
 
   ngOnInit() {
