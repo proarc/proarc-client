@@ -210,7 +210,7 @@ export class EditorMetadataComponent implements OnInit {
 
     setTimeout(() => {
 
-      //this.checkVisibility();
+      this.setElStyles();
       if (this.layout.moveFocus) {
         setTimeout(() => {
           this.focusToFirstRequired();
@@ -283,16 +283,8 @@ export class EditorMetadataComponent implements OnInit {
   checkVisibility() {
 
     if (this._validating) {
-      // this.availableFields.forEach(k => {
-      //   this.visibleFields[k] = true;
-      // });
-      //this.scroller.nativeElement.scrollTop = 0;
       return;
     }
-
-    // this.availableFields.forEach(k => {
-    //   this.visibleFields[k] = true;
-    // });
 
     if (this.byField) {
 
@@ -339,6 +331,7 @@ export class EditorMetadataComponent implements OnInit {
       const id = this.fieldsOrder[i];
       const el = document.getElementById(id);
       if (el) {
+        el.style['visibility'] = 'visible';
         el.style['position'] = 'absolute';
         el.style['width'] = '100%';
         el.style['top'] = this.fieldsPositions[i].top + 'px';

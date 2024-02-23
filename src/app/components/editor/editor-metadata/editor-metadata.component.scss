@@ -18,3 +18,7 @@
     padding-left: 10px;
   }
 }
+
+.app-scroller > * {
+  visibility: hidden;
+}
