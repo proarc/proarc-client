@@ -11,6 +11,7 @@ import { UIService } from 'src/app/services/ui.service';
 import { NewObjectDialogComponent } from '../new-object-dialog/new-object-dialog.component';
 import { SimpleDialogData } from '../simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from '../simple-dialog/simple-dialog.component';
+import { ILayoutPanel } from '../layout-admin/layout-admin.component';
 
 @Component({
   selector: 'app-new-metadata-dialog',
@@ -25,6 +26,14 @@ export class NewMetadataDialogComponent implements OnInit {
 
   editorParams: any;
   validating = false;
+  panel: ILayoutPanel = {
+    id: 'new',
+    visible: true,
+    size: 0,
+    type: 'a',
+    isDirty: false,
+    canEdit: true
+  };
 
   constructor(
     private router: Router,
