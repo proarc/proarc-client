@@ -68,6 +68,10 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   state = 'none';
 
+  imageUrl: string;
+  maxImageSize: number = 2000;
+  viewOl = true;
+
   constructor(private api: ApiService, private layout: LayoutService, private properties: LocalStorageService) {
     this.initFullscreenCapabilities();
   }
@@ -98,8 +102,14 @@ export class ViewerComponent implements OnInit, OnDestroy {
     if (this.isLocked) {
       return;
     }
+    if (this.view) {
+      this.view.removeLayer(this.imageLayer);
+      this.view.updateSize();
+    }
     this.loadImage();
   }
+
+
 
   loadImage() {
     if (!this.inputPid) {
@@ -108,19 +118,25 @@ export class ViewerComponent implements OnInit, OnDestroy {
     const stream = this.currentStream ? this.currentStream : 'FULL';
     //const stream = 'FULL';
     this.state = 'loading';
-    const url = this.isKramerius ?
+    this.imageUrl = this.isKramerius ?
       this.api.getKrameriusImageUrl(this.inputPid, this.instance) :
       this.api.getStreamUrl(this.inputPid, stream, this.layout.getBatchId());
     const image = new Image();
     image.onload = (() => {
-      this.onLoad(url, image.width, image.height);
+      if (image.width > this.maxImageSize || image.height > this.maxImageSize) {
+        this.viewOl = false;
+      } else {
+        this.viewOl = true;
+        this.onLoad(this.imageUrl, image.width, image.height);
+      }
+      
     });
     image.onerror = ((err: any) => {
       image.onerror = null;
       this.state = 'error';
       console.log('image load failure');
     });
-    image.src = url;
+    image.src = this.imageUrl;
   }
 
   onLoad(url: string, width: number, height: number) {

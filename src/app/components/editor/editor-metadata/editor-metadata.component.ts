@@ -108,6 +108,13 @@ export class EditorMetadataComponent implements OnInit {
   toggleByField() {
     this.byField = !this.byField;
     this.localS.setBoolProperty('metadata_by_field', this.byField);
+    if (this.byField) {
+      this.scroller.nativeElement.scrollTop = 0;
+    } else {
+      this.availableFields.forEach(k => {
+        this.visibleFields[k] = true;
+      });
+    }
     this.checkVisibility();
   }
 
@@ -221,8 +228,13 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   scrollToElement(field: string) {
-    const idx = this.fieldsOrder.indexOf(field);
-    this.scroller.nativeElement.scrollTop = this.fieldsPositions[idx].top - this.scroller.nativeElement.getBoundingClientRect().top;
+    const idx = this.fieldsOrder.indexOf(this.panel.id + field);
+    if (this.byField) {
+      this.scroller.nativeElement.scrollTop = 0;
+      this.changeSelected(field);
+    } else {
+      this.scroller.nativeElement.scrollTop = this.fieldsPositions[idx].top; // - this.scroller.nativeElement.getBoundingClientRect().top;
+    }
   }
 
   changeSelected(e: any) {
@@ -231,6 +243,8 @@ export class EditorMetadataComponent implements OnInit {
       this.visibleFields[k] = false;
     });
     this.visibleFields[this.selectedField] = true;
+    setTimeout(() => {this.setElStyles()}, 10)
+    // this.checkVisibility();
   }
 
   onSizeChanged() {
@@ -292,6 +306,7 @@ export class EditorMetadataComponent implements OnInit {
         this.visibleFields[k] = false;
       });
       this.visibleFields[this.selectedField] = true;
+      setTimeout(() => {this.setElStyles()}, 10)
       return;
     }
 
@@ -327,14 +342,27 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   setElStyles() {
-    for (let i = 0; i < this.fieldsOrder.length; i++) {
-      const id = this.fieldsOrder[i];
-      const el = document.getElementById(id);
-      if (el) {
-        el.style['visibility'] = 'visible';
-        el.style['position'] = 'absolute';
-        el.style['width'] = '100%';
-        el.style['top'] = this.fieldsPositions[i].top + 'px';
+    if (this.byField) {
+      for (let i = 0; i < this.fieldsOrder.length; i++) {
+        const id = this.fieldsOrder[i];
+        const el = document.getElementById(id);
+        if (el) {
+          el.style['visibility'] = 'visible';
+          el.style['position'] = 'relative';
+          el.style['width'] = '100%';
+          el.style['top'] = '0px';
+        }
+      }
+    } else {
+      for (let i = 0; i < this.fieldsOrder.length; i++) {
+        const id = this.fieldsOrder[i];
+        const el = document.getElementById(id);
+        if (el) {
+          el.style['visibility'] = 'visible';
+          el.style['position'] = 'absolute';
+          el.style['width'] = '100%';
+          el.style['top'] = this.fieldsPositions[i].top + 'px';
+        }
       }
     }
   }
