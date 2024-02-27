@@ -69,7 +69,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
   state = 'none';
 
   imageUrl: string;
-  maxImageSize: number = 2000;
+  maxImageSize: number = 4000;
   viewOl = true;
 
   constructor(private api: ApiService, private layout: LayoutService, private properties: LocalStorageService) {

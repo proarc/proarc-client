@@ -108,14 +108,17 @@ export class EditorMetadataComponent implements OnInit {
   toggleByField() {
     this.byField = !this.byField;
     this.localS.setBoolProperty('metadata_by_field', this.byField);
-    if (this.byField) {
       this.scroller.nativeElement.scrollTop = 0;
+    if (this.byField) {
+      this.scrollHeight = 0;
+      this.checkVisibility();
     } else {
+      // this.selectedField = this.availableFields[0];
       this.availableFields.forEach(k => {
         this.visibleFields[k] = true;
       });
+      this.setFieldsPositions();
     }
-    this.checkVisibility();
   }
 
   _validating = false;
@@ -197,7 +200,7 @@ export class EditorMetadataComponent implements OnInit {
     this.fieldsOrder = [];
     this.fieldsPositions = [];
     const scrollerTop = this.scroller.nativeElement.getBoundingClientRect().top;
-    for (let i = 2; i < this.scroller.nativeElement.children.length - 1; i++) {
+    for (let i = 2; i < this.scroller.nativeElement.children.length; i++) {
       const el = this.scroller.nativeElement.children[i];
       this.fieldsOrder.push(el.id);
       const { top, bottom, height } = el.getBoundingClientRect();
@@ -256,7 +259,7 @@ export class EditorMetadataComponent implements OnInit {
     let newH = 0;
     for (let i = 0; i < this.fieldsOrder.length; i++) {
       id = this.fieldsOrder[i];
-      if (this.visibleFields[id]) {
+      if (this.visibleFields[id.substring(this.panel.id.length)]) {
         idx = i;
         oldH = this.fieldsPositions[idx].height;
         el = document.getElementById(id);
@@ -315,6 +318,8 @@ export class EditorMetadataComponent implements OnInit {
 
       const top = this.scroller.nativeElement.getBoundingClientRect().top + this.scroller.nativeElement.scrollTop;
       const bottom = this.scroller.nativeElement.getBoundingClientRect().bottom + this.scroller.nativeElement.scrollTop;
+      // const top = this.scroller.nativeElement.scrollTop;
+      // const bottom = this.scroller.nativeElement.getBoundingClientRect().height + this.scroller.nativeElement.scrollTop;
       this.startHeight = 0;
       this.endHeight = 0;
       let visibleHeight = 0;
@@ -327,13 +332,17 @@ export class EditorMetadataComponent implements OnInit {
           this.startHeight += this.fieldsPositions[i].height;
         }
         if (v) {
+          if (!firstFound) {
+            this.selectedField = this.fieldsOrder[i].substring(this.panel.id.length);
+            //console.log(this.selectedField, i,  this.fieldsOrder)
+          }
           firstFound = true;
           visibleHeight += this.fieldsPositions[i].height;
         }
         if (!v && firstFound) {
           lastFound = true;
         }
-        this.visibleFields[this.fieldsOrder[i]] = v;
+        this.visibleFields[this.fieldsOrder[i].substring(this.panel.id.length)] = v;
       }
       this.endHeight = this.scrollHeight - visibleHeight - this.startHeight;
 
