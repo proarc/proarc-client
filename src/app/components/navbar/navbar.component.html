@@ -49,10 +49,10 @@
   
     <a mat-button *ngIf="!auth.isLoggedIn()"  [routerLink]="['/login']" routerLinkActive="active">{{ "navbar.login" | translate }}</a>
 
-    <a mat-button [matMenuTriggerFor]="language_menu">{{ translator.currentLang }}</a>
+    <a mat-button [matMenuTriggerFor]="language_menu">{{ 'navbar.lang.code.' + translator.currentLang | translate }}</a>
       <mat-menu #language_menu="matMenu">
         <button *ngFor="let lang of languages" mat-menu-item (click)="onLanguageChanged(lang)">
-          <span>{{ lang }}</span>
+          <span>{{ 'navbar.lang.desc.' + lang | translate }}</span>
         </button>
       </mat-menu>
     <!-- <a mat-button *ngIf="translator.currentLang === 'en'" (click)="onLanguageChanged('cs')">CS</a>

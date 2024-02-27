@@ -212,7 +212,19 @@
     "about": "O aplikaci",
     "workflow": "Záměry",
     "admin": "Administrace",
-    "layout": "Rozložení"
+    "layout": "Rozložení",
+    "lang": {
+      "code": {
+        "cs": "CS/CS",
+        "en": "EN/EN",
+        "cs-en": "CS/EN"
+      },
+      "desc": {
+        "cs": "CS/CS (česky, MODS česky)",
+        "en": "EN/EN (english, MODS in english)",
+        "cs-en": "CS/EN (česky, MODS anglicky)"
+      }
+    }
   },
   "editor": {
     "add_field": "Přidat",
