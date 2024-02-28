@@ -1609,7 +1609,6 @@
               label: 'Vydání',
               selector: 'relatedItem/originInfo/issuance',
               labelKey: 'relatedItem/originInfo/issuance',
-              defaultValue: 'multipart monograph',
               cols: 2,
               description: 'Údaje o vydávání odpovídá hodnotě uvedené v návěští MARC21 na pozici 07<br/>\
             Možné hodnoty\
