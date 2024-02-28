@@ -10,9 +10,9 @@
       pokud má monografie více typů názvů, element se opakuje podle potřeby',
       fields: {
         type: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Typ',
-          required: true,
+//          required: true,
           selector: 'titleInfo/@type',
           labelKey: 'titleInfo/@type',
           cols: 2,
@@ -312,7 +312,7 @@
               ]
             },
             point: {
-              usage: 'M',
+              usage: 'O',
               label: 'Point',
               selector: 'originInfo/dateIssued/@point',
               labelKey: 'originInfo/dateIssued/@point',
