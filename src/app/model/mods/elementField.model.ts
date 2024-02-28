@@ -98,7 +98,7 @@ export class ElementField {
                 this.items.push(newEl);
             }
         }
-        
+
         if (this.items.length - hiddenItems < 1) {
             const item = this.add();
             if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded && !item.isRequired2()) {
@@ -148,7 +148,7 @@ export class ElementField {
     }
 
     cantAdd(): boolean {
-        return this.items.length > (this.template.max ? this.template.max : 10000000);
+        return this.items.length >= (this.template.max ? this.template.max : 10000000);
     }
 
     public getItems(): ModsElement[] {

@@ -656,6 +656,7 @@
     label: 'Žánr',
     selector: 'genre',
     labelKey: 'genre',
+    max: 1,
     description: 'Bližší údaje o typu dokumentu<br/>\
       Hodnota <strong>title</strong>',
     fields: {
@@ -665,6 +666,7 @@
         selector: 'genre/value',
         labelKey: 'genre/value',
         label: 'Hodnota',
+        defaultValue: 'title',
         help: 'off'
       }
     }
