@@ -2432,7 +2432,8 @@
     "query": "Dotaz",
     "catalog": "Katalog",
     "showOnlyTheElement": "Zobrazit pouze element (y)",
-    "jumpToElement": "Zobrazit element"
+    "jumpToElement": "Zobrazit element",
+    "completedTheTask": "Dokončil úkol"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2942,7 +2943,8 @@
     "info": {
       "digitalContentIsNotSupported": "Digitální obsah není podporován",
       "noDigitalContent": "Žádný digitální obsah",
-      "theImageIsNotAvailable": "Obrázek není k dispozici"
+      "theImageIsNotAvailable": "Obrázek není k dispozici",
+      "noItemsToDisplay": "Žádné položky k zobrazení"
     }
   },
   "snackbar": {

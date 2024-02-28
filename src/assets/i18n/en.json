@@ -2432,7 +2432,8 @@
     "query": "Query",
     "catalog": "Catalog",
     "showOnlyTheElement": "Show only element (s)",
-    "jumpToElement": "Jump to element"
+    "jumpToElement": "Jump to element",
+    "completedTheTask": "Completed the task"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2942,7 +2943,8 @@
     "info": {
       "digitalContentIsNotSupported": "Digital content is not supported",
       "noDigitalContent": "No digital content",
-      "theImageIsNotAvailable": "The image is not available"
+      "theImageIsNotAvailable": "The image is not available",
+      "noItemsToDisplay": "No items to display"
     }
   },
   "snackbar": {
