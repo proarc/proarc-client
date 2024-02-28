@@ -160,12 +160,11 @@ export class ParentDialogComponent implements OnInit {
     // this.splitArea2Width = 100 - this.splitArea1Width;
 
 
+    this.model = this.properties.getStringProperty('parent.model', this.config.defaultModel);
     if (this.data.isRepo) {
-      this.model = this.properties.getStringProperty('parent.model', this.config.defaultModel);
       this.sortField = this.properties.getStringProperty('parent.sort_field', 'created');
       this.sortAsc = this.properties.getBoolProperty('parent.sort_asc', false);
     } else {
-      this.model = this.config.defaultModel;
       this.sortField = 'modified';
       this.sortAsc = false;
     }
@@ -248,9 +247,8 @@ export class ParentDialogComponent implements OnInit {
   }
 
   reload(page: number = 0) {
-
+    this.properties.setStringProperty('parent.model', this.model);
     if (this.data.isRepo) {
-      this.properties.setStringProperty('parent.model', this.model);
       this.properties.setStringProperty('parent.query_field', this.queryField);
       this.properties.setStringProperty('parent.organization', this.organization);
       this.properties.setStringProperty('parent.owner', this.owner);
@@ -339,6 +337,8 @@ export class ParentDialogComponent implements OnInit {
       this.expandedPath = [this.selectedDestItem.pid]
     }
     this.properties.setStringProperty('parent.expandedPath', JSON.stringify(this.expandedPath));
+    this.properties.setStringProperty('parent.model', this.model);
+
     this.relocateOutside(this.orig.filter(i => i.selected), this.selectedDestItem.pid);
   }
 
