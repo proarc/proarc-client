@@ -102,8 +102,35 @@
   &.app-hover {
     .mat-row {
       &:hover {
-        &:not(.app-selected) {
+        &:not(.app-selected, .app-row-detail) {
           background-color: $app-color-item-hover;
+        }
+      }
+    }
+  }
+
+  &.app-expanded {
+    .mat-row {
+      &.app-row-expanded-parent {
+        background-color: $app-color-item-bg;
+      }
+
+      &.app-row-detail {
+        height: 0;
+    
+        td {
+          border: 0;
+    
+          .app-detail {
+            overflow: hidden;
+          }
+        }  
+    
+        &.app-row-expanded {
+          td {
+            border-bottom: 1px solid $app-table-border-color;
+            background-color: $app-color-item-bg;
+          }
         }
       }
     }

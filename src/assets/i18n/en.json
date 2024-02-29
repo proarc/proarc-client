@@ -2433,7 +2433,23 @@
     "catalog": "Catalog",
     "showOnlyTheElement": "Show only element (s)",
     "jumpToElement": "Jump to element",
-    "completedTheTask": "Completed the task"
+    "completedTheTask": "Completed the task",
+    "financed": "Financed",
+    "note": "Note",
+    "task": "Task",
+    "path": "Path",
+    "source": "Source",
+    "barcode": "Barcode",
+    "field001": "Field 001",
+    "sigla": "Sigla",
+    "signature": "Signature",
+    "detail": "Detail",
+    "edition": "Edition",
+    "number": "Number",
+    "vintage": "Vintage",
+    "year": "Year",
+    "rdczid": "RD CZ ID",
+    "metadata": "Metadata"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2525,7 +2541,12 @@
     "comment": "Comment",
     "image": "Image",
     "premis": "PREMIS XML",
-    "media": "Media"
+    "media": "Media",
+    "rdFlow": {
+      "profileLabel": "Material",
+      "label": "Content",
+      "name": "Name"
+    }
   },
   "model": {
     "model:periodical": "K4 Periodical",

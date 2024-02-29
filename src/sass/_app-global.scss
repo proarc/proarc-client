@@ -59,6 +59,10 @@ ul {
   color: $app-color-success !important;
 }
 
+.app-bg-color-lightnes {
+  background-color: $app-color-lightnes !important;
+}
+
 // cleaners
 .app-cleanfix {
   @include cleanfix();
