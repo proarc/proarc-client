@@ -69,7 +69,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
   state = 'none';
 
   imageUrl: string;
-  maxImageSize: number = 4000;
+  maxImageSize: number = 6000;
   viewOl = true;
 
   constructor(private api: ApiService, private layout: LayoutService, private properties: LocalStorageService) {
@@ -115,8 +115,8 @@ export class ViewerComponent implements OnInit, OnDestroy {
     if (!this.inputPid) {
       return;
     }
-    const stream = this.currentStream ? this.currentStream : 'FULL';
-    //const stream = 'FULL';
+    this.viewOl = false;
+    const stream = this.currentStream ? this.currentStream : 'FULL'; 
     this.state = 'loading';
     this.imageUrl = this.isKramerius ?
       this.api.getKrameriusImageUrl(this.inputPid, this.instance) :
@@ -125,6 +125,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
     image.onload = (() => {
       if (image.width > this.maxImageSize || image.height > this.maxImageSize) {
         this.viewOl = false;
+        this.state = 'success';
       } else {
         this.viewOl = true;
         this.onLoad(this.imageUrl, image.width, image.height);
