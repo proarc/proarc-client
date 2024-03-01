@@ -50,7 +50,7 @@
               </div>            
             </as-split-area>
             <as-split-area>
-              <div fxLayout="column" fxFlexFill [fxLayoutAlign]="subJobs.length === 0 ? 'center center' : null">
+              <div fxLayout="column" fxFlexFill [fxLayoutAlign]="subJobs.length === 0 ? 'center center' : 'start'">
                 <mat-card *ngIf="subJobs.length === 0" class="app-alert app-info"><mat-icon>info</mat-icon>{{ 'alert.info.noItemsToDisplay' | translate }}</mat-card>
                 <div class="app-oa-y" *ngIf="subJobs.length > 0">
                   <table  mat-table [dataSource]="subJobs" matSort matSortActive="created" matSortDisableClear matSortDirection="desc" class="app-striped app-hover">
