@@ -180,7 +180,11 @@ export class RDFlowComponent implements OnInit {
   }
 
   createJob() {
-    const dialogRef = this.dialog.open(NewJobDialogComponent, {data: {profiles: this.profiles}});
+    const dialogRef = this.dialog.open(NewJobDialogComponent, {
+      data: {profiles: this.profiles},
+      width: '800px',
+      panelClass: 'app-dialog-new-job'
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'ok') {
         this.getWorkflow();

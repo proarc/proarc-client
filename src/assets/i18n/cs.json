@@ -2449,7 +2449,9 @@
     "vintage": "Ročník",
     "year": "Rok",
     "rdczid": "RD CZ ID",
-    "metadata": "Metadata"
+    "metadata": "Metadata",
+    "selectProfile": "Vybrat profil",
+    "selectCatalog": "Vybrat katalog"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2905,6 +2907,9 @@
         "success": "Zapsáno do katalogu",
         "error": "Chyba zapsání!"
       }
+    },
+    "rdflowNewJob": {
+      "title": "Vytvořit nový záměr"
     }
   },
   "formField": {
