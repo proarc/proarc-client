@@ -185,6 +185,7 @@ export class ConfigService {
 		'profile.ndk_periodical_kramerius_import',
 		'profile.chronicle',
 		'profile.oldprint',
+		'profile.replace_stream_import',
 		'profile.ndk_full_import',
 		'exportProfile.kramerius',
 		'exportProfile.ndk',
