@@ -12,195 +12,196 @@
       </button>
     </div>
   </div>
-  <div fxFlex class="app-oh app-p-4" fxLayout="column">
+  <div fxFlex class="app-oh app-p-2" fxLayout="column">
     <div class="app-border-wrapper app-h-100">
       <as-split direction="horizontal">
         <as-split-area [size]="40">
           <as-split direction="vertical">
             <as-split-area>
-              <!-- List of workflow items -->
-              <div class="app-toolbar-old" >
-                <button (click)="getWorkflow()" mat-button>{{'common.refresh' | translate }}</button>
-
-                <a mat-button [matMenuTriggerFor]="subjob_menu">{{ "rdflow.create_new_subjob" | translate }}</a>
-                <mat-menu #subjob_menu="matMenu">
-                  <button mat-menu-item (click)="createSubJob('a')">prvni</button>
-                  <button mat-menu-item (click)="createSubJob('b')">druhy</button>
-                </mat-menu>
-
-                <button (click)="createJob()" mat-button>{{'rdflow.create_new' | translate }}</button>
-
-                
-                <a mat-button [matMenuTriggerFor]="object_menu">{{ "rdflow.create_new_object" | translate }}</a>
-                <mat-menu #object_menu="matMenu">
-                  <button mat-menu-item (click)="createNewObject('a')">prvni</button>
-                  <button mat-menu-item (click)="createNewObject('b')">druhy</button>
-                </mat-menu>
-              </div>
-    
-              <table mat-table [dataSource]="jobs"
-                    matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
-                    
-                <ng-container matColumnDef="taskUsername">
-                  <th mat-header-cell *matHeaderCellDef>taskUsername</th>
-                  <td mat-cell *matCellDef="let row">{{row.taskUsername}}</td>
-                </ng-container>
-    
-                <ng-container matColumnDef="label">
-                  <th mat-header-cell *matHeaderCellDef>Label</th>
-                  <td mat-cell *matCellDef="let row">{{row.label}}</td>
-                </ng-container>
-    
-                <tr mat-header-row *matHeaderRowDef="workFlowColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: workFlowColumns;" (click)="selectJob(row)"></tr>
-              </table>
-    
-    
+              <div fxLayout="column" fxFlexFill>
+                <div class="app-toolbar">
+                  <button (click)="getWorkflow()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
+                  <button mat-button [matMenuTriggerFor]="subjob_menu">{{ "rdflow.create_new_subjob" | translate }}</button>
+                  <mat-menu #subjob_menu="matMenu">
+                    <button mat-menu-item (click)="createSubJob('a')">prvni</button>
+                    <button mat-menu-item (click)="createSubJob('b')">druhy</button>
+                  </mat-menu>
+                  <button (click)="createJob()" mat-button>{{'rdflow.create_new' | translate }}</button>
+                  <button mat-button [matMenuTriggerFor]="object_menu">{{ "rdflow.create_new_object" | translate }}</button>
+                  <mat-menu #object_menu="matMenu">
+                    <button mat-menu-item (click)="createNewObject('a')">prvni</button>
+                    <button mat-menu-item (click)="createNewObject('b')">druhy</button>
+                  </mat-menu>
+                </div>
+                <div class="app-oa-y">
+                  <table mat-table [dataSource]="jobs" matSort matSortActive="created" matSortDisableClear matSortDirection="desc" class="app-striped app-hover">
+                    <ng-container matColumnDef="taskUsername">
+                      <th mat-header-cell *matHeaderCellDef>{{ 'desc.completedTheTask' | translate }}</th>
+                      <td mat-cell *matCellDef="let row">{{row.taskUsername}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="label">
+                      <th mat-header-cell *matHeaderCellDef>{{ 'desc.name' | translate }}</th>
+                      <td mat-cell *matCellDef="let row">{{row.label}}</td>
+                    </ng-container>   
+                    <tr mat-header-row *matHeaderRowDef="workFlowColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: workFlowColumns;" (click)="selectJob(row)"></tr>
+                  </table>
+                </div>
+              </div>            
             </as-split-area>
             <as-split-area>
-              <span *ngIf="subJobs.length === 0">Žádné položky k zobrazení</span>
-              <table *ngIf="subJobs.length > 0" mat-table [dataSource]="subJobs"
-                    matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
-                    
-                <ng-container matColumnDef="taskUsername">
-                  <th mat-header-cell *matHeaderCellDef>taskUsername</th>
-                  <td mat-cell *matCellDef="let row">{{row.taskUsername}}</td>
-                </ng-container>
-    
-                <ng-container matColumnDef="label">
-                  <th mat-header-cell *matHeaderCellDef>Label</th>
-                  <td mat-cell *matCellDef="let row">{{row.label}}</td>
-                </ng-container>
-    
-                <tr mat-header-row *matHeaderRowDef="workFlowColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: workFlowColumns;" (click)="selectJob(row)"></tr>
-              </table>
-
+              <div fxLayout="column" fxFlexFill [fxLayoutAlign]="subJobs.length === 0 ? 'center center' : 'start'">
+                <mat-card *ngIf="subJobs.length === 0" class="app-alert app-info"><mat-icon>info</mat-icon>{{ 'alert.info.noItemsToDisplay' | translate }}</mat-card>
+                <div class="app-oa-y" *ngIf="subJobs.length > 0">
+                  <table  mat-table [dataSource]="subJobs" matSort matSortActive="created" matSortDisableClear matSortDirection="desc" class="app-striped app-hover">
+                    <ng-container matColumnDef="taskUsername">
+                      <th mat-header-cell *matHeaderCellDef>{{ 'desc.completedTheTask' | translate }}</th>
+                      <td mat-cell *matCellDef="let row">{{row.taskUsername}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="label">
+                      <th mat-header-cell *matHeaderCellDef>{{ 'desc.name' | translate }}</th>
+                      <td mat-cell *matCellDef="let row">{{row.label}}</td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="workFlowColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: workFlowColumns;" (click)="selectJob(row)"></tr>
+                  </table>
+                </div>
+              </div>
             </as-split-area>
           </as-split>
         </as-split-area>
         <as-split-area [size]="60">
           <as-split direction="vertical">
             <as-split-area [size]="30">
-              <!-- Detail of selected item -->
-              <div class="app-toolbar-old" >
-                <button (click)="getDetail()" mat-button>{{'common.refresh' | translate }}</button>
-                <button (click)="saveDetail()" mat-button>{{'common.save' | translate }}</button>
-              </div>
-              <div class="app-detail" *ngIf="selectedJob">
-                <div>
-                  <mat-form-field>
-                    <input autocomplete="off" matInput [placeholder]="'rdflow.label' | translate"
-                      [(ngModel)]="selectedJob.label">
-                  </mat-form-field>
+              <div fxLayout="column" fxFlexFill>
+                <div class="app-toolbar" >
+                  <button (click)="getDetail()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
+                  <button (click)="saveDetail()" mat-button>{{'button.save' | translate }}</button>
                 </div>
-    
-                <div>
-                  <mat-form-field>
-                  <mat-select [(ngModel)]="selectedJob.state" [placeholder]="'rdflow.scanner' | translate">
-                    <mat-option *ngFor="let o of states" [value]="o.code">{{o.value}}</mat-option>
-                  </mat-select>
-                  </mat-form-field>
-
-                  
-                  <mat-form-field>
-                  <mat-select [(ngModel)]="selectedJob.priority" [placeholder]="'rdflow.scanner' | translate">
-                    <mat-option *ngFor="let o of priorities" [value]="o.code">{{o.value}}</mat-option>
-                  </mat-select>
-                  </mat-form-field>
-    
-                  <mat-form-field>
-                    <input autocomplete="off" matInput [placeholder]="'rdflow.profileName' | translate"
-                      [(ngModel)]="selectedJob.profileName" readonly>
-                  </mat-form-field>
-    
-                </div>
-    
-                <div>
-    
-                  <mat-form-field>
-                    <input autocomplete="off" matInput [placeholder]="'rdflow.ownerId' | translate"
-                      [(ngModel)]="selectedJob.ownerId" readonly>
-                  </mat-form-field>
-    
-                  <mat-form-field>
-                    <input autocomplete="off" matInput [placeholder]="'rdflow.financed' | translate"
-                      [(ngModel)]="selectedJob.financed">
-                  </mat-form-field>
-    
-                  <mat-form-field>
-                    <input autocomplete="off" matInput [placeholder]="'rdflow.id' | translate"
-                      [(ngModel)]="selectedJob.id" readonly>
-                  </mat-form-field>
-    
-                </div>
-    
-                <div>
-    
-                  <mat-form-field>
-                    <input matInput [placeholder]="'rdflow.created' | translate" 
-                      [value]="selectedJob.created | date : 'dd.MM.yyyy HH:mm'" readonly>
-                  </mat-form-field>
-    
-                  <mat-form-field>
-                    <input autocomplete="off" matInput [placeholder]="'rdflow.modified' | translate"
-                      [value]="selectedJob.modified | date : 'dd.MM.yyyy HH:mm'" readonly>
-                  </mat-form-field>
+                <div class="app-oa-y app-p-2">
+                  <ng-container *ngIf="selectedJob">
+                    <mat-form-field class="app-w-100">
+                      <mat-label>{{ 'desc.name' | translate }}</mat-label>
+                      <input autocomplete="off" matInput [placeholder]="'desc.name' | translate" [(ngModel)]="selectedJob.label">
+                    </mat-form-field>
+                    <div fxLayout="row" fxLayoutGap="16px">
+                      <mat-form-field fxFlex>
+                        <mat-label>{{ 'desc.state' | translate }}</mat-label>
+                        <mat-select [(ngModel)]="selectedJob.state" [placeholder]="'desc.state' | translate">
+                          <mat-option *ngFor="let o of states" [value]="o.code">{{o.value}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-form-field fxFlex>
+                        <mat-label>{{ 'desc.priority' | translate }}</mat-label>
+                        <mat-select [(ngModel)]="selectedJob.priority" [placeholder]="'desc.priority' | translate">
+                          <mat-option *ngFor="let o of priorities" [value]="o.code">{{o.value}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-form-field fxFlex>
+                        <mat-label>{{ 'desc.profile' | translate }}</mat-label>
+                        <input autocomplete="off" matInput [placeholder]="'desc.profile' | translate" [(ngModel)]="selectedJob.profileName" readonly>
+                      </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayoutGap="16px">
+                      <mat-form-field fxFlex>
+                        <mat-label>{{ 'desc.owner' | translate }}</mat-label>
+                        <input autocomplete="off" matInput [placeholder]="'desc.owner' | translate" [(ngModel)]="selectedJob.ownerId" readonly>
+                      </mat-form-field>
+                      <mat-form-field fxFlex>
+                        <mat-label>{{ 'desc.financed' | translate }}</mat-label>
+                        <input autocomplete="off" matInput [placeholder]="'desc.financed' | translate" [(ngModel)]="selectedJob.financed">
+                      </mat-form-field>
+                      <mat-form-field fxFlex>
+                        <mat-label>{{ 'id' | translate }}</mat-label>
+                        <input autocomplete="off" matInput [placeholder]="'id' | translate" [(ngModel)]="selectedJob.id" readonly>
+                      </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayoutGap="16px">
+                      <mat-form-field fxFlex>
+                        <mat-label>{{ 'desc.created' | translate }}</mat-label>
+                        <input matInput [placeholder]="'desc.created' | translate" [value]="selectedJob.created | date : 'dd.MM.yyyy HH:mm'" readonly>
+                      </mat-form-field>
+                      <mat-form-field fxFlex>
+                        <mat-label>{{ 'desc.modified' | translate }}</mat-label>
+                        <input autocomplete="off" matInput [placeholder]="'desc.modified' | translate" [value]="selectedJob.modified | date : 'dd.MM.yyyy HH:mm'" readonly>
+                      </mat-form-field>
+                    </div>
+                    <mat-form-field class="app-w-100">
+                      <mat-label>{{ 'desc.note' | translate }}</mat-label>
+                      <textarea matInput [placeholder]="'desc.note' | translate"></textarea>
+                    </mat-form-field>
+                  </ng-container>
                 </div>
               </div>
-    
-    
             </as-split-area>
             <as-split-area [size]="40">
-              <!-- Tasks list -->
-              
-              <div class="app-detail" *ngIf="selectedProfile">
-    
-                <table mat-table [dataSource]="tasks" class="example-table"
-                    matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
-                    
-                <ng-container matColumnDef="label">
-                  <th mat-header-cell *matHeaderCellDef>Ukol</th>
-                  <td mat-cell *matCellDef="let row">{{row.profileLabel}}</td>
-                </ng-container>
-                
-                <ng-container matColumnDef="user">
-                  <th mat-header-cell *matHeaderCellDef>Uzivatel</th>
-                  <td mat-cell *matCellDef="let row">{{row.ownerName}}</td>
-                </ng-container>
-                
-                <ng-container matColumnDef="state">
-                  <th mat-header-cell *matHeaderCellDef>Stav</th>
-                  <td mat-cell *matCellDef="let row">{{row.state}}</td>
-                </ng-container>
-    
-                <tr mat-header-row *matHeaderRowDef="taskColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: taskColumns;" (dblclick)="openTask(row.id)"></tr>
-              </table>
-    
-    
+              <div fxLayout="column" fxFlexFill>
+                <div class="app-oa-y" *ngIf="selectedProfile">
+                  <table mat-table [dataSource]="tasks" class="app-striped app-hover" matSort matSortActive="created" matSortDisableClear matSortDirection="desc"> 
+                    <ng-container matColumnDef="label">
+                      <th mat-header-cell *matHeaderCellDef>{{ 'desc.task' | translate }}</th>
+                      <td mat-cell *matCellDef="let row">{{row.profileLabel}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="user">
+                      <th mat-header-cell *matHeaderCellDef>{{ 'desc.user' | translate }}</th>
+                      <td mat-cell *matCellDef="let row">{{row.ownerName}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="state">
+                      <th mat-header-cell *matHeaderCellDef>{{ 'desc.state' | translate }}</th>
+                      <td mat-cell *matCellDef="let row">{{row.state}}</td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="taskColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: taskColumns;" (dblclick)="openTask(row.id)"></tr>
+                  </table>
+                </div>
               </div>
             </as-split-area>
-            <as-split-area >
-              <div class="app-detail" *ngIf="material">
-                <!-- <ul>
-                  <li *ngFor="let m of material">
-                    {{ m.profileLabel }}
-                  </li>
-                </ul> -->
+            <as-split-area>
+              <div fxLayout="column" fxFlexFill>
+                <div class="app-oa-y">
+                  <table mat-table [dataSource]="material" multiTemplateDataRows class="app-expanded app-hover">
+                    <ng-container matColumnDef="{{column}}" *ngFor="let column of materialColumnsToDisplay">
+                      <th mat-header-cell *matHeaderCellDef>{{ 'dynamic.rdFlow.' + column | translate }}</th>
+                      <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="expand">
+                      <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+                      <td mat-cell *matCellDef="let element" class="app-text-right">
+                        <a (click)="(materialExpandedElement = materialExpandedElement === element ? null : element); $event.stopPropagation()">
+                          <mat-icon *ngIf="materialExpandedElement !== element">keyboard_arrow_down</mat-icon>
+                          <mat-icon *ngIf="materialExpandedElement === element">keyboard_arrow_up</mat-icon> 
+                        </a>
+                      </td>
+                    </ng-container>
     
+                    <ng-container matColumnDef="expandedDetail">
+                      <td mat-cell *matCellDef="let element" [attr.colspan]="materialColumnsToDisplayWithExpand.length">
+                        <div class="app-detail" [@detailExpand]="element == materialExpandedElement ? 'expanded' : 'collapsed'">
+                          <div class="app-pt-2 app-pb-2">
+                            <app-material-edit [material]="element"></app-material-edit>
+                          </div>
+                        </div>     
+                      </td>
+                    </ng-container>
+    
+                    <tr mat-header-row *matHeaderRowDef="materialColumnsToDisplayWithExpand; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let element; columns: materialColumnsToDisplayWithExpand;" [class.app-row-expanded-parent]="materialExpandedElement === element" (click)="materialExpandedElement = materialExpandedElement === element ? null : element"></tr>
+                    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="app-row-detail" [class.app-row-expanded]="materialExpandedElement === row"></tr>
+                  </table>
+                </div>
+              </div>
+           
+              <!-- <div class="app-detail" *ngIf="material">
                 <mat-card *ngFor="let m of material">
                   <div>
                     <button mat-button (click)="m.details = !m.details">{{m.details ? '-' : '+'}}</button><span>{{ m.profileLabel }}</span><span>{{m.ownerName}}</span><span>{{m.state}}</span>
                   </div>
                   <ng-container *ngIf="m.details">
-                  
-                  <app-material-edit [material]="m"></app-material-edit>
-    
-                </ng-container>
+                    <app-material-edit [material]="m"></app-material-edit>
+                   </ng-container>
                 </mat-card>
-    
-              </div>
+              </div> -->
             </as-split-area>
           </as-split>
         </as-split-area>

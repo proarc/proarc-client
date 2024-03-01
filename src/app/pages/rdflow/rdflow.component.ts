@@ -10,12 +10,33 @@ import { Router } from '@angular/router';
 import { LayoutService } from 'src/app/services/layout.service';
 import { LayoutAdminComponent } from 'src/app/dialogs/layout-admin/layout-admin.component';
 
+// -- table to expand --
+import {animate, state, style, transition, trigger} from '@angular/animations';
+// -- table to expand --
+
 @Component({
   selector: 'app-rdflow',
   templateUrl: './rdflow.component.html',
-  styleUrls: ['./rdflow.component.scss']
+  styleUrls: ['./rdflow.component.scss'],
+  // -- table to expand --
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
+  // -- table to expand --
 })
+
 export class RDFlowComponent implements OnInit {
+
+  // -- table to expand --
+  materialColumnsToDisplay = ['profileLabel', 'label', 'name'];
+  materialColumnsToDisplayWithExpand = [...this.materialColumnsToDisplay, 'expand'];
+  materialExpandedElement: any[];
+  // -- table to expand --
+
 
   profiles: any[];
   selectedProfile: any;

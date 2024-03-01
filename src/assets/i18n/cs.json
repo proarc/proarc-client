@@ -2432,7 +2432,24 @@
     "query": "Dotaz",
     "catalog": "Katalog",
     "showOnlyTheElement": "Zobrazit pouze element (y)",
-    "jumpToElement": "Zobrazit element"
+    "jumpToElement": "Zobrazit element",
+    "completedTheTask": "Dokončil úkol",
+    "financed": "Financováno",
+    "note": "Poznámka",
+    "task": "Úkol",
+    "path": "Cesta",
+    "source": "Zdroj",
+    "barcode": "Čárový kód",
+    "field001": "Pole 001",
+    "sigla": "Sigla",
+    "signature": "Signatura",
+    "detail": "Detail",
+    "edition": "Edice",
+    "number": "Číslo",
+    "vintage": "Ročník",
+    "year": "Rok",
+    "rdczid": "RD CZ ID",
+    "metadata": "Metadata"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2524,7 +2541,12 @@
     "comment": "Komentář",
     "image": "Obrázek",
     "premis": "PREMIS",
-    "media": "Media"
+    "media": "Media",
+    "rdFlow": {
+      "profileLabel": "Materiál",
+      "label": "Obsah",
+      "name": "Název"
+    }
   },
   "model": {
     "model:periodical": "K4 Periodikum",
@@ -2942,7 +2964,8 @@
     "info": {
       "digitalContentIsNotSupported": "Digitální obsah není podporován",
       "noDigitalContent": "Žádný digitální obsah",
-      "theImageIsNotAvailable": "Obrázek není k dispozici"
+      "theImageIsNotAvailable": "Obrázek není k dispozici",
+      "noItemsToDisplay": "Žádné položky k zobrazení"
     }
   },
   "snackbar": {
