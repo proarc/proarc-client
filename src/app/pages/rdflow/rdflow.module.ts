@@ -18,7 +18,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
 }
 
 export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, '/api/assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
 }
 
 const routes: Routes = [
