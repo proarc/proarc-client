@@ -2451,7 +2451,8 @@
     "rdczid": "RD CZ ID",
     "metadata": "Metadata",
     "selectProfile": "Vybrat profil",
-    "selectCatalog": "Vybrat katalog"
+    "selectCatalog": "Vybrat katalog",
+    "resolveconflictWarn": "Zvolte způsob pokračování"
   },
   "button": {
     "setLayout": "nastavit rozložení",

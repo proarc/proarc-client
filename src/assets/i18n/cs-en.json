@@ -2432,7 +2432,8 @@
     "query": "Dotaz",
     "catalog": "Katalog",
     "showOnlyTheElement": "Zobrazit pouze element (y)",
-    "jumpToElement": "Zobrazit element"
+    "jumpToElement": "Zobrazit element",
+    "resolveconflictWarn": "Zvolte způsob pokračování"
   },
   "button": {
     "setLayout": "nastavit rozložení",

@@ -2451,7 +2451,8 @@
     "rdczid": "RD CZ ID",
     "metadata": "Metadata",
     "selectProfile": "Select a profile",
-    "selectCatalog": "Select a catalog"
+    "selectCatalog": "Select a catalog",
+    "resolveconflictWarn": "Select how to continue"
   },
   "button": {
     "setLayout": "Set layout",
