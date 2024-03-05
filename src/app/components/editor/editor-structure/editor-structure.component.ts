@@ -327,6 +327,7 @@ export class EditorStructureComponent implements OnInit {
       let step = 1;
       if (this.arrowIndex - step >= 0) {
         this.rowClick(this.layout.items[this.arrowIndex - step], this.arrowIndex - step, event);
+        this.scrollToSelected('center');
       }
     } else if (event.code === "ArrowDown") {
       let step = 1;
@@ -341,6 +342,7 @@ export class EditorStructureComponent implements OnInit {
       let step = 1;
       if (this.arrowIndex + step < this.layout.items.length) {
         this.rowClick(this.layout.items[this.arrowIndex + step], this.arrowIndex + step, event);
+        this.scrollToSelected('end');
         //this.scrollToSelected();
       }
     }
