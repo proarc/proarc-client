@@ -26,4 +26,8 @@ export class ResolveConflictDialogComponent implements OnInit {
     this.dialogRef.close({ useNewMetadata: false });
   }
 
+  close() {
+    this.dialogRef.close(false);
+  }
+
 }

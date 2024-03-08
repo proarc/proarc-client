@@ -1,10 +1,10 @@
 <div fxLayout="column" fxFlexFill>
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
-	<div *ngIf="!hideToolbar && viewOl">
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description" [class.app-toolbar-disabled]="!viewOl">
+	<div *ngIf="!hideToolbar">
       <button mat-icon-button [class.app-active]="positionLock" [matTooltip]="'viewer.tooltip.' + (positionLock ? 'unlock' : 'lock') | translate" (click)="onSwitchLock()">
 			<mat-icon>lock</mat-icon>
 		</button>
-		<button mat-icon-button [matTooltip]="'viewer.tooltip.zoomIn' | translate" (click)="zoomIn()" [disabled]="!viewOl">
+		<button mat-icon-button [matTooltip]="'viewer.tooltip.zoomIn' | translate" (click)="zoomIn()">
 			<mat-icon>zoom_in</mat-icon>
 		</button>
 		<button mat-icon-button [matTooltip]="'viewer.tooltip.zoomOut' | translate" (click)="zoomOut()">
@@ -23,15 +23,15 @@
 			<mat-icon>fullscreen_exit</mat-icon>
 		</button>   
 	</div>
-	<div *ngIf="!viewOl" >
+	<!-- <div *ngIf="!viewOl" >
 		<mat-icon >image</mat-icon>
-	</div>
+	</div> -->
 			
   </div>
 	<div fxFlex>
 		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
 		<div class="app-pt-2 app-pb-2 app-h-100" >
-			<div class="app-viewer-wrapper" *ngIf="!viewOl"><img [src]="imageUrl" style="width: 100%;" /></div>
+			<div class="app-viewer-wrapper" *ngIf="!viewOl"><img  [src]="imageUrl" style="width: 100%;" /></div>
 			<div [id]="idViewer" class="app-viewer-wrapper" (resized)="onResized($event)"></div>
 		</div>
 	</div>

@@ -221,7 +221,7 @@
       },
       "desc": {
         "cs": "CS/CS (česky, MODS česky)",
-        "en": "EN/EN (english, MODS in english)",
+        "en": "EN/EN (English, MODS in English)",
         "cs-en": "CS/EN (česky, MODS anglicky)"
       }
     }
@@ -2449,7 +2449,10 @@
     "vintage": "Ročník",
     "year": "Rok",
     "rdczid": "RD CZ ID",
-    "metadata": "Metadata"
+    "metadata": "Metadata",
+    "selectProfile": "Vybrat profil",
+    "selectCatalog": "Vybrat katalog",
+    "resolveconflictWarn": "Zvolte způsob pokračování"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2905,6 +2908,9 @@
         "success": "Zapsáno do katalogu",
         "error": "Chyba zapsání!"
       }
+    },
+    "rdflowNewJob": {
+      "title": "Vytvořit nový záměr"
     }
   },
   "formField": {

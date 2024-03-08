@@ -268,7 +268,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    NoopAnimationsModule,
+    // NoopAnimationsModule,
     SharedModule,
     AppRoutingModule,
     HttpClientModule,

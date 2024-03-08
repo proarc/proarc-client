@@ -221,7 +221,7 @@
       },
       "desc": {
         "cs": "CS/CS (česky, MODS česky)",
-        "en": "EN/EN (english, MODS in english)",
+        "en": "EN/EN (English, MODS in English)",
         "cs-en": "CS/EN (česky, MODS anglicky)"
       }
     }
@@ -2432,7 +2432,8 @@
     "query": "Dotaz",
     "catalog": "Katalog",
     "showOnlyTheElement": "Zobrazit pouze element (y)",
-    "jumpToElement": "Zobrazit element"
+    "jumpToElement": "Zobrazit element",
+    "resolveconflictWarn": "Zvolte způsob pokračování"
   },
   "button": {
     "setLayout": "nastavit rozložení",

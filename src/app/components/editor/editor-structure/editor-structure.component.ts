@@ -50,6 +50,7 @@ export class EditorStructureComponent implements OnInit {
   isRepo: boolean = true;
 
   lastClickIdx: number = -1;
+  startShiftClickIdx: number = -1;
   // rows: DocumentItem[] = [];
 
   source: any;
@@ -128,6 +129,7 @@ export class EditorStructureComponent implements OnInit {
     this.pageChildren = this.layout.items.findIndex(it => it.isPage()) > -1;
     if (!this.isRepo) {
       this.lastClickIdx = 0;
+      this.startShiftClickIdx = 0;
     }
     this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((fromStructure: boolean) => {
       this.refreshChildren();
@@ -325,6 +327,7 @@ export class EditorStructureComponent implements OnInit {
       let step = 1;
       if (this.arrowIndex - step >= 0) {
         this.rowClick(this.layout.items[this.arrowIndex - step], this.arrowIndex - step, event);
+        this.scrollToSelected('center');
       }
     } else if (event.code === "ArrowDown") {
       let step = 1;
@@ -339,6 +342,7 @@ export class EditorStructureComponent implements OnInit {
       let step = 1;
       if (this.arrowIndex + step < this.layout.items.length) {
         this.rowClick(this.layout.items[this.arrowIndex + step], this.arrowIndex + step, event);
+        this.scrollToSelected('end');
         //this.scrollToSelected();
       }
     }
@@ -507,6 +511,7 @@ export class EditorStructureComponent implements OnInit {
   }
 
   rowClick(row: DocumentItem, idx: number, event: MouseEvent) {
+    console.log(this.startShiftClickIdx)
     this.layout.moveFocus = false;
     if (event && (event.metaKey || event.ctrlKey)) {
       // Nesmi byt prazdna selecke pro import
@@ -516,10 +521,16 @@ export class EditorStructureComponent implements OnInit {
       } else {
         row.selected = !row.selected;
       }
+      this.startShiftClickIdx = idx;
     } else if (event && event.shiftKey) {
-      if (this.lastClickIdx > -1) {
-        const from = Math.min(this.lastClickIdx, idx);
-        const to = Math.max(this.lastClickIdx, idx);
+      if (this.startShiftClickIdx > -1) {
+        const oldFrom = Math.min(this.startShiftClickIdx, this.lastClickIdx);
+        const oldTo = Math.max(this.startShiftClickIdx, this.lastClickIdx);
+        for (let i = oldFrom; i <= oldTo; i++) {
+          this.layout.items[i].selected = false;
+        }
+        const from = Math.min(this.startShiftClickIdx, idx);
+        const to = Math.max(this.startShiftClickIdx, idx);
         for (let i = from; i <= to; i++) {
           this.layout.items[i].selected = true;
         }
@@ -527,11 +538,13 @@ export class EditorStructureComponent implements OnInit {
         // nic neni.
         this.layout.items.forEach(i => i.selected = false);
         row.selected = true;
+       this.startShiftClickIdx = idx;
       }
 
     } else {
       this.layout.items.forEach(i => i.selected = false);
       row.selected = true;
+      this.startShiftClickIdx = idx;
     }
     this.lastClickIdx = idx;
     // this.layout.lastSelectedItem = row;
