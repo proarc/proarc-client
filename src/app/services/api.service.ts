@@ -267,7 +267,12 @@ export class ApiService {
         break;
       }
       case ProArc.EXPORT_KRAMERIUS: {
-        data = `${data}&policy=policy:${policy}&krameriusInstance=${krameriusInstance}&license=${licenseName}`;
+        if (licenseName == null || "undefined" == licenseName) {
+          data = `${data}&policy=policy:${policy}&krameriusInstance=${krameriusInstance}`;
+        } else {
+          data = `${data}&krameriusInstance=${krameriusInstance}&license=${licenseName}`;
+        }
+        // data = `${data}&policy=policy:${policy}&krameriusInstance=${krameriusInstance}&license=${licenseName}`;
         path = 'export/kramerius4'
         break;
       }
