@@ -24,17 +24,17 @@ export class ModsPart extends ModsElement {
   }
 
   private init() {
-    if (!this.modsElement['type']) {
-      this.modsElement['type'] = ModsUtils.createField(this, 'type');
-    }
-    this.type = this.modsElement['type'][0];
-    this.addControl('type');
+    // if (!this.modsElement['type']) {
+    //   this.modsElement['type'] = ModsUtils.createField(this, 'type');
+    // }
+    // this.type = this.modsElement['type'][0];
+    // this.addControl('type');
 
     if (!this.modsElement['detail']) {
       this.modsElement['detail'] = [];
     }
     this.addControl('detail');
-    
+
     const ctx = this;
     this.modsElement['detail'].forEach(function (caption: { [x: string]: any[]; }) {
       if (caption['caption'] && caption['caption'][0]) {
