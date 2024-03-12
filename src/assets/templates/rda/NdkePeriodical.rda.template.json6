@@ -925,7 +925,28 @@
               selector: 'physicalDescription/form/value',
               labelKey: 'physicalDescription/form/value',
               label: 'Hodnota',
-              help: 'off'
+              help: 'off',
+              options: [
+                ['braille', 'braille'],
+                ['electronic', 'electronic'],
+                ['large print', 'large print'],
+                ['microfilm', 'microfilm'],
+                ['microfiche', 'microfiche'],
+                ['print', 'print'],
+                ['jiný', 'jiný'],
+                ['audio', 'audio'],
+                ['počítač', 'počítač'],
+                ['mikroforma', 'mikroforma'],
+                ['mikroskop', 'mikroskop'],
+                ['projekce', 'projekce'],
+                ['stereograf', 'stereograf'],
+                ['bez media', 'bez_media'],
+                ['video', 'video'],
+                ['svazek', 'svazek'],
+                ['online zdroj', 'online_zdroj'],
+                ['audiodisk', 'audiodisk'],
+                ['počítačový disk', 'počítačový disk'],
+              ]
             }
           }
         }
@@ -2042,7 +2063,28 @@
                   selector: 'relatedItem/physicalDescription/form/value',
                   labelKey: 'physicalDescription/form/value',
                   label: 'Hodnota',
-                  help: 'off'
+                  help: 'off',
+                  options: [
+                    ['braille', 'braille'],
+                    ['electronic', 'electronic'],
+                    ['large print', 'large print'],
+                    ['microfilm', 'microfilm'],
+                    ['microfiche', 'microfiche'],
+                    ['print', 'print'],
+                    ['jiný', 'jiný'],
+                    ['audio', 'audio'],
+                    ['počítač', 'počítač'],
+                    ['mikroforma', 'mikroforma'],
+                    ['mikroskop', 'mikroskop'],
+                    ['projekce', 'projekce'],
+                    ['stereograf', 'stereograf'],
+                    ['bez media', 'bez_media'],
+                    ['video', 'video'],
+                    ['svazek', 'svazek'],
+                    ['online zdroj', 'online_zdroj'],
+                    ['audiodisk', 'audiodisk'],
+                    ['počítačový disk', 'počítačový disk'],
+                  ]
                 }
               }
             }
