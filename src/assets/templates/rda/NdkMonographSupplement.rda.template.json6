@@ -30,7 +30,7 @@
         },
         partNumber: {
           usage: 'MA',
-          required: true,
+//          required: true,
           label: 'Číslo přílohy',
           selector: 'titleInfo/partNumber',
           labelKey: 'titleInfo/partNumber',
@@ -181,7 +181,6 @@
         },
         eventType: {
           usage: 'M',
-          required: true,
           label: 'Typ',
           selector: 'originInfo/@eventType',
           labelKey: 'originInfo/@eventType',
@@ -347,25 +346,25 @@
             },
           },
         },
-        dateCreated: {
-          usage: 'R',
-          label: 'Datum vytvoření',
-          selector: 'originInfo/dateCreated',
-          labelKey: 'originInfo/dateCreated',
-          cols: 2,
-          description: 'Datum vytvoření přílohy<br/>\
-          bude použito pouze při popisu tiskaře, viz poznámka u <strong>Nakladatel</strong> nebo např. u popisu CD/DVD apod.<br/>\
-          odpovídá hodnotě z katalogizačního záznamu, pole 264 $g',
-          fields: {
-            value: {
-              usage: 'R',
-              selector: 'originInfo/dateCreated/value',
-              labelKey: 'originInfo/dateCreated/value',
-              label: 'Hodnota',
-              help: 'off'
-            }
-          }
-        },
+//        dateCreated: {
+//          usage: 'R',
+//          label: 'Datum vytvoření',
+//          selector: 'originInfo/dateCreated',
+//          labelKey: 'originInfo/dateCreated',
+//          cols: 2,
+//          description: 'Datum vytvoření přílohy<br/>\
+//          bude použito pouze při popisu tiskaře, viz poznámka u <strong>Nakladatel</strong> nebo např. u popisu CD/DVD apod.<br/>\
+//          odpovídá hodnotě z katalogizačního záznamu, pole 264 $g',
+//          fields: {
+//            value: {
+//              usage: 'R',
+//              selector: 'originInfo/dateCreated/value',
+//              labelKey: 'originInfo/dateCreated/value',
+//              label: 'Hodnota',
+//              help: 'off'
+//            }
+//          }
+//        },
         dateOther: {
           usage: 'R',
           label: 'Datum - jiné',
@@ -712,8 +711,7 @@
                 ['rdacarrier', 'rdacarrier']]
             },
             type: {
-              usage: 'M',
-              required: true,
+              usage: 'MA',
               label: 'Typ',
               selector: 'physicalDescription/form/@type',
               labelKey: 'physicalDescription/form/@type',

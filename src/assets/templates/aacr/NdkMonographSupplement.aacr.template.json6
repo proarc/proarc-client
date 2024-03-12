@@ -30,7 +30,7 @@
         },
         partNumber: {
           usage: 'MA',
-          required: true,
+//          required: true,
           label: 'Číslo přílohy',
           selector: 'titleInfo/partNumber',
           labelKey: 'titleInfo/partNumber',
