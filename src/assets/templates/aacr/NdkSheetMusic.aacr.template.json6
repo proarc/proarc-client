@@ -728,7 +728,28 @@
               selector: 'physicalDescription/form/value',
               labelKey: 'physicalDescription/form/value',
               label: 'Hodnota',
-              help: 'off'
+              help: 'off',
+              options: [
+                ['braille', 'braille'],
+                ['electronic', 'electronic'],
+                ['large print', 'large print'],
+                ['microfilm', 'microfilm'],
+                ['microfiche', 'microfiche'],
+                ['print', 'print'],
+                ['jiný', 'jiný'],
+                ['audio', 'audio'],
+                ['počítač', 'počítač'],
+                ['mikroforma', 'mikroforma'],
+                ['mikroskop', 'mikroskop'],
+                ['projekce', 'projekce'],
+                ['stereograf', 'stereograf'],
+                ['bez media', 'bez_media'],
+                ['video', 'video'],
+                ['svazek', 'svazek'],
+                ['online zdroj', 'online_zdroj'],
+                ['audiodisk', 'audiodisk'],
+                ['počítačový disk', 'počítačový disk'],
+              ]
             }
           }
         }
@@ -858,19 +879,19 @@
             ['udc', 'udc'],
           ]
         },
-//        edition: {
-//          usage: 'M',
-//          label: 'Vydání',
-//          selector: 'classification/@edition',
-//          labelKey: 'classification/@edition',
-//          cols: 2,
-//          description: '<ul>\
-//            <li>vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)</li>\
-//          </ul>',
-//          options: [
-//            ['Konspekt', 'Konspekt']
-//          ]
-//        },
+        edition: {
+          usage: 'MA',
+          label: 'Vydání',
+          selector: 'classification/@edition',
+          labelKey: 'classification/@edition',
+          cols: 2,
+          description: '<ul>\
+            <li>vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)</li>\
+          </ul>',
+          options: [
+            ['Konspekt', 'Konspekt']
+          ]
+        },
         value: {
           usage: 'M',
           required: true,

@@ -12,7 +12,7 @@
     </mat-select>
   </mat-form-field>
 
-  
+
   <mat-form-field *ngIf="(selectedType=='kramerius' || selectedType==='ndk_psp_upload_kramerius' || selectedType === 'ndk_oldprint_upload_kramerius') && importInstance && importInstance.krameriusInstanceLicenses" class="app-w-100">
     <mat-select [placeholder]="'desc.krameriusLicenses' | translate" name="instance" [(ngModel)]="licenseName">
       <mat-option *ngFor="let lic of importInstance.krameriusInstanceLicenses" [value]="lic.krameriusInstanceLicenseName">{{ lic.krameriusInstanceLicenseDescription }} - ({{lic.krameriusInstanceLicenseName}})</mat-option>
@@ -20,13 +20,14 @@
   </mat-form-field>
 
 
-  <mat-checkbox [disabled]="formDisabled()" *ngIf="selectedType=='kramerius_bagit' || selectedType=='kramerius' || selectedType=='kwis' || selectedType==='ndk_psp_upload_kramerius' || selectedType==='ndk_oldprint_upload_kramerius'" color="primary" [(ngModel)]="policyPublic">{{ 'desc.publiclyAvailable' | translate }}</mat-checkbox>
+  <mat-checkbox [disabled]="formDisabled()" *ngIf="(selectedType=='kramerius_bagit' || selectedType=='kramerius' || selectedType=='kwis' || selectedType==='ndk_psp_upload_kramerius' || selectedType==='ndk_oldprint_upload_kramerius') && importInstance && !importInstance.krameriusInstanceLicenses" color="primary" [(ngModel)]="policyPublic">{{ 'desc.publiclyAvailable' | translate }}</mat-checkbox>
+
   <mat-form-field *ngIf="selectedType=='ndk_psp_upload_cesnet' || selectedType=='ndk_oldprint_upload_cesnet'" class="app-w-100">
     <input  type="text" autocomplete="off" matInput [placeholder]="'desc.ltpToken' | translate" [(ngModel)]="cesnetLtpToken">
   </mat-form-field>
 
-  <mat-radio-group 
-  *ngIf="selectedType=='archive_extended' || selectedType==='archive_stt_extended' || selectedType === 'archive_extended_bagit' || selectedType === 'archive_stt_extended_bagit'" 
+  <mat-radio-group
+  *ngIf="selectedType=='archive_extended' || selectedType==='archive_stt_extended' || selectedType === 'archive_extended_bagit' || selectedType === 'archive_stt_extended_bagit'"
   aria-label="'standard'" [(ngModel)]="extendedType" class="app-ml-3">
     <mat-radio-button value="snkd">Skeny nejsou k dispozici</mat-radio-button>
     <mat-radio-button value="pi">Přidat Informaci</mat-radio-button>
