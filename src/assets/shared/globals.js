@@ -112,4 +112,6 @@ var APP_GLOBAL = {
   updateInSource: true,
   updateInSourceModels: ['model:ndkperiodical','model:ndkmonographvolume', 'model:ndkmusicdocument', 'model:ndkphonographcylinder', 'model:ndkmap',
   'model:ndksheetmusic', 'model:oldprintgraphics', 'model:ndkmonographtitle'],
+
+  navbarColor: '#449900'
 }

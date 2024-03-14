@@ -15,7 +15,8 @@ import { NewMetadataDialogComponent } from 'src/app/dialogs/new-metadata-dialog/
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  languages = ['cs', 'en', 'cs-en']
+  languages = ['cs', 'en', 'cs-en'];
+  bgColor: string;
 
   constructor(public translator: TranslateService,
               public auth: AuthService,
@@ -25,6 +26,10 @@ export class NavbarComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+    if (this.config.navbarColor) {
+      this.bgColor = this.config.navbarColor;
+    }
+    
   }
 
   onLanguageChanged(lang: string) {

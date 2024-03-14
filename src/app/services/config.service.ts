@@ -252,6 +252,8 @@ export class ConfigService {
 	public exports = APP_GLOBAL.exports || ConfigService.defaultDefaultExports;
 	public pagePositions = APP_GLOBAL.pagePositions || ConfigService.defaultPagePositions;
 
+	public navbarColor = APP_GLOBAL.navbarColor;
+
 	public static modelChangesDefault = [
     // origin = model nad kterym to lze spustit
     // originModel = vychozi model z ktereho se prevadi
