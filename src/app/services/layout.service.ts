@@ -71,7 +71,7 @@ export class LayoutService {
 
   setPanelEditing(panel: ILayoutPanel) { 
     if (panel) {
-      this.panels.forEach(p => p.canEdit = false);
+      this.panels.forEach(p => p.canEdit = false || p.type === 'media');
       panel.canEdit = true;
     }
     
