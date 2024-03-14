@@ -67,7 +67,7 @@ export class ModsPublisher extends ModsElement {
           this.dateIssueds = new ElementField(this.modsElement, ModsDateIssued.getSelector(), this.getField('dateIssued'));
           this.addSubfield(this.dateIssueds);
         }
-        this.addControl('dateIssued');
+        this.addControl('dateIssueds');
 
         if (!this.modsElement['dateOther']) {
             this.modsElement['dateOther'] = [];
@@ -76,7 +76,7 @@ export class ModsPublisher extends ModsElement {
           this.dateOthers = new ElementField(this.modsElement, ModsDateOther.getSelector(), this.getField('dateOther'));
           this.addSubfield(this.dateOthers);
         }
-        this.addControl('dateOther');
+        this.addControl('dateOthers');
 
         if (!this.modsElement['copyrightDate']) {
             this.modsElement['copyrightDate'] = ModsUtils.createField(this, 'copyrightDate');;
@@ -91,7 +91,7 @@ export class ModsPublisher extends ModsElement {
           this.dateCreateds = new ElementField(this.modsElement, ModsDateCreated.getSelector(), this.getField('dateCreated'));
           this.addSubfield(this.dateCreateds);
         }
-        this.addControl('dateCreated');
+        this.addControl('dateCreateds');
 
         if (!this.modsElement['dateValid']) {
             this.modsElement['dateValid'] = [];
@@ -100,7 +100,7 @@ export class ModsPublisher extends ModsElement {
           this.dateValids = new ElementField(this.modsElement, ModsDateValid.getSelector(), this.getField('dateValid'));
           this.addSubfield(this.dateValids);
         }
-        this.addControl('dateValid');
+        this.addControl('dateValids');
 
         if (!this.modsElement['dateCaptured']) {
             this.modsElement['dateCaptured'] = [];

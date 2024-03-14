@@ -511,7 +511,6 @@ export class EditorStructureComponent implements OnInit {
   }
 
   rowClick(row: DocumentItem, idx: number, event: MouseEvent) {
-    console.log(this.startShiftClickIdx)
     this.layout.moveFocus = false;
     if (event && (event.metaKey || event.ctrlKey)) {
       // Nesmi byt prazdna selecke pro import

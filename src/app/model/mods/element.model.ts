@@ -161,13 +161,16 @@ export abstract class ModsElement {
     public addControl(field: string) {
         if (!this.controls.hasOwnProperty(field)) {
             const c = new FormControl('');
+            if (field === 'dateIssued') {
+            }
+            
             if (this[field as keyof (ModsElement)]) {
                 c.setValue(this[field as keyof (ModsElement)]['_']);
             }
 
             this.controls[field] = c;
             // console.log('ADD ' + field + ' -> ' + this.labelKey2(field));
-        }
+        } 
         this.clazz[field] = this.class(field);
         this.isMandatory[field] = this.isMandatory2(field);
         this.usage[field] = this.usage2(field);
@@ -240,7 +243,7 @@ export abstract class ModsElement {
                     const value = this.controls[key];
                     if (this.template.fields[key + ''] &&
                         (this.template.fields[key + ''].required || this.template.fields[key + ''].usage === 'M') &&
-                        !value.value) {
+                        !value.value) {                            
                         error = true;
                         value.markAsTouched();
                         if (parent && (parent.isRequired || parent.hasAnyValue()) ) {

@@ -49,6 +49,10 @@ ul {
 
 .app-color-warn {
   color: $app-color-warn !important;
+
+  .mat-select-value {
+    color: $app-color-warn;
+  }
 }
 
 .app-color-info {
@@ -199,8 +203,8 @@ ul {
 }
 
 .app-text-cutter-wrapper {
-  position: relative; 
-  
+  position: relative;
+
   .app-text-cutter {
     position: absolute;
     max-width: 100%;
@@ -316,7 +320,7 @@ as-split {
 
   a {
     &:not(.app-model) {
-      color: $app-breadcrumbsbar-color; 
+      color: $app-breadcrumbsbar-color;
     }
   }
 
@@ -332,7 +336,7 @@ as-split {
   .mat-select-value {
     color: $app-breadcrumbsbar-color;
   }
-  
+
   .mat-form-field-label {
     color: $app-breadcrumbsbar-color;
   }
@@ -369,7 +373,7 @@ as-split {
     .app-text-cutter {
       max-width: 300px;
     }
-  }  
+  }
 }
 
 // formbar
@@ -399,22 +403,22 @@ as-split {
   .mat-button-base {
     @extend .app-clean-radius;
   }
-  
+
   .mat-button-base {
     height: $app-toolbar-button-height;
     line-height: $app-toolbar-button-height;
 
     &.mat-icon-button {
       width: $app-toolbar-button-height;
-  
+
       &.app-active {
         background-color: $app-toolbar-button-bg-active;
       }
-  
+
       .app-text-icon {
         font-size: 18px;
       }
-  
+
       .mat-icon {
         @include setIcon(20);
         line-height: 20px;
@@ -449,14 +453,19 @@ as-split {
   &:focus {
     outline: none !important;
   }
-  
+
   // common behavior
   .mat-table,
   .app-view-grid,
   .app-view-icon {
-    ::selection { background: transparent; }
-    ::-moz-selection { background: transparent; }
-  } 
+    ::selection {
+      background: transparent;
+    }
+
+    ::-moz-selection {
+      background: transparent;
+    }
+  }
 
   .app-view-grid {
     padding: $app-grid-item-pd 0;
@@ -474,7 +483,7 @@ as-split {
       &.app-invalid {
         .app-item {
           background-color: rgba($app-color-item-invalid, .1);
-          
+
           .mat-icon {
             @include setIcon(20, $app-color-item-invalid, sub);
           }
@@ -511,7 +520,7 @@ as-split {
       &.app-invalid {
         .app-item {
           background-color: rgba($app-color-item-invalid, .1);
-          
+
           .app-item-label {
             .mat-icon {
               @include setIcon(20, $app-color-item-invalid, sub);
@@ -523,7 +532,7 @@ as-split {
       .app-item {
         @extend .app-h-100;
         background-color: $app-gray-2;
-      
+
         .app-item-thumb {
           background-size: cover;
         }
@@ -547,10 +556,10 @@ as-split {
     &:hover {
       background-color: $app-color-item-hover;
     }
-  
+
     &.app-header {
       overflow-y: scroll;
-      
+
       .app-cell,
       .app-cell-first {
         font-size: 12px;
@@ -558,43 +567,43 @@ as-split {
         color: $app-gray-6;
       }
     }
-  
+
     &.app-parent {
       background-color: $app-color-item-active;
       color: $app-color-lightnes;
-  
+
       &.app-active-tree {
         background-color: $app-color-item-active;
       }
     }
-  
+
     &.app-active-tree {
       background-color: $app-color-item-selected;
     }
-  
+
     &.dragoverAllowed {
       background: $app-color-item-dragover-allowed;
       color: $app-color-lightnes;
     }
-  
+
     &.dragoverNotAllowed {
       background: $app-color-item-dragover-noallowed;
       color: $app-color-lightnes;
     }
-  
+
     .app-expansion-cell {
       text-align: right;
-  
+
       .mat-icon {
         @include setIcon($position: sub);
       }
-  
+
       .mat-progress-spinner {
         display: inline;
         vertical-align: top;
       }
     }
-  
+
     .app-cell {
       pointer-events: none;
       max-width: 100%;
@@ -614,18 +623,18 @@ as-split {
         max-width: $app-width !important;
         min-width: $app-width !important;
       }
-  
+
       &.app-isLocked {
         $app-width: 30px;
         flex: 1 1 $app-width !important;
         max-width: $app-width !important;
         min-width: $app-width !important;
       }
-  
+
       .mat-icon {
         @include setIcon(20, $position: sub);
       }
-    }  
+    }
   }
 }
 

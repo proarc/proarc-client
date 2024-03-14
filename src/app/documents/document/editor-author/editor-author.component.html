@@ -15,10 +15,10 @@
         <mat-icon>{{ item.isPrimary() ? 'star' : 'star_outline' }}</mat-icon>
       </button>
 
-      <ng-container *ngIf="item.nameIdentifier['_']">
+      <!-- <ng-container *ngIf="item.nameIdentifier['_']">
         <div class="app-header-divider"></div>
         <div class="app-header-text">{{ item.nameIdentifier['_'] }}</div>
-      </ng-container>
+      </ng-container> -->
   </ng-template>
 
   <ng-template let-item="item" #templateContent>

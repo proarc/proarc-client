@@ -64,10 +64,16 @@ export class EditorMetadataComponent implements OnInit {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
+  validate() {
+    this.metadata.validate();
+      setTimeout(() => {
+        this.setFieldsPositions();
+      }, 10);
+  }
+
   logMetadata() {
     //console.log(this.metadata);
     const valid = this.metadata.validate()
-    console.log(valid, this.metadata.invalidFields);
     if (!valid) {
       this.availableFields.forEach(k => {
         this.visibleFields[k] = true;
@@ -81,7 +87,6 @@ export class EditorMetadataComponent implements OnInit {
           'app-editor-metadata .app-expanded .mat-form-field-invalid input, app-editor-metadata .mat-form-field-invalid mat-select';
 
         let el: any = document.querySelectorAll(query)[0];
-        console.log(el)
         if (el) {
           el.focus();
         }
