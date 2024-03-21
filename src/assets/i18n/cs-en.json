@@ -2710,7 +2710,8 @@
     "TUE301": "Muzeum v Podkrkonoší Trutnov",
     "JCG001": "Okresní knihovna Jičín",
     "JCE301": "Regionální muzeum a galerie v Jičíně",
-    "NAE802": "Městské muzeum Jaroměř"
+    "NAE802": "Městské muzeum Jaroměř",
+    "ABE304": "Knihovna Divadlení ústav"
   },
   "dialog": {
     "layoutSettings": {
@@ -2931,6 +2932,7 @@
       "profile.ndk_full_import": "Import - NDK Full",
       "profile.default_ndk_import": "Import - NDK PSP",
       "profile.replace_stream_import": "Import - Nahrazení streamů",
+      "profile.generate": "Generovani ALTO/OCR",
       "exportProfile.kramerius": "Export - Kramerius",
       "exportProfile.ndk": "Export - NDK PSP",
       "exportProfile.archive": "Export - Archive",
