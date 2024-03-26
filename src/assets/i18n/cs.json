@@ -2546,7 +2546,9 @@
     "doNotSave": "Neukládat",
     "copyTextToClipboard": "Zkopírovat text do schránky",
     "updateInSource": "Zapsat UUID do zdrojového katalogu",
-    "pero": "Korekce ALTO/OCR pomocí nástroje PERO"
+    "pero": "Korekce ALTO/OCR pomocí nástroje PERO",
+    "removeBrackets": "Odebrat závorky",
+    "addBrackets": "Vložit do závorek"
   },
   "dynamic": {
     "repo": "Úložiště",

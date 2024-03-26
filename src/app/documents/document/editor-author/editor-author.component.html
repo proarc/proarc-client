@@ -1,24 +1,12 @@
 <app-editor-field [field]="field">
-
   <ng-template let-item="item" #templateMenu>
-      <div class="app-header-divider"></div>
-
-      <button (click)="onLoadFromCatalog(item)" [matTooltip]="'editor.metadata.catalog' | translate" mat-icon-button>
-        <mat-icon>local_library</mat-icon>
-      </button>
-
-      <!--<button [disabled]="!item.canSplitName()" matTooltip="{{ 'editor.author.split_btn' | translate }}" (click)="item.splitName()" mat-icon-button>
-        <mat-icon>play_for_work</mat-icon>
-      </button>-->
-
-      <button matTooltip="{{ 'editor.author.' + (item.isPrimary() ? 'unset_primary' : 'set_primary') | translate }}" [color]="item.isPrimary() ? 'primary' : ''" (click)="item.switchPrimary()" mat-icon-button>
-        <mat-icon>{{ item.isPrimary() ? 'star' : 'star_outline' }}</mat-icon>
-      </button>
-
-      <!-- <ng-container *ngIf="item.nameIdentifier['_']">
-        <div class="app-header-divider"></div>
-        <div class="app-header-text">{{ item.nameIdentifier['_'] }}</div>
-      </ng-container> -->
+    <button matTooltip="{{ 'editor.author.' + (item.isPrimary() ? 'unset_primary' : 'set_primary') | translate }}" [color]="item.isPrimary() ? 'primary' : ''" (click)="item.switchPrimary()" mat-icon-button>
+      <mat-icon>{{ item.isPrimary() ? 'star' : 'star_outline' }}</mat-icon>
+    </button>
+    <button (click)="onLoadFromCatalog(item)" [matTooltip]="'editor.metadata.catalog' | translate" mat-icon-button>
+      <mat-icon>local_library</mat-icon>
+    </button>
+    <span class="app-pipe"></span>
   </ng-template>
 
   <ng-template let-item="item" #templateContent>

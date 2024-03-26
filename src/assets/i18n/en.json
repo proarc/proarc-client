@@ -2546,7 +2546,9 @@
     "doNotSave": "Do not save",
     "copyTextToClipboard": "Copy text to clipboard",
     "updateInSource": "Zapsat UUID do zdrojového katalogu",
-    "pero": "Korekce ALTO/OCR pomocí nástroje PERO"
+    "pero": "Korekce ALTO/OCR pomocí nástroje PERO",
+    "removeBrackets": "Remove the brackets",
+    "addBrackets": "Add the brackets"
   },
   "dynamic": {
     "repo": "Storage",
