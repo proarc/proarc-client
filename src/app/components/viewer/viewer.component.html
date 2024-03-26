@@ -31,8 +31,8 @@
 	<div fxFlex>
 		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
 		<div class="app-pt-2 app-pb-2 app-h-100" >
-			<div class="app-viewer-wrapper" *ngIf="!viewOl"><img  [src]="imageUrl" style="width: 100%;" /></div>
-			<div [id]="idViewer" class="app-viewer-wrapper" (resized)="onResized($event)"></div>
+			<div class="app-viewer-wrapper" *ngIf="!viewOl"><img  [src]="imageUrl" style="width: 100%;" (load)="state = 'success'" /></div>
+			<div [id]="idViewer" class="app-viewer-wrapper" *ngIf="viewOl" (resized)="onResized($event)"></div>
 		</div>
 	</div>
 </div>

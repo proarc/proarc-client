@@ -1,4 +1,6 @@
 export interface StreamProfile {
   dsid: string, 
-  mime: string
+  mime: string,
+  width: number,
+  height: number,
 }

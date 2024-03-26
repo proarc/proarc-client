@@ -21,6 +21,7 @@ declare global {
 
 import { ResizedEvent } from 'angular-resize-event';
 import { LayoutService } from 'src/app/services/layout.service';
+import { StreamProfile } from 'src/app/model/stream-profile';
 
 
 @Component({
@@ -40,13 +41,30 @@ export class ViewerComponent implements OnInit, OnDestroy {
     this.onPidChanged(pid);
   }
 
+  // private imageInfo: {};
+  // @Input()
+  // set stream(stream: string) {
+  //   this.currentStream = stream;
+  //   this.loadImage();
+  // }
+
+  currentStreamProfile: StreamProfile;
   @Input()
-  set stream(stream: string) {
-    this.currentStream = stream;
-    this.loadImage();
+  set streamProfile(stream: StreamProfile) {
+    if (this.isLocked) {
+      return;
+    }
+    if (this.view) {
+      this.view.removeLayer(this.imageLayer);
+      this.view.updateSize();
+    }
+    //if (this.currentStreamProfile && this.currentStreamProfile.dsid !== stream.dsid) {
+      this.currentStreamProfile = stream;
+      this.loadImage();
+    //}
   }
 
-  private currentStream: string;
+
   private inputPid: string;
   isLocked = false;
 
@@ -63,6 +81,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   fullscreenAvailable = false;
   positionLock: boolean;
+  isFitToScreen: boolean;
 
   private extent: any;
 
@@ -106,7 +125,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
       this.view.removeLayer(this.imageLayer);
       this.view.updateSize();
     }
-    this.loadImage();
+    //this.loadImage();
   }
 
 
@@ -115,39 +134,36 @@ export class ViewerComponent implements OnInit, OnDestroy {
     if (!this.inputPid) {
       return;
     }
-    this.viewOl = false;
-    const stream = this.currentStream ? this.currentStream : 'FULL'; 
+    const stream = this.currentStreamProfile ? this.currentStreamProfile.dsid : 'FULL'; 
     this.state = 'loading';
     this.imageUrl = this.isKramerius ?
       this.api.getKrameriusImageUrl(this.inputPid, this.instance) :
       this.api.getStreamUrl(this.inputPid, stream, this.layout.getBatchId());
-    const image = new Image();
-    image.onload = (() => {
-      if (image.width > this.maxImageSize || image.height > this.maxImageSize) {
+
+      if (this.currentStreamProfile.width > this.maxImageSize || this.currentStreamProfile.height > this.maxImageSize) {
         this.viewOl = false;
-        this.state = 'success';
+        // this.state = 'success';
       } else {
         this.viewOl = true;
-        this.onLoad(this.imageUrl, image.width, image.height);
+          if (this.view) {
+            this.onLoad(this.imageUrl, this.currentStreamProfile.width, this.currentStreamProfile.height);
+          } else {
+            setTimeout(() => {
+              this.onLoad(this.imageUrl, this.currentStreamProfile.width, this.currentStreamProfile.height);
+            }, 1);
+          }
       }
-      
-    });
-    image.onerror = ((err: any) => {
-      image.onerror = null;
-      this.state = 'error';
-      console.log('image load failure');
-    });
-    image.src = this.imageUrl;
   }
 
   onLoad(url: string, width: number, height: number) {
     this.positionLock = this.properties.getBoolProperty('viewer.positionLock', false);
+    // this.isFitToScreen = this.properties.getBoolProperty('viewer.fitToScreen', true);
     if (this.extent) {
       this.saveCurrentPosition();
     }
-    this.state = 'success';
-    this.view.removeLayer(this.imageLayer);
-    this.view.updateSize();
+    // this.state = 'success';
+    // this.view.removeLayer(this.imageLayer);
+    // this.view.updateSize();
     this.imageWidth = width;
     this.imageHeight = height;
     this.extent = [0, -this.imageHeight, this.imageWidth, 0];
@@ -162,13 +178,18 @@ export class ViewerComponent implements OnInit, OnDestroy {
     };
     const view = new ol.View(viewOpts);
     this.view.setView(view);
-    const iLayer = new ol.layer.Image({
-      source: new ol.source.ImageStatic({
+    const that = this;
+    const source: any = new ol.source.ImageStatic({
         url: url,
         imageSize: [width, height],
-        imageExtent: this.extent
-      })
+        imageExtent: this.extent,
     });
+    source.on(['imageloadend', 'imageloaderror'], function () {
+      that.state = 'success';
+    });
+    const iLayer = new ol.layer.Image({
+      source: source
+      })
     this.view.addLayer(iLayer);
     this.imageLayer = iLayer;
     if (this.positionLock) {
@@ -177,7 +198,10 @@ export class ViewerComponent implements OnInit, OnDestroy {
       this.view.getView().setCenter(this.properties.getStringProperty('viewer.center').split(','));
       this.view.getView().setResolution(this.properties.getStringProperty('viewer.resolution'));
     } else {
-      this.fitToScreen();
+      //setTimeout(() => {
+        this.fitToScreen();
+      //}, 1);
+      
     }
   }
 
@@ -210,6 +234,10 @@ export class ViewerComponent implements OnInit, OnDestroy {
   }
 
   fitToScreen() {
+    // this.isFitToScreen = !this.isFitToScreen;
+    // if (!this.isFitToScreen) {
+    //   return;
+    // }
     this.view.updateSize();
     this.view.getView().setRotation(0);
     this.view.getView().fit(this.extent);

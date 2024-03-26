@@ -38,6 +38,8 @@ export class MediaComponent implements OnInit {
 
   streamProfile: StreamProfile;
   streamProfiles: StreamProfile[] = [];
+  maxImageSize: number = 6000;
+  imageUrl: string;
 
   constructor(private api: ApiService,
     private dialog: MatDialog,
@@ -47,6 +49,10 @@ export class MediaComponent implements OnInit {
 
   ngOnInit() {
     this.isRepo = this.layout.type === 'repo';
+  }
+
+  isBigSize() {
+    return this.streamProfile.width > this.maxImageSize || this.streamProfile.height > this.maxImageSize
   }
 
   urlByStream() {
@@ -124,6 +130,8 @@ export class MediaComponent implements OnInit {
           if (!this.streamProfile) {
             this.streamProfile = this.streamProfiles[0];
           }
+          
+          this.imageUrl = this.api.getStreamUrl(this.inputPid, this.streamProfile.dsid, this.layout.getBatchId());
 
         } else {
           this.state = 'empty';
