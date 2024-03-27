@@ -24,7 +24,7 @@
 		<div class="app-editor-content app-h-100" *ngIf="streamProfile || !isRepo">
       <app-pdf *ngIf="isRepo && isPdf()" [stream]="streamProfile?.dsid" [pid]="currentPid"></app-pdf>
       <app-epub *ngIf="isRepo && isEpub()" [stream]="streamProfile?.dsid" [pid]="currentPid"></app-epub>
-      <app-viewer *ngIf="!isRepo || isImage()" [idViewer]="'app-viewer-media'" [pid]="currentPid" [streamProfile]="streamProfile"></app-viewer>
+      <app-viewer *ngIf="!isRepo || isImage()" [idViewer]="'app-viewer-media'"  [imageInfo]="{pid: currentPid, dsid: streamProfile ? streamProfile.dsid: 'FULL', width: streamProfile?.width, height: streamProfile?.height}"></app-viewer>
       <app-song *ngIf="isRepo && isAudio()" [pid]="currentPid"></app-song>
 
 			<mat-card class="app-alert app-info app-m-4" *ngIf="isRepo && isUnsupported()">

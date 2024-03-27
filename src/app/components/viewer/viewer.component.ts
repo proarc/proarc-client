@@ -18,11 +18,9 @@ declare global {
   }
 }
 
-
 import { ResizedEvent } from 'angular-resize-event';
 import { LayoutService } from 'src/app/services/layout.service';
 import { StreamProfile } from 'src/app/model/stream-profile';
-
 
 @Component({
   selector: 'app-viewer',
@@ -36,21 +34,15 @@ export class ViewerComponent implements OnInit, OnDestroy {
   @Input() instance: string;
   @Input() hideToolbar: boolean;
 
-  @Input()
-  set pid(pid: string) {
-    this.onPidChanged(pid);
-  }
-
-  // private imageInfo: {};
   // @Input()
-  // set stream(stream: string) {
-  //   this.currentStream = stream;
-  //   this.loadImage();
+  // set pid(pid: string) {
+  //   this.onPidChanged(pid);
   // }
 
-  currentStreamProfile: StreamProfile;
+  private _imageInfo: {pid: string, dsid: string, width?: number, height?: number};
   @Input()
-  set streamProfile(stream: StreamProfile) {
+  set imageInfo(info: {pid: string, dsid: string, width?: number, height?: number}) {
+    this.inputPid = info.pid;
     if (this.isLocked) {
       return;
     }
@@ -58,11 +50,29 @@ export class ViewerComponent implements OnInit, OnDestroy {
       this.view.removeLayer(this.imageLayer);
       this.view.updateSize();
     }
-    //if (this.currentStreamProfile && this.currentStreamProfile.dsid !== stream.dsid) {
-      this.currentStreamProfile = stream;
+    this._imageInfo = info;
+    console.log(this._imageInfo.width);
+    if (this._imageInfo.width) {
       this.loadImage();
-    //}
+    } else {
+      this.getProfiles(this._imageInfo.pid)
+    }
+    
   }
+
+  // currentStreamProfile: StreamProfile;
+  // @Input()
+  // set streamProfile(stream: StreamProfile) {
+  //   if (this.isLocked) {
+  //     return;
+  //   }
+  //   if (this.view) {
+  //     this.view.removeLayer(this.imageLayer);
+  //     this.view.updateSize();
+  //   }
+  //   this.currentStreamProfile = stream;
+  //   this.loadImage();
+  // }
 
 
   private inputPid: string;
@@ -128,28 +138,81 @@ export class ViewerComponent implements OnInit, OnDestroy {
     //this.loadImage();
   }
 
+  loadRawImage() {
+    this.state = 'loading';
+  this.imageUrl = this.isKramerius ?
+    this.api.getKrameriusImageUrl(this.inputPid, this.instance) :
+    this.api.getStreamUrl(this.inputPid, this._imageInfo.dsid, this.layout.getBatchId());
+    const image = new Image();
+    image.onload = (() => {
+      if (image.width > this.maxImageSize || image.height > this.maxImageSize) {
+        this.viewOl = false;
+        this.state = 'success';
+      } else {
+        this.viewOl = true;
+        this.onLoad(this.imageUrl, image.width, image.height);
+      }
+      
+    });
+    image.onerror = ((err: any) => {
+      image.onerror = null;
+      this.state = 'error';
+      console.log('image load failure');
+    });
+    image.src = this.imageUrl;
+  }
 
+  getProfiles(pid: string) {
+    const isRepo = this.layout.type === 'repo';
+    if (!isRepo) {
+      this.loadRawImage();
+      return;
+    }
+    this.state = 'loading';
+    let streamProfile: StreamProfile;
+    this.api.getStreamProfile(pid).subscribe((response: any) => {
+      if (response?.response?.data) {
+        const streamProfiles: StreamProfile[] = response.response.data;
+        if (streamProfiles.length > 0) {
+          // try FULL as default
+          streamProfile = streamProfiles.find((s: any) => s.dsid === 'FULL');
+          if (!streamProfile) {
+            streamProfile = streamProfiles[0];
+          }
+          
+          this._imageInfo = {pid: pid, dsid: streamProfile.dsid, width: streamProfile.width, height: streamProfile.height};
+          this.loadImage();
+
+        } else {
+          this.state = 'empty';
+          streamProfile = null;
+          this.loadRawImage();
+          return;
+        }
+      } 
+    });
+  }
 
   loadImage() {
     if (!this.inputPid) {
       return;
     }
-    const stream = this.currentStreamProfile ? this.currentStreamProfile.dsid : 'FULL'; 
+    const stream = this._imageInfo ? this._imageInfo.dsid : 'FULL'; 
     this.state = 'loading';
     this.imageUrl = this.isKramerius ?
       this.api.getKrameriusImageUrl(this.inputPid, this.instance) :
       this.api.getStreamUrl(this.inputPid, stream, this.layout.getBatchId());
 
-      if (this.currentStreamProfile.width > this.maxImageSize || this.currentStreamProfile.height > this.maxImageSize) {
+      if (this._imageInfo.width > this.maxImageSize || this._imageInfo.height > this.maxImageSize) {
         this.viewOl = false;
         // this.state = 'success';
       } else {
         this.viewOl = true;
           if (this.view) {
-            this.onLoad(this.imageUrl, this.currentStreamProfile.width, this.currentStreamProfile.height);
+            this.onLoad(this.imageUrl, this._imageInfo.width, this._imageInfo.height);
           } else {
             setTimeout(() => {
-              this.onLoad(this.imageUrl, this.currentStreamProfile.width, this.currentStreamProfile.height);
+              this.onLoad(this.imageUrl, this._imageInfo.width, this._imageInfo.height);
             }, 1);
           }
       }
@@ -161,7 +224,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
     if (this.extent) {
       this.saveCurrentPosition();
     }
-    // this.state = 'success';
+    this.state = 'success';
     // this.view.removeLayer(this.imageLayer);
     // this.view.updateSize();
     this.imageWidth = width;

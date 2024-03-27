@@ -6,15 +6,15 @@
     <app-editor-structure *ngSwitchCase="'structure-list'" [viewMode]="'list'" [panel]="panel" (onIngest)="passOnIngest()"></app-editor-structure>
     <app-editor-structure *ngSwitchCase="'structure-grid'" [viewMode]="'grid'" [panel]="panel" (onIngest)="passOnIngest()"></app-editor-structure>
     <app-editor-structure *ngSwitchCase="'structure-icons'" [viewMode]="'icons'" [panel]="panel" (onIngest)="passOnIngest()"></app-editor-structure>
-    <!-- <ng-container *ngSwitchCase="'image'" >
-      <app-viewer *ngIf="layout.lastSelectedItem &&  itemModel === 'page'" [pid]="layout.lastSelectedItem.pid" ></app-viewer>
+    <ng-container *ngSwitchCase="'image'" >
+      <app-viewer *ngIf="layout.lastSelectedItem &&  itemModel === 'page'" [imageInfo]="{pid: layout.lastSelectedItem.pid, dsid: 'FULL'}" ></app-viewer>
       <div *ngIf="!(layout.lastSelectedItem &&  itemModel === 'page')" fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
         <mat-card class="app-alert app-info"><mat-icon>info</mat-icon>{{ 'alert.info.theImageIsNotAvailable' | translate }}</mat-card>
       </div>
-    </ng-container> -->
-    <ng-container *ngSwitchCase="'image'" >
-      <app-media *ngIf="layout.lastSelectedItem" [pid]="layout.lastSelectedItem.pid"></app-media>
     </ng-container>
+    <!-- <ng-container *ngSwitchCase="'image'" >
+      <app-media *ngIf="layout.lastSelectedItem" [pid]="layout.lastSelectedItem.pid"></app-media>
+    </ng-container> -->
     <ng-container *ngSwitchCase="'media'" >
       <app-media *ngIf="layout.lastSelectedItem" [pid]="layout.lastSelectedItem.pid"></app-media>
     </ng-container>

@@ -257,5 +257,5 @@
 </ng-template>
 
 <ng-template #imageTmpl>
-  <app-viewer *ngIf="lastSelectedItemPid" [pid]="lastSelectedItemPid" [hideToolbar]="true" [idViewer]="'app-viewer-mark'"></app-viewer>
+  <app-viewer *ngIf="lastSelectedItemPid" [imageInfo]="{pid: lastSelectedItemPid, dsid: 'FULL'}" [hideToolbar]="true" [idViewer]="'app-viewer-mark'"></app-viewer>
 </ng-template>

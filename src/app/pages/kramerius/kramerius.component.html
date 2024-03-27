@@ -26,7 +26,7 @@
       </as-split-area>
 
       <as-split-area [order]="2" [size]="30" class="app-pl-4">
-        <app-viewer *ngIf="hasImage" [isKramerius]="true" [instance]="instance" [pid]="pid"></app-viewer>
+        <app-viewer *ngIf="hasImage" [isKramerius]="true" [instance]="instance" [imageInfo]="{pid: layout.lastSelectedItem.pid, dsid: 'FULL'}"></app-viewer>
         <div *ngIf="!hasImage">NO IMAGE</div>
       </as-split-area>
     </as-split>

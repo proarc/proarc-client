@@ -178,11 +178,11 @@
             <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="iconHeight + 'px'"></div>
             <div class="app-item-label" *ngIf="isRepo">
               <mat-icon *ngIf="item.invalid" class="app-mr-1">warning</mat-icon>{{ shortLabels ? item.shortLabel : item.label }}<br />
-              ({{ (item.pageType ? "pageType." + item.pageType : "model." + item.model) | translate }})
+              ({{ (item.pageType ? "pageType." + item.pageType.toLowerCase() : "model." + item.model) | translate }})
             </div>
             <div class="app-item-label" *ngIf="!isRepo">
               <mat-icon *ngIf="item.invalid">warning</mat-icon>
-              {{ item.label + (shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}
+              {{ item.label + (shortLabels ? "" : (", " + ("pageType." + item.pageType.toLowerCase() | translate))) }}
             </div>
           </div>
         </div>
@@ -213,7 +213,7 @@
 
         <ng-container matColumnDef="pageType">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,'pageType')" [style.width]="colsWidth['pageType']"> {{'search.pageType' | translate}}</th>
-          <td mat-cell *matCellDef="let element">{{ 'pageType.' + element.pageType | translate }}</td>
+          <td mat-cell *matCellDef="let element">{{ 'pageType.' + element.pageType.toLowerCase() | translate }}</td>
         </ng-container>
 
         <ng-container matColumnDef="pageIndex">
