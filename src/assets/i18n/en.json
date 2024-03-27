@@ -2471,7 +2471,9 @@
     "metadata": "Metadata",
     "selectProfile": "Select a profile",
     "selectCatalog": "Select a catalog",
-    "resolveconflictWarn": "Select how to continue"
+    "resolveconflictWarn": "Select how to continue",
+    "formBorderHighlighting": "Form border highlighting",
+    "highlighttheForm": "Highlight the form"
   },
   "button": {
     "setLayout": "Set layout",

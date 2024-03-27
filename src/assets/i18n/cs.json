@@ -2471,7 +2471,9 @@
     "metadata": "Metadata",
     "selectProfile": "Vybrat profil",
     "selectCatalog": "Vybrat katalog",
-    "resolveconflictWarn": "Zvolte způsob pokračování"
+    "resolveconflictWarn": "Zvolte způsob pokračování",
+    "formBorderHighlighting": "Zvýraznění ohraničení formuláře",
+    "highlighttheForm": "Zvýraznit formulář"
   },
   "button": {
     "setLayout": "nastavit rozložení",

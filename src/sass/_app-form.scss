@@ -30,13 +30,13 @@
   .app-form-wrapper {
     &.app-top-level {
       & > .app-form {
-        /* -webkit-box-shadow: 0px 0px 11px 0px rgba(204,204,204,1);
-        -moz-box-shadow: 0px 0px 11px 0px rgba(204,204,204,1);
-        box-shadow: 0px 0px 11px 0px rgba(204,204,204,1); */
-        -webkit-box-shadow: 0px 2px 10px 0px rgba(227,227,227,1);
-        -moz-box-shadow: 0px 2px 10px 0px rgba(227,227,227,1);
-        box-shadow: 0px 2px 10px 0px rgba(227,227,227,1);
-        border-color: var(--app-form-border-color-top-level);
+        // set form highlighting only if it's enabled in settings / profile
+        .app-form-highlighting & {
+          -webkit-box-shadow: 0px 2px 10px 0px rgba(227,227,227,1);
+          -moz-box-shadow: 0px 2px 10px 0px rgba(227,227,227,1);
+          box-shadow: 0px 2px 10px 0px rgba(227,227,227,1);
+          border-color: var(--app-form-border-color-top-level);
+        }
 
         & > .app-form-header {
           .app-form-title {
@@ -107,9 +107,8 @@
             margin-bottom: -1.25em;
 
             .mat-form-field-infix {
-              //border-top: 0.84375em solid red;
-              //padding: 0.2375em 0;
-              //border-top: 0.64375em  solid transparent !important;
+              //padding: 0.3375em 0;
+              //border-top: 0.74375em  solid transparent;
             }
           }
 

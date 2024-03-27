@@ -35,6 +35,8 @@ export class NewMetadataDialogComponent implements OnInit {
     canEdit: true
   };
 
+  formHighlighting: boolean;
+
   constructor(
     private router: Router,
     public dialogRef: MatDialogRef<NewMetadataDialogComponent>,
@@ -48,6 +50,7 @@ export class NewMetadataDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.load();
+    this.formHighlighting = localStorage.getItem('formHighlighting') === 'true';
   }
 
   load() {

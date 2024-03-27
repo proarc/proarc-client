@@ -36,6 +36,8 @@ export class SettingsComponent implements OnInit {
 
   relatedItemExpanded: boolean;
 
+  formHighlighting: boolean;
+
   models: any[];
 
   @ViewChild('table') table: MatTable<DocumentItem>;
@@ -109,6 +111,10 @@ export class SettingsComponent implements OnInit {
       this.relatedItemExpanded = localStorage.getItem('relatedItemExpanded') === 'true';
     }
 
+    if (localStorage.getItem('formHighlighting')) {
+      this.formHighlighting = localStorage.getItem('formHighlighting') === 'true';
+    }
+
     this.models = this.config.allModels;
     this.modelForColumns = this.models[0];
     this.colsEditModeParent = this.properties.getColsEditingRepo();
@@ -161,6 +167,11 @@ export class SettingsComponent implements OnInit {
   changeExpandedModels() {
     localStorage.setItem('expandedModels', JSON.stringify(this.selectedModels.value));
     localStorage.setItem('relatedItemExpanded', JSON.stringify(this.relatedItemExpanded));
+  }
+
+  highlightForm() {
+    localStorage.setItem('formHighlighting', JSON.stringify(this.formHighlighting));
+    this.ui.showInfo('snackbar.changeSaved');
   }
 
   setSelectedColumnsSearch() {

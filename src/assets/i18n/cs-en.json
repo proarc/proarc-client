@@ -2452,7 +2452,9 @@
     "catalog": "Katalog",
     "showOnlyTheElement": "Zobrazit pouze element (y)",
     "jumpToElement": "Zobrazit element",
-    "resolveconflictWarn": "Zvolte způsob pokračování"
+    "resolveconflictWarn": "Zvolte způsob pokračování",
+    "formBorderHighlighting": "Zvýraznění ohraničení formuláře",
+    "highlighttheForm": "Zvýraznit formulář"
   },
   "button": {
     "setLayout": "nastavit rozložení",

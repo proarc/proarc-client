@@ -90,6 +90,12 @@
                 <span fxFlex>{{ codebook.getTopNames('ExpandedModels').join(", ") }}</span>
                 <button mat-stroked-button (click)="changeCodebookTops('ExpandedModels')">{{ 'button.edit' | translate }}</button>
               </div>
+              <mat-divider class="app-mb-4"></mat-divider>
+              <span class="app-label">{{ 'desc.formBorderHighlighting' | translate }}</span>
+              <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
+                <mat-checkbox fxFlex name="formHighlighting" [(ngModel)]="formHighlighting">{{ 'desc.highlighttheForm' | translate }}</mat-checkbox>
+                <button mat-stroked-button (click)="highlightForm()">{{ 'button.save' | translate }}</button>
+              </div>
             </fieldset>
           </mat-card-content>
         </mat-card>
@@ -174,7 +180,7 @@
             </fieldset>
             <button mat-stroked-button (click)="setSelectedColumnsQueue()">{{ 'button.save' | translate }}</button>
           </mat-card-content>
-        </mat-card>
+        </mat-card> 
       </div>
     </div>
   </div>
