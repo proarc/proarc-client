@@ -1,0 +1,138 @@
+// --- FORM ---
+
+.app-form-display-el {
+  z-index: 10;
+
+  &.app-scrolling {
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(204,204,204,1);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(204,204,204,1);
+    box-shadow: 0px 0px 20px 0px rgba(204,204,204,1);
+  }
+}
+
+.app-editor-container {
+  background-color: var(--app-form-bg-color);
+
+  .app-gap-fixer {
+    height: var(--app-form-gap);
+  }
+
+  .app-form-wrapper {
+    &.app-top-level {
+      & > .app-form {
+        // set form highlighting only if it's enabled in settings / profile
+        .app-form-highlighting & {
+          -webkit-box-shadow: 0px 2px 10px 0px rgba(227,227,227,1);
+          -moz-box-shadow: 0px 2px 10px 0px rgba(227,227,227,1);
+          box-shadow: 0px 2px 10px 0px rgba(227,227,227,1);
+          border-color: var(--app-form-border-color-top-level);
+        }
+
+        & > .app-form-header {
+          .app-form-title {
+            font-weight: var(--app-form-title-weight);
+          }
+        }
+      }
+    }
+
+    .app-form {
+      background-color: $app-color-lightnes;
+      border: 1px solid var(--app-form-border-color);
+      margin: 0 var(--app-form-gap);
+
+      .app-form-header {
+        height: var(--app-form-header-height);
+        border-bottom: 1px solid var(--app-form-border-color);
+        align-items: center;
+
+        .app-marker {
+          font-size: 10px;
+          color: $app-color-primary;
+        }
+
+        .mat-icon-button {
+          @extend .app-clean-radius;
+
+          &:not(.mat-primary) {
+            color: var(--app-form-header-button-color);
+          }
+
+          .mat-icon {
+            @include setIcon(20);
+          }
+        }
+      }
+
+      .app-form-content {
+        padding: var(--app-form-gap) 0 0 0;
+        overflow: hidden;
+
+        &.app-expanded {
+          display: block;
+        }
+  
+        &.app-collapsed {
+          display: none;
+        }
+
+        .mat-form-field {
+          width: 100%;
+          margin-bottom: 8px;
+
+          &.app-field-col {
+            padding: 0 8px;
+  
+            &.app-field-col-2 {
+              width: 50%;
+            }
+          }
+
+          &.mat-form-field-disabled {
+            pointer-events: none;
+            color: #00000061;
+          }
+
+          .mat-form-field-wrapper {
+            margin-bottom: -1.25em;
+
+            .mat-form-field-infix {
+              //padding: 0.3375em 0; // default is: 0.4375em 0
+              border-top: 0.74375em  solid transparent; // default is: 0.84375em solid transparent
+            }
+          }
+
+          .mat-form-field-underline {
+            background-color: var(--app-form-field-border-color);
+          }
+
+          &.mat-form-field-disabled {
+            .mat-form-field-underline {
+               background-image: linear-gradient(to right, var(--app-form-field-border-color) 0%, var(--app-form-field-border-color), transparent 0%);
+            }
+          }
+
+          .app-usage {
+            position: absolute;
+            top: -13px;
+            right: 0;
+            color: $app-color-primary;
+            font-size: 10px;
+            cursor: help;
+
+            &.app-suffix-exist {
+              right: -21px;
+            } 
+          }
+
+          .app-slide-toogle {
+            position: absolute;
+            right: 0;
+            bottom: 4px;
+          }
+        }        
+      }
+    }
+  }
+}
+

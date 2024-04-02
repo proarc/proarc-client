@@ -644,3 +644,17 @@ as-split {
   bottom: 0;
   background-color: $app-body-bg;
 }
+
+// scrollbar
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+ 
+::-webkit-scrollbar-track {
+  background: $app-scrollbar-track-bg;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: $app-scrollbar-thumb-bg; 
+}

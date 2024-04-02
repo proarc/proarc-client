@@ -25,6 +25,8 @@ export class EditorGenericComponent implements OnInit {
   showPagesEditor: boolean;
 
   showAudioPagesEditor: boolean;
+
+  formHighlighting: boolean;
   
   constructor(
     public config: ConfigService,
@@ -42,6 +44,8 @@ export class EditorGenericComponent implements OnInit {
       this.showAudioPagesEditor = this.layout.showAudioPagesEditor();
       this.itemModel = this.itemType();
     }));
+
+    this.formHighlighting = localStorage.getItem('formHighlighting') === 'true';
   }
 
   itemType(): string {

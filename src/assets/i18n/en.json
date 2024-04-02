@@ -2471,7 +2471,9 @@
     "metadata": "Metadata",
     "selectProfile": "Select a profile",
     "selectCatalog": "Select a catalog",
-    "resolveconflictWarn": "Select how to continue"
+    "resolveconflictWarn": "Select how to continue",
+    "formBorderHighlighting": "Form border highlighting",
+    "highlighttheForm": "Highlight the form"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2546,7 +2548,9 @@
     "doNotSave": "Do not save",
     "copyTextToClipboard": "Copy text to clipboard",
     "updateInSource": "Zapsat UUID do zdrojového katalogu",
-    "pero": "Korekce ALTO/OCR pomocí nástroje PERO"
+    "pero": "Korekce ALTO/OCR pomocí nástroje PERO",
+    "removeBrackets": "Remove the brackets",
+    "addBrackets": "Add the brackets"
   },
   "dynamic": {
     "repo": "Storage",

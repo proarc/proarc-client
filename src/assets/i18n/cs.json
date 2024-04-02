@@ -2471,7 +2471,9 @@
     "metadata": "Metadata",
     "selectProfile": "Vybrat profil",
     "selectCatalog": "Vybrat katalog",
-    "resolveconflictWarn": "Zvolte způsob pokračování"
+    "resolveconflictWarn": "Zvolte způsob pokračování",
+    "formBorderHighlighting": "Zvýraznění ohraničení formuláře",
+    "highlighttheForm": "Zvýraznit formulář"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2546,7 +2548,9 @@
     "doNotSave": "Neukládat",
     "copyTextToClipboard": "Zkopírovat text do schránky",
     "updateInSource": "Zapsat UUID do zdrojového katalogu",
-    "pero": "Korekce ALTO/OCR pomocí nástroje PERO"
+    "pero": "Korekce ALTO/OCR pomocí nástroje PERO",
+    "removeBrackets": "Odebrat závorky",
+    "addBrackets": "Vložit do závorek"
   },
   "dynamic": {
     "repo": "Úložiště",

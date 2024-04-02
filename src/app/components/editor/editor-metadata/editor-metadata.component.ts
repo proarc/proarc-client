@@ -108,7 +108,6 @@ export class EditorMetadataComponent implements OnInit {
     this.subscriptions.push(this.layout.metadataResized().subscribe(e => {
       this.onSizeChanged();
     }));
-
   }
 
   toggleByField() {
