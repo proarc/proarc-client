@@ -6,12 +6,33 @@ import { ConfigService } from 'src/app/services/config.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { UIService } from 'src/app/services/ui.service';
 
+// -- table to expand --
+import {animate, state, style, transition, trigger} from '@angular/animations';
+// -- table to expand --
+
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
-  styleUrls: ['./task.component.scss']
+  styleUrls: ['./task.component.scss'],
+  // -- table to expand --
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
+  // -- table to expand --
 })
 export class TaskComponent implements OnInit {
+
+  
+
+  // -- table to expand --
+  materialColumnsToDisplay = ['profileLabel', 'label', 'name'];
+  materialColumnsToDisplayWithExpand = [...this.materialColumnsToDisplay, 'expand'];
+  materialExpandedElement: any[];
+  // -- table to expand --
 
   id: number;
   task: any;
@@ -58,6 +79,18 @@ export class TaskComponent implements OnInit {
         this.initData();
       }, 100);
     }
+  }
+
+  getValueMap(field: string) {
+
+    // imageColor v  obcas vraci code a obcas value !!
+    // const ic = this.parameters.find((p: any) => p.valueMapId === 'wf.valuemap.imageColor');
+    // if (ic) {
+    //   this.imageColor = this.imageColors.find(c => c.value === ic.value || c.code === ic.value).code;
+    // }
+
+
+    return this.config.getValueMap(field);
   }
 
   getTask() {

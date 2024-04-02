@@ -246,8 +246,6 @@ export class ElementField {
         } else {
             setTimeout(() => {this.items[0].setAsDirty();}, 100);
         }
-        // console.log('tady');
-        // setTimeout(() => {this.items[0].setAsDirty();}, 100);
 
     }
 

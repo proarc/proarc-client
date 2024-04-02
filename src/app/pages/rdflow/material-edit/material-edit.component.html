@@ -4,9 +4,12 @@
       <mat-label>{{ 'desc.pid' | translate }}</mat-label>
       <input matInput [placeholder]="'desc.pid' | translate" [(ngModel)]="material.pid">
     </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutGap="16px">
     <mat-form-field fxFlex>
       <mat-label>{{ 'desc.note' | translate }}</mat-label>
-      <input matInput [placeholder]="'desc.note' | translate" [(ngModel)]="material.poznamka">
+      <!-- <input matInput [placeholder]="'desc.note' | translate" [(ngModel)]="material.poznamka"> -->
+      <textarea matInput [placeholder]="'desc.note' | translate" [(ngModel)]="material.poznamka" rows="4"></textarea>
     </mat-form-field>
   </div>
 </ng-container>
@@ -17,9 +20,12 @@
       <mat-label>{{ 'desc.path' | translate }}</mat-label>
       <input matInput [placeholder]="'desc.path' | translate" [(ngModel)]="material.path">
     </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutGap="16px">
     <mat-form-field fxFlex>
       <mat-label>{{ 'desc.note' | translate }}</mat-label>
-      <input matInput [placeholder]="'desc.note' | translate" [(ngModel)]="material.poznamka">
+      <!-- <input matInput [placeholder]="'desc.note' | translate" [(ngModel)]="material.poznamka"> -->
+      <textarea matInput [placeholder]="'desc.note' | translate" [(ngModel)]="material.poznamka" rows="4"></textarea>
     </mat-form-field>
   </div>
 </ng-container>
@@ -76,7 +82,8 @@
     </mat-form-field>
     <mat-form-field fxFlex>
       <mat-label>{{ 'desc.note' | translate }}</mat-label>
-      <input matInput [placeholder]="'desc.note' | translate" [(ngModel)]="material.poznamka">
+      <!-- <input matInput [placeholder]="'desc.note' | translate" [(ngModel)]="material.poznamka"> -->
+      <textarea matInput [placeholder]="'desc.note' | translate" [(ngModel)]="material.poznamka" rows="4"></textarea>
     </mat-form-field>
   </div>
   <div fxLayout="row" fxLayoutGap="16px">
