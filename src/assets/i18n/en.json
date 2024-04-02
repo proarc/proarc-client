@@ -210,7 +210,9 @@
     "profile": "Profile",
     "settings": "Settings",
     "about": "About",
-    "workflow": "Workflow",
+    "workflow": "RD Flow",
+    "jobs": "Jobs",
+    "tasks": "Tasks",
     "admin": "Administration",
     "layout": "Layout",
     "lang": {

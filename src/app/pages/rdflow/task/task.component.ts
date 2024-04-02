@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, forkJoin, Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { ConfigService } from 'src/app/services/config.service';
@@ -7,7 +7,7 @@ import { LayoutService } from 'src/app/services/layout.service';
 import { UIService } from 'src/app/services/ui.service';
 
 // -- table to expand --
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 // -- table to expand --
 
 @Component({
@@ -17,8 +17,8 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
   // -- table to expand --
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
@@ -26,7 +26,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 })
 export class TaskComponent implements OnInit {
 
-  
+
 
   // -- table to expand --
   materialColumnsToDisplay = ['profileLabel', 'label', 'name'];
@@ -34,19 +34,24 @@ export class TaskComponent implements OnInit {
   materialExpandedElement: any[];
   // -- table to expand --
 
+
+  tasks: any[];
+  tasksColumns = ['label', 'state', 'user', 'barcode'];
+
   id: number;
   task: any;
   parameters: any;
   material: any;
 
-  scanners: {code: string, value: string}[] = [];
+  scanners: { code: string, value: string }[] = [];
   scanner: any;
-  imageColors: {code: string, value: string}[] = [];
+  imageColors: { code: string, value: string }[] = [];
   imageColor: any;
-  dpis: {code: string, value: string}[] = [];
+  dpis: { code: string, value: string }[] = [];
   dpi: any;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private config: ConfigService,
     private api: ApiService,
@@ -58,27 +63,38 @@ export class TaskComponent implements OnInit {
     this.route.paramMap.subscribe(
       p => {
         this.id = parseInt(p.get('id'));
-        if (this.id) {
-          this.initData();
-        }
-
+        this.initData();
       });
   }
 
   initData() {
     if (this.config.valueMap) {
-      this.getTask();
-      this.getParameters();
-      this.getMaterial();
       this.scanners = this.config.getValueMap('wf.valuemap.scannerNow');
       this.imageColors = this.config.getValueMap('wf.valuemap.imageColor');
       this.dpis = this.config.getValueMap('wf.valuemap.dpi');
       this.layout.ready = true;
+      if (this.id) {
+        this.loadTask();
+      } else {
+        this.getTasks();
+      }
     } else {
       setTimeout(() => {
         this.initData();
       }, 100);
     }
+  }
+
+  loadTask() {
+    this.getTask();
+    this.getParameters();
+    this.getMaterial();
+  }
+
+  selectTask(task: any) {
+    this.task = task;
+    this.id = task.id;
+    this.loadTask();
   }
 
   getValueMap(field: string) {
@@ -92,6 +108,23 @@ export class TaskComponent implements OnInit {
 
     return this.config.getValueMap(field);
   }
+
+  getTasks() {
+    this.api.getAllWorkflowTasks().subscribe((response: any) => {
+      if (response['response'].errors) {
+        this.ui.showErrorDialogFromObject(response['response'].errors);
+        return;
+      }
+      this.tasks = response.response.data;
+      this.selectTask(this.tasks[0]);
+
+    });
+  }
+
+  // getJob() {
+  //   this.router.navigate()
+  // }
+
 
   getTask() {
     this.api.getWorkflowTask(this.id).subscribe((response: any) => {
@@ -129,7 +162,7 @@ export class TaskComponent implements OnInit {
       if (ic) {
         this.imageColor = this.imageColors.find(c => c.value === ic.value || c.code === ic.value).code;
       }
-      
+
     });
   }
 

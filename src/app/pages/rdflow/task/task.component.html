@@ -18,14 +18,45 @@
         <div class="app-border-wrapper app-h-100">
             <as-split direction="horizontal">
                 <as-split-area [size]="40">
-                    Ukol
+                    
+
+                    <div fxLayout="column" fxFlexFill>
+                        <div class="app-toolbar">
+                          <button (click)="getTasks()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
+                        </div>
+                        <div class="app-oa-y">
+                          <table mat-table [dataSource]="tasks" matSort matSortActive="created" matSortDisableClear matSortDirection="desc" class="app-striped app-hover">
+                            <ng-container matColumnDef="label">
+                              <th mat-header-cell *matHeaderCellDef>{{ 'workflow.task' | translate }}</th>
+                              <td mat-cell *matCellDef="let row">{{row.profileLabel}}</td>
+                            </ng-container>   
+                            <ng-container matColumnDef="state">
+                              <th mat-header-cell *matHeaderCellDef>{{ 'desc.state' | translate }}</th>
+                              <td mat-cell *matCellDef="let row">{{row.state}}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="user">
+                              <th mat-header-cell *matHeaderCellDef>{{ 'desc.user' | translate }}</th>
+                              <td mat-cell *matCellDef="let row">{{row.ownerName}}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="barcode">
+                              <th mat-header-cell *matHeaderCellDef>{{ 'desc.barcode' | translate }}</th>
+                              <td mat-cell *matCellDef="let row">{{row.barcode}}</td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="tasksColumns; sticky: true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: tasksColumns;" (click)="selectTask(row)"></tr>
+                          </table>
+                        </div>
+                      </div>  
+
+
                 </as-split-area>
                 <as-split-area [size]="60">
 
                     <as-split direction="vertical">
                         <as-split-area>
-                            <div class="app-toolbar-old">
+                            <div class="app-toolbar-old" *ngIf="task">
                                 <button (click)="getTask()" mat-button>{{'common.refresh' | translate }}</button>
+                                <button [routerLink]="['../jobs', task.jobId]" mat-button>{{'common.job' | translate }}</button>
                                 <button (click)="saveTask()" mat-button>{{'common.save' | translate }}</button>
                             </div>
                             <div class="app-detail" *ngIf="task">

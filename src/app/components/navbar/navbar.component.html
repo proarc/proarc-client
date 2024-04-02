@@ -25,7 +25,11 @@
       <a mat-button [routerLink]="['/search']" routerLinkActive="active">{{ "navbar.search" | translate }}</a>
       <a mat-button (click)="onCreateNewObject()">{{ "navbar.new_object" | translate }}</a>
       <!-- <a *ngIf="config.showWorkflow" [href]="config.workflowUrl" target="_empty" mat-button>{{ "navbar.workflow" | translate }}</a> -->
-      <a mat-button *ngIf="config.showWorkflow" [routerLink]="['/rdflow']" routerLinkActive="active">{{ "navbar.workflow" | translate }}</a>
+      <a mat-button *ngIf="config.showWorkflow" [matMenuTriggerFor]="rd_menu" >{{ "navbar.workflow" | translate }}</a>
+      <mat-menu #rd_menu="matMenu">
+        <button [routerLink]="['/rdflow/jobs']" routerLinkActive="active" mat-menu-item>{{ "navbar.jobs" | translate }}</button>
+        <button [routerLink]="['/rdflow/tasks']" routerLinkActive="active" mat-menu-item>{{ "navbar.tasks" | translate }}</button>
+      </mat-menu>
     </ng-container>
   </div>
   

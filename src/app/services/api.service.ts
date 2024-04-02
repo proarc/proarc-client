@@ -994,6 +994,10 @@ export class ApiService {
     return this.get('workflow/material?jobId=' + id);
   }
 
+  getAllWorkflowTasks(): Observable<any> {
+    return this.get('workflow/task');
+  }
+
   getWorkflowTasks(id: number): Observable<any> {
     return this.get('workflow/task?jobId=' + id);
   }

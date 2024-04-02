@@ -23,6 +23,9 @@ export function createTranslateLoader(http: HttpClient) {
 
 const routes: Routes = [
   { path: '', component: RDFlowComponent },
+  { path: 'jobs', component: RDFlowComponent },
+  { path: 'jobs/:id', component: RDFlowComponent },
+  { path: 'tasks', component: TaskComponent },
   { path: 'task/:id', component: TaskComponent }
 ];
 

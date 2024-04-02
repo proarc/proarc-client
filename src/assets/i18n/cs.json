@@ -210,7 +210,9 @@
     "profile": "Profil",
     "settings": "Nastavení",
     "about": "O aplikaci",
-    "workflow": "Záměry",
+    "workflow": "RD Flow",
+    "jobs": "Záměry",
+    "tasks": "Úkoly",
     "admin": "Administrace",
     "layout": "Rozložení",
     "lang": {

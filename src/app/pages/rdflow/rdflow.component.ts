@@ -6,7 +6,7 @@ import { RDFlow } from 'src/app/model/rdflow.model';
 import { ApiService } from 'src/app/services/api.service';
 import { UIService } from 'src/app/services/ui.service';
 import { NewJobDialogComponent } from './new-job-dialog/new-job-dialog.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LayoutService } from 'src/app/services/layout.service';
 import { LayoutAdminComponent } from 'src/app/dialogs/layout-admin/layout-admin.component';
 
@@ -65,6 +65,7 @@ export class RDFlowComponent implements OnInit {
   ]
 
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
     private api: ApiService,
@@ -72,6 +73,11 @@ export class RDFlowComponent implements OnInit {
     public layout: LayoutService) { }
 
   ngOnInit(): void {
+    // this.route.paramMap.subscribe(
+    //   p => {
+    //     this.id = parseInt(p.get('id'));
+    //     this.initData();
+    //   });
     this.getWorkflowProfiles();
   }
 
@@ -110,7 +116,13 @@ export class RDFlowComponent implements OnInit {
         return;
       }
       this.jobs = response.response.data;
-      this.selectJob(this.jobs[0]);
+      if (this.route.snapshot.params['id']) {
+        const job = this.jobs.find(j => j.id === parseInt(this.route.snapshot.params['id']));
+        this.selectJob(job);
+      } else {
+        this.selectJob(this.jobs[0]);
+      }
+      
       this.layout.ready = true;
     });
   }
