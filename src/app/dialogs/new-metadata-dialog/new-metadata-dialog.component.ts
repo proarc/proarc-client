@@ -49,7 +49,9 @@ export class NewMetadataDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
-    this.load();
+    setTimeout(() => {
+      this.load();
+    }, 100);
     this.formHighlighting = localStorage.getItem('formHighlighting') === 'true';
   }
 
@@ -57,9 +59,9 @@ export class NewMetadataDialogComponent implements OnInit {
     const standard = Metadata.resolveStandardFromXml(this.data.content);
     this.tmpl.getTemplate(standard, this.data.model).subscribe((tmpl: any) => {
       this.metadata = new Metadata(this.data.pid, this.data.model, this.data.content, this.data.timestamp, standard, tmpl);
-      //setTimeout(() => {
-        this.metadata.expandRequired();
-      //}, 100);
+      // setTimeout(() => {
+      // this.metadata.expandRequired();
+      // }, 100);
     });
   }
 
@@ -226,7 +228,7 @@ export class NewMetadataDialogComponent implements OnInit {
 
   focusToFirstInvalid() {
     const els = document.querySelectorAll('app-new-metadata-dialog .mat-form-field-invalid input, app-new-metadata-dialog .mat-form-field-invalid mat-select ');
-    for (let i = 0; i<els.length; i++){
+    for (let i = 0; i < els.length; i++) {
       const el: any = els[i];
       if (el.clientHeight > 0) {
         el.focus();
