@@ -51,6 +51,8 @@ export class EditorMetadataComponent implements OnInit {
   fieldsPositions: { id: string, top: number, bottom: number, height: number }[];
   subscriptions: Subscription[] = [];
 
+  isValidMetadata = true;
+
   constructor(
     private translator: TranslateService,
     private localS: LocalStorageService,
@@ -66,7 +68,7 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   validate() {
-    this.metadata.validate();
+    this.isValidMetadata = this.metadata.validate();
       setTimeout(() => {
         this.setFieldsPositions();
       }, 10);
@@ -166,7 +168,7 @@ export class EditorMetadataComponent implements OnInit {
     this.fieldsOrder = [];
     this.availableFieldsSorted = [];
     this.fieldsPositions = [];
-      this.metadata.validate();
+    this.isValidMetadata = this.metadata.validate();
     setTimeout(() => {
       setTimeout(() => {
         this.setFieldsPositions();
