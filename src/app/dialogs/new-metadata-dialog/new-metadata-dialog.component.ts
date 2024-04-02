@@ -47,24 +47,20 @@ export class NewMetadataDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
-    this.load();
+    setTimeout(() => {
+      this.load();
+    }, 100);
+    
   }
 
   load() {
     const standard = Metadata.resolveStandardFromXml(this.data.content);
     this.tmpl.getTemplate(standard, this.data.model).subscribe((tmpl: any) => {
       this.metadata = new Metadata(this.data.pid, this.data.model, this.data.content, this.data.timestamp, standard, tmpl);
-      setTimeout(() => {
+      //setTimeout(() => {
         this.metadata.expandRequired();
-      }, 100);
+      //}, 100);
     });
-
-    // this.metadata = new Metadata(this.data.pid, this.data.model, this.data.content, this.data.timestamp, null);
-
-    // setTimeout(() => {
-    //   this.metadata.expandRequired();
-    // }, 100);
-
   }
 
 

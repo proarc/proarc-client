@@ -41,6 +41,7 @@ export class EditorMetadataComponent implements OnInit {
   public fieldIds: { [key: string]: any } = {};
   public fields: { [key: string]: any } = {};
   public availableFields: string[];
+  public availableFieldsSorted: string[] = [];
   public visibleFields: { [key: string]: boolean } = {};
   public selectedField: string;
   public byField: boolean = true;
@@ -164,9 +165,10 @@ export class EditorMetadataComponent implements OnInit {
       this.scroller.nativeElement.scrollTop = 0;
     }
     this.fieldsOrder = [];
+    this.availableFieldsSorted = [];
     this.fieldsPositions = [];
-    setTimeout(() => {
       this.metadata.validate();
+    setTimeout(() => {
       setTimeout(() => {
         this.setFieldsPositions();
       }, 10);
@@ -208,6 +210,7 @@ export class EditorMetadataComponent implements OnInit {
     for (let i = 2; i < this.scroller.nativeElement.children.length; i++) {
       const el = this.scroller.nativeElement.children[i];
       this.fieldsOrder.push(el.id);
+      this.availableFieldsSorted.push(el.id.substring(this.panel.id.length))
       const { top, bottom, height } = el.getBoundingClientRect();
       const t = top - scrollerTop;
       // console.log(el.id, top, t)
@@ -232,7 +235,6 @@ export class EditorMetadataComponent implements OnInit {
         }, 30);
       }
     }, 20);
-
   }
 
   scrollToElement(field: string) {
@@ -298,7 +300,7 @@ export class EditorMetadataComponent implements OnInit {
 
   elementIsVisibleInViewport2(idx: number, top: number, bottom: number): boolean {
     const el = this.fieldsPositions[idx];
-    return ((el.top <= top && el.bottom > top) ||
+    return ((el.top <= top && el.bottom > top+3) ||
       (el.top > top && el.top < bottom));
   }
 
