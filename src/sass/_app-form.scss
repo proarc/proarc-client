@@ -1,15 +1,5 @@
 // --- FORM ---
 
-:root {
-  --app-form-bg-color: #{$app-gray-2};
-  --app-form-border-color-top-level: #{$app-gray-5};
-  --app-form-border-color: #d3d2d2;
-  --app-form-gap: 8px;
-  --app-form-header-height: 40px;
-  --app-form-header-button-color: #{$app-gray-7};
-  --app-form-field-border-color: #{$app-gray-3};
-}
-
 .app-form-display-el {
   z-index: 10;
 
@@ -40,7 +30,7 @@
 
         & > .app-form-header {
           .app-form-title {
-            font-weight: 600;
+            font-weight: var(--app-form-title-weight);
           }
         }
       }
@@ -107,8 +97,8 @@
             margin-bottom: -1.25em;
 
             .mat-form-field-infix {
-              //padding: 0.3375em 0;
-              //border-top: 0.74375em  solid transparent;
+              //padding: 0.3375em 0; // default is: 0.4375em 0
+              border-top: 0.74375em  solid transparent; // default is: 0.84375em solid transparent
             }
           }
 

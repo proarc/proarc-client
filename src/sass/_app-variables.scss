@@ -7,7 +7,6 @@ $table-color-bg-active: #597484;
 $table-color-fg: #666666;
 // --- johny end ---
 
-
 // system colors
 $app-color-primary: mat-color($app-primary) !default;
 $app-color-accent: mat-color($app-accent) !default;
@@ -27,6 +26,20 @@ $app-gray-6: mat-color($mat-gray, 600) !default;
 $app-gray-7: mat-color($mat-gray, 700) !default;
 $app-gray-8: mat-color($mat-gray, 800) !default;
 $app-gray-9: mat-color($mat-gray, 900) !default;
+
+// css variables
+:root {
+  // form
+  --app-form-bg-color: #{$app-gray-2};
+  --app-form-border-color-top-level: #{$app-gray-5};
+  --app-form-border-color: #d3d2d2;
+  --app-form-gap: 8px;
+  --app-form-header-height: 40px;
+  --app-form-title-weight: 600;
+  --app-form-header-button-color: #{$app-gray-7};
+  --app-form-field-border-color: #{$app-gray-3};
+
+}
 
 // custom colors
 $app-color-info: #856404 !default;
