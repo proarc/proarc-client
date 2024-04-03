@@ -960,8 +960,8 @@ export class ApiService {
       .pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
-  getWorkflow(): Observable<any> {
-    return this.get('workflow');
+  getWorkflow(params: string): Observable<any> {
+    return this.get('workflow'+params);
   }
 
   getWorkflowProfiles(): Observable<any> {

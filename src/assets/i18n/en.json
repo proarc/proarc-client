@@ -2173,6 +2173,7 @@
   "rdflow": {
     "title": "Jobs",
     "task": "Task",
+    "job": "Job",
     "create_new": "Create new job",
     "create_new_subjob": "Subjob",
     "create_new_object": "Create new object"

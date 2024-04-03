@@ -2173,6 +2173,7 @@
   "workflow": {
     "title": "Záměry",
     "task": "Úkol",
+    "job": "Záměr",
     "create_new": "Vytvořit nový záměr",
     "create_new_subjob": "Podzáměr",
     "create_new_object": "Vytvořit nový objekt"

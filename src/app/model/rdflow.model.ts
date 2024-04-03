@@ -25,4 +25,5 @@ export class RDFlow {
   taskUsername: string;
   timestamp: Date
   year: string;
+  parentId?: number;
 }

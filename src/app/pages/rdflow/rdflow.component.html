@@ -34,13 +34,14 @@
                   </mat-menu>
                 </div>
                 <div class="app-oa-y">
-                  <table mat-table [dataSource]="jobs" matSort matSortActive="created" matSortDisableClear matSortDirection="desc" class="app-striped app-hover">
+                  <table mat-table [dataSource]="jobs" class="app-striped app-hover" matSort 
+                  [matSortActive]="jobsSortField" [matSortDirection]="jobsSortDir"  (matSortChange)="sortJobsTable($event)">
                     <ng-container matColumnDef="taskUsername">
-                      <th mat-header-cell *matHeaderCellDef>{{ 'desc.completedTheTask' | translate }}</th>
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.completedTheTask' | translate }}</th>
                       <td mat-cell *matCellDef="let row">{{row.taskUsername}}</td>
                     </ng-container>
                     <ng-container matColumnDef="label">
-                      <th mat-header-cell *matHeaderCellDef>{{ 'desc.name' | translate }}</th>
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.name' | translate }}</th>
                       <td mat-cell *matCellDef="let row">{{row.label}}</td>
                     </ng-container>   
                     <tr mat-header-row *matHeaderRowDef="workFlowColumns; sticky: true"></tr>
@@ -137,13 +138,15 @@
             <as-split-area [size]="40">
               <div fxLayout="column" fxFlexFill>
                 <div class="app-oa-y" *ngIf="selectedProfile">
-                  <table mat-table [dataSource]="tasks" class="app-striped app-hover" matSort matSortActive="created" matSortDisableClear matSortDirection="desc"> 
+                  <table mat-table [dataSource]="tasks" class="app-striped app-hover" matSort 
+                  [matSortActive]="jobsSortField" [matSortDirection]="jobsSortDir"
+                  (matSortChange)="sortJobsTable($event)"> 
                     <ng-container matColumnDef="label">
-                      <th mat-header-cell *matHeaderCellDef>{{ 'desc.task' | translate }}</th>
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.task' | translate }}</th>
                       <td mat-cell *matCellDef="let row">{{row.profileLabel}}</td>
                     </ng-container>
                     <ng-container matColumnDef="user">
-                      <th mat-header-cell *matHeaderCellDef>{{ 'desc.user' | translate }}</th>
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.user' | translate }}</th>
                       <td mat-cell *matCellDef="let row">{{row.ownerName}}</td>
                     </ng-container>
                     <ng-container matColumnDef="state">

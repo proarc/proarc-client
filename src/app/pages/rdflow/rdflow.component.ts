@@ -12,6 +12,7 @@ import { LayoutAdminComponent } from 'src/app/dialogs/layout-admin/layout-admin.
 
 // -- table to expand --
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import { Sort, SortDirection } from '@angular/material/sort';
 // -- table to expand --
 
 @Component({
@@ -42,9 +43,13 @@ export class RDFlowComponent implements OnInit {
   selectedProfile: any;
 
   workFlowColumns = ['taskUsername', 'label'];
+  allJobs: RDFlow[] = [];
   jobs: RDFlow[] = [];
   subJobs: RDFlow[] = [];
   selectedJob: RDFlow;
+
+  jobsSortField: string = 'created';
+  jobsSortDir: SortDirection = 'desc';
 
 
   material: any[];
@@ -110,12 +115,18 @@ export class RDFlowComponent implements OnInit {
   getWorkflow() {
     this.jobs = [];
     this.subJobs = [];
-    this.api.getWorkflow().subscribe((response: any) => {
+    let params = '?';
+    if (this.jobsSortDir) {
+      params += '_sortBy=' + (this.jobsSortDir === 'desc' ? '-' : '') + this.jobsSortField;
+    }
+    
+    this.api.getWorkflow(params).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
       }
-      this.jobs = response.response.data;
+      this.allJobs = response.response.data;
+      this.jobs = this.allJobs.filter(j => !j.parentId);
       if (this.route.snapshot.params['id']) {
         const job = this.jobs.find(j => j.id === parseInt(this.route.snapshot.params['id']));
         this.selectJob(job);
@@ -214,6 +225,13 @@ export class RDFlowComponent implements OnInit {
 
   openTask(id: string) {
     this.router.navigate(['rdflow/task', id])
+  }
+
+  sortJobsTable(e: Sort) {
+    console.log(e)
+    this.jobsSortDir = e.direction;
+    this.jobsSortField = e.active;    
+    this.getWorkflow();
   }
 
 }
