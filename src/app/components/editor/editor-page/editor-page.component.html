@@ -17,7 +17,7 @@
     <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
     <div class="app-editor-container" *ngIf="state === 'success'">
       <div class="app-gap-fixer"></div>
-      <div class="app-form-wrapper">
+      <div class="app-form-wrapper app-top-level">
         <div class="app-form">
           <div class="app-form-content">
             <mat-form-field class="app-field-col" [class.mat-form-field-invalid]="!page.type">
