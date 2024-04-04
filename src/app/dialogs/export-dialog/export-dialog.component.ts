@@ -71,7 +71,7 @@ export class ExportDialogComponent implements OnInit {
     this.errors = [];
     this.target = null;
     this.api.export(this.selectedType, pid, policy, 
-      ignoreMissingUrnNbn, this.importInstance.krameriusInstanceId, this.cesnetLtpToken, this.licenseName,
+      ignoreMissingUrnNbn, this.importInstance ? this.importInstance.krameriusInstanceId : '', this.cesnetLtpToken, this.licenseName,
       this.extendedType, this.noTifMessage, this.addInfoMessage).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
