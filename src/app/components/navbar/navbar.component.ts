@@ -29,7 +29,6 @@ export class NavbarComponent implements OnInit {
     if (this.config.navbarColor) {
       this.bgColor = this.config.navbarColor;
     }
-    
   }
 
   onLanguageChanged(lang: string) {

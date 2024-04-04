@@ -50,11 +50,15 @@ export class RDFlowComponent implements OnInit {
 
   jobsSortField: string = 'created';
   jobsSortDir: SortDirection = 'desc';
+  subjobsSortField: string = 'created';
+  subjobsSortDir: SortDirection = 'desc';
 
 
   material: any[];
   taskColumns = ['label', 'user', 'state'];
   tasks: any[];
+  tasksSortField: string = 'created';
+  tasksSortDir: SortDirection = 'desc';
 
   states = [
     {code: 'OPEN', value: 'Otevřený'},
@@ -138,11 +142,15 @@ export class RDFlowComponent implements OnInit {
     });
   }
 
-  
-
-  getSubJobs(id: number) {
+  getSubJobs() {
     this.subJobs = [];
-    this.api.getWorkflowSubJobs(id).subscribe((response: any) => {
+    
+    let params = '?parentId=' + this.selectedJob.id;
+    if (this.subjobsSortDir) {
+      params += '&_sortBy=' + (this.subjobsSortDir === 'desc' ? '-' : '') + this.subjobsSortField;
+    }
+
+    this.api.getWorkflow(params).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
@@ -161,8 +169,13 @@ export class RDFlowComponent implements OnInit {
     });
   }
 
-  getTasks(id: number) {
-    this.api.getWorkflowTasks(id).subscribe((response: any) => {
+  getTasks() {
+    let params = '?jobId=' + this.selectedJob.id;
+    if (this.tasksSortDir) {
+      params += '&_sortBy=' + (this.tasksSortDir === 'desc' ? '-' : '') + this.tasksSortField;
+    }
+
+    this.api.getWorkflowTasks(params).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
@@ -197,8 +210,8 @@ export class RDFlowComponent implements OnInit {
     this.selectedProfile = this.profiles.find(p => p.name === w.profileName);
     //this.tasks = this.selectedProfile.task;
     this.getMaterial(this.selectedJob.id);
-    this.getTasks(this.selectedJob.id);
-    this.getSubJobs(this.selectedJob.id);
+    this.getTasks();
+    this.getSubJobs();
     // this.getItem(this.selectedItem.id)
   }
 
@@ -228,10 +241,21 @@ export class RDFlowComponent implements OnInit {
   }
 
   sortJobsTable(e: Sort) {
-    console.log(e)
     this.jobsSortDir = e.direction;
     this.jobsSortField = e.active;    
     this.getWorkflow();
+  }
+
+  sortSubjobsTable(e: Sort) {
+    this.subjobsSortDir = e.direction;
+    this.subjobsSortField = e.active;    
+    this.getSubJobs();
+  }
+
+  sortTasksTable(e: Sort) {
+    this.tasksSortDir = e.direction;
+    this.tasksSortField = e.active;    
+    this.getTasks();
   }
 
 }

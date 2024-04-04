@@ -968,9 +968,9 @@ export class ApiService {
     return this.get('workflow/profile');
   }
 
-  getWorkflowSubJobs(id: number): Observable<any> {
-    return this.get('workflow?parentId=' + id);
-  }
+  // getWorkflowSubJobs(id: number): Observable<any> {
+  //   return this.get('workflow?parentId=' + id);
+  // }
 
   getWorkflowItem(id: number): Observable<any> {
     return this.get('workflow?id=' + id);
@@ -994,12 +994,12 @@ export class ApiService {
     return this.get('workflow/material?jobId=' + id);
   }
 
-  getAllWorkflowTasks(): Observable<any> {
-    return this.get('workflow/task');
-  }
+  // getAllWorkflowTasks(params: string): Observable<any> {
+  //   return this.get('workflow/task' + params);
+  // }
 
-  getWorkflowTasks(id: number): Observable<any> {
-    return this.get('workflow/task?jobId=' + id);
+  getWorkflowTasks(params: string): Observable<any> {
+    return this.get('workflow/task' + params);
   }
 
   getWorkflowTask(id: number): Observable<any> {

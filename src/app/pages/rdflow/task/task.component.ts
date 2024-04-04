@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, forkJoin, Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { LayoutService } from 'src/app/services/layout.service';
@@ -8,6 +7,7 @@ import { UIService } from 'src/app/services/ui.service';
 
 // -- table to expand --
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Sort, SortDirection } from '@angular/material/sort';
 // -- table to expand --
 
 @Component({
@@ -36,7 +36,9 @@ export class TaskComponent implements OnInit {
 
 
   tasks: any[];
-  tasksColumns = ['label', 'state', 'user', 'barcode'];
+  tasksColumns = ['profileLabel', 'state', 'ownerName', 'barcode'];
+  tasksSortField: string = 'created';
+  tasksSortDir: SortDirection = 'desc';
 
   id: number;
   task: any;
@@ -110,7 +112,12 @@ export class TaskComponent implements OnInit {
   }
 
   getTasks() {
-    this.api.getAllWorkflowTasks().subscribe((response: any) => {
+    let params = '?';
+    if (this.tasksSortDir) {
+      params += '_sortBy=' + (this.tasksSortDir === 'desc' ? '-' : '') + this.tasksSortField;
+    }
+
+    this.api.getWorkflowTasks(params).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
@@ -174,6 +181,12 @@ export class TaskComponent implements OnInit {
       }
       this.material = response.response.data;
     });
+  }
+
+  sortTasksTable(e: Sort) {
+    this.tasksSortDir = e.direction;
+    this.tasksSortField = e.active;    
+    this.getTasks();
   }
 
 }
