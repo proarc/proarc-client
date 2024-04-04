@@ -74,33 +74,6 @@ export class EditorMetadataComponent implements OnInit {
       }, 10);
   }
 
-  logMetadata() {
-    //console.log(this.metadata);
-    const valid = this.metadata.validate()
-    if (!valid) {
-      this.availableFields.forEach(k => {
-        this.visibleFields[k] = true;
-      });
-
-      this._validating = true;
-      setTimeout(() => {
-        //this.checkVisibility();
-        const query = this.notSaved ?
-          'app-new-metadata-dialog .app-expanded .mat-form-field-invalid input, app-new-metadata-dialog .mat-form-field-invalid mat-select' :
-          'app-editor-metadata .app-expanded .mat-form-field-invalid input, app-editor-metadata .mat-form-field-invalid mat-select';
-
-        let el: any = document.querySelectorAll(query)[0];
-        if (el) {
-          el.focus();
-        }
-
-      }, 10)
-
-    }
-
-
-  }
-
   changeEditorType(t: string) {
     this.onChangeEditorType.emit(t);
   }
@@ -496,7 +469,8 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   onSave() {
-    if (this.metadata.validate()) {
+    this.isValidMetadata = this.metadata.validate();
+    if (this.isValidMetadata) {
       if (this.notSaved) {
         let data = `model=${this.metadata.model}`;
         data = `${data}&pid=${this.metadata.pid}`;
@@ -567,7 +541,7 @@ export class EditorMetadataComponent implements OnInit {
         this.state = 'error';
         this.ui.showErrorDialogFromObject(resp.errors);
         setTimeout(() => {
-          this.metadata.validate();
+          this.isValidMetadata = this.metadata.validate();
         }, 100);
         return;
       }
