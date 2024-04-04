@@ -213,7 +213,7 @@
 
         <ng-container matColumnDef="pageType">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,'pageType')" [style.width]="colsWidth['pageType']"> {{'search.pageType' | translate}}</th>
-          <td mat-cell *matCellDef="let element">{{ 'pageType.' + element.pageType.toLowerCase() | translate }}</td>
+          <td mat-cell *matCellDef="let element"><ng-container *ngIf="element.pageType">{{ 'pageType.' + element.pageType.toLowerCase() | translate }}</ng-container></td>
         </ng-container>
 
         <ng-container matColumnDef="pageIndex">

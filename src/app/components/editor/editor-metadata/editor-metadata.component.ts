@@ -168,8 +168,8 @@ export class EditorMetadataComponent implements OnInit {
     this.fieldsOrder = [];
     this.availableFieldsSorted = [];
     this.fieldsPositions = [];
-    this.isValidMetadata = this.metadata.validate();
     setTimeout(() => {
+      this.isValidMetadata = this.metadata.validate();
       setTimeout(() => {
         this.setFieldsPositions();
       }, 10);
