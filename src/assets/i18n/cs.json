@@ -2476,7 +2476,8 @@
     "selectCatalog": "Vybrat katalog",
     "resolveconflictWarn": "Zvolte způsob pokračování",
     "formBorderHighlighting": "Zvýraznění ohraničení formuláře",
-    "highlighttheForm": "Zvýraznit formulář"
+    "highlighttheForm": "Zvýraznit formulář",
+    "author": "Autor"
   },
   "button": {
     "setLayout": "nastavit rozložení",
