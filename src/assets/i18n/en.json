@@ -2476,7 +2476,8 @@
     "selectCatalog": "Select a catalog",
     "resolveconflictWarn": "Select how to continue",
     "formBorderHighlighting": "Form border highlighting",
-    "highlighttheForm": "Highlight the form"
+    "highlighttheForm": "Highlight the form",
+    "author": "Author"
   },
   "button": {
     "setLayout": "Set layout",
