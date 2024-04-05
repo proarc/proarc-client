@@ -21,13 +21,12 @@
               <div fxLayout="column" fxFlexFill>
                 <div class="app-toolbar">
                   <button (click)="getWorkflow()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
-                  <button mat-button [matMenuTriggerFor]="subjob_menu">{{ "rdflow.create_new_subjob" | translate }}</button>
+                  <button *ngIf="selectedProfile.subjob.length > 0" mat-button [matMenuTriggerFor]="subjob_menu">{{ "rdflow.create_new_subjob" | translate }}</button>
                   <mat-menu #subjob_menu="matMenu">
-                    <button mat-menu-item (click)="createSubJob('a')">prvni</button>
-                    <button mat-menu-item (click)="createSubJob('b')">druhy</button>
+                    <button mat-menu-item *ngFor="let sub of selectedProfile.subjob" (click)="createSubJob(sub)">{{ sub.title }}</button>
                   </mat-menu>
                   <button (click)="createJob()" mat-button>{{'rdflow.create_new' | translate }}</button>
-                  <button mat-button [matMenuTriggerFor]="object_menu">{{ "rdflow.create_new_object" | translate }}</button>
+                  <button mat-button [disabled]="hasObject" [matMenuTriggerFor]="object_menu">{{ "rdflow.create_new_object" | translate }}</button>
                   <mat-menu #object_menu="matMenu">
                     <button mat-menu-item (click)="createNewObject('a')">prvni</button>
                     <button mat-menu-item (click)="createNewObject('b')">druhy</button>
@@ -43,9 +42,13 @@
                     <ng-container matColumnDef="label">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.name' | translate }}</th>
                       <td mat-cell *matCellDef="let row">{{row.label}}</td>
-                    </ng-container>   
+                    </ng-container>  
+                    <ng-container matColumnDef="profileName">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.profileName' | translate }}</th>
+                      <td mat-cell *matCellDef="let row">{{row.profileName}}</td>
+                    </ng-container> 
                     <tr mat-header-row *matHeaderRowDef="workFlowColumns; sticky: true"></tr>
-                    <tr mat-row *matRowDef="let row; columns: workFlowColumns;" (click)="selectJob(row)"></tr>
+                    <tr mat-row *matRowDef="let row; columns: workFlowColumns;" (click)="selectJob(row)" [class.app-selected]="row.id === selectedJob?.id"></tr>
                   </table>
                 </div>
               </div>            
@@ -63,6 +66,10 @@
                     <ng-container matColumnDef="label">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.name' | translate }}</th>
                       <td mat-cell *matCellDef="let row">{{row.label}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="profileName">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.profileName' | translate }}</th>
+                      <td mat-cell *matCellDef="let row">{{row.profileName}}</td>
                     </ng-container>
                     <tr mat-header-row *matHeaderRowDef="workFlowColumns; sticky: true"></tr>
                     <tr mat-row *matRowDef="let row; columns: workFlowColumns;" (click)="selectJob(row)"></tr>
@@ -162,7 +169,7 @@
             <as-split-area>
               <div fxLayout="column" fxFlexFill>
                 <div class="app-oa-y">
-                  <table mat-table [dataSource]="material" multiTemplateDataRows class="app-expanded app-hover">
+                  <table mat-table [dataSource]="materials" multiTemplateDataRows class="app-expanded app-hover">
                     <ng-container matColumnDef="{{column}}" *ngFor="let column of materialColumnsToDisplay">
                       <th mat-header-cell *matHeaderCellDef>{{ 'dynamic.rdFlow.' + column | translate }}</th>
                       <td mat-cell *matCellDef="let element">{{ element[column] }}</td>

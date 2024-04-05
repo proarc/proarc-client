@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { transformGeometryWithOptions } from 'ol/format/Feature';
-import { RDFlow } from 'src/app/model/rdflow.model';
+import { RDFlow, RDFlowMaterial, RDFlowProfile, RDFlowProfileSubjob } from 'src/app/model/rdflow.model';
 import { ApiService } from 'src/app/services/api.service';
 import { UIService } from 'src/app/services/ui.service';
 import { NewJobDialogComponent } from './new-job-dialog/new-job-dialog.component';
@@ -39,14 +39,15 @@ export class RDFlowComponent implements OnInit {
   // -- table to expand --
 
 
-  profiles: any[];
-  selectedProfile: any;
+  profiles: RDFlowProfile[];
+  selectedProfile: RDFlowProfile;
 
-  workFlowColumns = ['taskUsername', 'label'];
+  workFlowColumns = ['taskUsername', 'label', 'profileName'];
   allJobs: RDFlow[] = [];
   jobs: RDFlow[] = [];
   subJobs: RDFlow[] = [];
   selectedJob: RDFlow;
+  hasObject: boolean;
 
   jobsSortField: string = 'created';
   jobsSortDir: SortDirection = 'desc';
@@ -54,7 +55,7 @@ export class RDFlowComponent implements OnInit {
   subjobsSortDir: SortDirection = 'desc';
 
 
-  material: any[];
+  materials: RDFlowMaterial[];
   taskColumns = ['label', 'user', 'state'];
   tasks: any[];
   tasksSortField: string = 'created';
@@ -159,13 +160,14 @@ export class RDFlowComponent implements OnInit {
     });
   }
 
-  getMaterial(id: number) {
-    this.api.getWorkflowMaterial(id).subscribe((response: any) => {
+  getMaterial() {
+    this.api.getWorkflowMaterial(this.selectedJob.id).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
       }
-      this.material = response.response.data;
+      this.materials = response.response.data;
+      this.hasObject = !!this.materials.find(m => m.type === 'DIGITAL_OBJECT').pid
     });
   }
 
@@ -206,10 +208,13 @@ export class RDFlowComponent implements OnInit {
   }
 
   selectJob(w: RDFlow) {
+    if (w.id === this.selectedJob?.id) {
+      return;
+    }
     this.selectedJob = w;
     this.selectedProfile = this.profiles.find(p => p.name === w.profileName);
     //this.tasks = this.selectedProfile.task;
-    this.getMaterial(this.selectedJob.id);
+    this.getMaterial();
     this.getTasks();
     this.getSubJobs();
     // this.getItem(this.selectedItem.id)
@@ -228,7 +233,7 @@ export class RDFlowComponent implements OnInit {
     });
   }
 
-  createSubJob(profile: string) {
+  createSubJob(profile: RDFlowProfileSubjob) {
 
   }
 
