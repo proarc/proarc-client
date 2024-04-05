@@ -17,7 +17,7 @@
       </button>
     </div>
   </div>
-  <div fxFlex class="app-oh app-p-4" fxLayout="column">
+  <div fxFlex class="app-content-wrapper app-batches" fxLayout="column">
     <div class="app-border-wrapper app-h-100">
       <as-split *ngIf="layout.layoutConfig" direction="horizontal" [disabled]="layout.layoutConfig.disabled" (dragEnd)="onDragEnd(-1, $event)">
         <ng-template ngFor let-column [ngForOf]="layout.layoutConfig.columns" let-icol="index">
