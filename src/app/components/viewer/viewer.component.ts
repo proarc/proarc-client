@@ -225,8 +225,8 @@ export class ViewerComponent implements OnInit, OnDestroy {
       this.saveCurrentPosition();
     }
     this.state = 'success';
-    // this.view.removeLayer(this.imageLayer);
-    // this.view.updateSize();
+    this.view.removeLayer(this.imageLayer);
+    this.view.updateSize();
     this.imageWidth = width;
     this.imageHeight = height;
     this.extent = [0, -this.imageHeight, this.imageWidth, 0];
