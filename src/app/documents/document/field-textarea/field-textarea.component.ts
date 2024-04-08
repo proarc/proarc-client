@@ -1,6 +1,7 @@
 
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { ModsElement } from 'src/app/model/mods/element.model';
+import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({
   selector: 'app-field-textarea',
@@ -14,10 +15,26 @@ export class FieldTextareaComponent implements OnInit {
   @Input() value: string;
   @Output() valueChange = new EventEmitter<string>();
 
-  constructor() {
+  @ViewChild('ta') ta: ElementRef;
+  observer: any;
+
+  constructor(private layout: LayoutService) {
   }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.observer = new ResizeObserver(() => {
+        this.layout.setMetadataResized();
+      }).observe(this.ta.nativeElement)
+    }, 10);
   }
+
+  ngOnDestroy() {
+    this.observer.unobserve(this.ta.nativeElement);
+  }
+
+  // changed(value: any) {
+  //   this.valueChange.emit(value);
+  // }
 
 }

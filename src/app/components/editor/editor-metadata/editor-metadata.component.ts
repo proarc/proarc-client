@@ -232,6 +232,9 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   onSizeChanged() {
+    if(this.fieldsOrder.length === 0) {
+      return;
+    }
     // find element resized
     let idx = 0;
     let id = '';
