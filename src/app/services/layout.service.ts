@@ -65,20 +65,23 @@ export class LayoutService {
 
   
   panels: ILayoutPanel[] = [];
+  editingPanel: string;
 
   constructor() { }
   
 
   setPanelEditing(panel: ILayoutPanel) { 
-    if (panel) {
+
+    if (panel && this.editingPanel !== panel.id) {
       this.panels.forEach(p => p.canEdit = false || p.type === 'media');
       panel.canEdit = true;
+      this.editingPanel = panel.id
     }
-    
   }
 
   clearPanelEditing() {
     this.panels.forEach(p => p.canEdit = true);
+    this.editingPanel = '';
   }
 
   allowedChildrenModels(): string[]{

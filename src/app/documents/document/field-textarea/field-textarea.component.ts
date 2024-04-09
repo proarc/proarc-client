@@ -21,16 +21,21 @@ export class FieldTextareaComponent implements OnInit {
   constructor(private layout: LayoutService) {
   }
 
-  ngOnInit() {
-    setTimeout(() => {
+  ngOnInit() {}
+
+  ngAfterViewInit(){
+    //setTimeout(() => {
       this.observer = new ResizeObserver(() => {
         this.layout.setMetadataResized();
       }).observe(this.ta.nativeElement)
-    }, 10);
+    //}, 10);
   }
 
   ngOnDestroy() {
-    this.observer.unobserve(this.ta.nativeElement);
+    if(this.ta && this.observer) {
+      this.observer.unobserve(this.ta.nativeElement);
+    }
+    
   }
 
   // changed(value: any) {

@@ -52,6 +52,7 @@ export class EditorMetadataComponent implements OnInit {
   subscriptions: Subscription[] = [];
 
   isValidMetadata = true;
+  hasChanges = false;
 
   constructor(
     private translator: TranslateService,
@@ -370,11 +371,11 @@ export class EditorMetadataComponent implements OnInit {
     if (!this.metadata) {
       return false;
     }
-    const hasChanges = this.metadata.hasChanges();
-    if (hasChanges) {
+    this.hasChanges = this.metadata.hasChanges();
+    if (this.hasChanges) {
       this.layout.setPanelEditing(this.panel);
     }
-    return hasChanges;
+    return this.hasChanges;
   }
 
   available(element: string): boolean {
