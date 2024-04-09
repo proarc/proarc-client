@@ -71,7 +71,7 @@ export class EditorMetadataComponent implements OnInit {
   validate() {
     this.isValidMetadata = this.metadata.validate();
       setTimeout(() => {
-        this.setFieldsPositions();
+        this.onSizeChanged();
       }, 10);
   }
 
@@ -105,13 +105,15 @@ export class EditorMetadataComponent implements OnInit {
   _validating = false;
   @Input()
   set validating(v: boolean) {
-    this._validating = v;
-    if (this._validating) {
+    if (v) {
       this.availableFields.forEach(k => {
         this.visibleFields[k] = true;
       });
-      this.scroller.nativeElement.scrollTop = 0;
+      //this.scroller.nativeElement.scrollTop = 0;
+      this.setFieldsPositions();
+      this.onSizeChanged();
     }
+    this._validating = v;
   }
 
   public metadata: Metadata;
@@ -399,10 +401,10 @@ export class EditorMetadataComponent implements OnInit {
       },
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
-    this.availableFields.forEach(k => {
-      this.visibleFields[k] = true;
-    });
-    this.scroller.nativeElement.scrollTop = 0;
+    // this.availableFields.forEach(k => {
+    //   this.visibleFields[k] = true;
+    // });
+    // this.scroller.nativeElement.scrollTop = 0;
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         if (this.notSaved) {
@@ -426,6 +428,7 @@ export class EditorMetadataComponent implements OnInit {
         }
         this._validating = false;
       } else {
+        
         this.focusToFirstInvalid();
       }
     });
@@ -433,8 +436,8 @@ export class EditorMetadataComponent implements OnInit {
 
   focusToFirstInvalid() {
     const query = this.notSaved ?
-      'app-new-metadata-dialog .app-expanded .mat-form-field-invalid input, app-new-metadata-dialog .mat-form-field-invalid mat-select ' :
-      'app-editor-metadata .app-expanded .mat-form-field-invalid input, app-editor-metadata .mat-form-field-invalid mat-select ';
+      'app-new-metadata-dialog .app-expanded .mat-form-field-invalid input, app-new-metadata-dialog .app-editor-container .mat-form-field-invalid mat-select ' :
+      'app-editor-metadata .app-expanded .mat-form-field-invalid input, app-editor-metadata .app-editor-container .mat-form-field-invalid mat-select ';
     const els = document.querySelectorAll(query);
     if (els.length > 0) {
       (els[0] as any).focus();
@@ -497,8 +500,16 @@ export class EditorMetadataComponent implements OnInit {
         this.saveMetadata(false);
       }
     } else {
-      this._validating = true;
-      this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', true);
+      //setTimeout(() => {
+      //  this.validating =true;
+      setTimeout(() => {
+        this.onSizeChanged();
+        // this.setFieldsPositions();
+        // this._validating = true;
+        this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', true);
+      //}, 1000);
+    }, 10);
+      
     }
   }
 

@@ -171,8 +171,11 @@ export class NewMetadataDialogComponent implements OnInit {
 
       });
     } else {
-      this.validating = true;
+      // this.validating = true;
+      setTimeout(() => {
+      this.layout.setMetadataResized();
       this.confirmSave(this.translator.instant('dialog.newMetadata.onSave.title'), this.translator.instant('dialog.newMetadata.onSave.alert'), true, gotoEdit);
+    }, 10);
     }
   }
 
@@ -227,7 +230,7 @@ export class NewMetadataDialogComponent implements OnInit {
   }
 
   focusToFirstInvalid() {
-    const els = document.querySelectorAll('app-new-metadata-dialog .mat-form-field-invalid input, app-new-metadata-dialog .mat-form-field-invalid mat-select ');
+    const els = document.querySelectorAll('app-new-metadata-dialog .mat-form-field-invalid input, app-new-metadata-dialog  .app-editor-containe .mat-form-field-invalid mat-select ');
     for (let i = 0; i < els.length; i++) {
       const el: any = els[i];
       if (el.clientHeight > 0) {
