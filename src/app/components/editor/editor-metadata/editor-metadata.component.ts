@@ -121,11 +121,22 @@ export class EditorMetadataComponent implements OnInit {
   set data(m: Metadata) {
     if (m === null) {
       this.state = 'loading';
+    } else {
+      this.state = 'none';
     }
-    
-    if (!m || !m.template || (m.timestamp && m.timestamp === this.metadata?.timestamp)) {
+
+    if (!m || !m.template) {
       return;
     }
+
+    
+    // if (!m || !m.template || (m.timestamp && m.timestamp === this.metadata?.timestamp)) {
+    //   setTimeout(() => {
+    //     this.onSizeChanged();
+    //   }, 10)
+      
+    //   return;
+    // }
 
     this.metadata = m;
     this.state = 'none';
@@ -515,7 +526,7 @@ export class EditorMetadataComponent implements OnInit {
 
 
   saveMetadata(ignoreValidation: boolean) {
-    this.state = 'saving';
+    this.state = 'loading';
     this.api.editMetadata(this.metadata, ignoreValidation).subscribe((response: any) => {
       if (response.errors) {
         if (response.status === -4) {
@@ -536,16 +547,16 @@ export class EditorMetadataComponent implements OnInit {
         }
       } else {
         // this.layout.setShouldRefresh(true)
-        // console.log(response)
         this.metadata.timestamp = response.data[0].timestamp;
         this.metadata.resetChanges();
         this.ui.showInfoSnackBar(this.translator.instant("snackbar.changeSaved"));
         this.layout.refreshSelectedItem(false, 'metadata');
         this.layout.clearPanelEditing();
+        this.state = 'none';
       }
-      setTimeout(() => {
-        this.focusToFirstInvalid();
-      }, 500);
+      // setTimeout(() => {
+      //   this.focusToFirstInvalid();
+      // }, 500);
     });
   }
 
