@@ -28,8 +28,7 @@
                   <button (click)="createJob()" mat-button>{{'rdflow.create_new' | translate }}</button>
                   <button mat-button [disabled]="hasObject" [matMenuTriggerFor]="object_menu">{{ "rdflow.create_new_object" | translate }}</button>
                   <mat-menu #object_menu="matMenu">
-                    <button mat-menu-item (click)="createNewObject('a')">prvni</button>
-                    <button mat-menu-item (click)="createNewObject('b')">druhy</button>
+                    <button mat-menu-item *ngFor="let model of selectedProfile.model" (click)="createNewObject(model.name)">{{ 'model.' + model.name | translate}}</button>
                   </mat-menu>
                 </div>
                 <div class="app-oa-y">

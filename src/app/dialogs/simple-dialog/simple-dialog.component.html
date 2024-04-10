@@ -1,12 +1,15 @@
 <h1 mat-dialog-title>{{ data.title }}</h1>
 <div mat-dialog-content class="app-scrollbar-fix">
-  <mat-card class="app-alert" [ngClass]="data.alertClass ? data.alertClass : null">
+  <mat-card *ngIf="data.message" class="app-alert" [ngClass]="data.alertClass ? data.alertClass : null">
     <mat-icon *ngIf="data.alertClass === 'app-warn' || data.alertClass === 'app-info'">{{ data.alertClass === 'app-warn' ? 'warning' : 'info' }}</mat-icon>
     {{ data.message }}
   </mat-card>
   <mat-checkbox *ngIf="data.checkbox" color="primary" [(ngModel)]="data.checkbox.checked" class="app-mt-4">{{ data.checkbox.label }}</mat-checkbox>
   <mat-form-field *ngIf="data.numberInput">
     <input type="number" step="1" [min]="data.numberInput.min" [max]="data.numberInput.max" autocomplete="off" matInput [placeholder]="data.numberInput.label" [(ngModel)]="data.numberInput.value">
+  </mat-form-field>
+  <mat-form-field *ngIf="data.textInput">
+    <input type="text" step="1" matInput [placeholder]="data.textInput.label" [(ngModel)]="data.textInput.value">
   </mat-form-field>
 </div>
 <div mat-dialog-actions cdkFocusRegionstart>

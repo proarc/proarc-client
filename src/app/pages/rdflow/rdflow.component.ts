@@ -11,8 +11,10 @@ import { LayoutService } from 'src/app/services/layout.service';
 import { LayoutAdminComponent } from 'src/app/dialogs/layout-admin/layout-admin.component';
 
 // -- table to expand --
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Sort, SortDirection } from '@angular/material/sort';
+import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
+import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 // -- table to expand --
 
 @Component({
@@ -22,8 +24,8 @@ import { Sort, SortDirection } from '@angular/material/sort';
   // -- table to expand --
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
@@ -62,16 +64,16 @@ export class RDFlowComponent implements OnInit {
   tasksSortDir: SortDirection = 'desc';
 
   states = [
-    {code: 'OPEN', value: 'Otevřený'},
-    {code: 'FINISHED', value: 'Hotový'},
-    {code: 'CANCELED', value: 'Zrušený'},
+    { code: 'OPEN', value: 'Otevřený' },
+    { code: 'FINISHED', value: 'Hotový' },
+    { code: 'CANCELED', value: 'Zrušený' },
   ]
 
   priorities = [
-    {code: 1, value: 'Spěchá'},
-    {code: 2, value: 'Normální'},
-    {code: 3, value: 'Nízká'},
-    {code: 4, value: 'Odloženo'},
+    { code: 1, value: 'Spěchá' },
+    { code: 2, value: 'Normální' },
+    { code: 3, value: 'Nízká' },
+    { code: 4, value: 'Odloženo' },
   ]
 
   constructor(
@@ -113,7 +115,7 @@ export class RDFlowComponent implements OnInit {
       }
       this.profiles = response.response.data;
       this.getWorkflow();
-      
+
     });
   }
 
@@ -124,7 +126,7 @@ export class RDFlowComponent implements OnInit {
     if (this.jobsSortDir) {
       params += '_sortBy=' + (this.jobsSortDir === 'desc' ? '-' : '') + this.jobsSortField;
     }
-    
+
     this.api.getWorkflow(params).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
@@ -138,14 +140,14 @@ export class RDFlowComponent implements OnInit {
       } else {
         this.selectJob(this.jobs[0]);
       }
-      
+
       this.layout.ready = true;
     });
   }
 
   getSubJobs() {
     this.subJobs = [];
-    
+
     let params = '?parentId=' + this.selectedJob.id;
     if (this.subjobsSortDir) {
       params += '&_sortBy=' + (this.subjobsSortDir === 'desc' ? '-' : '') + this.subjobsSortField;
@@ -194,7 +196,7 @@ export class RDFlowComponent implements OnInit {
       }
       this.tasks = response.response.data;
     });
-    
+
   }
 
   getDetail() {
@@ -222,7 +224,7 @@ export class RDFlowComponent implements OnInit {
 
   createJob() {
     const dialogRef = this.dialog.open(NewJobDialogComponent, {
-      data: {profiles: this.profiles},
+      data: { profiles: this.profiles },
       width: '800px',
       panelClass: 'app-dialog-new-job'
     });
@@ -237,8 +239,40 @@ export class RDFlowComponent implements OnInit {
 
   }
 
-  createNewObject(profile: string) {
-    
+  createNewObject(model: string) {
+    const data: SimpleDialogData = {
+      title: "Přidat nový digitální objekt s parametry.",
+      textInput: { label: 'PID', value: '' },
+      btn1: {
+        label: "OK",
+        value: 'yes',
+        color: 'warn'
+      },
+      btn2: {
+        label: "Storno",
+        value: 'no',
+        color: 'default'
+      },
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        console.log(data.textInput.value)
+        let params = `model=${model}`;
+        params = `${params}&jobId=${this.selectedJob.id}`;
+        if (data.textInput.value !== '') {
+          params = `${params}&pid=${data.textInput.value}`;
+        }
+        this.api.createObject(params).subscribe((response: any) => {
+          if (response['response'].errors) {
+            console.log('error', response['response'].errors);
+            this.ui.showErrorDialogFromObject(response['response'].errors);
+            return;
+          }
+          this.getWorkflow();
+        });
+      }
+    });
   }
 
   openTask(id: string) {
@@ -247,19 +281,19 @@ export class RDFlowComponent implements OnInit {
 
   sortJobsTable(e: Sort) {
     this.jobsSortDir = e.direction;
-    this.jobsSortField = e.active;    
+    this.jobsSortField = e.active;
     this.getWorkflow();
   }
 
   sortSubjobsTable(e: Sort) {
     this.subjobsSortDir = e.direction;
-    this.subjobsSortField = e.active;    
+    this.subjobsSortField = e.active;
     this.getSubJobs();
   }
 
   sortTasksTable(e: Sort) {
     this.tasksSortDir = e.direction;
-    this.tasksSortField = e.active;    
+    this.tasksSortField = e.active;
     this.getTasks();
   }
 
