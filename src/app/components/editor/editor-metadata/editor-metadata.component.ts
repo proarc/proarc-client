@@ -384,6 +384,9 @@ export class EditorMetadataComponent implements OnInit {
     if (!this.metadata) {
       return false;
     }
+    if (!this.panel.canEdit) {
+      return false;
+    }
     this.hasChanges = this.metadata.hasChanges();
     if (this.hasChanges) {
       this.layout.setPanelEditing(this.panel);
