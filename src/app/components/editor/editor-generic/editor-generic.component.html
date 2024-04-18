@@ -43,7 +43,7 @@
         [metadata]="layout.lastSelectedItemMetadata" [model]="layout.lastSelectedItem.model"></app-editor-chronicle> -->
         <!-- <app-editor-bdm *ngIf="layout.lastSelectedItem.isBdm()" 
           [model]="layout.lastSelectedItem.model" [metadata]="layout.lastSelectedItemMetadata"></app-editor-bdm> -->
-        <app-editor-metadata *ngIf="itemModel !== 'page' && itemModel !== 'song'"  [panel]="panel"
+        <app-editor-metadata *ngIf="itemModel !== 'page' && itemModel !== 'song'" [panel]="panel"
           [model]="layout.lastSelectedItem.model" [editorType]="editorType"
           [data]="layout.lastSelectedItemMetadata" (onChangeEditorType)="changeEditorType($event)">
         </app-editor-metadata>

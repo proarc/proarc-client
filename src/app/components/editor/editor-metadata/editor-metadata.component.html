@@ -1,4 +1,4 @@
-<div fxLayout="column" fxFlexFill>
+<div fxLayout="column" fxFlexFill [id]="panel.id">
   <div fxLayout="row" class="app-toolbar app-view-description">
 		<div fxFlex>
 			<app-editor-switcher *ngIf="!notSaved" (onChangeEditorType)="changeEditorType($event)" [editorType]="editorType"></app-editor-switcher>

@@ -388,7 +388,10 @@ export class EditorMetadataComponent implements OnInit {
       return false;
     }
     this.hasChanges = this.metadata.hasChanges();
-    if (this.hasChanges) {
+    const focused = document.activeElement;
+    const panel = document.getElementById(this.panel.id);
+    const isChild = panel.contains(focused);
+    if (isChild && this.hasChanges) {
       this.layout.setPanelEditing(this.panel);
     }
     return this.hasChanges;
