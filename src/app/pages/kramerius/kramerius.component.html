@@ -15,10 +15,10 @@
   <div fxFlex class="app-oh" *ngIf="state !== 'loading'">
     <as-split direction="horizontal" (dragEnd)="onDragEnd(-1, $event)">
       <as-split-area [order]="0" [size]="40">
-        <app-editor-page *ngIf="this.layout.krameriusPage" [model]="this.model" [pid]="pid"> </app-editor-page>
+        <app-editor-page *ngIf="this.layout.krameriusPage" [model]="this.model" [pid]="pid"  [panel]="panel"> </app-editor-page>
         <app-editor-metadata *ngIf="this.layout.lastSelectedItemMetadata && !isPage()"
           [model]="this.layout.lastSelectedItemMetadata.model"
-          [data]="this.layout.lastSelectedItemMetadata"></app-editor-metadata>
+          [data]="this.layout.lastSelectedItemMetadata" [panel]="panel"></app-editor-metadata>
       </as-split-area>
 
       <as-split-area [order]="1" [size]="30">

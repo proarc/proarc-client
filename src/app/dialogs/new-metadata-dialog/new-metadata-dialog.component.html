@@ -2,8 +2,8 @@
   <h1 mat-dialog-title>{{ 'dialog.newMetadata.title' | translate }}: {{'model.' + data.model | translate }}</h1>
   <div fxFlex mat-dialog-content class="app-clean-max-height">
     <ng-container *ngIf="inited">
-      <app-editor-page *ngIf="isPage()" [model]="data.model" [notSaved]="true" [pid]="data.pid"></app-editor-page>
-      <app-editor-audioPage *ngIf="isAudioPage()" [model]="data.model" [notSaved]="true" [pid]="data.pid"></app-editor-audioPage>
+      <app-editor-page *ngIf="isPage()" [model]="data.model" [notSaved]="true" [pid]="data.pid" [panel]="panel"></app-editor-page>
+      <app-editor-audioPage *ngIf="isAudioPage()" [model]="data.model" [notSaved]="true" [pid]="data.pid" [panel]="panel"></app-editor-audioPage>
       <app-editor-metadata *ngIf="!isPage() && metadata" [notSaved]="true" [model]="data.model" [data]="metadata" [validating]="validating" [panel]="panel"></app-editor-metadata>
     </ng-container>
   </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { combineLatest, Subscription } from 'rxjs';
+import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.component';
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Metadata } from 'src/app/model/metadata.model';
 import { Mods } from 'src/app/model/mods.model';
@@ -28,6 +29,14 @@ export class KrameriusComponent implements OnInit {
   public xml: string;
   mods: Mods;
   state = 'none';
+  panel: ILayoutPanel = {
+    id: 'kramerius',
+    visible: true,
+    size: 0,
+    type: 'a',
+    isDirty: false,
+    canEdit: true
+  };
 
   subscriptions: Subscription[] = [];
 
