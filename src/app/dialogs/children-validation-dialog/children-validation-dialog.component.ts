@@ -7,6 +7,7 @@ import { Page } from 'src/app/model/page.model';
 import { ApiService } from 'src/app/services/api.service';
 import { TemplateService } from 'src/app/services/template.service';
 import {AudioPage} from '../../model/audioPage.model';
+import { ILayoutPanel } from '../layout-admin/layout-admin.component';
 
 @Component({
   templateUrl: './children-validation-dialog.component.html',
@@ -21,6 +22,14 @@ export class ChildrenValidationDialogComponent implements OnInit {
   numberOfInvalid = 0;
   numberOfValid = 0;
   count: number;
+  panel: ILayoutPanel = {
+    id: 'children_validation',
+    visible: true,
+    size: 0,
+    type: 'a',
+    isDirty: false,
+    canEdit: true
+  };
 
   metadatas: { item: DocumentItem, metadata: Metadata }[] = [];
 

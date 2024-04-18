@@ -177,7 +177,7 @@ export class Metadata {
   static resolveStandard(data: { [x: string]: any; }): string {
     let standard = '';
     let mods: any = data;
-    console.log(data)
+    // console.log(data)
     if (data['modsCollection']) {
       if (data['modsCollection']['mods']) {
         mods = data['modsCollection']['mods'];

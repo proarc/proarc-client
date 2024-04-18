@@ -125,6 +125,18 @@ export class SearchComponent implements OnInit {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
+  // ngAfterViewInit() {
+  //   setTimeout(() => {
+  //     const els = Array.from(document.getElementsByTagName('label'));
+  //     els.forEach(label => {
+  //       if (label && label.getAttribute('for') && label.getAttribute('for').startsWith('mat-select') ) {
+  //       console.log(label.getAttribute('for'), document.getElementById(label.getAttribute('for')))
+  //         label.removeAttribute('for');
+  //       }
+  //     });
+  //   }, 1);
+  // }
+
   ngOnInit() {
     this.splitArea1Width = parseInt(this.properties.getStringProperty('search.split.0', "60"));
     this.splitArea2Width = 100 - this.splitArea1Width;
