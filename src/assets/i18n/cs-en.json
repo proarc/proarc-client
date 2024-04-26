@@ -2569,7 +2569,13 @@
     "comment": "Komentář",
     "image": "Obrázek",
     "premis": "PREMIS",
-    "media": "Media"
+    "media": "Media",
+    "rdFlow": {
+      "profileLabel": "Materiál",
+      "label": "Obsah",
+      "name": "Název",
+      "note": "Poznámka"
+    }
   },
   "model": {
     "model:periodical": "K4 Periodikum",

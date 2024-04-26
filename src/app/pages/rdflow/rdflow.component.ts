@@ -35,7 +35,7 @@ import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dial
 export class RDFlowComponent implements OnInit {
 
   // -- table to expand --
-  materialColumnsToDisplay = ['profileLabel', 'label', 'name'];
+  materialColumnsToDisplay = ['profileLabel', 'label', 'note'];
   materialColumnsToDisplayWithExpand = [...this.materialColumnsToDisplay, 'expand'];
   materialExpandedElement: any[];
   // -- table to expand --

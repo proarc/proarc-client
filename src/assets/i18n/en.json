@@ -2575,7 +2575,8 @@
     "rdFlow": {
       "profileLabel": "Material",
       "label": "Content",
-      "name": "Name"
+      "name": "Name",
+      "note": "Note"
     }
   },
   "model": {

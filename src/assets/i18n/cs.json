@@ -2575,7 +2575,8 @@
     "rdFlow": {
       "profileLabel": "Materiál",
       "label": "Obsah",
-      "name": "Název"
+      "name": "Název",
+      "note": "Poznámka"
     }
   },
   "model": {
