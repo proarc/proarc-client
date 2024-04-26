@@ -76,7 +76,7 @@ export class TaskComponent implements OnInit {
       this.dpis = this.config.getValueMap('wf.valuemap.dpi');
       this.layout.ready = true;
       if (this.id) {
-        this.loadTask();
+        this.loadTask(this.id);
       } else {
         this.getTasks();
       }
@@ -87,16 +87,14 @@ export class TaskComponent implements OnInit {
     }
   }
 
-  loadTask() {
-    this.getTask();
-    this.getParameters();
-    this.getMaterial();
+  loadTask(id: number) {
+    this.getTask(id);
   }
 
   selectTask(task: any) {
     this.task = task;
-    this.id = task.id;
-    this.loadTask();
+    // this.id = task.id;
+    this.loadTask(task.id);
   }
 
   getValueMap(field: string) {
@@ -133,13 +131,18 @@ export class TaskComponent implements OnInit {
   // }
 
 
-  getTask() {
-    this.api.getWorkflowTask(this.id).subscribe((response: any) => {
+  getTask(id: number) {
+    this.api.getWorkflowTask(id).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
       }
       this.task = response.response.data[0];
+      if (this.id) {
+        this.tasks = response.response.data;
+      }
+      this.getParameters();
+      this.getMaterial();
     });
   }
 
@@ -155,7 +158,7 @@ export class TaskComponent implements OnInit {
   }
 
   getParameters() {
-    this.api.getWorkflowTaskParameters(this.id).subscribe((response: any) => {
+    this.api.getWorkflowTaskParameters(this.task.id).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
@@ -174,7 +177,7 @@ export class TaskComponent implements OnInit {
   }
 
   getMaterial() {
-    this.api.getWorkflowTaskMaterial(this.id).subscribe((response: any) => {
+    this.api.getWorkflowTaskMaterial(this.task.id).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
@@ -184,6 +187,9 @@ export class TaskComponent implements OnInit {
   }
 
   sortTasksTable(e: Sort) {
+    if (this.id) {
+      return;
+    }
     this.tasksSortDir = e.direction;
     this.tasksSortField = e.active;    
     this.getTasks();
