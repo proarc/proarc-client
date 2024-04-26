@@ -8,6 +8,7 @@ import { UIService } from 'src/app/services/ui.service';
 // -- table to expand --
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Sort, SortDirection } from '@angular/material/sort';
+import { User } from 'src/app/model/user.model';
 // -- table to expand --
 
 @Component({
@@ -37,6 +38,7 @@ export class TaskComponent implements OnInit {
 
   tasks: any[];
   tasksColumns = ['profileLabel', 'state', 'ownerName', 'barcode'];
+  filterTasksColumns: string[] = [];
   tasksSortField: string = 'created';
   tasksSortDir: SortDirection = 'desc';
 
@@ -52,6 +54,16 @@ export class TaskComponent implements OnInit {
   dpis: { code: string, value: string }[] = [];
   dpi: any;
 
+  profileNames: {disabled: boolean, hint: string, name: string, title: string}[] = [];
+  profileNameFilter: string;
+  states: string[] = [];
+  stateFilter: string = '';
+
+  ownerNameFilter: string;
+  users: User[];
+  barcodeFilter: string;
+
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -62,6 +74,9 @@ export class TaskComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.tasksColumns.forEach(c => {
+      this.filterTasksColumns.push(c + '-filter');
+    });
     this.route.paramMap.subscribe(
       p => {
         this.id = parseInt(p.get('id'));
@@ -70,10 +85,14 @@ export class TaskComponent implements OnInit {
   }
 
   initData() {
+    this.api.getUsers().subscribe((users: User[]) => {
+      this.users = users;
+    });
     if (this.config.valueMap) {
       this.scanners = this.config.getValueMap('wf.valuemap.scannerNow');
       this.imageColors = this.config.getValueMap('wf.valuemap.imageColor');
       this.dpis = this.config.getValueMap('wf.valuemap.dpi');
+      this.profileNames = this.config.getValueMap('proarc.workflow.tasks');
       this.layout.ready = true;
       if (this.id) {
         this.loadTask(this.id);
@@ -121,6 +140,18 @@ export class TaskComponent implements OnInit {
         return;
       }
       this.tasks = response.response.data;
+
+      
+      this.tasks.forEach(b => {
+        if (!this.states.includes(b.state)) {
+          this.states.push(b.state)
+        }
+        // if (!this.profiles.includes(b.profileLabel)) {
+        //   this.profiles.push(b.profileLabel)
+        // }
+      })
+
+
       this.selectTask(this.tasks[0]);
 
     });
@@ -193,6 +224,26 @@ export class TaskComponent implements OnInit {
     this.tasksSortDir = e.direction;
     this.tasksSortField = e.active;    
     this.getTasks();
+  }
+
+  filter(field: string, value: string) {
+    // const f = this.filters.find(f => f.field === field);
+    // if (f) {
+    //   f.value = value;
+    // } else {
+    //   this.filters.push({field, value});
+    // }
+    // let params: HttpParams = new HttpParams()
+    //   .set('orderBy', this.sortBy)
+    //   .set('orderSort', this.orderSort);
+    // this.filters.forEach(f => {
+    //   if (f.value !== '') {
+    //     params = params.set(f.field, f.value);
+    //   }
+    // });
+    // this.service.getBatches(params).subscribe((res: any) => {
+    //   this.batches = res.data
+    // });
   }
 
 }
