@@ -66,6 +66,10 @@ export class LoginComponent implements OnInit {
           console.log(resp);
           this.config.valueMap = resp.response.data;
         });
+        this.api.getValuemap().subscribe(resp => {
+          console.log(resp);
+          this.config.valueMap = resp.response.data;
+        });
 
       } else {
         if (error.status === 503 || error.status === 504) {
