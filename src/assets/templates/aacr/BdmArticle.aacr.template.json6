@@ -468,8 +468,8 @@
           ]
         },
         edition: {
-          usage: 'M',
-          required: true,
+          usage: 'MA',
+          required: false,
           label: 'Vydání',
           selector: 'classification/@edition',
           labelKey: 'classification/@edition',

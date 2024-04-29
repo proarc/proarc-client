@@ -411,7 +411,7 @@
     isElectronicArticle: true,
     defaultValue: 'article',
     usage: 'M',
-    required: true,
+//    required: true,
     label: 'Typ obsahu',
     selector: 'genre',
     labelKey: 'genre',
@@ -487,8 +487,8 @@
         ]
       },
       edition: {
-        usage: 'M',
-        required: true,
+        usage: 'MA',
+        required: false,
         label: 'Vydání',
         selector: 'classification/@edition',
         labelKey: 'classification/@edition',
