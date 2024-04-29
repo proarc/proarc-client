@@ -319,6 +319,45 @@
         description: 'Údaje o fyzické podobě dokumentu, např. print, electronic, microfilm apod."\
         + "Odpovídá hodnotě v poli 008/23',
         fields: {
+          authority: {
+            usage: 'MA',
+            required: true,
+            label: 'Autorita',
+            selector: 'physicalDescription/form/@authority',
+            labelKey: 'physicalDescription/form/@authority',
+            cols: 2,
+            description: 'Možné hodnoty\
+              <ul>\
+                <li><strong>marcform</strong></li>\
+                <li><strong>marccategory</strong></li>\
+                <li><strong>marcsmd</strong></li>\
+                <li><strong>gmd</strong></li>\
+                <li><strong>rdamedia</strong> (pro pole 337)</li>\
+                <li><strong>rdacarrier</strong> (pro pole 338)</li>\
+              </ul>',
+            options: [
+              ['marcform', 'marcform'],
+              ['marccategory', 'marccategory'],
+              ['marcsmd', 'marcsmd'],
+              ['gmd', 'gmd'],
+              ['rdamedia', 'rdamedia'],
+              ['rdacarrier', 'rdacarrier']]
+          },
+          type: {
+            usage: 'MA',
+            label: 'Typ',
+            selector: 'physicalDescription/form/@type',
+            labelKey: 'physicalDescription/form/@type',
+            cols: 2,
+            description: 'Možné hodnoty\
+              <ul>\
+                <li><strong>media</strong> pro pole 337</li>\
+                <li><strong>carrier</strong> pro pole 338</li>\
+              </ul>',
+            options: [
+              ['media', 'media'],
+              ['carrier', 'carrier']]
+          },
           value: {
             usage: 'M',
             required: true,
@@ -326,26 +365,26 @@
             labelKey: 'physicalDescription/form/value',
             help: 'off',
             options: [
-              ['bez média', 'bez média'],
+              ['braille', 'braille'],
+              ['electronic', 'electronic'],
+              ['large print', 'large print'],
+              ['microfilm', 'microfilm'],
+              ['microfiche', 'microfiche'],
+              ['print', 'print'],
               ['jiný', 'jiný'],
-              ['počítač', 'počítač']
+              ['audio', 'audio'],
+              ['počítač', 'počítač'],
+              ['mikroforma', 'mikroforma'],
+              ['mikroskop', 'mikroskop'],
+              ['projekce', 'projekce'],
+              ['stereograf', 'stereograf'],
+              ['bez media', 'bez_media'],
+              ['video', 'video'],
+              ['svazek', 'svazek'],
+              ['online zdroj', 'online_zdroj'],
+              ['audiodisk', 'audiodisk'],
+              ['počítačový disk', 'počítačový disk']
             ]
-          }
-        }
-      },
-      extent: {
-        usage: 'RA',
-        label: 'Rozsah',
-        selector: 'relatedItem/physicalDescription/extent',
-        labelKey: 'bdm/relatedItem/physicalDescription/extent',
-        description: 'Údaje o rozsahu (stran, svazků nebo rozměrů)',
-        fields: {
-          value: {
-            usage: 'RA',
-            selector: 'bdm/relatedItem/physicalDescription/extent/value',
-            labelKey: 'bdm/relatedItem/physicalDescription/extent/value',
-            label: 'Hodnota',
-            help: 'off'
           }
         }
       }
