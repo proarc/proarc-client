@@ -268,6 +268,7 @@ export class ConfigService {
         {model: 'ndkmonographvolume', originmodel:"ndkmonographtitle", apiPoint: "object/changeNdkMonographTitleToNdkMonographVolume"},
         // {model: 'clippingsvolume', apiPoint: "object/changeNdkMonographVolumeToClippingsVolume"},
     		{model: 'ndkmonographtitle', originmodel:"ndkmonographvolume", apiPoint: "object/changeNdkMonographVolumeToNdkMonographTitle"},
+        {model: 'ndkmonographunit', originmodel: "ndkmonographvolume", apiPoint: "object/changeNdkMonographVolumeToNdkMonographUnit"},
     	]
     },
     {
