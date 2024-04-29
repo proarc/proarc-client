@@ -29,6 +29,7 @@ export class ModsPart extends ModsElement {
     // }
     // this.type = this.modsElement['type'][0];
     // this.addControl('type');
+    this.addControl('type');
 
     if (!this.modsElement['detail']) {
       this.modsElement['detail'] = [];
