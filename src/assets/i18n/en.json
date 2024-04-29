@@ -2831,8 +2831,9 @@
     "export": {
       "title": "Export",
       "type": {
-        "datastream_full": "Scans",
-        "datastream_raw": "The original scan",
+        "datastream_full": "Scans (Stream FULL)",
+        "datastream_raw": "The original scan/pdf (Stream RAW)",
+        "datastream_ndkUser": "User copy (Stream NDK_USER)",
         "kramerius": "Kramerius",
         "kramerius_bagit": "Kramerius with BAGIT",
         "archive": "Archiving",
@@ -2847,6 +2848,9 @@
         "ndk_oldprint_bagit": "NDK STT with BAGIT",
         "ndk_oldprint_upload_cesnet": "NDK STT with Ltp Cesnet upload",
         "ndk_oldprint_upload_kramerius": "NDK STT with Kramerius upload",
+        "ndk_sip": "NDK PSP",
+        "ndk_sip_bagit": "NDK PSP with BAGIT",
+        "ndk_sip_upload_kramerius": "NDK PSP with Kramerius upload",
         "cejsh": "CEJSH",
         "crossref": "Crossref",
         "kwis": "KWIS",

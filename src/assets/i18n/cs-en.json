@@ -2829,8 +2829,9 @@
     "export": {
       "title": "Export",
       "type": {
-        "datastream_full": "Skeny",
-        "datastream_raw": "Původní sken",
+        "datastream_full": "Skeny (Stream FULL)",
+        "datastream_raw": "Původní skeny/PDF (Stream RAW)",
+        "datastream_ndkUser": "Uživatelská kopie (Stream NDK_USER)",
         "kramerius": "Kramerius",
         "kramerius_bagit": "Kramerius s BAGIT balíčkem",
         "archive": "Archivace",
@@ -2845,6 +2846,9 @@
         "ndk_oldprint_bagit": "NDK STT s BAGIT balíčkem",
         "ndk_oldprint_upload_cesnet": "NDK STT s nahráním na Ltp Cesnetu",
         "ndk_oldprint_upload_kramerius": "NDK STT s nahráním do Krameria",
+        "ndk_sip": "NDK PSP",
+        "ndk_sip_bagit": "NDK PSP s BAGIT balíčkem",
+        "ndk_sip_upload_kramerius": "NDK PSP s nahráním do Krameria",
         "cejsh": "CEJSH",
         "crossref": "Crossref",
         "kwis": "KWIS",

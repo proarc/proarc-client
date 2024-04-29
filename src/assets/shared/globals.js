@@ -19,6 +19,7 @@ var APP_GLOBAL = {
     'ndk_oldprint_upload_kramerius',
     'ndk_sip',
     'ndk_sip_bagit',
+    'ndk_sip_upload_kramerius',
     'datastream_full',
     'datastream_raw',
     'datastream_ndkUser',
