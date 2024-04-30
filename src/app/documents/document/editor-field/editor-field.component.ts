@@ -88,10 +88,12 @@ export class EditorFieldComponent implements OnInit {
     this.dialog.open(HelpDialogComponent, { data: this.field.help(this.translator) });
   }
 
-  showByGenre(first: boolean, item: any) {
-    return !this.showGenreSwitch || 
-           !first || 
-           (item.attrs['type'] !== 'peer-reviewed' && (!item.attrs['type'] && item.modsElement['_'] !== 'article' && item.modsElement['_'] !== 'electronic_article')) ;
+  showByGenre(idx: number, item: any) {
+    return  idx > 0
+            || !this.showGenreSwitch
+            || !item.attrs['type']
+            ||  (item.attrs['type'] !== 'peer-reviewed' ) 
+           ;
   }
 
 

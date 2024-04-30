@@ -2,6 +2,7 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { ElementField } from 'src/app/model/mods/elementField.model';
+import { LayoutService } from 'src/app/services/layout.service';
 
 @Component({
   selector: 'app-editor-genre',
@@ -13,7 +14,9 @@ export class EditorGenreComponent implements OnInit {
   @Input() field: ElementField;
   @Input() showGenreSwitch: boolean;
 
-  constructor() {
+  peerControl = new FormControl();
+
+  constructor(private layout: LayoutService) {
   }
 
   ngOnInit() {
@@ -24,17 +27,25 @@ export class EditorGenreComponent implements OnInit {
 
   ngOnChanges(c: SimpleChanges) {
     // console.log(this.field.getItems()[0].controls['peer-reviewed'])
-    // console.log(this.field.isPeerReviewed)
+    // console.log(this.field.isPeerReviewed) 
     this.field.getItems()[0].controls['peer-reviewed'].setValue(this.field.isPeerReviewed);
+    this.peerControl.setValue(this.field.isPeerReviewed);
   }
 
   switchChanged(e: any) {
     // this.field.isPeerReviewed = e.value === 'peer-reviewed';
     if (this.field.isPeerReviewed) {
-      this.field.getItems()[0].attrs['type'] = 'peer-reviewed';
+      const item = this.field.addAsFirst();
+      this.field.getItems()[0].controls['peer-reviewed'].setValue(true);
+      this.field.items[0].attrs['type'] = 'peer-reviewed';
     } else {
-      delete this.field.getItems()[0].attrs['type']
+      delete this.field.getItems()[0].attrs['type'];
+      this.field.remove(0);
     }
+
+      setTimeout(() => {
+        this.layout.setMetadataResized();
+      }, 10);
   }
 
 }

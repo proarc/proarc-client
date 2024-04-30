@@ -1,6 +1,6 @@
 <div class="app-form-wrapper" [class.app-nested]="nested" [class.app-top-level]="!nested" *ngIf="field">
-  <ng-container *ngFor="let item of field.items; last as last; first as first;">
-    <ng-container *ngIf="showByGenre(first, item)">
+  <ng-container *ngFor="let item of field.items; last as last; first as first; let idx = index">
+    <ng-container *ngIf="showByGenre(idx, item)">
       <div class="app-form" [class.app-required]="item.isRequired" [class.app-warning]="item.validationWarning">
         <div class="app-form-header" fxLayout="row">
           <div fxFlex class="app-text-cutter">
