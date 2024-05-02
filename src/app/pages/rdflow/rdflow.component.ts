@@ -15,6 +15,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Sort, SortDirection } from '@angular/material/sort';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
+import { User } from 'src/app/model/user.model';
 // -- table to expand --
 
 @Component({
@@ -45,6 +46,8 @@ export class RDFlowComponent implements OnInit {
   selectedProfile: RDFlowProfile;
 
   workFlowColumns = ['taskUsername', 'label', 'profileName'];
+  filterWorkFlowColumns: string[] = [];
+
   allJobs: RDFlow[] = [];
   jobs: RDFlow[] = [];
   subJobs: RDFlow[] = [];
@@ -76,6 +79,12 @@ export class RDFlowComponent implements OnInit {
     { code: 4, value: 'Odloženo' },
   ]
 
+  users: User[];
+  filters: {field: string, value: string}[] = [];
+  taskUsernameFilter: string;
+  labelFilter: string;
+  profileNameFilter: string;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -90,6 +99,13 @@ export class RDFlowComponent implements OnInit {
     //     this.id = parseInt(p.get('id'));
     //     this.initData();
     //   });
+    
+    this.workFlowColumns.forEach(c => {
+      this.filterWorkFlowColumns.push(c + '-filter');
+    });
+    this.api.getUsers().subscribe((users: User[]) => {
+      this.users = users;
+    });
     this.getWorkflowProfiles();
   }
 
@@ -126,6 +142,11 @@ export class RDFlowComponent implements OnInit {
     if (this.jobsSortDir) {
       params += '_sortBy=' + (this.jobsSortDir === 'desc' ? '-' : '') + this.jobsSortField;
     }
+    this.filters.forEach(f => {
+      if (f.value !== '') {
+        params += `&${f.field}=${f.value}`;
+      }
+    });
 
     this.api.getWorkflow(params).subscribe((response: any) => {
       if (response['response'].errors) {
@@ -295,6 +316,16 @@ export class RDFlowComponent implements OnInit {
     this.tasksSortDir = e.direction;
     this.tasksSortField = e.active;
     this.getTasks();
+  }
+
+  filter(field: string, value: string) {
+    const f = this.filters.find(f => f.field === field);
+    if (f) {
+      f.value = value;
+    } else {
+      this.filters.push({field, value});
+    }
+    this.getWorkflow();
   }
 
 }

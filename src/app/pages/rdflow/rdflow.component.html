@@ -34,18 +34,47 @@
                 <div class="app-oa-y">
                   <table mat-table [dataSource]="jobs" class="app-striped app-hover" matSort 
                   [matSortActive]="jobsSortField" [matSortDirection]="jobsSortDir" (matSortChange)="sortJobsTable($event)">
+
+                  <ng-container matColumnDef="taskUsername-filter">
+                    <th mat-header-cell *matHeaderCellDef>
+                      <mat-select [(ngModel)]="taskUsernameFilter" (ngModelChange)="filter('taskUser', taskUsernameFilter)">
+                          <mat-option [value]="''"> </mat-option>
+                          <mat-option *ngFor="let s of users" [value]="s.userId">{{ s.name }}</mat-option>
+                        </mat-select> 
+                        <button mat-icon-button matIconSuffix color="warn" *ngIf="taskUsernameFilter" (click)="filter('ownerId', ''); taskUsernameFilter = ''; $event.stopPropagation();"><mat-icon>clear</mat-icon></button>
+                    </th>
+                  </ng-container>
                     <ng-container matColumnDef="taskUsername">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.completedTheTask' | translate }}</th>
                       <td mat-cell *matCellDef="let row">{{row.taskUsername}}</td>
                     </ng-container>
+                          
+                    <ng-container matColumnDef="label-filter">
+                      <th mat-header-cell *matHeaderCellDef>
+                        <input type="text" id="labelFilter" [(ngModel)]="labelFilter" (change)="filter('label', labelFilter)" />
+                        <button mat-icon-button matIconSuffix color="warn" *ngIf="labelFilter" (click)="filter('pid', ''); labelFilter = ''"><mat-icon>clear</mat-icon></button>
+                      </th>
+                    </ng-container>   
                     <ng-container matColumnDef="label">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.name' | translate }}</th>
                       <td mat-cell *matCellDef="let row">{{row.label}}</td>
                     </ng-container>  
+
+                  <ng-container matColumnDef="profileName-filter">
+                    <th mat-header-cell *matHeaderCellDef>
+                      <mat-select [(ngModel)]="profileNameFilter" (ngModelChange)="filter('profileName', profileNameFilter)">
+                          <mat-option [value]="''"> </mat-option>
+                          <mat-option *ngFor="let s of profiles" [value]="s.name">{{ s.name }}</mat-option>
+                        </mat-select> 
+                        <button mat-icon-button matIconSuffix color="warn" *ngIf="profileNameFilter" (click)="filter('profileName', ''); profileNameFilter = ''; $event.stopPropagation();"><mat-icon>clear</mat-icon></button>
+                    </th>
+                  </ng-container>
                     <ng-container matColumnDef="profileName">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.profileName' | translate }}</th>
                       <td mat-cell *matCellDef="let row">{{row.profileName}}</td>
                     </ng-container> 
+                    
+                    <tr mat-header-row *matHeaderRowDef="filterWorkFlowColumns; sticky: true"></tr>
                     <tr mat-header-row *matHeaderRowDef="workFlowColumns; sticky: true"></tr>
                     <tr mat-row *matRowDef="let row; columns: workFlowColumns;" (click)="selectJob(row)" [class.app-selected]="row.id === selectedJob?.id"></tr>
                   </table>
