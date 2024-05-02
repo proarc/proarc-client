@@ -27,6 +27,7 @@
     <app-editor-field *ngIf="item.available['dateCreated']" [field]="item.dateCreateds" [nested]='true'>
       <ng-template let-dateCreated="item" #templateContent>
         <app-field-text field="value" [item]="dateCreated" [(value)]="dateCreated.modsElement['_']" ></app-field-text>
+        <app-field-dropdown field="qualifier" [item]="dateCreated" [(value)]='dateCreated.attrs["qualifier"]'></app-field-dropdown>
         <app-field-text field="point" [item]="dateCreated" [(value)]='dateCreated.attrs["point"]'></app-field-text>
       </ng-template>
     </app-editor-field>

@@ -1783,6 +1783,7 @@
     "originInfo/dateCreated": "Datum vytvoření",
     "originInfo/dateCreated/value": "Hodnota",
     "originInfo/dateCreated/@point": "Point",
+    "originInfo/dateCreated/@qualifier": "Upřesnění data",
     "originInfo/dateIssued": "Datum vydání",
     "originInfo/dateIssued/@encoding": "Kódování",
     "originInfo/dateIssued/@point": "Point",

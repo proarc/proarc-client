@@ -12,7 +12,7 @@ export class ModsDateCreated extends ModsElement {
     }
 
     constructor(modsElement: any, template: any) {
-        super(modsElement, template, ['point']);
+        super(modsElement, template, ['point', 'qualifier']);
         this.init();
     }
 
@@ -22,6 +22,7 @@ export class ModsDateCreated extends ModsElement {
       }
       this.addControl('value');
       this.addControl('point');
+      this.addControl('qualifier');
 
     }
 

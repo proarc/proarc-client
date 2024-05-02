@@ -28,7 +28,7 @@
         },
         partNumber: {
           usage: 'MA',
-          required: true,
+//          required: true,
           label: 'Číslo přílohy',
           selector: 'titleInfo/partNumber',
           labelKey: 'titleInfo/partNumber',
@@ -83,7 +83,7 @@
           description: 'Vyplnit údaje o autorovi.',
           fields: {
             type: {
-              usage: 'R',
+              usage: 'MA',
               label: 'Typ',
               selector: 'name/namePart/@type',
               labelKey: 'name/namePart/@type',
@@ -367,8 +367,28 @@
           bude použito pouze při popisu tiskaře, viz poznámka u <strong>Nakladatel</strong> nebo např. u popisu CD/DVD apod.<br/>\
           odpovídá hodnotě z katalogizačního záznamu, pole 264 $g',
           fields: {
+            qualifier: {
+              usage: 'R',
+              label: 'Upřesnění data',
+              selector: 'originInfo/dateCreated/@qualifier',
+              labelKey: 'originInfo/dateCreated/@qualifier',
+              cols: 2,
+              description: 'Možnost dalšího upřesnění. Možné hodnoty\
+            <ul>\
+              <li>Přibližné (approximate)</li>\
+              <li>Odvozené (inferred)</li>\
+              <li>Sporné (questionable)</li>\
+            </ul>',
+              options: [
+                ['', '-'],
+                ['approximate', 'Datum je přibližné'],
+                ['inferred', 'Datum je odvozené'],
+                ['questionable', 'Datum je sporné']
+              ]
+            },
             value: {
               usage: 'R',
+              cols: 2,
               selector: 'originInfo/dateCreated/value',
               labelKey: 'originInfo/dateCreated/value',
               label: 'Hodnota',
@@ -437,30 +457,31 @@
             <li>264_4 <strong>Copyright</strong> (copyright)</li>\
           </ul>'
         },
-//        frequency: {
-//          usage: 'RA',
-//          label: 'Frekvence',
-//          selector: 'originInfo/frequency',
-//          labelKey: 'originInfo/frequency',
-//          description: 'údaje o pravidelnosti vydávání
-//          odpovídá údaji MARC21 v poli 310 nebo pozici 18 v poli 008',
-//          fields: {
+        frequency: {
+          usage: 'RA',
+          label: 'Frekvence',
+          selector: 'originInfo/frequency',
+          labelKey: 'originInfo/frequency',
+          description: 'údaje o pravidelnosti vydávání odpovídá údaji MARC21 v poli 310 nebo pozici 18 v poli 008',
+          fields: {
 //            authority: {
 //              usage: 'R',
+//              cols: 2,
 //              label: 'Autorita',
 //              selector: 'originInfo/frequency/@authority',
 //              labelKey: 'originInfo/frequency/@authority',
 //              options: [['marcfrequency', 'marcfrequency']]
 //            },
-//            value: {
-//              label: 'Hodnota',
-//              usage: 'M',
-//              selector: 'originInfo/frequency',
-//              labelKey: 'originInfo/frequency',
-//              help: 'off'
-//            }
-//          }
-//        },
+            value: {
+              label: 'Hodnota',
+              cols: 2,
+              usage: 'RA',
+              selector: 'originInfo/frequency',
+              labelKey: 'originInfo/frequency',
+              help: 'off'
+            }
+          }
+        },
       }
     },
     subject: {
@@ -913,7 +934,7 @@
           ]
         },
         edition: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Vydání',
           selector: 'classification/@edition',
           labelKey: 'classification/@edition',

@@ -1783,6 +1783,7 @@
     "originInfo/dateCreated": "Date created",
     "originInfo/dateCreated/value": "Value",
     "originInfo/dateCreated/@point": "Point",
+    "originInfo/dateCreated/@qualifier": "Qualifier",
     "originInfo/dateIssued": "Date issued",
     "originInfo/dateIssued/@encoding": "Encoding",
     "originInfo/dateIssued/@point": "Point",
