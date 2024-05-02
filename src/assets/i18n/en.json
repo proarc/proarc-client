@@ -1914,6 +1914,7 @@
     "relatedItem/titleInfo": "Title info",
     "relatedItem/titleInfo/@type": "Type",
     "relatedItem/titleInfo/nonSort": "Non sort",
+    "relatedItem/titleInfo/title/@otherType": "Other type",
     "relatedItem/titleInfo/partName": "Part name",
     "relatedItem/titleInfo/partNumber": "Part number",
     "relatedItem/titleInfo/subTitle": "Subtitle",
@@ -1938,6 +1939,7 @@
     "titleInfo": "Title info",
     "titleInfo/@type": "Type",
     "titleInfo/nonSort": "Non sort",
+    "titleInfo/title/@otherType": "Typ",
     "titleInfo/partName": "Part name",
     "titleInfo/partNumber": "Part number",
     "titleInfo/subTitle": "Subtitle",
@@ -2167,7 +2169,9 @@
       "volume_supplement": "Volume supplement",
       "w3cdtf": "W3CDTF",
       "yes": "yes",
-      "primary": "primary"
+      "primary": "primary",
+      "mutational edition": "Mutational edition",
+      "issue": "issue"
     }
   },
   "rdflow": {

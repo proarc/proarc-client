@@ -21,12 +21,12 @@ export class ModsTitle extends ModsElement {
     }
 
     constructor(modsElement: any, template: any) {
-        super(modsElement, template, ['type', 'lang']);
+        super(modsElement, template, ['type', 'lang', 'otherType']);
         this.init();
     }
 
     private init() {
-        
+
         if (!this.modsElement['nonSort']) {
             this.modsElement['nonSort'] = ModsUtils.createField(this, 'nonSort');
         }
@@ -53,6 +53,7 @@ export class ModsTitle extends ModsElement {
         this.addControl('partNumber');
         this.addControl('partName');
         this.addControl('type');
+        this.addControl('otherType');
         this.addControl('lang');
         this.addControl('nonSort');
     }

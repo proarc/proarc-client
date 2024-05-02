@@ -1917,6 +1917,7 @@
     "relatedItem/titleInfo": "Název",
     "relatedItem/titleInfo/@type": "Typ",
     "relatedItem/titleInfo/nonSort": "Část vynechaná při hledání",
+    "relatedItem/titleInfo/title/@otherType": "Typ",
     "relatedItem/titleInfo/partName": "Jméno části",
     "relatedItem/titleInfo/partNumber": "Číslo části",
     "relatedItem/titleInfo/subTitle": "Podnázev",
@@ -1938,6 +1939,7 @@
     "titleInfo": "Název",
     "titleInfo/@type": "Typ",
     "titleInfo/nonSort": "Část vynechaná při hledání",
+    "titleInfo/title/@otherType": "Typ",
     "titleInfo/partName": "Jméno části",
     "titleInfo/partNumber": "Číslo části",
     "titleInfo/subTitle": "Podnázev",
@@ -2167,7 +2169,9 @@
       "volume_supplement": "Příloha k ročníku",
       "w3cdtf": "W3CDTF",
       "yes": "Ano",
-      "primary": "Primární (hlavní)"
+      "primary": "Primární (hlavní)",
+      "mutational edition": "Mutační vydání",
+      "issue": "issue"
     }
   },
   "rdflow": {
