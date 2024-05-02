@@ -192,7 +192,7 @@
           ]
         },
         topic: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Klíčové slovo/Předmětové heslo',
           selector: 'subject/topic',
           labelKey: 'subject/topic',
@@ -200,7 +200,7 @@
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21',
           fields: {
             value: {
-              usage: 'R',
+              usage: 'MA',
               label: 'Hodnota',
               selector: 'subject/topic/value',
               labelKey: 'subject/topic/value',
@@ -612,13 +612,31 @@
             ['pageNumber', 'Page Number']
           ]
         },
-        caption: {
-          usage: 'RA',
-          label: 'Caption',
-          selector: 'part/detail/caption',
-          labelKey: 'part/detail/caption',
-          description: 'text před označením čísla, např. "č.", „část“, "No." apod.'
-        },
+        extent: {
+          usage: 'MA',
+          label: 'Extent',
+          selector: 'part/extent',
+          labelKey: 'part/extent',
+          description: 'Tento kontejner <part> slouží k zaznamenání rozsahu stran v reprezentaci.',
+          fields: {
+            start: {
+              usage: 'MA',
+              label: 'Od strany',
+              cols: 2,
+              selector: 'part/extent/start',
+              labelKey: 'part/extent/start',
+              description: 'První stránka, na které vnitřní část začíná.'
+            },
+            end: {
+              usage: 'MA',
+              label: 'Do strany',
+              cols: 2,
+              selector: 'part/extent/end',
+              labelKey: 'part/extent/end',
+              description: 'Poslední stránka, na které vnitřní část končí.'
+            }
+          }
+        }
       }
     },
     recordInfo: {
@@ -1485,7 +1503,7 @@
               ]
             },
             topic: {
-              usage: 'R',
+              usage: 'MA',
               label: 'Klíčové slovo/Předmětové heslo',
               selector: 'relatedItem/subject/topic',
               labelKey: 'relatedItem/subject/topic',
@@ -1493,7 +1511,7 @@
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x',
               fields: {
                 value: {
-                  usage: 'R',
+                  usage: 'MA',
                   label: 'Hodnota',
 //                  cols: 2,
                   selector: 'subject/topic/value',
