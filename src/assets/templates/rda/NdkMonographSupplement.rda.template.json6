@@ -57,8 +57,8 @@
       pokud má monografie autora a ilustrátora, element <name> se opakuje s různými rolemi',
       fields: {
         type: {
-          usage: 'M',
-          required: true,
+          usage: 'MA',
+//          required: true,
           label: 'Typ',
           selector: 'name/@type',
           labelKey: 'name/@type',
@@ -86,7 +86,7 @@
           description: 'Vyplnit údaje o autorovi.',
           fields: {
             type: {
-              usage: 'R',
+              usage: 'MA',
               label: 'Typ',
               selector: 'name/namePart/@type',
               labelKey: 'name/namePart/@type',
@@ -427,7 +427,7 @@
           </ul>'
         },
         frequency: {
-          usage: 'R',
+          usage: 'RA',
           label: 'Frekvence',
           selector: 'originInfo/frequency',
           labelKey: 'originInfo/frequency',
@@ -443,8 +443,8 @@
             },
             value: {
               label: 'Hodnota',
-              usage: 'M',
-              required: true,
+              usage: 'RA',
+//              required: true,
               selector: 'originInfo/frequency',
               labelKey: 'originInfo/frequency',
               help: 'off'
@@ -524,7 +524,7 @@
           description: 'Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21',
           fields: {
             type: {
-              usage: 'M',
+              usage: 'MA',
               label: 'Typ',
               selector: 'name/@type',
               labelKey: 'name/@type',
@@ -552,7 +552,7 @@
               description: 'Vyplnit údaje o autorovi.',
               fields: {
                 type: {
-                  usage: 'R',
+                  usage: 'MA',
                   label: 'Typ',
                   selector: 'name/namePart/@type',
                   labelKey: 'name/namePart/@type',
@@ -895,7 +895,7 @@
           ]
         },
         edition: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Vydání',
           selector: 'classification/@edition',
           labelKey: 'classification/@edition',
