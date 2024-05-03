@@ -63,7 +63,7 @@
           odpovídající pole a podpole podle typu, viz typ'
         },
         partNumber: {
-          usage: 'RA',
+          usage: 'MA',
           label: 'Číslo části',
           selector: 'titleInfo/partNumber',
           labelKey: 'titleInfo/partNumber',
@@ -71,7 +71,7 @@
           description: 'Číslo části'
         },
         partName: {
-          usage: 'RA',
+          usage: 'MA',
           label: 'Název části',
           selector: 'titleInfo/partName',
           labelKey: 'titleInfo/partName',
@@ -91,7 +91,7 @@
       pokud má kartografický dokument jiné původce než je autor, element <name> se opakuje s různými rolemi (kartograf, litograf apod.)',
       fields: {
         type: {
-          usage: 'R',
+          usage: 'MA',
 //          required: true,
           label: 'Typ',
           selector: 'name/@type',
@@ -120,7 +120,7 @@
           description: 'Vyplnit údaje o autorovi.',
           fields: {
             type: {
-              usage: 'R',
+              usage: 'MA',
               label: 'Typ',
               selector: 'name/namePart/@type',
               labelKey: 'name/namePart/@type',
@@ -506,7 +506,7 @@
               help: 'off'
             },
             authority: {
-              usage: 'MA',
+              usage: 'O',
               cols: 2,
               selector: 'location/physicalLocation/@authority',
               labelKey: 'location/physicalLocation/@authority',
@@ -677,7 +677,7 @@
           description: 'Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21',
           fields: {
             type: {
-              usage: 'M',
+              usage: 'MA',
               label: 'Typ',
               selector: 'name/@type',
               labelKey: 'name/@type',
@@ -705,7 +705,7 @@
               description: 'Vyplnit údaje o autorovi.',
               fields: {
                 type: {
-                  usage: 'R',
+                  usage: 'MA',
                   label: 'Typ',
                   selector: 'name/namePart/@type',
                   labelKey: 'name/namePart/@type',
@@ -1046,6 +1046,7 @@
           usage: 'M',
           required: true,
           label: 'Autorita',
+          cols: 2,
           selector: 'classification/@authority',
           labelKey: 'classification/@authority',
           description: 'Vyplnit hodnotu <strong>udc</strong>',
@@ -1054,7 +1055,7 @@
           ]
         },
         edition: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Vydání',
           selector: 'classification/@edition',
           labelKey: 'classification/@edition',
@@ -1431,7 +1432,7 @@
               description: 'Např. určité části/edice, k použití u ročenek a specializovaných periodik'
             },
             partName: {
-              usage: 'R',
+              usage: 'MA',
               label: 'Název části',
               selector: 'relatedItem/titleInfo/partName',
               labelKey: 'relatedItem/titleInfo/partName',
@@ -1449,7 +1450,7 @@
           description: 'Údaje o odpovědnosti za titul periodika',
           fields: {
             type: {
-              usage: 'R',
+              usage: 'MA',
               label: 'Typ',
               selector: 'relatedItem/name/@type',
               labelKey: 'relatedItem/name/@type',
@@ -1477,7 +1478,7 @@
               description: 'Vyplnit údaje o autorovi.',
               fields: {
                 type: {
-                  usage: 'R',
+                  usage: 'MA',
                   label: 'Typ',
                   selector: 'name/namePart/@type',
                   labelKey: 'name/namePart/@type',
@@ -1889,7 +1890,7 @@
                   help: 'off'
                 },
                 authority: {
-                  usage: 'MA',
+                  usage: 'O',
                   cols: 2,
                   selector: 'location/physicalLocation/@authority',
                   labelKey: 'location/physicalLocation/@authority',
@@ -2035,8 +2036,8 @@
               description: 'Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21',
               fields: {
                 type: {
-                  usage: 'M',
-                  required: true,
+                  usage: 'MA',
+//                  required: true,
                   label: 'Typ',
                   selector: 'name/@type',
                   labelKey: 'name/@type',
@@ -2064,7 +2065,7 @@
                   description: 'Vyplnit údaje o autorovi.',
                   fields: {
                     type: {
-                      usage: 'R',
+                      usage: 'MA',
                       label: 'Typ',
                       selector: 'name/namePart/@type',
                       labelKey: 'name/namePart/@type',
