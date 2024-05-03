@@ -147,7 +147,7 @@
         description: 'Vyplnit údaje o autorovi.',
         fields: {
           type: {
-            usage: 'R',
+            usage: 'MA',
             label: 'Typ',
             selector: 'name/namePart/@type',
             labelKey: 'name/namePart/@type',
@@ -202,7 +202,7 @@
         description: 'Číslo národní autority',
       },
       etal: {
-        usage: 'MA',
+        usage: 'O',
         label: 'Etal',
         selector: 'name/etal',
         labelKey: 'name/etal',
@@ -211,14 +211,14 @@
           V případě užití tohoto elementu je dále top element <name> neopakovatelný.</br>\
           <etal> je nutné umístit do samostatného top elementu <name>, ve kterém se nesmí objevit subelementy <namePart> a <nameIdentifier>.'
       },
-      affiliation: {
-        usage: 'O',
-        label: 'Napojená instituce',
-        selector: 'name/affiliation',
-        labelKey: 'name/affiliation',
-        description: 'Umožňuje vepsat název instituce, se kterou je autor spojen<br/>\
-          např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.'
-      },
+//      affiliation: {
+//        usage: 'O',
+//        label: 'Napojená instituce',
+//        selector: 'name/affiliation',
+//        labelKey: 'name/affiliation',
+//        description: 'Umožňuje vepsat název instituce, se kterou je autor spojen<br/>\
+//          např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.'
+//      },
       role: {
         usage: 'MA',
         label: 'Role',
@@ -309,6 +309,30 @@
         labelKey: 'subject/geographic',
         description: 'Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21'
       },
+      cartographics: {
+        usage: 'MA',
+        label: 'Kartografické údaje',
+        selector: 'subject/cartographics',
+        labelKey: 'subject/cartographics',
+        description: 'přebírá se ze záznamu MARC 21 pole 034\
+          je žádoucí je vyplnit v případě, pokud se jedná o samostatnou mapu, pokud jde např. o atlas, vyplňuje se v nižší úrovni',
+        fields: {
+          coordinates: {
+            usage: 'MA',
+            label: 'Souřadnice',
+            selector: 'subject/cartographics/coordinates',
+            labelKey: 'subject/cartographics/coordinates',
+            description: 'Obsah pole 034 $d, $e, $f, $g'
+          },
+          scale: {
+            usage: 'MA',
+            label: 'Měřítko',
+            selector: 'subject/cartographics/scale',
+            labelKey: 'subject/cartographics/scale',
+            description: 'Obsah pole 255 podpole a MARC21 záznamu'
+          }
+        }
+      },
       temporal: {
         usage: 'R',
         label: 'Chronologické věcné třídění',
@@ -367,7 +391,7 @@
             description: 'Vyplnit údaje o autorovi.',
             fields: {
               type: {
-                usage: 'R',
+                usage: 'MA',
                 label: 'Typ',
                 selector: 'name/namePart/@type',
                 labelKey: 'name/namePart/@type',
@@ -1239,7 +1263,7 @@
             description: 'Vyplnit údaje o autorovi.',
             fields: {
               type: {
-                usage: 'R',
+                usage: 'MA',
                 label: 'Typ',
                 selector: 'name/namePart/@type',
                 labelKey: 'name/namePart/@type',
@@ -1895,6 +1919,30 @@
             labelKey: 'relatedItem/subject/geographic',
             description: 'Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21'
           },
+          cartographics: {
+            usage: 'MA',
+            label: 'Kartografické údaje',
+            selector: 'subject/cartographics',
+            labelKey: 'subject/cartographics',
+            description: 'přebírá se ze záznamu MARC 21 pole 034\
+          je žádoucí je vyplnit v případě, pokud se jedná o samostatnou mapu, pokud jde např. o atlas, vyplňuje se v nižší úrovni',
+            fields: {
+              coordinates: {
+                usage: 'MA',
+                label: 'Souřadnice',
+                selector: 'subject/cartographics/coordinates',
+                labelKey: 'subject/cartographics/coordinates',
+                description: 'Obsah pole 034 $d, $e, $f, $g'
+              },
+              scale: {
+                usage: 'MA',
+                label: 'Měřítko',
+                selector: 'subject/cartographics/scale',
+                labelKey: 'subject/cartographics/scale',
+                description: 'Obsah pole 255 podpole a MARC21 záznamu'
+              }
+            }
+          },
           temporal: {
             usage: 'R',
             label: 'Chronologické věcné třídění',
@@ -1954,7 +2002,7 @@
                 description: 'Vyplnit údaje o autorovi.',
                 fields: {
                   type: {
-                    usage: 'R',
+                    usage: 'MA',
                     label: 'Typ',
                     selector: 'name/namePart/@type',
                     labelKey: 'name/namePart/@type',
