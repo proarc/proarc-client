@@ -173,6 +173,7 @@ export class ModelTemplate {
     'ndkmonographsupplement': ['ndkpage', 'page'],
     'ndkchapter': [],
     'ndkmap': ['ndkpage', 'page'],
+    'ndkgraphic': ['ndkpage', 'page'],
     'ndksheetmusic': ['ndkpage', 'page'],
     'ndkpage': [],
     'page': [],

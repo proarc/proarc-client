@@ -110,6 +110,7 @@ export class ConfigService {
     'model:ndkmonographunit',
 		'model:ndkchapter',
 		'model:ndkmap',
+    'model:ndkgraphic',
 		'model:ndksheetmusic',
 		'model:ndkpage',
 		'model:page',

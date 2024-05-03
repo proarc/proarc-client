@@ -2603,6 +2603,7 @@
     "model:ndkmonographsupplement": "NDK Monograph Supplement",
     "model:ndkchapter": "NDK Chapter",
     "model:ndkmap": "NDK Cartographic Document",
+    "model:ndkgraphic": "NDK Graphic",
     "model:ndksheetmusic": "NDK Sheet Music",
     "model:ndkpage": "NDK Page",
     "model:page": "Page",

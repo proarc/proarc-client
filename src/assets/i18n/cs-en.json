@@ -2601,6 +2601,7 @@
     "model:ndkmonographsupplement": "NDK Příloha monografie",
     "model:ndkchapter": "NDK Kapitola",
     "model:ndkmap": "NDK Kartografický dokument",
+    "model:ndkgraphic": "NDK Grafika",
     "model:ndksheetmusic": "NDK Hudebnina",
     "model:ndkpage": "NDK Strana",
     "model:page": "Strana",
