@@ -655,7 +655,7 @@
             help: 'off'
           },
           authority: {
-            usage: 'MA',
+            usage: 'O',
             cols: 2,
             selector: 'location/physicalLocation/@authority',
             labelKey: 'location/physicalLocation/@authority',
@@ -1006,7 +1006,7 @@
     description: 'Shrnutí obsahu jako celku odpovídá poli 520 MARC21',
     fields: {
       abstract: {
-        usage: 'RA',
+        usage: 'R',
         label: 'Abstrakt',
         selector: 'abstract',
         labelKey: 'abstract/value',
@@ -1183,26 +1183,26 @@
     description: 'Bližší údaje o typu dokumentu<br/>\
       Pro monografie hodnota <strong>volume</strong>',
     fields: {
-      authority: {
-        usage: 'MA',
-        label: 'Autorita',
-        selector: 'genre/@authority',
-        labelKey: 'genre/@authority',
-        options: [
-          [
-            'czenas',
-            'czenas'
-          ],
-          [
-            'eczenas',
-            'eczenas'
-          ],
-          [
-            'rdacontent',
-            'rdacontent'
-          ]
-        ]
-      },
+//      authority: {
+//        usage: 'MA',
+//        label: 'Autorita',
+//        selector: 'genre/@authority',
+//        labelKey: 'genre/@authority',
+//        options: [
+//          [
+//            'czenas',
+//            'czenas'
+//          ],
+//          [
+//            'eczenas',
+//            'eczenas'
+//          ],
+//          [
+//            'rdacontent',
+//            'rdacontent'
+//          ]
+//        ]
+//      },
       value: {
         usage: 'M',
         required: true,
@@ -2333,7 +2333,7 @@
                 help: 'off'
               },
               authority: {
-                usage: 'MA',
+                usage: 'O',
                 cols: 2,
                 selector: 'location/physicalLocation/@authority',
                 labelKey: 'location/physicalLocation/@authority',
@@ -2565,7 +2565,7 @@
         description: 'Shrnutí obsahu jako celku odpovídá poli 520 MARC21',
         fields: {
           abstract: {
-            usage: 'RA',
+            usage: 'R',
             label: 'Abstrakt',
             selector: 'relatedItem/abstract',
             labelKey: 'relatedItem/abstract',
@@ -2727,26 +2727,26 @@
         description: 'Bližší údaje o typu dokumentu<br/>\
       Pro monografie hodnota <strong>volume</strong>',
         fields: {
-          authority: {
-            usage: 'MA',
-            label: 'Autorita',
-            selector: 'relatedItem/genre/@authority',
-            labelKey: 'relatedItem/genre/@authority',
-            options: [
-              [
-                'czenas',
-                'czenas'
-              ],
-              [
-                'eczenas',
-                'eczenas'
-              ],
-              [
-                'rdacontent',
-                'rdacontent'
-              ]
-            ]
-          },
+//          authority: {
+//            usage: 'MA',
+//            label: 'Autorita',
+//            selector: 'relatedItem/genre/@authority',
+//            labelKey: 'relatedItem/genre/@authority',
+//            options: [
+//              [
+//                'czenas',
+//                'czenas'
+//              ],
+//              [
+//                'eczenas',
+//                'eczenas'
+//              ],
+//              [
+//                'rdacontent',
+//                'rdacontent'
+//              ]
+//            ]
+//          },
           value: {
             usage: 'MA',
             selector: 'relatedItem/genre/value',
