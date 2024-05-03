@@ -117,7 +117,7 @@
           description: 'Vyplnit údaje o autorovi.',
           fields: {
             type: {
-              usage: 'R',
+              usage: 'MA',
               label: 'Typ',
               selector: 'name/namePart/@type',
               labelKey: 'name/namePart/@type',
@@ -280,7 +280,7 @@
               description: 'Vyplnit údaje o autorovi.',
               fields: {
                 type: {
-                  usage: 'R',
+                  usage: 'MA',
                   label: 'Typ',
                   selector: 'name/namePart/@type',
                   labelKey: 'name/namePart/@type',
