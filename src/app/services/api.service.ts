@@ -1007,12 +1007,12 @@ export class ApiService {
   }
 
   saveWorkflowTask(w: any): Observable<any> {
-    let httpParams = new HttpParams();
-    Object.keys(w).forEach(key => {
-      const value = (w as any)[key];
-      httpParams = httpParams.set(key, value + '');
-    });
-    return this.put('workflow', httpParams);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.put('workflow/task', w, httpOptions);
   }
 
   getWorkflowTaskParameters(id: number): Observable<any> {
@@ -1021,6 +1021,15 @@ export class ApiService {
 
   getWorkflowTaskMaterial(id: number): Observable<any> {
     return this.get('workflow/material?taskId=' + id);
+  }
+
+  saveWorkflowMaterial(w: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.put('workflow/material', w, httpOptions);
   }
 
   getUsers(): Observable<User[]> {

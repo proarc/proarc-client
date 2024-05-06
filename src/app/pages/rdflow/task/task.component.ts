@@ -54,6 +54,20 @@ export class TaskComponent implements OnInit {
   dpis: { code: string, value: string }[] = [];
   dpi: any;
 
+  statesAll = [
+    { code: 'READY', value: 'Připraven' },
+    { code: 'STARTED', value: 'Probíhá' },
+    { code: 'FINISHED', value: 'Dokončen' },
+    { code: 'CANCELED', value: 'Zrušen' },
+  ]
+
+  priorities = [
+    { code: 1, value: 'Spěchá' },
+    { code: 2, value: 'Normální' },
+    { code: 3, value: 'Nízká' },
+    { code: 4, value: 'Odloženo' },
+  ]
+
   profileNames: {disabled: boolean, hint: string, name: string, title: string}[] = [];
   profileNameFilter: string;
   states: string[] = [];
