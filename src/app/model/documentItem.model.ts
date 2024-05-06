@@ -180,6 +180,7 @@ export class DocumentItem {
       'model:ndkeperiodical',
       'model:ndkeperiodicalvolume',
       'model:ndkeperiodicalissue',
+      'model:ndkeperiodicalsupplement',
       'model:ndkearticle',
       'model:ndkemonographtitle',
       'model:ndkemonographvolume',

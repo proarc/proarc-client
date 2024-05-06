@@ -44,6 +44,7 @@
         usage: 'R',
         label: 'Část vynechaná při hledání',
         selector: 'titleInfo/nonSort',
+        cols: 2,
         labelKey: 'titleInfo/nonSort',
         description: 'Část názvu, která má být vynechána při vyhledávána<br/>\
           např.:\
@@ -132,14 +133,14 @@
         ]
       },
       namePart: {
-        usage: 'MA',
+        usage: 'M',
         label: 'Jméno',
         selector: 'name/namePart',
         labelKey: 'name/namePart',
         description: 'Vyplnit údaje o autorovi.',
         fields: {
           type: {
-            usage: 'R',
+            usage: 'MA',
             label: 'Typ',
             selector: 'name/namePart/@type',
             labelKey: 'name/namePart/@type',
@@ -546,14 +547,14 @@
             ]
           },
           namePart: {
-            usage: 'R',
+            usage: 'M',
             label: 'Jméno',
             selector: 'name/namePart',
             labelKey: 'name/namePart',
             description: 'Vyplnit údaje o autorovi.',
             fields: {
               type: {
-                usage: 'R',
+                usage: 'MA',
                 label: 'Typ',
                 selector: 'name/namePart/@type',
                 labelKey: 'name/namePart/@type',
@@ -1075,7 +1076,7 @@
 //        ]
 //      },
       value: {
-        usage: 'M',
+        usage: 'R',
         selector: 'classification/value',
         labelKey: 'classification/value',
         label: 'Hodnota',
