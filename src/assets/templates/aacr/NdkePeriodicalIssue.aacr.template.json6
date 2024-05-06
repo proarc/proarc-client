@@ -112,7 +112,7 @@
           description: 'Vyplnit údaje o autorovi.',
           fields: {
             type: {
-              usage: 'R',
+              usage: 'MA',
               label: 'Typ',
               selector: 'name/namePart/@type',
               labelKey: 'name/namePart/@type',
@@ -343,7 +343,7 @@
               help: 'off'
             },
             authority: {
-              usage: 'MA',
+              usage: 'M',
               cols: 2,
               selector: 'location/physicalLocation/@authority',
               labelKey: 'location/physicalLocation/@authority',
@@ -601,7 +601,7 @@
               description: 'Vyplnit údaje o autorovi.',
               fields: {
                 type: {
-                  usage: 'R',
+                  usage: 'MA',
                   label: 'Typ',
                   selector: 'name/namePart/@type',
                   labelKey: 'name/namePart/@type',
