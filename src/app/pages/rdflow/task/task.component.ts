@@ -54,6 +54,20 @@ export class TaskComponent implements OnInit {
   dpis: { code: string, value: string }[] = [];
   dpi: any;
 
+  statesAll = [
+    { code: 'READY', value: 'Připraven' },
+    { code: 'STARTED', value: 'Probíhá' },
+    { code: 'FINISHED', value: 'Dokončen' },
+    { code: 'CANCELED', value: 'Zrušen' },
+  ]
+
+  priorities = [
+    { code: 1, value: 'Spěchá' },
+    { code: 2, value: 'Normální' },
+    { code: 3, value: 'Nízká' },
+    { code: 4, value: 'Odloženo' },
+  ]
+
   profileNames: {disabled: boolean, hint: string, name: string, title: string}[] = [];
   profileNameFilter: string;
   states: string[] = [];
@@ -62,6 +76,8 @@ export class TaskComponent implements OnInit {
   ownerNameFilter: string;
   users: User[];
   barcodeFilter: string;
+
+  filters: {field: string, value: string}[] = [];
 
 
   constructor(
@@ -133,6 +149,13 @@ export class TaskComponent implements OnInit {
     if (this.tasksSortDir) {
       params += '_sortBy=' + (this.tasksSortDir === 'desc' ? '-' : '') + this.tasksSortField;
     }
+
+    this.filters.forEach(f => {
+      if (f.value !== '') {
+        params += `&${f.field}=${f.value}`;
+      }
+    });
+
 
     this.api.getWorkflowTasks(params).subscribe((response: any) => {
       if (response['response'].errors) {
@@ -227,23 +250,13 @@ export class TaskComponent implements OnInit {
   }
 
   filter(field: string, value: string) {
-    // const f = this.filters.find(f => f.field === field);
-    // if (f) {
-    //   f.value = value;
-    // } else {
-    //   this.filters.push({field, value});
-    // }
-    // let params: HttpParams = new HttpParams()
-    //   .set('orderBy', this.sortBy)
-    //   .set('orderSort', this.orderSort);
-    // this.filters.forEach(f => {
-    //   if (f.value !== '') {
-    //     params = params.set(f.field, f.value);
-    //   }
-    // });
-    // this.service.getBatches(params).subscribe((res: any) => {
-    //   this.batches = res.data
-    // });
+    const f = this.filters.find(f => f.field === field);
+    if (f) {
+      f.value = value;
+    } else {
+      this.filters.push({field, value});
+    }
+    this.getTasks();
   }
 
 }

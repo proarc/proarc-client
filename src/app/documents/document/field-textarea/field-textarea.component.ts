@@ -24,11 +24,14 @@ export class FieldTextareaComponent implements OnInit {
   ngOnInit() {}
 
   ngAfterViewInit(){
-    //setTimeout(() => {
+    setTimeout(() => {
+      if (this.ta) {
+        
       this.observer = new ResizeObserver(() => {
         this.layout.setMetadataResized();
       }).observe(this.ta.nativeElement)
-    //}, 10);
+      }
+    }, 10);
   }
 
   ngOnDestroy() {

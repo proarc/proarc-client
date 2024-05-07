@@ -128,12 +128,12 @@ export class ElementField {
                 this.root.unshift(peerRaw);
             }
 
-            if (this.items.length === 1) {
-                const item = this.add();
-                if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded && !item.isRequired2()) {
-                    item.collapsed = true;
-                }
-            }
+            // if (this.items.length === 1) {
+            //     const item = this.add();
+            //     if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded && !item.isRequired2()) {
+            //         item.collapsed = true;
+            //     }
+            // }
 
         }
     }
@@ -178,6 +178,16 @@ export class ElementField {
         }
         this.items.push(item);
         this.root.push(item.getEl());
+        return item;
+    }
+
+    public addAsFirst(el: ModsElement = null): ModsElement {
+        const item: ModsElement = el || this.newElement(this.id, {});
+        if (!el && this.template['defaultValue']) {
+            item.modsElement['_'] = this.template['defaultValue'];
+        }
+        this.items.unshift(item);
+        this.root.unshift(item.getEl());
         return item;
     }
 
@@ -233,7 +243,7 @@ export class ElementField {
         return c;
     }
 
-    private remove(index: number) {
+    public remove(index: number) {
         if (index >= 0 && index < this.items.length) {
             this.items.splice(index, 1);
             this.root.splice(index, 1);
