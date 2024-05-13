@@ -2477,7 +2477,16 @@
     "resolveconflictWarn": "Zvolte způsob pokračování",
     "formBorderHighlighting": "Zvýraznění ohraničení formuláře",
     "highlighttheForm": "Zvýraznit formulář",
-    "author": "Autor"
+    "author": "Autor",
+    "id": "Id",
+    "label": "Název",
+    "ownerId": "Id vlastníka",
+    "profileName": "Profil",
+    "rawPath": "Adresář surových skenu",
+    "taskName" : "úkol",
+    "taskUsername": "Dokončený úkol",
+    "deviceID": "Zařízení",
+    "deviceLabel": "Zařízení"
   },
   "button": {
     "setLayout": "nastavit rozložení",

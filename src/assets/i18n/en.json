@@ -2477,7 +2477,16 @@
     "resolveconflictWarn": "Select how to continue",
     "formBorderHighlighting": "Form border highlighting",
     "highlighttheForm": "Highlight the form",
-    "author": "Author"
+    "author": "Author",
+    "id": "Id",
+    "label": "Label",
+    "ownerId": "Id owner",
+    "profileName": "Profile",
+    "rawPath": "Path",
+    "taskName" : "Task",
+    "taskUsername": "Dokončil úkol",
+    "deviceID": "Device",
+    "deviceLabel": "Device"
   },
   "button": {
     "setLayout": "Set layout",

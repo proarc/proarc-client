@@ -16,6 +16,7 @@ export class ColumnsSettingsDialogComponent implements OnInit {
   models: any[];
 
   selectedColumnsEditingImport: { field: string, selected: boolean }[];
+  columnsRDFlow: { field: string, selected: boolean }[];
 
   constructor(
     public dialogRef: MatDialogRef<ColumnsSettingsDialogComponent>,
@@ -26,20 +27,28 @@ export class ColumnsSettingsDialogComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.colsEditModeParent = this.properties.getColsEditingRepo();
-    this.models = this.config.allModels;
-    if (this.colsEditModeParent && this.data.selectedParentModel) {
-      this.modelForColumns = this.data.selectedParentModel;
-    } else {
-      this.modelForColumns = this.models[0];
-    }
+    if (this.data.isRDFlow) {
+      this.columnsRDFlow = this.properties.getColumnsRDFlow();
 
-    this.selectedColumnsEditingImport = this.properties.getSelectedColumnsEditingImport();
+    } else {
+
+      this.colsEditModeParent = this.properties.getColsEditingRepo();
+      this.models = this.config.allModels;
+      if (this.colsEditModeParent && this.data.selectedParentModel) {
+        this.modelForColumns = this.data.selectedParentModel;
+      } else {
+        this.modelForColumns = this.models[0];
+      }
+
+      this.selectedColumnsEditingImport = this.properties.getSelectedColumnsEditingImport();
+    }
     
   }
 
   save() {
-    if (this.data.isRepo) {
+    if (this.data.isRDFlow) {
+      this.properties.setColumnsRDFlow(this.columnsRDFlow);
+    } else if (this.data.isRepo) {
       this.setSelectedColumnsEditingRepo();
     } else {
       this.setSelectedColumnsEditingImport();

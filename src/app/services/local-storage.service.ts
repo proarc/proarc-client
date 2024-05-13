@@ -39,6 +39,13 @@ export class LocalStorageService {
         'pageType', 'pageNumber', 'pageIndex', 'pagePosition', 'model',
         'pid', 'owner', 'created', 'modified', 'status'];
 
+    public availableColumnsRDFlow = [
+        'created','edition','field001', 'financed', 'id','label',
+        'model', 'modified', 'ownerId', 'pid', 'priority',
+        'profileName', 'rawPath', 'sigla', 'state', 'year',
+        'deviceID', 'deviceLabel', 'signature', 
+        'taskName', 'taskUsername'];
+
     public colsEditingRepo: { [model: string]: { field: string, selected: boolean, width: number }[] };
 
     public searchColumns: { field: string, selected: boolean; }[];
@@ -216,6 +223,32 @@ export class LocalStorageService {
             ret.shift();
         }
         return ret;
+    }
+
+    getColumnsRDFlow() {
+        const prop = this.getStringProperty('columnsRDFlow');
+        let ret: any = [];
+        if (prop) {
+            Object.assign(ret, JSON.parse(prop));
+        } else {
+
+            ret = this.availableColumnsRDFlow.map((c: string) => {
+                return {
+                    field: c,
+                    selected: true,
+                    width: 150
+                }
+            });
+
+            // Remove first, label
+            ret.shift();
+        }
+        return ret;
+        
+    }
+
+    setColumnsRDFlow(cols: any) {
+        this.setStringProperty('columnsRDFlow', JSON.stringify(cols));
     }
 
     setColumnsEditingRepo(colsEditModeParent: boolean) {

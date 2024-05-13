@@ -16,6 +16,8 @@ import { Sort, SortDirection } from '@angular/material/sort';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { User } from 'src/app/model/user.model';
+import { ColumnsSettingsDialogComponent } from 'src/app/dialogs/columns-settings-dialog/columns-settings-dialog.component';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 // -- table to expand --
 
 @Component({
@@ -34,6 +36,9 @@ import { User } from 'src/app/model/user.model';
 })
 
 export class RDFlowComponent implements OnInit {
+
+  columnsRDFlow: { field: string, selected: boolean }[];
+  colsWidth: { [key: string]: string } = {};
 
   // -- table to expand --
   materialColumnsToDisplay = ['profileLabel', 'label', 'note'];
@@ -80,7 +85,7 @@ export class RDFlowComponent implements OnInit {
   ]
 
   users: User[];
-  filters: {field: string, value: string}[] = [];
+  filters: { field: string, value: string }[] = [];
   taskUsernameFilter: string;
   labelFilter: string;
   profileNameFilter: string;
@@ -89,6 +94,7 @@ export class RDFlowComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
+    public properties: LocalStorageService,
     private api: ApiService,
     private ui: UIService,
     public layout: LayoutService) { }
@@ -99,10 +105,11 @@ export class RDFlowComponent implements OnInit {
     //     this.id = parseInt(p.get('id'));
     //     this.initData();
     //   });
-    
-    this.workFlowColumns.forEach(c => {
-      this.filterWorkFlowColumns.push(c + '-filter');
-    });
+
+    this.columnsRDFlow = this.properties.getColumnsRDFlow();
+    this.setSelectedColumns();
+
+
     this.api.getUsers().subscribe((users: User[]) => {
       this.users = users;
     });
@@ -323,9 +330,51 @@ export class RDFlowComponent implements OnInit {
     if (f) {
       f.value = value;
     } else {
-      this.filters.push({field, value});
+      this.filters.push({ field, value });
     }
     this.getWorkflow();
+  }
+
+  selectColumns() {
+    const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
+      data: {
+        isRepo: false,
+        isRDFlow: true
+      },
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.columnsRDFlow = this.properties.getColumnsRDFlow();
+      }
+    });
+  }
+
+  setSelectedColumns() {
+
+
+    this.workFlowColumns = [];
+
+    this.workFlowColumns = this.columnsRDFlow.filter(c => c.selected && !this.workFlowColumns.includes(c.field)).map(c => c.field);
+
+
+    this.workFlowColumns.forEach(c => {
+      this.filterWorkFlowColumns.push(c + '-filter');
+    });
+    this.setColumnsWith();
+  }
+
+  setColumnsWith() {
+    this.colsWidth = {};
+
+    this.columnsRDFlow.forEach((c: any) => {
+      this.colsWidth[c.field] = c.width + 'px';
+    });
+    console.log(this.columnsRDFlow, this.colsWidth)
+  }
+
+  saveColumnsSizes(e: any, field?: string) {
+    this.properties.setColumnsRDFlow(this.columnsRDFlow);
   }
 
 }
