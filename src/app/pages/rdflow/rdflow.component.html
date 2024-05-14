@@ -21,7 +21,7 @@
               <div fxLayout="column" fxFlexFill>
                 <div class="app-toolbar">
                   <button (click)="getWorkflow()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
-                  <button *ngIf="selectedProfile.subjob.length > 0" mat-button [matMenuTriggerFor]="subjob_menu">{{ "rdflow.create_new_subjob" | translate }}</button>
+                  <button *ngIf="selectedProfile && selectedProfile.subjob.length > 0" mat-button [matMenuTriggerFor]="subjob_menu">{{ "rdflow.create_new_subjob" | translate }}</button>
                   <mat-menu #subjob_menu="matMenu">
                     <button mat-menu-item *ngFor="let sub of selectedProfile.subjob" (click)="createSubJob(sub)">{{ sub.title }}</button>
                   </mat-menu>

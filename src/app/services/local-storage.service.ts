@@ -40,8 +40,25 @@ export class LocalStorageService {
         'pid', 'owner', 'created', 'modified', 'status'];
 
     public availableColumnsRDFlow = [
-        'created','edition','field001', 'financed', 'id','label',
-        'model', 'modified', 'ownerId', 'pid', 'priority',
+        {field: 'created', selected: true, width: 150, type: 'date'},
+        {field: 'edition', selected: true, width: 150, type: 'string'},
+        {field: 'field001', selected: true, width: 150, type: 'string'},
+        {field: 'financed', selected: true, width: 150, type: 'string'},
+        {field: 'id', selected: true, width: 150, type: 'string'},
+        {field: 'label', selected: true, width: 150, type: 'string'},
+        {field: 'model', selected: true, width: 150, type: 'string'},
+        {field: 'modified', selected: true, width: 150, type: 'date'},
+        {field: 'ownerId', selected: true, width: 150, type: 'select'},
+        {field: 'pid', selected: true, width: 150, type: 'string'},
+        {field: , selected: true, width: 150},
+        {field: , selected: true, width: 150},
+        {field: , selected: true, width: 150},
+        {field: , selected: true, width: 150},
+        {field: , selected: true, width: 150},
+        {field: , selected: true, width: 150},
+        {field: , selected: true, width: 150},
+        ,,, , ,,
+        , , , , 'priority',
         'profileName', 'rawPath', 'sigla', 'state', 'year',
         'deviceID', 'deviceLabel', 'signature', 
         'taskName', 'taskUsername'];

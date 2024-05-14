@@ -128,7 +128,6 @@ import { EpubComponent } from './components/epub/epub.component';
 import { EditUserComponent } from './pages/admin/edit-user/edit-user.component';
 import { NewUserComponent } from './pages/admin/new-user/new-user.component';
 import { EditorSwitcherComponent } from './components/editor/editor-switcher/editor-switcher.component';
-import { ResizecolDirective } from './resizecol.directive';
 import { ColumnsSettingsDialogComponent } from './dialogs/columns-settings-dialog/columns-settings-dialog.component';
 import { TotestComponent } from './pages/totest/totest.component';
 import { CzidloDialogComponent } from './dialogs/czidlo-dialog/czidlo-dialog.component';
@@ -258,7 +257,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditUserComponent,
     NewUserComponent,
     EditorSwitcherComponent,
-    ResizecolDirective,
     ColumnsSettingsDialogComponent,
     TotestComponent,
     CzidloDialogComponent,

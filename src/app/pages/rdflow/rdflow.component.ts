@@ -37,7 +37,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 export class RDFlowComponent implements OnInit {
 
-  columnsRDFlow: { field: string, selected: boolean }[];
+  columnsRDFlow: { field: string, selected: boolean, type: string }[];
   colsWidth: { [key: string]: string } = {};
 
   // -- table to expand --
@@ -370,10 +370,11 @@ export class RDFlowComponent implements OnInit {
     this.columnsRDFlow.forEach((c: any) => {
       this.colsWidth[c.field] = c.width + 'px';
     });
-    console.log(this.columnsRDFlow, this.colsWidth)
   }
 
   saveColumnsSizes(e: any, field?: string) {
+    // console.log(e, field)
+    this.colsWidth[field] = e + 'px';
     this.properties.setColumnsRDFlow(this.columnsRDFlow);
   }
 

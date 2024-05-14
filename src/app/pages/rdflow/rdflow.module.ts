@@ -11,7 +11,6 @@ import { TaskComponent } from './task/task.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TaskEditComponent } from './task-edit/task-edit.component';
 import { MaterialEditComponent } from './material-edit/material-edit.component';
-import { ResizecolDirective } from 'src/app/resizecol.directive';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -37,7 +36,7 @@ const routes: Routes = [
     TaskComponent,
     TaskEditComponent,
     MaterialEditComponent,
-    ResizecolDirective
+    
   ],
   imports: [
     SharedModule,

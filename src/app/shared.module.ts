@@ -6,10 +6,11 @@ import { AngularResizeEventModule } from 'angular-resize-event';
 import { AngularSplitModule } from 'angular-split';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ResizecolDirective } from './resizecol.directive';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [ResizecolDirective],
   imports: [
     CommonModule,
     FormsModule,
@@ -17,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MaterialModule,
     AngularResizeEventModule,
     AngularSplitModule,
+    
   ],
   exports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     MaterialModule,
     AngularResizeEventModule,
-    AngularSplitModule
+    AngularSplitModule,
+    ResizecolDirective
   ]
 })
 export class SharedModule { }
