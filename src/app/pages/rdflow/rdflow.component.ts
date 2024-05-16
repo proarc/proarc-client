@@ -350,6 +350,10 @@ export class RDFlowComponent implements OnInit {
     });
   }
 
+  columnType(f: string) {
+    return this.columnsRDFlow.find(c => c.field === f).type;
+  }
+
   setSelectedColumns() {
 
 

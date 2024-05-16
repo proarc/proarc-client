@@ -48,20 +48,20 @@ export class LocalStorageService {
         {field: 'label', selected: true, width: 150, type: 'string'},
         {field: 'model', selected: true, width: 150, type: 'string'},
         {field: 'modified', selected: true, width: 150, type: 'date'},
-        {field: 'ownerId', selected: true, width: 150, type: 'select'},
+        {field: 'ownerId', selected: true, width: 150, type: 'list'},
         {field: 'pid', selected: true, width: 150, type: 'string'},
-        {field: , selected: true, width: 150},
-        {field: , selected: true, width: 150},
-        {field: , selected: true, width: 150},
-        {field: , selected: true, width: 150},
-        {field: , selected: true, width: 150},
-        {field: , selected: true, width: 150},
-        {field: , selected: true, width: 150},
-        ,,, , ,,
-        , , , , 'priority',
-        'profileName', 'rawPath', 'sigla', 'state', 'year',
-        'deviceID', 'deviceLabel', 'signature', 
-        'taskName', 'taskUsername'];
+        {field: 'priority', selected: true, width: 150, type: 'list'},
+        {field: 'profileName', selected: true, width: 150, type: 'list'},
+        {field: 'rawPath', selected: true, width: 150, type: 'string'},
+        {field: 'sigla', selected: true, width: 150, type: 'string'},
+        {field: 'state', selected: true, width: 150, type: 'list'},
+        {field: 'year', selected: true, width: 150, type: 'string'},
+        {field: 'deviceID', selected: true, width: 150, type: 'string'},
+        {field: 'deviceLabel', selected: true, width: 150, type: 'string'},
+        {field: 'signature', selected: true, width: 150, type: 'string'},
+        {field: 'taskName', selected: true, width: 150, type: 'string'},
+        {field: 'taskUsername', selected: true, width: 150, type: 'string'}
+    ];
 
     public colsEditingRepo: { [model: string]: { field: string, selected: boolean, width: number }[] };
 
@@ -249,16 +249,9 @@ export class LocalStorageService {
             Object.assign(ret, JSON.parse(prop));
         } else {
 
-            ret = this.availableColumnsRDFlow.map((c: string) => {
-                return {
-                    field: c,
-                    selected: true,
-                    width: 150
-                }
+            ret = this.availableColumnsRDFlow.map((c) => {
+                return c;
             });
-
-            // Remove first, label
-            ret.shift();
         }
         return ret;
         
