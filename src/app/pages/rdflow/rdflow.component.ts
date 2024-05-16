@@ -85,7 +85,9 @@ export class RDFlowComponent implements OnInit {
   ]
 
   users: User[];
-  filters: { field: string, value: string }[] = [];
+  filters: { [field: string]: string } = {};
+  filterFields: { [field: string]: string } = {};
+  lists: { [field: string]: {code: string, value: string}[]} = {};
   taskUsernameFilter: string;
   labelFilter: string;
   profileNameFilter: string;
@@ -107,7 +109,6 @@ export class RDFlowComponent implements OnInit {
     //   });
 
     this.columnsRDFlow = this.properties.getColumnsRDFlow();
-    this.setSelectedColumns();
 
 
     this.api.getUsers().subscribe((users: User[]) => {
@@ -138,6 +139,8 @@ export class RDFlowComponent implements OnInit {
       }
       this.profiles = response.response.data;
       this.getWorkflow();
+      
+      this.setSelectedColumns();
 
     });
   }
@@ -149,9 +152,10 @@ export class RDFlowComponent implements OnInit {
     if (this.jobsSortDir) {
       params += '_sortBy=' + (this.jobsSortDir === 'desc' ? '-' : '') + this.jobsSortField;
     }
-    this.filters.forEach(f => {
-      if (f.value !== '') {
-        params += `&${f.field}=${f.value}`;
+    const keys: string[] = Object.keys(this.filters);
+    keys.forEach((k: string) => {
+      if (this.filters[k] !== '') {
+        params += `&${k}=${this.filters[k]}`;
       }
     });
 
@@ -326,12 +330,13 @@ export class RDFlowComponent implements OnInit {
   }
 
   filter(field: string, value: string) {
-    const f = this.filters.find(f => f.field === field);
-    if (f) {
-      f.value = value;
-    } else {
-      this.filters.push({ field, value });
-    }
+    // const f = this.filters.find(f => f.field === field);
+    // if (this.filters[field]) {
+    //   f.value = value;
+    // } else {
+    //   this.filters.push({ field, value });
+    // }
+    this.filters[field] = value;
     this.getWorkflow();
   }
 
@@ -354,6 +359,24 @@ export class RDFlowComponent implements OnInit {
     return this.columnsRDFlow.find(c => c.field === f).type;
   }
 
+  getList(f: string): {code: string, value: string}[] {
+    if (f === 'priority') {
+      return this.priorities.map(p => { return {code: p.code + '', value: p.value}});
+    } else if (f === 'state') {
+      return this.states.map(p => { return {code: p.code, value: p.value}});
+    } else if (f === 'profileName') {
+      return this.profiles.map(p => { return {code: p.name + '', value: p.name}});
+    } else {
+      return [];
+    }
+    
+  }
+
+  listValue(field: string, code: string) {
+    const el = this.lists[field].find(el => el.code === code + '');
+    return el ? el.value : code;
+  }
+
   setSelectedColumns() {
 
 
@@ -364,6 +387,11 @@ export class RDFlowComponent implements OnInit {
 
     this.workFlowColumns.forEach(c => {
       this.filterWorkFlowColumns.push(c + '-filter');
+      this.filterFields[c] = '';
+      if (this.columnType(c) === 'list') {
+        this.lists[c] = this.getList(c);
+      }
+      
     });
     this.setColumnsWith();
   }

@@ -92,15 +92,15 @@
                           
                           </ng-container>
                           <ng-container *ngSwitchCase="'list'">
-                              <mat-select [(ngModel)]="profileNameFilter" (ngModelChange)="filter(c, profileNameFilter)">
+                              <mat-select [(ngModel)]="filterFields[c]" (ngModelChange)="filter(c, filterFields[c])">
                                   <mat-option [value]="''"> </mat-option>
-                                  <mat-option *ngFor="let s of profiles" [value]="s.name">{{ s.name }}</mat-option>
+                                  <mat-option *ngFor="let s of lists[c]" [value]="s.code">{{ s.value }}</mat-option>
                                 </mat-select> 
-                                <button mat-icon-button matIconSuffix color="warn" *ngIf="profileNameFilter" (click)="filter(c, ''); profileNameFilter = ''; $event.stopPropagation();"><mat-icon>clear</mat-icon></button>
+                                <button mat-icon-button matIconSuffix color="warn" *ngIf="filterFields[c]" (click)="filter(c, ''); filterFields[c] = ''; $event.stopPropagation();"><mat-icon>clear</mat-icon></button>
                           </ng-container>
                           <ng-container *ngSwitchDefault>
-                            <input type="text" [id]="c + 'Filter'" [(ngModel)]="labelFilter" (change)="filter(c, labelFilter)" />
-                            <button mat-icon-button matIconSuffix color="warn" *ngIf="labelFilter" (click)="filter(c, ''); labelFilter = ''"><mat-icon>clear</mat-icon></button>
+                            <input type="text" [id]="c + 'Filter'" [(ngModel)]="filterFields[c]" (change)="filter(c, filterFields[c])" />
+                            <button mat-icon-button matIconSuffix color="warn" *ngIf="filterFields[c]" (click)="filter(c, ''); filterFields[c] = ''"><mat-icon>clear</mat-icon></button>
                           </ng-container>
                         </ng-container>
                         </th>
@@ -113,7 +113,7 @@
                             <td mat-cell *matCellDef="let element">{{ element[c] | date : 'dd.MM.yyyy'}}</td>
                           </ng-container>
                           <ng-container *ngSwitchCase="'list'">
-                            <td mat-cell *matCellDef="let element">{{ c + '.' + element[c] | translate}}</td>
+                            <td mat-cell *matCellDef="let element">{{ listValue(c, element[c])}}</td>
                           </ng-container>
                           <ng-container *ngSwitchDefault>
                             <td mat-cell *matCellDef="let element">{{ element[c] }}</td>
