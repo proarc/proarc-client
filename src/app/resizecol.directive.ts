@@ -71,6 +71,7 @@ export class ResizecolDirective {
       this.pressed = false;
       this.renderer.removeClass(this.table, "resizing");
       this.columnResized.emit(this.column.offsetWidth);
+      event.stopImmediatePropagation();
     }
   };
 }

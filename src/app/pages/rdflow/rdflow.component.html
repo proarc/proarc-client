@@ -106,7 +106,7 @@
                         </th>
                     </ng-container>   
                     <ng-container *ngFor="let c of workFlowColumns" [matColumnDef]="c">
-                      <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c)" [style.width]="colsWidth[c]"> {{'desc.' + c | translate}}</th>
+                      <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c)" [style.width]="colsWidth[c]"><span mat-sort-header>{{'desc.' + c | translate}}</span></th>
                       
                         <ng-container [ngSwitch]="columnType(c)">
                           <ng-container *ngSwitchCase="'date'">
@@ -121,13 +121,6 @@
                         </ng-container>
                         
                     </ng-container>
-
-
-                    <!-- 'created','edition','field001', 'financed', 'id','label',
-        'model', 'modified', 'ownerId', 'pid', 'priority',
-        'profileName', 'rawPath', 'sigla', 'state', 'year',
-        'deviceID', 'deviceLabel', 'signature', 
-        'taskName', 'taskUser' -->
                     
                     <tr mat-header-row *matHeaderRowDef="filterWorkFlowColumns; sticky: true"></tr>
                     <tr mat-header-row *matHeaderRowDef="workFlowColumns; sticky: true"></tr>

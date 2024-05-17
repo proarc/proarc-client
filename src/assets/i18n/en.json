@@ -2484,7 +2484,7 @@
     "profileName": "Profile",
     "rawPath": "Path",
     "taskName" : "Task",
-    "taskUsername": "Dokončil úkol",
+    "taskUsername": "Task user name",
     "deviceID": "Device",
     "deviceLabel": "Device"
   },

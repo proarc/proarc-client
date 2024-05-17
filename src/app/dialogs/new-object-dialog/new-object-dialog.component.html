@@ -4,7 +4,7 @@
   <mat-progress-bar *ngIf="state=='saving'" mode="indeterminate"></mat-progress-bar>
   <mat-form-field class="app-w-100">
     <mat-select [placeholder]="'desc.model' | translate" [(ngModel)]="data.model">
-      <mat-option *ngFor="let model of filteredModels" [value]="model">{{ "model." + model | translate }}</mat-option>
+      <mat-option *ngFor="let model of filteredModels" [value]="model">{{ (data.isJob ? '' : 'model.') + model | translate }}</mat-option>
     </mat-select>
   </mat-form-field>
 
@@ -17,11 +17,11 @@
     {{ 'dialog.newObject.alert.invalidPid' | translate }}
   </mat-card>
 
-  <mat-checkbox color="primary" [(ngModel)]="data.customPid"
+  <mat-checkbox color="primary" [(ngModel)]="data.customPid" *ngIf="!data.isJob"
                 class="app-mr-4">{{ 'desc.ownPid' | translate }}</mat-checkbox>
   <mat-checkbox color="primary" [(ngModel)]="isMultiple" (click)="markRequired()"
                 *ngIf="data.parentPid && data.model === 'model:ndkperiodicalissue'">{{ 'desc.more' | translate }}</mat-checkbox>
-  <!-- TODO -->
+                
 
   <div *ngIf="data.parentPid && data.model === 'model:ndkperiodicalissue'" fxLayout="row" fxLayoutGap="16px"
        class="app-formbar app-mt-1">
@@ -89,7 +89,7 @@
     </mat-form-field>
   </div>
 
-  <div class="app-desc"
+  <div class="app-desc"  *ngIf="!data.isJob"
        [ngClass]="data.parentPid && data.model === 'model:ndkperiodicalissue' ? null : 'app-mt-4'">{{ 'dialog.newObject.message' | translate }}</div>
 
   <mat-card class="app-alert app-warn app-mt-4" *ngIf="state=='error'">

@@ -246,4 +246,5 @@ export interface NewObjectData {
   pid?: string;
   cislood?: string;
   fromNavbar: boolean;
+  isJob?: boolean;
 }

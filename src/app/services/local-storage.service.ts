@@ -40,27 +40,27 @@ export class LocalStorageService {
         'pid', 'owner', 'created', 'modified', 'status'];
 
     public availableColumnsRDFlow = [
+        {field: 'rawPath', selected: true, width: 150, type: 'string'},
+        {field: 'label', selected: true, width: 150, type: 'string'},
+        {field: 'taskUsername', selected: true, width: 150, type: 'string'},
+        {field: 'priority', selected: true, width: 150, type: 'list'},
+        {field: 'profileName', selected: true, width: 150, type: 'list'},
+        {field: 'state', selected: true, width: 150, type: 'list'},
         {field: 'created', selected: true, width: 150, type: 'date'},
         {field: 'edition', selected: true, width: 150, type: 'string'},
         {field: 'field001', selected: true, width: 150, type: 'string'},
         {field: 'financed', selected: true, width: 150, type: 'string'},
         {field: 'id', selected: true, width: 150, type: 'string'},
-        {field: 'label', selected: true, width: 150, type: 'string'},
         {field: 'model', selected: true, width: 150, type: 'string'},
         {field: 'modified', selected: true, width: 150, type: 'date'},
         {field: 'ownerId', selected: true, width: 150, type: 'list'},
         {field: 'pid', selected: true, width: 150, type: 'string'},
-        {field: 'priority', selected: true, width: 150, type: 'list'},
-        {field: 'profileName', selected: true, width: 150, type: 'list'},
-        {field: 'rawPath', selected: true, width: 150, type: 'string'},
         {field: 'sigla', selected: true, width: 150, type: 'string'},
-        {field: 'state', selected: true, width: 150, type: 'list'},
         {field: 'year', selected: true, width: 150, type: 'string'},
         {field: 'deviceID', selected: true, width: 150, type: 'string'},
         {field: 'deviceLabel', selected: true, width: 150, type: 'string'},
         {field: 'signature', selected: true, width: 150, type: 'string'},
-        {field: 'taskName', selected: true, width: 150, type: 'string'},
-        {field: 'taskUsername', selected: true, width: 150, type: 'string'}
+        {field: 'taskName', selected: true, width: 150, type: 'string'}
     ];
 
     public colsEditingRepo: { [model: string]: { field: string, selected: boolean, width: number }[] };
