@@ -10,6 +10,8 @@ import { TemplateService } from 'src/app/services/template.service';
 import {ConfigService} from '../../../services/config.service';
 import {forEach} from 'ol/geom/flat/segments';
 import { FormControl } from '@angular/forms';
+import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.component';
+import { ModsElement } from 'src/app/model/mods/element.model';
 
 @Component({
   selector: 'app-editor-author',
@@ -19,6 +21,7 @@ import { FormControl } from '@angular/forms';
 export class EditorAuthorComponent implements OnInit {
   @Input() field: ElementField;
   @Input() model: string;
+  @Input() panel: ILayoutPanel;
 
   private roleCodes = ['act', 'adp', 'aft', 'ann', 'ant', 'app', 'aqt', 'arc', 'arr', 'art', 'asg', 'asn', 'att', 'auc', 'aud',
         'aui', 'aus', 'aut', 'bdd', 'bjd', 'bkd', 'bkp', 'bnd', 'bpd', 'bsl', 'ccp', 'chr', 'cli', 'cll', 'clt', 'cmm', 'cmp', 'cmt',
@@ -96,6 +99,11 @@ export class EditorAuthorComponent implements OnInit {
         return 0;
       });
     // });
+  }
+
+  switchPrimary(item: ModsAuthor) {
+    item.switchPrimary();
+    this.layout.setPanelEditing(this.panel);
   }
 
 }

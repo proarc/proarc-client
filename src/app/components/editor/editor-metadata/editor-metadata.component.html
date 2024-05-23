@@ -55,7 +55,7 @@
 				<ng-container *ngSwitchDefault>
 					<app-editor-genre [id]="panel.id + 'genre'" *ngIf="showGenreSwitch && visibleFields['genre']" [field]="fields['genre']" [showGenreSwitch]="showGenreSwitch"></app-editor-genre>
 					<app-editor-title [id]="panel.id + 'titleInfo'" *ngIf="visibleFields['titleInfo']" [field]="fields['titleInfo']"></app-editor-title>
-					<app-editor-author [id]="panel.id + 'name'" *ngIf="visibleFields['name']" [field]="fields['name']" [model]="model"></app-editor-author>
+					<app-editor-author [id]="panel.id + 'name'" *ngIf="visibleFields['name']" [field]="fields['name']" [model]="model" [panel]="panel"></app-editor-author>
 					<app-editor-publisher [id]="panel.id + 'originInfo'" *ngIf="visibleFields['originInfo']" [field]="fields['originInfo']"></app-editor-publisher>
 					<app-editor-location [id]="panel.id + 'location'" *ngIf="visibleFields['location']" [field]="fields['location']"></app-editor-location>
 					<app-editor-identifier [id]="panel.id + 'identifier'" *ngIf="visibleFields['identifier']" [field]="fields['identifier']" [model]="model"></app-editor-identifier>

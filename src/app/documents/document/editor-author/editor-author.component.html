@@ -1,6 +1,6 @@
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateMenu>
-    <button matTooltip="{{ 'editor.author.' + (item.isPrimary() ? 'unset_primary' : 'set_primary') | translate }}" [color]="item.isPrimary() ? 'primary' : ''" (click)="item.switchPrimary()" mat-icon-button>
+    <button matTooltip="{{ 'editor.author.' + (item.isPrimary() ? 'unset_primary' : 'set_primary') | translate }}" [color]="item.isPrimary() ? 'primary' : ''" (click)="switchPrimary(item)" mat-icon-button>
       <mat-icon>{{ item.isPrimary() ? 'star' : 'star_outline' }}</mat-icon>
     </button>
     <button (click)="onLoadFromCatalog(item)" [matTooltip]="'editor.metadata.catalog' | translate" mat-icon-button>

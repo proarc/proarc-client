@@ -140,6 +140,7 @@ export class ModsAuthor extends ModsElement {
         } else {
             this.attrs['usage'] = 'primary';
         }
+        this.setAsDirty();
     }
 
 }
