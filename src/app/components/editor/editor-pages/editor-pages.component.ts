@@ -112,6 +112,7 @@ export class EditorPagesComponent implements OnInit {
 
   removeBrackets() {
     this.changeBrackets(this.holder, false, null);
+
   }
 
   enterSelect(s: MatSelect) {
@@ -159,6 +160,7 @@ export class EditorPagesComponent implements OnInit {
         this.state = 'error';
       } else {
         this.layout.refreshSelectedItem(true, 'pages');
+        this.state = 'success';
         //this.layout.setShouldRefresh(true);
       }
     })
