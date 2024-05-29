@@ -2480,6 +2480,7 @@
     "author": "Author",
     "id": "Id",
     "label": "Label",
+    "ownerName": "Owner name",
     "ownerId": "Id owner",
     "profileName": "Profile",
     "rawPath": "Path",

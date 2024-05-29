@@ -2480,6 +2480,7 @@
     "author": "Autor",
     "id": "Id",
     "label": "Název",
+    "ownerName": "Vlastník",
     "ownerId": "Id vlastníka",
     "profileName": "Profil",
     "rawPath": "Adresář surových skenu",

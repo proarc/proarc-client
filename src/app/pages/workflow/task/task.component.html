@@ -127,21 +127,21 @@
                                     </mat-form-field> -->
 
                                     <mat-form-field>
-                                        <mat-label>{{ 'workflow.state' | translate }}</mat-label>
+                                        <mat-label>{{ 'desc.state' | translate }}</mat-label>
                                         <mat-select [(ngModel)]="task.state" [placeholder]="'desc.state' | translate">
                                             <mat-option *ngFor="let o of statesAll"
                                                 [value]="o.code">{{o.value}}</mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                     <mat-form-field>
-                                        <mat-label>{{ 'workflow.priority' | translate }}</mat-label>
+                                        <mat-label>{{ 'desc.priority' | translate }}</mat-label>
                                         <mat-select [(ngModel)]="task.priority" [placeholder]="task.priority">
                                             <mat-option *ngFor="let o of priorities"
                                                 [value]="o.code">{{o.value}}</mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                     <mat-form-field>
-                                        <mat-label>{{ 'workflow.ownerName' | translate }}</mat-label>
+                                        <mat-label>{{ 'desc.user' | translate }}</mat-label>
                                         <mat-select [(ngModel)]="task.ownerId" [placeholder]="task.ownerName">
                                             <mat-option *ngFor="let s of users" [value]="s.userId">{{ s.name
                                                 }}</mat-option>
@@ -150,15 +150,15 @@
                                 </div>
                                 <div>
                                     <mat-form-field>
-                                        <mat-label>{{ task.profileLabel }}</mat-label>
+                                        <mat-label>{{ 'workflow.task' | translate }}</mat-label>
                                         <input matInput disabled readonly="true" [value]="task.profileLabel">
                                     </mat-form-field>
                                     <mat-form-field>
-                                        <mat-label>{{ task.created }}</mat-label>
+                                        <mat-label>{{ 'desc.created' | translate }}</mat-label>
                                         <input matInput disabled readonly="true" [value]="task.created | date : 'dd.MM.yyyy HH:mm'">
                                     </mat-form-field>
                                     <mat-form-field>
-                                        <mat-label>{{ task.modified }}</mat-label>
+                                        <mat-label>{{ 'desc.modified' | translate }}</mat-label>
                                         <input matInput disabled readonly="true" [value]="task.modified | date : 'dd.MM.yyyy HH:mm'">
                                     </mat-form-field>
                                 </div>
