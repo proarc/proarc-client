@@ -38,6 +38,7 @@ export class EditorGenreComponent implements OnInit {
       const item = this.field.addAsFirst();
       this.field.getItems()[0].controls['peer-reviewed'].setValue(true);
       this.field.items[0].attrs['type'] = 'peer-reviewed';
+      this.field.items[0].setAsDirty();
     } else {
       delete this.field.getItems()[0].attrs['type'];
       this.field.remove(0);
