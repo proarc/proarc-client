@@ -161,7 +161,7 @@ export class EditorPagesComponent implements OnInit {
       } else {
         this.layout.refreshSelectedItem(true, 'pages');
         this.state = 'success';
-        //this.layout.setShouldRefresh(true);
+        // this.layout.setShouldRefresh(true);
       }
     })
   }

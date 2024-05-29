@@ -131,15 +131,16 @@ export class EditorStructureComponent implements OnInit {
       this.lastClickIdx = 0;
       this.startShiftClickIdx = 0;
     }
-    this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((fromStructure: boolean) => {
-      this.refreshChildren();
+    this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
+      const selection = this.layout.items.filter(i => i.selected).map(i => i.pid);
+      this.refreshChildren(selection);
       // this.refreshing = true;
       // setTimeout(() => {
       //   this.scrollBack();
       // }, 500);
     }));
 
-    this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
+    this.subscriptions.push(this.layout.selectionChanged().subscribe((from: boolean) => {
       this.setSelectedColumns();
       if (this.panel.id !== this.layout.lastPanelClicked) {
 
@@ -152,7 +153,7 @@ export class EditorStructureComponent implements OnInit {
 
   }
 
-  refreshChildren() {
+  refreshChildren(selection: string[]) {
     //this.layout.items = [];
     this.api.getRelations(this.layout.selectedParentItem.pid).subscribe((children: DocumentItem[]) => {
       this.layout.items = children;
@@ -162,6 +163,11 @@ export class EditorStructureComponent implements OnInit {
           item.selected = true;
         }
       }
+      
+      this.layout.items.forEach(item => {
+        item.selected = selection.includes(item.pid);
+      })
+      
     });
   }
 

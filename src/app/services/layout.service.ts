@@ -195,7 +195,7 @@ export class LayoutService {
 
   
 
-  shouldRefreshSelectedItem(): Observable<any> {
+  shouldRefreshSelectedItem(): Observable<string> {
     return this.refreshSelectedSubject.asObservable();
   }
 
