@@ -21,15 +21,19 @@
               <div fxLayout="column" fxFlexFill>
                 <div class="app-toolbar">
                   <button (click)="getWorkflow()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
-                  <button *ngIf="selectedProfile && selectedProfile.subjob.length > 0" mat-button [matMenuTriggerFor]="subjob_menu">{{ "workflow.create_new_subjob" | translate }}</button>
-                  <mat-menu #subjob_menu="matMenu">
-                    <button mat-menu-item *ngFor="let sub of selectedProfile.subjob" (click)="createSubJob(sub)">{{ sub.title }}</button>
-                  </mat-menu>
+                  <ng-container *ngIf="selectedProfile && selectedProfile.subjob.length > 0">
+                    <button mat-button [matMenuTriggerFor]="subjob_menu">{{ "workflow.create_new_subjob" | translate }}</button>
+                    <mat-menu #subjob_menu="matMenu">
+                      <button mat-menu-item *ngFor="let sub of selectedProfile.subjob" (click)="createSubJob(sub)">{{ sub.title }}</button>
+                    </mat-menu>
+                  </ng-container>
                   <button (click)="createJob()" mat-button>{{'workflow.create_new' | translate }}</button>
-                  <button mat-button [disabled]="hasObject" [matMenuTriggerFor]="object_menu">{{ "workflow.create_new_object" | translate }}</button>
-                  <mat-menu #object_menu="matMenu">
-                    <button mat-menu-item *ngFor="let model of selectedProfile.model" (click)="createNewObject(model.name)">{{ 'model.' + model.name | translate}}</button>
-                  </mat-menu>
+                  <ng-container *ngIf="selectedProfile">
+                    <button mat-button [disabled]="hasObject" [matMenuTriggerFor]="object_menu">{{ "workflow.create_new_object" | translate }}</button>
+                    <mat-menu #object_menu="matMenu">
+                      <button mat-menu-item *ngFor="let model of selectedProfile.model" (click)="createNewObject(model.name)">{{ 'model.' + model.name | translate}}</button>
+                    </mat-menu>
+                  </ng-container>
 
             
       <button mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">

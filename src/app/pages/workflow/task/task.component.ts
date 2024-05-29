@@ -207,6 +207,9 @@ export class TaskComponent implements OnInit {
         return;
       }
       this.task = response.response.data[0];
+      if (this.id) {
+        this.tasks = response.response.data;
+      }
     });
 
   }

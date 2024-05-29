@@ -109,7 +109,7 @@
                         <as-split-area>
                             <div class="app-toolbar-old" *ngIf="task">
                                 <button (click)="getTask(task.id)" mat-button>{{'common.refresh' | translate }}</button>
-                                <button [routerLink]="['../jobs', task.jobId]" mat-button>{{'workflow.job' | translate
+                                <button [routerLink]="['/workflow/jobs', task.jobId]" mat-button>{{'workflow.job' | translate
                                     }}</button>
                                 <button (click)="saveTask()" mat-button>{{'common.save' | translate }}</button>
                             </div>
@@ -142,7 +142,7 @@
                                     </mat-form-field>
                                     <mat-form-field>
                                         <mat-label>{{ 'workflow.ownerName' | translate }}</mat-label>
-                                        <mat-select [(ngModel)]="task.ownerName" [placeholder]="task.ownerName">
+                                        <mat-select [(ngModel)]="task.ownerId" [placeholder]="task.ownerName">
                                             <mat-option *ngFor="let s of users" [value]="s.userId">{{ s.name
                                                 }}</mat-option>
                                         </mat-select>
@@ -151,15 +151,15 @@
                                 <div>
                                     <mat-form-field>
                                         <mat-label>{{ task.profileLabel }}</mat-label>
-                                        <input matInput readonly="true" [value]="task.profileLabel">
+                                        <input matInput disabled readonly="true" [value]="task.profileLabel">
                                     </mat-form-field>
                                     <mat-form-field>
                                         <mat-label>{{ task.created }}</mat-label>
-                                        <input matInput readonly="true" [value]="task.created | date : 'dd.MM.yyyy HH:mm'">
+                                        <input matInput disabled readonly="true" [value]="task.created | date : 'dd.MM.yyyy HH:mm'">
                                     </mat-form-field>
                                     <mat-form-field>
                                         <mat-label>{{ task.modified }}</mat-label>
-                                        <input matInput readonly="true" [value]="task.modified | date : 'dd.MM.yyyy HH:mm'">
+                                        <input matInput disabled readonly="true" [value]="task.modified | date : 'dd.MM.yyyy HH:mm'">
                                     </mat-form-field>
                                 </div>
                                 <div>
