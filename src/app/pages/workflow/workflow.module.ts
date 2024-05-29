@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RDFlowComponent } from './rdflow.component';
+import { WorkFlowComponent } from './workflow.component';
 import { NewJobDialogComponent } from './new-job-dialog/new-job-dialog.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from 'src/app/shared.module';
@@ -22,16 +22,16 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 const routes: Routes = [
-  { path: '', component: RDFlowComponent },
-  { path: 'jobs', component: RDFlowComponent },
-  { path: 'jobs/:id', component: RDFlowComponent },
+  { path: '', component: WorkFlowComponent },
+  { path: 'jobs', component: WorkFlowComponent },
+  { path: 'jobs/:id', component: WorkFlowComponent },
   { path: 'tasks', component: TaskComponent },
   { path: 'task/:id', component: TaskComponent }
 ];
 
 @NgModule({
   declarations: [
-    RDFlowComponent,
+    WorkFlowComponent,
     NewJobDialogComponent,
     TaskComponent,
     TaskEditComponent,
@@ -53,4 +53,4 @@ const routes: Routes = [
     })
   ]
 })
-export class RDFlowModule { }
+export class WorkFlowModule { }

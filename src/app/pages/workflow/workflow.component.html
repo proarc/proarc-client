@@ -4,7 +4,7 @@
     <div fxFlex fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
       <a routerLink="/"><mat-icon>home</mat-icon></a>
       <span class="app-separator">/</span>
-      <a routerLink="/rdflow">{{ 'navbar.workflow' | translate }}</a>
+      <a routerLink="/workflow">{{ 'navbar.workflow' | translate }}</a>
     </div>
     <div fxLayout="row" fxLayoutAlign="start center" class="app-h-100">
       <!-- <button mat-icon-button [matTooltip]="'navbar.layout' | translate" (click)="showLayoutAdmin()">
@@ -21,12 +21,12 @@
               <div fxLayout="column" fxFlexFill>
                 <div class="app-toolbar">
                   <button (click)="getWorkflow()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
-                  <button *ngIf="selectedProfile && selectedProfile.subjob.length > 0" mat-button [matMenuTriggerFor]="subjob_menu">{{ "rdflow.create_new_subjob" | translate }}</button>
+                  <button *ngIf="selectedProfile && selectedProfile.subjob.length > 0" mat-button [matMenuTriggerFor]="subjob_menu">{{ "workflow.create_new_subjob" | translate }}</button>
                   <mat-menu #subjob_menu="matMenu">
                     <button mat-menu-item *ngFor="let sub of selectedProfile.subjob" (click)="createSubJob(sub)">{{ sub.title }}</button>
                   </mat-menu>
-                  <button (click)="createJob()" mat-button>{{'rdflow.create_new' | translate }}</button>
-                  <button mat-button [disabled]="hasObject" [matMenuTriggerFor]="object_menu">{{ "rdflow.create_new_object" | translate }}</button>
+                  <button (click)="createJob()" mat-button>{{'workflow.create_new' | translate }}</button>
+                  <button mat-button [disabled]="hasObject" [matMenuTriggerFor]="object_menu">{{ "workflow.create_new_object" | translate }}</button>
                   <mat-menu #object_menu="matMenu">
                     <button mat-menu-item *ngFor="let model of selectedProfile.model" (click)="createNewObject(model.name)">{{ 'model.' + model.name | translate}}</button>
                   </mat-menu>
@@ -247,7 +247,7 @@
                 <div class="app-oa-y">
                   <table mat-table [dataSource]="materials" multiTemplateDataRows class="app-expanded app-hover">
                     <ng-container matColumnDef="{{column}}" *ngFor="let column of materialColumnsToDisplay">
-                      <th mat-header-cell *matHeaderCellDef>{{ 'dynamic.rdFlow.' + column | translate }}</th>
+                      <th mat-header-cell *matHeaderCellDef>{{ 'dynamic.workFlow.' + column | translate }}</th>
                       <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
                     </ng-container>
 

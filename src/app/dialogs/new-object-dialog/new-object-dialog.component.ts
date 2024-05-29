@@ -146,8 +146,29 @@ export class NewObjectDialogComponent implements OnInit {
     this.seriesDateFrom = new FormControl(this.seriesDateFrom.value);
   }
 
-  onCreate() {
+  onCreateJob(xml?: string) {
+    let data = `profileName=${this.data.model}`;
+    
+    data = `${data}&metadata=${encodeURIComponent(xml)}`;
+    this.api.createWorkflow(data).subscribe((response: any) => {
+      
+      if (response['response'].errors) {
+        console.log('error', response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
+        // this.state = 'error';
+        return;
+      }
+      const data: any = response['response']['data'][0];
+      data.isWorkFlow = true;
+      this.dialogRef.close({isWorkFlow: true, data});
+    });
+  }
 
+  onCreate() {
+    if (this.data.isJob) {
+      this.onCreateJob('null');
+      return;
+    }
     this.state = 'saving';
     const customPid = this.data.customPid ? this.data.pid : null;
 
@@ -192,7 +213,10 @@ export class NewObjectDialogComponent implements OnInit {
       }
       this.state = 'success';
       const pid =  response['response']['data'][0]['pid'];
-      this.dialogRef.close({pid: pid, data: response['response']['data'][0], isMultiple: this.isMultiple});
+      this.dialogRef.close({
+        pid: pid, 
+        data: response['response']['data'][0], 
+        isMultiple: this.isMultiple});
 
     });
   }
@@ -204,6 +228,12 @@ export class NewObjectDialogComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
+
+        if (this.data.isJob) {
+          this.onCreateJob(result['mods']);
+          return;
+        }
+
         this.state = 'saving';
         const customPid = this.data.customPid ? this.data.pid : null;
 

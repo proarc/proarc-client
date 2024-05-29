@@ -39,7 +39,7 @@ export class LocalStorageService {
         'pageType', 'pageNumber', 'pageIndex', 'pagePosition', 'model',
         'pid', 'owner', 'created', 'modified', 'status'];
 
-    public availableColumnsRDFlow = [
+    public availableColumnsWorkFlow = [
         {field: 'rawPath', selected: true, width: 150, type: 'string'},
         {field: 'label', selected: true, width: 150, type: 'string'},
         {field: 'taskUsername', selected: true, width: 150, type: 'string'},
@@ -242,14 +242,14 @@ export class LocalStorageService {
         return ret;
     }
 
-    getColumnsRDFlow() {
-        const prop = this.getStringProperty('columnsRDFlow');
+    getColumnsWorkFlow() {
+        const prop = this.getStringProperty('columnsWorkFlow');
         let ret: any = [];
         if (prop) {
             Object.assign(ret, JSON.parse(prop));
         } else {
 
-            ret = this.availableColumnsRDFlow.map((c) => {
+            ret = this.availableColumnsWorkFlow.map((c) => {
                 return c;
             });
         }
@@ -257,8 +257,8 @@ export class LocalStorageService {
         
     }
 
-    setColumnsRDFlow(cols: any) {
-        this.setStringProperty('columnsRDFlow', JSON.stringify(cols));
+    setColumnsWorkFlow(cols: any) {
+        this.setStringProperty('columnsWorkFlow', JSON.stringify(cols));
     }
 
     setColumnsEditingRepo(colsEditModeParent: boolean) {

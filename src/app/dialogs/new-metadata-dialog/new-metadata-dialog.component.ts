@@ -56,9 +56,19 @@ export class NewMetadataDialogComponent implements OnInit {
   }
 
   load() {
-    const standard = Metadata.resolveStandardFromXml(this.data.content);
+    let standard: string;
+    let xml: string;
+    let model: string;
+    if (this.data.isWorkFlow) {
+      standard = 'rda';
+      xml = '';
+    } else {
+      standard = Metadata.resolveStandardFromXml(this.data.content);
+      xml = this.data.content;
+    }
+    
     this.tmpl.getTemplate(standard, this.data.model).subscribe((tmpl: any) => {
-      this.metadata = new Metadata(this.data.pid, this.data.model, this.data.content, this.data.timestamp, standard, tmpl);
+      this.metadata = new Metadata(this.data.pid, this.data.model, xml, this.data.timestamp, standard, tmpl);
       // setTimeout(() => {
       // this.metadata.expandRequired();
       // }, 100);
@@ -140,7 +150,27 @@ export class NewMetadataDialogComponent implements OnInit {
 
   }
 
+  saveJob(gotoEdit: boolean) {
+    let data = `profileName=${this.data.selectedProfile}`;
+    
+    data = `${data}&metadata=${encodeURIComponent(this.metadata.toMods())}`;
+    this.api.createWorkflow(data).subscribe((response: any) => {
+      
+      if (response['response'].errors) {
+        console.log('error', response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
+        // this.state = 'error';
+        return;
+      }
+      this.dialogRef.close({ gotoEdit, item: response['response']['data'][0] });
+    });
+  }
+
   onSave(gotoEdit: boolean) {
+    if ( this.data.isWorkFlow) {
+      this.saveJob(gotoEdit);
+      return;
+    }
     if (this.isPage()) {
       this.savePage();
       return;

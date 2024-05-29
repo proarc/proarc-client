@@ -210,7 +210,7 @@
     "profile": "Profil",
     "settings": "Nastavení",
     "about": "O aplikaci",
-    "workflow": "RD Flow",
+    "workflow": "WorkFlow",
     "jobs": "Záměry",
     "tasks": "Úkoly",
     "admin": "Administrace",
@@ -2170,7 +2170,7 @@
       "primary": "Primární (hlavní)"
     }
   },
-  "rdflow": {
+  "workflow": {
     "title": "Záměry",
     "task": "Úkol",
     "job": "Záměr",
@@ -2582,7 +2582,7 @@
     "image": "Obrázek",
     "premis": "PREMIS",
     "media": "Media",
-    "rdFlow": {
+    "workFlow": {
       "profileLabel": "Materiál",
       "label": "Obsah",
       "name": "Název",
@@ -2952,7 +2952,7 @@
         "error": "Chyba zapsání!"
       }
     },
-    "rdflowNewJob": {
+    "workflowNewJob": {
       "title": "Vytvořit nový záměr"
     }
   },

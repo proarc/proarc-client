@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { transformGeometryWithOptions } from 'ol/format/Feature';
-import { RDFlow, RDFlowMaterial, RDFlowProfile, RDFlowProfileSubjob } from 'src/app/model/rdflow.model';
+import { WorkFlow, WorkFlowMaterial, WorkFlowProfile, WorkFlowProfileSubjob } from 'src/app/model/workflow.model';
 import { ApiService } from 'src/app/services/api.service';
 import { UIService } from 'src/app/services/ui.service';
 import { NewJobDialogComponent } from './new-job-dialog/new-job-dialog.component';
@@ -19,12 +19,13 @@ import { User } from 'src/app/model/user.model';
 import { ColumnsSettingsDialogComponent } from 'src/app/dialogs/columns-settings-dialog/columns-settings-dialog.component';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { NewObjectData, NewObjectDialogComponent } from 'src/app/dialogs/new-object-dialog/new-object-dialog.component';
+import { NewMetadataDialogComponent } from 'src/app/dialogs/new-metadata-dialog/new-metadata-dialog.component';
 // -- table to expand --
 
 @Component({
-  selector: 'app-rdflow',
-  templateUrl: './rdflow.component.html',
-  styleUrls: ['./rdflow.component.scss'],
+  selector: 'app-workflow',
+  templateUrl: './workflow.component.html',
+  styleUrls: ['./workflow.component.scss'],
   // -- table to expand --
   animations: [
     trigger('detailExpand', [
@@ -36,9 +37,9 @@ import { NewObjectData, NewObjectDialogComponent } from 'src/app/dialogs/new-obj
   // -- table to expand --
 })
 
-export class RDFlowComponent implements OnInit {
+export class WorkFlowComponent implements OnInit {
 
-  columnsRDFlow: { field: string, selected: boolean, type: string }[];
+  columnsWorkFlow: { field: string, selected: boolean, type: string }[];
   colsWidth: { [key: string]: string } = {};
 
   // -- table to expand --
@@ -48,16 +49,16 @@ export class RDFlowComponent implements OnInit {
   // -- table to expand --
 
 
-  profiles: RDFlowProfile[];
-  selectedProfile: RDFlowProfile;
+  profiles: WorkFlowProfile[];
+  selectedProfile: WorkFlowProfile;
 
   workFlowColumns = ['taskUsername', 'label', 'profileName'];
   filterWorkFlowColumns: string[] = [];
 
-  allJobs: RDFlow[] = [];
-  jobs: RDFlow[] = [];
-  subJobs: RDFlow[] = [];
-  selectedJob: RDFlow;
+  allJobs: WorkFlow[] = [];
+  jobs: WorkFlow[] = [];
+  subJobs: WorkFlow[] = [];
+  selectedJob: WorkFlow;
   hasObject: boolean;
 
   jobsSortField: string = 'created';
@@ -66,7 +67,7 @@ export class RDFlowComponent implements OnInit {
   subjobsSortDir: SortDirection = 'desc';
 
 
-  materials: RDFlowMaterial[];
+  materials: WorkFlowMaterial[];
   taskColumns = ['label', 'user', 'state'];
   tasks: any[];
   tasksSortField: string = 'created';
@@ -109,7 +110,7 @@ export class RDFlowComponent implements OnInit {
     //     this.initData();
     //   });
 
-    this.columnsRDFlow = this.properties.getColumnsRDFlow();
+    this.columnsWorkFlow = this.properties.getColumnsWorkFlow();
 
 
     this.api.getUsers().subscribe((users: User[]) => {
@@ -145,6 +146,12 @@ export class RDFlowComponent implements OnInit {
 
     });
   }
+
+  // getXML(id: string) {
+  //   this.api.getWorkflowXML(id).subscribe((response: any) => {
+  //     console.log(response)
+  //   });
+  // }
 
   getWorkflow() {
     this.jobs = [];
@@ -242,7 +249,7 @@ export class RDFlowComponent implements OnInit {
     });
   }
 
-  selectJob(w: RDFlow) {
+  selectJob(w: WorkFlow) {
     if (w.id === this.selectedJob?.id) {
       return;
     }
@@ -272,7 +279,28 @@ export class RDFlowComponent implements OnInit {
     panelClass: 'app-dialog-new-bject'
   });
   dialogRef1.afterClosed().subscribe((result: any) => {
-    if (result && result['pid']) {
+    if (result) {
+      
+      const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
+        disableClose: true,
+        height: '90%',
+        width: '680px',
+        data: result.data
+      });
+      dialogRef.afterClosed().subscribe(res => {
+        if (res?.item) {
+          this.getWorkflow();
+          if (res.gotoEdit) {
+            
+            //this.router.navigate(['/repository', item.pid]);
+          } else {
+            
+          }
+
+        }
+      });
+
+
     }
   });
 
@@ -288,7 +316,9 @@ export class RDFlowComponent implements OnInit {
     // });
   }
 
-  createSubJob(profile: RDFlowProfileSubjob) {
+  
+
+  createSubJob(profile: WorkFlowProfileSubjob) {
 
   }
 
@@ -329,7 +359,7 @@ export class RDFlowComponent implements OnInit {
   }
 
   openTask(id: string) {
-    this.router.navigate(['rdflow/task', id])
+    this.router.navigate(['workflow/task', id])
   }
 
   sortJobsTable(e: Sort) {
@@ -365,19 +395,19 @@ export class RDFlowComponent implements OnInit {
     const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
       data: {
         isRepo: false,
-        isRDFlow: true
+        isWorkFlow: true
       },
       width: '600px',
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.columnsRDFlow = this.properties.getColumnsRDFlow();
+        this.columnsWorkFlow = this.properties.getColumnsWorkFlow();
       }
     });
   }
 
   columnType(f: string) {
-    return this.columnsRDFlow.find(c => c.field === f).type;
+    return this.columnsWorkFlow.find(c => c.field === f).type;
   }
 
   getList(f: string): {code: string, value: string}[] {
@@ -400,7 +430,7 @@ export class RDFlowComponent implements OnInit {
 
   setSelectedColumns() {
     
-    this.workFlowColumns = this.columnsRDFlow.filter(c => c.selected).map(c => c.field);
+    this.workFlowColumns = this.columnsWorkFlow.filter(c => c.selected).map(c => c.field);
 
     this.workFlowColumns.forEach(c => {
       this.filterWorkFlowColumns.push(c + '-filter');
@@ -415,7 +445,7 @@ export class RDFlowComponent implements OnInit {
 
   setColumnsWith() {
     this.colsWidth = {};
-    this.columnsRDFlow.forEach((c: any) => {
+    this.columnsWorkFlow.forEach((c: any) => {
       this.colsWidth[c.field] = c.width + 'px';
     });
   }
@@ -423,7 +453,7 @@ export class RDFlowComponent implements OnInit {
   saveColumnsSizes(e: any, field?: string) {
     // console.log(e, field)
     this.colsWidth[field] = e + 'px';
-    this.properties.setColumnsRDFlow(this.columnsRDFlow);
+    this.properties.setColumnsWorkFlow(this.columnsWorkFlow);
   }
 
 }

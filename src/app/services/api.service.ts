@@ -22,7 +22,7 @@ import { ProArc } from '../utils/proarc';
 import { Registrar } from '../model/registrar.model';
 import { ConfigService } from './config.service';
 import { PageUpdateHolder } from '../components/editor/editor-pages/editor-pages.component';
-import { RDFlow } from '../model/rdflow.model';
+import { WorkFlow } from '../model/workflow.model'; 
 import { AudioPage } from '../model/audioPage.model';
 import { AudioPagesUpdateHolder } from '../components/editor/editor-audioPages/editor-audioPages.component';
 import { ActivatedRoute, Router, RouterState } from '@angular/router';
@@ -976,7 +976,7 @@ export class ApiService {
     return this.get('workflow?id=' + id);
   }
 
-  saveWorkflowItem(w: RDFlow): Observable<any> {
+  saveWorkflowItem(w: WorkFlow): Observable<any> {
     // const body = new HttpParams({fromObject: w})
     let httpParams = new HttpParams();
     Object.keys(w).forEach(key => {

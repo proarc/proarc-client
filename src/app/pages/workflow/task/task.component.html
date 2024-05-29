@@ -4,7 +4,7 @@
         <div fxFlex fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
             <a routerLink="/"><mat-icon>home</mat-icon></a>
             <span class="app-separator">/</span>
-            <a routerLink="/rdflow">{{ 'navbar.workflow' | translate }}</a>
+            <a routerLink="/workflow">{{ 'navbar.workflow' | translate }}</a>
             <span class="app-separator">/</span>
             <span class="app-last">{{ 'desc.task' | translate }}</span>
         </div>
@@ -40,7 +40,7 @@
                                     </th>
                                 </ng-container>
                                 <ng-container matColumnDef="profileLabel">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'rdflow.task' | translate
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'workflow.task' | translate
                                         }}</th>
                                     <td mat-cell *matCellDef="let row">{{row.profileLabel}}</td>
                                 </ng-container>
@@ -118,7 +118,7 @@
                                 <div>
 
                                     <!-- <mat-form-field>
-                                        <mat-label>{{ 'rdflow.profileName' | translate }}</mat-label>
+                                        <mat-label>{{ 'workflow.profileName' | translate }}</mat-label>
                                         <mat-select [(ngModel)]="task.profileName"
                                             [placeholder]="task.profileName">
                                             <mat-option *ngFor="let o of profileNames"
@@ -127,21 +127,21 @@
                                     </mat-form-field> -->
 
                                     <mat-form-field>
-                                        <mat-label>{{ 'rdflow.state' | translate }}</mat-label>
+                                        <mat-label>{{ 'workflow.state' | translate }}</mat-label>
                                         <mat-select [(ngModel)]="task.state" [placeholder]="'desc.state' | translate">
                                             <mat-option *ngFor="let o of statesAll"
                                                 [value]="o.code">{{o.value}}</mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                     <mat-form-field>
-                                        <mat-label>{{ 'rdflow.priority' | translate }}</mat-label>
+                                        <mat-label>{{ 'workflow.priority' | translate }}</mat-label>
                                         <mat-select [(ngModel)]="task.priority" [placeholder]="task.priority">
                                             <mat-option *ngFor="let o of priorities"
                                                 [value]="o.code">{{o.value}}</mat-option>
                                         </mat-select>
                                     </mat-form-field>
                                     <mat-form-field>
-                                        <mat-label>{{ 'rdflow.ownerName' | translate }}</mat-label>
+                                        <mat-label>{{ 'workflow.ownerName' | translate }}</mat-label>
                                         <mat-select [(ngModel)]="task.ownerName" [placeholder]="task.ownerName">
                                             <mat-option *ngFor="let s of users" [value]="s.userId">{{ s.name
                                                 }}</mat-option>
@@ -195,7 +195,7 @@
                                         class="app-expanded app-hover">
                                         <ng-container matColumnDef="{{column}}"
                                             *ngFor="let column of materialColumnsToDisplay">
-                                            <th mat-header-cell *matHeaderCellDef>{{ 'dynamic.rdFlow.' + column |
+                                            <th mat-header-cell *matHeaderCellDef>{{ 'dynamic.workFlow.' + column |
                                                 translate }}</th>
                                             <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
                                         </ng-container>

@@ -210,7 +210,7 @@
     "profile": "Profile",
     "settings": "Settings",
     "about": "About",
-    "workflow": "RD Flow",
+    "workflow": "WorkFlow",
     "jobs": "Jobs",
     "tasks": "Tasks",
     "admin": "Administration",
@@ -2170,7 +2170,7 @@
       "primary": "primary"
     }
   },
-  "rdflow": {
+  "workflow": {
     "title": "Jobs",
     "task": "Task",
     "job": "Job",
@@ -2581,7 +2581,7 @@
     "image": "Image",
     "premis": "PREMIS XML",
     "media": "Media",
-    "rdFlow": {
+    "workFlow": {
       "profileLabel": "Material",
       "label": "Content",
       "name": "Name",
@@ -2951,7 +2951,7 @@
         "error": "Chyba zapsání!"
       }
     },
-    "rdflowNewJob": {
+    "workflowNewJob": {
       "title": "Create new job"
     }
   },

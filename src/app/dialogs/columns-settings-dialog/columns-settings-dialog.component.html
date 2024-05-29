@@ -13,17 +13,17 @@
         <mat-checkbox [name]="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
       </div>
     </ng-container>
-    <ng-container *ngIf="!data.isRepo && !data.isRDFlow && selectedColumnsEditingImport">
+    <ng-container *ngIf="!data.isRepo && !data.isWorkFlow && selectedColumnsEditingImport">
         <legend>{{ 'pages.settings.editingImport.legend' | translate }}</legend>
         <div class="app-label app-mb-2">{{ 'pages.settings.editingImport.label' | translate }}</div>
         <div *ngFor="let column of selectedColumnsEditingImport">
           <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
         </div>
     </ng-container>
-    <ng-container *ngIf="data.isRDFlow">
+    <ng-container *ngIf="data.isWorkFlow">
         <legend>{{ 'pages.settings.editingImport.legend' | translate }}</legend>
         <div class="app-label app-mb-2">{{ 'pages.settings.editingImport.label' | translate }}</div>
-        <div *ngFor="let column of columnsRDFlow">
+        <div *ngFor="let column of columnsWorkFlow">
           <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'desc.' + column.field | translate }}</mat-checkbox>
         </div>
     </ng-container>

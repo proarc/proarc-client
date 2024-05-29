@@ -1,11 +1,11 @@
-export interface RDFlowProfileSubjob {
+export interface WorkFlowProfileSubjob {
   disabled: boolean,
   hint: string,
   name: string,
   title: string
 }
 
-export interface RDFlowMaterial {
+export interface WorkFlowMaterial {
   id: number,
   jobId: number,
   label: string,
@@ -15,7 +15,7 @@ export interface RDFlowMaterial {
   type: string
 }
 
-export class RDFlow {
+export class WorkFlow {
   barcode: string;
   created: Date;
   field001: string;
@@ -45,12 +45,12 @@ export class RDFlow {
   parentId?: number;
 }
 
-export class RDFlowProfile {
+export class WorkFlowProfile {
   disabled: boolean;
   hint: string;
   model: { disabled: boolean, name: string, title: string }[];
   name: string;
-  subjob: RDFlowProfileSubjob[];
+  subjob: WorkFlowProfileSubjob[];
   task: { disabled: boolean, hint: string, name: string, title: string }[];
   title: string;
 }

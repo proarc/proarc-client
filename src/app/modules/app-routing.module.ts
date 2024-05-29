@@ -43,7 +43,7 @@ const routes: Routes = [
       { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
       { path: 'admin/:id/edit-user', component: EditUserComponent },
       { path: 'admin/new-user', component: NewUserComponent },
-      { path: 'rdflow', loadChildren: () => import('../pages/rdflow/rdflow.module').then(m => m.RDFlowModule) },
+      { path: 'workflow', loadChildren: () => import('../pages/workflow/workflow.module').then(m => m.WorkFlowModule) },
       { path: '', redirectTo: '/search', pathMatch: 'full' },
       { path: 'totest', component: TotestComponent }
     ]
