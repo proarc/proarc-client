@@ -54,6 +54,7 @@ export class EditorAuthorComponent implements OnInit {
   }
 
   onLoadFromCatalog(item: any) {
+    
     const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'authors' } });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
@@ -63,21 +64,19 @@ export class EditorAuthorComponent implements OnInit {
         this.tmpl.getTemplate(standard, this.layout.lastSelectedItem.model).subscribe((tmpl: any) => {
           const metadata = new Metadata('', this.model, mods, 0, standard, tmpl);
           const nameField = metadata.getField(ModsAuthor.getSelector());
-          const items = nameField.getItems();
-          if (nameField && items.length > 0) {
-            this.field.addAfterItem(item, items[0]);
-            this.field.removeItem(item);
+          //const items = nameField.getItems();
+          if (nameField && nameField.items.length > 0) {
+            this.field.addAfterItem(item, nameField.items[0]);
+            setTimeout(() => {
+              this.field.removeItem(item);
+              setTimeout(() => {
+                this.layout.setMetadataResized();
+              }, 10);
+            }, 10);
           }
+
+
         });
-
-
-        // const metadata = new Metadata('', this.model, mods, 0, null);
-        // const nameField = metadata.getField(ModsAuthor.getSelector());
-        // const items = nameField.getItems();
-        // if (nameField && items.length > 0) {
-        //   this.field.addAfterItem(item, items[0]);
-        //   this.field.removeItem(item);
-        // }
       }
     });
   }
