@@ -38,23 +38,22 @@ export class EditorSubjectComponent implements OnInit {
         const mods = result['mods'];
 
         const standard = Metadata.resolveStandard(mods);
+        console.log(standard)
         this.tmpl.getTemplate(standard, this.layout.lastSelectedItem.model).subscribe((tmpl: any) => {
           const metadata = new Metadata('', this.layout.lastSelectedItem.model, mods, 0, standard, tmpl);
-          const nameField = metadata.getField(ModsSubject.getSelector());
-          const items = nameField.getItems();
-          if (nameField && items.length > 0) {
-            this.field.addAfterItem(item, items[0]);
-            this.field.removeItem(item);
+          const mf = metadata.getField(ModsSubject.getSelector());
+          // const items = nameField.getItems();
+          if (mf && mf.items.length > 0) {
+            this.field.addAfterItem(item, mf.items[0]);
+            setTimeout(() => {
+              this.field.removeItem(item);
+              setTimeout(() => {
+                this.layout.setMetadataResized();
+              }, 10);
+            }, 10);
           }
         });
 
-        // const metadata = new Metadata('', this.layout.lastSelectedItem.model, mods, 0, null);
-        // const nameField = metadata.getField(ModsSubject.getSelector());
-        // const items = nameField.getItems();
-        // if (nameField && items.length > 0) {
-        //   this.field.addAfterItem(item, items[0]);
-        //   this.field.removeItem(item);
-        // }
       }
     });
   }
