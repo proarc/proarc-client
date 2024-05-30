@@ -387,10 +387,11 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
           (response: any) => {
 
             if (response.response.errors) {
-              this.state = 'error';
-              this.ui.showErrorDialogFromObject(response.response.errors);
-              clearInterval(this.timer);
-              this.state = 'failure';
+              this.ui.showErrorSnackBar(response.response.errors);
+              // this.state = 'error';
+              // this.ui.showErrorDialogFromObject(response.response.errors);
+              // clearInterval(this.timer);
+              // this.state = 'failure';
               return;
             }
 
