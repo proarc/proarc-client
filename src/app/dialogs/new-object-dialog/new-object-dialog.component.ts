@@ -158,7 +158,7 @@ export class NewObjectDialogComponent implements OnInit {
   }
 
   onCreateJob(xml?: string) {
-    let data = `profileName=${this.data.model}`;
+    let data = `profileName=${this.data.profile}&model=${this.data.model}`;
     
     data = `${data}&metadata=${encodeURIComponent(xml)}`;
     this.api.createWorkflow(data).subscribe((response: any) => {
