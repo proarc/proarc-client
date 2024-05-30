@@ -2,9 +2,15 @@
 
 <div mat-dialog-content>
   <mat-progress-bar *ngIf="state=='saving'" mode="indeterminate"></mat-progress-bar>
+  <mat-form-field *ngIf="data.isJob" class="app-w-100">
+    <mat-select [placeholder]="'desc.model' | translate" [(ngModel)]="data.profile" (valueChange)="changeProfile($event)">
+      <mat-option *ngFor="let profile of data.profiles" [value]="profile">{{ profile.title }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  
   <mat-form-field class="app-w-100">
     <mat-select [placeholder]="'desc.model' | translate" [(ngModel)]="data.model">
-      <mat-option *ngFor="let model of filteredModels" [value]="model">{{ (data.isJob ? '' : 'model.') + model | translate }}</mat-option>
+      <mat-option *ngFor="let model of filteredModels" [value]="model">{{ 'model.' + model | translate }}</mat-option>
     </mat-select>
   </mat-form-field>
 

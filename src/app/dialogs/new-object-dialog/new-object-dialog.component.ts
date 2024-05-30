@@ -11,6 +11,7 @@ import { MatDatepicker } from '@angular/material/datepicker';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 import { FormControl } from '@angular/forms';
+import { WorkFlowProfile } from 'src/app/model/workflow.model';
 
 
 export class MultiDateFormat {
@@ -105,8 +106,18 @@ export class NewObjectDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: NewObjectData) { }
 
   ngOnInit() {
-    this.filteredModels = this.data.models.filter(f => f.indexOf('page') < 0);
+    if (this.data.isJob) {
+      this.changeProfile(this.data.profile);
+    } else {
+      this.filteredModels = this.data.models.filter(f => f.indexOf('page') < 0);
+    }
+    
     this.maxDate.setFullYear(this.maxDate.getFullYear() + 2);
+  }
+
+  changeProfile(e: WorkFlowProfile) {
+    this.filteredModels = e.model.map(m => m.name);
+    this.data.model = this.filteredModels[0];
   }
 
 
@@ -269,6 +280,8 @@ export class NewObjectDialogComponent implements OnInit {
 }
 
 export interface NewObjectData {
+  profiles?: WorkFlowProfile[];
+  profile?: WorkFlowProfile;
   model: string;
   models: string[];
   customPid: boolean;

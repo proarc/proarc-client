@@ -267,11 +267,14 @@ export class WorkFlowComponent implements OnInit {
     const models: string[] = this.profiles.map(p => p.name)
     
     const data: NewObjectData = {
-    models: models,
-    model: models[0],
+      profiles: this.profiles,
+      profile: this.profiles[0],
+      models: models,
+      model: models[0],
     customPid: false,
     parentPid: null,
-    fromNavbar: false,isJob: true
+    fromNavbar: false,
+    isJob: true
   }
   const dialogRef1 = this.dialog.open(NewObjectDialogComponent, {
     data: data,
@@ -280,25 +283,28 @@ export class WorkFlowComponent implements OnInit {
   });
   dialogRef1.afterClosed().subscribe((result: any) => {
     if (result) {
-      
-      const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
-        disableClose: true,
-        height: '90%',
-        width: '680px',
-        data: result.data
-      });
-      dialogRef.afterClosed().subscribe(res => {
-        if (res?.item) {
-          this.getWorkflow();
-          if (res.gotoEdit) {
-            
-            //this.router.navigate(['/repository', item.pid]);
-          } else {
-            
-          }
+      this.api.getWorkflowMods(result.data.id, result.data.model).subscribe(mods => {
+        const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
+          disableClose: true,
+          height: '90%',
+          width: '680px',
+          data: {content: mods.record.content, model: result.data.model} 
+        });
+        dialogRef.afterClosed().subscribe(res => {
+          if (res?.item) {
+            this.getWorkflow();
+            if (res.gotoEdit) {
+              
+            } else {
+              
+            }
 
-        }
+          }
+        });
+
       });
+      
+      
 
 
     }

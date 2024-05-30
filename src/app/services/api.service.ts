@@ -994,6 +994,10 @@ export class ApiService {
     return this.get('workflow/material?jobId=' + id);
   }
 
+  getWorkflowMods(id: number, model: string): Observable<any> {
+    return this.get('workflow/mods/plain?jobId=' + id + '&MetaModelRecord=' + model);
+  }
+
   // getAllWorkflowTasks(params: string): Observable<any> {
   //   return this.get('workflow/task' + params);
   // }

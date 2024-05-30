@@ -63,11 +63,6 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/']);
         }
         this.api.getValuemap().subscribe(resp => {
-          console.log(resp);
-          this.config.valueMap = resp.response.data;
-        });
-        this.api.getValuemap().subscribe(resp => {
-          console.log(resp);
           this.config.valueMap = resp.response.data;
         });
 
