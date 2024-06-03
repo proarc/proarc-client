@@ -515,7 +515,6 @@
   },
   physicalDescription: {
     usage: 'M',
-    required: true,
     label: 'Fyzický popis',
     selector: 'physicalDescription',
     labelKey: 'physicalDescription',
@@ -523,7 +522,6 @@
     fields: {
       extent: {
         usage: 'M',
-        required: true,
         label: 'Rozsah',
         selector: 'physicalDescription/extent',
         labelKey: 'physicalDescription/extent',
@@ -549,7 +547,6 @@
       //        },
       form: {
         usage: 'M',
-        required: true,
         label: 'Forma',
         selector: 'physicalDescription/form',
         labelKey: 'physicalDescription/form',
