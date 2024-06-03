@@ -300,9 +300,9 @@ export class WorkFlowComponent implements OnInit {
     });
   }
 
-  createSubJob(profile: WorkFlowProfile, subJobProfileName: string) {
-    const subJobProfile = this.profiles.find(p => p.name === subJobProfileName);
-    this.createJob([profile], subJobProfile, this.selectedJob.id)
+  createSubJob() {
+    const profiles = this.profiles.filter(p => this.selectedProfile.subjob.find(sj => sj.name === p.name));
+    this.createJob(profiles, profiles[0], this.selectedJob.id)
   }
 
   createNewObject(model: string) {
@@ -384,8 +384,10 @@ export class WorkFlowComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        
         this.columnsWorkFlow = this.properties.getColumnsWorkFlow();
         this.setSelectedColumns();
+        
       }
     });
   }
@@ -415,6 +417,7 @@ export class WorkFlowComponent implements OnInit {
   setSelectedColumns() {
 
     this.workFlowColumns = this.columnsWorkFlow.filter(c => c.selected).map(c => c.field);
+    this.filterWorkFlowColumns = [];
 
     this.workFlowColumns.forEach(c => {
       this.filterWorkFlowColumns.push(c + '-filter');

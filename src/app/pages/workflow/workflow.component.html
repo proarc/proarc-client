@@ -21,12 +21,8 @@
               <div fxLayout="column" fxFlexFill>
                 <div class="app-toolbar">
                   <button (click)="getWorkflow()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
-                  <ng-container *ngIf="selectedProfile && selectedProfile.subjob.length > 0">
-                    <button mat-button [matMenuTriggerFor]="subjob_menu">{{ "workflow.create_new_subjob" | translate }}</button>
-                    <mat-menu #subjob_menu="matMenu">
-                      <button mat-menu-item *ngFor="let sub of selectedProfile.subjob" (click)="createSubJob(selectedProfile, sub.name)">{{ sub.title }}</button>
-                    </mat-menu>
-                  </ng-container>
+                  <button *ngIf="selectedProfile && selectedProfile.subjob.length > 0" mat-button (click)="createSubJob()">{{ "workflow.create_new_subjob" | translate }}</button>
+
                   <button (click)="createJob(profiles, profiles[0], -1)" mat-button>{{'workflow.create_new' | translate }}</button>
                   <ng-container *ngIf="selectedProfile">
                     <button mat-button [disabled]="hasObject" [matMenuTriggerFor]="object_menu">{{ "workflow.create_new_object" | translate }}</button>
@@ -48,46 +44,6 @@
                   <table mat-table [dataSource]="jobs" class="app-striped app-hover app-resize" matSort 
                   [matSortActive]="jobsSortField" [matSortDirection]="jobsSortDir" (matSortChange)="sortJobsTable($event)">
 
-                  <!-- <ng-container matColumnDef="taskUsername-filter">
-                    <th mat-header-cell *matHeaderCellDef>
-                      <mat-select [(ngModel)]="taskUsernameFilter" (ngModelChange)="filter('taskUser', taskUsernameFilter)">
-                          <mat-option [value]="''"> </mat-option>
-                          <mat-option *ngFor="let s of users" [value]="s.userId">{{ s.name }}</mat-option>
-                        </mat-select> 
-                        <button mat-icon-button matIconSuffix color="warn" *ngIf="taskUsernameFilter" (click)="filter('ownerId', ''); taskUsernameFilter = ''; $event.stopPropagation();"><mat-icon>clear</mat-icon></button>
-                    </th>
-                  </ng-container>
-                    <ng-container matColumnDef="taskUsername">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,'taskUsername')" [style.width]="colsWidth['taskUsername']">{{ 'desc.completedTheTask' | translate }}</th>
-                      <td mat-cell *matCellDef="let row">{{row.taskUsername}}</td>
-                    </ng-container>
-                          
-                    <ng-container matColumnDef="label-filter">
-                      <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" [style.width]="colsWidth['label']">
-                        <input type="text" id="labelFilter" [(ngModel)]="labelFilter" (change)="filter('label', labelFilter)" />
-                        <button mat-icon-button matIconSuffix color="warn" *ngIf="labelFilter" (click)="filter('pid', ''); labelFilter = ''"><mat-icon>clear</mat-icon></button>
-                      </th>
-                    </ng-container>   
-                    <ng-container matColumnDef="label">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,'label')" [style.width]="colsWidth['label']">{{ 'desc.name' | translate }}</th>
-                      <td mat-cell *matCellDef="let row">{{row.label}}</td>
-                    </ng-container>  
-
-                    <ng-container matColumnDef="profileName-filter">
-                      <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" [style.width]="colsWidth['profileName']">
-                        <mat-select [(ngModel)]="profileNameFilter" (ngModelChange)="filter('profileName', profileNameFilter)">
-                            <mat-option [value]="''"> </mat-option>
-                            <mat-option *ngFor="let s of profiles" [value]="s.name">{{ s.name }}</mat-option>
-                          </mat-select> 
-                          <button mat-icon-button matIconSuffix color="warn" *ngIf="profileNameFilter" (click)="filter('profileName', ''); profileNameFilter = ''; $event.stopPropagation();"><mat-icon>clear</mat-icon></button>
-                      </th>
-                    </ng-container>
-                    <ng-container matColumnDef="profileName">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,'profileName')" [style.width]="colsWidth['profileName']">{{ 'desc.profileName' | translate }}</th>
-                      <td mat-cell *matCellDef="let row">{{row.profileName}}</td>
-                    </ng-container>  -->
-
-                    
                     <ng-container *ngFor="let c of workFlowColumns" [matColumnDef]="c + '-filter'">
                       
                       <th mat-header-cell *matHeaderCellDef [style.width]="colsWidth[c]">
@@ -141,6 +97,27 @@
                     [matSortActive]="subjobsSortField" [matSortDirection]="subjobsSortDir" (matSortChange)="sortSubjobsTable($event)">
                     
                     
+                    <ng-container *ngFor="let c of workFlowColumns" [matColumnDef]="c + '-filter'">
+                      
+                      <th mat-header-cell *matHeaderCellDef [style.width]="colsWidth[c]">
+                        <ng-container [ngSwitch]="columnType(c)">
+                          <ng-container *ngSwitchCase="'date'">
+                          
+                          </ng-container>
+                          <ng-container *ngSwitchCase="'list'">
+                              <mat-select [(ngModel)]="filterFields[c]" (ngModelChange)="filter(c, filterFields[c])">
+                                  <mat-option [value]="''"> </mat-option>
+                                  <mat-option *ngFor="let s of lists[c]" [value]="s.code">{{ s.value }}</mat-option>
+                                </mat-select> 
+                                <button mat-icon-button matIconSuffix color="warn" *ngIf="filterFields[c]" (click)="filter(c, ''); filterFields[c] = ''; $event.stopPropagation();"><mat-icon>clear</mat-icon></button>
+                          </ng-container>
+                          <ng-container *ngSwitchDefault>
+                            <input type="text" [id]="c + 'Filter'" [(ngModel)]="filterFields[c]" (change)="filter(c, filterFields[c])" />
+                            <button mat-icon-button matIconSuffix color="warn" *ngIf="filterFields[c]" (click)="filter(c, ''); filterFields[c] = ''"><mat-icon>clear</mat-icon></button>
+                          </ng-container>
+                        </ng-container>
+                        </th>
+                    </ng-container>   
                     <ng-container *ngFor="let c of workFlowColumns" [matColumnDef]="c">
                       <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c)" [style.width]="colsWidth[c]"><span mat-sort-header>{{'desc.' + c | translate}}</span></th>
                       

@@ -42,10 +42,10 @@ export class LocalStorageService {
     public availableColumnsWorkFlow = [
         {field: 'rawPath', selected: true, width: 150, type: 'string'},
         {field: 'label', selected: true, width: 150, type: 'string'},
-        {field: 'taskUsername', selected: true, width: 150, type: 'string'},
-        {field: 'priority', selected: true, width: 150, type: 'list'},
         {field: 'profileName', selected: true, width: 150, type: 'list'},
         {field: 'state', selected: true, width: 150, type: 'list'},
+        {field: 'taskUsername', selected: true, width: 150, type: 'string'},
+        {field: 'priority', selected: true, width: 150, type: 'list'},
         {field: 'created', selected: true, width: 150, type: 'date'},
         {field: 'edition', selected: true, width: 150, type: 'string'},
         {field: 'field001', selected: true, width: 150, type: 'string'},
@@ -57,7 +57,6 @@ export class LocalStorageService {
         {field: 'pid', selected: true, width: 150, type: 'string'},
         {field: 'sigla', selected: true, width: 150, type: 'string'},
         {field: 'year', selected: true, width: 150, type: 'string'},
-        {field: 'deviceID', selected: true, width: 150, type: 'string'},
         {field: 'deviceLabel', selected: true, width: 150, type: 'string'},
         {field: 'signature', selected: true, width: 150, type: 'string'},
         {field: 'taskName', selected: true, width: 150, type: 'string'}
