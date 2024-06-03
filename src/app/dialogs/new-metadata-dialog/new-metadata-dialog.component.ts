@@ -59,13 +59,9 @@ export class NewMetadataDialogComponent implements OnInit {
     let standard: string;
     let xml: string;
     let model: string;
-    if (this.data.isWorkFlow) {
-      standard = 'rda';
-      xml = '';
-    } else {
+    
       standard = Metadata.resolveStandardFromXml(this.data.content);
       xml = this.data.content;
-    }
     
     this.tmpl.getTemplate(standard, this.data.model).subscribe((tmpl: any) => {
       this.metadata = new Metadata(this.data.pid, this.data.model, xml, this.data.timestamp, standard, tmpl);

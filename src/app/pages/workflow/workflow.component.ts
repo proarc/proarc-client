@@ -89,7 +89,7 @@ export class WorkFlowComponent implements OnInit {
   users: User[];
   filters: { [field: string]: string } = {};
   filterFields: { [field: string]: string } = {};
-  lists: { [field: string]: {code: string, value: string}[]} = {};
+  lists: { [field: string]: { code: string, value: string }[] } = {};
   taskUsernameFilter: string;
   labelFilter: string;
   profileNameFilter: string;
@@ -140,10 +140,8 @@ export class WorkFlowComponent implements OnInit {
         return;
       }
       this.profiles = response.response.data;
-      this.getWorkflow();
-      
       this.setSelectedColumns();
-
+      this.getWorkflow();
     });
   }
 
@@ -262,70 +260,49 @@ export class WorkFlowComponent implements OnInit {
     // this.getItem(this.selectedItem.id)
   }
 
-  createJob() {
+  createJob(profiles: WorkFlowProfile[], profile: WorkFlowProfile, parentId: number ) {
 
-    const models: string[] = this.profiles.map(p => p.name)
-    
+    const models: string[] = profiles.map(p => p.name)
+
     const data: NewObjectData = {
-      profiles: this.profiles,
-      profile: this.profiles[0],
+      profiles: profiles,
+      profile: profile,
       models: models,
       model: models[0],
-    customPid: false,
-    parentPid: null,
-    fromNavbar: false,
-    isJob: true
-  }
-  const dialogRef1 = this.dialog.open(NewObjectDialogComponent, {
-    data: data,
-    width: '680px',
-    panelClass: 'app-dialog-new-bject'
-  });
-  dialogRef1.afterClosed().subscribe((result: any) => {
-    if (result) {
-      this.api.getWorkflowMods(result.data.id, result.data.model).subscribe(mods => {
-        const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
-          disableClose: true,
-          height: '90%',
-          width: '680px',
-          data: {content: mods.record.content, model: result.data.model} 
-        });
-        dialogRef.afterClosed().subscribe(res => {
-          if (res?.item) {
-            this.getWorkflow();
-            if (res.gotoEdit) {
-              
-            } else {
-              
-            }
-
-          }
-        });
-
-      });
-      
-      
-
-
+      parentId: parentId,
+      customPid: false,
+      parentPid: null,
+      fromNavbar: false,
+      isJob: true
     }
-  });
+    const dialogRef1 = this.dialog.open(NewObjectDialogComponent, {
+      data: data,
+      width: '680px',
+      panelClass: 'app-dialog-new-bject'
+    });
+    dialogRef1.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.api.getWorkflowMods(result.data.id, result.data.model).subscribe(mods => {
+          const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
+            disableClose: true,
+            height: '90%',
+            width: '680px',
+            data: { isWorkFlow: true, content: mods.record.content, model: result.data.model, selectedProfile: result.data.profileName }
+          });
+          dialogRef.afterClosed().subscribe(res => {
+            if (res?.item) {
+              this.getWorkflow();
+            }
+          });
 
-    // const dialogRef = this.dialog.open(NewJobDialogComponent, {
-    //   data: { profiles: this.profiles },
-    //   width: '800px',
-    //   panelClass: 'app-dialog-new-job'
-    // });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result === 'ok') {
-    //     this.getWorkflow();
-    //   }
-    // });
+        });
+      }
+    });
   }
 
-  
-
-  createSubJob(profile: WorkFlowProfileSubjob) {
-
+  createSubJob(profile: WorkFlowProfile, subJobProfileName: string) {
+    const subJobProfile = this.profiles.find(p => p.name === subJobProfileName);
+    this.createJob([profile], subJobProfile, this.selectedJob.id)
   }
 
   createNewObject(model: string) {
@@ -416,17 +393,17 @@ export class WorkFlowComponent implements OnInit {
     return this.columnsWorkFlow.find(c => c.field === f).type;
   }
 
-  getList(f: string): {code: string, value: string}[] {
+  getList(f: string): { code: string, value: string }[] {
     if (f === 'priority') {
-      return this.priorities.map(p => { return {code: p.code + '', value: p.value}});
+      return this.priorities.map(p => { return { code: p.code + '', value: p.value } });
     } else if (f === 'state') {
-      return this.states.map(p => { return {code: p.code, value: p.value}});
+      return this.states.map(p => { return { code: p.code, value: p.value } });
     } else if (f === 'profileName') {
-      return this.profiles.map(p => { return {code: p.name + '', value: p.name}});
+      return this.profiles.map(p => { return { code: p.name + '', value: p.name } });
     } else {
       return [];
     }
-    
+
   }
 
   listValue(field: string, code: string) {
@@ -435,7 +412,7 @@ export class WorkFlowComponent implements OnInit {
   }
 
   setSelectedColumns() {
-    
+
     this.workFlowColumns = this.columnsWorkFlow.filter(c => c.selected).map(c => c.field);
 
     this.workFlowColumns.forEach(c => {
@@ -444,7 +421,7 @@ export class WorkFlowComponent implements OnInit {
       if (this.columnType(c) === 'list') {
         this.lists[c] = this.getList(c);
       }
-      
+
     });
     this.setColumnsWith();
   }

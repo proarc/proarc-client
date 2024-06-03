@@ -9,7 +9,7 @@
   </div>
   
   <div mat-dialog-actions cdkFocusRegionstart>
-    <button mat-flat-button color="primary" (click)="onSave(true)">{{ 'button.createAndGoToObject' | translate }}</button>
+    <button mat-flat-button *ngIf="!data.isWorkFlow" color="primary" (click)="onSave(true)">{{ 'button.createAndGoToObject' | translate }}</button>
     <button mat-flat-button color="primary" (click)="onSave(false)">{{ 'button.create' | translate }}</button>
     <button mat-flat-button (click)="onClose()">{{ 'button.close' | translate }}</button>
   </div>
