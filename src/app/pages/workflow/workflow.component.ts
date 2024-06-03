@@ -385,6 +385,7 @@ export class WorkFlowComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.columnsWorkFlow = this.properties.getColumnsWorkFlow();
+        this.setSelectedColumns();
       }
     });
   }
