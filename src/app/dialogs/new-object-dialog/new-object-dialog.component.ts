@@ -158,7 +158,10 @@ export class NewObjectDialogComponent implements OnInit {
   }
 
   onCreateJob(xml?: string) {
-    let data = `profileName=${this.data.profile}&model=${this.data.model}`;
+    let data = `profileName=${this.data.profile.name}&model=${this.data.model}`;
+    if (this.data.parentId && this.data.parentId > -1) {
+      data = `${data}&parentId=${this.data.parentId}`;
+    }
     
     data = `${data}&metadata=${encodeURIComponent(xml)}`;
     this.api.createWorkflow(data).subscribe((response: any) => {
@@ -282,6 +285,7 @@ export class NewObjectDialogComponent implements OnInit {
 export interface NewObjectData {
   profiles?: WorkFlowProfile[];
   profile?: WorkFlowProfile;
+  parentId?: number;
   model: string;
   models: string[];
   customPid: boolean;

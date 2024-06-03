@@ -24,10 +24,10 @@
                   <ng-container *ngIf="selectedProfile && selectedProfile.subjob.length > 0">
                     <button mat-button [matMenuTriggerFor]="subjob_menu">{{ "workflow.create_new_subjob" | translate }}</button>
                     <mat-menu #subjob_menu="matMenu">
-                      <button mat-menu-item *ngFor="let sub of selectedProfile.subjob" (click)="createSubJob(sub)">{{ sub.title }}</button>
+                      <button mat-menu-item *ngFor="let sub of selectedProfile.subjob" (click)="createSubJob(selectedProfile, sub.name)">{{ sub.title }}</button>
                     </mat-menu>
                   </ng-container>
-                  <button (click)="createJob()" mat-button>{{'workflow.create_new' | translate }}</button>
+                  <button (click)="createJob(profiles, profiles[0], -1)" mat-button>{{'workflow.create_new' | translate }}</button>
                   <ng-container *ngIf="selectedProfile">
                     <button mat-button [disabled]="hasObject" [matMenuTriggerFor]="object_menu">{{ "workflow.create_new_object" | translate }}</button>
                     <mat-menu #object_menu="matMenu">
@@ -139,19 +139,28 @@
                 <div class="app-oa-y" *ngIf="subJobs.length > 0">
                   <table  mat-table [dataSource]="subJobs" class="app-striped app-hover" matSort 
                     [matSortActive]="subjobsSortField" [matSortDirection]="subjobsSortDir" (matSortChange)="sortSubjobsTable($event)">
-                    <ng-container matColumnDef="taskUsername">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.completedTheTask' | translate }}</th>
-                      <td mat-cell *matCellDef="let row">{{row.taskUsername}}</td>
+                    
+                    
+                    <ng-container *ngFor="let c of workFlowColumns" [matColumnDef]="c">
+                      <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c)" [style.width]="colsWidth[c]"><span mat-sort-header>{{'desc.' + c | translate}}</span></th>
+                      
+                        <ng-container [ngSwitch]="columnType(c)">
+                          <ng-container *ngSwitchCase="'date'">
+                            <td mat-cell *matCellDef="let element">{{ element[c] | date : 'dd.MM.yyyy'}}</td>
+                          </ng-container>
+                          <ng-container *ngSwitchCase="'list'">
+                            <td mat-cell *matCellDef="let element">{{ listValue(c, element[c])}}</td>
+                          </ng-container>
+                          <ng-container *ngSwitchDefault>
+                            <td mat-cell *matCellDef="let element">{{ element[c] }}</td>
+                          </ng-container>
+                        </ng-container>
+                        
                     </ng-container>
-                    <ng-container matColumnDef="label">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.name' | translate }}</th>
-                      <td mat-cell *matCellDef="let row">{{row.label}}</td>
-                    </ng-container>
-                    <ng-container matColumnDef="profileName">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'desc.profileName' | translate }}</th>
-                      <td mat-cell *matCellDef="let row">{{row.profileName}}</td>
-                    </ng-container>
+                    
                     <tr mat-header-row *matHeaderRowDef="workFlowColumns; sticky: true"></tr>
+
+
                     <tr mat-row *matRowDef="let row; columns: workFlowColumns;" (click)="selectJob(row)"></tr>
                   </table>
                 </div>

@@ -48,6 +48,7 @@ export class ColumnsSettingsDialogComponent implements OnInit {
   save() {
     if (this.data.isWorkFlow) {
       this.properties.setColumnsWorkFlow(this.columnsWorkFlow);
+      this.dialogRef.close(true);
     } else if (this.data.isRepo) {
       this.setSelectedColumnsEditingRepo();
     } else {
