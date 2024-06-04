@@ -20,6 +20,7 @@ import { ColumnsSettingsDialogComponent } from 'src/app/dialogs/columns-settings
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { NewObjectData, NewObjectDialogComponent } from 'src/app/dialogs/new-object-dialog/new-object-dialog.component';
 import { NewMetadataDialogComponent } from 'src/app/dialogs/new-metadata-dialog/new-metadata-dialog.component';
+import { AuthService } from 'src/app/services/auth.service';
 // -- table to expand --
 
 @Component({
@@ -99,6 +100,8 @@ export class WorkFlowComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     public properties: LocalStorageService,
+    private translator: TranslateService,
+    public auth: AuthService,
     private api: ApiService,
     private ui: UIService,
     public layout: LayoutService) { }
@@ -441,6 +444,34 @@ export class WorkFlowComponent implements OnInit {
     // console.log(e, field)
     this.colsWidth[field] = e + 'px';
     this.properties.setColumnsWorkFlow(this.columnsWorkFlow);
+  }
+
+  removeJob() {
+    const data: SimpleDialogData = {
+      title: String(this.translator.instant('dialog.removeJob.title')),
+      message: String(this.translator.instant('dialog.removeJob.message')),
+      alertClass: 'app-warn',
+      btn1: {
+        label: String(this.translator.instant('button.yes')),
+        value: 'yes',
+        color: 'warn'
+      },
+      btn2: {
+        label: String(this.translator.instant('button.no')),
+        value: 'no',
+        color: 'default'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      data: data
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.api.removeWorkflow(this.selectedJob.id).subscribe(res => {
+          this.getWorkflow();
+        })
+      }
+    });
   }
 
 }

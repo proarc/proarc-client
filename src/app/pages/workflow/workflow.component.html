@@ -30,14 +30,14 @@
                       <button mat-menu-item *ngFor="let model of selectedProfile.model" (click)="createNewObject(model.name)">{{ 'model.' + model.name | translate}}</button>
                     </mat-menu>
                   </ng-container>
-
             
-      <button mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #menuMore="matMenu">
-        <button mat-menu-item (click)="selectColumns()" >{{'editor.children.select_columns' | translate}}</button>
-      </mat-menu>
+                  <button mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menuMore="matMenu">
+                    <button mat-menu-item (click)="selectColumns()" >{{'editor.children.select_columns' | translate}}</button>
+                    <button *ngIf="auth.user.wfDeleteJobFunction || auth.isSuperAdmin()" mat-menu-item (click)="removeJob()" >{{'workflow.remove_job' | translate}}</button>
+                  </mat-menu>
 
                 </div>
                 <div class="app-oa-y">
@@ -96,11 +96,12 @@
                   <table  mat-table [dataSource]="subJobs" class="app-striped app-hover" matSort 
                     [matSortActive]="subjobsSortField" [matSortDirection]="subjobsSortDir" (matSortChange)="sortSubjobsTable($event)">
                     
-                    
                     <ng-container *ngFor="let c of workFlowColumns" [matColumnDef]="c + '-filter'">
-                      
                       <th mat-header-cell *matHeaderCellDef [style.width]="colsWidth[c]">
                         <ng-container [ngSwitch]="columnType(c)">
+                          <ng-container *ngSwitchCase="'empty'">
+                          
+                          </ng-container>
                           <ng-container *ngSwitchCase="'date'">
                           
                           </ng-container>
@@ -136,7 +137,6 @@
                     </ng-container>
                     
                     <tr mat-header-row *matHeaderRowDef="workFlowColumns; sticky: true"></tr>
-
 
                     <tr mat-row *matRowDef="let row; columns: workFlowColumns;" (click)="selectJob(row)"></tr>
                   </table>

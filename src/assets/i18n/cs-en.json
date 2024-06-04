@@ -2176,7 +2176,8 @@
     "job": "Záměr",
     "create_new": "Vytvořit nový záměr",
     "create_new_subjob": "Podzáměr",
-    "create_new_object": "Vytvořit nový objekt"
+    "create_new_object": "Vytvořit nový objekt",
+    "remove_job": "Odstranit záměr"
   },
   "premis": {
     "techMD": "technická metadata",
@@ -2904,6 +2905,10 @@
       "title": "Smazání objektů",
       "message": "Opravdu chcete vybrané objekty smazat?",
       "checkbox": "Smazat trvale z úložiště"
+    },
+    "removeJob": {
+      "title": "Smazání zámerů",
+      "message": "Opravdu chcete vybrané zámery smazat?"
     },
     "changeModel": {
       "title": "Převod modelu",
