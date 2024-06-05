@@ -44,6 +44,7 @@ export class LocalStorageService {
             {field: 'label', selected: true, width: 150, type: 'string'},
             {field: 'profileName', selected: true, width: 150, type: 'list'},
             {field: 'state', selected: true, width: 150, type: 'list'},
+            {field: 'taskName', selected: true, width: 150, type: 'list'},
             {field: 'taskUser', selected: true, width: 150, type: 'list'},
             {field: 'priority', selected: true, width: 150, type: 'list'},
             {field: 'created', selected: true, width: 150, type: 'date'},
@@ -58,8 +59,7 @@ export class LocalStorageService {
             {field: 'sigla', selected: true, width: 150, type: 'string'},
             {field: 'year', selected: true, width: 150, type: 'string'},
             {field: 'deviceLabel', selected: true, width: 150, type: 'string'},
-            {field: 'signature', selected: true, width: 150, type: 'string'},
-            {field: 'taskName', selected: true, width: 150, type: 'string'}
+            {field: 'signature', selected: true, width: 150, type: 'string'}
         ];
 
         public availableColumnsWorkFlowSubJobs = [
@@ -67,6 +67,7 @@ export class LocalStorageService {
             {field: 'label', selected: true, width: 150, type: 'string'},
             {field: 'profileName', selected: true, width: 150, type: 'list'},
             {field: 'state', selected: true, width: 150, type: 'list'},
+            {field: 'taskName', selected: true, width: 150, type: 'list'},
             {field: 'taskUser', selected: true, width: 150, type: 'list'},
             {field: 'priority', selected: true, width: 150, type: 'list'},
             {field: 'created', selected: true, width: 150, type: 'date'},
@@ -81,8 +82,7 @@ export class LocalStorageService {
             {field: 'sigla', selected: true, width: 150, type: 'string'},
             {field: 'year', selected: true, width: 150, type: 'string'},
             {field: 'deviceLabel', selected: true, width: 150, type: 'string'},
-            {field: 'signature', selected: true, width: 150, type: 'string'},
-            {field: 'taskName', selected: true, width: 150, type: 'string'}
+            {field: 'signature', selected: true, width: 150, type: 'string'}
         ];
 
     public colsEditingRepo: { [model: string]: { field: string, selected: boolean, width: number }[] };

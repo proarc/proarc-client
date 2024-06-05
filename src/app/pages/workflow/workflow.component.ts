@@ -21,6 +21,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { NewObjectData, NewObjectDialogComponent } from 'src/app/dialogs/new-object-dialog/new-object-dialog.component';
 import { NewMetadataDialogComponent } from 'src/app/dialogs/new-metadata-dialog/new-metadata-dialog.component';
 import { AuthService } from 'src/app/services/auth.service';
+import { ConfigService } from 'src/app/services/config.service';
 // -- table to expand --
 
 @Component({
@@ -53,6 +54,7 @@ export class WorkFlowComponent implements OnInit {
 
 
   profiles: WorkFlowProfile[];
+  allTasks: any[];
   selectedProfile: WorkFlowProfile;
 
   workFlowColumns = ['taskUsername', 'label', 'profileName'];
@@ -106,6 +108,7 @@ export class WorkFlowComponent implements OnInit {
     public properties: LocalStorageService,
     private translator: TranslateService,
     public auth: AuthService,
+    private config: ConfigService,
     private api: ApiService,
     private ui: UIService,
     public layout: LayoutService) { }
@@ -113,7 +116,8 @@ export class WorkFlowComponent implements OnInit {
   ngOnInit(): void {
     this.columnsWorkFlow = this.properties.getColumnsWorkFlow();
     this.columnsWorkFlowSubJobs = this.properties.getColumnsWorkFlowSubJobs();
-
+    
+    this.allTasks =this.config.getValueMap('proarc.workflow.tasks');
 
     this.api.getUsers().subscribe((users: User[]) => {
       this.users = users;
@@ -417,6 +421,8 @@ export class WorkFlowComponent implements OnInit {
       return this.profiles.map(p => { return { code: p.name + '', value: p.title } });
     } else if (f === 'ownerId') {
       return this.users.map(p => { return { code: p.userId + '', value: p.name } });
+    } else if (f === 'taskName') {
+      return this.allTasks.map(p => { return { code: p.name + '', value: p.title } });
     } else if (f === 'taskUser') {
       return this.users.map(p => { return { code: p.userId + '', value: p.name } });
     } else {
@@ -428,6 +434,13 @@ export class WorkFlowComponent implements OnInit {
   listValue(field: string, code: string) {
     const el = this.lists[field].find(el => el.code === code + '');
     return el ? el.value : code;
+  }
+
+  translatedField(f: string): string {
+    switch(f) {
+      case 'taskName': return 'taskLabel'
+      default: return f
+    }
   }
 
   setSelectedColumns() {
