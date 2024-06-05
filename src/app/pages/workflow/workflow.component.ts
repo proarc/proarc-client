@@ -116,8 +116,10 @@ export class WorkFlowComponent implements OnInit {
   ngOnInit(): void {
     this.columnsWorkFlow = this.properties.getColumnsWorkFlow();
     this.columnsWorkFlowSubJobs = this.properties.getColumnsWorkFlowSubJobs();
-    
-    this.allTasks =this.config.getValueMap('proarc.workflow.tasks');
+
+    console.log(this.config.allModels)
+
+    this.allTasks = this.config.getValueMap('proarc.workflow.tasks');
 
     this.api.getUsers().subscribe((users: User[]) => {
       this.users = users;
@@ -265,7 +267,7 @@ export class WorkFlowComponent implements OnInit {
     this.getSubJobs();
   }
 
-  createJob(profiles: WorkFlowProfile[], profile: WorkFlowProfile, parentId: number ) {
+  createJob(profiles: WorkFlowProfile[], profile: WorkFlowProfile, parentId: number) {
 
     const models: string[] = profiles.map(p => p.name)
 
@@ -291,13 +293,15 @@ export class WorkFlowComponent implements OnInit {
           const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
             disableClose: true,
             height: '90%',
-            width: '680px', 
-            data: { isWorkFlow: true, 
+            width: '680px',
+            data: {
+              isWorkFlow: true,
               jobId: result.data.id,
               model: result.data.model,
               timestamp: result.data.timestamp,
-              content: mods.record.content, 
-              selectedProfile: result.data.profileName }
+              content: mods.record.content,
+              selectedProfile: result.data.profileName
+            }
           });
           dialogRef.afterClosed().subscribe(res => {
             if (res?.item) {
@@ -395,7 +399,7 @@ export class WorkFlowComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        
+
         if (isSubJobs) {
           this.columnsWorkFlowSubJobs = this.properties.getColumnsWorkFlowSubJobs();
           this.setSelectedColumnsSubJobs();
@@ -403,7 +407,7 @@ export class WorkFlowComponent implements OnInit {
           this.columnsWorkFlow = this.properties.getColumnsWorkFlow();
           this.setSelectedColumns();
         }
-        
+
       }
     });
   }
@@ -413,22 +417,16 @@ export class WorkFlowComponent implements OnInit {
   }
 
   getList(f: string): { code: string, value: string }[] {
-    if (f === 'priority') {
-      return this.priorities.map(p => { return { code: p.code + '', value: p.value } });
-    } else if (f === 'state') {
-      return this.states.map(p => { return { code: p.code, value: p.value } });
-    } else if (f === 'profileName') {
-      return this.profiles.map(p => { return { code: p.name + '', value: p.title } });
-    } else if (f === 'ownerId') {
-      return this.users.map(p => { return { code: p.userId + '', value: p.name } });
-    } else if (f === 'taskName') {
-      return this.allTasks.map(p => { return { code: p.name + '', value: p.title } });
-    } else if (f === 'taskUser') {
-      return this.users.map(p => { return { code: p.userId + '', value: p.name } });
-    } else {
-      return [];
+    switch (f) {
+      case 'priority': return this.priorities.map(p => { return { code: p.code + '', value: p.value } });
+      case 'state': return this.states.map(p => { return { code: p.code, value: p.value } });
+      case 'profileName': return this.profiles.map(p => { return { code: p.name + '', value: p.title } });
+      case 'ownerId': return this.users.map(p => { return { code: p.userId + '', value: p.name } });
+      case 'taskName': return this.allTasks.map(p => { return { code: p.name + '', value: p.title } });
+      case 'taskUser': return this.users.map(p => { return { code: p.userId + '', value: p.name } });
+      case 'model': return this.config.allModels.map((p: string) => { return { code: p, value: this.translator.getTranslation('model.' + p) } });
+      default: return [];
     }
-
   }
 
   listValue(field: string, code: string) {
@@ -437,7 +435,7 @@ export class WorkFlowComponent implements OnInit {
   }
 
   translatedField(f: string): string {
-    switch(f) {
+    switch (f) {
       case 'taskName': return 'taskLabel'
       default: return f
     }
