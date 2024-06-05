@@ -22,6 +22,7 @@ import { NewObjectData, NewObjectDialogComponent } from 'src/app/dialogs/new-obj
 import { NewMetadataDialogComponent } from 'src/app/dialogs/new-metadata-dialog/new-metadata-dialog.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
+import { WorkFlowTree } from './workflowTree.model';
 // -- table to expand --
 
 @Component({
@@ -64,9 +65,12 @@ export class WorkFlowComponent implements OnInit {
 
   allJobs: WorkFlow[] = [];
   jobs: WorkFlow[] = [];
-  subJobs: WorkFlow[] = [];
   selectedJob: WorkFlow;
   hasObject: boolean;
+
+  subJobs: WorkFlow[] = [];
+  public subJobsTree: WorkFlowTree;
+  selectedSubJob: WorkFlow;
 
   jobsSortField: string = 'created';
   jobsSortDir: SortDirection = 'desc';
@@ -116,9 +120,6 @@ export class WorkFlowComponent implements OnInit {
   ngOnInit(): void {
     this.columnsWorkFlow = this.properties.getColumnsWorkFlow();
     this.columnsWorkFlowSubJobs = this.properties.getColumnsWorkFlowSubJobs();
-
-    console.log(this.config.allModels)
-
     this.allTasks = this.config.getValueMap('proarc.workflow.tasks');
 
     this.api.getUsers().subscribe((users: User[]) => {
@@ -193,6 +194,8 @@ export class WorkFlowComponent implements OnInit {
   }
 
   getSubJobs() {
+
+
     this.subJobs = [];
 
     let params = '?parentId=' + this.selectedJob.id;
@@ -264,6 +267,10 @@ export class WorkFlowComponent implements OnInit {
     this.selectedProfile = this.profiles.find(p => p.name === w.profileName);
     this.getMaterial();
     this.getTasks();
+
+    this.subJobsTree = new WorkFlowTree(this.selectedJob, this.selectedProfile.subjob.length > 0);
+    this.subJobsTree.expand(this.api, false);
+
     this.getSubJobs();
   }
 
@@ -424,7 +431,7 @@ export class WorkFlowComponent implements OnInit {
       case 'ownerId': return this.users.map(p => { return { code: p.userId + '', value: p.name } });
       case 'taskName': return this.allTasks.map(p => { return { code: p.name + '', value: p.title } });
       case 'taskUser': return this.users.map(p => { return { code: p.userId + '', value: p.name } });
-      case 'model': return this.config.allModels.map((p: string) => { return { code: p, value: this.translator.getTranslation('model.' + p) } });
+      case 'model': return this.config.allModels.map((p: string) => { return { code: p, value: this.translator.instant('model.' + p) } });
       default: return [];
     }
   }
@@ -520,6 +527,24 @@ export class WorkFlowComponent implements OnInit {
         })
       }
     });
+  }
+
+  selectSubJob(tree: WorkFlowTree) {
+
+  }
+
+  openSubJob(tree: WorkFlowTree) {
+
+  }
+
+  toggle(event: any, item: WorkFlowTree) {
+    event.stopPropagation();
+    event.preventDefault();
+    if (!item.expanded) {
+      item.expand(this.api, false);
+    } else {
+      item.expanded = false;
+    }
   }
 
 }

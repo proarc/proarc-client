@@ -22,7 +22,6 @@
                 <div class="app-toolbar">
                   <button (click)="getWorkflow()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
                   <button *ngIf="selectedProfile && selectedProfile.subjob.length > 0" mat-button (click)="createSubJob()">{{ "workflow.create_new_subjob" | translate }}</button>
-
                   <button (click)="createJob(profiles, profiles[0], -1)" mat-button>{{'workflow.create_new' | translate }}</button>
                   <ng-container *ngIf="selectedProfile">
                     <button mat-button [disabled]="hasObject" [matMenuTriggerFor]="object_menu">{{ "workflow.create_new_object" | translate }}</button>
@@ -95,6 +94,7 @@
             <as-split-area>
               <div fxLayout="column" fxFlexFill [fxLayoutAlign]="subJobs.length === 0 ? 'center center' : 'start'">
                 <mat-card *ngIf="subJobs.length === 0" class="app-alert app-info"><mat-icon>info</mat-icon>{{ 'alert.info.noItemsToDisplay' | translate }}</mat-card>
+                
                 <div class="app-toolbar" *ngIf="subJobs.length > 0">
                   <button (click)="getSubJobs()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
                   <button *ngIf="selectedProfile && selectedProfile.subjob.length > 0" mat-button (click)="createSubJob()">{{ "workflow.create_new_subjob" | translate }}</button>
@@ -114,7 +114,67 @@
                   </mat-menu>
 
                 </div>
-                <div class="app-oa-y" *ngIf="subJobs.length > 0">
+                
+                <div class="app-oa-y " fxLayout="column"  *ngIf="subJobs.length > 0 && subJobsTree">
+                  <div fxFlex class="app-striped app-tree mat-table app-hover app-resize" fxLayout="column" fxFlexFill>
+                    <div class="app-row app-header mat-header-cell" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
+                      <div [style.width]="(subJobsTree.level * 20 + 30) + 'px'"></div>
+                      <ng-container *ngFor="let c of workFlowColumnsSubJobs; let idx = index">
+                          <div [class.app-cell-first]="idx === 0" [class.app-cell]="idx > 0"
+                            [resizeColumn]="true" (columnResized)="saveColumnsSizesSubJobs($event,c)" [style.width]="colsWidthSubJobs[c]">{{ 'desc.' + c | translate }}</div>
+                      </ng-container>
+                    </div>
+                  </div>
+
+                  <div fxFlexFill *ngTemplateOutlet="rowTmpl; context:{ tree: subJobsTree}"></div>
+                
+                  <ng-template #rowTmpl let-tree="tree">
+                
+                      <div (click)="selectSubJob(tree)" (dblclick)="openSubJob(tree)" class="app-row" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px"
+                        [class.app-selected]="tree.item.pid === selectedSubJob?.id">
+                
+                      <div class="app-expansion-cell">
+                        <div class="app-expansion-icon" [style.width]="(subJobsTree.level * 20 + 30) + 'px'">
+                          <mat-spinner *ngIf="tree.loading" [strokeWidth]="3" [diameter]="20"></mat-spinner>
+                          <mat-icon class="app-tree-expand" *ngIf="tree.expandable && !tree.loading" (click)="toggle($event, tree)">{{ tree.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
+                          <span class="app-tree-expand" *ngIf="!tree.expandable && !tree.loading" style="width: 36px;">&#160;</span>
+                        </div>
+                      </div>
+                      <ng-container *ngFor="let c of workFlowColumnsSubJobs; let idx = index">
+                        <ng-container [ngSwitch]="columnType(c)">
+                          <div class="app-cell" [ngClass]="'app-' + c" [class.app-cell-first]="idx === 0" [class.app-cell]="idx > 0" [style.width]="colsWidthSubJobs[c]">
+                            <div class="app-text-cutter">
+                              <ng-container *ngSwitchCase="'date'">
+                                <span>{{ tree.item[c] | date : 'dd.MM.yyyy' }}</span>
+                              </ng-container>
+                              <ng-container *ngSwitchCase="'boolean'">
+                                <mat-icon [matTooltip]="tree.item[c] ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">{{ tree.item[c] ? 'lock' : 'lock_open' }}</mat-icon>
+                                <!-- {{ (tree.item[col.field]? 'common.yes' : 'common.no') | translate }} -->
+                              </ng-container>
+                              <ng-container *ngSwitchCase="'list'">
+                                <span>{{ listValue(c, tree.item[c]) }}</span>
+                              </ng-container>
+                              <ng-container *ngSwitchCase="'translated'">
+                                <span>{{ tree.item[translatedField(c)] }}</span>
+                              </ng-container>
+                              <ng-container *ngSwitchDefault>
+                                <span>{{ tree.item[c] }}</span>
+                              </ng-container>     
+                            </div>
+                          </div>
+                        </ng-container>
+                      </ng-container>
+                    </div>
+                    <ng-container *ngIf="tree.expanded && tree.children">
+                      <div *ngFor="let child of tree.children" >
+                        <ng-container *ngTemplateOutlet="rowTmpl; context:{ tree: child }"></ng-container>
+                      </div>
+                    </ng-container>
+                  </ng-template>
+                </div>
+
+
+                <div class="app-oa-y" *ngIf="subJobs.length > 0 && false">
                   <table  mat-table [dataSource]="subJobs" class="app-striped app-hover app-resize" matSort 
                     [matSortActive]="subjobsSortField" [matSortDirection]="subjobsSortDir" (matSortChange)="sortSubjobsTable($event)">
                     
