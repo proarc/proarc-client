@@ -990,6 +990,10 @@ export class ApiService {
     return this.post('workflow', data);
   }
 
+  updateWorkflow( data: string): Observable<any> {
+    return this.put('workflow/mods', data);
+  }
+
   removeWorkflow(id: number): Observable<any> {
     return this.delete('workflow?id=' + id);
   }

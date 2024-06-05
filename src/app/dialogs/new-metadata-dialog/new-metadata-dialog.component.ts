@@ -147,10 +147,10 @@ export class NewMetadataDialogComponent implements OnInit {
   }
 
   saveJob(gotoEdit: boolean) {
-    let data = `profileName=${this.data.selectedProfile}`;
+    let data = `jobId=${this.data.jobId}&timestamp=${this.data.timestamp}&MetaModelRecord=${this.data.model}`;
     
-    data = `${data}&metadata=${encodeURIComponent(this.metadata.toMods())}`;
-    this.api.createWorkflow(data).subscribe((response: any) => {
+    data = `${data}&xmlData=${encodeURIComponent(this.metadata.toMods())}`;
+    this.api.updateWorkflow(data).subscribe((response: any) => {
       
       if (response['response'].errors) {
         console.log('error', response['response'].errors);

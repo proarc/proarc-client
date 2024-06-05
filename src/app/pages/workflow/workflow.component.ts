@@ -289,8 +289,13 @@ export class WorkFlowComponent implements OnInit {
           const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
             disableClose: true,
             height: '90%',
-            width: '680px',
-            data: { isWorkFlow: true, content: mods.record.content, model: result.data.model, selectedProfile: result.data.profileName }
+            width: '680px', 
+            data: { isWorkFlow: true, 
+              jobId: result.data.id,
+              model: result.data.model,
+              timestamp: result.data.timestamp,
+              content: mods.record.content, 
+              selectedProfile: result.data.profileName }
           });
           dialogRef.afterClosed().subscribe(res => {
             if (res?.item) {
