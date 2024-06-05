@@ -30,6 +30,9 @@ export class ColumnsSettingsDialogComponent implements OnInit {
     if (this.data.isWorkFlow) {
       this.columnsWorkFlow = this.properties.getColumnsWorkFlow();
 
+    } else if (this.data.isWorkFlowSubJobs) {
+      this.columnsWorkFlow = this.properties.getColumnsWorkFlowSubJobs();
+
     } else {
 
       this.colsEditModeParent = this.properties.getColsEditingRepo();
@@ -48,6 +51,9 @@ export class ColumnsSettingsDialogComponent implements OnInit {
   save() {
     if (this.data.isWorkFlow) {
       this.properties.setColumnsWorkFlow(this.columnsWorkFlow);
+      this.dialogRef.close(true);
+    } else if (this.data.isWorkFlowSubJobs) {
+      this.properties.setColumnsWorkFlowSubJobs(this.columnsWorkFlow);
       this.dialogRef.close(true);
     } else if (this.data.isRepo) {
       this.setSelectedColumnsEditingRepo();

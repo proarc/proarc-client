@@ -2482,11 +2482,11 @@
     "id": "Id",
     "label": "Název",
     "ownerName": "Vlastník",
-    "ownerId": "Id vlastníka",
+    "ownerId": "Založil záměr",
     "profileName": "Profil",
     "rawPath": "Adresář surových skenu",
     "taskName" : "úkol",
-    "taskUsername": "Dokončil úkol",
+    "taskUser": "Dokončil úkol",
     "deviceID": "Zařízení",
     "deviceLabel": "Zařízení"
   },

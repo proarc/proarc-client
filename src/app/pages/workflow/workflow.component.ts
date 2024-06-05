@@ -42,6 +42,8 @@ export class WorkFlowComponent implements OnInit {
 
   columnsWorkFlow: { field: string, selected: boolean, type: string }[];
   colsWidth: { [key: string]: string } = {};
+  columnsWorkFlowSubJobs: { field: string, selected: boolean, type: string }[];
+  colsWidthSubJobs: { [key: string]: string } = {};
 
   // -- table to expand --
   materialColumnsToDisplay = ['profileLabel', 'label', 'note'];
@@ -55,6 +57,8 @@ export class WorkFlowComponent implements OnInit {
 
   workFlowColumns = ['taskUsername', 'label', 'profileName'];
   filterWorkFlowColumns: string[] = [];
+
+  workFlowColumnsSubJobs = ['taskUsername', 'label', 'profileName'];
 
   allJobs: WorkFlow[] = [];
   jobs: WorkFlow[] = [];
@@ -107,13 +111,8 @@ export class WorkFlowComponent implements OnInit {
     public layout: LayoutService) { }
 
   ngOnInit(): void {
-    // this.route.paramMap.subscribe(
-    //   p => {
-    //     this.id = parseInt(p.get('id'));
-    //     this.initData();
-    //   });
-
     this.columnsWorkFlow = this.properties.getColumnsWorkFlow();
+    this.columnsWorkFlowSubJobs = this.properties.getColumnsWorkFlowSubJobs();
 
 
     this.api.getUsers().subscribe((users: User[]) => {
@@ -144,6 +143,7 @@ export class WorkFlowComponent implements OnInit {
       }
       this.profiles = response.response.data;
       this.setSelectedColumns();
+      this.setSelectedColumnsSubJobs();
       this.getWorkflow();
     });
   }
@@ -256,11 +256,9 @@ export class WorkFlowComponent implements OnInit {
     }
     this.selectedJob = w;
     this.selectedProfile = this.profiles.find(p => p.name === w.profileName);
-    //this.tasks = this.selectedProfile.task;
     this.getMaterial();
     this.getTasks();
     this.getSubJobs();
-    // this.getItem(this.selectedItem.id)
   }
 
   createJob(profiles: WorkFlowProfile[], profile: WorkFlowProfile, parentId: number ) {
@@ -382,19 +380,25 @@ export class WorkFlowComponent implements OnInit {
     this.getWorkflow();
   }
 
-  selectColumns() {
+  selectColumns(isSubJobs: boolean) {
     const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
       data: {
         isRepo: false,
-        isWorkFlow: true
+        isWorkFlow: !isSubJobs,
+        isWorkFlowSubJobs: isSubJobs
       },
       width: '600px',
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         
-        this.columnsWorkFlow = this.properties.getColumnsWorkFlow();
-        this.setSelectedColumns();
+        if (isSubJobs) {
+          this.columnsWorkFlowSubJobs = this.properties.getColumnsWorkFlowSubJobs();
+          this.setSelectedColumnsSubJobs();
+        } else {
+          this.columnsWorkFlow = this.properties.getColumnsWorkFlow();
+          this.setSelectedColumns();
+        }
         
       }
     });
@@ -410,7 +414,11 @@ export class WorkFlowComponent implements OnInit {
     } else if (f === 'state') {
       return this.states.map(p => { return { code: p.code, value: p.value } });
     } else if (f === 'profileName') {
-      return this.profiles.map(p => { return { code: p.name + '', value: p.name } });
+      return this.profiles.map(p => { return { code: p.name + '', value: p.title } });
+    } else if (f === 'ownerId') {
+      return this.users.map(p => { return { code: p.userId + '', value: p.name } });
+    } else if (f === 'taskUser') {
+      return this.users.map(p => { return { code: p.userId + '', value: p.name } });
     } else {
       return [];
     }
@@ -438,6 +446,19 @@ export class WorkFlowComponent implements OnInit {
     this.setColumnsWith();
   }
 
+  setSelectedColumnsSubJobs() {
+
+    this.workFlowColumnsSubJobs = this.columnsWorkFlowSubJobs.filter(c => c.selected).map(c => c.field);
+
+    this.workFlowColumnsSubJobs.forEach(c => {
+      if (this.columnType(c) === 'list') {
+        this.lists[c] = this.getList(c);
+      }
+
+    });
+    this.setColumnsWithSubJobs();
+  }
+
   setColumnsWith() {
     this.colsWidth = {};
     this.columnsWorkFlow.forEach((c: any) => {
@@ -445,10 +466,21 @@ export class WorkFlowComponent implements OnInit {
     });
   }
 
+  setColumnsWithSubJobs() {
+    this.colsWidthSubJobs = {};
+    this.columnsWorkFlowSubJobs.forEach((c: any) => {
+      this.colsWidthSubJobs[c.field] = c.width + 'px';
+    });
+  }
+
   saveColumnsSizes(e: any, field?: string) {
-    // console.log(e, field)
     this.colsWidth[field] = e + 'px';
     this.properties.setColumnsWorkFlow(this.columnsWorkFlow);
+  }
+
+  saveColumnsSizesSubJobs(e: any, field?: string) {
+    this.colsWidthSubJobs[field] = e + 'px';
+    this.properties.setColumnsWorkFlowSubJobs(this.columnsWorkFlowSubJobs);
   }
 
   removeJob() {

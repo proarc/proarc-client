@@ -35,7 +35,7 @@
                     <mat-icon>more_vert</mat-icon>
                   </button>
                   <mat-menu #menuMore="matMenu">
-                    <button mat-menu-item (click)="selectColumns()" >{{'editor.children.select_columns' | translate}}</button>
+                    <button mat-menu-item (click)="selectColumns(false)" >{{'editor.children.select_columns' | translate}}</button>
                     <button *ngIf="auth.user.wfDeleteJobFunction || auth.isSuperAdmin()" mat-menu-item (click)="removeJob()" >{{'workflow.remove_job' | translate}}</button>
                   </mat-menu>
 
@@ -92,35 +92,31 @@
             <as-split-area>
               <div fxLayout="column" fxFlexFill [fxLayoutAlign]="subJobs.length === 0 ? 'center center' : 'start'">
                 <mat-card *ngIf="subJobs.length === 0" class="app-alert app-info"><mat-icon>info</mat-icon>{{ 'alert.info.noItemsToDisplay' | translate }}</mat-card>
+                <div class="app-toolbar" *ngIf="subJobs.length > 0">
+                  <button (click)="getSubJobs()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
+                  <button *ngIf="selectedProfile && selectedProfile.subjob.length > 0" mat-button (click)="createSubJob()">{{ "workflow.create_new_subjob" | translate }}</button>
+                  <ng-container *ngIf="selectedProfile">
+                    <button mat-button [disabled]="hasObject" [matMenuTriggerFor]="object_menu">{{ "workflow.create_new_object" | translate }}</button>
+                    <mat-menu #object_menu="matMenu">
+                      <button mat-menu-item *ngFor="let model of selectedProfile.model" (click)="createNewObject(model.name)">{{ 'model.' + model.name | translate}}</button>
+                    </mat-menu>
+                  </ng-container>
+            
+                  <button mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menuMore="matMenu">
+                    <button mat-menu-item (click)="selectColumns(true)" >{{'editor.children.select_columns' | translate}}</button>
+                    <button *ngIf="auth.user.wfDeleteJobFunction || auth.isSuperAdmin()" mat-menu-item (click)="removeJob()" >{{'workflow.remove_job' | translate}}</button>
+                  </mat-menu>
+
+                </div>
                 <div class="app-oa-y" *ngIf="subJobs.length > 0">
-                  <table  mat-table [dataSource]="subJobs" class="app-striped app-hover" matSort 
+                  <table  mat-table [dataSource]="subJobs" class="app-striped app-hover app-resize" matSort 
                     [matSortActive]="subjobsSortField" [matSortDirection]="subjobsSortDir" (matSortChange)="sortSubjobsTable($event)">
                     
-                    <ng-container *ngFor="let c of workFlowColumns" [matColumnDef]="c + '-filter'">
-                      <th mat-header-cell *matHeaderCellDef [style.width]="colsWidth[c]">
-                        <ng-container [ngSwitch]="columnType(c)">
-                          <ng-container *ngSwitchCase="'empty'">
-                          
-                          </ng-container>
-                          <ng-container *ngSwitchCase="'date'">
-                          
-                          </ng-container>
-                          <ng-container *ngSwitchCase="'list'">
-                              <mat-select [(ngModel)]="filterFields[c]" (ngModelChange)="filter(c, filterFields[c])">
-                                  <mat-option [value]="''"> </mat-option>
-                                  <mat-option *ngFor="let s of lists[c]" [value]="s.code">{{ s.value }}</mat-option>
-                                </mat-select> 
-                                <button mat-icon-button matIconSuffix color="warn" *ngIf="filterFields[c]" (click)="filter(c, ''); filterFields[c] = ''; $event.stopPropagation();"><mat-icon>clear</mat-icon></button>
-                          </ng-container>
-                          <ng-container *ngSwitchDefault>
-                            <input type="text" [id]="c + 'Filter'" [(ngModel)]="filterFields[c]" (change)="filter(c, filterFields[c])" />
-                            <button mat-icon-button matIconSuffix color="warn" *ngIf="filterFields[c]" (click)="filter(c, ''); filterFields[c] = ''"><mat-icon>clear</mat-icon></button>
-                          </ng-container>
-                        </ng-container>
-                        </th>
-                    </ng-container>   
-                    <ng-container *ngFor="let c of workFlowColumns" [matColumnDef]="c">
-                      <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c)" [style.width]="colsWidth[c]"><span mat-sort-header>{{'desc.' + c | translate}}</span></th>
+                    <ng-container *ngFor="let c of workFlowColumnsSubJobs" [matColumnDef]="c">
+                      <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesSubJobs($event,c)" [style.width]="colsWidthSubJobs[c]"><span mat-sort-header>{{'desc.' + c | translate}}</span></th>
                       
                         <ng-container [ngSwitch]="columnType(c)">
                           <ng-container *ngSwitchCase="'date'">
@@ -136,9 +132,8 @@
                         
                     </ng-container>
                     
-                    <tr mat-header-row *matHeaderRowDef="workFlowColumns; sticky: true"></tr>
-
-                    <tr mat-row *matRowDef="let row; columns: workFlowColumns;" (click)="selectJob(row)"></tr>
+                    <tr mat-header-row *matHeaderRowDef="workFlowColumnsSubJobs; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: workFlowColumnsSubJobs;" (click)="selectJob(row)"></tr>
                   </table>
                 </div>
               </div>

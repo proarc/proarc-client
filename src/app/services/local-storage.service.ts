@@ -39,28 +39,51 @@ export class LocalStorageService {
         'pageType', 'pageNumber', 'pageIndex', 'pagePosition', 'model',
         'pid', 'owner', 'created', 'modified', 'status'];
 
-    public availableColumnsWorkFlow = [
-        {field: 'rawPath', selected: true, width: 150, type: 'string'},
-        {field: 'label', selected: true, width: 150, type: 'string'},
-        {field: 'profileName', selected: true, width: 150, type: 'list'},
-        {field: 'state', selected: true, width: 150, type: 'list'},
-        {field: 'taskUsername', selected: true, width: 150, type: 'string'},
-        {field: 'priority', selected: true, width: 150, type: 'list'},
-        {field: 'created', selected: true, width: 150, type: 'date'},
-        {field: 'edition', selected: true, width: 150, type: 'string'},
-        {field: 'field001', selected: true, width: 150, type: 'string'},
-        {field: 'financed', selected: true, width: 150, type: 'string'},
-        {field: 'id', selected: true, width: 150, type: 'string'},
-        {field: 'model', selected: true, width: 150, type: 'string'},
-        {field: 'modified', selected: true, width: 150, type: 'date'},
-        {field: 'ownerId', selected: true, width: 150, type: 'list'},
-        {field: 'pid', selected: true, width: 150, type: 'string'},
-        {field: 'sigla', selected: true, width: 150, type: 'string'},
-        {field: 'year', selected: true, width: 150, type: 'string'},
-        {field: 'deviceLabel', selected: true, width: 150, type: 'string'},
-        {field: 'signature', selected: true, width: 150, type: 'string'},
-        {field: 'taskName', selected: true, width: 150, type: 'string'}
-    ];
+        public availableColumnsWorkFlow = [
+            {field: 'rawPath', selected: true, width: 150, type: 'string'},
+            {field: 'label', selected: true, width: 150, type: 'string'},
+            {field: 'profileName', selected: true, width: 150, type: 'list'},
+            {field: 'state', selected: true, width: 150, type: 'list'},
+            {field: 'taskUser', selected: true, width: 150, type: 'list'},
+            {field: 'priority', selected: true, width: 150, type: 'list'},
+            {field: 'created', selected: true, width: 150, type: 'date'},
+            {field: 'edition', selected: true, width: 150, type: 'string'},
+            {field: 'field001', selected: true, width: 150, type: 'string'},
+            {field: 'financed', selected: true, width: 150, type: 'string'},
+            {field: 'id', selected: true, width: 150, type: 'string'},
+            {field: 'model', selected: true, width: 150, type: 'string'},
+            {field: 'modified', selected: true, width: 150, type: 'date'},
+            {field: 'ownerId', selected: true, width: 150, type: 'list'},
+            {field: 'pid', selected: true, width: 150, type: 'string'},
+            {field: 'sigla', selected: true, width: 150, type: 'string'},
+            {field: 'year', selected: true, width: 150, type: 'string'},
+            {field: 'deviceLabel', selected: true, width: 150, type: 'string'},
+            {field: 'signature', selected: true, width: 150, type: 'string'},
+            {field: 'taskName', selected: true, width: 150, type: 'string'}
+        ];
+
+        public availableColumnsWorkFlowSubJobs = [
+            {field: 'rawPath', selected: true, width: 150, type: 'string'},
+            {field: 'label', selected: true, width: 150, type: 'string'},
+            {field: 'profileName', selected: true, width: 150, type: 'list'},
+            {field: 'state', selected: true, width: 150, type: 'list'},
+            {field: 'taskUser', selected: true, width: 150, type: 'list'},
+            {field: 'priority', selected: true, width: 150, type: 'list'},
+            {field: 'created', selected: true, width: 150, type: 'date'},
+            {field: 'edition', selected: true, width: 150, type: 'string'},
+            {field: 'field001', selected: true, width: 150, type: 'string'},
+            {field: 'financed', selected: true, width: 150, type: 'string'},
+            {field: 'id', selected: true, width: 150, type: 'string'},
+            {field: 'model', selected: true, width: 150, type: 'string'},
+            {field: 'modified', selected: true, width: 150, type: 'date'},
+            {field: 'ownerId', selected: true, width: 150, type: 'list'},
+            {field: 'pid', selected: true, width: 150, type: 'string'},
+            {field: 'sigla', selected: true, width: 150, type: 'string'},
+            {field: 'year', selected: true, width: 150, type: 'string'},
+            {field: 'deviceLabel', selected: true, width: 150, type: 'string'},
+            {field: 'signature', selected: true, width: 150, type: 'string'},
+            {field: 'taskName', selected: true, width: 150, type: 'string'}
+        ];
 
     public colsEditingRepo: { [model: string]: { field: string, selected: boolean, width: number }[] };
 
@@ -249,6 +272,25 @@ export class LocalStorageService {
         } else {
 
             ret = this.availableColumnsWorkFlow.map((c) => {
+                return c;
+            });
+        }
+        return ret;
+        
+    }
+
+    setColumnsWorkFlowSubJobs(cols: any) {
+        this.setStringProperty('columnsWorkFlowSubJobs', JSON.stringify(cols));
+    }
+
+    getColumnsWorkFlowSubJobs() {
+        const prop = this.getStringProperty('columnsWorkFlowSubJobs');
+        let ret: any = [];
+        if (prop) {
+            Object.assign(ret, JSON.parse(prop));
+        } else {
+
+            ret = this.availableColumnsWorkFlowSubJobs.map((c) => {
                 return c;
             });
         }

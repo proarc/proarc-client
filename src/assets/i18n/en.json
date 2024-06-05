@@ -2482,11 +2482,11 @@
     "id": "Id",
     "label": "Label",
     "ownerName": "Owner name",
-    "ownerId": "Id owner",
+    "ownerId": "Job created by",
     "profileName": "Profile",
     "rawPath": "Path",
     "taskName" : "Task",
-    "taskUsername": "Task user name",
+    "taskUser": "Task user name",
     "deviceID": "Device",
     "deviceLabel": "Device"
   },
