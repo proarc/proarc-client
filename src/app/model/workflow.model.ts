@@ -46,6 +46,7 @@ export class WorkFlow {
   // properties ofr tree view
   parentId?: number;
   level: number;
+  expandable: boolean;
   expanded: boolean;
   childrenLoaded: boolean;
   hidden: boolean;

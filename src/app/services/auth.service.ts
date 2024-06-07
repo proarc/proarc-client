@@ -15,8 +15,8 @@ export class AuthService {
     public user: User;
 
     constructor(
-        private http: HttpClient, 
-        private api: ApiService, 
+        private http: HttpClient,
+        private api: ApiService,
         private router: Router,
         private config: ConfigService) {
     }
@@ -92,7 +92,7 @@ export class AuthService {
                         this.api.getValuemap().subscribe(resp => {
                             this.config.valueMap = resp.response.data;
                             resolve(true);
-                          });
+                        });
                         // resolve(true);
                     },
                     (error: any) => {
@@ -103,18 +103,32 @@ export class AuthService {
     }
 
     public initializeApp() {
-        return this.http.get(this.getApiUrl() + 'user?whoAmI=true').pipe(
-            switchMap((user: any) => {
-                this.user = User.fromJson(user['response']['data'][0]);
-                return this.api.getValuemap().pipe(tap((res: any) => {
-                    this.config.valueMap = res.response.data;
-                }));
+        return this.api.getValuemap().pipe(
+            switchMap((res: any) => {
+                this.config.valueMap = res.response.data;
+                return this.http.get(this.getApiUrl() + 'user?whoAmI=true').pipe(
+                    tap((user: any) => {
+                        this.user = User.fromJson(user['response']['data'][0]);
+                    })
+                );
             }),
             catchError((err) => {
-                // this.alertSubject.next(err);
                 return of(err);
             })
         );
+
+        // return this.http.get(this.getApiUrl() + 'user?whoAmI=true').pipe(
+        //     switchMap((user: any) => {
+        //         this.user = User.fromJson(user['response']['data'][0]);
+        //         return this.api.getValuemap().pipe(tap((res: any) => {
+        //             this.config.valueMap = res.response.data;
+        //         }));
+        //     }),
+        //     catchError((err) => {
+        //         // this.alertSubject.next(err);
+        //         return of(err);
+        //     })
+        // );
     }
 
     handleError(error: HttpErrorResponse) {

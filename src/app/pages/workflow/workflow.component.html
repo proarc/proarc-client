@@ -97,7 +97,7 @@
                 
                 <div class="app-toolbar" *ngIf="subJobs.length > 0">
                   <button (click)="refreshSubJobs()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
-                  <button *ngIf="selectedSubJobProfile && selectedSubJobProfile.subjob.length > 0" mat-button (click)="createSubJob(selectedSubJob)">{{ "workflow.create_new_subjob" | translate }}</button>
+                  <button *ngIf="selectedSubJob?.expandable" mat-button (click)="createSubJob(selectedSubJob)">{{ "workflow.create_new_subjob" | translate }}</button>
                   <ng-container *ngIf="selectedSubJobProfile">
                     <button mat-button [disabled]="hasObject" [matMenuTriggerFor]="object_menu">{{ "workflow.create_new_object" | translate }}</button>
                     <mat-menu #object_menu="matMenu">
@@ -119,32 +119,30 @@
                   <table  mat-table [dataSource]="visibleSubJobs" class="app-striped app-hover app-resize" matSort  #subJobsTable
                     [matSortActive]="subjobsSortField" [matSortDirection]="subjobsSortDir" >
                     
-                    <ng-container *ngFor="let c of workFlowColumnsSubJobs" [matColumnDef]="c">
-                      <th mat-header-cell *matHeaderCellDef [resizeColumn]="columnTypes[c] !== 'expand'" (columnResized)="saveColumnsSizesSubJobs($event,c)" 
+                    <ng-container *ngFor="let c of workFlowColumnsSubJobs; let idx = index;" [matColumnDef]="c">
+                      <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesSubJobs($event,c)" 
                         [style.width]="colsWidthSubJobs[c]">
-                        <span *ngIf="columnTypes[c] === 'expand'"></span>
-                        <span *ngIf="columnTypes[c] !== 'expand'">{{'desc.' + c | translate}}</span>
+                        <span>{{'desc.' + c | translate}}</span>
                       </th>
-                      
+                      <td mat-cell *matCellDef="let element">
+                        <span *ngIf="idx === 0" [style.margin-left]="(element.level * 15) + 'px'">
+                          <mat-icon *ngIf="element.expandable" (click)="toggle($event, element)">{{ element.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
+                        </span>
                       <ng-container [ngSwitch]="columnTypes[c]">
-                        <ng-container *ngSwitchCase="'expand'">
-                          <td mat-cell *matCellDef="let element">
-                            <mat-icon [style.margin-left]="(element.level * 10)+'px'" (click)="toggle($event, element)">{{ element.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
-                          </td>
-                        </ng-container>
                         <ng-container *ngSwitchCase="'date'">
-                          <td mat-cell *matCellDef="let element">{{ element[c] | date : 'dd.MM.yyyy'}}</td>
+                          {{ element[c] | date : 'dd.MM.yyyy'}}
                         </ng-container>
                         <ng-container *ngSwitchCase="'list'">
-                          <td mat-cell *matCellDef="let element">{{ listValue(c, element[c])}}</td>
+                          {{ listValue(c, element[c])}}
                         </ng-container>
                         <ng-container *ngSwitchCase="'translated'">
-                          <td mat-cell *matCellDef="let element">{{ element[translatedField(c)] }}</td>
+                          {{ element[translatedField(c)] }}
                         </ng-container>
                         <ng-container *ngSwitchDefault>
-                          <td mat-cell *matCellDef="let element">{{ element[c] }}</td>
+                          {{ element[c] }}
                         </ng-container>
                       </ng-container>
+                    </td>
                         
                     </ng-container>
                     

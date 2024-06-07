@@ -14,9 +14,9 @@ export class ResizecolDirective {
   private table!: HTMLElement;
 
   private pressed!: boolean;
-  mouseDownFunc: Function;
-  mouseMoveFunc: Function;
-  mouseUpFunc: Function;
+  mouseDownFunc = () => {};
+  mouseMoveFunc = () => {};
+  mouseUpFunc = () => {};
 
   constructor(private renderer: Renderer2, private el: ElementRef) { 
     this.column = this.el.nativeElement;

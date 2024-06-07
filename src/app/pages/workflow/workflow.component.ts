@@ -195,7 +195,10 @@ export class WorkFlowComponent implements OnInit {
       }
       this.allJobs = response.response.data;
       this.jobs = this.allJobs.filter(j => !j.parentId);
-      this.jobs.forEach(j => {j.level = 0});
+      this.jobs.forEach(j => {
+        j.level = 0;
+        j.expandable = this.isExpandable(j);
+      });
       if (this.route.snapshot.params['id']) {
         const job = this.jobs.find(j => j.id === parseInt(this.route.snapshot.params['id']));
         this.selectJob(job);
@@ -227,6 +230,7 @@ export class WorkFlowComponent implements OnInit {
 
       response.response.data.forEach((j: WorkFlow) => {
         j.level = job.level + 1;
+        j.expandable = this.isExpandable(j);
       });
 
       if (response.response.data.length > 0) {
@@ -292,6 +296,15 @@ export class WorkFlowComponent implements OnInit {
     this.getSubJobs(this.selectedJob);
   }
 
+  isExpandable(job: WorkFlow) {
+    const p = this.profiles.find(p => p.name === job.profileName);
+    if (!p) {
+      console.log('PROBKLEM!!', job);
+      return false;
+    }
+    return  p.subjob.length > 0;
+  }
+
   selectJob(w: WorkFlow) {
     if (w.id === this.selectedJob?.id) {
       return;
@@ -301,9 +314,6 @@ export class WorkFlowComponent implements OnInit {
     this.selectedProfile = this.profiles.find(p => p.name === w.profileName);
     this.getMaterial();
     this.getTasks();
-
-    this.subJobsTree = new WorkFlowTree(this.selectedJob, this.selectedProfile.subjob.length > 0);
-    this.subJobsTree.expand(this.api, false);
     this.refreshSubJobs();
     
   }
@@ -454,9 +464,6 @@ export class WorkFlowComponent implements OnInit {
   }
 
   columnType(f: string) {
-    if (f === 'expand') {
-      return 'expand'
-    }
     return this.columnsWorkFlow.find(c => c.field === f).type;
   }
 
@@ -505,8 +512,6 @@ export class WorkFlowComponent implements OnInit {
   setSelectedColumnsSubJobs() {
 
     this.workFlowColumnsSubJobs = this.columnsWorkFlowSubJobs.filter(c => c.selected).map(c => c.field);
-    this.workFlowColumnsSubJobs.unshift('expand')
-
     this.workFlowColumnsSubJobs.forEach(c => {
       if (this.columnType(c) === 'list') {
         this.lists[c] = this.getList(c);
@@ -531,7 +536,6 @@ export class WorkFlowComponent implements OnInit {
     this.columnsWorkFlowSubJobs.forEach((c: any) => {
       this.colsWidthSubJobs[c.field] = c.width + 'px';
     });
-    this.colsWidthSubJobs['expand'] = ((this.subJobsMaxLevel+1) * 20) + 'px';
   }
 
   saveColumnsSizes(e: any, field?: string) {
@@ -608,7 +612,6 @@ export class WorkFlowComponent implements OnInit {
 
   refreshVisibleSubJobs() {
     this.visibleSubJobs = this.subJobs.filter(j => !j.hidden);
-    this.colsWidthSubJobs['expand'] = (this.subJobsMaxLevel * 20 + 30) + 'px';
     this.subJobsTable.renderRows();
   }
 
