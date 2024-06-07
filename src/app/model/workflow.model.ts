@@ -42,7 +42,13 @@ export class WorkFlow {
   taskUsername: string;
   timestamp: Date
   year: string;
+
+  // properties ofr tree view
   parentId?: number;
+  level: number;
+  expanded: boolean;
+  childrenLoaded: boolean;
+  hidden: boolean;
 }
 
 export class WorkFlowProfile {

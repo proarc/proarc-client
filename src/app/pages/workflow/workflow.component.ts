@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { transformGeometryWithOptions } from 'ol/format/Feature';
@@ -23,6 +23,8 @@ import { NewMetadataDialogComponent } from 'src/app/dialogs/new-metadata-dialog/
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { WorkFlowTree } from './workflowTree.model';
+import { forkJoin } from 'rxjs';
+import { MatTable } from '@angular/material/table';
 // -- table to expand --
 
 @Component({
@@ -42,6 +44,8 @@ import { WorkFlowTree } from './workflowTree.model';
 
 export class WorkFlowComponent implements OnInit {
 
+  @ViewChild('subJobsTable') subJobsTable: MatTable<any>;
+
   columnsWorkFlow: { field: string, selected: boolean, type: string }[];
   colsWidth: { [key: string]: string } = {};
   columnsWorkFlowSubJobs: { field: string, selected: boolean, type: string }[];
@@ -57,20 +61,25 @@ export class WorkFlowComponent implements OnInit {
   profiles: WorkFlowProfile[];
   allTasks: any[];
   selectedProfile: WorkFlowProfile;
+  selectedSubJobProfile: WorkFlowProfile;
 
   workFlowColumns = ['taskUsername', 'label', 'profileName'];
   filterWorkFlowColumns: string[] = [];
+  columnTypes: {[field: string]: string} = {};
 
   workFlowColumnsSubJobs = ['taskUsername', 'label', 'profileName'];
 
   allJobs: WorkFlow[] = [];
   jobs: WorkFlow[] = [];
   selectedJob: WorkFlow;
+  activeJob: WorkFlow;
   hasObject: boolean;
 
   subJobs: WorkFlow[] = [];
+  visibleSubJobs: WorkFlow[] = [];
   public subJobsTree: WorkFlowTree;
   selectedSubJob: WorkFlow;
+  subJobsMaxLevel = 0;
 
   jobsSortField: string = 'created';
   jobsSortDir: SortDirection = 'desc';
@@ -122,9 +131,9 @@ export class WorkFlowComponent implements OnInit {
     this.columnsWorkFlowSubJobs = this.properties.getColumnsWorkFlowSubJobs();
     this.allTasks = this.config.getValueMap('proarc.workflow.tasks');
 
-    this.api.getUsers().subscribe((users: User[]) => {
-      this.users = users;
-    });
+    // this.api.getUsers().subscribe((users: User[]) => {
+    //   this.users = users;
+    // });
     this.getWorkflowProfiles();
   }
 
@@ -143,12 +152,16 @@ export class WorkFlowComponent implements OnInit {
   }
 
   getWorkflowProfiles() {
-    this.api.getWorkflowProfiles().subscribe((response: any) => {
-      if (response['response'].errors) {
-        this.ui.showErrorDialogFromObject(response['response'].errors);
+    const rUsers = this.api.getUsers();
+    const rProfiles = this.api.getWorkflowProfiles();
+    forkJoin([rUsers, rProfiles]).subscribe(([users, profiles]: [User[], any]) => {
+      this.users = users;
+    // this.api.getWorkflowProfiles().subscribe((profiles: any) => {
+      if (profiles['response'].errors) {
+        this.ui.showErrorDialogFromObject(profiles['response'].errors);
         return;
       }
-      this.profiles = response.response.data;
+      this.profiles = profiles.response.data;
       this.setSelectedColumns();
       this.setSelectedColumnsSubJobs();
       this.getWorkflow();
@@ -182,6 +195,7 @@ export class WorkFlowComponent implements OnInit {
       }
       this.allJobs = response.response.data;
       this.jobs = this.allJobs.filter(j => !j.parentId);
+      this.jobs.forEach(j => {j.level = 0});
       if (this.route.snapshot.params['id']) {
         const job = this.jobs.find(j => j.id === parseInt(this.route.snapshot.params['id']));
         this.selectJob(job);
@@ -193,12 +207,9 @@ export class WorkFlowComponent implements OnInit {
     });
   }
 
-  getSubJobs() {
+  getSubJobs(job: WorkFlow) {
 
-
-    this.subJobs = [];
-
-    let params = '?parentId=' + this.selectedJob.id;
+    let params = '?parentId=' + job.id;
     if (this.subjobsSortDir) {
       params += '&_sortBy=' + (this.subjobsSortDir === 'desc' ? '-' : '') + this.subjobsSortField;
     }
@@ -208,12 +219,28 @@ export class WorkFlowComponent implements OnInit {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
       }
-      this.subJobs = response.response.data;
+
+      job.expanded = true;
+      job.childrenLoaded = true;
+
+      const idx = this.subJobs.findIndex(j => j.id === job.id) + 1;
+
+      response.response.data.forEach((j: WorkFlow) => {
+        j.level = job.level + 1;
+      });
+
+      if (response.response.data.length > 0) {
+        this.subJobsMaxLevel = Math.max(job.level + 1, this.subJobsMaxLevel);
+      }
+      
+      this.subJobs.splice(idx, 0, ...response.response.data);
+      
+      this.refreshVisibleSubJobs();
     });
   }
 
   getMaterial() {
-    this.api.getWorkflowMaterial(this.selectedJob.id).subscribe((response: any) => {
+    this.api.getWorkflowMaterial(this.activeJob.id).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
@@ -224,7 +251,7 @@ export class WorkFlowComponent implements OnInit {
   }
 
   getTasks() {
-    let params = '?jobId=' + this.selectedJob.id;
+    let params = '?jobId=' + this.activeJob.id;
     if (this.tasksSortDir) {
       params += '&_sortBy=' + (this.tasksSortDir === 'desc' ? '-' : '') + this.tasksSortField;
     }
@@ -239,7 +266,7 @@ export class WorkFlowComponent implements OnInit {
   }
 
   saveDetail() {
-    this.api.saveWorkflowItem(this.selectedJob).subscribe((response: any) => {
+    this.api.saveWorkflowItem(this.activeJob).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
@@ -250,7 +277,7 @@ export class WorkFlowComponent implements OnInit {
   }
 
   getDetail() {
-    this.api.getWorkflowItem(this.selectedJob.id).subscribe((response: any) => {
+    this.api.getWorkflowItem(this.activeJob.id).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
@@ -259,19 +286,26 @@ export class WorkFlowComponent implements OnInit {
     });
   }
 
+  refreshSubJobs() {
+    this.subJobsMaxLevel = 0;
+    this.subJobs = [this.selectedJob];
+    this.getSubJobs(this.selectedJob);
+  }
+
   selectJob(w: WorkFlow) {
     if (w.id === this.selectedJob?.id) {
       return;
     }
     this.selectedJob = w;
+    this.activeJob = w;
     this.selectedProfile = this.profiles.find(p => p.name === w.profileName);
     this.getMaterial();
     this.getTasks();
 
     this.subJobsTree = new WorkFlowTree(this.selectedJob, this.selectedProfile.subjob.length > 0);
     this.subJobsTree.expand(this.api, false);
-
-    this.getSubJobs();
+    this.refreshSubJobs();
+    
   }
 
   createJob(profiles: WorkFlowProfile[], profile: WorkFlowProfile, parentId: number) {
@@ -292,7 +326,7 @@ export class WorkFlowComponent implements OnInit {
     const dialogRef1 = this.dialog.open(NewObjectDialogComponent, {
       data: data,
       width: '680px',
-      panelClass: 'app-dialog-new-bject'
+      panelClass: 'app-dialog-new-object'
     });
     dialogRef1.afterClosed().subscribe((result: any) => {
       if (result) {
@@ -321,9 +355,9 @@ export class WorkFlowComponent implements OnInit {
     });
   }
 
-  createSubJob() {
-    const profiles = this.profiles.filter(p => this.selectedProfile.subjob.find(sj => sj.name === p.name));
-    this.createJob(profiles, profiles[0], this.selectedJob.id)
+  createSubJob(job: WorkFlow) {
+    const profiles = this.profiles.filter(p => this.selectedSubJobProfile.subjob.find(sj => sj.name === p.name));
+    this.createJob(profiles, profiles[0], job.id)
   }
 
   createNewObject(model: string) {
@@ -375,7 +409,7 @@ export class WorkFlowComponent implements OnInit {
   sortSubjobsTable(e: Sort) {
     this.subjobsSortDir = e.direction;
     this.subjobsSortField = e.active;
-    this.getSubJobs();
+    //this.getSubJobs();
   }
 
   sortTasksTable(e: Sort) {
@@ -420,6 +454,9 @@ export class WorkFlowComponent implements OnInit {
   }
 
   columnType(f: string) {
+    if (f === 'expand') {
+      return 'expand'
+    }
     return this.columnsWorkFlow.find(c => c.field === f).type;
   }
 
@@ -459,6 +496,7 @@ export class WorkFlowComponent implements OnInit {
       if (this.columnType(c) === 'list') {
         this.lists[c] = this.getList(c);
       }
+      this.columnTypes[c] = this.columnType(c);
 
     });
     this.setColumnsWith();
@@ -467,13 +505,17 @@ export class WorkFlowComponent implements OnInit {
   setSelectedColumnsSubJobs() {
 
     this.workFlowColumnsSubJobs = this.columnsWorkFlowSubJobs.filter(c => c.selected).map(c => c.field);
+    this.workFlowColumnsSubJobs.unshift('expand')
 
     this.workFlowColumnsSubJobs.forEach(c => {
       if (this.columnType(c) === 'list') {
         this.lists[c] = this.getList(c);
       }
-
+      this.columnTypes[c] = this.columnType(c);
     });
+
+
+
     this.setColumnsWithSubJobs();
   }
 
@@ -489,6 +531,7 @@ export class WorkFlowComponent implements OnInit {
     this.columnsWorkFlowSubJobs.forEach((c: any) => {
       this.colsWidthSubJobs[c.field] = c.width + 'px';
     });
+    this.colsWidthSubJobs['expand'] = ((this.subJobsMaxLevel+1) * 20) + 'px';
   }
 
   saveColumnsSizes(e: any, field?: string) {
@@ -529,22 +572,44 @@ export class WorkFlowComponent implements OnInit {
     });
   }
 
-  selectSubJob(tree: WorkFlowTree) {
+  selectSubJob(job: WorkFlow) {
+    this.selectedSubJob = job;
+    this.activeJob = job;
+    
+    this.selectedSubJobProfile = this.profiles.find(p => p.name === job.profileName);
+    if (!job.childrenLoaded) {
+      this.getSubJobs(job);
+    }
 
+    
+    this.getMaterial();
+    this.getTasks();
+    
   }
 
-  openSubJob(tree: WorkFlowTree) {
-
-  }
-
-  toggle(event: any, item: WorkFlowTree) {
+  toggle(event: any, job: WorkFlow) {
     event.stopPropagation();
     event.preventDefault();
-    if (!item.expanded) {
-      item.expand(this.api, false);
+    if (!job.expanded) {
+      job.expanded = true;
+      if (!job.childrenLoaded) {
+        this.getSubJobs(job);
+      }
     } else {
-      item.expanded = false;
+      job.expanded = false;
     }
+    this.subJobs.forEach(j => {
+      if (j.parentId === job.id) {
+        j.hidden = !job.expanded
+      }
+    });
+    this.refreshVisibleSubJobs();
+  }
+
+  refreshVisibleSubJobs() {
+    this.visibleSubJobs = this.subJobs.filter(j => !j.hidden);
+    this.colsWidthSubJobs['expand'] = (this.subJobsMaxLevel * 20 + 30) + 'px';
+    this.subJobsTable.renderRows();
   }
 
 }
