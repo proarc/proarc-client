@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NewMetadataDialogComponent } from 'src/app/dialogs/new-metadata-dialog/new-metadata-dialog.component';
 import { WorkFlow } from 'src/app/model/workflow.model';
@@ -15,6 +15,8 @@ export class MaterialEditComponent implements OnInit {
   @Input() material: any;
   @Input() workflow: WorkFlow;
 
+  @Output() onRefresh = new EventEmitter<boolean>();
+
   constructor(
     private dialog: MatDialog,
     private api: ApiService,
@@ -30,6 +32,7 @@ export class MaterialEditComponent implements OnInit {
         return;
       }
       this.material = response.response.data[0];
+      this.onRefresh.emit(true);
     });
   }
 

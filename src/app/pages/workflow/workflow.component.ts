@@ -164,7 +164,7 @@ export class WorkFlowComponent implements OnInit {
       this.profiles = profiles.response.data;
       this.setSelectedColumns();
       this.setSelectedColumnsSubJobs();
-      this.getWorkflow();
+      this.getWorkflow(false);
     });
   }
 
@@ -174,7 +174,11 @@ export class WorkFlowComponent implements OnInit {
   //   });
   // }
 
-  getWorkflow() {
+  getWorkflow(keepSelection: boolean) {
+    let id = this.route.snapshot.params['id'] ? parseInt(this.route.snapshot.params['id']) : null;
+    if (keepSelection) {
+      id = this.selectedJob.id;
+    }
     this.jobs = [];
     this.subJobs = [];
     let params = '?';
@@ -199,8 +203,8 @@ export class WorkFlowComponent implements OnInit {
         j.level = 0;
         j.expandable = this.isExpandable(j);
       });
-      if (this.route.snapshot.params['id']) {
-        const job = this.jobs.find(j => j.id === parseInt(this.route.snapshot.params['id']));
+      if (id) {
+        const job = this.jobs.find(j => j.id === id);
         this.selectJob(job);
       } else {
         this.selectJob(this.jobs[0]);
@@ -356,7 +360,7 @@ export class WorkFlowComponent implements OnInit {
           });
           dialogRef.afterClosed().subscribe(res => {
             if (res?.item) {
-              this.getWorkflow();
+              this.getWorkflow(true);
             }
           });
 
@@ -400,7 +404,7 @@ export class WorkFlowComponent implements OnInit {
             this.ui.showErrorDialogFromObject(response['response'].errors);
             return;
           }
-          this.getWorkflow();
+          this.getWorkflow(true);
         });
       }
     });
@@ -413,7 +417,7 @@ export class WorkFlowComponent implements OnInit {
   sortJobsTable(e: Sort) {
     this.jobsSortDir = e.direction;
     this.jobsSortField = e.active;
-    this.getWorkflow();
+    this.getWorkflow(false);
   }
 
   sortSubjobsTable(e: Sort) {
@@ -436,7 +440,7 @@ export class WorkFlowComponent implements OnInit {
     //   this.filters.push({ field, value });
     // }
     this.filters[field] = value;
-    this.getWorkflow();
+    this.getWorkflow(false);
   }
 
   selectColumns(isSubJobs: boolean) {
@@ -570,7 +574,7 @@ export class WorkFlowComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.api.removeWorkflow(this.selectedJob.id).subscribe(res => {
-          this.getWorkflow();
+          this.getWorkflow(false);
         })
       }
     });

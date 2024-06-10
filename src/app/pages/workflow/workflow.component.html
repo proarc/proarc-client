@@ -20,7 +20,7 @@
             <as-split-area>
               <div fxLayout="column" fxFlexFill>
                 <div class="app-toolbar">
-                  <button (click)="getWorkflow()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
+                  <button (click)="getWorkflow(false)" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
                   <button *ngIf="selectedProfile && selectedProfile.subjob.length > 0" mat-button (click)="createSubJob(selectedJob)">{{ "workflow.create_new_subjob" | translate }}</button>
                   <button (click)="createJob(profiles, profiles[0], -1)" mat-button>{{'workflow.create_new' | translate }}</button>
                   <ng-container *ngIf="selectedProfile">
@@ -92,8 +92,8 @@
               </div>            
             </as-split-area>
             <as-split-area>
-              <div fxLayout="column" fxFlexFill [fxLayoutAlign]="subJobs.length === 0 ? 'center center' : 'start'">
-                <mat-card *ngIf="subJobs.length === 0" class="app-alert app-info"><mat-icon>info</mat-icon>{{ 'alert.info.noItemsToDisplay' | translate }}</mat-card>
+              <div fxLayout="column" fxFlexFill [fxLayoutAlign]="visibleSubJobs.length === 0 ? 'center center' : 'start'">
+                <mat-card *ngIf="visibleSubJobs.length === 0" class="app-alert app-info"><mat-icon>info</mat-icon>{{ 'alert.info.noItemsToDisplay' | translate }}</mat-card>
                 
                 <div class="app-toolbar" *ngIf="subJobs.length > 0">
                   <button (click)="refreshSubJobs()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
@@ -264,7 +264,7 @@
                       <td mat-cell *matCellDef="let element" [attr.colspan]="materialColumnsToDisplayWithExpand.length">
                         <div class="app-detail" [@detailExpand]="element == materialExpandedElement ? 'expanded' : 'collapsed'">
                           <div class="app-pt-2 app-pb-2">
-                            <app-material-edit [material]="element" [workflow]="activeJob"></app-material-edit>
+                            <app-material-edit [material]="element" [workflow]="activeJob" (onRefresh)="getWorkflow(true)"></app-material-edit>
                           </div>
                         </div>     
                       </td>
