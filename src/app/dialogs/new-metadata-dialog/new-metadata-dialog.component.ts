@@ -147,19 +147,20 @@ export class NewMetadataDialogComponent implements OnInit {
   }
 
   saveJob(gotoEdit: boolean) {
-    let data = `jobId=${this.data.jobId}&timestamp=${this.data.timestamp}&MetaModelRecord=${this.data.model}`;
-    
-    data = `${data}&xmlData=${encodeURIComponent(this.metadata.toMods())}`;
-    this.api.updateWorkflow(data).subscribe((response: any) => {
-      
-      if (response['response'].errors) {
-        console.log('error', response['response'].errors);
-        this.ui.showErrorDialogFromObject(response['response'].errors);
-        // this.state = 'error';
-        return;
-      }
-      this.dialogRef.close({ gotoEdit, item: response['response']['data'][0] });
-    });
+    if (this.data.isWorkFlowMaterial) {
+        this.dialogRef.close({ mods: this.metadata.toMods() });
+    } else {
+      let data = `jobId=${this.data.jobId}&timestamp=${this.data.timestamp}&MetaModelRecord=${this.data.model}`;
+      data = `${data}&xmlData=${encodeURIComponent(this.metadata.toMods())}`;
+      this.api.updateWorkflow(data).subscribe((response: any) => {
+        if (response['response'].errors) {
+          console.log('error', response['response'].errors);
+          this.ui.showErrorDialogFromObject(response['response'].errors);
+          return;
+        }
+        this.dialogRef.close({ gotoEdit, item: response['response']['data'][0] });
+      });
+    }
   }
 
   onSave(gotoEdit: boolean) {

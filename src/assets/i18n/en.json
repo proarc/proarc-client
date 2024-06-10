@@ -2565,7 +2565,8 @@
     "updateInSource": "Zapsat UUID do zdrojového katalogu",
     "pero": "Korekce ALTO/OCR pomocí nástroje PERO",
     "removeBrackets": "Remove the brackets",
-    "addBrackets": "Add the brackets"
+    "addBrackets": "Add the brackets",
+    "editMetadata": "Edit metadata"
   },
   "dynamic": {
     "repo": "Storage",

@@ -264,7 +264,7 @@
                       <td mat-cell *matCellDef="let element" [attr.colspan]="materialColumnsToDisplayWithExpand.length">
                         <div class="app-detail" [@detailExpand]="element == materialExpandedElement ? 'expanded' : 'collapsed'">
                           <div class="app-pt-2 app-pb-2">
-                            <app-material-edit [material]="element"></app-material-edit>
+                            <app-material-edit [material]="element" [workflow]="activeJob"></app-material-edit>
                           </div>
                         </div>     
                       </td>

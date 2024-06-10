@@ -95,3 +95,4 @@
 </ng-container>
 
 <button mat-stroked-button (click)="save()" class="app-bg-color-lightnes">{{ 'button.save' | translate }}</button>
+<button *ngIf="material.type === 'PHYSICAL_DOCUMENT'" mat-stroked-button (click)="editMetadata()" class="app-bg-color-lightnes">{{ 'button.editMetadata' | translate }}</button>
