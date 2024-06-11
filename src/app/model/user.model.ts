@@ -22,6 +22,7 @@ export class User {
   public lockObjectFunction: boolean;
   public importToProdFunction: boolean;
   public czidloFunction: boolean;
+  public wfDeleteJobFunction: boolean;
 
   public static fromJson(json: any): User {
       const user = new User();
