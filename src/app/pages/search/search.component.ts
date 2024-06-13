@@ -288,8 +288,10 @@ export class SearchComponent implements OnInit {
   selectItem(item: DocumentItem) {
     this.selectedItem = item;
     this.tree = new Tree(item);
-    this.search.selectedTree = this.tree;
-    this.tree.expand(this.api, false);
+    // this.search.selectedTree = this.tree;
+    this.tree.expand(this.api, false, () => {
+      this.selectFromTree(this.tree)
+    });
   }
 
   findItem(pid: string) {
@@ -647,7 +649,6 @@ export class SearchComponent implements OnInit {
       }
       
     })
-    console.log(this.tree_info)
   }
 
   canChangeModel(item: DocumentItem): boolean {
