@@ -28,6 +28,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatListModule} from '@angular/material/list';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import { CdkMenuModule } from '@angular/cdk/menu';
 
 const modules = [
     MatButtonModule,
@@ -57,7 +58,8 @@ const modules = [
     DragDropModule,
     MatRadioModule,
     MatListModule,
-    MatTabsModule
+    MatTabsModule,
+    CdkMenuModule
   ];
 
   @NgModule({

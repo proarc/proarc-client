@@ -23,3 +23,18 @@
     }
   }
 
+  .app-context-menu {
+    padding: 16px 8px;
+    background-color: white;
+  
+    .cdk-menu-item {
+      padding: 0 8px;
+  
+      &:focus {
+        outline-style: solid;
+        outline-width: 1px;
+        outline-color: gray;
+        background-color: lightgray;
+      }
+    }
+  }

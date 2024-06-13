@@ -86,6 +86,7 @@ export class WorkFlowComponent implements OnInit {
   subjobsSortField: string = 'created';
   subjobsSortDir: SortDirection = 'desc';
 
+  selectedTask: any;
 
   materials: WorkFlowMaterial[];
   taskColumns = ['label', 'user', 'state'];
@@ -617,6 +618,10 @@ export class WorkFlowComponent implements OnInit {
   refreshVisibleSubJobs() {
     this.visibleSubJobs = this.subJobs.filter(j => !j.hidden);
     this.subJobsTable.renderRows();
+  }
+
+  taskStep(task: string) {
+
   }
 
 }
