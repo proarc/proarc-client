@@ -105,6 +105,9 @@ export class SearchComponent implements OnInit {
   isAkubra: boolean;
   subscriptions: Subscription[] = [];
 
+  object = Object;
+  tree_info: {[model: string]: number} = {};
+
   constructor(private api: ApiService,
     public properties: LocalStorageService,
     public auth: AuthService,
@@ -635,6 +638,16 @@ export class SearchComponent implements OnInit {
   selectFromTree(tree: Tree) {
     this.search.selectedTree = tree;
     this.search.selectedTreePid = tree.item.pid;
+    this.tree_info = {};
+    this.search.selectedTree.children.forEach(t => {
+      if (this.tree_info[t.item.model]) {
+        this.tree_info[t.item.model]++;
+      } else {
+        this.tree_info[t.item.model] = 1;
+      }
+      
+    })
+    console.log(this.tree_info)
   }
 
   canChangeModel(item: DocumentItem): boolean {

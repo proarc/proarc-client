@@ -225,6 +225,7 @@
                   <button mat-menu-item *ngIf="config.updateInSource && auth.isSuperAdmin() && canUpdateInSource(search.selectedTree.item)" (click)="updateInSource(search.selectedTree.item)">{{ 'button.updateInSource' | translate }}</button>
                 </mat-menu>
               </div>
+                <div *ngFor="let i of object.keys(tree_info)">{{ 'model.' + i | translate }}: {{ tree_info[i] }}</div>
             </div>
             <div fxFlex class="app-oh app-tree" fxLayout="column" fxFlexFill>
                 <div class="app-row app-header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
