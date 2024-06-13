@@ -367,9 +367,12 @@ export class SearchComponent implements OnInit {
     this.reload();
   }
 
-  onUrnnbn(item: DocumentItem) {
+  onUrnnbn(inSearch: boolean) {
+    const pids = inSearch ? 
+      this.items.filter(i => i.selected).map(i => i.pid) :
+      [this.search.selectedTree.item.pid];
     const dialogRef = this.dialog.open(UrnnbnDialogComponent, {
-      data: item.pid,
+      data: pids,
       panelClass: 'app-urnbnb-dialog',
       width: '600px'
     });
@@ -380,10 +383,13 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  onExport(item: DocumentItem) {
+  onExport(inSearch: boolean) {
+    const items = inSearch ? 
+      this.items.filter(i => i.selected).map(i => { return {pid: i.pid, model: i.model}}) :
+      [{pid: this.search.selectedTree.item.pid, model: this.search.selectedTree.item.model}];
     const dialogRef = this.dialog.open(ExportDialogComponent, {
       disableClose: true,
-      data: { pid: item.pid, model: item.model },
+      data: items,
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -394,7 +400,8 @@ export class SearchComponent implements OnInit {
   }
 
   onDeleteItem() {
-    this.onDelete(this.selectedItem, true, (pids: string[]) => {
+    const pids = this.items.filter(i => i.selected).map(i => i.pid)
+    this.onDelete(pids, true, (pids: string[]) => {
       for (let i = this.items.length - 1; i >= 0; i--) {
         if (pids.indexOf(this.items[i].pid) > -1) {
           this.items.splice(i, 1);
@@ -556,12 +563,12 @@ export class SearchComponent implements OnInit {
 
   onDeleteFromTree() {
     const refresh = this.search.selectedTree.item.parent ? false : true;
-    this.onDelete(this.search.selectedTree.item, refresh, (pids: string[]) => {
+    this.onDelete([this.search.selectedTree.item.pid], refresh, (pids: string[]) => {
       this.search.selectedTree.remove();
     });
   }
 
-  private onDelete(item: DocumentItem, refresh: boolean, callback: (pids: string[]) => any = null) {
+  private onDelete(pids: string[], refresh: boolean, callback: (pids: string[]) => any = null) {
     const checkbox = {
       label: String(this.translator.instant('dialog.removeObject.checkbox')),
       checked: false
@@ -591,14 +598,14 @@ export class SearchComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.deleteObject(item, checkbox.checked, refresh, callback);
+        this.deleteObject(pids, checkbox.checked, refresh, callback);
       }
     });
   }
 
-  private deleteObject(item: DocumentItem, pernamently: boolean, refresh: boolean, callback: (pids: string[]) => any = null) {
+  private deleteObject(pids: string[], pernamently: boolean, refresh: boolean, callback: (pids: string[]) => any = null) {
     this.state = 'loading';
-    this.api.deleteObjects([item.pid], pernamently).subscribe((response: any) => {
+    this.api.deleteObjects(pids, pernamently).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         this.state = 'error';

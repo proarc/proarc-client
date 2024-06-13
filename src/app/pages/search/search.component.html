@@ -98,8 +98,8 @@
             <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar">
               <div fxFlex *ngIf="selectedItem" fxLayout="row" fxFlexFill>
                 <button (click)="reload()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
-                <button (click)="onExport(selectedItem)" mat-button>{{ 'button.export' | translate }}</button>
-                <button (click)="onUrnnbn(selectedItem)" mat-button>URN:NBN</button>
+                <button (click)="onExport(true)" mat-button>{{ 'button.export' | translate }}</button>
+                <button (click)="onUrnnbn(true)" mat-button>URN:NBN</button>
                 <button (click)="onDeleteItem()" mat-button>{{ 'button.delete' | translate }}</button>
                 <button *ngIf="!selectedItem.isLocked && (auth.user.lockObjectFunction || auth.isSuperAdmin())" [disabled]="totalSelected > 1" (click)="onLock(selectedItem, true)" mat-button>{{ 'button.lockIt' | translate }}</button>
                 <button *ngIf="selectedItem.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" [disabled]="totalSelected > 1" (click)="onLock(selectedItem, false)" mat-button>{{ 'button.unlock' | translate }}</button>
@@ -205,8 +205,8 @@
             <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar">
               <div fxFlex *ngIf="search.selectedTree" fxLayout="row" fxFlexFill>
                 <button (click)="selectItem(selectedItem)" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
-                <button (click)="onExport(search.selectedTree.item)" mat-button>{{ 'button.export' | translate }}</button>
-                <button (click)="onUrnnbn(search.selectedTree.item)" mat-button>URN:NBN</button>
+                <button (click)="onExport(false)" mat-button>{{ 'button.export' | translate }}</button>
+                <button (click)="onUrnnbn(false)" mat-button>URN:NBN</button>
                 <button [disabled]="totalSelectedTree > 1" (click)="onExpandAll()" mat-button>{{ 'button.unpack' | translate }}</button>
                 <button *ngIf="search.selectedTree.item" (click)="onDeleteFromTree()" mat-button>{{ 'button.delete' | translate }}</button>
                 <button *ngIf="canCopy(search.selectedTree.item)" [disabled]="totalSelectedTree > 1" (click)="onCopyItem(search.selectedTree.item)" mat-button>{{ 'button.copy' | translate }}</button>

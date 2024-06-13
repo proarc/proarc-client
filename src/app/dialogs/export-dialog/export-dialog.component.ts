@@ -41,10 +41,10 @@ export class ExportDialogComponent implements OnInit {
     private config: ConfigService,
     private ui: UIService,
     private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: {pid: string, model: string}) { }
+    @Inject(MAT_DIALOG_DATA) public data: {pid: string, model: string}[]) { }
 
   ngOnInit() {
-    if (this.data.model.indexOf('oldprint') > -1) {
+    if (this.data[0].model.indexOf('oldprint') > -1) {
       this.types = this.config.exports.filter((t: string) => t !== 'archive')
     } else {
       this.types = this.config.exports.filter((t: string) => t !== 'archive_stt')
@@ -57,7 +57,7 @@ export class ExportDialogComponent implements OnInit {
       }
     });
 
-    this.api.getValidExports(this.data.model).subscribe((resp: any) => {
+    this.api.getValidExports(this.data[0].model).subscribe((resp: any) => {
       this.types = this.config.exports.filter((t: string) => resp.response.data[0].includes(t));
     });
 
@@ -68,11 +68,11 @@ export class ExportDialogComponent implements OnInit {
 
   onExport(ignoreMissingUrnNbn: boolean) {
     this.state = 'saving';
-    const pid = this.data.pid;
+    const pids = this.data.map(p => p.pid);
     const policy = this.policyPublic ? 'public' : 'private';
     this.errors = [];
     this.target = null;
-    this.api.export(this.selectedType, pid, policy, 
+    this.api.export(this.selectedType, pids, policy, 
       ignoreMissingUrnNbn, this.importInstance ? this.importInstance.krameriusInstanceId : '', this.cesnetLtpToken, this.licenseName,
       this.extendedType, this.noTifMessage, this.addInfoMessage).subscribe((response: any) => {
       if (response['response'].errors) {
@@ -83,12 +83,12 @@ export class ExportDialogComponent implements OnInit {
       }
       const data =  response['response']['data'];
       for (const d of data) {
-        if(d.ignoreMissingUrnNbn && this.data.model.indexOf('oldprint') > -1) {
+        if(d.ignoreMissingUrnNbn && this.data[0].model.indexOf('oldprint') > -1) {
           this.canContinue = true;
         }
         if (d.errors && d.errors.length > 0) {
           this.errors.push(d.errors[0]);
-          if(d.errors[0].ignoreMissingUrnNbn && this.data.model.indexOf('oldprint') > -1) {
+          if(d.errors[0].ignoreMissingUrnNbn && this.data[0].model.indexOf('oldprint') > -1) {
             this.canContinue = true;
           }
         } else if (d.target) {

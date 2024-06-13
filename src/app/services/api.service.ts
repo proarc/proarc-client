@@ -200,8 +200,11 @@ export class ApiService {
     // }
   }
 
-  registerUrnnbn(resolver: string, pid: string): Observable<any> {
-    let data = `resolverId=${resolver}&pid=${pid}`;
+  registerUrnnbn(resolver: string, pids: string[]): Observable<any> {
+    let data = `resolverId=${resolver}`;
+    pids.forEach(pid => {
+      data += `&pid=${pid}`;
+    })
     return this.post('object/urnnbn', data);
   }
 
@@ -243,9 +246,13 @@ export class ApiService {
     return this.post('object/copyObject', data);
   }
 
-  export(type: string, pid: string, policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string, cesnetLtpToken: string, licenseName: string,
+  export(type: string, pids: string[], policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string, cesnetLtpToken: string, licenseName: string,
     extendedType: string, noTifMessage: string, addInfoMessage: string): Observable<any> | undefined {
-    let data = `pid=${pid}`;
+    let data = '';
+    pids.forEach(pid => {
+      data += `&pid=${pid}`;
+    });
+
     if (ignoreMissingUrnNbn) {
       data = `${data}&ignoreMissingUrnNbn=true`;
     }

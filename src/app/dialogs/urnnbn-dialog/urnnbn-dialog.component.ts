@@ -32,7 +32,7 @@ export class UrnnbnDialogComponent implements OnInit {
     private ui: UIService,
     private dialog: MatDialog,
     private translator: TranslateService,
-    @Inject(MAT_DIALOG_DATA) public data: string) { }
+    @Inject(MAT_DIALOG_DATA) public data: string[]) { }
 
   ngOnInit() {
     this.state = 'saving';
@@ -57,9 +57,9 @@ export class UrnnbnDialogComponent implements OnInit {
       return;
     }
     this.state = 'saving';
-    const pid = this.data;
+    const pids = this.data;
     this.errors = [];
-    this.api.registerUrnnbn(this.selectedRegistrar.id, pid).subscribe((response: any) => {
+    this.api.registerUrnnbn(this.selectedRegistrar.id, pids).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('onRegister error', response['response'].errors);
         this.ui.showErrorDialogFromObject(response['response'].errors);
