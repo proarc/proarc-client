@@ -201,34 +201,68 @@
         </as-split-area>
 
         <as-split-area [size]="splitArea2Width"  [order]="1">
-          <div *ngIf="tree" fxLayout="column" fxFlexFill>
+          <div  fxLayout="column" fxFlexFill>
             <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar">
-              <div fxFlex *ngIf="search.selectedTree" fxLayout="row" fxFlexFill>
+              <div fxFlex *ngIf="selectedTreeItem" fxLayout="row" fxFlexFill>
                 <button (click)="selectItem(selectedItem)" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
                 <button (click)="onExport(false)" mat-button>{{ 'button.export' | translate }}</button>
                 <button (click)="onUrnnbn(false)" mat-button>URN:NBN</button>
                 <button [disabled]="totalSelectedTree > 1" (click)="onExpandAll()" mat-button>{{ 'button.unpack' | translate }}</button>
-                <button *ngIf="search.selectedTree.item" (click)="onDeleteFromTree()" mat-button>{{ 'button.delete' | translate }}</button>
-                <button *ngIf="canCopy(search.selectedTree.item)" [disabled]="totalSelectedTree > 1" (click)="onCopyItem(search.selectedTree.item)" mat-button>{{ 'button.copy' | translate }}</button>
-                <button *ngIf="!search.selectedTree.item.isLocked && (auth.user.lockObjectFunction  || auth.isSuperAdmin())" [disabled]="totalSelectedTree > 1" (click)="onLock(search.selectedTree.item, true)" mat-button>{{ 'button.lockIt' | translate }}</button>
-                <button *ngIf="search.selectedTree.item.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" [disabled]="totalSelectedTree > 1" (click)="onLock(search.selectedTree.item, false)" mat-button>{{ 'button.unlock' | translate }}</button>
+                <button *ngIf="selectedTreeItem" (click)="onDeleteFromTree()" mat-button>{{ 'button.delete' | translate }}</button>
+                <button *ngIf="canCopy(selectedTreeItem)" [disabled]="totalSelectedTree > 1" (click)="onCopyItem(selectedTreeItem)" mat-button>{{ 'button.copy' | translate }}</button>
+                <button *ngIf="!selectedTreeItem.isLocked && (auth.user.lockObjectFunction  || auth.isSuperAdmin())" [disabled]="totalSelectedTree > 1" (click)="onLock(selectedTreeItem, true)" mat-button>{{ 'button.lockIt' | translate }}</button>
+                <button *ngIf="selectedTreeItem.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" [disabled]="totalSelectedTree > 1" (click)="onLock(selectedTreeItem, false)" mat-button>{{ 'button.unlock' | translate }}</button>
                 <button [disabled]="totalSelectedTree > 1" mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
                   <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menuMore="matMenu">
-                  <button mat-menu-item (click)="showFoxml(search.selectedTree.item)">FOXML</button>
-                  <button mat-menu-item *ngIf="canChangeModel(search.selectedTree.item)" (click)="changeModel(search.selectedTree.item)">{{ 'button.conversionsOfModels' | translate }}</button>
-                  <button mat-menu-item (click)="updateObjects(search.selectedTree.item)">{{ 'button.updateAllObjects' | translate }}</button>
-                  <button mat-menu-item *ngIf="isAkubra && auth.isSuperAdmin()" (click)="reindex(search.selectedTree.item)">{{ 'button.toIndex' | translate }}</button>
-                  <button mat-menu-item *ngIf="auth.user.changeModelFunction || auth.isSuperAdmin()" (click)="showConvertDialog(search.selectedTree.item)">{{ 'button.convertPages' | translate }}</button>
-                  <button mat-menu-item *ngIf="auth.user.czidloFunction || auth.isSuperAdmin()" (click)="czidlo(search.selectedTree.item)">{{ 'button.czidloFunction' | translate }}</button>
-                  <button mat-menu-item *ngIf="config.updateInSource && auth.isSuperAdmin() && canUpdateInSource(search.selectedTree.item)" (click)="updateInSource(search.selectedTree.item)">{{ 'button.updateInSource' | translate }}</button>
+                  <button mat-menu-item (click)="showFoxml(selectedTreeItem)">FOXML</button>
+                  <button mat-menu-item *ngIf="canChangeModel(selectedTreeItem)" (click)="changeModel(selectedTreeItem)">{{ 'button.conversionsOfModels' | translate }}</button>
+                  <button mat-menu-item (click)="updateObjects(selectedTreeItem)">{{ 'button.updateAllObjects' | translate }}</button>
+                  <button mat-menu-item *ngIf="isAkubra && auth.isSuperAdmin()" (click)="reindex(selectedTreeItem)">{{ 'button.toIndex' | translate }}</button>
+                  <button mat-menu-item *ngIf="auth.user.changeModelFunction || auth.isSuperAdmin()" (click)="showConvertDialog(selectedTreeItem)">{{ 'button.convertPages' | translate }}</button>
+                  <button mat-menu-item *ngIf="auth.user.czidloFunction || auth.isSuperAdmin()" (click)="czidlo(selectedTreeItem)">{{ 'button.czidloFunction' | translate }}</button>
+                  <button mat-menu-item *ngIf="config.updateInSource && auth.isSuperAdmin() && canUpdateInSource(selectedTreeItem)" (click)="updateInSource(selectedTreeItem)">{{ 'button.updateInSource' | translate }}</button>
                 </mat-menu>
               </div>
                 <div *ngFor="let i of object.keys(tree_info)">{{ 'model.' + i | translate }}: {{ tree_info[i] }}</div>
             </div>
             <div fxFlex class="app-oh app-tree" fxLayout="column" fxFlexFill>
-                <div class="app-row app-header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
+
+              <table  mat-table [dataSource]="visibleTreeItems" class="app-striped app-hover app-resize" matSort  #treeTable>
+                  
+                  <ng-container *ngFor="let c of treeColumns; let idx = index;" [matColumnDef]="c">
+                    <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveTreeColumnsSizes($event,c)" 
+                      [style.width]="treeColumnsSizes[c]">
+                      <span>{{'desc.' + c | translate}}</span>
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      <span *ngIf="idx === 0" [style.margin-left]="(element.level * 15) + 'px'">
+                        <mat-icon *ngIf="element.expandable || true" (click)="toggleTree($event, element)">{{ element.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
+                      </span>
+                      <ng-container [ngSwitch]="columnTypes[c]">
+                        <ng-container *ngSwitchCase="'date'">
+                          {{ element[c] | date : 'dd.MM.yyyy'}}
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'list'">
+                          {{ listValue(c, element[c])}}
+                        </ng-container>
+                        <!-- <ng-container *ngSwitchCase="'translated'">
+                          {{ element[translatedField(c)] }}
+                        </ng-container> -->
+                        <ng-container *ngSwitchDefault>
+                          {{ element[c] }}
+                        </ng-container>
+                      </ng-container>
+                    </td>
+                  </ng-container>
+                  
+                  <tr mat-header-row *matHeaderRowDef="treeColumns; sticky: true"></tr>
+                  <tr mat-row *matRowDef="let row; columns: treeColumns;" (dblclick)="openTreeItem($event, row)" (click)="selectTreeItem($event, row)" [class.app-selected]="row.selected"></tr>
+                </table>
+
+
+                <div *ngIf="tree" class="app-row app-header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
                   <div [style.width]="(tree.level * 20 + 30) + 'px'"></div>
                   <div class="app-cell-first" [fxFlex]="(300 - tree.level * 20) + 'px'" >{{ 'desc.name' | translate }}</div>
                   <div fxFlex class="app-cell app-model" *ngIf="properties.searchColumnsTreeSelected['model']">{{ 'desc.model' | translate }}</div>
@@ -242,7 +276,7 @@
                   <div fxFlex class="app-cell app-export" *ngIf="properties.searchColumnsTreeSelected['export']">{{ 'desc.export' | translate }}</div>
                   <div fxFlex class="app-cell app-isLocked"></div>
                 </div>
-                <div class="app-oa-y" fxFlex>
+                <div *ngIf="tree" class="app-oa-y" fxFlex>
                   <app-tree [tree]="tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)"></app-tree>
                 </div>
             </div>

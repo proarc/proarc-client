@@ -22,17 +22,17 @@ export class LocalStorageService {
 
     availableSearchColumns = ['pageType', 'pageIndex', 'pageNumber', 'model', 'pid', 'owner', 'processor', 'organization', 'status', 'created', 'modified', 'export', 'isLocked'];
     public selectedColumnsSearchDefault = [
-        { field: 'label', selected: true, width: 100 },
-        { field: 'model', selected: true, width: 100 },
-        { field: 'pid', selected: true, width: 100 },
-        { field: 'processor', selected: true, width: 100 },
-        { field: 'organization', selected: true, width: 100 },
-        { field: 'status', selected: true, width: 100 },
-        { field: 'created', selected: true, width: 100 },
-        { field: 'modified', selected: true, width: 100 },
-        { field: 'owner', selected: true, width: 100 },
-        { field: 'export', selected: true, width: 100 },
-        { field: 'isLocked', selected: true, width: 100 }
+        { field: 'label', selected: true, width: 100, type: 'string' },
+        { field: 'model', selected: true, width: 100, type: 'list' },
+        { field: 'pid', selected: true, width: 100, type: 'string' },
+        { field: 'processor', selected: true, width: 100, type: 'string' },
+        { field: 'organization', selected: true, width: 100, type: 'string' },
+        { field: 'status', selected: true, width: 100, type: 'list' },
+        { field: 'created', selected: true, width: 100, type: 'date' },
+        { field: 'modified', selected: true, width: 100, type: 'date' },
+        { field: 'owner', selected: true, width: 100, type: 'string' },
+        { field: 'export', selected: true, width: 100, type: 'string' },
+        { field: 'isLocked', selected: true, width: 100, type: 'string' }
     ];
 
     public availableColumnsEditingRepo = ['label', 'filename',
@@ -265,6 +265,27 @@ export class LocalStorageService {
         }
         return ret;
     }
+
+    
+
+    setColumnsSearchTree(cols: any) {
+        this.setStringProperty('columnsSearchTree', JSON.stringify(cols));
+    }
+
+    getColumnsSearchTree() {
+        const prop = this.getStringProperty('columnsSearchTree');
+        let ret: any = [];
+        if (prop) {
+            Object.assign(ret, JSON.parse(prop));
+        } else {
+            ret = this.selectedColumnsSearchDefault.map((c) => {
+                return c;
+            });
+        }
+        return ret;
+    }
+
+
 
     getColumnsWorkFlow() {
         const prop = this.getStringProperty('columnsWorkFlow');

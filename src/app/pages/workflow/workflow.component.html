@@ -128,22 +128,21 @@
                         <span *ngIf="idx === 0" [style.margin-left]="(element.level * 15) + 'px'">
                           <mat-icon *ngIf="element.expandable" (click)="toggle($event, element)">{{ element.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
                         </span>
-                      <ng-container [ngSwitch]="columnTypes[c]">
-                        <ng-container *ngSwitchCase="'date'">
-                          {{ element[c] | date : 'dd.MM.yyyy'}}
+                        <ng-container [ngSwitch]="columnTypes[c]">
+                          <ng-container *ngSwitchCase="'date'">
+                            {{ element[c] | date : 'dd.MM.yyyy'}}
+                          </ng-container>
+                          <ng-container *ngSwitchCase="'list'">
+                            {{ listValue(c, element[c])}}
+                          </ng-container>
+                          <ng-container *ngSwitchCase="'translated'">
+                            {{ element[translatedField(c)] }}
+                          </ng-container>
+                          <ng-container *ngSwitchDefault>
+                            {{ element[c] }}
+                          </ng-container>
                         </ng-container>
-                        <ng-container *ngSwitchCase="'list'">
-                          {{ listValue(c, element[c])}}
-                        </ng-container>
-                        <ng-container *ngSwitchCase="'translated'">
-                          {{ element[translatedField(c)] }}
-                        </ng-container>
-                        <ng-container *ngSwitchDefault>
-                          {{ element[c] }}
-                        </ng-container>
-                      </ng-container>
-                    </td>
-                        
+                      </td>
                     </ng-container>
                     
                     <tr mat-header-row *matHeaderRowDef="workFlowColumnsSubJobs; sticky: true"></tr>

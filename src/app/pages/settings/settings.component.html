@@ -116,7 +116,7 @@
             <fieldset class="app-p-4 app-mb-4">
               <legend>{{ 'pages.settings.searchTree.legend' | translate }}</legend>
               <div class="app-label app-mb-2">{{ 'pages.settings.searchTree.label' | translate }}</div>
-              <div *ngFor="let column of properties.searchColumnsTree">
+              <div *ngFor="let column of columnsSearchTree">
                 <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
               </div>
             </fieldset>

@@ -81,8 +81,8 @@ export class SearchComponent implements OnInit {
 
   searchMode: string = 'advanced';
 
-  public urlParams: any; 
-  
+  public urlParams: any;
+
   startShiftClickIdx: number;
   lastClickIdx: number;
   totalSelected: number;
@@ -112,9 +112,10 @@ export class SearchComponent implements OnInit {
   subscriptions: Subscription[] = [];
 
   object = Object;
-  tree_info: {[model: string]: number} = {};
+  tree_info: { [model: string]: number } = {};
 
   constructor(private api: ApiService,
+    private translator: TranslateService,
     public properties: LocalStorageService,
     public auth: AuthService,
     private dialog: MatDialog,
@@ -123,12 +124,11 @@ export class SearchComponent implements OnInit {
     public search: SearchService,
     public config: ConfigService,
     private ui: UIService,
-    private translator: TranslateService,
     public layout: LayoutService,
     private clipboard: Clipboard) {
     this.models = this.config.allModels;
   }
-  
+
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
@@ -155,12 +155,6 @@ export class SearchComponent implements OnInit {
       this.processParams(p);
       this.reload();
       this.urlParams = p;
-      // if (this.model !== 'all' && this.model !== 'model:page' && this.model !== 'model:ndkpage') {
-      //   this.reload();
-      // } else {
-      //   this.state = 'success';
-      // }
-
     });
 
     this.api.getUsers().subscribe((users: User[]) => {
@@ -311,7 +305,7 @@ export class SearchComponent implements OnInit {
         // nic neni.
         this.items.forEach(i => i.selected = false);
         item.selected = true;
-       this.startShiftClickIdx = idx;
+        this.startShiftClickIdx = idx;
       }
     } else {
       this.items.forEach(i => i.selected = false);
@@ -323,11 +317,18 @@ export class SearchComponent implements OnInit {
     this.totalSelected = this.items.filter(i => i.selected).length;
 
     this.selectedItem = item;
-    this.tree = new Tree(item);
-    // this.search.selectedTree = this.tree;
-    this.tree.expand(this.api, false, () => {
-      this.selectFromTree(this.tree)
-    });
+
+
+    // this.tree = new Tree(item);
+    // this.tree.expand(this.api, false, () => {
+    //   this.selectFromTree(this.tree)
+    // });
+
+    this.selectedTreeItem = <TreeDocumentItem>this.selectedItem;
+    this.selectedTreeItem.level = 0;
+    this.selectedTreeItem.expandable = true;
+    this.treeItems = [this.selectedTreeItem];
+    this.getTreeItems(this.selectedTreeItem, true);
   }
 
   findItem(pid: string) {
@@ -368,7 +369,7 @@ export class SearchComponent implements OnInit {
   }
 
   onUrnnbn(inSearch: boolean) {
-    const pids = inSearch ? 
+    const pids = inSearch ?
       this.items.filter(i => i.selected).map(i => i.pid) :
       [this.search.selectedTree.item.pid];
     const dialogRef = this.dialog.open(UrnnbnDialogComponent, {
@@ -384,9 +385,9 @@ export class SearchComponent implements OnInit {
   }
 
   onExport(inSearch: boolean) {
-    const items = inSearch ? 
-      this.items.filter(i => i.selected).map(i => { return {pid: i.pid, model: i.model}}) :
-      [{pid: this.search.selectedTree.item.pid, model: this.search.selectedTree.item.model}];
+    const items = inSearch ?
+      this.items.filter(i => i.selected).map(i => { return { pid: i.pid, model: i.model } }) :
+      [{ pid: this.search.selectedTree.item.pid, model: this.search.selectedTree.item.model }];
     const dialogRef = this.dialog.open(ExportDialogComponent, {
       disableClose: true,
       data: items,
@@ -690,7 +691,7 @@ export class SearchComponent implements OnInit {
       } else {
         this.tree_info[t.item.model] = 1;
       }
-      
+
     })
   }
 
@@ -738,6 +739,9 @@ export class SearchComponent implements OnInit {
     }
     this.setColumns();
     this.setColumnsWith();
+
+    this.treeColumnsDefs = this.properties.getColumnsSearchTree();
+    this.setSelectedTreeColumns();
   }
 
   setSelectedColumns() {
@@ -746,14 +750,11 @@ export class SearchComponent implements OnInit {
     this.table.renderRows();
   }
 
-
-
   setColumnsWith() {
     this.colsWidth = {};
     this.selectedColumns.forEach(c => {
       this.colsWidth[c.field] = c.width + 'px';
-    })
-
+    });
   }
 
   getColumnWidth(field: string) {
@@ -798,7 +799,7 @@ export class SearchComponent implements OnInit {
 
   czidlo(item: DocumentItem) {
     const dialogRef = this.dialog.open(CzidloDialogComponent, {
-      data: {pid: item.pid, model: item.model},
+      data: { pid: item.pid, model: item.model },
       panelClass: 'app-urnbnb-dialog',
       width: '600px'
     });
@@ -863,4 +864,169 @@ export class SearchComponent implements OnInit {
     this.clipboard.copy(val);
     this.ui.showInfoSnackBar(this.translator.instant('snackbar.copyTextToClipboard.success'));
   }
+
+  // Tree methods
+  @ViewChild('treeTable') treeTable: MatTable<any>;
+
+  treeItems: TreeDocumentItem[] = [];
+  visibleTreeItems: TreeDocumentItem[] = [];
+  treeColumnsDefs: { field: string, selected: boolean, type: string, width: number }[];
+  treeColumnsSizes: { [key: string]: string } = {};
+  treeColumns = ['taskUsername', 'label', 'profileName'];
+
+  columnTypes: { [field: string]: string } = {};
+  lists: { [field: string]: { code: string, value: string }[] } = {};
+
+  treeMaxLevel = 0;
+
+  selectedTreeItem: TreeDocumentItem;
+
+  statuses = [
+        "undefined",
+        "new",
+        "assign",
+        "connected",
+        "processing",
+        "described",
+        "exported"]
+
+  getTreeItems(treeItem: TreeDocumentItem, getInfo: boolean) {
+
+    
+    this.api.getRelations(treeItem.pid).subscribe((children: DocumentItem[]) => {
+
+      treeItem.expanded = true;
+      treeItem.childrenLoaded = true;
+
+      const idx = this.treeItems.findIndex(j => j.pid === treeItem.pid) + 1;
+
+      const treeChildren: TreeDocumentItem[] = children.map(c => {
+        const ti: TreeDocumentItem = <TreeDocumentItem>c;
+        ti.level = treeItem.level + 1;
+        ti.expandable = true;
+        ti.parentPid = treeItem.pid;
+        return ti;
+      });
+
+      if (children.length > 0) {
+        this.treeMaxLevel = Math.max(treeItem.level + 1, this.treeMaxLevel);
+      }
+
+      this.treeItems.splice(idx, 0, ...treeChildren);
+
+      this.refreshVisibleTreeItems();
+      if (getInfo) {
+        this.getTreeInfo(treeItem);
+      }
+    });
+
+  }
+
+  openTreeItem(event: MouseEvent, treeItem: TreeDocumentItem) {
+    this.router.navigate(['/repository', treeItem.pid]);
+  }
+
+  selectTreeItem(event: MouseEvent, treeItem: TreeDocumentItem) {
+    this.selectedTreeItem = treeItem;
+    this.search.selectedTreePid = treeItem.pid;
+    if (treeItem.childrenLoaded) {
+      this.getTreeInfo(treeItem);
+    } else {
+      this.getTreeItems(treeItem, true);
+    }
+    
+  }
+
+  getTreeInfo(treeItem: TreeDocumentItem) {
+    this.tree_info = {};
+    this.treeItems.filter(ti => ti.parentPid === treeItem.pid).forEach(t => {
+      if (this.tree_info[t.model]) {
+        this.tree_info[t.model]++;
+      } else {
+        this.tree_info[t.model] = 1;
+      }
+    });
+  }
+
+  toggleTree(event: any, treeItem: TreeDocumentItem) {
+    event.stopPropagation();
+    event.preventDefault();
+    if (!treeItem.expanded) {
+      treeItem.expanded = true;
+      if (!treeItem.childrenLoaded) {
+        this.getTreeItems(treeItem, false);
+      }
+    } else {
+      treeItem.expanded = false;
+    }
+
+    this.treeItems.forEach(j => {
+      if (j.parentPid === treeItem.pid) {
+        j.hidden = !treeItem.expanded
+      }
+    });
+
+    this.refreshVisibleTreeItems();
+  }
+
+  refreshVisibleTreeItems() {
+    this.visibleTreeItems = this.treeItems.filter(j => !j.hidden);
+    this.treeTable.renderRows();
+  }
+
+  columnType(f: string) {
+    return this.treeColumnsDefs.find(c => c.field === f).type;
+  }
+
+  setSelectedTreeColumns() {
+
+    this.treeColumns = this.treeColumnsDefs.filter(c => c.selected).map(c => c.field);
+    this.treeColumns.forEach(c => {
+      if (this.columnType(c) === 'list') {
+        this.lists[c] = this.getList(c);
+      }
+      this.columnTypes[c] = this.columnType(c);
+
+    });
+    this.setTreeColumnsWith();
+    console.log(this.lists)
+  }
+
+  setTreeColumnsWith() {
+    this.treeColumnsSizes = {};
+    this.treeColumnsDefs.forEach((c: any) => {
+      this.treeColumnsSizes[c.field] = c.width + 'px';
+    });
+  }
+
+  saveTreeColumnsSizes(e: any, field?: string) {
+    this.treeColumnsSizes[field] = e + 'px';
+    this.treeColumnsDefs.find(c => c.field === field).width = e;
+    this.properties.setColumnsSearchTree(this.treeColumnsDefs);
+  }
+
+  getList(f: string): { code: string, value: string }[] {
+    switch (f) {
+      case 'status': return this.statuses.map((p: string) => { return { code: p, value: this.translator.instant('editor.atm.statuses.' + p) } });
+      case 'ownerId': return this.users.map(p => { return { code: p.userId + '', value: p.name } });
+      case 'taskUser': return this.users.map(p => { return { code: p.userId + '', value: p.name } });
+      case 'model': return this.models.map((p: string) => { return { code: p, value: this.translator.instant('model.' + p) } });
+      default: return [];
+    }
+  }
+
+  listValue(field: string, code: string) {
+    const el = this.lists[field].find(el => el.code === code + '');
+    return el ? el.value : code;
+  }
+
+}
+
+export interface TreeDocumentItem extends DocumentItem {
+  parentPid?: string;
+  level: number;
+  expandable: boolean;
+  expanded: boolean;
+  childrenLoaded: boolean;
+  hidden: boolean;
 }

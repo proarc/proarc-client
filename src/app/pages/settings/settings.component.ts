@@ -74,6 +74,7 @@ export class SettingsComponent implements OnInit {
 
   modelForColumns: string;
   colsEditModeParent: boolean = true;
+  columnsSearchTree: any;
 
   constructor(
     private api: ApiService,
@@ -96,6 +97,8 @@ export class SettingsComponent implements OnInit {
       this.forename = this.user.forename;
       this.surname = this.user.surname;
     });
+
+    this.columnsSearchTree = this.properties.getColumnsSearchTree();
 
     this.searchCols = {};
     for (const col of this.properties.availableSearchColumns) {
@@ -190,7 +193,9 @@ export class SettingsComponent implements OnInit {
   }
 
   setSelectedColumnsSearchTree() {
+    
     this.properties.setSelectedColumnsSearchTree();
+    this.properties.setColumnsSearchTree(this.columnsSearchTree);
     this.ui.showInfo('snackbar.settings.columns.updated');
   }
 
