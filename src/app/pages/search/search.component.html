@@ -101,10 +101,10 @@
                 <button (click)="onExport(selectedItem)" mat-button>{{ 'button.export' | translate }}</button>
                 <button (click)="onUrnnbn(selectedItem)" mat-button>URN:NBN</button>
                 <button (click)="onDeleteItem()" mat-button>{{ 'button.delete' | translate }}</button>
-                <button *ngIf="!selectedItem.isLocked && (auth.user.lockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, true)" mat-button>{{ 'button.lockIt' | translate }}</button>
-                <button *ngIf="selectedItem.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" (click)="onLock(selectedItem, false)" mat-button>{{ 'button.unlock' | translate }}</button>
-                <button *ngIf="selectedItem.state === 'fedora-system:def/model#Deleted'" (click)="onRestore(selectedItem)" mat-button>{{ 'button.restoreTheObject' | translate }}</button>
-                <button mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
+                <button *ngIf="!selectedItem.isLocked && (auth.user.lockObjectFunction || auth.isSuperAdmin())" [disabled]="totalSelected > 1" (click)="onLock(selectedItem, true)" mat-button>{{ 'button.lockIt' | translate }}</button>
+                <button *ngIf="selectedItem.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" [disabled]="totalSelected > 1" (click)="onLock(selectedItem, false)" mat-button>{{ 'button.unlock' | translate }}</button>
+                <button *ngIf="selectedItem.state === 'fedora-system:def/model#Deleted'" [disabled]="totalSelected > 1" (click)="onRestore(selectedItem)" mat-button>{{ 'button.restoreTheObject' | translate }}</button>
+                <button [disabled]="totalSelected > 1" mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
                   <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menuMore="matMenu">
@@ -194,7 +194,7 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectItem(row)" (dblclick)="openItem(row)" class="app-cursor-pointer" [class.app-selected]="row == selectedItem"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns; let idx=index" (click)="selectItem(row, $event, idx)" (dblclick)="openItem(row)" class="app-cursor-pointer" [class.app-selected]="row.selected"></tr>
               </table>
             </div>
           </div>
@@ -207,12 +207,12 @@
                 <button (click)="selectItem(selectedItem)" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
                 <button (click)="onExport(search.selectedTree.item)" mat-button>{{ 'button.export' | translate }}</button>
                 <button (click)="onUrnnbn(search.selectedTree.item)" mat-button>URN:NBN</button>
-                <button (click)="onExpandAll()" mat-button>{{ 'button.unpack' | translate }}</button>
+                <button [disabled]="totalSelectedTree > 1" (click)="onExpandAll()" mat-button>{{ 'button.unpack' | translate }}</button>
                 <button *ngIf="search.selectedTree.item" (click)="onDeleteFromTree()" mat-button>{{ 'button.delete' | translate }}</button>
-                <button *ngIf="canCopy(search.selectedTree.item)" (click)="onCopyItem(search.selectedTree.item)" mat-button>{{ 'button.copy' | translate }}</button>
-                <button *ngIf="!search.selectedTree.item.isLocked && (auth.user.lockObjectFunction  || auth.isSuperAdmin())" (click)="onLock(search.selectedTree.item, true)" mat-button>{{ 'button.lockIt' | translate }}</button>
-                <button *ngIf="search.selectedTree.item.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" (click)="onLock(search.selectedTree.item, false)" mat-button>{{ 'button.unlock' | translate }}</button>
-                <button mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
+                <button *ngIf="canCopy(search.selectedTree.item)" [disabled]="totalSelectedTree > 1" (click)="onCopyItem(search.selectedTree.item)" mat-button>{{ 'button.copy' | translate }}</button>
+                <button *ngIf="!search.selectedTree.item.isLocked && (auth.user.lockObjectFunction  || auth.isSuperAdmin())" [disabled]="totalSelectedTree > 1" (click)="onLock(search.selectedTree.item, true)" mat-button>{{ 'button.lockIt' | translate }}</button>
+                <button *ngIf="search.selectedTree.item.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" [disabled]="totalSelectedTree > 1" (click)="onLock(search.selectedTree.item, false)" mat-button>{{ 'button.unlock' | translate }}</button>
+                <button [disabled]="totalSelectedTree > 1" mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
                   <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menuMore="matMenu">

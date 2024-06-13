@@ -81,7 +81,13 @@ export class SearchComponent implements OnInit {
 
   searchMode: string = 'advanced';
 
-  public urlParams: any; // pedro
+  public urlParams: any; 
+  
+  startShiftClickIdx: number;
+  lastClickIdx: number;
+  totalSelected: number;
+
+  totalSelectedTree: number;
 
 
   @ViewChild('table') table: MatTable<DocumentItem>;
@@ -285,7 +291,37 @@ export class SearchComponent implements OnInit {
     this.router.navigate(['/repository', item.pid]);
   }
 
-  selectItem(item: DocumentItem) {
+  selectItem(item: DocumentItem, event?: MouseEvent, idx?: number) {
+    if (event && (event.metaKey || event.ctrlKey)) {
+      item.selected = !item.selected;
+      this.startShiftClickIdx = idx;
+    } else if (event && event.shiftKey) {
+      if (this.startShiftClickIdx > -1) {
+        const oldFrom = Math.min(this.startShiftClickIdx, this.lastClickIdx);
+        const oldTo = Math.max(this.startShiftClickIdx, this.lastClickIdx);
+        for (let i = oldFrom; i <= oldTo; i++) {
+          this.items[i].selected = false;
+        }
+        const from = Math.min(this.startShiftClickIdx, idx);
+        const to = Math.max(this.startShiftClickIdx, idx);
+        for (let i = from; i <= to; i++) {
+          this.items[i].selected = true;
+        }
+      } else {
+        // nic neni.
+        this.items.forEach(i => i.selected = false);
+        item.selected = true;
+       this.startShiftClickIdx = idx;
+      }
+    } else {
+      this.items.forEach(i => i.selected = false);
+      item.selected = true;
+      this.startShiftClickIdx = idx;
+    }
+
+    this.lastClickIdx = idx;
+    this.totalSelected = this.items.filter(i => i.selected).length;
+
     this.selectedItem = item;
     this.tree = new Tree(item);
     // this.search.selectedTree = this.tree;
