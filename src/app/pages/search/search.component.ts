@@ -1023,8 +1023,6 @@ export class SearchComponent implements OnInit {
   getList(f: string): { code: string, value: string }[] {
     switch (f) {
       case 'status': return this.statuses.map((p: string) => { return { code: p, value: this.translator.instant('editor.atm.statuses.' + p) } });
-      case 'ownerId': return this.users.map(p => { return { code: p.userId + '', value: p.name } });
-      case 'taskUser': return this.users.map(p => { return { code: p.userId + '', value: p.name } });
       case 'model': return this.models.map((p: string) => { return { code: p, value: this.translator.instant('model.' + p) } });
       default: return [];
     }

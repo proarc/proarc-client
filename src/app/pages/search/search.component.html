@@ -239,7 +239,7 @@
 
                     [resizeColumn]="true" (columnResized)="saveTreeColumnsSizes($event,c)" 
                       [style.width]="treeColumnsSizes[c]">
-                      <span cdkDrag  (cdkDragStarted)="dragColumnStarted($event, idx)">{{'desc.' + c | translate}}</span>
+                      <span class="drag-box" cdkDrag (cdkDragStarted)="dragColumnStarted($event, idx)">{{'desc.' + c | translate}}</span>
                     </th>
                     <td mat-cell *matCellDef="let element">
                       <span *ngIf="idx === 0" [style.margin-left]="(element.level * 15) + 'px'">
