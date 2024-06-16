@@ -2355,6 +2355,8 @@
     "modified": "Upraveno",
     "owner": "Vlastník",
     "export": "Export",
+    "writeExports": "Export",
+    "isLocked": "",
     "all": "Vše",
     "search": "Vyhledat",
     "identifier": "Identifikátor",

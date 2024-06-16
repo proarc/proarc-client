@@ -524,8 +524,6 @@ export class WorkFlowComponent implements OnInit {
       this.columnTypes[c] = this.columnType(c);
     });
 
-
-
     this.setColumnsWithSubJobs();
   }
 
@@ -607,12 +605,19 @@ export class WorkFlowComponent implements OnInit {
     } else {
       job.expanded = false;
     }
-    this.subJobs.forEach(j => {
-      if (j.parentId === job.id) {
-        j.hidden = !job.expanded
-      }
-    });
+    
+    this.setToHidden(job, this.jobs.indexOf(job));
     this.refreshVisibleSubJobs();
+  }
+
+  setToHidden(job: WorkFlow, idx: number) {
+    for (let i = idx; i < this.jobs.length; i++) {
+      const j = this.jobs[i]
+      if (j.parentId === job.id) {
+        j.hidden = !job.expanded || job.hidden;
+        this.setToHidden(j, i)
+      }
+    }
   }
 
   refreshVisibleSubJobs() {

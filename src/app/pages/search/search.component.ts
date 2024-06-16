@@ -876,6 +876,7 @@ export class SearchComponent implements OnInit {
 
   columnTypes: { [field: string]: string } = {};
   lists: { [field: string]: { code: string, value: string }[] } = {};
+  prefixes: { [field: string]: string } = {};
 
   treeMaxLevel = 0;
 
@@ -960,13 +961,19 @@ export class SearchComponent implements OnInit {
       treeItem.expanded = false;
     }
 
-    this.treeItems.forEach(j => {
-      if (j.parentPid === treeItem.pid) {
-        j.hidden = !treeItem.expanded
-      }
-    });
+    this.setToHidden(treeItem, this.treeItems.indexOf(treeItem));
 
     this.refreshVisibleTreeItems();
+  }
+
+  setToHidden(treeItem: TreeDocumentItem, idx: number) {
+    for (let i = idx; i < this.treeItems.length; i++) {
+      const j = this.treeItems[i]
+      if (j.parentPid === treeItem.pid) {
+        j.hidden = !treeItem.expanded || treeItem.hidden;
+        this.setToHidden(j, i)
+      }
+    }
   }
 
   refreshVisibleTreeItems() {
@@ -978,18 +985,25 @@ export class SearchComponent implements OnInit {
     return this.treeColumnsDefs.find(c => c.field === f).type;
   }
 
-  setSelectedTreeColumns() {
+  prefixByType(f: string): string {
+    switch (f) {
+      case 'status': return 'editor.atm.statuses.';
+      case 'model': return 'model.';
+      default: return '';
+    }
+  }
 
+  setSelectedTreeColumns() {
     this.treeColumns = this.treeColumnsDefs.filter(c => c.selected).map(c => c.field);
     this.treeColumns.forEach(c => {
       if (this.columnType(c) === 'list') {
         this.lists[c] = this.getList(c);
       }
       this.columnTypes[c] = this.columnType(c);
+      this.prefixes[c] = this.prefixByType(c);
 
     });
     this.setTreeColumnsWith();
-    console.log(this.lists)
   }
 
   setTreeColumnsWith() {

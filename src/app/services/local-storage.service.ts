@@ -23,16 +23,16 @@ export class LocalStorageService {
     availableSearchColumns = ['pageType', 'pageIndex', 'pageNumber', 'model', 'pid', 'owner', 'processor', 'organization', 'status', 'created', 'modified', 'export', 'isLocked'];
     public selectedColumnsSearchDefault = [
         { field: 'label', selected: true, width: 100, type: 'string' },
-        { field: 'model', selected: true, width: 100, type: 'list' },
+        { field: 'model', selected: true, width: 100, type: 'translated' },
         { field: 'pid', selected: true, width: 100, type: 'string' },
         { field: 'processor', selected: true, width: 100, type: 'string' },
         { field: 'organization', selected: true, width: 100, type: 'string' },
-        { field: 'status', selected: true, width: 100, type: 'list' },
+        { field: 'status', selected: true, width: 100, type: 'translated' },
         { field: 'created', selected: true, width: 100, type: 'date' },
         { field: 'modified', selected: true, width: 100, type: 'date' },
         { field: 'owner', selected: true, width: 100, type: 'string' },
-        { field: 'export', selected: true, width: 100, type: 'string' },
-        { field: 'isLocked', selected: true, width: 100, type: 'string' }
+        { field: 'writeExports', selected: true, width: 100, type: 'string' },
+        { field: 'isLocked', selected: true, width: 100, type: 'boolean' }
     ];
 
     public availableColumnsEditingRepo = ['label', 'filename',

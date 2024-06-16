@@ -2355,6 +2355,8 @@
     "modified": "Modified",
     "owner": "Owner",
     "export": "Export",
+    "writeExports": "Export",
+    "isLocked": "",
     "all": "All",
     "search": "Search",
     "identifier": "Identifier",

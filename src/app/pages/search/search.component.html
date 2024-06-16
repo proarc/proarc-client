@@ -247,9 +247,12 @@
                         <ng-container *ngSwitchCase="'list'">
                           {{ listValue(c, element[c])}}
                         </ng-container>
-                        <!-- <ng-container *ngSwitchCase="'translated'">
-                          {{ element[translatedField(c)] }}
-                        </ng-container> -->
+                        <ng-container *ngSwitchCase="'translated'">
+                          {{ prefixes[c] + element[c] | translate }}
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'boolean'">
+                          <mat-icon [matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">{{ element.isLocked ? 'lock' : 'lock_open' }}</mat-icon>  
+                        </ng-container>
                         <ng-container *ngSwitchDefault>
                           {{ element[c] }}
                         </ng-container>
