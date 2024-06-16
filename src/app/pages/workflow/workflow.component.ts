@@ -25,6 +25,7 @@ import { ConfigService } from 'src/app/services/config.service';
 import { WorkFlowTree } from './workflowTree.model';
 import { forkJoin } from 'rxjs';
 import { MatTable } from '@angular/material/table';
+import { CdkDragStart, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 // -- table to expand --
 
 @Component({
@@ -497,6 +498,7 @@ export class WorkFlowComponent implements OnInit {
     }
   }
 
+
   setSelectedColumns() {
 
     this.workFlowColumns = this.columnsWorkFlow.filter(c => c.selected).map(c => c.field);
@@ -512,6 +514,20 @@ export class WorkFlowComponent implements OnInit {
 
     });
     this.setColumnsWith();
+  }
+
+  // Drag columns
+  prevColIndex: number;
+  dragColumnStarted(event: CdkDragStart, index: number ) {
+    this.prevColIndex = index;
+  }
+
+  columnDropped(event: CdkDragDrop<string[]>, index: number) {
+    if (event) {
+      moveItemInArray(this.columnsWorkFlowSubJobs, this.prevColIndex, index);
+      this.setSelectedColumnsSubJobs();
+      this.properties.setColumnsSearchTree(this.columnsWorkFlowSubJobs);
+    }
   }
 
   setSelectedColumnsSubJobs() {

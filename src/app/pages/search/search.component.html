@@ -229,12 +229,17 @@
             </div>
             <div fxFlex class="app-oh app-tree" fxLayout="column" fxFlexFill>
 
-              <table  mat-table [dataSource]="visibleTreeItems" class="app-striped app-hover app-resize" matSort  #treeTable>
+              <table  mat-table [dataSource]="visibleTreeItems" class="app-striped app-hover app-resize" matSort  #treeTable cdkDropListGroup>
                   
                   <ng-container *ngFor="let c of treeColumns; let idx = index;" [matColumnDef]="c">
-                    <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveTreeColumnsSizes($event,c)" 
+                    <th mat-header-cell *matHeaderCellDef
+                    cdkDropList
+                    cdkDropListOrientation="horizontal"
+                    (cdkDropListDropped)="columnDropped($event, idx)"
+
+                    [resizeColumn]="true" (columnResized)="saveTreeColumnsSizes($event,c)" 
                       [style.width]="treeColumnsSizes[c]">
-                      <span>{{'desc.' + c | translate}}</span>
+                      <span cdkDrag  (cdkDragStarted)="dragColumnStarted($event, idx)">{{'desc.' + c | translate}}</span>
                     </th>
                     <td mat-cell *matCellDef="let element">
                       <span *ngIf="idx === 0" [style.margin-left]="(element.level * 15) + 'px'">

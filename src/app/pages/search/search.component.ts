@@ -27,6 +27,7 @@ import { CzidloDialogComponent } from 'src/app/dialogs/czidlo-dialog/czidlo-dial
 import { Clipboard } from '@angular/cdk/clipboard';
 import { UpdateInSourceDialogComponent } from 'src/app/dialogs/update-in-source-dialog/update-in-source-dialog.component';
 import { Subscription } from 'rxjs';
+import { CdkDragDrop, CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-search',
@@ -1032,6 +1033,21 @@ export class SearchComponent implements OnInit {
   listValue(field: string, code: string) {
     const el = this.lists[field].find(el => el.code === code + '');
     return el ? el.value : code;
+  }
+
+  // Drag columns
+
+  prevColIndex: number;
+  dragColumnStarted(event: CdkDragStart, index: number ) {
+    this.prevColIndex = index;
+  }
+
+  columnDropped(event: CdkDragDrop<string[]>, index: number) {
+    if (event) {
+      moveItemInArray(this.treeColumnsDefs, this.prevColIndex, index);
+      this.setSelectedTreeColumns();
+      this.properties.setColumnsSearchTree(this.treeColumnsDefs);
+    }
   }
 
 }
