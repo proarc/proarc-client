@@ -395,7 +395,7 @@ export class WorkFlowComponent implements OnInit {
       if (result === 'yes') {
         console.log(data.textInput.value)
         let params = `model=${model}`;
-        params = `${params}&jobId=${this.selectedJob.id}`;
+        params = `${params}&jobId=${this.activeJob.id}`;
         if (data.textInput.value !== '') {
           params = `${params}&pid=${data.textInput.value}`;
         }
@@ -413,6 +413,20 @@ export class WorkFlowComponent implements OnInit {
 
   openTask(id: string) {
     this.router.navigate(['workflow/task', id])
+  }
+
+  addStep(profile: string) {
+    let data = `profileName=${profile}&jobId=${this.activeJob.id}`;
+    this.api.addWorflowTask(data).subscribe((response: any) => {
+      
+      if (response['response'].errors) {
+        console.log('error', response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
+        // this.state = 'error';
+        return;
+      }
+      this.getTasks();
+    });
   }
 
   sortJobsTable(e: Sort) {

@@ -2178,7 +2178,8 @@
     "create_new": "Vytvořit nový záměr",
     "create_new_subjob": "Podzáměr",
     "create_new_object": "Vytvořit nový objekt",
-    "remove_job": "Odstranit záměr"
+    "remove_job": "Odstranit záměr",
+    "add_step": "Přidat krok"
   },
   "premis": {
     "techMD": "technická metadata",

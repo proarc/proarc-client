@@ -1034,6 +1034,10 @@ export class ApiService {
     return this.put('workflow/task', w, httpOptions);
   }
 
+  addWorflowTask(data: string) {
+    return this.post('workflow/task', data);
+  }
+
   getWorkflowTaskParameters(id: number): Observable<any> {
     return this.get('workflow/parameter?taskId=' + id);
   }
