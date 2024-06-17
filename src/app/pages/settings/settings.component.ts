@@ -15,6 +15,7 @@ import { DocumentItem } from '../../model/documentItem.model';
 import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-settings',
@@ -97,8 +98,6 @@ export class SettingsComponent implements OnInit {
       this.forename = this.user.forename;
       this.surname = this.user.surname;
     });
-
-    this.columnsSearchTree = this.properties.getColumnsSearchTree();
 
     this.searchCols = {};
     for (const col of this.properties.availableSearchColumns) {
@@ -247,5 +246,9 @@ export class SettingsComponent implements OnInit {
 
   changeView(view: string) {
     this.view = view;
+  }
+
+  drop(event: CdkDragDrop<string[]>, list: any[]) {
+    moveItemInArray(list, event.previousIndex, event.currentIndex);
   }
 }

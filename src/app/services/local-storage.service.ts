@@ -90,7 +90,7 @@ export class LocalStorageService {
     public colsEditingRepo: { [model: string]: { field: string, selected: boolean, width: number }[] };
 
     public searchColumns: { field: string, selected: boolean; }[];
-    public searchColumnsTree: { field: string, selected: boolean; }[];
+    public searchColumnsTree: { field: string, selected: boolean; width: number; type: string}[];
     public searchColumnsTreeSelected: { [field: string]: boolean } = {};
 
     public procMngColumnsDefault = [
@@ -144,7 +144,6 @@ export class LocalStorageService {
             this.searchColumns = [];
             Object.assign(this.searchColumns, JSON.parse(JSON.stringify(this.selectedColumnsSearchDefault)));
         }
-
     }
 
     getQueueColumns() {
@@ -181,12 +180,13 @@ export class LocalStorageService {
             Object.assign(this.searchColumnsTree, JSON.parse(JSON.stringify(this.selectedColumnsSearchDefault)));
         }
 
-        this.searchColumnsTreeSelected = {};
-        this.searchColumnsTree.forEach(c => {
-            this.searchColumnsTreeSelected[c.field] = c.selected;
-        });
+        // this.searchColumnsTreeSelected = {};
+        // this.searchColumnsTree.forEach(c => {
+        //     this.searchColumnsTreeSelected[c.field] = c.selected;
+        // });
 
     }
+
 
     setSelectedColumnsSearch() {
         this.setStringProperty('searchColumns', JSON.stringify(this.searchColumns));

@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{ 'dialog.columnsSettings.title' | translate }}</h1>
 <div mat-dialog-content class="app-scrollbar-fix">
-  <fieldset class="app-p-4 app-mb-3">
+  <fieldset class="app-p-4 app-mb-3" cdkDropList (cdkDropListDropped)="drop($event)">
     <ng-container *ngIf="data.isRepo && properties.colsEditingRepo">
       <legend>{{ 'pages.settings.editingRepo.legend' | translate }}</legend>
       <div class="app-label app-mb-3">{{ 'pages.settings.editingRepo.label' | translate }}</div>
@@ -23,7 +23,7 @@
     <ng-container *ngIf="data.isWorkFlow || data.isWorkFlowSubJobs">
         <legend>{{ 'pages.settings.editingImport.legend' | translate }}</legend>
         <div class="app-label app-mb-2">{{ 'pages.settings.editingImport.label' | translate }}</div>
-        <div *ngFor="let column of columnsWorkFlow">
+        <div *ngFor="let column of columnsWorkFlow" cdkDropListOrientation="vertical" cdkDrag>
           <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'desc.' + column.field | translate }}</mat-checkbox>
         </div>
     </ng-container>

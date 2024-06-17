@@ -113,10 +113,10 @@
         </mat-card>
         <mat-card fxFlex >
           <mat-card-content>
-            <fieldset class="app-p-4 app-mb-4">
+            <fieldset class="app-p-4 app-mb-4" cdkDropList (cdkDropListDropped)="drop($event, properties.searchColumnsTree)">
               <legend>{{ 'pages.settings.searchTree.legend' | translate }}</legend>
               <div class="app-label app-mb-2">{{ 'pages.settings.searchTree.label' | translate }}</div>
-              <div *ngFor="let column of columnsSearchTree">
+              <div *ngFor="let column of properties.searchColumnsTree" cdkDropListOrientation="vertical" cdkDrag>
                 <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
               </div>
             </fieldset>

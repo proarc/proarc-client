@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ConfigService } from 'src/app/services/config.service';
@@ -72,6 +73,23 @@ export class ColumnsSettingsDialogComponent implements OnInit {
     this.properties.setColumnsEditingRepo(this.colsEditModeParent);
     this.ui.showInfo('snackbar.settings.columns.updated');
     this.dialogRef.close(true);
+  }
+
+  getCurrentList() {
+    if (this.data.isWorkFlow) {
+      return this.columnsWorkFlow;
+    } else if (this.data.isWorkFlowSubJobs) {
+      return this.columnsWorkFlow;
+    } else if (this.data.isRepo) {
+      return this.properties.colsEditingRepo[this.modelForColumns];
+    } else {
+      return this.selectedColumnsEditingImport;
+    }
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    const list: any[] = this.getCurrentList();
+    moveItemInArray(list, event.previousIndex, event.currentIndex);
   }
 
 }

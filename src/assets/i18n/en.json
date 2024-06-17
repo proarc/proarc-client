@@ -116,6 +116,7 @@
     "created": "Created",
     "modified": "Updated",
     "export": "Export",
+    "writeExports": "Export",
     "isLocked": "Locked",
     "search": "Search",
     "all_models": "All",

@@ -116,6 +116,7 @@
     "created": "Vytvořeno",
     "modified": "Upraveno",
     "export": "Export",
+    "writeExports": "Export",
     "isLocked": "Zamčený",
     "search": "Vyhledat",
     "all_models": "Vše",
