@@ -1108,7 +1108,7 @@ export class ApiService {
     }
     data = `${data}&changeModelFunction=${user.changeModelFunction}&updateModelFunction=${user.updateModelFunction}`;
     data = `${data}&unlockObjectFunction=${user.unlockObjectFunction}&lockObjectFunction=${user.lockObjectFunction}`;
-    data = `${data}&importToProdFunction=${user.importToProdFunction}&czidloFunction=${user.czidloFunction}\`;`;
+    data = `${data}&importToProdFunction=${user.importToProdFunction}&czidloFunction=${user.czidloFunction}`;
     return this.post('user', data);
   }
 
