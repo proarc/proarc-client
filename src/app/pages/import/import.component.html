@@ -39,8 +39,9 @@
             <mat-icon *ngIf="!f.canExpand">none</mat-icon>
             <mat-icon [class.app-disabled]="!canSelect(f)" class="app-mr-1" (click)="toggleSelected(f)" [color]="f.selected ? 'primary' : null">{{ f.selected ? "check_box" : "check_box_outline_blank" }}</mat-icon>
             <mat-icon class="app-mr-1" title="Připravit ke znovunačtení" *ngIf="canReread(f)" (click)="reRead(f)">refresh</mat-icon>
-            <span>{{ f.name }}</span>
+            <span [class.app-disabled]="f.state === 'IMPORTED'">{{ f.name }}</span>
           </div>
+          <div *ngIf="f.state === 'IMPORTED'" style="position: absolute; right: 15px;">{{ 'import.state.' + f.state.toLowerCase() | translate }}</div>
         </div>
       </ng-container>
     </div>

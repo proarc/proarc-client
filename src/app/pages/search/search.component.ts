@@ -88,6 +88,7 @@ export class SearchComponent implements OnInit {
   totalSelected: number;
 
   totalSelectedTree: number;
+  loadingTree: boolean;
 
 
   @ViewChild('table') table: MatTable<DocumentItem>;
@@ -892,7 +893,7 @@ export class SearchComponent implements OnInit {
         "exported"]
 
   getTreeItems(treeItem: TreeDocumentItem, getInfo: boolean) {
-
+    this.loadingTree = true;
     
     this.api.getRelations(treeItem.pid).subscribe((children: DocumentItem[]) => {
 
@@ -916,6 +917,7 @@ export class SearchComponent implements OnInit {
       this.treeItems.splice(idx, 0, ...treeChildren);
 
       this.refreshVisibleTreeItems();
+      this.loadingTree = false;
       if (getInfo) {
         this.getTreeInfo(treeItem);
       }

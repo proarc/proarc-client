@@ -227,8 +227,8 @@
               </div>
                 <div *ngFor="let i of object.keys(tree_info)">{{ 'model.' + i | translate }}: {{ tree_info[i] }}</div>
             </div>
-            <div fxFlex class="app-oay app-tree" fxLayout="column" fxFlexFill>
-
+            <div fxFlex class="app-oa-y app-tree" fxLayout="column" fxFlexFill>
+              <mat-progress-bar mode="indeterminate" *ngIf="loadingTree" class="app-progress-bar"></mat-progress-bar>
               <table  mat-table [dataSource]="visibleTreeItems" class="app-striped app-hover app-resize" matSort  #treeTable>
                   
                   <ng-container *ngFor="let c of treeColumns; let idx = index;" [matColumnDef]="c">
@@ -261,7 +261,8 @@
                   </ng-container>
                   
                   <tr mat-header-row *matHeaderRowDef="treeColumns; sticky: true"></tr>
-                  <tr mat-row *matRowDef="let row; columns: treeColumns;" (dblclick)="openTreeItem($event, row)" (click)="selectTreeItem($event, row)" [class.app-selected]="row.selected"></tr>
+                  <tr mat-row *matRowDef="let row; columns: treeColumns;"
+                   (dblclick)="openTreeItem($event, row)" (click)="selectTreeItem($event, row)" [class.app-selected]="row.selected"></tr>
                 </table>
 
 

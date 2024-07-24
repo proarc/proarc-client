@@ -279,6 +279,10 @@ ul {
   list-style: none;
 }
 
+.app-cell .app-disabled {
+  color: $app-color-disabled !important;
+}
+
 .app-not-allowed {
   color: $app-color-disabled !important;
   cursor: not-allowed;
