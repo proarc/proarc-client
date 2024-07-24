@@ -231,6 +231,7 @@
   },
   "editor": {
     "add_field": "Add field`",
+    "add_field_lang": "Add field with language",
     "info": "Display description",
     "tree": {
       "change_parent_title": "Change parent object",

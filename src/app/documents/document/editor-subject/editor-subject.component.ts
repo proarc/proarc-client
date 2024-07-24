@@ -31,6 +31,17 @@ export class EditorSubjectComponent implements OnInit {
     }
   }
 
+  addRepeated(item: any) {
+    const val = item.getSubfields()[0].items[0].controls['lang'].value;
+    const newItem: ModsSubject = <ModsSubject>this.field.addAfterItem(item);
+    // newItem.topics.items[0].attrs.lang = item.topics.items[0].attrs.lang;
+      newItem.getSubfields()[0].items[0].switchCollapsed();
+    setTimeout(() => {
+      this.layout.setMetadataResized();
+      newItem.getSubfields()[0].items[0].controls['lang'].setValue(val)
+    }, 10);
+  }
+
   onLoadFromCatalog(item: any) {
     const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'authors' } });
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -38,7 +49,7 @@ export class EditorSubjectComponent implements OnInit {
         const mods = result['mods'];
 
         const standard = Metadata.resolveStandard(mods);
-        console.log(standard)
+        // console.log(standard)
         this.tmpl.getTemplate(standard, this.layout.lastSelectedItem.model).subscribe((tmpl: any) => {
           const metadata = new Metadata('', this.layout.lastSelectedItem.model, mods, 0, standard, tmpl);
           const mf = metadata.getField(ModsSubject.getSelector());

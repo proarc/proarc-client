@@ -2,6 +2,9 @@
 
   <ng-template let-item="item" #templateMenu>
     <div class="app-header-divider"></div>
+    <button (click)="addRepeated(item)" [matTooltip]="'editor.add_field_lang' | translate" mat-icon-button>
+      <mat-icon>library_add</mat-icon>
+    </button>
     <button (click)="onLoadFromCatalog(item)" [matTooltip]="'editor.metadata.catalog' | translate" mat-icon-button>
       <mat-icon>local_library</mat-icon>
     </button>

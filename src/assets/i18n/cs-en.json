@@ -231,6 +231,7 @@
   },
   "editor": {
     "add_field": "Přidat",
+    "add_field_lang": "Přidat s jazykem",
     "info": "Zobrazit informace k popisu",
     "tree": {
       "change_parent_title": "Změnit nadřazený objekt",

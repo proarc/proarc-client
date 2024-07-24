@@ -171,6 +171,18 @@ export class ElementField {
         return this.addAfter(index, el);
     }
 
+    public duplicateItemAfter(oldItem: ModsElement, el: ModsElement = null): ModsElement {
+        const index = this.items.indexOf(oldItem);
+        const item: ModsElement = el || this.newElement(this.id, {});
+        if (!el && this.template['defaultValue']) {
+          item.modsElement['_'] = this.template['defaultValue'];
+        }
+        this.items.splice(index + 1, 0, item);
+        this.root.splice(index + 1, 0, item.getEl());
+        setTimeout(() => {item.setAsDirty();}, 100);
+        return item;
+    }
+
     public add(el: ModsElement = null): ModsElement {
         const item: ModsElement = el || this.newElement(this.id, {});
         if (!el && this.template['defaultValue']) {

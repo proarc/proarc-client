@@ -191,6 +191,7 @@
       description: 'Údaje o věcném třídění',
       fields: {
         topic: {
+          max: 1,
           usage: 'R',
           label: 'Klíčové slovo/Předmětové heslo',
           selector: 'subject/topic',
