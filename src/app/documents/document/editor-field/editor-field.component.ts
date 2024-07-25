@@ -91,8 +91,8 @@ export class EditorFieldComponent implements OnInit {
   showByGenre(idx: number, item: any) {
     return  idx > 0
             || !this.showGenreSwitch
-            || !item.attrs['type']
-            ||  (item.attrs['type'] !== 'peer-reviewed' ) 
+            || (!item.attrs['type'] && (this.field.items[0].modsElement['_'] !== this.field.items[1].modsElement['_']))
+            || (item.attrs['type'] && item.attrs['type'] !== 'peer-reviewed' ) 
            ;
   }
 

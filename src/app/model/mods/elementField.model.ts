@@ -109,7 +109,6 @@ export class ElementField {
         // set isPeerReviewed for electronic articles
         // this.isPeerReviewed = false;
         if(this.items[0] instanceof ModsGenre && template['selector'] === 'genre' &&  template['isElectronicArticle']) {
-
             if (this.items[0].attrs['type'] === 'peer-reviewed') {
                 this.isPeerReviewed = true;
             } else  if (this.items[0].modsElement['_'] === 'article' && !this.items[0].attrs['type']) {
@@ -127,13 +126,6 @@ export class ElementField {
                 this.items.unshift(peerEl);
                 this.root.unshift(peerRaw);
             }
-
-            // if (this.items.length === 1) {
-            //     const item = this.add();
-            //     if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded && !item.isRequired2()) {
-            //         item.collapsed = true;
-            //     }
-            // }
 
         }
     }
