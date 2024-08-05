@@ -104,6 +104,7 @@ export class EditorOcrComponent implements OnInit {
       this.editting = false;
       this.anyChange = false;
       this.state = 'success';
+      this.layout.clearPanelEditing();
     });
   }
 

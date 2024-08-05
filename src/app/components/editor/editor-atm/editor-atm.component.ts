@@ -103,7 +103,7 @@ export class EditorAtmComponent implements OnInit {
 
   onRevert() {
     this.atm.restore();
-        this.layout.clearPanelEditing();
+    this.layout.clearPanelEditing();
   }
 
   onSave() {
@@ -121,6 +121,7 @@ export class EditorAtmComponent implements OnInit {
         const newAtm: Atm = Atm.fromJson(response['response']['data'][0]);
         this.atm = newAtm;
         this.state = 'success';
+        this.layout.clearPanelEditing();
     });
   }
 

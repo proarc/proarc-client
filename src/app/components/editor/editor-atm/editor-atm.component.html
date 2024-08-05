@@ -94,6 +94,13 @@
                 <mat-option *ngFor="let donator of donators" [value]="donator">{{ 'editor.atm.donators.' + donator | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
+
+            
+            <mat-form-field class="app-field-col">
+              <mat-label>{{ 'editor.atm.archivalCopies' | translate }}</mat-label>
+              <input matInput [(ngModel)]="atm.archivalCopies">
+            </mat-form-field>
+      
           </div>
         </div>
         <div class="app-gap-fixer"></div>
