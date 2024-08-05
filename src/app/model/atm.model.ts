@@ -17,6 +17,7 @@ export class Atm {
     public lockedBy: string;
     public lockedDate: Date;
     public donator: string;
+    public archivalCopies: string;
 
 
     public originalDevice: string;
@@ -24,6 +25,7 @@ export class Atm {
     public originalUserProcessor: string;
     public originalStatus: string;
     public originalDonator: string;
+    public originalArchivalCopies: string;
 
   public static fromJson(json: any): Atm {
       const atm = new Atm();
@@ -52,6 +54,8 @@ export class Atm {
       atm.lockedDate = json['lockedDate'];
       atm.donator = json['donator'];
       atm.originalDonator = json['donator'];
+      atm.archivalCopies = json['archivalCopies'];
+      atm.originalArchivalCopies = json['archivalCopies'];
       return atm;
   }
 
@@ -61,6 +65,7 @@ export class Atm {
     this.userProcessor = this.originalUserProcessor;
     this.status = this.originalStatus;
     this.donator = this.originalDonator;
+    this.archivalCopies = this.originalArchivalCopies;
   }
 
   public hasChanged(): boolean {
@@ -68,7 +73,8 @@ export class Atm {
            this.originalOrganization !== this.organization || 
            this.originalUserProcessor !== this.userProcessor || 
            this.originalStatus !== this.status || 
-           this.originalDonator !== this.donator;
+           this.originalDonator !== this.donator || 
+           this.originalArchivalCopies !== this.archivalCopies;
   }
 
 

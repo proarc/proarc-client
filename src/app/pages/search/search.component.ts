@@ -122,7 +122,7 @@ export class SearchComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
-    public search: SearchService,
+    // public search: SearchService,
     public config: ConfigService,
     private ui: UIService,
     public layout: LayoutService,
@@ -361,7 +361,7 @@ export class SearchComponent implements OnInit {
   }
 
   private expandAll() {
-    this.search.selectedTree.expandAll(this.api);
+    // this.search.selectedTree.expandAll(this.api);
   }
 
   onPageChanged(page: any) {
@@ -372,7 +372,7 @@ export class SearchComponent implements OnInit {
   onUrnnbn(inSearch: boolean) {
     const pids = inSearch ?
       this.items.filter(i => i.selected).map(i => i.pid) :
-      [this.search.selectedTree.item.pid];
+      [this.selectedTreeItem.pid];
     const dialogRef = this.dialog.open(UrnnbnDialogComponent, {
       data: pids,
       panelClass: 'app-urnbnb-dialog',
@@ -388,7 +388,7 @@ export class SearchComponent implements OnInit {
   onExport(inSearch: boolean) {
     const items = inSearch ?
       this.items.filter(i => i.selected).map(i => { return { pid: i.pid, model: i.model } }) :
-      [{ pid: this.search.selectedTree.item.pid, model: this.search.selectedTree.item.model }];
+      [{ pid: this.selectedTreeItem.pid, model: this.selectedTreeItem.model }];
     const dialogRef = this.dialog.open(ExportDialogComponent, {
       disableClose: true,
       data: items,
@@ -485,13 +485,13 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  changeLockInTree(tree: Tree, isLocked: boolean) {
-    //tree.children.map(ch => ch.item.isLocked = isLocked);
-    if (tree.children && tree.children.length > 0) {
-      tree.children.forEach(ch => {
-        ch.item.isLocked = isLocked;
-        this.changeLockInTree(ch, isLocked);
-      });
+  changeLockInTree(item: TreeDocumentItem, isLocked: boolean, idx: number) {
+    for (let i = idx; i < this.treeItems.length; i++) {
+      const j = this.treeItems[i]
+      if (j.parentPid === item.pid) {
+        j.isLocked = isLocked;
+        this.changeLockInTree(j, isLocked, i)
+      }
     }
   }
 
@@ -505,9 +505,11 @@ export class SearchComponent implements OnInit {
       } else {
         this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.search.lockObject')));
         item.isLocked = true;
-        this.changeLockInTree(this.search.selectedTree, true);
-        // this.search.selectedTree.children.map(ch => ch.item.isLocked = true);
-        //this.reload(item.pid);
+        const treeItem = this.treeItems.find(it => it.pid === item.pid);
+        if (treeItem) {
+          this.changeLockInTree(treeItem, true, this.treeItems.indexOf(treeItem));
+        }
+        
       }
 
     });
@@ -523,9 +525,10 @@ export class SearchComponent implements OnInit {
       } else {
         this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.search.unlockObject')));
         item.isLocked = false;
-        this.changeLockInTree(this.search.selectedTree, false);
-        //this.search.selectedTree.children.map(ch => ch.item.isLocked = false);
-        // this.reload(item.pid);
+        const treeItem = this.treeItems.find(it => it.pid === item.pid);
+        if (treeItem) {
+          this.changeLockInTree(treeItem, false, this.treeItems.indexOf(treeItem));
+        }
       }
     });
   }
@@ -564,9 +567,9 @@ export class SearchComponent implements OnInit {
   }
 
   onDeleteFromTree() {
-    const refresh = this.search.selectedTree.item.parent ? false : true;
-    this.onDelete([this.search.selectedTree.item.pid], refresh, (pids: string[]) => {
-      this.search.selectedTree.remove();
+    const refresh = this.selectedTreeItem.parent ? false : true;
+    this.onDelete([this.selectedTreeItem.pid], refresh, (pids: string[]) => {
+      // this.search.selectedTree.remove();
     });
   }
 
@@ -683,17 +686,17 @@ export class SearchComponent implements OnInit {
   }
 
   selectFromTree(tree: Tree) {
-    this.search.selectedTree = tree;
-    this.search.selectedTreePid = tree.item.pid;
-    this.tree_info = {};
-    this.search.selectedTree.children.forEach(t => {
-      if (this.tree_info[t.item.model]) {
-        this.tree_info[t.item.model]++;
-      } else {
-        this.tree_info[t.item.model] = 1;
-      }
+    // this.search.selectedTree = tree;
+    // this.search.selectedTreePid = tree.item.pid;
+    // this.tree_info = {};
+    // this.search.selectedTree.children.forEach(t => {
+    //   if (this.tree_info[t.item.model]) {
+    //     this.tree_info[t.item.model]++;
+    //   } else {
+    //     this.tree_info[t.item.model] = 1;
+    //   }
 
-    })
+    // })
   }
 
   canChangeModel(item: DocumentItem): boolean {
@@ -931,7 +934,7 @@ export class SearchComponent implements OnInit {
 
   selectTreeItem(event: MouseEvent, treeItem: TreeDocumentItem) {
     this.selectedTreeItem = treeItem;
-    this.search.selectedTreePid = treeItem.pid;
+    // this.search.selectedTreePid = treeItem.pid;
     if (treeItem.childrenLoaded) {
       this.getTreeInfo(treeItem);
     } else {

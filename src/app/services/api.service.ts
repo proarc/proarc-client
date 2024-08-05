@@ -558,7 +558,7 @@ export class ApiService {
   }
 
   editAtm(atm: Atm, batchId: any = null): Observable<any> {
-    let data = `pid=${atm.pid}&device=${atm.device}&status=${atm.status}&model=${atm.model}&userProcessor=${atm.userProcessor}&organization=${atm.organization}&donator=${atm.donator}`;
+    let data = `pid=${atm.pid}&device=${atm.device}&status=${atm.status}&model=${atm.model}&userProcessor=${atm.userProcessor}&organization=${atm.organization}&donator=${atm.donator}&archivalCopies=${atm.archivalCopies}`;
     if (batchId) {
       data = `${data}&batchId=${batchId}`;
     }
