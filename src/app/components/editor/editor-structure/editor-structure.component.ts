@@ -1265,9 +1265,9 @@ export class EditorStructureComponent implements OnInit {
         if (toIndex >= 0 && toIndex < this.layout.items.length) {
           this.reorder(fromIndex, input.value - 1);
         }
+        this.layout.setPanelEditing(this.panel)
       }
     });
-    // });
   }
 
 
