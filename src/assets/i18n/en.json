@@ -2912,7 +2912,7 @@
     },
     "removeObject": {
       "title": "Remove objects",
-      "message": "Are you sure you want to remove selected objects?",
+      "message": "Are you sure you want to remove selected objects",
       "checkbox": "Remove permanently"
     },
     "removeJob": {

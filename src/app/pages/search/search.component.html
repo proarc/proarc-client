@@ -201,6 +201,10 @@
         </as-split-area>
 
         <as-split-area [size]="splitArea2Width"  [order]="1">
+          <div style="position: relative; top: 0px;">
+            <mat-progress-bar mode="indeterminate" *ngIf="loadingTree" class="app-progress-bar" style="position: absolute; top: 0px;"></mat-progress-bar>
+          </div>
+              
           <div  fxLayout="column" fxFlexFill>
             <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar">
               <div fxFlex *ngIf="selectedTreeItem" fxLayout="row" fxFlexFill>
@@ -227,8 +231,7 @@
               </div>
                 <div *ngFor="let i of object.keys(tree_info)">{{ 'model.' + i | translate }}: {{ tree_info[i] }}</div>
             </div>
-            <div fxFlex class="app-oa-y app-tree" fxLayout="column" fxFlexFill>
-              <mat-progress-bar mode="indeterminate" *ngIf="loadingTree" class="app-progress-bar"></mat-progress-bar>
+            <div fxFlex class="app-oa-y app-tree" fxLayout="column" fxFlexFill >
               <table  mat-table [dataSource]="visibleTreeItems" class="app-striped app-hover app-resize" matSort  #treeTable>
                   
                   <ng-container *ngFor="let c of treeColumns; let idx = index;" [matColumnDef]="c">

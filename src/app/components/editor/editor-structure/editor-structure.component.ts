@@ -1143,13 +1143,14 @@ export class EditorStructureComponent implements OnInit {
 
 
   onDelete() {
+    let pids= this.layout.items.filter(c => c.selected);
     const checkbox = {
       label: String(this.translator.instant('dialog.removeObject.checkbox')),
       checked: false
     };
     const data: SimpleDialogData = {
       title: String(this.translator.instant('dialog.removeObject.title')),
-      message: String(this.translator.instant('dialog.removeObject.message')),
+      message: String(this.translator.instant('dialog.removeObject.message')) + ": " + pids.length  + '?',
       alertClass: 'app-warn',
       btn1: {
         label: String(this.translator.instant('button.yes')),
@@ -1174,7 +1175,7 @@ export class EditorStructureComponent implements OnInit {
   }
 
   deleteSelectedChildren(pernamently: boolean) {
-    this.state = 'saving';
+    this.state = 'loading';
     let pids: string[] = this.layout.items.filter(c => c.selected).map(c => c.pid);
     // const isMultiple = this.layout.items.filter(c => c.selected).length > 1;
     // const first = this.layout.getFirstSelectedIndex();

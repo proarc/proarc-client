@@ -329,6 +329,8 @@ export class SearchComponent implements OnInit {
     this.selectedTreeItem.level = 0;
     this.selectedTreeItem.expandable = true;
     this.treeItems = [this.selectedTreeItem];
+    
+    this.refreshVisibleTreeItems();
     this.getTreeItems(this.selectedTreeItem, true);
   }
 
@@ -580,7 +582,7 @@ export class SearchComponent implements OnInit {
     };
     const data: SimpleDialogData = {
       title: String(this.translator.instant('dialog.removeObject.title')),
-      message: String(this.translator.instant('dialog.removeObject.message')),
+      message: String(this.translator.instant('dialog.removeObject.message')) + ": " + pids.length  + '?',
       alertClass: 'app-warn',
       btn1: {
         label: String(this.translator.instant('button.yes')),
@@ -944,7 +946,8 @@ export class SearchComponent implements OnInit {
   }
 
   getTreeInfo(treeItem: TreeDocumentItem) {
-    this.tree_info = {};
+    this.tree_info = {}; 
+    //setTimeout(() => { 
     this.treeItems.filter(ti => ti.parentPid === treeItem.pid).forEach(t => {
       if (this.tree_info[t.model]) {
         this.tree_info[t.model]++;
@@ -952,6 +955,8 @@ export class SearchComponent implements OnInit {
         this.tree_info[t.model] = 1;
       }
     });
+
+    //}, 2000)
   }
 
   toggleTree(event: any, treeItem: TreeDocumentItem) {
@@ -983,7 +988,10 @@ export class SearchComponent implements OnInit {
 
   refreshVisibleTreeItems() {
     this.visibleTreeItems = this.treeItems.filter(j => !j.hidden);
-    this.treeTable.renderRows();
+    if (this.treeTable) {
+      this.treeTable.renderRows();
+    }
+    
   }
 
   columnType(f: string) {

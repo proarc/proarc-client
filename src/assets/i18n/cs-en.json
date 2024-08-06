@@ -2912,7 +2912,7 @@
     },
     "removeObject": {
       "title": "Smazání objektů",
-      "message": "Opravdu chcete vybrané objekty smazat?",
+      "message": "Opravdu chcete vybrané objekty smazat",
       "checkbox": "Smazat trvale z úložiště"
     },
     "removeJob": {
