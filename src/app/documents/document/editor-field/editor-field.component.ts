@@ -46,6 +46,12 @@ export class EditorFieldComponent implements OnInit {
 
   removeItem(item: ModsElement) {
     this.field.removeItem(item);
+    if (this.field.id === 'genre' && this.field.isPeerReviewed) {
+      this.field.items[0].attrs.type ="peer-reviewed";
+      if (this.field.items.length === 1) {
+        this.field.add();
+      }
+    }
     this.setMetadataResized();
   }
 
@@ -91,9 +97,11 @@ export class EditorFieldComponent implements OnInit {
   showByGenre(idx: number, item: any) {
     return  idx > 0
             || !this.showGenreSwitch
-            || (!item.attrs['type'] && (this.field.items[0].modsElement['_'] !== this.field.items[1].modsElement['_']))
-            || (item.attrs['type'] && item.attrs['type'] !== 'peer-reviewed' ) 
-           ;
+            || this.field.items.length === 1
+    //         || (!item.attrs['type'] && this.field.items.length > 1 && (this.field.items[0].modsElement['_'] !== this.field.items[1].modsElement['_']))
+    //         || (item.attrs['type'] && item.attrs['type'] !== 'peer-reviewed' ) 
+    //        ;
+
   }
 
 

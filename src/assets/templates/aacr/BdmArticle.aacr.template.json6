@@ -393,7 +393,7 @@
     },
     genre: {
       isElectronicArticle: true,
-          defaultValue: 'article',
+      defaultValue: 'article',
       usage: 'R',
       label: 'Typ obsahu',
       selector: 'genre',

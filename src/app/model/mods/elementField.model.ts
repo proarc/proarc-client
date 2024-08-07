@@ -120,12 +120,21 @@ export class ElementField {
                 const peerRaw = JSON.parse(JSON.stringify(this.root[0]));
                 delete peerRaw['$']['type'];
                 if (peerRaw['_'] !== 'article' && peerRaw['_'] !== 'electronic_article') {
-                    peerRaw['_'] = 'article';
+                    // peerRaw['_'] = 'article';
                 }
                 const peerEl = this.newElement(id, peerRaw);
                 this.items.unshift(peerEl);
                 this.root.unshift(peerRaw);
             }
+
+
+            // if (this.items.length === 1) {
+            //     const item = this.add();
+            //     item.hidden = true;
+            //     if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded && !item.isRequired2()) {
+            //         item.collapsed = true;
+            //     }
+            // }
 
         }
     }
