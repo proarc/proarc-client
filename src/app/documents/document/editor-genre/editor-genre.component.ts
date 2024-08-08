@@ -15,6 +15,7 @@ export class EditorGenreComponent implements OnInit {
   @Input() showGenreSwitch: boolean;
 
   peerControl = new FormControl();
+  oldType: string;
 
   constructor(private layout: LayoutService) {
   }
@@ -36,13 +37,20 @@ export class EditorGenreComponent implements OnInit {
     // this.field.isPeerReviewed = e.value === 'peer-reviewed';
     if (this.field.isPeerReviewed) {
       //const item = this.field.addAsFirst();
+      if (this.field.items.length === 1 && this.field.getItems()[0].attrs['type']) {
+        const item = this.field.addAsFirst();
+      }
       this.field.getItems()[0].controls['peer-reviewed'].setValue(true);
       this.field.items[0].attrs['type'] = 'peer-reviewed';
       this.field.items[0].setAsDirty();
     } else {
       delete this.field.getItems()[0].attrs['type'];
+      if (this.field.items.length > 1) {
+        this.field.remove(0);
+      }
       //this.field.remove(0);
     }
+      this.field.items[0].setAsDirty();
 
       setTimeout(() => {
         this.layout.setMetadataResized();
