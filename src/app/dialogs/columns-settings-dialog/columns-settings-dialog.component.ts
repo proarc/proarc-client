@@ -1,6 +1,7 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from 'src/app/services/config.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UIService } from 'src/app/services/ui.service';
@@ -22,6 +23,7 @@ export class ColumnsSettingsDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ColumnsSettingsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private translator: TranslateService,
     private ui: UIService,
     public config: ConfigService,
     public properties: LocalStorageService) { }
@@ -29,10 +31,31 @@ export class ColumnsSettingsDialogComponent implements OnInit {
   ngOnInit(): void {
 
     if (this.data.isWorkFlow) {
-      this.columnsWorkFlow = this.properties.getColumnsWorkFlow();
+      this.columnsWorkFlow = [];
+      const all = this.properties.getColumnsWorkFlow();
+
+      const v = all.filter((a: any) => a.selected === true);
+      const iv = all.filter((a: any) => a.selected === false);
+      iv.sort((a: any, b: any) => {
+        const a1: string = this.translator.instant('desc.' + a.field);
+        const b1: string = this.translator.instant('desc.' + b.field);
+        return a1.localeCompare(b1)
+      });
+      this.columnsWorkFlow = [...v, ...iv]
 
     } else if (this.data.isWorkFlowSubJobs) {
-      this.columnsWorkFlow = this.properties.getColumnsWorkFlowSubJobs();
+      this.columnsWorkFlow = [];
+      const all = this.properties.getColumnsWorkFlowSubJobs();
+
+      const v = all.filter((a: any) => a.selected === true);
+      const iv = all.filter((a: any) => a.selected === false);
+      iv.sort((a: any, b: any) => {
+        const a1: string = this.translator.instant('desc.' + a.field);
+        const b1: string = this.translator.instant('desc.' + b.field);
+        return a1.localeCompare(b1)
+      });
+      this.columnsWorkFlow = [...v, ...iv]
+
 
     } else {
 

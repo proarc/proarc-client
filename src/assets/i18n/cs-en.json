@@ -2492,10 +2492,13 @@
     "ownerId": "Založil záměr",
     "profileName": "Profil",
     "rawPath": "Adresář surových skenu",
-    "taskName" : "úkol",
+    "taskName" : "Dokončený úkol",
     "taskUser": "Dokončil úkol",
     "deviceID": "Zařízení",
-    "deviceLabel": "Zařízení"
+    "deviceLabel": "Zařízení",
+    "issue": "Číslo",
+    "taskDate": "Datum dok. úkolu",
+    "volume": "Ročník"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -3145,6 +3148,10 @@
       "editingImport": {
         "legend": "Editace v importu",
         "label": "Zobrazená pole v editaci importu"
+      },
+      "editingWorkflow": {
+        "legend": "Workflow",
+        "label": "Zobrazená pole v workflow"
       },
       "processManagementOverview": {
         "legend": "Správa procesů",

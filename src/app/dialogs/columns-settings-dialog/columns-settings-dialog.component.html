@@ -21,8 +21,8 @@
         </div>
     </ng-container>
     <ng-container *ngIf="data.isWorkFlow || data.isWorkFlowSubJobs">
-        <legend>{{ 'pages.settings.editingImport.legend' | translate }}</legend>
-        <div class="app-label app-mb-2">{{ 'pages.settings.editingImport.label' | translate }}</div>
+        <legend>{{ 'pages.settings.editingWorkflow.legend' | translate }}</legend>
+        <div class="app-label app-mb-2">{{ 'pages.settings.editingWorkflow.label' | translate }}</div>
         <div *ngFor="let column of columnsWorkFlow" cdkDropListOrientation="vertical" cdkDrag>
           <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'desc.' + column.field | translate }}</mat-checkbox>
         </div>

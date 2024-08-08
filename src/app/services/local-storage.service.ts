@@ -60,31 +60,40 @@ export class LocalStorageService {
             {field: 'pid', selected: false, width: 150, type: 'string'},
             {field: 'sigla', selected: false, width: 150, type: 'string'},
             {field: 'year', selected: false, width: 150, type: 'string'},
+            {field: 'issue', selected: false, width: 150, type: 'string'},
+            {field: 'detail', selected: false, width: 150, type: 'string'},
+            {field: 'taskDate', selected: false, width: 150, type: 'string'},
+            {field: 'note', selected: false, width: 150, type: 'string'},
+            {field: 'volume', selected: false, width: 150, type: 'string'},
+            {field: 'year', selected: false, width: 150, type: 'string'},
             {field: 'deviceLabel', selected: false, width: 150, type: 'string'}
         ];
 
+
+
+
         public availableColumnsWorkFlowSubJobs = [
-            {field: 'rawPath', selected: true, width: 150, type: 'string'},
-            {field: 'label', selected: true, width: 150, type: 'string'},
-            {field: 'profileName', selected: true, width: 150, type: 'list'},
-            {field: 'state', selected: true, width: 150, type: 'list'},
-            {field: 'taskName', selected: true, width: 150, type: 'list'},
-            {field: 'taskUser', selected: true, width: 150, type: 'list'},
-            {field: 'priority', selected: true, width: 150, type: 'list'},
-            {field: 'created', selected: true, width: 150, type: 'date'},
-            {field: 'edition', selected: true, width: 150, type: 'string'},
-            {field: 'field001', selected: true, width: 150, type: 'string'},
-            {field: 'financed', selected: true, width: 150, type: 'string'},
+            {field: 'signature', selected: true, width: 150, type: 'string'},
             {field: 'barcode', selected: true, width: 150, type: 'string'},
-            {field: 'id', selected: true, width: 150, type: 'string'},
-            {field: 'model', selected: true, width: 150, type: 'list'},
-            {field: 'modified', selected: true, width: 150, type: 'date'},
-            {field: 'ownerId', selected: true, width: 150, type: 'list'},
-            {field: 'pid', selected: true, width: 150, type: 'string'},
-            {field: 'sigla', selected: true, width: 150, type: 'string'},
-            {field: 'year', selected: true, width: 150, type: 'string'},
-            {field: 'deviceLabel', selected: true, width: 150, type: 'string'},
-            {field: 'signature', selected: true, width: 150, type: 'string'}
+            {field: 'label', selected: true, width: 150, type: 'string'},
+            {field: 'rawPath', selected: false, width: 150, type: 'string'},
+            {field: 'profileName', selected: false, width: 150, type: 'list'},
+            {field: 'state', selected: false, width: 150, type: 'list'},
+            {field: 'taskName', selected: false, width: 150, type: 'list'},
+            {field: 'taskUser', selected: false, width: 150, type: 'list'},
+            {field: 'priority', selected: false, width: 150, type: 'list'},
+            {field: 'created', selected: false, width: 150, type: 'date'},
+            {field: 'edition', selected: false, width: 150, type: 'string'},
+            {field: 'field001', selected: false, width: 150, type: 'string'},
+            {field: 'financed', selected: false, width: 150, type: 'string'},
+            {field: 'id', selected: false, width: 150, type: 'string'},
+            {field: 'model', selected: false, width: 150, type: 'list'},
+            {field: 'modified', selected: false, width: 150, type: 'date'},
+            {field: 'ownerId', selected: false, width: 150, type: 'list'},
+            {field: 'pid', selected: false, width: 150, type: 'string'},
+            {field: 'sigla', selected: false, width: 150, type: 'string'},
+            {field: 'year', selected: false, width: 150, type: 'string'},
+            {field: 'deviceLabel', selected: false, width: 150, type: 'string'}
         ];
 
     public colsEditingRepo: { [model: string]: { field: string, selected: boolean, width: number }[] };

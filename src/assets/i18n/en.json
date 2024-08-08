@@ -2495,7 +2495,10 @@
     "taskName" : "Task",
     "taskUser": "Task user name",
     "deviceID": "Device",
-    "deviceLabel": "Device"
+    "deviceLabel": "Device",
+    "issue": "Issue",
+    "taskDate": "Task date",
+    "volume": "Volume"
   },
   "button": {
     "setLayout": "Set layout",
@@ -3149,6 +3152,10 @@
       "editingImport": {
         "legend": "Editing in import",
         "label": "Displayed fields in the import edit"
+      },
+      "editingWorkflow": {
+        "legend": "Workflow",
+        "label": "Displayed fields in workflow"
       },
       "processManagementOverview": {
         "legend": "Process management",
