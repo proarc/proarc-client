@@ -2936,6 +2936,7 @@
     },
     "newMetadata": {
       "title": "Nový objekt",
+      "title_edit": "Editace objektu",
       "onClose": {
         "title": "Upozornění",
         "alert": "Opouštíte formulář bez uložení. Opravdu chcete pokračovat?"

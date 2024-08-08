@@ -75,6 +75,9 @@ export class WorkFlowComponent implements OnInit {
   activeJob: WorkFlow;
   hasObject: boolean;
 
+  hasMetadata: boolean;
+  physicalDocument: any;
+
   subJobs: WorkFlow[] = [];
   visibleSubJobs: WorkFlow[] = [];
   public subJobsTree: WorkFlowTree;
@@ -255,7 +258,10 @@ export class WorkFlowComponent implements OnInit {
         return;
       }
       this.materials = response.response.data;
-      this.hasObject = !!this.materials.find(m => m.type === 'DIGITAL_OBJECT').pid
+      this.hasObject = !!this.materials.find(m => m.type === 'DIGITAL_OBJECT').pid;
+      this.physicalDocument = this.materials.find(m => m.type === 'PHYSICAL_DOCUMENT');
+      this.hasMetadata = !!this.physicalDocument;
+      console.log(this.physicalDocument, this.hasMetadata)
     });
   }
 
@@ -302,9 +308,10 @@ export class WorkFlowComponent implements OnInit {
   }
 
   isExpandable(job: WorkFlow) {
+    
     const p = this.profiles.find(p => p.name === job.profileName);
     if (!p) {
-      console.log('PROBKLEM!!', job);
+      console.log('PROBLEM!! Neni mezi profiles', job.profileName);
       return false;
     }
     return  p.subjob.length > 0;
@@ -642,6 +649,45 @@ export class WorkFlowComponent implements OnInit {
 
   taskStep(task: string) {
 
+  }
+  
+  editMetadata() {
+    
+    //this.api.getWorkflowMods(this.material.id, this.material.model).subscribe(mods => {
+      const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
+        disableClose: true,
+        height: '90%',
+        width: '680px',
+        data: {
+          title: 'dialog.newMetadata.title_edit',
+          isWorkFlow: true,
+          isWorkFlowMaterial: true,
+          jobId: this.selectedJob.id,
+          model: this.selectedJob.model,
+          timestamp: this.selectedJob.timestamp,
+          content: this.physicalDocument.metadata,
+          selectedProfile: this.selectedJob.profileName
+        }
+      });
+      dialogRef.afterClosed().subscribe(res => {
+        if (res?.mods) {
+          this.physicalDocument.metadata = res.mods;
+          this.saveMetadata();
+        }
+      });
+
+    //});
+  }
+
+  saveMetadata() {
+    this.api.saveWorkflowMaterial(this.physicalDocument).subscribe((response: any) => {
+      if (response['response'].errors) {
+        this.ui.showErrorDialogFromObject(response['response'].errors);
+        return;
+      }
+      this.physicalDocument = response.response.data[0];
+      this.getWorkflow(true);
+    });
   }
 
 }

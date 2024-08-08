@@ -36,6 +36,7 @@
                   <mat-menu #menuMore="matMenu">
                     <button mat-menu-item (click)="selectColumns(false)" >{{'editor.children.select_columns' | translate}}</button>
                     <button *ngIf="auth.user.wfDeleteJobFunction || auth.isSuperAdmin()" mat-menu-item (click)="removeJob()" >{{'workflow.remove_job' | translate}}</button>
+                    <button *ngIf="hasMetadata" mat-menu-item (click)="editMetadata()" >{{'button.editMetadata' | translate}}</button>
                   </mat-menu>
 
                 </div>

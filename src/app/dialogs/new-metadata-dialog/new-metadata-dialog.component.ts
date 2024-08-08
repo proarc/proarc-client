@@ -24,6 +24,8 @@ export class NewMetadataDialogComponent implements OnInit {
   state = 'none';
   metadata: Metadata;
 
+  title: string;
+
   editorParams: any;
   validating = false;
   panel: ILayoutPanel = {
@@ -52,6 +54,7 @@ export class NewMetadataDialogComponent implements OnInit {
     setTimeout(() => {
       this.load();
     }, 100);
+    this.title = this.data.title ? this.data.title : 'dialog.newMetadata.title';
     this.formHighlighting = localStorage.getItem('formHighlighting') === 'true';
   }
 

@@ -2936,6 +2936,7 @@
     },
     "newMetadata": {
       "title": "New object",
+      "title_edit": "Edit object",
       "onClose": {
         "title": "Notice",
         "alert": "You are leaving the form without saving. Are you sure you want to continue?"

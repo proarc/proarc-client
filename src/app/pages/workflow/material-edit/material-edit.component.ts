@@ -44,6 +44,7 @@ export class MaterialEditComponent implements OnInit {
         height: '90%',
         width: '680px',
         data: {
+          title: 'dialog.newMetadata.title_edit',
           isWorkFlow: true,
           isWorkFlowMaterial: true,
           jobId: this.workflow.id,
