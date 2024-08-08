@@ -9,6 +9,7 @@ import { UIService } from 'src/app/services/ui.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Sort, SortDirection } from '@angular/material/sort';
 import { User } from 'src/app/model/user.model';
+import { AuthService } from 'src/app/services/auth.service';
 // -- table to expand --
 
 @Component({
@@ -26,8 +27,6 @@ import { User } from 'src/app/model/user.model';
   // -- table to expand --
 })
 export class TaskComponent implements OnInit {
-
-
 
   // -- table to expand --
   materialColumnsToDisplay = ['profileLabel', 'label', 'name'];
@@ -68,7 +67,7 @@ export class TaskComponent implements OnInit {
     { code: 4, value: 'Odloženo' },
   ]
 
-  profileNames: {disabled: boolean, hint: string, name: string, title: string}[] = [];
+  profileNames: { disabled: boolean, hint: string, name: string, title: string }[] = [];
   profileNameFilter: string;
   states: string[] = [];
   stateFilter: string = '';
@@ -77,7 +76,8 @@ export class TaskComponent implements OnInit {
   users: User[];
   barcodeFilter: string;
 
-  filters: {field: string, value: string}[] = [];
+  filters: { field: string, value: string }[] = [];
+  onlyMyTasks: boolean;
 
 
   constructor(
@@ -85,6 +85,7 @@ export class TaskComponent implements OnInit {
     private route: ActivatedRoute,
     private config: ConfigService,
     private api: ApiService,
+    public auth: AuthService,
     private ui: UIService,
     public layout: LayoutService
   ) { }
@@ -93,6 +94,9 @@ export class TaskComponent implements OnInit {
     this.tasksColumns.forEach(c => {
       this.filterTasksColumns.push(c + '-filter');
     });
+    if (this.route.snapshot.url[0].path === 'my_tasks') {
+      this.onlyMyTasks = true;
+    }
     this.route.paramMap.subscribe(
       p => {
         this.id = parseInt(p.get('id'));
@@ -150,6 +154,11 @@ export class TaskComponent implements OnInit {
       params += '_sortBy=' + (this.tasksSortDir === 'desc' ? '-' : '') + this.tasksSortField;
     }
 
+    if (this.onlyMyTasks) {
+      params += '&state=READY&ownerId=' + this.auth.getUserId();
+    }
+
+
     this.filters.forEach(f => {
       if (f.value !== '') {
         params += `&${f.field}=${f.value}`;
@@ -164,7 +173,7 @@ export class TaskComponent implements OnInit {
       }
       this.tasks = response.response.data;
 
-      
+
       this.tasks.forEach(b => {
         if (!this.states.includes(b.state)) {
           this.states.push(b.state)
@@ -248,7 +257,7 @@ export class TaskComponent implements OnInit {
       return;
     }
     this.tasksSortDir = e.direction;
-    this.tasksSortField = e.active;    
+    this.tasksSortField = e.active;
     this.getTasks();
   }
 
@@ -257,7 +266,7 @@ export class TaskComponent implements OnInit {
     if (f) {
       f.value = value;
     } else {
-      this.filters.push({field, value});
+      this.filters.push({ field, value });
     }
     this.getTasks();
   }

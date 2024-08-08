@@ -27,6 +27,7 @@ const routes: Routes = [
   { path: 'jobs', component: WorkFlowComponent },
   { path: 'jobs/:id', component: WorkFlowComponent },
   { path: 'tasks', component: TaskComponent },
+  { path: 'my_tasks', component: TaskComponent },
   { path: 'task/:id', component: TaskComponent }
 ];
 

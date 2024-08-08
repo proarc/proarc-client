@@ -214,6 +214,7 @@
     "workflow": "WorkFlow",
     "jobs": "Záměry",
     "tasks": "Úkoly",
+    "my_tasks": "Moje úkoly",
     "admin": "Administrace",
     "layout": "Rozložení",
     "lang": {

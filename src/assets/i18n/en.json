@@ -214,6 +214,7 @@
     "workflow": "WorkFlow",
     "jobs": "Jobs",
     "tasks": "Tasks",
+    "my_tasks": "My tasks",
     "admin": "Administration",
     "layout": "Layout",
     "lang": {

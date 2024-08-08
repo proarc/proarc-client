@@ -28,6 +28,7 @@
       <mat-menu #rd_menu="matMenu">
         <button [routerLink]="['/workflow/jobs']" routerLinkActive="active" mat-menu-item>{{ "navbar.jobs" | translate }}</button>
         <button [routerLink]="['/workflow/tasks']" routerLinkActive="active" mat-menu-item>{{ "navbar.tasks" | translate }}</button>
+        <button [routerLink]="['/workflow/my_tasks']" routerLinkActive="active" mat-menu-item>{{ "navbar.my_tasks" | translate }}</button>
         <a [href]="config.workflowUrl" target="_empty" mat-button>{{ "navbar.jobs" | translate }} (API)</a>
       </mat-menu>
     </ng-container>

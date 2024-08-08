@@ -261,7 +261,6 @@ export class WorkFlowComponent implements OnInit {
       this.hasObject = !!this.materials.find(m => m.type === 'DIGITAL_OBJECT').pid;
       this.physicalDocument = this.materials.find(m => m.type === 'PHYSICAL_DOCUMENT');
       this.hasMetadata = !!this.physicalDocument;
-      console.log(this.physicalDocument, this.hasMetadata)
     });
   }
 
@@ -687,6 +686,21 @@ export class WorkFlowComponent implements OnInit {
       }
       this.physicalDocument = response.response.data[0];
       this.getWorkflow(true);
+    });
+  }
+
+  filterMyTasks() {
+    let params = '?jobId=' + this.activeJob.id;
+    if (this.tasksSortDir) {
+      params += '&_sortBy=' + (this.tasksSortDir === 'desc' ? '-' : '') + this.tasksSortField;
+    }
+    params += '&state=READY&ownerId=' + this.auth.getUserId();
+    this.api.getWorkflowTasks(params).subscribe((response: any) => {
+      if (response['response'].errors) {
+        this.ui.showErrorDialogFromObject(response['response'].errors);
+        return;
+      }
+      this.tasks = response.response.data;
     });
   }
 

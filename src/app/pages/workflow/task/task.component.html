@@ -6,7 +6,7 @@
             <span class="app-separator">/</span>
             <a routerLink="/workflow">{{ 'navbar.workflow' | translate }}</a>
             <span class="app-separator">/</span>
-            <span class="app-last">{{ 'desc.task' | translate }}</span>
+            <span class="app-last">{{ (onlyMyTasks ? 'navbar.my_tasks' : 'navbar.tasks') | translate }}</span>
         </div>
         <div fxLayout="row" fxLayoutAlign="start center" class="app-h-100">
             <!-- <button mat-icon-button [matTooltip]="'navbar.layout' | translate" (click)="showLayoutAdmin()">
