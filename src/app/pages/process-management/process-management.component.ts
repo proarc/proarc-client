@@ -96,7 +96,8 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
     'EXPORT_DONE',
     'REINDEXING',
     'REINDEX_FAILED',
-    'REINDEX_DONE'
+    'REINDEX_DONE',
+    'INTERNAL_DONE'
   ];
 
   priorities = [

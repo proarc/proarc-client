@@ -192,6 +192,7 @@ $states: (
   UPLOAD_FAILED: $app-color-warn,
   STOPPED: mat-color($mat-blue-gray, 600),
   WAITING: mat-color($mat-teal, 500),
+  INTERNAL_DONE: $app-color-success,
   model: $app-badge-model-bg,
   default: $app-gray-6
 );
