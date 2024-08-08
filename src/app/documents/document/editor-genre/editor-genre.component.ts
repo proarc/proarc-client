@@ -50,7 +50,7 @@ export class EditorGenreComponent implements OnInit {
   }
 
   typeChanged(e: any, idx: number) {
-    console.log(e, idx)
+    // console.log(e, idx)
     if (idx === 0 && e === 'peer-reviewed') {
       // se meni prvni element na 'peer-reviewed'. To jen pomoci switcher
       // pokud mame jen jeden item nic

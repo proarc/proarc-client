@@ -48,9 +48,9 @@ export class EditorFieldComponent implements OnInit {
     this.field.removeItem(item);
     if (this.field.id === 'genre' && this.field.isPeerReviewed) {
       this.field.items[0].attrs.type ="peer-reviewed";
-      if (this.field.items.length === 1) {
-        this.field.add();
-      }
+      // if (this.field.items.length === 1) {
+      //   this.field.add();
+      // }
     }
     this.setMetadataResized();
   }
