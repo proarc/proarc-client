@@ -584,10 +584,11 @@ export class WorkFlowComponent implements OnInit {
     this.properties.setColumnsWorkFlowSubJobs(this.columnsWorkFlowSubJobs);
   }
 
-  removeJob() {
+  removeJobs(isSubJobs: boolean) {
+    const pids: number[] = (isSubJobs ? this.subJobs.filter(j => j.selected) : this.jobs.filter(j => j.selected)).map(j => j.id)
     const data: SimpleDialogData = {
-      title: String(this.translator.instant('dialog.removeJob.title')),
-      message: String(this.translator.instant('dialog.removeJob.message')),
+      title: String(this.translator.instant('dialog.removeJobs.title')),
+      message: String(this.translator.instant('dialog.removeJobs.message')) + ' (' + pids.length + ')',
       alertClass: 'app-warn',
       btn1: {
         label: String(this.translator.instant('button.yes')),
@@ -605,7 +606,7 @@ export class WorkFlowComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.api.removeWorkflow(this.selectedJob.id).subscribe(res => {
+        this.api.removeWorkflow(pids.join('&id=')).subscribe(res => {
           this.getWorkflow(false);
         })
       }

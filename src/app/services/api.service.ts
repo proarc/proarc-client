@@ -1001,7 +1001,7 @@ export class ApiService {
     return this.put('workflow/mods', data);
   }
 
-  removeWorkflow(id: number): Observable<any> {
+  removeWorkflow(id: string): Observable<any> {
     return this.delete('workflow?id=' + id);
   }
 

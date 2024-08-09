@@ -2920,7 +2920,7 @@
       "message": "Are you sure you want to remove selected objects",
       "checkbox": "Remove permanently"
     },
-    "removeJob": {
+    "removeJobs": {
       "title": "Remove jobs",
       "message": "Are you sure you want to remove selected jobs?"
     },

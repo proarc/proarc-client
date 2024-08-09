@@ -2920,7 +2920,7 @@
       "message": "Opravdu chcete vybrané objekty smazat",
       "checkbox": "Smazat trvale z úložiště"
     },
-    "removeJob": {
+    "removeJobs": {
       "title": "Smazání zámerů",
       "message": "Opravdu chcete vybrané zámery smazat?"
     },

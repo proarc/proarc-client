@@ -51,19 +51,23 @@ export class LoginComponent implements OnInit {
       this.state = 'none';
       if (result) {
         this.properties.setStringProperty('search.split.0', '60');
-        if (this.url) {
-          // split query params
-          const parts = this.url.split('?')
+        
 
-          const params: any = Object.assign({}, this.route.snapshot.queryParams);
-          params.url = null;
-
-          this.router.navigate([this.url], { queryParams: params });
-        } else {
-          this.router.navigate(['/']);
-        }
         this.api.getValuemap().subscribe(resp => {
           this.config.valueMap = resp.response.data;
+
+            if (this.url) {
+              // split query params
+              const parts = this.url.split('?')
+    
+              const params: any = Object.assign({}, this.route.snapshot.queryParams);
+              params.url = null;
+    
+              this.router.navigate([this.url], { queryParams: params });
+            } else {
+              this.router.navigate(['/']);
+            }
+
         });
 
       } else {
