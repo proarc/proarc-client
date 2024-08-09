@@ -2181,8 +2181,9 @@
     "create_new": "Create new job",
     "create_new_subjob": "Subjob",
     "create_new_object": "Create new object",
-    "remove_job": "Remove job",
-    "add_step": "Add step"
+    "remove_job": "Remove job(s)",
+    "add_step": "Add step",
+    "multipleJobsEdit": "Multiple jobs edition"
   },
   "premis": {
     "techMD": "technická metadata",

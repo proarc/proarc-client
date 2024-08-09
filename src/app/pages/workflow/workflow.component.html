@@ -36,6 +36,7 @@
                   <mat-menu #menuMore="matMenu">
                     <button mat-menu-item (click)="selectColumns(false)" >{{'editor.children.select_columns' | translate}}</button>
                     <button *ngIf="auth.user.wfDeleteJobFunction || auth.isSuperAdmin()" mat-menu-item (click)="removeJob()" >{{'workflow.remove_job' | translate}}</button>
+                    <button *ngIf="this.totalSelected > 1" mat-menu-item (click)="editJobs()" >{{'workflow.multipleJobsEdit' | translate}}</button>
                     <button *ngIf="hasMetadata" mat-menu-item (click)="editMetadata()" >{{'button.editMetadata' | translate}}</button>
                   </mat-menu>
 
@@ -46,7 +47,7 @@
 
                     <ng-container *ngFor="let c of workFlowColumns" [matColumnDef]="c + '-filter'">
                       
-                      <th mat-header-cell *matHeaderCellDef [style.width]="colsWidth[c]">
+                      <th mat-header-cell *matHeaderCellDef [style.width]="colsWidth[c]+'px'">
                         <ng-container [ngSwitch]="columnTypes[c]">
                           <ng-container *ngSwitchCase="'date'">
                           
@@ -87,7 +88,8 @@
                     
                     <tr mat-header-row *matHeaderRowDef="filterWorkFlowColumns; sticky: true"></tr>
                     <tr mat-header-row *matHeaderRowDef="workFlowColumns; sticky: true"></tr>
-                    <tr mat-row *matRowDef="let row; columns: workFlowColumns;" (click)="selectJob(row)" [class.app-selected]="row.id === selectedJob?.id"></tr>
+                    <tr mat-row *matRowDef="let row; columns: workFlowColumns; let idx=index" 
+                        (click)="jobClick(row, $event, idx)" [class.app-selected]="row.selected"></tr>
                   </table>
                 </div>
               </div>            
@@ -122,8 +124,8 @@
                     
                     <ng-container *ngFor="let c of workFlowColumnsSubJobs; let idx = index;" [matColumnDef]="c">
                       <th mat-header-cell *matHeaderCellDef 
-                    [resizeColumn]="true" (columnResized)="saveColumnsSizesSubJobs($event,c)" 
-                        [style.width]="colsWidthSubJobs[c]">
+                        [resizeColumn]="true" (columnResized)="saveColumnsSizesSubJobs($event,c)" 
+                        [style.width]="colsWidthSubJobs[c]+'px'">
                         <span >{{'desc.' + c | translate}}</span>
                       </th>
                       <td mat-cell *matCellDef="let element">

@@ -43,7 +43,10 @@ export class WorkFlow {
   timestamp: Date
   year: string;
 
-  // properties ofr tree view
+  // multiple selection
+  selected: boolean;
+
+  // properties of tree view
   parentId?: number;
   level: number;
   expandable: boolean;

@@ -42,13 +42,13 @@ export class NewMetadataDialogComponent implements OnInit {
   constructor(
     private router: Router,
     public dialogRef: MatDialogRef<NewMetadataDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private ui: UIService,
     private api: ApiService,
     private dialog: MatDialog,
     private tmpl: TemplateService,
     private layout: LayoutService,
-    private translator: TranslateService,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    private translator: TranslateService) { }
 
   ngOnInit(): void {
     setTimeout(() => {

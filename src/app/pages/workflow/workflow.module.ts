@@ -12,6 +12,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { TaskEditComponent } from './task-edit/task-edit.component';
 import { MaterialEditComponent } from './material-edit/material-edit.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { JobsEditDialogComponent } from './jobs-edit-dialog/jobs-edit-dialog.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -38,6 +39,7 @@ const routes: Routes = [
     TaskComponent,
     TaskEditComponent,
     MaterialEditComponent,
+    JobsEditDialogComponent,
     
   ],
   imports: [

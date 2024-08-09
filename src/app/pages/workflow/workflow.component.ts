@@ -761,20 +761,16 @@ export class WorkFlowComponent implements OnInit {
       height: '80%',
       width: '680px',
       data: {
-        isWorkFlow: true,
-        isWorkFlowMaterial: true,
-        jobId: this.selectedJob.id,
-        model: this.selectedJob.model,
-        timestamp: this.selectedJob.timestamp,
-        content: this.physicalDocument.metadata,
-        selectedProfile: this.selectedJob.profileName
+        states: this.states,
+        priorities: this.priorities,
+        pids: this.jobs.filter(i => i.selected).map(p => p.pid)
       }
     });
     dialogRef.afterClosed().subscribe(res => {
-      if (res?.mods) {
-        this.physicalDocument.metadata = res.mods;
-        this.saveMetadata();
-      }
+      // if (res?.mods) {
+      //   this.physicalDocument.metadata = res.mods;
+      //   this.saveMetadata();
+      // }
     });
   }
 
