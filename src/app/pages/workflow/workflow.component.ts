@@ -25,6 +25,7 @@ import { ConfigService } from 'src/app/services/config.service';
 import { WorkFlowTree } from './workflowTree.model';
 import { forkJoin } from 'rxjs';
 import { MatTable } from '@angular/material/table';
+import { JobsEditDialogComponent } from './jobs-edit-dialog/jobs-edit-dialog.component';
 // -- table to expand --
 
 @Component({
@@ -47,9 +48,9 @@ export class WorkFlowComponent implements OnInit {
   @ViewChild('subJobsTable') subJobsTable: MatTable<any>;
 
   columnsWorkFlow: { field: string, selected: boolean, type: string }[];
-  colsWidth: { [key: string]: string } = {};
+  colsWidth: { [key: string]: number } = {};
   columnsWorkFlowSubJobs: { field: string, selected: boolean, type: string }[];
-  colsWidthSubJobs: { [key: string]: string } = {};
+  colsWidthSubJobs: { [key: string]: number } = {};
 
   // -- table to expand --
   materialColumnsToDisplay = ['profileLabel', 'label', 'note'];
@@ -117,6 +118,10 @@ export class WorkFlowComponent implements OnInit {
   taskUsernameFilter: string;
   labelFilter: string;
   profileNameFilter: string;
+
+  startShiftClickIdx: number;
+  lastClickIdx: number;
+  totalSelected: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -551,24 +556,31 @@ export class WorkFlowComponent implements OnInit {
   setColumnsWith() {
     this.colsWidth = {};
     this.columnsWorkFlow.forEach((c: any) => {
-      this.colsWidth[c.field] = c.width + 'px';
+      this.colsWidth[c.field] = c.width;
     });
   }
 
   setColumnsWithSubJobs() {
     this.colsWidthSubJobs = {};
     this.columnsWorkFlowSubJobs.forEach((c: any) => {
-      this.colsWidthSubJobs[c.field] = c.width + 'px';
+      this.colsWidthSubJobs[c.field] = c.width;
     });
   }
 
   saveColumnsSizes(e: any, field?: string) {
-    this.colsWidth[field] = e + 'px';
+    this.colsWidth[field] = e;
+    this.columnsWorkFlow.forEach((c: any) => {
+      c.width = this.colsWidth[c.field];
+    });
+  
     this.properties.setColumnsWorkFlow(this.columnsWorkFlow);
   }
 
   saveColumnsSizesSubJobs(e: any, field?: string) {
-    this.colsWidthSubJobs[field] = e + 'px';
+    this.colsWidthSubJobs[field] = e;
+    this.columnsWorkFlowSubJobs.forEach((c: any) => {
+      c.width = this.colsWidthSubJobs[c.field];
+    });
     this.properties.setColumnsWorkFlowSubJobs(this.columnsWorkFlowSubJobs);
   }
 
@@ -701,6 +713,68 @@ export class WorkFlowComponent implements OnInit {
         return;
       }
       this.tasks = response.response.data;
+    });
+  }
+
+  jobClick(item: WorkFlow, event?: MouseEvent, idx?: number) {
+    if (event && (event.metaKey || event.ctrlKey)) {
+      item.selected = !item.selected;
+      this.startShiftClickIdx = idx;
+    } else if (event && event.shiftKey) {
+      if (this.startShiftClickIdx > -1) {
+        const oldFrom = Math.min(this.startShiftClickIdx, this.lastClickIdx);
+        const oldTo = Math.max(this.startShiftClickIdx, this.lastClickIdx);
+        for (let i = oldFrom; i <= oldTo; i++) {
+          this.jobs[i].selected = false;
+        }
+        const from = Math.min(this.startShiftClickIdx, idx);
+        const to = Math.max(this.startShiftClickIdx, idx);
+        for (let i = from; i <= to; i++) {
+          this.jobs[i].selected = true;
+        }
+      } else {
+        // nic neni.
+        this.jobs.forEach(i => i.selected = false);
+        item.selected = true;
+        this.startShiftClickIdx = idx;
+      }
+    } else {
+      this.jobs.forEach(i => i.selected = false);
+      item.selected = true;
+      this.startShiftClickIdx = idx;
+    }
+
+    this.lastClickIdx = idx;
+    this.totalSelected = this.jobs.filter(i => i.selected).length;
+
+    if (this.totalSelected > 0) {
+      this.selectJob(item);
+    }
+    
+
+
+  }
+
+  editJobs() {
+    const dialogRef = this.dialog.open(JobsEditDialogComponent, {
+      // disableClose: true,
+      height: '80%',
+      width: '680px',
+      data: {
+        isWorkFlow: true,
+        isWorkFlowMaterial: true,
+        jobId: this.selectedJob.id,
+        model: this.selectedJob.model,
+        timestamp: this.selectedJob.timestamp,
+        content: this.physicalDocument.metadata,
+        selectedProfile: this.selectedJob.profileName
+      }
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      if (res?.mods) {
+        this.physicalDocument.metadata = res.mods;
+        this.saveMetadata();
+      }
     });
   }
 

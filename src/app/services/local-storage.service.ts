@@ -69,32 +69,29 @@ export class LocalStorageService {
             {field: 'deviceLabel', selected: false, width: 150, type: 'string'}
         ];
 
-
-
-
-        public availableColumnsWorkFlowSubJobs = [
-            {field: 'signature', selected: true, width: 150, type: 'string'},
-            {field: 'barcode', selected: true, width: 150, type: 'string'},
-            {field: 'label', selected: true, width: 150, type: 'string'},
-            {field: 'rawPath', selected: false, width: 150, type: 'string'},
-            {field: 'profileName', selected: false, width: 150, type: 'list'},
-            {field: 'state', selected: false, width: 150, type: 'list'},
-            {field: 'taskName', selected: false, width: 150, type: 'list'},
-            {field: 'taskUser', selected: false, width: 150, type: 'list'},
-            {field: 'priority', selected: false, width: 150, type: 'list'},
-            {field: 'created', selected: false, width: 150, type: 'date'},
-            {field: 'edition', selected: false, width: 150, type: 'string'},
-            {field: 'field001', selected: false, width: 150, type: 'string'},
-            {field: 'financed', selected: false, width: 150, type: 'string'},
-            {field: 'id', selected: false, width: 150, type: 'string'},
-            {field: 'model', selected: false, width: 150, type: 'list'},
-            {field: 'modified', selected: false, width: 150, type: 'date'},
-            {field: 'ownerId', selected: false, width: 150, type: 'list'},
-            {field: 'pid', selected: false, width: 150, type: 'string'},
-            {field: 'sigla', selected: false, width: 150, type: 'string'},
-            {field: 'year', selected: false, width: 150, type: 'string'},
-            {field: 'deviceLabel', selected: false, width: 150, type: 'string'}
-        ];
+        // public availableColumnsWorkFlowSubJobs = [
+        //     {field: 'signature', selected: true, width: 150, type: 'string'},
+        //     {field: 'barcode', selected: true, width: 150, type: 'string'},
+        //     {field: 'label', selected: true, width: 150, type: 'string'},
+        //     {field: 'rawPath', selected: false, width: 150, type: 'string'},
+        //     {field: 'profileName', selected: false, width: 150, type: 'list'},
+        //     {field: 'state', selected: false, width: 150, type: 'list'},
+        //     {field: 'taskName', selected: false, width: 150, type: 'list'},
+        //     {field: 'taskUser', selected: false, width: 150, type: 'list'},
+        //     {field: 'priority', selected: false, width: 150, type: 'list'},
+        //     {field: 'created', selected: false, width: 150, type: 'date'},
+        //     {field: 'edition', selected: false, width: 150, type: 'string'},
+        //     {field: 'field001', selected: false, width: 150, type: 'string'},
+        //     {field: 'financed', selected: false, width: 150, type: 'string'},
+        //     {field: 'id', selected: false, width: 150, type: 'string'},
+        //     {field: 'model', selected: false, width: 150, type: 'list'},
+        //     {field: 'modified', selected: false, width: 150, type: 'date'},
+        //     {field: 'ownerId', selected: false, width: 150, type: 'list'},
+        //     {field: 'pid', selected: false, width: 150, type: 'string'},
+        //     {field: 'sigla', selected: false, width: 150, type: 'string'},
+        //     {field: 'year', selected: false, width: 150, type: 'string'},
+        //     {field: 'deviceLabel', selected: false, width: 150, type: 'string'}
+        // ];
 
     public colsEditingRepo: { [model: string]: { field: string, selected: boolean, width: number }[] };
 
@@ -322,7 +319,7 @@ export class LocalStorageService {
             Object.assign(ret, JSON.parse(prop));
         } else {
 
-            ret = this.availableColumnsWorkFlowSubJobs.map((c) => {
+            ret = this.availableColumnsWorkFlow.map((c) => {
                 return c;
             });
         }
