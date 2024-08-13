@@ -302,16 +302,23 @@ export class ParentDialogComponent implements OnInit {
       if (root) {
         const item = this.items.find(i => i.pid === root);
         if (item) {
-
           this.selectItem(item);
           setTimeout(() => {
             document.getElementById(root).scrollIntoView({ block: 'center' });
             // this.search.selectedTreePid = this.expandedPath[0];
+            const lastParent = this.expandedPath[0];
+            if (lastParent) {
+                setTimeout(() => {
+                  document.getElementById('tree_' +  lastParent).scrollIntoView({ block: 'center' });
+                }, 550);
+            }
+
           }, 550);
 
         }
 
       }
+
     }
   }
 
