@@ -751,9 +751,6 @@ export class WorkFlowComponent implements OnInit {
     if (this.totalSelected > 0) {
       this.selectJob(item);
     }
-    
-
-
   }
 
   editJobs() {
@@ -764,14 +761,13 @@ export class WorkFlowComponent implements OnInit {
       data: {
         states: this.states,
         priorities: this.priorities,
-        pids: this.jobs.filter(i => i.selected).map(p => p.pid)
+        ids: this.jobs.filter(i => i.selected).map(p => p.id)
       }
     });
     dialogRef.afterClosed().subscribe(res => {
-      // if (res?.mods) {
-      //   this.physicalDocument.metadata = res.mods;
-      //   this.saveMetadata();
-      // }
+      if (res) {
+        this.getWorkflow(false);
+      }
     });
   }
 

@@ -22,6 +22,7 @@
                         <div class="app-toolbar" *ngIf="!id">
                             <button (click)="getTasks()" mat-icon-button
                                 [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
+                            <button *ngIf="this.totalSelected > 1" mat-button (click)="editTasks()" >{{'workflow.multipleJobsEdit' | translate}}</button>
                         </div>
                         <div class="app-oa-y">
                             <table mat-table [dataSource]="tasks" class="app-striped app-hover" matSort
@@ -96,7 +97,9 @@
 
                                 <tr mat-header-row *matHeaderRowDef="filterTasksColumns; sticky: true"></tr>
                                 <tr mat-header-row *matHeaderRowDef="tasksColumns; sticky: true"></tr>
-                                <tr mat-row *matRowDef="let row; columns: tasksColumns;" (click)="selectTask(row)"></tr>
+                                <tr mat-row *matRowDef="let row; columns: tasksColumns; let idx=index;" 
+                                    [class.app-selected]="row.selected"
+                                    (click)="taskClick(row, $event, idx)"></tr>
                             </table>
                         </div>
                     </div>
@@ -107,24 +110,14 @@
 
                     <as-split direction="vertical">
                         <as-split-area>
-                            <div class="app-toolbar-old" *ngIf="task">
-                                <button (click)="getTask(task.id)" mat-button>{{'common.refresh' | translate }}</button>
-                                <button [routerLink]="['/workflow/jobs', task.jobId]" mat-button>{{'workflow.job' | translate
-                                    }}</button>
+                            <div class="app-toolbar-old"  *ngIf="totalSelected === 1">
+                                <button  (click)="getTask(task.id)" mat-button>{{'common.refresh' | translate }}</button>
+                                <button  [routerLink]="['/workflow/jobs', task.jobId]" mat-button>{{'workflow.job' | translate }}</button>
                                 <button (click)="saveTask()" mat-button>{{'common.save' | translate }}</button>
                             </div>
-                            <div class="app-detail" *ngIf="task">
+                            <div class="app-detail" *ngIf="task && totalSelected === 1">
                                 <h3>{{ task.jobLabel }}</h3>
                                 <div>
-
-                                    <!-- <mat-form-field>
-                                        <mat-label>{{ 'workflow.profileName' | translate }}</mat-label>
-                                        <mat-select [(ngModel)]="task.profileName"
-                                            [placeholder]="task.profileName">
-                                            <mat-option *ngFor="let o of profileNames"
-                                                [value]="o.name">{{o.title}}</mat-option>
-                                        </mat-select>
-                                    </mat-form-field> -->
 
                                     <mat-form-field>
                                         <mat-label>{{ 'desc.state' | translate }}</mat-label>
@@ -148,7 +141,7 @@
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
-                                <div>
+                                <div >
                                     <mat-form-field>
                                         <mat-label>{{ 'workflow.task' | translate }}</mat-label>
                                         <input matInput disabled readonly="true" [value]="task.profileLabel">
@@ -162,7 +155,7 @@
                                         <input matInput disabled readonly="true" [value]="task.modified | date : 'dd.MM.yyyy HH:mm'">
                                     </mat-form-field>
                                 </div>
-                                <div>
+                                <div >
                                     <ng-container *ngFor="let param of parameters">
                                         <ng-container [ngSwitch]="param.displayType">
 
@@ -176,10 +169,9 @@
 
                                             <mat-form-field *ngSwitchCase="'COMBOBOX'">
                                                 <mat-label>{{ param.profileLabel }}</mat-label>
-                                                <mat-select [(ngModel)]="param.value"
-                                                    [placeholder]="param.profileLabel">
+                                                <mat-select [(ngModel)]="param.value">
                                                     <mat-option *ngFor="let o of getValueMap(param.valueMapId)"
-                                                        [value]="o.code">{{o.value}}</mat-option>
+                                                        [value]="o.value">{{o.value}}</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                             <span *ngSwitchDefault>{{param.displayType}}</span>
@@ -190,7 +182,7 @@
                         </as-split-area>
                         <as-split-area>
                             <div fxLayout="column" fxFlexFill>
-                                <div class="app-oa-y">
+                                <div class="app-oa-y" *ngIf="totalSelected === 1">
                                     <table mat-table [dataSource]="material" multiTemplateDataRows
                                         class="app-expanded app-hover">
                                         <ng-container matColumnDef="{{column}}"

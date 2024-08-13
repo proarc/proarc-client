@@ -13,6 +13,7 @@ import { TaskEditComponent } from './task-edit/task-edit.component';
 import { MaterialEditComponent } from './material-edit/material-edit.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { JobsEditDialogComponent } from './jobs-edit-dialog/jobs-edit-dialog.component';
+import { TaskssEditDialogComponent } from './tasks-edit-dialog/tasks-edit-dialog.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -40,6 +41,7 @@ const routes: Routes = [
     TaskEditComponent,
     MaterialEditComponent,
     JobsEditDialogComponent,
+    TaskssEditDialogComponent,
     
   ],
   imports: [

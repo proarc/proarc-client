@@ -2183,7 +2183,8 @@
     "create_new_object": "Vytvořit nový objekt",
     "remove_job": "Odstranit záměr(y)",
     "add_step": "Přidat krok",
-    "multipleJobsEdit": "Hromadná úprava záměrů"
+    "multipleJobsEdit": "Hromadná úprava záměrů",
+    "multipleTasksEdit": "Hromadná úprava úkolů"
   },
   "premis": {
     "techMD": "technická metadata",

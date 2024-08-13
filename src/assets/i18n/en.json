@@ -2183,7 +2183,8 @@
     "create_new_object": "Create new object",
     "remove_job": "Remove job(s)",
     "add_step": "Add step",
-    "multipleJobsEdit": "Multiple jobs edition"
+    "multipleJobsEdit": "Multiple jobs edition",
+    "multipleTasksEdit": "Multiple tasks edition"
   },
   "premis": {
     "techMD": "technická metadata",

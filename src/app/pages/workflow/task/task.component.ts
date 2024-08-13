@@ -10,6 +10,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Sort, SortDirection } from '@angular/material/sort';
 import { User } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { TaskssEditDialogComponent } from '../tasks-edit-dialog/tasks-edit-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 // -- table to expand --
 
 @Component({
@@ -80,8 +82,14 @@ export class TaskComponent implements OnInit {
   onlyMyTasks: boolean;
 
 
+  startShiftClickIdx: number;
+  lastClickIdx: number;
+  totalSelected: number;
+  isSelectionSameType: boolean;
+
   constructor(
     private router: Router,
+    private dialog: MatDialog,
     private route: ActivatedRoute,
     private config: ConfigService,
     private api: ApiService,
@@ -138,7 +146,7 @@ export class TaskComponent implements OnInit {
 
   getValueMap(field: string) {
 
-    // imageColor v  obcas vraci code a obcas value !!
+    // imageColor obcas vraci code a obcas value !!
     // const ic = this.parameters.find((p: any) => p.valueMapId === 'wf.valuemap.imageColor');
     // if (ic) {
     //   this.imageColor = this.imageColors.find(c => c.value === ic.value || c.code === ic.value).code;
@@ -210,6 +218,11 @@ export class TaskComponent implements OnInit {
   }
 
   saveTask() {
+    const params: any = {};
+    this.parameters.forEach((p: any) => {
+      params[p.profileName] = p.value;
+    })
+    this.task.params = params;
     this.api.saveWorkflowTask(this.task).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
@@ -223,6 +236,10 @@ export class TaskComponent implements OnInit {
 
   }
 
+  saveTasks() {
+
+  }
+
   getParameters() {
     this.api.getWorkflowTaskParameters(this.task.id).subscribe((response: any) => {
       if (response['response'].errors) {
@@ -233,10 +250,10 @@ export class TaskComponent implements OnInit {
       this.scanner = this.parameters.find((p: any) => p.valueMapId === 'wf.valuemap.scannerNow')?.value;
       this.dpi = this.parameters.find((p: any) => p.valueMapId === 'wf.valuemap.dpi')?.value;
 
-      // imageColor v  obcas vraci code a obcas value !!
+      // imageColor obcas vraci code a obcas value !!
       const ic = this.parameters.find((p: any) => p.valueMapId === 'wf.valuemap.imageColor');
       if (ic) {
-        this.imageColor = this.imageColors.find(c => c.value === ic.value || c.code === ic.value).code;
+        this.imageColor = this.imageColors.find(c => c.value === ic.value || c.code === ic.value).value;
       }
 
     });
@@ -269,6 +286,73 @@ export class TaskComponent implements OnInit {
       this.filters.push({ field, value });
     }
     this.getTasks();
+  }
+
+  taskClick(item: any, event?: MouseEvent, idx?: number) {
+    if (event && (event.metaKey || event.ctrlKey)) {
+      item.selected = !item.selected;
+      this.startShiftClickIdx = idx;
+    } else if (event && event.shiftKey) {
+      if (this.startShiftClickIdx > -1) {
+        const oldFrom = Math.min(this.startShiftClickIdx, this.lastClickIdx);
+        const oldTo = Math.max(this.startShiftClickIdx, this.lastClickIdx);
+        for (let i = oldFrom; i <= oldTo; i++) {
+          this.tasks[i].selected = false;
+        }
+        const from = Math.min(this.startShiftClickIdx, idx);
+        const to = Math.max(this.startShiftClickIdx, idx);
+        for (let i = from; i <= to; i++) {
+          this.tasks[i].selected = true;
+        }
+      } else {
+        // nic neni.
+        this.tasks.forEach(i => i.selected = false);
+        item.selected = true;
+        this.startShiftClickIdx = idx;
+      }
+    } else {
+      this.tasks.forEach(i => i.selected = false);
+      item.selected = true;
+      this.startShiftClickIdx = idx;
+    }
+
+    this.lastClickIdx = idx;
+    this.totalSelected = this.tasks.filter(i => i.selected).length;
+    this.isSelectionSameType = true;
+    if (this.totalSelected > 1) {
+      
+      let profileLabel = item.profileLabel;
+      this.tasks.filter(i => i.selected).forEach(i => {
+        if (i.profileLabel !== profileLabel) {
+          this.isSelectionSameType = false;
+        }
+      })
+    }
+
+
+    if (this.totalSelected > 0) {
+      this.selectTask(item);
+    }
+  }
+
+  editTasks() {
+    const dialogRef = this.dialog.open(TaskssEditDialogComponent, {
+      // disableClose: true,
+      height: '60%',
+      width: '680px',
+      data: {
+        states: this.statesAll,
+        priorities: this.priorities,
+        users: this.users,
+        parameters: this.parameters,
+        tasks: this.tasks.filter(i => i.selected)
+      }
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        this.getTasks();
+      }
+    });
   }
 
 }

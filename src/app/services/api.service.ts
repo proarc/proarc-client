@@ -993,6 +993,20 @@ export class ApiService {
     return this.put('workflow', httpParams);
   }
 
+  saveWorkflowItems(data: string): Observable<any> {
+    return this.put('workflow/editorJobs', data);
+  }
+
+  saveWorkflowTasks(w: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.put('workflow/editorTasks', w, httpOptions);
+  }
+
+
   createWorkflow(data: string): Observable<any> {
     return this.post('workflow', data);
   }
