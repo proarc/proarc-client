@@ -5,7 +5,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { ApiService } from './api.service';
 import { Router } from '@angular/router';
 import { User } from '../model/user.model';
-import { Observable, of, tap } from 'rxjs';
+import { forkJoin, Observable, of, tap } from 'rxjs';
 import { catchError, finalize, switchMap } from 'rxjs/operators';
 import { ConfigService } from './config.service';
 
@@ -103,32 +103,25 @@ export class AuthService {
     }
 
     public initializeApp() {
-        return this.api.getValuemap().pipe(
-            switchMap((res: any) => {
-                this.config.valueMap = res.response.data;
-                return this.http.get(this.getApiUrl() + 'user?whoAmI=true').pipe(
-                    tap((user: any) => {
-                        this.user = User.fromJson(user['response']['data'][0]);
-                    })
-                );
-            }),
-            catchError((err) => {
-                return of(err);
-            })
-        );
 
-        // return this.http.get(this.getApiUrl() + 'user?whoAmI=true').pipe(
-        //     switchMap((user: any) => {
-        //         this.user = User.fromJson(user['response']['data'][0]);
-        //         return this.api.getValuemap().pipe(tap((res: any) => {
-        //             this.config.valueMap = res.response.data;
-        //         }));
-        //     }),
-        //     catchError((err) => {
-        //         // this.alertSubject.next(err);
-        //         return of(err);
-        //     })
-        // );
+        return this.api.getConfig().pipe(
+            switchMap((configResp: any) => {
+                if (configResp.response?.data && !configResp.response.data[0].error) {
+                    this.config.mergeConfig(JSON.parse(configResp.response.data[0].configFile));
+                }
+                return this.api.getValuemap().pipe(
+                    switchMap((res: any) => {
+                        this.config.valueMap = res.response.data;
+                        return this.http.get(this.getApiUrl() + 'user?whoAmI=true').pipe(
+                            tap((user: any) => {
+                                this.user = User.fromJson(user['response']['data'][0]);
+                            })
+                        );
+                    }),
+                    catchError((err) => {
+                        return of(err);
+                    })
+        )}));
     }
 
     handleError(error: HttpErrorResponse) {

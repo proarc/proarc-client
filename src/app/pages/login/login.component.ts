@@ -6,6 +6,7 @@ import { MatInput } from '@angular/material/input';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ApiService } from 'src/app/services/api.service';
 import { ConfigService } from 'src/app/services/config.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -52,9 +53,14 @@ export class LoginComponent implements OnInit {
       if (result) {
         this.properties.setStringProperty('search.split.0', '60');
         
-
-        this.api.getValuemap().subscribe(resp => {
-          this.config.valueMap = resp.response.data;
+        const valueMapReq = this.api.getValuemap();
+        const configReq = this.api.getConfig();
+        forkJoin([valueMapReq, configReq]).subscribe(([valueMapResp, configResp]: [any, any]) => {
+          if (configResp.response?.data && !configResp.response.data[0].error) {
+            console.log(configResp.response.data[0])
+            this.config.mergeConfig(JSON.parse(configResp.response.data[0].configFile));
+          }
+          this.config.valueMap = valueMapResp.response.data;
 
             if (this.url) {
               // split query params

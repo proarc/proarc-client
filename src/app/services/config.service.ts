@@ -6,6 +6,13 @@ declare var APP_GLOBAL: any;
 @Injectable()
 export class ConfigService {
 
+	public mergeConfig(c: any) {
+		const keys = Object.keys(c);
+		keys.forEach(k => {
+			APP_GLOBAL[k] = c[k];
+		})
+	}
+
 	private static defaultPageTypes = [
 		'normalPage',
 		'abstract',

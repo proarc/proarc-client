@@ -1250,5 +1250,9 @@ export class ApiService {
     return this.get(url);
   }
 
+  getConfig(): Observable<any> {
+    return this.get('info/file?type=config');
+  }
+
 }
 

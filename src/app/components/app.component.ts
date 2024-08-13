@@ -4,6 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { ConfigService } from 'src/app/services/config.service';
 import { ApiService } from '../services/api.service';
+import { forkJoin } from 'rxjs';
 
 declare var APP_GLOBAL: any;
 
@@ -43,9 +44,14 @@ export class AppComponent implements OnInit {
     });
 
     if (this.auth.user && !this.config.valueMap) {
-      this.api.getValuemap().subscribe(resp => {
-        this.config.valueMap = resp.response.data;
-      });
+      const valueMapReq = this.api.getValuemap();
+        const configReq = this.api.getConfig();
+        forkJoin([valueMapReq, configReq]).subscribe(([valueMapResp, confgiResp]: [any, any]) => {
+          if (confgiResp.response?.data && !confgiResp.response.data.error) {
+            this.config.mergeConfig(JSON.parse(confgiResp.response.data.configFile));
+          }
+          this.config.valueMap = valueMapResp.response.data;
+        });
     }
   }
 }
