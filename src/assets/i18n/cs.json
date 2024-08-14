@@ -2487,6 +2487,8 @@
     "resolveconflictWarn": "Zvolte způsob pokračování",
     "formBorderHighlighting": "Zvýraznění ohraničení formuláře",
     "highlighttheForm": "Zvýraznit formulář",
+    "searchExpandTreeTitle": "Defaultně rozbalovat objekty ve stromu hledat",
+    "searchExpandTree": "Defaultně rozbalovat objekty",
     "author": "Autor",
     "id": "Id",
     "label": "Název",

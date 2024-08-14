@@ -331,7 +331,9 @@ export class SearchComponent implements OnInit {
     this.treeItems = [this.selectedTreeItem];
     
     this.refreshVisibleTreeItems();
-    this.getTreeItems(this.selectedTreeItem, true);
+    if (this.properties.getBoolProperty('searchExpandTree', true)) {
+      this.getTreeItems(this.selectedTreeItem, true);
+    }
   }
 
   findItem(pid: string) {
@@ -937,11 +939,14 @@ export class SearchComponent implements OnInit {
   selectTreeItem(event: MouseEvent, treeItem: TreeDocumentItem) {
     this.selectedTreeItem = treeItem;
     // this.search.selectedTreePid = treeItem.pid;
-    if (treeItem.childrenLoaded) {
-      this.getTreeInfo(treeItem);
-    } else {
-      this.getTreeItems(treeItem, true);
+    if (this.properties.getBoolProperty('searchExpandTree', true)) {
+      if (treeItem.childrenLoaded) {
+        this.getTreeInfo(treeItem);
+      } else {
+        this.getTreeItems(treeItem, true);
+      }
     }
+    
     
   }
 

@@ -2487,6 +2487,8 @@
     "resolveconflictWarn": "Select how to continue",
     "formBorderHighlighting": "Form border highlighting",
     "highlighttheForm": "Highlight the form",
+    "searchExpandTreeTitle": "Expand objects in tree search",
+    "searchExpandTree": "Expand objects by default",
     "author": "Author",
     "id": "Id",
     "label": "Label",

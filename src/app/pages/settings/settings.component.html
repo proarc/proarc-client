@@ -96,6 +96,19 @@
                 <mat-checkbox fxFlex name="formHighlighting" [(ngModel)]="formHighlighting">{{ 'desc.highlighttheForm' | translate }}</mat-checkbox>
                 <button mat-stroked-button (click)="highlightForm()">{{ 'button.save' | translate }}</button>
               </div>
+
+              <mat-divider class="app-mb-4"></mat-divider>
+              <span class="app-label">{{ 'desc.searchExpandTreeTitle' | translate }}</span>
+              <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
+                <mat-checkbox fxFlex name="searchExpandTree" [(ngModel)]="searchExpandTree">{{ 'desc.searchExpandTree' | translate }}</mat-checkbox>
+                <button mat-stroked-button (click)="setSearchExpandTree()">{{ 'button.save' | translate }}</button>
+              </div>
+
+              
+
+            
+
+
             </fieldset>
           </mat-card-content>
         </mat-card>

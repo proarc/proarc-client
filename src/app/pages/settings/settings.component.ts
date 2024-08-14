@@ -76,6 +76,7 @@ export class SettingsComponent implements OnInit {
   modelForColumns: string;
   colsEditModeParent: boolean = true;
   columnsSearchTree: any;
+  searchExpandTree: boolean = true;
 
   constructor(
     private api: ApiService,
@@ -120,6 +121,8 @@ export class SettingsComponent implements OnInit {
     this.models = this.config.allModels;
     this.modelForColumns = this.models[0];
     this.colsEditModeParent = this.properties.getColsEditingRepo();
+
+    this.searchExpandTree = this.properties.getBoolProperty('searchExpandTree', true);
   }
 
   getColumnsForModel() {
@@ -173,6 +176,11 @@ export class SettingsComponent implements OnInit {
 
   highlightForm() {
     localStorage.setItem('formHighlighting', JSON.stringify(this.formHighlighting));
+    this.ui.showInfo('snackbar.changeSaved');
+  }
+
+  setSearchExpandTree() {
+    localStorage.setItem('searchExpandTree', JSON.stringify(this.searchExpandTree));
     this.ui.showInfo('snackbar.changeSaved');
   }
 
