@@ -24,6 +24,7 @@ export class WorkFlow {
   label: string;
   model: string;
   modified: Date;
+  note: string;
   ownerId: number;
   pid: string;
   priority: number;

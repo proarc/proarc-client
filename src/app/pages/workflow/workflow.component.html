@@ -215,7 +215,7 @@
                     </div>
                     <mat-form-field class="app-w-100">
                       <mat-label>{{ 'desc.note' | translate }}</mat-label>
-                      <textarea matInput [placeholder]="'desc.note' | translate"></textarea>
+                      <textarea [(ngModel)]="activeJob.note" matInput [placeholder]="'desc.note' | translate"></textarea>
                     </mat-form-field>
                   </ng-container>
                 </div>
