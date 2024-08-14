@@ -27,6 +27,7 @@ import { CzidloDialogComponent } from 'src/app/dialogs/czidlo-dialog/czidlo-dial
 import { Clipboard } from '@angular/cdk/clipboard';
 import { UpdateInSourceDialogComponent } from 'src/app/dialogs/update-in-source-dialog/update-in-source-dialog.component';
 import { Subscription } from 'rxjs';
+import { ModelTemplate } from 'src/app/templates/modelTemplate';
 
 @Component({
   selector: 'app-search',
@@ -331,7 +332,9 @@ export class SearchComponent implements OnInit {
     this.treeItems = [this.selectedTreeItem];
     
     this.refreshVisibleTreeItems();
-    if (this.properties.getBoolProperty('searchExpandTree', true)) {
+    const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.selectedTreeItem.model).join(',');
+    const canHavePages = allowedAsString.includes('page');
+    if (this.properties.getBoolProperty('searchExpandTree', true) || !canHavePages) {
       this.getTreeItems(this.selectedTreeItem, true);
     }
   }
@@ -939,7 +942,9 @@ export class SearchComponent implements OnInit {
   selectTreeItem(event: MouseEvent, treeItem: TreeDocumentItem) {
     this.selectedTreeItem = treeItem;
     // this.search.selectedTreePid = treeItem.pid;
-    if (this.properties.getBoolProperty('searchExpandTree', true)) {
+    const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.selectedTreeItem.model).join(',');
+    const canHavePages = allowedAsString.includes('page');
+    if (this.properties.getBoolProperty('searchExpandTree', true) || !canHavePages) {
       if (treeItem.childrenLoaded) {
         this.getTreeInfo(treeItem);
       } else {
