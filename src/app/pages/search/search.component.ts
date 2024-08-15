@@ -321,10 +321,12 @@ export class SearchComponent implements OnInit {
     this.selectedItem = item;
 
 
-    // this.tree = new Tree(item);
-    // this.tree.expand(this.api, false, () => {
-    //   this.selectFromTree(this.tree)
-    // });
+    if(this.selectedTreeItem ) {
+      // reset
+      this.selectedTreeItem.expanded = false;
+      this.selectedTreeItem.childrenLoaded = false;
+
+    }
 
     this.selectedTreeItem = <TreeDocumentItem>this.selectedItem;
     this.selectedTreeItem.level = 0;
