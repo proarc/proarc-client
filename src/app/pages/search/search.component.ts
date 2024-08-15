@@ -876,6 +876,20 @@ export class SearchComponent implements OnInit {
     this.ui.showInfoSnackBar(this.translator.instant('snackbar.copyTextToClipboard.success'));
   }
 
+  
+
+  validateObject(item: DocumentItem) {
+    this.api.validateObject(item.pid).subscribe((response: any) => {
+      if (response.response.errors) {
+        this.state = 'error';
+        this.ui.showErrorDialogFromObject(response.response.errors);
+      } else {
+        this.state = 'success';
+        this.ui.showInfoSnackBar(response.response.data[0].msg)
+      }
+    });
+  }
+
   // Tree methods
   @ViewChild('treeTable') treeTable: MatTable<any>;
 

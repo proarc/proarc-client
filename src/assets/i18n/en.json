@@ -2580,7 +2580,8 @@
     "pero": "Korekce ALTO/OCR pomocí nástroje PERO",
     "removeBrackets": "Remove the brackets",
     "addBrackets": "Add the brackets",
-    "editMetadata": "Edit metadata"
+    "editMetadata": "Edit metadata",
+    "validateObject": "Validate object"
   },
   "dynamic": {
     "repo": "Storage",
@@ -3014,7 +3015,8 @@
       "exportProfile.aleph": "Export - Aleph",
       "exportProfile.datastream": "Export - Datastream",
       "internalProfile.reindex": "Internal - Reindex",
-      "internalProfile.pero": "Internal - Pero"
+      "internalProfile.pero": "Internal - Pero",
+      "internalProfile.validation": "Interní - Validate objects"
     },
     "users": {
       "tooltipUsername": "Username by pattern: first character a lowercase letter followed by at least 4 characters from a combination of letters, numbers, dashes and underscores.",

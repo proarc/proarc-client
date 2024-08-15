@@ -2580,7 +2580,8 @@
     "pero": "Korekce ALTO/OCR pomocí nástroje PERO",
     "removeBrackets": "Odebrat závorky",
     "addBrackets": "Vložit do závorek",
-    "editMetadata": "Editovat metadata"
+    "editMetadata": "Editovat metadata",
+    "validateObject": "Validace objektů"
   },
   "dynamic": {
     "repo": "Úložiště",
@@ -3011,7 +3012,8 @@
       "exportProfile.aleph": "Export - Aleph",
       "exportProfile.datastream": "Export - Datastream",
       "internalProfile.reindex": "Interní - Reindexace",
-      "internalProfile.pero": "Interní - Pero"
+      "internalProfile.pero": "Interní - Pero",
+      "internalProfile.validation": "Interní - Validace objektů"
     },
     "users": {
       "tooltipUsername": "Jmeno uživatele podle vzoru: první znak malé písmeno následováno alespoň 4 znaky z kombinace písmen, čísel, pomlčky a podtržítka.",

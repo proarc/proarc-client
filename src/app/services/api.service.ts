@@ -1254,5 +1254,10 @@ export class ApiService {
     return this.get('info/file?type=config');
   }
 
+  validateObject(pid: string) : Observable<any> {
+    let data = `pid=${pid}`;
+    return this.post('object/validate', data);
+  }
+
 }
 

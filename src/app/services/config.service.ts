@@ -202,7 +202,8 @@ export class ConfigService {
 		'exportProfile.crossref',
 		'exportProfile.kwis',
 		'internalProfile.reindex',
-		'internalProfile.pero'
+		'internalProfile.pero',
+		'internalProfile.validation'
 	]
 
 	private static defaultIdentifiers = [ 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'];
