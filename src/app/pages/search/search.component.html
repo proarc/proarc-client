@@ -259,6 +259,7 @@
                           <mat-icon [matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">{{ element.isLocked ? 'lock' : 'lock_open' }}</mat-icon>  
                         </ng-container>
                         <ng-container *ngSwitchDefault>
+                          <a *ngIf="c === 'pid'" class="app-icon-copy app-mr-1" (click)="copyTextToClipboard(element.pid)" [matTooltip]="'button.copyTextToClipboard' | translate"><mat-icon class="app-icon-copy">content_copy</mat-icon></a>
                           {{ element[c] }}
                         </ng-container>
                       </ng-container>
