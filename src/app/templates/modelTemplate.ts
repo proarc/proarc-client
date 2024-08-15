@@ -172,7 +172,7 @@ export class ModelTemplate {
     'ndkperiodicalsupplement': ['ndkarticle', 'ndkpage', 'page', 'bdmarticle'],
     'ndkarticle': [],
     'ndkpicture': [],
-    'ndkmonographtitle': ['ndkmonographunit', 'ndkpage', 'page'],
+    'ndkmonographtitle': ['ndkmonographunit'],
     'ndkmonographunit': ['ndkmonographsupplement', 'ndkchapter', 'ndkpicture', 'ndkmap', 'ndksheetmusic', 'ndkpage', 'page'],
     'ndkmonographvolume': ['ndkmonographsupplement', 'ndkchapter', 'ndkpicture', 'ndkmap', 'ndksheetmusic', 'ndkpage', 'page'],
     'ndkmonographsupplement': ['ndkchapter', 'ndkpage', 'page'],
