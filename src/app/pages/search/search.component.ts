@@ -968,11 +968,12 @@ export class SearchComponent implements OnInit {
     const canHavePages = allowedAsString.includes('page');
     if (this.properties.getBoolProperty('searchExpandTree', true) || !canHavePages) {
       if (treeItem.childrenLoaded) {
-        this.getTreeInfo(treeItem);
+        
       } else {
         this.getTreeItems(treeItem, true);
       }
     }
+    this.getTreeInfo(treeItem);
   }
 
   getTreeInfo(treeItem: TreeDocumentItem) {
