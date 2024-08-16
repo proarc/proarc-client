@@ -212,7 +212,7 @@
                 <button (click)="selectItem(selectedItem)" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
                 <button (click)="onExport(false)" mat-button>{{ 'button.export' | translate }}</button>
                 <button (click)="onUrnnbn(false)" mat-button>URN:NBN</button>
-                <button [disabled]="totalSelectedTree > 1" (click)="onExpandAll()" mat-button>{{ 'button.unpack' | translate }}</button>
+                <button [disabled]="totalSelectedTree > 1" (click)="expandAllInTree()" mat-button>{{ 'button.unpack' | translate }}</button>
                 <button *ngIf="selectedTreeItem" (click)="onDeleteFromTree()" mat-button>{{ 'button.delete' | translate }}</button>
                 <button *ngIf="canCopy(selectedTreeItem)" [disabled]="totalSelectedTree > 1" (click)="onCopyItem(selectedTreeItem)" mat-button>{{ 'button.copy' | translate }}</button>
                 <button *ngIf="!selectedTreeItem.isLocked && (auth.user.lockObjectFunction  || auth.isSuperAdmin())" [disabled]="totalSelectedTree > 1" (click)="onLock(selectedTreeItem, true)" mat-button>{{ 'button.lockIt' | translate }}</button>

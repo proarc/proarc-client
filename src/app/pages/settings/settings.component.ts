@@ -180,7 +180,7 @@ export class SettingsComponent implements OnInit {
   }
 
   setSearchExpandTree() {
-    localStorage.setItem('searchExpandTree', JSON.stringify(this.searchExpandTree));
+    this.properties.setBoolProperty('searchExpandTree', this.searchExpandTree);
     this.ui.showInfo('snackbar.changeSaved');
   }
 

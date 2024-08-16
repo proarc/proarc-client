@@ -918,7 +918,7 @@ export class SearchComponent implements OnInit {
         "described",
         "exported"]
 
-  getTreeItems(treeItem: TreeDocumentItem, getInfo: boolean) {
+  getTreeItems(treeItem: TreeDocumentItem, getInfo: boolean, callback?: Function) {
     this.loadingTree = true;
     
     this.api.getRelations(treeItem.pid).subscribe((children: DocumentItem[]) => {
@@ -947,6 +947,9 @@ export class SearchComponent implements OnInit {
       if (getInfo) {
         this.getTreeInfo(treeItem);
       }
+      if (callback) {
+        callback(treeChildren)
+      }
     });
 
   }
@@ -967,8 +970,6 @@ export class SearchComponent implements OnInit {
         this.getTreeItems(treeItem, true);
       }
     }
-    
-    
   }
 
   getTreeInfo(treeItem: TreeDocumentItem) {
@@ -983,6 +984,28 @@ export class SearchComponent implements OnInit {
     });
 
     //}, 2000)
+  }
+
+  expandAllInTree() {
+    this.expandTreeItemDeep(this.treeItems[0]);
+  }
+
+  expandTreeItemDeep(treeItem: TreeDocumentItem) {
+    
+      treeItem.expanded = true;
+      if (!treeItem.childrenLoaded) {
+        this.getTreeItems(treeItem, false, (children: TreeDocumentItem[]) => {
+          // callback
+          children.forEach(ch => {
+            this.expandTreeItemDeep(ch);
+          });
+        });
+      } else {
+        this.treeItems.filter(ti => ti.parentPid === treeItem.pid).forEach(t => {
+          this.expandTreeItemDeep(t);
+        });
+      }
+    
   }
 
   toggleTree(event: any, treeItem: TreeDocumentItem) {
