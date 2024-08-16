@@ -2773,7 +2773,8 @@
     "JCG001": "Okresní knihovna Jičín",
     "JCE301": "Regionální muzeum a galerie v Jičíně",
     "NAE802": "Městské muzeum Jaroměř",
-    "ABE304": "Knihovna Divadlení ústav"
+    "ABE304": "Knihovna Divadlení ústav",
+    "KME450": "Knihovna Muzea Olomouc"
   },
   "dialog": {
     "layoutSettings": {
@@ -3007,6 +3008,8 @@
       "profile.default_ndk_import": "Import - NDK PSP",
       "profile.replace_stream_import": "Import - Nahrazení streamů",
       "profile.generate": "Generovani ALTO/OCR",
+      "profile.defaultocr": "Import - NDK s vytvořením ALTO",
+      "profile.oldprintoc": "Import - STT s vytvořením ALTO",
       "exportProfile.kramerius": "Export - Kramerius",
       "exportProfile.ndk": "Export - NDK PSP",
       "exportProfile.archive": "Export - Archive",
