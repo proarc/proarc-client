@@ -232,6 +232,11 @@
                 </mat-menu>
               </div>
                 <div *ngFor="let i of object.keys(tree_info)">{{ 'model.' + i | translate }}: {{ tree_info[i] }}</div>
+                <div *ngIf="batchInfo">
+                  <a (click)="onShowLog(batchInfo);" [matTooltip]="'button.viewErrorDetail' | translate" matTooltipPosition="below" class="app-icon-button">
+                    <mat-icon>error_outline</mat-icon>
+                  </a>
+                </div>
             </div>
             <div fxFlex class="app-oa-y app-tree" fxLayout="column" fxFlexFill >
               <table  mat-table [dataSource]="visibleTreeItems" class="app-striped app-hover app-resize" matSort  #treeTable>

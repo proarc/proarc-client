@@ -28,6 +28,8 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { UpdateInSourceDialogComponent } from 'src/app/dialogs/update-in-source-dialog/update-in-source-dialog.component';
 import { Subscription } from 'rxjs';
 import { ModelTemplate } from 'src/app/templates/modelTemplate';
+import { Batch } from 'src/app/model/batch.model';
+import { LogDialogComponent } from 'src/app/dialogs/log-dialog/log-dialog.component';
 
 @Component({
   selector: 'app-search',
@@ -908,6 +910,7 @@ export class SearchComponent implements OnInit {
   treeMaxLevel = 0;
 
   selectedTreeItem: TreeDocumentItem;
+  batchInfo: any;
 
   statuses = [
         "undefined",
@@ -974,6 +977,7 @@ export class SearchComponent implements OnInit {
 
   getTreeInfo(treeItem: TreeDocumentItem) {
     this.tree_info = {}; 
+    this.batchInfo = null;
     //setTimeout(() => { 
     this.treeItems.filter(ti => ti.parentPid === treeItem.pid).forEach(t => {
       if (this.tree_info[t.model]) {
@@ -983,7 +987,25 @@ export class SearchComponent implements OnInit {
       }
     });
 
+    let params: any = {
+      description: treeItem.pid,
+    };
+
+    this.api.getImportBatches(params).subscribe((resp: any) => {
+      const batches = resp.data.map((d: any) => Batch.fromJson(d));
+      if (batches.length > 0 && batches[0].failure) {
+        this.batchInfo = batches[0].failure
+      }
+    });
+
     //}, 2000)
+  }
+
+  onShowLog(info: string) {
+    const data = {
+      content: info
+    }
+    this.dialog.open(LogDialogComponent, { data: data });
   }
 
   expandAllInTree() {
