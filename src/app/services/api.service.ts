@@ -22,7 +22,7 @@ import { ProArc } from '../utils/proarc';
 import { Registrar } from '../model/registrar.model';
 import { ConfigService } from './config.service';
 import { PageUpdateHolder } from '../components/editor/editor-pages/editor-pages.component';
-import { WorkFlow } from '../model/workflow.model'; 
+import { WorkFlow } from '../model/workflow.model';
 import { AudioPage } from '../model/audioPage.model';
 import { AudioPagesUpdateHolder } from '../components/editor/editor-audioPages/editor-audioPages.component';
 import { ActivatedRoute, Router, RouterState } from '@angular/router';
@@ -371,7 +371,7 @@ export class ApiService {
       }
       case ProArc.EXPORT_ARCHIVE_EXTENDED_BAGIT:{
         path = 'export/archive';
-        data = `${data}&isBagit=true`;
+        data = `${data}&isBagit=true&extendedPackage=true`;
         if (extendedType === 'snkd') {
           data = `${data}&noTifMessage=${noTifMessage}`;
         }
