@@ -149,7 +149,7 @@ $alerts: (
     color: $app-color-warn,
     bg: rgba($app-color-warn, .1),
     border: rgba($app-color-warn, .2)
-  ),    
+  ),
   info: (
     color: $app-color-info,
     bg: #fff3cd,
@@ -193,6 +193,14 @@ $states: (
   STOPPED: mat-color($mat-blue-gray, 600),
   WAITING: mat-color($mat-teal, 500),
   INTERNAL_DONE: $app-color-success,
+  INTERNAL_RUNNING: mat-color($mat-blue-gray, 600),
+  INTERNAL_PLANNED: $app-color-info,
+  INTERNAL_FAILED: $app-color-warn,
+  IMPORT_PLANNED: $app-color-info,
+  EXTERNAL_RUNNING: mat-color($mat-blue-gray, 600),
+  EXTERNAL_PLANNED: $app-color-info,
+  EXTERNAL_FAILED: $app-color-warn,
+  EXTERNAL_DONE: $app-color-success,
   model: $app-badge-model-bg,
   default: $app-gray-6
 );

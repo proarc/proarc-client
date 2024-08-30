@@ -81,23 +81,30 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
 
   batchStates = [
     'ALL',
-    'LOADING',
-    'LOADING_FAILED',
-    'LOADING_CONFLICT',
-    'LOADED',
-    'INGESTING',
-    'INGESTING_FAILED',
-    'INGESTED',
     'STOPPED',
+    'LOADING',
+    'LOADED',
+    'LOADING_CONFLICT',
+    'LOADING_FAILED',
+    'INGESTING',
+    'INGESTED',
+    'INGESTING_FAILED',
     'EXPORT_PLANNED',
     'EXPORTING',
+    'EXPORT_DONE',
     'EXPORT_FAILED',
     'EXPORT_VALID_WARNING',
-    'EXPORT_DONE',
-    'REINDEXING',
-    'REINDEX_FAILED',
-    'REINDEX_DONE',
-    'INTERNAL_DONE'
+    'INTERNAL_PLANNED',
+    'INTERNAL_RUNNING',
+    'INTERNAL_DONE',
+    'INTERNAL_FAILED',
+    'EXTERNAL_PLANNED',
+    'EXTERNAL_RUNNING',
+    'EXTERNAL_DONE',
+    'EXTERNAL_FAILED',
+    'UPLOADING',
+    'UPLOAD_DONE',
+    'UPLOAD_FAILED',
   ];
 
   priorities = [
@@ -445,7 +452,7 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
         this.api.resolveConflict(this.selectedBatch.id, this.selectedBatch.profile, result.useNewMetadata).subscribe((batch: Batch) => {
           this.reloadBatches();
         });
-      } 
+      }
     });
   }
 
@@ -486,7 +493,7 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
     if (!this.selectedBatch || !profile) {
       return;
     }
-    
+
     if (ProArc.dontShowStatusByProfile(profile.id)) {
       return;
     }
@@ -557,7 +564,7 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
         this.ui.showErrorDialogFromObject(response.response.errors);
         return;
       }
-    
+
       if (ProArc.dontShowStatusByProfile(b.profile)) {
         return;
       }
@@ -614,9 +621,9 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
 
   initSelectedColumnsOverview() {
     const prop = this.properties.getProcMngColumns();
-    
+
     Object.assign(this.selectedColumnsOverview, JSON.parse(JSON.stringify(this.properties.procMngColumns)));
-      
+
     this.displayedColumnsOverview = this.properties.procMngColumns.filter(c => c.selected).map(c => c.field);
   }
 

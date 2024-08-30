@@ -183,7 +183,9 @@ export class ConfigService {
 
 	private static defaultProfiles = [
 		'profile.default',
+    'profile.defaultocr',
 		'profile.createObjectWithMetadata_import',
+    'profile.default_ndk_import',
 		'profile.default_archive_import',
 		'profile.soundrecording_import',
 		'profile.default_kramerius_import',
@@ -192,8 +194,10 @@ export class ConfigService {
 		'profile.ndk_periodical_kramerius_import',
 		'profile.chronicle',
 		'profile.oldprint',
+    'profile.oldprintocr',
 		'profile.replace_stream_import',
 		'profile.ndk_full_import',
+    'profile.generate',
 		'exportProfile.kramerius',
 		'exportProfile.ndk',
 		'exportProfile.archive',
@@ -201,9 +205,16 @@ export class ConfigService {
 		'exportProfile.cejsh',
 		'exportProfile.crossref',
 		'exportProfile.kwis',
+    'exportProfile.datastream',
 		'internalProfile.reindex',
-		'internalProfile.pero',
-		'internalProfile.validation'
+		'internalProfile.validation',
+    'internalProfile.changeOwners',
+    'internalProfile.urnnbn',
+    'internalProfile.deletion',
+    'uploadProfile.proarc',
+    'uploadProfile.kramerius',
+    'externalProfile.pero',
+    'externalProfile.pdfa'
 	]
 
 	private static defaultIdentifiers = [ 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'];
@@ -459,6 +470,6 @@ export class ConfigService {
 		return this.valueMap.find(m => m.mapId === mapId).values;
 	}
 
-	
+
 
 }
