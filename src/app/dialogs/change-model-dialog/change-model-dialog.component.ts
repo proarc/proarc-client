@@ -36,7 +36,7 @@ export class ChangeModelDialogComponent implements OnInit {
         this.ui.showErrorDialogFromObject(response.response.errors);
         this.dialogRef.close({ status: 'failure' });
       } else {
-        this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.changeModel.success',{value: this.translator.instant('model.model:' + dest.model)})))
+        this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.changeModel.success',{value: this.translator.instant('model.' + dest.model)})))
         this.dialogRef.close({ status: 'ok' });
       }
     });
