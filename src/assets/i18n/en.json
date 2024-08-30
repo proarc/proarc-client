@@ -358,7 +358,7 @@
       "title": "Song title",
       "index": "Index",
       "number": "Number",
-      "identifier": "Indentifier",
+      "identifier": "Identifier",
       "year": "Year",
       "note": "Note",
       "add_identifier": "Add identifier"
@@ -380,7 +380,7 @@
       "position": "Position",
       "genre": "Genre",
       "type": "Type",
-      "identifier": "Indentifier",
+      "identifier": "Identifier",
       "note": "Note",
       "add_identifier": "Add identifier",
       "positions": {

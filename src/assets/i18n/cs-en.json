@@ -358,7 +358,7 @@
       "title": "Popis zvuku",
       "index": "Index",
       "number": "Číslo",
-      "identifier": "Indentifikátor",
+      "identifier": "Identifikátor",
       "note": "Popis obsahu",
       "year": "Rok",
       "add_identifier": "Přidat identifikátor"
@@ -380,7 +380,7 @@
       "position": "Pozice stránky",
       "genre": "Reprezentativní strana",
       "type": "Typ stránky",
-      "identifier": "Indentifikátor",
+      "identifier": "Identifikátor",
       "note": "Popis obsahu strany",
       "add_identifier": "Přidat identifikátor",
       "positions": {
