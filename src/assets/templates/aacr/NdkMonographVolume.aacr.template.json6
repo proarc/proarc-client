@@ -73,7 +73,6 @@
         label: 'Podnázev',
         selector: 'titleInfo/subTitle',
         labelKey: 'titleInfo/subTitle',
-        cols: 2,
         description: 'Podnázev svazku monografie<br/>\
           odpovídající pole a podpole podle typu, viz typ'
       },
