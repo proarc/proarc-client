@@ -315,14 +315,55 @@ export class ConfigService {
     {
     	origin: 'ndkperiodical',
     	dest: [
-        {model: 'ndkperiodicalissue', originmodel:"periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
+        {model: 'ndkeperiodical', originmodel:"ndkperiodical", apiPoint: "object/changeNdkPeriodicalToNdkEPeriodical"},
+        {model: 'ndkeperiodicalvolume', originmodel:"ndkperiodicalvolume", apiPoint: "object/changeNdkPeriodicalVolumeToNdkEPeriodicalVolume"},
+        {model: 'ndkeperiodicalissue', originmodel:"ndkperiodicalissue", apiPoint: "object/changeNdkPeriodicalIssueToNdkEPeriodicalIssue"},
+        {model: 'ndkeperiodicalsupplement', originmodel:"ndkperiodicalsupplement", apiPoint: "object/changeNdkPeriodicalSupplementToNdkEPeriodicalSupplement"},
+        {model: 'ndkearticle', originmodel:"ndkarticle", apiPoint: "object/changeNdkArticleToNdkEArticle"},
+        {model: 'ndkearticle', originmodel:"bdmarticle", apiPoint: "object/changeBdmArticleToNdkEArticle"},
         {model: 'ndkperiodicalvolume', originmodel:"periodicalvolume", apiPoint: "object/changeK4PeriodicalVolumeToNdkPeriodicalVolume"},
+        {model: 'ndkperiodicalissue', originmodel:"periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
+
     	]
     },
     {
     	origin: 'ndkperiodicalvolume',
     	dest: [
+        {model: 'ndkeperiodicalvolume', originmodel:"ndkperiodicalvolume", apiPoint: "object/changeNdkPeriodicalVolumeToNdkEPeriodicalVolume"},
+        {model: 'ndkeperiodicalissue', originmodel:"ndkperiodicalissue", apiPoint: "object/changeNdkPeriodicalIssueToNdkEPeriodicalIssue"},
+        {model: 'ndkeperiodicalsupplement', originmodel:"ndkperiodicalsupplement", apiPoint: "object/changeNdkPeriodicalSupplementToNdkEPeriodicalSupplement"},
+        {model: 'ndkearticle', originmodel:"ndkarticle", apiPoint: "object/changeNdkArticleToNdkEArticle"},
+        {model: 'ndkearticle', originmodel:"bdmarticle", apiPoint: "object/changeBdmArticleToNdkEArticle"},
         {model: 'ndkperiodicalissue', originmodel:"periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue"},
+    	]
+    },
+    {
+    	origin: 'ndkperiodicalissue',
+    	dest: [
+        {model: 'ndkeperiodicalissue', originmodel:"ndkperiodicalissue", apiPoint: "object/changeNdkPeriodicalIssueToNdkEPeriodicalIssue"},
+        {model: 'ndkeperiodicalsupplement', originmodel:"ndkperiodicalsupplement", apiPoint: "object/changeNdkPeriodicalSupplementToNdkEPeriodicalSupplement"},
+        {model: 'ndkearticle', originmodel:"ndkarticle", apiPoint: "object/changeNdkArticleToNdkEArticle"},
+        {model: 'ndkearticle', originmodel:"bdmarticle", apiPoint: "object/changeBdmArticleToNdkEArticle"},
+    	]
+    },
+    {
+    	origin: 'ndkperiodicalsupplement',
+    	dest: [
+        {model: 'ndkeperiodicalsupplement', originmodel:"ndkperiodicalsupplement", apiPoint: "object/changeNdkPeriodicalSupplementToNdkEPeriodicalSupplement"},
+        {model: 'ndkearticle', originmodel:"ndkarticle", apiPoint: "object/changeNdkArticleToNdkEArticle"},
+        {model: 'ndkearticle', originmodel:"bdmarticle", apiPoint: "object/changeBdmArticleToNdkEArticle"},
+    	]
+    },
+    {
+    	origin: 'ndkarticle',
+    	dest: [
+        {model: 'ndkearticle', originmodel:"ndkarticle", apiPoint: "object/changeNdkArticleToNdkEArticle"},
+    	]
+    },
+    {
+    	origin: 'bdmarticle',
+    	dest: [
+        {model: 'ndkearticle', originmodel:"bdmarticle", apiPoint: "object/changeBdmArticleToNdkEArticle"},
     	]
     },
     {

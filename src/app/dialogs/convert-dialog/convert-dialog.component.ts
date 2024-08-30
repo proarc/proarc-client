@@ -44,7 +44,7 @@ export class ConvertDialogComponent implements OnInit {
       } else if (response.response.data && response.response.data[0] && response.response.data[0].validation) {
         this.ui.showErrorDialogFromString(response.response.data[0].validation);
       } else {
-        this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.changeModel.success',{value: this.translator.instant('model.' + this.data.model)})))
+        this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.changeModel.success',{value: this.translator.instant('model.model:' + this.data.model)})))
         this.dialogRef.close({ status: 'ok' });
       }
     })
