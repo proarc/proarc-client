@@ -178,7 +178,7 @@ export class ModelTemplate {
     'ndkmonographsupplement': ['ndkchapter', 'ndkpage', 'page'],
     'ndkchapter': [],
     'ndkmap': ['ndkpage', 'page'],
-    'ndksheetmusic': ['ndkpage', 'page'],
+    'ndksheetmusic': ['ndkmonographsupplement', 'ndkpage', 'page'],
     'ndkpage': [],
     'page': [],
     'oldprintomnibusvolume': ['oldprintvolume', 'oldprintmonographtitle', 'oldprintgraphics', 'oldprintmap', 'oldprintsheetmusic', 'oldprintpage'],
