@@ -38,6 +38,9 @@ export class DocumentItem {
   public timestamp: number;
   public writeExports: string;
 
+  validationProcess: string;
+  validationStatus : string;
+
   constructor() {
     this.invalid = false;
   }
@@ -88,6 +91,8 @@ export class DocumentItem {
       item.content = json['content'];
     }
     item.writeExports = item.writeExports2();
+    item.validationProcess = json['validationProcess'];
+    item.validationStatus = json['validationStatus'];
     return item;
   }
 

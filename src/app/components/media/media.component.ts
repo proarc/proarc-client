@@ -41,6 +41,8 @@ export class MediaComponent implements OnInit {
   maxImageSize: number = 6000;
   imageUrl: string;
 
+  canAddPDF_A: boolean;
+
   constructor(private api: ApiService,
     private dialog: MatDialog,
     private ui: UIService,
@@ -120,9 +122,10 @@ export class MediaComponent implements OnInit {
       this.streamProfile = null;
       return;
     }
+    this.canAddPDF_A = false;
     this.state = 'loading';
     this.api.getStreamProfile(pid).subscribe((response: any) => {
-      if (response?.response?.data) {
+      if (response?.response?.data && !response?.response?.errorMessage) {
         this.streamProfiles = response.response.data;
         if (this.streamProfiles.length > 0) {
           // try FULL as default
@@ -132,6 +135,7 @@ export class MediaComponent implements OnInit {
           }
           
           this.imageUrl = this.api.getStreamUrl(this.inputPid, this.streamProfile.dsid, this.layout.getBatchId());
+          this.canAddPDF_A = this.streamProfiles.findIndex(sp => sp.dsid === 'RAW' && sp.mime === 'application/pdf') > -1;
 
         } else {
           this.state = 'empty';
@@ -149,6 +153,18 @@ export class MediaComponent implements OnInit {
     let event = new MouseEvent('click', { bubbles: true });
     this.pdfInput.nativeElement.dispatchEvent(event);
 
+  }
+
+  generatePdfA() {
+    this.api.generatePdfA(this.currentPid).subscribe((response: any) => {
+      if (response.response.errors) {
+        this.state = 'error';
+        this.ui.showErrorDialogFromObject(response.response.errors);
+      } else {
+        this.state = 'success';
+        this.ui.showInfoSnackBar(response.response.data[0].msg)
+      }
+    });
   }
 
   onAddEpub() {

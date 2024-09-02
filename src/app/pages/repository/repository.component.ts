@@ -419,7 +419,7 @@ export class RepositoryComponent implements OnInit {
   onExport() {
     const dialogRef = this.dialog.open(ExportDialogComponent, {
       disableClose: true,
-      data: { pid: this.layout.item.pid, model: this.layout.item.model },
+      data: [{ pid: this.layout.item.pid, model: this.layout.item.model }],
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -431,7 +431,7 @@ export class RepositoryComponent implements OnInit {
 
   onUrnnbn() {
     const dialogRef = this.dialog.open(UrnnbnDialogComponent, {
-      data: this.layout.item.pid,
+      data: [this.layout.item.pid],
       panelClass: 'app-urnbnb-dialog',
       width: '600px'
     });

@@ -311,6 +311,7 @@ export class SearchComponent implements OnInit {
         item.selected = true;
         this.startShiftClickIdx = idx;
       }
+      window.getSelection().empty();
     } else {
       this.items.forEach(i => i.selected = false);
       item.selected = true;
@@ -744,6 +745,7 @@ export class SearchComponent implements OnInit {
 
   setColumns() {
     this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field);
+    this.displayedColumns.push('validationStatus')
   }
 
   initSelectedColumns() {
@@ -755,7 +757,7 @@ export class SearchComponent implements OnInit {
     this.setColumns();
     this.setColumnsWith();
 
-    this.treeColumnsDefs = this.properties.searchColumnsTree;
+    this.treeColumnsDefs = this.properties.getColumnsSearchTree();
     this.setSelectedTreeColumns();
   }
 
@@ -1009,6 +1011,18 @@ export class SearchComponent implements OnInit {
     this.dialog.open(LogDialogComponent, { data: data });
   }
 
+  getValidationError(id: string) {
+    let params: any = {
+      batchId: id,
+    };
+    this.api.getImportBatches(params).subscribe((resp: any) => {
+      const batches = resp.data.map((d: any) => Batch.fromJson(d));
+      if (batches.length > 0 && batches[0].failure) {
+        this.onShowLog(batches[0].failure)
+      }
+    });
+  }
+
   expandAllInTree() {
     this.expandTreeItemDeep(this.treeItems[0]);
   }
@@ -1100,8 +1114,14 @@ export class SearchComponent implements OnInit {
 
   saveTreeColumnsSizes(e: any, field?: string) {
     this.treeColumnsSizes[field] = e + 'px';
-    this.treeColumnsDefs.find(c => c.field === field).width = e;
+    // this.treeColumnsDefs.find(c => c.field === field).width = e;
+
+    this.treeColumnsDefs.forEach((c: any) => {
+      c.width = parseInt(this.treeColumnsSizes[c.field]);
+    });
+
     this.properties.setColumnsSearchTree(this.treeColumnsDefs);
+
   }
 
   getList(f: string): { code: string, value: string }[] {

@@ -211,7 +211,18 @@ export class TaskComponent implements OnInit {
       this.task = response.response.data[0];
       if (this.id) {
         this.tasks = response.response.data;
-        this.taskClick(this.tasks[0], null, 0)
+
+
+        this.tasks.forEach(i => i.selected = false);
+        this.task.selected = true;
+        this.startShiftClickIdx = 0;
+      
+
+        this.lastClickIdx = 0;
+        this.totalSelected = 1;
+        this.isSelectionSameType = true;
+
+        // this.taskClick(this.tasks[0], null, 0)
       }
       this.getParameters();
       this.getMaterial();

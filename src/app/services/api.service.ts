@@ -645,6 +645,11 @@ export class ApiService {
     return this.delete(query);
   }
 
+  generatePdfA(pid: string) {
+    let data = `pid=${pid}`;
+    return this.post('object/generatePdfA', data);
+  }
+
   uploadFile(file: File, pid: string, mime: string) {
     const formData: any = new FormData();
     formData.append('file', file);
