@@ -48,6 +48,8 @@ import {ModsDateCaptured} from './dateCaptured.model';
 import {ModsDateModified} from './dateModified.model';
 import {ModsPhysicalExtent} from './extentPhysical.model';
 import {ModsEdition} from './edition.model';
+import {ModsRelatedItem2} from './relatedItem2.model';
+import {ModsDetail} from './detail.model';
 
 export class ElementField {
 
@@ -318,6 +320,8 @@ export class ElementField {
                 return new ModsRecordInfo(el, this.template);
             case ModsRelatedItem.getId():
                 return new ModsRelatedItem(el, this.template);
+            case ModsRelatedItem2.getId():
+                return new ModsRelatedItem2(el, this.template);
             case ModsTableOfContents.getId():
                 return new ModsTableOfContents(el, this.template);
             case ModsSubject.getId():
@@ -366,6 +370,8 @@ export class ElementField {
                 return new ModsRecordIdentifier(el, this.template);
             case ModsExtent.getId():
                 return new ModsExtent(el, this.template);
+            case ModsDetail.getId():
+                return new ModsDetail(el, this.template);
             case ModsPhysicalLocation.getId():
                 return new ModsPhysicalLocation(el, this.template);
             case ModsDescription.getId():
@@ -447,6 +453,8 @@ export class ElementField {
                 return ModsRecordInfo.getSelector();
             case ModsRelatedItem.getId():
                 return ModsRelatedItem.getSelector();
+            case ModsRelatedItem2.getId():
+                return ModsRelatedItem2.getSelector();
             case ModsSubject.getId():
                 return ModsSubject.getSelector();
             case ModsClassification.getId():
@@ -493,6 +501,8 @@ export class ElementField {
                 return ModsRecordIdentifier.getSelector();
             case ModsExtent.getId():
                 return ModsExtent.getSelector();
+            case ModsDetail.getId():
+                return ModsDetail.getSelector();
             case ModsPhysicalLocation.getId():
                 return ModsPhysicalLocation.getSelector();
             case ModsDisplayForm.getId():

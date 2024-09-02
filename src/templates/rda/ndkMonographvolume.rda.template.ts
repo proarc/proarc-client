@@ -860,31 +860,19 @@ export class NdkMonographVolumeRdaTemplate {
           ]
         },
         detail: {
-          usage: '0',
+          usage: 'RA',
           label: 'Detail',
           selector: 'part/detail',
-          labelKey: 'part/detail'
-        },
-        caption: {
-          usage: 'RA',
-          label: 'Caption',
-          selector: 'part/detail/caption',
-          labelKey: 'part/detail/caption',
-          description: `text před označením čísla, např. "č.", „část“, "No." apod.`
-        },
-        note: {
-          usage: 'O',
-          label: 'Poznámka',
-          selector: 'location/url/@note',
-          labelKey: 'location/url/@note',
-          description: `Pro poznámku o typu URL (na plný text, abstrakt apod.)`,
-        },
-        part: {
-          usage: 'O',
-          label: 'Část',
-          selector: 'part',
-          labelKey: 'part',
-          help: 'off'
+          labelKey: 'part/detail',
+          fields: {
+            caption: {
+              usage: 'RA',
+              label: 'Typ',
+              selector: 'part/detail/caption',
+              labelKey: 'part/detail/caption',
+              description: 'text před označením čísla, např. "č.", „část“, "No." apod.'
+            }
+          }
         }
       }
     },
@@ -1911,32 +1899,20 @@ export class NdkMonographVolumeRdaTemplate {
               ]
             },
             detail: {
-              usage: '0',
-              label: 'Detail',
-              selector: 'relatedItem/part/detail',
-              labelKey: 'relatedItem/part/detail',
-            },
-            caption: {
               usage: 'RA',
-              label: 'Caption',
-              selector: 'relatedItem/part/detail/caption',
-              labelKey: 'relatedItem/part/detail/caption',
-              description: `text před označením čísla, např. "č.", „část“, "No." apod.`
+              label: 'Detail',
+              selector: 'part/detail',
+              labelKey: 'part/detail',
+              fields: {
+                caption: {
+                  usage: 'RA',
+                  label: 'Typ',
+                  selector: 'part/detail/caption',
+                  labelKey: 'part/detail/caption',
+                  description: 'text před označením čísla, např. "č.", „část“, "No." apod.'
+                }
+              }
             },
-            note: {
-              usage: 'O',
-              label: 'Poznámka',
-              selector: 'relatedItem/location/url/@note',
-              labelKey: 'relatedItem/location/url/@note',
-              description: `Pro poznámku o typu URL (na plný text, abstrakt apod.)`,
-            },
-            part: {
-              usage: 'O',
-              label: 'Část',
-              selector: 'relatedItem/part',
-              labelKey: 'relatedItem/part',
-              help: 'off'
-            }
           }
         },
       }

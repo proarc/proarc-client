@@ -1390,17 +1390,19 @@
         ]
       },
       detail: {
-        usage: '0',
+        usage: 'RA',
         label: 'Detail',
         selector: 'part/detail',
-        labelKey: 'part/detail'
-      },
-      caption: {
-        usage: 'RA',
-        label: 'Caption',
-        selector: 'part/detail/caption',
-        labelKey: 'part/detail/caption',
-        description: 'text před označením čísla, např. "č.", „část“, "No." apod.'
+        labelKey: 'part/detail',
+        fields: {
+          caption: {
+            usage: 'RA',
+            label: 'Typ',
+            selector: 'part/detail/caption',
+            labelKey: 'part/detail/caption',
+            description: 'text před označením čísla, např. "č.", „část“, "No." apod.'
+          }
+        }
       },
       part: {
         usage: 'O',
@@ -2864,17 +2866,19 @@
             ]
           },
           detail: {
-            usage: '0',
-            label: 'Detail',
-            selector: 'relatedItem/part/detail',
-            labelKey: 'relatedItem/part/detail',
-          },
-          caption: {
             usage: 'RA',
-            label: 'Caption',
-            selector: 'relatedItem/part/detail/caption',
-            labelKey: 'relatedItem/part/detail/caption',
-            description: 'text před označením čísla, např. "č.", „část“, "No." apod.'
+            label: 'Detail',
+            selector: 'part/detail',
+            labelKey: 'part/detail',
+            fields: {
+              caption: {
+                usage: 'RA',
+                label: 'Typ',
+                selector: 'part/detail/caption',
+                labelKey: 'part/detail/caption',
+                description: 'text před označením čísla, např. "č.", „část“, "No." apod.'
+              }
+            }
           },
           note: {
             usage: 'O',

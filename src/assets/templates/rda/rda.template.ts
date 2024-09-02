@@ -985,24 +985,19 @@ export class RdaTemplate {
           ]
         },
         detail: {
-          usage: '0',
+          usage: 'RA',
           label: 'Detail',
           selector: 'part/detail',
-          labelKey: 'part/detail'
-        },
-        caption: {
-          usage: 'RA',
-          label: 'Caption',
-          selector: 'part/detail/caption',
-          labelKey: 'part/detail/caption',
-          description: `text před označením čísla, např. "č.", „část“, "No." apod.`
-        },
-        part: {
-          usage: 'O',
-          label: 'Část',
-          selector: 'part',
-          labelKey: 'part',
-          help: 'off'
+          labelKey: 'part/detail',
+          fields: {
+            caption: {
+              usage: 'RA',
+              label: 'Typ',
+              selector: 'part/detail/caption',
+              labelKey: 'part/detail/caption',
+              description: 'text před označením čísla, např. "č.", „část“, "No." apod.'
+            }
+          }
         }
       }
     },
