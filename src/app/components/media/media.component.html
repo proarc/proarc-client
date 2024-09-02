@@ -8,9 +8,13 @@
       </mat-form-field> 
 		</div>
 		<div>
-      <button mat-icon-button [disabled]="!canAddPdf" (click)="onAddPdf()" matTooltip="Načíst nový digitální obsah">
+			<button mat-button [disabled]="!canAddPdf" *ngIf="canAddPDF_A" (click)="generatePdfA()" matTooltip="Načíst nový digitální obsah">
+				{{ 'Generovát PDF-A' | translate }}
+			</button>
+			<button mat-icon-button [disabled]="!canAddPdf" (click)="onAddPdf()" matTooltip="Načíst nový digitální obsah">
 				<mat-icon>upload</mat-icon>
 			</button>
+			
 			<input style="display: none;" #pdfInput id="pdf_file_upload" name="pdf_file_upload" type="file" (change)="uploadFile($event)" accept=".pdf,.PDF,.epub" />
 			<button mat-icon-button *ngIf="streamProfile" (click)="onRemove()" matTooltip="Odstranit digitální obsah">
 				<mat-icon>delete</mat-icon>
