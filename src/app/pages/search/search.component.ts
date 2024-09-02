@@ -311,6 +311,7 @@ export class SearchComponent implements OnInit {
         item.selected = true;
         this.startShiftClickIdx = idx;
       }
+      window.getSelection().empty();
     } else {
       this.items.forEach(i => i.selected = false);
       item.selected = true;
