@@ -32,13 +32,17 @@ export class EditorSubjectComponent implements OnInit {
   }
 
   addRepeated(item: any) {
-    const val = item.getSubfields()[0].items[0].controls['lang'].value;
+    console.log(item);
+    const topic = item.getSubfields().find((sf: any) => sf.id === 'topic');
+    const val = topic.items[0].controls['lang'].value;
     const newItem: ModsSubject = <ModsSubject>this.field.addAfterItem(item);
-    // newItem.topics.items[0].attrs.lang = item.topics.items[0].attrs.lang;
-      newItem.getSubfields()[0].items[0].switchCollapsed();
+      const newTopic = newItem.getSubfields().find((sf: any) => sf.id === 'topic');
+    
+    //  topic.items[0].switchCollapsed();
+      
     setTimeout(() => {
       this.layout.setMetadataResized();
-      newItem.getSubfields()[0].items[0].controls['lang'].setValue(val)
+      newTopic.items[0].controls['lang'].setValue(val)
     }, 10);
   }
 
