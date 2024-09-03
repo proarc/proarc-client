@@ -1,6 +1,7 @@
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
     <app-field-dropdown field="type" [item]="item" [(value)]='item.attrs["type"]'></app-field-dropdown>
+    <app-field-dropdown field="otherType" [item]="item" [(value)]='item.attrs["otherType"]'></app-field-dropdown>
     <app-field-codebook field="lang" [item]="item" [options]="codebook.languages" [(value)]="item.attrs['lang']"></app-field-codebook>
     <app-field-text field="nonSort" [item]="item" [(value)]="item.nonSort['_']"></app-field-text>
 

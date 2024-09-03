@@ -761,6 +761,27 @@
       labelKey: 'bdm/relatedItem',
       description: 'Recenze na:',
       fields: {
+        type: {
+          usage: 'R',
+          label: 'Typ',
+          cols: 2,
+          selector: 'relatedItem/@type',
+          labelKey: 'relatedItem/@type',
+          description: 'Type popisuje vztah položky, popsané v <relatedItem> a dokumentu, který je předmětem MODS záznamu',
+          options: [
+            ['', '-'],
+            ['references', 'references'],
+            ['reviewOf', 'reviewOf']
+          ]
+        },
+        ID: {
+          usage: 'R',
+          label: 'Typ',
+          cols: 2,
+          selector: 'relatedItem/@ID',
+          labelKey: 'relatedItem/@ID',
+          description: 'ID položky, popsané v <relatedItem> a dokumentu, který je předmětem MODS záznamu. Především pro citace.',
+        },
         part: {
           usage: 'MA',
           label: 'Rozsah článku',
@@ -768,6 +789,13 @@
           labelKey: 'bdm/relatedItem/part',
           description: 'Rozsah článku',
           fields: {
+            text: {
+              usage: 'MA',
+              label: 'Rozsah',
+              selector: 'part/text',
+              labelKey: 'part/text',
+              description: 'Popis'
+            },
             extent: {
               usage: 'MA',
               label: 'Rozsah',
@@ -781,7 +809,7 @@
                   cols: 2,
                   selector: 'relatedItem/part/extent/start',
                   labelKey: 'bdm/relatedItem/part/extent/start',
-                  description: 'První stránka článku.'
+                  description: 'První stránka článku/citace.'
                 },
                 end: {
                   usage: 'MA',
@@ -789,34 +817,56 @@
                   cols: 2,
                   selector: 'relatedItem/part/extent/end',
                   labelKey: 'bdm/relatedItem/part/extent/end',
-                  description: 'Poslední stránka článku.'
+                  description: 'Poslední stránka článku/citace.'
+                }
+              }
+            },
+            detail: {
+              usage: 'MA',
+              label: 'Detail',
+              selector: 'part/detail',
+              labelKey: 'part/detail',
+              fields: {
+                level: {
+                  usage: 'MA',
+                  label: 'Typ',
+                  selector: 'part/detail/@level',
+                  labelKey: 'part/detail/@level',
+                  cols: 2,
+                },
+                number: {
+                  usage: 'MA',
+                  label: 'Hodnota',
+                  cols: 2,
+                  selector: 'part/detail/number',
+                  labelKey: 'part/detail/number',
                 }
               }
             }
           }
         },
         titleInfo: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Název recenzovaného díla',
           selector: 'relatedItem/titleInfo',
           labelKey: 'bdm/relatedItem/titleInfo',
           description: 'Názvová informace vnitřní části.',
           fields: {
             title: {
-              usage: 'M',
+              usage: 'MA',
               label: 'Název recenzovaného díla',
               selector: 'relatedItem/titleInfo/title',
               labelKey: 'bdm/relatedItem/titleInfo/title',
-              description: 'Název recenzovaného díla. Odpovídá poli 787$t.'
+              description: 'Recenze - Název recenzovaného díla. Odpovídá poli 787$t./ Citace - název citovaného díla.'
             }
           }
         },
         name: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Autoři recenzovaného díla',
           selector: 'relatedItem/name',
           labelKey: 'bdm/relatedItem/name',
-          description: 'Autoři recenzovaného díla ve tvaru: \"Příjmení, Jméno\". Odpovídá poli 787$a',
+          description: 'Autoři recenzovaného/citovaného díla ve tvaru: \"Příjmení, Jméno\". Odpovídá poli 787$a',
           fields: {
             type: {
               usage: 'R',
@@ -869,7 +919,7 @@
                 },
                 value: {
                   label: 'Hodnota',
-                  usage: 'M',
+                  usage: 'MA',
                   selector: 'name/namePart',
                   labelKey: 'name/namePart/value',
                   cols: 2,
@@ -880,7 +930,7 @@
           }
         },
         originInfo: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Nakladatelské údaje recenzovaného díla',
           selector: 'relatedItem/originInfo',
           labelKey: 'relatedItem/originInfo',
@@ -909,6 +959,48 @@
                 }
               }
             },
+            place: {
+              usage: 'MA',
+              label: 'Místo',
+              selector: 'originInfo/place',
+              labelKey: 'originInfo/place',
+              description: 'Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisovaného dokumentu<br/>\
+            odpovídá hodnotě 260 $a',
+              fields: {
+                placeTerm: {
+                  usage: 'MA',
+                  selector: 'originInfo/place/placeTerm',
+                  labelKey: 'originInfo/place/placeTerm',
+                  label: 'Místo',
+                  description: 'Konkrétní určení místa, např. Praha nebo xr pro ČR',
+                  fields: {
+                    value: {
+                      usage: 'MA',
+                      selector: 'originInfo/place/placeTerm/value',
+                      labelKey: 'originInfo/place/placeTerm/value',
+                      label: 'Hodnota',
+                      help: 'off'
+                    }
+                  }
+                },
+              }
+            },
+            dateIssued: {
+              usage: 'MA',
+              label: 'Rok',
+              selector: 'originInfo/dateIssued',
+              labelKey: 'originInfo/dateIssued',
+              description: 'Datum vydání předlohy, rok nebo rozsah let, kdy ročník vycházel',
+              fields: {
+                value: {
+                  usage: 'MA',
+                  selector: 'originInfo/dateIssued/value',
+                  labelKey: 'originInfo/dateIssued/value',
+                  label: 'Hodnota',
+                  help: 'off'
+                }
+              }
+            }
           }
         },
         physicalDescription: {
@@ -953,14 +1045,14 @@
           }
         },
         identifier: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Identifikátory článku',
           selector: 'relatedItem/identifier',
           labelKey: 'relatedItem/identifier',
           description: 'Údaje o identifikátorech.',
           fields: {
             type: {
-              usage: 'M',
+              usage: 'MA',
               label: 'Typ',
               selector: 'relatedItem/identifier/@type',
               labelKey: 'relatedItem/identifier/@type',
@@ -973,7 +1065,7 @@
               ]
             },
             value: {
-              usage: 'M',
+              usage: 'MA',
               selector: 'relatedItem/identifier/value',
               labelKey: 'relatedItem/identifier/value',
               label: 'Hodnota',
@@ -989,6 +1081,119 @@
             },
           }
         },
+        relatedItem: {
+          usage: 'R',
+          label: 'Recenze na',
+          selector: 'relatedItem/relatedItem',
+          labelKey: 'bdm/relatedItem/relatedItem',
+          description: 'Recenze na:',
+          fields: {
+            type: {
+              usage: 'R',
+              label: 'Typ',
+              selector: 'relatedItem/relatedItem/@type',
+              labelKey: 'relatedItem/relatedItem/@type',
+              options: [
+                ['', '-'],
+                ['host', 'host']
+              ]
+            },
+            part: {
+              usage: 'MA',
+              label: 'Rozsah článku',
+              selector: 'relatedItem/part',
+              labelKey: 'bdm/relatedItem/part',
+              description: 'Rozsah článku',
+              fields: {
+                detail: {
+                  usage: 'M',
+                  label: 'Detail',
+                  selector: 'part/detail',
+                  labelKey: 'part/detail',
+                  fields: {
+                    type: {
+                      usage: 'MA',
+                      label: 'Typ',
+                      selector: 'part/detail/@type',
+                      labelKey: 'part/detail/@type',
+                      cols: 2,
+                      options: [
+                        ['', '-'],
+                        ['volume', 'volume'],
+                        ['issue', 'issue']
+                      ]
+                    },
+                    number: {
+                      usage: 'MA',
+                      label: 'Hodnota',
+                      cols: 2,
+                      selector: 'part/detail/number',
+                      labelKey: 'part/detail/number',
+                    }
+                  }
+                }
+              }
+            },
+            titleInfo: {
+              usage: 'MA',
+              label: 'Název recenzovaného díla',
+              selector: 'relatedItem/titleInfo',
+              labelKey: 'bdm/relatedItem/titleInfo',
+              description: 'Názvová informace vnitřní části.',
+              fields: {
+                otherType: {
+                  usage: 'MA',
+                  label: 'Typ',
+                  selector: 'titleInfo/@type',
+                  labelKey: 'titleInfo/@type',
+                  cols: 2,
+                  description: 'Upřesnění',
+                  options: [
+                    ['', '-'],
+                    ['title', 'title'],
+                    ['volume', 'volume']
+                  ]
+                },
+                title: {
+                  usage: 'MA',
+                  cols: 2,
+                  label: 'Název recenzovaného díla',
+                  selector: 'relatedItem/titleInfo/title',
+                  labelKey: 'bdm/relatedItem/titleInfo/title',
+                  description: 'Citace - název citovaného díla.'
+                }
+              }
+            },
+            originInfo: {
+              usage: 'MA',
+              label: 'Nakladatelské údaje recenzovaného díla',
+              selector: 'relatedItem/originInfo',
+              labelKey: 'relatedItem/originInfo',
+              description: 'Názvová informace vnitřní části.',
+              fields: {
+                dateIssued: {
+                  usage: 'R',
+                  label: 'Datum vydání',
+                  selector: 'originInfo/dateIssued',
+                  labelKey: 'originInfo/dateIssued',
+                  cols: 2,
+                  description: 'Datum vydání předlohy.<br/>\
+            Přebírat z katalogu.<br/>\
+            Odpovídá hodnotě z katalogizačního záznamu, pole 260, $c a pole 008/07-10',
+                  fields: {
+                    value: {
+                      usage: 'R',
+                      selector: 'originInfo/dateIssued/value',
+                      labelKey: 'originInfo/dateIssued/value',
+                      label: 'Hodnota',
+                      help: 'off'
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
 }

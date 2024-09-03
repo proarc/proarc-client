@@ -27,6 +27,7 @@ declare var $: any;
 
 import * as JSON5 from 'json5';
 import { ModsElement } from './mods/element.model';
+import {ModsRelatedItem2} from './mods/relatedItem2.model';
 // import * as JSON6 from 'json-6';
 // declare var JSON6: any;
 
@@ -47,6 +48,7 @@ export class Metadata {
     ModsPhysical.getSelector(),
     ModsRecordInfo.getSelector(),
     ModsRelatedItem.getSelector(),
+    ModsRelatedItem2.getId(),
     ModsResource.getSelector(),
     ModsPart.getSelector(),
     ModsTableOfContents.getSelector()
@@ -122,7 +124,7 @@ export class Metadata {
           //   parent.collapsed = false;
           // }
         }
-      
+
         if (item.hasAnyValue() || item.isRequired) {
           for (const subfield of item.getSubfields()) {
             for (const item2 of subfield.getItems()) {
@@ -236,6 +238,7 @@ export class Metadata {
       ModsPart.getId(),
       ModsRecordInfo.getId(),
       ModsRelatedItem.getId(),
+      ModsRelatedItem2.getId(),
       ModsTableOfContents.getId(),
     ];
     for (const id of allIds) {
@@ -372,7 +375,7 @@ export class Metadata {
   }
 
   hasChanges(): boolean {
-    
+
     for (const id of this.fieldsIds) {
       const f = this.fields.get(id);
       for (const item of f.getItems()) {

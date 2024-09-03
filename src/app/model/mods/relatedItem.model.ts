@@ -14,6 +14,7 @@ import {ModsGenre} from './genre.model';
 import {ModsClassification} from './classification.model';
 import {ModsResource} from './resource.model';
 import {ModsIdentifier} from './identifier.model';
+import {ModsRelatedItem2} from './relatedItem2.model';
 
 export class ModsRelatedItem extends ModsElement {
 
@@ -31,6 +32,7 @@ export class ModsRelatedItem extends ModsElement {
   classifications: ElementField;
   typeOfResources: ElementField;
   identifiers: ElementField;
+  relatedItems: ElementField;
 
 
   static getSelector() {
@@ -42,11 +44,12 @@ export class ModsRelatedItem extends ModsElement {
   }
 
   constructor(modsElement: any, template: any) {
-    super(modsElement, template, ['type', 'otherType', 'otherTypeURI', 'otherTypeAuth', 'otherTypeAuthURI']);
+    super(modsElement, template, ['type', 'otherType', 'otherTypeURI', 'otherTypeAuth', 'otherTypeAuthURI', 'ID']);
     this.init();
   }
 
   private init() {
+    this.addControl('ID');
     this.addControl('type');
     this.addControl('otherType');
     this.addControl('otherTypeURI');
@@ -124,7 +127,7 @@ export class ModsRelatedItem extends ModsElement {
       this.addSubfield(this.classifications);
       this.addControl('classification');
     }
-    
+
     if (this.available2('typeOfResource')) {
       this.typeOfResources = new ElementField(this.modsElement, ModsResource.getSelector(), this.getField('typeOfResource'));
       this.addSubfield(this.typeOfResources);
@@ -135,6 +138,12 @@ export class ModsRelatedItem extends ModsElement {
       this.identifiers = new ElementField(this.modsElement, ModsIdentifier.getSelector(), this.getField('identifier'));
       this.addSubfield(this.identifiers);
       this.addControl('identifier');
+    }
+
+    if (this.available2('relatedItem')) {
+      this.relatedItems = new ElementField(this.modsElement, ModsRelatedItem2.getSelector(), this.getField('relatedItem'));
+      this.addSubfield(this.relatedItems);
+      this.addControl('relatedItem');
     }
 
   }

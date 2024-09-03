@@ -844,13 +844,21 @@ export class NdkMapRdaTemplate {
             ['volume', 'volume']
           ]
         },
-        caption: {
+        detail: {
           usage: 'RA',
-          label: 'Caption',
-          selector: 'part/detail/caption',
-          labelKey: 'part/detail/caption',
-          description: `text před označením čísla, např. "č.", „část“, "No." apod.`
-        },
+          label: 'Detail',
+          selector: 'part/detail',
+          labelKey: 'part/detail',
+          fields: {
+            caption: {
+              usage: 'RA',
+              label: 'Typ',
+              selector: 'part/detail/caption',
+              labelKey: 'part/detail/caption',
+              description: 'text před označením čísla, např. "č.", „část“, "No." apod.'
+            }
+          }
+        }
       }
     },
     recordInfo: {

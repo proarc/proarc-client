@@ -764,12 +764,20 @@
             ['issue', 'issue']
           ]
         },
-        caption: {
+        detail: {
           usage: 'RA',
-          label: 'Caption',
-          selector: 'part/detail/caption',
-          labelKey: 'part/detail/caption',
-          description: 'text před označením čísla, např. "č.", „část“, "No." apod.'
+          label: 'Detail',
+          selector: 'part/detail',
+          labelKey: 'part/detail',
+          fields: {
+            caption: {
+              usage: 'MA',
+              label: 'Typ',
+              selector: 'part/detail/caption',
+              labelKey: 'part/detail/caption',
+              description: 'text před označením čísla, např. "č.", „část“, "No." apod.'
+            }
+          }
         }
       }
     },
