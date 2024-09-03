@@ -52,6 +52,7 @@ export class ConfigService {
 		'index',
 		'advertisement',
 		'review',
+    'manuscriptNotes',
 		'listOfIllustrations',
 		'listOfMaps',
 		'listOfSupplements',
