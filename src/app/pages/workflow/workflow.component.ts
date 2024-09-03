@@ -51,6 +51,8 @@ export class WorkFlowComponent implements OnInit {
   colsWidth: { [key: string]: number } = {};
   columnsWorkFlowSubJobs: { field: string, selected: boolean, type: string }[];
   colsWidthSubJobs: { [key: string]: number } = {};
+  columnsTasks: { field: string, selected: boolean, type: string }[];
+  colsWidthTasks: { [key: string]: number } = {};
 
   // -- table to expand --
   materialColumnsToDisplay = ['profileLabel', 'label', 'note'];
@@ -69,6 +71,7 @@ export class WorkFlowComponent implements OnInit {
   columnTypes: {[field: string]: string} = {};
 
   workFlowColumnsSubJobs = ['taskUsername', 'label', 'profileName'];
+  workFlowColumnsTasks = ['taskUsername', 'label', 'profileName'];
 
   allJobs: WorkFlow[] = [];
   jobs: WorkFlow[] = [];
@@ -138,6 +141,7 @@ export class WorkFlowComponent implements OnInit {
   ngOnInit(): void {
     this.columnsWorkFlow = this.properties.getColumnsWorkFlow();
     this.columnsWorkFlowSubJobs = this.properties.getColumnsWorkFlowSubJobs();
+    this.columnsTasks = this.properties.getColumnsWorkFlowTasks();
     this.allTasks = this.config.getValueMap('proarc.workflow.tasks');
 
     // this.api.getUsers().subscribe((users: User[]) => {
@@ -173,6 +177,7 @@ export class WorkFlowComponent implements OnInit {
       this.profiles = profiles.response.data;
       this.setSelectedColumns();
       this.setSelectedColumnsSubJobs();
+      this.setSelectedColumnsTasks();
       this.getWorkflow(false);
     });
   }
@@ -469,24 +474,33 @@ export class WorkFlowComponent implements OnInit {
     this.getWorkflow(false);
   }
 
-  selectColumns(isSubJobs: boolean) {
+  selectColumns(type: string) {
     const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
       data: {
         isRepo: false,
-        isWorkFlow: !isSubJobs,
-        isWorkFlowSubJobs: isSubJobs
+        isWorkFlow: type === 'jobs',
+        isWorkFlowSubJobs: type === 'subjobs',
+        isWorkFlowTasks: type === 'tasks'
       },
       width: '600px',
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-
-        if (isSubJobs) {
-          this.columnsWorkFlowSubJobs = this.properties.getColumnsWorkFlowSubJobs();
-          this.setSelectedColumnsSubJobs();
-        } else {
+        switch(type) {
+          case 'jobs':
           this.columnsWorkFlow = this.properties.getColumnsWorkFlow();
           this.setSelectedColumns();
+          break;
+          case 'subjobs':
+          this.columnsWorkFlowSubJobs = this.properties.getColumnsWorkFlowSubJobs();
+          this.setSelectedColumnsSubJobs();
+          break;
+          case 'tasks':
+          this.columnsTasks = this.properties.getColumnsWorkFlowTasks();
+          this.setSelectedColumnsTasks();
+          break;
+          default:
+
         }
 
       }
@@ -495,6 +509,10 @@ export class WorkFlowComponent implements OnInit {
 
   columnType(f: string) {
     return this.columnsWorkFlow.find(c => c.field === f).type;
+  }
+
+  columnTasksType(f: string) {
+    return this.columnsTasks.find(c => c.field === f).type;
   }
 
   getList(f: string): { code: string, value: string }[] {
@@ -553,6 +571,19 @@ export class WorkFlowComponent implements OnInit {
     this.setColumnsWithSubJobs();
   }
 
+  setSelectedColumnsTasks() {
+
+    this.workFlowColumnsTasks = this.columnsTasks.filter(c => c.selected).map(c => c.field);
+    this.workFlowColumnsTasks.forEach(c => {
+      if (this.columnTasksType(c) === 'list') {
+        this.lists[c] = this.getList(c);
+      }
+      this.columnTypes[c] = this.columnTasksType(c);
+    });
+
+    this.setColumnsWidthTasks();
+  }
+
   setColumnsWith() {
     this.colsWidth = {};
     this.columnsWorkFlow.forEach((c: any) => {
@@ -564,6 +595,13 @@ export class WorkFlowComponent implements OnInit {
     this.colsWidthSubJobs = {};
     this.columnsWorkFlowSubJobs.forEach((c: any) => {
       this.colsWidthSubJobs[c.field] = c.width;
+    });
+  }
+
+  setColumnsWidthTasks() {
+    this.colsWidthTasks = {};
+    this.columnsTasks.forEach((c: any) => {
+      this.colsWidthTasks[c.field] = c.width;
     });
   }
 
@@ -582,6 +620,14 @@ export class WorkFlowComponent implements OnInit {
       c.width = this.colsWidthSubJobs[c.field];
     });
     this.properties.setColumnsWorkFlowSubJobs(this.columnsWorkFlowSubJobs);
+  }
+
+  saveColumnsSizesTasks(e: any, field?: string) {
+    this.colsWidthTasks[field] = e;
+    this.columnsTasks.forEach((c: any) => {
+      c.width = this.colsWidthTasks[c.field];
+    });
+    this.properties.setColumnsWorkFlowTasks(this.columnsTasks);
   }
 
   removeJobs(isSubJobs: boolean) {

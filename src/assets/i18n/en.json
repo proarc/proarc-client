@@ -2502,7 +2502,10 @@
     "deviceLabel": "Device",
     "issue": "Issue",
     "taskDate": "Task date",
-    "volume": "Volume"
+    "volume": "Volume",
+    "jobId": "Job Id",
+    "jobLabel": "Job label",
+    "order": "Order"
   },
   "button": {
     "setLayout": "Set layout",

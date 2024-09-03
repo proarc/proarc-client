@@ -67,6 +67,20 @@ export class LocalStorageService {
             {field: 'volume', selected: false, width: 150, type: 'string'},
             {field: 'deviceLabel', selected: false, width: 150, type: 'string'}
         ];
+        public availableColumnsWorkFlowTasks = [
+
+            {field: 'barcode', selected: true, width: 150, type: 'string'},
+            {field: 'jobLabel', selected: true, width: 150, type: 'string'},
+            {field: 'profileName', selected: false, width: 150, type: 'list'},
+            {field: 'state', selected: false, width: 150, type: 'list'},
+            {field: 'priority', selected: false, width: 150, type: 'list'},
+            {field: 'created', selected: false, width: 150, type: 'date'},
+            {field: 'id', selected: false, width: 150, type: 'string'},
+            {field: 'modified', selected: false, width: 150, type: 'date'},
+            {field: 'ownerId', selected: false, width: 150, type: 'list'},
+            {field: 'jobId', selected: false, width: 150, type: 'string'},
+            {field: 'order', selected: false, width: 150, type: 'string'}
+        ];
 
     public colsEditingRepo: { [model: string]: { field: string, selected: boolean, width: number }[] };
 
@@ -305,6 +319,28 @@ export class LocalStorageService {
     setColumnsWorkFlow(cols: any) {
         this.setStringProperty('columnsWorkFlow', JSON.stringify(cols));
     }
+
+    
+
+    setColumnsWorkFlowTasks(cols: any) {
+        this.setStringProperty('columnsWorkFlowTasks', JSON.stringify(cols));
+    }
+
+    getColumnsWorkFlowTasks() {
+        const prop = this.getStringProperty('columnsWorkFlowTasks');
+        let ret: any = [];
+        if (prop) {
+            Object.assign(ret, JSON.parse(prop));
+        } else {
+
+            ret = this.availableColumnsWorkFlowTasks.map((c) => {
+                return c;
+            });
+        }
+        return ret;
+        
+    }
+
 
     setColumnsEditingRepo(colsEditModeParent: boolean) {
         this.setStringProperty('colsRepo', JSON.stringify(this.colsEditingRepo));

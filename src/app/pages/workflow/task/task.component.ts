@@ -12,6 +12,11 @@ import { User } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { TaskssEditDialogComponent } from '../tasks-edit-dialog/tasks-edit-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { WorkFlowProfile } from 'src/app/model/workflow.model';
+import { forkJoin } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+import { ColumnsSettingsDialogComponent } from 'src/app/dialogs/columns-settings-dialog/columns-settings-dialog.component';
 // -- table to expand --
 
 @Component({
@@ -36,12 +41,27 @@ export class TaskComponent implements OnInit {
   materialExpandedElement: any[];
   // -- table to expand --
 
+  profiles: WorkFlowProfile[];
+  allTasks: any[];
 
   tasks: any[];
-  tasksColumns = ['profileLabel', 'state', 'ownerName', 'barcode'];
+
+  columnsTasks: { field: string, selected: boolean, type: string }[];
+  colsWidthTasks: { [key: string]: number } = {};
+
+
+  selectedColumns: string[] = [];
   filterTasksColumns: string[] = [];
   tasksSortField: string = 'created';
   tasksSortDir: SortDirection = 'desc';
+
+  
+  colsWidth: { [key: string]: number } = {};
+  columnTypes: {[field: string]: string} = {};
+  filters: { [field: string]: string } = {};
+  // filters: { field: string, value: string }[] = [];
+  filterFields: { [field: string]: string } = {};
+  lists: { [field: string]: { code: string, value: string }[] } = {};
 
   id: number;
   task: any;
@@ -78,7 +98,6 @@ export class TaskComponent implements OnInit {
   users: User[];
   barcodeFilter: string;
 
-  filters: { field: string, value: string }[] = [];
   onlyMyTasks: boolean;
 
 
@@ -90,8 +109,10 @@ export class TaskComponent implements OnInit {
   constructor(
     private router: Router,
     private dialog: MatDialog,
+    private translator: TranslateService,
     private route: ActivatedRoute,
     private config: ConfigService,
+    public properties: LocalStorageService,
     private api: ApiService,
     public auth: AuthService,
     private ui: UIService,
@@ -99,17 +120,60 @@ export class TaskComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.tasksColumns.forEach(c => {
-      this.filterTasksColumns.push(c + '-filter');
-    });
+    this.allTasks = this.config.getValueMap('proarc.workflow.tasks');
+    this.columnsTasks = this.properties.getColumnsWorkFlowTasks();
+    // this.tasksColumns.forEach(c => {
+    //   this.filterTasksColumns.push(c + '-filter');
+    // });
     if (this.route.snapshot.url[0].path === 'my_tasks') {
       this.onlyMyTasks = true;
     }
     this.route.paramMap.subscribe(
       p => {
         this.id = parseInt(p.get('id'));
-        this.initData();
+        this.getWorkflowProfiles();
       });
+  }
+
+  getWorkflowProfiles() {
+    const rUsers = this.api.getUsers();
+    const rProfiles = this.api.getWorkflowProfiles();
+    forkJoin([rUsers, rProfiles]).subscribe(([users, profiles]: [User[], any]) => {
+      this.users = users;
+    // this.api.getWorkflowProfiles().subscribe((profiles: any) => {
+      if (profiles['response'].errors) {
+        this.ui.showErrorDialogFromObject(profiles['response'].errors);
+        return;
+      }
+      this.profiles = profiles.response.data;
+      this.setSelectedColumnsTasks();
+      this.initData();
+    });
+  }
+
+  setSelectedColumnsTasks() {
+this.filterTasksColumns = [];
+    this.selectedColumns = this.columnsTasks.filter(c => c.selected).map(c => c.field);
+    
+    this.selectedColumns.forEach(c => {
+      this.filterTasksColumns.push(c + '-filter');
+    });
+
+    this.selectedColumns.forEach(c => {
+      if (this.columnTasksType(c) === 'list') {
+        this.lists[c] = this.getList(c);
+      }
+      this.columnTypes[c] = this.columnTasksType(c);
+    });
+
+    this.setColumnsWidthTasks();
+  }
+
+  setColumnsWidthTasks() {
+    this.colsWidthTasks = {};
+    this.columnsTasks.forEach((c: any) => {
+      this.colsWidthTasks[c.field] = c.width;
+    });
   }
 
   initData() {
@@ -166,12 +230,18 @@ export class TaskComponent implements OnInit {
       params += '&state=READY&ownerId=' + this.auth.getUserId();
     }
 
-
-    this.filters.forEach(f => {
-      if (f.value !== '') {
-        params += `&${f.field}=${f.value}`;
+    const keys: string[] = Object.keys(this.filters);
+    keys.forEach((k: string) => {
+      if (this.filters[k] !== '') {
+        params += `&${k}=${this.filters[k]}`;
       }
     });
+
+    // this.filters.forEach(f => {
+    //   if (f.value !== '') {
+    //     params += `&${f.field}=${f.value}`;
+    //   }
+    // });
 
 
     this.api.getWorkflowTasks(params).subscribe((response: any) => {
@@ -291,12 +361,7 @@ export class TaskComponent implements OnInit {
   }
 
   filter(field: string, value: string) {
-    const f = this.filters.find(f => f.field === field);
-    if (f) {
-      f.value = value;
-    } else {
-      this.filters.push({ field, value });
-    }
+    this.filters[field] = value;
     this.getTasks();
   }
 
@@ -363,6 +428,70 @@ export class TaskComponent implements OnInit {
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
         this.getTasks();
+      }
+    });
+  }
+
+  saveColumnsSizes(e: any, field?: string) {
+    this.colsWidth[field] = e;
+    this.columnsTasks.forEach((c: any) => {
+      c.width = this.colsWidth[c.field];
+    });
+  
+    this.properties.setColumnsWorkFlow(this.columnsTasks);
+  }
+  
+
+  listValue(field: string, code: string) {
+    const el = this.lists[field].find(el => el.code === code + '');
+    return el ? el.value : code;
+  }
+
+  translatedField(f: string): string {
+    switch (f) {
+      case 'taskName': return 'taskLabel'
+      default: return f
+    }
+  }
+
+  columnTasksType(f: string) {
+    return this.columnsTasks.find(c => c.field === f).type;
+  }
+
+  getList(f: string): { code: string, value: string }[] {
+    switch (f) {
+      case 'priority': return this.priorities.map(p => { return { code: p.code + '', value: p.value } });
+      case 'state': return this.states.map(p => { return { code: p, value: p } });
+      case 'profileName': return this.profiles.map(p => { return { code: p.name + '', value: p.title } });
+      case 'ownerId': return this.users.map(p => { return { code: p.userId + '', value: p.name } });
+      case 'taskName': return this.allTasks.map(p => { return { code: p.name + '', value: p.title } });
+      case 'taskUser': return this.users.map(p => { return { code: p.userId + '', value: p.name } });
+      case 'model': return this.config.allModels.map((p: string) => { return { code: p, value: this.translator.instant('model.' + p) } });
+      default: return [];
+    }
+  }
+  
+  selectColumns(type: string) {
+    const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
+      data: {
+        isRepo: false,
+        isWorkFlow: type === 'jobs',
+        isWorkFlowSubJobs: type === 'subjobs',
+        isWorkFlowTasks: type === 'tasks'
+      },
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        switch(type) {
+          case 'tasks':
+          this.columnsTasks = this.properties.getColumnsWorkFlowTasks();
+          this.setSelectedColumnsTasks();
+          break;
+          default:
+
+        }
+
       }
     });
   }

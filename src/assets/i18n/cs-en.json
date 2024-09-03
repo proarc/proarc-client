@@ -2510,7 +2510,10 @@
     "deviceLabel": "Zařízení",
     "issue": "Číslo",
     "taskDate": "Datum dok. úkolu",
-    "volume": "Ročník"
+    "volume": "Ročník",
+    "jobId": "Id záměru",
+    "jobLabel": "Název záměru",
+    "order": "Poradí"
   },
   "button": {
     "setLayout": "nastavit rozložení",

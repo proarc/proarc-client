@@ -20,7 +20,7 @@
           <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
         </div>
     </ng-container>
-    <ng-container *ngIf="data.isWorkFlow || data.isWorkFlowSubJobs">
+    <ng-container *ngIf="data.isWorkFlow || data.isWorkFlowSubJobs || data.isWorkFlowTasks">
         <legend>{{ 'pages.settings.editingWorkflow.legend' | translate }}</legend>
         <div class="app-label app-mb-2">{{ 'pages.settings.editingWorkflow.label' | translate }}</div>
         <div *ngFor="let column of columnsWorkFlow" cdkDropListOrientation="vertical" cdkDrag>

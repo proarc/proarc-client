@@ -57,6 +57,19 @@ export class ColumnsSettingsDialogComponent implements OnInit {
       this.columnsWorkFlow = [...v, ...iv]
 
 
+    } else if (this.data.isWorkFlowTasks) {
+      this.columnsWorkFlow = [];
+      const all = this.properties.getColumnsWorkFlowTasks();
+      const v = all.filter((a: any) => a.selected === true);
+      const iv = all.filter((a: any) => a.selected === false);
+      iv.sort((a: any, b: any) => {
+        const a1: string = this.translator.instant('desc.' + a.field);
+        const b1: string = this.translator.instant('desc.' + b.field);
+        return a1.localeCompare(b1)
+      });
+      this.columnsWorkFlow = [...v, ...iv]
+
+
     } else {
 
       this.colsEditModeParent = this.properties.getColsEditingRepo();
@@ -78,6 +91,9 @@ export class ColumnsSettingsDialogComponent implements OnInit {
       this.dialogRef.close(true);
     } else if (this.data.isWorkFlowSubJobs) {
       this.properties.setColumnsWorkFlowSubJobs(this.columnsWorkFlow);
+      this.dialogRef.close(true);
+    } else if (this.data.isWorkFlowTasks) {
+      this.properties.setColumnsWorkFlowTasks(this.columnsWorkFlow);
       this.dialogRef.close(true);
     } else if (this.data.isRepo) {
       this.setSelectedColumnsEditingRepo();
