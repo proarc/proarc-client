@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatLabel } from '@angular/material/form-field';
 import { MatTableDataSource } from '@angular/material/table';
 import { ResizedEvent } from 'angular-resize-event';
 import { DocumentItem } from 'src/app/model/documentItem.model';
@@ -29,6 +28,7 @@ export class MarkSequenceDialogComponent implements OnInit {
   pageIndex: boolean = true;
   pageNumber: boolean = true;
   pagePosition: boolean = true;
+  reprePage: boolean = false;
   lastClickIdx: { [key: string]: number } = { orig: -1, dest: -1 };
   lastClickIdxDest: number = -1;
   lastSelectedItemPid: string;
@@ -167,6 +167,7 @@ export class MarkSequenceDialogComponent implements OnInit {
       copyPageNumber: this.pageNumber,
       copyPageType: this.pageType,
       copyPagePosition: this.pagePosition,
+      copyReprePage: this.reprePage,
       batchId: this.data.batchId
     }
     this.api.saveMarkSequence(data).subscribe((result: any) => {

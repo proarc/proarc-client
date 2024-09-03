@@ -201,8 +201,8 @@ export class SettingsComponent implements OnInit {
 
   setSelectedColumnsSearchTree() {
     
-    this.properties.setSelectedColumnsSearchTree();
-    this.properties.setColumnsSearchTree(this.columnsSearchTree);
+    this.properties.setSelectedColumnsSearchTree(this.properties.searchColumnsTree);
+    // this.properties.setColumnsSearchTree(this.searchColumnsTree);
     this.ui.showInfo('snackbar.settings.columns.updated');
   }
 

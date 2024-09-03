@@ -88,6 +88,7 @@ export class LocalStorageService {
     public searchColumnsTree: { field: string, selected: boolean; width: number; type: string}[];
     public searchColumnsTreeSelected: { [field: string]: boolean } = {};
 
+
     public procMngColumnsDefault = [
         { field: 'description', selected: true, width: 100 },
         { field: 'create', selected: true, width: 100 },
@@ -175,10 +176,7 @@ export class LocalStorageService {
             Object.assign(this.searchColumnsTree, JSON.parse(JSON.stringify(this.selectedColumnsSearchDefault)));
         }
 
-        // this.searchColumnsTreeSelected = {};
-        // this.searchColumnsTree.forEach(c => {
-        //     this.searchColumnsTreeSelected[c.field] = c.selected;
-        // });
+        return this.searchColumnsTree;
 
     }
 
@@ -195,8 +193,8 @@ export class LocalStorageService {
         this.setStringProperty('queueColumns', JSON.stringify(this.queueColumns));
     }
 
-    setSelectedColumnsSearchTree() {
-        this.setStringProperty('searchColumnsTree', JSON.stringify(this.searchColumnsTree));
+    setSelectedColumnsSearchTree(cols: { field: string, selected: boolean; width: number; type: string}[]) {
+        this.setStringProperty('searchColumnsTree', JSON.stringify(cols));
     }
 
     getStringProperty(property: string, defaultValue: string | null = null): string | null {
@@ -263,22 +261,22 @@ export class LocalStorageService {
 
     
 
-    setColumnsSearchTree(cols: any) {
-        this.setStringProperty('columnsSearchTree', JSON.stringify(cols));
-    }
+    // setColumnsSearchTree(cols: any) {
+    //     this.setStringProperty('columnsSearchTree', JSON.stringify(cols));
+    // }
 
-    getColumnsSearchTree() {
-        const prop = this.getStringProperty('columnsSearchTree');
-        let ret: any = [];
-        if (prop) {
-            Object.assign(ret, JSON.parse(prop));
-        } else {
-            ret = this.selectedColumnsSearchDefault.map((c) => {
-                return c;
-            });
-        }
-        return ret;
-    }
+    // getColumnsSearchTree() {
+    //     const prop = this.getStringProperty('columnsSearchTree');
+    //     let ret: any = [];
+    //     if (prop) {
+    //         Object.assign(ret, JSON.parse(prop));
+    //     } else {
+    //         ret = this.selectedColumnsSearchDefault.map((c) => {
+    //             return c;
+    //         });
+    //     }
+    //     return ret;
+    // }
 
 
 

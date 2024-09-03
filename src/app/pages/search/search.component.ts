@@ -761,7 +761,7 @@ export class SearchComponent implements OnInit {
     this.setColumns();
     this.setColumnsWith();
 
-    this.treeColumnsDefs = this.properties.getColumnsSearchTree();
+    this.treeColumnsDefs = this.properties.getSearchColumnsTree();
     this.setSelectedTreeColumns();
   }
 
@@ -1161,7 +1161,7 @@ export class SearchComponent implements OnInit {
       c.width = parseInt(this.treeColumnsSizes[c.field]);
     });
 
-    this.properties.setColumnsSearchTree(this.treeColumnsDefs);
+    this.properties.setSelectedColumnsSearchTree(this.treeColumnsDefs);
 
   }
 
