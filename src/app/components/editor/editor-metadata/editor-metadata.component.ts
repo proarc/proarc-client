@@ -533,7 +533,7 @@ export class EditorMetadataComponent implements OnInit {
 
   saveMetadata(ignoreValidation: boolean) {
     this.state = 'loading';
-    this.api.editMetadata(this.metadata, ignoreValidation).subscribe((response: any) => {
+    this.api.editMetadata(this.metadata, ignoreValidation, null).subscribe((response: any) => {
       if (response.errors) {
         if (response.status === -4) {
           // Ukazeme dialog a posleme s ignoreValidation=true
@@ -566,9 +566,9 @@ export class EditorMetadataComponent implements OnInit {
     });
   }
 
-  saveModsFromCatalog(xml: string) {
+  saveModsFromCatalog(xml: string, catalogId: string) {
     this.state = 'saving';
-    this.api.editModsXml(this.metadata.pid, xml, this.metadata.timestamp, null, false).subscribe((resp: any) => {
+    this.api.editModsXml(this.metadata.pid, xml, this.metadata.timestamp, null, false, null, catalogId).subscribe((resp: any) => {
       if (resp.errors) {
         this.state = 'error';
         this.ui.showErrorDialogFromObject(resp.errors);
@@ -587,7 +587,7 @@ export class EditorMetadataComponent implements OnInit {
     const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'full' } });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
-        this.saveModsFromCatalog(result['mods']);
+        this.saveModsFromCatalog(result['mods'], result['catalogId']);
       }
     });
   }

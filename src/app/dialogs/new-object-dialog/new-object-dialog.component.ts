@@ -251,7 +251,7 @@ export class NewObjectDialogComponent implements OnInit {
         this.state = 'saving';
         const customPid = this.data.customPid ? this.data.pid : null;
 
-        let data = `model=${this.data.model}&createObject=false`;
+        let data = `model=${this.data.model}&catalogId=${result['catalogId']}&createObject=false`;
         //let data = `model=${this.data.model}`;
         if (customPid) {
           data = `${data}&pid=${customPid}`;

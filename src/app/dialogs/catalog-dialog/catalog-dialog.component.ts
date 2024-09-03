@@ -119,12 +119,12 @@ export class CatalogDialogComponent implements OnInit {
       return;
     }
     const xml = this.results[this.activeIndex].mods;
-    this.dialogRef.close({ mods: xml });
+    this.dialogRef.close({ mods: xml, catalogId: this.activeCatalog.id });
   }
 
   onCreate() {
     const xml = this.results[this.activeIndex].mods;
-    this.dialogRef.close({ mods: xml, pid: this.pid, model: this.model });
+    this.dialogRef.close({ mods: xml, pid: this.pid, model: this.model, catalogId: this.activeCatalog.id });
   }
 
 }

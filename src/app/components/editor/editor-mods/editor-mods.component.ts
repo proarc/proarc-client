@@ -115,7 +115,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
 
   saveMods(mods: Mods, ignoreValidation: boolean) {
     this.state = 'saving';
-    this.api.editModsXml(mods.pid, mods.content, mods.timestamp, null, ignoreValidation, this.layout.getBatchId()).subscribe((resp: any) => {
+    this.api.editModsXml(mods.pid, mods.content, mods.timestamp, null, ignoreValidation, this.layout.getBatchId(), null).subscribe((resp: any) => {
       if (resp.errors) {
         this.state = 'error';
         // if (resp.errors.mods) {
