@@ -219,8 +219,8 @@
             <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar">
               <div fxFlex *ngIf="selectedTreeItem" fxLayout="row" fxFlexFill>
                 <button (click)="selectItem(selectedItem)" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
-                <button (click)="onExport(false)" mat-button>{{ 'button.export' | translate }}</button>
-                <button (click)="onUrnnbn(false)" mat-button>URN:NBN</button>
+                <button [disabled]="totalSelectedTree > 1" (click)="onExport(false)" mat-button>{{ 'button.export' | translate }}</button>
+                <button [disabled]="totalSelectedTree > 1" (click)="onUrnnbn(false)" mat-button>URN:NBN</button>
                 <button [disabled]="totalSelectedTree > 1" (click)="expandAllInTree()" mat-button>{{ 'button.unpack' | translate }}</button>
                 <button *ngIf="selectedTreeItem" (click)="onDeleteFromTree()" mat-button>{{ 'button.delete' | translate }}</button>
                 <button *ngIf="canCopy(selectedTreeItem)" [disabled]="totalSelectedTree > 1" (click)="onCopyItem(selectedTreeItem)" mat-button>{{ 'button.copy' | translate }}</button>
@@ -281,28 +281,9 @@
                   </ng-container>
                   
                   <tr mat-header-row *matHeaderRowDef="treeColumns; sticky: true"></tr>
-                  <tr mat-row *matRowDef="let row; columns: treeColumns;"
-                   (dblclick)="openTreeItem($event, row)" (click)="selectTreeItem($event, row)" [class.app-selected]="selectedTreeItem.pid === row.pid"></tr>
+                  <tr mat-row *matRowDef="let row; columns: treeColumns; let idx = index"
+                   (dblclick)="openTreeItem($event, row)" (click)="selectTreeItem($event, row, idx)" [class.app-selected]="row.selected"></tr>
                 </table>
-
-
-                <!-- <div *ngIf="tree" class="app-row app-header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
-                  <div [style.width]="(tree.level * 20 + 30) + 'px'"></div>
-                  <div class="app-cell-first" [fxFlex]="(300 - tree.level * 20) + 'px'" >{{ 'desc.name' | translate }}</div>
-                  <div fxFlex class="app-cell app-model" *ngIf="properties.searchColumnsTreeSelected['model']">{{ 'desc.model' | translate }}</div>
-                  <div fxFlex class="app-cell app-pid" *ngIf="properties.searchColumnsTreeSelected['pid']">PID</div>
-                  <div fxFlex class="app-cell app-processor" *ngIf="properties.searchColumnsTreeSelected['processor']">{{ 'desc.processor' | translate }}</div>
-                  <div fxFlex class="app-cell app-organization" *ngIf="properties.searchColumnsTreeSelected['organization']">{{ 'desc.organization' | translate }}</div>
-                  <div fxFlex class="app-cell app-status" *ngIf="properties.searchColumnsTreeSelected['status']">{{ 'desc.status' | translate }}</div>
-                  <div fxFlex class="app-cell app-created" *ngIf="properties.searchColumnsTreeSelected['created']">{{ 'desc.created' | translate }}</div>
-                  <div fxFlex class="app-cell app-modified" *ngIf="properties.searchColumnsTreeSelected['modified']">{{ 'desc.modified' | translate }}</div>
-                  <div fxFlex class="app-cell app-owner" *ngIf="properties.searchColumnsTreeSelected['owner']">{{ 'desc.owner' | translate }}</div>
-                  <div fxFlex class="app-cell app-export" *ngIf="properties.searchColumnsTreeSelected['export']">{{ 'desc.export' | translate }}</div>
-                  <div fxFlex class="app-cell app-isLocked"></div>
-                </div>
-                <div *ngIf="tree" class="app-oa-y" fxFlex>
-                  <app-tree [tree]="tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)"></app-tree>
-                </div> -->
             </div>
           </div>
         </as-split-area>

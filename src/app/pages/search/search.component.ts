@@ -89,8 +89,11 @@ export class SearchComponent implements OnInit {
   startShiftClickIdx: number;
   lastClickIdx: number;
   totalSelected: number;
-
+  
+  startShiftClickIdxTree: number;
+  lastClickIdxTree: number;
   totalSelectedTree: number;
+  
   loadingTree: boolean;
 
 
@@ -580,7 +583,8 @@ export class SearchComponent implements OnInit {
 
   onDeleteFromTree() {
     const refresh = this.selectedTreeItem.parent ? false : true;
-    this.onDelete([this.selectedTreeItem.pid], refresh, (pids: string[]) => {
+    const pids = this.visibleTreeItems.filter(i => i.selected).map(i => i.pid)
+    this.onDelete(pids, refresh, (pids: string[]) => {
       // this.search.selectedTree.remove();
     });
   }
@@ -963,19 +967,56 @@ export class SearchComponent implements OnInit {
     this.router.navigate(['/repository', treeItem.pid]);
   }
 
-  selectTreeItem(event: MouseEvent, treeItem: TreeDocumentItem) {
-    this.selectedTreeItem = treeItem;
-    // this.search.selectedTreePid = treeItem.pid;
-    const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.selectedTreeItem.model).join(',');
-    const canHavePages = allowedAsString.includes('page');
-    if (this.properties.getBoolProperty('searchExpandTree', true) || !canHavePages) {
-      if (treeItem.childrenLoaded) {
-        
+  selectTreeItem(event: MouseEvent, treeItem: TreeDocumentItem, idx: number) {
+
+
+    if (event && (event.metaKey || event.ctrlKey)) {
+      treeItem.selected = !treeItem.selected;
+      this.startShiftClickIdxTree = idx;
+    } else if (event && event.shiftKey) {
+      if (this.startShiftClickIdxTree > -1) {
+        const oldFrom = Math.min(this.startShiftClickIdxTree, this.lastClickIdxTree);
+        const oldTo = Math.max(this.startShiftClickIdxTree, this.lastClickIdxTree);
+        for (let i = oldFrom; i <= oldTo; i++) {
+          this.visibleTreeItems[i].selected = false;
+        }
+        const from = Math.min(this.startShiftClickIdxTree, idx);
+        const to = Math.max(this.startShiftClickIdxTree, idx);
+        for (let i = from; i <= to; i++) {
+          this.visibleTreeItems[i].selected = true;
+        }
       } else {
-        this.getTreeItems(treeItem, true);
+        // nic neni.
+        this.visibleTreeItems.forEach(i => i.selected = false);
+        treeItem.selected = true;
+        this.startShiftClickIdxTree = idx;
       }
+      window.getSelection().empty();
+    } else {
+      this.visibleTreeItems.forEach(i => i.selected = false);
+      treeItem.selected = true;
+      this.startShiftClickIdxTree = idx;
     }
-    this.getTreeInfo(treeItem);
+
+    this.lastClickIdxTree = idx;
+    this.totalSelectedTree = this.visibleTreeItems.filter(i => i.selected).length;
+    this.selectedTreeItem = treeItem;
+    
+    if (this.totalSelectedTree === 1) {
+      const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.selectedTreeItem.model).join(',');
+      const canHavePages = allowedAsString.includes('page');
+      if (this.properties.getBoolProperty('searchExpandTree', true) || !canHavePages) {
+        if (treeItem.childrenLoaded) {
+          
+        } else {
+          this.getTreeItems(treeItem, true);
+        }
+      }
+      this.getTreeInfo(treeItem);
+    } else {
+      this.tree_info = {}; 
+    this.batchInfo = null;
+    }
   }
 
   getTreeInfo(treeItem: TreeDocumentItem) {
