@@ -30,6 +30,7 @@ import { Subscription } from 'rxjs';
 import { ModelTemplate } from 'src/app/templates/modelTemplate';
 import { Batch } from 'src/app/model/batch.model';
 import { LogDialogComponent } from 'src/app/dialogs/log-dialog/log-dialog.component';
+import { ColumnsSettingsDialogComponent } from 'src/app/dialogs/columns-settings-dialog/columns-settings-dialog.component';
 
 @Component({
   selector: 'app-search',
@@ -1176,6 +1177,30 @@ export class SearchComponent implements OnInit {
   listValue(field: string, code: string) {
     const el = this.lists[field].find(el => el.code === code + '');
     return el ? el.value : code;
+  }
+
+  selectColumnsTree(type: string) {
+    const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
+      data: {
+        type: type,
+        isRepo: false,
+        isImport: false
+      },
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        switch(type) {
+          case 'searchTree':
+          this.treeColumnsDefs = this.properties.getSearchColumnsTree();
+          this.setSelectedTreeColumns();
+          break;
+          default:
+
+        }
+
+      }
+    });
   }
 
 }

@@ -477,7 +477,9 @@ export class WorkFlowComponent implements OnInit {
   selectColumns(type: string) {
     const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
       data: {
+        type: type,
         isRepo: false,
+        isImport: false,
         isWorkFlow: type === 'jobs',
         isWorkFlowSubJobs: type === 'subjobs',
         isWorkFlowTasks: type === 'tasks'

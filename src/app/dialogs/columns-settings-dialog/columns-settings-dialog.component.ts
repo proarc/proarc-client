@@ -17,8 +17,8 @@ export class ColumnsSettingsDialogComponent implements OnInit {
   colsEditModeParent: boolean;
   models: any[];
 
-  selectedColumnsEditingImport: { field: string, selected: boolean }[];
-  columnsWorkFlow: { field: string, selected: boolean }[];
+  selectedColumnsEditingImport: { field: string, selected: boolean}[];
+  columnsWorkFlow: { field: string, selected: boolean, width: number, type: string  }[];
 
   constructor(
     public dialogRef: MatDialogRef<ColumnsSettingsDialogComponent>,
@@ -29,77 +29,78 @@ export class ColumnsSettingsDialogComponent implements OnInit {
     public properties: LocalStorageService) { }
 
   ngOnInit(): void {
+    let all;
+    let selected;
+    let rest;
+    switch (this.data.type) {
+      case 'jobs':
+        all = this.properties.getColumnsWorkFlow();
+        break;
+      case 'subjobs':
+        all = this.properties.getColumnsWorkFlowSubJobs();
+        break;
+      case 'tasks':
+        all = this.properties.getColumnsWorkFlowTasks();
+        break;
+      case 'searchTree':
+        all = this.properties.getSearchColumnsTree();
+        break;
+      default:
+        this.colsEditModeParent = this.properties.getColsEditingRepo();
+        this.models = this.config.allModels;
+        if (this.colsEditModeParent && this.data.selectedParentModel) {
+          this.modelForColumns = this.data.selectedParentModel;
+        } else {
+          this.modelForColumns = this.models[0];
+        }
 
-    if (this.data.isWorkFlow) {
-      this.columnsWorkFlow = [];
-      const all = this.properties.getColumnsWorkFlow();
+        this.selectedColumnsEditingImport = this.properties.getSelectedColumnsEditingImport();
 
-      const v = all.filter((a: any) => a.selected === true);
-      const iv = all.filter((a: any) => a.selected === false);
-      iv.sort((a: any, b: any) => {
-        const a1: string = this.translator.instant('desc.' + a.field);
-        const b1: string = this.translator.instant('desc.' + b.field);
-        return a1.localeCompare(b1)
-      });
-      this.columnsWorkFlow = [...v, ...iv]
-
-    } else if (this.data.isWorkFlowSubJobs) {
-      this.columnsWorkFlow = [];
-      const all = this.properties.getColumnsWorkFlowSubJobs();
-
-      const v = all.filter((a: any) => a.selected === true);
-      const iv = all.filter((a: any) => a.selected === false);
-      iv.sort((a: any, b: any) => {
-        const a1: string = this.translator.instant('desc.' + a.field);
-        const b1: string = this.translator.instant('desc.' + b.field);
-        return a1.localeCompare(b1)
-      });
-      this.columnsWorkFlow = [...v, ...iv]
-
-
-    } else if (this.data.isWorkFlowTasks) {
-      this.columnsWorkFlow = [];
-      const all = this.properties.getColumnsWorkFlowTasks();
-      const v = all.filter((a: any) => a.selected === true);
-      const iv = all.filter((a: any) => a.selected === false);
-      iv.sort((a: any, b: any) => {
-        const a1: string = this.translator.instant('desc.' + a.field);
-        const b1: string = this.translator.instant('desc.' + b.field);
-        return a1.localeCompare(b1)
-      });
-      this.columnsWorkFlow = [...v, ...iv]
-
-
-    } else {
-
-      this.colsEditModeParent = this.properties.getColsEditingRepo();
-      this.models = this.config.allModels;
-      if (this.colsEditModeParent && this.data.selectedParentModel) {
-        this.modelForColumns = this.data.selectedParentModel;
-      } else {
-        this.modelForColumns = this.models[0];
-      }
-
-      this.selectedColumnsEditingImport = this.properties.getSelectedColumnsEditingImport();
     }
-    
+
+    if (!this.data.isRepo) {
+      this.columnsWorkFlow = [];
+      selected = all.filter((a: any) => a.selected === true);
+      rest = all.filter((a: any) => a.selected === false);
+      rest.sort((a: any, b: any) => {
+        const a1: string = this.translator.instant('desc.' + a.field);
+        const b1: string = this.translator.instant('desc.' + b.field);
+        return a1.localeCompare(b1)
+      });
+      this.columnsWorkFlow = [...selected, ...rest]
+    }
+
+
   }
 
   save() {
-    if (this.data.isWorkFlow) {
+
+    switch (this.data.type) {
+      case 'jobs':
       this.properties.setColumnsWorkFlow(this.columnsWorkFlow);
       this.dialogRef.close(true);
-    } else if (this.data.isWorkFlowSubJobs) {
+        break;
+      case 'subjobs':
       this.properties.setColumnsWorkFlowSubJobs(this.columnsWorkFlow);
       this.dialogRef.close(true);
-    } else if (this.data.isWorkFlowTasks) {
+        break;
+      case 'tasks':
       this.properties.setColumnsWorkFlowTasks(this.columnsWorkFlow);
       this.dialogRef.close(true);
-    } else if (this.data.isRepo) {
-      this.setSelectedColumnsEditingRepo();
-    } else {
-      this.setSelectedColumnsEditingImport();
+        break;
+      case 'searchTree':
+        console.log(this.columnsWorkFlow)
+        this.properties.setSelectedColumnsSearchTree(this.columnsWorkFlow);
+        this.dialogRef.close(true);
+        break;
+      default:
+        if (this.data.isRepo) {
+          this.setSelectedColumnsEditingRepo();
+        } else {
+          this.setSelectedColumnsEditingImport();
+        }
     }
+    
   }
 
   setSelectedColumnsEditingImport() {
@@ -115,14 +116,12 @@ export class ColumnsSettingsDialogComponent implements OnInit {
   }
 
   getCurrentList() {
-    if (this.data.isWorkFlow) {
-      return this.columnsWorkFlow;
-    } else if (this.data.isWorkFlowSubJobs) {
-      return this.columnsWorkFlow;
-    } else if (this.data.isRepo) {
+    if (this.data.isRepo) {
       return this.properties.colsEditingRepo[this.modelForColumns];
-    } else {
+    } else if (this.data.isImport) {
       return this.selectedColumnsEditingImport;
+    } else {
+      return this.columnsWorkFlow;
     }
   }
 

@@ -238,6 +238,7 @@
                   <button mat-menu-item *ngIf="auth.user.czidloFunction || auth.isSuperAdmin()" (click)="czidlo(selectedTreeItem)">{{ 'button.czidloFunction' | translate }}</button>
                   <button mat-menu-item *ngIf="config.updateInSource && auth.isSuperAdmin() && canUpdateInSource(selectedTreeItem)" (click)="updateInSource(selectedTreeItem)">{{ 'button.updateInSource' | translate }}</button>
                   <button mat-menu-item (click)="validateObject(selectedTreeItem)">{{ 'button.validateObject' | translate }}</button>
+                  <button mat-menu-item (click)="selectColumnsTree('searchTree')" >{{'editor.children.select_columns' | translate}}</button>
                 </mat-menu>
               </div>
                 <div *ngFor="let i of object.keys(tree_info)">{{ 'model.' + i | translate }}: {{ tree_info[i] }}</div>

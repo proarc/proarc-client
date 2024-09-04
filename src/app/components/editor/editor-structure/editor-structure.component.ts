@@ -502,7 +502,9 @@ export class EditorStructureComponent implements OnInit {
   selectColumns() {
     const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
       data: {
+        type: 'structure',
         isRepo: this.isRepo,
+        isImport: !this.isRepo,
         itemModel: this.layout.item.model,
         selectedModel: this.layout.lastSelectedItem.model,
         selectedParentModel: this.layout.selectedParentItem.model,
