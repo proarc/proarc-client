@@ -219,6 +219,7 @@ export class WorkFlowComponent implements OnInit {
       });
       if (id) {
         const job = this.jobs.find(j => j.id === id);
+        this.selectedJob = null;
         this.selectJob(job);
       } else {
         this.selectJob(this.jobs[0]);
@@ -409,7 +410,7 @@ export class WorkFlowComponent implements OnInit {
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        console.log(data.textInput.value)
+        //console.log(data.textInput.value)
         let params = `model=${model}`;
         params = `${params}&jobId=${this.activeJob.id}`;
         if (data.textInput.value !== '') {
@@ -688,13 +689,13 @@ export class WorkFlowComponent implements OnInit {
       job.expanded = false;
     }
     
-    this.setToHidden(job, this.jobs.indexOf(job));
+    this.setToHidden(job, this.subJobs.indexOf(job));
     this.refreshVisibleSubJobs();
   }
 
   setToHidden(job: WorkFlow, idx: number) {
-    for (let i = idx; i < this.jobs.length; i++) {
-      const j = this.jobs[i]
+    for (let i = idx; i < this.subJobs.length; i++) {
+      const j = this.subJobs[i]
       if (j.parentId === job.id) {
         j.hidden = !job.expanded || job.hidden;
         this.setToHidden(j, i)
