@@ -2495,6 +2495,7 @@
     "ownerName": "Owner name",
     "ownerId": "Job created by",
     "profileName": "Profile",
+    "profileLabel": "Task",
     "rawPath": "Path",
     "taskName" : "Task",
     "taskUser": "Task user name",

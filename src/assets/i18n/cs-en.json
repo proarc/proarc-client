@@ -2503,6 +2503,7 @@
     "ownerName": "Vlastník",
     "ownerId": "Založil záměr",
     "profileName": "Profil",
+    "profileLabel": "Úkol",
     "rawPath": "Adresář surových skenu",
     "taskName" : "Dokončený úkol",
     "taskUser": "Dokončil úkol",
