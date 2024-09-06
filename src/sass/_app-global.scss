@@ -516,7 +516,9 @@ as-split {
           background-color: $app-color-item-selected;
 
           .app-item-thumb {
-            opacity: .5;
+            img {
+              opacity: .5;
+            }
           }
         }
       }
