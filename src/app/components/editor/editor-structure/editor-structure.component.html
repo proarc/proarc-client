@@ -184,7 +184,9 @@
             </div>
             <div class="app-item-label" *ngIf="!isRepo">
               <mat-icon *ngIf="item.invalid">warning</mat-icon>
-              {{ item.label + (shortLabels ? "" : (", " + ("pageType." + item.pageType.toLowerCase() | translate))) }}
+              <!-- {{ item.label + (shortLabels ? "" : (", " + ("pageType." + item.pageType.toLowerCase() | translate))) }} -->
+              <ng-container *ngIf="item.pageNumber">{{ item.pageNumber }}, </ng-container>
+              <ng-container *ngIf="item.pageIndex">({{ item.pageIndex }})</ng-container>{{ (shortLabels ? "" : (", " + ("pageType." + item.pageType.toLowerCase() | translate))) }}
               <!-- page number, page index, page type, model -->
             </div>
           </div>
