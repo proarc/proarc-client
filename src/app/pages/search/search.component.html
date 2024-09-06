@@ -18,7 +18,7 @@
         {{ 'button.search' | translate }}
       </button>
       <ng-container *ngIf="searchMode === 'phrase'">
-        <mat-form-field>
+        <mat-form-field class="app-model">
           <mat-select #modelSelect [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model" (keyup.enter)="enterModel(modelSelect)">
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>
@@ -35,7 +35,7 @@
         </mat-form-field>
       </ng-container>
       <ng-container *ngIf="searchMode !== 'phrase'">
-        <mat-form-field>
+        <mat-form-field class="app-model">
           <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model">
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let model of models" [value]="model">{{ "model." + model | translate }}</mat-option>

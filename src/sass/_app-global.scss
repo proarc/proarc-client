@@ -383,8 +383,10 @@ as-split {
 // formbar
 .app-formbar {
   .mat-form-field {
-    flex: 1 1 calc(10% - 16px);
-    min-width: calc(10% - 16px);
+    &:not(.app-model) {
+      flex: 1 1 calc(10% - 16px);
+      min-width: calc(10% - 16px);
+    }
 
     .mat-form-field-suffix {
       .mat-icon-button {
@@ -392,6 +394,10 @@ as-split {
           @include setIcon(18, $position: sub);
         }
       }
+    }
+
+    &.app-model {
+      width: 260px;
     }
   }
 }
