@@ -1787,6 +1787,7 @@
     "originInfo/dateCreated": "Date created",
     "originInfo/dateCreated/value": "Value",
     "originInfo/dateCreated/@point": "Point",
+    "originInfo/dateCreated/@qualifier": "Qualifier",
     "originInfo/dateIssued": "Date issued",
     "originInfo/dateIssued/@encoding": "Encoding",
     "originInfo/dateIssued/@point": "Point",
@@ -1921,6 +1922,7 @@
     "relatedItem/titleInfo": "Title info",
     "relatedItem/titleInfo/@type": "Type",
     "relatedItem/titleInfo/nonSort": "Non sort",
+    "relatedItem/titleInfo/title/@otherType": "Other type",
     "relatedItem/titleInfo/partName": "Part name",
     "relatedItem/titleInfo/partNumber": "Part number",
     "relatedItem/titleInfo/subTitle": "Subtitle",
@@ -1948,6 +1950,7 @@
     "titleInfo/@type": "Type",
     "titleInfo/@otherType": "Other type",
     "titleInfo/nonSort": "Non sort",
+    "titleInfo/title/@otherType": "Typ",
     "titleInfo/partName": "Part name",
     "titleInfo/partNumber": "Part number",
     "titleInfo/subTitle": "Subtitle",
@@ -2187,7 +2190,8 @@
       "host": "Host",
       "constituent": "Constituent",
       "otherVersion": "Other version",
-      "otherFormat": "Other format"
+      "otherFormat": "Other format",
+      "issue": "issue"
     }
   },
   "workflow": {
@@ -2645,6 +2649,7 @@
     "model:ndkmonographsupplement": "NDK Příloha monografie",
     "model:ndkchapter": "NDK Kapitola",
     "model:ndkmap": "NDK Kartografický dokument",
+    "model:ndkgraphic": "NDK Grafika",
     "model:ndksheetmusic": "NDK Hudebnina",
     "model:ndkpage": "NDK Strana",
     "model:page": "Strana",

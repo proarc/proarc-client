@@ -117,7 +117,7 @@
           description: 'Vyplnit údaje o autorovi.',
           fields: {
             type: {
-              usage: 'R',
+              usage: 'MA',
               label: 'Typ',
               selector: 'name/namePart/@type',
               labelKey: 'name/namePart/@type',
@@ -271,7 +271,7 @@
               description: 'Vyplnit údaje o autorovi.',
               fields: {
                 type: {
-                  usage: 'R',
+                  usage: 'MA',
                   label: 'Typ',
                   selector: 'name/namePart/@type',
                   labelKey: 'name/namePart/@type',
@@ -591,6 +591,7 @@
       fields: {
         authority: {
           usage: 'M',
+          cols: 2,
           label: 'Autorita',
           selector: 'classification/@authority',
           labelKey: 'classification/@authority',
@@ -599,21 +600,21 @@
             ['udc', 'udc'],
           ]
         },
-//        edition: {
-//          usage: 'RA',
-//          label: 'Vydání',
-//          selector: 'classification/@edition',
-//          labelKey: 'classification/@edition',
-//          cols: 2,
-//          description: '<ul>\
-//            <li>\
-//              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)\
-//            </li>\
-//          </ul>',
-//          options: [
-//            ['Konspekt', 'Konspekt']
-//          ]
-//        },
+        edition: {
+          usage: 'MA',
+          label: 'Vydání',
+          selector: 'classification/@edition',
+          labelKey: 'classification/@edition',
+          cols: 2,
+          description: '<ul>\
+            <li>\
+              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)\
+            </li>\
+          </ul>',
+          options: [
+            ['Konspekt', 'Konspekt']
+          ]
+        },
         value: {
           usage: 'RA',
           selector: 'classification/value',

@@ -8,6 +8,18 @@
       expanded: true,
       description: 'Název titulu periodika, kterého je číslo součástí pro plnění použít katalogizační záznam nebo názvové autority',
       fields: {
+        otherType: {
+          usage: 'MA',
+          label: 'Typ',
+          cols: 2,
+          selector: 'titleInfo/title/@otherType',
+          labelKey: 'titleInfo/title/@otherType',
+          description: 'Hodnota pro mutační vydání je "mutational edition".',
+          options: [
+            ['', '-'],
+            ['mutational edition', 'mutational edition'],
+          ]
+        },
         title: {
           usage: 'M',
           required: true,
@@ -71,7 +83,7 @@
           description: 'Podnázev čísla periodika'
         },
         partName: {
-          usage: 'R',
+          usage: 'MA',
           label: 'Název výtisku',
           selector: 'titleInfo/partName',
           labelKey: 'titleInfo/partName',
@@ -277,7 +289,7 @@
                   help: 'off'
                 },
                 type: {
-                  usage: 'M',
+                  usage: 'O',
                   cols: 2,
                   selector: 'originInfo/place/placeTerm/@type',
                   labelKey: 'originInfo/place/placeTerm/@type',
@@ -300,7 +312,7 @@
                   ]
                 },
                 authority: {
-                  usage: 'MA',
+                  usage: 'O',
                   cols: 2,
                   selector: 'originInfo/place/placeTerm/@authority',
                   labelKey: 'originInfo/place/placeTerm/@authority',
@@ -349,7 +361,7 @@
               help: 'off'
             },
             authority: {
-              usage: 'MA',
+              usage: 'O',
               cols: 2,
               selector: 'location/physicalLocation/@authority',
               labelKey: 'location/physicalLocation/@authority',
@@ -404,22 +416,21 @@
               usage: 'O',
               selector: 'location/url/@note',
               labelKey: 'location/url/@note',
-              cols: 2,
               label: 'Note',
               help: 'off'
             },
-            usage: {
-              usage: 'O',
-              cols: 2,
-              selector: 'location/url/@usage',
-              labelKey: 'location/url/@usage',
-              label: 'Usage',
-              help: 'off',
-              options: [
-                ['', '-'],
-                ['primary', 'primary']
-              ]
-            },
+//            usage: {
+//              usage: 'O',
+//              cols: 2,
+//              selector: 'location/url/@usage',
+//              labelKey: 'location/url/@usage',
+//              label: 'Usage',
+//              help: 'off',
+//              options: [
+//                ['', '-'],
+//                ['primary', 'primary']
+//              ]
+//            },
           }
         },
       }

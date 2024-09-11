@@ -60,6 +60,7 @@ var APP_GLOBAL = {
       'model:ndkmonographsupplement',
       'model:ndkchapter',
       'model:ndkmap',
+      'model:ndkgraphic',
       'model:ndksheetmusic',
       'model:ndkpage',
       'model:page',

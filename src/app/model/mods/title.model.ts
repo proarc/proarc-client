@@ -53,6 +53,7 @@ export class ModsTitle extends ModsElement {
         this.addControl('partNumber');
         this.addControl('partName');
         this.addControl('type');
+        this.addControl('otherType');
         this.addControl('lang');
         this.addControl('otherType');
         this.addControl('nonSort');

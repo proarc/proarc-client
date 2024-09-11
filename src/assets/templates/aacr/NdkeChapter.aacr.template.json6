@@ -96,7 +96,7 @@
           description: 'Vyplnit údaje o autorovi.',
           fields: {
             type: {
-              usage: 'R',
+              usage: 'MA',
               label: 'Typ',
               selector: 'name/namePart/@type',
               labelKey: 'name/namePart/@type',
@@ -257,7 +257,7 @@
               description: 'Vyplnit údaje o autorovi.',
               fields: {
                 type: {
-                  usage: 'R',
+                  usage: 'MA',
                   label: 'Typ',
                   selector: 'name/namePart/@type',
                   labelKey: 'name/namePart/@type',
@@ -564,7 +564,7 @@
       }
     },
     classification: {
-      usage: 'RA',
+      usage: 'R',
       label: 'Klasifikace',
       selector: 'classification',
       labelKey: 'classification',
@@ -619,6 +619,18 @@
       labelKey: 'part',
       description: 'Popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.',
       fields: {
+        type: {
+          usage: 'M',
+          defaultValue: 'pageIndex',
+          label: 'Typ',
+          selector: 'part/@type',
+          labelKey: 'part/@type',
+          description: 'Hodnota bude vždy "volume" ',
+          options: [
+            ['pageIndex', 'Page Index'],
+            ['pageNumber', 'Page Number']
+          ]
+        },
         extent: {
           usage: 'MA',
           label: 'Rozsah',

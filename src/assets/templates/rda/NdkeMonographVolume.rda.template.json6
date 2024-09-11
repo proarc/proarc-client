@@ -113,14 +113,14 @@
           ]
         },
         namePart: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Jméno',
           selector: 'name/namePart',
           labelKey: 'name/namePart',
           description: 'Vyplnit údaje o autorovi.',
           fields: {
             type: {
-              usage: 'R',
+              usage: 'MA',
               label: 'Typ',
               selector: 'name/namePart/@type',
               labelKey: 'name/namePart/@type',
@@ -166,6 +166,14 @@
           labelKey: 'name/etal',
           cols: 2,
           description: 'Element indikující, že existuje více autorů, než pouze ti, kteří byli uvedeni v <name> elementu.</br>'
+        },
+        affiliation: {
+          usage: 'O',
+          label: 'Napojená instituce',
+          selector: 'name/affiliation',
+          labelKey: 'name/affiliation',
+          description: 'Umožňuje vepsat název instituce, se kterou je autor spojen<br/>\
+          např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.'
         },
         role: {
           usage: 'MA',
@@ -567,7 +575,7 @@
           fields: {
             value: {
               usage: 'RA',
-              required: true,
+//              required: true,
               selector: 'location/shelfLocator/value',
               labelKey: 'location/shelfLocator/value',
               label: 'Hodnota',
@@ -706,14 +714,14 @@
               ]
             },
             namePart: {
-              usage: 'MA',
+              usage: 'M',
               label: 'Jméno',
               selector: 'name/namePart',
               labelKey: 'name/namePart',
               description: 'Vyplnit údaje o autorovi.',
               fields: {
                 type: {
-                  usage: 'R',
+                  usage: 'MA',
                   label: 'Typ',
                   selector: 'name/namePart/@type',
                   labelKey: 'name/namePart/@type',
@@ -751,6 +759,14 @@
               labelKey: 'name/nameIdentifier',
               cols: 2,
               description: 'Číslo národní autority',
+            },
+            affiliation: {
+              usage: 'O',
+              label: 'Napojená instituce',
+              selector: 'name/affiliation',
+              labelKey: 'name/affiliation',
+              description: 'Umožňuje vepsat název instituce, se kterou je autor spojen<br/>\
+          např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.'
             },
             role: {
               usage: 'MA',
@@ -954,7 +970,7 @@
       a v polích 5XX (poznámky) katalogizačního záznamu',
       fields: {
         note: {
-          usage: 'RA',
+          usage: 'O',
           selector: 'note/value',
           labelKey: 'note/value',
           label: 'Poznámka',
@@ -1078,7 +1094,7 @@
           ]
         },
         edition: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Vydání',
           selector: 'classification/@edition',
           labelKey: 'classification/@edition',
@@ -1450,14 +1466,14 @@
               ]
             },
             namePart: {
-              usage: 'MA',
+              usage: 'M',
               label: 'Jméno',
               selector: 'name/namePart',
               labelKey: 'name/namePart',
               description: 'Vyplnit údaje o autorovi.',
               fields: {
                 type: {
-                  usage: 'R',
+                  usage: 'MA',
                   label: 'Typ',
                   selector: 'name/namePart/@type',
                   labelKey: 'name/namePart/@type',
@@ -1495,6 +1511,14 @@
               labelKey: 'relatedItem/name/etal',
               cols: 2,
               description: 'Element indikující, že existuje více autorů, než pouze ti, kteří byli uvedeni v <name> elementu.</br>'
+            },
+            affiliation: {
+              usage: 'O',
+              label: 'Napojená instituce',
+              selector: 'name/affiliation',
+              labelKey: 'name/affiliation',
+              description: 'Umožňuje vepsat název instituce, se kterou je autor spojen<br/>\
+          např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.'
             },
             nameIdentifier: {
               usage: 'RA',
@@ -1861,14 +1885,14 @@
                   ]
                 },
                 namePart: {
-                  usage: 'MA',
+                  usage: 'M',
                   label: 'Jméno',
                   selector: 'name/namePart',
                   labelKey: 'name/namePart',
                   description: 'Vyplnit údaje o autorovi.',
                   fields: {
                     type: {
-                      usage: 'R',
+                      usage: 'MA',
                       label: 'Typ',
                       selector: 'name/namePart/@type',
                       labelKey: 'name/namePart/@type',
@@ -1906,6 +1930,14 @@
                   labelKey: 'name/nameIdentifier',
                   cols: 2,
                   description: 'Číslo národní autority',
+                },
+                affiliation: {
+                  usage: 'O',
+                  label: 'Napojená instituce',
+                  selector: 'name/affiliation',
+                  labelKey: 'name/affiliation',
+                  description: 'Umožňuje vepsat název instituce, se kterou je autor spojen<br/>\
+          např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.'
                 },
                 role: {
                   usage: 'MA',
@@ -2085,7 +2117,7 @@
       a v polích 5XX (poznámky) katalogizačního záznamu',
           fields: {
             note: {
-              usage: 'RA',
+              usage: 'O',
               selector: 'relatedItem/note/value',
               labelKey: 'relatedItem/note/value',
               label: 'Poznámka',

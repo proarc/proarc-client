@@ -23,6 +23,7 @@ export class MediaComponent implements OnInit {
   canAddPdf = false;
   allowedModels = [
   'model:ndkeperiodicalissue',
+  'model:ndkeperiodicalsupplement',
   'model:ndkearticle',
   'model:ndkemonographvolume',
   'model:ndkechapter',
@@ -133,7 +134,7 @@ export class MediaComponent implements OnInit {
           if (!this.streamProfile) {
             this.streamProfile = this.streamProfiles[0];
           }
-          
+
           this.imageUrl = this.api.getStreamUrl(this.inputPid, this.streamProfile.dsid, this.layout.getBatchId());
           this.canAddPDF_A = this.streamProfiles.findIndex(sp => sp.dsid === 'RAW' && sp.mime === 'application/pdf') > -1;
 

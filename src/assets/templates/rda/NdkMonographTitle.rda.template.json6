@@ -306,7 +306,6 @@
       publisher: {
         usage: 'MA',
         label: 'Nakladatel',
-        cols: 2,
         selector: 'originInfo/publisher',
         labelKey: 'originInfo/publisher',
         description: 'Jméno entity, která dokument vytvořila, vydala, distribuovala nebo vyrobila<br/>\
@@ -825,7 +824,7 @@
     description: 'Shrnutí obsahu jako celku odpovídá poli 520 MARC21',
     fields: {
       abstract: {
-        usage: 'RA',
+        usage: 'R',
         label: 'Abstrakt',
         selector: 'abstract',
         labelKey: 'abstract/value',
@@ -1200,7 +1199,7 @@
             help: 'off'
           },
           authority: {
-            usage: 'MA',
+            usage: 'O',
             cols: 2,
             selector: 'location/physicalLocation/@authority',
             labelKey: 'location/physicalLocation/@authority',
@@ -1260,24 +1259,24 @@
             label: 'Note',
             help: 'off'
           },
-          usage: {
-            usage: 'O',
-            cols: 2,
-            selector: 'location/url/@usage',
-            labelKey: 'location/url/@usage',
-            label: 'Usage',
-            help: 'off',
-            options: [
-              [
-                '',
-                '-'
-              ],
-              [
-                'primary',
-                'primary'
-              ]
-            ]
-          },
+//          usage: {
+//            usage: 'O',
+//            cols: 2,
+//            selector: 'location/url/@usage',
+//            labelKey: 'location/url/@usage',
+//            label: 'Usage',
+//            help: 'off',
+//            options: [
+//              [
+//                '',
+//                '-'
+//              ],
+//              [
+//                'primary',
+//                'primary'
+//              ]
+//            ]
+//          },
         }
       },
     }

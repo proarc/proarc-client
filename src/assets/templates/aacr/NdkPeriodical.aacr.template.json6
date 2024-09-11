@@ -192,7 +192,6 @@
           label: 'Datum vydání',
           selector: 'originInfo/dateIssued',
           labelKey: 'originInfo/dateIssued',
-          cols: 2,
           description: 'Datum vydání předlohy, nutno zaznamenat rok/roky, v nichž časopis vycházel - formu zápisu přebírat z katalogu (např. 1900-1939)<br/>\
             dpovídá hodnotě z katalogizačního záznamu, pole 260 $c a polí 008/07-10 a 008/11-14',
           fields: {
@@ -411,7 +410,7 @@
               help: 'off'
             },
             authority: {
-              usage: 'MA',
+              usage: 'O',
               cols: 2,
               selector: 'location/physicalLocation/@authority',
               labelKey: 'location/physicalLocation/@authority',
@@ -568,8 +567,8 @@
             },
             value: {
               label: 'Hodnota',
-              usage: 'M',
-              required: true,
+              usage: 'R',
+//              required: true,
               selector: 'subject/geographicCode/value',
               labelKey: 'subject/geographicCode/value',
               cols: 2,
@@ -643,7 +642,7 @@
                 value: {
                   label: 'Hodnota',
                   usage: 'M',
-                  required: true,
+//                  required: true,
                   selector: 'name/namePart',
                   labelKey: 'name/namePart/value',
                   cols: 2,
@@ -705,8 +704,8 @@
           ]
         },
         language: {
-          usage: 'M',
-          required: true,
+          usage: 'MA',
+//          required: true,
           label: 'Jazyk',
           selector: 'language/languageTerm',
           labelKey: 'language/languageTerm',
@@ -847,6 +846,12 @@
           labelKey: 'note/value',
           label: 'Poznámka',
           help: 'off'
+        },
+        type: {
+          usage: '0',
+          label: 'Typ',
+          selector: 'note/@type',
+          labelKey: 'note/@type'
         }
       }
     },
@@ -1009,7 +1014,7 @@
     },
     recordInfo: {
       usage: 'M',
-      required: true,
+//      required: true,
       label: 'Údaje o metadatovém záznamu',
       selector: 'recordInfo',
       labelKey: 'recordInfo',
@@ -1059,7 +1064,7 @@
         },
         recordCreationDate: {
           usage: 'M',
-          required: true,
+//          required: true,
           label: 'Datum vytvoření',
           selector: 'recordInfo/recordCreationDate',
           labelKey: 'recordInfo/recordCreationDate',
@@ -1751,7 +1756,7 @@
                   help: 'off'
                 },
                 authority: {
-                  usage: 'MA',
+                  usage: 'O',
                   cols: 2,
                   selector: 'location/physicalLocation/@authority',
                   labelKey: 'location/physicalLocation/@authority',

@@ -540,7 +540,7 @@
               help: 'off'
             },
             authority: {
-              usage: 'MA',
+              usage: 'O',
               cols: 2,
               selector: 'location/physicalLocation/@authority',
               labelKey: 'location/physicalLocation/@authority',
@@ -809,7 +809,7 @@
       description: 'Shrnutí obsahu jako celku odpovídá poli 520 MARC21',
       fields: {
         abstract: {
-          usage: 'RA',
+          usage: 'R',
           label: 'Abstrakt',
           selector: 'abstract',
           labelKey: 'abstract/value',
@@ -1918,7 +1918,7 @@
                   help: 'off'
                 },
                 authority: {
-                  usage: 'MA',
+                  usage: 'O',
                   cols: 2,
                   selector: 'location/physicalLocation/@authority',
                   labelKey: 'location/physicalLocation/@authority',
@@ -2105,7 +2105,7 @@
           description: 'Shrnutí obsahu jako celku odpovídá poli 520 MARC21',
           fields: {
             abstract: {
-              usage: 'RA',
+              usage: 'R',
               label: 'Abstrakt',
               selector: 'relatedItem/abstract',
               labelKey: 'relatedItem/abstract',

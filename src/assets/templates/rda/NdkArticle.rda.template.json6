@@ -192,7 +192,7 @@
           ]
         },
         topic: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Klíčové slovo/Předmětové heslo',
           selector: 'subject/topic',
           labelKey: 'subject/topic',
@@ -200,7 +200,7 @@
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21',
           fields: {
             value: {
-              usage: 'R',
+              usage: 'MA',
               label: 'Hodnota',
               selector: 'subject/topic/value',
               labelKey: 'subject/topic/value',
@@ -578,7 +578,7 @@
           ]
         },
         edition: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Vydání',
           selector: 'classification/@edition',
           labelKey: 'classification/@edition',
@@ -612,6 +612,7 @@
         type: {
           usage: 'M',
           label: 'Typ',
+          defaultValue: 'pageIndex',
           selector: 'part/@type',
           labelKey: 'part/@type',
           description: 'Hodnota bude "pageNumber" nebo "pageIndex',
@@ -1490,7 +1491,7 @@
               ]
             },
             topic: {
-              usage: 'R',
+              usage: 'MA',
               label: 'Klíčové slovo/Předmětové heslo',
               selector: 'relatedItem/subject/topic',
               labelKey: 'relatedItem/subject/topic',
@@ -1498,7 +1499,7 @@
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x',
               fields: {
                 value: {
-                  usage: 'R',
+                  usage: 'MA',
                   label: 'Hodnota',
 //                  cols: 2,
                   selector: 'subject/topic/value',

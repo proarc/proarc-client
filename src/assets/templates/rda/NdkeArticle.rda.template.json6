@@ -136,14 +136,14 @@
         ]
       },
       namePart: {
-        usage: 'MA',
+        usage: 'M',
         label: 'Jméno',
         selector: 'name/namePart',
         labelKey: 'name/namePart',
         description: 'Vyplnit údaje o autorovi.',
         fields: {
           type: {
-            usage: 'R',
+            usage: 'MA',
             label: 'Typ',
             selector: 'name/namePart/@type',
             labelKey: 'name/namePart/@type',
@@ -371,14 +371,14 @@
             ]
           },
           namePart: {
-            usage: 'MA',
+            usage: 'M',
             label: 'Jméno',
             selector: 'name/namePart',
             labelKey: 'name/namePart',
             description: 'Vyplnit údaje o autorovi.',
             fields: {
               type: {
-                usage: 'R',
+                usage: 'MA',
                 label: 'Typ',
                 selector: 'name/namePart/@type',
                 labelKey: 'name/namePart/@type',
@@ -1242,14 +1242,14 @@
             ]
           },
           namePart: {
-            usage: 'MA',
+            usage: 'M',
             label: 'Jméno',
             selector: 'name/namePart',
             labelKey: 'name/namePart',
             description: 'Vyplnit údaje o autorovi.',
             fields: {
               type: {
-                usage: 'R',
+                usage: 'MA',
                 label: 'Typ',
                 selector: 'name/namePart/@type',
                 labelKey: 'name/namePart/@type',
@@ -1287,7 +1287,7 @@
               value: {
                 label: 'Hodnota',
                 usage: 'M',
-                required: true,
+//                required: true,
                 selector: 'name/namePart',
                 labelKey: 'name/namePart/value',
                 cols: 2,
@@ -1469,14 +1469,14 @@
                 ]
               },
               namePart: {
-                usage: 'MA',
+                usage: 'M',
                 label: 'Jméno',
                 selector: 'name/namePart',
                 labelKey: 'name/namePart',
                 description: 'Vyplnit údaje o autorovi.',
                 fields: {
                   type: {
-                    usage: 'R',
+                    usage: 'MA',
                     label: 'Typ',
                     selector: 'name/namePart/@type',
                     labelKey: 'name/namePart/@type',
@@ -1514,7 +1514,7 @@
                   value: {
                     label: 'Hodnota',
                     usage: 'M',
-                    required: true,
+//                    required: true,
                     selector: 'name/namePart',
                     labelKey: 'name/namePart/value',
                     cols: 2,
