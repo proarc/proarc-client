@@ -1049,8 +1049,8 @@
         description: 'Signatura nebo lokační údaje o daném konkrétním dokumentu, který slouží jako předloha.',
         fields: {
           value: {
-            usage: 'M',
-            required: true,
+            usage: 'O',
+//            required: true,
             selector: 'location/shelfLocator/value',
             labelKey: 'location/shelfLocator/value',
             label: 'Hodnota',
@@ -1235,7 +1235,7 @@
         description: 'identifikátor záznamu v katalogu, přebírá se z pole 001',
         fields: {
           value: {
-            usage: 'MA',
+            usage: 'R',
             label: 'Identifikátor záznamu',
             cols: 2,
             selector: 'recordInfo/recordIdentifier',
