@@ -937,29 +937,12 @@ export class AacrTemplate {
           selector: 'recordInfo/languageOfCataloging',
           description: `jazyk katalogového záznamu`,
           fields: {
-            languageOfCataloging: {
+            language: {
               usage: 'R',
-              label: 'Jazyk záznamu',
-              cols: 2,
-              selector: 'recordInfo/languageOfCataloging',
-              help: 'off'
-            },
-            languageTerm: {
-              usage: 'R',
-              label: 'Zdroj',
-              cols: 2,
+              label: 'Jazyk',
               selector: 'recordInfo/languageOfCataloging/languageTerm',
-              description: `přebírá se z katalogu - pole 40 $b`
-            },
-            authority: {
-              usage: 'R',
-              label: 'Autorita',
-              cols: 2,
-              selector: 'recordInfo/languageOfCataloging/languageTerm/@authority',
-              description: `authority – hodnota "iso639-2b"`,
-              options: [
-                ['iso639-2b', 'iso639-2b']
-              ]
+              labelKey: 'recordInfo/languageOfCataloging/languageTerm',
+              description: 'Přesné určení jazyka'
             }
           }
         },

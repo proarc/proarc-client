@@ -32,5 +32,11 @@
       </ng-template>
     </app-editor-field>
 
+    <app-editor-field *ngIf="item.available['languageOfCataloging']" [field]="item.languageOfCatalogings" [nested]='true'>
+      <ng-template let-languageOfCataloging="item" #templateContent>
+        <app-field-codebook field="language" [item]="languageOfCataloging" [options]="codebook.languages" [(value)]='languageOfCataloging.language["_"]' [showCode]="true"></app-field-codebook>
+      </ng-template>
+    </app-editor-field>
+
   </ng-template>
 </app-editor-field>

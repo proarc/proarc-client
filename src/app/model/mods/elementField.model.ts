@@ -50,6 +50,7 @@ import {ModsPhysicalExtent} from './extentPhysical.model';
 import {ModsEdition} from './edition.model';
 import {ModsRelatedItem2} from './relatedItem2.model';
 import {ModsDetail} from './detail.model';
+import {ModsLanguageOfCataloging} from './languageOfCataloging.model';
 
 export class ElementField {
 
@@ -368,6 +369,8 @@ export class ElementField {
                 return new ModsRecordCreationDate(el, this.template);
             case ModsRecordIdentifier.getId():
                 return new ModsRecordIdentifier(el, this.template);
+            case ModsLanguageOfCataloging.getId():
+                return new ModsLanguageOfCataloging(el, this.template);
             case ModsExtent.getId():
                 return new ModsExtent(el, this.template);
             case ModsDetail.getId():
@@ -499,6 +502,8 @@ export class ElementField {
                 return ModsRecordCreationDate.getSelector();
             case ModsRecordIdentifier.getId():
                 return ModsRecordIdentifier.getSelector();
+            case ModsLanguageOfCataloging.getId():
+                return ModsLanguageOfCataloging.getSelector()
             case ModsExtent.getId():
                 return ModsExtent.getSelector();
             case ModsDetail.getId():

@@ -255,7 +255,6 @@
         },
         dateIssued: {
           usage: 'M',
-          required: true,
           label: 'Datum vydání',
           selector: 'originInfo/dateIssued',
           labelKey: 'originInfo/dateIssued',
@@ -273,7 +272,7 @@
             využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>',
           fields: {
             value: {
-              usage: 'MA',
+              usage: 'M',
               selector: 'originInfo/dateIssued/value',
               labelKey: 'originInfo/dateIssued/value',
               label: 'Hodnota',
@@ -566,18 +565,18 @@
               label: 'Note',
               help: 'off'
             },
-            usage: {
-              usage: 'O',
-              cols: 2,
-              selector: 'location/url/@usage',
-              labelKey: 'location/url/@usage',
-              label: 'Usage',
-              help: 'off',
-              options: [
-                ['', '-'],
-                ['primary', 'primary']
-              ]
-            },
+//            usage: {
+//              usage: 'O',
+//              cols: 2,
+//              selector: 'location/url/@usage',
+//              labelKey: 'location/url/@usage',
+//              label: 'Usage',
+//              help: 'off',
+//              options: [
+//                ['', '-'],
+//                ['primary', 'primary']
+//              ]
+//            },
           }
         },
       }
@@ -979,7 +978,7 @@
       description: 'Údaje o identifikátorech, obsahuje unikátní identifikátory mezinárodní nebo lokální, které kartografický dokument obsahuje.',
       fields: {
         type: {
-          usage: 'MA',
+          usage: 'M',
           required: true,
           label: 'Typ',
           selector: 'identifier/@type',
@@ -1068,8 +1067,8 @@
           ]
         },
         value: {
-          usage: 'M',
-          required: true,
+          usage: 'R',
+//          required: true,
           selector: 'classification/value',
           labelKey: 'classification/value',
           label: 'Hodnota',
@@ -1142,7 +1141,7 @@
       description: 'údaje o metadatovém záznamu – jeho vzniku, změnách apod.',
       fields: {
         descriptionStandard: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Standard metadat',
           cols: 2,
           selector: 'recordInfo/descriptionStandard',
@@ -1251,7 +1250,7 @@
           description: 'identifikátor záznamu v katalogu, přebírá se z pole 001',
           fields: {
             value: {
-              usage: 'MA',
+              usage: 'R',
               label: 'Identifikátor záznamu',
               cols: 2,
               selector: 'recordInfo/recordIdentifier',
@@ -1287,32 +1286,12 @@
           labelKey: 'recordInfo/languageOfCataloging',
           description: 'jazyk katalogového záznamu',
           fields: {
-            languageOfCataloging: {
+            language: {
               usage: 'R',
-              label: 'Jazyk záznamu',
-              cols: 2,
-              selector: 'recordInfo/languageOfCataloging',
-              labelKey: 'recordInfo/languageOfCataloging',
-              help: 'off'
-            },
-            languageTerm: {
-              usage: 'R',
-              label: 'Zdroj',
-              cols: 2,
+              label: 'Jazyk',
               selector: 'recordInfo/languageOfCataloging/languageTerm',
               labelKey: 'recordInfo/languageOfCataloging/languageTerm',
-              description: 'přebírá se z katalogu - pole 40 $b'
-            },
-            authority: {
-              usage: 'R',
-              label: 'Autorita',
-              cols: 2,
-              selector: 'recordInfo/languageOfCataloging/languageTerm/@authority',
-              labelKey: 'recordInfo/languageOfCataloging/languageTerm/@authority',
-              description: 'authority – hodnota "iso639-2b"',
-              options: [
-                ['iso639-2b', 'iso639-2b']
-              ]
+              description: 'Přesné určení jazyka'
             }
           }
         },

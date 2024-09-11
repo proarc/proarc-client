@@ -5,6 +5,7 @@ import {ModsRecordContentSource} from './recordContentSource.model';
 import {ModsRecordCreationDate} from './recordCreationDate.model';
 import {ModsRecordChangeDate} from './recordChangeDate.model';
 import {ModsRecordIdentifier} from './recordIdentifier.model';
+import {ModsLanguageOfCataloging} from './languageOfCataloging.model';
 
 export class ModsRecordInfo extends ModsElement {
 
@@ -14,6 +15,7 @@ export class ModsRecordInfo extends ModsElement {
     recordCreationDates: ElementField;
     recordChangeDates: ElementField;
     recordIdentifiers: ElementField;
+    languageOfCatalogings: ElementField;
 
     static getSelector() {
         return 'recordInfo';
@@ -40,7 +42,7 @@ export class ModsRecordInfo extends ModsElement {
         }
         this.recordOrigin = this.modsElement['recordOrigin'][0];
         this.addControl('recordOrigin');
-        
+
         if (this.available2('recordContentSource')) {
             this.recordContentSources = new ElementField(this.modsElement, ModsRecordContentSource.getSelector(), this.getField('recordContentSource'));
             this.addSubfield(this.recordContentSources);
@@ -60,6 +62,12 @@ export class ModsRecordInfo extends ModsElement {
             this.recordIdentifiers = new ElementField(this.modsElement, ModsRecordIdentifier.getSelector(), this.getField('recordIdentifier'));
             this.addSubfield(this.recordIdentifiers);
             this.addControl('recordIdentifier');
+        }
+
+        if (this.available2('languageOfCataloging')) {
+            this.languageOfCatalogings = new ElementField(this.modsElement, ModsLanguageOfCataloging.getSelector(), this.getField('languageOfCataloging'));
+            this.addSubfield(this.languageOfCatalogings);
+            this.addControl('languageOfCataloging');
         }
     }
 }
