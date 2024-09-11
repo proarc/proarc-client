@@ -565,27 +565,23 @@
           description: 'Vyplnit hodnotu <strong>udc</strong>',
           options: [
             ['udc', 'udc'],
+            ['Konspekt', 'Konspekt']
           ]
         },
-//        edition: {
-//          usage: 'M',
-//          label: 'Vydání',
-//          selector: 'classification/@edition',
-//          labelKey: 'classification/@edition',
-//          cols: 2,
-//          description: '
-//          <ul>
-//            <li>
-//              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)
-//            </li>
-//          </ul>',
-//          options: [
-//            ['Konspekt', 'Konspekt']
-//          ]
-//        },
+        edition: {
+          usage: 'MA',
+          label: 'Vydání',
+          selector: 'classification/@edition',
+          labelKey: 'classification/@edition',
+          cols: 2,
+          description: '<ul><li>vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)</li></ul>',
+          options: [
+            ['Konspekt', 'Konspekt']
+          ]
+        },
         value: {
-          usage: 'M',
-          required: true,
+          usage: 'R',
+//          required: true,
           selector: 'classification/value',
           labelKey: 'classification/value',
           label: 'Hodnota',
@@ -1851,7 +1847,7 @@
               ]
             },
             value: {
-              usage: 'MA',
+              usage: 'R',
               selector: 'relatedItem/classification/value',
               labelKey: 'relatedItem/classification/value',
               label: 'Hodnota',

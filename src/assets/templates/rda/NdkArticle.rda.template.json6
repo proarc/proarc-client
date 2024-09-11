@@ -593,8 +593,8 @@
           ]
         },
         value: {
-          usage: 'M',
-          required: true,
+          usage: 'R',
+//          required: true,
           selector: 'classification/value',
           labelKey: 'classification/value',
           label: 'Hodnota',
@@ -1867,7 +1867,7 @@
               ]
             },
             value: {
-              usage: 'MA',
+              usage: 'R',
               selector: 'relatedItem/classification/value',
               labelKey: 'relatedItem/classification/value',
               label: 'Hodnota',
