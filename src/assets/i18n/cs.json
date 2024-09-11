@@ -1941,6 +1941,7 @@
     "tableOfContents": "Tabulka souvislostí",
     "titleInfo": "Název",
     "titleInfo/@type": "Typ",
+    "titleInfo/@otherType": "Druh vydání",
     "titleInfo/nonSort": "Část vynechaná při hledání",
     "titleInfo/partName": "Jméno části",
     "titleInfo/partNumber": "Číslo části",
@@ -2171,7 +2172,8 @@
       "volume_supplement": "Příloha k ročníku",
       "w3cdtf": "W3CDTF",
       "yes": "Ano",
-      "primary": "Primární (hlavní)"
+      "primary": "Primární (hlavní)",
+      "mutational edition": "Mutační vydání"
     }
   },
   "workflow": {

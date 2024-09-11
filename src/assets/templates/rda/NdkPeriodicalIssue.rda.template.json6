@@ -17,6 +17,39 @@
           description: 'Názvová informace – název titulu periodika<br/>\
           hodnoty převzít z katalogu, katalogizačního záznamu titulu periodika nebo názvových autorit'
         },
+        type: {
+          usage: 'O',
+          label: 'Typ',
+          selector: 'titleInfo/@type',
+          labelKey: 'titleInfo/@type',
+          cols: 3,
+          description: 'Hlavní název bez typu - pole 245 a $a<br/>\
+          Možné hodnoty\
+          <ul>\
+            <li>Alternativní název (alternative) – pole 246</li>\
+            <li>Přeložený název (translated) – pole 242</li>\
+            <li>Jednotný název (uniform) – pole 130 resp. 240</li>\
+          </ul>',
+          options: [
+            ['', '-'],
+            ['abbreviated', 'Zkrácený název'],
+            ['translated', 'Přeložený název'],
+            ['alternative', 'Alternativní název'],
+            ['uniform', 'Jednotný název']
+          ]
+        },
+        otherType: {
+          usage: 'MA',
+          label: 'Other Type',
+          selector: 'titleInfo/@otherType',
+          labelKey: 'titleInfo/@otherType',
+          cols: 3,
+          description: 'Hodnota pro mutační vydání je "mutational edition".',
+          options: [
+            ['', '-'],
+            ['mutational edition', 'Mutační vydání'],
+          ]
+        },
         nonSort: {
           usage: 'O',
           label: 'Část vynechaná při hledání',

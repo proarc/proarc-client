@@ -1941,6 +1941,7 @@
     "tableOfContents": "Table of contents",
     "titleInfo": "Title info",
     "titleInfo/@type": "Type",
+    "titleInfo/@otherType": "Other type",
     "titleInfo/nonSort": "Non sort",
     "titleInfo/partName": "Part name",
     "titleInfo/partNumber": "Part number",
@@ -2171,7 +2172,8 @@
       "volume_supplement": "Volume supplement",
       "w3cdtf": "W3CDTF",
       "yes": "yes",
-      "primary": "primary"
+      "primary": "primary",
+      "mutational edition": "Mutational edition"
     }
   },
   "workflow": {
