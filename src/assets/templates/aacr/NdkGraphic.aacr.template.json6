@@ -211,7 +211,7 @@
             Odpovídá hodnotě z katalogizačního záznamu, pole 260, $c a pole 008/07-10',
           fields: {
             value: {
-              usage: 'MA',
+              usage: 'M',
               selector: 'originInfo/dateIssued/value',
               labelKey: 'originInfo/dateIssued/value',
               label: 'Hodnota',
@@ -443,18 +443,18 @@
               label: 'Note',
               help: 'off'
             },
-            usage: {
-              usage: 'O',
-              cols: 2,
-              selector: 'location/url/@usage',
-              labelKey: 'location/url/@usage',
-              label: 'Usage',
-              help: 'off',
-              options: [
-                ['', '-'],
-                ['primary', 'primary']
-              ]
-            },
+//            usage: {
+//              usage: 'O',
+//              cols: 2,
+//              selector: 'location/url/@usage',
+//              labelKey: 'location/url/@usage',
+//              label: 'Usage',
+//              help: 'off',
+//              options: [
+//                ['', '-'],
+//                ['primary', 'primary']
+//              ]
+//            },
           }
         }
       }
@@ -733,8 +733,8 @@
           odpovídá hodnotě v poli 008/23',
           fields: {
             authority: {
-              usage: 'R',
-//              required: true,
+              usage: 'M',
+              required: true,
               label: 'Autorita',
               selector: 'physicalDescription/form/@authority',
               labelKey: 'physicalDescription/form/@authority',
@@ -830,7 +830,7 @@
       description: 'Údaje o identifikátorech, obsahuje unikátní identifikátory mezinárodní nebo lokální, které kartografický dokument obsahuje.',
       fields: {
         type: {
-          usage: 'MA',
+          usage: 'M',
           required: true,
           label: 'Typ',
           selector: 'identifier/@type',
@@ -887,22 +887,22 @@
             ['udc', 'udc'],
           ]
         },
-//        edition: {
-//          usage: 'MA',
-//          label: 'Vydání',
-//          selector: 'classification/@edition',
-//          labelKey: 'classification/@edition',
-//          cols: 2,
-//          description: '<ul>\
-//            <li>vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)</li>\
-//          </ul>',
-//          options: [
-//            ['Konspekt', 'Konspekt']
-//          ]
-//        },
+        edition: {
+          usage: 'MA',
+          label: 'Vydání',
+          selector: 'classification/@edition',
+          labelKey: 'classification/@edition',
+          cols: 2,
+          description: '<ul>\
+            <li>vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)</li>\
+          </ul>',
+          options: [
+            ['Konspekt', 'Konspekt']
+          ]
+        },
         value: {
-          usage: 'M',
-          required: true,
+          usage: 'R',
+//          required: true,
           selector: 'classification/value',
           labelKey: 'classification/value',
           label: 'Hodnota',
@@ -926,7 +926,7 @@
           help: 'off',
           options: [
             ['', '-'],
-            ['cartographic', 'cartographic']
+            ['still image', 'still image']
           ]
         }
       }
@@ -967,7 +967,7 @@
       description: 'údaje o metadatovém záznamu – jeho vzniku, změnách apod.',
       fields: {
         descriptionStandard: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Standard metadat',
           cols: 2,
           selector: 'recordInfo/descriptionStandard',
@@ -1076,7 +1076,7 @@
           description: 'identifikátor záznamu v katalogu, přebírá se z pole 001',
           fields: {
             value: {
-              usage: 'MA',
+              usage: 'R',
               label: 'Identifikátor záznamu',
               cols: 2,
               selector: 'recordInfo/recordIdentifier',
@@ -1112,32 +1112,12 @@
           labelKey: 'recordInfo/languageOfCataloging',
           description: 'jazyk katalogového záznamu',
           fields: {
-            languageOfCataloging: {
+            language: {
               usage: 'R',
-              label: 'Jazyk záznamu',
-              cols: 2,
-              selector: 'recordInfo/languageOfCataloging',
-              labelKey: 'recordInfo/languageOfCataloging',
-              help: 'off'
-            },
-            languageTerm: {
-              usage: 'R',
-              label: 'Zdroj',
-              cols: 2,
+              label: 'Jazyk',
               selector: 'recordInfo/languageOfCataloging/languageTerm',
               labelKey: 'recordInfo/languageOfCataloging/languageTerm',
-              description: 'přebírá se z katalogu - pole 40 $b'
-            },
-            authority: {
-              usage: 'R',
-              label: 'Autorita',
-              cols: 2,
-              selector: 'recordInfo/languageOfCataloging/languageTerm/@authority',
-              labelKey: 'recordInfo/languageOfCataloging/languageTerm/@authority',
-              description: 'authority – hodnota "iso639-2b"',
-              options: [
-                ['iso639-2b', 'iso639-2b']
-              ]
+              description: 'Přesné určení jazyka'
             }
           }
         },
