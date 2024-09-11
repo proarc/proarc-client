@@ -48,6 +48,7 @@ export class EditorStructureComponent implements OnInit {
 
   public state = 'none';
   isRepo: boolean = true;
+  isAkubra: boolean;
 
   lastClickIdx: number = -1;
   startShiftClickIdx: number = -1;
@@ -122,6 +123,10 @@ export class EditorStructureComponent implements OnInit {
 
   ngOnInit(): void {
     this.isRepo = this.layout.type === 'repo';
+
+    this.api.getInfo().subscribe((info) => {
+      this.isAkubra = info.storage === 'Akubra';
+    });
 
     // this.setSelectedColumns();
 
