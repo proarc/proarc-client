@@ -117,7 +117,7 @@
           description: 'Vyplnit údaje o autorovi.',
           fields: {
             type: {
-              usage: 'MA',
+              usage: 'R',
               label: 'Typ',
               selector: 'name/namePart/@type',
               labelKey: 'name/namePart/@type',
@@ -157,7 +157,7 @@
           description: 'Číslo národní autority',
         },
         role: {
-          usage: 'MA',
+          usage: 'R',
           label: 'Role',
           selector: 'name/role/roleTerm',
           labelKey: 'name/role/roleTerm',
@@ -471,18 +471,18 @@
               label: 'Note',
               help: 'off'
             },
-            usage: {
-              usage: 'O',
-              cols: 2,
-              selector: 'location/url/@usage',
-              labelKey: 'location/url/@usage',
-              label: 'Usage',
-              help: 'off',
-              options: [
-                ['', '-'],
-                ['primary', 'primary']
-              ]
-            },
+//            usage: {
+//              usage: 'O',
+//              cols: 2,
+//              selector: 'location/url/@usage',
+//              labelKey: 'location/url/@usage',
+//              label: 'Usage',
+//              help: 'off',
+//              options: [
+//                ['', '-'],
+//                ['primary', 'primary']
+//              ]
+//            },
           }
         },
       }
@@ -780,8 +780,8 @@
           </ul>',
           fields: {
             authority: {
-              usage: 'MA',
-//              required: true,
+              usage: 'M',
+              required: true,
               label: 'Autorita',
               selector: 'physicalDescription/form/@authority',
               labelKey: 'physicalDescription/form/@authority',
@@ -943,7 +943,7 @@
       fields: {
         authority: {
           usage: 'M',
-          required: true,
+//          required: true,
           label: 'Autorita',
           selector: 'classification/@authority',
           labelKey: 'classification/@authority',
@@ -954,27 +954,31 @@
             </li>\
           </ul>',
           options: [
-            ['udc', 'udc']
+            ['udc', 'udc'],
+            [
+              'Konspekt',
+              'Konspekt'
+            ]
           ]
         },
-//        edition: {
-//          usage: 'MA',
-//          label: 'Vydání',
-//          selector: 'classification/@edition',
-//          labelKey: 'classification/@edition',
-//          cols: 2,
-//          description: '<ul>\
-//            <li>\
-//              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)\
-//            </li>\
-//          </ul>',
-//          options: [
-//            ['Konspekt', 'Konspekt']
-//          ]
-//        },
+        edition: {
+          usage: 'MA',
+          label: 'Vydání',
+          selector: 'classification/@edition',
+          labelKey: 'classification/@edition',
+          cols: 2,
+          description: '<ul>\
+            <li>\
+              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)\
+            </li>\
+          </ul>',
+          options: [
+            ['Konspekt', 'Konspekt']
+          ]
+        },
         value: {
-          usage: 'M',
-          required: true,
+          usage: 'R',
+//          required: true,
           selector: 'classification/value',
           labelKey: 'classification/value',
           label: 'Hodnota',
@@ -1121,7 +1125,7 @@
           description: 'identifikátor záznamu v katalogu, přebírá se z pole 001',
           fields: {
             value: {
-              usage: 'MA',
+              usage: 'R',
               label: 'Identifikátor záznamu',
               cols: 2,
               selector: 'recordInfo/recordIdentifier',
@@ -1395,7 +1399,7 @@
               description: 'Číslo národní autority',
             },
             role: {
-              usage: 'MA',
+              usage: 'R',
               label: 'Role',
               selector: 'relatedItem/name/role/roleTerm',
               labelKey: 'relatedItem/name/role/roleTerm',
@@ -1825,18 +1829,18 @@
                   label: 'Note',
                   help: 'off'
                 },
-                usage: {
-                  usage: 'O',
-                  cols: 2,
-                  selector: 'relatedItem/location/url/@usage',
-                  labelKey: 'relatedItem/location/url/@usage',
-                  label: 'Usage',
-                  help: 'off',
-                  options: [
-                    ['', '-'],
-                    ['primary', 'primary']
-                  ]
-                },
+//                usage: {
+//                  usage: 'O',
+//                  cols: 2,
+//                  selector: 'relatedItem/location/url/@usage',
+//                  labelKey: 'relatedItem/location/url/@usage',
+//                  label: 'Usage',
+//                  help: 'off',
+//                  options: [
+//                    ['', '-'],
+//                    ['primary', 'primary']
+//                  ]
+//                },
               }
             }
           }
@@ -2223,7 +2227,7 @@
               ]
             },
             value: {
-              usage: 'MA',
+              usage: 'R',
               selector: 'relatedItem/classification/value',
               labelKey: 'relatedItem/classification/value',
               label: 'Hodnota',

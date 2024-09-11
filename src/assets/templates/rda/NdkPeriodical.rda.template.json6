@@ -147,7 +147,7 @@
         description: 'Vyplnit údaje o autorovi.',
         fields: {
           type: {
-            usage: 'MA',
+            usage: 'R',
             label: 'Typ',
             selector: 'name/namePart/@type',
             labelKey: 'name/namePart/@type',
@@ -202,7 +202,7 @@
         description: 'Číslo národní autority',
       },
       role: {
-        usage: 'MA',
+        usage: 'R',
         label: 'Role',
         selector: 'name/role/roleTerm',
         labelKey: 'name/role/roleTerm',
@@ -619,8 +619,8 @@
           },
           value: {
             label: 'Hodnota',
-            usage: 'M',
-            required: true,
+            usage: 'R',
+//            required: true,
             selector: 'originInfo/frequency',
             labelKey: 'originInfo/frequency',
             help: 'off'
@@ -716,24 +716,24 @@
             label: 'Note',
             help: 'off'
           },
-          usage: {
-            usage: 'O',
-            cols: 2,
-            selector: 'location/url/@usage',
-            labelKey: 'location/url/@usage',
-            label: 'Usage',
-            help: 'off',
-            options: [
-              [
-                '',
-                '-'
-              ],
-              [
-                'primary',
-                'primary'
-              ]
-            ]
-          },
+//          usage: {
+//            usage: 'O',
+//            cols: 2,
+//            selector: 'location/url/@usage',
+//            labelKey: 'location/url/@usage',
+//            label: 'Usage',
+//            help: 'off',
+//            options: [
+//              [
+//                '',
+//                '-'
+//              ],
+//              [
+//                'primary',
+//                'primary'
+//              ]
+//            ]
+//          },
         }
       },
     }
@@ -1304,7 +1304,7 @@
     fields: {
       authority: {
         usage: 'M',
-        required: true,
+//        required: true,
         label: 'Autorita',
         selector: 'classification/@authority',
         labelKey: 'classification/@authority',
@@ -1347,8 +1347,8 @@
         ]
       },
       value: {
-        usage: 'M',
-        required: true,
+        usage: 'R',
+//        required: true,
         selector: 'classification/value',
         labelKey: 'classification/value',
         label: 'Hodnota',
@@ -1516,7 +1516,7 @@
         description: 'identifikátor záznamu v katalogu, přebírá se z pole 001',
         fields: {
           value: {
-            usage: 'MA',
+            usage: 'R',
             label: 'Identifikátor záznamu',
             cols: 2,
             selector: 'recordInfo/recordIdentifier',
@@ -1856,7 +1856,7 @@
             description: 'Číslo národní autority',
           },
           role: {
-            usage: 'MA',
+            usage: 'R',
             label: 'Role',
             selector: 'relatedItem/name/role/roleTerm',
             labelKey: 'relatedItem/name/role/roleTerm',
@@ -2269,7 +2269,7 @@
               },
               value: {
                 label: 'Hodnota',
-                usage: 'MA',
+                usage: 'R',
                 selector: 'relatedItem/originInfo/frequency',
                 labelKey: 'relatedItem/originInfo/frequency',
                 help: 'off'
@@ -2360,24 +2360,24 @@
                 label: 'Note',
                 help: 'off'
               },
-              usage: {
-                usage: 'O',
-                cols: 2,
-                selector: 'relatedItem/location/url/@usage',
-                labelKey: 'relatedItem/location/url/@usage',
-                label: 'Usage',
-                help: 'off',
-                options: [
-                  [
-                    '',
-                    '-'
-                  ],
-                  [
-                    'primary',
-                    'primary'
-                  ]
-                ]
-              },
+//              usage: {
+//                usage: 'O',
+//                cols: 2,
+//                selector: 'relatedItem/location/url/@usage',
+//                labelKey: 'relatedItem/location/url/@usage',
+//                label: 'Usage',
+//                help: 'off',
+//                options: [
+//                  [
+//                    '',
+//                    '-'
+//                  ],
+//                  [
+//                    'primary',
+//                    'primary'
+//                  ]
+//                ]
+//              },
             }
           }
         }
@@ -2899,7 +2899,7 @@
             ]
           },
           value: {
-            usage: 'MA',
+            usage: 'R',
             selector: 'relatedItem/classification/value',
             labelKey: 'relatedItem/classification/value',
             label: 'Hodnota',
