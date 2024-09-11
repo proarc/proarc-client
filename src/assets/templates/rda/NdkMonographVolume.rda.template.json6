@@ -714,24 +714,24 @@
             label: 'Note',
             help: 'off'
           },
-          usage: {
-            usage: 'O',
-            cols: 2,
-            selector: 'location/url/@usage',
-            labelKey: 'location/url/@usage',
-            label: 'Usage',
-            help: 'off',
-            options: [
-              [
-                '',
-                '-'
-              ],
-              [
-                'primary',
-                'primary'
-              ]
-            ]
-          },
+//          usage: {
+//            usage: 'O',
+//            cols: 2,
+//            selector: 'location/url/@usage',
+//            labelKey: 'location/url/@usage',
+//            label: 'Usage',
+//            help: 'off',
+//            options: [
+//              [
+//                '',
+//                '-'
+//              ],
+//              [
+//                'primary',
+//                'primary'
+//              ]
+//            ]
+//          },
         }
       },
     }
@@ -1546,7 +1546,7 @@
         description: 'identifikátor záznamu v katalogu, přebírá se z pole 001',
         fields: {
           value: {
-            usage: 'MA',
+            usage: 'R',
             label: 'Identifikátor záznamu',
             cols: 2,
             selector: 'recordInfo/recordIdentifier',
@@ -1636,22 +1636,16 @@
         labelKey: 'relatedItem/@type',
         description: 'Type spolu s otherType popisují vztah položky, popsané v <relatedItem> a dokumentu, který je předmětem MODS záznamu',
         options: [
-          [
-            '',
-            '-'
-          ],
-          [
-            'series',
-            'Series'
-          ],
-          [
-            'original',
-            'original'
-          ],
-          [
-            'isReferencedBy',
-            'isReferencedBy'
-          ]
+          ['', '-'],
+          ['series', 'Series'],
+          ['original', 'original'],
+          ['isReferencedBy', 'isReferencedBy'],
+          ['preceding', 'preceding'],
+          ['succeeding', 'succeeding'],
+          ['host', 'host'],
+          ['constituent', 'constituent'],
+          ['otherVersion', 'otherVersion'],
+          ['otherFormat', 'otherFormat']
         ]
       },
       otherType: {
@@ -2392,24 +2386,24 @@
                 label: 'Note',
                 help: 'off'
               },
-              usage: {
-                usage: 'O',
-                cols: 2,
-                selector: 'relatedItem/location/url/@usage',
-                labelKey: 'relatedItem/location/url/@usage',
-                label: 'Usage',
-                help: 'off',
-                options: [
-                  [
-                    '',
-                    '-'
-                  ],
-                  [
-                    'primary',
-                    'primary'
-                  ]
-                ]
-              },
+//              usage: {
+//                usage: 'O',
+//                cols: 2,
+//                selector: 'relatedItem/location/url/@usage',
+//                labelKey: 'relatedItem/location/url/@usage',
+//                label: 'Usage',
+//                help: 'off',
+//                options: [
+//                  [
+//                    '',
+//                    '-'
+//                  ],
+//                  [
+//                    'primary',
+//                    'primary'
+//                  ]
+//                ]
+//              },
             }
           }
         }

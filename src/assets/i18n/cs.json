@@ -2051,7 +2051,6 @@
       "integrating resource": "Integrační zdroj",
       "interview": "Rozhovor",
       "introduction": "Úvod",
-      "isReferencedBy": "isReferencedBy",
       "iso639-2b": "ISO 639-2b",
       "iso8601": "ISO 8601",
       "issue_supplement": "Příloha k číslu",
@@ -2173,7 +2172,14 @@
       "w3cdtf": "W3CDTF",
       "yes": "Ano",
       "primary": "Primární (hlavní)",
-      "mutational edition": "Mutační vydání"
+      "mutational edition": "Mutační vydání",
+      "isReferencedBy": "Is referenced by",
+      "preceding": "Preceding",
+      "succeeding": "Succeeding",
+      "host": "Host",
+      "constituent": "Constituent",
+      "otherVersion": "Other version",
+      "otherFormat": "Other format"
     }
   },
   "workflow": {

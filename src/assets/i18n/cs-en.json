@@ -2056,7 +2056,6 @@
       "integrating resource": "Integrationg resource",
       "interview": "Interview",
       "introduction": "Introduction",
-      "isReferencedBy": "Is referenced by",
       "iso639-2b": "ISO 639-2b",
       "iso8601": "ISO 8601",
       "issue_supplement": "Issue supplement",
@@ -2181,7 +2180,14 @@
       "w3cdtf": "W3CDTF",
       "yes": "yes",
       "primary": "primary",
-      "mutational edition": "Mutational edition"
+      "mutational edition": "Mutational edition",
+      "isReferencedBy": "Is referenced by",
+      "preceding": "Preceding",
+      "succeeding": "Succeeding",
+      "host": "Host",
+      "constituent": "Constituent",
+      "otherVersion": "Other version",
+      "otherFormat": "Other format"
     }
   },
   "workflow": {
