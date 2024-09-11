@@ -551,6 +551,14 @@ as-split {
 
         .app-item-label {
           @extend .app-text-center, .app-p-1;
+
+          .app-text {
+            line-height: normal;
+            max-height: 35px;
+            overflow: hidden;
+            width: 100%;
+            text-overflow: ellipsis;
+          }
         }
       }
     }
