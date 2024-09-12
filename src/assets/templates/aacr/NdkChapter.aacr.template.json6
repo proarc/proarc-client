@@ -9,27 +9,27 @@
       Pro plnění použít katalogizační záznam<br/>\
       pokud má monografie více typů názvů, element se opakuje podle potřeby',
       fields: {
-        type: {
-          usage: 'O',
-          label: 'Typ',
-          selector: 'titleInfo/@type',
-          labelKey: 'titleInfo/@type',
-          cols: 2,
-          description: 'Hlavní název bez typu - pole 245 a $a<br/>\
-          Možné hodnoty\
-          <ul>\
-            <li>Alternativní název (alternative) – pole 246</li>\
-            <li>Přeložený název (translated) – pole 242</li>\
-            <li>Jednotný název (uniform) – pole 130 resp. 240</li>\
-          </ul>',
-          options: [
-            ['', '-'],
-            ['abbreviated', 'Zkrácený název'],
-            ['translated', 'Přeložený název'],
-            ['alternative', 'Alternativní název'],
-            ['uniform', 'Jednotný název']
-          ]
-        },
+//        type: {
+//          usage: 'O',
+//          label: 'Typ',
+//          selector: 'titleInfo/@type',
+//          labelKey: 'titleInfo/@type',
+//          cols: 2,
+//          description: 'Hlavní název bez typu - pole 245 a $a<br/>\
+//          Možné hodnoty\
+//          <ul>\
+//            <li>Alternativní název (alternative) – pole 246</li>\
+//            <li>Přeložený název (translated) – pole 242</li>\
+//            <li>Jednotný název (uniform) – pole 130 resp. 240</li>\
+//          </ul>',
+//          options: [
+//            ['', '-'],
+//            ['abbreviated', 'Zkrácený název'],
+//            ['translated', 'Přeložený název'],
+//            ['alternative', 'Alternativní název'],
+//            ['uniform', 'Jednotný název']
+//          ]
+//        },
         nonSort: {
           usage: 'O',
           label: 'Část vynechaná při hledání',
@@ -486,6 +486,7 @@
         value: {
           usage: 'M',
           required: true,
+          cols: 2,
           selector: 'genre/value',
           labelKey: 'genre/value',
           label: 'Hodnota',
@@ -518,7 +519,8 @@
             ['obituary', 'obituary'],
             ['remark', 'remark'],
             ['study', 'study'],
-            ['technicalPlanScheme', 'technicalPlanScheme']
+            ['technicalPlanScheme', 'technicalPlanScheme'],
+            ['unspecified', 'unspecified']
           ]
         }
       }
@@ -608,21 +610,21 @@
             ['udc', 'udc'],
           ]
         },
-//        edition: {
-//          usage: 'RA',
-//          label: 'Vydání',
-//          selector: 'classification/@edition',
-//          labelKey: 'classification/@edition',
-//          cols: 2,
-//          description: '<ul>\
-//            <li>\
-//              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)\
-//            </li>\
-//          </ul>',
-//          options: [
-//            ['Konspekt', 'Konspekt']
-//          ]
-//        },
+        edition: {
+          usage: 'MA',
+          label: 'Vydání',
+          selector: 'classification/@edition',
+          labelKey: 'classification/@edition',
+          cols: 2,
+          description: '<ul>\
+            <li>\
+              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)\
+            </li>\
+          </ul>',
+          options: [
+            ['Konspekt', 'Konspekt']
+          ]
+        },
         value: {
           usage: 'RA',
           selector: 'classification/value',
@@ -775,7 +777,7 @@
               help: 'off'
             },
             encoding: {
-              usage: 'R',
+              usage: 'M',
               label: 'Kódování',
               cols: 2,
               selector: 'recordInfo/recordChangeDate/@encoding',
@@ -841,58 +843,5 @@
           }
         },
       }
-    },
-    // relatedItem: {
-    //   usage: 'MA',
-    //   label: 'Informace o dalších dokumentech',
-    //   selector: 'relatedItem',
-    //   labelKey: 'relatedItem',
-    //   description: 'Informace o dalších dokumentech/částech/zdrojích, které jsou ve. vztahu k popisovanému dokumentu;.',
-    //   fields: {
-    //     type: {
-    //       usage: 'R',
-    //       label: 'Typ',
-    //       selector: 'relatedItem/@type',
-    //       labelKey: 'relatedItem/@type',
-    //       description: 'Type spolu s otherType popisují vztah položky, popsané v <relatedItem> a dokumentu, který je předmětem MODS záznamu',
-    //       options: [
-    //         ['', '-'],
-    //         ['series', 'Series'],
-    //         ['original', 'original'],
-    //         ['isReferencedBy', 'isReferencedBy']
-    //       ]
-    //     },
-    //     otherType: {
-    //       usage: 'O',
-    //       label: 'Other type',
-    //       selector: 'relatedItem/@otherType',
-    //       labelKey: 'relatedItem/@otherType',
-    //       cols: 2,
-    //     },
-    //     otherTypeURI: {
-    //       usage: 'O',
-    //       label: 'Other Type URI',
-    //       selector: 'relatedItem/@otherTypeURI',
-    //       labelKey: 'relatedItem/@otherTypeURI',
-    //       description: 'Odkaz na zdroj položky v <relatedItem>, který se vztahuje k popisovanému',
-    //       cols: 2,
-    //     },
-    //     otherTypeAuth: {
-    //       usage: 'O',
-    //       label: 'Other Type Auth',
-    //       selector: 'relatedItem/@otherTypeAuth',
-    //       labelKey: 'relatedItem/@otherTypeAuth',
-    //       description: 'Autoritní záznam příbuzné položky',
-    //       cols: 2,
-    //     },
-    //     otherTypeAuthURI: {
-    //       usage: 'O',
-    //       label: 'Other Type Auth URI',
-    //       selector: 'relatedItem/@otherTypeAuthURI',
-    //       labelKey: 'relatedItem/@otherTypeAuthURI',
-    //       description: 'Odkaz na autoritní záznam příbuzné položky',
-    //       cols: 2,
-    //     },
-    //   }
-    // }
+    }
   }

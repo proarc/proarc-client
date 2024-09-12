@@ -9,27 +9,27 @@
       Pro plnění použít katalogizační záznam<br/>\
       pokud má monografie více typů názvů, element se opakuje podle potřeby',
       fields: {
-        type: {
-          usage: 'O',
-          label: 'Typ',
-          selector: 'titleInfo/@type',
-          labelKey: 'titleInfo/@type',
-          cols: 2,
-          description: 'Hlavní název bez typu - pole 245 a $a<br/>\
-          Možné hodnoty\
-          <ul>\
-            <li>Alternativní název (alternative) – pole 246</li>\
-            <li>Přeložený název (translated) – pole 242</li>\
-            <li>Jednotný název (uniform) – pole 130 resp. 240</li>\
-          </ul>',
-          options: [
-            ['', '-'],
-            ['abbreviated', 'Zkrácený název'],
-            ['translated', 'Přeložený název'],
-            ['alternative', 'Alternativní název'],
-            ['uniform', 'Jednotný název']
-          ]
-        },
+//        type: {
+//          usage: 'O',
+//          label: 'Typ',
+//          selector: 'titleInfo/@type',
+//          labelKey: 'titleInfo/@type',
+//          cols: 2,
+//          description: 'Hlavní název bez typu - pole 245 a $a<br/>\
+//          Možné hodnoty\
+//          <ul>\
+//            <li>Alternativní název (alternative) – pole 246</li>\
+//            <li>Přeložený název (translated) – pole 242</li>\
+//            <li>Jednotný název (uniform) – pole 130 resp. 240</li>\
+//          </ul>',
+//          options: [
+//            ['', '-'],
+//            ['abbreviated', 'Zkrácený název'],
+//            ['translated', 'Přeložený název'],
+//            ['alternative', 'Alternativní název'],
+//            ['uniform', 'Jednotný název']
+//          ]
+//        },
         nonSort: {
           usage: 'O',
           label: 'Část vynechaná při hledání',
@@ -477,6 +477,7 @@
         value: {
           usage: 'M',
           required: true,
+          cols: 2,
           selector: 'genre/value',
           labelKey: 'genre/value',
           label: 'Hodnota',
@@ -509,7 +510,8 @@
             ['obituary', 'obituary'],
             ['remark', 'remark'],
             ['study', 'study'],
-            ['technicalPlanScheme', 'technicalPlanScheme']
+            ['technicalPlanScheme', 'technicalPlanScheme'],
+            ['unspecified', 'unspecified']
           ]
         }
       }
@@ -767,7 +769,7 @@
               help: 'off'
             },
             encoding: {
-              usage: 'R',
+              usage: 'M',
               label: 'Kódování',
               cols: 2,
               selector: 'recordInfo/recordChangeDate/@encoding',
