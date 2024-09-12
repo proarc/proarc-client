@@ -182,7 +182,7 @@
               <mat-icon *ngIf="item.invalid" class="app-mr-1">warning</mat-icon>{{ shortLabels ? item.shortLabel : item.label }}<br />
               ({{ (item.pageType ? "pageType." + item.pageType.toLowerCase() : "model." + item.model) | translate }})
             </div> -->
-            <div class="app-item-label app-h-100" *ngIf="isRepo">
+            <div class="app-item-label app-h-100" *ngIf="isRepo" [ngClass]="{'app-repre-type': item.pageRepre === 'reprePage'}">
               <mat-icon *ngIf="item.invalid" class="app-mr-1">warning</mat-icon>
               <ng-container *ngIf="!isAkubra">
                 {{ shortLabels ? item.shortLabel : item.label }}<br />
@@ -219,8 +219,15 @@
 
         <ng-container matColumnDef="label">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'label')" [style.width]="colsWidth['label']"> {{'search.name' | translate}}</th>
-          <td mat-cell *matCellDef="let element">
-            <mat-icon *ngIf="element.invalid" class="app-mr-2">warning</mat-icon>{{ shortLabels ? element.shortLabel : element.label }}    
+          <td mat-cell *matCellDef="let element" [ngClass]="{'app-repre-type': element.pageRepre === 'reprePage'}">
+            <mat-icon *ngIf="element.invalid" class="app-mr-2">warning</mat-icon>
+            <ng-container *ngIf="!isAkubra">
+              {{ shortLabels ? element.shortLabel : element.label }}
+            </ng-container>
+            <ng-container *ngIf="isAkubra">
+              <ng-container *ngIf="element.pageNumber">{{ element.pageNumber }}</ng-container>
+              <ng-container *ngIf="element.pageType">{{ (shortLabels ? "" : (", " + ("pageType." + element.pageType.toLowerCase() | translate))) }}</ng-container>
+            </ng-container>
           </td>
         </ng-container>
 
