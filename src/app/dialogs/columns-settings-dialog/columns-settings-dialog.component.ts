@@ -29,6 +29,12 @@ export class ColumnsSettingsDialogComponent implements OnInit {
     public properties: LocalStorageService) { }
 
   ngOnInit(): void {
+    this.initColumns()
+
+
+  }
+
+  initColumns() {
     let all;
     let selected;
     let rest;
@@ -69,8 +75,30 @@ export class ColumnsSettingsDialogComponent implements OnInit {
       });
       this.columnsWorkFlow = [...selected, ...rest]
     }
+  }
 
-
+  reset() {
+    switch (this.data.type) {
+      case 'jobs':
+      this.properties.resetColumnsWorkFlow();
+        break;
+      case 'subjobs':
+      this.properties.resetColumnsWorkFlowSubJobs();
+        break;
+      case 'tasks':
+      this.properties.resetColumnsWorkFlowTasks();
+        break;
+      case 'searchTree':
+        this.properties.resetSelectedColumnsSearchTree();
+        break;
+      default:
+        if (this.data.isRepo) {
+          this.properties.resetColumnsEditingRepo();
+        } else {
+          this.properties.resetColumnsEditingImport();
+        }
+    }
+    this.initColumns();
   }
 
   save() {
@@ -89,7 +117,6 @@ export class ColumnsSettingsDialogComponent implements OnInit {
       this.dialogRef.close(true);
         break;
       case 'searchTree':
-        console.log(this.columnsWorkFlow)
         this.properties.setSelectedColumnsSearchTree(this.columnsWorkFlow);
         this.dialogRef.close(true);
         break;

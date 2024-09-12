@@ -199,6 +199,10 @@ export class LocalStorageService {
         this.setStringProperty('searchColumnsTree', JSON.stringify(cols));
     }
 
+    resetSelectedColumnsSearchTree() {
+        localStorage.removeItem('searchColumnsTree');
+    }
+
     getStringProperty(property: string, defaultValue: string | null = null): string | null {
         return localStorage.getItem(property) || defaultValue;
     }
@@ -297,8 +301,12 @@ export class LocalStorageService {
         
     }
 
-    setColumnsWorkFlowSubJobs(cols: any) {
-        this.setStringProperty('columnsWorkFlowSubJobs', JSON.stringify(cols));
+    setColumnsWorkFlow(cols: any) {
+        this.setStringProperty('columnsWorkFlow', JSON.stringify(cols));
+    }
+
+    resetColumnsWorkFlow() {
+        localStorage.removeItem('columnsWorkFlow');
     }
 
     getColumnsWorkFlowSubJobs() {
@@ -316,14 +324,12 @@ export class LocalStorageService {
         
     }
 
-    setColumnsWorkFlow(cols: any) {
-        this.setStringProperty('columnsWorkFlow', JSON.stringify(cols));
+    setColumnsWorkFlowSubJobs(cols: any) {
+        this.setStringProperty('columnsWorkFlowSubJobs', JSON.stringify(cols));
     }
 
-    
-
-    setColumnsWorkFlowTasks(cols: any) {
-        this.setStringProperty('columnsWorkFlowTasks', JSON.stringify(cols));
+    resetColumnsWorkFlowSubJobs() {
+        localStorage.removeItem('columnsWorkFlowSubJobs');
     }
 
     getColumnsWorkFlowTasks() {
@@ -341,10 +347,25 @@ export class LocalStorageService {
         
     }
 
+    setColumnsWorkFlowTasks(cols: any) {
+        this.setStringProperty('columnsWorkFlowTasks', JSON.stringify(cols));
+    }
+
+    resetColumnsWorkFlowTasks() {
+        localStorage.removeItem('columnsWorkFlowTasks');
+    }
 
     setColumnsEditingRepo(colsEditModeParent: boolean) {
         this.setStringProperty('colsRepo', JSON.stringify(this.colsEditingRepo));
         this.setBoolProperty('colsEditModeParent', colsEditModeParent);
+    }
+
+    resetColumnsEditingRepo() {
+        localStorage.removeItem('colsRepo');
+    }
+
+    resetColumnsEditingImport() {
+        localStorage.removeItem('selectedColumnsImport');
     }
 
     setColumnsEditingRepoSimple() {

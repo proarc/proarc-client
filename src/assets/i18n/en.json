@@ -2589,6 +2589,7 @@
     "czidloFunction": "CZIDLO",
     "more": "More",
     "resetAllLocalSettings": "Reset all local settings",
+    "reset": "Reset settings",
     "createAndGoToObject": "Create and go to object",
     "doNotSave": "Do not save",
     "copyTextToClipboard": "Copy text to clipboard",
