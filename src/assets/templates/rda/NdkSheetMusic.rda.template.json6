@@ -1055,8 +1055,8 @@
           ]
         },
         value: {
-          usage: 'M',
-          required: true,
+          usage: 'R',
+//          required: true,
           selector: 'classification/value',
           labelKey: 'classification/value',
           label: 'Hodnota',
@@ -1128,7 +1128,7 @@
       description: 'údaje o metadatovém záznamu – jeho vzniku, změnách apod.',
       fields: {
         descriptionStandard: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Standard metadat',
           cols: 2,
           selector: 'recordInfo/descriptionStandard',
@@ -1237,7 +1237,7 @@
           description: 'identifikátor záznamu v katalogu, přebírá se z pole 001',
           fields: {
             value: {
-              usage: 'MA',
+              usage: 'R',
               label: 'Identifikátor záznamu',
               cols: 2,
               selector: 'recordInfo/recordIdentifier',
@@ -2321,7 +2321,7 @@
               ]
             },
             value: {
-              usage: 'MA',
+              usage: 'R',
               selector: 'relatedItem/classification/value',
               labelKey: 'relatedItem/classification/value',
               label: 'Hodnota',
