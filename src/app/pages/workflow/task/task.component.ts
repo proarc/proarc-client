@@ -44,7 +44,7 @@ export class TaskComponent implements OnInit {
   profiles: WorkFlowProfile[];
   allTasks: any[];
 
-  tasks: any[];
+  tasks: any[] = [];
 
   columnsTasks: { field: string, selected: boolean, type: string }[];
   colsWidthTasks: { [key: string]: number } = {};

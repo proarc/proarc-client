@@ -14,6 +14,7 @@
   </div>
   <div fxFlex class="app-oh app-p-2" fxLayout="column">
     <div class="app-border-wrapper app-h-100">
+      <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'"></mat-progress-bar>
       <as-split direction="horizontal">
         <as-split-area [size]="40">
           <as-split direction="vertical">
@@ -222,7 +223,7 @@
               </div>
             </as-split-area>
             <as-split-area [size]="40">
-              <div fxLayout="column" fxFlexFill>
+              <div fxLayout="column" fxFlexFill *ngIf="selectedProfile">
                 <div class="app-toolbar" >
                   <button mat-button [matMenuTriggerFor]="menuAddStep" [matTooltip]="'workflow.add_step' | translate">
                     {{ 'workflow.add_step' | translate }}
