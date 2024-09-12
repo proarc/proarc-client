@@ -193,7 +193,7 @@
                 <ng-container *ngIf="item.pageType">{{ (shortLabels ? "" : (", " + ("pageType." + item.pageType.toLowerCase() | translate))) }}</ng-container>
               </div>
             </div>
-            <div class="app-item-label app-h-100" *ngIf="!isRepo">
+            <div class="app-item-label app-h-100" *ngIf="!isRepo" [ngClass]="{'app-repre-type': item.pageRepre === 'reprePage'}">
               <mat-icon *ngIf="item.invalid">warning</mat-icon>
               <ng-container *ngIf="!isAkubra">
                 {{ item.label + (shortLabels ? "" : (", " + ("pageType." + item.pageType.toLowerCase() | translate))) }}
@@ -219,7 +219,7 @@
 
         <ng-container matColumnDef="label">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'label')" [style.width]="colsWidth['label']"> {{'search.name' | translate}}</th>
-          <td mat-cell *matCellDef="let element" [ngClass]="{'app-repre-type': element.pageRepre === 'reprePage'}">
+          <td mat-cell *matCellDef="let element">
             <mat-icon *ngIf="element.invalid" class="app-mr-2">warning</mat-icon>
             <ng-container *ngIf="!isAkubra">
               {{ shortLabels ? element.shortLabel : element.label }}
@@ -289,7 +289,7 @@
             [id]="'tr_'+idx" [title]="row.label + ' (' + ('model.' + row.model | translate) + ')'"
             (mousedown)="mousedown($event)" 
             draggable="true" (dragenter)="dragenter($event, idx)" (dragstart)="dragstart(row, idx, $event)" (dragover)="dragover($event)"
-            (dragend)="dragend($event)"
+            (dragend)="dragend($event)" [ngClass]="{'app-repre-type': row.pageRepre === 'reprePage'}"
             ></tr>
             <!-- 
             cdkDrag (cdkDragStarted)="cdkDragStart($event)" (cdkDragEnded)="cdkDragEnd($event)"
