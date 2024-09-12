@@ -1817,6 +1817,7 @@
     "part/extent": "Extent",
     "part/extent/end": "End",
     "part/extent/start": "Start",
+    "part/extent/total": "Total",
     "physicalDescription": "Physical description",
     "physicalDescription/digitalOrigin": "Digital origin",
     "physicalDescription/extent": "Extent",

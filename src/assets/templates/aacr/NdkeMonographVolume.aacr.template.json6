@@ -175,6 +175,14 @@
           cols: 2,
           description: 'Číslo národní autority',
         },
+        nameIdentifierOrcId: {
+          usage: 'RA',
+          label: 'ORC ID',
+          selector: 'bdm/name/nameIdentifierOrcId',
+          labelKey: 'bdm/name/nameIdentifierOrcId',
+          cols: 2,
+          description: 'ORC ID',
+        },
         role: {
           usage: 'MA',
           label: 'Role',

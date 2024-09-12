@@ -5,6 +5,7 @@ export class ModsExtent extends ModsElement {
 
     start: any;
     end: any;
+    total: any;
 
     static getSelector() {
         return 'extent';
@@ -30,7 +31,16 @@ export class ModsExtent extends ModsElement {
       }
       this.addControl('end');
 
+      if (!this.modsElement['total']) {
+        const attrs = {'type': 'pages'};
+        this.modsElement['total'] = [ModsUtils.createTextElement('', attrs)];
+        this.addControl('type');
+      }
+      this.addControl('total');
+
       this.start = this.modsElement['start'][0];
       this.end = this.modsElement['end'][0];
+      this.total = this.modsElement['total'][0];
+
     }
 }

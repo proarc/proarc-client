@@ -646,7 +646,7 @@
             start: {
               usage: 'MA',
               label: 'Od strany',
-              cols: 2,
+              cols: 3,
               selector: 'part/extent/start',
               labelKey: 'part/extent/start',
               description: 'První stránka článku.'
@@ -654,10 +654,18 @@
             end: {
               usage: 'MA',
               label: 'Do strany',
-              cols: 2,
+              cols: 3,
               selector: 'part/extent/end',
               labelKey: 'part/extent/end',
               description: 'Poslední stránka článku.'
+            },
+            total: {
+              usage: 'O',
+              label: 'Do strany',
+              cols: 3,
+              selector: 'part/extent/total',
+              labelKey: 'part/extent/total',
+              description: 'Celkový počet stránek kapitoly.'
             }
           }
         }

@@ -380,7 +380,7 @@
           fields: {
             value: {
               usage: 'R',
-              cols: 2,
+              cols: 3,
               selector: 'originInfo/dateOther/value',
               labelKey: 'originInfo/dateOther/value',
               label: 'Hodnota',
@@ -388,7 +388,7 @@
             },
             type: {
               usage: 'M',
-              cols: 2,
+              cols: 3,
               label: 'Upřesnění data',
               selector: 'originInfo/dateOther/@type',
               labelKey: 'originInfo/dateOther/@type',
@@ -411,6 +411,25 @@
                   'manufacture',
                   'Výroba'
                 ]
+              ]
+            },
+            qualifier: {
+              usage: 'R',
+              label: 'Upřesnění data',
+              selector: 'originInfo/dateIssued/@qualifier',
+              labelKey: 'originInfo/dateIssued/@qualifier',
+              cols: 3,
+              description: 'Možnost dalšího upřesnění. Možné hodnoty\
+            <ul>\
+              <li>Přibližné (approximate)</li>\
+              <li>Odvozené (inferred)</li>\
+              <li>Sporné (questionable)</li>\
+            </ul>',
+              options: [
+                ['', '-'],
+                ['approximate', 'Datum je přibližné'],
+                ['inferred', 'Datum je odvozené'],
+                ['questionable', 'Datum je sporné']
               ]
             }
           }
@@ -545,7 +564,7 @@
               ]
             },
             namePart: {
-              usage: 'MA',
+              usage: 'R',
               label: 'Jméno',
               selector: 'name/namePart',
               labelKey: 'name/namePart',
@@ -574,8 +593,8 @@
                 },
                 value: {
                   label: 'Hodnota',
-                  usage: 'M',
-                  required: true,
+                  usage: 'R',
+//                  required: true,
                   selector: 'name/namePart',
                   labelKey: 'name/namePart/value',
                   cols: 2,
@@ -711,7 +730,7 @@
                 ['rdacarrier', 'rdacarrier']]
             },
             type: {
-              usage: 'MA',
+              usage: 'M',
               label: 'Typ',
               selector: 'physicalDescription/form/@type',
               labelKey: 'physicalDescription/form/@type',
@@ -971,7 +990,7 @@
       description: 'údaje o metadatovém záznamu – jeho vzniku, změnách apod.',
       fields: {
         descriptionStandard: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Standard metadat',
           cols: 2,
           selector: 'recordInfo/descriptionStandard',

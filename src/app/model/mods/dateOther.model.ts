@@ -12,7 +12,7 @@ export class ModsDateOther extends ModsElement {
     }
 
     constructor(modsElement: any, template: any) {
-        super(modsElement, template, ['type']);
+        super(modsElement, template, ['type', 'qualifier']);
         this.init();
     }
 
@@ -22,6 +22,7 @@ export class ModsDateOther extends ModsElement {
       }
       this.addControl('value');
       this.addControl('type');
+      this.addControl('qualifier');
 
     }
 

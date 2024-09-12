@@ -34,6 +34,7 @@
     <app-editor-field *ngIf="item.available['dateOther']" [field]="item.dateOthers" [nested]='true'>
       <ng-template let-dateOther="item" #templateContent>
         <app-field-text field="value" [item]="dateOther" [(value)]="dateOther.modsElement['_']" ></app-field-text>
+        <app-field-dropdown field="qualifier" [item]="dateOther" [(value)]='dateOther.attrs["qualifier"]'></app-field-dropdown>
         <app-field-dropdown field="type" [item]="dateOther" [(value)]='dateOther.attrs["type"]'></app-field-dropdown>
       </ng-template>
     </app-editor-field>
