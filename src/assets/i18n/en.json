@@ -2505,7 +2505,7 @@
     "id": "Id",
     "label": "Label",
     "ownerName": "Owner name",
-    "ownerId": "Job created by",
+    "ownerId": "User",
     "profileName": "Profile",
     "profileLabel": "Task",
     "rawPath": "Path",

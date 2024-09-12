@@ -80,6 +80,7 @@ export class LocalStorageService {
             {field: 'modified', selected: false, width: 150, type: 'date'},
             {field: 'ownerId', selected: false, width: 150, type: 'list'},
             {field: 'jobId', selected: false, width: 150, type: 'string'},
+            {field: 'note', selected: false, width: 150, type: 'string'},
             {field: 'order', selected: false, width: 150, type: 'string'}
         ];
 

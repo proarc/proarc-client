@@ -2513,7 +2513,7 @@
     "id": "Id",
     "label": "Název",
     "ownerName": "Vlastník",
-    "ownerId": "Založil záměr",
+    "ownerId": "Uživatel",
     "profileName": "Profil",
     "profileLabel": "Úkol",
     "rawPath": "Adresář surových skenu",
