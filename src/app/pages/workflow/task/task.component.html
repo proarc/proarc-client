@@ -31,13 +31,13 @@
                             </mat-menu>
                         </div>
                         <div class="app-oa-y">
-                            <table mat-table [dataSource]="tasks" class="app-striped app-hover" matSort
+                            <table mat-table [dataSource]="tasks" class="app-striped app-hover app-resize" matSort
                                 [matSortActive]="tasksSortField" [matSortDirection]="tasksSortDir"
                                 (matSortChange)="sortTasksTable($event)">
 
                                 <ng-container *ngFor="let c of selectedColumns" [matColumnDef]="c + '-filter'">
                       
-                                    <th mat-header-cell *matHeaderCellDef [style.width]="colsWidth[c]+'px'">
+                                    <th mat-header-cell *matHeaderCellDef [style.width]="colsWidthTasks[c]+'px'">
                                       <ng-container [ngSwitch]="columnTypes[c]">
                                         <ng-container *ngSwitchCase="'date'">
                                         
@@ -57,7 +57,8 @@
                                       </th>
                                   </ng-container>   
                                   <ng-container *ngFor="let c of selectedColumns" [matColumnDef]="c">
-                                    <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c)" [style.width]="colsWidth[c]"><span mat-sort-header>{{'desc.' + c | translate}}</span></th>
+                                    
+                                    <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c)" [style.width]="colsWidthTasks[c]"><span mat-sort-header>{{'desc.' + c | translate}}</span></th>
                                     
                                       <ng-container [ngSwitch]="columnTypes[c]">
                                         <ng-container *ngSwitchCase="'date'">
@@ -199,6 +200,12 @@
                                     <mat-form-field>
                                         <mat-label>{{ 'desc.modified' | translate }}</mat-label>
                                         <input matInput disabled readonly="true" [value]="task.modified | date : 'dd.MM.yyyy HH:mm'">
+                                    </mat-form-field>
+                                </div>
+                                <div >
+                                    <mat-form-field class="app-w-100">
+                                        <mat-label>{{ 'desc.note' | translate }}</mat-label>
+                                        <textarea [(ngModel)]="task.note" matInput [placeholder]="'desc.note' | translate"></textarea>
                                     </mat-form-field>
                                 </div>
                                 <div >
