@@ -535,7 +535,7 @@
       fields: {
         physicalLocation: {
           usage: 'MA',
-          required: true,
+//          required: true,
           label: 'Místo uložení',
           labelKey: 'location/physicalLocation',
           selector: 'location/physicalLocation',
@@ -551,7 +551,7 @@
               help: 'off'
             },
             authority: {
-              usage: 'MA',
+              usage: 'M',
               cols: 2,
               selector: 'location/physicalLocation/@authority',
               labelKey: 'location/physicalLocation/@authority',
@@ -1220,7 +1220,7 @@
           }
         },
         recordIdentifier: {
-          usage: 'R',
+          usage: 'M',
           label: 'Identifikátor záznamu',
           selector: 'recordInfo/recordIdentifier',
           labelKey: 'recordInfo/recordIdentifier',
@@ -1235,7 +1235,7 @@
               help: 'off'
             },
             source: {
-              usage: 'R',
+              usage: 'M',
               label: 'Zdroj',
               cols: 2,
               selector: 'recordInfo/recordIdentifier/@source',
