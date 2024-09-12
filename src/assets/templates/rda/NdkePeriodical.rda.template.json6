@@ -579,8 +579,8 @@
           description: 'Signatura nebo lokační údaje o daném konkrétním dokumentu, který slouží jako předloha.',
           fields: {
             value: {
-              usage: 'M',
-              required: true,
+              usage: 'MA',
+//              required: true,
               selector: 'location/shelfLocator/value',
               labelKey: 'location/shelfLocator/value',
               label: 'Hodnota',
