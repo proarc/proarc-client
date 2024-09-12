@@ -56,7 +56,7 @@ export class TaskComponent implements OnInit {
   tasksSortDir: SortDirection = 'desc';
 
   
-  colsWidth: { [key: string]: number } = {};
+  // colsWidth: { [key: string]: number } = {};
   columnTypes: {[field: string]: string} = {};
   filters: { [field: string]: string } = {};
   // filters: { field: string, value: string }[] = [];
@@ -152,7 +152,7 @@ export class TaskComponent implements OnInit {
   }
 
   setSelectedColumnsTasks() {
-this.filterTasksColumns = [];
+    this.filterTasksColumns = [];
     this.selectedColumns = this.columnsTasks.filter(c => c.selected).map(c => c.field);
     
     this.selectedColumns.forEach(c => {
@@ -335,7 +335,11 @@ this.filterTasksColumns = [];
       // imageColor obcas vraci code a obcas value !!
       const ic = this.parameters.find((p: any) => p.valueMapId === 'wf.valuemap.imageColor');
       if (ic) {
-        this.imageColor = this.imageColors.find(c => c.value === ic.value || c.code === ic.value).value;
+        const icv  = this.imageColors.find(c => c.value === ic.value || c.code === ic.value);
+        if (icv) {
+          this.imageColor = icv.value;
+        }
+        
       }
 
     });
@@ -433,12 +437,12 @@ this.filterTasksColumns = [];
   }
 
   saveColumnsSizes(e: any, field?: string) {
-    this.colsWidth[field] = e;
+    this.colsWidthTasks[field] = e;
     this.columnsTasks.forEach((c: any) => {
-      c.width = this.colsWidth[c.field];
+      c.width = this.colsWidthTasks[c.field];
     });
   
-    this.properties.setColumnsWorkFlow(this.columnsTasks);
+    this.properties.setColumnsWorkFlowTasks(this.columnsTasks);
   }
   
 
