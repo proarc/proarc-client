@@ -1815,6 +1815,7 @@
     "part/extent": "Rozsah",
     "part/extent/end": "Konec",
     "part/extent/start": "Začátek",
+    "part/extent/total": "Celkem",
     "physicalDescription": "Fyzický popis",
     "physicalDescription/digitalOrigin": "Zdroje digitálního dokumentu",
     "physicalDescription/extent": "Rozsah",
