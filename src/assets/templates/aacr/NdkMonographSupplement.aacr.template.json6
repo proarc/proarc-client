@@ -296,10 +296,30 @@
           fields: {
             value: {
               usage: 'R',
+              cols: 2,
               selector: 'originInfo/dateCreated/value',
               labelKey: 'originInfo/dateCreated/value',
               label: 'Hodnota',
               help: 'off'
+            },
+            qualifier: {
+              usage: 'R',
+              label: 'Upřesnění data',
+              selector: 'originInfo/dateIssued/@qualifier',
+              labelKey: 'originInfo/dateIssued/@qualifier',
+              cols: 2,
+              description: 'Možnost dalšího upřesnění. Možné hodnoty\
+            <ul>\
+              <li>Přibližné (approximate)</li>\
+              <li>Odvozené (inferred)</li>\
+              <li>Sporné (questionable)</li>\
+            </ul>',
+              options: [
+                ['', '-'],
+                ['approximate', 'Datum je přibližné'],
+                ['inferred', 'Datum je odvozené'],
+                ['questionable', 'Datum je sporné']
+              ]
             }
           }
         },
@@ -421,7 +441,7 @@
               ]
             },
             namePart: {
-              usage: 'MA',
+              usage: 'R',
               label: 'Jméno',
               selector: 'name/namePart',
               labelKey: 'name/namePart',
@@ -450,8 +470,8 @@
                 },
                 value: {
                   label: 'Hodnota',
-                  usage: 'M',
-                  required: true,
+                  usage: 'R',
+//                  required: true,
                   selector: 'name/namePart',
                   labelKey: 'name/namePart/value',
                   cols: 2,
@@ -560,7 +580,7 @@
           Údaje o typu média a typu nosiče zdroje/předlohy odpovídá hodnotám z pole 008 MARC 21',
           fields: {
             authority: {
-              usage: 'MA',
+              usage: 'M',
               label: 'Autorita',
               selector: 'physicalDescription/form/@authority',
               labelKey: 'physicalDescription/form/@authority',
@@ -741,24 +761,25 @@
             </li>\
           </ul>',
           options: [
-            ['udc', 'udc']
+            ['udc', 'udc'],
+            ['Konspekt', 'Konspekt']
           ]
         },
-//        edition: {
-//          usage: 'MA',
-//          label: 'Vydání',
-//          selector: 'classification/@edition',
-//          labelKey: 'classification/@edition',
-//          cols: 2,
-//          description: '<ul>\
-//            <li>\
-//              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)\
-//            </li>\
-//          </ul>',
-//          options: [
-//            ['Konspekt', 'Konspekt']
-//          ]
-//        },
+        edition: {
+          usage: 'MA',
+          label: 'Vydání',
+          selector: 'classification/@edition',
+          labelKey: 'classification/@edition',
+          cols: 2,
+          description: '<ul>\
+            <li>\
+              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)\
+            </li>\
+          </ul>',
+          options: [
+            ['Konspekt', 'Konspekt']
+          ]
+        },
         value: {
           usage: 'M',
           required: true,
@@ -821,7 +842,7 @@
       description: 'údaje o metadatovém záznamu – jeho vzniku, změnách apod.',
       fields: {
         descriptionStandard: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Standard metadat',
           cols: 2,
           selector: 'recordInfo/descriptionStandard',
