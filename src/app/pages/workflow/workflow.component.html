@@ -89,7 +89,7 @@
                     
                     <tr mat-header-row *matHeaderRowDef="filterWorkFlowColumns; sticky: true"></tr>
                     <tr mat-header-row *matHeaderRowDef="workFlowColumns; sticky: true"></tr>
-                    <tr mat-row *matRowDef="let row; columns: workFlowColumns; let idx=index" 
+                    <tr mat-row *matRowDef="let row; columns: workFlowColumns; let idx=index"  [id]="'w_'+row.id"
                         (click)="jobClick(row, $event, idx)" [class.app-selected]="row.selected"></tr>
                   </table>
                 </div>

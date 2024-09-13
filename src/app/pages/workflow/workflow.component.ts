@@ -228,7 +228,6 @@ export class WorkFlowComponent implements OnInit {
       } else {
         this.selectJob(this.jobs[0]);
       }
-
       this.state = 'success';
       this.layout.ready = true;
     });
@@ -336,12 +335,20 @@ export class WorkFlowComponent implements OnInit {
     if (w.id === this.selectedJob?.id) {
       return;
     }
+    w.selected = true;
     this.selectedJob = w;
     this.activeJob = w;
     this.selectedProfile = this.profiles.find(p => p.name === w.profileName);
     this.getMaterial();
     this.getTasks();
     this.refreshSubJobs();
+    
+    setTimeout(() => {
+      const el = document.getElementById('w_' + w.id);
+      if (el) {
+        el.scrollIntoView({ block: 'center' });
+      }
+    }, 100)
     
   }
 
