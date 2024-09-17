@@ -167,15 +167,15 @@ export class NewMetadataDialogComponent implements OnInit {
   }
 
   onSave(gotoEdit: boolean) {
-    if ( this.data.isWorkFlow) {
-      this.saveJob(gotoEdit);
-      return;
-    }
     if (this.isPage()) {
       this.savePage();
       return;
     }
     if (this.metadata.validate()) {
+      if ( this.data.isWorkFlow) {
+        this.saveJob(gotoEdit);
+        return;
+      }
       let data = `model=${this.metadata.model}`;
       data = `${data}&pid=${this.metadata.pid}`;
       data = `${data}&xml=${encodeURIComponent(this.metadata.toMods())}`;
@@ -203,9 +203,9 @@ export class NewMetadataDialogComponent implements OnInit {
     } else {
       // this.validating = true;
       setTimeout(() => {
-      this.layout.setMetadataResized();
-      this.confirmSave(this.translator.instant('dialog.newMetadata.onSave.title'), this.translator.instant('dialog.newMetadata.onSave.alert'), true, gotoEdit);
-    }, 10);
+        this.layout.setMetadataResized();
+        this.confirmSave(this.translator.instant('dialog.newMetadata.onSave.title'), this.translator.instant('dialog.newMetadata.onSave.alert'), true, gotoEdit);
+      }, 10);
     }
   }
 
@@ -229,6 +229,11 @@ export class NewMetadataDialogComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
+        
+        if ( this.data.isWorkFlow) {
+          this.saveJob(gotoEdit);
+          return;
+        }
         let data = `model=${this.metadata.model}`;
         data = `${data}&pid=${this.metadata.pid}`;
         data = `${data}&xml=${encodeURIComponent(this.metadata.toMods())}`;

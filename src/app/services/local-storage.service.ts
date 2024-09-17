@@ -62,7 +62,7 @@ export class LocalStorageService {
             {field: 'year', selected: false, width: 150, type: 'string'},
             {field: 'issue', selected: false, width: 150, type: 'string'},
             {field: 'detail', selected: false, width: 150, type: 'string'},
-            {field: 'taskDate', selected: false, width: 150, type: 'string'},
+            {field: 'taskDate', selected: false, width: 150, type: 'date'},
             {field: 'note', selected: false, width: 150, type: 'string'},
             {field: 'volume', selected: false, width: 150, type: 'string'},
             {field: 'deviceLabel', selected: false, width: 150, type: 'string'}

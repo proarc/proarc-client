@@ -170,11 +170,11 @@
         </mat-card>
          <mat-card fxFlex>
           <mat-card-content>
-            <fieldset class="app-p-4 app-mb-4">
+            <fieldset class="app-p-4 app-mb-4" cdkDropList (cdkDropListDropped)="drop($event, properties.procMngColumns)">
               <legend>{{ 'pages.settings.processManagementOverview.legend' | translate }}</legend>
               <div class="app-label app-mb-2">{{ 'pages.settings.processManagementOverview.label' | translate }}</div>
               <ng-container *ngFor="let column of properties.procMngColumns">
-                <div *ngIf="column.field !== 'actions'">
+                <div *ngIf="column.field !== 'actions'" cdkDropListOrientation="vertical" cdkDrag>
                   <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
                 </div>
               </ng-container>
@@ -184,10 +184,10 @@
         </mat-card>
         <mat-card fxFlex>
           <mat-card-content>
-            <fieldset class="app-p-4 app-mb-4">
+            <fieldset class="app-p-4 app-mb-4" cdkDropList (cdkDropListDropped)="drop($event, properties.queueColumns)">
               <legend>{{ 'pages.settings.processManagementQueue.legend' | translate }}</legend>
               <div class="app-label app-mb-2">{{ 'pages.settings.processManagementQueue.label' | translate }}</div>
-              <div *ngFor="let column of properties.queueColumns">
+              <div *ngFor="let column of properties.queueColumns" cdkDropListOrientation="vertical" cdkDrag>
                 <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
               </div>
             </fieldset>

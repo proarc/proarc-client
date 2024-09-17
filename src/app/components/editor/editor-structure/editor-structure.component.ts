@@ -738,7 +738,7 @@ export class EditorStructureComponent implements OnInit {
         this.reorder(from, to);
       }
     }
-      this.layout.setSelectionChanged(true, this.panel);
+    this.layout.setSelectionChanged(true, this.panel);
   }
 
   public trackItem(index: number, item: DocumentItem) {
@@ -858,15 +858,25 @@ export class EditorStructureComponent implements OnInit {
             // console.log(res);
             if (res?.item) {
               const item = DocumentItem.fromJson(res.item);
-              this.layout.items.push(item);
-              if (res.gotoEdit) {
-                // item.selected = true;
-                // this.rowClick(item, this.layout.items.length - 1, null);
 
+
+              if (res.gotoEdit) {
                 this.router.navigate(['/repository', item.pid]);
               } else {
+                if(result.objectPosition === 'after') {
+                  this.layout.items.splice(this.lastClickIdx+1, 0, item);
+                  this.hasChanges = true;
+                } else {
+                  this.layout.items.push(item);
+                }
                 item.selected = true;
                 this.rowClick(item, this.layout.items.length - 1, null);
+                if (this.table) {
+                  this.table.renderRows();
+                }
+                if(result.objectPosition === 'after') {
+                  this.onSave();
+                }
                 this.layout.refreshSelectedItem(true, 'pages');
               }
 

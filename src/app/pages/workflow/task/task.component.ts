@@ -44,7 +44,7 @@ export class TaskComponent implements OnInit {
   profiles: WorkFlowProfile[];
   allTasks: any[];
 
-  tasks: any[];
+  tasks: any[] = [];
 
   columnsTasks: { field: string, selected: boolean, type: string }[];
   colsWidthTasks: { [key: string]: number } = {};
@@ -310,9 +310,13 @@ export class TaskComponent implements OnInit {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
       }
-      this.task = response.response.data[0];
-      if (this.id) {
-        this.tasks = response.response.data;
+      if (this.task.state === 'FINISHED') {
+        this.router.navigate(['/workflow/jobs', this.task.jobId]);
+      } else {
+        this.task = response.response.data[0];
+        if (this.id) {
+          this.tasks = response.response.data;
+        }
       }
     });
 

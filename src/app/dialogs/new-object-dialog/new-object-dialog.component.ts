@@ -94,6 +94,8 @@ export class NewObjectDialogComponent implements OnInit {
 
   maxDate: Date = new Date();
 
+  objectPosition: string = 'end';
+
 
   constructor(
     @Inject(MAT_DATE_FORMATS) private dateFormatConfig: MultiDateFormat,
@@ -230,7 +232,9 @@ export class NewObjectDialogComponent implements OnInit {
       this.dialogRef.close({
         pid: pid, 
         data: response['response']['data'][0], 
-        isMultiple: this.isMultiple});
+        isMultiple: this.isMultiple,
+        objectPosition: this.objectPosition
+      });
 
     });
   }
@@ -268,7 +272,10 @@ export class NewObjectDialogComponent implements OnInit {
           }
           const pid =  response['response']['data'][0]['pid'];
           this.state = 'success';
-          this.dialogRef.close({pid: pid, data: response['response']['data'][0]});
+          this.dialogRef.close({
+            pid: pid,
+            objectPosition: this.objectPosition,
+            data: response['response']['data'][0]});
         });
       }
     });

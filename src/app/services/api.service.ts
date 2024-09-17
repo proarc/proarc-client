@@ -59,13 +59,13 @@ export class ApiService {
       'Accept-Language': this.getLang()
     })
     return this.http.get(encodeURI(`${this.getApiUrl()}${path}`), { params: params, headers })
-    .pipe(map((r: any) => {
-      if (r.response?.status === -1) {
-        r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
-      }
-      return r;
+      .pipe(map((r: any) => {
+        if (r.response?.status === -1) {
+          r.response.errors = { path: [{ errorMessage: r.response.errorMessage }] };
+        }
+        return r;
 
-    }))
+      }))
       .pipe(finalize(() => this.stopLoading()))
       .pipe(catchError(err => this.handleError(err, this)));
   }
@@ -86,16 +86,16 @@ export class ApiService {
       };
     }
     return this.http.put(encodeURI(`${this.getApiUrl()}${path}`), body, options)
-    .pipe(map((r: any) => {
-      if (r.response?.status === -1) {
-        r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
-      }
-      return r;
+      .pipe(map((r: any) => {
+        if (r.response?.status === -1) {
+          r.response.errors = { path: [{ errorMessage: r.response.errorMessage }] };
+        }
+        return r;
 
-    }))
-    .pipe(
-      finalize(() => this.stopLoading())
-    ).pipe(catchError(this.handleError));
+      }))
+      .pipe(
+        finalize(() => this.stopLoading())
+      ).pipe(catchError(this.handleError));
   }
 
   private post(path: string, body: any, options: any = null): Observable<Object> {
@@ -108,43 +108,43 @@ export class ApiService {
       };
     }
     return this.http.post(encodeURI(`${this.getApiUrl()}${path}`), body, options)
-    .pipe(map((r: any) => {
-      if (r.response?.status === -1) {
-        r.response.errors = [{errorMessage: r.response.errorMessage}];
-      }
-      return r;
+      .pipe(map((r: any) => {
+        if (r.response?.status === -1) {
+          r.response.errors = [{ errorMessage: r.response.errorMessage }];
+        }
+        return r;
 
-    }))
-    .pipe(finalize(() => this.stopLoading()))
-    .pipe(catchError(err => this.handleError(err, this)));
+      }))
+      .pipe(finalize(() => this.stopLoading()))
+      .pipe(catchError(err => this.handleError(err, this)));
   }
 
   private delete(path: string, params = {}): Observable<Object> {
     return this.http.delete(encodeURI(`${this.getApiUrl()}${path}`), { params: params })
-    .pipe(map((r: any) => {
-      if (r.response?.status === -1) {
-        r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
-      }
-      return r;
+      .pipe(map((r: any) => {
+        if (r.response?.status === -1) {
+          r.response.errors = { path: [{ errorMessage: r.response.errorMessage }] };
+        }
+        return r;
 
-    }))
-    .pipe(
-      finalize(() => this.stopLoading())
-    ).pipe(catchError(err => this.handleError(err, this)));
+      }))
+      .pipe(
+        finalize(() => this.stopLoading())
+      ).pipe(catchError(err => this.handleError(err, this)));
   }
 
   private request(method: string, path: string, params = {}, body: any): Observable<Object> {
     return this.http.request(method, encodeURI(`${this.getApiUrl()}${path}`), { params, body })
-    .pipe(map((r: any) => {
-      if (r.response?.status === -1) {
-        r.response.errors = {path: [{errorMessage: r.response.errorMessage}]};
-      }
-      return r;
+      .pipe(map((r: any) => {
+        if (r.response?.status === -1) {
+          r.response.errors = { path: [{ errorMessage: r.response.errorMessage }] };
+        }
+        return r;
 
-    }))
-    .pipe(
-      finalize(() => this.stopLoading())
-    ).pipe(catchError(err => this.handleError(err, this)));
+      }))
+      .pipe(
+        finalize(() => this.stopLoading())
+      ).pipe(catchError(err => this.handleError(err, this)));
   }
 
   private handleError(error: HttpErrorResponse, me: any) {
@@ -347,7 +347,7 @@ export class ApiService {
         path = 'export/kwis'
         break;
       }
-      case ProArc.EXPORT_ARCHIVE_EXTENDED:{
+      case ProArc.EXPORT_ARCHIVE_EXTENDED: {
         path = 'export/archive';
         data = `${data}&extendedPackage=true`;
         if (extendedType === 'snkd') {
@@ -369,7 +369,7 @@ export class ApiService {
         }
         break;
       }
-      case ProArc.EXPORT_ARCHIVE_EXTENDED_BAGIT:{
+      case ProArc.EXPORT_ARCHIVE_EXTENDED_BAGIT: {
         path = 'export/archive';
         data = `${data}&isBagit=true&extendedPackage=true`;
         if (extendedType === 'snkd') {
@@ -976,7 +976,7 @@ export class ApiService {
   }
 
   getWorkflow(params: string): Observable<any> {
-    return this.get('workflow'+params);
+    return this.get('workflow' + params);
   }
 
   getWorkflowProfiles(): Observable<any> {
@@ -1019,7 +1019,7 @@ export class ApiService {
     return this.post('workflow', data);
   }
 
-  updateWorkflow( data: string): Observable<any> {
+  updateWorkflow(data: string): Observable<any> {
     return this.put('workflow/mods', data);
   }
 
@@ -1262,10 +1262,9 @@ export class ApiService {
     return this.get('info/file?type=config');
   }
 
-  validateObject(pid: string) : Observable<any> {
+  validateObject(pid: string): Observable<any> {
     let data = `pid=${pid}`;
     return this.post('object/validate', data);
-  }
-
+  } 
 }
 

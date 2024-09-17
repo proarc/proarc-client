@@ -47,6 +47,8 @@ export class WorkFlowComponent implements OnInit {
 
   @ViewChild('subJobsTable') subJobsTable: MatTable<any>;
 
+  state: string;
+
   columnsWorkFlow: { field: string, selected: boolean, type: string }[];
   colsWidth: { [key: string]: number } = {};
   columnsWorkFlowSubJobs: { field: string, selected: boolean, type: string }[];
@@ -189,6 +191,7 @@ export class WorkFlowComponent implements OnInit {
   // }
 
   getWorkflow(keepSelection: boolean) {
+    this.state = 'loading';
     let id = this.route.snapshot.params['id'] ? parseInt(this.route.snapshot.params['id']) : null;
     if (keepSelection) {
       id = this.selectedJob.id;
@@ -209,6 +212,7 @@ export class WorkFlowComponent implements OnInit {
     this.api.getWorkflow(params).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
+        this.state = 'error';
         return;
       }
       this.allJobs = response.response.data;
@@ -224,7 +228,7 @@ export class WorkFlowComponent implements OnInit {
       } else {
         this.selectJob(this.jobs[0]);
       }
-
+      this.state = 'success';
       this.layout.ready = true;
     });
   }
@@ -331,12 +335,20 @@ export class WorkFlowComponent implements OnInit {
     if (w.id === this.selectedJob?.id) {
       return;
     }
+    w.selected = true;
     this.selectedJob = w;
     this.activeJob = w;
     this.selectedProfile = this.profiles.find(p => p.name === w.profileName);
     this.getMaterial();
     this.getTasks();
     this.refreshSubJobs();
+    
+    setTimeout(() => {
+      const el = document.getElementById('w_' + w.id);
+      if (el) {
+        el.scrollIntoView({ block: 'center' });
+      }
+    }, 100)
     
   }
 
