@@ -247,7 +247,17 @@
               <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
               <li>264_4 <strong>Copyright</strong> (copyright)</li>\
             </ul>\
-            využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>',
+            využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong><br\>\
+            Podporované formáty jsou:<ul>\
+            <li><strong>DD.MM.RRRR</strong>pokud známe den (např. 27.01.1998)</li>\
+            <li><strong>MM.RRRR</strong>pokud známe pouze měsíc (např. 01.1998)</li>\
+            <li><strong>RRRR</strong>pokud známe pouze rok (např. 1998 )</li>\
+            <li><strong>MM.-MM.RRRR</strong>vydání pro více měsíců (např. 01.-02.1998)</li>\
+            <li><strong>MM.RRRR-MM.RRRR</strong>vydání pro více měsíců (např. 12.1998-01.1999)</li>\
+            <li><strong>DD.MM.-DD.MM.RRRR</strong>vydání pro více dní (např. 31.01.-01.02.1998)</li>\
+            <li><strong>DD.MM.RRRR-DD.MM.RRRR</strong>vydání pro více dní (např. 31.12.1998-01.01.1999)</li>\
+            <li><strong>DD.-DD.MM.RRRR</strong>vydání pro více dní (např. 02.-03.02.1998)</li>\
+          </ul>',
           fields: {
             value: {
               usage: 'MA',
