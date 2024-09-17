@@ -6,13 +6,15 @@ import { ApiService } from './api.service';
 import { Router } from '@angular/router';
 import { User } from '../model/user.model';
 import { forkJoin, Observable, of, tap } from 'rxjs';
-import { catchError, finalize, switchMap } from 'rxjs/operators';
+import { catchError, finalize, map, switchMap } from 'rxjs/operators';
 import { ConfigService } from './config.service';
 
 @Injectable()
 export class AuthService {
 
     public user: User;
+    remaining = 0;
+    remainingPercent = 100;
 
     constructor(
         private http: HttpClient,
@@ -45,6 +47,11 @@ export class AuthService {
             })
     }
 
+    setLoggedOut() {
+        this.user = null;
+        this.router.navigate(['/login']);
+    }
+
     logout() {
         return this.http.delete(`${this.api.getBaseUrl()}/proarclogin`).subscribe((result) => {
             this.user = null;
@@ -63,14 +70,44 @@ export class AuthService {
             });
     }
 
-    checkLogin(): () => Observable<any> {
-        return () => this.http.get('user?whoAmI=true')
-            .pipe(
-                tap(user => {
-                    console.log('user');
-                    this.user = user as User;
-                })
-            );
+    private handleError(error: HttpErrorResponse, me: any) {
+        //  console.log(error);
+        if (error.status === 0) {
+          // A client-side or network error occurred. Handle it accordingly.
+          console.error('An error occurred:', error.error);
+        } else if (error.status === 503 || error.status === 504) {
+          // Forbiden. Redirect to login
+          console.log("Service Unavailable");
+          const url = me.router.routerState.snapshot.url;
+          if (me.router) {
+            me.router.navigate(['/login'], { url: url, err: '503' });
+          }
+        } else if (error.status === 403) {
+          // Forbiden. Redirect to login
+          console.log("Forbiden");
+          // const url = me.router.routerState.snapshot.url;
+          // if (me.router) {
+          //   me.router.navigate(['/login'], {url: url});
+          // }
+        } else {
+          console.error(
+            `Backend returned code ${error.status}, body was: `, error.error);
+        }
+        // Return an observable with a user-facing error message.
+        // return throwError({'status':error.status, 'message': error.message});
+        return of({ response: { 'status': error.status, 'message': error.message, 'errors': [error.error] } });
+      }
+
+    checkLogged(): Observable<any> {
+        return this.http.get('api/isLogged')
+        .pipe(map((r: any) => {
+            if (r.response?.status === -1) {
+              r.response.errors = [{ errorMessage: r.response.errorMessage }];
+            }
+            return r;
+    
+          }))
+          .pipe(catchError(err => this.handleError(err, this)));;
     }
 
     public getBaseUrl(): string {
@@ -124,9 +161,9 @@ export class AuthService {
         )}));
     }
 
-    handleError(error: HttpErrorResponse) {
-        console.log(error)
-    }
+    // handleError(error: HttpErrorResponse) {
+    //     console.log(error)
+    // }
 
     isLoggedIn(): boolean {
         return !!this.user;
