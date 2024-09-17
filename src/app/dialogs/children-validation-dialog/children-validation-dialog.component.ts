@@ -71,7 +71,10 @@ export class ChildrenValidationDialogComponent implements OnInit {
     // this.numberOfInvalid = 0;
     // this.numberOfValid = 0;
     this.metadatas.forEach(m => {
-      m.item.invalid = !m.metadata.validate();
+      const v = m.metadata.validate();
+      console.log(v, m.item.model, m.item.pid)
+      m.item.invalid = !v;
+      // m.item.invalid = false;
       if (m.item.invalid) {
         this.numberOfInvalid += 1;
       } else {
@@ -115,14 +118,11 @@ export class ChildrenValidationDialogComponent implements OnInit {
           this.numberOfInvalid += 1;
           item.invalid = true;
         } else {
-          const standard = Metadata.resolveStandard(response['record']['content']);
-          this.tmpl.getTemplate(standard, response['record']['model']).subscribe((tmpl: any) => {
-            const metadata = new Metadata(item.pid, item.model, response['record']['content'], response['record']['timestamp'], response['record']['standard'], tmpl);
-            this.metadatas.push({ item, metadata });
-          });
 
-          // const metadata = new Metadata(item.pid, item.model, response['record']['content'], response['record']['timestamp'], response['record']['standard']);
-          // this.metadatas.push({ item, metadata });
+          const standard = response['record']['standard'] ? response['record']['standard'] : Metadata.resolveStandardFromXml(response['record']['content']);
+          this.tmpl.getTemplate(standard, item.model).subscribe((tmpl: any) => {
+            const metadata = new Metadata(item.pid, item.model, response['record']['content'], response['record']['timestamp'], response['record']['standard'], tmpl);
+          })
         }
 
         this.index += 1;
