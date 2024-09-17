@@ -2519,7 +2519,10 @@
     "volume": "Volume",
     "jobId": "Job Id",
     "jobLabel": "Job label",
-    "order": "Order"
+    "order": "Order",
+    "objectPosition": "Object position",
+    "objectPositionEnd": "End",
+    "objectPositionAfter": "After selected"
   },
   "button": {
     "setLayout": "Set layout",

@@ -2518,9 +2518,10 @@
     "volume": "Ročník",
     "jobId": "Id záměru",
     "jobLabel": "Název záměru",
-    "order": "Poradí"
-
-
+    "order": "Poradí",
+    "objectPosition": "Místo zakládání",
+    "objectPositionEnd": "Na konec",
+    "objectPositionAfter": "Za vybraný"
   },
   "button": {
     "setLayout": "nastavit rozložení",
