@@ -204,7 +204,9 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns; let idx=index" (click)="selectItem(row, $event, idx)" (dblclick)="openItem(row)" class="app-cursor-pointer" [class.app-selected]="row.selected"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns; let idx=index"
+                #matrow  [id]="'tr_'+idx" 
+                 (click)="selectItem(row, $event, idx)" (dblclick)="openItem(row)" class="app-cursor-pointer" [class.app-selected]="row.selected"></tr>
               </table>
             </div>
           </div>

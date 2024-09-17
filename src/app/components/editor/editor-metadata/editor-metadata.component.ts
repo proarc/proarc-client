@@ -70,6 +70,7 @@ export class EditorMetadataComponent implements OnInit {
 
   validate() {
     this.isValidMetadata = this.metadata.validate();
+    console.log(this.isValidMetadata, this.model)
       setTimeout(() => {
         this.onSizeChanged();
       }, 10);

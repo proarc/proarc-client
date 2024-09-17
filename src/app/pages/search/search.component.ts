@@ -1,5 +1,5 @@
 import { DocumentItem } from '../../model/documentItem.model';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -99,6 +99,8 @@ export class SearchComponent implements OnInit {
 
 
   @ViewChild('table') table: MatTable<DocumentItem>;
+  @ViewChildren('matrow', { read: ViewContainerRef }) rows: QueryList<ViewContainerRef>;
+  
   public selectedColumns = [
     { field: 'label', selected: true, width: 100 },
     { field: 'model', selected: true, width: 100 },
@@ -560,15 +562,27 @@ export class SearchComponent implements OnInit {
         this.ui.showErrorDialogFromObject(response.response.data.map((d: any) => d.errorMessage = d.validation));
         this.state = 'error';
       } else {
+        const newPid = response.response.data[0].pid;
         this.state = 'success';
         this.ui.showInfoSnackBar("Objekty byly zkopirovane");
         if (item.model === this.model) {
-          const idx = this.items.findIndex(it => it.pid === item.pid) + 1;
-          this.items.splice(idx, 0, DocumentItem.fromJson(response.response.data[0]));
-          this.selectItem(this.items[idx]);
-          // setTimeout(()=>{
-          //   this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
-          // }, 50);
+          //const idx = this.items.findIndex(it => it.pid === item.pid) + 1;
+          this.reload();
+          // this.items.splice(idx, 0, DocumentItem.fromJson(response.response.data[0]));
+          // this.table.renderRows();
+          // this.selectItem(this.items[idx]);
+          setTimeout(()=>{
+            const idx = this.items.findIndex(it => it.pid === newPid);
+            this.selectItem(this.items[idx]);
+            console.log(this.rows, newPid)
+            let row = this.rows.find(tr => tr.element.nativeElement.id === 'tr_' + idx);
+            console.log(row)
+            if (row) {
+              setTimeout(() => {
+                row.element.nativeElement.scrollIntoView({ block: 'center', behavior: 'smooth' });
+              }, 100);
+            }
+          }, 1000);
         } else {
           // Kopirujeme objekt podrazeni ve stromu
           this.selectItem(this.selectedItem);
