@@ -81,6 +81,7 @@
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'action')" [style.width]="getColumnWidth('action')"></th>
           <td mat-cell *matCellDef="let element">
             <a [routerLink]="['/admin/' + element.userId  + '/edit-user']" [matTooltip]="'button.edit' | translate"><mat-icon>edit_note</mat-icon></a>
+            <a (click)="deleteUser(element)" [matTooltip]="'button.delete' | translate"><mat-icon>delete</mat-icon></a>
           </td>
         </ng-container>
 

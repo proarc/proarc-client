@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
   languages = ['cs', 'en', 'cs-en'];
   bgColor: string;
   loggedChecker: any;
-  intervalMilis = 15000;
+  intervalMilis = 10000;
 
   constructor(public translator: TranslateService,
               public auth: AuthService,

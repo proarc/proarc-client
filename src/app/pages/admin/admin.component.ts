@@ -120,10 +120,10 @@ export class AdminComponent implements OnInit {
     this.selectedUser = newUser;
   }
 
-  deleteUser() {
+  deleteUser(user: User) {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('dialog.deleteUser.title')),
-      message: String(this.translator.instant('dialog.deleteUser.message', { name:this.selectedUser.name })),
+      message: String(this.translator.instant('dialog.deleteUser.message', { name: user.name })),
       alertClass: 'app-message',
       btn1: {
         label: String(this.translator.instant('button.yes')),
@@ -143,7 +143,7 @@ export class AdminComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.api.deleteUser(this.selectedUser).subscribe((response: any) => {
+        this.api.deleteUser(user).subscribe((response: any) => {
           if (response['response'].errors) {
             this.ui.showErrorDialogFromObject(response['response'].errors);
             return;
