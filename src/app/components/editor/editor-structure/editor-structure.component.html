@@ -65,88 +65,7 @@
       </mat-menu>
     </div>
   </div>
-  <!-- zakomentovano a vracen stary kod na zaklade pripominek v issue #456  
-  <div fxLayout="row" class="app-toolbar">
-    <div fxFlex (resized)="onResize($event)">
-      <button mat-icon-button (click)="layout.setShouldRefresh(false)" [matTooltip]="'button.refresh' | translate" [class.app-dn]="columnSize < 35">
-        <mat-icon>sync</mat-icon>
-      </button>
-      <button mat-icon-button [class.app-active]="viewMode === 'list'" (click)="changeViewMode('list')" [matTooltip]="'editor.children.view_list' | translate" [class.app-dn]="columnSize < 75">
-        <mat-icon>format_align_justify</mat-icon>
-      </button>
-      <button mat-icon-button [disabled]="!pageChildren" [class.app-active]="viewMode === 'icons'" (click)="changeViewMode('icons')" [matTooltip]="'editor.children.view_icons' | translate" [class.app-dn]="columnSize < 105">
-        <mat-icon>apps</mat-icon>
-      </button>
-      <button mat-icon-button [disabled]="!pageChildren" (click)="onReindexChildren()" [matTooltip]="'editor.children.reindex' | translate" [class.app-dn]="columnSize < 145">
-        <mat-icon>format_list_numbered</mat-icon>
-      </button>
-      <button mat-icon-button *ngIf="isRepo" [disabled]="!(auth.user.changeModelFunction || auth.isSuperAdmin())" (click)="showConvertDialog()" [matTooltip]="'editor.children.convertPages' | translate" [class.app-dn]="columnSize < 175">
-        <mat-icon>swap_horiz</mat-icon>
-      </button>
-      <button mat-icon-button *ngIf="!isRepo" (click)="markSequence()" [matTooltip]="'editor.children.markSequence' | translate" >
-        <mat-icon>view_timeline</mat-icon>
-      </button>
-      <button mat-icon-button *ngIf="isRepo" [disabled]="!canAddChildren()" (click)="onCreateNewObject()" [matTooltip]="'editor.children.add_new' | translate" [class.app-dn]="columnSize < 210">
-        <mat-icon>add_circle</mat-icon>
-      </button>        
-      <button mat-icon-button *ngIf="isRepo" (click)="onRelocateOutside()" [matTooltip]="'editor.children.relocate_label' | translate" [class.app-dn]="columnSize < 240">
-        <mat-icon>forward</mat-icon>
-      </button>
-      <button mat-icon-button (click)="selectAll()" *ngIf="!isRepo" [matTooltip]="'editor.children.select_all' | translate">
-        <mat-icon>checklist</mat-icon>
-      </button>
-      <button mat-icon-button (click)="onDelete()" [matTooltip]="'editor.children.delete' | translate" [class.app-dn]="columnSize < 273">
-        <mat-icon>delete</mat-icon>
-      </button>
-      <button mat-icon-button (click)="onSave()" [disabled]="!hasChanges" [matTooltip]="'button.save' | translate" [class.app-dn]="columnSize < 307">
-        <mat-icon>save</mat-icon>
-      </button>
-      <button mat-icon-button  (click)="validateChildren()" [matTooltip]="'editor.children.validate' | translate" [class.app-dn]="columnSize < 345">
-        <mat-icon>check_circle</mat-icon>
-      </button>
-      <button *ngIf="!isRepo" mat-button (click)="ingest()">{{ 'button.continue' | translate }}</button>
-      <span *ngIf="isRepo" [class.app-dn]="columnSize < 476">
-        <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToParent()" [disabled]="!layout.parent" mat-icon-button class="app-btn-resized">
-          <mat-icon>keyboard_arrow_up</mat-icon>
-        </button>
-        <button matTooltip="{{ 'editor.toolbar.nav_down' | translate }}" (click)="goToFirst()" [disabled]="layout.items.length === 0" mat-icon-button class="app-btn-resized">
-          <mat-icon>keyboard_arrow_down</mat-icon>
-        </button>
-        <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToPrevious()" [disabled]="!layout.previousItem" mat-icon-button class="app-btn-resized">
-          <mat-icon>keyboard_arrow_left</mat-icon>
-        </button>
-        <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="goToNext()" [disabled]="!layout.nextItem" mat-icon-button class="app-btn-resized">
-          <mat-icon>keyboard_arrow_right</mat-icon>
-        </button>
-      </span>
-    </div>
-    <div>
-      <button mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #menuMore="matMenu">
-        <button mat-menu-item (click)="onMove()">{{ 'editor.children.move' | translate }}</button>
-        <button mat-menu-item (click)="selectAll()" *ngIf="isRepo">{{ 'editor.children.select_all' | translate }}</button>
-        <button mat-menu-item (click)="selectColumns()" >{{ 'editor.children.select_columns' | translate }}</button>
-        <span *ngIf="isRepo" [class.app-dn]="columnSize > 476">
-          <button (click)="goToParent()" [disabled]="!layout.parent" mat-menu-item><mat-icon>keyboard_arrow_up</mat-icon>{{ 'editor.toolbar.nav_up' | translate }}</button>
-          <button (click)="goToFirst()" [disabled]="layout.items.length === 0" mat-menu-item><mat-icon>keyboard_arrow_down</mat-icon>{{ 'editor.toolbar.nav_down' | translate }}</button>
-          <button (click)="goToPrevious()" [disabled]="!layout.previousItem" mat-menu-item><mat-icon>keyboard_arrow_left</mat-icon>{{ 'editor.toolbar.nav_prev' | translate }}</button>
-          <button (click)="goToNext()" [disabled]="!layout.nextItem" mat-menu-item><mat-icon>keyboard_arrow_right</mat-icon>{{ 'editor.toolbar.nav_next' | translate }}</button>
-        </span>
-        <button mat-menu-item (click)="validateChildren()" [class.app-dn]="columnSize > 345"><mat-icon>check_circle</mat-icon>{{ 'editor.children.validate' | translate }}</button>
-        <button mat-menu-item (click)="onSave()" [disabled]="!hasChanges" [class.app-dn]="columnSize > 307"><mat-icon>save</mat-icon>{{ 'button.save' | translate }}</button>
-        <button mat-menu-item (click)="onDelete()" [class.app-dn]="columnSize > 273"><mat-icon>delete</mat-icon>{{ 'editor.children.delete' | translate }}</button>
-        <button mat-menu-item *ngIf="isRepo" (click)="onRelocateOutside()" [class.app-dn]="columnSize > 240"><mat-icon>forward</mat-icon>{{ 'editor.children.relocate_label' | translate }}</button>
-        <button mat-menu-item *ngIf="isRepo" [disabled]="!canAddChildren()" (click)="onCreateNewObject()" [class.app-dn]="columnSize > 210"><mat-icon>add_circle</mat-icon>{{ 'editor.children.add_new' | translate }}</button> 
-        <button mat-menu-item *ngIf="isRepo" [disabled]="!(auth.user.changeModelFunction || auth.isSuperAdmin())" (click)="showConvertDialog()" [class.app-dn]="columnSize > 175"><mat-icon>swap_horiz</mat-icon>{{ 'editor.children.convertPages' | translate }}</button>
-        <button mat-menu-item [disabled]="!pageChildren" (click)="onReindexChildren()" [class.app-dn]="columnSize > 145"><mat-icon>format_list_numbered</mat-icon>{{ 'editor.children.reindex' | translate }}</button>
-        <button mat-menu-item [disabled]="!pageChildren" [class.app-active]="viewMode === 'icons'" (click)="changeViewMode('icons')" [class.app-dn]="columnSize > 105"><mat-icon>apps</mat-icon>{{ 'editor.children.view_icons' | translate }}</button>
-        <button mat-menu-item [class.app-active]="viewMode === 'list'" (click)="changeViewMode('list')" [class.app-dn]="columnSize > 75"><mat-icon>format_align_justify</mat-icon>{{ 'editor.children.view_list' | translate }}</button>
-        <button mat-menu-item (click)="layout.setShouldRefresh(false)" [class.app-dn]="columnSize > 35"><mat-icon>sync</mat-icon>{{ 'button.refresh' | translate }}</button>
-      </mat-menu>
-    </div>
-  </div> -->
+  
 
   <div fxFlex class="app-oa-y" #childrenList (scroll)="setScrollPos()" (keydown)="noscroll($event)">
     <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
@@ -221,10 +140,10 @@
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'label')" [style.width]="colsWidth['label']"> {{'search.name' | translate}}</th>
           <td mat-cell *matCellDef="let element">
             <mat-icon *ngIf="element.invalid" class="app-mr-2">warning</mat-icon>
-            <ng-container *ngIf="!isAkubra">
+            <ng-container *ngIf="!isAkubra || isRepo">
               {{ shortLabels ? element.shortLabel : element.label }}
             </ng-container>
-            <ng-container *ngIf="isAkubra">
+            <ng-container *ngIf="isAkubra && !isRepo">
               <ng-container *ngIf="element.pageNumber">{{ element.pageNumber }}</ng-container>
               <ng-container *ngIf="element.pageType">{{ (shortLabels ? "" : (", " + ("pageType." + element.pageType.toLowerCase() | translate))) }}</ng-container>
             </ng-container>
