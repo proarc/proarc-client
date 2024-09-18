@@ -90,17 +90,17 @@ export class SearchComponent implements OnInit {
   startShiftClickIdx: number;
   lastClickIdx: number;
   totalSelected: number;
-  
+
   startShiftClickIdxTree: number;
   lastClickIdxTree: number;
   totalSelectedTree: number;
-  
+
   loadingTree: boolean;
 
 
   @ViewChild('table') table: MatTable<DocumentItem>;
   @ViewChildren('matrow', { read: ViewContainerRef }) rows: QueryList<ViewContainerRef>;
-  
+
   public selectedColumns = [
     { field: 'label', selected: true, width: 100 },
     { field: 'model', selected: true, width: 100 },
@@ -280,7 +280,16 @@ export class SearchComponent implements OnInit {
       this.items = items;
       if (this.items.length > 0) {
         if (selectedPid) {
-          this.selectItem(this.findItem(selectedPid));
+          // this.selectItem(this.findItem(selectedPid));
+          const idx = this.items.findIndex(it => it.pid === selectedPid);
+          this.selectItem(this.items[idx]);
+          setTimeout(() => {
+            let row = this.rows.find(tr => tr.element.nativeElement.id === 'tr_' + idx);
+            if (row) {
+              row.element.nativeElement.scrollIntoView({ block: 'center', behavior: 'smooth' });
+            }
+          }, 500);
+
         } else {
           this.selectItem(this.items[0]);
         }
@@ -326,11 +335,10 @@ export class SearchComponent implements OnInit {
 
     this.lastClickIdx = idx;
     this.totalSelected = this.items.filter(i => i.selected).length;
-
     this.selectedItem = item;
 
 
-    if(this.selectedTreeItem ) {
+    if (this.selectedTreeItem) {
       // reset
       this.selectedTreeItem.expanded = false;
       this.selectedTreeItem.childrenLoaded = false;
@@ -341,7 +349,7 @@ export class SearchComponent implements OnInit {
     this.selectedTreeItem.level = 0;
     this.selectedTreeItem.expandable = true;
     this.treeItems = [this.selectedTreeItem];
-    
+
     this.refreshVisibleTreeItems();
     const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.selectedTreeItem.model).join(',');
     const canHavePages = allowedAsString.includes('page');
@@ -527,7 +535,7 @@ export class SearchComponent implements OnInit {
         if (treeItem) {
           this.changeLockInTree(treeItem, true, this.treeItems.indexOf(treeItem));
         }
-        
+
       }
 
     });
@@ -551,8 +559,10 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  onCopyItem(item: DocumentItem) {
-    this.api.copyObject(item.pid, item.model).subscribe((response: any) => {
+  onCopyItem(treeItem: TreeDocumentItem) {
+    this.state = 'loading';
+    this.api.copyObject(treeItem.pid, treeItem.model).subscribe((response: any) => {
+
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
         this.ui.showErrorDialogFromObject(response['response'].errors);
@@ -565,27 +575,22 @@ export class SearchComponent implements OnInit {
         const newPid = response.response.data[0].pid;
         this.state = 'success';
         this.ui.showInfoSnackBar("Objekty byly zkopirovane");
-        if (item.model === this.model) {
-          //const idx = this.items.findIndex(it => it.pid === item.pid) + 1;
-          this.reload();
-          // this.items.splice(idx, 0, DocumentItem.fromJson(response.response.data[0]));
-          // this.table.renderRows();
-          // this.selectItem(this.items[idx]);
-          setTimeout(()=>{
-            const idx = this.items.findIndex(it => it.pid === newPid);
-            this.selectItem(this.items[idx]);
-            console.log(this.rows, newPid)
-            let row = this.rows.find(tr => tr.element.nativeElement.id === 'tr_' + idx);
-            console.log(row)
-            if (row) {
-              setTimeout(() => {
-                row.element.nativeElement.scrollIntoView({ block: 'center', behavior: 'smooth' });
-              }, 100);
-            }
-          }, 1000);
+        if (treeItem.model === this.model) {
+          this.reload(newPid);
         } else {
           // Kopirujeme objekt podrazeni ve stromu
-          this.selectItem(this.selectedItem);
+          // this.selectItem(this.selectedItem);
+          const parent = this.treeItems.find(ti => ti.pid === treeItem.parentPid);
+          const parentIndex = this.treeItems.findIndex(ti => ti.pid === treeItem.parentPid);
+          const numChildren = this.treeItems.filter(ti => ti.parentPid === parent.pid).length;
+          // remove existing 
+          this.treeItems.splice(parentIndex + 1, numChildren);
+          this.getTreeItems(parent, true);
+
+          this.selectedItem.selected = true;
+          this.totalSelected = 1;
+
+
         }
 
       }
@@ -611,7 +616,7 @@ export class SearchComponent implements OnInit {
     };
     const data: SimpleDialogData = {
       title: String(this.translator.instant('dialog.removeObject.title')),
-      message: String(this.translator.instant('dialog.removeObject.message')) + ": " + pids.length  + '?',
+      message: String(this.translator.instant('dialog.removeObject.message')) + ": " + pids.length + '?',
       alertClass: 'app-warn',
       btn1: {
         label: String(this.translator.instant('button.yes')),
@@ -901,7 +906,7 @@ export class SearchComponent implements OnInit {
     this.ui.showInfoSnackBar(this.translator.instant('snackbar.copyTextToClipboard.success'));
   }
 
-  
+
 
   validateObject(item: DocumentItem) {
     this.api.validateObject(item.pid).subscribe((response: any) => {
@@ -934,17 +939,17 @@ export class SearchComponent implements OnInit {
   batchInfo: any;
 
   statuses = [
-        "undefined",
-        "new",
-        "assign",
-        "connected",
-        "processing",
-        "described",
-        "exported"]
+    "undefined",
+    "new",
+    "assign",
+    "connected",
+    "processing",
+    "described",
+    "exported"]
 
   getTreeItems(treeItem: TreeDocumentItem, getInfo: boolean, callback?: Function) {
     this.loadingTree = true;
-    
+
     this.api.getRelations(treeItem.pid).subscribe((children: DocumentItem[]) => {
 
       treeItem.expanded = true;
@@ -1016,26 +1021,26 @@ export class SearchComponent implements OnInit {
     this.lastClickIdxTree = idx;
     this.totalSelectedTree = this.visibleTreeItems.filter(i => i.selected).length;
     this.selectedTreeItem = treeItem;
-    
+
     if (this.totalSelectedTree === 1) {
       const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.selectedTreeItem.model).join(',');
       const canHavePages = allowedAsString.includes('page');
       if (this.properties.getBoolProperty('searchExpandTree', true) || !canHavePages) {
         if (treeItem.childrenLoaded) {
-          
+
         } else {
           this.getTreeItems(treeItem, true);
         }
       }
       this.getTreeInfo(treeItem);
     } else {
-      this.tree_info = {}; 
-    this.batchInfo = null;
+      this.tree_info = {};
+      this.batchInfo = null;
     }
   }
 
   getTreeInfo(treeItem: TreeDocumentItem) {
-    this.tree_info = {}; 
+    this.tree_info = {};
     this.batchInfo = null;
     //setTimeout(() => { 
     this.treeItems.filter(ti => ti.parentPid === treeItem.pid).forEach(t => {
@@ -1084,21 +1089,21 @@ export class SearchComponent implements OnInit {
   }
 
   expandTreeItemDeep(treeItem: TreeDocumentItem) {
-    
-      treeItem.expanded = true;
-      if (!treeItem.childrenLoaded) {
-        this.getTreeItems(treeItem, false, (children: TreeDocumentItem[]) => {
-          // callback
-          children.forEach(ch => {
-            this.expandTreeItemDeep(ch);
-          });
+
+    treeItem.expanded = true;
+    if (!treeItem.childrenLoaded) {
+      this.getTreeItems(treeItem, false, (children: TreeDocumentItem[]) => {
+        // callback
+        children.forEach(ch => {
+          this.expandTreeItemDeep(ch);
         });
-      } else {
-        this.treeItems.filter(ti => ti.parentPid === treeItem.pid).forEach(t => {
-          this.expandTreeItemDeep(t);
-        });
-      }
-    
+      });
+    } else {
+      this.treeItems.filter(ti => ti.parentPid === treeItem.pid).forEach(t => {
+        this.expandTreeItemDeep(t);
+      });
+    }
+
   }
 
   toggleTree(event: any, treeItem: TreeDocumentItem) {
@@ -1133,7 +1138,7 @@ export class SearchComponent implements OnInit {
     if (this.treeTable) {
       this.treeTable.renderRows();
     }
-    
+
   }
 
   columnType(f: string) {
@@ -1204,11 +1209,11 @@ export class SearchComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        switch(type) {
+        switch (type) {
           case 'searchTree':
-          this.treeColumnsDefs = this.properties.getSearchColumnsTree();
-          this.setSelectedTreeColumns();
-          break;
+            this.treeColumnsDefs = this.properties.getSearchColumnsTree();
+            this.setSelectedTreeColumns();
+            break;
           default:
 
         }
