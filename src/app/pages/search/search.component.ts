@@ -769,7 +769,7 @@ export class SearchComponent implements OnInit {
 
   setColumns() {
     this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field);
-    this.displayedColumns.push('validationStatus')
+    // this.displayedColumns.push('validationStatus')
   }
 
   initSelectedColumns() {

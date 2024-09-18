@@ -20,7 +20,8 @@ export class LocalStorageService {
     public static COLUMNS_REPO = 'columnsRepo';
     public static COLUMNS_IMPORT = 'columnsImport';
 
-    availableSearchColumns = ['pageType', 'pageIndex', 'pageNumber', 'model', 'pid', 'owner', 'processor', 'organization', 'status', 'created', 'modified', 'export', 'isLocked'];
+    availableSearchColumns = ['pageType', 'pageIndex', 'pageNumber', 'model', 'pid', 'owner', 'processor', 
+        'organization', 'status', 'created', 'modified', 'export', 'isLocked', 'urnNbn', 'descriptionStandard'];
     public selectedColumnsSearchDefault = [
         { field: 'label', selected: true, width: 100, type: 'string' },
         { field: 'model', selected: true, width: 100, type: 'translated' },
@@ -32,6 +33,8 @@ export class LocalStorageService {
         { field: 'modified', selected: true, width: 100, type: 'date' },
         { field: 'owner', selected: true, width: 100, type: 'string' },
         { field: 'writeExports', selected: true, width: 100, type: 'string' },
+        { field: 'urnNbn', selected: true, width: 100, type: 'string' },
+        { field: 'descriptionStandard', selected: true, width: 100, type: 'string' },
         { field: 'isLocked', selected: true, width: 100, type: 'boolean' }
     ];
 

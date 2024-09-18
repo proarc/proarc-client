@@ -42,6 +42,8 @@ export class DocumentItem {
   validationProcess: string;
   validationStatus : string;
 
+  descriptionStandard: string;
+  urnNbn : string;
   constructor() {
     this.invalid = false;
   }
@@ -95,6 +97,8 @@ export class DocumentItem {
     item.writeExports = item.writeExports2();
     item.validationProcess = json['validationProcess'];
     item.validationStatus = json['validationStatus'];
+    item.descriptionStandard = json['descriptionStandard'];
+    item.urnNbn = json['urnNbn'];
     return item;
   }
 
