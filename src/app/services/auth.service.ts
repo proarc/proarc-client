@@ -8,6 +8,7 @@ import { User } from '../model/user.model';
 import { forkJoin, Observable, of, tap } from 'rxjs';
 import { catchError, finalize, map, switchMap } from 'rxjs/operators';
 import { ConfigService } from './config.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class AuthService {
@@ -15,9 +16,13 @@ export class AuthService {
     public user: User;
     remaining = 0;
     remainingPercent = 100;
+    loggedChecker: any;
+    timerRemain: any;
+    intervalMilis = 10000;
 
     constructor(
         private http: HttpClient,
+        public translator: TranslateService,
         private api: ApiService,
         private router: Router,
         private config: ConfigService) {
@@ -109,6 +114,37 @@ export class AuthService {
           }))
           .pipe(catchError(err => this.handleError(err, this)));;
     }
+
+    checkIsLogged() {
+        if (this.isLoggedIn()) {
+          this.checkLogged().subscribe((res: any) => {
+            if (res?.response?.errors) {
+              clearInterval(this.loggedChecker);
+              clearInterval(this.timerRemain);
+              // nalert(this.translator.instant('alert.sessionTimeout'));
+              this.setLoggedOut();
+            } else if(res.state === 'logged') {
+              this.remaining = res.remaining;
+              this.remainingPercent =  this.remaining * 100.0 / res.maximum;
+              if (!this.loggedChecker) {
+                this.loggedChecker = setInterval(() => {
+                  this.checkIsLogged();
+                }, this.intervalMilis);
+                this.timerRemain = setInterval(() => {
+                  this.remaining--;
+                }, 1000);
+              }
+            } else {
+              clearInterval(this.loggedChecker);
+              clearInterval(this.timerRemain);
+              alert(this.translator.instant('alert.sessionTimeout'));
+              this.setLoggedOut();
+            }
+          });
+        //} else {
+        //  clearInterval(this.loggedChecker);
+        }
+      }
 
     public getBaseUrl(): string {
         return this.config.proarcBackendUrl;

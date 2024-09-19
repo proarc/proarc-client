@@ -17,8 +17,6 @@ import { NewMetadataDialogComponent } from 'src/app/dialogs/new-metadata-dialog/
 export class NavbarComponent implements OnInit {
   languages = ['cs', 'en', 'cs-en'];
   bgColor: string;
-  loggedChecker: any;
-  intervalMilis = 10000;
 
   constructor(public translator: TranslateService,
               public auth: AuthService,
@@ -30,35 +28,6 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     if (this.config.navbarColor) {
       this.bgColor = this.config.navbarColor;
-    }
-    this.checkLogged();
-    // this.loggedChecker = setInterval(() => {
-    // }, this.intervalMilis);
-  }
-
-  checkLogged() {
-    if (this.auth.isLoggedIn()) {
-      this.auth.checkLogged().subscribe((res: any) => {
-        if (res?.response?.errors) {
-          clearInterval(this.loggedChecker);
-          // nalert(this.translator.instant('alert.sessionTimeout'));
-          this.auth.setLoggedOut();
-        } else if(res.state === 'logged') {
-          this.auth.remaining = res.remaining;
-          this.auth.remainingPercent =  this.auth.remaining * 100.0 / res.maximum;
-          if (!this.loggedChecker) {
-            this.loggedChecker = setInterval(() => {
-              this.checkLogged();
-            }, this.intervalMilis);
-          }
-        } else {
-          clearInterval(this.loggedChecker);
-          alert(this.translator.instant('alert.sessionTimeout'));
-          this.auth.setLoggedOut();
-        }
-      });
-    //} else {
-    //  clearInterval(this.loggedChecker);
     }
   }
 

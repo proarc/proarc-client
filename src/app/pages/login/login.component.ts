@@ -61,6 +61,7 @@ export class LoginComponent implements OnInit {
             this.auth.remaining = checkLoggedResp.remaining;
             this.auth.remainingPercent =  this.auth.remaining * 100.0 / checkLoggedResp.maximum;
             this.config.mergeConfig(JSON.parse(configResp.response.data[0].configFile));
+            this.auth.checkIsLogged();
           }
           if (configResp.response?.data && !configResp.response.data[0].error) {
             this.config.mergeConfig(JSON.parse(configResp.response.data[0].configFile));

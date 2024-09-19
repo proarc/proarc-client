@@ -16,6 +16,11 @@ declare var APP_GLOBAL: any;
 export class AppComponent implements OnInit {
   public showFooter: boolean = this.config.showFooter;
 
+  
+  loggedChecker: any;
+  timerRemain: any;
+  intervalMilis = 10000;
+
   constructor(private translator: TranslateService,
     public auth: AuthService,
     private router: Router,
@@ -40,18 +45,22 @@ export class AppComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         (<any>window).gaaa('set', 'page', event.urlAfterRedirects);
         (<any>window).gaaa('send', 'pageview');
+      this.auth.checkIsLogged();
       }
     });
 
     if (this.auth.user && !this.config.valueMap) {
       const valueMapReq = this.api.getValuemap();
-        const configReq = this.api.getConfig();
-        forkJoin([valueMapReq, configReq]).subscribe(([valueMapResp, confgiResp]: [any, any]) => {
-          if (confgiResp.response?.data && !confgiResp.response.data.error) {
-            this.config.mergeConfig(JSON.parse(confgiResp.response.data.configFile));
-          }
-          this.config.valueMap = valueMapResp.response.data;
-        });
+      const configReq = this.api.getConfig();
+      forkJoin([valueMapReq, configReq]).subscribe(([valueMapResp, confgiResp]: [any, any]) => {
+        if (confgiResp.response?.data && !confgiResp.response.data.error) {
+          this.config.mergeConfig(JSON.parse(confgiResp.response.data.configFile));
+        }
+        this.config.valueMap = valueMapResp.response.data;
+      });
+      this.auth.checkIsLogged();
     }
   }
+
+  
 }
