@@ -72,7 +72,8 @@
       background-color: rgb(206, 156, 153);
       position: absolute;
       float: left;" [style.width]="auth.remainingPercent + '%'"></div>
-      <div style="position: absolute;">{{ auth.remaining * 1000 | date:'mm:ss' }}</div>
+      <div style="position: absolute;font-size: medium;line-height: 18px;width: 100%;
+    text-align: center;">{{ auth.remaining * 1000 | date:'mm:ss' }}</div>
       
       <!-- <mat-progress-bar color="warn" mode="determinate" [value]="remainingPercent" [matTooltip]="remaining + ' s.'"></mat-progress-bar> -->
     </div>
