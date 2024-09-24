@@ -3078,7 +3078,8 @@
       "digitalContentIsNotSupported": "Digital content is not supported",
       "noDigitalContent": "No digital content",
       "theImageIsNotAvailable": "The image is not available",
-      "noItemsToDisplay": "No items to display"
+      "noItemsToDisplay": "No items to display",
+      "sessionTimeout": "Connection timed out"
     }
   },
   "snackbar": {

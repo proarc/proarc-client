@@ -137,7 +137,7 @@ export class AuthService {
             } else {
               clearInterval(this.loggedChecker);
               clearInterval(this.timerRemain);
-              alert(this.translator.instant('alert.sessionTimeout'));
+              alert(this.translator.instant('alert.info.sessionTimeout'));
               this.setLoggedOut();
             }
           });

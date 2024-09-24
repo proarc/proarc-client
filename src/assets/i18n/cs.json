@@ -3078,7 +3078,8 @@
       "digitalContentIsNotSupported": "Digitální obsah není podporován",
       "noDigitalContent": "Žádný digitální obsah",
       "theImageIsNotAvailable": "Obrázek není k dispozici",
-      "noItemsToDisplay": "Žádné položky k zobrazení"
+      "noItemsToDisplay": "Žádné položky k zobrazení",
+      "sessionTimeout": "Časový limit připojení vypršel"
     }
   },
   "snackbar": {
