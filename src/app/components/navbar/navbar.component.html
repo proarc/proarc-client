@@ -60,21 +60,10 @@
           <span>{{ 'navbar.lang.desc.' + lang | translate }}</span>
         </button>
       </mat-menu>
-    <!-- <a mat-button *ngIf="translator.currentLang === 'en'" (click)="onLanguageChanged('cs')">CS</a>
-    <a mat-button *ngIf="translator.currentLang === 'cs'" (click)="onLanguageChanged('en')">EN</a> -->
+
+    <a *ngIf="auth.isLoggedIn()" class="app-session app-clean-cursor-pointer" [matTooltip]="('desc.session' | translate) + ': ' + (auth.remaining * 1000 | date:'mm:ss')">
+      <div class="app-block" [style.width]="auth.remainingPercent + '%'"></div>
+      <span class="app-text">{{ auth.remaining * 1000 | date:'mm:ss' }}</span>
+    </a>
   </div>
-    <div class="app-right" *ngIf="auth.isLoggedIn()" style="width: 60px;
-    height: 20px;
-    border: 1px solid white;
-    border-radius: 5px;
-    position: relative;">
-      <div style=" height: 100%;
-      background-color: rgb(206, 156, 153);
-      position: absolute;
-      float: left;" [style.width]="auth.remainingPercent + '%'"></div>
-      <div style="position: absolute;font-size: medium;line-height: 18px;width: 100%;
-    text-align: center;">{{ auth.remaining * 1000 | date:'mm:ss' }}</div>
-      
-      <!-- <mat-progress-bar color="warn" mode="determinate" [value]="remainingPercent" [matTooltip]="remaining + ' s.'"></mat-progress-bar> -->
-    </div>
 </mat-toolbar>

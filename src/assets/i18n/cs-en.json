@@ -2337,14 +2337,6 @@
 
 
 
-
-
-
-
-
-
-
-
   "desc": {
     "help": "Nápověda",
     "panelType": "Typ panelu",
@@ -2534,7 +2526,8 @@
     "order": "Poradí",
     "objectPosition": "Místo zakládání",
     "objectPositionEnd": "Na konec",
-    "objectPositionAfter": "Za vybraný"
+    "objectPositionAfter": "Za vybraný",
+    "session": "Zbývající čas do odhlášení"
   },
   "button": {
     "setLayout": "nastavit rozložení",

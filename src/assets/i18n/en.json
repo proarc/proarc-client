@@ -2526,7 +2526,8 @@
     "order": "Order",
     "objectPosition": "Object position",
     "objectPositionEnd": "End",
-    "objectPositionAfter": "After selected"
+    "objectPositionAfter": "After selected",
+    "session": "Time left until checkout"
   },
   "button": {
     "setLayout": "Set layout",

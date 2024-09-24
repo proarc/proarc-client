@@ -23,4 +23,27 @@
       background-color: $app-navbar-active-item-color;
     }
   }
+
+  .app-session {
+    border: 1px solid var(--app-navbar-session-color);
+    display: inline-flex;
+    align-items: center;
+    font-size: 14px;
+    width: 60px;
+    height: 26px;
+    position: relative;
+
+    .app-block {
+      background-color: var(--app-navbar-session-bg-color);
+      position: absolute;
+      height: 100%;
+    }
+
+    .app-text {
+      z-index: 1;
+      color: $app-color-lightnes;
+      width: 100%;
+      text-align: center;
+    }
+  }
 }

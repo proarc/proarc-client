@@ -32,6 +32,8 @@ $app-gray-9: mat-color($mat-gray, 900) !default;
   --app-form-header-button-color: #{$app-gray-7};
   --app-form-field-border-color: #{$app-gray-3};
 
+  --app-navbar-session-color: #{rgba($app-color-lightnes, .3)};
+  --app-navbar-session-bg-color: #2d456c;
 }
 
 // custom colors
