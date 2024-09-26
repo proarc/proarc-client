@@ -526,9 +526,12 @@ as-split {
           background-color: $app-color-item-selected;
 
           .app-item-thumb {
+            opacity: .6;
+
+            /* to delete after testing #576 
             img {
               opacity: .5;
-            }
+            } */
           }
         }
       }
@@ -550,7 +553,12 @@ as-split {
         background-color: $app-gray-2;
 
         .app-item-thumb {
-          background-size: cover;
+          //background-size: cover;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-color: $app-gray-2;
+          background-position-x: center;
+          background-position-y: center; 
         }
 
         .app-item-label {
