@@ -63,6 +63,7 @@
 
     <a *ngIf="auth.isLoggedIn()" class="app-session app-clean-cursor-pointer" [matTooltip]="('desc.session' | translate) + ': ' + (auth.remaining * 1000 | date:'mm:ss')">
       <div class="app-block" [style.width]="auth.remainingPercent + '%'"></div>
+      <!-- <div class="app-line"></div> -->
       <span class="app-text">{{ auth.remaining * 1000 | date:'mm:ss' }}</span>
     </a>
   </div>

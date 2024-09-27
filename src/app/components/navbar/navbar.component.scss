@@ -26,6 +26,7 @@
 
   .app-session {
     border: 1px solid var(--app-navbar-session-color);
+    /* border-bottom: 0; */
     display: inline-flex;
     align-items: center;
     font-size: 14px;
@@ -37,6 +38,18 @@
       background-color: var(--app-navbar-session-bg-color);
       position: absolute;
       height: 100%;
+      /* background-color: white;
+      position: absolute;
+      bottom: 0;
+      height: 1px; */
+    }
+
+    .app-line {
+      background-color: var(--app-navbar-session-color);
+      position: absolute;
+      bottom: 0;
+      height: 1px;
+      width: 100%;
     }
 
     .app-text {
