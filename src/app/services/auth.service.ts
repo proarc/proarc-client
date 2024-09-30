@@ -104,7 +104,7 @@ export class AuthService {
       }
 
     checkLogged(): Observable<any> {
-        return this.http.get('api/isLogged')
+        return this.http.get(`${this.api.getBaseUrl()}/isLogged`)
         .pipe(map((r: any) => {
             if (r.response?.status === -1) {
               r.response.errors = [{ errorMessage: r.response.errorMessage }];
