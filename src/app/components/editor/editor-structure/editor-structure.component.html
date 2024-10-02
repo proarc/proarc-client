@@ -121,7 +121,7 @@
                 {{ item.label + (shortLabels ? "" : (", " + ("pageType." + item.pageType.toLowerCase() | translate))) }}
               </ng-container>
               <div *ngIf="isAkubra" class="app-text app-h-100" [matTooltip]="(item.pageNumber ? item.pageNumber + ', ' : '') + (item.pageIndex ? '(' + item.pageIndex + ')' : '') + (item.pageType ? (shortLabels ? '' : (', ' + ('pageType.' + item.pageType.toLowerCase() | translate))) : '')">
-                <ng-container *ngIf="item.pageNumber"><strong>{{ item.pageNumber }}</strong>, </ng-container>
+                <ng-container *ngIf="item.pageNumber">{{ item.pageNumber }}, </ng-container>
                 <ng-container *ngIf="item.pageIndex">({{ item.pageIndex }})</ng-container>
                 <ng-container *ngIf="item.pageType">{{ (shortLabels ? "" : (", " + ("pageType." + item.pageType.toLowerCase() | translate))) }}</ng-container>
               </div>
