@@ -57,14 +57,13 @@ export class LoginComponent implements OnInit {
         const configReq = this.api.getConfig();
         const checkLoggedReq = this.auth.checkLogged();
         forkJoin([valueMapReq, configReq, checkLoggedReq]).subscribe(([valueMapResp, configResp, checkLoggedResp]: [any, any, any]) => {
+          if (configResp.response?.data && !configResp.response.data[0].error) {
+            this.config.mergeConfig(JSON.parse(configResp.response.data[0].configFile));
+          }
           if (checkLoggedResp?.state === 'logged') {
             this.auth.remaining = checkLoggedResp.remaining;
             this.auth.remainingPercent =  this.auth.remaining * 100.0 / checkLoggedResp.maximum;
-            this.config.mergeConfig(JSON.parse(configResp.response.data[0].configFile));
             this.auth.checkIsLogged();
-          }
-          if (configResp.response?.data && !configResp.response.data[0].error) {
-            this.config.mergeConfig(JSON.parse(configResp.response.data[0].configFile));
           }
           this.config.valueMap = valueMapResp.response.data;
 
