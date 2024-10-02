@@ -292,7 +292,8 @@
         "none": "<No donor>",
         "ilnorway": "Norské fondy (nové logo)",
         "norway": "Norské fondy (staré logo)",
-        "dkrvo19-23": "DKRVO 2019 - 2023"
+        "dkrvo19-23": "DKRVO 2019 - 2023",
+        "dkrvo24-28": "DKRVO 2024 - 2028"
       },
       "archivalCopies": "Path to original scans",
       "donator": "Donor"
