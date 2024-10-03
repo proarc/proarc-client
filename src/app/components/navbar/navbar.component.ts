@@ -8,6 +8,7 @@ import { ConfigService } from 'src/app/services/config.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { AboutDialogComponent } from 'src/app/dialogs/about-dialog/about-dialog.component';
 import { NewMetadataDialogComponent } from 'src/app/dialogs/new-metadata-dialog/new-metadata-dialog.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -17,6 +18,7 @@ import { NewMetadataDialogComponent } from 'src/app/dialogs/new-metadata-dialog/
 export class NavbarComponent implements OnInit {
   languages = ['cs', 'en', 'cs-en'];
   bgColor: string;
+  sub: Subscription;
 
   constructor(public translator: TranslateService,
               public auth: AuthService,
@@ -28,6 +30,19 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     if (this.config.navbarColor) {
       this.bgColor = this.config.navbarColor;
+    }
+
+    this.sub = this.config.configChanged().subscribe(() => {
+      if (this.config.navbarColor) {
+        this.bgColor = this.config.navbarColor;
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.sub) {
+      this.sub.unsubscribe();
+      this.sub = null;
     }
   }
 
