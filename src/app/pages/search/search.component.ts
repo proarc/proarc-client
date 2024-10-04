@@ -604,7 +604,7 @@ export class SearchComponent implements OnInit {
   onDeleteFromTree() {
     const refresh = this.selectedTreeItem.parent ? false : true;
     const pids = this.visibleTreeItems.filter(i => i.selected).map(i => i.pid)
-    this.onDelete(pids, refresh, (pids: string[]) => {
+    this.onDelete(pids, true, (pids: string[]) => {
       // this.search.selectedTree.remove();
     });
   }
