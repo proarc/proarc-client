@@ -70,9 +70,9 @@ export class ChildrenValidationDialogComponent implements OnInit {
     // this.index = 0;
     // this.numberOfInvalid = 0;
     // this.numberOfValid = 0;
+    console.log(this.metadatas)
     this.metadatas.forEach(m => {
       const v = m.metadata.validate();
-      console.log(v, m.item.model, m.item.pid)
       m.item.invalid = !v;
       // m.item.invalid = false;
       if (m.item.invalid) {
@@ -85,7 +85,7 @@ export class ChildrenValidationDialogComponent implements OnInit {
   }
 
   validate() {
-    if (this.index == this.count) {
+    if (this.index === this.count) {
       this.onFinish();
       return;
     }
@@ -121,7 +121,10 @@ export class ChildrenValidationDialogComponent implements OnInit {
 
           const standard = response['record']['standard'] ? response['record']['standard'] : Metadata.resolveStandardFromXml(response['record']['content']);
           this.tmpl.getTemplate(standard, item.model).subscribe((tmpl: any) => {
-            const metadata = new Metadata(item.pid, item.model, response['record']['content'], response['record']['timestamp'], response['record']['standard'], tmpl);
+            this.metadatas.push({
+              item: item,
+              metadata: new Metadata(item.pid, item.model, response['record']['content'], response['record']['timestamp'], response['record']['standard'], tmpl)
+          });
           })
         }
 
