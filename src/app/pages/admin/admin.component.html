@@ -9,6 +9,7 @@
   <div fxFlex class="app-admin app-content-wrapper app-pt-4" fxLayout="column">
     <div class="app-formbar app-mb-4">
       <button mat-stroked-button routerLink="/admin/new-user" class="app-mr-2">{{ 'button.createNewUser' | translate }}</button>
+      <button mat-stroked-button *ngIf="auth.isSuperAdmin()" [matTooltip]="'button.changeOwnerTooltip' | translate" (click)="changeOwner()" class="app-mr-2">{{ 'button.changeOwner' | translate }}</button>
     </div>
     <div fxFlex class="app-oa-y app-border-wrapper"> 
       <table mat-table [dataSource]="users" class="app-striped app-hover app-resize">

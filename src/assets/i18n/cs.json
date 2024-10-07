@@ -2533,7 +2533,9 @@
     "objectPosition": "Místo zakládání",
     "objectPositionEnd": "Na konec",
     "objectPositionAfter": "Za vybraný",
-    "session": "Zbývající čas do odhlášení"
+    "session": "Zbývající čas do odhlášení",
+    "oldOwner": "Původní uživatel",
+    "newOwner": "Nový uživatel"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2583,6 +2585,8 @@
     "create": "Vytvořit",
     "loadMetadataFromCatalog": "Načíst metadata z katalogu",
     "createNewUser": "Vytvořit nového uživatele",
+    "changeOwner": "Převod objektu mezi uživateli",
+    "changeOwnerTooltip": "Převod objektu",
     "chapters": "Kapitoly",
     "prev_page": "Přejít na předchozí stranu",
     "next_page": "Přejít na následující stranu",
@@ -3109,6 +3113,9 @@
     },
     "addNewUser": {
       "success": "Uživatel byl přidan"
+    },
+    "changeOwner": {
+      "success": "Objekty byly úspěšně převedeny"
     },
     "editUser": {
       "success": "Uživatel byl upraven"
