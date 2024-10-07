@@ -2566,6 +2566,7 @@
     "reload": "Reload",
     "goToObject": "Go to object",
     "backToTheListOfAllProcesses": "Back to the list of all processes",
+    "addReference": "Add references",
     "filter": "Filter",
     "viewErrorDetail": "View error detail",
     "saveAgain": "Save again",
@@ -2974,6 +2975,14 @@
     "changeModel": {
       "title": "Model conversion",
       "action": "Convert {{value1}} to {{value2}}"
+    },
+    "addReferences": {
+      "title": "Add references",
+      "message": "Copy value",
+      "structured": "structured",
+      "success": "References added successfully",
+      "action1": "Add",
+      "action2": "Close"
     },
     "convertPages": {
       "title": "Convert pages",

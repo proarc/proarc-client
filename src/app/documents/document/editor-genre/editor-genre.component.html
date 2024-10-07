@@ -6,6 +6,9 @@
       <mat-radio-button [value]="true">Recenzovaný článek</mat-radio-button>
       <mat-radio-button [value]="false">Nerecenzovaný článek</mat-radio-button>
   </mat-radio-group>
+  <button mat-icon-button [matTooltip]="'button.addReference' | translate" (click)="addReference()">
+    <mat-icon>format_quote</mat-icon>
+  </button>
 </div>
 <app-editor-field [field]="field" [showGenreSwitch]="showGenreSwitch">
   <ng-template let-item="item" let-idx="idx" #templateContent>

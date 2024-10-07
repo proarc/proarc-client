@@ -8,6 +8,7 @@ export interface SimpleDialogData {
   numberInput?: SimpleDialogNumberInput;
   textInput?: SimpleDialogTextInput;
   width?: number;
+  textAreaInput?: SimpleDialogTextInput;
 }
 
 export interface SimpleDialogButton {

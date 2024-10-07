@@ -1,8 +1,14 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
+import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
+import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 
 import { ElementField } from 'src/app/model/mods/elementField.model';
+import { ApiService } from 'src/app/services/api.service';
 import { LayoutService } from 'src/app/services/layout.service';
+import { UIService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-editor-genre',
@@ -17,7 +23,12 @@ export class EditorGenreComponent implements OnInit {
   peerControl = new FormControl();
   oldType: string;
 
-  constructor(private layout: LayoutService) {
+  constructor(
+    private api: ApiService,
+    private layout: LayoutService,
+    private ui: UIService,
+    private dialog: MatDialog,
+    private translator: TranslateService,) {
   }
 
   ngOnInit() {
@@ -78,6 +89,48 @@ export class EditorGenreComponent implements OnInit {
         }, 10);
       }
     }
+  }
+
+  addReference(){
+    const checkbox = {
+      label: String(this.translator.instant('dialog.addReferences.structured')),
+      checked: true
+    };
+    const data: SimpleDialogData = {
+      title: String(this.translator.instant('dialog.addReferences.title')),
+      message: String(this.translator.instant('dialog.addReferences.message')),
+      textAreaInput: { label: 'Obsah', value: '' },
+      alertClass: 'app-info',
+      btn1: {
+        label: String(this.translator.instant('dialog.addReferences.action1')),
+        value: 'yes',
+        color: 'primary'
+      },
+      btn2: {
+        label: String(this.translator.instant('dialog.addReferences.action2')),
+        value: 'no',
+        color: 'default'
+      },
+      checkbox
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        // console.log(this.field, data.textAreaInput.value, checkbox.checked);
+        this.api.addReference(this.layout.lastSelectedItem.pid, checkbox.checked, data.textAreaInput.value).subscribe((response: any) => {
+          if (response['response'].errors) {
+            this.ui.showErrorDialogFromObject(response['response'].errors);
+            return;
+          } else if (response['response'].data[0].validation) {
+            this.ui.showErrorDialogFromString(response['response'].data[0].validation);
+            return;
+          } else {
+            this.ui.showInfoSnackBar(String(this.translator.instant('dialog.addReferences.success')));
+            this.layout.setShouldRefresh(false);
+          }
+        })
+      }
+    });
   }
 
 }

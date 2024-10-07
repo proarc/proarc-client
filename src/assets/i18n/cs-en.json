@@ -2566,6 +2566,7 @@
     "reload": "Načíst znovu",
     "goToObject": "Přejít na objekt",
     "backToTheListOfAllProcesses": "Zpět na seznam všech procesů",
+    "addReference": "Přidat seznam použité literatury",
     "filter": "Filtrovat",
     "viewErrorDetail": "Zobrazit detail chyby",
     "saveAgain": "Uložit znovu",
@@ -2974,6 +2975,14 @@
     "changeModel": {
       "title": "Převod modelu",
       "action": "Převést {{value1}} na {{value2}}"
+    },
+    "addReferences": {
+      "title": "Přidat seznam použité literatury",
+      "message": "Zkopirujte hodnotu",
+      "structured": "strukturované",
+      "success": "Seznam úspěšně přidan",
+      "action1": "Přidat",
+      "action2": "Zavřít"
     },
     "convertPages": {
       "title": "Převést strany",
