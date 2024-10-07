@@ -2529,7 +2529,9 @@
     "objectPosition": "Object position",
     "objectPositionEnd": "End",
     "objectPositionAfter": "After selected",
-    "session": "Time left until checkout"
+    "session": "Time left until checkout",
+    "oldOwner": "Old owner",
+    "newOwner": "New owner"
   },
   "button": {
     "setLayout": "Set layout",
@@ -2579,6 +2581,8 @@
     "create": "Create",
     "loadMetadataFromCatalog": "Load metadata from catalog",
     "createNewUser": "Create a new user",
+    "changeOwner": "Change owner",
+    "changeOwnerTooltip": "Change objects owner",
     "chapters": "Chapters",
     "prev_page": "Next page",
     "next_page": "Previous page",
@@ -3105,6 +3109,9 @@
     },
     "addNewUser": {
       "success": "User has been added"
+    },
+    "changeOwner": {
+      "success": "The objects were successfully transfered"
     },
     "editUser": {
       "success": "User has been modified"

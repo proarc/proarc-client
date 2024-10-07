@@ -5,9 +5,11 @@ import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 import { User } from 'src/app/model/user.model';
 import { ApiService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UIService } from 'src/app/services/ui.service';
+import { ChangeOwnerDialogComponent } from './change-owner-dialog/change-owner-dialog.component';
 
 @Component({
   selector: 'app-admin',
@@ -47,6 +49,7 @@ export class AdminComponent implements OnInit {
   constructor(
     private translator: TranslateService,
     private config: ConfigService,
+    public auth: AuthService,
     private dialog: MatDialog,
     private api: ApiService,
     private ui: UIService,
@@ -78,6 +81,18 @@ export class AdminComponent implements OnInit {
 
   selectUser(user: User) {
     this.selectedUser = user;
+  }
+
+  changeOwner(){
+    const dialogRef = this.dialog.open(ChangeOwnerDialogComponent, { 
+      data: this.users,
+      width: '680px'
+     });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        
+      }
+    });
   }
 
   save() {

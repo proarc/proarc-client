@@ -133,6 +133,7 @@ import { TotestComponent } from './pages/totest/totest.component';
 import { CzidloDialogComponent } from './dialogs/czidlo-dialog/czidlo-dialog.component';
 import { UpdateInSourceDialogComponent } from './dialogs/update-in-source-dialog/update-in-source-dialog.component';
 import { ResolveConflictDialogComponent } from './dialogs/resolve-conflict-dialog/resolve-conflict-dialog.component';
+import { ChangeOwnerDialogComponent } from './pages/admin/change-owner-dialog/change-owner-dialog.component';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 300,
@@ -261,7 +262,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     TotestComponent,
     CzidloDialogComponent,
     UpdateInSourceDialogComponent,
-    ResolveConflictDialogComponent
+    ResolveConflictDialogComponent,
+    ChangeOwnerDialogComponent
   ],
   imports: [
     BrowserModule,

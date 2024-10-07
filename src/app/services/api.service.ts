@@ -1266,5 +1266,11 @@ export class ApiService {
     let data = `pid=${pid}`;
     return this.post('object/validate', data);
   } 
+
+  changeOwner(oldOwner: string, newOwner: string) {
+    let data = `oldOwner=${oldOwner}&newOwner=${newOwner}`;
+    return this.post('object/changeOwner', data);
+    
+  }
 }
 
