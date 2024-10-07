@@ -149,7 +149,7 @@
 
                                             <mat-form-field *ngSwitchCase="'TEXT'">
                                                 <mat-label>{{ param.profileLabel }}</mat-label>
-                                                <input matInput [(ngModel)]="param.value">
+                                                <input matInput [(ngModel)]="param.value" [id]="'param_' + param.profileName" [type]="param.valueType.toLowerCase()" [required]="param.required">
                                             </mat-form-field>
 
                                             <mat-checkbox *ngSwitchCase="'CHECKBOX'" color="primary"

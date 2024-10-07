@@ -2202,7 +2202,8 @@
     "remove_job": "Remove job(s)",
     "add_step": "Add step",
     "multipleJobsEdit": "Multiple jobs edition",
-    "multipleTasksEdit": "Multiple tasks edition"
+    "multipleTasksEdit": "Multiple tasks edition",
+    "missing_required_field": "Missing required field"
   },
   "premis": {
     "techMD": "technická metadata",

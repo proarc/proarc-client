@@ -16,7 +16,6 @@ export class ConfigService {
 	}
 
 	public mergeConfig(c: any) {
-		console.log(c)
 		const keys = Object.keys(c);
 		keys.forEach(k => {
 			APP_GLOBAL[k] = c[k];

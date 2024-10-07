@@ -301,9 +301,18 @@ export class TaskComponent implements OnInit {
 
   saveTask() {
     const params: any = {};
+    let hasError = false;
     this.parameters.forEach((p: any) => {
+      if (p.required && !p.value) {
+        this.ui.showErrorSnackBar(this.translator.instant('workflow.missing_required_field') + ' ' + p.profileLabel);
+        document.getElementById('param_' + p.profileName).focus();
+        hasError = true;
+      }
       params[p.profileName] = p.value;
-    })
+    });
+    if (hasError) {
+      return;
+    }
     this.task.params = params;
     this.api.saveWorkflowTask(this.task).subscribe((response: any) => {
       if (response['response'].errors) {

@@ -2201,7 +2201,8 @@
     "remove_job": "Odstranit záměr(y)",
     "add_step": "Přidat krok",
     "multipleJobsEdit": "Hromadná úprava záměrů",
-    "multipleTasksEdit": "Hromadná úprava úkolů"
+    "multipleTasksEdit": "Hromadná úprava úkolů",
+    "missing_required_field": "Chybí povinné pole"
   },
   "premis": {
     "techMD": "technická metadata",
