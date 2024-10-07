@@ -42,6 +42,9 @@
         <button mat-stroked-button (click)="onResolveConflict()" *ngIf="selectedBatch && selectedBatch.state === 'LOADING_CONFLICT'">
           {{ 'button.resolveconflict' | translate }}
         </button>
+        <button mat-stroked-button (click)="stopBatch(selectedBatch)" *ngIf="canStopProcess()">
+          {{ 'button.stopProcess' | translate }}
+        </button>
       </ng-container>
       <ng-container *ngIf="view == 'loadingQueue'">
         <button mat-stroked-button (click)="reload()">

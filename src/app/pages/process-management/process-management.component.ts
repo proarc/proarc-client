@@ -691,4 +691,14 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
     this.ui.showInfoSnackBar(this.translator.instant('snackbar.copyTextToClipboard.success'));
   }
 
+  canStopProcess() {
+    return this.selectedBatch && 
+    (
+      this.auth.isAdmin() || this.auth.isSuperAdmin() ||
+      this.auth.user.name === this.selectedBatch.user
+    ) && 
+    (this.selectedBatch.state === 'EXPORT_PLANNED' || this.selectedBatch.state === 'EXPORTING')
+      
+  }
+
 }

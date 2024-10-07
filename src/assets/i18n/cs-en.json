@@ -2566,6 +2566,7 @@
     "viewErrorDetail": "Zobrazit detail chyby",
     "saveAgain": "Uložit znovu",
     "stop": "Stopnout",
+    "stopProcess": "Pozastavit exportní proces",
     "cancel": "Zrušit",
     "continueToPrepareMetadata": "Pokračovat k přípravě metadat",
     "markRow": "Označit řadu",

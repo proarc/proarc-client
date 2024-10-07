@@ -2566,6 +2566,7 @@
     "viewErrorDetail": "View error detail",
     "saveAgain": "Save again",
     "stop": "Stop",
+    "stopProcess": "Stop export process",
     "cancel": "Cancel",
     "continueToPrepareMetadata": "Continue to prepare metadata",
     "markRow": "Mark row",
