@@ -169,7 +169,12 @@
           </ng-template>
         </app-editor-field>
         <app-field-text field="geographic" [item]="subject" [(value)]='subject.geographic["_"]'></app-field-text>
-        <app-field-text field="temporal" [item]="subject" [(value)]='subject.temporal["_"]'></app-field-text>
+        <app-editor-field *ngIf="subject.available['temporal']" [field]="subject.temporals" [nested]='true'>
+          <ng-template let-temporal="item" #templateContent>
+            <app-field-codebook field="lang" [item]="temporal" [(value)]="temporal.attrs['lang']"></app-field-codebook>
+            <app-field-text field="value" [item]="temporal" [(value)]='temporal.modsElement["_"]'></app-field-text>
+          </ng-template>
+        </app-editor-field>
         <app-field-text field="occupation" [item]="subject" [(value)]='subject.occupation["_"]'></app-field-text>
         <app-editor-field *ngIf="subject.available['name']" [field]="item.names" [nested]='true'>
           <ng-template let-name="item" #templateContent>
