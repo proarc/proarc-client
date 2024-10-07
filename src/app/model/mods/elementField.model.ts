@@ -51,6 +51,7 @@ import {ModsEdition} from './edition.model';
 import {ModsRelatedItem2} from './relatedItem2.model';
 import {ModsDetail} from './detail.model';
 import {ModsLanguageOfCataloging} from './languageOfCataloging.model';
+import {ModsTemporal} from './temporal.model';
 
 export class ElementField {
 
@@ -385,6 +386,8 @@ export class ElementField {
                 return new ModsInternetMediaType(el, this.template);
             case ModsTopic.getId():
                 return new ModsTopic(el, this.template);
+            case ModsTemporal.getId():
+                return new ModsTemporal(el, this.template);
             case ModsPhysicalExtent.getId():
                 return new ModsPhysicalExtent(el, this.template);
             case ModsEdition.getId():
@@ -520,6 +523,8 @@ export class ElementField {
                 return ModsTableOfContents.getSelector();
             case ModsTopic.getId():
                 return ModsTopic.getSelector();
+            case ModsTemporal.getId():
+                return ModsTemporal.getSelector();
             case ModsPhysicalExtent.getId():
                 return ModsPhysicalExtent.getSelector();
             case ModsEdition.getId():
