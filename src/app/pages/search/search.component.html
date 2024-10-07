@@ -136,7 +136,7 @@
                 <td mat-cell *matCellDef="let element">
                   <ng-container [ngSwitch]="columnTypes[c]">
                     <ng-container *ngSwitchCase="'date'">
-                      {{ element[c] | date : 'dd.MM.yyyy'}}
+                      {{ element[c] | date : 'dd.MM.yyyy hh:mm:ss'}}
                     </ng-container>
                     <ng-container *ngSwitchCase="'list'">
                       {{ listValue(c, element[c])}}
@@ -294,7 +294,7 @@
                       </span>
                       <ng-container [ngSwitch]="columnTypes[c]">
                         <ng-container *ngSwitchCase="'date'">
-                          {{ element[c] | date : 'dd.MM.yyyy'}}
+                          {{ element[c] | date : 'dd.MM.yyyy hh:mm:ss'}}
                         </ng-container>
                         <ng-container *ngSwitchCase="'list'">
                           {{ listValue(c, element[c])}}
