@@ -178,6 +178,7 @@ export class WorkFlowComponent implements OnInit {
       }
       this.profiles = profiles.response.data;
       this.setSelectedColumns();
+      this.jobsSortField = this.workFlowColumns[0];
       this.setSelectedColumnsSubJobs();
       this.setSelectedColumnsTasks();
       this.getWorkflow(false);
