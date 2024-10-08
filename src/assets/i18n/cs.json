@@ -2646,7 +2646,7 @@
   "model": {
     "model:periodical": "K4 Periodikum",
     "model:periodicalvolume": "K4 Ročník",
-    "model:periodicalissue": "K4 Číslo",
+    "model:periodicalitem": "K4 Číslo",
     "model:monograph": "K4 Monografie",
     "model:monographtitle": "K4 Monografie",
     "model:monographunit": "K4 Monografie - volná část",
@@ -2901,7 +2901,7 @@
     "export": {
       "title": "Export",
       "type": {
-        "datastream_full": "Skeny (Stream FULL)",
+        "datastream_full": "Skeny/PDF (Stream FULL)",
         "datastream_raw": "Původní skeny/PDF (Stream RAW)",
         "datastream_ndkUser": "Uživatelská kopie (Stream NDK_USER)",
         "kramerius": "Kramerius",
