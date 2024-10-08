@@ -153,7 +153,8 @@ export class CodebookService {
   public isOldprint(model: string): boolean {
     return model === 'model:oldprintvolume' || model === 'model:oldprintsheetmusic' || model === 'model:oldprintmap'
       || model === 'model:oldprintgraphics' || model === 'model:oldprintomnibusvolume' || model === 'model:oldprintchapter'
-      || model === 'model:oldprintmonographtitle' || model === 'model:oldprintsupplement';
+      || model === 'model:oldprintmonographtitle' || model === 'model:oldprintsupplement'
+      || model === 'model:oldprintmonographunit';
   }
 
   // public isTopLevel(): boolean {

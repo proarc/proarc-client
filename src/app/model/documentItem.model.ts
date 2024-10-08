@@ -176,7 +176,8 @@ export class DocumentItem {
   public isOldprint(): boolean {
     return this.model === 'model:oldprintvolume' || this.model === 'model:oldprintsheetmusic' || this.model === 'model:oldprintmap'
       || this.model === 'model:oldprintgraphics' || this.model === 'model:oldprintomnibusvolume' || this.model === 'model:oldprintchapter'
-      || this.model === 'model:oldprintmonographtitle' || this.model === 'model:oldprintsupplement';
+      || this.model === 'model:oldprintmonographtitle' || this.model === 'model:oldprintsupplement'
+      || this.model === 'model:oldprintmonographunit';
   }
 
   // public isTopLevel(): boolean {

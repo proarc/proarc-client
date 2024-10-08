@@ -2669,6 +2669,7 @@
     "model:page": "Page",
     "model:oldprintomnibusvolume": "STT Convolut",
     "model:oldprintmonographtitle": "STT Multipart Monograph",
+    "model:oldprintmonographunit": "STT Monograph Unit",
     "model:oldprintvolume": "STT Volume",
     "model:oldprintsupplement": "STT Supplement",
     "model:oldprintchapter": "STT Chapter",

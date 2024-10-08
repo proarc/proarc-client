@@ -2669,6 +2669,7 @@
     "model:page": "Strana",
     "model:oldprintomnibusvolume": "STT Konvolut",
     "model:oldprintmonographtitle": "STT Vícedílná monografie",
+    "model:oldprintmonographunit": "STT Svazek Vícedílné monografie",
     "model:oldprintvolume": "STT Svazek monografie",
     "model:oldprintsupplement": "STT Příloha monografie",
     "model:oldprintchapter": "STT Kapitola",

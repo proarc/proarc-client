@@ -66,6 +66,7 @@ var APP_GLOBAL = {
       'model:page',
       'model:oldprintomnibusvolume',
       'model:oldprintmonographtitle',
+      'model:oldprintmonographunit',
       'model:oldprintvolume',
       'model:oldprintsupplement',
       'model:oldprintchapter',

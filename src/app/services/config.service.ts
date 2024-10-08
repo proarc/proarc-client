@@ -134,6 +134,7 @@ export class ConfigService {
 		'model:page',
 		'model:oldprintomnibusvolume',
 		'model:oldprintmonographtitle',
+    'model:oldprintmonographunit',
 		'model:oldprintvolume',
 		'model:oldprintsupplement',
 		'model:oldprintchapter',
@@ -285,7 +286,7 @@ export class ConfigService {
 
 	public get organizations() {
 		return APP_GLOBAL.organizations || [];
-	} 
+	}
 	public get profiles() { return APP_GLOBAL.profiles || ConfigService.defaultProfiles;}
 	public get exports() { return APP_GLOBAL.exports || ConfigService.defaultDefaultExports;}
 	public get pagePositions() { return APP_GLOBAL.pagePositions || ConfigService.defaultPagePositions;}
@@ -449,9 +450,16 @@ export class ConfigService {
 			dest: [
 				{ model: 'ndkmonographvolume', originmodel: "oldprintvolume", "apiPoint": "object/changeOldPrintMonographVolumeToNdkMonographVolume" },
 				{ model: 'oldprintgraphics', originmodel: "oldprintvolume", "apiPoint": "object/changeOldPrintMonographVolumeToOldPrintGraphic" },
-				{ model: 'oldprintsheetmusic', originmodel: "oldprintvolume", "apiPoint": "object/changeOldPrintMonographVolumeToOldPrintMusicSheet" }
+				{ model: 'oldprintsheetmusic', originmodel: "oldprintvolume", "apiPoint": "object/changeOldPrintMonographVolumeToOldPrintMusicSheet" },
+        { model: 'oldprintmonographunit', originmodel: "oldprintvolume", "apiPoint": "object/changeOldPrintMonographVolumeToOldPrintMonographUnit"}
 			]
 		},
+    {
+      origin: 'oldprintmonographunit',
+      dest: [
+        { model: 'oldprintvolume', originmodel: "oldprintmonographunit", apiPoint: "object/changeOldPrintMonographUnitToOldPrintMonographVolume" },
+      ]
+    },
 
 		// k4
 		{

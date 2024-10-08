@@ -82,6 +82,7 @@ export class ModelTemplate {
 
       "model:oldprintomnibusvolume": 'OldprintConvolutte',           // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
       "model:oldprintmonographtitle": 'OldprintMonographTitle',
+      "model:oldprintmonographunit": 'OldprintMonographUnit',
       "model:oldprintvolume": 'OldprintMonographVolume',
       "model:oldprintsupplement": 'OldprintMonographSupplement',
       "model:oldprintchapter": 'OldprintChapter',
@@ -134,6 +135,7 @@ export class ModelTemplate {
 
       "model:oldprintomnibusvolume": 'OldprintConvolutte',
       "model:oldprintmonographtitle": 'OldprintMonographTitle',
+      "model:oldprintmonographunit": 'OldprintMonographUnit',
       "model:oldprintvolume": 'OldprintMonographVolume',
       "model:oldprintsupplement": 'OldprintMonographSupplement',
       "model:oldprintchapter": 'OldprintChapter',
@@ -187,7 +189,8 @@ export class ModelTemplate {
     'ndkpage': [],
     'page': [],
     'oldprintomnibusvolume': ['oldprintvolume', 'oldprintmonographtitle', 'oldprintgraphics', 'oldprintmap', 'oldprintsheetmusic', 'oldprintpage'],
-    'oldprintmonographtitle': ['oldprintvolume'],
+    'oldprintmonographtitle': ['oldprintmonographunit'],
+    'oldprintmonographunit': ['oldprintchapter', 'oldprintsupplement', 'oldprintpage'],
     'oldprintvolume': ['oldprintchapter', 'oldprintsupplement', 'oldprintpage'],
     'oldprintsupplement': ['oldprintpage'],
     'oldprintchapter': [],
