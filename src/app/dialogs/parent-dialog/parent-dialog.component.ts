@@ -198,14 +198,14 @@ export class ParentDialogComponent implements OnInit {
     if (this.data.isRepo) {
       // No selected. Should take data.item element as origin.
       // Selected. Check allowed in selection
-      return (this.getNumOfSelected() > 0 && ModelTemplate.allowedChildrenForModel(this.selectedDestItem.model).includes(this.getSelected()[0].model))
-             || (this.getNumOfSelected() === 0 && ModelTemplate.allowedChildrenForModel(this.selectedDestItem.model).includes(this.data.item.model));
+      return (this.getNumOfSelected() > 0 && ModelTemplate.allowedChildrenForModel(this.config.allModels,this.selectedDestItem.model).includes(this.getSelected()[0].model))
+             || (this.getNumOfSelected() === 0 && ModelTemplate.allowedChildrenForModel(this.config.allModels,this.selectedDestItem.model).includes(this.data.item.model));
     } else {
 
       return this.selectedDestItem &&
         (
           // Pri importu pokud je na importu strana nebo ndk audio strana tak maji zvukove modely vyjimku a da se napojit na jakykoli model ze zvukovych.
-          ModelTemplate.allowedChildrenForModel(this.selectedDestItem.model).includes(this.orig[0].model) ||
+          ModelTemplate.allowedChildrenForModel(this.config.allModels,this.selectedDestItem.model).includes(this.orig[0].model) ||
           (this.selectedDestItem.isMusicDocument() &&
               ('model:ndkaudiopage' === this.orig[0].model || 'model:page' === this.orig[0].model)
           )

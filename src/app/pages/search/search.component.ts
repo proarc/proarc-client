@@ -343,7 +343,7 @@ export class SearchComponent implements OnInit {
     this.treeItems = [this.selectedTreeItem];
 
     this.refreshVisibleTreeItems();
-    const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.selectedTreeItem.model).join(',');
+    const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.allModels,this.selectedTreeItem.model).join(',');
     const canHavePages = allowedAsString.includes('page');
     if (this.properties.getBoolProperty('searchExpandTree', true) || !canHavePages) {
       this.getTreeItems(this.selectedTreeItem, true);
@@ -1015,7 +1015,7 @@ export class SearchComponent implements OnInit {
     this.selectedTreeItem = treeItem;
 
     if (this.totalSelectedTree === 1) {
-      const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.selectedTreeItem.model).join(',');
+      const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.allModels,this.selectedTreeItem.model).join(',');
       const canHavePages = allowedAsString.includes('page');
       if (this.properties.getBoolProperty('searchExpandTree', true) || !canHavePages) {
         if (treeItem.childrenLoaded) {

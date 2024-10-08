@@ -149,7 +149,7 @@ export class RepositoryComponent implements OnInit {
   }
 
   canHasChildren(model: string): boolean {
-    const a = ModelTemplate.allowedChildrenForModel(model)
+    const a = ModelTemplate.allowedChildrenForModel(this.config.allModels,model)
     return a?.length > 0;
   }
 

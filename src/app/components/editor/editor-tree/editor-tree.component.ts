@@ -9,6 +9,7 @@ import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dial
 import { DocumentItem } from 'src/app/model/documentItem.model';
 import { Tree } from 'src/app/model/mods/tree.model';
 import { ApiService } from 'src/app/services/api.service';
+import { ConfigService } from 'src/app/services/config.service';
 import { LayoutService } from 'src/app/services/layout.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UIService } from 'src/app/services/ui.service';
@@ -48,6 +49,7 @@ export class EditorTreeComponent implements OnInit {
     public properties: LocalStorageService,
     private translator: TranslateService,
     private dialog: MatDialog,
+    private config: ConfigService,
     private ui: UIService,
     public layout: LayoutService,
     private api: ApiService) { }
@@ -240,7 +242,7 @@ export class EditorTreeComponent implements OnInit {
     if (event.target.classList.contains("app-row")) {
       const source: DocumentItem = this.layout.lastSelectedItem;
       const target: DocumentItem = tree.item;
-      const allowed = ModelTemplate.allowedChildrenForModel(target.model).includes(source.model);
+      const allowed = ModelTemplate.allowedChildrenForModel(this.config.allModels,target.model).includes(source.model);
       if (allowed) {
         event.target.classList.add("dragoverAllowed");
       } else {

@@ -213,15 +213,18 @@ export class ModelTemplate {
     'bdmarticle': []
   }
 
-  static allowedChildrenForModel(model: string) {
+  static allowedChildrenForModel(configModels: string[], model: string) {
     if (model.startsWith('model:')) {
       model = model.substring(6);
     }
-    const models: any = ModelTemplate.relations[model];
+    let models: string[] = ModelTemplate.relations[model];
     if (!models) {
       return [];
     }
-    return models.map((m: string) => `model:${m}`);
+    // return models.map((m: string) => `model:${m}`);
+
+    models = models.map((m: string) => `model:${m}`);
+    return configModels.filter(m => models.includes(m)) ;
   }
 
   static allowedParentsForModel(model: string) {
