@@ -1272,5 +1272,10 @@ export class ApiService {
     return this.post('object/changeOwner', data);
     
   }
+
+  addReference(pid: string, structured: boolean, reference: string) {
+    let data = `pid=${pid}&structured=${structured}&reference=${reference}`;
+    return this.post('object/mods/addRefenrence', data);
+  }
 }
 

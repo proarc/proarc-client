@@ -11,6 +11,9 @@
   <mat-form-field *ngIf="data.textInput">
     <input type="text" step="1" matInput [placeholder]="data.textInput.label" [(ngModel)]="data.textInput.value">
   </mat-form-field>
+  <mat-form-field *ngIf="data.textAreaInput" class="app-w-100">
+    <textarea rows="5" matInput [placeholder]="data.textAreaInput.label" [(ngModel)]="data.textAreaInput.value"></textarea>
+  </mat-form-field>
 </div>
 <div mat-dialog-actions cdkFocusRegionstart>
   <button mat-flat-button [color]="data.btn1.color" [mat-dialog-close]="data.btn1.value" [disabled]="!btnEnabled()" cdkFocusInitial>{{ data.btn1.label }}</button>
