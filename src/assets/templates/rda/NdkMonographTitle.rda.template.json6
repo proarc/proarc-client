@@ -72,7 +72,6 @@
         label: 'Podnázev',
         selector: 'titleInfo/subTitle',
         labelKey: 'titleInfo/subTitle',
-        cols: 2,
         description: 'Podnázev monografie'
       },
       partNumber: {
@@ -791,25 +790,82 @@
             label: 'Hodnota',
             help: 'off',
             options: [
-              ['braille', 'braille'],
-              ['electronic', 'electronic'],
-              ['large print', 'large print'],
-              ['microfilm', 'microfilm'],
-              ['microfiche', 'microfiche'],
-              ['print', 'print'],
-              ['jiný', 'jiný'],
-              ['audio', 'audio'],
-              ['počítač', 'počítač'],
-              ['mikroforma', 'mikroforma'],
-              ['mikroskop', 'mikroskop'],
-              ['projekce', 'projekce'],
-              ['stereograf', 'stereograf'],
-              ['bez media', 'bez_media'],
-              ['video', 'video'],
-              ['svazek', 'svazek'],
-              ['online zdroj', 'online_zdroj'],
-              ['audiodisk', 'audiodisk'],
-              ['počítačový disk', 'počítačový disk'],
+              [
+                'braille',
+                'braille'
+              ],
+              [
+                'electronic',
+                'electronic'
+              ],
+              [
+                'large print',
+                'large print'
+              ],
+              [
+                'microfilm',
+                'microfilm'
+              ],
+              [
+                'microfiche',
+                'microfiche'
+              ],
+              [
+                'print',
+                'print'
+              ],
+              [
+                'jiný',
+                'jiný'
+              ],
+              [
+                'audio',
+                'audio'
+              ],
+              [
+                'počítač',
+                'počítač'
+              ],
+              [
+                'mikroforma',
+                'mikroforma'
+              ],
+              [
+                'mikroskop',
+                'mikroskop'
+              ],
+              [
+                'projekce',
+                'projekce'
+              ],
+              [
+                'stereograf',
+                'stereograf'
+              ],
+              [
+                'bez media',
+                'bez_media'
+              ],
+              [
+                'video',
+                'video'
+              ],
+              [
+                'svazek',
+                'svazek'
+              ],
+              [
+                'online zdroj',
+                'online_zdroj'
+              ],
+              [
+                'audiodisk',
+                'audiodisk'
+              ],
+              [
+                'počítačový disk',
+                'počítačový disk'
+              ],
             ]
           }
         }
@@ -1247,7 +1303,7 @@
         fields: {
           value: {
             usage: 'O',
-//            required: true,
+            //            required: true,
             selector: 'location/shelfLocator/value',
             labelKey: 'location/shelfLocator/value',
             label: 'Hodnota',
@@ -1277,24 +1333,24 @@
             label: 'Note',
             help: 'off'
           },
-//          usage: {
-//            usage: 'O',
-//            cols: 2,
-//            selector: 'location/url/@usage',
-//            labelKey: 'location/url/@usage',
-//            label: 'Usage',
-//            help: 'off',
-//            options: [
-//              [
-//                '',
-//                '-'
-//              ],
-//              [
-//                'primary',
-//                'primary'
-//              ]
-//            ]
-//          },
+          //          usage: {
+          //            usage: 'O',
+          //            cols: 2,
+          //            selector: 'location/url/@usage',
+          //            labelKey: 'location/url/@usage',
+          //            label: 'Usage',
+          //            help: 'off',
+          //            options: [
+          //              [
+          //                '',
+          //                '-'
+          //              ],
+          //              [
+          //                'primary',
+          //                'primary'
+          //              ]
+          //            ]
+          //          },
         }
       },
     }

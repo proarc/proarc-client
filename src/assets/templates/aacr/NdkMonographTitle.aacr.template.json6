@@ -23,11 +23,26 @@
             <li>Jednotný název (uniform) – pole 130 resp. 240</li>\
           </ul>',
         options: [
-          ['', '-'],
-          ['abbreviated', 'Zkrácený název'],
-          ['translated', 'Přeložený název'],
-          ['alternative', 'Alternativní název'],
-          ['uniform', 'Jednotný název']
+          [
+            '',
+            '-'
+          ],
+          [
+            'abbreviated',
+            'Zkrácený název'
+          ],
+          [
+            'translated',
+            'Přeložený název'
+          ],
+          [
+            'alternative',
+            'Alternativní název'
+          ],
+          [
+            'uniform',
+            'Jednotný název'
+          ]
         ]
       },
       nonSort: {
@@ -57,7 +72,6 @@
         label: 'Podnázev',
         selector: 'titleInfo/subTitle',
         labelKey: 'titleInfo/subTitle',
-        cols: 2,
         description: 'Podnázev monografie'
       },
       partNumber: {
@@ -612,25 +626,82 @@
             label: 'Hodnota',
             help: 'off',
             options: [
-              ['braille', 'braille'],
-              ['electronic', 'electronic'],
-              ['large print', 'large print'],
-              ['microfilm', 'microfilm'],
-              ['microfiche', 'microfiche'],
-              ['print', 'print'],
-              ['jiný', 'jiný'],
-              ['audio', 'audio'],
-              ['počítač', 'počítač'],
-              ['mikroforma', 'mikroforma'],
-              ['mikroskop', 'mikroskop'],
-              ['projekce', 'projekce'],
-              ['stereograf', 'stereograf'],
-              ['bez media', 'bez_media'],
-              ['video', 'video'],
-              ['svazek', 'svazek'],
-              ['online zdroj', 'online_zdroj'],
-              ['audiodisk', 'audiodisk'],
-              ['počítačový disk', 'počítačový disk'],
+              [
+                'braille',
+                'braille'
+              ],
+              [
+                'electronic',
+                'electronic'
+              ],
+              [
+                'large print',
+                'large print'
+              ],
+              [
+                'microfilm',
+                'microfilm'
+              ],
+              [
+                'microfiche',
+                'microfiche'
+              ],
+              [
+                'print',
+                'print'
+              ],
+              [
+                'jiný',
+                'jiný'
+              ],
+              [
+                'audio',
+                'audio'
+              ],
+              [
+                'počítač',
+                'počítač'
+              ],
+              [
+                'mikroforma',
+                'mikroforma'
+              ],
+              [
+                'mikroskop',
+                'mikroskop'
+              ],
+              [
+                'projekce',
+                'projekce'
+              ],
+              [
+                'stereograf',
+                'stereograf'
+              ],
+              [
+                'bez media',
+                'bez_media'
+              ],
+              [
+                'video',
+                'video'
+              ],
+              [
+                'svazek',
+                'svazek'
+              ],
+              [
+                'online zdroj',
+                'online_zdroj'
+              ],
+              [
+                'audiodisk',
+                'audiodisk'
+              ],
+              [
+                'počítačový disk',
+                'počítačový disk'
+              ],
             ]
           }
         }
@@ -897,7 +968,7 @@
     fields: {
       authority: {
         usage: 'M',
-//        required: true,
+        //        required: true,
         label: 'Autorita',
         selector: 'classification/@authority',
         labelKey: 'classification/@authority',
@@ -941,7 +1012,7 @@
       },
       value: {
         usage: 'M',
-//        required: true,
+        //        required: true,
         selector: 'classification/value',
         labelKey: 'classification/value',
         label: 'Hodnota',
@@ -1068,7 +1139,7 @@
         fields: {
           value: {
             usage: 'O',
-//            required: true,
+            //            required: true,
             selector: 'location/shelfLocator/value',
             labelKey: 'location/shelfLocator/value',
             label: 'Hodnota',
@@ -1098,24 +1169,24 @@
             label: 'Note',
             help: 'off'
           },
-//          usage: {
-//            usage: 'O',
-//            cols: 2,
-//            selector: 'location/url/@usage',
-//            labelKey: 'location/url/@usage',
-//            label: 'Usage',
-//            help: 'off',
-//            options: [
-//              [
-//                '',
-//                '-'
-//              ],
-//              [
-//                'primary',
-//                'primary'
-//              ]
-//            ]
-//          },
+          //          usage: {
+          //            usage: 'O',
+          //            cols: 2,
+          //            selector: 'location/url/@usage',
+          //            labelKey: 'location/url/@usage',
+          //            label: 'Usage',
+          //            help: 'off',
+          //            options: [
+          //              [
+          //                '',
+          //                '-'
+          //              ],
+          //              [
+          //                'primary',
+          //                'primary'
+          //              ]
+          //            ]
+          //          },
         }
       },
     }

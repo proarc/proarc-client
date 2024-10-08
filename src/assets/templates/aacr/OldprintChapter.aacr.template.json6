@@ -9,42 +9,27 @@
       Pro plnění použít katalogizační záznam<br/>\
       pokud má monografie více typů názvů, element se opakuje podle potřeby',
     fields: {
-      type: {
-        usage: 'MA',
-        label: 'Typ',
-        selector: 'titleInfo/@type',
-        labelKey: 'titleInfo/@type',
-        cols: 2,
-        description: 'Hlavní název bez typu - pole 245 a $a<br/>\
-          Možné hodnoty\
-          <ul>\
-            <li>Alternativní název (alternative) – pole 246</li>\
-            <li>Přeložený název (translated) – pole 242</li>\
-            <li>Jednotný název (uniform) – pole 130 resp. 240</li>\
-          </ul>',
-        options: [
-          [
-            '',
-            '-'
-          ],
-          [
-            'abbreviated',
-            'Zkrácený název'
-          ],
-          [
-            'translated',
-            'Přeložený název'
-          ],
-          [
-            'alternative',
-            'Alternativní název'
-          ],
-          [
-            'uniform',
-            'Jednotný název'
-          ]
-        ]
-      },
+      //        type: {
+      //          usage: 'O',
+      //          label: 'Typ',
+      //          selector: 'titleInfo/@type',
+      //          labelKey: 'titleInfo/@type',
+      //          cols: 2,
+      //          description: 'Hlavní název bez typu - pole 245 a $a<br/>\
+      //          Možné hodnoty\
+      //          <ul>\
+      //            <li>Alternativní název (alternative) – pole 246</li>\
+      //            <li>Přeložený název (translated) – pole 242</li>\
+      //            <li>Jednotný název (uniform) – pole 130 resp. 240</li>\
+      //          </ul>',
+      //          options: [
+      //            ['', '-'],
+      //            ['abbreviated', 'Zkrácený název'],
+      //            ['translated', 'Přeložený název'],
+      //            ['alternative', 'Alternativní název'],
+      //            ['uniform', 'Jednotný název']
+      //          ]
+      //        },
       nonSort: {
         usage: 'O',
         label: 'Část vynechaná při hledání',
@@ -81,7 +66,7 @@
         selector: 'titleInfo/partNumber',
         labelKey: 'titleInfo/partNumber',
         cols: 2,
-        description: 'Číslo vnitřní části'
+        description: 'V případě, že se jedná o vícesvazkovou monografii, je zde uvedeno číslo svazku'
       },
       partName: {
         usage: 'RA',
@@ -89,7 +74,8 @@
         selector: 'titleInfo/partName',
         labelKey: 'titleInfo/partName',
         cols: 2,
-        description: 'Název vnitřní části.'
+        description: 'V případě, že se jedná o vícesvazkovou monografii, je zde uveden název svazku<br/>\
+          odpovídající pole a podpole podle typu, viz typ'
       }
     }
   },
@@ -146,7 +132,7 @@
         description: 'Vyplnit údaje o autorovi.',
         fields: {
           type: {
-            usage: 'R',
+            usage: 'MA',
             label: 'Typ',
             selector: 'name/namePart/@type',
             labelKey: 'name/namePart/@type',
@@ -200,16 +186,8 @@
         cols: 2,
         description: 'Číslo národní autority',
       },
-      affiliation: {
-        usage: 'O',
-        label: 'Napojená instituce',
-        selector: 'name/affiliation',
-        labelKey: 'name/affiliation',
-        description: 'Umožňuje vepsat název instituce, se kterou je autor spojen<br/>\
-          např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.'
-      },
       etal: {
-        usage: 'MA',
+        usage: 'O',
         label: 'Etal',
         selector: 'name/etal',
         labelKey: 'name/etal',
@@ -278,7 +256,8 @@
         ]
       },
       topic: {
-        usage: 'R',
+        usage: 'MA',
+        //          required: true,
         label: 'Klíčové slovo/Předmětové heslo',
         selector: 'subject/topic',
         labelKey: 'subject/topic',
@@ -286,7 +265,8 @@
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21',
         fields: {
           value: {
-            usage: 'R',
+            usage: 'MA',
+            //              required: true,
             label: 'Hodnota',
             selector: 'subject/topic/value',
             labelKey: 'subject/topic/value',
@@ -302,7 +282,7 @@
         }
       },
       geographic: {
-        usage: 'R',
+        usage: 'MA',
         label: 'Geografické věcné třídění',
         selector: 'subject/geographic',
         labelKey: 'subject/geographic',
@@ -384,7 +364,7 @@
             description: 'Vyplnit údaje o autorovi.',
             fields: {
               type: {
-                usage: 'R',
+                usage: 'MA',
                 label: 'Typ',
                 selector: 'name/namePart/@type',
                 labelKey: 'name/namePart/@type',
@@ -450,6 +430,30 @@
             fields: {},
           }
         }
+      },
+      cartographics: {
+        usage: 'MA',
+        label: 'Kartografické údaje',
+        selector: 'subject/cartographics',
+        labelKey: 'subject/cartographics',
+        description: 'přebírá se ze záznamu MARC 21 pole 034\
+          je žádoucí je vyplnit v případě, pokud se jedná o samostatnou mapu, pokud jde např. o atlas, vyplňuje se v nižší úrovni',
+        fields: {
+          coordinates: {
+            usage: 'MA',
+            label: 'Souřadnice',
+            selector: 'subject/cartographics/coordinates',
+            labelKey: 'subject/cartographics/coordinates',
+            description: 'Obsah pole 034 $d, $e, $f, $g'
+          },
+          scale: {
+            usage: 'MA',
+            label: 'Měřítko',
+            selector: 'subject/cartographics/scale',
+            labelKey: 'subject/cartographics/scale',
+            description: 'Obsah pole 255 podpole a MARC21 záznamu'
+          }
+        }
       }
     }
   },
@@ -486,8 +490,7 @@
           odpovídá hodnotě v poli 008/23',
         fields: {
           authority: {
-            usage: 'M',
-            required: true,
+            usage: 'R',
             label: 'Autorita',
             selector: 'physicalDescription/form/@authority',
             labelKey: 'physicalDescription/form/@authority',
@@ -518,8 +521,7 @@
             ]
           },
           value: {
-            usage: 'M',
-            required: true,
+            usage: 'R',
             selector: 'physicalDescription/form/value',
             labelKey: 'physicalDescription/form/value',
             label: 'Hodnota',
@@ -607,6 +609,22 @@
       }
     }
   },
+  abstract: {
+    usage: 'R',
+    label: 'Obsah, regest',
+    selector: 'abstract',
+    labelKey: 'abstract',
+    description: 'Obsah, regest',
+    fields: {
+      abstract: {
+        usage: 'R',
+        label: 'Obsah, regest',
+        selector: 'abstract',
+        labelKey: 'abstract/value',
+        help: 'off'
+      }
+    }
+  },
   note: {
     usage: 'RA',
     label: 'Poznámka',
@@ -632,11 +650,12 @@
     selector: 'genre',
     labelKey: 'genre',
     description: 'Bližší údaje o typu dokumentu<br/>\
-      Hodnota <strong>chapter</strong>',
+      Pro monografie hodnota <strong>volume</strong>',
     fields: {
       value: {
         usage: 'M',
         required: true,
+        cols: 2,
         selector: 'genre/value',
         labelKey: 'genre/value',
         label: 'Hodnota',
@@ -652,55 +671,87 @@
         options: [
           [
             'table of content',
-            'obsah (table of content)'
+            'table of content'
           ],
           [
             'advertisement',
-            ' reklama (advertisement)'
+            'advertisement'
           ],
           [
             'abstract',
-            'abstrakt (abstract)'
+            'abstract'
           ],
           [
             'introduction',
-            'úvod (introduction)'
+            'introduction'
           ],
           [
             'review',
-            'recenze (review)'
+            'review'
           ],
           [
             'dedication',
-            'věnování (dedication)'
+            'dedication'
           ],
           [
             'bibliography',
-            'bibliografie (bibliography)'
+            'bibliography'
           ],
           [
             'editorsNote',
-            'úvodník (editorsNote)'
+            'editorsNote'
           ],
           [
             'preface',
-            'předmluva (preface)'
+            'preface'
           ],
           [
             'chapter',
-            'kapitola (chapter)'
+            'chapter'
           ],
           [
             'article',
-            'článek (article)'
+            'article'
           ],
           [
             'index',
-            'rejstřík (index)'
+            'index'
+          ],
+          [
+            'otherNote',
+            'otherNote'
+          ],
+          [
+            'contributors',
+            'contributors'
+          ],
+          [
+            'debate',
+            'debate'
+          ],
+          [
+            'figure',
+            'figure'
+          ],
+          [
+            'obituary',
+            'obituary'
+          ],
+          [
+            'remark',
+            'remark'
+          ],
+          [
+            'study',
+            'study'
+          ],
+          [
+            'technicalPlanScheme',
+            'technicalPlanScheme'
           ],
           [
             'unspecified',
-            'nespecifikováno (unspecified)'
+            'unspecified'
           ]
         ]
       }
@@ -716,8 +767,7 @@
       identifikátory mezinárodní nebo lokální, které svazek monografie má.',
     fields: {
       type: {
-        usage: 'M',
-        required: true,
+        usage: 'MA',
         label: 'Typ',
         selector: 'identifier/@type',
         labelKey: 'identifier/@type',
@@ -784,7 +834,6 @@
     fields: {
       authority: {
         usage: 'M',
-        required: true,
         label: 'Autorita',
         selector: 'classification/@authority',
         labelKey: 'classification/@authority',
@@ -793,7 +842,7 @@
           [
             'udc',
             'udc'
-          ]
+          ],
         ]
       },
       edition: {
@@ -815,8 +864,7 @@
         ]
       },
       value: {
-        usage: 'M',
-        required: true,
+        usage: 'RA',
         selector: 'classification/value',
         labelKey: 'classification/value',
         label: 'Hodnota',
@@ -831,9 +879,27 @@
     labelKey: 'part',
     description: 'Popis části, pokud je svazek části souboru,element může být využit jen na zaznamenání<caption>.',
     fields: {
+      type: {
+        usage: 'M',
+        required: true,
+        label: 'Typ',
+        selector: 'part/@type',
+        labelKey: 'part/@type',
+        description: 'Hodnota bude "pageNumber" nebo "pageIndex',
+        options: [
+          [
+            'pageNumber',
+            'page number'
+          ],
+          [
+            'pageIndex',
+            'page index'
+          ]
+        ]
+      },
       extent: {
         usage: 'MA',
-        label: 'Rozsah',
+        label: 'Extent',
         selector: 'part/extent',
         labelKey: 'part/extent',
         description: 'Tento kontejner <part> slouží k zaznamenání rozsahu stran v reprezentaci.',
@@ -844,7 +910,7 @@
             cols: 2,
             selector: 'part/extent/start',
             labelKey: 'part/extent/start',
-            description: 'První stránka článku.'
+            description: 'První stránka, na které vnitřní část začíná.'
           },
           end: {
             usage: 'MA',
@@ -852,25 +918,9 @@
             cols: 2,
             selector: 'part/extent/end',
             labelKey: 'part/extent/end',
-            description: 'Poslední stránka článku.'
+            description: 'Poslední stránka, na které vnitřní část končí.'
           }
         }
-      },
-    }
-  },
-  abstract: {
-    usage: 'R',
-    label: 'Abstrakt',
-    selector: 'abstract',
-    labelKey: 'abstract',
-    description: 'Shrnutí obsahu jako celku odpovídá poli 520 MARC21',
-    fields: {
-      abstract: {
-        usage: 'R',
-        label: 'Abstrakt',
-        selector: 'abstract',
-        labelKey: 'abstract/value',
-        help: 'off'
       }
     }
   },
@@ -968,14 +1018,14 @@
         }
       },
       recordChangeDate: {
-        usage: 'MA',
+        usage: 'R',
         label: 'Datum změny',
         selector: 'recordInfo/recordChangeDate',
         labelKey: 'recordInfo/recordChangeDate',
         description: 'datum změny záznamu ',
         fields: {
           value: {
-            usage: 'MA',
+            usage: 'R',
             label: 'Datum změny',
             cols: 2,
             selector: 'recordInfo/recordChangeDate',
@@ -984,7 +1034,6 @@
           },
           encoding: {
             usage: 'M',
-            required: true,
             label: 'Kódování',
             cols: 2,
             selector: 'recordInfo/recordChangeDate/@encoding',
