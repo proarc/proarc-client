@@ -7,6 +7,7 @@ import { ModelTemplate } from 'src/app/templates/modelTemplate';
 import { Metadata } from '../model/metadata.model';
 import { Page } from '../model/page.model';
 import { StreamProfile } from '../model/stream-profile';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -67,7 +68,9 @@ export class LayoutService {
   panels: ILayoutPanel[] = [];
   editingPanel: string;
 
-  constructor() { }
+  constructor(
+    private config: ConfigService
+  ) { }
   
 
   setPanelEditing(panel: ILayoutPanel) { 
@@ -86,7 +89,7 @@ export class LayoutService {
 
   allowedChildrenModels(): string[]{
     if (this.selectedParentItem) {
-      return ModelTemplate.allowedChildrenForModel(this.selectedParentItem.model);
+      return ModelTemplate.allowedChildrenForModel(this.config.allModels, this.selectedParentItem.model);
     } else {
       return [];
     }

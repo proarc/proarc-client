@@ -48,6 +48,7 @@ var APP_GLOBAL = {
       "Inovatika"
   ],
   models: [
+      'model:bdmarticle',
       'model:ndkperiodical',
       'model:ndkperiodicalvolume',
       'model:ndkperiodicalissue',
@@ -90,8 +91,7 @@ var APP_GLOBAL = {
       'model:ndkaudiopage',
       'model:chronicletitle',
       'model:chroniclevolume',
-      'model:chroniclesupplement',
-      'model:bdmarticle'
+      'model:chroniclesupplement'
   ],
   defaultModel: 'model:ndkperiodical',
   showCommentEditor: true,

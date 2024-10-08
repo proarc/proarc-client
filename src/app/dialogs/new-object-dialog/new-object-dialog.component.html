@@ -14,7 +14,7 @@
     </mat-select>
   </mat-form-field>
 
-  <fieldset>
+  <fieldset *ngIf="data.parentId && !data.isJob">
     <legend>{{ 'desc.objectPosition' | translate }}</legend>
     <mat-radio-group aria-label="Select an option" [(ngModel)]="objectPosition">
       <mat-radio-button value="end">{{ 'desc.objectPositionEnd' | translate }}</mat-radio-button>

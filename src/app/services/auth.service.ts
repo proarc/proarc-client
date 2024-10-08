@@ -9,6 +9,7 @@ import { forkJoin, Observable, of, tap } from 'rxjs';
 import { catchError, finalize, map, switchMap } from 'rxjs/operators';
 import { ConfigService } from './config.service';
 import { TranslateService } from '@ngx-translate/core';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable()
 export class AuthService {
@@ -23,6 +24,7 @@ export class AuthService {
     constructor(
         private http: HttpClient,
         public translator: TranslateService,
+        private dialogRef: MatDialog,
         private api: ApiService,
         private router: Router,
         private config: ConfigService) {
@@ -54,6 +56,7 @@ export class AuthService {
 
     setLoggedOut() {
         this.user = null;
+        this.dialogRef.closeAll();
         this.router.navigate(['/login']);
     }
 

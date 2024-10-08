@@ -10,6 +10,7 @@ import { ModelTemplate } from '../templates/modelTemplate';
 import { NewObjectData, NewObjectDialogComponent } from '../dialogs/new-object-dialog/new-object-dialog.component';
 import { NewMetadataDialogComponent } from '../dialogs/new-metadata-dialog/new-metadata-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,7 @@ export class RepositoryService {
   constructor(
     private router: Router,
     private dialog: MatDialog,
+    private config: ConfigService,
     private ui: UIService,
     private api: ApiService) { }
 
@@ -42,7 +44,7 @@ export class RepositoryService {
       this.item = item;
       this.children = children;
       this.ready = true;
-      this.allowedChildrenModels = ModelTemplate.allowedChildrenForModel(item.model);
+      this.allowedChildrenModels = ModelTemplate.allowedChildrenForModel(this.config.allModels, item.model);
     });
   }
 

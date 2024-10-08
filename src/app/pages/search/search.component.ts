@@ -144,18 +144,6 @@ export class SearchComponent implements OnInit {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  // ngAfterViewInit() {
-  //   setTimeout(() => {
-  //     const els = Array.from(document.getElementsByTagName('label'));
-  //     els.forEach(label => {
-  //       if (label && label.getAttribute('for') && label.getAttribute('for').startsWith('mat-select') ) {
-  //       console.log(label.getAttribute('for'), document.getElementById(label.getAttribute('for')))
-  //         label.removeAttribute('for');
-  //       }
-  //     });
-  //   }, 1);
-  // }
-
   ngOnInit() {
     this.splitArea1Width = parseInt(this.properties.getStringProperty('search.split.0', "60"));
     this.splitArea2Width = 100 - this.splitArea1Width;
@@ -237,14 +225,8 @@ export class SearchComponent implements OnInit {
     this.properties.setStringProperty('search.split.1', String(e.sizes[1]));
   }
 
-  // getSplitSize(split: number): number {
-  //   if (split == 0) {
-  //     return parseInt(this.splitArea1Width);
-  //   }
-  //   return parseInt(this.splitArea2Width);
-  // }
-
   reload(selectedPid: string = null) {
+    this.clearSelection();
     this.initSelectedColumns();
     if (this.model !== 'all') {
       // nechceme all
@@ -304,6 +286,16 @@ export class SearchComponent implements OnInit {
     this.router.navigate(['/repository', item.pid]);
   }
 
+  clearSelection() {
+    this.lastClickIdx = -1;
+    this.totalSelected = 0;
+    this.selectedItem = null;
+    this.selectedTreeItem = null;
+    this.treeItems = [];
+
+    this.refreshVisibleTreeItems();
+  }
+
   selectItem(item: DocumentItem, event?: MouseEvent, idx?: number) {
     if (event && (event.metaKey || event.ctrlKey)) {
       item.selected = !item.selected;
@@ -351,7 +343,7 @@ export class SearchComponent implements OnInit {
     this.treeItems = [this.selectedTreeItem];
 
     this.refreshVisibleTreeItems();
-    const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.selectedTreeItem.model).join(',');
+    const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.allModels,this.selectedTreeItem.model).join(',');
     const canHavePages = allowedAsString.includes('page');
     if (this.properties.getBoolProperty('searchExpandTree', true) || !canHavePages) {
       this.getTreeItems(this.selectedTreeItem, true);
@@ -1023,7 +1015,7 @@ export class SearchComponent implements OnInit {
     this.selectedTreeItem = treeItem;
 
     if (this.totalSelectedTree === 1) {
-      const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.selectedTreeItem.model).join(',');
+      const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.allModels,this.selectedTreeItem.model).join(',');
       const canHavePages = allowedAsString.includes('page');
       if (this.properties.getBoolProperty('searchExpandTree', true) || !canHavePages) {
         if (treeItem.childrenLoaded) {
