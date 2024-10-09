@@ -96,6 +96,7 @@ var APP_GLOBAL = {
   defaultModel: 'model:ndkperiodical',
   showCommentEditor: true,
   showWorkflow: true,
+  showLogoutCounter: true,
   topPageTypes: [
       'normalPage',
       'blank'
