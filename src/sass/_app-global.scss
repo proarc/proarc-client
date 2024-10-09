@@ -527,11 +527,6 @@ as-split {
 
           .app-item-thumb {
             opacity: .6;
-
-            /* to delete after testing #576 
-            img {
-              opacity: .5;
-            } */
           }
         }
       }
@@ -565,7 +560,7 @@ as-split {
           @extend .app-text-center, .app-p-1;
 
           &.app-repre-type {
-            font-weight: 700;
+            //font-weight: 700;
           }
 
           .app-text {

@@ -24,44 +24,36 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.app-item-wrapper-ready-to-implement {
-  $app-color: #456aa5; 
-  
-  &.app-repre-page {
 
+
+// for testing https://github.com/proarc/proarc-client/issues/485
+// http://localhost:4200/repository/uuid:46132287-9d88-4536-a09f-bf36d1a4aff5
+
+.app-item-wrapper {
+  .app-item {
+    border: 1px solid var(--app-gray-5);
+  }
+
+  &.app-repre-page {
+  
     .app-item {
       position: relative;
-      //background-color: $app-color;
-      outline: 5px solid $app-color;
-      outline-offset: -5px;
-
+      
       .app-item-thumb {
-       /*  position: relative;
-        box-shadow: inset 0px 0px 0px 5px rgba(69,106,165,1);
-        */
-
-        &::after {
-          content: '';
-          width: 0px;
-          height: 0px;
-          border-style: solid;
-          border-width: 30px 30px 0 0;
-          border-color: $app-color transparent transparent transparent;
-          transform: rotate(0deg);
-          left: 0;
-          top: 0;
-          position: absolute;
-        }
-      }
-
-      .app-item-label {
-        //color: white;
-        //color: $app-color;
-        font-weight: normal;;
-        padding-bottom: 8px !important;
-      }
+         &::after {
+           content: '';
+           width: 0px;
+           height: 0px;
+           border-style: solid;
+           border-width: 15px 15px 0 0;
+           border-color: var(--app-gray-6) transparent transparent transparent;
+           transform: rotate(0deg);
+           left: 0;
+           top: 0;
+           position: absolute;
+         }
+       }
     }
-
-    
   }
 }
+
