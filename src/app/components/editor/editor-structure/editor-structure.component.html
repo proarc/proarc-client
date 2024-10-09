@@ -88,7 +88,7 @@
 
       <div class="app-view-icon" *ngIf="viewMode == 'icons'" #childrenIconList [class.app-multiple-selection]="layout.getNumOfSelected() > 1" 
         (mousedown)="mousedown($event)" fxLayout="row wrap">
-        <div *ngFor="let item of layout.items; let i = index" class="app-item-wrapper" 
+        <div *ngFor="let item of layout.items; let i = index" class="app-item-wrapper" [ngClass]="{'app-repre-page': item.pageRepre === 'reprePage'}"
         (click)="rowClick(item, i, $event)" (dblclick)="open(item)" 
         draggable="true" (dragenter)="dragenter($event, i)" (dragstart)="dragstart(item, i, $event)" (dragend)="dragend($event)" 
         (dragover)="dragover($event)" (mousedown)="mousedown($event)" 
