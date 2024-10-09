@@ -101,20 +101,7 @@ export class SearchComponent implements OnInit {
   @ViewChild('table') table: MatTable<DocumentItem>;
   @ViewChildren('matrow', { read: ViewContainerRef }) rows: QueryList<ViewContainerRef>;
 
-  public selectedColumns = [
-    { field: 'label', selected: true, width: 100 },
-    { field: 'model', selected: true, width: 100 },
-    { field: 'pid', selected: true, width: 100 },
-    { field: 'processor', selected: true, width: 100 },
-    { field: 'organization', selected: true, width: 100 },
-    { field: 'status', selected: true, width: 100 },
-    { field: 'created', selected: true, width: 100 },
-    { field: 'modified', selected: true, width: 100 },
-    { field: 'owner', selected: true, width: 100 },
-    { field: 'export', selected: true, width: 100 },
-    { field: 'isLocked', selected: true, width: 100 }
-  ];
-
+  selectedColumnsDefs: { field: string, selected: boolean, type: string, width: number }[];
   displayedColumns: string[] = [];
   colsWidth: { [key: string]: string } = {};
 
@@ -760,39 +747,48 @@ export class SearchComponent implements OnInit {
   }
 
   setColumns() {
-    this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field);
-    // this.displayedColumns.push('validationStatus')
-  }
+    this.displayedColumns = this.selectedColumnsDefs.filter(c => c.selected).map(c => c.field);
 
-  initSelectedColumns() {
-    this.properties.getSearchColumnsTree();
-    const prop = this.properties.getStringProperty('searchColumns');
-    if (prop) {
-      Object.assign(this.selectedColumns, JSON.parse(prop));
-    }
-    this.setColumns();
+    // this.treeColumns = this.treeColumnsDefs.filter(c => c.selected).map(c => c.field);
+    this.displayedColumns.forEach(c => {
+      if (this.columnType(c) === 'list') {
+        this.lists[c] = this.getList(c);
+      }
+      this.columnTypes[c] = this.columnType(c);
+      this.prefixes[c] = this.prefixByType(c);
+
+    });
     this.setColumnsWith();
 
-    this.treeColumnsDefs = this.properties.getSearchColumnsTree();
-    this.setSelectedTreeColumns();
-  }
-
-  setSelectedColumns() {
-    this.properties.setStringProperty('searchColumns', JSON.stringify(this.selectedColumns));
-    this.initSelectedColumns();
-    this.table.renderRows();
+    
   }
 
   setColumnsWith() {
     this.colsWidth = {};
-    this.selectedColumns.forEach(c => {
+    this.selectedColumnsDefs.forEach(c => {
       this.colsWidth[c.field] = c.width + 'px';
     });
   }
 
+
+  initSelectedColumns() {
+    this.selectedColumnsDefs = this.properties.getSearchColumns();
+    this.treeColumnsDefs = this.properties.getSearchColumnsTree();
+    this.setColumns();
+    this.setSelectedTreeColumns();
+  }
+
+  setSelectedColumns() {
+    this.properties.setStringProperty('searchColumns', JSON.stringify(this.selectedColumnsDefs));
+    this.initSelectedColumns();
+    this.table.renderRows();
+  }
+
+  
+
   getColumnWidth(field: string) {
 
-    const el = this.selectedColumns.find((c: any) => c.field === field);
+    const el = this.selectedColumnsDefs.find((c: any) => c.field === field);
     if (el) {
       return el.width + 'px';
     } else {
@@ -801,13 +797,13 @@ export class SearchComponent implements OnInit {
   }
 
   saveColumnsSizes(e: any, field?: string) {
-    const el = this.selectedColumns.find((c: any) => c.field === field);
+    const el = this.selectedColumnsDefs.find((c: any) => c.field === field);
     if (el) {
       el.width = e;
     } else {
       console.log("nemelo by")
     }
-    this.properties.setStringProperty('searchColumns', JSON.stringify(this.selectedColumns));
+    this.properties.setStringProperty('searchColumns', JSON.stringify(this.selectedColumnsDefs));
   }
 
 

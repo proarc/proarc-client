@@ -32,7 +32,7 @@ export class SettingsComponent implements OnInit {
   forename: string;
   surname: string;
 
-  searchCols: any;
+  // searchCols: any;
   selectedModels = new FormControl('');
 
   relatedItemExpanded: boolean;
@@ -100,10 +100,10 @@ export class SettingsComponent implements OnInit {
       this.surname = this.user.surname;
     });
 
-    this.searchCols = {};
-    for (const col of this.properties.availableSearchColumns) {
-      this.searchCols[col] = this.properties.isSearchColEnabled(col);
-    }
+    // this.searchCols = {};
+    // for (const col of this.properties.availableSearchColumns) {
+    //   this.searchCols[col] = this.properties.isSearchColEnabled(col);
+    // }
 
     if (localStorage.getItem('expandedModels')) {
       this.selectedModels.setValue(JSON.parse(localStorage.getItem('expandedModels')));
