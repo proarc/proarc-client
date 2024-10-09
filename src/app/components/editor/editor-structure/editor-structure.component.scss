@@ -28,10 +28,12 @@
 
 // for testing https://github.com/proarc/proarc-client/issues/485
 // http://localhost:4200/repository/uuid:46132287-9d88-4536-a09f-bf36d1a4aff5
+// http://localhost:4200/import/edit/810
 
 .app-item-wrapper {
   .app-item {
     border: 1px solid var(--app-gray-5);
+    border: 1px solid #e0e0e0;
   }
 
   &.app-repre-page {
