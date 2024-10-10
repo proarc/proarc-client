@@ -521,6 +521,33 @@ as-split {
       @extend .app-cursor-pointer;
       padding: $app-icon-item-pd;
 
+      .app-item {
+        @extend .app-h-100;
+        background-color: $app-gray-2;
+        border: 1px solid var(--app-default-border-color);
+
+        .app-item-thumb {
+          //background-size: cover;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-color: $app-gray-2;
+          background-position-x: center;
+          background-position-y: center; 
+        }
+
+        .app-item-label {
+          @extend .app-text-center, .app-p-1;
+
+          .app-text {
+            line-height: normal;
+            max-height: 32px;
+            overflow: hidden;
+            width: 100%;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+
       &.app-selected {
         .app-item {
           background-color: $app-color-item-selected;
@@ -543,33 +570,28 @@ as-split {
         }
       }
 
-      .app-item {
-        @extend .app-h-100;
-        background-color: $app-gray-2;
+      &.app-repre {
+        .app-item {
+          position: relative;
+          
+          .app-item-thumb {
+             &::after {
+               content: '';
+               width: 0px;
+               height: 0px;
+               border-style: solid;
+               border-width: 15px 15px 0 0;
+               border-color: var(--app-gray-6) transparent transparent transparent;
+               transform: rotate(0deg);
+               left: 0;
+               top: 0;
+               position: absolute;
+             }
+           }
 
-        .app-item-thumb {
-          //background-size: cover;
-          background-size: contain;
-          background-repeat: no-repeat;
-          background-color: $app-gray-2;
-          background-position-x: center;
-          background-position-y: center; 
-        }
-
-        .app-item-label {
-          @extend .app-text-center, .app-p-1;
-
-          &.app-repre-type {
-            //font-weight: 700;
-          }
-
-          .app-text {
-            line-height: normal;
-            max-height: 32px;
-            overflow: hidden;
-            width: 100%;
-            text-overflow: ellipsis;
-          }
+           .app-item-label {
+            font-weight: 700;
+           }
         }
       }
     }
