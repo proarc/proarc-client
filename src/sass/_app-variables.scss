@@ -22,6 +22,18 @@ $app-gray-9: mat-color($mat-gray, 900) !default;
 
 // css variables
 :root {
+  // gray pallete
+  --app-gray-0: #{$app-gray-0};
+  --app-gray-1: #{$app-gray-1};
+  --app-gray-2: #{$app-gray-2};
+  --app-gray-3: #{$app-gray-3};
+  --app-gray-4: #{$app-gray-4};
+  --app-gray-5: #{$app-gray-5};
+  --app-gray-6: #{$app-gray-6};
+  --app-gray-7: #{$app-gray-7};
+  --app-gray-8: #{$app-gray-8};
+  --app-gray-9: #{$app-gray-9};
+
   // form
   --app-form-bg-color: #{$app-gray-2};
   --app-form-border-color-top-level: #{$app-gray-5};
@@ -34,6 +46,13 @@ $app-gray-9: mat-color($mat-gray, 900) !default;
 
   --app-navbar-session-color: #{rgba($app-color-lightnes, .3)};
   --app-navbar-session-bg-color: #2d456c;
+
+
+  --app-body-bg: #{$app-color-lightnes};
+  --app-body-color: #{$app-color-darknes};
+  --app-default-border-color: #{$app-gray-3};
+  --app-default-bg: #{$app-gray-1};
+  --app-default-wrapper: 8px;
 }
 
 // custom colors

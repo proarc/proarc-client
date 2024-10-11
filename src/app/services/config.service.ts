@@ -248,6 +248,7 @@ export class ConfigService {
 	public get showCommentEditor() { return APP_GLOBAL.showCommentEditor == undefined ? true : !!APP_GLOBAL.showCommentEditor; }
 	public get showGeoEditor() { return APP_GLOBAL.showGeoEditor == undefined ? false : !!APP_GLOBAL.showGeoEditor; }
 	public get showWorkflow() { return APP_GLOBAL.showWorkflow == undefined ? false : !!APP_GLOBAL.showWorkflow; }
+	public get showLogoutCounter() { return APP_GLOBAL.showLogoutCounter == undefined ? true : !!APP_GLOBAL.showLogoutCounter; }
 
 	public get workflowUrl() { return this.proarcBackendUrl + "/#workflow:%7B%22type%22:%22JOBS%22%7D"; }
 

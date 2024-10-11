@@ -20,8 +20,8 @@ export class LocalStorageService {
     public static COLUMNS_REPO = 'columnsRepo';
     public static COLUMNS_IMPORT = 'columnsImport';
 
-    availableSearchColumns = ['pageType', 'pageIndex', 'pageNumber', 'model', 'pid', 'owner', 'processor', 
-        'organization', 'status', 'created', 'modified', 'export', 'isLocked', 'urnNbn', 'descriptionStandard'];
+    // availableSearchColumns = ['pageType', 'pageIndex', 'pageNumber', 'model', 'pid', 'owner', 'processor', 
+    //     'organization', 'status', 'created', 'modified', 'writeExports', 'isLocked', 'urnNbn', 'descriptionStandard'];
     public selectedColumnsSearchDefault = [
         { field: 'label', selected: true, width: 100, type: 'string' },
         { field: 'model', selected: true, width: 100, type: 'translated' },
@@ -89,7 +89,7 @@ export class LocalStorageService {
 
     public colsEditingRepo: { [model: string]: { field: string, selected: boolean, width: number }[] };
 
-    public searchColumns: { field: string, selected: boolean; }[];
+    public searchColumns: { field: string, selected: boolean; width: number; type: string}[];
     public searchColumnsTree: { field: string, selected: boolean; width: number; type: string}[];
     public searchColumnsTreeSelected: { [field: string]: boolean } = {};
 
@@ -145,6 +145,7 @@ export class LocalStorageService {
             this.searchColumns = [];
             Object.assign(this.searchColumns, JSON.parse(JSON.stringify(this.selectedColumnsSearchDefault)));
         }
+        return this.searchColumns;
     }
 
     getQueueColumns() {
