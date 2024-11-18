@@ -88,23 +88,14 @@
 
       <div class="app-view-icon" *ngIf="viewMode == 'icons'" #childrenIconList [class.app-multiple-selection]="layout.getNumOfSelected() > 1" 
         (mousedown)="mousedown($event)" fxLayout="row wrap">
-        <div *ngFor="let item of layout.items; let i = index" class="app-item-wrapper" 
+        <div *ngFor="let item of layout.items; let i = index" class="app-item-wrapper" [ngClass]="{'app-repre': item.pageRepre === 'reprePage'}"
         (click)="rowClick(item, i, $event)" (dblclick)="open(item)" 
         draggable="true" (dragenter)="dragenter($event, i)" (dragstart)="dragstart(item, i, $event)" (dragend)="dragend($event)" 
         (dragover)="dragover($event)" (mousedown)="mousedown($event)" 
         [class.app-selected]="item.selected" [class.app-invalid]="item.invalid" [fxFlex]="iconWidth + '%'"><!--[style.height]="iconHeight + 'px'"-->
           <div class="app-item">
             <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="iconHeight + 'px'"></div>
-            <!-- to delete after testing #576 - first fix
-            <div class="app-item-thumb" fxLayout="column" fxLayoutAlign="center center">
-              <img [src]="thumb(item.pid)" [style.width]="iconWidth + 'px'" [style.height]="'calc(' + iconHeight + 'px + 6px)'" />
-            </div> -->
-
-            <!-- old code <div class="app-item-label" *ngIf="isRepo">
-              <mat-icon *ngIf="item.invalid" class="app-mr-1">warning</mat-icon>{{ shortLabels ? item.shortLabel : item.label }}<br />
-              ({{ (item.pageType ? "pageType." + item.pageType.toLowerCase() : "model." + item.model) | translate }})
-            </div> -->
-            <div class="app-item-label app-h-100" *ngIf="isRepo" [ngClass]="{'app-repre-type': item.pageRepre === 'reprePage'}">
+            <div class="app-item-label app-h-100" *ngIf="isRepo">
               <mat-icon *ngIf="item.invalid" class="app-mr-1">warning</mat-icon>
               <ng-container *ngIf="!isAkubra">
                 {{ shortLabels ? item.shortLabel : item.label }}<br />
@@ -115,14 +106,14 @@
                 <ng-container *ngIf="item.pageType">{{ (shortLabels ? "" : (", " + ("pageType." + item.pageType.toLowerCase() | translate))) }}</ng-container>
               </div>
             </div>
-            <div class="app-item-label app-h-100" *ngIf="!isRepo" [ngClass]="{'app-repre-type': item.pageRepre === 'reprePage'}">
+            <div class="app-item-label app-h-100" *ngIf="!isRepo">
               <mat-icon *ngIf="item.invalid">warning</mat-icon>
               <ng-container *ngIf="!isAkubra">
                 {{ item.label + (shortLabels ? "" : (", " + ("pageType." + item.pageType.toLowerCase() | translate))) }}
               </ng-container>
               <div *ngIf="isAkubra" class="app-text app-h-100" [matTooltip]="(item.pageNumber ? item.pageNumber + ', ' : '') + (item.pageIndex ? '(' + item.pageIndex + ')' : '') + (item.pageType ? (shortLabels ? '' : (', ' + ('pageType.' + item.pageType.toLowerCase() | translate))) : '')">
                 <ng-container *ngIf="item.pageNumber">{{ item.pageNumber }}, </ng-container>
-                <ng-container *ngIf="item.pageIndex">({{ item.pageIndex }})</ng-container>
+                <ng-container *ngIf="item.pageIndex"><span class="app-desc">({{ item.pageIndex }})</span></ng-container>
                 <ng-container *ngIf="item.pageType">{{ (shortLabels ? "" : (", " + ("pageType." + item.pageType.toLowerCase() | translate))) }}</ng-container>
               </div>
             </div>
@@ -211,7 +202,7 @@
             [id]="'tr_'+idx" [title]="row.label + ' (' + ('model.' + row.model | translate) + ')'"
             (mousedown)="mousedown($event)" 
             draggable="true" (dragenter)="dragenter($event, idx)" (dragstart)="dragstart(row, idx, $event)" (dragover)="dragover($event)"
-            (dragend)="dragend($event)" [ngClass]="{'app-repre-type': row.pageRepre === 'reprePage'}"
+            (dragend)="dragend($event)" [ngClass]="{'app-repre': row.pageRepre === 'reprePage'}"
             ></tr>
             <!-- 
             cdkDrag (cdkDragStarted)="cdkDragStart($event)" (cdkDragEnded)="cdkDragEnd($event)"

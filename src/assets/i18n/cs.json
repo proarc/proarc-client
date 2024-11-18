@@ -2614,7 +2614,7 @@
     "createAndGoToObject": "Vytvořit a přejít do objektu",
     "doNotSave": "Neukládat",
     "copyTextToClipboard": "Zkopírovat text do schránky",
-    "updateInSource": "Zapsat UUID do zdrojového katalogu",
+    "updateInSource": "Zapsat do zdrojového katalogu",
     "pero": "Korekce ALTO/OCR pomocí nástroje PERO",
     "removeBrackets": "Odebrat závorky",
     "addBrackets": "Vložit do závorek",
@@ -3021,7 +3021,7 @@
       }
     },
     "updateInSource": {
-      "title": "Zapsat UUID do zdrojového katalogu",
+      "title": "Zapsat do zdrojového katalogu",
       "alert": {
         "success": "Zapsáno do katalogu",
         "error": "Chyba zapsání!"
