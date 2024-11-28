@@ -292,6 +292,7 @@
         label: 'Klíčové slovo/Předmětové heslo',
         selector: 'subject/topic',
         labelKey: 'subject/topic',
+        max: 1,
         description: 'Libovolný výraz specifikující nebo charakterizující obsah vnitřní části<br/>\
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21',
         fields: {
