@@ -217,6 +217,30 @@
           }
         }
       },
+      geographic: {
+        usage: 'O',
+        label: 'Geografické věcné třídění',
+        selector: 'subject/geographic',
+        labelKey: 'subject/geographic',
+        description: 'Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21'
+      },
+      temporal: {
+        usage: 'R',
+        label: 'Chronologické věcné třídění',
+        selector: 'subject/temporal',
+        labelKey: 'subject/temporal',
+        description: 'Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21',
+        fields: {
+          value: {
+            usage: 'R',
+            label: 'Hodnota',
+            //                  cols: 2,
+            selector: 'subject/temporal/value',
+            labelKey: 'subject/temporal/value',
+            hint: false,
+          }
+        }
+      },
       //        lang: {
       //          usage: 'M',
       //          required: true,
@@ -379,7 +403,7 @@
               ['mikroskop', 'mikroskop'],
               ['projekce', 'projekce'],
               ['stereograf', 'stereograf'],
-              ['bez media', 'bez_media'],
+              ['bez média', 'bez_media'],
               ['video', 'video'],
               ['svazek', 'svazek'],
               ['online zdroj', 'online_zdroj'],

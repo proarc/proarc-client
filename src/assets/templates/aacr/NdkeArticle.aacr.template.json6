@@ -288,6 +288,7 @@
         label: 'Klíčové slovo/Předmětové heslo',
         selector: 'subject/topic',
         labelKey: 'subject/topic',
+        max: 1,
         description: 'Libovolný výraz specifikující nebo charakterizující obsah vnitřní části<br/>\
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21',
         fields: {
@@ -558,6 +559,28 @@
         description: 'Údaje o fyzické podobě dokumentu, např. print, electronic, microfilm apod.<br/>\
           odpovídá hodnotě v poli 008/23',
         fields: {
+          authority: {
+            usage: 'MA',
+            required: true,
+            label: 'Autorita',
+            selector: 'physicalDescription/form/@authority',
+            labelKey: 'physicalDescription/form/@authority',
+            cols: 2,
+            description: 'Možné hodnoty\
+              <ul>\
+                <li><strong>marcform</strong></li>\
+                <li><strong>marccategory</strong></li>\
+                <li><strong>marcsmd</strong></li>\
+                <li><strong>gmd</strong></li>\
+                <li><strong>rdamedia</strong> (pro pole 337)</li>\
+                <li><strong>rdacarrier</strong> (pro pole 338)</li>\
+              </ul>',
+            options: [
+              ['marcform', 'marcform'],
+              ['marccategory', 'marccategory'],
+              ['marcsmd', 'marcsmd'],
+              ['gmd', 'gmd']]
+          },
           value: {
             usage: 'RA',
             selector: 'physicalDescription/form/value',
@@ -578,7 +601,7 @@
               ['mikroskop', 'mikroskop'],
               ['projekce', 'projekce'],
               ['stereograf', 'stereograf'],
-              ['bez media', 'bez_media'],
+              ['bez média', 'bez_media'],
               ['video', 'video'],
               ['svazek', 'svazek'],
               ['online zdroj', 'online_zdroj'],
@@ -1676,7 +1699,7 @@
                   ['mikroskop', 'mikroskop'],
                   ['projekce', 'projekce'],
                   ['stereograf', 'stereograf'],
-                  ['bez media', 'bez_media'],
+                  ['bez média', 'bez_media'],
                   ['video', 'video'],
                   ['svazek', 'svazek'],
                   ['online zdroj', 'online_zdroj'],

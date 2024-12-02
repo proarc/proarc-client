@@ -27,7 +27,8 @@
         <button mat-stroked-button (click)="changeView('loadingQueue')">
           {{ 'button.showLoadingQueue' | translate }}
         </button>
-        <button mat-stroked-button (click)="onReloadBatch()" *ngIf="selectedBatch && (selectedBatch.state === 'LOADING_FAILED' || selectedBatch.state === 'LOADED' || selectedBatch.state === 'STOPPED')">
+        <button mat-stroked-button (click)="onReloadBatch()" *ngIf="selectedBatch && (selectedBatch.state === 'LOADING_FAILED' || selectedBatch.state === 'LOADED' || selectedBatch.state === 'STOPPED') && !isExportProfile(selectedBatch.profile)">
+
           {{ 'button.reload' | translate }}
         </button>
         <button mat-stroked-button (click)="onIngestBatch()" *ngIf="selectedBatch && selectedBatch.state === 'LOADED'">
@@ -36,7 +37,7 @@
         <button mat-stroked-button (click)="onEditBatchObject()" *ngIf="selectedBatch && selectedBatch.state === 'INGESTED' && selectedBatch.parentPid">
           {{ 'button.goToObject' | translate }}
         </button>
-        <button mat-stroked-button (click)="onReexport()" *ngIf="selectedBatch && selectedBatch.state === 'EXPORT_FAILED'">
+        <button mat-stroked-button (click)="onReexport()" *ngIf="selectedBatch && (selectedBatch.state === 'EXPORT_FAILED' || selectedBatch.state === 'STOPPED') && isExportProfile(selectedBatch.profile)">
           {{ 'button.reexport' | translate }}
         </button>
         <button mat-stroked-button (click)="onResolveConflict()" *ngIf="selectedBatch && selectedBatch.state === 'LOADING_CONFLICT'">

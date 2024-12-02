@@ -316,6 +316,7 @@ export class ApiService {
         break;
       }
       case ProArc.EXPORT_NDK_OLDPRINT_KRAMERIUS_UPLOAD:
+      case ProArc.EXPORT_NDK_SIP_KRAMERIUS_UPLOAD:
       case ProArc.EXPORT_NDK_KRAMERIUS_UPLOAD: {
         data = `${data}&policy=policy:${policy}&krameriusInstance=${krameriusInstance}&license=${licenseName}&isBagit=false`;
         path = 'export/ndk'
@@ -1265,12 +1266,12 @@ export class ApiService {
   validateObject(pid: string): Observable<any> {
     let data = `pid=${pid}`;
     return this.post('object/validate', data);
-  } 
+  }
 
   changeOwner(oldOwner: string, newOwner: string) {
     let data = `oldOwner=${oldOwner}&newOwner=${newOwner}`;
     return this.post('object/changeOwner', data);
-    
+
   }
 
   addReference(pid: string, structured: boolean, reference: string) {
