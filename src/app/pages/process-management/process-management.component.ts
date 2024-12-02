@@ -17,6 +17,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ResolveConflictDialogComponent } from 'src/app/dialogs/resolve-conflict-dialog/resolve-conflict-dialog.component';
 import { ProArc } from 'src/app/utils/proarc';
+import {delay} from 'rxjs';
 
 @Component({
   selector: 'app-process-management',
@@ -426,6 +427,7 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
 
 
   onReloadBatch() {
+    console.log(this.selectedBatch.profile);
     const dialogRef = this.dialog.open(ReloadBatchDialogComponent, {
       data: null,
       panelClass: 'app-dialog-reload-batch',
@@ -534,7 +536,7 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
         this.ui.showErrorSnackBar(response.response.data[0].errors[0].message);
       }
     })
-
+    this.reloadBatches();
   }
 
   onStateChanged() {
@@ -692,13 +694,17 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
   }
 
   canStopProcess() {
-    return this.selectedBatch && 
+    return this.selectedBatch &&
     (
       this.auth.isAdmin() || this.auth.isSuperAdmin() ||
       this.auth.user.name === this.selectedBatch.user
-    ) && 
+    ) &&
     (this.selectedBatch.state === 'EXPORT_PLANNED' || this.selectedBatch.state === 'EXPORTING')
-      
   }
 
+  isExportProfile(profile: string) {
+    return (profile === 'exportProfile.kramerius' || profile === 'exportProfile.ndk' || profile === 'exportProfile.archive' ||
+      profile === 'exportProfile.desa' || profile === 'exportProfile.cejsh' || profile === 'exportProfile.crossref' ||
+      profile === 'exportProfile.kwis' || profile === 'exportProfile.aleph' || profile === 'exportProfile.datastream');
+  }
 }
