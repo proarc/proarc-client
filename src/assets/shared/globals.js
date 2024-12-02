@@ -3,35 +3,33 @@ var APP_GLOBAL = {
     proarcUrl: "/api",
   ga: "UA-159265713-1",
   exports:[
-    'archive',
-    'archive_bagit',
-    'archive_stt',
-    'archive_stt_bagit',
-    'kramerius',
-    'kramerius_bagit',
-    'ndk_psp',
-    'ndk_psp_bagit',
-    'ndk_psp_upload_cesnet',
-    'ndk_psp_upload_kramerius',
-    'ndk_oldprint',
-    'ndk_oldprint_bagit',
-    'ndk_oldprint_upload_cesnet',
-    'ndk_oldprint_upload_kramerius',
-    'ndk_sip',
-    'ndk_sip_bagit',
-    'ndk_sip_upload_kramerius',
-    'datastream_full',
-    'datastream_raw',
-    'datastream_ndkUser',
-    'cejsh',
-    'crossref',
-    'kwis',
-
-
-		'archive_extended', // - Archivace se surovými skeny
-		'archive_stt_extended', // - Archivace starých tisků se surovými skeny
-		'archive_extended_bagit', // - Archivace se surovými skeny v BAGIT balíčku
-		'archive_stt_extended_bagit' // - Archivace starých tisků se surovými skeny v BAGIT balíčku
+    'archive',    // archivni export
+    'archive_extended',   // archivni export s pridanim slozky surovych skenu
+    'archive_bagit',  // archivni export prevedeny do podoby BagIt balicku
+    'archive_extended_bagit', //archivni export s pridanim slozky surovych skenu prevedeny do podoby BagIt balicku
+    'archive_stt',  // archivni export starych tisku
+    'archive_stt_bagit',  // archivni export starych tisku prevedeny do podoby BagIt balicku
+    'archive_stt_extended',   // archivni export starych tisku s pridanim slozky surovych skenu
+    'archive_stt_extended_bagit',   // archivni export starych tisku s pridanim slozky surovych skenu prevedeny do podoby BagIt balicku
+    'kramerius',    // export foxml pro kramerius
+    'kramerius_bagit',    // export foxml pro kramerius prevedeny do podoby BagIt balicku
+    'ndk_psp',    // ndk export pro tistene a zvukove dokumenty
+    'ndk_psp_bagit',    // ndk export pro tistene a zvukove dokumenty prevedeny do podoby BagIt balicku
+    'ndk_psp_upload_cesnet',    // ndk export pro tistene a zvukove dokumenty prevedeny do podoby BagIt balicku a nahrany na LTP Cesnet
+    'ndk_psp_upload_kramerius',    // ndk export pro tistene a zvukove dokumenty nahrany do Krameria
+    'ndk_oldprint',    // ndk export pro stare tisky
+    'ndk_oldprint_bagit',    // ndk export pro stare tisky prevedeny do podoby BagIt balicku
+    'ndk_oldprint_upload_cesnet',    // ndk export pro stare tisky prevedeny do podoby BagIt balicku a nahrany na LTP Cesnet
+    'ndk_oldprint_upload_kramerius',    // ndk export pro stare tisky nahrany do Krameria
+    'ndk_sip',    // ndk export pro eleketornicke dokumenty
+    'ndk_sip_bagit',    // ndk export pro eleketornicke dokumenty prevedeny do podoby BagIt balicku
+    'ndk_sip_upload_kramerius',    // ndk export pro eleketornicke dokumenty nahrany do Krameria
+    'datastream_full', // export datastreamu FULL (u tistenych dokumentu export jpg, u pdf export pdf)
+    'datastream_raw', // export datastreamu RAW (export vstupnich formatu - tiff, pdf, wave, mp3)
+    'datastream_ndkUser', // export uzivatelske kopie (jp2, pdf)
+    'cejsh', // export pro Cejsh
+    'crossref', // export pro Crossref
+    'kwis', // export foxml pro kramerius a spusteni nasledneho merlin scriptu (pouze pro kramerius 5)
   ],
   organizations: [
       'ABA007',
