@@ -227,6 +227,7 @@ export class EditorStructureComponent implements OnInit {
 
   scrollToSelected(align: string) {
     const index = this.layout.items.findIndex(i => i.selected);
+    console.log(index)
     if (index < 0) {
       return;
     }
@@ -876,6 +877,13 @@ export class EditorStructureComponent implements OnInit {
                 }
                 if(result.objectPosition === 'after') {
                   this.onSave();
+                  setTimeout(() => {
+                    this.scrollToSelected('center');
+                  }, 1000);
+                } else {
+                  setTimeout(() => {
+                    this.scrollToSelected('end');
+                  }, 1000);
                 }
                 this.layout.refreshSelectedItem(true, 'pages');
               }
