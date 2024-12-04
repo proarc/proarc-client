@@ -16,12 +16,14 @@
           description: 'Hlavní název bez typu - pole 245 a $a<br/>\
           Možné hodnoty\
           <ul>\
+            <li>Zkrácený název (abbreviated) - pole 210</li>\
             <li>Alternativní název (alternative) – pole 246</li>\
             <li>Přeložený název (translated) – pole 242</li>\
             <li>Jednotný název (uniform) – pole 130 resp. 240</li>\
           </ul>',
           options: [
             ['', '-'],
+            ['abbreviated', 'Zkrácený název'],
             ['translated', 'Přeložený název'],
             ['alternative', 'Alternativní název'],
             ['uniform', 'Jednotný název']
@@ -868,7 +870,7 @@
       }
     },
     recordInfo: {
-      usage: 'M',
+      usage: 'MA',
       label: 'Údaje o metadatovém záznamu',
       selector: 'recordInfo',
       labelKey: 'recordInfo',
@@ -972,31 +974,31 @@
             }
           }
         },
-        recordIdentifier: {
-          usage: 'R',
-          label: 'Identifikátor záznamu',
-          selector: 'recordInfo/recordIdentifier',
-          labelKey: 'recordInfo/recordIdentifier',
-          description: 'identifikátor záznamu v katalogu, přebírá se z pole 001',
-          fields: {
-            value: {
-              usage: 'MA',
-              label: 'Identifikátor záznamu',
-              cols: 2,
-              selector: 'recordInfo/recordIdentifier',
-              labelKey: 'recordInfo/recordIdentifier',
-              help: 'off'
-            },
-            source: {
-              usage: 'R',
-              label: 'Zdroj',
-              cols: 2,
-              selector: 'recordInfo/recordIdentifier/@source',
-              labelKey: 'recordInfo/recordIdentifier/@source',
-              description: 'hodnota se přebírá z katalogu pole 003 '
-            }
-          }
-        },
+//        recordIdentifier: {
+//          usage: 'R',
+//          label: 'Identifikátor záznamu',
+//          selector: 'recordInfo/recordIdentifier',
+//          labelKey: 'recordInfo/recordIdentifier',
+//          description: 'identifikátor záznamu v katalogu, přebírá se z pole 001',
+//          fields: {
+//            value: {
+//              usage: 'MA',
+//              label: 'Identifikátor záznamu',
+//              cols: 2,
+//              selector: 'recordInfo/recordIdentifier',
+//              labelKey: 'recordInfo/recordIdentifier',
+//              help: 'off'
+//            },
+//            source: {
+//              usage: 'R',
+//              label: 'Zdroj',
+//              cols: 2,
+//              selector: 'recordInfo/recordIdentifier/@source',
+//              labelKey: 'recordInfo/recordIdentifier/@source',
+//              description: 'hodnota se přebírá z katalogu pole 003 '
+//            }
+//          }
+//        },
         recordOrigin: {
           usage: 'R',
           label: 'Údaje o vzniku záznamu',
