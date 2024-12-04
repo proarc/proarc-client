@@ -69,22 +69,22 @@
                     </ng-container>   
                     <ng-container *ngFor="let c of workFlowColumns" [matColumnDef]="c">
                       <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c)" [style.width]="colsWidth[c]"><span mat-sort-header>{{'desc.' + c | translate}}</span></th>
-                      
+                      <td mat-cell *matCellDef="let element">
                         <ng-container [ngSwitch]="columnTypes[c]">
                           <ng-container *ngSwitchCase="'date'">
-                            <td mat-cell *matCellDef="let element">{{ element[c] | date : 'dd.MM.yyyy'}}</td>
+                            {{ element[c] | date : 'dd.MM.yyyy'}}
                           </ng-container>
                           <ng-container *ngSwitchCase="'list'">
-                            <td mat-cell *matCellDef="let element">{{ listValue(c, element[c])}}</td>
+                            {{ listValue(c, element[c])}}
                           </ng-container>
                           <ng-container *ngSwitchCase="'translated'">
-                            <td mat-cell *matCellDef="let element">{{ element[translatedField(c)] }}</td>
+                            {{ element[translatedField(c)] }}
                           </ng-container>
                           <ng-container *ngSwitchDefault>
-                            <td mat-cell *matCellDef="let element">{{ element[c] }}</td>
+                            {{ element[c] }}
                           </ng-container>
                         </ng-container>
-                        
+                      </td>
                     </ng-container>
                     
                     <tr mat-header-row *matHeaderRowDef="filterWorkFlowColumns; sticky: true"></tr>

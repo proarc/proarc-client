@@ -114,10 +114,10 @@
         </mat-card>
         <mat-card fxFlex >
           <mat-card-content>
-            <fieldset class="app-p-4 app-mb-4">
+            <fieldset class="app-p-4 app-mb-4" cdkDropList (cdkDropListDropped)="drop($event, properties.searchColumns)">
               <legend>{{ 'pages.settings.search.legend' | translate }}</legend>
               <div class="app-label app-mb-2">{{ 'pages.settings.search.label' | translate }}</div>
-              <div *ngFor="let column of properties.searchColumns">
+              <div *ngFor="let column of properties.searchColumns" cdkDropListOrientation="vertical" cdkDrag>
                 <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
               </div>
             </fieldset>
@@ -138,7 +138,7 @@
         </mat-card>
         <mat-card fxFlex>
           <mat-card-content *ngIf="properties.colsEditingRepo">
-            <fieldset class="app-p-4 app-mb-3">
+            <fieldset class="app-p-4 app-mb-3" cdkDropList (cdkDropListDropped)="drop($event, properties.colsEditingRepo[modelForColumns])">
               <legend>{{ 'pages.settings.editingRepo.legend' | translate }}</legend>        
               <div class="app-label app-mb-3">{{ 'pages.settings.editingRepo.label' | translate }}</div>
               <mat-form-field class="app-w-100">
@@ -146,7 +146,7 @@
                   <mat-option *ngFor="let model of models" [value]="model">{{ 'model.' + model | translate }}</mat-option>
                 </mat-select>
               </mat-form-field>
-              <div *ngFor="let column of properties.colsEditingRepo[modelForColumns]">
+              <div *ngFor="let column of properties.colsEditingRepo[modelForColumns]" cdkDropListOrientation="vertical" cdkDrag>
                 <mat-checkbox [name]="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
               </div>
             </fieldset>
@@ -158,10 +158,10 @@
         </mat-card>
         <mat-card fxFlex>
           <mat-card-content>
-            <fieldset class="app-p-4 app-mb-4">
+            <fieldset class="app-p-4 app-mb-4" cdkDropList (cdkDropListDropped)="drop($event, selectedColumnsEditingImport)">
               <legend>{{ 'pages.settings.editingImport.legend' | translate }}</legend>
               <div class="app-label app-mb-2">{{ 'pages.settings.editingImport.label' | translate }}</div>
-              <div *ngFor="let column of selectedColumnsEditingImport">
+              <div *ngFor="let column of selectedColumnsEditingImport" cdkDropListOrientation="vertical" cdkDrag>
                 <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
               </div>
             </fieldset>
