@@ -16,6 +16,7 @@
         description: 'Hlavní název bez typu - pole 245 a $a<br/>\
           Možné hodnoty\
           <ul>\
+            <li>Zkrácený název (abbreviated) - pole 210</li>\
             <li>Alternativní název (alternative) – pole 246</li>\
             <li>Přeložený název (translated) – pole 242</li>\
             <li>Jednotný název (uniform) – pole 130 resp. 240</li>\
@@ -25,7 +26,10 @@
             '',
             '-'
           ],
-          //            ['abbreviated', 'Zkrácený název'],
+          [
+            'abbreviated',
+            'Zkrácený název'
+          ],
           [
             'translated',
             'Přeložený název'
@@ -377,28 +381,28 @@
               ]
             ]
           },
-          point: {
-            usage: 'O',
-            label: 'Point',
-            selector: 'originInfo/dateIssued/@point',
-            labelKey: 'originInfo/dateIssued/@point',
-            cols: 2,
-            description: 'Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat',
-            options: [
-              [
-                '',
-                '-'
-              ],
-              [
-                'start',
-                'start'
-              ],
-              [
-                'end',
-                'end'
-              ]
-            ]
-          }
+//          point: {
+//            usage: 'O',
+//            label: 'Point',
+//            selector: 'originInfo/dateIssued/@point',
+//            labelKey: 'originInfo/dateIssued/@point',
+//            cols: 2,
+//            description: 'Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat',
+//            options: [
+//              [
+//                '',
+//                '-'
+//              ],
+//              [
+//                'start',
+//                'start'
+//              ],
+//              [
+//                'end',
+//                'end'
+//              ]
+//            ]
+//          }
         }
       },
       place: {
@@ -1078,25 +1082,82 @@
             label: 'Hodnota',
             help: 'off',
             options: [
-              ['braille', 'braille'],
-              ['electronic', 'electronic'],
-              ['large print', 'large print'],
-              ['microfilm', 'microfilm'],
-              ['microfiche', 'microfiche'],
-              ['print', 'print'],
-              ['jiný', 'jiný'],
-              ['audio', 'audio'],
-              ['počítač', 'počítač'],
-              ['mikroforma', 'mikroforma'],
-              ['mikroskop', 'mikroskop'],
-              ['projekce', 'projekce'],
-              ['stereograf', 'stereograf'],
-              ['bez média', 'bez_media'],
-              ['video', 'video'],
-              ['svazek', 'svazek'],
-              ['online zdroj', 'online_zdroj'],
-              ['audiodisk', 'audiodisk'],
-              ['počítačový disk', 'počítačový disk'],
+              [
+                'braille',
+                'braille'
+              ],
+              [
+                'electronic',
+                'electronic'
+              ],
+              [
+                'large print',
+                'large print'
+              ],
+              [
+                'microfilm',
+                'microfilm'
+              ],
+              [
+                'microfiche',
+                'microfiche'
+              ],
+              [
+                'print',
+                'print'
+              ],
+              [
+                'jiný',
+                'jiný'
+              ],
+              [
+                'audio',
+                'audio'
+              ],
+              [
+                'počítač',
+                'počítač'
+              ],
+              [
+                'mikroforma',
+                'mikroforma'
+              ],
+              [
+                'mikroskop',
+                'mikroskop'
+              ],
+              [
+                'projekce',
+                'projekce'
+              ],
+              [
+                'stereograf',
+                'stereograf'
+              ],
+              [
+                'bez média',
+                'bez_media'
+              ],
+              [
+                'video',
+                'video'
+              ],
+              [
+                'svazek',
+                'svazek'
+              ],
+              [
+                'online zdroj',
+                'online_zdroj'
+              ],
+              [
+                'audiodisk',
+                'audiodisk'
+              ],
+              [
+                'počítačový disk',
+                'počítačový disk'
+              ],
             ]
           }
         }

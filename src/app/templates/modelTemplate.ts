@@ -199,8 +199,9 @@ export class ModelTemplate {
     'oldprintsheetmusic': ['oldprintpage'],
     'oldprintpage': [],
     'ndkeperiodical': ['ndkeperiodicalvolume'],
-    'ndkeperiodicalvolume': ['ndkeperiodicalissue'],
-    'ndkeperiodicalissue': ['ndkearticle'],
+    'ndkeperiodicalvolume': ['ndkeperiodicalissue', 'ndkeperiodicalsupplement'],
+    'ndkeperiodicalissue': ['ndkeperiodicalsupplement', 'ndkearticle'],
+    'ndkeperiodicalsupplement': ['ndkearticle'],
     'ndkearticle': [],
     'ndkemonographtitle': ['ndkemonographvolume'], // 'ndkechapter' odstraneno podle #99
     'ndkemonographvolume': ['ndkechapter'],
