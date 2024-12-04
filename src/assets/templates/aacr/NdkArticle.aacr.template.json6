@@ -192,7 +192,7 @@
           ]
         },
         topic: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Klíčové slovo/Předmětové heslo',
           selector: 'subject/topic',
           labelKey: 'subject/topic',
@@ -200,7 +200,7 @@
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21',
           fields: {
             value: {
-              usage: 'R',
+              usage: 'MA',
               label: 'Hodnota',
               selector: 'subject/topic/value',
               labelKey: 'subject/topic/value',
@@ -626,18 +626,28 @@
             ['pageNumber', 'Page Number']
           ]
         },
-        detail: {
-          usage: 'RA',
-          label: 'Detail',
-          selector: 'part/detail',
-          labelKey: 'part/detail',
+        extent: {
+          usage: 'MA',
+          label: 'Extent',
+          selector: 'part/extent',
+          labelKey: 'part/extent',
+          description: 'Tento kontejner <part> slouží k zaznamenání rozsahu stran v reprezentaci.',
           fields: {
-            caption: {
-              usage: 'RA',
-              label: 'Typ',
-              selector: 'part/detail/caption',
-              labelKey: 'part/detail/caption',
-              description: 'text před označením čísla, např. "č.", „část“, "No." apod.'
+            start: {
+              usage: 'MA',
+              label: 'Od strany',
+              cols: 2,
+              selector: 'part/extent/start',
+              labelKey: 'part/extent/start',
+              description: 'První stránka, na které vnitřní část začíná.'
+            },
+            end: {
+              usage: 'MA',
+              label: 'Do strany',
+              cols: 2,
+              selector: 'part/extent/end',
+              labelKey: 'part/extent/end',
+              description: 'Poslední stránka, na které vnitřní část končí.'
             }
           }
         }
