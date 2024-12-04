@@ -787,6 +787,7 @@
         authority: {
           usage: 'M',
           label: 'Autorita',
+          cols: 2,
           selector: 'classification/@authority',
           labelKey: 'classification/@authority',
           description: 'Vyplnit hodnotu <strong>udc</strong>',
@@ -795,7 +796,7 @@
           ]
         },
         edition: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Vydání',
           selector: 'classification/@edition',
           labelKey: 'classification/@edition',
