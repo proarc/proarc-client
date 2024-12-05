@@ -55,7 +55,7 @@ export class TaskComponent implements OnInit {
   tasksSortField: string = 'created';
   tasksSortDir: SortDirection = 'desc';
 
-  
+
   // colsWidth: { [key: string]: number } = {};
   columnTypes: {[field: string]: string} = {};
   filters: { [field: string]: string } = {};
@@ -154,7 +154,7 @@ export class TaskComponent implements OnInit {
   setSelectedColumnsTasks() {
     this.filterTasksColumns = [];
     this.selectedColumns = this.columnsTasks.filter(c => c.selected).map(c => c.field);
-    
+
     this.selectedColumns.forEach(c => {
       this.filterTasksColumns.push(c + '-filter');
     });
@@ -227,7 +227,8 @@ export class TaskComponent implements OnInit {
     }
 
     if (this.onlyMyTasks) {
-      params += '&state=READY&ownerId=' + this.auth.getUserId();
+      params += '&ownerId=' + this.auth.getUserId();
+      // params += '&state=READY&ownerId=' + this.auth.getUserId();
     }
 
     const keys: string[] = Object.keys(this.filters);
@@ -286,7 +287,7 @@ export class TaskComponent implements OnInit {
         this.tasks.forEach(i => i.selected = false);
         this.task.selected = true;
         this.startShiftClickIdx = 0;
-      
+
 
         this.lastClickIdx = 0;
         this.totalSelected = 1;
@@ -352,7 +353,7 @@ export class TaskComponent implements OnInit {
         if (icv) {
           this.imageColor = icv.value;
         }
-        
+
       }
 
     });
@@ -414,7 +415,7 @@ export class TaskComponent implements OnInit {
     this.totalSelected = this.tasks.filter(i => i.selected).length;
     this.isSelectionSameType = true;
     if (this.totalSelected > 1) {
-      
+
       let profileLabel = item.profileLabel;
       this.tasks.filter(i => i.selected).forEach(i => {
         if (i.profileLabel !== profileLabel) {
@@ -454,10 +455,10 @@ export class TaskComponent implements OnInit {
     this.columnsTasks.forEach((c: any) => {
       c.width = this.colsWidthTasks[c.field];
     });
-  
+
     this.properties.setColumnsWorkFlowTasks(this.columnsTasks);
   }
-  
+
 
   listValue(field: string, code: string) {
     const el = this.lists[field].find(el => el.code === code + '');
@@ -487,7 +488,7 @@ export class TaskComponent implements OnInit {
       default: return [];
     }
   }
-  
+
   selectColumns(type: string) {
     const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
       data: {
