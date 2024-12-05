@@ -191,7 +191,7 @@
           </ng-template>
         </app-editor-field>
         <app-editor-field *ngIf="subject.available['cartographics']" [field]="subject.cartographics" [nested]='true'>
-          <ng-template let-cartographics="subject" #templateContent>
+          <ng-template let-cartographics="item" #templateContent>
             <app-field-text field="coordinates" [item]="cartographics" [(value)]="cartographics.coordinates['_']"></app-field-text>
             <app-field-text field="scale" [item]="cartographics" [(value)]="cartographics.scale['_']"></app-field-text>
           </ng-template>
