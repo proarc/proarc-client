@@ -103,7 +103,7 @@
                 <button (click)="onDeleteItem()" mat-button>{{ 'button.delete' | translate }}</button>
                 <button *ngIf="!selectedItem.isLocked && (auth.user.lockObjectFunction || auth.isSuperAdmin())" [disabled]="totalSelected > 1" (click)="onLock(selectedItem, true)" mat-button>{{ 'button.lockIt' | translate }}</button>
                 <button *ngIf="selectedItem.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" [disabled]="totalSelected > 1" (click)="onLock(selectedItem, false)" mat-button>{{ 'button.unlock' | translate }}</button>
-                <button *ngIf="selectedItem.state === 'fedora-system:def/model#Deleted'" [disabled]="totalSelected > 1" (click)="onRestore(selectedItem)" mat-button>{{ 'button.restoreTheObject' | translate }}</button>
+                <button *ngIf="selectedItem.state === 'fedora-system:def/model#Deleted' || selectedItem.state === 'Deactive'" [disabled]="totalSelected > 1" (click)="onRestore(selectedItem)" mat-button>{{ 'button.restoreTheObject' | translate }}</button>
                 <button [disabled]="totalSelected > 1" mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
                   <mat-icon>more_vert</mat-icon>
                 </button>
@@ -116,7 +116,7 @@
                   <button mat-menu-item *ngIf="auth.user.czidloFunction || auth.isSuperAdmin()" (click)="czidlo(selectedItem)">{{ 'button.czidloFunction' | translate }}</button>
                   <button mat-menu-item *ngIf="config.updateInSource && auth.isSuperAdmin() && canUpdateInSource(selectedItem)" (click)="updateInSource(selectedItem)">{{ 'button.updateInSource' | translate }}</button>
                   <button mat-menu-item (click)="validateObject(selectedItem)">{{ 'button.validateObject' | translate }}</button>
-                
+
                 </mat-menu>
               </div>
               <div>
@@ -124,12 +124,12 @@
               </div>
             </div>
             <div class="app-oa-y">
-              <table mat-table #table [dataSource]="items" matSort class="app-striped app-hover app-resize" 
+              <table mat-table #table [dataSource]="items" matSort class="app-striped app-hover app-resize"
               [matSortActive]="sortField" [matSortDirection]="sortAsc ? 'asc' : 'desc'"
               (matSortChange)="sortTable($event)">
 
               <ng-container *ngFor="let c of displayedColumns; let idx = index;" [matColumnDef]="c">
-                <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c)" 
+                <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c)"
                   [style.width]="colsWidth[c]">
                   <span *ngIf="c !== 'isLocked'" mat-sort-header>{{'search.' + c | translate}}</span>
                 </th>
@@ -145,7 +145,7 @@
                       {{ prefixes[c] + element[c] | translate }}
                     </ng-container>
                     <ng-container *ngSwitchCase="'boolean'">
-                      <mat-icon [matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">{{ element.isLocked ? 'lock' : 'lock_open' }}</mat-icon>  
+                      <mat-icon [matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">{{ element.isLocked ? 'lock' : 'lock_open' }}</mat-icon>
                       &#160;
                       <a *ngIf="element.validationStatus === 'ERROR'" (click)="getValidationError(element.validationProcess);" [matTooltip]="'button.viewErrorDetail' | translate" matTooltipPosition="below" class="app-icon-button">
                         <mat-icon>error_outline</mat-icon>
@@ -160,10 +160,10 @@
                   </ng-container>
                 </td>
               </ng-container>
-              
+
                 <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns; let idx=index"
-                #matrow  [id]="'tr_'+idx" 
+                #matrow  [id]="'tr_'+idx"
                  (click)="selectItem(row, $event, idx)" (dblclick)="openItem(row)" class="app-cursor-pointer" [class.app-selected]="row.selected"></tr>
               </table>
             </div>
@@ -174,7 +174,7 @@
           <div style="position: relative; top: 0px;">
             <mat-progress-bar mode="indeterminate" *ngIf="loadingTree" class="app-progress-bar" style="position: absolute; top: 0px;"></mat-progress-bar>
           </div>
-              
+
           <div  fxLayout="column" fxFlexFill>
             <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar">
               <div fxFlex *ngIf="selectedTreeItem" fxLayout="row" fxFlexFill>
@@ -210,9 +210,9 @@
             </div>
             <div fxFlex class="app-oa-y app-tree" fxLayout="column" fxFlexFill >
               <table  mat-table [dataSource]="visibleTreeItems" class="app-striped app-hover app-resize" matSort  #treeTable>
-                  
+
                   <ng-container *ngFor="let c of treeColumns; let idx = index;" [matColumnDef]="c">
-                    <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveTreeColumnsSizes($event,c)" 
+                    <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveTreeColumnsSizes($event,c)"
                       [style.width]="treeColumnsSizes[c]">
                       <span>{{'search.' + c | translate}}</span>
                     </th>
@@ -231,7 +231,7 @@
                           {{ prefixes[c] + element[c] | translate }}
                         </ng-container>
                         <ng-container *ngSwitchCase="'boolean'">
-                          <mat-icon [matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">{{ element.isLocked ? 'lock' : 'lock_open' }}</mat-icon>  
+                          <mat-icon [matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">{{ element.isLocked ? 'lock' : 'lock_open' }}</mat-icon>
                         </ng-container>
                         <ng-container *ngSwitchDefault>
                           <a *ngIf="c === 'pid'" class="app-icon-copy app-mr-1" (click)="copyTextToClipboard(element.pid)" [matTooltip]="'button.copyTextToClipboard' | translate"><mat-icon class="app-icon-copy">content_copy</mat-icon></a>
@@ -240,7 +240,7 @@
                       </ng-container>
                     </td>
                   </ng-container>
-                  
+
                   <tr mat-header-row *matHeaderRowDef="treeColumns; sticky: true"></tr>
                   <tr mat-row *matRowDef="let row; columns: treeColumns; let idx = index"
                    (dblclick)="openTreeItem($event, row)" (click)="selectTreeItem($event, row, idx)" [class.app-selected]="row.selected"></tr>
