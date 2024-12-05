@@ -183,7 +183,6 @@
     },
     originInfo: {
       usage: 'M',
-      required: true,
       label: 'Původ předlohy',
       selector: 'originInfo',
       labelKey: 'originInfo',
@@ -200,7 +199,6 @@
         },
         dateIssued: {
           usage: 'M',
-          required: true,
           label: 'Datum vydání',
           selector: 'originInfo/dateIssued',
           labelKey: 'originInfo/dateIssued',
@@ -218,7 +216,8 @@
             využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>',
           fields: {
             value: {
-              usage: 'MA',
+              usage: 'M',
+              required: true,
               selector: 'originInfo/dateIssued/value',
               labelKey: 'originInfo/dateIssued/value',
               label: 'Hodnota',
@@ -485,18 +484,18 @@
               label: 'Note',
               help: 'off'
             },
-            usage: {
-              usage: 'O',
-              cols: 2,
-              selector: 'location/url/@usage',
-              labelKey: 'location/url/@usage',
-              label: 'Usage',
-              help: 'off',
-              options: [
-                ['', '-'],
-                ['primary', 'primary']
-              ]
-            },
+//            usage: {
+//              usage: 'O',
+//              cols: 2,
+//              selector: 'location/url/@usage',
+//              labelKey: 'location/url/@usage',
+//              label: 'Usage',
+//              help: 'off',
+//              options: [
+//                ['', '-'],
+//                ['primary', 'primary']
+//              ]
+//            },
           }
         },
       }
@@ -769,7 +768,7 @@
           ',
           fields: {
             authority: {
-              usage: 'MA',
+              usage: 'M',
               required: true,
               label: 'Autorita',
               selector: 'physicalDescription/form/@authority',
@@ -1184,7 +1183,7 @@
           description: 'identifikátor záznamu v katalogu, přebírá se z pole 001',
           fields: {
             value: {
-              usage: 'MA',
+              usage: 'R',
               label: 'Identifikátor záznamu',
               cols: 2,
               selector: 'recordInfo/recordIdentifier',
@@ -1248,7 +1247,13 @@
             ['', '-'],
             ['series', 'Series'],
             ['original', 'original'],
-            ['isReferencedBy', 'isReferencedBy']
+            ['isReferencedBy', 'isReferencedBy'],
+            ['preceding', 'preceding'],
+            ['succeeding', 'succeeding'],
+            ['host', 'host'],
+            ['constituent', 'constituent'],
+            ['otherVersion', 'otherVersion'],
+            ['otherFormat', 'otherFormat']
           ]
         },
         otherType: {
@@ -1814,18 +1819,18 @@
                   label: 'Note',
                   help: 'off'
                 },
-                usage: {
-                  usage: 'O',
-                  cols: 2,
-                  selector: 'relatedItem/location/url/@usage',
-                  labelKey: 'relatedItem/location/url/@usage',
-                  label: 'Usage',
-                  help: 'off',
-                  options: [
-                    ['', '-'],
-                    ['primary', 'primary']
-                  ]
-                },
+//                usage: {
+//                  usage: 'O',
+//                  cols: 2,
+//                  selector: 'relatedItem/location/url/@usage',
+//                  labelKey: 'relatedItem/location/url/@usage',
+//                  label: 'Usage',
+//                  help: 'off',
+//                  options: [
+//                    ['', '-'],
+//                    ['primary', 'primary']
+//                  ]
+//                },
               }
             }
           }
