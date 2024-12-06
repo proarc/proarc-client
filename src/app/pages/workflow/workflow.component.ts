@@ -376,7 +376,7 @@ export class WorkFlowComponent implements OnInit {
       panelClass: 'app-dialog-new-object'
     });
     dialogRef1.afterClosed().subscribe((result: any) => {
-      if (result) {
+      if (result && result['data']) {
         this.api.getWorkflowMods(result.data.id, result.data.model).subscribe(mods => {
           const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
             disableClose: true,
@@ -403,7 +403,8 @@ export class WorkFlowComponent implements OnInit {
   }
 
   createSubJob(job: WorkFlow) {
-    const profiles = this.profiles.filter(p => this.selectedSubJobProfile.subjob.find(sj => sj.name === p.name));
+    const jobProfile = this.profiles.find(p => p.name === job.profileName);
+    const profiles = this.profiles.filter(p => jobProfile.subjob.find(sj => sj.name === p.name));
     this.createJob(profiles, profiles[0], job.id)
   }
 
