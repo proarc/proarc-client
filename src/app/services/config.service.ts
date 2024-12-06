@@ -225,6 +225,7 @@ export class ConfigService {
 		'internalProfile.changeOwners',
 		'internalProfile.urnnbn',
 		'internalProfile.deletion',
+    'internalProfile.updateCatalogRecords',
 		'uploadProfile.proarc',
 		'uploadProfile.kramerius',
 		'externalProfile.pero',

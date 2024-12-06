@@ -23,6 +23,7 @@ export class User {
   public importToProdFunction: boolean;
   public czidloFunction: boolean;
   public wfDeleteJobFunction: boolean;
+  public importToCatalogFunction: boolean;
 
   public static fromJson(json: any): User {
       const user = new User();
@@ -43,6 +44,8 @@ export class User {
       user.lockObjectFunction = json['lockObjectFunction'];
       user.importToProdFunction = json['importToProdFunction'];
       user.czidloFunction = json['czidloFunction'];
+      user.wfDeleteJobFunction = json['wfDeleteJobFunction'];
+      user.importToCatalogFunction = json['importToCatalogFunction'];
       return user;
   }
 

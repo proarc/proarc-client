@@ -24,14 +24,14 @@
           <button mat-menu-item (click)="onExport()" >{{ 'button.export' | translate }}</button>
           <button mat-menu-item (click)="onUrnnbn()" >URN:NBN</button>
           <button mat-menu-item *ngIf="canCopy()" (click)="onCopyItem()">{{ 'button.copy' | translate }}</button>
-          
+
           <!-- <button mat-menu-item *ngIf="auth.user.changeModelFunction || auth.isSuperAdmin()" (click)="showConvertDialog()">{{ 'button.convertPages' | translate }}</button> -->
           <button mat-menu-item *ngIf="auth.user.czidloFunction || auth.isSuperAdmin()" (click)="czidlo()">{{ 'button.czidloFunction' | translate }}</button>
-          <button mat-menu-item *ngIf="config.updateInSource && auth.isSuperAdmin() && canUpdateInSource()" (click)="updateInSource()">{{ 'button.updateInSource' | translate }}</button>
+          <button mat-menu-item *ngIf="config.updateInSource && (auth.user.importToCatalogFunction || auth.isSuperAdmin()) && canUpdateInSource()" (click)="updateInSource()">{{ 'button.updateInSource' | translate }}</button>
 
         </mat-menu>
       </div>
-    
+
     <div>
       <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToObject(layout.parent)" [disabled]="!layout.parent" mat-icon-button>
         <mat-icon>keyboard_arrow_up</mat-icon>

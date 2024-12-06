@@ -11,7 +11,7 @@
       <button mat-stroked-button routerLink="/admin/new-user" class="app-mr-2">{{ 'button.createNewUser' | translate }}</button>
       <button mat-stroked-button *ngIf="auth.isSuperAdmin()" [matTooltip]="'button.changeOwnerTooltip' | translate" (click)="changeOwner()" class="app-mr-2">{{ 'button.changeOwner' | translate }}</button>
     </div>
-    <div fxFlex class="app-oa-y app-border-wrapper"> 
+    <div fxFlex class="app-oa-y app-border-wrapper">
       <table mat-table [dataSource]="users" class="app-striped app-hover app-resize">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'name')" [style.width]="getColumnWidth('name')">{{ 'desc.username' | translate }}</th>
@@ -76,6 +76,16 @@
         <ng-container matColumnDef="czidloFunction">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'czidloFunction')" [style.width]="getColumnWidth('czidloFunction')">{{ 'desc.czidloFunction' | translate }}</th>
           <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.czidloFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+
+        <ng-container matColumnDef="importToCatalogFunction">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'importToCatalogFunction')" [style.width]="getColumnWidth('importToCatalogFunction')">{{ 'desc.importToCatalogFunction' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.importToCatalogFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+
+        <ng-container matColumnDef="wfDeleteJobFunction">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'wfDeleteJobFunction')" [style.width]="getColumnWidth('wfDeleteJobFunction')">{{ 'desc.wfDeleteJobFunction' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.wfDeleteJobFunction" [disabled]="true"></mat-checkbox></td>
         </ng-container>
 
         <ng-container matColumnDef="action">
