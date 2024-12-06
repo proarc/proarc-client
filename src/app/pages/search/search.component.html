@@ -114,7 +114,7 @@
                   <button mat-menu-item *ngIf="isAkubra && auth.isSuperAdmin()" (click)="reindex(selectedItem)">{{ 'button.toIndex' | translate }}</button>
                   <button mat-menu-item *ngIf="auth.user.changeModelFunction || auth.isSuperAdmin()" (click)="showConvertDialog(selectedItem)">{{ 'button.convertPages' | translate }}</button>
                   <button mat-menu-item *ngIf="auth.user.czidloFunction || auth.isSuperAdmin()" (click)="czidlo(selectedItem)">{{ 'button.czidloFunction' | translate }}</button>
-                  <button mat-menu-item *ngIf="config.updateInSource && auth.isSuperAdmin() && canUpdateInSource(selectedItem)" (click)="updateInSource(selectedItem)">{{ 'button.updateInSource' | translate }}</button>
+                  <button mat-menu-item *ngIf="config.updateInSource && (auth.user.importToCatalogFunction || auth.isSuperAdmin()) && canUpdateInSource(selectedItem)" (click)="updateInSource(selectedItem)">{{ 'button.updateInSource' | translate }}</button>
                   <button mat-menu-item (click)="validateObject(selectedItem)">{{ 'button.validateObject' | translate }}</button>
 
                 </mat-menu>
@@ -196,7 +196,7 @@
                   <button mat-menu-item *ngIf="isAkubra && auth.isSuperAdmin()" (click)="reindex(selectedTreeItem)">{{ 'button.toIndex' | translate }}</button>
                   <button mat-menu-item *ngIf="auth.user.changeModelFunction || auth.isSuperAdmin()" (click)="showConvertDialog(selectedTreeItem)">{{ 'button.convertPages' | translate }}</button>
                   <button mat-menu-item *ngIf="auth.user.czidloFunction || auth.isSuperAdmin()" (click)="czidlo(selectedTreeItem)">{{ 'button.czidloFunction' | translate }}</button>
-                  <button mat-menu-item *ngIf="config.updateInSource && auth.isSuperAdmin() && canUpdateInSource(selectedTreeItem)" (click)="updateInSource(selectedTreeItem)">{{ 'button.updateInSource' | translate }}</button>
+                  <button mat-menu-item *ngIf="config.updateInSource && (auth.user.importToCatalogFunction || auth.isSuperAdmin()) && canUpdateInSource(selectedTreeItem)" (click)="updateInSource(selectedTreeItem)">{{ 'button.updateInSource' | translate }}</button>
                   <button mat-menu-item (click)="validateObject(selectedTreeItem)">{{ 'button.validateObject' | translate }}</button>
                   <button mat-menu-item (click)="selectColumnsTree('searchTree')" >{{'editor.children.select_columns' | translate}}</button>
                 </mat-menu>
