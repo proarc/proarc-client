@@ -163,14 +163,14 @@ export abstract class ModsElement {
             const c = new FormControl('');
             if (field === 'dateIssued') {
             }
-            
+
             if (this[field as keyof (ModsElement)]) {
                 c.setValue(this[field as keyof (ModsElement)]['_']);
             }
 
             this.controls[field] = c;
             // console.log('ADD ' + field + ' -> ' + this.labelKey2(field));
-        } 
+        }
         this.clazz[field] = this.class(field);
         this.isMandatory[field] = this.isMandatory2(field);
         this.usage[field] = this.usage2(field);
@@ -187,7 +187,7 @@ export abstract class ModsElement {
         //     const c = new FormControl();
         //     if (this[field as keyof(ModsElement)]) {
         //         c.setValue(this[field as keyof(ModsElement)]['_']);
-        //     } 
+        //     }
 
         //     this.controls[field] = c;
         // }
@@ -243,13 +243,18 @@ export abstract class ModsElement {
                     const value = this.controls[key];
                     if (this.template.fields[key + ''] &&
                         (this.template.fields[key + ''].required || this.template.fields[key + ''].usage === 'M') &&
-                        !value.value) {                            
+                        !value.value) {
+                      // uprava kvuli issue 627
+                      if (parent === null && this.template.fields[key + ''].selector === 'genre/value' && this.template.isElectronicArticle === true) {
+                        error = false;
+                      } else {
                         error = true;
                         value.markAsTouched();
                         if (parent && (parent.isRequired || parent.hasAnyValue()) ) {
                           parent.collapsed = false;
                         }
                         this.collapsed = false;
+                      }
                     }
                 });
                 // error = true;
