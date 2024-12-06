@@ -249,6 +249,7 @@ export class WorkFlowComponent implements OnInit {
 
       job.expanded = true;
       job.childrenLoaded = true;
+      job.hasChildren = response.response.data.length > 0;
 
       const idx = this.subJobs.findIndex(j => j.id === job.id) + 1;
 
@@ -274,7 +275,7 @@ export class WorkFlowComponent implements OnInit {
         return;
       }
       this.materials = response.response.data;
-      this.hasObject = !!this.materials.find(m => m.type === 'DIGITAL_OBJECT').pid;
+      this.hasObject = !!this.materials.find(m => m.type === 'DIGITAL_OBJECT')?.pid;
       this.physicalDocument = this.materials.find(m => m.type === 'PHYSICAL_DOCUMENT');
       this.hasMetadata = !!this.physicalDocument;
     });
@@ -336,7 +337,8 @@ export class WorkFlowComponent implements OnInit {
     if (w.id === this.selectedJob?.id) {
       return;
     }
-    w.selected = true;
+    // this.jobs.forEach(j => j.selected = false);
+    // w.selected = true;
     this.selectedJob = w;
     this.activeJob = w;
     this.selectedProfile = this.profiles.find(p => p.name === w.profileName);
@@ -647,10 +649,16 @@ export class WorkFlowComponent implements OnInit {
   }
 
   removeJobs(isSubJobs: boolean) {
-    const pids: number[] = (isSubJobs ? this.subJobs.filter(j => j.selected) : this.jobs.filter(j => j.selected)).map(j => j.id)
+    const selection = isSubJobs ? this.subJobs.filter(j => j.selected) : this.jobs.filter(j => j.selected);
+    const selectionHasChildren: boolean = selection.findIndex(j => j.hasChildren) > -1;
+    const pids: number[] = selection.map(j => j.id);
+    const message = selectionHasChildren ?
+                  String(this.translator.instant('dialog.removeJobs.messageChildren')) + ' (' + pids.length + ')' :
+                  String(this.translator.instant('dialog.removeJobs.message')) + ' (' + pids.length + ')';
+   
     const data: SimpleDialogData = {
       title: String(this.translator.instant('dialog.removeJobs.title')),
-      message: String(this.translator.instant('dialog.removeJobs.message')) + ' (' + pids.length + ')',
+      message: message,
       alertClass: 'app-warn',
       btn1: {
         label: String(this.translator.instant('button.yes')),
@@ -668,16 +676,55 @@ export class WorkFlowComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.api.removeWorkflow(pids.join('&id=')).subscribe(res => {
-          this.getWorkflow(false);
-        })
+        // this.api.removeWorkflow(pids.join('&id=')).subscribe(res => {
+        //   this.getWorkflow(false);
+        // })
       }
     });
+  }
+
+  subJobClick(item: WorkFlow, event?: MouseEvent, idx?: number) {
+    if (event && (event.metaKey || event.ctrlKey)) {
+      item.selected = !item.selected;
+      this.startShiftClickIdx = idx;
+    } else if (event && event.shiftKey) {
+      if (this.startShiftClickIdx > -1) {
+        const oldFrom = Math.min(this.startShiftClickIdx, this.lastClickIdx);
+        const oldTo = Math.max(this.startShiftClickIdx, this.lastClickIdx);
+        for (let i = oldFrom; i <= oldTo; i++) {
+          this.subJobs[i].selected = false;
+        }
+        const from = Math.min(this.startShiftClickIdx, idx);
+        const to = Math.max(this.startShiftClickIdx, idx);
+        for (let i = from; i <= to; i++) {
+          this.subJobs[i].selected = true;
+        }
+      } else {
+        // nic neni.
+        this.subJobs.forEach(i => i.selected = false);
+        item.selected = true;
+        this.startShiftClickIdx = idx;
+      }
+    } else {
+      this.subJobs.forEach(i => i.selected = false);
+      item.selected = true;
+      this.startShiftClickIdx = idx;
+    }
+
+    this.lastClickIdx = idx;
+    this.totalSelected = this.subJobs.filter(i => i.selected).length;
+
+    if (this.totalSelected > 0) {
+      this.selectSubJob(item);
+    }
   }
 
   selectSubJob(job: WorkFlow) {
     this.selectedSubJob = job;
     this.activeJob = job;
+    
+    // this.subJobs.forEach(j => j.selected = false);
+    // job.selected = true;
     
     this.selectedSubJobProfile = this.profiles.find(p => p.name === job.profileName);
     if (!job.childrenLoaded) {

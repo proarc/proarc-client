@@ -2970,7 +2970,8 @@
     },
     "removeJobs": {
       "title": "Smazání zámerů",
-      "message": "Opravdu chcete vybrané zámery smazat?"
+      "message": "Opravdu chcete vybrané zámery smazat?",
+      "messageChildren": "Vybrané zámery obsahujou podzáměry. Opravdu smazat?"
     },
     "changeModel": {
       "title": "Převod modelu",

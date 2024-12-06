@@ -53,6 +53,7 @@ export class WorkFlow {
   expandable: boolean;
   expanded: boolean;
   childrenLoaded: boolean;
+  hasChildren: boolean;
   hidden: boolean;
 }
 
