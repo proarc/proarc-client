@@ -2972,7 +2972,8 @@
     },
     "removeJobs": {
       "title": "Remove jobs",
-      "message": "Are you sure you want to remove selected jobs?"
+      "message": "Are you sure you want to remove selected jobs?",
+      "messageChildren": "Selected Jobs contains some subjobs. Are you sure you want to remove selected jobs?"
     },
     "changeModel": {
       "title": "Model conversion",
