@@ -229,6 +229,7 @@
         label: 'Chronologické věcné třídění',
         selector: 'subject/temporal',
         labelKey: 'subject/temporal',
+        max: 1,
         description: 'Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21',
         fields: {
           value: {
@@ -246,6 +247,7 @@
         label: 'Jméno použité jako věcné záhlaví',
         selector: 'subject/name',
         labelKey: 'subject/name',
+        max: 1,
         description: 'Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21',
         fields: {
           type: {

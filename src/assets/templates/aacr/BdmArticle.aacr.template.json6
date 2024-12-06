@@ -226,6 +226,7 @@
         },
         temporal: {
           usage: 'R',
+          max: 1,
           label: 'Chronologické věcné třídění',
           selector: 'subject/temporal',
           labelKey: 'subject/temporal',
@@ -243,6 +244,7 @@
         },
         name: {
           usage: 'R',
+          max: 1,
           label: 'Jméno použité jako věcné záhlaví',
           selector: 'subject/name',
           labelKey: 'subject/name',

@@ -331,6 +331,7 @@
         label: 'Chronologické věcné třídění',
         selector: 'subject/temporal',
         labelKey: 'subject/temporal',
+        max: 1,
         description: 'Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21',
         fields: {
           value: {
@@ -353,6 +354,7 @@
       },
       name: {
         usage: 'R',
+        max: 1,
         label: 'Jméno použité jako věcné záhlaví',
         selector: 'subject/name',
         labelKey: 'subject/name',
@@ -1457,6 +1459,7 @@
             label: 'Klíčové slovo/Předmětové heslo',
             selector: 'relatedItem/subject/topic',
             labelKey: 'relatedItem/subject/topic',
+            max: 1,
             description: 'Libovolný výraz specifikující nebo charakterizující obsah vnitřní části<br/>\
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21',
             fields: {
@@ -1490,6 +1493,7 @@
             label: 'Chronologické věcné třídění',
             selector: 'relatedItem/subject/temporal',
             labelKey: 'relatedItem/subject/temporal',
+            max: 1,
             description: 'Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21',
             fields: {
               value: {
@@ -1515,6 +1519,7 @@
             label: 'Jméno použité jako věcné záhlaví',
             selector: 'relatedItem/subject/name',
             labelKey: 'relatedItem/subject/name',
+            max: 1,
             description: 'Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21',
             fields: {
               type: {

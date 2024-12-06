@@ -204,7 +204,8 @@ export class ModelTemplate {
     'ndkeperiodicalsupplement': ['ndkearticle'],
     'ndkearticle': [],
     'ndkemonographtitle': ['ndkemonographvolume'], // 'ndkechapter' odstraneno podle #99
-    'ndkemonographvolume': ['ndkechapter'],
+    'ndkemonographvolume': ['ndkechapter', 'ndkemonographsupplement'],
+    'ndkemonographsupplement': ['ndkechapter'],
     'ndkechapter': [],
     'ndkphonographcylinder': ['ndksong', 'page'],
     'ndkmusicdocument': ['ndksong', 'page'],
