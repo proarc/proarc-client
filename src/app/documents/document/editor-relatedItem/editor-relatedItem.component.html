@@ -328,6 +328,11 @@
                 <app-field-dropdown field="point" [item]="dateIssued" [(value)]='dateIssued.attrs["point"]'></app-field-dropdown>
               </ng-template>
             </app-editor-field>
+            <app-editor-field *ngIf="originInfo.available['edition']" [field]="originInfo.editions" [nested]='true'>
+              <ng-template let-edition="item" #templateContent>
+                <app-field-text field="value" [item]="edition" [(value)]="edition.modsElement['_']" ></app-field-text>
+              </ng-template>
+            </app-editor-field>
           </ng-template>
         </app-editor-field>
 
@@ -335,10 +340,18 @@
           <ng-template let-part="item" #templateContent>
             <app-editor-field *ngIf="part.available['detail']" [field]="part.details" [nested]='true'>
               <ng-template let-detail="item" #templateContent>
-                <app-field-text field="type" [item]="detail" [(value)]='detail.attrs["type"]'></app-field-text>
+                <app-field-dropdown field="type" [item]="detail" [(value)]='detail.attrs["type"]'></app-field-dropdown>
                 <app-field-text field="number" [item]="detail" [(value)]="detail.number['_']"></app-field-text>
               </ng-template>
             </app-editor-field>
+          </ng-template>
+        </app-editor-field>
+
+        <app-editor-field *ngIf="relatedItem.available['identifier']" [field]="relatedItem.identifiers" [nested]='true'>
+          <ng-template let-identifier="item" #templateContent>
+            <app-field-codebook field="type" [item]="identifier" [options]="getIdentifiers()" [(value)]='identifier.attrs["type"]'></app-field-codebook>
+            <app-field-codebook field="validity" [item]="identifier" [options]="validityOptions" [(value)]='identifier.attrs["invalid"]'></app-field-codebook>
+            <app-field-text field="value" [item]="identifier" [(value)]="identifier.modsElement['_']" ></app-field-text>
           </ng-template>
         </app-editor-field>
 

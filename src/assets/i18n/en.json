@@ -1845,6 +1845,7 @@
     "recordInfo/recordIdentifier/@source": "Source",
     "recordInfo/recordOrigin": "Record origin",
     "relatedItem": "Related item",
+    "relatedItem/@ID": "ID",
     "relatedItem/@otherType": "Other type",
     "relatedItem/@otherTypeAuth": "Other type auth",
     "relatedItem/@otherTypeAuthURI": "Other type auth URI",
@@ -1936,6 +1937,8 @@
     "relatedItem/titleInfo/title": "Title",
     "relatedItem/typeOfResource": "Type of resource",
     "relatedItem/typeOfResource/value": "Value",
+    "relatedItem/relatedItem": "References",
+    "relatedItem/relatedItem/@type": "Type",
     "subject": "Subject",
     "subject/@authority": "Authority",
     "subject/@lang": "Lang",
@@ -1980,6 +1983,7 @@
     "bdm/relatedItem/part/extent/end": "End",
     "bdm/relatedItem/titleInfo": "Title info",
     "bdm/relatedItem/titleInfo/title": "Title",
+    "bdm/relatedItem/titleInfo/partNumber": "Part number",
     "bdm/relatedItem/name": "Name",
     "bdm/name/nameIdentifier": "Name identifier",
     "bdm/name/nameIdentifierOrcId": "ORC ID",
@@ -2192,7 +2196,10 @@
       "constituent": "Constituent",
       "otherVersion": "Other version",
       "otherFormat": "Other format",
-      "issue": "issue"
+      "issue": "issue",
+      "references": "References",
+      "reviewOf": "Review of",
+      "title": "Title"
     }
   },
   "workflow": {

@@ -36,7 +36,7 @@ export class EditorGenreComponent implements OnInit {
     if (this.field.isPeerReviewed && this.field.items.length === 1) {
       // this.field.addAsFirst();
     }
-    
+
   }
 
   ngOnChanges(c: SimpleChanges) {

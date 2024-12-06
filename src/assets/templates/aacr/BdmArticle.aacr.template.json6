@@ -883,13 +883,6 @@
           labelKey: 'bdm/relatedItem/part',
           description: 'Rozsah článku',
           fields: {
-            text: {
-              usage: 'MA',
-              label: 'Rozsah',
-              selector: 'part/text',
-              labelKey: 'part/text',
-              description: 'Popis'
-            },
             extent: {
               usage: 'MA',
               label: 'Rozsah',
@@ -914,28 +907,6 @@
                   description: 'Poslední stránka článku/citace.'
                 }
               }
-            },
-            detail: {
-              usage: 'MA',
-              label: 'Detail',
-              selector: 'part/detail',
-              labelKey: 'part/detail',
-              fields: {
-                level: {
-                  usage: 'MA',
-                  label: 'Typ',
-                  selector: 'part/detail/@level',
-                  labelKey: 'part/detail/@level',
-                  cols: 2,
-                },
-                number: {
-                  usage: 'MA',
-                  label: 'Hodnota',
-                  cols: 2,
-                  selector: 'part/detail/number',
-                  labelKey: 'part/detail/number',
-                }
-              }
             }
           }
         },
@@ -952,6 +923,13 @@
               selector: 'relatedItem/titleInfo/title',
               labelKey: 'bdm/relatedItem/titleInfo/title',
               description: 'Recenze - Název recenzovaného díla. Odpovídá poli 787$t./ Citace - název citovaného díla.'
+            },
+            partNumber: {
+              usage: 'MA',
+              label: 'Číslo části',
+              selector: 'titleInfo/partNumber',
+              labelKey: 'bdm/relatedItem/titleInfo/partNumber',
+              description: 'Číslo článku. Např. článek na pokračování.'
             }
           }
         },
@@ -1095,31 +1073,6 @@
                 }
               }
             }
-          }
-        },
-        physicalDescription: {
-          usage: 'MA',
-          label: 'Fyzický popis',
-          selector: 'relatedItem/physicalDescription',
-          labelKey: 'bdm/relatedItem/physicalDescription',
-          description: 'Obsahuje údaje o popisu zdroje/předlohy',
-          fields: {
-            extent: {
-              usage: 'RA',
-              label: 'Rozsah',
-              selector: 'relatedItem/physicalDescription/extent',
-              labelKey: 'bdm/relatedItem/physicalDescription/extent',
-              description: 'Údaje o rozsahu (stran, svazků nebo rozměrů)',
-              fields: {
-                value: {
-                  usage: 'RA',
-                  selector: 'relatedItem/physicalDescription/extent/value',
-                  labelKey: 'relatedItem/physicalDescription/extent/value',
-                  label: 'Hodnota',
-                  help: 'off'
-                }
-              }
-            },
           }
         },
         note: {
@@ -1283,7 +1236,60 @@
                       help: 'off'
                     }
                   }
+                },
+                edition: {
+                  usage: 'R',
+                  label: 'Vydání',
+                  selector: 'relatedItem/originInfo/edition',
+                  labelKey: 'relatedItem/originInfo/edition',
+                  description: 'Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu.',
+                  fields: {
+                    value: {
+                      usage: 'R',
+                      selector: 'relatedItem/originInfo/edition/value',
+                      labelKey: 'relatedItem/originInfo/edition/value',
+                      label: 'Hodnota',
+                      help: 'off'
+                    }
+                  }
                 }
+              }
+            },
+            identifier: {
+              usage: 'MA',
+              label: 'Identifikátory článku',
+              selector: 'relatedItem/identifier',
+              labelKey: 'relatedItem/identifier',
+              description: 'Údaje o identifikátorech.',
+              fields: {
+                type: {
+                  usage: 'MA',
+                  label: 'Typ',
+                  selector: 'relatedItem/identifier/@type',
+                  labelKey: 'relatedItem/identifier/@type',
+                  cols: 2,
+                  description: 'Výběr typu identifikátoru článku.',
+                  options: [
+                    ['isbn', 'isbn'],
+                    ['issn', 'issn'],
+                    ['uuid', 'uuid']
+                  ]
+                },
+                value: {
+                  usage: 'MA',
+                  selector: 'relatedItem/identifier/value',
+                  labelKey: 'relatedItem/identifier/value',
+                  label: 'Hodnota',
+                  help: 'off'
+                },
+                validity: {
+                  usage: 'MA',
+                  label: 'Platnost',
+                  selector: 'relatedItem/identifier/@invalid',
+                  labelKey: 'relatedItem/identifier/@invalid',
+                  cols: 2,
+                  description: 'Uvádějí se i neplatné resp. zrušené identifikátory.'
+                },
               }
             }
           }
