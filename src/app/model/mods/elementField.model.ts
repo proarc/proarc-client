@@ -52,6 +52,7 @@ import {ModsRelatedItem2} from './relatedItem2.model';
 import {ModsDetail} from './detail.model';
 import {ModsLanguageOfCataloging} from './languageOfCataloging.model';
 import {ModsTemporal} from './temporal.model';
+import {ModsGeographic} from './geographic.model';
 
 export class ElementField {
 
@@ -388,6 +389,8 @@ export class ElementField {
                 return new ModsTopic(el, this.template);
             case ModsTemporal.getId():
                 return new ModsTemporal(el, this.template);
+            case ModsGeographic.getId():
+                return new ModsGeographic(el, this.template);
             case ModsPhysicalExtent.getId():
                 return new ModsPhysicalExtent(el, this.template);
             case ModsEdition.getId():
@@ -525,6 +528,8 @@ export class ElementField {
                 return ModsTopic.getSelector();
             case ModsTemporal.getId():
                 return ModsTemporal.getSelector();
+            case ModsGeographic.getId():
+              return ModsGeographic.getSelector()
             case ModsPhysicalExtent.getId():
                 return ModsPhysicalExtent.getSelector();
             case ModsEdition.getId():

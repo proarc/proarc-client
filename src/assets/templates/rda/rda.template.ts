@@ -515,7 +515,25 @@ export class RdaTemplate {
           label: 'Geografické věcné třídění',
           selector: 'subject/geographic',
           labelKey: 'subject/geographic',
-          description: `Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21`
+          max: 1,
+          description: 'Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21',
+          fields: {
+            valueURI: {
+              usage: 'O',
+              label: 'Hodnota',
+              selector: 'subject/geographic/@valueURI',
+              labelKey: 'subject/geographic/@valueURI',
+              description: 'Link na URL cislo autority',
+            },
+            value: {
+              usage: 'R',
+              label: 'Hodnota',
+              //                  cols: 2,
+              selector: 'subject/geographic/value',
+              labelKey: 'subject/geographic/value',
+              hint: false,
+            }
+          }
         },
         temporal: {
           usage: 'R',
@@ -524,6 +542,13 @@ export class RdaTemplate {
           labelKey: 'subject/temporal',
           description: `Chronologické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (chronologický údaj) nebo obsah pole 648 záznamu MARC21`,
           fields: {
+            valueURI: {
+              usage: 'O',
+              label: 'Hodnota',
+              selector: 'subject/temporal/@valueURI',
+              labelKey: 'subject/temporal/@valueURI',
+              description: 'Link na URL cislo autority',
+            },
             value: {
               usage: 'R',
               label: 'Hodnota',

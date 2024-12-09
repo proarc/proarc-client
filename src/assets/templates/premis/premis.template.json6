@@ -207,6 +207,13 @@
               labelKey: 'subject/topic/value',
               hint: false,
             },
+            valueURI: {
+              usage: 'O',
+              label: 'Hodnota',
+              selector: 'subject/topic/@valueURI',
+              labelKey: 'subject/topic/@valueURI',
+              description: 'Link na URL cislo autority',
+            },
             lang: {
               usage: 'R',
               cols: 2,

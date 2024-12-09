@@ -1,22 +1,18 @@
-import { ElementField } from './elementField.model';
-import { ModsRole } from './role.model';
 import { ModsElement } from './element.model';
 import ModsUtils from './utils';
-import {ModsFrequency} from './frequency.model';
-import {ModsNamePart} from './namePart.model';
 
-export class ModsTopic extends ModsElement {
+export class ModsGeographic extends ModsElement {
 
     static getSelector() {
-        return 'topic';
+        return 'geographic';
     }
 
     static getId() {
-        return 'topic';
+        return 'geographic';
     }
 
     constructor(modsElement: any, template: any) {
-        super(modsElement, template, ['lang', 'valueURI']);
+        super(modsElement, template, ['valueURI']);
         this.init();
     }
 
@@ -26,7 +22,6 @@ export class ModsTopic extends ModsElement {
         this.modsElement['_'] = ModsUtils.getDefaultValue(this, 'value');
       }
       this.addControl('value');
-      this.addControl('lang');
       this.addControl('valueURI');
 
     }

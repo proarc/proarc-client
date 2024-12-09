@@ -7,13 +7,15 @@ import {ModsGeographicCode} from './ModsGeographicCode.model';
 import {ModsTopic} from './topic.model';
 import {ModsTitle} from './title.model';
 import {ModsTemporal} from './temporal.model';
+import {ModsGeographic} from './geographic.model';
 
 export class ModsSubject extends ModsElement {
 
     // topic: any;
-    geographic: any;
+    // geographic: any;
     occupation: any;
     public temporals: ElementField;
+    public geographics: ElementField;
     public names: ElementField;
     public cartographics: ElementField;
     public geographicCodes: ElementField;
@@ -39,16 +41,6 @@ export class ModsSubject extends ModsElement {
         this.addControl('authority');
         this.addControl('lang');
 
-        if (!this.modsElement['geographic']) {
-            this.modsElement['geographic'] = ModsUtils.createField(this, 'geographic');
-        }
-        this.addControl('geographic');
-
-        if (!this.modsElement['temporal']) {
-            this.modsElement['temporal'] = ModsUtils.createField(this, 'temporal');
-        }
-        this.addControl('temporal');
-
         if (!this.modsElement['occupation']) {
             this.modsElement['occupation'] = ModsUtils.createField(this, 'occupation');
         }
@@ -67,7 +59,7 @@ export class ModsSubject extends ModsElement {
         //     this.modsElement['name'][0]['namePart'] = ModsUtils.createEmptyField();
         // }
         // this.topic = this.modsElement['topic'][0];
-        this.geographic = this.modsElement['geographic'][0];
+        // this.geographic = this.modsElement['geographic'][0];
         // this.temporal = this.modsElement['temporal'][0];
         this.occupation = this.modsElement['occupation'][0];
 
@@ -85,6 +77,12 @@ export class ModsSubject extends ModsElement {
           this.temporals = new ElementField(this.modsElement, ModsTemporal.getSelector(), this.getField('temporal'));
           this.addSubfield(this.temporals);
           this.addControl('temporal');
+        }
+
+        if (this.available2('geographic')) {
+          this.geographics = new ElementField(this.modsElement, ModsGeographic.getSelector(), this.getField('geographic'));
+          this.addSubfield(this.geographics);
+          this.addControl('geographic');
         }
         if (this.available2('titleInfo')) {
           this.titleInfos = new ElementField(this.modsElement, ModsTitle.getSelector(), this.getField('titleInfo'));

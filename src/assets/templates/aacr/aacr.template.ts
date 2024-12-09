@@ -410,7 +410,26 @@ export class AacrTemplate {
           usage: 'R',
           label: 'Geografické věcné třídění',
           selector: 'subject/geographic',
-          description: `Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21`
+          labelKey: 'subject/geographic',
+          max: 1,
+          description: 'Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21',
+          fields: {
+            valueURI: {
+              usage: 'O',
+              label: 'Hodnota',
+              selector: 'subject/geographic/@valueURI',
+              labelKey: 'subject/geographic/@valueURI',
+              description: 'Link na URL cislo autority',
+            },
+            value: {
+              usage: 'R',
+              label: 'Hodnota',
+              //                  cols: 2,
+              selector: 'subject/geographic/value',
+              labelKey: 'subject/geographic/value',
+              hint: false,
+            }
+          }
         },
         temporal: {
           usage: 'R',

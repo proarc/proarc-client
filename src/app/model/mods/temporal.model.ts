@@ -16,7 +16,7 @@ export class ModsTemporal extends ModsElement {
     }
 
     constructor(modsElement: any, template: any) {
-        super(modsElement, template, ['lang']);
+        super(modsElement, template, ['lang', 'valueURI']);
         this.init();
     }
 
@@ -27,6 +27,7 @@ export class ModsTemporal extends ModsElement {
       }
       this.addControl('value');
       this.addControl('lang');
+      this.addControl('valueURI');
 
     }
 
