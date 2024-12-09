@@ -1,7 +1,8 @@
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
 
-    <app-autocomplete [(value)]='item.attrs["type"]' field="type" [item]="item"></app-autocomplete>
+    <app-field-dropdown [(value)]='item.attrs["type"]' field="type" [item]="item"></app-field-dropdown>
+    <app-field-text [(value)]='item.attrs["xlink:href"]' field="xlink:href" [item]="item"></app-field-text>
     <app-field-textarea field="note" [item]="item" [(value)]="item.modsElement['_']" ></app-field-textarea>
 
   </ng-template>

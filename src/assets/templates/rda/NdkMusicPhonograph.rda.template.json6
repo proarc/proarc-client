@@ -776,6 +776,30 @@
     description: 'Slouží k vepisování údajů z polí 5XX, 562, 245;<br/>\
       pro každou poznámku musí být samostatný <note> element',
     fields: {
+      type: {
+        usage: 'O',
+        label: 'Typ',
+        cols: 2,
+        selector: 'note/@type',
+        labelKey: 'note/@type',
+        options: [
+          [
+            '',
+            '-'
+          ],
+          [
+            'uuid',
+            'uuid'
+          ]
+        ]
+      },
+      'xlink:href': {
+        usage: 'O',
+        cols: 2,
+        label: 'xLink',
+        selector: 'note/@xlink',
+        labelKey: 'note/@xlink',
+      },
       note: {
         usage: 'RA',
         selector: 'note/value',
@@ -1888,6 +1912,30 @@
         description: 'Slouží k vepisování údajů z polí 5XX, 562, 245;<br/>\
       pro každou poznámku musí být samostatný <note> element',
         fields: {
+          type: {
+            usage: 'O',
+            label: 'Typ',
+            cols: 2,
+            selector: 'relatedItem/note/@type',
+            labelKey: 'relatedItem/note/@type',
+            options: [
+              [
+                '',
+                '-'
+              ],
+              [
+                'uuid',
+                'uuid'
+              ]
+            ]
+          },
+          'xlink:href': {
+            usage: 'O',
+            cols: 2,
+            label: 'xLink',
+            selector: 'relatedItem/note/@xlink',
+            labelKey: 'relatedItem/note/@xlink',
+          },
           note: {
             usage: 'RA',
             selector: 'relatedItem/note/value',

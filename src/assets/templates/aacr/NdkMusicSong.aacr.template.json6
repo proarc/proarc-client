@@ -637,6 +637,30 @@
     description: 'Obecná poznámka, může též sloužit jako element pro <br/>\
         vyjádření údaje o odpovědnosti, poznámka o realizátorech, účinkujících či jazyku',
     fields: {
+      type: {
+        usage: 'O',
+        label: 'Typ',
+        cols: 2,
+        selector: 'note/@type',
+        labelKey: 'note/@type',
+        options: [
+          [
+            '',
+            '-'
+          ],
+          [
+            'uuid',
+            'uuid'
+          ]
+        ]
+      },
+      'xlink:href': {
+        usage: 'O',
+        cols: 2,
+        label: 'xLink',
+        selector: 'note/@xlink',
+        labelKey: 'note/@xlink',
+      },
       note: {
         usage: 'RA',
         selector: 'note/value',
@@ -1654,6 +1678,30 @@
         description: 'Obecná poznámka, může též sloužit jako element pro <br/>\
         vyjádření údaje o odpovědnosti, poznámka o realizátorech, účinkujících či jazyku',
         fields: {
+          type: {
+            usage: 'O',
+            label: 'Typ',
+            cols: 2,
+            selector: 'relatedItem/note/@type',
+            labelKey: 'relatedItem/note/@type',
+            options: [
+              [
+                '',
+                '-'
+              ],
+              [
+                'uuid',
+                'uuid'
+              ]
+            ]
+          },
+          'xlink:href': {
+            usage: 'O',
+            cols: 2,
+            label: 'xLink',
+            selector: 'relatedItem/note/@xlink',
+            labelKey: 'relatedItem/note/@xlink',
+          },
           note: {
             usage: 'RA',
             selector: 'relatedItem/note/value',

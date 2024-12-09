@@ -1784,6 +1784,7 @@
     "name/role/roleTerm": "Role",
     "note": "Poznámka",
     "note/@type": "Typ",
+    "note/@xlink": "Link",
     "note/value": "Hodnota",
     "originInfo": "Původ předlohy",
     "originInfo/@eventType": "Typ",
@@ -1881,6 +1882,8 @@
     "relatedItem/name/role/roleTerm": "Role",
     "relatedItem/note": "Poznámka",
     "relatedItem/note/value": "Hodnota",
+    "relatedItem/note/@xlink": "Link",
+    "relatedItem/note/@type": "Typ",
     "relatedItem/originInfo": "Původ předlohy",
     "relatedItem/originInfo/@eventType": "Event type",
     "relatedItem/originInfo/copyrightDate": "Datum - copyright",
@@ -2199,7 +2202,8 @@
       "references": "Reference",
       "reviewOf": "Recenze na",
       "title": "Titul",
-      "issue": "Číslo"
+      "issue": "Číslo",
+      "uuid": "UUID"
     }
   },
   "workflow": {

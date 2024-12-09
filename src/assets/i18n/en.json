@@ -1784,6 +1784,7 @@
     "name/role/roleTerm": "Role term",
     "note": "Note",
     "note/@type": "Type",
+    "note/@xlink": "Link",
     "note/value": "Value",
     "originInfo": "Origin info",
     "originInfo/@eventType": "Event type",
@@ -1881,6 +1882,8 @@
     "relatedItem/name/role/roleTerm": "Role term",
     "relatedItem/note": "Note",
     "relatedItem/note/value": "Value",
+    "relatedItem/note/@xlink": "Link",
+    "relatedItem/note/@type": "Type",
     "relatedItem/originInfo": "Origin info",
     "relatedItem/originInfo/@eventType": "Event type",
     "relatedItem/originInfo/copyrightDate": "Copyright date",
@@ -2199,7 +2202,8 @@
       "issue": "issue",
       "references": "References",
       "reviewOf": "Review of",
-      "title": "Title"
+      "title": "Title",
+      "uuid": "UUID"
     }
   },
   "workflow": {

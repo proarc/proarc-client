@@ -264,7 +264,8 @@
 
     <app-editor-field *ngIf="item.available['note']" [field]="item.notes" [nested]='true'>
       <ng-template let-note="item" #templateContent>
-        <app-autocomplete [(value)]='note.attrs["type"]' field="type" [item]="note"></app-autocomplete>
+        <app-field-dropdown [(value)]='note.attrs["type"]' field="type" [item]="note"></app-field-dropdown>
+        <app-field-text [(value)]='note.attrs["xlink:href"]' field="xlink:href" [item]="note"></app-field-text>
         <app-field-textarea field="note" [item]="note" [(value)]="note.modsElement['_']" ></app-field-textarea>
       </ng-template>
     </app-editor-field>

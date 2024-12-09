@@ -194,6 +194,30 @@
       Odpovídá hodnotám v poli 245, $c (statement of responsibility)\
       a v polích 5XX (poznámky) katalogizačního záznamu',
       fields: {
+        type: {
+          usage: 'O',
+          label: 'Typ',
+          cols: 2,
+          selector: 'note/@type',
+          labelKey: 'note/@type',
+          options: [
+            [
+              '',
+              '-'
+            ],
+            [
+              'uuid',
+              'uuid'
+            ]
+          ]
+        },
+        'xlink:href': {
+          usage: 'O',
+          cols: 2,
+          label: 'xLink',
+          selector: 'note/@xlink',
+          labelKey: 'note/@xlink',
+        },
         note: {
           usage: 'O',
           selector: 'note/value',

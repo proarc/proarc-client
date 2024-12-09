@@ -699,6 +699,30 @@
       labelKey: 'note',
       description: 'Obecná poznámka k dokumentu',
       fields: {
+        type: {
+          usage: 'O',
+          label: 'Typ',
+          cols: 2,
+          selector: 'note/@type',
+          labelKey: 'note/@type',
+          options: [
+            [
+              '',
+              '-'
+            ],
+            [
+              'uuid',
+              'uuid'
+            ]
+          ]
+        },
+        'xlink:href': {
+          usage: 'O',
+          cols: 2,
+          label: 'xLink',
+          selector: 'note/@xlink',
+          labelKey: 'note/@xlink',
+        },
         note: {
           usage: 'RA',
           selector: 'note/value',

@@ -12,7 +12,7 @@ export class ModsNote extends ModsElement {
     }
 
     constructor(modsElement: any, template: any) {
-        super(modsElement, template, ['type']);
+        super(modsElement, template, ['type', 'xlink:href']);
         this.init();
     }
 
@@ -22,6 +22,7 @@ export class ModsNote extends ModsElement {
       }
       this.addControl('value');
       this.addControl('type');
+      this.addControl('xlink:href');
       this.addControl('note');
     }
 

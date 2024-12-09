@@ -254,7 +254,8 @@ export class Metadata {
     const modsCollection = this.mods['modsCollection'];
     if (modsCollection) {
       modsCollection['$'] = {
-        'xmlns': 'http://www.loc.gov/mods/v3'
+        'xmlns': 'http://www.loc.gov/mods/v3',
+        'xmlns:xlink': 'http://www.w3.org/1999/xlink'
       };
       if (!modsCollection['mods'][0]) {
         modsCollection['mods'][0] = {};
@@ -262,7 +263,8 @@ export class Metadata {
       root = modsCollection['mods'][0];
     } else {
       this.mods['mods']['$'] = {
-        'xmlns': 'http://www.loc.gov/mods/v3'
+        'xmlns': 'http://www.loc.gov/mods/v3',
+        'xmlns:xlink': 'http://www.w3.org/1999/xlink'
       };
       root = this.mods['mods'];
     }
