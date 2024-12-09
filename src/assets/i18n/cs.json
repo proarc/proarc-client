@@ -1974,7 +1974,7 @@
     "bdm/part/extent/start": "První stránka článku",
     "bdm/part/extent/end": "Poslední stránka článku",
     "bdm/genre/@type": "Typ obsahu",
-    "bdm/relatedItem": "Recenze na/Citaváno z",
+    "bdm/relatedItem": "Recenze na/Citováno z",
     "bdm/relatedItem/part": "Rozsah článku",
     "bdm/relatedItem/part/extent": "Rozsah",
     "bdm/relatedItem/part/extent/start": "První strana článku",
