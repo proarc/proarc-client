@@ -57,7 +57,7 @@ export class TaskComponent implements OnInit {
 
 
   // colsWidth: { [key: string]: number } = {};
-  columnTypes: {[field: string]: string} = {};
+  columnTypes: { [field: string]: string } = {};
   filters: { [field: string]: string } = {};
   // filters: { field: string, value: string }[] = [];
   filterFields: { [field: string]: string } = {};
@@ -140,7 +140,7 @@ export class TaskComponent implements OnInit {
     const rProfiles = this.api.getWorkflowProfiles();
     forkJoin([rUsers, rProfiles]).subscribe(([users, profiles]: [User[], any]) => {
       this.users = users;
-    // this.api.getWorkflowProfiles().subscribe((profiles: any) => {
+      // this.api.getWorkflowProfiles().subscribe((profiles: any) => {
       if (profiles['response'].errors) {
         this.ui.showErrorDialogFromObject(profiles['response'].errors);
         return;
@@ -250,18 +250,13 @@ export class TaskComponent implements OnInit {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
       }
-      this.tasks = response.response.data;
-
-
-      this.tasks.forEach(b => {
+      response.response.data.forEach((b: any) => {
         if (!this.states.includes(b.state)) {
           this.states.push(b.state)
         }
-        // if (!this.profiles.includes(b.profileLabel)) {
-        //   this.profiles.push(b.profileLabel)
-        // }
-      })
-
+        this.tasks = response.response.data;
+      });
+      this.lists['state'] = this.states.map(p => { return { code: p, value: p } });
 
       this.selectTask(this.tasks[0]);
 
@@ -349,7 +344,7 @@ export class TaskComponent implements OnInit {
       // imageColor obcas vraci code a obcas value !!
       const ic = this.parameters.find((p: any) => p.valueMapId === 'wf.valuemap.imageColor');
       if (ic) {
-        const icv  = this.imageColors.find(c => c.value === ic.value || c.code === ic.value);
+        const icv = this.imageColors.find(c => c.value === ic.value || c.code === ic.value);
         if (icv) {
           this.imageColor = icv.value;
         }
@@ -503,11 +498,11 @@ export class TaskComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        switch(type) {
+        switch (type) {
           case 'tasks':
-          this.columnsTasks = this.properties.getColumnsWorkFlowTasks();
-          this.setSelectedColumnsTasks();
-          break;
+            this.columnsTasks = this.properties.getColumnsWorkFlowTasks();
+            this.setSelectedColumnsTasks();
+            break;
           default:
 
         }

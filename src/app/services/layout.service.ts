@@ -8,6 +8,7 @@ import { Metadata } from '../model/metadata.model';
 import { Page } from '../model/page.model';
 import { StreamProfile } from '../model/stream-profile';
 import { ConfigService } from './config.service';
+import { SortDirection } from '@angular/material/sort';
 
 @Injectable({
   providedIn: 'root'
@@ -67,6 +68,10 @@ export class LayoutService {
   
   panels: ILayoutPanel[] = [];
   editingPanel: string;
+
+  workflowActiveFilters: any[];
+  workflowJobsSort: {field: string, direction: SortDirection} = {field: 'created', direction: 'desc'} ;
+  workflowSubjobsSort: {field: string, direction: SortDirection} = {field: 'created', direction: 'desc'} ;
 
   constructor(
     private config: ConfigService
