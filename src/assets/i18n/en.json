@@ -2902,6 +2902,7 @@
     },
     "newObject": {
       "title": "New object",
+      "titleJob": "New job",
       "message": "If necessary, it is possible to choose the object's own PID in the form uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.\nThe PID must not already be assigned to another object.",
       "alert": {
         "invalidPid": "The PID does not match the form uuid:xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
