@@ -447,6 +447,16 @@ export class ConfigService {
 				{ model: 'oldprintvolume', originmodel: "oldprintgraphics", "apiPoint": "object/changeOldPrintGraphicToOldprintMonographVolume" }
 			]
 		},
+    {
+      origin: 'oldprintmonographtitle',
+      dest: [
+        { model: 'ndkmonographvolume', originmodel: "oldprintvolume", "apiPoint": "object/changeOldPrintMonographVolumeToNdkMonographVolume" },
+        { model: 'oldprintgraphics', originmodel: "oldprintvolume", "apiPoint": "object/changeOldPrintMonographVolumeToOldPrintGraphic" },
+        { model: 'oldprintsheetmusic', originmodel: "oldprintvolume", "apiPoint": "object/changeOldPrintMonographVolumeToOldPrintMusicSheet" },
+        { model: 'oldprintmonographunit', originmodel: "oldprintvolume", "apiPoint": "object/changeOldPrintMonographVolumeToOldPrintMonographUnit"},
+        { model: 'oldprintvolume', originmodel: "oldprintmonographunit", apiPoint: "object/changeOldPrintMonographUnitToOldPrintMonographVolume" },
+      ]
+    },
 		{
 			origin: 'oldprintvolume',
 			dest: [
