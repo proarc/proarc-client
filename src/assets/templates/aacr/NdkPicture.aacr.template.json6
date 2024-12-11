@@ -808,6 +808,7 @@
     fields: {
       authority: {
         usage: 'M',
+        cols: 2,
         required: true,
         label: 'Autorita',
         selector: 'classification/@authority',
@@ -820,24 +821,24 @@
           ],
         ]
       },
-//      edition: {
-//        usage: 'M',
-//        label: 'Vydání',
-//        selector: 'classification/@edition',
-//        labelKey: 'classification/@edition',
-//        cols: 2,
-//        description: '<ul>\
-//            <li>\
-//              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)\
-//            </li>\
-//          </ul>',
-//        options: [
-//          [
-//            'Konspekt',
-//            'Konspekt'
-//          ]
-//        ]
-//      },
+      edition: {
+        usage: 'MA',
+        label: 'Vydání',
+        selector: 'classification/@edition',
+        labelKey: 'classification/@edition',
+        cols: 2,
+        description: '<ul>\
+            <li>\
+              vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)\
+            </li>\
+          </ul>',
+        options: [
+          [
+            'Konspekt',
+            'Konspekt'
+          ]
+        ]
+      },
       value: {
         usage: 'M',
         required: true,
@@ -863,8 +864,12 @@
         description: 'Hodnota bude vždy "volume" ',
         options: [
           [
-            'volume',
-            'volume'
+            'pageNumber',
+            'pageNumber'
+          ],
+          [
+            'pageIndex',
+            'pageIndex'
           ]
         ]
       },

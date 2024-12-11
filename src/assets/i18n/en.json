@@ -2634,7 +2634,7 @@
     "createAndGoToObject": "Create and go to object",
     "doNotSave": "Do not save",
     "copyTextToClipboard": "Copy text to clipboard",
-    "updateInSource": "Zapsat do zdrojového katalogu",
+    "updateInSource": "Update catalog´s record",
     "pero": "Korekce ALTO/OCR pomocí nástroje PERO",
     "removeBrackets": "Remove the brackets",
     "addBrackets": "Add the brackets",
@@ -3043,10 +3043,10 @@
       }
     },
     "updateInSource": {
-      "title": "Zapsat do zdrojového katalogu",
+      "title": "Update catalog´s record",
       "alert": {
-        "success": "Zapsáno do katalogu",
-        "error": "Chyba zapsání!"
+        "success": "Edited",
+        "error": "Error!"
       }
     },
     "workflowNewJob": {
