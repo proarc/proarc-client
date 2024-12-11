@@ -2471,7 +2471,7 @@
     "unlockingTheObject": "Odemknutí objektu",
     "importToProdFunction": "Import do Produkce Krameria",
     "czidloFunction": "CZIDLO funkce",
-    "importToCatalogFunction": "Úprava záznamu v katalogu",
+    "importToCatalogFunction": "Zapsat do zdrojového katalogu",
     "wfDeleteJobFunction": "Mazat ve WorkFlow",
     "preferredValues": "Preferované hodnoty",
     "forename": "Jméno",
