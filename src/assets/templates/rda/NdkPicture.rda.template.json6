@@ -888,8 +888,12 @@
         description: 'Hodnota bude vždy "volume" ',
         options: [
           [
-            'volume',
-            'volume'
+            'pageNumber',
+            'pageNumber'
+          ],
+          [
+            'pageIndex',
+            'pageIndex'
           ]
         ]
       },
