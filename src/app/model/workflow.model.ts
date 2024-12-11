@@ -26,6 +26,7 @@ export class WorkFlow {
   modified: Date;
   note: string;
   ownerId: number;
+  ownerName: string;
   pid: string;
   priority: number;
   profileHint: string;

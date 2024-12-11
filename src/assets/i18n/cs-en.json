@@ -2896,6 +2896,7 @@
     },
     "newObject": {
       "title": "Nový objekt",
+      "titleJob": "Nový záměr",
       "message": "V případě potřeby je možné zvolit vlastní PID objektu ve tvaru uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.\nPID nesmí být již přidělen jinému objektu.",
       "alert": {
         "invalidPid": "PID neodpovídá tvaru uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",

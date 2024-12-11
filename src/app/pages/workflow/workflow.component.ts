@@ -26,6 +26,7 @@ import { WorkFlowTree } from './workflowTree.model';
 import { forkJoin } from 'rxjs';
 import { MatTable } from '@angular/material/table';
 import { JobsEditDialogComponent } from './jobs-edit-dialog/jobs-edit-dialog.component';
+import { Clipboard } from '@angular/cdk/clipboard';
 // -- table to expand --
 
 @Component({
@@ -90,10 +91,10 @@ export class WorkFlowComponent implements OnInit {
   selectedSubJob: WorkFlow;
   subJobsMaxLevel = 0;
 
-  jobsSortField: string = 'created';
-  jobsSortDir: SortDirection = 'desc';
-  subjobsSortField: string = 'created';
-  subjobsSortDir: SortDirection = 'desc';
+  // jobsSortField: string = 'created';
+  // jobsSortDir: SortDirection = 'desc';
+  // subjobsSortField: string = 'created';
+  // subjobsSortDir: SortDirection = 'desc';
 
   selectedTask: any;
 
@@ -138,7 +139,8 @@ export class WorkFlowComponent implements OnInit {
     private config: ConfigService,
     private api: ApiService,
     private ui: UIService,
-    public layout: LayoutService) { }
+    public layout: LayoutService,
+    private clipboard: Clipboard) { }
 
   ngOnInit(): void {
     this.columnsWorkFlow = this.properties.getColumnsWorkFlow();
@@ -178,7 +180,7 @@ export class WorkFlowComponent implements OnInit {
       }
       this.profiles = profiles.response.data;
       this.setSelectedColumns();
-      this.jobsSortField = this.workFlowColumns[0];
+      // this.jobsSortField = this.workFlowColumns[0];
       this.setSelectedColumnsSubJobs();
       this.setSelectedColumnsTasks();
       this.getWorkflow(false);
@@ -200,9 +202,8 @@ export class WorkFlowComponent implements OnInit {
     this.jobs = [];
     this.subJobs = [];
     let params = '?';
-    if (this.jobsSortDir) {
-      params += '_sortBy=' + (this.jobsSortDir === 'desc' ? '-' : '') + this.jobsSortField;
-    }
+    params += '_sortBy=' + (this.layout.workflowJobsSort.direction === 'desc' ? '-' : '') + this.layout.workflowJobsSort.field;
+      
     const keys: string[] = Object.keys(this.filters);
     keys.forEach((k: string) => {
       if (this.filters[k] !== '') {
@@ -237,9 +238,7 @@ export class WorkFlowComponent implements OnInit {
   getSubJobs(job: WorkFlow) {
 
     let params = '?parentId=' + job.id;
-    if (this.subjobsSortDir) {
-      params += '&_sortBy=' + (this.subjobsSortDir === 'desc' ? '-' : '') + this.subjobsSortField;
-    }
+    params += '&_sortBy=' + (this.layout.workflowSubjobsSort.direction === 'desc' ? '-' : '') + this.layout.workflowSubjobsSort.field;
 
     this.api.getWorkflow(params).subscribe((response: any) => {
       if (response['response'].errors) {
@@ -334,11 +333,11 @@ export class WorkFlowComponent implements OnInit {
   }
 
   selectJob(w: WorkFlow) {
-    if (w.id === this.selectedJob?.id) {
+    if (!w || w.id === this.selectedJob?.id) {
       return;
     }
     // this.jobs.forEach(j => j.selected = false);
-    // w.selected = true;
+    w.selected = true;
     this.selectedJob = w;
     this.activeJob = w;
     this.selectedProfile = this.profiles.find(p => p.name === w.profileName);
@@ -463,14 +462,12 @@ export class WorkFlowComponent implements OnInit {
   }
 
   sortJobsTable(e: Sort) {
-    this.jobsSortDir = e.direction;
-    this.jobsSortField = e.active;
+    this.layout.workflowJobsSort = {field: e.active, direction: e.direction};
     this.getWorkflow(false);
   }
 
   sortSubjobsTable(e: Sort) {
-    this.subjobsSortDir = e.direction;
-    this.subjobsSortField = e.active;
+    this.layout.workflowSubjobsSort = {field: e.active, direction: e.direction};
     //this.getSubJobs();
   }
 
@@ -879,6 +876,11 @@ export class WorkFlowComponent implements OnInit {
         this.getWorkflow(false);
       }
     });
+  }
+
+  copyTextToClipboard(val: string) {
+    this.clipboard.copy(val);
+    this.ui.showInfoSnackBar(this.translator.instant('snackbar.copyTextToClipboard.success'));
   }
 
 }

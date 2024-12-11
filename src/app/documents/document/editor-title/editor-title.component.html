@@ -7,9 +7,10 @@
 
     <mat-form-field class="app-field-col" *ngIf="item.template['fields']['title']">
       <app-usage [item]="item" field="title"></app-usage>
-      <input [required]="item.isMandatory['title']" [formControl]="item.controls['title']"
+      <textarea [required]="item.isMandatory['title']" [formControl]="item.controls['title']"
         autocomplete="off" style="width: calc(100% - 60px)" spellcheck="false" matInput [(ngModel)]='item.title["_"]'
         [placeholder]="'mods.' + item.selector('title') | translate" (change)="checkNonSort(item)">
+      </textarea>  
       <mat-slide-toggle color="primary" class="app-slide-toogle"
         matTooltip="{{ 'editor.title.non_sort_toggle' | translate }}"
         [disabled]="item.isNonSortToggleDisabled"

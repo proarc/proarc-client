@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>{{ 'dialog.newObject.title' | translate }}</h1>
+<h1 mat-dialog-title>{{ (data.isJob ? 'dialog.newObject.titleJob' : 'dialog.newObject.title') | translate }}</h1>
 
 <div mat-dialog-content>
   <mat-progress-bar *ngIf="state=='saving'" mode="indeterminate"></mat-progress-bar>
