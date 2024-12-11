@@ -111,9 +111,13 @@ export class EditorGenreComponent implements OnInit {
         value: 'no',
         color: 'default'
       },
-      checkbox
+      checkbox,
+      rows: 10
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      width: '800px'
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         // console.log(this.field, data.textAreaInput.value, checkbox.checked);

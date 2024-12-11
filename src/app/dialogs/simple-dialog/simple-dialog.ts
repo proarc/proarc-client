@@ -9,6 +9,7 @@ export interface SimpleDialogData {
   textInput?: SimpleDialogTextInput;
   width?: number;
   textAreaInput?: SimpleDialogTextInput;
+  rows?: number;
 }
 
 export interface SimpleDialogButton {
