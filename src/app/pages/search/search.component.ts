@@ -13,9 +13,7 @@ import { ConfigService } from 'src/app/services/config.service';
 import { User } from 'src/app/model/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SplitAreaDirective, SplitComponent } from 'angular-split';
 import { Tree } from 'src/app/model/mods/tree.model';
-import { SearchService } from 'src/app/services/search.service';
 import { UIService } from 'src/app/services/ui.service';
 import { ChangeModelDialogComponent } from 'src/app/dialogs/change-model-dialog/change-model-dialog.component';
 

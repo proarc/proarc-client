@@ -14,6 +14,7 @@ export class DocumentItem {
   public crossrefExport: number;
   public krameriusExport: number;
   public ndkExport: number;
+  public partNumber: string;
 
   public status: string;
   public processor: string;
@@ -29,6 +30,7 @@ export class DocumentItem {
   public pageType: string;
   public pagePosition: string;
   public pageRepre: string;
+
 
   public invalid: boolean;
 
@@ -89,6 +91,7 @@ export class DocumentItem {
     item.archiveExport = json['archiveExport'];
     item.crossrefExport = json['crossrefExport'];
     item.krameriusExport = json['krameriusExport'];
+    item.partNumber = json['partNumber'];
     item.ndkExport = json['ndkExport'];
     item.isLocked = json['isLocked'];
     if (json['content']) {

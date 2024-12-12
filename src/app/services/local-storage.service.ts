@@ -35,6 +35,7 @@ export class LocalStorageService {
         { field: 'writeExports', selected: true, width: 100, type: 'string' },
         { field: 'urnNbn', selected: true, width: 100, type: 'string' },
         { field: 'descriptionStandard', selected: true, width: 100, type: 'string' },
+        { field: 'partNumber', selected: true, width: 100, type: 'string' },
         { field: 'isLocked', selected: true, width: 100, type: 'boolean' }
     ];
 
