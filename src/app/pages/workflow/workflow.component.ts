@@ -118,12 +118,11 @@ export class WorkFlowComponent implements OnInit {
   ]
 
   users: User[];
-  filters: { [field: string]: string } = {};
   filterFields: { [field: string]: string } = {};
   lists: { [field: string]: { code: string, value: string }[] } = {};
-  taskUsernameFilter: string;
-  labelFilter: string;
-  profileNameFilter: string;
+  // taskUsernameFilter: string;
+  // labelFilter: string;
+  // profileNameFilter: string;
 
   startShiftClickIdx: number;
   lastClickIdx: number;
@@ -173,7 +172,6 @@ export class WorkFlowComponent implements OnInit {
     const rProfiles = this.api.getWorkflowProfiles();
     forkJoin([rUsers, rProfiles]).subscribe(([users, profiles]: [User[], any]) => {
       this.users = users;
-    // this.api.getWorkflowProfiles().subscribe((profiles: any) => {
       if (profiles['response'].errors) {
         this.ui.showErrorDialogFromObject(profiles['response'].errors);
         return;
@@ -204,10 +202,10 @@ export class WorkFlowComponent implements OnInit {
     let params = '?';
     params += '_sortBy=' + (this.layout.workflowJobsSort.direction === 'desc' ? '-' : '') + this.layout.workflowJobsSort.field;
       
-    const keys: string[] = Object.keys(this.filters);
+    const keys: string[] = Object.keys(this.layout.workflowJobsFilters);
     keys.forEach((k: string) => {
-      if (this.filters[k] !== '') {
-        params += `&${k}=${this.filters[k]}`;
+      if (this.layout.workflowJobsFilters[k] !== '') {
+        params += `&${k}=${this.layout.workflowJobsFilters[k]}`;
       }
     });
 
@@ -484,7 +482,7 @@ export class WorkFlowComponent implements OnInit {
     // } else {
     //   this.filters.push({ field, value });
     // }
-    this.filters[field] = value;
+    this.layout.workflowJobsFilters[field] = value;
     this.getWorkflow(false);
   }
 
@@ -564,7 +562,7 @@ export class WorkFlowComponent implements OnInit {
 
     this.workFlowColumns.forEach(c => {
       this.filterWorkFlowColumns.push(c + '-filter');
-      this.filterFields[c] = '';
+      this.filterFields[c] = this.layout.workflowJobsFilters[c];
       if (this.columnType(c) === 'list') {
         this.lists[c] = this.getList(c);
       }

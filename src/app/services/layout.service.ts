@@ -69,9 +69,11 @@ export class LayoutService {
   panels: ILayoutPanel[] = [];
   editingPanel: string;
 
-  workflowActiveFilters: any[];
   workflowJobsSort: {field: string, direction: SortDirection} = {field: 'created', direction: 'desc'} ;
   workflowSubjobsSort: {field: string, direction: SortDirection} = {field: 'created', direction: 'desc'} ;
+  workflowJobsFilters: { [field: string]: string } = {};
+  workflowTasksSort: {field: string, direction: SortDirection} = {field: 'created', direction: 'desc'} ;
+  workflowTasksFilters: { [field: string]: string } = {};
 
   constructor(
     private config: ConfigService

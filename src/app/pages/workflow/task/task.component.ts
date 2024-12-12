@@ -52,14 +52,12 @@ export class TaskComponent implements OnInit {
 
   selectedColumns: string[] = [];
   filterTasksColumns: string[] = [];
-  tasksSortField: string = 'created';
-  tasksSortDir: SortDirection = 'desc';
+  // tasksSortField: string = 'created';
+  // tasksSortDir: SortDirection = 'desc';
 
 
-  // colsWidth: { [key: string]: number } = {};
   columnTypes: { [field: string]: string } = {};
-  filters: { [field: string]: string } = {};
-  // filters: { field: string, value: string }[] = [];
+  // filters: { [field: string]: string } = {};
   filterFields: { [field: string]: string } = {};
   lists: { [field: string]: { code: string, value: string }[] } = {};
 
@@ -157,9 +155,7 @@ export class TaskComponent implements OnInit {
 
     this.selectedColumns.forEach(c => {
       this.filterTasksColumns.push(c + '-filter');
-    });
-
-    this.selectedColumns.forEach(c => {
+      this.filterFields[c] = this.layout.workflowTasksFilters[c];
       if (this.columnTasksType(c) === 'list') {
         this.lists[c] = this.getList(c);
       }
@@ -222,8 +218,8 @@ export class TaskComponent implements OnInit {
 
   getTasks() {
     let params = '?';
-    if (this.tasksSortDir) {
-      params += '_sortBy=' + (this.tasksSortDir === 'desc' ? '-' : '') + this.tasksSortField;
+    if (this.layout.workflowTasksSort.direction) {
+      params += '_sortBy=' + (this.layout.workflowTasksSort.direction === 'desc' ? '-' : '') + this.layout.workflowTasksSort.field;
     }
 
     if (this.onlyMyTasks) {
@@ -231,18 +227,12 @@ export class TaskComponent implements OnInit {
       // params += '&state=READY&ownerId=' + this.auth.getUserId();
     }
 
-    const keys: string[] = Object.keys(this.filters);
+    const keys: string[] = Object.keys(this.layout.workflowTasksFilters);
     keys.forEach((k: string) => {
-      if (this.filters[k] !== '') {
-        params += `&${k}=${this.filters[k]}`;
+      if (this.layout.workflowTasksFilters[k] !== '') {
+        params += `&${k}=${this.layout.workflowTasksFilters[k]}`;
       }
     });
-
-    // this.filters.forEach(f => {
-    //   if (f.value !== '') {
-    //     params += `&${f.field}=${f.value}`;
-    //   }
-    // });
 
 
     this.api.getWorkflowTasks(params).subscribe((response: any) => {
@@ -368,13 +358,12 @@ export class TaskComponent implements OnInit {
     if (this.id) {
       return;
     }
-    this.tasksSortDir = e.direction;
-    this.tasksSortField = e.active;
+    this.layout.workflowTasksSort = {field: e.active, direction: e.direction};
     this.getTasks();
   }
 
   filter(field: string, value: string) {
-    this.filters[field] = value;
+    this.layout.workflowTasksFilters[field] = value;
     this.getTasks();
   }
 

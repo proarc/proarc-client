@@ -32,7 +32,7 @@
                         </div>
                         <div class="app-oa-y" *ngIf="tasks.length > 0">
                             <table mat-table [dataSource]="tasks" class="app-striped app-hover app-resize" matSort
-                                [matSortActive]="tasksSortField" [matSortDirection]="tasksSortDir"
+                                [matSortActive]="layout.workflowTasksSort.field" [matSortDirection]="layout.workflowTasksSort.direction"
                                 (matSortChange)="sortTasksTable($event)">
 
                                 <ng-container *ngFor="let c of selectedColumns" [matColumnDef]="c + '-filter'">
@@ -58,7 +58,10 @@
                                   </ng-container>   
                                   <ng-container *ngFor="let c of selectedColumns" [matColumnDef]="c">
                                     
-                                    <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c)" [style.width]="colsWidthTasks[c]"><span mat-sort-header>{{'desc.' + c | translate}}</span></th>
+                                    <th mat-header-cell *matHeaderCellDef
+                                    [class.app-activeSort]="c === layout.workflowTasksSort.field"
+                                     [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c)" [style.width]="colsWidthTasks[c]">
+                                     <span mat-sort-header>{{'desc.' + c | translate}}</span></th>
                                     
                                       <ng-container [ngSwitch]="columnTypes[c]">
                                         <ng-container *ngSwitchCase="'date'">

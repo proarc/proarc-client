@@ -84,7 +84,8 @@ export class LocalStorageService {
             {field: 'ownerId', selected: false, width: 150, type: 'list'},
             {field: 'jobId', selected: false, width: 150, type: 'string'},
             {field: 'note', selected: false, width: 150, type: 'string'},
-            {field: 'order', selected: false, width: 150, type: 'string'}
+            {field: 'order', selected: false, width: 150, type: 'string'},
+            {field: 'signature', selected: true, width: 150, type: 'string'}
         ];
 
     public colsEditingRepo: { [model: string]: { field: string, selected: boolean, width: number }[] };
