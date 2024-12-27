@@ -13,10 +13,35 @@
         selector: 'titleInfo/@type',
         labelKey: 'titleInfo/@type',
         cols: 3,
+        description: 'Hlavní název bez typu - pole 245 a $a<br/>\
+          Možné hodnoty\
+          <ul>\
+            <li>Zkrácený název (abbreviated) - pole 210</li>\
+            <li>Alternativní název (alternative) – pole 246</li>\
+            <li>Přeložený název (translated) – pole 242</li>\
+            <li>Jednotný název (uniform) – pole 130 resp. 240</li>\
+          </ul>',
         options: [
-          ['', '-'],
-          ['translated', 'Přeložený název'],
-          ['alternative', 'Variantní název']
+          [
+            '',
+            '-'
+          ],
+          [
+            'abbreviated',
+            'Zkrácený název'
+          ],
+          [
+            'translated',
+            'Přeložený název'
+          ],
+          [
+            'alternative',
+            'Alternativní název'
+          ],
+          [
+            'uniform',
+            'Jednotný název'
+          ]
         ]
       },
       lang: {
