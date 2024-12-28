@@ -158,7 +158,10 @@ export class ConfigService {
 		'model:chronicletitle',
 		'model:chroniclevolume',
 		'model:chroniclesupplement',
-		'model:bdmarticle'
+		'model:bdmarticle',
+    'model:ndkclippingcollection',
+    'model:ndkclippingdirectory',
+    'model:ndkclippingunit',
 	];
 
 	private static defaultDefaultModel = 'model:ndkmonographvolume';

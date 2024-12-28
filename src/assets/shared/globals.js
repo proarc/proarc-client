@@ -89,7 +89,10 @@ var APP_GLOBAL = {
       'model:ndkaudiopage',
       'model:chronicletitle',
       'model:chroniclevolume',
-      'model:chroniclesupplement'
+      'model:chroniclesupplement',
+      'model:ndkclippingcollection',
+      'model:ndkclippingdirectory',
+      'model:ndkclippingunit',
   ],
   defaultModel: 'model:ndkperiodical',
   showCommentEditor: true,

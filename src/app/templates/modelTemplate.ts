@@ -80,6 +80,10 @@ export class ModelTemplate {
       "model:ndkpicture": 'NdkPicture',
       "model:ndkchapter": 'NdkChapter',
 
+      "model:ndkclippingcollection": 'NdkClippingCollection',
+      "model:ndkclippingdirectory": 'NdkClippingDirectory',
+      "model:ndkclippingunit": 'NdkClippingUnit',
+
       "model:oldprintomnibusvolume": 'OldprintConvolutte',           // pouze aacr, ale abyse predeslo nullpointeru, jeto nakopirovano i do rda
       "model:oldprintmonographtitle": 'OldprintMonographTitle',
       "model:oldprintmonographunit": 'OldprintMonographUnit',
@@ -132,6 +136,10 @@ export class ModelTemplate {
       "model:ndkarticle": 'NdkArticle',
       "model:ndkpicture": 'NdkPicture',
       "model:ndkchapter": 'NdkChapter',
+
+      "model:ndkclippingcollection": 'NdkClippingCollection',
+      "model:ndkclippingdirectory": 'NdkClippingDirectory',
+      "model:ndkclippingunit": 'NdkClippingUnit',
 
       "model:oldprintomnibusvolume": 'OldprintConvolutte',
       "model:oldprintmonographtitle": 'OldprintMonographTitle',
@@ -188,6 +196,9 @@ export class ModelTemplate {
     'ndksheetmusic': ['ndkpage', 'page'],
     'ndkpage': [],
     'page': [],
+    'ndkclippingcollection': ['ndkclippingdirectory', 'ndkclippingunit'],
+    'ndkclippingdirectory': ['ndkclippingunit'],
+    'ndkclippingunit': ['ndkpage'],
     'oldprintomnibusvolume': ['oldprintvolume', 'oldprintmonographtitle', 'oldprintgraphics', 'oldprintmap', 'oldprintsheetmusic', 'oldprintpage'],
     'oldprintmonographtitle': ['oldprintmonographunit'],
     'oldprintmonographunit': ['oldprintchapter', 'oldprintsupplement', 'oldprintpage'],
