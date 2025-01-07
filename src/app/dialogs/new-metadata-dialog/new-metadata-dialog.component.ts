@@ -62,10 +62,10 @@ export class NewMetadataDialogComponent implements OnInit {
     let standard: string;
     let xml: string;
     let model: string;
-    
+
       standard = Metadata.resolveStandardFromXml(this.data.content);
       xml = this.data.content;
-    
+
     this.tmpl.getTemplate(standard, this.data.model).subscribe((tmpl: any) => {
       this.metadata = new Metadata(this.data.pid, this.data.model, xml, this.data.timestamp, standard, tmpl);
       // setTimeout(() => {
@@ -184,10 +184,22 @@ export class NewMetadataDialogComponent implements OnInit {
       }
       this.api.createObject(data).subscribe((response: any) => {
         if (response['response'].errors) {
-          console.log('error', response['response'].errors);
-          this.ui.showErrorDialogFromObject(response['response'].errors);
-          this.state = 'error';
-          return;
+          if (response['response'].status === -4) {
+            // Ukazeme dialog a posleme s validate=false
+            //this.state = 'error';
+            const messages = this.ui.extractErrorsAsString(response['response'].errors);
+            if (response['response'].data === 'cantIgnore') {
+              // #462 - replaced with row bellow - this.ui.showErrorSnackBar(messages);
+              this.ui.showErrorDialogFromObject(response['response'].errors);
+            } else {
+              this.confirmSave(this.translator.instant('common.warning'), messages, false, gotoEdit);
+            }
+            return;
+          } else {
+            this.ui.showErrorDialogFromObject(response['response'].errors);
+            this.state = 'error';
+            return;
+          }
         }
         const pid = response['response']['data'][0]['pid'];
         this.state = 'success';
@@ -204,12 +216,12 @@ export class NewMetadataDialogComponent implements OnInit {
       // this.validating = true;
       setTimeout(() => {
         this.layout.setMetadataResized();
-        this.confirmSave(this.translator.instant('dialog.newMetadata.onSave.title'), this.translator.instant('dialog.newMetadata.onSave.alert'), true, gotoEdit);
+        this.confirmSave(this.translator.instant('dialog.newMetadata.onSave.title'), this.translator.instant('dialog.newMetadata.onSave.alert'), false, gotoEdit);
       }, 10);
     }
   }
 
-  confirmSave(title: string, message: string, ignoreValidation: boolean, gotoEdit: boolean) {
+  confirmSave(title: string, message: string, validate: boolean, gotoEdit: boolean) {
     const data: SimpleDialogData = {
       title,
       message,
@@ -229,7 +241,7 @@ export class NewMetadataDialogComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        
+
         if ( this.data.isWorkFlow) {
           this.saveJob(gotoEdit);
           return;
@@ -239,6 +251,9 @@ export class NewMetadataDialogComponent implements OnInit {
         data = `${data}&xml=${encodeURIComponent(this.metadata.toMods())}`;
         if (this.data.parent) {
           data = `${data}&parent=${this.data.parent}`;
+        }
+        if (!validate) {      // kvuli vypnuti validace pri zalozeni noveho objektu
+          data = `${data}&validate=${validate}`;
         }
         this.api.createObject(data).subscribe((response: any) => {
           if (response['response'].errors) {
