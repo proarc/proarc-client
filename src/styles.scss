@@ -1,9 +1,4 @@
-// --- ROOT ---
+/* You can add global styles to this file, and also import other style files */
 
-@import 'sass/app-variables';
-@import "sass/app-mixins";
-@import 'sass/app-global';
-@import 'sass/app-mat-override';
-@import 'sass/app-layout';
-@import 'sass/app-form';
-//@import 'sass/app-johny';
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

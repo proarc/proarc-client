@@ -1,8 +1,0 @@
-<app-editor-field [field]="field">
-  <ng-template let-item="item" #templateContent>
-
-    <app-field-dropdown field="displayLabel" [item]="item" [(value)]="item.attrs['displayLabel']" ></app-field-dropdown>
-    <app-field-text field="value" [item]="item" [(value)]="item.modsElement['_']" ></app-field-text>
-
-  </ng-template>
-</app-editor-field>

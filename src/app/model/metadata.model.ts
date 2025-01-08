@@ -18,7 +18,6 @@ import { ModsGenre } from './mods/genre.model';
 import { ModsGenreChronical } from './mods/genre_chronical.model';
 import { ModsClassification } from './mods/classification.model';
 import { ModsResource } from './mods/resource.model';
-import { ModelTemplate } from '../templates/modelTemplate';
 import { ModsPart } from './mods/part.model';
 import { ModsRecordInfo } from './mods/recordInfo.model';
 import { ModsTableOfContents } from './mods/tableOfContents';
@@ -211,10 +210,6 @@ export class Metadata {
     if (!this.standard) {
       this.standard = Metadata.resolveStandard(data);
     }
-
-    // if (!this.template) {
-    //   this.template = ModelTemplate.data[this.standard][this.model];
-    // }
 
     if (!this.template) {
       return;

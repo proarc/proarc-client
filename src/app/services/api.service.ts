@@ -1,40 +1,31 @@
-import { Folder } from './../model/folder.model';
-import { CatalogueEntry } from './../model/catalogueEntry.model';
-import { Catalogue } from '../model/catalogue.model';
-import { Atm } from './../model/atm.model';
-import { DocumentItem } from './../model/documentItem.model';
-import { Metadata } from 'src/app/model/metadata.model';
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, finalize } from 'rxjs/operators';
-import { Device } from '../model/device.model';
-
-import { map } from 'rxjs/operators';
-import { Ocr } from '../model/ocr.model';
-import { Note } from '../model/note.model';
-import { Mods } from '../model/mods.model';
-import { Page } from '../model/page.model';
-import { Profile } from '../model/profile.model';
-import { Batch } from '../model/batch.model';
-import { User } from '../model/user.model';
+import { catchError, finalize, map } from 'rxjs/operators';
+import { Configuration } from '../shared/configuration';
 import { ProArc } from '../utils/proarc';
-import { Registrar } from '../model/registrar.model';
-import { ConfigService } from './config.service';
-import { PageUpdateHolder } from '../components/editor/editor-pages/editor-pages.component';
-import { WorkFlow } from '../model/workflow.model';
+import { Profile } from '../model/profile.model';
+import { Atm } from '../model/atm.model';
 import { AudioPage } from '../model/audioPage.model';
-import { AudioPagesUpdateHolder } from '../components/editor/editor-audioPages/editor-audioPages.component';
-import { ActivatedRoute, Router, RouterState } from '@angular/router';
+import { Batch } from '../model/batch.model';
+import { Catalogue } from '../model/catalogue.model';
+import { Device } from '../model/device.model';
+import { DocumentItem } from '../model/documentItem.model';
+import { Mods } from '../model/mods.model';
+import { Note } from '../model/note.model';
+import { Ocr } from '../model/ocr.model';
+import { Page } from '../model/page.model';
+import { User } from '../model/user.model';
+import { WorkFlow } from '../model/workflow.model';
+import { Metadata } from '../model/metadata.model';
 
 @Injectable()
 export class ApiService {
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
     private http: HttpClient,
-    private config: ConfigService) {
+    public settings: Configuration) {
   }
 
   private getLang(): string {
@@ -46,12 +37,8 @@ export class ApiService {
     }
   }
 
-  public getBaseUrl(): string {
-    return this.config.proarcBackendUrl;
-  }
-
   public getApiUrl(): string {
-    return `${this.getBaseUrl()}/rest/v2/`
+    return `/api/rest/v2/`
   }
 
   private get(path: string, params = {}): Observable<Object> {
@@ -802,60 +789,60 @@ export class ApiService {
     return this.put('device', data).pipe(map((response: any) => Device.fromJson(response['response']['data'][0])));
   }
 
-  editPages(pages: string[], holder: PageUpdateHolder, batchId: any = null) {
-    let data = `pids=${pages}`;
-    if (batchId) {
-      data = `${data}&batchId=${batchId}`;
-    }
-    if (holder.editType) {
-      data += `&pageType=${holder.pageType}`;
-    }
-    if (holder.editIndex) {
-      data += `&startIndex=${holder.pageIndex}`;
-    }
-    if (holder.useBrackets) {
-      data += `&useBrackets=${holder.useBrackets}`;
-    }
-    if (holder.doubleColumns) {
-      data += `&doubleColumns=${holder.doubleColumns}`;
-    }
-    if (holder.editNumber) {
-      data += `&sequence=${holder.pageNumberNumbering.id}&prefix=${holder.pageNumberPrefix}&suffix=${holder.pageNumberSuffix}&startNumber=${holder.getPageIndexFrom()}&incrementNumber=${holder.pageNumberIncrement}`;
-    }
-    if (holder.applyTo > 1) {
-      data += `&applyToFirstPage=${holder.applyToFirst}`;
-    }
-    if (holder.editPosition) {
-      data += `&pagePosition=${holder.pagePosition}`;
-    }
-    data += `&applyTo=${holder.applyTo}`;
-    return this.put('object/mods/editorPages', data);
-  }
+  // editPages(pages: string[], holder: PageUpdateHolder, batchId: any = null) {
+  //   let data = `pids=${pages}`;
+  //   if (batchId) {
+  //     data = `${data}&batchId=${batchId}`;
+  //   }
+  //   if (holder.editType) {
+  //     data += `&pageType=${holder.pageType}`;
+  //   }
+  //   if (holder.editIndex) {
+  //     data += `&startIndex=${holder.pageIndex}`;
+  //   }
+  //   if (holder.useBrackets) {
+  //     data += `&useBrackets=${holder.useBrackets}`;
+  //   }
+  //   if (holder.doubleColumns) {
+  //     data += `&doubleColumns=${holder.doubleColumns}`;
+  //   }
+  //   if (holder.editNumber) {
+  //     data += `&sequence=${holder.pageNumberNumbering.id}&prefix=${holder.pageNumberPrefix}&suffix=${holder.pageNumberSuffix}&startNumber=${holder.getPageIndexFrom()}&incrementNumber=${holder.pageNumberIncrement}`;
+  //   }
+  //   if (holder.applyTo > 1) {
+  //     data += `&applyToFirstPage=${holder.applyToFirst}`;
+  //   }
+  //   if (holder.editPosition) {
+  //     data += `&pagePosition=${holder.pagePosition}`;
+  //   }
+  //   data += `&applyTo=${holder.applyTo}`;
+  //   return this.put('object/mods/editorPages', data);
+  // }
 
-  editAudioPages(pages: string[], holder: AudioPagesUpdateHolder, batchId: any = null) {
-    let data = `pids=${pages}`;
-    if (batchId) {
-      data = `${data}&batchId=${batchId}`;
-    }
-    if (holder.editIndex) {
-      data += `&startIndex=${holder.pageIndex}`;
-    }
-    if (holder.applyTo > 1) {
-      data += `&applyToFirstPage=${holder.applyToFirst}`;
-    }
-    data += `&applyTo=${holder.applyTo}`;
-    return this.put('object/mods/editorPages', data);
-  }
+  // editAudioPages(pages: string[], holder: AudioPagesUpdateHolder, batchId: any = null) {
+  //   let data = `pids=${pages}`;
+  //   if (batchId) {
+  //     data = `${data}&batchId=${batchId}`;
+  //   }
+  //   if (holder.editIndex) {
+  //     data += `&startIndex=${holder.pageIndex}`;
+  //   }
+  //   if (holder.applyTo > 1) {
+  //     data += `&applyToFirstPage=${holder.applyToFirst}`;
+  //   }
+  //   data += `&applyTo=${holder.applyTo}`;
+  //   return this.put('object/mods/editorPages', data);
+  // }
 
-  editBrackets(pages: string[], holder: PageUpdateHolder, useBrackets: boolean, batchId: any = null) {
-    const action = useBrackets ? 'addBrackets' : 'removeBrackets';
-    let data = `pids=${pages}`;
-    if (batchId) {
-      data = `${data}&batchId=${batchId}`;
-    }
-    data += `&applyTo=${holder.applyTo}`;
-    return this.post('object/mods/' + action, data);
-  }
+  // editBrackets(pages: string[], holder: PageUpdateHolder, useBrackets: boolean, batchId: any = null) {
+  //   const action = useBrackets ? 'addBrackets' : 'removeBrackets';
+  //   let data = `pids=${pages}`;
+  //   if (batchId) {
+  //     data = `${data}&batchId=${batchId}`;
+  //   }
+  //   data += `&applyTo=${holder.applyTo}`;
+  //   return this.post('object/mods/' + action, data);
+  // }
 
 
   editRelations(parentPid: string, pidArray: string[]): Observable<any> {

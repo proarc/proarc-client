@@ -1,59 +1,59 @@
-@import './src/sass/app-variables';
-@import './src/sass/app-mixins';
-@import './src/sass/app-global';
+// @import './src/sass/app-variables';
+// @import './src/sass/app-mixins';
+// @import './src/sass/app-global';
 
-.mat-toolbar {
-  height: $app-navbar-height;
-  //border-bottom: 1px solid $app-navbar-border-color;
+// .mat-toolbar {
+//   height: $app-navbar-height;
+//   //border-bottom: 1px solid $app-navbar-border-color;
 
-  .app-left {
-    .app-logo {
-      img,
-      svg {
-        @extend .app-mr-4;
-        height: 16px;
-        vertical-align: middle;
-      }
-    }
-  }
+//   .app-left {
+//     .app-logo {
+//       img,
+//       svg {
+//         @extend .app-mr-4;
+//         height: 16px;
+//         vertical-align: middle;
+//       }
+//     }
+//   }
 
-  .mat-button-base {
-    &:hover, &.active {
-      color: inherit;
-      background-color: $app-navbar-active-item-color;
-    }
-  }
+//   .mat-button-base {
+//     &:hover, &.active {
+//       color: inherit;
+//       background-color: $app-navbar-active-item-color;
+//     }
+//   }
 
-  .app-session {
-    border: 1px solid var(--app-navbar-session-color);
-    border-bottom: 0;
-    display: inline-flex;
-    align-items: center;
-    font-size: 14px;
-    width: 60px;
-    height: 26px;
-    position: relative;
+//   .app-session {
+//     border: 1px solid var(--app-navbar-session-color);
+//     border-bottom: 0;
+//     display: inline-flex;
+//     align-items: center;
+//     font-size: 14px;
+//     width: 60px;
+//     height: 26px;
+//     position: relative;
 
-    .app-block {
-      background-color: white;
-      position: absolute;
-      bottom: 0;
-      height: 1px;
-    }
+//     .app-block {
+//       background-color: white;
+//       position: absolute;
+//       bottom: 0;
+//       height: 1px;
+//     }
 
-    .app-line {
-      background-color: var(--app-navbar-session-color);
-      position: absolute;
-      bottom: 0;
-      height: 1px;
-      width: 100%;
-    }
+//     .app-line {
+//       background-color: var(--app-navbar-session-color);
+//       position: absolute;
+//       bottom: 0;
+//       height: 1px;
+//       width: 100%;
+//     }
 
-    .app-text {
-      z-index: 1;
-      color: $app-color-lightnes;
-      width: 100%;
-      text-align: center;
-    }
-  }
-}
+//     .app-text {
+//       z-index: 1;
+//       color: $app-color-lightnes;
+//       width: 100%;
+//       text-align: center;
+//     }
+//   }
+// }
