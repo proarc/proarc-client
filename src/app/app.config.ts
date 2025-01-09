@@ -10,6 +10,7 @@ import { AuthService } from './services/auth.service';
 import { Configuration } from './shared/configuration';
 import { ApiService } from './services/api.service';
 import { UserSettings } from './shared/user-settings';
+import { UIService } from './services/ui.service';
 
 
 
@@ -37,6 +38,6 @@ export const appConfig: ApplicationConfig = {
       }
     })),
     TranslateService,
-    Configuration, ApiService, AuthService, UserSettings
+    Configuration, ApiService, AuthService, UIService, UserSettings
   ]
 };

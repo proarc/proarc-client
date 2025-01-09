@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   standalone: true,
@@ -37,7 +38,7 @@ export class LoginComponent implements OnInit {
   currentYear: number = new Date().getFullYear();
 
   constructor(private auth: AuthService,
-    // public properties: LocalStorageService,
+    public settings: UserSettings,
     private router: Router,
     private route: ActivatedRoute,
     private config: Configuration,
@@ -65,7 +66,6 @@ export class LoginComponent implements OnInit {
       this.state = 'none';
       if (result) {
         // this.properties.setStringProperty('search.split.0', '60');
-            console.log(this.url)
             if (this.url) {
               // split query params
               const parts = this.url.split('?')

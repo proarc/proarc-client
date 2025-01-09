@@ -10,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Configuration } from '../shared/configuration';
 import { User } from '../model/user.model';
+import { UserSettings } from '../shared/user-settings';
 declare var APP_GLOBAL: any;
 
 @Injectable({ providedIn: 'root' })
@@ -28,7 +29,9 @@ export class AuthService {
         private dialogRef: MatDialog,
         private api: ApiService,
         private router: Router,
-        private config: Configuration) {
+        private config: Configuration,
+        private settings: UserSettings
+    ) {
     }
 
     public initializeApp() {
@@ -60,16 +63,17 @@ export class AuthService {
         const checkLoggedReq = this.checkLogged();
         return forkJoin([valueMapReq, configReq, checkLoggedReq]).pipe(
             tap(([valueMapResp, configResp, checkLoggedResp]: [any, any, any]) => {
-            if (configResp.response?.data && !configResp.response.data[0].error) {
-                this.config.mergeConfig(configResp.response.data[0].configFile);
-            }
-            this.config.valueMap = valueMapResp.response.data;
-            if (checkLoggedResp?.state === 'logged') {
-                this.remaining = checkLoggedResp.remaining;
-                this.remainingPercent = this.remaining * 100.0 / checkLoggedResp.maximum;
-                this.checkIsLogged();
-            }
-        }));
+                if (configResp.response?.data && !configResp.response.data[0].error) {
+                    this.config.mergeConfig(configResp.response.data[0].configFile);
+                }
+                this.settings.reset();
+                this.config.valueMap = valueMapResp.response.data;
+                if (checkLoggedResp?.state === 'logged') {
+                    this.remaining = checkLoggedResp.remaining;
+                    this.remainingPercent = this.remaining * 100.0 / checkLoggedResp.maximum;
+                    this.checkIsLogged();
+                }
+            }));
     }
 
 
@@ -104,17 +108,6 @@ export class AuthService {
             this.user = null;
             this.router.navigate(['/login']);
         });
-    }
-
-
-    checkOnStart() {
-        this.api.getUser().subscribe((user: User) => {
-            this.user = user;
-        },
-            (error) => {
-                this.user = null;
-                this.router.navigate(['/login']);
-            });
     }
 
     private handleError(error: HttpErrorResponse, me: any) {
