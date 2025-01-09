@@ -9,7 +9,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AuthService } from './services/auth.service';
 import { Configuration } from './shared/configuration';
 import { ApiService } from './services/api.service';
-import { UserSettings } from './shared/user-settings';
+import { UserSettings, UserSettingsService } from './shared/user-settings';
 import { UIService } from './services/ui.service';
 
 
@@ -38,6 +38,6 @@ export const appConfig: ApplicationConfig = {
       }
     })),
     TranslateService,
-    Configuration, ApiService, AuthService, UIService, UserSettings
+    Configuration, ApiService, AuthService, UIService, UserSettings, UserSettingsService
   ]
 };

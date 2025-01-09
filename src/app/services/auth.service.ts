@@ -10,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Configuration } from '../shared/configuration';
 import { User } from '../model/user.model';
-import { UserSettings } from '../shared/user-settings';
+import { UserSettings, UserSettingsService } from '../shared/user-settings';
 declare var APP_GLOBAL: any;
 
 @Injectable({ providedIn: 'root' })
@@ -30,7 +30,7 @@ export class AuthService {
         private api: ApiService,
         private router: Router,
         private config: Configuration,
-        private settings: UserSettings
+        private settings: UserSettingsService
     ) {
     }
 

@@ -60,21 +60,21 @@
               <legend>{{ 'desc.preferredValues' | translate }}</legend>
               <div class="app-label">{{ 'desc.typesOfParties' | translate }}</div>
               <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
-                <span fxFlex>{{ codebook.getTopNames('PageTypes').join(", ") }}</span>
+                <span fxFlex>{{ curSettings.topPageTypes.join(", ") }}</span>
                 <button mat-stroked-button (click)="changeCodebookTops('PageTypes')">{{ 'button.edit' | translate }}</button>
               </div>
               <mat-divider class="app-mb-4"></mat-divider>
               <span class="app-label">{{ 'desc.languages' | translate }}</span>
               <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
-                <span fxFlex>{{ codebook.getTopNames('Languages').join(", ") }}</span>
+                <span fxFlex>{{  curSettings.topLanguages.join(", ") }}</span>
                 <button mat-stroked-button (click)="changeCodebookTops('Languages')">{{ 'button.edit' | translate }}</button>
               </div>
               <mat-divider class="app-mb-4"></mat-divider>
               <span class="app-label">{{ 'desc.identifiers' | translate }}</span>
               <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
                 <div fxFlex>
-                  <span>{{ codebook.getTopNames('Identifiers').join(", ") }}</span>
-                  <em *ngIf="codebook.getTopNames('Identifiers')?.length === 0" class="app-text-lowercase">{{ 'desc.noValue' | translate }}</em>
+                  <span>{{  curSettings.topIdentifiers.join(", ") }}</span>
+                  <em *ngIf=" curSettings.topIdentifiers?.length === 0" class="app-text-lowercase">{{ 'desc.noValue' | translate }}</em>
                 </div>
                 <button mat-stroked-button (click)="changeCodebookTops('Identifiers')">{{ 'button.edit' | translate }}</button>
               </div>
@@ -87,7 +87,7 @@
               <mat-divider class="app-mb-4"></mat-divider>
               <span class="app-label">{{ 'desc.expandingTheForm' | translate }}</span>
               <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
-                <span fxFlex>{{ codebook.getTopNames('ExpandedModels').join(", ") }}</span>
+                <span fxFlex>{{ curSettings.topExpandedModels.join(", ") }}</span>
                 <button mat-stroked-button (click)="changeCodebookTops('ExpandedModels')">{{ 'button.edit' | translate }}</button>
               </div>
               <mat-divider class="app-mb-4"></mat-divider>
@@ -100,8 +100,8 @@
               <mat-divider class="app-mb-4"></mat-divider>
               <span class="app-label">{{ 'desc.searchExpandTreeTitle' | translate }}</span>
               <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
-                <mat-checkbox fxFlex name="searchExpandTree" [(ngModel)]="searchExpandTree">{{ 'desc.searchExpandTree' | translate }}</mat-checkbox>
-                <button mat-stroked-button (click)="setSearchExpandTree()">{{ 'button.save' | translate }}</button>
+                <mat-checkbox fxFlex name="searchExpandTree" [(ngModel)]="curSettings.searchExpandTree">{{ 'desc.searchExpandTree' | translate }}</mat-checkbox>
+                <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
               </div>
 
               
@@ -114,31 +114,31 @@
         </mat-card>
         <mat-card fxFlex >
           <mat-card-content>
-            <fieldset class="app-p-4 app-mb-4" cdkDropList (cdkDropListDropped)="drop($event, properties.searchColumns)">
+            <fieldset class="app-p-4 app-mb-4" cdkDropList (cdkDropListDropped)="drop($event, curSettings.columnsSearch)">
               <legend>{{ 'pages.settings.search.legend' | translate }}</legend>
               <div class="app-label app-mb-2">{{ 'pages.settings.search.label' | translate }}</div>
-              <div *ngFor="let column of properties.searchColumns" cdkDropListOrientation="vertical" cdkDrag>
+              <div *ngFor="let column of curSettings.columnsSearch" cdkDropListOrientation="vertical" cdkDrag>
                 <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
               </div>
             </fieldset>
-            <button mat-stroked-button (click)="setSelectedColumnsSearch()">{{ 'button.save' | translate }}</button>
+            <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
           </mat-card-content>
         </mat-card>
         <mat-card fxFlex >
           <mat-card-content>
-            <fieldset class="app-p-4 app-mb-4" cdkDropList (cdkDropListDropped)="drop($event, properties.searchColumnsTree)">
+            <fieldset class="app-p-4 app-mb-4" cdkDropList (cdkDropListDropped)="drop($event, curSettings.columnsSearchTree)">
               <legend>{{ 'pages.settings.searchTree.legend' | translate }}</legend>
               <div class="app-label app-mb-2">{{ 'pages.settings.searchTree.label' | translate }}</div>
-              <div *ngFor="let column of properties.searchColumnsTree" cdkDropListOrientation="vertical" cdkDrag>
+              <div *ngFor="let column of curSettings.columnsSearchTree" cdkDropListOrientation="vertical" cdkDrag>
                 <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
               </div>
             </fieldset>
-            <button mat-stroked-button (click)="setSelectedColumnsSearchTree()">{{ 'button.save' | translate }}</button>
+            <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
           </mat-card-content>
         </mat-card>
         <mat-card fxFlex>
-          <mat-card-content *ngIf="properties.colsEditingRepo">
-            <fieldset class="app-p-4 app-mb-3" cdkDropList (cdkDropListDropped)="drop($event, properties.colsEditingRepo[modelForColumns])">
+          <mat-card-content *ngIf="curSettings.colsEditingRepo">
+            <fieldset class="app-p-4 app-mb-3" cdkDropList (cdkDropListDropped)="drop($event, curSettings.colsEditingRepo[modelForColumns])">
               <legend>{{ 'pages.settings.editingRepo.legend' | translate }}</legend>        
               <div class="app-label app-mb-3">{{ 'pages.settings.editingRepo.label' | translate }}</div>
               <mat-form-field class="app-w-100">
@@ -146,52 +146,52 @@
                   <mat-option *ngFor="let model of models" [value]="model">{{ 'model.' + model | translate }}</mat-option>
                 </mat-select>
               </mat-form-field>
-              <div *ngFor="let column of properties.colsEditingRepo[modelForColumns]" cdkDropListOrientation="vertical" cdkDrag>
+              <div *ngFor="let column of curSettings.colsEditingRepo[modelForColumns]" cdkDropListOrientation="vertical" cdkDrag>
                 <mat-checkbox [name]="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
               </div>
             </fieldset>
             <div class="app-mb-3">
-              <mat-checkbox name="colsEditModeParent" [(ngModel)]="colsEditModeParent">{{ 'pages.settings.colsEditModeParent' | translate }}</mat-checkbox>
+              <mat-checkbox name="colsEditModeParent" [(ngModel)]="curSettings.colsEditModeParent">{{ 'pages.settings.colsEditModeParent' | translate }}</mat-checkbox>
             </div>
-            <button mat-stroked-button (click)="setSelectedColumnsEditingRepo()">{{ 'button.save' | translate }}</button>
+            <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
           </mat-card-content>
         </mat-card>
         <mat-card fxFlex>
           <mat-card-content>
-            <fieldset class="app-p-4 app-mb-4" cdkDropList (cdkDropListDropped)="drop($event, selectedColumnsEditingImport)">
+            <fieldset class="app-p-4 app-mb-4" cdkDropList (cdkDropListDropped)="drop($event, curSettings.colsEditingImport)">
               <legend>{{ 'pages.settings.editingImport.legend' | translate }}</legend>
               <div class="app-label app-mb-2">{{ 'pages.settings.editingImport.label' | translate }}</div>
-              <div *ngFor="let column of selectedColumnsEditingImport" cdkDropListOrientation="vertical" cdkDrag>
+              <div *ngFor="let column of curSettings.colsEditingImport" cdkDropListOrientation="vertical" cdkDrag>
                 <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
               </div>
             </fieldset>
-            <button mat-stroked-button (click)="setSelectedColumnsEditingImport()">{{ 'button.save' | translate }}</button>
+            <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
           </mat-card-content>
         </mat-card>
          <mat-card fxFlex>
           <mat-card-content>
-            <fieldset class="app-p-4 app-mb-4" cdkDropList (cdkDropListDropped)="drop($event, properties.procMngColumns)">
+            <fieldset class="app-p-4 app-mb-4" cdkDropList (cdkDropListDropped)="drop($event, curSettings.procMngColumns)">
               <legend>{{ 'pages.settings.processManagementOverview.legend' | translate }}</legend>
               <div class="app-label app-mb-2">{{ 'pages.settings.processManagementOverview.label' | translate }}</div>
-              <ng-container *ngFor="let column of properties.procMngColumns">
+              <ng-container *ngFor="let column of curSettings.procMngColumns">
                 <div *ngIf="column.field !== 'actions'" cdkDropListOrientation="vertical" cdkDrag>
                   <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
                 </div>
               </ng-container>
             </fieldset>
-            <button mat-stroked-button (click)="setSelectedColumnsProcMng()">{{ 'button.save' | translate }}</button>
+            <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
           </mat-card-content>
         </mat-card>
         <mat-card fxFlex>
           <mat-card-content>
-            <fieldset class="app-p-4 app-mb-4" cdkDropList (cdkDropListDropped)="drop($event, properties.queueColumns)">
+            <fieldset class="app-p-4 app-mb-4" cdkDropList (cdkDropListDropped)="drop($event, curSettings.queueColumns)">
               <legend>{{ 'pages.settings.processManagementQueue.legend' | translate }}</legend>
               <div class="app-label app-mb-2">{{ 'pages.settings.processManagementQueue.label' | translate }}</div>
-              <div *ngFor="let column of properties.queueColumns" cdkDropListOrientation="vertical" cdkDrag>
+              <div *ngFor="let column of curSettings.queueColumns" cdkDropListOrientation="vertical" cdkDrag>
                 <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
               </div>
             </fieldset>
-            <button mat-stroked-button (click)="setSelectedColumnsQueue()">{{ 'button.save' | translate }}</button>
+            <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
           </mat-card-content>
         </mat-card> 
       </div>

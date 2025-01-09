@@ -1,33 +1,38 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
-import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
-import { NewPasswordDialogComponent } from 'src/app/dialogs/new-password-dialog/new-password-dialog.component';
-import { PreferredTopsDialogComponent } from 'src/app/dialogs/preferred-tops-dialog/preferred-tops-dialog.component';
+// import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
+// import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
+// import { NewPasswordDialogComponent } from 'src/app/dialogs/new-password-dialog/new-password-dialog.component';
+// import { PreferredTopsDialogComponent } from 'src/app/dialogs/preferred-tops-dialog/preferred-tops-dialog.component';
 import { FormControl, FormsModule } from '@angular/forms';
 import { MatTable } from '@angular/material/table';
 import { DocumentItem } from '../../model/documentItem.model';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatDividerModule } from '@angular/material/divider';
 import { User } from '../../model/user.model';
 import { ApiService } from '../../services/api.service';
-import { UserSettings } from '../../shared/user-settings';
+import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { Configuration } from '../../shared/configuration';
 import { UIService } from '../../services/ui.service';
-// import { LocalStorageService } from 'src/app/services/local-storage.service';
-// import { CodebookService } from 'src/app/services/codebook.service';
+import { AuthService } from '../../services/auth.service';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, TranslateModule, FormsModule, 
+  imports: [CommonModule, TranslateModule, FormsModule, DragDropModule, 
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule,
-    MatInputModule],
+    MatInputModule, MatDividerModule, MatProgressBarModule, MatSelectModule,
+    MatCheckboxModule
+  ],
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
@@ -54,39 +59,12 @@ export class SettingsComponent implements OnInit {
   @ViewChild('table') table: MatTable<DocumentItem>;
 
 
-  public selectedColumnsEditingRepo = [
-    { field: 'label', selected: true, width: 140 },
-    { field: 'filename', selected: true, width: 140 },
-    { field: 'pageType', selected: true, width: 140 },
-    { field: 'pageNumber', selected: true, width: 140 },
-    { field: 'pageIndex', selected: true, width: 140 },
-    { field: 'pagePosition', selected: true, width: 140 },
-    { field: 'model', selected: true, width: 140 },
-    { field: 'pid', selected: false, width: 140 },
-    { field: 'owner', selected: false, width: 140 },
-    { field: 'created', selected: false, width: 140 },
-    { field: 'modified', selected: true, width: 140 },
-    { field: 'status', selected: false, width: 140 }
-  ];
-
-  public selectedColumnsEditingImport = [
-    { field: 'filename', selected: true, width: 140 },
-    { field: 'pageType', selected: true, width: 140 },
-    { field: 'pageNumber', selected: true, width: 140 },
-    { field: 'pageIndex', selected: true, width: 140 },
-    { field: 'pagePosition', selected: true, width: 140 },
-    { field: 'model', selected: true, width: 140 },
-    { field: 'pid', selected: false, width: 140 },
-    { field: 'owner', selected: false, width: 140 },
-    { field: 'created', selected: false, width: 140 },
-    { field: 'modified', selected: true, width: 140 },
-    { field: 'status', selected: false, width: 140 }
-  ];
-
   modelForColumns: string;
-  colsEditModeParent: boolean = true;
+  // colsEditModeParent: boolean = true;
   columnsSearchTree: any;
-  searchExpandTree: boolean = true;
+  // searchExpandTree: boolean = true;
+
+  curSettings: UserSettings;
 
   constructor(
     private api: ApiService,
@@ -94,45 +72,25 @@ export class SettingsComponent implements OnInit {
     private dialog: MatDialog,
     private ui: UIService,
     // public codebook: CodebookService,
-    public settings: UserSettings,
+    // public settings: UserSettings,
+    public settingsService: UserSettingsService,
     public config: Configuration,
     private auth: AuthService) { }
 
   ngOnInit() {
-    this.properties.getSearchColumns();
-    this.properties.getSearchColumnsTree();
-    this.initSelectedColumnsEditingImport();
-    this.properties.getProcMngColumns();
-    this.properties.getQueueColumns();
+    this.curSettings = this.settingsService.cloneSettings();
     this.api.getUser().subscribe((user: User) => {
       this.user = user;
       this.forename = this.user.forename;
       this.surname = this.user.surname;
     });
 
-    // this.searchCols = {};
-    // for (const col of this.properties.availableSearchColumns) {
-    //   this.searchCols[col] = this.properties.isSearchColEnabled(col);
-    // }
-
-    if (localStorage.getItem('expandedModels')) {
-      this.selectedModels.setValue(JSON.parse(localStorage.getItem('expandedModels')));
-    }
-
-
-    if (localStorage.getItem('relatedItemExpanded')) {
-      this.relatedItemExpanded = localStorage.getItem('relatedItemExpanded') === 'true';
-    }
-
-    if (localStorage.getItem('formHighlighting')) {
-      this.formHighlighting = localStorage.getItem('formHighlighting') === 'true';
-    }
-
-    this.models = this.config.allModels;
+    this.models = this.config.models;
     this.modelForColumns = this.models[0];
-    this.colsEditModeParent = this.properties.getColsEditingRepo();
+  }
 
-    this.searchExpandTree = this.properties.getBoolProperty('searchExpandTree', true);
+  save() {
+    this.settingsService.setSettings(this.curSettings);
   }
 
   getColumnsForModel() {
@@ -140,7 +98,7 @@ export class SettingsComponent implements OnInit {
   }
 
   changeCodebookTops(type: any) {
-    this.dialog.open(PreferredTopsDialogComponent, { data: type });
+    // this.dialog.open(PreferredTopsDialogComponent, { data: type });
   }
 
 
@@ -173,10 +131,10 @@ export class SettingsComponent implements OnInit {
 
 
   changePassword() {
-    this.dialog.open(NewPasswordDialogComponent, {
-      width: '550px',
-      panelClass: 'app-dialog-new-password'
-    });
+    // this.dialog.open(NewPasswordDialogComponent, {
+    //   width: '550px',
+    //   panelClass: 'app-dialog-new-password'
+    // });
   }
 
   changeExpandedModels() {
@@ -189,77 +147,31 @@ export class SettingsComponent implements OnInit {
     this.ui.showInfo('snackbar.changeSaved');
   }
 
-  setSearchExpandTree() {
-    this.properties.setBoolProperty('searchExpandTree', this.searchExpandTree);
-    this.ui.showInfo('snackbar.changeSaved');
-  }
-
-  setSelectedColumnsSearch() {
-    this.properties.setSelectedColumnsSearch();
-    this.ui.showInfo('snackbar.settings.columns.updated');
-  }
-
-  setSelectedColumnsProcMng() {
-    this.properties.setSelectedColumnsProcMng();
-    this.ui.showInfo('snackbar.settings.columns.updated');
-  }
-
-  setSelectedColumnsQueue() {
-    this.properties.setSelectedColumnsQueue();
-    this.ui.showInfo('snackbar.settings.columns.updated');
-  }
-
-  setSelectedColumnsSearchTree() {
-    
-    this.properties.setSelectedColumnsSearchTree(this.properties.searchColumnsTree);
-    // this.properties.setColumnsSearchTree(this.searchColumnsTree);
-    this.ui.showInfo('snackbar.settings.columns.updated');
-  }
-
-  setSelectedColumnsEditingRepo() {
-    this.properties.setColumnsEditingRepo(this.colsEditModeParent);
-    
-    this.ui.showInfo('snackbar.settings.columns.updated');
-
-  }
-
-  initSelectedColumnsEditingImport() {
-    this.selectedColumnsEditingImport = this.properties.getSelectedColumnsEditingImport();
-  }
-
-  setSelectedColumnsEditingImport() {
-    this.properties.setStringProperty('selectedColumnsImport', JSON.stringify(this.selectedColumnsEditingImport));
-    this.initSelectedColumnsEditingImport();
-    this.ui.showInfo('snackbar.settings.columns.updated');
-  }
-
   resetSettings() {
-    const data: SimpleDialogData = {
-      title: String(this.translator.instant('dialog.resetLocalSettings.title')),
-      message: String(this.translator.instant('dialog.resetLocalSettings.message')),
-      alertClass: 'app-warn',
-      btn1: {
-        label: String(this.translator.instant('common.yes')),
-        value: 'yes',
-        color: 'primary'
-      },
-      btn2: {
-        label: String(this.translator.instant('common.no')),
-        value: 'no',
-        color: 'default'
-      }
-    };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'yes') {
-        localStorage.clear();
-        this.initSelectedColumnsEditingImport();
-        this.properties.getSearchColumns();
-        this.properties.getSearchColumnsTree();
-        this.colsEditModeParent =  this.properties.getColsEditingRepo();
-        this.ui.showInfoSnackBar(this.translator.instant('snackbar.settings.resetLocalSettings.success'));
-      }
-    });
+    // const data: SimpleDialogData = {
+    //   title: String(this.translator.instant('dialog.resetLocalSettings.title')),
+    //   message: String(this.translator.instant('dialog.resetLocalSettings.message')),
+    //   alertClass: 'app-warn',
+    //   btn1: {
+    //     label: String(this.translator.instant('common.yes')),
+    //     value: 'yes',
+    //     color: 'primary'
+    //   },
+    //   btn2: {
+    //     label: String(this.translator.instant('common.no')),
+    //     value: 'no',
+    //     color: 'default'
+    //   }
+    // };
+    // const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result === 'yes') {
+    //     this.settingsService.reset();
+    //     this.settingsService.save();
+    //     this.curSettings = this.settingsService.cloneSettings();
+    //     this.ui.showInfoSnackBar(this.translator.instant('snackbar.settings.resetLocalSettings.success'));
+    //   }
+    // });
   }
 
   changeView(view: string) {

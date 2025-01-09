@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './shared/auth.guard';
 import { TotestComponent } from './pages/totest/totest.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent }, ,
@@ -9,7 +10,7 @@ export const routes: Routes = [
         path: '', canActivate: [AuthGuard], children: [
             // { path: 'repository/:pid', component: RepositoryComponent, canDeactivate: [ConfirmLeaveEditorGuard] },
             // { path: 'kramerius/:pid', component: KrameriusComponent },
-            // { path: 'settings', component: SettingsComponent },
+            { path: 'settings', component: SettingsComponent },
             // { path: 'devices', component: DevicesComponent },
             // { path: 'devices/new', component: EditDeviceComponent },
             // { path: 'devices/:id', component: DeviceComponent },
@@ -26,7 +27,7 @@ export const routes: Routes = [
             // { path: 'admin/new-user', component: NewUserComponent },
             // { path: 'workflow', loadChildren: () => import('../pages/workflow/workflow.module').then(m => m.WorkFlowModule) },
             { path: 'totest', component: TotestComponent },
-            { path: '', redirectTo: '/totest', pathMatch: 'full' }
+            { path: '', redirectTo: '/settings', pathMatch: 'full' }
         ]
     }
 ];
