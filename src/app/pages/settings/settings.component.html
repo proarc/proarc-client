@@ -60,23 +60,23 @@
               <legend>{{ 'desc.preferredValues' | translate }}</legend>
               <div class="app-label">{{ 'desc.typesOfParties' | translate }}</div>
               <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
-                <span fxFlex>{{ curSettings.topPageTypes.join(", ") }}</span>
-                <button mat-stroked-button (click)="changeCodebookTops('PageTypes')">{{ 'button.edit' | translate }}</button>
+                <span fxFlex><ng-container *ngFor="let c of curSettings.topPageTypes; let la = last">{{ 'pageType.' + c | translate }} {{ la ? '' : ', '}}</ng-container></span>
+                <button mat-stroked-button (click)="changeCodebookTops('pageType', curSettings.topPageTypes, config.pageTypes)">{{ 'button.edit' | translate }}</button>
               </div>
               <mat-divider class="app-mb-4"></mat-divider>
               <span class="app-label">{{ 'desc.languages' | translate }}</span>
               <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
-                <span fxFlex>{{  curSettings.topLanguages.join(", ") }}</span>
-                <button mat-stroked-button (click)="changeCodebookTops('Languages')">{{ 'button.edit' | translate }}</button>
+                <span fxFlex><ng-container *ngFor="let c of curSettings.topLanguages; let la = last">{{ 'lang.' + c | translate }} {{ la ? '' : ', '}}</ng-container></span>
+                <button mat-stroked-button (click)="changeCodebookTops('lang', curSettings.topLanguages, config.languages)">{{ 'button.edit' | translate }}</button>
               </div>
               <mat-divider class="app-mb-4"></mat-divider>
               <span class="app-label">{{ 'desc.identifiers' | translate }}</span>
               <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
                 <div fxFlex>
-                  <span>{{  curSettings.topIdentifiers.join(", ") }}</span>
+                  <span fxFlex><ng-container *ngFor="let c of curSettings.topIdentifiers; let last">{{ 'identifier.' + c | translate }} {{ last ? '' : ', '}}</ng-container></span>
                   <em *ngIf=" curSettings.topIdentifiers?.length === 0" class="app-text-lowercase">{{ 'desc.noValue' | translate }}</em>
                 </div>
-                <button mat-stroked-button (click)="changeCodebookTops('Identifiers')">{{ 'button.edit' | translate }}</button>
+                <button mat-stroked-button (click)="changeCodebookTops('identifier', curSettings.topIdentifiers, config.identifiers)">{{ 'button.edit' | translate }}</button>
               </div>
               <!-- <mat-divider class="app-mb-4"></mat-divider>
               <span class="app-label">{{ 'desc.storageLocations' | translate }}</span>
@@ -87,14 +87,14 @@
               <mat-divider class="app-mb-4"></mat-divider>
               <span class="app-label">{{ 'desc.expandingTheForm' | translate }}</span>
               <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
-                <span fxFlex>{{ curSettings.topExpandedModels.join(", ") }}</span>
-                <button mat-stroked-button (click)="changeCodebookTops('ExpandedModels')">{{ 'button.edit' | translate }}</button>
+                <span fxFlex><ng-container *ngFor="let c of curSettings.topExpandedModels; let last">{{ 'model.' + c | translate }} {{ last ? '' : ', '}}</ng-container></span>
+                <button mat-stroked-button (click)="changeCodebookTops('model', curSettings.topExpandedModels, config.models, true)">{{ 'button.edit' | translate }}</button>
               </div>
               <mat-divider class="app-mb-4"></mat-divider>
               <span class="app-label">{{ 'desc.formBorderHighlighting' | translate }}</span>
               <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
-                <mat-checkbox fxFlex name="formHighlighting" [(ngModel)]="formHighlighting">{{ 'desc.highlighttheForm' | translate }}</mat-checkbox>
-                <button mat-stroked-button (click)="highlightForm()">{{ 'button.save' | translate }}</button>
+                <mat-checkbox fxFlex name="formHighlighting" [(ngModel)]="curSettings.formHighlighting">{{ 'desc.highlighttheForm' | translate }}</mat-checkbox>
+                <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
               </div>
 
               <mat-divider class="app-mb-4"></mat-divider>

@@ -2916,11 +2916,11 @@
     },
     "preferredTops": {
       "title": {
-        "PageTypes": "Preferované typy stran",
-        "Languages": "Preferované jazyky",
+        "pageType": "Preferované typy stran",
+        "lang": "Preferované jazyky",
         "Locations": "Preferovaná místa uložení",
-        "Identifiers": "Preferované Identifikátory",
-        "ExpandedModels": "Rozbalení formuláře"
+        "identifier": "Preferované Identifikátory",
+        "model": "Rozbalení formuláře"
       }
     },
     "export": {

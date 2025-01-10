@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-// import { SimpleDialogData } from 'src/app/dialogs/simple-dialog/simple-dialog';
-// import { SimpleDialogComponent } from 'src/app/dialogs/simple-dialog/simple-dialog.component';
 // import { NewPasswordDialogComponent } from 'src/app/dialogs/new-password-dialog/new-password-dialog.component';
 // import { PreferredTopsDialogComponent } from 'src/app/dialogs/preferred-tops-dialog/preferred-tops-dialog.component';
 import { FormControl, FormsModule } from '@angular/forms';
@@ -25,6 +23,11 @@ import { AuthService } from '../../services/auth.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
+import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
+import { NewPasswordDialogComponent } from '../../dialogs/new-password-dialog/new-password-dialog.component';
+import { PreferredTopsDialogComponent } from '../../dialogs/preferred-tops-dialog/preferred-tops-dialog.component';
+import { Utils } from '../../utils/utils';
 
 @Component({
   standalone: true,
@@ -51,9 +54,6 @@ export class SettingsComponent implements OnInit {
   selectedModels = new FormControl('');
 
   relatedItemExpanded: boolean;
-
-  formHighlighting: boolean;
-
   models: any[];
 
   @ViewChild('table') table: MatTable<DocumentItem>;
@@ -97,8 +97,25 @@ export class SettingsComponent implements OnInit {
     // this.initSelectedColumnsEditingRepo();
   }
 
-  changeCodebookTops(type: any) {
-    // this.dialog.open(PreferredTopsDialogComponent, { data: type });
+  changeCodebookTops(prefix: string, top: string[], conf: string[], expanded: boolean = false) {
+    
+    const dialogRef = this.dialog.open(PreferredTopsDialogComponent, { 
+      data: {prefix, top, conf, expanded} 
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log(result)
+        console.log(top)
+        result.forEach((r: string) => {top.push(r)})
+        
+        console.log(top)
+        console.log(this.curSettings)
+        this.settingsService.setSettings(this.curSettings);
+        //this.curSettings = this.settingsService.cloneSettings();
+        this.ui.showInfoSnackBar(this.translator.instant('snackbar.settings.resetLocalSettings.success'));
+      }
+    });
   }
 
 
@@ -131,10 +148,10 @@ export class SettingsComponent implements OnInit {
 
 
   changePassword() {
-    // this.dialog.open(NewPasswordDialogComponent, {
-    //   width: '550px',
-    //   panelClass: 'app-dialog-new-password'
-    // });
+    this.dialog.open(NewPasswordDialogComponent, {
+      width: '550px',
+      panelClass: 'app-dialog-new-password'
+    });
   }
 
   changeExpandedModels() {
@@ -142,36 +159,31 @@ export class SettingsComponent implements OnInit {
     localStorage.setItem('relatedItemExpanded', JSON.stringify(this.relatedItemExpanded));
   }
 
-  highlightForm() {
-    localStorage.setItem('formHighlighting', JSON.stringify(this.formHighlighting));
-    this.ui.showInfo('snackbar.changeSaved');
-  }
-
   resetSettings() {
-    // const data: SimpleDialogData = {
-    //   title: String(this.translator.instant('dialog.resetLocalSettings.title')),
-    //   message: String(this.translator.instant('dialog.resetLocalSettings.message')),
-    //   alertClass: 'app-warn',
-    //   btn1: {
-    //     label: String(this.translator.instant('common.yes')),
-    //     value: 'yes',
-    //     color: 'primary'
-    //   },
-    //   btn2: {
-    //     label: String(this.translator.instant('common.no')),
-    //     value: 'no',
-    //     color: 'default'
-    //   }
-    // };
-    // const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result === 'yes') {
-    //     this.settingsService.reset();
-    //     this.settingsService.save();
-    //     this.curSettings = this.settingsService.cloneSettings();
-    //     this.ui.showInfoSnackBar(this.translator.instant('snackbar.settings.resetLocalSettings.success'));
-    //   }
-    // });
+    const data: SimpleDialogData = {
+      title: String(this.translator.instant('dialog.resetLocalSettings.title')),
+      message: String(this.translator.instant('dialog.resetLocalSettings.message')),
+      alertClass: 'app-warn',
+      btn1: {
+        label: String(this.translator.instant('common.yes')),
+        value: 'yes',
+        color: 'primary'
+      },
+      btn2: {
+        label: String(this.translator.instant('common.no')),
+        value: 'no',
+        color: 'default'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.settingsService.reset();
+        this.settingsService.save();
+        this.curSettings = this.settingsService.cloneSettings();
+        this.ui.showInfoSnackBar(this.translator.instant('snackbar.settings.resetLocalSettings.success'));
+      }
+    });
   }
 
   changeView(view: string) {
