@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-// import { NewPasswordDialogComponent } from 'src/app/dialogs/new-password-dialog/new-password-dialog.component';
-// import { PreferredTopsDialogComponent } from 'src/app/dialogs/preferred-tops-dialog/preferred-tops-dialog.component';
 import { FormControl, FormsModule } from '@angular/forms';
 import { MatTable } from '@angular/material/table';
 import { DocumentItem } from '../../model/documentItem.model';
@@ -27,7 +25,6 @@ import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
 import { NewPasswordDialogComponent } from '../../dialogs/new-password-dialog/new-password-dialog.component';
 import { PreferredTopsDialogComponent } from '../../dialogs/preferred-tops-dialog/preferred-tops-dialog.component';
-import { Utils } from '../../utils/utils';
 
 @Component({
   standalone: true,
@@ -138,25 +135,11 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-
-  // seveSearchCols() {
-  //   for (const col of this.properties.availableSearchColumns) {
-  //     this.properties.setBoolProperty('search.cols.' + col, this.searchCols[col]);
-  //   }
-  //   this.ui.showInfo('snackbar.settings.search.updated');
-  // }
-
-
   changePassword() {
     this.dialog.open(NewPasswordDialogComponent, {
       width: '550px',
       panelClass: 'app-dialog-new-password'
     });
-  }
-
-  changeExpandedModels() {
-    localStorage.setItem('expandedModels', JSON.stringify(this.selectedModels.value));
-    localStorage.setItem('relatedItemExpanded', JSON.stringify(this.relatedItemExpanded));
   }
 
   resetSettings() {
