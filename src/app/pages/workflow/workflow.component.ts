@@ -648,9 +648,10 @@ export class WorkFlowComponent implements OnInit {
     const selection = isSubJobs ? this.subJobs.filter(j => j.selected) : this.jobs.filter(j => j.selected);
     const selectionHasChildren: boolean = selection.findIndex(j => j.hasChildren) > -1;
     const pids: number[] = selection.map(j => j.id);
+    const pref = isSubJobs ? 'dialog.removeSubjobs' : 'dialog.removeJobs'
     const message = selectionHasChildren ?
-                  String(this.translator.instant('dialog.removeJobs.messageChildren')) + ' (' + pids.length + ')' :
-                  String(this.translator.instant('dialog.removeJobs.message')) + ' (' + pids.length + ')';
+                  String(this.translator.instant(pref + '.messageChildren')) + ' (' + pids.length + ')' :
+                  String(this.translator.instant(pref + '.message')) + ' (' + pids.length + ')';
    
     const data: SimpleDialogData = {
       title: String(this.translator.instant('dialog.removeJobs.title')),

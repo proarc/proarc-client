@@ -3001,6 +3001,11 @@
       "message": "Opravdu chcete vybrané zámery smazat?",
       "messageChildren": "Vybrané zámery obsahujou podzáměry. Opravdu smazat?"
     },
+    "removeSubjobs": {
+      "title": "Smazání podzámerů",
+      "message": "Opravdu chcete vybrané podzámery smazat?",
+      "messageChildren": "Vybrané podzámery obsahujou podzáměry. Opravdu smazat?"
+    },
     "changeModel": {
       "title": "Převod modelu",
       "action": "Převést {{value1}} na {{value2}}"

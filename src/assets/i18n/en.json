@@ -3000,6 +3000,11 @@
       "message": "Are you sure you want to remove selected jobs?",
       "messageChildren": "Selected Jobs contains some subjobs. Are you sure you want to remove selected jobs?"
     },
+    "removeSubjobs": {
+      "title": "Remove subjobs",
+      "message": "Are you sure you want to remove selected subjobs?",
+      "messageChildren": "Selected SubJobs contains some subjobs. Are you sure you want to remove selected jobs?"
+    },
     "changeModel": {
       "title": "Model conversion",
       "action": "Convert {{value1}} to {{value2}}"
