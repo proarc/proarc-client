@@ -672,9 +672,9 @@ export class WorkFlowComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        // this.api.removeWorkflow(pids.join('&id=')).subscribe(res => {
-        //   this.getWorkflow(false);
-        // })
+        this.api.removeWorkflow(pids.join('&id=')).subscribe(res => {
+          this.getWorkflow(isSubJobs);
+        })
       }
     });
   }
