@@ -95,7 +95,7 @@
         [class.app-selected]="item.selected" [class.app-invalid]="item.invalid" [fxFlex]="iconWidth + '%'"><!--[style.height]="iconHeight + 'px'"-->
           <div class="app-item">
             <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="iconHeight + 'px'"></div>
-            <div class="app-item-label app-h-100" *ngIf="isRepo">
+            <div class="app-item-label" *ngIf="isRepo">
               <mat-icon *ngIf="item.invalid" class="app-mr-1">warning</mat-icon>
               <ng-container *ngIf="!isAkubra">
                 {{ shortLabels ? item.shortLabel : item.label }}<br />
@@ -106,7 +106,7 @@
                 <ng-container *ngIf="item.pageType">{{ (shortLabels ? "" : (", " + ("pageType." + item.pageType.toLowerCase() | translate))) }}</ng-container>
               </div>
             </div>
-            <div class="app-item-label app-h-100" *ngIf="!isRepo">
+            <div class="app-item-label" *ngIf="!isRepo">
               <mat-icon *ngIf="item.invalid">warning</mat-icon>
               <ng-container *ngIf="!isAkubra">
                 {{ item.label + (shortLabels ? "" : (", " + ("pageType." + item.pageType.toLowerCase() | translate))) }}
