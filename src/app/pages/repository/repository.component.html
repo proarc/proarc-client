@@ -28,8 +28,11 @@
           <!-- <button mat-menu-item *ngIf="auth.user.changeModelFunction || auth.isSuperAdmin()" (click)="showConvertDialog()">{{ 'button.convertPages' | translate }}</button> -->
           <button mat-menu-item *ngIf="auth.user.czidloFunction || auth.isSuperAdmin()" (click)="czidlo()">{{ 'button.czidloFunction' | translate }}</button>
           <button mat-menu-item *ngIf="config.updateInSource && (auth.user.importToCatalogFunction || auth.isSuperAdmin()) && canUpdateInSource()" (click)="updateInSource()">{{ 'button.updateInSource' | translate }}</button>
-
+          <button mat-menu-item (click)="validateObject()">{{ 'button.validateObject' | translate }}</button>
         </mat-menu>
+        <button *ngIf="batchInfo" mat-icon-button color="primary" (click)="onShowLog();" [matTooltip]="'button.viewErrorDetail' | translate" matTooltipPosition="below" class="app-icon-button">
+          <mat-icon>error_outline</mat-icon>
+        </button>
       </div>
 
     <div>

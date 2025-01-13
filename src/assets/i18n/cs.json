@@ -315,6 +315,7 @@
       "relocate_outside": "Přesunout mimo dokument",
       "relocate_label": "Přesunout",
       "validate": "Validovat",
+      "validate_form": "Validovat formulář",
       "reindex": "Reindexovat",
       "convertPages": "Převést strany",
       "select_all": "Vybrat všechny objekty",

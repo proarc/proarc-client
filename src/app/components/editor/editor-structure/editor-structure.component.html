@@ -35,7 +35,7 @@
       <button mat-icon-button (click)="onSave()" [disabled]="!hasChanges" [matTooltip]="'button.save' | translate" >
         <mat-icon>save</mat-icon>
       </button>
-      <button mat-icon-button  (click)="validateChildren()" [matTooltip]="'editor.children.validate' | translate" >
+      <button mat-icon-button  (click)="validateChildren()" [matTooltip]="'editor.children.validate_form' | translate" >
         <mat-icon>check_circle</mat-icon>
       </button>
       <button *ngIf="!isRepo" mat-button (click)="ingest()">{{ 'button.continue' | translate }}</button>

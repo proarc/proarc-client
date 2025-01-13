@@ -17,6 +17,8 @@ import { ConfigService } from 'src/app/services/config.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UpdateInSourceDialogComponent } from 'src/app/dialogs/update-in-source-dialog/update-in-source-dialog.component';
 import { CzidloDialogComponent } from 'src/app/dialogs/czidlo-dialog/czidlo-dialog.component';
+import { LogDialogComponent } from 'src/app/dialogs/log-dialog/log-dialog.component';
+import { Batch } from 'src/app/model/batch.model';
 
 
 @Component({
@@ -70,7 +72,7 @@ export class RepositoryComponent implements OnInit {
       setTimeout(() => {
         this.refreshSelected(from);
       }, 10)
-      
+
     }));
 
     this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
@@ -78,9 +80,9 @@ export class RepositoryComponent implements OnInit {
         if (this.layout.lastSelectedItem) {
           this.loadMetadata(this.layout.lastSelectedItem.pid, this.layout.lastSelectedItem.model);
         }
-        
+
       }, 10)
-      
+
     }));
 
     this.layout.lastSelectedItemMetadata = null;
@@ -93,7 +95,7 @@ export class RepositoryComponent implements OnInit {
         this.pid = p.get('pid');
         if (this.pid) {
           this.layout.lastSelectedItem = null;
-          
+
           this.loadData(false);
         }
       });
@@ -120,15 +122,15 @@ export class RepositoryComponent implements OnInit {
     } else {
       this.layout.layoutConfig = JSON.parse(JSON.stringify(defaultLayoutConfig));
     }
-      this.layout.layoutConfig.columns.forEach(c => {
-        c.rows.forEach(r => {
-          if (!r.id) {
-            r.id = 'panel' + idx++;
-          }
-            this.layout.panels.push(r);
-        });
+    this.layout.layoutConfig.columns.forEach(c => {
+      c.rows.forEach(r => {
+        if (!r.id) {
+          r.id = 'panel' + idx++;
+        }
+        this.layout.panels.push(r);
       });
-      this.layout.clearPanelEditing();
+    });
+    this.layout.clearPanelEditing();
   }
 
   onDragEnd(columnindex: number, e: any) {
@@ -149,7 +151,7 @@ export class RepositoryComponent implements OnInit {
   }
 
   canHasChildren(model: string): boolean {
-    const a = ModelTemplate.allowedChildrenForModel(this.config.allModels,model)
+    const a = ModelTemplate.allowedChildrenForModel(this.config.allModels, model)
     return a?.length > 0;
   }
 
@@ -172,17 +174,17 @@ export class RepositoryComponent implements OnInit {
         Object.assign(this.layout.lastSelectedItem, item);
         this.layout.lastSelectedItem.selected = selected;
 
-        
+
         const standard = respMeta['record']['standard'] ? respMeta['record']['standard'] : Metadata.resolveStandardFromXml(respMeta['record']['content']);
         this.tmpl.getTemplate(standard, model).subscribe((tmpl: any) => {
           this.layout.lastSelectedItemMetadata = new Metadata(pid, model, respMeta['record']['content'], respMeta['record']['timestamp'], standard, tmpl);
         })
         // this.layout.lastSelectedItemMetadata = new Metadata(pid, model, respMeta['record']['content'], respMeta['record']['timestamp'], respMeta['record']['standard']);
       });
-    } else if(from === 'pages') {
+    } else if (from === 'pages') {
       this.refreshPages();
     } else {
-      this.api.getDocument(this.layout.lastSelectedItem.pid).subscribe((item: DocumentItem) =>{
+      this.api.getDocument(this.layout.lastSelectedItem.pid).subscribe((item: DocumentItem) => {
         const selected = this.layout.lastSelectedItem.selected;
         Object.assign(this.layout.lastSelectedItem, item);
         this.layout.lastSelectedItem.selected = selected;
@@ -202,10 +204,10 @@ export class RepositoryComponent implements OnInit {
       }
     });
     this.layout.items = [];
-    this.api.getRelations(this.layout.selectedParentItem.pid).subscribe((children: DocumentItem[]) =>{
-      
+    this.api.getRelations(this.layout.selectedParentItem.pid).subscribe((children: DocumentItem[]) => {
+
       this.layout.items = children;
-      for (let i=0; i < this.layout.items.length; i++) {
+      for (let i = 0; i < this.layout.items.length; i++) {
         const item = this.layout.items[i];
         if (selection.includes(item.pid)) {
           item.selected = true;
@@ -263,26 +265,26 @@ export class RepositoryComponent implements OnInit {
         });
         this.layout.selectedParentItem = selectedParentItem;
       }
-      if (this.canHasChildren(item.model) && !keepSelection){
+      if (this.canHasChildren(item.model) && !keepSelection) {
         this.layout.selectedParentItem = item;
       }
-      
+
       this.layout.setSelection(false, null);
       this.layout.path.unshift({ pid: item.pid, label: item.label, model: item.model });
 
       if (parent) {
         this.layout.parent = parent;
         this.layout.item.parent = parent.pid;
-        if (!this.canHasChildren(item.model)){ 
-          if(!keepSelection) {
+        if (!this.canHasChildren(item.model)) {
+          if (!keepSelection) {
             this.layout.selectedParentItem = parent;
           }
-          
+
           // find siblings
           this.api.getRelations(parent.pid).subscribe((siblings: DocumentItem[]) => {
             if (siblings.length > 0) {
               this.layout.items = siblings;
-              this.layout.items.forEach(item => { item.selected = item.pid === pid});
+              this.layout.items.forEach(item => { item.selected = item.pid === pid });
               this.layout.setSelection(false, null);
             }
           });
@@ -298,11 +300,13 @@ export class RepositoryComponent implements OnInit {
       } else {
         this.layout.expandedPath = this.layout.path.map(p => p.pid);
       }
+      this.getBatchInfo();
       this.setupNavigation();
+
     });
   }
 
-   loadMetadata(pid: string, model: string) {
+  loadMetadata(pid: string, model: string) {
 
     if (this.layout.lastSelectedItemMetadata && this.layout.lastSelectedItemMetadata.pid === pid) {
       return;
@@ -322,13 +326,13 @@ export class RepositoryComponent implements OnInit {
         this.ui.showErrorSnackBar('Error getting metadata');
         return;
       }
-      
+
       const standard = response['record']['standard'] ? response['record']['standard'] : Metadata.resolveStandardFromXml(response['record']['content']);
       this.tmpl.getTemplate(standard, model).subscribe((tmpl: any) => {
         this.layout.lastSelectedItemMetadata = new Metadata(pid, model, response['record']['content'], response['record']['timestamp'], standard, tmpl);
       });
       // this.layout.lastSelectedItemMetadata = new Metadata(pid, model, response['record']['content'], response['record']['timestamp'], response['record']['standard']);
-      
+
     });
   }
 
@@ -441,12 +445,12 @@ export class RepositoryComponent implements OnInit {
       }
     });
   }
-  
+
 
   canCopy(): boolean {
     return this.config.allowedCopyModels.includes(this.layout.item.model)
   }
-  
+
   onCopyItem() {
     this.api.copyObject(this.layout.item.pid, this.layout.item.model).subscribe((response: any) => {
       if (response['response'].errors) {
@@ -468,7 +472,7 @@ export class RepositoryComponent implements OnInit {
   czidlo() {
 
     const dialogRef = this.dialog.open(CzidloDialogComponent, {
-      data: {pid: this.layout.item.pid, model: this.layout.item.model},
+      data: { pid: this.layout.item.pid, model: this.layout.item.model },
       panelClass: 'app-urnbnb-dialog',
       width: '600px'
     });
@@ -497,5 +501,37 @@ export class RepositoryComponent implements OnInit {
     });
   }
 
+  validateObject() {
+    this.api.validateObject(this.layout.item.pid).subscribe((response: any) => {
+      if (response.response.errors) {
+        this.ui.showErrorDialogFromObject(response.response.errors);
+      } else {
+        this.ui.showInfoSnackBar(response.response.data[0].msg)
+      }
+    });
+  }
+
+  batchInfo: string;
+  onShowLog() {
+    const data = {
+      content: this.batchInfo
+    }
+    this.dialog.open(LogDialogComponent, { data: data });
+  }
+
+  getBatchInfo() {
+      this.batchInfo = null;
+      let params: any = {
+        description: this.layout.item.pid,
+      };
+  
+      this.api.getImportBatches(params).subscribe((resp: any) => {
+        const batches = resp.data.map((d: any) => Batch.fromJson(d));
+        if (batches.length > 0 && batches[0].failure) {
+          this.batchInfo = batches[0].failure
+        }
+      });
+  
+    }
 
 }

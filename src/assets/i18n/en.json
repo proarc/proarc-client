@@ -315,6 +315,7 @@
       "relocate_outside": "Relocate ouside the document",
       "relocate_label": "Relocate",
       "validate": "Validate",
+      "validate_form": "Validate form",
       "reindex": "Reindex",
       "convertPages": "Convert pages",
       "select_all": "Select all objects",
