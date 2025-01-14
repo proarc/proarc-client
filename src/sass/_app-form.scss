@@ -33,6 +33,11 @@
           .app-form-title {
             font-weight: var(--app-form-title-weight);
           }
+
+          .app-noclick {
+            pointer-events: none;
+          }
+          
         }
       }
     }

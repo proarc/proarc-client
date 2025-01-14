@@ -224,8 +224,9 @@ export class PageUpdateHolder {
     this.editType = false;
     this.editIndex = false;
     this.editNumber = false;
-    this.pageType = 'normalPage';
-    this.pageIndex = 1;
+    this.pageType = '';
+    // this.pageType = 'normalPage';
+    this.pageIndex = null;
 
     this.pageNumberFrom = "";
     this.pageNumberIncrement = 1;
@@ -243,8 +244,10 @@ export class PageUpdateHolder {
     return this.findIndexInNumbering(this.pageNumberFrom);
   }
 
+
+
   editAny(): boolean {
-    return this.editIndex || this.editType || (this.editNumber && this.numberFromValid()) || (this.editPosition && this.pagePosition !== '');
+    return this.pageType !== '' || (this.numberFromValid()) || (this.pagePosition !== '');
   }
 
   reset() {
