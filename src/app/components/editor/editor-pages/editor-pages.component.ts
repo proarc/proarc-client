@@ -247,7 +247,7 @@ export class PageUpdateHolder {
 
 
   editAny(): boolean {
-    return this.pageType !== '' || (this.numberFromValid()) || (this.pagePosition !== '');
+    return  this.pageIndex !== null || this.pageType !== '' || (this.numberFromValid()) || (this.pagePosition !== '');
   }
 
   reset() {
