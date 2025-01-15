@@ -23,6 +23,12 @@
     </button>
   </div>
   <div fxFlex fxLayout="row" fxLayoutGap="16px" class="app-oh">
+    <div *ngIf="results && results.length === 0" fxFlex class="app-oa-y">
+      <mat-card class="app-alert app-warn">
+        <mat-icon>warning</mat-icon> {{ 'catalog.no-results' | translate }}
+      </mat-card>
+      
+    </div>
     <ng-container *ngIf="results && results.length > 0">
       <div fxFlex class="app-oa-y">
         <table mat-table #table [dataSource]="results" class="app-striped app-hover">
