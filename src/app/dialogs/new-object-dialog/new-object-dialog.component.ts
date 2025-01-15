@@ -10,15 +10,15 @@ import { CatalogDialogComponent } from '../catalog-dialog/catalog-dialog.compone
 import { MatDatepicker } from '@angular/material/datepicker';
 import { Moment } from 'moment';
 import * as moment from 'moment';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { WorkFlowProfile } from 'src/app/model/workflow.model';
 
 
 export class MultiDateFormat {
   value = '';
-  constructor() {}
+  constructor() { }
   get display() {
-    switch(this.value) {
+    switch (this.value) {
       case 'mm.yyyy':
         return {
           dateInput: 'MM.YYYY',
@@ -33,18 +33,18 @@ export class MultiDateFormat {
           dateA11yLabel: 'MM.YYYY',
           monthYearA11yLabel: 'MM YYYY',
         };
-        default:
-          return {
-            dateInput: 'DD.MM.YYYY',
-            monthYearLabel: 'MMM YYYY',
-            dateA11yLabel: 'LL',
-            monthYearA11yLabel: 'MMMM YYYY',
-          }
+      default:
+        return {
+          dateInput: 'DD.MM.YYYY',
+          monthYearLabel: 'MMM YYYY',
+          dateA11yLabel: 'LL',
+          monthYearA11yLabel: 'MMMM YYYY',
+        }
     }
 
   }
   get parse() {
-    switch(this.value) {
+    switch (this.value) {
       case 'mm.yyyy':
         return {
           dateInput: 'MM.YYYY'
@@ -53,10 +53,10 @@ export class MultiDateFormat {
         return {
           dateInput: 'YYYY'
         };
-        default:
-          return {
-            dateInput: 'DD.MM.YYYY'
-          }
+      default:
+        return {
+          dateInput: 'DD.MM.YYYY'
+        }
     }
 
   }
@@ -73,22 +73,30 @@ export class NewObjectDialogComponent implements OnInit {
 
   state = 'none';
   isMultiple: boolean;
+
+
+  // frequences = ['other', 'd','w','hm','m','qy','hy','y'];
+  frequences = ['other', 'd', 'w', 'hm', 'm', 'qy'];
+  frequency = new FormControl();
+  // frequency: string = null;
+
+  seriesTotalNumbers = new FormControl();
+
+  withPartNumber: boolean;
+  withDateIssued: boolean;
+
   seriesPartNumberFrom = new FormControl();
   seriesDateFrom = new FormControl();
   seriesDateTo = new FormControl();
   seriesDaysIncluded: number[] = [];
   releasedInRange: number[] = [];
-  weekDays = [1,2,3,4,5,6,7];
+  weekDays = [1, 2, 3, 4, 5, 6, 7];
+
+  withSignatura: boolean;
   seriesSignatura: string;
 
-  dateFormats = ['dd.mm.yyyy', 'mm.yyyy','yyyy'];
+  dateFormats = ['dd.mm.yyyy', 'mm.yyyy', 'yyyy'];
   dateFormat: string = 'dd.mm.yyyy';
-
-
-  // frequences = ['other', 'd','w','hm','m','qy','hy','y'];
-  frequences = ['other', 'd','w','hm','m','qy'];
-  frequency = new FormControl();
-  // frequency: string = null;
 
   filteredModels: string[];
 
@@ -113,7 +121,7 @@ export class NewObjectDialogComponent implements OnInit {
     } else {
       this.filteredModels = this.data.models.filter(f => f.indexOf('page') < 0);
     }
-    
+
     this.maxDate.setFullYear(this.maxDate.getFullYear() + 2);
   }
 
@@ -124,12 +132,21 @@ export class NewObjectDialogComponent implements OnInit {
 
 
   validate(): boolean {
-    return ((this.isMultiple && this.frequency.value && this.seriesPartNumberFrom.value !== null) || !this.isMultiple) && (!this.data.customPid || Uuid.validate(this.data.pid)) ;
+    return ((this.isMultiple && this.frequency.value && this.seriesPartNumberFrom.value !== null) || !this.isMultiple) && (!this.data.customPid || Uuid.validate(this.data.pid));
+  }
+
+  changeWithPartNumber() {
+    if (this.withPartNumber) {
+      this.seriesPartNumberFrom.enable();
+      this.seriesPartNumberFrom.markAsTouched();
+    } else {
+      this.seriesPartNumberFrom.disable();
+    }
   }
 
   markRequired() {
-    this.seriesPartNumberFrom.markAsTouched();
     this.frequency.markAsTouched();
+    this.changeWithPartNumber();
   }
 
   setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>, control: FormControl) {
@@ -138,7 +155,7 @@ export class NewObjectDialogComponent implements OnInit {
       ctrlValue.setMonth(normalizedMonthAndYear.month());
       ctrlValue.setFullYear(normalizedMonthAndYear.year());
       control.setValue(ctrlValue);
-    // this.seriesDateTo = ctrlValue;
+      // this.seriesDateTo = ctrlValue;
       datepicker.close();
     }
   }
@@ -149,7 +166,7 @@ export class NewObjectDialogComponent implements OnInit {
       ctrlValue.setMonth(normalizedMonthAndYear.month());
       ctrlValue.setFullYear(normalizedMonthAndYear.year());
       control.setValue(ctrlValue);
-    // this.seriesDateTo = ctrlValue;
+      // this.seriesDateTo = ctrlValue;
       datepicker.close();
     }
   }
@@ -164,10 +181,10 @@ export class NewObjectDialogComponent implements OnInit {
     if (this.data.parentId && this.data.parentId > -1) {
       data = `${data}&parentId=${this.data.parentId}`;
     }
-    
+
     data = `${data}&metadata=${encodeURIComponent(xml)}`;
     this.api.createWorkflow(data).subscribe((response: any) => {
-      
+
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
         this.ui.showErrorDialogFromObject(response['response'].errors);
@@ -176,7 +193,7 @@ export class NewObjectDialogComponent implements OnInit {
       }
       const data: any = response['response']['data'][0];
       data.isWorkFlow = true;
-      this.dialogRef.close({isWorkFlow: true, data});
+      this.dialogRef.close({ isWorkFlow: true, data });
     });
   }
 
@@ -198,23 +215,27 @@ export class NewObjectDialogComponent implements OnInit {
 
     if (this.isMultiple) {
       // tady vytvorime a rovnou ulozime
-      data += '&seriesPartNumberFrom='+this.seriesPartNumberFrom.value;
-      data += '&seriesDateFrom='+ this.datePipe.transform(this.seriesDateFrom.value, 'yyyy-MM-dd');
-      data += '&seriesDateTo='+this.datePipe.transform(this.seriesDateTo.value, 'yyyy-MM-dd');
+
+      if (this.seriesSignatura) {
+        data += '&seriesTotalNumbers=' + this.seriesTotalNumbers;
+      }
+      data += '&seriesPartNumberFrom=' + this.seriesPartNumberFrom.value;
+      data += '&seriesDateFrom=' + this.datePipe.transform(this.seriesDateFrom.value, 'yyyy-MM-dd');
+      data += '&seriesDateTo=' + this.datePipe.transform(this.seriesDateTo.value, 'yyyy-MM-dd');
       this.seriesDaysIncluded.forEach(d => {
-        data += '&seriesDaysIncluded='+d;
+        data += '&seriesDaysIncluded=' + d;
       });
 
       this.releasedInRange.forEach(d => {
-        data += '&seriesDaysInRange='+d;
+        data += '&seriesDaysInRange=' + d;
       });
 
       if (this.seriesSignatura) {
-        data += '&seriesSignatura='+this.seriesSignatura;
+        data += '&seriesSignatura=' + this.seriesSignatura;
       }
 
-      data += '&seriesFrequency='+this.frequency.value;
-      data += '&seriesDateFormat='+this.dateFormat;
+      data += '&seriesFrequency=' + this.frequency.value;
+      data += '&seriesDateFormat=' + this.dateFormat;
     } else {
       // jen pripravime pro editace
       data = `${data}&createObject=false&validate=false`;
@@ -228,10 +249,10 @@ export class NewObjectDialogComponent implements OnInit {
         return;
       }
       this.state = 'success';
-      const pid =  response['response']['data'][0]['pid'];
+      const pid = response['response']['data'][0]['pid'];
       this.dialogRef.close({
-        pid: pid, 
-        data: response['response']['data'][0], 
+        pid: pid,
+        data: response['response']['data'][0],
         isMultiple: this.isMultiple,
         objectPosition: this.objectPosition
       });
@@ -241,7 +262,7 @@ export class NewObjectDialogComponent implements OnInit {
 
   onLoadFromCatalog() {
     const dialogRef = this.dialog.open(CatalogDialogComponent, {
-      data: { type: 'full', create: true } ,
+      data: { type: 'full', create: true },
       width: '1200px'
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -270,20 +291,21 @@ export class NewObjectDialogComponent implements OnInit {
             this.state = 'error';
             return;
           }
-          const pid =  response['response']['data'][0]['pid'];
+          const pid = response['response']['data'][0]['pid'];
           this.state = 'success';
           this.dialogRef.close({
             pid: pid,
             objectPosition: this.objectPosition,
-            data: response['response']['data'][0]});
+            data: response['response']['data'][0]
+          });
         });
       }
     });
   }
 
-  frecuencyChanged(e:string) {
+  frecuencyChanged(e: string) {
     if (e === 'd') {
-      this.seriesDaysIncluded = [1,2,3,4,5,6,7]
+      this.seriesDaysIncluded = [1, 2, 3, 4, 5, 6, 7]
     }
   }
 
