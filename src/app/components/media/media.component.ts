@@ -206,10 +206,10 @@ export class MediaComponent implements OnInit {
       return;
     }
     this.state = 'loading';
+    this.streamProfile = null;
     this.api.uploadFile(files[0], this.currentPid, files[0].type).subscribe(response => {
-      this.state = 'ok';
-      this.getProfiles(this.currentPid);
       this.pdfInput.nativeElement.value = null;
+      this.getProfiles(this.currentPid);
     });
   }
 

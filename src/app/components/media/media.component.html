@@ -1,44 +1,51 @@
 <div fxLayout="column" fxFlexFill>
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
+	<div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
 		<div fxFlex *ngIf="streamProfile">
-      <mat-form-field class="app-clean-mb app-select">
-        <mat-select name="profiles" [(ngModel)]="streamProfile">
-          <mat-option *ngFor="let p of streamProfiles" [value]="p">{{ 'streamProfile.' + p.dsid | translate }}</mat-option>
-        </mat-select>
-      </mat-form-field> 
+			<mat-form-field class="app-clean-mb app-select">
+				<mat-select name="profiles" [(ngModel)]="streamProfile">
+					<mat-option *ngFor="let p of streamProfiles" [value]="p">{{ 'streamProfile.' + p.dsid | translate
+						}}</mat-option>
+				</mat-select>
+			</mat-form-field>
 		</div>
 		<div>
-			<button mat-button [disabled]="!canAddPdf" *ngIf="canAddPDF_A" (click)="generatePdfA()" matTooltip="Načíst nový digitální obsah">
+			<button mat-button [disabled]="!canAddPdf" *ngIf="canAddPDF_A" (click)="generatePdfA()"
+				matTooltip="Načíst nový digitální obsah">
 				{{ 'Generovát PDF-A' | translate }}
 			</button>
-			<button mat-icon-button [disabled]="!canAddPdf" (click)="onAddPdf()" matTooltip="Načíst nový digitální obsah">
+			<button mat-icon-button [disabled]="!canAddPdf" (click)="onAddPdf()"
+				matTooltip="Načíst nový digitální obsah">
 				<mat-icon>upload</mat-icon>
 			</button>
-			
-			<input style="display: none;" #pdfInput id="pdf_file_upload" name="pdf_file_upload" type="file" (change)="uploadFile($event)" accept=".pdf,.PDF,.epub" />
+
+			<input style="display: none;" #pdfInput id="pdf_file_upload" name="pdf_file_upload" type="file"
+				(change)="uploadFile($event)" accept=".pdf,.PDF,.epub" />
 			<button mat-icon-button *ngIf="streamProfile" (click)="onRemove()" matTooltip="Odstranit digitální obsah">
 				<mat-icon>delete</mat-icon>
 			</button>
-			<button mat-icon-button  [matTooltip]="'viewer.tooltip.lockPanel' | translate" (click)="changeLockPanel()" [class.app-active]="isLocked">
+			<button mat-icon-button [matTooltip]="'viewer.tooltip.lockPanel' | translate" (click)="changeLockPanel()"
+				[class.app-active]="isLocked">
 				<mat-icon>push_pin</mat-icon>
-			</button>   
+			</button>
 		</div>
-  </div>
+	</div>
 	<div fxFlex class="app-oa-y">
 		<div class="app-editor-content app-h-100" *ngIf="streamProfile || !isRepo">
-      <app-pdf *ngIf="isRepo && isPdf()" [stream]="streamProfile?.dsid" [pid]="currentPid"></app-pdf>
-      <app-epub *ngIf="isRepo && isEpub()" [stream]="streamProfile?.dsid" [pid]="currentPid"></app-epub>
-      <app-viewer *ngIf="!isRepo || isImage()" [idViewer]="'app-viewer-media'"  [imageInfo]="{pid: currentPid, dsid: streamProfile ? streamProfile.dsid: 'FULL', width: streamProfile?.width, height: streamProfile?.height}"></app-viewer>
-      <app-song *ngIf="isRepo && isAudio()" [pid]="currentPid"></app-song>
+			<app-pdf *ngIf="isRepo && isPdf()" [stream]="streamProfile?.dsid" [pid]="currentPid"></app-pdf>
+			<app-epub *ngIf="isRepo && isEpub()" [stream]="streamProfile?.dsid" [pid]="currentPid"></app-epub>
+			<app-viewer *ngIf="!isRepo || isImage()" [idViewer]="'app-viewer-media'"
+				[imageInfo]="{pid: currentPid, dsid: streamProfile ? streamProfile.dsid: 'FULL', width: streamProfile?.width, height: streamProfile?.height}"></app-viewer>
+			<app-song *ngIf="isRepo && isAudio()" [pid]="currentPid"></app-song>
 
 			<mat-card class="app-alert app-info app-m-4" *ngIf="isRepo && isUnsupported()">
 				<mat-icon>info</mat-icon>
 				{{ 'alert.info.digitalContentIsNotSupported' | translate }} ({{streamProfile.mime}})
 			</mat-card>
 		</div>
-		<mat-card class="app-alert app-info app-m-4" *ngIf="!streamProfile">
+		<mat-card class="app-alert app-info app-m-4" *ngIf="!streamProfile && state !== 'loading'">
 			<mat-icon>info</mat-icon>
 			{{ 'alert.info.noDigitalContent' | translate }}
 		</mat-card>
+		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
 	</div>
 </div>
