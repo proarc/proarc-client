@@ -103,8 +103,10 @@
           </div>
           <div class="app-form-content">
             <mat-form-field class="app-field-col">
-              <mat-select #posSelect [placeholder]="'editor.pages.page_position' | translate" name="type" [(value)]="holder.pagePosition" (keyup.enter)="enterSelect(posSelect)"  [formControl]="posControl">
-                <mat-option *ngFor="let pagePosition of config.pagePositions" [value]="pagePosition">{{ 'editor.pages.page_position_' + pagePosition | translate }}</mat-option>
+              <mat-select #posSelect [placeholder]="'editor.pages.page_position' | translate" name="type" 
+              [(value)]="holder.pagePosition" (keyup.enter)="enterSelect(posSelect)"  [formControl]="posControl">
+              <mat-option [value]="''"> </mat-option>
+              <mat-option *ngFor="let pagePosition of config.pagePositions" [value]="pagePosition">{{ 'editor.pages.page_position_' + pagePosition | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -114,7 +116,8 @@
         <div class="app-form">
           <div class="app-form-content">
             <mat-form-field class="app-field-col">
-              <mat-select [placeholder]="'editor.pages.apply' | translate" name="apply" [(value)]="holder.applyTo"  [disabled]="!canSave()" (keyup.enter)="enterSelect(applySelect)" #applySelect  [formControl]="applyControl">
+              <mat-select [placeholder]="'editor.pages.apply' | translate" name="apply"
+               [(value)]="holder.applyTo"  [disabled]="!canSave()" (keyup.enter)="enterSelect(applySelect)" #applySelect  [formControl]="applyControl">
                 <mat-option *ngFor="let num of holder.applyOptions;" [value]="num">{{'editor.pages.apply_to' + (num > 1 ? '2' : '0') | translate: { num: num } }}</mat-option>
               </mat-select>
             </mat-form-field>
