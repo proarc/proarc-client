@@ -52,14 +52,14 @@
       </mat-form-field>
 
       <mat-form-field fxFlex>
-        <input type="number" autocomplete="off" matInput [placeholder]="'desc.totalNumbers' | translate" 
+        <input type="number" autocomplete="off" matInput [placeholder]="'new_object.totalNumbers' | translate" 
           [formControl]="seriesTotalNumbers" >
       </mat-form-field>
 
     </div>
     <div fxLayout="row" fxLayoutGap="16px" class="app-formbar app-mt-1">
 
-      <mat-checkbox color="primary" [(ngModel)]="withPartNumber" (change)="changeWithPartNumber()" >{{ 'desc.withPartNumber' | translate }}</mat-checkbox>
+      <mat-checkbox color="primary" [(ngModel)]="withPartNumber" (change)="changeWithPartNumber()" >{{ 'new_object.withPartNumber' | translate }}</mat-checkbox>
 
       <mat-form-field fxFlex>
         <input type="number" autocomplete="off" matInput [placeholder]="'desc.numberFrom' | translate" required
@@ -69,7 +69,7 @@
 
     <div fxLayout="row" fxLayoutGap="16px" class="app-formbar app-mt-1">
 
-      <mat-checkbox color="primary" [(ngModel)]="withDateIssued" >{{ 'desc.withDateIssued' | translate }}</mat-checkbox>
+      <mat-checkbox color="primary" [(ngModel)]="withDateIssued" >{{ 'new_object.withDateIssued' | translate }}</mat-checkbox>
 
     </div>
 
@@ -114,17 +114,14 @@
         </mat-select>
       </mat-form-field>
     </div>
-    
 
-  </div>
-  <div fxLayout="row" fxLayoutGap="16px" class="app-formbar app-mt-1">
-
-    <mat-checkbox color="primary" [(ngModel)]="withSignatura" (change)="changeWithPartNumber()" >{{ 'desc.withSignatura' | translate }}</mat-checkbox>
-
-    <mat-form-field fxFlex>
-      <input type="number" autocomplete="off" matInput [placeholder]="'catalog.field.signature' | translate"
-      [disabled]="!withSignatura" [(ngModel)]="seriesSignatura" >
-    </mat-form-field>
+    <div fxLayout="row" fxLayoutGap="16px" class="app-formbar app-mt-1">
+      <mat-checkbox color="primary" [(ngModel)]="withSignatura" (change)="changeWithPartNumber()" >{{ 'new_object.withSignatura' | translate }}</mat-checkbox>
+      <mat-form-field fxFlex>
+        <input type="number" autocomplete="off" matInput [placeholder]="'catalog.field.signature' | translate"
+        [disabled]="!withSignatura" [(ngModel)]="seriesSignatura" >
+      </mat-form-field>
+    </div>
 
   </div>
 

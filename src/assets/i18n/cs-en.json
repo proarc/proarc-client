@@ -68,6 +68,10 @@
     "create": "Vytvořit",
     "create_edit": "Vytvořit a přejít do objektu",
     "create_back": "Vytvořit",
+    "totalNumbers": "Počet čísel",
+    "withPartNumber": "Vytvořit číslo části",
+    "withDateIssued": "Vytvořit datum",
+    "withSignatura": "Doplňovat signaturu",
     "seriesPartNumberFrom": "Číslo od",
     "seriesDateFrom": "Datum od",
     "seriesDateTo": "Datum do"

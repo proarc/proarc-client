@@ -69,6 +69,10 @@
     "create_edit": "Create and edit",
     "create_back": "Create",
     "seriesPartNumberFrom": "Number from",
+    "totalNumbers": "Total numbers",
+    "withPartNumber": "Create Part Number",
+    "withDateIssued": "Create Date Issued",
+    "withSignatura": "Fill Signature",
     "seriesDateFrom": "Date from",
     "seriesDateTo": "Date to"
   },
