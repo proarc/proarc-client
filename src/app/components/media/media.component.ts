@@ -152,6 +152,7 @@ export class MediaComponent implements OnInit {
 
   onAddPdf() {
     let event = new MouseEvent('click', { bubbles: true });
+    console.log(event)
     this.pdfInput.nativeElement.dispatchEvent(event);
 
   }
@@ -208,6 +209,7 @@ export class MediaComponent implements OnInit {
     this.api.uploadFile(files[0], this.currentPid, files[0].type).subscribe(response => {
       this.state = 'ok';
       this.getProfiles(this.currentPid);
+      this.pdfInput.nativeElement.value = null;
     });
   }
 
