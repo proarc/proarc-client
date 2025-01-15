@@ -118,7 +118,7 @@
     <div fxLayout="row" fxLayoutGap="16px" class="app-formbar app-mt-1">
       <mat-checkbox color="primary" [(ngModel)]="withSignatura" (change)="changeWithPartNumber()" >{{ 'new_object.withSignatura' | translate }}</mat-checkbox>
       <mat-form-field fxFlex>
-        <input type="number" autocomplete="off" matInput [placeholder]="'catalog.field.signature' | translate"
+        <input type="text" autocomplete="off" matInput [placeholder]="'catalog.field.signature' | translate"
         [disabled]="!withSignatura" [(ngModel)]="seriesSignatura" >
       </mat-form-field>
     </div>
