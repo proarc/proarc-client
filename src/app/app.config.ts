@@ -37,7 +37,7 @@ export const appConfig: ApplicationConfig = {
         deps: [HttpClient]
       }
     })),
-    TranslateService,
+    TranslateService, 
     Configuration, ApiService, AuthService, UIService, UserSettings, UserSettingsService
   ]
 };

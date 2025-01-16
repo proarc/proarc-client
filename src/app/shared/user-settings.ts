@@ -8,6 +8,13 @@ import { UIService } from "../services/ui.service";
 export class UserSettings {
 
     searchModel: string; // Last model used in search
+    searchOrganization: string; // Last organization used in search
+    searchQueryField: string; // Last field used in search
+    searchOwner: string; // Last field used in search
+    searchProcessor: string; // Last processor used in search
+    searchSortField: string;
+    searchSortAsc: boolean;
+
     searchSplit: number = 60; // First split panel in search.
 
     columnsSearch: TableColumn[];
@@ -158,6 +165,12 @@ public queueColumnsDefault: TableColumn[] = [
 
     reset() {
         this.settings.searchModel = this.config.defaultModel;
+        this.settings.searchOrganization = '-';
+        this.settings.searchQueryField = 'queryLabel';
+        this.settings.searchOwner = '-';
+        this.settings.searchProcessor = '-';
+        this.settings.searchSortField = 'modified';
+        this.settings.searchSortAsc = false;
         this.settings.searchSplit = 60;
         this.settings.columnsSearch = Utils.clone(this.columnsSearchDefault);
         this.settings.columnsSearchTree = Utils.clone(this.columnsSearchDefault);

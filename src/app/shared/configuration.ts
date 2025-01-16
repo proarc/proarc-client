@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import json5 from "json5";
+declare var APP_GLOBAL: {proarcUrl: string};
 
 
 export interface TableColumn {
@@ -15,6 +16,7 @@ export class Configuration {
   // proarcUrl: "http://proarc.inovatika.dev/api",
   //   proarcUrl: "/api",
   //   ga: "UA-159265713-1",
+  proarcUrl = APP_GLOBAL.proarcUrl;
   exports: string[];
   organizations: string[];
   models: string[];

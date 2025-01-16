@@ -86,7 +86,7 @@ export class AuthService {
             }),
         } as any;
         const data = `j_username=${username}&j_password=${password}`;
-        return this.http.post(`/api/proarclogin`, data, httpOptions)
+        return this.http.post(`${this.config.proarcUrl}/proarclogin`, data, httpOptions)
             .subscribe((result) => {
                 this.initializeApp().then(() => {
                     callback(true, null);
@@ -104,7 +104,7 @@ export class AuthService {
     }
 
     logout() {
-        return this.http.delete(`/api/proarclogin`).subscribe((result) => {
+        return this.http.delete(`${this.config.proarcUrl}/proarclogin`).subscribe((result) => {
             this.user = null;
             this.router.navigate(['/login']);
         });
@@ -139,7 +139,7 @@ export class AuthService {
     }
 
     checkLogged(): Observable<any> {
-        return this.http.get(`/api/isLogged`)
+        return this.http.get(`${this.config.proarcUrl}/isLogged`)
             .pipe(map((r: any) => {
                 if (r.response?.status === -1) {
                     r.response.errors = [{ errorMessage: r.response.errorMessage }];
@@ -182,7 +182,7 @@ export class AuthService {
     }
 
     public getApiUrl(): string {
-        return `/api/rest/v2/`
+        return `${this.config.proarcUrl}/rest/v2/`
     }
 
     // handleError(error: HttpErrorResponse) {

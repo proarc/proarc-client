@@ -226,3 +226,12 @@ export class DocumentItem {
   }
 
 }
+
+export interface TreeDocumentItem extends DocumentItem {
+  parentPid?: string;
+  level: number;
+  expandable: boolean;
+  expanded: boolean;
+  childrenLoaded: boolean;
+  hidden: boolean;
+}

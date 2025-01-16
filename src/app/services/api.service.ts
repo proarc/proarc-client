@@ -25,7 +25,7 @@ export class ApiService {
 
   constructor(
     private http: HttpClient,
-    public settings: Configuration) {
+    public config: Configuration) {
   }
 
   private getLang(): string {
@@ -38,7 +38,7 @@ export class ApiService {
   }
 
   public getApiUrl(): string {
-    return `/api/rest/v2/`
+    return this.config.proarcUrl + `/rest/v2/`
   }
 
   private get(path: string, params = {}): Observable<Object> {

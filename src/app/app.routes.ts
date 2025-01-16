@@ -3,6 +3,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './shared/auth.guard';
 import { TotestComponent } from './pages/totest/totest.component';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { SearchComponent } from './pages/search/search.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent }, ,
@@ -17,7 +18,7 @@ export const routes: Routes = [
             // { path: 'devices/:id/edit', component: EditDeviceComponent },
             // { path: 'devices/:device_id/audio/new', component: EditAudioDeviceComponent },
             // { path: 'devices/:device_id/audio/:id/edit', component: EditAudioDeviceComponent },
-            // { path: 'search', component: SearchComponent },
+            { path: 'search', component: SearchComponent },
             // { path: 'viewer', component: ViewerComponent },
             // { path: 'import', component: ImportComponent },
             // { path: 'process-management', component: ProcessManagementComponent },
@@ -27,7 +28,7 @@ export const routes: Routes = [
             // { path: 'admin/new-user', component: NewUserComponent },
             // { path: 'workflow', loadChildren: () => import('../pages/workflow/workflow.module').then(m => m.WorkFlowModule) },
             { path: 'totest', component: TotestComponent },
-            { path: '', redirectTo: '/settings', pathMatch: 'full' }
+            { path: '', redirectTo: '/search', pathMatch: 'full' }
         ]
     }
 ];
