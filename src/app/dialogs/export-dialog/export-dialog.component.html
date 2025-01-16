@@ -1,0 +1,65 @@
+<mat-progress-bar mode="indeterminate" *ngIf="state ==='saving'" class="app-progress-bar"></mat-progress-bar>
+<h1 mat-dialog-title>{{ 'dialog.export.title' | translate }}</h1>
+<div mat-dialog-content class="app-scrollbar-fix">
+  <mat-form-field class="app-w-100">
+    <mat-select [placeholder]="'desc.exportType' | translate" [(ngModel)]="selectedType" [disabled]="formDisabled()">
+      <mat-option *ngFor="let type of types" [value]="type">{{ "dialog.export.type." + type | translate }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field *ngIf="selectedType=='kramerius' || selectedType==='ndk_psp_upload_kramerius' || selectedType === 'ndk_oldprint_upload_kramerius' || selectedType === 'ndk_sip_upload_kramerius'" class="app-w-100">
+    <mat-select [placeholder]="'desc.krameriusInstances' | translate" name="instance" [(ngModel)]="importInstance">
+      <mat-option *ngFor="let ins of instances" [value]="ins">{{ ins.krameriusInstanceName }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <mat-form-field *ngIf="(selectedType=='kramerius' || selectedType==='ndk_psp_upload_kramerius' || selectedType === 'ndk_oldprint_upload_kramerius' || selectedType === 'ndk_sip_upload_kramerius') && importInstance && importInstance.krameriusInstanceLicenses" class="app-w-100">
+    <mat-select [placeholder]="'desc.krameriusLicenses' | translate" name="instance" [(ngModel)]="licenseName">
+      <mat-option *ngFor="let lic of importInstance.krameriusInstanceLicenses" [value]="lic.krameriusInstanceLicenseName">{{ lic.krameriusInstanceLicenseDescription }} - ({{lic.krameriusInstanceLicenseName}})</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <mat-checkbox [disabled]="formDisabled()" *ngIf="(selectedType=='kramerius_bagit' || selectedType=='kramerius' || selectedType=='kwis' || selectedType==='ndk_psp_upload_kramerius' || selectedType==='ndk_oldprint_upload_kramerius'  || selectedType === 'ndk_sip_upload_kramerius') && importInstance && !importInstance.krameriusInstanceLicenses" color="primary" [(ngModel)]="policyPublic">{{ 'desc.publiclyAvailable' | translate }}</mat-checkbox>
+
+  <mat-form-field *ngIf="selectedType=='ndk_psp_upload_cesnet' || selectedType=='ndk_oldprint_upload_cesnet'" class="app-w-100">
+    <input  type="text" autocomplete="off" matInput [placeholder]="'desc.ltpToken' | translate" [(ngModel)]="cesnetLtpToken">
+  </mat-form-field>
+
+  <mat-radio-group
+  *ngIf="selectedType=='archive_extended' || selectedType==='archive_stt_extended' || selectedType === 'archive_extended_bagit' || selectedType === 'archive_stt_extended_bagit'"
+  aria-label="'standard'" [(ngModel)]="extendedType" class="app-ml-3">
+    <mat-radio-button value="snkd">Skeny nejsou k dispozici</mat-radio-button>
+    <mat-radio-button value="pi">Přidat Informaci</mat-radio-button>
+    <mat-radio-button value="bv">Bez výběru</mat-radio-button>
+  </mat-radio-group>
+  <mat-form-field *ngIf="extendedType=='snkd'" class="app-w-100">
+    <input required type="text" autocomplete="off" matInput [placeholder]="'Skeny nejsou k dispozici message' | translate" [(ngModel)]="noTifMessage">
+  </mat-form-field>
+  <mat-form-field *ngIf="extendedType=='pi'" class="app-w-100">
+    <input required type="text" autocomplete="off" matInput [placeholder]="'Přidat Informaci' | translate" [(ngModel)]="addInfoMessage">
+  </mat-form-field>
+
+  <mat-card class="app-alert app-info app-mt-4" *ngIf="state=='saving'">
+    <mat-icon>info</mat-icon>
+    {{ 'dialog.export.alert.exporting' | translate }}
+  </mat-card>
+  <mat-card class="app-alert app-warn app-mt-4" *ngIf="state==='error'" fxLayout="column" fxLayoutGap="8px">
+    <div>{{ 'dialog.export.alert.error' | translate }}</div>
+    <button *ngFor="let error of errors" (click)="showErrorDetail(error)" mat-flat-button color="warn">
+      {{ 'button.viewErrorDetail' | translate }}
+    </button>
+  </mat-card>
+  <mat-card class="app-alert app-success" *ngIf="state=='done'" [class.app-mt-4]="selectedType=='kramerius' || selectedType=='kwis'">
+      <mat-icon>check_circle</mat-icon>
+      {{ 'dialog.export.alert.done' | translate }}
+  </mat-card>
+</div>
+
+<div mat-dialog-actions cdkFocusRegionstart>
+  <button mat-flat-button color="primary" *ngIf="!canContinue && state !== 'error'" [disabled]="formDisabled()" (click)="onExport(false)">{{ 'button.startExport' | translate }}</button>
+  <button mat-flat-button color="primary" *ngIf="canContinue" [disabled]="formDisabled()" (click)="onExport(true)">{{ 'button.exportAnyway' | translate }}</button>
+  <button mat-stroked-button mat-dialog-close="close" >{{ 'button.close' | translate }}</button>
+</div>
+
+

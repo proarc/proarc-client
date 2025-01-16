@@ -30,14 +30,14 @@ import { MatSortModule, Sort } from '@angular/material/sort';
 import { ResizecolDirective } from '../../resizecol.directive';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { LogDialogComponent } from '../../dialogs/log-dialog/log-dialog.component';
+import { SearchActionsComponent } from "./search-actions/search-actions.component";
 
 @Component({
   selector: 'app-search',
   imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
-    MatTableModule, MatSortModule, ResizecolDirective
-  ],
+    MatTableModule, MatSortModule, ResizecolDirective, SearchActionsComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss'
 })

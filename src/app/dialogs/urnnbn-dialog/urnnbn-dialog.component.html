@@ -1,0 +1,78 @@
+<mat-progress-bar mode="indeterminate" *ngIf="state ==='saving'" class="app-progress-bar"></mat-progress-bar>
+<h1 mat-dialog-title>{{ 'dialog.urnnbn.title' | translate }}</h1>
+<div mat-dialog-content fxLayout="column">
+  <div>
+    <mat-form-field class="app-w-100">
+      <mat-select [placeholder]="'desc.registrar' | translate" [(ngModel)]="selectedRegistrar" [disabled]="formDisabled()">
+        <mat-option *ngFor="let registrar of registrars" [value]="registrar">{{ registrar.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="app-oa-y">
+    <table *ngIf="responseData" mat-table [dataSource]="responseData" class="app-striped app-hover">
+      <ng-container matColumnDef="label">
+        <th mat-header-cell *matHeaderCellDef>{{ 'desc.description' | translate }}</th>
+        <td mat-cell *matCellDef="let row">
+          <div class="app-text-cutter-wrapper">
+            <div class="app-text-cutter">
+              {{ row.label }}
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="model">
+        <th mat-header-cell *matHeaderCellDef>{{ 'desc.model' | translate }}</th>
+        <td mat-cell *matCellDef="let row">{{ "model." + row.model | translate }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="statusType">
+        <th mat-header-cell *matHeaderCellDef>{{ 'desc.error' | translate }}</th>
+        <td mat-cell *matCellDef="let row">{{ row.statusType }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="warning">
+        <th mat-header-cell *matHeaderCellDef>{{ 'desc.state' | translate }}</th>
+        <!-- <td mat-cell *matCellDef="let row">{{ row.hasOwnProperty('warning') ? (row.warning ? ':-|' : ':-(') : ':-)' }}</td> -->
+        <td mat-cell *matCellDef="let row">
+          <mat-icon [ngClass]="row.hasOwnProperty('warning') ? (row.warning ? 'app-sentiment_satisfied' : 'app-mood_bad') : 'app-mood'">
+            {{ row.hasOwnProperty('warning') ? (row.warning ? 'sentiment_satisfied' : 'mood_bad') : 'mood' }}
+          </mat-icon>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="pid">
+        <th mat-header-cell *matHeaderCellDef>PID</th>
+        <td mat-cell *matCellDef="let row">{{ row.pid }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="urnnbn">
+        <th mat-header-cell *matHeaderCellDef>URN:NBN</th>
+        <td mat-cell *matCellDef="let row">{{ row.urnnbn }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="message">
+        <th mat-header-cell *matHeaderCellDef>{{ 'desc.message' | translate }}</th>
+        <td mat-cell *matCellDef="let row">
+          <div class="app-text-cutter-wrapper">
+            <div class="app-text-cutter">
+              {{ row.message }}
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="tableColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: tableColumns;" (click)="selectRow(row)" [class.app-selected]="row.pid === selectedRow"></tr>
+    </table>
+  </div>
+
+  <mat-card *ngIf="message" class="app-alert" [ngClass]="(state == 'error' ? 'app-warn' : false) || (selectedRowWarning ? 'app-info' : 'app-warn')">
+    <mat-icon>{{ state == 'error' || !selectedRowWarning ? 'warning' : 'info' }}</mat-icon> {{ message }}
+  </mat-card>
+</div>
+<div mat-dialog-actions cdkFocusRegionstart>
+  <button mat-flat-button color="primary" [disabled]="formDisabled()" (click)="onRegister()">{{ 'button.register' | translate }}</button>
+  <button mat-stroked-button mat-dialog-close="close" >{{ 'button.close' | translate }}</button>
+  <button *ngIf="log" mat-flat-button color="warn" (click)="showErrorDetail(log)">{{ 'button.viewErrorOutput' | translate }}</button>
+</div>

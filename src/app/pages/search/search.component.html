@@ -98,6 +98,9 @@
               <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar">
                 <div fxFlex *ngIf="selectedItem" fxLayout="row" fxFlexFill>
                   <button (click)="reload()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
+                  <!-- <app-search-actions [items]="items" [selectedItem]="selectedItem" [selectedTreeItem]="selectedTreeItem" [treeItems]="treeItems"
+                  (reload)="reload()"
+                  [(state)]="state"></app-search-actions> -->
                   <!-- <button (click)="onExport(true)" mat-button>{{ 'button.export' | translate }}</button>
                   <button (click)="onUrnnbn(true)" mat-button>URN:NBN</button>
                   <button (click)="onDeleteItem()" mat-button>{{ 'button.delete' | translate }}</button>
