@@ -17,6 +17,11 @@ import { SimpleDialogData } from '../../../dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from '../../../dialogs/simple-dialog/simple-dialog.component';
 import { ApiService } from '../../../services/api.service';
 import { UIService } from '../../../services/ui.service';
+import { Configuration } from '../../../shared/configuration';
+import { ChangeModelDialogComponent } from '../../../dialogs/change-model-dialog/change-model-dialog.component';
+import { ConvertDialogComponent } from '../../../dialogs/convert-dialog/convert-dialog.component';
+import { UpdateInSourceDialogComponent } from '../../../dialogs/update-in-source-dialog/update-in-source-dialog.component';
+import { CzidloDialogComponent } from '../../../dialogs/czidlo-dialog/czidlo-dialog.component';
 
 @Component({
   selector: 'app-search-actions',
@@ -38,9 +43,12 @@ export class SearchActionsComponent {
   reload = output<void>();
   state = model<string>();
 
+  isAkubra: boolean;
+
   constructor(
     private dialog: MatDialog,
     private translator: TranslateService,
+    public config: Configuration,
     public auth: AuthService,
     private api: ApiService,
     private ui: UIService) {
@@ -48,9 +56,14 @@ export class SearchActionsComponent {
   }
 
   ngOnInit() {
-
-
+    this.api.getInfo().subscribe((info) => {
+      this.isAkubra = info.storage === 'Akubra';
+    });
   }
+
+  totalSelected() {
+    return this.items().filter(i => i.selected).length;
+  } 
 
   onUrnnbn(inSearch: boolean) {
     const pids = inSearch ?
@@ -152,126 +165,251 @@ export class SearchActionsComponent {
     });
   }
 
-  // showFoxml(item: DocumentItem) {
-  //   window.open(this.api.getApiUrl() + 'object/dissemination?pid=' + item.pid, 'foxml');
-  // }
+  showFoxml(item: DocumentItem) {
+    window.open(this.api.getApiUrl() + 'object/dissemination?pid=' + item.pid, 'foxml');
+  }
 
-  // onRestore(item: DocumentItem) {
+  onRestore(item: DocumentItem) {
 
-  //   const data: SimpleDialogData = {
-  //     title: String(this.translator.instant('Obnovit objekt')),
-  //     message: String(this.translator.instant('Opravdu chcete vybrané objekty obnovit?')),
-  //     alertClass: 'app-message',
-  //     btn1: {
-  //       label: 'Ano',
-  //       value: 'yes',
-  //       color: 'warn'
-  //     },
-  //     btn2: {
-  //       label: 'Ne',
-  //       value: 'no',
-  //       color: 'default'
-  //     }
-  //   };
-  //   const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result === 'yes') {
-  //       this.api.restoreObject(item.pid, false, false).subscribe((response: any) => {
-  //         if (response['response'].errors) {
-  //           console.log('error', response['response'].errors);
-  //           this.ui.showErrorDialogFromObject(response['response'].errors);
-  //           this.state = 'error';
-  //           return;
-  //         } else {
-  //           this.ui.showInfoSnackBar('Objekt byl úspěšně obnoven');
-  //           this.reload();
-  //         }
+    const data: SimpleDialogData = {
+      title: String(this.translator.instant('Obnovit objekt')),
+      message: String(this.translator.instant('Opravdu chcete vybrané objekty obnovit?')),
+      alertClass: 'app-message',
+      btn1: {
+        label: 'Ano',
+        value: 'yes',
+        color: 'warn'
+      },
+      btn2: {
+        label: 'Ne',
+        value: 'no',
+        color: 'default'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.api.restoreObject(item.pid, false, false).subscribe((response: any) => {
+          if (response['response'].errors) {
+            console.log('error', response['response'].errors);
+            this.ui.showErrorDialogFromObject(response['response'].errors);
+            this.state.update(() => 'error');
+            return;
+          } else {
+            this.ui.showInfoSnackBar('Objekt byl úspěšně obnoven');
+            this.reload.emit();
+          }
+        });
+      }
+    });
+  }
 
-  //       });
+  onLock(item: DocumentItem, lock: boolean) {
+    const data: SimpleDialogData = {
+      title: lock ? String(this.translator.instant('dialog.lockObject.title')) : String(this.translator.instant('dialog.unlockObject.title')),
+      message: lock ? String(this.translator.instant('dialog.lockObject.message')) : String(this.translator.instant('dialog.unlockObject.message')),
+      alertClass: 'app-info',
+      btn1: {
+        label: String(this.translator.instant('button.yes')),
+        value: 'yes',
+        color: 'primary'
+      },
+      btn2: {
+        label: String(this.translator.instant('button.no')),
+        value: 'no',
+        color: 'default'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
+      data: data,
+      width: '600px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        if (lock) {
+          this.lockObject(item);
+        } else {
+          this.unlockObject(item);
+        }
 
-  //     }
-  //   });
-  // }
+      }
+    });
+  }
 
-  // onLock(item: DocumentItem, lock: boolean) {
-  //   const data: SimpleDialogData = {
-  //     title: lock ? String(this.translator.instant('dialog.lockObject.title')) : String(this.translator.instant('dialog.unlockObject.title')),
-  //     message: lock ? String(this.translator.instant('dialog.lockObject.message')) : String(this.translator.instant('dialog.unlockObject.message')),
-  //     alertClass: 'app-info',
-  //     btn1: {
-  //       label: String(this.translator.instant('button.yes')),
-  //       value: 'yes',
-  //       color: 'primary'
-  //     },
-  //     btn2: {
-  //       label: String(this.translator.instant('button.no')),
-  //       value: 'no',
-  //       color: 'default'
-  //     }
-  //   };
-  //   const dialogRef = this.dialog.open(SimpleDialogComponent, {
-  //     data: data,
-  //     width: '600px'
-  //   });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result === 'yes') {
-  //       if (lock) {
-  //         this.lockObject(item);
-  //       } else {
-  //         this.unlockObject(item);
-  //       }
+  changeLockInTree(item: TreeDocumentItem, isLocked: boolean, idx: number) {
+    for (let i = idx; i < this.treeItems.length; i++) {
+      const j = this.treeItems()[i]
+      if (j.parentPid === item.pid) {
+        j.isLocked = isLocked;
+        this.changeLockInTree(j, isLocked, i)
+      }
+    }
+  }
 
-  //     }
-  //   });
-  // }
+  lockObject(item: DocumentItem) {
+    this.api.lockObjects([item.pid], item.model).subscribe((response: any) => {
+      if (response['response'].errors) {
+        console.log('error', response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
+        this.state.update(() => 'error');
+        return;
+      } else {
+        this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.search.lockObject')));
+        item.isLocked = true;
+        const treeItem = this.treeItems().find(it => it.pid === item.pid);
+        if (treeItem) {
+          this.changeLockInTree(treeItem, true, this.treeItems().indexOf(treeItem));
+        }
 
-  // changeLockInTree(item: TreeDocumentItem, isLocked: boolean, idx: number) {
-  //   for (let i = idx; i < this.treeItems.length; i++) {
-  //     const j = this.treeItems[i]
-  //     if (j.parentPid === item.pid) {
-  //       j.isLocked = isLocked;
-  //       this.changeLockInTree(j, isLocked, i)
-  //     }
-  //   }
-  // }
+      }
 
-  // lockObject(item: DocumentItem) {
-  //   this.api.lockObjects([item.pid], item.model).subscribe((response: any) => {
-  //     if (response['response'].errors) {
-  //       console.log('error', response['response'].errors);
-  //       this.ui.showErrorDialogFromObject(response['response'].errors);
-  //       this.state = 'error';
-  //       return;
-  //     } else {
-  //       this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.search.lockObject')));
-  //       item.isLocked = true;
-  //       const treeItem = this.treeItems.find(it => it.pid === item.pid);
-  //       if (treeItem) {
-  //         this.changeLockInTree(treeItem, true, this.treeItems.indexOf(treeItem));
-  //       }
+    });
+  }
 
-  //     }
+  unlockObject(item: DocumentItem) {
+    this.api.unlockObjects([item.pid], item.model).subscribe((response: any) => {
+      if (response['response'].errors) {
+        console.log('error', response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
+        this.state.update(() => 'error');
+        return;
+      } else {
+        this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.search.unlockObject')));
+        item.isLocked = false;
+        const treeItem = this.treeItems().find(it => it.pid === item.pid);
+        if (treeItem) {
+          this.changeLockInTree(treeItem, false, this.treeItems().indexOf(treeItem));
+        }
+      }
+    });
+  }
 
-  //   });
-  // }
+  canChangeModel(item: DocumentItem): boolean {
+    return this.config.modelChanges.findIndex(m => ('model:' + m.origin).toLocaleLowerCase() === item.model.toLocaleLowerCase()) > -1
+  }
 
-  // unlockObject(item: DocumentItem) {
-  //   this.api.unlockObjects([item.pid], item.model).subscribe((response: any) => {
-  //     if (response['response'].errors) {
-  //       console.log('error', response['response'].errors);
-  //       this.ui.showErrorDialogFromObject(response['response'].errors);
-  //       this.state = 'error';
-  //       return;
-  //     } else {
-  //       this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.search.unlockObject')));
-  //       item.isLocked = false;
-  //       const treeItem = this.treeItems.find(it => it.pid === item.pid);
-  //       if (treeItem) {
-  //         this.changeLockInTree(treeItem, false, this.treeItems.indexOf(treeItem));
-  //       }
-  //     }
-  //   });
-  // }
+  changeModel(item: DocumentItem) {
+    const dialogRef = this.dialog.open(ChangeModelDialogComponent, {
+      data: {
+        pid: item.pid,
+        model: item.model,
+        dest: this.config.modelChanges.find(m => ('model:' + m.origin).toLocaleLowerCase() === item.model.toLocaleLowerCase()).dest
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+
+      }
+    });
+  }
+
+  updateObjects(item: DocumentItem) {
+    this.state.update(() => 'loading');
+    this.api.updateObjects(item.pid, item.model).subscribe((response: any) => {
+      if (response.response.errors) {
+        this.state.update(() => 'error');
+        this.ui.showErrorDialogFromObject(response.response.errors);
+      } else {
+        this.state.update(() => 'success');
+        this.ui.showInfoSnackBar(this.translator.instant('snackbar.updateObjects.success'))
+      }
+    });
+  }
+
+  reindex(item: DocumentItem) {
+    const data: SimpleDialogData = {
+      title: String(this.translator.instant('Index Proarc')),
+      message: String(this.translator.instant('Opravdu chcete spustit index?')),
+      alertClass: 'app-message',
+      btn1: {
+        label: 'Ano',
+        value: 'yes',
+        color: 'warn'
+      },
+      btn2: {
+        label: 'Ne',
+        value: 'no',
+        color: 'default'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.state.update(() => 'loading');
+        this.api.indexer().subscribe((response: any) => {
+          if (response.response.errors) {
+            this.state.update(() => 'error');
+            this.ui.showErrorDialogFromObject(response.response.errors);
+          } else {
+            this.state.update(() => 'success');
+            this.ui.showInfoSnackBar(this.translator.instant('index Proarc spusten'))
+          }
+        });
+      }
+    });
+  }
+
+  showConvertDialog(item: DocumentItem) {
+    const dialogRef = this.dialog.open(ConvertDialogComponent, {
+      data: { pid: item.pid, model: item.model }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result)
+      if (result) {
+        if (result.status == 'ok') {
+          this.ui.showInfoSnackBar(this.translator.instant('snackbar.convertPages.success'));
+
+        } else if (result.status == 'failure') {
+          this.ui.showInfoSnackBar(this.translator.instant('snackbar.convertPages.failure'));
+        }
+        this.reload.emit();
+      }
+    });
+  }
+
+  czidlo(item: DocumentItem) {
+    const dialogRef = this.dialog.open(CzidloDialogComponent, {
+      data: { pid: item.pid, model: item.model },
+      panelClass: 'app-urnbnb-dialog',
+      width: '600px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+
+      }
+    });
+  }
+
+  canUpdateInSource(item: DocumentItem) {
+    return this.config.updateInSourceModels.includes(item.model)
+  }
+
+  updateInSource(item: DocumentItem) {
+
+    const dialogRef = this.dialog.open(UpdateInSourceDialogComponent, {
+      data: item.pid,
+      panelClass: 'app-urnbnb-dialog',
+      width: '600px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+
+      }
+    });
+  }
+
+  validateObject(item: DocumentItem) {
+    this.state.update(() => 'loading');
+    this.api.validateObject(item.pid).subscribe((response: any) => {
+      if (response.response.errors) {
+        this.state.update(() => 'error');
+        this.ui.showErrorDialogFromObject(response.response.errors);
+      } else {
+        this.state.update(() => 'success');
+        this.ui.showInfoSnackBar(response.response.data[0].msg)
+      }
+    });
+  }
 
   // onCopyItem(treeItem: TreeDocumentItem) {
   //   this.state = 'loading';
@@ -280,11 +418,11 @@ export class SearchActionsComponent {
   //     if (response['response'].errors) {
   //       console.log('error', response['response'].errors);
   //       this.ui.showErrorDialogFromObject(response['response'].errors);
-  //       this.state = 'error';
+  //       this.state.update(() => 'error');
   //       return;
   //     } else if (response.response.data && response.response.data[0].validation) {
   //       this.ui.showErrorDialogFromObject(response.response.data.map((d: any) => d.errorMessage = d.validation));
-  //       this.state = 'error';
+  //       this.state.update(() => 'error');
   //     } else {
   //       const newPid = response.response.data[0].pid;
   //       this.state = 'success';
@@ -311,7 +449,7 @@ export class SearchActionsComponent {
   //   }, error => {
   //     console.log(error);
   //     this.ui.showInfoSnackBar(error.statusText);
-  //     this.state = 'error';
+  //     this.state.update(() => 'error');
   //   });
   // }
 

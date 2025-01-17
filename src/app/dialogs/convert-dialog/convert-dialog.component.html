@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>{{ 'dialog.convertPages.title' | translate }}</h1>
+<div mat-dialog-content>
+  <div fxLayout="column" fxLayoutGap="8px">
+    <button mat-flat-button color="primary" (click)="convert('changePageToNdkPage')">{{ 'dialog.convertPages.pageToNdkPage' | translate }}</button>
+    <button mat-flat-button color="primary" (click)="convert('changeNdkPageToPage')">{{ 'dialog.convertPages.ndkPagetoPage' | translate }}</button>
+<!--    <button mat-flat-button color="primary" (click)="convert('changePageToSttPage')">{{ 'dialog.convertPages.pagetoSttPage' | translate }}</button>-->
+<!--    <button mat-flat-button color="primary" (click)="convert('changeSttPageToPage')">{{ 'dialog.convertPages.sttPagetoPage' | translate }}</button>-->
+    <button mat-flat-button color="primary" (click)="convert('changeNdkPageToSttPage')">{{ 'dialog.convertPages.ndkPagetoSttPage' | translate }}</button>
+    <button mat-flat-button color="primary" (click)="convert('changeSttPageToNdkPage')">{{ 'dialog.convertPages.sttPagetoNdkPage' | translate }}</button>
+  </div>
+</div>
+<div mat-dialog-actions cdkFocusRegionstart>
+  <button mat-stroked-button [mat-dialog-close]="false">{{ 'button.close' | translate }}</button>
+</div>
+
+

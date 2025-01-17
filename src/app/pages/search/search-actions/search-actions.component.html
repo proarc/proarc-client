@@ -3,20 +3,20 @@
 <button (click)="onExport(true)" mat-button>{{ 'button.export' | translate }}</button>
 <button (click)="onUrnnbn(true)" mat-button>URN:NBN</button>
 <button (click)="onDeleteItem()" mat-button>{{ 'button.delete' | translate }}</button>
-<!-- <button *ngIf="!selectedItem.isLocked && (auth.user.lockObjectFunction || auth.isSuperAdmin())" [disabled]="totalSelected > 1" (click)="onLock(selectedItem, true)" mat-button>{{ 'button.lockIt' | translate }}</button>
-<button *ngIf="selectedItem.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" [disabled]="totalSelected > 1" (click)="onLock(selectedItem, false)" mat-button>{{ 'button.unlock' | translate }}</button>
-<button *ngIf="selectedItem.state === 'fedora-system:def/model#Deleted' || selectedItem.state === 'Deactive'" [disabled]="totalSelected > 1" (click)="onRestore(selectedItem)" mat-button>{{ 'button.restoreTheObject' | translate }}</button>
-<button [disabled]="totalSelected > 1" mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
+<button (click)="onLock(selectedItem(), true)" *ngIf="!selectedItem().isLocked && (auth.user.lockObjectFunction || auth.isSuperAdmin())" [disabled]="totalSelected() > 1" mat-button>{{ 'button.lockIt' | translate }}</button>
+<button (click)="onLock(selectedItem(), false)" *ngIf="selectedItem().isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" [disabled]="totalSelected() > 1" mat-button>{{ 'button.unlock' | translate }}</button>
+<button (click)="onRestore(selectedItem())" *ngIf="selectedItem().state === 'fedora-system:def/model#Deleted' || selectedItem().state === 'Deactive'" [disabled]="totalSelected() > 1" mat-button>{{ 'button.restoreTheObject' | translate }}</button>
+<button [disabled]="totalSelected() > 1" mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
 <mat-icon>more_vert</mat-icon>
 </button>
 <mat-menu #menuMore="matMenu">
-<button mat-menu-item (click)="showFoxml(selectedItem)">FOXML</button>
-<button mat-menu-item *ngIf="canChangeModel(selectedItem)" (click)="changeModel(selectedItem)">{{ 'button.conversionsOfModels' | translate }}</button>
-<button mat-menu-item (click)="updateObjects(selectedItem)">{{ 'button.updateAllObjects' | translate }}</button>
-<button mat-menu-item *ngIf="isAkubra && auth.isSuperAdmin()" (click)="reindex(selectedItem)">{{ 'button.toIndex' | translate }}</button>
-<button mat-menu-item *ngIf="auth.user.changeModelFunction || auth.isSuperAdmin()" (click)="showConvertDialog(selectedItem)">{{ 'button.convertPages' | translate }}</button>
-<button mat-menu-item *ngIf="auth.user.czidloFunction || auth.isSuperAdmin()" (click)="czidlo(selectedItem)">{{ 'button.czidloFunction' | translate }}</button>
-<button mat-menu-item *ngIf="config.updateInSource && (auth.user.importToCatalogFunction || auth.isSuperAdmin()) && canUpdateInSource(selectedItem)" (click)="updateInSource(selectedItem)">{{ 'button.updateInSource' | translate }}</button>
-<button mat-menu-item (click)="validateObject(selectedItem)">{{ 'button.validateObject' | translate }}</button>
+<button mat-menu-item (click)="showFoxml(selectedItem())">FOXML</button>
+<button mat-menu-item *ngIf="canChangeModel(selectedItem())" (click)="changeModel(selectedItem())">{{ 'button.conversionsOfModels' | translate }}</button>
+<button mat-menu-item (click)="updateObjects(selectedItem())">{{ 'button.updateAllObjects' | translate }}</button>
+<button mat-menu-item (click)="reindex(selectedItem())" *ngIf="isAkubra && auth.isSuperAdmin()">{{ 'button.toIndex' | translate }}</button>
+<button mat-menu-item (click)="showConvertDialog(selectedItem())" *ngIf="auth.user.changeModelFunction || auth.isSuperAdmin()">{{ 'button.convertPages' | translate }}</button>
+<button mat-menu-item (click)="czidlo(selectedItem())" *ngIf="auth.user.czidloFunction || auth.isSuperAdmin()">{{ 'button.czidloFunction' | translate }}</button>
+<button mat-menu-item (click)="updateInSource(selectedItem())" *ngIf="config.updateInSource && (auth.user.importToCatalogFunction || auth.isSuperAdmin()) && canUpdateInSource(selectedItem())">{{ 'button.updateInSource' | translate }}</button>
+<button mat-menu-item (click)="validateObject(selectedItem())">{{ 'button.validateObject' | translate }}</button>
 
-</mat-menu> -->
+</mat-menu> 

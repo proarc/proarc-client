@@ -10,9 +10,9 @@
       <button mat-button value="deleted" [class.app-active]="searchMode === 'deleted'" (click)="searchMode = 'deleted'">{{ 'button.searchInDeleted' | translate }}</button>
     </div>
   
-    <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'" class="app-progress-bar"></mat-progress-bar>
+    
   
-    <div *ngIf="state!=='loading'" fxFlex class="app-content-wrapper app-search-results" fxLayout="column">
+    <div fxFlex class="app-content-wrapper app-search-results" fxLayout="column">
       <div class="app-formbar" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
         <button mat-stroked-button (click)="filter()">
           {{ 'button.search' | translate }}
@@ -95,12 +95,12 @@
         <as-split [gutterSize]="10" direction="vertical" (dragEnd)="splitDragEnd($event)">
           <as-split-area  [size]="splitArea1Width">
             <div *ngIf="items" fxLayout="column" fxFlexFill>
-              <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar">
-                <div fxFlex *ngIf="selectedItem" fxLayout="row" fxFlexFill>
+              <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar" [class.app-disabled]="state === 'loading'">
+                <div fxFlex fxLayout="row" fxFlexFill>
                   <button (click)="reload()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
-                  <!-- <app-search-actions [items]="items" [selectedItem]="selectedItem" [selectedTreeItem]="selectedTreeItem" [treeItems]="treeItems"
+                  <app-search-actions [items]="items" [selectedItem]="selectedItem" [selectedTreeItem]="selectedTreeItem" [treeItems]="treeItems"
                   (reload)="reload()"
-                  [(state)]="state"></app-search-actions> -->
+                  [(state)]="state"></app-search-actions>
                   <!-- <button (click)="onExport(true)" mat-button>{{ 'button.export' | translate }}</button>
                   <button (click)="onUrnnbn(true)" mat-button>URN:NBN</button>
                   <button (click)="onDeleteItem()" mat-button>{{ 'button.delete' | translate }}</button>
@@ -127,7 +127,8 @@
                 </div>
               </div>
               <div class="app-oa-y">
-                <table mat-table #table [dataSource]="items" matSort class="app-striped app-hover app-resize"
+                <mat-progress-bar mode="indeterminate" *ngIf="state === 'loading'" class="app-progress-bar"></mat-progress-bar>
+                <table mat-table #table [dataSource]="items" matSort class="app-striped app-hover app-resize"  *ngIf="state!=='loading'"
                 [matSortActive]="sortField" [matSortDirection]="sortAsc ? 'asc' : 'desc'"
                 (matSortChange)="sortTable($event)">
   

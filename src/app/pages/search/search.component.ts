@@ -36,7 +36,7 @@ import { SearchActionsComponent } from "./search-actions/search-actions.componen
   selector: 'app-search',
   imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
-    MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
+    MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule, 
     MatTableModule, MatSortModule, ResizecolDirective, SearchActionsComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss'
@@ -176,6 +176,7 @@ export class SearchComponent {
       sortAsc: this.sortAsc
     }
     params.page = null;
+    this.settingsService.save();
     this.router.navigate([], { queryParams: params, queryParamsHandling: 'merge' });
   }
 
@@ -321,7 +322,6 @@ export class SearchComponent {
   reload(selectedPid: string = null) {
     this.clearSelection();
     this.initSelectedColumns();
-    this.settingsService.save();
     this.state = 'loading';
     const options = {
       type: this.searchMode,
