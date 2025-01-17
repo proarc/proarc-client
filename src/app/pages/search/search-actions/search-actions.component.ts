@@ -34,13 +34,16 @@ import { CzidloDialogComponent } from '../../../dialogs/czidlo-dialog/czidlo-dia
 })
 export class SearchActionsComponent {
 
+  forTree = input<boolean>();
+
   items = input<DocumentItem[]>();
   selectedItem = input<DocumentItem>();
 
   treeItems = input<TreeDocumentItem[]>();
   selectedTreeItem = input<TreeDocumentItem>();
 
-  reload = output<void>();
+  reload = output<string>();
+  reloadTree = output<string>();
   state = model<string>();
 
   isAkubra: boolean;
@@ -63,6 +66,10 @@ export class SearchActionsComponent {
 
   totalSelected() {
     return this.items().filter(i => i.selected).length;
+  } 
+
+  totalSelectedTree() {
+    return this.treeItems().filter(i => i.selected).length;
   } 
 
   onUrnnbn(inSearch: boolean) {
@@ -143,6 +150,14 @@ export class SearchActionsComponent {
     });
   }
 
+  onDeleteFromTree() {
+    const refresh = this.selectedTreeItem().parent ? false : true;
+    const pids = this.treeItems().filter(i => i.selected).map(i => i.pid)
+    this.onDelete(pids, true, (pids: string[]) => {
+      // this.search.selectedTree.remove();
+    });
+  }
+
   private deleteObject(pids: string[], pernamently: boolean, refresh: boolean, callback: (pids: string[]) => any = null) {
     this.state.update(() => 'loading');// = 'loading';
     this.api.deleteObjects(pids, pernamently).subscribe((response: any) => {
@@ -158,19 +173,20 @@ export class SearchActionsComponent {
         this.state.update(() => 'success');
         this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.removeObject.success')));
         if (refresh) {
-          this.reload.emit();
+          this.reload.emit(null);
         }
 
       }
     });
   }
 
-  showFoxml(item: DocumentItem) {
-    window.open(this.api.getApiUrl() + 'object/dissemination?pid=' + item.pid, 'foxml');
+  showFoxml() {
+    const pid = this.forTree() ? this.selectedTreeItem().pid : this.selectedItem().pid;
+    window.open(this.api.getApiUrl() + 'object/dissemination?pid=' + pid, 'foxml');
   }
 
-  onRestore(item: DocumentItem) {
-
+  onRestore() {
+    const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     const data: SimpleDialogData = {
       title: String(this.translator.instant('Obnovit objekt')),
       message: String(this.translator.instant('Opravdu chcete vybrané objekty obnovit?')),
@@ -197,14 +213,15 @@ export class SearchActionsComponent {
             return;
           } else {
             this.ui.showInfoSnackBar('Objekt byl úspěšně obnoven');
-            this.reload.emit();
+            this.reload.emit(null);
           }
         });
       }
     });
   }
 
-  onLock(item: DocumentItem, lock: boolean) {
+  onLock(lock: boolean) {
+    const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     const data: SimpleDialogData = {
       title: lock ? String(this.translator.instant('dialog.lockObject.title')) : String(this.translator.instant('dialog.unlockObject.title')),
       message: lock ? String(this.translator.instant('dialog.lockObject.message')) : String(this.translator.instant('dialog.unlockObject.message')),
@@ -284,11 +301,13 @@ export class SearchActionsComponent {
     });
   }
 
-  canChangeModel(item: DocumentItem): boolean {
+  canChangeModel(): boolean {
+    const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     return this.config.modelChanges.findIndex(m => ('model:' + m.origin).toLocaleLowerCase() === item.model.toLocaleLowerCase()) > -1
   }
 
-  changeModel(item: DocumentItem) {
+  changeModel() {
+    const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     const dialogRef = this.dialog.open(ChangeModelDialogComponent, {
       data: {
         pid: item.pid,
@@ -303,7 +322,8 @@ export class SearchActionsComponent {
     });
   }
 
-  updateObjects(item: DocumentItem) {
+  updateObjects() {
+    const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     this.state.update(() => 'loading');
     this.api.updateObjects(item.pid, item.model).subscribe((response: any) => {
       if (response.response.errors) {
@@ -316,7 +336,8 @@ export class SearchActionsComponent {
     });
   }
 
-  reindex(item: DocumentItem) {
+  reindex() {
+    const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     const data: SimpleDialogData = {
       title: String(this.translator.instant('Index Proarc')),
       message: String(this.translator.instant('Opravdu chcete spustit index?')),
@@ -349,7 +370,8 @@ export class SearchActionsComponent {
     });
   }
 
-  showConvertDialog(item: DocumentItem) {
+  showConvertDialog() {
+    const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     const dialogRef = this.dialog.open(ConvertDialogComponent, {
       data: { pid: item.pid, model: item.model }
     });
@@ -362,12 +384,13 @@ export class SearchActionsComponent {
         } else if (result.status == 'failure') {
           this.ui.showInfoSnackBar(this.translator.instant('snackbar.convertPages.failure'));
         }
-        this.reload.emit();
+        this.reload.emit(null);
       }
     });
   }
 
-  czidlo(item: DocumentItem) {
+  czidlo() {
+    const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     const dialogRef = this.dialog.open(CzidloDialogComponent, {
       data: { pid: item.pid, model: item.model },
       panelClass: 'app-urnbnb-dialog',
@@ -380,12 +403,13 @@ export class SearchActionsComponent {
     });
   }
 
-  canUpdateInSource(item: DocumentItem) {
+  canUpdateInSource() {
+    const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     return this.config.updateInSourceModels.includes(item.model)
   }
 
-  updateInSource(item: DocumentItem) {
-
+  updateInSource() {
+    const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     const dialogRef = this.dialog.open(UpdateInSourceDialogComponent, {
       data: item.pid,
       panelClass: 'app-urnbnb-dialog',
@@ -398,7 +422,8 @@ export class SearchActionsComponent {
     });
   }
 
-  validateObject(item: DocumentItem) {
+  validateObject() {
+    const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     this.state.update(() => 'loading');
     this.api.validateObject(item.pid).subscribe((response: any) => {
       if (response.response.errors) {
@@ -411,47 +436,34 @@ export class SearchActionsComponent {
     });
   }
 
-  // onCopyItem(treeItem: TreeDocumentItem) {
-  //   this.state = 'loading';
-  //   this.api.copyObject(treeItem.pid, treeItem.model).subscribe((response: any) => {
+  canCopy(item: DocumentItem): boolean {
+    return this.config.allowedCopyModels.includes(item.model)
+  }
 
-  //     if (response['response'].errors) {
-  //       console.log('error', response['response'].errors);
-  //       this.ui.showErrorDialogFromObject(response['response'].errors);
-  //       this.state.update(() => 'error');
-  //       return;
-  //     } else if (response.response.data && response.response.data[0].validation) {
-  //       this.ui.showErrorDialogFromObject(response.response.data.map((d: any) => d.errorMessage = d.validation));
-  //       this.state.update(() => 'error');
-  //     } else {
-  //       const newPid = response.response.data[0].pid;
-  //       this.state = 'success';
-  //       this.ui.showInfoSnackBar("Objekty byly zkopirovane");
-  //       if (treeItem.model === this.model) {
-  //         this.reload(newPid);
-  //       } else {
-  //         // Kopirujeme objekt podrazeni ve stromu
-  //         // this.selectItem(this.selectedItem);
-  //         const parent = this.treeItems.find(ti => ti.pid === treeItem.parentPid);
-  //         const parentIndex = this.treeItems.findIndex(ti => ti.pid === treeItem.parentPid);
-  //         const numChildren = this.treeItems.filter(ti => ti.parentPid === parent.pid).length;
-  //         // remove existing 
-  //         this.treeItems.splice(parentIndex + 1, numChildren);
-  //         this.getTreeItems(parent, true);
+  onCopyItem(treeItem: TreeDocumentItem) {
+    this.state.update(() => 'loading');
+    this.api.copyObject(treeItem.pid, treeItem.model).subscribe((response: any) => {
 
-  //         this.selectedItem.selected = true;
-  //         this.totalSelected = 1;
-
-
-  //       }
-
-  //     }
-  //   }, error => {
-  //     console.log(error);
-  //     this.ui.showInfoSnackBar(error.statusText);
-  //     this.state.update(() => 'error');
-  //   });
-  // }
+      if (response['response'].errors) {
+        console.log('error', response['response'].errors);
+        this.ui.showErrorDialogFromObject(response['response'].errors);
+        this.state.update(() => 'error');
+        return;
+      } else if (response.response.data && response.response.data[0].validation) {
+        this.ui.showErrorDialogFromObject(response.response.data.map((d: any) => d.errorMessage = d.validation));
+        this.state.update(() => 'error');
+      } else {
+        const newPid = response.response.data[0].pid;
+        this.state.update(() => 'success');
+        this.ui.showInfoSnackBar("Objekty byly zkopirovane");
+        this.reloadTree.emit(newPid);
+      }
+    }, error => {
+      console.log(error);
+      this.ui.showInfoSnackBar(error.statusText);
+      this.state.update(() => 'error');
+    });
+  }
 
 
 }

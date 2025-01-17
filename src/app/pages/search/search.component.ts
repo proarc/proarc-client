@@ -436,6 +436,46 @@ export class SearchComponent {
 
   }
 
+  expandAllInTree() {
+    this.expandTreeItemDeep(this.treeItems[0]);
+  }
+
+  expandTreeItemDeep(treeItem: TreeDocumentItem) {
+
+    treeItem.expanded = true;
+    if (!treeItem.childrenLoaded) {
+      this.getTreeItems(treeItem, false, (children: TreeDocumentItem[]) => {
+        // callback
+        children.forEach(ch => {
+          this.expandTreeItemDeep(ch);
+        });
+      });
+    } else {
+      this.treeItems.filter(ti => ti.parentPid === treeItem.pid).forEach(t => {
+        this.expandTreeItemDeep(t);
+      });
+    }
+
+  }
+
+  reloadTree(newPid: string) {
+    if (this.selectedTreeItem.model === this.model) {
+      this.reload(newPid);
+    } else {
+      // Kopirujeme objekt podrazeni ve stromu
+      // this.selectItem(this.selectedItem);
+      const parent = this.treeItems.find(ti => ti.pid === this.selectedTreeItem.parentPid);
+      const parentIndex = this.treeItems.findIndex(ti => ti.pid === this.selectedTreeItem.parentPid);
+      const numChildren = this.treeItems.filter(ti => ti.parentPid === parent.pid).length;
+      // remove existing 
+      this.treeItems.splice(parentIndex + 1, numChildren);
+      this.getTreeItems(parent, true);
+
+      this.selectedItem.selected = true;
+      this.totalSelected = 1;
+    }
+  }
+
   toggleTree(event: any, treeItem: TreeDocumentItem) {
     event.stopPropagation();
     event.preventDefault();

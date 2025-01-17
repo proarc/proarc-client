@@ -51,10 +51,12 @@ export class Configuration {
   navbarColor: string;
   workflowUrl: string;
 
-  		// origin = model nad kterym to lze spustit
-		// originModel = vychozi model z ktereho se prevadi
-		// model = model na ktery se prevadi
-    modelChanges: {origin: string, dest:{model: string, originmodel: string, apiPoint: string }[]}[];
+  // origin = model nad kterym to lze spustit
+  // originModel = vychozi model z ktereho se prevadi
+  // model = model na ktery se prevadi
+  modelChanges: {origin: string, dest:{model: string, originmodel: string, apiPoint: string }[]}[];
+
+  allowedCopyModels: string[];
 
   public valueMap: { mapId: string, values: any[] }[];
 

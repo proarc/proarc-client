@@ -190,6 +190,7 @@
 	oldprintIdentifiers: ['barcode', 'ccnb', 'doi', 'hdl', 'ismn', 'isbn', 'permalink', 'sici', 'url', 'uuid', 'urnnbn', 'BCBT'],
 
   searchExpandTree: true,
+  allowedCopyModels: ['model:ndkmonographvolume', 'model:ndkperiodicalissue', 'model:oldprintvolume'],
 
   modelChanges: [
 		// origin = model nad kterym to lze spustit
