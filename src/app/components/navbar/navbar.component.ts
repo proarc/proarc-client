@@ -17,10 +17,11 @@ import { AuthService } from '../../services/auth.service';
 import { Configuration } from '../../shared/configuration';
 import { UserSettings } from '../../shared/user-settings';
 import { AboutDialogComponent } from '../../dialogs/about-dialog/about-dialog.component';
+import { FlexLayoutModule } from 'ngx-flexible-layout';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, TranslateModule, FormsModule, RouterModule,
+  imports: [CommonModule, TranslateModule, FormsModule, RouterModule, FlexLayoutModule,
     MatIconModule, MatButtonModule, MatToolbarModule, MatMenuModule, MatTooltipModule
   ],
   selector: 'app-navbar',

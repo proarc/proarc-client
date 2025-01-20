@@ -2,11 +2,11 @@
     <div fxFlex [ngSwitch]="panelType">
       <!-- <div class="app-editor-content app-tree"  *ngSwitchCase="'tree'">
         <app-editor-tree [panel]="panel" ></app-editor-tree>
-      </div>
-      <app-editor-structure *ngSwitchCase="'structure-list'" [viewMode]="'list'" [panel]="panel" (onIngest)="passOnIngest()"></app-editor-structure>
-      <app-editor-structure *ngSwitchCase="'structure-grid'" [viewMode]="'grid'" [panel]="panel" (onIngest)="passOnIngest()"></app-editor-structure>
-      <app-editor-structure *ngSwitchCase="'structure-icons'" [viewMode]="'icons'" [panel]="panel" (onIngest)="passOnIngest()"></app-editor-structure>
-      <ng-container *ngSwitchCase="'image'" >
+      </div> -->
+      <app-editor-structure *ngSwitchCase="'structure-list'" [viewMode]="'list'" [panel]="panel()" (onIngest)="passOnIngest()"></app-editor-structure>
+      <app-editor-structure *ngSwitchCase="'structure-grid'" [viewMode]="'grid'" [panel]="panel()" (onIngest)="passOnIngest()"></app-editor-structure>
+      <app-editor-structure *ngSwitchCase="'structure-icons'" [viewMode]="'icons'" [panel]="panel()" (onIngest)="passOnIngest()"></app-editor-structure>
+      <!-- <ng-container *ngSwitchCase="'image'" >
         <app-viewer *ngIf="lastSelectedItem() &&  itemModel === 'page'" [imageInfo]="{pid: lastSelectedItem().pid, dsid: 'FULL'}" ></app-viewer>
         <div *ngIf="!(lastSelectedItem() &&  itemModel === 'page')" fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
           <mat-card class="app-alert app-info"><mat-icon>info</mat-icon>{{ 'alert.info.theImageIsNotAvailable' | translate }}</mat-card>
@@ -17,9 +17,9 @@
       </ng-container>
       <ng-container *ngSwitchCase="'song'" >
         <app-song *ngIf="lastSelectedItem()" [pid]="lastSelectedItem().pid"></app-song>
-      </ng-container> -->
+      </ng-container>  -->
       <ng-container>
-        <app-editor-mods *ngSwitchCase="'mods'"  [pid]="lastSelectedItem().pid" [panel]="panel()"
+        <app-editor-mods *ngSwitchCase="'mods'" [panel]="panel()"
          [panelType]="panelType" (onChangePanelType)="changePanelType($event)"></app-editor-mods>
         <!-- <app-editor-ocr *ngSwitchCase="'ocr'"  [panel]="panel" [pid]="lastSelectedItem().pid" [panelType]="panelType" (onchangePanelType)="changePanelType($event)"></app-editor-ocr>
         <app-editor-comment *ngSwitchCase="'comment'" [panel]="panel"  [pid]="lastSelectedItem().pid" [panelType]="panelType" (onchangePanelType)="changePanelType($event)"></app-editor-comment>

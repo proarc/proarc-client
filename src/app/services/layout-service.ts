@@ -1,12 +1,18 @@
-import { Injectable, signal } from "@angular/core";
+import { Component, Injectable, signal } from "@angular/core";
 import { DocumentItem } from "../model/documentItem.model";
 import { ILayoutPanel } from "../dialogs/layout-admin/layout-admin.component";
+import { ModelTemplate } from "../model/modelTemplate";
+import { Configuration } from "../shared/configuration";
 
 @Injectable()
 export class LayoutService {
 
+    constructor(private config: Configuration) { }
+
+    type: string; // 'repo' | 'import'
     panels: ILayoutPanel[] = [];
     editingPanel: string;
+    dragging: boolean;
 
     setPanelEditing(panel: ILayoutPanel) {
 
@@ -32,6 +38,7 @@ export class LayoutService {
     public rootItem: DocumentItem | null; // root item
     public parent: DocumentItem;
     public selectedParentItem: DocumentItem; // parent of selected item 
+    expandedPath: string[];
 
     public previousItem: DocumentItem | null;
     public nextItem: DocumentItem | null;
@@ -40,6 +47,10 @@ export class LayoutService {
     public setItems(val: DocumentItem[]) {
         this.items.update(() => val)
     }
+
+    public lastItemIdxClicked: number; // last item clicked
+    public lastPanelClicked: string; // last panel clicked
+    public moveFocus: boolean = true;
 
     batchId: string;
 
@@ -71,5 +82,30 @@ export class LayoutService {
         //     this.selectedChildItem = this.getSelected()[0];
         // }
         // this.selectionSubject.next(fromStructure);
+    }
+
+    setSelectionChanged(fromStructure: boolean, panel: ILayoutPanel) {
+        this.setPanelEditing(panel);
+        //this.selectionSubject.next(fromStructure);
+    }
+
+    allowedChildrenModels(): string[] {
+        if (this.selectedParentItem) {
+            return ModelTemplate.allowedChildrenForModel(this.config.models, this.selectedParentItem.model);
+        } else {
+            return [];
+        }
+    }
+
+    setShouldRefresh(keepSelection: boolean) {
+        this.clearPanelEditing();
+        if (!keepSelection) {
+            this.lastSelectedItem = null;
+        }
+        // this.refreshSubject.next(keepSelection);
+    }
+
+    refreshSelectedItem(moveToNext: boolean, from: string) {
+        //this.refreshSelectedSubject.next(from);
     }
 }

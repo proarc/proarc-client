@@ -31,10 +31,11 @@ import { ResizecolDirective } from '../../resizecol.directive';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { LogDialogComponent } from '../../dialogs/log-dialog/log-dialog.component';
 import { SearchActionsComponent } from "./search-actions/search-actions.component";
+import { FlexLayoutModule } from 'ngx-flexible-layout';
 
 @Component({
   selector: 'app-search',
-  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
+  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, FlexLayoutModule,
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule, 
     MatTableModule, MatSortModule, ResizecolDirective, SearchActionsComponent],

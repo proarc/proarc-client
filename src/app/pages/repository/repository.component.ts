@@ -47,7 +47,6 @@ export class RepositoryComponent {
   
 
   path: { pid: string, label: string, model: string }[] = [];
-  expandedPath: string[];
 
   constructor(
     private router: Router,
@@ -64,6 +63,7 @@ export class RepositoryComponent {
   ) { }
 
   ngOnInit() {
+    this.layout.type = 'repo';
     // this.route.queryParams.subscribe(p => {
     const s = this.route.paramMap.pipe(
       switchMap(p => {
@@ -93,7 +93,7 @@ export class RepositoryComponent {
       pid = this.layout.lastSelectedItem().pid;
       lastSelected = this.layout.lastSelectedItem().pid;
       selectedParentItem = this.layout.selectedParentItem;
-      path = JSON.parse(JSON.stringify(this.expandedPath));
+      path = JSON.parse(JSON.stringify(this.layout.expandedPath));
     }
 
     this.loading = true;
@@ -153,9 +153,9 @@ export class RepositoryComponent {
       }
 
       if (keepSelection) {
-        this.expandedPath = JSON.parse(JSON.stringify(path));
+        this.layout.expandedPath = JSON.parse(JSON.stringify(path));
       } else {
-        this.expandedPath = this.path.map(p => p.pid);
+        this.layout.expandedPath = this.path.map(p => p.pid);
       }
       this.getBatchInfo();
       this.setupNavigation();
@@ -199,9 +199,9 @@ export class RepositoryComponent {
         this.layout.rootItem = item;
 
         if (keepSelection) {
-          this.expandedPath = JSON.parse(JSON.stringify(path));
+          this.layout.expandedPath = JSON.parse(JSON.stringify(path));
         } else {
-          this.expandedPath = this.path.map(p => p.pid);
+          this.layout.expandedPath = this.path.map(p => p.pid);
         }
       }
     });

@@ -8,10 +8,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { DocumentItem } from '../../model/documentItem.model';
 import { EditorModsComponent } from "../../editors/editor-mods/editor-mods.component";
+import { EditorStructureComponent } from "../../editors/editor-structure/editor-structure.component";
 
 @Component({
   selector: 'app-panel',
-    imports: [CommonModule, TranslateModule, FlexLayoutModule, EditorModsComponent],
+    imports: [CommonModule, TranslateModule, FlexLayoutModule, EditorModsComponent, EditorStructureComponent],
   templateUrl: './panel.component.html',
   styleUrl: './panel.component.scss'
 })
@@ -45,5 +46,9 @@ export class PanelComponent {
 
   changePanelType(newType: string) {
     this.panelType = newType;
+  }
+
+  passOnIngest() {
+    this.onIngest.emit(true);
   }
 }

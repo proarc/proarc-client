@@ -34,7 +34,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
    @Input('panelType') panelType: string;
    @Output() onChangePanelType = new EventEmitter<string>();
 
-  @Input() pid: string;
+
   @ViewChild('editingPre') editingPre: ElementRef;
   @ViewChild('originalPre') originalPre: ElementRef;
   realtime = false;
@@ -77,9 +77,9 @@ export class EditorModsComponent implements OnInit, OnDestroy {
       this.visible = false;
       return;
     }
-    if (this.pid) {
-      this.reload();
-    }
+    // if (this.pid) {
+    //   this.reload();
+    // }
   }
 
   public setRealtime(enable: boolean) {
@@ -238,8 +238,6 @@ export class EditorModsComponent implements OnInit, OnDestroy {
     this.api.getMods(this.lastPid, this.layout.batchId).subscribe((mods: any) => {
       this.mods = Mods.fromJson(mods['record']);
       this.state = 'success';
-    }, () => {
-      this.state = 'failure';
     });
   }
 
