@@ -4,12 +4,14 @@ import { AuthGuard } from './shared/auth.guard';
 import { TotestComponent } from './pages/totest/totest.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { SearchComponent } from './pages/search/search.component';
+import { RepositoryComponent } from './pages/repository/repository.component';
+import { ConfirmLeaveEditorGuard } from './shared/confirm-leave-editor.guard';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent }, ,
     {
         path: '', canActivate: [AuthGuard], children: [
-            // { path: 'repository/:pid', component: RepositoryComponent, canDeactivate: [ConfirmLeaveEditorGuard] },
+            { path: 'repository/:pid', component: RepositoryComponent, canDeactivate: [ConfirmLeaveEditorGuard] },
             // { path: 'kramerius/:pid', component: KrameriusComponent },
             { path: 'settings', component: SettingsComponent },
             // { path: 'devices', component: DevicesComponent },

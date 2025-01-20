@@ -3,6 +3,7 @@ import { Configuration, TableColumn } from "./configuration";
 import { ApiService } from "../services/api.service";
 import { Utils } from "../utils/utils";
 import { UIService } from "../services/ui.service";
+import { IConfig } from "../dialogs/layout-admin/layout-admin.component";
 
 @Injectable()
 export class UserSettings {
@@ -36,12 +37,46 @@ export class UserSettings {
 
     formHighlighting: boolean;
 
+    repositoryLayout: IConfig;
+    importLayout: IConfig;
+
     [key: string]: any; // This is to allow property asignement by name this[k] = o[k];
 
 }
 
 @Injectable()
 export class UserSettingsService {
+
+    defaultLayoutConfig: IConfig = {
+      columns: [
+        {
+          visible: true,
+          size: 30,
+          rows: [
+            { id: 'panel1', visible: true, size: 25, type: 'structure-list', isDirty: false, canEdit: true },
+            { id: 'panel2', visible: true, size: 75, type: 'metadata', isDirty: false, canEdit: true },
+          ],
+        },
+        {
+          visible: true,
+          size: 40,
+          rows: [
+            { id: 'panel3', visible: true, size: 20, type: 'mods', isDirty: false, canEdit: true },
+            { id: 'panel4', visible: false, size: 30, type: 'ocr', isDirty: false, canEdit: true },
+            { id: 'panel5', visible: false, size: 50, type: 'comment', isDirty: false, canEdit: true },
+          ],
+        },
+        {
+          visible: true,
+          size: 30,
+          rows: [
+            { id: 'panel6', visible: true, size: 40, type: 'image', isDirty: false, canEdit: true },
+            { id: 'panel7', visible: true, size: 60, type: 'atm', isDirty: false, canEdit: true },
+          ],
+        },
+      ],
+      disabled: false,
+    }
     
 
   columnsSearchDefault: TableColumn[] = [
@@ -199,6 +234,8 @@ public queueColumnsDefault: TableColumn[] = [
         this.settings.topIdentifiers = Utils.clone(this.config.topIdentifiers);
         this.settings.topExpandedModels = Utils.clone(this.config.expandedModels);
         this.settings.formHighlighting = true;
+
+        this.settings.repositoryLayout = Utils.clone(this.defaultLayoutConfig);
     }
 
     load(o: any) {

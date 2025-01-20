@@ -1,0 +1,61 @@
+<div fxLayout="column" fxFlexFill>
+  <h1 mat-dialog-title [innerHtml]="'dialog.layoutSettings.title' | translate : {value: ('dynamic.' + data.layout | translate)}"></h1>
+  <div fxFlex mat-dialog-content>
+    <div fxLayout="column" fxLayoutGap="16px" fxFlexFill>
+      <div fxLayout="row" fxLayoutGap="16px">
+        <div fxFlex class="app-desc">
+          <h3 class="app-mb-0">{{ 'desc.help' | translate }}</h3>
+        <ul class="app-m-0">
+          <li>{{ 'dialog.layoutSettings.help.1' | translate }}</li>
+          <li>{{ 'dialog.layoutSettings.help.2' | translate }}</li>
+          <li>{{ 'dialog.layoutSettings.help.3' | translate }}</li>
+          <li>{{ 'dialog.layoutSettings.help.4' | translate }}</li>
+          <li>{{ 'dialog.layoutSettings.help.5' | translate }}</li>
+        </ul>
+        </div>
+        <div fxFlex fxLayout="row" fxLayoutGap="3px" class="app-layout-controller" [matTooltip]="'dialog.layoutSettings.tooltipPanel' | translate">
+          <div *ngFor="let c of config.columns" [fxFlex]="c.size+'%'">
+            <div fxLayout="column" fxLayoutGap="3px" fxFlexFill>
+              <div *ngFor="let r of c.rows" [fxFlex]="r.size+'%'"(click)="toggleColumnVisibility(r)" 
+              fxLayout="columne" fxLayoutAlign="center center" class="app-item" [ngClass]="r.visible ? 'app-active' : 'app-inactive'">
+                <mat-icon *ngIf="!r.visible">not_interested</mat-icon>
+                <div class="app-text-center">{{ 'dynamic.' + r.type | translate }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div fxFlex class="app-layout-preview" style="background-color: red !important;">
+        <as-split *ngIf="config" direction="horizontal" [disabled]="config.disabled" (dragEnd)="onDragEnd(-1, $event)">
+          <ng-template ngFor let-column [ngForOf]="config.columns" let-icol="index">
+            <as-split-area *ngIf="column.visible" [size]="column.size">
+              <as-split direction="vertical" [disabled]="config.disabled" (dragEnd)="onDragEnd(icol, $event)">
+                <ng-template ngFor let-row [ngForOf]="column.rows" let-irow="index">
+                  <as-split-area *ngIf="row.visible" [size]="row.size">
+                    <div fxLayout="column" fxFlexFill>
+                      <mat-form-field appearance="fill">
+                        <mat-label>{{ 'desc.panelType' | translate }}</mat-label>
+                        <mat-select [(ngModel)]="row.type" (selectionChange)="refreshColumnVisibility()">
+                          <mat-option *ngFor="let type of types" [value]="type">
+                            {{ 'dynamic.' + type | translate }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <div fxFlex fxLayout="column" fxLayoutAlign="center center">
+                        <div class="app-area-name app-p-4 app-text-center">{{ 'dynamic.' + row.type  | translate }}</div>
+                      </div>
+                    </div>
+                  </as-split-area>
+                </ng-template>
+              </as-split>
+            </as-split-area>
+          </ng-template>
+        </as-split>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions cdkFocusRegionstart>
+    <button mat-flat-button color="primary" (click)="save()">{{ 'common.save' | translate }}</button>
+    <button mat-flat-button [mat-dialog-close]="saved">{{ 'common.close' | translate }}</button>
+  </div>
+</div>

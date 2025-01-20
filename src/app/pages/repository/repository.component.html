@@ -1,0 +1,75 @@
+<mat-progress-bar mode="indeterminate" *ngIf="loading" class="app-progress-bar"></mat-progress-bar>
+
+<div fxLayout="column" fxFlexFill *ngIf="!loading" class="app-editor-wrapper">
+
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
+    <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs app-view-border-right">
+      <a routerLink="/"><mat-icon>home</mat-icon></a>
+      <span class="app-separator">/</span>
+      <ng-container *ngFor="let p of path; let last = last; let l = count; let idx = index">
+        <a *ngIf="!last" (click)="goToObjectByPid(p.pid)" [matTooltip]="'model.' + p.model | translate" class="app-text-cutter" [matTooltip]="p.label">{{ p.label }}</a>
+        <span class="app-separator" *ngIf="idx < l - 2">/</span>
+      </ng-container>
+      <a *ngIf="path.length === 1" (click)="selectLast()" class="app-text-cutter" [matTooltip]="item.label" [matTooltipPosition]="'above'">{{ item.label }}</a>
+    </div>
+    <div class="app-ml-4" >
+      <div *ngIf="path.length === 1" class="app-model">{{ 'model.' + item.model | translate }}</div>
+      <div *ngIf="path.length > 1" class="app-model app-cursor-pointer" (click)="selectLast()">{{ 'model.' + item.model | translate }} - {{ item.label }}</div>
+    </div>
+    <div fxFlex class="app-ml-4">
+        <button mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menuMore="matMenu">
+          <button mat-menu-item (click)="onExport()" >{{ 'button.export' | translate }}</button>
+          <button mat-menu-item (click)="onUrnnbn()" >URN:NBN</button>
+          <button mat-menu-item *ngIf="canCopy()" (click)="onCopyItem()">{{ 'button.copy' | translate }}</button>
+
+          <!-- <button mat-menu-item *ngIf="auth.user.changeModelFunction || auth.isSuperAdmin()" (click)="showConvertDialog()">{{ 'button.convertPages' | translate }}</button> -->
+          <button mat-menu-item *ngIf="auth.user.czidloFunction || auth.isSuperAdmin()" (click)="czidlo()">{{ 'button.czidloFunction' | translate }}</button>
+          <button mat-menu-item *ngIf="config.updateInSource && (auth.user.importToCatalogFunction || auth.isSuperAdmin()) && canUpdateInSource()" (click)="updateInSource()">{{ 'button.updateInSource' | translate }}</button>
+          <button mat-menu-item (click)="validateObject()">{{ 'button.validateObject' | translate }}</button>
+        </mat-menu>
+        <button *ngIf="batchInfo" mat-icon-button color="primary" (click)="onShowLog();" [matTooltip]="'button.viewErrorDetail' | translate" matTooltipPosition="below" class="app-icon-button">
+          <mat-icon>error_outline</mat-icon>
+        </button>
+      </div>
+
+    <div>
+      <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToObject(parent)" [disabled]="!parent" mat-icon-button>
+        <mat-icon>keyboard_arrow_up</mat-icon>
+      </button>
+      <button matTooltip="{{ 'editor.toolbar.nav_down' | translate }}" (click)="goToFirst()" [disabled]="items.length === 0" mat-icon-button>
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+      <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToObject(previousItem)" [disabled]="!previousItem" mat-icon-button>
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+      <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="goToObject(nextItem)" [disabled]="!nextItem" mat-icon-button>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+      <button matTooltip="{{ 'navbar.layout' | translate }}" (click)="showLayoutAdmin()" mat-icon-button>
+        <mat-icon>dashboard</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div fxFlex class="app-oh app-content-wrapper" cdkDropListGroup>
+    <div class="app-border-wrapper app-h-100">
+      <as-split *ngIf="settings.repositoryLayout" direction="horizontal" [disabled]="settings.repositoryLayout.disabled"  (dragEnd)="onDragEnd(-1, $event)">
+        <ng-template ngFor let-column [ngForOf]="settings.repositoryLayout.columns" let-icol="index">
+          <as-split-area *ngIf="column.visible" [size]="column.size">
+            <as-split direction="vertical" [disabled]="settings.repositoryLayout.disabled" (dragEnd)="onDragEnd(icol, $event)">
+              <ng-template ngFor let-row [ngForOf]="column.rows" let-irow="index">
+                <as-split-area *ngIf="row.visible"  [size]="row.size" [class.app-avoid-click]="!row.canEdit">
+                    {{ row.type }}
+                  <!-- <app-editor-generic [editorType]="row.type" [panel]="row"></app-editor-generic> -->
+                </as-split-area>
+              </ng-template>
+            </as-split>
+          </as-split-area>
+        </ng-template>
+      </as-split>
+    </div>
+  </div>
+</div>
