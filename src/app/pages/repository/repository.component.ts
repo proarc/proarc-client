@@ -17,7 +17,7 @@ import { AuthService } from '../../services/auth.service';
 import { UIService } from '../../services/ui.service';
 import { Configuration } from '../../shared/configuration';
 import { forkJoin, of, switchMap } from 'rxjs';
-import { IConfig, ILayoutPanel, LayoutAdminComponent } from '../../dialogs/layout-admin/layout-admin.component';
+import { LayoutAdminComponent } from '../../dialogs/layout-admin/layout-admin.component';
 import { CzidloDialogComponent } from '../../dialogs/czidlo-dialog/czidlo-dialog.component';
 import { ExportDialogComponent } from '../../dialogs/export-dialog/export-dialog.component';
 import { LogDialogComponent } from '../../dialogs/log-dialog/log-dialog.component';
@@ -25,13 +25,16 @@ import { UpdateInSourceDialogComponent } from '../../dialogs/update-in-source-di
 import { UrnnbnDialogComponent } from '../../dialogs/urnnbn-dialog/urnnbn-dialog.component';
 import { Batch } from '../../model/batch.model';
 import { UserSettings, UserSettingsService } from '../../shared/user-settings';
+import { FlexLayoutModule } from 'ngx-flexible-layout';
+import { PanelComponent } from "../../components/panel/panel.component";
+import { LayoutService } from '../../services/layout-service';
+import { ModelTemplate } from '../../model/modelTemplate';
 
 @Component({
   selector: 'app-repository',
-  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
+  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, FlexLayoutModule,
     MatCardModule, MatIconModule, MatButtonModule, MatProgressBarModule,
-    MatTooltipModule, MatMenuModule
-  ],
+    MatTooltipModule, MatMenuModule, PanelComponent],
   templateUrl: './repository.component.html',
   styleUrl: './repository.component.scss'
 })
@@ -39,19 +42,12 @@ export class RepositoryComponent {
 
   loading: boolean;
 
-  panels: ILayoutPanel[] = [];
-  editingPanel: string;
-
 
   pid: string;  // pid in url
-  public item: DocumentItem; // item by pid in url
-  public items: DocumentItem[] | null; // all children items
-  public lastSelectedItem: DocumentItem; // last selected child item
+  
 
   path: { pid: string, label: string, model: string }[] = [];
-  public parent: DocumentItem;
-  public previousItem: DocumentItem | null;
-  public nextItem: DocumentItem | null;
+  expandedPath: string[];
 
   constructor(
     private router: Router,
@@ -63,8 +59,7 @@ export class RepositoryComponent {
     private api: ApiService,
     public settings: UserSettings,
     private settingsService: UserSettingsService,
-    // private repo: RepositoryService,
-    // public layout: LayoutService,
+    public layout: LayoutService
     // private tmpl: TemplateService
   ) { }
 
@@ -89,81 +84,132 @@ export class RepositoryComponent {
     let path: string[] = [];
     let lastSelected: string = null;
     let selectedParentItem: DocumentItem = null;
-    // if (keepSelection) {
-    //   this.layout.items.forEach(item => {
-    //     if (item.selected) {
-    //       selection.push(item.pid);
-    //     }
-    //   });
-    //   pid = this.layout.lastSelectedItem.pid;
-    //   lastSelected = this.layout.lastSelectedItem.pid;
-    //   selectedParentItem = this.layout.selectedParentItem;
-    //   path = JSON.parse(JSON.stringify(this.layout.expandedPath));
-    // }
+    if (keepSelection) {
+      this.layout.items().forEach(item => {
+        if (item.selected) {
+          selection.push(item.pid);
+        }
+      });
+      pid = this.layout.lastSelectedItem().pid;
+      lastSelected = this.layout.lastSelectedItem().pid;
+      selectedParentItem = this.layout.selectedParentItem;
+      path = JSON.parse(JSON.stringify(this.expandedPath));
+    }
 
     this.loading = true;
     this.path = [];
     // this.layout.tree = null;
-    // this.layout.parent = null;
-    // this.layout.selectedParentItem = null;
-    this.lastSelectedItem = null;
+    this.layout.parent = null;
+    this.layout.selectedParentItem = null;
+    this.layout.setLastSelectedItem(null);
     const rDoc = this.api.getDocument(pid);
     const rChildren = this.api.getRelations(pid);
     const rParent = this.api.getParent(pid);
     forkJoin([rDoc, rChildren, rParent]).subscribe(([item, children, parent]: [DocumentItem, DocumentItem[], DocumentItem]) => {
-      this.item = item;
-      this.lastSelectedItem = item;
-      this.items = children;
+      this.layout.item = item;
+      this.layout.setItems(children);
       if (keepSelection) {
-        // this.layout.items.forEach(ch => {
-        //   if (selection.includes(ch.pid)) {
-        //     ch.selected = true;
-        //   }
-        //   if (ch.pid === lastSelected) {
-        //     this.layout.lastSelectedItem = ch;
-        //   }
-        // });
-        // this.layout.selectedParentItem = selectedParentItem;
+        this.layout.items().forEach(ch => {
+          if (selection.includes(ch.pid)) {
+            ch.selected = true;
+          }
+          if (ch.pid === lastSelected) {
+            this.layout.setLastSelectedItem(ch);
+          }
+        });
+        this.layout.selectedParentItem = selectedParentItem;
+      } else {
+        this.layout.setLastSelectedItem(item);
       }
-      // if (this.canHasChildren(item.model) && !keepSelection) {
-      //   this.layout.selectedParentItem = item;
-      // }
+      if (this.canHasChildren(item.model) && !keepSelection) {
+        this.layout.selectedParentItem = item;
+      }
 
-      // this.layout.setSelection(false, null);
-      // this.layout.path.unshift({ pid: item.pid, label: item.label, model: item.model });
+      this.layout.setSelection(false, null);
+      this.path.unshift({ pid: item.pid, label: item.label, model: item.model });
 
-      // if (parent) {
-      //   this.layout.parent = parent;
-      //   this.layout.item.parent = parent.pid;
-      //   if (!this.canHasChildren(item.model)) {
-      //     if (!keepSelection) {
-      //       this.layout.selectedParentItem = parent;
-      //     }
+      if (parent) {
+        this.layout.parent = parent;
+        this.layout.item.parent = parent.pid;
+        if (!this.canHasChildren(item.model)) {
+          if (!keepSelection) {
+            this.layout.selectedParentItem = parent;
+          }
 
-      //     // find siblings
-      //     this.api.getRelations(parent.pid).subscribe((siblings: DocumentItem[]) => {
-      //       if (siblings.length > 0) {
-      //         this.layout.items = siblings;
-      //         this.layout.items.forEach(item => { item.selected = item.pid === pid });
-      //         this.layout.setSelection(false, null);
-      //       }
-      //     });
-      //   }
-      //   this.layout.path.unshift({ pid: parent.pid, label: parent.label, model: parent.model });
-      //   this.setLayoutPath(parent, keepSelection, path);
-      // } else {
-      //   this.layout.rootItem = item;
+          // find siblings
+          this.api.getRelations(parent.pid).subscribe((siblings: DocumentItem[]) => {
+            if (siblings.length > 0) {
+              this.layout.setItems(siblings);
+              this.layout.items().forEach(item => { item.selected = item.pid === pid });
+              this.layout.setSelection(false, null);
+            }
+          });
+        }
+        this.path.unshift({ pid: parent.pid, label: parent.label, model: parent.model });
+        this.setLayoutPath(parent, keepSelection, path);
+      } else {
+        this.layout.rootItem = item;
 
-      // }
-      // if (keepSelection) {
-      //   this.layout.expandedPath = JSON.parse(JSON.stringify(path));
-      // } else {
-      //   this.layout.expandedPath = this.layout.path.map(p => p.pid);
-      // }
-      // this.getBatchInfo();
-      // this.setupNavigation();
+      }
+
+      if (keepSelection) {
+        this.expandedPath = JSON.parse(JSON.stringify(path));
+      } else {
+        this.expandedPath = this.path.map(p => p.pid);
+      }
+      this.getBatchInfo();
+      this.setupNavigation();
       this.loading = false;
     });
+  }
+
+  private setupNavigation() {
+    this.layout.previousItem = null;
+    this.layout.nextItem = null;
+    if (!this.layout.parent) {
+      return;
+    }
+    const parentId = this.layout.parent.pid;
+    this.api.getRelations(this.layout.parent.pid).subscribe((siblings: DocumentItem[]) => {
+      let index = -1;
+      let i = -1;
+      for (const sibling of siblings) {
+        i += 1;
+        if (sibling.pid === this.layout.item.pid) {
+          index = i;
+          break;
+        }
+      }
+      if (index >= 1 && this.layout.parent.pid == parentId) {
+        this.layout.previousItem = siblings[index - 1];
+      }
+      if (index >= 0 && index < siblings.length - 1) {
+        this.layout.nextItem = siblings[index + 1];
+      }
+    });
+  }
+
+
+  setLayoutPath(item: DocumentItem, keepSelection: boolean, path: string[]) {
+    this.api.getParent(item.pid).subscribe((parent: DocumentItem) => {
+      if (parent) {
+        this.path.unshift({ pid: parent.pid, label: parent.label, model: parent.model });
+        this.setLayoutPath(parent, keepSelection, path);
+      } else {
+        this.layout.rootItem = item;
+
+        if (keepSelection) {
+          this.expandedPath = JSON.parse(JSON.stringify(path));
+        } else {
+          this.expandedPath = this.path.map(p => p.pid);
+        }
+      }
+    });
+  }
+
+  canHasChildren(model: string): boolean {
+    const a = ModelTemplate.allowedChildrenForModel(this.config.models, model)
+    return a?.length > 0;
   }
 
   // Actions
@@ -174,9 +220,9 @@ export class RepositoryComponent {
   }
 
   selectLast() {
-    // this.layout.items.forEach(i => i.selected = false);
-    // this.layout.lastSelectedItem = this.layout.item;
-    // this.layout.setSelection(false, null);
+    this.layout.items().forEach(i => i.selected = false);
+    this.layout.setLastSelectedItem(this.layout.item);
+    this.layout.setSelection(false, null);
   }
 
   public goToObject(item: DocumentItem) {
@@ -186,13 +232,13 @@ export class RepositoryComponent {
   }
 
   public goToFirst() {
-    this.router.navigate(['/repository', this.parent.pid]);
+    this.router.navigate(['/repository', this.layout.items()[0].pid]);
   }
 
   onExport() {
     const dialogRef = this.dialog.open(ExportDialogComponent, {
       disableClose: true,
-      data: [{ pid: this.item.pid, model: this.item.model }],
+      data: [{ pid: this.layout.item.pid, model: this.layout.item.model }],
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -204,7 +250,7 @@ export class RepositoryComponent {
 
   onUrnnbn() {
     const dialogRef = this.dialog.open(UrnnbnDialogComponent, {
-      data: [this.item.pid],
+      data: [this.layout.item.pid],
       panelClass: 'app-urnbnb-dialog',
       width: '600px'
     });
@@ -217,8 +263,8 @@ export class RepositoryComponent {
 
 
   canCopy(): boolean {
-    if (this.item) {
-      return this.config.allowedCopyModels.includes(this.item.model)
+    if (this.layout.item) {
+      return this.config.allowedCopyModels.includes(this.layout.item.model)
     } else {
       return false;
     }
@@ -226,7 +272,7 @@ export class RepositoryComponent {
   }
 
   onCopyItem() {
-    this.api.copyObject(this.item.pid, this.item.model).subscribe((response: any) => {
+    this.api.copyObject(this.layout.item.pid, this.layout.item.model).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
         this.ui.showErrorDialogFromObject(response['response'].errors);
@@ -246,7 +292,7 @@ export class RepositoryComponent {
   czidlo() {
 
     const dialogRef = this.dialog.open(CzidloDialogComponent, {
-      data: { pid: this.item.pid, model: this.item.model },
+      data: { pid: this.layout.item.pid, model: this.layout.item.model },
       panelClass: 'app-urnbnb-dialog',
       width: '600px'
     });
@@ -258,8 +304,8 @@ export class RepositoryComponent {
   }
 
   canUpdateInSource() {
-    if (this.item) {
-      return this.config.updateInSourceModels.includes(this.item.model)
+    if (this.layout.item) {
+      return this.config.updateInSourceModels.includes(this.layout.item.model)
     } else {
       return false;
     }
@@ -269,7 +315,7 @@ export class RepositoryComponent {
   updateInSource() {
 
     const dialogRef = this.dialog.open(UpdateInSourceDialogComponent, {
-      data: this.item.pid,
+      data: this.layout.item.pid,
       panelClass: 'app-urnbnb-dialog',
       width: '600px'
     });
@@ -281,7 +327,7 @@ export class RepositoryComponent {
   }
 
   validateObject() {
-    this.api.validateObject(this.item.pid).subscribe((response: any) => {
+    this.api.validateObject(this.layout.item.pid).subscribe((response: any) => {
       if (response.response.errors) {
         this.ui.showErrorDialogFromObject(response.response.errors);
       } else {
@@ -301,7 +347,7 @@ export class RepositoryComponent {
   getBatchInfo() {
     this.batchInfo = null;
     let params: any = {
-      description: this.item.pid,
+      description: this.layout.item.pid,
     };
 
     this.api.getImportBatches(params).subscribe((resp: any) => {
@@ -328,33 +374,21 @@ export class RepositoryComponent {
     });
   }
 
-  setPanelEditing(panel: ILayoutPanel) {
-
-    if (panel && this.editingPanel !== panel.id) {
-      this.panels.forEach(p => p.canEdit = false || p.type === 'media');
-      panel.canEdit = true;
-      this.editingPanel = panel.id
-    }
-  }
-
-  clearPanelEditing() {
-    this.panels.forEach(p => p.canEdit = true);
-    this.editingPanel = '';
-  }
+  
 
   initConfig() {
     let idx = 0;
-    this.panels = [];
+    this.layout.panels = [];
 
     this.settings.repositoryLayout.columns.forEach(c => {
       c.rows.forEach(r => {
         if (!r.id) {
           r.id = 'panel' + idx++;
         }
-        this.panels.push(r);
+        this.layout.panels.push(r);
       });
     });
-    this.clearPanelEditing();
+    this.layout.clearPanelEditing();
   }
 
   onDragEnd(columnindex: number, e: any) {

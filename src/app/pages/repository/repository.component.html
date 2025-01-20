@@ -10,11 +10,11 @@
         <a *ngIf="!last" (click)="goToObjectByPid(p.pid)" [matTooltip]="'model.' + p.model | translate" class="app-text-cutter" [matTooltip]="p.label">{{ p.label }}</a>
         <span class="app-separator" *ngIf="idx < l - 2">/</span>
       </ng-container>
-      <a *ngIf="path.length === 1" (click)="selectLast()" class="app-text-cutter" [matTooltip]="item.label" [matTooltipPosition]="'above'">{{ item.label }}</a>
+      <a *ngIf="path.length === 1" (click)="selectLast()" class="app-text-cutter" [matTooltip]="layout.item.label" [matTooltipPosition]="'above'">{{ layout.item.label }}</a>
     </div>
     <div class="app-ml-4" >
-      <div *ngIf="path.length === 1" class="app-model">{{ 'model.' + item.model | translate }}</div>
-      <div *ngIf="path.length > 1" class="app-model app-cursor-pointer" (click)="selectLast()">{{ 'model.' + item.model | translate }} - {{ item.label }}</div>
+      <div *ngIf="path.length === 1" class="app-model">{{ 'model.' + layout.item.model | translate }}</div>
+      <div *ngIf="path.length > 1" class="app-model app-cursor-pointer" (click)="selectLast()">{{ 'model.' + layout.item.model | translate }} - {{ layout.item.label }}</div>
     </div>
     <div fxFlex class="app-ml-4">
         <button mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
@@ -36,16 +36,16 @@
       </div>
 
     <div>
-      <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToObject(parent)" [disabled]="!parent" mat-icon-button>
+      <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToObject(layout.parent)" [disabled]="!layout.parent" mat-icon-button>
         <mat-icon>keyboard_arrow_up</mat-icon>
       </button>
-      <button matTooltip="{{ 'editor.toolbar.nav_down' | translate }}" (click)="goToFirst()" [disabled]="items.length === 0" mat-icon-button>
+      <button matTooltip="{{ 'editor.toolbar.nav_down' | translate }}" (click)="goToFirst()" [disabled]="layout.items().length === 0" mat-icon-button>
         <mat-icon>keyboard_arrow_down</mat-icon>
       </button>
-      <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToObject(previousItem)" [disabled]="!previousItem" mat-icon-button>
+      <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToObject(layout.previousItem)" [disabled]="!layout.previousItem" mat-icon-button>
         <mat-icon>keyboard_arrow_left</mat-icon>
       </button>
-      <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="goToObject(nextItem)" [disabled]="!nextItem" mat-icon-button>
+      <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="goToObject(layout.nextItem)" [disabled]="!layout.nextItem" mat-icon-button>
         <mat-icon>keyboard_arrow_right</mat-icon>
       </button>
       <button matTooltip="{{ 'navbar.layout' | translate }}" (click)="showLayoutAdmin()" mat-icon-button>
@@ -62,8 +62,7 @@
             <as-split direction="vertical" [disabled]="settings.repositoryLayout.disabled" (dragEnd)="onDragEnd(icol, $event)">
               <ng-template ngFor let-row [ngForOf]="column.rows" let-irow="index">
                 <as-split-area *ngIf="row.visible"  [size]="row.size" [class.app-avoid-click]="!row.canEdit">
-                    {{ row.type }}
-                  <!-- <app-editor-generic [editorType]="row.type" [panel]="row"></app-editor-generic> -->
+                  <app-panel [panel]="row" [lastSelectedItem]="layout.lastSelectedItem()" ></app-panel>
                 </as-split-area>
               </ng-template>
             </as-split>

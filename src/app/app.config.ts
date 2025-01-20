@@ -11,7 +11,8 @@ import { Configuration } from './shared/configuration';
 import { ApiService } from './services/api.service';
 import { UserSettings, UserSettingsService } from './shared/user-settings';
 import { UIService } from './services/ui.service';
-
+import { LayoutService } from './services/layout-service';
+import { provideHighlightOptions } from 'ngx-highlightjs';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -37,7 +38,11 @@ export const appConfig: ApplicationConfig = {
         deps: [HttpClient]
       }
     })),
+    provideHighlightOptions({
+      fullLibraryLoader: () => import('highlight.js')
+    }),
     TranslateService, 
-    Configuration, ApiService, AuthService, UIService, UserSettings, UserSettingsService
+    Configuration, ApiService, AuthService, UIService, UserSettings, UserSettingsService,
+    LayoutService
   ]
 };
