@@ -40,6 +40,23 @@ export class UserSettings {
     repositoryLayout: IConfig;
     importLayout: IConfig;
 
+    parentModel: string;  // model in parent-dialog
+    parentOrganization: string; 
+    parentQueryField: string; 
+    parentOwner: string; 
+    parentProcessor: string; 
+    parentSortField: string;
+    parentSortAsc: boolean;
+    parentExpandedPath: string[];
+    parentSplit: number = 60; // First split panel in parent-dialog.
+    columnsParentRight: TableColumn[];
+    columnsParentLeft: TableColumn[];
+
+    viewerPositionLock: boolean;
+    viewerRotation: string; 
+    viewerCenter: string; 
+    viewerResolution: string; 
+
     [key: string]: any; // This is to allow property asignement by name this[k] = o[k];
 
 }
@@ -93,6 +110,7 @@ export class UserSettingsService {
     { field: 'urnNbn', selected: true, width: 100, type: 'string' },
     { field: 'descriptionStandard', selected: true, width: 100, type: 'string' },
     { field: 'partNumber', selected: true, width: 100, type: 'string' },
+    { field: 'filename', selected: true, width: 100, type: 'string' },
     { field: 'isLocked', selected: true, width: 100, type: 'boolean' }
 ];
 
@@ -236,6 +254,25 @@ public queueColumnsDefault: TableColumn[] = [
         this.settings.formHighlighting = true;
 
         this.settings.repositoryLayout = Utils.clone(this.defaultLayoutConfig);
+        this.settings.parentModel = this.config.defaultModel;
+        this.settings.parentSortField = 'modified';
+        this.settings.parentSortAsc = false;
+        
+        this.settings.parentQueryField = 'queryLabel';
+        this.settings.parentOwner = '-';
+        this.settings.parentProcessor = '-';
+        this.settings.parentOrganization = '-';
+        this.settings.parentExpandedPath = [];
+        this.settings.parentSplit = 60;
+        this.settings.columnsParentRight = Utils.clone(this.columnsSearchDefault);
+        this.settings.columnsParentLeft = Utils.clone(this.columnsSearchDefault);
+
+        
+        this.settings.viewerPositionLock = false;
+        this.settings.viewerRotation = null;
+        this.settings.viewerCenter = null;
+        this.settings.viewerResolution = null;
+
     }
 
     load(o: any) {

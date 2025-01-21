@@ -37,7 +37,10 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/ol.js",
+              "node_modules/json-6/lib/json6.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -33,16 +33,18 @@ import { AuthService } from '../../services/auth.service';
 import { LayoutService } from '../../services/layout-service';
 import { UIService } from '../../services/ui.service';
 import { UserSettings, UserSettingsService } from '../../shared/user-settings';
-import { ModelTemplate } from '../../model/modelTemplate';
 import { Configuration } from '../../shared/configuration';
-import { ResizedEvent } from 'angular-resize-event';
+import { ResizedDirective, ResizedEvent } from '../../resized.directive';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { ChildrenValidationDialogComponent } from '../../dialogs/children-validation-dialog/children-validation-dialog.component';
+import { ParentDialogComponent } from '../../dialogs/parent-dialog/parent-dialog.component';
 
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, FlexLayoutModule,
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
-    MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule, 
-    MatTableModule, MatSortModule, ResizecolDirective],
+    MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
+    MatTableModule, MatSortModule, ResizecolDirective, ResizedDirective],
   selector: 'app-editor-structure',
   templateUrl: './editor-structure.component.html',
   styleUrls: ['./editor-structure.component.scss']
@@ -96,22 +98,18 @@ export class EditorStructureComponent implements OnInit {
 
   public columnSize: number;
 
-  // public toolbarTooltipPosition = this.ui.toolbarTooltipPosition;
-
-  public selectedColumns = [
-    { field: 'label', selected: true, width: 140 },
-    { field: 'filename', selected: true, width: 140 },
-    { field: 'pageType', selected: true, width: 140 },
-    { field: 'pageNumber', selected: true, width: 140 },
-    { field: 'pageIndex', selected: true, width: 140 },
-    { field: 'pagePosition', selected: true, width: 140 },
-    { field: 'model', selected: true, width: 140 },
-    { field: 'pid', selected: false, width: 140 },
-    { field: 'owner', selected: false, width: 140 },
-    { field: 'created', selected: false, width: 140 },
-    { field: 'modified', selected: true, width: 140 },
-    { field: 'status', selected: false, width: 140 }
-  ];
+  columnTypes: { [field: string]: string } = {};
+  lists: { [field: string]: { code: string, value: string }[] } = {};
+  prefixes: { [field: string]: string } = {};
+  statuses = [
+    "undefined",
+    "new",
+    "assign",
+    "connected",
+    "processing",
+    "described",
+    "exported"]
+    
   displayedColumns: string[] = [];
   colsImport: any;
   colsWidth: { [key: string]: string } = {};
@@ -130,9 +128,10 @@ export class EditorStructureComponent implements OnInit {
     private api: ApiService,
     public auth: AuthService,
     public layout: LayoutService,
-    public config: Configuration
-  ) { 
-    
+    public config: Configuration,
+    private clipboard: Clipboard
+  ) {
+
   }
 
   ngOnDestroy() {
@@ -156,7 +155,7 @@ export class EditorStructureComponent implements OnInit {
     //   const selection = this.layout.items().filter(i => i.selected).map(i => i.pid);
     //   this.refreshChildren(selection);
     // }));
-    
+
   }
 
   refreshChildren(selection: string[]) {
@@ -169,18 +168,18 @@ export class EditorStructureComponent implements OnInit {
           item.selected = true;
         }
       }
-      
+
       this.layout.items().forEach(item => {
         item.selected = selection.includes(item.pid);
       })
-      
+
     });
   }
 
   ngAfterViewInit() {
     this.childrenWrapperEl.nativeElement.focus();
     // this.setColumnSizes();
-    
+
     // this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
     //   this.pageChildren = this.layout.items().findIndex(it => it.isPage()) > -1;
     //   if (!fromStructure) {
@@ -221,8 +220,8 @@ export class EditorStructureComponent implements OnInit {
     const rect = element.getBoundingClientRect();
     const parentRect = this.childrenListEl.nativeElement.getBoundingClientRect();
     return (
-        rect.top >= parentRect.top &&
-        rect.bottom <= (parentRect.bottom)
+      rect.top >= parentRect.top &&
+      rect.bottom <= (parentRect.bottom)
     );
   }
 
@@ -242,7 +241,7 @@ export class EditorStructureComponent implements OnInit {
       if (!this.isInViewport(row.element.nativeElement)) {
         row.element.nativeElement.scrollIntoView({ block: align, behavior: 'smooth' });
       }
-      
+
       return;
     }
 
@@ -252,7 +251,7 @@ export class EditorStructureComponent implements OnInit {
         if (!this.isInViewport(el)) {
           el.scrollIntoView({ block: align, behavior: 'smooth' });
         }
-        
+
       }
     }
   }
@@ -484,6 +483,15 @@ export class EditorStructureComponent implements OnInit {
         this.displayedColumns.push(...f);
       });
     }
+
+    this.displayedColumns.forEach(c => {
+      if (this.columnType(c) === 'list') {
+        this.lists[c] = this.getList(c);
+      }
+      this.columnTypes[c] = this.columnType(c);
+      this.prefixes[c] = this.prefixByType(c);
+    });
+
   }
 
   setSelectedColumnsImport() {
@@ -542,7 +550,7 @@ export class EditorStructureComponent implements OnInit {
         // nic neni.
         this.layout.items().forEach(i => i.selected = false);
         row.selected = true;
-       this.startShiftClickIdx = idx;
+        this.startShiftClickIdx = idx;
       }
 
     } else {
@@ -798,17 +806,17 @@ export class EditorStructureComponent implements OnInit {
   }
 
   validateChildren() {
-    // const dialogRef = this.dialog.open(ChildrenValidationDialogComponent, {
-    //   data: {
-    //     parent: this.layout.selectedParentItem,
-    //     children: this.layout.items,
-    //     batchId: this.layout.batchId
-    //   },
-    //   panelClass: 'app-children-validation-dialog',
-    //   width: '600px'
-    // });
-    // dialogRef.afterClosed().subscribe(result => {
-    // });
+    const dialogRef = this.dialog.open(ChildrenValidationDialogComponent, {
+      data: {
+        parent: this.layout.selectedParentItem,
+        children: this.layout.items,
+        batchId: this.layout.batchId
+      },
+      panelClass: 'app-children-validation-dialog',
+      width: '600px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 
 
@@ -960,27 +968,27 @@ export class EditorStructureComponent implements OnInit {
 
   onRelocateOutside() {
 
-    // const dialogRef = this.dialog.open(ParentDialogComponent, {
-    //   data: {
-    //     btnLabel: 'editor.children.relocate_label',
-    //     parent: this.layout.item.parent,
-    //     item: this.layout.item,
-    //     items: this.layout.items,
-    //     expandedPath: this.layout.expandedPath,
-    //     displayedColumns: this.displayedColumns,
-    //     isRepo: this.isRepo,
-    //     batchId: this.layout.batchId
-    //   },
-    //   width: '95%',
-    //   maxWidth: '100vw',
-    //   height: '90%',
-    // });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     this.layout.setShouldRefresh(false);
-    //   }
-      
-    // });
+    const dialogRef = this.dialog.open(ParentDialogComponent, {
+      data: {
+        btnLabel: 'editor.children.relocate_label',
+        parent: this.layout.item.parent,
+        item: this.layout.item,
+        items: this.layout.items(),
+        expandedPath: this.layout.expandedPath,
+        displayedColumns: this.displayedColumns,
+        isRepo: this.isRepo,
+        batchId: this.layout.batchId
+      },
+      width: '95%',
+      maxWidth: '100vw',
+      height: '90%',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.layout.setShouldRefresh(false);
+      }
+
+    });
   }
 
   private deleteParent(parent: string) {
@@ -1151,14 +1159,14 @@ export class EditorStructureComponent implements OnInit {
 
 
   onDelete() {
-    let pids= this.layout.items().filter(c => c.selected);
+    let pids = this.layout.items().filter(c => c.selected);
     const checkbox = {
       label: String(this.translator.instant('dialog.removeObject.checkbox')),
       checked: false
     };
     const data: SimpleDialogData = {
       title: String(this.translator.instant('dialog.removeObject.title')),
-      message: String(this.translator.instant('dialog.removeObject.message')) + ": " + pids.length  + '?',
+      message: String(this.translator.instant('dialog.removeObject.message')) + ": " + pids.length + '?',
       alertClass: 'app-warn',
       btn1: {
         label: String(this.translator.instant('button.yes')),
@@ -1333,20 +1341,58 @@ export class EditorStructureComponent implements OnInit {
   }
 
 
-  setColumnSizes() {
+  // setColumnSizes() {
 
-    this.selectedColumns.forEach((column) => {
-      const col = document.getElementsByClassName('mat-column-' + column.field).item(0);
-      if (col) {
-        column.width = col.clientWidth;
-        // this.setColumnWidth(column);
-      }
-    });
-  }
+  //   this.selectedColumns.forEach((column) => {
+  //     const col = document.getElementsByClassName('mat-column-' + column.field).item(0);
+  //     if (col) {
+  //       column.width = col.clientWidth;
+  //       // this.setColumnWidth(column);
+  //     }
+  //   });
+  // }
 
   onResize(e: any) {
     this.columnSize = e.newRect.width;
-    //console.log(e.newRect.width);
+  }
+
+  copyTextToClipboard(val: string) {
+    this.clipboard.copy(val);
+    this.ui.showInfoSnackBar(this.translator.instant('snackbar.copyTextToClipboard.success'));
+  }
+
+  listValue(field: string, code: string) {
+    const el = this.lists[field].find(el => el.code === code + '');
+    return el ? el.value : code;
+  }
+
+  getList(f: string): { code: string, value: string }[] {
+    switch (f) {
+      case 'status': return this.statuses.map((p: string) => { return { code: p, value: this.translator.instant('editor.atm.statuses.' + p) } });
+      case 'model': return this.config.models.map((p: string) => { return { code: p, value: this.translator.instant('model.' + p) } });
+      default: return [];
+    }
+  }
+
+  columnType(f: string) {
+    
+    for (let i = 0; i < this.config.models.length; i++) {
+      const col = this.settings.colsEditingRepo[this.config.models[i]].find(c => c.field === f)
+      if (col) {
+        return col.type;
+      }
+
+    }
+    return null;
+
+  }
+
+  prefixByType(f: string): string {
+    switch (f) {
+      case 'status': return 'editor.atm.statuses.';
+      case 'model': return 'model.';
+      default: return '';
+    }
   }
 
 }

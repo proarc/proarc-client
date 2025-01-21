@@ -144,7 +144,6 @@ export class SearchComponent {
   }
 
   processParams(p: any) {
-
     this.searchMode = p['type'] ? p['type'] : 'advanced';
     this.model = p['model'] ? p['model'] : this.settings.searchModel;
     this.organization = p['organization'] ? p['organization'] : this.settings.searchOrganization;
@@ -507,6 +506,7 @@ export class SearchComponent {
 
   splitDragEnd(e: any) {
     this.settings.searchSplit = e.sizes[0];
+    this.settingsService.save();
   }
 
   // Actions
