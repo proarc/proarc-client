@@ -11,3 +11,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .app-inactive {
     opacity: .4;
 }
+
+.app-selected {
+    background-color: rgb(147, 160, 232) !important;
+}

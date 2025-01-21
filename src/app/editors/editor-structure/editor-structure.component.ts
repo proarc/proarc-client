@@ -35,6 +35,7 @@ import { UIService } from '../../services/ui.service';
 import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { ModelTemplate } from '../../model/modelTemplate';
 import { Configuration } from '../../shared/configuration';
+import { ResizedEvent } from 'angular-resize-event';
 
 
 @Component({
@@ -246,10 +247,6 @@ export class EditorStructureComponent implements OnInit {
     }
 
     if (container) {
-      // if (this.scrollPos > -1) {
-      //   container.nativeElement.scrollTop = this.scrollPos;
-      //   return;
-      // }
       if (index >= 0) {
         const el = container.nativeElement.children[index];
         if (!this.isInViewport(el)) {
@@ -276,7 +273,6 @@ export class EditorStructureComponent implements OnInit {
     } else {
       // let row = this.rows.get(index);
       let row = this.rows.find(tr => tr.element.nativeElement.id === 'tr_' + index);
-      //console.log(this.panel.id, index, row.element.nativeElement)
       if (row && !this.isInViewport(row.element.nativeElement)) {
 
         setTimeout(() => {
@@ -302,13 +298,13 @@ export class EditorStructureComponent implements OnInit {
     this.childrenWrapperEl.nativeElement.focus();
   }
 
-  // onResized(event: ResizedEvent) {
-  //   const d = event.newRect.width / 101;
-  //   this.iconColumns = Math.floor(d);
+  onResized(event: ResizedEvent) {
+    const d = event.newRect.width / 101;
+    this.iconColumns = Math.floor(d);
 
-  //   this.iconHeight = ((event.newRect.width - 4.0) / this.iconColumns) * 1.47;
-  //   this.iconWidth = 100.0 / this.iconColumns;
-  // }
+    this.iconHeight = ((event.newRect.width - 4.0) / this.iconColumns) * 1.47;
+    this.iconWidth = 100.0 / this.iconColumns;
+  }
 
   noscroll(e: any) {
     if (this.viewMode === 'list' && ["Space", "ArrowUp", "ArrowDown"].indexOf(e.code) > -1) {
