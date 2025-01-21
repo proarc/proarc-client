@@ -361,7 +361,7 @@ export class ApiService {
       }
       case ProArc.EXPORT_ARCHIVE_STT_EXTENDED: {
         path = 'export/archive';
-        data = `${data}&package=STT`;
+        data = `${data}&package=STT&extendedPackage=true`;
         if (extendedType === 'snkd') {
           data = `${data}&noTifMessage=${noTifMessage}`;
         }
@@ -383,7 +383,7 @@ export class ApiService {
       }
       case ProArc.EXPORT_ARCHIVE_STT_EXTENDED_BAGIT: {
         path = 'export/archive';
-        data = `${data}&package=STT&isBagit=true`;
+        data = `${data}&package=STT&isBagit=true&extendedPackage=true`;
         if (extendedType === 'snkd') {
           data = `${data}&noTifMessage=${noTifMessage}`;
         }
