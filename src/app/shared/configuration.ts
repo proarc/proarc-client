@@ -58,6 +58,8 @@ export class Configuration {
 
   allowedCopyModels: string[];
 
+  profiles: string[];
+
   public valueMap: { mapId: string, values: any[] }[];
 
   [key: string]: any; // This is to allow property asignement by name this[k] = o[k];

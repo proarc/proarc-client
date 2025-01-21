@@ -41,11 +41,7 @@ import { ModelTemplate } from '../../model/modelTemplate';
 export class RepositoryComponent {
 
   loading: boolean;
-
-
   pid: string;  // pid in url
-  
-
   path: { pid: string, label: string, model: string }[] = [];
 
   constructor(

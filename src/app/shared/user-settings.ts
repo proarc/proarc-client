@@ -57,6 +57,9 @@ export class UserSettings {
     viewerCenter: string; 
     viewerResolution: string; 
 
+    markSequenceDialogOrigTableColumns: TableColumn[];
+    markSequenceDialogDestTableColumns: TableColumn[];
+
     [key: string]: any; // This is to allow property asignement by name this[k] = o[k];
 
 }
@@ -254,6 +257,7 @@ public queueColumnsDefault: TableColumn[] = [
         this.settings.formHighlighting = true;
 
         this.settings.repositoryLayout = Utils.clone(this.defaultLayoutConfig);
+        this.settings.importLayout = Utils.clone(this.defaultLayoutConfig);
         this.settings.parentModel = this.config.defaultModel;
         this.settings.parentSortField = 'modified';
         this.settings.parentSortAsc = false;
@@ -273,6 +277,8 @@ public queueColumnsDefault: TableColumn[] = [
         this.settings.viewerCenter = null;
         this.settings.viewerResolution = null;
 
+        this.settings.markSequenceDialogOrigTableColumns = Utils.clone(this.columnsSearchDefault);
+        this.settings.markSequenceDialogDestTableColumns = Utils.clone(this.columnsSearchDefault);
     }
 
     load(o: any) {

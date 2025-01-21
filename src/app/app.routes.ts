@@ -6,6 +6,9 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { SearchComponent } from './pages/search/search.component';
 import { RepositoryComponent } from './pages/repository/repository.component';
 import { ConfirmLeaveEditorGuard } from './shared/confirm-leave-editor.guard';
+import { ProcessManagementComponent } from './pages/process-management/process-management.component';
+import { ImportComponent } from './pages/import/import.component';
+import { BatchesComponent } from './pages/batches/batches.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent }, ,
@@ -22,9 +25,9 @@ export const routes: Routes = [
             // { path: 'devices/:device_id/audio/:id/edit', component: EditAudioDeviceComponent },
             { path: 'search', component: SearchComponent },
             // { path: 'viewer', component: ViewerComponent },
-            // { path: 'import', component: ImportComponent },
-            // { path: 'process-management', component: ProcessManagementComponent },
-            // { path: 'import/edit/:batch_id', component: BatchesComponent, canDeactivate: [ConfirmLeaveEditorGuard] },
+            { path: 'process-management', component: ProcessManagementComponent },
+            { path: 'import', component: ImportComponent },
+            { path: 'import/edit/:batch_id', component: BatchesComponent, canDeactivate: [ConfirmLeaveEditorGuard] },
             // { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
             // { path: 'admin/:id/edit-user', component: EditUserComponent },
             // { path: 'admin/new-user', component: NewUserComponent },

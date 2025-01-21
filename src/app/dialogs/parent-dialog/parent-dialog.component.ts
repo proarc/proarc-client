@@ -46,10 +46,6 @@ import { ViewerComponent } from "../../components/viewer/viewer.component";
 export class ParentDialogComponent implements OnInit {
 
   @ViewChild('scroll') scroll: ElementRef;
-
-  // @ViewChild('split') split: SplitComponent;
-  // @ViewChild('area1') area1: SplitAreaDirective;
-  // @ViewChild('area2') area2: SplitAreaDirective;
   @ViewChild('modelSelect') modelSelect: MatSelect;
   splitArea1Width: number;
   splitArea2Width: number;

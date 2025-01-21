@@ -13,6 +13,8 @@ import { UserSettings, UserSettingsService } from './shared/user-settings';
 import { UIService } from './services/ui.service';
 import { LayoutService } from './services/layout-service';
 import { provideHighlightOptions } from 'ngx-highlightjs';
+import { DatePipe } from '@angular/common';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -30,6 +32,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     provideHttpClient(),
+    provideNativeDateAdapter(),
     provideAppInitializer(() => initializeApp(inject(AuthService))),
     importProvidersFrom(TranslateModule.forRoot({
       loader: {
@@ -41,7 +44,7 @@ export const appConfig: ApplicationConfig = {
     provideHighlightOptions({
       fullLibraryLoader: () => import('highlight.js')
     }),
-    TranslateService, 
+    TranslateService, DatePipe,
     Configuration, ApiService, AuthService, UIService, UserSettings, UserSettingsService,
     LayoutService
   ]

@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>{{ 'button.resolveconflict' | translate }}</h1>
+<div mat-dialog-content>
+  <mat-card class="app-alert app-warn app-mb-4">
+    {{ 'desc.resolveconflictWarn' | translate}}
+  </mat-card> 
+</div>
+<div mat-dialog-actions cdkFocusRegionstart>
+    <button mat-flat-button color="primary" (click)="useNew()">{{ 'button.useNew' | translate }}</button>
+    <button mat-flat-button color="primary" (click)="useOriginal()">{{ 'button.useOriginal' | translate }}</button>
+    <button mat-stroked-button (click)="close()">{{ 'button.cancel' | translate }}</button>
+</div>
+
+

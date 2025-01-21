@@ -38,6 +38,7 @@ import { ResizedDirective, ResizedEvent } from '../../resized.directive';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ChildrenValidationDialogComponent } from '../../dialogs/children-validation-dialog/children-validation-dialog.component';
 import { ParentDialogComponent } from '../../dialogs/parent-dialog/parent-dialog.component';
+import { MarkSequenceDialogComponent } from '../../dialogs/mark-sequence-dialog/mark-sequence-dialog.component';
 
 
 @Component({
@@ -504,25 +505,6 @@ export class EditorStructureComponent implements OnInit {
     this.layout.setSelection(true, null);
   }
 
-  // selectColumns() {
-  //   const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
-  //     data: {
-  //       type: 'structure',
-  //       isRepo: this.isRepo,
-  //       isImport: !this.isRepo,
-  //       itemModel: this.layout.item.model,
-  //       selectedModel: this.layout.lastSelectedItem().model,
-  //       selectedParentModel: this.layout.selectedParentItem.model,
-  //     },
-  //     width: '600px',
-  //   });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result) {
-  //       this.layout.setShouldRefresh(false);
-  //     }
-  //   });
-  // }
-
   rowClick(row: DocumentItem, idx: number, event: MouseEvent) {
     this.layout.moveFocus = false;
     if (event && (event.metaKey || event.ctrlKey)) {
@@ -690,17 +672,10 @@ export class EditorStructureComponent implements OnInit {
 
   dragover(event: any) {
     event.preventDefault();
-    // if (this.panel.id !== event.dataTransfer.getData("panel")) {
-    //   event.dataTransfer.dropEffect = 'none';
-    // }
     if (!this.dragEnabled || !this.source || this.source.parentNode !== event.currentTarget.parentNode) {
       event.dataTransfer.dropEffect = 'none';
     }
 
-
-    // console.log(event)
-    // this.h = event.clientY;
-    // this.y = event.offsetY;
     this.stop = true;
     if (event.clientY < (this.childrenListEl.nativeElement.offsetTop + 45)) {
       this.stop = false;
@@ -1299,26 +1274,26 @@ export class EditorStructureComponent implements OnInit {
 
   markSequence() {
 
-    // const dialogRef = this.dialog.open(MarkSequenceDialogComponent, {
-    //   width: '95%',
-    //   maxWidth: '100vw',
-    //   height: '90%',
-    //   data: {
-    //     iconWidth: { orig: this.iconWidth, dest: this.iconWidth },
-    //     iconHeight: { orig: this.iconHeight, dest: this.iconHeight },
-    //     viewModeOrig: 'list',
-    //     viewModeDest: 'icons',
-    //     displayedColumns: this.displayedColumns,
-    //     api: this.api,
-    //     items: this.layout.items,
-    //     batchId: this.layout.batchId
-    //   }
-    // });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     this.layout.setShouldRefresh(true);
-    //   }
-    // });
+    const dialogRef = this.dialog.open(MarkSequenceDialogComponent, {
+      width: '95%',
+      maxWidth: '100vw',
+      height: '90%',
+      data: {
+        iconWidth: { orig: this.iconWidth, dest: this.iconWidth },
+        iconHeight: { orig: this.iconHeight, dest: this.iconHeight },
+        viewModeOrig: 'list',
+        viewModeDest: 'icons',
+        displayedColumns: this.displayedColumns,
+        api: this.api,
+        items: this.layout.items(),
+        batchId: this.layout.batchId
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.layout.setShouldRefresh(true);
+      }
+    });
   }
 
   array_move(arr: any[], old_index: number, new_index: number) {
