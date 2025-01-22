@@ -216,7 +216,7 @@ public queueColumnsDefault: TableColumn[] = [
         keys.forEach(k => {
             this.settings[k] = o[k];
         }); 
-        this.save();
+        this.save(true);
     }
 
     reset() {
@@ -288,14 +288,16 @@ public queueColumnsDefault: TableColumn[] = [
         });
     }
 
-    save() {
+    save(showInfo?: boolean) {
         // const keys = ['searchModel', 'columnsSearch', 'columnsSearchTree', 'colsEditingRepo', 'colsEditModeParent',
         //     'columnsWorkFlow', 'columnsWorkFlowTasks', 'procMngColumns', 'queueColumns'];
         // const toSave: any = {};
         // keys.forEach(k => {
         //     toSave[k] = this.settings[k];
         // });
-        console.log(this.settings);
-        this.ui.showInfo('snackbar.changeSaved');
+        if (showInfo) {
+          console.log(this.settings);
+          this.ui.showInfo('snackbar.changeSaved');
+        }
     }
 }

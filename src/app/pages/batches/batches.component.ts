@@ -39,9 +39,7 @@ import { PanelComponent } from "../../components/panel/panel.component";
   selector: 'app-batches',
   imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, FlexLayoutModule,
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
-    MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
-    MatDatepickerModule, MatCheckboxModule,
-    MatTableModule, MatSortModule, ResizecolDirective, PanelComponent],
+    MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, PanelComponent],
   templateUrl: './batches.component.html',
   styleUrl: './batches.component.scss'
 })

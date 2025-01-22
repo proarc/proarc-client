@@ -32,13 +32,14 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { LogDialogComponent } from '../../dialogs/log-dialog/log-dialog.component';
 import { SearchActionsComponent } from "./search-actions/search-actions.component";
 import { FlexLayoutModule } from 'ngx-flexible-layout';
+import { UserTableComponent } from "../../components/user-table/user-table.component";
 
 @Component({
   selector: 'app-search',
   imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, FlexLayoutModule,
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
-    MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule, 
-    MatTableModule, MatSortModule, ResizecolDirective, SearchActionsComponent],
+    MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
+    MatTableModule, MatSortModule, ResizecolDirective, SearchActionsComponent, UserTableComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss'
 })
@@ -249,44 +250,9 @@ export class SearchComponent {
   }
 
   initSelectedColumns() {
-    this.setColumns();
     this.setSelectedTreeColumns();
   }
 
-  setColumns() {
-    this.displayedColumns = this.settings.columnsSearch.filter(c => c.selected).map(c => c.field);
-
-    // this.treeColumns = this.treeColumnsDefs.filter(c => c.selected).map(c => c.field);
-    this.displayedColumns.forEach(c => {
-      if (this.columnType(c) === 'list') {
-        this.lists[c] = this.getList(c);
-      }
-      this.columnTypes[c] = this.columnType(c);
-      this.prefixes[c] = this.prefixByType(c);
-
-    });
-    this.setColumnsWith();
-  }
-
-  setColumnsWith() {
-    this.colsWidth = {};
-    this.settings.columnsSearch.forEach(c => {
-      this.colsWidth[c.field] = c.width + 'px';
-    });
-  }
-
-  saveColumnsSizes(e: any, field?: string) {
-
-    const el = this.settings.columnsSearch.find((c: any) => c.field === field);
-    if (el) {
-      el.width = e;
-    } else {
-      console.log("nemelo by")
-    }
-
-    this.settingsService.save();
-
-  }
 
   setSelectedTreeColumns() {
     this.treeColumns = this.settings.columnsSearchTree.filter(c => c.selected).map(c => c.field);
@@ -516,6 +482,9 @@ export class SearchComponent {
     this.router.navigate(['/repository', item.pid]);
   }
 
+  selectRow(e: {item: DocumentItem, event?: MouseEvent, idx?: number}) {
+    this.selectItem(e.item, e.event, e.idx);
+  }
   selectItem(item: DocumentItem, event?: MouseEvent, idx?: number) {
     if (event && (event.metaKey || event.ctrlKey)) {
       item.selected = !item.selected;

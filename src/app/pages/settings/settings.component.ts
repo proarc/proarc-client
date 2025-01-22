@@ -162,7 +162,7 @@ export class SettingsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.settingsService.reset();
-        this.settingsService.save();
+        this.settingsService.save(true);
         this.curSettings = this.settingsService.cloneSettings();
         this.ui.showInfoSnackBar(this.translator.instant('snackbar.settings.resetLocalSettings.success'));
       }

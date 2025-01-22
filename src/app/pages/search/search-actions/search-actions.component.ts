@@ -302,6 +302,9 @@ export class SearchActionsComponent {
   }
 
   canChangeModel(): boolean {
+    if (!this.selectedTreeItem()) {
+      return false;
+    }
     const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     return this.config.modelChanges.findIndex(m => ('model:' + m.origin).toLocaleLowerCase() === item.model.toLocaleLowerCase()) > -1
   }
@@ -437,7 +440,7 @@ export class SearchActionsComponent {
   }
 
   canCopy(item: DocumentItem): boolean {
-    return this.config.allowedCopyModels.includes(item.model)
+    return item && this.config.allowedCopyModels.includes(item.model)
   }
 
   onCopyItem(treeItem: TreeDocumentItem) {

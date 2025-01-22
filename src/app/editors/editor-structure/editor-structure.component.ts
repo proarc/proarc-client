@@ -39,13 +39,14 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { ChildrenValidationDialogComponent } from '../../dialogs/children-validation-dialog/children-validation-dialog.component';
 import { ParentDialogComponent } from '../../dialogs/parent-dialog/parent-dialog.component';
 import { MarkSequenceDialogComponent } from '../../dialogs/mark-sequence-dialog/mark-sequence-dialog.component';
+import { UserTableComponent } from "../../components/user-table/user-table.component";
 
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, FlexLayoutModule,
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
-    MatTableModule, MatSortModule, ResizecolDirective, ResizedDirective],
+    MatTableModule, MatSortModule, ResizecolDirective, ResizedDirective, UserTableComponent],
   selector: 'app-editor-structure',
   templateUrl: './editor-structure.component.html',
   styleUrls: ['./editor-structure.component.scss']
@@ -328,13 +329,13 @@ export class EditorStructureComponent implements OnInit {
         step = this.iconColumns;
       }
       if (this.arrowIndex - step >= 0) {
-        this.rowClick(this.layout.items()[this.arrowIndex - step], this.arrowIndex - step, event);
+        this.rowClick(this.layout.items()[this.arrowIndex - step], event, this.arrowIndex - step);
         this.scrollToSelected('center');
       }
     } else if (event.code === "ArrowLeft" && this.viewMode !== 'list') {
       let step = 1;
       if (this.arrowIndex - step >= 0) {
-        this.rowClick(this.layout.items()[this.arrowIndex - step], this.arrowIndex - step, event);
+        this.rowClick(this.layout.items()[this.arrowIndex - step], event, this.arrowIndex - step);
         this.scrollToSelected('center');
       }
     } else if (event.code === "ArrowDown") {
@@ -343,13 +344,13 @@ export class EditorStructureComponent implements OnInit {
         step = this.iconColumns;
       }
       if (this.arrowIndex + step < this.layout.items().length) {
-        this.rowClick(this.layout.items()[this.arrowIndex + step], this.arrowIndex + step, event);
+        this.rowClick(this.layout.items()[this.arrowIndex + step], event, this.arrowIndex + step);
         this.scrollToSelected('end');
       }
     } else if (event.code === "ArrowRight" && this.viewMode !== 'list') {
       let step = 1;
       if (this.arrowIndex + step < this.layout.items().length) {
-        this.rowClick(this.layout.items()[this.arrowIndex + step], this.arrowIndex + step, event);
+        this.rowClick(this.layout.items()[this.arrowIndex + step], event, this.arrowIndex + step);
         this.scrollToSelected('end');
         //this.scrollToSelected();
       }
@@ -359,7 +360,7 @@ export class EditorStructureComponent implements OnInit {
 
   moveToNext(index: number) {
     if (index < this.layout.items().length) {
-      this.rowClick(this.layout.items()[index], index, null);
+      this.rowClick(this.layout.items()[index], null, index);
     }
   }
 
@@ -505,7 +506,11 @@ export class EditorStructureComponent implements OnInit {
     this.layout.setSelection(true, null);
   }
 
-  rowClick(row: DocumentItem, idx: number, event: MouseEvent) {
+  selectRow(e: {item: DocumentItem, event?: MouseEvent, idx?: number}) {
+    this.rowClick(e.item, e.event, e.idx)
+  }
+
+  rowClick(row: DocumentItem, event: MouseEvent, idx: number) {
     this.layout.moveFocus = false;
     if (event && (event.metaKey || event.ctrlKey)) {
       // Nesmi byt prazdna selecke pro import
@@ -628,7 +633,7 @@ export class EditorStructureComponent implements OnInit {
       return;
     }
     if (!isMultiple) {
-      this.rowClick(item, idx, null);
+      this.rowClick(item, null, idx);
     }
     this.isDragging = true;
     event.dataTransfer.effectAllowed = 'move';
@@ -1209,7 +1214,7 @@ export class EditorStructureComponent implements OnInit {
           nextSelection = this.layout.items().length - 1;
         }
         if (this.layout.items().length > 0) {
-          this.rowClick(this.layout.items()[nextSelection], nextSelection, null);
+          this.rowClick(this.layout.items()[nextSelection], null, nextSelection);
         }
 
 

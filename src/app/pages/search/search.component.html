@@ -107,7 +107,10 @@
               </div>
               <div class="app-oa-y">
                 <mat-progress-bar mode="indeterminate" *ngIf="state === 'loading'" class="app-progress-bar"></mat-progress-bar>
-                <table mat-table #table [dataSource]="items" matSort class="app-striped app-hover app-resize"  *ngIf="state!=='loading'"
+
+                <app-user-table (sortBy)="sortBy($event)" (selectItem)="selectRow($event)"  (openItem)="openItem($event)"  (getValidationError)="getValidationError($event)" 
+                  [colsSettingsName]="'columnsSearch'" [items]="items" ></app-user-table>
+                <!-- <table mat-table #table [dataSource]="items" matSort class="app-striped app-hover app-resize"  *ngIf="state!=='loading'"
                 [matSortActive]="sortField" [matSortDirection]="sortAsc ? 'asc' : 'desc'"
                 (matSortChange)="sortTable($event)">
   
@@ -148,7 +151,7 @@
                   <tr mat-row *matRowDef="let row; columns: displayedColumns; let idx=index"
                   #matrow  [id]="'tr_'+idx"
                    (click)="selectItem(row, $event, idx)" (dblclick)="openItem(row)" class="app-cursor-pointer" [class.app-selected]="row.selected"></tr>
-                </table>
+                </table> -->
               </div>
             </div>
           </as-split-area>

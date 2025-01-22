@@ -1,7 +1,14 @@
-
 @import 'highlight.js/styles/atom-one-light.css';
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .app-disabled {
     pointer-events: none;
@@ -14,4 +21,41 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .app-selected {
     background-color: rgb(147, 160, 232) !important;
+}
+
+.mat-mdc-table {
+    &.app-resize {
+        table-layout: fixed;
+        width: fit-content;
+
+        &.app-resizing {
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+
+        .mat-mdc-header-cell {
+            position: relative;
+
+            .app-resize-holder {
+                cursor: col-resize;
+                width: 10px;
+                height: 100%;
+                position: absolute;
+                right: 0;
+                top: 0;
+                z-index: 1;
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    right: 0;
+                    border-right: 1px solid #c00;
+                }
+            }
+        }
+    }
 }
