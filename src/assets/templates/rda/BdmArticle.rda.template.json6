@@ -968,7 +968,11 @@
         selector: 'accessCondition/@type',
         labelKey: 'accessCondition/@type',
         cols: 2,
-        description: 'Typ licence'
+        description: 'Typ licence',
+        options: [
+          ['use and reproduction', 'use and reproduction'],
+          ['restriction on access', 'restriction on access']
+        ]
       },
       displayLabel: {
         usage: 'O',
@@ -976,14 +980,25 @@
         selector: 'accessCondition/@displayLabel',
         labelKey: 'accessCondition/@displayLabel',
         cols: 2,
-        description: 'Zobrazená hodnota'
+        description: 'Zobrazená hodnota',
+        options: [
+          ['CC BY 4.0', 'CC BY 4.0'],
+          ['CC BY-NC 4.0', 'CCC BY-NC 4.0'],
+          ['CC BY-SA 4.0', 'CC BY-SA 4.0'],
+          ['CC BY-ND 4.0', 'CC BY-ND 4.0'],
+          ['CC BY-NC-SA 4.0', 'CC BY-NC-SA 4.0'],
+          ['CC BY-NC-ND 4.0', 'CC BY-NC-ND 4.0']
+        ]
       },
       'xlink:href': {
-        usage: 'RA',
+        usage: 'O',
         label: 'xLink',
         selector: 'accessCondition/@xlink',
         labelKey: 'accessCondition/@xlink',
-        description: 'odkaz na licenci - přebírá se do exportu Crossref'
+        description: 'odkaz na licenci - přebírá se do exportu Crossref',
+        options: [
+          ['https://creativecommons.org/licenses/by/4.0/legalcode.cs', 'https://creativecommons.org/licenses/by/4.0/legalcode.cs']
+        ]
       },
       value: {
         usage: 'O',
@@ -991,6 +1006,14 @@
         selector: 'accessCondition/value',
         labelKey: 'accessCondition/value',
         description: 'Hodnota',
+        options: [
+          ['CC BY 4.0', 'CC BY 4.0'],
+          ['CC BY-NC 4.0', 'CCC BY-NC 4.0'],
+          ['CC BY-SA 4.0', 'CC BY-SA 4.0'],
+          ['CC BY-ND 4.0', 'CC BY-ND 4.0'],
+          ['CC BY-NC-SA 4.0', 'CC BY-NC-SA 4.0'],
+          ['CC BY-NC-ND 4.0', 'CC BY-NC-ND 4.0']
+        ]
       }
     }
   },
