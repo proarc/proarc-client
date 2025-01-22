@@ -780,6 +780,13 @@
         labelKey: 'identifier/value',
         label: 'Hodnota',
         help: 'off'
+      },
+      typeURI: {
+        usage: 'MA',
+        label: 'Zdroj',
+        selector: 'identifier/@typeURI',
+        labelKey: 'identifier/@typeURI',
+        description: 'Výběr zdroje DOI článku.'
       }
     }
   },
@@ -1250,6 +1257,13 @@
             cols: 2,
             description: 'Uvádějí se i neplatné resp. zrušené identifikátory.'
           },
+          typeURI: {
+            usage: 'MA',
+            label: 'Zdroj',
+            selector: 'relatedItem/identifier/@typeURI',
+            labelKey: 'relatedItem/identifier/@typeURI',
+            description: 'Výběr zdroje DOI článku.'
+          }
         }
       },
       relatedItem: {
@@ -1414,6 +1428,13 @@
                 cols: 2,
                 description: 'Uvádějí se i neplatné resp. zrušené identifikátory.'
               },
+              typeURI: {
+                usage: 'MA',
+                label: 'Zdroj',
+                selector: 'relatedItem/identifier/@typeURI',
+                labelKey: 'relatedItem/identifier/@typeURI',
+                description: 'Výběr zdroje DOI článku.'
+              }
             }
           }
         }

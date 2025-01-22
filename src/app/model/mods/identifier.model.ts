@@ -12,7 +12,7 @@ export class ModsIdentifier extends ModsElement {
     }
 
     constructor(modsElement: any, template: any) {
-        super(modsElement, template, ['type', 'invalid']);
+        super(modsElement, template, ['type', 'typeURI', 'invalid']);
         this.init();
     }
 
@@ -23,6 +23,7 @@ export class ModsIdentifier extends ModsElement {
       this.addControl('value');
       this.addControl('type');
       this.addControl('validity');
+      this.addControl('typeURI');
     }
 
 }

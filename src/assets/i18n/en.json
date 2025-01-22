@@ -1760,6 +1760,7 @@
     "identifier": "Identifier",
     "identifier/@invalid": "Invalid",
     "identifier/@type": "Type",
+    "identifier/@typeURI": "Source",
     "identifier/value": "Value",
     "language": "Language",
     "language/@displayLabel": "Display label",
@@ -2023,6 +2024,7 @@
     "relatedItem/identifier/@type": "Type",
     "relatedItem/identifier/@invalid": "Invalid",
     "relatedItem/identifier/value": "Value",
+    "relatedItem/identifier/@typeURI": "Zdroj",
     "subject/cartographics/scale": "Scale",
     "option": {
       "": "-",

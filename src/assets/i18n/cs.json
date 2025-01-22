@@ -1760,6 +1760,7 @@
     "identifier": "Identifikátory",
     "identifier/@invalid": "Neplatný",
     "identifier/@type": "Typ",
+    "identifier/@typeURI": "Zdroj",
     "identifier/value": "Hodnota",
     "language": "Jazyk",
     "language/@displayLabel": "Zobrazená část",
@@ -2023,6 +2024,7 @@
     "relatedItem/identifier/@type": "Typ",
     "relatedItem/identifier/@invalid": "Neplatný",
     "relatedItem/identifier/value": "Hodnota",
+    "relatedItem/identifier/@typeURI": "Zdroj",
     "subject/cartographics/scale": "Měřítko",
     "option": {
       "": "-",
