@@ -901,7 +901,7 @@
             Jiný interní identifikátor <i>R</i>, např. barcode, oclc, sysno, permalink'
         },
         validity: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Platnost',
           selector: 'identifier/@invalid',
           labelKey: 'identifier/@invalid',

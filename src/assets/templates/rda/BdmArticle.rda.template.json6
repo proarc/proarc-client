@@ -787,6 +787,22 @@
         selector: 'identifier/@typeURI',
         labelKey: 'identifier/@typeURI',
         description: 'Výběr zdroje DOI článku.'
+      },
+      validity: {
+        usage: 'MA',
+        label: 'Platnost',
+        selector: 'identifier/@invalid',
+        labelKey: 'identifier/@invalid',
+        cols: 2,
+        description: 'Uvádějí se i neplatné resp. zrušené identifikátory\
+          <ul>\
+            <li>\
+              <strong>Platný</strong> <code>identifier/[not(@invalid)]</code>\
+            </li>\
+            <li>\
+              <strong>Neplatný</strong> <code>identifier/[@invalid="yes"]</code>\
+            </li>\
+          </ul>'
       }
     }
   },
