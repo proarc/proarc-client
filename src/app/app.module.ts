@@ -134,6 +134,7 @@ import { CzidloDialogComponent } from './dialogs/czidlo-dialog/czidlo-dialog.com
 import { UpdateInSourceDialogComponent } from './dialogs/update-in-source-dialog/update-in-source-dialog.component';
 import { ResolveConflictDialogComponent } from './dialogs/resolve-conflict-dialog/resolve-conflict-dialog.component';
 import { ChangeOwnerDialogComponent } from './pages/admin/change-owner-dialog/change-owner-dialog.component';
+import { EditorAccessConditionComponent } from './documents/document/editor-accessCondition/editor-accessCondition.component';
 
 export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
   showDelay: 300,
@@ -168,6 +169,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EditorPublisherComponent,
     EditorIdentifierComponent,
     EditorNoteComponent,
+    EditorAccessConditionComponent,
     ModsEditorComponent,
     EditorLocationComponent,
     RelationsComponent,

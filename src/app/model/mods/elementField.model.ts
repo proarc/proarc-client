@@ -53,6 +53,7 @@ import {ModsDetail} from './detail.model';
 import {ModsLanguageOfCataloging} from './languageOfCataloging.model';
 import {ModsTemporal} from './temporal.model';
 import {ModsGeographic} from './geographic.model';
+import {ModsAccessCondition} from './accessCondition.model';
 
 export class ElementField {
 
@@ -288,6 +289,8 @@ export class ElementField {
 
     private newElement(id: any, el: {}): ModsElement | undefined {
         switch (id) {
+            case ModsAccessCondition.getId() :
+                return new ModsAccessCondition(el, this.template);
             case ModsTitle.getId():
                 return new ModsTitle(el, this.template);
             case ModsLanguage.getId():
@@ -428,6 +431,8 @@ export class ElementField {
 
     private selectorById(id: string): string {
         switch (id) {
+            case ModsAccessCondition.getId():
+                return ModsAccessCondition.getSelector();
             case ModsTitle.getId():
                 return ModsTitle.getSelector();
             case ModsLanguage.getId():

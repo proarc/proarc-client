@@ -69,6 +69,7 @@
 					<app-editor-subject [id]="panel.id + 'subject'" *ngIf="visibleFields['subject']" [field]="fields['subject']" [model]="model"></app-editor-subject>
 					<app-editor-part [id]="panel.id + 'part'" *ngIf="visibleFields['part']" [field]="fields['part']"></app-editor-part>
 					<app-editor-tableOfContents [id]="panel.id + 'tableOfContents'" *ngIf="visibleFields['tableOfContents']" [field]="fields['tableOfContents']"></app-editor-tableOfContents>
+          <app-editor-accessCondition [id]="panel.id + 'accessCondition'" *ngIf="visibleFields['accessCondition']" [field]="fields['accessCondition']"></app-editor-accessCondition>
 					<app-editor-recordInfo [id]="panel.id + 'recordInfo'" *ngIf="visibleFields['recordInfo']" [field]="fields['recordInfo']" ></app-editor-recordInfo>
 					<app-editor-relatedItem [id]="panel.id + 'relatedItem'" *ngIf="visibleFields['relatedItem']" [field]="fields['relatedItem']" [model]="model" ></app-editor-relatedItem>
 				</ng-container>
@@ -102,6 +103,7 @@
 	<app-editor-note [id]="panel.id + 'note'" *ngIf="visibleFields['note']" [field]="fields['note']"></app-editor-note>
 	<app-editor-classification [id]="panel.id + 'classification'" *ngIf="visibleFields['classification']" [field]="fields['classification']"></app-editor-classification>
 	<app-editor-location [id]="panel.id + 'location'" *ngIf="visibleFields['location']" [field]="fields['location']"></app-editor-location>
+  <app-editor-accessCondition [id]="panel.id + 'accessCondition'" *ngIf="visibleFields['accessCondition']" [field]="fields['accessCondition']"></app-editor-accessCondition>
 	<app-editor-relatedItem [id]="panel.id + 'relatedItem'" *ngIf="visibleFields['relatedItem']" [field]="fields['relatedItem']" [model]="model"></app-editor-relatedItem>
 	<app-editor-recordInfo [id]="panel.id + 'recordInfo'" *ngIf="visibleFields['recordInfo']" [field]="fields['recordInfo']"></app-editor-recordInfo>
 </ng-template>

@@ -1,0 +1,10 @@
+<app-editor-field [field]="field">
+  <ng-template let-item="item" #templateContent>
+
+    <app-field-text [(value)]='item.attrs["type"]' field="type" [item]="item"></app-field-text>
+    <app-field-text [(value)]='item.attrs["displayLabel"]' field="displayLabel" [item]="item"></app-field-text>
+    <app-field-text [(value)]='item.attrs["xlink:href"]' field="xlink:href" [item]="item"></app-field-text>
+    <app-field-text field="value" [item]="item" [(value)]="item.modsElement['_']" ></app-field-text>
+
+  </ng-template>
+</app-editor-field>

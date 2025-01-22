@@ -936,6 +936,45 @@
         },
       }
     },
+  accessCondition: {
+    usage: 'O',
+    label: 'accessCondition',
+    selector: 'accessCondition',
+    labelKey: 'bdm/accessCondition',
+    description: 'Zápis licence',
+    fields: {
+      type: {
+        usage: 'O',
+        label: 'Typ',
+        selector: 'accessCondition/@type',
+        labelKey: 'accessCondition/@type',
+        cols: 2,
+        description: 'Typ licence'
+      },
+      displayLabel: {
+        usage: 'O',
+        label: 'Zobrazená část',
+        selector: 'accessCondition/@displayLabel',
+        labelKey: 'accessCondition/@displayLabel',
+        cols: 2,
+        description: 'Zobrazená hodnota'
+      },
+      'xlink:href': {
+        usage: 'RA',
+        label: 'xLink',
+        selector: 'accessCondition/@xlink',
+        labelKey: 'accessCondition/@xlink',
+        description: 'odkaz na licenci - přebírá se do exportu Crossref'
+      },
+      value: {
+        usage: 'O',
+        label: 'Hodnota',
+        selector: 'accessCondition/value',
+        labelKey: 'accessCondition/value',
+        description: 'Hodnota',
+      }
+    }
+  },
     relatedItem: {
       usage: 'MA',
       label: 'Recenze na',
