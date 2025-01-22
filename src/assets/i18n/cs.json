@@ -2029,7 +2029,7 @@
     "bdm/accessCondition": "Podmínky přístupu",
     "accessCondition/@type": "Typ podmínky",
     "accessCondition/@displayLabel": "Zobrazený popisek",
-    "accessCondition/@xLink": "URL",
+    "accessCondition/@xlink": "URL",
     "accessCondition/value": "Hodnota",
     "option": {
       "": "-",

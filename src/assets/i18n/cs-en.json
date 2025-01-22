@@ -2031,7 +2031,7 @@
     "bdm/accessCondition": "Access condition",
     "accessCondition/@type": "Type of condition",
     "accessCondition/@displayLabel": "Display label",
-    "accessCondition/@xLink": "URL",
+    "accessCondition/@xlink": "URL",
     "accessCondition/value": "Value",
     "option": {
       "": "-",
