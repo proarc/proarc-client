@@ -68,16 +68,16 @@ export class BatchesComponent {
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
-    this.layout.lastSelectedItem = null;
+    this.layout.setLastSelectedItem(null);
   }
 
   ngOnInit(): void {
     this.layout.type = 'import';
     this.initConfig();
 
-    // this.subscriptions.push(this.layout.shouldRefresh().subscribe((keepSelection: boolean) => {
-    //   this.loadData(this.batchId, keepSelection);
-    // }));
+    this.subscriptions.push(this.layout.shouldRefresh().subscribe((keepSelection: boolean) => {
+      this.loadData(this.batchId, keepSelection);
+    }));
 
     // this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
     //   this.refreshSelected(from);

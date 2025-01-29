@@ -695,6 +695,11 @@ export class EditorStructureComponent implements OnInit {
   }
 
 
+  dragFromTable(e: any) {
+    this.hasChanges = true;
+    this.layout.setSelectionChanged(true, this.panel);
+  }
+
   dragend(event: any) {
     this.stop = true;
     this.isDragging = false;

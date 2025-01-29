@@ -3,6 +3,7 @@ import { DocumentItem } from "../model/documentItem.model";
 import { ILayoutPanel } from "../dialogs/layout-admin/layout-admin.component";
 import { ModelTemplate } from "../model/modelTemplate";
 import { Configuration } from "../shared/configuration";
+import { Observable, Subject } from "rxjs";
 
 @Injectable()
 export class LayoutService {
@@ -32,6 +33,9 @@ export class LayoutService {
     public setLastSelectedItem(i: DocumentItem) {
         this.lastSelectedItem.update(() => i)
     }
+
+
+    private refreshSubject = new Subject<boolean>();
 
 
     public item: DocumentItem; // item by pid in url
@@ -97,12 +101,16 @@ export class LayoutService {
         }
     }
 
+
+    shouldRefresh(): Observable<boolean> {
+        return this.refreshSubject.asObservable();
+    }
     setShouldRefresh(keepSelection: boolean) {
         this.clearPanelEditing();
         if (!keepSelection) {
-            this.lastSelectedItem = null;
+            this.setLastSelectedItem(null);
         }
-        // this.refreshSubject.next(keepSelection);
+        this.refreshSubject.next(keepSelection);
     }
 
     refreshSelectedItem(moveToNext: boolean, from: string) {

@@ -100,7 +100,8 @@ export class AuthService {
     setLoggedOut() {
         this.user = null;
         this.dialogRef.closeAll();
-        this.router.navigate(['/login']);
+        const queryParams = {url: document.location.pathname};
+        this.router.navigate(['/login'], {queryParams});
     }
 
     logout() {

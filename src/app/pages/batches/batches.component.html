@@ -25,7 +25,7 @@
               <as-split-area *ngIf="column.visible" [size]="column.size">
                 <as-split direction="vertical" [disabled]="settings.importLayout.disabled" (dragEnd)="onDragEnd(icol, $event)">
                   <ng-template ngFor let-row [ngForOf]="column.rows" let-irow="index">
-                    <as-split-area *ngIf="row.visible"  [size]="row.size" [class.app-avoid-click]="!row.canEdit">
+                    <as-split-area *ngIf="row.visible"  [size]="row.size" [class.app-disabled]="!row.canEdit">
                       <app-panel [panel]="row" [lastSelectedItem]="layout.lastSelectedItem()"  (onIngest)="onIngest()"></app-panel>
                     </as-split-area>
                   </ng-template>

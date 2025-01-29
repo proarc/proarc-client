@@ -1,6 +1,6 @@
-<table mat-table #table [dataSource]="items()" matSort class="app-striped app-hover app-resize" 
-[matSortActive]="sortField" [matSortDirection]="sortAsc ? 'asc' : 'desc'"
-(matSortChange)="sortTable($event)">
+<table mat-table #table [dataSource]="items()" matSort class="app-dragable-table app-striped app-hover app-resize" id="aaa"
+[matSortActive]="sortField" [matSortDirection]="sortAsc ? 'asc' : 'desc'" (matSortChange)="sortTable($event)"
+cdkDropList (cdkDropListDropped)="drop($event)" cdkDropListData="items()">
 
 <ng-container *ngFor="let c of selectedColumns; let idx = index;" [matColumnDef]="c.field">
   <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c.field)"
@@ -40,8 +40,7 @@
    (click)="onSelectItem(row, $event, idx)" (dblclick)="onOpenItem(row, $event)" class="app-cursor-pointer" 
    [class.app-selected]="row.selected" [class.app-invalid]="row.invalid" [class.app-repre]="row.pageRepre === 'reprePage'" 
    [title]="row.label + ' (' + ('model.' + row.model | translate) + ')'"
-   [draggable]="draggable()" (mousedown)="onMousedown($event)" (dragenter)="onDragenter($event, idx)" 
-   (dragstart)="onDragstart(row, $event, idx)" (dragover)="onDragover($event)" (dragend)="onDragend($event)" 
+   cdkDrag [cdkDragData]="row" [cdkDragDisabled]="!draggable()" [cdkDragPreviewContainer]="'parent'"
   ></tr>
 
 

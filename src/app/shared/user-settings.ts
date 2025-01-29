@@ -73,8 +73,8 @@ export class UserSettingsService {
           visible: true,
           size: 30,
           rows: [
-            { id: 'panel1', visible: true, size: 25, type: 'structure-list', isDirty: false, canEdit: true },
-            { id: 'panel2', visible: true, size: 75, type: 'metadata', isDirty: false, canEdit: true },
+            { id: 'panel1', visible: true, size: 50, type: 'structure-list', isDirty: false, canEdit: true },
+            { id: 'panel2', visible: true, size: 50, type: 'metadata', isDirty: false, canEdit: true },
           ],
         },
         {

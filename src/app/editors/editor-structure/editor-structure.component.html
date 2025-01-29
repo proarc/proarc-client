@@ -84,7 +84,7 @@
   <div fxFlex class="app-oa-y" #childrenList (scroll)="setScrollPos()" (keydown)="noscroll($event)">
     <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
     <div class="app-editor-content" #childrenWrapper tabindex="0" *ngIf="state !=='loading'" (keyup)="keyup($event)"
-      (resized)="onResized($event)" (mousemove)="mousemove($event)">
+      (resized)="onResized($event)" (mousemove)="mousemove($event)" cdkScrollable>
       <div class="app-view-grid" *ngIf="viewMode == 'grid'" #childrenGridList (mousedown)="mousedown($event)"
         (mouseup)="mouseup($event)" fxLayout="row wrap">
         <div *ngFor="let item of layout.items(); let i = index; trackBy: trackItem" (click)="rowClick(item, $event, i)"
@@ -144,11 +144,11 @@
           </div>
         </div>
       </div>
-      <!-- <app-user-table [draggable]="true" (selectItem)="selectRow($event)" (openItem)="open($event)" [colsSettingsName]="'columnsSearch'"
+      <app-user-table *ngIf="viewMode == 'list'" [draggable]="true" (selectItem)="selectRow($event)" (openItem)="open($event)" [colsSettingsName]="'columnsSearch'"
         [items]="layout.items()" (mousedown)="mousedown($event)" (dragenter)="dragenter($event.e, $event.idx)"
-        (dragstart)="dragstart($event.item, $event.idx, $event.e)" (dragover)="dragover($event)"
-        (dragend)="dragend($event)"></app-user-table> -->
-      <table id="table" mat-table *ngIf="viewMode == 'list'" (contentChanged)="tableRendered()" 
+        (dragstart)="dragstart($event.item, $event.idx, $event.e)" (dragover)="dragover($event)" [draggable]="true"
+        (dragend)="dragFromTable($event)"></app-user-table>
+      <!-- <table id="table" mat-table *ngIf="viewMode == 'list'" (contentChanged)="tableRendered()" 
         (mouseup)="mouseup($event)" [dataSource]="layout.items()" class="app-striped app-hover app-resize" #table>
         <ng-container *ngFor="let c of displayedColumns; let idx = index;" [matColumnDef]="c">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c)"
@@ -187,7 +187,7 @@
             draggable="true" (dragenter)="dragenter($event, idx)" (dragstart)="dragstart(row, idx, $event)" (dragover)="dragover($event)"
             (dragend)="dragend($event)" [ngClass]="{'app-repre': row.pageRepre === 'reprePage'}"
             ></tr>
-      </table>
+      </table> -->
     </div>
   </div>
 </div>

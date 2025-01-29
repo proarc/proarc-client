@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, input, output } from '@angular/core';
+import { Component, effect, ElementRef, input, output, QueryList, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,7 +10,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule, Sort } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
+import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FlexLayoutModule } from 'ngx-flexible-layout';
@@ -23,16 +23,24 @@ import { DocumentItem } from '../../model/documentItem.model';
 import { Utils } from '../../utils/utils';
 import { LayoutService } from '../../services/layout-service';
 
+
+import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
+
 @Component({
   selector: 'app-user-table',
   imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
     MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
-    MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
+    MatInputModule, MatSelectModule, MatTooltipModule,
+    CdkDropList, CdkDrag, MatMenuModule, MatPaginatorModule,
     MatTableModule, MatSortModule, ResizecolDirective],
   templateUrl: './user-table.component.html',
   styleUrl: './user-table.component.scss'
 })
 export class UserTableComponent {
+
+  @ViewChild('table', { static: true }) table: MatTable<DocumentItem>;
+  // @ViewChildren('matrow', { read: ViewContainerRef }) rows: QueryList<ViewContainerRef>;
+  // @ViewChild('childrenList') childrenListEl: ElementRef;
 
   colsSettingsName = input<string>();
   items = input<DocumentItem[]>();
@@ -45,11 +53,11 @@ export class UserTableComponent {
   getValidationError = output<string>();
 
   draggable = input<boolean>();
-  mousedown = output<any>(); 
-  dragenter = output<{e: any, idx: number}>();  
+  mousedown = output<any>();
+  dragenter = output<{ e: any, idx: number }>();
   dragstart = output<{ item: DocumentItem, e: MouseEvent, idx: number }>();
-  dragover = output<any>(); 
-  dragend = output<any>(); 
+  dragover = output<any>();
+  dragend = output<any>();
 
   selectedColumns: TableColumn[];
   displayedColumns: string[];
@@ -179,10 +187,49 @@ export class UserTableComponent {
     this.dragend.emit(e);
   }
   onDragenter(e: any, idx: number) {
-    this.dragenter.emit({e, idx});
+    this.dragenter.emit({ e, idx });
   }
   onDragstart(item: DocumentItem, e: any, idx: number) {
-    this.dragstart.emit({item, e, idx});
+    this.dragstart.emit({ item, e, idx });
   }
-  
+
+  source: any;
+  sourceNext: any;
+  dragEnabled = true;
+  sourceIndex: number;
+  targetIndex: number;
+  isDragging = false;
+  stop = true;
+  // h = 0;
+  // y = 0;
+
+  private getIndex(el: any) {
+    return Array.prototype.indexOf.call(el.parentNode.childNodes, el);
+  }
+
+  private isbefore(a: any, b: any) {
+    if (a.parentNode === b.parentNode) {
+      for (let cur = a; cur; cur = cur.previousSibling) {
+        if (cur === b) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  drop(event: CdkDragDrop<string>) {
+    const previousIndex = this.items().findIndex(d => d === event.item.data);
+
+    moveItemInArray(this.items(), previousIndex, event.currentIndex);
+    this.table.renderRows();
+    this.dragend.emit(this.items());
+  }
+
+  // dropCol(event: CdkDragDrop<any>) {
+  //   const previousIndex = this.displayedColumns.findIndex(d => d === event.item.data);
+
+  //   moveItemInArray(this.displayedColumns, previousIndex, event.currentIndex);
+  //   this.table.renderRows();
+  // }
 }
