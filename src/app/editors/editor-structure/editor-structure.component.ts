@@ -133,7 +133,9 @@ export class EditorStructureComponent implements OnInit {
     public config: Configuration,
     private clipboard: Clipboard
   ) {
-
+    effect(() => {
+      this.scrollToLastClicked(this.layout.lastSelectedItem());
+    });
   }
 
   ngOnDestroy() {
@@ -156,6 +158,17 @@ export class EditorStructureComponent implements OnInit {
     // this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
     //   const selection = this.layout.items().filter(i => i.selected).map(i => i.pid);
     //   this.refreshChildren(selection);
+    // }));
+
+    // this.subscriptions.push(this.layout.selectionChanged().subscribe((from: boolean) => {
+    //   this.setSelectedColumns();
+    //   if (this.panel.id !== this.layout.lastPanelClicked) {
+
+    //     setTimeout(() => {
+    //       this.scrollToLastClicked();
+    //     }, 100);
+
+    //   }
     // }));
 
   }
@@ -258,10 +271,7 @@ export class EditorStructureComponent implements OnInit {
     }
   }
 
-  scrollToLastClicked() {
-    if (!this.rows) {
-      return;
-    }
+  scrollToLastClicked(a: any) {
     const index = this.layout.lastItemIdxClicked;
     if (index < 0) {
       return;
@@ -272,6 +282,9 @@ export class EditorStructureComponent implements OnInit {
     } else if (this.viewMode == 'icons') {
       container = this.childrenIconListEl;
     } else {
+      if (!this.rows) {
+        return;
+      }
       // let row = this.rows.get(index);
       let row = this.rows.find(tr => tr.element.nativeElement.id === 'tr_' + index);
       if (row && !this.isInViewport(row.element.nativeElement)) {

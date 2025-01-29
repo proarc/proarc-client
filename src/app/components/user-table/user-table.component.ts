@@ -39,8 +39,8 @@ import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk
 export class UserTableComponent {
 
   @ViewChild('table', { static: true }) table: MatTable<DocumentItem>;
-  // @ViewChildren('matrow', { read: ViewContainerRef }) rows: QueryList<ViewContainerRef>;
-  // @ViewChild('childrenList') childrenListEl: ElementRef;
+  @ViewChildren('matrow', { read: ViewContainerRef }) rows: QueryList<ViewContainerRef>;
+  @ViewChild('childrenList') childrenListEl: ElementRef;
 
   colsSettingsName = input<string>();
   items = input<DocumentItem[]>();
@@ -114,7 +114,25 @@ export class UserTableComponent {
         this.prefixes[c.field] = this.prefixByType(c.field);
       });
 
+      this.scrollToLastClicked(this.layout.lastSelectedItem());
+
     })
+  }
+
+  scrollToLastClicked(item: DocumentItem) {
+    // const index = this.layout.lastItemIdxClicked;
+    // if (index < 0) {
+    //   return;
+    // }
+    if (!this.rows) {
+      return;
+    }
+    let row = this.rows.find(tr => tr.element.nativeElement.id === 'tr_' + item.pid);
+    if (row) {
+      setTimeout(() => {
+        row.element.nativeElement.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      }, 100);
+    }
   }
 
   listValue(field: string, code: string) {
@@ -174,48 +192,6 @@ export class UserTableComponent {
 
   onGetValidationError(id: string) {
     this.getValidationError.emit(id)
-  }
-
-
-  onMousedown(e: any) {
-    this.mousedown.emit(e);
-  }
-  onDragover(e: any) {
-    this.dragover.emit(e);
-  }
-  onDragend(e: any) {
-    this.dragend.emit(e);
-  }
-  onDragenter(e: any, idx: number) {
-    this.dragenter.emit({ e, idx });
-  }
-  onDragstart(item: DocumentItem, e: any, idx: number) {
-    this.dragstart.emit({ item, e, idx });
-  }
-
-  source: any;
-  sourceNext: any;
-  dragEnabled = true;
-  sourceIndex: number;
-  targetIndex: number;
-  isDragging = false;
-  stop = true;
-  // h = 0;
-  // y = 0;
-
-  private getIndex(el: any) {
-    return Array.prototype.indexOf.call(el.parentNode.childNodes, el);
-  }
-
-  private isbefore(a: any, b: any) {
-    if (a.parentNode === b.parentNode) {
-      for (let cur = a; cur; cur = cur.previousSibling) {
-        if (cur === b) {
-          return true;
-        }
-      }
-    }
-    return false;
   }
 
   drop(event: CdkDragDrop<string>) {

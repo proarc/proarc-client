@@ -3,7 +3,7 @@ import { DocumentItem } from "../model/documentItem.model";
 import { ILayoutPanel } from "../dialogs/layout-admin/layout-admin.component";
 import { ModelTemplate } from "../model/modelTemplate";
 import { Configuration } from "../shared/configuration";
-import { Observable, Subject } from "rxjs";
+import { Observable, ReplaySubject, Subject } from "rxjs";
 
 @Injectable()
 export class LayoutService {
@@ -31,11 +31,12 @@ export class LayoutService {
 
     public lastSelectedItem = signal<DocumentItem>(null); // last selected child item
     public setLastSelectedItem(i: DocumentItem) {
-        this.lastSelectedItem.update(() => i)
+        this.lastSelectedItem.update(() => i);
     }
 
 
     private refreshSubject = new Subject<boolean>();
+    private selectionSubject = new ReplaySubject<boolean>(1);
 
 
     public item: DocumentItem; // item by pid in url
@@ -88,9 +89,13 @@ export class LayoutService {
         // this.selectionSubject.next(fromStructure);
     }
 
+    selectionChanged(): Observable<boolean> {
+        return this.selectionSubject.asObservable();
+    }
+
     setSelectionChanged(fromStructure: boolean, panel: ILayoutPanel) {
         this.setPanelEditing(panel);
-        //this.selectionSubject.next(fromStructure);
+        this.selectionSubject.next(fromStructure);
     }
 
     allowedChildrenModels(): string[] {

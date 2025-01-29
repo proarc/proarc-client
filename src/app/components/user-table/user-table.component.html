@@ -1,4 +1,4 @@
-<table mat-table #table [dataSource]="items()" matSort class="app-dragable-table app-striped app-hover app-resize" id="aaa"
+<table mat-table #table #childrenList [dataSource]="items()" matSort class="app-dragable-table app-striped app-hover app-resize" 
 [matSortActive]="sortField" [matSortDirection]="sortAsc ? 'asc' : 'desc'" (matSortChange)="sortTable($event)"
 cdkDropList (cdkDropListDropped)="drop($event)" cdkDropListData="items()">
 
@@ -36,7 +36,7 @@ cdkDropList (cdkDropListDropped)="drop($event)" cdkDropListData="items()">
 </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns; let idx=index" #matrow [id]="'tr_'+idx"
+  <tr mat-row *matRowDef="let row; columns: displayedColumns; let idx=index" #matrow [id]="'tr_'+row.pid"
    (click)="onSelectItem(row, $event, idx)" (dblclick)="onOpenItem(row, $event)" class="app-cursor-pointer" 
    [class.app-selected]="row.selected" [class.app-invalid]="row.invalid" [class.app-repre]="row.pageRepre === 'reprePage'" 
    [title]="row.label + ' (' + ('model.' + row.model | translate) + ')'"

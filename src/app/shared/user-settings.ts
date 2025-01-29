@@ -74,14 +74,14 @@ export class UserSettingsService {
           size: 30,
           rows: [
             { id: 'panel1', visible: true, size: 50, type: 'structure-list', isDirty: false, canEdit: true },
-            { id: 'panel2', visible: true, size: 50, type: 'metadata', isDirty: false, canEdit: true },
+            { id: 'panel2', visible: true, size: 50, type: 'mods', isDirty: false, canEdit: true },
           ],
         },
         {
           visible: true,
           size: 40,
           rows: [
-            { id: 'panel3', visible: true, size: 20, type: 'mods', isDirty: false, canEdit: true },
+            { id: 'panel3', visible: true, size: 20, type: 'structure-icons', isDirty: false, canEdit: true },
             { id: 'panel4', visible: false, size: 30, type: 'ocr', isDirty: false, canEdit: true },
             { id: 'panel5', visible: false, size: 50, type: 'comment', isDirty: false, canEdit: true },
           ],
