@@ -796,8 +796,7 @@
             Jiný interní identifikátor <i>R</i>, např. barcode, oclc, sysno, permalink'
       },
       validity: {
-        usage: 'M',
-        required: true,
+        usage: 'MA',
         label: 'Platnost',
         selector: 'identifier/@invalid',
         labelKey: 'identifier/@invalid',

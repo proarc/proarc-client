@@ -248,7 +248,6 @@
     },
     identifier: {
       usage: 'M',
-      required: true,
       label: 'Identifikátor',
       selector: 'identifier',
       labelKey: 'identifier',
@@ -276,8 +275,7 @@
             Jiný interní identifikátor <i>R</i>, např. barcode, oclc, sysno, permalink'
         },
         validity: {
-          usage: 'M',
-          required: true,
+          usage: 'MA',
           label: 'Platnost',
           selector: 'identifier/@invalid',
           labelKey: 'identifier/@invalid',

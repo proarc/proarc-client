@@ -28,6 +28,7 @@ declare var $: any;
 import * as JSON5 from 'json5';
 import { ModsElement } from './mods/element.model';
 import {ModsRelatedItem2} from './mods/relatedItem2.model';
+import {ModsAccessCondition} from './mods/accessCondition.model';
 // import * as JSON6 from 'json-6';
 // declare var JSON6: any;
 
@@ -51,7 +52,8 @@ export class Metadata {
     ModsRelatedItem2.getId(),
     ModsResource.getSelector(),
     ModsPart.getSelector(),
-    ModsTableOfContents.getSelector()
+    ModsTableOfContents.getSelector(),
+    ModsAccessCondition.getSelector()
   ];
 
 
@@ -240,6 +242,7 @@ export class Metadata {
       ModsRelatedItem.getId(),
       ModsRelatedItem2.getId(),
       ModsTableOfContents.getId(),
+      ModsAccessCondition.getId()
     ];
     for (const id of allIds) {
       if (this.template[id]) {

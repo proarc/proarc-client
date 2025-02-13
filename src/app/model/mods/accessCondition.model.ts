@@ -1,18 +1,18 @@
 import { ModsElement } from './element.model';
 import ModsUtils from './utils';
 
-export class ModsIdentifier extends ModsElement {
+export class ModsAccessCondition extends ModsElement {
 
     static getSelector() {
-        return 'identifier';
+        return 'accessCondition';
     }
 
     static getId() {
-        return 'identifier';
+        return 'accessCondition';
     }
 
     constructor(modsElement: any, template: any) {
-        super(modsElement, template, ['type', 'typeURI', 'invalid']);
+        super(modsElement, template, ['type', 'displayLabel', 'xlink:href']);
         this.init();
     }
 
@@ -22,8 +22,8 @@ export class ModsIdentifier extends ModsElement {
       }
       this.addControl('value');
       this.addControl('type');
-      this.addControl('validity');
-      this.addControl('typeURI');
+      this.addControl('xlink:href');
+      this.addControl('displayLabel');
     }
 
 }
