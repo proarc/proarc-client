@@ -5,7 +5,7 @@
     <button (click)="addRepeated(item)" [matTooltip]="'editor.add_field_lang' | translate" mat-icon-button>
       <mat-icon>library_add</mat-icon>
     </button>
-    <button (click)="onLoadFromCatalog(item)" [matTooltip]="'editor.metadata.catalog' | translate" mat-icon-button>
+    <button [disabled]="layout.editingPanel === panel.id" (click)="onLoadFromCatalog(item)" [matTooltip]="'editor.metadata.catalog' | translate" mat-icon-button>
       <mat-icon>local_library</mat-icon>
     </button>
   </ng-template>

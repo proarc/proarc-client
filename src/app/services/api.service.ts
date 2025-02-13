@@ -788,6 +788,12 @@ export class ApiService {
     return this.get(`${resource}/query`, params);
   }
 
+  addAuthority(pid: string, mods: string) {
+    let data = `pid=${pid}&jsonData=${mods}&timestamp=-1`;
+    return this.put('object/mods/addAuthority', data);
+    
+  }
+
   getDevices(): Observable<Device[]> {
     return this.get('device').pipe(map((response: any) => Device.fromJsonArray(response['response']['data'])));
   }
