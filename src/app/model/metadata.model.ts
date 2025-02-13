@@ -49,7 +49,7 @@ export class Metadata {
     ModsPhysical.getSelector(),
     ModsRecordInfo.getSelector(),
     ModsRelatedItem.getSelector(),
-    ModsRelatedItem2.getId(),
+    // ModsRelatedItem2.getId(),
     ModsResource.getSelector(),
     ModsPart.getSelector(),
     ModsTableOfContents.getSelector(),
@@ -240,7 +240,7 @@ export class Metadata {
       ModsPart.getId(),
       ModsRecordInfo.getId(),
       ModsRelatedItem.getId(),
-      ModsRelatedItem2.getId(),
+      // ModsRelatedItem2.getId(),
       ModsTableOfContents.getId(),
       ModsAccessCondition.getId()
     ];
