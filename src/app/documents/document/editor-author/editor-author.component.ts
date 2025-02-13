@@ -12,6 +12,7 @@ import {forEach} from 'ol/geom/flat/segments';
 import { FormControl } from '@angular/forms';
 import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.component';
 import { ModsElement } from 'src/app/model/mods/element.model';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-editor-author',
@@ -38,6 +39,7 @@ export class EditorAuthorComponent implements OnInit {
   public roles: { code: string; name: any; }[] = [];
 
   constructor(
+    private api: ApiService,
     public translator: TranslateService,
     private dialog: MatDialog,
     private tmpl: TemplateService,
@@ -60,23 +62,28 @@ export class EditorAuthorComponent implements OnInit {
       if (result && result['mods']) {
         const mods = result['mods'];
 
-        const standard = Metadata.resolveStandard(mods);
-        this.tmpl.getTemplate(standard, this.layout.lastSelectedItem.model).subscribe((tmpl: any) => {
-          const metadata = new Metadata('', this.model, mods, 0, standard, tmpl);
-          const nameField = metadata.getField(ModsAuthor.getSelector());
-          //const items = nameField.getItems();
-          if (nameField && nameField.items.length > 0) {
-            this.field.addAfterItem(item, nameField.items[0]);
-            setTimeout(() => {
-              this.field.removeItem(item);
-              setTimeout(() => {
-                this.layout.setMetadataResized();
-              }, 10);
-            }, 10);
-          }
-
-
+        this.api.addAuthority(this.layout.lastSelectedItem.pid, mods).subscribe((resp: any) => {
+          this.layout.clearPanelEditing();
+            this.layout.refreshSelectedItem(true, 'metadata');
         });
+
+        // const standard = Metadata.resolveStandard(mods);
+        // this.tmpl.getTemplate(standard, this.layout.lastSelectedItem.model).subscribe((tmpl: any) => {
+        //   const metadata = new Metadata('', this.model, mods, 0, standard, tmpl);
+        //   const nameField = metadata.getField(ModsAuthor.getSelector());
+        //   //const items = nameField.getItems();
+        //   if (nameField && nameField.items.length > 0) {
+        //     this.field.addAfterItem(item, nameField.items[0]);
+        //     setTimeout(() => {
+        //       this.field.removeItem(item);
+        //       setTimeout(() => {
+        //         this.layout.setMetadataResized();
+        //       }, 10);
+        //     }, 10);
+        //   }
+
+
+        // });
       }
     });
   }

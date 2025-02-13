@@ -3,7 +3,7 @@
     <button matTooltip="{{ 'editor.author.' + (item.isPrimary() ? 'unset_primary' : 'set_primary') | translate }}" [color]="item.isPrimary() ? 'primary' : ''" (click)="switchPrimary(item)" mat-icon-button>
       <mat-icon>{{ item.isPrimary() ? 'star' : 'star_outline' }}</mat-icon>
     </button>
-    <button (click)="onLoadFromCatalog(item)" [matTooltip]="'editor.metadata.catalog' | translate" mat-icon-button>
+    <button [disabled]="layout.editingPanel === panel.id" (click)="onLoadFromCatalog(item)" [matTooltip]="'editor.metadata.catalog' | translate" mat-icon-button>
       <mat-icon>local_library</mat-icon>
     </button>
     <span class="app-pipe"></span>
