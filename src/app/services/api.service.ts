@@ -813,25 +813,28 @@ export class ApiService {
     if (batchId) {
       data = `${data}&batchId=${batchId}`;
     }
-    if (holder.editType) {
+    if (holder.pageType !== '') {
       data += `&pageType=${holder.pageType}`;
     }
-    if (holder.editIndex) {
+    if (holder.pageIndex !== null) {
       data += `&startIndex=${holder.pageIndex}`;
     }
     if (holder.useBrackets) {
       data += `&useBrackets=${holder.useBrackets}`;
     }
+    if (holder.repreSelect != null) {
+      data += `&isReprePage=${holder.repreSelect}`;
+    }
     if (holder.doubleColumns) {
       data += `&doubleColumns=${holder.doubleColumns}`;
     }
-    if (holder.editNumber) {
+    if (holder.numberFromValid()) {
       data += `&sequence=${holder.pageNumberNumbering.id}&prefix=${holder.pageNumberPrefix}&suffix=${holder.pageNumberSuffix}&startNumber=${holder.getPageIndexFrom()}&incrementNumber=${holder.pageNumberIncrement}`;
     }
     if (holder.applyTo > 1) {
       data += `&applyToFirstPage=${holder.applyToFirst}`;
     }
-    if (holder.editPosition) {
+    if (holder.pagePosition !== '') {
       data += `&pagePosition=${holder.pagePosition}`;
     }
     data += `&applyTo=${holder.applyTo}`;

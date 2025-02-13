@@ -67,6 +67,10 @@ export class EditorPagesComponent implements OnInit {
     }));
   }
 
+  onRevert() {
+    this.holder = new PageUpdateHolder();
+  }
+
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
@@ -101,7 +105,8 @@ export class EditorPagesComponent implements OnInit {
       return;
     }
     this.updateSelectedPages(this.holder, null);
-    this.holder.reset();
+    // this.holder.reset();
+    this.holder = new PageUpdateHolder();
     this.controls.markAsPristine();
     this.layout.isDirty = false;
   }
@@ -198,10 +203,10 @@ export class PageUpdateHolder {
 
   applyOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
-  editType: boolean;
-  editIndex: boolean;
-  editNumber: boolean;
-  editPosition: boolean;
+  // editType: boolean;
+  // editIndex: boolean;
+  // editNumber: boolean;
+  // editPosition: boolean;
 
   useBrackets: boolean;
   doubleColumns: boolean;
@@ -220,10 +225,13 @@ export class PageUpdateHolder {
   applyTo: number;
   applyToFirst: boolean;
 
+  repreSelect: any = null;
+  isReprePage: boolean;
+
   constructor() {
-    this.editType = false;
-    this.editIndex = false;
-    this.editNumber = false;
+    // this.editType = false;
+    // this.editIndex = false;
+    // this.editNumber = false;
     this.pageType = '';
     // this.pageType = 'normalPage';
     this.pageIndex = null;
@@ -238,6 +246,7 @@ export class PageUpdateHolder {
 
     this.applyTo = 1;
     this.applyToFirst = true;
+    this.repreSelect = null;
   }
 
   getPageIndexFrom(): number {
@@ -247,15 +256,16 @@ export class PageUpdateHolder {
 
 
   editAny(): boolean {
-    return  this.pageIndex !== null || this.pageType !== '' || (this.numberFromValid()) || (this.pagePosition !== '');
+    return  this.pageIndex !== null || this.pageType !== '' || (this.numberFromValid()) || (this.pagePosition !== '') || (this.repreSelect !== null);
   }
 
-  reset() {
-    this.editIndex = false;
-    this.editType = false;
-    this.editNumber = false;
-    this.editPosition = false;
-  }
+  // reset() {
+  //   this.editIndex = false;
+  //   this.editType = false;
+  //   this.editNumber = false;
+  //   this.editPosition = false;
+  //   this.repreSelect = null;
+  // }
 
   romanize(num: number): string {
     if (isNaN(num)) {
