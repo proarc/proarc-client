@@ -494,6 +494,12 @@ export class ApiService {
     return this.post(path, data);
   }
 
+  updateSTT(pid: string, model: string) {
+    const data = `pid=${pid}&model=${model}`;
+    const path = `object/updateOldprintPage`;
+    return this.post(path, data);
+  }
+
   updateObjects(pid: string, model: string) {
     const data = `pid=${pid}&model=${model}`;
     const path = `object/updateAllObjectsObjects`;
