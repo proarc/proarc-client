@@ -731,6 +731,25 @@ export class SearchComponent implements OnInit {
     });
   }
 
+  canUpdateSTT(item: DocumentItem): boolean {
+    return item.model.includes('oldprint') && this.auth.isSuperAdmin()
+  }
+
+  updateSTT(item: DocumentItem) {
+    this.state = 'loading';
+    this.api.updateSTT(item.pid, item.model).subscribe((response: any) => {
+      if (response.response.errors) {
+        this.state = 'error';
+        this.ui.showErrorDialogFromObject(response.response.errors);
+      } else {
+        this.state = 'success';
+        this.ui.showInfoSnackBar(this.translator.instant('snackbar.updateObjects.success'))
+      }
+    });
+  }
+
+  
+
   updateObjects(item: DocumentItem) {
     this.state = 'loading';
     this.api.updateObjects(item.pid, item.model).subscribe((response: any) => {
