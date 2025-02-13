@@ -457,7 +457,7 @@
           start: {
             usage: 'MA',
             label: 'Od strany',
-            cols: 2,
+            cols: 3,
             selector: 'part/extent/start',
             labelKey: 'bdm/part/extent/start',
             description: 'První stránka článku.'
@@ -465,10 +465,18 @@
           end: {
             usage: 'MA',
             label: 'Do strany',
-            cols: 2,
+            cols: 3,
             selector: 'part/extent/end',
             labelKey: 'bdm/part/extent/end',
             description: 'Poslední stránka článku.'
+          },
+          total: {
+            usage: 'MA',
+            label: 'Počet stran',
+            cols: 3,
+            selector: 'part/extent/total',
+            labelKey: 'bdm/part/extent/total',
+            description: 'Počet stran článku.'
           }
         }
       }
@@ -1078,7 +1086,7 @@
               start: {
                 usage: 'MA',
                 label: 'Od strany',
-                cols: 2,
+                cols: 3,
                 selector: 'relatedItem/part/extent/start',
                 labelKey: 'bdm/relatedItem/part/extent/start',
                 description: 'První stránka článku/citace.'
@@ -1086,10 +1094,18 @@
               end: {
                 usage: 'MA',
                 label: 'Do strany',
-                cols: 2,
+                cols: 3,
                 selector: 'relatedItem/part/extent/end',
                 labelKey: 'bdm/relatedItem/part/extent/end',
                 description: 'Poslední stránka článku.'
+              },
+              total: {
+                usage: 'MA',
+                label: 'Počet stran',
+                cols: 3,
+                selector: 'relatedItem/part/extent/total',
+                labelKey: 'bdm/relatedItem/part/extent/total',
+                description: 'Počet stran článku.'
               }
             }
           }
