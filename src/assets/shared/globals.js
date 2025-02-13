@@ -103,7 +103,7 @@ var APP_GLOBAL = {
       'blank'
   ],
   topLanguages: ['cze', 'ger', 'lat'],
-  languages: ['cze', 'eng', 'fre', 'heb', 'ita', 'pol', 'por', 'rus', 'gre', 'slo', 'grc', 'spa', 'mul', 'zxx'],
+  languages: ['cze', 'ger', 'lat', 'eng', 'fre', 'heb', 'ita', 'pol', 'por', 'rus', 'gre', 'slo', 'grc', 'spa', 'mul', 'zxx'],
   topLocations: ['BOA001', 'ABA000'],
   identifiers: [ 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId', 'doi'],
   pagePositions: ['right_left', 'left_right', 'left', 'right', 'singlePage'],
