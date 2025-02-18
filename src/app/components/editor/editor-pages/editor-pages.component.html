@@ -60,16 +60,16 @@
         <div class="app-gap-fixer"></div>
 
         <div class="app-form">
-          <div class="app-form-header app-pl-2" fxLayout="row" fxLayoutAlign="start center">
-            <!-- <div fxFlex class="app-text-cutter">
+          <!-- <div class="app-form-header app-pl-2" fxLayout="row" fxLayoutAlign="start center">
+            <div fxFlex class="app-text-cutter">
               <mat-checkbox color="primary" [checked]="holder.numberFromValid()" class="app-form-title app-noclick">{{ 'editor.pages.edit_page_number' | translate }}</mat-checkbox>
             </div>
             <div>
               <button [class.app-active]="holder.useBrackets" [matTooltip]="holder.useBrackets ? ('button.removeBrackets' | translate) : ('button.addBrackets' | translate)" (click)="holder.useBrackets = !holder.useBrackets" mat-icon-button>
                 <span class="app-text-icon">[ ]</span>
               </button>
-            </div> -->
-          </div>
+            </div>
+          </div> -->
           <div class="app-form-content">          
             <mat-form-field  class="app-field-col" >
               <input (keyup.enter)="onSave()" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_prefix' | translate" [(ngModel)]="holder.pageNumberPrefix" [formControl]="pageNumberPrefixControl">
