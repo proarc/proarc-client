@@ -80,11 +80,11 @@ export class NewObjectDialogComponent implements OnInit {
   frequency = new FormControl();
   // frequency: string = null;
 
-  seriesTotalNumbers = new FormControl();
+  seriesTotalNumbers = new FormControl({value: '', disabled: true});
 
   withPartNumber: boolean;
   withDateIssued: boolean;
-
+ 
   seriesPartNumberFrom = new FormControl();
   seriesDateFrom = new FormControl();
   seriesDateTo = new FormControl();
@@ -306,6 +306,11 @@ export class NewObjectDialogComponent implements OnInit {
   frecuencyChanged(e: string) {
     if (e === 'd') {
       this.seriesDaysIncluded = [1, 2, 3, 4, 5, 6, 7]
+    }
+    if (e === 'other') {
+      this.seriesTotalNumbers.enable()
+    } else {
+      this.seriesTotalNumbers.disable()
     }
   }
 
