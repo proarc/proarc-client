@@ -73,7 +73,8 @@ export class TaskComponent implements OnInit {
   dpis: { code: string, value: string }[] = [];
   dpi: any;
 
-  statesAll = [
+  // states: string[] = [];
+  states = [
     { code: 'READY', value: 'Připraven' },
     { code: 'STARTED', value: 'Probíhá' },
     { code: 'FINISHED', value: 'Dokončen' },
@@ -89,7 +90,6 @@ export class TaskComponent implements OnInit {
 
   profileNames: { disabled: boolean, hint: string, name: string, title: string }[] = [];
   profileNameFilter: string;
-  states: string[] = [];
   stateFilter: string = '';
 
   ownerNameFilter: string;
@@ -200,8 +200,10 @@ export class TaskComponent implements OnInit {
 
   selectTask(task: any) {
     this.task = task;
-    // this.id = task.id;
-    this.loadTask(task.id);
+    if (task) {
+      this.loadTask(task.id);
+    }
+    
   }
 
   getValueMap(field: string) {
@@ -240,15 +242,21 @@ export class TaskComponent implements OnInit {
         this.ui.showErrorDialogFromObject(response['response'].errors);
         return;
       }
-      response.response.data.forEach((b: any) => {
-        if (!this.states.includes(b.state)) {
-          this.states.push(b.state)
-        }
         this.tasks = response.response.data;
-      });
-      this.lists['state'] = this.states.map(p => { return { code: p, value: p } });
+      // response.response.data.forEach((b: any) => {
+      //   if (!this.states.includes(b.state)) {
+      //     this.states.push(b.state)
+      //   }
+      // });
+      // this.lists['state'] = this.states.map(p => { return { code: p, value: p } });
 
-      this.selectTask(this.tasks[0]);
+      if (this.tasks.length > 0) {
+        this.selectTask(this.tasks[0]);
+      } else {
+        this.selectTask(null);
+        this.totalSelected = 0;
+      }
+      
 
     });
   }
@@ -420,7 +428,7 @@ export class TaskComponent implements OnInit {
       height: '60%',
       width: '680px',
       data: {
-        states: this.statesAll,
+        states: this.states,
         priorities: this.priorities,
         users: this.users,
         parameters: this.parameters,
@@ -463,8 +471,9 @@ export class TaskComponent implements OnInit {
   getList(f: string): { code: string, value: string }[] {
     switch (f) {
       case 'priority': return this.priorities.map(p => { return { code: p.code + '', value: p.value } });
-      case 'state': return this.states.map(p => { return { code: p, value: p } });
-      case 'profileName': return this.profiles.map(p => { return { code: p.name + '', value: p.title } });
+      case 'state': return this.states.map(p => { return { code: p.code, value: p.value } });
+      // case 'profileName': return this.profiles.map(p => { return { code: p.name + '', value: p.title } });
+      case 'profileLabel': return this.allTasks.map(p => { return { code: p.name + '', value: p.title } });
       case 'ownerId': return this.users.map(p => { return { code: p.userId + '', value: p.name } });
       case 'taskName': return this.allTasks.map(p => { return { code: p.name + '', value: p.title } });
       case 'taskUser': return this.users.map(p => { return { code: p.userId + '', value: p.name } });
