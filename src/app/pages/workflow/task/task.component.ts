@@ -42,7 +42,7 @@ export class TaskComponent implements OnInit {
   // -- table to expand --
 
   profiles: WorkFlowProfile[];
-  allTasks: any[];
+  // allTasks: any[];
 
   tasks: any[] = [];
 
@@ -118,7 +118,7 @@ export class TaskComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.allTasks = this.config.getValueMap('proarc.workflow.tasks');
+    this.profileNames = this.config.getValueMap('proarc.workflow.tasks');
     this.columnsTasks = this.properties.getColumnsWorkFlowTasks();
     // this.tasksColumns.forEach(c => {
     //   this.filterTasksColumns.push(c + '-filter');
@@ -460,6 +460,7 @@ export class TaskComponent implements OnInit {
   translatedField(f: string): string {
     switch (f) {
       case 'taskName': return 'taskLabel'
+      case 'profilekName': return 'profileLabel'
       default: return f
     }
   }
@@ -469,13 +470,17 @@ export class TaskComponent implements OnInit {
   }
 
   getList(f: string): { code: string, value: string }[] {
+    console.log(f)
     switch (f) {
       case 'priority': return this.priorities.map(p => { return { code: p.code + '', value: p.value } });
       case 'state': return this.states.map(p => { return { code: p.code, value: p.value } });
-      // case 'profileName': return this.profiles.map(p => { return { code: p.name + '', value: p.title } });
-      case 'profileLabel': return this.allTasks.map(p => { return { code: p.name + '', value: p.title } });
+      case 'profileName': {
+        console.log(this.profileNames)
+        return this.profileNames.map(p => { return { code: p.name + '', value: p.title } });
+      }
+      // case 'profileLabel': return this.allTasks.map(p => { return { code: p.name + '', value: p.title } });
       case 'ownerId': return this.users.map(p => { return { code: p.userId + '', value: p.name } });
-      case 'taskName': return this.allTasks.map(p => { return { code: p.name + '', value: p.title } });
+      // case 'taskName': return this.allTasks.map(p => { return { code: p.name + '', value: p.title } });
       case 'taskUser': return this.users.map(p => { return { code: p.userId + '', value: p.name } });
       case 'model': return this.config.allModels.map((p: string) => { return { code: p, value: this.translator.instant('model.' + p) } });
       default: return [];

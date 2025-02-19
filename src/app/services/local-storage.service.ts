@@ -73,9 +73,9 @@ export class LocalStorageService {
         ];
         public availableColumnsWorkFlowTasks = [
 
-            {field: 'profileLabel', selected: true, width: 150, type: 'list'},
+            // {field: 'profileLabel', selected: true, width: 150, type: 'list'},
+            {field: 'profileName', selected: true, width: 150, type: 'list'},
             {field: 'state', selected: true, width: 150, type: 'list'},
-            // {field: 'profileName', selected: true, width: 150, type: 'list'},
             {field: 'jobLabel', selected: false, width: 150, type: 'string'},
             {field: 'barcode', selected: false, width: 150, type: 'string'},
             {field: 'priority', selected: false, width: 150, type: 'list'},
