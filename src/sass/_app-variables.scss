@@ -34,6 +34,8 @@ $app-gray-9: mat-color($mat-gray, 900) !default;
   --app-gray-8: #{$app-gray-8};
   --app-gray-9: #{$app-gray-9};
 
+  --app-color-warn: #{$app-color-warn};
+
   // form
   --app-form-bg-color: #{$app-gray-2};
   --app-form-border-color-top-level: #{$app-gray-5};

@@ -2580,7 +2580,9 @@
     "objectPositionAfter": "After selected",
     "session": "Time left until checkout",
     "oldOwner": "Old owner",
-    "newOwner": "New owner"
+    "newOwner": "New owner",
+    "enterText": "Enter text",
+    "select": "Select"
   },
   "button": {
     "setLayout": "Set layout",

@@ -37,21 +37,26 @@
 
                                 <ng-container *ngFor="let c of selectedColumns" [matColumnDef]="c + '-filter'">
                       
-                                    <th mat-header-cell *matHeaderCellDef [style.width]="colsWidthTasks[c]+'px'">
+                                    <th mat-header-cell *matHeaderCellDef [style.width]="colsWidthTasks[c]+'px'" class="app-col-filter">
                                       <ng-container [ngSwitch]="columnTypes[c]">
                                         <ng-container *ngSwitchCase="'date'">
                                         
                                         </ng-container>
                                         <ng-container *ngSwitchCase="'list'">
-                                            <mat-select [(ngModel)]="filterFields[c]" (ngModelChange)="filter(c, filterFields[c])">
-                                                <mat-option [value]="''"> </mat-option>
-                                                <mat-option *ngFor="let s of lists[c]" [value]="s.code">{{ s.value }}</mat-option>
-                                              </mat-select> 
-                                              <button mat-icon-button matIconSuffix color="warn" *ngIf="filterFields[c]" (click)="filter(c, ''); filterFields[c] = ''; $event.stopPropagation();"><mat-icon>clear</mat-icon></button>
+																					<div class="app-filter-wrapper">
+																						<mat-label *ngIf="!filterFields[c]">{{ 'desc.select' | translate }} ...</mat-label>
+																						<mat-select [(ngModel)]="filterFields[c]" (ngModelChange)="filter(c, filterFields[c])">
+																							<mat-option [value]="''"> </mat-option>
+																							<mat-option *ngFor="let s of lists[c]" [value]="s.code">{{ s.value }}</mat-option>
+																						</mat-select>
+																						<a matSuffix *ngIf="filterFields[c]" (click)="filter(c, ''); filterFields[c] = ''; $event.stopPropagation();" class="app-clear app-select"><mat-icon>clear</mat-icon></a>
+																					</div>
                                         </ng-container>
                                         <ng-container *ngSwitchDefault>
-                                          <input type="text" [id]="c + 'Filter'" [(ngModel)]="filterFields[c]" (change)="filter(c, filterFields[c])" />
-                                          <button mat-icon-button matIconSuffix color="warn" *ngIf="filterFields[c]" (click)="filter(c, ''); filterFields[c] = ''"><mat-icon>clear</mat-icon></button>
+																					<div class="app-filter-wrapper">
+																						<input type="text" [id]="c + 'Filter'" [(ngModel)]="filterFields[c]" (change)="filter(c, filterFields[c])" [placeholder]="('desc.enterText' | translate) + '...'"  />
+																						<a *ngIf="filterFields[c]" (click)="filter(c, ''); filterFields[c] = ''" class="app-clear"><mat-icon>clear</mat-icon></a>
+																					</div>
                                         </ng-container>
                                       </ng-container>
                                       </th>

@@ -6,11 +6,7 @@
       <span class="app-separator">/</span>
       <a routerLink="/workflow">{{ 'navbar.workflow' | translate }}</a>
     </div>
-    <div fxLayout="row" fxLayoutAlign="start center" class="app-h-100">
-      <!-- <button mat-icon-button [matTooltip]="'navbar.layout' | translate" (click)="showLayoutAdmin()">
-        <mat-icon>dashboard</mat-icon>
-      </button> -->
-    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" class="app-h-100"></div>
   </div>
   <div fxFlex class="app-oh app-p-2" fxLayout="column">
     <div class="app-border-wrapper app-h-100">
@@ -41,37 +37,34 @@
                     <button *ngIf="this.totalSelected > 1" mat-menu-item (click)="editJobs()" >{{'workflow.multipleJobsEdit' | translate}}</button>
                     <button *ngIf="hasMetadata" mat-menu-item (click)="editMetadata()" >{{'button.editMetadata' | translate}}</button>
                   </mat-menu>
-
                 </div>
                 <div class="app-oa-y">
-                  <table mat-table [dataSource]="jobs" class="app-striped app-hover app-resize" matSort 
-                  [matSortActive]="layout.workflowJobsSort.field" [matSortDirection]="layout.workflowJobsSort.direction" (matSortChange)="sortJobsTable($event)">
-
-                    <ng-container *ngFor="let c of workFlowColumns" [matColumnDef]="c + '-filter'">
-                      
-                      <th mat-header-cell *matHeaderCellDef [style.width]="colsWidth[c]+'px'">
+                  <table mat-table [dataSource]="jobs" class="app-striped app-hover app-resize" matSort [matSortActive]="layout.workflowJobsSort.field" [matSortDirection]="layout.workflowJobsSort.direction" (matSortChange)="sortJobsTable($event)">
+                    <ng-container *ngFor="let c of workFlowColumns" [matColumnDef]="c + '-filter'"> 
+                      <th mat-header-cell *matHeaderCellDef [style.width]="colsWidth[c]+'px'" class="app-col-filter">
                         <ng-container [ngSwitch]="columnTypes[c]">
-                          <ng-container *ngSwitchCase="'date'">
-                          
-                          </ng-container>
+                          <ng-container *ngSwitchCase="'date'"></ng-container>
                           <ng-container *ngSwitchCase="'list'">
+                            <div class="app-filter-wrapper">
+                              <mat-label *ngIf="!filterFields[c]">{{ 'desc.select' | translate }} ...</mat-label>
                               <mat-select [(ngModel)]="filterFields[c]" (ngModelChange)="filter(c, filterFields[c])">
-                                  <mat-option [value]="''"> </mat-option>
-                                  <mat-option *ngFor="let s of lists[c]" [value]="s.code">{{ s.value }}</mat-option>
-                                </mat-select> 
-                                <button mat-icon-button matIconSuffix color="warn" *ngIf="filterFields[c]" (click)="filter(c, ''); filterFields[c] = ''; $event.stopPropagation();"><mat-icon>clear</mat-icon></button>
+                                <mat-option [value]="''"> </mat-option>
+                                <mat-option *ngFor="let s of lists[c]" [value]="s.code">{{ s.value }}</mat-option>
+                              </mat-select> 
+                              <a matSuffix *ngIf="filterFields[c]" (click)="filter(c, ''); filterFields[c] = ''; $event.stopPropagation();" class="app-clear app-select"><mat-icon>clear</mat-icon></a>
+                            </div>
                           </ng-container>
                           <ng-container *ngSwitchDefault>
-                            <input type="text" [id]="c + 'Filter'" [(ngModel)]="filterFields[c]" (change)="filter(c, filterFields[c])" />
-                            <button mat-icon-button matIconSuffix color="warn" *ngIf="filterFields[c]" (click)="filter(c, ''); filterFields[c] = ''"><mat-icon>clear</mat-icon></button>
+                            <div class="app-filter-wrapper">
+                              <input type="text" [id]="c + 'Filter'" [(ngModel)]="filterFields[c]" (change)="filter(c, filterFields[c])" [placeholder]="('desc.enterText' | translate) + '...'" />
+                              <a *ngIf="filterFields[c]" (click)="filter(c, ''); filterFields[c] = ''" class="app-clear"><mat-icon>clear</mat-icon></a>
+                            </div>
                           </ng-container>
                         </ng-container>
-                        </th>
+                      </th>
                     </ng-container>   
                     <ng-container *ngFor="let c of workFlowColumns" [matColumnDef]="c">
-                      <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c)" 
-                        [class.app-activeSort]="c === layout.workflowJobsSort.field"
-                        [style.width]="colsWidth[c]"><span mat-sort-header>{{'desc.' + c | translate}}</span></th>
+                      <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c)" [class.app-activeSort]="c === layout.workflowJobsSort.field" [style.width]="colsWidth[c]"><span mat-sort-header>{{'desc.' + c | translate}}</span></th>
                       <td mat-cell *matCellDef="let element" >
                         <ng-container [ngSwitch]="columnTypes[c]">
                           <ng-container *ngSwitchCase="'date'">
@@ -89,20 +82,18 @@
                         </ng-container>
                       </td>
                     </ng-container>
-                    
                     <tr mat-header-row *matHeaderRowDef="filterWorkFlowColumns; sticky: true"></tr>
                     <tr mat-header-row *matHeaderRowDef="workFlowColumns; sticky: true"></tr>
-                    <tr mat-row *matRowDef="let row; columns: workFlowColumns; let idx=index"  [id]="'w_'+row.id"
-                        (click)="jobClick(row, $event, idx)" [class.app-selected]="row.selected"></tr>
+                    <tr mat-row *matRowDef="let row; columns: workFlowColumns; let idx=index"  [id]="'w_'+row.id" (click)="jobClick(row, $event, idx)" [class.app-selected]="row.selected"></tr>
                   </table>
                 </div>
               </div>            
             </as-split-area>
+
             <!-- Podzamery -->
             <as-split-area>
               <div fxLayout="column" fxFlexFill [fxLayoutAlign]="visibleSubJobs.length === 0 ? 'center center' : 'start'">
                 <mat-card *ngIf="visibleSubJobs.length === 0" class="app-alert app-info"><mat-icon>info</mat-icon>{{ 'alert.info.noItemsToDisplay' | translate }}</mat-card>
-                
                 <div class="app-toolbar" *ngIf="subJobs.length > 0">
                   <button (click)="refreshSubJobs()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
                   <button *ngIf="selectedSubJob?.expandable" mat-button (click)="createSubJob(selectedSubJob)">{{ "workflow.create_new_subjob" | translate }}</button>
@@ -120,17 +111,12 @@
                     <button mat-menu-item (click)="selectColumns('subjobs')" >{{'editor.children.select_columns' | translate}}</button>
                     <button *ngIf="auth.user.wfDeleteJobFunction || auth.isSuperAdmin()" mat-menu-item (click)="removeJobs(true)" >{{'workflow.remove_job' | translate}}</button>
                   </mat-menu>
-
                 </div>
 
                 <div class="app-oa-y">
-                  <table  mat-table [dataSource]="visibleSubJobs" class="app-striped app-hover app-resize" matSort  #subJobsTable 
-                    [matSortActive]="layout.workflowSubjobsSort.field" [matSortDirection]="layout.workflowSubjobsSort.direction" >
-                    
+                  <table  mat-table [dataSource]="visibleSubJobs" class="app-striped app-hover app-resize" matSort  #subJobsTable [matSortActive]="layout.workflowSubjobsSort.field" [matSortDirection]="layout.workflowSubjobsSort.direction" >    
                     <ng-container *ngFor="let c of workFlowColumnsSubJobs; let idx = index;" [matColumnDef]="c">
-                      <th mat-header-cell *matHeaderCellDef 
-                        [resizeColumn]="true" (columnResized)="saveColumnsSizesSubJobs($event,c)" 
-                        [style.width]="colsWidthSubJobs[c]+'px'">
+                      <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesSubJobs($event,c)" [style.width]="colsWidthSubJobs[c]+'px'">
                         <span >{{'desc.' + c | translate}}</span>
                       </th>
                       <td mat-cell *matCellDef="let element">
@@ -153,13 +139,8 @@
                         </ng-container>
                       </td>
                     </ng-container>
-                    
                     <tr mat-header-row *matHeaderRowDef="workFlowColumnsSubJobs; sticky: true"></tr>
-                    
-                    <tr mat-row *matRowDef="let row; columns: workFlowColumnsSubJobs; let idx=index"  [id]="'w_'+row.id"
-                        (click)="subJobClick(row, $event, idx)" [class.app-selected]="row.selected"></tr>
-
-                    <!-- <tr mat-row *matRowDef="let row; columns: workFlowColumnsSubJobs;" (click)="selectSubJob(row)" [class.app-selected]="row.id === selectedSubJob?.id"></tr> -->
+                    <tr mat-row *matRowDef="let row; columns: workFlowColumnsSubJobs; let idx=index"  [id]="'w_'+row.id" (click)="subJobClick(row, $event, idx)" [class.app-selected]="row.selected"></tr>
                   </table>
                 </div>
               </div>

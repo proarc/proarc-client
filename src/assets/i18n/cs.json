@@ -2581,7 +2581,9 @@
     "objectPositionAfter": "Za vybraný",
     "session": "Zbývající čas do odhlášení",
     "oldOwner": "Původní uživatel",
-    "newOwner": "Nový uživatel"
+    "newOwner": "Nový uživatel",
+    "enterText": "Zadejte text",
+    "select": "Vyberte"
   },
   "button": {
     "setLayout": "nastavit rozložení",
