@@ -33,8 +33,8 @@
     <div fxFlex class="app-tree app-oh app-oa-y app-border-wrapper">
       <ng-container *ngFor="let f of folders; let idx = index;">
         <div class="app-row" *ngIf="!f.hidden" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
-          <div style="width: 50px; padding-left: 3px;">
-            <span *ngIf="f.state === 'IMPORTED'">{{ 'import.state.' + f.state.toLowerCase() | translate }}</span>
+          <div class="app-cell" style="width: 50px; padding-left: 3px;">
+            <span *ngIf="f.state === 'IMPORTED'" class="app-disabled">{{ 'import.state.' + f.state.toLowerCase() | translate }}</span>
           </div>
           <div class="app-cell" fxLayout="row" fxLayoutAlign="start center">
             <span [style.margin-left]="f.level*10 + 'px'"> </span>
