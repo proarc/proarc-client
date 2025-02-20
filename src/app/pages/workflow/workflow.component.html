@@ -266,7 +266,7 @@
                           {{ element[c] | date : 'dd.MM.yyyy'}}
                         </ng-container>
                         <ng-container *ngSwitchCase="'list'">
-                          {{ listValue(c, element[c])}}
+                          {{ listValue(c === 'profileName' ? 'taskName' : c, element[c])}}
                         </ng-container>
                         <ng-container *ngSwitchCase="'translated'">
                           {{ element[translatedField(c)] }}

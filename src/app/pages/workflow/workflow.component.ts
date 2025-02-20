@@ -543,6 +543,9 @@ export class WorkFlowComponent implements OnInit {
   }
 
   listValue(field: string, code: string) {
+    // field profileName je rozdilne pro job a task
+    // pro job bereme z profiles
+    // pro task z allTasks
     const el = this.lists[field].find(el => el.code === code + '');
     return el ? el.value : code;
   }
