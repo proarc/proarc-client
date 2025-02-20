@@ -33,6 +33,9 @@
     <div fxFlex class="app-tree app-oh app-oa-y app-border-wrapper">
       <ng-container *ngFor="let f of folders; let idx = index;">
         <div class="app-row" *ngIf="!f.hidden" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
+          <div style="width: 50px; padding-left: 3px;">
+            <span *ngIf="f.state === 'IMPORTED'">{{ 'import.state.' + f.state.toLowerCase() | translate }}</span>
+          </div>
           <div class="app-cell" fxLayout="row" fxLayoutAlign="start center">
             <span [style.margin-left]="f.level*10 + 'px'"> </span>
             <mat-icon (click)="toggleFolder(f, idx+1)" *ngIf="f.canExpand">{{ f.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
@@ -41,7 +44,7 @@
             <mat-icon class="app-mr-1" title="Připravit ke znovunačtení" *ngIf="canReread(f)" (click)="reRead(f)">refresh</mat-icon>
             <span [class.app-disabled]="f.state === 'IMPORTED'">{{ f.name }}</span>
           </div>
-          <div *ngIf="f.state === 'IMPORTED'" style="position: absolute; right: 15px;">{{ 'import.state.' + f.state.toLowerCase() | translate }}</div>
+          <!-- <div *ngIf="f.state === 'IMPORTED'" style="position: absolute; right: 15px;">{{ 'import.state.' + f.state.toLowerCase() | translate }}</div> -->
         </div>
       </ng-container>
     </div>
