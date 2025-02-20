@@ -177,6 +177,8 @@ export class WorkFlowComponent implements OnInit {
         return;
       }
       this.profiles = profiles.response.data;
+      
+      this.lists['taskName'] = this.getList('taskName');
       this.setSelectedColumns();
       // this.jobsSortField = this.workFlowColumns[0];
       this.setSelectedColumnsSubJobs();
@@ -562,7 +564,6 @@ export class WorkFlowComponent implements OnInit {
 
     this.workFlowColumns = this.columnsWorkFlow.filter(c => c.selected).map(c => c.field);
     this.filterWorkFlowColumns = [];
-
     this.workFlowColumns.forEach(c => {
       this.filterWorkFlowColumns.push(c + '-filter');
       this.filterFields[c] = this.layout.workflowJobsFilters[c];
