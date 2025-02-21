@@ -2120,7 +2120,7 @@
       "marcfrequency": "MARC frequency",
       "marcorg": "MARC org",
       "marcsmd": "MARC smd",
-      "media": "Media",
+      "media": "Média",
       "mednas": "Mednas",
       "mixed material": "Mixed material",
       "monographic": "Monografické",
@@ -2685,7 +2685,7 @@
     "comment": "Komentář",
     "image": "Obrázek",
     "premis": "PREMIS",
-    "media": "Media",
+    "media": "Média",
     "workFlow": {
       "profileLabel": "Materiál",
       "label": "Obsah",
