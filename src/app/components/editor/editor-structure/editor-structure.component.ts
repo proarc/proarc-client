@@ -168,11 +168,11 @@ export class EditorStructureComponent implements OnInit {
           item.selected = true;
         }
       }
-      
+
       this.layout.items.forEach(item => {
         item.selected = selection.includes(item.pid);
       })
-      
+
     });
   }
 
@@ -220,14 +220,13 @@ export class EditorStructureComponent implements OnInit {
     const rect = element.getBoundingClientRect();
     const parentRect = this.childrenListEl.nativeElement.getBoundingClientRect();
     return (
-        rect.top >= parentRect.top &&
-        rect.bottom <= (parentRect.bottom)
+      rect.top >= parentRect.top &&
+      rect.bottom <= (parentRect.bottom)
     );
   }
 
   scrollToSelected(align: string) {
     const index = this.layout.items.findIndex(i => i.selected);
-    console.log(index)
     if (index < 0) {
       return;
     }
@@ -241,7 +240,7 @@ export class EditorStructureComponent implements OnInit {
       if (!this.isInViewport(row.element.nativeElement)) {
         row.element.nativeElement.scrollIntoView({ block: align, behavior: 'smooth' });
       }
-      
+
       return;
     }
 
@@ -255,7 +254,7 @@ export class EditorStructureComponent implements OnInit {
         if (!this.isInViewport(el)) {
           el.scrollIntoView({ block: align, behavior: 'smooth' });
         }
-        
+
       }
     }
   }
@@ -551,7 +550,7 @@ export class EditorStructureComponent implements OnInit {
         // nic neni.
         this.layout.items.forEach(i => i.selected = false);
         row.selected = true;
-       this.startShiftClickIdx = idx;
+        this.startShiftClickIdx = idx;
       }
 
     } else {
@@ -847,13 +846,45 @@ export class EditorStructureComponent implements OnInit {
       if (result && result['pid']) {
 
         if (result.isMultiple) {
-          this.layout.setShouldRefresh(true);
+          // this.layout.setShouldRefresh(true);
+
+          const items: DocumentItem[] = [];
+          result.data.forEach((item: any) => {
+            items.push(DocumentItem.fromJson(item))
+          })
+          if (result.objectPosition === 'after') {
+            this.layout.items.splice(this.lastClickIdx + 1, 0, ...items);
+            this.hasChanges = true;
+          } else {
+            this.layout.items.push(...items);
+          }
+
+          const item = items[0];
+          item.selected = true;
+          this.rowClick(item, this.lastClickIdx + 1, null);
+          if (this.table) {
+            this.table.renderRows();
+          }
+          if (result.objectPosition === 'after') {
+            this.onSave();
+            setTimeout(() => {
+              this.scrollToSelected('center');
+            }, 1000);
+          } else {
+            setTimeout(() => {
+              this.scrollToSelected('end');
+            }, 1000);
+          }
+          this.layout.refreshSelectedItem(true, 'pages');
+
+
+
         } else {
           const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
             disableClose: true,
             height: '90%',
             width: '680px',
-            data: result.data
+            data: result.data[0]
           });
           dialogRef.afterClosed().subscribe(res => {
             // console.log(res);
@@ -864,8 +895,8 @@ export class EditorStructureComponent implements OnInit {
               if (res.gotoEdit) {
                 this.router.navigate(['/repository', item.pid]);
               } else {
-                if(result.objectPosition === 'after') {
-                  this.layout.items.splice(this.lastClickIdx+1, 0, item);
+                if (result.objectPosition === 'after') {
+                  this.layout.items.splice(this.lastClickIdx + 1, 0, item);
                   this.hasChanges = true;
                 } else {
                   this.layout.items.push(item);
@@ -875,7 +906,7 @@ export class EditorStructureComponent implements OnInit {
                 if (this.table) {
                   this.table.renderRows();
                 }
-                if(result.objectPosition === 'after') {
+                if (result.objectPosition === 'after') {
                   this.onSave();
                   setTimeout(() => {
                     this.scrollToSelected('center');
@@ -1168,14 +1199,14 @@ export class EditorStructureComponent implements OnInit {
 
 
   onDelete() {
-    let pids= this.layout.items.filter(c => c.selected);
+    let pids = this.layout.items.filter(c => c.selected);
     const checkbox = {
       label: String(this.translator.instant('dialog.removeObject.checkbox')),
       checked: false
     };
     const data: SimpleDialogData = {
       title: String(this.translator.instant('dialog.removeObject.title')),
-      message: String(this.translator.instant('dialog.removeObject.message')) + ": " + pids.length  + '?',
+      message: String(this.translator.instant('dialog.removeObject.message')) + ": " + pids.length + '?',
       alertClass: 'app-warn',
       btn1: {
         label: String(this.translator.instant('button.yes')),
