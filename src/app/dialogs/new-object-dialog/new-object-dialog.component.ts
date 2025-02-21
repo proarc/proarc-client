@@ -84,7 +84,7 @@ export class NewObjectDialogComponent implements OnInit {
 
   withPartNumber: boolean;
   withDateIssued: boolean;
- 
+
   seriesPartNumberFrom = new FormControl();
   seriesDateFrom = new FormControl();
   seriesDateTo = new FormControl();
@@ -216,12 +216,16 @@ export class NewObjectDialogComponent implements OnInit {
     if (this.isMultiple) {
       // tady vytvorime a rovnou ulozime
 
-      if (this.seriesSignatura) {
-        data += '&seriesTotalNumbers=' + this.seriesTotalNumbers;
+      if (this.seriesTotalNumbers.value) {
+        data += '&seriesTotalNumbers=' + this.seriesTotalNumbers.value;
       }
       data += '&seriesPartNumberFrom=' + this.seriesPartNumberFrom.value;
-      data += '&seriesDateFrom=' + this.datePipe.transform(this.seriesDateFrom.value, 'yyyy-MM-dd');
-      data += '&seriesDateTo=' + this.datePipe.transform(this.seriesDateTo.value, 'yyyy-MM-dd');
+      if (this.seriesDateFrom.value) {
+        data += '&seriesDateFrom=' + this.datePipe.transform(this.seriesDateFrom.value, 'yyyy-MM-dd');
+      }
+      if (this.seriesDateTo.value) {
+        data += '&seriesDateTo=' + this.datePipe.transform(this.seriesDateTo.value, 'yyyy-MM-dd');
+      }
       this.seriesDaysIncluded.forEach(d => {
         data += '&seriesDaysIncluded=' + d;
       });
