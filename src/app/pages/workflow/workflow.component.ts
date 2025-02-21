@@ -27,6 +27,7 @@ import { forkJoin } from 'rxjs';
 import { MatTable } from '@angular/material/table';
 import { JobsEditDialogComponent } from './jobs-edit-dialog/jobs-edit-dialog.component';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { Device } from 'src/app/model/device.model';
 // -- table to expand --
 
 @Component({
@@ -65,6 +66,7 @@ export class WorkFlowComponent implements OnInit {
 
 
   profiles: WorkFlowProfile[];
+  devices: Device[];
   allTasks: any[];
   selectedProfile: WorkFlowProfile;
   selectedSubJobProfile: WorkFlowProfile;
@@ -170,13 +172,15 @@ export class WorkFlowComponent implements OnInit {
   getWorkflowProfiles() {
     const rUsers = this.api.getUsers();
     const rProfiles = this.api.getWorkflowProfiles();
-    forkJoin([rUsers, rProfiles]).subscribe(([users, profiles]: [User[], any]) => {
+    const rDevices = this.api.getDevices();
+    forkJoin([rUsers, rProfiles, rDevices]).subscribe(([users, profiles, devices]: [User[], any, Device[]]) => {
       this.users = users;
       if (profiles['response'].errors) {
         this.ui.showErrorDialogFromObject(profiles['response'].errors);
         return;
       }
       this.profiles = profiles.response.data;
+      this.devices = devices;
       
       this.lists['taskName'] = this.getList('taskName');
       this.setSelectedColumns();
@@ -536,6 +540,7 @@ export class WorkFlowComponent implements OnInit {
       case 'priority': return this.priorities.map(p => { return { code: p.code + '', value: p.value } });
       case 'state': return this.states.map(p => { return { code: p.code, value: p.value } });
       case 'profileName': return this.profiles.map(p => { return { code: p.name + '', value: p.title } });
+      case 'deviceID': return this.devices.map(p => { return { code: p.id + '', value: p.label } });
       case 'ownerId': return this.users.map(p => { return { code: p.userId + '', value: p.name } });
       case 'taskName': return this.allTasks.map(p => { return { code: p.name + '', value: p.title } });
       case 'taskUser': return this.users.map(p => { return { code: p.userId + '', value: p.name } });
