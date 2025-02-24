@@ -732,7 +732,7 @@ export class SearchComponent implements OnInit {
   }
 
   canUpdateSTT(item: DocumentItem): boolean {
-    return item.model.includes('oldprint') && this.auth.isSuperAdmin()
+    return item.model.includes('oldprint') && (this.auth.isSuperAdmin() || this.auth.user.updateModelFunction)
   }
 
   updateSTT(item: DocumentItem) {
