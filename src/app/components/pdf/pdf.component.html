@@ -10,7 +10,7 @@
 		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='head'" class="app-progress-bar"></mat-progress-bar>
 		<div class="app-editor-content app-h-100 app-oh">	
 			<ngx-extended-pdf-viewer #pdfViewer *ngIf="state === 'head' || state === 'ok'" 
-				[src]="pdfUrl" 
+				[src]="pdfUrl" [textLayer]="true" [handTool]="false"
 				[height]="'100%'" 
 				(pdfLoaded)="pdfRendered($event)" 
 				[enablePrint]="false" [showOpenFileButton]="false" [showEditor]="false" 
