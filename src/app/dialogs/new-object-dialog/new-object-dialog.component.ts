@@ -300,7 +300,7 @@ export class NewObjectDialogComponent implements OnInit {
           this.dialogRef.close({
             pid: pid,
             objectPosition: this.objectPosition,
-            data: response['response']['data'][0]
+            data: response['response']['data']
           });
         });
       }

@@ -7,8 +7,6 @@ import { Metadata } from '../model/metadata.model';
 import { UIService } from './ui.service';
 import { Mods } from '../model/mods.model';
 import { ModelTemplate } from '../templates/modelTemplate';
-import { NewObjectData, NewObjectDialogComponent } from '../dialogs/new-object-dialog/new-object-dialog.component';
-import { NewMetadataDialogComponent } from '../dialogs/new-metadata-dialog/new-metadata-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfigService } from './config.service';
 

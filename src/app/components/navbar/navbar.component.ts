@@ -74,7 +74,7 @@ export class NavbarComponent implements OnInit {
           const pid = result['pid'];
           this.router.navigate(['/repository', pid]);
         } else {
-          this.showMetadataDialog(result.data);
+          this.showMetadataDialog(result.data[0]);
         }
       }
     });
@@ -85,7 +85,7 @@ export class NavbarComponent implements OnInit {
        disableClose: true, 
        height: '90%',
        width: '680px',
-       data: data 
+       data: data
       });
     dialogRef.afterClosed().subscribe(res => {
       if (res?.item) {
