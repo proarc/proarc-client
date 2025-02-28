@@ -187,6 +187,32 @@ export class EditorPageComponent implements OnInit {
     return this.page.number.startsWith('[') && this.page.number.endsWith(']');
   }
 
+  addBrackets() {
+    if (!this.page.number) {
+      return
+    }
+    if (!this.isInBrackets()) {
+      let number = this.page.number;
+      if (!number.startsWith('[')) {
+        number = '[' + number;
+      }
+      if (!number.endsWith(']')) {
+        number = number + ']';
+      }
+      this.page.number = number;
+    }
+    
+  }
+
+  removeBrackets() {
+    if (!this.page.number) {
+      return
+    }
+    if (this.isInBrackets()) {
+      this.page.number = this.page.number.substring(1, this.page.number.length - 1);
+    }
+  }
+
   switchBrackets() {
     if (!this.page.number) {
       return
