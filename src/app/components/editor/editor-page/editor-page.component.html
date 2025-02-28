@@ -7,10 +7,10 @@
       <button mat-icon-button (click)="onRevert()" [disabled]="!hasChanged()" [matTooltip]="'button.refresh' | translate" >
         <mat-icon>sync</mat-icon>
       </button>
-			<button mat-icon-button (click)="addBrackets()" [disabled]="!page.number" [matTooltip]="'common.add_brackets' | translate" >
+			<button mat-icon-button (click)="addBrackets()" [disabled]="!page.number || isInBrackets()" [matTooltip]="'common.add_brackets' | translate" >
         [<mat-icon>add</mat-icon>]
       </button>
-      <button mat-icon-button (click)="removeBrackets()" [disabled]="!page.number" [matTooltip]="'common.remove_brackets' | translate">
+      <button mat-icon-button (click)="removeBrackets()" [disabled]="!page.number || !isInBrackets()" [matTooltip]="'common.remove_brackets' | translate">
         [<mat-icon>remove</mat-icon>]
       </button>
       <button  mat-icon-button (click)="saveIcon()" [disabled]="!hasChanged()" [matTooltip]="'button.save' | translate" >
