@@ -200,6 +200,7 @@ export class EditorPageComponent implements OnInit {
         number = number + ']';
       }
       this.page.number = number;
+      this.onSave(null);
     }
     
   }
@@ -210,6 +211,7 @@ export class EditorPageComponent implements OnInit {
     }
     if (this.isInBrackets()) {
       this.page.number = this.page.number.substring(1, this.page.number.length - 1);
+      this.onSave(null);
     }
   }
 
