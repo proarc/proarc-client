@@ -1021,7 +1021,7 @@
         labelKey: 'accessCondition/@xlink',
         description: 'odkaz na licenci - přebírá se do exportu Crossref',
         options: [
-          ['https://creativecommons.org/licenses/by/4.0/legalcode.cs', 'https://creativecommons.org/licenses/by/4.0/legalcode.cs'],
+//          ['https://creativecommons.org/licenses/by/4.0/legalcode.cs', 'https://creativecommons.org/licenses/by/4.0/legalcode.cs'],
           ['https://creativecommons.org/licenses/by/4.0/', 'https://creativecommons.org/licenses/by/4.0/'],
           ['https://creativecommons.org/licenses/by-nc/4.0/', 'https://creativecommons.org/licenses/by-nc/4.0/'],
           ['https://creativecommons.org/licenses/by-nd/4.0/', 'https://creativecommons.org/licenses/by-nd/4.0/'],
