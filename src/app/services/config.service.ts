@@ -239,7 +239,7 @@ export class ConfigService {
 	private static defaultMusicIdentifiers = ['issue number', 'matrix number', 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'];
 	private static defaultChronicleIdentifiers = ['signature1', 'signature2', 'inventaryNumber', 'OtherNumber', 'id', 'localId', 'officialNumber'];
 	private static defaultEDocumentsIdentifiers = ['doi', 'handle', 'ismn', 'url', 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici'];
-	private static defaultOldprintIdentifiers = ['barcode', 'ccnb', 'doi', 'hdl', 'ismn', 'isbn', 'permalink', 'sici', 'url', 'uuid', 'urnnbn', 'BCBT'];
+	private static defaultOldprintIdentifiers = ['barcode', 'ccnb', 'doi', 'hdl', 'ismn', 'isbn', 'permalink', 'sici', 'url', 'sysno', 'uuid', 'urnnbn', 'BCBT'];
 	private static defaultPagePositions = ['right_left', 'left_right', 'left', 'right', 'singlePage'];
 
 	public get proarcBackendUrl() { return APP_GLOBAL.proarcUrl; }
