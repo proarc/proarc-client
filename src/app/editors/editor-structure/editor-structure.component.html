@@ -145,8 +145,10 @@
         </div>
       </div>
       <app-user-table *ngIf="viewMode == 'list'" [draggable]="true" (selectItem)="selectRow($event)" (openItem)="open($event)" [colsSettingsName]="'columnsSearch'"
-        [items]="layout.items()" (mousedown)="mousedown($event)" (dragenter)="dragenter($event.e, $event.idx)"
-        (dragstart)="dragstart($event.item, $event.idx, $event.e)" (dragover)="dragover($event)" [draggable]="true"
+        [items]="layout.items()" (mousedown)="mousedown($event)" 
+        (dragenter)="dragenter($event.e, $event.idx)"
+        (dragstart)="dragstart($event.item, $event.idx, $event.e)" 
+        (dragover)="dragover($event)" [draggable]="true"
         (dragend)="dragFromTable($event)"></app-user-table>
       <!-- <table id="table" mat-table *ngIf="viewMode == 'list'" (contentChanged)="tableRendered()" 
         (mouseup)="mouseup($event)" [dataSource]="layout.items()" class="app-striped app-hover app-resize" #table>
