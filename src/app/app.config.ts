@@ -15,6 +15,7 @@ import { LayoutService } from './services/layout-service';
 import { provideHighlightOptions } from 'ngx-highlightjs';
 import { DatePipe } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { provideMaterialCssVars } from "angular-material-css-vars";
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -33,6 +34,12 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(),
     provideNativeDateAdapter(),
+    provideMaterialCssVars({
+      // all optional
+      isAutoContrast: true,
+      primary: "#3f51b5",
+      // ...
+    }),
     provideAppInitializer(() => initializeApp(inject(AuthService))),
     importProvidersFrom(TranslateModule.forRoot({
       loader: {
@@ -49,3 +56,5 @@ export const appConfig: ApplicationConfig = {
     LayoutService
   ]
 };
+
+

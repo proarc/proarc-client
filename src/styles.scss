@@ -1,4 +1,11 @@
+@use "angular-material-css-vars" as mat-css-vars;
+@include mat-css-vars.init-material-css-vars();
+
 @import 'highlight.js/styles/atom-one-light.css';
+
+:root {
+  --selected-row-color: rgb(147, 160, 232);
+}
 
 html,
 body {
@@ -20,7 +27,7 @@ body {
 }
 
 .app-selected {
-    background-color: rgb(147, 160, 232) !important;
+    background-color: var(--selected-row-color) !important;
 }
 
 // common

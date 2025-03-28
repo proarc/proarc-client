@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subject } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { AlertDialogComponent } from '../dialogs/alert-dialog/alert-dialog.component';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Injectable()
 export class UIService {
@@ -16,7 +17,8 @@ export class UIService {
   constructor(
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private translator: TranslateService
+    private translator: TranslateService,
+    private clipboard: Clipboard
   ) {
   }
 
@@ -134,6 +136,11 @@ export class UIService {
       }
     });
     return messages.map(m => m.key + ': ' + m.msg).join('\n');
+  }
+
+  copyTextToClipboard(val: string) {
+    this.clipboard.copy(val);
+    this.showInfoSnackBar(this.translator.instant('snackbar.copyTextToClipboard.success'));
   }
 
 }

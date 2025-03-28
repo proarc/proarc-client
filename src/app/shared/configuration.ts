@@ -17,6 +17,13 @@ export class Configuration {
   //   proarcUrl: "/api",
   //   ga: "UA-159265713-1",
   proarcUrl = APP_GLOBAL.proarcUrl;
+
+  //Theme properties
+  primaryColor: string;
+  darkTheme: boolean;
+  accentColor: string;
+  cssVars: {name: string, value: string}[];
+
   exports: string[];
   organizations: string[];
   models: string[];

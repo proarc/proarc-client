@@ -27,7 +27,7 @@ cdkDropList (cdkDropListDropped)="drop($event)" cdkDropListData="items()">
       </ng-container>
       <ng-container *ngSwitchDefault>
         <ng-container *ngIf="c.field !== 'validationStatus'">
-        <a *ngIf="c.field === 'pid'" class="app-icon-copy app-mr-1" (click)="copyTextToClipboard(element.pid)" [matTooltip]="'button.copyTextToClipboard' | translate"><mat-icon class="app-icon-copy">content_copy</mat-icon></a>
+        <a *ngIf="c.field === 'pid'" class="app-icon-copy app-mr-1" (click)="ui.copyTextToClipboard(element.pid)" [matTooltip]="'button.copyTextToClipboard' | translate"><mat-icon class="app-icon-copy">content_copy</mat-icon></a>
         {{ element[c.field] }}
         </ng-container>
       </ng-container>

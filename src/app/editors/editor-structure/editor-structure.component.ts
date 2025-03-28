@@ -46,7 +46,7 @@ import { UserTableComponent } from "../../components/user-table/user-table.compo
   imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, FlexLayoutModule,
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
-    MatTableModule, MatSortModule, ResizecolDirective, ResizedDirective, UserTableComponent],
+    MatTableModule, MatSortModule, ResizedDirective, UserTableComponent],
   selector: 'app-editor-structure',
   templateUrl: './editor-structure.component.html',
   styleUrls: ['./editor-structure.component.scss']
@@ -1352,11 +1352,6 @@ export class EditorStructureComponent implements OnInit {
 
   onResize(e: any) {
     this.columnSize = e.newRect.width;
-  }
-
-  copyTextToClipboard(val: string) {
-    this.clipboard.copy(val);
-    this.ui.showInfoSnackBar(this.translator.instant('snackbar.copyTextToClipboard.success'));
   }
 
   listValue(field: string, code: string) {

@@ -1,7 +1,15 @@
 {
   // proarcUrl: "http://proarc.inovatika.dev/api",
   proarcUrl: "/api",
-  ga: "UA-159265713-1",
+
+  // Css theme properties
+  primaryColor: "#000099",
+  darkTheme: false,
+  accentColor: "#aa0000",
+  cssVars: [
+	{name: '--selected-row-color', value: '#ee7700'}
+  ],
+
   exports:[
     'archive',    // archivni export
     'archive_extended',   // archivni export s pridanim slozky surovych skenu

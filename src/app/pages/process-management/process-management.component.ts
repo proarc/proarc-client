@@ -124,7 +124,7 @@ export class ProcessManagementComponent {
     private datePipe: DatePipe,
     public auth: AuthService,
     private api: ApiService,
-    private ui: UIService,
+    public ui: UIService,
     private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
@@ -653,11 +653,6 @@ export class ProcessManagementComponent {
     q['state'] = val;
     q.page = null;
     this.router.navigate([], { queryParams: q, queryParamsHandling: 'merge' });
-  }
-
-  copyTextToClipboard(val: string) {
-    this.clipboard.copy(val);
-    this.ui.showInfoSnackBar(this.translator.instant('snackbar.copyTextToClipboard.success'));
   }
 
   canStopProcess() {

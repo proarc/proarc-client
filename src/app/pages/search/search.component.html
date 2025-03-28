@@ -178,7 +178,8 @@
                   </button>
               </div>
               <div fxFlex class="app-oa-y app-tree" fxLayout="column" fxFlexFill >
-                <table  mat-table [dataSource]="visibleTreeItems" class="app-striped app-hover app-resize" matSort  #treeTable>
+                <app-user-tree-table [treeItem]="selectedTreeItem"  (treeInfo)="treeInfoChanged($event)"></app-user-tree-table>
+                <!-- <table  mat-table [dataSource]="visibleTreeItems" class="app-striped app-hover app-resize" matSort  #treeTable>
   
                     <ng-container *ngFor="let c of treeColumns; let idx = index;" [matColumnDef]="c">
                       <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveTreeColumnsSizes($event,c)"
@@ -203,7 +204,7 @@
                             <mat-icon [matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">{{ element.isLocked ? 'lock' : 'lock_open' }}</mat-icon>
                           </ng-container>
                           <ng-container *ngSwitchDefault>
-                            <a *ngIf="c === 'pid'" class="app-icon-copy app-mr-1" (click)="copyTextToClipboard(element.pid)" [matTooltip]="'button.copyTextToClipboard' | translate"><mat-icon class="app-icon-copy">content_copy</mat-icon></a>
+                            <a *ngIf="c === 'pid'" class="app-icon-copy app-mr-1" (click)="ui.copyTextToClipboard(element.pid)" [matTooltip]="'button.copyTextToClipboard' | translate"><mat-icon class="app-icon-copy">content_copy</mat-icon></a>
                             {{ element[c] }}
                           </ng-container>
                         </ng-container>
@@ -213,7 +214,7 @@
                     <tr mat-header-row *matHeaderRowDef="treeColumns; sticky: true"></tr>
                     <tr mat-row *matRowDef="let row; columns: treeColumns; let idx = index"
                      (dblclick)="openTreeItem($event, row)" (click)="selectTreeItem($event, row, idx)" [class.app-selected]="row.selected"></tr>
-                  </table>
+                  </table> -->
               </div>
             </div>
           </as-split-area>

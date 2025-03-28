@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Configuration } from '../shared/configuration';
 import { User } from '../model/user.model';
 import { UserSettings, UserSettingsService } from '../shared/user-settings';
+import { MaterialCssVarsService } from 'angular-material-css-vars';
 declare var APP_GLOBAL: any;
 
 @Injectable({ providedIn: 'root' })
@@ -26,6 +27,7 @@ export class AuthService {
     constructor(
         private http: HttpClient,
         public translator: TranslateService,
+        public materialCssVarsService: MaterialCssVarsService,
         private dialogRef: MatDialog,
         private api: ApiService,
         private router: Router,
@@ -73,6 +75,15 @@ export class AuthService {
                     this.remainingPercent = this.remaining * 100.0 / checkLoggedResp.maximum;
                     this.checkIsLogged();
                 }
+
+                    this.materialCssVarsService.setDarkTheme(this.config.darkTheme);
+                    this.materialCssVarsService.setPrimaryColor(this.config.primaryColor);
+                    this.materialCssVarsService.setAccentColor(this.config.accentColor);
+                    const r: HTMLElement = document.querySelector(':root');
+                    this.config.cssVars.forEach(css => {
+                        r.style.setProperty(css.name, css.value);
+                    });
+
             }));
     }
 

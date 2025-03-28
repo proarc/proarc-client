@@ -33,13 +33,14 @@ import { LogDialogComponent } from '../../dialogs/log-dialog/log-dialog.componen
 import { SearchActionsComponent } from "./search-actions/search-actions.component";
 import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { UserTableComponent } from "../../components/user-table/user-table.component";
+import { UserTreeTableComponent } from "../../components/user-tree-table/user-tree-table.component";
 
 @Component({
   selector: 'app-search',
   imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, FlexLayoutModule,
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
-    MatTableModule, MatSortModule, ResizecolDirective, SearchActionsComponent, UserTableComponent],
+    MatTableModule, MatSortModule, SearchActionsComponent, UserTableComponent, UserTreeTableComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss'
 })
@@ -121,8 +122,7 @@ export class SearchComponent {
     private router: Router,
     private route: ActivatedRoute,
     public config: Configuration,
-    private ui: UIService,
-    private clipboard: Clipboard) {
+    public ui: UIService) {
   }
 
   ngOnInit() {
@@ -333,6 +333,10 @@ export class SearchComponent {
 
 
   getTreeItems(treeItem: TreeDocumentItem, getInfo: boolean, callback?: Function) {
+
+    if (true) {
+      return;
+    }
     this.loadingTree = true;
 
     this.api.getRelations(treeItem.pid).subscribe((children: DocumentItem[]) => {
@@ -614,9 +618,9 @@ export class SearchComponent {
     this.dialog.open(LogDialogComponent, { data: data });
   }
 
-  copyTextToClipboard(val: string) {
-    this.clipboard.copy(val);
-    this.ui.showInfoSnackBar(this.translator.instant('snackbar.copyTextToClipboard.success'));
+  treeInfoChanged(info: {tree_info: { [model: string]: number }, batchInfo: any}) {
+    this.tree_info = info.tree_info;
+    this.batchInfo = info.batchInfo;
   }
 
 }

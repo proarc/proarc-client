@@ -79,9 +79,8 @@ export class UserTableComponent {
     public settings: UserSettings,
     public settingsService: UserSettingsService,
     public config: Configuration,
-    private ui: UIService,
-    private layout: LayoutService,
-    private clipboard: Clipboard) {
+    public ui: UIService,
+    private layout: LayoutService) {
     effect(() => {
 
       if (this.colsSettingsName() === 'colsEditingRepo') {
@@ -167,11 +166,6 @@ export class UserTableComponent {
       case 'model': return 'model.';
       default: return '';
     }
-  }
-
-  copyTextToClipboard(val: string) {
-    this.clipboard.copy(val);
-    this.ui.showInfoSnackBar(this.translator.instant('snackbar.copyTextToClipboard.success'));
   }
 
   sortTable(sortState: Sort) {
