@@ -84,19 +84,11 @@ export class SearchComponent {
   totalSelected: number;
 
 
-  @ViewChild('treeTable') treeTable: MatTable<any>;
+  @ViewChild('treeTable') treeTable: UserTreeTableComponent;
   loadingTree: boolean;
 
-  treeColumnsSizes: { [key: string]: string } = {};
-  treeColumns = ['taskUsername', 'label', 'profileName'];
-
   treeItems: TreeDocumentItem[] = [];
-  visibleTreeItems: TreeDocumentItem[] = [];
   selectedTreeItem: TreeDocumentItem;
-  startShiftClickIdxTree: number;
-  lastClickIdxTree: number;
-  totalSelectedTree: number;
-  treeMaxLevel = 0;
   object = Object; // Allow use Object.keys in template
   tree_info: { [model: string]: number } = {};
   batchInfo: any;
@@ -220,8 +212,6 @@ export class SearchComponent {
     this.selectedItem = null;
     this.selectedTreeItem = null;
     this.treeItems = [];
-
-    this.refreshVisibleTreeItems();
   }
 
   listValue(field: string, code: string) {
@@ -249,45 +239,9 @@ export class SearchComponent {
     }
   }
 
-  initSelectedColumns() {
-    this.setSelectedTreeColumns();
-  }
-
-
-  setSelectedTreeColumns() {
-    this.treeColumns = this.settings.columnsSearchTree.filter(c => c.selected).map(c => c.field);
-    this.treeColumns.forEach(c => {
-      if (this.columnType(c) === 'list') {
-        this.lists[c] = this.getList(c);
-      }
-      this.columnTypes[c] = this.columnType(c);
-      this.prefixes[c] = this.prefixByType(c);
-
-    });
-    this.setTreeColumnsWith();
-  }
-
-  setTreeColumnsWith() {
-    this.treeColumnsSizes = {};
-    this.settings.columnsSearchTree.forEach((c: any) => {
-      this.treeColumnsSizes[c.field] = c.width + 'px';
-    });
-  }
-
-  saveTreeColumnsSizes(e: any, field?: string) {
-    this.treeColumnsSizes[field] = e + 'px';
-
-    this.settings.columnsSearchTree.forEach((c: any) => {
-      c.width = parseInt(this.treeColumnsSizes[c.field]);
-    });
-
-    this.settingsService.save();
-
-  }
 
   reload(selectedPid: string = null) {
     this.clearSelection();
-    this.initSelectedColumns();
     this.state = 'loading';
     const options = {
       type: this.searchMode,
@@ -330,149 +284,19 @@ export class SearchComponent {
     });
   }
 
-
-
-  getTreeItems(treeItem: TreeDocumentItem, getInfo: boolean, callback?: Function) {
-
-    if (true) {
-      return;
-    }
-    this.loadingTree = true;
-
-    this.api.getRelations(treeItem.pid).subscribe((children: DocumentItem[]) => {
-
-      treeItem.expanded = true;
-      treeItem.childrenLoaded = true;
-
-      const idx = this.treeItems.findIndex(j => j.pid === treeItem.pid) + 1;
-
-      const treeChildren: TreeDocumentItem[] = children.map(c => {
-        const ti: TreeDocumentItem = <TreeDocumentItem>c;
-        ti.level = treeItem.level + 1;
-        ti.expandable = true;
-        ti.parentPid = treeItem.pid;
-        return ti;
-      });
-
-      if (children.length > 0) {
-        this.treeMaxLevel = Math.max(treeItem.level + 1, this.treeMaxLevel);
-      }
-
-      this.treeItems.splice(idx, 0, ...treeChildren);
-
-      this.refreshVisibleTreeItems();
-      this.loadingTree = false;
-      if (getInfo) {
-        this.getTreeInfo(treeItem);
-      }
-      if (callback) {
-        callback(treeChildren)
-      }
-    });
-
-  }
-
-  getTreeInfo(treeItem: TreeDocumentItem) {
-    this.tree_info = {};
-    this.batchInfo = null;
-    //setTimeout(() => { 
-    this.treeItems.filter(ti => ti.parentPid === treeItem.pid).forEach(t => {
-      if (this.tree_info[t.model]) {
-        this.tree_info[t.model]++;
-      } else {
-        this.tree_info[t.model] = 1;
-      }
-    });
-
-    let params: any = {
-      description: treeItem.pid,
-    };
-
-    this.api.getImportBatches(params).subscribe((resp: any) => {
-      const batches = resp.data.map((d: any) => Batch.fromJson(d));
-      if (batches.length > 0 && batches[0].failure) {
-        this.batchInfo = batches[0].failure
-      }
-    });
-
-    //}, 2000)
-  }
-
-  refreshVisibleTreeItems() {
-    this.visibleTreeItems = this.treeItems.filter(j => !j.hidden);
-    if (this.treeTable) {
-      this.treeTable.renderRows();
-    }
-
-  }
-
   expandAllInTree() {
-    this.expandTreeItemDeep(this.treeItems[0]);
-  }
-
-  expandTreeItemDeep(treeItem: TreeDocumentItem) {
-
-    treeItem.expanded = true;
-    if (!treeItem.childrenLoaded) {
-      this.getTreeItems(treeItem, false, (children: TreeDocumentItem[]) => {
-        // callback
-        children.forEach(ch => {
-          this.expandTreeItemDeep(ch);
-        });
-      });
-    } else {
-      this.treeItems.filter(ti => ti.parentPid === treeItem.pid).forEach(t => {
-        this.expandTreeItemDeep(t);
-      });
-    }
-
+    this.treeTable.expandTreeDeep();
   }
 
   reloadTree(newPid: string) {
     if (this.selectedTreeItem.model === this.model) {
       this.reload(newPid);
     } else {
-      // Kopirujeme objekt podrazeni ve stromu
-      // this.selectItem(this.selectedItem);
-      const parent = this.treeItems.find(ti => ti.pid === this.selectedTreeItem.parentPid);
-      const parentIndex = this.treeItems.findIndex(ti => ti.pid === this.selectedTreeItem.parentPid);
-      const numChildren = this.treeItems.filter(ti => ti.parentPid === parent.pid).length;
-      // remove existing 
-      this.treeItems.splice(parentIndex + 1, numChildren);
-      this.getTreeItems(parent, true);
-
+      this.treeTable.reloadTree(newPid);
       this.selectedItem.selected = true;
       this.totalSelected = 1;
     }
   }
-
-  toggleTree(event: any, treeItem: TreeDocumentItem) {
-    event.stopPropagation();
-    event.preventDefault();
-    if (!treeItem.expanded) {
-      treeItem.expanded = true;
-      if (!treeItem.childrenLoaded) {
-        this.getTreeItems(treeItem, false);
-      }
-    } else {
-      treeItem.expanded = false;
-    }
-
-    this.setToHidden(treeItem, this.treeItems.indexOf(treeItem));
-
-    this.refreshVisibleTreeItems();
-  }
-
-  setToHidden(treeItem: TreeDocumentItem, idx: number) {
-    for (let i = idx; i < this.treeItems.length; i++) {
-      const j = this.treeItems[i]
-      if (j.parentPid === treeItem.pid) {
-        j.hidden = !treeItem.expanded || treeItem.hidden;
-        this.setToHidden(j, i)
-      }
-    }
-  }
-
 
   splitDragEnd(e: any) {
     this.settings.searchSplit = e.sizes[0];
@@ -489,6 +313,7 @@ export class SearchComponent {
   selectRow(e: {item: DocumentItem, event?: MouseEvent, idx?: number}) {
     this.selectItem(e.item, e.event, e.idx);
   }
+
   selectItem(item: DocumentItem, event?: MouseEvent, idx?: number) {
     if (event && (event.metaKey || event.ctrlKey)) {
       item.selected = !item.selected;
@@ -535,68 +360,7 @@ export class SearchComponent {
     this.selectedTreeItem.expandable = true;
     this.treeItems = [this.selectedTreeItem];
 
-    this.refreshVisibleTreeItems();
-    const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.models, this.selectedTreeItem.model).join(',');
-    const canHavePages = allowedAsString.includes('page');
-    if (this.settings.searchExpandTree || !canHavePages) {
-      this.getTreeItems(this.selectedTreeItem, true);
-    }
-  }
-
-  openTreeItem(event: MouseEvent, treeItem: TreeDocumentItem) {
-    this.router.navigate(['/repository', treeItem.pid]);
-  }
-
-  selectTreeItem(event: MouseEvent, treeItem: TreeDocumentItem, idx: number) {
-
-
-    if (event && (event.metaKey || event.ctrlKey)) {
-      treeItem.selected = !treeItem.selected;
-      this.startShiftClickIdxTree = idx;
-    } else if (event && event.shiftKey) {
-      if (this.startShiftClickIdxTree > -1) {
-        const oldFrom = Math.min(this.startShiftClickIdxTree, this.lastClickIdxTree);
-        const oldTo = Math.max(this.startShiftClickIdxTree, this.lastClickIdxTree);
-        for (let i = oldFrom; i <= oldTo; i++) {
-          this.visibleTreeItems[i].selected = false;
-        }
-        const from = Math.min(this.startShiftClickIdxTree, idx);
-        const to = Math.max(this.startShiftClickIdxTree, idx);
-        for (let i = from; i <= to; i++) {
-          this.visibleTreeItems[i].selected = true;
-        }
-      } else {
-        // nic neni.
-        this.visibleTreeItems.forEach(i => i.selected = false);
-        treeItem.selected = true;
-        this.startShiftClickIdxTree = idx;
-      }
-      window.getSelection().empty();
-    } else {
-      this.visibleTreeItems.forEach(i => i.selected = false);
-      treeItem.selected = true;
-      this.startShiftClickIdxTree = idx;
-    }
-
-    this.lastClickIdxTree = idx;
-    this.totalSelectedTree = this.visibleTreeItems.filter(i => i.selected).length;
-    this.selectedTreeItem = treeItem;
-
-    if (this.totalSelectedTree === 1) {
-      const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.models, this.selectedTreeItem.model).join(',');
-      const canHavePages = allowedAsString.includes('page');
-      if (this.settings.searchExpandTree || !canHavePages) {
-        if (treeItem.childrenLoaded) {
-
-        } else {
-          this.getTreeItems(treeItem, true);
-        }
-      }
-      this.getTreeInfo(treeItem);
-    } else {
-      this.tree_info = {};
-      this.batchInfo = null;
-    }
+    
   }
 
   getValidationError(id: string) {

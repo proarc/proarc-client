@@ -1,35 +1,44 @@
-<table  mat-table [dataSource]="visibleTreeItems" class="app-striped app-hover app-resize" matSort  #treeTable>
+<div style="position: relative; top: 0px;z-index: 200;">
+    <mat-progress-bar mode="indeterminate" *ngIf="loadingTree" class="app-progress-bar"
+        style="position: absolute; top: 0px;"></mat-progress-bar>
+</div>
+<table mat-table [dataSource]="visibleTreeItems" class="app-striped app-hover app-resize" matSort #treeTable>
     <ng-container *ngFor="let c of treeColumns; let idx = index;" [matColumnDef]="c">
-      <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveTreeColumnsSizes($event,c)"
-        [style.width]="treeColumnsSizes[c]">
-        <span>{{'search.' + c | translate}}</span>
-      </th>
-      <td mat-cell *matCellDef="let element">
-        <span *ngIf="idx === 0" [style.margin-left]="(element.level * 15) + 'px'">
-          <mat-icon *ngIf="element.expandable || true" (click)="toggleTree($event, element)">{{ element.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
-        </span>
-        <ng-container [ngSwitch]="columnTypes[c]">
-          <ng-container *ngSwitchCase="'date'">
-            {{ element[c] | date : 'dd.MM.yyyy hh:mm:ss'}}
-          </ng-container>
-          <ng-container *ngSwitchCase="'list'">
-            {{ listValue(c, element[c])}}
-          </ng-container>
-          <ng-container *ngSwitchCase="'translated'">
-            {{ prefixes[c] + element[c] | translate }}
-          </ng-container>
-          <ng-container *ngSwitchCase="'boolean'">
-            <mat-icon [matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">{{ element.isLocked ? 'lock' : 'lock_open' }}</mat-icon>
-          </ng-container>
-          <ng-container *ngSwitchDefault>
-            <a *ngIf="c === 'pid'" class="app-icon-copy app-mr-1" (click)="ui.copyTextToClipboard(element.pid)" [matTooltip]="'button.copyTextToClipboard' | translate"><mat-icon class="app-icon-copy">content_copy</mat-icon></a>
-            {{ element[c] }}
-          </ng-container>
-        </ng-container>
-      </td>
+        <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveTreeColumnsSizes($event,c)"
+            [style.width]="treeColumnsSizes[c]">
+            <span>{{'search.' + c | translate}}</span>
+        </th>
+        <td mat-cell *matCellDef="let element">
+            <span *ngIf="idx === 0" [style.margin-left]="(element.level * 15) + 'px'">
+                <mat-icon *ngIf="element.expandable || true" (click)="toggleTree($event, element)">{{ element.expanded ?
+                    "expand_more" : "chevron_right" }}</mat-icon>
+            </span>
+            <ng-container [ngSwitch]="columnTypes[c]">
+                <ng-container *ngSwitchCase="'date'">
+                    {{ element[c] | date : 'dd.MM.yyyy hh:mm:ss'}}
+                </ng-container>
+                <ng-container *ngSwitchCase="'list'">
+                    {{ listValue(c, element[c])}}
+                </ng-container>
+                <ng-container *ngSwitchCase="'translated'">
+                    {{ prefixes[c] + element[c] | translate }}
+                </ng-container>
+                <ng-container *ngSwitchCase="'boolean'">
+                    <mat-icon
+                        [matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">{{
+                        element.isLocked ? 'lock' : 'lock_open' }}</mat-icon>
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                    <a *ngIf="c === 'pid'" class="app-icon-copy app-mr-1" (click)="ui.copyTextToClipboard(element.pid)"
+                        [matTooltip]="'button.copyTextToClipboard' | translate"><mat-icon
+                            class="app-icon-copy">content_copy</mat-icon></a>
+                    {{ element[c] }}
+                </ng-container>
+            </ng-container>
+        </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="treeColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: treeColumns; let idx = index"
-     (dblclick)="openTreeItem($event, row)" (click)="selectTreeItem($event, row, idx)" [class.app-selected]="row.selected"></tr>
-  </table>
+    <tr mat-row *matRowDef="let row; columns: treeColumns; let idx = index" (dblclick)="openTreeItem($event, row)"
+        (click)="selectTreeItem($event, row, idx)" [class.app-selected]="row.selected"></tr>
+</table>

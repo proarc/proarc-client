@@ -39,7 +39,9 @@ import { ModelTemplate } from '../../model/modelTemplate';
 export class UserTreeTableComponent {
 
   treeItem = input<TreeDocumentItem>();
-  treeInfo = output<{tree_info: { [model: string]: number }, batchInfo: any}>();
+  treeInfo = output<{ tree_info: { [model: string]: number }, batchInfo: any }>();
+  onSelectTreeItem = output<TreeDocumentItem>();
+  onTreeItemsChanged = output<TreeDocumentItem[]>();
 
   @ViewChild('treeTable') treeTable: MatTable<any>;
   loadingTree: boolean;
@@ -77,17 +79,19 @@ export class UserTreeTableComponent {
     public config: Configuration,
     public ui: UIService) {
 
-      effect(() => {
-        this.selectedTreeItem = this.treeItem();
-        if (!this.selectedTreeItem) {
-          return;
-        }
-        const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.models, this.selectedTreeItem.model).join(',');
-        const canHavePages = allowedAsString.includes('page');
-        if (this.settings.searchExpandTree || !canHavePages) {
-          this.getTreeItems(this.selectedTreeItem, true);
-        }
-      });
+    effect(() => {
+      this.selectedTreeItem = this.treeItem();
+      this.treeItems = [];
+      if (!this.selectedTreeItem) {
+        return;
+      }
+      this.treeItems = [this.selectedTreeItem];
+      const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.models, this.selectedTreeItem.model).join(',');
+      const canHavePages = allowedAsString.includes('page');
+      if (this.settings.searchExpandTree || !canHavePages) {
+        this.getTreeItems(this.selectedTreeItem, true);
+      }
+    });
   }
 
   ngOnInit() {
@@ -187,7 +191,6 @@ export class UserTreeTableComponent {
     if (this.treeTable) {
       this.treeTable.renderRows();
     }
-
   }
 
   getTreeItems(treeItem: TreeDocumentItem, getInfo: boolean, callback?: Function) {
@@ -216,6 +219,7 @@ export class UserTreeTableComponent {
 
       this.refreshVisibleTreeItems();
       this.loadingTree = false;
+      this.onTreeItemsChanged.emit(this.treeItems);
       if (getInfo) {
         this.getTreeInfo(treeItem);
       }
@@ -289,6 +293,7 @@ export class UserTreeTableComponent {
     this.lastClickIdxTree = idx;
     this.totalSelectedTree = this.visibleTreeItems.filter(i => i.selected).length;
     this.selectedTreeItem = treeItem;
+    this.onSelectTreeItem.emit(this.selectedTreeItem);
 
     if (this.totalSelectedTree === 1) {
       const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.models, this.selectedTreeItem.model).join(',');
@@ -304,6 +309,38 @@ export class UserTreeTableComponent {
     } else {
       this.treeInfo.emit({ tree_info: {}, batchInfo: null });
     }
+  }
+
+  reloadTree(newPid: string) {
+    // Kopirujeme objekt podrazeni ve stromu
+    // this.selectItem(this.selectedItem);
+    const parent = this.treeItems.find(ti => ti.pid === this.selectedTreeItem.parentPid);
+    const parentIndex = this.treeItems.findIndex(ti => ti.pid === this.selectedTreeItem.parentPid);
+    const numChildren = this.treeItems.filter(ti => ti.parentPid === parent.pid).length;
+    // remove existing 
+    this.treeItems.splice(parentIndex + 1, numChildren);
+    this.getTreeItems(parent, true);
+  }
+
+  expandTreeDeep() {
+    this.expandTreeItemDeep(this.treeItems[0]);
+  }
+
+  expandTreeItemDeep(treeItem: TreeDocumentItem) {
+    treeItem.expanded = true;
+    if (!treeItem.childrenLoaded) {
+      this.getTreeItems(treeItem, false, (children: TreeDocumentItem[]) => {
+        // callback
+        children.forEach(ch => {
+          this.expandTreeItemDeep(ch);
+        });
+      });
+    } else {
+      this.treeItems.filter(ti => ti.parentPid === treeItem.pid).forEach(t => {
+        this.expandTreeItemDeep(t);
+      });
+    }
+
   }
 
 }

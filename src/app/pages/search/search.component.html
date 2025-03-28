@@ -157,15 +157,12 @@
           </as-split-area>
   
           <as-split-area [size]="splitArea2Width">
-            <div style="position: relative; top: 0px;">
-              <mat-progress-bar mode="indeterminate" *ngIf="loadingTree" class="app-progress-bar" style="position: absolute; top: 0px;"></mat-progress-bar>
-            </div>
   
             <div  fxLayout="column" fxFlexFill>
               <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar">
                 <div fxFlex *ngIf="selectedTreeItem" fxLayout="row" fxFlexFill>
                   <button (click)="selectItem(selectedItem)" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
-                  <button (click)="expandAllInTree()" [disabled]="totalSelectedTree > 1" mat-button>{{ 'button.unpack' | translate }}</button>
+                  <button (click)="expandAllInTree()" mat-button>{{ 'button.unpack' | translate }}</button>
                   <app-search-actions [items]="items" [selectedItem]="selectedItem" [selectedTreeItem]="selectedTreeItem" [treeItems]="treeItems"
                   (reload)="reload($event)" (reloadTree)="reloadTree($event)" [(state)]="state" [forTree]="true"></app-search-actions>
                   <!-- 
@@ -178,7 +175,11 @@
                   </button>
               </div>
               <div fxFlex class="app-oa-y app-tree" fxLayout="column" fxFlexFill >
-                <app-user-tree-table [treeItem]="selectedTreeItem"  (treeInfo)="treeInfoChanged($event)"></app-user-tree-table>
+                <app-user-tree-table #treeTable [treeItem]="selectedTreeItem" 
+                  (onSelectTreeItem)="selectedTreeItem = $event"
+                  (onTreeItemsChanged)="treeItems = $event"
+                  (treeInfo)="treeInfoChanged($event)"></app-user-tree-table>
+
                 <!-- <table  mat-table [dataSource]="visibleTreeItems" class="app-striped app-hover app-resize" matSort  #treeTable>
   
                     <ng-container *ngFor="let c of treeColumns; let idx = index;" [matColumnDef]="c">

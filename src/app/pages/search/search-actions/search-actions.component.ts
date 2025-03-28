@@ -277,7 +277,6 @@ export class SearchActionsComponent {
         if (treeItem) {
           this.changeLockInTree(treeItem, true, this.treeItems().indexOf(treeItem));
         }
-
       }
 
     });
