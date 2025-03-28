@@ -347,19 +347,16 @@ export class SearchComponent {
     this.totalSelected = this.items.filter(i => i.selected).length;
     this.selectedItem = item;
 
-
     if (this.selectedTreeItem) {
       // reset
       this.selectedTreeItem.expanded = false;
       this.selectedTreeItem.childrenLoaded = false;
-
     }
 
     this.selectedTreeItem = <TreeDocumentItem>this.selectedItem;
     this.selectedTreeItem.level = 0;
     this.selectedTreeItem.expandable = true;
     this.treeItems = [this.selectedTreeItem];
-
     
   }
 

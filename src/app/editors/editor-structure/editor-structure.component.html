@@ -144,7 +144,7 @@
           </div>
         </div>
       </div>
-      <app-user-table *ngIf="viewMode == 'list'" [draggable]="true" (selectItem)="selectRow($event)" (openItem)="open($event)" [colsSettingsName]="'columnsSearch'"
+      <app-user-table *ngIf="viewMode == 'list'" [draggable]="true" (selectItem)="selectRow($event)" (openItem)="open($event)" [colsSettingsName]="'colsEditingRepo'"
         [items]="layout.items()" (mousedown)="mousedown($event)" 
         (dragenter)="dragenter($event.e, $event.idx)"
         (dragstart)="dragstart($event.item, $event.idx, $event.e)" 

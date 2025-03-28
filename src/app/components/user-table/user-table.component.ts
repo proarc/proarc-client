@@ -25,6 +25,8 @@ import { LayoutService } from '../../services/layout-service';
 
 
 import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatDialog } from '@angular/material/dialog';
+import { ColumnsSettingsDialogComponent } from '../../dialogs/columns-settings-dialog/columns-settings-dialog.component';
 
 @Component({
   selector: 'app-user-table',
@@ -76,46 +78,64 @@ export class UserTableComponent {
 
   constructor(
     private translator: TranslateService,
+    private dialog: MatDialog,
     public settings: UserSettings,
     public settingsService: UserSettingsService,
     public config: Configuration,
     public ui: UIService,
     private layout: LayoutService) {
     effect(() => {
-
-      if (this.colsSettingsName() === 'colsEditingRepo') {
-        const models: string[] = [];
-        this.items().forEach(i => {
-          if (!models.includes(i.model)) {
-            models.push(i.model);
-          }
-        });
-        this.displayedColumns = [];
-        if (this.settings.colsEditModeParent && this.layout.selectedParentItem?.model) {
-          this.selectedColumns = this.settings.colsEditingRepo[this.layout.selectedParentItem.model].filter(c => c.selected && !this.displayedColumns.includes(c.field));
-
-        } else {
-          models.forEach(model => {
-            const f = this.settings.colsEditingRepo[model].filter(c => c.selected && !this.displayedColumns.includes(c.field));
-            this.selectedColumns.push(...f);
-          });
-        }
-      } else {
-        const colsSettings: TableColumn[] = Utils.clone(this.settings[this.colsSettingsName()]);
-        this.selectedColumns = colsSettings.filter(c => c.selected);
-      }
-
-      this.displayedColumns = this.selectedColumns.map(c => c.field);
-      this.selectedColumns.forEach(c => {
-        if (c.type === 'list') {
-          this.lists[c.field] = this.getList(c.field);
-        }
-        this.prefixes[c.field] = this.prefixByType(c.field);
-      });
-
+      this.initColumns(this.colsSettingsName());
       this.scrollToLastClicked(this.layout.lastSelectedItem());
 
     })
+  }
+
+  initColumns(colsSettingsName: string) {
+    if (colsSettingsName === 'colsEditingRepo') {
+      const models: string[] = [];
+      this.items().forEach(i => {
+        if (!models.includes(i.model)) {
+          models.push(i.model);
+        }
+      });
+      this.displayedColumns = [];
+      if (this.settings.colsEditModeParent && this.layout.selectedParentItem?.model) {
+        this.selectedColumns = this.settings.colsEditingRepo[this.layout.selectedParentItem.model].filter(c => c.selected && !this.displayedColumns.includes(c.field));
+
+      } else {
+        models.forEach(model => {
+          const f = this.settings.colsEditingRepo[model].filter(c => c.selected && !this.displayedColumns.includes(c.field));
+          this.selectedColumns.push(...f);
+        });
+      }
+    } else {
+      const colsSettings: TableColumn[] = Utils.clone(this.settings[colsSettingsName]);
+      this.selectedColumns = colsSettings.filter(c => c.selected);
+    }
+
+    this.displayedColumns = this.selectedColumns.map(c => c.field);
+    this.selectedColumns.forEach(c => {
+      if (c.type === 'list') {
+        this.lists[c.field] = this.getList(c.field);
+      }
+      this.prefixes[c.field] = this.prefixByType(c.field);
+    });
+  }
+
+  setColumns() {
+    const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
+      data: {
+        colsSettingsName: this.colsSettingsName(),
+        model: this.layout.selectedParentItem.model,
+      },
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.initColumns(this.colsSettingsName());
+      }
+    });
   }
 
   scrollToLastClicked(item: DocumentItem) {

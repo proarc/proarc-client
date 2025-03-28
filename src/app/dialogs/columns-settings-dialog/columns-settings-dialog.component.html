@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>{{ 'dialog.columnsSettings.title' | translate }}</h1>
+<div mat-dialog-content class="app-scrollbar-fix">
+  <fieldset class="app-p-4 app-mb-3" cdkDropList (cdkDropListDropped)="drop($event)">
+    <ng-container *ngIf="data.colsSettingsName === 'colsEditingRepo'">
+      <legend>{{ 'pages.settings.editingRepo.legend' | translate }}</legend>
+      <div class="app-label app-mb-3">{{ 'pages.settings.editingRepo.label' | translate }}</div>
+      <mat-form-field class="app-w-100">
+        <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="modelForColumns" >
+          <mat-option *ngFor="let model of config.models" [value]="model">{{ 'model.' + model | translate }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div *ngFor="let column of settings.colsEditingRepo[modelForColumns]" cdkDropListOrientation="vertical" cdkDrag>
+        <mat-checkbox [name]="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="data.colsSettingsName !== 'colsEditingRepo'">
+        <legend>{{ 'pages.settings.searchTree.legend' | translate }}</legend>
+        <div class="app-label app-mb-2">{{ 'pages.settings.searchTree.label' | translate }}</div>
+        <div *ngFor="let column of columns" cdkDropListOrientation="vertical" cdkDrag>
+          <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
+        </div>
+    </ng-container>
+  </fieldset>
+  <div *ngIf="data.colsSettingsName === 'colsEditingRepo'">
+    <mat-checkbox name="colsEditModeParent" [(ngModel)]="colsEditModeParent">{{ 'pages.settings.colsEditModeParent' | translate }}</mat-checkbox>
+  </div>
+</div>
+<div mat-dialog-actions cdkFocusRegionstart> 
+  <button mat-flat-button color="primary" (click)="save()" >{{ 'button.save' | translate }}</button>
+  <button mat-flat-button (click)="reset()" >{{ 'button.reset' | translate }}</button>
+  <button mat-flat-button [mat-dialog-close]="false" >{{ 'button.close' | translate }}</button>
+</div>

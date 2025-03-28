@@ -25,6 +25,7 @@ import { Configuration } from '../../shared/configuration';
 import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { Batch } from '../../model/batch.model';
 import { ModelTemplate } from '../../model/modelTemplate';
+import { ColumnsSettingsDialogComponent } from '../../dialogs/columns-settings-dialog/columns-settings-dialog.component';
 
 @Component({
   selector: 'app-user-tree-table',
@@ -96,6 +97,21 @@ export class UserTreeTableComponent {
 
   ngOnInit() {
     this.setSelectedTreeColumns();
+  }
+
+  setColumns() {
+    const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
+          data: {
+            colsSettingsName: 'columnsSearchTree',
+            model: null,
+          },
+          width: '600px',
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.setSelectedTreeColumns();
+          }
+        });
   }
 
   listValue(field: string, code: string) {
