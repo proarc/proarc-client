@@ -64,6 +64,9 @@ export class Configuration {
   // model = model na ktery se prevadi
   modelChanges: {origin: string, dest:{model: string, originmodel: string, apiPoint: string }[]}[];
 
+  showPageIndex: boolean;
+  showPageIdentifiers: boolean;
+
   allowedCopyModels: string[];
 
   profiles: string[];

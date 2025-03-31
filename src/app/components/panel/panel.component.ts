@@ -16,12 +16,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { EditorCommentComponent } from "../../editors/editor-comment/editor-comment.component";
 import { EditorAtmComponent } from "../../editors/editor-atm/editor-atm.component";
+import { EditorPageComponent } from "../../editors/editor-page/editor-page.component";
 
 @Component({
   selector: 'app-panel',
     imports: [CommonModule, TranslateModule, FlexLayoutModule,
     EditorModsComponent, EditorStructureComponent, EditorOcrComponent, MediaComponent, ViewerComponent,
-    MatCardModule, MatIconModule, EditorCommentComponent, EditorAtmComponent],
+    MatCardModule, MatIconModule, EditorCommentComponent, EditorAtmComponent, EditorPageComponent],
   templateUrl: './panel.component.html',
   styleUrl: './panel.component.scss'
 })

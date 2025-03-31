@@ -4,6 +4,7 @@ import { ILayoutPanel } from "../dialogs/layout-admin/layout-admin.component";
 import { ModelTemplate } from "../model/modelTemplate";
 import { Configuration } from "../shared/configuration";
 import { Observable, ReplaySubject, Subject } from "rxjs";
+import { Page } from "../model/page.model";
 
 @Injectable()
 export class LayoutService {
@@ -56,6 +57,25 @@ export class LayoutService {
     public lastItemIdxClicked: number; // last item clicked
     public lastPanelClicked: string; // last panel clicked
     public moveFocus: boolean = true;
+
+    public krameriusPage: Page;
+    public krameriusInstance: string; // in case we are editing kramerius object
+
+    public movedToNextFrom: string;
+    public movingToNext: boolean;
+    private moveNextSubject = new ReplaySubject<number>(1);
+
+    shouldMoveToNext(from: string) {
+        const index = this.items().findIndex(i => i.selected);
+        this.movedToNextFrom = from;
+        this.movingToNext = true;
+        this.moveNextSubject.next(index);
+      }
+
+      moveToNext(): Observable<number> {
+        //let index = this.getFirstSelectedIndex() + 1;
+        return this.moveNextSubject.asObservable();
+      }
 
     batchId: string;
 

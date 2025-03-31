@@ -200,6 +200,9 @@
 
   donators: ['ilnorway', 'norway', 'dkrvo19-23', 'dkrvo24-28'],
 
+  showPageIndex: true,
+  showPageIdentifiers: true,
+
   searchExpandTree: true,
   allowedCopyModels: ['model:ndkmonographvolume', 'model:ndkperiodicalissue', 'model:oldprintvolume'],
   profiles: [
