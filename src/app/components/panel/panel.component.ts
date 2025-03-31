@@ -34,8 +34,8 @@ export class PanelComponent {
 
   itemModel: string;
   numOfSelected = input<number>();
-  showPagesEditor = input<boolean>();
-  showAudioPagesEditor = input<boolean>();
+  showPagesEditor: boolean;
+  showAudioPagesEditor: boolean;
 
   lastSelectedItem = input<DocumentItem>();
   imageInfo: { pid: string, dsid: string, width?: number, height?: number };
@@ -52,6 +52,8 @@ export class PanelComponent {
         const lastSelectedItem = this.lastSelectedItem();
         this.itemModel = this.itemType(lastSelectedItem);
         this.imageInfo = {pid: lastSelectedItem.pid, dsid: 'FULL'};
+        this.showPagesEditor = this.isPagesEditor(lastSelectedItem);
+        this.showAudioPagesEditor = false;
       })
     }
 
@@ -59,6 +61,10 @@ export class PanelComponent {
     this.panelType = this.panel().type;
     this.formHighlighting = localStorage.getItem('formHighlighting') === 'true';
     
+  }
+
+  public isPagesEditor(lastSelectedItem: DocumentItem): boolean {
+    return this.numOfSelected() > 1 && lastSelectedItem.isPage();
   }
 
   changePanelType(newType: string) {

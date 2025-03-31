@@ -85,7 +85,6 @@ export class EditorPageComponent implements OnInit {
   public page: Page;
   lastFocus = 'pageIndex';
 
-
   constructor(
     public layout: LayoutService,
     //public editor: EditorService,
@@ -105,9 +104,6 @@ export class EditorPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.controls.valueChanges.subscribe((e: any) => {
-      this.layout.setPanelEditing(this.panel());
-    })
   }
 
   removeFocus() {
@@ -149,8 +145,8 @@ export class EditorPageComponent implements OnInit {
 
   private onPidChanged(pid: string) {
     this.state = 'loading';
+    this.page = null;
     if (this.layout.type === 'kramerius') {
-
       this.setPage(this.layout.krameriusPage);
       this.state = 'success';
       return;
