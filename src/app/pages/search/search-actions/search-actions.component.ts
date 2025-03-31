@@ -407,7 +407,7 @@ export class SearchActionsComponent {
 
   canUpdateInSource() {
     const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
-    return this.config.updateInSourceModels.includes(item.model)
+    return this.config.updateInSourceModels.includes(item?.model)
   }
 
   updateInSource() {

@@ -1,0 +1,34 @@
+<div fxLayout="column" fxFlexFill>
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
+    <div fxFlex>
+      <div class="app-toolbar-label">
+        <span class="app-text">E-pub</span>&#160;
+        <span >{{ bookTitle }}</span>
+        <span *ngIf="chapterTitle && bookTitle.trim() !== chapterTitle.trim()"> - {{ chapterTitle }}</span>
+      </div>
+    </div>
+    <div *ngIf="rendition?.location">
+      <button mat-icon-button [disabled]="chapters.length === 0" [matMenuTriggerFor]="chapters_menu"
+        [matTooltip]="'button.chapters' | translate">
+        <mat-icon>format_list_numbered</mat-icon>
+      </button>
+      <mat-menu #chapters_menu="matMenu">
+        <div *ngFor="let chapter of chapters" mat-menu-item (click)="displayChapter(chapter)">{{ chapter.label }}</div>
+      </mat-menu>
+      <button mat-icon-button (click)="showPrev()" [disabled]="rendition.location.start.index === 0" [matTooltip]="'button.prev_page' | translate">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+      <button mat-icon-button (click)="showNext()" [matTooltip]="'button.next_page' | translate">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div fxFlex class="app-oa-y">
+    <!-- <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='head'" class="app-progress-bar"></mat-progress-bar> -->
+    <div class="app-editor-content app-h-100">
+      <div class="app-pdf-wrapper" style="height: 100%;">
+        <div id="epub_viewer" #epubViewer style="height: 100%;"></div>
+      </div>
+    </div>
+  </div>
+</div>

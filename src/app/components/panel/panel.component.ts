@@ -10,10 +10,11 @@ import { DocumentItem } from '../../model/documentItem.model';
 import { EditorModsComponent } from "../../editors/editor-mods/editor-mods.component";
 import { EditorStructureComponent } from "../../editors/editor-structure/editor-structure.component";
 import { EditorOcrComponent } from "../../editors/editor-ocr/editor-ocr.component";
+import { MediaComponent } from "../media/media.component";
 
 @Component({
   selector: 'app-panel',
-    imports: [CommonModule, TranslateModule, FlexLayoutModule, EditorModsComponent, EditorStructureComponent, EditorOcrComponent],
+    imports: [CommonModule, TranslateModule, FlexLayoutModule, EditorModsComponent, EditorStructureComponent, EditorOcrComponent, MediaComponent],
   templateUrl: './panel.component.html',
   styleUrl: './panel.component.scss'
 })

@@ -46,7 +46,6 @@ export class EditorModsComponent implements OnInit, OnDestroy {
 
   originalText = '';
 
-
   item: DocumentItem;
 
   public visible = true;
@@ -62,7 +61,6 @@ export class EditorModsComponent implements OnInit, OnDestroy {
     private dialog: MatDialog) {
     effect(() => {
       this.item = this.layout.lastSelectedItem();
-      console.log(this.item)
       this.reload();
     });
   }

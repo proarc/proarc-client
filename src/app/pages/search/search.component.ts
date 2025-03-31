@@ -169,6 +169,7 @@ export class SearchComponent {
       sortAsc: this.sortAsc
     }
     params.page = null;
+    this.settings.searchModel = this.model;
     this.settingsService.save();
     this.router.navigate([], { queryParams: params, queryParamsHandling: 'merge' });
   }
