@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, SimpleChange, EventEmitter, Output, effect } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, SimpleChange, effect, input, output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,22 +17,22 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { HighlightAuto } from 'ngx-highlightjs';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { EditorSwitcherComponent } from "../editor-switcher/editor-switcher.component";
 
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
     MatIconModule, MatProgressBarModule, MatTooltipModule,
-    HighlightAuto
-  ],
+    HighlightAuto, EditorSwitcherComponent],
   selector: 'app-editor-mods',
   templateUrl: './editor-mods.component.html',
   styleUrls: ['./editor-mods.component.scss']
 })
 export class EditorModsComponent implements OnInit, OnDestroy {
 
-  @Input() panel: ILayoutPanel;
-   @Input('panelType') panelType: string;
-   @Output() onChangePanelType = new EventEmitter<string>();
+  panel = input<ILayoutPanel>();
+  panelType = input<string>();
+  onChangePanelType = output<string>();
 
 
   @ViewChild('editingPre') editingPre: ElementRef;
@@ -62,6 +62,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
     private dialog: MatDialog) {
     effect(() => {
       this.item = this.layout.lastSelectedItem();
+      console.log(this.item)
       this.reload();
     });
   }
@@ -207,7 +208,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
     //console.log(this.editingPre.nativeElement.innerText, this.originalText)
     this.anyChange = this.editingPre.nativeElement.innerText !== this.originalText;
     if (this.anyChange) {
-      this.layout.setPanelEditing(this.panel);
+      this.layout.setPanelEditing(this.panel());
     } else {
       this.layout.clearPanelEditing();
     }
@@ -215,7 +216,7 @@ export class EditorModsComponent implements OnInit, OnDestroy {
 
   onChange() {
     this.anyChange = true;
-    this.layout.setPanelEditing(this.panel);
+    this.layout.setPanelEditing(this.panel());
   }
 
 

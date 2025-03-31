@@ -9,10 +9,11 @@ import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { DocumentItem } from '../../model/documentItem.model';
 import { EditorModsComponent } from "../../editors/editor-mods/editor-mods.component";
 import { EditorStructureComponent } from "../../editors/editor-structure/editor-structure.component";
+import { EditorOcrComponent } from "../../editors/editor-ocr/editor-ocr.component";
 
 @Component({
   selector: 'app-panel',
-    imports: [CommonModule, TranslateModule, FlexLayoutModule, EditorModsComponent, EditorStructureComponent],
+    imports: [CommonModule, TranslateModule, FlexLayoutModule, EditorModsComponent, EditorStructureComponent, EditorOcrComponent],
   templateUrl: './panel.component.html',
   styleUrl: './panel.component.scss'
 })

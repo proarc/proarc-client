@@ -1,0 +1,25 @@
+
+<ng-container *ngIf="numOfSelected > 1">
+  <span class="app-toolbar-label app-mr-4">
+    <span class="app-text">{{ 'editor.children.multiple_selection_label' | translate }}</span>
+    <span class="app-pipe"></span>
+    <span class="app-text-supplement">{{ ('editor.children.multiple_selection_count' + plurals ) | translate: { count: numOfSelected } }}</span>
+  </span>
+</ng-container>
+<ng-container>
+  <button mat-icon-button [matTooltip]="'editor.toolbar.editor_metadata' | translate" [class.app-active]="panelType() === 'metadata'" (click)="changeEditorType('metadata')">
+    <span class="app-text-icon">M</span>
+  </button>
+  <button mat-icon-button *ngIf="layout.lastSelectedItem() && model === 'song'" [matTooltip]="'editor.toolbar.editor_song' | translate" [class.app-active]="panelType() === 'song'" (click)="changeEditorType('song')">
+    <mat-icon>audiotrack</mat-icon>
+  </button>
+  <button mat-icon-button [matTooltip]="'editor.toolbar.editor_mods' | translate"  [class.app-active]="panelType() === 'mods'" (click)="changeEditorType('mods')">
+    <mat-icon>code</mat-icon>
+  </button>
+  <button mat-icon-button *ngIf="layout.lastSelectedItem() && model === 'page'" [matTooltip]="'editor.toolbar.editor_ocr' | translate" [class.app-active]="panelType() === 'ocr'" (click)="changeEditorType('ocr')">
+    <mat-icon>title</mat-icon>
+  </button>
+  <button mat-icon-button [matTooltip]="'editor.toolbar.editor_atm' | translate" [class.app-active]="panelType() === 'atm'" (click)="changeEditorType('atm')">
+    <span class="app-text-icon">A</span>
+  </button>
+</ng-container>
