@@ -42,7 +42,6 @@ export class EditorOcrComponent {
       return count + '';
     }
   }
-  // --- #368 ----
 
   state = 'none';
   editting = false;
@@ -50,19 +49,19 @@ export class EditorOcrComponent {
   anyChange: boolean;
 
   constructor(
-    public layout: LayoutService, 
+    public layout: LayoutService,
     private api: ApiService,
     private ui: UIService) {
-      effect(() => {
-    const pid = this.pid();
-        if (!pid) {
-          return;
-        }
-        this.anyChange = false;
-        this.editting = false;
-        this.layout.clearPanelEditing();
-        this.loadOcr(pid);
-      });
+    effect(() => {
+      const pid = this.pid();
+      if (!pid) {
+        return;
+      }
+      this.anyChange = false;
+      this.editting = false;
+      this.layout.clearPanelEditing();
+      this.loadOcr(pid);
+    });
   }
 
   loadOcr(pid: string) {

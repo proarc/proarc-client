@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, input, effect } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -44,26 +44,8 @@ export class ViewerComponent implements OnInit, OnDestroy {
   @Input() instance: string;
   @Input() hideToolbar: boolean;
 
-  private _imageInfo: {pid: string, dsid: string, width?: number, height?: number};
-  @Input()
-  set imageInfo(info: {pid: string, dsid: string, width?: number, height?: number}) {
-    this.inputPid = info.pid;
-    if (this.isLocked) {
-      return;
-    }
-    if (this.view) {
-      this.view.removeLayer(this.imageLayer);
-      this.view.updateSize();
-    }
-    this._imageInfo = info;
-    console.log(this._imageInfo.width);
-    if (this._imageInfo.width) {
-      this.loadImage();
-    } else {
-      this.getProfiles(this._imageInfo.pid)
-    }
-    
-  }
+  private _imageInfo: { pid: string, dsid: string, width?: number, height?: number };
+  imageInfo = input<{ pid: string, dsid: string, width?: number, height?: number }>();
 
 
   private inputPid: string;
@@ -93,11 +75,27 @@ export class ViewerComponent implements OnInit, OnDestroy {
   viewOl = true;
 
   constructor(
-    private api: ApiService, 
-    private layout: LayoutService, 
+    private api: ApiService,
+    private layout: LayoutService,
     private settings: UserSettings,
-   private settingsService: UserSettingsService) {
+    private settingsService: UserSettingsService) {
     this.initFullscreenCapabilities();
+    effect(() => {
+      this._imageInfo = this.imageInfo();
+      this.inputPid = this._imageInfo.pid;
+      if (this.isLocked) {
+        return;
+      }
+      if (this.view) {
+        this.view.removeLayer(this.imageLayer);
+        this.view.updateSize();
+      }
+      if (this._imageInfo.width) {
+        this.loadImage();
+      } else {
+        this.getProfiles(this._imageInfo.pid)
+      }
+    })
   }
 
   ngOnInit() {
@@ -111,7 +109,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
     if (this.view) {
       this.view.updateSize();
     }
-    
+
   }
 
   changeLockPanel() {
@@ -135,9 +133,9 @@ export class ViewerComponent implements OnInit, OnDestroy {
 
   loadRawImage() {
     this.state = 'loading';
-  this.imageUrl = this.isKramerius ?
-    this.api.getKrameriusImageUrl(this.inputPid, this.instance) :
-    this.api.getStreamUrl(this.inputPid, this._imageInfo.dsid, this.layout.batchId);
+    this.imageUrl = this.isKramerius ?
+      this.api.getKrameriusImageUrl(this.inputPid, this.instance) :
+      this.api.getStreamUrl(this.inputPid, this._imageInfo.dsid, this.layout.batchId);
     const image = new Image();
     image.onload = (() => {
       if (image.width > this.maxImageSize || image.height > this.maxImageSize) {
@@ -147,7 +145,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
         this.viewOl = true;
         this.onLoad(this.imageUrl, image.width, image.height);
       }
-      
+
     });
     image.onerror = ((err: any) => {
       image.onerror = null;
@@ -174,8 +172,8 @@ export class ViewerComponent implements OnInit, OnDestroy {
           if (!streamProfile) {
             streamProfile = streamProfiles[0];
           }
-          
-          this._imageInfo = {pid: pid, dsid: streamProfile.dsid, width: streamProfile.width, height: streamProfile.height};
+
+          this._imageInfo = { pid: pid, dsid: streamProfile.dsid, width: streamProfile.width, height: streamProfile.height };
           this.loadImage();
 
         } else {
@@ -184,7 +182,7 @@ export class ViewerComponent implements OnInit, OnDestroy {
           this.loadRawImage();
           return;
         }
-      } 
+      }
     });
   }
 
@@ -192,25 +190,25 @@ export class ViewerComponent implements OnInit, OnDestroy {
     if (!this.inputPid) {
       return;
     }
-    const stream = this._imageInfo ? this._imageInfo.dsid : 'FULL'; 
+    const stream = this._imageInfo ? this._imageInfo.dsid : 'FULL';
     this.state = 'loading';
     this.imageUrl = this.isKramerius ?
       this.api.getKrameriusImageUrl(this.inputPid, this.instance) :
       this.api.getStreamUrl(this.inputPid, stream, this.layout.batchId);
 
-      if (this._imageInfo.width > this.maxImageSize || this._imageInfo.height > this.maxImageSize) {
-        this.viewOl = false;
-        // this.state = 'success';
+    if (this._imageInfo.width > this.maxImageSize || this._imageInfo.height > this.maxImageSize) {
+      this.viewOl = false;
+      // this.state = 'success';
+    } else {
+      this.viewOl = true;
+      if (this.view) {
+        this.onLoad(this.imageUrl, this._imageInfo.width, this._imageInfo.height);
       } else {
-        this.viewOl = true;
-          if (this.view) {
-            this.onLoad(this.imageUrl, this._imageInfo.width, this._imageInfo.height);
-          } else {
-            setTimeout(() => {
-              this.onLoad(this.imageUrl, this._imageInfo.width, this._imageInfo.height);
-            }, 1);
-          }
+        setTimeout(() => {
+          this.onLoad(this.imageUrl, this._imageInfo.width, this._imageInfo.height);
+        }, 1);
       }
+    }
   }
 
   onLoad(url: string, width: number, height: number) {
@@ -238,29 +236,29 @@ export class ViewerComponent implements OnInit, OnDestroy {
     this.view.setView(view);
     const that = this;
     const source: any = new ol.source.ImageStatic({
-        url: url,
-        imageSize: [width, height],
-        imageExtent: this.extent,
+      url: url,
+      imageSize: [width, height],
+      imageExtent: this.extent,
     });
     source.on(['imageloadend', 'imageloaderror'], function () {
       that.state = 'success';
     });
     const iLayer = new ol.layer.Image({
       source: source
-      })
+    })
     this.view.addLayer(iLayer);
     this.imageLayer = iLayer;
     if (this.positionLock) {
       this.view.updateSize();
-  
+
       this.view.getView().setRotation(this.settings.viewerRotation);
       this.view.getView().setCenter(this.settings.viewerCenter.split(','));
       this.view.getView().setResolution(this.settings.viewerResolution);
     } else {
       //setTimeout(() => {
-        this.fitToScreen();
+      this.fitToScreen();
       //}, 1);
-      
+
     }
   }
 

@@ -99,6 +99,7 @@
       'model:chroniclevolume',
       'model:chroniclesupplement'
   ],
+  
   defaultModel: 'model:ndkperiodical',
   showCommentEditor: true,
   showWorkflow: true,
@@ -196,6 +197,8 @@
 	chronicleIdentifiers: ['signature1', 'signature2', 'inventaryNumber', 'OtherNumber', 'id', 'localId', 'officialNumber'],
 	eDocumentIdentifiers: ['doi', 'handle', 'ismn', 'url', 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici'],
 	oldprintIdentifiers: ['barcode', 'ccnb', 'doi', 'hdl', 'ismn', 'isbn', 'permalink', 'sici', 'url', 'uuid', 'urnnbn', 'BCBT'],
+
+  donators: ['ilnorway', 'norway', 'dkrvo19-23', 'dkrvo24-28'],
 
   searchExpandTree: true,
   allowedCopyModels: ['model:ndkmonographvolume', 'model:ndkperiodicalissue', 'model:oldprintvolume'],

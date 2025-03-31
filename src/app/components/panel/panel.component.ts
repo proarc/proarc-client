@@ -1,4 +1,4 @@
-import { Component, computed, input, output } from '@angular/core';
+import { Component, computed, effect, input, output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ILayoutPanel } from '../../dialogs/layout-admin/layout-admin.component';
 import { UIService } from '../../services/ui.service';
@@ -11,10 +11,17 @@ import { EditorModsComponent } from "../../editors/editor-mods/editor-mods.compo
 import { EditorStructureComponent } from "../../editors/editor-structure/editor-structure.component";
 import { EditorOcrComponent } from "../../editors/editor-ocr/editor-ocr.component";
 import { MediaComponent } from "../media/media.component";
+import { ViewerComponent } from "../viewer/viewer.component";
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { EditorCommentComponent } from "../../editors/editor-comment/editor-comment.component";
+import { EditorAtmComponent } from "../../editors/editor-atm/editor-atm.component";
 
 @Component({
   selector: 'app-panel',
-    imports: [CommonModule, TranslateModule, FlexLayoutModule, EditorModsComponent, EditorStructureComponent, EditorOcrComponent, MediaComponent],
+    imports: [CommonModule, TranslateModule, FlexLayoutModule,
+    EditorModsComponent, EditorStructureComponent, EditorOcrComponent, MediaComponent, ViewerComponent,
+    MatCardModule, MatIconModule, EditorCommentComponent, EditorAtmComponent],
   templateUrl: './panel.component.html',
   styleUrl: './panel.component.scss'
 })
@@ -24,21 +31,28 @@ export class PanelComponent {
   panelType: string;
   onIngest = output<boolean>();
 
-  itemModel = input<string>();
+  itemModel: string;
   numOfSelected = input<number>();
   showPagesEditor = input<boolean>();
   showAudioPagesEditor = input<boolean>();
 
   lastSelectedItem = input<DocumentItem>();
+  imageInfo: { pid: string, dsid: string, width?: number, height?: number };
+  
 
   subscriptions: Subscription[] = [];
-
 
   formHighlighting: boolean;
   
   constructor(
     public config: Configuration,
-    private ui: UIService) { }
+    private ui: UIService) { 
+      effect(() => {
+        const lastSelectedItem = this.lastSelectedItem();
+        this.itemModel = this.itemType(lastSelectedItem);
+        this.imageInfo = {pid: lastSelectedItem.pid, dsid: 'FULL'};
+      })
+    }
 
   ngOnInit(): void {
     this.panelType = this.panel().type;
@@ -53,4 +67,21 @@ export class PanelComponent {
   passOnIngest() {
     this.onIngest.emit(true);
   }
+
+  itemType(lastSelectedItem: DocumentItem): string {
+    if (!lastSelectedItem) {
+      return null;
+    }
+    if (lastSelectedItem.isPage()) {
+      return 'page';
+    }
+    if (lastSelectedItem.isAudioPage()) {
+      return 'song';
+    }
+    if (lastSelectedItem.isAudioPage()) {
+      return 'song';
+    }
+    return null;
+  }
+
 }

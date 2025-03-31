@@ -1,0 +1,111 @@
+<div fxLayout="column" fxFlexFill>
+  <div fxLayout="row" class="app-toolbar app-view-metadata">
+    <div fxFlex>
+      <app-editor-switcher (onChangeEditorType)="changeEditorType($event)"
+				[panelType]="panelType()"></app-editor-switcher>
+    </div>
+		<div>
+      <button mat-icon-button (click)="onRevert()" [matTooltip]="'common.revert' | translate"  [disabled]="!atm || !atm.hasChanged()">
+        <mat-icon>replay</mat-icon>
+      </button>
+      <button mat-icon-button (click)="onSave()" [matTooltip]="'common.save' | translate"  [disabled]="!atm || !hasChanged()">
+        <mat-icon>save</mat-icon>
+      </button>
+		</div>
+  </div>
+	<div fxFlex class="app-oa-y">
+		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
+		<div class="app-editor-container" *ngIf="state !== 'loading' && atm">
+      <div class="app-form-wrapper app-top-level">
+        <div class="app-gap-fixer"></div>
+        <div class="app-form">
+          <div class="app-form-content">
+            <mat-form-field class="app-field-col">
+              <mat-label>{{ 'editor.atm.pid' | translate }}</mat-label>
+              <input matInput disabled [value]="atm.pid">
+            </mat-form-field>
+            <mat-form-field class="app-field-col">
+              <mat-label>{{ 'editor.atm.model' | translate }}</mat-label>
+              <input matInput disabled [value]="'model.' + atm.model | translate">
+            </mat-form-field>
+            <mat-form-field class="app-field-col">
+              <mat-label>{{ 'editor.atm.owner' | translate }}</mat-label>
+              <input matInput disabled [value]="atm.owner">
+            </mat-form-field>
+            <mat-form-field class="app-field-col">
+              <mat-label>{{ 'editor.atm.created' | translate }}</mat-label>
+              <input matInput disabled [value]="atm.created | date : 'dd.MM.yyyy hh:mm:ss'">
+            </mat-form-field>
+            <mat-form-field class="app-field-col">
+              <mat-label>{{ 'editor.atm.modified' | translate }}</mat-label>
+              <input matInput disabled [value]="atm.modified | date : 'dd.MM.yyyy hh:mm:ss'">
+            </mat-form-field>
+            <mat-form-field class="app-field-col">
+              <mat-label>{{ 'editor.atm.filename' | translate }}</mat-label>
+              <input matInput disabled [value]="atm.filename || '-'">
+            </mat-form-field>
+            <mat-form-field class="app-field-col">
+              <mat-label>{{ 'editor.atm.export' | translate }}</mat-label>
+              <input matInput disabled [value]=" atm.exportResult || '-'">
+            </mat-form-field>
+            <mat-form-field class="app-field-col">
+              <mat-select [placeholder]="'editor.atm.device' | translate" name="device" [(value)]="atm.device">
+                <mat-option [value]="'null'">{{ 'editor.atm.no_device' | translate }}</mat-option>
+                <mat-option *ngFor="let device of devices" [value]="device.id">{{ device.label }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="app-field-col">
+              <mat-select [disabled]="!auth.isSuperAdmin()" [placeholder]="'editor.atm.organization' | translate" name="organization" [(value)]="atm.organization">
+                <mat-option *ngFor="let organization of organizations" [value]="organization">{{ 'organization.' + organization | translate }}</mat-option>
+              </mat-select>
+            </mat-form-field>  
+            <mat-form-field class="app-field-col">
+              <mat-select [disabled]="!auth.isSuperAdmin() && !auth.isAdmin()" [placeholder]="'editor.atm.userProcessor' | translate" name="userProcessor" [(value)]="atm.userProcessor">
+                <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
+                <mat-option value="all">Všichni</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="app-field-col">
+              <mat-select [placeholder]="'editor.atm.status' | translate" name="status" [(value)]="atm.status">
+                <mat-option *ngFor="let status of statuses" [value]="status">{{ 'editor.atm.statuses.' + status | translate }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div *ngIf="atm.isLocked" class="app-p-2 app-form">
+              <strong>{{ 'search.isLocked' | translate }}</strong>
+              <div fxLayout="row" fxLayoutGap="8px" class="app-mt-1 app-mb-n2">
+                <mat-form-field fxFlex>
+                  <mat-label>{{ 'editor.atm.lockedBy' | translate }}</mat-label>
+                  <input matInput disabled [value]="atm.lockedBy || '-'">
+                </mat-form-field>
+                <mat-form-field fxFlex>
+                  <mat-label>{{ 'editor.atm.lockedDate' | translate }}</mat-label>
+                  <input matInput disabled [value]="atm.lockedDate | date : 'dd.MM.yyyy'">
+                </mat-form-field>
+                <!-- to delete after 5.4.2024 
+                <div fxFlex><span class="app-label">{{ 'editor.atm.lockedBy' | translate }}: </span>{{ atm.lockedBy }}Karel Vomacka</div>
+                <div fxFlex><span class="app-label">{{ 'editor.atm.lockedDate' | translate }}: </span>{{ atm.lockedDate | date : 'dd.MM.yyyy' }}27.03.2024 07:46</div> 
+                -->
+              </div>
+            </div>
+      
+            <mat-form-field class="app-field-col">
+              <mat-select [placeholder]="'editor.atm.donator' | translate" name="donator" [(value)]="atm.donator">
+                <mat-option [value]="null">{{ 'editor.atm.donators.none' | translate }}</mat-option>
+                <mat-option *ngFor="let donator of donators" [value]="donator">{{ 'editor.atm.donators.' + donator | translate }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            
+            <mat-form-field class="app-field-col">
+              <mat-label>{{ 'editor.atm.archivalCopies' | translate }}</mat-label>
+              <input matInput [(ngModel)]="atm.archivalCopies">
+            </mat-form-field>
+      
+          </div>
+        </div>
+        <div class="app-gap-fixer"></div>
+      </div>
+    </div>
+	</div>
+</div>

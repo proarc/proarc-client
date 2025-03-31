@@ -44,6 +44,7 @@ export class Configuration {
   eDocumentIdentifiers: string[];
   musicDocumentIdentifiers: string[];
 
+  donators: string[];
 
   lang: string[];
   expandedModels: string[];

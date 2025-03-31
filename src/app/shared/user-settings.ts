@@ -90,7 +90,7 @@ export class UserSettingsService {
           visible: true,
           size: 30,
           rows: [
-            { id: 'panel6', visible: true, size: 40, type: 'media', isDirty: false, canEdit: true },
+            { id: 'panel6', visible: true, size: 40, type: 'image', isDirty: false, canEdit: true },
             { id: 'panel7', visible: true, size: 60, type: 'atm', isDirty: false, canEdit: true },
           ],
         },
