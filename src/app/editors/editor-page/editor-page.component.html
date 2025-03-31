@@ -37,12 +37,12 @@
 
             <mat-form-field class="app-field-col" *ngIf="config.showPageIndex" [class.mat-form-field-invalid]="!page.index">
               <span class="app-usage" [class.app-help-off]="true">M</span>
-              <input autocomplete="off" matInput #pageIndex (focus)="setFocus('pageIndex')" (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageIndex')" [placeholder]="'editor.page.index' | translate" [(ngModel)]="page.index" [formControl]="pageIndexControl">
+              <input autocomplete="off" matInput #pageIndex (focus)="setFocus('pageIndex')" (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageIndex')" [placeholder]="'editor.page.index' | translate" [formControl]="pageIndexControl">
             </mat-form-field>
             
             <mat-form-field class="app-field-col" [class.mat-form-field-invalid]="!page.number">
               <span class="app-usage app-suffix-exist" [class.app-help-off]="true">M</span>
-              <input (focus)="setFocus('pageNumber')" (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageNumber')" [formControl]="pageNumberControl" autocomplete="off" matInput [placeholder]="'editor.page.number' | translate" [(ngModel)]="page.number" #pageNumber>
+              <input (focus)="setFocus('pageNumber')" (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageNumber')" [formControl]="pageNumberControl" autocomplete="off" matInput [placeholder]="'editor.page.number' | translate" #pageNumber>
               <button matSuffix [class.app-disabled]="!page.number" [matTooltip]="isInBrackets() ? ('button.removeBrackets' | translate) : ('button.addBrackets' | translate)" (click)="switchBrackets()" mat-icon-button>
                 <span class="app-text-icon">[ ]</span>
                 <!-- <mat-icon>data_array</mat-icon> -->
@@ -51,21 +51,21 @@
 
             <mat-form-field class="app-field-col" *ngIf="page.isNdkPage() || page.isSttPage()">
               <span class="app-usage" [class.app-help-off]="true">O</span>
-              <mat-select [(ngModel)]='page.position' [placeholder]="'editor.page.position' | translate" [formControl]="posControl" #posSelect (keyup.enter)="enterSelect(posSelect, 'position')" (focusout)="removeFocus()">
+              <mat-select [placeholder]="'editor.page.position' | translate" [formControl]="posControl" #posSelect (keyup.enter)="enterSelect(posSelect, 'position')" (focusout)="removeFocus()">
                 <mat-option *ngFor="let position of positions" [value]="position">{{ 'editor.page.positions.' + position | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
 
             <mat-form-field class="app-field-col" *ngIf="page.isNdkPage() || page.isSttPage()" [class.mat-form-field-invalid]="!page.genre">
               <span class="app-usage" [class.app-help-off]="true">M</span>
-              <mat-select [(ngModel)]='page.genre' [placeholder]="'editor.page.genre' | translate" [formControl]="genreControl" (keyup.enter)="enterSelect(genreSelect, 'genre')" (focusout)="removeFocus()" #genreSelect>
+              <mat-select [placeholder]="'editor.page.genre' | translate" [formControl]="genreControl" (keyup.enter)="enterSelect(genreSelect, 'genre')" (focusout)="removeFocus()" #genreSelect>
                 <mat-option *ngFor="let genre of genres" [value]="genre">{{ 'editor.page.genres.' + genre | translate }}</mat-option>
               </mat-select>
             </mat-form-field>
 
             <mat-form-field class="app-field-col">
               <span class="app-usage" [class.app-help-off]="true">O</span>
-              <textarea [formControl]="noteControl" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="15" autocomplete="off" matInput [(ngModel)]='page.note' [placeholder]="'editor.page.note' | translate"></textarea>
+              <textarea [formControl]="noteControl" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="15" autocomplete="off" matInput [placeholder]="'editor.page.note' | translate"></textarea>
             </mat-form-field>
 
             <div class="app-form-wrapper" *ngIf="config.showPageIdentifiers">

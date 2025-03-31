@@ -22,6 +22,8 @@ export class Page {
 
   public model: string;
 
+  [key: string]: any;
+
   constructor() {
     this.identifiers = [];
     this.originalIdentifiers = [];

@@ -31,7 +31,7 @@ import { Configuration } from '../../shared/configuration';
 })
 export class EditorPageComponent implements OnInit {
 
-  
+
   pid = input<string>();
   panel = input<ILayoutPanel>();
   panelType = input<string>();
@@ -54,9 +54,9 @@ export class EditorPageComponent implements OnInit {
       return count + '';
     }
   }
-  
+
   state = 'none';
-  
+
 
   positions = ['left', 'right', 'singlePage'];
   genres = ['page', 'reprePage'];
@@ -74,12 +74,12 @@ export class EditorPageComponent implements OnInit {
   genreControl = new FormControl();
   noteControl = new FormControl();
   controls: FormGroup = new FormGroup({
-    pageTypeControl: this.pageTypeControl,
-    pageNumberControl: this.pageNumberControl,
-    pageIndexControl: this.pageIndexControl,
-    posControl: this.posControl,
-    genreControl: this.genreControl,
-    noteControl: this.noteControl
+    type: this.pageTypeControl,
+    number: this.pageNumberControl,
+    index: this.pageIndexControl,
+    position: this.posControl,
+    genre: this.genreControl,
+    note: this.noteControl
   });
 
   public page: Page;
@@ -93,17 +93,18 @@ export class EditorPageComponent implements OnInit {
     private dialog: MatDialog,
     public config: Configuration,
     public translator: TranslateService) {
-      effect(() => {
-        const pid = this.pid();
-        if (!pid) {
-          return;
-        }
-        this.onPidChanged(pid);
-        
-      });
+    effect(() => {
+      const pid = this.pid();
+      if (!pid) {
+        return;
+      }
+      this.onPidChanged(pid);
+
+    });
   }
 
   ngOnInit() {
+
   }
 
   removeFocus() {
@@ -116,7 +117,16 @@ export class EditorPageComponent implements OnInit {
 
   private setPage(page: Page) {
     this.page = page;
-    this.controls.get('pageTypeControl').setValue(page.type);
+    this.controls.get('type').setValue(page.type);
+    this.controls.patchValue({
+      type: this.page.type,
+      number: this.page.number,
+      index: this.page.index,
+      position: this.page.position,
+      genre: this.page.genre,
+      note: this.page.note
+
+    });
     this.controls.markAsPristine();
     this.layout.clearPanelEditing();
     this.state = 'success';
@@ -204,7 +214,7 @@ export class EditorPageComponent implements OnInit {
       this.page.number = number;
       this.onSave(null);
     }
-    
+
   }
 
   removeBrackets() {
@@ -252,6 +262,10 @@ export class EditorPageComponent implements OnInit {
   }
 
   saveIcon() {
+    // this.setPage(this.controls.value);
+    Object.keys(this.controls.controls).forEach((key: string) => {
+      this.page[key as keyof (Page)] = this.controls.get(key).value;
+    });
     if (this.layout.type === 'repo') {
       this.onSave(null);
     } else {
@@ -361,14 +375,15 @@ export class EditorPageComponent implements OnInit {
       return false;
     }
 
-    const hasChanges = this.page.hasChanged();
+    //const hasChanges = this.page.hasChanged();
+    const hasChanges = this.controls.dirty;
     if (hasChanges) {
       this.layout.setPanelEditing(this.panel());
     } else {
       if (this.panel().canEdit) {
         this.layout.clearPanelEditing();
       }
-      
+
     }
     return hasChanges;
   }
