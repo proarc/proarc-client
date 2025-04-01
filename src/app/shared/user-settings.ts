@@ -29,6 +29,7 @@ export class UserSettings {
     columnsWorkFlowTasks: TableColumn[];
     procMngColumns: TableColumn[];
     queueColumns: TableColumn[];
+    adminColumns: TableColumn[];
 
     topPageTypes: string[];
     topLanguages: string[];
@@ -200,6 +201,25 @@ public queueColumnsDefault: TableColumn[] = [
     { field: 'user', selected: true, width: 100, type: 'string' }
 ];
 
+public adminColumnsDefault = [
+  { field: 'name', selected: true, width: 100, type: 'string' },
+  { field: 'forename', selected: true, width: 100, type: 'string' },
+  { field: 'surname', selected: true, width: 100, type: 'string' },
+  { field: 'email', selected: true, width: 100, type: 'string' },
+  { field: 'organization', selected: true, width: 100, type: 'string' },
+  { field: 'role', selected: true, width: 100, type: 'string' },
+  { field: 'home', selected: true, width: 100, type: 'string' },
+  { field: 'changeModelFunction', selected: true, width: 100, type: 'boolean' },
+  { field: 'updateModelFunction', selected: true, width: 100, type: 'boolean' },
+  { field: 'lockObjectFunction', selected: true, width: 100, type: 'boolean' },
+  { field: 'unlockObjectFunction', selected: true, width: 100, type: 'boolean' },
+  { field: 'importToProdFunction', selected: true, width: 100, type: 'boolean' },
+  { field: 'czidloFunction', selected: true, width: 100, type: 'boolean' },
+  { field: 'importToCatalogFunction', selected: true, width: 100, type: 'boolean'},
+  { field: 'wfDeleteJobFunction', selected: true, width: 100, type: 'boolean'},
+  { field: 'action', selected: true, width: 100, type: 'boolean' }
+];
+
     constructor(
         private api: ApiService,
         private ui: UIService,
@@ -249,6 +269,7 @@ public queueColumnsDefault: TableColumn[] = [
         this.settings.columnsWorkFlowTasks = Utils.clone(this.columnsWorkFlowTasksDefault);
         this.settings.procMngColumns = Utils.clone(this.procMngColumnsDefault);
         this.settings.queueColumns = Utils.clone(this.queueColumnsDefault);
+        this.settings.adminColumns = Utils.clone(this.adminColumnsDefault);
 
         this.settings.topPageTypes = Utils.clone(this.config.topPageTypes);
         this.settings.topLanguages = Utils.clone(this.config.topLanguages);

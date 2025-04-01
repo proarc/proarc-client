@@ -1,9 +1,9 @@
 @use "angular-material-css-vars" as mat-css-vars;
+@use 'scss/app-variables';
+@use 'scss/app-layout';
 @include mat-css-vars.init-material-css-vars();
 
 @import 'highlight.js/styles/atom-one-light.css';
-@import 'scss/app-variables';
-@import 'scss/app-layout';
 
 /* :root {
   --app-selected-row-color: var(--palette-primary-50);
