@@ -3,11 +3,11 @@
   proarcUrl: "/api",
 
   // Css theme properties
-  primaryColor: "#009900",
+  primaryColor: "#456aa5",
   darkTheme: false,
   accentColor: "#aa0000",
   cssVars: [
-	{name: '--selected-row-color', value: '#ee7700'}
+	//{name: '--app-selected-row-color', value: '#ee7700'}
   ],
 
   exports:[
