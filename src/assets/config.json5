@@ -3,7 +3,7 @@
   proarcUrl: "/api",
 
   // Css theme properties
-  primaryColor: "#000099",
+  primaryColor: "#009900",
   darkTheme: false,
   accentColor: "#aa0000",
   cssVars: [
