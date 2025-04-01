@@ -125,7 +125,6 @@ export class EditorPageComponent implements OnInit {
       position: this.page.position,
       genre: this.page.genre,
       note: this.page.note
-
     });
     this.controls.markAsPristine();
     this.layout.clearPanelEditing();

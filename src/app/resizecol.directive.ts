@@ -62,7 +62,7 @@ export class ResizecolDirective {
       if (!this.column.nextSibling || this.column.nextSibling.nodeType === Node.COMMENT_NODE ) {
         this.table.parentElement.parentElement.scrollLeft = this.table.scrollWidth;
       }
-      this.columnResized.emit(width);
+      // this.columnResized.emit(width);
     }
   };
 

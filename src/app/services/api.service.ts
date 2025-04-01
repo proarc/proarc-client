@@ -19,6 +19,7 @@ import { Page } from '../model/page.model';
 import { User } from '../model/user.model';
 import { WorkFlow } from '../model/workflow.model';
 import { Metadata } from '../model/metadata.model';
+import { PageUpdateHolder } from '../editors/editor-pages/editor-pages.component';
 
 @Injectable()
 export class ApiService {
@@ -1252,6 +1253,17 @@ export class ApiService {
     return this.get('info/file?type=config');
   }
 
+  getUserSettings(): Observable<any> {
+    return this.get('user/userSetting');
+  }
+
+  saveUserSettings(userSetting: any) {
+    //let data = `userSetting=${JSON.stringify(userSetting)}`;
+    let data = `userSetting=${JSON.stringify(userSetting)}`;
+    return this.post('user/userSetting', data);
+
+  }
+
   validateObject(pid: string): Observable<any> {
     let data = `pid=${pid}`;
     return this.post('object/validate', data);
@@ -1266,6 +1278,49 @@ export class ApiService {
   addReference(pid: string, structured: boolean, reference: string) {
     let data = `pid=${pid}&structured=${structured}&reference=${reference}`;
     return this.post('object/mods/addRefenrence', data);
+  }
+
+  editPages(pages: string[], holder: PageUpdateHolder, batchId: any = null) {
+    let data = `pids=${pages}`;
+    if (batchId) {
+      data = `${data}&batchId=${batchId}`;
+    }
+    if (holder.pageType !== '') {
+      data += `&pageType=${holder.pageType}`;
+    }
+    if (holder.pageIndex !== null) {
+      data += `&startIndex=${holder.pageIndex}`;
+    }
+    if (holder.useBrackets) {
+      data += `&useBrackets=${holder.useBrackets}`;
+    }
+    if (holder.repreSelect != null) {
+      data += `&isReprePage=${holder.repreSelect}`;
+    }
+    if (holder.doubleColumns) {
+      data += `&doubleColumns=${holder.doubleColumns}`;
+    }
+    if (holder.numberFromValid()) {
+      data += `&sequence=${holder.pageNumberNumbering.id}&prefix=${holder.pageNumberPrefix}&suffix=${holder.pageNumberSuffix}&startNumber=${holder.getPageIndexFrom()}&incrementNumber=${holder.pageNumberIncrement}`;
+    }
+    if (holder.applyTo > 1) {
+      data += `&applyToFirstPage=${holder.applyToFirst}`;
+    }
+    if (holder.pagePosition !== '') {
+      data += `&pagePosition=${holder.pagePosition}`;
+    }
+    data += `&applyTo=${holder.applyTo}`;
+    return this.put('object/mods/editorPages', data);
+  }
+
+  editBrackets(pages: string[], holder: PageUpdateHolder, useBrackets: boolean, batchId: any = null) {
+    const action = useBrackets ? 'addBrackets' : 'removeBrackets';
+    let data = `pids=${pages}`;
+    if (batchId) {
+      data = `${data}&batchId=${batchId}`;
+    }
+    data += `&applyTo=${holder.applyTo}`;
+    return this.post('object/mods/' + action, data);
   }
 }
 

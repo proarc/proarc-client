@@ -63,12 +63,17 @@ export class AuthService {
         const valueMapReq = this.api.getValuemap();
         const configReq = this.api.getConfig();
         const checkLoggedReq = this.checkLogged();
-        return forkJoin([valueMapReq, configReq, checkLoggedReq]).pipe(
-            tap(([valueMapResp, configResp, checkLoggedResp]: [any, any, any]) => {
+        const userSettings = this.api.getUserSettings();
+        return forkJoin([valueMapReq, configReq, checkLoggedReq, userSettings]).pipe(
+            tap(([valueMapResp, configResp, checkLoggedResp, userSettingsResp]: [any, any, any, any]) => {
                 if (configResp.response?.data && !configResp.response.data[0].error) {
                     this.config.mergeConfig(configResp.response.data[0].configFile);
                 }
                 this.settings.reset();
+                if (userSettingsResp.response?.data?.length > 0) {
+                    this.settings.load(JSON.parse(userSettingsResp.response.data[0].userSetting));
+                }
+                
                 this.config.valueMap = valueMapResp.response.data;
                 if (checkLoggedResp?.state === 'logged') {
                     this.remaining = checkLoggedResp.remaining;

@@ -29,16 +29,11 @@
       <div class="app-form-wrapper app-top-level">
 
         <div class="app-form">
-          <!-- <div class="app-form-header app-pl-2" fxLayout="row" fxLayoutAlign="start center">
-            <div class="app-text-cutter">
-              <mat-checkbox color="primary" [checked]="holder.pageType !== ''" class="app-form-title app-noclick">{{ 'editor.pages.edit_page_type' | translate }}</mat-checkbox>
-            </div>
-          </div> -->
           <div class="app-form-content">
             <mat-form-field class="app-field-col">
               <mat-select [placeholder]="'editor.pages.page_type' | translate" name="type" [(value)]="holder.pageType" (keyup.enter)="enterSelect(typeSelect)" #typeSelect [formControl]="pageTypeControl">
                 <mat-option [value]="''"> </mat-option>
-                <mat-option *ngFor="let pageType of codebook.pageTypes" [value]="pageType.code">{{ pageType.name }}</mat-option>
+                <mat-option *ngFor="let pageType of config.pageTypes" [value]="pageType">{{ pageType }}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -46,45 +41,30 @@
         <div class="app-gap-fixer"></div>
   
         <div class="app-form">
-          <!-- <div class="app-form-header app-pl-2" fxLayout="row" fxLayoutAlign="start center">
-            <div class="app-text-cutter">
-              <mat-checkbox color="primary" [checked]="holder.pageIndex !== null" class="app-form-title app-noclick">{{ 'editor.pages.edit_page_index' | translate }}</mat-checkbox>
-            </div>
-          </div> -->
           <div class="app-form-content">
             <mat-form-field class="app-field-col" >
-              <input (keyup.enter)="onSave()" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.pages.index_from' | translate" [(ngModel)]="holder.pageIndex" [formControl]="pageIndexControl">
+              <input (keyup.enter)="onSave()" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.pages.index_from' | translate" [formControl]="pageIndexControl">
             </mat-form-field>
           </div>
         </div>
         <div class="app-gap-fixer"></div>
 
         <div class="app-form">
-          <!-- <div class="app-form-header app-pl-2" fxLayout="row" fxLayoutAlign="start center">
-            <div fxFlex class="app-text-cutter">
-              <mat-checkbox color="primary" [checked]="holder.numberFromValid()" class="app-form-title app-noclick">{{ 'editor.pages.edit_page_number' | translate }}</mat-checkbox>
-            </div>
-            <div>
-              <button [class.app-active]="holder.useBrackets" [matTooltip]="holder.useBrackets ? ('button.removeBrackets' | translate) : ('button.addBrackets' | translate)" (click)="holder.useBrackets = !holder.useBrackets" mat-icon-button>
-                <span class="app-text-icon">[ ]</span>
-              </button>
-            </div>
-          </div> -->
           <div class="app-form-content">          
             <mat-form-field  class="app-field-col" >
-              <input (keyup.enter)="onSave()" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_prefix' | translate" [(ngModel)]="holder.pageNumberPrefix" [formControl]="pageNumberPrefixControl">
+              <input (keyup.enter)="onSave()" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_prefix' | translate" [formControl]="pageNumberPrefixControl">
             </mat-form-field>
             <mat-form-field  class="app-field-col" >
-              <input (keyup.enter)="onSave()" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_from' | translate" [(ngModel)]="holder.pageNumberFrom" [formControl]="pageNumberControl" [class.app-input-invalid]="!holder.numberFromValid()">
+              <input (keyup.enter)="onSave()" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_from' | translate" [formControl]="pageNumberControl" [class.app-input-invalid]="!holder.numberFromValid()">
               <button matSuffix [class.app-active]="holder.useBrackets" [matTooltip]="holder.useBrackets ? ('button.removeBrackets' | translate) : ('button.addBrackets' | translate)" (click)="holder.useBrackets = !holder.useBrackets" mat-icon-button>
                 <span class="app-text-icon">[ ]</span>
               </button>
             </mat-form-field>
             <mat-form-field class="app-field-col">
-              <input (keyup.enter)="onSave()" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_suffix' | translate" [(ngModel)]="holder.pageNumberSuffix"  [formControl]="pageNumberSuffixControl">
+              <input (keyup.enter)="onSave()" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_suffix' | translate"  [formControl]="pageNumberSuffixControl">
             </mat-form-field>
             <mat-form-field  class="app-field-col" >
-              <input (keyup.enter)="onSave()" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.pages.number_increment' | translate" [formControl]="pageNumberIncrementControl" [(ngModel)]="holder.pageNumberIncrement">
+              <input (keyup.enter)="onSave()" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.pages.number_increment' | translate" [formControl]="pageNumberIncrementControl" >
             </mat-form-field>
             <mat-form-field class="app-field-col">
               <mat-select #numSelect [placeholder]="'editor.pages.number_numbering' | translate" name="type" [(value)]="holder.pageNumberNumbering" (keyup.enter)="enterSelect(numSelect)" [formControl]="numberingTypesControl">
@@ -103,11 +83,6 @@
         <div class="app-gap-fixer"></div>
   
         <div class="app-form">
-          <!-- <div class="app-form-header app-pl-2" fxLayout="row" fxLayoutAlign="start center">
-            <div fxFlex class="app-text-cutter">
-              <mat-checkbox color="primary" disabled [checked]="holder.pagePosition !== ''" class="app-form-title">{{ 'editor.pages.edit_page_position' | translate }}</mat-checkbox>
-            </div>
-          </div> -->
           <div class="app-form-content">
             <mat-form-field class="app-field-col">
               <mat-select #posSelect [placeholder]="'editor.pages.page_position' | translate" name="type" 

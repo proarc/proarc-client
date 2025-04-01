@@ -1,24 +1,35 @@
-import { CodebookService } from './../../../services/codebook.service';
-import { Component, Input, OnInit } from '@angular/core';
-import { ConfigService } from 'src/app/services/config.service';
-import { MatSelect } from '@angular/material/select';
-import { FormControl, FormGroup } from '@angular/forms';
-import { LayoutService } from 'src/app/services/layout.service';
+import { Component, input, Input, OnInit } from '@angular/core';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ApiService } from 'src/app/services/api.service';
-import { UIService } from 'src/app/services/ui.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.component';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { FlexLayoutModule } from 'ngx-flexible-layout';
+import { ILayoutPanel } from '../../dialogs/layout-admin/layout-admin.component';
+import { ApiService } from '../../services/api.service';
+import { LayoutService } from '../../services/layout-service';
+import { UIService } from '../../services/ui.service';
+import { Configuration } from '../../shared/configuration';
 
 @Component({
+  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, FlexLayoutModule,
+    MatIconModule, MatProgressBarModule, MatTooltipModule,
+    MatFormFieldModule, MatSelectModule, MatInputModule
+  ],
   selector: 'app-editor-pages',
   templateUrl: './editor-pages.component.html',
   styleUrls: ['./editor-pages.component.scss']
 })
 export class EditorPagesComponent implements OnInit {
 
-  @Input() panel: ILayoutPanel; 
+  panel = input<ILayoutPanel>();
+
   holder: PageUpdateHolder;
   pageTypeControl: FormControl<{ code: string, name: string } | null> = new FormControl<{ code: string, name: string } | null>(null);
   numberingTypesControl: FormControl<{ id: string, label: string } | null> = new FormControl<{ id: string, label: string } | null>(null);
@@ -31,11 +42,11 @@ export class EditorPagesComponent implements OnInit {
   applyControl = new FormControl();
   controls: FormGroup = new FormGroup({
     pageTypeControl: this.pageTypeControl,
-    pageNumberControl: this.pageNumberControl,
-    pageNumberPrefixControl: this.pageNumberPrefixControl,
-    pageNumberSuffixControl: this.pageNumberSuffixControl,
-    pageNumberIncrementControl: this.pageNumberIncrementControl,
-    pageIndexControl: this.pageIndexControl,
+    pageNumberFrom: this.pageNumberControl,
+    pageNumberPrefix: this.pageNumberPrefixControl,
+    pageNumberSuffix: this.pageNumberSuffixControl,
+    pageNumberIncrement: this.pageNumberIncrementControl,
+    pageIndex: this.pageIndexControl,
     numberingTypesControl: this.numberingTypesControl,
     posControl: this.posControl,
     applyControl: this.applyControl
@@ -51,15 +62,19 @@ export class EditorPagesComponent implements OnInit {
     private ui: UIService,
     private dialog: MatDialog,
     public translator: TranslateService,
-    public config: ConfigService,
-    public layout: LayoutService,
-    public codebook: CodebookService) {
+    public config: Configuration,
+    public layout: LayoutService) {
   }
 
   ngOnInit() {
     this.holder = new PageUpdateHolder();
-    this.controls.valueChanges.subscribe((e: any) => {
-      this.layout.isDirty = this.controls.dirty;
+    
+    this.controls.patchValue({
+      pageNumberFrom: this.holder.pageNumberFrom,
+      pageNumberPrefix: this.holder.pageNumberPrefix,
+      pageNumberSuffix: this.holder.pageNumberSuffix,
+      pageNumberIncrement: this.holder.pageNumberIncrement,
+      pageIndex: this.holder.pageIndex
     });
 
     this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
@@ -88,11 +103,11 @@ export class EditorPagesComponent implements OnInit {
 
   canSave(): boolean {
 
-    const hasChanges = this.holder.editAny();
+    const hasChanges = this.holder.editAny() || this.controls.dirty;
     if (hasChanges) {
-      this.layout.setPanelEditing(this.panel);
+      this.layout.setPanelEditing(this.panel());
     } else {
-      if (this.panel.canEdit) {
+      if (this.panel().canEdit) {
         this.layout.clearPanelEditing();
       }
     }
@@ -104,11 +119,18 @@ export class EditorPagesComponent implements OnInit {
     if (!this.canSave()) {
       return;
     }
+
+    this.holder.pageNumberFrom = this.controls.get('pageNumberFrom').value;
+    this.holder.pageNumberPrefix = this.controls.get('pageNumberPrefix').value;
+    this.holder.pageNumberSuffix = this.controls.get('pageNumberSuffix').value;
+    this.holder.pageNumberIncrement = this.controls.get('pageNumberIncrement').value;
+    this.holder.pageIndex = this.controls.get('pageIndex').value;
+
     this.updateSelectedPages(this.holder, null);
     // this.holder.reset();
-    this.holder = new PageUpdateHolder();
+    // this.holder = new PageUpdateHolder();
     this.controls.markAsPristine();
-    this.layout.isDirty = false;
+    this.layout.clearPanelEditing();
   }
 
   addBrackets() {
@@ -129,24 +151,22 @@ export class EditorPagesComponent implements OnInit {
   updateSelectedPages(holder: PageUpdateHolder, callback: () => void) {
     this.state = 'saving';
     const pages = [];
-    for (const item of this.layout.items) {
+    for (const item of this.layout.items()) {
       if (item.isPage() && item.selected) {
         pages.push(item.pid);
       }
     }
-    this.api.editPages(pages, holder, this.layout.getBatchId()).subscribe((result: any) => {
+    this.api.editPages(pages, holder, this.layout.batchId).subscribe((result: any) => {
       if (result.response.errors) {
         this.ui.showErrorDialogFromObject(result.response.errors);
         this.state = 'error';
       } else {
         
         if (this.layout.type !== 'repo') {
-          // this.ui.showInfoDialog("Uloženo");
           this.ui.showInfoSnackBar(this.translator.instant('snackbar.changeSaved'), 4000);
         }
         this.layout.refreshSelectedItem(true, 'pages');
         this.state = 'success';
-        //this.layout.setShouldRefresh(true);
       }
     })
   }
@@ -154,12 +174,12 @@ export class EditorPagesComponent implements OnInit {
   changeBrackets(holder: PageUpdateHolder, useBrackets: boolean, callback: () => void) {
     this.state = 'saving';
     const pages = [];
-    for (const item of this.layout.items) {
+    for (const item of this.layout.items()) {
       if (item.isPage() && item.selected) {
         pages.push(item.pid);
       }
     }
-    this.api.editBrackets(pages, holder, useBrackets, this.layout.getBatchId()).subscribe((result: any) => {
+    this.api.editBrackets(pages, holder, useBrackets, this.layout.batchId).subscribe((result: any) => {
       if (result.response.errors) {
         this.ui.showErrorDialogFromObject(result.response.errors);
         this.state = 'error';

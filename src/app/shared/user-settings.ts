@@ -289,12 +289,10 @@ public queueColumnsDefault: TableColumn[] = [
     }
 
     save(showInfo?: boolean) {
-        // const keys = ['searchModel', 'columnsSearch', 'columnsSearchTree', 'colsEditingRepo', 'colsEditModeParent',
-        //     'columnsWorkFlow', 'columnsWorkFlowTasks', 'procMngColumns', 'queueColumns'];
-        // const toSave: any = {};
-        // keys.forEach(k => {
-        //     toSave[k] = this.settings[k];
-        // });
+        this.api.saveUserSettings(this.settings).subscribe(resp => {
+          console.log(resp)
+        });
+        // console.log(JSON.stringify(this.settings));
         if (showInfo) {
           console.log(this.settings);
           this.ui.showInfo('snackbar.changeSaved');
