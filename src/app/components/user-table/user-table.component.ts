@@ -18,7 +18,6 @@ import { ResizecolDirective } from '../../resizecol.directive';
 import { UIService } from '../../services/ui.service';
 import { Configuration, TableColumn } from '../../shared/configuration';
 import { UserSettings, UserSettingsService } from '../../shared/user-settings';
-import { Clipboard } from '@angular/cdk/clipboard';
 import { DocumentItem } from '../../model/documentItem.model';
 import { Utils } from '../../utils/utils';
 import { LayoutService } from '../../services/layout-service';

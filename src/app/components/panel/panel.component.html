@@ -27,13 +27,13 @@
         </ng-container> -->
       </ng-container>
       <ng-container *ngSwitchCase="'metadata'">
-      <!--   <app-editor-pages *ngIf="showPagesEditor" [panel]="panel"></app-editor-pages>
-        <app-editor-audioPages *ngIf="showAudioPagesEditor" [panel]="panel"></app-editor-audioPages> -->
+      <app-editor-pages *ngIf="showPagesEditor" [panel]="panel()"></app-editor-pages>
+          <app-editor-audioPages *ngIf="showAudioPagesEditor" [panel]="panel()"></app-editor-audioPages>
         <ng-container *ngIf="lastSelectedItem() && !showPagesEditor && !showAudioPagesEditor">
           <app-editor-page *ngIf="itemModel === 'page'"  [panel]="panel()" [model]="lastSelectedItem().model" [pid]="lastSelectedItem().pid" 
           [panelType]="panelType" (onChangePanelType)="changePanelType($event)"> </app-editor-page>
-          <!-- <app-editor-audioPage *ngIf="itemModel === 'song'" [panel]="panel" [model]="lastSelectedItem().model" [pid]="lastSelectedItem().pid"> </app-editor-audioPage>
-          <app-editor-metadata *ngIf="itemModel !== 'page' && itemModel !== 'song'" [panel]="panel"
+          <app-editor-audioPage *ngIf="itemModel === 'song'" [panel]="panel()" [model]="lastSelectedItem().model" [pid]="lastSelectedItem().pid"> </app-editor-audioPage>
+          <!-- <app-editor-metadata *ngIf="itemModel !== 'page' && itemModel !== 'song'" [panel]="panel"
             [model]="lastSelectedItem().model" [panelType]="panelType"
             [data]="lastSelectedItem()Metadata" (onchangePanelType)="changePanelType($event)">
           </app-editor-metadata> -->

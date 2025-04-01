@@ -31,15 +31,12 @@ import { Configuration } from '../../shared/configuration';
 })
 export class EditorPageComponent implements OnInit {
 
-
   pid = input<string>();
+  model = input<string>();
   panel = input<ILayoutPanel>();
   panelType = input<string>();
   onChangePanelType = output<string>();
   onIngest = output<boolean>();
-
-  @Input() notSaved = false;
-  @Input() model: string;
 
   switchableTypes = ['mods', 'metadata', 'atm', 'ocr']
   switchable: boolean = true;
@@ -172,7 +169,7 @@ export class EditorPageComponent implements OnInit {
       this.state = 'success';
       return;
     }
-    this.api.getPage(pid, this.model, this.layout.batchId).subscribe((page: Page) => {
+    this.api.getPage(pid, this.model(), this.layout.batchId).subscribe((page: Page) => {
       this.setPage(page);
       this.state = 'success';
     });

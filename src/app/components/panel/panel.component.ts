@@ -17,12 +17,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { EditorCommentComponent } from "../../editors/editor-comment/editor-comment.component";
 import { EditorAtmComponent } from "../../editors/editor-atm/editor-atm.component";
 import { EditorPageComponent } from "../../editors/editor-page/editor-page.component";
+import { EditorPagesComponent } from "../../editors/editor-pages/editor-pages.component";
+import { EditorAudioPagesComponent } from "../../editors/editor-audioPages/editor-audioPages.component";
+import { EditorAudioPageComponent } from "../../editors/editor-audioPage/editor-audioPage.component";
 
 @Component({
   selector: 'app-panel',
     imports: [CommonModule, TranslateModule, FlexLayoutModule,
     EditorModsComponent, EditorStructureComponent, EditorOcrComponent, MediaComponent, ViewerComponent,
-    MatCardModule, MatIconModule, EditorCommentComponent, EditorAtmComponent, EditorPageComponent],
+    MatCardModule, MatIconModule, EditorCommentComponent, EditorAtmComponent, EditorPageComponent, EditorPagesComponent, EditorAudioPagesComponent, EditorAudioPageComponent],
   templateUrl: './panel.component.html',
   styleUrl: './panel.component.scss'
 })

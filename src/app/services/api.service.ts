@@ -20,6 +20,7 @@ import { User } from '../model/user.model';
 import { WorkFlow } from '../model/workflow.model';
 import { Metadata } from '../model/metadata.model';
 import { PageUpdateHolder } from '../editors/editor-pages/editor-pages.component';
+import { AudioPagesUpdateHolder } from '../editors/editor-audioPages/editor-audioPages.component';
 
 @Injectable()
 export class ApiService {
@@ -1308,6 +1309,21 @@ export class ApiService {
     }
     if (holder.pagePosition !== '') {
       data += `&pagePosition=${holder.pagePosition}`;
+    }
+    data += `&applyTo=${holder.applyTo}`;
+    return this.put('object/mods/editorPages', data);
+  }
+
+  editAudioPages(pages: string[], holder: AudioPagesUpdateHolder, batchId: any = null) {
+    let data = `pids=${pages}`;
+    if (batchId) {
+      data = `${data}&batchId=${batchId}`;
+    }
+    if (holder.editIndex) {
+      data += `&startIndex=${holder.pageIndex}`;
+    }
+    if (holder.applyTo > 1) {
+      data += `&applyToFirstPage=${holder.applyToFirst}`;
     }
     data += `&applyTo=${holder.applyTo}`;
     return this.put('object/mods/editorPages', data);
