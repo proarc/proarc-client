@@ -55,8 +55,8 @@ export class PanelComponent {
         const lastSelectedItem = this.lastSelectedItem();
         this.itemModel = this.itemType(lastSelectedItem);
         this.imageInfo = {pid: lastSelectedItem.pid, dsid: 'FULL'};
-        this.showPagesEditor = this.isPagesEditor(lastSelectedItem);
-        this.showAudioPagesEditor = false;
+        this.showPagesEditor = this.isPagesEditor(this.numOfSelected(), lastSelectedItem);
+        this.showAudioPagesEditor = this.isAudioPagesEditor(this.numOfSelected(), lastSelectedItem);
       })
     }
 
@@ -66,8 +66,25 @@ export class PanelComponent {
     
   }
 
-  public isPagesEditor(lastSelectedItem: DocumentItem): boolean {
-    return this.numOfSelected() > 1 && lastSelectedItem.isPage();
+  public isPagesEditor(numOfSelected: number, lastSelectedItem: DocumentItem): boolean {
+    return numOfSelected > 1 && lastSelectedItem.isPage();
+  }
+
+  public isAudioPagesEditor(numOfSelected: number, lastSelectedItem: DocumentItem): boolean {
+    return numOfSelected > 1 && lastSelectedItem.isAudioPage();
+    // if (this.getNumOfSelected() < 2) {
+    //   return false;
+    // }
+    // let count = 0;
+    // for (const child of this.items) {
+    //   if (child.selected) {
+    //     count += 1;
+    //     if (!child.isAudioPage()) {
+    //       return false;
+    //     }
+    //   }
+    // }
+    // return count > 0;
   }
 
   changePanelType(newType: string) {

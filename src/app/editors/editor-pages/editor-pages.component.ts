@@ -16,10 +16,11 @@ import { ApiService } from '../../services/api.service';
 import { LayoutService } from '../../services/layout-service';
 import { UIService } from '../../services/ui.service';
 import { Configuration } from '../../shared/configuration';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, FlexLayoutModule,
-    MatIconModule, MatProgressBarModule, MatTooltipModule,
+    MatIconModule, MatProgressBarModule, MatTooltipModule, MatCheckboxModule,
     MatFormFieldModule, MatSelectModule, MatInputModule
   ],
   selector: 'app-editor-pages',

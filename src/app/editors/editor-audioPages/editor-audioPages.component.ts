@@ -15,10 +15,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { FlexLayoutModule } from 'ngx-flexible-layout';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, FlexLayoutModule,
-    MatIconModule, MatProgressBarModule, MatTooltipModule,
+    MatIconModule, MatProgressBarModule, MatTooltipModule, MatCheckboxModule,
     MatFormFieldModule, MatSelectModule, MatInputModule
   ],
   selector: 'app-editor-audioPages',
@@ -32,7 +33,7 @@ export class EditorAudioPagesComponent implements OnInit {
   pageIndexControl = new FormControl();
   applyControl = new FormControl();
   controls: FormGroup = new FormGroup({
-    pageIndexControl: this.pageIndexControl,
+    pageIndex: this.pageIndexControl,
     applyControl: this.applyControl
   });
 

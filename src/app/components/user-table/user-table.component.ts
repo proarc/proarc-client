@@ -103,6 +103,7 @@ export class UserTableComponent {
         this.selectedColumns = this.settings.colsEditingRepo[this.layout.selectedParentItem.model].filter(c => c.selected && !this.displayedColumns.includes(c.field));
 
       } else {
+        this.selectedColumns = [];
         models.forEach(model => {
           const f = this.settings.colsEditingRepo[model].filter(c => c.selected && !this.displayedColumns.includes(c.field));
           this.selectedColumns.push(...f);

@@ -24,7 +24,8 @@
           </div>
           <div class="app-form-content">
             <mat-form-field class="app-field-col" [class.mat-form-field-disabled]="!holder.editIndex">
-              <input (keyup.enter)="onSave()" [disabled]="!holder.editIndex" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.audioPages.index_from' | translate" [(ngModel)]="holder.pageIndex" [formControl]="pageIndexControl">
+              <input (keyup.enter)="onSave()" [disabled]="!holder.editIndex" 
+                    type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.audioPages.index_from' | translate" [formControl]="pageIndexControl">
             </mat-form-field>
           </div>
         </div>
