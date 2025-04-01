@@ -54,7 +54,6 @@ export class NewUserComponent implements OnInit {
   newUser() {
     const newUser: User = User.fromJson({name: null, role: 'user', userId: -1});
     this.user = newUser;
-    console.log(this.user )
   }
 
   setControleFieldTimeout(selectedFiled: any) {

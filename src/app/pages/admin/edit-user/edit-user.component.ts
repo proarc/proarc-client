@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,7 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   imports: [CommonModule, TranslateModule, RouterModule, FormsModule, FlexLayoutModule,
-    MatIconModule, MatButtonModule, MatProgressBarModule, MatCardModule,
+    MatIconModule, MatButtonModule, MatProgressBarModule, MatCardModule, 
     MatInputModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule,
     MatSelectModule
   ],

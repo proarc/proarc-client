@@ -11,6 +11,8 @@ import { ImportComponent } from './pages/import/import.component';
 import { BatchesComponent } from './pages/batches/batches.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { AdminGuard } from './shared/admin.guard';
+import { EditUserComponent } from './pages/admin/edit-user/edit-user.component';
+import { NewUserComponent } from './pages/admin/new-user/new-user.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent }, ,
@@ -31,8 +33,8 @@ export const routes: Routes = [
             { path: 'import', component: ImportComponent },
             { path: 'import/edit/:batch_id', component: BatchesComponent, canDeactivate: [ConfirmLeaveEditorGuard] },
             { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
-            // { path: 'admin/:id/edit-user', component: EditUserComponent },
-            // { path: 'admin/new-user', component: NewUserComponent },
+            { path: 'admin/:id/edit-user', component: EditUserComponent },
+            { path: 'admin/new-user', component: NewUserComponent },
             // { path: 'workflow', loadChildren: () => import('../pages/workflow/workflow.module').then(m => m.WorkFlowModule) },
             { path: 'totest', component: TotestComponent },
             { path: '', redirectTo: '/search', pathMatch: 'full' }

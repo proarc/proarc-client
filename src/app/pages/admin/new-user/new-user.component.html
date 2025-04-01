@@ -16,7 +16,7 @@
           <div fxLayout="row" fxLayoutGap="16px">
             <mat-form-field fxFlex>
               <input (keyup.enter)="saveUser()" type="text" autocomplete="off" matInput [placeholder]="'desc.username' | translate"
-               [matTooltip]="'formField.users.tooltipUsername' | translate" [(ngModel)]="user.name" pattern="[a-z][a-z0-9_-]{4,}"  required #name />
+               [matTooltip]="'formField.users.tooltipUsername' | translate" [(ngModel)]="user.name" pattern="[a-z][a-z0-9_\-]{4,}"  required #name />
               <mat-error *ngIf="!user.name">{{ 'formField.users.error.username' | translate }}</mat-error>
             </mat-form-field>
             <mat-form-field fxFlex>

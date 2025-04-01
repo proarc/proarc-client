@@ -9,13 +9,15 @@
     </div>
   </div>
   <div fxFlex class="app-content-wrapper app-oa-y">
-    <mat-card>
+    <mat-card *ngIf="selectedUser">
       <mat-card-content>
         <fieldset class="app-p-4 app-mb-4">
           <legend>{{ 'desc.accountInformation' | translate }}</legend>
           <div fxLayout="row" fxLayoutGap="16px">
             <mat-form-field fxFlex>
-              <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.username' | translate" title="" [matTooltip]="'formField.users.tooltipUsername' | translate" [(ngModel)]="selectedUser.name" pattern="[a-z][a-z0-9_-]{4,}"  required #name>
+              <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.username' | translate" title="" 
+              [matTooltip]="'formField.users.tooltipUsername' | translate" [(ngModel)]="selectedUser.name" type="text"
+              pattern="[a-z][a-z0-9_\-]{4,}"  required #name />
               <mat-error *ngIf="!selectedUser.name">{{ 'formField.users.error.username' | translate }}</mat-error>
             </mat-form-field>
             <mat-form-field fxFlex>
