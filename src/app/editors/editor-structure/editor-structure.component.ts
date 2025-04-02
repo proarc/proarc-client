@@ -134,7 +134,10 @@ export class EditorStructureComponent implements OnInit {
     private clipboard: Clipboard
   ) {
     effect(() => {
-      this.scrollToLastClicked(this.layout.lastSelectedItem());
+      const lastSelectedItem = this.layout.lastSelectedItem();
+      const selection = this.layout.items().filter(i => i.selected).map(i => i.pid);
+      // this.refreshChildren(selection);
+      this.scrollToLastClicked();
     });
   }
 
@@ -156,20 +159,21 @@ export class EditorStructureComponent implements OnInit {
       this.startShiftClickIdx = 0;
     }
     // this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
+    //   console.log(this.layout.items())
     //   const selection = this.layout.items().filter(i => i.selected).map(i => i.pid);
     //   this.refreshChildren(selection);
     // }));
 
-    // this.subscriptions.push(this.layout.selectionChanged().subscribe((from: boolean) => {
-    //   this.setSelectedColumns();
-    //   if (this.panel.id !== this.layout.lastPanelClicked) {
+    this.subscriptions.push(this.layout.selectionChanged().subscribe((from: boolean) => {
+      this.setSelectedColumns();
+      if (this.panel.id !== this.layout.lastPanelClicked) {
 
-    //     setTimeout(() => {
-    //       this.scrollToLastClicked();
-    //     }, 100);
+        setTimeout(() => {
+          this.scrollToLastClicked();
+        }, 100);
 
-    //   }
-    // }));
+      }
+    }));
 
   }
 
@@ -271,7 +275,7 @@ export class EditorStructureComponent implements OnInit {
     }
   }
 
-  scrollToLastClicked(a: any) {
+  scrollToLastClicked() {
     const index = this.layout.lastItemIdxClicked;
     if (index < 0) {
       return;

@@ -26,6 +26,7 @@ import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { Batch } from '../../model/batch.model';
 import { ModelTemplate } from '../../model/modelTemplate';
 import { ColumnsSettingsDialogComponent } from '../../dialogs/columns-settings-dialog/columns-settings-dialog.component';
+import { LayoutService } from '../../services/layout-service';
 
 @Component({
   selector: 'app-user-tree-table',
@@ -41,6 +42,7 @@ export class UserTreeTableComponent {
 
   rootTreeItem = input<TreeDocumentItem>();
   treePath = input<string[]>();
+  inSearch = input<boolean>(false);
   treeInfo = output<{ tree_info: { [model: string]: number }, batchInfo: any }>();
   onSelectTreeItem = output<TreeDocumentItem>();
   onTreeItemsChanged = output<TreeDocumentItem[]>();
@@ -79,7 +81,9 @@ export class UserTreeTableComponent {
     private router: Router,
     private route: ActivatedRoute,
     public config: Configuration,
-    public ui: UIService) {
+    public ui: UIService,
+    private layout: LayoutService
+  ) {
 
     effect(() => {
       const path = this.treePath();
@@ -92,7 +96,6 @@ export class UserTreeTableComponent {
       this.treeItems = [root];
       const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.models, root.model).join(',');
       const canHavePages = allowedAsString.includes('page');
-      console.log(path)
       if (path.length > 1) {
         this.expandTreeUntilSelected(root, path.slice(1));
       } else if (this.settings.searchExpandTree || !canHavePages) {
@@ -107,17 +110,17 @@ export class UserTreeTableComponent {
 
   setColumns() {
     const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
-          data: {
-            colsSettingsName: 'columnsSearchTree',
-            model: null,
-          },
-          width: '600px',
-        });
-        dialogRef.afterClosed().subscribe(result => {
-          if (result) {
-            this.setSelectedTreeColumns();
-          }
-        });
+      data: {
+        colsSettingsName: 'columnsSearchTree',
+        model: null,
+      },
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.setSelectedTreeColumns();
+      }
+    });
   }
 
   listValue(field: string, code: string) {
@@ -313,21 +316,37 @@ export class UserTreeTableComponent {
     this.lastClickIdxTree = idx;
     this.totalSelectedTree = this.visibleTreeItems.filter(i => i.selected).length;
     this.selectedTreeItem = treeItem;
-    this.onSelectTreeItem.emit(this.selectedTreeItem);
+
 
     if (this.totalSelectedTree === 1) {
       const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.models, this.selectedTreeItem.model).join(',');
       const canHavePages = allowedAsString.includes('page');
       if (this.settings.searchExpandTree || !canHavePages) {
         if (treeItem.childrenLoaded) {
-
+          this.refreshLayout(treeItem);
         } else {
-          this.getTreeItems(treeItem, true);
+          this.getTreeItems(treeItem, true, () => {
+            this.refreshLayout(treeItem);
+          });
         }
       }
+
+      this.onSelectTreeItem.emit(this.selectedTreeItem);
       this.getTreeInfo(treeItem);
     } else {
       this.treeInfo.emit({ tree_info: {}, batchInfo: null });
+    }
+  }
+
+  refreshLayout(treeItem: TreeDocumentItem) {
+    if (!this.inSearch()) {
+      const children = this.treeItems.filter(ti => ti.parentPid === treeItem.pid);
+      if (children.length > 0) {
+          this.layout.items.set(<DocumentItem[]>children);
+          if (this.layout.selectedParentItem.pid !== treeItem.pid) {
+            this.layout.selectedParentItem = <DocumentItem>treeItem;
+          }
+      }
     }
   }
 
@@ -364,21 +383,18 @@ export class UserTreeTableComponent {
 
   expandTreeUntilSelected(treeItem: TreeDocumentItem, path: string[]) {
     treeItem.expanded = true;
-    if (path.length === 0) {
-      return;
-    }
     if (!treeItem.childrenLoaded) {
       this.getTreeItems(treeItem, false, (children: TreeDocumentItem[]) => {
         // callback
-        const child = children.find(ch => ch.pid = path[0]);
-        if (child) {
-          this.expandTreeUntilSelected(child, path.slice(1));
+        if (path.length === 0) {
+          treeItem.selected = true;
+        } else {
+          const child = children.find(ch => ch.pid = path[0]);
+          if (child) {
+            this.expandTreeUntilSelected(child, path.slice(1));
+          }
         }
       });
-    } else {
-      // this.treeItems.filter(ti => ti.parentPid === treeItem.pid).forEach(t => {
-      //   this.expandTreeUntilSelected(t);
-      // });
     }
 
   }

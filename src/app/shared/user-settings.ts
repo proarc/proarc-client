@@ -311,12 +311,11 @@ public adminColumnsDefault = [
 
     save(showInfo?: boolean) {
         this.api.saveUserSettings(this.settings).subscribe(resp => {
-          console.log(resp)
+          // console.log(resp)
+          if (showInfo) {
+            console.log(resp);
+            this.ui.showInfo('snackbar.changeSaved');
+          }
         });
-        // console.log(JSON.stringify(this.settings));
-        if (showInfo) {
-          console.log(this.settings);
-          this.ui.showInfo('snackbar.changeSaved');
-        }
     }
 }

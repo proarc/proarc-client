@@ -35,8 +35,13 @@ export class LayoutService {
         this.lastSelectedItem.update(() => i);
     }
 
+    public selectedChildItem: DocumentItem; // selected item in children
+    shouldRefreshSelectedItem(): Observable<string> {
+        return this.refreshSelectedSubject.asObservable();
+      }
 
     private refreshSubject = new Subject<boolean>();
+    private refreshSelectedSubject = new Subject<string>();
     private selectionSubject = new ReplaySubject<boolean>(1);
 
 
@@ -94,19 +99,19 @@ export class LayoutService {
 
     setSelection(fromStructure: boolean, panel: ILayoutPanel, fromTree: boolean = false) {
         this.setPanelEditing(panel);
-        // if (fromTree) {
-        //     this.selectionSubject.next(fromStructure);
-        //     return;
-        // }
-        // const num = this.getNumOfSelected();
-        // if (num > 1) {
-        //     this.selectedChildItem = null;
-        // } else if (num === 0) {
-        //     this.selectedChildItem = this.item;
-        // } else {
-        //     this.selectedChildItem = this.getSelected()[0];
-        // }
-        // this.selectionSubject.next(fromStructure);
+        if (fromTree) {
+            this.selectionSubject.next(fromStructure);
+            return;
+        }
+        const num = this.getNumOfSelected();
+        if (num > 1) {
+            this.selectedChildItem = null;
+        } else if (num === 0) {
+            this.selectedChildItem = this.item;
+        } else {
+            this.selectedChildItem = this.getSelected()[0];
+        }
+        this.selectionSubject.next(fromStructure);
     }
 
     selectionChanged(): Observable<boolean> {
