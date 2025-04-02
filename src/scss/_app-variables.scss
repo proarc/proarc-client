@@ -2,10 +2,99 @@
 
 :root {
   // config
-  --app-primary-color: #fff888;
   --app-selected-row-color: var(--palette-primary-50);
 
   // custom
   --app-content-wrapper: 8px;
 }
+
+
+// gaps
+$gaps: (
+  "0": 0,
+  "1": 4,
+  "2": 8,
+  "3": 12,
+  "4": 16,
+  "5": 20,
+  "6": 24,
+  "7": 28,
+  "8": 32,
+);
+
+// icon size
+$iconSize: (
+  "14": 14,
+  "15": 15,
+  "16": 16,
+  "17": 17,
+  "18": 18,
+  "19": 19,
+  "20": 20,
+  "21": 21,
+  "22": 22,
+  "23": 23,
+);
+
+// alerts
+/* $alerts: (
+  warn: (
+    color: $app-color-warn,
+    bg: rgba($app-color-warn, .1),
+    border: rgba($app-color-warn, .2)
+  ),
+  info: (
+    color: $app-color-info,
+    bg: #fff3cd,
+    border: rgba($app-color-info, .15)
+  ),
+  success: (
+    color: $app-color-success,
+    bg: rgba($app-color-success, .1),
+    border: rgba($app-color-success, .2)
+  ),
+  message: (
+    color: $app-gray-7,
+    bg: rgba($app-gray-7, .1),
+    border: rgba($app-gray-7, .2)
+  )
+); */
+
+// states
+/* $states: (
+  sentiment_satisfied: $app-color-info,
+  mood_bad: $app-color-warn,
+  mood: $app-color-success,
+
+  LOADING: mat-color($mat-blue-gray, 600),
+  LOADED:  $app-color-success,
+  LOADING_FAILED: $app-color-warn,
+  INGESTING: mat-color($mat-blue-gray, 600),
+  INGESTED: $app-color-success,
+  INGESTING_FAILED: $app-color-warn,
+  EXPORT_PLANNED: $app-color-info,
+  EXPORTING: mat-color($mat-blue-gray, 600),
+  EXPORT_DONE: $app-color-success,
+  EXPORT_FAILED: $app-color-warn,
+  EXPORT_VALID_WARNING: $app-color-warn,
+  REINDEXING: mat-color($mat-blue-gray, 600),
+  REINDEX_DONE: $app-color-success,
+  REINDEX_FAILED: $app-color-warn,
+  UPLOADING: mat-color($mat-blue-gray, 600),
+  UPLOAD_DONE: $app-color-success,
+  UPLOAD_FAILED: $app-color-warn,
+  STOPPED: mat-color($mat-blue-gray, 600),
+  WAITING: mat-color($mat-teal, 500),
+  INTERNAL_DONE: $app-color-success,
+  INTERNAL_RUNNING: mat-color($mat-blue-gray, 600),
+  INTERNAL_PLANNED: $app-color-info,
+  INTERNAL_FAILED: $app-color-warn,
+  IMPORT_PLANNED: $app-color-info,
+  EXTERNAL_RUNNING: mat-color($mat-blue-gray, 600),
+  EXTERNAL_PLANNED: $app-color-info,
+  EXTERNAL_FAILED: $app-color-warn,
+  EXTERNAL_DONE: $app-color-success,
+  model: $app-badge-model-bg,
+  default: $app-gray-6
+); */
 
