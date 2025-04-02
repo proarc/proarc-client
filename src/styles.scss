@@ -1,6 +1,7 @@
 @use "angular-material-css-vars" as mat-css-vars;
 @use 'scss/app-variables';
 @use 'scss/app-layout';
+@use 'scss/app-flex-layout';
 @use 'scss/app-global';
 @include mat-css-vars.init-material-css-vars();
 
