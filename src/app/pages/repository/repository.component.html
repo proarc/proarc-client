@@ -62,7 +62,7 @@
             <as-split direction="vertical" [disabled]="settings.repositoryLayout.disabled" (dragEnd)="onDragEnd(icol, $event)">
               <ng-template ngFor let-row [ngForOf]="column.rows" let-irow="index">
                 <as-split-area *ngIf="row.visible"  [size]="row.size" [class.app-disabled]="!row.canEdit">
-                  <app-panel [panel]="row" [lastSelectedItem]="layout.lastSelectedItem()" [numOfSelected]="layout.getNumOfSelected()" ></app-panel>
+                  <app-panel [panel]="row" [rootItem]="layout.rootItem" [lastSelectedItem]="layout.lastSelectedItem()" [numOfSelected]="layout.getNumOfSelected()" ></app-panel>
                 </as-split-area>
               </ng-template>
             </as-split>

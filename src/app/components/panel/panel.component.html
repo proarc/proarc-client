@@ -1,8 +1,8 @@
 <div fxLayout="column" fxFlexFill [class.app-form-highlighting]="formHighlighting">
     <div fxFlex [ngSwitch]="panelType">
-      <!-- <div class="app-editor-content app-tree"  *ngSwitchCase="'tree'">
-        <app-editor-tree [panel]="panel" ></app-editor-tree>
-      </div> -->
+      <div class="app-editor-content app-tree"  *ngSwitchCase="'tree'">
+        <app-editor-tree [panel]="panel()" [rootItem]="rootItem()" [selectedItem]="lastSelectedItem()" ></app-editor-tree>
+      </div>
       <app-editor-structure *ngSwitchCase="'structure-list'" [viewMode]="'list'" [panel]="panel()" (onIngest)="passOnIngest()"></app-editor-structure>
       <app-editor-structure *ngSwitchCase="'structure-grid'" [viewMode]="'grid'" [panel]="panel()" (onIngest)="passOnIngest()"></app-editor-structure>
       <app-editor-structure *ngSwitchCase="'structure-icons'" [viewMode]="'icons'" [panel]="panel()" (onIngest)="passOnIngest()"></app-editor-structure>

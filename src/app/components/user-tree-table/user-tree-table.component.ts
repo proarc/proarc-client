@@ -39,7 +39,8 @@ import { ColumnsSettingsDialogComponent } from '../../dialogs/columns-settings-d
 })
 export class UserTreeTableComponent {
 
-  treeItem = input<TreeDocumentItem>();
+  rootTreeItem = input<TreeDocumentItem>();
+  treePath = input<string[]>();
   treeInfo = output<{ tree_info: { [model: string]: number }, batchInfo: any }>();
   onSelectTreeItem = output<TreeDocumentItem>();
   onTreeItemsChanged = output<TreeDocumentItem[]>();
@@ -81,16 +82,21 @@ export class UserTreeTableComponent {
     public ui: UIService) {
 
     effect(() => {
-      this.selectedTreeItem = this.treeItem();
+      const path = this.treePath();
+      const root = this.rootTreeItem();
+      root.level = 0;
       this.treeItems = [];
-      if (!this.selectedTreeItem) {
+      if (!root) {
         return;
       }
-      this.treeItems = [this.selectedTreeItem];
-      const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.models, this.selectedTreeItem.model).join(',');
+      this.treeItems = [root];
+      const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.models, root.model).join(',');
       const canHavePages = allowedAsString.includes('page');
-      if (this.settings.searchExpandTree || !canHavePages) {
-        this.getTreeItems(this.selectedTreeItem, true);
+      console.log(path)
+      if (path.length > 1) {
+        this.expandTreeUntilSelected(root, path.slice(1));
+      } else if (this.settings.searchExpandTree || !canHavePages) {
+        this.getTreeItems(root, true);
       }
     });
   }
@@ -276,8 +282,6 @@ export class UserTreeTableComponent {
   }
 
   selectTreeItem(event: MouseEvent, treeItem: TreeDocumentItem, idx: number) {
-
-
     if (event && (event.metaKey || event.ctrlKey)) {
       treeItem.selected = !treeItem.selected;
       this.startShiftClickIdxTree = idx;
@@ -355,6 +359,26 @@ export class UserTreeTableComponent {
       this.treeItems.filter(ti => ti.parentPid === treeItem.pid).forEach(t => {
         this.expandTreeItemDeep(t);
       });
+    }
+  }
+
+  expandTreeUntilSelected(treeItem: TreeDocumentItem, path: string[]) {
+    treeItem.expanded = true;
+    if (path.length === 0) {
+      return;
+    }
+    if (!treeItem.childrenLoaded) {
+      this.getTreeItems(treeItem, false, (children: TreeDocumentItem[]) => {
+        // callback
+        const child = children.find(ch => ch.pid = path[0]);
+        if (child) {
+          this.expandTreeUntilSelected(child, path.slice(1));
+        }
+      });
+    } else {
+      // this.treeItems.filter(ti => ti.parentPid === treeItem.pid).forEach(t => {
+      //   this.expandTreeUntilSelected(t);
+      // });
     }
 
   }

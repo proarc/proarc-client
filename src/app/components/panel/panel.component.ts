@@ -20,12 +20,13 @@ import { EditorPageComponent } from "../../editors/editor-page/editor-page.compo
 import { EditorPagesComponent } from "../../editors/editor-pages/editor-pages.component";
 import { EditorAudioPagesComponent } from "../../editors/editor-audioPages/editor-audioPages.component";
 import { EditorAudioPageComponent } from "../../editors/editor-audioPage/editor-audioPage.component";
+import { EditorTreeComponent } from "../../editors/editor-tree/editor-tree.component";
 
 @Component({
   selector: 'app-panel',
     imports: [CommonModule, TranslateModule, FlexLayoutModule,
     EditorModsComponent, EditorStructureComponent, EditorOcrComponent, MediaComponent, ViewerComponent,
-    MatCardModule, MatIconModule, EditorCommentComponent, EditorAtmComponent, EditorPageComponent, EditorPagesComponent, EditorAudioPagesComponent, EditorAudioPageComponent],
+    MatCardModule, MatIconModule, EditorCommentComponent, EditorAtmComponent, EditorPageComponent, EditorPagesComponent, EditorAudioPagesComponent, EditorAudioPageComponent, EditorTreeComponent],
   templateUrl: './panel.component.html',
   styleUrl: './panel.component.scss'
 })
@@ -41,6 +42,7 @@ export class PanelComponent {
   showAudioPagesEditor: boolean;
 
   lastSelectedItem = input<DocumentItem>();
+  rootItem = input<DocumentItem>();
   imageInfo: { pid: string, dsid: string, width?: number, height?: number };
   
 
