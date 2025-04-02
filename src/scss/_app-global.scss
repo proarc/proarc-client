@@ -1,6 +1,8 @@
 // --- GLOBAL ---
 
-@include setGap();
+@use "app-mixins";
+
+@include app-mixins.setGap();
 
 // states
 .app-disabled {
