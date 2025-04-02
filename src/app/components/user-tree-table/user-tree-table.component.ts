@@ -88,11 +88,11 @@ export class UserTreeTableComponent {
     effect(() => {
       const path = this.treePath();
       const root = this.rootTreeItem();
-      root.level = 0;
       this.treeItems = [];
       if (!root) {
         return;
       }
+      root.level = 0;
       this.treeItems = [root];
       const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.models, root.model).join(',');
       const canHavePages = allowedAsString.includes('page');

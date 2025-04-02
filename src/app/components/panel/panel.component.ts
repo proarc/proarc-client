@@ -21,12 +21,13 @@ import { EditorPagesComponent } from "../../editors/editor-pages/editor-pages.co
 import { EditorAudioPagesComponent } from "../../editors/editor-audioPages/editor-audioPages.component";
 import { EditorAudioPageComponent } from "../../editors/editor-audioPage/editor-audioPage.component";
 import { EditorTreeComponent } from "../../editors/editor-tree/editor-tree.component";
+import { EditorMetadataComponent } from "../../editors/editor-metadata/editor-metadata.component";
 
 @Component({
   selector: 'app-panel',
     imports: [CommonModule, TranslateModule, FlexLayoutModule,
     EditorModsComponent, EditorStructureComponent, EditorOcrComponent, MediaComponent, ViewerComponent,
-    MatCardModule, MatIconModule, EditorCommentComponent, EditorAtmComponent, EditorPageComponent, EditorPagesComponent, EditorAudioPagesComponent, EditorAudioPageComponent, EditorTreeComponent],
+    MatCardModule, MatIconModule, EditorCommentComponent, EditorAtmComponent, EditorPageComponent, EditorPagesComponent, EditorAudioPagesComponent, EditorAudioPageComponent, EditorTreeComponent, EditorMetadataComponent],
   templateUrl: './panel.component.html',
   styleUrl: './panel.component.scss'
 })

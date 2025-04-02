@@ -27,6 +27,7 @@ declare var $: any;
 import * as JSON5 from 'json5';
 import { ModsElement } from './mods/element.model';
 import {ModsRelatedItem2} from './mods/relatedItem2.model';
+import { Utils } from '../utils/utils';
 // import * as JSON6 from 'json-6';
 // declare var JSON6: any;
 
@@ -294,7 +295,8 @@ export class Metadata {
 
 
   private normalizedCopy(final: boolean = false) {
-    const mods = $.extend(true, {}, this.mods);
+    // const mods = $.extend(true, {}, this.mods);
+    const mods = Utils.clone(this.mods);
     const root = mods['modsCollection'] ? mods['modsCollection']['mods'][0] : mods['mods'];
     // if (this.isVolume() || this.isIssue()) {
     //   this.normalizeField(root, ModsPhysical.getSelector());
