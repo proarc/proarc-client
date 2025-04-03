@@ -5,9 +5,9 @@
   --app-selected-row-color: var(--palette-primary-50);
 
   // basic colors
-  --app-color-primary: ;
-  --app-color-accent: ;
-  --app-color-warn: ;
+  --app-color-primary: var(--palette-primary-500);
+  --app-color-accent: var(--palette-accent-500) ;
+  --app-color-warn: var(--palette-warn-500);
 
   --app-color-lightnes: #ffffff;
   --app-color-lightnes-rgb: 255, 255, 255;
@@ -47,6 +47,8 @@
 
   // mat override
   --mat-toolbar-standard-height: 56px;
+
+  --mdc-outlined-card-container-shape: 0;
 }
 
 
@@ -78,12 +80,12 @@ $iconSize: (
 );
 
 // alerts
-/* $alerts: (
+$alerts: (
   warn: (
-    color: $app-color-warn,
-    bg: rgba($app-color-warn, .1),
-    border: rgba($app-color-warn, .2)
-  ),
+    color: var(--palette-warn-500),
+    bg: var(--palette-warn-50),
+    border: var(--palette-warn-100)
+  )/* ,
   info: (
     color: $app-color-info,
     bg: #fff3cd,
@@ -98,8 +100,8 @@ $iconSize: (
     color: $app-gray-7,
     bg: rgba($app-gray-7, .1),
     border: rgba($app-gray-7, .2)
-  )
-); */
+  ) */
+);
 
 // states
 /* $states: (
