@@ -117,9 +117,9 @@
   
           <as-split-area [size]="splitArea2Width">
   
-            <div  fxLayout="column" fxFlexFill>
+            <div  *ngIf="selectedTreeItem" fxLayout="column" fxFlexFill>
               <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar">
-                <div fxFlex *ngIf="selectedTreeItem" fxLayout="row" fxFlexFill>
+                <div fxFlex fxLayout="row" fxFlexFill>
                   <button (click)="selectItem(selectedItem)" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
                   <button (click)="expandAllInTree()" mat-button>{{ 'button.unpack' | translate }}</button>
                   <app-search-actions [items]="items" [selectedItem]="selectedItem" [selectedTreeItem]="selectedTreeItem" [treeItems]="treeItems"

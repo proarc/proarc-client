@@ -10,7 +10,6 @@ import { ModsIdentifier } from './identifier.model';
 import { ModsNote } from './note.mode';
 import { ModsAbstract } from './abstract.model';
 import { ModsGenreChronical } from './genre_chronical.model';
-import { ModsGeo } from './geo.model';
 import { ModsPhysical } from './physical.model';
 import { ModsSubject } from './subject.model';
 import { ModsGenre } from './genre.model';
@@ -53,6 +52,9 @@ import {ModsDetail} from './detail.model';
 import {ModsLanguageOfCataloging} from './languageOfCataloging.model';
 import {ModsTemporal} from './temporal.model';
 import {ModsGeographic} from './geographic.model';
+import { inject, Injectable } from '@angular/core';
+import { UserSettings } from '../../shared/user-settings';
+
 
 export class ElementField {
 
@@ -65,19 +67,17 @@ export class ElementField {
 
     public labelKey: string;
     public usage: string;
+    private userSettings = inject(UserSettings);
 
-    constructor(mods: { [x: string]: any; }, id: string, template: any, attr: any = null, requiredValues: any[] = [], forbiddenValues: any[] = []) {
+    constructor(mods: any, id: string, template: any, relatedItemExpanded: boolean = false) {
         this.template = template;
 
         this.labelKey = this.template.labelKey;
         this.usage = this.template.usage;
-        if (localStorage.getItem('metadata.allExpanded')) {
-            this.allExpanded = localStorage.getItem('metadata.allExpanded') === 'true';
-        }
-
 
         if (id.startsWith('relatedItem')) {
-            this.allExpanded = this.allExpanded || localStorage.getItem('relatedItemExpanded') === 'true';
+            this.allExpanded = relatedItemExpanded;
+            console.log(this.allExpanded)
         }
 
         this.id = id;
@@ -87,24 +87,14 @@ export class ElementField {
         }
         this.root = mods[selector];
         this.items = [];
-        let hiddenItems = 0;
         for (const el of this.root) {
             if (el) {
                 const newEl = this.newElement(id, el);
-                if (attr) {
-                    if (requiredValues.length > 0 && !(el['$'] && el['$'][attr] && requiredValues.indexOf(el['$'][attr]) > -1)) {
-                        newEl.hidden = true;
-                        hiddenItems += 1;
-                    } else if (forbiddenValues.length > 0 && el['$'] && el['$'][attr] && forbiddenValues.indexOf(el['$'][attr]) > -1) {
-                        newEl.hidden = true;
-                        hiddenItems += 1;
-                    }
-                }
                 this.items.push(newEl);
             }
         }
 
-        if (this.items.length - hiddenItems < 1) {
+        if (this.items.length === 0) {
             const item = this.add();
             if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded && !item.isRequired2()) {
                 item.collapsed = true;
@@ -131,15 +121,6 @@ export class ElementField {
                 this.items.unshift(peerEl);
                 this.root.unshift(peerRaw);
             }
-
-
-            // if (this.items.length === 1) {
-            //     const item = this.add();
-            //     item.hidden = true;
-            //     if (!this.allExpanded && !this.hasExpandedChildren() && !this.template.expanded && !item.isRequired2()) {
-            //         item.collapsed = true;
-            //     }
-            // }
 
         }
     }
@@ -315,8 +296,6 @@ export class ElementField {
                 return new ModsGenre(el, this.template);
             case ModsGenreChronical.getId():
                 return new ModsGenreChronical(el, this.template);
-            case ModsGeo.getId():
-                return new ModsGeo(el, this.template);
             case ModsPhysical.getId():
                 return new ModsPhysical(el, this.template);
             case ModsRecordInfo.getId():
@@ -454,8 +433,6 @@ export class ElementField {
                 return ModsGenre.getSelector();
             case ModsGenreChronical.getId():
                 return ModsGenreChronical.getSelector();
-            case ModsGeo.getId():
-                return ModsGeo.getSelector();
             case ModsPhysical.getId():
                 return ModsPhysical.getSelector();
             case ModsRecordInfo.getId():

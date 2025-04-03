@@ -50,7 +50,7 @@ export class SettingsComponent implements OnInit {
   // searchCols: any;
   selectedModels = new FormControl('');
 
-  relatedItemExpanded: boolean;
+  // relatedItemExpanded: boolean;
   models: any[];
 
   @ViewChild('table') table: MatTable<DocumentItem>;
@@ -97,20 +97,16 @@ export class SettingsComponent implements OnInit {
   changeCodebookTops(prefix: string, top: string[], conf: string[], expanded: boolean = false) {
     
     const dialogRef = this.dialog.open(PreferredTopsDialogComponent, { 
-      data: {prefix, top, conf, expanded} 
+      data: {prefix, top, conf, expanded, relatedItemExpanded: this.curSettings.relatedItemExpanded} 
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(result)
-        console.log(top)
-        result.forEach((r: string) => {top.push(r)})
-        
-        console.log(top)
-        console.log(this.curSettings)
+        result.top.forEach((r: string) => {
+          top.push(r);
+        });
+        this.curSettings.relatedItemExpanded = result.relatedItemExpanded;
         this.settingsService.setSettings(this.curSettings);
-        //this.curSettings = this.settingsService.cloneSettings();
-        this.ui.showInfoSnackBar(this.translator.instant('snackbar.settings.resetLocalSettings.success'));
       }
     });
   }
@@ -162,7 +158,7 @@ export class SettingsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.settingsService.reset();
-        this.settingsService.save(true);
+        this.settingsService.save(false);
         this.curSettings = this.settingsService.cloneSettings();
         this.ui.showInfoSnackBar(this.translator.instant('snackbar.settings.resetLocalSettings.success'));
       }

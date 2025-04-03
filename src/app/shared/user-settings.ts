@@ -35,6 +35,7 @@ export class UserSettings {
     topLanguages: string[];
     topIdentifiers: string[];
     topExpandedModels: string[];
+    relatedItemExpanded: boolean;
 
     formHighlighting: boolean;
 
@@ -275,6 +276,8 @@ public adminColumnsDefault = [
         this.settings.topLanguages = Utils.clone(this.config.topLanguages);
         this.settings.topIdentifiers = Utils.clone(this.config.topIdentifiers);
         this.settings.topExpandedModels = Utils.clone(this.config.expandedModels);
+        
+        this.settings.relatedItemExpanded = false;
         this.settings.formHighlighting = true;
 
         this.settings.repositoryLayout = Utils.clone(this.defaultLayoutConfig);
@@ -313,7 +316,6 @@ public adminColumnsDefault = [
         this.api.saveUserSettings(this.settings).subscribe(resp => {
           // console.log(resp)
           if (showInfo) {
-            console.log(resp);
             this.ui.showInfo('snackbar.changeSaved');
           }
         });

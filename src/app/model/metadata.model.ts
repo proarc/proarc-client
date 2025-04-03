@@ -1,59 +1,10 @@
-import { ModsGeo } from './mods/geo.model';
-import { ModsPublisher } from './mods/publisher.model';
-import { ModsLanguage } from './mods/language.model';
 import { parseString, processors, Builder } from 'xml2js';
-import { ModsTitle } from './mods/title.model';
 import { ElementField } from './mods/elementField.model';
-import { ModsAuthor } from './mods/author.model';
-import { ModsLocation } from './mods/location.model';
-import { ModsIdentifier } from './mods/identifier.model';
-import { ModsNote } from './mods/note.mode';
 import { Mods } from './mods.model';
-import { ModsAbstract } from './mods/abstract.model';
-import { ModsChronicleLocation } from './mods/chronicle_location.model';
-import { ProArc } from '../utils/proarc';
-import { ModsPhysical } from './mods/physical.model';
-import { ModsSubject } from './mods/subject.model';
-import { ModsGenre } from './mods/genre.model';
-import { ModsGenreChronical } from './mods/genre_chronical.model';
-import { ModsClassification } from './mods/classification.model';
-import { ModsResource } from './mods/resource.model';
-import { ModsPart } from './mods/part.model';
-import { ModsRecordInfo } from './mods/recordInfo.model';
-import { ModsTableOfContents } from './mods/tableOfContents';
-import { ModsRelatedItem } from './mods/relatedItem.model';
-declare var $: any;
-
-import * as JSON5 from 'json5';
 import { ModsElement } from './mods/element.model';
-import {ModsRelatedItem2} from './mods/relatedItem2.model';
 import { Utils } from '../utils/utils';
-// import * as JSON6 from 'json-6';
-// declare var JSON6: any;
 
 export class Metadata {
-
-  private static selectors = [
-    ModsTitle.getSelector(),
-    ModsAuthor.getSelector(),
-    ModsPublisher.getSelector(),
-    ModsLocation.getSelector(),
-    ModsLanguage.getSelector(),
-    ModsIdentifier.getSelector(),
-    ModsNote.getSelector(),
-    ModsAbstract.getSelector(),
-    ModsGenre.getSelector(),
-    ModsClassification.getSelector(),
-    ModsSubject.getSelector(),
-    ModsPhysical.getSelector(),
-    ModsRecordInfo.getSelector(),
-    ModsRelatedItem.getSelector(),
-    ModsRelatedItem2.getId(),
-    ModsResource.getSelector(),
-    ModsPart.getSelector(),
-    ModsTableOfContents.getSelector()
-  ];
-
 
   public readonly pid: string;
   public timestamp: number = -1;
@@ -66,7 +17,6 @@ export class Metadata {
   private fields: Map<String, ElementField>;
   public invalidFields: string[] = [];
 
-  // public template: { [x: string]: boolean; };
   public template: { [x: string]: any; };
   public standard: string;
 
@@ -83,8 +33,6 @@ export class Metadata {
     }
 
     this.originalMods = mods.trim();
-    // this.originalDc = dc.trim();
-    // this.relations = relations;
     this.parseMods(mods);
   }
 
@@ -92,14 +40,6 @@ export class Metadata {
   public static fromMods(mods: Mods, model: string) {
     return new Metadata(mods.pid, model, mods.content, mods.timestamp, null, null);
   }
-
-  // public isVolume(): boolean {
-  //   return this.model === 'model:ndkperiodicalvolume';
-  // }
-
-  // public isIssue(): boolean {
-  //   return this.model === 'model:ndkperiodicalissue';
-  // }
 
   private parseMods(mods: string) {
     const xml = mods.replace(/xmlns.*=".*"/g, '');
@@ -120,9 +60,6 @@ export class Metadata {
           valid = false;
           item.collapsed = false;
           this.invalidFields.push(id);
-          // if (parent) {
-          //   parent.collapsed = false;
-          // }
         }
 
         if (item.hasAnyValue() || item.isRequired) {
@@ -133,9 +70,6 @@ export class Metadata {
                 item2.collapsed = false;
                 item.collapsed = false;
                 this.invalidFields.push(id);
-                // if (parent) {
-                //   parent.collapsed = false;
-                // }
               }
             }
           }
@@ -216,32 +150,9 @@ export class Metadata {
       return;
     }
     this.fieldsIds = [];
-    const allIds = [
-      ModsGeo.getId(),
-      ModsTitle.getId(),
-      ModsAuthor.getId(),
-      ModsPublisher.getId(),
-      ModsLocation.getId(),
-      ModsLanguage.getId(),
-      ModsSubject.getId(),
-      ModsIdentifier.getId(),
-      ModsNote.getId(),
-      ModsAbstract.getId(),
-      ModsGenre.getId(),
-      ModsClassification.getId(),
-      ModsPhysical.getId(),
-      ModsResource.getId(),
-      ModsPart.getId(),
-      ModsRecordInfo.getId(),
-      ModsRelatedItem.getId(),
-      ModsRelatedItem2.getId(),
-      ModsTableOfContents.getId(),
-    ];
-    for (const id of allIds) {
-      if (this.template[id]) {
-        this.fieldsIds.push(id);
-      }
-    }
+    Object.keys(this.template).forEach((id) => {
+      this.fieldsIds.push(id);
+    })
 
     this.fields = new Map<String, ElementField>();
     this.mods = data;
@@ -266,17 +177,16 @@ export class Metadata {
     }
 
     for (const id of this.fieldsIds) {
-      if (id === ModsGeo.getId()) {
-        this.fields.set(id, new ElementField(root, id, this.template[id], 'authority', ['geo:origin', 'geo:storage', 'geo:area']));
-      } else if (id === ModsIdentifier.getId() && ProArc.isChronicle(this.model)) {
-        this.fields.set(id, new ElementField(root, id, this.template[id], 'type', ProArc.chronicleIdentifierTypes));
-      } else if (id === ModsSubject.getId()) {
-        this.fields.set(id, new ElementField(root, id, this.template[id], 'authority', [], ['geo:origin', 'geo:storage', 'geo:area']));
-      } else {
-        this.fields.set(id, new ElementField(root, id, this.template[id]));
-      }
+      //V19UPGRADE
+      // if (id === ModsIdentifier.getId() && ProArc.isChronicle(this.model)) {
+      //   this.fields.set(id, new ElementField(root, id, this.template[id], 'type', ProArc.chronicleIdentifierTypes));
+      // } else if (id === ModsSubject.getId()) {
+      //   this.fields.set(id, new ElementField(root, id, this.template[id], 'authority', [], ['geo:origin', 'geo:storage', 'geo:area']));
+      // } else {
+      //   this.fields.set(id, new ElementField(root, id, this.template[id]));
+      // }
+      this.fields.set(id, new ElementField(root, id, this.template[id]));
     }
-    // }
   }
 
   toJson() {
@@ -293,22 +203,14 @@ export class Metadata {
     return this.fields.get(id);
   }
 
-
   private normalizedCopy(final: boolean = false) {
-    // const mods = $.extend(true, {}, this.mods);
+    // V19UPGRADE const mods = $.extend(true, {}, this.mods);
     const mods = Utils.clone(this.mods);
     const root = mods['modsCollection'] ? mods['modsCollection']['mods'][0] : mods['mods'];
-    // if (this.isVolume() || this.isIssue()) {
-    //   this.normalizeField(root, ModsPhysical.getSelector());
-    // } else {
-    if (this.fieldsIds.indexOf(ModsPublisher.getId()) >= 0) {
-      const publishers = new ElementField(root, ModsPublisher.getSelector(), this.template[ModsPublisher.getSelector()]);
-      publishers.update();
-    }
-    for (const selector of Metadata.selectors) {
-      this.normalizeField(root, selector);
-    }
-    // }
+
+    Object.keys(root).forEach((key) => {
+      this.normalizeField(root, key);
+    });
     return mods;
   }
 
@@ -324,7 +226,7 @@ export class Metadata {
     }
     if (el.hasOwnProperty('$')) {
       const attrs: any = el['$'];
-      Object.keys(attrs).forEach(function (key) {
+      Object.keys(attrs).forEach((key) => {
         if (attrs[key] === '') {
           delete attrs[key];
         }

@@ -56,6 +56,9 @@ export class PanelComponent {
     private ui: UIService) { 
       effect(() => {
         const lastSelectedItem = this.lastSelectedItem();
+        if (!lastSelectedItem) {
+          return;
+        }
         this.itemModel = this.itemType(lastSelectedItem);
         this.imageInfo = {pid: lastSelectedItem.pid, dsid: 'FULL'};
         this.showPagesEditor = this.isPagesEditor(this.numOfSelected(), lastSelectedItem);

@@ -28,7 +28,11 @@ export class PreferredTopsDialogComponent implements OnInit {
   relatedItemExpanded: boolean;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { prefix: string, top: string[], conf: string[], expanded: boolean },
+    @Inject(MAT_DIALOG_DATA) public data: { 
+      prefix: string, top: string[], 
+      conf: string[], 
+      expanded: boolean,
+      relatedItemExpanded: boolean },
     private dialogRef: MatDialogRef<PreferredTopsDialogComponent>,
     private translator: TranslateService) {
   }
@@ -51,7 +55,8 @@ export class PreferredTopsDialogComponent implements OnInit {
     })
     rest.forEach(a => {
       this.items.push({name: a, selected: false});
-    })
+    });
+    this.relatedItemExpanded = this.data.relatedItemExpanded;
 
 
     // if (this.data == 'PageTypes') {
@@ -93,7 +98,7 @@ export class PreferredTopsDialogComponent implements OnInit {
     // if (this.data == 'ExpandedModels') {
     //   localStorage.setItem('relatedItemExpanded', JSON.stringify(this.relatedItemExpanded));
     // }
-    this.dialogRef.close(this.data.top);
+    this.dialogRef.close({top: this.data.top, relatedItemExpanded: this.relatedItemExpanded});
   }
 
 }
