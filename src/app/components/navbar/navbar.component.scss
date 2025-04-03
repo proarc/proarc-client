@@ -29,7 +29,7 @@
     position: relative;
 
     .app-block {
-      background-color: white;
+      background-color: var(--app-color-lightnes);
       position: absolute;
       bottom: 0;
       height: 1px;
@@ -45,7 +45,7 @@
 
     .app-text {
       z-index: 1;
-      color: white;
+      color: var(--app-color-lightnes);
       width: 100%;
       text-align: center;
     }

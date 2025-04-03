@@ -4,12 +4,18 @@
   // config
   --app-selected-row-color: var(--palette-primary-50);
 
+  // basic colors
+  --app-color-lightnes: #ffffff;
+  --app-color-lightnes-rgb: 255, 255, 255;
+  --app-color-darknes: #000000;
+  --app-color-darknes-rgb: 0, 0, 0;
+
   // custom
   --app-content-wrapper: 8px;
 
   // components
-  --app-navbar-active-item-color: #{rgba(#FFFFFF, .15)};
-  --app-navbar-session-color: #{rgba(#FFFFFF, .3)};
+  --app-navbar-active-item-color: #{rgba(var(--app-color-lightnes-rgb), .15)};
+  --app-navbar-session-color: #{rgba(var(--app-color-lightnes-rgb), .3)};
 
   // mat override
   --mat-toolbar-standard-height: 56px;
