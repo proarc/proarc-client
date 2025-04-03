@@ -1,9 +1,11 @@
-<div fxLayout="column" fxFlexFill class="app-fxLayout app-column app-fill">
-  <div class="app-fxFlex app-fxLayout app-column app-center-v app-center-h app-fill app-oa-y app-p-4">
+<div class="app-fxLayout app-column app-fill">
+  <div class="app-fxFlex app-fxLayout app-column app-fill app-center-v  app-oa-y app-p-4">
     <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="app-m-auto">
       <mat-card appearance="outlined">
         <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'" class="app-progress-bar"></mat-progress-bar>
-        <mat-card-title class="app-mb-4">{{ 'desc.login' | translate }}</mat-card-title>
+        <mat-card-header>
+          <mat-card-title class="app-mb-4">{{ 'desc.login' | translate }}</mat-card-title>
+        </mat-card-header>
         <mat-card-content class="app-mb-0">
           <mat-form-field class="app-w-100" appearance="outline">
             <input type="text" #username="matInput" matInput cdkFocusInitial [placeholder]="'desc.username' | translate" ngModel name="username"required>
@@ -11,16 +13,17 @@
           <mat-form-field class="app-w-100" appearance="outline">
             <input type="password" matInput [placeholder]="'desc.password' | translate" ngModel name="password" required>
           </mat-form-field>
-          <mat-card appearance="outlined" class="app-alert app-warn app-mb-4" *ngIf="!error">
-            <mat-icon>warning</mat-icon>
-            {{ 'login.error.' + error | translate }}
+          <mat-card appearance="outlined" class="app-alert app-warn app-mb-4" *ngIf="error">
+            <mat-card-content>
+              <mat-icon>warning</mat-icon>{{ 'login.error.' + error | translate }}
+            </mat-card-content>
           </mat-card>
         </mat-card-content>
-        <mat-card-actions class="app-pl-2 app-pr-2 app-pb-2 app-pt-0">
+        <mat-card-actions>
           <button type="submit" mat-flat-button color="primary">{{ 'button.logIn' | translate }}</button>
         </mat-card-actions>
       </mat-card>
-      <div fxLayout="row" fxLayoutGap="16px" class="app-fxLayout app-row app-center-h app-gap-4 app-p-2 app-login-footer" fxLayoutAlign="start center">
+      <div class="app-fxLayout app-row app-center-v app-gap-4 app-p-2 app-login-footer">
         <div class="app-fxFlex">ProArc © {{ currentYear }}</div>
         <div>Developed by <a href="https://www.inovatika.cz" title="Inovatika" target="_blank"><img src="assets/img/logo-inovatika-black.png" alt="Inovatika" /></a></div>
       </div>

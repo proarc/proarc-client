@@ -4,12 +4,12 @@
 
 .mat-mdc-card {
   &.app-alert {
-    background-color: var(--accentColor);
-   /*  @include app-mixins.setAlertCard();
+    @include app-mixins.setAlertCard();
     border-width: 1px;
     border-style: solid;
-    border-color: $app-gray-3;
+    border-color: var(--app-gray-3);
     display: flex;
+    flex-direction: row;
     align-items: start;
     justify-content: center;
 
@@ -23,6 +23,10 @@
 
     .app-text {
       word-break: break-all;
-    } */
+    }
+  }
+
+  .mat-mdc-card-actions {
+    padding: 0 16px 16px 16px;
   }
 }
