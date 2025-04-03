@@ -5,6 +5,10 @@
   --app-selected-row-color: var(--palette-primary-50);
 
   // basic colors
+  --app-color-primary: ;
+  --app-color-accent: ;
+  --app-color-warn: ;
+
   --app-color-lightnes: #ffffff;
   --app-color-lightnes-rgb: 255, 255, 255;
   --app-color-darknes: #000000;
@@ -23,11 +27,19 @@
   --app-gray-9: #212121;
 
   // custom
-  --app-content-wrapper: 8px;
+  --app-default-border-color: var(--app-gray-3);
+  --app-default-bg: var(--app-gray-1); 
+  --app-default-wrapper: 8px;
 
   // components
   --app-navbar-active-item-color: #{rgba(var(--app-color-lightnes-rgb), .15)};
   --app-navbar-session-color: #{rgba(var(--app-color-lightnes-rgb), .3)};
+
+  --app-toolbar-height: 34px;
+  --app-toolbar-border-color: var(--app-default-border-color);
+  --app-toolbar-bg: var(--app-default-bg);
+  --app-toolbar-button-bg-active: var(--app-toolbar-border-color);
+  --app-toolbar-button-height: var(--app-toolbar-height);
 
   // footer
   --app-footer-bg-color: var(--app-color-darknes);

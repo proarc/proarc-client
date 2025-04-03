@@ -20,8 +20,9 @@ export class Configuration {
 
   //Theme properties
   primaryColor: string;
-  darkTheme: boolean;
   accentColor: string;
+  warnColor: string;
+  darkTheme: boolean;
   cssVars: {name: string, value: string}[];
 
   exports: string[];

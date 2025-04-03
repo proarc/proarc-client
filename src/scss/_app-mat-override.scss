@@ -1,0 +1,28 @@
+// --- MATERIAL OVERRIDE ---
+
+@use "app-mixins";
+
+.mat-mdc-card {
+  &.app-alert {
+    background-color: var(--accentColor);
+   /*  @include app-mixins.setAlertCard();
+    border-width: 1px;
+    border-style: solid;
+    border-color: $app-gray-3;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+
+    .mat-icon {
+      @include app-mixins.setIcon(18);
+      flex: 1 1 26px;
+      box-sizing: border-box;
+      max-width: 26px;
+      min-width: 26px;
+    }
+
+    .app-text {
+      word-break: break-all;
+    } */
+  }
+}
