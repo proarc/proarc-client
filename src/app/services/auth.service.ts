@@ -39,14 +39,20 @@ export class AuthService {
     public initializeApp() {
         this.translator.use('cs');
         return firstValueFrom(
-            this.http
-                .get<User>(this.getApiUrl() + 'user?whoAmI=true')
-                .pipe(
-                    switchMap((user: any) => {
-                        this.user = user['response']['data'][0];
-                        return this.http.get('assets/config.json5', { responseType: 'text' }).pipe(
-                            switchMap((cfg: any) => {
+            this.http.get('assets/config.json5', { responseType: 'text' }).pipe(
+                    switchMap((cfg: any) => {
                                 this.config.mergeConfig(cfg);
+                        this.materialCssVarsService.setDarkTheme(this.config.darkTheme);
+                        this.materialCssVarsService.setPrimaryColor(this.config.primaryColor);
+                        this.materialCssVarsService.setAccentColor(this.config.accentColor);
+                        const r: HTMLElement = document.querySelector(':root');
+                        this.config.cssVars.forEach(css => {
+                            r.style.setProperty(css.name, css.value);
+                        });
+                        return this.http.get<User>(this.getApiUrl() + 'user?whoAmI=true').pipe(
+                            switchMap((user: any) => {
+                                this.user = user['response']['data'][0];
+
                                 return this.getUserConfig();
                             })
                         )
@@ -81,13 +87,13 @@ export class AuthService {
                     this.checkIsLogged();
                 }
 
-                    this.materialCssVarsService.setDarkTheme(this.config.darkTheme);
-                    this.materialCssVarsService.setPrimaryColor(this.config.primaryColor);
-                    this.materialCssVarsService.setAccentColor(this.config.accentColor);
-                    const r: HTMLElement = document.querySelector(':root');
-                    this.config.cssVars.forEach(css => {
-                        r.style.setProperty(css.name, css.value);
-                    });
+                this.materialCssVarsService.setDarkTheme(this.config.darkTheme);
+                this.materialCssVarsService.setPrimaryColor(this.config.primaryColor);
+                this.materialCssVarsService.setAccentColor(this.config.accentColor);
+                const r: HTMLElement = document.querySelector(':root');
+                this.config.cssVars.forEach(css => {
+                    r.style.setProperty(css.name, css.value);
+                });
 
             }));
     }
