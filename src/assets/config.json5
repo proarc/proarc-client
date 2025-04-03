@@ -4,8 +4,9 @@
 
   // Css theme properties
   primaryColor: "#456aa5",
+	accentColor: "#aa0000",
+	warnColor: "#f44336",
   darkTheme: false,
-  accentColor: "#aa0000",
   cssVars: [
 	//{name: '--app-selected-row-color', value: '#ee7700'}
   ],

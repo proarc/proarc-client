@@ -45,6 +45,7 @@ export class AuthService {
                         this.materialCssVarsService.setDarkTheme(this.config.darkTheme);
                         this.materialCssVarsService.setPrimaryColor(this.config.primaryColor);
                         this.materialCssVarsService.setAccentColor(this.config.accentColor);
+                        this.materialCssVarsService.setWarnColor(this.config.warnColor);
                         const r: HTMLElement = document.querySelector(':root');
                         this.config.cssVars.forEach(css => {
                             r.style.setProperty(css.name, css.value);

@@ -96,4 +96,10 @@
   border-left: 1px solid var(--app-gray-4);
 }
 
+// toolbar
+.app-toolbar {
+  min-height: var( --app-toolbar-height);
+  background-color: var(--app-toolbar-bg);
+}
+
 
