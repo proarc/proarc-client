@@ -6,6 +6,13 @@
 
   // custom
   --app-content-wrapper: 8px;
+
+  // components
+  --app-navbar-active-item-color: #{rgba(#FFFFFF, .15)};
+  --app-navbar-session-color: #{rgba(#FFFFFF, .3)};
+
+  // mat override
+  --mat-toolbar-standard-height: 56px;
 }
 
 
