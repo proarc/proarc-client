@@ -81,7 +81,7 @@ export class ElementField {
         }
 
         this.id = id;
-        const selector = this.selectorById(id)
+        const selector = id;
         if (mods[selector] === undefined) {
             mods[selector] = [];
         }
@@ -405,114 +405,5 @@ export class ElementField {
         return this.template.selector;
     }
 
-    private selectorById(id: string): string {
-        switch (id) {
-            case ModsTitle.getId():
-                return ModsTitle.getSelector();
-            case ModsLanguage.getId():
-                return ModsLanguage.getSelector();
-            case ModsRole.getId():
-                return ModsRole.getSelector();
-            case ModsAuthor.getId():
-                return ModsAuthor.getSelector();
-            case ModsPart.getId():
-                return ModsPart.getSelector();
-            case ModsPublisher.getId():
-                return ModsPublisher.getSelector();
-            case ModsLocation.getId():
-                return ModsLocation.getSelector();
-            case ModsChronicleLocation.getId():
-                return ModsChronicleLocation.getSelector();
-            case ModsIdentifier.getId():
-                return ModsIdentifier.getSelector();
-            case ModsNote.getId():
-                return ModsNote.getSelector();
-            case ModsAbstract.getId():
-                return ModsAbstract.getSelector();
-            case ModsGenre.getId():
-                return ModsGenre.getSelector();
-            case ModsGenreChronical.getId():
-                return ModsGenreChronical.getSelector();
-            case ModsPhysical.getId():
-                return ModsPhysical.getSelector();
-            case ModsRecordInfo.getId():
-                return ModsRecordInfo.getSelector();
-            case ModsRelatedItem.getId():
-                return ModsRelatedItem.getSelector();
-            case ModsRelatedItem2.getId():
-                return ModsRelatedItem2.getSelector();
-            case ModsSubject.getId():
-                return ModsSubject.getSelector();
-            case ModsClassification.getId():
-                return ModsClassification.getSelector();
-            case ModsResource.getId():
-                return ModsResource.getSelector();
-            case ModsFrequency.getId():
-                return ModsFrequency.getSelector();
-            case ModsPlace.getId():
-                return ModsPlace.getSelector();
-            case ModsPlaceTerm.getId():
-                return ModsPlaceTerm.getSelector();
-            case ModsNamePart.getId():
-                return ModsNamePart.getSelector();
-            case ModsGeographicCode.getId():
-              return ModsGeographicCode.getSelector();
-            case ModsDateIssued.getId():
-                return ModsDateIssued.getSelector();
-            case ModsDateCreated.getId():
-                return ModsDateCreated.getSelector();
-            case ModsDateValid.getId():
-                return ModsDateValid.getSelector();
-            case ModsDateCaptured.getId():
-                return ModsDateCaptured.getSelector();
-            case ModsDateModified.getId():
-                return ModsDateModified.getSelector();
-            case ModsDateOther.getId():
-                return ModsDateOther.getSelector();
-            case ModsCartographics.getId():
-                return ModsCartographics.getSelector();
-            case ModsUrl.getId():
-                return ModsUrl.getSelector();
-            case ModsShelfLocator.getId():
-                return ModsShelfLocator.getSelector();
-            case ModsForm.getId():
-                return ModsForm.getSelector();
-            case ModsRecordChangeDate.getId():
-                return ModsRecordChangeDate.getSelector();
-            case ModsRecordContentSource.getId():
-                return ModsRecordContentSource.getSelector();
-            case ModsRecordCreationDate.getId():
-                return ModsRecordCreationDate.getSelector();
-            case ModsRecordIdentifier.getId():
-                return ModsRecordIdentifier.getSelector();
-            case ModsLanguageOfCataloging.getId():
-                return ModsLanguageOfCataloging.getSelector()
-            case ModsExtent.getId():
-                return ModsExtent.getSelector();
-            case ModsDetail.getId():
-                return ModsDetail.getSelector();
-            case ModsPhysicalLocation.getId():
-                return ModsPhysicalLocation.getSelector();
-            case ModsDisplayForm.getId():
-                return ModsDisplayForm.getSelector();
-            case ModsDescription.getId():
-                return ModsDescription.getSelector();
-            case ModsInternetMediaType.getId():
-                return ModsInternetMediaType.getSelector();
-            case ModsTableOfContents.getId():
-                return ModsTableOfContents.getSelector();
-            case ModsTopic.getId():
-                return ModsTopic.getSelector();
-            case ModsTemporal.getId():
-                return ModsTemporal.getSelector();
-            case ModsGeographic.getId():
-              return ModsGeographic.getSelector()
-            case ModsPhysicalExtent.getId():
-                return ModsPhysicalExtent.getSelector();
-            case ModsEdition.getId():
-                return ModsEdition.getSelector();
-        }
-        return '';
-    }
-
+    
 }

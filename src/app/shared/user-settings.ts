@@ -306,6 +306,7 @@ public adminColumnsDefault = [
     }
 
     load(o: any) {
+      console.log(o)
         const keys = Object.keys(o);
         keys.forEach(k => {
             this.settings[k] = o[k];

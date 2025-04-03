@@ -94,16 +94,18 @@ export class SettingsComponent implements OnInit {
     // this.initSelectedColumnsEditingRepo();
   }
 
-  changeCodebookTops(prefix: string, top: string[], conf: string[], expanded: boolean = false) {
-    
+  changeCodebookTops(prefix: string, listName: string, conf: string[], expanded: boolean = false) {
+    const top: string[] = this.curSettings[listName];
     const dialogRef = this.dialog.open(PreferredTopsDialogComponent, { 
       data: {prefix, top, conf, expanded, relatedItemExpanded: this.curSettings.relatedItemExpanded} 
     });
 
+
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.curSettings[listName] = [];
         result.top.forEach((r: string) => {
-          top.push(r);
+          this.curSettings[listName].push(r);
         });
         this.curSettings.relatedItemExpanded = result.relatedItemExpanded;
         this.settingsService.setSettings(this.curSettings);

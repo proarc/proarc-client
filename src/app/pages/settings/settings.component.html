@@ -61,13 +61,13 @@
               <div class="app-label">{{ 'desc.typesOfParties' | translate }}</div>
               <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
                 <span fxFlex><ng-container *ngFor="let c of curSettings.topPageTypes; let la = last">{{ 'pageType.' + c | translate }} {{ la ? '' : ', '}}</ng-container></span>
-                <button mat-stroked-button (click)="changeCodebookTops('pageType', curSettings.topPageTypes, config.pageTypes)">{{ 'button.edit' | translate }}</button>
+                <button mat-stroked-button (click)="changeCodebookTops('pageType', 'topPageTypes', config.pageTypes)">{{ 'button.edit' | translate }}</button>
               </div>
               <mat-divider class="app-mb-4"></mat-divider>
               <span class="app-label">{{ 'desc.languages' | translate }}</span>
               <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
                 <span fxFlex><ng-container *ngFor="let c of curSettings.topLanguages; let la = last">{{ 'lang.' + c | translate }} {{ la ? '' : ', '}}</ng-container></span>
-                <button mat-stroked-button (click)="changeCodebookTops('lang', curSettings.topLanguages, config.languages)">{{ 'button.edit' | translate }}</button>
+                <button mat-stroked-button (click)="changeCodebookTops('lang', 'topLanguages', config.languages)">{{ 'button.edit' | translate }}</button>
               </div>
               <mat-divider class="app-mb-4"></mat-divider>
               <span class="app-label">{{ 'desc.identifiers' | translate }}</span>
@@ -76,7 +76,7 @@
                   <span fxFlex><ng-container *ngFor="let c of curSettings.topIdentifiers; let last">{{ 'identifier.' + c | translate }} {{ last ? '' : ', '}}</ng-container></span>
                   <em *ngIf=" curSettings.topIdentifiers?.length === 0" class="app-text-lowercase">{{ 'desc.noValue' | translate }}</em>
                 </div>
-                <button mat-stroked-button (click)="changeCodebookTops('identifier', curSettings.topIdentifiers, config.identifiers)">{{ 'button.edit' | translate }}</button>
+                <button mat-stroked-button (click)="changeCodebookTops('identifier', 'topIdentifiers', config.identifiers)">{{ 'button.edit' | translate }}</button>
               </div>
               <!-- <mat-divider class="app-mb-4"></mat-divider>
               <span class="app-label">{{ 'desc.storageLocations' | translate }}</span>
@@ -88,7 +88,7 @@
               <span class="app-label">{{ 'desc.expandingTheForm' | translate }}</span>
               <div fxLayout="row" fxLayoutGap="16px" class="app-mb-4" fxLayoutAlign="start end">
                 <span fxFlex><ng-container *ngFor="let c of curSettings.topExpandedModels; let last">{{ 'model.' + c | translate }} {{ last ? '' : ', '}}</ng-container></span>
-                <button mat-stroked-button (click)="changeCodebookTops('model', curSettings.topExpandedModels, config.models, true)">{{ 'button.edit' | translate }}</button>
+                <button mat-stroked-button (click)="changeCodebookTops('model', 'topExpandedModels', config.models, true)">{{ 'button.edit' | translate }}</button>
               </div>
               <mat-divider class="app-mb-4"></mat-divider>
               <span class="app-label">{{ 'desc.formBorderHighlighting' | translate }}</span>

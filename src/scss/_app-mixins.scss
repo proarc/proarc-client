@@ -1,5 +1,5 @@
 // --- MIXINS ---
-
+@use "sass:map";
 @use 'app-variables' as *;
 
 // set icon size
@@ -42,12 +42,12 @@
 @mixin setAlertCard() {
   @each $alert, $item in $alerts {
     &.app-#{$alert} {
-      color: map-get( $item , color );
-      background-color: map-get( $item , bg );
-      border-color: map-get( $item , border );
+      color: map.get( $item , color );
+      background-color: map.get( $item , bg );
+      border-color: map.get( $item , border );
     }
   }
-}
+} 
 
 // set badge color
 @mixin setStateColor($type: null) {
