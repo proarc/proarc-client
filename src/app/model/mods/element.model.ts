@@ -161,11 +161,12 @@ export abstract class ModsElement {
     public addControl(field: string) {
         if (!this.controls.hasOwnProperty(field)) {
             const c = new FormControl('');
-            if (field === 'dateIssued') {
-            }
 
             if (this[field as keyof (ModsElement)]) {
-                c.setValue(this[field as keyof (ModsElement)]['_']);
+                c.patchValue(this[field as keyof (ModsElement)]['_']);
+                c.valueChanges.subscribe((e: any) => {
+                    this[field as keyof (ModsElement)]['_'] = e;
+                });
             }
 
             this.controls[field] = c;

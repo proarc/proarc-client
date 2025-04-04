@@ -52,7 +52,6 @@ import {ModsDetail} from './detail.model';
 import {ModsLanguageOfCataloging} from './languageOfCataloging.model';
 import {ModsTemporal} from './temporal.model';
 import {ModsGeographic} from './geographic.model';
-import { UserSettings } from '../../shared/user-settings';
 
 
 export class ElementField {

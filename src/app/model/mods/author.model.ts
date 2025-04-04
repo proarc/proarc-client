@@ -15,7 +15,7 @@ export class ModsAuthor extends ModsElement {
     public family: { [x: string]: any; };
     public termsOfAddress: any;
     public date: any;
-    public roles: ElementField;
+    public roleTerm: ElementField;
     public nameParts: ElementField;
     public nameIdentifier: {[x: string]: string; };
     public nameIdentifierOrcId: {[x: string]: string; };
@@ -37,8 +37,8 @@ export class ModsAuthor extends ModsElement {
         this.init();
     }
 
-
     private init() {
+        
         this.addControl('type');
         this.addControl('usage');
 
@@ -54,13 +54,13 @@ export class ModsAuthor extends ModsElement {
         }
             this.nameParts = new ElementField(this.modsElement, ModsNamePart.getSelector(), this.getField('namePart'));
             this.addSubfield(this.nameParts);
-        this.addControl('namePart');
+            this.addControl('namePart');
         }
 
         if (this.available2('role')) {
-            this.roles = new ElementField(this.modsElement, ModsRole.getSelector(), this.getField('role'));
-            this.addSubfield(this.roles);
-        this.addControl('role');
+            this.roleTerm = new ElementField(this.modsElement, ModsRole.getSelector(), this.getField('role'));
+            this.addSubfield(this.roleTerm);
+            this.addControl('roleTerm');
         }
 
         if (this.available2('displayForm')) {
@@ -105,30 +105,7 @@ export class ModsAuthor extends ModsElement {
         }
         this.etal = this.modsElement['etal'][0];
         this.addControl('etal');
-
-        
-
-        // if (this.modsElement['nameIdentifier']) {
-        //     this.nameIdentifier = this.modsElement['nameIdentifier'][0]['_'];
-        // }
-
-        // this.splitName();
     }
-
-
-    // public splitName() {
-    //     const nameParts = this.name['_'].split(',');
-    //     if (nameParts.length === 2) {
-    //         this.family['_'] = nameParts[0].trim();
-    //         this.given['_'] = nameParts[1].trim();
-    //         this.name['_'] = '';
-    //     }
-    // }
-
-    // public canSplitName(): boolean {
-    //     const nameParts = this.name['_'].split(',');
-    //     return nameParts.length === 2;
-    // }
 
     public isPrimary(): boolean {
         return this.attrs['usage'] === 'primary';

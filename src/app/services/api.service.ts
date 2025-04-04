@@ -1338,5 +1338,11 @@ export class ApiService {
     data += `&applyTo=${holder.applyTo}`;
     return this.post('object/mods/' + action, data);
   }
+
+  addAuthority(pid: string, mods: string) {
+    let data = `pid=${pid}&jsonData=${mods}&timestamp=-1`;
+    return this.put('object/mods/addAuthority', data);
+    
+  }
 }
 

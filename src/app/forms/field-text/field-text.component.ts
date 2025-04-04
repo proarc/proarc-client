@@ -31,13 +31,13 @@ export class FieldTextComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.item.controls[this.field].setValue(this.value);
-    this.item.controls[this.field].valueChanges.subscribe((e: any) => {
-      // this.value = this.item.controls[this.field].value;
-      // console.log(this.field)
-      // this.item[this.field as keyof ModsElement][this.key] = this.item.controls[this.field].value;
-      this.valueChange.emit(e);
-    })
+    this.item.controls[this.field].patchValue(this.value);
+    // this.item.controls[this.field].valueChanges.subscribe((e: any) => {
+    //   // this.value = this.item.controls[this.field].value;
+    //   // console.log(this.field)
+    //   // this.item[this.field as keyof ModsElement][this.key] = this.item.controls[this.field].value;
+    //   this.valueChange.emit(e);
+    // })
   }
 
 }

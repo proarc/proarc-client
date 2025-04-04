@@ -18,12 +18,16 @@ import { UIService } from '../../services/ui.service';
 import { EditorSwitcherComponent } from '../editor-switcher/editor-switcher.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { EditorTitleComponent } from "../editor-title/editor-title.component";
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { EditorGenreComponent } from "../editor-genre/editor-genre.component";
+import { EditorAuthorComponent } from "../editor-author/editor-author.component";
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
     MatIconModule, MatProgressBarModule, MatTooltipModule,
-    MatRadioModule,
-    EditorSwitcherComponent, EditorTitleComponent]
+    MatRadioModule, MatFormFieldModule, MatSelectModule,
+    EditorSwitcherComponent, EditorTitleComponent, EditorGenreComponent, EditorAuthorComponent]
   ,
   selector: 'app-editor-metadata',
   templateUrl: './editor-metadata.component.html',
@@ -152,6 +156,158 @@ export class EditorMetadataComponent implements OnInit {
       this.layout.setPanelEditing(this.panel());
     }
     return this.hasChanges;
+  }
+
+  scrollHeight = 0;
+  startHeight = 0;
+  endHeight = 0;
+  _validating = false;
+  scrollToElement(field: string) {
+    const idx = this.fieldsOrder.indexOf(this.panel().id + field);
+    if (this.byField) {
+      this.scroller.nativeElement.scrollTop = 0;
+      this.changeSelected(field);
+    } else {
+      this.scroller.nativeElement.scrollTop = this.fieldsPositions[idx].top; // - this.scroller.nativeElement.getBoundingClientRect().top;
+    }
+  }
+  changeSelected(e: any) {
+    this.selectedField = e;
+    this.availableFields.forEach(k => {
+      this.visibleFields[k] = false;
+    });
+    this.visibleFields[this.selectedField] = true;
+    setTimeout(() => {this.setElStyles()}, 10)
+    // this.checkVisibility();
+  }
+
+  onSizeChanged() {
+    if(this.fieldsOrder.length === 0) {
+      return;
+    }
+    // find element resized
+    let idx = 0;
+    let id = '';
+    let oldH = 0;
+    let el = null;
+    let newH = 0;
+    for (let i = 0; i < this.fieldsOrder.length; i++) {
+      id = this.fieldsOrder[i];
+      if (this.visibleFields[id.substring(this.panel().id.length)]) {
+        idx = i;
+        oldH = this.fieldsPositions[idx].height;
+        el = document.getElementById(id);
+        newH = el.getBoundingClientRect().height;
+
+        if (oldH !== newH) {
+          break;
+        }
+      }
+    }
+
+    const delta = newH - oldH;
+    this.scrollHeight = this.scrollHeight + delta;
+    this.fieldsPositions[idx].height = newH;
+    this.fieldsPositions[idx].bottom = this.fieldsPositions[idx].bottom + delta;
+    for (let i = idx + 1; i < this.fieldsPositions.length; i++) {
+      this.fieldsPositions[i].top = this.fieldsPositions[i].top + delta;
+      this.fieldsPositions[i].bottom = this.fieldsPositions[i].bottom + delta;
+    }
+
+
+    this.checkVisibility();
+  }
+
+  elementIsVisibleInViewport(el: any): boolean {
+    const { top, left, bottom, right } = el.getBoundingClientRect();
+    const viewPort = this.scroller.nativeElement.getBoundingClientRect();
+    return ((top <= viewPort.top && bottom > viewPort.top) ||
+      (top > viewPort.top && top < viewPort.bottom));
+  }
+
+  elementIsVisibleInViewport2(idx: number, top: number, bottom: number): boolean {
+    const el = this.fieldsPositions[idx];
+    return ((el.top <= top && el.bottom > top+3) ||
+      (el.top > top && el.top < bottom));
+  }
+
+  checkVisibility() {
+
+    if (this._validating || true) {
+      return;
+    }
+
+    if (this.byField) {
+
+      this.availableFields.forEach(k => {
+        this.visibleFields[k] = false;
+      });
+      this.visibleFields[this.selectedField] = true;
+      setTimeout(() => {this.setElStyles()}, 10)
+      return;
+    }
+
+    if (this.scroller) {
+      const els: string[] = [];
+
+      const top = this.scroller.nativeElement.getBoundingClientRect().top + this.scroller.nativeElement.scrollTop;
+      const bottom = this.scroller.nativeElement.getBoundingClientRect().bottom + this.scroller.nativeElement.scrollTop;
+      // const top = this.scroller.nativeElement.scrollTop;
+      // const bottom = this.scroller.nativeElement.getBoundingClientRect().height + this.scroller.nativeElement.scrollTop;
+      this.startHeight = 0;
+      this.endHeight = 0;
+      let visibleHeight = 0;
+      let firstFound = false;
+      let lastFound = false;
+      for (let i = 0; i < this.fieldsOrder.length; i++) {
+        const v = this.elementIsVisibleInViewport2(i, top, bottom);
+
+        if (!v && !firstFound) {
+          this.startHeight += this.fieldsPositions[i].height;
+        }
+        if (v) {
+          if (!firstFound) {
+            this.selectedField = this.fieldsOrder[i].substring(this.panel().id.length);
+            //console.log(this.selectedField, i,  this.fieldsOrder)
+          }
+          firstFound = true;
+          visibleHeight += this.fieldsPositions[i].height;
+        }
+        if (!v && firstFound) {
+          lastFound = true;
+        }
+        this.visibleFields[this.fieldsOrder[i].substring(this.panel().id.length)] = v;
+      }
+      this.endHeight = this.scrollHeight - visibleHeight - this.startHeight;
+
+    }
+    setTimeout(() => {this.setElStyles()}, 1)
+  }
+
+  setElStyles() {
+    if (this.byField) {
+      for (let i = 0; i < this.fieldsOrder.length; i++) {
+        const id = this.fieldsOrder[i];
+        const el = document.getElementById(id);
+        if (el) {
+          el.style['visibility'] = 'visible';
+          el.style['position'] = 'relative';
+          el.style['width'] = '100%';
+          el.style['top'] = '0px';
+        }
+      }
+    } else {
+      for (let i = 0; i < this.fieldsOrder.length; i++) {
+        const id = this.fieldsOrder[i];
+        const el = document.getElementById(id);
+        if (el) {
+          el.style['visibility'] = 'visible';
+          el.style['position'] = 'absolute';
+          el.style['width'] = '100%';
+          el.style['top'] = this.fieldsPositions[i].top + 'px';
+        }
+      }
+    }
   }
 
 }
