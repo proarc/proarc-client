@@ -1,150 +1,148 @@
-<div fxLayout="column" fxFlexFill>
-    <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-breadcrumbsbar">
-      <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
-        <a routerLink="/"><mat-icon>home</mat-icon></a>
-        <span class="app-separator">/</span>
-        <span class="app-last">{{ 'search.title' | translate }}</span>
-      </div>
-      <button mat-button value="phrase"  [class.app-active]="searchMode === 'phrase'" (click)="searchMode = 'phrase'">{{ 'button.query' | translate }}</button>
-      <button mat-button value="advanced" [class.app-active]="searchMode === 'advanced'" (click)="searchMode = 'advanced'">{{ 'button.advancedSearch' | translate }}</button>
-      <button mat-button value="deleted" [class.app-active]="searchMode === 'deleted'" (click)="searchMode = 'deleted'">{{ 'button.searchInDeleted' | translate }}</button>
+<div class="app-fxLayout app-column app-fill">
+  <div class="app-fxLayout app-row app-center-v app-toolbar app-view-breadcrumbs">
+    <div class="app-fxLayout app-row app-center-v app-inner">
+      <a routerLink="/"><mat-icon>home</mat-icon></a>
+      <span class="app-separator">/</span>
+      <span class="app-last">{{ 'search.title' | translate }}</span>
     </div>
+    <button mat-button value="phrase"  [class.app-active]="searchMode === 'phrase'" (click)="searchMode = 'phrase'">{{ 'button.query' | translate }}</button>
+    <button mat-button value="advanced" [class.app-active]="searchMode === 'advanced'" (click)="searchMode = 'advanced'">{{ 'button.advancedSearch' | translate }}</button>
+    <button mat-button value="deleted" [class.app-active]="searchMode === 'deleted'" (click)="searchMode = 'deleted'">{{ 'button.searchInDeleted' | translate }}</button>
+  </div>
   
-    
-  
-    <div fxFlex class="app-content-wrapper app-search-results" fxLayout="column">
-      <div class="app-formbar" fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start baseline">
-        <button mat-stroked-button (click)="filter()">
-          {{ 'button.search' | translate }}
-        </button>
-        <ng-container *ngIf="searchMode === 'phrase'">
-          <mat-form-field class="app-model">
-            <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model">
-              <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
-              <mat-option *ngFor="let model of config.models" [value]="model">{{ "model." + model | translate }}</mat-option>
-            </mat-select>
-            <button *ngIf="model !== this.config.defaultModel && settings.searchModel === model" matSuffix mat-icon-button aria-label="Clear" (click)="model=this.config.defaultModel; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
-              <mat-icon>close</mat-icon>
-            </button>
-          </mat-form-field>
-          <mat-form-field fxFlex>
-            <input matInput [placeholder]="'desc.search' | translate" (keyup.enter)="filter()" [(ngModel)]="query">
-            <button *ngIf="urlParams?.query" matSuffix mat-icon-button aria-label="Clear" (click)="query=''; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
-              <mat-icon>close</mat-icon>
-            </button>
-          </mat-form-field>
-        </ng-container>
-        <ng-container *ngIf="searchMode !== 'phrase'">
-          <mat-form-field class="app-model">
-            <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model">
-              <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
-              <mat-option *ngFor="let model of config.models" [value]="model">{{ "model." + model | translate }}</mat-option>
-            </mat-select>
-            <button *ngIf="model !== this.config.defaultModel && settings.searchModel === model" matSuffix mat-icon-button aria-label="Clear" (click)="model=this.config.defaultModel; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
-              <mat-icon>close</mat-icon>
-            </button>
-          </mat-form-field>
-          <mat-form-field fxFlex>
-            <input matInput [placeholder]="'desc.name' | translate" (keyup.enter)="filter()" [(ngModel)]="queryLabel">
-            <button *ngIf="urlParams?.queryLabel" matSuffix mat-icon-button aria-label="Clear" (click)="queryLabel=''; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
-              <mat-icon>close</mat-icon>
-            </button>
-          </mat-form-field>
-          <mat-form-field fxFlex>
-            <input matInput [placeholder]="'desc.identifier' | translate" (keyup.enter)="filter()" [(ngModel)]="queryIdentifier">
-            <button *ngIf="urlParams?.queryIdentifier" matSuffix mat-icon-button aria-label="Clear" (click)="queryIdentifier=''; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
-              <mat-icon>close</mat-icon>
-            </button>
-          </mat-form-field>
-          <mat-form-field fxFlex>
-            <input matInput [placeholder]="'desc.creator' | translate" (keyup.enter)="filter()" [(ngModel)]="queryCreator">
-            <button *ngIf="urlParams?.queryCreator" matSuffix mat-icon-button aria-label="Clear" (click)="queryCreator=''; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
-              <mat-icon>close</mat-icon>
-            </button>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-select [placeholder]="'desc.organization' | translate" name="organization" [(value)]="organization">
-              <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
-              <mat-option *ngFor="let org of config.organizations" [value]="org">{{ 'organization.' + org | translate }}</mat-option>
-            </mat-select>
-            <button *ngIf="organization !=='-' && settings.searchOrganization === organization" matSuffix mat-icon-button aria-label="Clear" (click)="organization='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
-              <mat-icon>close</mat-icon>
-            </button>
-          </mat-form-field>
-          <mat-form-field class="app-owner">
-            <mat-select [placeholder]="'desc.owner' | translate" name="owner" [(value)]="owner">
-              <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
-              <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
-            </mat-select>
-            <button *ngIf="owner !== '-' && settings.searchOwner === owner" matSuffix mat-icon-button aria-label="Clear" (click)="owner='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
-              <mat-icon>close</mat-icon>
-            </button>
-          </mat-form-field>
-          <mat-form-field class="app-processor">
-            <mat-select [placeholder]="'desc.processor' | translate" name="processor" [(value)]="processor">
-              <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
-              <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
-            </mat-select>
-            <button *ngIf="processor !== '-' &&  settings.searchProcessor === processor" matSuffix mat-icon-button aria-label="Clear" (click)="processor='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
-              <mat-icon>close</mat-icon>
-            </button>
-          </mat-form-field>
-        </ng-container>
-      </div>
-      <div fxFlex class="app-oh app-border-wrapper">
-        <as-split [gutterSize]="10" direction="vertical" (dragEnd)="splitDragEnd($event)">
-          <as-split-area  [size]="splitArea1Width">
-            <div *ngIf="items" fxLayout="column" fxFlexFill>
-              <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar" [class.app-disabled]="state === 'loading'">
-                <div fxFlex fxLayout="row" fxFlexFill>
-                  <button (click)="reload()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
-                  <app-search-actions [items]="items" [selectedItem]="selectedItem" [selectedTreeItem]="selectedTreeItem" [treeItems]="treeItems"
-                  (reload)="reload()" [(state)]="state" [forTree]="false"></app-search-actions>
-                </div>
-                <div>
-                  <mat-paginator [length]="resultCount" hidePageSize="true" [pageIndex]="pageIndex" [pageSize]="pageSize" (page)="onPageChanged($event)"></mat-paginator>
-                </div>
+  <div class="app-fxFlex app-content-wrapper app-search-results" fxLayout="column">
+    <div class="app-fxLayout app-row app-baseline app-gap-4 app-formbar">
+      <button mat-stroked-button (click)="filter()">
+        {{ 'button.search' | translate }}
+      </button>
+      <ng-container *ngIf="searchMode === 'phrase'">
+        <mat-form-field class="app-model">
+          <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model">
+            <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
+            <mat-option *ngFor="let model of config.models" [value]="model">{{ "model." + model | translate }}</mat-option>
+          </mat-select>
+          <button *ngIf="model !== this.config.defaultModel && settings.searchModel === model" matSuffix mat-icon-button aria-label="Clear" (click)="model=this.config.defaultModel; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+          <input matInput [placeholder]="'desc.search' | translate" (keyup.enter)="filter()" [(ngModel)]="query">
+          <button *ngIf="urlParams?.query" matSuffix mat-icon-button aria-label="Clear" (click)="query=''; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </ng-container>
+      <ng-container *ngIf="searchMode !== 'phrase'">
+        <mat-form-field class="app-model">
+          <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model">
+            <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
+            <mat-option *ngFor="let model of config.models" [value]="model">{{ "model." + model | translate }}</mat-option>
+          </mat-select>
+          <button *ngIf="model !== this.config.defaultModel && settings.searchModel === model" matSuffix mat-icon-button aria-label="Clear" (click)="model=this.config.defaultModel; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+          <input matInput [placeholder]="'desc.name' | translate" (keyup.enter)="filter()" [(ngModel)]="queryLabel">
+          <button *ngIf="urlParams?.queryLabel" matSuffix mat-icon-button aria-label="Clear" (click)="queryLabel=''; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+          <input matInput [placeholder]="'desc.identifier' | translate" (keyup.enter)="filter()" [(ngModel)]="queryIdentifier">
+          <button *ngIf="urlParams?.queryIdentifier" matSuffix mat-icon-button aria-label="Clear" (click)="queryIdentifier=''; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+          <input matInput [placeholder]="'desc.creator' | translate" (keyup.enter)="filter()" [(ngModel)]="queryCreator">
+          <button *ngIf="urlParams?.queryCreator" matSuffix mat-icon-button aria-label="Clear" (click)="queryCreator=''; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select [placeholder]="'desc.organization' | translate" name="organization" [(value)]="organization">
+            <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
+            <mat-option *ngFor="let org of config.organizations" [value]="org">{{ 'organization.' + org | translate }}</mat-option>
+          </mat-select>
+          <button *ngIf="organization !=='-' && settings.searchOrganization === organization" matSuffix mat-icon-button aria-label="Clear" (click)="organization='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field class="app-owner">
+          <mat-select [placeholder]="'desc.owner' | translate" name="owner" [(value)]="owner">
+            <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
+            <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
+          </mat-select>
+          <button *ngIf="owner !== '-' && settings.searchOwner === owner" matSuffix mat-icon-button aria-label="Clear" (click)="owner='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field class="app-processor">
+          <mat-select [placeholder]="'desc.processor' | translate" name="processor" [(value)]="processor">
+            <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
+            <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
+          </mat-select>
+          <button *ngIf="processor !== '-' &&  settings.searchProcessor === processor" matSuffix mat-icon-button aria-label="Clear" (click)="processor='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </ng-container>
+    </div>
+    <div fxFlex class="app-oh app-border-wrapper">
+      <as-split [gutterSize]="10" direction="vertical" (dragEnd)="splitDragEnd($event)">
+        <as-split-area  [size]="splitArea1Width">
+          <div *ngIf="items" fxLayout="column" fxFlexFill>
+            <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar" [class.app-disabled]="state === 'loading'">
+              <div fxFlex fxLayout="row" fxFlexFill>
+                <button (click)="reload()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
+                <app-search-actions [items]="items" [selectedItem]="selectedItem" [selectedTreeItem]="selectedTreeItem" [treeItems]="treeItems"
+                (reload)="reload()" [(state)]="state" [forTree]="false"></app-search-actions>
               </div>
-              <div class="app-oa-y">
-                <mat-progress-bar mode="indeterminate" *ngIf="state === 'loading'" class="app-progress-bar"></mat-progress-bar>
-
-                <app-user-table (sortBy)="sortBy($event)" (selectItem)="selectRow($event)"  (openItem)="openItem($event)"  (getValidationError)="getValidationError($event)" 
-                  [colsSettingsName]="'columnsSearch'" [items]="items" ></app-user-table>
-                
+              <div>
+                <mat-paginator [length]="resultCount" hidePageSize="true" [pageIndex]="pageIndex" [pageSize]="pageSize" (page)="onPageChanged($event)"></mat-paginator>
               </div>
             </div>
-          </as-split-area>
-  
-          <as-split-area [size]="splitArea2Width">
-  
-            <div  *ngIf="selectedTreeItem" fxLayout="column" fxFlexFill>
-              <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar">
-                <div fxFlex fxLayout="row" fxFlexFill>
-                  <button (click)="selectItem(selectedItem)" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
-                  <button (click)="expandAllInTree()" mat-button>{{ 'button.unpack' | translate }}</button>
-                  <app-search-actions [items]="items" [selectedItem]="selectedItem" [selectedTreeItem]="selectedTreeItem" [treeItems]="treeItems"
-                  (reload)="reload($event)" (reloadTree)="reloadTree($event)" [(state)]="state" [forTree]="true"></app-search-actions>
-                  <!-- 
-                    <button mat-menu-item (click)="selectColumnsTree('searchTree')" >{{'editor.children.select_columns' | translate}}</button>
-                  </mat-menu> -->
-                </div>
-                  <div *ngFor="let i of object.keys(tree_info)" class="app-mr-2">{{ 'model.' + i | translate }}: {{ tree_info[i] }}</div>
-                  <button *ngIf="batchInfo" mat-icon-button color="primary" (click)="onShowLog(batchInfo);" [matTooltip]="'button.viewErrorDetail' | translate" matTooltipPosition="below" class="app-icon-button">
-                    <mat-icon>error_outline</mat-icon>
-                  </button>
-              </div>
-              <div fxFlex class="app-oa-y app-tree" fxLayout="column" fxFlexFill >
-                <app-user-tree-table #treeTable [inSearch]="true" [treePath]="[selectedTreeItem.pid]" [rootTreeItem]="selectedTreeItem" 
-                  (onSelectTreeItem)="selectedTreeItem = $event"
-                  (onTreeItemsChanged)="treeItems = $event"
-                  (treeInfo)="treeInfoChanged($event)"></app-user-tree-table>
+            <div class="app-oa-y">
+              <mat-progress-bar mode="indeterminate" *ngIf="state === 'loading'" class="app-progress-bar"></mat-progress-bar>
 
-                
-              </div>
+              <app-user-table (sortBy)="sortBy($event)" (selectItem)="selectRow($event)"  (openItem)="openItem($event)"  (getValidationError)="getValidationError($event)" 
+                [colsSettingsName]="'columnsSearch'" [items]="items" ></app-user-table>
+              
             </div>
-          </as-split-area>
-        </as-split>
-      </div>
+          </div>
+        </as-split-area>
+
+        <as-split-area [size]="splitArea2Width">
+
+          <div  *ngIf="selectedTreeItem" fxLayout="column" fxFlexFill>
+            <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center" class="app-toolbar">
+              <div fxFlex fxLayout="row" fxFlexFill>
+                <button (click)="selectItem(selectedItem)" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
+                <button (click)="expandAllInTree()" mat-button>{{ 'button.unpack' | translate }}</button>
+                <app-search-actions [items]="items" [selectedItem]="selectedItem" [selectedTreeItem]="selectedTreeItem" [treeItems]="treeItems"
+                (reload)="reload($event)" (reloadTree)="reloadTree($event)" [(state)]="state" [forTree]="true"></app-search-actions>
+                <!-- 
+                  <button mat-menu-item (click)="selectColumnsTree('searchTree')" >{{'editor.children.select_columns' | translate}}</button>
+                </mat-menu> -->
+              </div>
+                <div *ngFor="let i of object.keys(tree_info)" class="app-mr-2">{{ 'model.' + i | translate }}: {{ tree_info[i] }}</div>
+                <button *ngIf="batchInfo" mat-icon-button color="primary" (click)="onShowLog(batchInfo);" [matTooltip]="'button.viewErrorDetail' | translate" matTooltipPosition="below" class="app-icon-button">
+                  <mat-icon>error_outline</mat-icon>
+                </button>
+            </div>
+            <div fxFlex class="app-oa-y app-tree" fxLayout="column" fxFlexFill >
+              <app-user-tree-table #treeTable [inSearch]="true" [treePath]="[selectedTreeItem.pid]" [rootTreeItem]="selectedTreeItem" 
+                (onSelectTreeItem)="selectedTreeItem = $event"
+                (onTreeItemsChanged)="treeItems = $event"
+                (treeInfo)="treeInfoChanged($event)"></app-user-tree-table>
+
+              
+            </div>
+          </div>
+        </as-split-area>
+      </as-split>
     </div>
   </div>
+</div>
   

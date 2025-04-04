@@ -28,6 +28,10 @@
     place-content: center;
   }
 
+  &.app-baseline {
+    align-items: baseline;
+  }
+
   &.app-fill {
     height: 100%; 
     min-height: 100%; 

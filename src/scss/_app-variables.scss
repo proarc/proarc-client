@@ -36,10 +36,12 @@
   --app-navbar-session-color: #{rgba(var(--app-color-lightnes-rgb), .3)};
 
   --app-toolbar-height: 34px;
+  --app-toolbar-color: var(--app-gray-7);
   --app-toolbar-border-color: var(--app-default-border-color);
-  --app-toolbar-bg: var(--app-default-bg);
+  --app-toolbar-bg-color: var(--app-default-bg);
   --app-toolbar-button-bg-active: var(--app-toolbar-border-color);
   --app-toolbar-button-height: var(--app-toolbar-height);
+  --app-toolbar-view-breadcrumbs: 40px;
 
   // footer
   --app-footer-bg-color: var(--app-color-darknes);
@@ -47,7 +49,7 @@
 
   // mat override
   --mat-toolbar-standard-height: 56px;
-
+  --mat-text-button-horizontal-padding: 16px;
   --mdc-outlined-card-container-shape: 0;
 }
 
