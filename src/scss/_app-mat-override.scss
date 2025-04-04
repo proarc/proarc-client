@@ -2,6 +2,7 @@
 
 @use "app-mixins";
 
+// card
 .mat-mdc-card {
   &.app-alert {
     @include app-mixins.setAlertCard();
@@ -28,5 +29,17 @@
 
   .mat-mdc-card-actions {
     padding: 0 16px 16px 16px;
+  }
+}
+
+// paginator
+.mat-mdc-paginator {
+  .app-toolbar & {
+    background-color: transparent;
+  }
+
+  .app-oa-y & {
+    position: sticky;
+    bottom: 0;
   }
 }
