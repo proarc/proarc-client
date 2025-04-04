@@ -16,7 +16,7 @@
 		</div>
 		<div>
 			<ng-container *ngIf="!notSaved">
-				<!-- <button  mat-icon-button (click)="onLoadFromCatalog()" [matTooltip]="'button.metadataCatalog' | translate">
+				<button  mat-icon-button (click)="onLoadFromCatalog()" [matTooltip]="'button.metadataCatalog' | translate">
 					<mat-icon>local_library</mat-icon>
 				</button>
 				<button mat-icon-button (click)="validate()" [matTooltip]="'editor.children.validate' | translate" [class.app-color-warn]="!isValidMetadata">
@@ -27,13 +27,14 @@
 				</button>
 				<button mat-icon-button  (click)="revert()" [disabled]="!hasChanges" [matTooltip]="'button.refresh' | translate" >
 					<mat-icon>refresh</mat-icon>
-				</button> -->
+				</button>
 			</ng-container>
 		</div>
 	</div>
 	<div fxFlex>
-		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
-		<div class="app-editor-content" *ngIf="state !=='loading'" fxLayout="column">
+		<mat-progress-bar mode="indeterminate" *ngIf="loading" class="app-progress-bar"></mat-progress-bar>
+		<div class="app-editor-content" *ngIf="!loading" fxLayout="column">
+			<app-editor-title [id]="panel().id + 'titleInfo'" *ngIf="visibleFields['titleInfo']" [field]="fields['titleInfo']"></app-editor-title>
 			<!-- <div class="app-form-display-el" [ngClass]="scroller.scrollTop > 0 ? 'app-scrolling' : null">
 				<mat-form-field class="app-w-100 app-p-2 app-mt-1 app-clean-mb" [ngClass]="metadata.invalidFields.includes(selectedField) ? 'mat-form-field-invalid' : null">
 					<mat-label>{{ 'desc.jumpToElement' | translate }}</mat-label>

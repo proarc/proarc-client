@@ -17,12 +17,13 @@ import { TemplateService } from '../../services/template.service';
 import { UIService } from '../../services/ui.service';
 import { EditorSwitcherComponent } from '../editor-switcher/editor-switcher.component';
 import { MatRadioModule } from '@angular/material/radio';
+import { EditorTitleComponent } from "../editor-title/editor-title.component";
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
     MatIconModule, MatProgressBarModule, MatTooltipModule,
     MatRadioModule,
-    EditorSwitcherComponent]
+    EditorSwitcherComponent, EditorTitleComponent]
   ,
   selector: 'app-editor-metadata',
   templateUrl: './editor-metadata.component.html',
@@ -36,7 +37,7 @@ export class EditorMetadataComponent implements OnInit {
   onChangePanelType = output<string>();
 
   notSaved: boolean;
-  state = 'none';
+  loading: boolean;
   pid: string;
   model: string;
   metadata: Metadata;
@@ -76,14 +77,8 @@ export class EditorMetadataComponent implements OnInit {
     })
   }
 
-  loadMetadata() {
-    this.api.getMetadata(this.pid).subscribe(respMeta => {
-      const standard = respMeta['record']['standard'] ? respMeta['record']['standard'] : Metadata.resolveStandardFromXml(respMeta['record']['content']);
-      this.tmpl.getTemplate(standard, this.model).subscribe((tmpl: any) => {
-        this.metadata = new Metadata(this.pid, this.model, respMeta['record']['content'], respMeta['record']['timestamp'], standard, tmpl);
-        console.log(this.metadata)
-      })
-    });
+  ngOnInit() {
+
   }
 
   ngOnDestroy() {
@@ -94,8 +89,69 @@ export class EditorMetadataComponent implements OnInit {
     this.onChangePanelType.emit(t);
   }
 
-  ngOnInit() {
+  loadMetadata() {
+    this.loading = true;
+    this.api.getMetadata(this.pid).subscribe(respMeta => {
+      const standard = respMeta['record']['standard'] ? respMeta['record']['standard'] : Metadata.resolveStandardFromXml(respMeta['record']['content']);
+      this.tmpl.getTemplate(standard, this.model).subscribe((tmpl: any) => {
+        this.metadata = new Metadata(this.pid, this.model, respMeta['record']['content'], respMeta['record']['timestamp'], standard, tmpl);
+        console.log(this.metadata);
 
+        this.visibleFields = {};
+        Object.keys(this.metadata.template).forEach(k => {
+          this.fieldIds[k] = true;
+          this.fields[k] = this.metadata.getField(k);
+          this.visibleFields[k] = true;
+        });
+
+        this.loading = false;
+      })
+    });
+  }
+
+  onLoadFromCatalog() {
+    // const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'full' } });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result && result['mods']) {
+    //     this.saveModsFromCatalog(result['mods'], result['catalogId']);
+    //   }
+    // });
+  }
+
+  validate() {
+    this.isValidMetadata = this.metadata.validate();
+    console.log(this.isValidMetadata, this.model)
+      setTimeout(() => {
+        // this.onSizeChanged();
+      }, 10);
+  }
+
+  onSave() {
+    console.log(this.metadata);
+    console.log(this.metadata.toMods())
+  }
+
+  revert() {
+    this.layout.clearPanelEditing();
+    this.metadata = null;
+    this.loadMetadata();
+  }
+
+  hasPendingChanges(): boolean {
+    if (!this.metadata) {
+      return false;
+    }
+    if (!this.panel().canEdit) {
+      return false;
+    }
+    this.hasChanges = this.metadata.hasChanges();
+    const focused = document.activeElement;
+    const panel = document.getElementById(this.panel().id);
+    const isChild = panel.contains(focused);
+    if (isChild && this.hasChanges) {
+      this.layout.setPanelEditing(this.panel());
+    }
+    return this.hasChanges;
   }
 
 }

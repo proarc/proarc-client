@@ -52,7 +52,6 @@ import {ModsDetail} from './detail.model';
 import {ModsLanguageOfCataloging} from './languageOfCataloging.model';
 import {ModsTemporal} from './temporal.model';
 import {ModsGeographic} from './geographic.model';
-import { inject, Injectable } from '@angular/core';
 import { UserSettings } from '../../shared/user-settings';
 
 
@@ -67,17 +66,17 @@ export class ElementField {
 
     public labelKey: string;
     public usage: string;
-    private userSettings = inject(UserSettings);
 
-    constructor(mods: any, id: string, template: any, relatedItemExpanded: boolean = false) {
+    constructor(mods: any, id: string, template: any) {
         this.template = template;
 
         this.labelKey = this.template.labelKey;
         this.usage = this.template.usage;
 
         if (id.startsWith('relatedItem')) {
-            this.allExpanded = relatedItemExpanded;
-            console.log(this.allExpanded)
+            // private userSettings = inject(UserSettings);
+            // this.allExpanded = userSettings.relatedItemExpanded;
+            // console.log(this.allExpanded)
         }
 
         this.id = id;

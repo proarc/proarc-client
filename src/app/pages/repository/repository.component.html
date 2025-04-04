@@ -57,17 +57,17 @@
   <div fxFlex class="app-oh app-content-wrapper" cdkDropListGroup>
     <div class="app-border-wrapper app-h-100">
       <as-split *ngIf="settings.repositoryLayout" direction="horizontal" [disabled]="settings.repositoryLayout.disabled"  (dragEnd)="onDragEnd(-1, $event)">
-        <ng-template ngFor let-column [ngForOf]="settings.repositoryLayout.columns" let-icol="index">
+        <ng-container *ngFor="let column of settings.repositoryLayout.columns let icol=index">
           <as-split-area *ngIf="column.visible" [size]="column.size">
             <as-split direction="vertical" [disabled]="settings.repositoryLayout.disabled" (dragEnd)="onDragEnd(icol, $event)">
-              <ng-template ngFor let-row [ngForOf]="column.rows" let-irow="index">
+              <ng-container *ngFor="let row of column.rows let irow=index">
                 <as-split-area *ngIf="row.visible"  [size]="row.size" [class.app-disabled]="!row.canEdit">
                   <app-panel [panel]="row" [rootItem]="layout.rootItem" [lastSelectedItem]="layout.lastSelectedItem()" [numOfSelected]="layout.getNumOfSelected()" ></app-panel>
                 </as-split-area>
-              </ng-template>
+              </ng-container>
             </as-split>
           </as-split-area>
-        </ng-template>
+        </ng-container>
       </as-split>
     </div>
   </div>
