@@ -43,3 +43,8 @@
     bottom: 0;
   }
 }
+
+// menu
+.mat-mdc-menu-item {
+  min-height: var(--app-menu-item-height) !important;
+}

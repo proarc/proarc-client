@@ -31,13 +31,12 @@ import { ResizecolDirective } from '../../resizecol.directive';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { LogDialogComponent } from '../../dialogs/log-dialog/log-dialog.component';
 import { SearchActionsComponent } from "./search-actions/search-actions.component";
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { UserTableComponent } from "../../components/user-table/user-table.component";
 import { UserTreeTableComponent } from "../../components/user-tree-table/user-tree-table.component";
 
 @Component({
   selector: 'app-search',
-  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, FlexLayoutModule,
+  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
     MatTableModule, MatSortModule, SearchActionsComponent, UserTableComponent, UserTreeTableComponent],

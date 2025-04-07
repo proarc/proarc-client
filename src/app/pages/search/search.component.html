@@ -10,7 +10,7 @@
     <button mat-button value="deleted" [class.app-active]="searchMode === 'deleted'" (click)="searchMode = 'deleted'">{{ 'button.searchInDeleted' | translate }}</button>
   </div>
   
-  <div class="app-fxFlex app-content-wrapper app-search-results" fxLayout="column">
+  <div class="app-fxLayout app-column app-fxFlex app-content-wrapper app-search-results">
     <div class="app-fxLayout app-row app-baseline app-gap-4 app-formbar">
       <button mat-stroked-button (click)="filter()">
         {{ 'button.search' | translate }}
@@ -122,7 +122,7 @@
                   <mat-icon>error_outline</mat-icon>
                 </button>
             </div>
-            <div fxFlex class="app-oa-y app-tree" fxLayout="column" fxFlexFill >
+            <div class="app-fxFlex app-fxLayut app-column app-fill app-oa-y app-tree">
               <app-user-tree-table #treeTable [inSearch]="true" [treePath]="[selectedTreeItem.pid]" [rootTreeItem]="selectedTreeItem" 
                 (onSelectTreeItem)="selectedTreeItem = $event"
                 (onTreeItemsChanged)="treeItems = $event"
