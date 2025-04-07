@@ -25,12 +25,13 @@ import { EditorAuthorComponent } from "../editor-author/editor-author.component"
 import { EditorPublisherComponent } from "../editor-publisher/editor-publisher.component";
 import { EditorLocationComponent } from "../editor-location/editor-location.component";
 import { EditorIdentifierComponent } from "../editor-identifier/editor-identifier.component";
+import { EditorLanguageComponent } from "../editor-language/editor-language.component";
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
     MatIconModule, MatProgressBarModule, MatTooltipModule,
     MatRadioModule, MatFormFieldModule, MatSelectModule,
-    EditorSwitcherComponent, EditorTitleComponent, EditorGenreComponent, EditorAuthorComponent, EditorPublisherComponent, EditorLocationComponent, EditorIdentifierComponent]
+    EditorSwitcherComponent, EditorTitleComponent, EditorGenreComponent, EditorAuthorComponent, EditorPublisherComponent, EditorLocationComponent, EditorIdentifierComponent, EditorLanguageComponent]
   ,
   selector: 'app-editor-metadata',
   templateUrl: './editor-metadata.component.html',

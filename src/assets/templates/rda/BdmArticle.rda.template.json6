@@ -13,10 +13,35 @@
         selector: 'titleInfo/@type',
         labelKey: 'titleInfo/@type',
         cols: 3,
+        description: 'Hlavní název bez typu - pole 245 a $a<br/>\
+          Možné hodnoty\
+          <ul>\
+            <li>Zkrácený název (abbreviated) - pole 210</li>\
+            <li>Alternativní název (alternative) – pole 246</li>\
+            <li>Přeložený název (translated) – pole 242</li>\
+            <li>Jednotný název (uniform) – pole 130 resp. 240</li>\
+          </ul>',
         options: [
-          ['', '-'],
-          ['translated', 'Přeložený název'],
-          ['alternative', 'Variantní název']
+          [
+            '',
+            '-'
+          ],
+          [
+            'abbreviated',
+            'Zkrácený název'
+          ],
+          [
+            'translated',
+            'Přeložený název'
+          ],
+          [
+            'alternative',
+            'Alternativní název'
+          ],
+          [
+            'uniform',
+            'Jednotný název'
+          ]
         ]
       },
       lang: {
@@ -444,7 +469,15 @@
             selector: 'part/extent/end',
             labelKey: 'bdm/part/extent/end',
             description: 'Poslední stránka článku.'
-          }
+          },
+//          total: {
+//            usage: 'MA',
+//            label: 'Počet stran',
+//            cols: 3,
+//            selector: 'part/extent/total',
+//            labelKey: 'bdm/part/extent/total',
+//            description: 'Počet stran článku.'
+//          }
         }
       }
     }
@@ -755,6 +788,29 @@
         labelKey: 'identifier/value',
         label: 'Hodnota',
         help: 'off'
+      },
+      typeURI: {
+        usage: 'MA',
+        label: 'Zdroj',
+        selector: 'identifier/@typeURI',
+        labelKey: 'identifier/@typeURI',
+        description: 'Výběr zdroje DOI článku.'
+      },
+      validity: {
+        usage: 'MA',
+        label: 'Platnost',
+        selector: 'identifier/@invalid',
+        labelKey: 'identifier/@invalid',
+        cols: 2,
+        description: 'Uvádějí se i neplatné resp. zrušené identifikátory\
+          <ul>\
+            <li>\
+              <strong>Platný</strong> <code>identifier/[not(@invalid)]</code>\
+            </li>\
+            <li>\
+              <strong>Neplatný</strong> <code>identifier/[@invalid="yes"]</code>\
+            </li>\
+          </ul>'
       }
     }
   },
@@ -923,6 +979,74 @@
       },
     }
   },
+  accessCondition: {
+    usage: 'O',
+    label: 'accessCondition',
+    selector: 'accessCondition',
+    labelKey: 'bdm/accessCondition',
+    description: 'Zápis licence',
+    fields: {
+      type: {
+        usage: 'O',
+        label: 'Typ',
+        selector: 'accessCondition/@type',
+        labelKey: 'accessCondition/@type',
+        cols: 2,
+        description: 'Typ licence',
+        options: [
+          ['use and reproduction', 'use and reproduction'],
+          ['restriction on access', 'restriction on access']
+        ]
+      },
+      displayLabel: {
+        usage: 'O',
+        label: 'Zobrazená část',
+        selector: 'accessCondition/@displayLabel',
+        labelKey: 'accessCondition/@displayLabel',
+        cols: 2,
+        description: 'Zobrazená hodnota',
+        options: [
+          ['CC BY 4.0', 'CC BY 4.0'],
+          ['CC BY-NC 4.0', 'CCC BY-NC 4.0'],
+          ['CC BY-ND 4.0', 'CC BY-ND 4.0'],
+          ['CC BY-SA 4.0', 'CC BY-SA 4.0'],
+          ['CC BY-NC-ND 4.0', 'CC BY-NC-ND 4.0'],
+          ['CC BY-NC-SA 4.0', 'CC BY-NC-SA 4.0']
+        ]
+      },
+      'xlink:href': {
+        usage: 'O',
+        label: 'xLink',
+        selector: 'accessCondition/@xlink',
+        labelKey: 'accessCondition/@xlink',
+        description: 'odkaz na licenci - přebírá se do exportu Crossref',
+        options: [
+//          ['https://creativecommons.org/licenses/by/4.0/legalcode.cs', 'https://creativecommons.org/licenses/by/4.0/legalcode.cs'],
+          ['https://creativecommons.org/licenses/by/4.0/', 'https://creativecommons.org/licenses/by/4.0/'],
+          ['https://creativecommons.org/licenses/by-nc/4.0/', 'https://creativecommons.org/licenses/by-nc/4.0/'],
+          ['https://creativecommons.org/licenses/by-nd/4.0/', 'https://creativecommons.org/licenses/by-nd/4.0/'],
+          ['https://creativecommons.org/licenses/by-sa/4.0/', 'https://creativecommons.org/licenses/by-sa/4.0/'],
+          ['https://creativecommons.org/licenses/by-nc-nd/4.0/', 'https://creativecommons.org/licenses/by-nc-nd/4.0/'],
+          ['https://creativecommons.org/licenses/by-nc-sa/4.0/', 'https://creativecommons.org/licenses/by-nc-sa/4.0/']
+        ]
+      },
+      value: {
+        usage: 'O',
+        label: 'Hodnota',
+        selector: 'accessCondition/value',
+        labelKey: 'accessCondition/value',
+        description: 'Hodnota',
+        options: [
+          ['CC BY 4.0', 'CC BY 4.0'],
+          ['CC BY-NC 4.0', 'CCC BY-NC 4.0'],
+          ['CC BY-ND 4.0', 'CC BY-ND 4.0'],
+          ['CC BY-SA 4.0', 'CC BY-SA 4.0'],
+          ['CC BY-NC-ND 4.0', 'CC BY-NC-ND 4.0'],
+          ['CC BY-NC-SA 4.0', 'CC BY-NC-SA 4.0']
+        ]
+      }
+    }
+  },
   relatedItem: {
     usage: 'MA',
     label: 'Recenze na',
@@ -968,7 +1092,7 @@
               start: {
                 usage: 'MA',
                 label: 'Od strany',
-                cols: 2,
+                cols: 3,
                 selector: 'relatedItem/part/extent/start',
                 labelKey: 'bdm/relatedItem/part/extent/start',
                 description: 'První stránka článku/citace.'
@@ -976,10 +1100,18 @@
               end: {
                 usage: 'MA',
                 label: 'Do strany',
-                cols: 2,
+                cols: 3,
                 selector: 'relatedItem/part/extent/end',
                 labelKey: 'bdm/relatedItem/part/extent/end',
                 description: 'Poslední stránka článku.'
+              },
+              total: {
+                usage: 'MA',
+                label: 'Počet stran',
+                cols: 3,
+                selector: 'relatedItem/part/extent/total',
+                labelKey: 'bdm/relatedItem/part/extent/total',
+                description: 'Počet stran článku.'
               }
             }
           }
@@ -1225,6 +1357,13 @@
             cols: 2,
             description: 'Uvádějí se i neplatné resp. zrušené identifikátory.'
           },
+          typeURI: {
+            usage: 'MA',
+            label: 'Zdroj',
+            selector: 'relatedItem/identifier/@typeURI',
+            labelKey: 'relatedItem/identifier/@typeURI',
+            description: 'Výběr zdroje DOI článku.'
+          }
         }
       },
       relatedItem: {
@@ -1389,6 +1528,13 @@
                 cols: 2,
                 description: 'Uvádějí se i neplatné resp. zrušené identifikátory.'
               },
+              typeURI: {
+                usage: 'MA',
+                label: 'Zdroj',
+                selector: 'relatedItem/identifier/@typeURI',
+                labelKey: 'relatedItem/identifier/@typeURI',
+                description: 'Výběr zdroje DOI článku.'
+              }
             }
           }
         }

@@ -1,8 +1,10 @@
 <mat-form-field *ngIf="item.available[field]" [class]="item.clazz[field]" >
   <app-usage [item]="item" [field]="field"></app-usage>
-  <mat-select [required]="item.isMandatory[field]" [formControl]="item.controls[field]"  [(ngModel)]='value' (ngModelChange)="valueChange.emit(value)" [placeholder]="'mods.' + item.labelKey[field] | translate">
-    <mat-option *ngFor="let option of options" [value]="option.code">
-      {{ option.name | translate }} {{ showCode ? '('+option.code + ')' : '' }}
+  <mat-select [required]="item.isMandatory[field]" 
+   [formControl]="item.controls[field]" 
+   [placeholder]="'mods.' + item.labelKey[field] | translate">
+    <mat-option *ngFor="let option of options" [value]="option">
+      {{ prefix + '.' + option | translate }} {{ showCode ? '('+option + ')' : '' }}
     </mat-option>
   </mat-select>
 </mat-form-field>

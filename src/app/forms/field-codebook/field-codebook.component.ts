@@ -23,6 +23,7 @@ export class FieldCodebookComponent implements OnInit {
 
   @Input() item: ModsElement;
   @Input() field: string;
+  @Input() prefix: string;
   @Input() value: string;
   @Input() options: any;
   @Input() showCode: boolean;

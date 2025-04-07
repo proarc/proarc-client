@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { EditorFieldComponent } from '../../forms/editor-field/editor-field.component';
-import { FieldDropdownComponent } from '../../forms/field-dropdown/field-dropdown.component';
 import { FieldTextComponent } from '../../forms/field-text/field-text.component';
 import { ElementField } from '../../model/mods/elementField.model';
 import { FieldCodebookComponent } from "../../forms/field-codebook/field-codebook.component";
