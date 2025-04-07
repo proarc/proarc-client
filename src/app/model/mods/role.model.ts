@@ -3,7 +3,7 @@ import ModsUtils from './utils';
 
 export class ModsRole extends ModsElement {
 
-    public role: any;
+    public roleTerm: any;
 
     static getSelector() {
         return 'role';
@@ -23,7 +23,7 @@ export class ModsRole extends ModsElement {
             const attrs = {'type': 'code', 'authority': 'marcrelator'};
             this.modsElement['roleTerm'] = [ModsUtils.createTextElement('', attrs)];
         }
-        this.role = this.modsElement['roleTerm'][0];
+        this.roleTerm = this.modsElement['roleTerm'][0];
         this.addControl('roleTerm');
     }
 

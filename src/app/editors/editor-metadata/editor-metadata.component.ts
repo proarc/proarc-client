@@ -22,12 +22,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { EditorGenreComponent } from "../editor-genre/editor-genre.component";
 import { EditorAuthorComponent } from "../editor-author/editor-author.component";
+import { EditorPublisherComponent } from "../editor-publisher/editor-publisher.component";
+import { EditorLocationComponent } from "../editor-location/editor-location.component";
+import { EditorIdentifierComponent } from "../editor-identifier/editor-identifier.component";
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
     MatIconModule, MatProgressBarModule, MatTooltipModule,
     MatRadioModule, MatFormFieldModule, MatSelectModule,
-    EditorSwitcherComponent, EditorTitleComponent, EditorGenreComponent, EditorAuthorComponent]
+    EditorSwitcherComponent, EditorTitleComponent, EditorGenreComponent, EditorAuthorComponent, EditorPublisherComponent, EditorLocationComponent, EditorIdentifierComponent]
   ,
   selector: 'app-editor-metadata',
   templateUrl: './editor-metadata.component.html',

@@ -1,0 +1,19 @@
+<app-editor-field [field]="field">
+  <ng-template let-item="item" #templateContent>
+
+    <!-- TODO
+    nutne udelat podminku na identifikatory,
+    pokud je vyplneny ve formulari, aby se preferoval ten z formulare,
+    jinak pouzit defaultni getIdentifiers()
+
+    viz bdmArticle.template.ts
+    -->
+    <app-field-codebook field="type" [item]="item" [options]="getIdentifiers()" [(value)]='item.attrs["type"]'></app-field-codebook>
+
+
+    <app-field-codebook field="validity" [item]="item" [options]="validityOptions" [(value)]='item.attrs["invalid"]'></app-field-codebook>
+    <app-field-text field="value" [item]="item" [(value)]="item.modsElement['_']" ></app-field-text>
+    <app-field-text field="typeURI" [item]="item" [(value)]='item.attrs["typeURI"]'></app-field-text>
+
+  </ng-template>
+</app-editor-field>
