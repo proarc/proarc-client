@@ -32,6 +32,45 @@
   }
 }
 
+// table
+.mat-mdc-table {
+  &.app-resize {
+    .mat-mdc-header-cell,
+    .mat-mdc-cell {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .mat-mdc-icon-button {
+    &.mat-mdc-button-base {
+      border-radius: 0;
+      --mdc-icon-button-state-layer-size: 34px;
+      width: var(--mdc-icon-button-state-layer-size);
+      height: var(--mdc-icon-button-state-layer-size);
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .mat-mdc-button-persistent-ripple {
+      border-radius: 0;
+    }
+  }
+
+  .mat-icon {
+    @include app-mixins.setIcon(20, $position: sub);
+  }
+
+  a {
+    .mat-icon {
+      @include app-mixins.setIcon(16);
+    }
+  }
+}
+
 // paginator
 .mat-mdc-paginator {
   .app-toolbar & {

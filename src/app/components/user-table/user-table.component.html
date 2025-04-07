@@ -8,7 +8,7 @@
       [style.width]="c.width + 'px'">
       <span *ngIf="c.field !== 'isLocked'" mat-sort-header>{{'search.' + c.field | translate}}</span>
       <button *ngIf="last" (click)="setColumns()" mat-icon-button [matTooltip]="'editor.children.select_columns' | translate">
-        <mat-icon>more_horiz</mat-icon>
+        <mat-icon>more_vert</mat-icon>
       </button>
     </th>
     <td mat-cell *matCellDef="let element">
@@ -50,6 +50,4 @@
     [class.app-repre]="row.pageRepre === 'reprePage'"
     [title]="row.label + ' (' + ('model.' + row.model | translate) + ')'" cdkDrag [cdkDragData]="row"
     [cdkDragDisabled]="!draggable()" [cdkDragPreviewContainer]="'parent'"></tr>
-
-
 </table>
