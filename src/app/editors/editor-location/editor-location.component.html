@@ -19,7 +19,7 @@
 
     <app-editor-field *ngIf="item.available['url']" [field]="item.urls" [nested]='true'>
       <ng-template let-url="item" #templateContent>
-        <app-field-dropdown field="usage" [item]="url" [(value)]='url.attrs["usage"]'></app-field-dropdown>
+        <!-- <app-field-dropdown field="usage" [item]="url" [(value)]='url.attrs["usage"]'></app-field-dropdown> -->
         <app-field-text field="note" [item]="url" [(value)]='url.attrs["note"]'></app-field-text>
         <app-field-text field="value" [item]="url" [(value)]="url.modsElement['_']"></app-field-text>
       </ng-template>

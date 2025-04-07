@@ -5,24 +5,35 @@ import { ModelTemplate } from "../model/modelTemplate";
 import { Configuration } from "../shared/configuration";
 import { Observable, ReplaySubject, Subject } from "rxjs";
 import { Page } from "../model/page.model";
+import { UserSettings } from "../shared/user-settings";
 
 @Injectable()
 export class LayoutService {
 
-    constructor(private config: Configuration) { }
+    constructor(
+        public settings: UserSettings,
+        private config: Configuration) { }
 
     type: string; // 'repo' | 'import'
     panels: ILayoutPanel[] = [];
     editingPanel: string;
     dragging: boolean;
 
+    public panelEditingChanged = signal<string>(null); // last panel edited
     setPanelEditing(panel: ILayoutPanel) {
 
         if (panel && this.editingPanel !== panel.id) {
-            this.panels.forEach(p => p.canEdit = false || p.type === 'media');
+            this.panels.forEach(p => {
+                if (p.type !== 'media') {
+                    p.canEdit = false;
+                }
+                
+            });
             panel.canEdit = true;
-            this.editingPanel = panel.id
+            this.editingPanel = panel.id;
+            this.panelEditingChanged.update(p => panel.id)
         }
+
     }
 
     clearPanelEditing() {
@@ -98,7 +109,10 @@ export class LayoutService {
     }
 
     setSelection(fromStructure: boolean, panel: ILayoutPanel, fromTree: boolean = false) {
-        this.setPanelEditing(panel);
+        if (panel) {
+            this.setPanelEditing(panel);
+        }
+        
         if (fromTree) {
             this.selectionSubject.next(fromStructure);
             return;

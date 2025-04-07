@@ -2,6 +2,7 @@ import { FormControl, Validators } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import { ElementField } from "./elementField.model";
 import ModsUtils from './utils';
+import { Utils } from "../../utils/utils";
 
 export abstract class ModsElement {
     public attrs: any;
@@ -158,26 +159,41 @@ export abstract class ModsElement {
         return this.template['fields'][field];
     }
 
-    public addControl(field: string) {
-        if (!this.controls.hasOwnProperty(field)) {
-            const c = new FormControl('');
-
-            if (this[field as keyof (ModsElement)]) {
-                c.patchValue(this[field as keyof (ModsElement)]['_']);
-                c.valueChanges.subscribe((e: any) => {
-                    this[field as keyof (ModsElement)]['_'] = e;
-                });
-            }
-
-            this.controls[field] = c;
-            // console.log('ADD ' + field + ' -> ' + this.labelKey2(field));
-        }
+    public addControl(field: string, modsElement: string = null) {
+        const me = modsElement ? modsElement as keyof (ModsElement) :  field as keyof (ModsElement);
+        
         this.clazz[field] = this.class(field);
         this.isMandatory[field] = this.isMandatory2(field);
         this.usage[field] = this.usage2(field);
         this.hasHelp[field] = this.showHelp(field);
         this.available[field] = this.available2(field);
         this.labelKey[field] = this.labelKey2(field);
+
+        if (!this.controls.hasOwnProperty(field)) {
+            const c = new FormControl('');
+                if (this[me]) {
+                    c.patchValue(this[me]['_']);
+                    c.valueChanges.subscribe((e: any) => {
+                        this[me]['_'] = e;
+                        Utils.metadataChanged.update(n => n + 1);
+                    });
+                } else if (this.modsElement[me]) {
+                    c.patchValue(this.modsElement[me]);
+                    c.valueChanges.subscribe((e: any) => {
+                        this.modsElement[me] = e;
+                        Utils.metadataChanged.update(n => n + 1);
+                    });
+                } else if (this.attrs?.hasOwnProperty(field)) {
+                c.patchValue(this.attrs[field]);
+                c.valueChanges.subscribe((e: any) => {
+                    this.attrs[field] = e;
+                    Utils.metadataChanged.update(n => n + 1);
+                });
+            }
+
+            this.controls[field] = c;
+            // console.log('ADD ' + field + ' -> ' + this.labelKey2(field));
+        }
         if (field === 'nonSort') {
 
         }
@@ -314,11 +330,9 @@ export abstract class ModsElement {
     public hasChanges(): boolean {
         const keys = Object.keys(this.controls);
         for (let key of keys) {
-            // keys.forEach(( key: string) => {
             if (this.controls[key].dirty) {
                 return true;
             }
-            //});
         }
 
         for (const subfield of this.getSubfields()) {

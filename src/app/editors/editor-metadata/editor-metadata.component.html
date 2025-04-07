@@ -22,7 +22,7 @@
 				<button mat-icon-button (click)="validate()" [matTooltip]="'editor.children.validate' | translate" [class.app-color-warn]="!isValidMetadata">
 					<mat-icon>check_circle</mat-icon>
 				</button>
-				<button mat-icon-button  (click)="onSave()" [disabled]="!panel().canEdit || !hasPendingChanges()" [matTooltip]="'button.save' | translate" >
+				<button mat-icon-button  (click)="onSave()" [disabled]="!panel().canEdit || !hasChanges" [matTooltip]="'button.save' | translate" >
 					<mat-icon>save</mat-icon>
 				</button>
 				<button mat-icon-button  (click)="revert()" [disabled]="!hasChanges" [matTooltip]="'button.refresh' | translate" >

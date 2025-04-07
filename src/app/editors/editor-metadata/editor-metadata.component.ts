@@ -26,6 +26,7 @@ import { EditorPublisherComponent } from "../editor-publisher/editor-publisher.c
 import { EditorLocationComponent } from "../editor-location/editor-location.component";
 import { EditorIdentifierComponent } from "../editor-identifier/editor-identifier.component";
 import { EditorLanguageComponent } from "../editor-language/editor-language.component";
+import { Utils } from '../../utils/utils';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
@@ -78,11 +79,20 @@ export class EditorMetadataComponent implements OnInit {
     private api: ApiService,
     private ui: UIService,
     private dialog: MatDialog) {
-    effect(() => {
-      this.pid = this.layout.lastSelectedItem().pid;
-      this.model = this.layout.lastSelectedItem().model;
-      this.loadMetadata();
-    })
+      effect(() => {
+        this.pid = this.layout.lastSelectedItem().pid;
+        this.model = this.layout.lastSelectedItem().model;
+        this.loadMetadata();
+        this.hasChanges = false;
+      });
+      effect(() => {
+        const m = Utils.metadataChanged();
+        this.hasChanges = m > 0;
+        if (m > 0) {
+          this.hasPendingChanges();
+        }
+        
+      });
   }
 
   ngOnInit() {
@@ -143,6 +153,8 @@ export class EditorMetadataComponent implements OnInit {
     this.layout.clearPanelEditing();
     this.metadata = null;
     this.loadMetadata();
+    Utils.metadataChanged.set(0);
+    this.hasChanges = false;
   }
 
   hasPendingChanges(): boolean {
@@ -156,7 +168,7 @@ export class EditorMetadataComponent implements OnInit {
     const focused = document.activeElement;
     const panel = document.getElementById(this.panel().id);
     const isChild = panel.contains(focused);
-    if (isChild && this.hasChanges) {
+    if (isChild && this.hasChanges && this.layout.editingPanel !== this.panel().id) {
       this.layout.setPanelEditing(this.panel());
     }
     return this.hasChanges;

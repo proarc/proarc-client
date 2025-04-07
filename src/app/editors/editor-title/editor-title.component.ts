@@ -38,20 +38,6 @@ export class EditorTitleComponent implements OnInit {
     
   }
 
-  ngAfterViewInit() {
-    // this.field.items.forEach((item: any) => {
-    //   Object.keys(item.controls).forEach(c => {
-    //     if (c === 'title') {
-    //       item.controls[c].patchValue(item.title["_"])
-    //       item.controls[c].valueChanges.subscribe((e: any) => {
-    //         item.title["_"] = e;
-    //       });
-    //     }
-    //   });
-      
-    // })
-  }
-
   checkNonSort(item: any) {
     item.isNonSortToggleDisabled = item.nonSortToggleDisabled();
   }

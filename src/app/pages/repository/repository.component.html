@@ -54,7 +54,7 @@
     </div>
   </div>
 
-  <div fxFlex class="app-oh app-content-wrapper" cdkDropListGroup>
+  <div fxFlex class="app-oh app-content-wrapper" >
     <div class="app-border-wrapper app-h-100">
       <as-split *ngIf="settings.repositoryLayout" direction="horizontal" [disabled]="settings.repositoryLayout.disabled"  (dragEnd)="onDragEnd(-1, $event)">
         <ng-container *ngFor="let column of settings.repositoryLayout.columns let icol=index">

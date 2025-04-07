@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, effect } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -17,7 +17,7 @@ import { AuthService } from '../../services/auth.service';
 import { UIService } from '../../services/ui.service';
 import { Configuration } from '../../shared/configuration';
 import { forkJoin, of, switchMap } from 'rxjs';
-import { LayoutAdminComponent } from '../../dialogs/layout-admin/layout-admin.component';
+import { IConfig, LayoutAdminComponent } from '../../dialogs/layout-admin/layout-admin.component';
 import { CzidloDialogComponent } from '../../dialogs/czidlo-dialog/czidlo-dialog.component';
 import { ExportDialogComponent } from '../../dialogs/export-dialog/export-dialog.component';
 import { LogDialogComponent } from '../../dialogs/log-dialog/log-dialog.component';
@@ -29,6 +29,7 @@ import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { PanelComponent } from "../../components/panel/panel.component";
 import { LayoutService } from '../../services/layout-service';
 import { ModelTemplate } from '../../model/modelTemplate';
+import { Utils } from '../../utils/utils';
 
 @Component({
   selector: 'app-repository',
@@ -44,6 +45,8 @@ export class RepositoryComponent {
   pid: string;  // pid in url
   path: { pid: string, label: string, model: string }[] = [];
 
+  repositoryLayout: IConfig;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -56,7 +59,8 @@ export class RepositoryComponent {
     private settingsService: UserSettingsService,
     public layout: LayoutService
     // private tmpl: TemplateService
-  ) { }
+  ) { 
+  }
 
   ngOnInit() {
     this.layout.type = 'repo';
@@ -385,6 +389,7 @@ export class RepositoryComponent {
       });
     });
     this.layout.clearPanelEditing();
+    this.repositoryLayout = Utils.clone(this.settings.repositoryLayout)
   }
 
   onDragEnd(columnindex: number, e: any) {

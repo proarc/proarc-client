@@ -26,6 +26,9 @@ export class ModsTitle extends ModsElement {
     }
 
     private init() {
+        this.addControl('type');
+        this.addControl('otherType');
+        this.addControl('lang');
 
         if (!this.modsElement['nonSort']) {
             this.modsElement['nonSort'] = ModsUtils.createField(this, 'nonSort');
@@ -52,10 +55,6 @@ export class ModsTitle extends ModsElement {
         this.addControl('subTitle');
         this.addControl('partNumber');
         this.addControl('partName');
-        this.addControl('type');
-        this.addControl('otherType');
-        this.addControl('lang');
-        this.addControl('otherType');
         this.addControl('nonSort');
     }
 

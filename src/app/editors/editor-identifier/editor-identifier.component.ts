@@ -27,6 +27,7 @@ export class EditorIdentifierComponent implements OnInit {
   }
 
   ngOnInit() {
+    
   }
 
   getIdentifiers(): any[] {

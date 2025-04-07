@@ -10,7 +10,7 @@ import { ElementField } from '../../model/mods/elementField.model';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, 
-    EditorFieldComponent, FieldDropdownComponent, FieldTextComponent
+    EditorFieldComponent, FieldTextComponent
   ],
   selector: 'app-editor-location',
   templateUrl: './editor-location.component.html',

@@ -17,12 +17,12 @@ export class ModsIdentifier extends ModsElement {
     }
 
     private init() {
+      this.addControl('type');
+      this.addControl('validity');
       if (!this.modsElement['_']) {
         this.modsElement['_'] = ModsUtils.getDefaultValue(this, 'value');
       }
-      this.addControl('value');
-      this.addControl('type');
-      this.addControl('validity');
+      this.addControl('value', '_');
     }
 
 }
