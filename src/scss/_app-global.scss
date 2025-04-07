@@ -142,6 +142,7 @@
   min-height: var(--app-toolbar-height);
   background-color: var(--app-toolbar-bg-color);
   color: var(--app-toolbar-color);
+  border-bottom: 1px solid var(--app-toolbar-border-color);
 
   .mat-mdc-button-base {
     @extend .app-clean-radius;
@@ -153,6 +154,15 @@
   }
 
   .mat-mdc-icon-button {
+    &.mat-mdc-button-base {
+      --mdc-icon-button-state-layer-size: 34px;
+      width: var(--mdc-icon-button-state-layer-size);
+      height: var(--mdc-icon-button-state-layer-size);
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     .mat-mdc-button-persistent-ripple {
       @extend .app-clean-radius;
     }
@@ -160,7 +170,6 @@
 
   &.app-view-breadcrumbs {
     min-height: var(--app-toolbar-view-breadcrumbs);
-    border-bottom: 1px solid var(--app-toolbar-border-color);
     padding: 0 16px;
 
     .mat-mdc-button-base {
