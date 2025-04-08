@@ -17,6 +17,18 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "allowedCommonJsDependencies": [
+              "json5",
+              "xml2js",
+              "event-emitter",
+              "@xmldom/xmldom",
+              "path-webpack",
+              "jszip/dist/jszip",
+              "localforage",
+              "marks-pane",
+              "lodash/debounce",
+              "lodash/throttle"
+           ],
             "outputPath": "dist/proarc-client",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -53,7 +65,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumError": "4MB"
                 },
                 {
                   "type": "anyComponentStyle",
