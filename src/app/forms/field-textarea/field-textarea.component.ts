@@ -11,6 +11,7 @@ import { LayoutService } from '../../services/layout-service';
 import { UsageComponent } from '../usage/usage.component';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { MatInputModule } from '@angular/material/input';
+import { Utils } from '../../utils/utils';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule,
@@ -33,7 +34,17 @@ export class FieldTextareaComponent implements OnInit {
   constructor(private layout: LayoutService) {
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.item.controls[this.field]) {
+      if (this.item.controls[this.field].value !== this.value) {
+        this.item.controls[this.field].patchValue(this.value);
+      }
+        this.item.controls[this.field].valueChanges.subscribe((e: any) => {
+          this.valueChange.emit(e);
+          Utils.metadataChanged.update(n => n + 1);
+        })
+    }
+  }
 
   ngAfterViewInit(){
     setTimeout(() => {
@@ -52,9 +63,5 @@ export class FieldTextareaComponent implements OnInit {
     }
     
   }
-
-  // changed(value: any) {
-  //   this.valueChange.emit(value);
-  // }
 
 }

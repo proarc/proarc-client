@@ -27,12 +27,14 @@ import { EditorLocationComponent } from "../editor-location/editor-location.comp
 import { EditorIdentifierComponent } from "../editor-identifier/editor-identifier.component";
 import { EditorLanguageComponent } from "../editor-language/editor-language.component";
 import { Utils } from '../../utils/utils';
+import { EditorPhysicalComponent } from "../editor-physical/editor-physical.component";
+import { EditorAbstractComponent } from "../editor-abstract/editor-abstract.component";
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
     MatIconModule, MatProgressBarModule, MatTooltipModule,
     MatRadioModule, MatFormFieldModule, MatSelectModule,
-    EditorSwitcherComponent, EditorTitleComponent, EditorGenreComponent, EditorAuthorComponent, EditorPublisherComponent, EditorLocationComponent, EditorIdentifierComponent, EditorLanguageComponent]
+    EditorSwitcherComponent, EditorTitleComponent, EditorGenreComponent, EditorAuthorComponent, EditorPublisherComponent, EditorLocationComponent, EditorIdentifierComponent, EditorLanguageComponent, EditorPhysicalComponent, EditorAbstractComponent]
   ,
   selector: 'app-editor-metadata',
   templateUrl: './editor-metadata.component.html',
@@ -324,6 +326,13 @@ export class EditorMetadataComponent implements OnInit {
         }
       }
     }
+  }
+
+  setStandard() {
+    this.tmpl.getTemplate(this.metadata.standard, this.model).subscribe((tmpl: any) => {
+      this.metadata = new Metadata(this.metadata.pid, this.metadata.model, this.metadata.originalMods, this.metadata.timestamp, this.metadata.standard, tmpl);
+      // this.setShowGenreSwitch();
+    });
   }
 
 }

@@ -38,6 +38,10 @@ export class AutocompleteComponent implements OnInit {
   }
 
   ngOnInit() {
+    
+    if (this.item.controls[this.field].value !== this.value) {
+      this.item.controls[this.field].patchValue(this.value);
+    }
     if (!this.item.available[this.field]) {
       return;
     }
@@ -45,6 +49,7 @@ export class AutocompleteComponent implements OnInit {
     if (!this.options) {
       return
     }
+
     
     this.filteredOptions = this.item.controls[this.field].valueChanges.pipe(
       startWith(''),

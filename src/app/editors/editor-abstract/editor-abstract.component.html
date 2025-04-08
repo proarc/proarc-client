@@ -1,0 +1,8 @@
+<app-editor-field [field]="field">
+  <ng-template let-item="item" #templateContent>
+
+    <app-field-codebook field="lang" [item]="item" [options]="config.languages" [(value)]="item.attrs['lang']"></app-field-codebook>
+    <app-field-textarea field="abstract" [item]="item" [(value)]="item.modsElement['_']" ></app-field-textarea>
+
+  </ng-template>
+</app-editor-field>

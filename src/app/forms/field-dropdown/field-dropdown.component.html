@@ -1,5 +1,5 @@
 <mat-form-field *ngIf="item.available[field]" [class]="item.clazz[field]">
-  <app-usage [item]="item" [field]="field"></app-usage>
+<app-usage [item]="item" [field]="field"></app-usage>
   <mat-select [required]="item.isMandatory[field]" [formControl]="item.controls[field]" 
    [placeholder]="'mods.' + item.labelKey[field] | translate">
     <mat-option *ngFor="let option of item.options(field)" [value]="option[0]">

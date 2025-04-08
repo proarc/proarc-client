@@ -31,7 +31,7 @@ export class FieldDropdownComponent implements OnInit {
 
   ngOnInit() {
     if (this.item.controls[this.field].value !== this.value) {
-      //this.item.controls[this.field].patchValue(this.value);
+      this.item.controls[this.field].patchValue(this.value);
     }
       // this.item.controls[this.field].valueChanges.subscribe((e: any) => {
       //   this.valueChange.emit(e);

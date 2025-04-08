@@ -17,12 +17,12 @@ export class ModsAbstract extends ModsElement {
     }
 
     private init() {
+      this.addControl('lang');
       if (!this.modsElement['_']) {
         this.modsElement['_'] = ModsUtils.getDefaultValue(this, 'value');
       }
-      this.addControl('value');
-      this.addControl('abstract');
-      this.addControl('lang');
+      this.addControl('value', '_');
+      this.addControl('abstract', '_');
     }
 
 }

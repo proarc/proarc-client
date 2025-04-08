@@ -33,7 +33,7 @@ export class FieldTextComponent implements OnInit {
   ngOnInit() {
     if (this.item.controls[this.field]) {
       if (this.item.controls[this.field].value !== this.value) {
-        //this.item.controls[this.field].patchValue(this.value);
+        this.item.controls[this.field].patchValue(this.value);
       }
       // this.item.controls[this.field].patchValue(this.value);
       // this.item.controls[this.field].valueChanges.subscribe((e: any) => {

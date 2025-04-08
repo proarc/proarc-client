@@ -65,7 +65,8 @@
 
     <app-editor-field *ngIf="item.available['frequency']" [field]="item.frequencies" [nested]='true'>
       <ng-template let-frequency="item" #templateContent>
-        <app-autocomplete field="authority" [item]="frequency" [(value)]='frequency.attrs["authority"]'></app-autocomplete>
+        <!-- <app-autocomplete field="authority" [item]="frequency" [(value)]='frequency.attrs["authority"]'></app-autocomplete> -->
+        <app-field-dropdown field="authority" [item]="frequency" [(value)]='frequency.attrs["authority"]'></app-field-dropdown>
         <app-field-text field="value" [item]="frequency" [(value)]="frequency.modsElement['_']"></app-field-text>
       </ng-template>
     </app-editor-field>

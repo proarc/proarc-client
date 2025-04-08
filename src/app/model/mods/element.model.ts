@@ -182,6 +182,7 @@ export abstract class ModsElement {
                     c.valueChanges.subscribe((e: any) => {
                         this.modsElement[me] = e;
                         Utils.metadataChanged.update(n => n + 1);
+                        
                     });
                 } else if (this.attrs?.hasOwnProperty(field)) {
                 c.patchValue(this.attrs[field]);

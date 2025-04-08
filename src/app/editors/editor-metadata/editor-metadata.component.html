@@ -3,16 +3,16 @@
 		<div fxFlex>
 			<app-editor-switcher (onChangeEditorType)="changeEditorType($event)"
 				[panelType]="panelType()"></app-editor-switcher>
-			<!-- <ng-container *ngIf="metadata">
-				<button mat-icon-button [matTooltip]="'desc.showOnlyTheElement' | translate" [class.app-active]="byField" (click)="toggleByField()">
+			<ng-container *ngIf="metadata">
+				<!-- <button mat-icon-button [matTooltip]="'desc.showOnlyTheElement' | translate" [class.app-active]="byField" (click)="toggleByField()">
 					<mat-icon>keyboard_double_arrow_down</mat-icon>
-				</button>
+				</button> -->
 				<span class="app-pipe"></span>
 				<mat-radio-group aria-label="'standard'" [(ngModel)]="metadata.standard" (change)="setStandard()" class="app-ml-3">
 					<mat-radio-button value="rda">rda</mat-radio-button>
 					<mat-radio-button value="aacr">aacr</mat-radio-button>
 				</mat-radio-group>
-			</ng-container> -->
+			</ng-container>
 		</div>
 		<div>
 			<ng-container *ngIf="!notSaved">
@@ -61,9 +61,9 @@
 					<app-editor-location [id]="panel().id + 'location'" *ngIf="visibleFields['location']" [field]="fields['location']"></app-editor-location>
 					<app-editor-identifier [id]="panel().id + 'identifier'" *ngIf="visibleFields['identifier']" [field]="fields['identifier']" [model]="model"></app-editor-identifier>
 					<app-editor-language [id]="panel().id + 'language'" *ngIf="visibleFields['language']" [field]="fields['language']"></app-editor-language>
-					<!-- <app-editor-physical [id]="panel().id + 'physicalDescription'" *ngIf="visibleFields['physicalDescription']" [field]="fields['physicalDescription']"></app-editor-physical>
+					<app-editor-physical [id]="panel().id + 'physicalDescription'" *ngIf="visibleFields['physicalDescription']" [field]="fields['physicalDescription']"></app-editor-physical>
 					<app-editor-abstract [id]="panel().id + 'abstract'" *ngIf="visibleFields['abstract']" [field]="fields['abstract']"></app-editor-abstract>
-					<app-editor-note [id]="panel().id + 'note'" *ngIf="visibleFields['note']" [field]="fields['note']"></app-editor-note>
+					<!-- <app-editor-note [id]="panel().id + 'note'" *ngIf="visibleFields['note']" [field]="fields['note']"></app-editor-note>
 					<app-editor-resource [id]="panel().id + 'typeOfResource'" *ngIf="visibleFields['typeOfResource']" [field]="fields['typeOfResource']"></app-editor-resource>
 					<app-editor-genre [id]="panel().id + 'genre'" *ngIf="visibleFields['genre'] && !showGenreSwitch" [field]="fields['genre']" ></app-editor-genre>
 					<app-editor-classification [id]="panel().id + 'classification'" *ngIf="visibleFields['classification']" [field]="fields['classification']"></app-editor-classification>
