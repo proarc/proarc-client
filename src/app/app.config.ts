@@ -16,6 +16,7 @@ import { provideHighlightOptions } from 'ngx-highlightjs';
 import { DatePipe } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideMaterialCssVars } from "angular-material-css-vars";
+import { FundService } from './services/fund.service';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -52,7 +53,7 @@ export const appConfig: ApplicationConfig = {
       fullLibraryLoader: () => import('highlight.js')
     }),
     TranslateService, DatePipe,
-    Configuration, ApiService, AuthService, UIService, UserSettings, UserSettingsService,
+    Configuration, ApiService, AuthService, FundService, UIService, UserSettings, UserSettingsService,
     LayoutService
   ]
 };

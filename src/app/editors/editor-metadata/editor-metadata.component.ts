@@ -32,12 +32,19 @@ import { EditorAbstractComponent } from "../editor-abstract/editor-abstract.comp
 import { EditorNoteComponent } from "../editor-note/editor-note.component";
 import { EditorResourceComponent } from "../editor-resource/editor-resource.component";
 import { EditorClassificationComponent } from "../editor-classification/editor-classification.component";
+import { EditorSubjectComponent } from "../editor-subject/editor-subject.component";
+import { EditorPartComponent } from "../editor-part/editor-part.component";
+import { EditorTableOfContentsComponent } from "../editor-tableOfContents/editor-tableOfContents";
+import { EditorAccessConditionComponent } from "../editor-accessCondition/editor-accessCondition.component";
+import { EditorRecordInfoComponent } from "../editor-recordInfo/editor-recordInfo";
+import { EditorRelatedItemComponent } from "../editor-relatedItem/editor-relatedItem.component";
+import { EditorChronicleLocationComponent } from "../editor-chronicle-location/editor-chronicle-location.component";
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
     MatIconModule, MatProgressBarModule, MatTooltipModule,
     MatRadioModule, MatFormFieldModule, MatSelectModule,
-    EditorSwitcherComponent, EditorTitleComponent, EditorGenreComponent, EditorAuthorComponent, EditorPublisherComponent, EditorLocationComponent, EditorIdentifierComponent, EditorLanguageComponent, EditorPhysicalComponent, EditorAbstractComponent, EditorNoteComponent, EditorResourceComponent, EditorClassificationComponent]
+    EditorSwitcherComponent, EditorTitleComponent, EditorGenreComponent, EditorAuthorComponent, EditorPublisherComponent, EditorLocationComponent, EditorIdentifierComponent, EditorLanguageComponent, EditorPhysicalComponent, EditorAbstractComponent, EditorNoteComponent, EditorResourceComponent, EditorClassificationComponent, EditorSubjectComponent, EditorPartComponent, EditorTableOfContentsComponent, EditorAccessConditionComponent, EditorRecordInfoComponent, EditorRelatedItemComponent, EditorChronicleLocationComponent]
   ,
   selector: 'app-editor-metadata',
   templateUrl: './editor-metadata.component.html',

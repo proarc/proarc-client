@@ -39,29 +39,29 @@ export class FieldTextareaComponent implements OnInit {
       if (this.item.controls[this.field].value !== this.value) {
         this.item.controls[this.field].patchValue(this.value);
       }
-        this.item.controls[this.field].valueChanges.subscribe((e: any) => {
-          this.valueChange.emit(e);
-          Utils.metadataChanged.update(n => n + 1);
-        })
+      this.item.controls[this.field].valueChanges.subscribe((e: any) => {
+        this.valueChange.emit(e);
+        Utils.metadataChanged.update(n => n + 1);
+      });
     }
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     setTimeout(() => {
       if (this.ta) {
-        
-      this.observer = new ResizeObserver(() => {
-        //this.layout.setMetadataResized();
-      }).observe(this.ta.nativeElement)
+
+        this.observer = new ResizeObserver(() => {
+          //this.layout.setMetadataResized();
+        }).observe(this.ta.nativeElement)
       }
     }, 10);
   }
 
   ngOnDestroy() {
-    if(this.ta && this.observer) {
+    if (this.ta && this.observer) {
       this.observer.unobserve(this.ta.nativeElement);
     }
-    
+
   }
 
 }

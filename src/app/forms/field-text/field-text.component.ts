@@ -9,6 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ModsElement } from '../../model/mods/element.model';
 import { UsageComponent } from "../usage/usage.component";
 import { MatInputModule } from '@angular/material/input';
+import { Utils } from '../../utils/utils';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule,
@@ -35,10 +36,10 @@ export class FieldTextComponent implements OnInit {
       if (this.item.controls[this.field].value !== this.value) {
         this.item.controls[this.field].patchValue(this.value);
       }
-      // this.item.controls[this.field].patchValue(this.value);
-      // this.item.controls[this.field].valueChanges.subscribe((e: any) => {
-      //   this.valueChange.emit(e);
-      // })
+      this.item.controls[this.field].valueChanges.subscribe((e: any) => {
+        this.valueChange.emit(e);
+        Utils.metadataChanged.update(n => n + 1);
+      });
     }
   }
 

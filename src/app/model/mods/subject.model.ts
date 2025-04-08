@@ -46,21 +46,6 @@ export class ModsSubject extends ModsElement {
         }
         this.addControl('occupation');
 
-        // if (!this.modsElement['name']) {
-        //     this.modsElement['name'] = [{}];
-        // }
-        // if (!this.modsElement['name'][0]) {
-        //     this.modsElement['name'][0] = {};
-        // }
-        // if (!this.modsElement['name'][0]['namePart']) {
-        //     this.modsElement['name'][0]['namePart'];
-        // }
-        // if (!this.modsElement['name'][0]['namePart']) {
-        //     this.modsElement['name'][0]['namePart'] = ModsUtils.createEmptyField();
-        // }
-        // this.topic = this.modsElement['topic'][0];
-        // this.geographic = this.modsElement['geographic'][0];
-        // this.temporal = this.modsElement['temporal'][0];
         this.occupation = this.modsElement['occupation'][0];
 
         if (this.available2('name')) {
@@ -76,7 +61,7 @@ export class ModsSubject extends ModsElement {
         if (this.available2('temporal')) {
           this.temporals = new ElementField(this.modsElement, ModsTemporal.getSelector(), this.getField('temporal'));
           this.addSubfield(this.temporals);
-          this.addControl('temporal');
+          this.addControl('temporal', '_');
         }
 
         if (this.available2('geographic')) {
@@ -84,6 +69,7 @@ export class ModsSubject extends ModsElement {
           this.addSubfield(this.geographics);
           this.addControl('geographic');
         }
+        
         if (this.available2('titleInfo')) {
           this.titleInfos = new ElementField(this.modsElement, ModsTitle.getSelector(), this.getField('titleInfo'));
           this.addSubfield(this.titleInfos);

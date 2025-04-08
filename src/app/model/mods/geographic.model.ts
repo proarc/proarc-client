@@ -22,6 +22,7 @@ export class ModsGeographic extends ModsElement {
         this.modsElement['_'] = ModsUtils.getDefaultValue(this, 'value');
       }
       this.addControl('value', '_');
+      this.addControl('geographic');
       this.addControl('valueURI');
 
     }
