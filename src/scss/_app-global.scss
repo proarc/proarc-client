@@ -15,7 +15,7 @@
 }
 
 .app-selected {
-  background-color: var(--app-selected-row-color) !important;
+  background-color: var(--app-color-item-selected) !important;
 }
 
 // cleaners
@@ -130,7 +130,7 @@
 
 .app-pipe {
   margin: 0 8px 0 8px;
-  border-left: 1px solid var(--app-gray-4);
+  border-left: 1px solid var(--app-color-gray-4);
 }
 
 .app-border-wrapper {
@@ -163,7 +163,7 @@
       align-items: center;
       justify-content: center;
     }
-    
+
     .mat-mdc-button-persistent-ripple {
       @extend .app-clean-radius;
     }
@@ -207,6 +207,15 @@
       .app-text-cutter {
         max-width: 300px;
       }
+    }
+  }
+}
+
+// form bar
+.app-formbar {
+  .mat-mdc-form-field {
+    &.app-model {
+      width: 260px;
     }
   }
 }

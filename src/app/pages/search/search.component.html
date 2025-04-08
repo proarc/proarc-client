@@ -11,7 +11,7 @@
   </div>
   
   <div class="app-fxLayout app-column app-fxFlex app-content-wrapper app-search-results">
-    <div class="app-fxLayout app-row app-baseline app-gap-4 app-formbar">
+    <div class="app-fxLayout app-row app-gap-4 app-formbar">
       <button mat-stroked-button (click)="filter()">
         {{ 'button.search' | translate }}
       </button>
@@ -38,7 +38,7 @@
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let model of config.models" [value]="model">{{ "model." + model | translate }}</mat-option>
           </mat-select>
-          <button *ngIf="model !== this.config.defaultModel && settings.searchModel === model" matSuffix mat-icon-button aria-label="Clear" (click)="model=this.config.defaultModel; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+          <button *ngIf="model !== this.config.defaultModel && settings.searchModel === model" matSuffix mat-icon-button aria-label="Clear" (click)="model=this.config.defaultModel; filter(); $event.stopPropagation();" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
@@ -60,7 +60,7 @@
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
-        <mat-form-field appearance="outline" >
+        <mat-form-field appearance="outline">
           <mat-select [placeholder]="'desc.organization' | translate" name="organization" [(value)]="organization">
             <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let org of config.organizations" [value]="org">{{ 'organization.' + org | translate }}</mat-option>

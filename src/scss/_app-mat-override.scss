@@ -1,6 +1,7 @@
 // --- MATERIAL OVERRIDE ---
 
 @use "app-mixins";
+@use '@angular/material' as mat;
 
 // card
 .mat-mdc-card {
@@ -8,7 +9,7 @@
     @include app-mixins.setAlertCard();
     border-width: 1px;
     border-style: solid;
-    border-color: var(--app-gray-3);
+    border-color: var(--app-color-gray-3);
     display: flex;
     flex-direction: row;
     align-items: start;
@@ -34,12 +35,71 @@
 
 // table
 .mat-mdc-table {
+  &.app-striped {
+    .mat-mdc-row {
+      &:nth-child(odd) {
+        &:not(.app-selected) {
+          background-color: var(--app-color-gray-1);
+        }
+      }
+    }
+  }
+
+  &.app-hover {
+    .mat-mdc-row {
+      &:hover {
+        &:not(.app-selected, .app-row-detail) {
+          background-color: var(--app-color-gray-2);
+        }
+      }
+    }
+  }
+
   &.app-resize {
+    table-layout: fixed;
+    width: fit-content;
+
+    &.app-resizing {
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+
+    .mat-mdc-header-cell {
+      position: relative;
+
+      .app-resize-holder {
+        cursor: col-resize;
+        width: 10px;
+        height: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 1;
+
+        &:after {
+          content: '';
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          border-right: 1px solid var(--app-default-border-color);
+        }
+      }
+    }
+
     .mat-mdc-header-cell,
     .mat-mdc-cell {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+  }
+
+  .mat-mdc-header-cell {
+    &.mat-column-isLocked {
+      padding: 0 8px;
     }
   }
 
@@ -86,4 +146,45 @@
 // menu
 .mat-mdc-menu-item {
   min-height: var(--app-menu-item-height) !important;
+}
+
+// select
+.mat-mdc-option {
+  min-height: var(--app-menu-item-height) !important;
+  line-height: var(--app-menu-item-height) !important;
+
+  .mdc-list-item__primary-text {
+    display: inline-block;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+// form field
+.mat-mdc-form-field {
+  .mat-mdc-form-field-icon-suffix {
+    @include mat.icon-button-density(-6);
+    //margin-right: 4px;
+
+    .mat-mdc-icon-button {
+      .mat-icon {
+        @include app-mixins.setIcon(20);
+      }
+    }
+  }
+
+  .mat-mdc-form-field-bottom-align {
+    --mat-form-field-subscript-text-line-height: 0;
+    height: 8px;
+
+    &::before {
+      height: 0;
+    }
+  }
+}
+
+
+:root {
+  @include mat.form-field-density(-6);
 }

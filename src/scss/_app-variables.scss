@@ -2,7 +2,16 @@
 
 :root {
   // config
-  --app-selected-row-color: var(--palette-primary-50);
+  --app-color-info: #856404;
+  --app-color-success: #2E7D32;
+  --app-color-disabled: var(--app-color-gray-4);
+  --app-color-item-bg: var(--app-color-gray-1);
+  --app-color-item-selected: var(--palette-primary-50);
+  --app-color-item-active: var(--app-color-gray-8);
+  --app-color-item-invalid: var(--app-color-warn);
+  --app-color-item-hover: var(--palette-primary-50);
+  --app-color-item-dragover-allowed: $app-color-success;
+  --app-color-item-dragover-noallowed: var(--app-color-warn);
 
   // basic colors
   --app-color-primary: var(--palette-primary-500);
@@ -15,20 +24,20 @@
   --app-color-darknes-rgb: 0, 0, 0;
 
   // gray pallete
-  --app-gray-0: #FAFAFA;
-  --app-gray-1: #F5F5F5;
-  --app-gray-2: #EEEEEE;
-  --app-gray-3: #E0E0E0;
-  --app-gray-4: #BDBDBD;
-  --app-gray-5: #9E9E9E;
-  --app-gray-6: #757575;
-  --app-gray-7: #616161;
-  --app-gray-8: #424242;
-  --app-gray-9: #212121;
+  --app-color-gray-0: #FAFAFA;
+  --app-color-gray-1: #F5F5F5;
+  --app-color-gray-2: #EEEEEE;
+  --app-color-gray-3: #E0E0E0;
+  --app-color-gray-4: #BDBDBD;
+  --app-color-gray-5: #9E9E9E;
+  --app-color-gray-6: #757575;
+  --app-color-gray-7: #616161;
+  --app-color-gray-8: #424242;
+  --app-color-gray-9: #212121;
 
   // custom
-  --app-default-border-color: var(--app-gray-3);
-  --app-default-bg: var(--app-gray-1); 
+  --app-default-border-color: var(--app-color-gray-3);
+  --app-default-bg: var(--app-color-gray-1); 
   --app-default-wrapper: 8px;
 
   // components
@@ -36,7 +45,7 @@
   --app-navbar-session-color: #{rgba(var(--app-color-lightnes-rgb), .3)};
 
   --app-toolbar-height: 34px;
-  --app-toolbar-color: var(--app-gray-7);
+  --app-toolbar-color: var(--app-color-gray-7);
   --app-toolbar-border-color: var(--app-default-border-color);
   --app-toolbar-bg-color: var(--app-default-bg);
   --app-toolbar-button-bg-active: var(--app-toolbar-border-color);
@@ -47,7 +56,7 @@
 
   // footer
   --app-footer-bg-color: var(--app-color-darknes);
-  --app-footer-color: var(--app-gray-5);
+  --app-footer-color: var(--app-color-gray-5);
 
   // mat override
   --mat-toolbar-standard-height: 56px;
@@ -56,6 +65,8 @@
 
   --mat-table-header-container-height: 28px;
   --mat-table-row-item-container-height: 28px;
+
+  --mat-paginator-container-size: 0;
 }
 
 

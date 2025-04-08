@@ -8,7 +8,7 @@
 	warnColor: "#f44336",
   darkTheme: false,
   cssVars: [
-	//{name: '--app-selected-row-color', value: '#ee7700'}
+	//{name: '--app-color-item-selected', value: '#ee7700'}
   ],
 
   exports:[
