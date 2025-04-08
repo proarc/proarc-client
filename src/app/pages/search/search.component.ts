@@ -149,6 +149,9 @@ export class SearchComponent {
     this.processor = p['processor'] ? p['processor'] : this.settings.searchProcessor;
     this.sortField = p['sortField'] ? p['sortField'] : this.settings.searchSortField;
     this.sortAsc = p['sortAsc'] ? (p['sortAsc'] === 'true') : this.settings.searchSortAsc;
+
+    
+
   }
 
   filter() {
@@ -169,6 +172,18 @@ export class SearchComponent {
     }
     params.page = null;
     this.settings.searchModel = this.model;
+    if (this.owner) {
+      this.settings.searchOwner = this.owner;
+    }
+    if (this.organization) {
+      this.settings.searchOrganization = this.organization;
+    }
+    if (this.processor) {
+      this.settings.searchProcessor = this.processor;
+    }
+
+    
+    
     this.settingsService.save();
     this.router.navigate([], { queryParams: params, queryParamsHandling: 'merge' });
   }
