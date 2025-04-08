@@ -17,8 +17,6 @@ import { ElementField } from '../../model/mods/elementField.model';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule,
-    MatIconModule, MatTooltipModule, MatSelectModule,
-    MatFormFieldModule, MatInputModule, MatButtonModule,
     EditorFieldComponent, FieldDropdownComponent, FieldTextComponent, AutocompleteComponent],
   selector: 'app-editor-physical',
   templateUrl: './editor-physical.component.html',

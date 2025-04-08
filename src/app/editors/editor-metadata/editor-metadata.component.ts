@@ -29,12 +29,15 @@ import { EditorLanguageComponent } from "../editor-language/editor-language.comp
 import { Utils } from '../../utils/utils';
 import { EditorPhysicalComponent } from "../editor-physical/editor-physical.component";
 import { EditorAbstractComponent } from "../editor-abstract/editor-abstract.component";
+import { EditorNoteComponent } from "../editor-note/editor-note.component";
+import { EditorResourceComponent } from "../editor-resource/editor-resource.component";
+import { EditorClassificationComponent } from "../editor-classification/editor-classification.component";
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
     MatIconModule, MatProgressBarModule, MatTooltipModule,
     MatRadioModule, MatFormFieldModule, MatSelectModule,
-    EditorSwitcherComponent, EditorTitleComponent, EditorGenreComponent, EditorAuthorComponent, EditorPublisherComponent, EditorLocationComponent, EditorIdentifierComponent, EditorLanguageComponent, EditorPhysicalComponent, EditorAbstractComponent]
+    EditorSwitcherComponent, EditorTitleComponent, EditorGenreComponent, EditorAuthorComponent, EditorPublisherComponent, EditorLocationComponent, EditorIdentifierComponent, EditorLanguageComponent, EditorPhysicalComponent, EditorAbstractComponent, EditorNoteComponent, EditorResourceComponent, EditorClassificationComponent]
   ,
   selector: 'app-editor-metadata',
   templateUrl: './editor-metadata.component.html',

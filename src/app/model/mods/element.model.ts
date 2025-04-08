@@ -160,8 +160,8 @@ export abstract class ModsElement {
     }
 
     public addControl(field: string, modsElement: string = null) {
-        const me = modsElement ? modsElement as keyof (ModsElement) :  field as keyof (ModsElement);
-        
+        const me = modsElement ? modsElement as keyof (ModsElement) : field as keyof (ModsElement);
+
         this.clazz[field] = this.class(field);
         this.isMandatory[field] = this.isMandatory2(field);
         this.usage[field] = this.usage2(field);
@@ -171,20 +171,20 @@ export abstract class ModsElement {
 
         if (!this.controls.hasOwnProperty(field)) {
             const c = new FormControl('');
-                if (this[me]) {
-                    c.patchValue(this[me]['_']);
-                    c.valueChanges.subscribe((e: any) => {
-                        this[me]['_'] = e;
-                        Utils.metadataChanged.update(n => n + 1);
-                    });
-                } else if (this.modsElement[me]) {
-                    c.patchValue(this.modsElement[me]);
-                    c.valueChanges.subscribe((e: any) => {
-                        this.modsElement[me] = e;
-                        Utils.metadataChanged.update(n => n + 1);
-                        
-                    });
-                } else if (this.attrs?.hasOwnProperty(field)) {
+            if (this[me]) {
+                c.patchValue(this[me]['_']);
+                c.valueChanges.subscribe((e: any) => {
+                    this[me]['_'] = e;
+                    Utils.metadataChanged.update(n => n + 1);
+                });
+            } else if (this.modsElement[me]) {
+                c.patchValue(this.modsElement[me]);
+                c.valueChanges.subscribe((e: any) => {
+                    this.modsElement[me] = e;
+                    Utils.metadataChanged.update(n => n + 1);
+
+                });
+            } else if (this.attrs?.hasOwnProperty(field)) {
                 c.patchValue(this.attrs[field]);
                 c.valueChanges.subscribe((e: any) => {
                     this.attrs[field] = e;
@@ -262,17 +262,17 @@ export abstract class ModsElement {
                     if (this.template.fields[key + ''] &&
                         (this.template.fields[key + ''].required || this.template.fields[key + ''].usage === 'M') &&
                         !value.value) {
-                      // uprava kvuli issue 627
-                      if (parent === null && this.template.fields[key + ''].selector === 'genre/value' && this.template.isElectronicArticle === true) {
-                        error = false;
-                      } else {
-                        error = true;
-                        value.markAsTouched();
-                        if (parent && (parent.isRequired || parent.hasAnyValue()) ) {
-                          parent.collapsed = false;
+                        // uprava kvuli issue 627
+                        if (parent === null && this.template.fields[key + ''].selector === 'genre/value' && this.template.isElectronicArticle === true) {
+                            error = false;
+                        } else {
+                            error = true;
+                            value.markAsTouched();
+                            if (parent && (parent.isRequired || parent.hasAnyValue())) {
+                                parent.collapsed = false;
+                            }
+                            this.collapsed = false;
                         }
-                        this.collapsed = false;
-                      }
                     }
                 });
                 // error = true;

@@ -44,7 +44,7 @@ export class ModsLocation extends ModsElement {
       this.shelfLocators = new ElementField(this.modsElement, ModsShelfLocator.getSelector(), this.getField('shelfLocator'));
       this.addSubfield(this.shelfLocators);
       // this.addControl('shelfLocator');
-      // this.addControl('value');
+      // this.addControl('value', '_');
     }
 
 
