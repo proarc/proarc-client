@@ -2808,7 +2808,9 @@
     "impressum": "impressum",
     "sheetmusic": "sheet music",
     "case": "case",
-    "fragmentsofbookbinding": "fragments of book binding"
+    "fragmentsofbookbinding": "fragments of book binding",
+    "afterword": "afterword",
+    "conclusion": "conclusion"
   },
   "states": {
     "ALL": "All",
