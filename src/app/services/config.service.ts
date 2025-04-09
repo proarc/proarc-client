@@ -73,7 +73,9 @@ export class ConfigService {
 		'flyLeaf',
 		'backCover',
 		'backEndPaper',
-		'backEndSheet'
+		'backEndSheet',
+    'afterword',
+    'conclusion'
 	];
 
 	private static defaultLanguages = [

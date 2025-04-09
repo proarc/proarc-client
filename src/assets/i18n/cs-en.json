@@ -2802,7 +2802,9 @@
     "impressum": "impressum (impressum)",
     "sheetmusic": "notový zápis (sheetmusic)",
     "case": "pouzdro (case)",
-    "fragmentsofbookbinding": "část vazby (fragmentsofbookbinding)"
+    "fragmentsofbookbinding": "část vazby (fragmentsofbookbinding)",
+    "afterword": "doslov (afterword)",
+    "conclusion": "závěr (conclusion)"
   },
   "states": {
     "ALL": "Vše",
