@@ -181,7 +181,7 @@ export class WorkFlowComponent implements OnInit {
       }
       this.profiles = profiles.response.data;
       this.devices = devices;
-      
+
       this.lists['taskName'] = this.getList('taskName');
       this.setSelectedColumns();
       // this.jobsSortField = this.workFlowColumns[0];
@@ -207,7 +207,7 @@ export class WorkFlowComponent implements OnInit {
     this.subJobs = [];
     let params = '?';
     params += '_sortBy=' + (this.layout.workflowJobsSort.direction === 'desc' ? '-' : '') + this.layout.workflowJobsSort.field;
-      
+
     const keys: string[] = Object.keys(this.layout.workflowJobsFilters);
     keys.forEach((k: string) => {
       if (this.layout.workflowJobsFilters[k] !== '') {
@@ -264,9 +264,9 @@ export class WorkFlowComponent implements OnInit {
       if (response.response.data.length > 0) {
         this.subJobsMaxLevel = Math.max(job.level + 1, this.subJobsMaxLevel);
       }
-      
+
       this.subJobs.splice(idx, 0, ...response.response.data);
-      
+
       this.refreshVisibleSubJobs();
     });
   }
@@ -327,7 +327,7 @@ export class WorkFlowComponent implements OnInit {
   }
 
   isExpandable(job: WorkFlow) {
-    
+
     const p = this.profiles.find(p => p.name === job.profileName);
     if (!p) {
       console.log('PROBLEM!! Neni mezi profiles', job.profileName);
@@ -348,14 +348,14 @@ export class WorkFlowComponent implements OnInit {
     this.getMaterial();
     this.getTasks();
     this.refreshSubJobs();
-    
+
     setTimeout(() => {
       const el = document.getElementById('w_' + w.id);
       if (el) {
         el.scrollIntoView({ block: 'center' });
       }
     }, 100)
-    
+
   }
 
   createJob(profiles: WorkFlowProfile[], profile: WorkFlowProfile, parentId: number) {
@@ -431,7 +431,7 @@ export class WorkFlowComponent implements OnInit {
       if (result === 'yes') {
         //console.log(data.textInput.value)
         let params = `model=${model}`;
-        params = `${params}&jobId=${this.activeJob.id}`;
+        params = `${params}&validate=false&jobId=${this.activeJob.id}`;
         if (data.textInput.value !== '') {
           params = `${params}&pid=${data.textInput.value}`;
         }
@@ -454,7 +454,7 @@ export class WorkFlowComponent implements OnInit {
   addStep(profile: string) {
     let data = `profileName=${profile}&jobId=${this.activeJob.id}`;
     this.api.addWorflowTask(data).subscribe((response: any) => {
-      
+
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
         this.ui.showErrorDialogFromObject(response['response'].errors);
@@ -633,7 +633,7 @@ export class WorkFlowComponent implements OnInit {
     this.columnsWorkFlow.forEach((c: any) => {
       c.width = this.colsWidth[c.field];
     });
-  
+
     this.properties.setColumnsWorkFlow(this.columnsWorkFlow);
   }
 
@@ -661,7 +661,7 @@ export class WorkFlowComponent implements OnInit {
     const message = selectionHasChildren ?
                   String(this.translator.instant(pref + '.messageChildren')) + ' (' + pids.length + ')' :
                   String(this.translator.instant(pref + '.message')) + ' (' + pids.length + ')';
-   
+
     const data: SimpleDialogData = {
       title: String(this.translator.instant('dialog.removeJobs.title')),
       message: message,
@@ -728,19 +728,19 @@ export class WorkFlowComponent implements OnInit {
   selectSubJob(job: WorkFlow) {
     this.selectedSubJob = job;
     this.activeJob = job;
-    
+
     // this.subJobs.forEach(j => j.selected = false);
     // job.selected = true;
-    
+
     this.selectedSubJobProfile = this.profiles.find(p => p.name === job.profileName);
     if (!job.childrenLoaded) {
       this.getSubJobs(job);
     }
 
-    
+
     this.getMaterial();
     this.getTasks();
-    
+
   }
 
   toggle(event: any, job: WorkFlow) {
@@ -754,7 +754,7 @@ export class WorkFlowComponent implements OnInit {
     } else {
       job.expanded = false;
     }
-    
+
     this.setToHidden(job, this.subJobs.indexOf(job));
     this.refreshVisibleSubJobs();
   }
@@ -777,9 +777,9 @@ export class WorkFlowComponent implements OnInit {
   taskStep(task: string) {
 
   }
-  
+
   editMetadata() {
-    
+
     //this.api.getWorkflowMods(this.material.id, this.material.model).subscribe(mods => {
       const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
         disableClose: true,
