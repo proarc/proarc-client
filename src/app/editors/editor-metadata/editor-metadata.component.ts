@@ -55,12 +55,15 @@ export class EditorMetadataComponent implements OnInit {
 
   panel = input<ILayoutPanel>();
   panelType = input<string>();
+  pid = input<string>();
+  model = input<string>();
+  data = input<Metadata>();
   onChangePanelType = output<string>();
 
-  notSaved: boolean;
+  notSaved = input<boolean>();
+  // _validating = false;
+  validating = input<boolean>();
   loading: boolean;
-  pid: string;
-  model: string;
   metadata: Metadata;
 
   @ViewChild("scroller", { static: false }) scroller: ElementRef;
@@ -92,9 +95,16 @@ export class EditorMetadataComponent implements OnInit {
     private ui: UIService,
     private dialog: MatDialog) {
       effect(() => {
-        this.pid = this.layout.lastSelectedItem().pid;
-        this.model = this.layout.lastSelectedItem().model;
-        this.loadMetadata();
+        const pid = this.pid();
+        if (this.notSaved()) {
+          this.metadata = this.data();
+          if (this.metadata) {
+            this.setFields();
+          }
+          
+        } else {
+          this.loadMetadata(pid);
+        }
         this.hasChanges = false;
       });
       effect(() => {
@@ -104,6 +114,13 @@ export class EditorMetadataComponent implements OnInit {
           this.hasPendingChanges();
         }
         
+      });
+      effect(() => {
+        this.metadata = this.data();
+          console.log(this.metadata)
+        if (this.metadata) {
+          this.setFields();
+        }
       });
   }
 
@@ -119,23 +136,28 @@ export class EditorMetadataComponent implements OnInit {
     this.onChangePanelType.emit(t);
   }
 
-  loadMetadata() {
+  loadMetadata(pid: string) {
+    if (!pid) {
+      return;
+    }
     this.loading = true;
-    this.api.getMetadata(this.pid).subscribe(respMeta => {
+    this.api.getMetadata(pid).subscribe(respMeta => {
       const standard = respMeta['record']['standard'] ? respMeta['record']['standard'] : Metadata.resolveStandardFromXml(respMeta['record']['content']);
-      this.tmpl.getTemplate(standard, this.model).subscribe((tmpl: any) => {
-        this.metadata = new Metadata(this.pid, this.model, respMeta['record']['content'], respMeta['record']['timestamp'], standard, tmpl);
-        console.log(this.metadata);
-
-        this.visibleFields = {};
-        Object.keys(this.metadata.template).forEach(k => {
-          this.fieldIds[k] = true;
-          this.fields[k] = this.metadata.getField(k);
-          this.visibleFields[k] = true;
-        });
-
+      this.tmpl.getTemplate(standard, this.model()).subscribe((tmpl: any) => {
+        this.metadata = new Metadata(pid, this.model(), respMeta['record']['content'], respMeta['record']['timestamp'], standard, tmpl);
+        this.setFields();
         this.loading = false;
       })
+    });
+  }
+
+  setFields() {
+    this.visibleFields = {};
+    console.log(this.metadata.template)
+    Object.keys(this.metadata.template).forEach(k => {
+      this.fieldIds[k] = true;
+      this.fields[k] = this.metadata.getField(k);
+      this.visibleFields[k] = true;
     });
   }
 
@@ -164,7 +186,7 @@ export class EditorMetadataComponent implements OnInit {
   revert() {
     this.layout.clearPanelEditing();
     this.metadata = null;
-    this.loadMetadata();
+    this.loadMetadata(this.pid());
     Utils.metadataChanged.set(0);
     this.hasChanges = false;
   }
@@ -189,7 +211,6 @@ export class EditorMetadataComponent implements OnInit {
   scrollHeight = 0;
   startHeight = 0;
   endHeight = 0;
-  _validating = false;
   scrollToElement(field: string) {
     const idx = this.fieldsOrder.indexOf(this.panel().id + field);
     if (this.byField) {
@@ -261,7 +282,7 @@ export class EditorMetadataComponent implements OnInit {
 
   checkVisibility() {
 
-    if (this._validating || true) {
+    if (this.validating() || true) {
       return;
     }
 
@@ -339,7 +360,7 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   setStandard() {
-    this.tmpl.getTemplate(this.metadata.standard, this.model).subscribe((tmpl: any) => {
+    this.tmpl.getTemplate(this.metadata.standard, this.model()).subscribe((tmpl: any) => {
       this.metadata = new Metadata(this.metadata.pid, this.metadata.model, this.metadata.originalMods, this.metadata.timestamp, this.metadata.standard, tmpl);
       // this.setShowGenreSwitch();
     });

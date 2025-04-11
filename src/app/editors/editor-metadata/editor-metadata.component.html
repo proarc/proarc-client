@@ -1,7 +1,7 @@
 <div fxLayout="column" fxFlexFill [id]="panel().id">
   <div fxLayout="row" class="app-toolbar app-view-description">
 		<div fxFlex>
-			<app-editor-switcher (onChangeEditorType)="changeEditorType($event)"
+			<app-editor-switcher *ngIf="!notSaved()" (onChangeEditorType)="changeEditorType($event)"
 				[panelType]="panelType()"></app-editor-switcher>
 			<ng-container *ngIf="metadata">
 				<!-- <button mat-icon-button [matTooltip]="'desc.showOnlyTheElement' | translate" [class.app-active]="byField" (click)="toggleByField()">
@@ -15,7 +15,7 @@
 			</ng-container>
 		</div>
 		<div>
-			<ng-container *ngIf="!notSaved">
+			<ng-container *ngIf="!notSaved()">
 				<button  mat-icon-button (click)="onLoadFromCatalog()" [matTooltip]="'button.metadataCatalog' | translate">
 					<mat-icon>local_library</mat-icon>
 				</button>
@@ -33,7 +33,7 @@
 	</div>
 	<div fxFlex>
 		<mat-progress-bar mode="indeterminate" *ngIf="loading" class="app-progress-bar"></mat-progress-bar>
-		<div class="app-editor-content" *ngIf="!loading" fxLayout="column">
+		<div class="app-editor-content" *ngIf="!loading && metadata" fxLayout="column">
 			<div class="app-form-display-el" [ngClass]="scroller.scrollTop > 0 ? 'app-scrolling' : null">
 				<mat-form-field appearance="outline" class="app-w-100 app-p-2 app-mt-1 app-clean-mb" [ngClass]="metadata.invalidFields.includes(selectedField) ? 'mat-form-field-invalid' : null">
 					<mat-label>{{ 'desc.jumpToElement' | translate }}</mat-label>
@@ -56,10 +56,10 @@
 				<ng-container *ngSwitchDefault>
 					<app-editor-genre [id]="panel().id + 'genre'" *ngIf="showGenreSwitch && visibleFields['genre']" [field]="fields['genre']" [showGenreSwitch]="showGenreSwitch"></app-editor-genre>
 					<app-editor-title [id]="panel().id + 'titleInfo'" *ngIf="visibleFields['titleInfo']" [field]="fields['titleInfo']"></app-editor-title>
-					<app-editor-author [id]="panel().id + 'name'" *ngIf="visibleFields['name']" [field]="fields['name']" [model]="model" [panel]="panel()"></app-editor-author>
+					<app-editor-author [id]="panel().id + 'name'" *ngIf="visibleFields['name']" [field]="fields['name']" [model]="model()" [panel]="panel()"></app-editor-author>
 					<app-editor-publisher [id]="panel().id + 'originInfo'" *ngIf="visibleFields['originInfo']" [field]="fields['originInfo']"></app-editor-publisher>
 					<app-editor-location [id]="panel().id + 'location'" *ngIf="visibleFields['location']" [field]="fields['location']"></app-editor-location>
-					<app-editor-identifier [id]="panel().id + 'identifier'" *ngIf="visibleFields['identifier']" [field]="fields['identifier']" [model]="model"></app-editor-identifier>
+					<app-editor-identifier [id]="panel().id + 'identifier'" *ngIf="visibleFields['identifier']" [field]="fields['identifier']" [model]="model()"></app-editor-identifier>
 					<app-editor-language [id]="panel().id + 'language'" *ngIf="visibleFields['language']" [field]="fields['language']"></app-editor-language>
 					<app-editor-physical [id]="panel().id + 'physicalDescription'" *ngIf="visibleFields['physicalDescription']" [field]="fields['physicalDescription']"></app-editor-physical>
 					<app-editor-abstract [id]="panel().id + 'abstract'" *ngIf="visibleFields['abstract']" [field]="fields['abstract']"></app-editor-abstract>
@@ -72,7 +72,7 @@
 					<app-editor-tableOfContents [id]="panel().id + 'tableOfContents'" *ngIf="visibleFields['tableOfContents']" [field]="fields['tableOfContents']"></app-editor-tableOfContents>
           			<app-editor-accessCondition [id]="panel().id + 'accessCondition'" *ngIf="visibleFields['accessCondition']" [field]="fields['accessCondition']"></app-editor-accessCondition>
 					<app-editor-recordInfo [id]="panel().id + 'recordInfo'" *ngIf="visibleFields['recordInfo']" [field]="fields['recordInfo']" ></app-editor-recordInfo>
-					<app-editor-relatedItem [id]="panel().id + 'relatedItem'" *ngIf="visibleFields['relatedItem']" [field]="fields['relatedItem']" [model]="model" ></app-editor-relatedItem>
+					<app-editor-relatedItem [id]="panel().id + 'relatedItem'" *ngIf="visibleFields['relatedItem']" [field]="fields['relatedItem']" [model]="model()" ></app-editor-relatedItem>
 				</ng-container>
 			</div>
 		</div>
@@ -87,24 +87,24 @@
 	<app-editor-abstract [id]="panel().id + 'abstract'" *ngIf="visibleFields['abstract']" [field]="fields['abstract']"></app-editor-abstract>
 	<app-editor-language [id]="panel().id + 'language'" *ngIf="visibleFields['language']" [field]="fields['language']"></app-editor-language>
 	<app-editor-publisher [id]="panel().id + 'originInfo'" *ngIf="visibleFields['originInfo']" [field]="fields['originInfo']"></app-editor-publisher>
-	<app-editor-author [id]="panel().id + 'name'" *ngIf="visibleFields['name']" [field]="fields['name']" [model]="model" [panel]="panel()"></app-editor-author>
+	<app-editor-author [id]="panel().id + 'name'" *ngIf="visibleFields['name']" [field]="fields['name']" [model]="model()" [panel]="panel()"></app-editor-author>
 	<app-editor-note [id]="panel().id + 'note'" *ngIf="visibleFields['note']" [field]="fields['note']"></app-editor-note>
 </ng-template>
 
 <ng-template #bdm>
 	<app-editor-genre [id]="panel().id + 'genre'" *ngIf="visibleFields['genre']" [field]="fields['genre']" [showGenreSwitch]="true"></app-editor-genre>
 	<app-editor-language [id]="panel().id + 'language'" *ngIf="visibleFields['language']" [field]="fields['language']"></app-editor-language>
-	<app-editor-identifier [id]="panel().id + 'identifier'" *ngIf="visibleFields['identifier']" [field]="fields['identifier']" [model]="model"></app-editor-identifier>
+	<app-editor-identifier [id]="panel().id + 'identifier'" *ngIf="visibleFields['identifier']" [field]="fields['identifier']" [model]="model()"></app-editor-identifier>
 	<app-editor-physical [id]="panel().id + 'physicalDescription'" *ngIf="visibleFields['physicalDescription']" [field]="fields['physicalDescription']"></app-editor-physical>
 	<app-editor-part [id]="panel().id + 'part'" *ngIf="visibleFields['part']" [field]="fields['part']"></app-editor-part>
 	<app-editor-title [id]="panel().id + 'titleInfo'" *ngIf="visibleFields['titleInfo']" [field]="fields['titleInfo']"></app-editor-title>
-	<app-editor-author [id]="panel().id + 'name'" *ngIf="visibleFields['name']" [field]="fields['name']" [model]="model" [panel]="panel()"></app-editor-author>
+	<app-editor-author [id]="panel().id + 'name'" *ngIf="visibleFields['name']" [field]="fields['name']" [model]="model()" [panel]="panel()"></app-editor-author>
 	<app-editor-abstract [id]="panel().id + 'abstract'" *ngIf="visibleFields['abstract']" [field]="fields['abstract']"></app-editor-abstract>
 	<app-editor-subject [id]="panel().id + 'subject'" *ngIf="visibleFields['subject']" [field]="fields['subject']" [panel]="panel()"></app-editor-subject>
 	<app-editor-note [id]="panel().id + 'note'" *ngIf="visibleFields['note']" [field]="fields['note']"></app-editor-note>
 	<app-editor-classification [id]="panel().id + 'classification'" *ngIf="visibleFields['classification']" [field]="fields['classification']"></app-editor-classification>
 	<app-editor-location [id]="panel().id + 'location'" *ngIf="visibleFields['location']" [field]="fields['location']"></app-editor-location>
     <app-editor-accessCondition [id]="panel().id + 'accessCondition'" *ngIf="visibleFields['accessCondition']" [field]="fields['accessCondition']"></app-editor-accessCondition>
-	<app-editor-relatedItem [id]="panel().id + 'relatedItem'" *ngIf="visibleFields['relatedItem']" [field]="fields['relatedItem']" [model]="model"></app-editor-relatedItem>
+	<app-editor-relatedItem [id]="panel().id + 'relatedItem'" *ngIf="visibleFields['relatedItem']" [field]="fields['relatedItem']" [model]="model()"></app-editor-relatedItem>
 	<app-editor-recordInfo [id]="panel().id + 'recordInfo'" *ngIf="visibleFields['recordInfo']" [field]="fields['recordInfo']"></app-editor-recordInfo>
 </ng-template>

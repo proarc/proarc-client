@@ -35,6 +35,7 @@ export class EditorPageComponent implements OnInit {
   model = input<string>();
   panel = input<ILayoutPanel>();
   panelType = input<string>();
+  notSaved = input<boolean>();
   onChangePanelType = output<string>();
   onIngest = output<boolean>();
 

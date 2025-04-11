@@ -34,6 +34,7 @@ export class EditorAudioPageComponent implements OnInit {
   panel = input<ILayoutPanel>();
   pid = input<string>();
   model = input<string>();
+  notSaved = input<boolean>();
   state = 'none';
   audioPage: AudioPage;
 
