@@ -154,7 +154,7 @@
   line-height: var(--app-menu-item-height) !important;
 
   .mdc-list-item__primary-text {
-    white-space: nowrap;
+    white-space: nowrap !important;
     display: inline-block;
     flex-grow: 1;
     overflow: hidden;
@@ -165,8 +165,8 @@
 // form field
 .mat-mdc-form-field {
   .mat-mdc-form-field-icon-suffix {
+    padding-right: 4px;
     @include mat.icon-button-density(-6);
-    //margin-right: 4px;
 
     .mat-mdc-icon-button {
       .mat-icon {
