@@ -30,6 +30,7 @@ export class UserSettings {
     procMngColumns: TableColumn[];
     queueColumns: TableColumn[];
     adminColumns: TableColumn[];
+    devicesColumns: TableColumn[];
 
     topPageTypes: string[];
     topLanguages: string[];
@@ -221,6 +222,12 @@ public adminColumnsDefault = [
   { field: 'action', selected: true, width: 100, type: 'boolean' }
 ];
 
+public devicesColumnsDefault: TableColumn[] = [
+    { field: 'model', selected: true, width: 100, type: 'string' },
+    { field: 'label', selected: true, width: 100, type: 'string' },
+    { field: 'action', selected: true, width: 100, type: 'action' }
+];
+
     constructor(
         private api: ApiService,
         private ui: UIService,
@@ -271,6 +278,7 @@ public adminColumnsDefault = [
         this.settings.procMngColumns = Utils.clone(this.procMngColumnsDefault);
         this.settings.queueColumns = Utils.clone(this.queueColumnsDefault);
         this.settings.adminColumns = Utils.clone(this.adminColumnsDefault);
+        this.settings.devicesColumns = Utils.clone(this.devicesColumnsDefault);
 
         this.settings.topPageTypes = Utils.clone(this.config.topPageTypes);
         this.settings.topLanguages = Utils.clone(this.config.topLanguages);

@@ -1,0 +1,75 @@
+<div fxLayout="column" fxFlexFill>
+	<div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
+		<div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
+			<a routerLink="/"><mat-icon>home</mat-icon></a>
+			<span class="app-separator">/</span>
+			<a routerLink="/devices">{{ 'device.devices' | translate }}</a>
+			<span class="app-separator">/</span>
+			<ng-container *ngIf="mode == 'new'">
+				<a [routerLink]="['/devices', device.id]">{{ device.label }}</a>
+				<span class="app-separator">/</span>
+				<span class="app-last">{{ 'device.newAudioLine' | translate }}</span>
+			</ng-container>
+			<ng-container *ngIf="mode == 'edit' && device">
+				<a [routerLink]="['/devices', device.id]">{{ device.label }}</a>
+				<span class="app-separator">/</span>
+				<span class="app-last">{{ 'device.button.editingAudioLine' | translate }} {{ id }}</span>
+			</ng-container>
+		</div>
+	</div>
+
+	<mat-progress-bar mode="indeterminate" *ngIf="state=='loading' || state=='saving'" class="app-progress-bar"></mat-progress-bar>
+
+	<div fxFlex class="app-edit-audio-device app-content-wrapper app-oa-y" fxLayout="column">
+		<mat-card *ngIf="state=='success' || state=='saving'">
+			<mat-card-content>
+				<fieldset class="app-p-4 app-mb-4">
+          <legend>{{ 'device.general' | translate }}</legend>
+					<div fxLayout="row" fxLayoutGap="16px">
+						<mat-form-field fxFlex>
+							<input type="text" matInput autocomplete="off" [placeholder]="'device.name' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.name' name="name" required>
+						</mat-form-field>
+						<mat-form-field fxFlex>
+							<input type="text" matInput autocomplete="off" [placeholder]="'device.type' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.type' name="type" required>
+						</mat-form-field>
+					</div>
+				</fieldset>
+
+				<fieldset class="app-p-4 app-mb-4">
+          <legend>{{ 'device.linkingAgentIdentifier' | translate }}</legend>
+					<div fxLayout="row" fxLayoutGap="16px">
+						<mat-form-field fxFlex>
+							<input type="text" matInput autocomplete="off" [placeholder]="'device.type' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.identifierType' name="identifierType" required>
+						</mat-form-field>
+						<mat-form-field fxFlex>
+							<input type="text" matInput autocomplete="off" [placeholder]="'device.value' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.identifierValue' name="identifierValue" required>
+						</mat-form-field>
+						<mat-form-field fxFlex>
+							<input type="text" matInput autocomplete="off" [placeholder]="'device.role' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.identifierRole' name="identifierRole" required>
+						</mat-form-field>
+					</div>
+				</fieldset>
+
+				<fieldset class="app-p-4 app-mb-4">
+          <legend>{{ 'device.agentExtension' | translate }}</legend>
+					<div fxLayout="row" fxLayoutGap="16px">
+						<mat-form-field fxFlex>
+							<input type="text" matInput autocomplete="off" [placeholder]="'device.manufacturer' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.manufacturer' name="manufacturer" required>
+						</mat-form-field>
+						<mat-form-field fxFlex>
+							<input type="text" matInput autocomplete="off" [placeholder]="'device.serialNumber' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.serialNumber' name="serialNumber" required>
+						</mat-form-field>
+					</div>
+					<div fxLayout="row" fxLayoutGap="16px">
+						<mat-form-field fxFlex>
+							<textarea  matInput autocomplete="off" [placeholder]="'device.settings' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.settings' name="settings" required></textarea>
+						</mat-form-field>
+					</div>
+				</fieldset>
+				<button (click)="onSubmit()" mat-stroked-button [disabled]="state=='saving'">
+					{{ mode=='new' ? ('device.button.createAnAudioLine' | translate) : ('device.button.editTheAudioLine' | translate) }}
+				</button>
+			</mat-card-content>
+		</mat-card>
+	</div>
+</div>

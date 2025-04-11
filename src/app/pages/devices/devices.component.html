@@ -1,0 +1,50 @@
+<div fxLayout="column" fxFlexFill>
+  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
+    <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
+      <a routerLink="/"><mat-icon>home</mat-icon></a>
+      <span class="app-separator">/</span>
+      <span class="app-last">{{ 'device.devices' | translate }}</span>
+    </div>
+  </div>
+
+  <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'" class="app-progress-bar"></mat-progress-bar>
+
+  <div fxFlex class="app-devices app-content-wrapper app-pt-4" fxLayout="column">
+    <div class="app-formbar app-mb-4">
+      <button mat-stroked-button [routerLink]="['/devices', 'new']">
+        {{ 'device.button.addDevice' | translate }}
+      </button>
+    </div>
+
+    <div fxFlex class="app-oa-y app-border-wrapper">
+      <app-user-table (sortBy)="sortBy($event)" (selectItem)="selectRow($event)" 
+       (openItem)="openItem($event)" 
+       [colsSettingsName]="'devicesColumns'"
+       [actions]="actions" [items]="devices" 
+       ></app-user-table>  
+<!--       
+      <table mat-table [dataSource]="devices" class="app-hover app-striped app-resize">
+        <ng-container matColumnDef="model">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'model')" [style.width]="getColumnWidth('model')">{{ 'device.type' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ 'model.' + element.model | translate }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="label">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'label')" [style.width]="getColumnWidth('label')">{{ 'device.name' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.label }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'action')" [style.width]="getColumnWidth('action')"></th>
+          <td mat-cell *matCellDef="let element">
+            <a [routerLink]="['/devices', element.id]" [matTooltip]="'button.edit' | translate"><mat-icon>edit_note</mat-icon></a>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table> 
+    --><!--[routerLink]="['/devices', row.id]" class="app-cursor-pointer"-->
+    </div>
+  </div>
+</div>

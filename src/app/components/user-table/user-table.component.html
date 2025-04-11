@@ -6,7 +6,7 @@
   <ng-container *ngFor="let c of selectedColumns; let idx = index; let last = last;" [matColumnDef]="c.field">
     <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c.field)"
       [style.width]="c.width + 'px'">
-      <span *ngIf="c.field !== 'isLocked'" mat-sort-header>{{'search.' + c.field | translate}}</span>
+      <span *ngIf="c.field !== 'isLocked' && c.type !== 'action'" mat-sort-header>{{'search.' + c.field | translate}}</span>
       <button *ngIf="last" (click)="setColumns()" mat-icon-button [matTooltip]="'editor.children.select_columns' | translate">
         <mat-icon>more_vert</mat-icon>
       </button>
@@ -30,6 +30,10 @@
             [matTooltip]="'button.viewErrorDetail' | translate" matTooltipPosition="below" class="app-icon-button">
             <mat-icon>error_outline</mat-icon>
           </a>
+        </ng-container>
+        <ng-container *ngSwitchCase="'action'">
+          <a *ngFor="let a of actions()" (click)="a.action(element)" [matTooltip]="a.tooltip | translate"><mat-icon>{{a.icon}}</mat-icon></a>
+          <!-- <a [routerLink]="['/devices', element.id]" [matTooltip]="'button.edit' | translate"><mat-icon>edit_note</mat-icon></a> -->
         </ng-container>
         <ng-container *ngSwitchDefault>
           <ng-container *ngIf="c.field !== 'validationStatus'">

@@ -13,6 +13,10 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { AdminGuard } from './shared/admin.guard';
 import { EditUserComponent } from './pages/admin/edit-user/edit-user.component';
 import { NewUserComponent } from './pages/admin/new-user/new-user.component';
+import { DevicesComponent } from './pages/devices/devices.component';
+import { DeviceComponent } from './pages/devices/device/device.component';
+import { EditDeviceComponent } from './pages/devices/edit-device/edit-device.component';
+import { EditAudioDeviceComponent } from './pages/devices/edit-audio-device/edit-audio-device.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent }, ,
@@ -21,12 +25,12 @@ export const routes: Routes = [
             { path: 'repository/:pid', component: RepositoryComponent, canDeactivate: [ConfirmLeaveEditorGuard] },
             // { path: 'kramerius/:pid', component: KrameriusComponent },
             { path: 'settings', component: SettingsComponent },
-            // { path: 'devices', component: DevicesComponent },
-            // { path: 'devices/new', component: EditDeviceComponent },
-            // { path: 'devices/:id', component: DeviceComponent },
-            // { path: 'devices/:id/edit', component: EditDeviceComponent },
-            // { path: 'devices/:device_id/audio/new', component: EditAudioDeviceComponent },
-            // { path: 'devices/:device_id/audio/:id/edit', component: EditAudioDeviceComponent },
+            { path: 'devices', component: DevicesComponent },
+            { path: 'devices/new', component: EditDeviceComponent },
+            { path: 'devices/:id', component: DeviceComponent },
+            { path: 'devices/:id/edit', component: EditDeviceComponent },
+            { path: 'devices/:device_id/audio/new', component: EditAudioDeviceComponent },
+            { path: 'devices/:device_id/audio/:id/edit', component: EditAudioDeviceComponent },
             { path: 'search', component: SearchComponent },
             // { path: 'viewer', component: ViewerComponent },
             { path: 'process-management', component: ProcessManagementComponent },

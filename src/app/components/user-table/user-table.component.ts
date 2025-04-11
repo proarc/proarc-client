@@ -44,13 +44,14 @@ export class UserTableComponent {
   @ViewChild('childrenList') childrenListEl: ElementRef;
 
   colsSettingsName = input<string>();
-  items = input<DocumentItem[]>();
+  actions = input<any[]>([]);
+  items = input<any[]>();
   sortField: string;
   sortAsc: boolean;
 
   sortBy = output<string>();
-  selectItem = output<{ item: DocumentItem, event: MouseEvent, idx: number }>();
-  openItem = output<DocumentItem>();
+  selectItem = output<{ item: any, event: MouseEvent, idx: number }>();
+  openItem = output<any>();
   getValidationError = output<string>();
 
   draggable = input<boolean>();
