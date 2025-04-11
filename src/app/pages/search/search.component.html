@@ -60,7 +60,7 @@
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="app-organization">
           <mat-select [placeholder]="'desc.organization' | translate" name="organization" [(value)]="organization">
             <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
             <mat-option *ngFor="let org of config.organizations" [value]="org">{{ 'organization.' + org | translate }}</mat-option>

@@ -214,8 +214,14 @@
 // form bar
 .app-formbar {
   .mat-mdc-form-field {
-    &.app-model {
+    &.app-model,
+    &.app-organization {
       width: 260px;
+    }
+
+    &.app-owner,
+    &.app-processor {
+      width: 180px;
     }
   }
 }
