@@ -8,6 +8,9 @@
 			</div>
 		</div>
 		<div>
+      <button mat-icon-button (click)="onRevert()" [disabled]="!canSave()" [matTooltip]="'button.refresh' | translate" >
+        <mat-icon>sync</mat-icon>
+      </button>
 			<button mat-icon-button (click)="addBrackets()" [disabled]="canSave()" [matTooltip]="'common.add_brackets' | translate" >
         [<mat-icon>add</mat-icon>]
       </button>
@@ -16,9 +19,6 @@
       </button>
       <button mat-icon-button (click)="onSave()" [disabled]="!canSave()" [matTooltip]="'button.save' | translate" >
         <mat-icon>save</mat-icon>
-      </button>
-      <button mat-icon-button (click)="onRevert()" [disabled]="!canSave()" [matTooltip]="'button.refresh' | translate" >
-        <mat-icon>sync</mat-icon>
       </button>
 		</div>
   </div>
