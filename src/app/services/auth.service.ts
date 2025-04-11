@@ -67,12 +67,13 @@ export class AuthService {
     }
 
     getUserConfig() {
+        const infoReq = this.api.getInfo();
         const valueMapReq = this.api.getValuemap();
         const configReq = this.api.getConfig();
         const checkLoggedReq = this.checkLogged();
         const userSettings = this.api.getUserSettings();
-        return forkJoin([valueMapReq, configReq, checkLoggedReq, userSettings]).pipe(
-            tap(([valueMapResp, configResp, checkLoggedResp, userSettingsResp]: [any, any, any, any]) => {
+        return forkJoin([valueMapReq, configReq, checkLoggedReq, userSettings, infoReq]).pipe(
+            tap(([valueMapResp, configResp, checkLoggedResp, userSettingsResp, infoResp]: [any, any, any, any, any]) => {
                 if (configResp.response?.data && !configResp.response.data[0].error) {
                     this.config.mergeConfig(configResp.response.data[0].configFile);
                 }
@@ -82,6 +83,7 @@ export class AuthService {
                 }
                 
                 this.config.valueMap = valueMapResp.response.data;
+                this.config.info = infoResp;
                 if (checkLoggedResp?.state === 'logged') {
                     this.remaining = checkLoggedResp.remaining;
                     this.remainingPercent = this.remaining * 100.0 / checkLoggedResp.maximum;

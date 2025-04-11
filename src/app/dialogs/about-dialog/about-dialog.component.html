@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>{{ 'dialog.about.title' | translate }}</h1>
-<div mat-dialog-content *ngIf="backendInfo">
+<div mat-dialog-content *ngIf="config.info">
   <p [innerHTML]="'dialog.about.message' | translate"></p>
   <div class="app-mb-4">
     <h3 class="app-m-0">{{ 'desc.client' | translate }}</h3>
@@ -9,15 +9,15 @@
   </div>
   <div class="app-mb-4">
     <h3 class="app-m-0">{{ 'desc.core' | translate }}</h3>
-    <span class="app-label app-mr-1">{{ 'desc.version' | translate }}:</span><strong>{{ backendInfo.version }}</strong><br />
-    <span class="app-label app-mr-1">{{ 'desc.build' | translate }}:</span><strong>{{ backendInfo.timestamp }}</strong><br />
-    <span class="app-label app-mr-1">{{ 'desc.revision' | translate }}:</span><strong>{{ backendInfo.revision }}</strong><br />
-    <span class="app-label app-mr-1">RDflow:</span><strong>{{ backendInfo.workflowVersion }}</strong><br />
+    <span class="app-label app-mr-1">{{ 'desc.version' | translate }}:</span><strong>{{ config.info.version }}</strong><br />
+    <span class="app-label app-mr-1">{{ 'desc.build' | translate }}:</span><strong>{{ config.info.timestamp }}</strong><br />
+    <span class="app-label app-mr-1">{{ 'desc.revision' | translate }}:</span><strong>{{ config.info.revision }}</strong><br />
+    <span class="app-label app-mr-1">RDflow:</span><strong>{{ config.info.rdflowVersion }}</strong><br />
   </div>
   <div class="app-mb4">
     <h3 class="app-m-0">{{ 'desc.storage' | translate }}</h3>
-    <span class="app-label app-mr-1">{{ 'desc.storage' | translate }}:</span><strong>{{ backendInfo.storage }}</strong><br/>
-    <span class="app-label app-mr-1">{{ 'desc.database' | translate }}:</span><strong>{{ backendInfo.database}}</strong><br/>
+    <span class="app-label app-mr-1">{{ 'desc.storage' | translate }}:</span><strong>{{ config.info.storage }}</strong><br/>
+    <span class="app-label app-mr-1">{{ 'desc.database' | translate }}:</span><strong>{{ config.info.database}}</strong><br/>
   </div>
 </div>
 <div mat-dialog-actions cdkFocusRegionstart>

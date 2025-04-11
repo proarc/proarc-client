@@ -149,9 +149,7 @@ export class EditorStructureComponent implements OnInit {
     this.isRepo = this.layout.type === 'repo';
     this.setSelectedColumns();
 
-    this.api.getInfo().subscribe((info) => {
-      this.isAkubra = info.storage === 'Akubra';
-    });
+    this.isAkubra = this.config.info.storage === 'Akubra';
 
     this.pageChildren = this.layout.items().findIndex(it => it.isPage()) > -1;
     if (!this.isRepo) {

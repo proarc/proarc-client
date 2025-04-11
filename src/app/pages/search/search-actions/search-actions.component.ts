@@ -59,9 +59,7 @@ export class SearchActionsComponent {
   }
 
   ngOnInit() {
-    this.api.getInfo().subscribe((info) => {
-      this.isAkubra = info.storage === 'Akubra';
-    });
+      this.isAkubra = this.config.info.storage === 'Akubra';
   }
 
   totalSelected() {

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { versionInfo } from '../../../version-info';
 import { ApiService } from '../../services/api.service';
+import { Configuration } from '../../shared/configuration';
 
 @Component({
   standalone: true,
@@ -15,15 +16,15 @@ import { ApiService } from '../../services/api.service';
 export class FooterComponent implements OnInit {
 
   currentYear: number=new Date().getFullYear();
-  backendInfo: any;
+  // backendInfo: any;
   clientInfo: any; 
 
-  constructor(private api: ApiService) { }
+  constructor(public config: Configuration) { }
 
   ngOnInit(): void {
     this.clientInfo = versionInfo;
-    this.api.getInfo().subscribe((info) => {
-      this.backendInfo = info;
-    });
+    // this.api.getInfo().subscribe((info) => {
+    //   this.backendInfo = info;
+    // });
   }
 }

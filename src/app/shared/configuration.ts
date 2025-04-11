@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import json5 from "json5";
-declare var APP_GLOBAL: {proarcUrl: string};
+declare var APP_GLOBAL: { proarcUrl: string };
 
 
 export interface TableColumn {
@@ -23,7 +23,7 @@ export class Configuration {
   accentColor: string;
   warnColor: string;
   darkTheme: boolean;
-  cssVars: {name: string, value: string}[];
+  cssVars: { name: string, value: string }[];
 
   exports: string[];
   organizations: string[];
@@ -63,7 +63,7 @@ export class Configuration {
   // origin = model nad kterym to lze spustit
   // originModel = vychozi model z ktereho se prevadi
   // model = model na ktery se prevadi
-  modelChanges: {origin: string, dest:{model: string, originmodel: string, apiPoint: string }[]}[];
+  modelChanges: { origin: string, dest: { model: string, originmodel: string, apiPoint: string }[] }[];
 
   showPageIndex: boolean;
   showPageIdentifiers: boolean;
@@ -73,6 +73,13 @@ export class Configuration {
   profiles: string[];
 
   public valueMap: { mapId: string, values: any[] }[];
+  public info: {
+    config: boolean, database: string, languageCs: boolean, languageCsEn: boolean, languageEn: boolean, rdflowVersion: string,
+    revision: string,
+    storage: string,
+    timestamp: string,
+    version: string
+  };
 
   [key: string]: any; // This is to allow property asignement by name this[k] = o[k];
 

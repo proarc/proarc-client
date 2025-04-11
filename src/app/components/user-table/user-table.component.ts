@@ -124,10 +124,11 @@ export class UserTableComponent {
   }
 
   setColumns() {
+    const model = this.layout.selectedParentItem ? this.layout.selectedParentItem.model : this.items()[0].model
     const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
       data: {
         colsSettingsName: this.colsSettingsName(),
-        model: this.layout.selectedParentItem.model,
+        model: model,
       },
       width: '600px',
     });
