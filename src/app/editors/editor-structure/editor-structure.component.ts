@@ -21,7 +21,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AngularSplitModule } from 'angular-split';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { ConvertDialogComponent } from '../../dialogs/convert-dialog/convert-dialog.component';
 import { ILayoutPanel } from '../../dialogs/layout-admin/layout-admin.component';
 import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
@@ -43,7 +42,7 @@ import { UserTableComponent } from "../../components/user-table/user-table.compo
 
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, FlexLayoutModule,
+  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
     MatTableModule, MatSortModule, ResizedDirective, UserTableComponent],
