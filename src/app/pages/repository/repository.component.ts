@@ -25,7 +25,6 @@ import { UpdateInSourceDialogComponent } from '../../dialogs/update-in-source-di
 import { UrnnbnDialogComponent } from '../../dialogs/urnnbn-dialog/urnnbn-dialog.component';
 import { Batch } from '../../model/batch.model';
 import { UserSettings, UserSettingsService } from '../../shared/user-settings';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { PanelComponent } from "../../components/panel/panel.component";
 import { LayoutService } from '../../services/layout-service';
 import { ModelTemplate } from '../../model/modelTemplate';
@@ -33,7 +32,7 @@ import { Utils } from '../../utils/utils';
 
 @Component({
   selector: 'app-repository',
-  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, FlexLayoutModule,
+  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
     MatCardModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatTooltipModule, MatMenuModule, PanelComponent],
   templateUrl: './repository.component.html',

@@ -50,7 +50,8 @@
   --app-toolbar-bg-color: var(--app-default-bg);
   --app-toolbar-button-bg-active: var(--app-toolbar-border-color);
   --app-toolbar-button-height: var(--app-toolbar-height);
-  --app-toolbar-view-breadcrumbs: 40px;
+  
+  --app-breadcrumbsbar-height: 40px;
 
   --app-menu-item-height: 28px;
 
@@ -67,6 +68,8 @@
   --mat-table-row-item-container-height: 28px;
 
   --mat-paginator-container-size: 0;
+
+  --mdc-icon-button-disabled-icon-color: var(--app-color-gray-4);
 }
 
 
