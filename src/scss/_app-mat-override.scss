@@ -35,6 +35,24 @@
 
 // table
 .mat-mdc-table {
+  .mat-mdc-row {
+    &.app-selected {
+      background-color: var(--app-color-item-selected) !important;
+    }
+
+    &.app-invalid {
+      background-color: rgba(var(--app-color-item-invalid-no-rgb), .1) !important;
+
+      .mat-icon {
+        color: var(--app-color-item-invalid);
+      }
+    }
+
+    &.app-repre {
+      font-weight: 700;
+    }
+  }
+
   &.app-striped {
     .mat-mdc-row {
       &:nth-child(odd) {

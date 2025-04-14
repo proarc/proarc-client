@@ -6,10 +6,17 @@
   <ng-container *ngFor="let c of selectedColumns; let idx = index; let last = last;" [matColumnDef]="c.field">
     <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c.field)"
       [style.width]="c.width + 'px'">
-      <span *ngIf="c.field !== 'isLocked' && c.type !== 'action'" mat-sort-header>{{'search.' + c.field | translate}}</span>
+      <span *ngIf="!last" mat-sort-header>{{'search.' + c.field | translate}}</span>
+      <div *ngIf="last" class="app-fxLayout app-row app-center-v">
+        <span *ngIf="c.field !== 'isLocked' && c.type !== 'action'" mat-sort-header>{{'search.' + c.field | translate}}</span>
+        <button (click)="setColumns()" mat-icon-button [matTooltip]="'editor.children.select_columns' | translate">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </div>
+      <!-- <span *ngIf="c.field !== 'isLocked' && c.type !== 'action'" mat-sort-header>{{'search.' + c.field | translate}}</span>
       <button *ngIf="last" (click)="setColumns()" mat-icon-button [matTooltip]="'editor.children.select_columns' | translate">
         <mat-icon>more_vert</mat-icon>
-      </button>
+      </button> -->
     </th>
     <td mat-cell *matCellDef="let element">
       <ng-container [ngSwitch]="c.type">

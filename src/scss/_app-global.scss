@@ -14,10 +14,6 @@
   opacity: .4;
 }
 
-.app-selected {
-  background-color: var(--app-color-item-selected) !important;
-}
-
 // cleaners
 .app-clean-bg {
   background-color: transparent !important;
@@ -250,6 +246,110 @@
     &.app-owner,
     &.app-processor {
       width: 180px;
+    }
+  }
+}
+
+
+// editor content
+.app-editor-content {
+  &:focus {
+    outline: none !important;
+  }
+
+  // common behavior
+  .mat-table,
+  .app-view-grid,
+  .app-view-icon {
+    ::selection {
+      background: transparent;
+    }
+
+    ::-moz-selection {
+      background: transparent;
+    }
+  }
+
+  .app-view-icon {
+    padding: 2px 0;
+
+    .app-item-wrapper {
+      @extend .app-cursor-pointer;
+      padding: 2px;
+
+      .app-item {
+        @extend .app-h-100;
+        background-color: var(--app-color-gray-2);
+        border: 1px solid var(--app-default-border-color);
+
+        .app-item-thumb {
+          //background-size: cover;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-color: var(--app-color-gray-2);
+          background-position-x: center;
+          background-position-y: center; 
+        }
+
+        .app-item-label {
+          @extend .app-text-center, .app-p-1;
+
+          .app-text {
+            line-height: normal;
+            max-height: 32px;
+            overflow: hidden;
+            width: 100%;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+
+      &.app-selected {
+        .app-item {
+          background-color: var(--app-color-item-selected);
+
+          .app-item-thumb {
+            opacity: .6;
+          }
+        }
+      }
+
+      &.app-invalid {
+        .app-item {
+          background-color: rgba(var(--app-color-item-invalid-no-rgb), .1);
+
+          .app-item-label {
+            .mat-icon {
+              @include app-mixins.setIcon(20, var(--app-color-item-invalid), sub);
+            }
+          }
+        }
+      }
+
+      &.app-repre {
+        .app-item {
+          position: relative;
+          
+          .app-item-thumb {
+             &::after {
+               content: '';
+               width: 0px;
+               height: 0px;
+               border-style: solid;
+               border-width: 15px 15px 0 0;
+               border-color: var(--app-color-gray-6) transparent transparent transparent;
+               transform: rotate(0deg);
+               left: 0;
+               top: 0;
+               position: absolute;
+             }
+           }
+
+           .app-item-label {
+            font-weight: 700;
+           }
+        }
+      }
     }
   }
 }
