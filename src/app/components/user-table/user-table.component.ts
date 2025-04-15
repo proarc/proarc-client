@@ -43,6 +43,7 @@ export class UserTableComponent {
   @ViewChild('childrenList') childrenListEl: ElementRef;
 
   colsSettingsName = input<string>();
+  withFilters = input<boolean>();
   actions = input<any[]>([]);
   items = input<any[]>();
   sortField: string;
@@ -63,6 +64,7 @@ export class UserTableComponent {
   selectedColumns: TableColumn[];
   displayedColumns: string[];
 
+  filterColumns: string[] = [];
 
   prefixes: { [field: string]: string } = {};
   lists: { [field: string]: { code: string, value: string }[] } = {};
@@ -120,6 +122,10 @@ export class UserTableComponent {
         this.lists[c.field] = this.getList(c.field);
       }
       this.prefixes[c.field] = this.prefixByType(c.field);
+
+      if (this.withFilters()) {
+        this.filterColumns.push(c + '-filter');
+      }
     });
   }
 

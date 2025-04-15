@@ -31,6 +31,10 @@
                             </mat-menu>
                         </div>
                         <div class="app-oa-y" >
+                            <app-user-table 
+                                (sortBy)="sortTasksTable($event)" 
+                                (selectItem)="taskClick($event)"
+                                [colsSettingsName]="'columnsWorkFlowTasks'" [items]="tasks" ></app-user-table>
                             <!-- <table mat-table [dataSource]="tasks" class="app-striped app-hover app-resize" matSort
                                 [matSortActive]="layout.workflowTasksSort.field" [matSortDirection]="layout.workflowTasksSort.direction"
                                 (matSortChange)="sortTasksTable($event)">

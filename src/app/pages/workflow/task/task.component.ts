@@ -71,7 +71,6 @@ export class TaskComponent implements OnInit {
   colsWidthTasks: { [key: string]: number } = {};
 
 
-  selectedColumns: string[] = [];
   filterTasksColumns: string[] = [];
   // tasksSortField: string = 'created';
   // tasksSortDir: SortDirection = 'desc';
@@ -166,33 +165,10 @@ export class TaskComponent implements OnInit {
         return;
       }
       this.profiles = profiles.response.data;
-      this.setSelectedColumnsTasks();
       this.initData();
     });
   }
 
-  setSelectedColumnsTasks() {
-    this.filterTasksColumns = [];
-    this.selectedColumns = this.columnsTasks.filter(c => c.selected).map(c => c.field);
-
-    this.selectedColumns.forEach(c => {
-      this.filterTasksColumns.push(c + '-filter');
-      this.filterFields[c] = this.workflowTasksFilters[c];
-      if (this.columnTasksType(c) === 'list') {
-        this.lists[c] = this.getList(c);
-      }
-      this.columnTypes[c] = this.columnTasksType(c);
-    });
-
-    this.setColumnsWidthTasks();
-  }
-
-  setColumnsWidthTasks() {
-    this.colsWidthTasks = {};
-    this.columnsTasks.forEach((c: any) => {
-      this.colsWidthTasks[c.field] = c.width;
-    });
-  }
 
   initData() {
     this.api.getUsers().subscribe((users: User[]) => {
@@ -397,40 +373,40 @@ export class TaskComponent implements OnInit {
     this.getTasks();
   }
 
-  taskClick(item: any, event?: MouseEvent, idx?: number) {
-    if (event && (event.metaKey || event.ctrlKey)) {
-      item.selected = !item.selected;
-      this.startShiftClickIdx = idx;
-    } else if (event && event.shiftKey) {
+  taskClick(e: {item: any, event?: MouseEvent, idx?: number}) {
+    if (e.event && (e.event.metaKey || e.event.ctrlKey)) {
+      e.item.selected = !e.item.selected;
+      this.startShiftClickIdx = e.idx;
+    } else if (e.event && e.event.shiftKey) {
       if (this.startShiftClickIdx > -1) {
         const oldFrom = Math.min(this.startShiftClickIdx, this.lastClickIdx);
         const oldTo = Math.max(this.startShiftClickIdx, this.lastClickIdx);
         for (let i = oldFrom; i <= oldTo; i++) {
           this.tasks[i].selected = false;
         }
-        const from = Math.min(this.startShiftClickIdx, idx);
-        const to = Math.max(this.startShiftClickIdx, idx);
+        const from = Math.min(this.startShiftClickIdx, e.idx);
+        const to = Math.max(this.startShiftClickIdx, e.idx);
         for (let i = from; i <= to; i++) {
           this.tasks[i].selected = true;
         }
       } else {
         // nic neni.
         this.tasks.forEach(i => i.selected = false);
-        item.selected = true;
-        this.startShiftClickIdx = idx;
+        e.item.selected = true;
+        this.startShiftClickIdx = e.idx;
       }
     } else {
       this.tasks.forEach(i => i.selected = false);
-      item.selected = true;
-      this.startShiftClickIdx = idx;
+      e.item.selected = true;
+      this.startShiftClickIdx = e.idx;
     }
 
-    this.lastClickIdx = idx;
+    this.lastClickIdx = e.idx;
     this.totalSelected = this.tasks.filter(i => i.selected).length;
     this.isSelectionSameType = true;
     if (this.totalSelected > 1) {
 
-      let profileLabel = item.profileLabel;
+      let profileLabel = e.item.profileLabel;
       this.tasks.filter(i => i.selected).forEach(i => {
         if (i.profileLabel !== profileLabel) {
           this.isSelectionSameType = false;
@@ -440,7 +416,7 @@ export class TaskComponent implements OnInit {
 
 
     if (this.totalSelected > 0) {
-      this.selectTask(item);
+      this.selectTask(e.item);
     }
   }
 

@@ -71,13 +71,6 @@ export class WorkFlowComponent implements OnInit {
   loading: boolean;
   state: string;
 
-  columnsWorkFlow: { field: string, selected: boolean, type: string }[];
-  colsWidth: { [key: string]: number } = {};
-  columnsWorkFlowSubJobs: { field: string, selected: boolean, type: string }[];
-  colsWidthSubJobs: { [key: string]: number } = {};
-  columnsTasks: { field: string, selected: boolean, type: string }[];
-  colsWidthTasks: { [key: string]: number } = {};
-
   // -- table to expand --
   materialColumnsToDisplay = ['profileLabel', 'label', 'note'];
   materialColumnsToDisplayWithExpand = [...this.materialColumnsToDisplay, 'expand'];
@@ -198,8 +191,6 @@ export class WorkFlowComponent implements OnInit {
       }
       this.profiles = profiles.response.data;
       this.devices = devices;
-
-      this.lists['taskName'] = this.getList('taskName');
       this.getWorkflow(false);
     });
   }
@@ -459,43 +450,6 @@ export class WorkFlowComponent implements OnInit {
   filter(field: string, value: string) {
     this.workflowJobsFilters[field] = value;
     this.getWorkflow(false);
-  }
-
-  columnType(f: string) {
-    return this.columnsWorkFlow.find(c => c.field === f).type;
-  }
-
-  columnTasksType(f: string) {
-    return this.columnsTasks.find(c => c.field === f).type;
-  }
-
-  getList(f: string): { code: string, value: string }[] {
-    switch (f) {
-      case 'priority': return this.priorities.map(p => { return { code: p.code + '', value: p.value } });
-      case 'state': return this.states.map(p => { return { code: p.code, value: p.value } });
-      case 'profileName': return this.profiles.map(p => { return { code: p.name + '', value: p.title } });
-      case 'deviceID': return this.devices.map(p => { return { code: p.id + '', value: p.label } });
-      case 'ownerId': return this.users.map(p => { return { code: p.userId + '', value: p.name } });
-      case 'taskName': return this.allTasks.map(p => { return { code: p.name + '', value: p.title } });
-      case 'taskUser': return this.users.map(p => { return { code: p.userId + '', value: p.name } });
-      case 'model': return this.config.models.map((p: string) => { return { code: p, value: this.translator.instant('model.' + p) } });
-      default: return [];
-    }
-  }
-
-  listValue(field: string, code: string) {
-    // field profileName je rozdilne pro job a task
-    // pro job bereme z profiles
-    // pro task z allTasks
-    const el = this.lists[field].find(el => el.code === code + '');
-    return el ? el.value : code;
-  }
-
-  translatedField(f: string): string {
-    switch (f) {
-      case 'taskName': return 'taskLabel'
-      default: return f
-    }
   }
 
   removeJobs(isSubJobs: boolean) {

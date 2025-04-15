@@ -54,6 +54,10 @@
     </td>
   </ng-container>
 
+  <ng-container *ngIf="withFilters">
+    <tr mat-header-row *matHeaderRowDef="filterColumns; sticky: true"></tr>
+  </ng-container>
+  
   <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns; let idx=index" #matrow [id]="'tr_'+row.pid"
     (click)="onSelectItem(row, $event, idx)" (dblclick)="onOpenItem(row, $event)" class="app-cursor-pointer"
