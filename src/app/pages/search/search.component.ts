@@ -193,20 +193,9 @@ export class SearchComponent {
     this.reload();
   }
 
-  sortTable(sortState: Sort) {
-    this.sortBy(sortState.active);
-  }
-
-  sortBy(field: string) {
-    // if (this.query) {
-    //   return;
-    // }
-    if (this.sortField === field) {
-      this.sortAsc = !this.sortAsc;
-    } else {
-      this.sortAsc = true;
-    }
-    this.sortField = field;
+  sortBy(e: Sort) {
+    this.sortField = e.active;
+    this.sortAsc = e.direction === 'asc';
     this.settings.searchSortField = this.sortField;
     this.settings.searchSortAsc = this.sortAsc;
     this.settingsService.save();
@@ -397,6 +386,14 @@ export class SearchComponent {
   treeInfoChanged(info: {tree_info: { [model: string]: number }, batchInfo: any}) {
     this.tree_info = info.tree_info;
     this.batchInfo = info.batchInfo;
+  }
+
+  onSelectTreeItem(item: any) {
+    this.selectedTreeItem = item;
+  }
+
+  onTreeItemsChanged(items: any[]) {
+    this.treeItems = items
   }
 
 }

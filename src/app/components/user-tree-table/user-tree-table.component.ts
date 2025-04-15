@@ -9,7 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSortModule } from '@angular/material/sort';
+import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -27,6 +27,7 @@ import { Batch } from '../../model/batch.model';
 import { ModelTemplate } from '../../model/modelTemplate';
 import { ColumnsSettingsDialogComponent } from '../../dialogs/columns-settings-dialog/columns-settings-dialog.component';
 import { LayoutService } from '../../services/layout-service';
+import { TreeWorkFlow } from '../../model/workflow.model';
 
 @Component({
   selector: 'app-user-tree-table',
@@ -40,12 +41,13 @@ import { LayoutService } from '../../services/layout-service';
 })
 export class UserTreeTableComponent {
 
-  rootTreeItem = input<TreeDocumentItem>();
+  type = input<string>('TreeDocumentItem'); // TreeDocumentItem || TreeWorkFlow
+  rootTreeItem = input<TreeDocumentItem | TreeWorkFlow>();
   treePath = input<string[]>();
   inSearch = input<boolean>(false);
   treeInfo = output<{ tree_info: { [model: string]: number }, batchInfo: any }>();
-  onSelectTreeItem = output<TreeDocumentItem>();
-  onTreeItemsChanged = output<TreeDocumentItem[]>();
+  onSelectTreeItem = output<TreeDocumentItem | TreeWorkFlow>();
+  onTreeItemsChanged = output<(TreeDocumentItem | TreeWorkFlow)[]>();
 
   @ViewChild('treeTable') treeTable: MatTable<any>;
   loadingTree: boolean;
@@ -53,8 +55,9 @@ export class UserTreeTableComponent {
   treeColumnsSizes: { [key: string]: string } = {};
   treeColumns: string[] = [];
   treeItems: TreeDocumentItem[] = [];
-  visibleTreeItems: TreeDocumentItem[] = [];
-  selectedTreeItem: TreeDocumentItem;
+  worflowTreeItems: TreeWorkFlow[] = [];
+  visibleTreeItems: (TreeDocumentItem | TreeWorkFlow)[] = [];
+  selectedTreeItem: TreeDocumentItem | TreeWorkFlow;
   startShiftClickIdxTree: number;
   lastClickIdxTree: number;
   totalSelectedTree: number;
@@ -70,7 +73,9 @@ export class UserTreeTableComponent {
     "connected",
     "processing",
     "described",
-    "exported"]
+    "exported"];
+
+  sort: Sort = { active: 'created', direction: 'desc' };
 
   constructor(private api: ApiService,
     private translator: TranslateService,
@@ -93,7 +98,12 @@ export class UserTreeTableComponent {
         return;
       }
       root.level = 0;
-      this.treeItems = [root];
+      if (this.type() === 'TreeWorkFlow') {
+        this.worflowTreeItems = [root as TreeWorkFlow];
+      } else {
+        this.treeItems = [root as TreeDocumentItem];
+      }
+
       const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.models, root.model).join(',');
       const canHavePages = allowedAsString.includes('page');
       if (path.length > 1) {
@@ -212,13 +222,61 @@ export class UserTreeTableComponent {
   }
 
   refreshVisibleTreeItems() {
-    this.visibleTreeItems = this.treeItems.filter(j => !j.hidden);
+    if (this.type() === 'TreeWorkFlow') {
+      this.visibleTreeItems = this.worflowTreeItems.filter(j => !j.hidden);
+    } else {
+      this.visibleTreeItems = this.treeItems.filter(j => !j.hidden);
+    }
+    
     if (this.treeTable) {
       this.treeTable.renderRows();
     }
   }
 
-  getTreeItems(treeItem: TreeDocumentItem, getInfo: boolean, callback?: Function) {
+  getTreeItems(treeItem: TreeDocumentItem | TreeWorkFlow, getInfo: boolean, callback?: Function) {
+    if (this.type() === 'TreeWorkFlow') {
+      this.getWorkFlowItems(treeItem as TreeWorkFlow);
+    } else {
+      this.getDocumentItems(treeItem as TreeDocumentItem, getInfo, callback);
+    }
+  }
+
+  getWorkFlowItems(treeItem: TreeWorkFlow) {
+    let params = '?parentId=' + treeItem.id;
+    params += '&_sortBy=' + (this.sort.direction === 'desc' ? '-' : '') + this.sort.active;
+
+    this.api.getWorkflow(params).subscribe((resp: any) => {
+      if (resp['response'].errors) {
+        this.ui.showErrorDialogFromObject(resp['response'].errors);
+        return;
+      }
+
+      treeItem.expanded = true;
+      treeItem.childrenLoaded = true;
+
+      const idx = this.worflowTreeItems.findIndex(j => j.pid === treeItem.pid) + 1;
+      const children: TreeWorkFlow[] = resp.response.data
+      const treeChildren: TreeWorkFlow[] = children.map(c => {
+        const ti: TreeWorkFlow = <TreeWorkFlow>c;
+        ti.level = treeItem.level + 1;
+        ti.expandable = true;
+        ti.parentPid = treeItem.pid;
+        return ti;
+      });
+
+      if (children.length > 0) {
+        this.treeMaxLevel = Math.max(treeItem.level + 1, this.treeMaxLevel);
+      }
+
+      this.worflowTreeItems.splice(idx, 0, ...treeChildren);
+
+      this.refreshVisibleTreeItems();
+      this.loadingTree = false;
+      this.onTreeItemsChanged.emit(this.worflowTreeItems);
+    });
+  }
+
+  getDocumentItems(treeItem: TreeDocumentItem | TreeWorkFlow, getInfo: boolean, callback?: Function) {
     this.loadingTree = true;
 
     this.api.getRelations(treeItem.pid).subscribe((children: DocumentItem[]) => {
@@ -246,7 +304,7 @@ export class UserTreeTableComponent {
       this.loadingTree = false;
       this.onTreeItemsChanged.emit(this.treeItems);
       if (getInfo) {
-        this.getTreeInfo(treeItem);
+        this.getTreeInfo(treeItem as TreeDocumentItem);
       }
       if (callback) {
         callback(treeChildren)
@@ -342,10 +400,10 @@ export class UserTreeTableComponent {
     if (!this.inSearch()) {
       const children = this.treeItems.filter(ti => ti.parentPid === treeItem.pid);
       if (children.length > 0) {
-          this.layout.items.set(<DocumentItem[]>children);
-          if (this.layout.selectedParentItem.pid !== treeItem.pid) {
-            this.layout.selectedParentItem = <DocumentItem>treeItem;
-          }
+        this.layout.items.set(<DocumentItem[]>children);
+        if (this.layout.selectedParentItem.pid !== treeItem.pid) {
+          this.layout.selectedParentItem = <DocumentItem>treeItem;
+        }
       }
     }
   }
@@ -381,7 +439,7 @@ export class UserTreeTableComponent {
     }
   }
 
-  expandTreeUntilSelected(treeItem: TreeDocumentItem, path: string[]) {
+  expandTreeUntilSelected(treeItem: TreeDocumentItem | TreeWorkFlow, path: string[]) {
     treeItem.expanded = true;
     if (!treeItem.childrenLoaded) {
       this.getTreeItems(treeItem, false, (children: TreeDocumentItem[]) => {

@@ -157,4 +157,13 @@ export class Configuration {
     ].indexOf(model) >= 0;
   }
 
+  public getValueMap(mapId: string): any[] {
+		// imageColor obcas vraci code a obcas value !!
+		// const ic = this.parameters.find((p: any) => p.valueMapId === 'wf.valuemap.imageColor');
+		// if (ic) {
+		//   this.imageColor = this.imageColors.find(c => c.value === ic.value || c.code === ic.value).code;
+		// }
+		return this.valueMap.find(m => m.mapId === mapId).values;
+	}
+
 }

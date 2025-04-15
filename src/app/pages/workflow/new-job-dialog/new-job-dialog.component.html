@@ -1,0 +1,53 @@
+<mat-progress-bar mode="indeterminate" *ngIf="state=='loading'" class="app-progress-bar"></mat-progress-bar>
+<h1 mat-dialog-title>{{ 'dialog.workflowNewJob.title' | translate }}</h1>
+<div mat-dialog-content class="app-scrollbar-fix">
+  <mat-form-field class="app-w-100">
+    <mat-label>{{ 'desc.selectProfile' | translate }}</mat-label>
+    <mat-select [placeholder]="'desc.selectProfile' | translate" [(ngModel)]="selectedProfile" >
+      <mat-option *ngFor="let profile of data.profiles" [value]="profile">{{ profile.title }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <mat-form-field class="app-w-100">
+    <mat-label>{{ 'desc.selectCatalog' | translate }}</mat-label>
+    <mat-select [placeholder]="'desc.selectCatalog' | translate" [(ngModel)]="selectedCatalogue" >
+      <mat-option *ngFor="let c of catalogues" [value]="c">{{ c.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="app-w-100">
+    <mat-label>{{ 'desc.field' | translate }}</mat-label>
+    <mat-select [placeholder]="'desc.field' | translate" name="field" [(ngModel)]="activeField" >
+      <mat-option *ngFor="let field of selectedCatalogue?.fields" [value]="field">{{ field.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <mat-form-field class="app-w-100">
+    <mat-label>{{ 'desc.query' | translate }}</mat-label>
+    <input matInput [placeholder]="'desc.query' | translate" (keyup.enter)="search()" [(ngModel)]="activeQuery" [disabled]="state=='loading'  || state=='saving'">
+  </mat-form-field>
+  
+  <button mat-stroked-button (click)="search()" [disabled]="!activeQuery || state=='loading'  || state=='saving'">{{ 'catalog.search' | translate }}</button>
+
+  <div class="app-results" *ngIf="results && results.length > 0">
+    <mat-divider class="app-mt-4 app-mb-4"></mat-divider>
+    <div class="app-table">
+      <div *ngFor="let entry of results; let i = index" class="app-row" [class.app-active]="i == activeIndex" (click)="selectEntry(i)">
+        <div class="entry">{{ entry.title }}</div>
+      </div>
+    </div>
+    <div class="app-detail" *ngIf="activeIndex >= 0">
+      <div [innerHTML]="results[activeIndex].preview"></div>
+    </div>
+  </div>
+
+  <mat-card class="app-alert app-info app-mt-4" *ngIf="message">
+    <mat-icon>info</mat-icon>
+    {{ 'catalog.' + message | translate }}
+  </mat-card>
+</div>
+
+<div mat-dialog-actions cdkFocusRegionstart>
+  <button mat-flat-button color="primary" [disabled]="activeIndex < 0" (click)="save()" >{{ 'button.save' | translate }}</button>
+  <button mat-stroked-button mat-dialog-close="close" >{{ 'button.close' | translate }}</button>
+</div>

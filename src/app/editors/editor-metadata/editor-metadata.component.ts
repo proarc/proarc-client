@@ -44,7 +44,12 @@ import { EditorChronicleLocationComponent } from "../editor-chronicle-location/e
   imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
     MatIconModule, MatProgressBarModule, MatTooltipModule,
     MatRadioModule, MatFormFieldModule, MatSelectModule,
-    EditorSwitcherComponent, EditorTitleComponent, EditorGenreComponent, EditorAuthorComponent, EditorPublisherComponent, EditorLocationComponent, EditorIdentifierComponent, EditorLanguageComponent, EditorPhysicalComponent, EditorAbstractComponent, EditorNoteComponent, EditorResourceComponent, EditorClassificationComponent, EditorSubjectComponent, EditorPartComponent, EditorTableOfContentsComponent, EditorAccessConditionComponent, EditorRecordInfoComponent, EditorRelatedItemComponent, EditorChronicleLocationComponent]
+    EditorSwitcherComponent, EditorTitleComponent, EditorGenreComponent, 
+    EditorAuthorComponent, EditorPublisherComponent, EditorLocationComponent, EditorIdentifierComponent, 
+    EditorLanguageComponent, EditorPhysicalComponent, EditorAbstractComponent, EditorNoteComponent, 
+    EditorResourceComponent, EditorClassificationComponent, EditorSubjectComponent, EditorPartComponent, 
+    EditorTableOfContentsComponent, EditorAccessConditionComponent, EditorRecordInfoComponent, 
+    EditorRelatedItemComponent, EditorChronicleLocationComponent]
   ,
   selector: 'app-editor-metadata',
   templateUrl: './editor-metadata.component.html',

@@ -1,0 +1,40 @@
+<div fxLayout="column" fxFlexFill >
+    <h1 mat-dialog-title>{{ 'workflow.multipleJobsEdit' | translate }}</h1>
+    <div fxFlex mat-dialog-content class="app-clean-max-height">
+        <div class="app-oa-y app-p-2">
+            <ng-container>
+              <div fxLayout="row" fxLayoutGap="16px">
+                <mat-form-field fxFlex>
+                  <mat-label>{{ 'desc.state' | translate }}</mat-label>
+                  <mat-select [(ngModel)]="state" [placeholder]="'desc.state' | translate">
+                    <mat-option *ngFor="let o of data.states" [value]="o.code">{{o.value}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div fxLayout="row" fxLayoutGap="16px">
+                <mat-form-field fxFlex>
+                  <mat-label>{{ 'desc.priority' | translate }}</mat-label>
+                  <mat-select [(ngModel)]="priority" [placeholder]="'desc.priority' | translate">
+                    <mat-option *ngFor="let o of data.priorities" [value]="o.code">{{o.value}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div fxLayout="row" fxLayoutGap="16px">
+                <mat-form-field fxFlex>
+                  <mat-label>{{ 'desc.financed' | translate }}</mat-label>
+                  <input autocomplete="off" matInput [placeholder]="'desc.financed' | translate" [(ngModel)]="financed">
+                </mat-form-field>
+              </div>
+              <mat-form-field class="app-w-100">
+                <mat-label>{{ 'desc.note' | translate }}</mat-label>
+                <textarea matInput [placeholder]="'desc.note' | translate" [(ngModel)]="note" rows="3"></textarea>
+              </mat-form-field>
+            </ng-container>
+          </div>
+    </div>
+    
+    <div mat-dialog-actions cdkFocusRegionstart>
+      <button mat-flat-button color="primary" (click)="onSave()">{{ 'button.save' | translate }}</button>
+      <button mat-flat-button (click)="onClose()">{{ 'button.close' | translate }}</button>
+    </div>
+  </div>

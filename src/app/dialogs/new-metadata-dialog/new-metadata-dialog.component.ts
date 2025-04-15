@@ -20,7 +20,9 @@ import { EditorMetadataComponent } from "../../editors/editor-metadata/editor-me
 @Component({
   imports: [CommonModule, TranslateModule,
     MatDialogModule,
-    MatIconModule, MatButtonModule, EditorPageComponent, EditorAudioPageComponent, EditorMetadataComponent],
+    MatIconModule, MatButtonModule, 
+    EditorPageComponent, EditorAudioPageComponent, EditorMetadataComponent
+  ],
   selector: 'app-new-metadata-dialog',
   templateUrl: './new-metadata-dialog.component.html',
   styleUrls: ['./new-metadata-dialog.component.scss']

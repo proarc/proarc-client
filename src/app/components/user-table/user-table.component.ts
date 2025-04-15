@@ -48,7 +48,7 @@ export class UserTableComponent {
   sortField: string;
   sortAsc: boolean;
 
-  sortBy = output<string>();
+  sortBy = output<Sort>();
   selectItem = output<{ item: any, event: MouseEvent, idx: number }>();
   openItem = output<any>();
   getValidationError = output<string>();
@@ -190,7 +190,7 @@ export class UserTableComponent {
   }
 
   sortTable(sortState: Sort) {
-    this.sortBy.emit(sortState.active);
+    this.sortBy.emit(sortState);
   }
 
   onSelectItem(item: DocumentItem, event: MouseEvent, idx: number) {

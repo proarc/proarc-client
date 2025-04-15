@@ -124,8 +124,8 @@
             </div>
             <div class="app-fxFlex app-fxLayut app-column app-fill app-oa-y app-tree">
               <app-user-tree-table #treeTable [inSearch]="true" [treePath]="[selectedTreeItem.pid]" [rootTreeItem]="selectedTreeItem" 
-                (onSelectTreeItem)="selectedTreeItem = $event"
-                (onTreeItemsChanged)="treeItems = $event"
+                (onSelectTreeItem)="onSelectTreeItem($event)"
+                (onTreeItemsChanged)="onTreeItemsChanged($event)"
                 (treeInfo)="treeInfoChanged($event)"></app-user-tree-table>
             </div>
           </div>

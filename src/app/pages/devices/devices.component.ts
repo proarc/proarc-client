@@ -10,6 +10,7 @@ import { ApiService } from '../../services/api.service';
 import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { UserTableComponent } from "../../components/user-table/user-table.component";
 import { Router, RouterModule } from '@angular/router';
+import { Sort } from '@angular/material/sort';
 
 @Component({
   imports: [CommonModule, TranslateModule, RouterModule,
@@ -46,7 +47,7 @@ export class DevicesComponent implements OnInit {
     });
   }
 
-  sortBy(field: string) {
+  sortBy(e: Sort) {
     
   }
 

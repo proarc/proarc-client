@@ -17,6 +17,8 @@ import { DevicesComponent } from './pages/devices/devices.component';
 import { DeviceComponent } from './pages/devices/device/device.component';
 import { EditDeviceComponent } from './pages/devices/edit-device/edit-device.component';
 import { EditAudioDeviceComponent } from './pages/devices/edit-audio-device/edit-audio-device.component';
+import { WorkFlowComponent } from './pages/workflow/workflow.component';
+import { TaskComponent } from './pages/workflow/task/task.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent }, ,
@@ -39,7 +41,16 @@ export const routes: Routes = [
             { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
             { path: 'admin/:id/edit-user', component: EditUserComponent },
             { path: 'admin/new-user', component: NewUserComponent },
-            // { path: 'workflow', loadChildren: () => import('../pages/workflow/workflow.module').then(m => m.WorkFlowModule) },
+            { path: 'workflow', 
+                children: [
+                    { path: '', component: WorkFlowComponent },
+                      { path: 'jobs', component: WorkFlowComponent },
+                      { path: 'jobs/:id', component: WorkFlowComponent },
+                      { path: 'tasks', component: TaskComponent },
+                      { path: 'my_tasks', component: TaskComponent },
+                      { path: 'task/:id', component: TaskComponent }
+                  ],
+            },
             { path: 'totest', component: TotestComponent },
             { path: '', redirectTo: '/search', pathMatch: 'full' }
         ]

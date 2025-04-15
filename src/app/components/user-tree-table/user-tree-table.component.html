@@ -2,6 +2,7 @@
     <mat-progress-bar mode="indeterminate" *ngIf="loadingTree" class="app-progress-bar"
         style="position: absolute; top: 0px;"></mat-progress-bar>
 </div>
+{{ worflowTreeItems.length }}
 <table mat-table [dataSource]="visibleTreeItems" class="app-striped app-hover app-resize" matSort #treeTable>
     <ng-container *ngFor="let c of treeColumns; let idx = index; let last = last;" [matColumnDef]="c">
         <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveTreeColumnsSizes($event,c)"
