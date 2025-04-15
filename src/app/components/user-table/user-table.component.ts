@@ -13,7 +13,6 @@ import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { ResizecolDirective } from '../../resizecol.directive';
 import { UIService } from '../../services/ui.service';
 import { Configuration, TableColumn } from '../../shared/configuration';
@@ -29,7 +28,7 @@ import { ColumnsSettingsDialogComponent } from '../../dialogs/columns-settings-d
 
 @Component({
   selector: 'app-user-table',
-  imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
+  imports: [CommonModule, TranslateModule, FormsModule,
     MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule,
     CdkDropList, CdkDrag, MatMenuModule, MatPaginatorModule,
