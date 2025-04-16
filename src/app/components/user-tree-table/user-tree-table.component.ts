@@ -194,7 +194,7 @@ export class UserTreeTableComponent {
 
   }
 
-  toggleTree(event: any, treeItem: TreeDocumentItem) {
+  toggleTree(event: any, treeItem: TreeDocumentItem | TreeWorkFlow) {
     event.stopPropagation();
     event.preventDefault();
     if (!treeItem.expanded) {
@@ -206,7 +206,12 @@ export class UserTreeTableComponent {
       treeItem.expanded = false;
     }
 
-    this.setToHidden(treeItem, this.treeItems.indexOf(treeItem));
+    if (this.type() === 'TreeWorkFlow') {
+      this.setToHiddenWorkFlow(treeItem as TreeWorkFlow, this.worflowTreeItems.indexOf(<TreeWorkFlow>treeItem));
+    } else {
+      this.setToHidden(<TreeDocumentItem>treeItem, this.treeItems.indexOf(<TreeDocumentItem>treeItem));
+    }
+    
 
     this.refreshVisibleTreeItems();
   }
@@ -217,6 +222,16 @@ export class UserTreeTableComponent {
       if (j.parentPid === treeItem.pid) {
         j.hidden = !treeItem.expanded || treeItem.hidden;
         this.setToHidden(j, i)
+      }
+    }
+  }
+
+  setToHiddenWorkFlow(treeItem: TreeWorkFlow, idx: number) {
+    for (let i = idx; i < this.worflowTreeItems.length; i++) {
+      const j = this.worflowTreeItems[i]
+      if (j.parentPid === treeItem.pid) {
+        j.hidden = !treeItem.expanded || treeItem.hidden;
+        this.setToHiddenWorkFlow(j, i)
       }
     }
   }

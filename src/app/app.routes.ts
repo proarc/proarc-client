@@ -41,15 +41,19 @@ export const routes: Routes = [
             { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
             { path: 'admin/:id/edit-user', component: EditUserComponent },
             { path: 'admin/new-user', component: NewUserComponent },
+            
             { path: 'workflow', 
-                children: [
-                    { path: '', component: WorkFlowComponent },
-                      { path: 'jobs', component: WorkFlowComponent },
-                      { path: 'jobs/:id', component: WorkFlowComponent },
-                      { path: 'tasks', component: TaskComponent },
-                      { path: 'my_tasks', component: TaskComponent },
-                      { path: 'task/:id', component: TaskComponent }
-                  ],
+                loadChildren: () =>
+                    import('./app.routes-workflow')
+                        .then(m => m.routesWorkflow)
+                // children: [
+                //     { path: '', component: WorkFlowComponent },
+                //       { path: 'jobs', component: WorkFlowComponent },
+                //       { path: 'jobs/:id', component: WorkFlowComponent },
+                //       { path: 'tasks', component: TaskComponent },
+                //       { path: 'my_tasks', component: TaskComponent },
+                //       { path: 'task/:id', component: TaskComponent }
+                //   ],
             },
             { path: 'totest', component: TotestComponent },
             { path: '', redirectTo: '/search', pathMatch: 'full' }

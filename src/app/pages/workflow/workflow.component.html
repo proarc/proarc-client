@@ -49,7 +49,7 @@
 
             <!-- Podzamery -->
             <as-split-area>
-              <div fxLayout="column" fxFlexFill >
+              <div *ngIf="selectedJob" fxLayout="column" fxFlexFill >
                 <mat-card *ngIf="visibleSubJobs.length === 0" class="app-alert app-info"><mat-icon>info</mat-icon>{{ 'alert.info.noItemsToDisplay' | translate }}</mat-card>
                 <div class="app-toolbar" *ngIf="subJobs.length > 0">
                   <button (click)="refreshSubJobs()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
@@ -70,7 +70,7 @@
                   </mat-menu>
                 </div>
 
-                <div class="app-oa-y">
+                <div class="app-oa-y" >
                   <app-user-tree-table #treeTable
                     [type]="'TreeWorkFlow'"
                     [inSearch]="false"
