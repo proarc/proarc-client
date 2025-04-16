@@ -6,7 +6,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { Subscription } from 'rxjs';
 import { ILayoutPanel } from '../../dialogs/layout-admin/layout-admin.component';
 import { DocumentItem } from '../../model/documentItem.model';
@@ -39,9 +38,10 @@ import { EditorAccessConditionComponent } from "../editor-accessCondition/editor
 import { EditorRecordInfoComponent } from "../editor-recordInfo/editor-recordInfo";
 import { EditorRelatedItemComponent } from "../editor-relatedItem/editor-relatedItem.component";
 import { EditorChronicleLocationComponent } from "../editor-chronicle-location/editor-chronicle-location.component";
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
+  imports: [CommonModule, TranslateModule, FormsModule, MatButtonModule,
     MatIconModule, MatProgressBarModule, MatTooltipModule,
     MatRadioModule, MatFormFieldModule, MatSelectModule,
     EditorSwitcherComponent, EditorTitleComponent, EditorGenreComponent, 
