@@ -3,17 +3,16 @@ pre {
   height: 100%;
   width: 100%;
   overflow-x: auto;
-  //background: #f0f0f0;
+
   .app-mods-editing {
-    border: 2px solid #000;
-    background-color: #fff;
+    border: 2px solid var(--app-color-darknes);
+    background-color: var(--app-color-lightnes);
   }
 }
 
 code {
   padding: 10px;
   font-size: 14px;
-  //background: #f0f0f0;
   overflow-x: initial;
 }
 
@@ -23,8 +22,8 @@ textarea {
   height: 100%;
   outline: none;
   border: none;
-  background: #fff;
+  background: var(--app-color-lightnes);
   padding: 10px;
   font-size: 13px;
-  color: #111;
+  color: var(--app-color-darknes);
 }
