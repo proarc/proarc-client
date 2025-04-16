@@ -5,16 +5,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { ILayoutPanel } from '../../dialogs/layout-admin/layout-admin.component';
 import { Ocr } from '../../model/ocr.model';
 import { ApiService } from '../../services/api.service';
 import { LayoutService } from '../../services/layout-service';
 import { UIService } from '../../services/ui.service';
 import { EditorSwitcherComponent } from '../editor-switcher/editor-switcher.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
+  imports: [CommonModule, TranslateModule, FormsModule, MatButtonModule,
     MatIconModule, MatProgressBarModule, MatTooltipModule,
     EditorSwitcherComponent],
   selector: 'app-editor-ocr',
