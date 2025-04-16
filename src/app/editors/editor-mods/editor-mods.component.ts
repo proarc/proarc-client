@@ -4,7 +4,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { ILayoutPanel } from '../../dialogs/layout-admin/layout-admin.component';
 import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
@@ -18,10 +17,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { HighlightAuto } from 'ngx-highlightjs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { EditorSwitcherComponent } from "../editor-switcher/editor-switcher.component";
+import { MatButtonModule } from '@angular/material/button';
 
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
+  imports: [CommonModule, TranslateModule, FormsModule, MatButtonModule,
     MatIconModule, MatProgressBarModule, MatTooltipModule,
     HighlightAuto, EditorSwitcherComponent],
   selector: 'app-editor-mods',
