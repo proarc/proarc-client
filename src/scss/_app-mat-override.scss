@@ -184,6 +184,15 @@
 
 // radio button
 .mat-mdc-radio-group {
+  .mat-mdc-radio-button {
+    &.mat-accent {
+      --mdc-radio-selected-icon-color: var(--app-color-primary);
+      --mdc-radio-selected-hover-icon-color:  var(--app-color-primary);
+      --mdc-radio-selected-focus-icon-color:  var(--app-color-primary);
+      --mat-radio-checked-ripple-color:  var(--app-color-primary);
+    }
+  }
+
   .app-toolbar & {
     display: flex;
     flex-direction: row;
@@ -192,7 +201,7 @@
     .mat-mdc-radio-button {
       --mdc-radio-state-layer-size: calc(var(--app-toolbar-radio-button-size) * 2);
       margin-right: 8px;
-    
+
       .mdc-radio__background::before {
         top: calc(-1 * (var(--mdc-radio-state-layer-size, 40px) - var(--app-toolbar-radio-button-size)) / 2) !important;
         left: calc(-1 * (var(--mdc-radio-state-layer-size, 40px) - var(--app-toolbar-radio-button-size)) / 2) !important;
