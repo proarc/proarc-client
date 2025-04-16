@@ -5,7 +5,7 @@
 <ng-container *ngIf="!loading">
   <app-user-tree-table #treeTable [rootTreeItem]="rootTreeItem()" [treePath]="layout.expandedPath"
           (onSelectTreeItem)="selectTreeItem($event)"
-          (onTreeItemsChanged)="treeItems = $event"
+          (onTreeItemsChanged)="onTreeItemsChanged($event)"
           (treeInfo)="treeInfoChanged($event)"></app-user-tree-table>
   
 </ng-container>
