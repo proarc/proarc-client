@@ -6,7 +6,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { ILayoutPanel } from '../../dialogs/layout-admin/layout-admin.component';
 import { Atm } from '../../model/atm.model';
 import { Device } from '../../model/device.model';
@@ -19,9 +18,10 @@ import { EditorSwitcherComponent } from '../editor-switcher/editor-switcher.comp
 import { Configuration } from '../../shared/configuration';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
+  imports: [CommonModule, TranslateModule, FormsModule, MatButtonModule,
     MatIconModule, MatProgressBarModule, MatTooltipModule,
     MatFormFieldModule, MatSelectModule, MatInputModule,
     EditorSwitcherComponent],

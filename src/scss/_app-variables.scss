@@ -57,6 +57,16 @@
 
   --app-menu-item-height: 28px;
 
+   // form
+   --app-form-bg-color: var(--app-color-gray-2);
+   --app-form-border-color-top-level: var(--app-color-gray-5);
+   --app-form-border-color: #d3d2d2;
+   --app-form-gap: 8px;
+   --app-form-header-height: 40px;
+   --app-form-title-weight: 600;
+   --app-form-header-button-color: var(--app-color-gray-7);
+   --app-form-field-border-color: var(--app-color-gray-3);
+
   // footer
   --app-footer-bg-color: var(--app-color-darknes);
   --app-footer-color: var(--app-color-gray-5);
