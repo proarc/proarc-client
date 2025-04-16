@@ -180,6 +180,40 @@
   }
 }
 
+
+// radio button
+.mat-mdc-radio-button {
+  --mdc-radio-state-layer-size: 34px;
+
+ .mdc-radio__background::before {
+    top: calc(-1 * (var(--mdc-radio-state-layer-size, 40px) - 14px) / 2) !important;
+    left: calc(-1 * (var(--mdc-radio-state-layer-size, 40px) - 14px) / 2) !important;
+
+  }
+
+
+  .mdc-radio {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+
+    .mat-mdc-radio-touch-target {
+      height: var(--app-toolbar-height);
+      width: var(--app-toolbar-height);
+    }
+
+    .mdc-radio__background {
+      height: 14px;
+      width: 14px;
+
+      .mdc-radio__inner-circle {
+        border-width: 7px;
+      }
+    }
+  }
+}
+
+
 // form field
 .mat-mdc-form-field {
   .mat-mdc-form-field-icon-suffix {
