@@ -6,13 +6,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { LayoutService } from '../../services/layout-service';
 import { DocumentItem } from '../../model/documentItem.model';
 
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
+  imports: [CommonModule, TranslateModule, FormsModule,
     MatIconModule, MatTooltipModule, MatButtonModule
   ],
   selector: 'app-editor-switcher',
