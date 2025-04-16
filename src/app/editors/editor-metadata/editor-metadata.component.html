@@ -1,14 +1,10 @@
-<div fxLayout="column" fxFlexFill [id]="panel().id">
-  <div fxLayout="row" class="app-toolbar app-view-description">
-		<div fxFlex>
-			<app-editor-switcher *ngIf="!notSaved()" (onChangeEditorType)="changeEditorType($event)"
-				[panelType]="panelType()"></app-editor-switcher>
+<div class="app-fxLayout app-column app-fill" [id]="panel().id">
+  <div class="app-fxLayout app-row app-center-v app-toolbar app-view-description">
+		<div class="app-fxFlex app-fxLayout app-row apo-center-v">
+			<app-editor-switcher class="app-fxLayout app-row app-center-v" *ngIf="!notSaved()" (onChangeEditorType)="changeEditorType($event)" [panelType]="panelType()"></app-editor-switcher>
 			<ng-container *ngIf="metadata">
-				<!-- <button mat-icon-button [matTooltip]="'desc.showOnlyTheElement' | translate" [class.app-active]="byField" (click)="toggleByField()">
-					<mat-icon>keyboard_double_arrow_down</mat-icon>
-				</button> -->
 				<span class="app-pipe"></span>
-				<mat-radio-group aria-label="'standard'" [(ngModel)]="metadata.standard" (change)="setStandard()" class="app-ml-3">
+				<mat-radio-group aria-label="'standard'" [(ngModel)]="metadata.standard" (change)="setStandard()" class="app-ml-1">
 					<mat-radio-button value="rda">rda</mat-radio-button>
 					<mat-radio-button value="aacr">aacr</mat-radio-button>
 				</mat-radio-group>
@@ -31,9 +27,9 @@
 			</ng-container>
 		</div>
 	</div>
-	<div fxFlex>
+	<div class="app-fxFlex">
 		<mat-progress-bar mode="indeterminate" *ngIf="loading" class="app-progress-bar"></mat-progress-bar>
-		<div class="app-editor-content" *ngIf="!loading && metadata" fxLayout="column">
+		<div class="app-fxLayout app-column app-fill app-editor-content" *ngIf="!loading && metadata">
 			<div class="app-form-display-el" [ngClass]="scroller.scrollTop > 0 ? 'app-scrolling' : null">
 				<mat-form-field appearance="outline" class="app-w-100 app-p-2 app-mt-1 app-clean-mb" [ngClass]="metadata.invalidFields.includes(selectedField) ? 'mat-form-field-invalid' : null">
 					<mat-label>{{ 'desc.jumpToElement' | translate }}</mat-label>
@@ -43,7 +39,7 @@
 				</mat-form-field>
 			</div>
 
-			<div [ngSwitch]="model" fxFlex class="app-oa-y app-scroller app-editor-container" #scroller 
+			<div [ngSwitch]="model" class="app-fxFlex app-oa-y app-scroller app-editor-container" #scroller 
 				(scroll)="checkVisibility()" tabIndex="0" style="outline: none !important; position: relative;">
 				<div style="float: left;" [style.height]="scrollHeight +'px'"></div>
 				<div class="app-gap-fixer"></div>
@@ -70,7 +66,7 @@
 					<app-editor-subject [id]="panel().id + 'subject'" *ngIf="visibleFields['subject']" [field]="fields['subject']" [panel]="panel()"></app-editor-subject>
 					<app-editor-part [id]="panel().id + 'part'" *ngIf="visibleFields['part']" [field]="fields['part']"></app-editor-part>
 					<app-editor-tableOfContents [id]="panel().id + 'tableOfContents'" *ngIf="visibleFields['tableOfContents']" [field]="fields['tableOfContents']"></app-editor-tableOfContents>
-          			<app-editor-accessCondition [id]="panel().id + 'accessCondition'" *ngIf="visibleFields['accessCondition']" [field]="fields['accessCondition']"></app-editor-accessCondition>
+          <app-editor-accessCondition [id]="panel().id + 'accessCondition'" *ngIf="visibleFields['accessCondition']" [field]="fields['accessCondition']"></app-editor-accessCondition>
 					<app-editor-recordInfo [id]="panel().id + 'recordInfo'" *ngIf="visibleFields['recordInfo']" [field]="fields['recordInfo']" ></app-editor-recordInfo>
 					<app-editor-relatedItem [id]="panel().id + 'relatedItem'" *ngIf="visibleFields['relatedItem']" [field]="fields['relatedItem']" [model]="model()" ></app-editor-relatedItem>
 				</ng-container>
@@ -104,7 +100,7 @@
 	<app-editor-note [id]="panel().id + 'note'" *ngIf="visibleFields['note']" [field]="fields['note']"></app-editor-note>
 	<app-editor-classification [id]="panel().id + 'classification'" *ngIf="visibleFields['classification']" [field]="fields['classification']"></app-editor-classification>
 	<app-editor-location [id]="panel().id + 'location'" *ngIf="visibleFields['location']" [field]="fields['location']"></app-editor-location>
-    <app-editor-accessCondition [id]="panel().id + 'accessCondition'" *ngIf="visibleFields['accessCondition']" [field]="fields['accessCondition']"></app-editor-accessCondition>
+  <app-editor-accessCondition [id]="panel().id + 'accessCondition'" *ngIf="visibleFields['accessCondition']" [field]="fields['accessCondition']"></app-editor-accessCondition>
 	<app-editor-relatedItem [id]="panel().id + 'relatedItem'" *ngIf="visibleFields['relatedItem']" [field]="fields['relatedItem']" [model]="model()"></app-editor-relatedItem>
 	<app-editor-recordInfo [id]="panel().id + 'recordInfo'" *ngIf="visibleFields['recordInfo']" [field]="fields['recordInfo']"></app-editor-recordInfo>
 </ng-template>
