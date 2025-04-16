@@ -10,16 +10,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { ILayoutPanel } from '../../dialogs/layout-admin/layout-admin.component';
 import { ApiService } from '../../services/api.service';
 import { LayoutService } from '../../services/layout-service';
 import { UIService } from '../../services/ui.service';
 import { Configuration } from '../../shared/configuration';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, FlexLayoutModule,
+  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, MatButtonModule,
     MatIconModule, MatProgressBarModule, MatTooltipModule, MatCheckboxModule,
     MatFormFieldModule, MatSelectModule, MatInputModule
   ],

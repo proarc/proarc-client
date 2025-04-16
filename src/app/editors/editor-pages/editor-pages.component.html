@@ -1,13 +1,13 @@
-<div fxLayout="column" fxFlexFill>
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
-    <div fxFlex>
-			<div class="app-toolbar-label">
+<div class="app-fxLayout app-column app-fill">
+  <div class="app-fxLayout app-row app-center-v app-toolbar app-view-pages">
+    <div class="app-fxFlex">
+			<div class="app-toolbar-label app-pl-2">
 				<span class="app-text">{{ 'editor.pages.title' | translate }}</span>
         <span class="app-pipe"></span>
         <span class="app-text-supplement">{{ ('editor.children.multiple_selection_count' + plurals ) | translate: { count: numOfSelected } }}</span>
 			</div>
 		</div>
-		<div>
+		<div class="app-fxLayout app-row app-center-v">
       <button mat-icon-button (click)="onRevert()" [disabled]="!canSave()" [matTooltip]="'button.refresh' | translate" >
         <mat-icon>sync</mat-icon>
       </button>
@@ -22,12 +22,12 @@
       </button>
 		</div>
   </div>
-  <div fxFlex class="app-oa-y">
+  <div class="app-fxFlex app-oa-y">
     <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='saving'" class="app-progress-bar"></mat-progress-bar>
     <div class="app-editor-container" *ngIf="state !=='loading'">
       <div class="app-gap-fixer"></div>
+      
       <div class="app-form-wrapper app-top-level">
-
         <div class="app-form">
           <div class="app-form-content">
             <mat-form-field class="app-field-col">
@@ -94,7 +94,6 @@
           </div>
         </div>
         <div class="app-gap-fixer"></div>
-
 
         <div class="app-form">
           <div class="app-form-content">
