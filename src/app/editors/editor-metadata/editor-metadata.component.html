@@ -29,7 +29,7 @@
 	</div>
 	<div class="app-fxFlex">
 		<mat-progress-bar mode="indeterminate" *ngIf="loading" class="app-progress-bar"></mat-progress-bar>
-		<div class="app-fxLayout app-column app-editor-content" *ngIf="!loading && metadata">
+		<div class="app-fxLayout app-column app-fill app-editor-content" *ngIf="!loading && metadata">
 			<div class="app-form-display-el" [ngClass]="scroller.scrollTop > 0 ? 'app-scrolling' : null">
 				<mat-form-field appearance="outline" class="app-w-100 app-p-2 app-mt-1 app-clean-mb" [ngClass]="metadata.invalidFields.includes(selectedField) ? 'mat-form-field-invalid' : null">
 					<mat-label>{{ 'desc.jumpToElement' | translate }}</mat-label>
