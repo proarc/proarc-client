@@ -1,6 +1,6 @@
 <div class="app-fxLayout app-column app-fill">
 	<div class="app-fxLayout app-row app-center-v app-toolbar app-view-mods">
-		<div class="app-fxFlex">
+		<div class="app-fxFlex app-fxLayout app-row app-center-v">
 			<app-editor-switcher class="app-fxLayout app-row app-center-v" (onChangeEditorType)="changeEditorType($event)" [panelType]="panelType()"></app-editor-switcher>
 			<ng-container *ngIf="item && layout.getNumOfSelected() === 1">
 				<button mat-icon-button [class.app-active]="realtime" (click)="setRealtime(true)" [matTooltip]="'editor.mods.realtime_on' | translate">
