@@ -102,7 +102,7 @@
                         <as-split-area>
                             <div class="app-toolbar-old"  *ngIf="totalSelected === 1">
                                 <button  (click)="getTask(task.id)" mat-button>{{'common.refresh' | translate }}</button>
-                                <button  [routerLink]="['/workflow/jobs', task.jobId]" mat-button>{{'workflow.job' | translate }}</button>
+                                <button  (click)="gotoJob(task.jobId)" mat-button>{{'workflow.job' | translate }}</button>
                                 <button (click)="saveTask()" mat-button>{{'common.save' | translate }}</button>
                             </div>
                             <div class="app-detail" *ngIf="task && totalSelected === 1">

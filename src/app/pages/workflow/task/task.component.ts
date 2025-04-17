@@ -33,7 +33,7 @@ import { MaterialEditComponent } from '../material-edit/material-edit.component'
 import { Configuration } from '../../../shared/configuration';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, RouterModule,
+  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, 
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
     MatTableModule, MatSortModule, UserTableComponent, MaterialEditComponent],
@@ -319,6 +319,10 @@ export class TaskComponent implements OnInit {
       }
     });
 
+  }
+
+  gotoJob(id: string) {
+    this.router.navigate(['/workflow/jobs', id]);
   }
 
   saveTasks() {
