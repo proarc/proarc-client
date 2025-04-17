@@ -15,11 +15,12 @@ import { WorkFlow } from '../../../model/workflow.model';
 import { ApiService } from '../../../services/api.service';
 import { UIService } from '../../../services/ui.service';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
     MatIconModule, MatProgressBarModule, MatTooltipModule,
-    MatInputModule,
+    MatInputModule, MatButtonModule,
     MatRadioModule, MatFormFieldModule, MatSelectModule,
   ],
   selector: 'app-material-edit',

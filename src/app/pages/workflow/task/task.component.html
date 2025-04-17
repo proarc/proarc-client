@@ -1,21 +1,17 @@
 <mat-progress-bar mode="indeterminate" *ngIf="loading" class="app-progress-bar"></mat-progress-bar>
-<div fxLayout="column" fxFlexFill *ngIf="!loading">
-    <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
-        <div fxFlex fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
-            <a routerLink="/"><mat-icon>home</mat-icon></a>
-            <span class="app-separator">/</span>
-            <a routerLink="/workflow">{{ 'navbar.workflow' | translate }}</a>
-            <span class="app-separator">/</span>
-            <span class="app-last">{{ (onlyMyTasks ? 'navbar.my_tasks' : 'navbar.tasks') | translate }}</span>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="start center" class="app-h-100">
-            <!-- <button mat-icon-button [matTooltip]="'navbar.layout' | translate" (click)="showLayoutAdmin()">
-        <mat-icon>dashboard</mat-icon>
-      </button> -->
-        </div>
+<div *ngIf="!loading" class="app-fxLayout app-column app-fill app-editor-wrapper">
+  <div class="app-fxLayout app-row app-center-v app-gap-4 app-breadcrumbsbar">
+    <div class="app-fxLayout app-row app-center-v app-inner app-view-border-right app-pr-4">
+        <a routerLink="/"><mat-icon>home</mat-icon></a>
+        <span class="app-separator">/</span>
+        <a class="app-text-cutter" routerLink="/workflow">{{ 'navbar.workflow' | translate }}</a>
+        <span class="app-separator">/</span>
+        <span class="app-text-cutter">{{ (onlyMyTasks ? 'navbar.my_tasks' : 'navbar.tasks') | translate }}</span>
     </div>
-    <div fxFlex class="app-oh app-p-4" fxLayout="column">
-        <div class="app-border-wrapper app-h-100">
+    <div fxLayout="row" fxLayoutAlign="start center" class="app-h-100"></div>
+    </div>
+    <div class="app-fxFlex app-oh app-content-wrapper" >
+        <div class="app-border-wrapper app-h-100">           
             <as-split direction="horizontal">
                 <as-split-area [size]="40">
                     <div fxLayout="column" fxFlexFill>

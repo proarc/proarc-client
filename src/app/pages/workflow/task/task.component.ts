@@ -23,7 +23,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AngularSplitModule } from 'angular-split';
 import { UserTableComponent } from '../../../components/user-table/user-table.component';
-import { ColumnsSettingsDialogComponent } from '../../../dialogs/columns-settings-dialog/columns-settings-dialog.component';
 import { User } from '../../../model/user.model';
 import { WorkFlowProfile } from '../../../model/workflow.model';
 import { ApiService } from '../../../services/api.service';
@@ -32,7 +31,6 @@ import { LayoutService } from '../../../services/layout-service';
 import { UIService } from '../../../services/ui.service';
 import { MaterialEditComponent } from '../material-edit/material-edit.component';
 import { Configuration } from '../../../shared/configuration';
-// -- table to expand --
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, RouterModule,
@@ -217,6 +215,7 @@ export class TaskComponent implements OnInit {
   }
 
   getTasks() {
+    this.loading = true;
     let params = '?';
     if (this.workflowTasksSort.direction) {
       params += '_sortBy=' + (this.workflowTasksSort.direction === 'desc' ? '-' : '') + this.workflowTasksSort.active;
@@ -254,8 +253,7 @@ export class TaskComponent implements OnInit {
         this.selectTask(null);
         this.totalSelected = 0;
       }
-      
-
+      this.loading = false;
     });
   }
 

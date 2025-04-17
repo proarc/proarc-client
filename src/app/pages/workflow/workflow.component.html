@@ -1,16 +1,15 @@
 <mat-progress-bar mode="indeterminate" *ngIf="loading" class="app-progress-bar"></mat-progress-bar>
-<div fxLayout="column" fxFlexFill *ngIf="!loading">
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
-    <div fxFlex fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
+<div *ngIf="!loading" class="app-fxLayout app-column app-fill app-editor-wrapper">
+  <div class="app-fxLayout app-row app-center-v app-gap-4 app-breadcrumbsbar">
+    <div class="app-fxLayout app-row app-center-v app-inner app-view-border-right app-pr-4">
       <a routerLink="/"><mat-icon>home</mat-icon></a>
       <span class="app-separator">/</span>
       <a routerLink="/workflow">{{ 'navbar.workflow' | translate }}</a>
     </div>
     <div fxLayout="row" fxLayoutAlign="start center" class="app-h-100"></div>
   </div>
-  <div fxFlex class="app-oh app-p-2" fxLayout="column">
+  <div class="app-fxFlex app-oh app-content-wrapper" >
     <div class="app-border-wrapper app-h-100">
-      <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'"></mat-progress-bar>
       <as-split direction="horizontal">
         <as-split-area [size]="40">
           <as-split direction="vertical">

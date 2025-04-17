@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,12 +18,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AngularSplitModule } from 'angular-split';
-import { ColumnsSettingsDialogComponent } from '../../dialogs/columns-settings-dialog/columns-settings-dialog.component';
 import { LayoutAdminComponent } from '../../dialogs/layout-admin/layout-admin.component';
 import { NewMetadataDialogComponent } from '../../dialogs/new-metadata-dialog/new-metadata-dialog.component';
 import { NewObjectData, NewObjectDialogComponent } from '../../dialogs/new-object-dialog/new-object-dialog.component';
@@ -41,7 +39,6 @@ import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { UserTableComponent } from "../../components/user-table/user-table.component";
 import { MaterialEditComponent } from "./material-edit/material-edit.component";
 import { UserTreeTableComponent } from "../../components/user-tree-table/user-tree-table.component";
-// -- table to expand --
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule,
@@ -196,7 +193,7 @@ export class WorkFlowComponent implements OnInit {
   }
 
   getWorkflow(keepSelection: boolean) {
-    this.state = 'loading';
+    this.loading = true;
     let id = this.route.snapshot.params['id'] ? parseInt(this.route.snapshot.params['id']) : null;
     if (keepSelection) {
       id = this.selectedJob.id;
