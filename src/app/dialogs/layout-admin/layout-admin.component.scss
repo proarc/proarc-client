@@ -1,68 +1,67 @@
-// @import './src/sass/app-variables.scss';
-// @import "./src/sass/app-mixins";
-// @import './src/sass/app-global.scss';
+@use "../../../scss/app-mixins";
 
-// .mat-dialog-content {
-//   max-height: 100%;
+.mat-mdc-dialog-content {
+  --mdc-dialog-supporting-text-size: 14px;
+  max-height: 100%;
 
-//   .app-desc {
-//     @extend .app-p-4;
-//     border: 1px solid $app-gray-3;
-//     background-color: $app-gray-1;
-//   }
+  .app-desc {
+    padding: 16px;
+    border: 1px solid var(--app-color-gray-3);
+    background-color: var(--app-color-gray-1);
+  }
   
-//   .app-layout-controller {
-//     width: 500px;
-//     min-height: 160px;
+  .app-layout-controller {
+    width: 500px;
+    min-height: 160px;
   
-//     .app-item {
-//       @extend .app-cursor-pointer;
-//       position: relative;
+    .app-layout-item {
+      cursor: pointer;
+      position: relative;
   
-//       &.app-active {
-//         background-color: rgba($app-layout-active-color, .15);
-//         color: $app-layout-active-color;
-//       }
+      &.app-selected {
+        background-color: rgba(var(--app-layout-active-color), .15);
+        color: var(--app-layout-active-color);
+      }
     
-//       &.app-disabled {
-//         background-color: rgba($app-layout-disabled-color, .1);
-//         color: $app-layout-disabled-color;
+      &.app-not-selected {
+        background-color: rgba(var(--app-layout-disabled-color), .1);
+        color: rgb(var(--app-layout-disabled-color));
   
-//         .mat-icon {
-//           position: absolute;
-//           top: auto;
-//           left: auto;
-//           right: auto;
+        .mat-icon {
+          position: absolute;
+          top: auto;
+          left: auto;
+          right: auto;
   
-//           opacity: .1;
-//           @include setIcon(50);
-//         }
-//       }
-//     }
-//   }
+          opacity: .1;
+          @include app-mixins.setIcon(50);
+        }
+      }
+    }
+  }
   
-//   .app-layout-preview {
-//     background-color: $app-gray-2;
+  .app-layout-preview {
+    background-color: var(--app-color-gray-2);
   
-//     .as-split-area {
-//       .mat-form-field {
-//         width: 100%;
-//         margin-bottom: -1.34375em;
-//       }
+    .as-split-area {
+      .mat-form-field {
+        width: 100%;
+        margin-bottom: -1.34375em;
+      }
   
-//       .app-area-name {
-//         font-size: 32px;
-//         font-weight: 900;
-//         line-height: 32px;
-//         opacity: .15;
-//       }
-//     } 
-//   }
-// }
+      .app-area-name {
+        font-size: 32px;
+        font-weight: 900;
+        line-height: 32px;
+        opacity: .15;
+      }
+    } 
+  }
+}
 
-// // split override
-// /* ::ng-deep {
-//   .as-split-gutter {
-//     background-color: $app-color-lightnes !important;
-//   }
-// } */
+// split override
+/* ::ng-deep {
+  .as-split-gutter {
+    background-color: $app-color-lightnes !important;
+  }
+} */

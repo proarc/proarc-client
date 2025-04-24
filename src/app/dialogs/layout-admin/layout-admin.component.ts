@@ -10,7 +10,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { AngularSplitModule } from 'angular-split';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { Utils } from '../../utils/utils';
 
@@ -36,7 +35,7 @@ export interface IConfig {
 
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, FlexLayoutModule,
+  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
     MatCardModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatTooltipModule, MatSelectModule, MatDialogModule
   ],

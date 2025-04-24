@@ -1,9 +1,9 @@
-<div fxLayout="column" fxFlexFill>
+<div class="app-fxLayout app-column app-fill">
   <h1 mat-dialog-title [innerHtml]="'dialog.layoutSettings.title' | translate : {value: ('dynamic.' + data.layout | translate)}"></h1>
-  <div fxFlex mat-dialog-content>
-    <div fxLayout="column" fxLayoutGap="16px" fxFlexFill>
-      <div fxLayout="row" fxLayoutGap="16px">
-        <div fxFlex class="app-desc">
+  <div mat-dialog-content class="app-fxFlex">
+    <div class="app-fxLayout app-column app-fill app-gap-4">
+      <div class="app-fxLayout app-row app-gap-4">
+        <div class="app-fxFlex app-desc">
           <h3 class="app-mb-0">{{ 'desc.help' | translate }}</h3>
         <ul class="app-m-0">
           <li>{{ 'dialog.layoutSettings.help.1' | translate }}</li>
@@ -13,11 +13,10 @@
           <li>{{ 'dialog.layoutSettings.help.5' | translate }}</li>
         </ul>
         </div>
-        <div fxFlex fxLayout="row" fxLayoutGap="3px" class="app-layout-controller" [matTooltip]="'dialog.layoutSettings.tooltipPanel' | translate">
-          <div *ngFor="let c of config.columns" [fxFlex]="c.size+'%'">
-            <div fxLayout="column" fxLayoutGap="3px" fxFlexFill>
-              <div *ngFor="let r of c.rows" [fxFlex]="r.size+'%'"(click)="toggleColumnVisibility(r)" 
-              fxLayout="columne" fxLayoutAlign="center center" class="app-item" [ngClass]="r.visible ? 'app-active' : 'app-inactive'">
+        <div class="app-fxFlex app-fxLayout app-row app-gap-1 app-layout-controller" [matTooltip]="'dialog.layoutSettings.tooltipPanel' | translate">
+          <div *ngFor="let c of config.columns" [style]="'flex: 1 1 100%; box-sizing: border-box; max-width: ' + c.size+'%'"><!--[fxFlex]="c.size+'%'"-->
+            <div class="app-fxLayout app-column app-fill app-gap-1">
+              <div *ngFor="let r of c.rows" [style]="'flex: 1 1 100%; box-sizing: border-box; max-height: ' + r.size+'%'" (click)="toggleColumnVisibility(r)" class="app-fxLayout app-column app-center-v app-center-h app-layout-item" [ngClass]="r.visible ? 'app-selected' : 'app-not-selected'"><!--[fxFlex]="r.size+'%'"-->
                 <mat-icon *ngIf="!r.visible">not_interested</mat-icon>
                 <div class="app-text-center">{{ 'dynamic.' + r.type | translate }}</div>
               </div>
@@ -25,14 +24,14 @@
           </div>
         </div>
       </div>
-      <div fxFlex class="app-layout-preview" style="background-color: red !important;">
+      <div class="app-fxFlex app-layout-preview">
         <as-split *ngIf="config" direction="horizontal" [disabled]="config.disabled" (dragEnd)="onDragEnd(-1, $event)">
           <ng-template ngFor let-column [ngForOf]="config.columns" let-icol="index">
             <as-split-area *ngIf="column.visible" [size]="column.size">
               <as-split direction="vertical" [disabled]="config.disabled" (dragEnd)="onDragEnd(icol, $event)">
                 <ng-template ngFor let-row [ngForOf]="column.rows" let-irow="index">
                   <as-split-area *ngIf="row.visible" [size]="row.size">
-                    <div fxLayout="column" fxFlexFill>
+                    <div class="app-fxLayout app-column app-fill">
                       <mat-form-field appearance="fill">
                         <mat-label>{{ 'desc.panelType' | translate }}</mat-label>
                         <mat-select [(ngModel)]="row.type" (selectionChange)="refreshColumnVisibility()">
@@ -41,7 +40,7 @@
                           </mat-option>
                         </mat-select>
                       </mat-form-field>
-                      <div fxFlex fxLayout="column" fxLayoutAlign="center center">
+                      <div class="app-fxFlex app-fxLayout app-column app-center-v app-center-h">
                         <div class="app-area-name app-p-4 app-text-center">{{ 'dynamic.' + row.type  | translate }}</div>
                       </div>
                     </div>

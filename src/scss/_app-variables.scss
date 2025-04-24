@@ -57,15 +57,20 @@
 
   --app-menu-item-height: 28px;
 
-   // form
-   --app-form-bg-color: var(--app-color-gray-2);
-   --app-form-border-color-top-level: var(--app-color-gray-5);
-   --app-form-border-color: #d3d2d2;
-   --app-form-gap: 8px;
-   --app-form-header-height: 40px;
-   --app-form-title-weight: 600;
-   --app-form-header-button-color: var(--app-color-gray-7);
-   --app-form-field-border-color: var(--app-color-gray-3);
+  // form
+  --app-form-bg-color: var(--app-color-gray-2);
+  --app-form-border-color-top-level: var(--app-color-gray-5);
+  --app-form-border-color: #d3d2d2;
+  --app-form-gap: 8px;
+  --app-form-header-height: 40px;
+  --app-form-title-weight: 600;
+  --app-form-header-button-color: var(--app-color-gray-7);
+  --app-form-field-border-color: var(--app-color-gray-3);
+
+  // layout
+  --app-layout-active-color: 46, 125, 50;
+  --app-layout-disabled-color: 216, 67, 21;
+  --app-layout-gap: 16px;
 
   // footer
   --app-footer-bg-color: var(--app-color-darknes);
@@ -82,6 +87,8 @@
   --mat-paginator-container-size: 0;
 
   --mdc-icon-button-disabled-icon-color: var(--app-color-gray-4);
+
+  --mat-dialog-actions-padding: 24px;
 }
 
 
