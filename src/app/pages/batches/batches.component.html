@@ -10,8 +10,10 @@
       <span class="app-separator">/</span>
       <span class="app-last">{{ 'desc.editing' | translate }}</span>
     </div>
-    <button mat-button (click)="onIngest()">{{ 'button.continue' | translate }}</button>
-    <button mat-icon-button [matTooltip]="'navbar.layout' | translate" (click)="showLayoutAdmin()"><mat-icon>dashboard</mat-icon></button>
+    <div class="app-fxLayout app-row app-center-v app-inner">
+      <button mat-button (click)="onIngest()">{{ 'button.continue' | translate }}</button>
+      <button mat-icon-button [matTooltip]="'navbar.layout' | translate" (click)="showLayoutAdmin()"><mat-icon>dashboard</mat-icon></button>
+    </div>
   </div>
 
   <div class="app-fxFlex app-fxLayout app-column app-content-wrapper app-batches">
