@@ -3,6 +3,7 @@
 :root {
   // config
   --app-color-info: #856404;
+  --app-color-info-no-rgb: 133, 100, 4;
   --app-color-success: #2E7D32;
   --app-color-disabled: var(--app-color-gray-4);
   --app-color-item-bg: var(--app-color-gray-1);
@@ -125,22 +126,23 @@ $alerts: (
     color: var(--palette-warn-500),
     bg: var(--palette-warn-50),
     border: var(--palette-warn-100)
-  )/* ,
+  ),
   info: (
-    color: $app-color-info,
+    color: #856404,
     bg: #fff3cd,
-    border: rgba($app-color-info, .15)
-  ),
-  success: (
-    color: $app-color-success,
-    bg: rgba($app-color-success, .1),
-    border: rgba($app-color-success, .2)
-  ),
-  message: (
-    color: $app-gray-7,
-    bg: rgba($app-gray-7, .1),
-    border: rgba($app-gray-7, .2)
-  ) */
+    border: rgba(var(--app-color-info-no-rgb), .15)
+  )
+  // ,
+  // success: (
+  //   color: $app-color-success,
+  //   bg: rgba($app-color-success, .1),
+  //   border: rgba($app-color-success, .2)
+  // ),
+  // message: (
+  //   color: $app-gray-7,
+  //   bg: rgba($app-gray-7, .1),
+  //   border: rgba($app-gray-7, .2)
+  // )
 );
 
 // states
