@@ -5,7 +5,6 @@ import { UIService } from '../../services/ui.service';
 import { Configuration } from '../../shared/configuration';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { DocumentItem } from '../../model/documentItem.model';
 import { EditorModsComponent } from "../../editors/editor-mods/editor-mods.component";
 import { EditorStructureComponent } from "../../editors/editor-structure/editor-structure.component";
@@ -25,7 +24,7 @@ import { EditorMetadataComponent } from "../../editors/editor-metadata/editor-me
 
 @Component({
   selector: 'app-panel',
-    imports: [CommonModule, TranslateModule, FlexLayoutModule,
+    imports: [CommonModule, TranslateModule,
     EditorModsComponent, EditorStructureComponent, EditorOcrComponent, MediaComponent, ViewerComponent,
     MatCardModule, MatIconModule, EditorCommentComponent, EditorAtmComponent, EditorPageComponent, EditorPagesComponent, EditorAudioPagesComponent, EditorAudioPageComponent, EditorTreeComponent, EditorMetadataComponent],
   templateUrl: './panel.component.html',

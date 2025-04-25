@@ -1,45 +1,47 @@
-<div fxLayout="column" fxFlexFill [class.app-form-highlighting]="formHighlighting">
-    <div fxFlex [ngSwitch]="panelType">
-      <div class="app-editor-content app-tree"  *ngSwitchCase="'tree'">
-        <app-editor-tree [panel]="panel()" [rootItem]="rootItem()" [selectedItem]="lastSelectedItem()" ></app-editor-tree>
-      </div>
-      <app-editor-structure *ngSwitchCase="'structure-list'" [viewMode]="'list'" [panel]="panel()" (onIngest)="passOnIngest()"></app-editor-structure>
-      <app-editor-structure *ngSwitchCase="'structure-grid'" [viewMode]="'grid'" [panel]="panel()" (onIngest)="passOnIngest()"></app-editor-structure>
-      <app-editor-structure *ngSwitchCase="'structure-icons'" [viewMode]="'icons'" [panel]="panel()" (onIngest)="passOnIngest()"></app-editor-structure>
-      <ng-container *ngSwitchCase="'image'" >
-        <app-viewer *ngIf="lastSelectedItem() &&  itemModel === 'page'" [imageInfo]="imageInfo" ></app-viewer>
-        <div *ngIf="!(lastSelectedItem() &&  itemModel === 'page')" fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
-          <mat-card class="app-alert app-info"><mat-icon>info</mat-icon>{{ 'alert.info.theImageIsNotAvailable' | translate }}</mat-card>
-        </div>
-      </ng-container>
-      <ng-container *ngSwitchCase="'media'" >
-        <app-media *ngIf="lastSelectedItem()" [lastSelectedItem]="lastSelectedItem()"></app-media>
-      </ng-container>
-      <ng-container>
-        <app-editor-mods *ngSwitchCase="'mods'" [panel]="panel()"
-         [panelType]="panelType" (onChangePanelType)="changePanelType($event)"></app-editor-mods>
-        <app-editor-ocr *ngSwitchCase="'ocr'"  [panel]="panel()" [pid]="lastSelectedItem().pid" [panelType]="panelType" (onChangePanelType)="changePanelType($event)"></app-editor-ocr>
-        <app-editor-comment *ngSwitchCase="'comment'" [panel]="panel()"  [pid]="lastSelectedItem().pid" [panelType]="panelType" (onChangePanelType)="changePanelType($event)"></app-editor-comment>
-        <app-editor-atm *ngSwitchCase="'atm'" [panel]="panel()"  [pid]="lastSelectedItem().pid" [panelType]="panelType" (onChangePanelType)="changePanelType($event)"></app-editor-atm>
-        <!-- <ng-container *ngSwitchCase="'premis'">
-          <app-editor-premis *ngIf="numOfSelected < 2"  [pid]="lastSelectedItem().pid"></app-editor-premis>
-          <app-editor-premis-multiple  *ngIf="numOfSelected > 1" ></app-editor-premis-multiple>
-        </ng-container> -->
-      </ng-container>
-      <ng-container *ngSwitchCase="'metadata'">
-      <app-editor-pages *ngIf="showPagesEditor" [panel]="panel()"></app-editor-pages>
-      <app-editor-audioPages *ngIf="showAudioPagesEditor" [panel]="panel()"></app-editor-audioPages>
-        <ng-container *ngIf="lastSelectedItem() && !showPagesEditor && !showAudioPagesEditor">
-          <app-editor-page *ngIf="itemModel === 'page'"  [panel]="panel()" [model]="lastSelectedItem().model" [pid]="lastSelectedItem().pid" 
-          [panelType]="panelType" (onChangePanelType)="changePanelType($event)"> </app-editor-page>
-          <app-editor-audioPage *ngIf="itemModel === 'song'" [panel]="panel()" [model]="lastSelectedItem().model" [pid]="lastSelectedItem().pid"> </app-editor-audioPage>
-          <app-editor-metadata *ngIf="itemModel !== 'page' && itemModel !== 'song'" 
-            [panel]="panel()"
-            [panelType]="panelType"
-            [pid]="lastSelectedItem().pid" [model]="lastSelectedItem().model"
-            (onChangePanelType)="changePanelType($event)">
-          </app-editor-metadata>
-        </ng-container>
-      </ng-container>
+<div class="app-fxLayout app-column app-fill" [class.app-form-highlighting]="formHighlighting">
+  <div class="app-fxFlex" [ngSwitch]="panelType">
+    <div class="app-editor-content app-tree"  *ngSwitchCase="'tree'">
+      <app-editor-tree [panel]="panel()" [rootItem]="rootItem()" [selectedItem]="lastSelectedItem()" ></app-editor-tree>
     </div>
+    <app-editor-structure *ngSwitchCase="'structure-list'" [viewMode]="'list'" [panel]="panel()" (onIngest)="passOnIngest()"></app-editor-structure>
+    <app-editor-structure *ngSwitchCase="'structure-grid'" [viewMode]="'grid'" [panel]="panel()" (onIngest)="passOnIngest()"></app-editor-structure>
+    <app-editor-structure *ngSwitchCase="'structure-icons'" [viewMode]="'icons'" [panel]="panel()" (onIngest)="passOnIngest()"></app-editor-structure>
+    <ng-container *ngSwitchCase="'image'" >
+      <app-viewer *ngIf="lastSelectedItem() &&  itemModel === 'page'" [imageInfo]="imageInfo" ></app-viewer>
+      <div *ngIf="!(lastSelectedItem() &&  itemModel === 'page')" class="app-fxLayout app-row app-fill app-center-v app-center-h">
+        <mat-card class="app-alert app-info" appearance="outlined">
+          <mat-icon>info</mat-icon>{{ 'alert.info.theImageIsNotAvailable' | translate }}
+        </mat-card>
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="'media'" >
+      <app-media *ngIf="lastSelectedItem()" [lastSelectedItem]="lastSelectedItem()"></app-media>
+    </ng-container>
+    <ng-container>
+      <app-editor-mods *ngSwitchCase="'mods'" [panel]="panel()"
+        [panelType]="panelType" (onChangePanelType)="changePanelType($event)"></app-editor-mods>
+      <app-editor-ocr *ngSwitchCase="'ocr'"  [panel]="panel()" [pid]="lastSelectedItem().pid" [panelType]="panelType" (onChangePanelType)="changePanelType($event)"></app-editor-ocr>
+      <app-editor-comment *ngSwitchCase="'comment'" [panel]="panel()"  [pid]="lastSelectedItem().pid" [panelType]="panelType" (onChangePanelType)="changePanelType($event)"></app-editor-comment>
+      <app-editor-atm *ngSwitchCase="'atm'" [panel]="panel()"  [pid]="lastSelectedItem().pid" [panelType]="panelType" (onChangePanelType)="changePanelType($event)"></app-editor-atm>
+      <!-- <ng-container *ngSwitchCase="'premis'">
+        <app-editor-premis *ngIf="numOfSelected < 2"  [pid]="lastSelectedItem().pid"></app-editor-premis>
+        <app-editor-premis-multiple  *ngIf="numOfSelected > 1" ></app-editor-premis-multiple>
+      </ng-container> -->
+    </ng-container>
+    <ng-container *ngSwitchCase="'metadata'">
+    <app-editor-pages *ngIf="showPagesEditor" [panel]="panel()"></app-editor-pages>
+    <app-editor-audioPages *ngIf="showAudioPagesEditor" [panel]="panel()"></app-editor-audioPages>
+      <ng-container *ngIf="lastSelectedItem() && !showPagesEditor && !showAudioPagesEditor">
+        <app-editor-page *ngIf="itemModel === 'page'"  [panel]="panel()" [model]="lastSelectedItem().model" [pid]="lastSelectedItem().pid" 
+        [panelType]="panelType" (onChangePanelType)="changePanelType($event)"> </app-editor-page>
+        <app-editor-audioPage *ngIf="itemModel === 'song'" [panel]="panel()" [model]="lastSelectedItem().model" [pid]="lastSelectedItem().pid"> </app-editor-audioPage>
+        <app-editor-metadata *ngIf="itemModel !== 'page' && itemModel !== 'song'" 
+          [panel]="panel()"
+          [panelType]="panelType"
+          [pid]="lastSelectedItem().pid" [model]="lastSelectedItem().model"
+          (onChangePanelType)="changePanelType($event)">
+        </app-editor-metadata>
+      </ng-container>
+    </ng-container>
   </div>
+</div>
