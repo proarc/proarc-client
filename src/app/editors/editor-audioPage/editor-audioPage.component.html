@@ -1,7 +1,7 @@
-<div fxLayout="column" fxFlexFill>
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
-    <div fxFlex>
-			<div class="app-toolbar-label">
+<div class="app-fxLayout app-column app-fill">
+  <div class="app-fxLayout app-row app-center-v app-toolbar app-view-description">
+    <div class="app-fxFlex">
+			<div class="app-toolbar-label app-ml-2 app-mr-2">
 				<span class="app-text">{{ 'editor.song.title' | translate }}</span>
 			</div>
 		</div>
@@ -9,12 +9,12 @@
       <button mat-icon-button (click)="onRevert()" [disabled]="!audioPage || !hasChanged()"  [matTooltip]="'button.refresh' | translate">
         <mat-icon>replay</mat-icon>
       </button>
-      <button  mat-icon-button (click)="onSave()" [disabled]="!audioPage || !hasChanged()" [matTooltip]="'button.save' | translate" >
+      <button  mat-icon-button (click)="onSave()" [disabled]="!audioPage || !hasChanged()" [matTooltip]="'button.save' | translate">
         <mat-icon>save</mat-icon>
       </button>
 		</div>
   </div>
-  <div fxFlex class="app-oa-y">
+  <div class="app-fxFlex app-oa-y">
     <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='saving'" class="app-progress-bar"></mat-progress-bar>
     <div class="app-editor-container" *ngIf="state !=='loading'">
       <div class="app-form-wrapper app-top-level">
@@ -33,8 +33,8 @@
             <div class="app-form-wrapper" *ngIf="config.showPageIdentifiers">
               <div class="app-gap-fixer"></div>
               <div class="app-form" *ngFor="let identifier of audioPage.identifiers; index as index; last as last; first as first;">
-                <div class="app-form-header" fxLayout="row" fxLayoutAlign="start center">
-                  <div fxFlex>
+                <div class="app-fxLayout app-row app-center-v app-form-header">
+                  <div class="app-fxFlex">
                     <span class="app-form-title app-pl-2">{{ 'editor.song.identifier' | translate }}</span>
                   </div>
                   <div>

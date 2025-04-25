@@ -9,7 +9,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { ILayoutPanel } from '../../dialogs/layout-admin/layout-admin.component';
 import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
@@ -19,9 +18,10 @@ import { LayoutService } from '../../services/layout-service';
 import { UIService } from '../../services/ui.service';
 import { Configuration } from '../../shared/configuration';
 import { EditorSwitcherComponent } from '../editor-switcher/editor-switcher.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, FlexLayoutModule,
+  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, MatButtonModule,
     MatIconModule, MatProgressBarModule, MatTooltipModule,
     MatFormFieldModule, MatSelectModule, MatInputModule
   ],
