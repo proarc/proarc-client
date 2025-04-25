@@ -5,7 +5,7 @@
     margin: 0;
     padding: 10px;
     font-size: 13px;
-    color: #444;
+    color: var(--app-color-gray-7);
 }
 
 textarea {
@@ -14,8 +14,8 @@ textarea {
     height: 100%;
     outline: none;
     border: none;
-    background: #fff;
+    background: var(--app-color-lightnes);
     padding: 10px;
     font-size: 13px;
-    color: #111;
+    color: var(--app-color-darknes);
 }
