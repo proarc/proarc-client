@@ -1,7 +1,7 @@
-<div fxLayout="column" fxFlexFill>
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
-    <div fxFlex>
-			<div class="app-toolbar-label">
+<div class="app-fxLayout app-column app-fill">
+  <div class="app-fxLayout app-row app-center-v app-toolbar app-view-audiopages">
+    <div class="app-fxFlex">
+			<div class="app-toolbar-label app-ml-2 app-pr-2">
 				<span class="app-text">{{ 'editor.audioPages.title' | translate }}</span>
 			</div>
 		</div>
@@ -11,21 +11,20 @@
       </button>
 		</div>
   </div>
-  <div fxFlex class="app-oa-y">
+  <div class="app-fxFlex app-oa-y">
     <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='saving'" class="app-progress-bar"></mat-progress-bar>
     <div class="app-editor-container" *ngIf="state !=='loading'">
       <div class="app-gap-fixer"></div>
       <div class="app-form-wrapper app-top-level">
         <div class="app-form">
-          <div class="app-form-header app-pl-2" fxLayout="row" fxLayoutAlign="start center">
+          <div class="app-fxLayout app-row app-center-v app-form-header app-pl-2">
             <div class="app-text-cutter">
               <mat-checkbox color="primary" [(ngModel)]="holder.editIndex" class="app-form-title">{{ 'editor.audioPages.edit_page_index' | translate }}</mat-checkbox>
             </div>
           </div>
           <div class="app-form-content">
             <mat-form-field class="app-field-col" [class.mat-form-field-disabled]="!holder.editIndex">
-              <input (keyup.enter)="onSave()" [disabled]="!holder.editIndex" 
-                    type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.audioPages.index_from' | translate" [formControl]="pageIndexControl">
+              <input (keyup.enter)="onSave()" [disabled]="!holder.editIndex" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.audioPages.index_from' | translate" [formControl]="pageIndexControl">
             </mat-form-field>
           </div>
         </div>
