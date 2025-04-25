@@ -19,7 +19,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AngularSplitModule } from 'angular-split';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { Subscription, combineLatest, of, switchMap } from 'rxjs';
 import { IngestDialogComponent } from '../../dialogs/ingest-dialog/ingest-dialog.component';
 import { LayoutAdminComponent } from '../../dialogs/layout-admin/layout-admin.component';
@@ -37,7 +36,7 @@ import { PanelComponent } from "../../components/panel/panel.component";
 
 @Component({
   selector: 'app-batches',
-  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, FlexLayoutModule,
+  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, PanelComponent],
   templateUrl: './batches.component.html',
