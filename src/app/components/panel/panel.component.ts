@@ -21,12 +21,13 @@ import { EditorAudioPagesComponent } from "../../editors/editor-audioPages/edito
 import { EditorAudioPageComponent } from "../../editors/editor-audioPage/editor-audioPage.component";
 import { EditorTreeComponent } from "../../editors/editor-tree/editor-tree.component";
 import { EditorMetadataComponent } from "../../editors/editor-metadata/editor-metadata.component";
+import { SongComponent } from "../song/song.component";
 
 @Component({
   selector: 'app-panel',
     imports: [CommonModule, TranslateModule,
     EditorModsComponent, EditorStructureComponent, EditorOcrComponent, MediaComponent, ViewerComponent,
-    MatCardModule, MatIconModule, EditorCommentComponent, EditorAtmComponent, EditorPageComponent, EditorPagesComponent, EditorAudioPagesComponent, EditorAudioPageComponent, EditorTreeComponent, EditorMetadataComponent],
+    MatCardModule, MatIconModule, EditorCommentComponent, EditorAtmComponent, EditorPageComponent, EditorPagesComponent, EditorAudioPagesComponent, EditorAudioPageComponent, EditorTreeComponent, EditorMetadataComponent, SongComponent],
   templateUrl: './panel.component.html',
   styleUrl: './panel.component.scss'
 })

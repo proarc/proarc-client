@@ -367,8 +367,8 @@ export class RepositoryComponent {
     });
     dialogRef.afterClosed().subscribe((ret: any) => {
       if (ret) {
-        this.initConfig();
-        this.loadData(true);
+        // this.initConfig();
+        // this.loadData(true);
       }
     });
   }
