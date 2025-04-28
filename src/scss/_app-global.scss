@@ -367,3 +367,13 @@
 }
 
 
+
+
+.app-color-warn {
+  color: var(--app-color-warn) !important;
+
+  .mat-select-value {
+    color: var(--app-color-warn);
+  }
+}
+
