@@ -82,7 +82,7 @@ export class EditorMetadataComponent implements OnInit {
   public availableFieldsSorted: string[] = [];
   public visibleFields: { [key: string]: boolean } = {};
   public selectedField: string;
-  public byField: boolean = true;
+  public byField: boolean = false;
   showGenreSwitch: boolean;
 
   fieldsOrder: string[];
@@ -157,13 +157,95 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   setFields() {
+    this.availableFields = Object.keys(this.metadata.template);
     this.visibleFields = {};
-    console.log(this.metadata.template)
     Object.keys(this.metadata.template).forEach(k => {
       this.fieldIds[k] = true;
       this.fields[k] = this.metadata.getField(k);
       this.visibleFields[k] = true;
     });
+    this.selectedField = this.availableFields[0];
+    if (this.scroller) {
+      this.scroller.nativeElement.scrollTop = 0;
+    }
+    this.fieldsOrder = [];
+    this.availableFieldsSorted = [];
+    this.fieldsPositions = [];
+    setTimeout(() => {
+      this.isValidMetadata = this.metadata.validate();
+      setTimeout(() => {
+        this.setFieldsPositions();
+      }, 10);
+    }, 10);
+  }
+
+  setFieldsPositions() {
+
+    if (!this.scroller) {
+      setTimeout(() => {
+        this.setFieldsPositions();
+      }, 10);
+      return;
+    }
+    //check if already rendered
+    if (this.scroller.nativeElement.children.length < this.availableFields.length) {
+      setTimeout(() => {
+        this.setFieldsPositions();
+      }, 10);
+      return;
+    }
+
+    // this.scrollHeight = this.scroller.nativeElement.scrollHeight;
+    let scrollHeight = 0;
+    this.scroller.nativeElement.scrollTop = 0;
+    this.fieldsOrder = [];
+    this.fieldsPositions = [];
+    const scrollerTop = this.scroller.nativeElement.getBoundingClientRect().top;
+    for (let i = 2; i < this.scroller.nativeElement.children.length; i++) {
+      const el = this.scroller.nativeElement.children[i];
+      this.fieldsOrder.push(el.id);
+      this.availableFieldsSorted.push(el.id.substring(this.panel().id.length))
+      const { top, bottom, height } = el.getBoundingClientRect();
+      const t = top - scrollerTop;
+      // console.log(el.id, top, t)
+      scrollHeight += height;
+      this.fieldsPositions.push({ id: el.id, top: t, bottom, height });
+    }
+
+    for (let i = 0; i < this.fieldsOrder.length; i++) {
+      const el = document.getElementById(this.fieldsOrder[i]);
+      el.style['position'] = 'absolute';
+      el.style['width'] = '100%';
+      el.style['top'] = this.fieldsPositions[i].top + 'px';
+    }
+    this.scrollHeight = scrollHeight;
+
+    setTimeout(() => {
+
+      this.setElStyles();
+      if (this.layout.moveFocus) {
+        setTimeout(() => {
+          this.focusToFirstRequired();
+        }, 30);
+      }
+    }, 20);
+  }
+
+  focusToFirstRequired() {
+    // find in new object
+    const query = this.notSaved ? 'app-new-metadata-dialog  .app-expanded input[required]' : 'app-editor-metadata input[required]';
+    let el: any = document.querySelectorAll(query)[0];
+    if (el) {
+      el.focus();
+      return;
+    }
+
+    //find in already exiting object
+    el = document.querySelectorAll('input[required]')[0];
+    if (el) {
+      el.focus();
+    }
+
   }
 
   onLoadFromCatalog() {
@@ -225,10 +307,11 @@ export class EditorMetadataComponent implements OnInit {
       this.scroller.nativeElement.scrollTop = this.fieldsPositions[idx].top; // - this.scroller.nativeElement.getBoundingClientRect().top;
     }
   }
+
   changeSelected(e: any) {
     this.selectedField = e;
     this.availableFields.forEach(k => {
-      this.visibleFields[k] = false;
+      this.visibleFields[k] = true;
     });
     this.visibleFields[this.selectedField] = true;
     setTimeout(() => {this.setElStyles()}, 10)
@@ -294,7 +377,7 @@ export class EditorMetadataComponent implements OnInit {
     if (this.byField) {
 
       this.availableFields.forEach(k => {
-        this.visibleFields[k] = false;
+        this.visibleFields[k] = true;
       });
       this.visibleFields[this.selectedField] = true;
       setTimeout(() => {this.setElStyles()}, 10)
@@ -339,7 +422,7 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   setElStyles() {
-    if (this.byField) {
+    //if (this.byField) {
       for (let i = 0; i < this.fieldsOrder.length; i++) {
         const id = this.fieldsOrder[i];
         const el = document.getElementById(id);
@@ -350,18 +433,18 @@ export class EditorMetadataComponent implements OnInit {
           el.style['top'] = '0px';
         }
       }
-    } else {
-      for (let i = 0; i < this.fieldsOrder.length; i++) {
-        const id = this.fieldsOrder[i];
-        const el = document.getElementById(id);
-        if (el) {
-          el.style['visibility'] = 'visible';
-          el.style['position'] = 'absolute';
-          el.style['width'] = '100%';
-          el.style['top'] = this.fieldsPositions[i].top + 'px';
-        }
-      }
-    }
+    // } else {
+    //   for (let i = 0; i < this.fieldsOrder.length; i++) {
+    //     const id = this.fieldsOrder[i];
+    //     const el = document.getElementById(id);
+    //     if (el) {
+    //       el.style['visibility'] = 'visible';
+    //       el.style['position'] = 'absolute';
+    //       el.style['width'] = '100%';
+    //       el.style['top'] = this.fieldsPositions[i].top + 'px';
+    //     }
+    //   }
+    // }
   }
 
   setStandard() {

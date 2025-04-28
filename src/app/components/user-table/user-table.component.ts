@@ -175,12 +175,20 @@ export class UserTableComponent {
   }
 
   saveColumnsSizes(e: any, field?: string) {
-
-    const el = this.settings[this.colsSettingsName()].find((c: any) => c.field === field);
-    if (el) {
-      el.width = e;
+    console.log(this.colsSettingsName())
+    if (this.colsSettingsName() === 'colsEditingRepo') {
+      const model = this.settings.colsEditModeParent ? this.layout.selectedParentItem?.model : this.items()[0].model;
+      const el = this.settings.colsEditingRepo[model].find((c: any) => c.field === field);
+      if (el) {
+        el.width = e;
+      }
     } else {
-      console.log("nemelo by")
+      const el = this.settings[this.colsSettingsName()].find((c: any) => c.field === field);
+      if (el) {
+        el.width = e;
+      } else {
+        console.log("nemelo by")
+      }
     }
 
     this.settingsService.save();
