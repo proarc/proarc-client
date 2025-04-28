@@ -238,6 +238,29 @@
       font-size: 18px;
     }
   }
+
+  &.app-view-media {
+    --mat-form-field-container-height: 34px;
+    --mat-form-field-filled-label-display: none;
+    --mat-form-field-container-vertical-padding: 4px;
+    --mat-form-field-filled-with-label-container-padding-top: 4px;
+    --mat-form-field-filled-with-label-container-padding-bottom: 4px;
+
+    .mat-mdc-form-field {
+      background-color: var(--app-color-lightnes);
+
+      .mat-mdc-form-field-flex {
+        .mdc-notched-outline__leading,
+        .mdc-notched-outline__trailing {
+          border: 0;
+        }
+      }
+
+      .mat-mdc-form-field-bottom-align {
+        height: 0;
+      }
+    }
+  }
 }
 
 

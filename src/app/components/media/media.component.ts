@@ -7,7 +7,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
 import { StreamProfile } from '../../model/stream-profile';
@@ -21,9 +20,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { EpubComponent } from "../epub/epub.component";
 import { SongComponent } from "../song/song.component";
 import { ViewerComponent } from "../viewer/viewer.component";
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
+  imports: [CommonModule, TranslateModule, FormsModule, MatButtonModule,
     MatCardModule, MatSelectModule,
     MatIconModule, MatProgressBarModule, MatTooltipModule, MatFormFieldModule, PdfComponent, EpubComponent, SongComponent, ViewerComponent],
   selector: 'app-media',

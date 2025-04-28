@@ -700,7 +700,9 @@
       "fitToScreen": "Přizpůsobit obrazovce",
       "rotateRight": "Otočit",
       "enterFullscreen": "Režim celé obrazovky",
-      "exitFullscreen": "Opustit režem celé obrazovky"
+      "exitFullscreen": "Opustit režem celé obrazovky",
+      "loadNewDigitalContent": "Načíst nový digitální obsah",
+      "deleteDigitalContent": "Odstranit digitální obsah"
     }
   },
   "lang": {

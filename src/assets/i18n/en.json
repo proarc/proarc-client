@@ -700,7 +700,9 @@
       "fitToScreen": "Fit to Screen",
       "rotateRight": "Rotate",
       "enterFullscreen": "Enter Full Screen",
-      "exitFullscreen": "Exit Full Screen"
+      "exitFullscreen": "Exit Full Screen",
+      "loadNewDigitalContent": "Load new digital content",
+      "deleteDigitalContent": "Delete digital content"
     }
   },
   "lang": {
