@@ -263,7 +263,6 @@
   }
 }
 
-
 // form bar
 .app-formbar {
   .mat-mdc-form-field {
@@ -278,7 +277,6 @@
     }
   }
 }
-
 
 // editor content
 .app-editor-content {
@@ -383,6 +381,98 @@
   }
 }
 
+// tree
+.app-tree {
+  .app-row {
+    @extend .app-w-100;
+    height: var(--mat-table-row-item-container-height);
+    border-bottom: 1px solid var(--app-default-border-color);
+    font-size: 13px;
+
+    &:hover {
+      background-color: var(--app-color-item-hover);
+    }
+
+    &.app-header {
+      overflow-y: scroll;
+
+      .app-cell,
+      .app-cell-first {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--app-color-gray-6);
+      }
+    }
+
+    &.app-parent {
+      background-color: var(--app-color-item-active);
+      color: var(--app-color-lightnes);
+
+      &.app-active-tree {
+        background-color: var(--app-color-item-active);
+      }
+    }
+
+    &.app-active-tree {
+      background-color: var(--app-color-item-selected);
+    }
+
+    &.dragoverAllowed {
+      background: var(--app-color-item-dragover-allowed);
+      color: var(--app-color-lightnes);
+    }
+
+    &.dragoverNotAllowed {
+      background: var(--app-color-item-dragover-noallowed);
+      color: var(--app-color-lightnes);
+    }
+
+    .app-expansion-cell {
+      text-align: right;
+
+      .mat-icon {
+        @include app-mixins.setIcon($position: sub);
+      }
+
+      .mat-progress-spinner {
+        display: inline;
+        vertical-align: top;
+      }
+    }
+
+    .app-cell {
+      pointer-events: none;
+      max-width: 100%;
+      min-width: 20px;
+
+      .mat-icon {
+        pointer-events: auto;
+
+        &.app-icon-copy {
+          @include app-mixins.setIcon(16, $position: sub);
+        }
+      }
+
+      &.app-pid {
+        $app-width: 300px;
+        flex: 1 1 $app-width !important;
+        max-width: $app-width !important;
+        min-width: $app-width !important;
+      }
+
+      &.app-isLocked {
+        $app-width: 30px;
+        flex: 1 1 $app-width !important;
+        max-width: $app-width !important;
+        min-width: $app-width !important;
+      }
+
+      .mat-icon {
+        @include app-mixins.setIcon(20, $position: sub);
+      }
+    }
+  }
+}
 
 // split
 .as-split-area {
@@ -391,7 +481,7 @@
 
 
 
-
+// alberto
 .app-color-warn {
   color: var(--app-color-warn) !important;
 
