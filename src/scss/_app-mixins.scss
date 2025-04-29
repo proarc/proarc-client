@@ -175,3 +175,19 @@
     }
   }
 }
+
+// set checkbox density
+@mixin setCheckBoxDensity($val: null) {
+  @if ($val != null) {
+    .mat-mdc-checkbox {
+      --mdc-checkbox-state-layer-size: calc(40px - #{$val}px * 2);
+    
+      .mdc-checkbox__background {
+        width: calc(18px - #{$val}px);
+        height: calc(18px - #{$val}px);
+        top: calc((var(--mdc-checkbox-state-layer-size, 40px) - calc(18px - #{$val}px)) / 2);
+        left: calc((var(--mdc-checkbox-state-layer-size, 40px) - calc(18px - #{$val}px)) / 2);
+      }
+    }
+  }  
+}

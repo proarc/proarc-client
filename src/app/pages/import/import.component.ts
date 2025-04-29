@@ -20,9 +20,10 @@ import { ApiService } from '../../services/api.service';
 import { UIService } from '../../services/ui.service';
 import { ProArc } from '../../utils/proarc';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
+  imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule, MatCheckboxModule,
     MatIconModule, MatButtonModule, MatSelectModule,
     MatTooltipModule],
   selector: 'app-import',
