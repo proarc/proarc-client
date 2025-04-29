@@ -15,6 +15,7 @@ import { FieldTextComponent } from "../../forms/field-text/field-text.component"
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FieldCodebookComponent } from "../../forms/field-codebook/field-codebook.component";
 import { MatInputModule } from '@angular/material/input';
+import { Utils } from '../../utils/utils';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule,

@@ -190,6 +190,11 @@ export abstract class ModsElement {
                     this.attrs[field] = e;
                     Utils.metadataChanged.update(n => n + 1);
                 });
+            } else {
+                
+                c.valueChanges.subscribe((e: any) => {
+                    Utils.metadataChanged.update(n => n + 1);
+                });
             }
 
             this.controls[field] = c;

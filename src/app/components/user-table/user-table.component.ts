@@ -53,6 +53,7 @@ export class UserTableComponent {
   selectItem = output<{ item: any, event: MouseEvent, idx: number }>();
   openItem = output<any>();
   getValidationError = output<string>();
+  onFilter = output<{field: string, value: string}>();
 
   draggable = input<boolean>();
   mousedown = output<any>();
@@ -65,6 +66,8 @@ export class UserTableComponent {
   displayedColumns: string[];
 
   filterColumns: string[] = [];
+  filterFields: { [field: string]: string } = {};
+  existingFilters = input<{ [field: string]: string }>({});
 
   prefixes: { [field: string]: string } = {};
   lists: { [field: string]: { code: string, value: string }[] } = {};
@@ -124,7 +127,8 @@ export class UserTableComponent {
       this.prefixes[c.field] = this.prefixByType(c.field);
 
       if (this.withFilters()) {
-        this.filterColumns.push(c + '-filter');
+        this.filterColumns.push(c.field + '-filter');
+        this.filterFields[c.field] = this.existingFilters()[c.field];
       }
     });
   }
@@ -237,4 +241,14 @@ export class UserTableComponent {
   //   moveItemInArray(this.displayedColumns, previousIndex, event.currentIndex);
   //   this.table.renderRows();
   // }
+
+  filter(field: string, value: string) {
+    // const f = this.filters.find(f => f.field === field);
+    // if (this.filters[field]) {
+    //   f.value = value;
+    // } else {
+    //   this.filters.push({ field, value });
+    // }
+    this.onFilter.emit({field, value});
+  }
 }

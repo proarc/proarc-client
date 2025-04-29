@@ -39,8 +39,10 @@
                 </div>
                 <div class="app-oa-y">
                   <app-user-table 
+                  [withFilters]="true"
                   (sortBy)="sortJobsTable($event)" 
                   (selectItem)="jobClick($event)"
+                  (onFilter)="filter($event)"
                   [colsSettingsName]="'columnsWorkFlow'" [items]="jobs" ></app-user-table>
                 </div>
               </div>            

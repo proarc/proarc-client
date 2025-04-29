@@ -444,8 +444,8 @@ export class WorkFlowComponent implements OnInit {
     this.getTasks();
   }
 
-  filter(field: string, value: string) {
-    this.workflowJobsFilters[field] = value;
+  filter(e : {field: string, value: string}) {
+    this.workflowJobsFilters[e.field] = e.value;
     this.getWorkflow(false);
   }
 

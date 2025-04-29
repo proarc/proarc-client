@@ -3,12 +3,44 @@
   [matSortDirection]="sortAsc ? 'asc' : 'desc'" (matSortChange)="sortTable($event)" cdkDropList
   (cdkDropListDropped)="drop($event)" cdkDropListData="items()">
 
+
+  <ng-container *ngIf="withFilters()">
+    <ng-container *ngFor="let c of selectedColumns" [matColumnDef]="c.field + '-filter'">
+      <th mat-header-cell *matHeaderCellDef [style.width]="c.width+'px'" class="app-col-filter">
+        <ng-container [ngSwitch]="c.type">
+          <ng-container *ngSwitchCase="'date'"></ng-container>
+          <ng-container *ngSwitchCase="'list'">
+            <div class="app-filter-wrapper">
+              <mat-label *ngIf="!filterFields[c.field]">{{ 'desc.select' | translate }} ...</mat-label>
+              <mat-select [(ngModel)]="filterFields[c.field]" (ngModelChange)="filter(c.field, filterFields[c.field])">
+                <mat-option [value]="''"> </mat-option>
+                <mat-option *ngFor="let s of lists[c.field]" [value]="s.code">{{ s.value }}</mat-option>
+              </mat-select>
+              <a matSuffix *ngIf="filterFields[c.field]"
+                (click)="filter(c.field, ''); filterFields[c.field] = ''; $event.stopPropagation();"
+                class="app-clear app-select"><mat-icon>clear</mat-icon></a>
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            <div class="app-filter-wrapper">
+              <input type="text" [id]="c + 'Filter'" [(ngModel)]="filterFields[c.field]" (change)="filter(c.field, filterFields[c.field])"
+                [placeholder]="('desc.enterText' | translate) + '...'" />
+              <a *ngIf="filterFields[c.field]" (click)="filter(c.field, ''); filterFields[c.field] = ''"
+                class="app-clear"><mat-icon>clear</mat-icon></a>
+            </div>
+          </ng-container>
+        </ng-container>
+      </th>
+    </ng-container>
+  </ng-container>
+
   <ng-container *ngFor="let c of selectedColumns; let idx = index; let last = last;" [matColumnDef]="c.field">
     <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c.field)"
       [style.width]="c.width + 'px'">
       <span *ngIf="!last" mat-sort-header>{{'search.' + c.field | translate}}</span>
       <div *ngIf="last" class="app-fxLayout app-row app-center-v">
-        <span *ngIf="c.field !== 'isLocked' && c.type !== 'action'" mat-sort-header>{{'search.' + c.field | translate}}</span>
+        <span *ngIf="c.field !== 'isLocked' && c.type !== 'action'" mat-sort-header>{{'search.' + c.field |
+          translate}}</span>
         <button (click)="setColumns()" mat-icon-button [matTooltip]="'editor.children.select_columns' | translate">
           <mat-icon>more_vert</mat-icon>
         </button>
@@ -39,7 +71,8 @@
           </a>
         </ng-container>
         <ng-container *ngSwitchCase="'action'">
-          <a *ngFor="let a of actions()" (click)="a.action(element)" [matTooltip]="a.tooltip | translate"><mat-icon>{{a.icon}}</mat-icon></a>
+          <a *ngFor="let a of actions()" (click)="a.action(element)"
+            [matTooltip]="a.tooltip | translate"><mat-icon>{{a.icon}}</mat-icon></a>
           <!-- <a [routerLink]="['/devices', element.id]" [matTooltip]="'button.edit' | translate"><mat-icon>edit_note</mat-icon></a> -->
         </ng-container>
         <ng-container *ngSwitchDefault>
@@ -54,10 +87,10 @@
     </td>
   </ng-container>
 
-  <ng-container *ngIf="withFilters">
+  <ng-container *ngIf="withFilters()">
     <tr mat-header-row *matHeaderRowDef="filterColumns; sticky: true"></tr>
   </ng-container>
-  
+
   <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns; let idx=index" #matrow [id]="'tr_'+row.pid"
     (click)="onSelectItem(row, $event, idx)" (dblclick)="onOpenItem(row, $event)" class="app-cursor-pointer"
