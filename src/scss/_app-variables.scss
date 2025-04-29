@@ -68,9 +68,6 @@
   --app-form-header-button-color: var(--app-color-gray-7);
   --app-form-field-border-color: var(--app-color-gray-3);
 
-  // checkbox
-  --app-checkbox-density: 4px;
-
   // layout
   --app-layout-active-color: 46, 125, 50;
   --app-layout-disabled-color: 216, 67, 21;
@@ -91,6 +88,14 @@
   --mat-paginator-container-size: 0;
 
   --mdc-icon-button-disabled-icon-color: var(--app-color-gray-4);
+
+  --mdc-checkbox-selected-hover-icon-color: var(--app-color-primary);
+  --mdc-checkbox-selected-icon-color: var(--app-color-primary);
+  --mdc-checkbox-selected-focus-icon-color: var(--app-color-primary);
+  --mdc-checkbox-selected-pressed-icon-color: var(--app-color-primary);
+  --mdc-checkbox-selected-focus-state-layer-color: var(--app-color-primary);
+  --mdc-checkbox-selected-hover-state-layer-color: var(--app-color-primary);
+  --mdc-checkbox-selected-pressed-state-layer-color: var(--app-color-primary);
 
   --mat-dialog-actions-padding: 24px;
 }

@@ -32,14 +32,14 @@
       </mat-form-field>
       <mat-checkbox class="app-import-index" [(ngModel)]="generateIndex">{{ 'import.generate_index' | translate }}</mat-checkbox>
     </div>
-  
-    <div fxFlex class="app-tree app-oh app-oa-y app-border-wrapper">
+
+    <div class="app-fxFlex app-tree app-oh app-oa-y app-border-wrapper">
       <ng-container *ngFor="let f of folders; let idx = index;">
-        <div class="app-row" *ngIf="!f.hidden" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px">
+        <div class="app-fxLayout app-row app-center-v app-gap-1" *ngIf="!f.hidden">
           <div class="app-cell" style="width: 50px; padding-left: 3px;">
             <span *ngIf="f.state === 'IMPORTED'" class="app-disabled">{{ 'import.state.' + f.state.toLowerCase() | translate }}</span>
           </div>
-          <div class="app-cell" fxLayout="row" fxLayoutAlign="start center">
+          <div class="app-fxLayout app-row app-center-v app-cell">
             <span [style.margin-left]="f.level*10 + 'px'"> </span>
             <mat-icon (click)="toggleFolder(f, idx+1)" *ngIf="f.canExpand">{{ f.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
             <mat-icon *ngIf="!f.canExpand">none</mat-icon>

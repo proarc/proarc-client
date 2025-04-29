@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { ImportDialogComponent } from '../../dialogs/import-dialog/import-dialog.component';
 import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
@@ -23,7 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule, MatCheckboxModule,
+  imports: [CommonModule, TranslateModule, FormsModule, MatCheckboxModule,
     MatIconModule, MatButtonModule, MatSelectModule,
     MatTooltipModule],
   selector: 'app-import',
