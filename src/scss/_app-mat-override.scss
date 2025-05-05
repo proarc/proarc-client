@@ -36,6 +36,49 @@
 
 // table
 .mat-mdc-table {
+  .mat-mdc-header-cell {
+    &.mat-column-isLocked {
+      padding: 0 8px;
+    }
+  }
+
+  .mat-mdc-header-cell,
+  .mat-mdc-cell {
+    padding-left: 8px;
+    padding-right: 4px;
+  }
+
+  .mat-mdc-icon-button {
+    &.mat-mdc-button-base {
+      border-radius: 0;
+      --mdc-icon-button-state-layer-size: 34px;
+      width: var(--mdc-icon-button-state-layer-size);
+      height: var(--mdc-icon-button-state-layer-size);
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .mat-mdc-button-persistent-ripple {
+      border-radius: 0;
+    }
+  }
+
+  .mat-icon {
+    @include app-mixins.setIcon(20, $position: sub);
+  }
+
+  a {
+    &.app-icon-copy {
+      color: var(--app-color-primary);
+    }
+
+    .mat-icon {
+      @include app-mixins.setIcon(16);
+    }
+  }
+
   .mat-mdc-row {
     &.app-selected {
       background-color: var(--app-color-item-selected) !important;
@@ -89,6 +132,13 @@
     .mat-mdc-header-cell {
       position: relative;
 
+      .mat-sort-header-content {
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
       .app-resize-holder {
         cursor: col-resize;
         width: 10px;
@@ -109,44 +159,10 @@
       }
     }
 
-    .mat-mdc-header-cell,
     .mat-mdc-cell {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-    }
-  }
-
-  .mat-mdc-header-cell {
-    &.mat-column-isLocked {
-      padding: 0 8px;
-    }
-  }
-
-  .mat-mdc-icon-button {
-    &.mat-mdc-button-base {
-      border-radius: 0;
-      --mdc-icon-button-state-layer-size: 34px;
-      width: var(--mdc-icon-button-state-layer-size);
-      height: var(--mdc-icon-button-state-layer-size);
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .mat-mdc-button-persistent-ripple {
-      border-radius: 0;
-    }
-  }
-
-  .mat-icon {
-    @include app-mixins.setIcon(20, $position: sub);
-  }
-
-  a {
-    .mat-icon {
-      @include app-mixins.setIcon(16);
     }
   }
 }
