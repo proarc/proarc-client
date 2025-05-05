@@ -34,6 +34,7 @@
   }
 }
 
+
 // table
 .mat-mdc-table {
   .mat-mdc-header-cell {
@@ -51,7 +52,7 @@
   .mat-mdc-icon-button {
     &.mat-mdc-button-base {
       border-radius: 0;
-      --mdc-icon-button-state-layer-size: 34px;
+      --mdc-icon-button-state-layer-size: var(--mat-table-header-container-height);
       width: var(--mdc-icon-button-state-layer-size);
       height: var(--mdc-icon-button-state-layer-size);
       padding: 0;
@@ -167,6 +168,7 @@
   }
 }
 
+
 // paginator
 .mat-mdc-paginator {
   .app-toolbar & {
@@ -196,6 +198,14 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+}
+
+
+// button
+.mat-mdc-button-base {
+  &.mat-mdc-outlined-button {
+    background-color: var(--app-color-gray-1);
+  }  
 }
 
 
@@ -251,12 +261,18 @@
 // form field
 .mat-mdc-form-field {
   .mat-mdc-form-field-icon-suffix {
+    display: flex;
     padding-right: 4px;
     @include mat.icon-button-density(-6);
 
     .mat-mdc-icon-button {
+      --mdc-icon-button-icon-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
       .mat-icon {
-        @include app-mixins.setIcon(20);
+        @include app-mixins.setIcon(18);
       }
     }
   }
@@ -268,6 +284,27 @@
     &::before {
       height: 0;
     }
+  }
+
+  &.app-pid {
+    $app-width: 250px;
+    flex: 1 1 $app-width;
+    max-width: $app-width;
+    min-width: $app-width;
+  }
+
+  &.app-priority {
+    $app-width: 140px;
+    flex: 1 1 $app-width;
+    max-width: $app-width;
+    min-width: $app-width;
+  }
+
+  &.app-datepicker {
+    $app-width: 160px;
+    flex: 1 1 $app-width;
+    max-width: $app-width;
+    min-width: $app-width;
   }
 }
 

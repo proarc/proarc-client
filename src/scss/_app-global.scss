@@ -14,6 +14,7 @@
   opacity: .4;
 }
 
+
 // cleaners
 .app-clean-bg {
   background-color: transparent !important;
@@ -50,6 +51,7 @@
 .app-vh {
   visibility: hidden;
 }
+
 
 // common
 .app-cursor-pointer {
@@ -133,6 +135,7 @@
   border: 1px solid var(--app-default-border-color);
 }
 
+
 // breadcrumbbar
 .app-breadcrumbsbar {
   min-height: var(--app-breadcrumbsbar-height);
@@ -193,6 +196,7 @@
     }
   }
 }
+
 
 // toolbar
 .app-toolbar {
@@ -263,11 +267,13 @@
   }
 }
 
+
 // form bar
 .app-formbar {
   .mat-mdc-form-field {
     &.app-model,
-    &.app-organization {
+    &.app-organization,
+    &.app-state {
       width: 260px;
     }
 
@@ -277,6 +283,7 @@
     }
   }
 }
+
 
 // editor content
 .app-editor-content {
@@ -380,6 +387,7 @@
     }
   }
 }
+
 
 // tree
 .app-tree {
