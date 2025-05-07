@@ -106,6 +106,13 @@
     &.app-repre {
       font-weight: 700;
     }
+
+    .mat-mdc-cell {
+      &.mat-column-actions {
+        width: 60px;
+        text-align: right;
+      }
+    }
   }
 
   &.app-striped {
@@ -216,6 +223,14 @@
   &.mat-mdc-outlined-button {
     background-color: var(--app-color-gray-1);
   }  
+}
+
+.mat-mdc-unelevated-button {
+  &:not(:disabled) {
+    &.mat-warn {
+      --mdc-filled-button-label-text-color: var(--app-coloe-lightnes) !important;
+    }
+  }
 }
 
 

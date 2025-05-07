@@ -146,6 +146,19 @@ a {
 }
 
 
+// fieldset
+fieldset {
+  border-width: 1px;
+  border-color: var(--app-color-gray-4);
+  border-style: solid;
+
+  legend {
+    @extend .app-pl-2, .app-pr-2;
+    color: var(--app-color-primary);
+  }
+}
+
+
 // badge
 .app-badge {
   @extend .app-pr-2, .app-pl-2;
