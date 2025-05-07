@@ -5,6 +5,7 @@
   --app-color-info: #856404;
   --app-color-info-no-rgb: 133, 100, 4;
   --app-color-success: #2E7D32;
+  --app-color-success-no-rgb: 46, 125, 50;
   --app-color-disabled: var(--app-color-gray-4);
   --app-color-item-bg: var(--app-color-gray-1);
   --app-color-item-selected: var(--palette-primary-50);
@@ -12,7 +13,7 @@
   --app-color-item-invalid: var(--app-color-warn);
   --app-color-item-invalid-no-rgb: var(--palette-warn-500-no-rgb);
   --app-color-item-hover: var(--palette-primary-50);
-  --app-color-item-dragover-allowed: $app-color-success;
+  --app-color-item-dragover-allowed: var(--app-color-success);
   --app-color-item-dragover-noallowed: var(--app-color-warn);
 
   // basic colors
@@ -57,6 +58,9 @@
   --app-breadcrumbsbar-height: 40px;
 
   --app-menu-item-height: 28px;
+
+  --app-badge-height: 18px;
+  --app-badge-model-bg: #607D8B;
 
   // form
   --app-form-bg-color: var(--app-color-gray-2);
@@ -143,54 +147,54 @@ $alerts: (
     bg: #fff3cd,
     border: rgba(var(--app-color-info-no-rgb), .15)
   )
-  // ,
-  // success: (
-  //   color: $app-color-success,
-  //   bg: rgba($app-color-success, .1),
-  //   border: rgba($app-color-success, .2)
-  // ),
-  // message: (
-  //   color: $app-gray-7,
-  //   bg: rgba($app-gray-7, .1),
-  //   border: rgba($app-gray-7, .2)
-  // )
+  ,
+  success: (
+    color: var(--app-color-success),
+    bg: rgba(var(--app-color-success-no-rgb), .1),
+    border: rgba(var(--app-color-success-no-rgb), .2)
+  ),
+  message: (
+    color: var(--app-color-gray-7),
+    bg: rgba(#616161, .1),
+    border: rgba(#616161, .2)
+  )
 );
 
 // states
-/* $states: (
-  sentiment_satisfied: $app-color-info,
-  mood_bad: $app-color-warn,
-  mood: $app-color-success,
+$states: (
+  sentiment_satisfied: var(--app-color-info),
+  mood_bad: var(--app-color-warn),
+  mood: var(--app-color-success),
 
-  LOADING: mat-color($mat-blue-gray, 600),
-  LOADED:  $app-color-success,
-  LOADING_FAILED: $app-color-warn,
-  INGESTING: mat-color($mat-blue-gray, 600),
-  INGESTED: $app-color-success,
-  INGESTING_FAILED: $app-color-warn,
-  EXPORT_PLANNED: $app-color-info,
-  EXPORTING: mat-color($mat-blue-gray, 600),
-  EXPORT_DONE: $app-color-success,
-  EXPORT_FAILED: $app-color-warn,
-  EXPORT_VALID_WARNING: $app-color-warn,
-  REINDEXING: mat-color($mat-blue-gray, 600),
-  REINDEX_DONE: $app-color-success,
-  REINDEX_FAILED: $app-color-warn,
-  UPLOADING: mat-color($mat-blue-gray, 600),
-  UPLOAD_DONE: $app-color-success,
-  UPLOAD_FAILED: $app-color-warn,
-  STOPPED: mat-color($mat-blue-gray, 600),
-  WAITING: mat-color($mat-teal, 500),
-  INTERNAL_DONE: $app-color-success,
-  INTERNAL_RUNNING: mat-color($mat-blue-gray, 600),
-  INTERNAL_PLANNED: $app-color-info,
-  INTERNAL_FAILED: $app-color-warn,
-  IMPORT_PLANNED: $app-color-info,
-  EXTERNAL_RUNNING: mat-color($mat-blue-gray, 600),
-  EXTERNAL_PLANNED: $app-color-info,
-  EXTERNAL_FAILED: $app-color-warn,
-  EXTERNAL_DONE: $app-color-success,
-  model: $app-badge-model-bg,
-  default: $app-gray-6
-); */
+  LOADING: #546E7A,
+  LOADED:  var(--app-color-success),
+  LOADING_FAILED: var(--app-color-warn),
+  INGESTING: #546E7A,
+  INGESTED: var(--app-color-success),
+  INGESTING_FAILED: var(--app-color-warn),
+  EXPORT_PLANNED: var(--app-color-info),
+  EXPORTING: #546E7A,
+  EXPORT_DONE: var(--app-color-success),
+  EXPORT_FAILED: var(--app-color-warn),
+  EXPORT_VALID_WARNING: var(--app-color-warn),
+  REINDEXING: #546E7A,
+  REINDEX_DONE: var(--app-color-success),
+  REINDEX_FAILED: var(--app-color-warn),
+  UPLOADING: #546E7A,
+  UPLOAD_DONE: var(--app-color-success),
+  UPLOAD_FAILED: var(--app-color-warn),
+  STOPPED: #546E7A,
+  WAITING: #009688,
+  INTERNAL_DONE: var(--app-color-success),
+  INTERNAL_RUNNING: #546E7A,
+  INTERNAL_PLANNED: var(--app-color-info),
+  INTERNAL_FAILED: var(--app-color-warn),
+  IMPORT_PLANNED: var(--app-color-info),
+  EXTERNAL_RUNNING: #546E7A,
+  EXTERNAL_PLANNED: var(--app-color-info),
+  EXTERNAL_FAILED: var(--app-color-warn),
+  EXTERNAL_DONE: var(--app-color-success),
+  model: #546E7A,
+  default: var(--app-color-gray-6),
+);
 

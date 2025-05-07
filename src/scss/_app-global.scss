@@ -136,6 +136,24 @@
 }
 
 
+// badge
+.app-badge {
+  @extend .app-pr-2, .app-pl-2;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: var(--app-badge-height);
+  border-radius: calc(var(--app-badge-height) / 2);
+  color: var(--app-color-lightnes);
+  font-size: 12px;
+  text-transform: lowercase;
+  background-color: var(--app-color-gray-7);
+
+  @include app-mixins.setStateColor('badge');
+}
+
+
 // breadcrumbbar
 .app-breadcrumbsbar {
   min-height: var(--app-breadcrumbsbar-height);
