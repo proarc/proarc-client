@@ -268,23 +268,6 @@
 }
 
 
-// form bar
-.app-formbar {
-  .mat-mdc-form-field {
-    &.app-model,
-    &.app-organization,
-    &.app-state {
-      width: 260px;
-    }
-
-    &.app-owner,
-    &.app-processor {
-      width: 180px;
-    }
-  }
-}
-
-
 // editor content
 .app-editor-content {
   &:focus {

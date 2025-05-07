@@ -286,20 +286,6 @@
     }
   }
 
-  &.app-pid {
-    $app-width: 250px;
-    flex: 1 1 $app-width;
-    max-width: $app-width;
-    min-width: $app-width;
-  }
-
-  &.app-priority {
-    $app-width: 140px;
-    flex: 1 1 $app-width;
-    max-width: $app-width;
-    min-width: $app-width;
-  }
-
   &.app-datepicker {
     $app-width: 160px;
     flex: 1 1 $app-width;

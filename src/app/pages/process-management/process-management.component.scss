@@ -1,0 +1,19 @@
+// form bar
+.app-formbar {
+  .mat-mdc-form-field {
+    &.app-state,
+    &.app-pid {
+      $app-width: 260px;
+      flex: 1 1 $app-width;
+      max-width: $app-width;
+      min-width: $app-width;
+    }
+  
+    &.app-priority {
+      $app-width: 140px;
+      flex: 1 1 $app-width;
+      max-width: $app-width;
+      min-width: $app-width;
+    }  
+  }
+}

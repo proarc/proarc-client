@@ -1,0 +1,20 @@
+// form bar
+.app-formbar {
+  .mat-mdc-form-field {
+    &.app-model,
+    &.app-organization {
+      $app-width: 260px;
+      flex: 1 1 $app-width;
+      max-width: $app-width;
+      min-width: $app-width;
+    }
+
+    &.app-owner,
+    &.app-processor {
+      $app-width: 180px;
+      flex: 1 1 $app-width;
+      max-width: $app-width;
+      min-width: $app-width;
+    }
+  }
+}
