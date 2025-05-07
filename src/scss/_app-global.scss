@@ -4,6 +4,16 @@
 
 @include app-mixins.setGap();
 
+a {
+  @extend .app-cursor-pointer;
+  color: var(--app-color-primary);
+  text-decoration: none;
+
+  &:hover {
+    color: rgba(var(--app-color-primary-no-rgb), .7);
+  }
+}
+
 // states
 .app-disabled {
   pointer-events: none;

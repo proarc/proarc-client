@@ -17,7 +17,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AngularSplitModule } from 'angular-split';
 import { ResizecolDirective } from '../../resizecol.directive';
 import { MatDialog } from '@angular/material/dialog';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { LogDialogComponent } from '../../dialogs/log-dialog/log-dialog.component';
 import { Batch } from '../../model/batch.model';
 import { Profile } from '../../model/profile.model';
@@ -39,7 +39,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   selector: 'app-process-management',
     imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
       MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
-      MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule, 
+      MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule, RouterModule,
       MatDatepickerModule, MatCheckboxModule,
       MatTableModule, MatSortModule, ResizecolDirective],
   templateUrl: './process-management.component.html',

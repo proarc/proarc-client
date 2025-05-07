@@ -52,13 +52,23 @@
   .mat-mdc-icon-button {
     &.mat-mdc-button-base {
       border-radius: 0;
-      --mdc-icon-button-state-layer-size: var(--mat-table-header-container-height);
+      --mdc-icon-button-state-layer-size: calc(var(--mat-table-header-container-height) - 1px);
       width: var(--mdc-icon-button-state-layer-size);
       height: var(--mdc-icon-button-state-layer-size);
       padding: 0;
       display: flex;
       align-items: center;
       justify-content: center;
+
+      .mat-icon {
+        &.app-16 {
+          @include app-mixins.setIcon(16);
+        }
+
+        &.app-18 {
+          @include app-mixins.setIcon(18);
+        }
+      }
     }
     
     .mat-mdc-button-persistent-ripple {
