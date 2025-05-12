@@ -10,7 +10,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { User } from '../../../model/user.model';
 import { ApiService } from '../../../services/api.service';
 import { UIService } from '../../../services/ui.service';
@@ -19,7 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  imports: [CommonModule, TranslateModule, RouterModule, FormsModule, FlexLayoutModule,
+  imports: [CommonModule, TranslateModule, RouterModule, FormsModule,
     MatIconModule, MatButtonModule, MatProgressBarModule, MatCardModule, 
     MatInputModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule,
     MatSelectModule
