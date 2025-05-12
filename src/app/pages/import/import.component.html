@@ -8,7 +8,7 @@
   </div>
   
   <div class="app-fxLayout app-column app-fxFlex app-content-wrapper app-import">
-    <div class="app-fxLayout app-row app-gap-2 app-formbar">
+    <div class="app-fxLayout app-row app-gap-2 app-formbar app-mb-n3">
       <button mat-stroked-button (click)="onLoad()" [disabled]="selectedDevice?.model === 'none' && !(selectedProfile.id === 'profile.default_archive_import' || selectedProfile.id === 'profile.default_ndk_import')">
         {{ 'import.load' | translate }}
       </button>
