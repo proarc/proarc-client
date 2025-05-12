@@ -14,7 +14,7 @@
   <div class="app-fxFlex app-fxLayout app-column app-content-wrapper app-devices app-oa-y">
     <mat-card *ngIf="state === 'success'" appearance="outlined">
       <mat-card-content>
-        <fieldset class="app-p-4 app-mb-4">
+        <fieldset class="app-pt-4 app-mb-4">
           <legend>{{ 'device.general' | translate }}</legend>
           <div class="app-fxLayout app-row app-gap-4">
             <mat-form-field appearance="outline" class="app-fxFlex">
@@ -34,7 +34,7 @@
           </div>
         </fieldset>
 
-        <fieldset class="app-p-4 app-mb-4">
+        <fieldset class="app-pt-4 app-mb-4">
           <legend>{{ 'device.scanner' | translate }}</legend>
           <div class="app-fxLayout app-row app-gap-4">
             <mat-form-field appearance="outline" class="app-fxFlex">
@@ -89,7 +89,7 @@
           </div>
         </fieldset>
 
-        <fieldset class="app-p-4 app-mb-4">
+        <fieldset class="app-pt-4 app-mb-4">
           <legend>{{ 'device.digitalCamera' | translate }}</legend>
           <div class="app-fxLayout app-row app-gap-4">
             <mat-form-field appearance="outline" class="app-fxFlex">
@@ -117,7 +117,7 @@
           </div>
         </fieldset>
 
-        <fieldset class="app-p-4 app-mb-4" *ngIf="device.isAudio()">
+        <fieldset class="app-pt-4 app-mb-4" *ngIf="device.isAudio()">
           <legend>{{ 'device.informationAboutAudioFiles' | translate }}</legend>
           <div class="app-border-wrapper">
             <table mat-table [dataSource]="device.audioDevices" class="app-hover app-striped">
