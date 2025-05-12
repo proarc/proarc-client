@@ -108,7 +108,8 @@
     }
 
     .mat-mdc-cell {
-      &.mat-column-actions {
+      &.mat-column-actions,
+      &.mat-column-action {
         width: 60px;
         text-align: right;
       }
@@ -149,6 +150,9 @@
 
     .mat-mdc-header-cell {
       position: relative;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
       .mat-sort-header-content {
         display: inline-block;
@@ -182,6 +186,10 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+  }
+
+  .mat-mdc-checkbox {
+    --mdc-checkbox-state-layer-size: calc(30px - 2px * 2) !important;
   }
 }
 

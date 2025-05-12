@@ -1,17 +1,18 @@
-<div fxLayout="column" fxFlexFill>
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbsbar">
-    <div fxLayout="row" fxLayoutAlign="start center" class="app-breadcrumbs">
+<div class="app-fxLayout app-column app-fill app-form-field-dens-6">
+  <div class="app-fxLayout app-row app-center-v app-breadcrumbsbar">
+    <div class="app-fxLayout app-row app-center-v app-inner app-pr-4">
       <a routerLink="/"><mat-icon>home</mat-icon></a>
       <span class="app-separator">/</span>
       <span class="app-last">{{ 'desc.userAdministration' | translate }}</span>
     </div>
   </div>
-  <div fxFlex class="app-admin app-content-wrapper app-pt-4" fxLayout="column">
+
+  <div class="app-fxFlex app-fxLayout app-column app-content-wrapper app-admin">
     <div class="app-formbar app-mb-4">
       <button mat-stroked-button routerLink="/admin/new-user" class="app-mr-2">{{ 'button.createNewUser' | translate }}</button>
       <button mat-stroked-button *ngIf="auth.isSuperAdmin()" [matTooltip]="'button.changeOwnerTooltip' | translate" (click)="changeOwner()" class="app-mr-2">{{ 'button.changeOwner' | translate }}</button>
     </div>
-    <div fxFlex class="app-oa-y app-border-wrapper">
+    <div class="app-fxFlex app-oa-y app-border-wrapper">
       <table mat-table [dataSource]="users" class="app-striped app-hover app-resize">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'name')" [style.width]="getColumnWidth('name')">{{ 'desc.username' | translate }}</th>
@@ -91,8 +92,10 @@
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'action')" [style.width]="getColumnWidth('action')"></th>
           <td mat-cell *matCellDef="let element">
-            <a [routerLink]="['/admin/' + element.userId  + '/edit-user']" [matTooltip]="'button.edit' | translate"><mat-icon>edit_note</mat-icon></a>
-            <a (click)="deleteUser(element)" [matTooltip]="'button.delete' | translate"><mat-icon>delete</mat-icon></a>
+            <div class="app-fxLayout app-row app-center-v app-jc-end">
+              <button mat-icon-button color="primary" [routerLink]="['/admin/' + element.userId  + '/edit-user']" [matTooltip]="'button.edit' | translate"><mat-icon>edit_note</mat-icon></button>
+              <button mat-icon-button color="warn" (click)="deleteUser(element)" [matTooltip]="'button.delete' | translate"><mat-icon>delete</mat-icon></button>
+            </div>
           </td>
         </ng-container>
 

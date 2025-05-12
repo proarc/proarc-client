@@ -12,7 +12,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
 import { User } from '../../model/user.model';
@@ -28,7 +27,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  imports: [CommonModule, TranslateModule, RouterModule, FormsModule, FlexLayoutModule,
+  imports: [CommonModule, TranslateModule, RouterModule, FormsModule,
     MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule,
     MatPaginatorModule,
