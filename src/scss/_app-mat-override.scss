@@ -327,9 +327,39 @@
   }
 }
 
+.mat-mdc-checkbox {
+  //--mdc-checkbox-state-layer-size: calc(30px - 2px * 2) !important;
+  //height: 32px;
+}
+
+::ng-deep .mat-mdc-checkbox {
+  min-height: 24px; // or your desired row height
+  height: 24px;
+}
+
+::ng-deep .mat-mdc-checkbox .mdc-form-field {
+  align-items: center;
+}
+
+::ng-deep .mat-mdc-checkbox .mdc-label {
+  line-height: 24px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 :root {
   .app-form-field-dens-6 {
     @include mat.form-field-density(-6);
-    @include app-mixins.setCheckBoxDensity(2);
-  } 
+  }
+
+
+  @include app-mixins.setCheckBoxDensity(2);
+  @include mat.checkbox-overrides((
+    selected-icon-color: var(--app-color-primary),
+    selected-hover-icon-color: var(--app-color-primary),
+    selected-focus-icon-color: var(--app-color-primary),
+    selected-pressed-state-layer-color: var(--app-color-primary),
+    selected-focus-state-layer-color: var(--app-color-primary),
+    state-layer-size: 26px
+  ));
 }

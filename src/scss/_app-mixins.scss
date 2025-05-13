@@ -181,7 +181,7 @@
 @mixin setCheckBoxDensity($val: null) {
   @if ($val != null) {
     .mat-mdc-checkbox {
-      --mdc-checkbox-state-layer-size: calc(40px - #{$val}px * 2);
+      //--mdc-checkbox-state-layer-size: calc(40px - #{$val}px * 2);
     
       .mdc-checkbox__background {
         width: calc(18px - #{$val}px);
