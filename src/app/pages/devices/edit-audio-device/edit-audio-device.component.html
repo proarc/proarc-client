@@ -21,63 +21,63 @@
 	<mat-progress-bar mode="indeterminate" *ngIf="state=='loading' || state=='saving'" class="app-progress-bar"></mat-progress-bar>
 
 	<div class="app-fxFlex app-fxLayout app-column app-content-wrapper app-edit-audio-device app-oa-y">
-		<mat-card appearance="outlined" *ngIf="state=='success' || state=='saving'">
-			<mat-card-content>
-				<fieldset class="app-pt-4 app-mb-4">
-          <legend>{{ 'device.general' | translate }}</legend>
-					<div class="app-fxLayout app-row app-gap-4">
-						<mat-form-field appearance="outline" class="app-fxFlex">
-							<mat-label>{{ 'device.name' | translate }}</mat-label>
-							<input type="text" matInput autocomplete="off" [placeholder]="'device.name' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.name' name="name" required>
-						</mat-form-field>
-						<mat-form-field appearance="outline" class="app-fxFlex">
-							<mat-label>{{ 'device.type' | translate }}</mat-label>
-							<input type="text" matInput autocomplete="off" [placeholder]="'device.type' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.type' name="type" required>
-						</mat-form-field>
-					</div>
-				</fieldset>
+		<ng-container *ngIf="state=='success' || state=='saving'">
+			<fieldset class="app-pt-4 app-mb-4">
+				<legend>{{ 'device.general' | translate }}</legend>
+				<div class="app-fxLayout app-row app-gap-4">
+					<mat-form-field appearance="outline" class="app-fxFlex">
+						<mat-label>{{ 'device.name' | translate }}</mat-label>
+						<input type="text" matInput autocomplete="off" [placeholder]="'device.name' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.name' name="name" required>
+					</mat-form-field>
+					<mat-form-field appearance="outline" class="app-fxFlex">
+						<mat-label>{{ 'device.type' | translate }}</mat-label>
+						<input type="text" matInput autocomplete="off" [placeholder]="'device.type' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.type' name="type" required>
+					</mat-form-field>
+				</div>
+			</fieldset>
 
-				<fieldset class="app-pt-4 app-mb-4">
-          <legend>{{ 'device.linkingAgentIdentifier' | translate }}</legend>
-					<div class="app-fxLayout app-row app-gap-4">
-						<mat-form-field appearance="outline" class="app-fxFlex">
-							<mat-label>{{ 'device.type' | translate }}</mat-label>
-							<input type="text" matInput autocomplete="off" [placeholder]="'device.type' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.identifierType' name="identifierType" required>
-						</mat-form-field>
-						<mat-form-field appearance="outline" class="app-fxFlex">
-							<mat-label>{{ 'device.value' | translate }}</mat-label>
-							<input type="text" matInput autocomplete="off" [placeholder]="'device.value' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.identifierValue' name="identifierValue" required>
-						</mat-form-field>
-						<mat-form-field appearance="outline" class="app-fxFlex">
-							<mat-label>{{ 'device.role' | translate }}</mat-label>
-							<input type="text" matInput autocomplete="off" [placeholder]="'device.role' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.identifierRole' name="identifierRole" required>
-						</mat-form-field>
-					</div>
-				</fieldset>
+			<fieldset class="app-pt-4 app-mb-4">
+				<legend>{{ 'device.linkingAgentIdentifier' | translate }}</legend>
+				<div class="app-fxLayout app-row app-gap-4">
+					<mat-form-field appearance="outline" class="app-fxFlex">
+						<mat-label>{{ 'device.type' | translate }}</mat-label>
+						<input type="text" matInput autocomplete="off" [placeholder]="'device.type' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.identifierType' name="identifierType" required>
+					</mat-form-field>
+					<mat-form-field appearance="outline" class="app-fxFlex">
+						<mat-label>{{ 'device.value' | translate }}</mat-label>
+						<input type="text" matInput autocomplete="off" [placeholder]="'device.value' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.identifierValue' name="identifierValue" required>
+					</mat-form-field>
+					<mat-form-field appearance="outline" class="app-fxFlex">
+						<mat-label>{{ 'device.role' | translate }}</mat-label>
+						<input type="text" matInput autocomplete="off" [placeholder]="'device.role' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.identifierRole' name="identifierRole" required>
+					</mat-form-field>
+				</div>
+			</fieldset>
 
-				<fieldset class="app-pt-4 app-mb-4">
-          <legend>{{ 'device.agentExtension' | translate }}</legend>
-					<div class="app-fxLayout app-row app-gap-4">
-						<mat-form-field appearance="outline" class="app-fxFlex">
-							<mat-label>{{ 'device.manufacturer' | translate }}</mat-label>
-							<input type="text" matInput autocomplete="off" [placeholder]="'device.manufacturer' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.manufacturer' name="manufacturer" required>
-						</mat-form-field>
-						<mat-form-field appearance="outline" class="app-fxFlex">
-							<mat-label>{{ 'device.serialNumber' | translate }}</mat-label>
-							<input type="text" matInput autocomplete="off" [placeholder]="'device.serialNumber' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.serialNumber' name="serialNumber" required>
-						</mat-form-field>
-					</div>
-					<div class="app-fxLayout app-row app-gap-4">
-						<mat-form-field appearance="outline" class="app-fxFlex">
-							<mat-label>{{ 'device.settings' | translate }}</mat-label>
-							<textarea  matInput autocomplete="off" [placeholder]="'device.settings' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.settings' name="settings" required></textarea>
-						</mat-form-field>
-					</div>
-				</fieldset>
+			<fieldset class="app-pt-4 app-mb-4">
+				<legend>{{ 'device.agentExtension' | translate }}</legend>
+				<div class="app-fxLayout app-row app-gap-4">
+					<mat-form-field appearance="outline" class="app-fxFlex">
+						<mat-label>{{ 'device.manufacturer' | translate }}</mat-label>
+						<input type="text" matInput autocomplete="off" [placeholder]="'device.manufacturer' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.manufacturer' name="manufacturer" required>
+					</mat-form-field>
+					<mat-form-field appearance="outline" class="app-fxFlex">
+						<mat-label>{{ 'device.serialNumber' | translate }}</mat-label>
+						<input type="text" matInput autocomplete="off" [placeholder]="'device.serialNumber' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.serialNumber' name="serialNumber" required>
+					</mat-form-field>
+				</div>
+				<div class="app-fxLayout app-row app-gap-4">
+					<mat-form-field appearance="outline" class="app-fxFlex">
+						<mat-label>{{ 'device.settings' | translate }}</mat-label>
+						<textarea  matInput autocomplete="off" [placeholder]="'device.settings' | translate" [disabled]="state=='saving'" [(ngModel)]='audioDevice.settings' name="settings" required></textarea>
+					</mat-form-field>
+				</div>
+			</fieldset>
+			<div class="app-mb-2">
 				<button (click)="onSubmit()" mat-stroked-button [disabled]="state=='saving'">
 					{{ mode=='new' ? ('device.button.createAnAudioLine' | translate) : ('device.button.editTheAudioLine' | translate) }}
 				</button>
-			</mat-card-content>
-		</mat-card>
+			</div>
+		</ng-container>
 	</div>
 </div>
