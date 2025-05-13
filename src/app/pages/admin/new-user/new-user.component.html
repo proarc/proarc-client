@@ -10,71 +10,67 @@
   </div>
 
   <div class="app-fxFlex app-content-wrapper app-oa-y app-new-user">
-    <mat-card appearance="outlined">
-      <mat-card-content>
-        <fieldset class="app-p-4 app-mb-4">
-          <legend>{{ 'desc.accountInformation' | translate }}</legend>
-          <div class="app-fxLayout app-row app-gap-4">
-            <mat-form-field appearance="outline" class="app-fxFlex">
-              <mat-label>{{ 'desc.username' | translate }}</mat-label>
-              <input (keyup.enter)="saveUser()" type="text" autocomplete="off" matInput [placeholder]="'desc.username' | translate"
-               [matTooltip]="'formField.users.tooltipUsername' | translate" [(ngModel)]="user.name" pattern="[a-z][a-z0-9_\-]{4,}"  required #name />
-              <mat-error *ngIf="!user.name">{{ 'formField.users.error.username' | translate }}</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="app-fxFlex">
-              <mat-label>{{ 'desc.password' | translate }}</mat-label>
-              <input (keyup.enter)="saveUser()" type="password" autocomplete="new-password" matInput [placeholder]="'desc.password' | translate" minlength="6" [matTooltip]="'formField.users.tooltipPassowrd' | translate" [(ngModel)]="user.password" required #password>
-              <mat-error *ngIf="!user.password">{{ 'formField.users.error.password' | translate }}</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="app-fxFlex">
-              <mat-label>{{ 'desc.forename' | translate }}</mat-label>
-              <input (keyup.enter)="saveUser()" autocomplete="off" matInput [placeholder]="'desc.forename' | translate" [(ngModel)]="user.forename">
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="app-fxFlex">
-              <mat-label>{{ 'desc.surname' | translate }}</mat-label>
-              <input (keyup.enter)="saveUser()" autocomplete="off" matInput title=""  [placeholder]="'desc.surname' | translate" [(ngModel)]="user.surname" required #surname>
-              <mat-error *ngIf="!user.surname">{{ 'formField.users.error.surname' | translate }}</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="app-fxFlex">
-              <mat-label>{{ 'desc.email' | translate }}</mat-label>
-              <input (keyup.enter)="saveUser()" type="text" autocomplete="off" matInput [placeholder]="'desc.email' | translate" [(ngModel)]="user.email" />
-            </mat-form-field>
-          </div>
-          <div class="app-fxLayout app-row app-gap-4">
-            <mat-form-field appearance="outline" class="app-fxFlex">
-              <mat-label>{{ 'desc.organization' | translate }}</mat-label>
-              <mat-select [placeholder]="'desc.organization' | translate" name="organization" [(ngModel)]="user.organization">
-                <mat-option *ngFor="let organization of organizations" [value]="organization">{{ 'organization.' + organization | translate }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="app-fxFlex">
-              <mat-label>{{ 'desc.role' | translate }}</mat-label>
-              <mat-select [(ngModel)]='user.role' [placeholder]="'desc.role' | translate">
-                <mat-option *ngFor="let role of roles" [value]="role">{{ 'formField.users.roles.' + role | translate }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="app-mb-4">
-            <strong>{{'desc.folder' | translate}}</strong>: <em class="app-desc">{{ user.home }}</em>
-          </div>
-          <div class="app-mb-2">
-            <span class="app-label">{{ 'desc.theUserIsAllowedToRunTheseFunctions' | translate }}:</span>
-          </div>
-          <div class="app-fxLayout app-row app-gap-4">
-            <mat-checkbox color="primary" [(ngModel)]="user.changeModelFunction">{{ 'desc.conversionOfModels' | translate }}</mat-checkbox>
-            <mat-checkbox color="primary" [(ngModel)]="user.updateModelFunction">{{ 'desc.updateModels' | translate }}</mat-checkbox>
-            <mat-checkbox color="primary" [(ngModel)]="user.lockObjectFunction">{{ 'desc.lockingTheObject' | translate }}</mat-checkbox>
-            <mat-checkbox color="primary" [(ngModel)]="user.unlockObjectFunction">{{ 'desc.unlockingTheObject' | translate }}</mat-checkbox>
-            <mat-checkbox color="primary" [(ngModel)]="user.importToProdFunction">{{ 'desc.importToProdFunction' | translate }}</mat-checkbox>
-            <mat-checkbox color="primary" [(ngModel)]="user.czidloFunction">{{ 'desc.czidloFunction' | translate }}</mat-checkbox>
-            <mat-checkbox color="primary" [(ngModel)]="user.importToCatalogFunction">{{ 'desc.importToCatalogFunction' | translate }}</mat-checkbox>
-            <mat-checkbox color="primary" [(ngModel)]="user.wfDeleteJobFunction">{{ 'desc.wfDeleteJobFunction' | translate }}</mat-checkbox>
-          </div>
-        </fieldset>
-        <div>
-          <button mat-stroked-button (click)="saveUser()">{{ 'button.save' | translate }}</button>
-        </div>
-      </mat-card-content>
-    </mat-card>
+    <fieldset class="app-p-4 app-mb-4">
+      <legend>{{ 'desc.accountInformation' | translate }}</legend>
+      <div class="app-fxLayout app-row app-gap-4">
+        <mat-form-field appearance="outline" class="app-fxFlex">
+          <mat-label>{{ 'desc.username' | translate }}</mat-label>
+          <input (keyup.enter)="saveUser()" type="text" autocomplete="off" matInput [placeholder]="'desc.username' | translate"
+            [matTooltip]="'formField.users.tooltipUsername' | translate" [(ngModel)]="user.name" pattern="[a-z][a-z0-9_\-]{4,}"  required #name />
+          <mat-error *ngIf="!user.name">{{ 'formField.users.error.username' | translate }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="app-fxFlex">
+          <mat-label>{{ 'desc.password' | translate }}</mat-label>
+          <input (keyup.enter)="saveUser()" type="password" autocomplete="new-password" matInput [placeholder]="'desc.password' | translate" minlength="6" [matTooltip]="'formField.users.tooltipPassowrd' | translate" [(ngModel)]="user.password" required #password>
+          <mat-error *ngIf="!user.password">{{ 'formField.users.error.password' | translate }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="app-fxFlex">
+          <mat-label>{{ 'desc.forename' | translate }}</mat-label>
+          <input (keyup.enter)="saveUser()" autocomplete="off" matInput [placeholder]="'desc.forename' | translate" [(ngModel)]="user.forename">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="app-fxFlex">
+          <mat-label>{{ 'desc.surname' | translate }}</mat-label>
+          <input (keyup.enter)="saveUser()" autocomplete="off" matInput title=""  [placeholder]="'desc.surname' | translate" [(ngModel)]="user.surname" required #surname>
+          <mat-error *ngIf="!user.surname">{{ 'formField.users.error.surname' | translate }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="app-fxFlex">
+          <mat-label>{{ 'desc.email' | translate }}</mat-label>
+          <input (keyup.enter)="saveUser()" type="text" autocomplete="off" matInput [placeholder]="'desc.email' | translate" [(ngModel)]="user.email" />
+        </mat-form-field>
+      </div>
+      <div class="app-fxLayout app-row app-gap-4">
+        <mat-form-field appearance="outline" class="app-fxFlex">
+          <mat-label>{{ 'desc.organization' | translate }}</mat-label>
+          <mat-select [placeholder]="'desc.organization' | translate" name="organization" [(ngModel)]="user.organization">
+            <mat-option *ngFor="let organization of organizations" [value]="organization">{{ 'organization.' + organization | translate }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="app-fxFlex">
+          <mat-label>{{ 'desc.role' | translate }}</mat-label>
+          <mat-select [(ngModel)]='user.role' [placeholder]="'desc.role' | translate">
+            <mat-option *ngFor="let role of roles" [value]="role">{{ 'formField.users.roles.' + role | translate }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="app-mb-4">
+        <strong>{{'desc.folder' | translate}}</strong>: <em class="app-desc">{{ user.home }}</em>
+      </div>
+      <div class="app-mb-2">
+        <span class="app-label">{{ 'desc.theUserIsAllowedToRunTheseFunctions' | translate }}:</span>
+      </div>
+      <div class="app-fxLayout app-row app-gap-4">
+        <mat-checkbox color="primary" [(ngModel)]="user.changeModelFunction">{{ 'desc.conversionOfModels' | translate }}</mat-checkbox>
+        <mat-checkbox color="primary" [(ngModel)]="user.updateModelFunction">{{ 'desc.updateModels' | translate }}</mat-checkbox>
+        <mat-checkbox color="primary" [(ngModel)]="user.lockObjectFunction">{{ 'desc.lockingTheObject' | translate }}</mat-checkbox>
+        <mat-checkbox color="primary" [(ngModel)]="user.unlockObjectFunction">{{ 'desc.unlockingTheObject' | translate }}</mat-checkbox>
+        <mat-checkbox color="primary" [(ngModel)]="user.importToProdFunction">{{ 'desc.importToProdFunction' | translate }}</mat-checkbox>
+        <mat-checkbox color="primary" [(ngModel)]="user.czidloFunction">{{ 'desc.czidloFunction' | translate }}</mat-checkbox>
+        <mat-checkbox color="primary" [(ngModel)]="user.importToCatalogFunction">{{ 'desc.importToCatalogFunction' | translate }}</mat-checkbox>
+        <mat-checkbox color="primary" [(ngModel)]="user.wfDeleteJobFunction">{{ 'desc.wfDeleteJobFunction' | translate }}</mat-checkbox>
+      </div>
+    </fieldset>
+    <div class="app-mb-2">
+      <button mat-stroked-button (click)="saveUser()">{{ 'button.save' | translate }}</button>
+    </div>
   </div>
 </div>
