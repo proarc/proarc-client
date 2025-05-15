@@ -1,4 +1,5 @@
-<mat-form-field *ngIf="item.available[field]" [class]="item.clazz[field]" >
+<mat-form-field *ngIf="item.available[field]" [class]="item.clazz[field]" appearance="outline">
+  <mat-label>{{ 'mods.' + item.labelKey[field] | translate }}</mat-label>
   <app-usage [item]="item" [field]="field"></app-usage>
   <input [required]="item.isMandatory[field]" [name]="item.constructor.name"
   [formControl]="item.controls[field]" autocomplete="off" matInput

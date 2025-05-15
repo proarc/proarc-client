@@ -352,7 +352,11 @@
     @include mat.form-field-density(-6);
   }
 
+  // mat form field
+  @include mat.form-field-density(-6);
 
+
+  // checkbox
   @include app-mixins.setCheckBoxDensity(2);
   @include mat.checkbox-overrides((
     selected-icon-color: var(--app-color-primary),
@@ -362,4 +366,23 @@
     selected-focus-state-layer-color: var(--app-color-primary),
     state-layer-size: 26px
   ));
+
+
+  // slide toggle
+  @include mat.slide-toggle-overrides((
+    // handle-height: 16px,
+    // handle-width: 16px,
+    track-height: 10px,
+    track-width: 30px,
+    with-icon-handle-size: 2px,
+    unselected-icon-size: 12px,
+    selected-icon-size: 12px
+  ));
+
+  --mdc-switch-handle-width: var(--app-slide-toggle-size);
+  
+  .mat-mdc-slide-toggle .mdc-switch__handle:has(.mdc-switch__icons) {
+    --mat-switch-with-icon-handle-size: var(--app-slide-toggle-size);
+    --mat-switch-pressed-handle-size: var(--app-slide-toggle-size);
+  }
 }

@@ -12,8 +12,6 @@
 
   <ng-template let-item="item" #templateContent>
     <app-field-dropdown field="authority" [item]="item" [(value)]='item.attrs["authority"]'></app-field-dropdown>
-<!--    <app-field-codebook field="lang" [item]="item" [options]="codebook.languages" [(value)]="item.attrs['lang']"></app-field-codebook>-->
-<!--    <app-field-text field="topic" [item]="item" [(value)]='item.topic["_"]'></app-field-text>-->
     <app-editor-field *ngIf="item.available['titleInfo']" [field]="item.titleInfos" [nested]='true'>
       <ng-template let-titleInfo="item" #templateContent>
         <app-field-text field="tile" [item]="titleInfo" [(value)]="titleInfo.title['_']"></app-field-text>

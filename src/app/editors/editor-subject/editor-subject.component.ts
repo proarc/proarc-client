@@ -18,9 +18,10 @@ import { Configuration } from '../../shared/configuration';
 import { FieldCodebookComponent } from "../../forms/field-codebook/field-codebook.component";
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule,
+  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, MatButtonModule,
     MatIconModule, MatTooltipModule,
     EditorFieldComponent, FieldDropdownComponent, FieldTextComponent, FieldCodebookComponent],
   selector: 'app-editor-subject',

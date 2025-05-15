@@ -2,8 +2,8 @@
   <ng-container *ngFor="let item of field.items; last as last; first as first; let idx = index">
     <ng-container *ngIf="showByGenre(idx, item)">
       <div class="app-form" [class.app-required]="item.isRequired" [class.app-warning]="item.validationWarning">
-        <div class="app-form-header" fxLayout="row">
-          <div fxFlex class="app-text-cutter">
+        <div class="app-fxLayout app-row app-form-header">
+          <div class="app-fxFlex app-fxLayout app-row app-center-v app-text-cutter">
             <ng-container *ngIf="collapsable">
               <button class="app-collapse" *ngIf="item.collapsed" matTooltip="{{ 'common.expand' | translate }}" (click)="switchCollapsed(item)" mat-icon-button>
                 <mat-icon>expand_more</mat-icon>
@@ -13,11 +13,11 @@
               </button>
             </ng-container>
             <span [matTooltip]="field.labelKey" class="app-form-title" [class.app-no-collapse]="!collapsable">
-                {{ 'mods.' + field.labelKey | translate }}
+              {{ 'mods.' + field.labelKey | translate }}
             </span>
             <span class="app-marker">{{ field.usage }}</span>
           </div>
-          <div fxLayout="row">
+          <div class="app-fxLayout app-row">
             <ng-template [ngTemplateOutlet]="templateMenu" [ngTemplateOutletContext]="{ item: item  }"></ng-template>
             <button [disabled]="field.cantAdd()" matTooltip="{{ 'editor.add_field' | translate }}" (click)="addAfterItem(item)" mat-icon-button>
               <mat-icon>add</mat-icon>
