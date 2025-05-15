@@ -378,11 +378,14 @@
     unselected-icon-size: 12px,
     selected-icon-size: 12px
   ));
-
-  --mdc-switch-handle-width: var(--app-slide-toggle-size);
   
   .mat-mdc-slide-toggle .mdc-switch__handle:has(.mdc-switch__icons) {
     --mat-switch-with-icon-handle-size: var(--app-slide-toggle-size);
     --mat-switch-pressed-handle-size: var(--app-slide-toggle-size);
   }
+
+  .mdc-switch__handle-track {
+    --mdc-switch-handle-width: var(--app-slide-toggle-size);
+  }
+  
 }
