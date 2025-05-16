@@ -32,8 +32,7 @@
                 <ng-template ngFor let-row [ngForOf]="column.rows" let-irow="index">
                   <as-split-area *ngIf="row.visible" [size]="row.size">
                     <div class="app-fxLayout app-column app-fill">
-                      <mat-form-field appearance="fill">
-                        <mat-label>{{ 'desc.panelType' | translate }}</mat-label>
+                      <mat-form-field>
                         <mat-select [(ngModel)]="row.type" (selectionChange)="refreshColumnVisibility()">
                           <mat-option *ngFor="let type of types" [value]="type">
                             {{ 'dynamic.' + type | translate }}
