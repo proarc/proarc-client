@@ -14,7 +14,9 @@
             <input type="password" matInput [placeholder]="'desc.password' | translate" ngModel name="password" required>
           </mat-form-field>
           <mat-card appearance="outlined" class="app-alert app-warn app-mb-4" *ngIf="error">
-            <mat-icon>warning</mat-icon>{{ 'login.error.' + error | translate }}
+            <mat-card-content>
+              <mat-icon>warning</mat-icon>{{ 'login.error.' + error | translate }}
+            </mat-card-content>
           </mat-card>
         </mat-card-content>
         <mat-card-actions>
