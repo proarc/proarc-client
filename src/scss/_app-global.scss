@@ -547,6 +547,21 @@ fieldset {
 }
 
 
+// scrollbar
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+ 
+::-webkit-scrollbar-track {
+  background: var(--app-scrollbar-track-bg);
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: var(--app-scrollbar-thumb-bg); 
+}
+
+
 // drag and drop
 .cdk-drag {
   background-color: var(--app-color-lightnes);

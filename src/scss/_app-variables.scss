@@ -85,6 +85,10 @@
   // silde toggle button
   --app-slide-toggle-size: 16px;
 
+  // scrollbar
+  --app-scrollbar-track-bg: var(--app-color-lightnes);
+  --app-scrollbar-thumb-bg: var(--app-color-primary);
+
   // mat override
   --mat-toolbar-standard-height: 56px;
   --mat-text-button-horizontal-padding: 16px;
