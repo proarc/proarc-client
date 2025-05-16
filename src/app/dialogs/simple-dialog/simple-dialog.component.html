@@ -17,5 +17,5 @@
 </div>
 <div mat-dialog-actions cdkFocusRegionstart>
   <button mat-flat-button [color]="data.btn1.color" [mat-dialog-close]="data.btn1.value" [disabled]="!btnEnabled()" cdkFocusInitial>{{ data.btn1.label }}</button>
-  <button *ngIf="data.btn2" mat-flat-button [color]="data.btn2.color" [mat-dialog-close]="data.btn2.value" >{{ data.btn2.label }}</button>
+  <button mat-stroked-button *ngIf="data.btn2" [color]="data.btn2.color" [mat-dialog-close]="data.btn2.value">{{ data.btn2.label }}</button>
 </div>
