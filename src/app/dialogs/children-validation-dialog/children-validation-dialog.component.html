@@ -2,7 +2,7 @@
 <h1 mat-dialog-title>{{ 'dialog.childrenValidation.title' | translate }}</h1>
 <div mat-dialog-content>
 	<ng-container *ngIf="state == 'running'">{{ index + 1 }} / {{ count }}</ng-container>
-	<mat-card *ngIf="state == 'done'" class="app-alert" [ngClass]="numberOfInvalid == 0 ? 'app-success' : 'app-warn'">
+	<mat-card *ngIf="state == 'done'" class="app-alert" [ngClass]="numberOfInvalid == 0 ? 'app-success' : 'app-warn'" appearance="outlined">
 		<mat-icon>{{ numberOfInvalid == 0 ? 'info' : 'warning' }}</mat-icon>
 		{{ numberOfInvalid == 0 ? ('dialog.childrenValidation.alert.success' | translate : {value: count}) : ('dialog.childrenValidation.alert.error' | translate : {value1: numberOfInvalid, value2: count}) }}
 	</mat-card>

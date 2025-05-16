@@ -387,5 +387,12 @@
   .mdc-switch__handle-track {
     --mdc-switch-handle-width: var(--app-slide-toggle-size);
   }
+
+
+  // dialog
+  @include mat.dialog-overrides((
+    headline-padding: 0 24px,
+    actions-padding: 0 24px 24px 24px
+  ));
   
 }
