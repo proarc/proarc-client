@@ -1,0 +1,18 @@
+// --- MIXINS ---
+@use "sass:map";
+@use 'app-variables' as *;
+
+// set state color
+@mixin setStateColor($type: null) {
+  @each $state, $color in $states {
+    @if ($type == 'icon') {
+      &.app-#{$state} {
+        color: $color !important;
+      }
+    } @else if ($type == 'badge') {
+      &.app-#{$state} {
+        background-color: $color;
+      }
+    } 
+  }
+}

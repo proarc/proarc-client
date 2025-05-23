@@ -1,12 +1,21 @@
 // --- MATERIAL OVERRIDE ---
 
 @use "app-mixins";
+@use "app-mixins-alert";
+@use "app-mixins-icon-size";
 @use '@angular/material' as mat;
+
+
+// icon
+.mat-icon {
+  @include app-mixins-icon-size.setIconSize();
+}
+
 
 // card
 .mat-mdc-card {
   &.app-alert {
-    @include app-mixins.setAlertCard();
+    @include app-mixins-alert.setAlertCard();
 
     .mat-mdc-card-content {
       display: flex;
@@ -326,12 +335,8 @@
   }
 }
 
-.mat-mdc-checkbox {
-  //--mdc-checkbox-state-layer-size: calc(30px - 2px * 2) !important;
-  //height: 32px;
-}
 
-::ng-deep .mat-mdc-checkbox {
+/* ::ng-deep .mat-mdc-checkbox {
   min-height: 24px; // or your desired row height
   height: 24px;
 }
@@ -344,7 +349,8 @@
   line-height: 24px;
   padding-top: 0;
   padding-bottom: 0;
-}
+} */
+
 
 :root {
   /* .app-form-field-dens-6 {

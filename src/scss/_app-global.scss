@@ -1,8 +1,10 @@
 // --- GLOBAL ---
 
 @use "app-mixins";
+@use "app-mixins-gap";
+@use "app-mixins-state";
 
-@include app-mixins.setGap();
+@include app-mixins-gap.setGap();
 
 a {
   @extend .app-cursor-pointer;
@@ -208,7 +210,7 @@ fieldset {
   text-transform: lowercase;
   background-color: var(--app-color-gray-7);
 
-  @include app-mixins.setStateColor('badge');
+  @include app-mixins-state.setStateColor('badge');
 }
 
 
