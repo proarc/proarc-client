@@ -39,6 +39,8 @@ import { ChildrenValidationDialogComponent } from '../../dialogs/children-valida
 import { ParentDialogComponent } from '../../dialogs/parent-dialog/parent-dialog.component';
 import { MarkSequenceDialogComponent } from '../../dialogs/mark-sequence-dialog/mark-sequence-dialog.component';
 import { UserTableComponent } from "../../components/user-table/user-table.component";
+import { NewMetadataDialogComponent } from '../../dialogs/new-metadata-dialog/new-metadata-dialog.component';
+import { NewObjectData, NewObjectDialogComponent } from '../../dialogs/new-object-dialog/new-object-dialog.component';
 
 
 @Component({
@@ -824,73 +826,73 @@ export class EditorStructureComponent implements OnInit {
   }
 
   onCreateNewObject() {
-    // if (!this.canAddChildren()) {
-    //   return;
-    // }
-    // const data: NewObjectData = {
-    //   models: this.layout.allowedChildrenModels(),
-    //   model: this.layout.allowedChildrenModels()[0],
-    //   customPid: false,
-    //   parentPid: this.layout.selectedParentItem.pid,
-    //   fromNavbar: false
-    // }
-    // const dialogRef1 = this.dialog.open(NewObjectDialogComponent, {
-    //   data: data,
-    //   width: '680px',
-    //   panelClass: 'app-dialog-new-bject'
-    // });
-    // dialogRef1.afterClosed().subscribe((result: any) => {
-    //   if (result && result['pid']) {
+    if (!this.canAddChildren()) {
+      return;
+    }
+    const data: NewObjectData = {
+      models: this.layout.allowedChildrenModels(),
+      model: this.layout.allowedChildrenModels()[0],
+      customPid: false,
+      parentPid: this.layout.selectedParentItem.pid,
+      fromNavbar: false
+    }
+    const dialogRef1 = this.dialog.open(NewObjectDialogComponent, {
+      data: data,
+      width: '680px',
+      panelClass: 'app-dialog-new-bject'
+    });
+    dialogRef1.afterClosed().subscribe((result: any) => {
+      if (result && result['pid']) {
 
-    //     if (result.isMultiple) {
-    //       this.layout.setShouldRefresh(true);
-    //     } else {
-    //       const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
-    //         disableClose: true,
-    //         height: '90%',
-    //         width: '680px',
-    //         data: result.data
-    //       });
-    //       dialogRef.afterClosed().subscribe(res => {
-    //         // console.log(res);
-    //         if (res?.item) {
-    //           const item = DocumentItem.fromJson(res.item);
+        if (result.isMultiple) {
+          this.layout.setShouldRefresh(true);
+        } else {
+          const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
+            disableClose: true,
+            height: '90%',
+            width: '680px',
+            data: result.data
+          });
+          dialogRef.afterClosed().subscribe(res => {
+            // console.log(res);
+            if (res?.item) {
+              const item = DocumentItem.fromJson(res.item);
 
 
-    //           if (res.gotoEdit) {
-    //             this.router.navigate(['/repository', item.pid]);
-    //           } else {
-    //             if(result.objectPosition === 'after') {
-    //               this.layout.items().splice(this.lastClickIdx+1, 0, item);
-    //               this.hasChanges = true;
-    //             } else {
-    //               this.layout.items().push(item);
-    //             }
-    //             item.selected = true;
-    //             this.rowClick(item, this.layout.items().length - 1, null);
-    //             if (this.table) {
-    //               this.table.renderRows();
-    //             }
-    //             if(result.objectPosition === 'after') {
-    //               this.onSave();
-    //               setTimeout(() => {
-    //                 this.scrollToSelected('center');
-    //               }, 1000);
-    //             } else {
-    //               setTimeout(() => {
-    //                 this.scrollToSelected('end');
-    //               }, 1000);
-    //             }
-    //             this.layout.refreshSelectedItem(true, 'pages');
-    //           }
+              if (res.gotoEdit) {
+                this.router.navigate(['/repository', item.pid]);
+              } else {
+                if(result.objectPosition === 'after') {
+                  this.layout.items().splice(this.lastClickIdx+1, 0, item);
+                  this.hasChanges = true;
+                } else {
+                  this.layout.items().push(item);
+                }
+                item.selected = true;
+                this.rowClick(item, null, this.layout.items().length - 1);
+                if (this.table) {
+                  this.table.renderRows();
+                }
+                if(result.objectPosition === 'after') {
+                  this.onSave();
+                  setTimeout(() => {
+                    this.scrollToSelected('center');
+                  }, 1000);
+                } else {
+                  setTimeout(() => {
+                    this.scrollToSelected('end');
+                  }, 1000);
+                }
+                this.layout.refreshSelectedItem(true, 'pages');
+              }
 
-    //         }
-    //         // this.layout.setShouldRefresh(true);
-    //       });
-    //     }
+            }
+            // this.layout.setShouldRefresh(true);
+          });
+        }
 
-    //   }
-    // });
+      }
+    });
   }
 
   showConvertDialog() {
