@@ -19,9 +19,10 @@ import { CatalogueEntry } from '../../model/catalogueEntry.model';
 import { ApiService } from '../../services/api.service';
 import { UIService } from '../../services/ui.service';
 import { Configuration } from '../../shared/configuration';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
-  imports: [CommonModule, TranslateModule, MatDialogModule,
+  imports: [CommonModule, TranslateModule, MatDialogModule, MatInputModule,
     MatTableModule, MatProgressBarModule, MatSelectModule, MatRadioModule,
     MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule,
     FormsModule, MatFormFieldModule, MatCheckboxModule
