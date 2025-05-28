@@ -55,9 +55,12 @@
       </mat-form-field>
     </div>
 
-    <div class="app-fxLayout app-row app-gap-4 app-baseline">
+    <div class="app-mb-4">
       <mat-checkbox color="primary" [(ngModel)]="withPartNumber" (change)="changeWithPartNumber()" >{{ 'new_object.withPartNumber' | translate }}</mat-checkbox>
-      <mat-form-field appearance="outline" class="app-fxFlex">
+    </div>
+
+    <div>
+       <mat-form-field appearance="outline" class="app-w-100">
         <mat-label>{{ 'desc.numberFrom' | translate }}</mat-label>
         <input type="number" autocomplete="off" matInput [placeholder]="'desc.numberFrom' | translate" required [formControl]="seriesPartNumberFrom">
       </mat-form-field>
@@ -102,9 +105,12 @@
       </mat-form-field>
     </div>
 
-    <div class="app-fxLayout app-row app-gap-4 app-baseline">
+    <div class="app-mb-4">
       <mat-checkbox color="primary" [(ngModel)]="withSignatura" (change)="changeWithPartNumber()" >{{ 'new_object.withSignatura' | translate }}</mat-checkbox>
-      <mat-form-field appearance="outline" class="app-fxFlex">
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline" class="app-w-100">
         <mat-label>{{ 'catalog.field.signature' | translate }}</mat-label>
         <input type="text" autocomplete="off" matInput [placeholder]="'catalog.field.signature' | translate" [disabled]="!withSignatura" [(ngModel)]="seriesSignatura" >
       </mat-form-field>
