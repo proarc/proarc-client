@@ -1,0 +1,10 @@
+::ng-deep {
+  .mat-mdc-dialog-content {
+    app-editor-metadata {
+
+    & > #new {
+        border: 1px solid var(--app-default-border-color);
+      }
+    }
+  }
+}

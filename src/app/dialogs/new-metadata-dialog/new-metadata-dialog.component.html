@@ -1,6 +1,6 @@
-<div fxLayout="column" fxFlexFill [class.app-form-highlighting]="formHighlighting">
+<div class="app-fxLayout app-column app-fill"  [class.app-form-highlighting]="formHighlighting">
   <h1 mat-dialog-title>{{ title | translate }}: {{'model.' + data.model | translate }}</h1>
-  <div fxFlex mat-dialog-content class="app-clean-max-height">
+  <div mat-dialog-content class="app-fxFlex app-clean-max-height">
     <ng-container *ngIf="inited">
       <app-editor-page *ngIf="isPage()" [model]="data.model" [notSaved]="true" [pid]="data.pid" [panel]="panel"></app-editor-page>
       <app-editor-audioPage *ngIf="isAudioPage()" [model]="data.model" [notSaved]="true" [pid]="data.pid" [panel]="panel"></app-editor-audioPage>

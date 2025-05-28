@@ -263,49 +263,10 @@
 
 // radio button
 .mat-mdc-radio-group {
-  .mat-mdc-radio-button {
-    &.mat-accent {
-      --mdc-radio-selected-icon-color: var(--app-color-primary);
-      --mdc-radio-selected-hover-icon-color:  var(--app-color-primary);
-      --mdc-radio-selected-focus-icon-color:  var(--app-color-primary);
-      --mat-radio-checked-ripple-color:  var(--app-color-primary);
-    }
-  }
-
   .app-toolbar & {
     display: flex;
     flex-direction: row;
     align-items: center;
-    
-    .mat-mdc-radio-button {
-      --mdc-radio-state-layer-size: calc(var(--app-toolbar-radio-button-size) * 2);
-      margin-right: 8px;
-
-      .mdc-radio__background::before {
-        top: calc(-1 * (var(--mdc-radio-state-layer-size, 40px) - var(--app-toolbar-radio-button-size)) / 2) !important;
-        left: calc(-1 * (var(--mdc-radio-state-layer-size, 40px) - var(--app-toolbar-radio-button-size)) / 2) !important;
-      }
-    
-      .mdc-radio {
-        display: flex !important;
-        align-items: center;
-        justify-content: center;
-    
-        .mat-mdc-radio-touch-target {
-          height: var(--app-toolbar-height);
-          width: var(--app-toolbar-height);
-        }
-    
-        .mdc-radio__background {
-          height: var(--app-toolbar-radio-button-size);
-          width: var(--app-toolbar-radio-button-size);
-    
-          .mdc-radio__inner-circle {
-            border-width: calc(var(--app-toolbar-radio-button-size) / 2);
-          }
-        }
-      }
-    }
   }
 }
 
@@ -410,5 +371,46 @@
     headline-padding: 0 24px,
     actions-padding: 0 24px 24px 24px
   ));
+
+
+  
+  // radio button
+  .mat-mdc-radio-group {
+    // .app-toolbar & {
+    //   display: flex;
+    //   flex-direction: row;
+    //   align-items: center;
+    // }
+
+    .mat-mdc-radio-button {
+      --mdc-radio-state-layer-size: calc(var(--app-toolbar-radio-button-size) * 2);
+      margin-right: 8px;
+
+      .mdc-radio__background::before {
+        top: calc(-1 * (var(--mdc-radio-state-layer-size, 40px) - var(--app-toolbar-radio-button-size)) / 2) !important;
+        left: calc(-1 * (var(--mdc-radio-state-layer-size, 40px) - var(--app-toolbar-radio-button-size)) / 2) !important;
+      }
+    
+      .mdc-radio {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    
+        .mat-mdc-radio-touch-target {
+          height: var(--app-toolbar-height);
+          width: var(--app-toolbar-height);
+        }
+    
+        .mdc-radio__background {
+          height: var(--app-toolbar-radio-button-size);
+          width: var(--app-toolbar-radio-button-size);
+    
+          .mdc-radio__inner-circle {
+            border-width: calc(var(--app-toolbar-radio-button-size) / 2);
+          }
+        }
+      }
+    }
+  }
   
 }
