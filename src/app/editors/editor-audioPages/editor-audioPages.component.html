@@ -23,7 +23,8 @@
             </div>
           </div>
           <div class="app-form-content">
-            <mat-form-field class="app-field-col" [class.mat-form-field-disabled]="!holder.editIndex">
+            <mat-form-field appearance="outline" class="app-field-col" [class.mat-form-field-disabled]="!holder.editIndex">
+              <mat-label>{{ 'editor.audioPages.index_from' | translate }}</mat-label>
               <input (keyup.enter)="onSave()" [disabled]="!holder.editIndex" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.audioPages.index_from' | translate" [formControl]="pageIndexControl">
             </mat-form-field>
           </div>
@@ -31,7 +32,8 @@
         <div class="app-gap-fixer"></div>
         <div class="app-form">
           <div class="app-form-content">
-            <mat-form-field class="app-field-col">
+            <mat-form-field appearance="outline" class="app-field-col">
+              <mat-label>{{ 'editor.audioPages.apply' | translate }}</mat-label>
               <mat-select [placeholder]="'editor.audioPages.apply' | translate" name="apply" [(value)]="holder.applyTo"  [disabled]="!canSave()" (keyup.enter)="enterSelect(applySelect)" #applySelect  [formControl]="applyControl">
                 <mat-option *ngFor="let num of holder.applyOptions;" [value]="num">{{'editor.audioPages.apply_to' + (num > 1 ? '2' : '0') | translate: { num: num } }}</mat-option>
               </mat-select>
