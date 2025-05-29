@@ -21,11 +21,13 @@
         <div class="app-gap-fixer"></div>
         <div class="app-form">
           <div class="app-form-content">
-            <mat-form-field class="app-field-col" *ngIf="config.showPageIndex" [class.app-invalid]="!audioPage.index">
+            <mat-form-field appearance="outline" class="app-field-col" *ngIf="config.showPageIndex" [class.app-invalid]="!audioPage.index">
+              <mat-label>{{ 'editor.song.index' | translate }}</mat-label>
               <span class="app-usage" [class.app-help-off]="true">M</span>
               <input (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageIndex')" autocomplete="off" matInput [placeholder]="'editor.song.index' | translate" [(ngModel)]="audioPage.index" #pageIndex>
             </mat-form-field>
-            <mat-form-field class="app-field-col">
+            <mat-form-field appearance="outline"  class="app-field-col">
+              <mat-label>{{ 'editor.song.note' | translate }}</mat-label>
               <span class="app-usage" [class.app-help-off]="true">O</span>
               <textarea cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="15" autocomplete="off" matInput [(ngModel)]='audioPage.note' [placeholder]="'editor.song.note' | translate"></textarea>
             </mat-form-field>
@@ -53,12 +55,14 @@
                   </div>
                 </div>
                 <div class="app-form-content">
-                  <mat-form-field class="app-field-col">
+                  <mat-form-field appearance="outline" class="app-field-col">
+                    <mat-label>{{ 'editor.identifier.type' | translate }}</mat-label>
                     <mat-select [(ngModel)]='identifier.type' [placeholder]="'editor.identifier.type' | translate">
                       <mat-option *ngFor="let identifier of config.identifiers" [value]="identifier">{{ identifier }}</mat-option>
                     </mat-select>
                   </mat-form-field>
-                  <mat-form-field class="app-field-col">
+                  <mat-form-field appearance="outline"  class="app-field-col">
+                    <mat-label>{{ 'editor.identifier.title' | translate }}</mat-label>
                     <input autocomplete="off" matInput [(ngModel)]='identifier.value' [placeholder]="'editor.identifier.title' | translate">
                   </mat-form-field>
                 </div>
