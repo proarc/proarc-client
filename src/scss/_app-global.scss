@@ -396,6 +396,7 @@ fieldset {
 
         .app-item-label {
           @extend .app-text-center, .app-p-1;
+          font-size: 14px;
 
           .app-text {
             line-height: normal;

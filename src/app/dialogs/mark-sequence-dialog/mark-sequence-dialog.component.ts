@@ -16,7 +16,6 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { AngularSplitModule } from 'angular-split';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { ViewerComponent } from '../../components/viewer/viewer.component';
 import { DocumentItem } from '../../model/documentItem.model';
 import { ResizecolDirective } from '../../resizecol.directive';
@@ -28,7 +27,7 @@ import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, FlexLayoutModule,
+  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
     MatCheckboxModule,

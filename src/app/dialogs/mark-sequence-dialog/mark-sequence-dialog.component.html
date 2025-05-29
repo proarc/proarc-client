@@ -1,15 +1,15 @@
-<div fxLayout="column" fxFlexFill>
-  <div fxLayout="row" fxLayoutGap="16px">
-    <h1 mat-dialog-title>{{ 'desc.markRow' | translate }}</h1>
+<div class="app-fxLayout app-column app-fill">
+  <div mat-dialog-title class="app-fxLayout app-row app-gap-4 app-center-v app-pt-4 app-pb-4">
+    <h2 class="app-mb-0">{{ 'desc.markRow' | translate }}</h2>
     <button mat-flat-button color="primary" (click)="markSequence()">{{ 'button.markRow' | translate }}</button>
   </div>
   
-  <div mat-dialog-content fxFlex class="app-maxh-100">
-    <as-split direction="horizontal" [disabled]="false">
+  <div mat-dialog-content class="app-maxh-100">
+    <as-split direction="horizontal" [disabled]="false" class="app-border-wrapper">
       <as-split-area [size]="40" (resized)="onResized($event, 'orig')" >
-        <div fxLayout="column" fxFlexFill>
-          <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar">
-            <div fxFlex>
+        <div class="app-fxLayout app-column app-fill">
+          <div class="app-fxLayout app-row app-gap-4 app-center-v app-toolbar app-pl-2">
+            <div class="app-fxFlex">
               <div class="app-toolbar-label">
                 <span class="app-text">{{ 'desc.selectTheTarget' | translate }}</span>
               </div>
@@ -33,20 +33,23 @@
             </div>
           </div>
 
-          <div fxFlex class="app-oa-y">
+          <div class="app-oa-y app-fxFlex">
             <div class="app-editor-content">
-              <div class="app-view-icon" *ngIf="data.viewModeOrig === 'icons'" #childrenIconList fxLayout="row wrap">
-                <div *ngFor="let item of dest; let i = index" class="app-item-wrapper" (click)="select(dest, item, i, $event, 'dest')" [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [fxFlex]="data.iconWidth['dest'] + '%'">
+              <div class="app-fxLayout app-row app-wrap app-view-icon" *ngIf="data.viewModeOrig === 'icons'" #childrenIconList>
+                <div *ngFor="let item of dest; let i = index" class="app-item-wrapper" (click)="select(dest, item, i, $event, 'dest')" [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
                   <div class="app-item">
                     <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['dest'] + 'px'"></div>
-                    <div class="app-item-label">{{ item.label + (data.shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}</div>
+                    <div class="app-item-label">
+                      <div class="app-text app-h-100">
+                        {{ item.label + (data.shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div class="app-view-grid" *ngIf="data.viewModeOrig == 'grid'" #childrenGridList fxLayout="row wrap">
-                <div *ngFor="let item of dest; let i = index" (click)="select(dest, item, i, $event, 'dest')" class="app-item-wrapper" 
-                [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [fxFlex]="data.iconWidth['orig'] + '%'">
+              <div class="app-fxLayout app-row app-wrap app-view-grid" *ngIf="data.viewModeOrig == 'grid'" #childrenGridList>
+                <div *ngFor="let item of dest; let i = index" (click)="select(dest, item, i, $event, 'dest')" class="app-item-wrapper" [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [style]="'flex: 1 1 ' + data.iconWidth['orig'] + '%; max-width: ' + data.iconWidth['orig'] + '%; box-sizing: border-box;'">
                   <div class="app-item">
                     <div class="app-item-label">
                       {{ data.shortLabels ? item.shortLabel : item.label }}<br />
@@ -105,9 +108,9 @@
       </as-split-area>
 
       <as-split-area [size]="40" (resized)="onResized($event, 'dest')">
-        <div fxLayout="column" fxFlexFill>
-          <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar">
-            <div fxFlex>
+        <div class="app-fxLayout app-column app-fill">
+          <div class="app-fxLayout app-row app-center-v app-toolbar">
+            <div class="app-fxFlex">
               <div class="app-toolbar-label">
                 <span class="app-text">{{ 'desc.selectTheTarget' | translate }}</span>
               </div>
@@ -131,21 +134,25 @@
             </div>
           </div>
 
-          <div fxFlex class="app-oa-y">
+          <div class="app-fxFlex app-oa-y">
             <div class="app-editor-content">
-              <div class="app-view-icon" *ngIf="data.viewModeDest == 'icons'" #childrenIconList fxLayout="row wrap">
+              <div class="app-fxLayout app-row app-wrap app-view-icon" *ngIf="data.viewModeDest == 'icons'" #childrenIconList>
                 <div *ngFor="let item of dest; let i = index" class="app-item-wrapper" (click)="select(dest, item, i, $event, 'dest')" 
-                [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [fxFlex]="data.iconWidth['dest'] + '%'">
+                [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
                   <div class="app-item">
                     <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['dest'] + 'px'"></div>
-                    <div class="app-item-label">{{ item.label + (data.shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}</div>
+                    <div class="app-item-label">
+                      <div class="app-text app-h-100">
+                        {{ item.label + (data.shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div class="app-view-grid" *ngIf="data.viewModeDest == 'grid'" #childrenGridList fxLayout="row wrap">
+              <div class="app-fxLayout app-row app-wrap app-view-grid" *ngIf="data.viewModeDest == 'grid'" #childrenGridList>
                 <div *ngFor="let item of dest; let i = index" (click)="select(dest, item, i, $event, 'dest')" class="app-item-wrapper" 
-                [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [fxFlex]="data.iconWidth['dest'] + '%'">
+                [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
                   <div class="app-item">
                     <div class="app-item-label">
                       {{ data.shortLabels ? item.shortLabel : item.label }}<br />
@@ -234,19 +241,20 @@
     </as-split>
   </div>
 
-  <div class="app-pt-4">
-    <span class="app-label app-mr-4">{{ 'desc.edit' | translate }}:</span>
-    <mat-checkbox color="primary" [(ngModel)]="pageType" name="pageType" class="app-mr-4">{{ 'desc.pageType' | translate }}</mat-checkbox>
-    <mat-checkbox color="primary" [(ngModel)]="pageNumber" name="pageNumber" class="app-mr-4">{{ 'desc.pageNumber' | translate }}</mat-checkbox>
-    <mat-checkbox color="primary" [(ngModel)]="pageIndex" name="pageIndex" class="app-mr-4">{{ 'desc.pageIndex' | translate }}</mat-checkbox>
-    <mat-checkbox color="primary" [(ngModel)]="pagePosition" name="pagePosition" class="app-mr-4">{{ 'desc.pagePosition' | translate }}</mat-checkbox>
-    <mat-checkbox color="primary" [(ngModel)]="reprePage" name="reprePage">{{ 'editor.page.genre' | translate }}</mat-checkbox>
-  </div>
+ 
   
-  <div mat-dialog-actions cdkFocusRegionstart>
-    <div>
+  <div mat-dialog-actions cdkFocusRegionstart class="app-fxLayout app-row app-gap-4 app-center-v">
+    <div class="app-fxFlex">
       <button mat-flat-button color="primary" (click)="save()" [matTooltip]="'button.save' | translate">{{ 'button.save' | translate }}</button>
       <button mat-flat-button [mat-dialog-close]="changed">{{ 'button.close' | translate }}</button>
+    </div>
+    <div>
+      <span class="app-label app-mr-4">{{ 'desc.edit' | translate }}:</span>
+      <mat-checkbox color="primary" [(ngModel)]="pageType" name="pageType" class="app-mr-4">{{ 'desc.pageType' | translate }}</mat-checkbox>
+      <mat-checkbox color="primary" [(ngModel)]="pageNumber" name="pageNumber" class="app-mr-4">{{ 'desc.pageNumber' | translate }}</mat-checkbox>
+      <mat-checkbox color="primary" [(ngModel)]="pageIndex" name="pageIndex" class="app-mr-4">{{ 'desc.pageIndex' | translate }}</mat-checkbox>
+      <mat-checkbox color="primary" [(ngModel)]="pagePosition" name="pagePosition" class="app-mr-4">{{ 'desc.pagePosition' | translate }}</mat-checkbox>
+      <mat-checkbox color="primary" [(ngModel)]="reprePage" name="reprePage">{{ 'editor.page.genre' | translate }}</mat-checkbox>
     </div>
   </div>
 </div>
