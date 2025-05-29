@@ -11,10 +11,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, TranslateModule, MatDialogModule,
+  imports: [CommonModule, TranslateModule, MatDialogModule, MatInputModule,
     MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule,
     FormsModule, MatFormFieldModule, MatCheckboxModule
   ],

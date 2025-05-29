@@ -7,15 +7,20 @@
     </mat-card-content>
   </mat-card>
   <mat-checkbox *ngIf="data.checkbox" color="primary" [(ngModel)]="data.checkbox.checked" class="app-mt-4">{{ data.checkbox.label }}</mat-checkbox>
-  <mat-form-field appearance="outline" *ngIf="data.numberInput">
-    <input type="number" step="1" [min]="data.numberInput.min" [max]="data.numberInput.max" autocomplete="off" matInput [placeholder]="data.numberInput.label" [(ngModel)]="data.numberInput.value">
-  </mat-form-field>
-  <mat-form-field appearance="outline" *ngIf="data.textInput">
-    <input type="text" step="1" matInput [placeholder]="data.textInput.label" [(ngModel)]="data.textInput.value">
-  </mat-form-field>
-  <mat-form-field appearance="outline" *ngIf="data.textAreaInput" class="app-w-100">
-    <textarea [rows]="data.rows ? data.rows : 5" matInput [placeholder]="data.textAreaInput.label" [(ngModel)]="data.textAreaInput.value"></textarea>
-  </mat-form-field>
+  <div class="app-fxLayout app-row app-gap-2 app-mt-4" *ngIf="data.numberInput || data.textInput || data.textAreaInput">
+    <mat-form-field appearance="outline" *ngIf="data.numberInput" class="app-fxFlex">
+      <mat-label>{{ data.numberInput.label }}</mat-label>
+      <input type="number" step="1" [min]="data.numberInput.min" [max]="data.numberInput.max" autocomplete="off" matInput [placeholder]="data.numberInput.label" [(ngModel)]="data.numberInput.value">
+    </mat-form-field>
+    <mat-form-field appearance="outline" *ngIf="data.textInput" class="app-fxFlex">
+      <mat-label>{{ data.textInput.label }}</mat-label>
+      <input type="text" step="1" matInput [placeholder]="data.textInput.label" [(ngModel)]="data.textInput.value">
+    </mat-form-field>
+    <mat-form-field appearance="outline" *ngIf="data.textAreaInput" class="app-fxFlex">
+      <mat-label>{{ data.textAreaInput.label }}</mat-label>
+      <textarea [rows]="data.rows ? data.rows : 5" matInput [placeholder]="data.textAreaInput.label" [(ngModel)]="data.textAreaInput.value"></textarea>
+    </mat-form-field>
+  </div>
 </div>
 <div mat-dialog-actions cdkFocusRegionstart>
   <button mat-flat-button [color]="data.btn1.color" [mat-dialog-close]="data.btn1.value" [disabled]="!btnEnabled()" cdkFocusInitial>{{ data.btn1.label }}</button>
