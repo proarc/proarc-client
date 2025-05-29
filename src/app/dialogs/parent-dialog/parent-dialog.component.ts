@@ -20,7 +20,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { DocumentItem } from '../../model/documentItem.model';
 import { ModelTemplate } from '../../model/modelTemplate';
 import { Tree } from '../../model/mods/tree.model';
@@ -35,7 +34,7 @@ import { IngestDialogComponent } from '../ingest-dialog/ingest-dialog.component'
 import { ViewerComponent } from "../../components/viewer/viewer.component";
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, FlexLayoutModule,
+  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
     MatTableModule, MatSortModule, ResizecolDirective, MatDialogModule, ViewerComponent],

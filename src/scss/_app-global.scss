@@ -160,6 +160,10 @@ a {
   border: 1px solid var(--app-default-border-color);
 }
 
+.app-border-top-wrapper {
+  border-top: 1px solid var(--app-default-border-color);
+}
+
 .app-text-cutter {
   white-space: nowrap;
   overflow: hidden;
@@ -319,6 +323,10 @@ fieldset {
     .app-text-icon {
       font-size: 18px;
     }
+  }
+
+  .app-toolbar-label {
+    font-size: 14px;
   }
 
   &.app-view-media {
