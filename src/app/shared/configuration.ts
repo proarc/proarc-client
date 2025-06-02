@@ -7,7 +7,7 @@ export interface TableColumn {
   field: string,
   selected: boolean,
   width: number,
-  type: string // 'string' | 'translated' | 'date' | 'datetime' | 'boolean' 
+  type: string // 'string' | 'translated' | 'date' | 'datetime' | 'boolean'
 }
 
 @Injectable()
@@ -152,6 +152,7 @@ export class Configuration {
       'model:ndkearticle',
       'model:ndkemonographtitle',
       'model:ndkemonographvolume',
+      'model:ndkemonographunit',
       'model:ndkechapter',
       'model:bdmarticle'
     ].indexOf(model) >= 0;

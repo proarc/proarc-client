@@ -40,6 +40,7 @@ export class ModelTemplate {
       "model:ndkearticle": 'NdkeArticle',
       "model:ndkemonographtitle": 'NdkeMonographTitle',
       "model:ndkemonographvolume": 'NdkeMonographVolume',
+      "model:ndkemonographunit": 'NdkeMonographUnit',
       "model:ndkemonographsupplement": 'NdkeMonographSupplement',
       "model:ndkechapter": 'NdkeChapter',
 
@@ -97,6 +98,7 @@ export class ModelTemplate {
       "model:ndkearticle": 'NdkeArticle',
       "model:ndkemonographtitle": 'NdkeMonographTitle',
       "model:ndkemonographvolume": 'NdkeMonographVolume',
+      "model:ndkemonographunit": 'NdkeMonographUnit',
       "model:ndkemonographsupplement": 'NdkeMonographSupplement',
       "model:ndkechapter": 'NdkeChapter',
 
@@ -153,7 +155,8 @@ export class ModelTemplate {
     'ndkeperiodicalissue': ['ndkeperiodicalsupplement', 'ndkearticle'],
     'ndkeperiodicalsupplement': ['ndkearticle'],
     'ndkearticle': [],
-    'ndkemonographtitle': ['ndkemonographvolume'], // 'ndkechapter' odstraneno podle #99
+    'ndkemonographtitle': ['ndkemonographunit'], // 'ndkechapter' odstraneno podle #99
+    'ndkemonographunit': ['ndkechapter', 'ndkemonographsupplement'],
     'ndkemonographvolume': ['ndkechapter', 'ndkemonographsupplement'],
     'ndkemonographsupplement': ['ndkechapter'],
     'ndkechapter': [],

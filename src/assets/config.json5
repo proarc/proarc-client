@@ -88,6 +88,7 @@
       'model:ndkeperiodicalsupplement',
       'model:ndkearticle',
       'model:ndkemonographtitle',
+      'model:ndkemonographunit',
       'model:ndkemonographvolume',
       'model:ndkemonographsupplement',
       'model:ndkechapter',
@@ -173,7 +174,7 @@
   identifiers: [ 'barcode', 'issn', 'isbn', 'ccnb', 'uuid', 'urnnbn', 'oclc', 'sysno', 'permalink', 'sici', 'id', 'localId'],
   pagePositions: ['right_left', 'left_right', 'left', 'right', 'singlePage'],
   lang: 'cs-en',
-  expandedModels: ['model:ndkemonographvolume','model:ndkearticle'],
+  expandedModels: ['model:ndkemonographvolume','model:ndkemonographunit', 'model:ndkearticle'],
   showFooter: true,
 
   roleCodes: ['act', 'adp', 'ant', 'arr', 'aui', 'aut', 'cmp', 'cnd', 'com', 'cre', 'crp', 'dis', 'dnr', 'dst', 'dte',
@@ -349,6 +350,26 @@
 				{ model: 'oldprintgraphics', originmodel: "ndkpicture", "apiPoint": "object/changeNdkPictureToOldPrintGraphic" }
 			]
 		},
+
+    {
+      origin: 'ndkemonographtitle',
+      dest: [
+        { model: 'ndkemonographvolume', originmodel: "ndkemonographunit", apiPoint: "object/changeNdkEMonographUnitToNdkEMonographVolume" },
+        { model: 'ndkemonographunit', originmodel: "ndkemonographvolume", apiPoint: "object/changeNdkEMonographVolumeToNdkEMonographUnit" },
+      ]
+    },
+    {
+      origin: 'ndkemonographunit',
+      dest: [
+        { model: 'ndkemonographvolume', originmodel: "ndkemonographunit", apiPoint: "object/changeNdkEMonographUnitToNdkEMonographVolume" },
+      ]
+    },
+    {
+      origin: 'ndkemonographvolume',
+      dest: [
+        { model: 'ndkemonographunit', originmodel: "ndkemonographvolume", apiPoint: "object/changeNdkEMonographVolumeToNdkEMonographUnit" },
+      ]
+    },
 
 		// oldprint
 		{

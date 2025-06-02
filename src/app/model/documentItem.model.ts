@@ -200,6 +200,7 @@ export class DocumentItem {
       'model:ndkearticle',
       'model:ndkemonographtitle',
       'model:ndkemonographvolume',
+      'model:ndkemonographunit',
       'model:ndkechapter',
       'model:bdmarticle'
     ].indexOf(this.model) >= 0;

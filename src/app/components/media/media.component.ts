@@ -49,6 +49,7 @@ export class MediaComponent implements OnInit {
     'model:ndkeperiodicalsupplement',
     'model:ndkearticle',
     'model:ndkemonographvolume',
+    'model:ndkemonographunit',
     'model:ndkechapter',
     'model:chroniclesupplement',
     'model:bdmarticle']

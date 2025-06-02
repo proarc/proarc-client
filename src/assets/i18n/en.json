@@ -2716,6 +2716,7 @@
     "model:ndkeperiodicalsupplement": "NDK ePeriodical Supplement",
     "model:ndkearticle": "NDK eArticle",
     "model:ndkemonographtitle": "NDK Multipart eMonograph",
+    "model:ndkemonographunit": "NDK eMonograph Unit",
     "model:ndkemonographvolume": "NDK eMonograph Volume",
     "model:ndkemonographsupplement": "NDK eMonograph Supplement",
     "model:ndkechapter": "NDK eChapter",

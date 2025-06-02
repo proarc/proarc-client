@@ -2717,6 +2717,7 @@
     "model:ndkeperiodicalsupplement": "NDK Příloha ePeriodika",
     "model:ndkearticle": "NDK eČlánek",
     "model:ndkemonographtitle": "NDK Vícedílná eMonografie",
+    "model:ndkemonographunit": "NDK Svazek Vícedílné eMonografie",
     "model:ndkemonographvolume": "NDK Svazek eMonografie",
     "model:ndkemonographsupplement": "NDK Příloha eMonografie",
     "model:ndkechapter": "NDK eKapitola",
