@@ -538,7 +538,7 @@
           description: 'Možnost vyplnit bližší určení typu oddílu (možnost použít DTD monografie, MonographComponentPart Types)',
           options: [
             ['news', 'news'],
-            ['table of content', 'table of content'],
+            ['tableOfContents', 'tableOfContents'],
             ['advertisement', 'advertisement'],
             ['abstract', 'abstract'],
             ['introduction', 'introduction'],
@@ -547,9 +547,22 @@
             ['bibliography', 'bibliography'],
             ['editorsNote', 'editorsNote'],
             ['preface', 'preface'],
-            ['mainarticle', 'mainarticle'],
+            ['mainArticle', 'mainArticle'],
             ['index', 'index'],
             ['unspecified', 'unspecified'],
+            ['annotation', 'annotation'],
+            ['afterword', 'afterword'],
+            ['bibliographicalPortrait', 'bibliographicalPortrait'],
+            ['obituary', 'obituary'],
+            ['sheetMusic', 'sheetMusic'],
+            ['contributors', 'contributors'],
+            ['summary', 'summary'],
+            ['interview', 'interview'],
+            ['study', 'study'],
+            ['technicalPlanScheme', 'technicalPlanScheme'],
+            ['conclusion', 'conclusion'],
+            ['otherNote', 'otherNote'],
+            ['editorial', 'editorial']
           ]
         }
       }

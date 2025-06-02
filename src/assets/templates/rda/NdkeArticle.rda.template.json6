@@ -701,90 +701,33 @@
         cols: 2,
         description: 'Možnost vyplnit bližší určení typu oddílu (možnost použít DTD monografie, MonographComponentPart Types)',
         options: [
-          [
-            'abstract',
-            'abstrakt'
-          ],
-          [
-            'directory',
-            'adresář'
-          ],
-          [
-            'annotations',
-            'anotace'
-          ],
-          [
-            'bibliography',
-            'bibliografie'
-          ],
-          [
-            'main article',
-            'hlavní článek'
-          ],
-          [
-            'biographical portrait',
-            'medailonek'
-          ],
-          [
-            'obituary',
-            'nekrolog'
-          ],
-          [
-            'cover',
-            'obálka'
-          ],
-          [
-            'table of content',
-            'obsah'
-          ],
-          [
-            'preface',
-            'předmluva'
-          ],
-          [
-            'review',
-            'recenze'
-          ],
-          [
-            'index',
-            'rejstřík'
-          ],
-          [
-            'advertisement',
-            'reklama'
-          ],
-          [
-            'interview',
-            'rozhovor'
-          ],
-          [
-            'colophon',
-            'tiráž'
-          ],
-          [
-            'title page',
-            'titulní list'
-          ],
-          [
-            'introduction',
-            'úvod'
-          ],
-          [
-            'editorsNote',
-            'úvodník'
-          ],
-          [
-            'dedication',
-            'věnování'
-          ],
-          [
-            'news',
-            'zpráva'
-          ],
-          [
-            'unspecified',
-            'nespecifikován'
-          ]
+          //            ['directory', 'adresář'],
+          ['news', 'news'],
+          ['tableOfContents', 'tableOfContents'],
+          ['advertisement', 'advertisement'],
+          ['abstract', 'abstract'],
+          ['introduction', 'introduction'],
+          ['review', 'review'],
+          ['dedication', 'dedication'],
+          ['bibliography', 'bibliography'],
+          ['editorsNote', 'editorsNote'],
+          ['preface', 'preface'],
+          ['mainArticle', 'mainArticle'],
+          ['index', 'index'],
+          ['unspecified', 'unspecified'],
+          ['annotation', 'annotation'],
+          ['afterword', 'afterword'],
+          ['bibliographicalPortrait', 'bibliographicalPortrait'],
+          ['obituary', 'obituary'],
+          ['sheetMusic', 'sheetMusic'],
+          ['contributors', 'contributors'],
+          ['summary', 'summary'],
+          ['interview', 'interview'],
+          ['study', 'study'],
+          ['technicalPlanScheme', 'technicalPlanScheme'],
+          ['conclusion', 'conclusion'],
+          ['otherNote', 'otherNote'],
+          ['editorial', 'editorial']
         ]
       }
     }
