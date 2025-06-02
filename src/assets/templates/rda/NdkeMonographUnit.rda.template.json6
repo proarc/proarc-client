@@ -83,7 +83,7 @@
       }
     },
     name: {
-      usage: 'MA',
+      usage: 'R',
       label: 'Autor',
       selector: 'name',
       labelKey: 'name',
@@ -113,7 +113,7 @@
           ]
         },
         namePart: {
-          usage: 'M',
+          usage: 'MA',
           label: 'Jméno',
           selector: 'name/namePart',
           labelKey: 'name/namePart',
@@ -142,8 +142,7 @@
             },
             value: {
               label: 'Hodnota',
-              usage: 'M',
-              required: true,
+              usage: 'MA',
               selector: 'name/namePart',
               labelKey: 'name/namePart/value',
               cols: 2,
@@ -152,7 +151,7 @@
           }
         },
         nameIdentifier: {
-          usage: 'RA',
+          usage: 'MA',
           label: 'Identifikátor autora',
           selector: 'name/nameIdentifier',
           labelKey: 'name/nameIdentifier',
@@ -268,7 +267,7 @@
           ]
         },
         dateIssued: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Datum vydání',
           selector: 'originInfo/dateIssued',
           labelKey: 'originInfo/dateIssued',
@@ -286,7 +285,7 @@
             využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>',
           fields: {
             value: {
-              usage: 'MA',
+              usage: 'M',
               selector: 'originInfo/dateIssued/value',
               labelKey: 'originInfo/dateIssued/value',
               label: 'Hodnota',
@@ -328,7 +327,7 @@
               ]
             },
             point: {
-              usage: 'O',
+              usage: 'MA',
               label: 'Point',
               selector: 'originInfo/dateIssued/@point',
               labelKey: 'originInfo/dateIssued/@point',
@@ -342,23 +341,23 @@
             },
           }
         },
-        edition: {
-          usage: 'R',
-          label: 'Vydání',
-          selector: 'originInfo/edition',
-          labelKey: 'originInfo/edition',
-          cols: 2,
-          description: 'Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu.',
-          fields: {
-            value: {
-              usage: 'R',
-              selector: 'originInfo/edition/value',
-              labelKey: 'originInfo/edition/value',
-              label: 'Hodnota',
-              help: 'off'
-            }
-          }
-        },
+//        edition: {
+//          usage: 'R',
+//          label: 'Vydání',
+//          selector: 'originInfo/edition',
+//          labelKey: 'originInfo/edition',
+//          cols: 2,
+//          description: 'Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu.',
+//          fields: {
+//            value: {
+//              usage: 'R',
+//              selector: 'originInfo/edition/value',
+//              labelKey: 'originInfo/edition/value',
+//              label: 'Hodnota',
+//              help: 'off'
+//            }
+//          }
+//        },
         issuance: {
           usage: 'M',
           required: true,
@@ -375,7 +374,6 @@
             </ul>',
           options: [
             ['', '-'],
-            ['monographic', 'Monografické'],
             ['single unit', 'Jednotkové'],
             ['multipart monograph', 'Vícedílné']
           ]
@@ -446,25 +444,6 @@
               }
             },
           },
-        },
-        dateCreated: {
-          usage: 'R',
-          label: 'Datum vytvoření',
-          selector: 'originInfo/dateCreated',
-          labelKey: 'originInfo/dateCreated',
-          cols: 3,
-          description: 'Datum vydání předlohy pro rukopisy\
-          přebírat z katalogu<br/>\
-          odpovídá hodnotě z katalogizačního záznamu, pole 264_0 $c pokud je LDR/06="d", "f", "t"',
-          fields: {
-            value: {
-              usage: 'R',
-              selector: 'originInfo/dateCreated/value',
-              labelKey: 'originInfo/dateCreated/value',
-              label: 'Hodnota',
-              help: 'off'
-            }
-          }
         },
         dateOther: {
           usage: 'R',
@@ -917,7 +896,7 @@
           ]
         },
         form: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Forma',
           selector: 'physicalDescription/form',
           labelKey: 'physicalDescription/form',
@@ -969,7 +948,7 @@
                 ['carrier', 'carrier']]
             },
             value: {
-              usage: 'MA',
+              usage: 'M',
               selector: 'physicalDescription/form/value',
               labelKey: 'physicalDescription/form/value',
               label: 'Hodnota',
@@ -1230,7 +1209,7 @@
       description: 'údaje o metadatovém záznamu – jeho vzniku, změnách apod.',
       fields: {
         descriptionStandard: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Standard metadat',
           cols: 2,
           selector: 'recordInfo/descriptionStandard',
@@ -1518,7 +1497,7 @@
           }
         },
         name: {
-          usage: 'MA',
+          usage: 'R',
           label: 'Autor',
           selector: 'relatedItem/name',
           labelKey: 'relatedItem/name',
@@ -2272,7 +2251,7 @@
           }
         },
         genre: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Žánr',
           selector: 'relatedItem/genre',
           labelKey: 'relatedItem/genre',
@@ -2280,7 +2259,7 @@
       Pro monografie hodnota <strong>electronic volume</strong>',
           fields: {
             value: {
-              usage: 'MA',
+              usage: 'M',
               selector: 'relatedItem/genre/value',
               labelKey: 'relatedItem/genre/value',
               label: 'Hodnota',
