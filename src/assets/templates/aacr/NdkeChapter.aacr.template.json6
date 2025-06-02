@@ -1,6 +1,6 @@
 {
     titleInfo: {
-      usage: 'M',
+      usage: 'MA',
       required: true,
       label: 'Název',
       selector: 'titleInfo',
@@ -40,7 +40,7 @@
           description: 'Podnázev vnitřní části'
         },
         partNumber: {
-          usage: 'RA',
+          usage: 'MA',
           label: 'Číslo části',
           selector: 'titleInfo/partNumber',
           labelKey: 'titleInfo/partNumber',
@@ -48,7 +48,7 @@
           description: 'V případě, že se jedná o vícesvazkovou monografii, je zde uvedeno číslo svazku'
         },
         partName: {
-          usage: 'RA',
+          usage: 'MA',
           label: 'Název části',
           selector: 'titleInfo/partName',
           labelKey: 'titleInfo/partName',
@@ -362,7 +362,7 @@
       }
     },
     language: {
-      usage: 'R',
+      usage: 'MA',
       label: 'Jazyk',
       selector: 'language',
       labelKey: 'language',
@@ -563,7 +563,7 @@
       }
     },
     abstract: {
-      usage: 'O',
+      usage: 'R',
       label: 'Abstrakt',
       selector: 'abstract',
       labelKey: 'abstract',
@@ -571,7 +571,7 @@
       plnit pouze v případech, že se liší od abstraktu na úrovni titulu odpovídá poli 520 MARC21',
       fields: {
         abstract: {
-          usage: 'O',
+          usage: 'R',
           label: 'Abstrakt',
           selector: 'abstract',
           labelKey: 'abstract/value',

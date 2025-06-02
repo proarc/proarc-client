@@ -127,16 +127,16 @@
             }
           }
         },
-        etal: {
-          usage: 'O',
-          label: 'Etal',
-          selector: 'name/etal',
-          labelKey: 'name/etal',
-          cols: 2,
-          description: 'Element indikující, že existuje více autorů, než pouze ti, kteří byli uvedeni v <name> elementu.</br>\
-          V případě užití tohoto elementu je dále top element <name> neopakovatelný.</br>\
-          <etal> je nutné umístit do samostatného top elementu <name>, ve kterém se nesmí objevit subelementy <namePart> a <nameIdentifier>.'
-        },
+//        etal: {
+//          usage: 'O',
+//          label: 'Etal',
+//          selector: 'name/etal',
+//          labelKey: 'name/etal',
+//          cols: 2,
+//          description: 'Element indikující, že existuje více autorů, než pouze ti, kteří byli uvedeni v <name> elementu.</br>\
+//          V případě užití tohoto elementu je dále top element <name> neopakovatelný.</br>\
+//          <etal> je nutné umístit do samostatného top elementu <name>, ve kterém se nesmí objevit subelementy <namePart> a <nameIdentifier>.'
+//        },
         nameIdentifier: {
           usage: 'RA',
           label: 'Identifikátor autora',
