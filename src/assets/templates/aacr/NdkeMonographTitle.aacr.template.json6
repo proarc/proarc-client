@@ -31,7 +31,7 @@
           hodnoty převzít z katalogu<br/>'
         },
         subTitle: {
-          usage: 'R',
+          usage: 'MA',
           label: 'Podnázev',
           selector: 'titleInfo/subTitle',
           labelKey: 'titleInfo/subTitle',
@@ -56,8 +56,7 @@
       }
     },
     originInfo: {
-      usage: 'M',
-      required: true,
+      usage: 'MA',
       label: 'Původ předlohy',
       selector: 'originInfo',
       labelKey: 'originInfo',
@@ -249,7 +248,7 @@
       description: 'údaje o metadatovém záznamu – jeho vzniku, změnách apod.',
       fields: {
         descriptionStandard: {
-          usage: 'MA',
+          usage: 'M',
           label: 'Standard metadat',
           cols: 2,
           selector: 'recordInfo/descriptionStandard',
