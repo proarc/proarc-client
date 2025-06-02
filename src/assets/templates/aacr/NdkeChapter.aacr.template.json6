@@ -547,7 +547,17 @@
             ['obituary', 'obituary'],
             ['remark', 'remark'],
             ['study', 'study'],
-            ['technicalPlanScheme', 'technicalPlanScheme']
+            ['technicalPlanScheme', 'technicalPlanScheme'],
+            ['unspecified', 'unspecified'],
+            ['annotation', 'annotation'],
+            ['afterword', 'afterword'],
+            ['bibliographicalPortrait', 'bibliographicalPortrait'],
+            ['sheetMusic', 'sheetMusic'],
+            ['tableOfContents', 'tableOfContents'],
+            ['summary', 'summary'],
+            ['interview', 'interview'],
+            ['conclusion', 'conclusion'],
+            ['subchapter', 'subchapter']
           ]
         }
       }

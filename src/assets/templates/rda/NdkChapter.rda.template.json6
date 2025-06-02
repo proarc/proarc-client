@@ -585,7 +585,16 @@
             ['remark', 'remark'],
             ['study', 'study'],
             ['technicalPlanScheme', 'technicalPlanScheme'],
-            ['unspecified', 'unspecified']
+            ['unspecified', 'unspecified'],
+            ['annotation', 'annotation'],
+            ['afterword', 'afterword'],
+            ['bibliographicalPortrait', 'bibliographicalPortrait'],
+            ['sheetMusic', 'sheetMusic'],
+            ['tableOfContents', 'tableOfContents'],
+            ['summary', 'summary'],
+            ['interview', 'interview'],
+            ['conclusion', 'conclusion'],
+            ['subchapter', 'subchapter']
           ]
         }
       }
