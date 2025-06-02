@@ -72,7 +72,7 @@
           description: 'V případě, že se jedná o přílohu, je zde uvedeno číslo'
         },
         partName: {
-          usage: 'MA',
+          usage: 'RA',
           label: 'Název části',
           selector: 'titleInfo/partName',
           labelKey: 'titleInfo/partName',
@@ -431,25 +431,25 @@
             },
           },
         },
-        dateCreated: {
-          usage: 'R',
-          label: 'Datum vytvoření',
-          selector: 'originInfo/dateCreated',
-          labelKey: 'originInfo/dateCreated',
-          cols: 3,
-          description: 'Datum vydání předlohy pro rukopisy\
-          přebírat z katalogu<br/>\
-          odpovídá hodnotě z katalogizačního záznamu, pole 264_0 $c pokud je LDR/06="d", "f", "t"',
-          fields: {
-            value: {
-              usage: 'R',
-              selector: 'originInfo/dateCreated/value',
-              labelKey: 'originInfo/dateCreated/value',
-              label: 'Hodnota',
-              help: 'off'
-            }
-          }
-        },
+//        dateCreated: {
+//          usage: 'R',
+//          label: 'Datum vytvoření',
+//          selector: 'originInfo/dateCreated',
+//          labelKey: 'originInfo/dateCreated',
+//          cols: 3,
+//          description: 'Datum vydání předlohy pro rukopisy\
+//          přebírat z katalogu<br/>\
+//          odpovídá hodnotě z katalogizačního záznamu, pole 264_0 $c pokud je LDR/06="d", "f", "t"',
+//          fields: {
+//            value: {
+//              usage: 'R',
+//              selector: 'originInfo/dateCreated/value',
+//              labelKey: 'originInfo/dateCreated/value',
+//              label: 'Hodnota',
+//              help: 'off'
+//            }
+//          }
+//        },
         dateOther: {
           usage: 'R',
           label: 'Datum - jiné',
@@ -876,7 +876,7 @@
                 ['carrier', 'carrier']]
             },
             value: {
-              usage: 'MA',
+              usage: 'M',
               selector: 'physicalDescription/form/value',
               labelKey: 'physicalDescription/form/value',
               label: 'Hodnota',

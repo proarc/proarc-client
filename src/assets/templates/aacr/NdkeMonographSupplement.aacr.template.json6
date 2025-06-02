@@ -395,67 +395,67 @@
             }
           }
         },
-        dateOther: {
-          usage: 'R',
-          label: 'Datum - jiné',
-          selector: 'originInfo/dateOther',
-          labelKey: 'originInfo/dateOther',
-          description: 'Datum vytvoření, distribuce, výroby předlohy<br/>\
-          Tento elemet se využije v případě výskytu $c v:\
-          <ul>\
-            <li>264_0 <strong>Produkce</strong> (production)</li>\
-            <li>264_2 <strong>Distribuce</strong> (distribution)</li>\
-            <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
-          </ul>',
-          fields: {
-            value: {
-              usage: 'R',
-              cols: 2,
-              selector: 'originInfo/dateOther/value',
-              labelKey: 'originInfo/dateOther/value',
-              label: 'Hodnota',
-              help: 'off'
-            },
-            type: {
-              usage: 'M',
-              cols: 2,
-              label: 'Upřesnění data',
-              selector: 'originInfo/dateOther/@type',
-              labelKey: 'originInfo/dateOther/@type',
-              description: 'Možnost dalšího upřesnění. Možné hodnoty\
-            <ul>\
-              <li>264_0 <strong>Produkce</strong> (production)</li>\
-              <li>264_2 <strong>Distribuce</strong> (distribution)</li>\
-              <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
-            </ul>',
-              options: [
-                [
-                  'production',
-                  'Produkce'
-                ],
-                [
-                  'distribution',
-                  'Distribuce'
-                ],
-                [
-                  'manufacture',
-                  'Výroba'
-                ]
-              ]
-            }
-          }
-        },
-        copyrightDate: {
-          usage: 'R',
-          label: 'Datum - copyright',
-          selector: 'originInfo/copyrightDate',
-          labelKey: 'originInfo/copyrightDate',
-          cols: 3,
-          description: 'Využije se pouze v případě výskytu pole 264 s druhým indikátorem 4 a podpolem $c<br/>\
-          <ul>\
-            <li>264_4 <strong>Copyright</strong> (copyright)</li>\
-          </ul>'
-        }
+//        dateOther: {
+//          usage: 'R',
+//          label: 'Datum - jiné',
+//          selector: 'originInfo/dateOther',
+//          labelKey: 'originInfo/dateOther',
+//          description: 'Datum vytvoření, distribuce, výroby předlohy<br/>\
+//          Tento elemet se využije v případě výskytu $c v:\
+//          <ul>\
+//            <li>264_0 <strong>Produkce</strong> (production)</li>\
+//            <li>264_2 <strong>Distribuce</strong> (distribution)</li>\
+//            <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
+//          </ul>',
+//          fields: {
+//            value: {
+//              usage: 'R',
+//              cols: 2,
+//              selector: 'originInfo/dateOther/value',
+//              labelKey: 'originInfo/dateOther/value',
+//              label: 'Hodnota',
+//              help: 'off'
+//            },
+//            type: {
+//              usage: 'M',
+//              cols: 2,
+//              label: 'Upřesnění data',
+//              selector: 'originInfo/dateOther/@type',
+//              labelKey: 'originInfo/dateOther/@type',
+//              description: 'Možnost dalšího upřesnění. Možné hodnoty\
+//            <ul>\
+//              <li>264_0 <strong>Produkce</strong> (production)</li>\
+//              <li>264_2 <strong>Distribuce</strong> (distribution)</li>\
+//              <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
+//            </ul>',
+//              options: [
+//                [
+//                  'production',
+//                  'Produkce'
+//                ],
+//                [
+//                  'distribution',
+//                  'Distribuce'
+//                ],
+//                [
+//                  'manufacture',
+//                  'Výroba'
+//                ]
+//              ]
+//            }
+//          }
+//        },
+//        copyrightDate: {
+//          usage: 'R',
+//          label: 'Datum - copyright',
+//          selector: 'originInfo/copyrightDate',
+//          labelKey: 'originInfo/copyrightDate',
+//          cols: 3,
+//          description: 'Využije se pouze v případě výskytu pole 264 s druhým indikátorem 4 a podpolem $c<br/>\
+//          <ul>\
+//            <li>264_4 <strong>Copyright</strong> (copyright)</li>\
+//          </ul>'
+//        }
       }
     },
     subject: {
@@ -485,7 +485,7 @@
           ]
         },
         topic: {
-          usage: 'MA',
+          usage: 'R',
           label: 'Klíčové slovo/Předmětové heslo',
           selector: 'subject/topic',
           labelKey: 'subject/topic',
@@ -493,7 +493,7 @@
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x',
           fields: {
             value: {
-              usage: 'MA',
+              usage: 'R',
               label: 'Hodnota',
               selector: 'subject/topic/value',
               labelKey: 'subject/topic/value',
