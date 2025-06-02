@@ -743,12 +743,16 @@
             'advertisement'
           ],
           [
-            'cover',
-            'cover'
-          ],
-          [
             'unspecified',
             'unspecified'
+          ],
+          [
+            'plate',
+            'plate'
+          ],
+          [
+            'technicalPlanScheme',
+            'technicalPlanScheme'
           ]
         ]
       }
