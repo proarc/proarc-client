@@ -31,11 +31,11 @@
   </ng-container>
 
   <ng-container *ngFor="let c of selectedColumns; let idx = index; let last = last;" [matColumnDef]="c.field">
-    <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c.field)" [style.width]="c.width + 'px'">
+    <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c.field)" [style.width]="c.width + 'px'" class="app-pr-0">
       <span *ngIf="!last" mat-sort-header>{{'search.' + c.field | translate}}</span>
       <div *ngIf="last" class="app-fxLayout app-row app-center-v">
-        <span *ngIf="c.field !== 'isLocked' && c.type !== 'action'" mat-sort-header>{{ 'search.' + c.field | translate }}</span>
-        <button (click)="setColumns()" mat-icon-button color="primary" [matTooltip]="'editor.children.select_columns' | translate">
+        <span *ngIf="c.field !== 'isLocked' && c.type !== 'action'" mat-sort-header class="app-fxFlex">{{ 'search.' + c.field | translate }}</span>
+        <button (click)="setColumns()" mat-icon-button color="primary" [matTooltip]="'editor.children.select_columns' | translate" class="app-mr-0">
           <mat-icon>more_vert</mat-icon>
         </button>
       </div>

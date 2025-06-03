@@ -6,149 +6,193 @@
       <span class="app-separator">/</span>
       <a routerLink="/workflow">{{ 'navbar.workflow' | translate }}</a>
     </div>
-    <div fxLayout="row" fxLayoutAlign="start center" class="app-h-100"></div>
   </div>
-  <div class="app-fxFlex app-oh app-content-wrapper" >
+  <div class="app-fxFlex app-oh app-content-wrapper">
     <div class="app-border-wrapper app-h-100">
       <as-split direction="horizontal">
         <as-split-area [size]="40">
           <as-split direction="vertical">
             <!-- Zamery -->
             <as-split-area> 
-              <div fxLayout="column" fxFlexFill>
-                <div class="app-toolbar">
-                  <button (click)="getWorkflow(false)" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
-                  <button *ngIf="selectedProfile && selectedProfile.subjob.length > 0" mat-button (click)="createSubJob(selectedJob)">{{ "workflow.create_new_subjob" | translate }}</button>
-                  <button (click)="createJob(profiles, profiles[0], -1)" mat-button>{{'workflow.create_new' | translate }}</button>
-                  <ng-container *ngIf="selectedProfile">
-                    <button mat-button [disabled]="hasObject" [matMenuTriggerFor]="object_menu">{{ "workflow.create_new_object" | translate }}</button>
-                    <mat-menu #object_menu="matMenu">
-                      <button mat-menu-item *ngFor="let model of selectedProfile.model" (click)="createNewObject(model.name)">{{ 'model.' + model.name | translate}}</button>
+              <div class="app-fxLayout app-column app-fill">
+                <div class="app-fxLayout app-row app-toolbar">
+                  <div class="app-fxFlex app-fxLayout app-row app-center-v">
+                    <button (click)="getWorkflow(false)" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
+                    <button *ngIf="selectedProfile && selectedProfile.subjob.length > 0" mat-button (click)="createSubJob(selectedJob)">{{ "workflow.create_new_subjob" | translate }}</button>
+                    <button (click)="createJob(profiles, profiles[0], -1)" mat-button>{{'workflow.create_new' | translate }}</button>
+                    <ng-container *ngIf="selectedProfile">
+                      <button mat-button [disabled]="hasObject" [matMenuTriggerFor]="object_menu">{{ "workflow.create_new_object" | translate }}</button>
+                      <mat-menu #object_menu="matMenu">
+                        <button mat-menu-item *ngFor="let model of selectedProfile.model" (click)="createNewObject(model.name)">{{ 'model.' + model.name | translate}}</button>
+                      </mat-menu>
+                    </ng-container>
+                  </div>
+                  <div>
+                    <button mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menuMore="matMenu">
+                      <button *ngIf="auth.user.wfDeleteJobFunction || auth.isSuperAdmin()" mat-menu-item (click)="removeJobs(false)" >{{'workflow.remove_job' | translate}}</button>
+                      <button *ngIf="this.totalSelected > 1" mat-menu-item (click)="editJobs()" >{{'workflow.multipleJobsEdit' | translate}}</button>
+                      <button *ngIf="hasMetadata" mat-menu-item (click)="editMetadata()" >{{'button.editMetadata' | translate}}</button>
                     </mat-menu>
-                  </ng-container>
-            
-                  <button mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
-                    <mat-icon>more_vert</mat-icon>
-                  </button>
-                  <mat-menu #menuMore="matMenu">
-                    <!-- <button mat-menu-item (click)="selectColumns('jobs')" >{{'editor.children.select_columns' | translate}}</button> -->
-                    <button *ngIf="auth.user.wfDeleteJobFunction || auth.isSuperAdmin()" mat-menu-item (click)="removeJobs(false)" >{{'workflow.remove_job' | translate}}</button>
-                    <button *ngIf="this.totalSelected > 1" mat-menu-item (click)="editJobs()" >{{'workflow.multipleJobsEdit' | translate}}</button>
-                    <button *ngIf="hasMetadata" mat-menu-item (click)="editMetadata()" >{{'button.editMetadata' | translate}}</button>
-                  </mat-menu>
+                  </div>
                 </div>
-                <div class="app-oa-y">
-                  <app-user-table 
-                  [withFilters]="true"
-                  (sortBy)="sortJobsTable($event)" 
-                  (selectItem)="jobClick($event)"
-                  (onFilter)="filter($event)"
-                  [colsSettingsName]="'columnsWorkFlow'" [items]="jobs" ></app-user-table>
+                <div class="app-fxFlex app-oa-y">
+                  <div class="app-editor-content">
+                    <app-user-table [withFilters]="true" (sortBy)="sortJobsTable($event)" (selectItem)="jobClick($event)" (onFilter)="filter($event)" [colsSettingsName]="'columnsWorkFlow'" [items]="jobs" ></app-user-table>
+                  </div>  
                 </div>
-              </div>            
+              </div>
             </as-split-area>
 
             <!-- Podzamery -->
             <as-split-area>
-              <div *ngIf="selectedJob" fxLayout="column" fxFlexFill >
-                <mat-card *ngIf="visibleSubJobs.length === 0" class="app-alert app-info"><mat-icon>info</mat-icon>{{ 'alert.info.noItemsToDisplay' | translate }}</mat-card>
-                <div class="app-toolbar" *ngIf="subJobs.length > 0">
-                  <button (click)="refreshSubJobs()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
-                  <button *ngIf="selectedSubJob?.expandable" mat-button (click)="createSubJob(selectedSubJob)">{{ "workflow.create_new_subjob" | translate }}</button>
-                  <ng-container *ngIf="selectedSubJobProfile">
-                    <button mat-button [disabled]="hasObject" [matMenuTriggerFor]="object_menu">{{ "workflow.create_new_object" | translate }}</button>
-                    <mat-menu #object_menu="matMenu">
-                      <button mat-menu-item *ngFor="let model of selectedSubJobProfile.model" (click)="createNewObject(model.name)">{{ 'model.' + model.name | translate}}</button>
-                    </mat-menu>
-                  </ng-container>
-            
-                  <button mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
-                    <mat-icon>more_vert</mat-icon>
-                  </button>
-                  <mat-menu #menuMore="matMenu">
-                    <!-- <button mat-menu-item (click)="selectColumns('subjobs')" >{{'editor.children.select_columns' | translate}}</button> -->
-                    <button *ngIf="auth.user.wfDeleteJobFunction || auth.isSuperAdmin()" mat-menu-item (click)="removeJobs(true)" >{{'workflow.remove_job' | translate}}</button>
-                  </mat-menu>
-                </div>
-
-                <div class="app-oa-y" >
-                  <app-user-tree-table #treeTable
-                    [type]="'TreeWorkFlow'"
-                    [inSearch]="false"
-                    [treePath]="[selectedJob.id + '']" 
-                    [rootTreeItem]="selectedJob" 
-                    (onSelectTreeItem)="selectSubJob($event)"
-                    (onTreeItemsChanged)="visibleSubJobs = $event"></app-user-tree-table>
-                  
-                </div>
+              <div *ngIf="selectedJob" class="app-fxLayout app-column app-fill">
+                <mat-card *ngIf="visibleSubJobs.length === 0" appearance="outlined" class="app-alert app-info">
+                  <mat-card-content>
+                    <mat-icon>info</mat-icon>{{ 'alert.info.noItemsToDisplay' | translate }}
+                  </mat-card-content>
+                </mat-card>
+                <div class="app-fxLayout app-column app-fill">
+                  <div *ngIf="subJobs.length > 0" class="app-fxLayout app-row app-toolbar">
+                    <div class="app-fxFlex app-fxLayout app-row app-center-v">
+                      <button (click)="refreshSubJobs()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
+                      <button *ngIf="selectedSubJob?.expandable" mat-button (click)="createSubJob(selectedSubJob)">{{ "workflow.create_new_subjob" | translate }}</button>
+                      <ng-container *ngIf="selectedSubJobProfile">
+                        <button mat-button [disabled]="hasObject" [matMenuTriggerFor]="object_menu">{{ "workflow.create_new_object" | translate }}</button>
+                        <mat-menu #object_menu="matMenu">
+                          <button mat-menu-item *ngFor="let model of selectedSubJobProfile.model" (click)="createNewObject(model.name)">{{ 'model.' + model.name | translate}}</button>
+                        </mat-menu>
+                      </ng-container>
+                    </div>
+                    <div>
+                      <button mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                      <mat-menu #menuMore="matMenu">
+                        <button *ngIf="auth.user.wfDeleteJobFunction || auth.isSuperAdmin()" mat-menu-item (click)="removeJobs(true)" >{{'workflow.remove_job' | translate}}</button>
+                      </mat-menu>
+                    </div>
+                  </div>
+                  <div class="app-fxFlex app-oa-y">
+                    <div class="app-editor-content">
+                      <app-user-tree-table #treeTable [type]="'TreeWorkFlow'" [inSearch]="false" [treePath]="[selectedJob.id + '']" [rootTreeItem]="selectedJob" (onSelectTreeItem)="selectSubJob($event)" (onTreeItemsChanged)="visibleSubJobs = $event"></app-user-tree-table>
+                    </div>
+                  </div>
+                </div> 
               </div>
             </as-split-area>
           </as-split>
         </as-split-area>
+
         <as-split-area [size]="60">
           <as-split direction="vertical">
             <as-split-area [size]="30">
-              <div fxLayout="column" fxFlexFill>
-                <div class="app-toolbar" >
-                  <button (click)="getDetail()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
-                  <button (click)="saveDetail()" mat-button>{{'button.save' | translate }}</button>
+              <div class="app-fxLayout app-column app-fill">
+                <div class="app-fxLayout app-row app-toolbar">
+                  <div class="app-fxFlex app-fxLayout app-row app-center-v">
+                    <button (click)="getDetail()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
+                    <button (click)="saveDetail()" mat-button>{{'button.save' | translate }}</button>
+                  </div>
                 </div>
-                <div class="app-oa-y app-p-2">
-                  <ng-container *ngIf="activeJob">
-                    <mat-form-field class="app-w-100">
-                      <mat-label>{{ 'desc.name' | translate }}</mat-label>
-                      <input autocomplete="off" matInput [placeholder]="'desc.name' | translate" [(ngModel)]="activeJob.label">
-                    </mat-form-field>
-                    <div fxLayout="row" fxLayoutGap="16px">
-                      <mat-form-field fxFlex>
-                        <mat-label>{{ 'desc.state' | translate }}</mat-label>
-                        <mat-select [(ngModel)]="activeJob.state" [placeholder]="'desc.state' | translate">
-                          <mat-option *ngFor="let o of states" [value]="o.code">{{o.value}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                      <mat-form-field fxFlex>
-                        <mat-label>{{ 'desc.priority' | translate }}</mat-label>
-                        <mat-select [(ngModel)]="activeJob.priority" [placeholder]="'desc.priority' | translate">
-                          <mat-option *ngFor="let o of priorities" [value]="o.code">{{o.value}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                      <mat-form-field fxFlex>
-                        <mat-label>{{ 'desc.profile' | translate }}</mat-label>
-                        <input autocomplete="off" matInput [placeholder]="'desc.profile' | translate" [(ngModel)]="activeJob.profileName" readonly>
-                      </mat-form-field>
+                <div class="app-fxFlex app-oa-y">
+                  <div class="app-editor-container">
+                    <div class="app-gap-fixer"></div>
+
+                    <div class="app-form-wrapper app-top-level" *ngIf="activeJob">
+                      <div class="app-form">
+                        <div class="app-form-content">
+                          <mat-form-field appearance="outline" class="app-field-col">
+                            <mat-label>{{ 'desc.name' | translate }}</mat-label>
+                            <input autocomplete="off" matInput [placeholder]="'desc.name' | translate" [(ngModel)]="activeJob.label">
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="app-gap-fixer"></div>
+
+                      <div class="app-form">
+                        <div class="app-form-content">
+                          <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+                            <mat-label>{{ 'desc.state' | translate }}</mat-label>
+                            <mat-select [(ngModel)]="activeJob.state" [placeholder]="'desc.state' | translate">
+                              <mat-option *ngFor="let o of states" [value]="o.code">{{o.value}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+                            <mat-label>{{ 'desc.priority' | translate }}</mat-label>
+                            <mat-select [(ngModel)]="activeJob.priority" [placeholder]="'desc.priority' | translate">
+                              <mat-option *ngFor="let o of priorities" [value]="o.code">{{o.value}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+                            <mat-label>{{ 'desc.profile' | translate }}</mat-label>
+                            <input autocomplete="off" matInput [placeholder]="'desc.profile' | translate" [(ngModel)]="activeJob.profileName" readonly>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="app-gap-fixer"></div>
+
+                      <div class="app-form">
+                        <div class="app-form-content">
+                          <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+                            <mat-label>{{ 'desc.owner' | translate }}</mat-label>
+                            <input autocomplete="off" matInput [placeholder]="'desc.owner' | translate" [(ngModel)]="activeJob.ownerName" readonly>
+                          </mat-form-field>
+                          <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+                            <mat-label>{{ 'desc.financed' | translate }}</mat-label>
+                            <input autocomplete="off" matInput [placeholder]="'desc.financed' | translate" [(ngModel)]="activeJob.financed">
+                          </mat-form-field>
+                          <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+                            <mat-label>{{ 'id' | translate }}</mat-label>
+                            <input autocomplete="off" matInput [placeholder]="'id' | translate" [(ngModel)]="activeJob.id" readonly>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="app-gap-fixer"></div>
+
+
+                      <div class="app-form">
+                        <div class="app-form-content">
+                          <mat-form-field appearance="outline" class="app-field-col app-field-col-2">
+                            <mat-label>{{ 'desc.created' | translate }}</mat-label>
+                            <input matInput [placeholder]="'desc.created' | translate" [value]="activeJob.created | date : 'dd.MM.yyyy HH:mm'" readonly>
+                          </mat-form-field>
+                          <mat-form-field appearance="outline" class="app-field-col app-field-col-2">
+                            <mat-label>{{ 'desc.modified' | translate }}</mat-label>
+                            <input autocomplete="off" matInput [placeholder]="'desc.modified' | translate" [value]="activeJob.modified | date : 'dd.MM.yyyy HH:mm'" readonly>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="app-gap-fixer"></div>
+
+                      <div class="app-form">
+                        <div class="app-form-content">
+                          <mat-form-field appearance="outline" class="app-field-col">
+                            <mat-label>{{ 'desc.note' | translate }}</mat-label>
+                            <textarea [(ngModel)]="activeJob.note" matInput [placeholder]="'desc.note' | translate"></textarea>
+                          </mat-form-field>
+                       </div>
+                      </div>
+                      <div class="app-gap-fixer"></div> 
                     </div>
-                    <div fxLayout="row" fxLayoutGap="16px">
-                      <mat-form-field fxFlex>
-                        <mat-label>{{ 'desc.owner' | translate }}</mat-label>
-                        <input autocomplete="off" matInput [placeholder]="'desc.owner' | translate" [(ngModel)]="activeJob.ownerName" readonly>
-                      </mat-form-field>
-                      <mat-form-field fxFlex>
-                        <mat-label>{{ 'desc.financed' | translate }}</mat-label>
-                        <input autocomplete="off" matInput [placeholder]="'desc.financed' | translate" [(ngModel)]="activeJob.financed">
-                      </mat-form-field>
-                      <mat-form-field fxFlex>
-                        <mat-label>{{ 'id' | translate }}</mat-label>
-                        <input autocomplete="off" matInput [placeholder]="'id' | translate" [(ngModel)]="activeJob.id" readonly>
-                      </mat-form-field>
-                    </div>
-                    <div fxLayout="row" fxLayoutGap="16px">
-                      <mat-form-field fxFlex>
-                        <mat-label>{{ 'desc.created' | translate }}</mat-label>
-                        <input matInput [placeholder]="'desc.created' | translate" [value]="activeJob.created | date : 'dd.MM.yyyy HH:mm'" readonly>
-                      </mat-form-field>
-                      <mat-form-field fxFlex>
-                        <mat-label>{{ 'desc.modified' | translate }}</mat-label>
-                        <input autocomplete="off" matInput [placeholder]="'desc.modified' | translate" [value]="activeJob.modified | date : 'dd.MM.yyyy HH:mm'" readonly>
-                      </mat-form-field>
-                    </div>
-                    <mat-form-field class="app-w-100">
-                      <mat-label>{{ 'desc.note' | translate }}</mat-label>
-                      <textarea [(ngModel)]="activeJob.note" matInput [placeholder]="'desc.note' | translate"></textarea>
-                    </mat-form-field>
-                  </ng-container>
+                  </div>
                 </div>
               </div>
             </as-split-area>
+
+
+
+
+
+
+
+
+
+
+
+
+
             <as-split-area [size]="40">
               <div fxLayout="column" fxFlexFill *ngIf="selectedProfile">
                 <div class="app-toolbar" >

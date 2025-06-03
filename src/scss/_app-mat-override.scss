@@ -55,6 +55,59 @@
   .mat-mdc-cell {
     padding-left: 8px;
     padding-right: 4px;
+
+    &.app-col-filter {
+      padding-right: 8px !important;
+    
+      .app-filter-wrapper {
+        position: relative;
+      
+        input {
+          width: 100%;
+          border-radius: 0 !important;
+          border: 0;
+          background-color: transparent;
+          padding-right: 20px;
+
+          &:focus {
+            outline: none;
+          }
+        }
+      
+        .app-clear {
+          position: absolute;
+          top: 2px;
+          right: 0;
+    
+          &.app-select {
+            right: 14px;
+          }
+      
+          .mat-icon {
+            color: var(--app-color-warn);
+            font-size: 16px;
+            width: 16px;
+            height: 16px;
+          }
+        }
+
+        .mat-mdc-select {
+          width: 100%;
+
+          .mat-mdc-select-value {
+            padding-right: 10px;
+          }
+        }
+    
+        mat-label {
+          position: absolute;
+          left: 0;
+          top: 0;
+          font-weight: initial;
+          font-size: 14px;
+        }
+      }
+    }
   }
 
   .mat-mdc-icon-button {
