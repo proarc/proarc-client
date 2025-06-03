@@ -8,7 +8,7 @@
   --app-color-success-no-rgb: 46, 125, 50;
   --app-color-disabled: var(--app-color-gray-4);
   --app-color-item-bg: var(--app-color-gray-1);
-  --app-color-item-selected: var(--palette-primary-50);
+  --app-color-item-selected: rgba(var(--app-color-primary-no-rgb), .2);
   --app-color-item-active: var(--app-color-gray-8);
   --app-color-item-invalid: var(--app-color-warn);
   --app-color-item-invalid-no-rgb: var(--palette-warn-500-no-rgb);
