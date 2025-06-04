@@ -1,4 +1,5 @@
 {
+  "master": "master",
   "common": {
     "remove": "Odstranit",
     "add": "Přidat",
@@ -69,6 +70,10 @@
     "create_edit": "Vytvořit a přejít do objektu",
     "create_back": "Vytvořit",
     "seriesPartNumberFrom": "Číslo od",
+    "totalNumbers": "Počet čísel",
+    "withPartNumber": "Vytvořit číslo části",
+    "withDateIssued": "Vytvořit datum",
+    "withSignatura": "Doplňovat signaturu",
     "seriesDateFrom": "Datum od",
     "seriesDateTo": "Datum do"
   },
@@ -315,6 +320,7 @@
       "relocate_outside": "Přesunout mimo dokument",
       "relocate_label": "Přesunout",
       "validate": "Validovat",
+      "validate_form": "Validovat formulář",
       "reindex": "Reindexovat",
       "convertPages": "Převést strany",
       "select_all": "Vybrat všechny objekty",
@@ -406,7 +412,7 @@
       "edit_page_number": "Editovat čísla stran",
       "edit_page_position": "Editovat pozice stran",
       "page_type": "Typ strany",
-      "index_from": "Indexovat od čisla",
+      "index_from": "Indexovat od čísla",
       "number_from": "Číslo od",
       "number_increment": "Přírůstek",
       "number_prefix": "Prefix",
@@ -1219,7 +1225,7 @@
     "acp": "Kopírování uměleckých děl",
     "act": "Herec",
     "adi": "Výtvarný ředitel",
-    "adp": "Přizpůsobitel",
+    "adp": "Autor adaptace, upravovatel",
     "aft": "Autor doslovu, kolofonu, atd.",
     "anl": "Analytik",
     "anm": "Animator",
@@ -1312,14 +1318,14 @@
     "dsr": "Návrhář",
     "dst": "Distributor",
     "dtc": "Přispěvatel dat",
-    "dte": "Věnovatel",
+    "dte": "Dedikant",
     "dtm": "Správce dat",
-    "dto": "Věnovatel",
+    "dto": "Dedikátor",
     "dub": "Sporný autor",
     "edc": "Editor kompilace",
     "edm": "Editor pohyblivého obrazu",
     "edt": "Editor",
-    "egr": "Rytce",
+    "egr": "Rytec",
     "elg": "Elektrikář",
     "elt": "Elektrotiskář",
     "eng": "Inženýr",
@@ -1349,8 +1355,8 @@
     "inv": "Vynálezce",
     "isb": "Vydavatelský orgán",
     "itr": "Hudebník na nástroj",
-    "ive": "Osoba interviewovaná",
-    "ivr": "Osoba provádějící interview",
+    "ive": "Dotazovaný",
+    "ivr": "Dotazovatel",
     "jud": "Soudce",
     "jug": "Jurisdikce řízena",
     "lbr": "Laboratoř",
@@ -1382,18 +1388,18 @@
     "msd": "Zvukový návrhář",
     "mte": "Metal-engraver",
     "mtk": "Minute taker",
-    "mus": "Musician",
+    "mus": "Hudebník",
     "nrt": "Narrator",
     "opn": "Opponent",
     "org": "Originator",
     "orm": "Organizer",
     "osp": "Onscreen presenter",
-    "oth": "Other",
+    "oth": "Jiná role",
     "own": "Owner",
     "pan": "Panelist",
     "pat": "Patron",
     "pbd": "Publishing director",
-    "pbl": "Publisher",
+    "pbl": "Nakladatel / Vydavatel",
     "pdr": "Project director",
     "pfr": "Proofreader",
     "pht": "Photographer",
@@ -1407,14 +1413,14 @@
     "prc": "Process contact",
     "prd": "Production personnel",
     "pre": "Presenter",
-    "prf": "Performer",
+    "prf": "Umělec",
     "prg": "Programmer",
     "prm": "Printmaker",
     "prn": "Production company",
     "pro": "Producer",
     "prp": "Production place",
     "prs": "Production designer",
-    "prt": "Printer",
+    "prt": "Tiskař",
     "prv": "Provider",
     "pta": "Patent applicant",
     "pte": "Plaintiff-appellee",
@@ -1423,14 +1429,14 @@
     "ptt": "Plaintiff-appellant",
     "pup": "Publication place",
     "rbr": "Rubricator",
-    "rcd": "Recordist",
+    "rcd": "Zvukař",
     "rce": "Recording engineer",
     "rcp": "Addressee",
     "rdd": "Radio director",
     "red": "Redaktor",
     "ren": "Renderer",
     "res": "Researcher",
-    "rev": "Reviewer",
+    "rev": "Recenzent",
     "rpc": "Radio producer",
     "rps": "Repository",
     "rpt": "Reporter",
@@ -1757,6 +1763,7 @@
     "identifier": "Identifikátory",
     "identifier/@invalid": "Neplatný",
     "identifier/@type": "Typ",
+    "identifier/@typeURI": "Zdroj",
     "identifier/value": "Hodnota",
     "language": "Jazyk",
     "language/@displayLabel": "Zobrazená část",
@@ -1987,12 +1994,14 @@
     "bdm/part": "Rozsah článku",
     "bdm/part/extent/start": "První stránka článku",
     "bdm/part/extent/end": "Poslední stránka článku",
+    "bdm/part/extent/total": "Celkem stran",
     "bdm/genre/@type": "Typ obsahu",
     "bdm/relatedItem": "Recenze na/Citováno z",
     "bdm/relatedItem/part": "Rozsah článku",
     "bdm/relatedItem/part/extent": "Rozsah",
     "bdm/relatedItem/part/extent/start": "První strana článku",
     "bdm/relatedItem/part/extent/end": "Poslední strana článku",
+    "bdm/relatedItem/part/extent/total": "Celkem stran",
     "bdm/relatedItem/titleInfo": "Název recenzovaného díla",
     "bdm/relatedItem/titleInfo/title": "Název",
     "bdm/relatedItem/titleInfo/partNumber": "Číslo části",
@@ -2020,9 +2029,30 @@
     "relatedItem/identifier/@type": "Typ",
     "relatedItem/identifier/@invalid": "Neplatný",
     "relatedItem/identifier/value": "Hodnota",
+    "relatedItem/identifier/@typeURI": "Zdroj",
     "subject/cartographics/scale": "Měřítko",
+    "bdm/accessCondition": "Podmínky přístupu",
+    "accessCondition/@type": "Typ podmínky",
+    "accessCondition/@displayLabel": "Zobrazený popisek",
+    "accessCondition/@xlink": "URL",
+    "accessCondition/value": "Hodnota",
     "option": {
       "": "-",
+      "use and reproduction": "use and reproduction",
+      "restriction on access": "restriction on access",
+      "CC BY 4.0": "CC BY 4.0",
+      "CC BY-NC 4.0": "CC BY-NC 4.0",
+      "CC BY-SA 4.0": "CC BY-SA 4.0",
+      "CC BY-ND 4.0": "CC BY-ND 4.0",
+      "CC BY-NC-SA 4.0": "CC BY-NC-SA 4.0",
+      "CC BY-NC-ND 4.0": "CC BY-NC-ND 4.0",
+      "https://creativecommons.org/licenses/by/4.0/legalcode.cs": "https://creativecommons.org/licenses/by/4.0/legalcode.cs",
+      "https://creativecommons.org/licenses/by/4.0/": "https://creativecommons.org/licenses/by/4.0/",
+      "https://creativecommons.org/licenses/by-sa/4.0/": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "https://creativecommons.org/licenses/by-nc/4.0/": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "https://creativecommons.org/licenses/by-nc-sa/4.0/": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+      "https://creativecommons.org/licenses/by-nd/4.0/": "https://creativecommons.org/licenses/by-nd/4.0/",
+      "https://creativecommons.org/licenses/by-nc-nd/4.0/": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
       "Contents": "Contents",
       "Incomplete contents": "Incomplete contents",
       "Konspekt": "Konspekt",
@@ -2098,7 +2128,7 @@
       "marcfrequency": "MARC frequency",
       "marcorg": "MARC org",
       "marcsmd": "MARC smd",
-      "media": "Media",
+      "media": "Média",
       "mednas": "Mednas",
       "mixed material": "Mixed material",
       "monographic": "Monografické",
@@ -2307,6 +2337,19 @@
 
 
 
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   "desc": {
     "help": "Nápověda",
     "panelType": "Typ panelu",
@@ -2501,7 +2544,9 @@
     "objectPositionAfter": "Za vybraný",
     "session": "Zbývající čas do odhlášení",
     "oldOwner": "Původní uživatel",
-    "newOwner": "Nový uživatel"
+    "newOwner": "Nový uživatel",
+    "enterText": "Zadejte text",
+    "select": "Vyberte"
   },
   "button": {
     "setLayout": "nastavit rozložení",
@@ -2515,6 +2560,7 @@
     "open": "Otevřít",
     "export": "Exportovat",
     "conversionsOfModels": "Převod modelu",
+    "updateSTT": "Update STT stran",
     "delete": "Smazat",
     "lockIt": "Uzamknout",
     "unlock": "Odemknout",
@@ -2602,7 +2648,7 @@
     "comment": "Komentář",
     "image": "Obrázek",
     "premis": "PREMIS",
-    "media": "Media",
+    "media": "Média",
     "workFlow": {
       "profileLabel": "Materiál",
       "label": "Obsah",
@@ -2633,6 +2679,9 @@
     "model:ndksheetmusic": "NDK Hudebnina",
     "model:ndkpage": "NDK Strana",
     "model:page": "Strana",
+    "model:ndkclippingcollection": "NDK Sbírka výstřižků",
+    "model:ndkclippingdirectory": "NDK Složka výstřižků",
+    "model:ndkclippingunit": "NDK Výstřižek",
     "model:oldprintomnibusvolume": "STT Konvolut",
     "model:oldprintmonographtitle": "STT Vícedílná monografie",
     "model:oldprintmonographunit": "STT Svazek Vícedílné monografie",
@@ -2719,7 +2768,9 @@
     "impressum": "impressum (impressum)",
     "sheetmusic": "notový zápis (sheetmusic)",
     "case": "pouzdro (case)",
-    "fragmentsofbookbinding": "část vazby (fragmentsofbookbinding)"
+    "fragmentsofbookbinding": "část vazby (fragmentsofbookbinding)",
+    "afterword": "doslov (afterword)",
+    "conclusion": "závěr (conclusion)"
   },
   "states": {
     "ALL": "Vše",
@@ -2861,11 +2912,11 @@
     },
     "preferredTops": {
       "title": {
-        "pageType": "Preferované typy stran",
-        "lang": "Preferované jazyky",
+        "PageTypes": "Preferované typy stran",
+        "Languages": "Preferované jazyky",
         "Locations": "Preferovaná místa uložení",
-        "identifier": "Preferované Identifikátory",
-        "model": "Rozbalení formuláře"
+        "Identifiers": "Preferované Identifikátory",
+        "ExpandedModels": "Rozbalení formuláře"
       }
     },
     "export": {
@@ -2941,6 +2992,11 @@
       "title": "Smazání zámerů",
       "message": "Opravdu chcete vybrané zámery smazat?",
       "messageChildren": "Vybrané zámery obsahujou podzáměry. Opravdu smazat?"
+    },
+    "removeSubjobs": {
+      "title": "Smazání podzámerů",
+      "message": "Opravdu chcete vybrané podzámery smazat?",
+      "messageChildren": "Vybrané podzámery obsahujou podzáměry. Opravdu smazat?"
     },
     "changeModel": {
       "title": "Převod modelu",

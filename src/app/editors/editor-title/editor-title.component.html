@@ -6,6 +6,7 @@
     <app-field-text field="nonSort" [item]="item" [(value)]="item.nonSort['_']"></app-field-text>
 
     <mat-form-field class="app-field-col" *ngIf="item.template['fields']['title']" appearance="outline">
+      <mat-label>{{ 'mods.' + item.selector('title') | translate }}</mat-label>
       <app-usage [item]="item" field="title"></app-usage>
       <textarea [required]="item.isMandatory['title']" [formControl]="item.controls['title']" 
         autocomplete="off" style="width: calc(100% - 60px)" spellcheck="false" matInput

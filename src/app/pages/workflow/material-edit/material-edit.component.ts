@@ -9,7 +9,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { NewMetadataDialogComponent } from '../../../dialogs/new-metadata-dialog/new-metadata-dialog.component';
 import { WorkFlow } from '../../../model/workflow.model';
 import { ApiService } from '../../../services/api.service';
@@ -18,7 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
+  imports: [CommonModule, TranslateModule, FormsModule,
     MatIconModule, MatProgressBarModule, MatTooltipModule,
     MatInputModule, MatButtonModule,
     MatRadioModule, MatFormFieldModule, MatSelectModule,

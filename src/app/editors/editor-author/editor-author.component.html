@@ -33,7 +33,7 @@
     </app-editor-field>
     <app-editor-field *ngIf="item.roleTerm" [field]="item.roleTerm" class="app-roles" [nested]='true'>
       <ng-template let-role="item" #templateContent>
-        <mat-form-field class="app-field-col">
+        <mat-form-field appearance="outline" class="app-field-col">
           <mat-label>{{ 'desc.author' | translate }}</mat-label>
           <mat-select [formControl]="role.controls['roleTerm']" >
             <mat-option *ngFor="let role of roles" [value]="role.code">

@@ -160,72 +160,63 @@
               </div>
             </as-split-area>
 
-
-
-
-
-
-
-
-
-
-
-
-
             <as-split-area [size]="40">
-              <div fxLayout="column" fxFlexFill *ngIf="selectedProfile">
-                <div class="app-toolbar" >
-                  <button mat-button [matMenuTriggerFor]="menuAddStep" [matTooltip]="'workflow.add_step' | translate">
-                    {{ 'workflow.add_step' | translate }}
-                  </button>
-                  <mat-menu #menuAddStep="matMenu">
-                    <button *ngFor="let profile of selectedProfile.task" mat-menu-item (click)="addStep(profile.name)" >{{ profile.title }}</button>
-                  </mat-menu>
+              <div class="app-fxLayout app-column app-fill">
+                <div class="app-fxLayout app-row app-toolbar">
+                  <div class="app-fxFlex app-fxLayout app-row app-center-v">
+                    <button mat-button [matMenuTriggerFor]="menuAddStep" [matTooltip]="'workflow.add_step' | translate">
+                      {{ 'workflow.add_step' | translate }}
+                    </button>
+                    <mat-menu #menuAddStep="matMenu">
+                      <button *ngFor="let profile of selectedProfile.task" mat-menu-item (click)="addStep(profile.name)" >{{ profile.title }}</button>
+                    </mat-menu>
+                  </div>
                 </div>
-                <div class="app-oa-y" *ngIf="selectedProfile">
-                  <app-user-table 
-                  (sortBy)="sortTasksTable($event)" 
-                  (selectItem)="openTask($event)"
-                  [colsSettingsName]="'columnsWorkFlowTasks'" [items]="tasks" ></app-user-table>
+                <div class="app-fxFlex app-oa-y">
+                  <div class="app-editor-content">
+                    <app-user-table (sortBy)="sortTasksTable($event)" (selectItem)="openTask($event)" [colsSettingsName]="'columnsWorkFlowTasks'" [items]="tasks" ></app-user-table>
+                  </div>
                 </div>
               </div>
             </as-split-area>
-            <as-split-area>
-              <div fxLayout="column" fxFlexFill>
-                <div class="app-oa-y">
-                  <table mat-table [dataSource]="materials" multiTemplateDataRows class="app-expanded app-hover">
-                    <ng-container matColumnDef="{{column}}" *ngFor="let column of materialColumnsToDisplay">
-                      <th mat-header-cell *matHeaderCellDef>{{ 'dynamic.workFlow.' + column | translate }}</th>
-                      <td mat-cell *matCellDef="let element">
-                        <a *ngIf="column === 'label' && element['type'] === 'DIGITAL_OBJECT'" class="app-icon-copy app-mr-1" (click)="copyTextToClipboard(element.pid)" [matTooltip]="'button.copyTextToClipboard' | translate"><mat-icon class="app-icon-copy">content_copy</mat-icon></a>
-                        {{ element[column] }}
-                      </td>
-                    </ng-container>
 
-                    <ng-container matColumnDef="expand">
-                      <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
-                      <td mat-cell *matCellDef="let element" class="app-text-right">
-                        <a (click)="(materialExpandedElement = materialExpandedElement === element ? null : element); $event.stopPropagation()">
-                          <mat-icon *ngIf="materialExpandedElement !== element">keyboard_arrow_down</mat-icon>
-                          <mat-icon *ngIf="materialExpandedElement === element">keyboard_arrow_up</mat-icon> 
-                        </a>
-                      </td>
-                    </ng-container>
-    
-                    <ng-container matColumnDef="expandedDetail">
-                      <td mat-cell *matCellDef="let element" [attr.colspan]="materialColumnsToDisplayWithExpand.length">
-                        <div class="app-detail" [@detailExpand]="element == materialExpandedElement ? 'expanded' : 'collapsed'">
-                          <div class="app-pt-2 app-pb-2">
-                            <app-material-edit [material]="element" [workflow]="activeJob" (onRefresh)="getWorkflow(true)"></app-material-edit>
+            <as-split-area>
+              <div class="app-fxLayout app-column app-fill">
+                <div class="app-fxFlex app-oa-y">
+                  <div class="app-editor-content">
+                    <table mat-table [dataSource]="materials" multiTemplateDataRows class="app-expanded app-hover">
+                      <ng-container matColumnDef="{{column}}" *ngFor="let column of materialColumnsToDisplay">
+                        <th mat-header-cell *matHeaderCellDef>{{ 'dynamic.workFlow.' + column | translate }}</th>
+                        <td mat-cell *matCellDef="let element" class="app-text-cutter">
+                          <a *ngIf="column === 'label' && element['type'] === 'DIGITAL_OBJECT'" class="app-icon-copy app-mr-1" (click)="copyTextToClipboard(element.pid)" [matTooltip]="'button.copyTextToClipboard' | translate"><mat-icon class="app-icon-copy">content_copy</mat-icon></a>
+                          {{ element[column] }}
+                        </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="expand">
+                        <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+                        <td mat-cell *matCellDef="let element">
+                          <div class="app-fxLayout app-row app-jc-end">
+                            <button mat-icon-button (click)="(materialExpandedElement = materialExpandedElement === element ? null : element); $event.stopPropagation()" class="app-toggle-button" [class.app-toggle-button-expanded]="materialExpandedElement === element">
+                              <mat-icon>keyboard_arrow_down</mat-icon>
+                            </button>
                           </div>
-                        </div>     
-                      </td>
-                    </ng-container>
-    
-                    <tr mat-header-row *matHeaderRowDef="materialColumnsToDisplayWithExpand; sticky: true"></tr>
-                    <tr mat-row *matRowDef="let element; columns: materialColumnsToDisplayWithExpand;" [class.app-row-expanded-parent]="materialExpandedElement === element" (click)="materialExpandedElement = materialExpandedElement === element ? null : element"></tr>
-                    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="app-row-detail" [class.app-row-expanded]="materialExpandedElement === row"></tr>
-                  </table>
+                        </td>
+                      </ng-container>
+      
+                      <ng-container matColumnDef="expandedDetail">
+                        <td mat-cell *matCellDef="let element" [attr.colspan]="materialColumnsToDisplayWithExpand.length" class="app-p-0">
+                          <div class="app-detail" [@detailExpand]="element == materialExpandedElement ? 'expanded' : 'collapsed'">
+                            <app-material-edit [material]="element" [workflow]="activeJob" (onRefresh)="getWorkflow(true)"></app-material-edit>
+                          </div>     
+                        </td>
+                      </ng-container>
+      
+                      <tr mat-header-row *matHeaderRowDef="materialColumnsToDisplayWithExpand; sticky: true"></tr>
+                      <tr mat-row *matRowDef="let element; columns: materialColumnsToDisplayWithExpand;" [class.app-row-expanded-parent]="materialExpandedElement === element" (click)="materialExpandedElement = materialExpandedElement === element ? null : element"></tr>
+                      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="app-row-detail" [class.app-row-expanded]="materialExpandedElement === row"></tr>
+                    </table>
+                  </div>
                 </div>
               </div>
             </as-split-area>
