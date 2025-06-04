@@ -147,7 +147,11 @@
       "creator": "Creater",
       "owner": "Owner",
       "description": "Description"
-    }
+    },
+    "signature": "Signature",
+    "barcode": "Bar code",
+    "taskUser": "Task user",
+    "profileLabel": "Profile label"
   },
   "catalog": {
     "field": {

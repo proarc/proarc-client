@@ -147,7 +147,11 @@
       "creator": "Tvůrce",
       "owner": "Vlastník",
       "description": "Popis"
-    }
+    },
+    "signature": "Signatura",
+    "barcode": "Bar cód",
+    "taskUser": "Uživatel úkolu",
+    "profileLabel": "Štítek profilu"
   },
   "catalog": {
     "field": {
