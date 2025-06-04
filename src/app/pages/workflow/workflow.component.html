@@ -107,12 +107,7 @@
                             <mat-label>{{ 'desc.name' | translate }}</mat-label>
                             <input autocomplete="off" matInput [placeholder]="'desc.name' | translate" [(ngModel)]="activeJob.label">
                           </mat-form-field>
-                        </div>
-                      </div>
-                      <div class="app-gap-fixer"></div>
 
-                      <div class="app-form">
-                        <div class="app-form-content">
                           <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
                             <mat-label>{{ 'desc.state' | translate }}</mat-label>
                             <mat-select [(ngModel)]="activeJob.state" [placeholder]="'desc.state' | translate">
@@ -129,12 +124,7 @@
                             <mat-label>{{ 'desc.profile' | translate }}</mat-label>
                             <input autocomplete="off" matInput [placeholder]="'desc.profile' | translate" [(ngModel)]="activeJob.profileName" readonly>
                           </mat-form-field>
-                        </div>
-                      </div>
-                      <div class="app-gap-fixer"></div>
 
-                      <div class="app-form">
-                        <div class="app-form-content">
                           <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
                             <mat-label>{{ 'desc.owner' | translate }}</mat-label>
                             <input autocomplete="off" matInput [placeholder]="'desc.owner' | translate" [(ngModel)]="activeJob.ownerName" readonly>
@@ -147,13 +137,7 @@
                             <mat-label>{{ 'id' | translate }}</mat-label>
                             <input autocomplete="off" matInput [placeholder]="'id' | translate" [(ngModel)]="activeJob.id" readonly>
                           </mat-form-field>
-                        </div>
-                      </div>
-                      <div class="app-gap-fixer"></div>
 
-
-                      <div class="app-form">
-                        <div class="app-form-content">
                           <mat-form-field appearance="outline" class="app-field-col app-field-col-2">
                             <mat-label>{{ 'desc.created' | translate }}</mat-label>
                             <input matInput [placeholder]="'desc.created' | translate" [value]="activeJob.created | date : 'dd.MM.yyyy HH:mm'" readonly>
@@ -162,19 +146,14 @@
                             <mat-label>{{ 'desc.modified' | translate }}</mat-label>
                             <input autocomplete="off" matInput [placeholder]="'desc.modified' | translate" [value]="activeJob.modified | date : 'dd.MM.yyyy HH:mm'" readonly>
                           </mat-form-field>
-                        </div>
-                      </div>
-                      <div class="app-gap-fixer"></div>
 
-                      <div class="app-form">
-                        <div class="app-form-content">
-                          <mat-form-field appearance="outline" class="app-field-col">
+                           <mat-form-field appearance="outline" class="app-field-col">
                             <mat-label>{{ 'desc.note' | translate }}</mat-label>
                             <textarea [(ngModel)]="activeJob.note" matInput [placeholder]="'desc.note' | translate"></textarea>
                           </mat-form-field>
-                       </div>
+                        </div>
                       </div>
-                      <div class="app-gap-fixer"></div> 
+                      <div class="app-gap-fixer"></div>
                     </div>
                   </div>
                 </div>

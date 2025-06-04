@@ -97,7 +97,7 @@
       }
 
       .app-form-content {
-        padding: var(--app-form-gap) 0 0 0;
+        padding: var(--app-form-gap) 4px 0 4px; // old var(--app-form-gap) 0 0 0;
         overflow: hidden;
 
         &.app-expanded {
@@ -112,14 +112,14 @@
           width: 100%;
 
           &.app-field-col {
-            padding: 0 8px;
+            padding: 0 4px; // old 0 8px;
 
             &.app-field-col-2 {
               width: 50%;
             }
 
             &.app-field-col-3 {
-              width: 33%;
+              width: 33.3333%;
             }
           }
 
