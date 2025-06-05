@@ -1,6 +1,5 @@
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
-
     <app-field-text field="displayLabel" [item]="item" [(value)]='item.attrs["displayLabel"]'></app-field-text>
 
     <app-editor-field *ngIf="item.available['extent']" [field]="item.extents" [nested]='true'>
