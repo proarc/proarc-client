@@ -1,10 +1,8 @@
 
 <div class="app-p-2" *ngIf="showGenreSwitch">
-  <mat-radio-group aria-label="'standard'" [(ngModel)]="field.isPeerReviewed" color="primary" (change)="switchChanged($event)" 
-  [formControl]="peerControl">
-  <!-- [formControl]="field.items[0].controls['peer-reviewed']" -->
-      <mat-radio-button [value]="true">Recenzovaný článek</mat-radio-button>
-      <mat-radio-button [value]="false">Nerecenzovaný článek</mat-radio-button>
+  <mat-radio-group aria-label="'standard'" [(ngModel)]="field.isPeerReviewed" color="primary" (change)="switchChanged($event)" [formControl]="peerControl">
+    <mat-radio-button [value]="true">Recenzovaný článek</mat-radio-button>
+    <mat-radio-button [value]="false">Nerecenzovaný článek</mat-radio-button>
   </mat-radio-group>
   <button mat-icon-button [matTooltip]="'button.addReference' | translate" (click)="addReference()">
     <mat-icon>format_quote</mat-icon>

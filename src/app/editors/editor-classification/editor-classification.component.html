@@ -1,10 +1,8 @@
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
-
     <app-autocomplete [(value)]='item.attrs["authority"]' field="authority" [item]="item"></app-autocomplete>
     <app-autocomplete [(value)]='item.attrs["edition"]' field="edition" [item]="item"></app-autocomplete>
     <app-field-text field="value" [item]="item" [(value)]="item.modsElement['_']" ></app-field-text>
-    
   </ng-template>
 </app-editor-field>
   

@@ -28,7 +28,7 @@
 	</div>
 	<div class="app-fxFlex app-oa-y" *ngIf="mods && layout.getNumOfSelected() < 2">
 		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
-		<div class="app-editor-content" *ngIf="state !=='loading'">
+		<div class="app-fxLayout app-column app-fill app-view-edit" *ngIf="state !=='loading'">
 			<pre *ngIf="editting && !realtime" class="app-xml-content app-mods-editing" #editingPre><code class="app-mods-editing" (input)="checkChanged()" contenteditable="true" [highlightAuto]="mods.original"></code></pre>
 			<pre *ngIf="!editting && !realtime" class="app-xml-content" #originalPre><code [highlightAuto]="mods.original"></code></pre>
 		</div>

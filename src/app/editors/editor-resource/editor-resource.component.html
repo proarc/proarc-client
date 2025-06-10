@@ -1,8 +1,6 @@
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
-    
     <app-field-dropdown class="app-full-width app-no-placeholder" field="value" [item]="item" [(value)]="item.modsElement['_']"></app-field-dropdown>
     <app-field-dropdown field="manuscript" [item]="item" [(value)]="item.attrs['manuscript']"></app-field-dropdown>
-
   </ng-template>
 </app-editor-field>

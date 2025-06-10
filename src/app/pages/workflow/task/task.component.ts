@@ -31,9 +31,10 @@ import { LayoutService } from '../../../services/layout-service';
 import { UIService } from '../../../services/ui.service';
 import { MaterialEditComponent } from '../material-edit/material-edit.component';
 import { Configuration } from '../../../shared/configuration';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, 
+  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, MatCheckboxModule, 
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
     MatTableModule, MatSortModule, UserTableComponent, MaterialEditComponent],

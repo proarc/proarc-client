@@ -288,6 +288,7 @@ fieldset {
   border-bottom: 1px solid var(--app-toolbar-border-color);
 
   .mat-mdc-button-base {
+    --mdc-text-button-container-height: var(--app-toolbar-button-height);
     @extend .app-clean-radius;
 
     &.app-active {
@@ -305,7 +306,7 @@ fieldset {
 
   .mat-mdc-icon-button {
     &.mat-mdc-button-base {
-      --mdc-icon-button-state-layer-size: 34px;
+      --mdc-icon-button-state-layer-size: var(--app-toolbar-button-height);
       width: var(--mdc-icon-button-state-layer-size);
       height: var(--mdc-icon-button-state-layer-size);
       padding: 0;
@@ -354,6 +355,53 @@ fieldset {
 }
 
 
+// text edit - xml, text, comment etc. 
+.app-view-edit {
+	textarea {
+		margin: 0px;
+		width: 100%;
+		height: 100%;
+		outline: none;
+		border: none;
+		background: var(--app-color-lightnes);
+		padding: 10px;
+		font-size: 13px;
+		color: var(--app-color-darknes);
+	}
+
+  pre {
+    &.app-text-content {
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      margin: 0;
+      padding: 10px;
+      font-size: 13px;
+      color: var(--app-color-gray-7);
+      white-space: pre-line;
+    }
+
+    &.app-xml-content {
+      margin: 0;
+      //height: 100%;
+      width: 100%;
+      overflow-x: auto;
+
+      &.app-mods-editing {
+        border: 2px solid var(--app-color-darknes);
+        background-color: var(--app-color-lightnes);
+      }
+
+      code {
+        padding: 10px;
+        font-size: 14px;
+        overflow-x: initial;
+      }
+    }
+  }
+}
+
+
 // editor content
 .app-editor-content {
   &:focus {
@@ -377,7 +425,7 @@ fieldset {
     padding: 2px 0;
 
     .app-item-wrapper {
-      @extend .app-cursor-pointer;
+      //@extend .app-cursor-pointer;
       padding: 2px;
 
       .app-item {

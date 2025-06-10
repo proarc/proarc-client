@@ -1,235 +1,221 @@
 <mat-progress-bar mode="indeterminate" *ngIf="loading" class="app-progress-bar"></mat-progress-bar>
 <div *ngIf="!loading" class="app-fxLayout app-column app-fill app-editor-wrapper">
-  <div class="app-fxLayout app-row app-center-v app-gap-4 app-breadcrumbsbar">
-    <div class="app-fxLayout app-row app-center-v app-inner app-view-border-right app-pr-4">
-        <a routerLink="/"><mat-icon>home</mat-icon></a>
-        <span class="app-separator">/</span>
-        <a class="app-text-cutter" routerLink="/workflow">{{ 'navbar.workflow' | translate }}</a>
-        <span class="app-separator">/</span>
-        <span class="app-text-cutter">{{ (onlyMyTasks ? 'navbar.my_tasks' : 'navbar.tasks') | translate }}</span>
+  <div class="app-fxLayout app-r	ow app-center-v app-gap-4 app-breadcrumbsbar">
+    <div class="app-fxLayout app-row app-center-v app-inner">
+			<a routerLink="/"><mat-icon>home</mat-icon></a>
+			<span class="app-separator">/</span>
+			<a class="app-text-cutter" routerLink="/workflow/jobs">{{ 'navbar.workflow' | translate }}</a>
+			<span class="app-separator">/</span>
+			<span class="app-text-cutter">{{ (onlyMyTasks ? 'navbar.my_tasks' : 'navbar.tasks') | translate }}</span>
     </div>
-    <div fxLayout="row" fxLayoutAlign="start center" class="app-h-100"></div>
-    </div>
-    <div class="app-fxFlex app-oh app-content-wrapper" >
-        <div class="app-border-wrapper app-h-100">           
-            <as-split direction="horizontal">
-                <as-split-area [size]="40">
-                    <div fxLayout="column" fxFlexFill>
-                        <div class="app-toolbar" *ngIf="!id">
-                            <button (click)="getTasks()" mat-icon-button
-                                [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
-                            <button *ngIf="this.totalSelected > 1" mat-button (click)="editTasks()" >{{'workflow.multipleJobsEdit' | translate}}</button>
-                            <button mat-icon-button [matMenuTriggerFor]="menuMoreTasks" [matTooltip]="'button.more' | translate">
-                              <mat-icon>more_vert</mat-icon>
-                            </button>
-                            <mat-menu #menuMoreTasks="matMenu">
-                              <!-- <button mat-menu-item (click)="selectColumns('tasks')" >{{'editor.children.select_columns' | translate}}</button> -->
-                            </mat-menu>
-                        </div>
-                        <div class="app-oa-y" >
-                            <app-user-table 
-                                (sortBy)="sortTasksTable($event)" 
-                                (selectItem)="taskClick($event)"
-                                [colsSettingsName]="'columnsWorkFlowTasks'" [items]="tasks" ></app-user-table>
-                            <!-- <table mat-table [dataSource]="tasks" class="app-striped app-hover app-resize" matSort
-                                [matSortActive]="layout.workflowTasksSort.field" [matSortDirection]="layout.workflowTasksSort.direction"
-                                (matSortChange)="sortTasksTable($event)">
+  </div>
 
-                                <ng-container *ngFor="let c of selectedColumns" [matColumnDef]="c + '-filter'">
-                      
-                                    <th mat-header-cell *matHeaderCellDef [style.width]="colsWidthTasks[c]+'px'" class="app-col-filter">
-                                      <ng-container [ngSwitch]="columnTypes[c]">
-                                        <ng-container *ngSwitchCase="'date'">
-                                        
-                                        </ng-container>
-                                        <ng-container *ngSwitchCase="'list'">
-																					<div class="app-filter-wrapper">
-																						<mat-label *ngIf="!filterFields[c]">{{ 'desc.select' | translate }} ...</mat-label>
-																						<mat-select [(ngModel)]="filterFields[c]" (ngModelChange)="filter(c, filterFields[c])">
-																							<mat-option [value]="''"> </mat-option>
-																							<mat-option *ngFor="let s of lists[c]" [value]="s.code">{{ s.value }}</mat-option>
-																						</mat-select>
-																						<a matSuffix *ngIf="filterFields[c]" (click)="filter(c, ''); filterFields[c] = ''; $event.stopPropagation();" class="app-clear app-select"><mat-icon>clear</mat-icon></a>
-																					</div>
-                                        </ng-container>
-                                        <ng-container *ngSwitchDefault>
-																					<div class="app-filter-wrapper">
-																						<input type="text" [id]="c + 'Filter'" [(ngModel)]="filterFields[c]" (change)="filter(c, filterFields[c])" [placeholder]="('desc.enterText' | translate) + '...'"  />
-																						<a *ngIf="filterFields[c]" (click)="filter(c, ''); filterFields[c] = ''" class="app-clear"><mat-icon>clear</mat-icon></a>
-																					</div>
-                                        </ng-container>
-                                      </ng-container>
-                                      </th>
-                                  </ng-container>   
-                                  <ng-container *ngFor="let c of selectedColumns" [matColumnDef]="c">
-                                    
-                                    <th mat-header-cell *matHeaderCellDef
-                                    [class.app-activeSort]="c === layout.workflowTasksSort.field"
-                                     [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c)" [style.width]="colsWidthTasks[c]">
-                                     <span mat-sort-header>{{'desc.' + c | translate}}</span></th>
-                                    
-                                      <ng-container [ngSwitch]="columnTypes[c]">
-                                        <ng-container *ngSwitchCase="'date'">
-                                          <td mat-cell *matCellDef="let element">{{ element[c] | date : 'dd.MM.yyyy'}}</td>
-                                        </ng-container>
-                                        <ng-container *ngSwitchCase="'list'">
-                                          <td mat-cell *matCellDef="let element">{{ listValue(c, element[c])}}</td>
-                                        </ng-container>
-                                        <ng-container *ngSwitchCase="'translated'">
-                                          <td mat-cell *matCellDef="let element">{{ element[translatedField(c)] }}</td>
-                                        </ng-container>
-                                        <ng-container *ngSwitchDefault>
-                                          <td mat-cell *matCellDef="let element">{{ element[c] }}</td>
-                                        </ng-container>
-                                      </ng-container>
-                                      
-                                  </ng-container>
+	<div class="app-fxFlex app-oh app-content-wrapper">
+		<div class="app-border-wrapper app-h-100">           
+			<as-split direction="horizontal">
+				<as-split-area [size]="40">
+					<div class="app-fxLayout app-column app-fill">
+						<div class="app-fxLayout app-row app-toolbar" *ngIf="!id">
+              <div class="app-fxFlex app-fxLayout app-row app-center-v">
+								<button (click)="getTasks()" mat-icon-button [matTooltip]="'button.refresh' | translate"><mat-icon>sync</mat-icon></button>
+								<button *ngIf="this.totalSelected > 1" mat-button (click)="editTasks()" >{{'workflow.multipleJobsEdit' | translate}}</button>
+							</div>
+							<div>
+								<button mat-icon-button [matMenuTriggerFor]="menuMoreTasks" [matTooltip]="'button.more' | translate"><mat-icon>more_vert</mat-icon></button>
+								<mat-menu #menuMoreTasks="matMenu">
+									<!-- <button mat-menu-item (click)="selectColumns('tasks')" >{{'editor.children.select_columns' | translate}}</button> -->
+								</mat-menu>
+							</div>
+						</div>
+						<div class="app-fxFlex app-oa-y">
+							<div class="app-editor-content">
+								<app-user-table (sortBy)="sortTasksTable($event)" (selectItem)="taskClick($event)" [colsSettingsName]="'columnsWorkFlowTasks'" [items]="tasks" ></app-user-table>
+							</div>
+						</div>
+					</div>
+				</as-split-area>
+				
+				<as-split-area [size]="60">
+					<as-split direction="vertical">
+						<as-split-area>
+							<div class="app-fxLayout app-column app-fill">
+								<div class="app-fxLayout app-row app-toolbar" *ngIf="totalSelected === 1">
+              		<div class="app-fxFlex app-fxLayout app-row app-center-v">
+										<button  (click)="getTask(task.id)" mat-button>{{'common.refresh' | translate }}</button>
+										<button  (click)="gotoJob(task.jobId)" mat-button>{{'workflow.job' | translate }}</button>
+										<button (click)="saveTask()" mat-button>{{'common.save' | translate }}</button>
+									</div>
+								</div>
+								<div class="app-fxFlex app-oa-y">
+                  <div class="app-editor-container">
+                    <div class="app-gap-fixer"></div>
 
-                                <tr mat-header-row *matHeaderRowDef="filterTasksColumns; sticky: true"></tr>
-                                <tr mat-header-row *matHeaderRowDef="selectedColumns; sticky: true"></tr>
-                                <tr mat-row *matRowDef="let row; columns: selectedColumns; let idx=index;" 
-                                    [class.app-selected]="row.selected"
-                                    (click)="taskClick(row, $event, idx)"></tr>
-                            </table> -->
-                        </div>
-                    </div>
+										<div class="app-form-wrapper app-top-level" *ngIf="task && totalSelected === 1">
+											<h3 class="app-mb-2 app-ml-2 app-mr-2">{{ task.jobLabel }}</h3>
+                      <div class="app-form">
+                        <div class="app-form-content">
+													<mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+														<mat-label>{{ 'desc.state' | translate }}</mat-label>
+														<mat-select [(ngModel)]="task.state" [placeholder]="'desc.state' | translate">
+															<mat-option *ngFor="let o of states" [value]="o.code">{{o.value}}</mat-option>
+														</mat-select>
+													</mat-form-field>
+													<mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+														<mat-label>{{ 'desc.priority' | translate }}</mat-label>
+														<mat-select [(ngModel)]="task.priority" [placeholder]="task.priority">
+															<mat-option *ngFor="let o of priorities" [value]="o.code">{{o.value}}</mat-option>
+														</mat-select>
+													</mat-form-field>
+													<mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+														<mat-label>{{ 'desc.user' | translate }}</mat-label>
+														<mat-select [(ngModel)]="task.ownerId" [placeholder]="task.ownerName">
+															<mat-option *ngFor="let s of users" [value]="s.userId">{{ s.name }}</mat-option>
+														</mat-select>
+													</mat-form-field>
+
+													<mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+														<mat-label>{{ 'workflow.task' | translate }}</mat-label>
+														<input matInput disabled readonly="true" [value]="task.profileLabel">
+													</mat-form-field>
+													<mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+														<mat-label>{{ 'desc.created' | translate }}</mat-label>
+														<input matInput disabled readonly="true" [value]="task.created | date : 'dd.MM.yyyy HH:mm'">
+													</mat-form-field>
+													<mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+														<mat-label>{{ 'desc.modified' | translate }}</mat-label>
+														<input matInput disabled readonly="true" [value]="task.modified | date : 'dd.MM.yyyy HH:mm'">
+													</mat-form-field>
+
+													<mat-form-field appearance="outline" class="app-field-col">
+														<mat-label>{{ 'desc.note' | translate }}</mat-label>
+														<textarea [(ngModel)]="task.note" matInput [placeholder]="'desc.note' | translate"></textarea>
+													</mat-form-field>
+
+													<ng-container *ngFor="let param of parameters">
+														<ng-container [ngSwitch]="param.displayType">
+
+																<mat-form-field *ngSwitchCase="'TEXT'" appearance="outline" class="app-field-col">
+																	<mat-label>{{ param.profileLabel }}</mat-label>
+																	<input matInput [(ngModel)]="param.value" [id]="'param_' + param.profileName" [type]="param.valueType.toLowerCase()" [required]="param.required">
+																</mat-form-field>
+
+																<div *ngSwitchCase="'CHECKBOX'" class="app-mb-2">
+																	<mat-checkbox color="primary" [(ngModel)]="param.value">{{ param.profileHint}}</mat-checkbox>
+																</div>
+																
+																<mat-form-field *ngSwitchCase="'COMBOBOX'" appearance="outline" class="app-field-col">
+																	<mat-label>{{ param.profileLabel }}</mat-label>
+																	<mat-select [(ngModel)]="param.value">
+																		<mat-option *ngFor="let o of getValueMap(param.valueMapId)" [value]="o.value">{{o.value}}</mat-option>
+																	</mat-select>
+																</mat-form-field>
+
+																<div *ngSwitchDefault>{{ param.displayType }}</div>
+														</ng-container>
+													</ng-container>
+												</div>
+											</div>
+											<div class="app-gap-fixer"></div>
+										</div>
+									</div>	
+								</div>
+							</div>	
+						</as-split-area>
+
+						<as-split-area>
+							<div class="app-fxLayout app-column app-fill">
+                <div class="app-fxFlex app-oa-y">
+                  <div class="app-editor-content">
+											<table mat-table [dataSource]="material" multiTemplateDataRows class="app-expanded app-hover">
+												<ng-container matColumnDef="{{column}}" *ngFor="let column of materialColumnsToDisplay">
+													<th mat-header-cell *matHeaderCellDef>{{ 'dynamic.workFlow.' + column | translate }}</th>
+													<td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+												</ng-container>
+
+												<ng-container matColumnDef="expand">
+													<th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+													<td mat-cell *matCellDef="let element" class="app-pr-0">
+														<div class="app-fxLayout app-row app-jc-end">
+															<button mat-icon-button (click)="(materialExpandedElement = materialExpandedElement === element ? null : element); $event.stopPropagation()" class="app-toggle-button" [class.app-toggle-button-expanded]="materialExpandedElement === element">
+																<mat-icon>keyboard_arrow_down</mat-icon>
+															</button>
+														</div>
+													</td>
+												</ng-container>
+
+												<ng-container matColumnDef="expandedDetail">
+													<td mat-cell *matCellDef="let element" [attr.colspan]="materialColumnsToDisplayWithExpand.length" class="app-p-0">
+														<div class="app-detail" [@detailExpand]="element == materialExpandedElement ? 'expanded' : 'collapsed'">
+															<app-material-edit [material]="element"></app-material-edit>									
+														</div>
+													</td>
+												</ng-container>
+
+												<tr mat-header-row *matHeaderRowDef="materialColumnsToDisplayWithExpand; sticky: true"></tr>
+												<tr mat-row *matRowDef="let element; columns: materialColumnsToDisplayWithExpand;" [class.app-row-expanded-parent]="materialExpandedElement === element" (click)="materialExpandedElement = materialExpandedElement === element ? null : element"></tr>
+												<tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="app-row-detail" [class.app-row-expanded]="materialExpandedElement === row"></tr>
+											</table>
+									</div>
+								</div>
+							</div>
 
 
-                </as-split-area>
-                <as-split-area [size]="60">
 
-                    <as-split direction="vertical">
-                        <as-split-area>
-                            <div class="app-toolbar-old"  *ngIf="totalSelected === 1">
-                                <button  (click)="getTask(task.id)" mat-button>{{'common.refresh' | translate }}</button>
-                                <button  (click)="gotoJob(task.jobId)" mat-button>{{'workflow.job' | translate }}</button>
-                                <button (click)="saveTask()" mat-button>{{'common.save' | translate }}</button>
-                            </div>
-                            <div class="app-detail" *ngIf="task && totalSelected === 1">
-                                <h3>{{ task.jobLabel }}</h3>
-                                <div>
 
-                                    <mat-form-field>
-                                        <mat-label>{{ 'desc.state' | translate }}</mat-label>
-                                        <mat-select [(ngModel)]="task.state" [placeholder]="'desc.state' | translate">
-                                            <mat-option *ngFor="let o of states"
-                                                [value]="o.code">{{o.value}}</mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                    <mat-form-field>
-                                        <mat-label>{{ 'desc.priority' | translate }}</mat-label>
-                                        <mat-select [(ngModel)]="task.priority" [placeholder]="task.priority">
-                                            <mat-option *ngFor="let o of priorities"
-                                                [value]="o.code">{{o.value}}</mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                    <mat-form-field>
-                                        <mat-label>{{ 'desc.user' | translate }}</mat-label>
-                                        <mat-select [(ngModel)]="task.ownerId" [placeholder]="task.ownerName">
-                                            <mat-option *ngFor="let s of users" [value]="s.userId">{{ s.name
-                                                }}</mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                                <div >
-                                    <mat-form-field>
-                                        <mat-label>{{ 'workflow.task' | translate }}</mat-label>
-                                        <input matInput disabled readonly="true" [value]="task.profileLabel">
-                                    </mat-form-field>
-                                    <mat-form-field>
-                                        <mat-label>{{ 'desc.created' | translate }}</mat-label>
-                                        <input matInput disabled readonly="true" [value]="task.created | date : 'dd.MM.yyyy HH:mm'">
-                                    </mat-form-field>
-                                    <mat-form-field>
-                                        <mat-label>{{ 'desc.modified' | translate }}</mat-label>
-                                        <input matInput disabled readonly="true" [value]="task.modified | date : 'dd.MM.yyyy HH:mm'">
-                                    </mat-form-field>
-                                </div>
-                                <div >
-                                    <mat-form-field class="app-w-100">
-                                        <mat-label>{{ 'desc.note' | translate }}</mat-label>
-                                        <textarea [(ngModel)]="task.note" matInput [placeholder]="'desc.note' | translate"></textarea>
-                                    </mat-form-field>
-                                </div>
-                                <div >
-                                    <ng-container *ngFor="let param of parameters">
-                                        <ng-container [ngSwitch]="param.displayType">
 
-                                            <mat-form-field *ngSwitchCase="'TEXT'">
-                                                <mat-label>{{ param.profileLabel }}</mat-label>
-                                                <input matInput [(ngModel)]="param.value" [id]="'param_' + param.profileName" [type]="param.valueType.toLowerCase()" [required]="param.required">
-                                            </mat-form-field>
+								<!-- <div fxLayout="column" fxFlexFill>
+										<div class="app-oa-y" *ngIf="totalSelected === 1">
+												<table mat-table [dataSource]="material" multiTemplateDataRows
+														class="app-expanded app-hover">
+														<ng-container matColumnDef="{{column}}"
+																*ngFor="let column of materialColumnsToDisplay">
+																<th mat-header-cell *matHeaderCellDef>{{ 'dynamic.workFlow.' + column |
+																		translate }}</th>
+																<td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+														</ng-container>
 
-                                            <mat-checkbox *ngSwitchCase="'CHECKBOX'" color="primary"
-                                                [(ngModel)]="param.value">{{ param.profileHint}}</mat-checkbox>
+														<ng-container matColumnDef="expand">
+																<th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+																<td mat-cell *matCellDef="let element" class="app-text-right">
+																		<a
+																				(click)="(materialExpandedElement = materialExpandedElement === element ? null : element); $event.stopPropagation()">
+																				<mat-icon
+																						*ngIf="materialExpandedElement !== element">keyboard_arrow_down</mat-icon>
+																				<mat-icon
+																						*ngIf="materialExpandedElement === element">keyboard_arrow_up</mat-icon>
+																		</a>
+																</td>
+														</ng-container>
 
-                                            <mat-form-field *ngSwitchCase="'COMBOBOX'">
-                                                <mat-label>{{ param.profileLabel }}</mat-label>
-                                                <mat-select [(ngModel)]="param.value">
-                                                    <mat-option *ngFor="let o of getValueMap(param.valueMapId)"
-                                                        [value]="o.value">{{o.value}}</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                            <span *ngSwitchDefault>{{param.displayType}}</span>
-                                        </ng-container>
-                                    </ng-container>
-                                </div>
-                            </div>
-                        </as-split-area>
-                        <as-split-area>
-                            <div fxLayout="column" fxFlexFill>
-                                <div class="app-oa-y" *ngIf="totalSelected === 1">
-                                    <table mat-table [dataSource]="material" multiTemplateDataRows
-                                        class="app-expanded app-hover">
-                                        <ng-container matColumnDef="{{column}}"
-                                            *ngFor="let column of materialColumnsToDisplay">
-                                            <th mat-header-cell *matHeaderCellDef>{{ 'dynamic.workFlow.' + column |
-                                                translate }}</th>
-                                            <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
-                                        </ng-container>
+														<ng-container matColumnDef="expandedDetail">
+																<td mat-cell *matCellDef="let element"
+																		[attr.colspan]="materialColumnsToDisplayWithExpand.length">
+																		<div class="app-detail"
+																				[@detailExpand]="element == materialExpandedElement ? 'expanded' : 'collapsed'">
+																				<div class="app-pt-2 app-pb-2">
+																						<app-material-edit [material]="element"></app-material-edit>
+																				</div>
+																		</div>
+																</td>
+														</ng-container>
 
-                                        <ng-container matColumnDef="expand">
-                                            <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
-                                            <td mat-cell *matCellDef="let element" class="app-text-right">
-                                                <a
-                                                    (click)="(materialExpandedElement = materialExpandedElement === element ? null : element); $event.stopPropagation()">
-                                                    <mat-icon
-                                                        *ngIf="materialExpandedElement !== element">keyboard_arrow_down</mat-icon>
-                                                    <mat-icon
-                                                        *ngIf="materialExpandedElement === element">keyboard_arrow_up</mat-icon>
-                                                </a>
-                                            </td>
-                                        </ng-container>
-
-                                        <ng-container matColumnDef="expandedDetail">
-                                            <td mat-cell *matCellDef="let element"
-                                                [attr.colspan]="materialColumnsToDisplayWithExpand.length">
-                                                <div class="app-detail"
-                                                    [@detailExpand]="element == materialExpandedElement ? 'expanded' : 'collapsed'">
-                                                    <div class="app-pt-2 app-pb-2">
-                                                        <app-material-edit [material]="element"></app-material-edit>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </ng-container>
-
-                                        <tr mat-header-row
-                                            *matHeaderRowDef="materialColumnsToDisplayWithExpand; sticky: true"></tr>
-                                        <tr mat-row
-                                            *matRowDef="let element; columns: materialColumnsToDisplayWithExpand;"
-                                            [class.app-row-expanded-parent]="materialExpandedElement === element"
-                                            (click)="materialExpandedElement = materialExpandedElement === element ? null : element">
-                                        </tr>
-                                        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']"
-                                            class="app-row-detail"
-                                            [class.app-row-expanded]="materialExpandedElement === row"></tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </as-split-area>
-                    </as-split>
-                </as-split-area>
-            </as-split>
-        </div>
-    </div>
+														<tr mat-header-row
+																*matHeaderRowDef="materialColumnsToDisplayWithExpand; sticky: true"></tr>
+														<tr mat-row
+																*matRowDef="let element; columns: materialColumnsToDisplayWithExpand;"
+																[class.app-row-expanded-parent]="materialExpandedElement === element"
+																(click)="materialExpandedElement = materialExpandedElement === element ? null : element">
+														</tr>
+														<tr mat-row *matRowDef="let row; columns: ['expandedDetail']"
+																class="app-row-detail"
+																[class.app-row-expanded]="materialExpandedElement === row"></tr>
+												</table>
+										</div>
+								</div> -->
+						</as-split-area>
+						</as-split>
+				</as-split-area>
+			</as-split>
+		</div>
+	</div>
 </div>

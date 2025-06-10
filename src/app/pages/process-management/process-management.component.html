@@ -10,7 +10,7 @@
   <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'"></mat-progress-bar>
 
   <div class="app-fxFlex app-fxLayout app-column app-content-wrapper app-process-management" *ngIf="state=='success'">
-    <div class="app-fxLayout app-row app-gap-2 app-formba app-mb-n3">
+    <div class="app-fxLayout app-row app-gap-2 app-baseline app-formbar app-mb-n3">
       <ng-container *ngIf="view == 'overview'">
         <mat-form-field appearance="outline" class="app-state">
           <mat-label>{{ 'desc.state' | translate }}</mat-label>
