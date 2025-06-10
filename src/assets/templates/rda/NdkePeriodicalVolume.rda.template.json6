@@ -1,7 +1,7 @@
 {
     titleInfo: {
       usage: 'M',
-      required: true,
+//      required: true,
       label: 'Číslo ročníku',
       selector: 'titleInfo',
       labelKey: 'titleInfo',
@@ -77,7 +77,7 @@
             value: {
               label: 'Hodnota',
               usage: 'M',
-              required: true,
+//              required: true,
               selector: 'name/namePart',
               labelKey: 'name/namePart/value',
               cols: 2,
@@ -126,7 +126,7 @@
     },
     originInfo: {
       usage: 'M',
-      required: true,
+//      required: true,
       label: 'Rok vydání',
       selector: 'originInfo',
       labelKey: 'originInfo',
@@ -135,7 +135,7 @@
       fields: {
         dateIssued: {
           usage: 'M',
-          required: true,
+//          required: true,
           label: 'Rok',
           selector: 'originInfo/dateIssued',
           labelKey: 'originInfo/dateIssued',
@@ -229,7 +229,7 @@
     },
     genre: {
       usage: 'M',
-      required: true,
+//      required: true,
       label: 'Žánr',
       selector: 'genre',
       labelKey: 'genre',

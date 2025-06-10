@@ -1,7 +1,7 @@
 {
     titleInfo: {
       usage: 'M',
-      required: true,
+//      required: true,
       label: 'Číslo ročníku',
       selector: 'titleInfo',
       labelKey: 'titleInfo',
