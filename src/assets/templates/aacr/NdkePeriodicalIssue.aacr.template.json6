@@ -38,7 +38,7 @@
           hodnoty převzít z katalogu, katalogizačního záznamu titulu periodika nebo názvových autorit'
         },
         nonSort: {
-          usage: 'O',
+          usage: 'R',
           label: 'Část vynechaná při hledání',
           selector: 'titleInfo/nonSort',
           labelKey: 'titleInfo/nonSort',
@@ -51,14 +51,14 @@
           </ul>',
         },
         subTitle: {
-          usage: 'O',
+          usage: 'R',
           label: 'Podnázev výtisku',
           selector: 'titleInfo/subTitle',
           labelKey: 'titleInfo/subTitle',
           description: 'Podnázev čísla periodika'
         },
         partName: {
-          usage: 'O',
+          usage: 'R',
           label: 'Název výtisku',
           selector: 'titleInfo/partName',
           labelKey: 'titleInfo/partName',
@@ -273,7 +273,7 @@
                   help: 'off'
                 },
                 type: {
-                  usage: 'M',
+                  usage: 'O',
                   cols: 2,
                   selector: 'originInfo/place/placeTerm/@type',
                   labelKey: 'originInfo/place/placeTerm/@type',
@@ -296,7 +296,7 @@
                   ]
                 },
                 authority: {
-                  usage: 'MA',
+                  usage: 'O',
                   cols: 2,
                   selector: 'originInfo/place/placeTerm/@authority',
                   labelKey: 'originInfo/place/placeTerm/@authority',
@@ -328,7 +328,7 @@
       fields: {
         physicalLocation: {
           usage: 'MA',
-          required: true,
+//          required: true,
           label: 'Místo uložení',
           labelKey: 'location/physicalLocation',
           selector: 'location/physicalLocation',
@@ -574,13 +574,13 @@
               labelKey: 'subject/topic/@valueURI',
               description: 'Link na URL cislo autority',
             },
-            //            lang: {
-            //              usage: 'R',
-            //              label: 'Hodnota',
-            //              selector: 'subject/topic/@lang',
-            //              labelKey: 'subject/topic/@lang',
-            //              hint: false,
-            //            }
+            lang: {
+              usage: 'R',
+              label: 'Hodnota',
+              selector: 'subject/topic/@lang',
+              labelKey: 'subject/topic/@lang',
+              hint: false,
+            }
           }
         },
         temporal: {
@@ -641,7 +641,7 @@
           }
         },
         name: {
-          usage: 'MA',
+          usage: 'R',
           label: 'Autor',
           selector: 'subject/name',
           labelKey: 'subject/name',
@@ -670,7 +670,7 @@
               ]
             },
             namePart: {
-              usage: 'MA',
+              usage: 'M',
               label: 'Jméno',
               selector: 'name/namePart',
               labelKey: 'name/namePart',
@@ -708,24 +708,24 @@
               }
             },
             nameIdentifier: {
-              usage: 'MA',
+              usage: 'RA',
               label: 'Identifikátor autora',
               selector: 'name/nameIdentifier',
               labelKey: 'name/nameIdentifier',
               cols: 2,
               description: 'Číslo národní autority',
-            },
-            role: {
-              usage: 'MA',
-              label: 'Role',
-              selector: 'name/role/roleTerm',
-              labelKey: 'name/role/roleTerm',
-              expanded: true,
-              description: 'Specifikace role osoby nebo organizace<br/>\
-          Kód role z kontrolovaného slovníku rolí\
-          (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)',
-              fields: {},
             }
+//            role: {
+//              usage: 'MA',
+//              label: 'Role',
+//              selector: 'name/role/roleTerm',
+//              labelKey: 'name/role/roleTerm',
+//              expanded: true,
+//              description: 'Specifikace role osoby nebo organizace<br/>\
+//          Kód role z kontrolovaného slovníku rolí\
+//          (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)',
+//              fields: {},
+//            }
           }
         },
       }

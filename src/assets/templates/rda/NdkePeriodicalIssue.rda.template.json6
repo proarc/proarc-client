@@ -136,8 +136,8 @@
             },
             value: {
               label: 'Hodnota',
-              usage: 'M',
-              selector: 'name/namePart',
+              usage: 'MA',
+              selector: 'name/namePart/value',
               labelKey: 'name/namePart/value',
               cols: 2,
               help: 'off'
@@ -272,7 +272,7 @@
                   help: 'off'
                 },
                 type: {
-                  usage: 'M',
+                  usage: 'O',
                   cols: 2,
                   selector: 'originInfo/place/placeTerm/@type',
                   labelKey: 'originInfo/place/placeTerm/@type',
@@ -295,7 +295,7 @@
                   ]
                 },
                 authority: {
-                  usage: 'MA',
+                  usage: 'O',
                   cols: 2,
                   selector: 'originInfo/place/placeTerm/@authority',
                   labelKey: 'originInfo/place/placeTerm/@authority',
@@ -327,7 +327,7 @@
       fields: {
         physicalLocation: {
           usage: 'MA',
-          required: true,
+//          required: true,
           label: 'Místo uložení',
           labelKey: 'location/physicalLocation',
           selector: 'location/physicalLocation',
@@ -577,13 +577,13 @@
               labelKey: 'subject/topic/@valueURI',
               description: 'Link na URL cislo autority',
             },
-            //            lang: {
-            //              usage: 'R',
-            //              label: 'Hodnota',
-            //              selector: 'subject/topic/@lang',
-            //              labelKey: 'subject/topic/@lang',
-            //              hint: false,
-            //            }
+            lang: {
+              usage: 'R',
+              label: 'Hodnota',
+              selector: 'subject/topic/@lang',
+              labelKey: 'subject/topic/@lang',
+              hint: false,
+            }
           }
         },
         temporal: {
@@ -710,24 +710,24 @@
               }
             },
             nameIdentifier: {
-              usage: 'MA',
+              usage: 'RA',
               label: 'Identifikátor autora',
               selector: 'name/nameIdentifier',
               labelKey: 'name/nameIdentifier',
               cols: 2,
               description: 'Číslo národní autority',
-            },
-            role: {
-              usage: 'MA',
-              label: 'Role',
-              selector: 'name/role/roleTerm',
-              labelKey: 'name/role/roleTerm',
-              expanded: true,
-              description: 'Specifikace role osoby nebo organizace<br/>\
-          Kód role z kontrolovaného slovníku rolí\
-          (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)',
-              fields: {},
             }
+//            role: {
+//              usage: 'RA',
+//              label: 'Role',
+//              selector: 'name/role/roleTerm',
+//              labelKey: 'name/role/roleTerm',
+//              expanded: true,
+//              description: 'Specifikace role osoby nebo organizace<br/>\
+//          Kód role z kontrolovaného slovníku rolí\
+//          (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)',
+//              fields: {},
+//            }
           }
         }
       }
