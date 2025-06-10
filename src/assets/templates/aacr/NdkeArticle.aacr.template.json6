@@ -1,7 +1,6 @@
 {
   titleInfo: {
     usage: 'M',
-    required: true,
     label: 'Název',
     selector: 'titleInfo',
     labelKey: 'titleInfo',
@@ -479,24 +478,24 @@
             }
           },
           nameIdentifier: {
-            usage: 'MA',
+            usage: 'RA',
             label: 'Identifikátor autora',
             selector: 'name/nameIdentifier',
             labelKey: 'name/nameIdentifier',
             cols: 2,
             description: 'Číslo národní autority',
           },
-          role: {
-            usage: 'MA',
-            label: 'Role',
-            selector: 'name/role/roleTerm',
-            labelKey: 'name/role/roleTerm',
-            expanded: true,
-            description: 'Specifikace role osoby nebo organizace<br/>\
-          Kód role z kontrolovaného slovníku rolí\
-          (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)',
-            fields: {},
-          }
+//          role: {
+//            usage: 'MA',
+//            label: 'Role',
+//            selector: 'name/role/roleTerm',
+//            labelKey: 'name/role/roleTerm',
+//            expanded: true,
+//            description: 'Specifikace role osoby nebo organizace<br/>\
+//          Kód role z kontrolovaného slovníku rolí\
+//          (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)',
+//            fields: {},
+//          }
         }
       }
     }
@@ -654,7 +653,7 @@
   },
   genre: {
     isElectronicArticle: true,
-        defaultValue: 'electronic_article',
+    defaultValue: 'electronic_article',
     usage: 'M',
     required: true,
     label: 'Žánr',
@@ -795,7 +794,7 @@
         labelKey: 'note/@xlink',
       },
       note: {
-        usage: 'RA',
+        usage: 'O',
         selector: 'note/value',
         labelKey: 'note/value',
         label: 'Poznámka',
@@ -828,8 +827,8 @@
       odpovídá poli 080 MARC21',
     fields: {
       authority: {
-        usage: 'M',
-        required: true,
+        usage: 'MA',
+//        required: true,
         label: 'Autorita',
         selector: 'classification/@authority',
         labelKey: 'classification/@authority',
@@ -1955,7 +1954,7 @@
         description: 'Shrnutí obsahu jako celku odpovídá poli 520 MARC21',
         fields: {
           abstract: {
-            usage: 'R',
+            usage: 'RA',
             label: 'Abstrakt',
             selector: 'relatedItem/abstract',
             labelKey: 'relatedItem/abstract/value',
