@@ -819,17 +819,17 @@
             cols: 2,
             description: 'Číslo národní autority'
           },
-          role: {
-            usage: 'MA',
-            label: 'Role',
-            selector: 'name/role/roleTerm',
-            labelKey: 'name/role/roleTerm',
-            expanded: true,
-            description: 'Specifikace role osoby nebo organizace<br/>\
-          Kód role z kontrolovaného slovníku rolí\
-          (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)',
-            fields: {}
-          }
+//          role: {
+//            usage: 'MA',
+//            label: 'Role',
+//            selector: 'name/role/roleTerm',
+//            labelKey: 'name/role/roleTerm',
+//            expanded: true,
+//            description: 'Specifikace role osoby nebo organizace<br/>\
+//          Kód role z kontrolovaného slovníku rolí\
+//          (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)',
+//            fields: {}
+//          }
         }
       }
     }
