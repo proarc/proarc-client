@@ -189,7 +189,7 @@
     },
     originInfo: {
       usage: 'M',
-      required: true,
+//      required: true,
       label: 'Původ předlohy',
       selector: 'originInfo',
       labelKey: 'originInfo',
@@ -206,7 +206,7 @@
         },
         dateIssued: {
           usage: 'M',
-          required: true,
+//          required: true,
           label: 'Datum vydání',
           selector: 'originInfo/dateIssued',
           labelKey: 'originInfo/dateIssued',
@@ -457,7 +457,7 @@
           description: 'Pro uvedení lokace elektronického dokumentu',
           fields: {
             value: {
-              usage: 'O',
+              usage: 'MA',
               selector: 'location/url/value',
               labelKey: 'location/url/value',
               label: 'Hodnota',
