@@ -485,17 +485,17 @@
             cols: 2,
             description: 'Číslo národní autority',
           },
-//          role: {
-//            usage: 'MA',
-//            label: 'Role',
-//            selector: 'name/role/roleTerm',
-//            labelKey: 'name/role/roleTerm',
-//            expanded: true,
-//            description: 'Specifikace role osoby nebo organizace<br/>\
-//          Kód role z kontrolovaného slovníku rolí\
-//          (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)',
-//            fields: {},
-//          }
+          //          role: {
+          //            usage: 'MA',
+          //            label: 'Role',
+          //            selector: 'name/role/roleTerm',
+          //            labelKey: 'name/role/roleTerm',
+          //            expanded: true,
+          //            description: 'Specifikace role osoby nebo organizace<br/>\
+          //          Kód role z kontrolovaného slovníku rolí\
+          //          (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)',
+          //            fields: {},
+          //          }
         }
       }
     }
@@ -585,8 +585,14 @@
         labelKey: 'physicalDescription/note',
         description: 'V případě doskenu se POVINNĚ vyplní hodnota <strong>dosken</strong>',
         options: [
-          ['', '-'],
-          ['dosken', 'dosken']
+          [
+            '',
+            '-'
+          ],
+          [
+            'dosken',
+            'dosken'
+          ]
         ]
       },
       form: {
@@ -614,10 +620,23 @@
                 <li><strong>rdacarrier</strong> (pro pole 338)</li>\
               </ul>',
             options: [
-              ['marcform', 'marcform'],
-              ['marccategory', 'marccategory'],
-              ['marcsmd', 'marcsmd'],
-              ['gmd', 'gmd']]
+              [
+                'marcform',
+                'marcform'
+              ],
+              [
+                'marccategory',
+                'marccategory'
+              ],
+              [
+                'marcsmd',
+                'marcsmd'
+              ],
+              [
+                'gmd',
+                'gmd'
+              ]
+            ]
           },
           value: {
             usage: 'RA',
@@ -626,25 +645,82 @@
             label: 'Hodnota',
             help: 'off',
             options: [
-              ['braille', 'braille'],
-              ['electronic', 'electronic'],
-              ['large print', 'large print'],
-              ['microfilm', 'microfilm'],
-              ['microfiche', 'microfiche'],
-              ['print', 'print'],
-              ['jiný', 'jiný'],
-              ['audio', 'audio'],
-              ['počítač', 'počítač'],
-              ['mikroforma', 'mikroforma'],
-              ['mikroskop', 'mikroskop'],
-              ['projekce', 'projekce'],
-              ['stereograf', 'stereograf'],
-              ['bez média', 'bez_media'],
-              ['video', 'video'],
-              ['svazek', 'svazek'],
-              ['online zdroj', 'online_zdroj'],
-              ['audiodisk', 'audiodisk'],
-              ['počítačový disk', 'počítačový disk'],
+              [
+                'braille',
+                'braille'
+              ],
+              [
+                'electronic',
+                'electronic'
+              ],
+              [
+                'large print',
+                'large print'
+              ],
+              [
+                'microfilm',
+                'microfilm'
+              ],
+              [
+                'microfiche',
+                'microfiche'
+              ],
+              [
+                'print',
+                'print'
+              ],
+              [
+                'jiný',
+                'jiný'
+              ],
+              [
+                'audio',
+                'audio'
+              ],
+              [
+                'počítač',
+                'počítač'
+              ],
+              [
+                'mikroforma',
+                'mikroforma'
+              ],
+              [
+                'mikroskop',
+                'mikroskop'
+              ],
+              [
+                'projekce',
+                'projekce'
+              ],
+              [
+                'stereograf',
+                'stereograf'
+              ],
+              [
+                'bez média',
+                'bez_media'
+              ],
+              [
+                'video',
+                'video'
+              ],
+              [
+                'svazek',
+                'svazek'
+              ],
+              [
+                'online zdroj',
+                'online_zdroj'
+              ],
+              [
+                'audiodisk',
+                'audiodisk'
+              ],
+              [
+                'počítačový disk',
+                'počítačový disk'
+              ],
             ]
           }
         }
@@ -655,7 +731,6 @@
     isElectronicArticle: true,
     defaultValue: 'electronic_article',
     usage: 'M',
-    required: true,
     label: 'Žánr',
     selector: 'genre',
     labelKey: 'genre',
@@ -680,39 +755,116 @@
         description: 'Možnost vyplnit bližší určení typu oddílu (možnost použít DTD monografie, MonographComponentPart Types)',
         options: [
           //            ['directory', 'adresář'],
-          ['news', 'news'],
-          ['tableOfContents', 'tableOfContents'],
-          ['advertisement', 'advertisement'],
-          ['abstract', 'abstract'],
-          ['introduction', 'introduction'],
-          ['review', 'review'],
-          ['dedication', 'dedication'],
-          ['bibliography', 'bibliography'],
-          ['editorsNote', 'editorsNote'],
-          ['preface', 'preface'],
-          ['mainArticle', 'mainArticle'],
-          ['index', 'index'],
-          ['unspecified', 'unspecified'],
-          ['annotation', 'annotation'],
-          ['afterword', 'afterword'],
-          ['bibliographicalPortrait', 'bibliographicalPortrait'],
-          ['obituary', 'obituary'],
-          ['sheetMusic', 'sheetMusic'],
-          ['contributors', 'contributors'],
-          ['summary', 'summary'],
-          ['interview', 'interview'],
-          ['study', 'study'],
-          ['technicalPlanScheme', 'technicalPlanScheme'],
-          ['conclusion', 'conclusion'],
-          ['otherNote', 'otherNote'],
-          ['editorial', 'editorial']
+          [
+            'news',
+            'news'
+          ],
+          [
+            'tableOfContents',
+            'tableOfContents'
+          ],
+          [
+            'advertisement',
+            'advertisement'
+          ],
+          [
+            'abstract',
+            'abstract'
+          ],
+          [
+            'introduction',
+            'introduction'
+          ],
+          [
+            'review',
+            'review'
+          ],
+          [
+            'dedication',
+            'dedication'
+          ],
+          [
+            'bibliography',
+            'bibliography'
+          ],
+          [
+            'editorsNote',
+            'editorsNote'
+          ],
+          [
+            'preface',
+            'preface'
+          ],
+          [
+            'mainArticle',
+            'mainArticle'
+          ],
+          [
+            'index',
+            'index'
+          ],
+          [
+            'unspecified',
+            'unspecified'
+          ],
+          [
+            'annotation',
+            'annotation'
+          ],
+          [
+            'afterword',
+            'afterword'
+          ],
+          [
+            'bibliographicalPortrait',
+            'bibliographicalPortrait'
+          ],
+          [
+            'obituary',
+            'obituary'
+          ],
+          [
+            'sheetMusic',
+            'sheetMusic'
+          ],
+          [
+            'contributors',
+            'contributors'
+          ],
+          [
+            'summary',
+            'summary'
+          ],
+          [
+            'interview',
+            'interview'
+          ],
+          [
+            'study',
+            'study'
+          ],
+          [
+            'technicalPlanScheme',
+            'technicalPlanScheme'
+          ],
+          [
+            'conclusion',
+            'conclusion'
+          ],
+          [
+            'otherNote',
+            'otherNote'
+          ],
+          [
+            'editorial',
+            'editorial'
+          ]
         ]
       }
     }
   },
   identifier: {
     usage: 'M',
-    required: true,
     label: 'Identifikátor',
     selector: 'identifier',
     labelKey: 'identifier',
@@ -828,7 +980,6 @@
     fields: {
       authority: {
         usage: 'MA',
-//        required: true,
         label: 'Autorita',
         selector: 'classification/@authority',
         labelKey: 'classification/@authority',
@@ -954,7 +1105,6 @@
   },
   recordInfo: {
     usage: 'M',
-    required: true,
     label: 'Údaje o metadatovém záznamu',
     selector: 'recordInfo',
     labelKey: 'recordInfo',
@@ -1013,7 +1163,6 @@
       },
       recordCreationDate: {
         usage: 'M',
-        required: true,
         label: 'Datum vytvoření',
         selector: 'recordInfo/recordCreationDate',
         labelKey: 'recordInfo/recordCreationDate',
@@ -1329,7 +1478,6 @@
               value: {
                 label: 'Hodnota',
                 usage: 'M',
-//                required: true,
                 selector: 'name/namePart',
                 labelKey: 'name/namePart/value',
                 cols: 2,
@@ -1600,7 +1748,6 @@
                   value: {
                     label: 'Hodnota',
                     usage: 'M',
-//                    required: true,
                     selector: 'name/namePart',
                     labelKey: 'name/namePart/value',
                     cols: 2,
@@ -1722,25 +1869,82 @@
                 label: 'Hodnota',
                 help: 'off',
                 options: [
-                  ['braille', 'braille'],
-                  ['electronic', 'electronic'],
-                  ['large print', 'large print'],
-                  ['microfilm', 'microfilm'],
-                  ['microfiche', 'microfiche'],
-                  ['print', 'print'],
-                  ['jiný', 'jiný'],
-                  ['audio', 'audio'],
-                  ['počítač', 'počítač'],
-                  ['mikroforma', 'mikroforma'],
-                  ['mikroskop', 'mikroskop'],
-                  ['projekce', 'projekce'],
-                  ['stereograf', 'stereograf'],
-                  ['bez média', 'bez_media'],
-                  ['video', 'video'],
-                  ['svazek', 'svazek'],
-                  ['online zdroj', 'online_zdroj'],
-                  ['audiodisk', 'audiodisk'],
-                  ['počítačový disk', 'počítačový disk'],
+                  [
+                    'braille',
+                    'braille'
+                  ],
+                  [
+                    'electronic',
+                    'electronic'
+                  ],
+                  [
+                    'large print',
+                    'large print'
+                  ],
+                  [
+                    'microfilm',
+                    'microfilm'
+                  ],
+                  [
+                    'microfiche',
+                    'microfiche'
+                  ],
+                  [
+                    'print',
+                    'print'
+                  ],
+                  [
+                    'jiný',
+                    'jiný'
+                  ],
+                  [
+                    'audio',
+                    'audio'
+                  ],
+                  [
+                    'počítač',
+                    'počítač'
+                  ],
+                  [
+                    'mikroforma',
+                    'mikroforma'
+                  ],
+                  [
+                    'mikroskop',
+                    'mikroskop'
+                  ],
+                  [
+                    'projekce',
+                    'projekce'
+                  ],
+                  [
+                    'stereograf',
+                    'stereograf'
+                  ],
+                  [
+                    'bez média',
+                    'bez_media'
+                  ],
+                  [
+                    'video',
+                    'video'
+                  ],
+                  [
+                    'svazek',
+                    'svazek'
+                  ],
+                  [
+                    'online zdroj',
+                    'online_zdroj'
+                  ],
+                  [
+                    'audiodisk',
+                    'audiodisk'
+                  ],
+                  [
+                    'počítačový disk',
+                    'počítačový disk'
+                  ],
                 ]
               }
             }

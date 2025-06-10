@@ -1,7 +1,6 @@
 {
   titleInfo: {
     usage: 'M',
-    required: true,
     label: 'Název',
     selector: 'titleInfo',
     labelKey: 'titleInfo',
@@ -270,7 +269,6 @@
   },
   genre: {
     usage: 'M',
-    required: true,
     label: 'Žánr',
     selector: 'genre',
     labelKey: 'genre',
@@ -294,7 +292,6 @@
   },
   identifier: {
     usage: 'M',
-    required: true,
     label: 'Identifikátor',
     selector: 'identifier',
     labelKey: 'identifier',
@@ -362,7 +359,6 @@
   },
   typeOfResource: {
     usage: 'M',
-    required: true,
     label: 'Typ zdroje',
     selector: 'typeOfResource',
     labelKey: 'typeOfResource',
@@ -388,7 +384,6 @@
   },
   recordInfo: {
     usage: 'M',
-    required: true,
     label: 'Údaje o metadatovém záznamu',
     selector: 'recordInfo',
     labelKey: 'recordInfo',
@@ -447,7 +442,6 @@
       },
       recordCreationDate: {
         usage: 'M',
-        required: true,
         label: 'Datum vytvoření',
         selector: 'recordInfo/recordCreationDate',
         labelKey: 'recordInfo/recordCreationDate',

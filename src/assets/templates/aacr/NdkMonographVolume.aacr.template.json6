@@ -1,7 +1,6 @@
 {
   titleInfo: {
     usage: 'M',
-    required: true,
     label: 'Název',
     selector: 'titleInfo',
     labelKey: 'titleInfo',
@@ -226,7 +225,6 @@
   },
   originInfo: {
     usage: 'M',
-    required: true,
     label: 'Původ předlohy',
     selector: 'originInfo',
     labelKey: 'originInfo',
@@ -243,7 +241,6 @@
       },
       dateIssued: {
         usage: 'M',
-        required: true,
         label: 'Datum vydání',
         selector: 'originInfo/dateIssued',
         labelKey: 'originInfo/dateIssued',
@@ -494,7 +491,6 @@
     fields: {
       physicalLocation: {
         usage: 'M',
-        required: true,
         label: 'Místo uložení',
         selector: 'location/physicalLocation',
         labelKey: 'location/physicalLocation',
@@ -533,7 +529,6 @@
       },
       shelfLocator: {
         usage: 'M',
-        required: true,
         label: 'Signatura',
         selector: 'location/shelfLocator',
         labelKey: 'location/shelfLocator',
@@ -571,24 +566,24 @@
             label: 'Note',
             help: 'off'
           },
-//          usage: {
-//            usage: 'O',
-//            cols: 2,
-//            selector: 'location/url/@usage',
-//            labelKey: 'location/url/@usage',
-//            label: 'Usage',
-//            help: 'off',
-//            options: [
-//              [
-//                '',
-//                '-'
-//              ],
-//              [
-//                'primary',
-//                'primary'
-//              ]
-//            ]
-//          },
+          //          usage: {
+          //            usage: 'O',
+          //            cols: 2,
+          //            selector: 'location/url/@usage',
+          //            labelKey: 'location/url/@usage',
+          //            label: 'Usage',
+          //            help: 'off',
+          //            options: [
+          //              [
+          //                '',
+          //                '-'
+          //              ],
+          //              [
+          //                'primary',
+          //                'primary'
+          //              ]
+          //            ]
+          //          },
         }
       },
     }
@@ -683,7 +678,7 @@
         selector: 'subject/geographic',
         labelKey: 'subject/geographic',
         max: 1,
-          description: 'Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21',
+        description: 'Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21',
         fields: {
           valueURI: {
             usage: 'O',
@@ -856,7 +851,6 @@
   },
   language: {
     usage: 'M',
-    required: true,
     label: 'Jazyk',
     selector: 'language',
     labelKey: 'language',
@@ -1002,25 +996,82 @@
             label: 'Hodnota',
             help: 'off',
             options: [
-              ['braille', 'braille'],
-              ['electronic', 'electronic'],
-              ['large print', 'large print'],
-              ['microfilm', 'microfilm'],
-              ['microfiche', 'microfiche'],
-              ['print', 'print'],
-              ['jiný', 'jiný'],
-              ['audio', 'audio'],
-              ['počítač', 'počítač'],
-              ['mikroforma', 'mikroforma'],
-              ['mikroskop', 'mikroskop'],
-              ['projekce', 'projekce'],
-              ['stereograf', 'stereograf'],
-              ['bez média', 'bez_media'],
-              ['video', 'video'],
-              ['svazek', 'svazek'],
-              ['online zdroj', 'online_zdroj'],
-              ['audiodisk', 'audiodisk'],
-              ['počítačový disk', 'počítačový disk'],
+              [
+                'braille',
+                'braille'
+              ],
+              [
+                'electronic',
+                'electronic'
+              ],
+              [
+                'large print',
+                'large print'
+              ],
+              [
+                'microfilm',
+                'microfilm'
+              ],
+              [
+                'microfiche',
+                'microfiche'
+              ],
+              [
+                'print',
+                'print'
+              ],
+              [
+                'jiný',
+                'jiný'
+              ],
+              [
+                'audio',
+                'audio'
+              ],
+              [
+                'počítač',
+                'počítač'
+              ],
+              [
+                'mikroforma',
+                'mikroforma'
+              ],
+              [
+                'mikroskop',
+                'mikroskop'
+              ],
+              [
+                'projekce',
+                'projekce'
+              ],
+              [
+                'stereograf',
+                'stereograf'
+              ],
+              [
+                'bez média',
+                'bez_media'
+              ],
+              [
+                'video',
+                'video'
+              ],
+              [
+                'svazek',
+                'svazek'
+              ],
+              [
+                'online zdroj',
+                'online_zdroj'
+              ],
+              [
+                'audiodisk',
+                'audiodisk'
+              ],
+              [
+                'počítačový disk',
+                'počítačový disk'
+              ],
             ]
           }
         }
@@ -1071,29 +1122,28 @@
   },
   genre: {
     usage: 'M',
-    required: true,
     label: 'Žánr',
     selector: 'genre',
     labelKey: 'genre',
     description: 'Bližší údaje o typu dokumentu<br/>\
       Pro monografie hodnota <strong>volume</strong>',
     fields: {
-//      authority: {
-//        usage: 'MA',
-//        label: 'Autorita',
-//        selector: 'genre/@authority',
-//        labelKey: 'genre/@authority',
-//        options: [
-//          [
-//            'czenas',
-//            'czenas'
-//          ],
-//          [
-//            'eczenas',
-//            'eczenas'
-//          ]
-//        ]
-//      },
+      //      authority: {
+      //        usage: 'MA',
+      //        label: 'Autorita',
+      //        selector: 'genre/@authority',
+      //        labelKey: 'genre/@authority',
+      //        options: [
+      //          [
+      //            'czenas',
+      //            'czenas'
+      //          ],
+      //          [
+      //            'eczenas',
+      //            'eczenas'
+      //          ]
+      //        ]
+      //      },
       value: {
         usage: 'M',
         required: true,
@@ -1106,7 +1156,6 @@
   },
   identifier: {
     usage: 'M',
-    required: true,
     label: 'Identifikátor',
     selector: 'identifier',
     labelKey: 'identifier',
@@ -1213,7 +1262,6 @@
       },
       value: {
         usage: 'R',
-        //          required: true,
         selector: 'classification/value',
         labelKey: 'classification/value',
         label: 'Hodnota',
@@ -1294,7 +1342,6 @@
   },
   recordInfo: {
     usage: 'M',
-    required: true,
     label: 'Údaje o metadatovém záznamu',
     selector: 'recordInfo',
     labelKey: 'recordInfo',
@@ -1353,7 +1400,6 @@
       },
       recordCreationDate: {
         usage: 'M',
-        required: true,
         label: 'Datum vytvoření',
         selector: 'recordInfo/recordCreationDate',
         labelKey: 'recordInfo/recordCreationDate',
@@ -1492,16 +1538,46 @@
         labelKey: 'relatedItem/@type',
         description: 'Type spolu s otherType popisují vztah položky, popsané v <relatedItem> a dokumentu, který je předmětem MODS záznamu',
         options: [
-          ['', '-'],
-          ['series', 'Series'],
-          ['original', 'original'],
-          ['isReferencedBy', 'isReferencedBy'],
-          ['preceding', 'preceding'],
-          ['succeeding', 'succeeding'],
-          ['host', 'host'],
-          ['constituent', 'constituent'],
-          ['otherVersion', 'otherVersion'],
-          ['otherFormat', 'otherFormat']
+          [
+            '',
+            '-'
+          ],
+          [
+            'series',
+            'Series'
+          ],
+          [
+            'original',
+            'original'
+          ],
+          [
+            'isReferencedBy',
+            'isReferencedBy'
+          ],
+          [
+            'preceding',
+            'preceding'
+          ],
+          [
+            'succeeding',
+            'succeeding'
+          ],
+          [
+            'host',
+            'host'
+          ],
+          [
+            'constituent',
+            'constituent'
+          ],
+          [
+            'otherVersion',
+            'otherVersion'
+          ],
+          [
+            'otherFormat',
+            'otherFormat'
+          ]
         ]
       },
       otherType: {
@@ -2100,24 +2176,24 @@
                 label: 'Note',
                 help: 'off'
               },
-//              usage: {
-//                usage: 'O',
-//                cols: 2,
-//                selector: 'relatedItem/location/url/@usage',
-//                labelKey: 'relatedItem/location/url/@usage',
-//                label: 'Usage',
-//                help: 'off',
-//                options: [
-//                  [
-//                    '',
-//                    '-'
-//                  ],
-//                  [
-//                    'primary',
-//                    'primary'
-//                  ]
-//                ]
-//              },
+              //              usage: {
+              //                usage: 'O',
+              //                cols: 2,
+              //                selector: 'relatedItem/location/url/@usage',
+              //                labelKey: 'relatedItem/location/url/@usage',
+              //                label: 'Usage',
+              //                help: 'off',
+              //                options: [
+              //                  [
+              //                    '',
+              //                    '-'
+              //                  ],
+              //                  [
+              //                    'primary',
+              //                    'primary'
+              //                  ]
+              //                ]
+              //              },
             }
           },
         }
@@ -2175,48 +2251,48 @@
             labelKey: 'relatedItem/subject/topic',
             description: 'Libovolný výraz specifikující nebo charakterizující obsah svazku monografie<br/>\
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21',
-          fields: {
-                value: {
-                  usage: 'R',
-                  label: 'Hodnota',
-//                  cols: 2,
-                  selector: 'subject/topic/value',
-                  labelKey: 'subject/topic/value',
-                  hint: false,
-                },
-            valueURI: {
-              usage: 'O',
-              label: 'Hodnota',
-              selector: 'subject/topic/@valueURI',
-              labelKey: 'subject/topic/@valueURI',
-              description: 'Link na URL cislo autority',
-            },
-//                lang: {
-//                  usage: 'R',
-//                  cols: 2,
-//                  label: 'Hodnota',
-//                  selector: 'subject/topic/@lang',
-//                  labelKey: 'subject/topic/@lang',
-//                  hint: false,
-//                }
-              }
+            fields: {
+              value: {
+                usage: 'R',
+                label: 'Hodnota',
+                //                  cols: 2,
+                selector: 'subject/topic/value',
+                labelKey: 'subject/topic/value',
+                hint: false,
+              },
+              valueURI: {
+                usage: 'O',
+                label: 'Hodnota',
+                selector: 'subject/topic/@valueURI',
+                labelKey: 'subject/topic/@valueURI',
+                description: 'Link na URL cislo autority',
+              },
+              //                lang: {
+              //                  usage: 'R',
+              //                  cols: 2,
+              //                  label: 'Hodnota',
+              //                  selector: 'subject/topic/@lang',
+              //                  labelKey: 'subject/topic/@lang',
+              //                  hint: false,
+              //                }
+            }
           },
           geographic: {
-                    usage: 'R',
-                    label: 'Geografické věcné třídění',
-                    selector: 'relatedItem/subject/geographic',
-                    labelKey: 'relatedItem/subject/geographic',
-                    description: 'Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21',
-                    fields: {
-                      value: {
-                        usage: 'R',
-                        label: 'Hodnota',
-                        selector: 'relatedItem/subject/geographic/value',
-                        labelKey: 'relatedItem/subject/geographic/value',
-                        hint: false,
-                      }
-                    }
-                  },
+            usage: 'R',
+            label: 'Geografické věcné třídění',
+            selector: 'relatedItem/subject/geographic',
+            labelKey: 'relatedItem/subject/geographic',
+            description: 'Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21',
+            fields: {
+              value: {
+                usage: 'R',
+                label: 'Hodnota',
+                selector: 'relatedItem/subject/geographic/value',
+                labelKey: 'relatedItem/subject/geographic/value',
+                hint: false,
+              }
+            }
+          },
           temporal: {
             usage: 'R',
             label: 'Chronologické věcné třídění',
@@ -2568,22 +2644,22 @@
         description: 'Bližší údaje o typu dokumentu<br/>\
       Pro monografie hodnota <strong>volume</strong>',
         fields: {
-//          authority: {
-//            usage: 'MA',
-//            label: 'Autorita',
-//            selector: 'relatedItem/genre/@authority',
-//            labelKey: 'relatedItem/genre/@authority',
-//            options: [
-//              [
-//                'czenas',
-//                'czenas'
-//              ],
-//              [
-//                'eczenas',
-//                'eczenas'
-//              ]
-//            ]
-//          },
+          //          authority: {
+          //            usage: 'MA',
+          //            label: 'Autorita',
+          //            selector: 'relatedItem/genre/@authority',
+          //            labelKey: 'relatedItem/genre/@authority',
+          //            options: [
+          //              [
+          //                'czenas',
+          //                'czenas'
+          //              ],
+          //              [
+          //                'eczenas',
+          //                'eczenas'
+          //              ]
+          //            ]
+          //          },
           value: {
             usage: 'MA',
             selector: 'relatedItem/genre/value',

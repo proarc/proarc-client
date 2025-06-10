@@ -1,7 +1,6 @@
 {
   titleInfo: {
     usage: 'M',
-    required: true,
     label: 'Název',
     selector: 'titleInfo',
     labelKey: 'titleInfo',
@@ -12,7 +11,6 @@
       type: {
         usage: 'MA',
         label: 'Typ',
-        //          required: true,
         selector: 'titleInfo/@type',
         labelKey: 'titleInfo/@type',
         cols: 2,
@@ -25,11 +23,26 @@
             <li>Jednotný název (uniform) – pole 130 resp. 240</li>\
           </ul>',
         options: [
-          ['', '-'],
-          ['abbreviated', 'Zkrácený název'],
-          ['translated', 'Přeložený název'],
-          ['alternative', 'Alternativní název'],
-          ['uniform', 'Jednotný název']
+          [
+            '',
+            '-'
+          ],
+          [
+            'abbreviated',
+            'Zkrácený název'
+          ],
+          [
+            'translated',
+            'Přeložený název'
+          ],
+          [
+            'alternative',
+            'Alternativní název'
+          ],
+          [
+            'uniform',
+            'Jednotný název'
+          ]
         ]
       },
       nonSort: {
@@ -105,11 +118,26 @@
             <li><strong>Rodina</strong> (family)</li>\
           </ul>',
         options: [
-          ['', '-'],
-          ['personal', 'Osoba'],
-          ['corporate', 'Organizace'],
-          ['conference', 'Konference'],
-          ['family', 'Rodina']
+          [
+            '',
+            '-'
+          ],
+          [
+            'personal',
+            'Osoba'
+          ],
+          [
+            'corporate',
+            'Organizace'
+          ],
+          [
+            'conference',
+            'Konference'
+          ],
+          [
+            'family',
+            'Rodina'
+          ]
         ]
       },
       namePart: {
@@ -133,11 +161,26 @@
                     <li><strong>Ostatní související se jménem</strong> (termsOfAddress)</li>\
                 </ul>',
             options: [
-              ['', '-'],
-              ['given', 'Křestní jméno'],
-              ['family', 'Příjmení'],
-              ['date', 'Datum'],
-              ['termsOfAddress', 'Ostatní související se jménem'],
+              [
+                '',
+                '-'
+              ],
+              [
+                'given',
+                'Křestní jméno'
+              ],
+              [
+                'family',
+                'Příjmení'
+              ],
+              [
+                'date',
+                'Datum'
+              ],
+              [
+                'termsOfAddress',
+                'Ostatní související se jménem'
+              ],
             ]
           },
           value: {
@@ -197,7 +240,6 @@
   },
   originInfo: {
     usage: 'M',
-    required: true,
     label: 'Původ předlohy',
     selector: 'originInfo',
     labelKey: 'originInfo',
@@ -212,60 +254,59 @@
             odpovídá poli 264 $b katalogizačního záznamu v MARC21<br/>\
             pokud má monografie více vydavatelů/distributorů/výrobců, přebírají se ze záznamu všichni (v jednom poli 264)',
       },
-//      eventType: {
-//        usage: 'M',
-//        required: true,
-//        label: 'Typ',
-//        selector: 'originInfo/@eventType',
-//        labelKey: 'originInfo/@eventType',
-//        cols: 2,
-//        description: 'Hodnoty dle druhého indikátoru pole 264:\
-//          <ul>\
-//            <li>\
-//              264_0 <strong>Produkce</strong> (production) <i>R</i><br/>\
-//              Hodnota 0 se uvádí, jestliže pole obsahuje <strong>údaje o vytvoření</strong> zdroje v nezveřejněné podobě.\
-//            </li>\
-//            <li>\
-//              264_1 <strong>Publikace</strong> (publication) <i>R</i><br/>\
-//              Hodnota 1 se uvádí, jestliže pole obsahuje <strong>údaje o nakladateli</strong> zdroje\
-//            </li>\
-//            <li>\
-//              264_2 <strong>Distribuce</strong> (distribution) <i>R</i><br/>\
-//              Hodnota 2 se uvádí, jestliže pole obsahuje <strong>údaje o distribuci</strong> zdroje\
-//            </li>\
-//            <li>\
-//              264_3 <strong>Výroba</strong> (manufacture) <i>R</i><br/>\
-//              Hodnota 3 se uvádí, jestliže pole obsahuje <strong>údaje o tisku</strong>, výrobě zdroje ve zveřejněné podobě.\
-//            </li>\
-//            <li>\
-//              264_4 <strong>Copyright</strong> (copyright) <i>R</i><br/>\
-//              Hodnota 4 se uvádí, jestliže pole obsahuje <strong>údaje o ochraně podle autorského práva</strong>\
-//            </li>\
-//          </ul>\
-//          <p>Element <originInfo> je opakovatelný. Alespoň v\
-//          jednom případě musí být vyplněna hodnota\
-//          eventType="production" nebo\
-//          eventType="publication".\
-//          </p>\
-//          <p>Údaje o distribuci, výrobě a copyrightu jsou u\
-//          tištěných monografií přesunuty z minimálního\
-//          záznamu do doporučeného.<br/>\
-//          </p>\
-//          <p>Hodnota eventType musí být vyplněna na\
-//          základě katalogizačního záznamu. Pravidlo pro\
-//          převod je závazné, povinnost R značí, že musí\
-//          být vybrána jedna z doporučených hodnot na\
-//          základě katalogizačního záznamu.\
-//          </p>',
-//        options: [
-//          ['', '-'],
-//          ['production', 'Produkce'],
-//          ['publication', 'Publikace'],
-//          ['distribution', 'Distribuce'],
-//          ['manufacture', 'Výroba'],
-//          ['copyright', 'Copyright']
-//        ]
-//      },
+      //      eventType: {
+      //        usage: 'M',
+      //        label: 'Typ',
+      //        selector: 'originInfo/@eventType',
+      //        labelKey: 'originInfo/@eventType',
+      //        cols: 2,
+      //        description: 'Hodnoty dle druhého indikátoru pole 264:\
+      //          <ul>\
+      //            <li>\
+      //              264_0 <strong>Produkce</strong> (production) <i>R</i><br/>\
+      //              Hodnota 0 se uvádí, jestliže pole obsahuje <strong>údaje o vytvoření</strong> zdroje v nezveřejněné podobě.\
+      //            </li>\
+      //            <li>\
+      //              264_1 <strong>Publikace</strong> (publication) <i>R</i><br/>\
+      //              Hodnota 1 se uvádí, jestliže pole obsahuje <strong>údaje o nakladateli</strong> zdroje\
+      //            </li>\
+      //            <li>\
+      //              264_2 <strong>Distribuce</strong> (distribution) <i>R</i><br/>\
+      //              Hodnota 2 se uvádí, jestliže pole obsahuje <strong>údaje o distribuci</strong> zdroje\
+      //            </li>\
+      //            <li>\
+      //              264_3 <strong>Výroba</strong> (manufacture) <i>R</i><br/>\
+      //              Hodnota 3 se uvádí, jestliže pole obsahuje <strong>údaje o tisku</strong>, výrobě zdroje ve zveřejněné podobě.\
+      //            </li>\
+      //            <li>\
+      //              264_4 <strong>Copyright</strong> (copyright) <i>R</i><br/>\
+      //              Hodnota 4 se uvádí, jestliže pole obsahuje <strong>údaje o ochraně podle autorského práva</strong>\
+      //            </li>\
+      //          </ul>\
+      //          <p>Element <originInfo> je opakovatelný. Alespoň v\
+      //          jednom případě musí být vyplněna hodnota\
+      //          eventType="production" nebo\
+      //          eventType="publication".\
+      //          </p>\
+      //          <p>Údaje o distribuci, výrobě a copyrightu jsou u\
+      //          tištěných monografií přesunuty z minimálního\
+      //          záznamu do doporučeného.<br/>\
+      //          </p>\
+      //          <p>Hodnota eventType musí být vyplněna na\
+      //          základě katalogizačního záznamu. Pravidlo pro\
+      //          převod je závazné, povinnost R značí, že musí\
+      //          být vybrána jedna z doporučených hodnot na\
+      //          základě katalogizačního záznamu.\
+      //          </p>',
+      //        options: [
+      //          ['', '-'],
+      //          ['production', 'Produkce'],
+      //          ['publication', 'Publikace'],
+      //          ['distribution', 'Distribuce'],
+      //          ['manufacture', 'Výroba'],
+      //          ['copyright', 'Copyright']
+      //        ]
+      //      },
       dateIssued: {
         usage: 'M',
         label: 'Datum vydání',
@@ -304,10 +345,22 @@
               <li>Sporné (questionable)</li>\
             </ul>',
             options: [
-              ['', '-'],
-              ['approximate', 'Datum je přibližné'],
-              ['inferred', 'Datum je odvozené'],
-              ['questionable', 'Datum je sporné']
+              [
+                '',
+                '-'
+              ],
+              [
+                'approximate',
+                'Datum je přibližné'
+              ],
+              [
+                'inferred',
+                'Datum je odvozené'
+              ],
+              [
+                'questionable',
+                'Datum je sporné'
+              ]
             ]
           },
           encoding: {
@@ -318,12 +371,30 @@
             cols: 3,
             description: 'Hodnota "marc" jen u údaje z pole 008',
             options: [
-              ['', '-'],
-              ['marc', 'MARC'],
-              ['iso8601', 'ISO 8601'],
-              ['edtf', 'EDTF'],
-              ['temper', 'temper'],
-              ['w3cdtf', 'W3CDTF']
+              [
+                '',
+                '-'
+              ],
+              [
+                'marc',
+                'MARC'
+              ],
+              [
+                'iso8601',
+                'ISO 8601'
+              ],
+              [
+                'edtf',
+                'EDTF'
+              ],
+              [
+                'temper',
+                'temper'
+              ],
+              [
+                'w3cdtf',
+                'W3CDTF'
+              ]
             ]
           },
           point: {
@@ -334,9 +405,18 @@
             cols: 3,
             description: 'Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat',
             options: [
-              ['', '-'],
-              ['start', 'start'],
-              ['end', 'end']
+              [
+                '',
+                '-'
+              ],
+              [
+                'start',
+                'start'
+              ],
+              [
+                'end',
+                'end'
+              ]
             ]
           },
         }
@@ -373,9 +453,18 @@
               <li>Jednotkové (single unit)</li>\
             </ul>',
         options: [
-          ['', '-'],
-          ['single unit', 'Jednotkové'],
-          ['multipart monograph', 'Vícedílné']
+          [
+            '',
+            '-'
+          ],
+          [
+            'single unit',
+            'Jednotkové'
+          ],
+          [
+            'multipart monograph',
+            'Vícedílné'
+          ]
         ]
       },
       place: {
@@ -445,67 +534,67 @@
           },
         },
       }
-//      dateOther: {
-//        usage: 'R',
-//        label: 'Datum - jiné',
-//        selector: 'originInfo/dateOther',
-//        labelKey: 'originInfo/dateOther',
-//        description: 'Datum vytvoření, distribuce, výroby předlohy<br/>\
-//          Tento elemet se využije v případě výskytu $c v:\
-//          <ul>\
-//            <li>264_0 <strong>Produkce</strong> (production)</li>\
-//            <li>264_2 <strong>Distribuce</strong> (distribution)</li>\
-//            <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
-//          </ul>',
-//        fields: {
-//          value: {
-//            usage: 'R',
-//            cols: 2,
-//            selector: 'originInfo/dateOther/value',
-//            labelKey: 'originInfo/dateOther/value',
-//            label: 'Hodnota',
-//            help: 'off'
-//          },
-//          type: {
-//            usage: 'M',
-//            cols: 2,
-//            label: 'Upřesnění data',
-//            selector: 'originInfo/dateOther/@type',
-//            labelKey: 'originInfo/dateOther/@type',
-//            description: 'Možnost dalšího upřesnění. Možné hodnoty\
-//            <ul>\
-//              <li>264_0 <strong>Produkce</strong> (production)</li>\
-//              <li>264_2 <strong>Distribuce</strong> (distribution)</li>\
-//              <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
-//            </ul>',
-//            options: [
-//              [
-//                'production',
-//                'Produkce'
-//              ],
-//              [
-//                'distribution',
-//                'Distribuce'
-//              ],
-//              [
-//                'manufacture',
-//                'Výroba'
-//              ]
-//            ]
-//          }
-//        }
-//      },
-//      copyrightDate: {
-//        usage: 'R',
-//        label: 'Datum - copyright',
-//        selector: 'originInfo/copyrightDate',
-//        labelKey: 'originInfo/copyrightDate',
-//        cols: 3,
-//        description: 'Využije se pouze v případě výskytu pole 264 s druhým indikátorem 4 a podpolem $c<br/>\
-//          <ul>\
-//            <li>264_4 <strong>Copyright</strong> (copyright)</li>\
-//          </ul>'
-//      }
+      //      dateOther: {
+      //        usage: 'R',
+      //        label: 'Datum - jiné',
+      //        selector: 'originInfo/dateOther',
+      //        labelKey: 'originInfo/dateOther',
+      //        description: 'Datum vytvoření, distribuce, výroby předlohy<br/>\
+      //          Tento elemet se využije v případě výskytu $c v:\
+      //          <ul>\
+      //            <li>264_0 <strong>Produkce</strong> (production)</li>\
+      //            <li>264_2 <strong>Distribuce</strong> (distribution)</li>\
+      //            <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
+      //          </ul>',
+      //        fields: {
+      //          value: {
+      //            usage: 'R',
+      //            cols: 2,
+      //            selector: 'originInfo/dateOther/value',
+      //            labelKey: 'originInfo/dateOther/value',
+      //            label: 'Hodnota',
+      //            help: 'off'
+      //          },
+      //          type: {
+      //            usage: 'M',
+      //            cols: 2,
+      //            label: 'Upřesnění data',
+      //            selector: 'originInfo/dateOther/@type',
+      //            labelKey: 'originInfo/dateOther/@type',
+      //            description: 'Možnost dalšího upřesnění. Možné hodnoty\
+      //            <ul>\
+      //              <li>264_0 <strong>Produkce</strong> (production)</li>\
+      //              <li>264_2 <strong>Distribuce</strong> (distribution)</li>\
+      //              <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
+      //            </ul>',
+      //            options: [
+      //              [
+      //                'production',
+      //                'Produkce'
+      //              ],
+      //              [
+      //                'distribution',
+      //                'Distribuce'
+      //              ],
+      //              [
+      //                'manufacture',
+      //                'Výroba'
+      //              ]
+      //            ]
+      //          }
+      //        }
+      //      },
+      //      copyrightDate: {
+      //        usage: 'R',
+      //        label: 'Datum - copyright',
+      //        selector: 'originInfo/copyrightDate',
+      //        labelKey: 'originInfo/copyrightDate',
+      //        cols: 3,
+      //        description: 'Využije se pouze v případě výskytu pole 264 s druhým indikátorem 4 a podpolem $c<br/>\
+      //          <ul>\
+      //            <li>264_4 <strong>Copyright</strong> (copyright)</li>\
+      //          </ul>'
+      //      }
     }
   },
   location: {
@@ -517,7 +606,6 @@
     fields: {
       physicalLocation: {
         usage: 'RA',
-        //          required: true,
         label: 'Místo uložení',
         selector: 'location/physicalLocation',
         labelKey: 'location/physicalLocation',
@@ -562,7 +650,6 @@
         fields: {
           value: {
             usage: 'RA',
-            //              required: true,
             selector: 'location/shelfLocator/value',
             labelKey: 'location/shelfLocator/value',
             label: 'Hodnota',
@@ -600,8 +687,14 @@
             label: 'Usage',
             help: 'off',
             options: [
-              ['', '-'],
-              ['primary', 'primary']
+              [
+                '',
+                '-'
+              ],
+              [
+                'primary',
+                'primary'
+              ]
             ]
           },
         }
@@ -624,14 +717,38 @@
         description: 'Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>Konspekt</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>\
           Odpovídá hodnotě v $2',
         options: [
-          ['', '-'],
-          ['czenas', 'czenas'],
-          ['eczenas', 'eczenas'],
-          ['mednas', 'mednas'],
-          ['czmesh', 'czmesh'],
-          ['msvkth', 'msvkth'],
-          ['agrovoc', 'agrovoc'],
-          ['Konspekt', 'Konspekt']
+          [
+            '',
+            '-'
+          ],
+          [
+            'czenas',
+            'czenas'
+          ],
+          [
+            'eczenas',
+            'eczenas'
+          ],
+          [
+            'mednas',
+            'mednas'
+          ],
+          [
+            'czmesh',
+            'czmesh'
+          ],
+          [
+            'msvkth',
+            'msvkth'
+          ],
+          [
+            'agrovoc',
+            'agrovoc'
+          ],
+          [
+            'Konspekt',
+            'Konspekt'
+          ]
         ]
       },
       topic: {
@@ -743,11 +860,26 @@
             <li><strong>Rodina</strong> (family)</li>\
           </ul>',
             options: [
-              ['', '-'],
-              ['personal', 'Osoba'],
-              ['corporate', 'Organizace'],
-              ['conference', 'Konference'],
-              ['family', 'Rodina']
+              [
+                '',
+                '-'
+              ],
+              [
+                'personal',
+                'Osoba'
+              ],
+              [
+                'corporate',
+                'Organizace'
+              ],
+              [
+                'conference',
+                'Konference'
+              ],
+              [
+                'family',
+                'Rodina'
+              ]
             ]
           },
           namePart: {
@@ -771,11 +903,26 @@
                     <li><strong>Ostatní související se jménem</strong> (termsOfAddress)</li>\
                 </ul>',
                 options: [
-                  ['', '-'],
-                  ['given', 'Křestní jméno'],
-                  ['family', 'Příjmení'],
-                  ['date', 'Datum'],
-                  ['termsOfAddress', 'Ostatní související se jménem'],
+                  [
+                    '',
+                    '-'
+                  ],
+                  [
+                    'given',
+                    'Křestní jméno'
+                  ],
+                  [
+                    'family',
+                    'Příjmení'
+                  ],
+                  [
+                    'date',
+                    'Datum'
+                  ],
+                  [
+                    'termsOfAddress',
+                    'Ostatní související se jménem'
+                  ],
                 ]
               },
               value: {
@@ -822,7 +969,6 @@
   },
   language: {
     usage: 'M',
-    required: true,
     label: 'Jazyk',
     selector: 'language',
     labelKey: 'language',
@@ -842,11 +988,26 @@
             <li><strong>Překlad</strong> (translation) - odpovídá poli 041 $h</li>\
           </ul>',
         options: [
-          ['', '-'],
-          ['summary', 'Shrnutí'],
-          ['table of contents', 'Obsah'],
-          ['accompanying material', 'Doprovodný materiál'],
-          ['translation', 'Překlad']
+          [
+            '',
+            '-'
+          ],
+          [
+            'summary',
+            'Shrnutí'
+          ],
+          [
+            'table of contents',
+            'Obsah'
+          ],
+          [
+            'accompanying material',
+            'Doprovodný materiál'
+          ],
+          [
+            'translation',
+            'Překlad'
+          ]
         ]
       },
       language: {
@@ -877,7 +1038,6 @@
   },
   physicalDescription: {
     usage: 'MA',
-    //      required: true,
     label: 'Fyzický popis',
     selector: 'physicalDescription',
     labelKey: 'physicalDescription',
@@ -885,14 +1045,19 @@
     fields: {
       digitalOrigin: {
         usage: 'M',
-        //          required: true,
         label: 'Zdroje digitálního dokumentu',
         selector: 'physicalDescription/digitalOrigin',
         labelKey: 'physicalDescription/digitalOrigin',
         description: 'Indikátor zdroje digitálního dokumentu hodnota <strong>born digital</strong>',
         options: [
-          ['', '-'],
-          ['born digital', 'born digital']
+          [
+            '',
+            '-'
+          ],
+          [
+            'born digital',
+            'born digital'
+          ]
         ]
       },
       form: {
@@ -925,12 +1090,31 @@
                 <li><strong>rdacarrier</strong> (pro pole 338)</li>\
               </ul>',
             options: [
-              ['marcform', 'marcform'],
-              ['marccategory', 'marccategory'],
-              ['marcsmd', 'marcsmd'],
-              ['gmd', 'gmd'],
-              ['rdamedia', 'rdamedia'],
-              ['rdacarrier', 'rdacarrier']]
+              [
+                'marcform',
+                'marcform'
+              ],
+              [
+                'marccategory',
+                'marccategory'
+              ],
+              [
+                'marcsmd',
+                'marcsmd'
+              ],
+              [
+                'gmd',
+                'gmd'
+              ],
+              [
+                'rdamedia',
+                'rdamedia'
+              ],
+              [
+                'rdacarrier',
+                'rdacarrier'
+              ]
+            ]
           },
           type: {
             usage: 'MA',
@@ -944,8 +1128,15 @@
                 <li><strong>carrier</strong> pro pole 338</li>\
               </ul>',
             options: [
-              ['media', 'media'],
-              ['carrier', 'carrier']]
+              [
+                'media',
+                'media'
+              ],
+              [
+                'carrier',
+                'carrier'
+              ]
+            ]
           },
           value: {
             usage: 'M',
@@ -954,25 +1145,82 @@
             label: 'Hodnota',
             help: 'off',
             options: [
-              ['braille', 'braille'],
-              ['electronic', 'electronic'],
-              ['large print', 'large print'],
-              ['microfilm', 'microfilm'],
-              ['microfiche', 'microfiche'],
-              ['print', 'print'],
-              ['jiný', 'jiný'],
-              ['audio', 'audio'],
-              ['počítač', 'počítač'],
-              ['mikroforma', 'mikroforma'],
-              ['mikroskop', 'mikroskop'],
-              ['projekce', 'projekce'],
-              ['stereograf', 'stereograf'],
-              ['bez média', 'bez_media'],
-              ['video', 'video'],
-              ['svazek', 'svazek'],
-              ['online zdroj', 'online_zdroj'],
-              ['audiodisk', 'audiodisk'],
-              ['počítačový disk', 'počítačový disk'],
+              [
+                'braille',
+                'braille'
+              ],
+              [
+                'electronic',
+                'electronic'
+              ],
+              [
+                'large print',
+                'large print'
+              ],
+              [
+                'microfilm',
+                'microfilm'
+              ],
+              [
+                'microfiche',
+                'microfiche'
+              ],
+              [
+                'print',
+                'print'
+              ],
+              [
+                'jiný',
+                'jiný'
+              ],
+              [
+                'audio',
+                'audio'
+              ],
+              [
+                'počítač',
+                'počítač'
+              ],
+              [
+                'mikroforma',
+                'mikroforma'
+              ],
+              [
+                'mikroskop',
+                'mikroskop'
+              ],
+              [
+                'projekce',
+                'projekce'
+              ],
+              [
+                'stereograf',
+                'stereograf'
+              ],
+              [
+                'bez média',
+                'bez_media'
+              ],
+              [
+                'video',
+                'video'
+              ],
+              [
+                'svazek',
+                'svazek'
+              ],
+              [
+                'online zdroj',
+                'online_zdroj'
+              ],
+              [
+                'audiodisk',
+                'audiodisk'
+              ],
+              [
+                'počítačový disk',
+                'počítačový disk'
+              ],
             ]
           }
         }
@@ -1060,7 +1308,6 @@
   },
   identifier: {
     usage: 'M',
-    required: true,
     label: 'Identifikátor',
     selector: 'identifier',
     labelKey: 'identifier',
@@ -1150,8 +1397,14 @@
             </li>\
           </ul>',
         options: [
-          ['udc', 'udc'],
-          ['Konspekt', 'Konspekt']
+          [
+            'udc',
+            'udc'
+          ],
+          [
+            'Konspekt',
+            'Konspekt'
+          ]
         ]
       },
       edition: {
@@ -1166,7 +1419,10 @@
             </li>\
           </ul>',
         options: [
-          ['Konspekt', 'Konspekt']
+          [
+            'Konspekt',
+            'Konspekt'
+          ]
         ]
       },
       value: {
@@ -1194,15 +1450,20 @@
         label: 'Typ zdroje',
         help: 'off',
         options: [
-          ['', '-'],
-          ['text', 'text']
+          [
+            '',
+            '-'
+          ],
+          [
+            'text',
+            'text'
+          ]
         ]
       }
     }
   },
   recordInfo: {
     usage: 'M',
-    required: true,
     label: 'Údaje o metadatovém záznamu',
     selector: 'recordInfo',
     labelKey: 'recordInfo',
@@ -1217,8 +1478,14 @@
         description: 'Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>\
             Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"',
         options: [
-          ['aacr', 'aacr'],
-          ['rda', 'rda']
+          [
+            'aacr',
+            'aacr'
+          ],
+          [
+            'rda',
+            'rda'
+          ]
         ]
       },
       recordContentSource: {
@@ -1245,14 +1512,16 @@
             labelKey: 'recordInfo/recordContentSource/@authority',
             description: 'authority – hodnota "marcorg"',
             options: [
-              ['marcorg', 'marcorg']
+              [
+                'marcorg',
+                'marcorg'
+              ]
             ]
           }
         }
       },
       recordCreationDate: {
         usage: 'M',
-        required: true,
         label: 'Datum vytvoření',
         selector: 'recordInfo/recordCreationDate',
         labelKey: 'recordInfo/recordCreationDate',
@@ -1276,7 +1545,10 @@
             labelKey: 'recordInfo/recordCreationDate/@encoding',
             description: 'Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"',
             options: [
-              ['iso8601', 'iso8601']
+              [
+                'iso8601',
+                'iso8601'
+              ]
             ]
           }
         }
@@ -1305,7 +1577,10 @@
             labelKey: 'recordInfo/recordChangeDate/@encoding',
             description: 'Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"',
             options: [
-              ['iso8601', 'iso8601']
+              [
+                'iso8601',
+                'iso8601'
+              ]
             ]
           }
         }
@@ -1343,8 +1618,14 @@
         cols: 2,
         description: 'údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"',
         options: [
-          ['machine generated', 'machine generated'],
-          ['human prepared', 'human prepared']
+          [
+            'machine generated',
+            'machine generated'
+          ],
+          [
+            'human prepared',
+            'human prepared'
+          ]
         ]
       },
       languageOfCataloging: {
@@ -1379,10 +1660,22 @@
         labelKey: 'relatedItem/@type',
         description: 'Type spolu s otherType popisují vztah položky, popsané v <relatedItem> a dokumentu, který je předmětem MODS záznamu',
         options: [
-          ['', '-'],
-          ['series', 'Series'],
-          ['original', 'original'],
-          ['isReferencedBy', 'isReferencedBy']
+          [
+            '',
+            '-'
+          ],
+          [
+            'series',
+            'Series'
+          ],
+          [
+            'original',
+            'original'
+          ],
+          [
+            'isReferencedBy',
+            'isReferencedBy'
+          ]
         ]
       },
       otherType: {
@@ -1440,11 +1733,26 @@
             <li>Jednotný název (uniform) – pole 130 resp. 240</li>\
           </ul>',
             options: [
-              ['', '-'],
-              ['abbreviated', 'Zkrácený název'],
-              ['translated', 'Přeložený název'],
-              ['alternative', 'Alternativní název'],
-              ['uniform', 'Jednotný název']
+              [
+                '',
+                '-'
+              ],
+              [
+                'abbreviated',
+                'Zkrácený název'
+              ],
+              [
+                'translated',
+                'Přeložený název'
+              ],
+              [
+                'alternative',
+                'Alternativní název'
+              ],
+              [
+                'uniform',
+                'Jednotný název'
+              ]
             ]
           },
           nonSort: {
@@ -1519,11 +1827,26 @@
             <li><strong>Rodina</strong> (family)</li>\
           </ul>',
             options: [
-              ['', '-'],
-              ['personal', 'Osoba'],
-              ['corporate', 'Organizace'],
-              ['conference', 'Konference'],
-              ['family', 'Rodina']
+              [
+                '',
+                '-'
+              ],
+              [
+                'personal',
+                'Osoba'
+              ],
+              [
+                'corporate',
+                'Organizace'
+              ],
+              [
+                'conference',
+                'Konference'
+              ],
+              [
+                'family',
+                'Rodina'
+              ]
             ]
           },
           namePart: {
@@ -1547,11 +1870,26 @@
                     <li><strong>Ostatní související se jménem</strong> (termsOfAddress)</li>\
                 </ul>',
                 options: [
-                  ['', '-'],
-                  ['given', 'Křestní jméno'],
-                  ['family', 'Příjmení'],
-                  ['date', 'Datum'],
-                  ['termsOfAddress', 'Ostatní související se jménem'],
+                  [
+                    '',
+                    '-'
+                  ],
+                  [
+                    'given',
+                    'Křestní jméno'
+                  ],
+                  [
+                    'family',
+                    'Příjmení'
+                  ],
+                  [
+                    'date',
+                    'Datum'
+                  ],
+                  [
+                    'termsOfAddress',
+                    'Ostatní související se jménem'
+                  ],
                 ]
               },
               value: {
@@ -1647,10 +1985,22 @@
               <li>Sporné (questionable)</li>\
             </ul>',
                 options: [
-                  ['', '-'],
-                  ['approximate', 'Datum je přibližné'],
-                  ['inferred', 'Datum je odvozené'],
-                  ['questionable', 'Datum je sporné']
+                  [
+                    '',
+                    '-'
+                  ],
+                  [
+                    'approximate',
+                    'Datum je přibližné'
+                  ],
+                  [
+                    'inferred',
+                    'Datum je odvozené'
+                  ],
+                  [
+                    'questionable',
+                    'Datum je sporné'
+                  ]
                 ]
               },
               encoding: {
@@ -1661,12 +2011,30 @@
                 cols: 3,
                 description: 'Hodnota "marc" jen u údaje z pole 008',
                 options: [
-                  ['', '-'],
-                  ['marc', 'MARC'],
-                  ['iso8601', 'ISO 8601'],
-                  ['edtf', 'EDTF'],
-                  ['temper', 'temper'],
-                  ['w3cdtf', 'W3CDTF']
+                  [
+                    '',
+                    '-'
+                  ],
+                  [
+                    'marc',
+                    'MARC'
+                  ],
+                  [
+                    'iso8601',
+                    'ISO 8601'
+                  ],
+                  [
+                    'edtf',
+                    'EDTF'
+                  ],
+                  [
+                    'temper',
+                    'temper'
+                  ],
+                  [
+                    'w3cdtf',
+                    'W3CDTF'
+                  ]
                 ]
               },
               point: {
@@ -1677,9 +2045,18 @@
                 cols: 3,
                 description: 'Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat',
                 options: [
-                  ['', '-'],
-                  ['start', 'start'],
-                  ['end', 'end']
+                  [
+                    '',
+                    '-'
+                  ],
+                  [
+                    'start',
+                    'start'
+                  ],
+                  [
+                    'end',
+                    'end'
+                  ]
                 ]
               },
             }
@@ -1715,10 +2092,22 @@
               <li>Jednotkové (single unit)</li>\
             </ul>',
             options: [
-              ['', '-'],
-              ['monographic', 'Monografické'],
-              ['single unit', 'Jednotkové'],
-              ['multipart monograph', 'Vícedílné']
+              [
+                '',
+                '-'
+              ],
+              [
+                'monographic',
+                'Monografické'
+              ],
+              [
+                'single unit',
+                'Jednotkové'
+              ],
+              [
+                'multipart monograph',
+                'Vícedílné'
+              ]
             ]
           },
           place: {
@@ -1843,8 +2232,14 @@
                 label: 'Usage',
                 help: 'off',
                 options: [
-                  ['', '-'],
-                  ['primary', 'primary']
+                  [
+                    '',
+                    '-'
+                  ],
+                  [
+                    'primary',
+                    'primary'
+                  ]
                 ]
               },
             }
@@ -1867,13 +2262,34 @@
             description: 'Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>\
           Odpovídá hodnotě v $2',
             options: [
-              ['', '-'],
-              ['czenas', 'czenas'],
-              ['eczenas', 'eczenas'],
-              ['mednas', 'mednas'],
-              ['czmesh', 'czmesh'],
-              ['msvkth', 'msvkth'],
-              ['agrovoc', 'agrovoc']
+              [
+                '',
+                '-'
+              ],
+              [
+                'czenas',
+                'czenas'
+              ],
+              [
+                'eczenas',
+                'eczenas'
+              ],
+              [
+                'mednas',
+                'mednas'
+              ],
+              [
+                'czmesh',
+                'czmesh'
+              ],
+              [
+                'msvkth',
+                'msvkth'
+              ],
+              [
+                'agrovoc',
+                'agrovoc'
+              ]
             ]
           },
           topic: {
@@ -1898,7 +2314,8 @@
                 selector: 'subject/topic/@valueURI',
                 labelKey: 'subject/topic/@valueURI',
                 description: 'Link na URL cislo autority',
-              },//                lang: {
+              },
+              //                lang: {
               //                  usage: 'R',
               //                  cols: 2,
               //                  label: 'Hodnota',
@@ -1978,11 +2395,26 @@
             <li><strong>Rodina</strong> (family)</li>\
           </ul>',
                 options: [
-                  ['', '-'],
-                  ['personal', 'Osoba'],
-                  ['corporate', 'Organizace'],
-                  ['conference', 'Konference'],
-                  ['family', 'Rodina']
+                  [
+                    '',
+                    '-'
+                  ],
+                  [
+                    'personal',
+                    'Osoba'
+                  ],
+                  [
+                    'corporate',
+                    'Organizace'
+                  ],
+                  [
+                    'conference',
+                    'Konference'
+                  ],
+                  [
+                    'family',
+                    'Rodina'
+                  ]
                 ]
               },
               namePart: {
@@ -2006,11 +2438,26 @@
                     <li><strong>Ostatní související se jménem</strong> (termsOfAddress)</li>\
                 </ul>',
                     options: [
-                      ['', '-'],
-                      ['given', 'Křestní jméno'],
-                      ['family', 'Příjmení'],
-                      ['date', 'Datum'],
-                      ['termsOfAddress', 'Ostatní související se jménem'],
+                      [
+                        '',
+                        '-'
+                      ],
+                      [
+                        'given',
+                        'Křestní jméno'
+                      ],
+                      [
+                        'family',
+                        'Příjmení'
+                      ],
+                      [
+                        'date',
+                        'Datum'
+                      ],
+                      [
+                        'termsOfAddress',
+                        'Ostatní související se jménem'
+                      ],
                     ]
                   },
                   value: {
@@ -2076,11 +2523,26 @@
             <li><strong>Překlad</strong> (translation) - odpovídá poli 041 $h</li>\
           </ul>',
             options: [
-              ['', '-'],
-              ['summary', 'Shrnutí'],
-              ['table of contents', 'Obsah'],
-              ['accompanying material', 'Doprovodný materiál'],
-              ['translation', 'Překlad']
+              [
+                '',
+                '-'
+              ],
+              [
+                'summary',
+                'Shrnutí'
+              ],
+              [
+                'table of contents',
+                'Obsah'
+              ],
+              [
+                'accompanying material',
+                'Doprovodný materiál'
+              ],
+              [
+                'translation',
+                'Překlad'
+              ]
             ]
           },
           language: {
@@ -2122,8 +2584,14 @@
             labelKey: 'relatedItem/physicalDescription/digitalOrigin',
             description: 'Indikátor zdroje digitálního dokumentu hodnota <strong>born digital</strong>',
             options: [
-              ['', '-'],
-              ['born digital', 'born digital']
+              [
+                '',
+                '-'
+              ],
+              [
+                'born digital',
+                'born digital'
+              ]
             ]
           },
           form: {
@@ -2152,10 +2620,22 @@
                 <li><strong>gmd</strong></li>\
               </ul>',
                 options: [
-                  ['marcform', 'marcform'],
-                  ['marccategory', 'marccategory'],
-                  ['marcsmd', 'marcsmd'],
-                  ['gmd', 'gmd'],
+                  [
+                    'marcform',
+                    'marcform'
+                  ],
+                  [
+                    'marccategory',
+                    'marccategory'
+                  ],
+                  [
+                    'marcsmd',
+                    'marcsmd'
+                  ],
+                  [
+                    'gmd',
+                    'gmd'
+                  ],
                 ]
               },
               value: {
@@ -2165,25 +2645,82 @@
                 label: 'Hodnota',
                 help: 'off',
                 options: [
-                  ['braille', 'braille'],
-                  ['electronic', 'electronic'],
-                  ['large print', 'large print'],
-                  ['microfilm', 'microfilm'],
-                  ['microfiche', 'microfiche'],
-                  ['print', 'print'],
-                  ['jiný', 'jiný'],
-                  ['audio', 'audio'],
-                  ['počítač', 'počítač'],
-                  ['mikroforma', 'mikroforma'],
-                  ['mikroskop', 'mikroskop'],
-                  ['projekce', 'projekce'],
-                  ['stereograf', 'stereograf'],
-                  ['bez média', 'bez_media'],
-                  ['video', 'video'],
-                  ['svazek', 'svazek'],
-                  ['online zdroj', 'online_zdroj'],
-                  ['audiodisk', 'audiodisk'],
-                  ['počítačový disk', 'počítačový disk'],
+                  [
+                    'braille',
+                    'braille'
+                  ],
+                  [
+                    'electronic',
+                    'electronic'
+                  ],
+                  [
+                    'large print',
+                    'large print'
+                  ],
+                  [
+                    'microfilm',
+                    'microfilm'
+                  ],
+                  [
+                    'microfiche',
+                    'microfiche'
+                  ],
+                  [
+                    'print',
+                    'print'
+                  ],
+                  [
+                    'jiný',
+                    'jiný'
+                  ],
+                  [
+                    'audio',
+                    'audio'
+                  ],
+                  [
+                    'počítač',
+                    'počítač'
+                  ],
+                  [
+                    'mikroforma',
+                    'mikroforma'
+                  ],
+                  [
+                    'mikroskop',
+                    'mikroskop'
+                  ],
+                  [
+                    'projekce',
+                    'projekce'
+                  ],
+                  [
+                    'stereograf',
+                    'stereograf'
+                  ],
+                  [
+                    'bez média',
+                    'bez_media'
+                  ],
+                  [
+                    'video',
+                    'video'
+                  ],
+                  [
+                    'svazek',
+                    'svazek'
+                  ],
+                  [
+                    'online zdroj',
+                    'online_zdroj'
+                  ],
+                  [
+                    'audiodisk',
+                    'audiodisk'
+                  ],
+                  [
+                    'počítačový disk',
+                    'počítačový disk'
+                  ],
                 ]
               }
             }
@@ -2286,7 +2823,10 @@
             </li>\
           </ul>',
             options: [
-              ['udc', 'udc']
+              [
+                'udc',
+                'udc'
+              ]
             ]
           },
           value: {
@@ -2314,8 +2854,14 @@
             label: 'Typ zdroje',
             help: 'off',
             options: [
-              ['', '-'],
-              ['text', 'text']
+              [
+                '',
+                '-'
+              ],
+              [
+                'text',
+                'text'
+              ]
             ]
           }
         }

@@ -1,7 +1,6 @@
 {
   titleInfo: {
     usage: 'M',
-    required: true,
     label: 'Název',
     selector: 'titleInfo',
     labelKey: 'titleInfo',
@@ -211,7 +210,6 @@
   },
   originInfo: {
     usage: 'M',
-    required: true,
     label: 'Původ předlohy',
     selector: 'originInfo',
     labelKey: 'originInfo',
@@ -548,7 +546,6 @@
   },
   language: {
     usage: 'M',
-    required: true,
     label: 'Jazyk',
     selector: 'language',
     labelKey: 'language',
@@ -619,10 +616,22 @@
             <li><strong>Partial contents</strong>ind1=2 hodnota</li>\
           </ul>',
         options: [
-          ['', '-'],
-          ['Contents', 'Contents'],
-          ['Incomplete contents', 'Incomplete contents'],
-          ['Partial contents', 'Partial contents'],
+          [
+            '',
+            '-'
+          ],
+          [
+            'Contents',
+            'Contents'
+          ],
+          [
+            'Incomplete contents',
+            'Incomplete contents'
+          ],
+          [
+            'Partial contents',
+            'Partial contents'
+          ],
         ]
       },
       value: {
@@ -704,7 +713,6 @@
   },
   genre: {
     usage: 'M',
-    required: true,
     label: 'Žánr',
     selector: 'genre',
     labelKey: 'genre',
@@ -718,14 +726,16 @@
         labelKey: 'genre/value',
         help: 'off',
         options: [
-          ['sound recording', 'sound recording']
+          [
+            'sound recording',
+            'sound recording'
+          ]
         ]
       }
     }
   },
   identifier: {
     usage: 'M',
-    required: true,
     label: 'Identifikátor',
     selector: 'identifier',
     labelKey: 'identifier',
@@ -800,7 +810,6 @@
     fields: {
       authority: {
         usage: 'M',
-//        required: true,
         label: 'Autorita',
         selector: 'classification/@authority',
         labelKey: 'classification/@authority',
@@ -814,7 +823,6 @@
       },
       value: {
         usage: 'R',
-//        required: true,
         selector: 'classification/value',
         labelKey: 'classification/value',
         label: 'Hodnota',
@@ -858,7 +866,6 @@
   },
   recordInfo: {
     usage: 'M',
-    required: true,
     label: 'Údaje o metadatovém záznamu',
     selector: 'recordInfo',
     labelKey: 'recordInfo',
@@ -917,7 +924,6 @@
       },
       recordCreationDate: {
         usage: 'M',
-        required: true,
         label: 'Datum vytvoření',
         selector: 'recordInfo/recordCreationDate',
         labelKey: 'recordInfo/recordCreationDate',

@@ -1,7 +1,6 @@
 {
   titleInfo: {
     usage: 'M',
-    required: true,
     label: 'Název',
     selector: 'titleInfo',
     labelKey: 'titleInfo',
@@ -257,7 +256,6 @@
       },
       topic: {
         usage: 'MA',
-        //          required: true,
         label: 'Klíčové slovo/Předmětové heslo',
         selector: 'subject/topic',
         labelKey: 'subject/topic',
@@ -266,7 +264,6 @@
         fields: {
           value: {
             usage: 'MA',
-            //              required: true,
             label: 'Hodnota',
             selector: 'subject/topic/value',
             labelKey: 'subject/topic/value',
@@ -701,7 +698,6 @@
   },
   genre: {
     usage: 'M',
-    required: true,
     label: 'Žánr',
     selector: 'genre',
     labelKey: 'genre',
@@ -725,43 +721,132 @@
         cols: 2,
         description: 'Možnost vyplnit bližší určení typu oddílu (možnost použít DTD monografie, MonographComponentPart Types)',
         options: [
-          ['table of content', 'table of content'],
-          ['advertisement', 'advertisement'],
-          ['abstract', 'abstract'],
-          ['introduction', 'introduction'],
-          ['review', 'review'],
-          ['dedication', 'dedication'],
-          ['bibliography', 'bibliography'],
-          ['editorsNote', 'editorsNote'],
-          ['preface', 'preface'],
-          ['chapter', 'chapter'],
-          ['article', 'article'],
-          ['index', 'index'],
-          ['otherNote', 'otherNote'],
-          ['contributors', 'contributors'],
-          ['debate', 'debate'],
-          ['figure', 'figure'],
-          ['obituary', 'obituary'],
-          ['remark', 'remark'],
-          ['study', 'study'],
-          ['technicalPlanScheme', 'technicalPlanScheme'],
-          ['unspecified', 'unspecified'],
-          ['annotation', 'annotation'],
-          ['afterword', 'afterword'],
-          ['bibliographicalPortrait', 'bibliographicalPortrait'],
-          ['sheetMusic', 'sheetMusic'],
-          ['tableOfContents', 'tableOfContents'],
-          ['summary', 'summary'],
-          ['interview', 'interview'],
-          ['conclusion', 'conclusion'],
-          ['subchapter', 'subchapter']
+          [
+            'table of content',
+            'table of content'
+          ],
+          [
+            'advertisement',
+            'advertisement'
+          ],
+          [
+            'abstract',
+            'abstract'
+          ],
+          [
+            'introduction',
+            'introduction'
+          ],
+          [
+            'review',
+            'review'
+          ],
+          [
+            'dedication',
+            'dedication'
+          ],
+          [
+            'bibliography',
+            'bibliography'
+          ],
+          [
+            'editorsNote',
+            'editorsNote'
+          ],
+          [
+            'preface',
+            'preface'
+          ],
+          [
+            'chapter',
+            'chapter'
+          ],
+          [
+            'article',
+            'article'
+          ],
+          [
+            'index',
+            'index'
+          ],
+          [
+            'otherNote',
+            'otherNote'
+          ],
+          [
+            'contributors',
+            'contributors'
+          ],
+          [
+            'debate',
+            'debate'
+          ],
+          [
+            'figure',
+            'figure'
+          ],
+          [
+            'obituary',
+            'obituary'
+          ],
+          [
+            'remark',
+            'remark'
+          ],
+          [
+            'study',
+            'study'
+          ],
+          [
+            'technicalPlanScheme',
+            'technicalPlanScheme'
+          ],
+          [
+            'unspecified',
+            'unspecified'
+          ],
+          [
+            'annotation',
+            'annotation'
+          ],
+          [
+            'afterword',
+            'afterword'
+          ],
+          [
+            'bibliographicalPortrait',
+            'bibliographicalPortrait'
+          ],
+          [
+            'sheetMusic',
+            'sheetMusic'
+          ],
+          [
+            'tableOfContents',
+            'tableOfContents'
+          ],
+          [
+            'summary',
+            'summary'
+          ],
+          [
+            'interview',
+            'interview'
+          ],
+          [
+            'conclusion',
+            'conclusion'
+          ],
+          [
+            'subchapter',
+            'subchapter'
+          ]
         ]
       }
     }
   },
   identifier: {
     usage: 'M',
-    required: true,
     label: 'Identifikátor',
     selector: 'identifier',
     labelKey: 'identifier',
@@ -928,7 +1013,6 @@
   },
   recordInfo: {
     usage: 'M',
-    required: true,
     label: 'Údaje o metadatovém záznamu',
     selector: 'recordInfo',
     labelKey: 'recordInfo',
@@ -987,7 +1071,6 @@
       },
       recordCreationDate: {
         usage: 'M',
-        required: true,
         label: 'Datum vytvoření',
         selector: 'recordInfo/recordCreationDate',
         labelKey: 'recordInfo/recordCreationDate',

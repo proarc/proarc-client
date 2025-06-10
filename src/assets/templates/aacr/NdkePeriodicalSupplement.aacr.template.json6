@@ -67,7 +67,6 @@
       },
       partNumber: {
         usage: 'MA',
-        //          required: true,
         label: 'Číslo přílohy',
         selector: 'titleInfo/partNumber',
         labelKey: 'titleInfo/partNumber',
@@ -310,28 +309,28 @@
               ]
             ]
           },
-//          point: {
-//            usage: 'O',
-//            label: 'Point',
-//            selector: 'originInfo/dateIssued/@point',
-//            labelKey: 'originInfo/dateIssued/@point',
-//            cols: 2,
-//            description: 'Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat',
-//            options: [
-//              [
-//                '',
-//                '-'
-//              ],
-//              [
-//                'start',
-//                'start'
-//              ],
-//              [
-//                'end',
-//                'end'
-//              ]
-//            ]
-//          }
+          //          point: {
+          //            usage: 'O',
+          //            label: 'Point',
+          //            selector: 'originInfo/dateIssued/@point',
+          //            labelKey: 'originInfo/dateIssued/@point',
+          //            cols: 2,
+          //            description: 'Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat',
+          //            options: [
+          //              [
+          //                '',
+          //                '-'
+          //              ],
+          //              [
+          //                'start',
+          //                'start'
+          //              ],
+          //              [
+          //                'end',
+          //                'end'
+          //              ]
+          //            ]
+          //          }
         }
       },
       place: {
@@ -401,29 +400,34 @@
           },
         },
       },
-              frequency: {
-                usage: 'RA',
-                label: 'Frekvence',
-                selector: 'originInfo/frequency',
-                labelKey: 'originInfo/frequency',
-                description: 'údaje o pravidelnosti vydávání odpovídá údaji MARC21 v poli 310 nebo pozici 18 v poli 008',
-                fields: {
-                  authority: {
-                    usage: 'R',
-                    label: 'Autorita',
-                    selector: 'originInfo/frequency/@authority',
-                    labelKey: 'originInfo/frequency/@authority',
-                    options: [['marcfrequency', 'marcfrequency']]
-                  },
-                  value: {
-                    label: 'Hodnota',
-                    usage: 'RA',
-                    selector: 'originInfo/frequency',
-                    labelKey: 'originInfo/frequency',
-                    help: 'off'
-                  }
-                }
-              },
+      frequency: {
+        usage: 'RA',
+        label: 'Frekvence',
+        selector: 'originInfo/frequency',
+        labelKey: 'originInfo/frequency',
+        description: 'údaje o pravidelnosti vydávání odpovídá údaji MARC21 v poli 310 nebo pozici 18 v poli 008',
+        fields: {
+          authority: {
+            usage: 'R',
+            label: 'Autorita',
+            selector: 'originInfo/frequency/@authority',
+            labelKey: 'originInfo/frequency/@authority',
+            options: [
+              [
+                'marcfrequency',
+                'marcfrequency'
+              ]
+            ]
+          },
+          value: {
+            label: 'Hodnota',
+            usage: 'RA',
+            selector: 'originInfo/frequency',
+            labelKey: 'originInfo/frequency',
+            help: 'off'
+          }
+        }
+      },
     }
   },
   subject: {
@@ -660,17 +664,17 @@
             cols: 2,
             description: 'Číslo národní autority'
           }
-//          role: {
-//            usage: 'MA',
-//            label: 'Role',
-//            selector: 'name/role/roleTerm',
-//            labelKey: 'name/role/roleTerm',
-//            expanded: true,
-//            description: 'Specifikace role osoby nebo organizace<br/>\
-//          Kód role z kontrolovaného slovníku rolí\
-//          (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)',
-//            fields: {}
-//          }
+          //          role: {
+          //            usage: 'MA',
+          //            label: 'Role',
+          //            selector: 'name/role/roleTerm',
+          //            labelKey: 'name/role/roleTerm',
+          //            expanded: true,
+          //            description: 'Specifikace role osoby nebo organizace<br/>\
+          //          Kód role z kontrolovaného slovníku rolí\
+          //          (<a href=\"http://www.loc.gov/marc/relators/relaterm.html\" target=\"_blank\">http://www.loc.gov/marc/relators/relaterm.html</a>)',
+          //            fields: {}
+          //          }
         }
       }
     }
@@ -1190,24 +1194,24 @@
           ],
         ]
       },
-            edition: {
-              usage: 'MA',
-              label: 'Vydání',
-              selector: 'classification/@edition',
-              labelKey: 'classification/@edition',
-              cols: 2,
-              description: '<ul>\
+      edition: {
+        usage: 'MA',
+        label: 'Vydání',
+        selector: 'classification/@edition',
+        labelKey: 'classification/@edition',
+        cols: 2,
+        description: '<ul>\
                   <li>\
                     vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)\
                   </li>\
                 </ul>',
-              options: [
-                [
-                  'Konspekt',
-                  'Konspekt'
-                ]
-              ]
-            },
+        options: [
+          [
+            'Konspekt',
+            'Konspekt'
+          ]
+        ]
+      },
       value: {
         usage: 'R',
         selector: 'classification/value',
