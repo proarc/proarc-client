@@ -1868,7 +1868,7 @@
             ]
           },
           namePart: {
-            usage: 'M',
+            usage: 'MA',
             label: 'Jméno',
             selector: 'name/namePart',
             labelKey: 'name/namePart',
@@ -1912,8 +1912,7 @@
               },
               value: {
                 label: 'Hodnota',
-                usage: 'M',
-                required: true,
+                usage: 'MA',
                 selector: 'name/namePart',
                 labelKey: 'name/namePart/value',
                 cols: 2,
@@ -2399,8 +2398,7 @@
             description: 'Jméno použité jako věcné záhlaví. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (jméno osobní) nebo obsah pole 600 záznamu MARC21',
             fields: {
               type: {
-                usage: 'M',
-                required: true,
+                usage: 'MA',
                 label: 'Typ',
                 selector: 'name/@type',
                 labelKey: 'name/@type',
@@ -2436,7 +2434,7 @@
                 ]
               },
               namePart: {
-                usage: 'M',
+                usage: 'MA',
                 label: 'Jméno',
                 selector: 'name/namePart',
                 labelKey: 'name/namePart',
@@ -2480,8 +2478,7 @@
                   },
                   value: {
                     label: 'Hodnota',
-                    usage: 'M',
-                    required: true,
+                    usage: 'MA',
                     selector: 'name/namePart',
                     labelKey: 'name/namePart/value',
                     cols: 2,
@@ -2806,7 +2803,7 @@
         }
       },
       genre: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Žánr',
         selector: 'relatedItem/genre',
         labelKey: 'relatedItem/genre',
@@ -2814,7 +2811,7 @@
       Pro monografie hodnota <strong>electronic volume</strong>',
         fields: {
           value: {
-            usage: 'M',
+            usage: 'MA',
             selector: 'relatedItem/genre/value',
             labelKey: 'relatedItem/genre/value',
             label: 'Hodnota',

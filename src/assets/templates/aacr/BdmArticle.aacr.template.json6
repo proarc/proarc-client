@@ -1735,7 +1735,7 @@
             description: 'Rozsah článku',
             fields: {
               detail: {
-                usage: 'M',
+                usage: 'MA',
                 label: 'Detail',
                 selector: 'part/detail',
                 labelKey: 'part/detail',

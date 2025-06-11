@@ -1072,7 +1072,7 @@
         ]
       },
       titleInfo: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Název',
         selector: 'relatedItem/titleInfo',
         labelKey: 'relatedItem/titleInfo',
@@ -1129,7 +1129,7 @@
           </ul>',
           },
           title: {
-            usage: 'M',
+            usage: 'MA',
             label: 'Název',
             selector: 'relatedItem/titleInfo/title',
             labelKey: 'relatedItem/titleInfo/title',
@@ -1250,7 +1250,7 @@
               },
               value: {
                 label: 'Hodnota',
-                usage: 'M',
+                usage: 'MA',
                 selector: 'relatedItem/name/namePart',
                 labelKey: 'relatedItem/name/namePart/value',
                 cols: 2,
@@ -1280,14 +1280,14 @@
         }
       },
       originInfo: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Původ předlohy',
         selector: 'relatedItem/originInfo',
         labelKey: 'relatedItem/originInfo',
         description: 'Informace o původu předlohy',
         fields: {
           issuance: {
-            usage: 'M',
+            usage: 'MA',
             label: 'Vydání',
             selector: 'relatedItem/originInfo/issuance',
             labelKey: 'relatedItem/originInfo/issuance',
@@ -1408,7 +1408,7 @@
             ]
           },
           topic: {
-            usage: 'M',
+            usage: 'MA',
             label: 'Klíčové slovo/Předmětové heslo',
             selector: 'relatedItem/subject/topic',
             labelKey: 'relatedItem/subject/topic',
@@ -1416,7 +1416,7 @@
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x',
             fields: {
               value: {
-                usage: 'M',
+                usage: 'MA',
                 label: 'Hodnota',
                 //                  cols: 2,
                 selector: 'subject/topic/value',
@@ -1576,7 +1576,7 @@
                   },
                   value: {
                     label: 'Hodnota',
-                    usage: 'M',
+                    usage: 'R',
                     selector: 'relatedItem/name/namePart',
                     labelKey: 'relatedItem/name/namePart/value',
                     cols: 2,
@@ -1608,7 +1608,7 @@
         }
       },
       language: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Jazyk',
         selector: 'relatedItem/language',
         labelKey: 'relatedItem/language',
@@ -1651,7 +1651,7 @@
             ]
           },
           language: {
-            usage: 'M',
+            usage: 'MA',
             label: 'Jazyk',
             selector: 'relatedItem/language/languageTerm',
             labelKey: 'relatedItem/language/languageTerm',
@@ -1667,7 +1667,7 @@
         description: 'Slouží k vepsání názvů částí skladby, pokud je skladba obsahuje; obsah pole 505 $a',
         fields: {
           displayLabel: {
-            usage: 'M',
+            usage: 'MA',
             label: 'Zobrazená část',
             selector: 'relatedItem/language/@displayLabel',
             labelKey: 'relatedItem/language/@displayLabel',
@@ -1704,7 +1704,7 @@
         }
       },
       physicalDescription: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Fyzický popis',
         selector: 'relatedItem/physicalDescription',
         labelKey: 'relatedItem/physicalDescription',
@@ -1773,14 +1773,14 @@
         }
       },
       genre: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Žánr',
         selector: 'relatedItem/genre',
         labelKey: 'relatedItem/genre',
         description: 'Bližší údaje o typu dokumentu',
         fields: {
           value: {
-            usage: 'M',
+            usage: 'MA',
             label: 'Hodnota',
             selector: 'relatedItem/genre/value',
             labelKey: 'relatedItem/genre/value',
@@ -1795,7 +1795,7 @@
         }
       },
       identifier: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Identifikátor',
         selector: 'relatedItem/identifier',
         labelKey: 'relatedItem/identifier',
@@ -1851,7 +1851,7 @@
           </ul>'
           },
           value: {
-            usage: 'M',
+            usage: 'MA',
             selector: 'relatedItem/identifier/value',
             labelKey: 'relatedItem/identifier/value',
             label: 'Hodnota',
@@ -1867,7 +1867,7 @@
         description: 'Klasifikační údaje věcného třídění podle Konspektu',
         fields: {
           authority: {
-            usage: 'M',
+            usage: 'MA',
             label: 'Autorita',
             selector: 'relatedItem/classification/@authority',
             labelKey: 'relatedItem/classification/@authority',

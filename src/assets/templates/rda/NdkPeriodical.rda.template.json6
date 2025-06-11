@@ -1927,8 +1927,7 @@
               },
               value: {
                 label: 'Hodnota',
-                usage: 'M',
-                required: true,
+                usage: 'MA',
                 selector: 'name/namePart',
                 labelKey: 'name/namePart/value',
                 cols: 2,
@@ -2638,7 +2637,6 @@
             fields: {
               type: {
                 usage: 'M',
-                required: true,
                 label: 'Typ',
                 selector: 'name/@type',
                 labelKey: 'name/@type',
@@ -2718,8 +2716,7 @@
                   },
                   value: {
                     label: 'Hodnota',
-                    usage: 'M',
-                    required: true,
+                    usage: 'MA',
                     selector: 'name/namePart',
                     labelKey: 'name/namePart/value',
                     cols: 2,

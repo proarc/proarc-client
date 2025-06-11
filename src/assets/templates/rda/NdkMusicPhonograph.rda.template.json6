@@ -1197,7 +1197,7 @@
         ]
       },
       titleInfo: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Název',
         selector: 'relatedItem/titleInfo',
         labelKey: 'relatedItem/titleInfo',
@@ -1254,7 +1254,7 @@
           </ul>',
           },
           title: {
-            usage: 'M',
+            usage: 'MA',
             label: 'Název',
             selector: 'relatedItem/titleInfo/title',
             labelKey: 'relatedItem/titleInfo/title',
@@ -1377,7 +1377,7 @@
               },
               value: {
                 label: 'Hodnota',
-                usage: 'M',
+                usage: 'MA',
                 selector: 'relatedItem/name/namePart',
                 labelKey: 'relatedItem/name/namePart/value',
                 cols: 2,
@@ -1417,7 +1417,7 @@
         }
       },
       originInfo: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Původ předlohy',
         selector: 'relatedItem/originInfo',
         labelKey: 'relatedItem/originInfo',
@@ -1433,7 +1433,7 @@
             pokud má titul více vydavatelů/ distributorů/ výrobců, přebírají se ze záznamu všichni (jsou v jednom poli 260)',
           },
           eventType: {
-            usage: 'M',
+            usage: 'MA',
             label: 'Typ',
             selector: 'relatedItem/originInfo/@eventType',
             labelKey: 'relatedItem/originInfo/@eventType',
@@ -1504,7 +1504,7 @@
             ]
           },
           dateIssued: {
-            usage: 'M',
+            usage: 'MA',
             label: 'Datum vydání',
             selector: 'relatedItem/originInfo/dateIssued',
             labelKey: 'relatedItem/originInfo/dateIssued',
@@ -1522,7 +1522,7 @@
             využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>',
             fields: {
               value: {
-                usage: 'M',
+                usage: 'MA',
                 selector: 'relatedItem/originInfo/dateIssued/value',
                 labelKey: 'relatedItem/originInfo/dateIssued/value',
                 label: 'Hodnota',
@@ -1618,7 +1618,7 @@
             }
           },
           issuance: {
-            usage: 'M',
+            usage: 'MA',
             label: 'Vydání',
             selector: 'relatedItem/originInfo/issuance',
             labelKey: 'relatedItem/originInfo/issuance',
@@ -1770,7 +1770,7 @@
         }
       },
       location: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Uložení',
         selector: 'relatedItem/location',
         labelKey: 'relatedItem/location',
@@ -1814,14 +1814,14 @@
             }
           },
           shelfLocator: {
-            usage: 'M',
+            usage: 'MA',
             label: 'Signatura',
             selector: 'relatedItem/location/shelfLocator',
             labelKey: 'relatedItem/location/shelfLocator',
             description: 'Signatura nebo lokační údaje o daném konkrétním dokumentu, který slouží jako předloha.',
             fields: {
               value: {
-                usage: 'M',
+                usage: 'MA',
                 selector: 'relatedItem/location/shelfLocator/value',
                 labelKey: 'relatedItem/location/shelfLocator/value',
                 label: 'Hodnota',
@@ -1832,7 +1832,7 @@
         }
       },
       physicalDescription: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Fyzický popis',
         selector: 'relatedItem/physicalDescription',
         labelKey: 'relatedItem/physicalDescription',
@@ -1863,7 +1863,7 @@
           //          description: 'Poznámka o fyzickém stavu dokumentu',
           //        },
           form: {
-            usage: 'M',
+            usage: 'MA',
             label: 'Forma',
             selector: 'relatedItem/physicalDescription/form',
             labelKey: 'relatedItem/physicalDescription/form',
@@ -1919,7 +1919,7 @@
                 ]
               },
               value: {
-                usage: 'M',
+                usage: 'MA',
                 selector: 'relatedItem/physicalDescription/form/value',
                 labelKey: 'relatedItem/physicalDescription/form/value',
                 label: 'Hodnota',
@@ -2073,7 +2073,7 @@
         }
       },
       identifier: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Identifikátor',
         selector: 'relatedItem/identifier',
         labelKey: 'relatedItem/identifier',
@@ -2129,7 +2129,7 @@
           </ul>'
           },
           value: {
-            usage: 'M',
+            usage: 'MA',
             selector: 'relatedItem/identifier/value',
             labelKey: 'relatedItem/identifier/value',
             label: 'Hodnota',

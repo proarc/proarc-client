@@ -591,7 +591,7 @@
         ]
       },
       titleInfo: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Název',
         selector: 'relatedItem/titleInfo',
         labelKey: 'relatedItem/titleInfo',
@@ -649,7 +649,7 @@
           </ul>',
           },
           title: {
-            usage: 'M',
+            usage: 'MA',
             label: 'Název',
             selector: 'relatedItem/titleInfo/title',
             labelKey: 'relatedItem/titleInfo/title',
@@ -761,7 +761,7 @@
               },
               value: {
                 label: 'Hodnota',
-                usage: 'M',
+                usage: 'MA',
                 selector: 'relatedItem/name/namePart',
                 labelKey: 'relatedItem/name/namePart/value',
                 cols: 2,
@@ -790,7 +790,7 @@
         }
       },
       physicalDescription: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Fyzický popis',
         selector: 'relatedItem/physicalDescription',
         labelKey: 'relatedItem/physicalDescription',
@@ -856,14 +856,14 @@
         }
       },
       genre: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Žánr',
         selector: 'relatedItem/genre',
         labelKey: 'relatedItem/genre',
         description: 'Hodnota pole <strong>sound part</strong>',
         fields: {
           value: {
-            usage: 'M',
+            usage: 'MA',
             label: 'Hodnota',
             selector: 'relatedItem/genre/value',
             labelKey: 'relatedItem/genre/value',
@@ -878,7 +878,7 @@
         }
       },
       identifier: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Identifikátor',
         selector: 'relatedItem/identifier',
         labelKey: 'relatedItem/identifier',
@@ -934,7 +934,7 @@
           </ul>'
           },
           value: {
-            usage: 'M',
+            usage: 'MA',
             selector: 'relatedItem/identifier/value',
             labelKey: 'relatedItem/identifier/value',
             label: 'Hodnota',
@@ -943,14 +943,14 @@
         }
       },
       typeOfResource: {
-        usage: 'M',
+        usage: 'MA',
         label: 'Typ zdroje',
         selector: 'relatedItem/typeOfResource',
         labelKey: 'relatedItem/typeOfResource',
         description: 'Vyplnit hodnotu <strong>sound recording</strong>',
         fields: {
           value: {
-            usage: 'M',
+            usage: 'MA',
             selector: 'relatedItem/typeOfResource/value',
             labelKey: 'relatedItem/typeOfResource/value',
             label: 'Typ zdroje',
