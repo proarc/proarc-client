@@ -225,7 +225,6 @@
   },
   originInfo: {
     usage: 'M',
-    required: true,
     label: 'Původ předlohy',
     selector: 'originInfo',
     labelKey: 'originInfo',

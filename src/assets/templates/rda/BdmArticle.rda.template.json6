@@ -1,7 +1,6 @@
 {
   titleInfo: {
     usage: 'M',
-    required: true,
     label: 'Názvové údaje',
     selector: 'titleInfo',
     labelKey: 'titleInfo',
@@ -114,11 +113,26 @@
         <li><strong>Rodina</strong> (family)</li>\
         </ul>',
         options: [
-          ['', '-'],
-          ['personal', 'Osoba'],
-          ['corporate', 'Organizace'],
-          ['conference', 'Konference'],
-          ['family', 'Rodina']
+          [
+            '',
+            '-'
+          ],
+          [
+            'personal',
+            'Osoba'
+          ],
+          [
+            'corporate',
+            'Organizace'
+          ],
+          [
+            'conference',
+            'Konference'
+          ],
+          [
+            'family',
+            'Rodina'
+          ]
         ]
       },
       nameIdentifier: {
@@ -158,11 +172,26 @@
             <li><strong>Ostatní související se jménem</strong> (termsOfAddress)</li>\
             </ul>',
             options: [
-              ['', '-'],
-              ['given', 'Křestní jméno'],
-              ['family', 'Příjmení'],
-              ['date', 'Datum'],
-              ['termsOfAddress', 'Ostatní související se jménem'],
+              [
+                '',
+                '-'
+              ],
+              [
+                'given',
+                'Křestní jméno'
+              ],
+              [
+                'family',
+                'Příjmení'
+              ],
+              [
+                'date',
+                'Datum'
+              ],
+              [
+                'termsOfAddress',
+                'Ostatní související se jménem'
+              ],
             ]
           },
           value: {
@@ -216,7 +245,7 @@
     description: 'Údaje o věcném třídění',
     fields: {
       topic: {
-          max: 1,
+        max: 1,
         usage: 'R',
         label: 'Klíčové slovo/Předmětové heslo',
         selector: 'subject/topic',
@@ -321,11 +350,26 @@
             <li><strong>Rodina</strong> (family)</li>\
           </ul>',
             options: [
-              ['', '-'],
-              ['personal', 'Osoba'],
-              ['corporate', 'Organizace'],
-              ['conference', 'Konference'],
-              ['family', 'Rodina']
+              [
+                '',
+                '-'
+              ],
+              [
+                'personal',
+                'Osoba'
+              ],
+              [
+                'corporate',
+                'Organizace'
+              ],
+              [
+                'conference',
+                'Konference'
+              ],
+              [
+                'family',
+                'Rodina'
+              ]
             ]
           },
           namePart: {
@@ -349,11 +393,26 @@
                     <li><strong>Ostatní související se jménem</strong> (termsOfAddress)</li>\
                 </ul>',
                 options: [
-                  ['', '-'],
-                  ['given', 'Křestní jméno'],
-                  ['family', 'Příjmení'],
-                  ['date', 'Datum'],
-                  ['termsOfAddress', 'Ostatní související se jménem'],
+                  [
+                    '',
+                    '-'
+                  ],
+                  [
+                    'given',
+                    'Křestní jméno'
+                  ],
+                  [
+                    'family',
+                    'Příjmení'
+                  ],
+                  [
+                    'date',
+                    'Datum'
+                  ],
+                  [
+                    'termsOfAddress',
+                    'Ostatní související se jménem'
+                  ],
                 ]
               },
               value: {
@@ -390,7 +449,6 @@
       },
       //        lang: {
       //          usage: 'M',
-      //          required: true,
       //          label: 'Jazyk',
       //          selector: 'subject/@lang',
       //          labelKey: 'subject/@lang',
@@ -399,7 +457,6 @@
   },
   language: {
     usage: 'M',
-    required: true,
     label: 'Jazyk',
     selector: 'language',
     labelKey: 'language',
@@ -470,21 +527,20 @@
             labelKey: 'bdm/part/extent/end',
             description: 'Poslední stránka článku.'
           },
-//          total: {
-//            usage: 'MA',
-//            label: 'Počet stran',
-//            cols: 3,
-//            selector: 'part/extent/total',
-//            labelKey: 'bdm/part/extent/total',
-//            description: 'Počet stran článku.'
-//          }
+          //          total: {
+          //            usage: 'MA',
+          //            label: 'Počet stran',
+          //            cols: 3,
+          //            selector: 'part/extent/total',
+          //            labelKey: 'bdm/part/extent/total',
+          //            description: 'Počet stran článku.'
+          //          }
         }
       }
     }
   },
   physicalDescription: {
     usage: 'M',
-    required: true,
     label: 'Fyzický popis',
     selector: 'physicalDescription',
     labelKey: 'physicalDescription',
@@ -492,7 +548,6 @@
     fields: {
       form: {
         usage: 'M',
-        required: true,
         label: 'Typ média',
         selector: 'physicalDescription/form',
         labelKey: 'physicalDescription/form',
@@ -516,12 +571,31 @@
                 <li><strong>rdacarrier</strong> (pro pole 338)</li>\
               </ul>',
             options: [
-              ['marcform', 'marcform'],
-              ['marccategory', 'marccategory'],
-              ['marcsmd', 'marcsmd'],
-              ['gmd', 'gmd'],
-              ['rdamedia', 'rdamedia'],
-              ['rdacarrier', 'rdacarrier']]
+              [
+                'marcform',
+                'marcform'
+              ],
+              [
+                'marccategory',
+                'marccategory'
+              ],
+              [
+                'marcsmd',
+                'marcsmd'
+              ],
+              [
+                'gmd',
+                'gmd'
+              ],
+              [
+                'rdamedia',
+                'rdamedia'
+              ],
+              [
+                'rdacarrier',
+                'rdacarrier'
+              ]
+            ]
           },
           type: {
             usage: 'MA',
@@ -535,8 +609,15 @@
                 <li><strong>carrier</strong> pro pole 338</li>\
               </ul>',
             options: [
-              ['media', 'media'],
-              ['carrier', 'carrier']]
+              [
+                'media',
+                'media'
+              ],
+              [
+                'carrier',
+                'carrier'
+              ]
+            ]
           },
           value: {
             usage: 'M',
@@ -545,25 +626,82 @@
             labelKey: 'physicalDescription/form/value',
             help: 'off',
             options: [
-              ['braille', 'braille'],
-              ['electronic', 'electronic'],
-              ['large print', 'large print'],
-              ['microfilm', 'microfilm'],
-              ['microfiche', 'microfiche'],
-              ['print', 'print'],
-              ['jiný', 'jiný'],
-              ['audio', 'audio'],
-              ['počítač', 'počítač'],
-              ['mikroforma', 'mikroforma'],
-              ['mikroskop', 'mikroskop'],
-              ['projekce', 'projekce'],
-              ['stereograf', 'stereograf'],
-              ['bez média', 'bez_media'],
-              ['video', 'video'],
-              ['svazek', 'svazek'],
-              ['online zdroj', 'online_zdroj'],
-              ['audiodisk', 'audiodisk'],
-              ['počítačový disk', 'počítačový disk']
+              [
+                'braille',
+                'braille'
+              ],
+              [
+                'electronic',
+                'electronic'
+              ],
+              [
+                'large print',
+                'large print'
+              ],
+              [
+                'microfilm',
+                'microfilm'
+              ],
+              [
+                'microfiche',
+                'microfiche'
+              ],
+              [
+                'print',
+                'print'
+              ],
+              [
+                'jiný',
+                'jiný'
+              ],
+              [
+                'audio',
+                'audio'
+              ],
+              [
+                'počítač',
+                'počítač'
+              ],
+              [
+                'mikroforma',
+                'mikroforma'
+              ],
+              [
+                'mikroskop',
+                'mikroskop'
+              ],
+              [
+                'projekce',
+                'projekce'
+              ],
+              [
+                'stereograf',
+                'stereograf'
+              ],
+              [
+                'bez média',
+                'bez_media'
+              ],
+              [
+                'video',
+                'video'
+              ],
+              [
+                'svazek',
+                'svazek'
+              ],
+              [
+                'online zdroj',
+                'online_zdroj'
+              ],
+              [
+                'audiodisk',
+                'audiodisk'
+              ],
+              [
+                'počítačový disk',
+                'počítačový disk'
+              ]
             ]
           }
         }
@@ -615,7 +753,6 @@
     isElectronicArticle: true,
     defaultValue: 'article',
     usage: 'M',
-//    required: true,
     label: 'Typ obsahu',
     selector: 'genre',
     labelKey: 'genre',
@@ -639,33 +776,111 @@
         labelKey: 'bdm/genre/@type',
         options: [
           //            ['directory', 'adresář'],
-          ['news', 'news'],
-          ['tableOfContents', 'tableOfContents'],
-          ['advertisement', 'advertisement'],
-          ['abstract', 'abstract'],
-          ['introduction', 'introduction'],
-          ['review', 'review'],
-          ['dedication', 'dedication'],
-          ['bibliography', 'bibliography'],
-          ['editorsNote', 'editorsNote'],
-          ['preface', 'preface'],
-          ['mainArticle', 'mainArticle'],
-          ['index', 'index'],
-          ['unspecified', 'unspecified'],
-          ['annotation', 'annotation'],
-          ['afterword', 'afterword'],
-          ['bibliographicalPortrait', 'bibliographicalPortrait'],
-          ['obituary', 'obituary'],
-          ['sheetMusic', 'sheetMusic'],
-          ['contributors', 'contributors'],
-          ['summary', 'summary'],
-          ['interview', 'interview'],
-          ['study', 'study'],
-          ['technicalPlanScheme', 'technicalPlanScheme'],
-          ['conclusion', 'conclusion'],
-          ['otherNote', 'otherNote'],
-          ['editorial', 'editorial']
+          [
+            'news',
+            'news'
+          ],
+          [
+            'tableOfContents',
+            'tableOfContents'
+          ],
+          [
+            'advertisement',
+            'advertisement'
+          ],
+          [
+            'abstract',
+            'abstract'
+          ],
+          [
+            'introduction',
+            'introduction'
+          ],
+          [
+            'review',
+            'review'
+          ],
+          [
+            'dedication',
+            'dedication'
+          ],
+          [
+            'bibliography',
+            'bibliography'
+          ],
+          [
+            'editorsNote',
+            'editorsNote'
+          ],
+          [
+            'preface',
+            'preface'
+          ],
+          [
+            'mainArticle',
+            'mainArticle'
+          ],
+          [
+            'index',
+            'index'
+          ],
+          [
+            'unspecified',
+            'unspecified'
+          ],
+          [
+            'annotation',
+            'annotation'
+          ],
+          [
+            'afterword',
+            'afterword'
+          ],
+          [
+            'bibliographicalPortrait',
+            'bibliographicalPortrait'
+          ],
+          [
+            'obituary',
+            'obituary'
+          ],
+          [
+            'sheetMusic',
+            'sheetMusic'
+          ],
+          [
+            'contributors',
+            'contributors'
+          ],
+          [
+            'summary',
+            'summary'
+          ],
+          [
+            'interview',
+            'interview'
+          ],
+          [
+            'study',
+            'study'
+          ],
+          [
+            'technicalPlanScheme',
+            'technicalPlanScheme'
+          ],
+          [
+            'conclusion',
+            'conclusion'
+          ],
+          [
+            'otherNote',
+            'otherNote'
+          ],
+          [
+            'editorial',
+            'editorial'
           ]
+        ]
       }
     }
   },
@@ -693,8 +908,14 @@
         </li>\
         </ul>',
         options: [
-          ['udc', 'udc'],
-          ['Konspekt', 'Konspekt']
+          [
+            'udc',
+            'udc'
+          ],
+          [
+            'Konspekt',
+            'Konspekt'
+          ]
         ]
       },
       edition: {
@@ -710,7 +931,10 @@
         </li>\
         </ul>',
         options: [
-          ['Konspekt', 'Konspekt']
+          [
+            'Konspekt',
+            'Konspekt'
+          ]
         ]
       },
       value: {
@@ -759,8 +983,14 @@
             label: 'Usage',
             help: 'off',
             options: [
-              ['', '-'],
-              ['primary', 'primary']
+              [
+                '',
+                '-'
+              ],
+              [
+                'primary',
+                'primary'
+              ]
             ]
           },
         }
@@ -769,7 +999,6 @@
   },
   identifier: {
     usage: 'M',
-    required: true,
     label: 'Identifikátory článku',
     selector: 'identifier',
     labelKey: 'identifier',
@@ -784,8 +1013,14 @@
         cols: 2,
         description: 'Výběr typu identifikátoru článku.',
         options: [
-          ['doi', 'doi'],
-          ['uuid', 'uuid']
+          [
+            'doi',
+            'doi'
+          ],
+          [
+            'uuid',
+            'uuid'
+          ]
         ]
       },
       value: {
@@ -823,7 +1058,6 @@
   },
   recordInfo: {
     usage: 'M',
-    required: true,
     label: 'Údaje o metadatovém záznamu',
     selector: 'recordInfo',
     labelKey: 'recordInfo',
@@ -838,8 +1072,14 @@
         description: 'Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>\
         Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"',
         options: [
-          ['aacr', 'aacr'],
-          ['rda', 'rda']
+          [
+            'aacr',
+            'aacr'
+          ],
+          [
+            'rda',
+            'rda'
+          ]
         ]
       },
       recordContentSource: {
@@ -866,14 +1106,16 @@
             labelKey: 'recordInfo/recordContentSource/@authority',
             description: 'authority – hodnota "marcorg"',
             options: [
-              ['marcorg', 'marcorg']
+              [
+                'marcorg',
+                'marcorg'
+              ]
             ]
           }
         }
       },
       recordCreationDate: {
         usage: 'M',
-        required: true,
         label: 'Datum vytvoření',
         selector: 'recordInfo/recordCreationDate',
         labelKey: 'recordInfo/recordCreationDate',
@@ -897,7 +1139,10 @@
             labelKey: 'recordInfo/recordCreationDate/@encoding',
             description: 'Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"',
             options: [
-              ['iso8601', 'iso8601']
+              [
+                'iso8601',
+                'iso8601'
+              ]
             ]
           }
         }
@@ -926,7 +1171,10 @@
             labelKey: 'recordInfo/recordChangeDate/@encoding',
             description: 'Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"',
             options: [
-              ['iso8601', 'iso8601']
+              [
+                'iso8601',
+                'iso8601'
+              ]
             ]
           }
         }
@@ -964,8 +1212,14 @@
         labelKey: 'recordInfo/recordOrigin',
         description: 'údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"',
         options: [
-          ['machine generated', 'machine generated'],
-          ['human prepared', 'human prepared']
+          [
+            'machine generated',
+            'machine generated'
+          ],
+          [
+            'human prepared',
+            'human prepared'
+          ]
         ]
       },
       languageOfCataloging: {
@@ -1001,8 +1255,14 @@
         cols: 2,
         description: 'Typ licence',
         options: [
-          ['use and reproduction', 'use and reproduction'],
-          ['restriction on access', 'restriction on access']
+          [
+            'use and reproduction',
+            'use and reproduction'
+          ],
+          [
+            'restriction on access',
+            'restriction on access'
+          ]
         ]
       },
       displayLabel: {
@@ -1013,12 +1273,30 @@
         cols: 2,
         description: 'Zobrazená hodnota',
         options: [
-          ['CC BY 4.0', 'CC BY 4.0'],
-          ['CC BY-NC 4.0', 'CCC BY-NC 4.0'],
-          ['CC BY-ND 4.0', 'CC BY-ND 4.0'],
-          ['CC BY-SA 4.0', 'CC BY-SA 4.0'],
-          ['CC BY-NC-ND 4.0', 'CC BY-NC-ND 4.0'],
-          ['CC BY-NC-SA 4.0', 'CC BY-NC-SA 4.0']
+          [
+            'CC BY 4.0',
+            'CC BY 4.0'
+          ],
+          [
+            'CC BY-NC 4.0',
+            'CCC BY-NC 4.0'
+          ],
+          [
+            'CC BY-ND 4.0',
+            'CC BY-ND 4.0'
+          ],
+          [
+            'CC BY-SA 4.0',
+            'CC BY-SA 4.0'
+          ],
+          [
+            'CC BY-NC-ND 4.0',
+            'CC BY-NC-ND 4.0'
+          ],
+          [
+            'CC BY-NC-SA 4.0',
+            'CC BY-NC-SA 4.0'
+          ]
         ]
       },
       'xlink:href': {
@@ -1028,13 +1306,31 @@
         labelKey: 'accessCondition/@xlink',
         description: 'odkaz na licenci - přebírá se do exportu Crossref',
         options: [
-//          ['https://creativecommons.org/licenses/by/4.0/legalcode.cs', 'https://creativecommons.org/licenses/by/4.0/legalcode.cs'],
-          ['https://creativecommons.org/licenses/by/4.0/', 'https://creativecommons.org/licenses/by/4.0/'],
-          ['https://creativecommons.org/licenses/by-nc/4.0/', 'https://creativecommons.org/licenses/by-nc/4.0/'],
-          ['https://creativecommons.org/licenses/by-nd/4.0/', 'https://creativecommons.org/licenses/by-nd/4.0/'],
-          ['https://creativecommons.org/licenses/by-sa/4.0/', 'https://creativecommons.org/licenses/by-sa/4.0/'],
-          ['https://creativecommons.org/licenses/by-nc-nd/4.0/', 'https://creativecommons.org/licenses/by-nc-nd/4.0/'],
-          ['https://creativecommons.org/licenses/by-nc-sa/4.0/', 'https://creativecommons.org/licenses/by-nc-sa/4.0/']
+          //          ['https://creativecommons.org/licenses/by/4.0/legalcode.cs', 'https://creativecommons.org/licenses/by/4.0/legalcode.cs'],
+          [
+            'https://creativecommons.org/licenses/by/4.0/',
+            'https://creativecommons.org/licenses/by/4.0/'
+          ],
+          [
+            'https://creativecommons.org/licenses/by-nc/4.0/',
+            'https://creativecommons.org/licenses/by-nc/4.0/'
+          ],
+          [
+            'https://creativecommons.org/licenses/by-nd/4.0/',
+            'https://creativecommons.org/licenses/by-nd/4.0/'
+          ],
+          [
+            'https://creativecommons.org/licenses/by-sa/4.0/',
+            'https://creativecommons.org/licenses/by-sa/4.0/'
+          ],
+          [
+            'https://creativecommons.org/licenses/by-nc-nd/4.0/',
+            'https://creativecommons.org/licenses/by-nc-nd/4.0/'
+          ],
+          [
+            'https://creativecommons.org/licenses/by-nc-sa/4.0/',
+            'https://creativecommons.org/licenses/by-nc-sa/4.0/'
+          ]
         ]
       },
       value: {
@@ -1044,12 +1340,30 @@
         labelKey: 'accessCondition/value',
         description: 'Hodnota',
         options: [
-          ['CC BY 4.0', 'CC BY 4.0'],
-          ['CC BY-NC 4.0', 'CCC BY-NC 4.0'],
-          ['CC BY-ND 4.0', 'CC BY-ND 4.0'],
-          ['CC BY-SA 4.0', 'CC BY-SA 4.0'],
-          ['CC BY-NC-ND 4.0', 'CC BY-NC-ND 4.0'],
-          ['CC BY-NC-SA 4.0', 'CC BY-NC-SA 4.0']
+          [
+            'CC BY 4.0',
+            'CC BY 4.0'
+          ],
+          [
+            'CC BY-NC 4.0',
+            'CCC BY-NC 4.0'
+          ],
+          [
+            'CC BY-ND 4.0',
+            'CC BY-ND 4.0'
+          ],
+          [
+            'CC BY-SA 4.0',
+            'CC BY-SA 4.0'
+          ],
+          [
+            'CC BY-NC-ND 4.0',
+            'CC BY-NC-ND 4.0'
+          ],
+          [
+            'CC BY-NC-SA 4.0',
+            'CC BY-NC-SA 4.0'
+          ]
         ]
       }
     }
@@ -1069,9 +1383,18 @@
         cols: 2,
         description: 'Type popisuje vztah položky, popsané v <relatedItem> a dokumentu, který je předmětem MODS záznamu',
         options: [
-          ['', '-'],
-          ['references', 'references'],
-          ['reviewOf', 'reviewOf']
+          [
+            '',
+            '-'
+          ],
+          [
+            'references',
+            'references'
+          ],
+          [
+            'reviewOf',
+            'reviewOf'
+          ]
         ]
       },
       ID: {
@@ -1168,11 +1491,26 @@
             <li><strong>Rodina</strong> (family)</li>\
             </ul>',
             options: [
-              ['', '-'],
-              ['personal', 'Osoba'],
-              ['corporate', 'Organizace'],
-              ['conference', 'Konference'],
-              ['family', 'Rodina']
+              [
+                '',
+                '-'
+              ],
+              [
+                'personal',
+                'Osoba'
+              ],
+              [
+                'corporate',
+                'Organizace'
+              ],
+              [
+                'conference',
+                'Konference'
+              ],
+              [
+                'family',
+                'Rodina'
+              ]
             ]
           },
           namePart: {
@@ -1196,11 +1534,26 @@
                 <li><strong>Ostatní související se jménem</strong> (termsOfAddress)</li>\
                 </ul>',
                 options: [
-                  ['', '-'],
-                  ['given', 'Křestní jméno'],
-                  ['family', 'Příjmení'],
-                  ['date', 'Datum'],
-                  ['termsOfAddress', 'Ostatní související se jménem'],
+                  [
+                    '',
+                    '-'
+                  ],
+                  [
+                    'given',
+                    'Křestní jméno'
+                  ],
+                  [
+                    'family',
+                    'Příjmení'
+                  ],
+                  [
+                    'date',
+                    'Datum'
+                  ],
+                  [
+                    'termsOfAddress',
+                    'Ostatní související se jménem'
+                  ],
                 ]
               },
               value: {
@@ -1344,9 +1697,18 @@
             cols: 2,
             description: 'Výběr typu identifikátoru článku.',
             options: [
-              ['doi', 'doi'],
-              ['uuid', 'uuid'],
-              ['isbn', 'isbn']
+              [
+                'doi',
+                'doi'
+              ],
+              [
+                'uuid',
+                'uuid'
+              ],
+              [
+                'isbn',
+                'isbn'
+              ]
             ]
           },
           value: {
@@ -1386,8 +1748,14 @@
             selector: 'relatedItem/relatedItem/@type',
             labelKey: 'relatedItem/relatedItem/@type',
             options: [
-              ['', '-'],
-              ['host', 'host']
+              [
+                '',
+                '-'
+              ],
+              [
+                'host',
+                'host'
+              ]
             ]
           },
           part: {
@@ -1410,9 +1778,18 @@
                     labelKey: 'part/detail/@type',
                     cols: 2,
                     options: [
-                      ['', '-'],
-                      ['volume', 'volume'],
-                      ['issue', 'issue']
+                      [
+                        '',
+                        '-'
+                      ],
+                      [
+                        'volume',
+                        'volume'
+                      ],
+                      [
+                        'issue',
+                        'issue'
+                      ]
                     ]
                   },
                   number: {
@@ -1441,9 +1818,18 @@
                 cols: 2,
                 description: 'Upřesnění',
                 options: [
-                  ['', '-'],
-                  ['title', 'title'],
-                  ['volume', 'volume']
+                  [
+                    '',
+                    '-'
+                  ],
+                  [
+                    'title',
+                    'title'
+                  ],
+                  [
+                    'volume',
+                    'volume'
+                  ]
                 ]
               },
               title: {
@@ -1515,9 +1901,18 @@
                 cols: 2,
                 description: 'Výběr typu identifikátoru článku.',
                 options: [
-                  ['isbn', 'isbn'],
-                  ['issn', 'issn'],
-                  ['uuid', 'uuid']
+                  [
+                    'isbn',
+                    'isbn'
+                  ],
+                  [
+                    'issn',
+                    'issn'
+                  ],
+                  [
+                    'uuid',
+                    'uuid'
+                  ]
                 ]
               },
               value: {

@@ -1,7 +1,6 @@
 {
   titleInfo: {
     usage: 'M',
-    required: true,
     label: 'Název',
     selector: 'titleInfo',
     labelKey: 'titleInfo',
@@ -211,14 +210,14 @@
           V případě užití tohoto elementu je dále top element <name> neopakovatelný.</br>\
           <etal> je nutné umístit do samostatného top elementu <name>, ve kterém se nesmí objevit subelementy <namePart> a <nameIdentifier>.'
       },
-//      affiliation: {
-//        usage: 'O',
-//        label: 'Napojená instituce',
-//        selector: 'name/affiliation',
-//        labelKey: 'name/affiliation',
-//        description: 'Umožňuje vepsat název instituce, se kterou je autor spojen<br/>\
-//          např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.'
-//      },
+      //      affiliation: {
+      //        usage: 'O',
+      //        label: 'Napojená instituce',
+      //        selector: 'name/affiliation',
+      //        labelKey: 'name/affiliation',
+      //        description: 'Umožňuje vepsat název instituce, se kterou je autor spojen<br/>\
+      //          např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.'
+      //      },
       role: {
         usage: 'MA',
         label: 'Role',
@@ -285,21 +284,21 @@
         labelKey: 'subject/topic',
         description: 'Libovolný výraz specifikující nebo charakterizující obsah vnitřní části<br/>\
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21',
-          fields: {
+        fields: {
           value: {
-          usage: 'R',
-          label: 'Hodnota',
-          selector: 'subject/topic/value',
-          labelKey: 'subject/topic/value',
-          hint: false,
+            usage: 'R',
+            label: 'Hodnota',
+            selector: 'subject/topic/value',
+            labelKey: 'subject/topic/value',
+            hint: false,
           },
-            valueURI: {
-              usage: 'O',
-              label: 'Hodnota',
-              selector: 'subject/topic/@valueURI',
-              labelKey: 'subject/topic/@valueURI',
-              description: 'Link na URL cislo autority',
-            },
+          valueURI: {
+            usage: 'O',
+            label: 'Hodnota',
+            selector: 'subject/topic/@valueURI',
+            labelKey: 'subject/topic/@valueURI',
+            description: 'Link na URL cislo autority',
+          },
           //            lang: {
           //              usage: 'R',
           //              label: 'Hodnota',
@@ -307,7 +306,7 @@
           //              labelKey: 'subject/topic/@lang',
           //              hint: false,
           //            }
-          }
+        }
       },
       geographic: {
         usage: 'R',
@@ -568,7 +567,6 @@
         fields: {
           authority: {
             usage: 'R',
-            //              required: true,
             label: 'Autorita',
             selector: 'physicalDescription/form/@authority',
             labelKey: 'physicalDescription/form/@authority',
@@ -600,31 +598,87 @@
           },
           value: {
             usage: 'R',
-            //              required: true,
             selector: 'physicalDescription/form/value',
             labelKey: 'physicalDescription/form/value',
             label: 'Hodnota',
             help: 'off',
             options: [
-              ['braille', 'braille'],
-              ['electronic', 'electronic'],
-              ['large print', 'large print'],
-              ['microfilm', 'microfilm'],
-              ['microfiche', 'microfiche'],
-              ['print', 'print'],
-              ['jiný', 'jiný'],
-              ['audio', 'audio'],
-              ['počítač', 'počítač'],
-              ['mikroforma', 'mikroforma'],
-              ['mikroskop', 'mikroskop'],
-              ['projekce', 'projekce'],
-              ['stereograf', 'stereograf'],
-              ['bez média', 'bez_media'],
-              ['video', 'video'],
-              ['svazek', 'svazek'],
-              ['online zdroj', 'online_zdroj'],
-              ['audiodisk', 'audiodisk'],
-              ['počítačový disk', 'počítačový disk'],
+              [
+                'braille',
+                'braille'
+              ],
+              [
+                'electronic',
+                'electronic'
+              ],
+              [
+                'large print',
+                'large print'
+              ],
+              [
+                'microfilm',
+                'microfilm'
+              ],
+              [
+                'microfiche',
+                'microfiche'
+              ],
+              [
+                'print',
+                'print'
+              ],
+              [
+                'jiný',
+                'jiný'
+              ],
+              [
+                'audio',
+                'audio'
+              ],
+              [
+                'počítač',
+                'počítač'
+              ],
+              [
+                'mikroforma',
+                'mikroforma'
+              ],
+              [
+                'mikroskop',
+                'mikroskop'
+              ],
+              [
+                'projekce',
+                'projekce'
+              ],
+              [
+                'stereograf',
+                'stereograf'
+              ],
+              [
+                'bez média',
+                'bez_media'
+              ],
+              [
+                'video',
+                'video'
+              ],
+              [
+                'svazek',
+                'svazek'
+              ],
+              [
+                'online zdroj',
+                'online_zdroj'
+              ],
+              [
+                'audiodisk',
+                'audiodisk'
+              ],
+              [
+                'počítačový disk',
+                'počítačový disk'
+              ],
             ]
           }
         }
@@ -691,7 +745,6 @@
   },
   genre: {
     usage: 'M',
-    required: true,
     label: 'Žánr',
     selector: 'genre',
     labelKey: 'genre',
@@ -760,7 +813,6 @@
   },
   identifier: {
     usage: 'M',
-    required: true,
     label: 'Identifikátor',
     selector: 'identifier',
     labelKey: 'identifier',
@@ -849,24 +901,24 @@
           ],
         ]
       },
-            edition: {
-              usage: 'MA',
-              label: 'Vydání',
-              selector: 'classification/@edition',
-              labelKey: 'classification/@edition',
-              cols: 2,
-              description: '<ul>\
+      edition: {
+        usage: 'MA',
+        label: 'Vydání',
+        selector: 'classification/@edition',
+        labelKey: 'classification/@edition',
+        cols: 2,
+        description: '<ul>\
                   <li>\
                     vyplnit hodnotu <strong>Konspekt</strong> (v případě 072 $a)\
                   </li>\
                 </ul>',
-              options: [
-                [
-                  'Konspekt',
-                  'Konspekt'
-                ]
-              ]
-            },
+        options: [
+          [
+            'Konspekt',
+            'Konspekt'
+          ]
+        ]
+      },
       value: {
         usage: 'M',
         required: true,
@@ -930,7 +982,6 @@
   },
   recordInfo: {
     usage: 'M',
-    required: true,
     label: 'Údaje o metadatovém záznamu',
     selector: 'recordInfo',
     labelKey: 'recordInfo',
@@ -989,7 +1040,6 @@
       },
       recordCreationDate: {
         usage: 'M',
-        required: true,
         label: 'Datum vytvoření',
         selector: 'recordInfo/recordCreationDate',
         labelKey: 'recordInfo/recordCreationDate',
@@ -1953,31 +2003,31 @@
             labelKey: 'relatedItem/subject/topic',
             description: 'Libovolný výraz specifikující nebo charakterizující obsah periodika<br/>\
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x',
-          fields: {
-          value: {
-          usage: 'R',
-          label: 'Hodnota',
-//                  cols: 2,
-          selector: 'subject/topic/value',
-          labelKey: 'subject/topic/value',
-          hint: false
-          },
-            valueURI: {
-              usage: 'O',
-              label: 'Hodnota',
-              selector: 'subject/topic/@valueURI',
-              labelKey: 'subject/topic/@valueURI',
-              description: 'Link na URL cislo autority',
-            },
-//                lang: {
-//                  usage: 'R',
-//                  cols: 2,
-//                  label: 'Hodnota',
-//                  selector: 'subject/topic/@lang',
-//                  labelKey: 'subject/topic/@lang',
-//                  hint: false,
-//                }
-          }
+            fields: {
+              value: {
+                usage: 'R',
+                label: 'Hodnota',
+                //                  cols: 2,
+                selector: 'subject/topic/value',
+                labelKey: 'subject/topic/value',
+                hint: false
+              },
+              valueURI: {
+                usage: 'O',
+                label: 'Hodnota',
+                selector: 'subject/topic/@valueURI',
+                labelKey: 'subject/topic/@valueURI',
+                description: 'Link na URL cislo autority',
+              },
+              //                lang: {
+              //                  usage: 'R',
+              //                  cols: 2,
+              //                  label: 'Hodnota',
+              //                  selector: 'subject/topic/@lang',
+              //                  labelKey: 'subject/topic/@lang',
+              //                  hint: false,
+              //                }
+            }
           },
           geographic: {
             usage: 'R',

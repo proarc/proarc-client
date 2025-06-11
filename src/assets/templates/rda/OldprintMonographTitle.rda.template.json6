@@ -1,7 +1,6 @@
 {
   titleInfo: {
     usage: 'M',
-    required: true,
     label: 'Název',
     selector: 'titleInfo',
     labelKey: 'titleInfo',
@@ -224,7 +223,6 @@
   },
   originInfo: {
     usage: 'M',
-    required: true,
     label: 'Původ předlohy',
     selector: 'originInfo',
     labelKey: 'originInfo',
@@ -650,7 +648,6 @@
   },
   genre: {
     usage: 'M',
-    required: true,
     label: 'Žánr',
     selector: 'genre',
     labelKey: 'genre',
@@ -671,7 +668,6 @@
   },
   physicalDescription: {
     usage: 'M',
-    required: true,
     label: 'Fyzický popis',
     selector: 'physicalDescription',
     labelKey: 'physicalDescription',
@@ -704,7 +700,6 @@
       },
       form: {
         usage: 'M',
-        required: true,
         label: 'Forma',
         selector: 'physicalDescription/form',
         labelKey: 'physicalDescription/form',
@@ -1188,7 +1183,6 @@
     fields: {
       authority: {
         usage: 'M',
-        //        required: true,
         label: 'Autorita',
         selector: 'classification/@authority',
         labelKey: 'classification/@authority',
@@ -1232,7 +1226,6 @@
       },
       value: {
         usage: 'M',
-        //        required: true,
         selector: 'classification/value',
         labelKey: 'classification/value',
         label: 'Hodnota',
@@ -1242,7 +1235,6 @@
   },
   identifier: {
     usage: 'M',
-    required: true,
     label: 'Identifikátor',
     selector: 'identifier',
     labelKey: 'identifier',
@@ -1312,7 +1304,6 @@
     fields: {
       physicalLocation: {
         usage: 'M',
-        required: true,
         label: 'Místo uložení',
         selector: 'location/physicalLocation',
         labelKey: 'location/physicalLocation',
@@ -1351,7 +1342,6 @@
       },
       shelfLocator: {
         usage: 'O',
-        //        required: true,
         label: 'Signatura',
         selector: 'location/shelfLocator',
         labelKey: 'location/shelfLocator',
@@ -1359,7 +1349,6 @@
         fields: {
           value: {
             usage: 'O',
-            //            required: true,
             selector: 'location/shelfLocator/value',
             labelKey: 'location/shelfLocator/value',
             label: 'Hodnota',
@@ -1413,7 +1402,6 @@
   },
   recordInfo: {
     usage: 'M',
-    required: true,
     label: 'Údaje o metadatovém záznamu',
     selector: 'recordInfo',
     labelKey: 'recordInfo',
@@ -1472,7 +1460,6 @@
       },
       recordCreationDate: {
         usage: 'M',
-        required: true,
         label: 'Datum vytvoření',
         selector: 'recordInfo/recordCreationDate',
         labelKey: 'recordInfo/recordCreationDate',

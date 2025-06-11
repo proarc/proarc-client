@@ -1,61 +1,60 @@
 {
-    titleInfo: {
-      usage: 'M',
-      required: true,
-      label: 'Název',
-      selector: 'titleInfo',
-      labelKey: 'titleInfo',
-      description: 'Název titulu, souborný název<br/>\
+  titleInfo: {
+    usage: 'M',
+    label: 'Název',
+    selector: 'titleInfo',
+    labelKey: 'titleInfo',
+    description: 'Název titulu, souborný název<br/>\
       Pro plnění použít katalogizační záznam<br/>',
-      fields: {
-        nonSort: {
-          usage: 'O',
-          label: 'Část vynechaná při hledání',
-          selector: 'titleInfo/nonSort',
-          labelKey: 'titleInfo/nonSort',
-          cols: 2,
-          description: 'Část názvu, která má být vynechána při vyhledávána<br/>\
+    fields: {
+      nonSort: {
+        usage: 'O',
+        label: 'Část vynechaná při hledání',
+        selector: 'titleInfo/nonSort',
+        labelKey: 'titleInfo/nonSort',
+        cols: 2,
+        description: 'Část názvu, která má být vynechána při vyhledávána<br/>\
           např.:\
           <ul>\
             <li><nonSort>The</nonSort></li>\
             <li><title>Beatles</title></li>\
           </ul>',
-        },
-        title: {
-          usage: 'M',
-          required: true,
-          label: 'Název',
-          selector: 'titleInfo/title',
-          labelKey: 'titleInfo/title',
-          description: 'Názvová informace – název monografického dokumentu</br>\
+      },
+      title: {
+        usage: 'M',
+        required: true,
+        label: 'Název',
+        selector: 'titleInfo/title',
+        labelKey: 'titleInfo/title',
+        description: 'Názvová informace – název monografického dokumentu</br>\
           hodnoty převzít z katalogu<br/>'
-        },
-        subTitle: {
-          usage: 'MA',
-          label: 'Podnázev',
-          selector: 'titleInfo/subTitle',
-          labelKey: 'titleInfo/subTitle',
-          description: 'Podnázev monografie'
-        },
-        partNumber: {
-          usage: 'R',
-          label: 'Číslo části',
-          selector: 'titleInfo/partNumber',
-          labelKey: 'titleInfo/partNumber',
-          cols: 2,
-          description: 'Číslo svazku souborného záznamu, pokud existuje'
-        },
-        partName: {
-          usage: 'R',
-          label: 'Název části',
-          selector: 'titleInfo/partName',
-          labelKey: 'titleInfo/partName',
-          cols: 2,
-          description: 'Název svazku souborného záznamu, pokud existuje'
-        }
+      },
+      subTitle: {
+        usage: 'MA',
+        label: 'Podnázev',
+        selector: 'titleInfo/subTitle',
+        labelKey: 'titleInfo/subTitle',
+        description: 'Podnázev monografie'
+      },
+      partNumber: {
+        usage: 'R',
+        label: 'Číslo části',
+        selector: 'titleInfo/partNumber',
+        labelKey: 'titleInfo/partNumber',
+        cols: 2,
+        description: 'Číslo svazku souborného záznamu, pokud existuje'
+      },
+      partName: {
+        usage: 'R',
+        label: 'Název části',
+        selector: 'titleInfo/partName',
+        labelKey: 'titleInfo/partName',
+        cols: 2,
+        description: 'Název svazku souborného záznamu, pokud existuje'
       }
-    },
-    name: {
+    }
+  },
+  name: {
     usage: 'MA',
     label: 'Autor',
     selector: 'name',
@@ -78,11 +77,26 @@
             <li><strong>Rodina</strong> (family)</li>\
           </ul>',
         options: [
-          ['', '-'],
-          ['personal', 'Osoba'],
-          ['corporate', 'Organizace'],
-          ['conference', 'Konference'],
-          ['family', 'Rodina']
+          [
+            '',
+            '-'
+          ],
+          [
+            'personal',
+            'Osoba'
+          ],
+          [
+            'corporate',
+            'Organizace'
+          ],
+          [
+            'conference',
+            'Konference'
+          ],
+          [
+            'family',
+            'Rodina'
+          ]
         ]
       },
       namePart: {
@@ -106,11 +120,26 @@
                     <li><strong>Ostatní související se jménem</strong> (termsOfAddress)</li>\
                 </ul>',
             options: [
-              ['', '-'],
-              ['given', 'Křestní jméno'],
-              ['family', 'Příjmení'],
-              ['date', 'Datum'],
-              ['termsOfAddress', 'Ostatní související se jménem'],
+              [
+                '',
+                '-'
+              ],
+              [
+                'given',
+                'Křestní jméno'
+              ],
+              [
+                'family',
+                'Příjmení'
+              ],
+              [
+                'date',
+                'Datum'
+              ],
+              [
+                'termsOfAddress',
+                'Ostatní související se jménem'
+              ],
             ]
           },
           value: {
@@ -147,14 +176,14 @@
         cols: 2,
         description: 'Element indikující, že existuje více autorů, než pouze ti, kteří byli uvedeni v <name> elementu.</br>'
       },
-//      affiliation: {
-//        usage: 'O',
-//        label: 'Napojená instituce',
-//        selector: 'name/affiliation',
-//        labelKey: 'name/affiliation',
-//        description: 'Umožňuje vepsat název instituce, se kterou je autor spojen<br/>\
-//          např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.'
-//      },
+      //      affiliation: {
+      //        usage: 'O',
+      //        label: 'Napojená instituce',
+      //        selector: 'name/affiliation',
+      //        labelKey: 'name/affiliation',
+      //        description: 'Umožňuje vepsat název instituce, se kterou je autor spojen<br/>\
+      //          např.: Slezská univerzita v Opavě, Ústav pro studium totalitních režimů, Katedra politologie při Filosofické fakultě University Palackého, apod.'
+      //      },
       role: {
         usage: 'MA',
         label: 'Role',
@@ -168,9 +197,8 @@
       }
     }
   },
-    genre: {
+  genre: {
     usage: 'M',
-    required: true,
     label: 'Žánr',
     selector: 'genre',
     labelKey: 'genre',
@@ -208,11 +236,26 @@
             <li><strong>Překlad</strong> (translation) - odpovídá poli 041 $h</li>\
           </ul>',
         options: [
-          ['', '-'],
-          ['summary', 'Shrnutí'],
-          ['table of contents', 'Obsah'],
-          ['accompanying material', 'Doprovodný materiál'],
-          ['translation', 'Překlad']
+          [
+            '',
+            '-'
+          ],
+          [
+            'summary',
+            'Shrnutí'
+          ],
+          [
+            'table of contents',
+            'Obsah'
+          ],
+          [
+            'accompanying material',
+            'Doprovodný materiál'
+          ],
+          [
+            'translation',
+            'Překlad'
+          ]
         ]
       },
       language: {
@@ -224,21 +267,21 @@
       }
     }
   },
-    originInfo: {
-      usage: 'M',
-      label: 'Původ předlohy',
-      selector: 'originInfo',
-      labelKey: 'originInfo',
-      description: 'Informace o původu předlohy: odpovídá poli 264',
-      fields: {
-        eventType: {
-          usage: 'M',
-          required: true,
-          label: 'Typ',
-          selector: 'originInfo/@eventType',
-          labelKey: 'originInfo/@eventType',
-          cols: 2,
-          description: 'Hodnoty dle druhého indikátoru pole 264:\
+  originInfo: {
+    usage: 'M',
+    label: 'Původ předlohy',
+    selector: 'originInfo',
+    labelKey: 'originInfo',
+    description: 'Informace o původu předlohy: odpovídá poli 264',
+    fields: {
+      eventType: {
+        usage: 'M',
+        required: true,
+        label: 'Typ',
+        selector: 'originInfo/@eventType',
+        labelKey: 'originInfo/@eventType',
+        cols: 2,
+        description: 'Hodnoty dle druhého indikátoru pole 264:\
           <ul>\
             <li>\
               264_0 <strong>Produkce</strong> (production) <i>R</i><br/>\
@@ -276,115 +319,133 @@
           být vybrána jedna z doporučených hodnot na\
           základě katalogizačního záznamu.\
           </p>',
-          options: [
-            ['', '-'],
-            ['production', 'Produkce'],
-            ['publication', 'Publikace'],
-            ['distribution', 'Distribuce'],
-            ['manufacture', 'Výroba'],
-            ['copyright', 'Copyright']
+        options: [
+          [
+            '',
+            '-'
+          ],
+          [
+            'production',
+            'Produkce'
+          ],
+          [
+            'publication',
+            'Publikace'
+          ],
+          [
+            'distribution',
+            'Distribuce'
+          ],
+          [
+            'manufacture',
+            'Výroba'
+          ],
+          [
+            'copyright',
+            'Copyright'
           ]
-        },
-        publisher: {
-          usage: 'MA',
-          label: 'Nakladatel',
-          selector: 'originInfo/publisher',
-          labelKey: 'originInfo/publisher',
-          description: 'Jméno entity, která dokument vytvořila, vydala, distribuovala nebo vyrobila<br/>\
+        ]
+      },
+      publisher: {
+        usage: 'MA',
+        label: 'Nakladatel',
+        selector: 'originInfo/publisher',
+        labelKey: 'originInfo/publisher',
+        description: 'Jméno entity, která dokument vytvořila, vydala, distribuovala nebo vyrobila<br/>\
             odpovídá poli 264 $b katalogizačního záznamu v MARC21<br/>\
             pokud má monografie více vydavatelů/distributorů/výrobců, přebírají se ze záznamu všichni (v jednom poli 264)',
-        },
-        edition: {
-          usage: 'R',
-          label: 'Vydání',
-          selector: 'originInfo/edition',
-          labelKey: 'originInfo/edition',
-          cols: 2,
-          description: 'Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu.',
-          fields: {
-            value: {
-              usage: 'R',
-              selector: 'originInfo/edition/value',
-              labelKey: 'originInfo/edition/value',
-              label: 'Hodnota',
-              help: 'off'
-            }
+      },
+      edition: {
+        usage: 'R',
+        label: 'Vydání',
+        selector: 'originInfo/edition',
+        labelKey: 'originInfo/edition',
+        cols: 2,
+        description: 'Údaj o pořadí vydání, odpovídá poli 250 $a katalogizačního záznamu.',
+        fields: {
+          value: {
+            usage: 'R',
+            selector: 'originInfo/edition/value',
+            labelKey: 'originInfo/edition/value',
+            label: 'Hodnota',
+            help: 'off'
           }
-        },
-        place: {
-          usage: 'MA',
-          label: 'Místo',
-          selector: 'originInfo/place',
-          labelKey: 'originInfo/place',
-          description: 'Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisovaného dokumentu<br/>\
+        }
+      },
+      place: {
+        usage: 'MA',
+        label: 'Místo',
+        selector: 'originInfo/place',
+        labelKey: 'originInfo/place',
+        description: 'Údaje o místě spojeném s vytvořením, vydáním, distribucí nebo výrobou popisovaného dokumentu<br/>\
             odpovídá hodnotě 264 $a',
-          fields: {
-            placeTerm: {
-              usage: 'MA',
-              selector: 'originInfo/place/placeTerm',
-              labelKey: 'originInfo/place/placeTerm',
-              label: 'Místo',
-              description: 'Konkrétní určení místa, např. Praha nebo xr pro ČR',
-              fields: {
-                value: {
-                  usage: 'MA',
-                  selector: 'originInfo/place/placeTerm/value',
-                  labelKey: 'originInfo/place/placeTerm/value',
-                  label: 'Hodnota',
-                  help: 'off'
-                },
-                type: {
-                  usage: 'M',
-                  cols: 2,
-                  selector: 'originInfo/place/placeTerm/@type',
-                  labelKey: 'originInfo/place/placeTerm/@type',
-                  defaultValue: 'text',
-                  label: 'Type',
-                  description: 'Použít jednu z hodnot:\
+        fields: {
+          placeTerm: {
+            usage: 'MA',
+            selector: 'originInfo/place/placeTerm',
+            labelKey: 'originInfo/place/placeTerm',
+            label: 'Místo',
+            description: 'Konkrétní určení místa, např. Praha nebo xr pro ČR',
+            fields: {
+              value: {
+                usage: 'MA',
+                selector: 'originInfo/place/placeTerm/value',
+                labelKey: 'originInfo/place/placeTerm/value',
+                label: 'Hodnota',
+                help: 'off'
+              },
+              type: {
+                usage: 'M',
+                cols: 2,
+                selector: 'originInfo/place/placeTerm/@type',
+                labelKey: 'originInfo/place/placeTerm/@type',
+                defaultValue: 'text',
+                label: 'Type',
+                description: 'Použít jednu z hodnot:\
                   <ul>\
                     <li><strong>code</strong> (code)</li>\
                     <li><strong>text</strong> (text)</li>\
                   </ul>',
-                  options: [
-                    [
-                      'code',
-                      'Kód'
-                    ],
-                    [
-                      'text',
-                      'Text'
-                    ]
+                options: [
+                  [
+                    'code',
+                    'Kód'
+                  ],
+                  [
+                    'text',
+                    'Text'
                   ]
-                },
-                authority: {
-                  usage: 'MA',
-                  cols: 2,
-                  selector: 'originInfo/place/placeTerm/@authority',
-                  labelKey: 'originInfo/place/placeTerm/@authority',
-                  label: 'Authority',
-                  description: 'Hodnota <strong>marccountry</strong> jen u údaje z pole 008',
-                  options: [
-                    [
-                      '',
-                      '-'
-                    ],
-                    [
-                      'marccountry',
-                      'Marc country'
-                    ]
+                ]
+              },
+              authority: {
+                usage: 'MA',
+                cols: 2,
+                selector: 'originInfo/place/placeTerm/@authority',
+                labelKey: 'originInfo/place/placeTerm/@authority',
+                label: 'Authority',
+                description: 'Hodnota <strong>marccountry</strong> jen u údaje z pole 008',
+                options: [
+                  [
+                    '',
+                    '-'
+                  ],
+                  [
+                    'marccountry',
+                    'Marc country'
                   ]
-                }
+                ]
               }
-            },
+            }
           },
         },
-        dateIssued: {
-          usage: 'MA',
-          label: 'Datum vydání',
-          selector: 'originInfo/dateIssued',
-          labelKey: 'originInfo/dateIssued',
-          cols: 2,
-          description: 'Datum vydání předlohy.<br/>\
+      },
+      dateIssued: {
+        usage: 'MA',
+        label: 'Datum vydání',
+        selector: 'originInfo/dateIssued',
+        labelKey: 'originInfo/dateIssued',
+        cols: 2,
+        description: 'Datum vydání předlohy.<br/>\
             Přebírat z katalogu.<br/>\
             Odpovídá hodnotě z katalogizačního záznamu, pole 264_1 $c a pole 008/07-10<br/>\
             Pro všechny ostatní výskyty v poli 264 $c:\
@@ -395,129 +456,167 @@
               <li>264_4 <strong>Copyright</strong> (copyright)</li>\
             </ul>\
             využít pole <strong>Datum - jiné</strong> s odpovídajícím polem <strong>type</strong> či pole <strong>copyrightDate</strong>',
-          fields: {
-            value: {
-              usage: 'MA',
-              selector: 'originInfo/dateIssued/value',
-              labelKey: 'originInfo/dateIssued/value',
-              label: 'Hodnota',
-              help: 'off'
-            },
-            qualifier: {
-              usage: 'R',
-              label: 'Upřesnění data',
-              selector: 'originInfo/dateIssued/@qualifier',
-              labelKey: 'originInfo/dateIssued/@qualifier',
-              cols: 3,
-              description: 'Možnost dalšího upřesnění. Možné hodnoty\
+        fields: {
+          value: {
+            usage: 'MA',
+            selector: 'originInfo/dateIssued/value',
+            labelKey: 'originInfo/dateIssued/value',
+            label: 'Hodnota',
+            help: 'off'
+          },
+          qualifier: {
+            usage: 'R',
+            label: 'Upřesnění data',
+            selector: 'originInfo/dateIssued/@qualifier',
+            labelKey: 'originInfo/dateIssued/@qualifier',
+            cols: 3,
+            description: 'Možnost dalšího upřesnění. Možné hodnoty\
             <ul>\
               <li>Přibližné (approximate)</li>\
               <li>Odvozené (inferred)</li>\
               <li>Sporné (questionable)</li>\
             </ul>',
-              options: [
-                ['', '-'],
-                ['approximate', 'Datum je přibližné'],
-                ['inferred', 'Datum je odvozené'],
-                ['questionable', 'Datum je sporné']
+            options: [
+              [
+                '',
+                '-'
+              ],
+              [
+                'approximate',
+                'Datum je přibližné'
+              ],
+              [
+                'inferred',
+                'Datum je odvozené'
+              ],
+              [
+                'questionable',
+                'Datum je sporné'
               ]
-            },
-            encoding: {
-              usage: 'R',
-              label: 'Kódování',
-              selector: 'originInfo/dateIssued/@encoding',
-              labelKey: 'originInfo/dateIssued/@encoding',
-              cols: 3,
-              description: 'Hodnota "marc" jen u údaje z pole 008',
-              options: [
-                ['', '-'],
-                ['marc', 'MARC'],
-                ['iso8601', 'ISO 8601'],
-                ['edtf', 'EDTF'],
-                ['temper', 'temper'],
-                ['w3cdtf', 'W3CDTF']
+            ]
+          },
+          encoding: {
+            usage: 'R',
+            label: 'Kódování',
+            selector: 'originInfo/dateIssued/@encoding',
+            labelKey: 'originInfo/dateIssued/@encoding',
+            cols: 3,
+            description: 'Hodnota "marc" jen u údaje z pole 008',
+            options: [
+              [
+                '',
+                '-'
+              ],
+              [
+                'marc',
+                'MARC'
+              ],
+              [
+                'iso8601',
+                'ISO 8601'
+              ],
+              [
+                'edtf',
+                'EDTF'
+              ],
+              [
+                'temper',
+                'temper'
+              ],
+              [
+                'w3cdtf',
+                'W3CDTF'
               ]
-            },
-            point: {
-              usage: 'MA',
-              label: 'Point',
-              selector: 'originInfo/dateIssued/@point',
-              labelKey: 'originInfo/dateIssued/@point',
-              cols: 3,
-              description: 'Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat',
-              options: [
-                ['', '-'],
-                ['start', 'start'],
-                ['end', 'end']
+            ]
+          },
+          point: {
+            usage: 'MA',
+            label: 'Point',
+            selector: 'originInfo/dateIssued/@point',
+            labelKey: 'originInfo/dateIssued/@point',
+            cols: 3,
+            description: 'Hodnoty "start" resp. "end" jen u údaje z pole 008, pro rozmezí dat',
+            options: [
+              [
+                '',
+                '-'
+              ],
+              [
+                'start',
+                'start'
+              ],
+              [
+                'end',
+                'end'
               ]
-            },
-          }
-        },
-        dateOther: {
-          usage: 'R',
-          label: 'Datum - jiné',
-          selector: 'originInfo/dateOther',
-          labelKey: 'originInfo/dateOther',
-          description: 'Datum vytvoření, distribuce, výroby předlohy<br/>\
+            ]
+          },
+        }
+      },
+      dateOther: {
+        usage: 'R',
+        label: 'Datum - jiné',
+        selector: 'originInfo/dateOther',
+        labelKey: 'originInfo/dateOther',
+        description: 'Datum vytvoření, distribuce, výroby předlohy<br/>\
           Tento elemet se využije v případě výskytu $c v:\
           <ul>\
             <li>264_0 <strong>Produkce</strong> (production)</li>\
             <li>264_2 <strong>Distribuce</strong> (distribution)</li>\
             <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
           </ul>',
-          fields: {
-            value: {
-              usage: 'R',
-              cols: 2,
-              selector: 'originInfo/dateOther/value',
-              labelKey: 'originInfo/dateOther/value',
-              label: 'Hodnota',
-              help: 'off'
-            },
-            type: {
-              usage: 'M',
-              cols: 2,
-              label: 'Upřesnění data',
-              selector: 'originInfo/dateOther/@type',
-              labelKey: 'originInfo/dateOther/@type',
-              description: 'Možnost dalšího upřesnění. Možné hodnoty\
+        fields: {
+          value: {
+            usage: 'R',
+            cols: 2,
+            selector: 'originInfo/dateOther/value',
+            labelKey: 'originInfo/dateOther/value',
+            label: 'Hodnota',
+            help: 'off'
+          },
+          type: {
+            usage: 'M',
+            cols: 2,
+            label: 'Upřesnění data',
+            selector: 'originInfo/dateOther/@type',
+            labelKey: 'originInfo/dateOther/@type',
+            description: 'Možnost dalšího upřesnění. Možné hodnoty\
             <ul>\
               <li>264_0 <strong>Produkce</strong> (production)</li>\
               <li>264_2 <strong>Distribuce</strong> (distribution)</li>\
               <li>264_3 <strong>Výroba</strong> (manufacture)</li>\
             </ul>',
-              options: [
-                [
-                  'production',
-                  'Produkce'
-                ],
-                [
-                  'distribution',
-                  'Distribuce'
-                ],
-                [
-                  'manufacture',
-                  'Výroba'
-                ]
+            options: [
+              [
+                'production',
+                'Produkce'
+              ],
+              [
+                'distribution',
+                'Distribuce'
+              ],
+              [
+                'manufacture',
+                'Výroba'
               ]
-            }
+            ]
           }
-        },
-        copyrightDate: {
-          usage: 'R',
-          label: 'Datum - copyright',
-          selector: 'originInfo/copyrightDate',
-          labelKey: 'originInfo/copyrightDate',
-          description: 'Využije se pouze v případě výskytu pole 264 s druhým indikátorem 4 a podpolem $c<br/>\
+        }
+      },
+      copyrightDate: {
+        usage: 'R',
+        label: 'Datum - copyright',
+        selector: 'originInfo/copyrightDate',
+        labelKey: 'originInfo/copyrightDate',
+        description: 'Využije se pouze v případě výskytu pole 264 s druhým indikátorem 4 a podpolem $c<br/>\
           <ul>\
             <li>264_4 <strong>Copyright</strong> (copyright)</li>\
           </ul>'
-        }
       }
-    },
+    }
+  },
   physicalDescription: {
     usage: 'M',
-    required: true,
     label: 'Fyzický popis',
     selector: 'physicalDescription',
     labelKey: 'physicalDescription',
@@ -541,13 +640,13 @@
           }
         }
       },
-//      note: {
-//        usage: 'RA',
-//        label: 'Poznámka',
-//        selector: 'physicalDescription/note',
-//        labelKey: 'physicalDescription/note',
-//        description: 'Poznámka o fyzickém stavu dokumentu',
-//      },
+      //      note: {
+      //        usage: 'RA',
+      //        label: 'Poznámka',
+      //        selector: 'physicalDescription/note',
+      //        labelKey: 'physicalDescription/note',
+      //        description: 'Poznámka o fyzickém stavu dokumentu',
+      //      },
       form: {
         usage: 'M',
         label: 'Forma',
@@ -579,12 +678,31 @@
                 <li><strong>rdacarrier</strong> (pro pole 338)</li>\
               </ul>',
             options: [
-              ['marcform', 'marcform'],
-              ['marccategory', 'marccategory'],
-              ['marcsmd', 'marcsmd'],
-              ['gmd', 'gmd'],
-              ['rdamedia', 'rdamedia'],
-              ['rdacarrier', 'rdacarrier']]
+              [
+                'marcform',
+                'marcform'
+              ],
+              [
+                'marccategory',
+                'marccategory'
+              ],
+              [
+                'marcsmd',
+                'marcsmd'
+              ],
+              [
+                'gmd',
+                'gmd'
+              ],
+              [
+                'rdamedia',
+                'rdamedia'
+              ],
+              [
+                'rdacarrier',
+                'rdacarrier'
+              ]
+            ]
           },
           type: {
             usage: 'MA',
@@ -598,8 +716,15 @@
                 <li><strong>carrier</strong> pro pole 338</li>\
               </ul>',
             options: [
-              ['media', 'media'],
-              ['carrier', 'carrier']]
+              [
+                'media',
+                'media'
+              ],
+              [
+                'carrier',
+                'carrier'
+              ]
+            ]
           },
           value: {
             usage: 'M',
@@ -609,25 +734,82 @@
             label: 'Hodnota',
             help: 'off',
             options: [
-              ['braille', 'braille'],
-              ['electronic', 'electronic'],
-              ['large print', 'large print'],
-              ['microfilm', 'microfilm'],
-              ['microfiche', 'microfiche'],
-              ['print', 'print'],
-              ['jiný', 'jiný'],
-              ['audio', 'audio'],
-              ['počítač', 'počítač'],
-              ['mikroforma', 'mikroforma'],
-              ['mikroskop', 'mikroskop'],
-              ['projekce', 'projekce'],
-              ['stereograf', 'stereograf'],
-              ['bez média', 'bez_media'],
-              ['video', 'video'],
-              ['svazek', 'svazek'],
-              ['online zdroj', 'online_zdroj'],
-              ['audiodisk', 'audiodisk'],
-              ['počítačový disk', 'počítačový disk'],
+              [
+                'braille',
+                'braille'
+              ],
+              [
+                'electronic',
+                'electronic'
+              ],
+              [
+                'large print',
+                'large print'
+              ],
+              [
+                'microfilm',
+                'microfilm'
+              ],
+              [
+                'microfiche',
+                'microfiche'
+              ],
+              [
+                'print',
+                'print'
+              ],
+              [
+                'jiný',
+                'jiný'
+              ],
+              [
+                'audio',
+                'audio'
+              ],
+              [
+                'počítač',
+                'počítač'
+              ],
+              [
+                'mikroforma',
+                'mikroforma'
+              ],
+              [
+                'mikroskop',
+                'mikroskop'
+              ],
+              [
+                'projekce',
+                'projekce'
+              ],
+              [
+                'stereograf',
+                'stereograf'
+              ],
+              [
+                'bez média',
+                'bez_media'
+              ],
+              [
+                'video',
+                'video'
+              ],
+              [
+                'svazek',
+                'svazek'
+              ],
+              [
+                'online zdroj',
+                'online_zdroj'
+              ],
+              [
+                'audiodisk',
+                'audiodisk'
+              ],
+              [
+                'počítačový disk',
+                'počítačový disk'
+              ],
             ]
           }
         }
@@ -650,14 +832,38 @@
         description: 'Vyplnit hodnotu <strong>czenas</strong>, <strong>eczenas</strong>, <strong>Konspekt</strong>, <strong>czmesh</strong>, <strong>mednas</strong>, <strong>msvkth</strong>, <strong>agrovoc</strong><br/>\
           Odpovídá hodnotě v $2',
         options: [
-          ['', '-'],
-          ['czenas', 'czenas'],
-          ['eczenas', 'eczenas'],
-          ['mednas', 'mednas'],
-          ['czmesh', 'czmesh'],
-          ['msvkth', 'msvkth'],
-          ['agrovoc', 'agrovoc'],
-          ['Konspekt', 'Konspekt']
+          [
+            '',
+            '-'
+          ],
+          [
+            'czenas',
+            'czenas'
+          ],
+          [
+            'eczenas',
+            'eczenas'
+          ],
+          [
+            'mednas',
+            'mednas'
+          ],
+          [
+            'czmesh',
+            'czmesh'
+          ],
+          [
+            'msvkth',
+            'msvkth'
+          ],
+          [
+            'agrovoc',
+            'agrovoc'
+          ],
+          [
+            'Konspekt',
+            'Konspekt'
+          ]
         ]
       },
       topic: {
@@ -762,11 +968,26 @@
               <li><strong>Rodina</strong> (family)</li>\
               </ul>',
             options: [
-              ['', '-'],
-              ['personal', 'Osoba'],
-              ['corporate', 'Organizace'],
-              ['conference', 'Konference'],
-              ['family', 'Rodina']
+              [
+                '',
+                '-'
+              ],
+              [
+                'personal',
+                'Osoba'
+              ],
+              [
+                'corporate',
+                'Organizace'
+              ],
+              [
+                'conference',
+                'Konference'
+              ],
+              [
+                'family',
+                'Rodina'
+              ]
             ]
           },
           namePart: {
@@ -790,11 +1011,26 @@
                   <li><strong>Ostatní související se jménem</strong> (termsOfAddress)</li>\
                   </ul>',
                 options: [
-                  ['', '-'],
-                  ['given', 'Křestní jméno'],
-                  ['family', 'Příjmení'],
-                  ['date', 'Datum'],
-                  ['termsOfAddress', 'Ostatní související se jménem'],
+                  [
+                    '',
+                    '-'
+                  ],
+                  [
+                    'given',
+                    'Křestní jméno'
+                  ],
+                  [
+                    'family',
+                    'Příjmení'
+                  ],
+                  [
+                    'date',
+                    'Datum'
+                  ],
+                  [
+                    'termsOfAddress',
+                    'Ostatní související se jménem'
+                  ],
                 ]
               },
               value: {
@@ -854,8 +1090,14 @@
             </li>\
           </ul>',
         options: [
-          ['udc', 'udc'],
-          ['Konspekt', 'Konspekt']
+          [
+            'udc',
+            'udc'
+          ],
+          [
+            'Konspekt',
+            'Konspekt'
+          ]
         ]
       },
       edition: {
@@ -870,12 +1112,14 @@
             </li>\
           </ul>',
         options: [
-          ['Konspekt', 'Konspekt']
+          [
+            'Konspekt',
+            'Konspekt'
+          ]
         ]
       },
       value: {
         usage: 'R',
-        //          required: true,
         selector: 'classification/value',
         labelKey: 'classification/value',
         label: 'Hodnota',
@@ -883,23 +1127,22 @@
       }
     }
   },
-    identifier: {
-      usage: 'M',
-      required: true,
-      label: 'Identifikátor',
-      selector: 'identifier',
-      labelKey: 'identifier',
-      description: 'Údaje o identifikátorech, obsahuje unikátní\
+  identifier: {
+    usage: 'M',
+    label: 'Identifikátor',
+    selector: 'identifier',
+    labelKey: 'identifier',
+    description: 'Údaje o identifikátorech, obsahuje unikátní\
       identifikátory mezinárodní nebo lokální, které svazek monografického dokumentu má.',
-      fields: {
-        type: {
-          usage: 'M',
-          required: true,
-          label: 'Typ',
-          selector: 'identifier/@type',
-          labelKey: 'identifier/@type',
-          cols: 2,
-          description: 'Budou se povinně vyplňovat následující\
+    fields: {
+      type: {
+        usage: 'M',
+        required: true,
+        label: 'Typ',
+        selector: 'identifier/@type',
+        labelKey: 'identifier/@type',
+        cols: 2,
+        description: 'Budou se povinně vyplňovat následující\
           hodnoty, pokud existují:\
             <ul>\
               <li>\
@@ -919,14 +1162,14 @@
                 převzít z katalogizačního záznamu z pole 024 (1. ind.="2"), $a, $z - celého souboru\
               </li>\
             </ul>'
-        },
-        validity: {
-          usage: 'MA',
-          label: 'Platnost',
-          selector: 'identifier/@invalid',
-          labelKey: 'identifier/@invalid',
-          cols: 2,
-          description: 'Uvádějí se i neplatné resp. zrušené identifikátory\
+      },
+      validity: {
+        usage: 'MA',
+        label: 'Platnost',
+        selector: 'identifier/@invalid',
+        labelKey: 'identifier/@invalid',
+        cols: 2,
+        description: 'Uvádějí se i neplatné resp. zrušené identifikátory\
           <ul>\
             <li>\
               <strong>Platný</strong> <code>identifier/[not(@invalid)]</code>\
@@ -935,180 +1178,199 @@
               <strong>Neplatný</strong> <code>identifier/[@invalid="yes"]</code>\
             </li>\
           </ul>'
-        },
-        value: {
-          usage: 'M',
-          required: true,
-          selector: 'identifier/value',
-          labelKey: 'identifier/value',
-          label: 'Hodnota',
-          help: 'off'
-        }
-      }
-    },
-    recordInfo: {
-      usage: 'M',
-      required: true,
-      label: 'Údaje o metadatovém záznamu',
-      selector: 'recordInfo',
-      labelKey: 'recordInfo',
-      description: 'údaje o metadatovém záznamu – jeho vzniku, změnách apod.',
-      fields: {
-        descriptionStandard: {
-          usage: 'M',
-          label: 'Standard metadat',
-          cols: 2,
-          selector: 'recordInfo/descriptionStandard',
-          labelKey: 'recordInfo/descriptionStandard',
-          description: 'Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>\
-            Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"',
-          options: [
-            ['aacr', 'aacr'],
-            ['rda', 'rda']
-          ]
-        },
-        recordContentSource: {
-          usage: 'R',
-          label: 'Content source',
-          selector: 'recordInfo/recordContentSource',
-          labelKey: 'recordInfo/recordContentSource',
-          description: 'Kód nebo jméno instituce, která záznam vytvořila nebo změnila',
-          fields: {
-            value: {
-              usage: 'R',
-              label: 'Content source',
-              cols: 2,
-              selector: 'recordInfo/recordContentSource',
-              labelKey: 'recordInfo/recordContentSource',
-              help: 'off'
-            },
-            authority: {
-              usage: 'R',
-              defaultValue: 'marcorg',
-              label: 'Autorita',
-              cols: 2,
-              selector: 'recordInfo/recordContentSource/@authority',
-              labelKey: 'recordInfo/recordContentSource/@authority',
-              description: 'authority – hodnota "marcorg"',
-              options: [
-                ['marcorg', 'marcorg']
-              ]
-            }
-          }
-        },
-        recordCreationDate: {
-          usage: 'M',
-          required: true,
-          label: 'Datum vytvoření',
-          selector: 'recordInfo/recordCreationDate',
-          labelKey: 'recordInfo/recordCreationDate',
-          description: 'datum prvního vytvoření záznamu, na úroveň minut',
-          fields: {
-            value: {
-              usage: 'M',
-              required: true,
-              label: 'Datum vytvoření',
-              cols: 2,
-              selector: 'recordInfo/recordCreationDate',
-              labelKey: 'recordInfo/recordCreationDate',
-              help: 'off'
-            },
-            encoding: {
-              usage: 'M',
-              required: true,
-              label: 'Kódování',
-              cols: 2,
-              selector: 'recordInfo/recordCreationDate/@encoding',
-              labelKey: 'recordInfo/recordCreationDate/@encoding',
-              description: 'Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"',
-              options: [
-                ['iso8601', 'iso8601']
-              ]
-            }
-          }
-        },
-        recordChangeDate: {
-          usage: 'MA',
-          label: 'Datum změny',
-          selector: 'recordInfo/recordChangeDate',
-          labelKey: 'recordInfo/recordChangeDate',
-          description: 'datum změny záznamu ',
-          fields: {
-            value: {
-              usage: 'MA',
-              label: 'Datum změny',
-              cols: 2,
-              selector: 'recordInfo/recordChangeDate',
-              labelKey: 'recordInfo/recordChangeDate',
-              help: 'off'
-            },
-            encoding: {
-              usage: 'M',
-              required: true,
-              label: 'Kódování',
-              cols: 2,
-              selector: 'recordInfo/recordChangeDate/@encoding',
-              labelKey: 'recordInfo/recordChangeDate/@encoding',
-              description: 'Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"',
-              options: [
-                ['iso8601', 'iso8601']
-              ]
-            }
-          }
-        },
-        recordIdentifier: {
-          usage: 'R',
-          label: 'Identifikátor záznamu',
-          selector: 'recordInfo/recordIdentifier',
-          labelKey: 'recordInfo/recordIdentifier',
-          description: 'identifikátor záznamu v katalogu, přebírá se z pole 001',
-          fields: {
-            value: {
-              usage: 'MA',
-              label: 'Identifikátor záznamu',
-              cols: 2,
-              selector: 'recordInfo/recordIdentifier',
-              labelKey: 'recordInfo/recordIdentifier',
-              help: 'off'
-            },
-            source: {
-              usage: 'R',
-              label: 'Zdroj',
-              cols: 2,
-              selector: 'recordInfo/recordIdentifier/@source',
-              labelKey: 'recordInfo/recordIdentifier/@source',
-              description: 'hodnota se přebírá z katalogu pole 003 '
-            }
-          }
-        },
-        recordOrigin: {
-          usage: 'R',
-          label: 'Údaje o vzniku záznamu',
-          cols: 2,
-          selector: 'recordInfo/recordOrigin',
-          labelKey: 'recordInfo/recordOrigin',
-          description: 'údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"',
-          options: [
-            ['machine generated', 'machine generated'],
-            ['human prepared', 'human prepared']
-          ]
-        },
-        languageOfCataloging: {
-          usage: 'R',
-          label: 'Jazyk záznamu',
-          selector: 'recordInfo/languageOfCataloging',
-          labelKey: 'recordInfo/languageOfCataloging',
-          description: 'jazyk katalogového záznamu',
-          fields: {
-            language: {
-              usage: 'R',
-              label: 'Jazyk',
-              selector: 'recordInfo/languageOfCataloging/languageTerm',
-              labelKey: 'recordInfo/languageOfCataloging/languageTerm',
-              description: 'Přesné určení jazyka'
-            }
-          }
-        },
+      },
+      value: {
+        usage: 'M',
+        required: true,
+        selector: 'identifier/value',
+        labelKey: 'identifier/value',
+        label: 'Hodnota',
+        help: 'off'
       }
     }
+  },
+  recordInfo: {
+    usage: 'M',
+    label: 'Údaje o metadatovém záznamu',
+    selector: 'recordInfo',
+    labelKey: 'recordInfo',
+    description: 'údaje o metadatovém záznamu – jeho vzniku, změnách apod.',
+    fields: {
+      descriptionStandard: {
+        usage: 'M',
+        label: 'Standard metadat',
+        cols: 2,
+        selector: 'recordInfo/descriptionStandard',
+        labelKey: 'recordInfo/descriptionStandard',
+        description: 'Popis standardu, ve kterém je přebíraný katalogizační záznam<br/>\
+            Pro záznamy v AACR2: Odpovídá hodnotě návěští záznamu MARC21, pozice 18 - hodnota „aacr“, tj. pro LDR/18 ="a"',
+        options: [
+          [
+            'aacr',
+            'aacr'
+          ],
+          [
+            'rda',
+            'rda'
+          ]
+        ]
+      },
+      recordContentSource: {
+        usage: 'R',
+        label: 'Content source',
+        selector: 'recordInfo/recordContentSource',
+        labelKey: 'recordInfo/recordContentSource',
+        description: 'Kód nebo jméno instituce, která záznam vytvořila nebo změnila',
+        fields: {
+          value: {
+            usage: 'R',
+            label: 'Content source',
+            cols: 2,
+            selector: 'recordInfo/recordContentSource',
+            labelKey: 'recordInfo/recordContentSource',
+            help: 'off'
+          },
+          authority: {
+            usage: 'R',
+            defaultValue: 'marcorg',
+            label: 'Autorita',
+            cols: 2,
+            selector: 'recordInfo/recordContentSource/@authority',
+            labelKey: 'recordInfo/recordContentSource/@authority',
+            description: 'authority – hodnota "marcorg"',
+            options: [
+              [
+                'marcorg',
+                'marcorg'
+              ]
+            ]
+          }
+        }
+      },
+      recordCreationDate: {
+        usage: 'M',
+        label: 'Datum vytvoření',
+        selector: 'recordInfo/recordCreationDate',
+        labelKey: 'recordInfo/recordCreationDate',
+        description: 'datum prvního vytvoření záznamu, na úroveň minut',
+        fields: {
+          value: {
+            usage: 'M',
+            required: true,
+            label: 'Datum vytvoření',
+            cols: 2,
+            selector: 'recordInfo/recordCreationDate',
+            labelKey: 'recordInfo/recordCreationDate',
+            help: 'off'
+          },
+          encoding: {
+            usage: 'M',
+            required: true,
+            label: 'Kódování',
+            cols: 2,
+            selector: 'recordInfo/recordCreationDate/@encoding',
+            labelKey: 'recordInfo/recordCreationDate/@encoding',
+            description: 'Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"',
+            options: [
+              [
+                'iso8601',
+                'iso8601'
+              ]
+            ]
+          }
+        }
+      },
+      recordChangeDate: {
+        usage: 'MA',
+        label: 'Datum změny',
+        selector: 'recordInfo/recordChangeDate',
+        labelKey: 'recordInfo/recordChangeDate',
+        description: 'datum změny záznamu ',
+        fields: {
+          value: {
+            usage: 'MA',
+            label: 'Datum změny',
+            cols: 2,
+            selector: 'recordInfo/recordChangeDate',
+            labelKey: 'recordInfo/recordChangeDate',
+            help: 'off'
+          },
+          encoding: {
+            usage: 'M',
+            required: true,
+            label: 'Kódování',
+            cols: 2,
+            selector: 'recordInfo/recordChangeDate/@encoding',
+            labelKey: 'recordInfo/recordChangeDate/@encoding',
+            description: 'Záznam bude podle normy ISO 8601 na úroveň minut, hodnota atributu tedy "iso8601"',
+            options: [
+              [
+                'iso8601',
+                'iso8601'
+              ]
+            ]
+          }
+        }
+      },
+      recordIdentifier: {
+        usage: 'R',
+        label: 'Identifikátor záznamu',
+        selector: 'recordInfo/recordIdentifier',
+        labelKey: 'recordInfo/recordIdentifier',
+        description: 'identifikátor záznamu v katalogu, přebírá se z pole 001',
+        fields: {
+          value: {
+            usage: 'MA',
+            label: 'Identifikátor záznamu',
+            cols: 2,
+            selector: 'recordInfo/recordIdentifier',
+            labelKey: 'recordInfo/recordIdentifier',
+            help: 'off'
+          },
+          source: {
+            usage: 'R',
+            label: 'Zdroj',
+            cols: 2,
+            selector: 'recordInfo/recordIdentifier/@source',
+            labelKey: 'recordInfo/recordIdentifier/@source',
+            description: 'hodnota se přebírá z katalogu pole 003 '
+          }
+        }
+      },
+      recordOrigin: {
+        usage: 'R',
+        label: 'Údaje o vzniku záznamu',
+        cols: 2,
+        selector: 'recordInfo/recordOrigin',
+        labelKey: 'recordInfo/recordOrigin',
+        description: 'údaje o vzniku záznamu hodnoty: "machine generated" nebo "human prepared"',
+        options: [
+          [
+            'machine generated',
+            'machine generated'
+          ],
+          [
+            'human prepared',
+            'human prepared'
+          ]
+        ]
+      },
+      languageOfCataloging: {
+        usage: 'R',
+        label: 'Jazyk záznamu',
+        selector: 'recordInfo/languageOfCataloging',
+        labelKey: 'recordInfo/languageOfCataloging',
+        description: 'jazyk katalogového záznamu',
+        fields: {
+          language: {
+            usage: 'R',
+            label: 'Jazyk',
+            selector: 'recordInfo/languageOfCataloging/languageTerm',
+            labelKey: 'recordInfo/languageOfCataloging/languageTerm',
+            description: 'Přesné určení jazyka'
+          }
+        }
+      },
+    }
   }
+}

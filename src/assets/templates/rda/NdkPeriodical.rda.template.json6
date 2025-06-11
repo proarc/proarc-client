@@ -1,7 +1,6 @@
 {
   titleInfo: {
     usage: 'M',
-    required: true,
     label: 'Název',
     selector: 'titleInfo',
     labelKey: 'titleInfo',
@@ -216,7 +215,6 @@
   },
   originInfo: {
     usage: 'M',
-    required: true,
     label: 'Původ předlohy',
     selector: 'originInfo',
     labelKey: 'originInfo',
@@ -305,7 +303,6 @@
       },
       dateIssued: {
         usage: 'M',
-        required: true,
         label: 'Datum vydání',
         selector: 'originInfo/dateIssued',
         labelKey: 'originInfo/dateIssued',
@@ -619,7 +616,6 @@
           value: {
             label: 'Hodnota',
             usage: 'R',
-//            required: true,
             selector: 'originInfo/frequency',
             labelKey: 'originInfo/frequency',
             help: 'off'
@@ -637,7 +633,6 @@
     fields: {
       physicalLocation: {
         usage: 'M',
-        required: true,
         label: 'Místo uložení',
         selector: 'location/physicalLocation',
         labelKey: 'location/physicalLocation',
@@ -677,7 +672,6 @@
       },
       shelfLocator: {
         usage: 'M',
-        required: true,
         label: 'Signatura',
         selector: 'location/shelfLocator',
         labelKey: 'location/shelfLocator',
@@ -715,24 +709,24 @@
             label: 'Note',
             help: 'off'
           },
-//          usage: {
-//            usage: 'O',
-//            cols: 2,
-//            selector: 'location/url/@usage',
-//            labelKey: 'location/url/@usage',
-//            label: 'Usage',
-//            help: 'off',
-//            options: [
-//              [
-//                '',
-//                '-'
-//              ],
-//              [
-//                'primary',
-//                'primary'
-//              ]
-//            ]
-//          },
+          //          usage: {
+          //            usage: 'O',
+          //            cols: 2,
+          //            selector: 'location/url/@usage',
+          //            labelKey: 'location/url/@usage',
+          //            label: 'Usage',
+          //            help: 'off',
+          //            options: [
+          //              [
+          //                '',
+          //                '-'
+          //              ],
+          //              [
+          //                'primary',
+          //                'primary'
+          //              ]
+          //            ]
+          //          },
         }
       },
     }
@@ -992,7 +986,6 @@
               value: {
                 label: 'Hodnota',
                 usage: 'M',
-//                required: true,
                 selector: 'name/namePart',
                 labelKey: 'name/namePart/value',
                 cols: 2,
@@ -1025,7 +1018,6 @@
   },
   language: {
     usage: 'M',
-    required: true,
     label: 'Jazyk',
     selector: 'language',
     labelKey: 'language',
@@ -1070,7 +1062,6 @@
       },
       language: {
         usage: 'MA',
-//        required: true,
         label: 'Jazyk',
         selector: 'language/languageTerm',
         labelKey: 'language/languageTerm',
@@ -1097,7 +1088,6 @@
   },
   physicalDescription: {
     usage: 'M',
-    required: true,
     label: 'Fyzický popis',
     selector: 'physicalDescription',
     labelKey: 'physicalDescription',
@@ -1131,7 +1121,6 @@
       },
       form: {
         usage: 'M',
-        required: true,
         label: 'Forma',
         selector: 'physicalDescription/form',
         labelKey: 'physicalDescription/form',
@@ -1146,7 +1135,6 @@
         fields: {
           authority: {
             usage: 'MA',
-//            required: true,
             label: 'Autorita',
             selector: 'physicalDescription/form/@authority',
             labelKey: 'physicalDescription/form/@authority',
@@ -1217,25 +1205,82 @@
             label: 'Hodnota',
             help: 'off',
             options: [
-              ['braille', 'braille'],
-              ['electronic', 'electronic'],
-              ['large print', 'large print'],
-              ['microfilm', 'microfilm'],
-              ['microfiche', 'microfiche'],
-              ['print', 'print'],
-              ['jiný', 'jiný'],
-              ['audio', 'audio'],
-              ['počítač', 'počítač'],
-              ['mikroforma', 'mikroforma'],
-              ['mikroskop', 'mikroskop'],
-              ['projekce', 'projekce'],
-              ['stereograf', 'stereograf'],
-              ['bez média', 'bez_media'],
-              ['video', 'video'],
-              ['svazek', 'svazek'],
-              ['online zdroj', 'online_zdroj'],
-              ['audiodisk', 'audiodisk'],
-              ['počítačový disk', 'počítačový disk'],
+              [
+                'braille',
+                'braille'
+              ],
+              [
+                'electronic',
+                'electronic'
+              ],
+              [
+                'large print',
+                'large print'
+              ],
+              [
+                'microfilm',
+                'microfilm'
+              ],
+              [
+                'microfiche',
+                'microfiche'
+              ],
+              [
+                'print',
+                'print'
+              ],
+              [
+                'jiný',
+                'jiný'
+              ],
+              [
+                'audio',
+                'audio'
+              ],
+              [
+                'počítač',
+                'počítač'
+              ],
+              [
+                'mikroforma',
+                'mikroforma'
+              ],
+              [
+                'mikroskop',
+                'mikroskop'
+              ],
+              [
+                'projekce',
+                'projekce'
+              ],
+              [
+                'stereograf',
+                'stereograf'
+              ],
+              [
+                'bez média',
+                'bez_media'
+              ],
+              [
+                'video',
+                'video'
+              ],
+              [
+                'svazek',
+                'svazek'
+              ],
+              [
+                'online zdroj',
+                'online_zdroj'
+              ],
+              [
+                'audiodisk',
+                'audiodisk'
+              ],
+              [
+                'počítačový disk',
+                'počítačový disk'
+              ],
             ]
           }
         }
@@ -1286,7 +1331,6 @@
   },
   genre: {
     usage: 'M',
-    required: true,
     label: 'Žánr',
     selector: 'genre',
     labelKey: 'genre',
@@ -1305,7 +1349,6 @@
   },
   identifier: {
     usage: 'M',
-    required: true,
     label: 'Identifikátor',
     selector: 'identifier',
     labelKey: 'identifier',
@@ -1377,7 +1420,6 @@
     fields: {
       authority: {
         usage: 'M',
-//        required: true,
         label: 'Autorita',
         selector: 'classification/@authority',
         labelKey: 'classification/@authority',
@@ -1421,7 +1463,6 @@
       },
       value: {
         usage: 'R',
-//        required: true,
         selector: 'classification/value',
         labelKey: 'classification/value',
         label: 'Hodnota',
@@ -1458,7 +1499,6 @@
   },
   recordInfo: {
     usage: 'M',
-//    required: true,
     label: 'Údaje o metadatovém záznamu',
     selector: 'recordInfo',
     labelKey: 'recordInfo',
@@ -1517,7 +1557,6 @@
       },
       recordCreationDate: {
         usage: 'M',
-//        required: true,
         label: 'Datum vytvoření',
         selector: 'recordInfo/recordCreationDate',
         labelKey: 'recordInfo/recordCreationDate',
@@ -2410,24 +2449,24 @@
                 label: 'Note',
                 help: 'off'
               },
-//              usage: {
-//                usage: 'O',
-//                cols: 2,
-//                selector: 'relatedItem/location/url/@usage',
-//                labelKey: 'relatedItem/location/url/@usage',
-//                label: 'Usage',
-//                help: 'off',
-//                options: [
-//                  [
-//                    '',
-//                    '-'
-//                  ],
-//                  [
-//                    'primary',
-//                    'primary'
-//                  ]
-//                ]
-//              },
+              //              usage: {
+              //                usage: 'O',
+              //                cols: 2,
+              //                selector: 'relatedItem/location/url/@usage',
+              //                labelKey: 'relatedItem/location/url/@usage',
+              //                label: 'Usage',
+              //                help: 'off',
+              //                options: [
+              //                  [
+              //                    '',
+              //                    '-'
+              //                  ],
+              //                  [
+              //                    'primary',
+              //                    'primary'
+              //                  ]
+              //                ]
+              //              },
             }
           }
         }
@@ -2485,7 +2524,7 @@
               value: {
                 usage: 'R',
                 label: 'Hodnota',
-//                cols: 2,
+                //                cols: 2,
                 selector: 'subject/topic/value',
                 labelKey: 'subject/topic/value',
                 hint: false,
@@ -2497,14 +2536,14 @@
                 labelKey: 'subject/topic/@valueURI',
                 description: 'Link na URL cislo autority',
               },
-//              lang: {
-//                usage: 'R',
-//                cols: 2,
-//                label: 'Hodnota',
-//                selector: 'subject/topic/@lang',
-//                labelKey: 'subject/topic/@lang',
-//                hint: false,
-//              }
+              //              lang: {
+              //                usage: 'R',
+              //                cols: 2,
+              //                label: 'Hodnota',
+              //                selector: 'subject/topic/@lang',
+              //                labelKey: 'subject/topic/@lang',
+              //                hint: false,
+              //              }
             }
           },
           geographic: {
@@ -2551,7 +2590,6 @@
               value: {
                 label: 'Hodnota',
                 usage: 'R',
-//                required: true,
                 selector: 'subject/geographicCode/value',
                 labelKey: 'subject/geographicCode/value',
                 cols: 2,

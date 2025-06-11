@@ -1,7 +1,6 @@
 {
   titleInfo: {
     usage: 'M',
-    required: true,
     label: 'Název',
     selector: 'titleInfo',
     labelKey: 'titleInfo',
@@ -224,7 +223,6 @@
   },
   originInfo: {
     usage: 'M',
-    required: true,
     label: 'Původ předlohy',
     selector: 'originInfo',
     labelKey: 'originInfo',
@@ -313,7 +311,6 @@
       },
       dateIssued: {
         usage: 'M',
-        required: true,
         label: 'Datum vydání',
         selector: 'originInfo/dateIssued',
         labelKey: 'originInfo/dateIssued',
@@ -567,22 +564,21 @@
           }
         }
       },
-//      copyrightDate: {
-//        usage: 'R',
-//        label: 'Datum - copyright',
-//        selector: 'originInfo/copyrightDate',
-//        labelKey: 'originInfo/copyrightDate',
-//        cols: 3,
-//        description: 'Využije se pouze v případě výskytu pole 264 s druhým indikátorem 4 a podpolem $c<br/>\
-//          <ul>\
-//            <li>264_4 <strong>Copyright</strong> (copyright)</li>\
-//          </ul>'
-//      }
+      //      copyrightDate: {
+      //        usage: 'R',
+      //        label: 'Datum - copyright',
+      //        selector: 'originInfo/copyrightDate',
+      //        labelKey: 'originInfo/copyrightDate',
+      //        cols: 3,
+      //        description: 'Využije se pouze v případě výskytu pole 264 s druhým indikátorem 4 a podpolem $c<br/>\
+      //          <ul>\
+      //            <li>264_4 <strong>Copyright</strong> (copyright)</li>\
+      //          </ul>'
+      //      }
     }
   },
   location: {
     usage: 'MA',
-//    required: true,
     label: 'Uložení',
     selector: 'location',
     labelKey: 'location',
@@ -590,7 +586,6 @@
     fields: {
       physicalLocation: {
         usage: 'MA',
-//        required: true,
         label: 'Místo uložení',
         selector: 'location/physicalLocation',
         labelKey: 'location/physicalLocation',
@@ -628,7 +623,6 @@
       },
       shelfLocator: {
         usage: 'M',
-//        required: true,
         label: 'Signatura',
         selector: 'location/shelfLocator',
         labelKey: 'location/shelfLocator',
@@ -636,7 +630,6 @@
         fields: {
           value: {
             usage: 'M',
-//            required: true,
             selector: 'location/shelfLocator/value',
             labelKey: 'location/shelfLocator/value',
             label: 'Hodnota',
@@ -693,7 +686,6 @@
         fields: {
           authority: {
             usage: 'MA',
-//            required: true,
             label: 'Autorita',
             selector: 'physicalDescription/form/@authority',
             labelKey: 'physicalDescription/form/@authority',
@@ -743,25 +735,82 @@
             label: 'Hodnota',
             help: 'off',
             options: [
-              ['braille', 'braille'],
-              ['electronic', 'electronic'],
-              ['large print', 'large print'],
-              ['microfilm', 'microfilm'],
-              ['microfiche', 'microfiche'],
-              ['print', 'print'],
-              ['jiný', 'jiný'],
-              ['audio', 'audio'],
-              ['počítač', 'počítač'],
-              ['mikroforma', 'mikroforma'],
-              ['mikroskop', 'mikroskop'],
-              ['projekce', 'projekce'],
-              ['stereograf', 'stereograf'],
-              ['bez média', 'bez_media'],
-              ['video', 'video'],
-              ['svazek', 'svazek'],
-              ['online zdroj', 'online_zdroj'],
-              ['audiodisk', 'audiodisk'],
-              ['počítačový disk', 'počítačový disk'],
+              [
+                'braille',
+                'braille'
+              ],
+              [
+                'electronic',
+                'electronic'
+              ],
+              [
+                'large print',
+                'large print'
+              ],
+              [
+                'microfilm',
+                'microfilm'
+              ],
+              [
+                'microfiche',
+                'microfiche'
+              ],
+              [
+                'print',
+                'print'
+              ],
+              [
+                'jiný',
+                'jiný'
+              ],
+              [
+                'audio',
+                'audio'
+              ],
+              [
+                'počítač',
+                'počítač'
+              ],
+              [
+                'mikroforma',
+                'mikroforma'
+              ],
+              [
+                'mikroskop',
+                'mikroskop'
+              ],
+              [
+                'projekce',
+                'projekce'
+              ],
+              [
+                'stereograf',
+                'stereograf'
+              ],
+              [
+                'bez média',
+                'bez_media'
+              ],
+              [
+                'video',
+                'video'
+              ],
+              [
+                'svazek',
+                'svazek'
+              ],
+              [
+                'online zdroj',
+                'online_zdroj'
+              ],
+              [
+                'audiodisk',
+                'audiodisk'
+              ],
+              [
+                'počítačový disk',
+                'počítačový disk'
+              ],
             ]
           }
         }
@@ -836,7 +885,6 @@
   },
   identifier: {
     usage: 'M',
-    required: true,
     label: 'Identifikátor',
     selector: 'identifier',
     labelKey: 'identifier',
@@ -943,7 +991,6 @@
   },
   recordInfo: {
     usage: 'M',
-    required: true,
     label: 'Údaje o metadatovém záznamu',
     cols: 2,
     selector: 'recordInfo',
@@ -1001,7 +1048,6 @@
       },
       recordCreationDate: {
         usage: 'M',
-        required: true,
         label: 'Datum vytvoření',
         selector: 'recordInfo/recordCreationDate',
         labelKey: 'recordInfo/recordCreationDate',
@@ -1879,25 +1925,82 @@
                 label: 'Hodnota',
                 help: 'off',
                 options: [
-                  ['braille', 'braille'],
-                  ['electronic', 'electronic'],
-                  ['large print', 'large print'],
-                  ['microfilm', 'microfilm'],
-                  ['microfiche', 'microfiche'],
-                  ['print', 'print'],
-                  ['jiný', 'jiný'],
-                  ['audio', 'audio'],
-                  ['počítač', 'počítač'],
-                  ['mikroforma', 'mikroforma'],
-                  ['mikroskop', 'mikroskop'],
-                  ['projekce', 'projekce'],
-                  ['stereograf', 'stereograf'],
-                  ['bez média', 'bez_media'],
-                  ['video', 'video'],
-                  ['svazek', 'svazek'],
-                  ['online zdroj', 'online_zdroj'],
-                  ['audiodisk', 'audiodisk'],
-                  ['počítačový disk', 'počítačový disk'],
+                  [
+                    'braille',
+                    'braille'
+                  ],
+                  [
+                    'electronic',
+                    'electronic'
+                  ],
+                  [
+                    'large print',
+                    'large print'
+                  ],
+                  [
+                    'microfilm',
+                    'microfilm'
+                  ],
+                  [
+                    'microfiche',
+                    'microfiche'
+                  ],
+                  [
+                    'print',
+                    'print'
+                  ],
+                  [
+                    'jiný',
+                    'jiný'
+                  ],
+                  [
+                    'audio',
+                    'audio'
+                  ],
+                  [
+                    'počítač',
+                    'počítač'
+                  ],
+                  [
+                    'mikroforma',
+                    'mikroforma'
+                  ],
+                  [
+                    'mikroskop',
+                    'mikroskop'
+                  ],
+                  [
+                    'projekce',
+                    'projekce'
+                  ],
+                  [
+                    'stereograf',
+                    'stereograf'
+                  ],
+                  [
+                    'bez média',
+                    'bez_media'
+                  ],
+                  [
+                    'video',
+                    'video'
+                  ],
+                  [
+                    'svazek',
+                    'svazek'
+                  ],
+                  [
+                    'online zdroj',
+                    'online_zdroj'
+                  ],
+                  [
+                    'audiodisk',
+                    'audiodisk'
+                  ],
+                  [
+                    'počítačový disk',
+                    'počítačový disk'
+                  ],
                 ]
               }
             }

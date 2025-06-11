@@ -1,7 +1,6 @@
 {
   titleInfo: {
     usage: 'M',
-    required: true,
     label: 'Název',
     selector: 'titleInfo',
     labelKey: 'titleInfo',
@@ -211,7 +210,6 @@
   },
   originInfo: {
     usage: 'M',
-    required: true,
     label: 'Původ předlohy',
     selector: 'originInfo',
     labelKey: 'originInfo',
@@ -418,21 +416,21 @@
         labelKey: 'subject/topic',
         description: 'Libovolný výraz specifikující nebo charakterizující obsah titulu<br/>\
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21',
-          fields: {
+        fields: {
           value: {
-          usage: 'M',
-          label: 'Hodnota',
-          selector: 'subject/topic/value',
-          labelKey: 'subject/topic/value',
-          hint: false,
+            usage: 'M',
+            label: 'Hodnota',
+            selector: 'subject/topic/value',
+            labelKey: 'subject/topic/value',
+            hint: false,
           },
-            valueURI: {
-              usage: 'O',
-              label: 'Hodnota',
-              selector: 'subject/topic/@valueURI',
-              labelKey: 'subject/topic/@valueURI',
-              description: 'Link na URL cislo autority',
-            },
+          valueURI: {
+            usage: 'O',
+            label: 'Hodnota',
+            selector: 'subject/topic/@valueURI',
+            labelKey: 'subject/topic/@valueURI',
+            description: 'Link na URL cislo autority',
+          },
           //            lang: {
           //              usage: 'R',
           //              label: 'Hodnota',
@@ -440,7 +438,7 @@
           //              labelKey: 'subject/topic/@lang',
           //              hint: false,
           //            }
-          }
+        }
       },
       geographic: {
         usage: 'R',
@@ -620,7 +618,6 @@
   },
   language: {
     usage: 'M',
-    required: true,
     label: 'Jazyk',
     selector: 'language',
     labelKey: 'language',
@@ -788,7 +785,6 @@
   },
   genre: {
     usage: 'M',
-    required: true,
     label: 'Žánr',
     selector: 'genre',
     labelKey: 'genre',
@@ -812,7 +808,6 @@
   },
   identifier: {
     usage: 'M',
-    required: true,
     label: 'Identifikátor',
     selector: 'identifier',
     labelKey: 'identifier',
@@ -887,7 +882,6 @@
     fields: {
       authority: {
         usage: 'M',
-//        required: true,
         label: 'Autorita',
         selector: 'classification/@authority',
         labelKey: 'classification/@authority',
@@ -923,7 +917,6 @@
       },
       value: {
         usage: 'R',
-//        required: true,
         selector: 'classification/value',
         labelKey: 'classification/value',
         label: 'Hodnota',
@@ -967,7 +960,6 @@
   },
   recordInfo: {
     usage: 'M',
-    required: true,
     label: 'Údaje o metadatovém záznamu',
     selector: 'recordInfo',
     labelKey: 'recordInfo',
@@ -1025,7 +1017,6 @@
       },
       recordCreationDate: {
         usage: 'M',
-        required: true,
         label: 'Datum vytvoření',
         selector: 'recordInfo/recordCreationDate',
         labelKey: 'recordInfo/recordCreationDate',

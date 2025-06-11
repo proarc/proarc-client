@@ -548,7 +548,6 @@
     fields: {
       form: {
         usage: 'M',
-        required: true,
         label: 'Typ média',
         selector: 'physicalDescription/form',
         labelKey: 'physicalDescription/form',
