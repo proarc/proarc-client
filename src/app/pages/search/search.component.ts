@@ -88,6 +88,7 @@ export class SearchComponent {
 
   treeItems: TreeDocumentItem[] = [];
   selectedTreeItem: TreeDocumentItem;
+  selectedRootTreeItem: TreeDocumentItem;
   object = Object; // Allow use Object.keys in template
   tree_info: { [model: string]: number } = {};
   batchInfo: any;
@@ -215,6 +216,7 @@ export class SearchComponent {
     this.totalSelected = 0;
     this.selectedItem = null;
     this.selectedTreeItem = null;
+    this.selectedRootTreeItem = null;
     this.treeItems = [];
   }
 
@@ -293,7 +295,7 @@ export class SearchComponent {
   }
 
   reloadTree(newPid: string) {
-    if (this.selectedTreeItem.model === this.model) {
+    if (this.selectedRootTreeItem.model === this.model) {
       this.reload(newPid);
     } else {
       this.treeTable.reloadTree(newPid);
@@ -351,16 +353,17 @@ export class SearchComponent {
     this.totalSelected = this.items.filter(i => i.selected).length;
     this.selectedItem = item;
 
-    if (this.selectedTreeItem) {
+    if (this.selectedRootTreeItem) {
       // reset
-      this.selectedTreeItem.expanded = false;
-      this.selectedTreeItem.childrenLoaded = false;
+      this.selectedRootTreeItem.expanded = false;
+      this.selectedRootTreeItem.childrenLoaded = false;
     }
 
-    this.selectedTreeItem = <TreeDocumentItem>this.selectedItem;
-    this.selectedTreeItem.level = 0;
-    this.selectedTreeItem.expandable = true;
-    this.treeItems = [this.selectedTreeItem];
+    this.selectedRootTreeItem = <TreeDocumentItem>this.selectedItem;
+    this.selectedRootTreeItem.level = 0;
+    this.selectedRootTreeItem.expandable = true;
+    this.selectedTreeItem = this.selectedRootTreeItem;
+    this.treeItems = [this.selectedRootTreeItem];
     
   }
 

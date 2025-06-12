@@ -84,19 +84,25 @@ export class EditorFieldComponent implements OnInit {
 
   ngOnChanges() {
     // every time the object changes 
+    if (this.field.items.length === 0) {
+      return;
+    }
     this.validationWarning = this.field.items.map(item => item.validationWarning).join(',');
     //this.items = this.field.items;
   }
 
-  ngDoCheck() {
-    // check for object mutation
-    const nc = this.field.items.map(item => item.validationWarning).join(',');
-      if (this.validationWarning !== nc) {
-        this.validationWarning = nc;
-        this.cd.markForCheck();
-        //this.items = this.field.items;
-      }
-  }
+  // ngDoCheck() {
+  //   // check for object mutation
+  //   if (this.field.items.length === 0) {
+  //     return;
+  //   }
+  //   const nc = this.field.items.map(item => item.validationWarning).join(',');
+  //     if (this.validationWarning !== nc) {
+  //       this.validationWarning = nc;
+  //       this.cd.markForCheck();
+  //       //this.items = this.field.items;
+  //     }
+  // }
 
   openHelpDialog() {
     this.dialog.open(HelpDialogComponent, { data: this.field.help(this.translator) });

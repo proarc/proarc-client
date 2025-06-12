@@ -42,7 +42,7 @@
 				</mat-form-field>
 			</div>
 
-			<div [ngSwitch]="model" class="app-fxFlex app-oa-y app-scroller app-editor-container" #scroller 
+			<div [ngSwitch]="model()" class="app-fxFlex app-oa-y app-scroller app-editor-container" #scroller 
 				(scroll)="checkVisibility()" tabIndex="0" style="outline: none !important; position: relative;">
 				<div style="float: left;" [style.height]="scrollHeight +'px'"></div>
 				<div class="app-gap-fixer"></div>

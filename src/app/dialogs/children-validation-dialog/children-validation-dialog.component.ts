@@ -15,12 +15,12 @@ import { Page } from '../../model/page.model';
 import { ApiService } from '../../services/api.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { TemplateService } from '../../services/template.service';
+import { EditorMetadataComponent } from "../../editors/editor-metadata/editor-metadata.component";
 
 @Component({
   imports: [CommonModule, TranslateModule, MatDialogModule,
     MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule,
-    MatProgressBarModule
-  ],
+    MatProgressBarModule, EditorMetadataComponent],
   templateUrl: './children-validation-dialog.component.html',
   styleUrls: ['./children-validation-dialog.component.scss']
 })
@@ -49,12 +49,12 @@ export class ChildrenValidationDialogComponent implements OnInit {
     private tmpl: TemplateService,
     public dialogRef: MatDialogRef<ChildrenValidationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.children = data.children;
-    this.count = this.children.length;
-    dialogRef.disableClose = true;
   }
 
   ngOnInit() {
+    this.children = this.data.children;
+    this.count = this.children.length;
+    this.dialogRef.disableClose = true;
     if (this.count == 0) {
       this.onFinish();
       return;

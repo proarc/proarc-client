@@ -39,6 +39,8 @@ import { EditorRecordInfoComponent } from "../editor-recordInfo/editor-recordInf
 import { EditorRelatedItemComponent } from "../editor-relatedItem/editor-relatedItem.component";
 import { EditorChronicleLocationComponent } from "../editor-chronicle-location/editor-chronicle-location.component";
 import { MatButtonModule } from '@angular/material/button';
+import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
+import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, MatButtonModule,
@@ -66,7 +68,7 @@ export class EditorMetadataComponent implements OnInit {
   onChangePanelType = output<string>();
 
   notSaved = input<boolean>();
-  // _validating = false;
+  _validating = false;
   validating = input<boolean>();
   loading: boolean;
   metadata: Metadata;
@@ -233,7 +235,7 @@ export class EditorMetadataComponent implements OnInit {
 
   focusToFirstRequired() {
     // find in new object
-    const query = this.notSaved ? 'app-new-metadata-dialog  .app-expanded input[required]' : 'app-editor-metadata input[required]';
+    const query = this.notSaved() ? 'app-new-metadata-dialog  .app-expanded input[required]' : 'app-editor-metadata input[required]';
     let el: any = document.querySelectorAll(query)[0];
     if (el) {
       el.focus();
@@ -265,9 +267,143 @@ export class EditorMetadataComponent implements OnInit {
       }, 10);
   }
 
-  onSave() {
+  onSaveTest() {
     console.log(this.metadata);
     console.log(this.metadata.toMods())
+  }
+
+  onSave() {
+    this.isValidMetadata = this.metadata.validate();
+    if (this.isValidMetadata) {
+      if (this.notSaved()) {
+        let data = `model=${this.metadata.model}`;
+        data = `${data}&pid=${this.metadata.pid}`;
+        data = `${data}&xml=${this.metadata.toMods()}`;
+        this.api.createObject(data).subscribe((response: any) => {
+          if (response['response'].errors) {
+            console.log('error', response['response'].errors);
+            this.ui.showErrorDialogFromObject(response['response'].errors);
+            this.loading = false;
+            return;
+          }
+          const pid = response['response']['data'][0]['pid'];
+          this.loading = false;
+        });
+
+        setTimeout(() => {
+          this.focusToFirstInvalid();
+        }, 10);
+      } else {
+        this.saveMetadata(false);
+      }
+    } else {
+      //setTimeout(() => {
+      //  this.validating =true;
+      setTimeout(() => {
+        this.onSizeChanged();
+        // this.setFieldsPositions();
+        this._validating = true;
+        this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', true);
+      //}, 1000);
+    }, 10);
+      
+    }
+  }
+  saveMetadata(ignoreValidation: boolean) {
+    this.loading = true;
+    this.api.editMetadata(this.metadata, ignoreValidation, null).subscribe((response: any) => {
+      if (response.errors) {
+        if (response.status === -4) {
+          // Ukazeme dialog a posleme s ignoreValidation=true
+          //this.state = 'error';
+          const messages = this.ui.extractErrorsAsString(response.errors);
+          if (response.data === 'cantIgnore') {
+            // #462 - replaced with row bellow - this.ui.showErrorSnackBar(messages);
+            this.ui.showErrorDialogFromObject(response.errors);
+          } else {
+            this.confirmSave(this.translator.instant('common.warning'), messages, true);
+          }
+          return;
+        } else {
+          this.ui.showErrorDialogFromObject(response.errors);
+          this.loading = false;
+          return;
+        }
+      } else {
+        // this.layout.setShouldRefresh(true)
+        this.metadata.timestamp = response.data[0].timestamp;
+        this.metadata.resetChanges();
+        this.ui.showInfoSnackBar(this.translator.instant("snackbar.changeSaved"));
+        this.layout.refreshSelectedItem(false, 'metadata');
+        this.layout.clearPanelEditing();
+        this.loading = false;
+      }
+      // setTimeout(() => {
+      //   this.focusToFirstInvalid();
+      // }, 500);
+    });
+  }
+
+  confirmSave(title: string, message: string, ignoreValidation: boolean) {
+    const data: SimpleDialogData = {
+      title,
+      message,
+      alertClass: 'app-info',
+      btn1: {
+        label: "Uložit",
+        value: 'yes',
+        color: 'warn'
+      },
+      btn2: {
+        label: "Neukládat",
+        value: 'no',
+        color: 'default'
+      },
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    // this.availableFields.forEach(k => {
+    //   this.visibleFields[k] = true;
+    // });
+    // this.scroller.nativeElement.scrollTop = 0;
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        if (this.notSaved()) {
+          let data = `model=${this.metadata.model}`;
+          data = `${data}&pid=${this.metadata.pid}`;
+          data = `${data}&xml=${this.metadata.toMods()}`;
+          this.api.createObject(data).subscribe((response: any) => {
+            if (response['response'].errors) {
+              this.ui.showErrorDialogFromObject(response['response'].errors);
+              this.loading = false;
+              return;
+            }
+            const pid = response['response']['data'][0]['pid'];
+            this.loading = false;
+            // this.layout.setShouldRefresh(true);
+            this.layout.refreshSelectedItem(false, null);
+          });
+
+        } else {
+          this.saveMetadata(ignoreValidation);
+        }
+        this._validating = false;
+      } else {
+        
+        this.focusToFirstInvalid();
+      }
+    });
+  }
+
+  focusToFirstInvalid() {
+    const query = this.notSaved() ?
+      'app-new-metadata-dialog .app-expanded .mat-form-field-invalid input, app-new-metadata-dialog .app-editor-container .mat-form-field-invalid mat-select ' :
+      'app-editor-metadata .app-expanded .mat-form-field-invalid input, app-editor-metadata .app-editor-container .mat-form-field-invalid mat-select ';
+    const els = document.querySelectorAll(query);
+    if (els.length > 0) {
+      (els[0] as any).focus();
+    }
+    this.loading = false;
+
   }
 
   revert() {

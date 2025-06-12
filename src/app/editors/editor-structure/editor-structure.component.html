@@ -96,7 +96,7 @@
           <div class="app-item">
             <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="iconHeight + 'px'"></div>
             <div class="app-item-label" *ngIf="isRepo">
-              <mat-icon *ngIf="item.invalid" class="app-mr-1">warning</mat-icon>
+              <mat-icon *ngIf="item.invalid" class="app-mr-1" (click)="goToInvalid(item.pid)">warning</mat-icon>
               <ng-container *ngIf="!isAkubra">
                 {{ shortLabels ? item.shortLabel : item.label }}<br />
                 ({{ (item.pageType ? "pageType." + item.pageType.toLowerCase() : "model." + item.model) | translate }})
@@ -122,7 +122,8 @@
           </div>
         </div>
       </div>
-      <app-user-table *ngIf="viewMode == 'list'" [draggable]="true" (selectItem)="selectRow($event)" (openItem)="open($event)" [colsSettingsName]="isRepo ? 'colsEditingRepo' : 'colsEditingImport'"
+      <app-user-table *ngIf="viewMode == 'list'" [draggable]="true" (selectItem)="selectRow($event)" 
+        (openItem)="open($event)" [colsSettingsName]="isRepo ? 'colsEditingRepo' : 'colsEditingImport'"
         [items]="layout.items()" (mousedown)="mousedown($event)" 
         (dragenter)="dragenter($event.e, $event.idx)"
         (dragstart)="dragstart($event.item, $event.idx, $event.e)" 

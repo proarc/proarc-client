@@ -583,6 +583,14 @@ export class EditorStructureComponent implements OnInit {
     }
   }
 
+  
+
+  public goToInvalid(pid: string) {
+    if (pid) {
+      this.router.navigate(['/repository', pid]);
+    }
+  }
+
   public goToObject(item: DocumentItem) {
     if (item) {
       this.router.navigate(['/repository', item.pid]);
@@ -810,7 +818,7 @@ export class EditorStructureComponent implements OnInit {
     const dialogRef = this.dialog.open(ChildrenValidationDialogComponent, {
       data: {
         parent: this.layout.selectedParentItem,
-        children: this.layout.items,
+        children: this.layout.items(),
         batchId: this.layout.batchId
       },
       panelClass: 'app-children-validation-dialog',

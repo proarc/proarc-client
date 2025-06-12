@@ -191,7 +191,7 @@ export class ProcessManagementComponent {
     if (batch.state === 'INGESTED' && batch.parentPid) {
       this.router.navigate(['/repository', batch.parentPid]);
     } else if (batch.state === 'LOADED') {
-      this.router.navigate(['/import', 'edit', this.selectedBatch.id]);
+      this.router.navigate(['/process-management', 'edit', this.selectedBatch.id]);
     }
   }
 
@@ -446,7 +446,7 @@ export class ProcessManagementComponent {
       this.ingestBatch(this.selectedBatch.parentPid);
       return;
     }
-    this.router.navigate(['/import', 'edit', this.selectedBatch.id]);
+    this.router.navigate(['/process-management', 'edit', this.selectedBatch.id]);
   }
 
 

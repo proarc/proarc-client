@@ -16,13 +16,18 @@
                 <mat-option [value]="''"> </mat-option>
                 <mat-option *ngFor="let s of lists[c.field]" [value]="s.code">{{ s.value }}</mat-option>
               </mat-select>
-              <a matSuffix *ngIf="filterFields[c.field]" (click)="filter(c.field, ''); filterFields[c.field] = ''; $event.stopPropagation();" class="app-clear app-select"><mat-icon>clear</mat-icon></a>
+              <a matSuffix *ngIf="filterFields[c.field]"
+                (click)="filter(c.field, ''); filterFields[c.field] = ''; $event.stopPropagation();"
+                class="app-clear app-select"><mat-icon>clear</mat-icon></a>
             </div>
           </ng-container>
           <ng-container *ngSwitchDefault>
             <div class="app-filter-wrapper">
-              <input type="text" [id]="c + 'Filter'" [(ngModel)]="filterFields[c.field]" (change)="filter(c.field, filterFields[c.field])" [placeholder]="('desc.enterText' | translate) + '...'" />
-              <a *ngIf="filterFields[c.field]" (click)="filter(c.field, ''); filterFields[c.field] = ''" class="app-clear"><mat-icon>clear</mat-icon></a>
+              <input type="text" [id]="c + 'Filter'" [(ngModel)]="filterFields[c.field]"
+                (change)="filter(c.field, filterFields[c.field])"
+                [placeholder]="('desc.enterText' | translate) + '...'" />
+              <a *ngIf="filterFields[c.field]" (click)="filter(c.field, ''); filterFields[c.field] = ''"
+                class="app-clear"><mat-icon>clear</mat-icon></a>
             </div>
           </ng-container>
         </ng-container>
@@ -31,11 +36,14 @@
   </ng-container>
 
   <ng-container *ngFor="let c of selectedColumns; let idx = index; let last = last;" [matColumnDef]="c.field">
-    <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c.field)" [style.width]="c.width + 'px'" class="app-pr-0">
+    <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c.field)"
+      [style.width]="c.width + 'px'" class="app-pr-0">
       <span *ngIf="!last" mat-sort-header>{{'search.' + c.field | translate}}</span>
       <div *ngIf="last" class="app-fxLayout app-row app-center-v">
-        <span *ngIf="c.field !== 'isLocked' && c.type !== 'action'" mat-sort-header class="app-fxFlex">{{ 'search.' + c.field | translate }}</span>
-        <button (click)="setColumns()" mat-icon-button color="primary" [matTooltip]="'editor.children.select_columns' | translate" class="app-mr-0">
+        <span *ngIf="c.field !== 'isLocked' && c.type !== 'action'" mat-sort-header class="app-fxFlex">{{ 'search.' +
+          c.field | translate }}</span>
+        <button (click)="setColumns()" mat-icon-button color="primary"
+          [matTooltip]="'editor.children.select_columns' | translate" class="app-mr-0">
           <mat-icon>more_vert</mat-icon>
         </button>
       </div>
@@ -53,23 +61,28 @@
         </ng-container>
         <ng-container *ngSwitchCase="'boolean'">
           <div class="app-fxLayout app-row app-center-v">
-            <button mat-icon-button color="primary" [matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">
+            <button mat-icon-button color="primary"
+              [matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">
               <mat-icon>{{ element.isLocked ? 'lock' : 'lock_open' }}</mat-icon>
             </button>
-            <button mat-icon-button color="primary" *ngIf="element.validationStatus === 'ERROR'" (click)="onGetValidationError(element.validationProcess);" [matTooltip]="'button.viewErrorDetail' | translate" matTooltipPosition="below">
+            <button mat-icon-button color="primary" *ngIf="element.validationStatus === 'ERROR'"
+              (click)="onGetValidationError(element.validationProcess);"
+              [matTooltip]="'button.viewErrorDetail' | translate" matTooltipPosition="below">
               <mat-icon>error_outline</mat-icon>
             </button>
           </div>
         </ng-container>
         <ng-container *ngSwitchCase="'action'">
-          <button mat-icon-button color="primary" *ngFor="let a of actions()" (click)="a.action(element)" [matTooltip]="a.tooltip | translate">
+          <button mat-icon-button color="primary" *ngFor="let a of actions()" (click)="a.action(element)"
+            [matTooltip]="a.tooltip | translate">
             <mat-icon>{{ a.icon }}</mat-icon>
           </button>
         </ng-container>
         <ng-container *ngSwitchDefault>
           <ng-container *ngIf="c.field !== 'validationStatus'">
             <div class="app-fxLayout app-row app-center-v">
-              <button mat-icon-button color="primary" *ngIf="c.field === 'pid'" class="app-icon-copy app-mr-1" (click)="ui.copyTextToClipboard(element.pid)" [matTooltip]="'button.copyTextToClipboard' | translate">
+              <button mat-icon-button color="primary" *ngIf="c.field === 'pid'" class="app-icon-copy app-mr-1"
+                (click)="ui.copyTextToClipboard(element.pid)" [matTooltip]="'button.copyTextToClipboard' | translate">
                 <mat-icon class="app-16">content_copy</mat-icon>
               </button>
               <span>{{ element[c.field] }}</span>

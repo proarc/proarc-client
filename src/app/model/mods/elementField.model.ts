@@ -52,6 +52,7 @@ import {ModsDetail} from './detail.model';
 import {ModsLanguageOfCataloging} from './languageOfCataloging.model';
 import {ModsTemporal} from './temporal.model';
 import {ModsGeographic} from './geographic.model';
+import {ModsAccessCondition} from './accessCondition.model';
 
 
 export class ElementField {
@@ -372,6 +373,8 @@ export class ElementField {
                 return new ModsPhysicalExtent(el, this.template);
             case ModsEdition.getId():
                 return new ModsEdition(el, this.template);
+            case ModsAccessCondition.getId() :
+                return new ModsAccessCondition(el, this.template);
         }
         return undefined;
     }

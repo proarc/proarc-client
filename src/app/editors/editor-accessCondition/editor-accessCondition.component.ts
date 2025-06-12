@@ -23,6 +23,7 @@ export class EditorAccessConditionComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.field)
   }
 
 
