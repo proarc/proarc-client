@@ -23,8 +23,6 @@ export class DocumentItem extends TableItem {
 
   public shortLabel: string;
 
-  public selected = false;
-
   public filename: string;
   public pageIndex: string;
   public pageNumber: string;

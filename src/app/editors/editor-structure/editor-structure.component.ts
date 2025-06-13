@@ -41,6 +41,7 @@ import { MarkSequenceDialogComponent } from '../../dialogs/mark-sequence-dialog/
 import { UserTableComponent } from "../../components/user-table/user-table.component";
 import { NewMetadataDialogComponent } from '../../dialogs/new-metadata-dialog/new-metadata-dialog.component';
 import { NewObjectData, NewObjectDialogComponent } from '../../dialogs/new-object-dialog/new-object-dialog.component';
+import { TableItem } from '../../model/table-item.model';
 
 
 @Component({
@@ -642,7 +643,7 @@ export class EditorStructureComponent implements OnInit {
   mousemove(event: any) {
   }
 
-  dragstart(item: DocumentItem, idx: number, event: any) {
+  dragstart(item: TableItem, idx: number, event: any) {
     this.stop = true;
     if (!this.dragEnabled) {
       return;
@@ -657,7 +658,7 @@ export class EditorStructureComponent implements OnInit {
       return;
     }
     if (!isMultiple) {
-      this.rowClick(item, null, idx);
+      this.rowClick(item as DocumentItem, null, idx);
     }
     this.isDragging = true;
     event.dataTransfer.effectAllowed = 'move';
