@@ -152,8 +152,18 @@
           <td mat-cell *matCellDef="let element">{{ element.create | date : 'dd.MM.yyyy hh:mm:ss' }}</td>
         </ng-container>
 
+        <ng-container matColumnDef="itemUpdated">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesOverview($event, 'itemUpdated')" [style.width]="getColumnWidthOverview('itemUpdated')">{{ 'desc.process_itemUpdated' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.itemUpdated | date : 'dd.MM.yyyy hh:mm:ss' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="updated">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesOverview($event, 'updated')" [style.width]="getColumnWidthOverview('updated')">{{ 'desc.process_updated' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.updated | date : 'dd.MM.yyyy hh:mm:ss' }}</td>
+        </ng-container>
+
         <ng-container matColumnDef="timestamp">
-          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesOverview($event, 'timestamp')" [style.width]="getColumnWidthOverview('timestamp')">{{ 'desc.modified' | translate }}</th>
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesOverview($event, 'timestamp')" [style.width]="getColumnWidthOverview('timestamp')">{{ 'desc.process_timestamp' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.timestamp | date : 'dd.MM.yyyy hh:mm:ss' }}</td>
         </ng-container>
 

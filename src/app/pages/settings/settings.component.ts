@@ -20,7 +20,7 @@ import { UIService } from '../../services/ui.service';
 import { AuthService } from '../../services/auth.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
 import { NewPasswordDialogComponent } from '../../dialogs/new-password-dialog/new-password-dialog.component';
@@ -28,7 +28,7 @@ import { PreferredTopsDialogComponent } from '../../dialogs/preferred-tops-dialo
 
 @Component({
   standalone: true,
-  imports: [CommonModule, TranslateModule, FormsModule, DragDropModule, 
+  imports: [CommonModule, TranslateModule, FormsModule, DragDropModule,
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule,
     MatInputModule, MatDividerModule, MatProgressBarModule, MatSelectModule,
     MatCheckboxModule
@@ -96,8 +96,8 @@ export class SettingsComponent implements OnInit {
 
   changeCodebookTops(prefix: string, listName: string, conf: string[], expanded: boolean = false) {
     const top: string[] = this.curSettings[listName];
-    const dialogRef = this.dialog.open(PreferredTopsDialogComponent, { 
-      data: {prefix, top, conf, expanded, relatedItemExpanded: this.curSettings.relatedItemExpanded} 
+    const dialogRef = this.dialog.open(PreferredTopsDialogComponent, {
+      data: { prefix, top, conf, expanded, relatedItemExpanded: this.curSettings.relatedItemExpanded }
     });
 
 
@@ -138,6 +138,11 @@ export class SettingsComponent implements OnInit {
       width: '550px',
       panelClass: 'app-dialog-new-password'
     });
+  }
+
+  resetOne(s: string) {
+    this.settingsService.resetOne(s);
+    this.curSettings = this.settingsService.cloneSettings();
   }
 
   resetSettings() {

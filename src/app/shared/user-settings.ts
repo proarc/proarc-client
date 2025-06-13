@@ -186,6 +186,8 @@ columnsWorkFlowTasksDefault: TableColumn[] = [
 public procMngColumnsDefault: TableColumn[] = [
     { field: 'description', selected: true, width: 100, type: 'string' },
     { field: 'create', selected: true, width: 100, type: 'date' },
+    { field: 'itemUpdated', selected: true, width: 100, type: 'datetime' },
+    { field: 'updated', selected: true, width: 100, type: 'datetime' },
     { field: 'timestamp', selected: true, width: 100, type: 'datetime' },
     { field: 'state', selected: true, width: 100, type: 'string' },
     { field: 'profile', selected: true, width: 100, type: 'string' },
@@ -228,6 +230,8 @@ public devicesColumnsDefault: TableColumn[] = [
     { field: 'action', selected: true, width: 100, type: 'action' }
 ];
 
+[key: string]: any; // This is to allow property asignement by name this[k] = o[k];
+
     constructor(
         private api: ApiService,
         private ui: UIService,
@@ -245,6 +249,10 @@ public devicesColumnsDefault: TableColumn[] = [
             this.settings[k] = o[k];
         }); 
         this.save(true);
+    }
+
+    resetOne(key: string) {
+      this.settings[key] = Utils.clone(this[key + 'Default']);
     }
 
     reset() {
