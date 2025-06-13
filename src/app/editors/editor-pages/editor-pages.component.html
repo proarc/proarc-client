@@ -34,7 +34,9 @@
               <mat-label>{{ 'editor.pages.page_type' | translate }}</mat-label>
               <mat-select [placeholder]="'editor.pages.page_type' | translate" name="type" [(value)]="holder.pageType" (keyup.enter)="enterSelect(typeSelect)" #typeSelect [formControl]="pageTypeControl">
                 <mat-option [value]="''"> </mat-option>
-                <mat-option *ngFor="let pageType of config.pageTypes" [value]="pageType">{{ pageType }}</mat-option>
+                @for(pageType of config.pageTypes; track $index;) {
+                <mat-option [value]="pageType">{{ pageType }}</mat-option>
+                }
               </mat-select>
             </mat-form-field>
           </div>
@@ -75,7 +77,9 @@
             <mat-form-field appearance="outline" class="app-field-col">
               <mat-label>{{ 'editor.pages.number_numbering' | translate }}</mat-label>
               <mat-select #numSelect [placeholder]="'editor.pages.number_numbering' | translate" name="type" [(value)]="holder.pageNumberNumbering" (keyup.enter)="enterSelect(numSelect)" [formControl]="numberingTypesControl">
-                <mat-option *ngFor="let type of holder.numberingTypes;" [value]="type">{{ type.label }}</mat-option>
+                @for(type of holder.numberingTypes; track $index;) {
+                  <mat-option [value]="type">{{ type.label }}</mat-option>
+                }
               </mat-select>
             </mat-form-field>
             <div class="app-pl-2 app-pr-2">
@@ -95,7 +99,9 @@
               <mat-label>{{ 'editor.pages.page_position' | translate }}</mat-label>
               <mat-select #posSelect [placeholder]="'editor.pages.page_position' | translate" name="type" [(value)]="holder.pagePosition" (keyup.enter)="enterSelect(posSelect)"  [formControl]="posControl">
                 <mat-option [value]="''"> </mat-option>
-                <mat-option *ngFor="let pagePosition of config.pagePositions" [value]="pagePosition">{{ 'editor.pages.page_position_' + pagePosition | translate }}</mat-option>
+                @for(pagePosition of config.pagePositions; track $index;) {
+                <mat-option [value]="pagePosition">{{ 'editor.pages.page_position_' + pagePosition | translate }}</mat-option>
+                }
               </mat-select>
             </mat-form-field>
           </div>
@@ -121,7 +127,9 @@
             <mat-form-field appearance="outline" class="app-field-col">
               <mat-label>{{ 'editor.pages.apply' | translate }}</mat-label>
               <mat-select [placeholder]="'editor.pages.apply' | translate" name="apply" [(value)]="holder.applyTo"  [disabled]="!canSave()" (keyup.enter)="enterSelect(applySelect)" #applySelect  [formControl]="applyControl">
-                <mat-option *ngFor="let num of holder.applyOptions;" [value]="num">{{'editor.pages.apply_to' + (num > 1 ? '2' : '0') | translate: { num: num } }}</mat-option>
+                @for(num of holder.applyOptions; track $index;) {
+                  <mat-option [value]="num">{{'editor.pages.apply_to' + (num > 1 ? '2' : '0') | translate: { num: num } }}</mat-option>
+                }
               </mat-select>
             </mat-form-field>
             <div class="app-pl-2 app-pr-2 app-pb-2">

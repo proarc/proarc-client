@@ -13,7 +13,9 @@
         <mat-icon>format_list_numbered</mat-icon>
       </button>
       <mat-menu #chapters_menu="matMenu">
-        <div *ngFor="let chapter of chapters" mat-menu-item (click)="displayChapter(chapter)">{{ chapter.label }}</div>
+        @for(chapter of chapters; track $index; let idx = $index) {
+        <div mat-menu-item (click)="displayChapter(chapter)">{{ chapter.label }}</div>
+        }
       </mat-menu>
       <button mat-icon-button (click)="showPrev()" [disabled]="rendition.location.start.index === 0" [matTooltip]="'button.prev_page' | translate">
         <mat-icon>keyboard_arrow_left</mat-icon>

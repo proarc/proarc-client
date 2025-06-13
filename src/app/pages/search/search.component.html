@@ -20,7 +20,9 @@
           <mat-label>{{ 'desc.model' | translate }}</mat-label>
           <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model">
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
-            <mat-option *ngFor="let model of config.models" [value]="model">{{ "model." + model | translate }}</mat-option>
+            @for(model of config.models; track $index;) {
+            <mat-option [value]="model">{{ "model." + model | translate }}</mat-option>
+            }
           </mat-select>
           <button *ngIf="model !== this.config.defaultModel && settings.searchModel === model" matSuffix mat-icon-button aria-label="Clear" (click)="model=this.config.defaultModel; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
             <mat-icon>close</mat-icon>
@@ -39,7 +41,9 @@
           <mat-label>{{ 'desc.model' | translate }}</mat-label>
           <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model">
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
-            <mat-option *ngFor="let model of config.models" [value]="model">{{ "model." + model | translate }}</mat-option>
+            @for(model of config.models; track $index;) {
+            <mat-option [value]="model">{{ "model." + model | translate }}</mat-option>
+            }
           </mat-select>
           <button *ngIf="model !== this.config.defaultModel && settings.searchModel === model" matSuffix mat-icon-button aria-label="Clear" (click)="model=this.config.defaultModel; filter(); $event.stopPropagation();" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
             <mat-icon>close</mat-icon>
@@ -70,7 +74,9 @@
           <mat-label>{{ 'desc.organization' | translate }}</mat-label>
           <mat-select [placeholder]="'desc.organization' | translate" name="organization" [(value)]="organization">
             <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
-            <mat-option *ngFor="let org of config.organizations" [value]="org">{{ 'organization.' + org | translate }}</mat-option>
+            @for(org of config.organizations; track $index;) {
+            <mat-option [value]="org">{{ 'organization.' + org | translate }}</mat-option>
+            }
           </mat-select>
           <button *ngIf="organization !=='-' && settings.searchOrganization === organization" matSuffix mat-icon-button aria-label="Clear" (click)="organization='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
             <mat-icon>close</mat-icon>
@@ -80,7 +86,9 @@
           <mat-label>{{ 'desc.owner' | translate }}</mat-label>
           <mat-select [placeholder]="'desc.owner' | translate" name="owner" [(value)]="owner">
             <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
-            <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
+            @for(user of users; track $index;) {
+            <mat-option [value]="user.name">{{ user.name }}</mat-option>
+            }
           </mat-select>
           <button *ngIf="owner !== '-' && settings.searchOwner === owner" matSuffix mat-icon-button aria-label="Clear" (click)="owner='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
             <mat-icon>close</mat-icon>
@@ -90,7 +98,9 @@
           <mat-label>{{ 'desc.processor' | translate }}</mat-label>
           <mat-select [placeholder]="'desc.processor' | translate" name="processor" [(value)]="processor">
             <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
-            <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
+            @for(user of users; track $index;) {
+            <mat-option [value]="user.name">{{ user.name }}</mat-option>
+            }
           </mat-select>
           <button *ngIf="processor !== '-' &&  settings.searchProcessor === processor" matSuffix mat-icon-button aria-label="Clear" (click)="processor='-'; filter()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
             <mat-icon>close</mat-icon>
@@ -126,7 +136,9 @@
                 <button (click)="expandAllInTree()" mat-button>{{ 'button.unpack' | translate }}</button>
                 <app-search-actions class="app-fxLayout app-row app-center-v" [items]="items" [selectedItem]="selectedItem" [selectedTreeItem]="selectedTreeItem" [treeItems]="treeItems" (reload)="reload($event)" (reloadTree)="reloadTree($event)" [(state)]="state" [forTree]="true"></app-search-actions>
               </div>
-                <div *ngFor="let i of object.keys(tree_info)" class="app-mr-2">{{ 'model.' + i | translate }}: {{ tree_info[i] }}</div>
+              @for(i of object.keys(tree_info); track $index;) {
+                <div class="app-mr-2">{{ 'model.' + i | translate }}: {{ tree_info[i] }}</div>
+              }
                 <button *ngIf="batchInfo" mat-icon-button color="primary" (click)="onShowLog(batchInfo);" [matTooltip]="'button.viewErrorDetail' | translate" matTooltipPosition="below" class="app-icon-button">
                   <mat-icon>error_outline</mat-icon>
                 </button>

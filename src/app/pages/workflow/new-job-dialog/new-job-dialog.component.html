@@ -4,21 +4,27 @@
   <mat-form-field class="app-w-100">
     <mat-label>{{ 'desc.selectProfile' | translate }}</mat-label>
     <mat-select [placeholder]="'desc.selectProfile' | translate" [(ngModel)]="selectedProfile" >
-      <mat-option *ngFor="let profile of data.profiles" [value]="profile">{{ profile.title }}</mat-option>
+      @for(profile of data.profiles; track $index;) {
+      <mat-option [value]="profile">{{ profile.title }}</mat-option>
+      }
     </mat-select>
   </mat-form-field>
   
   <mat-form-field class="app-w-100">
     <mat-label>{{ 'desc.selectCatalog' | translate }}</mat-label>
     <mat-select [placeholder]="'desc.selectCatalog' | translate" [(ngModel)]="selectedCatalogue" >
-      <mat-option *ngFor="let c of catalogues" [value]="c">{{ c.name }}</mat-option>
+      @for(c of catalogues; track $index;) {
+      <mat-option [value]="c">{{ c.name }}</mat-option>
+      }
     </mat-select>
   </mat-form-field>
 
   <mat-form-field class="app-w-100">
     <mat-label>{{ 'desc.field' | translate }}</mat-label>
     <mat-select [placeholder]="'desc.field' | translate" name="field" [(ngModel)]="activeField" >
-      <mat-option *ngFor="let field of selectedCatalogue?.fields" [value]="field">{{ field.name }}</mat-option>
+      @for(field of selectedCatalogue?.fields; track $index;) {
+      <mat-option [value]="field">{{ field.name }}</mat-option>
+      }
     </mat-select>
   </mat-form-field>
   
@@ -32,9 +38,11 @@
   <div class="app-results" *ngIf="results && results.length > 0">
     <mat-divider class="app-mt-4 app-mb-4"></mat-divider>
     <div class="app-table">
-      <div *ngFor="let entry of results; let i = index" class="app-row" [class.app-active]="i == activeIndex" (click)="selectEntry(i)">
+      @for(entry of results; let i = $index; track $index;) {
+      <div class="app-row" [class.app-active]="i == activeIndex" (click)="selectEntry(i)">
         <div class="entry">{{ entry.title }}</div>
       </div>
+    }
     </div>
     <div class="app-detail" *ngIf="activeIndex >= 0">
       <div [innerHTML]="results[activeIndex].preview"></div>

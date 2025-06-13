@@ -51,26 +51,34 @@
               <mat-label>{{ 'editor.atm.device' | translate }}</mat-label>
               <mat-select [placeholder]="'editor.atm.device' | translate" name="device" [(value)]="atm.device">
                 <mat-option [value]="'null'">{{ 'editor.atm.no_device' | translate }}</mat-option>
-                <mat-option *ngFor="let device of devices" [value]="device.id">{{ device.label }}</mat-option>
+                @for(device of devices; track $index;) {
+                <mat-option [value]="device.id">{{ device.label }}</mat-option>
+                }
               </mat-select>
             </mat-form-field>
             <mat-form-field class="app-field-col" appearance="outline">
               <mat-label>{{ 'editor.atm.organization' | translate }}</mat-label>
               <mat-select [disabled]="!auth.isSuperAdmin()" [placeholder]="'editor.atm.organization' | translate" name="organization" [(value)]="atm.organization">
-                <mat-option *ngFor="let organization of organizations" [value]="organization">{{ 'organization.' + organization | translate }}</mat-option>
+                @for(organization of organizations; track $index;) {
+                <mat-option [value]="organization">{{ 'organization.' + organization | translate }}</mat-option>
+                }
               </mat-select>
             </mat-form-field>  
             <mat-form-field class="app-field-col" appearance="outline">
               <mat-label>{{ 'editor.atm.userProcessor' | translate }}</mat-label>
               <mat-select [disabled]="!auth.isSuperAdmin() && !auth.isAdmin()" [placeholder]="'editor.atm.userProcessor' | translate" name="userProcessor" [(value)]="atm.userProcessor">
-                <mat-option *ngFor="let user of users" [value]="user.name">{{ user.name }}</mat-option>
+                @for(user of users; track $index;) {
+                  <mat-option [value]="user.name">{{ user.name }}</mat-option>
+                }
                 <mat-option value="all">Všichni</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field class="app-field-col" appearance="outline">
               <mat-label>{{ 'editor.atm.status' | translate }}</mat-label>
               <mat-select [placeholder]="'editor.atm.status' | translate" name="status" [(value)]="atm.status">
-                <mat-option *ngFor="let status of statuses" [value]="status">{{ 'editor.atm.statuses.' + status | translate }}</mat-option>
+                @for(status of statuses; track $index;) {
+                <mat-option [value]="status">{{ 'editor.atm.statuses.' + status | translate }}</mat-option>
+                }
               </mat-select>
             </mat-form-field>
 
@@ -92,7 +100,9 @@
               <mat-label>{{ 'editor.atm.donator' | translate }}</mat-label>
               <mat-select [placeholder]="'editor.atm.donator' | translate" name="donator" [(value)]="atm.donator">
                 <mat-option [value]="null">{{ 'editor.atm.donators.none' | translate }}</mat-option>
-                <mat-option *ngFor="let donator of donators" [value]="donator">{{ 'editor.atm.donators.' + donator | translate }}</mat-option>
+                @for(donator of donators; track $index;) {
+                <mat-option [value]="donator">{{ 'editor.atm.donators.' + donator | translate }}</mat-option>
+                }
               </mat-select>
             </mat-form-field>
 

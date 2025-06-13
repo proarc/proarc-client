@@ -1,9 +1,10 @@
 <h1 mat-dialog-title>{{ 'dialog.preferredTops.title.' + data.prefix | translate }}</h1>
 <div mat-dialog-content>
-
-  <div *ngFor="let item of items">
+@for(item of items; track $index;) {
+  <div>
     <mat-checkbox color="primary" [(ngModel)]="item.selected">{{ data.prefix + '.' + item.name.toLowerCase() | translate }}</mat-checkbox>
   </div>
+}
 </div>
 <div>
   <mat-slide-toggle *ngIf="this.data.expanded" [(ngModel)]="relatedItemExpanded" color="primary" class="app-slide-toogle" [matTooltip]="'desc.includeRelatedItem' | translate">{{ 'relatedItem' | translate }}</mat-slide-toggle>

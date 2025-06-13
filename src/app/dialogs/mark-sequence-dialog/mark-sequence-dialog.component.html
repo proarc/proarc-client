@@ -36,27 +36,31 @@
           <div class="app-oa-y app-fxFlex">
             <div class="app-editor-content">
               <div class="app-fxLayout app-row app-wrap app-view-icon" *ngIf="data.viewModeOrig === 'icons'" #childrenIconList>
-                <div *ngFor="let item of dest; let i = index" class="app-item-wrapper" (click)="select(dest, item, i, $event, 'dest')" [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
-                  <div class="app-item">
-                    <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['dest'] + 'px'"></div>
-                    <div class="app-item-label">
-                      <div class="app-text app-h-100">
-                        {{ item.label + (data.shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}
+                @for(item of dest; let i = $index; track $index;) {
+                  <div class="app-item-wrapper" (click)="select(dest, item, i, $event, 'dest')" [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
+                    <div class="app-item">
+                      <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['dest'] + 'px'"></div>
+                      <div class="app-item-label">
+                        <div class="app-text app-h-100">
+                          {{ item.label + (data.shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                }
               </div>
 
               <div class="app-fxLayout app-row app-wrap app-view-grid" *ngIf="data.viewModeOrig == 'grid'" #childrenGridList>
-                <div *ngFor="let item of dest; let i = index" (click)="select(dest, item, i, $event, 'dest')" class="app-item-wrapper" [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [style]="'flex: 1 1 ' + data.iconWidth['orig'] + '%; max-width: ' + data.iconWidth['orig'] + '%; box-sizing: border-box;'">
-                  <div class="app-item">
-                    <div class="app-item-label">
-                      {{ data.shortLabels ? item.shortLabel : item.label }}<br />
-                      ({{ (item.pageType ? "pageType." + item.pageType : "model." + item.model) | translate }})
+                @for(item of dest; let i = $index; track $index;) {
+                  <div (click)="select(dest, item, i, $event, 'dest')" class="app-item-wrapper" [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [style]="'flex: 1 1 ' + data.iconWidth['orig'] + '%; max-width: ' + data.iconWidth['orig'] + '%; box-sizing: border-box;'">
+                    <div class="app-item">
+                      <div class="app-item-label">
+                        {{ data.shortLabels ? item.shortLabel : item.label }}<br />
+                        ({{ (item.pageType ? "pageType." + item.pageType : "model." + item.model) | translate }})
+                      </div>
                     </div>
                   </div>
-                </div>
+                }
               </div>
 
               <table mat-table *ngIf="data.viewModeOrig == 'list'" [dataSource]="destTable" class="app-striped app-hover app-resize" #table>
@@ -137,29 +141,33 @@
           <div class="app-fxFlex app-oa-y">
             <div class="app-editor-content">
               <div class="app-fxLayout app-row app-wrap app-view-icon" *ngIf="data.viewModeDest == 'icons'" #childrenIconList>
-                <div *ngFor="let item of dest; let i = index" class="app-item-wrapper" (click)="select(dest, item, i, $event, 'dest')" 
-                [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
-                  <div class="app-item">
-                    <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['dest'] + 'px'"></div>
-                    <div class="app-item-label">
-                      <div class="app-text app-h-100">
-                        {{ item.label + (data.shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}
+                @for(item of dest; let i = $index; track $index;) {
+                  <div class="app-item-wrapper" (click)="select(dest, item, i, $event, 'dest')" 
+                  [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
+                    <div class="app-item">
+                      <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['dest'] + 'px'"></div>
+                      <div class="app-item-label">
+                        <div class="app-text app-h-100">
+                          {{ item.label + (data.shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                }
               </div>
 
               <div class="app-fxLayout app-row app-wrap app-view-grid" *ngIf="data.viewModeDest == 'grid'" #childrenGridList>
-                <div *ngFor="let item of dest; let i = index" (click)="select(dest, item, i, $event, 'dest')" class="app-item-wrapper" 
-                [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
-                  <div class="app-item">
-                    <div class="app-item-label">
-                      {{ data.shortLabels ? item.shortLabel : item.label }}<br />
-                      ({{ (item.pageType ? "pageType." + item.pageType : "model." + item.model) | translate }})
+                @for(item of dest; let i = $index; track $index;) {
+                  <div (click)="select(dest, item, i, $event, 'dest')" class="app-item-wrapper" 
+                  [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
+                    <div class="app-item">
+                      <div class="app-item-label">
+                        {{ data.shortLabels ? item.shortLabel : item.label }}<br />
+                        ({{ (item.pageType ? "pageType." + item.pageType : "model." + item.model) | translate }})
+                      </div>
                     </div>
                   </div>
-                </div>
+                }
               </div>
 
               <table mat-table *ngIf="data.viewModeDest == 'list'" [dataSource]="destTable" class="app-striped app-hover app-resize" #table>

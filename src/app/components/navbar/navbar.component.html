@@ -55,9 +55,11 @@
 
     <a mat-button [matMenuTriggerFor]="language_menu">{{ 'navbar.lang.code.' + translator.currentLang | translate }}</a>
       <mat-menu #language_menu="matMenu">
-        <button *ngFor="let lang of languages" mat-menu-item (click)="onLanguageChanged(lang)">
+        @for(lang of languages; track $index; let idx = $index) {
+        <button mat-menu-item (click)="onLanguageChanged(lang)">
           <span>{{ 'navbar.lang.desc.' + lang | translate }}</span>
         </button>
+      }
       </mat-menu>
 
     <a *ngIf="auth.isLoggedIn() && config.showLogoutCounter" class="app-session app-clean-cursor-pointer" [matTooltip]="('desc.session' | translate) + ': ' + (auth.remaining * 1000 | date:'mm:ss')">

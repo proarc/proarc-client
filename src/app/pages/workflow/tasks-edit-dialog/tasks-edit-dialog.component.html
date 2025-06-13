@@ -7,28 +7,32 @@
                 <mat-form-field>
                     <mat-label>{{ 'desc.state' | translate }}</mat-label>
                     <mat-select [(ngModel)]="state" [placeholder]="'desc.state' | translate">
-                        <mat-option *ngFor="let o of data.states"
-                            [value]="o.code">{{o.value}}</mat-option>
+                        @for(o of data.states; track $index;) {
+                        <mat-option [value]="o.code">{{o.value}}</mat-option>
+                        }
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>{{ 'desc.priority' | translate }}</mat-label>
                     <mat-select [(ngModel)]="priority" [placeholder]="priority">
-                        <mat-option *ngFor="let o of data.priorities"
-                            [value]="o.code">{{o.value}}</mat-option>
+                        @for(o of data.priorities; track $index;) {
+                        <mat-option [value]="o.code">{{o.value}}</mat-option>
+                        }
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>{{ 'desc.user' | translate }}</mat-label>
                     <mat-select [(ngModel)]="ownerId" >
-                        <mat-option *ngFor="let s of data.users" [value]="s.userId">{{ s.name
-                            }}</mat-option>
+                        @for(s of data.users; track $index;) {
+                        <mat-option [value]="s.userId">{{ s.name }}</mat-option>
+                        }
                     </mat-select>
                 </mat-form-field>
             </div>
             <ng-container  *ngIf="isSelectionSameType">
                 <h3>Parametry ({{ data.tasks[0].profileLabel}})</h3>
-                <div *ngFor="let param of data.parameters" fxLayout="row" fxLayoutGap="16px">
+                @for(param of data.parameters; track $index;) {
+                <div fxLayout="row" fxLayoutGap="16px">
                     <ng-container [ngSwitch]="param.displayType">
 
                         <mat-form-field *ngSwitchCase="'TEXT'">
@@ -43,13 +47,15 @@
                             <mat-label>{{ param.profileLabel }}</mat-label>
                             <mat-select [(ngModel)]="param.value"
                                 [placeholder]="param.profileLabel">
-                                <mat-option *ngFor="let o of config.getValueMap(param.valueMapId)"
-                                    [value]="o.code">{{o.value}}</mat-option>
+                                @for(o of config.getValueMap(param.valueMapId); track $index;) {
+                                <mat-option [value]="o.code">{{o.value}}</mat-option>
+                                }
                             </mat-select>
                         </mat-form-field>
                         <span *ngSwitchDefault>{{param.displayType}}</span>
                     </ng-container>
                 </div>
+            }
             </ng-container>
           </div>
     </div>

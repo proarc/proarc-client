@@ -4,7 +4,9 @@
   <div>
     <mat-form-field class="app-w-100">
       <mat-select [placeholder]="'desc.registrar' | translate" [(ngModel)]="selectedRegistrar" [disabled]="formDisabled()">
-        <mat-option *ngFor="let registrar of registrars" [value]="registrar">{{ registrar.name }}</mat-option>
+        @for(registrar of registrars; track $index;) {
+        <mat-option [value]="registrar">{{ registrar.name }}</mat-option>
+        }
       </mat-select>
     </mat-form-field>
   </div>

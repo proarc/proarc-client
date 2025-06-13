@@ -3,7 +3,9 @@
 		<div class="app-fxFlex">
 			<mat-form-field class="app-clean-mb app-select" appearance="outline" *ngIf="streamProfile">
 				<mat-select name="profiles" [(ngModel)]="streamProfile">
-					<mat-option *ngFor="let p of streamProfiles" [value]="p">{{ 'streamProfile.' + p.dsid | translate }}</mat-option>
+					@for(p of streamProfiles; track $index; let idx = $index) {
+					<mat-option [value]="p">{{ 'streamProfile.' + p.dsid | translate }}</mat-option>
+					}
 				</mat-select>
 			</mat-form-field>
 		</div>

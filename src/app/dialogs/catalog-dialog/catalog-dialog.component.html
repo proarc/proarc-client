@@ -6,14 +6,18 @@
       <mat-form-field appearance="outline" class="app-fxFlex" *ngIf="catalogs && catalogs.length > 0">
         <mat-label>{{ 'desc.catalog' | translate }}</mat-label>
         <mat-select (selectionChange)="onCatalogChanged($event.value)" [placeholder]="'desc.catalog' | translate" name="catalog" [(ngModel)]="activeCatalog" [disabled]="state=='loading'  || state=='saving'">
-          <mat-option *ngFor="let catalog of catalogs" [value]="catalog">{{ catalog.name }}</mat-option>
+          @for(catalog of catalogs; track $index;) {
+            <mat-option [value]="catalog">{{ catalog.name }}</mat-option>
+          }
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline" *ngIf="activeCatalog" >
         <mat-label>{{ 'desc.field' | translate }}</mat-label>
         <mat-select [placeholder]="'desc.field' | translate" name="field" [(ngModel)]="activeField" [disabled]="state=='loading'  || state=='saving'">
-          <mat-option *ngFor="let field of activeCatalog?.fields" [value]="field">{{ field.name }}</mat-option>
+          @for(field of activeCatalog?.fields; track $index;) {
+          <mat-option [value]="field">{{ field.name }}</mat-option>
+          }
         </mat-select>
       </mat-form-field>
 

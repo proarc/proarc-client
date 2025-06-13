@@ -14,10 +14,12 @@ import { Catalogue, CatalogueField } from '../../../model/catalogue.model';
 import { CatalogueEntry } from '../../../model/catalogueEntry.model';
 import { ApiService } from '../../../services/api.service';
 import { UIService } from '../../../services/ui.service';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
-    MatIconModule, MatProgressBarModule, MatTooltipModule,
-    MatRadioModule, MatFormFieldModule, MatSelectModule,
+    MatIconModule, MatProgressBarModule, MatTooltipModule, MatDividerModule,
+    MatRadioModule, MatFormFieldModule, MatSelectModule, MatCardModule
   ],
   selector: 'app-new-job-dialog',
   templateUrl: './new-job-dialog.component.html',

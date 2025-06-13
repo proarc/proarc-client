@@ -4,8 +4,10 @@
   <mat-select [required]="item.isMandatory[field]" 
    [formControl]="item.controls[field]" 
    [placeholder]="'mods.' + item.labelKey[field] | translate">
-    <mat-option *ngFor="let option of options" [value]="option">
+   @for(option of options; track $index;) {
+    <mat-option [value]="option">
       {{ prefix + '.' + option | translate }} {{ showCode ? '('+option + ')' : '' }}
     </mat-option>
+  }
   </mat-select>
 </mat-form-field>

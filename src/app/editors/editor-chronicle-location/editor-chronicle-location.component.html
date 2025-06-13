@@ -3,9 +3,11 @@
     <mat-form-field appearance="outline" class="app-field-col">
       <mat-label>{{ 'editor.chronicle.location.archive' | translate }}</mat-label>
       <mat-select [(ngModel)]='item.physicalLocation["$"]["type"]' [placeholder]="'editor.chronicle.location.archive' | translate">
-        <mat-option *ngFor="let archive of archives" [value]="archive.code">
-          {{ archive.name }}
-        </mat-option>
+        @for(archive of archives; track $index;) {
+          <mat-option [value]="archive.code">
+            {{ archive.name }}
+          </mat-option>
+        }
       </mat-select>
     </mat-form-field>
 

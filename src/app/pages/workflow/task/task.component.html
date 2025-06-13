@@ -57,19 +57,25 @@
 													<mat-form-field appearance="outline" class="app-field-col app-field-col-3">
 														<mat-label>{{ 'desc.state' | translate }}</mat-label>
 														<mat-select [(ngModel)]="task.state" [placeholder]="'desc.state' | translate">
-															<mat-option *ngFor="let o of states" [value]="o.code">{{o.value}}</mat-option>
+															@for(o of states; track $index;) {
+															<mat-option [value]="o.code">{{o.value}}</mat-option>
+															}
 														</mat-select>
 													</mat-form-field>
 													<mat-form-field appearance="outline" class="app-field-col app-field-col-3">
 														<mat-label>{{ 'desc.priority' | translate }}</mat-label>
 														<mat-select [(ngModel)]="task.priority" [placeholder]="task.priority">
-															<mat-option *ngFor="let o of priorities" [value]="o.code">{{o.value}}</mat-option>
+															@for(o of priorities; track $index;) {
+															<mat-option [value]="o.code">{{o.value}}</mat-option>
+															}
 														</mat-select>
 													</mat-form-field>
 													<mat-form-field appearance="outline" class="app-field-col app-field-col-3">
 														<mat-label>{{ 'desc.user' | translate }}</mat-label>
 														<mat-select [(ngModel)]="task.ownerId" [placeholder]="task.ownerName">
-															<mat-option *ngFor="let s of users" [value]="s.userId">{{ s.name }}</mat-option>
+															@for(s of users; track $index;) {
+															<mat-option [value]="s.userId">{{ s.name }}</mat-option>
+															}
 														</mat-select>
 													</mat-form-field>
 
@@ -90,8 +96,7 @@
 														<mat-label>{{ 'desc.note' | translate }}</mat-label>
 														<textarea [(ngModel)]="task.note" matInput [placeholder]="'desc.note' | translate"></textarea>
 													</mat-form-field>
-
-													<ng-container *ngFor="let param of parameters">
+													@for(param of parameters; track $index;) {
 														<ng-container [ngSwitch]="param.displayType">
 
 																<mat-form-field *ngSwitchCase="'TEXT'" appearance="outline" class="app-field-col">
@@ -106,13 +111,15 @@
 																<mat-form-field *ngSwitchCase="'COMBOBOX'" appearance="outline" class="app-field-col">
 																	<mat-label>{{ param.profileLabel }}</mat-label>
 																	<mat-select [(ngModel)]="param.value">
-																		<mat-option *ngFor="let o of getValueMap(param.valueMapId)" [value]="o.value">{{o.value}}</mat-option>
+																		@for(o of getValueMap(param.valueMapId); track $index;) {
+																		<mat-option [value]="o.value">{{o.value}}</mat-option>
+																		}
 																	</mat-select>
 																</mat-form-field>
 
 																<div *ngSwitchDefault>{{ param.displayType }}</div>
 														</ng-container>
-													</ng-container>
+												}
 												</div>
 											</div>
 											<div class="app-gap-fixer"></div>
@@ -127,10 +134,12 @@
                 <div class="app-fxFlex app-oa-y">
                   <div class="app-editor-content">
 											<table mat-table [dataSource]="material" multiTemplateDataRows class="app-expanded app-hover">
-												<ng-container matColumnDef="{{column}}" *ngFor="let column of materialColumnsToDisplay">
+												@for(column of materialColumnsToDisplay; track $index;) {
+												<ng-container matColumnDef="{{column}}" >
 													<th mat-header-cell *matHeaderCellDef>{{ 'dynamic.workFlow.' + column | translate }}</th>
 													<td mat-cell *matCellDef="let element">{{ element[column] }}</td>
 												</ng-container>
+											}
 
 												<ng-container matColumnDef="expand">
 													<th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
@@ -163,55 +172,7 @@
 
 
 
-								<!-- <div fxLayout="column" fxFlexFill>
-										<div class="app-oa-y" *ngIf="totalSelected === 1">
-												<table mat-table [dataSource]="material" multiTemplateDataRows
-														class="app-expanded app-hover">
-														<ng-container matColumnDef="{{column}}"
-																*ngFor="let column of materialColumnsToDisplay">
-																<th mat-header-cell *matHeaderCellDef>{{ 'dynamic.workFlow.' + column |
-																		translate }}</th>
-																<td mat-cell *matCellDef="let element">{{ element[column] }}</td>
-														</ng-container>
-
-														<ng-container matColumnDef="expand">
-																<th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
-																<td mat-cell *matCellDef="let element" class="app-text-right">
-																		<a
-																				(click)="(materialExpandedElement = materialExpandedElement === element ? null : element); $event.stopPropagation()">
-																				<mat-icon
-																						*ngIf="materialExpandedElement !== element">keyboard_arrow_down</mat-icon>
-																				<mat-icon
-																						*ngIf="materialExpandedElement === element">keyboard_arrow_up</mat-icon>
-																		</a>
-																</td>
-														</ng-container>
-
-														<ng-container matColumnDef="expandedDetail">
-																<td mat-cell *matCellDef="let element"
-																		[attr.colspan]="materialColumnsToDisplayWithExpand.length">
-																		<div class="app-detail"
-																				[@detailExpand]="element == materialExpandedElement ? 'expanded' : 'collapsed'">
-																				<div class="app-pt-2 app-pb-2">
-																						<app-material-edit [material]="element"></app-material-edit>
-																				</div>
-																		</div>
-																</td>
-														</ng-container>
-
-														<tr mat-header-row
-																*matHeaderRowDef="materialColumnsToDisplayWithExpand; sticky: true"></tr>
-														<tr mat-row
-																*matRowDef="let element; columns: materialColumnsToDisplayWithExpand;"
-																[class.app-row-expanded-parent]="materialExpandedElement === element"
-																(click)="materialExpandedElement = materialExpandedElement === element ? null : element">
-														</tr>
-														<tr mat-row *matRowDef="let row; columns: ['expandedDetail']"
-																class="app-row-detail"
-																[class.app-row-expanded]="materialExpandedElement === row"></tr>
-												</table>
-										</div>
-								</div> -->
+								
 						</as-split-area>
 						</as-split>
 				</as-split-area>

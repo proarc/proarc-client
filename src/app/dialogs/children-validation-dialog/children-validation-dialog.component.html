@@ -1,17 +1,21 @@
-<mat-progress-bar *ngIf="state == 'running'" color="primary" mode="buffer" [value]="(index/count) * 100" [bufferValue]="0"></mat-progress-bar>
+<mat-progress-bar *ngIf="state == 'running'" color="primary" mode="buffer" [value]="(index/count) * 100"
+	[bufferValue]="0"></mat-progress-bar>
 <h1 mat-dialog-title>{{ 'dialog.childrenValidation.title' | translate }}</h1>
 <div mat-dialog-content>
 	<ng-container *ngIf="state == 'running'">{{ index + 1 }} / {{ count }}</ng-container>
-	<mat-card *ngIf="state == 'done'" class="app-alert" [ngClass]="numberOfInvalid == 0 ? 'app-success' : 'app-warn'" appearance="outlined">
+	<mat-card *ngIf="state == 'done'" class="app-alert" [ngClass]="numberOfInvalid == 0 ? 'app-success' : 'app-warn'"
+		appearance="outlined">
 		<mat-card-content>
 			<mat-icon>{{ numberOfInvalid == 0 ? 'info' : 'warning' }}</mat-icon>
-			{{ numberOfInvalid == 0 ? ('dialog.childrenValidation.alert.success' | translate : {value: count}) : ('dialog.childrenValidation.alert.error' | translate : {value1: numberOfInvalid, value2: count}) }}
+			{{ numberOfInvalid == 0 ? ('dialog.childrenValidation.alert.success' | translate : {value: count}) :
+			('dialog.childrenValidation.alert.error' | translate : {value1: numberOfInvalid, value2: count}) }}
 		</mat-card-content>
 	</mat-card>
 	<div style="height: 0px; overflow: hidden;">
-		<div *ngFor="let m of metadatas">
-			<app-editor-metadata [notSaved]="true"  [model]="m.metadata.model" [data]="m.metadata" [panel]="panel"></app-editor-metadata>
-		</div>
+		@for( m of metadatas; track $index;) {
+			<app-editor-metadata [notSaved]="true" [model]="m.metadata.model" [data]="m.metadata"
+				[panel]="panel"></app-editor-metadata>
+		}
 	</div>
 </div>
 <div *ngIf="state !== 'running'" mat-dialog-actions cdkFocusRegionstart>

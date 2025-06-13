@@ -3,19 +3,25 @@
 <div mat-dialog-content class="app-scrollbar-fix">
   <mat-form-field class="app-w-100">
     <mat-select [placeholder]="'desc.exportType' | translate" [(ngModel)]="selectedType" [disabled]="formDisabled()">
-      <mat-option *ngFor="let type of types" [value]="type">{{ "dialog.export.type." + type | translate }}</mat-option>
+      @for(type of types; track $index;) {
+      <mat-option [value]="type">{{ "dialog.export.type." + type | translate }}</mat-option>
+      }
     </mat-select>
   </mat-form-field>
   <mat-form-field *ngIf="selectedType=='kramerius' || selectedType==='ndk_psp_upload_kramerius' || selectedType === 'ndk_oldprint_upload_kramerius' || selectedType === 'ndk_sip_upload_kramerius'" class="app-w-100">
     <mat-select [placeholder]="'desc.krameriusInstances' | translate" name="instance" [(ngModel)]="importInstance">
-      <mat-option *ngFor="let ins of instances" [value]="ins">{{ ins.krameriusInstanceName }}</mat-option>
+      @for(ins of instances; track $index;) {
+      <mat-option [value]="ins">{{ ins.krameriusInstanceName }}</mat-option>
+      }
     </mat-select>
   </mat-form-field>
 
 
   <mat-form-field *ngIf="(selectedType=='kramerius' || selectedType==='ndk_psp_upload_kramerius' || selectedType === 'ndk_oldprint_upload_kramerius' || selectedType === 'ndk_sip_upload_kramerius') && importInstance && importInstance.krameriusInstanceLicenses" class="app-w-100">
     <mat-select [placeholder]="'desc.krameriusLicenses' | translate" name="instance" [(ngModel)]="licenseName">
-      <mat-option *ngFor="let lic of importInstance.krameriusInstanceLicenses" [value]="lic.krameriusInstanceLicenseName">{{ lic.krameriusInstanceLicenseDescription }} - ({{lic.krameriusInstanceLicenseName}})</mat-option>
+      @for(lic of importInstance.krameriusInstanceLicenses; track $index;) {
+      <mat-option [value]="lic.krameriusInstanceLicenseName">{{ lic.krameriusInstanceLicenseDescription }} - ({{lic.krameriusInstanceLicenseName}})</mat-option>
+      }
     </mat-select>
   </mat-form-field>
 
@@ -46,9 +52,11 @@
   </mat-card>
   <mat-card class="app-alert app-warn app-mt-4" *ngIf="state==='error'" fxLayout="column" fxLayoutGap="8px">
     <div>{{ 'dialog.export.alert.error' | translate }}</div>
-    <button *ngFor="let error of errors" (click)="showErrorDetail(error)" mat-flat-button color="warn">
-      {{ 'button.viewErrorDetail' | translate }}
-    </button>
+    @for(error of errors; track $index;) {
+      <button (click)="showErrorDetail(error)" mat-flat-button color="warn">
+        {{ 'button.viewErrorDetail' | translate }}
+      </button>
+    }
   </mat-card>
   <mat-card class="app-alert app-success" *ngIf="state=='done'" [class.app-mt-4]="selectedType=='kramerius' || selectedType=='kwis'">
       <mat-icon>check_circle</mat-icon>

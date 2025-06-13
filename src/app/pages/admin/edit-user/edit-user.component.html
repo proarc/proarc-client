@@ -45,13 +45,17 @@
             <mat-label>{{ 'desc.organization' | translate }}</mat-label>
             <mat-select [placeholder]="'desc.organization' | translate" name="organization" [(ngModel)]="selectedUser.organization">
               <mat-option [value]="null">--</mat-option>
-              <mat-option *ngFor="let organization of organizations" [value]="organization">{{ 'organization.' + organization | translate }}</mat-option>
+              @for(organization of organizations; track $index;) {
+              <mat-option [value]="organization">{{ 'organization.' + organization | translate }}</mat-option>
+              }
             </mat-select>
           </mat-form-field>
           <mat-form-field appearance="outline" class="app-fxFlex">
             <mat-label>{{ 'desc.role' | translate }}</mat-label>
             <mat-select [(ngModel)]='selectedUser.role' [placeholder]="'desc.role' | translate">
-              <mat-option *ngFor="let role of roles" [value]="role">{{ 'formField.users.roles.' + role | translate }}</mat-option>
+              @for(role of roles; track $index;) {
+              <mat-option [value]="role">{{ 'formField.users.roles.' + role | translate }}</mat-option>
+              }
             </mat-select>
           </mat-form-field>
         </div>

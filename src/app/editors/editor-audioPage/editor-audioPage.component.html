@@ -34,39 +34,43 @@
 
             <div class="app-form-wrapper" *ngIf="config.showPageIdentifiers">
               <div class="app-gap-fixer"></div>
-              <div class="app-form" *ngFor="let identifier of audioPage.identifiers; index as index; last as last; first as first;">
-                <div class="app-fxLayout app-row app-center-v app-form-header">
-                  <div class="app-fxFlex">
-                    <span class="app-form-title app-pl-2">{{ 'editor.song.identifier' | translate }}</span>
+              @for(identifier of audioPage.identifiers; let index = $index; let last = $last; let first = $first; track $index;) {
+                <div class="app-form">
+                  <div class="app-fxLayout app-row app-center-v app-form-header">
+                    <div class="app-fxFlex">
+                      <span class="app-form-title app-pl-2">{{ 'editor.song.identifier' | translate }}</span>
+                    </div>
+                    <div>
+                      <button [matTooltip]="'editor.song.add_identifier' | translate" (click)="audioPage.addIdentifierAfter(index)" mat-icon-button>
+                        <mat-icon>add</mat-icon>
+                      </button>
+                      <button [disabled]="first" [matTooltip]="'common.move_up' | translate" (click)="audioPage.moveIdentifierUp(index)" mat-icon-button>
+                        <mat-icon>arrow_drop_up</mat-icon>
+                      </button>
+                      <button [disabled]="last" [matTooltip]="'common.move_down' | translate" (click)="audioPage.moveIdentifierDown(index)" mat-icon-button>
+                        <mat-icon>arrow_drop_down</mat-icon>
+                      </button>
+                      <button [matTooltip]="'common.remove' | translate" (click)="audioPage.removeIdentifier(index)" mat-icon-button>
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </div>
                   </div>
-                  <div>
-                    <button [matTooltip]="'editor.song.add_identifier' | translate" (click)="audioPage.addIdentifierAfter(index)" mat-icon-button>
-                      <mat-icon>add</mat-icon>
-                    </button>
-                    <button [disabled]="first" [matTooltip]="'common.move_up' | translate" (click)="audioPage.moveIdentifierUp(index)" mat-icon-button>
-                      <mat-icon>arrow_drop_up</mat-icon>
-                    </button>
-                    <button [disabled]="last" [matTooltip]="'common.move_down' | translate" (click)="audioPage.moveIdentifierDown(index)" mat-icon-button>
-                      <mat-icon>arrow_drop_down</mat-icon>
-                    </button>
-                    <button [matTooltip]="'common.remove' | translate" (click)="audioPage.removeIdentifier(index)" mat-icon-button>
-                      <mat-icon>delete</mat-icon>
-                    </button>
+                  <div class="app-form-content">
+                    <mat-form-field appearance="outline" class="app-field-col">
+                      <mat-label>{{ 'editor.identifier.type' | translate }}</mat-label>
+                      <mat-select [(ngModel)]='identifier.type' [placeholder]="'editor.identifier.type' | translate">
+                        @for(identifier of config.identifiers; track $index;) {
+                        <mat-option [value]="identifier">{{ identifier }}</mat-option>
+                        }
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline"  class="app-field-col">
+                      <mat-label>{{ 'editor.identifier.title' | translate }}</mat-label>
+                      <input autocomplete="off" matInput [(ngModel)]='identifier.value' [placeholder]="'editor.identifier.title' | translate">
+                    </mat-form-field>
                   </div>
                 </div>
-                <div class="app-form-content">
-                  <mat-form-field appearance="outline" class="app-field-col">
-                    <mat-label>{{ 'editor.identifier.type' | translate }}</mat-label>
-                    <mat-select [(ngModel)]='identifier.type' [placeholder]="'editor.identifier.type' | translate">
-                      <mat-option *ngFor="let identifier of config.identifiers" [value]="identifier">{{ identifier }}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                  <mat-form-field appearance="outline"  class="app-field-col">
-                    <mat-label>{{ 'editor.identifier.title' | translate }}</mat-label>
-                    <input autocomplete="off" matInput [(ngModel)]='identifier.value' [placeholder]="'editor.identifier.title' | translate">
-                  </mat-form-field>
-                </div>
-              </div>
+              }
               <div class="app-gap-fixer"></div>
             </div>
           </div>

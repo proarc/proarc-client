@@ -38,7 +38,7 @@ import { UserTableComponent } from "../../components/user-table/user-table.compo
   imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
-    MatTableModule, MatSortModule, ResizecolDirective, MatDialogModule, ViewerComponent, UserTableComponent],
+    MatTableModule, MatSortModule, MatDialogModule, ViewerComponent, UserTableComponent],
   selector: 'app-parent-dialog',
   templateUrl: './parent-dialog.component.html',
   styleUrls: ['./parent-dialog.component.scss']

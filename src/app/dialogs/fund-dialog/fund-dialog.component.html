@@ -10,9 +10,11 @@
   <div class="app-table" *ngIf="state=='results'">
   <div class="search-result-list">
     <div class="scrollable">
-      <div *ngFor="let fund of funds" (click)="selectedFund = fund" [class.app-selected]="fund == selectedFund" class="app-row">
-        <div class="result-label">{{ fund.name }}</div>
-      </div>
+      @for(fund of funds; track $index;) {
+        <div (click)="selectedFund = fund" [class.app-selected]="fund == selectedFund" class="app-row">
+          <div class="result-label">{{ fund.name }}</div>
+        </div>
+      }
     </div>
   </div>
 </div>

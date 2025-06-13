@@ -35,7 +35,9 @@
             <mat-form-field appearance="outline" class="app-field-col">
               <mat-label>{{ 'editor.audioPages.apply' | translate }}</mat-label>
               <mat-select [placeholder]="'editor.audioPages.apply' | translate" name="apply" [(value)]="holder.applyTo"  [disabled]="!canSave()" (keyup.enter)="enterSelect(applySelect)" #applySelect  [formControl]="applyControl">
-                <mat-option *ngFor="let num of holder.applyOptions;" [value]="num">{{'editor.audioPages.apply_to' + (num > 1 ? '2' : '0') | translate: { num: num } }}</mat-option>
+                @for(num of holder.applyOptions; track $index;) {
+                  <mat-option [value]="num">{{'editor.audioPages.apply_to' + (num > 1 ? '2' : '0') | translate: { num: num } }}</mat-option>
+                }
               </mat-select>
             </mat-form-field>
             <mat-checkbox [disabled]="holder.applyTo == 1" color="primary" [(ngModel)]="holder.applyToFirst" class="app-pl-2 app-pb-2">{{ 'editor.audioPages.apply_to_first' | translate }}</mat-checkbox>

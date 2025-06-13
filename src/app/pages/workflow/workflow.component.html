@@ -23,7 +23,9 @@
                     <ng-container *ngIf="selectedProfile">
                       <button mat-button [disabled]="hasObject" [matMenuTriggerFor]="object_menu">{{ "workflow.create_new_object" | translate }}</button>
                       <mat-menu #object_menu="matMenu">
-                        <button mat-menu-item *ngFor="let model of selectedProfile.model" (click)="createNewObject(model.name)">{{ 'model.' + model.name | translate}}</button>
+                        @for(model of selectedProfile.model; track $index;) {
+                        <button mat-menu-item (click)="createNewObject(model.name)">{{ 'model.' + model.name | translate}}</button>
+                        }
                       </mat-menu>
                     </ng-container>
                   </div>
@@ -62,7 +64,9 @@
                       <ng-container *ngIf="selectedSubJobProfile">
                         <button mat-button [disabled]="hasObject" [matMenuTriggerFor]="object_menu">{{ "workflow.create_new_object" | translate }}</button>
                         <mat-menu #object_menu="matMenu">
-                          <button mat-menu-item *ngFor="let model of selectedSubJobProfile.model" (click)="createNewObject(model.name)">{{ 'model.' + model.name | translate}}</button>
+                          @for(model of selectedSubJobProfile.model; track $index;) {
+                          <button mat-menu-item (click)="createNewObject(model.name)">{{ 'model.' + model.name | translate}}</button>
+                          }
                         </mat-menu>
                       </ng-container>
                     </div>
@@ -111,13 +115,17 @@
                           <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
                             <mat-label>{{ 'desc.state' | translate }}</mat-label>
                             <mat-select [(ngModel)]="activeJob.state" [placeholder]="'desc.state' | translate">
-                              <mat-option *ngFor="let o of states" [value]="o.code">{{o.value}}</mat-option>
+                              @for(o of states; track $index;) {
+                              <mat-option [value]="o.code">{{o.value}}</mat-option>
+                              }
                             </mat-select>
                           </mat-form-field>
                           <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
                             <mat-label>{{ 'desc.priority' | translate }}</mat-label>
                             <mat-select [(ngModel)]="activeJob.priority" [placeholder]="'desc.priority' | translate">
-                              <mat-option *ngFor="let o of priorities" [value]="o.code">{{o.value}}</mat-option>
+                              @for(o of priorities; track $index;) {
+                              <mat-option [value]="o.code">{{o.value}}</mat-option>
+                              }
                             </mat-select>
                           </mat-form-field>
                           <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
@@ -168,7 +176,9 @@
                       {{ 'workflow.add_step' | translate }}
                     </button>
                     <mat-menu #menuAddStep="matMenu">
-                      <button *ngFor="let profile of selectedProfile.task" mat-menu-item (click)="addStep(profile.name)" >{{ profile.title }}</button>
+                      @for(profile of selectedProfile.task; track $index;) {
+                      <button mat-menu-item (click)="addStep(profile.name)" >{{ profile.title }}</button>
+                      }
                     </mat-menu>
                   </div>
                 </div>
@@ -185,13 +195,15 @@
                 <div class="app-fxFlex app-oa-y">
                   <div class="app-editor-content">
                     <table mat-table [dataSource]="materials" multiTemplateDataRows class="app-expanded app-hover">
-                      <ng-container matColumnDef="{{column}}" *ngFor="let column of materialColumnsToDisplay">
+                      @for(column of materialColumnsToDisplay; track $index;) {
+                      <ng-container matColumnDef="{{column}}" >
                         <th mat-header-cell *matHeaderCellDef>{{ 'dynamic.workFlow.' + column | translate }}</th>
                         <td mat-cell *matCellDef="let element" class="app-text-cutter">
                           <a *ngIf="column === 'label' && element['type'] === 'DIGITAL_OBJECT'" class="app-icon-copy app-mr-1" (click)="copyTextToClipboard(element.pid)" [matTooltip]="'button.copyTextToClipboard' | translate"><mat-icon class="app-icon-copy">content_copy</mat-icon></a>
                           {{ element[column] }}
                         </td>
                       </ng-container>
+                    }
 
                       <ng-container matColumnDef="expand">
                         <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>

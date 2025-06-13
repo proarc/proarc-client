@@ -18,8 +18,10 @@
                 <mat-form-field class="app-w-100">
                     <mat-select [placeholder]="'desc.registrar' | translate" [(ngModel)]="selectedRegistrar"
                         [disabled]="formDisabled()">
-                        <mat-option *ngFor="let registrar of registrars" [value]="registrar">{{ registrar.name
+                        @for(registrar of registrars; track $index;) {
+                        <mat-option [value]="registrar">{{ registrar.name
                             }}</mat-option>
+                        }
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -32,15 +34,19 @@
                 <mat-form-field class="app-w-100">
                     <mat-select [placeholder]="'desc.identifiers' | translate" [(ngModel)]="selectedIdentifier"
                         [disabled]="formDisabled()">
-                        <mat-option *ngFor="let identifier of identifiers" [value]="identifier.code">{{ identifier.name | translate
+                        @for(identifier of identifiers; track $index;) {
+                        <mat-option [value]="identifier.code">{{ identifier.name | translate
                             }}</mat-option>
+                        }
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field class="app-w-100">
                     <mat-select [placeholder]="'dialog.czidlo.operations' | translate" [(ngModel)]="selectedOperation"
                         [disabled]="formDisabled()">
-                        <mat-option *ngFor="let op of operations" [value]="op">{{ 'dialog.czidlo.' + op | translate
+                        @for(op of operations; track $index;) {
+                        <mat-option [value]="op">{{ 'dialog.czidlo.' + op | translate
                             }}</mat-option>
+                        }
                     </mat-select>
                 </mat-form-field>
             </div>

@@ -751,10 +751,6 @@ export class EditorStructureComponent implements OnInit {
     this.layout.setSelectionChanged(true, this.panel);
   }
 
-  public trackItem(index: number, item: DocumentItem) {
-    return item.pid;
-  }
-
   dropMultiple() {
     const scPos = this.childrenListEl.nativeElement.scrollTop;
     const selections: number[] = [];

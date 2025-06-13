@@ -6,19 +6,25 @@
       <div class="app-label app-mb-3">{{ 'pages.settings.editingRepo.label' | translate }}</div>
       <mat-form-field appearance="outline" class="app-w-100">
         <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="modelForColumns" >
-          <mat-option *ngFor="let model of config.models" [value]="model">{{ 'model.' + model | translate }}</mat-option>
+          @for(model of config.models; track $index;) {
+          <mat-option [value]="model">{{ 'model.' + model | translate }}</mat-option>
+          }
         </mat-select>
       </mat-form-field>
-      <div *ngFor="let column of settings.colsEditingRepo[modelForColumns]" cdkDropListOrientation="vertical" cdkDrag>
+      @for(column of settings.colsEditingRepo[modelForColumns]; track $index;) {
+      <div cdkDropListOrientation="vertical" cdkDrag>
         <mat-checkbox [name]="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
       </div>
+    }
     </ng-container>
     <ng-container *ngIf="data.colsSettingsName !== 'colsEditingRepo'">
         <legend>{{ 'pages.settings.searchTree.legend' | translate }}</legend>
         <div class="app-label app-mb-2">{{ 'pages.settings.searchTree.label' | translate }}</div>
-        <div *ngFor="let column of columns" cdkDropListOrientation="vertical" cdkDrag>
+        @for(column of columns; track $index;) {
+        <div cdkDropListOrientation="vertical" cdkDrag>
           <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
         </div>
+      }
     </ng-container>
   </fieldset>
   <div *ngIf="data.colsSettingsName === 'colsEditingRepo'">

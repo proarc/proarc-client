@@ -70,7 +70,8 @@
     <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
     <div class="app-editor-content" #childrenWrapper tabindex="0" *ngIf="state !=='loading'" (keyup)="keyup($event)" (resized)="onResized($event)" (mousemove)="mousemove($event)" cdkScrollable>
       <div class="app-fxLayout app-row app-wrap app-view-grid" *ngIf="viewMode == 'grid'" #childrenGridList (mousedown)="mousedown($event)" (mouseup)="mouseup($event)">
-        <div *ngFor="let item of layout.items(); let i = index; trackBy: trackItem" (click)="rowClick(item, $event, i)"
+        @for(item of layout.items(); let i = $index; track item.pid;) {
+          <div (click)="rowClick(item, $event, i)"
           (dblclick)="open(item)" class="app-item-wrapper" [class.app-selected]="item.selected"
           [class.app-invalid]="item.invalid" draggable="true" (dragenter)="dragenter($event, i)"
           (dragstart)="dragstart(item,i,$event)" (dragover)="dragover($event)"
@@ -84,10 +85,12 @@
             </div>
           </div>
         </div>
+      }
       </div>
 
       <div class="app-fxLayout app-row app-wrap app-view-icon" *ngIf="viewMode == 'icons'" #childrenIconList [class.app-multiple-selection]="layout.getNumOfSelected() > 1" (mousedown)="mousedown($event)">
-        <div *ngFor="let item of layout.items(); let i = index" class="app-item-wrapper cdk-drag"
+        @for(item of layout.items(); let i = $index; track $index;) {
+        <div class="app-item-wrapper cdk-drag"
           [ngClass]="{'app-repre': item.pageRepre === 'reprePage'}" (click)="rowClick(item, $event, i)"
           (dblclick)="open(item)" draggable="true" (dragenter)="dragenter($event, i)"
           (dragstart)="dragstart(item, i, $event)" (dragend)="dragend($event)" (dragover)="dragover($event)"
@@ -121,6 +124,7 @@
             </div>
           </div>
         </div>
+      }
       </div>
       <app-user-table *ngIf="viewMode == 'list'" [draggable]="true" (selectItem)="selectRow($event)" 
         (openItem)="open($event)" [colsSettingsName]="isRepo ? 'colsEditingRepo' : 'colsEditingImport'"

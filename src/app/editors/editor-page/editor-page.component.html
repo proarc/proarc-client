@@ -31,7 +31,9 @@
               <span class="app-usage" [class.app-help-off]="true">M</span>
               <mat-select #typeSelect [placeholder]="'editor.page.type' | translate" name="type" [(value)]="page.type" [formControl]="pageTypeControl" (focusout)="removeFocus()" (keyup.enter)="enterSelect(typeSelect, 'type')">
                <mat-option [value]="null"></mat-option>
-               <mat-option *ngFor="let pageType of config.pageTypes" [value]="pageType">{{  pageType }}</mat-option>
+               @for(pageType of config.pageTypes; track $index;) {
+               <mat-option [value]="pageType">{{  pageType }}</mat-option>
+               }
               </mat-select>
             </mat-form-field> 
 
@@ -55,7 +57,9 @@
               <mat-label>{{ 'editor.page.position' | translate }}</mat-label>
               <span class="app-usage" [class.app-help-off]="true">O</span>
               <mat-select [placeholder]="'editor.page.position' | translate" [formControl]="posControl" #posSelect (keyup.enter)="enterSelect(posSelect, 'position')" (focusout)="removeFocus()">
-                <mat-option *ngFor="let position of positions" [value]="position">{{ 'editor.page.positions.' + position | translate }}</mat-option>
+                @for(position of positions; track $index;) {
+                  <mat-option [value]="position">{{ 'editor.page.positions.' + position | translate }}</mat-option>
+                }
               </mat-select>
             </mat-form-field>
 
@@ -63,7 +67,9 @@
               <mat-label>{{ 'editor.page.genre' | translate }}</mat-label>
               <span class="app-usage" [class.app-help-off]="true">M</span>
               <mat-select [placeholder]="'editor.page.genre' | translate" [formControl]="genreControl" (keyup.enter)="enterSelect(genreSelect, 'genre')" (focusout)="removeFocus()" #genreSelect>
-                <mat-option *ngFor="let genre of genres" [value]="genre">{{ 'editor.page.genres.' + genre | translate }}</mat-option>
+                @for(genre of genres; track $index;) {
+                  <mat-option [value]="genre">{{ 'editor.page.genres.' + genre | translate }}</mat-option>
+                }
               </mat-select>
             </mat-form-field>
 
@@ -74,7 +80,8 @@
             </mat-form-field>
 
             <div class="app-form-wrapper" *ngIf="config.showPageIdentifiers">
-              <div class="app-form" *ngFor="let identifier of page.identifiers; index as index; last as last; first as first;">
+              @for(identifier of page.identifiers; let index = $index; let last = $last; let first = $first; track $index;) {
+              <div class="app-form">
                 <div class="app-fxLayout app-row app-center-v app-form-header">
                   <div class="app-fxFlex app-text-cutter">
                     <span class="app-form-title app-pl-2">{{ 'editor.page.identifier' | translate }}</span>
@@ -98,7 +105,9 @@
                   <mat-form-field appearance="outline" class="app-field-col">
                     <mat-label>{{ 'editor.identifier.type' | translate }}</mat-label>
                     <mat-select [(ngModel)]='identifier.type' [placeholder]="'editor.identifier.type' | translate">
-                      <mat-option *ngFor="let identifier of config.identifiers" [value]="identifier">{{ identifier }}</mat-option>
+                      @for(identifier of config.identifiers; track $index;) {
+                      <mat-option [value]="identifier">{{ identifier }}</mat-option>
+                      }
                     </mat-select>
                   </mat-form-field>
                   <mat-form-field appearance="outline" class="app-field-col">
@@ -107,6 +116,7 @@
                   </mat-form-field>
                 </div>
               </div>
+            }
               <div class="app-gap-fixer"></div>
             </div>
           </div>

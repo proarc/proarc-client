@@ -37,7 +37,9 @@
 				<mat-form-field appearance="outline" class="app-w-100 app-p-2 app-mt-1 app-clean-mb" [ngClass]="metadata.invalidFields.includes(selectedField) ? 'mat-form-field-invalid' : null">
 					<mat-label>{{ 'desc.jumpToElement' | translate }}</mat-label>
 					<mat-select [(ngModel)]="selectedField" (valueChange)="scrollToElement($event)" [class.app-color-warn]="metadata.invalidFields.includes(selectedField)">
-						<mat-option *ngFor="let field of availableFieldsSorted" [value]="field" [class.app-color-warn]="metadata.invalidFields.includes(field)">{{'mods.' + metadata.template[field]['labelKey'] | translate}}</mat-option>
+						@for(field of availableFieldsSorted; track $index;) {
+							<mat-option [value]="field" [class.app-color-warn]="metadata.invalidFields.includes(field)">{{'mods.' + metadata.template[field]['labelKey'] | translate}}</mat-option>
+						}
 					</mat-select>
 				</mat-form-field>
 			</div>
