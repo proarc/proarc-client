@@ -20,7 +20,7 @@
     <ng-container *ngSwitchCase="'song'" >
       <app-song *ngIf="lastSelectedItem()" [pid]="lastSelectedItem().pid"></app-song>
     </ng-container>
-    <ng-container>
+    
       <app-editor-mods *ngSwitchCase="'mods'" [panel]="panel()"
         [panelType]="panelType" (onChangePanelType)="changePanelType($event)"></app-editor-mods>
       <app-editor-ocr *ngSwitchCase="'ocr'"  [panel]="panel()" [pid]="lastSelectedItem().pid" [panelType]="panelType" (onChangePanelType)="changePanelType($event)"></app-editor-ocr>
@@ -30,7 +30,7 @@
         <app-editor-premis *ngIf="numOfSelected < 2"  [pid]="lastSelectedItem().pid"></app-editor-premis>
         <app-editor-premis-multiple  *ngIf="numOfSelected > 1" ></app-editor-premis-multiple>
       </ng-container> -->
-    </ng-container>
+      
     <ng-container *ngSwitchCase="'metadata'">
     <app-editor-pages *ngIf="showPagesEditor" [panel]="panel()"></app-editor-pages>
     <app-editor-audioPages *ngIf="showAudioPagesEditor" [panel]="panel()"></app-editor-audioPages>

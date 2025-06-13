@@ -32,12 +32,13 @@ import { Configuration } from '../../shared/configuration';
 import { Utils } from '../../utils/utils';
 import { IngestDialogComponent } from '../ingest-dialog/ingest-dialog.component';
 import { ViewerComponent } from "../../components/viewer/viewer.component";
+import { UserTableComponent } from "../../components/user-table/user-table.component";
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
-    MatTableModule, MatSortModule, ResizecolDirective, MatDialogModule, ViewerComponent],
+    MatTableModule, MatSortModule, ResizecolDirective, MatDialogModule, ViewerComponent, UserTableComponent],
   selector: 'app-parent-dialog',
   templateUrl: './parent-dialog.component.html',
   styleUrls: ['./parent-dialog.component.scss']
@@ -483,6 +484,10 @@ export class ParentDialogComponent implements OnInit {
     this.tree = null;
   }
 
+  selectDest(e: {item: DocumentItem, event?: MouseEvent, idx?: number}) {
+    this.selectItem(e.item);
+  }
+
   selectItem(item: DocumentItem) {
     //this.selectedItem = null;
     //setTimeout(() => {
@@ -527,6 +532,10 @@ export class ParentDialogComponent implements OnInit {
   splitDragEnd(e: any) {
     this.settings.parentSplit = e.sizes[0];
     this.settingsService.save();
+  }
+
+  selectOrig(e: {item: DocumentItem, event?: MouseEvent, idx?: number}) {
+    this.select(this.orig, e.item, e.idx, e.event, 'dest');
   }
 
   select(array: any[], item: DocumentItem, idx: number, event: MouseEvent, col: string) {

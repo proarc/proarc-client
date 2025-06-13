@@ -124,7 +124,7 @@ export class EditorMetadataComponent implements OnInit {
       });
       effect(() => {
         this.metadata = this.data();
-          console.log(this.metadata)
+        //  console.log(this.metadata)
         if (this.metadata) {
           this.setFields();
         }
