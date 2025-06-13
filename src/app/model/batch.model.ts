@@ -1,10 +1,9 @@
-import { DocumentItem } from "./documentItem.model";
+import { TableItem } from "./table-item.model";
 
-export class Batch {
+export class Batch extends TableItem {
 
   public id: number;
   public description: string;
-  public timestamp: Date;
   public itemUpdated: Date;
   public updated: Date;
   public create: Date;
@@ -21,6 +20,7 @@ export class Batch {
   public static fromJson(json: any): Batch {
     const batch = new Batch();
     batch.id = json['id'];
+    batch.pid = json['id'] + '';
     batch.description = json['description'];
     if (json['itemUpdated']) {
       batch.itemUpdated = new Date(json['itemUpdated']);

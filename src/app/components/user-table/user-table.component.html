@@ -51,6 +51,9 @@
     <td mat-cell *matCellDef="let element">
       <ng-container [ngSwitch]="c.type">
         <ng-container *ngSwitchCase="'date'">
+          {{ element[c.field] | date : 'dd.MM.yyyy'}}
+        </ng-container>
+        <ng-container *ngSwitchCase="'datetime'">
           {{ element[c.field] | date : 'dd.MM.yyyy hh:mm:ss'}}
         </ng-container>
         <ng-container *ngSwitchCase="'list'">

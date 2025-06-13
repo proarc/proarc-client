@@ -34,14 +34,15 @@ import { ReloadBatchDialogComponent } from '../../dialogs/reload-batch-dialog/re
 import { ResolveConflictDialogComponent } from '../../dialogs/resolve-conflict-dialog/resolve-conflict-dialog.component';
 import { ImportDialogComponent } from '../../dialogs/import-dialog/import-dialog.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { UserTableComponent } from "../../components/user-table/user-table.component";
 
 @Component({
   selector: 'app-process-management',
     imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
-      MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
-      MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule, RouterModule,
-      MatDatepickerModule, MatCheckboxModule,
-      MatTableModule, MatSortModule, ResizecolDirective],
+    MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
+    MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule, RouterModule,
+    MatDatepickerModule, MatCheckboxModule,
+    MatTableModule, MatSortModule, ResizecolDirective, UserTableComponent],
   templateUrl: './process-management.component.html',
   styleUrl: './process-management.component.scss'
 })
@@ -178,6 +179,10 @@ export class ProcessManagementComponent {
       clearInterval(this.timer);
     }
   }
+
+  selectRow(e: {item: Batch, event?: MouseEvent, idx?: number}) {
+      this.selectBatch(e.item);
+    }
 
   selectBatch(batch: Batch) {
     this.selectedBatch = batch;

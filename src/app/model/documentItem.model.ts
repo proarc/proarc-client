@@ -1,7 +1,8 @@
+import { TableItem } from "./table-item.model";
 
-export class DocumentItem {
+export class DocumentItem extends TableItem {
 
-  public pid: string;
+  
   public parent: string;
   public model: string;
   public state: string;
@@ -32,13 +33,12 @@ export class DocumentItem {
   public pageRepre: string;
 
 
-  public invalid: boolean;
+  public invalid: boolean = false;
 
   public isLocked: boolean;
   public notSaved: boolean;
   public content: string;
 
-  public timestamp: number;
   public writeExports: string;
 
   validationProcess: string;
@@ -46,9 +46,6 @@ export class DocumentItem {
 
   descriptionStandard: string;
   urnNbn : string;
-  constructor() {
-    this.invalid = false;
-  }
 
   public static fromJson(json: any): DocumentItem {
     if (!json) {

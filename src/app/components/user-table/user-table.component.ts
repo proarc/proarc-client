@@ -17,7 +17,6 @@ import { ResizecolDirective } from '../../resizecol.directive';
 import { UIService } from '../../services/ui.service';
 import { Configuration, TableColumn } from '../../shared/configuration';
 import { UserSettings, UserSettingsService } from '../../shared/user-settings';
-import { DocumentItem } from '../../model/documentItem.model';
 import { Utils } from '../../utils/utils';
 import { LayoutService } from '../../services/layout-service';
 
@@ -25,6 +24,7 @@ import { LayoutService } from '../../services/layout-service';
 import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
 import { ColumnsSettingsDialogComponent } from '../../dialogs/columns-settings-dialog/columns-settings-dialog.component';
+import { TableItem } from '../../model/table-item.model';
 
 @Component({
   selector: 'app-user-table',
@@ -38,7 +38,7 @@ import { ColumnsSettingsDialogComponent } from '../../dialogs/columns-settings-d
 })
 export class UserTableComponent {
 
-  @ViewChild('table', { static: true }) table: MatTable<DocumentItem>;
+  @ViewChild('table', { static: true }) table: MatTable<TableItem>;
   @ViewChildren('matrow', { read: ViewContainerRef }) rows: QueryList<ViewContainerRef>;
   @ViewChild('childrenList') childrenListEl: ElementRef;
 
@@ -58,7 +58,7 @@ export class UserTableComponent {
   draggable = input<boolean>();
   mousedown = output<any>();
   dragenter = output<{ e: any, idx: number }>();
-  dragstart = output<{ item: DocumentItem, e: MouseEvent, idx: number }>();
+  dragstart = output<{ item: TableItem, e: MouseEvent, idx: number }>();
   dragover = output<any>();
   dragend = output<any>();
 
@@ -149,7 +149,7 @@ export class UserTableComponent {
     });
   }
 
-  scrollToLastClicked(item: DocumentItem) {
+  scrollToLastClicked(item: TableItem) {
     // const index = this.layout.lastItemIdxClicked;
     // if (index < 0) {
     //   return;
@@ -211,7 +211,7 @@ export class UserTableComponent {
     this.sortBy.emit(sortState);
   }
 
-  onSelectItem(item: DocumentItem, event: MouseEvent, idx: number) {
+  onSelectItem(item: TableItem, event: MouseEvent, idx: number) {
     if (event.detail === 2) {
       // stop on dblclick
       return;
@@ -219,7 +219,7 @@ export class UserTableComponent {
     this.selectItem.emit({ item, event, idx })
   }
 
-  onOpenItem(item: DocumentItem, event: MouseEvent) {
+  onOpenItem(item: TableItem, event: MouseEvent) {
     this.openItem.emit(item);
   }
 
