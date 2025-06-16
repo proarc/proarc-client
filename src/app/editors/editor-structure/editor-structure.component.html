@@ -32,7 +32,7 @@
       <button mat-icon-button (click)="onDelete()" [matTooltip]="'editor.children.delete' | translate">
         <mat-icon>delete</mat-icon>
       </button>
-      <button mat-icon-button (click)="onSave()" [disabled]="!hasChanges" [matTooltip]="'button.save' | translate">
+      <button mat-icon-button (click)="onSave(false)" [disabled]="!hasChanges" [matTooltip]="'button.save' | translate">
         <mat-icon>save</mat-icon>
       </button>
       <button mat-icon-button (click)="validateChildren()" [matTooltip]="'editor.children.validate_form' | translate">

@@ -8,6 +8,7 @@ import { ILayoutPanel } from '../layout-admin/layout-admin.component';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { Metadata } from '../../model/metadata.model';
 import { ApiService } from '../../services/api.service';
 import { LayoutService } from '../../services/layout-service';
@@ -19,7 +20,7 @@ import { EditorMetadataComponent } from "../../editors/editor-metadata/editor-me
 
 @Component({
   imports: [CommonModule, TranslateModule,
-    MatDialogModule,
+    MatDialogModule, CdkDrag, CdkDragHandle, 
     MatIconModule, MatButtonModule, 
     EditorPageComponent, EditorAudioPageComponent, EditorMetadataComponent
   ],
@@ -60,9 +61,9 @@ export class NewMetadataDialogComponent implements OnInit {
     private translator: TranslateService) { }
 
   ngOnInit(): void {
-    setTimeout(() => {
+    // setTimeout(() => {
+    // }, 100);
       this.load();
-    }, 100);
     this.title = this.data.title ? this.data.title : 'dialog.newMetadata.title';
     this.formHighlighting = localStorage.getItem('formHighlighting') === 'true';
   }
@@ -150,7 +151,7 @@ export class NewMetadataDialogComponent implements OnInit {
       if (result === 'true') {
         this.state = 'success';
         // this.editor.init(this.editorParams);
-        this.dialogRef.close('close');
+        this.dialogRef.close(null);
       }
     });
 

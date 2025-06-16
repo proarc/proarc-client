@@ -34,16 +34,7 @@ export class ConvertDialogComponent implements OnInit {
   }
 
   convert(type: string) {
-    console.log('convert, ', type);
     this.inProgress = true;
-    // this.api.convertPages(this.data.pid, this.data.model, type).subscribe(result => {
-    //   console.log('ok', result);
-    //   this.dialogRef.close( { status: 'ok' } );
-    // },
-    // (error) => {
-    //   console.log('error', error);
-    //   this.dialogRef.close( { status: 'failure' } );
-    // });
     this.api.convertPages(this.data.pid, this.data.model, type).subscribe((response: any) => {
       if (response.response.errors) {
         this.ui.showErrorDialogFromObject(response.response.errors);

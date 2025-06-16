@@ -25,7 +25,7 @@
         [panelType]="panelType" (onChangePanelType)="changePanelType($event)"></app-editor-mods>
       <app-editor-ocr *ngSwitchCase="'ocr'"  [panel]="panel()" [pid]="lastSelectedItem().pid" [panelType]="panelType" (onChangePanelType)="changePanelType($event)"></app-editor-ocr>
       <app-editor-comment *ngSwitchCase="'comment'" [panel]="panel()"  [pid]="lastSelectedItem().pid" [panelType]="panelType" (onChangePanelType)="changePanelType($event)"></app-editor-comment>
-      <app-editor-atm *ngSwitchCase="'atm'" [panel]="panel()"  [pid]="lastSelectedItem().pid" [panelType]="panelType" (onChangePanelType)="changePanelType($event)"></app-editor-atm>
+      <app-editor-atm *ngSwitchCase="'atm'" [panel]="panel()"  [pid]="lastSelectedItem()?.pid" [panelType]="panelType" (onChangePanelType)="changePanelType($event)"></app-editor-atm>
       <!-- <ng-container *ngSwitchCase="'premis'">
         <app-editor-premis *ngIf="numOfSelected < 2"  [pid]="lastSelectedItem().pid"></app-editor-premis>
         <app-editor-premis-multiple  *ngIf="numOfSelected > 1" ></app-editor-premis-multiple>

@@ -60,7 +60,7 @@ export class AuthService {
 
                     }),
                     catchError((e: any) => {
-                        console.log(e);
+                        // console.log(e);
                         return of(e)
                     }))
         );

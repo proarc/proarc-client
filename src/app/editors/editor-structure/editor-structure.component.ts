@@ -113,7 +113,7 @@ export class EditorStructureComponent implements OnInit {
     "processing",
     "described",
     "exported"]
-    
+
   displayedColumns: string[] = [];
   colsImport: any;
   colsWidth: { [key: string]: string } = {};
@@ -246,7 +246,6 @@ export class EditorStructureComponent implements OnInit {
 
   scrollToSelected(align: string) {
     const index = this.layout.items().findIndex(i => i.selected);
-    console.log(index)
     if (index < 0) {
       return;
     }
@@ -305,7 +304,7 @@ export class EditorStructureComponent implements OnInit {
     if (container) {
       if (index >= 0) {
         const el = container.nativeElement.children[index];
-        if (!this.isInViewport(el)) {
+        if (el && !this.isInViewport(el)) {
           el.scrollIntoView({ block: 'center', behavior: 'smooth' });
         }
       }
@@ -523,7 +522,7 @@ export class EditorStructureComponent implements OnInit {
     this.layout.setSelection(true, null);
   }
 
-  selectRow(e: {item: DocumentItem, event?: MouseEvent, idx?: number}) {
+  selectRow(e: { item: DocumentItem, event?: MouseEvent, idx?: number }) {
     this.rowClick(e.item, e.event, e.idx)
   }
 
@@ -584,7 +583,7 @@ export class EditorStructureComponent implements OnInit {
     }
   }
 
-  
+
 
   public goToInvalid(pid: string) {
     if (pid) {
@@ -850,16 +849,45 @@ export class EditorStructureComponent implements OnInit {
       if (result && result['pid']) {
 
         if (result.isMultiple) {
-          this.layout.setShouldRefresh(true);
+          // this.layout.setShouldRefresh(true);
+
+          const items: DocumentItem[] = [];
+          result.data.forEach((item: any) => {
+            items.push(DocumentItem.fromJson(item))
+          })
+          if (result.objectPosition === 'after') {
+            this.layout.items().splice(this.lastClickIdx + 1, 0, ...items);
+            this.hasChanges = true;
+          } else {
+            this.layout.items().push(...items);
+          }
+
+          const item = items[0];
+          item.selected = true;
+          this.rowClick(item, null, this.lastClickIdx + 1);
+          if (this.table) {
+            this.table.renderRows();
+          }
+          if (result.objectPosition === 'after') {
+            this.onSave(true);
+          } else {
+            setTimeout(() => {
+              this.scrollToSelected('end');
+            }, 1000);
+          }
+          this.layout.refreshSelectedItem(true, 'pages');
+
+
+
         } else {
           const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
             disableClose: true,
             height: '90%',
             width: '680px',
-            data: result.data
+            data: result.data[0]
           });
           dialogRef.afterClosed().subscribe(res => {
-            // console.log(res);
+            console.log(res);
             if (res?.item) {
               const item = DocumentItem.fromJson(res.item);
 
@@ -867,8 +895,10 @@ export class EditorStructureComponent implements OnInit {
               if (res.gotoEdit) {
                 this.router.navigate(['/repository', item.pid]);
               } else {
-                if(result.objectPosition === 'after') {
-                  this.layout.items().splice(this.lastClickIdx+1, 0, item);
+                if (result.objectPosition === 'after') {
+                  const items = this.layout.items();
+                  items.splice(this.lastClickIdx + 1, 0, item);
+                  this.layout.items.set(items);
                   this.hasChanges = true;
                 } else {
                   this.layout.items().push(item);
@@ -878,11 +908,8 @@ export class EditorStructureComponent implements OnInit {
                 if (this.table) {
                   this.table.renderRows();
                 }
-                if(result.objectPosition === 'after') {
-                  this.onSave();
-                  setTimeout(() => {
-                    this.scrollToSelected('center');
-                  }, 1000);
+                if (result.objectPosition === 'after') {
+                  this.onSave(true);
                 } else {
                   setTimeout(() => {
                     this.scrollToSelected('end');
@@ -965,7 +992,7 @@ export class EditorStructureComponent implements OnInit {
       } else {
         this.state = 'success';
         this.ui.showInfoSnackBar("Objekty byly reindexovány");
-        this.layout.setShouldRefresh(false);
+        this.layout.setShouldRefresh(true);
       }
     });
   }
@@ -1139,7 +1166,7 @@ export class EditorStructureComponent implements OnInit {
 
 
 
-  onSave() {
+  onSave(scroll: boolean) {
     if (!this.hasChanges) {
       return;
     }
@@ -1159,6 +1186,11 @@ export class EditorStructureComponent implements OnInit {
         this.hasChanges = false;
         this.state = 'success';
         this.layout.clearPanelEditing();
+        if (scroll) {
+          setTimeout(() => {
+            this.scrollToSelected('center');
+          }, 1000);
+        }
       }
     });
 
@@ -1228,26 +1260,27 @@ export class EditorStructureComponent implements OnInit {
 
         const removedPid: string[] = response['response']['data'].map((x: any) => x.pid);
         let nextSelection = 0;
-        for (let i = this.layout.items().length - 1; i >= 0; i--) {
-          if (removedPid.indexOf(this.layout.items()[i].pid) > -1) {
-            this.layout.items().splice(i, 1);
+        const items = this.layout.items();
+        for (let i = items.length - 1; i >= 0; i--) {
+          if (removedPid.indexOf(items[i].pid) > -1) {
+            items.splice(i, 1);;
             nextSelection = i;
           }
         }
         if (nextSelection < 0) {
           nextSelection = 0;
         }
-        if (nextSelection > this.layout.items().length - 1) {
-          nextSelection = this.layout.items().length - 1;
+        if (nextSelection > items.length - 1) {
+          nextSelection = items.length - 1;
         }
-        if (this.layout.items().length > 0) {
-          this.rowClick(this.layout.items()[nextSelection], null, nextSelection);
+        if (items.length > 0) {
+          this.rowClick(items[nextSelection], null, nextSelection);
         }
+        this.layout.items.set(items);
 
-
-        // this.layout.setShouldRefresh(true);
         this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.deleteSelectedChildren.success')));
-        this.layout.refreshSelectedItem(true, 'pages');
+        this.layout.setShouldRefresh(true);
+        // this.layout.refreshSelectedItem(true, 'pages');
         this.state = 'success';
       }
 
@@ -1377,7 +1410,7 @@ export class EditorStructureComponent implements OnInit {
   }
 
   columnType(f: string) {
-    
+
     for (let i = 0; i < this.config.models.length; i++) {
       const col = this.settings.colsEditingRepo[this.config.models[i]].find(c => c.field === f)
       if (col) {
