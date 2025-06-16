@@ -309,6 +309,7 @@ export class SearchActionsComponent {
   changeModel() {
     const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     const dialogRef = this.dialog.open(ChangeModelDialogComponent, {
+      width: '480px',
       data: {
         pid: item.pid,
         model: item.model,
@@ -376,7 +377,6 @@ export class SearchActionsComponent {
       data: { pid: item.pid, model: item.model }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
       if (result) {
         if (result.status == 'ok') {
           this.ui.showInfoSnackBar(this.translator.instant('snackbar.convertPages.success'));

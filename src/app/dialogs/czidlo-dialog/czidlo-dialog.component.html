@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{ 'CZIDLO' | translate }}</h1>
 <div mat-dialog-content>
-    <div fxLayout="column" fxLayoutGap="8px">
+    <div style="display: flex; row-gap: 8px; flex-direction: column;">
         <ng-container *ngIf="!(showSuccessor || showNewRegistration || showUpdateIdentifier) && !responseData">
             <button mat-flat-button color="primary" (click)="onSuccessor()">{{ 'dialog.czidlo.successor' | translate
                 }}</button>

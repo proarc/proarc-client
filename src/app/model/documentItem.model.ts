@@ -77,7 +77,7 @@ export class DocumentItem extends TableItem {
     if (json['created']) {
       item.created = new Date(json['created']);
     }
-    if (item.label.indexOf(',') > -1) {
+    if (item.label?.indexOf(',') > -1) {
       item.shortLabel = item.label.split(',')[0];
     } else {
       item.shortLabel = item.label;
