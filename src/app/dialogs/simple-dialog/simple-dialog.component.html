@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>{{ data.title }}</h1>
+<h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>{{ data.title }}</h1>
 <div mat-dialog-content class="app-scrollbar-fix">
   <mat-card appearance="outlined" *ngIf="data.message" class="app-alert" [ngClass]="data.alertClass ? data.alertClass : null">
     <mat-card-content>

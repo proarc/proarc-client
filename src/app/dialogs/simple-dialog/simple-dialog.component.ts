@@ -12,10 +12,12 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 @Component({
   standalone: true,
   imports: [CommonModule, TranslateModule, MatDialogModule, MatInputModule,
+    CdkDrag, CdkDragHandle, 
     MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule,
     FormsModule, MatFormFieldModule, MatCheckboxModule
   ],

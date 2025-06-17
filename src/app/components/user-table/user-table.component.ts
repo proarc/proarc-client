@@ -25,10 +25,11 @@ import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk
 import { MatDialog } from '@angular/material/dialog';
 import { ColumnsSettingsDialogComponent } from '../../dialogs/columns-settings-dialog/columns-settings-dialog.component';
 import { TableItem } from '../../model/table-item.model';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-user-table',
-  imports: [CommonModule, TranslateModule, FormsModule,
+  imports: [CommonModule, TranslateModule, FormsModule, RouterModule,
     MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule,
     CdkDropList, CdkDrag, MatMenuModule, MatPaginatorModule,
@@ -40,7 +41,6 @@ export class UserTableComponent {
 
   @ViewChild('table', { static: true }) table: MatTable<TableItem>;
   @ViewChildren('matrow', { read: ViewContainerRef }) rows: QueryList<ViewContainerRef>;
-  @ViewChild('childrenList') childrenListEl: ElementRef;
 
   colsSettingsName = input<string>();
   withFilters = input<boolean>();
@@ -53,7 +53,8 @@ export class UserTableComponent {
   selectItem = output<{ item: any, event: MouseEvent, idx: number }>();
   openItem = output<any>();
   getValidationError = output<string>();
-  onFilter = output<{field: string, value: string}>();
+  onFilter = output<{ field: string, value: string }>();
+  onColumnLink = output<{ field: string, value: string }>();
 
   draggable = input<boolean>();
   mousedown = output<any>();
@@ -91,6 +92,16 @@ export class UserTableComponent {
     effect(() => {
       this.initColumns(this.colsSettingsName());
       this.scrollToLastClicked(this.layout.lastSelectedItem());
+
+    })
+    effect(() => {
+      // this.items() = this.items();
+      //   console.log(this.items())
+      // if (this.items()) {
+      //   this.table.renderRows();
+      // } else {
+      //   this.items() = [];
+      // }
 
     })
   }
@@ -156,6 +167,9 @@ export class UserTableComponent {
     // }
     if (!this.rows) {
       return;
+    }
+    if (!item) {
+      return
     }
     let row = this.rows.find(tr => tr.element.nativeElement.id === 'tr_' + item.pid);
     if (row) {
@@ -249,6 +263,10 @@ export class UserTableComponent {
     // } else {
     //   this.filters.push({ field, value });
     // }
-    this.onFilter.emit({field, value});
+    this.onFilter.emit({ field, value });
+  }
+
+  columnLink(field: string, value: string) {
+    this.onColumnLink.emit({ field, value });
   }
 }

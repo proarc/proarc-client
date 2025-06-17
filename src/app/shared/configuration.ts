@@ -7,7 +7,7 @@ export interface TableColumn {
   field: string,
   selected: boolean,
   width: number,
-  type: string // 'string' | 'translated' | 'date' | 'datetime' | 'boolean'
+  type: string, // 'string' | 'translated' | 'date' | 'datetime' | 'boolean'
 }
 
 @Injectable()

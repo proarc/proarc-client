@@ -24,6 +24,7 @@ import { ApiService } from '../../services/api.service';
 import { UIService } from '../../services/ui.service';
 import { Utils } from '../../utils/utils';
 import { MatInputModule } from '@angular/material/input';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 
 export class MultiDateFormat {
@@ -77,6 +78,7 @@ export class MultiDateFormat {
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule,
+    CdkDrag, CdkDragHandle, 
     MatDialogModule, MatDatepickerModule, MatInputModule,
     MatTableModule, MatProgressBarModule, MatSelectModule, MatRadioModule,
     MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule,

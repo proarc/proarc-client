@@ -2,9 +2,13 @@
   .mat-mdc-dialog-content {
     app-editor-metadata {
 
-    & > #new {
+      &>#new {
         border: 1px solid var(--app-default-border-color);
       }
     }
   }
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+  resize: both;
 }

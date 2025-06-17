@@ -121,6 +121,7 @@ export class EditorStructureComponent implements OnInit {
   subscriptions: Subscription[] = [];
 
   refreshing = false;
+  // items: DocumentItem[] = [];
 
   constructor(
     private router: Router,
@@ -137,7 +138,8 @@ export class EditorStructureComponent implements OnInit {
   ) {
     effect(() => {
       const lastSelectedItem = this.layout.lastSelectedItem();
-      const selection = this.layout.items().filter(i => i.selected).map(i => i.pid);
+      this.pageChildren = this.layout.items().findIndex(it => it.isPage()) > -1;
+      // console.log(this.layout.items())
       // this.refreshChildren(selection);
       this.scrollToLastClicked();
     });
@@ -158,26 +160,21 @@ export class EditorStructureComponent implements OnInit {
       this.lastClickIdx = 0;
       this.startShiftClickIdx = 0;
     }
-    // this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
-    //   console.log(this.layout.items())
-    //   const selection = this.layout.items().filter(i => i.selected).map(i => i.pid);
-    //   this.refreshChildren(selection);
-    // }));
+
+    this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
+      const selection = this.layout.items().filter(i => i.selected).map(i => i.pid);
+      this.refreshChildren(selection);
+    }));
 
     this.subscriptions.push(this.layout.selectionChanged().subscribe((from: boolean) => {
-      this.setSelectedColumns();
-      if (this.panel.id !== this.layout.lastPanelClicked) {
-
-        setTimeout(() => {
-          this.scrollToLastClicked();
-        }, 100);
-
-      }
+      // const selection = this.layout.items().filter(i => i.selected).map(i => i.pid);
+      // this.refreshChildren(selection);
     }));
 
   }
 
   refreshChildren(selection: string[]) {
+    console.log('AA')
     this.layout.setItems([]);
     this.api.getRelations(this.layout.selectedParentItem.pid).subscribe((children: DocumentItem[]) => {
       this.layout.setItems(children);
@@ -222,6 +219,18 @@ export class EditorStructureComponent implements OnInit {
     }
   }
 
+  refresh() {
+console.log(this.layout.items()[1].label)
+console.log(this.layout.items()[1].label)
+    const items = this.layout.items();
+    //const selection = this.layout.items().filter(i => i.selected).map(i => i.pid);
+    //this.refreshChildren(selection);
+    // this.clearPanelEditing();
+    this.layout.clearPanelEditing();
+    this.refreshChildren([]);
+  }
+  
+
   setScrollPos() {
     if (!this.refreshing) {
       this.scrollPos = this.childrenListEl.nativeElement.scrollTop;
@@ -256,7 +265,7 @@ export class EditorStructureComponent implements OnInit {
       container = this.childrenIconListEl;
     } else {
       let row = this.rows.get(index);
-      if (!this.isInViewport(row.element.nativeElement)) {
+      if (row && !this.isInViewport(row.element.nativeElement)) {
         row.element.nativeElement.scrollIntoView({ block: align, behavior: 'smooth' });
       }
 
@@ -720,6 +729,8 @@ export class EditorStructureComponent implements OnInit {
 
 
   dragFromTable(e: any) {
+    console.log(e[1].label)
+    this.layout.setItems(e);
     this.hasChanges = true;
     this.layout.setSelectionChanged(true, this.panel);
   }
@@ -861,7 +872,7 @@ export class EditorStructureComponent implements OnInit {
           } else {
             this.layout.items().push(...items);
           }
-
+          this.layout.setItems(items);
           const item = items[0];
           item.selected = true;
           this.rowClick(item, null, this.lastClickIdx + 1);
@@ -896,13 +907,12 @@ export class EditorStructureComponent implements OnInit {
                 this.router.navigate(['/repository', item.pid]);
               } else {
                 if (result.objectPosition === 'after') {
-                  const items = this.layout.items();
-                  items.splice(this.lastClickIdx + 1, 0, item);
-                  this.layout.items.set(items);
+                  this.layout.items().splice(this.lastClickIdx + 1, 0, item);
                   this.hasChanges = true;
                 } else {
                   this.layout.items().push(item);
                 }
+                this.layout.setItems(this.layout.items());
                 item.selected = true;
                 this.rowClick(item, null, this.layout.items().length - 1);
                 if (this.table) {
