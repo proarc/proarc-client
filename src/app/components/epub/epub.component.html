@@ -4,10 +4,13 @@
       <div class="app-toolbar-label">
         <span class="app-text">E-pub</span>&#160;
         <span >{{ bookTitle }}</span>
-        <span *ngIf="chapterTitle && bookTitle.trim() !== chapterTitle.trim()"> - {{ chapterTitle }}</span>
+        @if (chapterTitle && bookTitle.trim() !== chapterTitle.trim()) {
+        <span> - {{ chapterTitle }}</span>
+        }
       </div>
     </div>
-    <div *ngIf="rendition?.location">
+    @if (rendition?.location) {
+    <div>
       <button mat-icon-button [disabled]="chapters.length === 0" [matMenuTriggerFor]="chapters_menu"
         [matTooltip]="'button.chapters' | translate">
         <mat-icon>format_list_numbered</mat-icon>
@@ -24,9 +27,9 @@
         <mat-icon>keyboard_arrow_right</mat-icon>
       </button>
     </div>
+  }
   </div>
   <div fxFlex class="app-oa-y">
-    <!-- <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='head'" class="app-progress-bar"></mat-progress-bar> -->
     <div class="app-editor-content app-h-100">
       <div class="app-pdf-wrapper" style="height: 100%;">
         <div id="epub_viewer" #epubViewer style="height: 100%;"></div>

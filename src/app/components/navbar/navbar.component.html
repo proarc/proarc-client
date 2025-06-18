@@ -19,24 +19,28 @@
         </g>
       </svg>
     </a>
-    <ng-container *ngIf="auth.isLoggedIn()">
+    @if (auth.isLoggedIn()) {
       <a mat-button [routerLink]="['/import']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">{{ "navbar.import" | translate }}</a>
       <a mat-button [routerLink]="['/process-management']" routerLinkActive="active">{{ "navbar.process-management" | translate }}</a>
       <a mat-button [routerLink]="['/search']" routerLinkActive="active">{{ "navbar.search" | translate }}</a>
       <a mat-button (click)="onCreateNewObject()">{{ "navbar.new_object" | translate }}</a>
-      <a mat-button *ngIf="config.showWorkflow" [matMenuTriggerFor]="rd_menu" >{{ "navbar.workflow" | translate }}</a>
+      @if (config.showWorkflow) {
+      <a mat-button [matMenuTriggerFor]="rd_menu" >{{ "navbar.workflow" | translate }}</a>
+      }
       <mat-menu #rd_menu="matMenu">
         <button [routerLink]="['/workflow/jobs']" routerLinkActive="active" mat-menu-item>{{ "navbar.jobs" | translate }}</button>
         <button [routerLink]="['/workflow/tasks']" routerLinkActive="active" mat-menu-item>{{ "navbar.tasks" | translate }}</button>
         <button [routerLink]="['/workflow/my_tasks']" routerLinkActive="active" mat-menu-item>{{ "navbar.my_tasks" | translate }}</button>
       </mat-menu>
-    </ng-container>
+    }
   </div>
   
   <div class="app-right">
-    <ng-container *ngIf="auth.isLoggedIn()">
-      <a mat-button *ngIf="auth.isSuperAdmin() || auth.isAdmin()" [routerLink]="['/devices']" routerLinkActive="active">{{ "navbar.devices" | translate }}</a>
-      <a mat-button *ngIf="auth.isSuperAdmin() || auth.isAdmin()" [routerLink]="['/admin']" routerLinkActive="active">{{ "navbar.admin" | translate }}</a>
+    @if (auth.isLoggedIn()) {
+      @if (auth.isSuperAdmin() || auth.isAdmin()) {
+      <a mat-button [routerLink]="['/devices']" routerLinkActive="active">{{ "navbar.devices" | translate }}</a>
+      <a mat-button [routerLink]="['/admin']" routerLinkActive="active">{{ "navbar.admin" | translate }}</a>
+      }
       <!-- <a  [routerLink]="['/layout']" routerLinkActive="active" mat-button>{{ "navbar.layout" | translate }}</a> -->
       <a mat-button (click)="showAboutDialog()">{{ "navbar.about" | translate }}</a>
       <a mat-button [matMenuTriggerFor]="profile_menu">{{ "navbar.profile" | translate }}</a>
@@ -49,9 +53,10 @@
           <span>{{ "navbar.logout" | translate }}</span>
         </button>
       </mat-menu>
-    </ng-container>
+    } @else {
+      <a mat-button [routerLink]="['/login']" routerLinkActive="active">{{ "navbar.login" | translate }}</a>
+    }
   
-    <a mat-button *ngIf="!auth.isLoggedIn()"  [routerLink]="['/login']" routerLinkActive="active">{{ "navbar.login" | translate }}</a>
 
     <a mat-button [matMenuTriggerFor]="language_menu">{{ 'navbar.lang.code.' + translator.currentLang | translate }}</a>
       <mat-menu #language_menu="matMenu">
@@ -62,10 +67,12 @@
       }
       </mat-menu>
 
-    <a *ngIf="auth.isLoggedIn() && config.showLogoutCounter" class="app-session app-clean-cursor-pointer" [matTooltip]="('desc.session' | translate) + ': ' + (auth.remaining * 1000 | date:'mm:ss')">
+    @if (auth.isLoggedIn() && config.showLogoutCounter) {
+    <a class="app-session app-clean-cursor-pointer" [matTooltip]="('desc.session' | translate) + ': ' + (auth.remaining * 1000 | date:'mm:ss')">
       <div class="app-block" [style.width]="auth.remainingPercent + '%'"></div>
       <div class="app-line"></div>
       <span class="app-text">{{ auth.remaining * 1000 | date:'mm:ss' }}</span>
     </a>
+  }
   </div>
 </mat-toolbar>

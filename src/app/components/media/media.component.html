@@ -1,45 +1,67 @@
 <div class="app-fxLayout app-column app-fill">
 	<div class="app-fxLayout app-row app-center-v app-toolbar app-view-media">
 		<div class="app-fxFlex">
-			<mat-form-field class="app-clean-mb app-select" appearance="outline" *ngIf="streamProfile">
+			@if (streamProfile) {
+			<mat-form-field class="app-clean-mb app-select" appearance="outline">
 				<mat-select name="profiles" [(ngModel)]="streamProfile">
 					@for(p of streamProfiles; track $index; let idx = $index) {
 					<mat-option [value]="p">{{ 'streamProfile.' + p.dsid | translate }}</mat-option>
 					}
 				</mat-select>
 			</mat-form-field>
+			}
 		</div>
 		<div>
-			<button mat-button [disabled]="!canAddPdf" *ngIf="canAddPDF_A" (click)="generatePdfA()">
+			@if (canAddPDF_A) {
+			<button mat-button [disabled]="!canAddPdf" (click)="generatePdfA()">
 				{{ 'Generovat PDF-A' | translate }}
 			</button>
+			}
 			<button mat-icon-button [disabled]="!canAddPdf" (click)="onAddPdf()" [matTooltip]="'viewer.tooltip.loadNewDigitalContent' | translate">
 				<mat-icon>upload</mat-icon>
 			</button>
 			<input style="display: none;" #pdfInput id="pdf_file_upload" name="pdf_file_upload" type="file" (change)="uploadFile($event)" accept=".pdf,.PDF,.epub" />
-			<button mat-icon-button *ngIf="streamProfile" (click)="onRemove()" [matTooltip]="'viewer.tooltip.deleteDigitalContent' | translate">
+			@if (streamProfile) {
+			<button mat-icon-button (click)="onRemove()" [matTooltip]="'viewer.tooltip.deleteDigitalContent' | translate">
 				<mat-icon>delete</mat-icon>
 			</button>
+			}
 			<button mat-icon-button [matTooltip]="'viewer.tooltip.lockPanel' | translate" (click)="changeLockPanel()" [class.app-active]="isLocked">
 				<mat-icon>push_pin</mat-icon>
 			</button>
 		</div>
 	</div>
 	<div class="app-fxFlex app-oa-y">
-		<div class="app-editor-content app-h-100" *ngIf="streamProfile || !isRepo">
-			<app-pdf *ngIf="isRepo && isPdf()" [stream]="streamProfile?.dsid" [pid]="currentPid"></app-pdf>
-			<app-epub *ngIf="isRepo && isEpub()" [stream]="streamProfile?.dsid" [pid]="currentPid"></app-epub>
-			<app-viewer *ngIf="!isRepo || isImage()" [idViewer]="'app-viewer-media'" [imageInfo]="{pid: currentPid, dsid: streamProfile ? streamProfile.dsid: 'FULL', width: streamProfile?.width, height: streamProfile?.height}"></app-viewer>
-			<app-song *ngIf="isRepo && isAudio()" [pid]="currentPid"></app-song>
-			<mat-card class="app-alert app-info app-m-4" *ngIf="isRepo && isUnsupported()" appearance="outlined">
+		@if (streamProfile || !isRepo) {
+		<div class="app-editor-content app-h-100">
+			@if (isRepo && isPdf()) {
+			<app-pdf [stream]="streamProfile?.dsid" [pid]="currentPid"></app-pdf>
+			}
+			@if (isRepo && isEpub()) {
+			<app-epub [stream]="streamProfile?.dsid" [pid]="currentPid"></app-epub>
+			}
+			@if (!isRepo || isImage()) {
+			<app-viewer [idViewer]="'app-viewer-media'" [imageInfo]="{pid: currentPid, dsid: streamProfile ? streamProfile.dsid: 'FULL', width: streamProfile?.width, height: streamProfile?.height}"></app-viewer>
+			}
+			@if (isRepo && isAudio()) {
+			<app-song [pid]="currentPid"></app-song>
+			}
+			@if (isRepo && isUnsupported()) {
+			<mat-card class="app-alert app-info app-m-4" appearance="outlined">
 				<mat-icon>info</mat-icon>{{ 'alert.info.digitalContentIsNotSupported' | translate }} ({{streamProfile.mime}})
 			</mat-card>
+			}
 		</div>
+		}
 		<div class="app-fxLayout app-column app-fill app-center-h">
-			<mat-card class="app-alert app-info app-m-4" appearance="outlined" *ngIf="!streamProfile && state !== 'loading'">
+			@if (!streamProfile && state !== 'loading') {
+			<mat-card class="app-alert app-info app-m-4" appearance="outlined">
 				<mat-icon>info</mat-icon>{{ 'alert.info.noDigitalContent' | translate }}
 			</mat-card>
+			}
 		</div>
-		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
+		@if (state ==='loading') {
+		<mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
+		}
 	</div>
 </div>

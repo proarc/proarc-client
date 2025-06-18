@@ -19,7 +19,9 @@
               <div class="app-fxLayout app-column app-fill app-gap-1">
                 @for(r of c.rows; track $index;) {
                   <div [style]="'flex: 1 1 100%; box-sizing: border-box; max-height: ' + r.size+'%'" (click)="toggleColumnVisibility(r)" class="app-fxLayout app-column app-center-v app-center-h app-layout-item" [ngClass]="r.visible ? 'app-selected' : 'app-not-selected'"><!--[fxFlex]="r.size+'%'"-->
-                    <mat-icon *ngIf="!r.visible">not_interested</mat-icon>
+                    @if (!r.visible) { 
+                      <mat-icon>not_interested</mat-icon> 
+                    }
                     <div class="app-text-center">{{ 'dynamic.' + r.type | translate }}</div>
                   </div>
                 }
@@ -29,12 +31,15 @@
         </div>
       </div>
       <div class="app-fxFlex app-layout-preview">
-        <as-split *ngIf="config" direction="horizontal" [disabled]="config.disabled" (dragEnd)="onDragEnd(-1, $event)">
+        @if (config) {
+        <as-split direction="horizontal" [disabled]="config.disabled" (dragEnd)="onDragEnd(-1, $event)">
           @for(column of config.columns; track $index; let icol = $index) {
-            <as-split-area *ngIf="column.visible" [size]="column.size">
+            @if (column.visible) {
+            <as-split-area [size]="column.size">
               <as-split direction="vertical" [disabled]="config.disabled" (dragEnd)="onDragEnd(icol, $event)">
                 @for(row of column.rows; track $index; let irow = $index) {
-                  <as-split-area *ngIf="row.visible" [size]="row.size">
+                  @if (row.visible) {
+                  <as-split-area [size]="row.size">
                     <div class="app-fxLayout app-column app-fill">
                       <mat-form-field>
                         <mat-select [(ngModel)]="row.type" (selectionChange)="refreshColumnVisibility()">
@@ -50,11 +55,14 @@
                       </div>
                     </div>
                   </as-split-area>
+                }
               }
               </as-split>
             </as-split-area>
+          }
         }
         </as-split>
+      }
       </div>
     </div>
   </div>

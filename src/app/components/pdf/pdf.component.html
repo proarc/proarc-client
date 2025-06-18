@@ -7,19 +7,23 @@
 		</div>
   </div>
 	<div fxFlex class="app-oa-y">
-		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='head'" class="app-progress-bar"></mat-progress-bar>
+		@if (state ==='loading' || state ==='head') {
+		<mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
+		}
 		<div class="app-editor-content app-h-100 app-oh">	
-			<ngx-extended-pdf-viewer #pdfViewer *ngIf="state === 'head' || state === 'ok'" 
+			@if (state === 'head' || state === 'ok') {
+			<ngx-extended-pdf-viewer #pdfViewer 
 				[src]="pdfUrl" [textLayer]="true" [handTool]="false"
 				[height]="'100%'" 
 				(pdfLoaded)="pdfRendered($event)" 
 				[enablePrint]="false" [showOpenFileButton]="false" 
 				[language]="getLang()" ></ngx-extended-pdf-viewer>
-
-			<mat-card class="app-alert app-info app-m-4"*ngIf="state == 'empty'">
-				<mat-icon>info</mat-icon>
-				{{ 'alert.info.noDigitalContent' | translate }}
-			</mat-card>
+			} @else if(state == 'empty') {
+				<mat-card class="app-alert app-info app-m-4">
+					<mat-icon>info</mat-icon>
+					{{ 'alert.info.noDigitalContent' | translate }}
+				</mat-card>
+			}
 		</div>
 	</div>
 </div>

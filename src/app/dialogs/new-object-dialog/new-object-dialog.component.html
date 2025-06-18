@@ -1,7 +1,10 @@
 <h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>{{ (data.isJob ? 'dialog.newObject.titleJob' : 'dialog.newObject.title') | translate }}</h1>
 <div mat-dialog-content class="app-pt-1">
-  <mat-progress-bar *ngIf="state=='saving'" mode="indeterminate"></mat-progress-bar>
-  <mat-form-field appearance="outline" *ngIf="data.isJob" class="app-w-100">
+  @if (state=='saving') {
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
+  @if (data.isJob) {
+  <mat-form-field appearance="outline" class="app-w-100">
     <mat-label>{{ 'desc.profileName' | translate }}</mat-label>
     <mat-select [placeholder]="'desc.profileName' | translate" [(ngModel)]="data.profile"
       (valueChange)="changeProfile($event)">
@@ -10,6 +13,7 @@
       }
     </mat-select>
   </mat-form-field>
+}
 
   <mat-form-field appearance="outline" class="app-w-100">
     <mat-label>{{ 'desc.model' | translate }}</mat-label>
@@ -19,32 +23,38 @@
       }
     </mat-select>
   </mat-form-field>
-
-  <fieldset appearance="outline" *ngIf="data.parentPid && !!!data.isJob" class="app-mb-4">
+@if (data.parentPid && !!!data.isJob) {
+  <fieldset appearance="outline" class="app-mb-4">
     <legend>{{ 'desc.objectPosition' | translate }}</legend>
     <mat-radio-group aria-label="Select an option" [(ngModel)]="objectPosition"  color="primary">
       <mat-radio-button value="end">{{ 'desc.objectPositionEnd' | translate }}</mat-radio-button>
       <mat-radio-button value="after">{{ 'desc.objectPositionAfter' | translate }}</mat-radio-button>
     </mat-radio-group>
   </fieldset>
-
-  <mat-form-field appearance="outline" *ngIf="data.customPid" class="app-w-100">
+}
+@if (data.customPid) {
+  <mat-form-field appearance="outline" class="app-w-100">
     <mat-label>{{ 'desc.pid' | translate }}</mat-label>
     <input type="text" autocomplete="off" matInput [placeholder]="'desc.pid' | translate" [(ngModel)]="data.pid">
   </mat-form-field>
-
-  <mat-card appearance="outlined" class="app-alert app-warn app-mb-4" *ngIf="data.customPid && !validate()">
+@if (!validate()) {
+  <mat-card appearance="outlined" class="app-alert app-warn app-mb-4" >
     <mat-card-content>
       <mat-icon>warning</mat-icon>{{ 'dialog.newObject.alert.invalidPid' | translate }}
     </mat-card-content>
   </mat-card>
-
+}
+}
   <div>
-    <mat-checkbox color="primary" [(ngModel)]="data.customPid" *ngIf="!data.isJob" class="app-mr-4">{{ 'desc.ownPid' | translate }}</mat-checkbox>
-    <mat-checkbox color="primary" [(ngModel)]="isMultiple" (click)="markRequired()" *ngIf="data.parentPid && data.model === 'model:ndkperiodicalissue'">{{ 'desc.more' | translate }}</mat-checkbox>
+    @if (!data.isJob) {
+    <mat-checkbox color="primary" [(ngModel)]="data.customPid" class="app-mr-4">{{ 'desc.ownPid' | translate }}</mat-checkbox>
+    }
+    @if (data.parentPid && data.model === 'model:ndkperiodicalissue') {
+    <mat-checkbox color="primary" [(ngModel)]="isMultiple" (click)="markRequired()">{{ 'desc.more' | translate }}</mat-checkbox>
+    }
   </div>
-
-  <div *ngIf="data.parentPid && data.model === 'model:ndkperiodicalissue'" [class.app-disabled]="!isMultiple" class="app-mt-4">
+@if (data.parentPid && data.model === 'model:ndkperiodicalissue') {
+  <div [class.app-disabled]="!isMultiple" class="app-mt-4">
     <div class="app-fxLayout app-row app-gap-4">
       <mat-form-field appearance="outline" class="app-fxFlex">
         <mat-label>{{ 'desc.frequency' | translate }}</mat-label>
@@ -128,19 +138,22 @@
       </mat-form-field>
     </div>
   </div>
+}
+@if (!data.isJob) {
+  <div class="app-desc" [ngClass]="data.parentPid && data.model === 'model:ndkperiodicalissue' ? null : 'app-mt-4'">{{ 'dialog.newObject.message' | translate }}</div>
+}
 
-  <div class="app-desc" *ngIf="!data.isJob" [ngClass]="data.parentPid && data.model === 'model:ndkperiodicalissue' ? null : 'app-mt-4'">{{ 'dialog.newObject.message' | translate }}</div>
-
-  <mat-card appearance="outlined" class="app-alert app-warn app-mt-4" *ngIf="state=='error'">
+@if (state=='error') {
+  <mat-card appearance="outlined" class="app-alert app-warn app-mt-4">
     <mat-card-content>
       <mat-icon>warning</mat-icon>{{ 'dialog.newObject.alert.failure' | translate }}
     </mat-card-content>
   </mat-card>
+}
 </div>
 
 <div mat-dialog-actions cdkFocusRegionstart>
-  <button mat-flat-button color="primary" (click)="onLoadFromCatalog()">{{ 'button.loadMetadataFromCatalog' | translate }}</button><!--*ngIf="data.fromNavbar" -->
-  <!-- <button *ngIf="!data.fromNavbar" mat-icon-button color="primary" (click)="onLoadFromCatalog()" [matTooltip]="'button.loadMetadataFromCatalog' | translate"><mat-icon>local_library</mat-icon></button> -->
+  <button mat-flat-button color="primary" (click)="onLoadFromCatalog()">{{ 'button.loadMetadataFromCatalog' | translate }}</button>
   <button mat-flat-button color="primary" (click)="onCreate()" [disabled]="!validate()">{{ 'button.create' | translate }}</button>
   <button mat-stroked-button color="default" mat-dialog-close="close">{{ 'button.cancel' | translate }}</button>
 </div>
