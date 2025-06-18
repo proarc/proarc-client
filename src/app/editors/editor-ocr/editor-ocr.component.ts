@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, input, output, effect } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,9 +14,7 @@ import { EditorSwitcherComponent } from '../editor-switcher/editor-switcher.comp
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, MatButtonModule,
-    MatIconModule, MatProgressBarModule, MatTooltipModule,
-    EditorSwitcherComponent],
+  imports: [TranslateModule, FormsModule, MatButtonModule, MatIconModule, MatProgressBarModule, MatTooltipModule, EditorSwitcherComponent],
   selector: 'app-editor-ocr',
   templateUrl: './editor-ocr.component.html',
   styleUrls: ['./editor-ocr.component.scss']

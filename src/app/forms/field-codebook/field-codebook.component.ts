@@ -1,5 +1,5 @@
 
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,9 +12,7 @@ import { UsageComponent } from '../usage/usage.component';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule,
-    MatIconModule, MatTooltipModule, MatSelectModule,
-    MatFormFieldModule, MatInputModule, UsageComponent],
+  imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatIconModule, MatTooltipModule, MatSelectModule, MatFormFieldModule, MatInputModule, UsageComponent],
   selector: 'app-field-codebook',
   templateUrl: './field-codebook.component.html',
   styleUrls: ['./field-codebook.component.scss']

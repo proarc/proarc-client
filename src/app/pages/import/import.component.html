@@ -6,7 +6,7 @@
       <span class="app-last">{{ 'desc.import' | translate }}</span>
     </div>
   </div>
-  
+
   <div class="app-fxLayout app-column app-fxFlex app-content-wrapper app-import">
     <div class="app-fxLayout app-row app-gap-2 app-formbar app-mb-n3">
       <button mat-stroked-button (click)="onLoad()" [disabled]="selectedDevice?.model === 'none' && !(selectedProfile.id === 'profile.default_archive_import' || selectedProfile.id === 'profile.default_ndk_import')">
@@ -16,7 +16,7 @@
         <mat-label>{{ 'import.profile' | translate }}</mat-label>
         <mat-select [placeholder]="'import.profile' | translate" [(ngModel)]="selectedProfile" (selectionChange)="onProfileChanged()">
           @for(profile of profiles; track $index;) {
-          <mat-option [value]="profile">{{ profile.label }}</mat-option>
+            <mat-option [value]="profile">{{ profile.label }}</mat-option>
           }
         </mat-select>
       </mat-form-field>
@@ -24,7 +24,7 @@
         <mat-label>{{ 'desc.priority' | translate }}</mat-label>
         <mat-select [placeholder]="'desc.priority' | translate" [(ngModel)]="selectedPriority">
           @for(priority of priorities; track $index;) {
-          <mat-option [value]="priority">{{ 'formField.priorities.' + priority  | translate}}</mat-option>
+            <mat-option [value]="priority">{{ 'formField.priorities.' + priority  | translate}}</mat-option>
           }
         </mat-select>
       </mat-form-field>
@@ -41,22 +41,31 @@
 
     <div class="app-fxFlex app-tree app-oh app-oa-y app-border-wrapper">
       @for(f of folders; let idx = $index; track $index;) {
-        <div class="app-fxLayout app-row app-center-v app-gap-1" *ngIf="!f.hidden">
-          <div class="app-cell" style="width: 50px; padding-left: 3px;">
-            <span *ngIf="f.state === 'IMPORTED'" class="app-disabled">{{ 'import.state.' + f.state.toLowerCase() | translate }}</span>
+        @if (!f.hidden) {
+          <div class="app-fxLayout app-row app-center-v app-gap-1">
+            <div class="app-cell" style="width: 50px; padding-left: 3px;">
+              @if (f.state === 'IMPORTED') {
+                <span class="app-disabled">{{ 'import.state.' + f.state.toLowerCase() | translate }}</span>
+              }
+            </div>
+            <div class="app-fxLayout app-row app-center-v app-cell">
+              <span [style.margin-left]="f.level*10 + 'px'"> </span>
+              @if (f.canExpand) {
+                <mat-icon (click)="toggleFolder(f, idx+1)">{{ f.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
+              }
+              @if (!f.canExpand) {
+                <mat-icon>none</mat-icon>
+              }
+              <mat-icon [class.app-disabled]="!canSelect(f)" class="app-mr-1" (click)="toggleSelected(f)" [color]="f.selected ? 'primary' : null">{{ f.selected ? "check_box" : "check_box_outline_blank" }}</mat-icon>
+              @if (canReread(f)) {
+                <mat-icon class="app-mr-1" title="Připravit ke znovunačtení" (click)="reRead(f)">refresh</mat-icon>
+              }
+              <span [class.app-disabled]="f.state === 'IMPORTED'">{{ f.name }}</span>
+            </div>
+            <!-- <div *ngIf="f.state === 'IMPORTED'" style="position: absolute; right: 15px;">{{ 'import.state.' + f.state.toLowerCase() | translate }}</div> -->
           </div>
-          <div class="app-fxLayout app-row app-center-v app-cell">
-            <span [style.margin-left]="f.level*10 + 'px'"> </span>
-            <mat-icon (click)="toggleFolder(f, idx+1)" *ngIf="f.canExpand">{{ f.expanded ? "expand_more" : "chevron_right" }}</mat-icon>
-            <mat-icon *ngIf="!f.canExpand">none</mat-icon>
-            <mat-icon [class.app-disabled]="!canSelect(f)" class="app-mr-1" (click)="toggleSelected(f)" [color]="f.selected ? 'primary' : null">{{ f.selected ? "check_box" : "check_box_outline_blank" }}</mat-icon>
-            <mat-icon class="app-mr-1" title="Připravit ke znovunačtení" *ngIf="canReread(f)" (click)="reRead(f)">refresh</mat-icon>
-            <span [class.app-disabled]="f.state === 'IMPORTED'">{{ f.name }}</span>
-          </div>
-          <!-- <div *ngIf="f.state === 'IMPORTED'" style="position: absolute; right: 15px;">{{ 'import.state.' + f.state.toLowerCase() | translate }}</div> -->
-        </div>
-    }
+        }
+      }
     </div>
   </div>
 </div>
-  

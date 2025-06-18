@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, effect, input } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,10 +21,7 @@ import { EditorSwitcherComponent } from '../editor-switcher/editor-switcher.comp
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, MatButtonModule,
-    MatIconModule, MatProgressBarModule, MatTooltipModule,
-    MatFormFieldModule, MatSelectModule, MatInputModule
-  ],
+  imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule, MatProgressBarModule, MatTooltipModule, MatFormFieldModule, MatSelectModule, MatInputModule],
   selector: 'app-editor-audioPage',
   templateUrl: './editor-audioPage.component.html',
   styleUrls: ['./editor-audioPage.component.scss']

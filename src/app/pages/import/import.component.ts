@@ -3,7 +3,7 @@ import { forkJoin } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,9 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, MatCheckboxModule,
-    MatIconModule, MatButtonModule, MatSelectModule,
-    MatTooltipModule],
+  imports: [TranslateModule, FormsModule, MatCheckboxModule, MatIconModule, MatButtonModule, MatSelectModule, MatTooltipModule],
   selector: 'app-import',
   templateUrl: './import.component.html',
   styleUrls: ['./import.component.scss']

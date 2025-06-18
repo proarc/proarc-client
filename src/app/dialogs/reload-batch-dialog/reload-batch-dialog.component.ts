@@ -1,5 +1,5 @@
 
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,10 +14,7 @@ import { Profile } from '../../model/profile.model';
 import { ApiService } from '../../services/api.service';
 
 @Component({
-  imports: [CommonModule, TranslateModule, MatDialogModule,
-    MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule,
-    FormsModule, MatFormFieldModule, MatSelectModule
-  ],
+  imports: [TranslateModule, MatDialogModule, MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule, FormsModule, MatFormFieldModule, MatSelectModule],
   selector: 'app-reload-batch-dialog',
   templateUrl: './reload-batch-dialog.component.html',
   styleUrls: ['./reload-batch-dialog.component.scss']

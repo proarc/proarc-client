@@ -4,7 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -19,10 +19,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, MatButtonModule,
-    MatIconModule, MatProgressBarModule, MatTooltipModule, MatCheckboxModule,
-    MatFormFieldModule, MatSelectModule, MatInputModule
-  ],
+  imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule, MatProgressBarModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule, MatInputModule],
   selector: 'app-editor-pages',
   templateUrl: './editor-pages.component.html',
   styleUrls: ['./editor-pages.component.scss']

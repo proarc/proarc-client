@@ -1,5 +1,5 @@
 
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,10 +13,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, TranslateModule, MatDialogModule,
-    MatIconModule, MatButtonModule, MatTooltipModule,
-    FormsModule, MatFormFieldModule, MatCheckboxModule, MatSlideToggleModule
-  ],
+  imports: [TranslateModule, MatDialogModule, MatIconModule, MatButtonModule, MatTooltipModule, FormsModule, MatFormFieldModule, MatCheckboxModule, MatSlideToggleModule],
   selector: 'app-preferred-tops-dialog',
   templateUrl: './preferred-tops-dialog.component.html',
   styleUrls: ['./preferred-tops-dialog.component.scss']

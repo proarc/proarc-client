@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { EditorFieldComponent } from '../../forms/editor-field/editor-field.component';
@@ -9,8 +9,7 @@ import { FieldDropdownComponent } from "../../forms/field-dropdown/field-dropdow
 
 
 @Component({
-  imports: [CommonModule, TranslateModule,
-    EditorFieldComponent, FieldTextareaComponent, FieldTextComponent, FieldDropdownComponent],
+  imports: [TranslateModule, EditorFieldComponent, FieldTextareaComponent, FieldTextComponent, FieldDropdownComponent],
   selector: 'app-editor-note',
   templateUrl: './editor-note.component.html',
   styleUrls: ['./editor-note.component.scss']

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, Input } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -9,8 +9,7 @@ import { ElementField } from '../../model/mods/elementField.model';
 
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule,
-    EditorFieldComponent, FieldTextComponent, AutocompleteComponent],
+  imports: [TranslateModule, FormsModule, ReactiveFormsModule, EditorFieldComponent, FieldTextComponent, AutocompleteComponent],
   selector: 'app-editor-classification',
   templateUrl: './editor-classification.component.html',
   styleUrls: ['./editor-classification.component.scss']

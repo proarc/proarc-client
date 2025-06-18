@@ -1,5 +1,5 @@
 
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
@@ -10,9 +10,7 @@ import { Batch } from '../../model/batch.model';
 import { ApiService } from '../../services/api.service';
 
 @Component({
-  imports: [CommonModule, TranslateModule, MatDialogModule,
-    MatIconModule, MatButtonModule, MatTooltipModule
-  ],
+  imports: [TranslateModule, MatDialogModule, MatIconModule, MatButtonModule, MatTooltipModule],
   templateUrl: './ingest-dialog.component.html',
   styleUrls: ['./ingest-dialog.component.scss']
 })

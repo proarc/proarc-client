@@ -1,11 +1,15 @@
 <div class="app-fxLayout app-column app-fill">
   <h1 mat-dialog-title>{{ 'dialog.parent.title' | translate }}</h1>
   <div mat-dialog-content class="app-maxh-100">
-    <mat-progress-bar *ngIf="state=='loading'" mode="indeterminate"></mat-progress-bar>
+    @if (state=='loading') {
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    }
     <as-split direction="horizontal" [disabled]="false" class="app-border-wrapper">
-      <as-split-area *ngIf="data.isRepo" [size]="30" >
-        <ng-container [ngTemplateOutlet]="origTmpl"></ng-container>
-      </as-split-area>
+      @if (data.isRepo) {
+        <as-split-area [size]="30" >
+          <ng-container [ngTemplateOutlet]="origTmpl"></ng-container>
+        </as-split-area>
+      }
 
       <as-split-area [size]="50" >
         <as-split style="height: calc(100% - 5px);" unit="percent" [gutterSize]="10" direction="vertical" #split="asSplit">
@@ -18,17 +22,23 @@
         </as-split>
       </as-split-area>
 
-      <as-split-area *ngIf="data.isRepo" [size]="50">
-        <ng-container [ngTemplateOutlet]="imageTmpl"></ng-container>
-      </as-split-area>
+      @if (data.isRepo) {
+        <as-split-area [size]="50">
+          <ng-container [ngTemplateOutlet]="imageTmpl"></ng-container>
+        </as-split-area>
+      }
     </as-split>
   </div>
-  
-  <div *ngIf="getNumOfSelected() !== 0 && state!=='loading' && isAllowed()" class="app-mt-4">
-    {{ (data.isRepo ? 'dialog.parent.alert.infoRepo' : 'dialog.parent.alert.infoImport') | translate }}:&#160;<strong>{{ selectedDestItem.label }}&#160;({{ 'model.' + selectedDestItem.model | translate}})</strong>
-  </div>
+
+  @if (getNumOfSelected() !== 0 && state!=='loading' && isAllowed()) {
+    <div class="app-mt-4">
+      {{ (data.isRepo ? 'dialog.parent.alert.infoRepo' : 'dialog.parent.alert.infoImport') | translate }}:&#160;<strong>{{ selectedDestItem.label }}&#160;({{ 'model.' + selectedDestItem.model | translate}})</strong>
+    </div>
+  }
   <div mat-dialog-actions cdkFocusRegionstart>
-    <button mat-flat-button color="primary" *ngIf="data.parent" (click)="onDeleteParent()">{{ 'button.unlink' | translate }}</button>
+    @if (data.parent) {
+      <button mat-flat-button color="primary" (click)="onDeleteParent()">{{ 'button.unlink' | translate }}</button>
+    }
     <button mat-flat-button color="primary" (click)="onSave()" [disabled]="state ==='loading' || !isAllowed()">{{ (data.isRepo ? 'button.move' : 'button.save') | translate }}</button>
     <button mat-flat-button [mat-dialog-close]="hasChanges">{{ 'button.close' | translate }}</button>
   </div>
@@ -38,11 +48,11 @@
   <div class="app-fxLayout app-column app-fill">
     <div class="app-fxLayout app-row app-center-v app-toolbar">
       <div class="app-toolbar-label app-text-cutter app-ml-2 app-mr-2">
-				<span class="app-text">{{ 'desc.theCurrentParentObject' | translate }}: <strong [matTooltip]="data.item?.label">{{ data.item?.label }}&#160;({{ 'model.' + data.item?.model | translate}})</strong></span>
-			</div>
+        <span class="app-text">{{ 'desc.theCurrentParentObject' | translate }}: <strong [matTooltip]="data.item?.label">{{ data.item?.label }}&#160;({{ 'model.' + data.item?.model | translate}})</strong></span>
+      </div>
     </div>
     <div class="app-oa-y">
-      <app-user-table (selectItem)="selectOrig($event)" [colsSettingsName]="data.columnsSettings" [items]="orig" ></app-user-table>  
+      <app-user-table (selectItem)="selectOrig($event)" [colsSettingsName]="data.columnsSettings" [items]="orig" ></app-user-table>
 
     </div>
   </div>
@@ -57,94 +67,112 @@
 
     <div class="app-fxLayout app-row app-gap-2 app-formbar app-mb-n3 app-pl-2 app-pr-2">
       <button mat-stroked-button (click)="reload()">{{ 'button.search' | translate }}</button>
-      <ng-container *ngIf="searchMode === 'phrase'">
+      @if (searchMode === 'phrase') {
         <mat-form-field appearance="outline" class="app-fxFlex">
           <mat-label>{{ 'desc.model' | translate }}</mat-label>
           <mat-select #modelSelect [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="settings.parentModel">
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
             @for(model of models; track $index;) {
-            <mat-option [value]="model">{{ "model." + model | translate }}</mat-option>
+              <mat-option [value]="model">{{ "model." + model | translate }}</mat-option>
             }
           </mat-select>
-          <button *ngIf="settings.parentModel !== this.config.defaultModel && this.searchedModel === settings.parentModel" matSuffix mat-icon-button aria-label="Clear" (click)="settings.parentModel=this.config.defaultModel;reload()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
-            <mat-icon>close</mat-icon>
-          </button>
+          @if (settings.parentModel !== this.config.defaultModel && this.searchedModel === settings.parentModel) {
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="settings.parentModel=this.config.defaultModel;reload()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
         </mat-form-field>
         <mat-form-field appearance="outline" class="app-fxFlex">
           <mat-label>{{ 'desc.search' | translate }}</mat-label>
           <input matInput [placeholder]="'desc.search' | translate" (keyup.enter)="reload()" [(ngModel)]="query">
-          <button *ngIf="query === searchedQuery && query !== ''" matSuffix mat-icon-button aria-label="Clear" (click)="query='';searchedQuery='';reload()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
-            <mat-icon>close</mat-icon>
-          </button>
+          @if (query === searchedQuery && query !== '') {
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="query='';searchedQuery='';reload()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
         </mat-form-field>
-      </ng-container>
+      }
 
-      <ng-container *ngIf="searchMode === 'advanced'">
+      @if (searchMode === 'advanced') {
         <mat-form-field appearance="outline" class="app-fxFlex">
           <mat-label>{{ 'desc.model' | translate }}</mat-label>
           <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="settings.parentModel">
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
             @for(model of models; track $index;) {
-            <mat-option [value]="model">{{ "model." + model | translate }}</mat-option>
+              <mat-option [value]="model">{{ "model." + model | translate }}</mat-option>
             }
           </mat-select>
-          <button *ngIf="settings.parentModel !== this.config.defaultModel && this.searchedModel === settings.parentModel" matSuffix mat-icon-button aria-label="Clear" (click)="settings.parentModel=this.config.defaultModel;reload()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
-            <mat-icon>close</mat-icon>
-          </button>
+          @if (settings.parentModel !== this.config.defaultModel && this.searchedModel === settings.parentModel) {
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="settings.parentModel=this.config.defaultModel;reload()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
         </mat-form-field>
         <mat-form-field appearance="outline" class="app-fxFlex">
           <mat-label>{{ 'desc.name' | translate }}</mat-label>
           <input matInput [placeholder]="'desc.name' | translate" (keyup.enter)="reload()" [(ngModel)]="queryLabel">
-          <button *ngIf="queryLabel && queryLabel === searchedQueryLabel" matSuffix mat-icon-button aria-label="Clear" (click)="queryLabel='';searchedQueryLabel='';reload()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
-            <mat-icon>close</mat-icon>
-          </button>
+          @if (queryLabel && queryLabel === searchedQueryLabel) {
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="queryLabel='';searchedQueryLabel='';reload()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
         </mat-form-field>
         <mat-form-field appearance="outline" class="app-fxFlex">
           <mat-label>{{ 'desc.identifier' | translate }}</mat-label>
           <input matInput [placeholder]="'desc.identifier' | translate" (keyup.enter)="reload()" [(ngModel)]="queryIdentifier">
-          <button *ngIf="queryIdentifier && queryIdentifier === searchedIdentifier" matSuffix mat-icon-button aria-label="Clear" (click)="queryIdentifier='';searchedIdentifier='';reload()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
-            <mat-icon>close</mat-icon>
-          </button>
+          @if (queryIdentifier && queryIdentifier === searchedIdentifier) {
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="queryIdentifier='';searchedIdentifier='';reload()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
         </mat-form-field>
         <mat-form-field appearance="outline" class="app-fxFlex">
           <mat-label>{{ 'desc.owner' | translate }}</mat-label>
           <mat-select [placeholder]="'desc.owner' | translate" name="owner" [(value)]="owner">
             <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
             @for(user of users; track $index;) {
-            <mat-option [value]="user.name">{{ user.name }}</mat-option>
+              <mat-option [value]="user.name">{{ user.name }}</mat-option>
             }
           </mat-select>
-          <button *ngIf="owner && owner === searchedOwner && owner !== '-'" matSuffix mat-icon-button aria-label="Clear" (click)="owner='';searchedOwner='';reload()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
-            <mat-icon>close</mat-icon>
-          </button>
+          @if (owner && owner === searchedOwner && owner !== '-') {
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="owner='';searchedOwner='';reload()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
         </mat-form-field>
         <mat-form-field appearance="outline" class="app-fxFlex">
           <mat-label>{{ 'desc.processor' | translate }}</mat-label>
           <mat-select [placeholder]="'desc.processor' | translate" name="processor" [(value)]="processor">
             <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
             @for(user of users; track $index;) {
-            <mat-option [value]="user.name">{{ user.name }}</mat-option>
+              <mat-option [value]="user.name">{{ user.name }}</mat-option>
             }
           </mat-select>
-          <button *ngIf="processor && processor === searchedProcessor && processor !== '-'" matSuffix mat-icon-button aria-label="Clear" (click)="processor='';searchedProcessor='';reload()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
-            <mat-icon>close</mat-icon>
-          </button>
+          @if (processor && processor === searchedProcessor && processor !== '-') {
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="processor='';searchedProcessor='';reload()" color="warn" [matTooltip]="'button.removeThisFilter' | translate">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
         </mat-form-field>
-      </ng-container>
+      }
     </div>
 
     <div class="app-oa-y app-border-top-wrapper">
-      <app-user-table (selectItem)="selectDest($event)" [colsSettingsName]="'columnsParentRight'" [items]="items" ></app-user-table>  
+      <app-user-table (selectItem)="selectDest($event)" [colsSettingsName]="'columnsParentRight'" [items]="items" ></app-user-table>
     </div>
   </div>
 </ng-template>
 
 <ng-template #stromTmpl>
-  <div class="app-tree" *ngIf="state !== 'saving' && selectedDestItem">
-    <!-- <app-tree *ngIf="tree" [tree]="tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)" [expanded]="data.selectedTree !== undefined" [expandedPath]="expandedPath"></app-tree> -->
-  </div>
+  @if (state !== 'saving' && selectedDestItem) {
+    <div class="app-tree">
+      <!-- <app-tree *ngIf="tree" [tree]="tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)" [expanded]="data.selectedTree !== undefined" [expandedPath]="expandedPath"></app-tree> -->
+    </div>
+  }
 </ng-template>
 
 <ng-template #imageTmpl>
-  <app-viewer *ngIf="lastSelectedItemPid" [imageInfo]="{pid: lastSelectedItemPid, dsid: 'FULL'}" [hideToolbar]="true" [idViewer]="'app-viewer-mark'"></app-viewer>
+  @if (lastSelectedItemPid) {
+    <app-viewer [imageInfo]="{pid: lastSelectedItemPid, dsid: 'FULL'}" [hideToolbar]="true" [idViewer]="'app-viewer-mark'"></app-viewer>
+  }
 </ng-template>

@@ -7,7 +7,7 @@ import { ApiService } from '../../services/api.service';
 import { LayoutService } from '../../services/layout-service';
 import { UIService } from '../../services/ui.service';
 import { Configuration } from '../../shared/configuration';
-import { CommonModule } from '@angular/common';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -18,10 +18,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, MatButtonModule,
-    MatIconModule, MatProgressBarModule, MatTooltipModule, MatCheckboxModule,
-    MatFormFieldModule, MatSelectModule, MatInputModule
-  ],
+  imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule, MatProgressBarModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule, MatInputModule],
   selector: 'app-editor-audioPages',
   templateUrl: './editor-audioPages.component.html',
   styleUrls: ['./editor-audioPages.component.scss']

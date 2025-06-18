@@ -1,128 +1,143 @@
 <h1 mat-dialog-title>{{ 'CZIDLO' | translate }}</h1>
 <div mat-dialog-content>
-    <div style="display: flex; row-gap: 8px; flex-direction: column;">
-        <ng-container *ngIf="!(showSuccessor || showNewRegistration || showUpdateIdentifier) && !responseData">
-            <button mat-flat-button color="primary" (click)="onSuccessor()">{{ 'dialog.czidlo.successor' | translate
-                }}</button>
-            <button mat-flat-button color="primary" (click)="invalidateLocal()">{{ 'dialog.czidlo.invalidate' |
-                translate }}</button>
-            <button mat-flat-button color="primary" (click)="onNewRegistration()">{{ 'dialog.czidlo.newRegistration' |
-                translate }}</button>
-            <button mat-flat-button color="primary" (click)="onUpdateIdentifier()">{{ 'dialog.czidlo.updateIdentifier' |
-                translate }}</button>
-            <button mat-flat-button color="primary" (click)="onInvalidateRemote()">{{ 'dialog.czidlo.invalidateRemote' |
-                translate }}</button>
-        </ng-container>
+  <div style="display: flex; row-gap: 8px; flex-direction: column;">
+    @if (!(showSuccessor || showNewRegistration || showUpdateIdentifier) && !responseData) {
+      <button mat-flat-button color="primary" (click)="onSuccessor()">{{ 'dialog.czidlo.successor' | translate
+      }}</button>
+      <button mat-flat-button color="primary" (click)="invalidateLocal()">{{ 'dialog.czidlo.invalidate' |
+      translate }}</button>
+      <button mat-flat-button color="primary" (click)="onNewRegistration()">{{ 'dialog.czidlo.newRegistration' |
+      translate }}</button>
+      <button mat-flat-button color="primary" (click)="onUpdateIdentifier()">{{ 'dialog.czidlo.updateIdentifier' |
+      translate }}</button>
+      <button mat-flat-button color="primary" (click)="onInvalidateRemote()">{{ 'dialog.czidlo.invalidateRemote' |
+      translate }}</button>
+    }
 
-            <div *ngIf="showSuccessor || showNewRegistration || showUpdateIdentifier || showInvalidateRemote">
-                <mat-form-field class="app-w-100">
-                    <mat-select [placeholder]="'desc.registrar' | translate" [(ngModel)]="selectedRegistrar"
-                        [disabled]="formDisabled()">
-                        @for(registrar of registrars; track $index;) {
-                        <mat-option [value]="registrar">{{ registrar.name
-                            }}</mat-option>
-                        }
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div *ngIf="showInvalidateRemote">
-                <mat-form-field class="app-w-100">
-                    <input  type="text" autocomplete="off" matInput [placeholder]="'urn:nbn'" [(ngModel)]="invalidateURNNBN">
-                </mat-form-field>
-            </div>
-            <div *ngIf="showUpdateIdentifier">
-                <mat-form-field class="app-w-100">
-                    <mat-select [placeholder]="'desc.identifiers' | translate" [(ngModel)]="selectedIdentifier"
-                        [disabled]="formDisabled()">
-                        @for(identifier of identifiers; track $index;) {
-                        <mat-option [value]="identifier.code">{{ identifier.name | translate
-                            }}</mat-option>
-                        }
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field class="app-w-100">
-                    <mat-select [placeholder]="'dialog.czidlo.operations' | translate" [(ngModel)]="selectedOperation"
-                        [disabled]="formDisabled()">
-                        @for(op of operations; track $index;) {
-                        <mat-option [value]="op">{{ 'dialog.czidlo.' + op | translate
-                            }}</mat-option>
-                        }
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="app-oa-y">
-                <table *ngIf="responseData" mat-table [dataSource]="responseData" class="app-striped app-hover">
-                    <ng-container matColumnDef="label" >
-                        <th mat-header-cell *matHeaderCellDef>{{ 'desc.description' | translate }}</th>
-                        <td mat-cell *matCellDef="let row">
-                            <div class="app-text-cutter-wrapper">
-                                <div class="app-text-cutter" [matTooltip]="row.label">
-                                    {{ row.label }}
-                                </div>
-                            </div>
-                        </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="model">
-                        <th mat-header-cell *matHeaderCellDef>{{ 'desc.model' | translate }}</th>
-                        <td mat-cell *matCellDef="let row"><span *ngIf="row.model">{{ "model." + row.model | translate }}</span></td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="statusType">
-                        <th mat-header-cell *matHeaderCellDef>{{ 'desc.error' | translate }}</th>
-                        <td mat-cell *matCellDef="let row">{{ row.statusType }}</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="warning">
-                        <th mat-header-cell *matHeaderCellDef>{{ 'desc.state' | translate }}</th>
-                        <!-- <td mat-cell *matCellDef="let row">{{ row.hasOwnProperty('warning') ? (row.warning ? ':-|' : ':-(') : ':-)' }}</td> -->
-                        <td mat-cell *matCellDef="let row">
-                            <mat-icon
-                                [ngClass]="row.hasOwnProperty('warning') ? (row.warning ? 'app-mood_bad' : 'app-sentiment_satisfied') : 'app-mood'">
-                                {{ row.hasOwnProperty('warning') ? (row.warning ? 'mood_bad' : 'sentiment_satisfied') :
-                                'mood' }}
-                            </mat-icon>
-                        </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="pid">
-                        <th mat-header-cell *matHeaderCellDef>PID</th>
-                        <td mat-cell *matCellDef="let row">{{ row.pid }}</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="urnnbn">
-                        <th mat-header-cell *matHeaderCellDef>URN:NBN</th>
-                        <td mat-cell *matCellDef="let row">{{ row.urnnbn }}</td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="message">
-                        <th mat-header-cell *matHeaderCellDef>{{ 'desc.message' | translate }}</th>
-                        <td mat-cell *matCellDef="let row">
-                            <div class="app-text-cutter-wrapper">
-                                <div class="app-text-cutter" [matTooltip]="row.message">
-                                    {{ row.message }}
-                                </div>
-                            </div>
-                        </td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="tableColumns; sticky: true"></tr>
-                    <tr mat-row *matRowDef="let row; columns: tableColumns;" (click)="selectRow(row)"
-                        [class.app-selected]="row.pid === selectedRow"></tr>
-                </table>
-            </div>
-
-            <mat-card *ngIf="message" class="app-alert"
-                [ngClass]="(state == 'error' ? 'app-warn' : false) || (selectedRowWarning ? 'app-info' : 'app-warn')">
-                <mat-icon>{{ state == 'error' || !selectedRowWarning ? 'warning' : 'info' }}</mat-icon> {{ message }}
-            </mat-card>
+    @if (showSuccessor || showNewRegistration || showUpdateIdentifier || showInvalidateRemote) {
+      <div>
+        <mat-form-field class="app-w-100">
+          <mat-select [placeholder]="'desc.registrar' | translate" [(ngModel)]="selectedRegistrar"
+            [disabled]="formDisabled()">
+            @for(registrar of registrars; track $index;) {
+              <mat-option [value]="registrar">{{ registrar.name
+              }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+    }
+    @if (showInvalidateRemote) {
+      <div>
+        <mat-form-field class="app-w-100">
+          <input  type="text" autocomplete="off" matInput [placeholder]="'urn:nbn'" [(ngModel)]="invalidateURNNBN">
+        </mat-form-field>
+      </div>
+    }
+    @if (showUpdateIdentifier) {
+      <div>
+        <mat-form-field class="app-w-100">
+          <mat-select [placeholder]="'desc.identifiers' | translate" [(ngModel)]="selectedIdentifier"
+            [disabled]="formDisabled()">
+            @for(identifier of identifiers; track $index;) {
+              <mat-option [value]="identifier.code">{{ identifier.name | translate
+              }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="app-w-100">
+          <mat-select [placeholder]="'dialog.czidlo.operations' | translate" [(ngModel)]="selectedOperation"
+            [disabled]="formDisabled()">
+            @for(op of operations; track $index;) {
+              <mat-option [value]="op">{{ 'dialog.czidlo.' + op | translate
+              }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+    }
+    <div class="app-oa-y">
+      @if (responseData) {
+        <table mat-table [dataSource]="responseData" class="app-striped app-hover">
+          <ng-container matColumnDef="label" >
+            <th mat-header-cell *matHeaderCellDef>{{ 'desc.description' | translate }}</th>
+            <td mat-cell *matCellDef="let row">
+              <div class="app-text-cutter-wrapper">
+                <div class="app-text-cutter" [matTooltip]="row.label">
+                  {{ row.label }}
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="model">
+            <th mat-header-cell *matHeaderCellDef>{{ 'desc.model' | translate }}</th>
+            <td mat-cell *matCellDef="let row">@if (row.model) {
+              <span>{{ "model." + row.model | translate }}</span>
+            }</td>
+          </ng-container>
+          <ng-container matColumnDef="statusType">
+            <th mat-header-cell *matHeaderCellDef>{{ 'desc.error' | translate }}</th>
+            <td mat-cell *matCellDef="let row">{{ row.statusType }}</td>
+          </ng-container>
+          <ng-container matColumnDef="warning">
+            <th mat-header-cell *matHeaderCellDef>{{ 'desc.state' | translate }}</th>
+            <!-- <td mat-cell *matCellDef="let row">{{ row.hasOwnProperty('warning') ? (row.warning ? ':-|' : ':-(') : ':-)' }}</td> -->
+            <td mat-cell *matCellDef="let row">
+              <mat-icon
+                [ngClass]="row.hasOwnProperty('warning') ? (row.warning ? 'app-mood_bad' : 'app-sentiment_satisfied') : 'app-mood'">
+                {{ row.hasOwnProperty('warning') ? (row.warning ? 'mood_bad' : 'sentiment_satisfied') :
+                'mood' }}
+              </mat-icon>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="pid">
+            <th mat-header-cell *matHeaderCellDef>PID</th>
+            <td mat-cell *matCellDef="let row">{{ row.pid }}</td>
+          </ng-container>
+          <ng-container matColumnDef="urnnbn">
+            <th mat-header-cell *matHeaderCellDef>URN:NBN</th>
+            <td mat-cell *matCellDef="let row">{{ row.urnnbn }}</td>
+          </ng-container>
+          <ng-container matColumnDef="message">
+            <th mat-header-cell *matHeaderCellDef>{{ 'desc.message' | translate }}</th>
+            <td mat-cell *matCellDef="let row">
+              <div class="app-text-cutter-wrapper">
+                <div class="app-text-cutter" [matTooltip]="row.message">
+                  {{ row.message }}
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="tableColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: tableColumns;" (click)="selectRow(row)"
+          [class.app-selected]="row.pid === selectedRow"></tr>
+        </table>
+      }
     </div>
+
+    @if (message) {
+      <mat-card class="app-alert"
+        [ngClass]="(state == 'error' ? 'app-warn' : false) || (selectedRowWarning ? 'app-info' : 'app-warn')">
+        <mat-icon>{{ state == 'error' || !selectedRowWarning ? 'warning' : 'info' }}</mat-icon> {{ message }}
+      </mat-card>
+    }
+  </div>
 </div>
 <div mat-dialog-actions cdkFocusRegionstart>
-    <button *ngIf="showInvalidateRemote" mat-flat-button color="primary" [disabled]="!invalidateURNNBN || formDisabled()" (click)="invalidateRemote()">{{ 'dialog.czidlo.invalidateRemote' | translate }}</button>
-    <button *ngIf="showNewRegistration" mat-flat-button color="primary" [disabled]="formDisabled()" (click)="newRegistration()">{{ 'dialog.czidlo.newRegistration' | translate }}</button>
-    <button *ngIf="showSuccessor" mat-flat-button color="primary" [disabled]="formDisabled()" (click)="successor()">{{ 'button.successor' | translate }}</button>
-    <button *ngIf="showUpdateIdentifier" mat-flat-button color="primary" [disabled]="formDisabled()" (click)="updateIdentifier()">{{ 'button.successor' | translate }}</button>
-    <button mat-stroked-button mat-dialog-close="close">{{ 'button.close' | translate }}</button>
-    <button *ngIf="log" mat-flat-button color="warn" (click)="showErrorDetail(log)">{{ 'button.viewErrorOutput' | translate }}</button>
+  @if (showInvalidateRemote) {
+    <button mat-flat-button color="primary" [disabled]="!invalidateURNNBN || formDisabled()" (click)="invalidateRemote()">{{ 'dialog.czidlo.invalidateRemote' | translate }}</button>
+  }
+  @if (showNewRegistration) {
+    <button mat-flat-button color="primary" [disabled]="formDisabled()" (click)="newRegistration()">{{ 'dialog.czidlo.newRegistration' | translate }}</button>
+  }
+  @if (showSuccessor) {
+    <button mat-flat-button color="primary" [disabled]="formDisabled()" (click)="successor()">{{ 'button.successor' | translate }}</button>
+  }
+  @if (showUpdateIdentifier) {
+    <button mat-flat-button color="primary" [disabled]="formDisabled()" (click)="updateIdentifier()">{{ 'button.successor' | translate }}</button>
+  }
+  <button mat-stroked-button mat-dialog-close="close">{{ 'button.close' | translate }}</button>
+  @if (log) {
+    <button mat-flat-button color="warn" (click)="showErrorDetail(log)">{{ 'button.viewErrorOutput' | translate }}</button>
+  }
 </div>

@@ -3,114 +3,135 @@
   [matSortDirection]="sortAsc ? 'asc' : 'desc'" (matSortChange)="sortTable($event)" cdkDropList
   (cdkDropListDropped)="drop($event)" cdkDropListData="items()">
 
-  <ng-container *ngIf="withFilters()">
+  @if (withFilters()) {
     @for(c of selectedColumns; track $index;) {
-    <ng-container [matColumnDef]="c.field + '-filter'">
-      <th mat-header-cell *matHeaderCellDef [style.width]="c.width+'px'" class="app-col-filter">
-        <ng-container [ngSwitch]="c.type">
-          <ng-container *ngSwitchCase="'date'"></ng-container>
-          <ng-container *ngSwitchCase="'list'">
-            <div class="app-filter-wrapper">
-              <mat-label *ngIf="!filterFields[c.field]">{{ 'desc.select' | translate }} ...</mat-label>
-              <mat-select [(ngModel)]="filterFields[c.field]" (ngModelChange)="filter(c.field, filterFields[c.field])">
-                <mat-option [value]="''"> </mat-option>
-                @for(s of lists[c.field]; track $index;) {
-                <mat-option [value]="s.code">{{ s.value }}</mat-option>
+      <ng-container [matColumnDef]="c.field + '-filter'">
+        <th mat-header-cell *matHeaderCellDef [style.width]="c.width+'px'" class="app-col-filter">
+          @switch (c.type) {
+            @case ('date') {
+            }
+            @case ('list') {
+              <div class="app-filter-wrapper">
+                @if (!filterFields[c.field]) {
+                  <mat-label>{{ 'desc.select' | translate }} ...</mat-label>
                 }
-              </mat-select>
-              <a matSuffix *ngIf="filterFields[c.field]"
-                (click)="filter(c.field, ''); filterFields[c.field] = ''; $event.stopPropagation();"
-                class="app-clear app-select"><mat-icon>clear</mat-icon></a>
-            </div>
-          </ng-container>
-          <ng-container *ngSwitchDefault>
-            <div class="app-filter-wrapper">
-              <input type="text" [id]="c + 'Filter'" [(ngModel)]="filterFields[c.field]"
-                (change)="filter(c.field, filterFields[c.field])"
-                [placeholder]="('desc.enterText' | translate) + '...'" />
-              <a *ngIf="filterFields[c.field]" (click)="filter(c.field, ''); filterFields[c.field] = ''"
-                class="app-clear"><mat-icon>clear</mat-icon></a>
-            </div>
-          </ng-container>
-        </ng-container>
-      </th>
-    </ng-container>
-  }
-  </ng-container>
-@for(c of selectedColumns; track $index; let idx = $index; let last = $last) {
-  <ng-container [matColumnDef]="c.field">
-    <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c.field)"
-      [style.width]="c.width + 'px'" class="app-pr-0">
-      <span *ngIf="!last" mat-sort-header>{{'search.' + c.field | translate}}</span>
-      <div *ngIf="last" class="app-fxLayout app-row app-center-v">
-        <span *ngIf="c.field !== 'isLocked' && c.type !== 'action'" mat-sort-header class="app-fxFlex">{{ 'search.' +
-          c.field | translate }}</span>
-        <button (click)="setColumns()" mat-icon-button color="primary"
-          [matTooltip]="'editor.children.select_columns' | translate" class="app-mr-0">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-      </div>
-    </th>
-    <td mat-cell *matCellDef="let element">
-      <ng-container [ngSwitch]="c.type">
-        <ng-container *ngSwitchCase="'date'">
-          {{ element[c.field] | date : 'dd.MM.yyyy'}}
-        </ng-container>
-        <ng-container *ngSwitchCase="'datetime'">
-          {{ element[c.field] | date : 'dd.MM.yyyy hh:mm:ss'}}
-        </ng-container>
-        <ng-container *ngSwitchCase="'list'">
-          {{ listValue(c.field, element[c.field])}}
-        </ng-container>
-        <ng-container *ngSwitchCase="'translated'">
-          {{ prefixes[c.field] + element[c.field] | translate }}
-        </ng-container>
-        <ng-container *ngSwitchCase="'boolean'">
-          <div class="app-fxLayout app-row app-center-v">
-            <button mat-icon-button color="primary"
-              [matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">
-              <mat-icon>{{ element.isLocked ? 'lock' : 'lock_open' }}</mat-icon>
-            </button>
-            <button mat-icon-button color="primary" *ngIf="element.validationStatus === 'ERROR'"
-              (click)="onGetValidationError(element.validationProcess);"
-              [matTooltip]="'button.viewErrorDetail' | translate" matTooltipPosition="below">
-              <mat-icon>error_outline</mat-icon>
-            </button>
-          </div>
-        </ng-container>
-        <ng-container *ngSwitchCase="'action'">
-          @for(a of actions(); track $index;) {
-          <button mat-icon-button color="primary"(click)="a.action(element)"
-            [matTooltip]="a.tooltip | translate">
-            <mat-icon>{{ a.icon }}</mat-icon>
-          </button>
+                <mat-select [(ngModel)]="filterFields[c.field]" (ngModelChange)="filter(c.field, filterFields[c.field])">
+                  <mat-option [value]="''"> </mat-option>
+                  @for(s of lists[c.field]; track $index;) {
+                    <mat-option [value]="s.code">{{ s.value }}</mat-option>
+                  }
+                </mat-select>
+                @if (filterFields[c.field]) {
+                  <a matSuffix
+                    (click)="filter(c.field, ''); filterFields[c.field] = ''; $event.stopPropagation();"
+                    class="app-clear app-select"><mat-icon>clear</mat-icon></a>
+                  }
+                </div>
+              }
+              @default {
+                <div class="app-filter-wrapper">
+                  <input type="text" [id]="c + 'Filter'" [(ngModel)]="filterFields[c.field]"
+                    (change)="filter(c.field, filterFields[c.field])"
+                    [placeholder]="('desc.enterText' | translate) + '...'" />
+                    @if (filterFields[c.field]) {
+                      <a (click)="filter(c.field, ''); filterFields[c.field] = ''"
+                        class="app-clear"><mat-icon>clear</mat-icon></a>
+                      }
+                    </div>
+                  }
+                }
+              </th>
+            </ng-container>
+          }
         }
-        </ng-container>
-        <ng-container *ngSwitchDefault>
-          <ng-container *ngIf="c.field !== 'validationStatus'">
-            <div class="app-fxLayout app-row app-center-v">
-              <button mat-icon-button color="primary" *ngIf="element[c.field]?.startsWith('uuid')" class="app-icon-copy app-mr-1"
-                (click)="ui.copyTextToClipboard(element[c.field])" [matTooltip]="'button.copyTextToClipboard' | translate">
-                <mat-icon class="app-16">content_copy</mat-icon>
-              </button>
-              <a *ngIf="element[c.field]?.startsWith('uuid')" [routerLink]="['/repository', element[c.field]]">{{ element[c.field] }}</a>
-              <span *ngIf="!element[c.field]?.startsWith('uuid')">{{ element[c.field] }}</span>
-            </div>
+        @for(c of selectedColumns; track $index; let idx = $index; let last = $last) {
+          <ng-container [matColumnDef]="c.field">
+            <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c.field)"
+              [style.width]="c.width + 'px'" class="app-pr-0">
+              @if (!last) {
+                <span mat-sort-header>{{'search.' + c.field | translate}}</span>
+              }
+              @if (last) {
+                <div class="app-fxLayout app-row app-center-v">
+                  @if (c.field !== 'isLocked' && c.type !== 'action') {
+                    <span mat-sort-header class="app-fxFlex">{{ 'search.' +
+                    c.field | translate }}</span>
+                  }
+                  <button (click)="setColumns()" mat-icon-button color="primary"
+                    [matTooltip]="'editor.children.select_columns' | translate" class="app-mr-0">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                </div>
+              }
+            </th>
+            <td mat-cell *matCellDef="let element">
+              @switch (c.type) {
+                @case ('date') {
+                  {{ element[c.field] | date : 'dd.MM.yyyy'}}
+                }
+                @case ('datetime') {
+                  {{ element[c.field] | date : 'dd.MM.yyyy hh:mm:ss'}}
+                }
+                @case ('list') {
+                  {{ listValue(c.field, element[c.field])}}
+                }
+                @case ('translated') {
+                  {{ prefixes[c.field] + element[c.field] | translate }}
+                }
+                @case ('boolean') {
+                  <div class="app-fxLayout app-row app-center-v">
+                    <button mat-icon-button color="primary"
+                      [matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">
+                      <mat-icon>{{ element.isLocked ? 'lock' : 'lock_open' }}</mat-icon>
+                    </button>
+                    @if (element.validationStatus === 'ERROR') {
+                      <button mat-icon-button color="primary"
+                        (click)="onGetValidationError(element.validationProcess);"
+                        [matTooltip]="'button.viewErrorDetail' | translate" matTooltipPosition="below">
+                        <mat-icon>error_outline</mat-icon>
+                      </button>
+                    }
+                  </div>
+                }
+                @case ('action') {
+                  @for(a of actions(); track $index;) {
+                    <button mat-icon-button color="primary"(click)="a.action(element)"
+                      [matTooltip]="a.tooltip | translate">
+                      <mat-icon>{{ a.icon }}</mat-icon>
+                    </button>
+                  }
+                }
+                @default {
+                  @if (c.field !== 'validationStatus') {
+                    <div class="app-fxLayout app-row app-center-v">
+                      @if (element[c.field]?.startsWith('uuid')) {
+                        <button mat-icon-button color="primary" class="app-icon-copy app-mr-1"
+                          (click)="ui.copyTextToClipboard(element[c.field])" [matTooltip]="'button.copyTextToClipboard' | translate">
+                          <mat-icon class="app-16">content_copy</mat-icon>
+                        </button>
+                      }
+                      @if (element[c.field]?.startsWith('uuid')) {
+                        <a [routerLink]="['/repository', element[c.field]]">{{ element[c.field] }}</a>
+                      }
+                      @if (!element[c.field]?.startsWith('uuid')) {
+                        <span>{{ element[c.field] }}</span>
+                      }
+                    </div>
+                  }
+                }
+              }
+            </td>
           </ng-container>
-        </ng-container>
-      </ng-container>
-    </td>
-  </ng-container>
-}
-  <ng-container *ngIf="withFilters()">
-    <tr mat-header-row *matHeaderRowDef="filterColumns; sticky: true"></tr>
-  </ng-container>
+        }
+        @if (withFilters()) {
+          <tr mat-header-row *matHeaderRowDef="filterColumns; sticky: true"></tr>
+        }
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns; let idx=index" #matrow [id]="'tr_'+row.pid"
-    (click)="onSelectItem(row, $event, idx)" (dblclick)="onOpenItem(row, $event)" class="app-cursor-pointer"
-    [class.app-selected]="row.selected" [class.app-invalid]="row.invalid"
-    [class.app-repre]="row.pageRepre === 'reprePage'"
-    [title]="row.label + ' (' + ('model.' + row.model | translate) + ')'" cdkDrag [cdkDragData]="row"
-    [cdkDragDisabled]="!draggable()" [cdkDragPreviewContainer]="'parent'"></tr>
-</table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns; let idx=index" #matrow [id]="'tr_'+row.pid"
+          (click)="onSelectItem(row, $event, idx)" (dblclick)="onOpenItem(row, $event)" class="app-cursor-pointer"
+          [class.app-selected]="row.selected" [class.app-invalid]="row.invalid"
+          [class.app-repre]="row.pageRepre === 'reprePage'"
+          [title]="row.label + ' (' + ('model.' + row.model | translate) + ')'" cdkDrag [cdkDragData]="row"
+        [cdkDragDisabled]="!draggable()" [cdkDragPreviewContainer]="'parent'"></tr>
+      </table>

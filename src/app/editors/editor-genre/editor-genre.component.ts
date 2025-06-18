@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -22,10 +22,7 @@ import { AutocompleteComponent } from "../../forms/autocomplete/autocomplete.com
 
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule,
-    MatIconModule, MatTooltipModule, MatSlideToggleModule,
-    MatFormFieldModule, MatInputModule, MatRadioModule,
-    EditorFieldComponent, FieldDropdownComponent, FieldTextComponent, AutocompleteComponent],
+  imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatIconModule, MatTooltipModule, MatSlideToggleModule, MatFormFieldModule, MatInputModule, MatRadioModule, EditorFieldComponent, FieldDropdownComponent, FieldTextComponent, AutocompleteComponent],
   selector: 'app-editor-genre',
   templateUrl: './editor-genre.component.html',
   styleUrls: ['./editor-genre.component.scss']

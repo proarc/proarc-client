@@ -1,5 +1,5 @@
 
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,9 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { Utils } from '../../utils/utils';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule,
-    MatIconModule, MatTooltipModule, MatInputModule,
-    MatFormFieldModule, UsageComponent],
+  imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatIconModule, MatTooltipModule, MatInputModule, MatFormFieldModule, UsageComponent],
   selector: 'app-field-text',
   templateUrl: './field-text.component.html',
   styleUrls: ['./field-text.component.scss']

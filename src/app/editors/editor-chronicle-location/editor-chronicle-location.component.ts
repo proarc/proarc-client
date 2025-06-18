@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
@@ -16,9 +16,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { FundService } from '../../services/fund.service';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule,
-    MatTooltipModule,
-    EditorFieldComponent, MatSelectModule, MatButtonModule, MatIconModule],
+  imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatTooltipModule, EditorFieldComponent, MatSelectModule, MatButtonModule, MatIconModule],
   selector: 'app-editor-chronicle-location',
   templateUrl: './editor-chronicle-location.component.html',
   styleUrls: ['./editor-chronicle-location.component.scss']

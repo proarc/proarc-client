@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,11 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule,
-    MatIconModule, MatProgressBarModule, MatTooltipModule,
-    MatInputModule, MatButtonModule,
-    MatRadioModule, MatFormFieldModule, MatSelectModule,
-  ],
+  imports: [TranslateModule, FormsModule, MatIconModule, MatProgressBarModule, MatTooltipModule, MatInputModule, MatButtonModule, MatRadioModule, MatFormFieldModule, MatSelectModule],
   selector: 'app-material-edit',
   templateUrl: './material-edit.component.html',
   styleUrls: ['./material-edit.component.scss']

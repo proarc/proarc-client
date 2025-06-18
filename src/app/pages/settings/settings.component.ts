@@ -5,7 +5,7 @@ import { MatTable } from '@angular/material/table';
 import { DocumentItem } from '../../model/documentItem.model';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
-import { CommonModule } from '@angular/common';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -28,11 +28,7 @@ import { PreferredTopsDialogComponent } from '../../dialogs/preferred-tops-dialo
 
 @Component({
   standalone: true,
-  imports: [CommonModule, TranslateModule, FormsModule, DragDropModule,
-    MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule,
-    MatInputModule, MatDividerModule, MatProgressBarModule, MatSelectModule,
-    MatCheckboxModule
-  ],
+  imports: [TranslateModule, FormsModule, DragDropModule, MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatInputModule, MatDividerModule, MatProgressBarModule, MatSelectModule, MatCheckboxModule],
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']

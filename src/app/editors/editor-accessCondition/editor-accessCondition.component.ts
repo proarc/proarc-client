@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { EditorFieldComponent } from '../../forms/editor-field/editor-field.component';
@@ -7,8 +7,7 @@ import { AutocompleteComponent } from "../../forms/autocomplete/autocomplete.com
 
 
 @Component({
-  imports: [CommonModule, TranslateModule,
-    EditorFieldComponent, AutocompleteComponent],
+  imports: [TranslateModule, EditorFieldComponent, AutocompleteComponent],
   selector: 'app-editor-accessCondition',
   templateUrl: './editor-accessCondition.component.html',
   styleUrls: ['./editor-accessCondition.component.scss']

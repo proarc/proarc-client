@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ChangeOwnerDialogComponent } from './change-owner-dialog/change-owner-dialog.component';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,11 +27,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  imports: [CommonModule, TranslateModule, RouterModule, FormsModule,
-    MatIconModule, MatButtonModule, MatProgressBarModule,
-    MatInputModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule,
-    MatPaginatorModule,
-    MatTableModule, MatSortModule, ResizecolDirective],
+  imports: [TranslateModule, RouterModule, FormsModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatInputModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule, MatPaginatorModule, MatTableModule, MatSortModule, ResizecolDirective],
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']

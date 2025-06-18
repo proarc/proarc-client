@@ -1,26 +1,28 @@
 <h1 mat-dialog-title>{{ 'button.changeOwnerTooltip' | translate }}</h1>
 <div mat-dialog-content class="app-form-field-dens-6">
-	<mat-progress-bar *ngIf="state=='loading'" mode="indeterminate"></mat-progress-bar>
-	<div class="app-fxLayout app-row app-gap-4 app-pt-2">
-		<mat-form-field appearance="outline" class="app-fxFlex">
-			<mat-label>{{ 'desc.oldOwner' | translate }}</mat-label>
-			<mat-select [placeholder]="'desc.oldOwner' | translate" [(ngModel)]="oldOwner">
-				@for(c of data; track $index;) {
-				<mat-option [value]="c.name">{{ c.name}} ({{c.organization}})</mat-option>
-				}
-			</mat-select>
-		</mat-form-field>
-		<mat-form-field appearance="outline" class="app-fxFlex">
-			<mat-label>{{ 'desc.newOwner' | translate }}</mat-label>
-			<mat-select [placeholder]="'desc.newOwner' | translate" [(ngModel)]="newOwner">
-				@for(c of data; track $index;) {
-				<mat-option [value]="c.name">{{ c.name }} ({{c.organization}})</mat-option>
-				}
-			</mat-select>
-		</mat-form-field>
-	</div>
+  @if (state=='loading') {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
+  <div class="app-fxLayout app-row app-gap-4 app-pt-2">
+    <mat-form-field appearance="outline" class="app-fxFlex">
+      <mat-label>{{ 'desc.oldOwner' | translate }}</mat-label>
+      <mat-select [placeholder]="'desc.oldOwner' | translate" [(ngModel)]="oldOwner">
+        @for(c of data; track $index;) {
+          <mat-option [value]="c.name">{{ c.name}} ({{c.organization}})</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="app-fxFlex">
+      <mat-label>{{ 'desc.newOwner' | translate }}</mat-label>
+      <mat-select [placeholder]="'desc.newOwner' | translate" [(ngModel)]="newOwner">
+        @for(c of data; track $index;) {
+          <mat-option [value]="c.name">{{ c.name }} ({{c.organization}})</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
 </div>
 <div mat-dialog-actions cdkFocusRegionstart>
-	<button mat-flat-button color="primary" [disabled]="!oldOwner || !newOwner || state=='loading'" (click)="changeOwner()" [matTooltip]="'button.changeOwner' | translate">{{ 'button.changeOwner' | translate }}</button>
-	<button mat-flat-button [mat-dialog-close]="false">{{ 'button.close' | translate }}</button>
+  <button mat-flat-button color="primary" [disabled]="!oldOwner || !newOwner || state=='loading'" (click)="changeOwner()" [matTooltip]="'button.changeOwner' | translate">{{ 'button.changeOwner' | translate }}</button>
+  <button mat-flat-button [mat-dialog-close]="false">{{ 'button.close' | translate }}</button>
 </div>

@@ -1,43 +1,50 @@
 <div [ngClass]="results && results.length > 0 ? 'app-fxLayout app-column app-fill' : null">
-  <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'" class="app-progress-bar"></mat-progress-bar>
+  @if (state=='loading') {
+    <mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
+  }
   <h2 mat-dialog-title>{{ 'dialog.catalog.title' | translate }}</h2>
   <div mat-dialog-content class="mat-typography app-fxFlex app-maxh-100 app-fxLayout app-column">
-    <div *ngIf="catalogs" class="app-fxLayout app-row app-baseline app-gap-2 app-pt-1">
-      <mat-form-field appearance="outline" class="app-fxFlex" *ngIf="catalogs && catalogs.length > 0">
-        <mat-label>{{ 'desc.catalog' | translate }}</mat-label>
-        <mat-select (selectionChange)="onCatalogChanged($event.value)" [placeholder]="'desc.catalog' | translate" name="catalog" [(ngModel)]="activeCatalog" [disabled]="state=='loading'  || state=='saving'">
-          @for(catalog of catalogs; track $index;) {
-            <mat-option [value]="catalog">{{ catalog.name }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" *ngIf="activeCatalog" >
-        <mat-label>{{ 'desc.field' | translate }}</mat-label>
-        <mat-select [placeholder]="'desc.field' | translate" name="field" [(ngModel)]="activeField" [disabled]="state=='loading'  || state=='saving'">
-          @for(field of activeCatalog?.fields; track $index;) {
-          <mat-option [value]="field">{{ field.name }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="app-fxFlex">
-        <mat-label>{{ 'desc.query' | translate }}</mat-label>
-        <input matInput [placeholder]="'desc.query' | translate" (keyup.enter)="search()" [(ngModel)]="activeQuery" [disabled]="state=='loading'  || state=='saving'">
-      </mat-form-field>
-
-      <button mat-flat-button color="primary" (click)="search()" [disabled]="!activeQuery || state=='loading'  || state=='saving'">
-        {{ 'button.search' | translate }}
-      </button>
-    </div>
+    @if (catalogs) {
+      <div class="app-fxLayout app-row app-baseline app-gap-2 app-pt-1">
+        @if (catalogs && catalogs.length > 0) {
+          <mat-form-field appearance="outline" class="app-fxFlex">
+            <mat-label>{{ 'desc.catalog' | translate }}</mat-label>
+            <mat-select (selectionChange)="onCatalogChanged($event.value)" [placeholder]="'desc.catalog' | translate" name="catalog" [(ngModel)]="activeCatalog" [disabled]="state=='loading'  || state=='saving'">
+              @for(catalog of catalogs; track $index;) {
+                <mat-option [value]="catalog">{{ catalog.name }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        }
+        @if (activeCatalog) {
+          <mat-form-field appearance="outline" >
+            <mat-label>{{ 'desc.field' | translate }}</mat-label>
+            <mat-select [placeholder]="'desc.field' | translate" name="field" [(ngModel)]="activeField" [disabled]="state=='loading'  || state=='saving'">
+              @for(field of activeCatalog?.fields; track $index;) {
+                <mat-option [value]="field">{{ field.name }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        }
+        <mat-form-field appearance="outline" class="app-fxFlex">
+          <mat-label>{{ 'desc.query' | translate }}</mat-label>
+          <input matInput [placeholder]="'desc.query' | translate" (keyup.enter)="search()" [(ngModel)]="activeQuery" [disabled]="state=='loading'  || state=='saving'">
+        </mat-form-field>
+        <button mat-flat-button color="primary" (click)="search()" [disabled]="!activeQuery || state=='loading'  || state=='saving'">
+          {{ 'button.search' | translate }}
+        </button>
+      </div>
+    }
     <div class="app-fxLayout app-row app-fil app-gap-4 app-oh">
-      <mat-card *ngIf="results && results.length === 0" appearance="outlined" class="app-alert app-warn app-fxFlex">
-        <mat-card-content>
-          <mat-icon>warning</mat-icon> {{ 'catalog.no-results' | translate }}
-        </mat-card-content>
-      </mat-card>
+      @if (results && results.length === 0) {
+        <mat-card appearance="outlined" class="app-alert app-warn app-fxFlex">
+          <mat-card-content>
+            <mat-icon>warning</mat-icon> {{ 'catalog.no-results' | translate }}
+          </mat-card-content>
+        </mat-card>
+      }
 
-      <ng-container *ngIf="results && results.length > 0">
+      @if (results && results.length > 0) {
         <div class="app-fxFlex app-oa-y">
           <table mat-table #table [dataSource]="results" class="app-striped app-hover">
             <ng-container matColumnDef="title">
@@ -52,15 +59,21 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index" (click)="selectEntry(i)" class="app-cursor-pointer" [class.app-selected]="activeIndex == i"></tr>
           </table>
         </div>
-        <div class="app-fxFlex app-oa-y" *ngIf="activeIndex >= 0">
-          <div [innerHTML]="results[activeIndex].preview"></div>
-        </div>
-      </ng-container>
+        @if (activeIndex >= 0) {
+          <div class="app-fxFlex app-oa-y">
+            <div [innerHTML]="results[activeIndex].preview"></div>
+          </div>
+        }
+      }
     </div>
   </div>
   <div mat-dialog-actions>
-    <button *ngIf="data.create" mat-flat-button color="primary" (click)="onCreate()" [disabled]="activeIndex < 0 || state=='loading'  || state=='saving'" >{{ 'button.create' | translate }}</button>
-    <button *ngIf="!data.create" mat-flat-button color="primary" (click)="onSave()" [disabled]="activeIndex < 0 || state=='loading'  || state=='saving'" >{{ 'button.save' | translate }}</button>
+    @if (data.create) {
+      <button mat-flat-button color="primary" (click)="onCreate()" [disabled]="activeIndex < 0 || state=='loading'  || state=='saving'" >{{ 'button.create' | translate }}</button>
+    }
+    @if (!data.create) {
+      <button mat-flat-button color="primary" (click)="onSave()" [disabled]="activeIndex < 0 || state=='loading'  || state=='saving'" >{{ 'button.save' | translate }}</button>
+    }
     <button mat-stroked-button mat-dialog-close="close" >{{ 'button.cancel' | translate }}</button>
   </div>
 </div>

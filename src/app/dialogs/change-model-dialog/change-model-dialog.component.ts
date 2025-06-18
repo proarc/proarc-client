@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
@@ -10,9 +10,7 @@ import { UIService } from '../../services/ui.service';
 import { ConvertDialogComponent } from '../convert-dialog/convert-dialog.component';
 
 @Component({
-  imports: [CommonModule, TranslateModule, MatDialogModule,
-    MatIconModule, MatButtonModule, MatTooltipModule
-  ],
+  imports: [TranslateModule, MatDialogModule, MatIconModule, MatButtonModule, MatTooltipModule],
   selector: 'app-change-model-dialog',
   templateUrl: './change-model-dialog.component.html',
   styleUrls: ['./change-model-dialog.component.scss']

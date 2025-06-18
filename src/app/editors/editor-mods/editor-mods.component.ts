@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef, SimpleChange, effe
 import { Subscription } from 'rxjs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { ILayoutPanel } from '../../dialogs/layout-admin/layout-admin.component';
 import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
@@ -21,9 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, MatButtonModule,
-    MatIconModule, MatProgressBarModule, MatTooltipModule,
-    HighlightAuto, EditorSwitcherComponent],
+  imports: [TranslateModule, FormsModule, MatButtonModule, MatIconModule, MatProgressBarModule, MatTooltipModule, HighlightAuto, EditorSwitcherComponent],
   selector: 'app-editor-mods',
   templateUrl: './editor-mods.component.html',
   styleUrls: ['./editor-mods.component.scss']

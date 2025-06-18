@@ -1,5 +1,5 @@
 
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -13,10 +13,7 @@ import { ApiService } from '../../services/api.service';
 import { UIService } from '../../services/ui.service';
 
 @Component({
-  imports: [CommonModule, TranslateModule, MatDialogModule,
-    MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule,
-    MatProgressBarModule
-  ],
+  imports: [TranslateModule, MatDialogModule, MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule, MatProgressBarModule],
   selector: 'app-import-dialog',
   templateUrl: './import-dialog.component.html',
   styleUrls: ['./import-dialog.component.scss']

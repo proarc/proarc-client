@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { Configuration } from '../../shared/configuration';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -18,10 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { Utils } from '../../utils/utils';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule,
-    MatIconModule, MatTooltipModule, MatSlideToggleModule,
-    MatFormFieldModule, MatInputModule,
-    EditorFieldComponent, UsageComponent, FieldDropdownComponent, FieldTextComponent, FieldCodebookComponent],
+  imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatIconModule, MatTooltipModule, MatSlideToggleModule, MatFormFieldModule, MatInputModule, EditorFieldComponent, UsageComponent, FieldDropdownComponent, FieldTextComponent, FieldCodebookComponent],
   selector: 'app-editor-title',
   templateUrl: './editor-title.component.html',
   // changeDetection: ChangeDetectionStrategy.OnPush,

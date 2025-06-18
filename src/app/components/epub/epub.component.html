@@ -4,26 +4,30 @@
       <div class="app-toolbar-label">
         <span class="app-text">E-pub</span>&#160;
         <span >{{ bookTitle }}</span>
-        <span *ngIf="chapterTitle && bookTitle.trim() !== chapterTitle.trim()"> - {{ chapterTitle }}</span>
+        @if (chapterTitle && bookTitle.trim() !== chapterTitle.trim()) {
+          <span> - {{ chapterTitle }}</span>
+        }
       </div>
     </div>
-    <div *ngIf="rendition?.location">
-      <button mat-icon-button [disabled]="chapters.length === 0" [matMenuTriggerFor]="chapters_menu"
-        [matTooltip]="'button.chapters' | translate">
-        <mat-icon>format_list_numbered</mat-icon>
-      </button>
-      <mat-menu #chapters_menu="matMenu">
-        @for(chapter of chapters; track $index; let idx = $index) {
-        <div mat-menu-item (click)="displayChapter(chapter)">{{ chapter.label }}</div>
-        }
-      </mat-menu>
-      <button mat-icon-button (click)="showPrev()" [disabled]="rendition.location.start.index === 0" [matTooltip]="'button.prev_page' | translate">
-        <mat-icon>keyboard_arrow_left</mat-icon>
-      </button>
-      <button mat-icon-button (click)="showNext()" [matTooltip]="'button.next_page' | translate">
-        <mat-icon>keyboard_arrow_right</mat-icon>
-      </button>
-    </div>
+    @if (rendition?.location) {
+      <div>
+        <button mat-icon-button [disabled]="chapters.length === 0" [matMenuTriggerFor]="chapters_menu"
+          [matTooltip]="'button.chapters' | translate">
+          <mat-icon>format_list_numbered</mat-icon>
+        </button>
+        <mat-menu #chapters_menu="matMenu">
+          @for(chapter of chapters; track $index; let idx = $index) {
+            <div mat-menu-item (click)="displayChapter(chapter)">{{ chapter.label }}</div>
+          }
+        </mat-menu>
+        <button mat-icon-button (click)="showPrev()" [disabled]="rendition.location.start.index === 0" [matTooltip]="'button.prev_page' | translate">
+          <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        <button mat-icon-button (click)="showNext()" [matTooltip]="'button.next_page' | translate">
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+      </div>
+    }
   </div>
   <div fxFlex class="app-oa-y">
     <!-- <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='head'" class="app-progress-bar"></mat-progress-bar> -->

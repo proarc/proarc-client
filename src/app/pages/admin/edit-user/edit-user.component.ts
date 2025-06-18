@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,11 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  imports: [CommonModule, TranslateModule, RouterModule, FormsModule,
-    MatIconModule, MatButtonModule, MatProgressBarModule, MatCardModule, 
-    MatInputModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule,
-    MatSelectModule
-  ],
+  imports: [TranslateModule, RouterModule, FormsModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatCardModule, MatInputModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule],
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.scss']

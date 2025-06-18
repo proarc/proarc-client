@@ -3,7 +3,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -21,10 +21,7 @@ import { Configuration } from '../../shared/configuration';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, MatButtonModule,
-    MatIconModule, MatProgressBarModule, MatTooltipModule,
-    MatFormFieldModule, MatSelectModule, MatInputModule,
-    EditorSwitcherComponent],
+  imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule, MatProgressBarModule, MatTooltipModule, MatFormFieldModule, MatSelectModule, MatInputModule, EditorSwitcherComponent],
   selector: 'app-editor-page',
   templateUrl: './editor-page.component.html',
   styleUrls: ['./editor-page.component.scss']

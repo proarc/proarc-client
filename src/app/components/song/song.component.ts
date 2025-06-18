@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, OnDestroy, Input, effect, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -10,10 +10,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @Component({
-  imports: [CommonModule, TranslateModule,
-    MatIconModule,
-    MatProgressSpinnerModule, MatTooltipModule
-  ],
+  imports: [TranslateModule, MatIconModule, MatProgressSpinnerModule, MatTooltipModule],
   selector: 'app-song',
   templateUrl: './song.component.html',
   styleUrls: ['./song.component.scss']

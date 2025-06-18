@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,8 +13,7 @@ import { Router, RouterModule } from '@angular/router';
 import { Sort } from '@angular/material/sort';
 
 @Component({
-  imports: [CommonModule, TranslateModule, RouterModule,
-    MatIconModule, MatButtonModule, MatTooltipModule, MatProgressBarModule, UserTableComponent],
+  imports: [TranslateModule, RouterModule, MatIconModule, MatButtonModule, MatTooltipModule, MatProgressBarModule, UserTableComponent],
   selector: 'app-devices',
   templateUrl: './devices.component.html',
   styleUrls: ['./devices.component.scss']

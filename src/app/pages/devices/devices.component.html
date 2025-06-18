@@ -7,7 +7,9 @@
     </div>
   </div>
 
-  <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'" class="app-progress-bar"></mat-progress-bar>
+  @if (state=='loading') {
+    <mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
+  }
 
   <div class="app-fxFlex app-fxLayout app-column app-content-wrapper app-devices">
     <div class="app-fxLayout app-row app-gap-2 app-formbar app-mb-2">
@@ -15,7 +17,7 @@
     </div>
 
     <div class="app-fxFlex app-oa-y app-border-wrapper">
-      <app-user-table (sortBy)="sortBy($event)" (selectItem)="selectRow($event)" (openItem)="openItem($event)" [colsSettingsName]="'devicesColumns'" [actions]="actions" [items]="devices"></app-user-table>  
+      <app-user-table (sortBy)="sortBy($event)" (selectItem)="selectRow($event)" (openItem)="openItem($event)" [colsSettingsName]="'devicesColumns'" [actions]="actions" [items]="devices"></app-user-table>
     </div>
   </div>
 </div>

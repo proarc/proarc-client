@@ -7,25 +7,31 @@
     </mat-form-field>
   </div>
 
-  <div class="app-table" *ngIf="state=='results'">
-  <div class="search-result-list">
-    <div class="scrollable">
-      @for(fund of funds; track $index;) {
-        <div (click)="selectedFund = fund" [class.app-selected]="fund == selectedFund" class="app-row">
-          <div class="result-label">{{ fund.name }}</div>
+  @if (state=='results') {
+    <div class="app-table">
+      <div class="search-result-list">
+        <div class="scrollable">
+          @for(fund of funds; track $index;) {
+            <div (click)="selectedFund = fund" [class.app-selected]="fund == selectedFund" class="app-row">
+              <div class="result-label">{{ fund.name }}</div>
+            </div>
+          }
         </div>
-      }
+      </div>
     </div>
-  </div>
-</div>
+  }
 
-<div *ngIf="state=='empty'" class="app-message">
-  {{ 'editor.chronicle.location.fund_dialog.no_results' | translate }}
-</div>
+  @if (state=='empty') {
+    <div class="app-message">
+      {{ 'editor.chronicle.location.fund_dialog.no_results' | translate }}
+    </div>
+  }
 
-<div *ngIf="state=='none'" class="app-message">
-  {{ 'editor.chronicle.location.fund_dialog.short_query' | translate }}
-</div>
+  @if (state=='none') {
+    <div class="app-message">
+      {{ 'editor.chronicle.location.fund_dialog.short_query' | translate }}
+    </div>
+  }
 
 </div>
 

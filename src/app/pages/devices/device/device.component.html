@@ -9,10 +9,12 @@
     </div>
   </div>
 
-  <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'" class="app-progress-bar"></mat-progress-bar>
+  @if (state=='loading') {
+    <mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
+  }
 
   <div class="app-fxFlex app-fxLayout app-column app-content-wrapper app-devices app-oa-y">
-    <ng-container *ngIf="state === 'success'">
+    @if (state === 'success') {
       <fieldset class="app-pt-4 app-mb-4">
         <legend>{{ 'device.general' | translate }}</legend>
         <div class="app-fxLayout app-row app-gap-4">
@@ -32,7 +34,6 @@
           </mat-form-field>
         </div>
       </fieldset>
-
       <fieldset class="app-pt-4 app-mb-4">
         <legend>{{ 'device.scanner' | translate }}</legend>
         <div class="app-fxLayout app-row app-gap-4">
@@ -45,7 +46,6 @@
             <input type="text" matInput [placeholder]="'device.scannerSensor' | translate" disabled [(ngModel)]='device.scannerSensor'>
           </mat-form-field>
         </div>
-
         <div class="app-fxLayout app-row app-gap-4">
           <mat-form-field appearance="outline" class="app-fxFlex">
             <mat-label>{{ 'device.modelName' | translate }}</mat-label>
@@ -60,7 +60,6 @@
             <input type="text" matInput [placeholder]="'device.modelSerialNumber' | translate" disabled [(ngModel)]='device.scannerModelSerialNo'>
           </mat-form-field>
         </div>
-
         <div class="app-fxLayout app-row app-gap-4">
           <mat-form-field appearance="outline" class="app-fxFlex">
             <mat-label>{{ 'X - ' + ('device.opticalResolution' | translate) }}</mat-label>
@@ -75,7 +74,6 @@
             <input type="text" matInput [placeholder]="'device.opticalResolutionUnit' | translate" disabled [(ngModel)]='device.opticalResolutionUnit'>
           </mat-form-field>
         </div>
-
         <div class="app-fxLayout app-row app-gap-4">
           <mat-form-field appearance="outline" class="app-fxFlex">
             <mat-label>{{ 'device.softwareName' | translate }}</mat-label>
@@ -87,7 +85,6 @@
           </mat-form-field>
         </div>
       </fieldset>
-
       <fieldset class="app-pt-4 app-mb-4">
         <legend>{{ 'device.digitalCamera' | translate }}</legend>
         <div class="app-fxLayout app-row app-gap-4">
@@ -115,70 +112,62 @@
           </mat-form-field>
         </div>
       </fieldset>
-
-      <fieldset class="app-pt-4 app-mb-4" *ngIf="device.isAudio()">
-        <legend>{{ 'device.informationAboutAudioFiles' | translate }}</legend>
-        <div class="app-border-wrapper">
-          <table mat-table [dataSource]="device.audioDevices" class="app-hover app-striped">
-            <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef>{{ 'device.name' | translate }}</th>
-              <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="type">
-              <th mat-header-cell *matHeaderCellDef>{{ 'device.type' | translate }}</th>
-              <td mat-cell *matCellDef="let element">{{ element.type }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="manufacturer">
-              <th mat-header-cell *matHeaderCellDef>{{ 'device.manufacturer' | translate }}</th>
-              <td mat-cell *matCellDef="let element">{{ element.manufacturer }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="serialNumber">
-              <th mat-header-cell *matHeaderCellDef>{{ 'device.serialNumber' | translate }}</th>
-              <td mat-cell *matCellDef="let element">{{ element.serialNumber }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="settings">
-              <th mat-header-cell *matHeaderCellDef>{{ 'device.settings' | translate }}</th>
-              <td mat-cell *matCellDef="let element">{{ element.settings }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="identifierType">
-              <th mat-header-cell *matHeaderCellDef>{{ 'device.identifierType' | translate }}</th>
-              <td mat-cell *matCellDef="let element">{{ element.identifierType }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="identifierValue">
-              <th mat-header-cell *matHeaderCellDef>{{ 'device.identifierValue' | translate }}</th>
-              <td mat-cell *matCellDef="let element">{{ element.identifierValue }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="identifierRole">
-              <th mat-header-cell *matHeaderCellDef>{{ 'device.identifierRole' | translate }}</th>
-              <td mat-cell *matCellDef="let element">{{ element.identifierRole }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="actions">
-              <th mat-header-cell *matHeaderCellDef></th>
-              <td mat-cell *matCellDef="let element; let i = index">
-                <div class="app-fxLayout app-row app-center-v">
-                  <button mat-icon-button color="warn" (click)="removeAudioDevice(i)" [matTooltip]="'device.button.deleteInfoForAudioFiles' | translate" matTooltipPosition="below">
-                    <mat-icon>delete</mat-icon>
-                  </button>
-                  <button mat-icon-button color="primary" [routerLink]="['/devices', device.id, 'audio', i + 1, 'edit']"  [matTooltip]="'device.button.editInfoForAudioFiles' | translate" matTooltipPosition="below">
-                    <mat-icon>edit</mat-icon>
-                  </button>
-                </div>
-              </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
-        </div>
-      </fieldset>
+      @if (device.isAudio()) {
+        <fieldset class="app-pt-4 app-mb-4">
+          <legend>{{ 'device.informationAboutAudioFiles' | translate }}</legend>
+          <div class="app-border-wrapper">
+            <table mat-table [dataSource]="device.audioDevices" class="app-hover app-striped">
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>{{ 'device.name' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+              </ng-container>
+              <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef>{{ 'device.type' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.type }}</td>
+              </ng-container>
+              <ng-container matColumnDef="manufacturer">
+                <th mat-header-cell *matHeaderCellDef>{{ 'device.manufacturer' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.manufacturer }}</td>
+              </ng-container>
+              <ng-container matColumnDef="serialNumber">
+                <th mat-header-cell *matHeaderCellDef>{{ 'device.serialNumber' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.serialNumber }}</td>
+              </ng-container>
+              <ng-container matColumnDef="settings">
+                <th mat-header-cell *matHeaderCellDef>{{ 'device.settings' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.settings }}</td>
+              </ng-container>
+              <ng-container matColumnDef="identifierType">
+                <th mat-header-cell *matHeaderCellDef>{{ 'device.identifierType' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.identifierType }}</td>
+              </ng-container>
+              <ng-container matColumnDef="identifierValue">
+                <th mat-header-cell *matHeaderCellDef>{{ 'device.identifierValue' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.identifierValue }}</td>
+              </ng-container>
+              <ng-container matColumnDef="identifierRole">
+                <th mat-header-cell *matHeaderCellDef>{{ 'device.identifierRole' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.identifierRole }}</td>
+              </ng-container>
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                  <div class="app-fxLayout app-row app-center-v">
+                    <button mat-icon-button color="warn" (click)="removeAudioDevice(i)" [matTooltip]="'device.button.deleteInfoForAudioFiles' | translate" matTooltipPosition="below">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                    <button mat-icon-button color="primary" [routerLink]="['/devices', device.id, 'audio', i + 1, 'edit']"  [matTooltip]="'device.button.editInfoForAudioFiles' | translate" matTooltipPosition="below">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                  </div>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+        </fieldset>
+      }
       <div class="app-fxLayout app-row app-gap-2 app-mb-2">
         <button mat-stroked-button [routerLink]="['/devices', device.id, 'edit']">
           {{ 'device.button.editDevice' | translate }}
@@ -186,10 +175,12 @@
         <button mat-flat-button color="warn" (click)="removeDevice()">
           {{ 'device.button.removeDevice' | translate }}
         </button>
-        <button mat-stroked-button *ngIf="device.isAudio()" [routerLink]="['/devices', device.id, 'audio', 'new']">
-          {{ 'device.button.addInfoToAudioFiles' | translate }}
-        </button>
+        @if (device.isAudio()) {
+          <button mat-stroked-button [routerLink]="['/devices', device.id, 'audio', 'new']">
+            {{ 'device.button.addInfoToAudioFiles' | translate }}
+          </button>
+        }
       </div>
-    </ng-container>  
+    }
   </div>
 </div>

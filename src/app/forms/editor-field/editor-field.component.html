@@ -1,53 +1,59 @@
-<div class="app-form-wrapper" [class.app-nested]="nested" [class.app-top-level]="!nested" *ngIf="field">
-  @for(item of field.items; let last = $last; let first = $first; let idx = $index; track $index;) {
-  <ng-container *ngIf="showByGenre(idx, item) && item">
-    <div class="app-form" [class.app-required]="item.isRequired" [class.app-warning]="item.validationWarning">
-      <div class="app-fxLayout app-row app-form-header">
-        <div class="app-fxFlex app-fxLayout app-row app-center-v app-text-cutter">
-          <ng-container *ngIf="collapsable">
-            <button class="app-collapse" *ngIf="item.collapsed" matTooltip="{{ 'common.expand' | translate }}"
-              (click)="switchCollapsed(item)" mat-icon-button>
-              <mat-icon>expand_more</mat-icon>
-            </button>
-            <button class="app-collapse" *ngIf="!item.collapsed" matTooltip="{{ 'common.collapse' | translate }}"
-              (click)="switchCollapsed(item)" mat-icon-button>
-              <mat-icon>expand_less</mat-icon>
-            </button>
-          </ng-container>
-          <span [matTooltip]="field.labelKey" class="app-form-title" [class.app-no-collapse]="!collapsable">
-            {{ 'mods.' + field.labelKey | translate }}
-          </span>
-          <span class="app-marker">{{ field.usage }}</span>
+@if (field) {
+  <div class="app-form-wrapper" [class.app-nested]="nested" [class.app-top-level]="!nested">
+    @for(item of field.items; let last = $last; let first = $first; let idx = $index; track $index;) {
+      @if (showByGenre(idx, item) && item) {
+        <div class="app-form" [class.app-required]="item.isRequired" [class.app-warning]="item.validationWarning">
+          <div class="app-fxLayout app-row app-form-header">
+            <div class="app-fxFlex app-fxLayout app-row app-center-v app-text-cutter">
+              @if (collapsable) {
+                @if (item.collapsed) {
+                  <button class="app-collapse" matTooltip="{{ 'common.expand' | translate }}"
+                    (click)="switchCollapsed(item)" mat-icon-button>
+                    <mat-icon>expand_more</mat-icon>
+                  </button>
+                }
+                @if (!item.collapsed) {
+                  <button class="app-collapse" matTooltip="{{ 'common.collapse' | translate }}"
+                    (click)="switchCollapsed(item)" mat-icon-button>
+                    <mat-icon>expand_less</mat-icon>
+                  </button>
+                }
+              }
+              <span [matTooltip]="field.labelKey" class="app-form-title" [class.app-no-collapse]="!collapsable">
+                {{ 'mods.' + field.labelKey | translate }}
+              </span>
+              <span class="app-marker">{{ field.usage }}</span>
+            </div>
+            <div class="app-fxLayout app-row">
+              <ng-template [ngTemplateOutlet]="templateMenu" [ngTemplateOutletContext]="{ item: item  }"></ng-template>
+              <button [disabled]="field.cantAdd()" matTooltip="{{ 'editor.add_field' | translate }}"
+                (click)="addAfterItem(item)" mat-icon-button>
+                <mat-icon>add</mat-icon>
+              </button>
+              <button [disabled]="first" matTooltip="{{ 'common.move_up' | translate }}" (click)="moveUp(item)"
+                mat-icon-button>
+                <mat-icon>arrow_drop_up</mat-icon>
+              </button>
+              <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" (click)="moveDown(item)"
+                mat-icon-button>
+                <mat-icon>arrow_drop_down</mat-icon>
+              </button>
+              <button matTooltip="{{ 'editor.info' | translate }}" (click)="openHelpDialog()" mat-icon-button>
+                <mat-icon>help_outline</mat-icon>
+              </button>
+              <button matTooltip="{{ 'common.remove' | translate }}" (click)="removeItem(item)" mat-icon-button>
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+          <div class="app-form-content" [class.app-collapsed]="collapsable && item.collapsed"
+            [class.app-expanded]="!item.collapsed">
+            <ng-template [ngTemplateOutlet]="templateContent"
+            [ngTemplateOutletContext]="{ item: item, first: first, idx: idx  }"></ng-template>
+          </div>
         </div>
-        <div class="app-fxLayout app-row">
-          <ng-template [ngTemplateOutlet]="templateMenu" [ngTemplateOutletContext]="{ item: item  }"></ng-template>
-          <button [disabled]="field.cantAdd()" matTooltip="{{ 'editor.add_field' | translate }}"
-            (click)="addAfterItem(item)" mat-icon-button>
-            <mat-icon>add</mat-icon>
-          </button>
-          <button [disabled]="first" matTooltip="{{ 'common.move_up' | translate }}" (click)="moveUp(item)"
-            mat-icon-button>
-            <mat-icon>arrow_drop_up</mat-icon>
-          </button>
-          <button [disabled]="last" matTooltip="{{ 'common.move_down' | translate }}" (click)="moveDown(item)"
-            mat-icon-button>
-            <mat-icon>arrow_drop_down</mat-icon>
-          </button>
-          <button matTooltip="{{ 'editor.info' | translate }}" (click)="openHelpDialog()" mat-icon-button>
-            <mat-icon>help_outline</mat-icon>
-          </button>
-          <button matTooltip="{{ 'common.remove' | translate }}" (click)="removeItem(item)" mat-icon-button>
-            <mat-icon>delete</mat-icon>
-          </button>
-        </div>
-      </div>
-      <div class="app-form-content" [class.app-collapsed]="collapsable && item.collapsed"
-        [class.app-expanded]="!item.collapsed">
-        <ng-template [ngTemplateOutlet]="templateContent"
-          [ngTemplateOutletContext]="{ item: item, first: first, idx: idx  }"></ng-template>
-      </div>
-    </div>
-    <div class="app-gap-fixer"></div>
-  </ng-container>
-  }
-</div>
+        <div class="app-gap-fixer"></div>
+      }
+    }
+  </div>
+}

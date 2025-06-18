@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, effect, ElementRef, input, Input, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -23,9 +23,7 @@ import { ViewerComponent } from "../viewer/viewer.component";
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, MatButtonModule,
-    MatCardModule, MatSelectModule,
-    MatIconModule, MatProgressBarModule, MatTooltipModule, MatFormFieldModule, PdfComponent, EpubComponent, SongComponent, ViewerComponent],
+  imports: [TranslateModule, FormsModule, MatButtonModule, MatCardModule, MatSelectModule, MatIconModule, MatProgressBarModule, MatTooltipModule, MatFormFieldModule, PdfComponent, EpubComponent, SongComponent, ViewerComponent],
   selector: 'app-media',
   templateUrl: './media.component.html',
   styleUrls: ['./media.component.scss']

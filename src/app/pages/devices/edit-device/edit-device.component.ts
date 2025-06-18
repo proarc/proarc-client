@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,11 +18,7 @@ import { ApiService } from '../../../services/api.service';
 import { UIService } from '../../../services/ui.service';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, RouterModule,
-    MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
-    MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule,
-    MatTableModule
-  ],
+  imports: [TranslateModule, FormsModule, RouterModule, MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatTableModule],
   selector: 'app-edit-device',
   templateUrl: './edit-device.component.html',
   styleUrls: ['./edit-device.component.scss']

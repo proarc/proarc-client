@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Configuration } from '../../shared/configuration';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { EditorFieldComponent } from '../../forms/editor-field/editor-field.component';
@@ -10,8 +10,7 @@ import { ElementField } from '../../model/mods/elementField.model';
 import { FieldCodebookComponent } from "../../forms/field-codebook/field-codebook.component";
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule,
-    EditorFieldComponent, FieldTextComponent, FieldCodebookComponent],
+  imports: [TranslateModule, FormsModule, EditorFieldComponent, FieldTextComponent, FieldCodebookComponent],
   selector: 'app-editor-identifier',
   templateUrl: './editor-identifier.component.html',
   styleUrls: ['./editor-identifier.component.scss']

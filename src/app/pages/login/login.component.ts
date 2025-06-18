@@ -15,14 +15,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatInputModule } from '@angular/material/input';
-import { CommonModule } from '@angular/common';
+
 import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, TranslateModule, FormsModule, 
-    MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
-    MatInputModule],
+  imports: [TranslateModule, FormsModule, MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatInputModule],
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
