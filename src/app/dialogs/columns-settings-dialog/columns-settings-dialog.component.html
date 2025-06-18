@@ -16,25 +16,19 @@
           <mat-checkbox [name]="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
         </div>
       }
-    }
-    @if (data.colsSettingsName !== 'colsEditingRepo') {
-      <legend>{{ 'pages.settings.searchTree.legend' | translate }}</legend>
-      <div class="app-label app-mb-2">{{ 'pages.settings.searchTree.label' | translate }}</div>
-      @for(column of columns; track $index;) {
+    
+  } @else {
+        <legend>{{ 'pages.settings.searchTree.legend' | translate }}</legend>
+        <div class="app-label app-mb-2">{{ 'pages.settings.searchTree.label' | translate }}</div>
+        @for(column of columns; track $index;) {
         <div cdkDropListOrientation="vertical" cdkDrag>
           <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
         </div>
       }
   }
   
-    }
   </fieldset>
     @if (data.colsSettingsName === 'colsEditingRepo') {
-    <div>
-      <mat-checkbox name="colsEditModeParent" [(ngModel)]="colsEditModeParent">{{ 'pages.settings.colsEditModeParent' | translate }}</mat-checkbox>
-    </div>
-  }
-  @if (data.colsSettingsName === 'colsEditingRepo') {
     <div>
       <mat-checkbox name="colsEditModeParent" [(ngModel)]="colsEditModeParent">{{ 'pages.settings.colsEditModeParent' | translate }}</mat-checkbox>
     </div>
