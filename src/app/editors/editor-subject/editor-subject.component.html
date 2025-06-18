@@ -60,7 +60,7 @@
       <ng-template let-name="item" #templateContent>
         <app-field-dropdown field="type" [item]="name" [(value)]='name.attrs["type"]'></app-field-dropdown>
         @if (name.available['namePart']) {
-        <app-editor-field[field]="name.nameParts" [nested]='true'>
+        <app-editor-field [field]="name.nameParts" [nested]='true'>
           <ng-template let-namePart="item" #templateContent>
             <app-field-dropdown field="type" [item]="namePart" [(value)]='namePart.attrs["type"]'></app-field-dropdown>
             <app-field-text field="value" [item]="namePart" [(value)]='namePart.modsElement["_"]'></app-field-text>
