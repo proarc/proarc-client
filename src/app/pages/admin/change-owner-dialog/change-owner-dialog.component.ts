@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,11 +17,7 @@ import { UIService } from '../../../services/ui.service';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  imports: [CommonModule, TranslateModule, RouterModule, FormsModule,
-    MatIconModule, MatButtonModule, MatProgressBarModule, MatDialogModule,
-    MatInputModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule,
-    MatSelectModule
-  ],
+  imports: [TranslateModule, RouterModule, FormsModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatDialogModule, MatInputModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule],
   selector: 'app-change-owner-dialog',
   templateUrl: './change-owner-dialog.component.html',
   styleUrls: ['./change-owner-dialog.component.scss']

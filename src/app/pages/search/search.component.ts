@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject, QueryList, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -36,10 +36,7 @@ import { UserTreeTableComponent } from "../../components/user-tree-table/user-tr
 
 @Component({
   selector: 'app-search',
-  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
-    MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
-    MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
-    MatTableModule, MatSortModule, SearchActionsComponent, UserTableComponent, UserTreeTableComponent],
+  imports: [TranslateModule, FormsModule, AngularSplitModule, MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule, MatTableModule, MatSortModule, SearchActionsComponent, UserTableComponent, UserTreeTableComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss'
 })

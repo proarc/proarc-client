@@ -1,7 +1,7 @@
 <div class="app-editor-container">
   <div class="app-gap-fixer"></div>
 
-  <ng-container *ngIf="material.type === 'DIGITAL_OBJECT'">
+  @if (material.type === 'DIGITAL_OBJECT') {
     <div class="app-form-wrapper app-top-level">
       <div class="app-form">
         <div class="app-form-content">
@@ -17,9 +17,9 @@
       </div>
       <div class="app-gap-fixer"></div>
     </div>
-  </ng-container>
+  }
 
-  <ng-container *ngIf="material.type === 'FOLDER'">
+  @if (material.type === 'FOLDER') {
     <div class="app-form-wrapper app-top-level">
       <div class="app-form">
         <div class="app-form-content">
@@ -35,9 +35,9 @@
       </div>
       <div class="app-gap-fixer"></div>
     </div>
-  </ng-container>
+  }
 
-  <ng-container *ngIf="material.type === 'PHYSICAL_DOCUMENT'">
+  @if (material.type === 'PHYSICAL_DOCUMENT') {
     <div class="app-form-wrapper app-top-level">
       <div class="app-form">
         <div class="app-form-content">
@@ -57,7 +57,6 @@
             <mat-label>{{ 'desc.sigla' | translate }}</mat-label>
             <input matInput [placeholder]="'desc.sigla' | translate" [(ngModel)]="material.sigla">
           </mat-form-field>
-
           <mat-form-field appearance="outline" class="app-field-col app-field-col-4">
             <mat-label>{{ 'desc.signature' | translate }}</mat-label>
             <input matInput [placeholder]="'desc.signature' | translate" [(ngModel)]="material.signature">
@@ -74,7 +73,6 @@
             <mat-label>{{ 'desc.number' | translate }}</mat-label>
             <input matInput [placeholder]="'desc.number' | translate" [(ngModel)]="material.cislo">
           </mat-form-field>
-
           <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
             <mat-label>{{ 'desc.vintage' | translate }}</mat-label>
             <input matInput [placeholder]="'desc.vintage' | translate" [(ngModel)]="material.rocnik">
@@ -87,12 +85,10 @@
             <mat-label>{{ 'desc.rdczid' | translate }}</mat-label>
             <input matInput [placeholder]="'desc.rdczid' | translate" [(ngModel)]="material.rdczid">
           </mat-form-field>
-
           <mat-form-field appearance="outline" class="app-field-col">
             <mat-label>{{ 'desc.note' | translate }}</mat-label>
             <textarea matInput [placeholder]="'desc.note' | translate" [(ngModel)]="material.note" rows="4"></textarea>
           </mat-form-field>
-
           <mat-form-field appearance="outline" class="app-field-col">
             <mat-label>{{ 'desc.metadata' | translate }}</mat-label>
             <textarea matInput [placeholder]="'desc.metadata' | translate" [(ngModel)]="material.metadata" rows="4"></textarea>
@@ -101,11 +97,13 @@
       </div>
       <div class="app-gap-fixer"></div>
     </div>
-  </ng-container>
+  }
 
   <div class="app-fxLayout app-row app-gap-2 app-pl-2 app-pr-2 app-pb-2">
     <button mat-stroked-button (click)="save()" class="app-bg-color-lightnes">{{ 'button.save' | translate }}</button>
-    <button *ngIf="material.type === 'PHYSICAL_DOCUMENT'" mat-stroked-button (click)="editMetadata()" class="app-bg-color-lightnes">{{ 'button.editMetadata' | translate }}</button>
+    @if (material.type === 'PHYSICAL_DOCUMENT') {
+      <button mat-stroked-button (click)="editMetadata()" class="app-bg-color-lightnes">{{ 'button.editMetadata' | translate }}</button>
+    }
   </div>
 </div>
 

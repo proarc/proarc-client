@@ -9,16 +9,14 @@ import { LayoutService } from '../../services/layout-service';
 import { UIService } from '../../services/ui.service';
 import { UserTreeTableComponent } from "../../components/user-tree-table/user-tree-table.component";
 import { Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @Component({
-  imports: [CommonModule, TranslateModule, UserTreeTableComponent,
-    MatIconModule, MatProgressBarModule,
-    MatTooltipModule],
+  imports: [TranslateModule, UserTreeTableComponent, MatIconModule, MatProgressBarModule, MatTooltipModule],
   selector: 'app-editor-tree',
   templateUrl: './editor-tree.component.html',
   styleUrls: ['./editor-tree.component.scss']

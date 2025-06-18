@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, computed, effect, input, model, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,10 +25,7 @@ import { CzidloDialogComponent } from '../../../dialogs/czidlo-dialog/czidlo-dia
 
 @Component({
   selector: 'app-search-actions',
-  imports: [CommonModule, TranslateModule, FormsModule,
-    MatFormFieldModule, MatIconModule, MatButtonModule, MatSelectModule, MatTooltipModule, MatMenuModule,
-    MatDialogModule
-  ],
+  imports: [TranslateModule, FormsModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatDialogModule],
   templateUrl: './search-actions.component.html',
   styleUrl: './search-actions.component.scss'
 })

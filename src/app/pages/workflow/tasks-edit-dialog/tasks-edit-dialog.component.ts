@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -15,10 +15,7 @@ import { UIService } from '../../../services/ui.service';
 import { Configuration } from '../../../shared/configuration';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
-    MatIconModule, MatProgressBarModule, MatTooltipModule,
-    MatRadioModule, MatFormFieldModule, MatSelectModule,
-  ],
+  imports: [TranslateModule, FormsModule, FlexLayoutModule, MatIconModule, MatProgressBarModule, MatTooltipModule, MatRadioModule, MatFormFieldModule, MatSelectModule],
   selector: 'app-taskss-edit-dialog',
   templateUrl: './tasks-edit-dialog.component.html',
   styleUrls: ['./tasks-edit-dialog.component.scss']

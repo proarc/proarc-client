@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -36,9 +36,7 @@ import { PanelComponent } from "../../components/panel/panel.component";
 
 @Component({
   selector: 'app-batches',
-  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
-    MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
-    MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, PanelComponent],
+  imports: [TranslateModule, FormsModule, AngularSplitModule, MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, PanelComponent],
   templateUrl: './batches.component.html',
   styleUrl: './batches.component.scss'
 })

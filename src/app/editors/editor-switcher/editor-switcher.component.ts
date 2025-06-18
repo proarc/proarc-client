@@ -2,7 +2,7 @@ import { Component, effect, input, output } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -11,9 +11,7 @@ import { DocumentItem } from '../../model/documentItem.model';
 
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule,
-    MatIconModule, MatTooltipModule, MatButtonModule
-  ],
+  imports: [TranslateModule, FormsModule, MatIconModule, MatTooltipModule, MatButtonModule],
   selector: 'app-editor-switcher',
   templateUrl: './editor-switcher.component.html',
   styleUrls: ['./editor-switcher.component.scss']

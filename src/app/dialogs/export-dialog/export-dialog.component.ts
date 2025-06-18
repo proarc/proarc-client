@@ -2,7 +2,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LogDialogComponent } from '../log-dialog/log-dialog.component';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -21,11 +21,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
-  imports: [CommonModule, TranslateModule, MatDialogModule,
-    MatTableModule, MatProgressBarModule, MatSelectModule, MatRadioModule,
-    MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule,
-    FormsModule, MatFormFieldModule, MatCheckboxModule, MatSlideToggleModule
-  ],
+  imports: [TranslateModule, MatDialogModule, MatTableModule, MatProgressBarModule, MatSelectModule, MatRadioModule, MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule, FormsModule, MatFormFieldModule, MatCheckboxModule, MatSlideToggleModule],
   selector: 'app-export-dialog',
   templateUrl: './export-dialog.component.html',
   styleUrls: ['./export-dialog.component.scss']

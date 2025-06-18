@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, OnDestroy, Input, input, effect } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -30,9 +30,7 @@ declare global {
 }
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, RouterModule, FlexLayoutModule,
-    MatIconModule, MatButtonModule, MatProgressBarModule, MatTooltipModule, ResizedDirective
-  ],
+  imports: [TranslateModule, FormsModule, RouterModule, FlexLayoutModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatTooltipModule, ResizedDirective],
   selector: 'app-viewer',
   templateUrl: './viewer.component.html',
   styleUrls: ['./viewer.component.scss']

@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { ILayoutPanel } from '../../dialogs/layout-admin/layout-admin.component';
 import { UIService } from '../../services/ui.service';
 import { Configuration } from '../../shared/configuration';
-import { CommonModule } from '@angular/common';
+
 import { TranslateModule } from '@ngx-translate/core';
 import { DocumentItem } from '../../model/documentItem.model';
 import { EditorModsComponent } from "../../editors/editor-mods/editor-mods.component";
@@ -25,9 +25,7 @@ import { SongComponent } from "../song/song.component";
 
 @Component({
   selector: 'app-panel',
-    imports: [CommonModule, TranslateModule,
-    EditorModsComponent, EditorStructureComponent, EditorOcrComponent, MediaComponent, ViewerComponent,
-    MatCardModule, MatIconModule, EditorCommentComponent, EditorAtmComponent, EditorPageComponent, EditorPagesComponent, EditorAudioPagesComponent, EditorAudioPageComponent, EditorTreeComponent, EditorMetadataComponent, SongComponent],
+    imports: [TranslateModule, EditorModsComponent, EditorStructureComponent, EditorOcrComponent, MediaComponent, ViewerComponent, MatCardModule, MatIconModule, EditorCommentComponent, EditorAtmComponent, EditorPageComponent, EditorPagesComponent, EditorAudioPagesComponent, EditorAudioPageComponent, EditorTreeComponent, EditorMetadataComponent, SongComponent],
   templateUrl: './panel.component.html',
   styleUrl: './panel.component.scss'
 })

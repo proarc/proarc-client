@@ -1,12 +1,14 @@
-<mat-form-field *ngIf="item.available[field]" [class]="item.clazz[field]" appearance="outline">
-  <mat-label>{{ 'mods.' + item.labelKey[field] | translate }}</mat-label>
-  <app-usage [item]="item" [field]="field"></app-usage>
-  <input matInput [required]="item.isMandatory[field]" [formControl]="item.controls[field]" [placeholder]="'mods.' + item.labelKey[field] | translate" [matAutocomplete]="auto">
-  <mat-autocomplete #auto="matAutocomplete">
-    @for(option of (filteredOptions | async); track $index;) {
-      <mat-option [value]="option[0]">
-        {{ 'mods.option.' + option[0] | translate}}
-      </mat-option>
-    }
-  </mat-autocomplete>
-</mat-form-field>
+@if (item.available[field]) {
+  <mat-form-field [class]="item.clazz[field]" appearance="outline">
+    <mat-label>{{ 'mods.' + item.labelKey[field] | translate }}</mat-label>
+    <app-usage [item]="item" [field]="field"></app-usage>
+    <input matInput [required]="item.isMandatory[field]" [formControl]="item.controls[field]" [placeholder]="'mods.' + item.labelKey[field] | translate" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      @for(option of (filteredOptions | async); track $index;) {
+        <mat-option [value]="option[0]">
+          {{ 'mods.option.' + option[0] | translate}}
+        </mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+}

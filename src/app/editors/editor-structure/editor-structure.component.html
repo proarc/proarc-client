@@ -14,21 +14,31 @@
       <button mat-icon-button [disabled]="!pageChildren" (click)="onReindexChildren()" [matTooltip]="'editor.children.reindex' | translate">
         <mat-icon>format_list_numbered</mat-icon>
       </button>
-      <button mat-icon-button *ngIf="isRepo" [disabled]="!(auth.user.changeModelFunction || auth.isSuperAdmin())" (click)="showConvertDialog()" [matTooltip]="'editor.children.convertPages' | translate">
-        <mat-icon>swap_horiz</mat-icon>
-      </button>
-      <button mat-icon-button *ngIf="!isRepo" (click)="markSequence()" [matTooltip]="'editor.children.markSequence' | translate">
-        <mat-icon>view_timeline</mat-icon>
-      </button>
-      <button mat-icon-button *ngIf="isRepo" [disabled]="!canAddChildren()" (click)="onCreateNewObject()" [matTooltip]="'editor.children.add_new' | translate">
-        <mat-icon>add_circle</mat-icon>
-      </button>
-      <button mat-icon-button *ngIf="isRepo" (click)="onRelocateOutside()" [matTooltip]="'editor.children.relocate_label' | translate">
-        <mat-icon>forward</mat-icon>
-      </button>
-      <button mat-icon-button (click)="selectAll()" *ngIf="!isRepo" [matTooltip]="'editor.children.select_all' | translate">
-        <mat-icon>checklist</mat-icon>
-      </button>
+      @if (isRepo) {
+        <button mat-icon-button [disabled]="!(auth.user.changeModelFunction || auth.isSuperAdmin())" (click)="showConvertDialog()" [matTooltip]="'editor.children.convertPages' | translate">
+          <mat-icon>swap_horiz</mat-icon>
+        </button>
+      }
+      @if (!isRepo) {
+        <button mat-icon-button (click)="markSequence()" [matTooltip]="'editor.children.markSequence' | translate">
+          <mat-icon>view_timeline</mat-icon>
+        </button>
+      }
+      @if (isRepo) {
+        <button mat-icon-button [disabled]="!canAddChildren()" (click)="onCreateNewObject()" [matTooltip]="'editor.children.add_new' | translate">
+          <mat-icon>add_circle</mat-icon>
+        </button>
+      }
+      @if (isRepo) {
+        <button mat-icon-button (click)="onRelocateOutside()" [matTooltip]="'editor.children.relocate_label' | translate">
+          <mat-icon>forward</mat-icon>
+        </button>
+      }
+      @if (!isRepo) {
+        <button mat-icon-button (click)="selectAll()" [matTooltip]="'editor.children.select_all' | translate">
+          <mat-icon>checklist</mat-icon>
+        </button>
+      }
       <button mat-icon-button (click)="onDelete()" [matTooltip]="'editor.children.delete' | translate">
         <mat-icon>delete</mat-icon>
       </button>
@@ -38,8 +48,10 @@
       <button mat-icon-button (click)="validateChildren()" [matTooltip]="'editor.children.validate_form' | translate">
         <mat-icon>check_circle</mat-icon>
       </button>
-      <button *ngIf="!isRepo" mat-button (click)="ingest()">{{ 'button.continue' | translate }}</button>
-      <ng-container *ngIf="isRepo">
+      @if (!isRepo) {
+        <button mat-button (click)="ingest()">{{ 'button.continue' | translate }}</button>
+      }
+      @if (isRepo) {
         <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToParent()" [disabled]="!layout.parent" mat-icon-button class="app-btn-resized">
           <mat-icon>keyboard_arrow_up</mat-icon>
         </button>
@@ -52,7 +64,7 @@
         <button matTooltip="{{ 'editor.toolbar.nav_next' | translate }}" (click)="goToNext()" [disabled]="!layout.nextItem" mat-icon-button class="app-btn-resized">
           <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
-      </ng-container>
+      }
     </div>
     <div>
       <button mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate">
@@ -60,79 +72,112 @@
       </button>
       <mat-menu #menuMore="matMenu">
         <button mat-menu-item (click)="onMove()">{{ 'editor.children.move' | translate }}</button>
-        <button mat-menu-item (click)="selectAll()" *ngIf="isRepo">{{ 'editor.children.select_all' | translate }}</button>
+        @if (isRepo) {
+          <button mat-menu-item (click)="selectAll()">{{ 'editor.children.select_all' | translate }}</button>
+        }
       </mat-menu>
     </div>
   </div>
 
 
   <div class="app-fxFlex app-oa-y" #childrenList (scroll)="setScrollPos()" (keydown)="noscroll($event)">
-    <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
-    <div class="app-editor-content" #childrenWrapper tabindex="0" *ngIf="state !=='loading'" (keyup)="keyup($event)" (resized)="onResized($event)" (mousemove)="mousemove($event)" cdkScrollable>
-      <div class="app-fxLayout app-row app-wrap app-view-grid" *ngIf="viewMode == 'grid'" #childrenGridList (mousedown)="mousedown($event)" (mouseup)="mouseup($event)">
-        @for(item of layout.items(); let i = $index; track item.pid;) {
-          <div (click)="rowClick(item, $event, i)"
-          (dblclick)="open(item)" class="app-item-wrapper" [class.app-selected]="item.selected"
-          [class.app-invalid]="item.invalid" draggable="true" (dragenter)="dragenter($event, i)"
-          (dragstart)="dragstart(item,i,$event)" (dragover)="dragover($event)"
-          (dragend)="dragend($event)" (mousedown)="mousedown($event)"
-          [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'"
-          [style]="'flex: 1 1 ' + iconWidth + '%; max-width: ' + iconWidth + '%; box-sizing: border-box;'">
-          <div class="app-item">
-            <div class="app-item-label">
-              <mat-icon *ngIf="item.invalid" class="app-mr-1">warning</mat-icon>{{ shortLabels ? item.shortLabel : item.label }}<br />
-              ({{ (item.pageType ? "pageType." + item.pageType : "model." + item.model) | translate }})
+    @if (state ==='loading') {
+      <mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
+    }
+    @if (state !=='loading') {
+      <div class="app-editor-content" #childrenWrapper tabindex="0" (keyup)="keyup($event)" (resized)="onResized($event)" (mousemove)="mousemove($event)" cdkScrollable>
+        @if (viewMode == 'grid') {
+          <div class="app-fxLayout app-row app-wrap app-view-grid" #childrenGridList (mousedown)="mousedown($event)" (mouseup)="mouseup($event)">
+            @for(item of layout.items(); let i = $index; track item.pid;) {
+              <div (click)="rowClick(item, $event, i)"
+                (dblclick)="open(item)" class="app-item-wrapper" [class.app-selected]="item.selected"
+                [class.app-invalid]="item.invalid" draggable="true" (dragenter)="dragenter($event, i)"
+                (dragstart)="dragstart(item,i,$event)" (dragover)="dragover($event)"
+                (dragend)="dragend($event)" (mousedown)="mousedown($event)"
+                [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'"
+                [style]="'flex: 1 1 ' + iconWidth + '%; max-width: ' + iconWidth + '%; box-sizing: border-box;'">
+                <div class="app-item">
+                  <div class="app-item-label">
+                    @if (item.invalid) {
+                      <mat-icon class="app-mr-1">warning</mat-icon>
+                      }{{ shortLabels ? item.shortLabel : item.label }}<br />
+                      ({{ (item.pageType ? "pageType." + item.pageType : "model." + item.model) | translate }})
+                    </div>
+                  </div>
+                </div>
+              }
             </div>
-          </div>
+          }
+          @if (viewMode == 'icons') {
+            <div class="app-fxLayout app-row app-wrap app-view-icon" #childrenIconList [class.app-multiple-selection]="layout.getNumOfSelected() > 1" (mousedown)="mousedown($event)">
+              @for(item of layout.items(); let i = $index; track item.pid;) {
+                <div class="app-item-wrapper cdk-drag"
+                  [ngClass]="{'app-repre': item.pageRepre === 'reprePage'}" (click)="rowClick(item, $event, i)"
+                  (dblclick)="open(item)" draggable="true" (dragenter)="dragenter($event, i)"
+                  (dragstart)="dragstart(item, i, $event)" (dragend)="dragend($event)" (dragover)="dragover($event)"
+                  (mousedown)="mousedown($event)" [class.app-selected]="item.selected" [class.app-invalid]="item.invalid"
+                  [style]="'flex: 1 1 ' + iconWidth + '%; max-width: ' + iconWidth + '%; box-sizing: border-box;'">
+                  <div class="app-item">
+                    <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="iconHeight + 'px'"></div>
+                    @if (isRepo) {
+                      <div class="app-item-label">
+                        @if (item.invalid) {
+                          <mat-icon class="app-mr-1" (click)="goToInvalid(item.pid)">warning</mat-icon>
+                        }
+                        @if (!isAkubra) {
+                          {{ shortLabels ? item.shortLabel : item.label }}<br />
+                          ({{ (item.pageType ? "pageType." + item.pageType.toLowerCase() : "model." + item.model) | translate }})
+                        }
+                        @if (isAkubra) {
+                          <div class="app-text app-h-100" [matTooltip]="(item.pageNumber ? item.pageNumber : '') + (item.pageType ? (shortLabels ? '' : (', ' + ('pageType.' + item.pageType.toLowerCase() | translate))) : '')">
+                            @if (item.pageNumber) {
+                              {{ item.pageNumber }}
+                            }
+                            @if (item.pageType) {
+                              {{ (shortLabels ? "" : (", " + ("pageType." + item.pageType.toLowerCase() | translate))) }}
+                            }
+                          </div>
+                        }
+                      </div>
+                    }
+                    @if (!isRepo) {
+                      <div class="app-item-label">
+                        @if (item.invalid) {
+                          <mat-icon>warning</mat-icon>
+                        }
+                        @if (!isAkubra) {
+                          {{ item.label + (shortLabels ? "" : (", " + ("pageType." + item.pageType.toLowerCase() | translate))) }}
+                        }
+                        @if (isAkubra) {
+                          <div class="app-text app-h-100" [matTooltip]="(item.pageNumber ? item.pageNumber + ', ' : '') + (item.pageIndex ? '(' + item.pageIndex + ')' : '') + (item.pageType ? (shortLabels ? '' : (', ' + ('pageType.' + item.pageType.toLowerCase() | translate))) : '')">
+                            @if (item.pageNumber) {
+                              {{ item.pageNumber }},
+                            }
+                            @if (item.pageIndex) {
+                              <span class="app-desc">({{ item.pageIndex }})</span>
+                            }
+                            @if (item.pageType) {
+                              {{ (shortLabels ? "" : (", " + ("pageType." + item.pageType.toLowerCase() | translate))) }}
+                            }
+                          </div>
+                        }
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          }
+          @if (viewMode == 'list') {
+            <app-user-table [draggable]="true" (selectItem)="selectRow($event)"
+              (openItem)="open($event)" [colsSettingsName]="isRepo ? 'colsEditingRepo' : 'colsEditingImport'"
+              [items]="layout.items()" (mousedown)="mousedown($event)"
+              (dragenter)="dragenter($event.e, $event.idx)"
+              (dragstart)="dragstart($event.item, $event.idx, $event.e)"
+              (dragover)="dragover($event)" [draggable]="true"
+            (dragend)="dragFromTable($event)"></app-user-table>
+          }
         </div>
       }
-      </div>
-
-      <div class="app-fxLayout app-row app-wrap app-view-icon" *ngIf="viewMode == 'icons'" #childrenIconList [class.app-multiple-selection]="layout.getNumOfSelected() > 1" (mousedown)="mousedown($event)">
-        @for(item of layout.items(); let i = $index; track item.pid;) {
-        <div class="app-item-wrapper cdk-drag"
-          [ngClass]="{'app-repre': item.pageRepre === 'reprePage'}" (click)="rowClick(item, $event, i)"
-          (dblclick)="open(item)" draggable="true" (dragenter)="dragenter($event, i)"
-          (dragstart)="dragstart(item, i, $event)" (dragend)="dragend($event)" (dragover)="dragover($event)"
-          (mousedown)="mousedown($event)" [class.app-selected]="item.selected" [class.app-invalid]="item.invalid"
-          [style]="'flex: 1 1 ' + iconWidth + '%; max-width: ' + iconWidth + '%; box-sizing: border-box;'">
-          <div class="app-item">
-            <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="iconHeight + 'px'"></div>
-            <div class="app-item-label" *ngIf="isRepo">
-              <mat-icon *ngIf="item.invalid" class="app-mr-1" (click)="goToInvalid(item.pid)">warning</mat-icon>
-              <ng-container *ngIf="!isAkubra">
-                {{ shortLabels ? item.shortLabel : item.label }}<br />
-                ({{ (item.pageType ? "pageType." + item.pageType.toLowerCase() : "model." + item.model) | translate }})
-              </ng-container>
-              <div *ngIf="isAkubra" class="app-text app-h-100" [matTooltip]="(item.pageNumber ? item.pageNumber : '') + (item.pageType ? (shortLabels ? '' : (', ' + ('pageType.' + item.pageType.toLowerCase() | translate))) : '')">
-                <ng-container *ngIf="item.pageNumber">{{ item.pageNumber }}</ng-container>
-                <ng-container *ngIf="item.pageType">
-                  {{ (shortLabels ? "" : (", " + ("pageType." + item.pageType.toLowerCase() | translate))) }}
-                </ng-container>
-              </div>
-            </div>
-            <div class="app-item-label" *ngIf="!isRepo">
-              <mat-icon *ngIf="item.invalid">warning</mat-icon>
-              <ng-container *ngIf="!isAkubra">
-                {{ item.label + (shortLabels ? "" : (", " + ("pageType." + item.pageType.toLowerCase() | translate))) }}
-              </ng-container>
-              <div *ngIf="isAkubra" class="app-text app-h-100" [matTooltip]="(item.pageNumber ? item.pageNumber + ', ' : '') + (item.pageIndex ? '(' + item.pageIndex + ')' : '') + (item.pageType ? (shortLabels ? '' : (', ' + ('pageType.' + item.pageType.toLowerCase() | translate))) : '')">
-                <ng-container *ngIf="item.pageNumber">{{ item.pageNumber }}, </ng-container>
-                <ng-container *ngIf="item.pageIndex"><span class="app-desc">({{ item.pageIndex }})</span></ng-container>
-                <ng-container *ngIf="item.pageType">{{ (shortLabels ? "" : (", " + ("pageType." + item.pageType.toLowerCase() | translate))) }}</ng-container>
-              </div>
-            </div>
-          </div>
-        </div>
-      }
-      </div>
-      <app-user-table *ngIf="viewMode == 'list'" [draggable]="true" (selectItem)="selectRow($event)" 
-        (openItem)="open($event)" [colsSettingsName]="isRepo ? 'colsEditingRepo' : 'colsEditingImport'"
-        [items]="layout.items()" (mousedown)="mousedown($event)" 
-        (dragenter)="dragenter($event.e, $event.idx)"
-        (dragstart)="dragstart($event.item, $event.idx, $event.e)" 
-        (dragover)="dragover($event)" [draggable]="true"
-        (dragend)="dragFromTable($event)"></app-user-table>
     </div>
   </div>
-</div>

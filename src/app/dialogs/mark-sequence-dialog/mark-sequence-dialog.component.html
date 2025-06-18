@@ -16,32 +16,30 @@
             </div>
             <div>
               @if (data.viewModeOrig === 'icons') {
-              <button mat-icon-button (click)="zoomOut('orig')" [matTooltip]="'button.zoomOut' | translate">
-                <mat-icon>zoom_out</mat-icon>
-              </button>
-              <button mat-icon-button (click)="zoomIn('orig')" [matTooltip]="'button.zoomIn' | translate">
-                <mat-icon>zoom_in</mat-icon>
-              </button>
+                <button mat-icon-button (click)="zoomOut('orig')" [matTooltip]="'button.zoomOut' | translate">
+                  <mat-icon>zoom_out</mat-icon>
+                </button>
               }
-
-              <button mat-icon-button [class.app-active]="data.viewModeOrig === 'list'"
-                (click)="data.viewModeOrig = 'list'" [matTooltip]="'button.viewTable' | translate">
+              @if (data.viewModeOrig === 'icons') {
+                <button mat-icon-button (click)="zoomIn('orig')" [matTooltip]="'button.zoomIn' | translate">
+                  <mat-icon>zoom_in</mat-icon>
+                </button>
+              }
+              <button mat-icon-button [class.app-active]="data.viewModeOrig === 'list'" (click)="data.viewModeOrig = 'list'" [matTooltip]="'button.viewTable' | translate">
                 <mat-icon>format_align_justify</mat-icon>
               </button>
               <!-- <button mat-icon-button [class.app-active]="data.viewModeOrig === 'grid'" (click)="data.viewModeOrig = 'grid'" [matTooltip]="'button.viewGrid' | translate">
-                <mat-icon>apps</mat-icon>
-              </button> -->
-              <button mat-icon-button [class.app-active]="data.viewModeOrig === 'icons'"
-                (click)="data.viewModeOrig = 'icons'" [matTooltip]="'button.viewPreviews' | translate">
-                <mat-icon>apps</mat-icon>
-              </button>
-            </div>
+              <mat-icon>apps</mat-icon>
+            </button> -->
+            <button mat-icon-button [class.app-active]="data.viewModeOrig === 'icons'" (click)="data.viewModeOrig = 'icons'" [matTooltip]="'button.viewPreviews' | translate">
+              <mat-icon>apps</mat-icon>
+            </button>
           </div>
+        </div>
 
-          <div class="app-oa-y app-fxFlex">
-            <div class="app-editor-content">
-              @switch (data.viewModeOrig) {
-              @case ('icons') {
+        <div class="app-oa-y app-fxFlex">
+          <div class="app-editor-content">
+            @if (data.viewModeOrig === 'icons') {
               <div class="app-fxLayout app-row app-wrap app-view-icon" #childrenIconList>
                 @for(item of dest; let i = $index; track $index;) {
                 <div class="app-item-wrapper" (click)="select(dest, item, i, $event, 'dest')"
@@ -59,8 +57,9 @@
                 </div>
                 }
               </div>
-              }
-              @case ('grid') {
+            }
+
+            @if (data.viewModeOrig == 'grid') {
               <div class="app-fxLayout app-row app-wrap app-view-grid" #childrenGridList>
                 @for(item of dest; let i = $index; track $index;) {
                 <div (click)="select(dest, item, i, $event, 'dest')" class="app-item-wrapper"
@@ -76,8 +75,9 @@
                 </div>
                 }
               </div>
-              }
-              @case ('list') {
+            }
+
+            @if (data.viewModeOrig == 'list') {
               <table mat-table [dataSource]="destTable" class="app-striped app-hover app-resize" #table>
                 <ng-container matColumnDef="pid">
                   <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"
@@ -85,7 +85,6 @@
                     [style.width]="getColumnWidthOrigTable('pid')">{{ 'desc.pid' | translate }}</th>
                   <td mat-cell *matCellDef="let element">{{element.pid }}</td>
                 </ng-container>
-
                 <ng-container matColumnDef="label">
                   <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"
                     (columnResized)="saveColumnsSizesOrigTable($event, 'label')"
@@ -93,7 +92,6 @@
                   <td mat-cell *matCellDef="let element">{{ data.shortLabels ? element.shortLabel : element.label }}
                   </td>
                 </ng-container>
-
                 <ng-container matColumnDef="filename">
                   <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"
                     (columnResized)="saveColumnsSizesOrigTable($event, 'filename')"
@@ -101,94 +99,79 @@
                   <td mat-cell *matCellDef="let element">{{ element.filename }}
                   </td>
                 </ng-container>
-
                 <ng-container matColumnDef="pageType">
                   <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"
                     (columnResized)="saveColumnsSizesOrigTable($event, 'pageType')"
                     [style.width]="getColumnWidthOrigTable('pageType')">{{ 'desc.pageType' | translate }}</th>
                   <td mat-cell *matCellDef="let element">{{ "pageType." + element.pageType | translate }}</td>
                 </ng-container>
-
                 <ng-container matColumnDef="pageIndex">
                   <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"
                     (columnResized)="saveColumnsSizesOrigTable($event, 'pageIndex')"
                     [style.width]="getColumnWidthOrigTable('pageIndex')">{{ 'desc.pageIndex' | translate }}</th>
                   <td mat-cell *matCellDef="let element">{{ element.pageIndex }}</td>
                 </ng-container>
-
                 <ng-container matColumnDef="pageNumber">
                   <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"
                     (columnResized)="saveColumnsSizesOrigTable($event, 'pageNumber')"
                     [style.width]="getColumnWidthOrigTable('pageNumber')">{{ 'desc.pageNumber' | translate }}</th>
                   <td mat-cell *matCellDef="let element">{{ element.pageNumber }}</td>
                 </ng-container>
-
                 <ng-container matColumnDef="pagePosition">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"
-                    (columnResized)="saveColumnsSizesOrigTable($event, 'pagePosition')"
-                    [style.width]="getColumnWidthOrigTable('pagePosition')">{{ 'desc.pagePosition' | translate }}</th>
+                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesOrigTable($event, 'pagePosition')" [style.width]="getColumnWidthOrigTable('pagePosition')">{{ 'desc.pagePosition' | translate }}</th>
                   <td mat-cell *matCellDef="let element">{{ element.pagePosition }}</td>
                 </ng-container>
-
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; let idx = index; columns: displayedColumns"
-                  [class.app-selected]="row.selected" [class.app-selectedInOrig]="row.selectedInOrig"
-                  (click)="select(dest, row, idx, $event, 'dest')"></tr>
+                  [class.app-selected]="row.selected"  [class.app-selectedInOrig]="row.selectedInOrig"
+                (click)="select(dest, row, idx, $event, 'dest')"></tr>
               </table>
-              }
-
-              }
-
-
-            </div>
+            }
           </div>
         </div>
-      </as-split-area>
+      </div>
+    </as-split-area>
 
-      <as-split-area [size]="40" (resized)="onResized($event, 'dest')">
-        <div class="app-fxLayout app-column app-fill">
-          <div class="app-fxLayout app-row app-center-v app-toolbar">
-            <div class="app-fxFlex">
-              <div class="app-toolbar-label">
-                <span class="app-text">{{ 'desc.selectTheTarget' | translate }}</span>
-              </div>
+    <as-split-area [size]="40" (resized)="onResized($event, 'dest')">
+      <div class="app-fxLayout app-column app-fill">
+        <div class="app-fxLayout app-row app-center-v app-toolbar">
+          <div class="app-fxFlex">
+            <div class="app-toolbar-label">
+              <span class="app-text">{{ 'desc.selectTheTarget' | translate }}</span>
             </div>
-            <div>
-              @if (data.viewModeDest=== 'icons') {
+          </div>
+          <div>
+            @if (data.viewModeDest === 'icons') {
               <button mat-icon-button (click)="zoomOut('dest')" [matTooltip]="'button.zoomOut' | translate">
                 <mat-icon>zoom_out</mat-icon>
               </button>
+            }
+            @if (data.viewModeDest === 'icons') {
               <button mat-icon-button (click)="zoomIn('dest')" [matTooltip]="'button.zoomIn' | translate">
                 <mat-icon>zoom_in</mat-icon>
               </button>
+            }
+            <button mat-icon-button [class.app-active]="data.viewModeDest === 'list'" (click)="data.viewModeDest = 'list'" [matTooltip]="'button.viewTable' | translate">
+              <mat-icon>format_align_justify</mat-icon>
+            </button>
+            <!-- <button mat-icon-button [class.app-active]="data.viewModeDest === 'grid'" (click)="data.viewModeDest = 'grid'" [matTooltip]="'button.viewGrid' | translate">
+            <mat-icon>apps</mat-icon>
+          </button> -->
+          <button mat-icon-button [class.app-active]="data.viewModeDest === 'icons'" (click)="data.viewModeDest = 'icons'" [matTooltip]="'button.viewPreviews' | translate">
+            <mat-icon>apps</mat-icon>
+          </button>
+        </div>
+      </div>
 
-              }
-              <button mat-icon-button [class.app-active]="data.viewModeDest === 'icons'"
-                (click)="data.viewModeDest = 'icons'" [matTooltip]="'button.viewPreviews' | translate">
-                <mat-icon>apps</mat-icon>
-              </button>
-              <button mat-icon-button [class.app-active]="data.viewModeDest === 'list'"
-                (click)="data.viewModeDest = 'list'" [matTooltip]="'button.viewTable' | translate">
-                <mat-icon>format_align_justify</mat-icon>
-              </button>
-              <!-- <button mat-icon-button [class.app-active]="data.viewModeDest === 'grid'" (click)="data.viewModeDest = 'grid'" [matTooltip]="'button.viewGrid' | translate">
-                <mat-icon>apps</mat-icon>
-              </button> -->
-            </div>
-          </div>
-
-          <div class="app-fxFlex app-oa-y">
-            <div class="app-editor-content">
-              @switch (data.viewModeDest) {
-              @case ('icons') {
-              <div class="app-fxLayout app-row app-wrap app-view-icon" #childrenIconList>
-                @for(item of dest; let i = $index; track $index;) {
+      <div class="app-fxFlex app-oa-y">
+        <div class="app-editor-content">
+          @if (data.viewModeDest == 'icons') {
+            <div class="app-fxLayout app-row app-wrap app-view-icon" #childrenIconList>
+              @for(item of dest; let i = $index; track $index;) {
                 <div class="app-item-wrapper" (click)="select(dest, item, i, $event, 'dest')"
-                  [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig"
-                  [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
+                  [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
                   <div class="app-item">
-                    <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"
-                      [style.height]="data.iconHeight['dest'] + 'px'"></div>
+                    <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['dest'] + 'px'"></div>
                     <div class="app-item-label">
                       <div class="app-text app-h-100">
                         {{ item.label + (data.shortLabels ? "" : (", " + ("pageType." + item.pageType | translate))) }}
@@ -196,16 +179,15 @@
                     </div>
                   </div>
                 </div>
-                }
-              </div>
               }
-              @case ('grid') {
-              <div class="app-fxLayout app-row app-wrap app-view-grid" #childrenGridList>
-                @for(item of dest; let i = $index; track $index;) {
+            </div>
+          }
+
+          @if (data.viewModeDest == 'grid') {
+            <div class="app-fxLayout app-row app-wrap app-view-grid" #childrenGridList>
+              @for(item of dest; let i = $index; track $index;) {
                 <div (click)="select(dest, item, i, $event, 'dest')" class="app-item-wrapper"
-                  [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig"
-                  [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'"
-                  [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
+                  [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [title]="item.label + ' (' + ('model.' + item.model | translate) + ')'" [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
                   <div class="app-item">
                     <div class="app-item-label">
                       {{ data.shortLabels ? item.shortLabel : item.label }}<br />
@@ -213,138 +195,95 @@
                     </div>
                   </div>
                 </div>
-                }
-              </div>
               }
-              @case ('list') {
-              <table mat-table [dataSource]="destTable" class="app-striped app-hover app-resize" #table>
-                <ng-container matColumnDef="pid">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"
-                    (columnResized)="saveColumnsSizesDestTable($event, 'pid')"
-                    [style.width]="getColumnWidthDestTable('pid')">{{ 'desc.pid' | translate }}</th>
-                  <td mat-cell *matCellDef="let element">{{ element.pid }}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="label">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"
-                    (columnResized)="saveColumnsSizesDestTable($event, 'label')"
-                    [style.width]="getColumnWidthDestTable('label')">{{ 'desc.name' | translate }}</th>
-                  <td mat-cell *matCellDef="let element">{{ data.shortLabels ? element.shortLabel : element.label }}
-                  </td>
-                </ng-container>
-
-                <ng-container matColumnDef="filename">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"
-                    (columnResized)="saveColumnsSizesDestTable($event, 'filename')"
-                    [style.width]="getColumnWidthDestTable('filename')">{{ 'desc.fileName' | translate }}</th>
-                  <td mat-cell *matCellDef="let element">{{ element.filename }}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="pageType">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"
-                    (columnResized)="saveColumnsSizesDestTable($event, 'pageType')"
-                    [style.width]="getColumnWidthDestTable('pageType')">{{ 'desc.pageType' | translate }}</th>
-                  <td mat-cell *matCellDef="let element">{{ element.pageType }}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="pageIndex">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"
-                    (columnResized)="saveColumnsSizesDestTable($event, 'pageIndex')"
-                    [style.width]="getColumnWidthDestTable('pageIndex')">{{ 'desc.pageIndex' | translate }}</th>
-                  <td mat-cell *matCellDef="let element">{{ element.pageIndex }}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="pageNumber">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"
-                    (columnResized)="saveColumnsSizesDestTable($event, 'pageNumber')"
-                    [style.width]="getColumnWidthDestTable('pageNumber')">{{ 'desc.pageNumber' | translate }}</th>
-                  <td mat-cell *matCellDef="let element">{{ element.pageNumber }}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="pagePosition">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"
-                    (columnResized)="saveColumnsSizesDestTable($event, 'pagePosition')"
-                    [style.width]="getColumnWidthDestTable('pagePosition')">{{ 'desc.pagePosition' | translate }}</th>
-                  <td mat-cell *matCellDef="let element">{{ element.pagePosition }}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="model">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"
-                    (columnResized)="saveColumnsSizesDestTable($event, 'model')"
-                    [style.width]="getColumnWidthDestTable('model')">{{ 'desc.model' | translate }}</th>
-                  <td mat-cell *matCellDef="let element">{{ 'model.' + element.model | translate }}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="owner">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"
-                    (columnResized)="saveColumnsSizesDestTable($event, 'owner')"
-                    [style.width]="getColumnWidthDestTable('owner')">{{ 'desc.owner' | translate }}</th>
-                  <td mat-cell *matCellDef="let element">{{ element.owner }}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="created">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"
-                    (columnResized)="saveColumnsSizesDestTable($event, 'created')"
-                    [style.width]="getColumnWidthDestTable('created')">{{ 'desc.created' | translate }}</th>
-                  <td mat-cell *matCellDef="let element">{{ element.created | date : 'dd.MM.yyyy' }}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="modified">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"
-                    (columnResized)="saveColumnsSizesDestTable($event, 'modified')"
-                    [style.width]="getColumnWidthDestTable('modified')">{{ 'desc.modified' | translate }}</th>
-                  <td mat-cell *matCellDef="let element">{{ element.modified | date : 'dd.MM.yyyy' }}</td>
-                </ng-container>
-
-                <ng-container matColumnDef="status">
-                  <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"
-                    (columnResized)="saveColumnsSizesDestTable($event, 'status')"
-                    [style.width]="getColumnWidthDestTable('status')">{{ 'desc.status' | translate }}</th>
-                  <td mat-cell *matCellDef="let element">{{ element.status }}</td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="data.displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; let idx = index; columns: data.displayedColumns"
-                  [class.app-selected]="row.selected" [class.app-selectedInOrig]="row.selectedInOrig"
-                  (click)="select(dest, row, idx, $event, 'dest')"></tr>
-              </table>
-              }
-              }
-
             </div>
-          </div>
+          }
+
+          @if (data.viewModeDest == 'list') {
+            <table mat-table [dataSource]="destTable" class="app-striped app-hover app-resize" #table>
+              <ng-container matColumnDef="pid">
+                <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'pid')" [style.width]="getColumnWidthDestTable('pid')">{{ 'desc.pid' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.pid }}</td>
+              </ng-container>
+              <ng-container matColumnDef="label">
+                <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'label')" [style.width]="getColumnWidthDestTable('label')">{{ 'desc.name' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ data.shortLabels ? element.shortLabel : element.label }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="filename">
+                <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'filename')" [style.width]="getColumnWidthDestTable('filename')">{{ 'desc.fileName' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.filename }}</td>
+              </ng-container>
+              <ng-container matColumnDef="pageType">
+                <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'pageType')" [style.width]="getColumnWidthDestTable('pageType')">{{ 'desc.pageType' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.pageType }}</td>
+              </ng-container>
+              <ng-container matColumnDef="pageIndex">
+                <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'pageIndex')" [style.width]="getColumnWidthDestTable('pageIndex')">{{ 'desc.pageIndex' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.pageIndex }}</td>
+              </ng-container>
+              <ng-container matColumnDef="pageNumber">
+                <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'pageNumber')" [style.width]="getColumnWidthDestTable('pageNumber')">{{ 'desc.pageNumber' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.pageNumber }}</td>
+              </ng-container>
+              <ng-container matColumnDef="pagePosition">
+                <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'pagePosition')" [style.width]="getColumnWidthDestTable('pagePosition')">{{ 'desc.pagePosition' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.pagePosition }}</td>
+              </ng-container>
+              <ng-container matColumnDef="model">
+                <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'model')" [style.width]="getColumnWidthDestTable('model')">{{ 'desc.model' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ 'model.' + element.model | translate }}</td>
+              </ng-container>
+              <ng-container matColumnDef="owner">
+                <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'owner')" [style.width]="getColumnWidthDestTable('owner')">{{ 'desc.owner' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.owner }}</td>
+              </ng-container>
+              <ng-container matColumnDef="created">
+                <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'created')" [style.width]="getColumnWidthDestTable('created')">{{ 'desc.created' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.created | date : 'dd.MM.yyyy' }}</td>
+              </ng-container>
+              <ng-container matColumnDef="modified">
+                <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'modified')" [style.width]="getColumnWidthDestTable('modified')">{{ 'desc.modified' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.modified | date : 'dd.MM.yyyy' }}</td>
+              </ng-container>
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizesDestTable($event, 'status')" [style.width]="getColumnWidthDestTable('status')">{{ 'desc.status' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="data.displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; let idx = index; columns: data.displayedColumns"
+                [class.app-selected]="row.selected" [class.app-selectedInOrig]="row.selectedInOrig"
+              (click)="select(dest, row, idx, $event, 'dest')"></tr>
+            </table>
+          }
+
         </div>
-      </as-split-area>
-
-      <as-split-area [size]="20">
-        @if (lastSelectedItemPid) {
-        <app-viewer [imageInfo]="{pid: lastSelectedItemPid, dsid: 'FULL'}" [hideToolbar]="true"
-          [idViewer]="'app-viewer-mark'"></app-viewer>
-        }
-      </as-split-area>
-    </as-split>
-  </div>
-
-
-
-  <div mat-dialog-actions cdkFocusRegionstart class="app-fxLayout app-row app-gap-4 app-center-v">
-    <div class="app-fxFlex">
-      <button mat-flat-button color="primary" (click)="save()" [matTooltip]="'button.save' | translate">{{ 'button.save'
-        | translate }}</button>
-      <button mat-flat-button [mat-dialog-close]="changed">{{ 'button.close' | translate }}</button>
+      </div>
     </div>
-    <div>
-      <span class="app-label app-mr-4">{{ 'desc.edit' | translate }}:</span>
-      <mat-checkbox color="primary" [(ngModel)]="pageType" name="pageType" class="app-mr-4">{{ 'desc.pageType' |
-        translate }}</mat-checkbox>
-      <mat-checkbox color="primary" [(ngModel)]="pageNumber" name="pageNumber" class="app-mr-4">{{ 'desc.pageNumber' |
-        translate }}</mat-checkbox>
-      <mat-checkbox color="primary" [(ngModel)]="pageIndex" name="pageIndex" class="app-mr-4">{{ 'desc.pageIndex' |
-        translate }}</mat-checkbox>
-      <mat-checkbox color="primary" [(ngModel)]="pagePosition" name="pagePosition" class="app-mr-4">{{
-        'desc.pagePosition' | translate }}</mat-checkbox>
-      <mat-checkbox color="primary" [(ngModel)]="reprePage" name="reprePage">{{ 'editor.page.genre' | translate
-        }}</mat-checkbox>
-    </div>
+  </as-split-area>
+
+  <as-split-area [size]="20">
+    @if (lastSelectedItemPid) {
+      <app-viewer [imageInfo]="{pid: lastSelectedItemPid, dsid: 'FULL'}" [hideToolbar]="true" [idViewer]="'app-viewer-mark'"></app-viewer>
+    }
+  </as-split-area>
+</as-split>
+</div>
+
+
+
+<div mat-dialog-actions cdkFocusRegionstart class="app-fxLayout app-row app-gap-4 app-center-v">
+  <div class="app-fxFlex">
+    <button mat-flat-button color="primary" (click)="save()" [matTooltip]="'button.save' | translate">{{ 'button.save' | translate }}</button>
+    <button mat-flat-button [mat-dialog-close]="changed">{{ 'button.close' | translate }}</button>
   </div>
+  <div>
+    <span class="app-label app-mr-4">{{ 'desc.edit' | translate }}:</span>
+    <mat-checkbox color="primary" [(ngModel)]="pageType" name="pageType" class="app-mr-4">{{ 'desc.pageType' | translate }}</mat-checkbox>
+    <mat-checkbox color="primary" [(ngModel)]="pageNumber" name="pageNumber" class="app-mr-4">{{ 'desc.pageNumber' | translate }}</mat-checkbox>
+    <mat-checkbox color="primary" [(ngModel)]="pageIndex" name="pageIndex" class="app-mr-4">{{ 'desc.pageIndex' | translate }}</mat-checkbox>
+    <mat-checkbox color="primary" [(ngModel)]="pagePosition" name="pagePosition" class="app-mr-4">{{ 'desc.pagePosition' | translate }}</mat-checkbox>
+    <mat-checkbox color="primary" [(ngModel)]="reprePage" name="reprePage">{{ 'editor.page.genre' | translate }}</mat-checkbox>
+  </div>
+</div>
 </div>

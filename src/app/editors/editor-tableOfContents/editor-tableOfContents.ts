@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { EditorFieldComponent } from '../../forms/editor-field/editor-field.component';
@@ -8,8 +8,7 @@ import { ElementField } from '../../model/mods/elementField.model';
 
 
 @Component({
-  imports: [CommonModule, TranslateModule,
-    EditorFieldComponent, FieldTextComponent, FieldDropdownComponent],
+  imports: [TranslateModule, EditorFieldComponent, FieldTextComponent, FieldDropdownComponent],
   selector: 'app-editor-tableOfContents',
   templateUrl: './editor-tableOfContents.component.html',
   styleUrls: ['./editor-tableOfContents.scss']

@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild  } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Router, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -18,11 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  imports: [CommonModule, TranslateModule, RouterModule, FormsModule,
-    MatIconModule, MatButtonModule, MatProgressBarModule, MatCardModule,
-    MatInputModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule,
-    MatSelectModule
-  ],
+  imports: [TranslateModule, RouterModule, FormsModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatCardModule, MatInputModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule],
   selector: 'app-new-user',
   templateUrl: './new-user.component.html',
   styleUrls: ['./new-user.component.scss']

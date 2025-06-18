@@ -1,50 +1,54 @@
 <div class="app-fxLayout app-column app-fill">
   <div class="app-fxLayout app-row app-center-v app-toolbar app-view-audiopages">
     <div class="app-fxFlex">
-			<div class="app-toolbar-label app-ml-2 app-pr-2">
-				<span class="app-text">{{ 'editor.audioPages.title' | translate }}</span>
-			</div>
-		</div>
-		<div>
+      <div class="app-toolbar-label app-ml-2 app-pr-2">
+        <span class="app-text">{{ 'editor.audioPages.title' | translate }}</span>
+      </div>
+    </div>
+    <div>
       <button mat-icon-button (click)="onSave()" [disabled]="!canSave()" [matTooltip]="'button.save' | translate">
         <mat-icon>save</mat-icon>
       </button>
-		</div>
+    </div>
   </div>
   <div class="app-fxFlex app-oa-y">
-    <mat-progress-bar mode="indeterminate" *ngIf="state ==='loading' || state ==='saving'" class="app-progress-bar"></mat-progress-bar>
-    <div class="app-editor-container" *ngIf="state !=='loading'">
-      <div class="app-gap-fixer"></div>
-      <div class="app-form-wrapper app-top-level">
-        <div class="app-form">
-          <div class="app-fxLayout app-row app-center-v app-form-header app-pl-2">
-            <div class="app-text-cutter">
-              <mat-checkbox color="primary" [(ngModel)]="holder.editIndex" class="app-form-title">{{ 'editor.audioPages.edit_page_index' | translate }}</mat-checkbox>
+    @if (state ==='loading' || state ==='saving') {
+      <mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
+    }
+    @if (state !=='loading') {
+      <div class="app-editor-container">
+        <div class="app-gap-fixer"></div>
+        <div class="app-form-wrapper app-top-level">
+          <div class="app-form">
+            <div class="app-fxLayout app-row app-center-v app-form-header app-pl-2">
+              <div class="app-text-cutter">
+                <mat-checkbox color="primary" [(ngModel)]="holder.editIndex" class="app-form-title">{{ 'editor.audioPages.edit_page_index' | translate }}</mat-checkbox>
+              </div>
+            </div>
+            <div class="app-form-content">
+              <mat-form-field appearance="outline" class="app-field-col" [class.mat-form-field-disabled]="!holder.editIndex">
+                <mat-label>{{ 'editor.audioPages.index_from' | translate }}</mat-label>
+                <input (keyup.enter)="onSave()" [disabled]="!holder.editIndex" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.audioPages.index_from' | translate" [formControl]="pageIndexControl">
+              </mat-form-field>
             </div>
           </div>
-          <div class="app-form-content">
-            <mat-form-field appearance="outline" class="app-field-col" [class.mat-form-field-disabled]="!holder.editIndex">
-              <mat-label>{{ 'editor.audioPages.index_from' | translate }}</mat-label>
-              <input (keyup.enter)="onSave()" [disabled]="!holder.editIndex" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.audioPages.index_from' | translate" [formControl]="pageIndexControl">
-            </mat-form-field>
+          <div class="app-gap-fixer"></div>
+          <div class="app-form">
+            <div class="app-form-content">
+              <mat-form-field appearance="outline" class="app-field-col">
+                <mat-label>{{ 'editor.audioPages.apply' | translate }}</mat-label>
+                <mat-select [placeholder]="'editor.audioPages.apply' | translate" name="apply" [(value)]="holder.applyTo"  [disabled]="!canSave()" (keyup.enter)="enterSelect(applySelect)" #applySelect  [formControl]="applyControl">
+                  @for(num of holder.applyOptions; track $index;) {
+                    <mat-option [value]="num">{{'editor.audioPages.apply_to' + (num > 1 ? '2' : '0') | translate: { num: num } }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+              <mat-checkbox [disabled]="holder.applyTo == 1" color="primary" [(ngModel)]="holder.applyToFirst" class="app-pl-2 app-pb-2">{{ 'editor.audioPages.apply_to_first' | translate }}</mat-checkbox>
+            </div>
           </div>
+          <div class="app-gap-fixer"></div>
         </div>
-        <div class="app-gap-fixer"></div>
-        <div class="app-form">
-          <div class="app-form-content">
-            <mat-form-field appearance="outline" class="app-field-col">
-              <mat-label>{{ 'editor.audioPages.apply' | translate }}</mat-label>
-              <mat-select [placeholder]="'editor.audioPages.apply' | translate" name="apply" [(value)]="holder.applyTo"  [disabled]="!canSave()" (keyup.enter)="enterSelect(applySelect)" #applySelect  [formControl]="applyControl">
-                @for(num of holder.applyOptions; track $index;) {
-                  <mat-option [value]="num">{{'editor.audioPages.apply_to' + (num > 1 ? '2' : '0') | translate: { num: num } }}</mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
-            <mat-checkbox [disabled]="holder.applyTo == 1" color="primary" [(ngModel)]="holder.applyToFirst" class="app-pl-2 app-pb-2">{{ 'editor.audioPages.apply_to_first' | translate }}</mat-checkbox>
-          </div>
-        </div>
-        <div class="app-gap-fixer"></div>
       </div>
-    </div>
+    }
   </div>
 </div>

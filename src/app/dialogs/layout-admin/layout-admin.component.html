@@ -5,13 +5,13 @@
       <div class="app-fxLayout app-row app-gap-4">
         <div class="app-fxFlex app-desc">
           <h3 class="app-mb-0">{{ 'desc.help' | translate }}</h3>
-        <ul class="app-m-0">
-          <li>{{ 'dialog.layoutSettings.help.1' | translate }}</li>
-          <li>{{ 'dialog.layoutSettings.help.2' | translate }}</li>
-          <li>{{ 'dialog.layoutSettings.help.3' | translate }}</li>
-          <li>{{ 'dialog.layoutSettings.help.4' | translate }}</li>
-          <li>{{ 'dialog.layoutSettings.help.5' | translate }}</li>
-        </ul>
+          <ul class="app-m-0">
+            <li>{{ 'dialog.layoutSettings.help.1' | translate }}</li>
+            <li>{{ 'dialog.layoutSettings.help.2' | translate }}</li>
+            <li>{{ 'dialog.layoutSettings.help.3' | translate }}</li>
+            <li>{{ 'dialog.layoutSettings.help.4' | translate }}</li>
+            <li>{{ 'dialog.layoutSettings.help.5' | translate }}</li>
+          </ul>
         </div>
         <div class="app-fxFlex app-fxLayout app-row app-gap-1 app-layout-controller" [matTooltip]="'dialog.layoutSettings.tooltipPanel' | translate">
           @for(c of config.columns; track $index;) {

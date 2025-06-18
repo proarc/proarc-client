@@ -1,10 +1,12 @@
 <div style="position: relative; top: 0px;z-index: 200;">
-  <mat-progress-bar mode="indeterminate" *ngIf="loading" class="app-progress-bar" style="position: absolute; top: 0px;"></mat-progress-bar>
+  @if (loading) {
+    <mat-progress-bar mode="indeterminate" class="app-progress-bar" style="position: absolute; top: 0px;"></mat-progress-bar>
+  }
 </div>
-<ng-container *ngIf="!loading">
+@if (!loading) {
   <app-user-tree-table #treeTable [rootTreeItem]="rootTreeItem()" [treePath]="layout.expandedPath"
     (onSelectTreeItem)="selectTreeItem($event)"
     (onTreeItemsChanged)="onTreeItemsChanged($event)"
     (treeInfo)="treeInfoChanged($event)">
   </app-user-tree-table>
-</ng-container>
+}

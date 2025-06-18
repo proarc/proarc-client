@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,9 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Configuration } from '../../shared/configuration';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, 
-    MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
-    MatInputModule],
+  imports: [TranslateModule, FormsModule, MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatInputModule],
   selector: 'app-totest',
   templateUrl: './totest.component.html',
   styleUrls: ['./totest.component.scss']

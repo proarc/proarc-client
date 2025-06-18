@@ -5,32 +5,36 @@
       <span class="app-separator">/</span>
       <a routerLink="/devices">{{ 'device.devices' | translate }}</a>
       <span class="app-separator">/</span>
-      <ng-container *ngIf="mode == 'new'">
+      @if (mode == 'new') {
         <span class="app-last">{{ 'device.newDevice' | translate }}</span>
-      </ng-container>
-      <ng-container *ngIf="mode == 'edit' && device">
+      }
+      @if (mode == 'edit' && device) {
         <a [routerLink]="['/devices', device.id]">{{ deviceName }}</a>
         <span class="app-separator">/</span>
         <span class="app-last">{{ 'device.deviceModification' | translate }}</span>
-      </ng-container>
+      }
     </div>
   </div>
 
-  <mat-progress-bar mode="indeterminate" *ngIf="state=='loading'" class="app-progress-bar"></mat-progress-bar>
+  @if (state=='loading') {
+    <mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
+  }
 
   <div class="app-fxFlex app-fxLayout app-column app-content-wrapper app-edit-device app-oa-y">
-    <ng-container *ngIf="state=='success' || state=='saving'">
+    @if (state=='success' || state=='saving') {
       <fieldset class="app-pt-4 app-mb-4">
         <legend>{{ 'device.general' | translate }}</legend>
         <div class="app-fxLayout app-row app-gap-4">
-          <mat-form-field appearance="outline" class="app-fxFlex" *ngIf="mode == 'new'">
-            <mat-label>{{ 'device.typeOfDevice' | translate}}</mat-label>
-            <mat-select required [placeholder]="'device.typeOfDevice' | translate" name="model" [(value)]="device.model">
-              @for(model of models; track $index;) {
-              <mat-option [value]="model">{{ 'model.' + model | translate }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
+          @if (mode == 'new') {
+            <mat-form-field appearance="outline" class="app-fxFlex">
+              <mat-label>{{ 'device.typeOfDevice' | translate}}</mat-label>
+              <mat-select required [placeholder]="'device.typeOfDevice' | translate" name="model" [(value)]="device.model">
+                @for(model of models; track $index;) {
+                  <mat-option [value]="model">{{ 'model.' + model | translate }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          }
           <mat-form-field appearance="outline" class="app-fxFlex">
             <mat-label>{{'device.name' | translate }}</mat-label>
             <input type="text" matInput autocomplete="off" [placeholder]="'device.name' | translate" [disabled]="state=='saving'" [(ngModel)]='device.label' name="label" required>
@@ -45,13 +49,12 @@
             <mat-label>{{'device.captureDevice' | translate }}</mat-label>
             <mat-select [placeholder]="'device.captureDevice' | translate" name="captureDevice" [(value)]="device.captureDevice">
               @for(captureDevice of captureDevices; track $index;) {
-              <mat-option [value]="captureDevice">{{ captureDevice }}</mat-option>
+                <mat-option [value]="captureDevice">{{ captureDevice }}</mat-option>
               }
             </mat-select>
           </mat-form-field>
         </div>
       </fieldset>
-
       <fieldset class="app-pt-4 app-mb-4">
         <legend>{{ 'device.scanner' | translate }}</legend>
         <div class="app-fxLayout app-row app-gap-4">
@@ -63,7 +66,7 @@
             <mat-label>{{ 'device.scannerSensor' | translate }}</mat-label>
             <mat-select required [placeholder]="'device.scannerSensor' | translate" name="scannerSensor" [(value)]="device.scannerSensor">
               @for(sensor of sensors; track $index;) {
-              <mat-option [value]="sensor">{{ sensor }}</mat-option>
+                <mat-option [value]="sensor">{{ sensor }}</mat-option>
               }
             </mat-select>
           </mat-form-field>
@@ -95,7 +98,7 @@
             <mat-label>{{ 'device.opticalResolutionUnit' | translate }}</mat-label>
             <mat-select required [placeholder]="'device.opticalResolutionUnit' | translate" name="opticalResolutionUnit" [(value)]="device.opticalResolutionUnit">
               @for(resolutionUnit of resolutionUnits; track $index;) {
-              <mat-option [value]="resolutionUnit">{{ resolutionUnit }}</mat-option>
+                <mat-option [value]="resolutionUnit">{{ resolutionUnit }}</mat-option>
               }
             </mat-select>
           </mat-form-field>
@@ -111,7 +114,6 @@
           </mat-form-field>
         </div>
       </fieldset>
-
       <fieldset class="app-pt-4 app-mb-4">
         <legend>{{ 'device.digitalCamera' | translate }}</legend>
         <div class="app-fxLayout app-row app-gap-4">
@@ -123,7 +125,7 @@
             <mat-label>{{ 'device.cameraSensor' | translate }}</mat-label>
             <mat-select [placeholder]="'device.cameraSensor' | translate" name="cameraSensor" [(value)]="device.cameraSensor">
               @for(sensor of sensors; track $index;) {
-              <mat-option [value]="sensor">{{ sensor }}</mat-option>
+                <mat-option [value]="sensor">{{ sensor }}</mat-option>
               }
             </mat-select>
           </mat-form-field>
@@ -146,8 +148,8 @@
       <div class="app-mb-2">
         <button (click)="onSubmit()" mat-stroked-button [disabled]="state=='saving'">
           {{ mode=='new' ? ('device.button.create' | translate) : ('device.button.edit' | translate) }}
-         </button>
+        </button>
       </div>
-    </ng-container>
+    }
   </div>
 </div>

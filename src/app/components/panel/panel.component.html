@@ -80,4 +80,86 @@
     }
   </div>
   }
+  <div class="app-fxFlex">
+    @switch (panelType) {
+      @case ('tree') {
+        <div class="app-editor-content app-tree" >
+          <app-editor-tree [panel]="panel()" [rootItem]="rootItem()" [selectedItem]="lastSelectedItem()" ></app-editor-tree>
+        </div>
+      }
+      @case ('structure-list') {
+        <app-editor-structure [viewMode]="'list'" [panel]="panel()" (onIngest)="passOnIngest()"></app-editor-structure>
+      }
+      @case ('structure-grid') {
+        <app-editor-structure [viewMode]="'grid'" [panel]="panel()" (onIngest)="passOnIngest()"></app-editor-structure>
+      }
+      @case ('structure-icons') {
+        <app-editor-structure [viewMode]="'icons'" [panel]="panel()" (onIngest)="passOnIngest()"></app-editor-structure>
+      }
+      @case ('image') {
+        @if (lastSelectedItem() &&  itemModel === 'page') {
+          <app-viewer [imageInfo]="imageInfo" ></app-viewer>
+        }
+        @if (!(lastSelectedItem() &&  itemModel === 'page')) {
+          <div class="app-fxLayout app-row app-fill app-center-v app-center-h">
+            <mat-card class="app-alert app-info" appearance="outlined">
+              <mat-icon>info</mat-icon>{{ 'alert.info.theImageIsNotAvailable' | translate }}
+            </mat-card>
+          </div>
+        }
+      }
+      @case ('media') {
+        @if (lastSelectedItem()) {
+          <app-media [lastSelectedItem]="lastSelectedItem()"></app-media>
+        }
+      }
+      @case ('song') {
+        @if (lastSelectedItem()) {
+          <app-song [pid]="lastSelectedItem().pid"></app-song>
+        }
+      }
+      @case ('mods') {
+        <app-editor-mods [panel]="panel()"
+        [panelType]="panelType" (onChangePanelType)="changePanelType($event)"></app-editor-mods>
+      }
+      @case ('ocr') {
+        <app-editor-ocr  [panel]="panel()" [pid]="lastSelectedItem().pid" [panelType]="panelType" (onChangePanelType)="changePanelType($event)"></app-editor-ocr>
+      }
+      @case ('comment') {
+        <app-editor-comment [panel]="panel()"  [pid]="lastSelectedItem().pid" [panelType]="panelType" (onChangePanelType)="changePanelType($event)"></app-editor-comment>
+      }
+      @case ('atm') {
+        <app-editor-atm [panel]="panel()"  [pid]="lastSelectedItem()?.pid" [panelType]="panelType" (onChangePanelType)="changePanelType($event)"></app-editor-atm>
+      }
+      <!-- <ng-container *ngSwitchCase="'premis'">
+      <app-editor-premis *ngIf="numOfSelected < 2"  [pid]="lastSelectedItem().pid"></app-editor-premis>
+      <app-editor-premis-multiple  *ngIf="numOfSelected > 1" ></app-editor-premis-multiple>
+    </ng-container> -->
+    @case ('metadata') {
+      @if (showPagesEditor) {
+        <app-editor-pages [panel]="panel()"></app-editor-pages>
+      }
+      @if (showAudioPagesEditor) {
+        <app-editor-audioPages [panel]="panel()"></app-editor-audioPages>
+      }
+      @if (lastSelectedItem() && !showPagesEditor && !showAudioPagesEditor) {
+        @if (itemModel === 'page') {
+          <app-editor-page  [panel]="panel()" [model]="lastSelectedItem().model" [pid]="lastSelectedItem().pid"
+          [panelType]="panelType" (onChangePanelType)="changePanelType($event)"> </app-editor-page>
+        }
+        @if (itemModel === 'song') {
+          <app-editor-audioPage [panel]="panel()" [model]="lastSelectedItem().model" [pid]="lastSelectedItem().pid"></app-editor-audioPage>
+        }
+        @if (itemModel !== 'page' && itemModel !== 'song') {
+          <app-editor-metadata
+            [panel]="panel()"
+            [panelType]="panelType"
+            [pid]="lastSelectedItem().pid" [model]="lastSelectedItem().model"
+            (onChangePanelType)="changePanelType($event)">
+          </app-editor-metadata>
+        }
+      }
+    }
+  }
+</div>
 </div>

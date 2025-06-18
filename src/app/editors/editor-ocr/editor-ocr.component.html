@@ -1,28 +1,40 @@
 <div class="app-fxLayout app-column app-fill">
-	<div class="app-fxLayout app-row app-center-v app-toolbar app-view-metadata" *ngIf="switchable">
-		<div class="app-fxFlex">
-			<app-editor-switcher class="app-fxLayout app-row app-center-v" (onChangeEditorType)="changeEditorType($event)" [panelType]="panelType()"></app-editor-switcher>
-		</div>
-		<div>
-			<button *ngIf="layout.type === 'repo'" mat-icon-button (click)="onPERO()" [matTooltip]="'button.pero' | translate">
-				<mat-icon>history_edu</mat-icon>
-			</button>
-			<button mat-icon-button [disabled]="editting" (click)="onEdit()" [matTooltip]="'common.edit' | translate">
-				<mat-icon>edit</mat-icon>
-			</button>
-			<button mat-icon-button [disabled]="!editting" (click)="onClear()" [matTooltip]="'common.cancel' | translate">
-				<mat-icon>clear</mat-icon>
-			</button>
-			<button mat-icon-button [disabled]="!anyChange" (click)="onSave()" [matTooltip]="'button.save' | translate">
-				<mat-icon>save</mat-icon>
-			</button>
-		</div>
-	</div>
-	<div class="app-fxFlex app-oa-y">
-		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
-		<div class="app-fxLayout app-column app-fill app-view-edit" *ngIf="state !== 'loading'">
-			<textarea *ngIf="editting" [(ngModel)]="ocr.content" (input)="onChange()"></textarea>
-			<pre *ngIf="!editting" class="app-text-content">{{ ocr.original }}</pre>
-		</div>
-	</div>
+  @if (switchable) {
+    <div class="app-fxLayout app-row app-center-v app-toolbar app-view-metadata">
+      <div class="app-fxFlex">
+        <app-editor-switcher class="app-fxLayout app-row app-center-v" (onChangeEditorType)="changeEditorType($event)" [panelType]="panelType()"></app-editor-switcher>
+      </div>
+      <div>
+        @if (layout.type === 'repo') {
+          <button mat-icon-button (click)="onPERO()" [matTooltip]="'button.pero' | translate">
+            <mat-icon>history_edu</mat-icon>
+          </button>
+        }
+        <button mat-icon-button [disabled]="editting" (click)="onEdit()" [matTooltip]="'common.edit' | translate">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button [disabled]="!editting" (click)="onClear()" [matTooltip]="'common.cancel' | translate">
+          <mat-icon>clear</mat-icon>
+        </button>
+        <button mat-icon-button [disabled]="!anyChange" (click)="onSave()" [matTooltip]="'button.save' | translate">
+          <mat-icon>save</mat-icon>
+        </button>
+      </div>
+    </div>
+  }
+  <div class="app-fxFlex app-oa-y">
+    @if (state ==='loading') {
+      <mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
+    }
+    @if (state !== 'loading') {
+      <div class="app-fxLayout app-column app-fill app-view-edit">
+        @if (editting) {
+          <textarea [(ngModel)]="ocr.content" (input)="onChange()"></textarea>
+        }
+        @if (!editting) {
+          <pre class="app-text-content">{{ ocr.original }}</pre>
+        }
+      </div>
+    }
+  </div>
 </div>

@@ -1,5 +1,5 @@
 
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,9 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { Utils } from '../../utils/utils';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule,
-    MatIconModule, MatTooltipModule, CdkTextareaAutosize,
-    MatFormFieldModule, MatInputModule, UsageComponent],
+  imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatIconModule, MatTooltipModule, CdkTextareaAutosize, MatFormFieldModule, MatInputModule, UsageComponent],
   selector: 'app-field-textarea',
   templateUrl: './field-textarea.component.html',
   styleUrls: ['./field-textarea.component.scss']

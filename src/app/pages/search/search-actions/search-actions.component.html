@@ -1,19 +1,41 @@
 <button (click)="onExport(true)" mat-button>{{ 'button.export' | translate }}</button>
 <button (click)="onUrnnbn(true)" mat-button>URN:NBN</button>
-<button (click)="onDeleteItem()" *ngIf="!forTree()" mat-button>{{ 'button.delete' | translate }}</button>
-<button (click)="onDeleteFromTree()" *ngIf="forTree()" mat-button>{{ 'button.delete' | translate }}</button>
-<button (click)="onCopyItem(selectedTreeItem())" *ngIf="canCopy(selectedTreeItem())" [disabled]="totalSelectedTree() > 1" mat-button>{{ 'button.copy' | translate }}</button>
-<button (click)="onLock(true)" *ngIf="!selectedItem()?.isLocked && (auth.user.lockObjectFunction || auth.isSuperAdmin())" [disabled]="totalSelected() > 1" mat-button>{{ 'button.lockIt' | translate }}</button>
-<button (click)="onLock(false)" *ngIf="selectedItem()?.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())" [disabled]="totalSelected() > 1" mat-button>{{ 'button.unlock' | translate }}</button>
-<button (click)="onRestore()" *ngIf="selectedItem()?.state === 'fedora-system:def/model#Deleted' || selectedItem()?.state === 'Deactive'" [disabled]="totalSelected() > 1" mat-button>{{ 'button.restoreTheObject' | translate }}</button>
+@if (!forTree()) {
+  <button (click)="onDeleteItem()" mat-button>{{ 'button.delete' | translate }}</button>
+}
+@if (forTree()) {
+  <button (click)="onDeleteFromTree()" mat-button>{{ 'button.delete' | translate }}</button>
+}
+@if (canCopy(selectedTreeItem())) {
+  <button (click)="onCopyItem(selectedTreeItem())" [disabled]="totalSelectedTree() > 1" mat-button>{{ 'button.copy' | translate }}</button>
+}
+@if (!selectedItem()?.isLocked && (auth.user.lockObjectFunction || auth.isSuperAdmin())) {
+  <button (click)="onLock(true)" [disabled]="totalSelected() > 1" mat-button>{{ 'button.lockIt' | translate }}</button>
+}
+@if (selectedItem()?.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())) {
+  <button (click)="onLock(false)" [disabled]="totalSelected() > 1" mat-button>{{ 'button.unlock' | translate }}</button>
+}
+@if (selectedItem()?.state === 'fedora-system:def/model#Deleted' || selectedItem()?.state === 'Deactive') {
+  <button (click)="onRestore()" [disabled]="totalSelected() > 1" mat-button>{{ 'button.restoreTheObject' | translate }}</button>
+}
 <button [disabled]="totalSelected() > 1" mat-icon-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate"><mat-icon>more_vert</mat-icon></button>
 <mat-menu #menuMore="matMenu">
-	<button mat-menu-item (click)="showFoxml()">FOXML</button>
-	<button mat-menu-item *ngIf="canChangeModel()" (click)="changeModel()">{{ 'button.conversionsOfModels' | translate }}</button>
-	<button mat-menu-item (click)="updateObjects()">{{ 'button.updateAllObjects' | translate }}</button>
-	<button mat-menu-item (click)="reindex()" *ngIf="isAkubra && auth.isSuperAdmin()">{{ 'button.toIndex' | translate }}</button>
-	<button mat-menu-item (click)="showConvertDialog()" *ngIf="auth.user.changeModelFunction || auth.isSuperAdmin()">{{ 'button.convertPages' | translate }}</button>
-	<button mat-menu-item (click)="czidlo()" *ngIf="auth.user.czidloFunction || auth.isSuperAdmin()">{{ 'button.czidloFunction' | translate }}</button>
-	<button mat-menu-item (click)="updateInSource()" *ngIf="config.updateInSource && (auth.user.importToCatalogFunction || auth.isSuperAdmin()) && canUpdateInSource()">{{ 'button.updateInSource' | translate }}</button>
-	<button mat-menu-item (click)="validateObject()">{{ 'button.validateObject' | translate }}</button>
-</mat-menu> 
+  <button mat-menu-item (click)="showFoxml()">FOXML</button>
+  @if (canChangeModel()) {
+    <button mat-menu-item (click)="changeModel()">{{ 'button.conversionsOfModels' | translate }}</button>
+  }
+  <button mat-menu-item (click)="updateObjects()">{{ 'button.updateAllObjects' | translate }}</button>
+  @if (isAkubra && auth.isSuperAdmin()) {
+    <button mat-menu-item (click)="reindex()">{{ 'button.toIndex' | translate }}</button>
+  }
+  @if (auth.user.changeModelFunction || auth.isSuperAdmin()) {
+    <button mat-menu-item (click)="showConvertDialog()">{{ 'button.convertPages' | translate }}</button>
+  }
+  @if (auth.user.czidloFunction || auth.isSuperAdmin()) {
+    <button mat-menu-item (click)="czidlo()">{{ 'button.czidloFunction' | translate }}</button>
+  }
+  @if (config.updateInSource && (auth.user.importToCatalogFunction || auth.isSuperAdmin()) && canUpdateInSource()) {
+    <button mat-menu-item (click)="updateInSource()">{{ 'button.updateInSource' | translate }}</button>
+  }
+  <button mat-menu-item (click)="validateObject()">{{ 'button.validateObject' | translate }}</button>
+</mat-menu>

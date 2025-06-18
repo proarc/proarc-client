@@ -4,7 +4,7 @@ import { NavItem } from 'epubjs/types/navigation';
 import Rendition from 'epubjs/types/rendition';
 import Epub from 'epubjs';
 import { Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,9 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
-    MatCardModule, MatButtonModule, MatMenuModule,
-    MatIconModule, MatTooltipModule ],
+  imports: [TranslateModule, FormsModule, FlexLayoutModule, MatCardModule, MatButtonModule, MatMenuModule, MatIconModule, MatTooltipModule],
   selector: 'app-epub',
   templateUrl: './epub.component.html',
   styleUrls: ['./epub.component.scss']

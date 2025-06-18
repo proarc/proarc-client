@@ -1,16 +1,18 @@
 <h1 mat-dialog-title>{{ 'dialog.preferredTops.title.' + data.prefix | translate }}</h1>
 <div mat-dialog-content>
-@for(item of items; track $index;) {
-  <div>
-    <mat-checkbox color="primary" [(ngModel)]="item.selected">{{ data.prefix + '.' + item.name.toLowerCase() | translate }}</mat-checkbox>
-  </div>
-}
+  @for(item of items; track $index;) {
+    <div>
+      <mat-checkbox color="primary" [(ngModel)]="item.selected">{{ data.prefix + '.' + item.name.toLowerCase() | translate }}</mat-checkbox>
+    </div>
+  }
 </div>
 <div>
-  <mat-slide-toggle *ngIf="this.data.expanded" [(ngModel)]="relatedItemExpanded" color="primary" class="app-slide-toogle" [matTooltip]="'desc.includeRelatedItem' | translate">{{ 'relatedItem' | translate }}</mat-slide-toggle>
+  @if (this.data.expanded) {
+    <mat-slide-toggle [(ngModel)]="relatedItemExpanded" color="primary" class="app-slide-toogle" [matTooltip]="'desc.includeRelatedItem' | translate">{{ 'relatedItem' | translate }}</mat-slide-toggle>
+  }
 </div>
-<div mat-dialog-actions cdkFocusRegionstart> 
-   
+<div mat-dialog-actions cdkFocusRegionstart>
+
   <button mat-flat-button color="primary" (click)="onSave()" >{{ 'button.save' | translate }}</button>
   <button mat-flat-button [mat-dialog-close]="false" >{{ 'button.close' | translate }}</button>
 </div>

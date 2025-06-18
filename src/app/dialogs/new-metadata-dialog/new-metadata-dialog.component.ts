@@ -5,7 +5,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SimpleDialogData } from '../simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from '../simple-dialog/simple-dialog.component';
 import { ILayoutPanel } from '../layout-admin/layout-admin.component';
-import { CommonModule } from '@angular/common';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
@@ -19,11 +19,7 @@ import { EditorAudioPageComponent } from "../../editors/editor-audioPage/editor-
 import { EditorMetadataComponent } from "../../editors/editor-metadata/editor-metadata.component";
 
 @Component({
-  imports: [CommonModule, TranslateModule,
-    MatDialogModule, CdkDrag, CdkDragHandle, 
-    MatIconModule, MatButtonModule, 
-    EditorPageComponent, EditorAudioPageComponent, EditorMetadataComponent
-  ],
+  imports: [TranslateModule, MatDialogModule, CdkDrag, CdkDragHandle, MatIconModule, MatButtonModule, EditorPageComponent, EditorAudioPageComponent, EditorMetadataComponent],
   selector: 'app-new-metadata-dialog',
   templateUrl: './new-metadata-dialog.component.html',
   styleUrls: ['./new-metadata-dialog.component.scss']

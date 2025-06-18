@@ -4,7 +4,7 @@
   <mat-form-field class="app-w-100">
     <mat-select [placeholder]="'desc.exportType' | translate" [(ngModel)]="selectedType" [disabled]="formDisabled()">
       @for(type of types; track $index;) {
-      <mat-option [value]="type">{{ "dialog.export.type." + type | translate }}</mat-option>
+        <mat-option [value]="type">{{ "dialog.export.type." + type | translate }}</mat-option>
       }
     </mat-select>
   </mat-form-field>
@@ -93,3 +93,5 @@
   }
   <button mat-stroked-button mat-dialog-close="close">{{ 'button.close' | translate }}</button>
 </div>
+
+

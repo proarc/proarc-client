@@ -1,5 +1,5 @@
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
-import { CommonModule } from '@angular/common';
+
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,12 +20,7 @@ import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { Utils } from '../../utils/utils';
 
 @Component({
-  imports: [CommonModule, TranslateModule, MatDialogModule,
-    CdkDropList, CdkDrag, 
-    MatTableModule, MatSelectModule, MatRadioModule,
-    MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule,
-    FormsModule, MatCheckboxModule
-  ],
+  imports: [TranslateModule, MatDialogModule, CdkDropList, CdkDrag, MatTableModule, MatSelectModule, MatRadioModule, MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule, FormsModule, MatCheckboxModule],
   selector: 'app-columns-settings-dialog',
   templateUrl: './columns-settings-dialog.component.html',
   styleUrls: ['./columns-settings-dialog.component.scss']

@@ -1,36 +1,48 @@
 <div class="app-fxLayout app-column app-fill">
-	<div class="app-fxLayout app-row app-center-v app-toolbar app-view-mods">
-		<div class="app-fxFlex app-fxLayout app-row app-center-v">
-			<app-editor-switcher class="app-fxLayout app-row app-center-v" (onChangeEditorType)="changeEditorType($event)" [panelType]="panelType()"></app-editor-switcher>
-			<ng-container *ngIf="item && layout.getNumOfSelected() === 1">
-				<button mat-icon-button [class.app-active]="realtime" (click)="setRealtime(true)" [matTooltip]="'editor.mods.realtime_on' | translate">
-					<mat-icon>timer</mat-icon>
-				</button>
-				<button mat-icon-button [class.app-active]="!realtime" (click)="setRealtime(false)" [matTooltip]="'editor.mods.realtime_off' | translate">
-					<mat-icon>timer_off</mat-icon>
-				</button>
-				<button mat-icon-button (click)="onRefresh()" [disabled]="editting || realtime" (click)="onRefresh()" [matTooltip]="'editor.mods.refresh' | translate">
-					<mat-icon>refresh</mat-icon>
-				</button>
-				<button mat-icon-button (click)="onEdit()" [disabled]="editting || realtime" (click)="onEdit()" [matTooltip]="'common.edit' | translate">
-					<mat-icon>edit</mat-icon>
-				</button>
-			</ng-container>
-		</div>
-		<div *ngIf="item && (layout.getNumOfSelected() < 2)">
-			<button mat-icon-button (click)="onClear()" [disabled]="!editting || realtime" [matTooltip]="'common.cancel' | translate">
-				<mat-icon>clear</mat-icon>
-			</button>
-			<button mat-icon-button (click)="onSave()" [disabled]="!anyChange || realtime" [matTooltip]="'button.save' | translate">
-				<mat-icon>save</mat-icon>
-			</button>
-		</div>
-	</div>
-	<div class="app-fxFlex app-oa-y" *ngIf="mods && layout.getNumOfSelected() < 2">
-		<mat-progress-bar mode="indeterminate" *ngIf="state ==='loading'" class="app-progress-bar"></mat-progress-bar>
-		<div class="app-fxLayout app-column app-fill app-view-edit" *ngIf="state !=='loading'">
-			<pre *ngIf="editting && !realtime" class="app-xml-content app-mods-editing" #editingPre><code class="app-mods-editing" (input)="checkChanged()" contenteditable="true" [highlightAuto]="mods.original"></code></pre>
-			<pre *ngIf="!editting && !realtime" class="app-xml-content" #originalPre><code [highlightAuto]="mods.original"></code></pre>
-		</div>
-	</div>
+  <div class="app-fxLayout app-row app-center-v app-toolbar app-view-mods">
+    <div class="app-fxFlex app-fxLayout app-row app-center-v">
+      <app-editor-switcher class="app-fxLayout app-row app-center-v" (onChangeEditorType)="changeEditorType($event)" [panelType]="panelType()"></app-editor-switcher>
+      @if (item && layout.getNumOfSelected() === 1) {
+        <button mat-icon-button [class.app-active]="realtime" (click)="setRealtime(true)" [matTooltip]="'editor.mods.realtime_on' | translate">
+          <mat-icon>timer</mat-icon>
+        </button>
+        <button mat-icon-button [class.app-active]="!realtime" (click)="setRealtime(false)" [matTooltip]="'editor.mods.realtime_off' | translate">
+          <mat-icon>timer_off</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onRefresh()" [disabled]="editting || realtime" (click)="onRefresh()" [matTooltip]="'editor.mods.refresh' | translate">
+          <mat-icon>refresh</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onEdit()" [disabled]="editting || realtime" (click)="onEdit()" [matTooltip]="'common.edit' | translate">
+          <mat-icon>edit</mat-icon>
+        </button>
+      }
+    </div>
+    @if (item && (layout.getNumOfSelected() < 2)) {
+      <div>
+        <button mat-icon-button (click)="onClear()" [disabled]="!editting || realtime" [matTooltip]="'common.cancel' | translate">
+          <mat-icon>clear</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onSave()" [disabled]="!anyChange || realtime" [matTooltip]="'button.save' | translate">
+          <mat-icon>save</mat-icon>
+        </button>
+      </div>
+    }
+  </div>
+  @if (mods && layout.getNumOfSelected() < 2) {
+    <div class="app-fxFlex app-oa-y">
+      @if (state ==='loading') {
+        <mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
+      }
+      @if (state !=='loading') {
+        <div class="app-fxLayout app-column app-fill app-view-edit">
+          @if (editting && !realtime) {
+            <pre class="app-xml-content app-mods-editing" #editingPre><code class="app-mods-editing" (input)="checkChanged()" contenteditable="true" [highlightAuto]="mods.original"></code></pre>
+          }
+          @if (!editting && !realtime) {
+            <pre class="app-xml-content" #originalPre><code [highlightAuto]="mods.original"></code></pre>
+          }
+        </div>
+      }
+    </div>
+  }
 </div>

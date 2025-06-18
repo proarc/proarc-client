@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -6,7 +6,7 @@ import { ModsElement } from '../../model/mods/element.model';
 import { HelpDialogComponent } from '../../dialogs/help-dialog/help-dialog.component';
 
 @Component({
-  imports: [CommonModule, TranslateModule, MatDialogModule],
+  imports: [TranslateModule, MatDialogModule],
   selector: 'app-usage',
   templateUrl: './usage.component.html'
 })

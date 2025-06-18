@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -13,10 +13,7 @@ import { UIService } from '../../services/ui.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule,
-    MatSelectModule, MatDialogModule,
-    MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule
-  ],
+  imports: [TranslateModule, FormsModule, MatSelectModule, MatDialogModule, MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule],
   selector: 'app-update-in-source-dialog',
   templateUrl: './update-in-source-dialog.component.html',
   styleUrls: ['./update-in-source-dialog.component.scss']

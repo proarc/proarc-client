@@ -1,18 +1,20 @@
 
-<div class="app-p-2" *ngIf="showGenreSwitch">
-  <mat-radio-group aria-label="'standard'" [(ngModel)]="field.isPeerReviewed" color="primary" (change)="switchChanged($event)" [formControl]="peerControl">
-    <mat-radio-button [value]="true">Recenzovaný článek</mat-radio-button>
-    <mat-radio-button [value]="false">Nerecenzovaný článek</mat-radio-button>
-  </mat-radio-group>
-  <button mat-icon-button [matTooltip]="'button.addReference' | translate" (click)="addReference()">
-    <mat-icon>format_quote</mat-icon>
-  </button>
-</div>
+@if (showGenreSwitch) {
+  <div class="app-p-2">
+    <mat-radio-group aria-label="'standard'" [(ngModel)]="field.isPeerReviewed" color="primary" (change)="switchChanged($event)" [formControl]="peerControl">
+      <mat-radio-button [value]="true">Recenzovaný článek</mat-radio-button>
+      <mat-radio-button [value]="false">Nerecenzovaný článek</mat-radio-button>
+    </mat-radio-group>
+    <button mat-icon-button [matTooltip]="'button.addReference' | translate" (click)="addReference()">
+      <mat-icon>format_quote</mat-icon>
+    </button>
+  </div>
+}
 <app-editor-field [field]="field" [showGenreSwitch]="showGenreSwitch">
   <ng-template let-item="item" let-idx="idx" #templateContent>
-      <app-autocomplete [(value)]='item.attrs["authority"]' field="authority" [item]="item"></app-autocomplete>
-      <app-field-dropdown [(value)]='item.attrs["type"]' field="type" [item]="item" (valueChange)="typeChanged($event, idx)"></app-field-dropdown>
-      <app-field-text [(value)]='item.attrs["lang"]' field="lang" [item]="item"></app-field-text>
-      <app-autocomplete field="value" [item]="item" [(value)]="item.modsElement['_']" ></app-autocomplete>
+    <app-autocomplete [(value)]='item.attrs["authority"]' field="authority" [item]="item"></app-autocomplete>
+    <app-field-dropdown [(value)]='item.attrs["type"]' field="type" [item]="item" (valueChange)="typeChanged($event, idx)"></app-field-dropdown>
+    <app-field-text [(value)]='item.attrs["lang"]' field="lang" [item]="item"></app-field-text>
+    <app-autocomplete field="value" [item]="item" [(value)]="item.modsElement['_']" ></app-autocomplete>
   </ng-template>
 </app-editor-field>

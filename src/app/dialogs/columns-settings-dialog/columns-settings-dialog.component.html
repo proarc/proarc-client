@@ -7,33 +7,40 @@
       <mat-form-field appearance="outline" class="app-w-100">
         <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="modelForColumns" >
           @for(model of config.models; track $index;) {
-          <mat-option [value]="model">{{ 'model.' + model | translate }}</mat-option>
+            <mat-option [value]="model">{{ 'model.' + model | translate }}</mat-option>
           }
         </mat-select>
       </mat-form-field>
       @for(column of settings.colsEditingRepo[modelForColumns]; track $index;) {
-      <div cdkDropListOrientation="vertical" cdkDrag>
-        <mat-checkbox [name]="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
-      </div>
+        <div cdkDropListOrientation="vertical" cdkDrag>
+          <mat-checkbox [name]="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
+        </div>
+      }
     }
-  } @else {
-        <legend>{{ 'pages.settings.searchTree.legend' | translate }}</legend>
-        <div class="app-label app-mb-2">{{ 'pages.settings.searchTree.label' | translate }}</div>
-        @for(column of columns; track $index;) {
+    @if (data.colsSettingsName !== 'colsEditingRepo') {
+      <legend>{{ 'pages.settings.searchTree.legend' | translate }}</legend>
+      <div class="app-label app-mb-2">{{ 'pages.settings.searchTree.label' | translate }}</div>
+      @for(column of columns; track $index;) {
         <div cdkDropListOrientation="vertical" cdkDrag>
           <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
         </div>
       }
   }
   
+    }
   </fieldset>
     @if (data.colsSettingsName === 'colsEditingRepo') {
     <div>
       <mat-checkbox name="colsEditModeParent" [(ngModel)]="colsEditModeParent">{{ 'pages.settings.colsEditModeParent' | translate }}</mat-checkbox>
     </div>
   }
+  @if (data.colsSettingsName === 'colsEditingRepo') {
+    <div>
+      <mat-checkbox name="colsEditModeParent" [(ngModel)]="colsEditModeParent">{{ 'pages.settings.colsEditModeParent' | translate }}</mat-checkbox>
+    </div>
+  }
 </div>
-<div mat-dialog-actions cdkFocusRegionstart> 
+<div mat-dialog-actions cdkFocusRegionstart>
   <button mat-flat-button color="primary" (click)="save()" >{{ 'button.save' | translate }}</button>
   <button mat-flat-button (click)="reset()" >{{ 'button.reset' | translate }}</button>
   <button mat-flat-button [mat-dialog-close]="false" >{{ 'button.close' | translate }}</button>
