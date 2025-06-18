@@ -12,61 +12,74 @@
 
   <ng-template let-item="item" #templateContent>
     <app-field-dropdown field="authority" [item]="item" [(value)]='item.attrs["authority"]'></app-field-dropdown>
-    <app-editor-field *ngIf="item.available['titleInfo']" [field]="item.titleInfos" [nested]='true'>
+    @if (item.available['titleInfo']) {
+    <app-editor-field [field]="item.titleInfos" [nested]='true'>
       <ng-template let-titleInfo="item" #templateContent>
         <app-field-text field="tile" [item]="titleInfo" [(value)]="titleInfo.title['_']"></app-field-text>
         <app-field-text field="subtitle" [item]="titleInfo" [(value)]="titleInfo.subTitle['_']"></app-field-text>
       </ng-template>
     </app-editor-field>
-    <app-editor-field *ngIf="item.available['topic']" [field]="item.topics" [nested]='true'>
+  }
+  @if (item.available['topic']) {
+    <app-editor-field [field]="item.topics" [nested]='true'>
       <ng-template let-topic="item" #templateContent>
         <app-field-text field="valueURI" [item]="topic" [(value)]="topic.attrs['valueURI']"></app-field-text>
         <app-field-codebook field="lang" [item]="topic" [options]="codebook.languages" [(value)]="topic.attrs['lang']"></app-field-codebook>
         <app-field-text field="value" [item]="topic" [(value)]='topic.modsElement["_"]'></app-field-text>
       </ng-template>
     </app-editor-field>
-
-    <app-editor-field *ngIf="item.available['geographic']" [field]="item.geographics" [nested]='true'>
+  }
+  @if (item.available['geographic']) {
+    <app-editor-field [field]="item.geographics" [nested]='true'>
       <ng-template let-geographic="item" #templateContent>
         <app-field-text field="valueURI" [item]="geographic" [(value)]="geographic.attrs['valueURI']"></app-field-text>
         <app-field-text field="value" [item]="geographic" [(value)]='geographic.modsElement["_"]'></app-field-text>
       </ng-template>
     </app-editor-field>
-    <app-editor-field *ngIf="item.available['geographicCode']" [field]="item.geographicCodes" [nested]='true'>
+  }
+  @if (item.available['geographicCode']) {
+    <app-editor-field [field]="item.geographicCodes" [nested]='true'>
       <ng-template let-geographicCode="item" #templateContent>
         <app-field-text field="authority" [item]="geographicCode" [(value)]='geographicCode.attrs["authority"]'></app-field-text>
         <app-field-text field="value" [item]="geographicCode" [(value)]='geographicCode.modsElement["_"]'></app-field-text>
       </ng-template>
     </app-editor-field>
-    <app-editor-field *ngIf="item.available['temporal']" [field]="item.temporals" [nested]='true'>
+  }
+  @if (item.available['temporal']) {
+    <app-editor-field [field]="item.temporals" [nested]='true'>
       <ng-template let-temporal="item" #templateContent>
         <app-field-text field="valueURI" [item]="temporal" [(value)]="temporal.attrs['valueURI']"></app-field-text>
         <app-field-codebook [prefix]="'lang'" field="lang" [item]="temporal" [(value)]="temporal.attrs['lang']"></app-field-codebook>
         <app-field-text field="value" [item]="temporal" [(value)]='temporal.modsElement["_"]'></app-field-text>
       </ng-template>
     </app-editor-field>
+  }
     <app-field-text field="occupation" [item]="item" [(value)]='item.occupation["_"]'></app-field-text>
-
-    <app-editor-field *ngIf="item.available['name']" [field]="item.names" [nested]='true'>
+@if (item.available['name']) {
+    <app-editor-field [field]="item.names" [nested]='true'>
       <ng-template let-name="item" #templateContent>
         <app-field-dropdown field="type" [item]="name" [(value)]='name.attrs["type"]'></app-field-dropdown>
-        <app-editor-field *ngIf="name.available['namePart']" [field]="name.nameParts" [nested]='true'>
+        @if (name.available['namePart']) {
+        <app-editor-field[field]="name.nameParts" [nested]='true'>
           <ng-template let-namePart="item" #templateContent>
             <app-field-dropdown field="type" [item]="namePart" [(value)]='namePart.attrs["type"]'></app-field-dropdown>
             <app-field-text field="value" [item]="namePart" [(value)]='namePart.modsElement["_"]'></app-field-text>
           </ng-template>
         </app-editor-field>
+      }
         <app-field-text field="nameIdentifier" [item]="name" [(value)]="name.nameIdentifier['_']"></app-field-text>
         <app-field-text field="etal" [item]="name" [(value)]="name.etal['_']"></app-field-text>
         <app-field-text field="affiliation" [item]="name" [(value)]='name.affiliation["_"]'></app-field-text>
       </ng-template>
     </app-editor-field>
-
-    <app-editor-field *ngIf="item.available['cartographics']" [field]="item.cartographics" [nested]='true'>
+  }
+  @if (item.available['cartographics']) {
+    <app-editor-field [field]="item.cartographics" [nested]='true'>
       <ng-template let-cartographics="item" #templateContent>
         <app-field-text field="scale" [item]="cartographics" [(value)]="cartographics.scale['_']"></app-field-text>
         <app-field-text field="coordinates" [item]="cartographics" [(value)]="cartographics.coordinates['_']"></app-field-text>
       </ng-template>
     </app-editor-field>
+  }
   </ng-template>
 </app-editor-field>

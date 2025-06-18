@@ -1,8 +1,8 @@
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
     <app-field-dropdown field="type" [item]="item" [(value)]='item.attrs["type"]'></app-field-dropdown>
-
-    <app-editor-field *ngIf="item.available['detail']" [field]="item.details" [nested]='true'>
+@if (item.available['detail']) {
+    <app-editor-field [field]="item.details" [nested]='true'>
       <ng-template let-detail="item" #templateContent>
         <app-field-text field="type" [item]="detail" [(value)]='detail.attrs["type"]'></app-field-text>
         <app-field-text field="level" [item]="detail" [(value)]='detail.attrs["level"]'></app-field-text>
@@ -10,14 +10,15 @@
         <app-field-text field="caption" [item]="detail" [(value)]="detail.caption['_']"></app-field-text>
       </ng-template>
     </app-editor-field>
-
-    <app-editor-field *ngIf="item.available['extent']" [field]="item.extents" [nested]='true'>
+  }
+  @if (item.available['extent']) {
+    <app-editor-field [field]="item.extents" [nested]='true'>
       <ng-template let-extent="item" #templateContent>
         <app-field-text field="start" [item]="extent" [(value)]="extent.start['_']"></app-field-text>
         <app-field-text field="end" [item]="extent" [(value)]="extent.end['_']"></app-field-text>
         <app-field-text field="total" [item]="extent" [(value)]="extent.total['_']"></app-field-text>
       </ng-template>
     </app-editor-field>
-
+  }
   </ng-template>
 </app-editor-field>

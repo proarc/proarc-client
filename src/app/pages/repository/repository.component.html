@@ -37,7 +37,6 @@
           @if (canCopy()) {
             <button mat-menu-item (click)="onCopyItem()">{{ 'button.copy' | translate }}</button>
           }
-          <!-- <button mat-menu-item *ngIf="auth.user.changeModelFunction || auth.isSuperAdmin()" (click)="showConvertDialog()">{{ 'button.convertPages' | translate }}</button> -->
           @if (auth.user.czidloFunction || auth.isSuperAdmin()) {
             <button mat-menu-item (click)="czidlo()">{{ 'button.czidloFunction' | translate }}</button>
           }

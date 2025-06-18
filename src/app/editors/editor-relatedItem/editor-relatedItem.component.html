@@ -7,8 +7,8 @@
     <app-field-text field="otherTypeURI" [item]="item" [(value)]="item.attrs['otherTypeURI']"></app-field-text>
     <app-field-text field="otherTypeAuth" [item]="item" [(value)]="item.attrs['otherTypeAuth']"></app-field-text>
     <app-field-text field="otherTypeAuthURI" [item]="item" [(value)]="item.attrs['otherTypeAuthURI']"></app-field-text>
-
-    <app-editor-field *ngIf="item.available['titleInfo']" [field]="item.titleInfos" [nested]='true'>
+@if (item.available['titleInfo']) {
+    <app-editor-field [field]="item.titleInfos" [nested]='true'>
       <ng-template let-titleInfo="item" #templateContent>
         <app-field-dropdown field="type" [item]="titleInfo" [(value)]='titleInfo.attrs["type"]'></app-field-dropdown>
         <app-field-codebook field="lang" [item]="titleInfo" [options]="codebook.languages" [(value)]="titleInfo.attrs['lang']"></app-field-codebook>
@@ -19,25 +19,31 @@
         <app-field-text field="partNumber" [item]="titleInfo" [(value)]="titleInfo.partNumber['_']"></app-field-text>
       </ng-template>
     </app-editor-field>
-
-    <app-editor-field *ngIf="item.available['originInfo']" [field]="item.originInfos" [nested]='true'>>
+  }
+  @if (item.available['originInfo']) {
+    <app-editor-field [field]="item.originInfos" [nested]='true'>>
       <ng-template let-originInfo="item" #templateContent>
         <app-field-dropdown field="eventType" [item]="originInfo" [(value)]='originInfo.attrs["eventType"]'></app-field-dropdown>
         <app-field-dropdown field="transliteration" [item]="originInfo" [(value)]='originInfo.attrs["transliteration"]'></app-field-dropdown>
         <app-field-dropdown field="issuance" [item]="originInfo" [(value)]='originInfo.issuance["_"]'></app-field-dropdown>
         <app-field-text field="publisher" [item]="originInfo" [(value)]="originInfo.publisher['_']"></app-field-text>
-        <app-editor-field *ngIf="originInfo.available['place']" [field]="originInfo.places" [nested]='true'>
+        @if (originInfo.available['place']) {
+        <app-editor-field [field]="originInfo.places" [nested]='true'>
           <ng-template let-place="item" #templateContent>
-            <app-editor-field *ngIf="place.available['placeTerm']" [field]="place.placeTerms" [nested]='true'>
+            @if (place.available['placeTerm']) {
+            <app-editor-field [field]="place.placeTerms" [nested]='true'>
               <ng-template let-placeTerm="item" #templateContent>
                 <app-field-text field="value" [item]="placeTerm" [(value)]="placeTerm.modsElement['_']" ></app-field-text>
                 <app-field-dropdown field="type" [item]="placeTerm" [(value)]='placeTerm.attrs["type"]'></app-field-dropdown>
                 <app-field-dropdown field="authority" [item]="placeTerm" [(value)]='placeTerm.attrs["authority"]'></app-field-dropdown>
               </ng-template>
             </app-editor-field>
+          }
           </ng-template>
         </app-editor-field>
-        <app-editor-field *ngIf="originInfo.available['dateIssued']" [field]="originInfo.dateIssueds" [nested]='true'>
+      }
+      @if (originInfo.available['dateIssued']) {
+        <app-editor-field [field]="originInfo.dateIssueds" [nested]='true'>
           <ng-template let-dateIssued="item" #templateContent>
             <app-field-text field="value" [item]="dateIssued" [(value)]="dateIssued.modsElement['_']" ></app-field-text>
             <app-field-dropdown field="qualifier" [item]="dateIssued" [(value)]='dateIssued.attrs["qualifier"]'></app-field-dropdown>
@@ -45,228 +51,277 @@
             <app-field-dropdown field="point" [item]="dateIssued" [(value)]='dateIssued.attrs["point"]'></app-field-dropdown>
           </ng-template>
         </app-editor-field>
-        <app-editor-field *ngIf="originInfo.available['dateCreated']" [field]="originInfo.dateCreateds" [nested]='true'>
+      }
+      @if (originInfo.available['dateCreated']) {
+        <app-editor-field [field]="originInfo.dateCreateds" [nested]='true'>
           <ng-template let-dateCreated="item" #templateContent>
             <app-field-text field="value" [item]="dateCreated" [(value)]="dateCreated.modsElement['_']" ></app-field-text>
             <app-field-dropdown field="point" [item]="dateCreated" [(value)]='dateCreated.attrs["point"]'></app-field-dropdown>
           </ng-template>
         </app-editor-field>
-        <app-editor-field *ngIf="originInfo.available['dateOther']" [field]="originInfo.dateOthers" [nested]='true'>
+      }
+      @if (originInfo.available['dateOther']) {
+        <app-editor-field [field]="originInfo.dateOthers" [nested]='true'>
           <ng-template let-dateOther="item" #templateContent>
             <app-field-text field="value" [item]="dateOther" [(value)]="dateOther.modsElement['_']" ></app-field-text>
             <app-field-dropdown field="type" [item]="dateOther" [(value)]='dateOther.attrs["type"]'></app-field-dropdown>
           </ng-template>
         </app-editor-field>
-        <app-editor-field *ngIf="originInfo.available['dateValid']" [field]="originInfo.dateValids" [nested]='true'>
+      }
+      @if (originInfo.available['dateValid']) {
+        <app-editor-field [field]="originInfo.dateValids" [nested]='true'>
           <ng-template let-dateValid="item" #templateContent>
             <app-field-dropdown field="lang" [item]="dateValid" [(value)]='dateValid.attrs["lang"]'></app-field-dropdown>
             <app-field-text field="value" [item]="dateValid" [(value)]="dateValid.modsElement['_']" ></app-field-text>
           </ng-template>
         </app-editor-field>
-        <app-editor-field *ngIf="originInfo.available['dateCaptured']" [field]="originInfo.dateCaptureds" [nested]='true'>
+      }
+      @if (originInfo.available['dateCaptured']) {
+        <app-editor-field [field]="originInfo.dateCaptureds" [nested]='true'>
           <ng-template let-dateCaptured="item" #templateContent>
             <app-field-dropdown field="lang" [item]="dateCaptured" [(value)]='dateCaptured.attrs["lang"]'></app-field-dropdown>
             <app-field-text field="value" [item]="dateCaptured" [(value)]="dateCaptured.modsElement['_']" ></app-field-text>
           </ng-template>
         </app-editor-field>
-        <app-editor-field *ngIf="originInfo.available['dateModified']" [field]="originInfo.dateModifieds" [nested]='true'>
+      }
+      @if (originInfo.available['dateModified']) {
+        <app-editor-field [field]="originInfo.dateModifieds" [nested]='true'>
         <ng-template let-dateModified="item" #templateContent>
           <app-field-dropdown field="lang" [item]="dateModified" [(value)]='dateModified.attrs["lang"]'></app-field-dropdown>
           <app-field-text field="value" [item]="dateModified" [(value)]="dateModified.modsElement['_']" ></app-field-text>
         </ng-template>
       </app-editor-field>
+    }
         <app-field-text field="copyrightDate" [item]="originInfo" [(value)]="originInfo.copyrightDate['_']" ></app-field-text>
-        <app-editor-field *ngIf="originInfo.available['edition']" [field]="originInfo.editions" [nested]='true'>
+        @if (originInfo.available['edition']) {
+        <app-editor-field [field]="originInfo.editions" [nested]='true'>
           <ng-template let-edition="item" #templateContent>
             <app-field-text field="value" [item]="edition" [(value)]="edition.modsElement['_']" ></app-field-text>
           </ng-template>
         </app-editor-field>
-        <app-editor-field *ngIf="originInfo.available['frequency']" [field]="originInfo.frequencies" [nested]='true'>
+      }
+      @if (originInfo.available['frequency']) {
+        <app-editor-field [field]="originInfo.frequencies" [nested]='true'>
           <ng-template let-frequency="item" #templateContent>
             <app-autocomplete field="authority" [item]="frequency" [(value)]='frequency.attrs["authority"]'></app-autocomplete>
             <app-field-text field="value" [item]="frequency" [(value)]="frequency.modsElement['_']"></app-field-text>
           </ng-template>
         </app-editor-field>
+      }
       </ng-template>
     </app-editor-field>
-
-    <app-editor-field *ngIf="item.available['name']" [field]="item.names" [nested]='true'>
+  }
+  @if (item.available['name']) {
+    <app-editor-field [field]="item.names" [nested]='true'>
       <ng-template let-name="item" #templateContent>
         <app-field-dropdown field="type" [item]="name" [(value)]='name.attrs["type"]'></app-field-dropdown>
-        <app-editor-field *ngIf="name.available['namePart']" [field]="name.nameParts" [nested]='true'>
+        @if (name.available['namePart']) {
+        <app-editor-field [field]="name.nameParts" [nested]='true'>
           <ng-template let-namePart="item" #templateContent>
             <app-field-dropdown field="type" [item]="namePart" [(value)]='namePart.attrs["type"]'></app-field-dropdown>
             <app-field-text field="value" [item]="namePart" [(value)]='namePart.modsElement["_"]'></app-field-text>
           </ng-template>
         </app-editor-field>
-        <app-editor-field *ngIf="name.available['displayForm']" [field]="name.displayForms" [nested]='true'>
+      }
+      @if (name.available['displayForm']) {
+        <app-editor-field [field]="name.displayForms" [nested]='true'>
           <ng-template let-displayForm="item" #templateContent>
             <app-field-text field="value" [item]="displayForm" [(value)]='displayForm.modsElement["_"]'></app-field-text>
           </ng-template>
         </app-editor-field>
-        <app-editor-field *ngIf="name.available['description']" [field]="name.descriptions" [nested]='true'>
+      }
+      @if (name.available['description']) {
+        <app-editor-field [field]="name.descriptions" [nested]='true'>
           <ng-template let-description="item" #templateContent>
             <app-field-text field="value" [item]="description" [(value)]='description.modsElement["_"]'></app-field-text>
           </ng-template>
         </app-editor-field>
+      }
         <app-field-text field="nameIdentifier" [item]="name" [(value)]="name.nameIdentifier['_']"></app-field-text>
         <app-field-text field="etal" [item]="name" [(value)]="name.etal['_']"></app-field-text>
         <app-field-text field="affiliation" [item]="name" [(value)]='name.affiliation["_"]'></app-field-text>
       </ng-template>
     </app-editor-field>
-
-    <app-editor-field *ngIf="item.available['location']" [field]="item.locations" [nested]='true'>
+  }
+  @if (item.available['location']) {
+    <app-editor-field [field]="item.locations" [nested]='true'>
       <ng-template let-location="item" #templateContent>
-        <app-editor-field *ngIf="location.available['physicalLocation']" [field]="location.physicalLocations" [nested]='true'>
+        @if (location.available['physicalLocation']) {
+        <app-editor-field [field]="location.physicalLocations" [nested]='true'>
           <ng-template let-physicalLocation="item" #templateContent>
             <app-field-text field="displayLabel" [item]="physicalLocation" [(value)]="physicalLocation.attrs['displayLabel']"></app-field-text>
             <app-field-text field="authority" [item]="physicalLocation" [(value)]="physicalLocation.attrs['authority']"></app-field-text>
             <app-field-text field="value" [item]="physicalLocation" [(value)]="physicalLocation.modsElement['_']"></app-field-text>
           </ng-template>
         </app-editor-field>
-        <app-editor-field *ngIf="location.available['shelfLocator']" [field]="location.shelfLocators" [nested]='true'>
+      }
+      @if (location.available['shelfLocator']) {
+        <app-editor-field [field]="location.shelfLocators" [nested]='true'>
           <ng-template let-shelfLocator="item" #templateContent>
             <app-field-text field="value" [item]="shelfLocator" [(value)]="shelfLocator.modsElement['_']"></app-field-text>
           </ng-template>
         </app-editor-field>
-        <app-editor-field *ngIf="location.available['url']" [field]="location.urls" [nested]='true'>
+      }
+      @if (location.available['url']) {
+        <app-editor-field [field]="location.urls" [nested]='true'>
           <ng-template let-url="item" #templateContent>
             <app-field-dropdown field="usage" [item]="url" [(value)]='url.attrs["usage"]'></app-field-dropdown>
             <app-field-text field="note" [item]="url" [(value)]='url.attrs["note"]'></app-field-text>
             <app-field-text field="value" [item]="url" [(value)]="url.modsElement['_']"></app-field-text>
           </ng-template>
         </app-editor-field>
+      }
       </ng-template>
     </app-editor-field>
-
-    <app-editor-field *ngIf="item.available['subject']" [field]="item.subjects" [nested]='true'>
+  }
+  @if (item.available['subject']) {
+    <app-editor-field [field]="item.subjects" [nested]='true'>
       <ng-template let-subject="item" #templateContent>
         <app-field-dropdown field="authority" [item]="subject" [(value)]='subject.attrs["authority"]'></app-field-dropdown>
 <!--        <app-field-codebook field="lang" [item]="subject" [options]="codebook.languages" [(value)]="subject.attrs['lang']"></app-field-codebook>-->
 <!--        <app-field-text field="topic" [item]="subject" [(value)]='subject.topic["_"]'></app-field-text>-->
-        <app-editor-field *ngIf="subject.available['titleInfo']" [field]="subject.titleInfos" [nested]='true'>
+        @if (subject.available['titleInfo']) {
+        <app-editor-field [field]="subject.titleInfos" [nested]='true'>
           <ng-template let-titleInfo="item" #templateContent>
             <app-field-text field="tile" [item]="titleInfo" [(value)]="titleInfo.title['_']"></app-field-text>
             <app-field-text field="subtitle" [item]="titleInfo" [(value)]="titleInfo.subTitle['_']"></app-field-text>
           </ng-template>
         </app-editor-field>
-        <app-editor-field *ngIf="subject.available['topic']" [field]="subject.topics" [nested]='true'>
+      }
+      @if (subject.available['topic']) {
+        <app-editor-field [field]="subject.topics" [nested]='true'>
           <ng-template let-topic="item" #templateContent>
             <app-field-text field="valueURI" [item]="topic" [(value)]="topic.attrs['valueURI']"></app-field-text>
             <app-field-codebook prefix="lang" field="lang" [item]="topic" [options]="codebook.languages" [(value)]="topic.attrs['lang']"></app-field-codebook>
             <app-field-text field="value" [item]="topic" [(value)]='topic.modsElement["_"]'></app-field-text>
           </ng-template>
         </app-editor-field>
-        <app-editor-field *ngIf="subject.available['geographic']" [field]="subject.geographics" [nested]='true'>
+      }
+      @if (subject.available['geographic']) {
+        <app-editor-field [field]="subject.geographics" [nested]='true'>
           <ng-template let-geographic="item" #templateContent>
             <app-field-text field="valueURI" [item]="geographic" [(value)]="geographic.attrs['valueURI']"></app-field-text>
             <app-field-text field="value" [item]="geographic" [(value)]='geographic.modsElement["_"]'></app-field-text>
           </ng-template>
         </app-editor-field>
-        <app-editor-field *ngIf="subject.available['temporal']" [field]="subject.temporals" [nested]='true'>
+      }
+      @if (subject.available['temporal']) {
+        <app-editor-field [field]="subject.temporals" [nested]='true'>
           <ng-template let-temporal="item" #templateContent>
             <app-field-text field="valueURI" [item]="temporal" [(value)]="temporal.attrs['valueURI']"></app-field-text>
             <app-field-codebook prefix="lang" field="lang" [item]="temporal" [(value)]="temporal.attrs['lang']"></app-field-codebook>
             <app-field-text field="value" [item]="temporal" [(value)]='temporal.modsElement["_"]'></app-field-text>
           </ng-template>
         </app-editor-field>
+      }
         <app-field-text field="occupation" [item]="subject" [(value)]='subject.occupation["_"]'></app-field-text>
-        <app-editor-field *ngIf="subject.available['name']" [field]="item.names" [nested]='true'>
+      @if (subject.available['name']) {
+        <app-editor-field [field]="item.names" [nested]='true'>
           <ng-template let-name="item" #templateContent>
             <app-field-dropdown field="type" [item]="name" [(value)]='name.attrs["type"]'></app-field-dropdown>
-            <app-editor-field *ngIf="name.available['namePart']" [field]="name.nameParts" [nested]='true'>
+            @if (name.available['namePart']) {
+            <app-editor-field [field]="name.nameParts" [nested]='true'>
               <ng-template let-namePart="item" #templateContent>
                 <app-field-dropdown field="type" [item]="namePart" [(value)]='namePart.attrs["type"]'></app-field-dropdown>
                 <app-field-text field="value" [item]="namePart" [(value)]='namePart.modsElement["_"]'></app-field-text>
               </ng-template>
             </app-editor-field>
+          }
             <app-field-text field="nameIdentifier" [item]="name" [(value)]="name.nameIdentifier['_']"></app-field-text>
             <app-field-text field="etal" [item]="name" [(value)]="name.etal['_']"></app-field-text>
             <app-field-text field="affiliation" [item]="name" [(value)]='name.affiliation["_"]'></app-field-text>
           </ng-template>
         </app-editor-field>
-        <app-editor-field *ngIf="subject.available['cartographics']" [field]="subject.cartographics" [nested]='true'>
+      }
+      @if (subject.available['cartographics']) {
+        <app-editor-field [field]="subject.cartographics" [nested]='true'>
           <ng-template let-cartographics="item" #templateContent>
             <app-field-text field="coordinates" [item]="cartographics" [(value)]="cartographics.coordinates['_']"></app-field-text>
             <app-field-text field="scale" [item]="cartographics" [(value)]="cartographics.scale['_']"></app-field-text>
           </ng-template>
         </app-editor-field>
+      }
       </ng-template>
     </app-editor-field>
-
-    <app-editor-field *ngIf="item.available['part']" [field]="item.parts" [nested]='true'>
+  }
+  @if (item.available['part']) {
+    <app-editor-field [field]="item.parts" [nested]='true'>
       <ng-template let-part="item" #templateContent>
         <app-field-dropdown field="type" [item]="part" [(value)]='part.attrs["type"]'></app-field-dropdown>
         <app-field-text field="text" [item]="part" [(value)]="part.text['_']"></app-field-text>
-        <app-editor-field *ngIf="part.available['detail']" [field]="part.details" [nested]='true'>
+        @if (part.available['detail']) {
+        <app-editor-field [field]="part.details" [nested]='true'>
           <ng-template let-detail="item" #templateContent>
             <app-field-text field="type" [item]="detail" [(value)]='detail.attrs["type"]'></app-field-text>
             <app-field-text field="level" [item]="detail" [(value)]='detail.attrs["level"]'></app-field-text>
             <app-field-text field="number" [item]="detail" [(value)]="detail.number['_']"></app-field-text>
           </ng-template>
         </app-editor-field>
-        <app-editor-field *ngIf="part.available['extent']" [field]="part.extents" [nested]='true'>
+      }
+      @if (part.available['extent']) {
+        <app-editor-field [field]="part.extents" [nested]='true'>
           <ng-template let-extent="item" #templateContent>
             <app-field-text field="start" [item]="extent" [(value)]="extent.start['_']"></app-field-text>
             <app-field-text field="end" [item]="extent" [(value)]="extent.end['_']"></app-field-text>
             <app-field-text field="total" [item]="extent" [(value)]="extent.total['_']"></app-field-text>
           </ng-template>
         </app-editor-field>
+      }
       </ng-template>
     </app-editor-field>
-
-    <app-editor-field *ngIf="item.available['language']" [field]="item.languages" [nested]='true'>
+  }
+  @if (item.available['language']) {
+    <app-editor-field [field]="item.languages" [nested]='true'>
       <ng-template let-language="item" #templateContent>
         <app-field-dropdown field="objectPart" [item]="language" [(value)]='language.attrs["objectPart"]'></app-field-dropdown>
         <app-field-codebook prefix="lang" field="language" [item]="language" [options]="codebook.languages" [(value)]='language.language["_"]'></app-field-codebook>
       </ng-template>
     </app-editor-field>
-
-    <app-editor-field *ngIf="item.available['abstract']" [field]="item.abstracts" [nested]='true'>
+  }
+  @if (item.available['abstract']) {
+    <app-editor-field [field]="item.abstracts" [nested]='true'>
       <ng-template let-abstract="item" #templateContent>
         <app-field-codebook prefix="lang" field="lang" [item]="abstract" [options]="codebook.languages" [(value)]="abstract.attrs['lang']"></app-field-codebook>
         <app-field-textarea field="abstract" [item]="abstract" [(value)]="abstract.modsElement['_']" ></app-field-textarea>
       </ng-template>
     </app-editor-field>
-
-    <app-editor-field *ngIf="item.available['physicalDescription']" [field]="item.physicalDescriptions" [nested]='true'>
+  }
+  @if (item.available['physicalDescription']) {
+    <app-editor-field [field]="item.physicalDescriptions" [nested]='true'>
       <ng-template let-physicalDescription="item" #templateContent>
         <app-field-text field="displayLabel" [item]="physicalDescription" [(value)]='physicalDescription.attrs["displayLabel"]'></app-field-text>
-        <app-editor-field *ngIf="physicalDescription.available['extent']" [field]="physicalDescription.extents" [nested]='true'>
+        @if (physicalDescription.available['extent']) {
+        <app-editor-field [field]="physicalDescription.extents" [nested]='true'>
           <ng-template let-extent="item" #templateContent>
             <app-autocomplete field="unit" [item]="extent" [(value)]='extent.attrs["unit"]'></app-autocomplete>
             <app-autocomplete field="lang" [item]="extent" [(value)]='extent.attrs["lang"]'></app-autocomplete>
             <app-autocomplete field="value" [item]="extent" [(value)]="extent.modsElement['_']"></app-autocomplete>
           </ng-template>
         </app-editor-field>
+      }
         <app-field-textarea field="note" [item]="physicalDescription" [(value)]="physicalDescription.note['_']" ></app-field-textarea>
         <app-field-dropdown field="digitalOrigin" [item]="physicalDescription" [(value)]="physicalDescription.digitalOrigin['_']"></app-field-dropdown>
-        <!--
-        <app-editor-field *ngIf="physicalDescription.available['form']" [field]="physicalDescription.forms" [nested]='true'>
-          <ng-template let-form="physicalDescription" #templateContent>
-            <app-autocomplete field="authority" [item]="form" [(value)]='form.attrs["authority"]'></app-autocomplete>
-            <app-autocomplete field="type" [item]="form" [(value)]='form.attrs["type"]'></app-autocomplete>
-            <app-autocomplete field="value" [item]="form" [(value)]="form.modsElement['_']"></app-autocomplete>
-          </ng-template>
-        </app-editor-field>
-        -->
-        <app-editor-field *ngIf="physicalDescription.available['internetMediaType']" [field]="physicalDescription.internetMediaTypes" [nested]='true'>
+        @if (physicalDescription.available['internetMediaType']) {
+        <app-editor-field [field]="physicalDescription.internetMediaTypes" [nested]='true'>
           <ng-template let-internetMediaType="item" #templateContent>
             <app-autocomplete field="value" [item]="internetMediaType" [(value)]="internetMediaType.modsElement['_']"></app-autocomplete>
           </ng-template>
         </app-editor-field>
+      }
       </ng-template>
     </app-editor-field>
-
-    <app-editor-field *ngIf="item.available['note']" [field]="item.notes" [nested]='true'>
+  }
+  @if (item.available['note']) {
+    <app-editor-field [field]="item.notes" [nested]='true'>
       <ng-template let-note="item" #templateContent>
         <app-field-dropdown [(value)]='note.attrs["type"]' field="type" [item]="note"></app-field-dropdown>
         <app-field-text [(value)]='note.attrs["xlink:href"]' field="xlink:href" [item]="note"></app-field-text>
         <app-field-textarea field="note" [item]="note" [(value)]="note.modsElement['_']" ></app-field-textarea>
       </ng-template>
     </app-editor-field>
-
-    <app-editor-field *ngIf="item.available['genre']" [field]="item.genres" [nested]='true'>
+  }
+  @if (item.available['genre']) {
+    <app-editor-field [field]="item.genres" [nested]='true'>
       <ng-template let-genre="item" #templateContent>
         <app-autocomplete [(value)]='genre.attrs["authority"]' field="authority" [item]="genre"></app-autocomplete>
         <app-field-dropdown [(value)]='genre.attrs["type"]' field="type" [item]="genre"></app-field-dropdown>
@@ -274,23 +329,26 @@
         <app-field-text field="value" [item]="genre" [(value)]="genre.modsElement['_']" ></app-field-text>
       </ng-template>
     </app-editor-field>
-
-    <app-editor-field *ngIf="item.available['classification']" [field]="item.classifications" [nested]='true'>
+  }
+  @if (item.available['classification']) {
+    <app-editor-field [field]="item.classifications" [nested]='true'>
       <ng-template let-classification="item" #templateContent>
         <app-autocomplete [(value)]='classification.attrs["authority"]' field="authority" [item]="classification"></app-autocomplete>
         <app-autocomplete [(value)]='classification.attrs["edition"]' field="edition" [item]="classification"></app-autocomplete>
         <app-field-text field="value" [item]="classification" [(value)]="classification.modsElement['_']" ></app-field-text>
       </ng-template>
     </app-editor-field>
-
-    <app-editor-field *ngIf="item.available['typeOfResource']" [field]="item.typeOfResources" [nested]='true'>
+  }
+  @if (item.available['typeOfResource']) {
+    <app-editor-field [field]="item.typeOfResources" [nested]='true'>
       <ng-template let-typeOfResource="item" #templateContent>
         <app-field-dropdown class="app-full-width app-no-placeholder" field="value" [item]="typeOfResource" [(value)]='typeOfResource.modsElement["_"]'></app-field-dropdown>
         <app-field-dropdown field="manuscript" [item]="typeOfResource" [(value)]="typeOfResource.attrs['manuscript']"></app-field-dropdown>
       </ng-template>
     </app-editor-field>
-
-    <app-editor-field *ngIf="item.available['identifier']" [field]="item.identifiers" [nested]='true'>
+  }
+  @if (item.available['identifier']) {
+    <app-editor-field [field]="item.identifiers" [nested]='true'>
       <ng-template let-identifier="item" #templateContent>
         <app-field-codebook field="type" [item]="identifier" [options]="getIdentifiers()" [(value)]='identifier.attrs["type"]'></app-field-codebook>
         <app-field-codebook field="validity" [item]="identifier" [options]="validityOptions" [(value)]='identifier.attrs["invalid"]'></app-field-codebook>
@@ -298,12 +356,13 @@
         <app-field-text field="typeURI" [item]="identifier" [(value)]='identifier.attrs["typeURI"]'></app-field-text>
       </ng-template>
     </app-editor-field>
-
-    <app-editor-field *ngIf="item.available['relatedItem']" [field]="item.relatedItems" [nested]='true'>
+  }
+  @if (item.available['relatedItem']) {
+    <app-editor-field [field]="item.relatedItems" [nested]='true'>
       <ng-template let-relatedItem="item" #templateContent>
         <app-field-text field="type" [item]="relatedItem" [(value)]="relatedItem.attrs['type']"></app-field-text>
-
-        <app-editor-field *ngIf="relatedItem.available['titleInfo']" [field]="relatedItem.titleInfos" [nested]='true'>
+        @if (relatedItem.available['titleInfo']) {
+        <app-editor-field [field]="relatedItem.titleInfos" [nested]='true'>
           <ng-template let-titleInfo="item" #templateContent>
             <app-field-dropdown field="type" [item]="titleInfo" [(value)]='titleInfo.attrs["type"]'></app-field-dropdown>
             <app-field-dropdown field="otherType" [item]="titleInfo" [(value)]='titleInfo.attrs["otherType"]'></app-field-dropdown>
@@ -315,10 +374,12 @@
             <app-field-text field="partNumber" [item]="titleInfo" [(value)]="titleInfo.partNumber['_']"></app-field-text>
           </ng-template>
         </app-editor-field>
-
-        <app-editor-field *ngIf="relatedItem.available['originInfo']" [field]="relatedItem.originInfos" [nested]='true'>>
+      }
+        @if (relatedItem.available['originInfo']) {
+        <app-editor-field [field]="relatedItem.originInfos" [nested]='true'>>
           <ng-template let-originInfo="item" #templateContent>
-            <app-editor-field *ngIf="originInfo.available['dateIssued']" [field]="originInfo.dateIssueds" [nested]='true'>
+            @if (originInfo.available['dateIssued']) {
+            <app-editor-field [field]="originInfo.dateIssueds" [nested]='true'>
               <ng-template let-dateIssued="item" #templateContent>
                 <app-field-text field="value" [item]="dateIssued" [(value)]="dateIssued.modsElement['_']" ></app-field-text>
                 <app-field-dropdown field="qualifier" [item]="dateIssued" [(value)]='dateIssued.attrs["qualifier"]'></app-field-dropdown>
@@ -326,26 +387,33 @@
                 <app-field-dropdown field="point" [item]="dateIssued" [(value)]='dateIssued.attrs["point"]'></app-field-dropdown>
               </ng-template>
             </app-editor-field>
-            <app-editor-field *ngIf="originInfo.available['edition']" [field]="originInfo.editions" [nested]='true'>
+          }
+          @if (originInfo.available['edition']) {
+            <app-editor-field [field]="originInfo.editions" [nested]='true'>
               <ng-template let-edition="item" #templateContent>
                 <app-field-text field="value" [item]="edition" [(value)]="edition.modsElement['_']" ></app-field-text>
               </ng-template>
             </app-editor-field>
+          }
           </ng-template>
         </app-editor-field>
-
-        <app-editor-field *ngIf="relatedItem.available['part']" [field]="relatedItem.parts" [nested]='true'>
+      }
+      @if (relatedItem.available['part']) {
+        <app-editor-field [field]="relatedItem.parts" [nested]='true'>
           <ng-template let-part="item" #templateContent>
-            <app-editor-field *ngIf="part.available['detail']" [field]="part.details" [nested]='true'>
+            @if (part.available['detail']) {
+            <app-editor-field [field]="part.details" [nested]='true'>
               <ng-template let-detail="item" #templateContent>
                 <app-field-dropdown field="type" [item]="detail" [(value)]='detail.attrs["type"]'></app-field-dropdown>
                 <app-field-text field="number" [item]="detail" [(value)]="detail.number['_']"></app-field-text>
               </ng-template>
             </app-editor-field>
+          }
           </ng-template>
         </app-editor-field>
-
-        <app-editor-field *ngIf="relatedItem.available['identifier']" [field]="relatedItem.identifiers" [nested]='true'>
+      }
+      @if (relatedItem.available['identifier']) {
+        <app-editor-field [field]="relatedItem.identifiers" [nested]='true'>
           <ng-template let-identifier="item" #templateContent>
             <app-field-codebook field="type" [item]="identifier" [options]="getIdentifiers()" [(value)]='identifier.attrs["type"]'></app-field-codebook>
             <app-field-codebook field="validity" [item]="identifier" [options]="validityOptions" [(value)]='identifier.attrs["invalid"]'></app-field-codebook>
@@ -353,10 +421,10 @@
             <app-field-text field="typeURI" [item]="identifier" [(value)]='identifier.attrs["typeURI"]'></app-field-text>
           </ng-template>
         </app-editor-field>
-
+      }
       </ng-template>
     </app-editor-field>
-
+  }
 
   </ng-template>
 </app-editor-field>

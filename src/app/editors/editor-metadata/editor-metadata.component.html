@@ -1,111 +1,239 @@
 <div class="app-fxLayout app-column app-fill" [id]="panel().id">
-  <div class="app-fxLayout app-row app-center-v app-toolbar app-view-description">
+	<div class="app-fxLayout app-row app-center-v app-toolbar app-view-description">
 		<div class="app-fxFlex app-fxLayout app-row apo-center-v">
-			<app-editor-switcher class="app-fxLayout app-row app-center-v" *ngIf="!notSaved()" (onChangeEditorType)="changeEditorType($event)" [panelType]="panelType()"></app-editor-switcher>
-			<ng-container *ngIf="metadata">
-				<!-- <button mat-icon-button [matTooltip]="'desc.showOnlyTheElement' | translate" [class.app-active]="byField" (click)="toggleByField()">
+			@if (!notSaved()) {
+			<app-editor-switcher class="app-fxLayout app-row app-center-v"
+				(onChangeEditorType)="changeEditorType($event)" [panelType]="panelType()"></app-editor-switcher>
+			}
+			@if (metadata) {
+			<!-- <button mat-icon-button [matTooltip]="'desc.showOnlyTheElement' | translate" [class.app-active]="byField" (click)="toggleByField()">
 					<mat-icon>keyboard_double_arrow_down</mat-icon>
 				</button>
 				<span class="app-pipe"></span> -->
-				<mat-radio-group aria-label="'standard'" [(ngModel)]="metadata.standard" (change)="setStandard()" class="app-ml-1" color="primary">
-					<mat-radio-button value="rda">rda</mat-radio-button>
-					<mat-radio-button value="aacr">aacr</mat-radio-button>
-				</mat-radio-group>
-			</ng-container>
+			<mat-radio-group aria-label="'standard'" [(ngModel)]="metadata.standard" (change)="setStandard()"
+				class="app-ml-1" color="primary">
+				<mat-radio-button value="rda">rda</mat-radio-button>
+				<mat-radio-button value="aacr">aacr</mat-radio-button>
+			</mat-radio-group>
+			}
 		</div>
 		<div>
-			<ng-container *ngIf="!notSaved()">
-				<button  mat-icon-button (click)="onLoadFromCatalog()" [matTooltip]="'button.metadataCatalog' | translate">
-					<mat-icon>local_library</mat-icon>
-				</button>
-				<button mat-icon-button (click)="validate()" [matTooltip]="'editor.children.validate' | translate" [class.app-color-warn]="!isValidMetadata">
-					<mat-icon>check_circle</mat-icon>
-				</button>
-				<button mat-icon-button  (click)="onSave()" [disabled]="!panel().canEdit || !hasChanges" [matTooltip]="'button.save' | translate" >
-					<mat-icon>save</mat-icon>
-				</button>
-				<button mat-icon-button  (click)="revert()" [disabled]="!hasChanges" [matTooltip]="'button.refresh' | translate" >
-					<mat-icon>refresh</mat-icon>
-				</button>
-			</ng-container>
+			@if (!notSaved()) {
+			<button mat-icon-button (click)="onLoadFromCatalog()" [matTooltip]="'button.metadataCatalog' | translate">
+				<mat-icon>local_library</mat-icon>
+			</button>
+			<button mat-icon-button (click)="validate()" [matTooltip]="'editor.children.validate' | translate"
+				[class.app-color-warn]="!isValidMetadata">
+				<mat-icon>check_circle</mat-icon>
+			</button>
+			<button mat-icon-button (click)="onSave()" [disabled]="!panel().canEdit || !hasChanges"
+				[matTooltip]="'button.save' | translate">
+				<mat-icon>save</mat-icon>
+			</button>
+			<button mat-icon-button (click)="revert()" [disabled]="!hasChanges"
+				[matTooltip]="'button.refresh' | translate">
+				<mat-icon>refresh</mat-icon>
+			</button>
+			}
 		</div>
 	</div>
 	<div class="app-fxFlex">
-		<mat-progress-bar mode="indeterminate" *ngIf="loading" class="app-progress-bar"></mat-progress-bar>
-		<div class="app-fxLayout app-column app-fill app-editor-content" *ngIf="!loading && metadata">
+		@if (loading) {
+		<mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
+		} @else if (metadata) {
+		<div class="app-fxLayout app-column app-fill app-editor-content">
 			<div class="app-form-display-el" [ngClass]="scroller.scrollTop > 0 ? 'app-scrolling' : null">
-				<mat-form-field appearance="outline" class="app-w-100 app-p-2 app-mt-1 app-clean-mb" [ngClass]="metadata.invalidFields.includes(selectedField) ? 'mat-form-field-invalid' : null">
+				<mat-form-field appearance="outline" class="app-w-100 app-p-2 app-mt-1 app-clean-mb"
+					[ngClass]="metadata.invalidFields.includes(selectedField) ? 'mat-form-field-invalid' : null">
 					<mat-label>{{ 'desc.jumpToElement' | translate }}</mat-label>
-					<mat-select [(ngModel)]="selectedField" (valueChange)="scrollToElement($event)" [class.app-color-warn]="metadata.invalidFields.includes(selectedField)">
+					<mat-select [(ngModel)]="selectedField" (valueChange)="scrollToElement($event)"
+						[class.app-color-warn]="metadata.invalidFields.includes(selectedField)">
 						@for(field of availableFieldsSorted; track $index;) {
-							<mat-option [value]="field" [class.app-color-warn]="metadata.invalidFields.includes(field)">{{'mods.' + metadata.template[field]['labelKey'] | translate}}</mat-option>
+						<mat-option [value]="field"
+							[class.app-color-warn]="metadata.invalidFields.includes(field)">{{'mods.' +
+							metadata.template[field]['labelKey'] | translate}}</mat-option>
 						}
 					</mat-select>
 				</mat-form-field>
 			</div>
-
-			<div [ngSwitch]="model()" class="app-fxFlex app-oa-y app-scroller app-editor-container" #scroller 
-				(scroll)="checkVisibility()" tabIndex="0" style="outline: none !important; position: relative;">
+			<div [class="app-fxFlex app-oa-y app-scroller app-editor-container" #scroller (scroll)="checkVisibility()"
+				tabIndex="0" style="outline: none !important; position: relative;">
 				<div style="float: left;" [style.height]="scrollHeight +'px'"></div>
 				<div class="app-gap-fixer"></div>
 
-				<ng-container *ngSwitchCase="'model:chroniclevolume'" [ngTemplateOutlet]="chronicle" ></ng-container>
-				<ng-container *ngSwitchCase="'model:chronicletitle'" [ngTemplateOutlet]="chronicle"></ng-container>
-				<ng-container *ngSwitchCase="'model:chroniclesupplement'" [ngTemplateOutlet]="chronicle"></ng-container>
-				<ng-container *ngSwitchCase="'model:bdmarticle'" [ngTemplateOutlet]="bdm"></ng-container>
-
-				<ng-container *ngSwitchDefault>
-					<app-editor-genre [id]="panel().id + 'genre'" *ngIf="showGenreSwitch && visibleFields['genre']" [field]="fields['genre']" [showGenreSwitch]="showGenreSwitch"></app-editor-genre>
-					<app-editor-title [id]="panel().id + 'titleInfo'" *ngIf="visibleFields['titleInfo']" [field]="fields['titleInfo']"></app-editor-title>
-					<app-editor-author [id]="panel().id + 'name'" *ngIf="visibleFields['name']" [field]="fields['name']" [model]="model()" [panel]="panel()"></app-editor-author>
-					<app-editor-publisher [id]="panel().id + 'originInfo'" *ngIf="visibleFields['originInfo']" [field]="fields['originInfo']"></app-editor-publisher>
-					<app-editor-location [id]="panel().id + 'location'" *ngIf="visibleFields['location']" [field]="fields['location']"></app-editor-location>
-					<app-editor-identifier [id]="panel().id + 'identifier'" *ngIf="visibleFields['identifier']" [field]="fields['identifier']" [model]="model()"></app-editor-identifier>
-					<app-editor-language [id]="panel().id + 'language'" *ngIf="visibleFields['language']" [field]="fields['language']"></app-editor-language>
-					<app-editor-physical [id]="panel().id + 'physicalDescription'" *ngIf="visibleFields['physicalDescription']" [field]="fields['physicalDescription']"></app-editor-physical>
-					<app-editor-abstract [id]="panel().id + 'abstract'" *ngIf="visibleFields['abstract']" [field]="fields['abstract']"></app-editor-abstract>
-					<app-editor-note [id]="panel().id + 'note'" *ngIf="visibleFields['note']" [field]="fields['note']"></app-editor-note>
-					<app-editor-resource [id]="panel().id + 'typeOfResource'" *ngIf="visibleFields['typeOfResource']" [field]="fields['typeOfResource']"></app-editor-resource>
-					<app-editor-genre [id]="panel().id + 'genre'" *ngIf="visibleFields['genre'] && !showGenreSwitch" [field]="fields['genre']" ></app-editor-genre>
-					<app-editor-classification [id]="panel().id + 'classification'" *ngIf="visibleFields['classification']" [field]="fields['classification']"></app-editor-classification>
-					<app-editor-subject [id]="panel().id + 'subject'" *ngIf="visibleFields['subject']" [field]="fields['subject']" [panel]="panel()"></app-editor-subject>
-					<app-editor-part [id]="panel().id + 'part'" *ngIf="visibleFields['part']" [field]="fields['part']"></app-editor-part>
-					<app-editor-tableOfContents [id]="panel().id + 'tableOfContents'" *ngIf="visibleFields['tableOfContents']" [field]="fields['tableOfContents']"></app-editor-tableOfContents>
-          <app-editor-accessCondition [id]="panel().id + 'accessCondition'" *ngIf="visibleFields['accessCondition']" [field]="fields['accessCondition']"></app-editor-accessCondition>
-					<app-editor-recordInfo [id]="panel().id + 'recordInfo'" *ngIf="visibleFields['recordInfo']" [field]="fields['recordInfo']" ></app-editor-recordInfo>
-					<app-editor-relatedItem [id]="panel().id + 'relatedItem'" *ngIf="visibleFields['relatedItem']" [field]="fields['relatedItem']" [model]="model()" ></app-editor-relatedItem>
-				</ng-container>
+				@switch (model()) {
+				@case ('model:chroniclevolume') {
+				<ng-container [ngTemplateOutlet]="chronicle"></ng-container>
+				}
+				@case ('model:chronicletitle') {
+				<ng-container [ngTemplateOutlet]="chronicle"></ng-container>
+				}
+				@case ('model:chroniclesupplement') {
+				<ng-container [ngTemplateOutlet]="chronicle"></ng-container>
+				}
+				@case ('model:bdmarticle') {
+				<ng-container [ngTemplateOutlet]="bdm"></ng-container>
+				}
+				@default {
+				@if (showGenreSwitch && visibleFields['genre']) {
+				<app-editor-genre [id]="panel().id + 'genre'" [field]="fields['genre']"
+					[showGenreSwitch]="showGenreSwitch"></app-editor-genre>
+				}
+				@if (visibleFields['titleInfo']) {
+				<app-editor-title [id]="panel().id + 'titleInfo'" [field]="fields['titleInfo']"></app-editor-title>
+				}
+				@if (visibleFields['name']) {
+				<app-editor-author [id]="panel().id + 'name'" [field]="fields['name']" [model]="model()"
+					[panel]="panel()"></app-editor-author>
+				}
+				@if (visibleFields['originInfo']) {
+				<app-editor-publisher [id]="panel().id + 'originInfo'"
+					[field]="fields['originInfo']"></app-editor-publisher>
+				}
+				@if (visibleFields['location']) {
+				<app-editor-location [id]="panel().id + 'location'" [field]="fields['location']"></app-editor-location>
+				}
+				@if (visibleFields['identifier']) {
+				<app-editor-identifier [id]="panel().id + 'identifier'" [field]="fields['identifier']"
+					[model]="model()"></app-editor-identifier>
+				}
+				@if (visibleFields['language']) {
+				<app-editor-language [id]="panel().id + 'language'" [field]="fields['language']"></app-editor-language>
+				}
+				@if (visibleFields['physicalDescription']) {
+				<app-editor-physical [id]="panel().id + 'physicalDescription'"
+					[field]="fields['physicalDescription']"></app-editor-physical>
+				}
+				@if (visibleFields['abstract']) {
+				<app-editor-abstract [id]="panel().id + 'abstract'" [field]="fields['abstract']"></app-editor-abstract>
+				}
+				@if (visibleFields['note']) {
+				<app-editor-note [id]="panel().id + 'note'" [field]="fields['note']"></app-editor-note>
+				}
+				@if (visibleFields['typeOfResource']) {
+				<app-editor-resource [id]="panel().id + 'typeOfResource'"
+					[field]="fields['typeOfResource']"></app-editor-resource>
+				}
+				@if (visibleFields['genre'] && !showGenreSwitch) {
+				<app-editor-genre [id]="panel().id + 'genre'" [field]="fields['genre']"></app-editor-genre>
+				}
+				@if (visibleFields['classification']) {
+				<app-editor-classification [id]="panel().id + 'classification'"
+					[field]="fields['classification']"></app-editor-classification>
+				}
+				@if (visibleFields['subject']) {
+				<app-editor-subject [id]="panel().id + 'subject'" [field]="fields['subject']"
+					[panel]="panel()"></app-editor-subject>
+				}
+				@if (visibleFields['part']) {
+				<app-editor-part [id]="panel().id + 'part'" [field]="fields['part']"></app-editor-part>
+				}
+				@if (visibleFields['tableOfContents']) {
+				<app-editor-tableOfContents [id]="panel().id + 'tableOfContents'"
+					[field]="fields['tableOfContents']"></app-editor-tableOfContents>
+				}
+				@if (visibleFields['accessCondition']) {
+				<app-editor-accessCondition [id]="panel().id + 'accessCondition'"
+					[field]="fields['accessCondition']"></app-editor-accessCondition>
+				}
+				@if (visibleFields['recordInfo']) {
+				<app-editor-recordInfo [id]="panel().id + 'recordInfo'"
+					[field]="fields['recordInfo']"></app-editor-recordInfo>
+				}
+				@if (visibleFields['relatedItem']) {
+				<app-editor-relatedItem [id]="panel().id + 'relatedItem'" [field]="fields['relatedItem']"
+					[model]="model()"></app-editor-relatedItem>
+				}}
+				}
 			</div>
 		</div>
+		}
 	</div>
 </div>
 
 <ng-template #chronicle>
-	<app-editor-chronicle-location [id]="panel().id + 'location'" *ngIf="visibleFields['location']" [field]="fields['location']"></app-editor-chronicle-location>
-	<app-editor-identifier [id]="panel().id + 'identifier'" *ngIf="visibleFields['identifier']" [field]="fields['identifier']"></app-editor-identifier>
-	<app-editor-genre [id]="panel().id + 'genre'" *ngIf="visibleFields['genre']" [field]="fields['genre']"></app-editor-genre>
-	<app-editor-title [id]="panel().id + 'titleInfo'" *ngIf="visibleFields['titleInfo']" [field]="fields['titleInfo']"></app-editor-title>
-	<app-editor-abstract [id]="panel().id + 'abstract'" *ngIf="visibleFields['abstract']" [field]="fields['abstract']"></app-editor-abstract>
-	<app-editor-language [id]="panel().id + 'language'" *ngIf="visibleFields['language']" [field]="fields['language']"></app-editor-language>
-	<app-editor-publisher [id]="panel().id + 'originInfo'" *ngIf="visibleFields['originInfo']" [field]="fields['originInfo']"></app-editor-publisher>
-	<app-editor-author [id]="panel().id + 'name'" *ngIf="visibleFields['name']" [field]="fields['name']" [model]="model()" [panel]="panel()"></app-editor-author>
-	<app-editor-note [id]="panel().id + 'note'" *ngIf="visibleFields['note']" [field]="fields['note']"></app-editor-note>
+	@if (visibleFields['location']) {
+	<app-editor-chronicle-location [id]="panel().id + 'location'"
+		[field]="fields['location']"></app-editor-chronicle-location>
+	}
+	@if (visibleFields['identifier']) {
+	<app-editor-identifier [id]="panel().id + 'identifier'" [field]="fields['identifier']"></app-editor-identifier>
+	}
+	@if (visibleFields['genre']) {
+	<app-editor-genre [id]="panel().id + 'genre'" [field]="fields['genre']"></app-editor-genre>
+	}
+	@if (visibleFields['titleInfo']) {
+	<app-editor-title [id]="panel().id + 'titleInfo'" [field]="fields['titleInfo']"></app-editor-title>
+	}
+	@if (visibleFields['abstract']) {
+	<app-editor-abstract [id]="panel().id + 'abstract'" [field]="fields['abstract']"></app-editor-abstract>
+	}
+	@if (visibleFields['language']) {
+	<app-editor-language [id]="panel().id + 'language'" [field]="fields['language']"></app-editor-language>
+	}
+	@if (visibleFields['originInfo']) {
+	<app-editor-publisher [id]="panel().id + 'originInfo'" [field]="fields['originInfo']"></app-editor-publisher>
+	}
+	@if (visibleFields['name']) {
+	<app-editor-author [id]="panel().id + 'name'" [field]="fields['name']" [model]="model()"
+		[panel]="panel()"></app-editor-author>
+	}
+	@if (visibleFields['note']) {
+	<app-editor-note [id]="panel().id + 'note'" [field]="fields['note']"></app-editor-note>
+	}
 </ng-template>
 
 <ng-template #bdm>
-	<app-editor-genre [id]="panel().id + 'genre'" *ngIf="visibleFields['genre']" [field]="fields['genre']" [showGenreSwitch]="true"></app-editor-genre>
-	<app-editor-language [id]="panel().id + 'language'" *ngIf="visibleFields['language']" [field]="fields['language']"></app-editor-language>
-	<app-editor-identifier [id]="panel().id + 'identifier'" *ngIf="visibleFields['identifier']" [field]="fields['identifier']" [model]="model()"></app-editor-identifier>
-	<app-editor-physical [id]="panel().id + 'physicalDescription'" *ngIf="visibleFields['physicalDescription']" [field]="fields['physicalDescription']"></app-editor-physical>
-	<app-editor-part [id]="panel().id + 'part'" *ngIf="visibleFields['part']" [field]="fields['part']"></app-editor-part>
-	<app-editor-title [id]="panel().id + 'titleInfo'" *ngIf="visibleFields['titleInfo']" [field]="fields['titleInfo']"></app-editor-title>
-	<app-editor-author [id]="panel().id + 'name'" *ngIf="visibleFields['name']" [field]="fields['name']" [model]="model()" [panel]="panel()"></app-editor-author>
-	<app-editor-abstract [id]="panel().id + 'abstract'" *ngIf="visibleFields['abstract']" [field]="fields['abstract']"></app-editor-abstract>
-	<app-editor-subject [id]="panel().id + 'subject'" *ngIf="visibleFields['subject']" [field]="fields['subject']" [panel]="panel()"></app-editor-subject>
-	<app-editor-note [id]="panel().id + 'note'" *ngIf="visibleFields['note']" [field]="fields['note']"></app-editor-note>
-	<app-editor-classification [id]="panel().id + 'classification'" *ngIf="visibleFields['classification']" [field]="fields['classification']"></app-editor-classification>
-	<app-editor-location [id]="panel().id + 'location'" *ngIf="visibleFields['location']" [field]="fields['location']"></app-editor-location>
-  <app-editor-accessCondition [id]="panel().id + 'accessCondition'" *ngIf="visibleFields['accessCondition']" [field]="fields['accessCondition']"></app-editor-accessCondition>
-	<app-editor-relatedItem [id]="panel().id + 'relatedItem'" *ngIf="visibleFields['relatedItem']" [field]="fields['relatedItem']" [model]="model()"></app-editor-relatedItem>
-	<app-editor-recordInfo [id]="panel().id + 'recordInfo'" *ngIf="visibleFields['recordInfo']" [field]="fields['recordInfo']"></app-editor-recordInfo>
+	@if (visibleFields['genre']) {
+	<app-editor-genre [id]="panel().id + 'genre'" [field]="fields['genre']" [showGenreSwitch]="true"></app-editor-genre>
+	}
+	@if (visibleFields['language']) {
+	<app-editor-language [id]="panel().id + 'language'" [field]="fields['language']"></app-editor-language>
+	}
+	@if (visibleFields['identifier']) {
+	<app-editor-identifier [id]="panel().id + 'identifier'" [field]="fields['identifier']"
+		[model]="model()"></app-editor-identifier>
+	}
+	@if (visibleFields['physicalDescription']) {
+	<app-editor-physical [id]="panel().id + 'physicalDescription'"
+		[field]="fields['physicalDescription']"></app-editor-physical>
+	}
+	@if (visibleFields['part']) {
+	<app-editor-part [id]="panel().id + 'part'" [field]="fields['part']"></app-editor-part>
+	}
+	@if (visibleFields['titleInfo']) {
+	<app-editor-title [id]="panel().id + 'titleInfo'" [field]="fields['titleInfo']"></app-editor-title>
+	}
+	@if (visibleFields['name']) {
+	<app-editor-author [id]="panel().id + 'name'" [field]="fields['name']" [model]="model()"
+		[panel]="panel()"></app-editor-author>
+	}
+	@if (visibleFields['abstract']) {
+	<app-editor-abstract [id]="panel().id + 'abstract'" [field]="fields['abstract']"></app-editor-abstract>
+	}
+	@if (visibleFields['subject']) {
+	<app-editor-subject [id]="panel().id + 'subject'" [field]="fields['subject']"
+		[panel]="panel()"></app-editor-subject>
+	}
+	@if (visibleFields['note']) {
+	<app-editor-note [id]="panel().id + 'note'" [field]="fields['note']"></app-editor-note>
+	}
+	@if (visibleFields['classification']) {
+	<app-editor-classification [id]="panel().id + 'classification'"
+		[field]="fields['classification']"></app-editor-classification>
+	}
+	@if (visibleFields['location']) {
+	<app-editor-location [id]="panel().id + 'location'" [field]="fields['location']"></app-editor-location>
+	}
+	@if (visibleFields['accessCondition']) {
+	<app-editor-accessCondition [id]="panel().id + 'accessCondition'"
+		[field]="fields['accessCondition']"></app-editor-accessCondition>
+	}
+	@if (visibleFields['relatedItem']) {
+	<app-editor-relatedItem [id]="panel().id + 'relatedItem'" [field]="fields['relatedItem']"
+		[model]="model()"></app-editor-relatedItem>
+	}
+	@if (visibleFields['recordInfo']) {
+	<app-editor-recordInfo [id]="panel().id + 'recordInfo'" [field]="fields['recordInfo']"></app-editor-recordInfo>
+	}
 </ng-template>

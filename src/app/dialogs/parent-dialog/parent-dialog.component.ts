@@ -20,7 +20,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { DocumentItem } from '../../model/documentItem.model';
+import { DocumentItem, TreeDocumentItem } from '../../model/documentItem.model';
 import { ModelTemplate } from '../../model/modelTemplate';
 import { Tree } from '../../model/mods/tree.model';
 import { User } from '../../model/user.model';
@@ -33,12 +33,13 @@ import { Utils } from '../../utils/utils';
 import { IngestDialogComponent } from '../ingest-dialog/ingest-dialog.component';
 import { ViewerComponent } from "../../components/viewer/viewer.component";
 import { UserTableComponent } from "../../components/user-table/user-table.component";
+import { UserTreeTableComponent } from "../../components/user-tree-table/user-tree-table.component";
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
-    MatTableModule, MatSortModule, MatDialogModule, ViewerComponent, UserTableComponent],
+    MatTableModule, MatSortModule, MatDialogModule, ViewerComponent, UserTableComponent, UserTreeTableComponent],
   selector: 'app-parent-dialog',
   templateUrl: './parent-dialog.component.html',
   styleUrls: ['./parent-dialog.component.scss']
@@ -53,7 +54,8 @@ export class ParentDialogComponent implements OnInit {
   state = 'none';
   items: DocumentItem[];
   selectedDestItem: DocumentItem;
-  selectedInSearch: DocumentItem;
+  selectedTreeItem: TreeDocumentItem;
+  selectedRootTreeItem: TreeDocumentItem;
   selectedTree: Tree;
   models: string[];
   query = '';
@@ -480,7 +482,7 @@ export class ParentDialogComponent implements OnInit {
 
   clearSelected() {
     this.selectedDestItem = null;
-    this.selectedInSearch = null;
+    this.selectedRootTreeItem = null;
     this.tree = null;
   }
 
@@ -489,14 +491,23 @@ export class ParentDialogComponent implements OnInit {
   }
 
   selectItem(item: DocumentItem) {
-    //this.selectedItem = null;
-    //setTimeout(() => {
-
     this.selectedDestItem = item;
-    this.selectedInSearch = item;
-    this.tree = new Tree(item);
-    //}, 10);
+    if (this.selectedRootTreeItem) {
+      // reset
+      this.selectedRootTreeItem.expanded = false;
+      this.selectedRootTreeItem.childrenLoaded = false;
+    }
 
+    this.selectedRootTreeItem = <TreeDocumentItem>this.selectedDestItem;
+    this.selectedRootTreeItem.level = 0;
+    this.selectedRootTreeItem.expandable = true;
+    this.selectedTreeItem = this.selectedRootTreeItem;
+
+  }
+
+  onSelectTreeItem(item: any) {
+    this.selectedTreeItem = item;
+    this.selectedDestItem = item;
   }
 
   open(item: DocumentItem, index: number = -1) {

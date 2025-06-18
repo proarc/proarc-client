@@ -166,7 +166,9 @@
 <ng-template #stromTmpl>
   @if (state !== 'saving' && selectedDestItem) {
     <div class="app-tree">
-      <!-- <app-tree *ngIf="tree" [tree]="tree" (onOpen)="openFromTree($event)" (onSelect)="selectFromTree($event)" [expanded]="data.selectedTree !== undefined" [expandedPath]="expandedPath"></app-tree> -->
+      <app-user-tree-table #treeTable [inSearch]="false" [treePath]="[selectedRootTreeItem.pid]" [rootTreeItem]="selectedRootTreeItem"
+                  (onSelectTreeItem)="onSelectTreeItem($event)"
+      ></app-user-tree-table>
     </div>
   }
 </ng-template>

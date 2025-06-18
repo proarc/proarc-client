@@ -11,27 +11,34 @@
 
   <ng-template let-item="item" #templateContent>
     <app-field-dropdown field="type" [item]="item" [(value)]='item.attrs["type"]'></app-field-dropdown>
-    <app-editor-field *ngIf="item.available['namePart']" [field]="item.nameParts" [nested]='true'>
+    @if (item.available['namePart']) {
+    <app-editor-field [field]="item.nameParts" [nested]='true'>
       <ng-template let-namePart="item" #templateContent>
         <app-field-dropdown field="type" [item]="namePart" [(value)]='namePart.attrs["type"]'></app-field-dropdown>
         <app-field-text field="value" [item]="namePart" [(value)]='namePart.modsElement["_"]'></app-field-text>
       </ng-template>
     </app-editor-field>
+  }
     <app-field-text field="nameIdentifier" [item]="item" [(value)]="item.nameIdentifier['_']"></app-field-text>
     <app-field-text field="nameIdentifierOrcId" [item]="item" [(value)]="item.nameIdentifierOrcId['_']"></app-field-text>
     <app-field-text field="etal" [item]="item" [(value)]="item.etal['_']"></app-field-text>
     <app-field-text field="affiliation" [item]="item" [(value)]='item.affiliation["_"]'></app-field-text>
-    <app-editor-field *ngIf="item.available['displayForm']" [field]="item.displayForms" [nested]='true'>
+    @if (item.available['displayForm']) {
+    <app-editor-field [field]="item.displayForms" [nested]='true'>
       <ng-template let-displayForm="item" #templateContent>
         <app-field-text field="value" [item]="displayForm" [(value)]='displayForm.modsElement["_"]'></app-field-text>
       </ng-template>
     </app-editor-field>
-    <app-editor-field *ngIf="item.available['description']" [field]="item.descriptions" [nested]='true'>
+  }
+  @if (item.available['description']) {
+    <app-editor-field [field]="item.descriptions" [nested]='true'>
       <ng-template let-description="item" #templateContent>
         <app-field-text field="value" [item]="description" [(value)]='description.modsElement["_"]'></app-field-text>
       </ng-template>
     </app-editor-field>
-    <app-editor-field *ngIf="item.roleTerm" [field]="item.roleTerm" class="app-roles" [nested]='true'>
+  }
+  @if (item.roleTerm) {
+    <app-editor-field [field]="item.roleTerm" class="app-roles" [nested]='true'>
       <ng-template let-role="item" #templateContent>
         <mat-form-field appearance="outline" class="app-field-col">
           <mat-label>{{ 'desc.author' | translate }}</mat-label>
@@ -45,7 +52,7 @@
         </mat-form-field>
       </ng-template>
     </app-editor-field>
-
+  }
   </ng-template>
 </app-editor-field>
 
