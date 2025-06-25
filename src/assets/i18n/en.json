@@ -1267,7 +1267,7 @@
     "cas": "Caster",
     "ccp": "Conceptor",
     "chr": "Choreographer",
-    "-clb": "Collaborator",
+    "clb": "Collaborator",
     "cli": "Client",
     "cll": "Calligrapher",
     "clr": "Colorist",
