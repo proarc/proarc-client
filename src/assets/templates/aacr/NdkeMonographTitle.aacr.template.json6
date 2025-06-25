@@ -7,6 +7,43 @@
     description: 'Název titulu, souborný název<br/>\
       Pro plnění použít katalogizační záznam<br/>',
     fields: {
+      type: {
+        usage: 'MA',
+        label: 'Typ',
+        selector: 'titleInfo/@type',
+        labelKey: 'titleInfo/@type',
+        cols: 3,
+        description: 'Hlavní název bez typu - pole 245 a $a<br/>\
+          Možné hodnoty\
+          <ul>\
+            <li>Zkrácený název (abbreviated) - pole 210</li>\
+            <li>Alternativní název (alternative) – pole 246</li>\
+            <li>Přeložený název (translated) – pole 242</li>\
+            <li>Jednotný název (uniform) – pole 130 resp. 240</li>\
+          </ul>',
+        options: [
+          [
+            '',
+            '-'
+          ],
+          [
+            'abbreviated',
+            'Zkrácený název'
+          ],
+          [
+            'translated',
+            'Přeložený název'
+          ],
+          [
+            'alternative',
+            'Alternativní název'
+          ],
+          [
+            'uniform',
+            'Jednotný název'
+          ]
+        ]
+      },
       nonSort: {
         usage: 'O',
         label: 'Část vynechaná při hledání',
