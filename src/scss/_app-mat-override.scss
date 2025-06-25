@@ -113,9 +113,9 @@
   .mat-mdc-icon-button {
     &.mat-mdc-button-base {
       border-radius: 0;
-      --mdc-icon-button-state-layer-size: calc(var(--mat-table-header-container-height) - 1px);
-      width: var(--mdc-icon-button-state-layer-size);
-      height: var(--mdc-icon-button-state-layer-size);
+      --mat-icon-button-state-layer-size: calc(var(--mat-table-header-container-height) - 1px);
+      width: var(--mat-icon-button-state-layer-size);
+      height: var(--mat-icon-button-state-layer-size);
       padding: 0;
       display: flex;
       align-items: center;
@@ -296,7 +296,7 @@
   }
 
   .mat-mdc-checkbox {
-    --mdc-checkbox-state-layer-size: calc(30px - 2px * 2) !important;
+    --mat-checkbox-state-layer-size: calc(30px - 2px * 2) !important;
   }
 }
 
@@ -343,7 +343,7 @@
 .mat-mdc-unelevated-button {
   &:not(:disabled) {
     &.mat-warn {
-      --mdc-filled-button-label-text-color: var(--app-coloe-lightnes) !important;
+      --mat-button-filled-label-text-color: var(--app-coloe-lightnes) !important;
     }
   }
 }
@@ -367,7 +367,7 @@
     @include mat.icon-button-density(-6);
 
     .mat-mdc-icon-button {
-      --mdc-icon-button-icon-size: 18px;
+      --mat-icon-button-icon-size: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -445,12 +445,12 @@
   ));
   
   .mat-mdc-slide-toggle .mdc-switch__handle:has(.mdc-switch__icons) {
-    --mat-switch-with-icon-handle-size: var(--app-slide-toggle-size);
-    --mat-switch-pressed-handle-size: var(--app-slide-toggle-size);
+    --mat-slide-toggle-with-icon-handle-size: var(--app-slide-toggle-size);
+    --mat-slide-toggle-pressed-handle-size: var(--app-slide-toggle-size);
   }
 
   .mdc-switch__handle-track {
-    --mdc-switch-handle-width: var(--app-slide-toggle-size);
+    --mat-slide-toggle-handle-width: var(--app-slide-toggle-size);
   }
 
 
@@ -471,12 +471,12 @@
     // }
 
     .mat-mdc-radio-button {
-      --mdc-radio-state-layer-size: calc(var(--app-toolbar-radio-button-size) * 2);
+      --mat-radio-state-layer-size: calc(var(--app-toolbar-radio-button-size) * 2);
       margin-right: 8px;
 
       .mdc-radio__background::before {
-        top: calc(-1 * (var(--mdc-radio-state-layer-size, 40px) - var(--app-toolbar-radio-button-size)) / 2) !important;
-        left: calc(-1 * (var(--mdc-radio-state-layer-size, 40px) - var(--app-toolbar-radio-button-size)) / 2) !important;
+        top: calc(-1 * (var(--mat-radio-state-layer-size, 40px) - var(--app-toolbar-radio-button-size)) / 2) !important;
+        left: calc(-1 * (var(--mat-radio-state-layer-size, 40px) - var(--app-toolbar-radio-button-size)) / 2) !important;
       }
     
       .mdc-radio {

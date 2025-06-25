@@ -91,8 +91,8 @@
 
   // mat override
   --mat-toolbar-standard-height: 56px;
-  --mat-text-button-horizontal-padding: 16px;
-  --mdc-outlined-card-container-shape: 0;
+  --mat-button-text-horizontal-padding: 16px;
+  --mat-card-outlined-container-shape: 0;
 
   --mat-table-header-container-height: 28px;
   --mat-table-row-item-container-height: 28px;
@@ -102,15 +102,15 @@
 
   --mat-paginator-container-size: 0;
 
-  --mdc-icon-button-disabled-icon-color: var(--app-color-gray-4);
+  --mat-icon-button-disabled-icon-color: var(--app-color-gray-4);
 
-/*   --mdc-checkbox-selected-hover-icon-color: var(--app-color-primary);
-  --mdc-checkbox-selected-icon-color: var(--app-color-primary);
-  --mdc-checkbox-selected-focus-icon-color: var(--app-color-primary);
-  --mdc-checkbox-selected-pressed-icon-color: var(--app-color-primary);
-  --mdc-checkbox-selected-focus-state-layer-color: var(--app-color-primary);
-  --mdc-checkbox-selected-hover-state-layer-color: var(--app-color-primary);
-  --mdc-checkbox-selected-pressed-state-layer-color: var(--app-color-primary); */
+/*   --mat-checkbox-selected-hover-icon-color: var(--app-color-primary);
+  --mat-checkbox-selected-icon-color: var(--app-color-primary);
+  --mat-checkbox-selected-focus-icon-color: var(--app-color-primary);
+  --mat-checkbox-selected-pressed-icon-color: var(--app-color-primary);
+  --mat-checkbox-selected-focus-state-layer-color: var(--app-color-primary);
+  --mat-checkbox-selected-hover-state-layer-color: var(--app-color-primary);
+  --mat-checkbox-selected-pressed-state-layer-color: var(--app-color-primary); */
 
   --mat-dialog-actions-padding: 24px;
 }

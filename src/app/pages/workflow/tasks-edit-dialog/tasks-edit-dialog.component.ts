@@ -9,13 +9,15 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
+//import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { ApiService } from '../../../services/api.service';
 import { UIService } from '../../../services/ui.service';
 import { Configuration } from '../../../shared/configuration';
 
 @Component({
-  imports: [TranslateModule, FormsModule, FlexLayoutModule, MatIconModule, MatProgressBarModule, MatTooltipModule, MatRadioModule, MatFormFieldModule, MatSelectModule],
+  imports: [TranslateModule, FormsModule, 
+  //  FlexLayoutModule, 
+    MatIconModule, MatProgressBarModule, MatTooltipModule, MatRadioModule, MatFormFieldModule, MatSelectModule],
   selector: 'app-taskss-edit-dialog',
   templateUrl: './tasks-edit-dialog.component.html',
   styleUrls: ['./tasks-edit-dialog.component.scss']

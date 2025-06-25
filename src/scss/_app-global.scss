@@ -236,9 +236,9 @@ fieldset {
 
   .mat-mdc-icon-button {
     &.mat-mdc-button-base {
-      --mdc-icon-button-state-layer-size: var(--app-breadcrumbsbar-height);
-      width: var(--mdc-icon-button-state-layer-size);
-      height: var(--mdc-icon-button-state-layer-size);
+      --mat-icon-button-state-layer-size: var(--app-breadcrumbsbar-height);
+      width: var(--mat-icon-button-state-layer-size);
+      height: var(--mat-icon-button-state-layer-size);
       padding: 0;
       display: inline-flex;
       align-items: center;
@@ -288,7 +288,7 @@ fieldset {
   border-bottom: 1px solid var(--app-toolbar-border-color);
 
   .mat-mdc-button-base {
-    --mdc-text-button-container-height: var(--app-toolbar-button-height);
+    --mat-button-text-container-height: var(--app-toolbar-button-height);
     @extend .app-clean-radius;
 
     &.app-active {
@@ -306,9 +306,9 @@ fieldset {
 
   .mat-mdc-icon-button {
     &.mat-mdc-button-base {
-      --mdc-icon-button-state-layer-size: var(--app-toolbar-button-height);
-      width: var(--mdc-icon-button-state-layer-size);
-      height: var(--mdc-icon-button-state-layer-size);
+      --mat-icon-button-state-layer-size: var(--app-toolbar-button-height);
+      width: var(--mat-icon-button-state-layer-size);
+      height: var(--mat-icon-button-state-layer-size);
       padding: 0;
       display: inline-flex;
       align-items: center;

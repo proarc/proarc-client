@@ -10,13 +10,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { ApiService } from '../../services/api.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
-  imports: [TranslateModule, FormsModule, FlexLayoutModule, MatCardModule, MatButtonModule, MatMenuModule, MatIconModule, MatTooltipModule],
+  imports: [TranslateModule, FormsModule, MatCardModule, MatButtonModule, MatMenuModule, MatIconModule, MatTooltipModule],
   selector: 'app-epub',
   templateUrl: './epub.component.html',
   styleUrls: ['./epub.component.scss']

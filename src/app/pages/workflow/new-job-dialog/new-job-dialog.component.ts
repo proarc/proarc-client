@@ -9,7 +9,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { Catalogue, CatalogueField } from '../../../model/catalogue.model';
 import { CatalogueEntry } from '../../../model/catalogueEntry.model';
 import { ApiService } from '../../../services/api.service';
@@ -17,7 +16,7 @@ import { UIService } from '../../../services/ui.service';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 @Component({
-  imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
+  imports: [CommonModule, TranslateModule, FormsModule,
     MatIconModule, MatProgressBarModule, MatTooltipModule, MatDividerModule,
     MatRadioModule, MatFormFieldModule, MatSelectModule, MatCardModule
   ],

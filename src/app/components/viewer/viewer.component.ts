@@ -7,7 +7,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
+//import { FlexLayoutModule } from 'ngx-flexible-layout';
 import { StreamProfile } from '../../model/stream-profile';
 import { ResizedDirective, ResizedEvent } from '../../resized.directive';
 import { ApiService } from '../../services/api.service';
@@ -30,7 +30,9 @@ declare global {
 }
 
 @Component({
-  imports: [TranslateModule, FormsModule, RouterModule, FlexLayoutModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatTooltipModule, ResizedDirective],
+  imports: [TranslateModule, FormsModule, RouterModule, 
+    //FlexLayoutModule, 
+    MatIconModule, MatButtonModule, MatProgressBarModule, MatTooltipModule, ResizedDirective],
   selector: 'app-viewer',
   templateUrl: './viewer.component.html',
   styleUrls: ['./viewer.component.scss']

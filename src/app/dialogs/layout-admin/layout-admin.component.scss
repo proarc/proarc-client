@@ -1,7 +1,7 @@
 @use "../../../scss/app-mixins";
 
 .mat-mdc-dialog-content {
-  --mdc-dialog-supporting-text-size: 14px;
+  --mat-dialog-supporting-text-size: 14px;
   max-height: 100%;
 
   .app-desc {

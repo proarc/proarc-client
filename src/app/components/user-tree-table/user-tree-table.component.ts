@@ -13,7 +13,7 @@ import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { FlexLayoutModule } from 'ngx-flexible-layout';
+
 import { ResizecolDirective } from '../../resizecol.directive';
 import { DocumentItem, TreeDocumentItem } from '../../model/documentItem.model';
 import { MatDialog } from '@angular/material/dialog';
@@ -31,8 +31,8 @@ import { TreeWorkFlow } from '../../model/workflow.model';
 
 @Component({
   selector: 'app-user-tree-table',
-  imports: [CommonModule, TranslateModule, FormsModule, FlexLayoutModule,
-    MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
+  imports: [CommonModule, TranslateModule, FormsModule, 
+        MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule,
     MatMenuModule, MatPaginatorModule,
     MatTableModule, MatSortModule, ResizecolDirective],
