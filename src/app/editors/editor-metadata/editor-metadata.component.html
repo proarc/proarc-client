@@ -40,7 +40,8 @@
 	<div class="app-fxFlex">
 		@if (loading) {
 		<mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
-		} @else if (metadata) {
+		} 
+		@if (!loading && metadata) {
 		<div class="app-fxLayout app-column app-fill app-editor-content">
 			<div class="app-form-display-el" [ngClass]="scroller.scrollTop > 0 ? 'app-scrolling' : null">
 				<mat-form-field appearance="outline" class="app-w-100 app-p-2 app-mt-1 app-clean-mb"
@@ -56,7 +57,7 @@
 					</mat-select>
 				</mat-form-field>
 			</div>
-			<div [class="app-fxFlex app-oa-y app-scroller app-editor-container" #scroller (scroll)="checkVisibility()"
+			<div class="app-fxFlex app-oa-y app-scroller app-editor-container" #scroller (scroll)="checkVisibility()"
 				tabIndex="0" style="outline: none !important; position: relative;">
 				<div style="float: left;" [style.height]="scrollHeight +'px'"></div>
 				<div class="app-gap-fixer"></div>
@@ -143,7 +144,8 @@
 				@if (visibleFields['relatedItem']) {
 				<app-editor-relatedItem [id]="panel().id + 'relatedItem'" [field]="fields['relatedItem']"
 					[model]="model()"></app-editor-relatedItem>
-				}}
+				}
+				}
 				}
 			</div>
 		</div>

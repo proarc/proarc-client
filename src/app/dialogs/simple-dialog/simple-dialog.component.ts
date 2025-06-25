@@ -1,5 +1,5 @@
 
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { SimpleDialogData } from './simple-dialog';
 import { CommonModule } from '@angular/common';
@@ -41,6 +41,4 @@ export class SimpleDialogComponent implements OnInit {
     }
     return true;
   }
-
-
 }

@@ -60,22 +60,22 @@
      -->
 
     @case ('metadata') {
-    @if (showPagesEditor) {
-    <app-editor-pages [panel]="panel()"></app-editor-pages>
-    } @else if (showAudioPagesEditor) {
-    <app-editor-audioPages [panel]="panel()"></app-editor-audioPages>
-    } @else if (itemModel === 'page') {
-    <app-editor-page [panel]="panel()" [model]="lastSelectedItem().model" [pid]="lastSelectedItem().pid"
-      [panelType]="panelType" (onChangePanelType)="changePanelType($event)">
-    </app-editor-page>
-    } @else if (itemModel === 'song') {
-    <app-editor-audioPage [panel]="panel()" [model]="lastSelectedItem().model"
-      [pid]="lastSelectedItem().pid"></app-editor-audioPage>
-    } @else {
-    <app-editor-metadata [panel]="panel()" [panelType]="panelType" [pid]="lastSelectedItem().pid"
-      [model]="lastSelectedItem().model" (onChangePanelType)="changePanelType($event)">
-    </app-editor-metadata>
-    }
+      @if (showPagesEditor) {
+      <app-editor-pages [panel]="panel()"></app-editor-pages>
+      } @else if (showAudioPagesEditor) {
+      <app-editor-audioPages [panel]="panel()"></app-editor-audioPages>
+      } @else if (itemModel === 'page') {
+      <app-editor-page [panel]="panel()" [model]="lastSelectedItem().model" [pid]="lastSelectedItem().pid"
+        [panelType]="panelType" (onChangePanelType)="changePanelType($event)">
+      </app-editor-page>
+      } @else if (itemModel === 'song') {
+      <app-editor-audioPage [panel]="panel()" [model]="lastSelectedItem().model"
+        [pid]="lastSelectedItem().pid"></app-editor-audioPage>
+      } @else {
+      <app-editor-metadata [panel]="panel()" [panelType]="panelType" [pid]="lastSelectedItem().pid"
+        [model]="lastSelectedItem().model" (onChangePanelType)="changePanelType($event)">
+      </app-editor-metadata>
+      }
     }
     }
   </div>

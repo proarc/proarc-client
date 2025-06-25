@@ -141,6 +141,11 @@ export class SettingsComponent implements OnInit {
     this.curSettings = this.settingsService.cloneSettings();
   }
 
+  resetRepo() {
+    this.settingsService.resetRepo();
+    this.curSettings = this.settingsService.cloneSettings();
+  }
+
   resetSettings() {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('dialog.resetLocalSettings.title')),

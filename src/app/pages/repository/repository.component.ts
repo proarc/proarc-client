@@ -32,7 +32,9 @@ import { Utils } from '../../utils/utils';
 
 @Component({
   selector: 'app-repository',
-  imports: [TranslateModule, FormsModule, AngularSplitModule, MatCardModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatTooltipModule, MatMenuModule, PanelComponent],
+  imports: [TranslateModule, FormsModule, AngularSplitModule, MatCardModule, 
+    MatIconModule, MatButtonModule, MatProgressBarModule, 
+    MatTooltipModule, MatMenuModule, PanelComponent],
   templateUrl: './repository.component.html',
   styleUrl: './repository.component.scss'
 })
@@ -75,6 +77,7 @@ export class RepositoryComponent {
   }
 
   loadData(keepSelection: boolean) {
+    this.loading = true;
     this.initConfig();
     let pid = this.pid;
     const selection: string[] = [];
@@ -87,13 +90,12 @@ export class RepositoryComponent {
           selection.push(item.pid);
         }
       });
-      pid = this.layout.lastSelectedItem().pid;
+      // pid = this.layout.lastSelectedItem().pid;
       lastSelected = this.layout.lastSelectedItem().pid;
       selectedParentItem = this.layout.selectedParentItem;
       path = JSON.parse(JSON.stringify(this.layout.expandedPath));
     }
 
-    this.loading = true;
     this.path = [];
     // this.layout.tree = null;
     this.layout.parent = null;
@@ -104,12 +106,13 @@ export class RepositoryComponent {
     const rParent = this.api.getParent(pid);
     forkJoin([rDoc, rChildren, rParent]).subscribe(([item, children, parent]: [DocumentItem, DocumentItem[], DocumentItem]) => {
       this.layout.item = item;
-      this.layout.setItems(children);
+      this.layout.items.set(children);
       if (keepSelection) {
         this.layout.items().forEach(ch => {
           if (selection.includes(ch.pid)) {
             ch.selected = true;
           }
+          console.log(ch)
           if (ch.pid === lastSelected) {
             this.layout.setLastSelectedItem(ch);
           }
@@ -365,13 +368,10 @@ export class RepositoryComponent {
     });
     dialogRef.afterClosed().subscribe((ret: any) => {
       if (ret) {
-        // this.initConfig();
-        // this.loadData(true);
+        this.loadData(false);
       }
     });
   }
-
-  
 
   initConfig() {
     let idx = 0;

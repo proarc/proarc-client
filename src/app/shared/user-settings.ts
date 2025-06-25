@@ -255,6 +255,16 @@ public devicesColumnsDefault: TableColumn[] = [
       this.settings[key] = Utils.clone(this[key + 'Default']);
     }
 
+    resetRepo() {
+      this.config.models.forEach((model: string) => {
+            this.settings.colsEditingRepo[model] = Utils.clone(this.columnsEditingRepoDefault);
+            // pro modely stranek zapneme jejich cols
+            this.settings.colsEditingRepo[model].forEach(col => {
+                col.selected = (model.indexOf('page') < 0 && col.field.indexOf('page') < 0) || (model.indexOf('page') > -1 && col.field.indexOf('page') > -1);
+            });
+        });
+    }
+
     reset() {
         this.settings.searchModel = this.config.defaultModel;
         this.settings.searchOrganization = '-';
