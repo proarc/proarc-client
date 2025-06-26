@@ -202,7 +202,7 @@
         description: 'Číslo národní autority',
       },
       nameIdentifierOrcId: {
-        usage: 'RA',
+        usage: 'R',
         label: 'ORC ID',
         selector: 'bdm/name/nameIdentifierOrcId',
         labelKey: 'bdm/name/nameIdentifierOrcId',
@@ -417,7 +417,7 @@
             ]
           },
           point: {
-            usage: 'O',
+            usage: 'MA',
             label: 'Point',
             selector: 'originInfo/dateIssued/@point',
             labelKey: 'originInfo/dateIssued/@point',
@@ -1694,6 +1694,34 @@
           [
             'isReferencedBy',
             'isReferencedBy'
+          ],
+          [
+            'preceding',
+            'preceding'
+          ],
+          [
+            'succeeding',
+            'succeeding'
+          ],
+          [
+            'original',
+            'original'
+          ],
+          [
+            'host',
+            'host'
+          ],
+          [
+            'constituent',
+            'constituent'
+          ],
+          [
+            'otherVersion',
+            'otherVersion'
+          ],
+          [
+            'otherFormat',
+            'otherFormat'
           ]
         ]
       },
@@ -2056,7 +2084,7 @@
                 ]
               },
               point: {
-                usage: 'O',
+                usage: 'MA',
                 label: 'Point',
                 selector: 'relatedItem/originInfo/dateIssued/@point',
                 labelKey: 'relatedItem/originInfo/dateIssued/@point',
@@ -2311,7 +2339,7 @@
             ]
           },
           topic: {
-            usage: 'O',
+            usage: 'R',
             label: 'Klíčové slovo/Předmětové heslo',
             selector: 'relatedItem/subject/topic',
             labelKey: 'relatedItem/subject/topic',
@@ -2319,7 +2347,7 @@
           Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (věcné téma) nebo obsah pole 650 záznamu MARC21 nebo obsah pole 072 $x',
             fields: {
               value: {
-                usage: 'O',
+                usage: 'R',
                 label: 'Hodnota',
                 //                  cols: 2,
                 selector: 'subject/topic/value',
@@ -2344,14 +2372,14 @@
             }
           },
           geographic: {
-            usage: 'O',
+            usage: 'R',
             label: 'Geografické věcné třídění',
             selector: 'relatedItem/subject/geographic',
             labelKey: 'relatedItem/subject/geographic',
             description: 'Geografické věcné třídění. Použít kontrolovaný slovník - např. z báze autorit AUT NK ČR (geografický termín) nebo obsah pole 651 záznamu MARC21',
             fields: {
               value: {
-                usage: 'O',
+                usage: 'R',
                 label: 'Hodnota',
                 selector: 'relatedItem/subject/geographic/value',
                 labelKey: 'relatedItem/subject/geographic/value',

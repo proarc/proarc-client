@@ -202,7 +202,7 @@
         description: 'Číslo národní autority',
       },
       nameIdentifierOrcId: {
-        usage: 'RA',
+        usage: 'R',
         label: 'ORC ID',
         selector: 'bdm/name/nameIdentifierOrcId',
         labelKey: 'bdm/name/nameIdentifierOrcId',
@@ -1551,6 +1551,34 @@
           [
             'isReferencedBy',
             'isReferencedBy'
+          ],
+          [
+            'preceding',
+            'preceding'
+          ],
+          [
+            'succeeding',
+            'succeeding'
+          ],
+          [
+            'original',
+            'original'
+          ],
+          [
+            'host',
+            'host'
+          ],
+          [
+            'constituent',
+            'constituent'
+          ],
+          [
+            'otherVersion',
+            'otherVersion'
+          ],
+          [
+            'otherFormat',
+            'otherFormat'
           ]
         ]
       },
@@ -1662,7 +1690,7 @@
           odpovídající pole a podpole podle typu, viz typ'
           },
           partNumber: {
-            usage: 'MA',
+            usage: 'RA',
             label: 'Číslo části',
             selector: 'relatedItem/titleInfo/partNumber',
             labelKey: 'relatedItem/titleInfo/partNumber',
@@ -1670,7 +1698,7 @@
             description: 'V případě, že se jedná o vícesvazkovou monografii, je zde uvedeno číslo svazku'
           },
           partName: {
-            usage: 'MA',
+            usage: 'RA',
             label: 'Název části',
             selector: 'relatedItem/titleInfo/partName',
             labelKey: 'relatedItem/titleInfo/partName',
