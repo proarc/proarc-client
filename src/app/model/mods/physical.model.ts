@@ -49,7 +49,7 @@ export class ModsPhysical extends ModsElement {
         }
 
         if (this.available2('extent')) {
-          this.extents = new ElementField(this.modsElement, ModsPhysicalExtent.getId(), this.getField('extent'));
+          this.extents = new ElementField(this.modsElement, ModsPhysicalExtent.getId(), this.getField('extent'), ModsPhysicalExtent.getSelector());
           this.addSubfield(this.extents);
           this.addControl('extents');
         }
