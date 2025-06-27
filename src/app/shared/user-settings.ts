@@ -8,6 +8,8 @@ import { IConfig } from "../dialogs/layout-admin/layout-admin.component";
 @Injectable()
 export class UserSettings {
 
+  
+
     searchModel: string; // Last model used in search
     searchOrganization: string; // Last organization used in search
     searchQueryField: string; // Last field used in search

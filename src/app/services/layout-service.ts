@@ -6,6 +6,7 @@ import { Configuration } from "../shared/configuration";
 import { Observable, ReplaySubject, Subject } from "rxjs";
 import { Page } from "../model/page.model";
 import { UserSettings } from "../shared/user-settings";
+import { Metadata } from "../model/metadata.model";
 
 @Injectable()
 export class LayoutService {
@@ -45,6 +46,7 @@ export class LayoutService {
     public setLastSelectedItem(i: DocumentItem) {
         this.lastSelectedItem.update(() => i);
     }
+    public lastSelectedItemMetadata: Metadata; // last selected child item
 
     public selectedChildItem: DocumentItem; // selected item in children
     shouldRefreshSelectedItem(): Observable<string> {
