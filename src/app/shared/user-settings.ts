@@ -8,7 +8,7 @@ import { IConfig } from "../dialogs/layout-admin/layout-admin.component";
 @Injectable()
 export class UserSettings {
 
-  
+    lang: string;
 
     searchModel: string; // Last model used in search
     searchOrganization: string; // Last organization used in search
@@ -267,7 +267,12 @@ public devicesColumnsDefault: TableColumn[] = [
         });
     }
 
+    getLang() {
+      return this.settings.lang;
+    }
+
     reset() {
+      this.settings.lang = 'cs';
         this.settings.searchModel = this.config.defaultModel;
         this.settings.searchOrganization = '-';
         this.settings.searchQueryField = 'queryLabel';

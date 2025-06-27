@@ -41,7 +41,7 @@ export class AuthService {
         return firstValueFrom(
             this.http.get('assets/config.json5', { responseType: 'text' }).pipe(
                     switchMap((cfg: any) => {
-                                this.config.mergeConfig(cfg);
+                        this.config.mergeConfig(cfg);
                         this.materialCssVarsService.setDarkTheme(this.config.darkTheme);
                         this.materialCssVarsService.setPrimaryColor(this.config.primaryColor);
                         this.materialCssVarsService.setAccentColor(this.config.accentColor);
@@ -53,7 +53,6 @@ export class AuthService {
                         return this.http.get<User>(this.getApiUrl() + 'user?whoAmI=true').pipe(
                             switchMap((user: any) => {
                                 this.user = user['response']['data'][0];
-
                                 return this.getUserConfig();
                             })
                         )
@@ -80,6 +79,7 @@ export class AuthService {
                 this.settings.reset();
                 if (userSettingsResp.response?.data?.length > 0) {
                     this.settings.load(JSON.parse(userSettingsResp.response.data[0].userSetting));
+                    this.translator.use(this.settings.getLang());
                 }
                 
                 this.config.valueMap = valueMapResp.response.data;
