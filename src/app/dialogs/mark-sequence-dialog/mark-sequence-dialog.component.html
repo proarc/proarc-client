@@ -11,7 +11,7 @@
           <div class="app-fxLayout app-row app-gap-4 app-center-v app-toolbar app-pl-2">
             <div class="app-fxFlex">
               <div class="app-toolbar-label">
-                <span class="app-text">{{ 'desc.selectTheTarget' | translate }}</span>
+                <span class="app-text">{{ 'desc.selectOrigin' | translate }}</span>
               </div>
             </div>
             <div>
@@ -264,7 +264,9 @@
 
   <as-split-area [size]="20">
     @if (lastSelectedItemPid) {
-      <app-viewer [imageInfo]="{pid: lastSelectedItemPid, dsid: 'FULL'}" [hideToolbar]="true" [idViewer]="'app-viewer-mark'"></app-viewer>
+      <div class="app-fxLayout app-column app-fill">
+        <app-viewer [imageInfo]="{pid: lastSelectedItemPid, dsid: 'FULL'}" [hideToolbar]="true" [idViewer]="'app-viewer-mark'"></app-viewer>
+      </div>
     }
   </as-split-area>
 </as-split>
