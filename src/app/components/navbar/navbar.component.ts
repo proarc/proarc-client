@@ -15,7 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
 import { Configuration } from '../../shared/configuration';
-import { UserSettings } from '../../shared/user-settings';
+import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { AboutDialogComponent } from '../../dialogs/about-dialog/about-dialog.component';
 import { NewObjectData, NewObjectDialogComponent } from '../../dialogs/new-object-dialog/new-object-dialog.component';
 import { NewMetadataDialogComponent } from '../../dialogs/new-metadata-dialog/new-metadata-dialog.component';
@@ -38,6 +38,7 @@ export class NavbarComponent implements OnInit {
               public config: Configuration,
               private dialog: MatDialog,
               private settings: UserSettings, 
+              private settingsService: UserSettingsService, 
               private router: Router) { }
 
   ngOnInit() {
@@ -52,7 +53,9 @@ export class NavbarComponent implements OnInit {
 
 
   onLanguageChanged(lang: string) {
-    localStorage.setItem('lang', lang);
+    // localStorage.setItem('lang', lang);
+    this.settings.lang = lang;
+    this.settingsService.save();
     this.translator.use(lang);
   }
 

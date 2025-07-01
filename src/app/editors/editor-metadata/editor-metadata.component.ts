@@ -151,7 +151,8 @@ export class EditorMetadataComponent implements OnInit {
     this.api.getMetadata(pid).subscribe(respMeta => {
       const standard = respMeta['record']['standard'] ? respMeta['record']['standard'] : Metadata.resolveStandardFromXml(respMeta['record']['content']);
       this.tmpl.getTemplate(standard, this.model()).subscribe((tmpl: any) => {
-        this.metadata = new Metadata(pid, this.model(), respMeta['record']['content'], respMeta['record']['timestamp'], standard, tmpl);
+        this.layout.lastSelectedItemMetadata = new Metadata(pid, this.model(), respMeta['record']['content'], respMeta['record']['timestamp'], standard, tmpl);
+        this.metadata = this.layout.lastSelectedItemMetadata;
         this.setFields();
         this.loading = false;
       })
@@ -588,7 +589,8 @@ export class EditorMetadataComponent implements OnInit {
 
   setStandard() {
     this.tmpl.getTemplate(this.metadata.standard, this.model()).subscribe((tmpl: any) => {
-      this.metadata = new Metadata(this.metadata.pid, this.metadata.model, this.metadata.originalMods, this.metadata.timestamp, this.metadata.standard, tmpl);
+      this.layout.lastSelectedItemMetadata = new Metadata(this.metadata.pid, this.metadata.model, this.metadata.originalMods, this.metadata.timestamp, this.metadata.standard, tmpl);
+      this.metadata = this.layout.lastSelectedItemMetadata;
       // this.setShowGenreSwitch();
     });
   }

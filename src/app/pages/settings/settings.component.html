@@ -183,9 +183,45 @@
               </div>
               <div>
                 <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
+                <button mat-stroked-button (click)="resetOne('queueColumns')">{{ 'button.reset' | translate }}</button>
               </div>
             </fieldset>
           </div>
+           
+          
+          <div class="app-fxLayout app-row app-gap-4">
+            <fieldset class="app-fxFlex app-fxLayout app-column" cdkDropList (cdkDropListDropped)="drop($event, curSettings.markSequenceDialogOrigTableColumns)">
+              <legend>{{ 'pages.settings.markSequenceDialogOrigTableColumns.legend' | translate }}</legend>
+              <div class="app-fxFlex app-pb-4">
+                <div class="app-label app-mb-2">{{ 'pages.settings.markSequenceDialogOrigTableColumns.label' | translate }}</div>
+                @for(column of curSettings.markSequenceDialogOrigTableColumns; track $index;) {
+                  <div cdkDropListOrientation="vertical" cdkDrag>
+                    <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
+                  </div>
+                }
+              </div>
+              <div>
+                <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
+                <button mat-stroked-button (click)="resetOne('markSequenceDialogOrigTableColumns')">{{ 'button.reset' | translate }}</button>
+              </div>
+            </fieldset>
+
+            <fieldset class="app-fxFlex app-fxLayout app-column" cdkDropList (cdkDropListDropped)="drop($event, curSettings.markSequenceDialogDestTableColumns)">
+              <legend>{{ 'pages.settings.markSequenceDialogDestTableColumns.legend' | translate }}</legend>
+              <div class="app-fxFlex app-pb-4">
+                <div class="app-label app-mb-2">{{ 'pages.settings.markSequenceDialogDestTableColumns.label' | translate }}</div>
+                @for(column of curSettings.markSequenceDialogDestTableColumns; track $index;) {
+                  <div cdkDropListOrientation="vertical" cdkDrag>
+                    <mat-checkbox name="column.field" [(ngModel)]="column.selected">{{ 'search.' + column.field | translate }}</mat-checkbox>
+                  </div>
+                }
+              </div>
+              <div>
+                <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
+                <button mat-stroked-button (click)="resetOne('markSequenceDialogDestTableColumns')">{{ 'button.reset' | translate }}</button>
+              </div>
+            </fieldset>
+          </div>  
         }
         @if (view == 'personalSettings') {
           <fieldset class="app-p-4 app-mb-4">

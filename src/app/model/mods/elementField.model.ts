@@ -67,7 +67,7 @@ export class ElementField {
     public labelKey: string;
     public usage: string;
 
-    constructor(mods: any, id: string, template: any) {
+    constructor(mods: any, id: string, template: any, xmlselector?: string) {
         this.template = template;
 
         this.labelKey = this.template.labelKey;
@@ -80,7 +80,7 @@ export class ElementField {
         }
 
         this.id = id;
-        const selector = id;
+        const selector = xmlselector ? xmlselector : id;
         if (mods[selector] === undefined) {
             mods[selector] = [];
         }

@@ -8,6 +8,8 @@ import { IConfig } from "../dialogs/layout-admin/layout-admin.component";
 @Injectable()
 export class UserSettings {
 
+    lang: string;
+
     searchModel: string; // Last model used in search
     searchOrganization: string; // Last organization used in search
     searchQueryField: string; // Last field used in search
@@ -230,6 +232,34 @@ public devicesColumnsDefault: TableColumn[] = [
     { field: 'action', selected: true, width: 100, type: 'action' }
 ];
 
+public markSequenceDialogOrigTableColumnsDefault: TableColumn[] = [
+    { field: 'label', selected: true, width: 100, type: 'string' },
+    { field: 'filename', selected: true, width: 100, type: 'string' },
+    { field: 'pageType', selected: true, width: 100, type: 'string' },
+    { field: 'pageNumber', selected: true, width: 100, type: 'string' },
+    { field: 'pageIndex', selected: true, width: 100, type: 'string' },
+    { field: 'pagePosition', selected: true, width: 100, type: 'string' }
+];
+
+
+
+public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
+    { field: 'label', selected: true, width: 100, type: 'string' },
+    { field: 'filename', selected: true, width: 100, type: 'string' },
+    { field: 'pageType', selected: true, width: 100, type: 'string' },
+    { field: 'pageNumber', selected: true, width: 100, type: 'string' },
+    { field: 'pageIndex', selected: true, width: 100, type: 'string' },
+    { field: 'pagePosition', selected: true, width: 100, type: 'string' },
+
+    { field: 'model', selected: true, width: 100, type: 'translated' },
+    { field: 'pid', selected: true, width: 100, type: 'string' },
+    { field: 'owner', selected: true, width: 100, type: 'string' },
+    { field: 'created', selected: true, width: 100, type: 'date' },
+    { field: 'modified', selected: true, width: 100, type: 'date' },
+    { field: 'status', selected: true, width: 100, type: 'translated' }
+];
+
+
 [key: string]: any; // This is to allow property asignement by name this[k] = o[k];
 
     constructor(
@@ -265,7 +295,12 @@ public devicesColumnsDefault: TableColumn[] = [
         });
     }
 
+    getLang() {
+      return this.settings.lang;
+    }
+
     reset() {
+      this.settings.lang = 'cs';
         this.settings.searchModel = this.config.defaultModel;
         this.settings.searchOrganization = '-';
         this.settings.searchQueryField = 'queryLabel';
@@ -327,8 +362,8 @@ public devicesColumnsDefault: TableColumn[] = [
         this.settings.viewerCenter = null;
         this.settings.viewerResolution = null;
 
-        this.settings.markSequenceDialogOrigTableColumns = Utils.clone(this.columnsSearchDefault);
-        this.settings.markSequenceDialogDestTableColumns = Utils.clone(this.columnsSearchDefault);
+        this.settings.markSequenceDialogOrigTableColumns = Utils.clone(this.markSequenceDialogOrigTableColumnsDefault);
+        this.settings.markSequenceDialogDestTableColumns = Utils.clone(this.markSequenceDialogDestTableColumnsDefault);
     }
 
     load(o: any) {
