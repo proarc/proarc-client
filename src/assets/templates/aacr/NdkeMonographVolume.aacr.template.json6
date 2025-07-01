@@ -1545,10 +1545,6 @@
             'Series'
           ],
           [
-            'original',
-            'original'
-          ],
-          [
             'isReferencedBy',
             'isReferencedBy'
           ],
