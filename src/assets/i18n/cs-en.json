@@ -2843,7 +2843,10 @@
     "JCE301": "Regionální muzeum a galerie v Jičíně",
     "NAE802": "Městské muzeum Jaroměř",
     "ABE304": "Knihovna Divadlení ústav",
-    "KME450": "Knihovna Muzea Olomouc"
+    "KME450": "Knihovna Muzea Olomouc",
+    "ABA009": "Knihovna Antonína Švehly (UZEI)",
+    "CBA001": "Jihočeská vědecká knihovna v Českých Budějovicích",
+    "KE303": "TU Univerzitná knižnica, Košice"
   },
   "dialog": {
     "layoutSettings": {
