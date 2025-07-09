@@ -1,7 +1,7 @@
 <div class="app-fxLayout app-column app-fill">
   <div mat-dialog-title class="app-fxLayout app-row app-gap-4 app-center-v app-pt-4 app-pb-4">
     <h2 class="app-mb-0">{{ 'desc.markRow' | translate }}</h2>
-    <button mat-flat-button color="primary" (click)="markSequence()">{{ 'button.markRow' | translate }}</button>
+    <button matButton="filled" (click)="markSequence()">{{ 'button.markRow' | translate }}</button>
   </div>
 
   <div mat-dialog-content class="app-maxh-100">
@@ -276,7 +276,7 @@
 
 <div mat-dialog-actions cdkFocusRegionstart class="app-fxLayout app-row app-gap-4 app-center-v">
   <div class="app-fxFlex">
-    <button mat-flat-button color="primary" (click)="save()" [matTooltip]="'button.save' | translate">{{ 'button.save' | translate }}</button>
+    <button matButton="filled" (click)="save()" [matTooltip]="'button.save' | translate">{{ 'button.save' | translate }}</button>
     <button mat-flat-button [mat-dialog-close]="changed">{{ 'button.close' | translate }}</button>
   </div>
   <div>

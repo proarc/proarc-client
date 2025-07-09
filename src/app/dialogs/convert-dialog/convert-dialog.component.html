@@ -1,10 +1,10 @@
 <h1 mat-dialog-title>{{ 'dialog.convertPages.title' | translate }}</h1>
 <div mat-dialog-content>
   <div class="app-fxLayout app-column app-gap-2">
-    <button mat-flat-button color="primary" (click)="convert('changePageToNdkPage')">{{ 'dialog.convertPages.pageToNdkPage' | translate }}</button>
-    <button mat-flat-button color="primary" (click)="convert('changeNdkPageToPage')">{{ 'dialog.convertPages.ndkPagetoPage' | translate }}</button>
-    <button mat-flat-button color="primary" (click)="convert('changeNdkPageToSttPage')">{{ 'dialog.convertPages.ndkPagetoSttPage' | translate }}</button>
-    <button mat-flat-button color="primary" (click)="convert('changeSttPageToNdkPage')">{{ 'dialog.convertPages.sttPagetoNdkPage' | translate }}</button>
+    <button matButton="filled" (click)="convert('changePageToNdkPage')">{{ 'dialog.convertPages.pageToNdkPage' | translate }}</button>
+    <button matButton="filled" (click)="convert('changeNdkPageToPage')">{{ 'dialog.convertPages.ndkPagetoPage' | translate }}</button>
+    <button matButton="filled" (click)="convert('changeNdkPageToSttPage')">{{ 'dialog.convertPages.ndkPagetoSttPage' | translate }}</button>
+    <button matButton="filled" (click)="convert('changeSttPageToNdkPage')">{{ 'dialog.convertPages.sttPagetoNdkPage' | translate }}</button>
   </div>
 </div>
 <div mat-dialog-actions cdkFocusRegionstart>

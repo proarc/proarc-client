@@ -73,7 +73,7 @@
   }
 </div>
 <div mat-dialog-actions cdkFocusRegionstart>
-  <button mat-flat-button color="primary" [disabled]="formDisabled()" (click)="onRegister()">{{ 'button.register' | translate }}</button>
+  <button matButton="filled" [disabled]="formDisabled()" (click)="onRegister()">{{ 'button.register' | translate }}</button>
   <button mat-stroked-button mat-dialog-close="close" >{{ 'button.close' | translate }}</button>
   @if (log) {
     <button mat-flat-button color="warn" (click)="showErrorDetail(log)">{{ 'button.viewErrorOutput' | translate }}</button>

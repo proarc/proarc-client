@@ -37,9 +37,9 @@
   }
   <div mat-dialog-actions cdkFocusRegionstart>
     @if (data.parent) {
-      <button mat-flat-button color="primary" (click)="onDeleteParent()">{{ 'button.unlink' | translate }}</button>
+      <button matButton="filled" (click)="onDeleteParent()">{{ 'button.unlink' | translate }}</button>
     }
-    <button mat-flat-button color="primary" (click)="onSave()" [disabled]="state ==='loading' || !isAllowed()">{{ (data.isRepo ? 'button.move' : 'button.save') | translate }}</button>
+    <button matButton="filled" (click)="onSave()" [disabled]="state ==='loading' || !isAllowed()">{{ (data.isRepo ? 'button.move' : 'button.save') | translate }}</button>
     <button mat-flat-button [mat-dialog-close]="hasChanges">{{ 'button.close' | translate }}</button>
   </div>
 </div>

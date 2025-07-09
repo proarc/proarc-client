@@ -3,7 +3,7 @@
   <div style="display: flex; row-gap: 8px; flex-direction: column;">
     @for(dest of data.dest; track $index;) {
       <div>
-        <button mat-flat-button color="primary" (click)="change(dest)">{{ 'dialog.changeModel.action' | translate: {value1: 'model.model:' +  dest.originmodel | translate, value2: 'model.model:' +  dest.model | translate} }}</button>
+        <button matButton="filled" (click)="change(dest)">{{ 'dialog.changeModel.action' | translate: {value1: 'model.model:' +  dest.originmodel | translate, value2: 'model.model:' +  dest.model | translate} }}</button>
       </div>
     }
   </div>

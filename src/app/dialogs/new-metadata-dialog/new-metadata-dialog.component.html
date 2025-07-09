@@ -21,10 +21,10 @@
 
   <div mat-dialog-actions cdkFocusRegionstart>
     @if (data.isWorkFlow) {
-    <button mat-flat-button color="primary" (click)="onSave(false)">{{ 'button.save' | translate }}</button>
+    <button matButton="filled" (click)="onSave(false)">{{ 'button.save' | translate }}</button>
     } @else {
-    <button mat-flat-button color="primary" (click)="onSave(true)">{{ 'button.createAndGoToObject' | translate }}</button>
-    <button mat-flat-button color="primary" (click)="onSave(false)">{{ 'button.create' | translate }}</button>
+    <button matButton="filled" (click)="onSave(true)">{{ 'button.createAndGoToObject' | translate }}</button>
+    <button matButton="filled" (click)="onSave(false)">{{ 'button.create' | translate }}</button>
 
     }
     <button mat-flat-button (click)="onClose()">{{ 'button.close' | translate }}</button>

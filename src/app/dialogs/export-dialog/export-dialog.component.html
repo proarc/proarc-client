@@ -84,11 +84,11 @@
 
 <div mat-dialog-actions cdkFocusRegionstart>
   @if (!canContinue && state !== 'error') {
-  <button mat-flat-button color="primary" [disabled]="formDisabled()"
+  <button matButton="filled" [disabled]="formDisabled()"
     (click)="onExport(false)">{{ 'button.startExport' | translate }}</button>
   }
   @if (canContinue) {
-  <button mat-flat-button color="primary" [disabled]="formDisabled()" (click)="onExport(true)">{{
+  <button matButton="filled" [disabled]="formDisabled()" (click)="onExport(true)">{{
     'button.exportAnyway' | translate }}</button>
   }
   <button mat-stroked-button mat-dialog-close="close">{{ 'button.close' | translate }}</button>

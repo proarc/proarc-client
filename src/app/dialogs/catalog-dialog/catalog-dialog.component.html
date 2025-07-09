@@ -31,7 +31,7 @@
         <input matInput [placeholder]="'desc.query' | translate" (keyup.enter)="search()" [(ngModel)]="activeQuery" [disabled]="state=='loading'  || state=='saving'">
       </mat-form-field>
 
-      <button mat-flat-button color="primary" (click)="search()" [disabled]="!activeQuery || state=='loading'  || state=='saving'">
+      <button matButton="filled" (click)="search()" [disabled]="!activeQuery || state=='loading'  || state=='saving'">
         {{ 'button.search' | translate }}
       </button>
     </div>
@@ -70,9 +70,9 @@
   </div>
   <div mat-dialog-actions>
     @if (data.create) {
-    <button mat-flat-button color="primary" (click)="onCreate()" [disabled]="activeIndex < 0 || state=='loading'  || state=='saving'" >{{ 'button.create' | translate }}</button>
+    <button matButton="filled" (click)="onCreate()" [disabled]="activeIndex < 0 || state=='loading'  || state=='saving'" >{{ 'button.create' | translate }}</button>
     } @else {
-      <button mat-flat-button color="primary" (click)="onSave()" [disabled]="activeIndex < 0 || state=='loading'  || state=='saving'" >{{ 'button.save' | translate }}</button>
+      <button matButton="filled" (click)="onSave()" [disabled]="activeIndex < 0 || state=='loading'  || state=='saving'" >{{ 'button.save' | translate }}</button>
     }
     <button mat-stroked-button mat-dialog-close="close" >{{ 'button.cancel' | translate }}</button>
   </div>

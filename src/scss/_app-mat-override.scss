@@ -333,22 +333,6 @@
 }
 
 
-// button
-.mat-mdc-button-base {
-  &.mat-mdc-outlined-button {
-    background-color: var(--app-color-gray-1);
-  }  
-}
-
-.mat-mdc-unelevated-button {
-  &:not(:disabled) {
-    &.mat-warn {
-      --mat-button-filled-label-text-color: var(--app-coloe-lightnes) !important;
-    }
-  }
-}
-
-
 // radio button
 .mat-mdc-radio-group {
   .app-toolbar & {
@@ -457,6 +441,20 @@
     filled-container-color: var(--app-color-primary),
     filled-label-text-color: var(--app-color-lightnes)
   ));
+
+  .mat-mdc-button-base {
+    &.mat-mdc-outlined-button {
+      background-color: var(--app-color-gray-1);
+    }  
+  }
+
+  .mat-mdc-unelevated-button {
+    &:not(:disabled) {
+      &.mat-warn {
+        --mat-button-filled-label-text-color: var(--app-coloe-lightnes) !important;
+      }
+    }
+  }
 
   
   // checkbox

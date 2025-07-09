@@ -35,7 +35,7 @@
   }
 </div>
 <div mat-dialog-actions cdkFocusRegionstart>
-  <button mat-flat-button color="primary" (click)="save()" >{{ 'button.save' | translate }}</button>
+  <button matButton="filled" (click)="save()" >{{ 'button.save' | translate }}</button>
   <button mat-flat-button (click)="reset()" >{{ 'button.reset' | translate }}</button>
   <button mat-flat-button [mat-dialog-close]="false" >{{ 'button.close' | translate }}</button>
 </div>
