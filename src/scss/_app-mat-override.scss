@@ -427,7 +427,10 @@
   // button
   @include mat.button-overrides((
     filled-container-color: var(--app-color-primary),
-    filled-label-text-color: var(--app-color-lightnes)
+    filled-label-text-color: var(--app-color-lightnes),
+    filled-label-text-tracking: 0,
+    outlined-label-text-tracking: 0,
+    text-label-text-tracking: 0
   ));
 
   .mat-mdc-button-base {
