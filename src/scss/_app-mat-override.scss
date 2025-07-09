@@ -313,10 +313,12 @@
   }
 }
 
+
 // menu
 .mat-mdc-menu-item {
   min-height: var(--app-menu-item-height) !important;
 }
+
 
 // select
 .mat-mdc-option {
@@ -380,24 +382,8 @@
 }
 
 
-/* ::ng-deep .mat-mdc-checkbox {
-  min-height: 24px; // or your desired row height
-  height: 24px;
-}
-
-::ng-deep .mat-mdc-checkbox .mdc-form-field {
-  align-items: center;
-}
-
-::ng-deep .mat-mdc-checkbox .mdc-label {
-  line-height: 24px;
-  padding-top: 0;
-  padding-bottom: 0;
-} */
-
-
 :root {
-  // mat form field
+  // mat form field outlined
   @include mat.form-field-density(-6);
   @include mat.form-field-overrides((
     container-text-size: 14px,
@@ -406,6 +392,8 @@
     outlined-label-text-populated-size: 14px
   ));
 
+
+  // mat form field filled
   /* @include mat.form-field-overrides((
     container-height: 38px,
     container-text-size: 14px,
