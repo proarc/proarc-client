@@ -413,14 +413,52 @@
 
 
 :root {
-  /* .app-form-field-dens-6 {
-    @include mat.form-field-density(-6);
-  } */
-
   // mat form field
   @include mat.form-field-density(-6);
+  @include mat.form-field-overrides((
+    container-text-size: 14px,
+    outlined-outline-color: var(--app-color-gray-3),
+    outlined-label-text-size: 14px,
+    outlined-label-text-populated-size: 14px
+  ));
+
+  /* @include mat.form-field-overrides((
+    container-height: 38px,
+    container-text-size: 14px,
+    container-text-weight: 500,
+    //container-text-line-height: 0px,
+
+    filled-container-color: var(--app-color-lightnes),
+    filled-active-indicator-color: var(--app-color-gray-3),
+    filled-label-text-size: 14px,
+    filled-container-shape: 0px,
+    filled-with-label-container-padding-top: 12px,
+    filled-with-label-container-padding-bottom: 0px,
+
+    hover-state-layer-opacity: 0,
+    focus-state-layer-opacity: 0
+  ));
+
+  .mdc-text-field {
+    padding: 0;
+  } */
+  
+  
+  // select
+  @include mat.select-overrides((
+    trigger-text-size: 14px,
+    trigger-text-weight: 500,
+    arrow-transform: translateY(-4px),
+  ));
 
 
+  // button
+  @include mat.button-overrides((
+    filled-container-color: var(--app-color-primary),
+    filled-label-text-color: var(--app-color-lightnes)
+  ));
+
+  
   // checkbox
   @include app-mixins.setCheckBoxDensity(2);
   @include mat.checkbox-overrides((
@@ -461,7 +499,6 @@
   ));
 
 
-  
   // radio button
   .mat-mdc-radio-group {
     // .app-toolbar & {
@@ -500,5 +537,4 @@
       }
     }
   }
-  
 }
