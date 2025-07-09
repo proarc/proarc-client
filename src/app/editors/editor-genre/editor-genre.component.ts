@@ -19,10 +19,12 @@ import { LayoutService } from '../../services/layout-service';
 import { UIService } from '../../services/ui.service';
 import { MatRadioModule } from '@angular/material/radio';
 import { AutocompleteComponent } from "../../forms/autocomplete/autocomplete.component";
+import { MatButtonModule } from '@angular/material/button';
 
 
 @Component({
-  imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatIconModule, MatTooltipModule, MatSlideToggleModule, MatFormFieldModule, MatInputModule, MatRadioModule, EditorFieldComponent, FieldDropdownComponent, FieldTextComponent, AutocompleteComponent],
+  imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatIconModule, MatTooltipModule, MatSlideToggleModule, MatFormFieldModule, MatInputModule, 
+  MatRadioModule, EditorFieldComponent, FieldDropdownComponent, FieldTextComponent, AutocompleteComponent, MatButtonModule],
   selector: 'app-editor-genre',
   templateUrl: './editor-genre.component.html',
   styleUrls: ['./editor-genre.component.scss']

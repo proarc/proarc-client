@@ -1,13 +1,17 @@
 
 @if (showGenreSwitch) {
-  <div class="app-p-2">
-    <mat-radio-group aria-label="'standard'" [(ngModel)]="field.isPeerReviewed" color="primary" (change)="switchChanged($event)" [formControl]="peerControl">
-      <mat-radio-button [value]="true">Recenzovaný článek</mat-radio-button>
-      <mat-radio-button [value]="false">Nerecenzovaný článek</mat-radio-button>
-    </mat-radio-group>
-    <button mat-icon-button [matTooltip]="'button.addReference' | translate" (click)="addReference()">
-      <mat-icon>format_quote</mat-icon>
-    </button>
+  <div class="app-fxLayout app-row app-center-v app-toolbar app-view-description app-clean-border app-clean-bg app-mt-n2">
+		<div class="app-fxFlex app-fxLayout app-row app-center-v">
+      <mat-radio-group aria-label="'standard'" [(ngModel)]="field.isPeerReviewed" color="primary" (change)="switchChanged($event)" [formControl]="peerControl">
+        <mat-radio-button [value]="true">Recenzovaný článek</mat-radio-button>
+        <mat-radio-button [value]="false">Nerecenzovaný článek</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div>
+      <button mat-icon-button [matTooltip]="'button.addReference' | translate" (click)="addReference()">
+        <mat-icon>format_quote</mat-icon>
+      </button>
+    </div>
   </div>
 }
 <app-editor-field [field]="field" [showGenreSwitch]="showGenreSwitch">
