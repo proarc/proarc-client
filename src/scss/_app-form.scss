@@ -154,9 +154,9 @@
           .app-usage {
             position: absolute;
             // outlined 
-            top: -6px;
+            //top: -6px;
             // filled
-            //top: 0;
+            top: 0;
             right: -3px;
             color: var(--app-color-primary);
             font-size: 10px;
@@ -169,15 +169,18 @@
 
             &.app-suffix-exist {
               // outlined 
-              right: -21px;
+              //right: -21px;
               // filled
-              //right: -25px;
+              right: -25px;
             }
           }
 
           .app-slide-toogle {
             position: absolute;
-            right: -8px;
+            // outline
+            // right: -8px;
+            // filled
+            right: 0;
             bottom: 4px;
           }
         }

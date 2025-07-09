@@ -4,7 +4,7 @@
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   }
   <div class="app-fxLayout app-row app-gap-4 app-pt-2">
-    <mat-form-field appearance="outline" class="app-fxFlex">
+    <mat-form-field  class="app-fxFlex">
       <mat-label>{{ 'desc.oldOwner' | translate }}</mat-label>
       <mat-select [placeholder]="'desc.oldOwner' | translate" [(ngModel)]="oldOwner">
         @for(c of data; track $index;) {
@@ -12,7 +12,7 @@
         }
       </mat-select>
     </mat-form-field>
-    <mat-form-field appearance="outline" class="app-fxFlex">
+    <mat-form-field  class="app-fxFlex">
       <mat-label>{{ 'desc.newOwner' | translate }}</mat-label>
       <mat-select [placeholder]="'desc.newOwner' | translate" [(ngModel)]="newOwner">
         @for(c of data; track $index;) {

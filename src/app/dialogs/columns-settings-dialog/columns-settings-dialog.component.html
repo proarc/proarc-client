@@ -4,7 +4,7 @@
     @if (data.colsSettingsName === 'colsEditingRepo') {
       <legend>{{ 'pages.settings.editingRepo.legend' | translate }}</legend>
       <div class="app-label app-mb-3">{{ 'pages.settings.editingRepo.label' | translate }}</div>
-      <mat-form-field appearance="outline" class="app-w-100">
+      <mat-form-field  class="app-w-100">
         <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="modelForColumns" >
           @for(model of config.models; track $index;) {
             <mat-option [value]="model">{{ 'model.' + model | translate }}</mat-option>

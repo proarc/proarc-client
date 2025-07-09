@@ -32,7 +32,7 @@
         <div class="app-form-wrapper app-top-level">
           <div class="app-form">
             <div class="app-form-content">
-              <mat-form-field appearance="outline" class="app-field-col">
+              <mat-form-field class="app-field-col">
                 <mat-label>{{ 'editor.pages.page_type' | translate }}</mat-label>
                 <mat-select [placeholder]="'editor.pages.page_type' | translate" name="type" [(value)]="holder.pageType" (keyup.enter)="enterSelect(typeSelect)" #typeSelect [formControl]="pageTypeControl">
                   <mat-option [value]="''"> </mat-option>
@@ -46,7 +46,7 @@
           <div class="app-gap-fixer"></div>
           <div class="app-form">
             <div class="app-form-content">
-              <mat-form-field appearance="outline" class="app-field-col">
+              <mat-form-field class="app-field-col">
                 <mat-label>{{ 'editor.pages.index_from' | translate }}</mat-label>
                 <input (keyup.enter)="onSave()" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.pages.index_from' | translate" [formControl]="pageIndexControl">
               </mat-form-field>
@@ -55,26 +55,26 @@
           <div class="app-gap-fixer"></div>
           <div class="app-form">
             <div class="app-form-content">
-              <mat-form-field  appearance="outline" class="app-field-col" >
+              <mat-form-field  class="app-field-col" >
                 <mat-label>{{ 'editor.pages.number_prefix' | translate }}</mat-label>
                 <input (keyup.enter)="onSave()" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_prefix' | translate" [formControl]="pageNumberPrefixControl">
               </mat-form-field>
-              <mat-form-field  appearance="outline" class="app-field-col" >
+              <mat-form-field  class="app-field-col" >
                 <mat-label>{{ 'editor.pages.number_from' | translate }}</mat-label>
                 <input (keyup.enter)="onSave()" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_from' | translate" [formControl]="pageNumberControl" [class.app-input-invalid]="!holder.numberFromValid()">
                 <button matSuffix [class.app-active]="holder.useBrackets" [matTooltip]="holder.useBrackets ? ('button.removeBrackets' | translate) : ('button.addBrackets' | translate)" (click)="holder.useBrackets = !holder.useBrackets" mat-icon-button>
                   <span class="app-text-icon">[ ]</span>
                 </button>
               </mat-form-field>
-              <mat-form-field appearance="outline" class="app-field-col">
+              <mat-form-field class="app-field-col">
                 <mat-label>{{ 'editor.pages.number_suffix' | translate }}</mat-label>
                 <input (keyup.enter)="onSave()" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_suffix' | translate"  [formControl]="pageNumberSuffixControl">
               </mat-form-field>
-              <mat-form-field appearance="outline" class="app-field-col">
+              <mat-form-field class="app-field-col">
                 <mat-label>{{ 'editor.pages.number_increment' | translate }}</mat-label>
                 <input (keyup.enter)="onSave()" type="number" step="1" min="0" autocomplete="off" matInput [placeholder]="'editor.pages.number_increment' | translate" [formControl]="pageNumberIncrementControl" >
               </mat-form-field>
-              <mat-form-field appearance="outline" class="app-field-col">
+              <mat-form-field class="app-field-col">
                 <mat-label>{{ 'editor.pages.number_numbering' | translate }}</mat-label>
                 <mat-select #numSelect [placeholder]="'editor.pages.number_numbering' | translate" name="type" [(value)]="holder.pageNumberNumbering" (keyup.enter)="enterSelect(numSelect)" [formControl]="numberingTypesControl">
                   @for(type of holder.numberingTypes; track $index;) {
@@ -94,7 +94,7 @@
           <div class="app-gap-fixer"></div>
           <div class="app-form">
             <div class="app-form-content">
-              <mat-form-field appearance="outline" class="app-field-col">
+              <mat-form-field class="app-field-col">
                 <mat-label>{{ 'editor.pages.page_position' | translate }}</mat-label>
                 <mat-select #posSelect [placeholder]="'editor.pages.page_position' | translate" name="type" [(value)]="holder.pagePosition" (keyup.enter)="enterSelect(posSelect)"  [formControl]="posControl">
                   <mat-option [value]="''"> </mat-option>
@@ -108,7 +108,7 @@
           <div class="app-gap-fixer"></div>
           <div class="app-form">
             <div class="app-form-content">
-              <mat-form-field appearance="outline" class="app-field-col">
+              <mat-form-field class="app-field-col">
                 <mat-label>{{ 'editor.page.genre' | translate }}</mat-label>
                 <mat-select [(ngModel)]='holder.repreSelect' [placeholder]="'editor.page.genre' | translate">
                   <mat-option  [value]="null">-</mat-option>
@@ -121,7 +121,7 @@
           <div class="app-gap-fixer"></div>
           <div class="app-form">
             <div class="app-form-content">
-              <mat-form-field appearance="outline" class="app-field-col">
+              <mat-form-field class="app-field-col">
                 <mat-label>{{ 'editor.pages.apply' | translate }}</mat-label>
                 <mat-select [placeholder]="'editor.pages.apply' | translate" name="apply" [(value)]="holder.applyTo"  [disabled]="!canSave()" (keyup.enter)="enterSelect(applySelect)" #applySelect  [formControl]="applyControl">
                   @for(num of holder.applyOptions; track $index;) {

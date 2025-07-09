@@ -7,7 +7,7 @@
     @if (catalogs) {
     <div class="app-fxLayout app-row app-baseline app-gap-2 app-pt-1">
       @if (catalogs.length > 0) {
-      <mat-form-field appearance="outline" class="app-fxFlex">
+      <mat-form-field  class="app-fxFlex">
         <mat-label>{{ 'desc.catalog' | translate }}</mat-label>
         <mat-select (selectionChange)="onCatalogChanged($event.value)" [placeholder]="'desc.catalog' | translate" name="catalog" [(ngModel)]="activeCatalog" [disabled]="state=='loading'  || state=='saving'">
           @for(catalog of catalogs; track $index;) {
@@ -17,7 +17,7 @@
       </mat-form-field>
     }
     @if (activeCatalog) {
-      <mat-form-field appearance="outline" >
+      <mat-form-field  >
         <mat-label>{{ 'desc.field' | translate }}</mat-label>
         <mat-select [placeholder]="'desc.field' | translate" name="field" [(ngModel)]="activeField" [disabled]="state=='loading'  || state=='saving'">
           @for(field of activeCatalog?.fields; track $index;) {
@@ -26,7 +26,7 @@
         </mat-select>
       </mat-form-field>
     }
-      <mat-form-field appearance="outline" class="app-fxFlex">
+      <mat-form-field  class="app-fxFlex">
         <mat-label>{{ 'desc.query' | translate }}</mat-label>
         <input matInput [placeholder]="'desc.query' | translate" (keyup.enter)="search()" [(ngModel)]="activeQuery" [disabled]="state=='loading'  || state=='saving'">
       </mat-form-field>

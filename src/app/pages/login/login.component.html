@@ -9,11 +9,11 @@
           <mat-card-title class="app-mb-4">{{ 'desc.login' | translate }}</mat-card-title>
         </mat-card-header>
         <mat-card-content class="app-mb-0">
-          <mat-form-field class="app-w-100" appearance="outline">
+          <mat-form-field class="app-w-100" >
             <mat-label>{{ 'desc.username' | translate }}</mat-label>
             <input type="text" #username="matInput" matInput cdkFocusInitial [placeholder]="'desc.username' | translate" ngModel name="username"required>
           </mat-form-field>
-          <mat-form-field class="app-w-100" appearance="outline">
+          <mat-form-field class="app-w-100" >
             <mat-label>{{ 'desc.password' | translate }}</mat-label>
             <input type="password" matInput [placeholder]="'desc.password' | translate" ngModel name="password" required>
           </mat-form-field>

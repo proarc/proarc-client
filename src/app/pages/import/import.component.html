@@ -12,7 +12,7 @@
       <button mat-stroked-button (click)="onLoad()" [disabled]="selectedDevice?.model === 'none' && !(selectedProfile.id === 'profile.default_archive_import' || selectedProfile.id === 'profile.default_ndk_import')">
         {{ 'import.load' | translate }}
       </button>
-      <mat-form-field appearance="outline" class="app-fxFlex">
+      <mat-form-field  class="app-fxFlex">
         <mat-label>{{ 'import.profile' | translate }}</mat-label>
         <mat-select [placeholder]="'import.profile' | translate" [(ngModel)]="selectedProfile" (selectionChange)="onProfileChanged()">
           @for(profile of profiles; track $index;) {
@@ -20,7 +20,7 @@
           }
         </mat-select>
       </mat-form-field>
-      <mat-form-field appearance="outline" class="app-fxFlex">
+      <mat-form-field  class="app-fxFlex">
         <mat-label>{{ 'desc.priority' | translate }}</mat-label>
         <mat-select [placeholder]="'desc.priority' | translate" [(ngModel)]="selectedPriority">
           @for(priority of priorities; track $index;) {
@@ -28,7 +28,7 @@
           }
         </mat-select>
       </mat-form-field>
-      <mat-form-field appearance="outline" class="app-fxFlex">
+      <mat-form-field  class="app-fxFlex">
         <mat-label>{{ 'import.device' | translate }}</mat-label>
         <mat-select [placeholder]="'import.device' | translate" [(ngModel)]="selectedDevice" [disabled]="selectedProfile.id === 'profile.default_archive_import' || selectedProfile.id === 'profile.default_ndk_import'">
           @for(device of devices; track $index;) {

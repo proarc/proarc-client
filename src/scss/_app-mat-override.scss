@@ -384,17 +384,17 @@
 
 :root {
   // mat form field outlined
-  @include mat.form-field-density(-6);
-  @include mat.form-field-overrides((
-    container-text-size: 14px,
-    outlined-outline-color: var(--app-color-gray-3),
-    outlined-label-text-size: 14px,
-    outlined-label-text-populated-size: 14px
-  ));
+  // @include mat.form-field-density(-6);
+  // @include mat.form-field-overrides((
+  //   container-text-size: 14px,
+  //   outlined-outline-color: var(--app-color-gray-3),
+  //   outlined-label-text-size: 14px,
+  //   outlined-label-text-populated-size: 14px
+  // ));
 
 
   // mat form field filled
-  /* @include mat.form-field-overrides((
+  @include mat.form-field-overrides((
     container-height: 38px,
     container-text-size: 14px,
     container-text-weight: 500,
@@ -413,7 +413,7 @@
 
   .mdc-text-field {
     padding: 0;
-  } */
+  }
   
   
   // select

@@ -1,5 +1,5 @@
 @if (item.available[field]) {
-  <mat-form-field [class]="item.clazz[field]" appearance="outline">
+  <mat-form-field [class]="item.clazz[field]" >
     <mat-label>{{ 'mods.' + item.labelKey[field] | translate }}</mat-label>
     <app-usage [item]="item" [field]="field"></app-usage>
     <mat-select [required]="item.isMandatory[field]" [formControl]="item.controls[field]"
