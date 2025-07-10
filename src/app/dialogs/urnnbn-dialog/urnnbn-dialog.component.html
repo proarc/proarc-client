@@ -2,7 +2,7 @@
   <mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
 }
 <h1 mat-dialog-title>{{ 'dialog.urnnbn.title' | translate }}</h1>
-<div mat-dialog-content fxLayout="column">
+<mat-dialog-content class="app-fxLyout app-column">
   <div>
     <mat-form-field class="app-w-100">
       <mat-select [placeholder]="'desc.registrar' | translate" [(ngModel)]="selectedRegistrar" [disabled]="formDisabled()">
@@ -12,7 +12,7 @@
       </mat-select>
     </mat-form-field>
   </div>
-  <div class="app-oa-y">
+  <div class="app-fxFlex app-oa-y">
     @if (responseData) {
       <table mat-table [dataSource]="responseData" class="app-striped app-hover">
         <ng-container matColumnDef="label">
@@ -71,11 +71,11 @@
       <mat-icon>{{ state == 'error' || !selectedRowWarning ? 'warning' : 'info' }}</mat-icon> {{ message }}
     </mat-card>
   }
-</div>
-<div mat-dialog-actions cdkFocusRegionstart>
+</mat-dialog-content>
+<mat-dialog-actions cdkFocusRegionstart>
   <button matButton="filled" [disabled]="formDisabled()" (click)="onRegister()">{{ 'button.register' | translate }}</button>
   <button mat-stroked-button mat-dialog-close="close" >{{ 'button.close' | translate }}</button>
   @if (log) {
     <button mat-flat-button color="warn" (click)="showErrorDetail(log)">{{ 'button.viewErrorOutput' | translate }}</button>
   }
-</div>
+</mat-dialog-actions>
