@@ -1,7 +1,7 @@
-<div fxLayout="column" fxFlexFill>
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
-    <div fxFlex>
-      <div class="app-toolbar-label">
+<div class="app-fxLayout app-column app-fill">
+  <div class="app-fxLayout app-row app-center-v app-toolbar app-view-pub">
+   	<div class="app-fxFlex">
+      <div class="app-toolbar-label app-pl-2">
         <span class="app-text">E-pub</span>&#160;
         <span >{{ bookTitle }}</span>
         @if (chapterTitle && bookTitle.trim() !== chapterTitle.trim()) {
@@ -29,7 +29,7 @@
     </div>
   }
   </div>
-  <div fxFlex class="app-oa-y">
+  <div class="app-fxFlex app-oa-y">
     <div class="app-editor-content app-h-100">
       <div class="app-pdf-wrapper" style="height: 100%;">
         <div id="epub_viewer" #epubViewer style="height: 100%;"></div>
