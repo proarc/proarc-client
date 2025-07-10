@@ -396,6 +396,7 @@
     container-height: 38px,
     container-text-size: 14px,
     container-text-weight: 500,
+    container-vertical-padding: 6px,
     //container-text-line-height: 0px,
 
     filled-container-color: var(--app-color-lightnes),
@@ -409,10 +410,14 @@
     focus-state-layer-opacity: 0
   ));
 
-  .mdc-text-field {
-    padding: 0;
+  .mat-mdc-form-field {
+    &:not(.app-leave-pd, .app-select) {
+      .mdc-text-field {
+        padding: 0;
+      }
+    }
   }
-  
+
    
   // select
   @include mat.select-overrides((
@@ -427,10 +432,6 @@
     @include mat.form-field-overrides((
       filled-active-indicator-height: 0px
     ));
-
-    .mdc-text-field {
-      padding: 0 8px;
-    }
   }
 
 
