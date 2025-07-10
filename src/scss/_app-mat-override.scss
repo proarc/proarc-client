@@ -168,6 +168,10 @@
       font-weight: 700;
     }
 
+    &.app-selectedInOrig {
+      color: var(--app-color-warn) !important;
+    }
+
     .mat-mdc-cell {
       &.mat-column-actions,
       &.mat-column-action {
@@ -416,7 +420,7 @@
     trigger-text-weight: 500,
     arrow-transform: translateY(-4px),
   ));
-  
+
 
   // cystom select in toolbar
   .app-select {

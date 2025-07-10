@@ -4,7 +4,7 @@
     <button matButton="filled" (click)="markSequence()">{{ 'button.markRow' | translate }}</button>
   </div>
 
-  <div mat-dialog-content class="app-maxh-100">
+  <mat-dialog-content class="app-maxh-100">
     <as-split direction="horizontal" [disabled]="false" class="app-border-wrapper">
       <as-split-area [size]="40" (resized)="onResized($event, 'orig')">
         <div class="app-fxLayout app-column app-fill">
@@ -89,7 +89,7 @@
                   <th mat-header-cell *matHeaderCellDef [resizeColumn]="true"
                     (columnResized)="saveColumnsSizesOrigTable($event, 'label')"
                     [style.width]="getColumnWidthOrigTable('label')">{{ 'desc.name' | translate }}</th>
-                  <td mat-cell *matCellDef="let element">{{ data.shortLabels ? element.shortLabel : element.label }}
+                  <td mat-cell *matCellDef="let element" class="app-selectedInOrig">{{ data.shortLabels ? element.shortLabel : element.label }}
                   </td>
                 </ng-container>
                 <ng-container matColumnDef="filename">
@@ -134,7 +134,7 @@
 
     <as-split-area [size]="40" (resized)="onResized($event, 'dest')">
       <div class="app-fxLayout app-column app-fill">
-        <div class="app-fxLayout app-row app-center-v app-toolbar">
+        <div class="app-fxLayout app-row app-center-v app-toolbar app-pl-2">
           <div class="app-fxFlex">
             <div class="app-toolbar-label">
               <span class="app-text">{{ 'desc.selectTheTarget' | translate }}</span>
@@ -264,21 +264,13 @@
 
   <as-split-area [size]="20">
     @if (lastSelectedItemPid) {
-      <div class="app-fxLayout app-column app-fill">
-        <app-viewer [imageInfo]="{pid: lastSelectedItemPid, dsid: 'FULL'}" [hideToolbar]="true" [idViewer]="'app-viewer-mark'"></app-viewer>
-      </div>
+      <app-viewer class="app-fxLayout app-column app-fill" [imageInfo]="{pid: lastSelectedItemPid, dsid: 'FULL'}" [hideToolbar]="true" [idViewer]="'app-viewer-mark'"></app-viewer>
     }
   </as-split-area>
 </as-split>
-</div>
+</mat-dialog-content>
 
-
-
-<div mat-dialog-actions cdkFocusRegionstart class="app-fxLayout app-row app-gap-4 app-center-v">
-  <div class="app-fxFlex">
-    <button matButton="filled" (click)="save()" [matTooltip]="'button.save' | translate">{{ 'button.save' | translate }}</button>
-    <button mat-flat-button [mat-dialog-close]="changed">{{ 'button.close' | translate }}</button>
-  </div>
+<mat-dialog-actions class="app-fxLayout app-column app-gap-4 app-start-v">
   <div>
     <span class="app-label app-mr-4">{{ 'desc.edit' | translate }}:</span>
     <mat-checkbox color="primary" [(ngModel)]="pageType" name="pageType" class="app-mr-4">{{ 'desc.pageType' | translate }}</mat-checkbox>
@@ -287,5 +279,22 @@
     <mat-checkbox color="primary" [(ngModel)]="pagePosition" name="pagePosition" class="app-mr-4">{{ 'desc.pagePosition' | translate }}</mat-checkbox>
     <mat-checkbox color="primary" [(ngModel)]="reprePage" name="reprePage">{{ 'editor.page.genre' | translate }}</mat-checkbox>
   </div>
-</div>
-</div>
+  <div>
+    <button matButton="filled" (click)="save()" [matTooltip]="'button.save' | translate">{{ 'button.save' | translate }}</button>
+    <button mat-flat-button [mat-dialog-close]="changed">{{ 'button.close' | translate }}</button>
+  </div>
+</mat-dialog-actions>
+<!-- <div mat-dialog-actions cdkFocusRegionstart class="app-fxLayout app-column app-gap-4 app-jc-start" [align]="'start'">
+  <div>
+    <span class="app-label app-mr-4">{{ 'desc.edit' | translate }}:</span>
+    <mat-checkbox color="primary" [(ngModel)]="pageType" name="pageType" class="app-mr-4">{{ 'desc.pageType' | translate }}</mat-checkbox>
+    <mat-checkbox color="primary" [(ngModel)]="pageNumber" name="pageNumber" class="app-mr-4">{{ 'desc.pageNumber' | translate }}</mat-checkbox>
+    <mat-checkbox color="primary" [(ngModel)]="pageIndex" name="pageIndex" class="app-mr-4">{{ 'desc.pageIndex' | translate }}</mat-checkbox>
+    <mat-checkbox color="primary" [(ngModel)]="pagePosition" name="pagePosition" class="app-mr-4">{{ 'desc.pagePosition' | translate }}</mat-checkbox>
+    <mat-checkbox color="primary" [(ngModel)]="reprePage" name="reprePage">{{ 'editor.page.genre' | translate }}</mat-checkbox>
+  </div>
+  <div>
+    <button matButton="filled" (click)="save()" [matTooltip]="'button.save' | translate">{{ 'button.save' | translate }}</button>
+    <button mat-flat-button [mat-dialog-close]="changed">{{ 'button.close' | translate }}</button>
+  </div>
+</div> -->
