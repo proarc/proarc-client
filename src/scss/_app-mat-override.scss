@@ -409,13 +409,25 @@
     padding: 0;
   }
   
-  
+   
   // select
   @include mat.select-overrides((
     trigger-text-size: 14px,
     trigger-text-weight: 500,
     arrow-transform: translateY(-4px),
   ));
+  
+
+  // cystom select in toolbar
+  .app-select {
+    @include mat.form-field-overrides((
+      filled-active-indicator-height: 0px
+    ));
+
+    .mdc-text-field {
+      padding: 0 8px;
+    }
+  }
 
 
   // button
