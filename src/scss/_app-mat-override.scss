@@ -318,21 +318,6 @@
 }
 
 
-// select
-.mat-mdc-option {
-  min-height: var(--app-menu-item-height) !important;
-  line-height: var(--app-menu-item-height) !important;
-
-  .mdc-list-item__primary-text {
-    white-space: nowrap !important;
-    display: inline-block;
-    flex-grow: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
-
-
 // radio button
 .mat-mdc-radio-group {
   .app-toolbar & {
@@ -391,13 +376,13 @@
   // ));
 
 
-  // mat form field filled
+  
+  // FORM FIELD
   @include mat.form-field-overrides((
     container-height: 38px,
     container-text-size: 14px,
     container-text-weight: 500,
     container-vertical-padding: 6px,
-    //container-text-line-height: 0px,
 
     filled-container-color: var(--app-color-lightnes),
     filled-active-indicator-color: var(--app-color-gray-3),
@@ -405,6 +390,7 @@
     filled-container-shape: 0px,
     filled-with-label-container-padding-top: 12px,
     filled-with-label-container-padding-bottom: 0px,
+    filled-label-text-tracking: 0,
 
     hover-state-layer-opacity: 0,
     focus-state-layer-opacity: 0
@@ -418,16 +404,33 @@
     }
   }
 
-   
-  // select
+
+
+  // SELECT
   @include mat.select-overrides((
     trigger-text-size: 14px,
-    trigger-text-weight: 500,
+    trigger-text-weight: 400,
+    trigger-text-tracking: 0,
     arrow-transform: translateY(-4px),
   ));
+  
+  --mat-option-label-text-tracking: 0;
+  --mat-option-label-text-size: 14px;
 
+  .mat-mdc-option {
+    min-height: var(--app-menu-item-height) !important;
+    line-height: var(--app-menu-item-height) !important;
 
-  // cystom select in toolbar
+    .mdc-list-item__primary-text {
+      white-space: nowrap !important;
+      display: inline-block;
+      flex-grow: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  // custom select in toolbar
   .app-select {
     @include mat.form-field-overrides((
       filled-active-indicator-height: 0px
@@ -435,12 +438,16 @@
   }
 
 
-  // button
+
+  // BUTTON
   @include mat.button-overrides((
     filled-container-color: var(--app-color-primary),
     filled-label-text-color: var(--app-color-lightnes),
     filled-label-text-tracking: 0,
     outlined-label-text-tracking: 0,
+    text-label-text-color: var(--app-color-gray-7),
+    //outlined-label-text-color: var(--app-color-gray-9),
+    //outlined-container-height: 32px,
     text-label-text-tracking: 0
   ));
 
@@ -459,7 +466,8 @@
   }
 
 
-  // menu
+
+  // MENU
   @include mat.menu-overrides((
     item-label-text-size: 14px,
     item-label-text-tracking: 0px,
@@ -469,9 +477,10 @@
   .mat-mdc-menu-item {
     min-height: var(--app-menu-item-height) !important;
   }
-
   
-  // checkbox
+  
+  
+  // CHECKBOX
   @include app-mixins.setCheckBoxDensity(2);
   @include mat.checkbox-overrides((
     selected-icon-color: var(--app-color-primary),
@@ -481,9 +490,10 @@
     selected-focus-state-layer-color: var(--app-color-primary),
     state-layer-size: 26px
   ));
-
-
-  // slide toggle
+  
+  
+  
+  // SLIDE TOGGLE
   @include mat.slide-toggle-overrides((
     // handle-height: 16px,
     // handle-width: 16px,
@@ -502,23 +512,19 @@
   .mdc-switch__handle-track {
     --mat-slide-toggle-handle-width: var(--app-slide-toggle-size);
   }
-
-
-  // dialog
+  
+  
+  
+  // DIALOG
   @include mat.dialog-overrides((
     headline-padding: 0 24px,
     actions-padding: 0 24px 24px 24px
   ));
-
-
-  // radio button
+  
+  
+  
+  // RADIO BUTTON
   .mat-mdc-radio-group {
-    // .app-toolbar & {
-    //   display: flex;
-    //   flex-direction: row;
-    //   align-items: center;
-    // }
-
     .mat-mdc-radio-button {
       --mat-radio-state-layer-size: calc(var(--app-toolbar-radio-button-size) * 2);
       margin-right: 8px;
