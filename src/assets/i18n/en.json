@@ -714,7 +714,8 @@
       "enterFullscreen": "Enter Full Screen",
       "exitFullscreen": "Exit Full Screen",
       "loadNewDigitalContent": "Load new digital content",
-      "deleteDigitalContent": "Delete digital content"
+      "deleteDigitalContent": "Delete digital content",
+      "open_in_new": "Open the image in a new window"
     }
   },
   "lang": {

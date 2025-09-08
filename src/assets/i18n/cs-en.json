@@ -714,7 +714,8 @@
       "enterFullscreen": "Režim celé obrazovky",
       "exitFullscreen": "Opustit režem celé obrazovky",
       "loadNewDigitalContent": "Načíst nový digitální obsah",
-      "deleteDigitalContent": "Odstranit digitální obsah"
+      "deleteDigitalContent": "Odstranit digitální obsah",
+      "open_in_new": "Otevřít obrázek na nové záložce"
     }
   },
   "lang": {
