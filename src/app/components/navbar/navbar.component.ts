@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { IsActiveMatchOptions, Router, RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -19,6 +19,11 @@ import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { AboutDialogComponent } from '../../dialogs/about-dialog/about-dialog.component';
 import { NewObjectData, NewObjectDialogComponent } from '../../dialogs/new-object-dialog/new-object-dialog.component';
 import { NewMetadataDialogComponent } from '../../dialogs/new-metadata-dialog/new-metadata-dialog.component';
+import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
+import { DocumentItem } from '../../model/documentItem.model';
+import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
+import { ApiService } from '../../services/api.service';
+import { UIService } from '../../services/ui.service';
 
 @Component({
   standalone: true,
@@ -31,17 +36,22 @@ import { NewMetadataDialogComponent } from '../../dialogs/new-metadata-dialog/ne
 })
 export class NavbarComponent implements OnInit {
   languages = ['cs', 'en', 'cs-en'];
-  sub: Subscription; 
+  sub: Subscription;
+  isAkubra: boolean;
+  state = signal<string>('');
 
   constructor(public translator: TranslateService,
-              public auth: AuthService,
-              public config: Configuration,
-              private dialog: MatDialog,
-              private settings: UserSettings, 
-              private settingsService: UserSettingsService, 
-              private router: Router) { }
+    public auth: AuthService,
+    public config: Configuration,
+    private dialog: MatDialog,
+    private settings: UserSettings,
+    private settingsService: UserSettingsService,
+    private api: ApiService,
+    private ui: UIService,
+    private router: Router) { }
 
   ngOnInit() {
+    this.isAkubra = this.config.info.storage === 'Akubra';
   }
 
   ngOnDestroy() {
@@ -63,18 +73,18 @@ export class NavbarComponent implements OnInit {
     this.auth.logout();
   }
 
-  onCreateNewObject() { 
+  onCreateNewObject() {
     const data: NewObjectData = {
       models: this.config.models,
       model: this.settings.searchModel,
       customPid: false,
       fromNavbar: true
     }
-    const dialogRef = this.dialog.open(NewObjectDialogComponent, { 
+    const dialogRef = this.dialog.open(NewObjectDialogComponent, {
       data: data,
       width: '680px',
       panelClass: 'app-dialog-new-bject'
-     });
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['pid']) {
         if (result.isMultiple) {
@@ -89,11 +99,11 @@ export class NavbarComponent implements OnInit {
 
   showMetadataDialog(data: any) {
     const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
-       disableClose: true, 
-       height: '90%',
-       width: '680px',
-       data: data 
-      });
+      disableClose: true,
+      height: '90%',
+      width: '680px',
+      data: data
+    });
     dialogRef.afterClosed().subscribe(res => {
       if (res?.item) {
         const pid = res.item['pid'];
@@ -102,18 +112,84 @@ export class NavbarComponent implements OnInit {
           queryParams: 'ignored',
           paths: 'subset',
           fragment: 'ignored'
-        };        
+        };
         if (res.gotoEdit) {
           this.router.navigate(['/repository', pid]);
         }
       } else {
-        
+
       }
     });
   }
 
   showAboutDialog() {
     this.dialog.open(AboutDialogComponent);
+  }
+
+  reindex() {
+    const data: SimpleDialogData = {
+      title: String(this.translator.instant('Index Proarc')),
+      message: String(this.translator.instant('Opravdu chcete spustit index?')),
+      alertClass: 'app-message',
+      btn1: {
+        label: 'Ano',
+        value: 'yes',
+        color: 'warn'
+      },
+      btn2: {
+        label: 'Ne',
+        value: 'no',
+        color: 'default'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.state.update(() => 'loading');
+        this.api.indexer().subscribe((response: any) => {
+          if (response.response.errors) {
+            this.state.update(() => 'error');
+            this.ui.showErrorDialogFromObject(response.response.errors);
+          } else {
+            this.state.update(() => 'success');
+            this.ui.showInfoSnackBar(this.translator.instant('index Proarc spusten'))
+          }
+        });
+      }
+    });
+  }
+
+  updateNdkPage() {
+    const data: SimpleDialogData = {
+      title: String(this.translator.instant('Opravit typ stran')),
+      message: String(this.translator.instant('Opravdu chcete opravit typ stran?')),
+      alertClass: 'app-message',
+      btn1: {
+        label: 'Ano',
+        value: 'yes',
+        color: 'warn'
+      },
+      btn2: {
+        label: 'Ne',
+        value: 'no',
+        color: 'default'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.state.update(() => 'loading');
+        this.api.updateNdkPage().subscribe((response: any) => {
+          if (response.response.errors) {
+            this.state.update(() => 'error');
+            this.ui.showErrorDialogFromObject(response.response.errors);
+          } else {
+            this.state.update(() => 'success');
+            this.ui.showInfoSnackBar(this.translator.instant('index Proarc spusten'))
+          }
+        });
+      }
+    });
   }
 
 }

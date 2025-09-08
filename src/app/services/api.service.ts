@@ -1246,6 +1246,12 @@ export class ApiService {
     return this.post('indexer', null);
   }
 
+  updateNdkPage(): Observable<any> {
+    return this.post('object/updateNdkPage/pageType', null);
+  }
+
+  
+
   getValuemap(): Observable<any> {
     let url = `valuemap`;
     return this.get(url);
