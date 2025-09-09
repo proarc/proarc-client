@@ -4,7 +4,7 @@
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   }
   @if (data.isJob) {
-    <mat-form-field appearance="outline" class="app-w-100">
+    <mat-form-field  class="app-w-100">
       <mat-label>{{ 'desc.profileName' | translate }}</mat-label>
       <mat-select [placeholder]="'desc.profileName' | translate" [(ngModel)]="data.profile"
         (valueChange)="changeProfile($event)">
@@ -15,7 +15,7 @@
     </mat-form-field>
   }
 
-  <mat-form-field appearance="outline" class="app-w-100">
+  <mat-form-field  class="app-w-100">
     <mat-label>{{ 'desc.model' | translate }}</mat-label>
     <mat-select [placeholder]="'desc.model' | translate" [(ngModel)]="data.model">
       @for(model of filteredModels; track $index;) {
@@ -25,7 +25,7 @@
   </mat-form-field>
 
   @if (data.parentPid && !!!data.isJob) {
-    <fieldset appearance="outline" class="app-mb-4">
+    <fieldset  class="app-mb-4">
       <legend>{{ 'desc.objectPosition' | translate }}</legend>
       <mat-radio-group aria-label="Select an option" [(ngModel)]="objectPosition"  color="primary">
         <mat-radio-button value="end">{{ 'desc.objectPositionEnd' | translate }}</mat-radio-button>
@@ -35,7 +35,7 @@
   }
 
   @if (data.customPid) {
-    <mat-form-field appearance="outline" class="app-w-100">
+    <mat-form-field  class="app-w-100">
       <mat-label>{{ 'desc.pid' | translate }}</mat-label>
       <input type="text" autocomplete="off" matInput [placeholder]="'desc.pid' | translate" [(ngModel)]="data.pid">
     </mat-form-field>
@@ -61,7 +61,7 @@
   @if (data.parentPid && data.model === 'model:ndkperiodicalissue') {
     <div [class.app-disabled]="!isMultiple" class="app-mt-4">
       <div class="app-fxLayout app-row app-gap-4">
-        <mat-form-field appearance="outline" class="app-fxFlex">
+        <mat-form-field  class="app-fxFlex">
           <mat-label>{{ 'desc.frequency' | translate }}</mat-label>
           <mat-select [formControl]="frequency" (valueChange)="frecuencyChanged($event)" required>
             @for(fr of frequences; track $index;) {
@@ -69,7 +69,7 @@
             }
           </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="app-fxFlex">
+        <mat-form-field  class="app-fxFlex">
           <mat-label>{{ 'new_object.totalNumbers' | translate }}</mat-label>
           <input type="number" autocomplete="off" matInput [placeholder]="'new_object.totalNumbers' | translate" [formControl]="seriesTotalNumbers">
         </mat-form-field>
@@ -78,7 +78,7 @@
         <mat-checkbox color="primary" [(ngModel)]="withPartNumber" (change)="changeWithPartNumber()" >{{ 'new_object.withPartNumber' | translate }}</mat-checkbox>
       </div>
       <div>
-        <mat-form-field appearance="outline" class="app-w-100">
+        <mat-form-field  class="app-w-100">
           <mat-label>{{ 'desc.numberFrom' | translate }}</mat-label>
           <input type="number" autocomplete="off" matInput [placeholder]="'desc.numberFrom' | translate" required [formControl]="seriesPartNumberFrom">
         </mat-form-field>
@@ -87,7 +87,7 @@
         <mat-checkbox color="primary" [(ngModel)]="withDateIssued" >{{ 'new_object.withDateIssued' | translate }}</mat-checkbox>
       </div>
       <div class="app-fxLayout app-row app-gap-4" [class.app-disabled]="!withDateIssued">
-        <mat-form-field appearance="outline" class="app-fxFlex">
+        <mat-form-field  class="app-fxFlex">
           <mat-label>{{ 'desc.dateFormat' | translate }}</mat-label>
           <mat-select (valueChange)="changeFormat($event)" [(value)]="dateFormat" [disabled]="!withDateIssued || frequency.value === 'other' || frequency.value === 'd' || frequency.value === 'w' || frequency.value === 'hm'">
             @for(df of dateFormats; track $index;) {
@@ -95,17 +95,17 @@
             }
           </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="app-fxFlex">
+        <mat-form-field  class="app-fxFlex">
           <input matInput [matDatepicker]="dp1" [placeholder]="'desc.dateFrom' | translate" [max]="maxDate" [formControl]="seriesDateFrom">
           <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
           <mat-datepicker #dp1 (monthSelected)="setMonthAndYear($event, dp1, seriesDateFrom)" (yearSelected)="setYear($event, dp1, seriesDateFrom)" startView="multi-year"></mat-datepicker>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="app-fxFlex">
+        <mat-form-field  class="app-fxFlex">
           <input matInput [matDatepicker]="dp2" [placeholder]="'desc.dateTo' | translate" [max]="maxDate" [formControl]="seriesDateTo">
           <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
           <mat-datepicker #dp2 (monthSelected)="setMonthAndYear($event, dp2, seriesDateTo)" (yearSelected)="setYear($event, dp2, seriesDateTo)" startView="multi-year"></mat-datepicker>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="app-fxFlex">
+        <mat-form-field  class="app-fxFlex">
           <mat-label>{{ 'desc.releasedIn' | translate }}</mat-label>
           <mat-select [(value)]="seriesDaysIncluded" multiple [disabled]="frequency.value !== 'd'">
             @for(weekDay of weekDays; track $index;) {
@@ -113,7 +113,7 @@
             }
           </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="app-fxFlex">
+        <mat-form-field  class="app-fxFlex">
           <mat-label>{{ 'desc.releasedInRange' | translate }}</mat-label>
           <mat-select [(value)]="releasedInRange" multiple [disabled]="frequency.value !=='other'">
             @for(weekDay of weekDays; track $index;) {
@@ -126,7 +126,7 @@
         <mat-checkbox color="primary" [(ngModel)]="withSignatura" (change)="changeWithPartNumber()" >{{ 'new_object.withSignatura' | translate }}</mat-checkbox>
       </div>
       <div>
-        <mat-form-field appearance="outline" class="app-w-100">
+        <mat-form-field  class="app-w-100">
           <mat-label>{{ 'catalog.field.signature' | translate }}</mat-label>
           <input type="text" autocomplete="off" matInput [placeholder]="'catalog.field.signature' | translate" [disabled]="!withSignatura" [(ngModel)]="seriesSignatura" >
         </mat-form-field>
@@ -148,7 +148,7 @@
 </div>
 
 <div mat-dialog-actions cdkFocusRegionstart>
-  <button mat-flat-button color="primary" (click)="onLoadFromCatalog()">{{ 'button.loadMetadataFromCatalog' | translate }}</button>
-  <button mat-flat-button color="primary" (click)="onCreate()" [disabled]="!validate()">{{ 'button.create' | translate }}</button>
+  <button matButton="filled" (click)="onLoadFromCatalog()">{{ 'button.loadMetadataFromCatalog' | translate }}</button>
+  <button matButton="filled" (click)="onCreate()" [disabled]="!validate()">{{ 'button.create' | translate }}</button>
   <button mat-stroked-button color="default" mat-dialog-close="close">{{ 'button.cancel' | translate }}</button>
 </div>

@@ -24,7 +24,7 @@
           <div class="app-model">{{ 'model.' + layout.item.model | translate }}</div>
         }
         @if (path.length > 1) {
-          <div class="app-model app-cursor-pointer" (click)="selectLast()">{{ 'model.' + layout.item.model | translate }} - {{ layout.item.label }}</div>
+          <div class="app-model app-cursor-pointer app-text-cutter" (click)="selectLast()" [matTooltip]="('model.' + layout.item.model | translate) + ' - ' + layout.item.label">{{ 'model.' + layout.item.model | translate }} - {{ layout.item.label }}</div>
         }
       </div>
       <div class="app-fxFlex app-fxLayout app-row app-center-v app-inner">

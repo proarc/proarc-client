@@ -60,35 +60,40 @@
 }
 @if (state=='saving') {
   <mat-card class="app-alert app-info app-mt-4">
-    <mat-icon>info</mat-icon>
-    {{ 'dialog.export.alert.exporting' | translate }}
+    <mat-card-content>
+      <mat-icon>info</mat-icon>
+      {{ 'dialog.export.alert.exporting' | translate }}
+    </mat-card-content>
   </mat-card>
 } @else if (state==='error') {
 
-  <mat-card class="app-alert app-warn app-mt-4" fxLayout="column" fxLayoutGap="8px">
-    <div>{{ 'dialog.export.alert.error' | translate }}</div>
-    @for(error of errors; track $index;) {
-    <button (click)="showErrorDetail(error)" mat-flat-button color="warn">
-      {{ 'button.viewErrorDetail' | translate }}
-    </button>
-    }
+  <mat-card class="app-alert app-warn app-mt-4 app-fxLayout app-column app-gap-4">
+    <mat-card-content>
+      <div>{{ 'dialog.export.alert.error' | translate }}</div>
+      @for(error of errors; track $index;) {
+      <button (click)="showErrorDetail(error)" mat-flat-button color="warn">
+        {{ 'button.viewErrorDetail' | translate }}
+      </button>
+      }
+    </mat-card-content>
   </mat-card>
 } @else if (state==='done') {
-  <mat-card class="app-alert app-success" 
-    [class.app-mt-4]="selectedType=='kramerius' || selectedType=='kwis'">
-    <mat-icon>check_circle</mat-icon>
-    {{ 'dialog.export.alert.done' | translate }}
+  <mat-card class="app-alert app-success" [class.app-mt-4]="selectedType=='kramerius' || selectedType=='kwis'">
+    <mat-card-content>
+      <mat-icon>check_circle</mat-icon>
+      {{ 'dialog.export.alert.done' | translate }}
+    </mat-card-content>
   </mat-card>
 }
 </div>
 
 <div mat-dialog-actions cdkFocusRegionstart>
   @if (!canContinue && state !== 'error') {
-  <button mat-flat-button color="primary" [disabled]="formDisabled()"
+  <button matButton="filled" [disabled]="formDisabled()"
     (click)="onExport(false)">{{ 'button.startExport' | translate }}</button>
   }
   @if (canContinue) {
-  <button mat-flat-button color="primary" [disabled]="formDisabled()" (click)="onExport(true)">{{
+  <button matButton="filled" [disabled]="formDisabled()" (click)="onExport(true)">{{
     'button.exportAnyway' | translate }}</button>
   }
   <button mat-stroked-button mat-dialog-close="close">{{ 'button.close' | translate }}</button>

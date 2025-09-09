@@ -13,7 +13,7 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions cdkFocusRegionstart>
-  <button mat-flat-button color="primary" [disabled]="formDisabled()" (click)="onContinue()">{{ 'button.continue' | translate }}</button>
+  <button matButton="filled" [disabled]="formDisabled()" (click)="onContinue()">{{ 'button.continue' | translate }}</button>
   <button mat-stroked-button mat-dialog-close="close">{{ 'button.cancel' | translate }}</button>
 </div>
 

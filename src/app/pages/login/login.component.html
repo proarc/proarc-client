@@ -9,11 +9,11 @@
           <mat-card-title class="app-mb-4">{{ 'desc.login' | translate }}</mat-card-title>
         </mat-card-header>
         <mat-card-content class="app-mb-0">
-          <mat-form-field class="app-w-100" appearance="outline">
+          <mat-form-field class="app-w-100" >
             <mat-label>{{ 'desc.username' | translate }}</mat-label>
             <input type="text" #username="matInput" matInput cdkFocusInitial [placeholder]="'desc.username' | translate" ngModel name="username"required>
           </mat-form-field>
-          <mat-form-field class="app-w-100" appearance="outline">
+          <mat-form-field class="app-w-100" >
             <mat-label>{{ 'desc.password' | translate }}</mat-label>
             <input type="password" matInput [placeholder]="'desc.password' | translate" ngModel name="password" required>
           </mat-form-field>
@@ -26,7 +26,7 @@
           }
         </mat-card-content>
         <mat-card-actions>
-          <button type="submit" mat-flat-button color="primary">{{ 'button.logIn' | translate }}</button>
+          <button type="submit" matButton="filled">{{ 'button.logIn' | translate }}</button>
         </mat-card-actions>
       </mat-card>
       <div class="app-fxLayout app-row app-center-v app-gap-4 app-p-2 app-login-footer">

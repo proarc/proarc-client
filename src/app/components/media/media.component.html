@@ -2,7 +2,7 @@
 	<div class="app-fxLayout app-row app-center-v app-toolbar app-view-media">
 		<div class="app-fxFlex">
 			@if (streamProfile) {
-			<mat-form-field class="app-clean-mb app-select" appearance="outline">
+			<mat-form-field class="app-clean-mb app-select">
 				<mat-select name="profiles" [(ngModel)]="streamProfile">
 					@for(p of streamProfiles; track $index; let idx = $index) {
 					<mat-option [value]="p">{{ 'streamProfile.' + p.dsid | translate }}</mat-option>
@@ -11,7 +11,7 @@
 			</mat-form-field>
 			}
 		</div>
-		<div>
+		<div class="app-fxLayout app-row app-center-v">
 			@if (canAddPDF_A) {
 			<button mat-button [disabled]="!canAddPdf" (click)="generatePdfA()">
 				{{ 'Generovat PDF-A' | translate }}
@@ -31,7 +31,7 @@
 			</button>
 		</div>
 	</div>
-	<div class="app-fxFlex app-oa-y">
+	<div class="app-fxFlex app-oh">
 		@if (streamProfile || !isRepo) {
 		<div class="app-editor-content app-h-100">
 			@if (isRepo && isPdf()) {

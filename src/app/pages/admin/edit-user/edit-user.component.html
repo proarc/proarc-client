@@ -14,7 +14,7 @@
       <fieldset class="app-p-4 app-mb-4">
         <legend>{{ 'desc.accountInformation' | translate }}</legend>
         <div class="app-fxLayout app-row app-gap-4">
-          <mat-form-field appearance="outline" class="app-fxFlex">
+          <mat-form-field  class="app-fxFlex">
             <mat-label>{{ 'desc.username' | translate }}</mat-label>
             <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.username' | translate" title=""
               [matTooltip]="'formField.users.tooltipUsername' | translate" [(ngModel)]="selectedUser.name" type="text"
@@ -23,31 +23,31 @@
                 <mat-error>{{ 'formField.users.error.username' | translate }}</mat-error>
               }
             </mat-form-field>
-            <mat-form-field appearance="outline" class="app-fxFlex">
+            <mat-form-field  class="app-fxFlex">
               <mat-label>{{ 'desc.password' | translate }}</mat-label>
               <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.password' | translate" title="" minlength="6" [matTooltip]="'formField.users.tooltipPassowrd' | translate" [(ngModel)]="selectedUser.password" type="password" required #password>
               @if (!selectedUser.password) {
                 <mat-error>{{ 'formField.users.error.password' | translate }}</mat-error>
               }
             </mat-form-field>
-            <mat-form-field appearance="outline" class="app-fxFlex">
+            <mat-form-field  class="app-fxFlex">
               <mat-label>{{ 'desc.forename' | translate }}</mat-label>
               <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.forename' | translate" [(ngModel)]="selectedUser.forename">
             </mat-form-field>
-            <mat-form-field appearance="outline" class="app-fxFlex">
+            <mat-form-field  class="app-fxFlex">
               <mat-label>{{ 'desc.surname' | translate }}</mat-label>
               <input (keyup.enter)="save()" autocomplete="off" matInput title=""  [placeholder]="'desc.surname' | translate" [(ngModel)]="selectedUser.surname" required #surname>
               @if (!selectedUser.surname) {
                 <mat-error>{{ 'formField.users.error.surname' | translate }}</mat-error>
               }
             </mat-form-field>
-            <mat-form-field appearance="outline" class="app-fxFlex">
+            <mat-form-field  class="app-fxFlex">
               <mat-label>{{ 'desc.email' | translate }}</mat-label>
               <input (keyup.enter)="save()" autocomplete="off" matInput [placeholder]="'desc.email' | translate" [(ngModel)]="selectedUser.email">
             </mat-form-field>
           </div>
           <div class="app-fxLayout app-row app-gap-4">
-            <mat-form-field appearance="outline" class="app-fxFlex">
+            <mat-form-field  class="app-fxFlex">
               <mat-label>{{ 'desc.organization' | translate }}</mat-label>
               <mat-select [placeholder]="'desc.organization' | translate" name="organization" [(ngModel)]="selectedUser.organization">
                 <mat-option [value]="null">--</mat-option>
@@ -56,7 +56,7 @@
                 }
               </mat-select>
             </mat-form-field>
-            <mat-form-field appearance="outline" class="app-fxFlex">
+            <mat-form-field  class="app-fxFlex">
               <mat-label>{{ 'desc.role' | translate }}</mat-label>
               <mat-select [(ngModel)]='selectedUser.role' [placeholder]="'desc.role' | translate">
                 @for(role of roles; track $index;) {

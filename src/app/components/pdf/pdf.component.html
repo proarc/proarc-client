@@ -1,29 +1,28 @@
-<div fxLayout="column" fxFlexFill>
-  <div fxLayout="row" fxLayoutAlign="start center" class="app-toolbar app-view-description">
-    <div fxFlex>
-			<div class="app-toolbar-label">
-				<span class="app-text">PDF</span>
-			</div>
-		</div>
-  </div>
-	<div fxFlex class="app-oa-y">
+<div class="app-fxLayout app-column app-fill">
+	<div class="app-fxLayout app-row app-center-v app-toolbar app-view-pdf">
+		<div class="app-fxFlex">
+      <div class="app-toolbar-label app-pl-2">
+        <span class="app-text">PDF</span>
+      </div>
+    </div>
+	</div>
+	<div class="app-fxFlex" [ngClass]="state == 'empty' ? 'app-fxLayout app-column app-center-h' : null">
 		@if (state ==='loading' || state ==='head') {
-		<mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
+			<mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
 		}
-		<div class="app-editor-content app-h-100 app-oh">	
-			@if (state === 'head' || state === 'ok') {
-			<ngx-extended-pdf-viewer #pdfViewer 
-				[src]="pdfUrl" [textLayer]="true" [handTool]="false"
-				[height]="'100%'" 
-				(pdfLoaded)="pdfRendered($event)" 
-				[enablePrint]="false" [showOpenFileButton]="false" 
-				[language]="getLang()" ></ngx-extended-pdf-viewer>
-			} @else if(state == 'empty') {
-				<mat-card class="app-alert app-info app-m-4">
-					<mat-icon>info</mat-icon>
-					{{ 'alert.info.noDigitalContent' | translate }}
-				</mat-card>
+		@if (state === 'head' || state === 'ok') {
+		<ngx-extended-pdf-viewer #pdfViewer 
+			[src]="pdfUrl" [textLayer]="true" [handTool]="false"
+			[height]="'100%'" 
+			(pdfLoaded)="pdfRendered($event)" 
+			[enablePrint]="false" [showOpenFileButton]="false" 
+			[language]="getLang()" ></ngx-extended-pdf-viewer>
+		} @else if(state == 'empty') {
+			<mat-card class="app-alert app-info app-m-4" appearance="outlined">
+				<mat-card-content>
+					<mat-icon>info</mat-icon>{{ 'alert.info.noDigitalContent' | translate }}
+				</mat-card-content>
+			</mat-card>
 			}
-		</div>
 	</div>
 </div>

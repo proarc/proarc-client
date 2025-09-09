@@ -31,7 +31,7 @@
         <div class="app-form-wrapper app-top-level">
           <div class="app-form">
             <div class="app-form-content">
-              <mat-form-field appearance="outline" class="app-field-col" [class.mat-form-field-invalid]="!page.type">
+              <mat-form-field class="app-field-col" [class.mat-form-field-invalid]="!page.type">
                 <mat-label>{{ 'editor.page.type' | translate }}</mat-label>
                 <span class="app-usage" [class.app-help-off]="true">M</span>
                 <mat-select #typeSelect [placeholder]="'editor.page.type' | translate" name="type" [(value)]="page.type" [formControl]="pageTypeControl" (focusout)="removeFocus()" (keyup.enter)="enterSelect(typeSelect, 'type')">
@@ -42,13 +42,13 @@
                 </mat-select>
               </mat-form-field>
               @if (config.showPageIndex) {
-                <mat-form-field appearance="outline" class="app-field-col" [class.mat-form-field-invalid]="!page.index">
+                <mat-form-field class="app-field-col" [class.mat-form-field-invalid]="!page.index">
                   <mat-label>{{ 'editor.page.index' | translate }}</mat-label>
                   <span class="app-usage" [class.app-help-off]="true">M</span>
                   <input autocomplete="off" matInput #pageIndex (focus)="setFocus('pageIndex')" (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageIndex')" [placeholder]="'editor.page.index' | translate" [formControl]="pageIndexControl">
                 </mat-form-field>
               }
-              <mat-form-field appearance="outline" class="app-field-col" [class.mat-form-field-invalid]="!page.number">
+              <mat-form-field class="app-field-col" [class.mat-form-field-invalid]="!page.number">
                 <mat-label>{{ 'editor.page.number' | translate }}</mat-label>
                 <span class="app-usage app-suffix-exist" [class.app-help-off]="true">M</span>
                 <input (focus)="setFocus('pageNumber')" (focusout)="removeFocus()" (keyup.enter)="onSaveFrom('pageNumber')" [formControl]="pageNumberControl" autocomplete="off" matInput [placeholder]="'editor.page.number' | translate" #pageNumber>
@@ -58,7 +58,7 @@
                 </button>
               </mat-form-field>
               @if (page.isNdkPage() || page.isSttPage()) {
-                <mat-form-field appearance="outline" class="app-field-col">
+                <mat-form-field class="app-field-col">
                   <mat-label>{{ 'editor.page.position' | translate }}</mat-label>
                   <span class="app-usage" [class.app-help-off]="true">O</span>
                   <mat-select [placeholder]="'editor.page.position' | translate" [formControl]="posControl" #posSelect (keyup.enter)="enterSelect(posSelect, 'position')" (focusout)="removeFocus()">
@@ -69,7 +69,7 @@
                 </mat-form-field>
               }
               @if (page.isNdkPage() || page.isSttPage()) {
-                <mat-form-field appearance="outline" class="app-field-col" [class.mat-form-field-invalid]="!page.genre">
+                <mat-form-field class="app-field-col" [class.mat-form-field-invalid]="!page.genre">
                   <mat-label>{{ 'editor.page.genre' | translate }}</mat-label>
                   <span class="app-usage" [class.app-help-off]="true">M</span>
                   <mat-select [placeholder]="'editor.page.genre' | translate" [formControl]="genreControl" (keyup.enter)="enterSelect(genreSelect, 'genre')" (focusout)="removeFocus()" #genreSelect>
@@ -79,7 +79,7 @@
                   </mat-select>
                 </mat-form-field>
               }
-              <mat-form-field appearance="outline" class="app-field-col">
+              <mat-form-field class="app-field-col">
                 <mat-label>{{ 'editor.page.note' | translate }}</mat-label>
                 <span class="app-usage" [class.app-help-off]="true">O</span>
                 <textarea [formControl]="noteControl" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="15" autocomplete="off" matInput [placeholder]="'editor.page.note' | translate"></textarea>
@@ -108,7 +108,7 @@
                         </div>
                       </div>
                       <div class="app-form-content">
-                        <mat-form-field appearance="outline" class="app-field-col">
+                        <mat-form-field class="app-field-col">
                           <mat-label>{{ 'editor.identifier.type' | translate }}</mat-label>
                           <mat-select [(ngModel)]='identifier.type' [placeholder]="'editor.identifier.type' | translate">
                             @for(identifier of config.identifiers; track $index;) {
@@ -116,7 +116,7 @@
                             }
                           </mat-select>
                         </mat-form-field>
-                        <mat-form-field appearance="outline" class="app-field-col">
+                        <mat-form-field class="app-field-col">
                           <mat-label>{{ 'editor.identifier.title' | translate }}</mat-label>
                           <input autocomplete="off" matInput [(ngModel)]='identifier.value' [placeholder]="'editor.identifier.title' | translate">
                         </mat-form-field>

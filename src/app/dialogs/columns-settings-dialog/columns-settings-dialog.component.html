@@ -4,7 +4,7 @@
     @if (data.colsSettingsName === 'colsEditingRepo') {
       <legend>{{ 'pages.settings.editingRepo.legend' | translate }}</legend>
       <div class="app-label app-mb-3">{{ 'pages.settings.editingRepo.label' | translate }}</div>
-      <mat-form-field appearance="outline" class="app-w-100">
+      <mat-form-field  class="app-w-100">
         <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="modelForColumns" >
           @for(model of config.models; track $index;) {
             <mat-option [value]="model">{{ 'model.' + model | translate }}</mat-option>
@@ -35,7 +35,7 @@
   }
 </div>
 <div mat-dialog-actions cdkFocusRegionstart>
-  <button mat-flat-button color="primary" (click)="save()" >{{ 'button.save' | translate }}</button>
+  <button matButton="filled" (click)="save()" >{{ 'button.save' | translate }}</button>
   <button mat-flat-button (click)="reset()" >{{ 'button.reset' | translate }}</button>
   <button mat-flat-button [mat-dialog-close]="false" >{{ 'button.close' | translate }}</button>
 </div>

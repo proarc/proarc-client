@@ -195,7 +195,7 @@ public procMngColumnsDefault: TableColumn[] = [
     { field: 'profile', selected: true, width: 100, type: 'string' },
     { field: 'user', selected: true, width: 100, type: 'string' },
     { field: 'priority', selected: true, width: 100, type: 'string' },
-    { field: 'actions', selected: true, width: 100, type: 'string' }
+    { field: 'actions', selected: true, width: 100, type: 'action' }
 ];
 
 public queueColumnsDefault: TableColumn[] = [

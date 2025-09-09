@@ -1,8 +1,12 @@
 <div class="app-fxLayout app-column app-fill">
-	<div class="app-fxLayout app-row app-center-v app-toolbar"
-		[class.app-toolbar-disabled]="!viewOl">
+	<div class="app-fxLayout app-row app-center-v app-toolbar">
 		@if (!hideToolbar) {
-		<div>
+			@if(!viewOl) {
+				<div><a mat-icon-button  [href]="imageUrl" target="_blank" [matTooltip]="'viewer.tooltip.open_in_new' | translate">
+				<mat-icon>open_in_new</mat-icon>
+				</a></div>
+			}
+		<div [class.app-toolbar-disabled]="!viewOl">
 			<button mat-icon-button [class.app-active]="positionLock"
 				[matTooltip]="'viewer.tooltip.' + (positionLock ? 'unlock' : 'lock') | translate"
 				(click)="onSwitchLock()">
@@ -41,7 +45,7 @@
 		@if (state ==='loading') {
 		<mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
 		}
-		<div class="app-pt-2 app-pb-2 app-w-100 app-h-100" >
+		<div class="app-pt-2 app-pb-2 app-w-100 app-h-100">
 			@if (!viewOl) {
 			<div class="app-viewer-wrapper"><img [src]="imageUrl" style="width: 100%;"
 					(load)="state = 'success'" /></div>

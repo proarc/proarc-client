@@ -502,6 +502,14 @@ fieldset {
            }
         }
       }
+
+      &.app-selectedInOrig {
+        .app-item {
+          .app-item-label {
+            color: var(--app-color-warn);
+          }
+        }
+      }
     }
   }
 }

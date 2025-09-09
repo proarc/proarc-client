@@ -28,7 +28,7 @@
 
 <div mat-dialog-actions cdkFocusRegionstart>
 	@if (state == 'success') {
-	<button mat-flat-button color="primary" mat-dialog-close="open">{{
+	<button matButton="filled" mat-dialog-close="open">{{
 		'button.continueToPrepareMetadata' | translate }}</button>
 	}
 	<button mat-stroked-button mat-dialog-close="close">{{ 'button.close' | translate }}</button>

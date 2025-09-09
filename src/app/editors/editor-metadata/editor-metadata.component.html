@@ -44,7 +44,7 @@
 		@if (!loading && metadata) {
 		<div class="app-fxLayout app-column app-fill app-editor-content">
 			<div class="app-form-display-el" [ngClass]="scroller.scrollTop > 0 ? 'app-scrolling' : null">
-				<mat-form-field appearance="outline" class="app-w-100 app-p-2 app-mt-1 app-clean-mb"
+				<mat-form-field class="app-w-100 app-p-2 app-mt-1 app-clean-mb"
 					[ngClass]="metadata.invalidFields.includes(selectedField) ? 'mat-form-field-invalid' : null">
 					<mat-label>{{ 'desc.jumpToElement' | translate }}</mat-label>
 					<mat-select [(ngModel)]="selectedField" (valueChange)="scrollToElement($event)"

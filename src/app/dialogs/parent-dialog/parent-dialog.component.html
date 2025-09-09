@@ -37,9 +37,9 @@
   }
   <div mat-dialog-actions cdkFocusRegionstart>
     @if (data.parent) {
-      <button mat-flat-button color="primary" (click)="onDeleteParent()">{{ 'button.unlink' | translate }}</button>
+      <button matButton="filled" (click)="onDeleteParent()">{{ 'button.unlink' | translate }}</button>
     }
-    <button mat-flat-button color="primary" (click)="onSave()" [disabled]="state ==='loading' || !isAllowed()">{{ (data.isRepo ? 'button.move' : 'button.save') | translate }}</button>
+    <button matButton="filled" (click)="onSave()" [disabled]="state ==='loading' || !isAllowed()">{{ (data.isRepo ? 'button.move' : 'button.save') | translate }}</button>
     <button mat-flat-button [mat-dialog-close]="hasChanges">{{ 'button.close' | translate }}</button>
   </div>
 </div>
@@ -68,7 +68,7 @@
     <div class="app-fxLayout app-row app-gap-2 app-formbar app-mb-n3 app-pl-2 app-pr-2">
       <button mat-stroked-button (click)="reload()">{{ 'button.search' | translate }}</button>
       @if (searchMode === 'phrase') {
-        <mat-form-field appearance="outline" class="app-fxFlex">
+        <mat-form-field  class="app-fxFlex">
           <mat-label>{{ 'desc.model' | translate }}</mat-label>
           <mat-select #modelSelect [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="settings.parentModel">
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
@@ -82,7 +82,7 @@
             </button>
           }
         </mat-form-field>
-        <mat-form-field appearance="outline" class="app-fxFlex">
+        <mat-form-field  class="app-fxFlex">
           <mat-label>{{ 'desc.search' | translate }}</mat-label>
           <input matInput [placeholder]="'desc.search' | translate" (keyup.enter)="reload()" [(ngModel)]="query">
           @if (query === searchedQuery && query !== '') {
@@ -94,7 +94,7 @@
       }
 
       @if (searchMode === 'advanced') {
-        <mat-form-field appearance="outline" class="app-fxFlex">
+        <mat-form-field  class="app-fxFlex">
           <mat-label>{{ 'desc.model' | translate }}</mat-label>
           <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="settings.parentModel">
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
@@ -108,7 +108,7 @@
             </button>
           }
         </mat-form-field>
-        <mat-form-field appearance="outline" class="app-fxFlex">
+        <mat-form-field  class="app-fxFlex">
           <mat-label>{{ 'desc.name' | translate }}</mat-label>
           <input matInput [placeholder]="'desc.name' | translate" (keyup.enter)="reload()" [(ngModel)]="queryLabel">
           @if (queryLabel && queryLabel === searchedQueryLabel) {
@@ -117,7 +117,7 @@
             </button>
           }
         </mat-form-field>
-        <mat-form-field appearance="outline" class="app-fxFlex">
+        <mat-form-field  class="app-fxFlex">
           <mat-label>{{ 'desc.identifier' | translate }}</mat-label>
           <input matInput [placeholder]="'desc.identifier' | translate" (keyup.enter)="reload()" [(ngModel)]="queryIdentifier">
           @if (queryIdentifier && queryIdentifier === searchedIdentifier) {
@@ -126,7 +126,7 @@
             </button>
           }
         </mat-form-field>
-        <mat-form-field appearance="outline" class="app-fxFlex">
+        <mat-form-field  class="app-fxFlex">
           <mat-label>{{ 'desc.owner' | translate }}</mat-label>
           <mat-select [placeholder]="'desc.owner' | translate" name="owner" [(value)]="owner">
             <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
@@ -140,7 +140,7 @@
             </button>
           }
         </mat-form-field>
-        <mat-form-field appearance="outline" class="app-fxFlex">
+        <mat-form-field  class="app-fxFlex">
           <mat-label>{{ 'desc.processor' | translate }}</mat-label>
           <mat-select [placeholder]="'desc.processor' | translate" name="processor" [(value)]="processor">
             <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>

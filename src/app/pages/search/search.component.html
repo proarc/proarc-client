@@ -16,7 +16,7 @@
         {{ 'button.search' | translate }}
       </button>
       @if (searchMode === 'phrase') {
-        <mat-form-field appearance="outline" class="app-model">
+        <mat-form-field  class="app-model">
           <mat-label>{{ 'desc.model' | translate }}</mat-label>
           <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model">
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
@@ -30,7 +30,7 @@
             </button>
           }
         </mat-form-field>
-        <mat-form-field appearance="outline" class="app-fxFlex">
+        <mat-form-field  class="app-fxFlex">
           <mat-label>{{ 'desc.search' | translate }}</mat-label>
           <input matInput [placeholder]="'desc.search' | translate" (keyup.enter)="filter()" [(ngModel)]="query">
           @if (urlParams?.query) {
@@ -41,7 +41,7 @@
         </mat-form-field>
       }
       @if (searchMode !== 'phrase') {
-        <mat-form-field appearance="outline" class="app-model">
+        <mat-form-field  class="app-model">
           <mat-label>{{ 'desc.model' | translate }}</mat-label>
           <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model">
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
@@ -55,7 +55,7 @@
             </button>
           }
         </mat-form-field>
-        <mat-form-field appearance="outline" class="app-fxFlex">
+        <mat-form-field  class="app-fxFlex">
           <mat-label>{{ 'desc.name' | translate }}</mat-label>
           <input matInput [placeholder]="'desc.name' | translate" (keyup.enter)="filter()" [(ngModel)]="queryLabel">
           @if (urlParams?.queryLabel) {
@@ -64,7 +64,7 @@
             </button>
           }
         </mat-form-field>
-        <mat-form-field appearance="outline" class="app-fxFlex">
+        <mat-form-field  class="app-fxFlex">
           <mat-label>{{ 'desc.identifier' | translate }}</mat-label>
           <input matInput [placeholder]="'desc.identifier' | translate" (keyup.enter)="filter()" [(ngModel)]="queryIdentifier">
           @if (urlParams?.queryIdentifier) {
@@ -73,7 +73,7 @@
             </button>
           }
         </mat-form-field>
-        <mat-form-field appearance="outline" class="app-fxFlex">
+        <mat-form-field  class="app-fxFlex">
           <mat-label>{{ 'desc.creator' | translate }}</mat-label>
           <input matInput [placeholder]="'desc.creator' | translate" (keyup.enter)="filter()" [(ngModel)]="queryCreator">
           @if (urlParams?.queryCreator) {
@@ -82,7 +82,7 @@
             </button>
           }
         </mat-form-field>
-        <mat-form-field appearance="outline" class="app-organization">
+        <mat-form-field  class="app-organization">
           <mat-label>{{ 'desc.organization' | translate }}</mat-label>
           <mat-select [placeholder]="'desc.organization' | translate" name="organization" [(value)]="organization">
             <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
@@ -96,7 +96,7 @@
             </button>
           }
         </mat-form-field>
-        <mat-form-field appearance="outline" class="app-owner">
+        <mat-form-field  class="app-owner">
           <mat-label>{{ 'desc.owner' | translate }}</mat-label>
           <mat-select [placeholder]="'desc.owner' | translate" name="owner" [(value)]="owner">
             <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>
@@ -110,7 +110,7 @@
             </button>
           }
         </mat-form-field>
-        <mat-form-field appearance="outline" class="app-processor">
+        <mat-form-field  class="app-processor">
           <mat-label>{{ 'desc.processor' | translate }}</mat-label>
           <mat-select [placeholder]="'desc.processor' | translate" name="processor" [(value)]="processor">
             <mat-option value="-">{{ 'desc.all' | translate }}</mat-option>

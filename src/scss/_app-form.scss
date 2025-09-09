@@ -53,8 +53,8 @@
     .app-form {
       background-color: var(--app-color-lightnes);
       border: 1px solid var(--app-form-border-color);
-      margin: 0 var(--app-form-gap);
-      
+      //margin: 0 var(--app-form-gap); 
+      margin: 0 4px;
 
       .app-form-header {
         height: var(--app-form-header-height);
@@ -127,9 +127,24 @@
             }
           }
 
+          .mat-mdc-form-field-icon-suffix {
+            align-self: baseline;
+
+            .mat-mdc-icon-button {
+              &.mat-mdc-button-base {
+                --mat-icon-button-state-layer-size: 14px;
+                padding: 0;
+
+                .app-text-icon {
+                  font-size: 14px;
+                }
+              }
+            }
+          }
+
           .mat-mdc-form-field-bottom-align {
             --mat-form-field-subscript-text-line-height: 0;
-            height: 10px;
+            height: var(--app-form-gap);
 
             &::before {
               height: 0;
@@ -138,8 +153,11 @@
 
           .app-usage {
             position: absolute;
-            top: -6px;
-            right: 0;
+            // outlined 
+            //top: -6px;
+            // filled
+            top: 0;
+            right: -3px;
             color: var(--app-color-primary);
             font-size: 10px;
             cursor: help;
@@ -147,15 +165,22 @@
             background: var(--app-color-lightnes);
             padding: 0 4px;
             line-height: 12px;
+            font-weight: 500;
 
             &.app-suffix-exist {
-              right: -21px;
+              // outlined 
+              //right: -21px;
+              // filled
+              right: -25px;
             }
           }
 
           .app-slide-toogle {
             position: absolute;
-            right: -8px;
+            // outline
+            // right: -8px;
+            // filled
+            right: 0;
             bottom: 4px;
           }
         }

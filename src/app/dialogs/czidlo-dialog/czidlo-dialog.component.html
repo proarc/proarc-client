@@ -3,15 +3,15 @@
     <div style="display: flex; row-gap: 8px; flex-direction: column;">
         @if (!(showSuccessor || showNewRegistration || showUpdateIdentifier)) {
             @if (!responseData) {
-                <button mat-flat-button color="primary" (click)="onSuccessor()">{{ 'dialog.czidlo.successor' | translate
+                <button matButton="filled" (click)="onSuccessor()">{{ 'dialog.czidlo.successor' | translate
                     }}</button>
-                <button mat-flat-button color="primary" (click)="invalidateLocal()">{{ 'dialog.czidlo.invalidate' |
+                <button matButton="filled" (click)="invalidateLocal()">{{ 'dialog.czidlo.invalidate' |
                     translate }}</button>
-                <button mat-flat-button color="primary" (click)="onNewRegistration()">{{ 'dialog.czidlo.newRegistration' |
+                <button matButton="filled" (click)="onNewRegistration()">{{ 'dialog.czidlo.newRegistration' |
                     translate }}</button>
-                <button mat-flat-button color="primary" (click)="onUpdateIdentifier()">{{ 'dialog.czidlo.updateIdentifier' |
+                <button matButton="filled" (click)="onUpdateIdentifier()">{{ 'dialog.czidlo.updateIdentifier' |
                     translate }}</button>
-                <button mat-flat-button color="primary" (click)="onInvalidateRemote()">{{ 'dialog.czidlo.invalidateRemote' |
+                <button matButton="filled" (click)="onInvalidateRemote()">{{ 'dialog.czidlo.invalidateRemote' |
                     translate }}</button>
             }
         } @else {
@@ -129,16 +129,16 @@
 </div>
 <div mat-dialog-actions cdkFocusRegionstart>
   @if (showInvalidateRemote) {
-    <button mat-flat-button color="primary" [disabled]="!invalidateURNNBN || formDisabled()" (click)="invalidateRemote()">{{ 'dialog.czidlo.invalidateRemote' | translate }}</button>
+    <button matButton="filled" [disabled]="!invalidateURNNBN || formDisabled()" (click)="invalidateRemote()">{{ 'dialog.czidlo.invalidateRemote' | translate }}</button>
   }
   @if (showNewRegistration) {
-    <button mat-flat-button color="primary" [disabled]="formDisabled()" (click)="newRegistration()">{{ 'dialog.czidlo.newRegistration' | translate }}</button>
+    <button matButton="filled" [disabled]="formDisabled()" (click)="newRegistration()">{{ 'dialog.czidlo.newRegistration' | translate }}</button>
   }
   @if (showSuccessor) {
-    <button mat-flat-button color="primary" [disabled]="formDisabled()" (click)="successor()">{{ 'button.successor' | translate }}</button>
+    <button matButton="filled" [disabled]="formDisabled()" (click)="successor()">{{ 'button.successor' | translate }}</button>
   }
   @if (showUpdateIdentifier) {
-    <button mat-flat-button color="primary" [disabled]="formDisabled()" (click)="updateIdentifier()">{{ 'button.successor' | translate }}</button>
+    <button matButton="filled" [disabled]="formDisabled()" (click)="updateIdentifier()">{{ 'button.successor' | translate }}</button>
   }
   <button mat-stroked-button mat-dialog-close="close">{{ 'button.close' | translate }}</button>
   @if (log) {

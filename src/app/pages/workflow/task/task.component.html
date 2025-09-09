@@ -61,7 +61,7 @@
                           <h3 class="app-mb-2 app-ml-2 app-mr-2">{{ task.jobLabel }}</h3>
                           <div class="app-form">
                             <div class="app-form-content">
-                              <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+                              <mat-form-field  class="app-field-col app-field-col-3">
                                 <mat-label>{{ 'desc.state' | translate }}</mat-label>
                                 <mat-select [(ngModel)]="task.state" [placeholder]="'desc.state' | translate">
                                   @for(o of states; track $index;) {
@@ -69,7 +69,7 @@
                                   }
                                 </mat-select>
                               </mat-form-field>
-                              <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+                              <mat-form-field  class="app-field-col app-field-col-3">
                                 <mat-label>{{ 'desc.priority' | translate }}</mat-label>
                                 <mat-select [(ngModel)]="task.priority" [placeholder]="task.priority">
                                   @for(o of priorities; track $index;) {
@@ -77,7 +77,7 @@
                                   }
                                 </mat-select>
                               </mat-form-field>
-                              <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+                              <mat-form-field  class="app-field-col app-field-col-3">
                                 <mat-label>{{ 'desc.user' | translate }}</mat-label>
                                 <mat-select [(ngModel)]="task.ownerId" [placeholder]="task.ownerName">
                                   @for(s of users; track $index;) {
@@ -85,26 +85,26 @@
                                   }
                                 </mat-select>
                               </mat-form-field>
-                              <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+                              <mat-form-field  class="app-field-col app-field-col-3">
                                 <mat-label>{{ 'workflow.task' | translate }}</mat-label>
                                 <input matInput disabled readonly="true" [value]="task.profileLabel">
                               </mat-form-field>
-                              <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+                              <mat-form-field  class="app-field-col app-field-col-3">
                                 <mat-label>{{ 'desc.created' | translate }}</mat-label>
                                 <input matInput disabled readonly="true" [value]="task.created | date : 'dd.MM.yyyy HH:mm'">
                               </mat-form-field>
-                              <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+                              <mat-form-field  class="app-field-col app-field-col-3">
                                 <mat-label>{{ 'desc.modified' | translate }}</mat-label>
                                 <input matInput disabled readonly="true" [value]="task.modified | date : 'dd.MM.yyyy HH:mm'">
                               </mat-form-field>
-                              <mat-form-field appearance="outline" class="app-field-col">
+                              <mat-form-field  class="app-field-col">
                                 <mat-label>{{ 'desc.note' | translate }}</mat-label>
                                 <textarea [(ngModel)]="task.note" matInput [placeholder]="'desc.note' | translate"></textarea>
                               </mat-form-field>
                               @for(param of parameters; track $index;) {
                                 @switch (param.displayType) {
                                   @case ('TEXT') {
-                                    <mat-form-field appearance="outline" class="app-field-col">
+                                    <mat-form-field  class="app-field-col">
                                       <mat-label>{{ param.profileLabel }}</mat-label>
                                       <input matInput [(ngModel)]="param.value" [id]="'param_' + param.profileName" [type]="param.valueType.toLowerCase()" [required]="param.required">
                                     </mat-form-field>
@@ -115,7 +115,7 @@
                                     </div>
                                   }
                                   @case ('COMBOBOX') {
-                                    <mat-form-field appearance="outline" class="app-field-col">
+                                    <mat-form-field  class="app-field-col">
                                       <mat-label>{{ param.profileLabel }}</mat-label>
                                       <mat-select [(ngModel)]="param.value">
                                         @for(o of getValueMap(param.valueMapId); track $index;) {

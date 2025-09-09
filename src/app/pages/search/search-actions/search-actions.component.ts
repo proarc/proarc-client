@@ -334,39 +334,7 @@ export class SearchActionsComponent {
     });
   }
 
-  reindex() {
-    const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
-    const data: SimpleDialogData = {
-      title: String(this.translator.instant('Index Proarc')),
-      message: String(this.translator.instant('Opravdu chcete spustit index?')),
-      alertClass: 'app-message',
-      btn1: {
-        label: 'Ano',
-        value: 'yes',
-        color: 'warn'
-      },
-      btn2: {
-        label: 'Ne',
-        value: 'no',
-        color: 'default'
-      }
-    };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'yes') {
-        this.state.update(() => 'loading');
-        this.api.indexer().subscribe((response: any) => {
-          if (response.response.errors) {
-            this.state.update(() => 'error');
-            this.ui.showErrorDialogFromObject(response.response.errors);
-          } else {
-            this.state.update(() => 'success');
-            this.ui.showInfoSnackBar(this.translator.instant('index Proarc spusten'))
-          }
-        });
-      }
-    });
-  }
+  
 
   showConvertDialog() {
     const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();

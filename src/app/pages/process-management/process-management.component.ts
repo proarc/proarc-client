@@ -35,6 +35,8 @@ import { ResolveConflictDialogComponent } from '../../dialogs/resolve-conflict-d
 import { ImportDialogComponent } from '../../dialogs/import-dialog/import-dialog.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { UserTableComponent } from "../../components/user-table/user-table.component";
+import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
+import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
 
 @Component({
   selector: 'app-process-management',
@@ -119,6 +121,7 @@ export class ProcessManagementComponent {
     'highest'
   ];
 
+  actions: {icon: string, action: (e: any) => void, tooltip: string}[] = [];
 
   constructor(
     private datePipe: DatePipe,
@@ -135,6 +138,13 @@ export class ProcessManagementComponent {
     private clipboard: Clipboard) { }
 
   ngOnInit() {
+    this.actions.push({
+      icon: 'delete',
+      tooltip: 'button.delete',
+      action: (e: any) => {
+        this.deleteBatch(e.id)
+      }
+    });
     this.route.queryParams.subscribe(p => {
       this.processParams(p);
       this.loadData();
@@ -206,6 +216,107 @@ export class ProcessManagementComponent {
     } else if (this.view == 'loadingQueue') {
       this.reloadLoadingQueue();
     }
+  }
+
+  deleteBatch(id: number) {
+    const data: SimpleDialogData = {
+          title: String(this.translator.instant('Smazání procesu')),
+          message: String(this.translator.instant('Opravdu chcete smazat proces?')),
+          alertClass: 'app-message',
+          btn1: {
+            label: 'Ano',
+            value: 'yes',
+            color: 'warn'
+          },
+          btn2: {
+            label: 'Ne',
+            value: 'no',
+            color: 'default'
+          }
+        };
+        const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+        dialogRef.afterClosed().subscribe(result => {
+          if (result === 'yes') {
+            this.deleteBatch(id);
+          }
+        });
+        
+  }
+
+  
+
+  onDeleteBatches() {
+    const data: SimpleDialogData = {
+          title: String(this.translator.instant('Smazání procesu')),
+          message: String(this.translator.instant('Opravdu chcete smazat proces?')),
+          alertClass: 'app-message',
+          btn1: {
+            label: 'Ano',
+            value: 'yes',
+            color: 'warn'
+          },
+          btn2: {
+            label: 'Ne',
+            value: 'no',
+            color: 'default'
+          }
+        };
+        const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+        dialogRef.afterClosed().subscribe(result => {
+          if (result === 'yes') {
+            this.deleteBatches();
+          }
+        });
+        
+  }
+
+  deleteBatches() {
+    this.selectedBatch = null;
+    this.state = 'loading';
+    let params: any = {};
+    if (this.selectedState && this.selectedState !== 'ALL') {
+      params['state'] = this.selectedState;
+    };
+
+    if (this.description) {
+      params['description'] = this.description;
+    }
+
+    if (this.user) {
+      params['userId'] = this.user;
+    }
+
+    if (this.priority) {
+      params['priority'] = this.priority;
+    }
+
+    if (this.profile) {
+      params['profile'] = this.profile;
+    }
+
+    if (this.createFrom) {
+      params['createFrom'] = this.datePipe.transform(this.createFrom, 'yyyy-MM-dd');
+    }
+
+    if (this.createTo) {
+      params['createTo'] = this.datePipe.transform(this.createTo, 'yyyy-MM-dd');
+    }
+
+    if (this.modifiedFrom) {
+      params['modifiedFrom'] = this.datePipe.transform(this.modifiedFrom, 'yyyy-MM-dd');
+    }
+
+    if (this.modifiedTo) {
+      params['modifiedTo'] = this.datePipe.transform(this.modifiedTo, 'yyyy-MM-dd');
+    }
+    // createFrom: 2022-05-01T10:36:00.000
+    // createTo: 2022-06-03T10:36:00.000
+    // modifiedTo modifiedTo
+
+
+    this.api.deleteBatches(params).subscribe((resp: any) => {
+      
+    });
   }
 
   changeView(view: string) {

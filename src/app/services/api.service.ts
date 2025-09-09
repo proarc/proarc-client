@@ -897,6 +897,14 @@ export class ApiService {
     return this.post('import/batchStopped', data);
   }
 
+  deleteBatch(id: number): Observable<any> {
+    return this.delete('import/batch?id=' + id);
+  }
+
+  deleteBatches(params: any): Observable<any> {
+    return this.delete('import/batch', params);
+  }
+
   reloadBatch(id: number, profile: string): Observable<Batch> {
     const data = `id=${id}&profile=${profile}&state=LOADING_FAILED`;
     return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
@@ -1245,6 +1253,12 @@ export class ApiService {
   indexer(): Observable<any> {
     return this.post('indexer', null);
   }
+
+  updateNdkPage(): Observable<any> {
+    return this.post('object/updateNdkPage/pageType', null);
+  }
+
+  
 
   getValuemap(): Observable<any> {
     let url = `valuemap`;

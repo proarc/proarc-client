@@ -41,7 +41,7 @@
                   @if (row.visible) {
                   <as-split-area [size]="row.size">
                     <div class="app-fxLayout app-column app-fill">
-                      <mat-form-field>
+                      <mat-form-field class="app-leave-pd">
                         <mat-select [(ngModel)]="row.type" (selectionChange)="refreshColumnVisibility()">
                           @for(type of types; track $index;) {
                             <mat-option [value]="type">
@@ -67,7 +67,7 @@
     </div>
   </div>
   <div mat-dialog-actions cdkFocusRegionstart>
-    <button mat-flat-button color="primary" (click)="save()">{{ 'common.save' | translate }}</button>
+    <button matButton="filled" (click)="save()">{{ 'common.save' | translate }}</button>
     <button mat-flat-button [mat-dialog-close]="saved">{{ 'common.close' | translate }}</button>
   </div>
 </div>

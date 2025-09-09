@@ -126,11 +126,11 @@
                         <div class="app-form-wrapper app-top-level">
                           <div class="app-form">
                             <div class="app-form-content">
-                              <mat-form-field appearance="outline" class="app-field-col">
+                              <mat-form-field  class="app-field-col">
                                 <mat-label>{{ 'desc.name' | translate }}</mat-label>
                                 <input autocomplete="off" matInput [placeholder]="'desc.name' | translate" [(ngModel)]="activeJob.label">
                               </mat-form-field>
-                              <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+                              <mat-form-field  class="app-field-col app-field-col-3">
                                 <mat-label>{{ 'desc.state' | translate }}</mat-label>
                                 <mat-select [(ngModel)]="activeJob.state" [placeholder]="'desc.state' | translate">
                                   @for(o of states; track $index;) {
@@ -138,7 +138,7 @@
                                   }
                                 </mat-select>
                               </mat-form-field>
-                              <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+                              <mat-form-field  class="app-field-col app-field-col-3">
                                 <mat-label>{{ 'desc.priority' | translate }}</mat-label>
                                 <mat-select [(ngModel)]="activeJob.priority" [placeholder]="'desc.priority' | translate">
                                   @for(o of priorities; track $index;) {
@@ -146,31 +146,31 @@
                                   }
                                 </mat-select>
                               </mat-form-field>
-                              <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+                              <mat-form-field  class="app-field-col app-field-col-3">
                                 <mat-label>{{ 'desc.profile' | translate }}</mat-label>
                                 <input autocomplete="off" matInput [placeholder]="'desc.profile' | translate" [(ngModel)]="activeJob.profileName" readonly>
                               </mat-form-field>
-                              <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+                              <mat-form-field  class="app-field-col app-field-col-3">
                                 <mat-label>{{ 'desc.owner' | translate }}</mat-label>
                                 <input autocomplete="off" matInput [placeholder]="'desc.owner' | translate" [(ngModel)]="activeJob.ownerName" readonly>
                               </mat-form-field>
-                              <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+                              <mat-form-field  class="app-field-col app-field-col-3">
                                 <mat-label>{{ 'desc.financed' | translate }}</mat-label>
                                 <input autocomplete="off" matInput [placeholder]="'desc.financed' | translate" [(ngModel)]="activeJob.financed">
                               </mat-form-field>
-                              <mat-form-field appearance="outline" class="app-field-col app-field-col-3">
+                              <mat-form-field  class="app-field-col app-field-col-3">
                                 <mat-label>{{ 'id' | translate }}</mat-label>
                                 <input autocomplete="off" matInput [placeholder]="'id' | translate" [(ngModel)]="activeJob.id" readonly>
                               </mat-form-field>
-                              <mat-form-field appearance="outline" class="app-field-col app-field-col-2">
+                              <mat-form-field  class="app-field-col app-field-col-2">
                                 <mat-label>{{ 'desc.created' | translate }}</mat-label>
                                 <input matInput [placeholder]="'desc.created' | translate" [value]="activeJob.created | date : 'dd.MM.yyyy HH:mm'" readonly>
                               </mat-form-field>
-                              <mat-form-field appearance="outline" class="app-field-col app-field-col-2">
+                              <mat-form-field  class="app-field-col app-field-col-2">
                                 <mat-label>{{ 'desc.modified' | translate }}</mat-label>
                                 <input autocomplete="off" matInput [placeholder]="'desc.modified' | translate" [value]="activeJob.modified | date : 'dd.MM.yyyy HH:mm'" readonly>
                               </mat-form-field>
-                              <mat-form-field appearance="outline" class="app-field-col">
+                              <mat-form-field  class="app-field-col">
                                 <mat-label>{{ 'desc.note' | translate }}</mat-label>
                                 <textarea [(ngModel)]="activeJob.note" matInput [placeholder]="'desc.note' | translate"></textarea>
                               </mat-form-field>
