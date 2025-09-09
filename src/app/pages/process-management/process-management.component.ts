@@ -244,6 +244,7 @@ export class ProcessManagementComponent {
             return;
           }
           this.state = 'success';
+          this.reload();
 
         });
       }
@@ -328,7 +329,7 @@ export class ProcessManagementComponent {
         this.ui.showErrorDialogFromObject(resp.response.errors);
         return;
       }
-      this.state = 'success';
+      this.reload();
     });
   }
 

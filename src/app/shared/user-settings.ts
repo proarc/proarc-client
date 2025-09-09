@@ -4,6 +4,7 @@ import { ApiService } from "../services/api.service";
 import { Utils } from "../utils/utils";
 import { UIService } from "../services/ui.service";
 import { IConfig } from "../dialogs/layout-admin/layout-admin.component";
+import { MatFormFieldAppearance } from "@angular/material/form-field";
 
 @Injectable()
 export class UserSettings {
@@ -64,6 +65,9 @@ export class UserSettings {
 
     markSequenceDialogOrigTableColumns: TableColumn[];
     markSequenceDialogDestTableColumns: TableColumn[];
+
+    
+    appearance: MatFormFieldAppearance = 'fill'; //fill | outline
 
     [key: string]: any; // This is to allow property asignement by name this[k] = o[k];
 

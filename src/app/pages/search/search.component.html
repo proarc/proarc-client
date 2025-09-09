@@ -16,7 +16,7 @@
         {{ 'button.search' | translate }}
       </button>
       @if (searchMode === 'phrase') {
-        <mat-form-field  class="app-model">
+        <mat-form-field [appearance]="settings.appearance" class="app-model">
           <mat-label>{{ 'desc.model' | translate }}</mat-label>
           <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model">
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
@@ -30,7 +30,7 @@
             </button>
           }
         </mat-form-field>
-        <mat-form-field  class="app-fxFlex">
+        <mat-form-field   [appearance]="settings.appearance" class="app-fxFlex">
           <mat-label>{{ 'desc.search' | translate }}</mat-label>
           <input matInput [placeholder]="'desc.search' | translate" (keyup.enter)="filter()" [(ngModel)]="query">
           @if (urlParams?.query) {
@@ -40,8 +40,9 @@
           }
         </mat-form-field>
       }
+      
       @if (searchMode !== 'phrase') {
-        <mat-form-field  class="app-model">
+        <mat-form-field  [appearance]="settings.appearance" class="app-model">
           <mat-label>{{ 'desc.model' | translate }}</mat-label>
           <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model">
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
