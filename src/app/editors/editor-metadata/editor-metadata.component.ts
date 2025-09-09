@@ -41,6 +41,7 @@ import { EditorChronicleLocationComponent } from "../editor-chronicle-location/e
 import { MatButtonModule } from '@angular/material/button';
 import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
 import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog.component';
+import { CatalogDialogComponent } from '../../dialogs/catalog-dialog/catalog-dialog.component';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, MatButtonModule,
@@ -252,12 +253,28 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   onLoadFromCatalog() {
-    // const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'full' } });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result && result['mods']) {
-    //     this.saveModsFromCatalog(result['mods'], result['catalogId']);
-    //   }
-    // });
+    const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'full' } });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result['mods']) {
+        this.saveModsFromCatalog(result['mods'], result['catalogId']);
+      }
+    });
+  }
+
+  saveModsFromCatalog(xml: string, catalogId: string) {
+    this.loading = true;
+    this.api.editModsXml(this.metadata.pid, xml, this.metadata.timestamp, null, false, null, catalogId).subscribe((resp: any) => {
+      if (resp.errors) {
+        this.loading = false;
+        this.ui.showErrorDialogFromObject(resp.errors);
+        setTimeout(() => {
+          this.isValidMetadata = this.metadata.validate();
+        }, 100);
+        return;
+      }
+      this.loading = false;
+      this.layout.refreshSelectedItem(false, 'metadata');
+    });
   }
 
   validate() {

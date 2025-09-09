@@ -1026,6 +1026,7 @@ console.log(this.layout.items()[1].label)
       width: '95%',
       maxWidth: '100vw',
       height: '90%',
+      // position: {left: '1px', top: '1px'}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -1350,6 +1351,7 @@ console.log(this.layout.items()[1].label)
   markSequence() {
 
     const dialogRef = this.dialog.open(MarkSequenceDialogComponent, {
+      panelClass: 'app-mark-sequence-dialog',
       width: '95%',
       maxWidth: '100vw',
       height: '90%',

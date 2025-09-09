@@ -20,9 +20,11 @@ import { ApiService } from '../../services/api.service';
 import { UIService } from '../../services/ui.service';
 import { Configuration } from '../../shared/configuration';
 import { MatInputModule } from '@angular/material/input';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 @Component({
   imports: [CommonModule, TranslateModule, MatDialogModule, MatInputModule,
+    CdkDrag, CdkDragHandle, 
     MatTableModule, MatProgressBarModule, MatSelectModule, MatRadioModule,
     MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule,
     FormsModule, MatFormFieldModule, MatCheckboxModule

@@ -1,5 +1,5 @@
 <div class="app-fxLayout app-column app-fill">
-  <h1 mat-dialog-title>{{ 'dialog.parent.title' | translate }}</h1>
+  <h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>{{ 'dialog.parent.title' | translate }}</h1>
   <div mat-dialog-content class="app-maxh-100">
     @if (state=='loading') {
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>

@@ -306,7 +306,7 @@ export class SearchActionsComponent {
   changeModel() {
     const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     const dialogRef = this.dialog.open(ChangeModelDialogComponent, {
-      width: '480px',
+      width: '520px',
       data: {
         pid: item.pid,
         model: item.model,

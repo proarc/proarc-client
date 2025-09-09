@@ -25,9 +25,11 @@ import { LayoutService } from '../../services/layout-service';
 import { UIService } from '../../services/ui.service';
 import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
+    CdkDrag, CdkDragHandle, 
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
     MatCheckboxModule,

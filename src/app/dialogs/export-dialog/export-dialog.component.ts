@@ -19,9 +19,14 @@ import { ApiService } from '../../services/api.service';
 import { UIService } from '../../services/ui.service';
 import {MatRadioModule} from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 @Component({
-  imports: [TranslateModule, MatDialogModule, MatTableModule, MatProgressBarModule, MatSelectModule, MatRadioModule, MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule, FormsModule, MatFormFieldModule, MatCheckboxModule, MatSlideToggleModule],
+  imports: [TranslateModule, MatDialogModule, MatTableModule, 
+    CdkDrag, CdkDragHandle, 
+    MatProgressBarModule, MatSelectModule, MatRadioModule, MatIconModule, 
+    MatButtonModule, MatTooltipModule, MatCardModule, FormsModule, 
+    MatFormFieldModule, MatCheckboxModule, MatSlideToggleModule],
   selector: 'app-export-dialog',
   templateUrl: './export-dialog.component.html',
   styleUrls: ['./export-dialog.component.scss']

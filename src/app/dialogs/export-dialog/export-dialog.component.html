@@ -1,5 +1,5 @@
 @if (state ==='saving') {<mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>}
-<h1 mat-dialog-title>{{ 'dialog.export.title' | translate }}</h1>
+<h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>{{ 'dialog.export.title' | translate }}</h1>
 <div mat-dialog-content class="app-scrollbar-fix">
   <mat-form-field class="app-w-100">
     <mat-select [placeholder]="'desc.exportType' | translate" [(ngModel)]="selectedType" [disabled]="formDisabled()">
