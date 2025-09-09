@@ -2572,6 +2572,7 @@
     "conversionsOfModels": "Conversions of models",
     "updateSTT": "Update STT pages",
     "delete": "Delete",
+    "delete_Batches_by_filter": "Delete using used filters",
     "lockIt": "Lock it",
     "unlock": "Unlock",
     "restoreTheObject": "Restore the object",

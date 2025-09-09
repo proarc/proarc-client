@@ -29,7 +29,7 @@ import { ProArc } from '../../utils/proarc';
 import { Configuration } from '../../shared/configuration';
 import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { Clipboard } from '@angular/cdk/clipboard';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ReloadBatchDialogComponent } from '../../dialogs/reload-batch-dialog/reload-batch-dialog.component';
 import { ResolveConflictDialogComponent } from '../../dialogs/resolve-conflict-dialog/resolve-conflict-dialog.component';
 import { ImportDialogComponent } from '../../dialogs/import-dialog/import-dialog.component';
@@ -40,7 +40,7 @@ import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
 
 @Component({
   selector: 'app-process-management',
-    imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
+  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule, RouterModule,
     MatDatepickerModule, MatCheckboxModule,
@@ -49,7 +49,7 @@ import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
   styleUrl: './process-management.component.scss'
 })
 export class ProcessManagementComponent {
-  
+
 
   state = 'none';
 
@@ -121,7 +121,7 @@ export class ProcessManagementComponent {
     'highest'
   ];
 
-  actions: {icon: string, action: (e: any) => void, tooltip: string}[] = [];
+  actions: { icon: string, action: (e: any) => void, tooltip: string }[] = [];
 
   constructor(
     private datePipe: DatePipe,
@@ -133,8 +133,8 @@ export class ProcessManagementComponent {
     private route: ActivatedRoute,
     public config: Configuration,
     private translator: TranslateService,
-        public settings: UserSettings,
-        public settingsService: UserSettingsService,
+    public settings: UserSettings,
+    public settingsService: UserSettingsService,
     private clipboard: Clipboard) { }
 
   ngOnInit() {
@@ -142,7 +142,7 @@ export class ProcessManagementComponent {
       icon: 'delete',
       tooltip: 'button.delete',
       action: (e: any) => {
-        this.deleteBatch(e.id)
+        this.deleteBatch(e.id);
       }
     });
     this.route.queryParams.subscribe(p => {
@@ -190,9 +190,9 @@ export class ProcessManagementComponent {
     }
   }
 
-  selectRow(e: {item: Batch, event?: MouseEvent, idx?: number}) {
-      this.selectBatch(e.item);
-    }
+  selectRow(e: { item: Batch, event?: MouseEvent, idx?: number }) {
+    this.selectBatch(e.item);
+  }
 
   selectBatch(batch: Batch) {
     this.selectedBatch = batch;
@@ -220,54 +220,62 @@ export class ProcessManagementComponent {
 
   deleteBatch(id: number) {
     const data: SimpleDialogData = {
-          title: String(this.translator.instant('Smazání procesu')),
-          message: String(this.translator.instant('Opravdu chcete smazat proces?')),
-          alertClass: 'app-message',
-          btn1: {
-            label: 'Ano',
-            value: 'yes',
-            color: 'warn'
-          },
-          btn2: {
-            label: 'Ne',
-            value: 'no',
-            color: 'default'
+      title: String(this.translator.instant('Smazání procesu')),
+      message: String(this.translator.instant('Opravdu chcete smazat proces?')),
+      alertClass: 'app-message',
+      btn1: {
+        label: 'Ano',
+        value: 'yes',
+        color: 'warn'
+      },
+      btn2: {
+        label: 'Ne',
+        value: 'no',
+        color: 'default'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.api.deleteBatch(id).subscribe((resp: any) => {
+          if (resp.response.errors) {
+            this.state = 'error';
+            this.ui.showErrorDialogFromObject(resp.response.errors);
+            return;
           }
-        };
-        const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
-        dialogRef.afterClosed().subscribe(result => {
-          if (result === 'yes') {
-            this.deleteBatch(id);
-          }
+          this.state = 'success';
+
         });
-        
+      }
+    });
+
   }
 
-  
+
 
   onDeleteBatches() {
     const data: SimpleDialogData = {
-          title: String(this.translator.instant('Smazání procesu')),
-          message: String(this.translator.instant('Opravdu chcete smazat proces?')),
-          alertClass: 'app-message',
-          btn1: {
-            label: 'Ano',
-            value: 'yes',
-            color: 'warn'
-          },
-          btn2: {
-            label: 'Ne',
-            value: 'no',
-            color: 'default'
-          }
-        };
-        const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
-        dialogRef.afterClosed().subscribe(result => {
-          if (result === 'yes') {
-            this.deleteBatches();
-          }
-        });
-        
+      title: String(this.translator.instant('Smazání procesu')),
+      message: String(this.translator.instant('Opravdu chcete smazat proces?')),
+      alertClass: 'app-message',
+      btn1: {
+        label: 'Ano',
+        value: 'yes',
+        color: 'warn'
+      },
+      btn2: {
+        label: 'Ne',
+        value: 'no',
+        color: 'default'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.deleteBatches();
+      }
+    });
+
   }
 
   deleteBatches() {
@@ -315,7 +323,12 @@ export class ProcessManagementComponent {
 
 
     this.api.deleteBatches(params).subscribe((resp: any) => {
-      
+      if (resp.response.errors) {
+        this.state = 'error';
+        this.ui.showErrorDialogFromObject(resp.response.errors);
+        return;
+      }
+      this.state = 'success';
     });
   }
 
@@ -541,7 +554,7 @@ export class ProcessManagementComponent {
       return;
     }
     const dialogRef = this.dialog.open(ResolveConflictDialogComponent, {
-      data: this.selectedBatch ,
+      data: this.selectedBatch,
       panelClass: 'app-dialog-import',
       width: '600px'
     });
@@ -772,11 +785,11 @@ export class ProcessManagementComponent {
 
   canStopProcess() {
     return this.selectedBatch &&
-    (
-      this.auth.isAdmin() || this.auth.isSuperAdmin() ||
-      this.auth.user.name === this.selectedBatch.user
-    ) &&
-    (this.selectedBatch.state === 'EXPORT_PLANNED' || this.selectedBatch.state === 'EXPORTING')
+      (
+        this.auth.isAdmin() || this.auth.isSuperAdmin() ||
+        this.auth.user.name === this.selectedBatch.user
+      ) &&
+      (this.selectedBatch.state === 'EXPORT_PLANNED' || this.selectedBatch.state === 'EXPORTING')
   }
 
   isExportProfile(profile: string) {
