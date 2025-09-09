@@ -2572,7 +2572,7 @@
     "conversionsOfModels": "Převod modelu",
     "updateSTT": "Update STT stran",
     "delete": "Smazat",
-    "delete_Batches_by_filter": "Smazat dle aktivních filtrů",
+    "delete_batches_by_filter": "Smazat dle aktivních filtrů",
     "lockIt": "Uzamknout",
     "unlock": "Odemknout",
     "restoreTheObject": "Obnovit objekt",

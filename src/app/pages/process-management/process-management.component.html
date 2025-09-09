@@ -32,7 +32,7 @@
             {{ 'button.refresh' | translate }}
           </button>
           <button mat-stroked-button (click)="onDeleteBatches()">
-            {{ 'button.delete_Batches_by_filter' | translate }}
+            {{ 'button.delete_batches_by_filter' | translate }}
           </button>
           <mat-checkbox [(ngModel)]="autoRefresh" (change)="setRefresh()" name="autoRefresh">{{ 'desc.automaticallyRestore' | translate }}</mat-checkbox>
           <button mat-stroked-button (click)="changeView('loadingQueue')">

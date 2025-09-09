@@ -255,8 +255,8 @@ export class ProcessManagementComponent {
 
   onDeleteBatches() {
     const data: SimpleDialogData = {
-      title: String(this.translator.instant('Smazání procesu')),
-      message: String(this.translator.instant('Opravdu chcete smazat proces?')),
+      title: String(this.translator.instant('button.delete_batches_by_filter')),
+      message: String(this.translator.instant('Opravdu chcete smazat procesy?')),
       alertClass: 'app-message',
       btn1: {
         label: 'Ano',
