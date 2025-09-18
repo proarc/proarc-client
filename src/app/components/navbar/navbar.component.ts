@@ -159,7 +159,7 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  indexerParents() {
+  indexParents() {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('Index nadřazených objektů')),
       message: String(this.translator.instant('Opravdu chcete spustit indexace do SOLR nadřazených objektů?')),

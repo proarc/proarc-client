@@ -2630,6 +2630,7 @@
     "no": "No",
     "removeThisFilter": "Remove this filter",
     "toIndex": "Index to SOLR",
+    "indexParents": "Index parents to SOLR",
     "updateNdkPage": "Fix page type",
     "purgeObjects": "Purge deleted",
     "convertPages": "Convert pages",

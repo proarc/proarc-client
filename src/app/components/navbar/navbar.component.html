@@ -67,6 +67,7 @@
     <mat-menu #menuMore="matMenu">
       @if (isAkubra) {
       <button mat-menu-item (click)="reindex()">{{ 'button.toIndex' | translate }}</button>
+      <button mat-menu-item (click)="indexParents()">{{ 'button.indexParents' | translate }}</button>
       }
       <button mat-menu-item (click)="updateNdkPage()">{{ 'button.updateNdkPage' | translate }}</button>
       <button mat-menu-item (click)="purgeObjects()">{{ 'button.purgeObjects' | translate }}</button>
