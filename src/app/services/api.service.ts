@@ -432,6 +432,10 @@ export class ApiService {
     return this.put('object/member/move', payload, httpOptions);
   }
 
+  purgeObjects() {
+    return this.delete('object/purge');
+  }
+
   deleteObjects(pids: string[], purge: boolean, batchId: any = null): Observable<any> | null {
     let url = '';
     let body: any = {};

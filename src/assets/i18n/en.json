@@ -2630,6 +2630,7 @@
     "removeThisFilter": "Remove this filter",
     "toIndex": "Index to SOLR",
     "updateNdkPage": "Fix page type",
+    "purgeObjects": "Purge deleted",
     "convertPages": "Convert pages",
     "czidloFunction": "CZIDLO",
     "more": "More",

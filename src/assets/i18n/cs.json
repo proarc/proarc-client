@@ -2670,6 +2670,7 @@
     "removeThisFilter": "Odstranit tento filtr",
     "toIndex": "Indexovat do SOLR",
     "updateNdkPage": "Opravit typ stran",
+    "purgeObjects": "Smazat trvale",
     "convertPages": "Převést strany",
     "czidloFunction": "CZIDLO",
     "more": "Více",
