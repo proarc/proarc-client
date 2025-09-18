@@ -82,6 +82,7 @@ export class EditorPagesComponent implements OnInit {
 
   onRevert() {
     this.holder = new PageUpdateHolder();
+    this.layout.clearPanelEditing();
   }
 
   ngOnDestroy() {
