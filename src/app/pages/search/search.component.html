@@ -8,6 +8,7 @@
     <button mat-button value="phrase"  [class.app-active]="searchMode === 'phrase'" (click)="searchMode = 'phrase'">{{ 'button.query' | translate }}</button>
     <button mat-button value="advanced" [class.app-active]="searchMode === 'advanced'" (click)="searchMode = 'advanced'">{{ 'button.advancedSearch' | translate }}</button>
     <button mat-button value="deleted" [class.app-active]="searchMode === 'deleted'" (click)="searchMode = 'deleted'">{{ 'button.searchInDeleted' | translate }}</button>
+    <button mat-button value="orphan" [class.app-active]="searchMode === 'orphan'" (click)="searchMode = 'orphan'">{{ 'button.searchInOrphans' | translate }}</button>
   </div>
 
   <div class="app-fxLayout app-column app-fxFlex app-content-wrapper app-search-results">

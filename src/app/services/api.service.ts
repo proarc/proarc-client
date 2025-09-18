@@ -1258,6 +1258,10 @@ export class ApiService {
     return this.post('indexer', null);
   }
 
+  indexParents(): Observable<any> {
+    return this.post('indexer/parents', null);
+  }
+
   updateNdkPage(): Observable<any> {
     return this.post('object/updateNdkPage/pageType', null);
   }
