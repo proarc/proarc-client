@@ -3263,7 +3263,7 @@
       "internalProfile.validation": "Interní - Validace objektů",
       "internalProfile.changeOwners": "Interní - Změna vlastníka",
       "internalProfile.urnnbn": "Interní - Přidělení URN:NBN",
-      "internalProfile.deletion": "Interní - Mazání",
+      "internalProfile.deletion": "Interní - Mazání objektu",
       "internalProfile.updateCatalogRecords": "Interní - Úprava záznamu v katalogu",
       "uploadProfile.proarc": "Externí - Upload do ProArcu",
       "uploadProfile.kramerius": "Externí - Upload do Krameria",

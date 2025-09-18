@@ -3226,7 +3226,7 @@
       "internalProfile.validation": "Internal - Validation of object(s)",
       "internalProfile.changeOwners": "Internal - Change owner",
       "internalProfile.urnnbn": "Internal - Add URN:NBN",
-      "internalProfile.deletion": "Internal - Delete",
+      "internalProfile.deletion": "Internal - Delete object",
       "internalProfile.updateCatalogRecords": "Interní - Update catalog´s record",
       "uploadProfile.proarc": "External - Upload to ProArcu",
       "uploadProfile.kramerius": "External - Upload to Krameria",
