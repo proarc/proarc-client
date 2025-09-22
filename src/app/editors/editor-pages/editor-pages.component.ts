@@ -111,7 +111,6 @@ export class EditorPagesComponent implements OnInit {
 
     this.initControls();
     this.controls.valueChanges.subscribe(() => {
-      console.log('QQQ')
       this.canSave = true;
       this.setPanelEditing();
     })
