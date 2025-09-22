@@ -12,11 +12,12 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ILayoutPanel } from '../../dialogs/layout-admin/layout-admin.component';
 import { ApiService } from '../../services/api.service';
-import { LayoutService } from '../../services/layout-service';
+import { LayoutService, PageUpdateHolder } from '../../services/layout-service';
 import { UIService } from '../../services/ui.service';
 import { Configuration } from '../../shared/configuration';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
+import { Utils } from '../../utils/utils';
 
 @Component({
   imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule, MatProgressBarModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule, MatInputModule],
@@ -29,26 +30,64 @@ export class EditorPagesComponent implements OnInit {
   panel = input<ILayoutPanel>();
 
   holder: PageUpdateHolder;
+
+  alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
+  numberingTypes = [
+    {
+      id: 'ARABIC_SERIES',
+      label: '1, 2, 3, 4',
+    },
+    {
+      id: 'ROMAN_UPPER_SERIES',
+      label: 'I, II, III, IV',
+    },
+    {
+      id: 'ROMAN_LOWER_SERIES',
+      label: 'i, ii, iii, iv',
+    },
+    {
+      id: 'ALPHABET_UPPER_SERIES',
+      label: 'A - Z, AA - AZ',
+    },
+    {
+      id: 'ALPHABET_LOWER_SERIES',
+      label: 'a - z, aa - az',
+    }
+  ];
+
+  applyOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+
+
   pageTypeControl: FormControl<{ code: string, name: string } | null> = new FormControl<{ code: string, name: string } | null>(null);
-  numberingTypesControl: FormControl<{ id: string, label: string } | null> = new FormControl<{ id: string, label: string } | null>(null);
-  pageNumberControl = new FormControl();
+  pageNumberNumberingControl: FormControl<{ id: string, label: string } | null> = new FormControl<{ id: string, label: string } | null>(null);
+  pageNumberFromControl = new FormControl();
   pageNumberPrefixControl = new FormControl();
   pageNumberSuffixControl = new FormControl();
   pageNumberIncrementControl = new FormControl();
   pageIndexControl = new FormControl();
-  posControl = new FormControl();
-  applyControl = new FormControl();
+  pagePositionControl = new FormControl();
+  applyToControl = new FormControl();
+  useBracketsControl = new FormControl(false);
+  repreSelectControl = new FormControl(false);
+  doubleColumnsControl = new FormControl(false);
+  applyToFirstControl = new FormControl();
   controls: FormGroup = new FormGroup({
-    pageTypeControl: this.pageTypeControl,
-    pageNumberFrom: this.pageNumberControl,
+    pageType: this.pageTypeControl,
+    pageIndex: this.pageIndexControl,
+    useBrackets: this.useBracketsControl,
+    repreSelect: this.repreSelectControl,
+    doubleColumns: this.doubleColumnsControl,
+    pageNumberNumbering: this.pageNumberNumberingControl,
+    pageNumberFrom: this.pageNumberFromControl,
     pageNumberPrefix: this.pageNumberPrefixControl,
     pageNumberSuffix: this.pageNumberSuffixControl,
     pageNumberIncrement: this.pageNumberIncrementControl,
-    pageIndex: this.pageIndexControl,
-    numberingTypesControl: this.numberingTypesControl,
-    posControl: this.posControl,
-    applyControl: this.applyControl
+    pagePosition: this.pagePositionControl,
+    applyToFirst: this.applyToFirstControl,
+    applyTo: this.applyToControl
   });
+
 
   state: string;
   plurals: string;
@@ -66,23 +105,37 @@ export class EditorPagesComponent implements OnInit {
 
   ngOnInit() {
     this.holder = new PageUpdateHolder();
-    
-    this.controls.patchValue({
-      pageNumberFrom: this.holder.pageNumberFrom,
-      pageNumberPrefix: this.holder.pageNumberPrefix,
-      pageNumberSuffix: this.holder.pageNumberSuffix,
-      pageNumberIncrement: this.holder.pageNumberIncrement,
-      pageIndex: this.holder.pageIndex
-    });
+    if (this.layout.lastPageUpdateHolder) {
+      this.holder.fillValues(this.layout.lastPageUpdateHolder);
+    }
+
+    this.initControls();
+    this.controls.valueChanges.subscribe(() => {
+      console.log('QQQ')
+      this.canSave = true;
+      this.setPanelEditing();
+    })
 
     this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
       this.plurals = this.countPlurals();
     }));
   }
 
+  setPageHolder() {
+    this.layout.lastPageUpdateHolder = new PageUpdateHolder();
+    this.layout.lastPageUpdateHolder.fillValues(this.controls.value);
+  }
+
+  initControls() {
+    this.controls.patchValue(this.holder);
+    this.controls.markAsPristine();
+  }
+
   onRevert() {
-    this.holder = new PageUpdateHolder();
-    this.layout.clearPanelEditing();
+    this.controls.reset();
+    this.controls.markAsPristine();
+    this.canSave = false;
+    this.setPanelEditing();
   }
 
   ngOnDestroy() {
@@ -100,30 +153,30 @@ export class EditorPagesComponent implements OnInit {
     }
   }
 
-  canSave(): boolean {
-
-    const hasChanges = this.holder.editAny() || this.controls.dirty;
-    if (hasChanges) {
-      this.layout.setPanelEditing(this.panel());
-    } else {
-      if (this.panel().canEdit) {
-        this.layout.clearPanelEditing();
+  canSave: boolean;
+  setPanelEditing() {
+    setTimeout(() => {
+      if (this.canSave) {
+        this.layout.setPanelEditing(this.panel());
+      } else {
+        if (this.panel().canEdit) {
+          this.layout.clearPanelEditing();
+        }
       }
-    }
+    }, 100);
 
-    return hasChanges
   }
 
   onSave() {
-    if (!this.canSave()) {
+    if (!this.canSave) {
       return;
     }
-
-    this.holder.pageNumberFrom = this.controls.get('pageNumberFrom').value;
-    this.holder.pageNumberPrefix = this.controls.get('pageNumberPrefix').value;
-    this.holder.pageNumberSuffix = this.controls.get('pageNumberSuffix').value;
-    this.holder.pageNumberIncrement = this.controls.get('pageNumberIncrement').value;
-    this.holder.pageIndex = this.controls.get('pageIndex').value;
+    this.holder.fillValues(this.controls.value);
+    // this.holder.pageNumberFrom = this.controls.get('pageNumberFrom').value;
+    // this.holder.pageNumberPrefix = this.controls.get('pageNumberPrefix').value;
+    // this.holder.pageNumberSuffix = this.controls.get('pageNumberSuffix').value;
+    // this.holder.pageNumberIncrement = this.controls.get('pageNumberIncrement').value;
+    // this.holder.pageIndex = this.controls.get('pageIndex').value;
 
     this.updateSelectedPages(this.holder, null);
     // this.holder.reset();
@@ -155,12 +208,12 @@ export class EditorPagesComponent implements OnInit {
         pages.push(item.pid);
       }
     }
-    this.api.editPages(pages, holder, this.layout.batchId).subscribe((result: any) => {
+    this.api.editPages(pages, holder, this.layout.batchId, this.numberFromValid(), this.findIndexInNumbering(this.pageNumberFromControl.value)).subscribe((result: any) => {
       if (result.response.errors) {
         this.ui.showErrorDialogFromObject(result.response.errors);
         this.state = 'error';
       } else {
-        
+
         if (this.layout.type !== 'repo') {
           this.ui.showInfoSnackBar(this.translator.instant('snackbar.changeSaved'), 4000);
         }
@@ -190,101 +243,30 @@ export class EditorPagesComponent implements OnInit {
     })
   }
 
-}
-
-
-export class PageUpdateHolder {
-
-  alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-
-  numberingTypes = [
-    {
-      id: 'ARABIC_SERIES',
-      label: '1, 2, 3, 4',
-    },
-    {
-      id: 'ROMAN_UPPER_SERIES',
-      label: 'I, II, III, IV',
-    },
-    {
-      id: 'ROMAN_LOWER_SERIES',
-      label: 'i, ii, iii, iv',
-    },
-    {
-      id: 'ALPHABET_UPPER_SERIES',
-      label: 'A - Z, AA - AZ',
-    },
-    {
-      id: 'ALPHABET_LOWER_SERIES',
-      label: 'a - z, aa - az',
+  getNumberingExample(): string {
+    if (this.pageNumberFromControl.value && this.numberFromValid()) {
+      return `${this.getNumberForIndex(0)}; ${this.getNumberForIndex(1)}; ${this.getNumberForIndex(2)}; ${this.getNumberForIndex(3)}`;
     }
-  ];
-
-  applyOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
-
-  // editType: boolean;
-  // editIndex: boolean;
-  // editNumber: boolean;
-  // editPosition: boolean;
-
-  useBrackets: boolean;
-  doubleColumns: boolean;
-
-  pageType: string;
-  pageIndex: number;
-
-  pageNumberFrom: string;
-  pageNumberIncrement: number;
-  pageNumberPrefix: string;
-  pageNumberSuffix: string;
-  pageNumberNumbering: any;
-
-  pagePosition: string;
-
-  applyTo: number;
-  applyToFirst: boolean;
-
-  repreSelect: any = null;
-  isReprePage: boolean;
-
-  constructor() {
-    // this.editType = false;
-    // this.editIndex = false;
-    // this.editNumber = false;
-    this.pageType = '';
-    // this.pageType = 'normalPage';
-    this.pageIndex = null;
-
-    this.pageNumberFrom = "";
-    this.pageNumberIncrement = 1;
-    this.pageNumberPrefix = '';
-    this.pageNumberSuffix = '';
-    this.pageNumberNumbering = this.numberingTypes[0];
-
-    this.pagePosition = '';
-
-    this.applyTo = 1;
-    this.applyToFirst = true;
-    this.repreSelect = null;
+    return '';
   }
 
-  getPageIndexFrom(): number {
-    return this.findIndexInNumbering(this.pageNumberFrom);
+  numberFromValid(): boolean {
+    if (!this.pageNumberFromControl.value) {
+      return false;
+    }
+    if (this.pageNumberNumberingControl.value === this.numberingTypes[0]) {
+      return new RegExp(/^\d+$/).test(this.pageNumberFromControl.value);
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[1]) {
+      return new RegExp(/^[IVXCLMD]+$/).test(this.pageNumberFromControl.value.toLocaleUpperCase());
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[2]) {
+      return new RegExp(/^[IVXCLMD]+$/).test(this.pageNumberFromControl.value.toLocaleUpperCase());
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[3]) {
+      return new RegExp(/^[A-Za-z]+$/).test(this.pageNumberFromControl.value);
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[4]) {
+      return new RegExp(/^[A-Za-z]+$/).test(this.pageNumberFromControl.value);
+    }
+    return false;
   }
-
-
-
-  editAny(): boolean {
-    return  this.pageIndex !== null || this.pageType !== '' || (this.numberFromValid()) || (this.pagePosition !== '') || (this.repreSelect !== null);
-  }
-
-  // reset() {
-  //   this.editIndex = false;
-  //   this.editType = false;
-  //   this.editNumber = false;
-  //   this.editPosition = false;
-  //   this.repreSelect = null;
-  // }
 
   romanize(num: number): string {
     if (isNaN(num)) {
@@ -363,15 +345,15 @@ export class PageUpdateHolder {
   }
 
   findIndexInNumbering(number: string): number {
-    if (this.pageNumberNumbering == this.numberingTypes[0]) {
+    if (this.pageNumberNumberingControl.value == this.numberingTypes[0]) {
       return parseInt(number);
-    } else if (this.pageNumberNumbering == this.numberingTypes[1]) {
+    } else if (this.pageNumberNumberingControl.value == this.numberingTypes[1]) {
       return this.deromanize(number.toUpperCase());
-    } else if (this.pageNumberNumbering == this.numberingTypes[2]) {
+    } else if (this.pageNumberNumberingControl.value == this.numberingTypes[2]) {
       return this.deromanize(number.toUpperCase());
-    } else if (this.pageNumberNumbering == this.numberingTypes[3]) {
+    } else if (this.pageNumberNumberingControl.value == this.numberingTypes[3]) {
       return this.alphabetIndex(number.toLocaleLowerCase());
-    } else if (this.pageNumberNumbering == this.numberingTypes[4]) {
+    } else if (this.pageNumberNumberingControl.value == this.numberingTypes[4]) {
       return this.alphabetIndex(number.toLocaleLowerCase());
     } else {
       return -1
@@ -379,59 +361,36 @@ export class PageUpdateHolder {
   }
 
   getAsString(num: number) {
-    let result = this.pageNumberPrefix;
-    if (this.pageNumberNumbering === this.numberingTypes[0]) {
+    let result = this.pageNumberPrefixControl.value;
+    if (this.pageNumberNumberingControl.value === this.numberingTypes[0]) {
       result += String(num);
-    } else if (this.pageNumberNumbering === this.numberingTypes[1]) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[1]) {
       result += this.romanize(num);
-    } else if (this.pageNumberNumbering === this.numberingTypes[2]) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[2]) {
       result += this.romanize(num).toLowerCase();
-    } else if (this.pageNumberNumbering === this.numberingTypes[3]) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[3]) {
       result += this.getAlphabetFromNumber(num);
-    } else if (this.pageNumberNumbering === this.numberingTypes[4]) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[4]) {
       result += this.getAlphabetFromNumber(num).toLocaleLowerCase();
     }
-    result = result + this.pageNumberSuffix;
-    if (this.useBrackets) {
+    result = result + this.pageNumberSuffixControl.value;
+    if (this.useBracketsControl.value) {
       result = '[' + result + ']';
     }
     return result;
   }
 
   getNumberForIndex(index: number, checkDouble = true) {
-    let num = this.findIndexInNumbering(this.pageNumberFrom);
-    let idx = this.doubleColumns ? index * 2 : index;
-    num += this.pageNumberIncrement * idx;
+    let num = this.findIndexInNumbering(this.pageNumberFromControl.value);
+    let idx = this.doubleColumnsControl.value ? index * 2 : index;
+    num += this.pageNumberIncrementControl.value * idx;
     let result = this.getAsString(num);
-    if (checkDouble && this.doubleColumns) {
-      result += ',' + this.getAsString(num + this.pageNumberIncrement);
+    if (checkDouble && this.doubleColumnsControl.value) {
+      result += ',' + this.getAsString(num + this.pageNumberIncrementControl.value);
     }
     return result
   }
 
-  numberFromValid(): boolean {
-    if (!this.pageNumberFrom) {
-      return false;
-    }
-    if (this.pageNumberNumbering === this.numberingTypes[0]) {
-      return new RegExp(/^\d+$/).test(this.pageNumberFrom);
-    } else if (this.pageNumberNumbering === this.numberingTypes[1]) {
-      return new RegExp(/^[IVXCLMD]+$/).test(this.pageNumberFrom.toLocaleUpperCase());
-    } else if (this.pageNumberNumbering === this.numberingTypes[2]) {
-      return new RegExp(/^[IVXCLMD]+$/).test(this.pageNumberFrom.toLocaleUpperCase());
-    } else if (this.pageNumberNumbering === this.numberingTypes[3]) {
-      return new RegExp(/^[A-Za-z]+$/).test(this.pageNumberFrom);
-    } else if (this.pageNumberNumbering === this.numberingTypes[4]) {
-      return new RegExp(/^[A-Za-z]+$/).test(this.pageNumberFrom);
-    }
-    return false;
-  }
-
-  getNumberingExample(): string {
-    if (this.pageNumberFrom && this.numberFromValid()) {
-      return `${this.getNumberForIndex(0)}; ${this.getNumberForIndex(1)}; ${this.getNumberForIndex(2)}; ${this.getNumberForIndex(3)}`;
-    }
-    return '';
-  }
-
 }
+
+

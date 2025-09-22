@@ -19,8 +19,8 @@ import { Page } from '../model/page.model';
 import { User } from '../model/user.model';
 import { WorkFlow } from '../model/workflow.model';
 import { Metadata } from '../model/metadata.model';
-import { PageUpdateHolder } from '../editors/editor-pages/editor-pages.component';
 import { AudioPagesUpdateHolder } from '../editors/editor-audioPages/editor-audioPages.component';
+import { PageUpdateHolder } from './layout-service';
 
 @Injectable()
 export class ApiService {
@@ -1304,7 +1304,7 @@ export class ApiService {
     return this.post('object/mods/addRefenrence', data);
   }
 
-  editPages(pages: string[], holder: PageUpdateHolder, batchId: any = null) {
+  editPages(pages: string[], holder: PageUpdateHolder, batchId: any = null, numberFromValid: boolean, getPageIndexFrom: number) {
     let data = `pids=${pages}`;
     if (batchId) {
       data = `${data}&batchId=${batchId}`;
@@ -1324,8 +1324,8 @@ export class ApiService {
     if (holder.doubleColumns) {
       data += `&doubleColumns=${holder.doubleColumns}`;
     }
-    if (holder.numberFromValid()) {
-      data += `&sequence=${holder.pageNumberNumbering.id}&prefix=${holder.pageNumberPrefix}&suffix=${holder.pageNumberSuffix}&startNumber=${holder.getPageIndexFrom()}&incrementNumber=${holder.pageNumberIncrement}`;
+    if (numberFromValid) {
+      data += `&sequence=${holder.pageNumberNumbering.id}&prefix=${holder.pageNumberPrefix}&suffix=${holder.pageNumberSuffix}&startNumber=${getPageIndexFrom}&incrementNumber=${holder.pageNumberIncrement}`;
     }
     if (holder.applyTo > 1) {
       data += `&applyToFirstPage=${holder.applyToFirst}`;

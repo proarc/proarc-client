@@ -11,16 +11,17 @@ import { Metadata } from "../model/metadata.model";
 @Injectable()
 export class LayoutService {
 
-    constructor(
-        public settings: UserSettings,
-        private config: Configuration) { }
-
     type: string; // 'repo' | 'import'
     panels: ILayoutPanel[] = [];
     editingPanel: string;
     dragging: boolean;
+    lastPageUpdateHolder: PageUpdateHolder;
 
-    public panelEditingChanged = signal<string>(null); // last panel edited
+    constructor(
+        public settings: UserSettings,
+        private config: Configuration) { }
+
+    //public panelEditingChanged = signal<string>(null); // last panel edited
     setPanelEditing(panel: ILayoutPanel) {
 
         if (panel && this.editingPanel !== panel.id) {
@@ -32,7 +33,7 @@ export class LayoutService {
             });
             panel.canEdit = true;
             this.editingPanel = panel.id;
-            this.panelEditingChanged.update(p => panel.id)
+            //this.panelEditingChanged.update(p => panel.id)
         }
 
     }
@@ -162,4 +163,98 @@ export class LayoutService {
     refreshSelectedItem(moveToNext: boolean, from: string) {
         //this.refreshSelectedSubject.next(from);
     }
+}
+
+
+export class PageUpdateHolder {
+
+  
+
+  // editType: boolean;
+  // editIndex: boolean;
+  // editNumber: boolean;
+  // editPosition: boolean;
+
+  useBrackets: boolean;
+  doubleColumns: boolean;
+
+  pageType: string;
+  pageIndex: number;
+
+  pageNumberFrom: string;
+  pageNumberIncrement: number;
+  pageNumberPrefix: string;
+  pageNumberSuffix: string;
+  pageNumberNumbering: any;
+
+  pagePosition: string;
+
+  applyTo: number;
+  applyToFirst: boolean;
+
+  repreSelect: any = null;
+  isReprePage: boolean;
+
+  constructor() {
+    // this.editType = false;
+    // this.editIndex = false;
+    // this.editNumber = false;
+    this.pageType = '';
+    // this.pageType = 'normalPage';
+    this.pageIndex = null;
+
+    this.pageNumberFrom = "";
+    this.pageNumberIncrement = 1;
+    this.pageNumberPrefix = '';
+    this.pageNumberSuffix = '';
+    this.pageNumberNumbering = {
+      id: 'ARABIC_SERIES',
+      label: '1, 2, 3, 4',
+    };
+
+    this.pagePosition = '';
+
+    this.applyTo = 1;
+    this.applyToFirst = true;
+    this.repreSelect = null;
+  }
+
+  fillValues(source: PageUpdateHolder) {
+    this.pageType = source.pageType;
+    this.pageIndex = source.pageIndex;
+
+    this.pageNumberFrom = source.pageNumberFrom;
+    this.pageNumberIncrement = source.pageNumberIncrement;
+    this.pageNumberPrefix = source.pageNumberPrefix;
+    this.pageNumberSuffix = source.pageNumberSuffix;
+    this.pageNumberNumbering = source.pageNumberNumbering;
+
+    this.pagePosition = source.pagePosition;
+
+    this.applyTo = source.applyTo;
+    this.applyToFirst = source.applyToFirst;
+    this.repreSelect = source.repreSelect;
+
+  }
+
+  // getPageIndexFrom(): number {
+  //   return this.findIndexInNumbering(this.pageNumberFrom);
+  // }
+
+
+
+  // editAny(): boolean {
+  //   return  this.pageIndex !== null || this.pageType !== '' || (this.numberFromValid()) || (this.pagePosition !== '') || (this.repreSelect !== null);
+  // }
+
+  // reset() {
+  //   this.editIndex = false;
+  //   this.editType = false;
+  //   this.editNumber = false;
+  //   this.editPosition = false;
+  //   this.repreSelect = null;
+  // }
+
+  
+
 }
