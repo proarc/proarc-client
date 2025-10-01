@@ -44,6 +44,7 @@
                 @for(item of dest; let i = $index; track $index;) {
                 <div class="app-item-wrapper" (click)="select(dest, item, i, $event, 'dest')"
                   [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig"
+                  [ngClass]="{'app-repre': item.pageRepre === 'reprePage'}" 
                   [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
                   <div class="app-item">
                     <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"
@@ -169,7 +170,9 @@
             <div class="app-fxLayout app-row app-wrap app-view-icon" #childrenIconList>
               @for(item of dest; let i = $index; track $index;) {
                 <div class="app-item-wrapper" (click)="select(dest, item, i, $event, 'dest')"
-                  [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
+                  [class.app-selected]="item.selected" 
+                  [ngClass]="{'app-repre': item.pageRepre === 'reprePage'}" 
+                  [class.app-selectedInOrig]="item.selectedInOrig" [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
                   <div class="app-item">
                     <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['dest'] + 'px'"></div>
                     <div class="app-item-label">
