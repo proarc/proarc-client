@@ -3394,6 +3394,14 @@
         "legend": "Process management (load queue)",
         "label": "Displayed fields in process management in the loading queue"
       },
+      "markSequenceDialogOrigTableColumns": {
+        "legend": "Označit řadu (zdroj)",
+        "label": "Zobrazená pole v 'Označit řadu (zdroj)''"
+      },
+      "markSequenceDialogDestTableColumns": {
+        "legend": "Označit řadu (cíl)",
+        "label": "Zobrazená pole v 'Označit řadu (cíl)'"
+      },
       "colsEditModeParent": "By parent"
     }
   },

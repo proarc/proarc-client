@@ -3431,6 +3431,14 @@
         "legend": "Správa procesů (fronta načítání)",
         "label": "Zobrazená pole ve správě procesů ve frontě načítání"
       },
+      "markSequenceDialogOrigTableColumns": {
+        "legend": "Označit řadu (zdroj)",
+        "label": "Zobrazená pole v 'Označit řadu (zdroj)''"
+      },
+      "markSequenceDialogDestTableColumns": {
+        "legend": "Označit řadu (cíl)",
+        "label": "Zobrazená pole v 'Označit řadu (cíl)'"
+      },
       "colsEditModeParent": "Dle nadřazeného"
     }
   },

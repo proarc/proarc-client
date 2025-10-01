@@ -51,7 +51,7 @@ export class MarkSequenceDialogComponent implements OnInit {
   pageIndex: boolean = true;
   pageNumber: boolean = true;
   pagePosition: boolean = true;
-  reprePage: boolean = false;
+  reprePage: boolean = true;
   lastClickIdx: { [key: string]: number } = { orig: -1, dest: -1 };
   lastClickIdxDest: number = -1;
   lastSelectedItemPid: string;
