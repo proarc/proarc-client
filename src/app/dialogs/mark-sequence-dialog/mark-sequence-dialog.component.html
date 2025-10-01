@@ -123,7 +123,7 @@
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; let idx = index; columns: displayedColumns"
-                  [class.app-selected]="row.selected"  [class.app-selectedInOrig]="row.selectedInOrig"
+                  [class.app-selected]="row.selected"  [class.app-selectedInOrig]="row.selectedInOrig" [class.app-repre]="row.pageRepre === 'reprePage'"
                 (click)="select(dest, row, idx, $event, 'dest')"></tr>
               </table>
             }
@@ -252,7 +252,7 @@
               </ng-container>
               <tr mat-header-row *matHeaderRowDef="data.displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; let idx = index; columns: data.displayedColumns"
-                [class.app-selected]="row.selected" [class.app-selectedInOrig]="row.selectedInOrig"
+                [class.app-selected]="row.selected" [class.app-selectedInOrig]="row.selectedInOrig" [class.app-repre]="row.pageRepre === 'reprePage'"
               (click)="select(dest, row, idx, $event, 'dest')"></tr>
             </table>
           }
