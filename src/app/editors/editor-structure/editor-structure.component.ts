@@ -872,7 +872,7 @@ console.log(this.layout.items()[1].label)
           } else {
             this.layout.items().push(...items);
           }
-          this.layout.setItems(items);
+          this.layout.items.set(items);
           const item = items[0];
           item.selected = true;
           this.rowClick(item, null, this.lastClickIdx + 1);
@@ -887,9 +887,6 @@ console.log(this.layout.items()[1].label)
             }, 1000);
           }
           this.layout.refreshSelectedItem(true, 'pages');
-
-
-
         } else {
           const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
             disableClose: true,
@@ -901,18 +898,18 @@ console.log(this.layout.items()[1].label)
             console.log(res);
             if (res?.item) {
               const item = DocumentItem.fromJson(res.item);
-
-
-              if (res.gotoEdit) {
-                this.router.navigate(['/repository', item.pid]);
-              } else {
+              const items = this.layout.items();
                 if (result.objectPosition === 'after') {
-                  this.layout.items().splice(this.lastClickIdx + 1, 0, item);
+                  items.splice(this.lastClickIdx + 1, 0, item);
                   this.hasChanges = true;
                 } else {
-                  this.layout.items().push(item);
+                  items.push(item);
                 }
-                this.layout.setItems(this.layout.items());
+                this.layout.setItems(items);
+              if (res.gotoEdit) {
+                this.onSave(true);
+                this.router.navigate(['/repository', item.pid]);
+              } else {
                 item.selected = true;
                 this.rowClick(item, null, this.layout.items().length - 1);
                 if (this.table) {
@@ -1183,6 +1180,7 @@ console.log(this.layout.items()[1].label)
     }
     this.state = 'saving';
     const pidArray = this.layout.items().map(item => item.pid);
+    console.log(this.layout.items())
     const request = this.isRepo ? this.api.editRelations(this.layout.selectedParentItem.pid, pidArray) : this.api.editBatchRelations(this.layout.selectedParentItem.pid, pidArray);
     request.subscribe((response: any) => {
 

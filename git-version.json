@@ -1,8 +1,8 @@
 {
-  "dirty": true,
-  "raw": "v2.3.3-280-ge36d2f65-dirty",
-  "hash": "ge36d2f65",
-  "distance": 280,
+  "dirty": false,
+  "raw": "v2.3.3-282-g09e6a8b4",
+  "hash": "g09e6a8b4",
+  "distance": 282,
   "tag": "v2.3.3",
   "semver": {
     "options": {
@@ -18,7 +18,7 @@
     "build": [],
     "version": "2.3.3"
   },
-  "suffix": "280-ge36d2f65-dirty",
-  "semverString": "2.3.3+280.ge36d2f65.dirty",
-  "date": "2025-09-22T09:24:54.921Z"
+  "suffix": "282-g09e6a8b4",
+  "semverString": "2.3.3+282.g09e6a8b4",
+  "date": "2025-10-01T06:52:10.597Z"
 }
