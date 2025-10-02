@@ -110,7 +110,7 @@
           }
           @if (viewMode == 'icons') {
             <div class="app-fxLayout app-row app-wrap app-view-icon" #childrenIconList [class.app-multiple-selection]="layout.getNumOfSelected() > 1" (mousedown)="mousedown($event)">
-              @for(item of layout.items(); let i = $index; track item.pid;) {
+              @for(item of layout.items(); let i = $index; track item) {
                 <div class="app-item-wrapper cdk-drag"
                   [ngClass]="{'app-repre': item.pageRepre === 'reprePage'}" (click)="rowClick(item, $event, i)"
                   (dblclick)="open(item)" draggable="true" (dragenter)="dragenter($event, i)"

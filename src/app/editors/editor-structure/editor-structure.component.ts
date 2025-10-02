@@ -173,6 +173,8 @@ export class EditorStructureComponent implements OnInit {
 
   }
 
+
+
   refreshChildren(selection: string[]) {
     console.log('AA')
     this.layout.setItems([]);
@@ -220,14 +222,11 @@ export class EditorStructureComponent implements OnInit {
   }
 
   refresh() {
-console.log(this.layout.items()[1].label)
-console.log(this.layout.items()[1].label)
-    const items = this.layout.items();
-    //const selection = this.layout.items().filter(i => i.selected).map(i => i.pid);
-    //this.refreshChildren(selection);
-    // this.clearPanelEditing();
-    this.layout.clearPanelEditing();
-    this.refreshChildren([]);
+    // const items = this.layout.items();
+    // this.layout.clearPanelEditing();
+    // this.refreshChildren([]);
+
+    this.layout.setShouldRefresh(false)
   }
   
 

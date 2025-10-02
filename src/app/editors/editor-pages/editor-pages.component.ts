@@ -1,4 +1,4 @@
-import { Component, input, Input, OnInit } from '@angular/core';
+import { Component, input, Input, OnInit, signal } from '@angular/core';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -60,7 +60,7 @@ export class EditorPagesComponent implements OnInit {
 
 
   pageTypeControl: FormControl<{ code: string, name: string } | null> = new FormControl<{ code: string, name: string } | null>(null);
-  pageNumberNumberingControl: FormControl<{ id: string, label: string } | null> = new FormControl<{ id: string, label: string } | null>(null);
+  pageNumberNumberingControl: FormControl<{ id: string, label: string } | null> = new FormControl<{ id: string, label: string } | null>(this.numberingTypes[0]);
   pageNumberFromControl = new FormControl();
   pageNumberPrefixControl = new FormControl();
   pageNumberSuffixControl = new FormControl();
@@ -93,6 +93,7 @@ export class EditorPagesComponent implements OnInit {
   plurals: string;
   numOfSelected: number;
   subscriptions: Subscription[] = [];
+  numberingExample = signal<string>('');
 
   constructor(
     private api: ApiService,
@@ -113,6 +114,7 @@ export class EditorPagesComponent implements OnInit {
     this.controls.valueChanges.subscribe(() => {
       this.canSave = true;
       this.setPanelEditing();
+      this.numberingExample.set(this.getNumberingExample());
     })
 
     this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
@@ -250,18 +252,15 @@ export class EditorPagesComponent implements OnInit {
   }
 
   numberFromValid(): boolean {
-    if (!this.pageNumberFromControl.value) {
-      return false;
-    }
-    if (this.pageNumberNumberingControl.value === this.numberingTypes[0]) {
+    if (this.pageNumberNumberingControl.value.id === this.numberingTypes[0].id) {
       return new RegExp(/^\d+$/).test(this.pageNumberFromControl.value);
-    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[1]) {
+    } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[1].id) {
       return new RegExp(/^[IVXCLMD]+$/).test(this.pageNumberFromControl.value.toLocaleUpperCase());
-    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[2]) {
+    } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[2].id) {
       return new RegExp(/^[IVXCLMD]+$/).test(this.pageNumberFromControl.value.toLocaleUpperCase());
-    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[3]) {
+    } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[3].id) {
       return new RegExp(/^[A-Za-z]+$/).test(this.pageNumberFromControl.value);
-    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[4]) {
+    } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[4].id) {
       return new RegExp(/^[A-Za-z]+$/).test(this.pageNumberFromControl.value);
     }
     return false;
@@ -344,15 +343,15 @@ export class EditorPagesComponent implements OnInit {
   }
 
   findIndexInNumbering(number: string): number {
-    if (this.pageNumberNumberingControl.value == this.numberingTypes[0]) {
+    if (this.pageNumberNumberingControl.value.id == this.numberingTypes[0].id) {
       return parseInt(number);
-    } else if (this.pageNumberNumberingControl.value == this.numberingTypes[1]) {
+    } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[1].id) {
       return this.deromanize(number.toUpperCase());
-    } else if (this.pageNumberNumberingControl.value == this.numberingTypes[2]) {
+    } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[2].id) {
       return this.deromanize(number.toUpperCase());
-    } else if (this.pageNumberNumberingControl.value == this.numberingTypes[3]) {
+    } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[3].id) {
       return this.alphabetIndex(number.toLocaleLowerCase());
-    } else if (this.pageNumberNumberingControl.value == this.numberingTypes[4]) {
+    } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[4].id) {
       return this.alphabetIndex(number.toLocaleLowerCase());
     } else {
       return -1
@@ -361,15 +360,15 @@ export class EditorPagesComponent implements OnInit {
 
   getAsString(num: number) {
     let result = this.pageNumberPrefixControl.value;
-    if (this.pageNumberNumberingControl.value === this.numberingTypes[0]) {
+    if (this.pageNumberNumberingControl.value.id === this.numberingTypes[0].id) {
       result += String(num);
-    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[1]) {
+    } else if (this.pageNumberNumberingControl.value .id=== this.numberingTypes[1].id) {
       result += this.romanize(num);
-    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[2]) {
+    } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[2].id) {
       result += this.romanize(num).toLowerCase();
-    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[3]) {
+    } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[3].id) {
       result += this.getAlphabetFromNumber(num);
-    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[4]) {
+    } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[4].id) {
       result += this.getAlphabetFromNumber(num).toLocaleLowerCase();
     }
     result = result + this.pageNumberSuffixControl.value;
