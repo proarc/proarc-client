@@ -100,6 +100,7 @@ export class UserTreeTableComponent {
       const path = this.treePath();
       const root = this.rootTreeItem();
       this.treeItems = [];
+      this.worflowTreeItems = [];
       if (!root) {
         return;
       }
@@ -443,7 +444,7 @@ export class UserTreeTableComponent {
   }
 
   refreshLayout(treeItem: TreeDocumentItem) {
-    if (!this.inSearch()) {
+    if (!this.inSearch() && this.type() !== 'TreeWorkFlow') {
       const children = this.treeItems.filter(ti => ti.parentPid === treeItem.pid);
       if (children.length > 0) {
         this.layout.items.set(<DocumentItem[]>children);
@@ -510,6 +511,7 @@ export class UserTreeTableComponent {
     this.sortAsc = sortState.direction === 'asc';
     const root = this.rootTreeItem();
     this.treeItems = [];
+    this.worflowTreeItems = [];
     if (this.type() === 'TreeWorkFlow') {
         this.worflowTreeItems = [root as TreeWorkFlow];
       } else {
