@@ -45,6 +45,13 @@ export class UserTreeTableComponent {
   rootTreeItem = input<TreeDocumentItem | TreeWorkFlow>();
   treePath = input<string[]>();
   inSearch = input<boolean>(false);
+  
+  sortable = input<boolean>();
+  sortBy = output<Sort>();
+  sortField: string;
+  sortAsc: boolean;
+  // sort: Sort = { active: 'created', direction: 'desc' };
+
   treeInfo = output<{ tree_info: { [model: string]: number }, batchInfo: any }>();
   onSelectTreeItem = output<TreeDocumentItem | TreeWorkFlow>();
   onTreeItemsChanged = output<(TreeDocumentItem | TreeWorkFlow)[]>();
@@ -75,7 +82,6 @@ export class UserTreeTableComponent {
     "described",
     "exported"];
 
-  sort: Sort = { active: 'created', direction: 'desc' };
 
   constructor(private api: ApiService,
     private translator: TranslateService,
@@ -121,7 +127,7 @@ export class UserTreeTableComponent {
   setColumns() {
     const dialogRef = this.dialog.open(ColumnsSettingsDialogComponent, {
       data: {
-        colsSettingsName: 'columnsSearchTree',
+        colsSettingsName: this.type() === 'TreeWorkFlow' ? 'columnsWorkFlow' : 'columnsSearchTree',
         model: null,
       },
       width: '600px',
@@ -147,7 +153,12 @@ export class UserTreeTableComponent {
   }
 
   columnType(f: string) {
-    return this.settings.columnsSearch.find(c => c.field === f).type;
+    if (this.type() === 'TreeWorkFlow') {
+      return this.settings.columnsWorkFlow.find(c => c.field === f).type;
+    } else {
+      return this.settings.columnsSearch.find(c => c.field === f).type;
+    }
+    
   }
 
   prefixByType(f: string): string {
@@ -164,7 +175,11 @@ export class UserTreeTableComponent {
 
 
   setSelectedTreeColumns() {
-    this.treeColumns = this.settings.columnsSearchTree.filter(c => c.selected).map(c => c.field);
+    if (this.type() === 'TreeWorkFlow') {
+      this.treeColumns = this.settings.columnsWorkFlow.filter(c => c.selected).map(c => c.field);
+    } else {
+      this.treeColumns = this.settings.columnsSearchTree.filter(c => c.selected).map(c => c.field);
+    }
     this.treeColumns.forEach(c => {
       if (this.columnType(c) === 'list') {
         this.lists[c] = this.getList(c);
@@ -178,17 +193,32 @@ export class UserTreeTableComponent {
 
   setTreeColumnsWith() {
     this.treeColumnsSizes = {};
-    this.settings.columnsSearchTree.forEach((c: any) => {
+    
+    if (this.type() === 'TreeWorkFlow') {
+      this.settings.columnsWorkFlow.forEach((c: any) => {
       this.treeColumnsSizes[c.field] = c.width + 'px';
     });
+    } else {
+      this.settings.columnsSearchTree.forEach((c: any) => {
+      this.treeColumnsSizes[c.field] = c.width + 'px';
+    });
+    }
   }
 
   saveTreeColumnsSizes(e: any, field?: string) {
     this.treeColumnsSizes[field] = e + 'px';
 
-    this.settings.columnsSearchTree.forEach((c: any) => {
-      c.width = parseInt(this.treeColumnsSizes[c.field]);
-    });
+    if (this.type() === 'TreeWorkFlow') {
+      
+      this.settings.columnsWorkFlow.forEach((c: any) => {
+        c.width = parseInt(this.treeColumnsSizes[c.field]);
+      });
+    } else {
+      this.settings.columnsSearchTree.forEach((c: any) => {
+        c.width = parseInt(this.treeColumnsSizes[c.field]);
+      });
+    }
+
 
     this.settingsService.save();
 
@@ -258,7 +288,8 @@ export class UserTreeTableComponent {
 
   getWorkFlowItems(treeItem: TreeWorkFlow) {
     let params = '?parentId=' + treeItem.id;
-    params += '&_sortBy=' + (this.sort.direction === 'desc' ? '-' : '') + this.sort.active;
+    // params += '&_sortBy=' + (this.sort.direction === 'desc' ? '-' : '') + this.sort.active;
+    params += '&_sortBy=' + (this.sortAsc ? '' : '-') + this.sortField;
 
     this.api.getWorkflow(params).subscribe((resp: any) => {
       if (resp['response'].errors) {
@@ -470,6 +501,22 @@ export class UserTreeTableComponent {
       });
     }
 
+  }
+
+  
+
+  sortTable(sortState: Sort) {
+    this.sortField = sortState.active;
+    this.sortAsc = sortState.direction === 'asc';
+    const root = this.rootTreeItem();
+    this.treeItems = [];
+    if (this.type() === 'TreeWorkFlow') {
+        this.worflowTreeItems = [root as TreeWorkFlow];
+      } else {
+        this.treeItems = [root as TreeDocumentItem];
+      }
+    this.getTreeItems(root, true);
+    this.sortBy.emit(sortState);
   }
 
 }
