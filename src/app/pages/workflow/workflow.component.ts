@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 // -- table to expand --
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -42,7 +42,7 @@ import { UserTreeTableComponent } from "../../components/user-tree-table/user-tr
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule,
-    AngularSplitModule, MatTableModule,
+    AngularSplitModule, MatTableModule, RouterModule,
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule,
     MatSortModule, UserTableComponent, MaterialEditComponent, UserTreeTableComponent],
