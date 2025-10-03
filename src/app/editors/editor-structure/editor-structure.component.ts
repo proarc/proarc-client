@@ -174,19 +174,19 @@ export class EditorStructureComponent implements OnInit {
   }
 
   refreshChildren(selection: string[]) {
-    this.layout.setItems([]);
+    //this.layout.setItems([]);
     this.api.getRelations(this.layout.selectedParentItem.pid).subscribe((children: DocumentItem[]) => {
-      this.layout.setItems(children);
+
+      children.forEach(item => {
+        item.selected = selection.includes(item.pid);
+      });
       if (this.layout.lastSelectedItem) {
-        const item = this.layout.items().find(item => item.pid === this.layout.lastSelectedItem().pid);
+        const item = children.find(item => item.pid === this.layout.lastSelectedItem().pid);
         if (item) {
           item.selected = true;
         }
       }
-
-      this.layout.items().forEach(item => {
-        item.selected = selection.includes(item.pid);
-      })
+      this.layout.items.set(children);
 
     });
   }
@@ -221,9 +221,9 @@ export class EditorStructureComponent implements OnInit {
   refresh() {
     // const items = this.layout.items();
     // this.layout.clearPanelEditing();
-    // this.refreshChildren([]);
+    this.refreshChildren([]);
 
-    this.layout.setShouldRefresh(false)
+    // this.layout.setShouldRefresh(false)
   }
   
 

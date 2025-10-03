@@ -29,7 +29,7 @@ export class LayoutService {
                 if (p.type !== 'media') {
                     p.canEdit = false;
                 }
-                
+
             });
             panel.canEdit = true;
             this.editingPanel = panel.id;
@@ -50,12 +50,18 @@ export class LayoutService {
     public lastSelectedItemMetadata: Metadata; // last selected child item
 
     public selectedChildItem: DocumentItem; // selected item in children
+    private refreshSelectedSubject = new Subject<string>();
     shouldRefreshSelectedItem(): Observable<string> {
         return this.refreshSelectedSubject.asObservable();
-      }
+    }
+
+
+    refreshSelectedItem(moveToNext: boolean, from: string) {
+        console.log(moveToNext, from)
+        this.refreshSelectedSubject.next(from);
+    }
 
     private refreshSubject = new Subject<boolean>();
-    private refreshSelectedSubject = new Subject<string>();
     private selectionSubject = new ReplaySubject<boolean>(1);
 
 
@@ -70,7 +76,7 @@ export class LayoutService {
 
     public items = signal<DocumentItem[]>(null); // all children items
     public setItems(val: DocumentItem[]) {
-        this.items.update(() => val)
+        this.items.set(val)
     }
 
     public lastItemIdxClicked: number; // last item clicked
@@ -89,12 +95,12 @@ export class LayoutService {
         this.movedToNextFrom = from;
         this.movingToNext = true;
         this.moveNextSubject.next(index);
-      }
+    }
 
-      moveToNext(): Observable<number> {
+    moveToNext(): Observable<number> {
         //let index = this.getFirstSelectedIndex() + 1;
         return this.moveNextSubject.asObservable();
-      }
+    }
 
     batchId: string;
 
@@ -115,7 +121,7 @@ export class LayoutService {
         if (panel) {
             this.setPanelEditing(panel);
         }
-        
+
         if (fromTree) {
             this.selectionSubject.next(fromStructure);
             return;
@@ -159,102 +165,98 @@ export class LayoutService {
         }
         this.refreshSubject.next(keepSelection);
     }
-
-    refreshSelectedItem(moveToNext: boolean, from: string) {
-        //this.refreshSelectedSubject.next(from);
-    }
 }
 
 
 export class PageUpdateHolder {
 
-  
-
-  // editType: boolean;
-  // editIndex: boolean;
-  // editNumber: boolean;
-  // editPosition: boolean;
-
-  useBrackets: boolean;
-  doubleColumns: boolean;
-
-  pageType: string;
-  pageIndex: number;
-
-  pageNumberFrom: string;
-  pageNumberIncrement: number;
-  pageNumberPrefix: string;
-  pageNumberSuffix: string;
-  pageNumberNumbering: any;
-
-  pagePosition: string;
-
-  applyTo: number;
-  applyToFirst: boolean;
-
-  repreSelect: any = null;
-  isReprePage: boolean;
-
-  constructor() {
-    // this.editType = false;
-    // this.editIndex = false;
-    // this.editNumber = false;
-    this.pageType = '';
-    // this.pageType = 'normalPage';
-    this.pageIndex = null;
-
-    this.pageNumberFrom = "";
-    this.pageNumberIncrement = 1;
-    this.pageNumberPrefix = '';
-    this.pageNumberSuffix = '';
-    this.pageNumberNumbering = {
-      id: 'ARABIC_SERIES',
-      label: '1, 2, 3, 4',
-    };
-
-    this.pagePosition = '';
-
-    this.applyTo = 1;
-    this.applyToFirst = true;
-    this.repreSelect = null;
-  }
-
-  fillValues(source: PageUpdateHolder) {
-    this.pageType = source.pageType;
-    this.pageIndex = source.pageIndex;
-
-    this.pageNumberFrom = source.pageNumberFrom;
-    this.pageNumberIncrement = source.pageNumberIncrement;
-    this.pageNumberPrefix = source.pageNumberPrefix;
-    this.pageNumberSuffix = source.pageNumberSuffix;
-    this.pageNumberNumbering = source.pageNumberNumbering;
-
-    this.pagePosition = source.pagePosition;
-
-    this.applyTo = source.applyTo;
-    this.applyToFirst = source.applyToFirst;
-    this.repreSelect = source.repreSelect;
-
-  }
-
-  // getPageIndexFrom(): number {
-  //   return this.findIndexInNumbering(this.pageNumberFrom);
-  // }
 
 
+    // editType: boolean;
+    // editIndex: boolean;
+    // editNumber: boolean;
+    // editPosition: boolean;
 
-  // editAny(): boolean {
-  //   return  this.pageIndex !== null || this.pageType !== '' || (this.numberFromValid()) || (this.pagePosition !== '') || (this.repreSelect !== null);
-  // }
+    useBrackets: boolean;
+    doubleColumns: boolean;
 
-  // reset() {
-  //   this.editIndex = false;
-  //   this.editType = false;
-  //   this.editNumber = false;
-  //   this.editPosition = false;
-  //   this.repreSelect = null;
-  // }
+    pageType: string;
+    pageIndex: number;
 
-  
+    pageNumberFrom: string;
+    pageNumberIncrement: number;
+    pageNumberPrefix: string;
+    pageNumberSuffix: string;
+    pageNumberNumbering: any;
+
+    pagePosition: string;
+
+    applyTo: number;
+    applyToFirst: boolean;
+
+    repreSelect: any = null;
+    isReprePage: boolean;
+
+    constructor() {
+        // this.editType = false;
+        // this.editIndex = false;
+        // this.editNumber = false;
+        this.pageType = '';
+        // this.pageType = 'normalPage';
+        this.pageIndex = null;
+
+        this.pageNumberFrom = "";
+        this.pageNumberIncrement = 1;
+        this.pageNumberPrefix = '';
+        this.pageNumberSuffix = '';
+        this.pageNumberNumbering = {
+            id: 'ARABIC_SERIES',
+            label: '1, 2, 3, 4',
+        };
+
+        this.pagePosition = '';
+
+        this.applyTo = 1;
+        this.applyToFirst = true;
+        this.repreSelect = null;
+    }
+
+    fillValues(source: PageUpdateHolder) {
+        this.pageType = source.pageType;
+        this.pageIndex = source.pageIndex;
+
+        this.pageNumberFrom = source.pageNumberFrom;
+        this.pageNumberIncrement = source.pageNumberIncrement;
+        this.pageNumberPrefix = source.pageNumberPrefix;
+        this.pageNumberSuffix = source.pageNumberSuffix;
+        this.pageNumberNumbering = source.pageNumberNumbering;
+
+        this.pagePosition = source.pagePosition;
+
+        this.applyTo = source.applyTo;
+        this.applyToFirst = source.applyToFirst;
+        this.repreSelect = source.repreSelect;
+
+    }
+
+    // getPageIndexFrom(): number {
+    //   return this.findIndexInNumbering(this.pageNumberFrom);
+    // }
+
+
+
+    // editAny(): boolean {
+    //   return  this.pageIndex !== null || this.pageType !== '' || (this.numberFromValid()) || (this.pagePosition !== '') || (this.repreSelect !== null);
+    // }
+
+    // reset() {
+    //   this.editIndex = false;
+    //   this.editType = false;
+    //   this.editNumber = false;
+    //   this.editPosition = false;
+    //   this.repreSelect = null;
+    // }
+
+
 
 }

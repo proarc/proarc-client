@@ -134,6 +134,7 @@ export class EditorPagesComponent implements OnInit {
 
   onRevert() {
     this.controls.reset();
+    this.pageNumberNumberingControl.setValue(this.numberingTypes[0]);
     this.controls.markAsPristine();
     this.canSave = false;
     this.setPanelEditing();
@@ -201,6 +202,7 @@ export class EditorPagesComponent implements OnInit {
         pages.push(item.pid);
       }
     }
+    this.setPageHolder();
     this.api.editPages(pages, holder, this.layout.batchId, this.numberFromValid(), this.findIndexInNumbering(this.pageNumberFromControl.value)).subscribe((result: any) => {
       if (result.response.errors) {
         this.ui.showErrorDialogFromObject(result.response.errors);
@@ -210,15 +212,16 @@ export class EditorPagesComponent implements OnInit {
         if (this.layout.type !== 'repo') {
           this.ui.showInfoSnackBar(this.translator.instant('snackbar.changeSaved'), 4000);
         }
-        this.layout.refreshSelectedItem(true, 'pages');
+        setTimeout(() => {
+          this.layout.clearPanelEditing();
+          // this.layout.setShouldRefresh(true);
+          this.layout.refreshSelectedItem(true, 'pages');
+        }, 100);
+        
         this.state = 'success';
       }
     
       this.controls.markAsPristine();
-      setTimeout(() => {
-        this.layout.clearPanelEditing();
-        this.layout.setShouldRefresh(false);
-      }, 100);
     });
   }
 
@@ -250,6 +253,7 @@ export class EditorPagesComponent implements OnInit {
   }
 
   numberFromValid(): boolean {
+
     if (this.pageNumberNumberingControl.value.id === this.numberingTypes[0].id) {
       return new RegExp(/^\d+$/).test(this.pageNumberFromControl.value);
     } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[1].id) {

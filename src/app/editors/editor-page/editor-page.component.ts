@@ -174,7 +174,13 @@ export class EditorPageComponent implements OnInit {
   }
 
   onRevert() {
+    
     this.page.restore();
+    this.controls.markAsPristine();
+    this.layout.clearPanelEditing();
+    // setTimeout(() => {
+    //   this.layout.clearPanelEditing();
+    // }, 2000);
   }
 
   onSaveFrom(from: string) {
@@ -297,7 +303,7 @@ export class EditorPageComponent implements OnInit {
 
   private saveToKramerius() {
     this.api.saveKrameriusJSON(this.page.pid, this.layout.krameriusInstance, JSON.stringify(this.page.toJson()), this.page.timestamp).subscribe((response: any) => {
-      this.layout.setShouldRefresh(false);
+      this.layout.setShouldRefresh(true);
     });
   }
 
