@@ -173,10 +173,7 @@ export class EditorStructureComponent implements OnInit {
 
   }
 
-
-
   refreshChildren(selection: string[]) {
-    console.log('AA')
     this.layout.setItems([]);
     this.api.getRelations(this.layout.selectedParentItem.pid).subscribe((children: DocumentItem[]) => {
       this.layout.setItems(children);
