@@ -173,17 +173,9 @@ export class EditorPagesComponent implements OnInit {
       return;
     }
     this.holder.fillValues(this.controls.value);
-    // this.holder.pageNumberFrom = this.controls.get('pageNumberFrom').value;
-    // this.holder.pageNumberPrefix = this.controls.get('pageNumberPrefix').value;
-    // this.holder.pageNumberSuffix = this.controls.get('pageNumberSuffix').value;
-    // this.holder.pageNumberIncrement = this.controls.get('pageNumberIncrement').value;
-    // this.holder.pageIndex = this.controls.get('pageIndex').value;
 
     this.updateSelectedPages(this.holder, null);
-    // this.holder.reset();
-    // this.holder = new PageUpdateHolder();
-    this.controls.markAsPristine();
-    this.layout.clearPanelEditing();
+    
   }
 
   addBrackets() {
@@ -221,7 +213,13 @@ export class EditorPagesComponent implements OnInit {
         this.layout.refreshSelectedItem(true, 'pages');
         this.state = 'success';
       }
-    })
+    
+      this.controls.markAsPristine();
+      setTimeout(() => {
+        this.layout.clearPanelEditing();
+        this.layout.setShouldRefresh(false);
+      }, 100);
+    });
   }
 
   changeBrackets(holder: PageUpdateHolder, useBrackets: boolean, callback: () => void) {

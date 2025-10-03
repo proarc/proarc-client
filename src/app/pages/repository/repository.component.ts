@@ -16,7 +16,7 @@ import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
 import { UIService } from '../../services/ui.service';
 import { Configuration } from '../../shared/configuration';
-import { forkJoin, of, switchMap } from 'rxjs';
+import { forkJoin, of, Subscription, switchMap } from 'rxjs';
 import { IConfig, LayoutAdminComponent } from '../../dialogs/layout-admin/layout-admin.component';
 import { CzidloDialogComponent } from '../../dialogs/czidlo-dialog/czidlo-dialog.component';
 import { ExportDialogComponent } from '../../dialogs/export-dialog/export-dialog.component';
@@ -45,6 +45,8 @@ export class RepositoryComponent {
   path: { pid: string, label: string, model: string }[] = [];
 
   repositoryLayout: IConfig;
+  
+    subscriptions: Subscription[] = [];
 
   constructor(
     private router: Router,
@@ -61,6 +63,11 @@ export class RepositoryComponent {
   ) { 
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+    this.layout.setLastSelectedItem(null);
+  }
+
   ngOnInit() {
     this.layout.type = 'repo';
     // this.route.queryParams.subscribe(p => {
@@ -74,6 +81,9 @@ export class RepositoryComponent {
       })
     );
     s.subscribe();
+    this.subscriptions.push(this.layout.shouldRefresh().subscribe((keepSelection: boolean) => {
+      this.loadData(false);
+    }));
   }
 
   loadData(keepSelection: boolean) {
