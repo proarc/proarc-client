@@ -42,6 +42,7 @@ import { UserTableComponent } from "../../components/user-table/user-table.compo
 import { NewMetadataDialogComponent } from '../../dialogs/new-metadata-dialog/new-metadata-dialog.component';
 import { NewObjectData, NewObjectDialogComponent } from '../../dialogs/new-object-dialog/new-object-dialog.component';
 import { TableItem } from '../../model/table-item.model';
+import { Batch } from '../../model/batch.model';
 
 
 @Component({
@@ -174,6 +175,10 @@ export class EditorStructureComponent implements OnInit {
   }
 
   refreshChildren(selection: string[]) {
+    this.isRepo ? this.refreshChildrenRepo(selection) : this.refreshChildrenImport(selection)
+  }
+
+  refreshChildrenRepo(selection: string[]) {
     //this.layout.setItems([]);
     this.api.getRelations(this.layout.selectedParentItem.pid).subscribe((children: DocumentItem[]) => {
 
@@ -189,6 +194,30 @@ export class EditorStructureComponent implements OnInit {
       this.layout.items.set(children);
 
     });
+  }
+
+  refreshChildrenImport(selection: string[]) {
+
+    this.api.getImportBatch(parseInt(this.layout.batchId)).subscribe((batch: Batch) => {
+      this.api.getBatchPages(this.layout.batchId).subscribe((response: any) => {
+        if (response['response'].errors) {
+          const a = this.ui.showErrorDialogFromObject(response['response'].errors);
+          return;
+        }
+        if (response['response'].status === -1) {
+          this.ui.showErrorSnackBar(response['response'].data);
+          return;
+        }
+        const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
+        this.layout.setItems(pages);
+        this.layout.items().forEach(item => {
+          if (selection.includes(item.pid)) {
+            item.selected = true;
+          }
+        })
+      });
+    });
+
   }
 
   ngAfterViewInit() {
@@ -225,7 +254,7 @@ export class EditorStructureComponent implements OnInit {
 
     // this.layout.setShouldRefresh(false)
   }
-  
+
 
   setScrollPos() {
     if (!this.refreshing) {
@@ -895,13 +924,13 @@ export class EditorStructureComponent implements OnInit {
             if (res?.item) {
               const item = DocumentItem.fromJson(res.item);
               const items = this.layout.items();
-                if (result.objectPosition === 'after') {
-                  items.splice(this.lastClickIdx + 1, 0, item);
-                  this.hasChanges = true;
-                } else {
-                  items.push(item);
-                }
-                this.layout.setItems(items);
+              if (result.objectPosition === 'after') {
+                items.splice(this.lastClickIdx + 1, 0, item);
+                this.hasChanges = true;
+              } else {
+                items.push(item);
+              }
+              this.layout.setItems(items);
               if (res.gotoEdit) {
                 this.onSave(true);
                 this.router.navigate(['/repository', item.pid]);

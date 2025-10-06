@@ -263,9 +263,6 @@ export class EditorPageComponent implements OnInit {
 
   saveIcon() {
     // this.setPage(this.controls.value);
-    Object.keys(this.controls.controls).forEach((key: string) => {
-      this.page[key as keyof (Page)] = this.controls.get(key).value;
-    });
     if (this.layout.type === 'repo') {
       this.onSave(null);
     } else {
@@ -308,10 +305,12 @@ export class EditorPageComponent implements OnInit {
   }
 
   private save(from: string) {
+    
+    Object.keys(this.controls.controls).forEach((key: string) => {
+      this.page[key as keyof (Page)] = this.controls.get(key).value;
+    });
     this.layout.movedToNextFrom = from;
-    this.controls.markAsPristine();
-    this.layout.clearPanelEditing();
-    if (!this.page.hasChanged()) {
+    if (!this.hasChanged()) {
       if (!!from) {
         this.layout.shouldMoveToNext(from);
       }
@@ -363,7 +362,10 @@ export class EditorPageComponent implements OnInit {
       }
       const newPage: Page = Page.fromJson(resp['response']['data'][0], page.model);
       this.setPage(newPage);
-      // this.layout.setShouldRefresh(true);
+      
+    this.controls.markAsPristine();
+    this.layout.clearPanelEditing();
+
       this.layout.refreshSelectedItem(moveToNext, from);
 
       this.state = 'success';
