@@ -67,6 +67,8 @@ export class SearchActionsComponent {
     return this.treeItems().filter(i => i.selected).length;
   } 
 
+  
+
   onUrnnbn(inSearch: boolean) {
     const pids = inSearch ?
       this.items().filter(i => i.selected).map(i => i.pid) :
@@ -83,8 +85,24 @@ export class SearchActionsComponent {
     });
   }
 
-  onExport(inSearch: boolean) {
-    const items = inSearch ?
+  canExport() {
+
+    const selected = this.forTree() ?
+       this.treeItems().filter(i => i.selected) :
+      this.items().filter(i => i.selected);
+
+
+    const models: string[] = [];
+    selected.forEach(i => {
+      if (!models.includes(i.model)) {
+        models.push(i.model);
+      }
+    });
+    return models.length < 2;
+  }
+
+  onExport() {
+    const items = !this.forTree() ?
       this.items().filter(i => i.selected).map(i => { return { pid: i.pid, model: i.model } }) :
       [{ pid: this.selectedTreeItem().pid, model: this.selectedTreeItem().model }];
     const dialogRef = this.dialog.open(ExportDialogComponent, {
