@@ -57,7 +57,6 @@ export class LayoutService {
 
 
     refreshSelectedItem(moveToNext: boolean, from: string) {
-        console.log(moveToNext, from)
         this.refreshSelectedSubject.next(from);
     }
 
@@ -90,8 +89,8 @@ export class LayoutService {
     public movingToNext: boolean;
     private moveNextSubject = new ReplaySubject<number>(1);
 
-    shouldMoveToNext(from: string) {
-        const index = this.items().findIndex(i => i.selected);
+    shouldMoveToNext(from: string, index: number) {
+        
         this.movedToNextFrom = from;
         this.movingToNext = true;
         this.moveNextSubject.next(index);

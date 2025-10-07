@@ -138,7 +138,8 @@ export class EditorAudioPageComponent implements OnInit {
     this.movedToNextFrom = from;
     if (!this.audioPage.hasChanged()) {
       if (!!from) {
-        this.layout.shouldMoveToNext(from);
+        const index = this.layout.items().findIndex(i => i.selected);
+        this.layout.shouldMoveToNext(from, index);
       }
       return;
     }

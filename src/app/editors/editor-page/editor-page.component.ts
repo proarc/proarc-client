@@ -309,10 +309,13 @@ export class EditorPageComponent implements OnInit {
     Object.keys(this.controls.controls).forEach((key: string) => {
       this.page[key as keyof (Page)] = this.controls.get(key).value;
     });
+    console.log(from);
     this.layout.movedToNextFrom = from;
     if (!this.hasChanged()) {
       if (!!from) {
-        this.layout.shouldMoveToNext(from);
+        const index = this.layout.items().findIndex(i => i.selected);
+        console.log(from, index);
+        this.layout.shouldMoveToNext(from, index);
       }
       return;
     }

@@ -172,6 +172,11 @@ export class EditorStructureComponent implements OnInit {
       // this.refreshChildren(selection);
     }));
 
+    this.layout.moveToNext().subscribe((idx: number) => {
+      console.log(idx)
+      this.moveToNext(idx);
+    });
+
   }
 
   refreshChildren(selection: string[]) {
@@ -408,7 +413,8 @@ export class EditorStructureComponent implements OnInit {
 
   }
 
-  moveToNext(index: number) {
+  moveToNext(idx: number) {
+    const index = idx + 1;
     if (index < this.layout.items().length) {
       this.rowClick(this.layout.items()[index], null, index);
     }
