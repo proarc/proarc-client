@@ -153,7 +153,22 @@
     "signature": "Signature",
     "barcode": "Bar code",
     "taskUser": "Task user",
-    "profileLabel": "Profile label"
+    "profileLabel": "Profile label",
+    "issue": "Issue",
+    "volume": "Volume",
+    "year": "Year",
+    "taskDate": "Task date",
+    "taskName" : "Task name",
+    "detail": "Detail",
+    "edition": "Edition",
+    "financed": "Financed",
+    "id": "Id.",
+    "field001": "Field 001",
+    "note": "Note",
+    "profileName": "Profile name",
+    "sigla": "Sigla",
+    "ownerId": "User",
+    "deviceLabel": "Device"
   },
   "catalog": {
     "field": {

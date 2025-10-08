@@ -153,7 +153,22 @@
     "signature": "Signatura",
     "barcode": "Bar cód",
     "taskUser": "Uživatel úkolu",
-    "profileLabel": "Štítek profilu"
+    "profileLabel": "Štítek profilu",
+    "issue": "Číslo",
+    "volume": "Ročník",
+    "year": "Rok",
+    "taskDate": "Datum dok. úkolu",
+    "taskName" : "Dokončený úkol",
+    "detail": "Detail",
+    "edition": "Edice",
+    "financed": "Financováno",
+    "id": "Id.",
+    "field001": "Pole 001",
+    "note": "Poznámka",
+    "profileName": "Profil",
+    "sigla": "Sigla",
+    "ownerId": "Uživatel",
+    "deviceLabel": "Zařízení"
   },
   "catalog": {
     "field": {
