@@ -129,6 +129,7 @@ export class EditorPagesComponent implements OnInit {
 
   initControls() {
     this.controls.patchValue(this.holder);
+    this.pageNumberNumberingControl.setValue(this.numberingTypes[0]);
     this.controls.markAsPristine();
   }
 
