@@ -186,7 +186,7 @@ export class PageUpdateHolder {
     pageNumberIncrement: number;
     pageNumberPrefix: string;
     pageNumberSuffix: string;
-    pageNumberNumbering: any;
+    pageNumberNumbering: string;
 
     pagePosition: string;
 
@@ -208,10 +208,11 @@ export class PageUpdateHolder {
         this.pageNumberIncrement = 1;
         this.pageNumberPrefix = '';
         this.pageNumberSuffix = '';
-        this.pageNumberNumbering = {
-            id: 'ARABIC_SERIES',
-            label: '1, 2, 3, 4',
-        };
+        // this.pageNumberNumbering = {
+        //     id: 'ARABIC_SERIES',
+        //     label: '1, 2, 3, 4',
+        // };
+        this.pageNumberNumbering ='ARABIC_SERIES';
 
         this.pagePosition = '';
 

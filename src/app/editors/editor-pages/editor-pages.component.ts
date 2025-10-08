@@ -60,7 +60,7 @@ export class EditorPagesComponent implements OnInit {
 
 
   pageTypeControl: FormControl<{ code: string, name: string } | null> = new FormControl<{ code: string, name: string } | null>(null);
-  pageNumberNumberingControl: FormControl<{ id: string, label: string } | null> = new FormControl<{ id: string, label: string } | null>(this.numberingTypes[0]);
+  pageNumberNumberingControl: FormControl<string | null> = new FormControl<string | null>(this.numberingTypes[0].id);
   pageNumberFromControl = new FormControl();
   pageNumberPrefixControl = new FormControl();
   pageNumberSuffixControl = new FormControl();
@@ -106,11 +106,12 @@ export class EditorPagesComponent implements OnInit {
 
   ngOnInit() {
     this.holder = new PageUpdateHolder();
+    this.holder.pageNumberNumbering = this.numberingTypes[0].id;
     if (this.layout.lastPageUpdateHolder) {
       this.holder.fillValues(this.layout.lastPageUpdateHolder);
     }
-
     this.initControls();
+
     this.controls.valueChanges.subscribe(() => {
       this.canSave = true;
       this.setPanelEditing();
@@ -129,13 +130,13 @@ export class EditorPagesComponent implements OnInit {
 
   initControls() {
     this.controls.patchValue(this.holder);
-    this.pageNumberNumberingControl.setValue(this.numberingTypes[0]);
+    this.pageNumberNumberingControl.setValue(this.holder.pageNumberNumbering);
     this.controls.markAsPristine();
   }
 
   onRevert() {
     this.controls.reset();
-    this.pageNumberNumberingControl.setValue(this.numberingTypes[0]);
+    this.pageNumberNumberingControl.setValue(this.numberingTypes[0].id);
     this.controls.markAsPristine();
     this.canSave = false;
     this.setPanelEditing();
@@ -255,15 +256,15 @@ export class EditorPagesComponent implements OnInit {
 
   numberFromValid(): boolean {
 
-    if (this.pageNumberNumberingControl.value.id === this.numberingTypes[0].id) {
+    if (this.pageNumberNumberingControl.value === this.numberingTypes[0].id) {
       return new RegExp(/^\d+$/).test(this.pageNumberFromControl.value);
-    } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[1].id) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[1].id) {
       return new RegExp(/^[IVXCLMD]+$/).test(this.pageNumberFromControl.value.toLocaleUpperCase());
-    } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[2].id) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[2].id) {
       return new RegExp(/^[IVXCLMD]+$/).test(this.pageNumberFromControl.value.toLocaleUpperCase());
-    } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[3].id) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[3].id) {
       return new RegExp(/^[A-Za-z]+$/).test(this.pageNumberFromControl.value);
-    } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[4].id) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[4].id) {
       return new RegExp(/^[A-Za-z]+$/).test(this.pageNumberFromControl.value);
     }
     return false;
@@ -346,15 +347,15 @@ export class EditorPagesComponent implements OnInit {
   }
 
   findIndexInNumbering(number: string): number {
-    if (this.pageNumberNumberingControl.value.id == this.numberingTypes[0].id) {
+    if (this.pageNumberNumberingControl.value == this.numberingTypes[0].id) {
       return parseInt(number);
-    } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[1].id) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[1].id) {
       return this.deromanize(number.toUpperCase());
-    } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[2].id) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[2].id) {
       return this.deromanize(number.toUpperCase());
-    } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[3].id) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[3].id) {
       return this.alphabetIndex(number.toLocaleLowerCase());
-    } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[4].id) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[4].id) {
       return this.alphabetIndex(number.toLocaleLowerCase());
     } else {
       return -1
@@ -363,15 +364,15 @@ export class EditorPagesComponent implements OnInit {
 
   getAsString(num: number) {
     let result = this.pageNumberPrefixControl.value;
-    if (this.pageNumberNumberingControl.value.id === this.numberingTypes[0].id) {
+    if (this.pageNumberNumberingControl.value === this.numberingTypes[0].id) {
       result += String(num);
-    } else if (this.pageNumberNumberingControl.value .id=== this.numberingTypes[1].id) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[1].id) {
       result += this.romanize(num);
-    } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[2].id) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[2].id) {
       result += this.romanize(num).toLowerCase();
-    } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[3].id) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[3].id) {
       result += this.getAlphabetFromNumber(num);
-    } else if (this.pageNumberNumberingControl.value.id === this.numberingTypes[4].id) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[4].id) {
       result += this.getAlphabetFromNumber(num).toLocaleLowerCase();
     }
     result = result + this.pageNumberSuffixControl.value;

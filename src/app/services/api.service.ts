@@ -1325,7 +1325,7 @@ export class ApiService {
       data += `&doubleColumns=${holder.doubleColumns}`;
     }
     if (numberFromValid) {
-      data += `&sequence=${holder.pageNumberNumbering.id}&prefix=${holder.pageNumberPrefix}&suffix=${holder.pageNumberSuffix}&startNumber=${getPageIndexFrom}&incrementNumber=${holder.pageNumberIncrement}`;
+      data += `&sequence=${holder.pageNumberNumbering}&prefix=${holder.pageNumberPrefix}&suffix=${holder.pageNumberSuffix}&startNumber=${getPageIndexFrom}&incrementNumber=${holder.pageNumberIncrement}`;
     }
     if (holder.applyTo > 1) {
       data += `&applyToFirstPage=${holder.applyToFirst}`;

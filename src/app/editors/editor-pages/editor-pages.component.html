@@ -81,7 +81,7 @@
                 <mat-label>{{ 'editor.pages.number_numbering' | translate }}</mat-label>
                 <mat-select #numSelect [placeholder]="'editor.pages.number_numbering' | translate" name="type" [formControl]="pageNumberNumberingControl" (keyup.enter)="enterSelect(numSelect)">
                   @for(type of numberingTypes; track $index;) {
-                    <mat-option [value]="type">{{ type.label }}</mat-option>
+                    <mat-option [value]="type.id">{{ type.label }}</mat-option>
                   }
                 </mat-select>
               </mat-form-field>
