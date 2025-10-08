@@ -151,7 +151,7 @@
       "description": "Popis"
     },
     "signature": "Signatura",
-    "barcode": "Bar cód",
+    "barcode": "Čárový kód",
     "taskUser": "Uživatel úkolu",
     "profileLabel": "Štítek profilu",
     "issue": "Číslo",
@@ -162,12 +162,13 @@
     "detail": "Detail",
     "edition": "Edice",
     "financed": "Financováno",
-    "id": "Id.",
+    "id": "Id",
     "field001": "Pole 001",
     "note": "Poznámka",
     "profileName": "Profil",
     "sigla": "Sigla",
     "ownerId": "Uživatel",
+    "rawPath": "Adresář surových skenu",
     "deviceLabel": "Zařízení"
   },
   "catalog": {

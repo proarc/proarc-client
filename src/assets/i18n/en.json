@@ -162,12 +162,13 @@
     "detail": "Detail",
     "edition": "Edition",
     "financed": "Financed",
-    "id": "Id.",
+    "id": "Id",
     "field001": "Field 001",
     "note": "Note",
     "profileName": "Profile name",
     "sigla": "Sigla",
     "ownerId": "User",
+    "rawPath": "Path",
     "deviceLabel": "Device"
   },
   "catalog": {
