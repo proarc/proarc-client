@@ -168,7 +168,7 @@
     "profileName": "Profil",
     "sigla": "Sigla",
     "ownerId": "Uživatel",
-    "rawPath": "Adresář surových skenu",
+    "rawPath": "Adresář surových skenů",
     "deviceLabel": "Zařízení"
   },
   "catalog": {
@@ -2594,7 +2594,7 @@
     "ownerId": "Uživatel",
     "profileName": "Profil",
     "profileLabel": "Úkol",
-    "rawPath": "Adresář surových skenu",
+    "rawPath": "Adresář surových skenů",
     "taskName" : "Dokončený úkol",
     "taskUser": "Dokončil úkol",
     "deviceID": "Zařízení",
