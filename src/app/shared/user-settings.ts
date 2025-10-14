@@ -357,8 +357,8 @@ public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
         this.settings.parentOrganization = '-';
         this.settings.parentExpandedPath = [];
         this.settings.parentSplit = 60;
-        this.settings.columnsParentRight = Utils.clone(this.columnsSearchDefault);
-        this.settings.columnsParentLeft = Utils.clone(this.columnsSearchDefault);
+        this.settings.columnsParentRight = Utils.clone(this.columnsEditingRepoDefault);
+        this.settings.columnsParentLeft = Utils.clone(this.columnsEditingRepoDefault);
 
         
         this.settings.viewerPositionLock = false;

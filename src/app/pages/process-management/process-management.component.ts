@@ -191,6 +191,8 @@ export class ProcessManagementComponent {
   }
 
   selectRow(e: { item: Batch, event?: MouseEvent, idx?: number }) {
+    this.batches.forEach(i => i.selected = false);
+    e.item.selected = true;
     this.selectBatch(e.item);
   }
 

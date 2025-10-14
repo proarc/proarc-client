@@ -325,7 +325,7 @@ export class BatchesComponent {
         data: {
           btnLabel: 'editor.children.relocate_label',
           parent: null,
-          items: this.layout.items,
+          items: this.layout.items(),
           displayedColumns: ['filename', 'pageType', 'pageNumber', 'pageIndex', 'pagePosition'],
           isRepo: false,
           batchId: this.batchId

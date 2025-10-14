@@ -493,6 +493,8 @@ export class ParentDialogComponent implements OnInit {
   }
 
   selectItem(item: DocumentItem) {
+    this.items.forEach(i => i.selected = false);
+    item.selected = true;
     this.selectedDestItem = item;
     if (this.selectedRootTreeItem) {
       // reset
@@ -665,7 +667,7 @@ export class ParentDialogComponent implements OnInit {
   }
 
   columnType(f: string) {
-    return this.settings.columnsSearch.find(c => c.field === f).type;
+    return this.settings.columnsParentRight.find(c => c.field === f).type;
   }
 
   prefixByType(f: string): string {
