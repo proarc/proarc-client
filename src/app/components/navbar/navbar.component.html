@@ -57,20 +57,26 @@
 
   <div class="app-right">
     @if (auth.isLoggedIn()) {
-    @if (auth.isSuperAdmin() || auth.isAdmin()) {
+    @if (auth.user.deviceFunction) {
     <a mat-button [routerLink]="['/devices']" routerLinkActive="active">{{ "navbar.devices" | translate }}</a>
+    }
+    @if (auth.user.createUserFunction || auth.user.updateUserFunction || auth.user.deleteUserFunction) {
     <a mat-button [routerLink]="['/admin']" routerLinkActive="active">{{ "navbar.admin" | translate }}</a>
     }
 
-    @if (auth.isSuperAdmin()) {
+    @if (auth.user.sysAdminFunction || auth.user.solrFunction || auth.user.deleteActionFunction || auth.user.changePagesFunction) {
     <a mat-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate"><mat-icon>more_vert</mat-icon></a>
     <mat-menu #menuMore="matMenu">
-      @if (isAkubra) {
-      <button mat-menu-item (click)="reindex()">{{ 'button.toIndex' | translate }}</button>
-      <button mat-menu-item (click)="indexParents()">{{ 'button.indexParents' | translate }}</button>
+      @if (isAkubra && (auth.user.solrFunction || auth.user.sysAdminFunction)) {
+        <button mat-menu-item (click)="reindex()">{{ 'button.toIndex' | translate }}</button>
+        <button mat-menu-item (click)="indexParents()">{{ 'button.indexParents' | translate }}</button>
       }
-      <button mat-menu-item (click)="updateNdkPage()">{{ 'button.updateNdkPage' | translate }}</button>
-      <button mat-menu-item (click)="purgeObjects()">{{ 'button.purgeObjects' | translate }}</button>
+      @if (auth.user.changePagesFunction) {
+        <button mat-menu-item (click)="updateNdkPage()">{{ 'button.updateNdkPage' | translate }}</button>
+      }
+      @if (auth.user.deleteActionFunction) {
+        <button mat-menu-item (click)="purgeObjects()">{{ 'button.purgeObjects' | translate }}</button>
+      }
     </mat-menu>
     }
     <!-- <a  [routerLink]="['/layout']" routerLinkActive="active" mat-button>{{ "navbar.layout" | translate }}</a> -->

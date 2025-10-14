@@ -26,7 +26,7 @@ export class UserSettings {
     searchExpandTree: boolean;
     colsEditingRepo: { [model: string]: TableColumn[] } = {};
     colsEditModeParent: boolean;
-    
+
     colsEditingImport: TableColumn[];
     columnsWorkFlow: TableColumn[];
     columnsWorkFlowTasks: TableColumn[];
@@ -47,10 +47,10 @@ export class UserSettings {
     importLayout: IConfig;
 
     parentModel: string;  // model in parent-dialog
-    parentOrganization: string; 
-    parentQueryField: string; 
-    parentOwner: string; 
-    parentProcessor: string; 
+    parentOrganization: string;
+    parentQueryField: string;
+    parentOwner: string;
+    parentProcessor: string;
     parentSortField: string;
     parentSortAsc: boolean;
     parentExpandedPath: string[];
@@ -59,14 +59,14 @@ export class UserSettings {
     columnsParentLeft: TableColumn[];
 
     viewerPositionLock: boolean;
-    viewerRotation: string; 
-    viewerCenter: string; 
-    viewerResolution: string; 
+    viewerRotation: string;
+    viewerCenter: string;
+    viewerResolution: string;
 
     markSequenceDialogOrigTableColumns: TableColumn[];
     markSequenceDialogDestTableColumns: TableColumn[];
 
-    
+
     appearance: MatFormFieldAppearance = 'fill'; //fill | outline
 
     [key: string]: any; // This is to allow property asignement by name this[k] = o[k];
@@ -106,7 +106,7 @@ export class UserSettingsService {
       ],
       disabled: false,
     }
-    
+
 
   columnsSearchDefault: TableColumn[] = [
     { field: 'label', selected: true, width: 100, type: 'string' },
@@ -212,21 +212,31 @@ public queueColumnsDefault: TableColumn[] = [
 ];
 
 public adminColumnsDefault = [
-  { field: 'name', selected: true, width: 100, type: 'string' },
-  { field: 'forename', selected: true, width: 100, type: 'string' },
-  { field: 'surname', selected: true, width: 100, type: 'string' },
-  { field: 'email', selected: true, width: 100, type: 'string' },
-  { field: 'organization', selected: true, width: 100, type: 'string' },
-  { field: 'role', selected: true, width: 100, type: 'string' },
-  { field: 'home', selected: true, width: 100, type: 'string' },
-  { field: 'changeModelFunction', selected: true, width: 100, type: 'boolean' },
-  { field: 'updateModelFunction', selected: true, width: 100, type: 'boolean' },
-  { field: 'lockObjectFunction', selected: true, width: 100, type: 'boolean' },
-  { field: 'unlockObjectFunction', selected: true, width: 100, type: 'boolean' },
-  { field: 'importToProdFunction', selected: true, width: 100, type: 'boolean' },
-  { field: 'czidloFunction', selected: true, width: 100, type: 'boolean' },
-  { field: 'importToCatalogFunction', selected: true, width: 100, type: 'boolean'},
-  { field: 'wfDeleteJobFunction', selected: true, width: 100, type: 'boolean'},
+  { field: 'name', selected: true, width: 200, type: 'string' },
+  { field: 'forename', selected: true, width: 200, type: 'string' },
+  { field: 'surname', selected: true, width: 200, type: 'string' },
+  { field: 'email', selected: true, width: 200, type: 'string' },
+  { field: 'organization', selected: true, width: 200, type: 'string' },
+  { field: 'home', selected: true, width: 400, type: 'string' },
+  // { field: 'changeModelFunction', selected: true, width: 100, type: 'boolean'},
+  // { field: 'changePagesFunction', selected: true, width: 100, type: 'boolean'},
+  // { field: 'lockObjectFunction', selected: true, width: 100, type: 'boolean'},
+  // { field: 'unlockObjectFunction', selected: true, width: 100, type: 'boolean'},
+  // { field: 'importToCatalogFunction', selected: true, width: 100, type: 'boolean'},
+  // { field: 'czidloFunction', selected: true, width: 100, type: 'boolean'},
+  // { field: 'deleteActionFunction', selected: true, width: 100, type: 'boolean'},
+  // { field: 'changeObjectsOwnerFunction', selected: true, width: 100, type: 'boolean'},
+  // { field: 'prepareBatchFunction', selected: true, width: 100, type: 'boolean'},
+  // { field: 'allObjectsFunction', selected: true, width: 100, type: 'boolean'},
+  // { field: 'importToProdFunction', selected: true, width: 100, type: 'boolean'},
+  // { field: 'deviceFunction', selected: true, width: 100, type: 'boolean'},
+  // { field: 'createUserFunction', selected: true, width: 100, type: 'boolean'},
+  // { field: 'updateUserFunction', selected: true, width: 100, type: 'boolean'},
+  // { field: 'deleteUserFunction', selected: true, width: 100, type: 'boolean'},
+  // { field: 'solrFunction', selected: true, width: 100, type: 'boolean'},
+  // { field: 'sysAdminFunction', selected: true, width: 100, type: 'boolean'},
+  // { field: 'wfCreateJobFunction', selected: true, width: 100, type: 'boolean'},
+  // { field: 'wfDeleteJobFunction', selected: true, width: 100, type: 'boolean'},
   { field: 'action', selected: true, width: 100, type: 'boolean' }
 ];
 
@@ -281,7 +291,7 @@ public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
         const keys = Object.keys(o);
         keys.forEach(k => {
             this.settings[k] = o[k];
-        }); 
+        });
         this.save(true);
     }
 
@@ -328,7 +338,7 @@ public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
         this.settings.colsEditModeParent = true;
 
         this.settings.colsEditingImport = Utils.clone(this.columnsEditingRepoDefault);
-        
+
 
         this.settings.columnsWorkFlow = Utils.clone(this.columnsWorkFlowDefault);
         this.settings.columnsWorkFlowTasks = Utils.clone(this.columnsWorkFlowTasksDefault);
@@ -341,7 +351,7 @@ public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
         this.settings.topLanguages = Utils.clone(this.config.topLanguages);
         this.settings.topIdentifiers = Utils.clone(this.config.topIdentifiers);
         this.settings.topExpandedModels = Utils.clone(this.config.expandedModels);
-        
+
         this.settings.relatedItemExpanded = false;
         this.settings.formHighlighting = true;
 
@@ -350,7 +360,7 @@ public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
         this.settings.parentModel = this.config.defaultModel;
         this.settings.parentSortField = 'modified';
         this.settings.parentSortAsc = false;
-        
+
         this.settings.parentQueryField = 'queryLabel';
         this.settings.parentOwner = '-';
         this.settings.parentProcessor = '-';
@@ -360,7 +370,7 @@ public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
         this.settings.columnsParentRight = Utils.clone(this.columnsEditingRepoDefault);
         this.settings.columnsParentLeft = Utils.clone(this.columnsEditingRepoDefault);
 
-        
+
         this.settings.viewerPositionLock = false;
         this.settings.viewerRotation = null;
         this.settings.viewerCenter = null;

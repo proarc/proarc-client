@@ -40,7 +40,6 @@ export class AdminComponent implements OnInit {
 
   users: User[];
   selectedUser: User;
-  roles = ['user', 'admin', 'superAdmin'];
   organizations: string[];
 
   public selectedColumns = [
@@ -49,21 +48,35 @@ export class AdminComponent implements OnInit {
     { field: 'surname', selected: true, width: 100 },
     { field: 'email', selected: true, width: 100 },
     { field: 'organization', selected: true, width: 100 },
-    { field: 'role', selected: true, width: 100 },
     { field: 'home', selected: true, width: 100 },
-    { field: 'changeModelFunction', selected: true, width: 100 },
-    { field: 'updateModelFunction', selected: true, width: 100 },
-    { field: 'lockObjectFunction', selected: true, width: 100 },
-    { field: 'unlockObjectFunction', selected: true, width: 100 },
-    { field: 'importToProdFunction', selected: true, width: 100 },
-    { field: 'czidloFunction', selected: true, width: 100 },
-    { field: 'importToCatalogFunction', selected: true, width: 100},
-    { field: 'wfDeleteJobFunction', selected: true, width: 100},
+    // { field: 'changeModelFunction', selected: true, width: 100},
+    // { field: 'changePagesFunction', selected: true, width: 100},
+    // { field: 'lockObjectFunction', selected: true, width: 100},
+    // { field: 'unlockObjectFunction', selected: true, width: 100},
+    // { field: 'importToCatalogFunction', selected: true, width: 100},
+    // { field: 'czidloFunction', selected: true, width: 100},
+    // { field: 'deleteActionFunction', selected: true, width: 100},
+    // { field: 'changeObjectsOwnerFunction', selected: true, width: 100},
+    // { field: 'prepareBatchFunction', selected: true, width: 100},
+    // { field: 'allObjectsFunction', selected: true, width: 100},
+    // { field: 'importToProdFunction', selected: true, width: 100},
+    // { field: 'deviceFunction', selected: true, width: 100},
+    // { field: 'createUserFunction', selected: true, width: 100},
+    // { field: 'updateUserFunction', selected: true, width: 100},
+    // { field: 'deleteUserFunction', selected: true, width: 100},
+    // { field: 'solrFunction', selected: true, width: 100},
+    // { field: 'sysAdminFunction', selected: true, width: 100},
+    // { field: 'wfCreateJobFunction', selected: true, width: 100},
+    // { field: 'wfDeleteJobFunction', selected: true, width: 100},
     { field: 'action', selected: true, width: 100 }
   ];
 
-  displayedColumns: string[] = ['name', 'forename', 'surname', 'email', 'organization', 'role', 'home', 'changeModelFunction', 'updateModelFunction',
-    'lockObjectFunction', 'unlockObjectFunction', 'importToProdFunction', 'czidloFunction', 'importToCatalogFunction', 'wfDeleteJobFunction', 'action'];
+  displayedColumns: string[] = ['name', 'forename', 'surname', 'email', 'organization', 'home',
+    // 'changeModelFunction', 'changePagesFunction', 'lockObjectFunction', 'unlockObjectFunction',
+    // 'importToCatalogFunction', 'czidloFunction', 'deleteActionFunction', 'changeObjectsOwnerFunction', 'prepareBatchFunction',
+    // 'allObjectsFunction', 'importToProdFunction', 'deviceFunction', 'createUserFunction', 'updateUserFunction', 'deleteUserFunction',
+    // 'solrFunction', 'sysAdminFunction', 'wfCreateJobFunction', 'wfDeleteJobFunction',
+    'action'];
 
   constructor(
     private translator: TranslateService,
@@ -150,7 +163,7 @@ export class AdminComponent implements OnInit {
   }
 
   newUser() {
-    const newUser: User = User.fromJson({name: 'user_name', role: 'user', userId: -1});
+    const newUser: User = User.fromJson({name: 'user_name', userId: -1});
     this.users.push(newUser);
     this.selectedUser = newUser;
   }
@@ -189,14 +202,14 @@ export class AdminComponent implements OnInit {
     });
   }
 
-    
+
 
   initSelectedColumns() {
     const colsSettings: TableColumn[] = Utils.clone(this.settings['adminColumns']);
     this.selectedColumns = colsSettings.filter(c => c.selected);
     this.displayedColumns = this.selectedColumns.filter(c => c.selected).map(c => c.field);
   }
-  
+
 
   getColumnWidth(field: string) {
     const el = this.selectedColumns.find((c: any)=> c.field === field);

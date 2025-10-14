@@ -192,8 +192,8 @@
               </div>
             </fieldset>
           </div>
-           
-          
+
+
           <div class="app-fxLayout app-row app-gap-4">
             <fieldset class="app-fxFlex app-fxLayout app-column" cdkDropList (cdkDropListDropped)="drop($event, curSettings.markSequenceDialogOrigTableColumns)">
               <legend>{{ 'pages.settings.markSequenceDialogOrigTableColumns.legend' | translate }}</legend>
@@ -226,7 +226,7 @@
                 <button mat-stroked-button (click)="resetOne('markSequenceDialogDestTableColumns')">{{ 'button.reset' | translate }}</button>
               </div>
             </fieldset>
-          </div>  
+          </div>
         }
         @if (view == 'personalSettings') {
           <fieldset class="app-p-4 app-mb-4">
@@ -251,10 +251,6 @@
               <mat-form-field  class="app-fxFlex">
                 <mat-label>{{ 'desc.organization' | translate }}</mat-label>
                 <input [disabled]="true" matInput [value]="user.organization ? ('organization.' + user.organization | translate) : '-'" [placeholder]="'desc.organization' | translate">
-              </mat-form-field>
-              <mat-form-field  class="app-fxFlex">
-                <mat-label>{{ 'desc.role' | translate }}</mat-label>
-                <input [disabled]="true" matInput [value]='user.role' [placeholder]="'desc.role' | translate">
               </mat-form-field>
             </div>
             <div>

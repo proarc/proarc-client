@@ -61,7 +61,7 @@
               </mat-form-field>
               <mat-form-field class="app-field-col" >
                 <mat-label>{{ 'editor.atm.organization' | translate }}</mat-label>
-                <mat-select [disabled]="!auth.isSuperAdmin()" [placeholder]="'editor.atm.organization' | translate" name="organization" [(value)]="atm.organization">
+                <mat-select [disabled]="!auth.user.allObjectsFunction" [placeholder]="'editor.atm.organization' | translate" name="organization" [(value)]="atm.organization">
                   @for(organization of organizations; track $index;) {
                     <mat-option [value]="organization">{{ 'organization.' + organization | translate }}</mat-option>
                   }
@@ -69,7 +69,7 @@
               </mat-form-field>
               <mat-form-field class="app-field-col" >
                 <mat-label>{{ 'editor.atm.userProcessor' | translate }}</mat-label>
-                <mat-select [disabled]="!auth.isSuperAdmin() && !auth.isAdmin()" [placeholder]="'editor.atm.userProcessor' | translate" name="userProcessor" [(value)]="atm.userProcessor">
+                <mat-select [placeholder]="'editor.atm.userProcessor' | translate" name="userProcessor" [(value)]="atm.userProcessor">
                   @for(user of users; track $index;) {
                     <mat-option [value]="user.name">{{ user.name }}</mat-option>
                   }

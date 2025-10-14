@@ -789,8 +789,7 @@ export class ProcessManagementComponent {
   canStopProcess() {
     return this.selectedBatch &&
       (
-        this.auth.isAdmin() || this.auth.isSuperAdmin() ||
-        this.auth.user.name === this.selectedBatch.user
+        this.auth.user.name === this.selectedBatch.user || this.auth.user.prepareBatchFunction
       ) &&
       (this.selectedBatch.state === 'EXPORT_PLANNED' || this.selectedBatch.state === 'EXPORTING')
   }

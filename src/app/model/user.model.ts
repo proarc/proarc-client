@@ -14,16 +14,26 @@ export class User {
   public timestamp: Date;
   public created: Date;
   public organization: string;
-  public role: string;
 
   public changeModelFunction: boolean;
   public unlockObjectFunction: boolean;
-  public updateModelFunction: boolean;
   public lockObjectFunction: boolean;
   public importToProdFunction: boolean;
   public czidloFunction: boolean;
   public wfDeleteJobFunction: boolean;
   public importToCatalogFunction: boolean;
+  public changeObjectsOwnerFunction: boolean;
+  public deviceFunction: boolean;
+  public changePagesFunction: boolean;
+  public wfCreateJobFunction: boolean;
+  public createUserFunction: boolean;
+  public updateUserFunction: boolean;
+  public deleteUserFunction: boolean;
+  public solrFunction: boolean;
+  public deleteActionFunction: boolean;
+  public allObjectsFunction: boolean;
+  public prepareBatchFunction: boolean;
+  public sysAdminFunction: boolean;
 
   public static fromJson(json: any): User {
       const user = new User();
@@ -37,15 +47,25 @@ export class User {
       user.timestamp = new Date(json['timestamp']);
       user.created = new Date(json['created']);
       user.organization = json['organization'];
-      user.role = json['role'];
       user.changeModelFunction = json['changeModelFunction'];
       user.unlockObjectFunction = json['unlockObjectFunction'];
-      user.updateModelFunction = json['updateModelFunction'];
       user.lockObjectFunction = json['lockObjectFunction'];
       user.importToProdFunction = json['importToProdFunction'];
       user.czidloFunction = json['czidloFunction'];
       user.wfDeleteJobFunction = json['wfDeleteJobFunction'];
       user.importToCatalogFunction = json['importToCatalogFunction'];
+      user.changeObjectsOwnerFunction = json['changeObjectsOwnerFunction'];
+      user.deviceFunction = json['deviceFunction'];
+      user.changePagesFunction = json['changePagesFunction'];
+      user.wfCreateJobFunction = json['wfCreateJobFunction'];
+      user.createUserFunction = json['createUserFunction'];
+      user.updateUserFunction = json['updateUserFunction'];
+      user.deleteUserFunction = json['deleteUserFunction'];
+      user.solrFunction = json['solrFunction'];
+      user.deleteActionFunction = json['deleteActionFunction'];
+      user.allObjectsFunction = json['allObjectsFunction'];
+      user.prepareBatchFunction = json['prepareBatchFunction'];
+      user.sysAdminFunction = json['sysAdminFunction'];
       return user;
   }
 

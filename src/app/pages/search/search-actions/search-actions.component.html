@@ -9,10 +9,10 @@
 @if (canCopy(selectedTreeItem())) {
   <button (click)="onCopyItem(selectedTreeItem())" [disabled]="totalSelectedTree() > 1" mat-button>{{ 'button.copy' | translate }}</button>
 }
-@if (!selectedItem()?.isLocked && (auth.user.lockObjectFunction || auth.isSuperAdmin())) {
+@if (!selectedItem()?.isLocked && (auth.user.lockObjectFunction)) {
   <button (click)="onLock(true)" [disabled]="totalSelected() > 1" mat-button>{{ 'button.lockIt' | translate }}</button>
 }
-@if (selectedItem()?.isLocked && (auth.user.unlockObjectFunction || auth.isSuperAdmin())) {
+@if (selectedItem()?.isLocked && (auth.user.unlockObjectFunction)) {
   <button (click)="onLock(false)" [disabled]="totalSelected() > 1" mat-button>{{ 'button.unlock' | translate }}</button>
 }
 @if (selectedItem()?.state === 'fedora-system:def/model#Deleted' || selectedItem()?.state === 'Deactive') {
@@ -25,14 +25,14 @@
     <button mat-menu-item (click)="changeModel()">{{ 'button.conversionsOfModels' | translate }}</button>
   }
   <button mat-menu-item (click)="updateObjects()">{{ 'button.updateAllObjects' | translate }}</button>
-  
-  @if (auth.user.changeModelFunction || auth.isSuperAdmin()) {
+
+  @if (auth.user.changePagesFunction) {
     <button mat-menu-item (click)="showConvertDialog()">{{ 'button.convertPages' | translate }}</button>
   }
-  @if (auth.user.czidloFunction || auth.isSuperAdmin()) {
+  @if (auth.user.czidloFunction) {
     <button mat-menu-item (click)="czidlo()">{{ 'button.czidloFunction' | translate }}</button>
   }
-  @if (config.updateInSource && (auth.user.importToCatalogFunction || auth.isSuperAdmin()) && canUpdateInSource()) {
+  @if (config.updateInSource && (auth.user.importToCatalogFunction) && canUpdateInSource()) {
     <button mat-menu-item (click)="updateInSource()">{{ 'button.updateInSource' | translate }}</button>
   }
   <button mat-menu-item (click)="validateObject()">{{ 'button.validateObject' | translate }}</button>

@@ -56,14 +56,6 @@
                 }
               </mat-select>
             </mat-form-field>
-            <mat-form-field  class="app-fxFlex">
-              <mat-label>{{ 'desc.role' | translate }}</mat-label>
-              <mat-select [(ngModel)]='selectedUser.role' [placeholder]="'desc.role' | translate">
-                @for(role of roles; track $index;) {
-                  <mat-option [value]="role">{{ 'formField.users.roles.' + role | translate }}</mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
           </div>
           <div class="app-mb-4">
             <strong>{{'desc.folder' | translate}}</strong>: <em class="app-desc">{{ selectedUser.home }}</em>
@@ -71,19 +63,57 @@
           <div class="app-mb-2">
             <span class="app-label">{{ 'desc.theUserIsAllowedToRunTheseFunctions' | translate }}:</span>
           </div>
+          <div class="app-mb2">
+            <span class="app-label">{{ 'desc.objectsFunctions' | translate }}:</span>
+          </div>
           <div class="app-fxLayout app-row app-center-v app-gap-4">
             <mat-checkbox color="primary" [(ngModel)]="selectedUser.changeModelFunction">{{ 'desc.conversionOfModels' | translate }}</mat-checkbox>
-            <mat-checkbox color="primary" [(ngModel)]="selectedUser.updateModelFunction">{{ 'desc.updateModels' | translate }}</mat-checkbox>
+            <mat-checkbox color="primary" [(ngModel)]="selectedUser.changePagesFunction">{{ 'desc.changePagesFunction' | translate }}</mat-checkbox>
             <mat-checkbox color="primary" [(ngModel)]="selectedUser.lockObjectFunction">{{ 'desc.lockingTheObject' | translate }}</mat-checkbox>
             <mat-checkbox color="primary" [(ngModel)]="selectedUser.unlockObjectFunction">{{ 'desc.unlockingTheObject' | translate }}</mat-checkbox>
-            <mat-checkbox color="primary" [(ngModel)]="selectedUser.importToProdFunction">{{ 'desc.importToProdFunction' | translate }}</mat-checkbox>
-            <mat-checkbox color="primary" [(ngModel)]="selectedUser.czidloFunction">{{ 'desc.czidloFunction' | translate }}</mat-checkbox>
             <mat-checkbox color="primary" [(ngModel)]="selectedUser.importToCatalogFunction">{{ 'desc.importToCatalogFunction' | translate }}</mat-checkbox>
+            <mat-checkbox color="primary" [(ngModel)]="selectedUser.czidloFunction">{{ 'desc.czidloFunction' | translate }}</mat-checkbox>
+          </div>
+        <div class="app-fxLayout app-row app-center-v app-gap-4">
+          <mat-checkbox color="primary" [(ngModel)]="selectedUser.deleteActionFunction">{{ 'desc.deleteActionFunction' | translate }}</mat-checkbox>
+          <mat-checkbox color="primary" [(ngModel)]="selectedUser.changeObjectsOwnerFunction">{{ 'desc.changeObjectsOwnerFunction' | translate }}</mat-checkbox>
+          <mat-checkbox color="primary" [(ngModel)]="selectedUser.prepareBatchFunction">{{ 'desc.prepareBatchFunction' | translate }}</mat-checkbox>
+          <mat-checkbox color="primary" [(ngModel)]="selectedUser.allObjectsFunction">{{ 'desc.allObjectsFunction' | translate }}</mat-checkbox>
+          </div>
+          <div class="app-mb-2">
+            <span class="app-label">{{ 'desc.exportFunctions' | translate }}:</span>
+          </div>
+          <div class="app-fxLayout app-row app-center-v app-gap-4">
+            <mat-checkbox color="primary" [(ngModel)]="selectedUser.importToProdFunction">{{ 'desc.importToProdFunction' | translate }}</mat-checkbox>
+          </div>
+          <div class="app-mb-2">
+            <span class="app-label">{{ 'desc.deviceFunctions' | translate }}:</span>
+          </div>
+          <div class="app-fxLayout app-row app-center-v app-gap-4">
+            <mat-checkbox color="primary" [(ngModel)]="selectedUser.deviceFunction">{{ 'desc.deviceFunction' | translate }}</mat-checkbox>
+          </div>
+          <div class="app-mb-2">
+            <span class="app-label">{{ 'desc.systemAdminFunctions' | translate }}:</span>
+          </div>
+          <div class="app-fxLayout app-row app-center-v app-gap-4">
+            <mat-checkbox color="primary" [(ngModel)]="selectedUser.createUserFunction">{{ 'desc.createUserFunction' | translate }}</mat-checkbox>
+            <mat-checkbox color="primary" [(ngModel)]="selectedUser.updateUserFunction">{{ 'desc.updateUserFunction' | translate }}</mat-checkbox>
+            <mat-checkbox color="primary" [(ngModel)]="selectedUser.deleteUserFunction">{{ 'desc.deleteUserFunction' | translate }}</mat-checkbox>
+            <mat-checkbox color="primary" [(ngModel)]="selectedUser.solrFunction">{{ 'desc.solrFunction' | translate }}</mat-checkbox>
+            <mat-checkbox color="primary" [(ngModel)]="selectedUser.sysAdminFunction">{{ 'desc.sysAdminFunction' | translate }}</mat-checkbox>
+          </div>
+          <div class="app-mb-2">
+            <span class="app-label">{{ 'desc.wfFunctions' | translate }}:</span>
+          </div>
+          <div class="app-fxLayout app-row app-center-v app-gap-4">
+            <mat-checkbox color="primary" [(ngModel)]="selectedUser.wfCreateJobFunction">{{ 'desc.wfCreateJobFunction' | translate }}</mat-checkbox>
             <mat-checkbox color="primary" [(ngModel)]="selectedUser.wfDeleteJobFunction">{{ 'desc.wfDeleteJobFunction' | translate }}</mat-checkbox>
           </div>
         </fieldset>
         <div class="app-mb-2">
+          @if (auth.user.updateUserFunction) {
           <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
+          }
         </div>
       }
     </div>

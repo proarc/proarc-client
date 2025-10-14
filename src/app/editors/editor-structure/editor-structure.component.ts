@@ -1258,7 +1258,7 @@ export class EditorStructureComponent implements OnInit {
         color: 'default'
       }
     };
-    if (this.isRepo && this.auth.isSuperAdmin()) {
+    if (this.isRepo && this.auth.user.deleteActionFunction) {
       data.checkbox = checkbox;
     }
     const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });

@@ -1095,12 +1095,12 @@ export class ApiService {
   }
 
   editUser(user: User, forename: string, surname: string): Observable<User> {
-    const data = `userId=${user.userId}&forename=${forename}&surname=${surname}&email=${user.email}&organization=${user.organization}&role=${user.role}`;
+    const data = `userId=${user.userId}&forename=${forename}&surname=${surname}&email=${user.email}&organization=${user.organization}`;
     return this.put('user', data).pipe(map((response: any) => User.fromJson(response['response']['data'][0])));
   }
 
   saveUser(user: User): Observable<User> {
-    let data = `userId=${user.userId}&surname=${user.surname}&role=${user.role}`;
+    let data = `userId=${user.userId}&surname=${user.surname}`;
     if (user.password) {
       data = `${data}&password=${user.password}`;
     }
@@ -1114,15 +1114,21 @@ export class ApiService {
       data = `${data}&organization=${user.organization}`;
     }
 
-    data = `${data}&changeModelFunction=${user.changeModelFunction}&updateModelFunction=${user.updateModelFunction}`;
+    data = `${data}&changeModelFunction=${user.changeModelFunction}`;
     data = `${data}&unlockObjectFunction=${user.unlockObjectFunction}&lockObjectFunction=${user.lockObjectFunction}`;
     data = `${data}&importToProdFunction=${user.importToProdFunction}&czidloFunction=${user.czidloFunction}`;
     data = `${data}&importToCatalogFunction=${user.importToCatalogFunction}&wfDeleteJobFunction=${user.wfDeleteJobFunction}`
+    data = `${data}&changeObjectsOwnerFunction=${user.changeObjectsOwnerFunction}&deviceFunction=${user.deviceFunction}`;
+    data = `${data}&changePagesFunction=${user.changePagesFunction}&wfCreateJobFunction=${user.wfCreateJobFunction}`;
+    data = `${data}&createUserFunction=${user.createUserFunction}&updateUserFunction=${user.updateUserFunction}`;
+    data = `${data}&deleteUserFunction=${user.deleteUserFunction}&solrFunction=${user.solrFunction}`;
+    data = `${data}&deleteActionFunction=${user.deleteActionFunction}&allObjectsFunction=${user.allObjectsFunction}`;
+    data = `${data}&prepareBatchFunction=${user.prepareBatchFunction}&sysAdminFunction=${user.sysAdminFunction}`;
     return this.put('user', data).pipe(map((response: any) => User.fromJson(response['response']['data'][0])));
   }
 
   newUser(user: User): Observable<any> {
-    let data = `name=${user.name}&surname=${user.surname}&role=${user.role}&password=${user.password}`;
+    let data = `name=${user.name}&surname=${user.surname}&password=${user.password}`;
     if (user.forename) {
       data = `${data}&forename=${user.forename}`;
     }
@@ -1132,10 +1138,16 @@ export class ApiService {
     if (user.organization) {
       data = `${data}&organization=${user.organization}`;
     }
-    data = `${data}&changeModelFunction=${user.changeModelFunction}&updateModelFunction=${user.updateModelFunction}`;
+    data = `${data}&changeModelFunction=${user.changeModelFunction}`;
     data = `${data}&unlockObjectFunction=${user.unlockObjectFunction}&lockObjectFunction=${user.lockObjectFunction}`;
     data = `${data}&importToProdFunction=${user.importToProdFunction}&czidloFunction=${user.czidloFunction}`;
-    data = `${data}&importToCatalogFunction=${user.importToCatalogFunction}&wfDeleteJobFunction=${user.wfDeleteJobFunction}`
+    data = `${data}&importToCatalogFunction=${user.importToCatalogFunction}&wfDeleteJobFunction=${user.wfDeleteJobFunction}`;
+    data = `${data}&changeObjectsOwnerFunction=${user.changeObjectsOwnerFunction}&deviceFunction=${user.deviceFunction}`;
+    data = `${data}&changePagesFunction=${user.changePagesFunction}&wfCreateJobFunction=${user.wfCreateJobFunction}`;
+    data = `${data}&createUserFunction=${user.createUserFunction}&updateUserFunction=${user.updateUserFunction}`;
+    data = `${data}&deleteUserFunction=${user.deleteUserFunction}&solrFunction=${user.solrFunction}`;
+    data = `${data}&deleteActionFunction=${user.deleteActionFunction}&allObjectsFunction=${user.allObjectsFunction}`;
+    data = `${data}&prepareBatchFunction=${user.prepareBatchFunction}&sysAdminFunction=${user.sysAdminFunction}`;
     return this.post('user', data);
   }
 
@@ -1145,7 +1157,7 @@ export class ApiService {
   }
 
   editUserPassword(user: User, password: string): Observable<any> {
-    const data = `userId=${user.userId}&forename=${user.forename}&surname=${user.surname}&email=${user.email}&organization=${user.organization}&role=${user.role}&password=${password}`;
+    const data = `userId=${user.userId}&forename=${user.forename}&surname=${user.surname}&email=${user.email}&organization=${user.organization}&password=${password}`;
     return this.put('user', data)
   }
 
@@ -1266,7 +1278,7 @@ export class ApiService {
     return this.post('object/updateNdkPage/pageType', null);
   }
 
-  
+
 
   getValuemap(): Observable<any> {
     let url = `valuemap`;
@@ -1365,7 +1377,7 @@ export class ApiService {
   addAuthority(pid: string, mods: string) {
     let data = `pid=${pid}&jsonData=${mods}&timestamp=-1`;
     return this.put('object/mods/addAuthority', data);
-    
+
   }
 }
 

@@ -37,10 +37,10 @@
           @if (canCopy()) {
             <button mat-menu-item (click)="onCopyItem()">{{ 'button.copy' | translate }}</button>
           }
-          @if (auth.user.czidloFunction || auth.isSuperAdmin()) {
+          @if (auth.user.czidloFunction) {
             <button mat-menu-item (click)="czidlo()">{{ 'button.czidloFunction' | translate }}</button>
           }
-          @if (config.updateInSource && (auth.user.importToCatalogFunction || auth.isSuperAdmin()) && canUpdateInSource()) {
+          @if (config.updateInSource && auth.user.importToCatalogFunction && canUpdateInSource()) {
             <button mat-menu-item (click)="updateInSource()">{{ 'button.updateInSource' | translate }}</button>
           }
           <button mat-menu-item (click)="validateObject()">{{ 'button.validateObject' | translate }}</button>

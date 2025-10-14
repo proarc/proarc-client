@@ -9,8 +9,10 @@
 
   <div class="app-fxFlex app-fxLayout app-column app-content-wrapper app-admin">
     <div class="app-formbar app-mb-2">
+      @if (auth.user.createUserFunction) {
       <button mat-stroked-button routerLink="/admin/new-user" class="app-mr-2">{{ 'button.createNewUser' | translate }}</button>
-      @if (auth.isSuperAdmin()) {
+      }
+      @if (auth.user.changeObjectsOwnerFunction) {
         <button mat-stroked-button [matTooltip]="'button.changeOwnerTooltip' | translate" (click)="changeOwner()" class="app-mr-2">{{ 'button.changeOwner' | translate }}</button>
       }
     </div>
@@ -41,11 +43,6 @@
           <td mat-cell *matCellDef="let element">{{ element.organization }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="role">
-          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'role')" [style.width]="getColumnWidth('role')">{{ 'desc.role' | translate }}</th>
-          <td mat-cell *matCellDef="let element">{{ element.role }}</td>
-        </ng-container>
-
         <ng-container matColumnDef="home">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'home')" [style.width]="getColumnWidth('home')">{{ 'desc.folder' | translate }}</th>
           <td mat-cell *matCellDef="let element">{{ element.home }}</td>
@@ -54,11 +51,6 @@
         <ng-container matColumnDef="changeModelFunction">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'changeModelFunction')" [style.width]="getColumnWidth('changeModelFunction')">{{ 'desc.conversionOfModels' | translate }}</th>
           <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.changeModelFunction" [disabled]="true"></mat-checkbox></td>
-        </ng-container>
-
-        <ng-container matColumnDef="updateModelFunction">
-          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'updateModelFunction')" [style.width]="getColumnWidth('updateModelFunction')">{{ 'desc.updateModels' | translate }}</th>
-          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.updateModelFunction" [disabled]="true"></mat-checkbox></td>
         </ng-container>
 
         <ng-container matColumnDef="lockObjectFunction">
@@ -91,12 +83,65 @@
           <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.wfDeleteJobFunction" [disabled]="true"></mat-checkbox></td>
         </ng-container>
 
+        <ng-container matColumnDef="changeObjectsOwnerFunction">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'changeObjectsOwnerFunction')" [style.width]="getColumnWidth('changeObjectsOwnerFunction')">{{ 'desc.changeObjectsOwnerFunction' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.changeObjectsOwnerFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+        <ng-container matColumnDef="deviceFunction">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'deviceFunction')" [style.width]="getColumnWidth('deviceFunction')">{{ 'desc.deviceFunction' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.deviceFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+        <ng-container matColumnDef="changePagesFunction">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'changePagesFunction')" [style.width]="getColumnWidth('changePagesFunction')">{{ 'desc.changePagesFunction' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.changePagesFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+        <ng-container matColumnDef="wfCreateJobFunction">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'wfCreateJobFunction')" [style.width]="getColumnWidth('wfCreateJobFunction')">{{ 'desc.wfCreateJobFunction' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.wfCreateJobFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+        <ng-container matColumnDef="createUserFunction">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'createUserFunction')" [style.width]="getColumnWidth('createUserFunction')">{{ 'desc.createUserFunction' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.createUserFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+        <ng-container matColumnDef="updateUserFunction">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'updateUserFunction')" [style.width]="getColumnWidth('updateUserFunction')">{{ 'desc.updateUserFunction' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.updateUserFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+        <ng-container matColumnDef="deleteUserFunction">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'deleteUserFunction')" [style.width]="getColumnWidth('deleteUserFunction')">{{ 'desc.deleteUserFunction' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.deleteUserFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+        <ng-container matColumnDef="solrFunction">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'solrFunction')" [style.width]="getColumnWidth('solrFunction')">{{ 'desc.solrFunction' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.solrFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+        <ng-container matColumnDef="deleteActionFunction">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'deleteActionFunction')" [style.width]="getColumnWidth('deleteActionFunction')">{{ 'desc.deleteActionFunction' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.deleteActionFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+        <ng-container matColumnDef="allObjectsFunction">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'allObjectsFunction')" [style.width]="getColumnWidth('allObjectsFunction')">{{ 'desc.allObjectsFunction' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.allObjectsFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+        <ng-container matColumnDef="prepareBatchFunction">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'prepareBatchFunction')" [style.width]="getColumnWidth('prepareBatchFunction')">{{ 'desc.prepareBatchFunction' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.prepareBatchFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+        <ng-container matColumnDef="sysAdminFunction">
+          <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'sysAdminFunction')" [style.width]="getColumnWidth('sysAdminFunction')">{{ 'desc.sysAdminFunction' | translate }}</th>
+          <td mat-cell *matCellDef="let element"><mat-checkbox color="primary" [checked]="element.sysAdminFunction" [disabled]="true"></mat-checkbox></td>
+        </ng-container>
+
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event, 'action')" [style.width]="getColumnWidth('action')"></th>
           <td mat-cell *matCellDef="let element">
             <div class="app-fxLayout app-row app-center-v app-jc-end">
+              @if (auth.user.updateUserFunction) {
               <button mat-icon-button color="primary" [routerLink]="['/admin/' + element.userId  + '/edit-user']" [matTooltip]="'button.edit' | translate"><mat-icon>edit_note</mat-icon></button>
+              }
+              @if (auth.user.deleteUserFunction) {
               <button mat-icon-button color="warn" (click)="deleteUser(element)" [matTooltip]="'button.delete' | translate"><mat-icon>delete</mat-icon></button>
+              }
             </div>
           </td>
         </ng-container>

@@ -11,6 +11,7 @@ import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { UserTableComponent } from "../../components/user-table/user-table.component";
 import { Router, RouterModule } from '@angular/router';
 import { Sort } from '@angular/material/sort';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   imports: [TranslateModule, RouterModule, MatIconModule, MatButtonModule, MatTooltipModule, MatProgressBarModule, UserTableComponent],
@@ -28,6 +29,7 @@ export class DevicesComponent implements OnInit {
     private router: Router,
     private api: ApiService,
     public settings: UserSettings,
+    public auth: AuthService,
     public settingsService: UserSettingsService
   ) { }
 
@@ -47,15 +49,15 @@ export class DevicesComponent implements OnInit {
   }
 
   sortBy(e: Sort) {
-    
+
   }
 
   selectRow(e: {item: Device, event?: MouseEvent, idx?: number}) {
-    
+
   }
 
   openItem(device: Device) {
-    
+
   }
 
 }

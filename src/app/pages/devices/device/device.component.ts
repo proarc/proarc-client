@@ -19,6 +19,7 @@ import { Device } from '../../../model/device.model';
 import { ApiService } from '../../../services/api.service';
 import { UIService } from '../../../services/ui.service';
 import { MatTableModule } from '@angular/material/table';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   imports: [TranslateModule, FormsModule, RouterModule, MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatTableModule],
@@ -39,6 +40,7 @@ export class DeviceComponent implements OnInit {
               private router: Router,
               private translator: TranslateService,
               private ui: UIService,
+              public auth: AuthService,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
