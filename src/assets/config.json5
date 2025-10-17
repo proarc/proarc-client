@@ -1,6 +1,4 @@
 {
-  // proarcUrl: "http://proarc.inovatika.dev/api",
-  proarcUrl: "/api",
 
   // Css theme properties
   primaryColor: "#456aa5",
