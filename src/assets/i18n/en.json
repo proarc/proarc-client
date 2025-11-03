@@ -1641,7 +1641,13 @@
     "ZRG503": "ZRG503 - Městská knihovna Velké Meziříčí",
     "ZRG505": "ZRG505 - Městská knihovna Velká Bíteš",
     "ZRG507": "ZRG507 - Městská knihovna v Křižanově",
-    "ZRG508": "ZRG508 - Městská knihovna Svratka"
+    "ZRG508": "ZRG508 - Městská knihovna Svratka",
+    "KHE801": "KHE801 - Národní zemědělské muzeum - knihovna",
+    "UOE303": "UOE303 - Městské muzeum Česká Třebová - Knihovna",
+    "UOE803": "UOE803 - Orlické museum v Chocni",
+    "SVE803": "SVE803 - Regionální muzeum v Litomyšli - Knihovna",
+    "SVE804": "SVE804 - Městské muzeum Moravská Třebová - Knihovna",
+    "PAE301": "PAE301 - Východočeské muzeum v Pardubicích - Muzejní knihovna"
   },
   "sigla_translated": {
     "BOA001": "Moravská zemská knihovna v Brně",
@@ -1768,7 +1774,13 @@
     "ZRG503": "Městská knihovna Velké Meziříčí",
     "ZRG505": "Městská knihovna Velká Bíteš",
     "ZRG507": "Městská knihovna v Křižanově",
-    "ZRG508": "Městská knihovna Svratka"
+    "ZRG508": "Městská knihovna Svratka",
+    "KHE801": "Národní zemědělské muzeum - knihovna",
+    "UOE303": "Městské muzeum Česká Třebová - Knihovna",
+    "UOE803": "Orlické museum v Chocni",
+    "SVE803": "Regionální muzeum v Litomyšli - Knihovna",
+    "SVE804": "Městské muzeum Moravská Třebová - Knihovna",
+    "PAE301": "Východočeské muzeum v Pardubicích - Muzejní knihovna"
   },
   "mods": {
     "abstract": "Abstract",
@@ -2980,7 +2992,14 @@
     "ZRG503": "ZRG503 - Městská knihovna Velké Meziříčí",
     "ZRG505": "ZRG505 - Městská knihovna Velká Bíteš",
     "ZRG507": "ZRG507 - Městská knihovna v Křižanově",
-    "ZRG508": "ZRG508 - Městská knihovna Svratka"
+    "ZRG508": "ZRG508 - Městská knihovna Svratka",
+    "KHE801": "KHE801 - Národní zemědělské muzeum - knihovna",
+    "UOE303": "UOE303 - Městské muzeum Česká Třebová - Knihovna",
+    "UOE803": "UOE803 - Orlické museum v Chocni",
+    "SVE803": "SVE803 - Regionální muzeum v Litomyšli - Knihovna",
+    "SVE804": "SVE804 - Městské muzeum Moravská Třebová - Knihovna",
+    "PAE301": "PAE301 - Východočeské muzeum v Pardubicích - Muzejní knihovna"
+
   },
   "dialog": {
     "layoutSettings": {
