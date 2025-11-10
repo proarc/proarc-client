@@ -565,12 +565,6 @@
     "abstract": {
       "title": "Abstrakt"
     },
-    "title": {
-      "title": "Název",
-      "subtitle": "Podnázev",
-      "partnumber": "Díl",
-      "partname": "Část"
-    },
     "publisher": {
       "title": "Informace o místě a datu vzniku",
       "publisher": "Publisher",
