@@ -60,7 +60,7 @@ export class EditorStructureComponent implements OnInit {
   @Input('panel') panel: ILayoutPanel;
   @Output() onIngest = new EventEmitter<boolean>();
 
-  @ViewChild('table') table: MatTable<DocumentItem>;
+  // @ViewChild('table') table: MatTable<DocumentItem>;
   @ViewChild(MatTable, { read: ElementRef }) private matTableRef: ElementRef;
   @ViewChildren('matrow', { read: ViewContainerRef }) rows: QueryList<ViewContainerRef>;
   @ViewChild('childrenList') childrenListEl: ElementRef;
@@ -824,9 +824,6 @@ export class EditorStructureComponent implements OnInit {
       moveItemInArray(this.layout.items(), this.sourceIndex, this.targetIndex);
     }
     this.hasChanges = true;
-    if (this.table) {
-      this.table.renderRows();
-    }
 
     this.state = 'loading';
     setTimeout(() => {
@@ -846,9 +843,6 @@ export class EditorStructureComponent implements OnInit {
       const item = this.layout.items()[from];
       this.layout.items().splice(from, 1);
       this.layout.items().splice(to, 0, item);
-    }
-    if (this.table) {
-      this.table.renderRows();
     }
   }
 
@@ -907,9 +901,7 @@ export class EditorStructureComponent implements OnInit {
           const item = items[0];
           item.selected = true;
           this.rowClick(item, null, this.lastClickIdx + 1);
-          if (this.table) {
-            this.table.renderRows();
-          }
+          
           if (result.objectPosition === 'after') {
             this.onSave(true);
           } else {
@@ -926,7 +918,7 @@ export class EditorStructureComponent implements OnInit {
             data: result.data[0]
           });
           dialogRef.afterClosed().subscribe(res => {
-            console.log(res);
+            
             if (res?.item) {
               const item = DocumentItem.fromJson(res.item);
               const items = this.layout.items();
@@ -936,16 +928,16 @@ export class EditorStructureComponent implements OnInit {
               } else {
                 items.push(item);
               }
-              this.layout.setItems(items);
+              //this.layout.items.set(items);
+              this.layout.items.update(vals => [...items]);
+              
               if (res.gotoEdit) {
                 this.onSave(true);
                 this.router.navigate(['/repository', item.pid]);
               } else {
                 item.selected = true;
-                this.rowClick(item, null, this.layout.items().length - 1);
-                if (this.table) {
-                  this.table.renderRows();
-                }
+                this.rowClick(item, null, items.length - 1);
+                
                 if (result.objectPosition === 'after') {
                   this.onSave(true);
                 } else {
@@ -953,7 +945,8 @@ export class EditorStructureComponent implements OnInit {
                     this.scrollToSelected('end');
                   }, 1000);
                 }
-                this.layout.refreshSelectedItem(true, 'pages');
+                //this.layout.refreshSelectedItem(true, 'pages');
+                
               }
 
             }
@@ -1211,7 +1204,6 @@ export class EditorStructureComponent implements OnInit {
     }
     this.state = 'saving';
     const pidArray = this.layout.items().map(item => item.pid);
-    console.log(this.layout.items())
     const request = this.isRepo ? this.api.editRelations(this.layout.selectedParentItem.pid, pidArray) : this.api.editBatchRelations(this.layout.selectedParentItem.pid, pidArray);
     request.subscribe((response: any) => {
 
@@ -1232,6 +1224,7 @@ export class EditorStructureComponent implements OnInit {
           }, 1000);
         }
       }
+      setTimeout(() => {this.refreshChildren([])}, 100);
     });
 
   }
@@ -1324,7 +1317,7 @@ export class EditorStructureComponent implements OnInit {
         this.state = 'success';
       }
 
-        this.refreshChildren([]);
+      setTimeout(() => {this.refreshChildren([])}, 100);
     });
   }
 
