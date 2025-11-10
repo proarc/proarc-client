@@ -38,7 +38,7 @@ export class UserSettings {
     topPageTypes: string[];
     topLanguages: string[];
     topIdentifiers: string[];
-    topExpandedModels: string[];
+    expandedModels: string[];
     relatedItemExpanded: boolean;
 
     formHighlighting: boolean;
@@ -340,7 +340,7 @@ public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
         this.settings.topPageTypes = Utils.clone(this.config.topPageTypes);
         this.settings.topLanguages = Utils.clone(this.config.topLanguages);
         this.settings.topIdentifiers = Utils.clone(this.config.topIdentifiers);
-        this.settings.topExpandedModels = Utils.clone(this.config.expandedModels);
+        this.settings.expandedModels = Utils.clone(this.config.expandedModels);
         
         this.settings.relatedItemExpanded = false;
         this.settings.formHighlighting = true;

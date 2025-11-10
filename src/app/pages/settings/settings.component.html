@@ -61,11 +61,11 @@
                 <span class="app-label">{{ 'desc.expandingTheForm' | translate }}</span>
                 <div class="app-fxLayout app-row app-gap-4 app-mb-4">
                   <span class="app-fxFlex">
-                    @for(c of curSettings.topExpandedModels; let last = $last; track $index;) {
+                    @for(c of curSettings.expandedModels; let last = $last; track $index;) {
                       {{ 'model.' + c | translate }} {{ last ? '' : ', '}}
                     }
                   </span>
-                  <button mat-stroked-button (click)="changeCodebookTops('model', 'topExpandedModels', config.models, true)">{{ 'button.edit' | translate }}</button>
+                  <button mat-stroked-button (click)="changeCodebookTops('model', 'expandedModels', config.models, true)">{{ 'button.edit' | translate }}</button>
                 </div>
                 <mat-divider class="app-mb-4"></mat-divider>
                 <span class="app-label">{{ 'desc.formBorderHighlighting' | translate }}</span>
