@@ -10,6 +10,7 @@ import { ModsElement } from '../../model/mods/element.model';
 import { UsageComponent } from "../usage/usage.component";
 import { MatInputModule } from '@angular/material/input';
 import { Utils } from '../../utils/utils';
+import { UserSettings } from '../..//shared/user-settings';
 
 @Component({
   imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatIconModule, MatTooltipModule, MatInputModule, MatFormFieldModule, UsageComponent],
@@ -26,7 +27,7 @@ export class FieldTextComponent implements OnInit {
   @Output() valueChange = new EventEmitter<string>();
 
 
-  constructor() {
+  constructor(public settings: UserSettings) {
   }
 
   ngOnInit() {

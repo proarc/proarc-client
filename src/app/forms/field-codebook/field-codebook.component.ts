@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ModsElement } from '../../model/mods/element.model';
 import { UsageComponent } from '../usage/usage.component';
 import { MatInputModule } from '@angular/material/input';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatIconModule, MatTooltipModule, MatSelectModule, MatFormFieldModule, MatInputModule, UsageComponent],
@@ -27,7 +28,7 @@ export class FieldCodebookComponent implements OnInit {
   @Input() showCode: boolean;
   @Output() valueChange = new EventEmitter<string>();
 
-  constructor() {
+  constructor(public settings: UserSettings) {
   }
 
   ngOnInit() {

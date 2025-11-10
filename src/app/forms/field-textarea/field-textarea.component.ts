@@ -12,6 +12,7 @@ import { UsageComponent } from '../usage/usage.component';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { MatInputModule } from '@angular/material/input';
 import { Utils } from '../../utils/utils';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatIconModule, MatTooltipModule, CdkTextareaAutosize, MatFormFieldModule, MatInputModule, UsageComponent],
@@ -29,7 +30,7 @@ export class FieldTextareaComponent implements OnInit {
   @ViewChild('ta') ta: ElementRef;
   observer: any;
 
-  constructor(private layout: LayoutService) {
+  constructor(private layout: LayoutService, public settings: UserSettings) {
   }
 
   ngOnInit() {

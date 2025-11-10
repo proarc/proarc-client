@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ModsElement } from '../../model/mods/element.model';
 import { UsageComponent } from '../usage/usage.component';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule,
@@ -34,7 +35,7 @@ export class AutocompleteComponent implements OnInit {
 
   options: string[];
 
-  constructor() {
+  constructor(public settings: UserSettings) {
   }
 
   ngOnInit() {
