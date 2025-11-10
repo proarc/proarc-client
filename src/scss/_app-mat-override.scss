@@ -374,15 +374,13 @@
   //   outlined-label-text-size: 14px,
   //   outlined-label-text-populated-size: 14px
   // ));
-
-
   
   // FORM FIELD
   @include mat.form-field-overrides((
-    container-height: 38px,
+    // container-height: 38px,
+    // container-vertical-padding: 6px,
     container-text-size: 14px,
     container-text-weight: 500,
-    container-vertical-padding: 6px,
 
     filled-container-color: var(--app-color-lightnes),
     filled-active-indicator-color: var(--app-color-gray-3),
@@ -392,16 +390,35 @@
     filled-with-label-container-padding-bottom: 0px,
     filled-label-text-tracking: 0,
 
+    outlined-outline-color: var(--app-color-gray-3),
+    outlined-label-text-size: 14px,
+    outlined-label-text-populated-size: 14px,
+
     hover-state-layer-opacity: 0,
     focus-state-layer-opacity: 0
   ));
 
-  .mat-mdc-form-field {
+  .mat-form-field-appearance-fill {
     &:not(.app-leave-pd, .app-select) {
       .mdc-text-field {
         padding: 0;
       }
     }
+  }
+
+  .app-form-view-fill {
+     @include mat.form-field-overrides((
+      container-height: 36px,
+      container-vertical-padding: 6px
+    ));
+  }
+  
+  .app-form-view-outline {
+    @include mat.form-field-overrides((
+      container-height: 36px,
+      container-vertical-padding: 6px,
+      container-text-size: 14px
+    ));
   }
 
 

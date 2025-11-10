@@ -1,4 +1,4 @@
-<div class="app-fxLayout app-column app-fill">
+<div [class]="'app-fxLayout app-column app-fill app-form-view-' + settings.appearance">
   <app-navbar></app-navbar>
   <div class="app-fxFlex">
     <router-outlet></router-outlet>

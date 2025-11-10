@@ -4,6 +4,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { Configuration } from './shared/configuration';
 import { AuthService } from './services/auth.service';
+import { UserSettings } from './shared/user-settings';
 
 
 @Component({
@@ -15,7 +16,8 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   constructor(
     public config: Configuration,
-    public auth: AuthService
+    public auth: AuthService,
+    public settings: UserSettings
   ) {
   }
 

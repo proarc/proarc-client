@@ -1,4 +1,4 @@
-<div class="app-fxLayout app-column app-fill app-form-field-dens-6">
+<div class="app-fxLayout app-column app-fill"><!--app-form-field-dens-6-->
   <div class="app-fxLayout app-row app-center-v app-breadcrumbsbar">
     <div class="app-fxLayout app-row app-center-v app-inner app-pr-4">
       <a routerLink="/"><mat-icon>home</mat-icon></a>
@@ -31,7 +31,7 @@
             </button>
           }
         </mat-form-field>
-        <mat-form-field   [appearance]="settings.appearance" class="app-fxFlex">
+        <mat-form-field [appearance]="settings.appearance" class="app-fxFlex">
           <mat-label>{{ 'desc.search' | translate }}</mat-label>
           <input matInput [placeholder]="'desc.search' | translate" (keyup.enter)="filter()" [(ngModel)]="query">
           @if (urlParams?.query) {
@@ -43,7 +43,7 @@
       }
       
       @if (searchMode !== 'phrase') {
-        <mat-form-field  [appearance]="settings.appearance" class="app-model">
+        <mat-form-field [appearance]="settings.appearance" class="app-model"><!-- to je on -->
           <mat-label>{{ 'desc.model' | translate }}</mat-label>
           <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model">
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
@@ -57,7 +57,7 @@
             </button>
           }
         </mat-form-field>
-        <mat-form-field  class="app-fxFlex">
+        <mat-form-field class="app-fxFlex">
           <mat-label>{{ 'desc.name' | translate }}</mat-label>
           <input matInput [placeholder]="'desc.name' | translate" (keyup.enter)="filter()" [(ngModel)]="queryLabel">
           @if (urlParams?.queryLabel) {
