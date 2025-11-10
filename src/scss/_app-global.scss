@@ -4,7 +4,7 @@
 @use "app-mixins-gap";
 @use "app-mixins-state";
 
-@include app-mixins-gap.setGap();
+@include app-mixins-gap.setGap(); 
 
 a {
   @extend .app-cursor-pointer;
