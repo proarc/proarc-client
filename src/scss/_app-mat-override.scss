@@ -416,8 +416,7 @@
   .app-form-view-outline {
     @include mat.form-field-overrides((
       container-height: 36px,
-      container-vertical-padding: 6px,
-      container-text-size: 14px
+      container-vertical-padding: 6px
     ));
   }
 

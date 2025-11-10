@@ -19,6 +19,7 @@ import { UIService } from '../../services/ui.service';
 import { Configuration } from '../../shared/configuration';
 import { EditorSwitcherComponent } from '../editor-switcher/editor-switcher.component';
 import { MatButtonModule } from '@angular/material/button';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule, MatProgressBarModule, MatTooltipModule, MatFormFieldModule, MatSelectModule, MatInputModule],
@@ -43,7 +44,8 @@ export class EditorAudioPageComponent implements OnInit {
     private api: ApiService,
     private dialog: MatDialog,
     public config: Configuration,
-    public translator: TranslateService) {
+    public translator: TranslateService,
+    public settings: UserSettings) {
       effect(() => {
         const pid = this.pid();
         if (!pid) {

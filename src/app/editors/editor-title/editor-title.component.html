@@ -6,7 +6,7 @@
     <app-field-text field="nonSort" [item]="item" [(value)]="item.nonSort['_']"></app-field-text>
 
     @if (item.template['fields']['title']) {
-      <mat-form-field class="app-field-col">
+      <mat-form-field [appearance]="settings.appearance" class="app-field-col">
         <mat-label>{{ 'mods.' + item.selector('title') | translate }}</mat-label>
         <app-usage [item]="item" field="title"></app-usage>
         <textarea [required]="item.isMandatory['title']" [formControl]="item.controls['title']"

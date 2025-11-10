@@ -153,9 +153,6 @@
 
           .app-usage {
             position: absolute;
-            // outlined 
-            //top: -6px;
-            // filled
             top: 0;
             right: -3px;
             color: var(--app-color-primary);
@@ -167,21 +164,27 @@
             line-height: 12px;
             font-weight: 500;
 
+            .app-form-view-outline & {
+              top: -6px;
+            }
+
             &.app-suffix-exist {
-              // outlined 
-              //right: -21px;
-              // filled
               right: -25px;
+
+              .app-form-view-outline & {
+                right: -21px;
+              }
             }
           }
 
           .app-slide-toogle {
             position: absolute;
-            // outline
-            // right: -8px;
-            // filled
             right: 0;
             bottom: 4px;
+
+            .app-form-view-outline & {
+              right: -8px;
+            }
           }
         }
       }

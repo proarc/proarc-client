@@ -16,6 +16,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FieldCodebookComponent } from "../../forms/field-codebook/field-codebook.component";
 import { MatInputModule } from '@angular/material/input';
 import { Utils } from '../../utils/utils';
+ import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatIconModule, MatTooltipModule, MatSlideToggleModule, MatFormFieldModule, MatInputModule, EditorFieldComponent, UsageComponent, FieldDropdownComponent, FieldTextComponent, FieldCodebookComponent],
@@ -29,7 +30,9 @@ export class EditorTitleComponent implements OnInit {
   @Input() field: ElementField;
   @ViewChild('templateContent') templateContent: any;
 
-  constructor(public config: Configuration) {
+  constructor(public config: Configuration,
+              public settings: UserSettings
+  ) {
   }
 
   ngOnInit() {
