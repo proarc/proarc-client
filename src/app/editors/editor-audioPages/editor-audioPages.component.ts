@@ -16,6 +16,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule, MatProgressBarModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule, MatInputModule],
@@ -41,7 +42,8 @@ export class EditorAudioPagesComponent implements OnInit {
     private ui: UIService,
     private dialog: MatDialog,
     public config: Configuration,
-    public layout: LayoutService) {
+    public layout: LayoutService,
+    public settings: UserSettings) {
   }
 
   ngOnInit() {
