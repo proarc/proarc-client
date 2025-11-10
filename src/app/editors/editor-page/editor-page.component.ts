@@ -203,7 +203,6 @@ export class EditorPageComponent implements OnInit {
     if (!this.page.number) {
       return
     }
-    console.log(this.page.number)
     if (!this.isInBrackets()) {
       let number = this.page.number;
       if (!number.startsWith('[')) {
@@ -249,6 +248,7 @@ export class EditorPageComponent implements OnInit {
       this.page.number = number;
       this.pageNumberControl.setValue(this.page.number);
     }
+    this.pageNumberControl.markAsDirty();
   }
 
   private validate(): boolean {
