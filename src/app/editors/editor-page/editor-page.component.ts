@@ -203,6 +203,7 @@ export class EditorPageComponent implements OnInit {
     if (!this.page.number) {
       return
     }
+    console.log(this.page.number)
     if (!this.isInBrackets()) {
       let number = this.page.number;
       if (!number.startsWith('[')) {
@@ -212,6 +213,7 @@ export class EditorPageComponent implements OnInit {
         number = number + ']';
       }
       this.page.number = number;
+      this.pageNumberControl.setValue(this.page.number);
       this.onSave(null);
     }
 
@@ -223,6 +225,8 @@ export class EditorPageComponent implements OnInit {
     }
     if (this.isInBrackets()) {
       this.page.number = this.page.number.substring(1, this.page.number.length - 1);
+      
+      this.pageNumberControl.setValue(this.page.number);
       this.onSave(null);
     }
   }
@@ -233,6 +237,7 @@ export class EditorPageComponent implements OnInit {
     }
     if (this.isInBrackets()) {
       this.page.number = this.page.number.substring(1, this.page.number.length - 1);
+      this.pageNumberControl.setValue(this.page.number);
     } else {
       let number = this.page.number;
       if (!number.startsWith('[')) {
@@ -242,6 +247,7 @@ export class EditorPageComponent implements OnInit {
         number = number + ']';
       }
       this.page.number = number;
+      this.pageNumberControl.setValue(this.page.number);
     }
   }
 
@@ -309,7 +315,7 @@ export class EditorPageComponent implements OnInit {
     Object.keys(this.controls.controls).forEach((key: string) => {
       this.page[key as keyof (Page)] = this.controls.get(key).value;
     });
-    console.log(from);
+
     this.layout.movedToNextFrom = from;
     if (!this.hasChanged()) {
       if (!!from) {
