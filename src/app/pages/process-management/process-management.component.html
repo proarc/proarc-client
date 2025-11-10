@@ -31,6 +31,9 @@
           <button mat-stroked-button (click)="reload()">
             {{ 'button.refresh' | translate }}
           </button>
+          <button mat-stroked-button (click)="onDeleteBatches()">
+            {{ 'button.delete_batches_by_filter' | translate }}
+          </button>
           <mat-checkbox [(ngModel)]="autoRefresh" (change)="setRefresh()" name="autoRefresh">{{ 'desc.automaticallyRestore' | translate }}</mat-checkbox>
           <button mat-stroked-button (click)="changeView('loadingQueue')">
             {{ 'button.showLoadingQueue' | translate }}
@@ -179,7 +182,7 @@
       }
       @if (view == 'overview') {
         <div class="app-fxFlex app-oa-y app-border-wrapper">
-        <app-user-table (selectItem)="selectRow($event)"  (openItem)="openBatch($event)" [colsSettingsName]="'procMngColumns'" [items]="batches" ></app-user-table>
+        <app-user-table (selectItem)="selectRow($event)"  (openItem)="openBatch($event)" [colsSettingsName]="'procMngColumns'" [items]="batches" [actions]="actions"  ></app-user-table>
         <mat-paginator [length]="resultCount" hidePageSize="true" [pageIndex]="pageIndex" [pageSize]="pageSize" (page)="onPageChanged($event)"></mat-paginator>
       </div>
     }

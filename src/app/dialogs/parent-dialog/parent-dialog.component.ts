@@ -34,9 +34,11 @@ import { IngestDialogComponent } from '../ingest-dialog/ingest-dialog.component'
 import { ViewerComponent } from "../../components/viewer/viewer.component";
 import { UserTableComponent } from "../../components/user-table/user-table.component";
 import { UserTreeTableComponent } from "../../components/user-tree-table/user-tree-table.component";
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
+    CdkDrag, CdkDragHandle, 
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
     MatTableModule, MatSortModule, MatDialogModule, ViewerComponent, UserTableComponent, UserTreeTableComponent],
@@ -491,6 +493,8 @@ export class ParentDialogComponent implements OnInit {
   }
 
   selectItem(item: DocumentItem) {
+    this.items.forEach(i => i.selected = false);
+    item.selected = true;
     this.selectedDestItem = item;
     if (this.selectedRootTreeItem) {
       // reset
@@ -663,7 +667,7 @@ export class ParentDialogComponent implements OnInit {
   }
 
   columnType(f: string) {
-    return this.settings.columnsSearch.find(c => c.field === f).type;
+    return this.settings.columnsParentRight.find(c => c.field === f).type;
   }
 
   prefixByType(f: string): string {

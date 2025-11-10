@@ -25,9 +25,11 @@ import { LayoutService } from '../../services/layout-service';
 import { UIService } from '../../services/ui.service';
 import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
+    CdkDrag, CdkDragHandle, 
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule,
     MatCheckboxModule,
@@ -49,7 +51,7 @@ export class MarkSequenceDialogComponent implements OnInit {
   pageIndex: boolean = true;
   pageNumber: boolean = true;
   pagePosition: boolean = true;
-  reprePage: boolean = false;
+  reprePage: boolean = true;
   lastClickIdx: { [key: string]: number } = { orig: -1, dest: -1 };
   lastClickIdxDest: number = -1;
   lastSelectedItemPid: string;

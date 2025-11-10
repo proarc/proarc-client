@@ -42,6 +42,7 @@ import { UserTableComponent } from "../../components/user-table/user-table.compo
 import { NewMetadataDialogComponent } from '../../dialogs/new-metadata-dialog/new-metadata-dialog.component';
 import { NewObjectData, NewObjectDialogComponent } from '../../dialogs/new-object-dialog/new-object-dialog.component';
 import { TableItem } from '../../model/table-item.model';
+import { Batch } from '../../model/batch.model';
 
 
 @Component({
@@ -171,25 +172,57 @@ export class EditorStructureComponent implements OnInit {
       // this.refreshChildren(selection);
     }));
 
+    this.layout.moveToNext().subscribe((idx: number) => {
+      console.log(idx)
+      this.moveToNext(idx);
+    });
+
   }
 
   refreshChildren(selection: string[]) {
-    console.log('AA')
-    this.layout.setItems([]);
+    this.isRepo ? this.refreshChildrenRepo(selection) : this.refreshChildrenImport(selection)
+  }
+
+  refreshChildrenRepo(selection: string[]) {
+    //this.layout.setItems([]);
     this.api.getRelations(this.layout.selectedParentItem.pid).subscribe((children: DocumentItem[]) => {
-      this.layout.setItems(children);
+
+      children.forEach(item => {
+        item.selected = selection.includes(item.pid);
+      });
       if (this.layout.lastSelectedItem) {
-        const item = this.layout.items().find(item => item.pid === this.layout.lastSelectedItem().pid);
+        const item = children.find(item => item.pid === this.layout.lastSelectedItem().pid);
         if (item) {
           item.selected = true;
         }
       }
-
-      this.layout.items().forEach(item => {
-        item.selected = selection.includes(item.pid);
-      })
+      this.layout.items.set(children);
 
     });
+  }
+
+  refreshChildrenImport(selection: string[]) {
+
+    this.api.getImportBatch(parseInt(this.layout.batchId)).subscribe((batch: Batch) => {
+      this.api.getBatchPages(this.layout.batchId).subscribe((response: any) => {
+        if (response['response'].errors) {
+          const a = this.ui.showErrorDialogFromObject(response['response'].errors);
+          return;
+        }
+        if (response['response'].status === -1) {
+          this.ui.showErrorSnackBar(response['response'].data);
+          return;
+        }
+        const pages: DocumentItem[] = DocumentItem.pagesFromJsonArray(response['response']['data']);
+        this.layout.setItems(pages);
+        this.layout.items().forEach(item => {
+          if (selection.includes(item.pid)) {
+            item.selected = true;
+          }
+        })
+      });
+    });
+
   }
 
   ngAfterViewInit() {
@@ -220,16 +253,13 @@ export class EditorStructureComponent implements OnInit {
   }
 
   refresh() {
-console.log(this.layout.items()[1].label)
-console.log(this.layout.items()[1].label)
-    const items = this.layout.items();
-    //const selection = this.layout.items().filter(i => i.selected).map(i => i.pid);
-    //this.refreshChildren(selection);
-    // this.clearPanelEditing();
-    this.layout.clearPanelEditing();
+    // const items = this.layout.items();
+    // this.layout.clearPanelEditing();
     this.refreshChildren([]);
+
+    // this.layout.setShouldRefresh(false)
   }
-  
+
 
   setScrollPos() {
     if (!this.refreshing) {
@@ -383,7 +413,8 @@ console.log(this.layout.items()[1].label)
 
   }
 
-  moveToNext(index: number) {
+  moveToNext(idx: number) {
+    const index = idx + 1;
     if (index < this.layout.items().length) {
       this.rowClick(this.layout.items()[index], null, index);
     }
@@ -872,7 +903,7 @@ console.log(this.layout.items()[1].label)
           } else {
             this.layout.items().push(...items);
           }
-          this.layout.setItems(items);
+          this.layout.items.set(items);
           const item = items[0];
           item.selected = true;
           this.rowClick(item, null, this.lastClickIdx + 1);
@@ -887,9 +918,6 @@ console.log(this.layout.items()[1].label)
             }, 1000);
           }
           this.layout.refreshSelectedItem(true, 'pages');
-
-
-
         } else {
           const dialogRef = this.dialog.open(NewMetadataDialogComponent, {
             disableClose: true,
@@ -901,18 +929,18 @@ console.log(this.layout.items()[1].label)
             console.log(res);
             if (res?.item) {
               const item = DocumentItem.fromJson(res.item);
-
-
+              const items = this.layout.items();
+              if (result.objectPosition === 'after') {
+                items.splice(this.lastClickIdx + 1, 0, item);
+                this.hasChanges = true;
+              } else {
+                items.push(item);
+              }
+              this.layout.setItems(items);
               if (res.gotoEdit) {
+                this.onSave(true);
                 this.router.navigate(['/repository', item.pid]);
               } else {
-                if (result.objectPosition === 'after') {
-                  this.layout.items().splice(this.lastClickIdx + 1, 0, item);
-                  this.hasChanges = true;
-                } else {
-                  this.layout.items().push(item);
-                }
-                this.layout.setItems(this.layout.items());
                 item.selected = true;
                 this.rowClick(item, null, this.layout.items().length - 1);
                 if (this.table) {
@@ -1026,6 +1054,7 @@ console.log(this.layout.items()[1].label)
       width: '95%',
       maxWidth: '100vw',
       height: '90%',
+      // position: {left: '1px', top: '1px'}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -1182,6 +1211,7 @@ console.log(this.layout.items()[1].label)
     }
     this.state = 'saving';
     const pidArray = this.layout.items().map(item => item.pid);
+    console.log(this.layout.items())
     const request = this.isRepo ? this.api.editRelations(this.layout.selectedParentItem.pid, pidArray) : this.api.editBatchRelations(this.layout.selectedParentItem.pid, pidArray);
     request.subscribe((response: any) => {
 
@@ -1350,6 +1380,7 @@ console.log(this.layout.items()[1].label)
   markSequence() {
 
     const dialogRef = this.dialog.open(MarkSequenceDialogComponent, {
+      panelClass: 'app-mark-sequence-dialog',
       width: '95%',
       maxWidth: '100vw',
       height: '90%',

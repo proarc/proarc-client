@@ -8,6 +8,7 @@
     <button mat-button value="phrase"  [class.app-active]="searchMode === 'phrase'" (click)="searchMode = 'phrase'">{{ 'button.query' | translate }}</button>
     <button mat-button value="advanced" [class.app-active]="searchMode === 'advanced'" (click)="searchMode = 'advanced'">{{ 'button.advancedSearch' | translate }}</button>
     <button mat-button value="deleted" [class.app-active]="searchMode === 'deleted'" (click)="searchMode = 'deleted'">{{ 'button.searchInDeleted' | translate }}</button>
+    <button mat-button value="orphan" [class.app-active]="searchMode === 'orphan'" (click)="searchMode = 'orphan'">{{ 'button.searchInOrphans' | translate }}</button>
   </div>
 
   <div class="app-fxLayout app-column app-fxFlex app-content-wrapper app-search-results">
@@ -16,7 +17,7 @@
         {{ 'button.search' | translate }}
       </button>
       @if (searchMode === 'phrase') {
-        <mat-form-field  class="app-model">
+        <mat-form-field [appearance]="settings.appearance" class="app-model">
           <mat-label>{{ 'desc.model' | translate }}</mat-label>
           <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model">
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>
@@ -30,7 +31,7 @@
             </button>
           }
         </mat-form-field>
-        <mat-form-field  class="app-fxFlex">
+        <mat-form-field   [appearance]="settings.appearance" class="app-fxFlex">
           <mat-label>{{ 'desc.search' | translate }}</mat-label>
           <input matInput [placeholder]="'desc.search' | translate" (keyup.enter)="filter()" [(ngModel)]="query">
           @if (urlParams?.query) {
@@ -40,8 +41,9 @@
           }
         </mat-form-field>
       }
+      
       @if (searchMode !== 'phrase') {
-        <mat-form-field  class="app-model">
+        <mat-form-field  [appearance]="settings.appearance" class="app-model">
           <mat-label>{{ 'desc.model' | translate }}</mat-label>
           <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="model">
             <mat-option value="all">{{ 'desc.all' | translate }}</mat-option>

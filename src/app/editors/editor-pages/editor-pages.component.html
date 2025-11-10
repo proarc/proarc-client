@@ -8,16 +8,19 @@
       </div>
     </div>
     <div class="app-fxLayout app-row app-center-v">
-      <button mat-icon-button (click)="onRevert()" [disabled]="!canSave()" [matTooltip]="'button.refresh' | translate" >
+      <button mat-icon-button (click)="setPageHolder()" [matTooltip]="'button.setPageHolder' | translate" >
+        <mat-icon>push_pin</mat-icon>
+      </button>
+      <button mat-icon-button (click)="onRevert()" [disabled]="!canSave" [matTooltip]="'button.refresh' | translate" >
         <mat-icon>sync</mat-icon>
       </button>
-      <button mat-icon-button (click)="addBrackets()" [disabled]="canSave()" [matTooltip]="'common.add_brackets' | translate" >
+      <button mat-icon-button (click)="addBrackets()" [disabled]="canSave" [matTooltip]="'common.add_brackets' | translate" >
         [<mat-icon>add</mat-icon>]
       </button>
-      <button mat-icon-button (click)="removeBrackets()" [disabled]="canSave()" [matTooltip]="'common.remove_brackets' | translate">
+      <button mat-icon-button (click)="removeBrackets()" [disabled]="canSave" [matTooltip]="'common.remove_brackets' | translate">
         [<mat-icon>remove</mat-icon>]
       </button>
-      <button mat-icon-button (click)="onSave()" [disabled]="!canSave()" [matTooltip]="'button.save' | translate" >
+      <button mat-icon-button (click)="onSave()" [disabled]="!canSave" [matTooltip]="'button.save' | translate" >
         <mat-icon>save</mat-icon>
       </button>
     </div>
@@ -34,7 +37,7 @@
             <div class="app-form-content">
               <mat-form-field class="app-field-col">
                 <mat-label>{{ 'editor.pages.page_type' | translate }}</mat-label>
-                <mat-select [placeholder]="'editor.pages.page_type' | translate" name="type" [(value)]="holder.pageType" (keyup.enter)="enterSelect(typeSelect)" #typeSelect [formControl]="pageTypeControl">
+                <mat-select [placeholder]="'editor.pages.page_type' | translate" name="type" (keyup.enter)="enterSelect(typeSelect)" #typeSelect [formControl]="pageTypeControl">
                   <mat-option [value]="''"> </mat-option>
                   @for(pageType of config.pageTypes; track $index;) {
                     <mat-option [value]="pageType">{{ pageType }}</mat-option>
@@ -61,8 +64,8 @@
               </mat-form-field>
               <mat-form-field  class="app-field-col" >
                 <mat-label>{{ 'editor.pages.number_from' | translate }}</mat-label>
-                <input (keyup.enter)="onSave()" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_from' | translate" [formControl]="pageNumberControl" [class.app-input-invalid]="!holder.numberFromValid()">
-                <button matSuffix [class.app-active]="holder.useBrackets" [matTooltip]="holder.useBrackets ? ('button.removeBrackets' | translate) : ('button.addBrackets' | translate)" (click)="holder.useBrackets = !holder.useBrackets" mat-icon-button>
+                <input (keyup.enter)="onSave()" type="text" autocomplete="off" matInput [placeholder]="'editor.pages.number_from' | translate" [formControl]="pageNumberFromControl" [class.app-input-invalid]="!numberFromValid()">
+                <button matSuffix [class.app-active]="useBracketsControl.value" [matTooltip]="useBracketsControl.value ? ('button.removeBrackets' | translate) : ('button.addBrackets' | translate)" (click)="useBracketsControl.setValue(!useBracketsControl.value)" mat-icon-button>
                   <span class="app-text-icon">[ ]</span>
                 </button>
               </mat-form-field>
@@ -76,18 +79,18 @@
               </mat-form-field>
               <mat-form-field class="app-field-col">
                 <mat-label>{{ 'editor.pages.number_numbering' | translate }}</mat-label>
-                <mat-select #numSelect [placeholder]="'editor.pages.number_numbering' | translate" name="type" [(value)]="holder.pageNumberNumbering" (keyup.enter)="enterSelect(numSelect)" [formControl]="numberingTypesControl">
-                  @for(type of holder.numberingTypes; track $index;) {
-                    <mat-option [value]="type">{{ type.label }}</mat-option>
+                <mat-select #numSelect [placeholder]="'editor.pages.number_numbering' | translate" name="type" [formControl]="pageNumberNumberingControl" (keyup.enter)="enterSelect(numSelect)">
+                  @for(type of numberingTypes; track $index;) {
+                    <mat-option [value]="type.id">{{ type.label }}</mat-option>
                   }
                 </mat-select>
               </mat-form-field>
               <div class="app-pl-2 app-pr-2">
-                <mat-checkbox color="primary" [(ngModel)]="holder.doubleColumns">{{ 'editor.pages.doubleColumns' | translate }}</mat-checkbox>
+                <mat-checkbox color="primary" [formControl]="doubleColumnsControl">{{ 'editor.pages.doubleColumns' | translate }}</mat-checkbox>
               </div>
               <div class="app-p-2">
                 <div class="app-numbering-label">{{ 'editor.pages.number_example' | translate }}</div>
-                <div class="app-numbering-value">{{ holder.getNumberingExample() }}</div>
+                <div class="app-numbering-value">{{ numberingExample() }}</div>
               </div>
             </div>
           </div>
@@ -96,7 +99,7 @@
             <div class="app-form-content">
               <mat-form-field class="app-field-col">
                 <mat-label>{{ 'editor.pages.page_position' | translate }}</mat-label>
-                <mat-select #posSelect [placeholder]="'editor.pages.page_position' | translate" name="type" [(value)]="holder.pagePosition" (keyup.enter)="enterSelect(posSelect)"  [formControl]="posControl">
+                <mat-select #posSelect [placeholder]="'editor.pages.page_position' | translate" name="type" (keyup.enter)="enterSelect(posSelect)"  [formControl]="pagePositionControl">
                   <mat-option [value]="''"> </mat-option>
                   @for(pagePosition of config.pagePositions; track $index;) {
                     <mat-option [value]="pagePosition">{{ 'editor.pages.page_position_' + pagePosition | translate }}</mat-option>
@@ -110,7 +113,7 @@
             <div class="app-form-content">
               <mat-form-field class="app-field-col">
                 <mat-label>{{ 'editor.page.genre' | translate }}</mat-label>
-                <mat-select [(ngModel)]='holder.repreSelect' [placeholder]="'editor.page.genre' | translate">
+                <mat-select [formControl]='repreSelectControl' [placeholder]="'editor.page.genre' | translate">
                   <mat-option  [value]="null">-</mat-option>
                   <mat-option  [value]="true">{{ 'common.yes' | translate }}</mat-option>
                   <mat-option  [value]="false">{{ 'common.no' | translate }}</mat-option>
@@ -123,14 +126,14 @@
             <div class="app-form-content">
               <mat-form-field class="app-field-col">
                 <mat-label>{{ 'editor.pages.apply' | translate }}</mat-label>
-                <mat-select [placeholder]="'editor.pages.apply' | translate" name="apply" [(value)]="holder.applyTo"  [disabled]="!canSave()" (keyup.enter)="enterSelect(applySelect)" #applySelect  [formControl]="applyControl">
-                  @for(num of holder.applyOptions; track $index;) {
+                <mat-select [placeholder]="'editor.pages.apply' | translate" name="apply" (keyup.enter)="enterSelect(applySelect)" #applySelect  [formControl]="applyToControl">
+                  @for(num of applyOptions; track $index;) {
                     <mat-option [value]="num">{{'editor.pages.apply_to' + (num > 1 ? '2' : '0') | translate: { num: num } }}</mat-option>
                   }
                 </mat-select>
               </mat-form-field>
               <div class="app-pl-2 app-pr-2 app-pb-2">
-                <mat-checkbox [disabled]="holder.applyTo == 1" color="primary" [(ngModel)]="holder.applyToFirst">{{ 'editor.pages.apply_to_first' | translate }}</mat-checkbox>
+                <mat-checkbox [disabled]="applyToControl.value === 1" color="primary" [formControl]="applyToFirstControl">{{ 'editor.pages.apply_to_first' | translate }}</mat-checkbox>
               </div>
             </div>
           </div>

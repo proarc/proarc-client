@@ -40,6 +40,8 @@ export class SettingsComponent implements OnInit {
   state = 'none';
   user: User | null;
 
+  appearance: boolean;
+
   forename: string;
   surname: string;
 
@@ -72,6 +74,7 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.curSettings = this.settingsService.cloneSettings();
+    this.appearance = this.curSettings.appearance === 'outline';
     this.api.getUser().subscribe((user: User) => {
       this.user = user;
       this.forename = this.user.forename;
@@ -85,6 +88,9 @@ export class SettingsComponent implements OnInit {
   save() {
     this.settingsService.setSettings(this.curSettings);
   }
+    setAppearance() {
+      this.curSettings.appearance = this.appearance ? 'outline'  : 'fill';
+    }
 
   getColumnsForModel() {
     // this.initSelectedColumnsEditingRepo();

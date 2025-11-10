@@ -1,5 +1,6 @@
 <div class="app-fxLayout app-column app-fill">
-  <h1 mat-dialog-title [innerHtml]="'dialog.layoutSettings.title' | translate : {value: ('dynamic.' + data.layout | translate)}"></h1>
+  <h1 mat-dialog-title [innerHtml]="'dialog.layoutSettings.title' | translate : {value: ('dynamic.' + data.layout | translate)}"
+  cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle></h1>
   <div mat-dialog-content class="app-fxFlex">
     <div class="app-fxLayout app-column app-fill app-gap-4">
       <div class="app-fxLayout app-row app-gap-4">

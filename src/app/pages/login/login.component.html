@@ -13,7 +13,7 @@
             <mat-label>{{ 'desc.username' | translate }}</mat-label>
             <input type="text" #username="matInput" matInput cdkFocusInitial [placeholder]="'desc.username' | translate" ngModel name="username"required>
           </mat-form-field>
-          <mat-form-field class="app-w-100" >
+          <mat-form-field [appearance]="settings.appearance" class="app-w-100" >
             <mat-label>{{ 'desc.password' | translate }}</mat-label>
             <input type="password" matInput [placeholder]="'desc.password' | translate" ngModel name="password" required>
           </mat-form-field>

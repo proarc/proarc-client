@@ -1,5 +1,9 @@
 @use "../../../scss/app-mixins";
 
+::ng-deep .mat-mdc-dialog-surface {
+  resize: both;
+}
+
 .mat-mdc-dialog-content {
   --mat-dialog-supporting-text-size: 14px;
   max-height: 100%;

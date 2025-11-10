@@ -1,5 +1,5 @@
 <div class="app-fxLayout app-column app-fill">
-  <div mat-dialog-title class="app-fxLayout app-row app-gap-4 app-center-v app-pt-4 app-pb-4">
+  <div mat-dialog-title class="app-fxLayout app-row app-gap-4 app-center-v app-pt-4 app-pb-4" cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
     <h2 class="app-mb-0">{{ 'desc.markRow' | translate }}</h2>
     <button matButton="filled" (click)="markSequence()">{{ 'button.markRow' | translate }}</button>
   </div>
@@ -44,6 +44,7 @@
                 @for(item of dest; let i = $index; track $index;) {
                 <div class="app-item-wrapper" (click)="select(dest, item, i, $event, 'dest')"
                   [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig"
+                  [ngClass]="{'app-repre': item.pageRepre === 'reprePage'}" 
                   [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
                   <div class="app-item">
                     <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'"
@@ -123,7 +124,7 @@
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; let idx = index; columns: displayedColumns"
-                  [class.app-selected]="row.selected"  [class.app-selectedInOrig]="row.selectedInOrig"
+                  [class.app-selected]="row.selected"  [class.app-selectedInOrig]="row.selectedInOrig" [class.app-repre]="row.pageRepre === 'reprePage'"
                 (click)="select(dest, row, idx, $event, 'dest')"></tr>
               </table>
             }
@@ -169,7 +170,9 @@
             <div class="app-fxLayout app-row app-wrap app-view-icon" #childrenIconList>
               @for(item of dest; let i = $index; track $index;) {
                 <div class="app-item-wrapper" (click)="select(dest, item, i, $event, 'dest')"
-                  [class.app-selected]="item.selected" [class.app-selectedInOrig]="item.selectedInOrig" [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
+                  [class.app-selected]="item.selected" 
+                  [ngClass]="{'app-repre': item.pageRepre === 'reprePage'}" 
+                  [class.app-selectedInOrig]="item.selectedInOrig" [style]="'flex: 1 1 ' + data.iconWidth['dest'] + '%; max-width: ' + data.iconWidth['dest'] + '%; box-sizing: border-box;'">
                   <div class="app-item">
                     <div class="app-item-thumb" [style.backgroundImage]="'url(' + thumb(item.pid) + ')'" [style.height]="data.iconHeight['dest'] + 'px'"></div>
                     <div class="app-item-label">
@@ -252,7 +255,7 @@
               </ng-container>
               <tr mat-header-row *matHeaderRowDef="data.displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; let idx = index; columns: data.displayedColumns"
-                [class.app-selected]="row.selected" [class.app-selectedInOrig]="row.selectedInOrig"
+                [class.app-selected]="row.selected" [class.app-selectedInOrig]="row.selectedInOrig" [class.app-repre]="row.pageRepre === 'reprePage'"
               (click)="select(dest, row, idx, $event, 'dest')"></tr>
             </table>
           }

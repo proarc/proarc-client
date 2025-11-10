@@ -2,7 +2,7 @@
   @if (state=='loading') {
   <mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
   }
-  <h2 mat-dialog-title>{{ 'dialog.catalog.title' | translate }}</h2>
+  <h2 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>{{ 'dialog.catalog.title' | translate }}</h2>
   <div mat-dialog-content class="mat-typography app-fxFlex app-maxh-100 app-fxLayout app-column">
     @if (catalogs) {
     <div class="app-fxLayout app-row app-baseline app-gap-2 app-pt-1">

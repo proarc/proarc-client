@@ -55,7 +55,7 @@
         <button matTooltip="{{ 'editor.toolbar.nav_up' | translate }}" (click)="goToParent()" [disabled]="!layout.parent" mat-icon-button class="app-btn-resized">
           <mat-icon>keyboard_arrow_up</mat-icon>
         </button>
-        <button matTooltip="{{ 'editor.toolbar.nav_down' | translate }}" (click)="goToFirst()" [disabled]="layout.items.length === 0" mat-icon-button class="app-btn-resized">
+        <button matTooltip="{{ 'editor.toolbar.nav_down' | translate }}" (click)="goToFirst()" [disabled]="layout.items().length === 0" mat-icon-button class="app-btn-resized">
           <mat-icon>keyboard_arrow_down</mat-icon>
         </button>
         <button matTooltip="{{ 'editor.toolbar.nav_prev' | translate }}" (click)="goToPrevious()" [disabled]="!layout.previousItem" mat-icon-button class="app-btn-resized">
@@ -84,7 +84,7 @@
     @if (state ==='loading') {
       <mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
     }
-    @if (state !=='loading') {
+    @if (state !=='loading' || true) {
       <div class="app-editor-content" #childrenWrapper tabindex="0" (keyup)="keyup($event)" (resized)="onResized($event)" (mousemove)="mousemove($event)" cdkScrollable>
         @if (viewMode == 'grid') {
           <div class="app-fxLayout app-row app-wrap app-view-grid" #childrenGridList (mousedown)="mousedown($event)" (mouseup)="mouseup($event)">
@@ -110,7 +110,7 @@
           }
           @if (viewMode == 'icons') {
             <div class="app-fxLayout app-row app-wrap app-view-icon" #childrenIconList [class.app-multiple-selection]="layout.getNumOfSelected() > 1" (mousedown)="mousedown($event)">
-              @for(item of layout.items(); let i = $index; track item.pid;) {
+              @for(item of layout.items(); let i = $index; track item) {
                 <div class="app-item-wrapper cdk-drag"
                   [ngClass]="{'app-repre': item.pageRepre === 'reprePage'}" (click)="rowClick(item, $event, i)"
                   (dblclick)="open(item)" draggable="true" (dragenter)="dragenter($event, i)"

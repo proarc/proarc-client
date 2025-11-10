@@ -1,4 +1,4 @@
-import { Component, input, Input, OnInit } from '@angular/core';
+import { Component, input, Input, OnInit, signal } from '@angular/core';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,11 +12,12 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ILayoutPanel } from '../../dialogs/layout-admin/layout-admin.component';
 import { ApiService } from '../../services/api.service';
-import { LayoutService } from '../../services/layout-service';
+import { LayoutService, PageUpdateHolder } from '../../services/layout-service';
 import { UIService } from '../../services/ui.service';
 import { Configuration } from '../../shared/configuration';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
+import { Utils } from '../../utils/utils';
 
 @Component({
   imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule, MatProgressBarModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule, MatInputModule],
@@ -29,170 +30,6 @@ export class EditorPagesComponent implements OnInit {
   panel = input<ILayoutPanel>();
 
   holder: PageUpdateHolder;
-  pageTypeControl: FormControl<{ code: string, name: string } | null> = new FormControl<{ code: string, name: string } | null>(null);
-  numberingTypesControl: FormControl<{ id: string, label: string } | null> = new FormControl<{ id: string, label: string } | null>(null);
-  pageNumberControl = new FormControl();
-  pageNumberPrefixControl = new FormControl();
-  pageNumberSuffixControl = new FormControl();
-  pageNumberIncrementControl = new FormControl();
-  pageIndexControl = new FormControl();
-  posControl = new FormControl();
-  applyControl = new FormControl();
-  controls: FormGroup = new FormGroup({
-    pageTypeControl: this.pageTypeControl,
-    pageNumberFrom: this.pageNumberControl,
-    pageNumberPrefix: this.pageNumberPrefixControl,
-    pageNumberSuffix: this.pageNumberSuffixControl,
-    pageNumberIncrement: this.pageNumberIncrementControl,
-    pageIndex: this.pageIndexControl,
-    numberingTypesControl: this.numberingTypesControl,
-    posControl: this.posControl,
-    applyControl: this.applyControl
-  });
-
-  state: string;
-  plurals: string;
-  numOfSelected: number;
-  subscriptions: Subscription[] = [];
-
-  constructor(
-    private api: ApiService,
-    private ui: UIService,
-    private dialog: MatDialog,
-    public translator: TranslateService,
-    public config: Configuration,
-    public layout: LayoutService) {
-  }
-
-  ngOnInit() {
-    this.holder = new PageUpdateHolder();
-    
-    this.controls.patchValue({
-      pageNumberFrom: this.holder.pageNumberFrom,
-      pageNumberPrefix: this.holder.pageNumberPrefix,
-      pageNumberSuffix: this.holder.pageNumberSuffix,
-      pageNumberIncrement: this.holder.pageNumberIncrement,
-      pageIndex: this.holder.pageIndex
-    });
-
-    this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
-      this.plurals = this.countPlurals();
-    }));
-  }
-
-  onRevert() {
-    this.holder = new PageUpdateHolder();
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach(s => s.unsubscribe());
-  }
-
-  countPlurals(): string {
-    this.numOfSelected = this.layout.getNumOfSelected();
-    if (this.numOfSelected > 4) {
-      return '5'
-    } else if (this.numOfSelected > 1) {
-      return '4'
-    } else {
-      return this.numOfSelected + '';
-    }
-  }
-
-  canSave(): boolean {
-
-    const hasChanges = this.holder.editAny() || this.controls.dirty;
-    if (hasChanges) {
-      this.layout.setPanelEditing(this.panel());
-    } else {
-      if (this.panel().canEdit) {
-        this.layout.clearPanelEditing();
-      }
-    }
-
-    return hasChanges
-  }
-
-  onSave() {
-    if (!this.canSave()) {
-      return;
-    }
-
-    this.holder.pageNumberFrom = this.controls.get('pageNumberFrom').value;
-    this.holder.pageNumberPrefix = this.controls.get('pageNumberPrefix').value;
-    this.holder.pageNumberSuffix = this.controls.get('pageNumberSuffix').value;
-    this.holder.pageNumberIncrement = this.controls.get('pageNumberIncrement').value;
-    this.holder.pageIndex = this.controls.get('pageIndex').value;
-
-    this.updateSelectedPages(this.holder, null);
-    // this.holder.reset();
-    // this.holder = new PageUpdateHolder();
-    this.controls.markAsPristine();
-    this.layout.clearPanelEditing();
-  }
-
-  addBrackets() {
-    this.changeBrackets(this.holder, true, null);
-  }
-
-  removeBrackets() {
-    this.changeBrackets(this.holder, false, null);
-
-  }
-
-  enterSelect(s: MatSelect) {
-    s.close();
-    this.onSave();
-  }
-
-
-  updateSelectedPages(holder: PageUpdateHolder, callback: () => void) {
-    this.state = 'saving';
-    const pages = [];
-    for (const item of this.layout.items()) {
-      if (item.isPage() && item.selected) {
-        pages.push(item.pid);
-      }
-    }
-    this.api.editPages(pages, holder, this.layout.batchId).subscribe((result: any) => {
-      if (result.response.errors) {
-        this.ui.showErrorDialogFromObject(result.response.errors);
-        this.state = 'error';
-      } else {
-        
-        if (this.layout.type !== 'repo') {
-          this.ui.showInfoSnackBar(this.translator.instant('snackbar.changeSaved'), 4000);
-        }
-        this.layout.refreshSelectedItem(true, 'pages');
-        this.state = 'success';
-      }
-    })
-  }
-
-  changeBrackets(holder: PageUpdateHolder, useBrackets: boolean, callback: () => void) {
-    this.state = 'saving';
-    const pages = [];
-    for (const item of this.layout.items()) {
-      if (item.isPage() && item.selected) {
-        pages.push(item.pid);
-      }
-    }
-    this.api.editBrackets(pages, holder, useBrackets, this.layout.batchId).subscribe((result: any) => {
-      if (result.response.errors) {
-        this.ui.showErrorDialogFromObject(result.response.errors);
-        this.state = 'error';
-      } else {
-        this.layout.refreshSelectedItem(true, 'pages');
-        this.state = 'success';
-        // this.layout.setShouldRefresh(true);
-      }
-    })
-  }
-
-}
-
-
-export class PageUpdateHolder {
 
   alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
@@ -221,69 +58,217 @@ export class PageUpdateHolder {
 
   applyOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
-  // editType: boolean;
-  // editIndex: boolean;
-  // editNumber: boolean;
-  // editPosition: boolean;
 
-  useBrackets: boolean;
-  doubleColumns: boolean;
+  pageTypeControl: FormControl<{ code: string, name: string } | null> = new FormControl<{ code: string, name: string } | null>(null);
+  pageNumberNumberingControl: FormControl<string | null> = new FormControl<string | null>(this.numberingTypes[0].id);
+  pageNumberFromControl = new FormControl();
+  pageNumberPrefixControl = new FormControl();
+  pageNumberSuffixControl = new FormControl();
+  pageNumberIncrementControl = new FormControl();
+  pageIndexControl = new FormControl();
+  pagePositionControl = new FormControl();
+  applyToControl = new FormControl();
+  useBracketsControl = new FormControl(false);
+  repreSelectControl = new FormControl(false);
+  doubleColumnsControl = new FormControl(false);
+  applyToFirstControl = new FormControl();
+  controls: FormGroup = new FormGroup({
+    pageType: this.pageTypeControl,
+    pageIndex: this.pageIndexControl,
+    useBrackets: this.useBracketsControl,
+    repreSelect: this.repreSelectControl,
+    doubleColumns: this.doubleColumnsControl,
+    pageNumberNumbering: this.pageNumberNumberingControl,
+    pageNumberFrom: this.pageNumberFromControl,
+    pageNumberPrefix: this.pageNumberPrefixControl,
+    pageNumberSuffix: this.pageNumberSuffixControl,
+    pageNumberIncrement: this.pageNumberIncrementControl,
+    pagePosition: this.pagePositionControl,
+    applyToFirst: this.applyToFirstControl,
+    applyTo: this.applyToControl
+  });
 
-  pageType: string;
-  pageIndex: number;
 
-  pageNumberFrom: string;
-  pageNumberIncrement: number;
-  pageNumberPrefix: string;
-  pageNumberSuffix: string;
-  pageNumberNumbering: any;
+  state: string;
+  plurals: string;
+  numOfSelected: number;
+  subscriptions: Subscription[] = [];
+  numberingExample = signal<string>('');
 
-  pagePosition: string;
-
-  applyTo: number;
-  applyToFirst: boolean;
-
-  repreSelect: any = null;
-  isReprePage: boolean;
-
-  constructor() {
-    // this.editType = false;
-    // this.editIndex = false;
-    // this.editNumber = false;
-    this.pageType = '';
-    // this.pageType = 'normalPage';
-    this.pageIndex = null;
-
-    this.pageNumberFrom = "";
-    this.pageNumberIncrement = 1;
-    this.pageNumberPrefix = '';
-    this.pageNumberSuffix = '';
-    this.pageNumberNumbering = this.numberingTypes[0];
-
-    this.pagePosition = '';
-
-    this.applyTo = 1;
-    this.applyToFirst = true;
-    this.repreSelect = null;
+  constructor(
+    private api: ApiService,
+    private ui: UIService,
+    private dialog: MatDialog,
+    public translator: TranslateService,
+    public config: Configuration,
+    public layout: LayoutService) {
   }
 
-  getPageIndexFrom(): number {
-    return this.findIndexInNumbering(this.pageNumberFrom);
+  ngOnInit() {
+    this.holder = new PageUpdateHolder();
+    this.holder.pageNumberNumbering = this.numberingTypes[0].id;
+    if (this.layout.lastPageUpdateHolder) {
+      this.holder.fillValues(this.layout.lastPageUpdateHolder);
+    }
+    this.initControls();
+
+    this.controls.valueChanges.subscribe(() => {
+      this.canSave = true;
+      this.setPanelEditing();
+      this.numberingExample.set(this.getNumberingExample());
+    })
+
+    this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
+      this.plurals = this.countPlurals();
+    }));
+  }
+
+  setPageHolder() {
+    this.layout.lastPageUpdateHolder = new PageUpdateHolder();
+    this.layout.lastPageUpdateHolder.fillValues(this.controls.value);
+  }
+
+  initControls() {
+    this.controls.patchValue(this.holder);
+    this.pageNumberNumberingControl.setValue(this.holder.pageNumberNumbering);
+    this.controls.markAsPristine();
+  }
+
+  onRevert() {
+    this.controls.reset();
+    this.pageNumberNumberingControl.setValue(this.numberingTypes[0].id);
+    this.controls.markAsPristine();
+    this.canSave = false;
+    this.setPanelEditing();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
+  countPlurals(): string {
+    this.numOfSelected = this.layout.getNumOfSelected();
+    if (this.numOfSelected > 4) {
+      return '5'
+    } else if (this.numOfSelected > 1) {
+      return '4'
+    } else {
+      return this.numOfSelected + '';
+    }
+  }
+
+  canSave: boolean;
+  setPanelEditing() {
+    setTimeout(() => {
+      if (this.canSave) {
+        this.layout.setPanelEditing(this.panel());
+      } else {
+        if (this.panel().canEdit) {
+          this.layout.clearPanelEditing();
+        }
+      }
+    }, 100);
+
+  }
+
+  onSave() {
+    if (!this.canSave) {
+      return;
+    }
+    this.holder.fillValues(this.controls.value);
+
+    this.updateSelectedPages(this.holder, null);
+    
+  }
+
+  addBrackets() {
+    this.changeBrackets(this.holder, true, null);
+  }
+
+  removeBrackets() {
+    this.changeBrackets(this.holder, false, null);
+
+  }
+
+  enterSelect(s: MatSelect) {
+    s.close();
+    this.onSave();
   }
 
 
+  updateSelectedPages(holder: PageUpdateHolder, callback: () => void) {
+    this.state = 'saving';
+    const pages = [];
+    for (const item of this.layout.items()) {
+      if (item.isPage() && item.selected) {
+        pages.push(item.pid);
+      }
+    }
+    this.setPageHolder();
+    this.api.editPages(pages, holder, this.layout.batchId, this.numberFromValid(), this.findIndexInNumbering(this.pageNumberFromControl.value)).subscribe((result: any) => {
+      if (result.response.errors) {
+        this.ui.showErrorDialogFromObject(result.response.errors);
+        this.state = 'error';
+      } else {
 
-  editAny(): boolean {
-    return  this.pageIndex !== null || this.pageType !== '' || (this.numberFromValid()) || (this.pagePosition !== '') || (this.repreSelect !== null);
+        if (this.layout.type !== 'repo') {
+          this.ui.showInfoSnackBar(this.translator.instant('snackbar.changeSaved'), 4000);
+        }
+        setTimeout(() => {
+          this.layout.clearPanelEditing();
+          // this.layout.setShouldRefresh(true);
+          this.layout.refreshSelectedItem(true, 'pages');
+        }, 100);
+        
+        this.state = 'success';
+      }
+    
+      this.controls.markAsPristine();
+    });
   }
 
-  // reset() {
-  //   this.editIndex = false;
-  //   this.editType = false;
-  //   this.editNumber = false;
-  //   this.editPosition = false;
-  //   this.repreSelect = null;
-  // }
+  changeBrackets(holder: PageUpdateHolder, useBrackets: boolean, callback: () => void) {
+    this.state = 'saving';
+    const pages = [];
+    for (const item of this.layout.items()) {
+      if (item.isPage() && item.selected) {
+        pages.push(item.pid);
+      }
+    }
+    this.api.editBrackets(pages, holder, useBrackets, this.layout.batchId).subscribe((result: any) => {
+      if (result.response.errors) {
+        this.ui.showErrorDialogFromObject(result.response.errors);
+        this.state = 'error';
+      } else {
+        this.layout.refreshSelectedItem(true, 'pages');
+        this.state = 'success';
+        // this.layout.setShouldRefresh(true);
+      }
+    })
+  }
+
+  getNumberingExample(): string {
+    if (this.pageNumberFromControl.value && this.numberFromValid()) {
+      return `${this.getNumberForIndex(0)}; ${this.getNumberForIndex(1)}; ${this.getNumberForIndex(2)}; ${this.getNumberForIndex(3)}`;
+    }
+    return '';
+  }
+
+  numberFromValid(): boolean {
+
+    if (this.pageNumberNumberingControl.value === this.numberingTypes[0].id) {
+      return new RegExp(/^\d+$/).test(this.pageNumberFromControl.value);
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[1].id) {
+      return new RegExp(/^[IVXCLMD]+$/).test(this.pageNumberFromControl.value.toLocaleUpperCase());
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[2].id) {
+      return new RegExp(/^[IVXCLMD]+$/).test(this.pageNumberFromControl.value.toLocaleUpperCase());
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[3].id) {
+      return new RegExp(/^[A-Za-z]+$/).test(this.pageNumberFromControl.value);
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[4].id) {
+      return new RegExp(/^[A-Za-z]+$/).test(this.pageNumberFromControl.value);
+    }
+    return false;
+  }
 
   romanize(num: number): string {
     if (isNaN(num)) {
@@ -362,15 +347,15 @@ export class PageUpdateHolder {
   }
 
   findIndexInNumbering(number: string): number {
-    if (this.pageNumberNumbering == this.numberingTypes[0]) {
+    if (this.pageNumberNumberingControl.value == this.numberingTypes[0].id) {
       return parseInt(number);
-    } else if (this.pageNumberNumbering == this.numberingTypes[1]) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[1].id) {
       return this.deromanize(number.toUpperCase());
-    } else if (this.pageNumberNumbering == this.numberingTypes[2]) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[2].id) {
       return this.deromanize(number.toUpperCase());
-    } else if (this.pageNumberNumbering == this.numberingTypes[3]) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[3].id) {
       return this.alphabetIndex(number.toLocaleLowerCase());
-    } else if (this.pageNumberNumbering == this.numberingTypes[4]) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[4].id) {
       return this.alphabetIndex(number.toLocaleLowerCase());
     } else {
       return -1
@@ -378,59 +363,36 @@ export class PageUpdateHolder {
   }
 
   getAsString(num: number) {
-    let result = this.pageNumberPrefix;
-    if (this.pageNumberNumbering === this.numberingTypes[0]) {
+    let result = this.pageNumberPrefixControl.value;
+    if (this.pageNumberNumberingControl.value === this.numberingTypes[0].id) {
       result += String(num);
-    } else if (this.pageNumberNumbering === this.numberingTypes[1]) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[1].id) {
       result += this.romanize(num);
-    } else if (this.pageNumberNumbering === this.numberingTypes[2]) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[2].id) {
       result += this.romanize(num).toLowerCase();
-    } else if (this.pageNumberNumbering === this.numberingTypes[3]) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[3].id) {
       result += this.getAlphabetFromNumber(num);
-    } else if (this.pageNumberNumbering === this.numberingTypes[4]) {
+    } else if (this.pageNumberNumberingControl.value === this.numberingTypes[4].id) {
       result += this.getAlphabetFromNumber(num).toLocaleLowerCase();
     }
-    result = result + this.pageNumberSuffix;
-    if (this.useBrackets) {
+    result = result + this.pageNumberSuffixControl.value;
+    if (this.useBracketsControl.value) {
       result = '[' + result + ']';
     }
     return result;
   }
 
   getNumberForIndex(index: number, checkDouble = true) {
-    let num = this.findIndexInNumbering(this.pageNumberFrom);
-    let idx = this.doubleColumns ? index * 2 : index;
-    num += this.pageNumberIncrement * idx;
+    let num = this.findIndexInNumbering(this.pageNumberFromControl.value);
+    let idx = this.doubleColumnsControl.value ? index * 2 : index;
+    num += this.pageNumberIncrementControl.value * idx;
     let result = this.getAsString(num);
-    if (checkDouble && this.doubleColumns) {
-      result += ',' + this.getAsString(num + this.pageNumberIncrement);
+    if (checkDouble && this.doubleColumnsControl.value) {
+      result += ',' + this.getAsString(num + this.pageNumberIncrementControl.value);
     }
     return result
   }
 
-  numberFromValid(): boolean {
-    if (!this.pageNumberFrom) {
-      return false;
-    }
-    if (this.pageNumberNumbering === this.numberingTypes[0]) {
-      return new RegExp(/^\d+$/).test(this.pageNumberFrom);
-    } else if (this.pageNumberNumbering === this.numberingTypes[1]) {
-      return new RegExp(/^[IVXCLMD]+$/).test(this.pageNumberFrom.toLocaleUpperCase());
-    } else if (this.pageNumberNumbering === this.numberingTypes[2]) {
-      return new RegExp(/^[IVXCLMD]+$/).test(this.pageNumberFrom.toLocaleUpperCase());
-    } else if (this.pageNumberNumbering === this.numberingTypes[3]) {
-      return new RegExp(/^[A-Za-z]+$/).test(this.pageNumberFrom);
-    } else if (this.pageNumberNumbering === this.numberingTypes[4]) {
-      return new RegExp(/^[A-Za-z]+$/).test(this.pageNumberFrom);
-    }
-    return false;
-  }
-
-  getNumberingExample(): string {
-    if (this.pageNumberFrom && this.numberFromValid()) {
-      return `${this.getNumberForIndex(0)}; ${this.getNumberForIndex(1)}; ${this.getNumberForIndex(2)}; ${this.getNumberForIndex(3)}`;
-    }
-    return '';
-  }
-
 }
+
+

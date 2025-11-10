@@ -1,4 +1,4 @@
-<button (click)="onExport(true)" mat-button>{{ 'button.export' | translate }}</button>
+<button (click)="onExport()" [disabled]="!canExport()" mat-button>{{ 'button.export' | translate }}</button>
 <button (click)="onUrnnbn(true)" mat-button>URN:NBN</button>
 @if (!forTree()) {
   <button (click)="onDeleteItem()" mat-button>{{ 'button.delete' | translate }}</button>
@@ -25,9 +25,7 @@
     <button mat-menu-item (click)="changeModel()">{{ 'button.conversionsOfModels' | translate }}</button>
   }
   <button mat-menu-item (click)="updateObjects()">{{ 'button.updateAllObjects' | translate }}</button>
-  @if (isAkubra && auth.isSuperAdmin()) {
-    <button mat-menu-item (click)="reindex()">{{ 'button.toIndex' | translate }}</button>
-  }
+  
   @if (auth.user.changeModelFunction || auth.isSuperAdmin()) {
     <button mat-menu-item (click)="showConvertDialog()">{{ 'button.convertPages' | translate }}</button>
   }

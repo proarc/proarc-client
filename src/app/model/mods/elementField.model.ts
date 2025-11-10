@@ -53,6 +53,7 @@ import {ModsLanguageOfCataloging} from './languageOfCataloging.model';
 import {ModsTemporal} from './temporal.model';
 import {ModsGeographic} from './geographic.model';
 import {ModsAccessCondition} from './accessCondition.model';
+import { UserSettings } from '../../shared/user-settings';
 
 
 export class ElementField {
@@ -67,11 +68,16 @@ export class ElementField {
     public labelKey: string;
     public usage: string;
 
-    constructor(mods: any, id: string, template: any, xmlselector?: string) {
+    constructor(mods: any, id: string, template: any, userSettings?: UserSettings, xmlselector?: string) {
         this.template = template;
 
         this.labelKey = this.template.labelKey;
         this.usage = this.template.usage;
+
+        if (userSettings) {
+            this.allExpanded = userSettings.expandedModels.includes(id);
+        }
+        
 
         if (id.startsWith('relatedItem')) {
             // private userSettings = inject(UserSettings);

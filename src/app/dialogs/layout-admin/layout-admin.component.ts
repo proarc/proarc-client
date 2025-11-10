@@ -12,6 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AngularSplitModule } from 'angular-split';
 import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { Utils } from '../../utils/utils';
+import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 export interface ILayoutPanel {
   id: string,
@@ -36,6 +37,7 @@ export interface IConfig {
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
+    CdkDrag, CdkDragHandle, 
     MatCardModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatTooltipModule, MatSelectModule, MatDialogModule
   ],

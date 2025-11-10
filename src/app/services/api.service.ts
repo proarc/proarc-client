@@ -19,8 +19,8 @@ import { Page } from '../model/page.model';
 import { User } from '../model/user.model';
 import { WorkFlow } from '../model/workflow.model';
 import { Metadata } from '../model/metadata.model';
-import { PageUpdateHolder } from '../editors/editor-pages/editor-pages.component';
 import { AudioPagesUpdateHolder } from '../editors/editor-audioPages/editor-audioPages.component';
+import { PageUpdateHolder } from './layout-service';
 
 @Injectable()
 export class ApiService {
@@ -430,6 +430,10 @@ export class ApiService {
       'pid': pids
     };
     return this.put('object/member/move', payload, httpOptions);
+  }
+
+  purgeObjects() {
+    return this.delete('object/purge');
   }
 
   deleteObjects(pids: string[], purge: boolean, batchId: any = null): Observable<any> | null {
@@ -897,6 +901,14 @@ export class ApiService {
     return this.post('import/batchStopped', data);
   }
 
+  deleteBatch(id: number): Observable<any> {
+    return this.delete('import/batch?id=' + id);
+  }
+
+  deleteBatches(params: any): Observable<any> {
+    return this.delete('import/batch', params);
+  }
+
   reloadBatch(id: number, profile: string): Observable<Batch> {
     const data = `id=${id}&profile=${profile}&state=LOADING_FAILED`;
     return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
@@ -1246,6 +1258,16 @@ export class ApiService {
     return this.post('indexer', null);
   }
 
+  indexParents(): Observable<any> {
+    return this.post('indexer/parents', null);
+  }
+
+  updateNdkPage(): Observable<any> {
+    return this.post('object/updateNdkPage/pageType', null);
+  }
+
+  
+
   getValuemap(): Observable<any> {
     let url = `valuemap`;
     return this.get(url);
@@ -1282,7 +1304,7 @@ export class ApiService {
     return this.post('object/mods/addRefenrence', data);
   }
 
-  editPages(pages: string[], holder: PageUpdateHolder, batchId: any = null) {
+  editPages(pages: string[], holder: PageUpdateHolder, batchId: any = null, numberFromValid: boolean, getPageIndexFrom: number) {
     let data = `pids=${pages}`;
     if (batchId) {
       data = `${data}&batchId=${batchId}`;
@@ -1302,8 +1324,8 @@ export class ApiService {
     if (holder.doubleColumns) {
       data += `&doubleColumns=${holder.doubleColumns}`;
     }
-    if (holder.numberFromValid()) {
-      data += `&sequence=${holder.pageNumberNumbering.id}&prefix=${holder.pageNumberPrefix}&suffix=${holder.pageNumberSuffix}&startNumber=${holder.getPageIndexFrom()}&incrementNumber=${holder.pageNumberIncrement}`;
+    if (numberFromValid) {
+      data += `&sequence=${holder.pageNumberNumbering}&prefix=${holder.pageNumberPrefix}&suffix=${holder.pageNumberSuffix}&startNumber=${getPageIndexFrom}&incrementNumber=${holder.pageNumberIncrement}`;
     }
     if (holder.applyTo > 1) {
       data += `&applyToFirstPage=${holder.applyToFirst}`;

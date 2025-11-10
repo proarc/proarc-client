@@ -174,7 +174,13 @@ export class EditorPageComponent implements OnInit {
   }
 
   onRevert() {
+    
     this.page.restore();
+    this.controls.markAsPristine();
+    this.layout.clearPanelEditing();
+    // setTimeout(() => {
+    //   this.layout.clearPanelEditing();
+    // }, 2000);
   }
 
   onSaveFrom(from: string) {
@@ -257,9 +263,6 @@ export class EditorPageComponent implements OnInit {
 
   saveIcon() {
     // this.setPage(this.controls.value);
-    Object.keys(this.controls.controls).forEach((key: string) => {
-      this.page[key as keyof (Page)] = this.controls.get(key).value;
-    });
     if (this.layout.type === 'repo') {
       this.onSave(null);
     } else {
@@ -297,17 +300,22 @@ export class EditorPageComponent implements OnInit {
 
   private saveToKramerius() {
     this.api.saveKrameriusJSON(this.page.pid, this.layout.krameriusInstance, JSON.stringify(this.page.toJson()), this.page.timestamp).subscribe((response: any) => {
-      this.layout.setShouldRefresh(false);
+      this.layout.setShouldRefresh(true);
     });
   }
 
   private save(from: string) {
+    
+    Object.keys(this.controls.controls).forEach((key: string) => {
+      this.page[key as keyof (Page)] = this.controls.get(key).value;
+    });
+    console.log(from);
     this.layout.movedToNextFrom = from;
-    this.controls.markAsPristine();
-    this.layout.clearPanelEditing();
-    if (!this.page.hasChanged()) {
+    if (!this.hasChanged()) {
       if (!!from) {
-        this.layout.shouldMoveToNext(from);
+        const index = this.layout.items().findIndex(i => i.selected);
+        console.log(from, index);
+        this.layout.shouldMoveToNext(from, index);
       }
       return;
     }
@@ -357,7 +365,10 @@ export class EditorPageComponent implements OnInit {
       }
       const newPage: Page = Page.fromJson(resp['response']['data'][0], page.model);
       this.setPage(newPage);
-      // this.layout.setShouldRefresh(true);
+      
+    this.controls.markAsPristine();
+    this.layout.clearPanelEditing();
+
       this.layout.refreshSelectedItem(moveToNext, from);
 
       this.state = 'success';

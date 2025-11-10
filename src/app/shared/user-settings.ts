@@ -4,6 +4,7 @@ import { ApiService } from "../services/api.service";
 import { Utils } from "../utils/utils";
 import { UIService } from "../services/ui.service";
 import { IConfig } from "../dialogs/layout-admin/layout-admin.component";
+import { MatFormFieldAppearance } from "@angular/material/form-field";
 
 @Injectable()
 export class UserSettings {
@@ -37,7 +38,7 @@ export class UserSettings {
     topPageTypes: string[];
     topLanguages: string[];
     topIdentifiers: string[];
-    topExpandedModels: string[];
+    expandedModels: string[];
     relatedItemExpanded: boolean;
 
     formHighlighting: boolean;
@@ -64,6 +65,9 @@ export class UserSettings {
 
     markSequenceDialogOrigTableColumns: TableColumn[];
     markSequenceDialogDestTableColumns: TableColumn[];
+
+    
+    appearance: MatFormFieldAppearance = 'fill'; //fill | outline
 
     [key: string]: any; // This is to allow property asignement by name this[k] = o[k];
 
@@ -195,7 +199,7 @@ public procMngColumnsDefault: TableColumn[] = [
     { field: 'profile', selected: true, width: 100, type: 'string' },
     { field: 'user', selected: true, width: 100, type: 'string' },
     { field: 'priority', selected: true, width: 100, type: 'string' },
-    { field: 'actions', selected: true, width: 100, type: 'string' }
+    { field: 'actions', selected: true, width: 100, type: 'action' }
 ];
 
 public queueColumnsDefault: TableColumn[] = [
@@ -336,7 +340,7 @@ public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
         this.settings.topPageTypes = Utils.clone(this.config.topPageTypes);
         this.settings.topLanguages = Utils.clone(this.config.topLanguages);
         this.settings.topIdentifiers = Utils.clone(this.config.topIdentifiers);
-        this.settings.topExpandedModels = Utils.clone(this.config.expandedModels);
+        this.settings.expandedModels = Utils.clone(this.config.expandedModels);
         
         this.settings.relatedItemExpanded = false;
         this.settings.formHighlighting = true;
@@ -353,8 +357,8 @@ public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
         this.settings.parentOrganization = '-';
         this.settings.parentExpandedPath = [];
         this.settings.parentSplit = 60;
-        this.settings.columnsParentRight = Utils.clone(this.columnsSearchDefault);
-        this.settings.columnsParentLeft = Utils.clone(this.columnsSearchDefault);
+        this.settings.columnsParentRight = Utils.clone(this.columnsEditingRepoDefault);
+        this.settings.columnsParentLeft = Utils.clone(this.columnsEditingRepoDefault);
 
         
         this.settings.viewerPositionLock = false;

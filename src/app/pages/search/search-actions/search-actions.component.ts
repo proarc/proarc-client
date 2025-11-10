@@ -67,6 +67,8 @@ export class SearchActionsComponent {
     return this.treeItems().filter(i => i.selected).length;
   } 
 
+  
+
   onUrnnbn(inSearch: boolean) {
     const pids = inSearch ?
       this.items().filter(i => i.selected).map(i => i.pid) :
@@ -83,8 +85,24 @@ export class SearchActionsComponent {
     });
   }
 
-  onExport(inSearch: boolean) {
-    const items = inSearch ?
+  canExport() {
+
+    const selected = this.forTree() ?
+       this.treeItems().filter(i => i.selected) :
+      this.items().filter(i => i.selected);
+
+
+    const models: string[] = [];
+    selected.forEach(i => {
+      if (!models.includes(i.model)) {
+        models.push(i.model);
+      }
+    });
+    return models.length < 2;
+  }
+
+  onExport() {
+    const items = !this.forTree() ?
       this.items().filter(i => i.selected).map(i => { return { pid: i.pid, model: i.model } }) :
       [{ pid: this.selectedTreeItem().pid, model: this.selectedTreeItem().model }];
     const dialogRef = this.dialog.open(ExportDialogComponent, {
@@ -306,7 +324,7 @@ export class SearchActionsComponent {
   changeModel() {
     const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     const dialogRef = this.dialog.open(ChangeModelDialogComponent, {
-      width: '480px',
+      width: '520px',
       data: {
         pid: item.pid,
         model: item.model,
@@ -334,39 +352,7 @@ export class SearchActionsComponent {
     });
   }
 
-  reindex() {
-    const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
-    const data: SimpleDialogData = {
-      title: String(this.translator.instant('Index Proarc')),
-      message: String(this.translator.instant('Opravdu chcete spustit index?')),
-      alertClass: 'app-message',
-      btn1: {
-        label: 'Ano',
-        value: 'yes',
-        color: 'warn'
-      },
-      btn2: {
-        label: 'Ne',
-        value: 'no',
-        color: 'default'
-      }
-    };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'yes') {
-        this.state.update(() => 'loading');
-        this.api.indexer().subscribe((response: any) => {
-          if (response.response.errors) {
-            this.state.update(() => 'error');
-            this.ui.showErrorDialogFromObject(response.response.errors);
-          } else {
-            this.state.update(() => 'success');
-            this.ui.showInfoSnackBar(this.translator.instant('index Proarc spusten'))
-          }
-        });
-      }
-    });
-  }
+  
 
   showConvertDialog() {
     const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();

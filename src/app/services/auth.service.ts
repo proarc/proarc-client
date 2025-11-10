@@ -110,7 +110,7 @@ export class AuthService {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             }),
         } as any;
-        const data = `j_username=${username}&j_password=${password}`;
+        const data = `j_username=${username}&j_password=${encodeURIComponent(password)}`;
         return this.http.post(`${this.config.proarcUrl}/proarclogin`, data, httpOptions)
             .subscribe((result) => {
                 this.initializeApp().then(() => {
