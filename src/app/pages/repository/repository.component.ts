@@ -11,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AngularSplitModule } from 'angular-split';
 import { DocumentItem } from '../../model/documentItem.model';
 import { MatDialog } from '@angular/material/dialog';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
 import { UIService } from '../../services/ui.service';
@@ -32,8 +32,8 @@ import { Utils } from '../../utils/utils';
 
 @Component({
   selector: 'app-repository',
-  imports: [TranslateModule, FormsModule, AngularSplitModule, MatCardModule, 
-    MatIconModule, MatButtonModule, MatProgressBarModule, 
+  imports: [TranslateModule, FormsModule, AngularSplitModule, RouterModule,
+    MatIconModule, MatButtonModule, MatProgressBarModule, MatCardModule, 
     MatTooltipModule, MatMenuModule, PanelComponent],
   templateUrl: './repository.component.html',
   styleUrl: './repository.component.scss'

@@ -40,7 +40,7 @@ import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
 
 @Component({
   selector: 'app-process-management',
-  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule,
+  imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, RouterModule,
     MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule, RouterModule,
     MatDatepickerModule, MatCheckboxModule,
