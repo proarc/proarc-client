@@ -1316,7 +1316,7 @@ export class EditorStructureComponent implements OnInit {
         if (items.length > 0) {
           this.rowClick(items[nextSelection], null, nextSelection);
         }
-        this.layout.items.set(items);
+        //this.layout.items.set(items);
 
         this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.deleteSelectedChildren.success')));
         this.layout.setShouldRefresh(true);
@@ -1324,6 +1324,7 @@ export class EditorStructureComponent implements OnInit {
         this.state = 'success';
       }
 
+        this.refreshChildren([]);
     });
   }
 
