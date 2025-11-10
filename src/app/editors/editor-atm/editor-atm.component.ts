@@ -19,6 +19,7 @@ import { Configuration } from '../../shared/configuration';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, MatButtonModule,
@@ -58,7 +59,8 @@ export class EditorAtmComponent implements OnInit {
     private api: ApiService, 
     private config: Configuration, 
     private ui: UIService,
-    public auth: AuthService) {
+    public auth: AuthService,
+    public settings: UserSettings) {
       effect(() => {
         const pid = this.pid();
         if (!pid) {

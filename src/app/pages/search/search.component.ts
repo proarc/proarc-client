@@ -34,6 +34,9 @@ import { SearchActionsComponent } from "./search-actions/search-actions.componen
 import { UserTableComponent } from "../../components/user-table/user-table.component";
 import { UserTreeTableComponent } from "../../components/user-tree-table/user-tree-table.component";
 
+// import { UserSettings } from '../../shared/user-settings';
+// public settings: UserSettings
+
 @Component({
   selector: 'app-search',
   imports: [TranslateModule, FormsModule, AngularSplitModule, MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatPaginatorModule, MatTableModule, MatSortModule, SearchActionsComponent, UserTableComponent, UserTreeTableComponent],
