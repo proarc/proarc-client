@@ -103,6 +103,7 @@ export class EditorMetadataComponent implements OnInit {
     private api: ApiService,
     private ui: UIService,
     private userSettings: UserSettings,
+    public settings: UserSettings,
     private dialog: MatDialog) {
       effect(() => {
         const pid = this.pid();
