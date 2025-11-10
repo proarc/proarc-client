@@ -1,6 +1,6 @@
 <app-editor-field [field]="field">
   <ng-template let-item="item" #templateContent>
-    <mat-form-field  class="app-field-col">
+    <mat-form-field [appearance]="settings.appearance" class="app-field-col">
       <mat-label>{{ 'editor.chronicle.location.archive' | translate }}</mat-label>
       <mat-select [(ngModel)]='item.physicalLocation["$"]["type"]' [placeholder]="'editor.chronicle.location.archive' | translate">
         @for(archive of archives; track $index;) {
@@ -11,7 +11,7 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field  class="app-field-col">
+    <mat-form-field [appearance]="settings.appearance" class="app-field-col">
       <mat-label>{{ 'editor.chronicle.location.fund' | translate }}</mat-label>
       <button class="app-lookup-fund" (click)='lookupFund(item.physicalLocation)' [matTooltip]="'editor.chronicle.location.lookup_fund' | translate" mat-icon-button>
         <mat-icon>search</mat-icon>

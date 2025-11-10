@@ -14,6 +14,7 @@ import { ElementField } from '../../model/mods/elementField.model';
 import { FundDialogComponent } from '../../dialogs/fund-dialog/fund-dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FundService } from '../../services/fund.service';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatTooltipModule, EditorFieldComponent, MatSelectModule, MatButtonModule, MatIconModule],
@@ -36,7 +37,8 @@ export class EditorChronicleLocationComponent implements OnInit {
   constructor(
     private translator: TranslateService, 
     private dialog: MatDialog,
-  public fund: FundService) {
+    public fund: FundService,
+    public settings: UserSettings) {
   }
 
   ngOnInit() {
