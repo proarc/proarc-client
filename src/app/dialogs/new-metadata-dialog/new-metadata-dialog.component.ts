@@ -17,6 +17,7 @@ import { UIService } from '../../services/ui.service';
 import { EditorPageComponent } from "../../editors/editor-page/editor-page.component";
 import { EditorAudioPageComponent } from "../../editors/editor-audioPage/editor-audioPage.component";
 import { EditorMetadataComponent } from "../../editors/editor-metadata/editor-metadata.component";
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [TranslateModule, MatDialogModule, CdkDrag, CdkDragHandle, MatIconModule, MatButtonModule, EditorPageComponent, EditorAudioPageComponent, EditorMetadataComponent],
@@ -50,6 +51,7 @@ export class NewMetadataDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<NewMetadataDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private ui: UIService,
+    private userSettings: UserSettings,
     private api: ApiService,
     private dialog: MatDialog,
     private tmpl: TemplateService,
@@ -72,7 +74,7 @@ export class NewMetadataDialogComponent implements OnInit {
     standard = Metadata.resolveStandardFromXml(this.data.content);
 
     this.tmpl.getTemplate(standard, this.data.model).subscribe((tmpl: any) => {
-      this.metadata = new Metadata(this.data.pid, this.data.model, xml, this.data.timestamp, standard, tmpl);
+      this.metadata = new Metadata(this.data.pid, this.data.model, xml, this.data.timestamp, standard, tmpl, this.userSettings);
       // setTimeout(() => {
       // this.metadata.expandRequired();
       // }, 100);

@@ -3,6 +3,8 @@ import { ElementField } from './mods/elementField.model';
 import { Mods } from './mods.model';
 import { ModsElement } from './mods/element.model';
 import { Utils } from '../utils/utils';
+import { inject } from '@angular/core';
+import { UserSettings } from '../shared/user-settings';
 
 export class Metadata {
 
@@ -19,26 +21,28 @@ export class Metadata {
 
   public template: { [x: string]: any; };
   public standard: string;
+  private userSettings: UserSettings;
 
-  constructor(pid: string, model: string, mods: string, timestamp: number, standard: string, template: any) {
+  constructor(pid: string, model: string, mods: string, timestamp: number, standard: string, template: any, userSettings: UserSettings) {
     this.pid = pid;
+    this.userSettings = userSettings;
     this.timestamp = timestamp;
     this.standard = standard;
     this.model = model;
     this.template = template;
-    const expanded = localStorage.getItem('codebook.top.ExpandedModels');
-    if (expanded) {
-      const expandedModels = expanded.split(',,');
-      localStorage.setItem('metadata.allExpanded', expandedModels.includes(model).toString());
-    }
+    // const expanded = localStorage.getItem('codebook.top.ExpandedModels');
+    // if (expanded) {
+    //   const expandedModels = expanded.split(',,');
+    //   localStorage.setItem('metadata.allExpanded', expandedModels.includes(model).toString());
+    // }
 
     this.originalMods = mods.trim();
     this.parseMods(mods);
   }
 
 
-  public static fromMods(mods: Mods, model: string) {
-    return new Metadata(mods.pid, model, mods.content, mods.timestamp, null, null);
+  public static fromMods(mods: Mods, model: string, userSettings: UserSettings) {
+    return new Metadata(mods.pid, model, mods.content, mods.timestamp, null, null, userSettings);
   }
 
   private parseMods(mods: string) {
@@ -185,7 +189,7 @@ export class Metadata {
       // } else {
       //   this.fields.set(id, new ElementField(root, id, this.template[id]));
       // }
-      this.fields.set(id, new ElementField(root, id, this.template[id]));
+      this.fields.set(id, new ElementField(root, id, this.template[id], this.userSettings.expandedModels.includes(this.model)));
     }
   }
 

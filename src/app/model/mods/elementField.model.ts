@@ -68,14 +68,15 @@ export class ElementField {
     public labelKey: string;
     public usage: string;
 
-    constructor(mods: any, id: string, template: any, userSettings?: UserSettings, xmlselector?: string) {
+    constructor(mods: any, id: string, template: any, allExpanded?: boolean, xmlselector?: string) {
+        console.log(id)
         this.template = template;
 
         this.labelKey = this.template.labelKey;
         this.usage = this.template.usage;
 
-        if (userSettings) {
-            this.allExpanded = userSettings.expandedModels.includes(id);
+        if (allExpanded) {
+            this.allExpanded = allExpanded;
         }
         
 

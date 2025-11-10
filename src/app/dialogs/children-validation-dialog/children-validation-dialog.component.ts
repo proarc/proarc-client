@@ -16,6 +16,7 @@ import { ApiService } from '../../services/api.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { TemplateService } from '../../services/template.service';
 import { EditorMetadataComponent } from "../../editors/editor-metadata/editor-metadata.component";
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [CommonModule, TranslateModule, MatDialogModule,
@@ -46,6 +47,7 @@ export class ChildrenValidationDialogComponent implements OnInit {
 
   constructor(
     private api: ApiService,
+    private userSettings: UserSettings,
     private tmpl: TemplateService,
     public dialogRef: MatDialogRef<ChildrenValidationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -129,7 +131,7 @@ export class ChildrenValidationDialogComponent implements OnInit {
           this.tmpl.getTemplate(standard, item.model).subscribe((tmpl: any) => {
             this.metadatas.push({
               item: item,
-              metadata: new Metadata(item.pid, item.model, response['record']['content'], response['record']['timestamp'], response['record']['standard'], tmpl)
+              metadata: new Metadata(item.pid, item.model, response['record']['content'], response['record']['timestamp'], response['record']['standard'], tmpl, this.userSettings)
           });
           })
         }
