@@ -20,6 +20,7 @@ import { Configuration } from '../../shared/configuration';
 import { CatalogDialogComponent } from '../../dialogs/catalog-dialog/catalog-dialog.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule,
@@ -56,7 +57,8 @@ export class EditorAuthorComponent implements OnInit {
     private dialog: MatDialog,
     private tmpl: TemplateService,
     private config: Configuration,
-    public layout: LayoutService) {
+    public layout: LayoutService,
+    public settings: UserSettings) {
     this.translateCodes();
     translator.onLangChange.subscribe(() => this.translateCodes());
   }

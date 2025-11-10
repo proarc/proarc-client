@@ -36,6 +36,7 @@ import { UserTreeTableComponent } from "../../components/user-tree-table/user-tr
 
 // import { UserSettings } from '../../shared/user-settings';
 // public settings: UserSettings
+// appearance implementation
 
 @Component({
   selector: 'app-search',
