@@ -195,7 +195,7 @@ public procMngColumnsDefault: TableColumn[] = [
     { field: 'itemUpdated', selected: true, width: 100, type: 'datetime' },
     { field: 'updated', selected: true, width: 100, type: 'datetime' },
     { field: 'timestamp', selected: true, width: 100, type: 'datetime' },
-    { field: 'state', selected: true, width: 100, type: 'string' },
+    { field: 'state', selected: true, width: 100, type: 'state' },
     { field: 'profile', selected: true, width: 100, type: 'string' },
     { field: 'user', selected: true, width: 100, type: 'string' },
     { field: 'priority', selected: true, width: 100, type: 'string' },
@@ -206,7 +206,7 @@ public queueColumnsDefault: TableColumn[] = [
     { field: 'description', selected: true, width: 100, type: 'string' },
     { field: 'create', selected: true, width: 100, type: 'date' },
     { field: 'timestamp', selected: true, width: 100, type: 'datetime' },
-    { field: 'state', selected: true, width: 100, type: 'string' },
+    { field: 'state', selected: true, width: 100, type: 'state' },
     { field: 'pageCount', selected: true, width: 100, type: 'string' },
     { field: 'user', selected: true, width: 100, type: 'string' }
 ];

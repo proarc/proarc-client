@@ -80,7 +80,7 @@ export class UserTableComponent {
     "processing",
     "described",
     "exported"]
-
+  selectedState: string;
   constructor(
     private translator: TranslateService,
     private dialog: MatDialog,
@@ -101,7 +101,7 @@ export class UserTableComponent {
   }
 
   ngOnInit() {
-      this.initColumns(this.colsSettingsName());
+    this.initColumns(this.colsSettingsName());
 
   }
 
@@ -262,10 +262,18 @@ export class UserTableComponent {
     // } else {
     //   this.filters.push({ field, value });
     // }
+    if (field === 'state') {
+      this.selectedState = value;
+    }
     this.onFilter.emit({ field, value });
   }
 
   columnLink(field: string, value: string) {
     this.onColumnLink.emit({ field, value });
+  }
+
+  private progressMap: any = {};
+  batchProgress(batch_id: string): string {
+    return this.progressMap[batch_id];
   }
 }
