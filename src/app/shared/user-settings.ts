@@ -196,9 +196,9 @@ public procMngColumnsDefault: TableColumn[] = [
     { field: 'updated', selected: true, width: 100, type: 'datetime' },
     { field: 'timestamp', selected: true, width: 100, type: 'datetime' },
     { field: 'state', selected: true, width: 100, type: 'state' },
-    { field: 'profile', selected: true, width: 100, type: 'string' },
+    { field: 'profile', selected: true, width: 100, type: 'translated' },
     { field: 'user', selected: true, width: 100, type: 'string' },
-    { field: 'priority', selected: true, width: 100, type: 'string' },
+    { field: 'priority', selected: true, width: 100, type: 'translated' },
     { field: 'actions', selected: true, width: 100, type: 'action' }
 ];
 

@@ -134,6 +134,6 @@
           (click)="onSelectItem(row, $event, idx)" (dblclick)="onOpenItem(row, $event)" class="app-cursor-pointer"
           [class.app-selected]="row.selected" [class.app-invalid]="row.invalid"
           [class.app-repre]="row.pageRepre === 'reprePage'"
-          [title]="row.label + ' (' + ('model.' + row.model | translate) + ')'" cdkDrag [cdkDragData]="row"
+          [title]="row.model ? (row.label + ' (' + ('model.' + row.model | translate) + ')') : ''" cdkDrag [cdkDragData]="row"
         [cdkDragDisabled]="!draggable()" [cdkDragPreviewContainer]="'parent'"></tr>
       </table>

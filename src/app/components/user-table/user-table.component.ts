@@ -216,6 +216,8 @@ export class UserTableComponent {
     switch (f) {
       case 'status': return 'editor.atm.statuses.';
       case 'model': return 'model.';
+      case 'priority': return 'formField.priorities.';
+      case 'profile': return 'formField.profiles.';
       default: return '';
     }
   }
