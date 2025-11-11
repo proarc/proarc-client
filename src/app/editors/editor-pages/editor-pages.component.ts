@@ -18,6 +18,7 @@ import { Configuration } from '../../shared/configuration';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { Utils } from '../../utils/utils';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule, MatProgressBarModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule, MatInputModule],
@@ -101,7 +102,8 @@ export class EditorPagesComponent implements OnInit {
     private dialog: MatDialog,
     public translator: TranslateService,
     public config: Configuration,
-    public layout: LayoutService) {
+    public layout: LayoutService,
+    public settings: UserSettings) {
   }
 
   ngOnInit() {

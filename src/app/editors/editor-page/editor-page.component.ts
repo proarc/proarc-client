@@ -19,6 +19,7 @@ import { UIService } from '../../services/ui.service';
 import { EditorSwitcherComponent } from '../editor-switcher/editor-switcher.component';
 import { Configuration } from '../../shared/configuration';
 import { MatButtonModule } from '@angular/material/button';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [TranslateModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule, MatProgressBarModule, MatTooltipModule, MatFormFieldModule, MatSelectModule, MatInputModule, EditorSwitcherComponent],
@@ -87,7 +88,8 @@ export class EditorPageComponent implements OnInit {
     private ui: UIService,
     private dialog: MatDialog,
     public config: Configuration,
-    public translator: TranslateService) {
+    public translator: TranslateService,
+    public settings: UserSettings) {
     effect(() => {
       const pid = this.pid();
       if (!pid) {
