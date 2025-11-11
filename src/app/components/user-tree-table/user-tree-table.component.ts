@@ -28,11 +28,12 @@ import { ModelTemplate } from '../../model/modelTemplate';
 import { ColumnsSettingsDialogComponent } from '../../dialogs/columns-settings-dialog/columns-settings-dialog.component';
 import { LayoutService } from '../../services/layout-service';
 import { TreeWorkFlow } from '../../model/workflow.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-tree-table',
-  imports: [CommonModule, TranslateModule, FormsModule, 
-        MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
+  imports: [CommonModule, TranslateModule, FormsModule,
+    MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule,
     MatInputModule, MatSelectModule, MatTooltipModule,
     MatMenuModule, MatPaginatorModule,
     MatTableModule, MatSortModule, ResizecolDirective],
@@ -45,7 +46,7 @@ export class UserTreeTableComponent {
   rootTreeItem = input<TreeDocumentItem | TreeWorkFlow>();
   treePath = input<string[]>();
   inSearch = input<boolean>(false);
-  
+
   sortable = input<boolean>();
   sortBy = output<Sort>();
   sortField: string;
@@ -83,6 +84,8 @@ export class UserTreeTableComponent {
     "exported"];
 
 
+  subscriptions: Subscription[] = [];
+
   constructor(private api: ApiService,
     private translator: TranslateService,
     public settings: UserSettings,
@@ -99,30 +102,43 @@ export class UserTreeTableComponent {
     effect(() => {
       const path = this.treePath();
       const root = this.rootTreeItem();
-      this.treeItems = [];
-      this.worflowTreeItems = [];
-      if (!root) {
-        return;
-      }
-      root.level = 0;
-      if (this.type() === 'TreeWorkFlow') {
-        this.worflowTreeItems = [root as TreeWorkFlow];
-      } else {
-        this.treeItems = [root as TreeDocumentItem];
-      }
-
-      const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.models, root.model).join(',');
-      const canHavePages = allowedAsString.includes('page');
-      if (path.length > 1) {
-        this.expandTreeUntilSelected(root, path.slice(1));
-      } else if (this.settings.searchExpandTree || !canHavePages) {
-        this.getTreeItems(root, true);
-      }
+      this.generateTree(path, root);
     });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   ngOnInit() {
     this.setSelectedTreeColumns();
+    this.subscriptions.push(this.layout.shouldRefreshSelectedItem().subscribe((from: string) => {
+      const path = this.treePath();
+      const root = this.rootTreeItem();
+      this.generateTree(path, root);
+    }));
+  }
+
+  generateTree(path: string[], root: TreeDocumentItem | TreeWorkFlow) {
+    this.treeItems = [];
+    this.worflowTreeItems = [];
+    if (!root) {
+      return;
+    }
+    root.level = 0;
+    if (this.type() === 'TreeWorkFlow') {
+      this.worflowTreeItems = [root as TreeWorkFlow];
+    } else {
+      this.treeItems = [root as TreeDocumentItem];
+    }
+
+    const allowedAsString: string = ModelTemplate.allowedChildrenForModel(this.config.models, root.model).join(',');
+    const canHavePages = allowedAsString.includes('page');
+    if (path.length > 1) {
+      this.expandTreeUntilSelected(root, path.slice(1));
+    } else if (this.settings.searchExpandTree || !canHavePages) {
+      this.getTreeItems(root, true);
+    }
   }
 
   setColumns() {
@@ -159,7 +175,7 @@ export class UserTreeTableComponent {
     } else {
       return this.settings.columnsSearch.find(c => c.field === f).type;
     }
-    
+
   }
 
   prefixByType(f: string): string {
@@ -194,15 +210,15 @@ export class UserTreeTableComponent {
 
   setTreeColumnsWith() {
     this.treeColumnsSizes = {};
-    
+
     if (this.type() === 'TreeWorkFlow') {
       this.settings.columnsWorkFlow.forEach((c: any) => {
-      this.treeColumnsSizes[c.field] = c.width + 'px';
-    });
+        this.treeColumnsSizes[c.field] = c.width + 'px';
+      });
     } else {
       this.settings.columnsSearchTree.forEach((c: any) => {
-      this.treeColumnsSizes[c.field] = c.width + 'px';
-    });
+        this.treeColumnsSizes[c.field] = c.width + 'px';
+      });
     }
   }
 
@@ -210,7 +226,7 @@ export class UserTreeTableComponent {
     this.treeColumnsSizes[field] = e + 'px';
 
     if (this.type() === 'TreeWorkFlow') {
-      
+
       this.settings.columnsWorkFlow.forEach((c: any) => {
         c.width = parseInt(this.treeColumnsSizes[c.field]);
       });
@@ -242,7 +258,7 @@ export class UserTreeTableComponent {
     } else {
       this.setToHidden(<TreeDocumentItem>treeItem, this.treeItems.indexOf(<TreeDocumentItem>treeItem));
     }
-    
+
 
     this.refreshVisibleTreeItems();
   }
@@ -273,7 +289,7 @@ export class UserTreeTableComponent {
     } else {
       this.visibleTreeItems = this.treeItems.filter(j => !j.hidden);
     }
-    
+
     if (this.treeTable) {
       this.treeTable.renderRows();
     }
@@ -504,7 +520,7 @@ export class UserTreeTableComponent {
 
   }
 
-  
+
 
   sortTable(sortState: Sort) {
     this.sortField = sortState.active;
@@ -513,10 +529,10 @@ export class UserTreeTableComponent {
     this.treeItems = [];
     this.worflowTreeItems = [];
     if (this.type() === 'TreeWorkFlow') {
-        this.worflowTreeItems = [root as TreeWorkFlow];
-      } else {
-        this.treeItems = [root as TreeDocumentItem];
-      }
+      this.worflowTreeItems = [root as TreeWorkFlow];
+    } else {
+      this.treeItems = [root as TreeDocumentItem];
+    }
     this.getTreeItems(root, true);
     this.sortBy.emit(sortState);
   }

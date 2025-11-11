@@ -950,7 +950,7 @@ export class EditorStructureComponent implements OnInit {
               }
 
             }
-            // this.layout.setShouldRefresh(true);
+            
           });
         }
 
@@ -1224,7 +1224,10 @@ export class EditorStructureComponent implements OnInit {
           }, 1000);
         }
       }
-      setTimeout(() => {this.refreshChildren([])}, 100);
+      setTimeout(() => {
+        this.refreshChildren([]);
+        this.layout.setShouldRefresh(false);
+      }, 100);
     });
 
   }
