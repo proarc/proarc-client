@@ -127,6 +127,7 @@ export class LayoutAdminComponent implements OnInit {
     }
     this.settingsService.save();
     this.saved = true;
+    this.dialogRef.close(this.saved);
   }
 
 }
