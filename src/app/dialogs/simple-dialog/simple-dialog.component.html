@@ -41,7 +41,7 @@
   <div mat-dialog-actions cdkFocusRegionstart>
     <button matButton="filled" [class]="data.btn1.color" [mat-dialog-close]="data.btn1.value" [disabled]="!btnEnabled()" cdkFocusInitial>{{ data.btn1.label }}</button>
     @if (data.btn2) {
-      <button matButton="outlined" [color]="data.btn2.color" [mat-dialog-close]="data.btn2.value">{{ data.btn2.label }}</button>
+      <button matButton="outlined" [class]="data.btn2.color" [mat-dialog-close]="data.btn2.value">{{ data.btn2.label }}</button>
     }
   </div>
 </div>
