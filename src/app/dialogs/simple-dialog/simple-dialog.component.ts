@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   standalone: true,
@@ -29,7 +30,8 @@ export class SimpleDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<SimpleDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: SimpleDialogData) { }
+    @Inject(MAT_DIALOG_DATA) public data: SimpleDialogData,
+    public settings: UserSettings) { }
 
   ngOnInit() {
   }

@@ -475,8 +475,9 @@
 
   .mat-mdc-unelevated-button {
     &:not(:disabled) {
+      &.mat-primary,
       &.mat-warn {
-        --mat-button-filled-label-text-color: var(--app-coloe-lightnes) !important;
+        --mat-button-filled-label-text-color: var(--app-color-lightnes) !important;
       }
     }
   }

@@ -63,7 +63,7 @@
     }
 
     @if (auth.isSuperAdmin()) {
-    <a mat-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate"><mat-icon>more_vert</mat-icon></a>
+    <a mat-button [matMenuTriggerFor]="menuMore" [matTooltip]="'button.more' | translate"><mat-icon class="app-mr-0">more_vert</mat-icon></a>
     <mat-menu #menuMore="matMenu">
       @if (isAkubra) {
       <button mat-menu-item (click)="reindex()">{{ 'button.toIndex' | translate }}</button>

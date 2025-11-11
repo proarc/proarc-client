@@ -382,7 +382,7 @@ export class WorkFlowComponent implements OnInit {
       btn1: {
         label: "OK",
         value: 'yes',
-        color: 'warn'
+        color: 'mat-primary'
       },
       btn2: {
         label: "Storno",
@@ -390,7 +390,7 @@ export class WorkFlowComponent implements OnInit {
         color: 'default'
       },
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data, panelClass: 'app-form-view-' + this.settings.appearance });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         //console.log(data.textInput.value)
