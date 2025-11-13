@@ -5,7 +5,7 @@
 @if (withFilters()) {
     @for(c of selectedColumns; track $index;) {
     <ng-container [matColumnDef]="c.field + '-filter'">
-      <th mat-header-cell *matHeaderCellDef [style.width]="c.width+'px'" class="app-col-filter">
+      <th mat-header-cell *matHeaderCellDef [style.width]="c.width+'px'" class="app-col-filter"  [resizeColumn]="true" >
         @switch (c.type) {
           @case ('date') {
 
@@ -29,7 +29,7 @@
           }
           @default {
             <div class="app-filter-wrapper">
-              <input type="text" [id]="c + 'Filter'" [(ngModel)]="filterFields[c.field]"
+              <input type="text" [id]="c.field + 'Filter'" [(ngModel)]="filterFields[c.field]"
                 (change)="filter(c.field, filterFields[c.field])"
                 [placeholder]="('desc.enterText' | translate) + '...'" />
                 @if (filterFields[c.field]) {
@@ -46,7 +46,7 @@
 @for(c of selectedColumns; track $index; let idx = $index; let last = $last) {
   <ng-container [matColumnDef]="c.field">
     <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c.field)"
-      [style.width]="c.width + 'px'" class="app-pr-0">
+      [style.width]="c.width + 'px'" >
       @if (last) {
         <div class="app-fxLayout app-row app-center-v">
           @if (c.field !== 'isLocked' && c.type !== 'action') {
