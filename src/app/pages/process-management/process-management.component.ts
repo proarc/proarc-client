@@ -10,7 +10,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSortModule } from '@angular/material/sort';
+import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -421,12 +421,19 @@ export class ProcessManagementComponent {
     this.loadData();
   }
 
+  sort: Sort = {active: 'timestamp', direction: 'desc'} ;
+  sortTable(e: Sort) {
+    this.sort = {active: e.active, direction: e.direction};
+    this.loadData();
+  }
+
   reloadBatches() {
     this.selectedBatch = null;
     this.state = 'loading';
     const start = this.pageIndex * this.pageSize;
     let params: any = {
-      _sortBy: '-timestamp',
+      // sortBy: '-timestamp',
+      _sortBy: (this.sort.direction === 'desc' ? '-' : '') + this.sort.active,
       _startRow: start,
       _endRow: start + this.pageSize,
       _size: this.pageSize
