@@ -96,11 +96,12 @@ export class Configuration {
   }
 
   getIdentifiers(model: string): any[] {
-    return this.isChronicle(model) ? this.chronicleIdentifiers :
+    const val = this.isChronicle(model) ? this.chronicleIdentifiers :
       this.isOldprint(model) ? this.oldprintIdentifiers :
         this.canContainPdf(model) ? this.eDocumentIdentifiers :
           this.isMusicDocument(model) ? this.musicDocumentIdentifiers :
             this.identifiers;
+    return val;
   }
 
   public isPage(model: string): boolean {

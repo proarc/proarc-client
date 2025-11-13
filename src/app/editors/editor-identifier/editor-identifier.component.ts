@@ -20,7 +20,8 @@ export class EditorIdentifierComponent implements OnInit {
   @Input() field: ElementField;
   @Input() model: string;
 
-  validityOptions = [{code: '', name: 'Platný' }, {code: 'yes', name: 'Neplatný'}];
+  // validityOptions = [{code: '', name: 'Platný' }, {code: 'yes', name: 'Neplatný'}];
+  validityOptions = ['', 'yes'];
 
   constructor(private config: Configuration) {
   }
