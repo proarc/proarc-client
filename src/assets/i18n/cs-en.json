@@ -2861,7 +2861,7 @@
     "INGESTED": "Uloženo",
     "STOPPED": "Zastaveno",
     "EXPORTING": "Exportování",
-    "EXPORT_FAILED": "Exportu - Chyba",
+    "EXPORT_FAILED": "Chyba exportu",
     "EXPORT_DONE": "Exportováno",
     "EXPORT_PLANNED": "Export - Naplánováno",
     "EXPORT_VALID_WARNING": "Export skončil upozorněním",

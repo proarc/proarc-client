@@ -92,10 +92,12 @@
           }
           @case ('action') {
           @for(a of actions(); track $index;) {
+            @if(a.condition(element)) {
             <button mat-icon-button color="primary"(click)="a.action(element)"
               [matTooltip]="a.tooltip | translate">
               <mat-icon>{{ a.icon }}</mat-icon>
             </button>
+            }
           }
           }
           @case ('state') {

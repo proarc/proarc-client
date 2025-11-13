@@ -121,7 +121,7 @@ export class ProcessManagementComponent {
     'highest'
   ];
 
-  actions: { icon: string, action: (e: any) => void, tooltip: string }[] = [];
+  actions: { icon: string, condition: (e: any) => boolean, action: (e: any) => void, tooltip: string }[] = [];
 
   constructor(
     private datePipe: DatePipe,
@@ -138,11 +138,21 @@ export class ProcessManagementComponent {
     private clipboard: Clipboard) { }
 
   ngOnInit() {
+    // this.actions.push({
+    //   icon: 'delete',
+    //   tooltip: 'button.delete',
+    //   action: (e: any) => {
+    //     this.deleteBatch(e.id);
+    //   }
+    // });
     this.actions.push({
-      icon: 'delete',
-      tooltip: 'button.delete',
+      icon: 'info',
+      tooltip: 'button.viewErrorDetail',
+      condition: (e: any) => {
+        return e.failure
+      },
       action: (e: any) => {
-        this.deleteBatch(e.id);
+        this.onShowLog(e);
       }
     });
     this.route.queryParams.subscribe(p => {

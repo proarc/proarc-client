@@ -3467,5 +3467,9 @@
     "url": "URL",
     "issue number": "Issue number",
     "matrix number": "Matrix number"
+  },
+  "validityOptions": {
+    "": "Valid",
+    "yes": "Invalid"
   }
 }

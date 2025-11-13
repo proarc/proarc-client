@@ -22,7 +22,7 @@ export class DevicesComponent implements OnInit {
 
   state = 'none';
   devices: Device[];
-  actions: {icon: string, action: (e: any) => void, tooltip: string}[] = [];
+  actions: {icon: string, condition: (e: any) => boolean, action: (e: any) => void, tooltip: string}[] = [];
 
   constructor(
     private router: Router,
@@ -36,6 +36,9 @@ export class DevicesComponent implements OnInit {
     this.actions.push({
       icon: 'edit_note',
       tooltip: 'button.edit',
+      condition: (e: any) => {
+        return true
+      },
       action: (e: any) => {
         this.router.navigate(['/devices', e.id])
       }
