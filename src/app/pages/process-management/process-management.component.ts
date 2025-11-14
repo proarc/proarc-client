@@ -32,7 +32,7 @@ export class ProcessManagementComponent implements OnInit, OnDestroy {
   pageSize = 20;
   resultCount = 200;
 
-  selectedState = 'LOADED';
+  selectedState = 'ALL';
 
   users: User[];
   batches: Batch[];
