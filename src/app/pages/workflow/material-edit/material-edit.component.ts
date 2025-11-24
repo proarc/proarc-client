@@ -15,6 +15,7 @@ import { ApiService } from '../../../services/api.service';
 import { UIService } from '../../../services/ui.service';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { UserSettings } from '../../../shared/user-settings';
 
 @Component({
   imports: [TranslateModule, FormsModule, MatIconModule, MatProgressBarModule, MatTooltipModule, MatInputModule, MatButtonModule, MatRadioModule, MatFormFieldModule, MatSelectModule],
@@ -32,7 +33,8 @@ export class MaterialEditComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private api: ApiService,
-    private ui: UIService) { }
+    private ui: UIService,
+    public settings: UserSettings) { }
 
   ngOnInit(): void {
   }
@@ -55,6 +57,7 @@ export class MaterialEditComponent implements OnInit {
         disableClose: true,
         height: '90%',
         width: '680px',
+        panelClass: ['app-new-metadata-dialog', 'app-form-view-' + this.settings.appearance],
         data: {
           title: 'dialog.newMetadata.title_edit',
           isWorkFlow: true,

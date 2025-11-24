@@ -19,6 +19,7 @@ import { FieldCodebookComponent } from "../../forms/field-codebook/field-codeboo
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, MatButtonModule,
@@ -38,7 +39,8 @@ export class EditorSubjectComponent implements OnInit {
     public codebook: Configuration,
     private dialog: MatDialog,
     private tmpl: TemplateService,
-    public layout: LayoutService) {
+    public layout: LayoutService,
+    public settings: UserSettings) {
   }
 
   ngOnInit() {
@@ -59,7 +61,10 @@ export class EditorSubjectComponent implements OnInit {
   }
 
   onLoadFromCatalog(item: any) {
-    const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'authors' } });
+    const dialogRef = this.dialog.open(CatalogDialogComponent, { 
+      data: { type: 'authors' },
+      panelClass: ['app-dialog-catalog', 'app-form-view-' + this.settings.appearance] 
+    });
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result && result['mods']) {
         const mods = result['mods'];

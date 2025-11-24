@@ -83,7 +83,7 @@ export class NavbarComponent implements OnInit {
     const dialogRef = this.dialog.open(NewObjectDialogComponent, {
       data: data,
       width: '680px',
-      panelClass: 'app-dialog-new-bject'
+      panelClass: ['app-dialog-new-object', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['pid']) {
@@ -102,7 +102,8 @@ export class NavbarComponent implements OnInit {
       disableClose: true,
       height: '90%',
       width: '680px',
-      data: data
+      data: data,
+      panelClass: ['app-new-metadata-dialog', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(res => {
       if (res?.item) {

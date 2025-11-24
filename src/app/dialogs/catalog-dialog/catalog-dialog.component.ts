@@ -21,6 +21,7 @@ import { UIService } from '../../services/ui.service';
 import { Configuration } from '../../shared/configuration';
 import { MatInputModule } from '@angular/material/input';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [CommonModule, TranslateModule, MatDialogModule, MatInputModule,
@@ -58,6 +59,7 @@ export class CatalogDialogComponent implements OnInit {
     private api: ApiService,
     private ui: UIService,
     private config: Configuration,
+    public settings: UserSettings,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
 

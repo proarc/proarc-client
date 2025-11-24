@@ -72,7 +72,10 @@ export class EditorAuthorComponent implements OnInit {
   }
   onLoadFromCatalog(item: any) {
     
-    const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'authors' } });
+    const dialogRef = this.dialog.open(CatalogDialogComponent, { 
+      data: { type: 'authors' },
+      panelClass: ['app-dialog-catalog', 'app-form-view-' + this.settings.appearance] 
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
         const mods = result['mods'];

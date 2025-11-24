@@ -256,7 +256,10 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   onLoadFromCatalog() {
-    const dialogRef = this.dialog.open(CatalogDialogComponent, { data: { type: 'full' } });
+    const dialogRef = this.dialog.open(CatalogDialogComponent, { 
+      data: { type: 'full' },
+      panelClass: ['app-dialog-catalog', 'app-form-view-' + this.settings.appearance] 
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
         this.saveModsFromCatalog(result['mods'], result['catalogId']);

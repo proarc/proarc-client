@@ -25,6 +25,7 @@ import { UIService } from '../../services/ui.service';
 import { Utils } from '../../utils/utils';
 import { MatInputModule } from '@angular/material/input';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { UserSettings } from '../../shared/user-settings';
 
 import {provideMomentDateAdapter,  MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 //import {provideMomentDateAdapter} from '@angular/material-moment-adapter';
@@ -149,6 +150,7 @@ export class NewObjectDialogComponent implements OnInit {
     private ui: UIService,
     private api: ApiService,
     private dialog: MatDialog,
+    public settings: UserSettings,
     @Inject(MAT_DIALOG_DATA) public data: NewObjectData) { }
 
   ngOnInit() {
@@ -305,7 +307,8 @@ export class NewObjectDialogComponent implements OnInit {
   onLoadFromCatalog() {
     const dialogRef = this.dialog.open(CatalogDialogComponent, {
       data: { type: 'full', create: true },
-      width: '1200px'
+      width: '1200px',
+      panelClass: ['app-dialog-catalog', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {

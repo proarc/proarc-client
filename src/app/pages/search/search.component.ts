@@ -37,6 +37,7 @@ import { UserTreeTableComponent } from "../../components/user-tree-table/user-tr
 // import { UserSettings } from '../../shared/user-settings';
 // public settings: UserSettings
 // form appearance implementation
+// panelClass: ['app-dialog-new-object', 'app-form-view-' + this.settings.appearance]
 
 @Component({
   selector: 'app-search',

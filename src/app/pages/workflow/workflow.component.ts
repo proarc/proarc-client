@@ -349,6 +349,7 @@ export class WorkFlowComponent implements OnInit {
             disableClose: true,
             height: '90%',
             width: '680px',
+            panelClass: ['app-new-metadata-dialog', 'app-form-view-' + this.settings.appearance],
             data: {
               isWorkFlow: true,
               jobId: result.data.id,
@@ -581,6 +582,7 @@ export class WorkFlowComponent implements OnInit {
         disableClose: true,
         height: '90%',
         width: '680px',
+        panelClass: ['app-new-metadata-dialog', 'app-form-view-' + this.settings.appearance],
         data: {
           title: 'dialog.newMetadata.title_edit',
           isWorkFlow: true,
