@@ -121,7 +121,7 @@
                 <legend>{{ 'pages.settings.editingRepo.legend' | translate }}</legend>
                 <div class="app-fxFlex app-pb-4">
                   <div class="app-label app-mb-3">{{ 'pages.settings.editingRepo.label' | translate }}</div>
-                  <mat-form-field  class="app-w-100">
+                  <mat-form-field class="app-w-100" [appearance]="settings.appearance">
                     <mat-label>{{ 'desc.model' | translate }}</mat-label>
                     <mat-select [placeholder]="'desc.model' | translate" name="model" [(ngModel)]="modelForColumns" (selectionChange)="getColumnsForModel()">
                       @for( model of models; track $index;) {
@@ -232,33 +232,33 @@
           <fieldset class="app-p-4 app-mb-4">
             <legend>{{ 'desc.profile' | translate }}</legend>
             <div>
-              <mat-form-field  class="app-w-100">
+              <mat-form-field class="app-w-100" [appearance]="settings.appearance">
                 <mat-label>{{ 'desc.username' | translate }}</mat-label>
                 <input [disabled]="true" matInput [value]='user.name' [placeholder]="'desc.username' | translate">
               </mat-form-field>
             </div>
             <div class="app-fxLayout app-row app-gap-4">
-              <mat-form-field  class="app-fxFlex">
+              <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
                 <mat-label>{{ 'desc.forename' | translate }}</mat-label>
                 <input matInput [(ngModel)]='forename' [placeholder]="'desc.forename' | translate">
               </mat-form-field>
-              <mat-form-field  class="app-fxFlex">
+              <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
                 <mat-label>{{ 'desc.surname' | translate }}</mat-label>
                 <input matInput [(ngModel)]='surname' [placeholder]="'desc.surname' | translate">
               </mat-form-field>
             </div>
             <div class="app-fxLayout app-row app-gap-4">
-              <mat-form-field  class="app-fxFlex">
+              <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
                 <mat-label>{{ 'desc.organization' | translate }}</mat-label>
                 <input [disabled]="true" matInput [value]="user.organization ? ('organization.' + user.organization | translate) : '-'" [placeholder]="'desc.organization' | translate">
               </mat-form-field>
-              <mat-form-field  class="app-fxFlex">
+              <mat-form-field class="app-fxFlex" [appearance]="settings.appearance">
                 <mat-label>{{ 'desc.role' | translate }}</mat-label>
                 <input [disabled]="true" matInput [value]='user.role' [placeholder]="'desc.role' | translate">
               </mat-form-field>
             </div>
             <div>
-              <mat-form-field  class="app-w-100">
+              <mat-form-field class="app-w-100" [appearance]="settings.appearance">
                 <mat-label>{{ 'desc.folder' | translate }}</mat-label>
                 <input [disabled]="true" matInput [value]='user.home' [placeholder]="'desc.folder' | translate">
               </mat-form-field>
