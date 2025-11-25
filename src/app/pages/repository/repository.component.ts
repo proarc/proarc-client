@@ -249,7 +249,8 @@ export class RepositoryComponent {
     const dialogRef = this.dialog.open(ExportDialogComponent, {
       disableClose: true,
       data: [{ pid: this.layout.item.pid, model: this.layout.item.model }],
-      width: '600px'
+      width: '600px',
+      panelClass: ['app-dialog-export', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
@@ -261,7 +262,7 @@ export class RepositoryComponent {
   onUrnnbn() {
     const dialogRef = this.dialog.open(UrnnbnDialogComponent, {
       data: [this.layout.item.pid],
-      panelClass: 'app-urnbnb-dialog',
+      panelClass: ['app-dialog-urnbnb', 'app-form-view-' + this.settings.appearance],
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -303,7 +304,7 @@ export class RepositoryComponent {
 
     const dialogRef = this.dialog.open(CzidloDialogComponent, {
       data: { pid: this.layout.item.pid, model: this.layout.item.model },
-      panelClass: 'app-urnbnb-dialog',
+      panelClass: ['app-dialog-urnbnb', 'app-form-view-' + this.settings.appearance],
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -326,7 +327,7 @@ export class RepositoryComponent {
 
     const dialogRef = this.dialog.open(UpdateInSourceDialogComponent, {
       data: this.layout.item.pid,
-      panelClass: 'app-urnbnb-dialog',
+      panelClass: ['app-dialog-urnbnb', 'app-form-view-' + this.settings.appearance],
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -351,7 +352,10 @@ export class RepositoryComponent {
     const data = {
       content: this.batchInfo
     }
-    this.dialog.open(LogDialogComponent, { data: data });
+    this.dialog.open(LogDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-log', 'app-form-view-' + this.settings.appearance]
+    });
   }
 
   getBatchInfo() {
@@ -374,7 +378,7 @@ export class RepositoryComponent {
       data: { layout: 'repo' },
       width: '1280px',
       height: '90%',
-      panelClass: 'app-dialog-layout-settings'
+      panelClass: ['app-dialog-layout-settings', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe((ret: any) => {
       if (ret) {

@@ -385,7 +385,10 @@ export class SearchComponent {
     const data = {
       content: info
     }
-    this.dialog.open(LogDialogComponent, { data: data });
+    this.dialog.open(LogDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-log', 'app-form-view-' + this.settings.appearance]
+    });
   }
 
   treeInfoChanged(info: {tree_info: { [model: string]: number }, batchInfo: any}) {

@@ -851,7 +851,8 @@ export class EditorStructureComponent implements OnInit {
       data: {
         parent: this.layout.selectedParentItem,
         children: this.layout.items(),
-        batchId: this.layout.batchId
+        batchId: this.layout.batchId,
+        panelClass: ['app-dialog-children-validation', 'app-form-view-' + this.settings.appearance]
       },
       panelClass: 'app-children-validation-dialog',
       width: '600px'
@@ -960,7 +961,10 @@ export class EditorStructureComponent implements OnInit {
   }
 
   showConvertDialog() {
-    const dialogRef = this.dialog.open(ConvertDialogComponent, { data: { pid: this.layout.item.pid, model: this.layout.item.model } });
+    const dialogRef = this.dialog.open(ConvertDialogComponent, { 
+      data: { pid: this.layout.item.pid, model: this.layout.item.model },
+      panelClass: ['app-dialog-convert', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result.status == 'ok') {
@@ -991,7 +995,10 @@ export class EditorStructureComponent implements OnInit {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.reindexChildren();
@@ -1048,6 +1055,7 @@ export class EditorStructureComponent implements OnInit {
       width: '95%',
       maxWidth: '100vw',
       height: '90%',
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
       // position: {left: '1px', top: '1px'}
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -1074,7 +1082,10 @@ export class EditorStructureComponent implements OnInit {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         if (this.layout.parent) {
@@ -1120,7 +1131,10 @@ export class EditorStructureComponent implements OnInit {
       },
       checkbox: checkbox
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         if (this.layout.getNumOfSelected() > 0 || this.layout.parent) {
@@ -1258,7 +1272,10 @@ export class EditorStructureComponent implements OnInit {
     if (this.isRepo && this.auth.isSuperAdmin()) {
       data.checkbox = checkbox;
     }
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.deleteSelectedChildren(checkbox.checked);
@@ -1286,7 +1303,10 @@ export class EditorStructureComponent implements OnInit {
             color: 'deffault'
           }
         };
-        const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+        const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+          data: data,
+          panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+        });
         this.state = 'error';
         return;
       } else {
@@ -1353,7 +1373,10 @@ export class EditorStructureComponent implements OnInit {
       },
       numberInput: input
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         const toIndex = input.value - 1;
@@ -1378,7 +1401,7 @@ export class EditorStructureComponent implements OnInit {
   markSequence() {
 
     const dialogRef = this.dialog.open(MarkSequenceDialogComponent, {
-      panelClass: 'app-mark-sequence-dialog',
+      panelClass: ['app-dialog-mark-sequence', 'app-form-view-' + this.settings.appearance],
       width: '95%',
       maxWidth: '100vw',
       height: '90%',

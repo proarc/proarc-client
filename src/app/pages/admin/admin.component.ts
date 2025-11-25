@@ -106,7 +106,8 @@ export class AdminComponent implements OnInit {
   changeOwner(){
     const dialogRef = this.dialog.open(ChangeOwnerDialogComponent, {
       data: this.users,
-      width: '680px'
+      width: '680px',
+      panelClass: ['app-dialog-change-owner', 'app-form-view-' + this.settings.appearance]
      });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -174,7 +175,7 @@ export class AdminComponent implements OnInit {
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
       width: '400px',
-      panelClass: 'app-simple-dialog',
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance],
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {

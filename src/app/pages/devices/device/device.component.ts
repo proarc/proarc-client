@@ -19,6 +19,7 @@ import { Device } from '../../../model/device.model';
 import { ApiService } from '../../../services/api.service';
 import { UIService } from '../../../services/ui.service';
 import { MatTableModule } from '@angular/material/table';
+import { UserSettings } from '../../../shared/user-settings';
 
 @Component({
   imports: [TranslateModule, FormsModule, RouterModule, MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, MatTableModule],
@@ -39,6 +40,7 @@ export class DeviceComponent implements OnInit {
               private router: Router,
               private translator: TranslateService,
               private ui: UIService,
+              public settings: UserSettings,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -73,7 +75,10 @@ export class DeviceComponent implements OnInit {
           color: 'warn'
         }
       };
-      const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+      const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+        data: data,
+        panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+      });
       dialogRef.afterClosed().subscribe(result => {
         if (result === 'yes') {
           this.state = 'loading';
@@ -102,7 +107,10 @@ export class DeviceComponent implements OnInit {
         color: 'warn'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.state = 'loading';

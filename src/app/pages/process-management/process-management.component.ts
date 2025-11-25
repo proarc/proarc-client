@@ -246,7 +246,10 @@ export class ProcessManagementComponent {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.api.deleteBatch(id).subscribe((resp: any) => {
@@ -282,7 +285,10 @@ export class ProcessManagementComponent {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.deleteBatches();
@@ -559,7 +565,7 @@ export class ProcessManagementComponent {
     console.log(this.selectedBatch.profile);
     const dialogRef = this.dialog.open(ReloadBatchDialogComponent, {
       data: null,
-      panelClass: 'app-dialog-reload-batch',
+      panelClass: ['app-dialog-reload-batch', 'app-form-view-' + this.settings.appearance],
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -575,7 +581,7 @@ export class ProcessManagementComponent {
     }
     const dialogRef = this.dialog.open(ResolveConflictDialogComponent, {
       data: this.selectedBatch,
-      panelClass: 'app-dialog-import',
+      panelClass: ['app-dialog-import', 'app-form-view-' + this.settings.appearance],
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -608,7 +614,7 @@ export class ProcessManagementComponent {
     }
     const dialogRef = this.dialog.open(ImportDialogComponent, {
       data: { batch: this.selectedBatch.id, parent: parentPid, ingestOnly: true },
-      panelClass: 'app-dialog-import',
+      panelClass: ['app-dialog-import', 'app-form-view-' + this.settings.appearance],
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -631,7 +637,7 @@ export class ProcessManagementComponent {
     this.api.reloadBatch(this.selectedBatch.id, profile.id).subscribe((batch: Batch) => {
       const dialogRef = this.dialog.open(ImportDialogComponent, {
         data: { batch: batch.id },
-        panelClass: 'app-dialog-import',
+        panelClass: ['app-dialog-import', 'app-form-view-' + this.settings.appearance],
         width: '600px'
       });
       dialogRef.afterClosed().subscribe(result => {
@@ -650,7 +656,10 @@ export class ProcessManagementComponent {
     const data = {
       content: batch.failure
     }
-    this.dialog.open(LogDialogComponent, { data: data });
+    this.dialog.open(LogDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-log', 'app-form-view-' + this.settings.appearance]
+    });
   }
 
   onEditBatchObject() {
@@ -704,7 +713,7 @@ export class ProcessManagementComponent {
 
       const dialogRef = this.dialog.open(ImportDialogComponent, {
         data: { batch: batch.id },
-        panelClass: 'app-dialog-import',
+        panelClass: ['app-dialog-import', 'app-form-view-' + this.settings.appearance],
         width: '600px'
       });
       dialogRef.afterClosed().subscribe(result => {

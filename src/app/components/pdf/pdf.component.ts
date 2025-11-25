@@ -12,6 +12,7 @@ import { SimpleDialogComponent } from '../../dialogs/simple-dialog/simple-dialog
 import { ApiService } from '../../services/api.service';
 import { UIService } from '../../services/ui.service';
 import { MatIconModule } from '@angular/material/icon';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, 
@@ -38,7 +39,9 @@ export class PdfComponent implements OnInit {
 
   constructor(private api: ApiService,
      private dialog: MatDialog,
-     private ui: UIService) {
+     private ui: UIService,
+     public settings: UserSettings
+    ) {
       effect(() => {
         this.currentPid = this.pid();
         this.currentStream = this.stream();
@@ -117,7 +120,10 @@ onRemove() {
         color: 'warn'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance] 
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.state = 'loading';

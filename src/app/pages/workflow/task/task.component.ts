@@ -32,6 +32,7 @@ import { UIService } from '../../../services/ui.service';
 import { MaterialEditComponent } from '../material-edit/material-edit.component';
 import { Configuration } from '../../../shared/configuration';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { UserSettings } from '../../../shared/user-settings';
 
 @Component({
   imports: [CommonModule, TranslateModule, FormsModule, AngularSplitModule, MatCheckboxModule, 
@@ -135,7 +136,8 @@ export class TaskComponent implements OnInit {
     private api: ApiService,
     public auth: AuthService,
     private ui: UIService,
-    public layout: LayoutService
+    public layout: LayoutService,
+    public settings: UserSettings
   ) { }
 
   ngOnInit(): void {
@@ -434,7 +436,8 @@ export class TaskComponent implements OnInit {
         users: this.users,
         parameters: this.parameters,
         tasks: this.tasks.filter(i => i.selected)
-      }
+      },
+      panelClass: ['app-dialog-tasks-edit', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(res => {
       if (res) {

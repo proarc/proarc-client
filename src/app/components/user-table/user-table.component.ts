@@ -151,6 +151,7 @@ export class UserTableComponent {
         model: model,
       },
       width: '600px',
+      panelClass: ['app-dialog-columns-settings', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

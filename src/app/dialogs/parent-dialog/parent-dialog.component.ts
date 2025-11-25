@@ -351,7 +351,10 @@ export class ParentDialogComponent implements OnInit {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
 
@@ -396,7 +399,10 @@ export class ParentDialogComponent implements OnInit {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         if (!this.data.isRepo) {
@@ -419,7 +425,10 @@ export class ParentDialogComponent implements OnInit {
   private ingestBatch(parentPid: string) {
     this.state = 'saving';
     const bathId = parseInt(this.data.batchId);
-    const dialogRef = this.dialog.open(IngestDialogComponent, { data: { batch: bathId, parent: parentPid } });
+    const dialogRef = this.dialog.open(IngestDialogComponent, { 
+      data: { batch: bathId, parent: parentPid },
+      panelClass: ['app-dialog-ingest', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       this.state = 'success';
       if (result == 'open') {

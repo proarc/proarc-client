@@ -17,6 +17,7 @@ import { Registrar } from '../../model/registrar.model';
 import { ApiService } from '../../services/api.service';
 import { UIService } from '../../services/ui.service';
 import { MatSelectModule } from '@angular/material/select';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [CommonModule, TranslateModule, MatDialogModule,
@@ -48,6 +49,7 @@ export class UrnnbnDialogComponent implements OnInit {
     private ui: UIService,
     private dialog: MatDialog,
     private translator: TranslateService,
+    public settings: UserSettings,
     @Inject(MAT_DIALOG_DATA) public data: string[]) { }
 
   ngOnInit() {
@@ -111,7 +113,10 @@ export class UrnnbnDialogComponent implements OnInit {
       title: '',
       content: error
     }
-    this.dialog.open(LogDialogComponent, { data: data });
+    this.dialog.open(LogDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-log', 'app-form-view-' + this.settings.appearance]
+    });
   }
 
 }

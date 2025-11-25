@@ -18,6 +18,7 @@ import { HighlightAuto } from 'ngx-highlightjs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { EditorSwitcherComponent } from "../editor-switcher/editor-switcher.component";
 import { MatButtonModule } from '@angular/material/button';
+import { UserSettings } from '../../shared/user-settings';
 
 
 @Component({
@@ -56,7 +57,9 @@ export class EditorModsComponent implements OnInit, OnDestroy {
     public layout: LayoutService,
     private ui: UIService,
     private api: ApiService,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    public settings: UserSettings
+  ) {
     effect(() => {
       this.item = this.layout.lastSelectedItem();
       this.reload();
@@ -192,7 +195,10 @@ export class EditorModsComponent implements OnInit, OnDestroy {
         color: 'default'
       },
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data, 
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance] 
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.saveMods(this.mods, true);

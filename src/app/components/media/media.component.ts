@@ -21,6 +21,7 @@ import { EpubComponent } from "../epub/epub.component";
 import { SongComponent } from "../song/song.component";
 import { ViewerComponent } from "../viewer/viewer.component";
 import { MatButtonModule } from '@angular/material/button';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [TranslateModule, FormsModule, MatButtonModule, MatCardModule, MatSelectModule, MatIconModule, MatProgressBarModule, MatTooltipModule, MatFormFieldModule, PdfComponent, EpubComponent, SongComponent, ViewerComponent],
@@ -64,7 +65,8 @@ export class MediaComponent implements OnInit {
   constructor(private api: ApiService,
     private dialog: MatDialog,
     private ui: UIService,
-    private layout: LayoutService) {
+    private layout: LayoutService,
+    public settings: UserSettings) {
     effect(() => {
       this.onPidChanged(this.lastSelectedItem().pid, this.lastSelectedItem().model);
     })
@@ -251,7 +253,10 @@ export class MediaComponent implements OnInit {
         color: 'warn'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance] 
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.state = 'loading';

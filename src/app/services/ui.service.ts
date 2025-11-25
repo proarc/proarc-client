@@ -6,6 +6,7 @@ import { Observable, Subject } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { AlertDialogComponent } from '../dialogs/alert-dialog/alert-dialog.component';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { UserSettings } from '../shared/user-settings';
 
 @Injectable()
 export class UIService {
@@ -18,7 +19,8 @@ export class UIService {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private translator: TranslateService,
-    private clipboard: Clipboard
+    private clipboard: Clipboard,
+    public settings: UserSettings
   ) {
   }
 
@@ -26,7 +28,7 @@ export class UIService {
     return this.dialog.open(AlertDialogComponent, {
          data,
          width: '600px',
-         panelClass: 'app-alert-dialog'
+         panelClass: ['app-dialog-alert', 'app-form-view-' + this.settings.appearance]
     });
   }
 
@@ -39,7 +41,7 @@ export class UIService {
     const dialogRef = this.dialog.open(AlertDialogComponent, {
          data,
          width: '400px',
-         panelClass: 'app-alert-dialog'
+         panelClass: ['app-dialog-alert', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterOpened().subscribe(_ => {
       setTimeout(() => {

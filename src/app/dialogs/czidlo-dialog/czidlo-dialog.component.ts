@@ -19,6 +19,7 @@ import { Registrar } from '../../model/registrar.model';
 import { ApiService } from '../../services/api.service';
 import { UIService } from '../../services/ui.service';
 import { Configuration } from '../../shared/configuration';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [CommonModule, TranslateModule, MatDialogModule,
@@ -61,6 +62,7 @@ export class CzidloDialogComponent implements OnInit {
     private ui: UIService,
     private dialog: MatDialog,
     private translator: TranslateService,
+    public settings: UserSettings,
     @Inject(MAT_DIALOG_DATA) public data: {pid: string, model: string}) { }
 
   ngOnInit(): void {
@@ -247,7 +249,10 @@ export class CzidloDialogComponent implements OnInit {
       title: '',
       content: error
     }
-    this.dialog.open(LogDialogComponent, { data: data });
+    this.dialog.open(LogDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-log', 'app-form-view-' + this.settings.appearance]
+    });
   }
 
 }

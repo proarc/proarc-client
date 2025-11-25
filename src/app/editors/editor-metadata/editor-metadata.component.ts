@@ -384,7 +384,10 @@ export class EditorMetadataComponent implements OnInit {
         color: 'default'
       },
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
     // this.availableFields.forEach(k => {
     //   this.visibleFields[k] = true;
     // });

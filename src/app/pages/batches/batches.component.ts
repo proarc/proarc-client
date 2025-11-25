@@ -147,7 +147,7 @@ export class BatchesComponent {
       data: { layout: 'import' },
       width: '1280px',
       height: '90%',
-      panelClass: 'app-dialog-layout-settings'
+      panelClass: ['app-dialog-layout-settings', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe((ret: any) => {
 
@@ -281,7 +281,10 @@ export class BatchesComponent {
         //   color: 'default'
         // },
       };
-      const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+      const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+        data: data,
+        panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+      });
       dialogRef.afterClosed().subscribe(result => {
         if (result === 'yes') {
           this.ingest();
@@ -336,6 +339,7 @@ export class BatchesComponent {
         width: '95%',
         maxWidth: '100vw',
         height: '90%',
+        panelClass: ['app-dialog-parent', 'app-form-view-' + this.settings.appearance]
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result && result.pid) {
@@ -348,7 +352,10 @@ export class BatchesComponent {
   private ingestBatch(parentPid: string) {
     this.state = 'loading';
     const bathId = parseInt(this.batchId);
-    const dialogRef = this.dialog.open(IngestDialogComponent, { data: { batch: bathId, parent: parentPid } });
+    const dialogRef = this.dialog.open(IngestDialogComponent, { 
+      data: { batch: bathId, parent: parentPid },
+      panelClass: ['app-dialog-ingest', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       this.state = 'success';
       if (result == 'open') {

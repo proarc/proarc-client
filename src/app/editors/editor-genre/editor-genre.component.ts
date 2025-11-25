@@ -20,6 +20,7 @@ import { UIService } from '../../services/ui.service';
 import { MatRadioModule } from '@angular/material/radio';
 import { AutocompleteComponent } from "../../forms/autocomplete/autocomplete.component";
 import { MatButtonModule } from '@angular/material/button';
+import { UserSettings } from '../../shared/user-settings';
 
 
 @Component({
@@ -42,7 +43,8 @@ export class EditorGenreComponent implements OnInit {
     private layout: LayoutService,
     private ui: UIService,
     private dialog: MatDialog,
-    private translator: TranslateService,) {
+    private translator: TranslateService,
+    public settings: UserSettings) {
   }
 
   ngOnInit() {
@@ -130,7 +132,8 @@ export class EditorGenreComponent implements OnInit {
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, { 
       data: data,
-      width: '800px'
+      width: '800px',
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {

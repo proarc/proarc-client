@@ -22,6 +22,7 @@ import { ChangeModelDialogComponent } from '../../../dialogs/change-model-dialog
 import { ConvertDialogComponent } from '../../../dialogs/convert-dialog/convert-dialog.component';
 import { UpdateInSourceDialogComponent } from '../../../dialogs/update-in-source-dialog/update-in-source-dialog.component';
 import { CzidloDialogComponent } from '../../../dialogs/czidlo-dialog/czidlo-dialog.component';
+import { UserSettings } from '../../../shared/user-settings';
 
 @Component({
   selector: 'app-search-actions',
@@ -51,7 +52,8 @@ export class SearchActionsComponent {
     public config: Configuration,
     public auth: AuthService,
     private api: ApiService,
-    private ui: UIService) {
+    private ui: UIService,
+    public settings: UserSettings) {
 
   }
 
@@ -75,7 +77,7 @@ export class SearchActionsComponent {
       [this.selectedTreeItem().pid];
     const dialogRef = this.dialog.open(UrnnbnDialogComponent, {
       data: pids,
-      panelClass: 'app-urnbnb-dialog',
+      panelClass: ['app-dialog-urnbnb', 'app-form-view-' + this.settings.appearance],
       width: '600px'
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -108,7 +110,8 @@ export class SearchActionsComponent {
     const dialogRef = this.dialog.open(ExportDialogComponent, {
       disableClose: true,
       data: items,
-      width: '600px'
+      width: '600px',
+      panelClass: ['app-dialog-export', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
@@ -154,7 +157,7 @@ export class SearchActionsComponent {
     }
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
-      //width: '600px'
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
@@ -215,7 +218,10 @@ export class SearchActionsComponent {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.api.restoreObject(item.pid, false, false).subscribe((response: any) => {
@@ -252,7 +258,8 @@ export class SearchActionsComponent {
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
-      width: '600px'
+      width: '600px',
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
@@ -329,7 +336,8 @@ export class SearchActionsComponent {
         pid: item.pid,
         model: item.model,
         dest: this.config.modelChanges.find(m => ('model:' + m.origin).toLocaleLowerCase() === item.model.toLocaleLowerCase()).dest
-      }
+      },
+      panelClass: ['app-dialog-change-model', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -357,7 +365,8 @@ export class SearchActionsComponent {
   showConvertDialog() {
     const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     const dialogRef = this.dialog.open(ConvertDialogComponent, {
-      data: { pid: item.pid, model: item.model }
+      data: { pid: item.pid, model: item.model },
+      panelClass: ['app-dialog-convert', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -376,8 +385,8 @@ export class SearchActionsComponent {
     const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     const dialogRef = this.dialog.open(CzidloDialogComponent, {
       data: { pid: item.pid, model: item.model },
-      panelClass: 'app-urnbnb-dialog',
-      width: '600px'
+      width: '600px',
+      panelClass: ['app-dialog-urnbnb', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
@@ -395,8 +404,8 @@ export class SearchActionsComponent {
     const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     const dialogRef = this.dialog.open(UpdateInSourceDialogComponent, {
       data: item.pid,
-      panelClass: 'app-urnbnb-dialog',
-      width: '600px'
+      width: '600px',
+      panelClass: ['app-dialog-urnbnb', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {

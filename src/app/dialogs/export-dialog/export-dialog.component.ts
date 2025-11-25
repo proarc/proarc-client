@@ -20,6 +20,7 @@ import { UIService } from '../../services/ui.service';
 import {MatRadioModule} from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [TranslateModule, MatDialogModule, MatTableModule, 
@@ -61,6 +62,7 @@ export class ExportDialogComponent implements OnInit {
     private config: Configuration,
     private ui: UIService,
     private dialog: MatDialog,
+    public settings: UserSettings,
     @Inject(MAT_DIALOG_DATA) public data: {pid: string, model: string}[]) { }
 
   ngOnInit() {
@@ -141,7 +143,10 @@ export class ExportDialogComponent implements OnInit {
       title: error.message,
       content: error.pid + (error.log ? (': ' + error.log) : '')
     }
-    this.dialog.open(LogDialogComponent, { data: data });
+    this.dialog.open(LogDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-log', 'app-form-view-' + this.settings.appearance]
+    });
   }
 
 }

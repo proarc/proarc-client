@@ -20,6 +20,7 @@ import { UIService } from '../../services/ui.service';
 import { ProArc } from '../../utils/proarc';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [TranslateModule, FormsModule, MatCheckboxModule, MatIconModule, MatButtonModule, MatSelectModule, MatTooltipModule],
@@ -61,7 +62,8 @@ export class ImportComponent implements OnInit {
     private ui: UIService,
     //public importService: ImportService,
     private router: Router,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    public settings: UserSettings) { }
 
 
   ngOnInit() {
@@ -215,7 +217,10 @@ export class ImportComponent implements OnInit {
             color: 'primary'
           }
         };
-        const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+        const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+          data: data,
+          panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+        });
         dialogRef.afterClosed().subscribe(result => {
           if (result === 'open') {
             this.router.navigate(['/process-management']);
@@ -239,7 +244,7 @@ export class ImportComponent implements OnInit {
 
         const dialogRef = this.dialog.open(ImportDialogComponent, {
           data: { batch: batch.id },
-          panelClass: 'app-dialog-import',
+          panelClass: ['app-dialog-import', 'app-form-view-' + this.settings.appearance],
           width: '600px'
         });
         dialogRef.afterClosed().subscribe(result => {
@@ -268,7 +273,10 @@ export class ImportComponent implements OnInit {
             color: 'primary'
           }
         };
-        const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+        const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+          data: data,
+          panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+        });
         dialogRef.afterClosed().subscribe(result => {
           if (result === 'open') {
             this.router.navigate(['/process-management']);

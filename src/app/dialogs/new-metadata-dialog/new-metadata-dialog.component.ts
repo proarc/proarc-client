@@ -144,7 +144,10 @@ export class NewMetadataDialogComponent implements OnInit {
         color: 'default'
       },
     };
-    const d = this.dialog.open(SimpleDialogComponent, { data: data });
+    const d = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.userSettings.appearance]
+    });
     d.afterClosed().subscribe(result => {
       if (result === 'true') {
         this.state = 'success';
@@ -243,7 +246,10 @@ export class NewMetadataDialogComponent implements OnInit {
         color: 'default'
       },
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.userSettings.appearance]
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {

@@ -127,7 +127,10 @@ export class EditorAudioPageComponent implements OnInit {
           color: 'default'
         },
       };
-      const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+      const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+        data: data,
+        panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+      });
       dialogRef.afterClosed().subscribe(result => {
         if (result === 'yes') {
           this.save(from);

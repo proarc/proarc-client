@@ -69,6 +69,7 @@ export class SettingsComponent implements OnInit {
     // public codebook: CodebookService,
     // public settings: UserSettings,
     public settingsService: UserSettingsService,
+    public settings: UserSettings, 
     public config: Configuration,
     private auth: AuthService) { }
 
@@ -99,7 +100,8 @@ export class SettingsComponent implements OnInit {
   changeCodebookTops(prefix: string, listName: string, conf: string[], expanded: boolean = false) {
     const top: string[] = this.curSettings[listName];
     const dialogRef = this.dialog.open(PreferredTopsDialogComponent, {
-      data: { prefix, top, conf, expanded, relatedItemExpanded: this.curSettings.relatedItemExpanded }
+      data: { prefix, top, conf, expanded, relatedItemExpanded: this.curSettings.relatedItemExpanded },
+      panelClass: ['app-dialog-preferred-tops', 'app-form-view-' + this.settings.appearance]
     });
 
 
@@ -138,7 +140,7 @@ export class SettingsComponent implements OnInit {
   changePassword() {
     this.dialog.open(NewPasswordDialogComponent, {
       width: '550px',
-      panelClass: 'app-dialog-new-password'
+      panelClass: ['app-dialog-new-password', 'app-form-view-' + this.settings.appearance]
     });
   }
 
@@ -168,7 +170,10 @@ export class SettingsComponent implements OnInit {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         this.settingsService.reset();

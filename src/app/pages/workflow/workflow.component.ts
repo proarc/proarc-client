@@ -167,7 +167,7 @@ export class WorkFlowComponent implements OnInit {
       data: { layout: 'import' },
       width: '1280px',
       height: '90%',
-      panelClass: 'app-dialog-layout-settings'
+      panelClass: ['app-dialog-layout-settings', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe((ret: any) => {
 
@@ -340,7 +340,7 @@ export class WorkFlowComponent implements OnInit {
     const dialogRef1 = this.dialog.open(NewObjectDialogComponent, {
       data: data,
       width: '680px',
-      panelClass: 'app-dialog-new-object'
+      panelClass: ['app-dialog-new-object', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef1.afterClosed().subscribe((result: any) => {
       if (result && result['data']) {
@@ -391,7 +391,10 @@ export class WorkFlowComponent implements OnInit {
         color: 'default'
       },
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { data: data, panelClass: 'app-form-view-' + this.settings.appearance });
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
         //console.log(data.textInput.value)
@@ -475,7 +478,8 @@ export class WorkFlowComponent implements OnInit {
       }
     };
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
-      data: data
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
@@ -675,7 +679,8 @@ export class WorkFlowComponent implements OnInit {
         states: this.states,
         priorities: this.priorities,
         ids: this.jobs.filter(i => i.selected).map(p => p.id)
-      }
+      },
+      panelClass: ['app-dialog-jobs-edit', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(res => {
       if (res) {

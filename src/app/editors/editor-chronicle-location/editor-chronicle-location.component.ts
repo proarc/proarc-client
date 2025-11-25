@@ -58,11 +58,17 @@ export class EditorChronicleLocationComponent implements OnInit {
             color: 'primary'
           }
         };
-        this.dialog.open(SimpleDialogComponent, { data: data });
+        this.dialog.open(SimpleDialogComponent, { 
+          data: data,
+          panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
+        });
       // });
       return;
     }
-    const dialogRef = this.dialog.open(FundDialogComponent, { data: archive });
+    const dialogRef = this.dialog.open(FundDialogComponent, { 
+      data: archive,
+      panelClass: ['app-dialog-fund', 'app-form-view-' + this.settings.appearance]
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['id']) {
         loacation['_'] = result['id'];

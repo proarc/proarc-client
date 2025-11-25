@@ -9,6 +9,8 @@ import { HelpDialogComponent } from '../../dialogs/help-dialog/help-dialog.compo
 import { ModsElement } from '../../model/mods/element.model';
 import { ElementField } from '../../model/mods/elementField.model';
 import { LayoutService } from '../../services/layout-service';
+import { UserSettings } from '../../shared/user-settings';
+
 @Component({
   imports: [CommonModule, TranslateModule,
     MatIconModule, MatTooltipModule, MatButtonModule
@@ -38,6 +40,7 @@ export class EditorFieldComponent implements OnInit {
     private dialog: MatDialog, 
     private translator: TranslateService, 
     private cd: ChangeDetectorRef,
+    public settings: UserSettings,
     private layout: LayoutService) {
   }
 
@@ -105,7 +108,10 @@ export class EditorFieldComponent implements OnInit {
   // }
 
   openHelpDialog() {
-    this.dialog.open(HelpDialogComponent, { data: this.field.help(this.translator) });
+    this.dialog.open(HelpDialogComponent, { 
+      data: this.field.help(this.translator),
+      panelClass: ['app-dialog-help', 'app-form-view-' + this.settings.appearance]
+    });
   }
 
   showByGenre(idx: number, item: any) {
