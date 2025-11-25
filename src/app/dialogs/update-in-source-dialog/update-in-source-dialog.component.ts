@@ -11,6 +11,7 @@ import { Catalogue } from '../../model/catalogue.model';
 import { ApiService } from '../../services/api.service';
 import { UIService } from '../../services/ui.service';
 import { FormsModule } from '@angular/forms';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [TranslateModule, FormsModule, MatSelectModule, MatDialogModule, MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule],
@@ -31,6 +32,7 @@ export class UpdateInSourceDialogComponent implements OnInit {
     private ui: UIService,
     private dialog: MatDialog,
     private translator: TranslateService,
+    public settings: UserSettings,
     @Inject(MAT_DIALOG_DATA) public data: string) { }
 
   ngOnInit(): void {

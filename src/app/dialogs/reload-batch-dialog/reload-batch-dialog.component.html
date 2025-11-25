@@ -4,7 +4,7 @@
     <mat-icon>warning</mat-icon>
     {{ 'dialog.reloadDialog.message' | translate }}
   </mat-card> 
-  <mat-form-field class="app-w-100">
+  <mat-form-field class="app-w-100" [appearance]="settings.appearance">
     <mat-select [placeholder]="'desc.profile' | translate" [(ngModel)]="selectedProfile" [disabled]="formDisabled()">
       @for(profile of profiles; track $index;) {
       <mat-option [value]="profile">{{ profile.label }}</mat-option>

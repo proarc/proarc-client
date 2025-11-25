@@ -4,7 +4,7 @@
 <h1 mat-dialog-title>{{ 'dialog.urnnbn.title' | translate }}</h1>
 <mat-dialog-content class="app-fxLyout app-column">
   <div>
-    <mat-form-field class="app-w-100">
+    <mat-form-field class="app-w-100" [appearance]="settings.appearance">
       <mat-select [placeholder]="'desc.registrar' | translate" [(ngModel)]="selectedRegistrar" [disabled]="formDisabled()">
         @for(registrar of registrars; track $index;) {
           <mat-option [value]="registrar">{{ registrar.name }}</mat-option>

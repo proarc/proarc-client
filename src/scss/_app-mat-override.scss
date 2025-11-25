@@ -377,8 +377,7 @@
   
   // FORM FIELD
   @include mat.form-field-overrides((
-    // container-height: 38px,
-    // container-vertical-padding: 6px,
+    container-vertical-padding: 6px,
     container-text-size: 14px,
     container-text-weight: 500,
 
@@ -404,19 +403,21 @@
         padding: 0;
       }
     }
+
+    .mat-mdc-form-field-icon-suffix {
+      padding-top: 4px;
+    }
   }
 
   .app-form-view-fill {
      @include mat.form-field-overrides((
-      container-height: 36px,
-      container-vertical-padding: 6px
+      container-height: 38px
     ));
   }
   
   .app-form-view-outline {
     @include mat.form-field-overrides((
-      container-height: 36px,
-      container-vertical-padding: 6px
+      container-height: 36px
     ));
   }
 

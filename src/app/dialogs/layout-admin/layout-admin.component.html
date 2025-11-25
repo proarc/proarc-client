@@ -42,7 +42,7 @@
                   @if (row.visible) {
                   <as-split-area [size]="row.size">
                     <div class="app-fxLayout app-column app-fill">
-                      <mat-form-field class="app-leave-pd">
+                      <mat-form-field class="app-leave-pd" [appearance]="settings.appearance">
                         <mat-select [(ngModel)]="row.type" (selectionChange)="refreshColumnVisibility()">
                           @for(type of types; track $index;) {
                             <mat-option [value]="type">

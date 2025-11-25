@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{ 'dialog.updateInSource.title' | translate }}</h1>
 <mat-dialog-content>
-  <mat-form-field class="app-w-100">
+  <mat-form-field class="app-w-100" [appearance]="settings.appearance">
     <mat-select [placeholder]="'desc.catalog' | translate" [(ngModel)]="selectedCatalogue">
       @for(c of catalogs; track $index;) {
         <mat-option [value]="c">{{ c.name }}</mat-option>

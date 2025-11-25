@@ -55,7 +55,7 @@ export class LayoutAdminComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<LayoutAdminComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { layout: string },
-    private settings: UserSettings,
+    public settings: UserSettings,
     private settingsService: UserSettingsService) { }
 
   ngOnInit() {

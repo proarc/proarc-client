@@ -12,6 +12,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { Profile } from '../../model/profile.model';
 import { ApiService } from '../../services/api.service';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [TranslateModule, MatDialogModule, MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule, FormsModule, MatFormFieldModule, MatSelectModule],
@@ -28,6 +29,7 @@ export class ReloadBatchDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ReloadBatchDialogComponent>,
     private api: ApiService,
+    public settings: UserSettings,
     @Inject(MAT_DIALOG_DATA) public data: string) { }
 
   ngOnInit() {

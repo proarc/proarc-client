@@ -1,25 +1,21 @@
 <h1 mat-dialog-title>{{ "import.ingest_dialog.title" | translate }}</h1>
 <div mat-dialog-content [style.width]="'600px'">
-    @switch (state) {
-
-    @case ('loading') {
-    <p class="app-message">{{ "import.ingest_dialog.message" | translate }}</p>
-    }
-    @case ('success') {
-    <div class="app-message">{{ "import.ingest_dialog.success" | translate }}</div>
-    }
-    @case ('failure') {
-    <div class="app-message app-error-message">{{ "import.ingest_dialog.failure" | translate }}</div>
-    }
-    }
-
+	@switch (state) {
+		@case ('loading') {
+			<p class="app-message">{{ "import.ingest_dialog.message" | translate }}</p>
+		}
+		@case ('success') {
+			<div class="app-message">{{ "import.ingest_dialog.success" | translate }}</div>
+		}
+		@case ('failure') {
+			<div class="app-message app-error-message">{{ "import.ingest_dialog.failure" | translate }}</div>
+		}
+	}
 </div>
 
 <div mat-dialog-actions cdkFocusRegionstart>
-    @if (state == 'success') {
-    <button mat-raised-button color="primary" mat-dialog-close="open">{{
-        'import.ingest_dialog.open' | translate }}</button>
-    }
-    <button mat-raised-button color="default" mat-dialog-close="close">{{ 'import.ingest_dialog.back_to_search' |
-        translate }}</button>
+	@if (state == 'success') {
+	<button mat-raised-button color="primary" mat-dialog-close="open">{{ 'import.ingest_dialog.open' | translate }}</button>
+	}
+	<button mat-raised-button color="default" mat-dialog-close="close">{{ 'import.ingest_dialog.back_to_search' | translate }}</button>
 </div>

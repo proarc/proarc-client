@@ -20,12 +20,13 @@ import { ApiService } from '../../services/api.service';
 import { UIService } from '../../services/ui.service';
 import { Configuration } from '../../shared/configuration';
 import { UserSettings } from '../../shared/user-settings';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   imports: [CommonModule, TranslateModule, MatDialogModule,
     MatTableModule, MatProgressBarModule, MatSelectModule, MatRadioModule,
     MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule,
-    FormsModule, MatFormFieldModule, MatCheckboxModule, MatSlideToggleModule
+    FormsModule, MatFormFieldModule, MatCheckboxModule, MatSlideToggleModule, MatInputModule
   ],
   selector: 'app-czidlo-dialog',
   templateUrl: './czidlo-dialog.component.html',

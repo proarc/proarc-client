@@ -385,7 +385,7 @@ export class SearchActionsComponent {
     const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();
     const dialogRef = this.dialog.open(CzidloDialogComponent, {
       data: { pid: item.pid, model: item.model },
-      width: '600px',
+      width: '400px',
       panelClass: ['app-dialog-urnbnb', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {

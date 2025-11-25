@@ -14,6 +14,7 @@ import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
 import { UIService } from '../../services/ui.service';
 import { MatInputModule } from '@angular/material/input';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   standalone: true,
@@ -35,7 +36,8 @@ export class NewPasswordDialogComponent implements OnInit {
     private auth: AuthService,
     private ui: UIService,
     private translator: TranslateService,
-    private api: ApiService) { }
+    private api: ApiService,
+    public settings: UserSettings) { }
 
   ngOnInit() {
     this.password1 = '';

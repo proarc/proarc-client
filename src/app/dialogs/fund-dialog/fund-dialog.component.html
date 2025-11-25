@@ -1,8 +1,7 @@
 
 <div class="app-funds-search">
-
   <div class="actions">
-    <mat-form-field class="app-search-input">
+    <mat-form-field class="app-search-input" [appearance]="settings.appearance">
       <input matInput [placeholder]="'editor.chronicle.location.fund_dialog.search' | translate" (ngModelChange)="onChange($event)" [(ngModel)]="query" cdkFocusRegionstart>
     </mat-form-field>
   </div>
@@ -34,7 +33,6 @@
   }
 
 </div>
-
 
 <div mat-dialog-actions>
   <button  mat-raised-button color="primary" (click)="onApprove()" [disabled]="!selectedFund" >{{ 'editor.geo.use' | translate }}</button>

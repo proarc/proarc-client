@@ -34,10 +34,6 @@ import { SearchActionsComponent } from "./search-actions/search-actions.componen
 import { UserTableComponent } from "../../components/user-table/user-table.component";
 import { UserTreeTableComponent } from "../../components/user-tree-table/user-tree-table.component";
 
-// import { UserSettings } from '../../shared/user-settings';
-// public settings: UserSettings
-// form appearance implementation
-// panelClass: ['app-dialog-new-object', 'app-form-view-' + this.settings.appearance]
 
 @Component({
   selector: 'app-search',

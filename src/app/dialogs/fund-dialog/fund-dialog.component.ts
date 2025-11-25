@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { FundService } from '../../services/fund.service';
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [TranslateModule, MatDialogModule, MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule, FormsModule, MatFormFieldModule],
@@ -28,6 +29,7 @@ export class FundDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<FundDialogComponent>,
     private fund: FundService,
+    public settings: UserSettings,
     @Inject(MAT_DIALOG_DATA) private data: string) { 
       this.archive = data;
   }

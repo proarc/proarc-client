@@ -1,7 +1,7 @@
 @if (state ==='saving') {<mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>}
 <h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>{{ 'dialog.export.title' | translate }}</h1>
 <div mat-dialog-content class="app-scrollbar-fix">
-  <mat-form-field class="app-w-100">
+  <mat-form-field class="app-w-100" [appearance]="settings.appearance">
     <mat-select [placeholder]="'desc.exportType' | translate" [(ngModel)]="selectedType" [disabled]="formDisabled()">
       @for(type of types; track $index;) {
         <mat-option [value]="type">{{ "dialog.export.type." + type | translate }}</mat-option>
@@ -10,7 +10,7 @@
   </mat-form-field>
   @if (selectedType=='kramerius' || selectedType==='ndk_psp_upload_kramerius' || selectedType ===
   'ndk_oldprint_upload_kramerius' || selectedType === 'ndk_sip_upload_kramerius') {
-  <mat-form-field class="app-w-100">
+  <mat-form-field class="app-w-100" [appearance]="settings.appearance">
     <mat-select [placeholder]="'desc.krameriusInstances' | translate" name="instance" [(ngModel)]="importInstance">
       @for(ins of instances; track $index;) {
       <mat-option [value]="ins">{{ ins.krameriusInstanceName }}</mat-option>
@@ -18,7 +18,7 @@
     </mat-select>
   </mat-form-field>
   @if (importInstance && importInstance.krameriusInstanceLicenses) {
-  <mat-form-field class="app-w-100">
+  <mat-form-field class="app-w-100" [appearance]="settings.appearance">
     <mat-select [placeholder]="'desc.krameriusLicenses' | translate" name="instance" [(ngModel)]="licenseName">
       @for(lic of importInstance.krameriusInstanceLicenses; track $index;) {
       <mat-option [value]="lic.krameriusInstanceLicenseName">{{ lic.krameriusInstanceLicenseDescription }} -
@@ -34,7 +34,7 @@
   <mat-checkbox [disabled]="formDisabled()" color="primary" [(ngModel)]="policyPublic">{{ 'desc.publiclyAvailable' | translate }}</mat-checkbox>
 }
 @if (selectedType=='ndk_psp_upload_cesnet' || selectedType=='ndk_oldprint_upload_cesnet') {
-  <mat-form-field class="app-w-100">
+  <mat-form-field class="app-w-100" [appearance]="settings.appearance">
     <input type="text" autocomplete="off" matInput [placeholder]="'desc.ltpToken' | translate"
       [(ngModel)]="cesnetLtpToken">
   </mat-form-field>
@@ -47,13 +47,13 @@
   </mat-radio-group>
 }
 @if (extendedType=='snkd') {
-  <mat-form-field class="app-w-100">
+  <mat-form-field class="app-w-100" [appearance]="settings.appearance">
     <input required type="text" autocomplete="off" matInput
       [placeholder]="'Skeny nejsou k dispozici message' | translate" [(ngModel)]="noTifMessage">
   </mat-form-field>
 }
 @if (extendedType=='pi') {
-  <mat-form-field class="app-w-100">
+  <mat-form-field class="app-w-100" [appearance]="settings.appearance">
     <input required type="text" autocomplete="off" matInput [placeholder]="'Přidat Informaci' | translate"
       [(ngModel)]="addInfoMessage">
   </mat-form-field>
