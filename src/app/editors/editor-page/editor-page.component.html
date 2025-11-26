@@ -1,10 +1,10 @@
 <div class="app-fxLayout app-column app-fill">
   @if (switchable) {
-    <div class="app-fxLayout app-row app-center-v app-toolbar app-view-metadata">
+    <div class="app-fxLayout app-row app-center-v app-wrap app-toolbar app-view-metadata">
       <div class="app-fxFlex">
         <app-editor-switcher class="app-fxLayout app-row app-center-v" (onChangeEditorType)="changeEditorType($event)" [panelType]="panelType()"></app-editor-switcher>
       </div>
-      <div class="app-fxLayout app-rpw app-center-v">
+      <div class="app-fxLayout app-row app-center-v app-h-100">
         <button mat-icon-button (click)="onRevert()" [disabled]="!hasChanged()" [matTooltip]="'button.refresh' | translate" >
           <mat-icon>sync</mat-icon>
         </button>

@@ -8,13 +8,13 @@
     <as-split direction="horizontal" [disabled]="false" class="app-border-wrapper">
       <as-split-area [size]="40" (resized)="onResized($event, 'orig')">
         <div class="app-fxLayout app-column app-fill">
-          <div class="app-fxLayout app-row app-gap-4 app-center-v app-toolbar app-pl-2">
+          <div class="app-fxLayout app-row app-gap-4 app-center-v app-toolbar app-wrap app-pl-2">
             <div class="app-fxFlex">
               <div class="app-toolbar-label">
                 <span class="app-text">{{ 'desc.selectOrigin' | translate }}</span>
               </div>
             </div>
-            <div>
+            <div class="app-h-100">
               @if (data.viewModeOrig === 'icons') {
                 <button mat-icon-button (click)="zoomOut('orig')" [matTooltip]="'button.zoomOut' | translate">
                   <mat-icon>zoom_out</mat-icon>

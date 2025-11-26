@@ -1,5 +1,5 @@
 <div class="app-fxLayout app-column app-fill">
-  <div class="app-fxLayout app-row app-center-v app-toolbar app-view-pages">
+  <div class="app-fxLayout app-row app-center-v app-wrap app-toolbar app-view-pages">
     <div class="app-fxFlex">
       <div class="app-toolbar-label app-pl-2">
         <span class="app-text">{{ 'editor.pages.title' | translate }}</span>
@@ -7,7 +7,7 @@
         <span class="app-text-supplement">{{ ('editor.children.multiple_selection_count' + plurals ) | translate: { count: numOfSelected } }}</span>
       </div>
     </div>
-    <div class="app-fxLayout app-row app-center-v">
+    <div class="app-fxLayout app-row app-center-v app-h-100">
       <button mat-icon-button (click)="setPageHolder()" [matTooltip]="'button.setPageHolder' | translate" >
         <mat-icon>push_pin</mat-icon>
       </button>

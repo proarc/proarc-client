@@ -1,11 +1,11 @@
 <div class="app-fxLayout app-column app-fill">
-  <div class="app-fxLayout app-row app-center-v app-toolbar app-view-description">
+  <div class="app-fxLayout app-row app-center-v app-wrap app-toolbar app-view-description">
     <div class="app-fxFlex">
       <div class="app-toolbar-label app-ml-2 app-mr-2">
         <span class="app-text">{{ 'editor.song.title' | translate }}</span>
       </div>
     </div>
-    <div>
+    <div class="app-h-100">
       <button mat-icon-button (click)="onRevert()" [disabled]="!audioPage || !hasChanged()"  [matTooltip]="'button.refresh' | translate">
         <mat-icon>replay</mat-icon>
       </button>

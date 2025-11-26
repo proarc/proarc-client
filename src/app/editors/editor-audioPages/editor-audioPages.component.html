@@ -1,11 +1,11 @@
 <div class="app-fxLayout app-column app-fill">
-  <div class="app-fxLayout app-row app-center-v app-toolbar app-view-audiopages">
+  <div class="app-fxLayout app-row app-center-v app-wrap app-toolbar app-view-audiopages">
     <div class="app-fxFlex">
       <div class="app-toolbar-label app-ml-2 app-pr-2">
         <span class="app-text">{{ 'editor.audioPages.title' | translate }}</span>
       </div>
     </div>
-    <div>
+    <div class="app-h-100">
       <button mat-icon-button (click)="onSave()" [disabled]="!canSave()" [matTooltip]="'button.save' | translate">
         <mat-icon>save</mat-icon>
       </button>

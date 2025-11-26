@@ -1,5 +1,5 @@
 <div class="app-fxLayout app-column app-fill">
-  <div class="app-fxLayout app-row app-center-v app-toolbar app-view-pub">
+  <div class="app-fxLayout app-row app-center-v app-toolbar app-wrap app-view-pub">
    	<div class="app-fxFlex">
       <div class="app-toolbar-label app-pl-2">
         <span class="app-text">E-pub</span>&#160;
@@ -10,7 +10,7 @@
       </div>
     </div>
     @if (rendition?.location) {
-    <div>
+    <div class="app-h-100">
       <button mat-icon-button [disabled]="chapters.length === 0" [matMenuTriggerFor]="chapters_menu"
         [matTooltip]="'button.chapters' | translate">
         <mat-icon>format_list_numbered</mat-icon>

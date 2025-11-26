@@ -1,9 +1,9 @@
 <div class="app-fxLayout app-column app-fill">
-  <div class="app-fxLayout app-row app-center-v app-toolbar app-view-atm">
+  <div class="app-fxLayout app-row app-center-v app-wrap app-toolbar app-view-atm">
     <div class="app-fxFlex">
       <app-editor-switcher class="app-fxLayout app-row app-center-v" (onChangeEditorType)="changeEditorType($event)" [panelType]="panelType()"></app-editor-switcher>
     </div>
-    <div>
+    <div class="app-h-100">
       <button mat-icon-button (click)="onRevert()" [matTooltip]="'common.revert' | translate"  [disabled]="!atm || !atm.hasChanged()">
         <mat-icon>replay</mat-icon>
       </button>

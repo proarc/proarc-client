@@ -1,10 +1,10 @@
 <div class="app-fxLayout app-column app-fill">
   @if (switchable) {
-    <div class="app-fxLayout app-row app-center-v app-toolbar app-view-metadata">
+    <div class="app-fxLayout app-row app-center-v app-wrap app-toolbar app-view-metadata">
       <div class="app-fxFlex">
         <app-editor-switcher class="app-fxLayout app-row app-center-v" (onChangeEditorType)="changeEditorType($event)" [panelType]="panelType()"></app-editor-switcher>
       </div>
-      <div>
+      <div class="app-h-100">
         @if (layout.type === 'repo') {
           <button mat-icon-button (click)="onPERO()" [matTooltip]="'button.pero' | translate">
             <mat-icon>history_edu</mat-icon>

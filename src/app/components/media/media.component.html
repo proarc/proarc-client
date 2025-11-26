@@ -1,5 +1,5 @@
 <div class="app-fxLayout app-column app-fill">
-	<div class="app-fxLayout app-row app-center-v app-toolbar app-view-media">
+	<div class="app-fxLayout app-row app-center-v app-wrap app-view-media">
 		<div class="app-fxFlex">
 			@if (streamProfile) {
 			<mat-form-field class="app-clean-mb app-select">
@@ -11,7 +11,7 @@
 			</mat-form-field>
 			}
 		</div>
-		<div class="app-fxLayout app-row app-center-v">
+		<div class="app-fxLayout app-row app-center-v app-h-100">
 			@if (canAddPDF_A) {
 			<button mat-button [disabled]="!canAddPdf" (click)="generatePdfA()">
 				{{ 'Generovat PDF-A' | translate }}
