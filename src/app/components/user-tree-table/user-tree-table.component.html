@@ -20,9 +20,8 @@
 			}
 			}
 			@if (last) {
-			<button (click)="setColumns()" mat-icon-button [matTooltip]="'editor.children.select_columns' | translate"
-				color="primary" style="float: right">
-				<mat-icon>view_column</mat-icon>
+			<button (click)="setColumns()" mat-icon-button [matTooltip]="'editor.children.select_columns' | translate" color="primary">
+				<mat-icon class="material-icons-outlined">view_column</mat-icon>
 			</button>
 			}
 		</th>
@@ -45,9 +44,7 @@
 				</ng-container>
 				<ng-container *ngSwitchCase="'boolean'">
 					<span class="app-pl-1 app-lr-2">
-						<mat-icon
-							[matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">{{
-							element.isLocked ? 'lock' : 'lock_open' }}</mat-icon>
+						<mat-icon [matTooltip]="element.isLocked ? ('desc.locked' | translate) : ('desc.unlocked' | translate)">{{ element.isLocked ? 'lock' : 'lock_open' }}</mat-icon>
 					</span>
 				</ng-container>
 				<ng-container *ngSwitchDefault>
