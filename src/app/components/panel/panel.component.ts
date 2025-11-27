@@ -22,6 +22,7 @@ import { EditorAudioPageComponent } from "../../editors/editor-audioPage/editor-
 import { EditorTreeComponent } from "../../editors/editor-tree/editor-tree.component";
 import { EditorMetadataComponent } from "../../editors/editor-metadata/editor-metadata.component";
 import { SongComponent } from "../song/song.component";
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   selector: 'app-panel',
@@ -51,6 +52,7 @@ export class PanelComponent {
   
   constructor(
     public config: Configuration,
+    public settings: UserSettings,
     private ui: UIService) { 
       effect(() => {
         const lastSelectedItem = this.lastSelectedItem();
@@ -66,7 +68,7 @@ export class PanelComponent {
 
   ngOnInit(): void {
     this.panelType = this.panel().type;
-    this.formHighlighting = localStorage.getItem('formHighlighting') === 'true';
+    this.formHighlighting = this.settings.formHighlighting;
     
   }
 

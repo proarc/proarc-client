@@ -63,7 +63,7 @@ export class NewMetadataDialogComponent implements OnInit {
     // }, 100);
       this.load();
     this.title = this.data.title ? this.data.title : 'dialog.newMetadata.title';
-    this.formHighlighting = localStorage.getItem('formHighlighting') === 'true';
+    this.formHighlighting = this.userSettings.formHighlighting;
   }
 
   load() {
