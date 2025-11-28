@@ -37,7 +37,7 @@
                 <mat-select #typeSelect [placeholder]="'editor.page.type' | translate" name="type" [(value)]="page.type" [formControl]="pageTypeControl" (focusout)="removeFocus()" (keyup.enter)="enterSelect(typeSelect, 'type')">
                   <mat-option [value]="null"></mat-option>
                   @for(pageType of config.pageTypes; track $index;) {
-                    <mat-option [value]="pageType">{{  pageType }}</mat-option>
+                    <mat-option [value]="pageType">{{ 'pageType.' + pageType.toLowerCase() | translate }}</mat-option>
                   }
                 </mat-select>
               </mat-form-field>
