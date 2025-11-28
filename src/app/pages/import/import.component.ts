@@ -177,7 +177,7 @@ export class ImportComponent implements OnInit {
     if (!folder.states) {
       return false;
     }
-    const p:{profile: string, state: string} = folder.states.find(s => s.state === 'IMPORTED');
+    const p:{profile: string, state: string} = folder.states.find(s => s.profile === this.selectedProfile.id && s.state === 'IMPORTED');
     if (p) {
       return true;
     } else {
