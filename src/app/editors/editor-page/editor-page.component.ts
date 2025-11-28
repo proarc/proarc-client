@@ -215,9 +215,9 @@ export class EditorPageComponent implements OnInit {
       }
       this.page.number = number;
       this.pageNumberControl.setValue(this.page.number);
-      this.onSave(null);
+      this.pageNumberControl.markAsDirty();
+      this.saveIcon()
     }
-    // this.pageNumberControl.markAsDirty();
 
   }
 
@@ -229,9 +229,9 @@ export class EditorPageComponent implements OnInit {
       this.page.number = this.page.number.substring(1, this.page.number.length - 1);
       
       this.pageNumberControl.setValue(this.page.number);
-      this.onSave(null);
+      this.pageNumberControl.markAsDirty();
+      this.saveIcon()
     }
-    // this.pageNumberControl.markAsDirty();
   }
 
   switchBrackets() {
