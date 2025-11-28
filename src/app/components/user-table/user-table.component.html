@@ -102,9 +102,9 @@
           }
           @case ('state') {
 
-            <span (click)="selectedState === 'ALL' ? filter('state', element.state) : false" class="app-badge" [ngClass]="batchProgress(element.id) === '0%' ? 'app-WAITING' : 'app-' + element.state">
-              {{ batchProgress(element.id) === '0%' ? ('states.WAITING' | translate) : ('states.' + element.state | translate) }}
-              @if (element.isLoading()){<strong class="app-ml-2">{{ batchProgress(element.id) }}</strong>}
+            <span (click)="selectedState === 'ALL' ? filter('state', element.state) : false" class="app-badge" [ngClass]="progressMap()[element.id] === '0%' ? 'app-WAITING' : 'app-' + element.state">
+              {{ progressMap()[element.id] === '0%' ? ('states.WAITING' | translate) : ('states.' + element.state | translate) }}
+              @if (element.isLoading()){<strong class="app-ml-2">{{ progressMap()[element.id] }}</strong>}
             </span>
           }
           @default {

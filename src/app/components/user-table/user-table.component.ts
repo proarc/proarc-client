@@ -81,6 +81,10 @@ export class UserTableComponent {
     "described",
     "exported"]
   selectedState: string;
+
+  progressMap = input<{[key: string]: string}>({});
+
+
   constructor(
     private translator: TranslateService,
     private dialog: MatDialog,
@@ -273,8 +277,8 @@ export class UserTableComponent {
     this.onColumnLink.emit({ field, value });
   }
 
-  private progressMap: any = {};
-  batchProgress(batch_id: string): string {
-    return this.progressMap[batch_id];
-  }
+  
+  // batchProgress(batch_id: string): string {
+  //   return this.progressMap[batch_id];
+  // }
 }

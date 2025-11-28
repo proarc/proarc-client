@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -70,7 +70,8 @@ export class ProcessManagementComponent {
   private timer: any;
   autoRefresh = false;
 
-  private progressMap: any = {};
+  progressMapSignal = signal<{[key: string]: string}>({});
+  progressMap: {[key: string]: string} = {};
 
   description: string;
   user: string;
@@ -555,6 +556,7 @@ export class ProcessManagementComponent {
             } else {
               this.progressMap[batch.id] = Math.round((done * 1.0 / count) * 100) + '%';
             }
+            this.progressMapSignal.update(pm => this.progressMap);
           });
       }
     }
