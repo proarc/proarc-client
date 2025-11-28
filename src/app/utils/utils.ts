@@ -15,4 +15,11 @@ export class Utils {
         const  regexp = new RegExp('[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$');
         return regexp.test(uuid);
     } 
+
+    public static mergeOrdered(top: string[], all: string[]): string[] {
+        
+        return [...top, ...all.filter(s => !top.includes(s))];
+
+    }
+    
 }

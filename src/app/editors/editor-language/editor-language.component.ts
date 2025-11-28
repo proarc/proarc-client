@@ -6,6 +6,7 @@ import { ElementField } from '../../model/mods/elementField.model';
 import { Configuration } from '../../shared/configuration';
 import { FieldDropdownComponent } from "../../forms/field-dropdown/field-dropdown.component";
 import { EditorFieldComponent } from "../../forms/editor-field/editor-field.component";
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [TranslateModule, FieldCodebookComponent, FieldDropdownComponent, EditorFieldComponent],
@@ -17,7 +18,7 @@ export class EditorLanguageComponent implements OnInit {
 
   @Input() field: ElementField;
 
-  constructor(public config: Configuration) {
+  constructor(public config: Configuration, public settings: UserSettings) {
   }
 
   ngOnInit() {

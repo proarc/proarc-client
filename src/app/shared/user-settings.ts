@@ -36,8 +36,11 @@ export class UserSettings {
     devicesColumns: TableColumn[];
 
     topPageTypes: string[];
+    pageTypes: string[];
     topLanguages: string[];
+    languages: string[];
     topIdentifiers: string[];
+    identifiers: string[];
     expandedModels: string[];
     relatedItemExpanded: boolean;
 
@@ -338,8 +341,14 @@ public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
         this.settings.devicesColumns = Utils.clone(this.devicesColumnsDefault);
 
         this.settings.topPageTypes = Utils.clone(this.config.topPageTypes);
+        this.settings.pageTypes = Utils.mergeOrdered(this.config.topPageTypes, this.config.pageTypes);
+
         this.settings.topLanguages = Utils.clone(this.config.topLanguages);
+        this.settings.languages = Utils.mergeOrdered(this.config.topLanguages, this.config.languages);
+        
         this.settings.topIdentifiers = Utils.clone(this.config.topIdentifiers);
+        this.settings.identifiers = Utils.mergeOrdered(this.config.topIdentifiers, this.config.identifiers);
+
         this.settings.expandedModels = Utils.clone(this.config.expandedModels);
         
         this.settings.relatedItemExpanded = false;
@@ -378,6 +387,11 @@ public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
     }
 
     save(showInfo?: boolean) {
+      
+        this.settings.pageTypes = Utils.mergeOrdered(this.settings.topPageTypes, this.config.pageTypes);
+        this.settings.languages = Utils.mergeOrdered(this.settings.topLanguages, this.config.languages);
+        this.settings.identifiers = Utils.mergeOrdered(this.settings.topIdentifiers, this.config.identifiers);
+        
         this.api.saveUserSettings(this.settings).subscribe(resp => {
           // console.log(resp)
           if (showInfo) {

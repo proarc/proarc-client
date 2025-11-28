@@ -7,6 +7,7 @@ import { Configuration } from '../../shared/configuration';
 import { FieldCodebookComponent } from '../../forms/field-codebook/field-codebook.component';
 import { FieldTextareaComponent } from '../../forms/field-textarea/field-textarea.component';
 import { FieldTextComponent } from "../../forms/field-text/field-text.component";
+import { UserSettings } from '../../shared/user-settings';
 
 @Component({
   imports: [TranslateModule, EditorFieldComponent, FieldCodebookComponent, FieldTextareaComponent],
@@ -20,7 +21,7 @@ export class EditorAbstractComponent implements OnInit {
   @Input() field: ElementField;
   @Input() title: string;
 
-  constructor(public config: Configuration) {
+  constructor(public config: Configuration, public settings: UserSettings) {
   }
 
   ngOnInit() {

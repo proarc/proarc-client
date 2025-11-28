@@ -39,7 +39,7 @@
                 <mat-label>{{ 'editor.pages.page_type' | translate }}</mat-label>
                 <mat-select [placeholder]="'editor.pages.page_type' | translate" name="type" (keyup.enter)="enterSelect(typeSelect)" #typeSelect [formControl]="pageTypeControl">
                   <mat-option [value]="''"> </mat-option>
-                  @for(pageType of config.pageTypes; track $index;) {
+                  @for(pageType of settings.pageTypes; track $index;) {
                     <mat-option [value]="pageType">{{ pageType }}</mat-option>
                   }
                 </mat-select>

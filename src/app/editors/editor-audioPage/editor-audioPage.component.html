@@ -64,7 +64,7 @@
                         <mat-form-field [appearance]="settings.appearance" class="app-field-col">
                           <mat-label>{{ 'editor.identifier.type' | translate }}</mat-label>
                           <mat-select [(ngModel)]='identifier.type' [placeholder]="'editor.identifier.type' | translate">
-                            @for(identifier of config.identifiers; track $index;) {
+                            @for(identifier of settings.identifiers; track $index;) {
                               <mat-option [value]="identifier">{{ identifier }}</mat-option>
                             }
                           </mat-select>

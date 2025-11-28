@@ -112,6 +112,7 @@ export class SettingsComponent implements OnInit {
           this.curSettings[listName].push(r);
         });
         this.curSettings.relatedItemExpanded = result.relatedItemExpanded;
+
         this.settingsService.setSettings(this.curSettings);
       }
     });

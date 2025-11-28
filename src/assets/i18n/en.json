@@ -3078,11 +3078,11 @@
     },
     "preferredTops": {
       "title": {
-        "pagetypes": "Preferred types of parties",
-        "languages": "Preferred languages",
+        "pageType": "Preferred types of parties",
+        "lang": "Preferred languages",
         "locations": "Preferred storage locations",
-        "identifiers": "Preferred Identifiers",
-        "ExpandedModels": "Expanding the form"
+        "identifier": "Preferred Identifiers",
+        "model": "Expanding the form"
       }
     },
     "export": {

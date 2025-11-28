@@ -36,7 +36,7 @@
                 <span class="app-usage" [class.app-help-off]="true">M</span>
                 <mat-select #typeSelect [placeholder]="'editor.page.type' | translate" name="type" [(value)]="page.type" [formControl]="pageTypeControl" (focusout)="removeFocus()" (keyup.enter)="enterSelect(typeSelect, 'type')">
                   <mat-option [value]="null"></mat-option>
-                  @for(pageType of config.pageTypes; track $index;) {
+                  @for(pageType of settings.pageTypes; track $index;) {
                     <mat-option [value]="pageType">{{ 'pageType.' + pageType.toLowerCase() | translate }}</mat-option>
                   }
                 </mat-select>
@@ -113,7 +113,7 @@
                         <mat-form-field [appearance]="settings.appearance" class="app-field-col">
                           <mat-label>{{ 'editor.identifier.type' | translate }}</mat-label>
                           <mat-select [(ngModel)]='identifier.type' [placeholder]="'editor.identifier.type' | translate">
-                            @for(identifier of config.identifiers; track $index;) {
+                            @for(identifier of settings.identifiers; track $index;) {
                               <mat-option [value]="identifier">{{ identifier }}</mat-option>
                             }
                           </mat-select>
