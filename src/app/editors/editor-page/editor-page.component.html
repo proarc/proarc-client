@@ -63,6 +63,7 @@
                   <mat-label>{{ 'editor.page.position' | translate }}</mat-label>
                   <span class="app-usage" [class.app-help-off]="true">O</span>
                   <mat-select [placeholder]="'editor.page.position' | translate" [formControl]="posControl" #posSelect (keyup.enter)="enterSelect(posSelect, 'position')" (focusout)="removeFocus()">
+                    <mat-option [value]="''"> </mat-option>
                     @for(position of positions; track $index;) {
                       <mat-option [value]="position">{{ 'editor.page.positions.' + position | translate }}</mat-option>
                     }
