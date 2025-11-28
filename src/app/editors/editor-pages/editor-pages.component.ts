@@ -115,9 +115,25 @@ export class EditorPagesComponent implements OnInit {
     this.initControls();
 
     this.controls.valueChanges.subscribe(() => {
+
+    if (this.controls.controls['pageType'].dirty
+      || this.controls.controls['pageIndex'].dirty
+      || this.controls.controls['useBrackets'].dirty
+      || this.controls.controls['repreSelect'].dirty
+      || this.controls.controls['doubleColumns'].dirty
+      || this.controls.controls['pagePosition'].dirty
+      || this.controls.controls['applyToFirst'].dirty
+      || this.controls.controls['applyTo'].dirty
+    ) {
       this.canSave = true;
-      this.setPanelEditing();
-      this.numberingExample.set(this.getNumberingExample());
+    } else {
+      this.canSave = this.numberFromValid();
+    }
+    
+      if (this.canSave) {
+        this.setPanelEditing();
+        this.numberingExample.set(this.getNumberingExample());
+      }
     })
 
     this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
