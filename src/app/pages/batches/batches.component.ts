@@ -16,7 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AngularSplitModule } from 'angular-split';
 import { Subscription, combineLatest, of, switchMap } from 'rxjs';
@@ -36,7 +36,9 @@ import { PanelComponent } from "../../components/panel/panel.component";
 
 @Component({
   selector: 'app-batches',
-  imports: [TranslateModule, FormsModule, AngularSplitModule, MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, PanelComponent],
+  imports: [TranslateModule, FormsModule, RouterModule,
+    AngularSplitModule, MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, 
+    MatProgressBarModule, MatInputModule, MatSelectModule, MatTooltipModule, MatMenuModule, PanelComponent],
   templateUrl: './batches.component.html',
   styleUrl: './batches.component.scss'
 })

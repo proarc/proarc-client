@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { forkJoin } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { FormsModule } from '@angular/forms';
@@ -23,7 +23,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { UserSettings } from '../../shared/user-settings';
 
 @Component({
-  imports: [TranslateModule, FormsModule, MatCheckboxModule, MatIconModule, MatButtonModule, MatSelectModule, MatTooltipModule],
+  imports: [TranslateModule, FormsModule, RouterModule, 
+    MatCheckboxModule, MatIconModule, MatButtonModule, MatSelectModule, MatTooltipModule],
   selector: 'app-import',
   templateUrl: './import.component.html',
   styleUrls: ['./import.component.scss']
