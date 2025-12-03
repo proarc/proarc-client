@@ -38,13 +38,13 @@ export class PreferredTopsDialogComponent implements OnInit {
 
     let top: string[];
     let rest: string[];
-
+    
     this.items = [];
     top = this.data.conf.filter((a: string) => this.data.top.includes(a));
     rest =  this.data.conf.filter((a: string) => !this.data.top.includes(a));
     rest.sort((a: any, b: any) => {
-      const a1: string = this.translator.instant(this.data.prefix + '.' + a.field);
-      const b1: string = this.translator.instant(this.data.prefix + '.' + b.field);
+      const a1: string = this.translator.instant(this.data.prefix + '.' + a);
+      const b1: string = this.translator.instant(this.data.prefix + '.' + b);
       return a1.localeCompare(b1)
     });
     top.forEach(a => {

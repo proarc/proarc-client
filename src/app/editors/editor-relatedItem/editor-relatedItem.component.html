@@ -11,7 +11,7 @@
     <app-editor-field [field]="item.titleInfos" [nested]='true'>
       <ng-template let-titleInfo="item" #templateContent>
         <app-field-dropdown field="type" [item]="titleInfo" [(value)]='titleInfo.attrs["type"]'></app-field-dropdown>
-        <app-field-codebook field="lang" [item]="titleInfo" [options]="codebook.languages" [(value)]="titleInfo.attrs['lang']"></app-field-codebook>
+        <app-field-codebook field="lang" [item]="titleInfo" [options]="settings.languages" [(value)]="titleInfo.attrs['lang']"></app-field-codebook>
         <app-field-text field="nonSort" [item]="titleInfo" [(value)]="titleInfo.nonSort['_']"></app-field-text>
         <app-field-text field="title" [item]="titleInfo" [(value)]="titleInfo.title['_']"></app-field-text>
         <app-field-text field="subTitle" [item]="titleInfo" [(value)]="titleInfo.subTitle['_']"></app-field-text>
@@ -192,7 +192,7 @@
         <app-editor-field [field]="subject.topics" [nested]='true'>
           <ng-template let-topic="item" #templateContent>
             <app-field-text field="valueURI" [item]="topic" [(value)]="topic.attrs['valueURI']"></app-field-text>
-            <app-field-codebook prefix="lang" field="lang" [item]="topic" [options]="codebook.languages" [(value)]="topic.attrs['lang']"></app-field-codebook>
+            <app-field-codebook prefix="lang" field="lang" [item]="topic" [options]="settings.languages" [(value)]="topic.attrs['lang']"></app-field-codebook>
             <app-field-text field="value" [item]="topic" [(value)]='topic.modsElement["_"]'></app-field-text>
           </ng-template>
         </app-editor-field>
@@ -274,14 +274,14 @@
     <app-editor-field [field]="item.languages" [nested]='true'>
       <ng-template let-language="item" #templateContent>
         <app-field-dropdown field="objectPart" [item]="language" [(value)]='language.attrs["objectPart"]'></app-field-dropdown>
-        <app-field-codebook prefix="lang" field="language" [item]="language" [options]="codebook.languages" [(value)]='language.language["_"]'></app-field-codebook>
+        <app-field-codebook prefix="lang" field="language" [item]="language" [options]="settings.languages" [(value)]='language.language["_"]'></app-field-codebook>
       </ng-template>
     </app-editor-field>
   }
   @if (item.available['abstract']) {
     <app-editor-field [field]="item.abstracts" [nested]='true'>
       <ng-template let-abstract="item" #templateContent>
-        <app-field-codebook prefix="lang" field="lang" [item]="abstract" [options]="codebook.languages" [(value)]="abstract.attrs['lang']"></app-field-codebook>
+        <app-field-codebook prefix="lang" field="lang" [item]="abstract" [options]="settings.languages" [(value)]="abstract.attrs['lang']"></app-field-codebook>
         <app-field-textarea field="abstract" [item]="abstract" [(value)]="abstract.modsElement['_']" ></app-field-textarea>
       </ng-template>
     </app-editor-field>
@@ -366,7 +366,7 @@
           <ng-template let-titleInfo="item" #templateContent>
             <app-field-dropdown field="type" [item]="titleInfo" [(value)]='titleInfo.attrs["type"]'></app-field-dropdown>
             <app-field-dropdown field="otherType" [item]="titleInfo" [(value)]='titleInfo.attrs["otherType"]'></app-field-dropdown>
-            <app-field-codebook field="lang" [item]="titleInfo" [options]="codebook.languages" [(value)]="titleInfo.attrs['lang']"></app-field-codebook>
+            <app-field-codebook field="lang" [item]="titleInfo" [options]="settings.languages" [(value)]="titleInfo.attrs['lang']"></app-field-codebook>
             <app-field-text field="nonSort" [item]="titleInfo" [(value)]="titleInfo.nonSort['_']"></app-field-text>
             <app-field-text field="title" [item]="titleInfo" [(value)]="titleInfo.title['_']"></app-field-text>
             <app-field-text field="subTitle" [item]="titleInfo" [(value)]="titleInfo.subTitle['_']"></app-field-text>

@@ -8,6 +8,7 @@ import { EditorFieldComponent } from '../../forms/editor-field/editor-field.comp
 import { FieldTextComponent } from '../../forms/field-text/field-text.component';
 import { ElementField } from '../../model/mods/elementField.model';
 import { FieldCodebookComponent } from "../../forms/field-codebook/field-codebook.component";
+import { UserSettingsService } from '../../shared/user-settings';
 
 @Component({
   imports: [TranslateModule, FormsModule, EditorFieldComponent, FieldTextComponent, FieldCodebookComponent],
@@ -23,7 +24,7 @@ export class EditorIdentifierComponent implements OnInit {
   // validityOptions = [{code: '', name: 'Platný' }, {code: 'yes', name: 'Neplatný'}];
   validityOptions = ['', 'yes'];
 
-  constructor(private config: Configuration) {
+  constructor(private config: Configuration, public settingsService: UserSettingsService) {
   }
 
   ngOnInit() {
@@ -31,11 +32,7 @@ export class EditorIdentifierComponent implements OnInit {
   }
 
   getIdentifiers(): any[] {
-    return this.config.getIdentifiers(this.model);
-    // return this.layout.selectedItem.isChronicle() ? this.codebook.chronicleIdentifiers :
-    //   this.layout.selectedItem.isOldprint() ? this.codebook.oldprintIdentifiers :
-    //   this.layout.selectedItem.canContainPdf() ? this.codebook.eDocumentIdentifiers :
-    //     this.codebook.identifiers;
+    return this.settingsService.getIdentifiers(this.model);
   }
 
 }

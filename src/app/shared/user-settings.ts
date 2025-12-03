@@ -399,4 +399,15 @@ public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
           }
         });
     }
+
+    
+
+  public getIdentifiers(model: string): any[] {
+    const val = this.config.isChronicle(model) ? this.config.chronicleIdentifiers :
+      this.config.isOldprint(model) ? this.config.oldprintIdentifiers :
+        this.config.canContainPdf(model) ? this.config.eDocumentIdentifiers :
+          this.config.isMusicDocument(model) ? this.config.musicDocumentIdentifiers :
+            this.settings.identifiers;
+    return val;
+  }
 }

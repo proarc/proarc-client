@@ -95,15 +95,6 @@ export class Configuration {
     });
   }
 
-  getIdentifiers(model: string): any[] {
-    const val = this.isChronicle(model) ? this.chronicleIdentifiers :
-      this.isOldprint(model) ? this.oldprintIdentifiers :
-        this.canContainPdf(model) ? this.eDocumentIdentifiers :
-          this.isMusicDocument(model) ? this.musicDocumentIdentifiers :
-            this.identifiers;
-    return val;
-  }
-
   public isPage(model: string): boolean {
     return model === 'model:page' || model === 'model:ndkpage' || model === 'model:oldprintpage';
   }

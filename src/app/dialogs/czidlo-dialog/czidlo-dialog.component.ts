@@ -19,7 +19,7 @@ import { Registrar } from '../../model/registrar.model';
 import { ApiService } from '../../services/api.service';
 import { UIService } from '../../services/ui.service';
 import { Configuration } from '../../shared/configuration';
-import { UserSettings } from '../../shared/user-settings';
+import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
@@ -64,6 +64,7 @@ export class CzidloDialogComponent implements OnInit {
     private dialog: MatDialog,
     private translator: TranslateService,
     public settings: UserSettings,
+    public settingsService: UserSettingsService,
     @Inject(MAT_DIALOG_DATA) public data: {pid: string, model: string}) { }
 
   ngOnInit(): void {
@@ -84,7 +85,7 @@ export class CzidloDialogComponent implements OnInit {
       this.state = 'none';
     });
 
-    this.identifiers =  this.config.getIdentifiers(this.data.model)
+    this.identifiers =  this.settingsService.getIdentifiers(this.data.model)
     .filter(id => id.code !== 'ccnb' && id.code !== 'urnnbn' && id.code !== 'isbn' );
     //console.log()
   }

@@ -10,6 +10,7 @@ import { ElementField } from '../../model/mods/elementField.model';
 import { Configuration } from '../../shared/configuration';
 import { AutocompleteComponent } from "../../forms/autocomplete/autocomplete.component";
 import { FieldTextareaComponent } from "../../forms/field-textarea/field-textarea.component";
+import { UserSettings, UserSettingsService } from '../../shared/user-settings';
 
 @Component({
   imports: [CommonModule, TranslateModule,
@@ -39,7 +40,7 @@ export class EditorRelatedItemComponent implements OnInit {
   @Input() field: ElementField;
   @Input() model: string;
 
-  constructor(public translator: TranslateService, public codebook: Configuration) {
+  constructor(public translator: TranslateService, public config: Configuration, public settings: UserSettings, public settingsService: UserSettingsService) {
     this.translateCodes();
     translator.onLangChange.subscribe(() => this.translateCodes());
   }
@@ -70,7 +71,7 @@ export class EditorRelatedItemComponent implements OnInit {
   }
 
   getIdentifiers(): any[] {  
-    return this.codebook.getIdentifiers(this.model);
+    return this.settingsService.getIdentifiers(this.model);
     // return this.layout.selectedItem.isChronicle() ? this.codebook.chronicleIdentifiers :
     //   this.layout.selectedItem.isOldprint() ? this.codebook.oldprintIdentifiers :
     //   this.layout.selectedItem.canContainPdf() ? this.codebook.eDocumentIdentifiers :
