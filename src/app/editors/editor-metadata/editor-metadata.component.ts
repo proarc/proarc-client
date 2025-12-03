@@ -107,13 +107,13 @@ export class EditorMetadataComponent implements OnInit {
     private dialog: MatDialog) {
       effect(() => {
         const pid = this.pid();
-        if (this.notSaved()) {
-          this.metadata = this.data();
-          if (this.metadata) {
-            this.setFields();
-          }
+        if (!this.notSaved()) {
+        //   this.metadata = this.data();
+        //   if (this.metadata) {
+        //     this.setFields();
+        //   }
           
-        } else {
+        // } else {
           this.loadMetadata(pid);
         }
         this.hasChanges = false;
@@ -207,6 +207,7 @@ export class EditorMetadataComponent implements OnInit {
     this.scroller.nativeElement.scrollTop = 0;
     this.fieldsOrder = [];
     this.fieldsPositions = [];
+    this.availableFieldsSorted = [];
     const scrollerTop = this.scroller.nativeElement.getBoundingClientRect().top;
     for (let i = 2; i < this.scroller.nativeElement.children.length; i++) {
       const el = this.scroller.nativeElement.children[i];
