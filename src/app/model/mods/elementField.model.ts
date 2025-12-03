@@ -306,7 +306,7 @@ export class ElementField {
             case ModsRecordInfo.getId():
                 return new ModsRecordInfo(el, this.template);
             case ModsRelatedItem.getId():
-                return new ModsRelatedItem(el, this.template);
+                return new ModsRelatedItem(el, this.template, this.allExpanded);
             case ModsRelatedItem2.getId():
                 return new ModsRelatedItem2(el, this.template);
             case ModsTableOfContents.getId():

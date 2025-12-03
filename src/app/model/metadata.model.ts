@@ -189,7 +189,9 @@ export class Metadata {
       // } else {
       //   this.fields.set(id, new ElementField(root, id, this.template[id]));
       // }
-      this.fields.set(id, new ElementField(root, id, this.template[id], this.userSettings.expandedModels.includes(this.model)));
+      
+      const allExpanded = this.userSettings.expandedModels.includes(this.model) || (this.userSettings.relatedItemExpanded && id.includes('relatedItem'));
+      this.fields.set(id, new ElementField(root, id, this.template[id], allExpanded));
     }
   }
 
