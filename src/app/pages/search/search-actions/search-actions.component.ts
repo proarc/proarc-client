@@ -341,7 +341,7 @@ export class SearchActionsComponent {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-
+        this.reload.emit(null)
       }
     });
   }
