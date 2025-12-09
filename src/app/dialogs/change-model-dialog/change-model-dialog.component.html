@@ -1,13 +1,11 @@
 <h1 mat-dialog-title>{{ 'dialog.changeModel.title' | translate }}</h1>
 <div mat-dialog-content>
-  <div style="display: flex; row-gap: 8px; flex-direction: column;">
+  <div class="app-fxLayout app-column app-gap-2">
     @for(dest of data.dest; track $index;) {
-      <div>
-        <button matButton="filled" (click)="change(dest)">{{ 'dialog.changeModel.action' | translate: {value1: 'model.model:' +  dest.originmodel | translate, value2: 'model.model:' +  dest.model | translate} }}</button>
-      </div>
+      <button matButton="filled" (click)="change(dest)">{{ 'dialog.changeModel.action' | translate: {value1: 'model.model:' +  dest.originmodel | translate, value2: 'model.model:' +  dest.model | translate} }}</button>
     }
   </div>
 </div>
 <div mat-dialog-actions cdkFocusRegionstart>
-  <button mat-stroked-button mat-dialog-close="close">{{ 'button.close' | translate }}</button>
+  <button matButton="outlined" mat-dialog-close="close">{{ 'button.close' | translate }}</button>
 </div>
