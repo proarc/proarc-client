@@ -288,7 +288,7 @@
 				{ model: 'ndkearticle', originmodel: "ndkarticle", apiPoint: "object/changeNdkArticleToNdkEArticle" },
 				{ model: 'ndkearticle', originmodel: "bdmarticle", apiPoint: "object/changeBdmArticleToNdkEArticle" },
 				{ model: 'ndkperiodicalvolume', originmodel: "periodicalvolume", apiPoint: "object/changeK4PeriodicalVolumeToNdkPeriodicalVolume" },
-				{ model: 'ndkperiodicalissue', originmodel: "periodicalissue", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue" },
+				{ model: 'ndkperiodicalissue', originmodel: "periodicalitem", apiPoint: "object/changeK4PeriodicalIssueToNdkPeriodicalIssue" },
 
 			]
 		},

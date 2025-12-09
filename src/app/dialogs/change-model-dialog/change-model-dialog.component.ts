@@ -25,7 +25,7 @@ export class ChangeModelDialogComponent implements OnInit {
     private api: ApiService,
     private ui: UIService,
     private translator: TranslateService,
-    public dialogRef: MatDialogRef<ConvertDialogComponent>,
+    public dialogRef: MatDialogRef<ChangeModelDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     dialogRef.disableClose = true;
   }
