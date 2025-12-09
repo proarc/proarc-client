@@ -70,8 +70,8 @@ export class ProcessManagementComponent {
   private timer: any;
   autoRefresh = false;
 
-  progressMapSignal = signal<{[key: string]: string}>({});
-  progressMap: {[key: string]: string} = {};
+  progressMapSignal = signal<{ [key: string]: string }>({});
+  progressMap: { [key: string]: string } = {};
 
   description: string;
   user: string;
@@ -201,10 +201,48 @@ export class ProcessManagementComponent {
     }
   }
 
+
+  startShiftClickIdx: number;
+  lastClickIdx: number;
+  totalSelected: number;
   selectRow(e: { item: Batch, event?: MouseEvent, idx?: number }) {
-    this.batches.forEach(i => i.selected = false);
-    e.item.selected = true;
+    // this.batches.forEach(i => i.selected = false);
+    // e.item.selected = true;
+
+    // this.selectBatch(e.item);
+
+    if (event && (e.event.metaKey || e.event.ctrlKey)) {
+      e.item.selected = !e.item.selected;
+      this.startShiftClickIdx = e.idx;
+    } else if (e.event && e.event.shiftKey) {
+      if (this.startShiftClickIdx > -1) {
+        const oldFrom = Math.min(this.startShiftClickIdx, this.lastClickIdx);
+        const oldTo = Math.max(this.startShiftClickIdx, this.lastClickIdx);
+        for (let i = oldFrom; i <= oldTo; i++) {
+          this.batches[i].selected = false;
+        }
+        const from = Math.min(this.startShiftClickIdx, e.idx);
+        const to = Math.max(this.startShiftClickIdx, e.idx);
+        for (let i = from; i <= to; i++) {
+          this.batches[i].selected = true;
+        }
+      } else {
+        // nic neni.
+        this.batches.forEach(i => i.selected = false);
+        e.item.selected = true;
+        this.startShiftClickIdx = e.idx;
+      }
+      window.getSelection().empty();
+    } else {
+      this.batches.forEach(i => i.selected = false);
+      e.item.selected = true;
+      this.startShiftClickIdx = e.idx;
+    }
+
+    this.lastClickIdx = e.idx;
+    this.totalSelected = this.batches.filter(i => i.selected).length;
     this.selectBatch(e.item);
+
   }
 
   selectBatch(batch: Batch) {
@@ -247,7 +285,7 @@ export class ProcessManagementComponent {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -268,7 +306,9 @@ export class ProcessManagementComponent {
 
   }
 
+  onDeleteSelectedBatches() {
 
+  }
 
   onDeleteBatches() {
     const data: SimpleDialogData = {
@@ -286,7 +326,7 @@ export class ProcessManagementComponent {
         color: 'default'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -428,9 +468,9 @@ export class ProcessManagementComponent {
     this.loadData();
   }
 
-  sort: Sort = {active: 'timestamp', direction: 'desc'} ;
+  sort: Sort = { active: 'timestamp', direction: 'desc' };
   sortTable(e: Sort) {
-    this.sort = {active: e.active, direction: e.direction};
+    this.sort = { active: e.active, direction: e.direction };
     this.loadData();
   }
 
@@ -658,7 +698,7 @@ export class ProcessManagementComponent {
     const data = {
       content: batch.failure
     }
-    this.dialog.open(LogDialogComponent, { 
+    this.dialog.open(LogDialogComponent, {
       data: data,
       panelClass: ['app-dialog-log', 'app-form-view-' + this.settings.appearance]
     });

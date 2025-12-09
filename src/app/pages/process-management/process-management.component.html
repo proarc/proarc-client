@@ -34,21 +34,26 @@
           <button mat-stroked-button (click)="onDeleteBatches()">
             {{ 'button.delete_batches_by_filter' | translate }}
           </button>
+          @if (totalSelected > 0) {
+          <button mat-stroked-button (click)="onDeleteSelectedBatches()">
+            {{ 'button.delete_selected_batches' | translate }}
+          </button>
+          }
           <mat-checkbox [(ngModel)]="autoRefresh" (change)="setRefresh()" name="autoRefresh">{{ 'desc.automaticallyRestore' | translate }}</mat-checkbox>
           <button mat-stroked-button (click)="changeView('loadingQueue')">
             {{ 'button.showLoadingQueue' | translate }}
           </button>
-          @if (selectedBatch && (selectedBatch.state === 'LOADING_FAILED' || selectedBatch.state === 'LOADED' || selectedBatch.state === 'STOPPED') && !isExportProfile(selectedBatch.profile)) {
+          @if (selectedBatch && totalSelected === 1 && (selectedBatch.state === 'LOADING_FAILED' || selectedBatch.state === 'LOADED' || selectedBatch.state === 'STOPPED') && !isExportProfile(selectedBatch.profile)) {
             <button mat-stroked-button (click)="onReloadBatch()">
               {{ 'button.reload' | translate }}
             </button>
           }
-          @if (selectedBatch && selectedBatch.state === 'LOADED') {
+          @if (selectedBatch && selectedBatch.state === 'LOADED' && totalSelected === 1) {
             <button mat-stroked-button (click)="onIngestBatch()">
               {{ 'button.continue' | translate }}
             </button>
           }
-          @if (selectedBatch && selectedBatch.state === 'INGESTED' && selectedBatch.parentPid) {
+          @if (selectedBatch && selectedBatch.state === 'INGESTED' && selectedBatch.parentPid && totalSelected === 1) {
             <button mat-stroked-button (click)="onEditBatchObject()">
               {{ 'button.goToObject' | translate }}
             </button>
