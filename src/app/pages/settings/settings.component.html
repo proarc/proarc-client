@@ -75,7 +75,7 @@
                 </div>
                 <span class="app-label">{{ 'desc.formAppearance' | translate }}</span>
                 <div class="app-fxLayout app-row app-gap-4 app-mb-4">
-                  <mat-checkbox class="app-fxFlex" name="appearance" (change)="setAppearance()" [(ngModel)]="appearance">{{ 'desc.formAppearance' | translate }}: <strong>{{ curSettings.appearance }}</strong></mat-checkbox>
+                  <mat-checkbox class="app-fxFlex" name="appearance" (change)="setAppearance()" [(ngModel)]="appearance">{{ 'desc.formAppearance.label' | translate }}: <strong>{{ 'desc.formAppearance.' + curSettings.appearance | translate }}</strong></mat-checkbox>
                   <button mat-stroked-button (click)="save()">{{ 'button.save' | translate }}</button>
                 </div>
                 <mat-divider class="app-mb-4"></mat-divider>

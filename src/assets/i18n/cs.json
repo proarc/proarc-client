@@ -2619,7 +2619,11 @@
     "newOwner": "Nový uživatel",
     "enterText": "Zadejte text",
     "select": "Vyberte",
-    "formAppearance": "Vzhled formuláře"
+    "formAppearance": {
+      "label": "Vzhled formuláře",
+      "fill": "standard",
+      "outline": "s ohraničením"
+    }
   },
   "button": {
     "setLayout": "nastavit rozložení",

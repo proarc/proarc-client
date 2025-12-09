@@ -2585,7 +2585,11 @@
     "newOwner": "New owner",
     "enterText": "Enter text",
     "select": "Select",
-    "formAppearance": "Form appearance"
+    "formAppearance": {
+      "label": "Form appearance",
+      "fille": "standard",
+      "outline": "with border"
+    }
   },
   "button": {
     "setLayout": "Set layout",
