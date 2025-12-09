@@ -6,6 +6,7 @@
     @for(c of selectedColumns; track $index;) {
     <ng-container [matColumnDef]="c.field + '-filter'">
       <th mat-header-cell *matHeaderCellDef [style.width]="c.width+'px'" class="app-col-filter"  [resizeColumn]="true" >
+        
         @switch (c.type) {
           @case ('date') {
 
@@ -43,10 +44,16 @@
     </ng-container>
   }
 }
-@for(c of selectedColumns; track $index; let idx = $index; let last = $last) {
+@for(c of selectedColumns; track $index; let idx = $index; let last = $last; let first = $first;) {
   <ng-container [matColumnDef]="c.field">
     <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c.field)"
       [style.width]="c.width + 'px'" >
+      @if (first) {
+				<span style="position: relative; float: left;">
+			<button (click)="setColumns()" mat-icon-button [matTooltip]="'editor.children.select_columns' | translate" color="primary">
+				<mat-icon class="material-icons-outlined">view_column</mat-icon>
+			</button></span>
+			}
       @if (last) {
         <div class="app-fxLayout app-row app-center-v">
           @if (c.field !== 'isLocked' && c.type !== 'action') {
