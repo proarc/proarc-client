@@ -31,6 +31,7 @@ export class EditorMetadataComponent implements OnInit {
   @Input() notSaved = false;
   @Input() panel: ILayoutPanel;
   @Input() model: string;
+  @Input() instance: string;
 
 
   @ViewChild("scroller", { static: false }) scroller: ElementRef;
@@ -130,12 +131,12 @@ export class EditorMetadataComponent implements OnInit {
       return;
     }
 
-    
+
     // if (!m || !m.template || (m.timestamp && m.timestamp === this.metadata?.timestamp)) {
     //   setTimeout(() => {
     //     this.onSizeChanged();
     //   }, 10)
-      
+
     //   return;
     // }
 
@@ -446,7 +447,7 @@ export class EditorMetadataComponent implements OnInit {
         }
         this._validating = false;
       } else {
-        
+
         this.focusToFirstInvalid();
       }
     });
@@ -527,44 +528,63 @@ export class EditorMetadataComponent implements OnInit {
         this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', true);
       //}, 1000);
     }, 10);
-      
+
     }
   }
 
 
   saveMetadata(ignoreValidation: boolean) {
     this.state = 'loading';
-    this.api.editMetadata(this.metadata, ignoreValidation, null).subscribe((response: any) => {
-      if (response.errors) {
-        if (response.status === -4) {
-          // Ukazeme dialog a posleme s ignoreValidation=true
-          //this.state = 'error';
-          const messages = this.ui.extractErrorsAsString(response.errors);
-          if (response.data === 'cantIgnore') {
-            // #462 - replaced with row bellow - this.ui.showErrorSnackBar(messages);
-            this.ui.showErrorDialogFromObject(response.errors);
-          } else {
-            this.confirmSave(this.translator.instant('common.warning'), messages, true);
-          }
-          return;
-        } else {
-          this.ui.showErrorDialogFromObject(response.errors);
+    if (this.instance != null) {
+      this.api.saveKrameriusMods(this.metadata.pid, this.instance, this.metadata.toMods(), this.metadata.timestamp).subscribe((response: any) => {
+        if (response && response['response'] && response['response'].errors) {
+          console.log('error', response['response'].errors);
+          this.ui.showErrorDialogFromObject(response['response'].errors);
           this.state = 'error';
           return;
+        } else {
+          this.metadata.timestamp = response['response'].data[0].timestamp;
+          this.metadata.resetChanges();
+          this.ui.showInfoSnackBar(this.translator.instant("snackbar.changeSaved"));
+          this.layout.refreshSelectedItem(false, 'metadata');
+          this.layout.clearPanelEditing();
+          this.checkVisibility();
+          this.state = 'none';
         }
-      } else {
-        // this.layout.setShouldRefresh(true)
-        this.metadata.timestamp = response.data[0].timestamp;
-        this.metadata.resetChanges();
-        this.ui.showInfoSnackBar(this.translator.instant("snackbar.changeSaved"));
-        this.layout.refreshSelectedItem(false, 'metadata');
-        this.layout.clearPanelEditing();
-        this.state = 'none';
-      }
-      // setTimeout(() => {
-      //   this.focusToFirstInvalid();
-      // }, 500);
-    });
+      });
+    } else {
+      this.api.editMetadata(this.metadata, ignoreValidation, null).subscribe((response: any) => {
+        if (response.errors) {
+          if (response.status === -4) {
+            // Ukazeme dialog a posleme s ignoreValidation=true
+            //this.state = 'error';
+            const messages = this.ui.extractErrorsAsString(response.errors);
+            if (response.data === 'cantIgnore') {
+              // #462 - replaced with row bellow - this.ui.showErrorSnackBar(messages);
+              this.ui.showErrorDialogFromObject(response.errors);
+            } else {
+              this.confirmSave(this.translator.instant('common.warning'), messages, true);
+            }
+            return;
+          } else {
+            this.ui.showErrorDialogFromObject(response.errors);
+            this.state = 'error';
+            return;
+          }
+        } else {
+          // this.layout.setShouldRefresh(true)
+          this.metadata.timestamp = response.data[0].timestamp;
+          this.metadata.resetChanges();
+          this.ui.showInfoSnackBar(this.translator.instant("snackbar.changeSaved"));
+          this.layout.refreshSelectedItem(false, 'metadata');
+          this.layout.clearPanelEditing();
+          this.state = 'none';
+        }
+        // setTimeout(() => {
+        //   this.focusToFirstInvalid();
+        // }, 500);
+      });
+    }
   }
 
   saveModsFromCatalog(xml: string, catalogId: string) {

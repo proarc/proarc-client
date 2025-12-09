@@ -18,7 +18,8 @@
         <app-editor-page *ngIf="this.layout.krameriusPage" [model]="this.model" [pid]="pid"  [panel]="panel"> </app-editor-page>
         <app-editor-metadata *ngIf="this.layout.lastSelectedItemMetadata && !isPage()"
           [model]="this.layout.lastSelectedItemMetadata.model"
-          [data]="this.layout.lastSelectedItemMetadata" [panel]="panel"></app-editor-metadata>
+          [data]="this.layout.lastSelectedItemMetadata" [panel]="panel"
+          [instance]="instance"></app-editor-metadata>
       </as-split-area>
 
       <as-split-area [order]="1" [size]="30">
@@ -26,7 +27,7 @@
       </as-split-area>
 
       <as-split-area [order]="2" [size]="30" class="app-pl-4">
-        <app-viewer *ngIf="hasImage" [isKramerius]="true" [instance]="instance" [imageInfo]="{pid: layout.lastSelectedItem.pid, dsid: 'FULL'}"></app-viewer>
+        <app-viewer *ngIf="hasImage" [isKramerius]="true" [instance]="instance" [imageInfo]="{pid: this.layout.krameriusPage.pid, dsid: 'FULL'}"></app-viewer>
         <div *ngIf="!hasImage">NO IMAGE</div>
       </as-split-area>
     </as-split>

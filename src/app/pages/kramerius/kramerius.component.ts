@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { combineLatest, Subscription } from 'rxjs';
 import { ILayoutPanel } from 'src/app/dialogs/layout-admin/layout-admin.component';
@@ -97,7 +97,7 @@ export class KrameriusComponent implements OnInit {
         });
 
         //this.layout.lastSelectedItemMetadata = new Metadata(this.pid, response['record']['model'], response['record']['content'], response['record']['timestamp'], response['record']['standard']);
-        
+
         this.state = 'success';
       } else if (response && response['response'] && response['response'].errors) {
         console.log('error', response['response'].errors);
