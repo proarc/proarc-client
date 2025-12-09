@@ -101,7 +101,7 @@
               <mat-form-field [appearance]="settings.appearance" class="app-field-col">
                 <mat-label>{{ 'editor.pages.page_position' | translate }}</mat-label>
                 <mat-select #posSelect [placeholder]="'editor.pages.page_position' | translate" name="type" (keyup.enter)="enterSelect(posSelect)"  [formControl]="pagePositionControl">
-                  <mat-option [value]="''"> </mat-option>
+                  <mat-option [value]="'[empty]'"> </mat-option>
                   @for(pagePosition of config.pagePositions; track $index;) {
                     <mat-option [value]="pagePosition">{{ 'editor.pages.page_position_' + pagePosition | translate }}</mat-option>
                   }

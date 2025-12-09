@@ -1330,7 +1330,7 @@ export class ApiService {
     if (holder.applyTo > 1) {
       data += `&applyToFirstPage=${holder.applyToFirst}`;
     }
-    if (holder.pagePosition !== null || holder.pagePosition !== undefined) {
+    if (holder.pagePosition) {
       data += `&pagePosition=${holder.pagePosition}`;
     }
     data += `&applyTo=${holder.applyTo}`;
