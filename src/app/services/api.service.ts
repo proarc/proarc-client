@@ -1372,7 +1372,10 @@ export class ApiService {
 
   editorObjects(pids: string[], signatura: string, partNumber: number, sigla: string): Observable<any> {
     // pid={uuid1}&pid={uuidValue2}&signatura={signaturaValue}&partNumber={partNumberValue}&sigla={siglaValue}
-    let data = `pid=${pids}`;
+    let data = '';
+    pids.forEach(pid => {
+      data = `${data}&pid=${pid}`;
+    });
     if (signatura) {
       data = `${data}&signatura=${signatura}`;
     }
