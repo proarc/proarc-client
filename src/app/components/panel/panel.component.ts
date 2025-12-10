@@ -83,7 +83,7 @@ export class PanelComponent {
       return false;
     }
     this.layout.getSelected().forEach(i => {
-      if (i.model !== 'model:ndkperiodicalissue') {
+      if (i.model !== 'model:ndkperiodicalissue' && i.model !== 'model:ndkperiodicalsupplement') {
         ret = false;
         return;
       }
