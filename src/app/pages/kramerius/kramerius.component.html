@@ -2,7 +2,7 @@
   <div class="app-fxLayout app-row app-center-v app-breadcrumbsbar">
     <div class="app-fxLayout app-row app-center-v app-inner app-gap-4">
       <span class="app-text" fxFlexAlign="center">{{ 'desc.instance' | translate }}:</span>
-      <mat-form-field class="app-clean-mb app-select" fxLayout="row" fxLayoutAlign="start center" fxFlexAlign="center">
+      <mat-form-field class="app-clean-mb app-select">
         <mat-select name="instance" [(ngModel)]="importInstance">
           @for(ins of instances; track $index) {
             <mat-option [value]="ins.krameriusInstanceId">{{ ins.krameriusInstanceName }}</mat-option>
