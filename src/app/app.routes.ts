@@ -19,13 +19,14 @@ import { EditDeviceComponent } from './pages/devices/edit-device/edit-device.com
 import { EditAudioDeviceComponent } from './pages/devices/edit-audio-device/edit-audio-device.component';
 import { WorkFlowComponent } from './pages/workflow/workflow.component';
 import { TaskComponent } from './pages/workflow/task/task.component';
+import { KrameriusComponent } from './pages/kramerius/kramerius.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent }, ,
     {
         path: '', canActivate: [AuthGuard], children: [
             { path: 'repository/:pid', component: RepositoryComponent, canDeactivate: [ConfirmLeaveEditorGuard] },
-            // { path: 'kramerius/:pid', component: KrameriusComponent },
+            { path: 'kramerius/:pid', component: KrameriusComponent },
             { path: 'settings', component: SettingsComponent },
             { path: 'devices', component: DevicesComponent },
             { path: 'devices/new', component: EditDeviceComponent },

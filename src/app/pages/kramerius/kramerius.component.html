@@ -1,0 +1,56 @@
+  <div class="app-fxLayout app-column app-fill app-editor-wrapper">
+    <div class="app-fxLayout app-row app-center-v app-gap-4 app-breadcrumbsbar">
+      <div class="app-fxLayout app-row app-center-v app-inner app-view-border-right app-pr-4">
+      <span class="app-text" fxFlexAlign="center">{{ 'desc.instance' | translate }}:</span>
+      <mat-form-field class="app-clean-mb app-select" fxLayout="row" fxLayoutAlign="start center" fxFlexAlign="center">
+        <mat-select name="instance" [(ngModel)]="importInstance">
+          @for(ins of instances; track $index) {
+          <mat-option [value]="ins.krameriusInstanceId">{{ ins.krameriusInstanceName
+            }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <button mat-button (click)="importToKramerius()">{{ 'button.importToKramerius' | translate }}</button>
+      <button mat-button (click)="importToProArc()">{{ 'button.importToProarc' | translate }}</button>
+    </div>
+  </div>
+  @if (state !== 'loading') {
+  <div class="app-fxFlex app-oh app-content-wrapper" >
+      <div class="app-border-wrapper app-h-100">
+    <as-split direction="horizontal" (dragEnd)="onDragEnd(-1, $event)">
+      <as-split-area [size]="40">
+        @if(this.layout.krameriusPage) {
+        <app-editor-page [model]="this.model" [pid]="pid" [panel]="panel"> </app-editor-page>
+        }
+        @if(this.layout.lastSelectedItemMetadata && !isPage()) {
+        <app-editor-metadata
+          [model]="this.layout.lastSelectedItemMetadata.model" [data]="this.layout.lastSelectedItemMetadata"
+          [panel]="panel" [panelType]="panelType" [instance]="instance" (onChangePanelType)="changePanelType($event)"></app-editor-metadata>
+
+
+          <!-- <app-editor-metadata [panel]="panel()" [panelType]="panelType" [pid]="lastSelectedItem().pid"
+        [model]="lastSelectedItem().model" (onChangePanelType)="changePanelType($event)">
+      </app-editor-metadata> -->
+
+
+      
+        }
+      </as-split-area>
+
+      <as-split-area [size]="30">
+        <app-kramerius-mods [mods]="mods" [pid]="pid" [instance]="instance"></app-kramerius-mods>
+      </as-split-area>
+
+      <as-split-area [size]="30" class="app-pl-4">
+        @if(hasImage) {
+        <app-viewer [isKramerius]="true" [instance]="instance"
+          [imageInfo]="{pid: this.layout.krameriusPage.pid, dsid: 'FULL'}"></app-viewer>
+        }
+        @if (!hasImage) {<div>NO IMAGE</div>}
+
+      </as-split-area>
+    </as-split>
+  </div>
+  </div>
+  }
+</div>
