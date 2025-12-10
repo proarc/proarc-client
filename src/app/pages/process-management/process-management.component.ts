@@ -345,7 +345,7 @@ export class ProcessManagementComponent {
     let params: any = {};
 
     if (byFilters) {
-        
+
       if (this.selectedState && this.selectedState !== 'ALL') {
         params['state'] = this.selectedState;
       };
@@ -386,7 +386,7 @@ export class ProcessManagementComponent {
       // createTo: 2022-06-03T10:36:00.000
       // modifiedTo modifiedTo
     } else {
-      params['batchId'] = this.batches.filter(b => b.selected).map(b => b.id);
+      params['id'] = this.batches.filter(b => b.selected).map(b => b.id);
     }
 
 

@@ -432,7 +432,7 @@ export class ApiService {
     return this.put('object/member/move', payload, httpOptions);
   }
 
-  
+
 
   purgeObjects() {
     return this.delete('object/purge');
@@ -1268,7 +1268,7 @@ export class ApiService {
     return this.post('object/updateNdkPage/pageType', null);
   }
 
-  
+
 
   getValuemap(): Observable<any> {
     let url = `valuemap`;
@@ -1367,7 +1367,7 @@ export class ApiService {
   addAuthority(pid: string, mods: string) {
     let data = `pid=${pid}&jsonData=${mods}&timestamp=-1`;
     return this.put('object/mods/addAuthority', data);
-    
+
   }
 
   editorObjects(pids: string[], signatura: string, partNumber: number, sigla: string): Observable<any> {
@@ -1382,7 +1382,7 @@ export class ApiService {
     if (sigla) {
       data = `${data}&sigla=${sigla}`;
     }
-    return this.put('object/reindexObjects', data);
+    return this.put('object/mods/editorObjects', data);
   }
 }
 
