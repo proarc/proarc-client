@@ -132,7 +132,7 @@
 
             .mat-mdc-icon-button {
               &.mat-mdc-button-base {
-                --mat-icon-button-state-layer-size: 14px;
+                --mat-icon-button-state-layer-size: 16px; // puvodne 14px - fix issue #768
                 padding: 0;
 
                 .app-text-icon {
