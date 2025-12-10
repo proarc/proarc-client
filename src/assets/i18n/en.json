@@ -151,6 +151,7 @@
       "description": "Description"
     },
     "signature": "Signature",
+    "partNumberFrom": "Number from",
     "barcode": "Bar code",
     "taskUser": "Task user",
     "profileLabel": "Profile label",
@@ -426,6 +427,9 @@
         "page": "No",
         "reprePage": "Yes"
       }
+    },
+    "issues": {
+      "title": "Multiple issues edition"
     },
     "pages": {
       "title": "Multiple pages edition",

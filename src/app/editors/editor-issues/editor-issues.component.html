@@ -1,0 +1,61 @@
+<div class="app-fxLayout app-column app-fill">
+    <div class="app-fxLayout app-row app-center-v app-wrap app-toolbar app-view-pages">
+        <div class="app-fxFlex">
+            <div class="app-toolbar-label app-pl-2">
+                <span class="app-text">{{ 'editor.issues.title' | translate }}</span>
+                <span class="app-pipe"></span>
+                <span class="app-text-supplement">{{ ('editor.children.multiple_selection_count' + plurals ) |
+                    translate: { count: numOfSelected } }}</span>
+            </div>
+        </div>
+        <div class="app-fxLayout app-row app-center-v app-h-100">
+            <button mat-icon-button (click)="onSave()" [disabled]="!canSave()" [matTooltip]="'button.save' | translate">
+                <mat-icon>save</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="app-fxFlex app-oa-y">
+        @if (state ==='loading' || state ==='saving') {
+        <mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
+        }
+        @if (state !=='loading') {
+        <div class="app-editor-container">
+            <div class="app-gap-fixer"></div>
+            <div class="app-form-wrapper app-top-level">
+                <div class="app-form">
+                    <div class="app-form-content">
+                        <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+                            <mat-label>{{ 'search.partNumberFrom' | translate }}</mat-label>
+                            <input type="number" autocomplete="off" matInput [placeholder]="'search.partNumberFrom' | translate"
+                                [formControl]="partNumberControl">
+                        </mat-form-field>
+
+                    </div>
+                </div>
+                <div class="app-gap-fixer"></div>
+                <div class="app-form">
+                    <div class="app-form-content">
+                        <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+                            <mat-label>{{ 'search.signature' | translate }}</mat-label>
+                            <input autocomplete="off" matInput [placeholder]="'search.signature' | translate"
+                                [formControl]="signatureControl">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="app-gap-fixer"></div>
+                <div class="app-form">
+                    <div class="app-form-content">
+                        <mat-form-field [appearance]="settings.appearance" class="app-field-col">
+                            <mat-label>{{ 'search.sigla' | translate }}</mat-label>
+                            <input autocomplete="off" matInput [placeholder]="'search.sigla' | translate"
+                                [formControl]="signatureControl">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="app-gap-fixer"></div>
+            </div>
+        </div>
+        }
+    </div>
+</div>

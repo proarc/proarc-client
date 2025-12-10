@@ -60,7 +60,9 @@
      -->
 
     @case ('metadata') {
-      @if (showPagesEditor) {
+      @if (showIssuesEditor) {
+      <app-editor-issues [panel]="panel()"></app-editor-issues>
+      } @else if (showPagesEditor) {
       <app-editor-pages [panel]="panel()"></app-editor-pages>
       } @else if (showAudioPagesEditor) {
       <app-editor-audioPages [panel]="panel()"></app-editor-audioPages>

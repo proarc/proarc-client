@@ -432,6 +432,8 @@ export class ApiService {
     return this.put('object/member/move', payload, httpOptions);
   }
 
+  
+
   purgeObjects() {
     return this.delete('object/purge');
   }
@@ -1366,6 +1368,21 @@ export class ApiService {
     let data = `pid=${pid}&jsonData=${mods}&timestamp=-1`;
     return this.put('object/mods/addAuthority', data);
     
+  }
+
+  editorObjects(pids: string[], signatura: string, partNumber: number, sigla: string): Observable<any> {
+    // pid={uuid1}&pid={uuidValue2}&signatura={signaturaValue}&partNumber={partNumberValue}&sigla={siglaValue}
+    let data = `pid=${pids}`;
+    if (signatura) {
+      data = `${data}&signatura=${signatura}`;
+    }
+    if (partNumber) {
+      data = `${data}&partNumber=${partNumber}`;
+    }
+    if (sigla) {
+      data = `${data}&sigla=${sigla}`;
+    }
+    return this.put('object/reindexObjects', data);
   }
 }
 

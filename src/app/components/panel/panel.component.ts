@@ -23,16 +23,18 @@ import { EditorTreeComponent } from "../../editors/editor-tree/editor-tree.compo
 import { EditorMetadataComponent } from "../../editors/editor-metadata/editor-metadata.component";
 import { SongComponent } from "../song/song.component";
 import { UserSettings } from '../../shared/user-settings';
+import { LayoutService } from '../../services/layout-service';
+import { EditorIssuesComponent } from "../../editors/editor-issues/editor-issues.component";
 
 @Component({
   selector: 'app-panel',
-    imports: [TranslateModule, EditorModsComponent, EditorStructureComponent, EditorOcrComponent, MediaComponent, ViewerComponent, MatCardModule, MatIconModule, EditorCommentComponent, EditorAtmComponent, EditorPageComponent, EditorPagesComponent, EditorAudioPagesComponent, EditorAudioPageComponent, EditorTreeComponent, EditorMetadataComponent, SongComponent],
+  imports: [TranslateModule, EditorModsComponent, EditorStructureComponent, EditorOcrComponent, MediaComponent, ViewerComponent, MatCardModule, MatIconModule, EditorCommentComponent, EditorAtmComponent, EditorPageComponent, EditorPagesComponent, EditorAudioPagesComponent, EditorAudioPageComponent, EditorTreeComponent, EditorMetadataComponent, SongComponent, EditorIssuesComponent],
   templateUrl: './panel.component.html',
   styleUrl: './panel.component.scss'
 })
 export class PanelComponent {
-  
-  panel  = input<ILayoutPanel>();
+
+  panel = input<ILayoutPanel>();
   panelType: string;
   onIngest = output<boolean>();
 
@@ -40,36 +42,53 @@ export class PanelComponent {
   numOfSelected = input<number>();
   showPagesEditor: boolean;
   showAudioPagesEditor: boolean;
+  showIssuesEditor: boolean;
 
   lastSelectedItem = input<DocumentItem>();
   rootItem = input<DocumentItem>();
   imageInfo: { pid: string, dsid: string, width?: number, height?: number };
-  
+
 
   subscriptions: Subscription[] = [];
 
   formHighlighting: boolean;
-  
+
   constructor(
     public config: Configuration,
     public settings: UserSettings,
-    private ui: UIService) { 
-      effect(() => {
-        const lastSelectedItem = this.lastSelectedItem();
-        if (!lastSelectedItem) {
-          return;
-        }
-        this.itemModel = this.itemType(lastSelectedItem);
-        this.imageInfo = {pid: lastSelectedItem.pid, dsid: 'FULL'};
-        this.showPagesEditor = this.isPagesEditor(this.numOfSelected(), lastSelectedItem);
-        this.showAudioPagesEditor = this.isAudioPagesEditor(this.numOfSelected(), lastSelectedItem);
+    private layout: LayoutService,
+    private ui: UIService) {
+    effect(() => {
+      const lastSelectedItem = this.lastSelectedItem();
+      if (!lastSelectedItem) {
+        return;
+      }
+      this.itemModel = this.itemType(lastSelectedItem);
+      this.imageInfo = { pid: lastSelectedItem.pid, dsid: 'FULL' };
+      this.showPagesEditor = this.isPagesEditor(this.numOfSelected(), lastSelectedItem);
+      this.showAudioPagesEditor = this.isAudioPagesEditor(this.numOfSelected(), lastSelectedItem);
+      this.showIssuesEditor = this.isIssuesEditor(this.numOfSelected());
       })
-    }
+  }
 
   ngOnInit(): void {
     this.panelType = this.panel().type;
     this.formHighlighting = this.settings.formHighlighting;
-    
+
+  }
+
+  public isIssuesEditor(numOfSelected: number): boolean {
+    let ret = true;
+    if (numOfSelected < 2) {
+      return false;
+    }
+    this.layout.getSelected().forEach(i => {
+      if (i.model !== 'model:ndkperiodicalissue') {
+        ret = false;
+        return;
+      }
+    })
+    return ret;
   }
 
   public isPagesEditor(numOfSelected: number, lastSelectedItem: DocumentItem): boolean {

@@ -151,6 +151,7 @@
       "description": "Popis"
     },
     "signature": "Signatura",
+    "partNumberFrom": "Číslo od",
     "barcode": "Čárový kód",
     "taskUser": "Uživatel úkolu",
     "profileLabel": "Štítek profilu",
@@ -426,6 +427,9 @@
         "page": "Ne",
         "reprePage": "Ano"
       }
+    },
+    "issues": {
+      "title": "Hromadná úprava čísel a příloh"
     },
     "pages": {
       "title": "Hromadná úprava stránek",
