@@ -46,26 +46,27 @@
 }
 @for(c of selectedColumns; track $index; let idx = $index; let last = $last; let first = $first;) {
   <ng-container [matColumnDef]="c.field">
-    <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c.field)"
-      [style.width]="c.width + 'px'" >
-      @if (first) {
-				<span style="position: relative; float: left;">
-			<button (click)="setColumns()" mat-icon-button [matTooltip]="'editor.children.select_columns' | translate" color="primary">
-				<mat-icon class="material-icons-outlined">view_column</mat-icon>
-			</button></span>
-			}
+    <th mat-header-cell *matHeaderCellDef [resizeColumn]="true" (columnResized)="saveColumnsSizes($event,c.field)" [style.width]="c.width + 'px'" >
       @if (last) {
         <div class="app-fxLayout app-row app-center-v">
           @if (c.field !== 'isLocked' && c.type !== 'action') {
           <span mat-sort-header class="app-fxFlex">{{ 'search.' + c.field | translate }}</span>
           }
-          <button (click)="setColumns()" mat-icon-button color="primary"  style="float: right"
-            [matTooltip]="'editor.children.select_columns' | translate" class="app-mr-0">
+          <!-- <button (click)="setColumns()" mat-icon-button color="primary"  style="float: right" [matTooltip]="'editor.children.select_columns' | translate" class="app-mr-0">
             <mat-icon class="material-icons-outlined">view_column</mat-icon>
-          </button>
+          </button> -->
         </div>
       } @else {
-        <span  mat-sort-header>{{'search.' + c.field | translate}}</span>
+        @if (first) {
+          <div class="app-fxLayout app-row app-center-v app-gap-1">
+            <button (click)="setColumns()" mat-icon-button [matTooltip]="'editor.children.select_columns' | translate" color="primary" class="app-ml-n1">
+              <mat-icon class="material-icons-outlined">view_column</mat-icon>
+            </button>
+            <span  mat-sort-header>{{'search.' + c.field | translate}}</span>
+          </div>
+        } @else {
+          <span  mat-sort-header>{{'search.' + c.field | translate}}</span>
+        }
       }
     </th>
     <td mat-cell *matCellDef="let element">
