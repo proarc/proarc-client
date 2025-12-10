@@ -454,6 +454,17 @@
     ));
   }
 
+  .app-breadcrumbsbar {
+    .app-select {
+      border-right: 1px solid var(--app-default-border-color);
+      border-left: 1px solid var(--app-default-border-color);
+      
+      .mat-mdc-form-field-subscript-wrapper {
+        display: none;
+      }
+    }
+  }
+
 
 
   // BUTTON
