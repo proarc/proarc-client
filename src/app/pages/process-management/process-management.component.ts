@@ -310,9 +310,10 @@ export class ProcessManagementComponent {
 
   }
 
-  onDeleteBatches() {
+  onDeleteBatches(byFilters: boolean) {
+    const title = byFilters ? 'button.delete_batches_by_filter' : 'button.delete_selected_batches';
     const data: SimpleDialogData = {
-      title: String(this.translator.instant('button.delete_batches_by_filter')),
+      title: String(this.translator.instant(title)),
       message: String(this.translator.instant('Opravdu chcete smazat procesy?')),
       alertClass: 'app-message',
       btn1: {
@@ -332,54 +333,61 @@ export class ProcessManagementComponent {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'yes') {
-        this.deleteBatches();
+        this.deleteBatches(byFilters);
       }
     });
 
   }
 
-  deleteBatches() {
+  deleteBatches(byFilters: boolean) {
     this.selectedBatch = null;
     this.state = 'loading';
     let params: any = {};
-    if (this.selectedState && this.selectedState !== 'ALL') {
-      params['state'] = this.selectedState;
-    };
 
-    if (this.description) {
-      params['description'] = this.description;
-    }
+    if (byFilters) {
+        
+      if (this.selectedState && this.selectedState !== 'ALL') {
+        params['state'] = this.selectedState;
+      };
 
-    if (this.user) {
-      params['userId'] = this.user;
-    }
+      if (this.description) {
+        params['description'] = this.description;
+      }
 
-    if (this.priority) {
-      params['priority'] = this.priority;
-    }
+      if (this.user) {
+        params['userId'] = this.user;
+      }
 
-    if (this.profile) {
-      params['profile'] = this.profile;
-    }
+      if (this.priority) {
+        params['priority'] = this.priority;
+      }
 
-    if (this.createFrom) {
-      params['createFrom'] = this.datePipe.transform(this.createFrom, 'yyyy-MM-dd');
-    }
+      if (this.profile) {
+        params['profile'] = this.profile;
+      }
 
-    if (this.createTo) {
-      params['createTo'] = this.datePipe.transform(this.createTo, 'yyyy-MM-dd');
-    }
+      if (this.createFrom) {
+        params['createFrom'] = this.datePipe.transform(this.createFrom, 'yyyy-MM-dd');
+      }
 
-    if (this.modifiedFrom) {
-      params['modifiedFrom'] = this.datePipe.transform(this.modifiedFrom, 'yyyy-MM-dd');
-    }
+      if (this.createTo) {
+        params['createTo'] = this.datePipe.transform(this.createTo, 'yyyy-MM-dd');
+      }
 
-    if (this.modifiedTo) {
-      params['modifiedTo'] = this.datePipe.transform(this.modifiedTo, 'yyyy-MM-dd');
+      if (this.modifiedFrom) {
+        params['modifiedFrom'] = this.datePipe.transform(this.modifiedFrom, 'yyyy-MM-dd');
+      }
+
+      if (this.modifiedTo) {
+        params['modifiedTo'] = this.datePipe.transform(this.modifiedTo, 'yyyy-MM-dd');
+      }
+
+      // createFrom: 2022-05-01T10:36:00.000
+      // createTo: 2022-06-03T10:36:00.000
+      // modifiedTo modifiedTo
+    } else {
+      params['batchId'] = this.batches.filter(b => b.selected).map(b => b.id);
     }
-    // createFrom: 2022-05-01T10:36:00.000
-    // createTo: 2022-06-03T10:36:00.000
-    // modifiedTo modifiedTo
 
 
     this.api.deleteBatches(params).subscribe((resp: any) => {

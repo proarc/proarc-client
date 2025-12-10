@@ -68,6 +68,7 @@ export class EditorMetadataComponent implements OnInit {
   model = input<string>();
   data = input<Metadata>();
   onChangePanelType = output<string>();
+  instance = input<string>(null);
 
   notSaved = input<boolean>();
   _validating = false;
@@ -336,6 +337,28 @@ export class EditorMetadataComponent implements OnInit {
   }
   saveMetadata(ignoreValidation: boolean) {
     this.loading = true;
+
+    if (this.instance() != null) {
+      this.api.saveKrameriusMods(this.metadata.pid, this.instance(), this.metadata.toMods(), this.metadata.timestamp).subscribe((response: any) => {
+        if (response && response['response'] && response['response'].errors) {
+          console.log('error', response['response'].errors);
+          this.ui.showErrorDialogFromObject(response['response'].errors);
+          this.loading = false;
+          return;
+        } else {
+          this.metadata.timestamp = response['response'].data[0].timestamp;
+          this.metadata.resetChanges();
+          this.ui.showInfoSnackBar(this.translator.instant("snackbar.changeSaved"));
+          this.layout.refreshSelectedItem(false, 'metadata');
+          this.layout.clearPanelEditing();
+          this.checkVisibility();
+        }
+          this.loading = false;
+      });
+      return;
+    }
+
+
     this.api.editMetadata(this.metadata, ignoreValidation, null).subscribe((response: any) => {
       if (response.errors) {
         if (response.status === -4) {

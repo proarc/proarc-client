@@ -2640,6 +2640,7 @@
     "updateSTT": "Update STT stran",
     "delete": "Smazat",
     "delete_batches_by_filter": "Smazat dle aktivních filtrů",
+    "delete_selected_batches": "Smazat vybrané",
     "lockIt": "Uzamknout",
     "unlock": "Odemknout",
     "restoreTheObject": "Obnovit objekt",

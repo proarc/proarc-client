@@ -31,11 +31,11 @@
           <button mat-stroked-button (click)="reload()">
             {{ 'button.refresh' | translate }}
           </button>
-          <button mat-stroked-button (click)="onDeleteBatches()">
+          <button mat-stroked-button (click)="onDeleteBatches(true)">
             {{ 'button.delete_batches_by_filter' | translate }}
           </button>
           @if (totalSelected > 0) {
-          <button mat-stroked-button (click)="onDeleteSelectedBatches()">
+          <button mat-stroked-button (click)="onDeleteBatches(false)">
             {{ 'button.delete_selected_batches' | translate }}
           </button>
           }
