@@ -53,10 +53,12 @@
 			}
 		</div>
 		}
-		<div class="app-fxLayout app-column app-fill app-center-h">
+		<div class="app-fxLayout app-column app-fill">
 			@if (!streamProfile && state !== 'loading') {
 			<mat-card class="app-alert app-info app-m-4" appearance="outlined">
-				<mat-icon>info</mat-icon>{{ 'alert.info.noDigitalContent' | translate }}
+				<mat-card-content>
+					<mat-icon>info</mat-icon>{{ 'alert.info.noDigitalContent' | translate }}
+				</mat-card-content>
 			</mat-card>
 			}
 		</div>
