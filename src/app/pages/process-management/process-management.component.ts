@@ -204,7 +204,7 @@ export class ProcessManagementComponent {
 
   startShiftClickIdx: number;
   lastClickIdx: number;
-  totalSelected: number;
+  totalSelected = signal<number>(0);
   selectRow(e: { item: Batch, event?: MouseEvent, idx?: number }) {
     // this.batches.forEach(i => i.selected = false);
     // e.item.selected = true;
@@ -240,7 +240,7 @@ export class ProcessManagementComponent {
     }
 
     this.lastClickIdx = e.idx;
-    this.totalSelected = this.batches.filter(i => i.selected).length;
+    this.totalSelected.set(this.batches.filter(i => i.selected).length);
     this.selectBatch(e.item);
 
   }
@@ -535,6 +535,7 @@ export class ProcessManagementComponent {
 
     this.api.getImportBatches(params).subscribe((resp: any) => {
       this.batches = resp.data.map((d: any) => Batch.fromJson(d));
+      this.totalSelected.set(this.batches.filter(i => i.selected).length);
       this.resultCount = resp.totalRows;
       this.state = 'success';
       this.updateLoadingBatchesProgress(this.batches);
