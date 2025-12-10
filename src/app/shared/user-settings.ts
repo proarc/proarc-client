@@ -33,7 +33,7 @@ export class UserSettings {
     procMngColumns: TableColumn[];
     queueColumns: TableColumn[];
     adminColumns: TableColumn[];
-    devicesColumns: TableColumn[];
+    deviceColumns: TableColumn[];
 
     topPageTypes: string[];
     pageTypes: string[];
@@ -233,8 +233,8 @@ public adminColumnsDefault = [
   { field: 'action', selected: true, width: 100, type: 'boolean' }
 ];
 
-public devicesColumnsDefault: TableColumn[] = [
-    { field: 'model', selected: true, width: 100, type: 'string' },
+public deviceColumnsDefault: TableColumn[] = [
+    { field: 'model', selected: true, width: 100, type: 'translated' },
     { field: 'label', selected: true, width: 100, type: 'string' },
     { field: 'action', selected: true, width: 100, type: 'action' }
 ];
@@ -338,7 +338,7 @@ public markSequenceDialogDestTableColumnsDefault: TableColumn[] = [
         this.settings.procMngColumns = Utils.clone(this.procMngColumnsDefault);
         this.settings.queueColumns = Utils.clone(this.queueColumnsDefault);
         this.settings.adminColumns = Utils.clone(this.adminColumnsDefault);
-        this.settings.devicesColumns = Utils.clone(this.devicesColumnsDefault);
+        this.settings.deviceColumns = Utils.clone(this.deviceColumnsDefault);
 
         this.settings.topPageTypes = Utils.clone(this.config.topPageTypes);
         this.settings.pageTypes = Utils.mergeOrdered(this.config.topPageTypes, this.config.pageTypes);
