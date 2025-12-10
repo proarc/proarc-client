@@ -60,6 +60,14 @@ export class EditorIssuesComponent {
     this.subscriptions.push(this.layout.selectionChanged().subscribe((fromStructure: boolean) => {
       this.plurals = this.countPlurals();
     }));
+
+    this.controls.valueChanges.subscribe(() => {
+
+      this.canSave.set(this.controls.controls['partNumber'].dirty
+        || this.controls.controls['signature'].dirty
+        || this.controls.controls['sigla'].dirty
+      );
+    })
   }
 
   countPlurals(): string {
