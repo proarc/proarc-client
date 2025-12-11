@@ -2594,7 +2594,6 @@
     "selectCatalog": "Vybrat katalog",
     "resolveconflictWarn": "Zvolte způsob pokračování",
     "formBorderHighlighting": "Zvýraznění ohraničení formuláře",
-    "highlighttheForm": "Zvýraznit formulář",
     "searchExpandTreeTitle": "Defaultně rozbalovat objekty ve stromu hledat",
     "searchExpandTree": "Defaultně rozbalovat objekty",
     "author": "Autor",
@@ -2623,10 +2622,10 @@
     "newOwner": "Nový uživatel",
     "enterText": "Zadejte text",
     "select": "Vyberte",
-    "formAppearance": {
+   "formAppearance": {
       "label": "Vzhled formuláře",
-      "fille": "standard",
-      "outline": "s ohraničením"
+      "highlightFormBorders": "Zvýraznit ohraničení formuláře",
+      "borderformField": "Ohraničit pole formuláře"
     }
   },
   "button": {
