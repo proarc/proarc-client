@@ -15,10 +15,10 @@
         </div>
     </div>
     <div class="app-fxFlex app-oa-y">
-        @if (state ==='loading' || state ==='saving') {
+        @if (loading()) {
         <mat-progress-bar mode="indeterminate" class="app-progress-bar"></mat-progress-bar>
         }
-        @if (state !=='loading') {
+        @if (!loading()) {
         <div class="app-editor-container">
             <div class="app-gap-fixer"></div>
             <div class="app-form-wrapper app-top-level">

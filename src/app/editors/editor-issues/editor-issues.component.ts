@@ -35,7 +35,7 @@ export class EditorIssuesComponent {
   panel = input<ILayoutPanel>();
 
   canSave = signal<boolean>(false);
-  state: string;
+  loading = signal<boolean>(false);
   plurals: string;
   numOfSelected: number;
 
@@ -82,24 +82,22 @@ export class EditorIssuesComponent {
   }
 
   onSave() {
-
+    this.loading.set(true);
     this.api.editorObjects(this.layout.getSelected().map(i => i.pid), this.signatureControl.value, this.partNumberControl.value, this.siglaControl.value).subscribe((result: any) => {
       if (result.response.errors) {
         this.ui.showErrorDialogFromObject(result.response.errors);
-        this.state = 'error';
       } else {
 
-        if (this.layout.type !== 'repo') {
-          this.ui.showInfoSnackBar(this.translator.instant('snackbar.changeSaved'), 4000);
-        }
+
+        this.ui.showInfoSnackBar(this.translator.instant('snackbar.changeSaved'), 4000);
+
         setTimeout(() => {
           this.layout.clearPanelEditing();
           this.layout.refreshSelectedItem(true, 'issues');
         }, 100);
 
-        this.state = 'success';
       }
-
+      this.loading.set(false);
       this.controls.markAsPristine();
     });
 
