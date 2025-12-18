@@ -2560,7 +2560,6 @@
     "selectCatalog": "Select a catalog",
     "resolveconflictWarn": "Select how to continue",
     "formBorderHighlighting": "Form border highlighting",
-    "highlighttheForm": "Highlight the form",
     "searchExpandTreeTitle": "Expand objects in tree search",
     "searchExpandTree": "Expand objects by default",
     "author": "Author",
@@ -2589,10 +2588,10 @@
     "newOwner": "New owner",
     "enterText": "Enter text",
     "select": "Select",
-    "formAppearance": {
-      "label": "Form appearance",
-      "fille": "standard",
-      "outline": "with border"
+   "formAppearance": {
+      "label": "Vzhled formuláře",
+      "highlightFormBorders": "Highlight form borders",
+      "borderformField": "Border a form field"
     }
   },
   "button": {
