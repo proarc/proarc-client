@@ -123,8 +123,8 @@ export class ModelTemplate {
   private static relations: any = {
     'ndkperiodical': ['ndkperiodicalvolume', 'ndkeperiodicalvolume'],
     'ndkperiodicalvolume': ['ndkperiodicalissue', 'ndkperiodicalsupplement', 'ndkeperiodicalissue', 'ndkeperiodicalsupplement'],
-    'ndkperiodicalissue': ['ndkperiodicalsupplement', 'ndkarticle', 'ndkpicture', 'ndkmap', 'ndksheetmusic', 'ndkpage', 'page', 'bdmarticle'],
-    'ndkperiodicalsupplement': ['ndkarticle', 'ndkpage', 'page', 'bdmarticle'],
+    'ndkperiodicalissue': ['ndkperiodicalsupplement', 'ndkarticle', 'ndkpicture', 'ndkmap', 'ndksheetmusic', 'ndkpage', 'page', 'bdmarticle', 'ndkeperiodicalsupplement', 'ndkearticle'],
+    'ndkperiodicalsupplement': ['ndkarticle', 'ndkpage', 'page', 'bdmarticle', 'ndkearticle'],
     'ndkarticle': [],
     'ndkpicture': [],
     'ndkmonographtitle': ['ndkmonographunit'],
@@ -152,8 +152,8 @@ export class ModelTemplate {
     'oldprintpage': [],
     'ndkeperiodical': ['ndkeperiodicalvolume', 'ndkperiodicalvolume'],
     'ndkeperiodicalvolume': ['ndkeperiodicalissue', 'ndkeperiodicalsupplement', 'ndkperiodicalissue', 'ndkperiodicalsupplement'],
-    'ndkeperiodicalissue': ['ndkeperiodicalsupplement', 'ndkearticle'],
-    'ndkeperiodicalsupplement': ['ndkearticle'],
+    'ndkeperiodicalissue': ['ndkeperiodicalsupplement', 'ndkearticle', 'ndkperiodicalsupplement', 'ndkarticle'],
+    'ndkeperiodicalsupplement': ['ndkearticle', 'ndkarticle'],
     'ndkearticle': [],
     'ndkemonographtitle': ['ndkemonographunit'], // 'ndkechapter' odstraneno podle #99
     'ndkemonographunit': ['ndkechapter', 'ndkemonographsupplement'],
