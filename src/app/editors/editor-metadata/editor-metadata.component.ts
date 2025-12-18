@@ -48,11 +48,11 @@ import { UserSettings } from '../../shared/user-settings';
   imports: [CommonModule, TranslateModule, FormsModule, MatButtonModule,
     MatIconModule, MatProgressBarModule, MatTooltipModule,
     MatRadioModule, MatFormFieldModule, MatSelectModule,
-    EditorSwitcherComponent, EditorTitleComponent, EditorGenreComponent, 
-    EditorAuthorComponent, EditorPublisherComponent, EditorLocationComponent, EditorIdentifierComponent, 
-    EditorLanguageComponent, EditorPhysicalComponent, EditorAbstractComponent, EditorNoteComponent, 
-    EditorResourceComponent, EditorClassificationComponent, EditorSubjectComponent, EditorPartComponent, 
-    EditorTableOfContentsComponent, EditorAccessConditionComponent, EditorRecordInfoComponent, 
+    EditorSwitcherComponent, EditorTitleComponent, EditorGenreComponent,
+    EditorAuthorComponent, EditorPublisherComponent, EditorLocationComponent, EditorIdentifierComponent,
+    EditorLanguageComponent, EditorPhysicalComponent, EditorAbstractComponent, EditorNoteComponent,
+    EditorResourceComponent, EditorClassificationComponent, EditorSubjectComponent, EditorPartComponent,
+    EditorTableOfContentsComponent, EditorAccessConditionComponent, EditorRecordInfoComponent,
     EditorRelatedItemComponent, EditorChronicleLocationComponent]
   ,
   selector: 'app-editor-metadata',
@@ -113,7 +113,7 @@ export class EditorMetadataComponent implements OnInit {
         //   if (this.metadata) {
         //     this.setFields();
         //   }
-          
+
         // } else {
           this.loadMetadata(pid);
         }
@@ -125,7 +125,7 @@ export class EditorMetadataComponent implements OnInit {
         if (m > 0) {
           this.hasPendingChanges();
         }
-        
+
       });
       effect(() => {
         this.metadata = this.data();
@@ -258,9 +258,9 @@ export class EditorMetadataComponent implements OnInit {
   }
 
   onLoadFromCatalog() {
-    const dialogRef = this.dialog.open(CatalogDialogComponent, { 
+    const dialogRef = this.dialog.open(CatalogDialogComponent, {
       data: { type: 'full' },
-      panelClass: ['app-dialog-catalog', 'app-form-view-' + this.settings.appearance] 
+      panelClass: ['app-dialog-catalog', 'app-form-view-' + this.settings.appearance]
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result && result['mods']) {
@@ -332,7 +332,7 @@ export class EditorMetadataComponent implements OnInit {
         this.confirmSave('Nevalidní data', 'Nevalidní data, přejete si dokument přesto uložit?', true);
       //}, 1000);
     }, 10);
-      
+
     }
   }
   saveMetadata(ignoreValidation: boolean) {
@@ -379,12 +379,12 @@ export class EditorMetadataComponent implements OnInit {
         }
       } else {
         // this.layout.setShouldRefresh(true)
-        this.metadata.timestamp = response.data[0].timestamp;
         this.metadata.resetChanges();
         this.ui.showInfoSnackBar(this.translator.instant("snackbar.changeSaved"));
         this.layout.refreshSelectedItem(false, 'metadata');
         this.layout.clearPanelEditing();
         this.loading = false;
+        this.loadMetadata(this.metadata.pid);
       }
       // setTimeout(() => {
       //   this.focusToFirstInvalid();
@@ -408,7 +408,7 @@ export class EditorMetadataComponent implements OnInit {
         color: 'default'
       },
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });
@@ -439,7 +439,7 @@ export class EditorMetadataComponent implements OnInit {
         }
         this._validating = false;
       } else {
-        
+
         this.focusToFirstInvalid();
       }
     });
