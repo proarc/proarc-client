@@ -50,7 +50,9 @@ export class AutocompleteComponent implements OnInit {
     if (!this.options) {
       return
     }
-
+    this.item.controls[this.field].valueChanges.subscribe(s => {
+      this.valueChange.emit(s);
+    })
     
     this.filteredOptions = this.item.controls[this.field].valueChanges.pipe(
       startWith(''),
