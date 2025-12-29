@@ -23,6 +23,8 @@
   </div>
 </div>
 <div mat-dialog-actions cdkFocusRegionstart>
-  <button matButton="filled" [disabled]="!oldOwner || !newOwner || state=='loading'" (click)="changeOwner()" [matTooltip]="'button.changeOwner' | translate">{{ 'button.changeOwner' | translate }}</button>
+  @if (auth.user.changeObjectsOwnerFunction) {
+    <button matButton="filled" [disabled]="!oldOwner || !newOwner || state=='loading'" (click)="changeOwner()" [matTooltip]="'button.changeOwner' | translate">{{ 'button.changeOwner' | translate }}</button>
+  }
   <button mat-flat-button [mat-dialog-close]="false">{{ 'button.close' | translate }}</button>
 </div>

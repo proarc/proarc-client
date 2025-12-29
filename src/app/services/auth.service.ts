@@ -81,7 +81,7 @@ export class AuthService {
                     this.settings.load(JSON.parse(userSettingsResp.response.data[0].userSetting));
                     this.translator.use(this.settings.getLang());
                 }
-                
+
                 this.config.valueMap = valueMapResp.response.data;
                 this.config.info = infoResp;
                 if (checkLoggedResp?.state === 'logged') {
@@ -217,14 +217,6 @@ export class AuthService {
 
     isLoggedIn(): boolean {
         return !!this.user;
-    }
-
-    isSuperAdmin(): boolean {
-        return this.user && this.user.role == "superAdmin";
-    }
-
-    isAdmin(): boolean {
-        return this.user && (this.user.role == "admin" || this.user.role == "superAdmin");
     }
 
     updateUser(user: User) {

@@ -16,6 +16,7 @@ import { UIService } from '../../../services/ui.service';
 import { Configuration } from '../../../shared/configuration';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   imports: [TranslateModule, RouterModule, FormsModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatCardModule, MatInputModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule],
@@ -29,7 +30,6 @@ export class NewUserComponent implements OnInit {
   @ViewChild('password') password: ElementRef;
 
   user: User;
-  roles = ['user', 'admin', 'superAdmin'];
   organizations: string[];
 
   constructor(
@@ -37,7 +37,8 @@ export class NewUserComponent implements OnInit {
     private api: ApiService,
     private ui: UIService,
     private config: Configuration,
-    private router: Router
+    private router: Router,
+    public auth: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -47,7 +48,7 @@ export class NewUserComponent implements OnInit {
 
 
   newUser() {
-    const newUser: User = User.fromJson({name: null, role: 'user', userId: -1});
+    const newUser: User = User.fromJson({name: null, userId: -1});
     this.user = newUser;
   }
 
@@ -77,7 +78,7 @@ export class NewUserComponent implements OnInit {
     this.api.newUser(this.user).subscribe((response: any) => {
       if (response['response'].errors) {
         this.ui.showErrorDialogFromObject(response['response'].errors);
-        return; 
+        return;
       }
       const user: User =  User.fromJson(response['response']['data'][0]);
       this.ui.showInfoSnackBar(String(this.translator.instant('snackbar.addNewUser.success')));

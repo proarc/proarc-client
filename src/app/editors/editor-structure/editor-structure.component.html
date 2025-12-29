@@ -15,7 +15,7 @@
         <mat-icon>format_list_numbered</mat-icon>
       </button>
       @if (isRepo) {
-        <button mat-icon-button [disabled]="!(auth.user.changeModelFunction || auth.isSuperAdmin())" (click)="showConvertDialog()" [matTooltip]="'editor.children.convertPages' | translate">
+        <button mat-icon-button [disabled]="!(auth.user.changeModelFunction)" (click)="showConvertDialog()" [matTooltip]="'editor.children.convertPages' | translate">
           <mat-icon>swap_horiz</mat-icon>
         </button>
       }

@@ -63,13 +63,13 @@ export class SearchActionsComponent {
 
   totalSelected() {
     return this.items().filter(i => i.selected).length;
-  } 
+  }
 
   totalSelectedTree() {
     return this.treeItems().filter(i => i.selected).length;
-  } 
+  }
 
-  
+
 
   onUrnnbn(inSearch: boolean) {
     const pids = inSearch ?
@@ -150,9 +150,8 @@ export class SearchActionsComponent {
         value: 'no',
         color: 'default'
       },
-      // checkbox: this.auth.isSuperAdmin() ? checkbox : undefined
     };
-    if (this.auth.isSuperAdmin()) {
+    if (this.auth.user.deleteActionFunction) {
       data.checkbox = checkbox;
     }
     const dialogRef = this.dialog.open(SimpleDialogComponent, {
@@ -360,7 +359,7 @@ export class SearchActionsComponent {
     });
   }
 
-  
+
 
   showConvertDialog() {
     const item: DocumentItem = this.forTree() ? this.selectedTreeItem() : this.selectedItem();

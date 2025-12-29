@@ -16,6 +16,7 @@ import { UIService } from '../../../services/ui.service';
 import { Configuration } from '../../../shared/configuration';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   imports: [TranslateModule, RouterModule, FormsModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatCardModule, MatInputModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule],
@@ -31,17 +32,16 @@ export class EditUserComponent implements OnInit {
 
   public id: number;
   selectedUser: any;
-
-  roles = ['user', 'admin', 'superAdmin'];
   organizations: string[];
 
   constructor(
-    private api: ApiService,        
+    private api: ApiService,
     private translator: TranslateService,
     private route: ActivatedRoute,
     private ui: UIService,
     private config: Configuration,
-    private router: Router
+    private router: Router,
+    public auth: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -84,7 +84,7 @@ export class EditUserComponent implements OnInit {
       this.api.newUser(this.selectedUser).subscribe((response: any) => {
         if (response['response'].errors) {
           this.ui.showErrorDialogFromObject(response['response'].errors);
-          return; 
+          return;
         }
         const user: User =  User.fromJson(response['response']['data'][0]);
         this.getUser();
@@ -98,5 +98,5 @@ export class EditUserComponent implements OnInit {
       });
     }
   }
-  
+
 }

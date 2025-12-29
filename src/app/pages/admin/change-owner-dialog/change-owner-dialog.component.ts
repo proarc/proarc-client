@@ -15,6 +15,7 @@ import { User } from '../../../model/user.model';
 import { ApiService } from '../../../services/api.service';
 import { UIService } from '../../../services/ui.service';
 import { MatSelectModule } from '@angular/material/select';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   imports: [TranslateModule, RouterModule, FormsModule, MatIconModule, MatButtonModule, MatProgressBarModule, MatDialogModule, MatInputModule, MatTooltipModule, MatCheckboxModule, MatFormFieldModule, MatSelectModule],
@@ -33,7 +34,8 @@ export class ChangeOwnerDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: User[],
     private translator: TranslateService,
     private ui: UIService,
-    private api: ApiService
+    private api: ApiService,
+    public auth: AuthService
   ) { }
 
   ngOnInit(): void {

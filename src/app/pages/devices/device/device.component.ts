@@ -19,6 +19,7 @@ import { Device } from '../../../model/device.model';
 import { ApiService } from '../../../services/api.service';
 import { UIService } from '../../../services/ui.service';
 import { MatTableModule } from '@angular/material/table';
+import {AuthService} from '../../../services/auth.service';
 import { UserSettings } from '../../../shared/user-settings';
 
 @Component({
@@ -40,6 +41,7 @@ export class DeviceComponent implements OnInit {
               private router: Router,
               private translator: TranslateService,
               private ui: UIService,
+              public auth: AuthService,
               public settings: UserSettings,
               private route: ActivatedRoute) { }
 
@@ -75,7 +77,7 @@ export class DeviceComponent implements OnInit {
           color: 'warn'
         }
       };
-      const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      const dialogRef = this.dialog.open(SimpleDialogComponent, {
         data: data,
         panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
       });
@@ -107,7 +109,7 @@ export class DeviceComponent implements OnInit {
         color: 'warn'
       }
     };
-    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+    const dialogRef = this.dialog.open(SimpleDialogComponent, {
       data: data,
       panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance]
     });

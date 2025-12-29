@@ -13,7 +13,9 @@
 
   <div class="app-fxFlex app-fxLayout app-column app-content-wrapper app-devices">
     <div class="app-fxLayout app-row app-gap-2 app-formbar app-mb-2">
-      <button mat-stroked-button [routerLink]="['/devices', 'new']">{{ 'device.button.addDevice' | translate }}</button>
+      @if (auth.user.deviceFunction) {
+        <button mat-stroked-button [routerLink]="['/devices', 'new']">{{ 'device.button.addDevice' | translate }}</button>
+      }
     </div>
 
     <div class="app-fxFlex app-oa-y app-border-wrapper">

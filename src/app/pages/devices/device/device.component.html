@@ -169,12 +169,16 @@
         </fieldset>
       }
       <div class="app-fxLayout app-row app-gap-2 app-mb-2">
-        <button mat-stroked-button [routerLink]="['/devices', device.id, 'edit']">
-          {{ 'device.button.editDevice' | translate }}
-        </button>
-        <button mat-flat-button color="warn" (click)="removeDevice()">
-          {{ 'device.button.removeDevice' | translate }}
-        </button>
+        @if (auth.user.deviceFunction) {
+          <button mat-stroked-button [routerLink]="['/devices', device.id, 'edit']">
+            {{ 'device.button.editDevice' | translate }}
+          </button>
+        }
+        @if (auth.user.deviceFunction) {
+          <button mat-flat-button color="warn" (click)="removeDevice()">
+            {{ 'device.button.removeDevice' | translate }}
+          </button>
+        }
         @if (device.isAudio()) {
           <button mat-stroked-button [routerLink]="['/devices', device.id, 'audio', 'new']">
             {{ 'device.button.addInfoToAudioFiles' | translate }}
