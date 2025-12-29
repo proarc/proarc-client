@@ -1,6 +1,6 @@
 {
-    "/proarc": {
-      "target": "http://localhost:8080",
+    "/api": {
+      "target": "https://proarc-master.inovatika.dev",
       "target1": "https://proarc-akubra.inovatika.dev",
       "secure": false,
       "logLevel": "debug",
