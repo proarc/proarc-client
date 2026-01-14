@@ -1,5 +1,11 @@
 // form bar
 .app-formbar {
+  /* flex-wrap: wrap;
+
+  .mat-mdc-button-base {
+    margin-bottom: 8px;
+  } */
+
   .mat-mdc-form-field {
     &.app-state,
     &.app-pid {
@@ -10,10 +16,24 @@
     }
   
     &.app-priority {
-      $app-width: 140px;
+      $app-width: 120px;
       flex: 1 1 $app-width;
       max-width: $app-width;
       min-width: $app-width;
-    }  
+    }
+    /* &.app-profile,
+    &.app-user {
+      $app-width: 180px;
+      flex: 1 1 $app-width;
+      max-width: $app-width;
+      min-width: $app-width;
+    } */
+
+    /* ::ng-deep {
+      .mat-mdc-form-field-subscript-wrapper {
+        line-height: 8px !important;
+      }
+    } */
   }
 }
+

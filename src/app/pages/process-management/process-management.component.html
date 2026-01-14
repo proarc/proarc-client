@@ -138,7 +138,7 @@
               </button>
             }
           </mat-form-field>
-          <mat-form-field [appearance]="settings.appearance" class="app-fxFlex">
+          <mat-form-field [appearance]="settings.appearance" class="app-user">
             <mat-label>{{ 'desc.user' | translate }}</mat-label>
             <mat-select [placeholder]="'desc.user' | translate" name="user" [(ngModel)]="user" name="user" (keyup.enter)="filter()">
               <mat-option value="">{{ 'desc.all' | translate }}</mat-option>
@@ -166,7 +166,7 @@
               </button>
             }
           </mat-form-field>
-          <mat-form-field [appearance]="settings.appearance" class="app-fxFlex">
+          <mat-form-field [appearance]="settings.appearance" class="app-profile">
             <mat-label>{{ 'desc.profile' | translate }}</mat-label>
             <mat-select [placeholder]="'desc.profile' | translate" name="profile" [(value)]="profile" (keyup.enter)="filter()">
               <mat-option value="">{{ 'desc.all' | translate }}</mat-option>
