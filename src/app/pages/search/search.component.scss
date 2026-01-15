@@ -1,5 +1,7 @@
 // form bar
 .app-formbar {
+   flex-wrap: wrap;
+
   .mat-mdc-form-field {
     &.app-model,
     &.app-organization {
@@ -15,6 +17,21 @@
       flex: 1 1 $app-width;
       max-width: $app-width;
       min-width: $app-width;
+    }
+
+    &.app-name, 
+    &.app-identifier, 
+    &.app-creator {
+      $app-width: 155px;
+      flex: 1 1 $app-width;
+      //max-width: $app-width;
+      min-width: $app-width;
+    }
+  }
+
+  ::ng-deep {
+    .mat-mdc-form-field-subscript-wrapper {
+      line-height: 8px !important;
     }
   }
 }

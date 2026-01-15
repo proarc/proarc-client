@@ -22,11 +22,18 @@
       max-width: $app-width;
       min-width: $app-width;
     }
-    
+
     &.app-user {
       $app-width: 180px;
       flex: 1 1 $app-width;
-      max-width: $app-width;
+      max-width: 300px;
+      min-width: $app-width;
+    }
+
+    &.app-profile {
+      $app-width: 300px;
+      flex: 1 1 $app-width;
+      max-width: 420px;
       min-width: $app-width;
     }
 

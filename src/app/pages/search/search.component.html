@@ -16,7 +16,7 @@
   </div>
 
   <div class="app-fxLayout app-column app-fxFlex app-content-wrapper app-search-results">
-    <div class="app-fxLayout app-row app-gap-2 app-formbar app-mb-n3">
+    <div class="app-fxLayout app-row app-gap-2 app-formbar">
       <button mat-stroked-button (click)="filter()">
         {{ 'button.search' | translate }}
       </button>
@@ -61,7 +61,7 @@
             </button>
           }
         </mat-form-field>
-        <mat-form-field [appearance]="settings.appearance" class="app-fxFlex">
+        <mat-form-field [appearance]="settings.appearance" class="app-fxFlex app-name">
           <mat-label>{{ 'desc.name' | translate }}</mat-label>
           <input matInput [placeholder]="'desc.name' | translate" (keyup.enter)="filter()" [(ngModel)]="queryLabel">
           @if (urlParams?.queryLabel) {
@@ -70,7 +70,7 @@
             </button>
           }
         </mat-form-field>
-        <mat-form-field [appearance]="settings.appearance" class="app-fxFlex">
+        <mat-form-field [appearance]="settings.appearance" class="app-fxFlex app-identifier">
           <mat-label>{{ 'desc.identifier' | translate }}</mat-label>
           <input matInput [placeholder]="'desc.identifier' | translate" (keyup.enter)="filter()" [(ngModel)]="queryIdentifier">
           @if (urlParams?.queryIdentifier) {
@@ -79,7 +79,7 @@
             </button>
           }
         </mat-form-field>
-        <mat-form-field [appearance]="settings.appearance" class="app-fxFlex">
+        <mat-form-field [appearance]="settings.appearance" class="app-fxFlex app-creator">
           <mat-label>{{ 'desc.creator' | translate }}</mat-label>
           <input matInput [placeholder]="'desc.creator' | translate" (keyup.enter)="filter()" [(ngModel)]="queryCreator">
           @if (urlParams?.queryCreator) {
