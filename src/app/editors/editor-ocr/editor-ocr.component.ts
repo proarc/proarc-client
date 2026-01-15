@@ -12,9 +12,11 @@ import { LayoutService } from '../../services/layout-service';
 import { UIService } from '../../services/ui.service';
 import { EditorSwitcherComponent } from '../editor-switcher/editor-switcher.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from "@angular/material/menu";
+import { PeroModel } from '../../model/pero.model';
 
 @Component({
-  imports: [TranslateModule, FormsModule, MatButtonModule, MatIconModule, MatProgressBarModule, MatTooltipModule, EditorSwitcherComponent],
+  imports: [TranslateModule, FormsModule, MatButtonModule, MatIconModule, MatProgressBarModule, MatTooltipModule, EditorSwitcherComponent, MatMenuModule],
   selector: 'app-editor-ocr',
   templateUrl: './editor-ocr.component.html',
   styleUrls: ['./editor-ocr.component.scss']
@@ -46,6 +48,8 @@ export class EditorOcrComponent {
   ocr: Ocr;
   anyChange: boolean;
 
+  pero: PeroModel[] = [];
+
   constructor(
     public layout: LayoutService,
     private api: ApiService,
@@ -60,6 +64,12 @@ export class EditorOcrComponent {
       this.layout.clearPanelEditing();
       this.loadOcr(pid);
     });
+  }
+
+  ngOnInit() {
+    this.api.getPero().subscribe((pero: PeroModel[] ) => {
+          this.pero = pero;
+        });
   }
 
   loadOcr(pid: string) {
@@ -108,8 +118,8 @@ export class EditorOcrComponent {
     this.onChangePanelType.emit(t);
   }
 
-  onPERO() {
-    this.api.generateAlto(this.pid()).subscribe(response => {
+  onPERO(p: PeroModel) {
+    this.api.generateAlto(this.pid(), p.id).subscribe(response => {
       if (response.response.errors) {
         this.state = 'error';
         this.ui.showErrorDialogFromObject(response.response.errors);

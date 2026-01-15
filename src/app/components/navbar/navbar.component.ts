@@ -24,6 +24,7 @@ import { DocumentItem } from '../../model/documentItem.model';
 import { SimpleDialogData } from '../../dialogs/simple-dialog/simple-dialog';
 import { ApiService } from '../../services/api.service';
 import { UIService } from '../../services/ui.service';
+import { DeleteMultipleDialogComponent } from '../../dialogs/delete-multiple-dialog/delete-multiple-dialog.component';
 
 @Component({
   standalone: true,
@@ -199,8 +200,51 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  purgeMultiple() {
+  deleteMultiple() {
     
+    const dialogRef = this.dialog.open(DeleteMultipleDialogComponent, { 
+    });
+    dialogRef.afterClosed().subscribe(dresult => {
+      console.log(dresult)
+      if (dresult) {
+       
+        const data: SimpleDialogData = {
+      title: String(this.translator.instant('Smazat')),
+      message: String(this.translator.instant('Opravdu smazat všechny objekty?')),
+      alertClass: 'app-message',
+      btn1: {
+        label: 'Ano',
+        value: 'yes',
+        color: 'warn'
+      },
+      btn2: {
+        label: 'Ne',
+        value: 'no',
+        color: 'default'
+      }
+    };
+    const dialogRef = this.dialog.open(SimpleDialogComponent, { 
+      data: data,
+      panelClass: ['app-dialog-simple', 'app-form-view-' + this.settings.appearance] 
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.state.update(() => 'loading');
+        this.api.deleteObjects(dresult.pids, null, null, dresult.hierarchy).subscribe((response: any) => {
+          if (response.response.errors) {
+            this.state.update(() => 'error');
+            this.ui.showErrorDialogFromObject(response.response.errors);
+          } else {
+            this.state.update(() => 'success');
+            this.ui.showInfoSnackBar(this.translator.instant('Hromadné mazání spusteno'))
+          }
+        });
+      }
+    });
+
+      }
+    });
+
   }
 
   purgeObjects() {

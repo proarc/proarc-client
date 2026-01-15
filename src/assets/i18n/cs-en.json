@@ -2738,7 +2738,10 @@
     "removeBrackets": "Odebrat závorky",
     "addBrackets": "Vložit do závorek",
     "editMetadata": "Editovat metadata",
-    "validateObject": "Validace objektů"
+    "validateObject": "Validace objektů",
+    "purgeMultiple": "Hromadné mazání",
+    "deleteSmart": "Smazat chytře",
+    "deleteLowLevel": "Smazat nízkoúrovňově"
   },
   "dynamic": {
     "repo": "Úložiště",

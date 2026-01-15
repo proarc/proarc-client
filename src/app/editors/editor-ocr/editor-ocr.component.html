@@ -6,9 +6,18 @@
       </div>
       <div class="app-h-100">
         @if (layout.type === 'repo') {
-          <button mat-icon-button (click)="onPERO()" [matTooltip]="'button.pero' | translate">
+          <button mat-icon-button [matMenuTriggerFor]="menuPero" [matTooltip]="'button.pero' | translate">
             <mat-icon>history_edu</mat-icon>
           </button>
+          <!-- <a mat-button [matMenuTriggerFor]="menuPero" [matTooltip]="'button.pero' | translate"><mat-icon>history_edu</mat-icon></a> -->
+          <mat-menu #menuPero="matMenu">
+            @for (p of pero; track p) {
+              <button mat-menu-item (click)="onPERO(p)" [matTooltip]="p.description">{{ p.label }}</button>
+            }
+          </mat-menu>
+
+
+
         }
         <button mat-icon-button [disabled]="editting" (click)="onEdit()" [matTooltip]="'common.edit' | translate">
           <mat-icon>edit</mat-icon>
