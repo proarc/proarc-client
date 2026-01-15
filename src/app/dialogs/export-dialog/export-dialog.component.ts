@@ -40,6 +40,7 @@ export class ExportDialogComponent implements OnInit {
 
   selectedType: string;
   policyPublic: boolean;
+  nightOnly = false;
   cesnetLtpToken: string;
   //isBagit: boolean = false;
   target: string;
@@ -96,7 +97,7 @@ export class ExportDialogComponent implements OnInit {
     this.target = null;
     this.api.export(this.selectedType, pids, policy, 
       ignoreMissingUrnNbn, this.importInstance ? this.importInstance.krameriusInstanceId : '', this.cesnetLtpToken, this.licenseName,
-      this.extendedType, this.noTifMessage, this.addInfoMessage).subscribe((response: any) => {
+      this.extendedType, this.noTifMessage, this.addInfoMessage, this.nightOnly).subscribe((response: any) => {
       if (response['response'].errors) {
         console.log('error', response['response'].errors);
         this.ui.showErrorDialogFromObject(response['response'].errors);

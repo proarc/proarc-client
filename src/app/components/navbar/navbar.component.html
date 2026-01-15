@@ -76,6 +76,7 @@
       }
       @if (auth.user.deleteActionFunction) {
         <button mat-menu-item (click)="purgeObjects()">{{ 'button.purgeObjects' | translate }}</button>
+        <button mat-menu-item (click)="purgeMultiple()">{{ 'button.purgeMultiple' | translate }}</button>
       }
     </mat-menu>
     }

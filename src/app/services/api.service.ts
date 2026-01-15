@@ -236,12 +236,12 @@ export class ApiService {
   }
 
   export(type: string, pids: string[], policy: string, ignoreMissingUrnNbn: boolean, krameriusInstance: string, cesnetLtpToken: string, licenseName: string,
-    extendedType: string, noTifMessage: string, addInfoMessage: string): Observable<any> | undefined {
+    extendedType: string, noTifMessage: string, addInfoMessage: string, nightOnly: boolean): Observable<any> | undefined {
     let data = '';
     pids.forEach(pid => {
       data += `&pid=${pid}`;
     });
-
+    data = `${data}&nightOnly=${nightOnly}`;
     if (ignoreMissingUrnNbn) {
       data = `${data}&ignoreMissingUrnNbn=true`;
     }
@@ -438,7 +438,7 @@ export class ApiService {
     return this.delete('object/purge');
   }
 
-  deleteObjects(pids: string[], purge: boolean, batchId: any = null): Observable<any> | null {
+  deleteObjects(pids: string[], purge: boolean, batchId: any = null, hierarchy: boolean = true): Observable<any> | null {
     let url = '';
     let body: any = {};
     //let query = pids.map(pid => `pid=${pid}`).join('&');
@@ -450,9 +450,10 @@ export class ApiService {
     } else {
       url = `object`;
       body.purge = purge;
-      body.hierarchy = true;
+      body.hierarchy = hierarchy;
       body.restore = false;
       body.pid = pids;
+
       // query = `object?purge=${purge}&hierarchy=true&${query}`;
     }
     //return this.delete(query);

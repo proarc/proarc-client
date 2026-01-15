@@ -2545,6 +2545,7 @@
     "krameriusInstances": "Kramerius instances",
     "krameriusLicenses": "Licenses",
     "publiclyAvailable": "Publicly available",
+    "nightOnly": "Night process",
     "bagitPackage": "BAGIT package",
     "login": "Login",
     "includeRelatedItem": "including relatedItem",

@@ -199,6 +199,10 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  purgeMultiple() {
+    
+  }
+
   purgeObjects() {
     const data: SimpleDialogData = {
       title: String(this.translator.instant('Smazat vše, co má příznak smazáno')),
