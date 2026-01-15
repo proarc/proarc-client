@@ -16,6 +16,7 @@ export class Batch extends TableItem {
   public pageCount: number;
   public folderPah: string;
   public priority: string;
+  public parameters: string;
 
   public static fromJson(json: any): Batch {
     const batch = new Batch();
@@ -41,6 +42,7 @@ export class Batch extends TableItem {
     batch.pageCount = json['pageCount'] ? parseInt(json['pageCount']) : 0;
     batch.folderPah = json['folderPath'];
     batch.priority = json['priority'];
+    batch.parameters = json['parameters'];
     return batch;
   }
 

@@ -54,6 +54,7 @@ import {ModsTemporal} from './temporal.model';
 import {ModsGeographic} from './geographic.model';
 import {ModsAccessCondition} from './accessCondition.model';
 import { UserSettings } from '../../shared/user-settings';
+import { Utils } from '../../utils/utils';
 
 
 export class ElementField {
@@ -233,7 +234,10 @@ export class ElementField {
         }
         this.items.splice(index + 1, 0, item);
         this.root.splice(index + 1, 0, item.getEl());
-        setTimeout(() => {item.setAsDirty();}, 100);
+        setTimeout(() => {
+            item.setAsDirty();
+            Utils.metadataChanged.set(1);
+        }, 100);
         return item;
     }
 

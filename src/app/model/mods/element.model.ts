@@ -357,6 +357,7 @@ export abstract class ModsElement {
             this.subFields[0].getItems()[0].setAsDirty();
         } else {
             const keys = Object.keys(this.controls);
+            console.log(keys)
             for (let key of keys) {
                 this.controls[key].markAsDirty();
             }

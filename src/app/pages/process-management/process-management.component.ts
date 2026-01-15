@@ -122,7 +122,7 @@ export class ProcessManagementComponent {
     'highest'
   ];
 
-  actions: { icon: string, condition: (e: any) => boolean, action: (e: any) => void, tooltip: string }[] = [];
+  actions: { icon: string, color?: string, condition: (e: any) => boolean, action: (e: any) => void, tooltip: string }[] = [];
 
   constructor(
     private datePipe: DatePipe,
@@ -149,8 +149,19 @@ export class ProcessManagementComponent {
     this.actions.push({
       icon: 'info',
       tooltip: 'button.viewErrorDetail',
+      color: 'var(--app-color-warn)',
       condition: (e: any) => {
         return e.failure
+      },
+      action: (e: any) => {
+        this.onShowLog(e);
+      }
+    });
+    this.actions.push({
+      icon: 'info',
+      tooltip: 'button.viewDetail',
+      condition: (e: any) => {
+        return e.parameters && !e.failure
       },
       action: (e: any) => {
         this.onShowLog(e);
@@ -704,8 +715,19 @@ export class ProcessManagementComponent {
   }
 
   onShowLog(batch: Batch) {
-    const data = {
-      content: batch.failure
+    const data = [];
+    if (batch.failure) {
+      data.push({
+        title: 'desc.errorDetail',
+        content: batch.failure
+      });
+    }
+
+    if (batch.parameters) {
+      data.push({
+        title: 'desc.params',
+        content: batch.parameters
+      });
     }
     this.dialog.open(LogDialogComponent, {
       data: data,
