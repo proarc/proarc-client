@@ -30,11 +30,12 @@
 
   }
 
+<mat-checkbox [disabled]="formDisabled()" color="primary" [(ngModel)]="nightOnly">{{ 'desc.nightOnly' | translate }}</mat-checkbox>
+
 @if ((selectedType=='kramerius_bagit' || selectedType=='kramerius' || selectedType=='kwis' || selectedType==='ndk_psp_upload_kramerius' || selectedType==='ndk_oldprint_upload_kramerius'  || selectedType === 'ndk_sip_upload_kramerius') && importInstance && !importInstance.krameriusInstanceLicenses) {
   <mat-checkbox [disabled]="formDisabled()" color="primary" [(ngModel)]="policyPublic">{{ 'desc.publiclyAvailable' | translate }}</mat-checkbox>
 }
 
-<mat-checkbox [disabled]="formDisabled()" color="primary" [(ngModel)]="nightOnly">{{ 'desc.nightOnly' | translate }}</mat-checkbox>
 
 @if (selectedType=='ndk_psp_upload_cesnet' || selectedType=='ndk_oldprint_upload_cesnet') {
   <mat-form-field class="app-w-100" [appearance]="settings.appearance">

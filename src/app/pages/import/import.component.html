@@ -36,6 +36,14 @@
           }
         </mat-select>
       </mat-form-field>
+      <mat-form-field  class="app-fxFlex">
+        <mat-label>{{ 'import.pero' | translate }}</mat-label>
+        <mat-select [placeholder]="'import.pero' | translate" [(ngModel)]="selectedPero" >
+          @for(p of pero; track $index;) {
+            <mat-option [value]="p" [matTooltip]="p.description">{{ p.label }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
       <mat-checkbox class="app-import-index" [(ngModel)]="generateIndex">{{ 'import.generate_index' | translate }}</mat-checkbox>
     </div>
 

@@ -202,6 +202,7 @@
   "import": {
     "profile": "Profil",
     "device": "Zařízení",
+    "pero": "PERO",
     "generate_index": "Generovat index stránek",
     "load": "Načíst",
     "load_and_save": "Načíst a uložit",

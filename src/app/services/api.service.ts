@@ -21,6 +21,7 @@ import { WorkFlow } from '../model/workflow.model';
 import { Metadata } from '../model/metadata.model';
 import { AudioPagesUpdateHolder } from '../editors/editor-audioPages/editor-audioPages.component';
 import { PageUpdateHolder } from './layout-service';
+import { PeroModel } from '../model/pero.model';
 
 @Injectable()
 export class ApiService {
@@ -405,6 +406,11 @@ export class ApiService {
   getImportProfiles(): Observable<Profile[]> {
     return this.get('profile', { profileGroup: 'import.profiles' })
       .pipe(map((response: any) => Profile.fromJsonArray(response['response']['data'])));
+  }
+
+  getPero(): Observable<PeroModel[]> {
+    return this.get('valuemap/pero')
+      .pipe(map((response: any) => response['response']['data'][0]? response['response']['data'][0].values : []));
   }
 
   setParent(pid: string, dstParent: string): Observable<any> {
@@ -935,7 +941,7 @@ export class ApiService {
     return this.put('import/batch', data).pipe(map((response: any) => Batch.fromJson(response['response']['data'][0])));
   }
 
-  createImportBatch(path: string, profile: string, indices: boolean, device: string, priority: string): Observable<any> {
+  createImportBatch(path: string, profile: string, indices: boolean, device: string, priority: string, pero: string = '1'): Observable<any> {
     const data = `folderPath=${path}&profile=${profile}&indices=${indices}&device=${device}&priority=${priority}`;
     return this.post('import/batch', data);
   }
@@ -945,7 +951,7 @@ export class ApiService {
     return this.post('import/batch/unlockFolder', data);
   }
 
-  createImportBatches(paths: string[], profile: string, indices: boolean, device: string) {
+  createImportBatches(paths: string[], profile: string, indices: boolean, device: string, pero: string = '1') {
     const data = `folderPath=[${paths}]&profile=${profile}&indices=${indices}&device=${device}`;
     return this.post('import/batches', data);//.pipe(map(response => Batch.fromJson(response['response']['data'][0])));
   }
