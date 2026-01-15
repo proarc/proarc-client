@@ -1,4 +1,4 @@
-<h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>{{ 'dialog.deleteMultiple.title' | translate }}</h1>
+<h1 mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>{{ 'button.deleteMultiple' | translate }}</h1>
 <div mat-dialog-content class="app-oh app-oa-y">
 	<mat-form-field class="app-w-100" [appearance]="settings.appearance">
         <mat-label>PIDS</mat-label>
@@ -12,5 +12,5 @@
 		'button.deleteSmart' | translate }}</button>
 	<button matButton="filled" (click)="close(false)">{{
 		'button.deleteLowLevel' | translate }}</button>
-	<button mat-stroked-button mat-dialog-close="false">{{ 'button.close' | translate }}</button>
+	<button mat-stroked-button [mat-dialog-close]="false">{{ 'button.close' | translate }}</button>
 </div>

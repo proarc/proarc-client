@@ -2739,7 +2739,7 @@
     "addBrackets": "Vložit do závorek",
     "editMetadata": "Editovat metadata",
     "validateObject": "Validace objektů",
-    "purgeMultiple": "Hromadné mazání",
+    "deleteMultiple": "Hromadné mazání",
     "deleteSmart": "Smazat chytře",
     "deleteLowLevel": "Smazat nízkoúrovňově"
   },

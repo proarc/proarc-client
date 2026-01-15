@@ -2705,7 +2705,7 @@
     "addBrackets": "Add the brackets",
     "editMetadata": "Edit metadata",
     "validateObject": "Validate object",
-    "purgeMultiple": "Delete multiple",
+    "deleteMultiple": "Delete multiple",
     "deleteSmart": "Delete smart",
     "deleteLowLevel": "Delete low level"
   },
