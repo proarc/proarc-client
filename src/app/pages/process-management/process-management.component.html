@@ -13,7 +13,7 @@
 
   @if (state=='success') {
     <div class="app-fxFlex app-fxLayout app-column app-content-wrapper app-process-management">
-      <div class="app-fxLayout app-row app-gap-2 app-baseline app-formbar app-mb-n3">
+      <div class="app-fxLayout app-row app-gap-2 app-baseline app-formbar">
         @if (view == 'overview') {
           <mat-form-field [appearance]="settings.appearance" class="app-state">
             <mat-label>{{ 'desc.state' | translate }}</mat-label>
@@ -84,7 +84,7 @@
         }
       </div>
       @if (view == 'overview') {
-        <div class="app-fxLayout app-row app-gap-2 app-formbar app-mb-n3">
+        <div class="app-fxLayout app-row app-gap-2 app-formbar">
           <mat-form-field [appearance]="settings.appearance" class="app-pid">
             <mat-label>{{ 'formField.folderNamePid.placeholder' | translate }}</mat-label>
             <input matInput [matTooltip]="'formField.folderNamePid.tooltip' | translate" [placeholder]="'formField.folderNamePid.placeholder' | translate" (keyup.enter)="filter()" [(ngModel)]="description" name="description">
@@ -143,7 +143,7 @@
             <mat-select [placeholder]="'desc.user' | translate" name="user" [(ngModel)]="user" name="user" (keyup.enter)="filter()">
               <mat-option value="">{{ 'desc.all' | translate }}</mat-option>
               @for(user of users; track $index;) {
-                <mat-option [value]="user.userId+''">{{ user.name }}</mat-option>
+                <mat-option [value]="user.userId+''" [matTooltip]="user.name">{{ user.name }}</mat-option>
               }
             </mat-select>
             @if (user) {
@@ -171,7 +171,7 @@
             <mat-select [placeholder]="'desc.profile' | translate" name="profile" [(value)]="profile" (keyup.enter)="filter()">
               <mat-option value="">{{ 'desc.all' | translate }}</mat-option>
               @for(profile of config.profiles; track $index;) {
-                <mat-option [value]="profile">{{ 'formField.profiles.' + profile | translate }}</mat-option>
+                <mat-option [value]="profile" [matTooltip]="'formField.profiles.' + profile | translate">{{ 'formField.profiles.' + profile | translate }}</mat-option>
               }
             </mat-select>
             @if (profile) {
