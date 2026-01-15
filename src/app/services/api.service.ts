@@ -624,7 +624,7 @@ export class ApiService {
   }
 
   generateAlto(pid: string, peroId: string): Observable<any> {
-    let data = `pid=${pid}&id=${peroId}&peroOcrEngine=${peroId}`;
+    let data = `pid=${pid}&peroOcrEngine=${peroId}`;
     return this.post('object/generateAlto', data);
   }
 
