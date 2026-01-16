@@ -230,6 +230,7 @@ export class Metadata {
     if (el === null || el === undefined) {
       return true;
     }
+    // remove empty attributes
     if (el.hasOwnProperty('$')) {
       const attrs: any = el['$'];
       Object.keys(attrs).forEach((key) => {

@@ -84,7 +84,7 @@ export class ModsAuthor extends ModsElement {
         if (!this.modsElement['nameIdentifierOrcId']) {
             this.modsElement['nameIdentifierOrcId'] = [];
         }
-        this.addControl('nameIdentifierOrcId');
+        //this.addControl('nameIdentifierOrcId');
 
         const nameIdentifiers = this.modsElement['nameIdentifier'];
         for (const nameIdentifier of nameIdentifiers) {
@@ -102,8 +102,9 @@ export class ModsAuthor extends ModsElement {
         if (this.nameIdentifierOrcId == null) {
           this.nameIdentifierOrcId = ModsUtils.createTextElement('', {'type': 'orcid'});
           nameIdentifiers.push(this.nameIdentifierOrcId);
+          this.modsElement['nameIdentifierOrcId'] = [this.nameIdentifierOrcId]; 
         }
-        // this.addControl('nameIdentifierOrcId');
+        this.addControl('nameIdentifierOrcId');
 
         if (!this.modsElement['etal']) {
             this.modsElement['etal'] = ModsUtils.createField(this, 'etal');
